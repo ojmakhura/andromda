@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  This is used to map the model types to Firebird types 
+  This is used to map the model types to Firebird types
   for generated code.
 -->
 <mappings name="Firebird">
@@ -55,7 +55,6 @@
         <from>datatype::double</from>
         <from>datatype::Double</from>
         <from>datatype::Decimal</from>
-        <from>datatype::decimal</from>
         <from>datatype::Money</from>
         <to>DOUBLE PRECISION default 0</to>
     </mapping>

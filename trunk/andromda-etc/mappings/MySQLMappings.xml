@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  This is used to map the model types to 
+  This is used to map the model types to
   MySQL types for generated code.
 -->
 <mappings name="MySQL">
@@ -11,28 +11,24 @@
         <from>UMLTypes::String</from>
         <from>UMLPrimitiveTypes::String</from>
         <from>datatype::String</from>
-        <from>datatypes::String</from>
         <to>VARCHAR(255) BINARY</to>
     </mapping>
     <mapping>
         <from>Date</from>
         <from>PrimitiveTypes::Date</from>
         <from>datatype::Date</from>
-        <from>datatypes::Date</from>
         <to>DATETIME</to>
     </mapping>
     <mapping>
         <from>Time</from>
         <from>PrimitiveTypes::Time</from>
         <from>datatype::Time</from>
-        <from>datatypes::Time</from>
         <to>TIME</to>
     </mapping>
     <mapping>
         <from>DateTime</from>
         <from>PrimitiveTypes::DateTime</from>
         <from>datatype::DateTime</from>
-        <from>datatypes::DateTime</from>
         <to>DATETIME</to>
     </mapping>
     <mapping>
@@ -42,8 +38,6 @@
         <from>PrimitiveTypes::DateTime</from>
         <from>datatype::Timestamp</from>
         <from>datatype::DateTime</from>
-        <from>datatypes::Timestamp</from>
-        <from>datatypes::DateTime</from>
         <to>TIMESTAMP</to>
     </mapping>
     <mapping>
@@ -52,11 +46,10 @@
         <from>Java::char</from>
         <from>UML Standard Profile::char</from>
         <from>PrimitiveTypes::char</from>
+        <from>JavaPrimitiveTypes::char</from>
         <from>PrimitiveTypes::Character</from>
         <from>datatype::char</from>
         <from>datatype::Character</from>
-        <from>datatypes::char</from>
-        <from>datatypes::Character</from>
         <to>CHAR</to>
     </mapping>
     <mapping>
@@ -65,11 +58,10 @@
         <from>Java::byte</from>
         <from>UML Standard Profile::byte</from>
         <from>PrimitiveTypes::byte</from>
+        <from>JavaPrimitiveTypes::byte</from>
         <from>PrimitiveTypes::Byte</from>
         <from>datatype::byte</from>
         <from>datatype::Byte</from>
-        <from>datatypes::byte</from>
-        <from>datatypes::Byte</from>
         <to>TINYINT</to>
     </mapping>
     <mapping>
@@ -78,11 +70,10 @@
         <from>Java::short</from>
         <from>UML Standard Profile::short</from>
         <from>PrimitiveTypes::short</from>
+        <from>JavaPrimitiveTypes::short</from>
         <from>PrimitiveTypes::Short</from>
         <from>datatype::short</from>
         <from>datatype::Short</from>
-        <from>datatypes::short</from>
-        <from>datatypes::Short</from>
         <to>SMALLINT</to>
     </mapping>
     <mapping>
@@ -94,11 +85,10 @@
         <from>UMLPrimitiveTypes::Integer</from>
         <from>UML Standard Profile::Integer</from>
         <from>PrimitiveTypes::int</from>
+        <from>JavaPrimitiveTypes::int</from>
         <from>PrimitiveTypes::Integer</from>
         <from>datatype::int</from>
         <from>datatype::Integer</from>
-        <from>datatypes::int</from>
-        <from>datatypes::Integer</from>
         <to>INTEGER</to>
     </mapping>
     <mapping>
@@ -109,11 +99,10 @@
         <from>UML2::UnlimitedNatural</from>
         <from>UMLPrimitiveTypes::UnlimitedNatural</from>
         <from>PrimitiveTypes::long</from>
+        <from>JavaPrimitiveTypes::long</from>
         <from>PrimitiveTypes::Long</from>
         <from>datatype::long</from>
         <from>datatype::Long</from>
-        <from>datatypes::long</from>
-        <from>datatypes::Long</from>
         <to>BIGINT</to>
     </mapping>
     <mapping>
@@ -122,11 +111,10 @@
         <from>Java::float</from>
         <from>UML Standard Profile::float</from>
         <from>PrimitiveTypes::float</from>
+        <from>JavaPrimitiveTypes::float</from>
         <from>PrimitiveTypes::Float</from>
         <from>datatype::float</from>
         <from>datatype::Float</from>
-        <from>datatypes::float</from>
-        <from>datatypes::Float</from>
         <to>FLOAT</to>
     </mapping>
     <mapping>
@@ -136,14 +124,12 @@
         <from>Java::double</from>
         <from>UML Standard Profile::double</from>
         <from>PrimitiveTypes::double</from>
+        <from>JavaPrimitiveTypes::double</from>
         <from>PrimitiveTypes::Double</from>
         <from>PrimitiveTypes::Money</from>
         <from>datatype::double</from>
         <from>datatype::Double</from>
         <from>datatype::Money</from>
-        <from>datatypes::double</from>
-        <from>datatypes::Double</from>
-        <from>datatypes::Money</from>
         <to>DOUBLE</to>
     </mapping>
     <mapping>
@@ -154,11 +140,10 @@
         <from>UMLPrimitiveTypes::Boolean</from>
         <from>UML Standard Profile::boolean</from>
         <from>PrimitiveTypes::boolean</from>
+        <from>JavaPrimitiveTypes::boolean</from>
         <from>PrimitiveTypes::Boolean</from>
         <from>datatype::boolean</from>
         <from>datatype::Boolean</from>
-        <from>datatypes::boolean</from>
-        <from>datatypes::Boolean</from>
         <to>TINYINT</to>
     </mapping>
     <mapping>
@@ -167,23 +152,18 @@
         <from>PrimitiveTypes::decimal</from>
         <from>PrimitiveTypes::Decimal</from>
         <from>datatype::Decimal</from>
-        <from>datatype::decimal</from>
-        <from>datatypes::Decimal</from>
-        <from>datatypes::decimal</from>
         <to>DECIMAL</to>
     </mapping>
     <mapping>
         <from>Clob</from>
         <from>PrimitiveTypes::Clob</from>
         <from>datatype::Clob</from>
-        <from>datatypes::Clob</from>
         <to>TEXT</to>
     </mapping>
     <mapping>
         <from>Blob</from>
         <from>PrimitiveTypes::Blob</from>
         <from>datatype::Blob</from>
-        <from>datatypes::Blob</from>
         <to>LONGBLOB</to>
     </mapping>
 </mappings>
