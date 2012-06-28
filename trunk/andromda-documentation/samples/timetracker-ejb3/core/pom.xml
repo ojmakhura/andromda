@@ -57,16 +57,11 @@
             <artifactId>hibernate-validator</artifactId>
             <groupId>org.hibernate</groupId>
         </dependency>
-        <!--dependency>
-            <groupId>hibernate-entitymanager</groupId>
-            <artifactId>ejb3-persistence</artifactId>
-        </dependency-->
-        <!--dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.version}</version>
-            <scope>test</scope>
-        </dependency-->
+        <dependency>
+  	        <groupId>net.sf.ehcache</groupId>
+  	        <artifactId>ehcache</artifactId>
+            <type>pom</type>
+        </dependency>
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-script-wrappers</artifactId>
@@ -76,22 +71,11 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
         </dependency>
-        <!--dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <scope>provided</scope>
-        </dependency-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <scope>provided</scope>
         </dependency>
-        <!--dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.16</version>
-            <scope>provided</scope>
-        </dependency-->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -116,11 +100,6 @@
         <!--dependency>
             <groupId>jboss</groupId>
             <artifactId>jboss-aspect-jdk50-client</artifactId>
-        </dependency-->
-        <!--dependency>
-  	        <groupId>net.sf.ehcache</groupId>
-  	        <artifactId>ehcache</artifactId>
-            <type>pom</type>
         </dependency-->
         <!-- Embeddable and thirdparty dependencies last, otherwise RuntimeException: java.lang.NoSuchFieldError: TRACE
         at org.jboss.ejb3.embedded.EJB3StandaloneBootstrap.boot(EJB3StandaloneBootstrap.java:386) -->

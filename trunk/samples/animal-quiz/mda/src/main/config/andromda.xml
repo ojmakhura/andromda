@@ -117,7 +117,7 @@
                 <property name="languageMappingsUri">AxisJavaMappings</property>
                 <property name="defaultProvider">RPC</property>
                 <property name="applicationName">${application.id}</property>
-                <property name="wsdlSoapAddress">http://${webservice.host}:${webservice.port}/${application.id}-ws/services</property>
+                <property name="wsdlSoapAddress">http://${service.host}:${service.port}/${application.id}-ws/services</property>
                 <property name="webserviceTypesPackage">${application.package}</property>
                 <property name="rpcClassNamePattern">{0}.{1}WSDelegator</property>
                 <property name="wsdls">${webservice.generated.dir}</property>

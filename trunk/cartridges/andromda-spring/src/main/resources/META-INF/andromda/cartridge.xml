@@ -431,7 +431,7 @@
         </modelElements>
     </template>
 
-    <!-- Should not generate both services and server PrincipalStore because of different $richClient value, but it does -->
+    <!-- Should not generate both services and server PrincipalStore because of different $richClient value, but it does when there are no services -->
     <template
         path="templates/spring/SpringPrincipalStore.java.vsl"
         outputPattern="$generatedFile"

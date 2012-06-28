@@ -117,7 +117,7 @@
             <dependency>
                 <groupId>org.apache.myfaces.tomahawk</groupId>
                 <artifactId>tomahawk12</artifactId>
-                <version>1.1.12</version>
+                <version>1.1.13</version>
                 <exclusions>
                     <exclusion>
                         <groupId>xml-apis</groupId>
@@ -165,13 +165,13 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.6.4</version>
+                <version>1.6.6</version>
                 <!--scope>provided</scope-->
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
-                <version>1.6.4</version>
+                <version>1.6.6</version>
                 <!--scope>provided</scope-->
             </dependency>
             <dependency>
@@ -311,7 +311,8 @@
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>4.2.0.Final</version>
+                <!-- Do not use bad version 4.3.0.Final -->
+                <version>4.3.0.Final</version>
             </dependency>
             <dependency>
                 <groupId>net.sf.ehcache</groupId>
@@ -416,13 +417,13 @@
             <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
-                <version>1.2.16</version>
+                <version>1.2.17</version>
                 <!--scope>provided</scope-->
             </dependency>
             <!--dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.18</version>
+                <version>5.1.20</version>
             </dependency-->
             <dependency>
                 <groupId>org.testng</groupId>
@@ -467,7 +468,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>2.4.1</version>
+                    <version>2.5</version>
                     <configuration>
                         <filesets>
                             <fileset>
@@ -489,7 +490,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.3.2</version>
+                    <version>2.5.1</version>
                     <configuration>
                         <source>1.6</source>
                         <target>1.6</target>
@@ -514,7 +515,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.11</version>
+                    <version>2.12</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-ejb-plugin</artifactId>
@@ -522,7 +523,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.3.2</version>
+                    <version>2.4</version>
                     <configuration>
                         <excludes>
                             <exclude>**/*.ref</exclude>
@@ -532,7 +533,7 @@
                 <!-- Comment to run Eclipse plugin for top level project only, as part of mda install. See mda/eclipse.bat -->
                 <plugin>
                     <artifactId>maven-eclipse-plugin</artifactId>
-                    <version>2.8</version>
+                    <version>2.9</version>
                     <inherited>true</inherited>
                     <configuration>
                         <wtpversion>1.5</wtpversion>
@@ -595,7 +596,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>1.0.1</version>
+                <version>1.1</version>
                 <executions>
                     <execution>
                         <id>enforce-versions</id>
@@ -639,7 +640,7 @@
             </plugin-->
             <plugin>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>2.2</version>
+                <version>2.4</version>
             </plugin>
         </plugins>
     </build>
@@ -679,7 +680,7 @@
         <!-- H2 Database with No emulation mode and Hibernate dialect, for local in-memory testing -->
         <testdb.groupId>com.h2database</testdb.groupId>
         <testdb.artifactId>h2</testdb.artifactId>
-        <testdb.version>1.3.166</testdb.version>
+        <testdb.version>1.3.167</testdb.version>
         <testdb.driver>org.h2.Driver</testdb.driver>
         <!-- See http://www.h2database.com/html/features.html#database_url (mixed mode) -->
         <testdb.url>jdbc:h2:~/timetracker;AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</testdb.url>
@@ -848,7 +849,7 @@
                         </plugin>
                         <plugin>
                             <artifactId>maven-compiler-plugin</artifactId>
-                            <version>2.3.2</version>
+                            <version>2.5.1</version>
                             <configuration>
                                 <source>1.6</source>
                                 <target>1.6</target>
@@ -859,11 +860,11 @@
                         </plugin>
                         <plugin>
                             <artifactId>maven-surefire-plugin</artifactId>
-                            <version>2.11</version>
+                            <version>2.12</version>
                         </plugin>
                         <plugin>
                             <artifactId>maven-site-plugin</artifactId>
-                            <version>2.2</version>
+                            <version>2.4</version>
                             <!--dependencies>
                                 <dependency>
                                     <groupId>org.apache.maven.doxia</groupId>
@@ -980,7 +981,7 @@
         </pluginRepository>
     </pluginRepositories>
     <prerequisites>
-        <maven>2.0.10</maven>
+        <maven>2.2.1</maven>
     </prerequisites>
     <!-- Comment to disable project reporting using default maven plugins -->
     <reporting>
@@ -1016,7 +1017,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.8</version>
+                <version>2.8.1</version>
                 <configuration>
                     <minmemory>128m</minmemory>
                     <maxmemory>1g</maxmemory>
@@ -1040,11 +1041,11 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.11</version>
+                <version>2.12</version>
             </plugin>
             <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.7.1</version>
                 <configuration>
                     <targetJdk>1.6</targetJdk>
                     <linkXRef>true</linkXRef>
@@ -1055,7 +1056,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.8</version>
+                <version>2.9.1</version>
                 <configuration>
                     <configLocation>andromda/checkstyle_checks.xml</configLocation>
                 </configuration>
@@ -1067,7 +1068,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-changes-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.7.1</version>
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -1174,7 +1175,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
-                <version>2.3.3</version>
+                <version>2.5</version>
                 <configuration>
                     <excludeFilterFile>andromda/findbugs-exclude-filters.xml</excludeFilterFile>
                     <xmlOutput>true</xmlOutput>
@@ -1199,7 +1200,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>1.2</version>
+                <version>1.3.1</version>
                 <reportSets>
                     <reportSet>
                       <reports>

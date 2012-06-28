@@ -46,7 +46,7 @@
                 <artifactId>maven-invoker-plugin</artifactId>
                 <configuration>
                     <streamLogs>true</streamLogs>
-                    <projectsDirectory>${project.basedir}</projectsDirectory>                    
+                    <projectsDirectory>${project.basedir}</projectsDirectory>
                     <pomIncludes>
                         <pomInclude>*/pom.xml</pomInclude>
                     </pomIncludes>
@@ -76,8 +76,8 @@
                             </goals>
                         </configuration>
                     </execution>
-                </executions> 
-            </plugin>            
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromdapp-maven-plugin</artifactId>
