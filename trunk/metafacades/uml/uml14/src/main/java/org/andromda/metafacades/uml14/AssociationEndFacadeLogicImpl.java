@@ -475,4 +475,13 @@ public class AssociationEndFacadeLogicImpl
         // UML 1.4 does not have derived association ends.
         return false;
     }
+
+    /**
+     * UML2 only. Can't determine association scope in UML14.
+     * @see org.andromda.metafacades.uml.AttributeFacade#isStatic()
+     */
+    public boolean handleIsStatic()
+    {
+        return false;
+    }
 }

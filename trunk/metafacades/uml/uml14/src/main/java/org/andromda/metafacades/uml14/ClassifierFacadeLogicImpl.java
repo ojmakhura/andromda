@@ -31,6 +31,7 @@ import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.Classifier;
 import org.omg.uml.foundation.core.DataType;
 import org.omg.uml.foundation.core.Interface;
+import org.omg.uml.foundation.core.Namespace;
 import org.omg.uml.foundation.core.Operation;
 
 /**
@@ -157,6 +158,16 @@ public class ClassifierFacadeLogicImpl
         }
 
         return associationEnds;
+    }
+
+    /**
+     * @return Owner of this Classifier. UML2 only. UML14 returns the namespace (package).
+     * Used to distinguish between a regular class and a TemplateParameter Class/Interface/Type
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getAttributes(boolean)
+     */
+    protected Namespace getOwner()
+    {
+        return this.metaObject.getNamespace();
     }
 
     /**

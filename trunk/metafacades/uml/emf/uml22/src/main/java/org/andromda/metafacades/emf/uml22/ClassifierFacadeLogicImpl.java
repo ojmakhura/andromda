@@ -298,7 +298,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * <p>
      * The wrapper name for this classifier if a mapped type has a
-     * defined wrapper class (ie. 'long' maps to 'Long').  If the
+     * defined wrapper class (i.e. 'long' maps to 'Long').  If the
      * classifier doesn't have a wrapper defined for it, this method
      * will return a null.  Note that wrapper mappings must be defined
      * for the namespace by defining the 'wrapperMappingsUri', this
@@ -983,7 +983,7 @@ public class ClassifierFacadeLogicImpl
             {
                 public boolean evaluate(final Object object)
                 {
-                    return ((AttributeFacade)object).isStatic();
+                    return object != null && ((AttributeFacade)object).isStatic();
                 }
             });
 
@@ -1003,7 +1003,7 @@ public class ClassifierFacadeLogicImpl
             {
                 public boolean evaluate(final Object object)
                 {
-                    return !((AttributeFacade)object).isStatic();
+                    return object != null && !((AttributeFacade)object).isStatic();
                 }
             });
         return attributes;
@@ -1066,6 +1066,7 @@ public class ClassifierFacadeLogicImpl
             {
                 public Object transform(final Object object)
                 {
+                    if (object == null) return null;
                     return ((AssociationEndFacade)object).getOtherEnd();
                 }
             });
@@ -1075,7 +1076,7 @@ public class ClassifierFacadeLogicImpl
             {
                 public boolean evaluate(final Object object)
                 {
-                    return ((AssociationEndFacade)object).isNavigable();
+                    return object != null && ((AssociationEndFacade)object).isNavigable();
                 }
             });
         return connectingEnds;
@@ -1096,6 +1097,7 @@ public class ClassifierFacadeLogicImpl
             {
                 public Object transform(final Object object)
                 {
+                    if (object == null) return null;
                     return ((AssociationEndFacade)object).getOtherEnd();
                 }
             });
@@ -1105,7 +1107,7 @@ public class ClassifierFacadeLogicImpl
             {
                 public boolean evaluate(final Object object)
                 {
-                    return ((AssociationEndFacade)object).isNavigable();
+                    return object != null && ((AssociationEndFacade)object).isNavigable();
                 }
             });
         if (ClassifierFacadeLogicImpl.LOGGER.isDebugEnabled())

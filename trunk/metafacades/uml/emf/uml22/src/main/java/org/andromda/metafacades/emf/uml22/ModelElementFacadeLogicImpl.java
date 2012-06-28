@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.metafacades.uml.BindingFacade;
 import org.andromda.metafacades.uml.ConstraintFacade;
@@ -593,8 +594,16 @@ public class ModelElementFacadeLogicImpl
                 StringUtils.trimToEmpty((String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_DOCUMENTATION)));
         }
 
+        // For associations, use the type class documentation if association documentation is missing.
+        if (StringUtils.isBlank(documentation.toString())
+        && this instanceof AssociationEndFacadeLogicImpl)
+        {
+            AssociationEndFacadeLogicImpl end = (AssociationEndFacadeLogicImpl)this;
+            documentation.append(end.getType().getDocumentation(""));
+        }
+
         // if there still isn't anything, create a todo tag.
-        if (StringUtils.isEmpty(documentation.toString())
+        if (StringUtils.isBlank(documentation.toString())
         && Boolean.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.TODO_FOR_MISSING_DOCUMENTATION)))
         {
             final String todoTag = (String)this.getConfiguredProperty(UMLMetafacadeProperties.TODO_TAG);
@@ -1208,7 +1217,8 @@ public class ModelElementFacadeLogicImpl
                 }
                 else
                 {
-                    buffer.append(", ");
+                    ModelElementFacadeLogicImpl.LOGGER.error(
+                    ((NamedElement)super.metaObject.getOwner()).getName() + "." + parameter + " parameter type NULL");
                 }
             }
 
@@ -1220,5 +1230,17 @@ public class ModelElementFacadeLogicImpl
         }
 
         return fullName;
+    }
+
+    // Valid identifier starts with alphanum or _$ and contains only alphanum or _$ or digits
+    private static final Pattern IDENTIFIER_PATTERN = Pattern.compile("[a-zA-Z_$][a-zA-Z\\d_$]*");
+    /**
+     * Return true if name matches the pattern [a-zA-Z_$][a-zA-Z\\d_$]*
+     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogic#handleIsValidIdentifierName()
+     */
+    protected boolean handleIsValidIdentifierName()
+    {
+        final String name = this.handleGetName();
+        return IDENTIFIER_PATTERN.matcher(name).matches();
     }
 }

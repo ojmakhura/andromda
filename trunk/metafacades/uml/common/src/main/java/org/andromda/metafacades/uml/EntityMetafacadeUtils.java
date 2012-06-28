@@ -203,6 +203,7 @@ public class EntityMetafacadeUtils
         return name;
     }
 
+    private static List<Entity> sortedEntities;
     /**
      * Puts non-abstract entities in order based on associations. To be used in constructors and
      * tests so that entities may be created and deleted in the proper order, without
@@ -292,6 +293,33 @@ public class EntityMetafacadeUtils
     }
 
     /**
+     * Gets the execution priority of a specific entity, based on dependency/owning relationships,
+     * so that TestNG unit tests can be put in the proper order across all entities and CRUD methods
+     *
+     * @param entity the entity to be prioritized.
+     * @return int the entity priority.
+     */
+    public static int getPriority(
+        final Entity entity)
+    {
+        int priority = 0;
+        if (sortedEntities!=null && !sortedEntities.isEmpty())
+        {
+            priority = sortedEntities.indexOf(entity);
+            if (priority < 1)
+            {
+                priority = 0;
+            }
+            else
+            {
+                // Change from zero based to one based, allow 10 additional test methods between the standard tests.
+                priority = priority*10 + 10;
+            }
+        }
+        return priority;
+    }
+
+    /**
      * <p/> Trims the passed in value to the maximum name length.
      * </p>
      * If no maximum length has been set then this method does nothing.
@@ -353,6 +381,103 @@ public class EntityMetafacadeUtils
             identifiers.addAll(getIdentifiers((Entity)entity.getGeneralization(), follow));
         }
         return identifiers;
+    }
+
+    /**
+     * Gets all identifier attributes for an entity. If 'follow' is true, and if
+     * no identifiers can be found on the entity, a search up the
+     * inheritance chain will be performed, and the identifiers from
+     * the first super class having them will be used. All identifier association
+     * relationships are traversed to find the identifying attributes of the related
+     * associationEnd classifiers, in addition to the primitive/wrapped identifiers
+     * on the Entity itself.
+     *
+     * @param entity the entity for which to retrieve the identifiers
+     * @param follow a flag indicating whether or not the inheritance hierarchy
+     *        should be followed
+     * @return the collection of entity identifier attributes.
+     */
+    public static Collection<EntityAttribute> getIdentifierAttributes(
+        final Entity entity,
+        final boolean follow)
+    {
+        Collection<EntityAttribute> identifierAttributes = new ArrayList<EntityAttribute>();
+        final Collection<EntityAttribute> identifiers = EntityMetafacadeUtils.getIdentifiers(entity, follow);
+        // Find identifiers of association identifiers otherEnd
+        for (EntityAttribute identifier : identifiers)
+        {
+            if (identifier instanceof AssociationEndFacade)
+            {
+                AssociationEndFacade associationEnd = (AssociationEndFacade)identifier;
+                ClassifierFacade classifier = associationEnd.getType();
+                if (classifier instanceof Entity)
+                {
+                    Collection<EntityAttribute> entityIdentifiers = getIdentifierAttributes((Entity)classifier, true);
+                    identifierAttributes.addAll(entityIdentifiers);
+                }
+            }
+            else
+            {
+                identifierAttributes.add(identifier);
+            }
+        }
+        if (identifiers.isEmpty() && follow && entity.getGeneralization() instanceof Entity)
+        {
+            identifierAttributes.addAll(getIdentifiers((Entity)entity.getGeneralization(), follow));
+        }
+        // Reorder join columns if order is specified - must match FK column order
+        String joinOrder = (String)entity.findTaggedValue("andromda_persistence_joincolumn_order");
+        /*System.out.println(entity.getName() + " getIdentifierAttributes " + joinOrder + " tags=" + entity.getTaggedValues().size() + " identifierAttr=" + identifierAttributes.size());
+        if (entity.getTaggedValues().size() > 1)
+        {
+            for ( TaggedValueFacade value : entity.getTaggedValues())
+            {
+                System.out.println(entity.getName() + " tag name=" + value.getName() + " value=" + value);
+            }
+        }*/
+        if (StringUtils.isNotBlank(joinOrder))
+        {
+            final Collection<EntityAttribute> sortedIdentifiers = new ArrayList<EntityAttribute>();
+            String[] joinList = StringUtils.split(joinOrder, " ,;|");
+            for (String column : joinList)
+            {
+                for (EntityAttribute facade : identifierAttributes)
+                {
+                    /*if (facade instanceof EntityAssociationEnd)
+                    {
+                        EntityAssociationEnd assoc = (EntityAssociationEnd)facade;
+                        if (assoc.getColumnName().equalsIgnoreCase(column))
+                        {
+                            sortedIdentifiers.add(assoc);
+                        }
+                    }
+                    else if (facade instanceof EntityAttribute)*/
+                    {
+                        EntityAttribute attr = (EntityAttribute)facade;
+                        if (attr.getColumnName().equalsIgnoreCase(column))
+                        {
+                            sortedIdentifiers.add(attr);
+                        }
+                    }
+                }
+            }
+            //System.out.println(entity.getName() + " getIdentifierAttributes " + joinOrder + identifiers.size());
+            // Add remaining identifiers not found in joincolumn ordered list
+            if (sortedIdentifiers.size() < identifierAttributes.size())
+            for (EntityAttribute facade : identifierAttributes)
+            {
+                if (!sortedIdentifiers.contains(facade))
+                {
+                    sortedIdentifiers.add(facade);
+                }
+            }
+            identifierAttributes = sortedIdentifiers;
+        }
+        else
+        {
+            identifiers.addAll(identifierAttributes);
+        }
+        return identifierAttributes;
     }
 
     /**

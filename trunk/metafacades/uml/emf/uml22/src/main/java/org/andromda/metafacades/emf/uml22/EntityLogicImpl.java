@@ -643,7 +643,7 @@ public class EntityLogicImpl
                 public boolean evaluate(final Object object)
                 {
                     boolean valid = true;
-                    if (!withIdentifiers && object instanceof EntityAttribute)
+                    if (!withIdentifiers && object != null && object instanceof EntityAttribute)
                     {
                         valid = !((EntityAttribute)object).isIdentifier();
                     }
@@ -670,7 +670,7 @@ public class EntityLogicImpl
                 public boolean evaluate(final Object object)
                 {
                     boolean valid = true;
-                    if (!withIdentifiers && object instanceof EntityAttribute)
+                    if (!withIdentifiers && object != null && object instanceof EntityAttribute)
                     {
                         valid = !((EntityAttribute)object).isIdentifier();
                     }
