@@ -339,7 +339,7 @@ public class WebServiceUtils
                         try
                         {
                             ClassifierFacade endType = getType(otherEnd);
-                            if (getType(otherEnd) != null)
+                            if (endType != null)
                             {
                                 pkg = (PackageFacade) endType.getPackage();
                                 name = endType.getName();
@@ -736,7 +736,7 @@ public class WebServiceUtils
                     {
                         AssociationEndFacade type = (AssociationEndFacade)element;
                         facade = getType(type);
-                        // TODO: When can ClassifierFacade ever be an instanceof AssociationEndFacade 
+                        // TODO: When can ClassifierFacade ever be an instanceof AssociationEndFacade
                         if (facade instanceof AssociationEndFacade)
                         {
                             type = (AssociationEndFacade)facade;
@@ -2193,7 +2193,7 @@ public class WebServiceUtils
                 }
                 else
                 {
-                rtn = "new " + typeName + "()";
+                    rtn = "new " + typeName + "()";
                 }
                 //if (facade instanceof ClassifierFacade)
                 //{

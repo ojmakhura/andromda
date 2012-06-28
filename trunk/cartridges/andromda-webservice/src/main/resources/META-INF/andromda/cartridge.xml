@@ -44,6 +44,7 @@
     <property reference="cryptoKeyStorePassword"/>
     <property reference="attachmentsDirectory"/>
     <property reference="toDoTag"/>
+    <property reference="javaVersion"/>
     <property reference="axisVersion"/>
     <property reference="cxfVersion"/>
     <property reference="soapStack"/>
@@ -69,6 +70,7 @@
     <property reference="defaultParameterStyle"/>
     <property reference="importedXSD"/>
     <property reference="validateSchema"/>
+    <property reference="customValidator"/>
     <property reference="generateMethodImpl"/>
     <property reference="enableAnnotations"/>
     <property reference="generateIsBooleanGetters"/>

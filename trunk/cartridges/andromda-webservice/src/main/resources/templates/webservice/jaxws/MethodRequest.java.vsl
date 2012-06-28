@@ -42,7 +42,7 @@ public class $className
 #if ($service.generalization)
     extends $service.generalization.fullyQualifiedName
 #end
-    implements Serializable, Comparable<Object>
+    implements Serializable, Comparable<$className>
 {
     private static final long serialVersionUID = 1L;
 #if (!$useArrayWrapper && ($operation.upper>1 || $operation.upper==-1))
@@ -54,17 +54,19 @@ public class $className
 #set ($useAttributes = $xmlAttributes && !($parameter.upper>1||$parameter.upper==-1) && ($stringUtils.isBlank($parameter.type.packageName) || $parameter.type.packageName.equals("java.lang") || $type.equals("java.util") || $type.equals("java.math") || $parameter.type.packageName.equals("PrimitiveTypes")))
 #if (!$useArrayWrapper && ($parameter.upper>1 || $parameter.upper==-1))
 #set ($paramType="java.util.List<$parameter.type.fullyQualifiedName>")
+#set ($type="")
 #else
 #set ($paramType=$parameter.getterSetterTypeName)
+#set ($type=$parameter.type.name)
 #end
 
     /**
 $parameter.getDocumentation("     * ")
      */
-#if (($paramType.equals("DateTime") && $stringUtils.isNotBlank(${XMLDateTimeAdapter})) || ($paramType.equals("Time") && $stringUtils.isNotBlank(${XMLTimeAdapter}))|| ($paramType.equals("Date") && $stringUtils.isNotBlank(${XMLDateAdapter}))|| ($paramType.equals("Integer") && $stringUtils.isNotBlank(${XMLIntegerAdapter}))|| ($paramType.equals("Double") && $stringUtils.isNotBlank(${XMLDecimalAdapter}))|| ($paramType.equals("Boolean") && $stringUtils.isNotBlank(${XMLBooleanAdapter})))
+#if (($type.equals("DateTime") && $stringUtils.isNotBlank(${XMLDateTimeAdapter})) || ($type.equals("Time") && $stringUtils.isNotBlank(${XMLTimeAdapter}))|| ($type.equals("Date") && $stringUtils.isNotBlank(${XMLDateAdapter}))|| ($type.equals("Integer") && $stringUtils.isNotBlank(${XMLIntegerAdapter}))|| ($type.equals("Double") && $stringUtils.isNotBlank(${XMLDecimalAdapter}))|| ($type.equals("Boolean") && $stringUtils.isNotBlank(${XMLBooleanAdapter})))
 ##set ($elementType=", type=String.class")
     @javax.xml.bind.annotation.XmlElement(#if ($parameter.required)required = true,#end type = String.class)
-    @javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter(#if ($paramType.equals("DateTime"))${XMLDateTimeAdapter}#elseif($paramType.equals("Time"))${XMLTimeAdapter}#elseif($paramType.equals("Date"))${XMLDateAdapter}#elseif($paramType.equals("Integer"))${XMLIntegerAdapter}#elseif($paramType.equals("Double"))${XMLDecimalAdapter}#elseif($paramType.equals("Boolean"))${XMLBooleanAdapter}#end.class)
+    @javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter(#if ($type.equals("DateTime"))${XMLDateTimeAdapter}#elseif($type.equals("Time"))${XMLTimeAdapter}#elseif($type.equals("Date"))${XMLDateAdapter}#elseif($type.equals("Integer"))${XMLIntegerAdapter}#elseif($type.equals("Double"))${XMLDecimalAdapter}#elseif($type.equals("Boolean"))${XMLBooleanAdapter}#end.class)
 ##set ($schemaType=$operation.returnType.schemaType.substring(0,9))
     @javax.xml.bind.annotation.XmlSchemaType(name = "$parameter.type.schemaType.substring(3)")
 #else
@@ -135,7 +137,7 @@ $parameter.getDocumentation("     * ")
 
     /**
      * @param object to compare this object against
-     * @return boolean if equal
+     * @return boolean true if equal
      * @see Object#equals(Object)
      */
 #if ($enableAnnotations)
@@ -143,7 +145,7 @@ $parameter.getDocumentation("     * ")
 #end
     public boolean equals(Object object)
     {
-        if (object==null || !(object instanceof $className))
+        if (object==null || object.getClass() != this.getClass())
         {
              return false;
         }
@@ -158,22 +160,24 @@ $parameter.getDocumentation("     * ")
     }
 
     /**
-     * @param object to compare this object against
-     * @return int if equal
+     * @param myClass the external class to compare this object against
+     * @return int=0 if equal, -1 if this lessThan myClass, 1 if this greaterThan myClass
      * @see Comparable#compareTo(Object)
      */
-#if ($enableAnnotations)
+#if ($enableAnnotations && $javaVersion.compareTo("1.6")>-1)
     @Override
 #end
-    public int compareTo(Object object)
+    public int compareTo($className myClass)
     {
-        if (object==null)
+        if (myClass==null)
         {
             return -1;
         }
-#if (!$operation.arguments.empty)
-        $className myClass = ($className) object;
-#end
+        // Check if the same object instance
+        if (myClass==this)
+        {
+            return 0;
+        }
         return new CompareToBuilder()
 #foreach($parameter in $operation.arguments)
              .append(this.${parameter.getterName}(), myClass.${parameter.getterName}())

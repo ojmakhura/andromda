@@ -71,7 +71,7 @@ $stringUtils.replaceChars($operation.getDocumentation("                ", 100, f
 #set ($default=$parameter.defaultValue.replaceAll('"', ''))
 ##set ($default='"$default"')
 #set ($use = " minOccurs=${quote}0$quote default=$quote$default$quote")
-#elseif (!$parameter.nillable)
+#elseif (!$parameter.nillable || $parameter.lower>0)
 #set ($use = ' minOccurs="1"')
 #else
 #set ($use = ' minOccurs="0"')
@@ -125,7 +125,7 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
 #else
 #set ($type="${webServiceUtils.getPkgAbbr($operation.returnType.package)}:${operation.returnType.name}")
 #end
-#if ($operation.returnParameter.lower<1 || $operation.lower<1)
+#if (($operation.returnParameter.lower<1 || $operation.lower<1) && $operation.returnParameter.nillable)
 #set ($minOccurs=' minOccurs="0"')
 #else
 #set ($minOccurs='')
@@ -337,7 +337,7 @@ $tab            <xs:sequence>
 #if ($attribute.defaultValuePresent)
 #set ($default=${attribute.defaultValue.replaceAll('"', '')})
 #set ($use = ' minOccurs="0" default=$quote$default$quote')
-#elseif (!$attribute.nillable)
+#elseif (!$attribute.nillable || $attribute.lower>0)
 #set ($use = ' minOccurs="1"')
 #else
 #set ($use = ' minOccurs="0"')
@@ -380,7 +380,7 @@ $tab            </xs:sequence>
 #if ($attribute.defaultValuePresent)
 #set ($default=${attribute.defaultValue.replaceAll('"', '')})
 #set ($use = " use=${quote}optional${quote} default=${quote}$default${quote}")
-#elseif (!$attribute.nillable)
+#elseif (!$attribute.nillable || $attribute.lower>0)
 #set ($use = ' use="required"')
 #else
 #set ($use = "")

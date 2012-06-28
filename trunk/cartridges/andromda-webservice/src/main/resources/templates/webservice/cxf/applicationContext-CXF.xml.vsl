@@ -132,6 +132,9 @@ http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
 #end
         <jaxws:properties>
             <entry key="schema-validation-enabled" value="$validateSchema" />
+#if ($stringUtils.isNotEmpty($customValidator))
+            <entry key="jaxb-validation-event-handler" value-ref="validator"/>
+#end
         </jaxws:properties>
     </jaxws:endpoint>
 #end
@@ -146,13 +149,18 @@ http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
       <entry key="mtom-enabled" value="true"/>
     </$jax:properties-->
 
+#if ($stringUtils.isNotEmpty($customValidator))
+    <!-- Referencing the class from the property key doesn't work -->
+    <bean id="validator" class="$customValidator"/>
+
+#end
     <!--
     <bean id="anotherInterceptor" class="com.acme.SomeInterceptor"/>
     -->
 
     <!-- Spring custom inline invoker -->
     <!--
-    <jaxws:endpoint id="inlineInvoker" address="http://localhost:8080/simpleWithAddress">
+    <jaxws:endpoint id="inlineInvoker" address="http://${webserviceHost}:${webservicePort}/simpleWithAddress">
       <jaxws:implementor>
         <bean class="org.apache.hello_world_soap_http.GreeterImpl"/>
       </jaxws:implementor>
