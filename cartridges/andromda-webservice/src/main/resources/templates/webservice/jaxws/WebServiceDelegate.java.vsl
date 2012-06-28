@@ -137,9 +137,9 @@ $operation.getDocumentation("    * ")
 #set ($paramType=$parameter.getterSetterTypeName)
 #end
 ##      ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName#if($addNamespaceBackslash)/#end"#end) $parameter.type.fullyQualifiedName $parameter.name
-        ${comma} $paramType $parameter.name
+      ${comma} $paramType $parameter.name
 ##set ($parameterList = "$comma${parameter.name}$parameterList")
-#set ($comma = ", ")
+#set ($comma = ",")
 #end
 #end
 #if ($service.hasStereotype("WSCustomHeader"))
@@ -161,7 +161,7 @@ $operation.getDocumentation("    * ")
 #set ($comma = "")
 #foreach ($parameter in $operation.arguments)
 ##      ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName#if($addNamespaceBackslash)/#end"#end) $parameter.type.fullyQualifiedName $parameter.name
-            ${comma} $parameter.name
+            ${comma}$parameter.name
 #set ($comma = ", ")
 #end
 #if ($service.hasStereotype("WSCustomHeader"))

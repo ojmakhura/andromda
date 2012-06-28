@@ -77,7 +77,7 @@
             </property>
             <property name="core-tests">
                 <documentation>
-                    The directory to which webservice impl tests will be generated (in the core project), 
+                    The directory to which webservice impl tests will be generated (in the core project),
                     so that they can be run as part of the maven test phases.
                     Normally core/src/test/java. Output is only generated once.
                 </documentation>
@@ -114,7 +114,7 @@
             <property name="overwriteAll" required="false">
                 <default>false</default>
                 <documentation>
-                    Overwrite all files when generating output. Default=false. Use for project testing where 
+                    Overwrite all files when generating output. Default=false. Use for project testing where
                     all output will overwritten.
                 </documentation>
             </property>
@@ -163,6 +163,14 @@
                     </ul>
                 </documentation>
             </property>
+            <property name="javaVersion">
+                <default>1.6</default>
+                <documentation>
+                    Determines if some annotations or JDK-specific features are output such as @Override compareTo().
+                    If 1.4, templating and generics should be turned off. Should be set by property java.version in pom.xml
+                    which is also used by the maven-compiler-plugin. Allowed values=1.4,1.5,1.6. Default=1.6.
+                </documentation>
+            </property>
             <property name="webserviceTypesPackage">
                 <default>org.andromda.webservice</default>
                 <documentation>
@@ -184,8 +192,8 @@
             <property name="namespacePrefix">
                 <default>impl</default>
                 <documentation>
-                    Defines the prefix to give to the default namespace. 
-                    Can be customized for individual 
+                    Defines the prefix to give to the default namespace.
+                    Can be customized for individual
                     services through WebService stereotype.
                 </documentation>
             </property>
@@ -225,7 +233,7 @@
             <property name="seiSuffix">
                 <default>SEI</default>
                 <documentation>
-                    Specifies the suffix to append to the service name when identifying the 
+                    Specifies the suffix to append to the service name when identifying the
                     portType name and service endpoint interface class. default=SEI
                 </documentation>
             </property>
@@ -246,7 +254,7 @@
                 <default>document</default>
                 <documentation>
                     The default style given all web services (if not defined separately
-                    on each web service). Can be customized for individual 
+                    on each web service). Can be customized for individual
                     services through WebService stereotype.
                     Possible choices are:
                     <ul>
@@ -260,8 +268,8 @@
                 <default>literal</default>
                 <documentation>
                     The default use given all web services (if not defined separately
-                    on each web service). Can be customized for individual 
-                    services through WebService stereotype. 
+                    on each web service). Can be customized for individual
+                    services through WebService stereotype.
                     Possible choices are:
                     <ul>
                         <li>literal</li>
@@ -273,7 +281,7 @@
                 <default>wrapped</default>
                 <documentation>
                     The default parameter encoding style for a
-                    webservice operation. Can be customized for individual 
+                    webservice operation. Can be customized for individual
                     services through WebService stereotype.
                     Possible choices are:
                     <ul>
@@ -516,7 +524,15 @@
                 <default>false</default>
                 <documentation>
                     Validate the incoming XML against the wsdl/xsd schema globally. Can be turned on/off for an individual
-                    service through XmlSchema stereotype schemaValidation taggedValue.
+                    service through XmlSchema stereotype schemaValidation taggedValue. false by default because we may be using customized
+                    bindings or have an incomplete type test hierarchy.
+                </documentation>
+            </property>
+            <property name="customValidator">
+                <default></default>
+                <documentation>
+                    Your custom validator to insert into the validation/unmarshalling process. For example, to ignore unrecognized
+                    new elements (to allow backwards compatibility).
                 </documentation>
             </property>
             <property name="webserviceHost">
@@ -526,9 +542,10 @@
                 </documentation>
             </property>
             <property name="webservicePort">
-                <default>8080</default>
+                <default>9090</default>
                 <documentation>
-                    Webservice port used for CXF client and wsdl configurations
+                    Webservice port used for CXF client and wsdl configurations. Use 9090 so that
+                    test server does not conflict with other servers that may be running on common port 8080.
                 </documentation>
             </property>
             <property name="persistenceContainerName">
@@ -558,7 +575,7 @@
                 <default>true</default>
                 <documentation>
                     When set to 'true' the setAttribute method returns 'this' instead of void, allowing setter methods to be
-                    chained together after the constructor for improved readability and reduced lines of code. For example: 
+                    chained together after the constructor for improved readability and reduced lines of code. For example:
                     Type variable = new Type().setAttribute1(value1).setAttribute2(value2); etc
                 </documentation>
             </property>

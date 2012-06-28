@@ -7,15 +7,17 @@
     <xs:schema targetNamespace="http://$webServiceUtils.reversePackage($pkg.fullyQualifiedName)#if($addNamespaceBackslash)/#end"
 ##    <xs:schema targetNamespace="$pkg.namespace"
         attributeFormDefault="$pkg.attributeFormDefault.toLowerCase()" elementFormDefault="$pkg.elementFormDefault.toLowerCase()" version="1.0"
+#if ($stringUtils.isNotBlank($XMLBooleanAdapter))
         jxb:version="2.1" jxb:extensionBindingPrefixes="xjc"
+        xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+        xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+#end
 ## ${service.namespacePrefix} refers only to the $service, so we must use impl here and the value must be set to impl in andromda.xml
         xmlns:impl="http://$webServiceUtils.reversePackage($pkg.fullyQualifiedName)#if($addNamespaceBackslash)/#end"
 #set ($pkgRefs = $webServiceUtils.getPackageReferences($pkg, $extensionInheritanceDisabled))
 #foreach ($pkgRef in $pkgRefs)
         xmlns:$webServiceUtils.getPkgAbbr($pkgRef)="http://$webServiceUtils.reversePackage($pkgRef.fullyQualifiedName)#if($addNamespaceBackslash)/#end"
 #end
-        xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
-        xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
         xmlns:xs="$xmlSchemaNamespace">
 #foreach ($pkgRef in $pkgRefs)
         <xs:import namespace="http://$webServiceUtils.reversePackage($pkgRef.fullyQualifiedName)#if($addNamespaceBackslash)/#end" xmlns="http://www.w3.org/2001/XMLSchema"
@@ -70,7 +72,7 @@ $stringUtils.replaceChars($operation.getDocumentation("                ", 100, f
 #set ($default=$parameter.defaultValue.replaceAll('"', ''))
 ##set ($default='"$default"')
 #set ($use = " minOccurs=${quote}0$quote default=$quote$default$quote")
-#elseif (!$parameter.nillable)
+#elseif (!$parameter.nillable || $parameter.lower>0)
 #set ($use = ' minOccurs="1"')
 #else
 #set ($use = ' minOccurs="0"')
@@ -124,7 +126,7 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
 #else
 #set ($type="${webServiceUtils.getPkgAbbr($operation.returnType.package)}:${operation.returnType.name}")
 #end
-#if ($operation.returnParameter.lower<1 || $operation.lower<1)
+#if (($operation.returnParameter.lower<1 || $operation.lower<1) && $operation.returnParameter.nillable)
 #set ($minOccurs=' minOccurs="0"')
 #else
 #set ($minOccurs='')
@@ -325,7 +327,7 @@ $tab            <xs:sequence>
 #if ($attribute.defaultValuePresent)
 #set ($default=${attribute.defaultValue.replaceAll('"', '')})
 #set ($use = ' minOccurs="0" default=$quote$default$quote')
-#elseif (!$attribute.nillable)
+#elseif (!$attribute.nillable || $attribute.lower>0)
 #set ($use = ' minOccurs="1"')
 #else
 #set ($use = ' minOccurs="0"')
@@ -368,7 +370,7 @@ $tab            </xs:sequence>
 #if ($attribute.defaultValuePresent)
 #set ($default=${attribute.defaultValue.replaceAll('"', '')})
 #set ($use = " use=${quote}optional${quote} default=${quote}$default${quote}")
-#elseif (!$attribute.nillable)
+#elseif (!$attribute.nillable || $attribute.lower>0)
 #set ($use = ' use="required"')
 #else
 #set ($use = "")

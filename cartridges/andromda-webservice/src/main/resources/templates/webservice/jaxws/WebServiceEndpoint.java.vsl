@@ -122,7 +122,10 @@ $operation.getDocumentation("    * ")
     * CONSTRAINT:  ${constraint.name}: #if ($constraint.invariant)Invariant #end#if ($constraint.postCondition)PostCondition #end#if ($constraint.preCondition)PreCondition #end ${constraint.body}
 #end
     */
+## Non public methods do not appear in the Interface class. JDK 1.5 cannot override interface methods
+#if ($enableAnnotations && $operation.visibility == "public" && $javaVersion.compareTo("1.6")>-1)
     @Override
+#end
 #if ($operation.rest)
 #if ($stringUtils.isNotBlank($operation.restRequestType))
     $operation.restRequestType
@@ -303,9 +306,12 @@ $tab        }
 #foreach ($parameter in $operation.arguments)
 #if ($parameter.upper>1 || $parameter.upper==-1)
 ## Avoid the problem with setting the value of a live List not allowed
-            for ($parameter.type.fullyQualifiedName value : ${parameter.name})
+            if (${parameter.name} != null)
             {
-                ${operation.name}Req.get$stringUtils.capitalize($parameter.name)().add(value);
+                for ($parameter.type.fullyQualifiedName value : ${parameter.name})
+                {
+                    ${operation.name}Req.get$stringUtils.capitalize($parameter.name)().add(value);
+                }
             }
 #else
             ${operation.name}Req.set$stringUtils.capitalize($parameter.name)(${parameter.name});

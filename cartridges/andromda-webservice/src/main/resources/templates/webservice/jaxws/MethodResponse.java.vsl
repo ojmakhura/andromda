@@ -63,15 +63,17 @@ public class ${className}Response
 #if ($service.generalization)
     extends $service.generalization.fullyQualifiedName
 #end
-    implements Serializable, Comparable<Object>
+    implements Serializable, Comparable<${className}Response>
 {
     private static final long serialVersionUID = 1L;
     /** returnParameter */
 #if ($operation.returnTypePresent)
 #if (!$useArrayWrapper && ($operation.upper>1 || $operation.upper==-1))
 #set ($returnType="java.util.List<$operation.returnType.fullyQualifiedName>")
+#set ($type="")
 #else
 #set ($returnType=$operation.getterSetterReturnTypeName)
+#set ($type=$operation.returnParameter.type.name)
 #end
 #if ($operation.returnType.schemaType.startsWith("xs:") || $operation.returnType.packageName.indexOf('.')<0 )
 #if ($returnType.equals("boolean"))
@@ -85,9 +87,9 @@ public class ${className}Response
 #end
 #set ($setOperation="set$stringUtils.capitalize($returnName)")
 ##set ($type=$stringUtils.substring($operation.returnType.name, 0, 9))
-#if (($returnType.equals("DateTime") && $stringUtils.isNotBlank(${XMLDateTimeAdapter})) || ($returnType.equals("Time") && $stringUtils.isNotBlank(${XMLTimeAdapter}))|| ($returnType.equals("Date") && $stringUtils.isNotBlank(${XMLDateAdapter}))|| ($returnType.equals("Integer") && $stringUtils.isNotBlank(${XMLIntegerAdapter}))|| ($returnType.equals("Double") && $stringUtils.isNotBlank(${XMLDecimalAdapter}))|| ($returnType.equals("Boolean") && $stringUtils.isNotBlank(${XMLBooleanAdapter})))
+#if (($type.equals("DateTime") && $stringUtils.isNotBlank(${XMLDateTimeAdapter})) || ($type.equals("Time") && $stringUtils.isNotBlank(${XMLTimeAdapter}))|| ($type.equals("Date") && $stringUtils.isNotBlank(${XMLDateAdapter}))|| ($type.equals("Integer") && $stringUtils.isNotBlank(${XMLIntegerAdapter}))|| ($type.equals("Double") && $stringUtils.isNotBlank(${XMLDecimalAdapter}))|| ($type.equals("Boolean") && $stringUtils.isNotBlank(${XMLBooleanAdapter})))
     @XmlElement(name = "$returnName", type = String.class, required = true)
-    @javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter(#if ($returnType.equals("DateTime"))${XMLDateTimeAdapter}#elseif($returnType.equals("Time"))${XMLTimeAdapter}#elseif($returnType.equals("Date"))${XMLDateAdapter}#elseif($returnType.equals("Integer"))${XMLIntegerAdapter}#elseif($returnType.equals("Double"))${XMLDecimalAdapter}#elseif($returnType.equals("Boolean"))${XMLBooleanAdapter}#end.class)
+    @javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter(#if ($returnType.equals("DateTime"))${XMLDateTimeAdapter}#elseif($type.equals("Time"))${XMLTimeAdapter}#elseif($type.equals("Date"))${XMLDateAdapter}#elseif($type.equals("Integer"))${XMLIntegerAdapter}#elseif($type.equals("Double"))${XMLDecimalAdapter}#elseif($returnType.equals("Boolean"))${XMLBooleanAdapter}#end.class)
 ## Remove the beginning xs: from schema type
     @javax.xml.bind.annotation.XmlSchemaType(name = "$operation.returnType.schemaType.substring(3)")
 #else
@@ -160,7 +162,7 @@ public class ${className}Response
 #end
     public boolean equals(Object object)
     {
-        if (object==null || !(object instanceof ${className}Response))
+        if (object==null || object.getClass() != this.getClass())
         {
              return false;
         }
@@ -177,16 +179,20 @@ public class ${className}Response
      * @return int if equal
      * @see Comparable#compareTo(Object)
      */
-#if ($enableAnnotations)
+#if ($enableAnnotations && $javaVersion.compareTo("1.6")>-1)
     @Override
 #end
-    public int compareTo(Object object)
+    public int compareTo(${className}Response myClass)
     {
-        if (object==null)
+        if (myClass==null)
         {
             return -1;
         }
-        ${className}Response myClass = (${className}Response) object;
+        // Check if the same object instance
+        if (myClass==this)
+        {
+            return 0;
+        }
         return new CompareToBuilder()
 #if ($operation.returnTypePresent)
             .append(this.$getOperation, myClass.$getOperation)
