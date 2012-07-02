@@ -252,10 +252,15 @@ public class AttributeFacadeLogicImpl
                     ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
             {
                 String type = this.getType().getFullyQualifiedName();
-                if (this.getType().isPrimitive())
+                if (this.getType().isPrimitive() || this.getLower() > 0)
                 {
                     // Can't template primitive values, Objects only. Convert to wrapped.
                     type = this.getType().getWrapperName();
+                    if (type == null)
+                    {
+                        // No wrapper name configured
+                        type = this.getType().getFullyQualifiedName();
+                    }
                 }
                 // Allow List<Type[]> implementations.
                 /*// Don't apply templating to modeled array types
@@ -266,24 +271,28 @@ public class AttributeFacadeLogicImpl
                 name += '<' + type + '>';
             }
         }
-        if (name == null && this.handleGetType() != null)
+        if (name == null && this.getType() != null)
         {
             name = this.getType().getFullyQualifiedName();
             // Special case: lower bound overrides primitive/wrapped type declaration
             // TODO Apply to all primitive types, not just booleans. This is a special case because of is/get Getters.
-            if (this.getType().isBooleanType())
-            {
-                if (!this.getType().isPrimitive() || this.getLower() < 1)
+            //if (this.getType().isBooleanType())
+            //{
+                if (this.getType().isPrimitive() && this.getLower() < 1)
                 {
                     // Type is optional, should not be primitive
-                    name = StringUtils.capitalize(name);
+                    name = this.getType().getWrapperName();
+                    if (name == null)
+                    {
+                        // No wrapper name configured
+                        name = this.getType().getFullyQualifiedName();
+                    }
                 }
-                else //if (this.getType().isPrimitive())
+                /*else //if (this.getType().isPrimitive())
                 {
                     // Type is required, should not be wrapped
-                    name = StringUtils.uncapitalize(name);
-                }
-            }
+                }*/
+            //}
         }
         return name;
     }
