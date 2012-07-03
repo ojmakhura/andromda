@@ -50,8 +50,8 @@
         <property name="hibernateQueryUseNamedParameters">true</property>
         <property name="userTransactionName">null</property>
         <property name="transactionManagerName">java:/TransactionManager</property>
-        <property name="acegiServiceSecurity">true</property>
-        <property name="acegiAuthenticationManager">authenticationManager</property>
+        <property name="serviceSecurity">true</property>
+        <property name="securityAuthenticationManager">authenticationManager</property>
         <property name="serviceRemotingType">hessian</property>
         <property name="serviceRemoteServer">1.2.3.4</property>
         <property name="serviceRemotePort">1234</property>

@@ -358,7 +358,7 @@
             <property name="externalPrincipalStoreClass" required="false">
                 <documentation>
                     If this is present, it will be assumed that an external principal store class will be used
-                    and non will be generated.
+                    and non will be generated. Example: org.springframework.security.core.context.SecurityContextHolder
                 </documentation>
             </property>
             <property name="externalPrincipalStoreGetter" required="false">
@@ -372,7 +372,8 @@
                 <default>java.security.Principal</default>
                 <documentation>
                     If externalPrincipalStoreClass is defined, externalPrincipalStoreGetterType defines the
-                    type returned by the externalPrincipalStoreGetter method.
+                    type returned by the externalPrincipalStoreGetter method. Example:
+                    org.springframework.security.core.Authentication
                 </documentation>
             </property>
             <property name="entityNamePattern">
@@ -1176,60 +1177,60 @@
                 </documentation>
             </property>
         </propertyGroup>
-        <propertyGroup name="Acegi Security">
+        <propertyGroup name="Spring Security">
             <documentation>
                 Configures the declaritive role based security <strong>without EJB</strong>, which uses the
-                <a href="http://acegisecurity.sourceforge.net">Acegi Security System for Spring</a>.
+                <a href="http://www.springsource.org/spring-security">Spring Security System</a>.
             </documentation>
-            <property name="acegiServiceSecurity">
+            <property name="serviceSecurity">
                 <default>false</default>
                 <documentation>
-                    Whether or not acegi security framework should be used for role based recurity handling for spring services.
+                    Whether or not Spring security framework should be used for role based recurity handling for spring services.
                 </documentation>
             </property>
-            <property name="acegiServiceSecurityInterceptor">
-                <default>org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor</default>
+            <property name="serviceSecurityInterceptor">
+                <default>org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor</default>
                 <documentation>
-                    The name of the class to use for the acegi security interception.
+                    The name of the class to use for the spring security interception.
                 </documentation>
             </property>
-            <property name="acegiServiceAccessDecisionManager">
-                <default>org.acegisecurity.vote.AffirmativeBased</default>
+            <property name="serviceAccessDecisionManager">
+                <default>org.springframework.security.access.vote.AffirmativeBased</default>
                 <documentation>
-                    The name of the class to use for the acegi security access decision manager.
+                    The name of the class to use for the security access decision manager.
                 </documentation>
             </property>
-            <property name="acegiServiceDecisionVoter">
-                <default>org.acegisecurity.vote.RoleVoter</default>
+            <property name="serviceDecisionVoter">
+                <default>org.springframework.security.access.vote.RoleVoter</default>
                 <documentation>
-                    The name of the class to use for the acegi security access decision voter.
+                    The name of the class to use for the security access decision voter.
                 </documentation>
             </property>
-            <property name="acegiRemoteAuthenticationManagerServiceInterface">
-                <default>org.acegisecurity.providers.rcp.RemoteAuthenticationManager</default>
+            <property name="securityRemoteAuthenticationManagerServiceInterface">
+                <default>org.springframework.security.authentication.rcp.RemoteAuthenticationManager</default>
                 <documentation>
-                    The name of the class to use for the acegi security remote authentication manager
+                    The name of the class to use for the security remote authentication manager
                     (in the client remote context).
                 </documentation>
             </property>
-            <property name="acegiRolePrefix">
+            <property name="securityRolePrefix">
                 <default>ROLE_</default>
                 <documentation>
-                    The prefix for all roles defined in the model. This configures the <code>acegiServiceDecisionVoter</code>s <code>rolePrefix</code>
-                    attribute. As proposed by Acegi for our default voter <code>org.acegisecurity.vote.RoleVoter</code>, the default value is <code>ROLE_</code>.
+                    The prefix for all roles defined in the model. This configures the <code>securityServiceDecisionVoter</code>s <code>rolePrefix</code>
+                    attribute. As proposed by Spring for our default voter <code>org.springframework.security.access.vote.RoleVoter</code>, the default value is <code>ROLE_</code>.
                     It can be overwritten with an empty string if no prefix is wanted/necessary at all.
                     Please <strong>NOTE</strong> that AndroMDA will add this prefix to all role/actor names,
                     which do not already have it defined in the model.
                 </documentation>
             </property>
-            <property name="acegiAuthenticationManager" required="false">
+            <property name="securityAuthenticationManager" required="false">
                 <documentation>
-                    The bean name of the acegi authentication manager (defined in a separate applicationContext outside of the generated one).
+                    The bean name of the security authentication manager (defined in a separate applicationContext outside of the generated one).
                 </documentation>
             </property>
-            <property name="acegiRunAsManager" required="false">
+            <property name="securityRunAsManager" required="false">
                 <documentation>
-                    The bean name of the acegi run as manager (defined in a separate applicationContext outside of the generated one).
+                    The bean name of the security run as manager (defined in a separate applicationContext outside of the generated one).
                 </documentation>
             </property>
         </propertyGroup>
@@ -1254,16 +1255,16 @@
                 <default>applicationContext-server-authentication.xml</default>
                 <documentation>
                     The name of the bean definition file used for server side
-                    declarations of user authentication beans when AcegiSecurity is
-                    being used (i.e. acegiServiceSecurity is true).
+                    declarations of user authentication beans when SpringSecurity is
+                    being used (i.e. serviceSecurity is true).
                 </documentation>
             </property>
             <property name="applicationContextClientAuthentication" required="false">
                 <default>applicationContext-client-authentication.xml</default>
                 <documentation>
                     The name of the bean definition file used for client side
-                    declarations of user authentication beans when AcegiSecurity is
-                    being used (i.e. acegiServiceSecurity is true).
+                    declarations of user authentication beans when SpringSecurity is
+                    being used (i.e. serviceSecurity is true).
                 </documentation>
             </property>
             <property name="serverTestBeanRefFactory">
@@ -1284,7 +1285,7 @@
                 <default>applicationContext-test-authentication.xml</default>
                 <documentation>
                     The name of the bean definition file used for server side
-                    declarations of user authentication beans when AcegiSecurity is
+                    declarations of user authentication beans when SpringSecurity is
                     being used and unit tests are being performed.
                 </documentation>
             </property>
@@ -1292,75 +1293,75 @@
                 <documentation>
                    The name of the class to use if a specialized HttpInvokerExecutor is
                    desired on the client side when HttpInvoker is used as the remote
-                   service protocol.  One common use it to use org.acegisecurity.context.httpinvoker.AuthenticationSimpleHttpInvokerRequestExecutor
-                   when remote services are protected with Basic Authentication using Acegi security. Another use
+                   service protocol.  One common use it to use org.springframework.security.remoting.httpinvoker.AuthenticationSimpleHttpInvokerRequestExecutor
+                   when remote services are protected with Basic Authentication using Spring security. Another use
                    is to set this to org.springframework.remoting.httpinvoker.CommonsHttpInvokerRequestExecutor if
                    you want to use Jakarta Commons HttpClient to execute requests.
                 </documentation>
             </property>
-            <property name="acegiAuthenticationManagerImplClass" required="false">
+            <property name="authenticationManagerImplClass" required="false">
                 <documentation>
-                    The class of the authentication manager bean named with the aceciAuthenticationManager
+                    The class of the authentication manager bean named with the authenticationManager
                     namespace property.  If defined, an implementation definition will be added to the server side
                     Spring configuration file named with the applicationContextServerAuthentication namespace
-                    property.
+                    property. Example: org.springframework.security.authentication.ProviderManager
                 </documentation>
             </property>
-            <property name="acegiDaoAuthenticationProviderBeanName" required="false">
+            <property name="daoAuthenticationProviderBeanName" required="false">
                 <default>daoAuthenticationProvider</default>
                 <documentation>
-                    The bean name of the acegi authentication Dao Provider used by the server side
-                    authentication manager implemented with the acegiAuthenticationManagerImplClass namespace
+                    The bean name of the security authentication Dao Provider used by the server side
+                    authentication manager implemented with the authenticationManagerImplClass namespace
                     property.
                 </documentation>
             </property>
-            <property name="acegiDaoAuthenticationProviderImplClass" required="false">
+            <property name="daoAuthenticationProviderImplClass" required="false">
                 <documentation>
-                    The class of the Dao Authentication Provider bean named with the acegiDaoAuthenticationProviderBeanName
+                    The class of the Dao Authentication Provider bean named with the daoAuthenticationProviderBeanName
                     namespace property.  If defined, an implementation definition will be added to the server side
                     Spring configuration file named with the applicationContextServerAuthentication namespace
-                    property.
+                    property. Example: org.springframework.security.authentication.dao.DaoAuthenticationProvider
                 </documentation>
             </property>
-            <property name="acegiAuthenticationDaoBeanName" required="false">
+            <property name="authenticationDaoBeanName" required="false">
                 <documentation>
-                    The bean name of the acegi authentication Dao used by the default server side
+                    The bean name of the security authentication Dao used by the default server side
                     authentication implementation generated for rich client projects.
                 </documentation>
             </property>
-            <property name="acegiAuthenticationDaoImplClass" required="false">
+            <property name="authenticationDaoImplClass" required="false">
                 <documentation>
                     The complete package name and class name of the class that
                     implements user authentication. This property should be set
                     if you want to manage user authentication yourself and
                     you want AndroMDA to generate stub classes to get the
-                    process started.
+                    process started. Example: ${application.package}.UserDetailsServiceImpl
                 </documentation>
             </property>
-            <property name="acegiDaoUserCacheBeanName" required="false">
+            <property name="securityDaoUserCacheBeanName" required="false">
                 <documentation>
                     The name of the bean that implements a cache for user information. If
                     defined, it activate user caching in the Dao provider by setting
                     the "userCache" property of the Dao provider defined with the
-                    acegiDaoAuthenticationProviderClass namespace property.
+                    securityDaoAuthenticationProviderClass namespace property.
                 </documentation>
             </property>
-            <property name="acegiDaoUserCacheImplClass" required="false">
+            <property name="securityDaoUserCacheImplClass" required="false">
                 <documentation>
                     The name of the class used to implement user caching in the Dao
                     provider.  If defined, a user cache implementation will be added to the server side
                     Spring configuration file named with the applicationContextServerAuthentication namespace
-                    property. If defined, you must also define the acegiUserCacheConfigLocation namespace
-                    property.
+                    property. If defined, you must also define the securityUserCacheConfigLocation namespace
+                    property. Example: org.springframework.security.core.userdetails.cache.EhCacheBasedUserCache
                 </documentation>
             </property>
-            <property name="acegiUserCacheConfigLocation" required="false">
+            <property name="securityUserCacheConfigLocation" required="false">
                 <documentation>
                     The location of the EhCache configuration file used by
-                    the acegiDaoUserCacheImplClass. This name is used as the
+                    the securityDaoUserCacheImplClass. This name is used as the
                     "configLocation" property in the configuration of the implementation
-                    of the acegiDaoUserCacheImplClass namespace property. You should
-                    also define the acegiUserCacheName namespace property so it
+                    of the securityDaoUserCacheImplClass namespace property. You should
+                    also define the securityUserCacheName namespace property so it
                     matches the cache name of the cache to use that is defined in the
                     EhCache configuration file.  If "default" is used for
                     this property, a "default implementation" will be generated in
@@ -1368,37 +1369,37 @@
                     ehcache-server-authentication.xml.
                 </documentation>
             </property>
-            <property name="acegiUserCacheName" required="false">
+            <property name="securityUserCacheName" required="false">
                 <documentation>
                     The name of the cache configuration to use for caching user
                     authentication information.  This cache configuration should be
                     found in the EhCache configuration file defined with
-                    the acegiUserCacheConfigLocation namespace property.
+                    the securityUserCacheConfigLocation namespace property.
                 </documentation>
             </property>
-            <property name="acegiPasswordEncoderBeanName" required="false">
+            <property name="passwordEncoderBeanName" required="false">
                 <documentation>
                     The name of the bean that implements a password encoder for
                     user information. If defined, it activates user password encoding
                     in the Dao provider by setting the "passwordEncoder" property
-                    of the Dao provider defined with the acegiDaoAuthenticationProviderClass
+                    of the Dao provider defined with the daoAuthenticationProviderClass
                     namespace property.
                 </documentation>
             </property>
-            <property name="acegiPasswordEncoderImplClass" required="false">
+            <property name="passwordEncoderImplClass" required="false">
                 <documentation>
                     The name of the class used to implement user password encoder in the Dao
                     provider.  If defined, a password encoder implementation will be added to the server side
                     Spring configuration file named with the applicationContextServerAuthentication namespace
-                    property.
+                    property. Example: org.springframework.security.authentication.encoding.Md5PasswordEncoder
                 </documentation>
             </property>
-            <property name="acegiPasswordSaltSourceBeanName" required="false">
+            <property name="passwordSaltSourceBeanName" required="false">
                 <documentation>
                     The name of the bean that implements a password encoder salt source for
                     user information. If defined, it enhances user password encoding
                     in the Dao provider by setting the "saltSource" property
-                    of the Dao provider defined with the acegiDaoAuthenticationProviderClass
+                    of the Dao provider defined with the daoAuthenticationProviderClass
                     namespace property.
                 </documentation>
             </property>

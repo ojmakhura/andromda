@@ -69,15 +69,15 @@
     </bean>
 
 #end
-#if ($richClient && $acegiServiceSecurity)
+#if ($richClient && $serviceSecurity)
     <!-- Authentication service for remote rich clients -->
     <bean name="/RemoteAuthenticationManagerService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
         <property name="service">
-            <bean class="org.acegisecurity.providers.rcp.RemoteAuthenticationManagerImpl">
-                <property name="authenticationManager" ref="${acegiAuthenticationManager}"/>
+            <bean class="org.springframework.security.authentication.rcp.RemoteAuthenticationManagerImpl">
+                <property name="authenticationManager" ref="${securityAuthenticationManager}"/>
             </bean>
         </property>
-        <property name="serviceInterface" value="org.acegisecurity.providers.rcp.RemoteAuthenticationManager"/>
+        <property name="serviceInterface" value="org.springframework.security.authentication.rcp .RemoteAuthenticationManager"/>
     </bean>
 
 #end

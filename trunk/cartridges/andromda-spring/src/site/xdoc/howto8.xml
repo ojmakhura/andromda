@@ -9,20 +9,20 @@
     </properties>
 
     <body>
-        <section name="Declarative Security with Acegi">
+        <section name="Declarative Security with Spring">
             <p>
-				<a href="http://acegisecurity.sourceforge.net/">Acegi</a> is a security framework based on the Spring Framework.
+				<a href="http://www.springsource.org/spring-security">SpringSecurity</a> is a security framework based on the Spring Framework.
 				It provides authentication and authorization for web and rich client applications.
-				AndroMDA supports Acegi declarative role based security for <a href="howto3.html">Spring Services</a>.
+				AndroMDA supports Spring declarative role based security for <a href="howto3.html">Spring Services</a>.
             </p>
 			 <subsection name="Configuration">
 				<p>
-					To enable Acegi support for the spring cartridge set <a href="namespace.html#acegiServiceSecurity">acegiServiceSecurity</a>
-					to <code>true</code>. All <a href="namespace.html#Acegi_Security">other Acegi properties</a> have been defaulted.
+					To enable Security support for the spring cartridge set <a href="namespace.html#serviceSecurity">serviceSecurity</a>
+					to <code>true</code>. All <a href="namespace.html#Spring_Security">other Security properties</a> have been defaulted.
 				</p>
 				<p>
 					The authentication has to be configured in a separate security context file. The following presents a small example,
-					for more details have a look at the <a href="http://acegisecurity.sourceforge.net/docbook/acegi.html#security-authentication">Acegi reference</a>.
+					for more details have a look at the <a href="http://static.springsource.org/spring-security/site/docs/3.1.x/reference/springsecurity-single.html#tech-intro-authentication">Spring Security reference</a>.
 <source><![CDATA[
 <beans>
     <bean id="myUserDetailsService" class="com.mycompany.MyUserDetailsServiceImpl">
@@ -30,13 +30,13 @@
         <property name="userDao"><ref bean="userDao" /></property>
     </bean>
 
-    <bean id="daoAuthenticationProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
+    <bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
         <property name="userDetailsService">
             <ref bean="myUserDetailsService"/>
         </property>
     </bean>
 
-    <bean id="authenticationManager" class="org.acegisecurity.providers.ProviderManager">
+    <bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
         <property name="providers">
             <list>
                 <ref bean="daoAuthenticationProvider"/>
@@ -58,14 +58,14 @@
 				<p>
 					Please note that if you previously used EJB security, you have to disable it by removing the property 
 					<a href="namespace.html#securityRealm">securityRealm</a> from your AndroMDA build configuration.
-					The nice thing is: you don't have to modify your modeling in this case, the Acegi support is based on the same notation as the EJB security support.
+					The nice thing is: you don't have to modify your modeling in this case, the Security support is based on the same notation as the EJB security support.
 				</p>
 			</subsection>
 			<subsection name="Modeling">
 				<p>
 					Now you have to define some roles for your application. This is simply done by adding actors to your model named with the role's name.
-					A role prefix, e.g. <code>ROLE_</code> as proposed by Acegi for the default <a href="namespace.html#acegiServiceDecisionVoter">acegiServiceDecisionVoter</a> implementation
-					<code>net.sf.acegisecurity.vote.RoleVoter,</code> can be configured though the namespace property <a href="namespace.html#acegiRolePrefix">acegiRolePrefix</a>.
+					A role prefix, e.g. <code>ROLE_</code> as proposed by Spring Security for the default <a href="namespace.html#serviceDecisionVoter">serviceDecisionVoter</a> implementation
+					<code>org.springframework.security.access.vote.RoleVoter,</code> can be configured though the namespace property <a href="namespace.html#securityRolePrefix">securityRolePrefix</a>.
 					This prefix is optional for the actor naming and will be automatically added to the generated code, if missing in the model (recommended).
 				</p>
 				<p>
@@ -82,10 +82,10 @@
 				<p>
 					AndroMDA now generates a security interceptor with a list of all operations and its assigned roles to the
 					<a href="namespace.html#applicationContext">applicationContext</a> file.
-					Each service call will then be intercepted by the <a href="namespace.html#acegiServiceSecurityInterceptor">acegiServiceSecurityInterceptor</a>.
-					The default interceptor <code>net.sf.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor</code> only calls the service method implementation if
+					Each service call will then be intercepted by the <a href="namespace.html#serviceSecurityInterceptor">serviceSecurityInterceptor</a>.
+					The default interceptor <code>org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor</code> only calls the service method implementation if
 					it successfully authenticated the <code>SecurityContext</code> stored within the <code>ContextHolder.</code>
-					More details on this behavior can be found in the <a href="http://acegisecurity.sourceforge.net/docbook/acegi.html#security-interception">Acegi Reference</a>.
+					More details on this behavior can be found in the <a href="http://static.springsource.org/spring-security/site/docs/3.1.x/reference/springsecurity-single.html#authz-pre-invocation">Spring Security Reference</a>.
 				</p>
 				<ul>
 					<li class="gen">Auto-generated source that does not need manual editing</li>

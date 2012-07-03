@@ -7,7 +7,7 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
             /WEB-INF/${applicationContext}
-#if ($acegiServiceSecurity)
+#if ($serviceSecurity)
             /WEB-INF/${applicationContextServerAuthentication}
 #end
 #if ($stringUtils.isNotBlank($dataSource))
@@ -25,14 +25,14 @@
         </param-value>
     </context-param>
 
-#if ($acegiServiceSecurity)
+#if ($serviceSecurity)
     <filter>
         <filter-name>${serviceRemoteContext}_HTTP_BASIC_Authorization_Filter</filter-name>
-        <filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>
-        <init-param>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <!--init-param>
             <param-name>targetClass</param-name>
-            <param-value>org.acegisecurity.ui.basicauth.BasicProcessingFilter</param-value>
-         </init-param>
+            <param-value>org.springframework.security.web.authentication.www.BasicAuthenticationFilter</param-value>
+         </init-param-->
     </filter>
 
     <filter-mapping>

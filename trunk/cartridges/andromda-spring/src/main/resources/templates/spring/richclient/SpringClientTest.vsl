@@ -14,11 +14,11 @@ import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 import ${springTypesPackage}.${clientServiceLocatorName};
 import ${service.packageName}.${service.name};
 
-#if ($acegiServiceSecurity)
-import org.acegisecurity.AccessDeniedException;
-import org.acegisecurity.Authentication;
-import org.acegisecurity.context.SecurityContextHolder;
-import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
+#if ($serviceSecurity)
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 #end
 
@@ -29,7 +29,7 @@ import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 public class ${service.name}RemoteTest extends
     AbstractDependencyInjectionSpringContextTests
 {
-#if ($acegiServiceSecurity)
+#if ($serviceSecurity)
     private Authentication authentication;
 
     protected void onSetUp() throws Exception
@@ -51,7 +51,7 @@ public class ${service.name}RemoteTest extends
         assertNotNull(testService);
 
         // $toDoTag Write test code for ${service.name}::${operation.name}() client.
-#if ($acegiServiceSecurity)
+#if ($serviceSecurity)
         SecurityContextHolder.getContext().setAuthentication(authentication);
 #end
     }

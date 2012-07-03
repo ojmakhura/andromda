@@ -9,12 +9,12 @@
 package $service.packageName;
 #end
 
-#if ($acegiServiceSecurity)
-import org.acegisecurity.Authentication;
-import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.GrantedAuthorityImpl;
-import org.acegisecurity.context.SecurityContextHolder;
-import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
+#if ($serviceSecurity)
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 #end
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
@@ -29,7 +29,7 @@ public class ${service.name}LocalTest
     extends AbstractDependencyInjectionSpringContextTests
 {
 
-#if ($acegiServiceSecurity)
+#if ($serviceSecurity)
     private Authentication mockUser;
 
 #end
@@ -37,7 +37,7 @@ public class ${service.name}LocalTest
         throws Exception
     {
         super.onSetUp();
-#if ($acegiServiceSecurity)
+#if ($serviceSecurity)
         // $toDoTag Specify which roles the "test user" will have for this test
         GrantedAuthority[] mockAuthorities =
             {
@@ -55,7 +55,7 @@ public class ${service.name}LocalTest
         $service.name testService = ${serviceLocatorName}.instance().get${service.name}();
         assertNotNull(testService);
 
-#if ($acegiServiceSecurity)
+#if ($serviceSecurity)
         SecurityContextHolder.getContext().setAuthentication(mockUser);
 
 #end

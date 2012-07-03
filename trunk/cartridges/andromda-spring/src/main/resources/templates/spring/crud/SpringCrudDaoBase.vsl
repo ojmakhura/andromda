@@ -317,10 +317,13 @@ public final class $manageable.manageableDaoBaseName
 #foreach($associationEnd in $manageable.manageableAssociationEnds)
      * @param $associationEnd.name $associationEnd.getDocumentation("")
 #end
+#if($manageable.compositeIdentifier)
+     * @param $manageable.identifierName ${manageable.fullyQualifiedIdentifierTypeName}
+#end
      * @return getDao().update(entity)
      * @see ${manageable.fullyQualifiedDaoName}${esc.hash}update($manageable.fullyQualifiedEntityName)
      */
-    public $manageable.fullyQualifiedEntityName update($memberList)
+    public $manageable.fullyQualifiedEntityName update($memberList#if($manageable.compositeIdentifier), ${manageable.fullyQualifiedIdentifierTypeName} $manageable.identifierName#end)
     {
         final $manageable.fullyQualifiedEntityName entity =#if($manageable.fullyQualifiedName != $manageable.generalizationRoot.fullyQualifiedName) (${manageable.fullyQualifiedName})#end this.getDao().load($manageable.identifierName);
 

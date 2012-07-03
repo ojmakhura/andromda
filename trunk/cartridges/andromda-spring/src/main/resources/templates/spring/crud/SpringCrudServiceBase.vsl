@@ -163,11 +163,14 @@ public final class $manageable.manageableServiceBaseName
 #foreach($associationEnd in $manageable.manageableAssociationEnds)
      * @param $associationEnd.name $associationEnd.getDocumentation("")
 #end
+#if($manageable.compositeIdentifier)
+     * @param $manageable.identifierName ${manageable.fullyQualifiedIdentifierTypeName}
+#end
      * @return toValueObject(this.dao.update($memberListArguments))
      * @throws Exception
      * @see ${manageable.fullyQualifiedManageableDaoName}${esc.hash}update
      */
-    public $manageable.fullyQualifiedManageableValueObjectName update($memberList)
+    public $manageable.fullyQualifiedManageableValueObjectName update($memberList#if($manageable.compositeIdentifier), ${manageable.fullyQualifiedIdentifierTypeName} $manageable.identifierName#end)
         throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
             , java.rmi.RemoteException
@@ -183,7 +186,7 @@ public final class $manageable.manageableServiceBaseName
 
 #end
 #end
-        return toValueObject(this.dao.update($memberListArguments));
+        return toValueObject(this.dao.update($memberListArguments#if($manageable.compositeIdentifier), $manageable.identifierName#end));
     }
 
 #end
