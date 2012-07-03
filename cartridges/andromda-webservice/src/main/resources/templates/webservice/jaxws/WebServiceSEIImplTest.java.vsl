@@ -65,7 +65,7 @@ public class ${service.name}${seiSuffix}ImplTest extends TestCase
     }
 
 #foreach ( $operation in $service.allowedOperations)
-#if ($operation.visibility.equals("public") || $operation.visibility.equals("package"))
+#if ($operation.visibility.equals("public") || $operation.visibility.equals(""))
 #if (!$useArrayWrapper && ($operation.upper>1 || $operation.upper==-1))
 #set ($returnType = "java.util.List<$operation.returnType.fullyQualifiedName>")
 #else
