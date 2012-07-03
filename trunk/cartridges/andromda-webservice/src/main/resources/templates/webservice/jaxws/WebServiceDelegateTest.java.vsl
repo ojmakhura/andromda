@@ -57,7 +57,7 @@ public class ${service.name}WSDelegateTest extends TestCase
     }
 
 #foreach ( $operation in $service.allowedOperations)
-#if ($operation.visibility.equals("public") || $operation.visibility.equals("package"))
+#if ($operation.visibility.equals("public") || $operation.visibility.equals(""))
     /**
 #set ($pound="#")
      * Test method for {@link ${service.fullyQualifiedName}WSDelegate$pound${service.name}WSDelegate()}.
