@@ -466,11 +466,8 @@
                 <property name="generateEqualPropertiesMethod">true</property>
 #if ($ejb3)
                 <!-- Comment out the enumerations outlet for the java cartridge to avoid conflict
-                     with the ejb3 cartridge.
-                <property name="enumerations">${common.generated.dir}</property>
+                     with the ejb3 cartridge. Use outlet for JDK5.
                 -->
-#else
-                <property name="enumerations">${common.generated.dir}</property>
 #end
                 <property name="exceptions">${common.generated.dir}</property>
                 <property name="value-objects">${common.generated.dir}</property>

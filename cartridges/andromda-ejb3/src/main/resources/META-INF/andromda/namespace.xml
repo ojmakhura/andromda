@@ -82,29 +82,29 @@
                     </p>
                 </documentation>
             </property>
-			<property name="application-config">
+            <property name="application-config">
 			    <documentation>
-			        The location where the application specific XML 
+			        The location where the application specific XML
 			        descriptors are generated.  i.e the application
 			        login-config.xml descriptor.
 			    </documentation>
 			</property>
 			<property name="application-metainf">
 			    <documentation>
-			        The location where the application specific XML 
+			        The location where the application specific XML
 			        descriptors that are packaged in the ear file are
 			        generated.
 			    </documentation>
 			</property>
 			<property name="message-driven-beans">
 				<documentation>
-					The directory to which Message Driven Bean files 
+					The directory to which Message Driven Bean files
 					are generated.
 				</documentation>
 			</property>
 			<property name="message-driven-impls">
 				<documentation>
-					The directory to which Message Driven Bean 
+					The directory to which Message Driven Bean
 					implementation files are generated.
 				</documentation>
 			</property>
@@ -117,7 +117,7 @@
 			</property>
             <property name="user-types">
                 <documentation>
-                    The location to which user-types such as enumeration 
+                    The location to which user-types such as enumeration
                     are generated.
                 </documentation>
             </property>
@@ -177,7 +177,7 @@
             <property name="hibernateHbm2DDLAuto" required="false">
             	<default>update</default>
                 <documentation>
-                    Automatically export schema DDL to the database when deployed. 
+                    Automatically export schema DDL to the database when deployed.
                     With create-drop, the database schema will be dropped when
                     the entity is undeployed. Permitted values are:
                     <ul>
@@ -245,7 +245,7 @@
             </property>
             <property name="hibernateMaxFetchDepth" required="false">
                 <documentation>
-                    Sets a maximum "depth" for the outer join fetch tree. 
+                    Sets a maximum "depth" for the outer join fetch tree.
                     Recommended values between 0 and 3
                 </documentation>
             </property>
@@ -269,7 +269,7 @@
             </property>
             <property name="hibernateJdbcUseStreamsForBinary" required="false">
                 <documentation>
-                    Whether or not to use streams when writing / reading binary 
+                    Whether or not to use streams when writing / reading binary
                     or serializable types to/from JDBC.
                 </documentation>
             </property>
@@ -317,6 +317,12 @@
             <property name="testConnectionUrl" required="false">
                 <documentation>
                     URL for the JDBC Driver to make the connection to the test database.
+                </documentation>
+            </property>
+            <property name="testCatalog" required="false">
+                <documentation>
+                    The Database Catalog used to determine the tables used for reveng.xml.
+                    Should be the capitalized database name.
                 </documentation>
             </property>
             <property name="testDialect" required="false">
@@ -381,7 +387,7 @@
             <property name="hibernateEnableCache">
                 <default>false</default>
                 <documentation>
-                    Enable/disable hibernate's second level cache 
+                    Enable/disable hibernate's second level cache
                     features for the cartridge.  This implies the
                     JBoss Cache framework for the EJB3 cartridge.
                     By enabling this, you are enabling entity
@@ -391,9 +397,9 @@
             <property name="hibernateEnableAssociationsCache">
                 <default>false</default>
                 <documentation>
-                    Enable/disable Hibernate's second level cache 
+                    Enable/disable Hibernate's second level cache
                     feature for entity associations.
-                    Please <strong>NOTE</strong> that hibernateEnableCache 
+                    Please <strong>NOTE</strong> that hibernateEnableCache
                     should also be enabled when specifying this property.
                 </documentation>
             </property>
@@ -402,7 +408,7 @@
                 <documentation>
                     Enable/disable Hibernate's query cache
                     feature for queries.
-                    Please <strong>NOTE</strong> that hibernateEnableCache 
+                    Please <strong>NOTE</strong> that hibernateEnableCache
                     should also be enabled when specifying this property.
                 </documentation>
             </property>
@@ -421,7 +427,7 @@
             <property name="hibernateEntityCache">
                 <default>TRANSACTIONAL</default>
                 <documentation>
-                    Defines the default strategy for Entities caching. 
+                    Defines the default strategy for Entities caching.
                     Can be overwritten using the corresponding
                     tagged value <code>andromda_persistence_entity_cache</code>.
                     Possible values are:
@@ -437,7 +443,7 @@
             <property name="hibernateAssociationCache">
                 <default>TRANSACTIONAL</default>
                 <documentation>
-                    Defines the default strategy for associations between 
+                    Defines the default strategy for associations between
                     Entities caching. Can be overwritten with the corresponding
                     tagged value <code>andromda_persistence_association_cache</code>.
                     Possible values are:
@@ -473,7 +479,7 @@
             <property name="hibernateTransactionManagerLookupClass" required="false">
                 <documentation>
                      Defines the classname of a TransactionManagerLookup
-                     which is required when JVM-level caching is enabled 
+                     which is required when JVM-level caching is enabled
                      or when using hilo generator in a JTA environment.
                      Typically, this value is:
                      <ul>
@@ -712,43 +718,43 @@
             <property name="manageableCreateExceptionNamePattern">
                 <default>{0}CreateManageableException</default>
                 <documentation>
-                    The pattern to use when constructing the create 
+                    The pattern to use when constructing the create
                     manageable application exception name.
                 </documentation>
             </property>
             <property name="manageableReadExceptionNamePattern">
                 <default>{0}ReadManageableException</default>
                 <documentation>
-                    The pattern to use when constructing the read 
+                    The pattern to use when constructing the read
                     manageable application exception name.
                 </documentation>
             </property>
             <property name="manageableUpdateExceptionNamePattern">
                 <default>{0}UpdateManageableException</default>
                 <documentation>
-                    The pattern to use when constructing the update 
+                    The pattern to use when constructing the update
                     manageable application exception name.
                 </documentation>
             </property>
             <property name="manageableDeleteExceptionNamePattern">
                 <default>{0}DeleteManageableException</default>
                 <documentation>
-                    The pattern to use when constructing the update 
+                    The pattern to use when constructing the update
                     manageable application exception name.
                 </documentation>
             </property>
             <property name="labelCollectionNamePattern">
                 <default>{0}Labels</default>
                 <documentation>
-                    The pattern to use when defining the display 
+                    The pattern to use when defining the display
                     attribute label name when it's of type Collection.
                 </documentation>
             </property>
             <property name="labelSingleNamePattern">
                 <default>{0}Label</default>
                 <documentation>
-                    The pattern to use when defining the display 
-                    attribute label name when it's NOT of type 
+                    The pattern to use when defining the display
+                    attribute label name when it's NOT of type
                     Collection.
                 </documentation>
             </property>
@@ -763,7 +769,7 @@
             <property name="embeddedValueImplementationNamePattern">
                 <default>{0}Impl</default>
                 <documentation>
-                    The pattern to use when constructing an embedded 
+                    The pattern to use when constructing an embedded
                     value implementation name.
                 </documentation>
             </property>
@@ -906,17 +912,17 @@
 					tagged value, can be the following possible values:
 					<ul>
 						<li>
-                            SINGLE_TABLE - A single table per class hierarchy. One table will have all 
+                            SINGLE_TABLE - A single table per class hierarchy. One table will have all
                             properties of every class in the hierarchy.
                         </li>
 						<li>
 							TABLE_PER_CLASS - A table per concrete class in the
-							hierarchy. Each class will have a table dedicated to it, with all of its 
-                            properties and the properties of its superclass mapped to this table. 
+							hierarchy. Each class will have a table dedicated to it, with all of its
+                            properties and the properties of its superclass mapped to this table.
 						</li>
 						<li>
-                            JOINED - A table per subclass. Each class will have its own table. Each 
-                            table will have only the properties that are defined in that particular class. 
+                            JOINED - A table per subclass. Each class will have its own table. Each
+                            table will have only the properties that are defined in that particular class.
                             These tables will not have properties of any superclass or subclass.
                         </li>
 					</ul>
@@ -951,8 +957,8 @@
 			<property name="entityGenericFinders">
 			    <default>true</default>
 			    <documentation>
-			        Specifies whether to include the generic finder 
-			        property.  Generic finders in the entity bean include 
+			        Specifies whether to include the generic finder
+			        property.  Generic finders in the entity bean include
 			        findByPrimaryKey and findAll.
 			        Permitted values are:
 			        <ul>
@@ -1070,11 +1076,11 @@
             <property name="daoInheritanceEnabled">
                 <default>false</default>
                 <documentation>
-                    Whether or not the DAOs should make up an inheritance tree in 
-                    the same way as their respective entities. This is disabled 
+                    Whether or not the DAOs should make up an inheritance tree in
+                    the same way as their respective entities. This is disabled
                     by default but you might want to enable it if you prefer to have
-                    top-level DAO operations visible in child DAO classes. The EJB3 
-                    cartridge uses JDK5 generics, further enahanced by enabling the 
+                    top-level DAO operations visible in child DAO classes. The EJB3
+                    cartridge uses JDK5 generics, further enahanced by enabling the
                     <code>enableTemplating</code> namespace property.
                 </documentation>
             </property>
@@ -1085,11 +1091,19 @@
                     from the entity shall be generated.
                 </documentation>
             </property>
+            <property name="daoPackageNamePattern">
+                <default>{0}</default>
+                <documentation>
+                    The pattern to use when constructing the package for
+                    the dao class. By default, the same package as the entities.
+                    <em>{0}</em> is used to represent the entity name in the model.
+                </documentation>
+            </property>
             <property name="daoNamePattern">
                 <default>{0}Dao</default>
                 <documentation>
-                    The pattern to use when constructing the DAO name. <em>{0}</em> 
-                    is used to represent the entity name in the model, so if you 
+                    The pattern to use when constructing the DAO name. <em>{0}</em>
+                    is used to represent the entity name in the model, so if you
                     specified a value of <code>{0}Dao</code> all
                     the entities generated would have a suffix of "Dao".
                 </documentation>
@@ -1117,7 +1131,7 @@
             <property name="daoDefaultExceptionNamePattern">
                 <default>{0}DaoException</default>
                 <documentation>
-                    The pattern to use when constructing the DAO 
+                    The pattern to use when constructing the DAO
                     default exception name.
                 </documentation>
             </property>
@@ -1238,7 +1252,7 @@
 			        This property separates
 			        the roles for manageable session beans and
 			        the remaining components.
-			        It is expected that the list of roles 
+			        It is expected that the list of roles
 			        secure all manageable session beans.
 			    </documentation>
 			</property>
@@ -1247,9 +1261,9 @@
 			<property name="persistenceProviderExtensions">
 				<default>none</default>
 				<documentation>
-					Determines whether the default persistence provider 
+					Determines whether the default persistence provider
 					extensions such as annotations should also be rendered.
-					By default, this is disabled.  
+					By default, this is disabled.
 					To enable caching:
 					this must be set to <b>hibernate</b> such that
 					the Hibernate caching annotations are rendered.
@@ -1311,13 +1325,34 @@
 			<property name="persistenceContainerName">
 				<default>jboss</default>
 				<documentation>
-					The default persistence container engine name.
-					Used when specifying specific annotations
+					The default container deployment platform name and version.
+					Used when specifying specific annotations and dependencies and tests
 					for different persistence containers.
 					Possible values are:
 					<ul>
-						<li>jboss</li>
-						<li>weblogic</li>
+                      <li>jboss7</li>
+                      <li>jboss6</li>
+                      <li>jboss51</li>
+                      <li>jboss5</li>
+                      <li>jboss42</li>
+                      <li>jboss4</li>
+                      <li>jboss3</li>
+                      <li>was8</li>
+                      <li>was7</li>
+                      <li>was61</li>
+                      <li>wasce2</li>
+                      <li>glassfish3</li>
+                      <li>glassfish2</li>
+                      <li>weblogic11</li>
+                      <li>weblogic10</li>
+                      <li>weblogic9</li>
+                      <li>weblogic8</li>
+                      <li>geronimo</li>
+                      <li>jonas5</li>
+                      <li>oracleas</li>
+                      <li>resin3</li>
+                      <li>resin4</li>
+                      <li>sun8</li>
 					</ul>
 				</documentation>
 			</property>
@@ -1351,7 +1386,7 @@
                 <documentation>
                     A flag indicating whether or not specific collection interfaces will be used
                     in association end mutators and accessors (i.e. java.util.Set, java.util.List, etc).
-                    If this is set to false, then the value of the 
+                    If this is set to false, then the value of the
                     <a href="#defaultCollectionInterface">defaultCollectionInterface</a>
                     property will used to provide the collection interface.
                 </documentation>
@@ -1360,7 +1395,7 @@
                 <default>java.util.Set</default>
                 <documentation>
                     The default collection interface, this is the interface used with association end
-                    accessors and mutators if the 
+                    accessors and mutators if the
                     <a href="#specificCollectionInterfaces">specificCollectionInterfaces</a>
                     flag is set to <code>false</code>.
                 </documentation>
@@ -1373,7 +1408,7 @@
             </property>
             <property name="associationEndCollectionIndexName" required="false">
                 <documentation>
-                    The default association end collection index name 
+                    The default association end collection index name
                     (this can be overridden by the
                     <a href="profile.html#andromda_persistence_collection_index">andromda_persistence_collection_index</a>).
                 </documentation>
@@ -1381,7 +1416,7 @@
             <property name="associationEndCollectionIndexType" required="false">
                 <default>datatype::String</default>
                 <documentation>
-                    The default association end collection index type 
+                    The default association end collection index type
                     (this can be overridden by the
                     <a href="profile.html#andromda_persistence_collection_index_type">andromda_persistence_collection_index_type</a>
                     (this is applicable when the collection is a map).
@@ -1452,7 +1487,7 @@
             <property name="parameterRequiredCheck">
                 <default>true</default>
                 <documentation>
-                    Whether or not parameters should be checked if they're 
+                    Whether or not parameters should be checked if they're
                     required on services bean operation.
                 </documentation>
             </property>

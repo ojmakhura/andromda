@@ -754,7 +754,7 @@ public class EJB3Profile
 
     /**
      * 'andromda_service_security_realm'
-     * The tagged value representing the security domain to sepecify at
+     * The tagged value representing the security domain to specify at
      * the session bean class level.
      */
     public static final String TAGGEDVALUE_EJB_SECURITY_REALM =
@@ -885,6 +885,13 @@ public class EJB3Profile
      */
     public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_CACHE =
         profile.get("ASSOCIATION_CACHE");
+
+    /**
+     * 'andromda_persistence_associationEnd_primary'
+     * Defines the owning side of a bidirectional navigable relationship.
+     */
+    public static final String TAGGEDVALUE_PERSISTENCE_ASSOCIATION_END_PRIMARY =
+        profile.get("ASSOCIATION_END_PRIMARY");
 
     /**
      * 'andromda_hibernate_cascade'

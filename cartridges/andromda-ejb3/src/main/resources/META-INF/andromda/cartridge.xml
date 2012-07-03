@@ -5,7 +5,7 @@
         <macrolibrary name="templates/ejb3/common/JNDIMacros.vm"/>
         <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>
-    
+
     <!-- define the template objects that are made available to the template -->
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="collectionUtils" className="org.apache.commons.collections.CollectionUtils"/>
@@ -18,7 +18,7 @@
     <!-- cartridge-templateObject merge-point-->
 
     <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
-    
+
     <property reference="toDoTag"/>
     <property reference="driver"/>
     <property reference="username"/>
@@ -26,6 +26,12 @@
     <property reference="connectionUrl"/>
     <property reference="dataSource"/>
     <property reference="dataSourceName"/>
+    <property reference="testDialect"/>
+    <property reference="testDriver"/>
+    <property reference="testConnectionUrl"/>
+    <property reference="testUsername"/>
+    <property reference="testPassword"/>
+    <property reference="testCatalog"/>
     <property reference="entityManagerName"/>
     <property reference="hibernateHbm2DDLAuto"/>
     <property reference="hibernateDialect"/>
@@ -75,7 +81,7 @@
     <property reference="entityVOTransformations"/>
     <property reference="entityCmpEqHash"/>
     <property reference="entityFindersOnUniqueProperties"/>
-    
+
     <!-- cartridge-property merge-point -->
 
     <condition name="enableTemplating">$enableTemplating.equalsIgnoreCase("true")</condition>
@@ -96,9 +102,9 @@
         outlet="test-config"
         overwrite="true"
         lastModifiedCheck="true"/>
-        
+
     <!-- cartridge-templateObject merge-point-->
-    
+
     <!-- Entity Bean Templates -->
 
     <template 
@@ -134,7 +140,7 @@
 
     <template 
         path="templates/ejb3/EntityListener.vsl"
-        outputPattern="$generatedFile" 
+        outputPattern="$generatedFile"
         outlet="entity-impls"
         overwrite="false">
         <modelElements variable="entity">
@@ -977,7 +983,7 @@
             </modelElement>
         </modelElements>
     </template>
-    
+
     <!-- cartridge-template merge-point -->
 
 </cartridge>

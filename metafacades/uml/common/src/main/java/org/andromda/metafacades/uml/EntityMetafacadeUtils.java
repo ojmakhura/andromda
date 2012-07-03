@@ -12,6 +12,7 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
  * Utilities for dealing with entity metafacades
@@ -21,6 +22,11 @@ import org.apache.commons.lang.StringUtils;
  */
 public class EntityMetafacadeUtils
 {
+    /**
+     * The logger instance.
+     */
+    private static final Logger LOGGER = Logger.getLogger(EntityMetafacadeUtils.class);
+
     /**
      * <p/> Converts a string following the Java naming conventions to a
      * database attribute name. For example convert customerName to
@@ -219,16 +225,25 @@ public class EntityMetafacadeUtils
     {
         // Initially holds entities with no outgoing relations. Add related entities to the end
         List<Entity> sorted = new ArrayList<Entity>();
-        // Holds entities with relations after first pass. Second pass sorts the entities
-        List<Entity> unsorted = new ArrayList<Entity>();
-        if (entities != null)
+        if (sortedEntities!=null && !sortedEntities.isEmpty())
         {
+            sorted = sortedEntities;
+        }
+        else if (entities != null)
+        {
+            // Move entities into the sorted list step by step
+            List<Entity> toBeMoved = new ArrayList<Entity>();
+            List<Entity> unsorted = new ArrayList<Entity>();
             for (Entity entity : entities)
             {
-                // We won't be testing or creating abstract entities
-                if (!entity.isAbstract())
+             // Remove abstract entities from the list: We won't be testing or creating abstract entities
+                if (entity.isAbstract())
                 {
-                    //Collection<ClassifierFacade> ends = entity.getNavigableConnectingEnds();
+                    toBeMoved.add(entity);
+                }
+                else
+                {
+                    Collection<ClassifierFacade> ends = entity.getNavigableConnectingEnds();
                     // Put the entities with no associations first in the sorted list
                     if (entity.getNavigableConnectingEnds().size()==0)
                     {
@@ -241,49 +256,143 @@ public class EntityMetafacadeUtils
                     }
                 }
             }
+            // Prevent ConcurrentModificationException by using a temp removal list
+            for (Entity entity : toBeMoved)
+            {
+                entities.remove(entity);
+            }
+            /*// Holds entities with relations after first pass. Second pass sorts the entities
+            for (Entity entity : entities)
+            {
+                Collection<AssociationEndFacade> ends = entity.getNavigableConnectingEnds();
+                //System.out.println(entity.getName() + " Nav ends=" + ends.size());
+                // Put the entities with no associations first in the sorted list
+                if (ends.size()==0)
+                {
+                    sorted.add(entity);
+                    //System.out.println(entity.getName() + " No associations");
+                }
+                else
+                {
+                    unsorted.add(entity);
+                }
+            }*/
+            /*for (Entity entity : sorted)
+            {
+                System.out.println(entity.getName() + " Sorted First");
+            }
+            String moved = " ToBeMoved: ";
+            for (Entity entity : unsorted)
+            {
+                moved += entity.getName() + " ";
+            }
+            System.out.println(sorted.size() + " Sorted " + unsorted.size() + " Unsorted " + moved);*/
+            // Work backwards from unsorted list, moving entities to sorted list until none remain
+            // Since all associations must be owned by one side, all will eventually be moved to sorted list
+            int moveCount = 1; // Stop looping if no more to be moved, prevent infinite loop on circular relationships
+            while (unsorted.size() > 0 && moveCount > 0)
+            {
+                toBeMoved = new ArrayList<Entity>();
+                for (Entity entity : unsorted)
+                {
+                    Collection<ClassifierFacade> ends = entity.getNavigableConnectingEnds();
+                    // See if any navigable connecting ends are not owned by this entity
+                    boolean createFirst = true;
+                    for (ClassifierFacade entityEnd : ends)
+                    {
+                        //ClassifierFacade entityEnd = end.getType();
+                        // Owning relations are sorted after entities on the opposite end
+                        int referencedPosition = unsorted.lastIndexOf(entityEnd);
+                        //System.out.println(entity.getName() + " -> " + entityEnd.getName() + " refPos=" + referencedPosition + " isOwningEnd " + UMLMetafacadeUtils.isOwningEnd(end));
+                        //if (referencedPosition > -1 && UMLMetafacadeUtils.isOwningEnd(entityEnd) && !entityEnd.getFullyQualifiedName().equals(entity.getFullyQualifiedName()))
+                        if (referencedPosition > -1 && !entityEnd.getFullyQualifiedName().equals(entity.getFullyQualifiedName()))
+                        {
+                            // Other Entity side of an owned relationship must be created first
+                            createFirst = false;
+                            break;
+                        }
+                    }
+                    if (createFirst)
+                    {
+                        toBeMoved.add(entity);
+                        //System.out.println(entity.getName() + " Added to toBeMoved");
+                    }
+                }
+                moveCount = toBeMoved.size();
+                /*moved = " ToBeMoved: ";
+                for (Entity entity : toBeMoved)
+                {
+                    moved += entity.getName() + " ";
+                }*/
+                //System.out.println(sorted.size() + " Sorted " + unsorted.size() + " Unsorted " + toBeMoved.size() + moved);
+                for (Entity entity : toBeMoved)
+                {
+                    unsorted.remove(entity);
+                    sorted.add(entity);
+                }
+            }
+            if (moveCount==0 && unsorted.size() > 0)
+            {
+                // There are unresolvable circular relationships
+                String circular = "Circular relationships between Entities:";
+                for (Entity entity : unsorted)
+                {
+                    circular += " " + entity.getName();
+                }
+                LOGGER.error(circular);
+                // Add them to the sorted list anyway and hope for the best...
+            }
+            /*int moves = -1;
             for (Entity entity : unsorted)
             {
                 if (!entity.isAbstract())
                 {
                     Collection<AssociationEndFacade> ends = entity.getAssociationEnds();
                     // Test each association to see if incoming or outgoing. sort outgoing before incoming.
-                    //for (AssociationEndFacade end : ends)
                     for (AssociationEndFacade end : ends)
                     {
                         AssociationEndFacade otherEnd = end.getOtherEnd();
-                        if (end.isNavigable() && end.getType() instanceof Entity)
+                        if (otherEnd.getType() instanceof Entity)
                         {
                             // otherEnd is actually the association/type on this entity
-                            Entity entityEnd = (Entity)end.getType();
+                            Entity entityEnd = (Entity)otherEnd.getType();
                             // Incoming relations are sorted after other entities
                             // Aggregation and Composition always owns the end
                             // One to Many association many end comes last
                             int thisPosition = unsorted.lastIndexOf(entity);
                             int referencedPosition = unsorted.lastIndexOf(entityEnd);
-                            // Special case: 1to1 with one end marked as primary. Hibernate cartridge specific.
-                            boolean primary = BooleanUtils.toBoolean(
-                                ObjectUtils.toString(end.findTaggedValue("andromda_persistence_associationEnd_primary")));
-                            //System.out.println(entity.getName() + "=" + thisPosition + " " + entityEnd.getName() + "=" + referencedPosition + " prop=" + end.getName() + " primary=" + primary + " Many=" + end.isMany() + " One2One=" + end.isOne2One() + " end=" + end + " other=" + otherEnd);
-                            //System.out.println(entity.getName() + "=" + thisPosition + " " + entityEnd.getName() + "=" + referencedPosition + " prop=" + end.getName() + " AggE=" + end.isAggregation() + " CompE=" + end.isComposition() + " Agg=" + otherEnd.isAggregation() + " Comp=" + otherEnd.isComposition() + " Many=" + end.isMany() + " One2One=" + end.isOne2One() + " end=" + end + " other=" + otherEnd);
-                            if (!otherEnd.isAggregation() && !otherEnd.isComposition() &&
-                                (!end.isMany() || end.isOne2One()))
+                            // Determine if this end is the relationship owner
+                            //boolean primary = BooleanUtils.toBoolean(
+                            //    ObjectUtils.toString(end.findTaggedValue("andromda_persistence_associationEnd_primary")));
+                            System.out.println(entity.getName() + "=" + thisPosition + " " + entityEnd.getName() + "=" + referencedPosition + " prop=" + otherEnd.getName() + " owned=" + isOwningEnd(otherEnd));
+                            //System.out.println(entity.getName() + "=" + thisPosition + " " + entityEnd.getName() + "=" + referencedPosition + " prop=" + end.getName() + " AggE=" + end.isAggregation() + " CompE=" + end.isComposition() + " OAgg=" + otherEnd.isAggregation() + " OComp=" + otherEnd.isComposition() + " Many=" + end.isMany() + " One2One=" + end.isOne2One() + " end=" + end + " other=" + otherEnd);
+                            // This owning end should be created after the other side Entity
+                            if (thisPosition > -1 && referencedPosition > -1)
                             {
-                                if (!end.isOne2One() || !primary)
+                                if (isOwningEnd(otherEnd) && thisPosition < referencedPosition)
                                 {
-                                    if (thisPosition > -1 && referencedPosition > -1 && referencedPosition > thisPosition)
-                                    {
-                                        // Swap the locations of the two List entries if referenced entity is higher in the list
-                                        unsorted.set(referencedPosition, entity);
-                                        unsorted.set(thisPosition, entityEnd);
-                                        //System.out.println(entity.getName() + " swapped with " + entityEnd.getName());
-                                    }
+                                    // Move the locations of the two List entries if referenced entity is higher in the list
+                                    // Avoid ConcurrentModificationEx by operating on temp List
+                                    unsorted.remove(entityEnd);
+                                    unsorted.add(unsorted.lastIndexOf(entity), entityEnd);
+                                    System.out.println(entityEnd.getName() + " moved in front of " + entity.getName());
+                                    moves += 1;
+                                }
+                                else if (!isOwningEnd(otherEnd) && thisPosition > referencedPosition)
+                                {
+                                    // Move the locations of the two List entries if referenced entity is higher in the list
+                                    unsorted.remove(end);
+                                    unsorted.add(unsorted.lastIndexOf(entityEnd), entity);
+                                    System.out.println(entity.getName() + " moved behind " + entityEnd.getName());
+                                    moves += 1;
                                 }
                             }
                         }
                     }
                 }
-            }
+            }*/
             sorted.addAll(unsorted);
+            sortedEntities = sorted;
         }
         if (!ascending)
         {

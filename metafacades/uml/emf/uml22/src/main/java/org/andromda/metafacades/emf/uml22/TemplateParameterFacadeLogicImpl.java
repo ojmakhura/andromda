@@ -37,7 +37,7 @@ public class TemplateParameterFacadeLogicImpl
      * @param context
      */
     public TemplateParameterFacadeLogicImpl(
-        final TemplateParameter metaObject,
+        final ClassifierTemplateParameter metaObject,
         final String context)
     {
         super(metaObject, context);
@@ -86,18 +86,13 @@ public class TemplateParameterFacadeLogicImpl
     public final ClassifierFacade getType()
     {
         ClassifierFacade getType2r = null;
-        Classifier type = null;
-        TemplateParameter param = this.metaObject;
+        ClassifierTemplateParameter param = (ClassifierTemplateParameter)this.metaObject;
         ParameterableElement element = this.metaObject.getOwnedParameteredElement();
         // param.getConstrainingClassifiers()) for UML2 3.0, allows multiple classifiers
-        if (param instanceof ClassifierTemplateParameter)
+        Classifier type = param.getConstrainingClassifier(this.getName());
+        if (type==null && param.getConstrainingClassifiers()!=null && param.getConstrainingClassifiers().size()>0)
         {
-            final ClassifierTemplateParameter clasifierParameter = (ClassifierTemplateParameter)param;
-            type = clasifierParameter.getConstrainingClassifier(this.getName());
-            if (type==null && clasifierParameter.getConstrainingClassifiers()!=null && clasifierParameter.getConstrainingClassifiers().size()>0)
-            {
-                type = clasifierParameter.getConstrainingClassifiers().get(0);
-            }
+            type = param.getConstrainingClassifiers().get(0);
         }
         if (type == null && element instanceof Classifier)
         {

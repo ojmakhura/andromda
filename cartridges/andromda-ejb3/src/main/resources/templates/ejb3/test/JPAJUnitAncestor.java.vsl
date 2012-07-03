@@ -19,9 +19,9 @@ import org.testng.Assert;
 public abstract class JPAJUnitAncestor
 {
     private static Logger LOGGER = LogManager.getLogger(JPAJUnitAncestor.class);
-    /** EntityManagerFactory used here and in descendants */
-    protected EntityManagerFactory emf;
-    /** EntityManager */
+    /** EntityManagerFactory used here and in descendants - threadsafe */
+    public static EntityManagerFactory emf;
+    /** EntityManager - not threadsafe */
     protected EntityManager em;
     /** "UNIT_TEST" */
     public static final String PERSISTENCE_UNIT = "UNIT_TEST";
@@ -39,11 +39,11 @@ public abstract class JPAJUnitAncestor
     }
 
     /**
-     * @param name
+     * @param entityNameIn Entity Name for criteria queries
      */
-    public JPAJUnitAncestor(final String name)
+    public JPAJUnitAncestor(final String entityNameIn)
     {
-        // Public constructor
+        this.entityName = entityNameIn;
     }
 
     /**
@@ -54,9 +54,10 @@ public abstract class JPAJUnitAncestor
     {
         // Test class specific setUpBeforeClass
         JPAJUnitAncestor.LOGGER.debug("creating entity manager");
-        this.emf = Persistence.createEntityManagerFactory(JPAJUnitAncestor.PERSISTENCE_UNIT);
-        this.em = this.emf.createEntityManager();
-        Assert.assertNotNull(this.em);
+        JPAJUnitAncestor.emf = Persistence.createEntityManagerFactory(JPAJUnitAncestor.PERSISTENCE_UNIT);
+        Assert.assertNotNull(JPAJUnitAncestor.emf);
+        this.em = JPAJUnitAncestor.emf.createEntityManager();
+        Assert.assertNotNull(this.getEm());
     }
 
     /**
@@ -65,6 +66,9 @@ public abstract class JPAJUnitAncestor
     public void setUp()
     {
         // Test class specific before each test
+        //this.em = JPAJUnitAncestor.emf.createEntityManager();
+        Assert.assertNotNull(this.getEm());
+        this.getEm().getTransaction().begin();
     }
 
     /**
@@ -81,19 +85,25 @@ public abstract class JPAJUnitAncestor
      */
     public void tearDown()
     {
-        JPAJUnitAncestor.LOGGER.debug("tearDownAfterClass() started, em=" + this.em);
-        EntityTransaction trans = this.em.getTransaction();
-        if (!trans.isActive())
+        //JPAJUnitAncestor.LOGGER.debug("tearDownAfterClass() started, em=" + this.em);
+        Assert.assertNotNull(this.getEm());
+        EntityTransaction trans = this.getEm().getTransaction();
+        if (trans.isActive())
         {
-            trans.begin();
-        }
-        if (trans.getRollbackOnly())
-        {
-            trans.rollback();
+            if (trans.getRollbackOnly())
+            {
+                trans.rollback();
+                //JPAJUnitAncestor.LOGGER.info("tearDown rollback Transaction");
+            }
+            else
+            {
+                trans.commit();
+                //JPAJUnitAncestor.LOGGER.info("tearDown commit Transaction");
+            }
         }
         else
         {
-            trans.commit();
+            JPAJUnitAncestor.LOGGER.warn("tearDown Transaction not active");
         }
         // Run closeAll() after logging test output from DB query
     }
@@ -105,25 +115,26 @@ public abstract class JPAJUnitAncestor
     {
         try
         {
-            EntityTransaction trans = this.em.getTransaction();
-            if (!trans.isActive())
+            EntityTransaction trans = this.getEm().getTransaction();
+            if (trans.isActive())
             {
-                trans.begin();
-            }
-            if (trans.getRollbackOnly())
-            {
-                trans.rollback();
-            }
-            else
-            {
-                trans.commit();
+                if (trans.getRollbackOnly())
+                {
+                    trans.rollback();
+                    //JPAJUnitAncestor.LOGGER.info("closeAll rollback Transaction");
+                }
+                else
+                {
+                    trans.commit();
+                    //JPAJUnitAncestor.LOGGER.info("closeAll commit Transaction");
+                }
             }
         }
         finally
         {
-            this.em.close();
-            this.emf.close();
-            JPAJUnitAncestor.LOGGER.debug("closeAll() complete, em=" + this.em);
+            this.getEm().close();
+            JPAJUnitAncestor.emf.close();
+            JPAJUnitAncestor.LOGGER.debug("closeAll() complete, em=" + this.getEm());
         }
     }
 
@@ -135,13 +146,13 @@ public abstract class JPAJUnitAncestor
     {
         if (this.entityName != null)
         {
-            final Query query = this.em.createQuery("select a from " + this.entityName + " as a");
+            final Query query = this.getEm().createQuery("select a from " + this.entityName + " as a");
             @SuppressWarnings("rawtypes")
             List results = query.getResultList();
-            JPAJUnitAncestor.LOGGER.info("select a from " + this.entityName + " as a");
-            for (final Object o : results)
+            //JPAJUnitAncestor.LOGGER.info("select a from " + this.entityName + " as a");
+            for (final Object entity : results)
             {
-                JPAJUnitAncestor.LOGGER.info(this.entityName + ": " + o);
+                JPAJUnitAncestor.LOGGER.info(entity);
             }
             return results.size();
         }
@@ -155,23 +166,23 @@ public abstract class JPAJUnitAncestor
     {
         if (this.entityName != null)
         {
-            EntityTransaction trans = this.em.getTransaction();
-            if (!trans.isActive())
-            {
-                trans.begin();
-            }
-            final Query query = this.em.createNativeQuery("delete from " + this.table);
+            final Query query = this.getEm().createNativeQuery("delete from " + this.table);
             final int rows = query.executeUpdate();
-            if (trans.getRollbackOnly())
-            {
-                trans.rollback();
-            }
-            else
-            {
-                trans.commit();
-            }
-            JPAJUnitAncestor.LOGGER.info("removed " + rows + " rows");
+            JPAJUnitAncestor.LOGGER.info("removed " + rows + " rows from " + this.table);
         }
+    }
+
+    /**
+     * Create a static EntityManager instance for use in test queries
+     * @return em
+     */
+    public static EntityManager createEntityManager()
+    {
+        if (JPAJUnitAncestor.emf == null)
+        {
+            JPAJUnitAncestor.emf = Persistence.createEntityManagerFactory(JPAJUnitAncestor.PERSISTENCE_UNIT);
+        }
+        return JPAJUnitAncestor.emf.createEntityManager();
     }
 
     /**
@@ -179,22 +190,31 @@ public abstract class JPAJUnitAncestor
      */
     public EntityManagerFactory getEmf()
     {
-        return this.emf;
+        if (JPAJUnitAncestor.emf == null)
+        {
+            JPAJUnitAncestor.emf = Persistence.createEntityManagerFactory(JPAJUnitAncestor.PERSISTENCE_UNIT);
+        }
+        return JPAJUnitAncestor.emf;
     }
 
     /**
-     * @param emfIn
+     * @param emfIn EntityManagerFactory for testing
      */
     public void setEmf(final EntityManagerFactory emfIn)
     {
-        this.emf = emfIn;
+        JPAJUnitAncestor.emf = emfIn;
     }
 
     /**
+     * Return exiting EntityManager instance, or get a new one if needed
      * @return em
      */
     public EntityManager getEm()
     {
+        if ((this.em == null || !this.em.isOpen()) && JPAJUnitAncestor.emf != null)
+        {
+            this.em = JPAJUnitAncestor.emf.createEntityManager();
+        }
         return this.em;
     }
 
@@ -215,7 +235,7 @@ public abstract class JPAJUnitAncestor
     }
 
     /**
-     * @param entityNameIn
+     * @param entityNameIn Entity Name for criteria queries
      */
     public void setEntity(final String entityNameIn)
     {
@@ -232,7 +252,7 @@ public abstract class JPAJUnitAncestor
 
     /**
      * To be used by descendant after initializing the class LOGGER
-     * @param logger
+     * @param logger log4j Logger
      */
     public static void setLOGGER(Logger logger)
     {

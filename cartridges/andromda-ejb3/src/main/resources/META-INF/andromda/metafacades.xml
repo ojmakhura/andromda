@@ -250,6 +250,12 @@
 			<stereotype>ENUMERATION</stereotype>
 		</mapping>
 	</metafacade>
+    <!-- This causes the cartridge to no longer output typesafe enumerations. Should use Java cartridge Enums instead -->
+    <!--metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3EnumerationFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.EnumerationImpl"/>
+        <property reference="enumerationNameMask"/>
+        <property reference="typeSafeEnumsEnabled"/>
+    </metafacade-->
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3PersistenceContextFacadeLogicImpl">
 	    <mapping>
 	        <stereotype>PERSISTENCE_CONTEXT</stereotype>

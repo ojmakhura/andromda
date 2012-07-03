@@ -89,6 +89,7 @@ extends EJB3SessionFacadeLogic
      * The property that stores the persistence container name.
      */
     public static final String PERSISTENCE_CONTAINER = "persistenceContainerName";
+    public static final String DEPLOYMENT_PLATFORM = "deploymentPlatform";
 
     /**
      * The property which stores the persistence context unit name associated with the default
@@ -903,6 +904,7 @@ extends EJB3SessionFacadeLogic
     {
         return StringUtils.trimToEmpty(
                 ObjectUtils.toString(this.getConfiguredProperty(PERSISTENCE_CONTAINER)));
+                //ObjectUtils.toString(this.getConfiguredProperty(DEPLOYMENT_PLATFORM)));
     }
 
     /**
