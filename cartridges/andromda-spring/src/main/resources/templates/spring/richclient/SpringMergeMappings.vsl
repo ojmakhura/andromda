@@ -1,4 +1,4 @@
-#if ($stringUtils.isNotBlank($acegiAuthenticationDaoImplClass))
+#if ($stringUtils.isNotBlank($securityAuthenticationDaoImplClass))
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!--
     This is used to map merge patterns in files generated
@@ -13,7 +13,7 @@
         <to>
          <![CDATA[
     <!-- These beans are configured in ${mergeMappingsUri} -->
-    <bean id="${acegiAuthenticationDaoBeanName}" class="$acegiAuthenticationDaoImplClass">
+    <bean id="${securityAuthenticationDaoBeanName}" class="$securityAuthenticationDaoImplClass">
       <!-- inject any required Spring beans here.  Here is an example:
         <property name="userDao">
             <ref bean="userDao"/>

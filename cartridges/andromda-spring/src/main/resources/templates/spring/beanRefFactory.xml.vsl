@@ -28,7 +28,7 @@
 #end
 #if ($remotingEnabled && !$ejbsEnabled)
                 <value>${applicationContextServer}</value>
-#if ($acegiServiceSecurity)
+#if ($serviceSecurity)
                 <value>$stringUtils.replace($applicationContextServerAuthentication, '/', '.')</value>
 #end
 #end

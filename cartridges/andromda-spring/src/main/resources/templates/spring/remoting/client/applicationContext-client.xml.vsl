@@ -159,14 +159,14 @@
     </bean>
 
 #end
-#if($acegiServiceSecurity)
+#if($serviceSecurity)
     <bean id="${serviceRemoteContext}RemoteAuthenticationManagerService"
         class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
         <property name="serviceUrl">
             <value>${${configPropertyPrefix}remoteHttpScheme}://${${configPropertyPrefix}remoteServer}:${${configPropertyPrefix}remotePort}/${${configPropertyPrefix}remoteContext}/RemoteAuthenticationManagerService</value>
         </property>
         <property name="serviceInterface">
-            <value>${acegiRemoteAuthenticationManagerServiceInterface}</value>
+            <value>${securityRemoteAuthenticationManagerServiceInterface}</value>
         </property>
     </bean>
 

@@ -3,13 +3,13 @@
           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
         <title>
-            Integrating with Acegi Security System
+            Integrating with Spring Security System
         </title>
     </properties>
     <body>
-        <section name="Integrating with Acegi/Spring Security">
+        <section name="Integrating with Spring Security">
             <p>
-                NOTE: AndroMDA has been upgraded to Spring 3.0, however the Acegi framework is not compatible
+                NOTE: AndroMDA has been upgraded to Spring 3.1, however the Acegi framework is not compatible
                 with Spring 2.5+, and has been replaced by the spring-security framework. This completely changes the
                 namespace and values in the Spring configuration file. See
                 <a href="http://static.springsource.org/spring-security/site/">
@@ -21,25 +21,25 @@
 
             </p>
             <p>
-                In this section we will add security to TimeTracker by integrating it with the Acegi
+                In this section we will add security to TimeTracker by integrating it with the Spring
                 Security System. The integration will ensure that only authenticated users can access
                 secured pages. Currently all pages in TimeTracker are specified to be secure, except
                 of course the Login page. Even if the user has bookmarked a page and tries to view
-                it directly without presenting her credentials, Acegi will intercept the request
+                it directly without presenting her credentials, Spring Security will intercept the request
                 and present the Login page. Once the credentials are presented and verified, user
                 will be directed to the page she was trying to access.
             </p>
             <p>
-                We chose Acegi Security System because it provides a portable and effective security
+                We chose Spring Security System because it provides a portable and effective security
                 framework for enterprise applications. Look at the
-                <a href="http://www.acegisecurity.org/">Acegi Security Home Page</a>
+                <a href="http://http://static.springsource.org/spring-security/site/docs/">Spring Security Home Page</a>
                 to understand its key features.
                 Also look at the
-                <a href="http://www.acegisecurity.org/faq.html">Frequently Asked Questions</a>
-                to understand what Acegi provides over alternate solutions
+                <a href="http://static.springsource.org/spring-security/site/faq/faq.html">Frequently Asked Questions</a>
+                to understand what Spring Security provides over alternate solutions
                 such as web.xml security and JAAS. You may also want to read the
-                <a href="http://www.acegisecurity.org/docbook/acegi.html">Overall Architecture</a>
-                section of the Acegi Reference Guide.
+                <a href="http://static.springsource.org/spring-security/site/features.html">Main Features</a>
+                section of the Spring Security Reference Guide.
                 Armed with all this knowledge, let's get down to business. Remember that if you
                 run into problems, you can always compare your implementation with the completed
                 solution to figure out what's going on.
@@ -78,13 +78,13 @@
                         <tt>Domain Objects</tt>
                         diagram, enhance the
                         <tt>User</tt>
-                        entity with additional attributes to support security. Note that Acegi only requires
+                        entity with additional attributes to support security. Note that Spring Security only requires
                         the
                         <tt>username</tt>
                         and
                         <tt>password</tt>
                         fields, we have added the other
-                        attributes just to show how Acegi can support additional security requirements.
+                        attributes just to show how Spring Security can support additional security requirements.
                         <br/>
 
                         <img src="images/UserRole.jpg" alt="UserRole"/>
@@ -306,9 +306,9 @@
                     </li>
                 </ol>
             </subsection>
-            <subsection name="Acegi Integration">
+            <subsection name="Spring Security Integration">
                 <p>
-                    We are now ready to introduce Acegi as a dependency for TimeTracker.
+                    We are now ready to introduce Spring Security as a dependency for TimeTracker.
                 </p>
                 <ol style="list-style-type: decimal">
                     <li>Edit the file
@@ -324,9 +324,9 @@
                         <br/>
                         <source>
                             &lt;dependency&gt;
-                            &lt;groupId&gt;org.acegisecurity&lt;/groupId&gt;
-                            &lt;artifactId&gt;acegi-security&lt;/artifactId&gt;
-                            &lt;version&gt;1.0.1&lt;/version&gt;
+                            &lt;groupId&gt;org.springframework.security&lt;/groupId&gt;
+                            &lt;artifactId&gt;spring-security-core&lt;/artifactId&gt;
+                            &lt;version&gt;3.1.0.RELEASE&lt;/version&gt;
                             &lt;exclusions&gt;
                             &lt;exclusion&gt;
                             &lt;groupId&gt;commons-codec&lt;/groupId&gt;
@@ -366,8 +366,8 @@
                         <br/>
                         <source>
                             &lt;dependency&gt;
-                            &lt;groupId&gt;org.acegisecurity&lt;/groupId&gt;
-                            &lt;artifactId&gt;acegi-security&lt;/artifactId&gt;
+                            &lt;groupId&gt;org.springframework.security&lt;/groupId&gt;
+                            &lt;artifactId&gt;spring-security-core&lt;/artifactId&gt;
                             &lt;/dependency&gt;
                         </source>
                     </li>
@@ -375,13 +375,13 @@
                         <tt>WebMergeMappings.xml</tt>
                         file under <tt>
                             mda\src\main\config\mappings</tt>. These changes will trigger the inclusion of
-                        Acegi filter chain in the web container. Copy the
+                        Spring Security filter chain in the web container. Copy the
                         <tt>WebMergeMappings.xml</tt>
                         from the completed tutorial to your version.
                     </li>
                     <li>Next we need to implement the
                         <tt>UserDetailsService</tt>
-                        which is used by Acegi
+                        which is used by Spring Security
                         to access
                         <tt>UserDetails</tt>
                         from the database. For us, this will be a very
@@ -398,7 +398,7 @@
                         directory under <tt>C:\timetracker\web\src\main</tt>.
                         Remember that this is where we had cutomized the look and feel of the application.
                         Well now we have to add some more files to this directory (such as the custom login
-                        page and Acegi configuration file). For the purpose of this tutorial, it is simpler
+                        page and Spring Security configuration file). For the purpose of this tutorial, it is simpler
                         to just delete this directory and copy over a fresh one.
                     </li>
                     <li>Download

@@ -16,8 +16,8 @@
         </property>
     </bean>
 
-#if ($acegiServiceSecurity)
-    <bean id="${acegiAuthenticationManager}" class="org.acegisecurity.MockAuthenticationManager"/>
+#if ($serviceSecurity)
+    <bean id="${securityAuthenticationManager}" class="org.springframework.security.authentication.ProviderManager"/>
 
 #end
     <bean id="$beanRefFactoryId" class="org.andromda.utils.ThisBeanFactory"/>

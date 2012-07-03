@@ -102,13 +102,16 @@ public interface $manageable.manageableServiceName
 #foreach($associationEnd in $manageable.manageableAssociationEnds)
      * @param $associationEnd.name $associationEnd.getDocumentation("")
 #end
+#if($manageable.compositeIdentifier)
+     * @param $manageable.identifierName ${manageable.fullyQualifiedIdentifierTypeName}
+#end
      * @return update
      * @throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
      * @throws java.rmi.RemoteException
 #end
      */
-    public $manageable.fullyQualifiedManageableValueObjectName update($memberList)
+    public $manageable.fullyQualifiedManageableValueObjectName update($memberList#if($manageable.compositeIdentifier), ${manageable.fullyQualifiedIdentifierTypeName} $manageable.identifierName#end)
         throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
 
 #end

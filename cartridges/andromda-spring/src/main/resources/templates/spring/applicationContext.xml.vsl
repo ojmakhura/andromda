@@ -247,7 +247,7 @@
         <property name="proxyInterfaces" value="$service.fullyQualifiedName"/>
         <property name="interceptorNames">
             <list>
-#if ($acegiServiceSecurity && !$service.private)
+#if ($serviceSecurity && !$service.private)
                 <value>${beanNamePrefix}serviceSecurityInterceptor</value>
 #end
 #if ($enableSpringTransactions)
@@ -266,16 +266,16 @@
 #end
     <!-- ========================= End of SERVICE DEFINITIONS ========================= -->
 
-#if ($acegiServiceSecurity)
-    <!-- ================= Start of ACEGI SERVICE SECURITY DEFINITIONS ================ -->
+#if ($serviceSecurity)
+    <!-- ================= Start of SERVICE SPRING SECURITY DEFINITIONS ================ -->
 
-    <bean id="${beanNamePrefix}serviceSecurityInterceptor" class="$acegiServiceSecurityInterceptor">
+    <bean id="${beanNamePrefix}serviceSecurityInterceptor" class="$serviceSecurityInterceptor">
         <property name="accessDecisionManager"><ref bean="${beanNamePrefix}serviceAccessDecisionManager"/></property>
-#if ($stringUtils.isNotBlank($acegiAuthenticationManager))
-        <property name="authenticationManager"><ref bean="$acegiAuthenticationManager"/></property>
+#if ($stringUtils.isNotBlank($securityAuthenticationManager))
+        <property name="authenticationManager"><ref bean="$securityAuthenticationManager"/></property>
 #end
-#if ($stringUtils.isNotBlank($acegiRunAsManager))
-        <property name="runAsManager"><ref bean="$acegiRunAsManager"/></property>
+#if ($stringUtils.isNotBlank($securityRunAsManager))
+        <property name="runAsManager"><ref bean="$securityRunAsManager"/></property>
 #end
         <property name="objectDefinitionSource">
             <value>
@@ -283,11 +283,11 @@
 #set($serviceImplementsInterfaces = !$service.interfaceAbstractions.empty)
 #foreach ($operation in $springUtils.filterUniqueByName($service.implementationOperations))
 #if (!$operation.roles.empty)
-                ${service.fullyQualifiedName}.${operation.name}=#foreach($role in $operation.roles)#if($acegiRolePrefix && !$role.name.startsWith("$acegiRolePrefix"))$acegiRolePrefix#end$role.name#if($velocityHasNext), #end#end
+                ${service.fullyQualifiedName}.${operation.name}=#foreach($role in $operation.roles)#if($securityRolePrefix && !$role.name.startsWith("$securityRolePrefix"))$securityRolePrefix#end$role.name#if($velocityHasNext), #end#end
 
 ##advise service roles to implemented interface methods
 #elseif($serviceImplementsInterfaces)
-                ${service.fullyQualifiedName}.${operation.name}=#foreach($role in $service.roles)#if($acegiRolePrefix && !$role.name.startsWith("$acegiRolePrefix"))$acegiRolePrefix#end$role.name#if($velocityHasNext), #end#end
+                ${service.fullyQualifiedName}.${operation.name}=#foreach($role in $service.roles)#if($securityRolePrefix && !$role.name.startsWith("$securityRolePrefix"))$securityRolePrefix#end$role.name#if($velocityHasNext), #end#end
 
 #end
 #end
@@ -296,7 +296,7 @@
         </property>
     </bean>
 
-    <bean id="${beanNamePrefix}serviceAccessDecisionManager" class="$acegiServiceAccessDecisionManager">
+    <bean id="${beanNamePrefix}serviceAccessDecisionManager" class="$serviceAccessDecisionManager">
         <property name="allowIfAllAbstainDecisions" value="false"/>
         <property name="decisionVoters">
             <list>
@@ -305,11 +305,11 @@
         </property>
     </bean>
 
-    <bean id="${beanNamePrefix}serviceDecisionVoter" class="$acegiServiceDecisionVoter">
-        <property name="rolePrefix" value="$acegiRolePrefix"/>
+    <bean id="${beanNamePrefix}serviceDecisionVoter" class="$serviceDecisionVoter">
+        <property name="rolePrefix" value="$securityRolePrefix"/>
     </bean>
 
-    <!-- ================== End of ACEGI SERVICE SECURITY DEFINITIONS ================= -->
+    <!-- ================== End of SERVICE SPRING SECURITY DEFINITIONS ================= -->
 
 #end
 </beans>

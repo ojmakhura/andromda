@@ -122,13 +122,13 @@ public class $clientServiceLocatorName
 
 #end
 #end
-#if ($acegiServiceSecurity && $richClient)
+#if ($serviceSecurity && $richClient)
     /**
      * Get the authentication manager used to validate user credentials.
      */
-    public final org.acegisecurity.providers.rcp.RemoteAuthenticationManager getRemoteAuthenticationService()
+    public final org.springframework.security.authentication.rcp.RemoteAuthenticationManager getRemoteAuthenticationService()
     {
-        return (org.acegisecurity.providers.rcp.RemoteAuthenticationManager)
+        return (org.springframework.security.authentication.rcp.RemoteAuthenticationManager)
             getContext().getBean("${serviceRemoteContext}RemoteAuthenticationManagerService");
     }
 

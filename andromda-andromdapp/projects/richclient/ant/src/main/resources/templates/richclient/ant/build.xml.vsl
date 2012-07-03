@@ -211,8 +211,8 @@
       <include name="**/ehcache*.jar"/>
       <include name="**/commons-beanutils*.jar"/>
       <include name="**/commons-logging*.jar"/>
-#if ($enableAcegi == 'yes')
-      <include name="**/acegi*.jar"/>
+#if ($enableSecurity == 'yes')
+      <include name="**/spring-security*.jar"/>
 #end
   </fileset>
 

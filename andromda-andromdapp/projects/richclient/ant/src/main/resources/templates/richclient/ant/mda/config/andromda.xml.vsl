@@ -47,7 +47,7 @@
                 <property name="richClient">true</property>
                 <property name="configPropertyPrefix">${application.id}.</property>
                 <property name="toDoTag">TODO</property>
-#if ($enableAcegi == 'yes')
+#if ($enableSecurity == 'yes')
                 <property name="securityRealm">${application.id}</property>
 #end
                 <property name="mergeLocation">mda/src/custom</property>
@@ -92,30 +92,30 @@
                 <property name="server-test">${source.server.testCode.dir.java}</property>
                 <property name="server-test-config">${source.server.testCode.dir.config}</property>
 
-#if ($enableAcegi == 'yes')
-                <property name="acegiServiceSecurity">true</property>
-                <property name="clientHttpInvokerExecutor">org.acegisecurity.context.httpinvoker.AuthenticationSimpleHttpInvokerRequestExecutor</property>
-                <property name="acegiAuthenticationManager">${application.id}AuthenticationManager</property>
-#if ($acegiImplementAuth == 'yes')
-                <property name="acegiAuthenticationManagerImplClass">org.acegisecurity.providers.ProviderManager</property>
-                <property name="acegiAuthenticationDaoBeanName">${application.id}UserDetailsService</property>
-                <property name="acegiAuthenticationDaoImplClass">${application.package}.UserDetailsServiceImpl</property>
-                <property name="acegiDaoAuthenticationProviderBeanName">daoAuthenticationProvider</property>
-                <property name="acegiDaoAuthenticationProviderImplClass">org.acegisecurity.providers.dao.DaoAuthenticationProvider</property>
-                <property name="acegiDaoUserCacheBeanName">userAuthenticationCache</property>
-                <property name="acegiDaoUserCacheImplClass">org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache</property>
-                <property name="acegiUserCacheConfigLocation">default</property>
-                <property name="acegiUserCacheName">${application.package}.userCache</property>
+#if ($enableSecurity == 'yes')
+                <property name="serviceSecurity">true</property>
+                <property name="clientHttpInvokerExecutor">org.springframework.security.remoting.httpinvoker.AuthenticationSimpleHttpInvokerRequestExecutor</property>
+                <property name="securityAuthenticationManager">${application.id}AuthenticationManager</property>
+#if ($securityImplementAuth == 'yes')
+                <property name="authenticationManagerImplClass">org.springframework.security.authentication.ProviderManager</property>
+                <property name="authenticationDaoBeanName">${application.id}UserDetailsService</property>
+                <property name="authenticationDaoImplClass">${application.package}.UserDetailsServiceImpl</property>
+                <property name="daoAuthenticationProviderBeanName">daoAuthenticationProvider</property>
+                <property name="daoAuthenticationProviderImplClass">org.springframework.security.authentication.dao.DaoAuthenticationProvider</property>
+                <property name="securityDaoUserCacheBeanName">userAuthenticationCache</property>
+                <property name="securityDaoUserCacheImplClass">org.springframework.security.core.userdetails.cache.EhCacheBasedUserCache</property>
+                <property name="securityUserCacheConfigLocation">default</property>
+                <property name="securityUserCacheName">${application.package}.userCache</property>
 
                 <!-- If you would like to enable password encoding, uncomment next two lines...
-                    <property name="acegiPasswordEncoderBeanName">userPasswordEncoder</property>
-                    <property name="acegiPasswordEncoderImplClass">org.acegisecurity.providers.encoding.Md5PasswordEncoder</property>
+                    <property name="passwordEncoderBeanName">userPasswordEncoder</property>
+                    <property name="passwordEncoderImplClass">org.springframework.security.authentication.encoding.Md5PasswordEncoder</property>
                 -->
 
 #end
-                <property name="externalPrincipalStoreClass">org.acegisecurity.context.SecurityContextHolder</property>
+                <property name="externalPrincipalStoreClass">org.springframework.security.core.context.SecurityContextHolder</property>
                 <property name="externalPrincipalStoreGetter">getContext().getAuthentication()</property>
-                <property name="externalPrincipalStoreGetterType">org.acegisecurity.Authentication</property>
+                <property name="externalPrincipalStoreGetterType">org.springframework.security.core.Authentication</property>
 
                 <!-- Uncomment this line AFTER your first "mda" run...
                     <property name="mergeMappingsUri">file:mda/src/custom/merge-mappings/SpringMergeMappings.xml</property>

@@ -112,7 +112,6 @@
     <property reference="remoteHttpServiceScheme"/>
     <property reference="remoteRmiServiceScheme"/>
     <property reference="remoteTcpServiceScheme"/>
-    <property reference="securityRealm"/>
     <property reference="jndiDataSourceClass"/>
     <property reference="jndiDataSourceCaching"/>
     <property reference="jdbcDataSourceClass"/>
@@ -128,26 +127,27 @@
     <property reference="daos"/>
     <property reference="daoInheritanceEnabled"/>
     <property reference="enableDaoPropertiesCreateMethod"/>
-    <property reference="acegiServiceSecurity"/>
-    <property reference="acegiServiceSecurityInterceptor"/>
-    <property reference="acegiServiceAccessDecisionManager"/>
-    <property reference="acegiServiceDecisionVoter"/>
-    <property reference="acegiRolePrefix"/>
-    <property reference="acegiAuthenticationManager"/>
-    <property reference="acegiRemoteAuthenticationManagerServiceInterface"/>
-    <property reference="acegiRunAsManager"/>
-    <property reference="acegiAuthenticationDaoBeanName"/>
-    <property reference="acegiAuthenticationManagerImplClass"/>
-    <property reference="acegiDaoAuthenticationProviderBeanName"/>
-    <property reference="acegiDaoAuthenticationProviderImplClass"/>
-    <property reference="acegiDaoUserCacheBeanName"/>
-    <property reference="acegiDaoUserCacheImplClass"/>
-    <property reference="acegiUserCacheConfigLocation"/>
-    <property reference="acegiUserCacheName"/>
-    <property reference="acegiPasswordEncoderBeanName"/>
-    <property reference="acegiPasswordEncoderImplClass"/>
-    <property reference="acegiPasswordSaltSourceBeanName"/>
-    <property reference="acegiAuthenticationDaoImplClass"/>
+    <property reference="securityRealm"/>
+    <property reference="serviceSecurity"/>
+    <property reference="serviceSecurityInterceptor"/>
+    <property reference="serviceAccessDecisionManager"/>
+    <property reference="serviceDecisionVoter"/>
+    <property reference="securityRolePrefix"/>
+    <property reference="securityAuthenticationManager"/>
+    <property reference="securityRemoteAuthenticationManagerServiceInterface"/>
+    <property reference="securityRunAsManager"/>
+    <property reference="authenticationDaoBeanName"/>
+    <property reference="authenticationManagerImplClass"/>
+    <property reference="authenticationDaoImplClass"/>
+    <property reference="daoAuthenticationProviderBeanName"/>
+    <property reference="daoAuthenticationProviderImplClass"/>
+    <property reference="securityDaoUserCacheBeanName"/>
+    <property reference="securityDaoUserCacheImplClass"/>
+    <property reference="securityUserCacheConfigLocation"/>
+    <property reference="securityUserCacheName"/>
+    <property reference="passwordEncoderBeanName"/>
+    <property reference="passwordEncoderImplClass"/>
+    <property reference="passwordSaltSourceBeanName"/>
     <property reference="richClient"/>
     <property reference="configPropertyPrefix"/>
     <property reference="client"/>
@@ -213,7 +213,7 @@
     <condition name="daoInheritanceEnabled">
         #if ($daoInheritanceEnabled.equalsIgnoreCase("true") &amp;&amp; !$enableTemplating.equalsIgnoreCase("true"))true#end
     </condition>
-    <condition name="acegiServiceSecurity">$acegiServiceSecurity.equalsIgnoreCase("true")</condition>
+    <condition name="serviceSecurity">$serviceSecurity.equalsIgnoreCase("true")</condition>
     <condition name="richClient">$richClient.equalsIgnoreCase("true")</condition>
     <condition name="ejbsEnabled">$stringUtils.isNotBlank($session-ejbs)</condition>
     <condition name="daosEnabled">$stringUtils.isNotBlank($daos)</condition>
@@ -803,7 +803,7 @@
         overwrite="true"
         outputToSingleFile="true"
         outputOnEmptyElements="false"
-        outputCondition="acegiServiceSecurity">
+        outputCondition="serviceSecurity">
         <modelElements>
             <modelElement variable="services">
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService">
@@ -882,7 +882,7 @@
         overwrite="true"
         outputToSingleFile="true"
         outputOnEmptyElements="false"
-        outputCondition="acegiServiceSecurity">
+        outputCondition="serviceSecurity">
         <modelElements>
             <modelElement variable="services">
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService">
