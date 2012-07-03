@@ -10,6 +10,7 @@ package $manageable.manageablePackageName;
 #set($identifierIsStringType = false)
 #set($identifierType = $manageable.fullyQualifiedIdentifierTypeName)
 #else
+#if (!$manageable.identifiers.empty)
 #set($theIdentifierType = $manageable.identifiers.iterator().next().type)
 #set($identifierIsPrimitive = $theIdentifierType.primitive)
 #set($identifierIsIntegerType = $theIdentifierType.integerType)
@@ -19,6 +20,7 @@ package $manageable.manageablePackageName;
 #set($identifierType = $theIdentifierType.wrapperName)
 #else
 #set($identifierType = $manageable.fullyQualifiedIdentifierTypeName)
+#end
 #end
 #end
 /**

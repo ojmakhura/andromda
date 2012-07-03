@@ -111,7 +111,7 @@
                 <!--Perform xslt transformation of profile.xml and namespace.xml for site generation-->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>xml-maven-plugin</artifactId>                    
+                    <artifactId>xml-maven-plugin</artifactId>
                     <executions>
                         <execution>
                             <id>transform</id>

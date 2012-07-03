@@ -239,6 +239,14 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>spring</response>
                     <response>none</response>
                 </responses>
+                <conditions>
+                    <condition equal="ejb3">
+                        <setProperty id="hibernate">false</setProperty>
+                        <setProperty id="spring">false</setProperty>
+                        <setProperty id="ejb">false</setProperty>
+                        <setProperty id="war">false</setProperty>
+                    </condition>
+                 </conditions>
             </prompt>
             <prompt id="transactionPersistenceType" setResponseAsTrue="true">
                 <text>Please enter the type of transactional/persistence cartridge to use (enter 'none' if you don't want to use one)</text>
@@ -247,13 +255,14 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <condition id="applicationType" equal="war"/>
                 </preconditions>
                 <responses>
+                    <response>hibernate</response>
                     <response>spring</response>
                     <response>none</response>
                 </responses>
             </prompt>
-            <!--prompt id="ejb3Persistence" setResponseAsTrue="true">
-                <text>Please enter the ejb3 persistence cartridge to use (enter hibernate, openJpa, kodoJpa, or topLink)</text>
-                <shortText>JPA persistence provider</shortText>
+            <!--prompt id="persistenceProviderExtensions" setResponseAsTrue="true">
+                <text>Please enter the persistence provider extensions to use (enter 'none' to use no framework-specific extensions)</text>
+                <shortText>Persistence Provider Extensions</shortText>
                 <preconditions>
                     <condition id="transactionPersistenceType" equal="ejb3"/>
                 </preconditions>
@@ -263,6 +272,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>topLink</response>
                     <response>openJpa</response>
                     <response>kodoJpa</response>
+                    <response>none</response>
                 </responses>
                 <conditions>
                     <condition equal="kodoJpa">
@@ -301,8 +311,26 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>sabdb</response>
                     <response>progress</response>
                     <response>derby</response>
+                    <response>javadb</response>
                 </responses>
             </prompt>
+            <!--prompt id="testDatabase" setResponseAsTrue="true">
+                <text>Please enter the in-memory database to be used for unit and local integration testing</text>
+                <shortText>Test Database</shortText>
+                <preconditions type="and">
+                    <condition id="transactionPersistenceType" notEqual="none"/>
+                    <condition id="databaseType" notEqual="h2"/>
+                    <condition id="databaseType" notEqual="hypersonic"/>
+                    <condition id="databaseType" notEqual="derby"/>
+                    <condition id="databaseType" notEqual="javadb"/>
+                </preconditions>
+                <responses>
+                    <response>h2</response>
+                    <response>hypersonic</response>
+                    <response>derby</response>
+                    <response>mysql</response>
+                </responses>
+            </prompt-->
             <prompt id="workflow">
                 <text>Will your project need workflow engine capabilities? (it uses jBPM and Hibernate3)?</text>
                 <shortText>Enable workflow capabilities</shortText>
@@ -454,6 +482,80 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>no</response>
                 </responses>
             </prompt>
+            <!-- This determines dependency versions, which dependencies are bundled or provided, jee version, and which configuration files are created >
+            <prompt id="deploymentPlatform" setResponseAsTrue="true">
+                <text>What application deployment platform runtime/version do you want to use?</text>
+                <shortText>Application deployment runtime</shortText>
+                <preconditions type="and">
+                    <condition id="applicationType" notEqual="war"/>
+                    <condition id="webservice" notEqual="true"/>
+                </preconditions>
+                <responses>
+                    <response>jboss7</response>
+                    <response>jboss6</response>
+                    <response>jboss51</response>
+                    <response>jboss5</response>
+                    <response>jboss42</response>
+                    <response>jboss4</response>
+                    <response>jboss3</response>
+                    <response>was8</response>
+                    <response>was7</response>
+                    <response>was61</response>
+                    <response>wasce2</response>
+                    <response>glassfish3</response>
+                    <response>glassfish2</response>
+                    <response>weblogic11</response>
+                    <response>weblogic10</response>
+                    <response>weblogic9</response>
+                    <response>weblogic8</response>
+                    <response>geronimo</response>
+                    <response>jonas5</response>
+                    <response>oracleas</response>
+                    <response>resin4</response>
+                    <response>resin3</response>
+                    <response>sun8</response>
+                </responses>
+            </prompt>
+            <prompt id="deploymentPlatform" setResponseAsTrue="true">
+                <text>What application deployment platform runtime/version do you want to use?</text>
+                <shortText>Application deployment runtime</shortText>
+                <preconditions type="or">
+                    <condition id="applicationType" equal="war"/>
+                    <condition id="webservice" equal="true"/>
+                </preconditions>
+                <responses>
+                    <response>jboss7</response>
+                    <response>jboss6</response>
+                    <response>jboss51</response>
+                    <response>jboss5</response>
+                    <response>jboss42</response>
+                    <response>jboss4</response>
+                    <response>jboss3</response>
+                    <response>tomcat7</response>
+                    <response>tomcat6</response>
+                    <response>tomcat5</response>
+                    <response>tomcat4</response>
+                    <response>jetty6</response>
+                    <response>jetty7</response>
+                    <response>was8</response>
+                    <response>was7</response>
+                    <response>was61</response>
+                    <response>wasce2</response>
+                    <response>glassfish3</response>
+                    <response>glassfish2</response>
+                    <response>weblogic11</response>
+                    <response>weblogic10</response>
+                    <response>weblogic9</response>
+                    <response>weblogic8</response>
+                    <response>geronimo3</response>
+                    <response>geronimo2</response>
+                    <response>jonas5</response>
+                    <response>oracleas</response>
+                    <response>resin4</response>
+                    <response>resin3</response>
+                    <response>sun8</response>
+                </responses>
+            </prompt-->
         </promptGroup>
     </prompts>
 </andromdapp>
