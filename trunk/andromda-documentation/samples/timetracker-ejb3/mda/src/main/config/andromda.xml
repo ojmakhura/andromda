@@ -98,6 +98,7 @@
                 <property name="pluralizeAssociationEndNames">true</property>
                 <property name="pluralizeAttributeNames">true</property>
                 <property name="pluralizeParameterNames">true</property -->
+                <property name="javaVersion">${javaVersion}</property>
                 <property name="xmlAttributes">false</property>
                 <property name="dataSource">${dataSource}</property>
                 <property name="hibernateDialect">${hibernate.dialect}</property>
@@ -173,8 +174,8 @@
                 <property name="generateEqualPropertiesMethod">true</property>
                 <!-- Comment out the enumerations outlet for the java cartridge to avoid conflict
                      with the ejb3 cartridge.
-                <property name="enumerations">${common.generated.dir}</property>
                 -->
+                <property name="enumerations">${common.generated.dir}</property>
                 <property name="exceptions">${common.generated.dir}</property>
                 <property name="value-objects">${common.generated.dir}</property>
                 <property name="interfaces">${common.generated.dir}</property>

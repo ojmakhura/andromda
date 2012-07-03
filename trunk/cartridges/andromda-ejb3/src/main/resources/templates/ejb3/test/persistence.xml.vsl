@@ -7,8 +7,8 @@
     xmlns="http://java.sun.com/xml/ns/persistence"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
-                        http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
-    version="1.0">
+                        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+    version="2.0">
     <persistence-unit name="UNIT_TEST">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <!--jta-data-source>${test.dataSource}</jta-data-source-->
@@ -17,6 +17,9 @@
 #foreach ($entity in $entityList)
 #if ($umlUtils.shouldOutput($entity))
         <class>$entity.fullyQualifiedName</class>
+#if ($entity.compositePrimaryKeyPresent)
+        <class>$entity.fullyQualifiedEntityCompositePrimaryKeyName</class>
+#end
 #end
 #end
         <properties>
@@ -25,9 +28,9 @@
             <property name="hibernate.connection.url" value="${testConnectionUrl}"/>
             <property name="hibernate.connection.username" value="${testUsername}"/>
             <property name="hibernate.connection.password" value="${testPassword}"/>
-            <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
-            <!--property name="hibernate.hbm2ddl.auto" value="create"/-->
+            <property name="hibernate.show_sql" value="true"/>
+            <!--property name="hibernate.hbm2ddl.auto" value="validate"/-->
         </properties>
     </persistence-unit>
 </persistence>

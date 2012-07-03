@@ -45,8 +45,8 @@ public class EJB3EntityAttributeFacadeLogicImpl
     // ---------------- constructor -------------------------------
 
     /**
-     * @param metaObject
-     * @param context
+     * @param metaObject UML object used to create the EJB3EntityAttributeFacade
+     * @param context Context for creation of the EJB3EntityAttributeFacade
      */
     public EJB3EntityAttributeFacadeLogicImpl(final Object metaObject, final String context)
     {
@@ -68,7 +68,7 @@ public class EJB3EntityAttributeFacadeLogicImpl
         {
             EJB3EntityFacade entity = (EJB3EntityFacade)this.getOwner();
 
-            /**
+            /*
              * Exclude ONLY if single table inheritance exists
              */
             if (entity.isRequiresGeneralizationMapping() && entity.isInheritanceSingleTable()
@@ -307,6 +307,10 @@ public class EJB3EntityAttributeFacadeLogicImpl
         return isIdentity;
     }
 
+    /** Generator */
+    public static final String GENERATOR = "Generator";
+    /** _ */
+    public static final char UNDERSCORE = '_';
     /**
      * @see EJB3EntityAttributeFacadeLogic#handleGetGeneratorName()
      */
@@ -345,7 +349,7 @@ public class EJB3EntityAttributeFacadeLogicImpl
 
         if (StringUtils.isBlank(pkColumnValue))
         {
-            pkColumnValue = this.getOwner().getName() + '_' + this.getColumnName();
+            pkColumnValue = this.getOwner().getName() + UNDERSCORE + this.getColumnName();
         }
         return pkColumnValue;
     }

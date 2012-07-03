@@ -59,7 +59,7 @@ public class EJB3ScriptHelper
      * Filter a list of EntityAttributes by removing all non-updatable attributes.
      * This filter currently removes all attributes that are of stereotype Version
      * It also removes identifier attributes for an entity with a composite primary key class
-     * or if the identifier attribute have a specified generator.
+     * or if the identifier attribute has a specified generator.
      *
      * @param list The original list
      * @param isCompositePKPresent True if entity has a composite primary key
