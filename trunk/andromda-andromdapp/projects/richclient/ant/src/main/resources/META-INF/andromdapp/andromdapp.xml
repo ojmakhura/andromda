@@ -5,7 +5,7 @@
         <p>This wizard creates an AndroMDA powered Spring application that can be accessed by a rich client. An empty model is provided for your convenience.</p>
         <p>Please note that this wizard does <b>not</b> create a rich client - you'll have to do this yourself.</p>
         <p>You can select amongst the following additional features:</p>
-        <li><b>Security</b>: If desired, you can enabled ACEGI support for your project.</li>
+        <li><b>Security</b>: If desired, you can enabled Spring Security support for your project.</li>
         ]]>
     </documentation>
     <resourceLocations>
@@ -75,19 +75,19 @@
             <documentation>
                 Provides the choice of components with the application.
             </documentation>
-            <prompt id="enableAcegi">
-                <text>Do you want to enable Acegi Security [yes/no]?</text>
-                <shortText>Enable Acegi Security</shortText>
+            <prompt id="enableSecurity">
+                <text>Do you want to enable Spring Security [yes/no]?</text>
+                <shortText>Enable Spring Security</shortText>
                 <responses>
                     <response>yes</response>
                     <response>no</response>
                 </responses>
             </prompt>
-            <prompt id="acegiImplementAuth">
+            <prompt id="securityImplementAuth">
                 <text>Will this application manage its own user list [yes/no]?</text>
                 <shortText>Add authentication support</shortText>
                 <preconditions>
-                    <condition id="enableAcegi" equal="yes"/>
+                    <condition id="enableSecurity" equal="yes"/>
                 </preconditions>
                 <responses>
                     <response>yes</response>

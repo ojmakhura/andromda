@@ -175,11 +175,13 @@ public class SchemaTransformer
 
         NamespaceComponents.instance().discover();
         Repositories.instance().initialize();
-        this.repository = Repositories.instance().getImplementation(Schema2XMIGlobals.REPOSITORY_NAMESPACE_NETBEANSMDR);
+        this.repository = Repositories.instance().getImplementation(
+            Schema2XMIGlobals.REPOSITORY_NAMESPACE_NETBEANSMDR);
         if (repository == null)
         {
             throw new ModelProcessorException(
-                "No Repository could be found, please make sure you have a repository with namespace " + Schema2XMIGlobals.REPOSITORY_NAMESPACE_NETBEANSMDR +
+                "No Repository could be found, please make sure you have a repository with namespace "
+                + Schema2XMIGlobals.REPOSITORY_NAMESPACE_NETBEANSMDR +
                 " on your classpath");
         }
         this.repository.open();
@@ -222,7 +224,8 @@ public class SchemaTransformer
                 new String[] {inputModel},
                 null);
             Class.forName(this.jdbcDriver);
-            connection = DriverManager.getConnection(this.jdbcConnectionUrl, this.jdbcUser, this.jdbcPassword);
+            connection = DriverManager.getConnection(this.jdbcConnectionUrl,
+                this.jdbcUser, this.jdbcPassword);
             repository.writeModel(
                 transform(connection),
                 outputLocation,
@@ -459,7 +462,7 @@ public class SchemaTransformer
                     {
                         umlPackage =
                             modelManagementPackage.getUmlPackage().createUmlPackage(
-                                packages[ctr], VisibilityKindEnum.VK_PUBLIC, false, false, false, false);
+                            packages[ctr], VisibilityKindEnum.VK_PUBLIC, false, false, false, false);
                         modelPackage.getOwnedElement().add(umlPackage);
                     }
                     modelPackage = (org.omg.uml.modelmanagement.UmlPackage)umlPackage;
@@ -566,12 +569,14 @@ public class SchemaTransformer
             corePackage.getUmlClass().createUmlClass(
                 className, VisibilityKindEnum.VK_PUBLIC, false, false, false, false, false);
 
-        umlClass.getStereotype().addAll(this.getOrCreateStereotypes(corePackage, this.classStereotypes, "Classifier"));
+        umlClass.getStereotype().addAll(this.getOrCreateStereotypes(corePackage,
+            this.classStereotypes, "Classifier"));
 
         if (StringUtils.isNotBlank(this.tableTaggedValue))
         {
             // add the tagged value for the table name
-            TaggedValue taggedValue = this.createTaggedValue(corePackage, this.tableTaggedValue, tableName);
+            TaggedValue taggedValue = this.createTaggedValue(corePackage,
+                this.tableTaggedValue, tableName);
             if (taggedValue != null)
             {
                 umlClass.getTaggedValue().add(taggedValue);
@@ -960,7 +965,8 @@ public class SchemaTransformer
             if (StringUtils.isNotBlank(this.columnTaggedValue))
             {
                 // add the tagged value for the foreign association end
-                TaggedValue taggedValue = this.createTaggedValue(corePackage, this.columnTaggedValue, fkColumnName);
+                TaggedValue taggedValue = this.createTaggedValue(corePackage,
+                    this.columnTaggedValue, fkColumnName);
                 if (taggedValue != null)
                 {
                     foreignEnd.getTaggedValue().add(taggedValue);
@@ -1042,7 +1048,7 @@ public class SchemaTransformer
                     baseClasses.add(baseClass);
                     stereotype =
                         corePackage.getStereotype().createStereotype(
-                            name, VisibilityKindEnum.VK_PUBLIC, false, false, false, false, null, baseClasses);
+                         name, VisibilityKindEnum.VK_PUBLIC, false, false, false, false, null, baseClasses);
                     this.model.getOwnedElement().add(stereotype);
                 }
                 stereotypes.add(stereotype);

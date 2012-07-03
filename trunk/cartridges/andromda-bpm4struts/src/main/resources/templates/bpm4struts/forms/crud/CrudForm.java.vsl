@@ -57,8 +57,12 @@ public final class $manageable.formBeanClassName
 #else
 #set ($memberType = $member.type.fullyQualifiedName)
 #end
+#set ($visibility = $member.visibility)
+#if ($visibility.equals("public"))
+#set ($visibility = "private")
+#end
 #if ($member.needsFileUpload)
-    private org.apache.struts.upload.FormFile $member.name;
+    $visibility org.apache.struts.upload.FormFile $member.name;
 
     $member.visibility org.apache.struts.upload.FormFile ${member.getterName}()
     {
@@ -71,7 +75,7 @@ public final class $manageable.formBeanClassName
     }
 
 #else
-    private $memberType $member.name;
+    $visibility $memberType $member.name;
 
     $member.visibility $memberType ${member.getterName}()
     {
@@ -84,7 +88,7 @@ public final class $manageable.formBeanClassName
     }
 
 #if ($member.type.dateType)
-    private static final java.text.DateFormat ${member.name}Formatter = new java.text.SimpleDateFormat("$member.dateFormat");
+    $visibility static final java.text.DateFormat ${member.name}Formatter = new java.text.SimpleDateFormat("$member.dateFormat");
 #set ($lenient = !$member.strictDateFormat)
     static { ${member.name}Formatter.setLenient($lenient); }
 
@@ -118,7 +122,7 @@ public final class $manageable.formBeanClassName
 #if ($member.many)
 #set ($fieldType = "${fieldType}[]")
 #end
-    private $fieldType $member.name;
+    $visibility $fieldType $member.name;
 
     $member.visibility $fieldType ${member.getterName}()
     {

@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class JdbcTypeFinder
 {
-    private static final Map jdbcTypes = new HashMap();
+    private static final Map<Object, String> jdbcTypes = new HashMap<Object, String>();
 
     /**
      * Initialize the <code>jdbcTypes</code> Map.

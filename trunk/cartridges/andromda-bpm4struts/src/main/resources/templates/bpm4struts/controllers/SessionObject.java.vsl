@@ -19,7 +19,11 @@ public class $sessionObject.name implements Serializable
 
 #foreach ( $attribute in $sessionObject.attributes )
 #set ($typeName = $attribute.type.fullyQualifiedName)
-    private $typeName $attribute.name;
+#set ($visibility = $attribute.visibility)
+#if ($visibility.equals("public"))
+#set ($visibility = "private")
+#end
+    $visibility $typeName $attribute.name;
 
     /**
 $attribute.getDocumentation("     * ")
