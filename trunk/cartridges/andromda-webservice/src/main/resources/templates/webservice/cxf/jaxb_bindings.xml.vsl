@@ -49,7 +49,7 @@
 #end
 #end
 #end
-    <bindings node="wsdl:definitions/wsdl:types/xs:schema">
+    <bindings node="wsdl:definitions/wsdl:types/xs:schema[1]">
       <!-- Preserve underscore instead of using it as a word break in class/attribute/literal names -->
       <!-- Generate IsSet methods for optional elements -->
 #if (!$cxfVersion.startsWith("2.0"))
