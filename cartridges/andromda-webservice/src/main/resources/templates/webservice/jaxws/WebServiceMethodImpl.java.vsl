@@ -265,7 +265,8 @@ $operation.getDocumentation("    * ")
 #set ($property2Num=0)
 #set ($propertyNum=$propertyNum+1)
 
-        // Property ${property.name}#if ($property.many) isMany#end has $property.type.allProperties.size() properties $propertyNum $property2Num
+        // Property ${property.name}#if ($property.many) isMany#end has $property.type.allProperties.size() properties:#foreach ($property1 in $property.type.allProperties) $property1.name#end
+
         ${property.type.fullyQualifiedName} $property.name = $webServiceUtils.createConstructor($property, false, $operation.returnType);
 #foreach ($property1 in $property.type.allProperties)
 ##if ($property1.many)
@@ -278,14 +279,15 @@ $operation.getDocumentation("    * ")
         ${property1.type.fullyQualifiedName} ${property1.name}${propertyNum} = $webServiceUtils.createConstructor($property1, false, $property.type);
 #foreach ($property2 in $property1.type.allProperties)
 #if (!$property2.type.allProperties.empty)
+        // Property2 $property2.name#if ($property2.many) isMany#end has $property2.type.allProperties.size() properties:#foreach ($property3 in $property2.type.allProperties) $property3.name#end
 
-        // Property2 $property2.name#if ($property2.many) isMany#end has $property2.type.allProperties.size() properties
 #set ($property3Num=$property3Num+1)
         ${property2.type.fullyQualifiedName} ${property2.name}${propertyNum}${property2Num} = $webServiceUtils.createConstructor($property2, false, $property1.type);
 #foreach ($property3 in $property2.type.allProperties)
 #if (!$property3.type.allProperties.empty)
 
-        // Property3 $property3.name#if ($property3.many) isMany#end has $property3.type.allProperties.size() properties
+        // Property3 $property3.name#if ($property3.many) isMany#end has $property3.type.allProperties.size() properties:#foreach ($property4 in $property3.type.allProperties) $property4.name#end
+
         ${property3.type.fullyQualifiedName} ${property3.name}${propertyNum}${property2Num}${property3Num} = $webServiceUtils.createConstructor($property3, false, $property2.type);
         // TODO: Foreach property4 in ${property3.type.fullyQualifiedName} ${property3.name}${propertyNum}${property2Num}${property3Num}.setXXX(value) or getList().add(value)
 #if ($property3.many)
