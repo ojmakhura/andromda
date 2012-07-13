@@ -1,6 +1,7 @@
 package org.andromda.metafacades.emf.uml22;
 
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.EnumerationFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.TypeMappings;
@@ -271,14 +272,16 @@ public class AttributeFacadeLogicImpl
                 name += '<' + type + '>';
             }
         }
-        if (name == null && this.getType() != null)
+        if (name == null && this.handleGetType() != null)
         {
             name = this.getType().getFullyQualifiedName();
             // Special case: lower bound overrides primitive/wrapped type declaration
             // TODO Apply to all primitive types, not just booleans. This is a special case because of is/get Getters.
-            //if (this.getType().isBooleanType())
-            //{
-                if (this.getType().isPrimitive() && this.getLower() < 1)
+            if (this.getType().isBooleanType())
+            {
+                // Datatypes will be inconsistent with multiplicity but identifier attributes shouldn't be changed automatically
+                if (this.getType().isPrimitive() && this.getLower() < 1 &&
+                    (!(this instanceof EntityAttribute) || !((EntityAttribute) this).isIdentifier()))
                 {
                     // Type is optional, should not be primitive
                     name = this.getType().getWrapperName();
@@ -292,7 +295,7 @@ public class AttributeFacadeLogicImpl
                 {
                     // Type is required, should not be wrapped
                 }*/
-            //}
+            }
         }
         return name;
     }
