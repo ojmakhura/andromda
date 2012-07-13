@@ -480,9 +480,9 @@ $operation.getDocumentation("     * ")
     $operation.visibility $returnType ${operation.name}(String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
 #end
 
-#if ($operation.returnType.collectionType)
+#if ($operation.returnType.collectionType || $operation.many)
 #if($enableTemplating)
-#set ($returnType = "${operation.getterSetterReturnTypeName}<${entity.fullyQualifiedEntityName}>")
+#set ($returnType = "${operation.getterSetterReturnTypeName}#if($operation.returnType.collectionType)<${entity.fullyQualifiedEntityName}>#end")
 #end
     /**
      * <p>
@@ -532,8 +532,12 @@ $operation.getDocumentation("     * ")
 #else
     $operation.visibility $returnType ${operation.name}(String queryString, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
 #end
+#if ($operation.returnType.collectionType)
 #if($enableTemplating)
 #set ($returnType = "${operation.getterSetterReturnTypeName}<?>")
+#end
+#elseif ($operation.many)
+#set ($returnType = "$operation.getterSetterReturnTypeName.substring(0,$operation.getterSetterReturnTypeName.indexOf('<'))<?>")
 #end
 
 #else
@@ -565,7 +569,7 @@ $operation.getDocumentation("     * ")
     $operation.visibility $returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
 #end
 
-#if ($operation.returnType.collectionType)
+#if ($operation.returnType.collectionType || $operation.many)
     /**
      * <p>
      * Does the same thing as {@link ${esc.hash}${operation.name}(int#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
@@ -615,7 +619,7 @@ $operation.getDocumentation("     * ")
     $operation.visibility $returnType ${operation.name}(int transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
 #end
 
-#if ($operation.returnType.collectionType)
+#if ($operation.returnType.collectionType || $operation.many)
     /**
      * <p>
      * Does the same thing as {@link ${esc.hash}${operation.name}(int, String#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
@@ -644,8 +648,10 @@ $operation.getDocumentation("     * ")
 
 #end
 #else
-#if($operation.returnType.collectionType)
+#if ($operation.returnType.collectionType)
 #set ($returnType = "${operation.getterSetterReturnTypeName}#if($enableTemplating)<?>#end")
+#elseif ($operation.many)
+#set ($returnType = "$operation.getterSetterReturnTypeName.substring(0,$operation.getterSetterReturnTypeName.indexOf('<'))<?>")
 #else
 #set ($returnType = "Object")
 #end
@@ -675,7 +681,7 @@ $operation.getDocumentation("     * ")
     $operation.visibility $returnType ${operation.name}(final int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end);
 
 #end
-#if ($operation.returnType.collectionType)
+#if ($operation.returnType.collectionType || $operation.many)
     /**
      * <p>
      * Does the same thing as {@link ${esc.hash}${operation.name}(int, String#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
