@@ -43,8 +43,8 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-            <!-- 3.1.1.RELEASE spring-security not available yet 5/1/2012, can't use ${spring.version} -->
-            <version>3.1.0.RELEASE</version>
+            <!-- May need to specify version if changing ${spring.version}, not always released at the same time -->
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
