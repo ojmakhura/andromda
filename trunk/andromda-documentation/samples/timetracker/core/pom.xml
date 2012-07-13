@@ -68,14 +68,6 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
         </dependency>
-        <!-- Do not use 3.3.0.ga See https://jira.springsource.org/browse/SPR-7701, http://forum.springsource.org/showthread.php?89693-AnnotationSessionFactoryBean-needs-MetadataProvider -->
-        <!-- validator-legacy forces an earlier version of annotations. Change scope if < JBoss6>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-commons-annotations</artifactId>
-            <version>3.2.0.Final</version>
-            <scope>provided</scope>
-        </dependency -->
         <!-- For JBoss AS6 and earlier: Avoid NoSuchMethodException: org.hibernate.validator.ClassValidator.<init> -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -93,6 +85,7 @@
             </exclusions>
         </dependency>
         <!-- validator-legacy forces an earlier version of annotations. Change scope if < JBoss6 -->
+        <!-- Do not use 3.3.0.ga See https://jira.springsource.org/browse/SPR-7701, http://forum.springsource.org/showthread.php?89693-AnnotationSessionFactoryBean-needs-MetadataProvider -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-commons-annotations</artifactId>
