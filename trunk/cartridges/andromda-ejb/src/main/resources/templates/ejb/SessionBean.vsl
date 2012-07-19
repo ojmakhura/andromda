@@ -276,13 +276,10 @@ $operation.getDocumentation("    * ")
     */
 ## This is public because CDoclet generates a ServiceSession object which extends the bean, which would have to implement an abstract method
 #if ($operation.exceptionsPresent)
-    $visibility abstract $returnType $operation.signature throws $operation.exceptionList
+    $visibility abstract $returnType $operation.signature throws $operation.exceptionList;
 #else
-    $visibility abstract $returnType $operation.signature
+    $visibility abstract $returnType $operation.signature;
 #end
-    {
-        throw new EJBException("Call the service implementation method ${service.fullyQualifiedName}Impl.${operation.name}");
-    }
 
 #end
 
