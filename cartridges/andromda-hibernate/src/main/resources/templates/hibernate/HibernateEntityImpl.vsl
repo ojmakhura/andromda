@@ -19,6 +19,7 @@ package $entity.packageName;
 /**
  * @see $entity.fullyQualifiedEntityName
  */
+// HibernateEntityImpl.vsl annotations merge-point
 public#if ($entity.abstract) abstract#end class $entity.entityImplementationName
     extends $entity.fullyQualifiedEntityName
 {
@@ -33,6 +34,10 @@ public#if ($entity.abstract) abstract#end class $entity.entityImplementationName
      */
 #if ($enableAnnotations)
     @Override
+#end
+#if ($hibernateEntityAnnotations && ($operation.arguments.size() == 0) && $stringUtils.startsWith($operation.signature,"get"))
+## Stop Hibernate thinking this is a property getter
+	@javax.persistence.Transient
 #end
 #set ($abstract = $entity.abstract && $operation.abstract)
     $operation.visibility#if ($abstract) abstract#end $operation.getterSetterReturnTypeName $operation.signature#if ($abstract && !$operation.exceptionsPresent);#end
@@ -54,4 +59,5 @@ public#if ($entity.abstract) abstract#end class $entity.entityImplementationName
 #end
 
 #end
+// HibernateEntityImpl.vsl merge-point
 }
