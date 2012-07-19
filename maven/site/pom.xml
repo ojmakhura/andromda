@@ -19,15 +19,22 @@
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/site</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
-    <modules>
-        <module>site</module>
-        <module>cartridge</module>
-        <module>skin</module>
-    </modules>
     <!-- Error when creating site documentation for andromda-site-skin: FileNotFoundException:
     andromda-all\maven\site\skin\target\classes (Access is denied).
-    Trying to open a directory as an archive file. -->
+    Trying to open a directory as an archive file. Works for install phase but not for site. -->
     <profiles>
+        <profile>
+            <id>install</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>site</module>
+                <module>cartridge</module>
+                <module>skin</module>
+            </modules>
+        </profile>
+        <!-- Remove skin module from all site build profiles -->
         <profile>
             <id>sourceforge</id>
             <modules>
