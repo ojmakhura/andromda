@@ -7,15 +7,17 @@
 #if ($pkg.fullyQualifiedName.equals($service.packageName) || !$importedXSD)
     <xs:schema targetNamespace="http://$webServiceUtils.reversePackage($pkg.fullyQualifiedName)#if($addNamespaceBackslash)/#end"
         attributeFormDefault="$pkg.attributeFormDefault.toLowerCase()" elementFormDefault="$pkg.elementFormDefault.toLowerCase()" version="1.0"
+#if ($stringUtils.isNotBlank($XMLBooleanAdapter))
         jxb:version="2.1" jxb:extensionBindingPrefixes="xjc"
+        xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+        xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+#end
         xmlns:${service.namespacePrefix}="http://$webServiceUtils.reversePackage($pkg.fullyQualifiedName)#if($addNamespaceBackslash)/#end"
 #set ($pkgRefs = $webServiceUtils.getPackageReferences($service, $schemaTypes, $pkg.fullyQualifiedName, $extensionInheritanceDisabled))
 ##        <!-- $pkg $pkg.fullyQualifiedName $pkgRefs $pkgRefs.size() -->
 #foreach ($pkgRef in $pkgRefs)
         xmlns:$webServiceUtils.getPkgAbbr($pkgRef)="http://$webServiceUtils.reversePackage($pkgRef.fullyQualifiedName)#if($addNamespaceBackslash)/#end"
 #end
-        xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
-        xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
         xmlns:xs="$xmlSchemaNamespace">
 #foreach ($pkgRef in $pkgRefs)
         <xs:import namespace="http://$webServiceUtils.reversePackage($pkgRef.fullyQualifiedName)#if($addNamespaceBackslash)/#end" xmlns="http://www.w3.org/2001/XMLSchema"
