@@ -83,6 +83,7 @@ $entity.getDocumentation(" * ")
 #end
 #end
 #end
+// HibernateEntity.vsl annotations merge-point
 public abstract class $entity.entityName
 #if($entity.generalization)
 #if ($entity.generalization.fullyQualifiedEntityImplementationName)
