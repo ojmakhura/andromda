@@ -29,6 +29,9 @@
 #if ($service.hasStereotype("WSCustomHeader"))
 #set ($serviceHeaderAbbr = $service.findTaggedValue("andromda_header_abbr"))
 #set ($serviceHeaderNamespace = $service.findTaggedValue("andromda_header_namespace"))
+#set ($serviceHeaderPartName = $service.findTaggedValue("andromda_wsdl_header_partName"))
+#set ($serviceHeaderElementName = $service.findTaggedValue("andromda_wsdl_header_element"))
+#set ($serviceHeaderXSDlocation = $service.findTaggedValue("andromda_header_XSDlocation"))
     xmlns:$serviceHeaderAbbr="$serviceHeaderNamespace"
 #end
 #if ($service.hasStereotype("WSSecurity"))
@@ -36,6 +39,12 @@
 #if ($stringUtils.isEmpty($serviceSecurityAbbr))#set ($serviceSecurityAbbr="wsse")#end
 #set ($serviceSecurityNamespace = $service.findTaggedValue("andromda_security_namespace"))
 #if ($stringUtils.isEmpty($serviceSecurityNamespace))#set ($serviceSecurityNamespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd")#end
+#set ($serviceSecurityPartName = $service.findTaggedValue("andromda_wsdl_security_partName"))
+#if ($stringUtils.isEmpty($serviceSecurityPartName))#set ($serviceSecurityPartName="Security")#end
+#set ($serviceSecurityElementName = $service.findTaggedValue("andromda_wsdl_security_element"))
+#if ($stringUtils.isEmpty($serviceSecurityElementName))#set ($serviceSecurityElementName="Security")#end
+#set ($serviceSecurityXSDlocation = $service.findTaggedValue("andromda_security_XSDlocation"))
+#if ($stringUtils.isEmpty($serviceSecurityXSDlocation))#set ($serviceSecurityXSDlocation="http://wdpr-interface-simulator.wdw.disney.com/oasis-200401-wss-wssecurity-secext-1.0.xsd")#end
     xmlns:$serviceSecurityAbbr="$serviceSecurityNamespace"
     xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
 #end
@@ -58,13 +67,11 @@
                 schemaLocation="xsd/${webServiceUtils.reversePackage($pkgRef.fullyQualifiedName)}.xsd"/>
 #end
 #if ($service.hasStereotype("WSCustomHeader"))
-#set ($serviceHeaderXSDlocation = $service.findTaggedValue("andromda_header_XSDlocation"))
 #if ($stringUtils.isEmpty($serviceHeaderXSDlocation))#set ($serviceHeaderXSDlocation=$serviceHeaderNamespace)#end
             <xs:import namespace="$serviceHeaderNamespace"
                 schemaLocation="$serviceHeaderXSDlocation"/>
 #end
 #if ($service.hasStereotype("WSSecurity"))
-#set ($serviceSecurityXSDlocation = $service.findTaggedValue("andromda_security_XSDlocation"))
 #if ($stringUtils.isEmpty($serviceSecurityXSDlocation))#set ($serviceSecurityXSDlocation=$serviceSecurityNamespace)#end
             <xs:import namespace="$serviceSecurityNamespace"
                 schemaLocation="$serviceSecurityXSDlocation"/>
@@ -76,8 +83,8 @@
 ##end
 ##end
         </xs:schema>
-#parse("templates/webservice/jaxws/jaxws-included-xsd.vsl")
 #end
+#parse("templates/webservice/jaxws/jaxws-included-xsd.vsl")
     </wsdl:types>
 
     <!-- Messages - Correspond to service $defaultParameterStyle method parameters -->
@@ -100,6 +107,12 @@
     <wsdl:message name="${operation.operationName}">
 ## element name must not have RequestWrapper, otherwise Java is generated as BARE instead of WRAPPED
         <wsdl:part name="${operation.operationName}" element="${service.namespacePrefix}:${operation.operationName}"/>
+#if ($service.hasStereotype("WSCustomHeader"))
+        <!--wsdl:part name="$serviceHeaderPartName" element="$serviceHeaderAbbr:$serviceHeaderElementName"/-->
+#end
+#if ($service.hasStereotype("WSSecurity"))
+        <!--wsdl:part name="$serviceSecurityPartName" element="$serviceSecurityAbbr:$serviceSecurityElementName"/-->
+#end
     </wsdl:message>
 #else
 ## No Request/Response wrappers in message or types
@@ -122,6 +135,12 @@ $stringUtils.replaceChars($parameter.getDocumentation("            ", 100, false
 #else
         <wsdl:part name="$parameter.name" element="$type"/>
 #end
+#end
+#if ($service.hasStereotype("WSCustomHeader"))
+        <wsdl:part name="$serviceHeaderPartName" element="$serviceHeaderAbbr:$serviceHeaderElementName"/>
+#end
+#if ($service.hasStereotype("WSSecurity"))
+        <wsdl:part name="$serviceSecurityPartName" element="$serviceSecurityAbbr:$serviceSecurityElementName"/>
 #end
     </wsdl:message>
 #if ($operation.returnTypePresent || $operation.exceptionsPresent)
@@ -148,16 +167,11 @@ $stringUtils.replaceChars($parameter.getDocumentation("            ", 100, false
     </wsdl:message>
 #end
 #if ($service.hasStereotype("WSCustomHeader"))
-#set ($serviceHeaderPartName = $service.findTaggedValue("andromda_wsdl_header_partName"))
-#set ($serviceHeaderElementName = $service.findTaggedValue("andromda_wsdl_header_element"))
     <wsdl:message name="$serviceHeaderPartName">
         <wsdl:part name="$serviceHeaderPartName" element="$serviceHeaderAbbr:$serviceHeaderElementName"/>
     </wsdl:message>
 #end
 #if ($service.hasStereotype("WSSecurity"))
-#set ($serviceSecurityPartName = $service.findTaggedValue("andromda_wsdl_security_partName"))
-#if ($stringUtils.isEmpty($serviceSecurityPartName))#set ($serviceSecurityPartName="wsse")#end
-#set ($serviceSecurityElementName = $service.findTaggedValue("andromda_wsdl_security_element"))
 #if ($stringUtils.isEmpty($serviceSecurityElementName))#set ($serviceSecurityElementName="Security")#end
     <wsdl:message name="$serviceSecurityPartName">
         <wsdl:part name="$serviceSecurityPartName" element="$serviceSecurityAbbr:$serviceSecurityElementName"/>
@@ -192,8 +206,7 @@ $stringUtils.replaceChars($operation.getDocumentation("                ", 100, f
 #set ($serviceBindingName = "${service.qName}SoapBinding")
     <!-- WSDL Binding - Corresponds to service transport -->
     <wsdl:binding name="$serviceBindingName" type="${service.namespacePrefix}:${service.qName}">
-        <soap:binding style="document"
-            transport="$documentStyleTransportNamespace" />
+        <soap:binding style="document" transport="$documentStyleTransportNamespace" />
 #foreach ($operation in $service.allowedOperations)
 #if ($operation.visibility.equals("public") && !$operation.rest)
         <wsdl:operation name="$operation.operationName">
@@ -203,13 +216,13 @@ $stringUtils.replaceChars($operation.getDocumentation("                ", 100, f
 ##else
             <wsdl:input name="${operation.operationName}">
 ##end
-                <soap:body use="literal"/>
 #if ($service.hasStereotype("WSCustomHeader"))
                 <soap:header message="impl:$serviceHeaderPartName" part="$serviceHeaderPartName" use="literal"/>
 #end
 #if ($service.hasStereotype("WSSecurity"))
                 <soap:header message="impl:$serviceSecurityPartName" part="$serviceSecurityPartName" use="literal"/>
 #end
+                <soap:body use="literal"/>
             </wsdl:input>
 #if ($operation.returnTypePresent || $operation.exceptionsPresent)
             <wsdl:output name="${operation.operationName}Response">

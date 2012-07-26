@@ -29,8 +29,11 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <pathelement location="${m2repo}/wsdl4j/wsdl4j/1.6.2/wsdl4j-1.6.2.jar"/ -->
     <pathelement location="${m2repo}/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar"/>
     <pathelement location="${m2repo}/org/apache/cxf/cxf-bundle/${cxf.version}/cxf-bundle-${cxf.version}.jar"/>
-    <pathelement location="${m2repo}/org/apache/cxf/cxf-xjc-dv/${cxf.xjc.version}/cxf-xjc-dv-${cxf.xjc.version}.jar"/>
-    <pathelement location="${m2repo}/org/apache/cxf/cxf-xjc-ts/${cxf.xjc.version}/cxf-xjc-ts-${cxf.xjc.version}.jar"/>
+#if(${cxf.xjc.version}>"2.2")
+#set($xjcplugins="xjcplugins/")
+#end
+    <pathelement location="${m2repo}/org/apache/cxf/${xjcplugins}cxf-xjc-dv/${cxf.xjc.version}/cxf-xjc-dv-${cxf.xjc.version}.jar"/>
+    <pathelement location="${m2repo}/org/apache/cxf/${xjcplugins}cxf-xjc-ts/${cxf.xjc.version}/cxf-xjc-ts-${cxf.xjc.version}.jar"/>
     <pathelement location="${m2repo}/org/apache/velocity/velocity/1.6.4/velocity-1.6.4.jar"/>
 #if ($stringUtils.isNotBlank($xjcArguments))
     <fileset dir="${m2repo}/org/andromda/thirdparty/jaxb2_commons">
@@ -317,11 +320,11 @@ and allows double-checking of both java and wsdl code generation and all annotat
       <arg value="-classdir"/>
       <arg value="${andromda.project}/CXF/src/main/webapp/WEB-INF/classes"/>
       <arg value="-all"/>
+## Element ref with no substitutions should be allowed for wrapped wsdl/java
+      <arg value="-allowElementReferences"/>
       <arg value="-verbose"/>
-#if ($header)
       <arg value="-exsh"/>
       <arg value="true"/>
-#end
 #if (!$cxfVersion.startsWith("2.0"))
       <arg value="-autoNameResolution"/>
       <!-- Bug: CXF StackOverflow if values are bidirectional -->
