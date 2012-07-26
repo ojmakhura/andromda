@@ -307,10 +307,17 @@
                         <configLocation>andromda/checkstyle_checks.xml</configLocation>
                     </configuration>
                 </plugin>
-                <!-- JXR must be run before other static analysis plugins, to link to scource code lines in report -->
+                <!-- JXR must be run before other static analysis plugins, to link to scource code lines in report, error if velocity-tools not added -->
                 <plugin>
                     <artifactId>maven-jxr-plugin</artifactId>
-                    <version>${maven-jxr-plugin.version}</version>
+                    <version>2.3</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.velocity</groupId>
+                            <artifactId>velocity-tools</artifactId>
+                            <version>2.0-beta4</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <artifactId>maven-pmd-plugin</artifactId>

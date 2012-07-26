@@ -46,6 +46,14 @@
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>${findbugs-maven-plugin.version}</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <!-- Skip findbugs reporting, because no source files: Throws 'No classes found to analyze' exception and stops -->
@@ -54,7 +62,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
-                <version>2.5</version>
+                <version>${findbugs-maven-plugin.version}</version>
                 <configuration>
                     <skip>true</skip>
                 </configuration>
