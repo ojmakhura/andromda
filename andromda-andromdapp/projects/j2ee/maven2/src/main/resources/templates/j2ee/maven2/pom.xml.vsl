@@ -1413,6 +1413,18 @@
                     <artifactId>maven-site-plugin</artifactId>
                     <version>2.2</version>
                 </plugin>
+                <!-- Missing velocity dependency when run from command line insteadd of site -->
+                <plugin>
+                    <artifactId>maven-jxr-plugin</artifactId>
+                    <version>${maven-jxr-plugin.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.velocity</groupId>
+                            <artifactId>velocity-tools</artifactId>
+                            <version>2.0-beta4</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
