@@ -17,6 +17,7 @@ import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.IntegerConverter;
 import org.apache.commons.beanutils.converters.LongConverter;
 import org.apache.commons.beanutils.converters.ShortConverter;
+import org.apache.commons.beanutils.PropertyUtils;
 
 /**
  * Provides the ability to search by properties.
@@ -233,7 +234,8 @@ public class $className
      *
      * @exception ConversionException if thrown by an underlying Converter
      */
-    protected Object convert(Object value, Class type) {
+    protected Object convert(Object value, Class type)
+    {
         Converter converter = ConvertUtils.lookup(type);
         Object result;
         if (converter != null)
@@ -278,9 +280,11 @@ public class $className
                     }
                     propertyType = type;
                 }
+                final Object object = propertyType.newInstance();
                 final String name = parameter.getName().replaceAll(".*\\" + PERIOD, "");
-                try{
-                    value = convert(value,propertyType.getMethod("get"+org.apache.commons.lang.StringUtils.capitalize(name)).getReturnType());
+                try
+                {
+                    value = convert(value, PropertyUtils.getPropertyType(object, name));
                 }
                 catch (final NoSuchMethodException noSuchMethodException)
                 {
