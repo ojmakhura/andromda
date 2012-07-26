@@ -92,7 +92,17 @@ public class WSDLTypeAttributeLogicImpl
     protected boolean handleIsAttribute()
     {
         boolean isAttribute = this.hasStereotype(WebServiceGlobals.STEREOTYPE_XML_ATTRIBUTE);
-        if (!isAttribute)
+        boolean isElement = this.hasStereotype(WebServiceGlobals.STEREOTYPE_XML_ELEMENT);
+        if (isElement)
+        {
+            if (isAttribute)
+            {
+                logger.error("Attribute has both XmlAttribute and XmlElement stereotypes, it cannot be both! " + this.getFullyQualifiedName());
+                // leave attribute = true anyway, because it has the stereotype
+            }
+            // else: Attribute = false because it is an element, not an attribute
+        }
+        else if (!isAttribute)
         {
             String attributes = String.valueOf(this.getConfiguredProperty(USE_ATTRIBUTES));
             if (StringUtils.isEmpty(attributes))
@@ -101,6 +111,7 @@ public class WSDLTypeAttributeLogicImpl
             }
             isAttribute = Boolean.parseBoolean(attributes);
         }
+        // else: Attribute = true because of stereotype
         return isAttribute;
     }
 
@@ -111,16 +122,28 @@ public class WSDLTypeAttributeLogicImpl
     protected boolean handleIsElement()
     {
         boolean isAttribute = this.hasStereotype(WebServiceGlobals.STEREOTYPE_XML_ELEMENT);
-        if (!isAttribute)
+        boolean isElement = this.hasStereotype(WebServiceGlobals.STEREOTYPE_XML_ELEMENT);
+        if (isElement)
+        {
+            if (isAttribute)
+            {
+                logger.error("Attribute has both XmlAttribute and XmlElement stereotypes, it cannot be both! " + this.getFullyQualifiedName());
+                // leave element = true anyway, because it has the stereotype
+            }
+            // else: Element = true because it is an element, not an attribute
+        }
+        else if (!isAttribute)
         {
             String attributes = String.valueOf(this.getConfiguredProperty(USE_ATTRIBUTES));
             if (StringUtils.isEmpty(attributes))
             {
                 attributes = "true";
             }
-            isAttribute = Boolean.parseBoolean(attributes);
+            // useAttributes = true by default
+            isElement = !Boolean.parseBoolean(attributes);
         }
-        return !isAttribute;
+        // else: Attribute = true because of stereotype
+        return isElement;
     }
 
     /**
