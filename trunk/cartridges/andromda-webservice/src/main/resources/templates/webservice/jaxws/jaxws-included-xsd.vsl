@@ -66,7 +66,7 @@ $stringUtils.replaceChars($operation.getDocumentation("                ", 100, f
 #set ($isMany=false)
 #set ($maxOccurs='')
 #end
-##                    <!-- $parameter.name type=$parameter.type.fullyQualifiedName schemaType=$parameter.type.schemaType isMany=$isMany-->
+##                    <!-- $parameter.name type=$parameter.type.fullyQualifiedName schemaType=$parameter.type.schemaType isMany=$isMany defaultValue=$parameter.defaultValue nillable=$parameter.nillable lower=$parameter.lower-->
 ## Determine if attribute/element is a simple schema type when it starts with xs:
 ##if (!$useAttributes || !$parameter.type.schemaType.startsWith("xs:") || $isMany)
 #if ($parameter.defaultValuePresent)
@@ -150,10 +150,11 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
 #if ($returnName.endsWith("[]"))
 #set ($returnName=$returnName.nonArray)
 #end
+##            <!-- $operation.returnParameter.name type=$operation.returnParameter.type.fullyQualifiedName schemaType=$operation.returnParameter.type.schemaType isMany=$operation.returnParameter.many defaultValue=$operation.returnParameter.defaultValue nillable=$operation.returnParameter.nillable lower=$operation.returnParameter.lower opLower=$operation.lower -->
             <xs:complexType>
                 <xs:sequence>
 ##                    <!-- $type $operation.returnType.name $operation.returnType $operation.returnType.schemaType -->
-                    <xs:element name="$returnName" type="$type"${maxOccurs}>
+                    <xs:element name="$returnName" type="$type"${maxOccurs}${minOccurs}>
 ## JAXB does not bind wrapped types properly - always primitive if no custimization, always wrapped if customization
 #if ($operation.returnType.booleanType && $operation.returnType.wrappedPrimitive && $stringUtils.isNotBlank($XMLBooleanAdapter))
                       <xs:annotation><xs:appinfo><jxb:property><jxb:baseType>
@@ -171,7 +172,7 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
 #end
 #end
 ## Service exceptions are already included in referenced $types
-##        <!-- Service Exception Faults $pkg.fullyQualifiedName $webServiceUtils.getAllowedOperationExceptions($pkg).size() -->
+##        <!-- Service Exception $webServiceUtils.getAllowedOperationExceptions($pkg).size() Faults in $pkg.fullyQualifiedName -->
 #foreach($exception in $service.allowedOperationExceptions)
         <!-- Exception: $exception.fullyQualifiedName -->
 #set ($faultName=$exception.name.replace("Exception", "Fault"))
@@ -211,8 +212,7 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
 #end
 #end
 #end
-        <!-- Service TypeMapping elements -->
-##        <!-- $service $schemaTypes.size() $pkg.fullyQualifiedName -->
+        <!-- $schemaTypes.size() Service TypeMapping elements in $pkg.fullyQualifiedName -->
 #foreach ($typeMapping in $webServiceUtils.getPackageTypes($service, $schemaTypes, $pkg.fullyQualifiedName, $extensionInheritanceDisabled))
 #if ($umlUtils.shouldOutput($typeMapping))
 #set ($type = $typeMapping)
