@@ -35,7 +35,7 @@
         <param-value>*.xhtml</param-value>
     </context-param>
 #if ($standalone)
-
+#if ($jsfVersion1)
     <!-- Trinidad has its own ViewHandler, which is a "decorating"
          view handler - for example, it needs to wrap methods like renderView()
          to perform some extra pre- and post-handling.  Facelets, on the other
@@ -58,7 +58,7 @@
         <param-name>org.apache.myfaces.trinidad.ALTERNATE_VIEW_HANDLER</param-name>
         <param-value>com.sun.facelets.FaceletViewHandler</param-value>
     </context-param>
-
+#end
 ## to be reviewed, see https://issues.apache.org/jira/browse/TRINIDAD-1487
 ##    <context-param>
 ##        <description>

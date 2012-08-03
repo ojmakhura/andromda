@@ -92,6 +92,17 @@
                     (e.g. /WEB-INF/jsf-config.xml).  See JSF 1.0 PRD2, 10.3.2
                 </documentation>
             </property>
+            <property name="jsfVersion" required="false">
+                <default>1.x</default>
+                <documentation>
+                    The JSF version to generate for default is 1.x.
+                    Valid values are:
+                    <ul>
+                        <li>1.x</li>
+                        <li>2.x</li>
+                    </ul>
+                </documentation>
+            </property>
             <property name="formScope">
                 <default>request</default>
                 <documentation>

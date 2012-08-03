@@ -87,6 +87,7 @@
     <property reference="facesConfigFiles"/>
     <property reference="controllerScope"/>
     <property reference="navigationBeanScope"/>
+    <property reference="jsfVersion"/>
 
     <!-- cartridge-property merge-point -->
 
@@ -126,6 +127,7 @@
         #if (!$ajaxLibrary.equals("icefaces") &amp;&amp; $stringUtils.isNotBlank($portletContainer))true#end
     </condition>
     <condition name="navigationUsesRedirect">$navigationUsesRedirect.equalsIgnoreCase("true")</condition>
+    <condition name="jsfVersion1">$jsfVersion.trim().equalsIgnoreCase('1.x')</condition>
 
     <!-- condition merge-point-->
 
@@ -197,7 +199,7 @@
         overwrite="true"
         lastModifiedCheck="true"
         outputCondition="portlet"/>
-        
+
     <resource
         path="resources/views/css/icefaces/*"
         outputPattern="css/icefaces/{0}"
@@ -850,7 +852,7 @@
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
         outlet="managed-beans"
         overwrite="true"/>
-        
+
         <template
         path="templates/jsf/utils/JsfVariableResolver.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
