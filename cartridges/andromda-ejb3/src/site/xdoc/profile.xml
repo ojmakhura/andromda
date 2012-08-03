@@ -39,7 +39,7 @@
                             of doing it. In those cases you may want to resort to tagged values, but these cases should
                             be considered with caution. A tagged value is something extra, something optional,
                             and the application should run fine without them.
-                        </div><ul><li><a href="#andromda_ejb_automaticKey" title="Applied on: Entity attribute">andromda_ejb_automaticKey</a></li><li><a href="#andromda_ejb_mdb_acknowledge_mode" title="Applied on: Message Driven Bean">andromda_ejb_mdb_acknowledge_mode</a></li><li><a href="#andromda_ejb_mdb_destination" title="Applied on: Message Driven Bean">andromda_ejb_mdb_destination</a></li><li><a href="#andromda_ejb_mdb_destination_type" title="Applied on: Message Driven Bean">andromda_ejb_mdb_destination_type</a></li><li><a href="#andromda_ejb_mdb_pool_size_max" title="Applied on: Message Driven">andromda_ejb_mdb_pool_size_max</a></li><li><a href="#andromda_ejb_mdb_pool_size_min" title="Applied on: Message Driven">andromda_ejb_mdb_pool_size_min</a></li><li><a href="#andromda_ejb_mdb_selector" title="Applied on: Message Driven Bean">andromda_ejb_mdb_selector</a></li><li><a href="#andromda_ejb_mdb_subscription_durability" title="Applied on: Message Driven Bean">andromda_ejb_mdb_subscription_durability</a></li><li><a href="#andromda_ejb_noSyntheticCreateMethod" title="Applied on: Entity">andromda_ejb_noSyntheticCreateMethod</a></li><li><a href="#andromda_ejb_query" title="Applied on: An Entity operation marked as a query .">andromda_ejb_query</a></li><li><a href="#andromda_ejb_query_useCache" title="Applied on: Query Operations">andromda_ejb_query_useCache</a></li><li><a href="#andromda_ejb_transaction_management" title="Applied on: Service and Message-Driven Beans">andromda_ejb_transaction_management</a></li><li><a href="#andromda_ejb_transaction_type" title="Applied on: Service operation or Entity attribute">andromda_ejb_transaction_type</a></li><li><a href="#andromda_ejb_viewType" title="Applied on: Service or Service operation">andromda_ejb_viewType</a></li><li><a href="#andromda_hibernate_cascade" title="Applied on: Association ends between &lt;&lt;Entity&gt;&gt; classes">andromda_hibernate_cascade</a></li><li><a href="#andromda_persistence_association_cache" title="Applied on: Association End Between Entities">andromda_persistence_association_cache</a></li><li><a href="#andromda_persistence_cascade_type" title="Applied on: Association End">andromda_persistence_cascade_type</a></li><li><a href="#andromda_persistence_collection_index" title="Applied on: Association ends between &lt;&lt;Entity&gt;&gt; classes">andromda_persistence_collection_index</a></li><li><a href="#andromda_persistence_collection_index_type" title="Applied on: Association ends between &lt;&lt;Entity&gt;&gt; classes">andromda_persistence_collection_index_type</a></li><li><a href="#andromda_persistence_collection_type" title="Applied on: Association ends between &lt;&lt;Entity&gt;&gt; classes">andromda_persistence_collection_type</a></li><li><a href="#andromda_persistence_column" title="Applied on: Entity attribute">andromda_persistence_column</a></li><li><a href="#andromda_persistence_column_definition" title="Applied on: Entity Attribute">andromda_persistence_column_definition</a></li><li><a href="#andromda_persistence_column_insert" title="Applied on: &lt;&lt;Entity&gt;&gt; Attribute">andromda_persistence_column_insert</a></li><li><a href="#andromda_persistence_column_length" title="Applied on: Entity attribute">andromda_persistence_column_length</a></li><li><a href="#andromda_persistence_column_nullable" title="Applied on: Entity Attribute">andromda_persistence_column_nullable</a></li><li><a href="#andromda_persistence_column_precision" title="Applied on: Entity Attribute">andromda_persistence_column_precision</a></li><li><a href="#andromda_persistence_column_scale" title="Applied on: Entity Attribute">andromda_persistence_column_scale</a></li><li><a href="#andromda_persistence_column_update" title="Applied on: &lt;&lt;Entity&gt;&gt; Attribute">andromda_persistence_column_update</a></li><li><a href="#andromda_persistence_discriminator_column_definition" title="Applied on: &lt;&lt;Entity&gt;&gt;">andromda_persistence_discriminator_column_definition</a></li><li><a href="#andromda_persistence_discriminator_column_length" title="Applied on: &lt;&lt;Entity&gt;&gt;">andromda_persistence_discriminator_column_length</a></li><li><a href="#andromda_persistence_discriminator_column_name" title="Applied on: &lt;&lt;Entity&gt;&gt;">andromda_persistence_discriminator_column_name</a></li><li><a href="#andromda_persistence_discriminator_type" title="Applied on: &lt;&lt;Entity&gt;&gt;">andromda_persistence_discriminator_type</a></li><li><a href="#andromda_persistence_discriminator_value" title="Applied on: &lt;&lt;Entity&gt;&gt;">andromda_persistence_discriminator_value</a></li><li><a href="#andromda_persistence_entity_cache" title="Applied on: Entities">andromda_persistence_entity_cache</a></li><li><a href="#andromda_persistence_enumeration_type" title="Applied on: Entity Attribute">andromda_persistence_enumeration_type</a></li><li><a href="#andromda_persistence_fetch_type" title="Applied on: Association End or Entity Attribute">andromda_persistence_fetch_type</a></li><li><a href="#andromda_persistence_generator_allocation_size" title="Applied on: Entity Attribute">andromda_persistence_generator_allocation_size</a></li><li><a href="#andromda_persistence_generator_genericStrategy" title="Applied on: Entity Attribute">andromda_persistence_generator_genericStrategy</a></li><li><a href="#andromda_persistence_generator_initial_value" title="Applied on: Entity Attribute">andromda_persistence_generator_initial_value</a></li><li><a href="#andromda_persistence_generator_name" title="Applied on: Entity Attribute">andromda_persistence_generator_name</a></li><li><a href="#andromda_persistence_generator_pkcolumn_value" title="Applied on: Entity Attribute">andromda_persistence_generator_pkcolumn_value</a></li><li><a href="#andromda_persistence_generator_source_name" title="Applied on: Entity Attribute">andromda_persistence_generator_source_name</a></li><li><a href="#andromda_persistence_generator_type" title="Applied on: Entity Attribute">andromda_persistence_generator_type</a></li><li><a href="#andromda_persistence_inheritance" title="Applied on: &lt;&lt;Entity&gt;&gt;">andromda_persistence_inheritance</a></li><li><a href="#andromda_persistence_lob_type" title="Applied on: Entity Attribute of Type datatype::Clob or datatype::Blob">andromda_persistence_lob_type</a></li><li><a href="#andromda_persistence_optional" title="Applied on: Entity attribute">andromda_persistence_optional</a></li><li><a href="#andromda_persistence_orderBy" title="Applied on: Association End">andromda_persistence_orderBy</a></li><li><a href="#andromda_persistence_table" title="Applied on: Entity or a many-to-many association.">andromda_persistence_table</a></li><li><a href="#andromda_persistence_temporal_type" title="Applied on: Entity Attribute or Entity Finder Method Parameter">andromda_persistence_temporal_type</a></li><li><a href="#andromda_seam_bijection_factory_scope" title="Applied on: Session and Java Bean Operations">andromda_seam_bijection_factory_scope</a></li><li><a href="#andromda_seam_bijection_factory_value" title="Applied on: Session and Java Bean Operations">andromda_seam_bijection_factory_value</a></li><li><a href="#andromda_seam_bijection_in_create" title="Applied on: Session and Java Bean Attributes">andromda_seam_bijection_in_create</a></li><li><a href="#andromda_seam_bijection_in_value" title="Applied on: Session and Java Bean Attributes">andromda_seam_bijection_in_value</a></li><li><a href="#andromda_seam_bijection_logger_value" title="Applied on: Entity, Session and Java Beans">andromda_seam_bijection_logger_value</a></li><li><a href="#andromda_seam_bijection_out_scope" title="Applied on: Session and Java Bean Attributes">andromda_seam_bijection_out_scope</a></li><li><a href="#andromda_seam_bijection_out_value" title="Applied on: Session and Java Bean Attributes">andromda_seam_bijection_out_value</a></li><li><a href="#andromda_seam_bijection_requestparameter_value" title="Applied on: Session and Java Beans">andromda_seam_bijection_requestparameter_value</a></li><li><a href="#andromda_seam_component_conversional_ifnotbegunoutcome" title="Applied on: Session and Java Beans">andromda_seam_component_conversional_ifnotbegunoutcome</a></li><li><a href="#andromda_seam_component_intercept" title="Applied on: Entity, Session and Java Beans">andromda_seam_component_intercept</a></li><li><a href="#andromda_seam_component_jndiname" title="Applied on: Entity, Session and Java Beans">andromda_seam_component_jndiname</a></li><li><a href="#andromda_seam_component_name" title="Applied on: Entity, Session and Java Beans">andromda_seam_component_name</a></li><li><a href="#andromda_seam_component_readonly" title="Applied on: Entity, Session and Java Beans">andromda_seam_component_readonly</a></li><li><a href="#andromda_seam_component_role_name" title="Applied on: Entity, Session and Java Beans">andromda_seam_component_role_name</a></li><li><a href="#andromda_seam_component_role_scope" title="Applied on: Entity, Session and Java Beans">andromda_seam_component_role_scope</a></li><li><a href="#andromda_seam_component_scope" title="Applied on: Entity, Session and Java Beans">andromda_seam_component_scope</a></li><li><a href="#andromda_seam_component_startup_depends" title="Applied on: Entity, Session and Java Beans">andromda_seam_component_startup_depends</a></li><li><a href="#andromda_seam_component_synchronized_timeout" title="Applied on: Entity, Session and Java Beans">andromda_seam_component_synchronized_timeout</a></li><li><a href="#andromda_seam_conversation_begin_flushmode" title="Applied on: Session and Java Beans">andromda_seam_conversation_begin_flushmode</a></li><li><a href="#andromda_seam_conversation_begin_ifoutcome" title="Applied on: Session and Java Beans">andromda_seam_conversation_begin_ifoutcome</a></li><li><a href="#andromda_seam_conversation_begin_join" title="Applied on: Session and Java Beans">andromda_seam_conversation_begin_join</a></li><li><a href="#andromda_seam_conversation_begin_nested" title="Applied on: Session and Java Beans">andromda_seam_conversation_begin_nested</a></li><li><a href="#andromda_seam_conversation_begin_pageflow" title="Applied on: Session and Java Beans">andromda_seam_conversation_begin_pageflow</a></li><li><a href="#andromda_seam_conversation_begintask_flushmode" title="Applied on: Session and Java Beans">andromda_seam_conversation_begintask_flushmode</a></li><li><a href="#andromda_seam_conversation_begintask_taskidparameter" title="Applied on: Session and Java Beans">andromda_seam_conversation_begintask_taskidparameter</a></li><li><a href="#andromda_seam_conversation_createprocess_definition" title="Applied on: Session and Java Beans">andromda_seam_conversation_createprocess_definition</a></li><li><a href="#andromda_seam_conversation_end_beforeredirect" title="Applied on: Session and Java Beans">andromda_seam_conversation_end_beforeredirect</a></li><li><a href="#andromda_seam_conversation_end_evenifexception" title="Applied on: Session and Java Beans">andromda_seam_conversation_end_evenifexception</a></li><li><a href="#andromda_seam_conversation_end_ifoutcome" title="Applied on: Session and Java Beans">andromda_seam_conversation_end_ifoutcome</a></li><li><a href="#andromda_seam_conversation_endtask_beforeredirect" title="Applied on: Session and Java Beans">andromda_seam_conversation_endtask_beforeredirect</a></li><li><a href="#andromda_seam_conversation_endtask_ifoutcome" title="Applied on: Session and Java Beans">andromda_seam_conversation_endtask_ifoutcome</a></li><li><a href="#andromda_seam_conversation_endtask_transition_name" title="Applied on: Session and Java Beans">andromda_seam_conversation_endtask_transition_name</a></li><li><a href="#andromda_seam_conversation_resumeprocess_processIdParameter" title="Applied on: Session and Java Beans">andromda_seam_conversation_resumeprocess_processIdParameter</a></li><li><a href="#andromda_seam_conversation_starttask_flushmode" title="Applied on: Session and Java Beans">andromda_seam_conversation_starttask_flushmode</a></li><li><a href="#andromda_seam_conversation_starttask_taskidparameter" title="Applied on: Session and Java Beans">andromda_seam_conversation_starttask_taskidparameter</a></li><li><a href="#andromda_seam_data_databinderclass" title="Applied on: Java Interfaces">andromda_seam_data_databinderclass</a></li><li><a href="#andromda_seam_data_datamodel_scope" title="Applied on: Session and Java Bean Attributes">andromda_seam_data_datamodel_scope</a></li><li><a href="#andromda_seam_data_datamodel_value" title="Applied on: Session and Java Bean Attributes">andromda_seam_data_datamodel_value</a></li><li><a href="#andromda_seam_data_datamodelselection_value" title="Applied on: Session and Java Bean Attributes">andromda_seam_data_datamodelselection_value</a></li><li><a href="#andromda_seam_data_datamodelselectionindex_value" title="Applied on: Session and Java Bean Attributes">andromda_seam_data_datamodelselectionindex_value</a></li><li><a href="#andromda_seam_data_dataselectorclass" title="Applied on: Java Interfaces">andromda_seam_data_dataselectorclass</a></li><li><a href="#andromda_seam_interceptor_around" title="Applied on: Session and Java Beans">andromda_seam_interceptor_around</a></li><li><a href="#andromda_seam_interceptor_stateless" title="Applied on: Session and Java Beans">andromda_seam_interceptor_stateless</a></li><li><a href="#andromda_seam_interceptor_type" title="Applied on: Session and Java Beans">andromda_seam_interceptor_type</a></li><li><a href="#andromda_seam_interceptor_within" title="Applied on: Session and Java Beans">andromda_seam_interceptor_within</a></li><li><a href="#andromda_seam_lifecycle_observer_event" title="Applied on: Session and Java Beans">andromda_seam_lifecycle_observer_event</a></li><li><a href="#andromda_seam_transaction_rollback_ifoutcome" title="Applied on: Session and Java Beans">andromda_seam_transaction_rollback_ifoutcome</a></li><li><a href="#andromda_seam_validation_outcome" title="Applied on: Session and Java Bean Operation">andromda_seam_validation_outcome</a></li><li><a href="#andromda_seam_validation_refreshEntities" title="Applied on: Session and Java Bean Operation">andromda_seam_validation_refreshEntities</a></li><li><a href="#andromda_seam_webremote_exclude" title="Applied on: Session and Java Bean Operation">andromda_seam_webremote_exclude</a></li><li><a href="#andromda_service_interceptor_default" title="Applied on: Interceptor Class">andromda_service_interceptor_default</a></li><li><a href="#andromda_service_interceptor_excludeClass" title="Applied on: Service Operation">andromda_service_interceptor_excludeClass</a></li><li><a href="#andromda_service_interceptor_excludeDefault" title="Applied on: Service Operation">andromda_service_interceptor_excludeDefault</a></li><li><a href="#andromda_service_jndi_local" title="Applied on: &lt;&lt;Service&gt;&gt;">andromda_service_jndi_local</a></li><li><a href="#andromda_service_jndi_remote" title="Applied on: &lt;&lt;Service&gt;&gt;">andromda_service_jndi_remote</a></li><li><a href="#andromda_service_persistence_context_datasource" title="Applied on: Class with &lt;&lt;Service&gt;&gt;">andromda_service_persistence_context_datasource</a></li><li><a href="#andromda_service_persistence_context_unit_name" title="Applied on: &lt;&lt;Service&gt;&gt;">andromda_service_persistence_context_unit_name</a></li><li><a href="#andromda_service_persistence_context_unit_type" title="Applied on: &lt;&lt;Service&gt;&gt;">andromda_service_persistence_context_unit_type</a></li><li><a href="#andromda_service_persistence_flush_mode" title="Applied on: Service operation">andromda_service_persistence_flush_mode</a></li><li><a href="#andromda_service_security_denyAll" title="Applied on: Service and service operation">andromda_service_security_denyAll</a></li><li><a href="#andromda_service_security_permitAll" title="Applied on: Service and service operation">andromda_service_security_permitAll</a></li><li><a href="#andromda_service_security_realm" title="Applied on: Service">andromda_service_security_realm</a></li><li><a href="#andromda_service_type" title="Applied on: &lt;&lt;Service&gt;&gt;">andromda_service_type</a></li><li><a href="#andromda_webservice_operation_name" title="Applied on: Service and WebService">andromda_webservice_operation_name</a></li><li><a href="#andromda_webservice_operation_oneway" title="Applied on: WebService Operation">andromda_webservice_operation_oneway</a></li><li><a href="#andromda_webservice_operation_result_name" title="Applied on: Service and WebService">andromda_webservice_operation_result_name</a></li><li><a href="#andromda_webservice_parameter_style" title="Applied on: Service and WebService">andromda_webservice_parameter_style</a></li></ul></div><p>
+                        </div><ul><li><a href="#andromda_ejb_automaticKey" title="Applied on: Entity attribute">andromda_ejb_automaticKey</a></li><li><a href="#andromda_ejb_mdb_acknowledge_mode" title="Applied on: Message Driven Bean">andromda_ejb_mdb_acknowledge_mode</a></li><li><a href="#andromda_ejb_mdb_destination" title="Applied on: Message Driven Bean">andromda_ejb_mdb_destination</a></li><li><a href="#andromda_ejb_mdb_destination_type" title="Applied on: Message Driven Bean">andromda_ejb_mdb_destination_type</a></li><li><a href="#andromda_ejb_mdb_pool_size_max" title="Applied on: Message Driven">andromda_ejb_mdb_pool_size_max</a></li><li><a href="#andromda_ejb_mdb_pool_size_min" title="Applied on: Message Driven">andromda_ejb_mdb_pool_size_min</a></li><li><a href="#andromda_ejb_mdb_selector" title="Applied on: Message Driven Bean">andromda_ejb_mdb_selector</a></li><li><a href="#andromda_ejb_mdb_subscription_durability" title="Applied on: Message Driven Bean">andromda_ejb_mdb_subscription_durability</a></li><li><a href="#andromda_ejb_noSyntheticCreateMethod" title="Applied on: Entity">andromda_ejb_noSyntheticCreateMethod</a></li><li><a href="#andromda_ejb_query" title="Applied on: An Entity operation marked as a query .">andromda_ejb_query</a></li><li><a href="#andromda_ejb_query_useCache" title="Applied on: Query Operations">andromda_ejb_query_useCache</a></li><li><a href="#andromda_ejb_transaction_management" title="Applied on: Service and Message-Driven Beans">andromda_ejb_transaction_management</a></li><li><a href="#andromda_ejb_transaction_type" title="Applied on: Service operation or Entity attribute">andromda_ejb_transaction_type</a></li><li><a href="#andromda_ejb_viewType" title="Applied on: Service or Service operation">andromda_ejb_viewType</a></li><li><a href="#andromda_hibernate_cascade" title="Applied on: Association ends between &lt;&lt;Entity&gt;&gt; classes">andromda_hibernate_cascade</a></li><li><a href="#andromda_hibernate_type" title="Applied on: Entity Attribute">andromda_hibernate_type</a></li><li><a href="#andromda_persistence_association_cache" title="Applied on: Association End Between Entities">andromda_persistence_association_cache</a></li><li><a href="#andromda_persistence_associationEnd_primary" title="Applied on: Association End">andromda_persistence_associationEnd_primary</a></li><li><a href="#andromda_persistence_cascade_type" title="Applied on: Association End">andromda_persistence_cascade_type</a></li><li><a href="#andromda_persistence_collection_index" title="Applied on: Association ends between &lt;&lt;Entity&gt;&gt; classes">andromda_persistence_collection_index</a></li><li><a href="#andromda_persistence_collection_index_type" title="Applied on: Association ends between &lt;&lt;Entity&gt;&gt; classes">andromda_persistence_collection_index_type</a></li><li><a href="#andromda_persistence_collection_type" title="Applied on: Association ends between &lt;&lt;Entity&gt;&gt; classes">andromda_persistence_collection_type</a></li><li><a href="#andromda_persistence_column" title="Applied on: Entity attribute">andromda_persistence_column</a></li><li><a href="#andromda_persistence_column_definition" title="Applied on: Entity Attribute">andromda_persistence_column_definition</a></li><li><a href="#andromda_persistence_column_insert" title="Applied on: &lt;&lt;Entity&gt;&gt; Attribute">andromda_persistence_column_insert</a></li><li><a href="#andromda_persistence_column_length" title="Applied on: Entity attribute">andromda_persistence_column_length</a></li><li><a href="#andromda_persistence_column_nullable" title="Applied on: Entity Attribute">andromda_persistence_column_nullable</a></li><li><a href="#andromda_persistence_column_precision" title="Applied on: Entity Attribute">andromda_persistence_column_precision</a></li><li><a href="#andromda_persistence_column_scale" title="Applied on: Entity Attribute">andromda_persistence_column_scale</a></li><li><a href="#andromda_persistence_column_update" title="Applied on: &lt;&lt;Entity&gt;&gt; Attribute">andromda_persistence_column_update</a></li><li><a href="#andromda_persistence_discriminator_column_definition" title="Applied on: &lt;&lt;Entity&gt;&gt;">andromda_persistence_discriminator_column_definition</a></li><li><a href="#andromda_persistence_discriminator_column_length" title="Applied on: &lt;&lt;Entity&gt;&gt;">andromda_persistence_discriminator_column_length</a></li><li><a href="#andromda_persistence_discriminator_column_name" title="Applied on: &lt;&lt;Entity&gt;&gt;">andromda_persistence_discriminator_column_name</a></li><li><a href="#andromda_persistence_discriminator_type" title="Applied on: &lt;&lt;Entity&gt;&gt;">andromda_persistence_discriminator_type</a></li><li><a href="#andromda_persistence_discriminator_value" title="Applied on: &lt;&lt;Entity&gt;&gt;">andromda_persistence_discriminator_value</a></li><li><a href="#andromda_persistence_entity_cache" title="Applied on: Entities">andromda_persistence_entity_cache</a></li><li><a href="#andromda_persistence_enumeration_type" title="Applied on: Entity Attribute">andromda_persistence_enumeration_type</a></li><li><a href="#andromda_persistence_fetch_type" title="Applied on: Association End or Entity Attribute">andromda_persistence_fetch_type</a></li><li><a href="#andromda_persistence_generator_allocation_size" title="Applied on: Entity Attribute">andromda_persistence_generator_allocation_size</a></li><li><a href="#andromda_persistence_generator_genericStrategy" title="Applied on: Entity Attribute">andromda_persistence_generator_genericStrategy</a></li><li><a href="#andromda_persistence_generator_initial_value" title="Applied on: Entity Attribute">andromda_persistence_generator_initial_value</a></li><li><a href="#andromda_persistence_generator_name" title="Applied on: Entity Attribute">andromda_persistence_generator_name</a></li><li><a href="#andromda_persistence_generator_pkcolumn_value" title="Applied on: Entity Attribute">andromda_persistence_generator_pkcolumn_value</a></li><li><a href="#andromda_persistence_generator_source_name" title="Applied on: Entity Attribute">andromda_persistence_generator_source_name</a></li><li><a href="#andromda_persistence_generator_type" title="Applied on: Entity Attribute">andromda_persistence_generator_type</a></li><li><a href="#andromda_persistence_inheritance" title="Applied on: &lt;&lt;Entity&gt;&gt;">andromda_persistence_inheritance</a></li><li><a href="#andromda_persistence_lob_type" title="Applied on: Entity Attribute of Type datatype::Clob or datatype::Blob">andromda_persistence_lob_type</a></li><li><a href="#andromda_persistence_optional" title="Applied on: Entity attribute">andromda_persistence_optional</a></li><li><a href="#andromda_persistence_orderBy" title="Applied on: Association End">andromda_persistence_orderBy</a></li><li><a href="#andromda_persistence_table" title="Applied on: Entity or a many-to-many association.">andromda_persistence_table</a></li><li><a href="#andromda_persistence_temporal_type" title="Applied on: Entity Attribute or Entity Finder Method Parameter">andromda_persistence_temporal_type</a></li><li><a href="#andromda_seam_bijection_factory_scope" title="Applied on: Session and Java Bean Operations">andromda_seam_bijection_factory_scope</a></li><li><a href="#andromda_seam_bijection_factory_value" title="Applied on: Session and Java Bean Operations">andromda_seam_bijection_factory_value</a></li><li><a href="#andromda_seam_bijection_in_create" title="Applied on: Session and Java Bean Attributes">andromda_seam_bijection_in_create</a></li><li><a href="#andromda_seam_bijection_in_value" title="Applied on: Session and Java Bean Attributes">andromda_seam_bijection_in_value</a></li><li><a href="#andromda_seam_bijection_logger_value" title="Applied on: Entity, Session and Java Beans">andromda_seam_bijection_logger_value</a></li><li><a href="#andromda_seam_bijection_out_scope" title="Applied on: Session and Java Bean Attributes">andromda_seam_bijection_out_scope</a></li><li><a href="#andromda_seam_bijection_out_value" title="Applied on: Session and Java Bean Attributes">andromda_seam_bijection_out_value</a></li><li><a href="#andromda_seam_bijection_requestparameter_value" title="Applied on: Session and Java Beans">andromda_seam_bijection_requestparameter_value</a></li><li><a href="#andromda_seam_component_conversional_ifnotbegunoutcome" title="Applied on: Session and Java Beans">andromda_seam_component_conversional_ifnotbegunoutcome</a></li><li><a href="#andromda_seam_component_intercept" title="Applied on: Entity, Session and Java Beans">andromda_seam_component_intercept</a></li><li><a href="#andromda_seam_component_jndiname" title="Applied on: Entity, Session and Java Beans">andromda_seam_component_jndiname</a></li><li><a href="#andromda_seam_component_name" title="Applied on: Entity, Session and Java Beans">andromda_seam_component_name</a></li><li><a href="#andromda_seam_component_readonly" title="Applied on: Entity, Session and Java Beans">andromda_seam_component_readonly</a></li><li><a href="#andromda_seam_component_role_name" title="Applied on: Entity, Session and Java Beans">andromda_seam_component_role_name</a></li><li><a href="#andromda_seam_component_role_scope" title="Applied on: Entity, Session and Java Beans">andromda_seam_component_role_scope</a></li><li><a href="#andromda_seam_component_scope" title="Applied on: Entity, Session and Java Beans">andromda_seam_component_scope</a></li><li><a href="#andromda_seam_component_startup_depends" title="Applied on: Entity, Session and Java Beans">andromda_seam_component_startup_depends</a></li><li><a href="#andromda_seam_component_synchronized_timeout" title="Applied on: Entity, Session and Java Beans">andromda_seam_component_synchronized_timeout</a></li><li><a href="#andromda_seam_conversation_begin_flushmode" title="Applied on: Session and Java Beans">andromda_seam_conversation_begin_flushmode</a></li><li><a href="#andromda_seam_conversation_begin_ifoutcome" title="Applied on: Session and Java Beans">andromda_seam_conversation_begin_ifoutcome</a></li><li><a href="#andromda_seam_conversation_begin_join" title="Applied on: Session and Java Beans">andromda_seam_conversation_begin_join</a></li><li><a href="#andromda_seam_conversation_begin_nested" title="Applied on: Session and Java Beans">andromda_seam_conversation_begin_nested</a></li><li><a href="#andromda_seam_conversation_begin_pageflow" title="Applied on: Session and Java Beans">andromda_seam_conversation_begin_pageflow</a></li><li><a href="#andromda_seam_conversation_begintask_flushmode" title="Applied on: Session and Java Beans">andromda_seam_conversation_begintask_flushmode</a></li><li><a href="#andromda_seam_conversation_begintask_taskidparameter" title="Applied on: Session and Java Beans">andromda_seam_conversation_begintask_taskidparameter</a></li><li><a href="#andromda_seam_conversation_createprocess_definition" title="Applied on: Session and Java Beans">andromda_seam_conversation_createprocess_definition</a></li><li><a href="#andromda_seam_conversation_end_beforeredirect" title="Applied on: Session and Java Beans">andromda_seam_conversation_end_beforeredirect</a></li><li><a href="#andromda_seam_conversation_end_evenifexception" title="Applied on: Session and Java Beans">andromda_seam_conversation_end_evenifexception</a></li><li><a href="#andromda_seam_conversation_end_ifoutcome" title="Applied on: Session and Java Beans">andromda_seam_conversation_end_ifoutcome</a></li><li><a href="#andromda_seam_conversation_endtask_beforeredirect" title="Applied on: Session and Java Beans">andromda_seam_conversation_endtask_beforeredirect</a></li><li><a href="#andromda_seam_conversation_endtask_ifoutcome" title="Applied on: Session and Java Beans">andromda_seam_conversation_endtask_ifoutcome</a></li><li><a href="#andromda_seam_conversation_endtask_transition_name" title="Applied on: Session and Java Beans">andromda_seam_conversation_endtask_transition_name</a></li><li><a href="#andromda_seam_conversation_resumeprocess_processIdParameter" title="Applied on: Session and Java Beans">andromda_seam_conversation_resumeprocess_processIdParameter</a></li><li><a href="#andromda_seam_conversation_starttask_flushmode" title="Applied on: Session and Java Beans">andromda_seam_conversation_starttask_flushmode</a></li><li><a href="#andromda_seam_conversation_starttask_taskidparameter" title="Applied on: Session and Java Beans">andromda_seam_conversation_starttask_taskidparameter</a></li><li><a href="#andromda_seam_data_databinderclass" title="Applied on: Java Interfaces">andromda_seam_data_databinderclass</a></li><li><a href="#andromda_seam_data_datamodel_scope" title="Applied on: Session and Java Bean Attributes">andromda_seam_data_datamodel_scope</a></li><li><a href="#andromda_seam_data_datamodel_value" title="Applied on: Session and Java Bean Attributes">andromda_seam_data_datamodel_value</a></li><li><a href="#andromda_seam_data_datamodelselection_value" title="Applied on: Session and Java Bean Attributes">andromda_seam_data_datamodelselection_value</a></li><li><a href="#andromda_seam_data_datamodelselectionindex_value" title="Applied on: Session and Java Bean Attributes">andromda_seam_data_datamodelselectionindex_value</a></li><li><a href="#andromda_seam_data_dataselectorclass" title="Applied on: Java Interfaces">andromda_seam_data_dataselectorclass</a></li><li><a href="#andromda_seam_interceptor_around" title="Applied on: Session and Java Beans">andromda_seam_interceptor_around</a></li><li><a href="#andromda_seam_interceptor_stateless" title="Applied on: Session and Java Beans">andromda_seam_interceptor_stateless</a></li><li><a href="#andromda_seam_interceptor_type" title="Applied on: Session and Java Beans">andromda_seam_interceptor_type</a></li><li><a href="#andromda_seam_interceptor_within" title="Applied on: Session and Java Beans">andromda_seam_interceptor_within</a></li><li><a href="#andromda_seam_lifecycle_observer_event" title="Applied on: Session and Java Beans">andromda_seam_lifecycle_observer_event</a></li><li><a href="#andromda_seam_transaction_rollback_ifoutcome" title="Applied on: Session and Java Beans">andromda_seam_transaction_rollback_ifoutcome</a></li><li><a href="#andromda_seam_validation_outcome" title="Applied on: Session and Java Bean Operation">andromda_seam_validation_outcome</a></li><li><a href="#andromda_seam_validation_refreshEntities" title="Applied on: Session and Java Bean Operation">andromda_seam_validation_refreshEntities</a></li><li><a href="#andromda_seam_webremote_exclude" title="Applied on: Session and Java Bean Operation">andromda_seam_webremote_exclude</a></li><li><a href="#andromda_service_interceptor_default" title="Applied on: Interceptor Class">andromda_service_interceptor_default</a></li><li><a href="#andromda_service_interceptor_excludeClass" title="Applied on: Service Operation">andromda_service_interceptor_excludeClass</a></li><li><a href="#andromda_service_interceptor_excludeDefault" title="Applied on: Service Operation">andromda_service_interceptor_excludeDefault</a></li><li><a href="#andromda_service_jndi_local" title="Applied on: &lt;&lt;Service&gt;&gt;">andromda_service_jndi_local</a></li><li><a href="#andromda_service_jndi_remote" title="Applied on: &lt;&lt;Service&gt;&gt;">andromda_service_jndi_remote</a></li><li><a href="#andromda_service_persistence_context_datasource" title="Applied on: Class with &lt;&lt;Service&gt;&gt;">andromda_service_persistence_context_datasource</a></li><li><a href="#andromda_service_persistence_context_unit_name" title="Applied on: &lt;&lt;Service&gt;&gt;">andromda_service_persistence_context_unit_name</a></li><li><a href="#andromda_service_persistence_context_unit_type" title="Applied on: &lt;&lt;Service&gt;&gt;">andromda_service_persistence_context_unit_type</a></li><li><a href="#andromda_service_persistence_flush_mode" title="Applied on: Service operation">andromda_service_persistence_flush_mode</a></li><li><a href="#andromda_service_security_denyAll" title="Applied on: Service and service operation">andromda_service_security_denyAll</a></li><li><a href="#andromda_service_security_permitAll" title="Applied on: Service and service operation">andromda_service_security_permitAll</a></li><li><a href="#andromda_service_security_realm" title="Applied on: Service">andromda_service_security_realm</a></li><li><a href="#andromda_service_type" title="Applied on: &lt;&lt;Service&gt;&gt;">andromda_service_type</a></li><li><a href="#andromda_webservice_operation_name" title="Applied on: Service and WebService">andromda_webservice_operation_name</a></li><li><a href="#andromda_webservice_operation_oneway" title="Applied on: WebService Operation">andromda_webservice_operation_oneway</a></li><li><a href="#andromda_webservice_operation_result_name" title="Applied on: Service and WebService">andromda_webservice_operation_result_name</a></li><li><a href="#andromda_webservice_parameter_style" title="Applied on: Service and WebService">andromda_webservice_parameter_style</a></li></ul></div><p>
 		
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="Entity" class="profileElementTitle">Entity</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>class</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
@@ -68,11 +68,12 @@
                     enumeration class variable of type enum introduced
                     in JDK 1.5. That way it is possible for Entities to
                     use this enumeration type for their attributes.
+                    Deprecated: Use UML Enumeration instead of UML Class.
                 </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="Version" class="profileElementTitle">Version</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Entity attribute</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
 					Identifies an attribute as an version property
-					(optimistic lock value) of an entity.  Used to 
+					(optimistic lock value) of an entity.  Used to
 					ensure integrity when reattaching and for overall
 					optimistic concurrency control.  Only one attribute
 					per entity class is allowed to have the Version
@@ -124,12 +125,12 @@
 				</documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="ResourceRef" class="profileElementTitle">ResourceRef</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>
-					A dependency going into a class having 
+					A dependency going into a class having
 					a stereotype of UserTransaction or DataSource,
 					out of a Service.
 				</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Used to reference a resource, like a 
-					DataSource from a service bean.  
+					Used to reference a resource, like a
+					DataSource from a service bean.
 				</documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="UserTransaction" class="profileElementTitle">UserTransaction</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>
@@ -158,18 +159,18 @@
 			        class
 			    </appliedOnElement></td></tr><tr><td class="documentation"><documentation>
 			        Defines a callback listener class for the entity,
-			        session and message driven beans.  The corresponding 
-			        entity, session or message driven beans are annotated 
+			        session and message driven beans.  The corresponding
+			        entity, session or message driven beans are annotated
 			        to indicate the listener class.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="RunAs" class="profileElementTitle">RunAs</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>
 					Dependency
 				</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-                    Represents a dependency from an actor that is 
-                    identified to apply a run-as identity to the bean 
+                    Represents a dependency from an actor that is
+                    identified to apply a run-as identity to the bean
                     when making calls.
-                    It does not affect the identity of the 
+                    It does not affect the identity of the
                     method callers.
 				</documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="ValueRef" class="profileElementTitle">ValueRef</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
@@ -198,7 +199,7 @@
                             Applied on: <appliedOnElement>
 			        Service Operation
 			    </appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-			        Specifies whether the session bean operation 
+			        Specifies whether the session bean operation
 			        as a Timer Service timeout callback method.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="FirstResult" class="profileElementTitle">FirstResult</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
@@ -239,7 +240,7 @@
 			        Stateful Session Bean Operation
 			    </appliedOnElement></td></tr><tr><td class="documentation"><documentation>
 			        Specifies that the associated operation is a lifecycle
-			        callback handler for a stateful session bean and will 
+			        callback handler for a stateful session bean and will
 			        be invoked when the bean instance has just been
 			        reactivated.
 			    </documentation></td></tr></table></div>
@@ -248,7 +249,7 @@
 			        Stateful Session Bean Operation
 			    </appliedOnElement></td></tr><tr><td class="documentation"><documentation>
 			        Specifies that the associated operation is a lifecycle
-			        callback handler for a stateful session bean and will 
+			        callback handler for a stateful session bean and will
 			        be invoked when container is ready to passivate
 			        the instance.
 			    </documentation></td></tr></table></div>
@@ -257,9 +258,9 @@
 			        Entity Bean Operation
 			    </appliedOnElement></td></tr><tr><td class="documentation"><documentation>
 			        Specifies that the associated operation is a lifecycle
-			        callback handler for an entity bean and will 
+			        callback handler for an entity bean and will
 			        be invoked before the entity is created in the
-			        database and will cascade to all associated 
+			        database and will cascade to all associated
 			        cascadable entities.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="PostPersist" class="profileElementTitle">PostPersist</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
@@ -267,7 +268,7 @@
 			        Entity Bean Operation
 			    </appliedOnElement></td></tr><tr><td class="documentation"><documentation>
 			        Specifies that the associated operation is a lifecycle
-			        callback handler for an entity bean and will 
+			        callback handler for an entity bean and will
 			        be invoked after the entity is created in the
 			        database and will cascade to all associated
 			        cascadable entities.
@@ -277,9 +278,9 @@
 			        Entity Bean Operation
 			    </appliedOnElement></td></tr><tr><td class="documentation"><documentation>
 			        Specifies that the associated operation is a lifecycle
-			        callback handler for an entity bean and will 
+			        callback handler for an entity bean and will
 			        be invoked before the entity is deleted from the
-			        database and will cascade to all associated 
+			        database and will cascade to all associated
 			        cascadable entities.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="PostRemove" class="profileElementTitle">PostRemove</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
@@ -287,9 +288,9 @@
 			        Entity Bean Operation
 			    </appliedOnElement></td></tr><tr><td class="documentation"><documentation>
 			        Specifies that the associated operation is a lifecycle
-			        callback handler for an entity bean and will 
+			        callback handler for an entity bean and will
 			        be invoked after the entity is deleted from the
-			        database and will cascade to all associated 
+			        database and will cascade to all associated
 			        cascadable entities.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="PreUpdate" class="profileElementTitle">PreUpdate</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
@@ -297,7 +298,7 @@
 			        Entity Bean Operation
 			    </appliedOnElement></td></tr><tr><td class="documentation"><documentation>
 			        Specifies that the associated operation is a lifecycle
-			        callback handler for an entity bean and will 
+			        callback handler for an entity bean and will
 			        be invoked right before the database is updated.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="PostUpdate" class="profileElementTitle">PostUpdate</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
@@ -305,7 +306,7 @@
 			        Entity Bean Operation
 			    </appliedOnElement></td></tr><tr><td class="documentation"><documentation>
 			        Specifies that the associated operation is a lifecycle
-			        callback handler for an entity bean and will 
+			        callback handler for an entity bean and will
 			        be invoked immediately after the database has been
 			        updated.
 			    </documentation></td></tr></table></div>
@@ -314,7 +315,7 @@
 			        Entity Bean Operation
 			    </appliedOnElement></td></tr><tr><td class="documentation"><documentation>
 			        Specifies that the associated operation is a lifecycle
-			        callback handler for an entity bean and will 
+			        callback handler for an entity bean and will
 			        be invoked right after the data has been loaded
 			        from the database and associated with the entity.
 			    </documentation></td></tr></table></div>
@@ -338,7 +339,7 @@
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="Startup" class="profileElementTitle">Startup</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Entity, Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-                	Specifies that a session scope component is started 
+                	Specifies that a session scope component is started
                 	immediately at session creation time, unless dependencies
                 	are specified.
                 </documentation></td></tr></table></div>
@@ -356,37 +357,37 @@
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="Unwrap" class="profileElementTitle">Unwrap</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Attribute</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-                	Specifies that the object returned by the annotated getter method 
+                	Specifies that the object returned by the annotated getter method
                 	is the thing that is injected instead of the component instance itself.
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="Factory" class="profileElementTitle">Factory</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Operations</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					When this stereotype is used on an operation which return void 
-					that operation will be used to initialize the value of the named 
+					When this stereotype is used on an operation which return void
+					that operation will be used to initialize the value of the named
 					context variable, when the context variable has no value.
 
-					When it is used on an operation that returns a value then Seam 
-					should use that value to initialize the value of the named context 
+					When it is used on an operation that returns a value then Seam
+					should use that value to initialize the value of the named context
 					variable, when the context variable has no value.
 
-					The context variable is specified by tagged value 
-					andromda_seam_bijection_factory_value. If the method is a getter 
+					The context variable is specified by tagged value
+					andromda_seam_bijection_factory_value. If the method is a getter
 					method, default to the JavaBeans property name.
 
-					If no scope is explicitly specified by tagged value 
-					andromda_seam_bijection_factory_scope, the scope of the component 
-					with the @Factory method is used (unless the component is stateless, 
+					If no scope is explicitly specified by tagged value
+					andromda_seam_bijection_factory_scope, the scope of the component
+					with the @Factory method is used (unless the component is stateless,
 					in which case the EVENT context is used).
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="Logger" class="profileElementTitle">Logger</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Attribute</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-	                Specifies that a component field is to be injected with an instance 
+	                Specifies that a component field is to be injected with an instance
 	                of org.jboss.seam.log.Log.
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="RequestParameter" class="profileElementTitle">RequestParameter</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Attribute</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-	                Specifies that a component attribute is to be injected with the 
-	                value of a request parameter. Basic type conversions are performed 
+	                Specifies that a component attribute is to be injected with the
+	                value of a request parameter. Basic type conversions are performed
 	                automatically.
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="Create" class="profileElementTitle">Create</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
@@ -405,73 +406,73 @@
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="Begin" class="profileElementTitle">Begin</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Operations</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-	                Specifies that a long-running conversation begins when this method 
+	                Specifies that a long-running conversation begins when this method
 	                returns a non-null outcome without exception.
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="End" class="profileElementTitle">End</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Operations</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies that a long-running conversation ends when this method 
+					Specifies that a long-running conversation ends when this method
 					returns a non-null outcome without exception.
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="BeginTask" class="profileElementTitle">BeginTask</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Operations</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-                	Specifies that a long-running conversation ends when this method 
+                	Specifies that a long-running conversation ends when this method
                 	returns a non-null outcome without exception.
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="StartTask" class="profileElementTitle">StartTask</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Operations</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-	                "Starts" a jBPM task. Specifies that a long-running conversation 
-	                begins when this method returns a non-null outcome without exception. 
-	                This conversation is associated with the jBPM task specified in the 
-	                named request parameter. Within the context of this conversation, a 
-	                business process context is also defined, for the business process 
+	                "Starts" a jBPM task. Specifies that a long-running conversation
+	                begins when this method returns a non-null outcome without exception.
+	                This conversation is associated with the jBPM task specified in the
+	                named request parameter. Within the context of this conversation, a
+	                business process context is also defined, for the business process
 	                instance of the task instance.
 
-					The jBPM TaskInstance will be available in a request context variable 
-					named taskInstance. The jPBM ProcessInstance will be available in a 
-					request context variable named processInstance. (Of course, these 
-					objects are available for injection via @In.) 
+					The jBPM TaskInstance will be available in a request context variable
+					named taskInstance. The jPBM ProcessInstance will be available in a
+					request context variable named processInstance. (Of course, these
+					objects are available for injection via @In.)
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="EndTask" class="profileElementTitle">EndTask</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Operations</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					"Ends" a jBPM task. Specifies that a long-running conversation ends 
-					when this method returns a non-null outcome, and that the current 
-					task is complete. Triggers a jBPM transition. The actual transition 
-					triggered will be the default transition unless the application has 
-					called Transition.setName() on the built-in component named 
+					"Ends" a jBPM task. Specifies that a long-running conversation ends
+					when this method returns a non-null outcome, and that the current
+					task is complete. Triggers a jBPM transition. The actual transition
+					triggered will be the default transition unless the application has
+					called Transition.setName() on the built-in component named
 					transition.
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="CreateProcess" class="profileElementTitle">CreateProcess</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Operations</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Creates a new jBPM process instance when the method returns a 
-					non-null outcome without exception. The ProcessInstance object will 
+					Creates a new jBPM process instance when the method returns a
+					non-null outcome without exception. The ProcessInstance object will
 					be available in a context variable named processInstance.
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="ResumeProcess" class="profileElementTitle">ResumeProcess</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Operations</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-                	Re-enters the scope of an existing jBPM process instance when the 
-                	method returns a non-null outcome without exception. The 
-                	ProcessInstance object will be available in a context variable 
+                	Re-enters the scope of an existing jBPM process instance when the
+                	method returns a non-null outcome without exception. The
+                	ProcessInstance object will be available in a context variable
                 	named processInstance.
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="Transactional" class="profileElementTitle">Transactional</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans and Operations</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies that a JavaBean component should have a similar 
-					transactional behavior to the default behavior of a session bean 
-					component. ie. method invocations should take place in a 
-					transaction, and if no transaction exists when the method is 
-					called, a transaction will be started just for that method. This 
+					Specifies that a JavaBean component should have a similar
+					transactional behavior to the default behavior of a session bean
+					component. ie. method invocations should take place in a
+					transaction, and if no transaction exists when the method is
+					called, a transaction will be started just for that method. This
 					annotation may be applied at either class or method level.
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="Rollback" class="profileElementTitle">Rollback</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Operations</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					If the outcome of the method matches any of the listed outcomes, 
-					or if no outcomes are listed, set the transaction to rollback only 
+					If the outcome of the method matches any of the listed outcomes,
+					or if no outcomes are listed, set the transaction to rollback only
 					when the method completes.
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="Valid" class="profileElementTitle">Valid</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Attribute</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-                    Specifies that the Hibernate Validator should validate this and related 
+                    Specifies that the Hibernate Validator should validate this and related
                     component attributes before an action listener Seam component method is
                     invoked.
                 </documentation></td></tr></table></div>
@@ -484,16 +485,16 @@
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="WebRemote" class="profileElementTitle">WebRemote</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Operations</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Indicates that the annotated method may be called from client-side 
-					JavaScript. The exclude property is optional and allows objects to 
+					Indicates that the annotated method may be called from client-side
+					JavaScript. The exclude property is optional and allows objects to
 					be excluded from the result's object graph.
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="Interceptor" class="profileElementTitle">Interceptor</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Interceptor classes</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
 					This stereotype appear on Seam interceptor classes.
 
-					Please refer to the documentation for the EJB 3.0 specification 
-					for information about the annotations required for EJB interceptor 
+					Please refer to the documentation for the EJB 3.0 specification
+					for information about the annotations required for EJB interceptor
 					definition.
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="Asynchronous" class="profileElementTitle">Asynchronous</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
@@ -502,37 +503,37 @@
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="Duration" class="profileElementTitle">Duration</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Operation Parameters</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies that a parameter of the asynchronous call is the duration 
-					before the call is processed (or first processed for recurring 
+					Specifies that a parameter of the asynchronous call is the duration
+					before the call is processed (or first processed for recurring
 					calls).
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="Expiration" class="profileElementTitle">Expiration</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Operation Parameters</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies that a parameter of the asynchronous call is the datetime 
-					at which the call is processed (or first processed for recurring 
+					Specifies that a parameter of the asynchronous call is the datetime
+					at which the call is processed (or first processed for recurring
 					calls).
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="IntervalDuration" class="profileElementTitle">IntervalDuration</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Operation Parameters</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies that an asynchronous method call recurs, and that the 
+					Specifies that an asynchronous method call recurs, and that the
 					annotationed parameter is duration between recurrences.
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="DataModel" class="profileElementTitle">DataModel</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Attributes</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-	                Exposes an attribute of type List, Map, Set or Object[] as a JSF 
-	                DataModel into the scope of the owning component (or the EVENT 
-	                scope if the owning component is STATELESS). In the case of Map, 
+	                Exposes an attribute of type List, Map, Set or Object[] as a JSF
+	                DataModel into the scope of the owning component (or the EVENT
+	                scope if the owning component is STATELESS). In the case of Map,
 	                each row of the DataModel is a Map.Entry.
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="DataModelSelection" class="profileElementTitle">DataModelSelection</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Attributes</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Injects the selected value from the JSF DataModel (this is the 
+					Injects the selected value from the JSF DataModel (this is the
 					element of the underlying collection, or the map value).
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="DataModelSelectionIndex" class="profileElementTitle">DataModelSelectionIndex</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Attributes</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Exposes the selection index of the JSF DataModel as an attribute 
-					of the component (this is the row number of the underlying 
+					Exposes the selection index of the JSF DataModel as an attribute
+					of the component (this is the row number of the underlying
 					collection, or the map key).
                 </documentation></td></tr></table></div>
 		
@@ -660,27 +661,41 @@
 			    </appliedOnElement></td></tr><tr><td class="documentation"><documentation>
 			        The temporal type tagged value specified on
 			        the attributes of type java.util.Date or
-			        java.util.Calendar or on finder method parameter 
+			        java.util.Calendar or on finder method parameter
 			        specifying, whether to expect one of the following
 			        types Date, Time or Timestamp.
 			    </documentation></td></tr><tr><td>
                             Allowed values for this element:
                             <ul><li><code class="defaultValue"><value default="true">DATE</value></code> (default)
                                             </li><li><code><value>TIME</value></code></li><li><code><value>TIMESTAMP</value></code></li><li><code><value>NONE</value></code></li></ul></td></tr></table></div>
+            <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_hibernate_type" class="profileElementTitle">
+                    andromda_hibernate_type
+                </a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
+                            Applied on: <appliedOnElement>
+                    Entity Attribute
+                </appliedOnElement></td></tr><tr><td class="documentation"><documentation>
+                    The overridden type indicating the overridden type specified on attributes or
+                    finder method arguments, to generate @org.hibernate.annotations.Type annotations.
+                    Generally used for Boolean types in legacy databases, i.e yes_no, true_false.
+                    Could be: The name of a Hibernate basic type: integer, string, character, date, timestamp, float, binary, serializable, object, blob etc.;
+                    The name of a Java class with a default basic type: int, float, char, java.lang.String, java.util.Date, java.lang.Integer, java.sql.Clob etc.;
+                    The name of a serializable Java class;
+                    The class name of a custom type: com.illflow.type.MyCustomType etc.
+                </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_persistence_fetch_type" class="profileElementTitle">
 			        andromda_persistence_fetch_type
 			    </a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>
 			        Association End or Entity Attribute
 			    </appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-			        Denotes whether or not to hint to the EJB3 container 
-			        that the EJB relationship/property should be lazily 
+			        Denotes whether or not to hint to the EJB3 container
+			        that the EJB relationship/property should be lazily
 			        or eagerly loaded.
-                    By default, the loading persistence is EAGER for 
+                    By default, the loading persistence is EAGER for
                     attributes and relationships of type OneToOne and
                     ManyToOne.
-                    Relationships with OneToMany and ManyToMany syntax are 
-                    LAZY loaded.  You don't need to set anything to 
+                    Relationships with OneToMany and ManyToMany syntax are
+                    LAZY loaded.  You don't need to set anything to
                     accept these default settings.
 			    </documentation></td></tr><tr><td>
                             Allowed values for this element:
@@ -790,7 +805,7 @@
                             Applied on: <appliedOnElement>
 			        Entity Attribute
 			    </appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-			        Specifies the SQL to create the DDL for the 
+			        Specifies the SQL to create the DDL for the
 			        column or entity property.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_persistence_column_precision" class="profileElementTitle">
@@ -824,10 +839,10 @@
                             <ul><li><code><value>true</value></code></li><li><code><value>false</value></code></li></ul></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_persistence_column_insert" class="profileElementTitle">andromda_persistence_column_insert</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>&lt;&lt;Entity&gt;&gt; Attribute</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-                    Specifies whether a mapped column should be included 
-                    in SQL INSERT statements. Setting to <code>false</code> 
-                    allows the column to be initialized using other mechanisms 
-                    such as a value defaulted by thedatabase. Defaults to 
+                    Specifies whether a mapped column should be included
+                    in SQL INSERT statements. Setting to <code>false</code>
+                    allows the column to be initialized using other mechanisms
+                    such as a value defaulted by thedatabase. Defaults to
                     <code>true</code>.
                 </documentation></td></tr><tr><td>
                             Allowed values for this element:
@@ -835,10 +850,10 @@
                                             </li><li><code><value>false</value></code></li></ul></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_persistence_column_update" class="profileElementTitle">andromda_persistence_column_update</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>&lt;&lt;Entity&gt;&gt; Attribute</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-                    Specifies whether a mapped column should be included 
-                    in SQL UPDATE statements. Setting to <code>false</code> 
-                    allows the column to be updated using other mechanisms 
-                    such as a value defaulted by the database. Defaults to 
+                    Specifies whether a mapped column should be included
+                    in SQL UPDATE statements. Setting to <code>false</code>
+                    allows the column to be updated using other mechanisms
+                    such as a value defaulted by the database. Defaults to
                     <code>true</code>.
                 </documentation></td></tr><tr><td>
                             Allowed values for this element:
@@ -851,10 +866,22 @@
 			        Association End
 			    </appliedOnElement></td></tr><tr><td class="documentation"><documentation>
 			        Specifies the column name(s) that will be
-			        used for sorting the returned collection, 
-			        with  ASC or DESC optional.  Without a 
+			        used for sorting the returned collection,
+			        with  ASC or DESC optional.  Without a
 			        value, the primary key is assumed.
 			    </documentation></td></tr></table></div>
+            <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_persistence_associationEnd_primary" class="profileElementTitle">
+                    andromda_persistence_associationEnd_primary
+                </a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
+                            Applied on: <appliedOnElement>
+                    Association End
+                </appliedOnElement></td></tr><tr><td class="documentation"><documentation>
+                    Specifies the side of a bidirectional navigable association which
+                    owns the relationship. For persistence, only one side can be the owner, determining the mappedBy annotation.
+                    The side with the Aggregation or Composition relationship will always be the owner.
+                    Otherwise, if not tagged, the M side of the 1:M relationship will be the owner.
+                    If bidirectional 1:1 or M:M, the side with the longer name will be the owner.
+                </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_persistence_collection_type" class="profileElementTitle">andromda_persistence_collection_type</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Association ends between &lt;&lt;Entity&gt;&gt; classes</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
                     Used to define the mapping for EJB3 collections.
@@ -883,7 +910,7 @@
 			        datatype::Blob
 			    </appliedOnElement></td></tr><tr><td class="documentation"><documentation>
 			        Override the entity attribute type where
-			        the property is defined as either a large 
+			        the property is defined as either a large
 			        binary or character type via datatype::Clob or
 			        datatype::Blob respectively.
 			        BLOB fields represent Byte[] or Serializable types.
@@ -898,7 +925,7 @@
                             Applied on: <appliedOnElement>
 					&lt;&lt;Service&gt;&gt;
 				</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Used at the class level of a service bean to 
+					Used at the class level of a service bean to
 					override the default session bean type which
 					is determined by the existence of instance
 					variables.
@@ -911,8 +938,8 @@
                             Applied on: <appliedOnElement>
 					&lt;&lt;Service&gt;&gt;
 				</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Used at the class level of a service bean or 
-					a class with stereotype PersistenceContext to 
+					Used at the class level of a service bean or
+					a class with stereotype PersistenceContext to
 					determine the persistence context unit
 					name.
 				</documentation></td></tr></table></div>
@@ -922,11 +949,11 @@
                             Applied on: <appliedOnElement>
 					&lt;&lt;Service&gt;&gt;
 				</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Used at the class level of a service bean or 
-					a class with stereotype PersistenceContext to 
+					Used at the class level of a service bean or
+					a class with stereotype PersistenceContext to
 					determine the persistence context type.
 					This can be set to extend the transaction
-					on a Stateful session bean for it's 
+					on a Stateful session bean for it's
 					EntityManager.
 				</documentation></td></tr><tr><td>
                             Allowed values for this element:
@@ -937,8 +964,8 @@
                             Applied on: <appliedOnElement>
 					Class with &lt;&lt;Service&gt;&gt;
 				</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Used at the class level of a service bean or 
-					a class with stereotype PersistenceContext to 
+					Used at the class level of a service bean or
+					a class with stereotype PersistenceContext to
 					determine the persistence context datasource
 					JNDI name.
 					If you don't have a scoped classloader for
@@ -955,7 +982,7 @@
 					Used on session bean operations to set
 					the flush mode that determines when the
 					changes to the changes to the database
-					are applied in a transation.
+					are applied in a transaction.
 				</documentation></td></tr><tr><td>
                             Allowed values for this element:
                             <ul><li><code class="defaultValue"><value default="true">AUTO</value></code> (default)
@@ -1002,7 +1029,7 @@
 					Service and service operation
 				</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
 					Specifies whether to permit all roles to
-					execute the opertions in the bean.
+					execute the operations in the bean.
 					This can be set on the session bean or on
 					individual operations.
 					If set on the session bean, all operations will
@@ -1039,14 +1066,14 @@
 				</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
 					Specifies the security domain for
 					role based authorization.  JBoss uses
-					the security realm to match allowed roles. 
+					the security realm to match allowed roles.
 				</documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_service_interceptor_excludeDefault" class="profileElementTitle">andromda_service_interceptor_excludeDefault</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>
 			        Service Operation
 			    </appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-			        Determines whether to exclude the invocation 
-			        of the default interceptors for the applied 
+			        Determines whether to exclude the invocation
+			        of the default interceptors for the applied
 			        business method.
 			    </documentation></td></tr><tr><td>
                             Allowed values for this element:
@@ -1055,8 +1082,8 @@
                             Applied on: <appliedOnElement>
 			        Service Operation
 			    </appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-			        Determines whether to exclude the invocation 
-			        of the class interceptors for the applied 
+			        Determines whether to exclude the invocation
+			        of the class interceptors for the applied
 			        business method.
 			    </documentation></td></tr><tr><td>
                             Allowed values for this element:
@@ -1065,9 +1092,9 @@
                             Applied on: <appliedOnElement>
 			        Interceptor Class
 			    </appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-			        Defines the modeled interceptor as a default 
-			        interceptor for all business methods of all 
-			        session and message driven beans within this 
+			        Defines the modeled interceptor as a default
+			        interceptor for all business methods of all
+			        session and message driven beans within this
 			        deployment.
 			    </documentation></td></tr><tr><td>
                             Allowed values for this element:
@@ -1147,8 +1174,8 @@
 				</documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_ejb_mdb_destination_type" class="profileElementTitle">andromda_ejb_mdb_destination_type</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Message Driven Bean</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Represents the destination type of the JMS message 
-					driven bean. If not specified, it is assumed to 
+					Represents the destination type of the JMS message
+					driven bean. If not specified, it is assumed to
 					be a Queue.
 				</documentation></td></tr><tr><td>
                             Allowed values for this element:
@@ -1245,189 +1272,189 @@
                             <ul><li><code><value>EVENT</value></code></li><li><code><value>PAGE</value></code></li><li><code><value>CONVERSATION</value></code></li><li><code><value>SESSION</value></code></li><li><code><value>BUSINESS_PROCESS</value></code></li><li><code><value>APPLICATION</value></code></li><li><code><value>STATELESS</value></code></li></ul></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_component_role_name" class="profileElementTitle">andromda_seam_component_role_name</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Entity, Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Allows a Seam component to be bound to multiple contexts variables. 
-					The @Name/@Scope annotations define a "default role". Each @Role 
+					Allows a Seam component to be bound to multiple contexts variables.
+					The @Name/@Scope annotations define a "default role". Each @Role
 					annotation defines an additional role.
 
 					This tagged value specifies the context variable name.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_component_role_scope" class="profileElementTitle">andromda_seam_component_role_scope</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Entity, Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					The context variable scope. When no scope is explicitly specified, 
+					The context variable scope. When no scope is explicitly specified,
 					the default depends upon the component type, as above.
 
-					Note! If multiple roles are specified then the list of scopes must 
+					Note! If multiple roles are specified then the list of scopes must
 					be in the same order as the role names.
 			    </documentation></td></tr><tr><td>
                             Allowed values for this element:
                             <ul><li><code><value>EVENT</value></code></li><li><code><value>PAGE</value></code></li><li><code><value>CONVERSATION</value></code></li><li><code><value>SESSION</value></code></li><li><code><value>BUSINESS_PROCESS</value></code></li><li><code><value>APPLICATION</value></code></li><li><code><value>STATELESS</value></code></li></ul></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_component_intercept" class="profileElementTitle">andromda_seam_component_intercept</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Entity, Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Determines when Seam interceptors are active. When no interception 
-					type is explicitly specified, the default depends upon the 
-					component type. For entity beans, the default is NEVER. For session 
-					beans, message driven beans and JavaBeans, the default is ALWAYS. 
+					Determines when Seam interceptors are active. When no interception
+					type is explicitly specified, the default depends upon the
+					component type. For entity beans, the default is NEVER. For session
+					beans, message driven beans and JavaBeans, the default is ALWAYS.
 			    </documentation></td></tr><tr><td>
                             Allowed values for this element:
                             <ul><li><code><value>ALWAYS</value></code></li><li><code><value>AFTER_RESTORE_VIEW</value></code></li><li><code><value>AFTER_UPDATE_MODEL_VALUES</value></code></li><li><code><value>INVOKE_APPLICATION</value></code></li><li><code><value>NEVER</value></code></li></ul></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_component_jndiname" class="profileElementTitle">andromda_seam_component_jndiname</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Entity, Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies the JNDI name that Seam will use to look up the EJB 
-					component. If no JNDI name is explicitly specified, Seam will use 
+					Specifies the JNDI name that Seam will use to look up the EJB
+					component. If no JNDI name is explicitly specified, Seam will use
 					the JNDI pattern specified by org.jboss.seam.core.init.jndiPattern.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_component_conversional_ifnotbegunoutcome" class="profileElementTitle">andromda_seam_component_conversional_ifnotbegunoutcome</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies that a conversation scope component is conversational, 
-					meaning that no method of the component can be called unless a 
-					long-running conversation started by this component is active 
+					Specifies that a conversation scope component is conversational,
+					meaning that no method of the component can be called unless a
+					long-running conversation started by this component is active
 					(unless the method would begin a new long-running conversation).
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_component_startup_depends" class="profileElementTitle">andromda_seam_component_startup_depends</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Entity, Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies that the named components must be started first, if they 
+					Specifies that the named components must be started first, if they
 					are installed.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_component_synchronized_timeout" class="profileElementTitle">andromda_seam_component_synchronized_timeout</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Entity, Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies that a component is accessed concurrently by multiple 
-					clients, and that Seam should serialize requests. If a request is 
-					not able to obtain its lock on the component in the given timeout 
+					Specifies that a component is accessed concurrently by multiple
+					clients, and that Seam should serialize requests. If a request is
+					not able to obtain its lock on the component in the given timeout
 					period, an exception will be raised.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_component_readonly" class="profileElementTitle">andromda_seam_component_readonly</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Entity, Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies that a JavaBean component or component method does not 
+					Specifies that a JavaBean component or component method does not
 					require state replication at the end of the invocation.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_bijection_in_create" class="profileElementTitle">andromda_seam_bijection_in_create</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Attributes</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies that Seam should instantiate the component with the same 
-					name as the context variable if the context variable is undefined 
+					Specifies that Seam should instantiate the component with the same
+					name as the context variable if the context variable is undefined
 					(null) in all contexts. Default to false.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_bijection_in_value" class="profileElementTitle">andromda_seam_bijection_in_value</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Attributes</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies the name of the context variable. Default to the name of 
-					the component attribute. Alternatively, specifies a JSF EL 
+					Specifies the name of the context variable. Default to the name of
+					the component attribute. Alternatively, specifies a JSF EL
 					expression, surrounded by #{...}.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_bijection_out_value" class="profileElementTitle">andromda_seam_bijection_out_value</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Attributes</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies the name of the context variable explicitly, instead of 
+					Specifies the name of the context variable explicitly, instead of
 					using the annotated instance variable name.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_bijection_out_scope" class="profileElementTitle">andromda_seam_bijection_out_scope</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Attributes</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies that a component attribute that is not a Seam component 
-					type is to be outjected to a specific scope at the end of the 
+					Specifies that a component attribute that is not a Seam component
+					type is to be outjected to a specific scope at the end of the
 					invocation.
 
-					Alternatively, if no scope is explicitly specified, the scope of 
-					the component with the @Out attribute is used (or the EVENT scope 
-					if the component is stateless). 
+					Alternatively, if no scope is explicitly specified, the scope of
+					the component with the @Out attribute is used (or the EVENT scope
+					if the component is stateless).
 			    </documentation></td></tr><tr><td>
                             Allowed values for this element:
                             <ul><li><code><value>EVENT</value></code></li><li><code><value>PAGE</value></code></li><li><code><value>CONVERSATION</value></code></li><li><code><value>SESSION</value></code></li><li><code><value>BUSINESS_PROCESS</value></code></li><li><code><value>APPLICATION</value></code></li><li><code><value>STATELESS</value></code></li></ul></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_bijection_factory_value" class="profileElementTitle">andromda_seam_bijection_factory_value</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Operations</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies the name of the context variable. If the method is a 
+					Specifies the name of the context variable. If the method is a
 					getter method, default to the JavaBeans property name.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_bijection_factory_scope" class="profileElementTitle">andromda_seam_bijection_factory_scope</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Operations</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies the scope that Seam should bind the returned value to. 
-					Only meaningful for factory methods which return a value. 
+					Specifies the scope that Seam should bind the returned value to.
+					Only meaningful for factory methods which return a value.
 			    </documentation></td></tr><tr><td>
                             Allowed values for this element:
                             <ul><li><code><value>EVENT</value></code></li><li><code><value>PAGE</value></code></li><li><code><value>CONVERSATION</value></code></li><li><code><value>SESSION</value></code></li><li><code><value>BUSINESS_PROCESS</value></code></li><li><code><value>APPLICATION</value></code></li><li><code><value>STATELESS</value></code></li></ul></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_bijection_logger_value" class="profileElementTitle">andromda_seam_bijection_logger_value</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Entity, Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies the name of the log category. Default to the name of the 
+					Specifies the name of the log category. Default to the name of the
 					component class.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_bijection_requestparameter_value" class="profileElementTitle">andromda_seam_bijection_requestparameter_value</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies the name of the request parameter. Default to the name 
+					Specifies the name of the request parameter. Default to the name
 					of the component attribute.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_lifecycle_observer_event" class="profileElementTitle">andromda_seam_lifecycle_observer_event</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies that the method should be called when a component-driven 
+					Specifies that the method should be called when a component-driven
 					event of the specified type occurs.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_conversation_begin_ifoutcome" class="profileElementTitle">andromda_seam_conversation_begin_ifoutcome</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies that a long-running conversation begins when this action 
+					Specifies that a long-running conversation begins when this action
 					listener method returns with one of the given outcomes.
 
 					Example: @Begin(ifOutcome={"success", "continue"})
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_conversation_begin_join" class="profileElementTitle">andromda_seam_conversation_begin_join</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies that if a long-running conversation is already in 
+					Specifies that if a long-running conversation is already in
 					progress, the conversation context is simply propagated.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_conversation_begin_nested" class="profileElementTitle">andromda_seam_conversation_begin_nested</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies that if a long-running conversation is already in 
-					progress, a new nested conversation context begins. The nested 
-					conversation will end when the next @End  is encountered, and the 
-					outer conversation will resume. It is perfectly legal for multiple 
-					nested conversations to exist concurrently in the same outer 
+					Specifies that if a long-running conversation is already in
+					progress, a new nested conversation context begins. The nested
+					conversation will end when the next @End  is encountered, and the
+					outer conversation will resume. It is perfectly legal for multiple
+					nested conversations to exist concurrently in the same outer
 					conversation.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_conversation_begin_flushmode" class="profileElementTitle">andromda_seam_conversation_begin_flushmode</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specify the flush mode of any Seam-managed persistence contexts. 
-					flushMode=FlushModeType.MANUAL supports the use of atomic 
-					conversations where all write operations are queued in the 
-					conversation context until an explicit call to flush() (which 
+					Specify the flush mode of any Seam-managed persistence contexts.
+					flushMode=FlushModeType.MANUAL supports the use of atomic
+					conversations where all write operations are queued in the
+					conversation context until an explicit call to flush() (which
 					usually occurs at the end of the conversation).
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_conversation_begin_pageflow" class="profileElementTitle">andromda_seam_conversation_begin_pageflow</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies a jBPM process definition name that defines the pageflow 
+					Specifies a jBPM process definition name that defines the pageflow
 					for this conversation.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_conversation_end_ifoutcome" class="profileElementTitle">andromda_seam_conversation_end_ifoutcome</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-				    Specifies that a long-running conversation ends when this action 
+				    Specifies that a long-running conversation ends when this action
 				    listener method returns with one of the given outcomes.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_conversation_end_beforeredirect" class="profileElementTitle"> andromda_seam_conversation_end_beforeredirect</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					By default, the conversation will not actually be destroyed until 
-					after any redirect has occurred. Setting beforeRedirect=true 
-					specifies that the conversation should be destroyed at the end of 
-					the current request, and that the redirect will be processed in a 
+					By default, the conversation will not actually be destroyed until
+					after any redirect has occurred. Setting beforeRedirect=true
+					specifies that the conversation should be destroyed at the end of
+					the current request, and that the redirect will be processed in a
 					new temporary conversation context.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_conversation_end_evenifexception" class="profileElementTitle">andromda_seam_conversation_end_evenifexception</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies that a long-running conversation ends when this action 
+					Specifies that a long-running conversation ends when this action
 					listener method throws one of the specified classes of exception.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_conversation_starttask_taskidparameter" class="profileElementTitle">andromda_seam_conversation_starttask_taskidparameter</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					The name of a request parameter which holds the id of the task. 
-					Default to "taskId", which is also the default used by the Seam 
+					The name of a request parameter which holds the id of the task.
+					Default to "taskId", which is also the default used by the Seam
 					taskList JSF component.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_conversation_starttask_flushmode" class="profileElementTitle">andromda_seam_conversation_starttask_flushmode</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Set the flush mode of any Seam-managed Hibernate sessions or JPA 
+					Set the flush mode of any Seam-managed Hibernate sessions or JPA
 					persistence contexts that are created during this conversation.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_conversation_begintask_taskidparameter" class="profileElementTitle">andromda_seam_conversation_begintask_taskidparameter</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					The name of a request parameter which holds the id of the task. 
-					Default to "taskId", which is also the default used by the Seam 
+					The name of a request parameter which holds the id of the task.
+					Default to "taskId", which is also the default used by the Seam
 					taskList JSF component.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_conversation_begintask_flushmode" class="profileElementTitle">andromda_seam_conversation_begintask_flushmode</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Set the flush mode of any Seam-managed Hibernate sessions or JPA 
+					Set the flush mode of any Seam-managed Hibernate sessions or JPA
 					persistence contexts that are created during this conversation.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_conversation_endtask_transition_name" class="profileElementTitle">andromda_seam_conversation_endtask_transition_name</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
@@ -1436,30 +1463,30 @@
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_conversation_endtask_ifoutcome" class="profileElementTitle">andromda_seam_conversation_endtask_ifoutcome</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies the JSF outcome or outcomes that result in the end of 
+					Specifies the JSF outcome or outcomes that result in the end of
 					the task.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_conversation_endtask_beforeredirect" class="profileElementTitle">andromda_seam_conversation_endtask_beforeredirect</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					By default, the conversation will not actually be destroyed until 
-					after any redirect has occurred. Setting beforeRedirect=true 
-					specifies that the conversation should be destroyed at the end of 
-					the current request, and that the redirect will be processed in a 
+					By default, the conversation will not actually be destroyed until
+					after any redirect has occurred. Setting beforeRedirect=true
+					specifies that the conversation should be destroyed at the end of
+					the current request, and that the redirect will be processed in a
 					new temporary conversation context.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_conversation_createprocess_definition" class="profileElementTitle">andromda_seam_conversation_createprocess_definition</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					The name of the jBPM process definition deployed via 
+					The name of the jBPM process definition deployed via
 					org.jboss.seam.core.jbpm.processDefinitions.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_conversation_resumeprocess_processIdParameter" class="profileElementTitle">andromda_seam_conversation_resumeprocess_processIdParameter</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					The name a request parameter holding the process id. Default to 
+					The name a request parameter holding the process id. Default to
 					"processId".
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_transaction_rollback_ifoutcome" class="profileElementTitle">andromda_seam_transaction_rollback_ifoutcome</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					The JSF outcomes that cause a transaction rollback (no outcomes is 
+					The JSF outcomes that cause a transaction rollback (no outcomes is
 					interpreted to mean any outcome).
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_validation_outcome" class="profileElementTitle">andromda_seam_validation_outcome</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
@@ -1474,64 +1501,64 @@
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_webremote_exclude" class="profileElementTitle">andromda_seam_webremote_exclude</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Operation</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Excludes objects from the WebRemote call result's object graph 
+					Excludes objects from the WebRemote call result's object graph
 					(see the Remoting chapter for more details).
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_interceptor_stateless" class="profileElementTitle">andromda_seam_interceptor_stateless</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies that this interceptor is stateless and Seam may optimize 
+					Specifies that this interceptor is stateless and Seam may optimize
 					replication.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_interceptor_type" class="profileElementTitle">andromda_seam_interceptor_type</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies that this interceptor is a "client-side" interceptor 
+					Specifies that this interceptor is a "client-side" interceptor
 					that is called before the EJB container.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_interceptor_around" class="profileElementTitle">andromda_seam_interceptor_around</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies that this interceptor is positioned higher in the stack 
+					Specifies that this interceptor is positioned higher in the stack
 					than the given interceptors.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_interceptor_within" class="profileElementTitle">andromda_seam_interceptor_within</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Beans</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Specifies that this interceptor is positioned deeper in the stack 
+					Specifies that this interceptor is positioned deeper in the stack
 					than the given interceptors.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_data_datamodel_value" class="profileElementTitle">andromda_seam_data_datamodel_value</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Attributes</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Name of the conversation context variable. Default to the attribute 
+					Name of the conversation context variable. Default to the attribute
 					name.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_data_datamodel_scope" class="profileElementTitle">andromda_seam_data_datamodel_scope</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Attributes</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					If scope=ScopeType.PAGE is explicitly specified, the DataModel will 
+					If scope=ScopeType.PAGE is explicitly specified, the DataModel will
 					be kept in the PAGE context.
 			    </documentation></td></tr><tr><td>
                             Allowed values for this element:
                             <ul><li><code><value>EVENT</value></code></li><li><code><value>PAGE</value></code></li><li><code><value>CONVERSATION</value></code></li><li><code><value>SESSION</value></code></li><li><code><value>BUSINESS_PROCESS</value></code></li><li><code><value>APPLICATION</value></code></li><li><code><value>STATELESS</value></code></li></ul></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_data_datamodelselection_value" class="profileElementTitle">andromda_seam_data_datamodelselection_value</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Attributes</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Name of the conversation context variable. Not needed if there is 
+					Name of the conversation context variable. Not needed if there is
 					exactly one @DataModel in the component.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_data_datamodelselectionindex_value" class="profileElementTitle">andromda_seam_data_datamodelselectionindex_value</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Attributes</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					Name of the conversation context variable. Not needed if there is 
+					Name of the conversation context variable. Not needed if there is
 					exactly one @DataModel in the component.
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_data_databinderclass" class="profileElementTitle">andromda_seam_data_databinderclass</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Java Interfaces</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					This meta-annotation make it possible to implement similar 
-					functionality to @DataModel and @DataModelSelection for other 
-					datastructures apart from lists.
+					This meta-annotation make it possible to implement similar
+					functionality to @DataModel and @DataModelSelection for other
+					data structures apart from lists.
 
 				    The class name of the DataModelBinder class
 			    </documentation></td></tr></table></div>
 			<div class="profileElement"><table><tr><td class="profileElementTitle"><a name="andromda_seam_data_dataselectorclass" class="profileElementTitle">andromda_seam_data_dataselectorclass</a><a href="#Tagged Values" title="Go to Tagged Values profile element group">(Back to Tagged Values)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Java Interfaces</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-					This meta-annotation make it possible to implement similar 
-					functionality to @DataModel and @DataModelSelection for other 
-					datastructures apart from lists.
+					This meta-annotation make it possible to implement similar
+					functionality to @DataModel and @DataModelSelection for other
+					data structures apart from lists.
 
 					The DataModelSelector class.
 			    </documentation></td></tr></table></div>

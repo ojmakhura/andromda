@@ -87,12 +87,13 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
+        <!-- We need this to compile the generated test model sources -->
+		<!--dependency>
             <groupId>org.jboss.microcontainer</groupId>
             <artifactId>jboss-ejb3-all</artifactId>
             <version>alpha_9</version>
             <scope>test</scope>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
@@ -142,6 +143,7 @@
             </plugin>
         </plugins>
     </build>
+        <!-- TODO microcontainer dependencies are not in any maven repository, needed to compile test generated code -->
     <properties>
         <model.uri>jar:file:${src.dir}/main/uml/EJB3MetafacadeModel.xml.zip!/EJB3MetafacadeModel.xml</model.uri>
         <test.model.uri>jar:file:${test.src.dir}/uml/EJB3CartridgeTestModel.xml.zip!/EJB3CartridgeTestModel.xml</test.model.uri>

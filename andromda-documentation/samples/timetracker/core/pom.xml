@@ -288,6 +288,7 @@
                       <artifactId>maven-core</artifactId>
                       <version>3.0.4</version>
                   </dependency>
+                  <!-- Not possible to exclude slf4j-nop: Class path contains multiple SLF4J bindings. -->
                 </dependencies>
             </plugin>
             <!-- H2 chokes on 'ENGINE=InnoDB' in DDL, remove from generated SQL before running against H2 DB -->

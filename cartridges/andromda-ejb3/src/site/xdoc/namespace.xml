@@ -4,9 +4,9 @@
 		<li>metafacades</li>
 		<li>profile</li>
 	</ul></section>
-	<section name="AndroMDA EJB3 Cartridge Namespace Properties"><div class="namespacePropertyGroup"><a name="Cache" class="namespacePropertyGroup">Cache</a><ul><li><a href="#hibernateAssociationCache" title="Optional, defaults to 'TRANSACTIONAL'">hibernateAssociationCache</a></li><li><a href="#hibernateCacheProvider" title="Optional, no default value available">hibernateCacheProvider</a></li><li><a href="#hibernateEnableAssociationsCache" title="Optional, defaults to 'false'">hibernateEnableAssociationsCache</a></li><li><a href="#hibernateEnableCache" title="Optional, defaults to 'false'">hibernateEnableCache</a></li><li><a href="#hibernateEntityCache" title="Optional, defaults to 'TRANSACTIONAL'">hibernateEntityCache</a></li><li><a href="#hibernateTreecacheMbeanObject" title="Optional, no default value available">hibernateTreecacheMbeanObject</a></li><li><a href="#hibernateUseQueryCache" title="Optional, defaults to 'false'">hibernateUseQueryCache</a></li><li><a href="#useDefaultCacheRegion" title="Optional, defaults to 'false'">useDefaultCacheRegion</a></li></ul></div><div class="namespacePropertyGroup"><a name="Clustering" class="namespacePropertyGroup">Clustering</a><ul><li><a href="#enableClustering" title="Optional, defaults to 'false'">enableClustering</a></li></ul></div><div class="namespacePropertyGroup"><a name="DAO Properties" class="namespacePropertyGroup">DAO Properties</a><ul><li><a href="#daoBaseNamePattern" title="Optional, defaults to '{0}DaoBase'">daoBaseNamePattern</a></li><li><a href="#daoDefaultExceptionNamePattern" title="Optional, defaults to '{0}DaoException'">daoDefaultExceptionNamePattern</a></li><li><a href="#daoImplementationNamePattern" title="Optional, defaults to '{0}DaoImpl'">daoImplementationNamePattern</a></li><li><a href="#daoInheritanceEnabled" title="Optional, defaults to 'false'">daoInheritanceEnabled</a></li><li><a href="#daoNamePattern" title="Optional, defaults to '{0}Dao'">daoNamePattern</a></li><li><a href="#enableDaoPropertiesCreateMethod" title="Optional, defaults to 'true'">enableDaoPropertiesCreateMethod</a></li></ul></div><div class="namespacePropertyGroup"><a name="Entity Properties" class="namespacePropertyGroup">Entity Properties</a><ul><li><a href="#entityAggregationCascade" title="Optional, no default value available">entityAggregationCascade</a></li><li><a href="#entityCompositeCascade" title="Optional, no default value available">entityCompositeCascade</a></li><li><a href="#entityDefaultCascade" title="Optional, defaults to 'NONE'">entityDefaultCascade</a></li><li><a href="#entityDefaultEnumLiteralColumnLength" title="Optional, defaults to '20'">entityDefaultEnumLiteralColumnLength</a></li><li><a href="#entityDefaultGeneratorAllocationSize" title="Optional, defaults to '1'">entityDefaultGeneratorAllocationSize</a></li><li><a href="#entityDefaultGeneratorInitialValue" title="Optional, defaults to '1'">entityDefaultGeneratorInitialValue</a></li><li><a href="#entityDefaultGeneratorType" title="Optional, defaults to 'AUTO'">entityDefaultGeneratorType</a></li><li><a href="#entityDefaultTemporalType" title="Optional, defaults to 'TIMESTAMP'">entityDefaultTemporalType</a></li><li><a href="#entityDiscriminatorColumnName" title="Optional, defaults to 'TYPE'">entityDiscriminatorColumnName</a></li><li><a href="#entityDiscriminatorType" title="Optional, defaults to 'STRING'">entityDiscriminatorType</a></li><li><a href="#entityGenericFinders" title="Optional, defaults to 'true'">entityGenericFinders</a></li><li><a href="#entityInheritanceStrategy" title="Optional, defaults to 'SINGLE_TABLE'">entityInheritanceStrategy</a></li><li><a href="#entityViewType" title="Optional, defaults to 'local'">entityViewType</a></li></ul></div><div class="namespacePropertyGroup"><a name="JDBC" class="namespacePropertyGroup">JDBC</a><ul><li><a href="#connectionUrl" title="Optional, no default value available">connectionUrl</a></li><li><a href="#dataSource" title="Optional, no default value available">dataSource</a></li><li><a href="#dataSourceName" title="Optional, no default value available">dataSourceName</a></li><li><a href="#driver" title="Optional, no default value available">driver</a></li><li><a href="#entityManagerJTADataSource" title="Optional, defaults to 'java:/DefaultDS'">entityManagerJTADataSource</a></li><li><a href="#entityManagerName" title="Optional, no default value available">entityManagerName</a></li><li><a href="#hibernateDialect" title="Optional, defaults to 'org.hibernate.dialect.MySQLDialect'">hibernateDialect</a></li><li><a href="#hibernateHbm2DDLAuto" title="Optional, defaults to 'update'">hibernateHbm2DDLAuto</a></li><li><a href="#hibernateJdbcBatchSize" title="Optional, no default value available">hibernateJdbcBatchSize</a></li><li><a href="#hibernateJdbcFetchSize" title="Optional, no default value available">hibernateJdbcFetchSize</a></li><li><a href="#hibernateJdbcUseScrollableResultSet" title="Optional, no default value available">hibernateJdbcUseScrollableResultSet</a></li><li><a href="#hibernateJdbcUseStreamsForBinary" title="Optional, no default value available">hibernateJdbcUseStreamsForBinary</a></li><li><a href="#hibernateMaxFetchDepth" title="Optional, no default value available">hibernateMaxFetchDepth</a></li><li><a href="#hibernateShowSql" title="Optional, no default value available">hibernateShowSql</a></li><li><a href="#jarFiles" title="Optional, no default value available">jarFiles</a></li><li><a href="#password" title="Optional, no default value available">password</a></li><li><a href="#username" title="Optional, no default value available">username</a></li></ul></div><div class="namespacePropertyGroup"><a name="MDB Properties" class="namespacePropertyGroup">MDB Properties</a><ul><li><a href="#messageDrivenDestinationType" title="Optional, defaults to 'javax.jms.Queue'">messageDrivenDestinationType</a></li><li><a href="#messageDrivenTopicSubscriptionDurability" title="Optional, defaults to 'NonDurable'">messageDrivenTopicSubscriptionDurability</a></li></ul></div><div class="namespacePropertyGroup"><a name="Name Patterns" class="namespacePropertyGroup">Name Patterns</a><ul><li><a href="#defaultServiceExceptionNamePattern" title="Optional, defaults to '{0}Exception'">defaultServiceExceptionNamePattern</a></li><li><a href="#embeddedValueImplementationNamePattern" title="Optional, defaults to '{0}Impl'">embeddedValueImplementationNamePattern</a></li><li><a href="#entityCompositePrimaryKeyNamePattern" title="Optional, defaults to '{0}PK'">entityCompositePrimaryKeyNamePattern</a></li><li><a href="#entityEmbeddableNamePattern" title="Optional, defaults to '{0}Embeddable'">entityEmbeddableNamePattern</a></li><li><a href="#entityImplementationNamePattern" title="Optional, defaults to '{0}Impl'">entityImplementationNamePattern</a></li><li><a href="#entityListenerNamePattern" title="Optional, defaults to '{0}Listener'">entityListenerNamePattern</a></li><li><a href="#entityNamePattern" title="Optional, defaults to '{0}'">entityNamePattern</a></li><li><a href="#implementationOperationNamePattern" title="Optional, defaults to 'handle{0}'">implementationOperationNamePattern</a></li><li><a href="#interceptorNamePattern" title="Optional, defaults to '{0}'">interceptorNamePattern</a></li><li><a href="#jndiNamePrefix" title="Optional, no default value available">jndiNamePrefix</a></li><li><a href="#labelCollectionNamePattern" title="Optional, defaults to '{0}Labels'">labelCollectionNamePattern</a></li><li><a href="#labelSingleNamePattern" title="Optional, defaults to '{0}Label'">labelSingleNamePattern</a></li><li><a href="#manageableCreateExceptionNamePattern" title="Optional, defaults to '{0}CreateManageableException'">manageableCreateExceptionNamePattern</a></li><li><a href="#manageableDeleteExceptionNamePattern" title="Optional, defaults to '{0}DeleteManageableException'">manageableDeleteExceptionNamePattern</a></li><li><a href="#manageableReadExceptionNamePattern" title="Optional, defaults to '{0}ReadManageableException'">manageableReadExceptionNamePattern</a></li><li><a href="#manageableServiceBaseNamePattern" title="Optional, defaults to '{0}Base'">manageableServiceBaseNamePattern</a></li><li><a href="#manageableUpdateExceptionNamePattern" title="Optional, defaults to '{0}UpdateManageableException'">manageableUpdateExceptionNamePattern</a></li><li><a href="#messageDrivenDurableSubscriptionIdPattern" title="Optional, defaults to '{0}SubscriptionId'">messageDrivenDurableSubscriptionIdPattern</a></li><li><a href="#messageDrivenImplementationNamePattern" title="Optional, defaults to '{0}MDBBeanImpl'">messageDrivenImplementationNamePattern</a></li><li><a href="#messageDrivenListenerNamePattern" title="Optional, defaults to '{0}Listener'">messageDrivenListenerNamePattern</a></li><li><a href="#messageDrivenNamePattern" title="Optional, defaults to '{0}MDBBean'">messageDrivenNamePattern</a></li><li><a href="#messageDrivenTestNamePattern" title="Optional, defaults to '{0}Test'">messageDrivenTestNamePattern</a></li><li><a href="#messageDrivenTestPackageNamePattern" title="Optional, defaults to '{0}.test'">messageDrivenTestPackageNamePattern</a></li><li><a href="#serviceBaseNamePattern" title="Optional, defaults to '{0}Base'">serviceBaseNamePattern</a></li><li><a href="#serviceDelegateNamePattern" title="Optional, defaults to '{0}Delegate'">serviceDelegateNamePattern</a></li><li><a href="#serviceImplementationNamePattern" title="Optional, defaults to '{0}BeanImpl'">serviceImplementationNamePattern</a></li><li><a href="#serviceInterfaceNamePattern" title="Optional, defaults to '{0}'">serviceInterfaceNamePattern</a></li><li><a href="#serviceListenerNamePattern" title="Optional, defaults to '{0}Listener'">serviceListenerNamePattern</a></li><li><a href="#serviceLocalInterfaceNamePattern" title="Optional, defaults to '{0}Local'">serviceLocalInterfaceNamePattern</a></li><li><a href="#serviceNamePattern" title="Optional, defaults to '{0}Bean'">serviceNamePattern</a></li><li><a href="#serviceOperationTestNamePattern" title="Optional, defaults to 'test{0}'">serviceOperationTestNamePattern</a></li><li><a href="#serviceRemoteInterfaceNamePattern" title="Optional, defaults to '{0}Remote'">serviceRemoteInterfaceNamePattern</a></li><li><a href="#serviceTestNamePattern" title="Optional, defaults to '{0}Test'">serviceTestNamePattern</a></li><li><a href="#serviceTestPackageNamePattern" title="Optional, defaults to '{0}.test'">serviceTestPackageNamePattern</a></li><li><a href="#webServiceInterfaceNamePattern" title="Optional, defaults to '{0}WSInterface'">webServiceInterfaceNamePattern</a></li></ul></div><div class="namespacePropertyGroup"><a name="Other Properties" class="namespacePropertyGroup">Other Properties</a><ul><li><a href="#allowDefaultServiceException" title="Optional, defaults to 'true'">allowDefaultServiceException</a></li><li><a href="#associationCollectionType" title="Optional, defaults to 'set'">associationCollectionType</a></li><li><a href="#associationEndCollectionIndexName" title="Optional, no default value available">associationEndCollectionIndexName</a></li><li><a href="#associationEndCollectionIndexType" title="Optional, defaults to 'datatype::String'">associationEndCollectionIndexType</a></li><li><a href="#compositionDefinesEagerLoading" title="Optional, defaults to 'true'">compositionDefinesEagerLoading</a></li><li><a href="#defaultCollectionInterface" title="Optional, defaults to 'java.util.Set'">defaultCollectionInterface</a></li><li><a href="#ejb3TypeMappingsUri" title="Optional, defaults to 'Hibernate'">ejb3TypeMappingsUri</a></li><li><a href="#ejb3TypesPackage" title="Optional, defaults to 'org.andromda.ejb3'">ejb3TypesPackage</a></li><li><a href="#javaTypeConversionIgnoreList" title="Optional, no default value available">javaTypeConversionIgnoreList</a></li><li><a href="#listTypeImplementation" title="Optional, defaults to 'java.util.ArrayList'">listTypeImplementation</a></li><li><a href="#manageableServiceLocatorName" title="Optional, defaults to 'ManageableServiceLocator'">manageableServiceLocatorName</a></li><li><a href="#mapTypeImplementation" title="Optional, defaults to 'java.util.HashMap'">mapTypeImplementation</a></li><li><a href="#parameterRequiredCheck" title="Optional, defaults to 'true'">parameterRequiredCheck</a></li><li><a href="#persistenceContainerName" title="Optional, defaults to 'jboss'">persistenceContainerName</a></li><li><a href="#persistenceContextUnitName" title="Optional, no default value available">persistenceContextUnitName</a></li><li><a href="#persistenceProviderExtensions" title="Optional, defaults to 'none'">persistenceProviderExtensions</a></li><li><a href="#queryUseNamedParameters" title="Optional, defaults to 'true'">queryUseNamedParameters</a></li><li><a href="#seamEnabled" title="Optional, defaults to 'false'">seamEnabled</a></li><li><a href="#setTypeImplementation" title="Optional, defaults to 'java.util.TreeSet'">setTypeImplementation</a></li><li><a href="#specificCollectionInterfaces" title="Optional, defaults to 'false'">specificCollectionInterfaces</a></li><li><a href="#transactionType" title="Optional, defaults to 'REQUIRED'">transactionType</a></li><li><a href="#valueObjectName" title="Optional, defaults to '{0}'">valueObjectName</a></li><li><a href="#valueObjectPackage" title="Optional, defaults to '{0}'">valueObjectPackage</a></li><li><a href="#xmlEncoding" title="Optional, defaults to 'UTF-8'">xmlEncoding</a></li></ul></div><div class="namespacePropertyGroup"><a name="Outlet Properties" class="namespacePropertyGroup">Outlet Properties</a><div class="namespacePropertyGroupDocumentation"><documentation>
+	<section name="AndroMDA EJB3 Cartridge Namespace Properties"><div class="namespacePropertyGroup"><a name="Cache" class="namespacePropertyGroup">Cache</a><ul><li><a href="#hibernateAssociationCache" title="Optional, defaults to 'TRANSACTIONAL'">hibernateAssociationCache</a></li><li><a href="#hibernateCacheProvider" title="Optional, no default value available">hibernateCacheProvider</a></li><li><a href="#hibernateEnableAssociationsCache" title="Optional, defaults to 'false'">hibernateEnableAssociationsCache</a></li><li><a href="#hibernateEnableCache" title="Optional, defaults to 'false'">hibernateEnableCache</a></li><li><a href="#hibernateEntityCache" title="Optional, defaults to 'TRANSACTIONAL'">hibernateEntityCache</a></li><li><a href="#hibernateTreecacheMbeanObject" title="Optional, no default value available">hibernateTreecacheMbeanObject</a></li><li><a href="#hibernateUseQueryCache" title="Optional, defaults to 'false'">hibernateUseQueryCache</a></li><li><a href="#useDefaultCacheRegion" title="Optional, defaults to 'false'">useDefaultCacheRegion</a></li></ul></div><div class="namespacePropertyGroup"><a name="Clustering" class="namespacePropertyGroup">Clustering</a><ul><li><a href="#enableClustering" title="Optional, defaults to 'false'">enableClustering</a></li></ul></div><div class="namespacePropertyGroup"><a name="DAO Properties" class="namespacePropertyGroup">DAO Properties</a><ul><li><a href="#daoBaseNamePattern" title="Optional, defaults to '{0}DaoBase'">daoBaseNamePattern</a></li><li><a href="#daoDefaultExceptionNamePattern" title="Optional, defaults to '{0}DaoException'">daoDefaultExceptionNamePattern</a></li><li><a href="#daoImplementationNamePattern" title="Optional, defaults to '{0}DaoImpl'">daoImplementationNamePattern</a></li><li><a href="#daoInheritanceEnabled" title="Optional, defaults to 'false'">daoInheritanceEnabled</a></li><li><a href="#daoNamePattern" title="Optional, defaults to '{0}Dao'">daoNamePattern</a></li><li><a href="#daoPackageNamePattern" title="Optional, defaults to '{0}'">daoPackageNamePattern</a></li><li><a href="#daoType" title="Optional, defaults to 'ejb3'">daoType</a></li><li><a href="#enableDaoPropertiesCreateMethod" title="Optional, defaults to 'true'">enableDaoPropertiesCreateMethod</a></li></ul></div><div class="namespacePropertyGroup"><a name="Entity Properties" class="namespacePropertyGroup">Entity Properties</a><ul><li><a href="#daoNamedQueries" title="Optional, defaults to 'true'">daoNamedQueries</a></li><li><a href="#entityAggregationCascade" title="Optional, no default value available">entityAggregationCascade</a></li><li><a href="#entityCmpEqHash" title="Optional, defaults to 'true'">entityCmpEqHash</a></li><li><a href="#entityCompositeCascade" title="Optional, no default value available">entityCompositeCascade</a></li><li><a href="#entityDefaultCascade" title="Optional, defaults to 'NONE'">entityDefaultCascade</a></li><li><a href="#entityDefaultEnumLiteralColumnLength" title="Optional, defaults to '20'">entityDefaultEnumLiteralColumnLength</a></li><li><a href="#entityDefaultGeneratorAllocationSize" title="Optional, defaults to '1'">entityDefaultGeneratorAllocationSize</a></li><li><a href="#entityDefaultGeneratorInitialValue" title="Optional, defaults to '1'">entityDefaultGeneratorInitialValue</a></li><li><a href="#entityDefaultGeneratorType" title="Optional, defaults to 'AUTO'">entityDefaultGeneratorType</a></li><li><a href="#entityDefaultTemporalType" title="Optional, defaults to 'TIMESTAMP'">entityDefaultTemporalType</a></li><li><a href="#entityDiscriminatorColumnName" title="Optional, defaults to 'TYPE'">entityDiscriminatorColumnName</a></li><li><a href="#entityDiscriminatorType" title="Optional, defaults to 'STRING'">entityDiscriminatorType</a></li><li><a href="#entityFindersOnUniqueProperties" title="Optional, defaults to 'true'">entityFindersOnUniqueProperties</a></li><li><a href="#entityGenericFinders" title="Optional, defaults to 'true'">entityGenericFinders</a></li><li><a href="#entityHibernateValidations" title="Optional, defaults to 'true'">entityHibernateValidations</a></li><li><a href="#entityInheritanceStrategy" title="Optional, defaults to 'SINGLE_TABLE'">entityInheritanceStrategy</a></li><li><a href="#entityViewType" title="Optional, defaults to 'local'">entityViewType</a></li><li><a href="#entityVOTransformations" title="Optional, defaults to 'false'">entityVOTransformations</a></li></ul></div><div class="namespacePropertyGroup"><a name="JDBC" class="namespacePropertyGroup">JDBC</a><ul><li><a href="#connectionUrl" title="Optional, no default value available">connectionUrl</a></li><li><a href="#dataSource" title="Optional, no default value available">dataSource</a></li><li><a href="#dataSourceName" title="Optional, no default value available">dataSourceName</a></li><li><a href="#driver" title="Optional, no default value available">driver</a></li><li><a href="#entityManagerJTADataSource" title="Optional, defaults to 'java:/DefaultDS'">entityManagerJTADataSource</a></li><li><a href="#entityManagerName" title="Optional, no default value available">entityManagerName</a></li><li><a href="#hibernateDialect" title="Optional, defaults to 'org.hibernate.dialect.H2Dialect'">hibernateDialect</a></li><li><a href="#hibernateHbm2DDLAuto" title="Optional, defaults to 'update'">hibernateHbm2DDLAuto</a></li><li><a href="#hibernateJdbcBatchSize" title="Optional, no default value available">hibernateJdbcBatchSize</a></li><li><a href="#hibernateJdbcFetchSize" title="Optional, no default value available">hibernateJdbcFetchSize</a></li><li><a href="#hibernateJdbcUseScrollableResultSet" title="Optional, no default value available">hibernateJdbcUseScrollableResultSet</a></li><li><a href="#hibernateJdbcUseStreamsForBinary" title="Optional, no default value available">hibernateJdbcUseStreamsForBinary</a></li><li><a href="#hibernateMaxFetchDepth" title="Optional, no default value available">hibernateMaxFetchDepth</a></li><li><a href="#hibernateShowSql" title="Optional, no default value available">hibernateShowSql</a></li><li><a href="#jarFiles" title="Optional, no default value available">jarFiles</a></li><li><a href="#password" title="Optional, no default value available">password</a></li><li><a href="#testCatalog" title="Optional, no default value available">testCatalog</a></li><li><a href="#testConnectionUrl" title="Optional, no default value available">testConnectionUrl</a></li><li><a href="#testDialect" title="Optional, defaults to 'org.hibernate.dialect.H2Dialect'">testDialect</a></li><li><a href="#testDriver" title="Optional, no default value available">testDriver</a></li><li><a href="#testPassword" title="Optional, no default value available">testPassword</a></li><li><a href="#testUsername" title="Optional, no default value available">testUsername</a></li><li><a href="#username" title="Optional, no default value available">username</a></li></ul></div><div class="namespacePropertyGroup"><a name="MDB Properties" class="namespacePropertyGroup">MDB Properties</a><ul><li><a href="#messageDrivenDestinationType" title="Optional, defaults to 'javax.jms.Queue'">messageDrivenDestinationType</a></li><li><a href="#messageDrivenTopicSubscriptionDurability" title="Optional, defaults to 'NonDurable'">messageDrivenTopicSubscriptionDurability</a></li></ul></div><div class="namespacePropertyGroup"><a name="Name Patterns" class="namespacePropertyGroup">Name Patterns</a><ul><li><a href="#defaultServiceExceptionNamePattern" title="Optional, defaults to '{0}Exception'">defaultServiceExceptionNamePattern</a></li><li><a href="#embeddedValueImplementationNamePattern" title="Optional, defaults to '{0}Impl'">embeddedValueImplementationNamePattern</a></li><li><a href="#entityCompositePrimaryKeyNamePattern" title="Optional, defaults to '{0}PK'">entityCompositePrimaryKeyNamePattern</a></li><li><a href="#entityEmbeddableNamePattern" title="Optional, defaults to '{0}Embeddable'">entityEmbeddableNamePattern</a></li><li><a href="#entityImplementationNamePattern" title="Optional, defaults to '{0}Impl'">entityImplementationNamePattern</a></li><li><a href="#entityListenerNamePattern" title="Optional, defaults to '{0}Listener'">entityListenerNamePattern</a></li><li><a href="#entityNamePattern" title="Optional, defaults to '{0}'">entityNamePattern</a></li><li><a href="#implementationOperationNamePattern" title="Optional, defaults to 'handle{0}'">implementationOperationNamePattern</a></li><li><a href="#interceptorNamePattern" title="Optional, defaults to '{0}'">interceptorNamePattern</a></li><li><a href="#jndiNamePrefix" title="Optional, no default value available">jndiNamePrefix</a></li><li><a href="#labelCollectionNamePattern" title="Optional, defaults to '{0}Labels'">labelCollectionNamePattern</a></li><li><a href="#labelSingleNamePattern" title="Optional, defaults to '{0}Label'">labelSingleNamePattern</a></li><li><a href="#manageableCreateExceptionNamePattern" title="Optional, defaults to '{0}CreateManageableException'">manageableCreateExceptionNamePattern</a></li><li><a href="#manageableDeleteExceptionNamePattern" title="Optional, defaults to '{0}DeleteManageableException'">manageableDeleteExceptionNamePattern</a></li><li><a href="#manageableReadExceptionNamePattern" title="Optional, defaults to '{0}ReadManageableException'">manageableReadExceptionNamePattern</a></li><li><a href="#manageableServiceBaseNamePattern" title="Optional, defaults to '{0}Base'">manageableServiceBaseNamePattern</a></li><li><a href="#manageableUpdateExceptionNamePattern" title="Optional, defaults to '{0}UpdateManageableException'">manageableUpdateExceptionNamePattern</a></li><li><a href="#messageDrivenDurableSubscriptionIdPattern" title="Optional, defaults to '{0}SubscriptionId'">messageDrivenDurableSubscriptionIdPattern</a></li><li><a href="#messageDrivenImplementationNamePattern" title="Optional, defaults to '{0}MDBBeanImpl'">messageDrivenImplementationNamePattern</a></li><li><a href="#messageDrivenListenerNamePattern" title="Optional, defaults to '{0}Listener'">messageDrivenListenerNamePattern</a></li><li><a href="#messageDrivenNamePattern" title="Optional, defaults to '{0}MDBBean'">messageDrivenNamePattern</a></li><li><a href="#messageDrivenTestNamePattern" title="Optional, defaults to '{0}Test'">messageDrivenTestNamePattern</a></li><li><a href="#messageDrivenTestPackageNamePattern" title="Optional, defaults to '{0}.test'">messageDrivenTestPackageNamePattern</a></li><li><a href="#serviceBaseNamePattern" title="Optional, defaults to '{0}Base'">serviceBaseNamePattern</a></li><li><a href="#serviceDelegateNamePattern" title="Optional, defaults to '{0}Delegate'">serviceDelegateNamePattern</a></li><li><a href="#serviceImplementationNamePattern" title="Optional, defaults to '{0}BeanImpl'">serviceImplementationNamePattern</a></li><li><a href="#serviceInterfaceNamePattern" title="Optional, defaults to '{0}'">serviceInterfaceNamePattern</a></li><li><a href="#serviceListenerNamePattern" title="Optional, defaults to '{0}Listener'">serviceListenerNamePattern</a></li><li><a href="#serviceLocalInterfaceNamePattern" title="Optional, defaults to '{0}Local'">serviceLocalInterfaceNamePattern</a></li><li><a href="#serviceNamePattern" title="Optional, defaults to '{0}Bean'">serviceNamePattern</a></li><li><a href="#serviceOperationTestNamePattern" title="Optional, defaults to 'test{0}'">serviceOperationTestNamePattern</a></li><li><a href="#serviceRemoteInterfaceNamePattern" title="Optional, defaults to '{0}Remote'">serviceRemoteInterfaceNamePattern</a></li><li><a href="#serviceTestNamePattern" title="Optional, defaults to '{0}Test'">serviceTestNamePattern</a></li><li><a href="#serviceTestPackageNamePattern" title="Optional, defaults to '{0}.test'">serviceTestPackageNamePattern</a></li><li><a href="#webServiceInterfaceNamePattern" title="Optional, defaults to '{0}WSInterface'">webServiceInterfaceNamePattern</a></li></ul></div><div class="namespacePropertyGroup"><a name="Other Properties" class="namespacePropertyGroup">Other Properties</a><ul><li><a href="#allowDefaultServiceException" title="Optional, defaults to 'true'">allowDefaultServiceException</a></li><li><a href="#associationCollectionType" title="Optional, defaults to 'set'">associationCollectionType</a></li><li><a href="#associationEndCollectionIndexName" title="Optional, no default value available">associationEndCollectionIndexName</a></li><li><a href="#associationEndCollectionIndexType" title="Optional, defaults to 'datatype::String'">associationEndCollectionIndexType</a></li><li><a href="#compositionDefinesEagerLoading" title="Optional, defaults to 'true'">compositionDefinesEagerLoading</a></li><li><a href="#defaultCollectionInterface" title="Optional, defaults to 'java.util.Set'">defaultCollectionInterface</a></li><li><a href="#deploymentPlatform" title="Optional, defaults to 'jboss6'">deploymentPlatform</a></li><li><a href="#ejb3TypeMappingsUri" title="Optional, defaults to 'Hibernate'">ejb3TypeMappingsUri</a></li><li><a href="#ejb3TypesPackage" title="Optional, defaults to 'org.andromda.ejb3'">ejb3TypesPackage</a></li><li><a href="#javaTypeConversionIgnoreList" title="Optional, no default value available">javaTypeConversionIgnoreList</a></li><li><a href="#javaVersion" title="Optional, defaults to '1.6'">javaVersion</a></li><li><a href="#listTypeImplementation" title="Optional, defaults to 'java.util.ArrayList'">listTypeImplementation</a></li><li><a href="#manageableServiceLocatorName" title="Optional, defaults to 'ManageableServiceLocator'">manageableServiceLocatorName</a></li><li><a href="#mapTypeImplementation" title="Optional, defaults to 'java.util.HashMap'">mapTypeImplementation</a></li><li><a href="#parameterRequiredCheck" title="Optional, defaults to 'true'">parameterRequiredCheck</a></li><li><a href="#persistenceContainerName" title="Optional, defaults to 'jboss'">persistenceContainerName</a></li><li><a href="#persistenceContextUnitName" title="Optional, no default value available">persistenceContextUnitName</a></li><li><a href="#persistenceProviderExtensions" title="Optional, defaults to 'none'">persistenceProviderExtensions</a></li><li><a href="#queryUseNamedParameters" title="Optional, defaults to 'true'">queryUseNamedParameters</a></li><li><a href="#seamEnabled" title="Optional, defaults to 'false'">seamEnabled</a></li><li><a href="#setTypeImplementation" title="Optional, defaults to 'java.util.TreeSet'">setTypeImplementation</a></li><li><a href="#specificCollectionInterfaces" title="Optional, defaults to 'false'">specificCollectionInterfaces</a></li><li><a href="#transactionType" title="Optional, defaults to 'REQUIRED'">transactionType</a></li><li><a href="#valueObjectName" title="Optional, defaults to '{0}'">valueObjectName</a></li><li><a href="#valueObjectPackage" title="Optional, defaults to '{0}'">valueObjectPackage</a></li><li><a href="#xmlEncoding" title="Optional, defaults to 'UTF-8'">xmlEncoding</a></li></ul></div><div class="namespacePropertyGroup"><a name="Outlet Properties" class="namespacePropertyGroup">Outlet Properties</a><div class="namespacePropertyGroupDocumentation"><documentation>
 				Defines the locations to which output is generated.
-			</documentation></div><ul><li><a href="#application-config" title="Required">application-config</a></li><li><a href="#application-metainf" title="Required">application-metainf</a></li><li><a href="#commons" title="Required">commons</a></li><li><a href="#dao-impls" title="Required">dao-impls</a></li><li><a href="#daos" title="Required">daos</a></li><li><a href="#entity-beans" title="Required">entity-beans</a></li><li><a href="#entity-config" title="Required">entity-config</a></li><li><a href="#entity-impls" title="Required">entity-impls</a></li><li><a href="#message-driven-beans" title="Required">message-driven-beans</a></li><li><a href="#message-driven-impls" title="Required">message-driven-impls</a></li><li><a href="#services" title="Required">services</a></li><li><a href="#session-beans" title="Required">session-beans</a></li><li><a href="#session-config" title="Required">session-config</a></li><li><a href="#session-impls" title="Required">session-impls</a></li><li><a href="#test-config" title="Required">test-config</a></li><li><a href="#test-impls" title="Required">test-impls</a></li><li><a href="#tests" title="Required">tests</a></li><li><a href="#user-types" title="Required">user-types</a></li></ul></div><div class="namespacePropertyGroup"><a name="Security Properties" class="namespacePropertyGroup">Security Properties</a><ul><li><a href="#manageableRolesAllowed" title="Optional, defaults to 'Admin'">manageableRolesAllowed</a></li><li><a href="#securityRealm" title="Optional, no default value available">securityRealm</a></li></ul></div><div class="namespacePropertyGroup"><a name="Service Properties" class="namespacePropertyGroup">Service Properties</a><ul><li><a href="#serviceLocatorName" title="Optional, defaults to 'ServiceLocator'">serviceLocatorName</a></li><li><a href="#serviceViewType" title="Optional, defaults to 'remote'">serviceViewType</a></li></ul></div><div class="namespacePropertyGroup"><a name="Transactions" class="namespacePropertyGroup">Transactions</a><ul><li><a href="#hibernateTransactionAutoCloseSession" title="Optional, no default value available">hibernateTransactionAutoCloseSession</a></li><li><a href="#hibernateTransactionFlushBeforeCompletion" title="Optional, no default value available">hibernateTransactionFlushBeforeCompletion</a></li><li><a href="#hibernateTransactionManagerLookupClass" title="Optional, no default value available">hibernateTransactionManagerLookupClass</a></li></ul></div><div class="namespacePropertyGroup"><a name="WebService Properties" class="namespacePropertyGroup">WebService Properties</a><ul><li><a href="#webServiceContextRoot" title="Required">webServiceContextRoot</a></li><li><a href="#webServiceDefaultParameterStyle" title="Optional, defaults to 'wrapped'">webServiceDefaultParameterStyle</a></li><li><a href="#webServiceDefaultStyle" title="Optional, defaults to 'rpc'">webServiceDefaultStyle</a></li><li><a href="#webServiceDefaultUse" title="Optional, defaults to 'literal'">webServiceDefaultUse</a></li><li><a href="#webServiceEnabled" title="Required">webServiceEnabled</a></li><li><a href="#webServiceNamespacePattern" title="Optional, defaults to 'http://{0}/{1}'">webServiceNamespacePattern</a></li><li><a href="#webServiceQualifiedNameLocalPartPattern" title="Optional, defaults to '{0}'">webServiceQualifiedNameLocalPartPattern</a></li><li><a href="#webServiceReverseNamespace" title="Optional, defaults to 'false'">webServiceReverseNamespace</a></li><li><a href="#webServiceUrlPattern" title="Required">webServiceUrlPattern</a></li></ul></div><p>
+			</documentation></div><ul><li><a href="#application-config" title="Required">application-config</a></li><li><a href="#application-metainf" title="Required">application-metainf</a></li><li><a href="#commons" title="Required">commons</a></li><li><a href="#dao-impls" title="Required">dao-impls</a></li><li><a href="#daos" title="Required">daos</a></li><li><a href="#entity-beans" title="Required">entity-beans</a></li><li><a href="#entity-config" title="Required">entity-config</a></li><li><a href="#entity-impls" title="Required">entity-impls</a></li><li><a href="#java-refs" title="Required">java-refs</a></li><li><a href="#message-driven-beans" title="Required">message-driven-beans</a></li><li><a href="#message-driven-impls" title="Required">message-driven-impls</a></li><li><a href="#services" title="Required">services</a></li><li><a href="#session-beans" title="Required">session-beans</a></li><li><a href="#session-config" title="Required">session-config</a></li><li><a href="#session-impls" title="Required">session-impls</a></li><li><a href="#test-config" title="Required">test-config</a></li><li><a href="#test-impls" title="Required">test-impls</a></li><li><a href="#test-refs" title="Required">test-refs</a></li><li><a href="#tests" title="Required">tests</a></li><li><a href="#user-types" title="Required">user-types</a></li></ul></div><div class="namespacePropertyGroup"><a name="Security Properties" class="namespacePropertyGroup">Security Properties</a><ul><li><a href="#manageableRolesAllowed" title="Optional, defaults to 'Admin'">manageableRolesAllowed</a></li><li><a href="#securityRealm" title="Optional, no default value available">securityRealm</a></li></ul></div><div class="namespacePropertyGroup"><a name="Service Properties" class="namespacePropertyGroup">Service Properties</a><ul><li><a href="#serviceLocatorName" title="Optional, defaults to 'ServiceLocator'">serviceLocatorName</a></li><li><a href="#serviceViewType" title="Optional, defaults to 'remote'">serviceViewType</a></li></ul></div><div class="namespacePropertyGroup"><a name="Transactions" class="namespacePropertyGroup">Transactions</a><ul><li><a href="#hibernateTransactionAutoCloseSession" title="Optional, no default value available">hibernateTransactionAutoCloseSession</a></li><li><a href="#hibernateTransactionFlushBeforeCompletion" title="Optional, no default value available">hibernateTransactionFlushBeforeCompletion</a></li><li><a href="#hibernateTransactionManagerLookupClass" title="Optional, no default value available">hibernateTransactionManagerLookupClass</a></li></ul></div><div class="namespacePropertyGroup"><a name="WebService Properties" class="namespacePropertyGroup">WebService Properties</a><ul><li><a href="#webServiceContextRoot" title="Required">webServiceContextRoot</a></li><li><a href="#webServiceDefaultParameterStyle" title="Optional, defaults to 'wrapped'">webServiceDefaultParameterStyle</a></li><li><a href="#webServiceDefaultStyle" title="Optional, defaults to 'rpc'">webServiceDefaultStyle</a></li><li><a href="#webServiceDefaultUse" title="Optional, defaults to 'literal'">webServiceDefaultUse</a></li><li><a href="#webServiceEnabled" title="Required">webServiceEnabled</a></li><li><a href="#webServiceNamespacePattern" title="Optional, defaults to 'http://{0}/{1}'">webServiceNamespacePattern</a></li><li><a href="#webServiceQualifiedNameLocalPartPattern" title="Optional, defaults to '{0}'">webServiceQualifiedNameLocalPartPattern</a></li><li><a href="#webServiceReverseNamespace" title="Optional, defaults to 'false'">webServiceReverseNamespace</a></li><li><a href="#webServiceUrlPattern" title="Required">webServiceUrlPattern</a></li></ul></div><p>
 		
 		
 			
@@ -45,7 +45,7 @@
 					The directory to which Session Bean implementation
 					files are generated.
 				</documentation></td></tr></table></div>
-			<div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="session-config" class="namespacePropertyTitle">session-config</a><a href="#Outlet Properties" title="Go to Outlet Properties namespace element group">(Back to Outlet Properties)</a></td></tr><tr><td><div class="required">Required property</div></td><td>
+            <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="session-config" class="namespacePropertyTitle">session-config</a><a href="#Outlet Properties" title="Go to Outlet Properties namespace element group">(Back to Outlet Properties)</a></td></tr><tr><td><div class="required">Required property</div></td><td>
                                 No default value available
                             </td></tr><tr><td colspan="2" class="documentation"><documentation>
 			        The location where the ejb-jar.xml XML descriptor
@@ -74,30 +74,30 @@
                         <strong>no operations</strong> are present on the entity with <em>classifier scope</em>.
                     </p>
                 </documentation></td></tr></table></div>
-			<div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="application-config" class="namespacePropertyTitle">application-config</a><a href="#Outlet Properties" title="Go to Outlet Properties namespace element group">(Back to Outlet Properties)</a></td></tr><tr><td><div class="required">Required property</div></td><td>
+            <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="application-config" class="namespacePropertyTitle">application-config</a><a href="#Outlet Properties" title="Go to Outlet Properties namespace element group">(Back to Outlet Properties)</a></td></tr><tr><td><div class="required">Required property</div></td><td>
                                 No default value available
                             </td></tr><tr><td colspan="2" class="documentation"><documentation>
-			        The location where the application specific XML 
+			        The location where the application specific XML
 			        descriptors are generated.  i.e the application
 			        login-config.xml descriptor.
 			    </documentation></td></tr></table></div>
 			<div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="application-metainf" class="namespacePropertyTitle">application-metainf</a><a href="#Outlet Properties" title="Go to Outlet Properties namespace element group">(Back to Outlet Properties)</a></td></tr><tr><td><div class="required">Required property</div></td><td>
                                 No default value available
                             </td></tr><tr><td colspan="2" class="documentation"><documentation>
-			        The location where the application specific XML 
+			        The location where the application specific XML
 			        descriptors that are packaged in the ear file are
 			        generated.
 			    </documentation></td></tr></table></div>
 			<div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="message-driven-beans" class="namespacePropertyTitle">message-driven-beans</a><a href="#Outlet Properties" title="Go to Outlet Properties namespace element group">(Back to Outlet Properties)</a></td></tr><tr><td><div class="required">Required property</div></td><td>
                                 No default value available
                             </td></tr><tr><td colspan="2" class="documentation"><documentation>
-					The directory to which Message Driven Bean files 
+					The directory to which Message Driven Bean files
 					are generated.
 				</documentation></td></tr></table></div>
 			<div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="message-driven-impls" class="namespacePropertyTitle">message-driven-impls</a><a href="#Outlet Properties" title="Go to Outlet Properties namespace element group">(Back to Outlet Properties)</a></td></tr><tr><td><div class="required">Required property</div></td><td>
                                 No default value available
                             </td></tr><tr><td colspan="2" class="documentation"><documentation>
-					The directory to which Message Driven Bean 
+					The directory to which Message Driven Bean
 					implementation files are generated.
 				</documentation></td></tr></table></div>
 			<div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="commons" class="namespacePropertyTitle">commons</a><a href="#Outlet Properties" title="Go to Outlet Properties namespace element group">(Back to Outlet Properties)</a></td></tr><tr><td><div class="required">Required property</div></td><td>
@@ -110,14 +110,16 @@
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="user-types" class="namespacePropertyTitle">user-types</a><a href="#Outlet Properties" title="Go to Outlet Properties namespace element group">(Back to Outlet Properties)</a></td></tr><tr><td><div class="required">Required property</div></td><td>
                                 No default value available
                             </td></tr><tr><td colspan="2" class="documentation"><documentation>
-                    The location to which user-types such as enumeration 
+                    The location to which user-types such as enumeration
                     are generated.
                 </documentation></td></tr></table></div>
 			<div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="test-config" class="namespacePropertyTitle">test-config</a><a href="#Outlet Properties" title="Go to Outlet Properties namespace element group">(Back to Outlet Properties)</a></td></tr><tr><td><div class="required">Required property</div></td><td>
                                 No default value available
                             </td></tr><tr><td colspan="2" class="documentation"><documentation>
-			        The location where the JBoss Embedded/Microcontainer
-                    configuration files are generated.
+                    The location where manual session bean and entity test resources
+                    such as persistence.xml and log4j.xml are generated, as well as
+                    the JBoss Embedded/Microcontainer configuration files.  These will not be regenerated
+                    and may require user intervention.
 			    </documentation></td></tr></table></div>
 			<div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="tests" class="namespacePropertyTitle">tests</a><a href="#Outlet Properties" title="Go to Outlet Properties namespace element group">(Back to Outlet Properties)</a></td></tr><tr><td><div class="required">Required property</div></td><td>
                                 No default value available
@@ -129,10 +131,26 @@
 			<div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="test-impls" class="namespacePropertyTitle">test-impls</a><a href="#Outlet Properties" title="Go to Outlet Properties namespace element group">(Back to Outlet Properties)</a></td></tr><tr><td><div class="required">Required property</div></td><td>
                                 No default value available
                             </td></tr><tr><td colspan="2" class="documentation"><documentation>
-			        The location where manual session bean test classes
+			        The location where manual session bean and entity test classes
                     are generated.  These will not be regenerated and require
                     user intervention.
 			    </documentation></td></tr></table></div>
+            <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="java-refs" class="namespacePropertyTitle">java-refs</a><a href="#Outlet Properties" title="Go to Outlet Properties namespace element group">(Back to Outlet Properties)</a></td></tr><tr><td><div class="required">Required property</div></td><td>
+                                No default value available
+                            </td></tr><tr><td colspan="2" class="documentation"><documentation>
+                    The location containing java Impl classes that would have been
+                    generated but are not overwritten. Use these to compare and merge with the
+                    existing Impl classes when reconciling model changes. These will be regenerated
+                    every time.
+                </documentation></td></tr></table></div>
+            <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="test-refs" class="namespacePropertyTitle">test-refs</a><a href="#Outlet Properties" title="Go to Outlet Properties namespace element group">(Back to Outlet Properties)</a></td></tr><tr><td><div class="required">Required property</div></td><td>
+                                No default value available
+                            </td></tr><tr><td colspan="2" class="documentation"><documentation>
+                    The location containing test classes that would have been
+                    generated but are not overwritten. Use these to compare and merge with the
+                    existing Impl classes when reconciling model changes. These will be regenerated
+                    every time.
+                </documentation></td></tr></table></div>
 		
 		
 		    <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="entityManagerName" class="namespacePropertyTitle">entityManagerName</a><a href="#JDBC" title="Go to JDBC namespace element group">(Back to JDBC)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
@@ -148,7 +166,7 @@
 		    	</documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="hibernateHbm2DDLAuto" class="namespacePropertyTitle">hibernateHbm2DDLAuto</a><a href="#JDBC" title="Go to JDBC namespace element group">(Back to JDBC)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">update</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
-                    Automatically export schema DDL to the database when deployed. 
+                    Automatically export schema DDL to the database when deployed.
                     With create-drop, the database schema will be dropped when
                     the entity is undeployed. Permitted values are:
                     <ul>
@@ -159,27 +177,51 @@
                     </ul>
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="hibernateDialect" class="namespacePropertyTitle">hibernateDialect</a><a href="#JDBC" title="Go to JDBC namespace element group">(Back to JDBC)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
-                                Default value: <code class="defaultValue">org.hibernate.dialect.MySQLDialect</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
+                                Default value: <code class="defaultValue">org.hibernate.dialect.H2Dialect</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
             	    The SQL dialect of the database.
             	    <ul>
+            	        <li>org.hibernate.dialect.Cache71Dialect</li>
+                        <li>org.hibernate.dialect.DataDirectOracle9Dialect</li>
+                        <li>org.hibernate.dialect.DB2390Dialect</li>
+                        <li>org.hibernate.dialect.DB2400Dialect</li>
+                        <li>org.hibernate.dialect.DB2Dialect</li>
+                        <li>org.hibernate.dialect.DerbyDialect</li>
+                        <li>org.hibernate.dialect.FirebirdDialect</li>
+                        <li>org.hibernate.dialect.FrontbaseDialect</li>
+                        <li>org.hibernate.dialect.H2Dialect</li>
+                        <li>org.hibernate.dialect.HSQLDialect</li>
+                        <li>org.hibernate.dialect.InformixDialect</li>
+                        <li>org.hibernate.dialect.IngresDialect</li>
+                        <li>org.hibernate.dialect.IngresDialect9</li>
+                        <li>org.hibernate.dialect.IngresDialect10</li>
+                        <li>org.hibernate.dialect.InterbaseDialect</li>
+                        <li>org.hibernate.dialect.JDataStoreDialect</li>
+                        <li>org.hibernate.dialect.MckoiDialect</li>
+                        <li>org.hibernate.dialect.MimerSQLDialect</li>
+                        <li>org.hibernate.dialect.MySQL5Dialect</li>
+                        <li>org.hibernate.dialect.MySQL5InnoDBDialect</li>
             	        <li>org.hibernate.dialect.MySQLDialect</li>
             	        <li>org.hibernate.dialect.MySQLInnoDBDialect</li>
             	        <li>org.hibernate.dialect.MySQLMyISAMDialect</li>
-            	        <li>org.hibernate.dialect.HSQLDialect</li>
-            	        <li>org.hibernate.dialect.PostgreSQLDialect</li>
-            	        <li>org.hibernate.dialect.DB2Dialect</li>
             	        <li>org.hibernate.dialect.OracleDialect</li>
+            	        <li>org.hibernate.dialect.Oracle8iDialect</li>
             	        <li>org.hibernate.dialect.Oracle9Dialect</li>
+                        <li>org.hibernate.dialect.Oracle9iDialect</li>
+                        <li>org.hibernate.dialect.Oracle10gDialect</li>
+                        <li>org.hibernate.dialect.PointbaseDialect</li>
+                        <li>org.hibernate.dialect.PostgresPlusDialect</li>
+                        <li>org.hibernate.dialect.PostgreSQLDialect</li>
+                        <li>org.hibernate.dialect.ProgressDialect</li>
+                        <li>org.hibernate.dialect.RDMSOS2200Dialect</li>
+                        <li>org.hibernate.dialect.SAPDBDialect</li>
+                        <li>org.hibernate.dialect.SQLServer2008Dialect</li>
+                        <li>org.hibernate.dialect.SQLServerDialect</li>
             	        <li>org.hibernate.dialect.SybaseDialect</li>
-            	        <li>org.hibernate.dialect.SQLServerDialect</li>
-            	        <li>org.hibernate.dialect.SAPDBDialect</li>
-            	        <li>org.hibernate.dialect.InformixDialect</li>
-            	        <li>org.hibernate.dialect.IngresDialect</li>
-            	        <li>org.hibernate.dialect.ProgressDialect</li>
-            	        <li>org.hibernate.dialect.InterbaseDialect</li>
-            	        <li>org.hibernate.dialect.PointbaseDialect</li>
-            	        <li>org.hibernate.dialect.FrontbaseDialect</li>
-            	        <li>org.hibernate.dialect.FirebirdDialect</li>
+            	        <li>org.hibernate.dialect.Sybase11Dialect</li>
+                        <li>org.hibernate.dialect.SybaseAnywhereDialect</li>
+                        <li>org.hibernate.dialect.SybaseASE15Dialect</li>
+                        <li>org.hibernate.dialect.TeradataDialect</li>
+                        <li>org.hibernate.dialect.TimesTenDialect</li>
             	    </ul>
             	</documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="hibernateShowSql" class="namespacePropertyTitle">hibernateShowSql</a><a href="#JDBC" title="Go to JDBC namespace element group">(Back to JDBC)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
@@ -190,7 +232,7 @@
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="hibernateMaxFetchDepth" class="namespacePropertyTitle">hibernateMaxFetchDepth</a><a href="#JDBC" title="Go to JDBC namespace element group">(Back to JDBC)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 No default value available
                             </td></tr><tr><td colspan="2" class="documentation"><documentation>
-                    Sets a maximum "depth" for the outer join fetch tree. 
+                    Sets a maximum "depth" for the outer join fetch tree.
                     Recommended values between 0 and 3
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="hibernateJdbcFetchSize" class="namespacePropertyTitle">hibernateJdbcFetchSize</a><a href="#JDBC" title="Go to JDBC namespace element group">(Back to JDBC)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
@@ -214,7 +256,7 @@
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="hibernateJdbcUseStreamsForBinary" class="namespacePropertyTitle">hibernateJdbcUseStreamsForBinary</a><a href="#JDBC" title="Go to JDBC namespace element group">(Back to JDBC)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 No default value available
                             </td></tr><tr><td colspan="2" class="documentation"><documentation>
-                    Whether or not to use streams when writing / reading binary 
+                    Whether or not to use streams when writing / reading binary
                     or serializable types to/from JDBC.
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="jarFiles" class="namespacePropertyTitle">jarFiles</a><a href="#JDBC" title="Go to JDBC namespace element group">(Back to JDBC)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
@@ -242,6 +284,57 @@
                                 No default value available
                             </td></tr><tr><td colspan="2" class="documentation"><documentation>
                     URL for the JDBC Driver to make the connection to the database.
+                </documentation></td></tr></table></div>
+            <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="testDriver" class="namespacePropertyTitle">testDriver</a><a href="#JDBC" title="Go to JDBC namespace element group">(Back to JDBC)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
+                                No default value available
+                            </td></tr><tr><td colspan="2" class="documentation"><documentation>
+                    JDBC Driver to make test database connection, this should be a fully qualified Java class name.
+                </documentation></td></tr></table></div>
+            <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="testUsername" class="namespacePropertyTitle">testUsername</a><a href="#JDBC" title="Go to JDBC namespace element group">(Back to JDBC)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
+                                No default value available
+                            </td></tr><tr><td colspan="2" class="documentation"><documentation>
+                    The test database user login name.
+                </documentation></td></tr></table></div>
+            <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="testPassword" class="namespacePropertyTitle">testPassword</a><a href="#JDBC" title="Go to JDBC namespace element group">(Back to JDBC)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
+                                No default value available
+                            </td></tr><tr><td colspan="2" class="documentation"><documentation>
+                    The test database user password.
+                </documentation></td></tr></table></div>
+            <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="testConnectionUrl" class="namespacePropertyTitle">testConnectionUrl</a><a href="#JDBC" title="Go to JDBC namespace element group">(Back to JDBC)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
+                                No default value available
+                            </td></tr><tr><td colspan="2" class="documentation"><documentation>
+                    URL for the JDBC Driver to make the connection to the test database.
+                </documentation></td></tr></table></div>
+            <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="testCatalog" class="namespacePropertyTitle">testCatalog</a><a href="#JDBC" title="Go to JDBC namespace element group">(Back to JDBC)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
+                                No default value available
+                            </td></tr><tr><td colspan="2" class="documentation"><documentation>
+                    The Database Catalog used to determine the tables used for reveng.xml.
+                    Should be the capitalized database name.
+                </documentation></td></tr></table></div>
+            <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="testDialect" class="namespacePropertyTitle">testDialect</a><a href="#JDBC" title="Go to JDBC namespace element group">(Back to JDBC)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
+                                Default value: <code class="defaultValue">org.hibernate.dialect.H2Dialect</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
+                    The SQL dialect of the test database.
+                    <ul>
+                        <li>org.hibernate.dialect.MySQLDialect</li>
+                        <li>org.hibernate.dialect.MySQLInnoDBDialect</li>
+                        <li>org.hibernate.dialect.MySQLMyISAMDialect</li>
+                        <li>org.hibernate.dialect.H2Dialect</li>
+                        <li>org.hibernate.dialect.HSQLDialect</li>
+                        <li>org.hibernate.dialect.PostgreSQLDialect</li>
+                        <li>org.hibernate.dialect.DB2Dialect</li>
+                        <li>org.hibernate.dialect.OracleDialect</li>
+                        <li>org.hibernate.dialect.Oracle9Dialect</li>
+                        <li>org.hibernate.dialect.SybaseDialect</li>
+                        <li>org.hibernate.dialect.SQLServerDialect</li>
+                        <li>org.hibernate.dialect.SAPDBDialect</li>
+                        <li>org.hibernate.dialect.InformixDialect</li>
+                        <li>org.hibernate.dialect.IngresDialect</li>
+                        <li>org.hibernate.dialect.ProgressDialect</li>
+                        <li>org.hibernate.dialect.InterbaseDialect</li>
+                        <li>org.hibernate.dialect.PointbaseDialect</li>
+                        <li>org.hibernate.dialect.FrontbaseDialect</li>
+                        <li>org.hibernate.dialect.FirebirdDialect</li>
+                    </ul>
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="dataSource" class="namespacePropertyTitle">dataSource</a><a href="#JDBC" title="Go to JDBC namespace element group">(Back to JDBC)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 No default value available
@@ -277,7 +370,7 @@
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="hibernateEnableCache" class="namespacePropertyTitle">hibernateEnableCache</a><a href="#Cache" title="Go to Cache namespace element group">(Back to Cache)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">false</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
-                    Enable/disable hibernate's second level cache 
+                    Enable/disable hibernate's second level cache
                     features for the cartridge.  This implies the
                     JBoss Cache framework for the EJB3 cartridge.
                     By enabling this, you are enabling entity
@@ -285,16 +378,16 @@
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="hibernateEnableAssociationsCache" class="namespacePropertyTitle">hibernateEnableAssociationsCache</a><a href="#Cache" title="Go to Cache namespace element group">(Back to Cache)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">false</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
-                    Enable/disable Hibernate's second level cache 
+                    Enable/disable Hibernate's second level cache
                     feature for entity associations.
-                    Please <strong>NOTE</strong> that hibernateEnableCache 
+                    Please <strong>NOTE</strong> that hibernateEnableCache
                     should also be enabled when specifying this property.
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="hibernateUseQueryCache" class="namespacePropertyTitle">hibernateUseQueryCache</a><a href="#Cache" title="Go to Cache namespace element group">(Back to Cache)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">false</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
                     Enable/disable Hibernate's query cache
                     feature for queries.
-                    Please <strong>NOTE</strong> that hibernateEnableCache 
+                    Please <strong>NOTE</strong> that hibernateEnableCache
                     should also be enabled when specifying this property.
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="useDefaultCacheRegion" class="namespacePropertyTitle">useDefaultCacheRegion</a><a href="#Cache" title="Go to Cache namespace element group">(Back to Cache)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
@@ -309,7 +402,7 @@
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="hibernateEntityCache" class="namespacePropertyTitle">hibernateEntityCache</a><a href="#Cache" title="Go to Cache namespace element group">(Back to Cache)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">TRANSACTIONAL</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
-                    Defines the default strategy for Entities caching. 
+                    Defines the default strategy for Entities caching.
                     Can be overwritten using the corresponding
                     tagged value <code>andromda_persistence_entity_cache</code>.
                     Possible values are:
@@ -323,8 +416,8 @@
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="hibernateAssociationCache" class="namespacePropertyTitle">hibernateAssociationCache</a><a href="#Cache" title="Go to Cache namespace element group">(Back to Cache)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">TRANSACTIONAL</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
-                    Defines the default strategy for associations between 
-                    Entities caching. Can be overwrited with the corresponding 
+                    Defines the default strategy for associations between
+                    Entities caching. Can be overwritten with the corresponding
                     tagged value <code>andromda_persistence_association_cache</code>.
                     Possible values are:
                     <ul>
@@ -357,9 +450,9 @@
                                 No default value available
                             </td></tr><tr><td colspan="2" class="documentation"><documentation>
                      Defines the classname of a TransactionManagerLookup
-                     which is required when JVM-level caching is enabled 
+                     which is required when JVM-level caching is enabled
                      or when using hilo generator in a JTA environment.
-                     Typicallyl, this value is:
+                     Typically, this value is:
                      <ul>
                          <li>org.hibernate.transaction.JBossTransactionManagerLookup</li>
                      </ul>
@@ -485,7 +578,7 @@
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="defaultServiceExceptionNamePattern" class="namespacePropertyTitle">defaultServiceExceptionNamePattern</a><a href="#Name Patterns" title="Go to Name Patterns namespace element group">(Back to Name Patterns)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">{0}Exception</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
                     The pattern to use when constructing the default service exception name.
-                    <strong>NOTE:</strong> This propety is only applicable when 
+                    <strong>NOTE:</strong> This property is only applicable when
                     allowDefaultServiceExceptions is <code>true</code>.
                 </documentation></td></tr></table></div>
 			<div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="messageDrivenNamePattern" class="namespacePropertyTitle">messageDrivenNamePattern</a><a href="#Name Patterns" title="Go to Name Patterns namespace element group">(Back to Name Patterns)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
@@ -495,7 +588,7 @@
 				</documentation></td></tr></table></div>
 			<div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="messageDrivenListenerNamePattern" class="namespacePropertyTitle">messageDrivenListenerNamePattern</a><a href="#Name Patterns" title="Go to Name Patterns namespace element group">(Back to Name Patterns)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">{0}Listener</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
-					The pattern to use when constucting the JMS message driven
+					The pattern to use when constructing the JMS message driven
 					bean listener class name.
 				</documentation></td></tr></table></div>
 			<div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="messageDrivenImplementationNamePattern" class="namespacePropertyTitle">messageDrivenImplementationNamePattern</a><a href="#Name Patterns" title="Go to Name Patterns namespace element group">(Back to Name Patterns)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
@@ -542,33 +635,33 @@
 			    </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="manageableCreateExceptionNamePattern" class="namespacePropertyTitle">manageableCreateExceptionNamePattern</a><a href="#Name Patterns" title="Go to Name Patterns namespace element group">(Back to Name Patterns)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">{0}CreateManageableException</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
-                    The pattern to use when constructing the create 
+                    The pattern to use when constructing the create
                     manageable application exception name.
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="manageableReadExceptionNamePattern" class="namespacePropertyTitle">manageableReadExceptionNamePattern</a><a href="#Name Patterns" title="Go to Name Patterns namespace element group">(Back to Name Patterns)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">{0}ReadManageableException</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
-                    The pattern to use when constructing the read 
+                    The pattern to use when constructing the read
                     manageable application exception name.
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="manageableUpdateExceptionNamePattern" class="namespacePropertyTitle">manageableUpdateExceptionNamePattern</a><a href="#Name Patterns" title="Go to Name Patterns namespace element group">(Back to Name Patterns)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">{0}UpdateManageableException</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
-                    The pattern to use when constructing the update 
+                    The pattern to use when constructing the update
                     manageable application exception name.
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="manageableDeleteExceptionNamePattern" class="namespacePropertyTitle">manageableDeleteExceptionNamePattern</a><a href="#Name Patterns" title="Go to Name Patterns namespace element group">(Back to Name Patterns)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">{0}DeleteManageableException</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
-                    The pattern to use when constructing the update 
+                    The pattern to use when constructing the update
                     manageable application exception name.
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="labelCollectionNamePattern" class="namespacePropertyTitle">labelCollectionNamePattern</a><a href="#Name Patterns" title="Go to Name Patterns namespace element group">(Back to Name Patterns)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">{0}Labels</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
-                    The pattern to use when defining the display 
+                    The pattern to use when defining the display
                     attribute label name when it's of type Collection.
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="labelSingleNamePattern" class="namespacePropertyTitle">labelSingleNamePattern</a><a href="#Name Patterns" title="Go to Name Patterns namespace element group">(Back to Name Patterns)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">{0}Label</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
-                    The pattern to use when defining the display 
-                    attribute label name when it's NOT of type 
+                    The pattern to use when defining the display
+                    attribute label name when it's NOT of type
                     Collection.
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="webServiceInterfaceNamePattern" class="namespacePropertyTitle">webServiceInterfaceNamePattern</a><a href="#Name Patterns" title="Go to Name Patterns namespace element group">(Back to Name Patterns)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
@@ -579,7 +672,7 @@
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="embeddedValueImplementationNamePattern" class="namespacePropertyTitle">embeddedValueImplementationNamePattern</a><a href="#Name Patterns" title="Go to Name Patterns namespace element group">(Back to Name Patterns)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">{0}Impl</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
-                    The pattern to use when constructing an embedded 
+                    The pattern to use when constructing an embedded
                     value implementation name.
                 </documentation></td></tr></table></div>
 		
@@ -606,7 +699,7 @@
 		
 			<div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="entityViewType" class="namespacePropertyTitle">entityViewType</a><a href="#Entity Properties" title="Go to Entity Properties namespace element group">(Back to Entity Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">local</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
-					The default view type accessability for an entity POJO bean.
+					The default view type accessibility for an entity POJO bean.
 					<ul>
 						Permitted values are:
 						<li>local</li>
@@ -636,7 +729,7 @@
                             </td></tr><tr><td colspan="2" class="documentation"><documentation>
 					Indicates how a UML composition should be
 					interpreted to determine cascadable operations that
-					are propogated to the associated entity.
+					are propagated to the associated entity.
 					<ul>
 						<li>
 							If undefined, the cascade attribute is
@@ -649,27 +742,27 @@
 							.
 						</li>
 						<li>
-							If ths property is defined, its value is
+							If this property is defined, its value is
 							generated at each occurrence of a UML
 							composition as the inverse side is not
 							marked with a cascade annotation element
-							which indicates no cascade propgation.
+							which indicates no cascade propagation.
 						</li>
 					</ul>
 				</documentation></td></tr></table></div>
 			<div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="entityAggregationCascade" class="namespacePropertyTitle">entityAggregationCascade</a><a href="#Entity Properties" title="Go to Entity Properties namespace element group">(Back to Entity Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 No default value available
                             </td></tr><tr><td colspan="2" class="documentation"><documentation>
-					Indicates how a UML aggreation should be interpreted
+					Indicates how a UML aggregation should be interpreted
 					to determine cascadable operations that are
-					propogated to the associated entity.
+					propagated to the associated entity.
 					<ul>
 						<li>
-							If underfined, aggregation is not
+							If undefined, aggregation is not
 							interpreted as a cascade value.
 						</li>
 						<li>
-							If the property is defined, its valie is
+							If the property is defined, its value is
 							generated at each occurrence of a UML
 							aggregation ad the inverse side is not
 							marked with a cascade annotation element
@@ -705,17 +798,17 @@
 					tagged value, can be the following possible values:
 					<ul>
 						<li>
-                            SINGLE_TABLE - A single table per class hierarchy. One table will have all 
+                            SINGLE_TABLE - A single table per class hierarchy. One table will have all
                             properties of every class in the hierarchy.
                         </li>
 						<li>
 							TABLE_PER_CLASS - A table per concrete class in the
-							hierarchy. Each class will have a table dedicated to it, with all of its 
-                            properties and the properties of its superclass mapped to this table. 
+							hierarchy. Each class will have a table dedicated to it, with all of its
+                            properties and the properties of its superclass mapped to this table.
 						</li>
 						<li>
-                            JOINED - A table per subclass. Each class will have its own table. Each 
-                            table will have only the properties that are defined in that particular class. 
+                            JOINED - A table per subclass. Each class will have its own table. Each
+                            table will have only the properties that are defined in that particular class.
                             These tables will not have properties of any superclass or subclass.
                         </li>
 					</ul>
@@ -744,8 +837,8 @@
 				</documentation></td></tr></table></div>
 			<div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="entityGenericFinders" class="namespacePropertyTitle">entityGenericFinders</a><a href="#Entity Properties" title="Go to Entity Properties namespace element group">(Back to Entity Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">true</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
-			        Specifies whether to include the generic finder 
-			        property.  Generic finders in the entity bean include 
+			        Specifies whether to include the generic finder
+			        property.  Generic finders in the entity bean include
 			        findByPrimaryKey and findAll.
 			        Permitted values are:
 			        <ul>
@@ -772,6 +865,41 @@
 						<li>TIMESTAMP</li>
 					</ul>
 				</documentation></td></tr></table></div>
+            <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="entityHibernateValidations" class="namespacePropertyTitle">entityHibernateValidations</a><a href="#Entity Properties" title="Go to Entity Properties namespace element group">(Back to Entity Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
+                                Default value: <code class="defaultValue">true</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
+                    Generate hibernate bean validations on the Entity, for
+                    NotNull, Size, Pattern according to JSR303 and JEE6.
+                    See http://docs.jboss.org/hibernate/validator/4.2/reference/en-US/html_single/#table-spec-constraints
+                    default = true.
+                </documentation></td></tr></table></div>
+            <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="entityVOTransformations" class="namespacePropertyTitle">entityVOTransformations</a><a href="#Entity Properties" title="Go to Entity Properties namespace element group">(Back to Entity Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
+                                Default value: <code class="defaultValue">false</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
+                    Generate Entity Domain to VO transformations and mappings automatically.
+                    No longer needed for JPA since the domain Entity acts as a ValueObject.
+                    This allows strongly-typed queries and results. Domain classes can be used as
+                    VOs in the service and UI layers, especially if the DAO handles all database operations.
+                    Default = false.
+                </documentation></td></tr></table></div>
+            <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="entityCmpEqHash" class="namespacePropertyTitle">entityCmpEqHash</a><a href="#Entity Properties" title="Go to Entity Properties namespace element group">(Back to Entity Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
+                                Default value: <code class="defaultValue">true</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
+                    Generate Entity compareTo, equals, and hashCode methods. The only reason to turn this off
+                    is if the Entity inherits from a custom framework class that has the same methods as final
+                    and uses its own ancestor implementation for these methods.
+                    default = true.
+                </documentation></td></tr></table></div>
+            <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="entityFindersOnUniqueProperties" class="namespacePropertyTitle">entityFindersOnUniqueProperties</a><a href="#Entity Properties" title="Go to Entity Properties namespace element group">(Back to Entity Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
+                                Default value: <code class="defaultValue">true</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
+                    Generate Entity findByX methods, returning a single Domain instance, for all unique properties automatically.
+                    UML2 only, since UML14 cannot mark attributes or associations as Unique,
+                    they all become unique when migrated to UML2.
+                    default = true.
+                </documentation></td></tr></table></div>
+            <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="daoNamedQueries" class="namespacePropertyTitle">daoNamedQueries</a><a href="#Entity Properties" title="Go to Entity Properties namespace element group">(Back to Entity Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
+                                Default value: <code class="defaultValue">true</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
+                    Generate DAO named queries, where a strongly-typed result domain object is returned methods.
+                    Only JPA2 supports this, avoiding compiler warnings from class cast.
+                    default = true.
+                </documentation></td></tr></table></div>
 		
 		
 			<div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="serviceViewType" class="namespacePropertyTitle">serviceViewType</a><a href="#Service Properties" title="Go to Service Properties namespace element group">(Back to Service Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
@@ -790,13 +918,27 @@
                 </documentation></td></tr></table></div>
 		
 		
+            <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="daoType" class="namespacePropertyTitle">daoType</a><a href="#DAO Properties" title="Go to DAO Properties namespace element group">(Back to DAO Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
+                                Default value: <code class="defaultValue">ejb3</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
+                    The output type for classes which use EntityManager. Default is ejb3.
+                    Spring will create JpaTemplate DAO classes. Use 'none' if you have your
+                    own framework which creates and uses and tests EntityManager, and you only want to
+                    generate the Entity and Embeddable classes with andromda (no unit tests).
+                    Possible choices are:
+                    <ul>
+                        <li>ejb3</li>
+                        <li>spring</li>
+                        <li>custom</li>
+                        <li>none</li>
+                    </ul>
+                </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="daoInheritanceEnabled" class="namespacePropertyTitle">daoInheritanceEnabled</a><a href="#DAO Properties" title="Go to DAO Properties namespace element group">(Back to DAO Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">false</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
-                    Whether or not the DAOs should make up an inheritance tree in 
-                    the same way as their respective entities. This is disabled 
+                    Whether or not the DAOs should make up an inheritance tree in
+                    the same way as their respective entities. This is disabled
                     by default but you might want to enable it if you prefer to have
-                    top-level DAO operations visible in child DAO classes. The EJB3 
-                    cartridge uses JDK5 generics, further enahanced by enabling the 
+                    top-level DAO operations visible in child DAO classes. The EJB3
+                    cartridge uses JDK5 generics, further enahanced by enabling the
                     <code>enableTemplating</code> namespace property.
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="enableDaoPropertiesCreateMethod" class="namespacePropertyTitle">enableDaoPropertiesCreateMethod</a><a href="#DAO Properties" title="Go to DAO Properties namespace element group">(Back to DAO Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
@@ -804,10 +946,16 @@
                     Whether or not the create methods on the DAOs taking properties
                     from the entity shall be generated.
                 </documentation></td></tr></table></div>
+            <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="daoPackageNamePattern" class="namespacePropertyTitle">daoPackageNamePattern</a><a href="#DAO Properties" title="Go to DAO Properties namespace element group">(Back to DAO Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
+                                Default value: <code class="defaultValue">{0}</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
+                    The pattern to use when constructing the package for
+                    the dao class. By default, the same package as the entities.
+                    <em>{0}</em> is used to represent the entity name in the model.
+                </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="daoNamePattern" class="namespacePropertyTitle">daoNamePattern</a><a href="#DAO Properties" title="Go to DAO Properties namespace element group">(Back to DAO Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">{0}Dao</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
-                    The pattern to use when constructing the DAO name. <em>{0}</em> 
-                    is used to represent the entity name in the model, so if you 
+                    The pattern to use when constructing the DAO name. <em>{0}</em>
+                    is used to represent the entity name in the model, so if you
                     specified a value of <code>{0}Dao</code> all
                     the entities generated would have a suffix of "Dao".
                 </documentation></td></tr></table></div>
@@ -829,7 +977,7 @@
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="daoDefaultExceptionNamePattern" class="namespacePropertyTitle">daoDefaultExceptionNamePattern</a><a href="#DAO Properties" title="Go to DAO Properties namespace element group">(Back to DAO Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">{0}DaoException</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
-                    The pattern to use when constructing the DAO 
+                    The pattern to use when constructing the DAO
                     default exception name.
                 </documentation></td></tr></table></div>
 		
@@ -936,16 +1084,16 @@
 			        This property separates
 			        the roles for manageable session beans and
 			        the remaining components.
-			        It is expected that the list of roles 
+			        It is expected that the list of roles
 			        secure all manageable session beans.
 			    </documentation></td></tr></table></div>
 		
 		
 			<div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="persistenceProviderExtensions" class="namespacePropertyTitle">persistenceProviderExtensions</a><a href="#Other Properties" title="Go to Other Properties namespace element group">(Back to Other Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">none</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
-					Determines whether the default persistence provider 
+					Determines whether the default persistence provider
 					extensions such as annotations should also be rendered.
-					By default, this is disabled.  
+					By default, this is disabled.
 					To enable caching:
 					this must be set to <b>hibernate</b> such that
 					the Hibernate caching annotations are rendered.
@@ -953,7 +1101,7 @@
 					this must be set to <b>hibernate</b> such that
 					the hibernate validator annotations are
 					rendered.
-                    To enable Hiberate Criteria Query, this must
+                    To enable Hibernate Criteria Query, this must
                     be set to <b>hibernate</b>.
 					Possible values are:
 					<ul>
@@ -961,15 +1109,74 @@
 						<li>hibernate</li>
 					</ul>
 				</documentation></td></tr></table></div>
-			<div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="persistenceContainerName" class="namespacePropertyTitle">persistenceContainerName</a><a href="#Other Properties" title="Go to Other Properties namespace element group">(Back to Other Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
-                                Default value: <code class="defaultValue">jboss</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
-					The default persistence container engine name.
-					Used when specifying specific annotations
+            <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="javaVersion" class="namespacePropertyTitle">javaVersion</a><a href="#Other Properties" title="Go to Other Properties namespace element group">(Back to Other Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
+                                Default value: <code class="defaultValue">1.6</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
+                    Determines if some annotations or JDK-specific features are output such as @Override compareTo().
+                    If 1.4, templating and generics should be turned off. Should be set by property java.version in pom.xml
+                    which is also used by the maven-compiler-plugin. Allowed values=1.4,1.5,1.6. Default=1.6.
+                </documentation></td></tr></table></div>
+			<div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="deploymentPlatform" class="namespacePropertyTitle">deploymentPlatform</a><a href="#Other Properties" title="Go to Other Properties namespace element group">(Back to Other Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
+                                Default value: <code class="defaultValue">jboss6</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
+					The default container deployment platform name and version.
+					Used when specifying specific annotations and dependencies and tests
 					for different persistence containers.
 					Possible values are:
 					<ul>
-						<li>jboss</li>
-						<li>weblogic</li>
+                      <li>jboss7</li>
+                      <li>jboss6</li>
+                      <li>jboss51</li>
+                      <li>jboss5</li>
+                      <li>jboss42</li>
+                      <li>jboss4</li>
+                      <li>jboss3</li>
+                      <li>was8</li>
+                      <li>was7</li>
+                      <li>was61</li>
+                      <li>wasce2</li>
+                      <li>glassfish3</li>
+                      <li>glassfish2</li>
+                      <li>weblogic11</li>
+                      <li>weblogic10</li>
+                      <li>weblogic9</li>
+                      <li>weblogic8</li>
+                      <li>geronimo</li>
+                      <li>jonas5</li>
+                      <li>oracleas</li>
+                      <li>resin3</li>
+                      <li>resin4</li>
+                      <li>sun8</li>
+					</ul>
+				</documentation></td></tr></table></div>
+			<div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="persistenceContainerName" class="namespacePropertyTitle">persistenceContainerName</a><a href="#Other Properties" title="Go to Other Properties namespace element group">(Back to Other Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
+                                Default value: <code class="defaultValue">jboss</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
+					The default container deployment platform name and version.
+					Used when specifying specific annotations and dependencies and tests
+					for different persistence containers.
+					Possible values are:
+					<ul>
+                      <li>jboss7</li>
+                      <li>jboss6</li>
+                      <li>jboss51</li>
+                      <li>jboss5</li>
+                      <li>jboss42</li>
+                      <li>jboss4</li>
+                      <li>jboss3</li>
+                      <li>was8</li>
+                      <li>was7</li>
+                      <li>was61</li>
+                      <li>wasce2</li>
+                      <li>glassfish3</li>
+                      <li>glassfish2</li>
+                      <li>weblogic11</li>
+                      <li>weblogic10</li>
+                      <li>weblogic9</li>
+                      <li>weblogic8</li>
+                      <li>geronimo</li>
+                      <li>jonas5</li>
+                      <li>oracleas</li>
+                      <li>resin3</li>
+                      <li>resin4</li>
+                      <li>sun8</li>
 					</ul>
 				</documentation></td></tr></table></div>
 			<div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="persistenceContextUnitName" class="namespacePropertyTitle">persistenceContextUnitName</a><a href="#Other Properties" title="Go to Other Properties namespace element group">(Back to Other Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
@@ -995,14 +1202,14 @@
                                 Default value: <code class="defaultValue">false</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
                     A flag indicating whether or not specific collection interfaces will be used
                     in association end mutators and accessors (i.e. java.util.Set, java.util.List, etc).
-                    If this is set to false, then the value of the 
+                    If this is set to false, then the value of the
                     <a href="#defaultCollectionInterface">defaultCollectionInterface</a>
                     property will used to provide the collection interface.
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="defaultCollectionInterface" class="namespacePropertyTitle">defaultCollectionInterface</a><a href="#Other Properties" title="Go to Other Properties namespace element group">(Back to Other Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">java.util.Set</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
                     The default collection interface, this is the interface used with association end
-                    accessors and mutators if the 
+                    accessors and mutators if the
                     <a href="#specificCollectionInterfaces">specificCollectionInterfaces</a>
                     flag is set to <code>false</code>.
                 </documentation></td></tr></table></div>
@@ -1013,13 +1220,13 @@
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="associationEndCollectionIndexName" class="namespacePropertyTitle">associationEndCollectionIndexName</a><a href="#Other Properties" title="Go to Other Properties namespace element group">(Back to Other Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 No default value available
                             </td></tr><tr><td colspan="2" class="documentation"><documentation>
-                    The default association end collection index name 
+                    The default association end collection index name
                     (this can be overridden by the
                     <a href="profile.html#andromda_persistence_collection_index">andromda_persistence_collection_index</a>).
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="associationEndCollectionIndexType" class="namespacePropertyTitle">associationEndCollectionIndexType</a><a href="#Other Properties" title="Go to Other Properties namespace element group">(Back to Other Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">datatype::String</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
-                    The default association end collection index type 
+                    The default association end collection index type
                     (this can be overridden by the
                     <a href="profile.html#andromda_persistence_collection_index_type">andromda_persistence_collection_index_type</a>
                     (this is applicable when the collection is a map).
@@ -1079,7 +1286,7 @@
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="parameterRequiredCheck" class="namespacePropertyTitle">parameterRequiredCheck</a><a href="#Other Properties" title="Go to Other Properties namespace element group">(Back to Other Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
                                 Default value: <code class="defaultValue">true</code></td></tr><tr><td colspan="2" class="documentation"><documentation>
-                    Whether or not parameters should be checked if they're 
+                    Whether or not parameters should be checked if they're
                     required on services bean operation.
                 </documentation></td></tr></table></div>
             <div class="namespaceProperty"><table class="bodyTable"><tr class="a"><td colspan="2" class="namespacePropertyTitle"><a name="xmlEncoding" class="namespacePropertyTitle">xmlEncoding</a><a href="#Other Properties" title="Go to Other Properties namespace element group">(Back to Other Properties)</a></td></tr><tr><td><div class="optional">Optional property</div></td><td>
@@ -1106,7 +1313,7 @@
                             </td></tr><tr><td colspan="2" class="documentation"><documentation>
                    A list of one or more fully qualified java types that should be ignored whenever a type conversion
                    needs to be done. Currently, there is an issue with ValueObjects generated with the Java Axis
-                   mappings that causes the relevant cartidge to generate DAO "entity to value object" type conversions
+                   mappings that causes the relevant cartridge to generate DAO "entity to value object" type conversions
                    incorrectly for all date types.  By listing those date types here, the relevant cartridge will not
                    attempt to auto-generate conversions for date/time related attributes.
                 </documentation></td></tr></table></div>

@@ -428,16 +428,6 @@
             <name>Sonatype AndroMDA Repository</name>
             <url>http://oss.sonatype.org/content/groups/public</url>
         </repository>
-        <repository>
-            <id>andromda</id>
-            <name>AndroMDA Repository</name>
-            <url>http://www.andromda.org/maven2</url>
-        </repository>
-        <repository>
-            <id>central-staging</id>
-            <name>Sonatype Central Staging</name>
-            <url>http://oss.sonatype.org/content/groups/central-staging/</url>
-        </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
@@ -486,7 +476,7 @@
         <maven-surefire-report-plugin.version>2.12</maven-surefire-report-plugin.version>
         <clirr-maven-plugin.version>2.4</clirr-maven-plugin.version>
         <cobertura-maven-plugin.version>2.5.1</cobertura-maven-plugin.version>
-        <findbugs-maven-plugin.version>2.5</findbugs-maven-plugin.version>
+        <findbugs-maven-plugin.version>2.5.1</findbugs-maven-plugin.version>
         <javancss-maven-plugin.version>2.0</javancss-maven-plugin.version>
         <jdepend-maven-plugin.version>2.0-beta-2</jdepend-maven-plugin.version>
         <sablecc-maven-plugin.version>2.2</sablecc-maven-plugin.version>
@@ -1013,6 +1003,63 @@
                     </plugin>
                 </plugins>
             </reporting>
+        </profile>
+        <!--Profile configuration for sourceforge SCP site deployment. See http://maven.apache.org/plugins/maven-site-plugin/examples/site-deploy-to-sourceforge.net.html
+            Need to configure server id/password in settings.xml in order to deploy. -->
+        <profile>
+            <id>sourceforge</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <distributionManagement>
+              <site>
+                  <id>andromda.sourceforge.net</id>
+                  <url>scp://shell.sourceforge.net/home/project-web/andromda/htdocs</url>
+              </site>
+            </distributionManagement>
+        </profile>
+        <!--Profile configuration for sonatype builds and distribution. See
+        https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide -->
+        <!-- Sonatype id/password must be specified in settings.xml -->
+        <profile>
+            <id>sonatype-deploy</id>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>sonatype-nexus-snapshots</id>
+                    <name>Sonatype Nexus Snapshots</name>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>sonatype-nexus-staging</id>
+                    <name>Nexus Staging Repository</name>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+            <properties>
+                <repositoryId>andromda-snapshots</repositoryId>
+                <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+            </properties>
+        </profile>
+        <!-- Needed for releases only-->
+        <profile>
+            <id>gpg</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <inherited>true</inherited>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <!-- This turns off the andromda-lite and local profiles when enabled
              The basedir expression is only recognized by Maven 3.x (see MNG-2363) -->
