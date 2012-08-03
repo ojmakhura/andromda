@@ -1218,13 +1218,16 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #if ($enableAnnotations)
     @Override
 #end
-    public final Collection#if($enabletemplating)<? extends ${valueObjectRef.targetElement.fullyQualifiedName}>#end ${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection#if($enableTemplating)<?>#end entities)
+#if ($enableTemplating)
+    @SuppressWarnings({"unchecked"})
+#end
+    public final Collection#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end ${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection#if($enableTemplating)<?>#end entities)
     {
-        Collection#if($enabletemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end result = new ArrayList<${valueObjectRef.targetElement.fullyQualifiedName}>();
+        Collection#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end result = new ArrayList<${valueObjectRef.targetElement.fullyQualifiedName}>();
         if (entities != null)
         {
             org.apache.commons.collections.CollectionUtils.transform(entities, this.${valueObjectRef.transformationAnonymousName});
-            result.addAll((Collection#if($enabletemplating)<? extends ${valueObjectRef.targetElement.fullyQualifiedName}>#end) entities);
+            result.addAll((Collection#if($enableTemplating)<? extends ${valueObjectRef.targetElement.fullyQualifiedName}>#end) entities);
         }
         return result;
     }

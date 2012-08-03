@@ -11,7 +11,8 @@
             <p>
                 NOTE: AndroMDA has been upgraded to Spring 3.1, however the Acegi framework is not compatible
                 with Spring 2.5+, and has been replaced by the spring-security framework. This completely changes the
-                namespace and values in the Spring configuration file. See
+                namespace and values in the Spring configuration file. The andromda templates have been updated to
+                the correct classes and namespaces, but have not been tested yet. See
                 <a href="http://static.springsource.org/spring-security/site/">
                 http://static.springsource.org/spring-security/site/</a> and
                 <a href="http://java.dzone.com/tips/pathway-acegi-spring-security-">
