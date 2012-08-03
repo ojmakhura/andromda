@@ -15,14 +15,12 @@
             <a name="Requirements"/>
             <subsection name="Requirements">
 	            <p>
-	                You must have the latest Maven (currently 2.0.4) installed and configured.
+	                You must have the latest Maven (currently 3.0.4) installed and configured.
 	                You can install Maven 
 	                <a href="http://maven.apache.org/download.html#Installation">here</a>.
 	            </p>
 	            <p>
-	                You need to have an instance of AndroMDA 3.3-SNAPSHOT.  At the time of writing this, 3.2
-	                was released but the latest 3.3-SNAPSHOT from CVS contains updates to the project generator
-	                and site plugin; this is more suitable for use with the EJB3 cartridge.  Follow the anonymous
+	                You need to have an instance of AndroMDA 3.4.  Follow the anonymous
 	                CVS access at <a href="http://sourceforge.net/cvs/?group_id=73047">AndroMDA project</a> to
 	                checkout and build the latest <b>andromda-all</b> source from the <i>V3_x_HEAD</i> branch.
 	            </p>

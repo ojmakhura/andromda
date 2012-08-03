@@ -253,7 +253,7 @@
             </properties>
         </profile>
     </profiles>
-    <repositories>
+    <!--repositories>
         <repository>
             <id>andromda</id>
             <name>AndroMDA Repository</name>
@@ -266,7 +266,7 @@
             <name>AndroMDA Repository</name>
             <url>http://www.andromda.org/maven2</url>
         </pluginRepository>
-    </pluginRepositories>
+    </pluginRepositories-->
     <prerequisites>
         <maven>2.2.1</maven>
     </prerequisites>

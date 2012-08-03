@@ -250,7 +250,7 @@
             <dependency>
                 <groupId>com.sun.facelets</groupId>
                 <artifactId>jsf-facelets</artifactId>
-                <version>1.1.15</version>
+                <version>1.1.14</version>
                 <scope>runtime</scope>
             </dependency>
 #end
@@ -360,7 +360,7 @@
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.3</version>
+                <version>2.4</version>
             </dependency>
             <dependency>
                 <groupId>commons-lang</groupId>
@@ -484,7 +484,7 @@
             <dependency>
                 <groupId>net.sf.ehcache</groupId>
                 <artifactId>ehcache</artifactId>
-                <version>2.5.2</version>
+                <version>2.6.0</version>
                 <type>pom</type>
                 <scope>provided</scope>
             </dependency>
@@ -775,7 +775,7 @@
             <dependency>
                 <groupId>javax.mail</groupId>
                 <artifactId>mail</artifactId>
-                <version>1.4.3</version>
+                <version>1.4.5</version>
             </dependency>
 #if ($axisVersion.equals("1"))
             <!-- Axis1 Dependencies -->
@@ -907,7 +907,7 @@
             <dependency>
                 <groupId>org.apache.woden</groupId>
                 <artifactId>woden-impl-om</artifactId>
-                <version>1.0M8</version>
+                <version>1.0M9</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
@@ -1173,7 +1173,7 @@
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
-                <version>1.3.167</version>
+                <version>1.3.168</version>
 #if (!$embeddedJetty)
                 <scope>test</scope>
 #end
@@ -1184,7 +1184,7 @@
             <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
-                <version>6.5.2</version>
+                <version>6.7</version>
                 <scope>test</scope>
 #if ($ejb3)
                 <exclusions>
@@ -1288,11 +1288,11 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.11</version>
+                    <version>2.12</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.3.2</version>
+                    <version>2.4</version>
                     <configuration>
                         <archive>
                             <manifest>
@@ -1320,7 +1320,7 @@
                 <!-- Comment to run Eclipse plugin for top level project only, as part of mda install. See mda/eclipse.bat -->
                 <plugin>
                     <artifactId>maven-eclipse-plugin</artifactId>
-                    <version>2.8</version>
+                    <version>2.9</version>
                     <inherited>true</inherited>
                     <configuration>
                         <wtpversion>1.5</wtpversion>
@@ -1425,12 +1425,20 @@
                         </dependency>
                     </dependencies>
                 </plugin>
+                <plugin>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.3.2</version>
+                    <configuration>
+                        <preparationGoals>verify</preparationGoals>
+                        <autoVersionSubmodules>true</autoVersionSubmodules>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
             <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>1.1</version>
+                <version>1.1.1</version>
                 <executions>
                     <execution>
                         <id>enforce-versions</id>
@@ -1690,7 +1698,7 @@
         <hibernate.version>4.1.4.Final</hibernate.version>
 #end
 #if ($cxf || $embeddedJetty)
-        <jetty.version>8.1.4.v20120524</jetty.version>
+        <jetty.version>8.1.5.v20120716</jetty.version>
 #end
 #if ($cxf || $spring)
         <spring.version>3.1.1.RELEASE</spring.version>
@@ -2003,44 +2011,19 @@
             <name>Sonatype AndroMDA Repository</name>
             <url>http://oss.sonatype.org/content/groups/public</url>
         </repository>
-#if ($jsr181Webservice || $cxf || $jaxws || $ejb3 || $jbossSeam || $spring || $hibernate || $jsf)
+#if ($ejb3 || $jbossSeam)
         <repository>
             <id>jboss-public</id>
             <name>JBoss Repository</name>
             <url>http://repository.jboss.org/nexus/content/groups/public-jboss</url>
         </repository>
-        <repository>
-            <id>download</id>
-            <name>Java.Net Download</name>
-            <url>http://download.java.net/maven/2</url>
-        </repository>
 #end
-        <repository>
-            <id>Codehaus Snapshots</id>
-            <url>http://snapshots.repository.codehaus.org</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
             <id>sonatype</id>
             <name>Sonatype AndroMDA Repository</name>
             <url>http://oss.sonatype.org/content/groups/public</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>Codehaus Snapshots</id>
-            <url>http://snapshots.repository.codehaus.org</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
         </pluginRepository>
     </pluginRepositories>
     <prerequisites>
