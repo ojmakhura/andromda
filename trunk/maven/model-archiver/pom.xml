@@ -1,11 +1,11 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
          xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <artifactId>andromda-maven-plugins</artifactId>
+    <!--parent>
+        <artifactId>andromda-maven-plugins</artifactId-->
         <groupId>org.andromda.maven.plugins</groupId>
         <version>3.4-SNAPSHOT</version>
-    </parent>
+    <!--/parent-->
     <artifactId>andromda-model-archiver-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <name>AndroMDA Model Archiver Plugin</name>
@@ -23,34 +23,123 @@
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
+            <version>2.4</version>
         </dependency>
-
-        <!-- Maven dependencies -->
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-plugin-api</artifactId>
+            <version>2.2.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-project</artifactId>
+            <version>2.2.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-archiver</artifactId>
+            <version>2.5</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-artifact</artifactId>
+            <version>2.2.1</version>
         </dependency>
-
-        <!-- Plexus dependencies -->
         <dependency>
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-archiver</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
+    <profiles>
+        <!--Profile configuration for local builds-->
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <distributionManagement>
+                <repository>
+                    <id>andromda-repository</id>
+                    <name>AndroMDA Repository</name>
+                    <url>file:/var/www/maven2</url>
+                    <uniqueVersion>false</uniqueVersion>
+                </repository>
+                <snapshotRepository>
+                    <id>andromda-snapshots</id>
+                    <name>AndroMDA Snapshot Repository</name>
+                    <url>file:/var/www/maven2</url>
+                    <uniqueVersion>false</uniqueVersion>
+                </snapshotRepository>
+                <site>
+                    <id>website</id>
+                    <url>file:/var/www/docs/maven-config</url>
+                </site>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <!--Profile configuration for server builds-->
+            <id>server</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <inherited>true</inherited>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <repository>
+                    <id>andromda-releases</id>
+                    <name>Andromda Staging Repository</name>
+                    <url>http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+                    <uniqueVersion>false</uniqueVersion>
+                </repository>
+                <snapshotRepository>
+                    <id>andromda-snapshots</id>
+                    <name>Andromda Snapshot Repository</name>
+                    <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+                    <uniqueVersion>false</uniqueVersion>
+                </snapshotRepository>
+                <site>
+                    <id>website</id>
+                    <url>file:/var/www/docs/maven-config</url>
+                </site>
+            </distributionManagement>
+        </profile>
+        <!--Profile configuration for sourceforge SCP site deployment. See http://maven.apache.org/plugins/maven-site-plugin/examples/site-deploy-to-sourceforge.net.html
+            Need to configure server id/password in settings.xml in order to deploy. -->
+        <profile>
+            <id>sourceforge</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <distributionManagement>
+              <site>
+                  <id>andromda.sourceforge.net</id>
+                  <url>scp://shell.sourceforge.net/home/project-web/andromda/htdocs</url>
+              </site>
+            </distributionManagement>
+        </profile>
+    </profiles>
 </project>

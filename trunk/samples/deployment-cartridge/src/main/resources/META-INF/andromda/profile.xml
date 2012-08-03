@@ -135,7 +135,7 @@
                     Set this tagged value to true in order to suppress generation of the bean class. The bean will be
                     listed in the applicationContext.xml files, however. The idea behind this tagged value is to enable
                     users to use Spring beans that are contained in Jar files,
-                    e.g. <code>net.sf.acegisecurity.providers.rcp.RemoteAuthenticationManager</code>.
+                    e.g. <code>org.springframework.security.providers.rcp.RemoteAuthenticationManager</code>.
                 </documentation>
                 <value>andromda_spring_service_config_only</value>
                 <appliedOnElement><![CDATA[<<Service>>]]></appliedOnElement>
