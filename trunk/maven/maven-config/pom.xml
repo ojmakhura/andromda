@@ -104,6 +104,10 @@
             </plugins>
         </pluginManagement>
     </build>
+    <prerequisites>
+        <!-- Maven runtime version. Lots of problems prior to 2.0.10 with dependency management -->
+        <maven>2.2.1</maven>
+    </prerequisites>
     <profiles>
         <!--Profile configuration for local builds-->
         <profile>
@@ -182,6 +186,49 @@
                   <url>scp://shell.sourceforge.net/home/project-web/andromda/htdocs</url>
               </site>
             </distributionManagement>
+        </profile>
+        <!--Profile configuration for sonatype builds and distribution. See
+            https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide -->
+        <!-- Sonatype id/password must be specified in settings.xml -->
+        <profile>
+            <id>sonatype-deploy</id>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>sonatype-nexus-snapshots</id>
+                    <name>Sonatype Nexus Snapshots</name>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>sonatype-nexus-staging</id>
+                    <name>Nexus Staging Repository</name>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+            <properties>
+                <repositoryId>andromda-snapshots</repositoryId>
+                <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+            </properties>
+        </profile>
+        <!-- Needed for releases only-->
+        <profile>
+            <id>gpg</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <inherited>true</inherited>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 </project>
