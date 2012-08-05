@@ -410,7 +410,7 @@
             <dependency>
                 <groupId>org.codehaus.plexus</groupId>
                 <artifactId>plexus-archiver</artifactId>
-                <version>2.1.1</version>
+                <version>2.1.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -1095,7 +1095,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <!-- Plugin version definitions-->
-        <plexus.util.version>3.0.2</plexus.util.version>
+        <plexus.util.version>3.0.3</plexus.util.version>
         <maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
         <maven-archetype-plugin.version>2.2</maven-archetype-plugin.version>
         <maven-assembly-plugin.version>2.3</maven-assembly-plugin.version>

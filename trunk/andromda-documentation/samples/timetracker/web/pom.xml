@@ -44,7 +44,7 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
             <!-- May need to specify version if changing ${spring.version}, not always released at the same time -->
-            <version>${spring.version}</version>
+            <version>${spring.security.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
@@ -245,4 +245,7 @@
             </plugin>
         </plugins>
     </build>
+    <properties>
+        <spring.security.version>3.1.1.RELEASE</spring.security.version>
+    </properties>
 </project>
