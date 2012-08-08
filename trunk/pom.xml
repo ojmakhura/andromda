@@ -839,6 +839,8 @@
                             <file>lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge.pom</pomFile>
                             <version>${project.version}</version>
+                            <sources>lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge-sources.jar</sources>
+                            <javadoc>lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge-javadoc.jar</javadoc>
                         </configuration>
                     </execution>
                     <execution>
@@ -851,6 +853,8 @@
                             <file>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml.pom</pomFile>
                             <version>${project.version}</version>
+                            <sources>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml-sources.jar</sources>
+                            <javadoc>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml-javadoc.jar</javadoc>
                         </configuration>
                     </execution>
                     <execution>
@@ -863,6 +867,8 @@
                             <file>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14.pom</pomFile>
                             <version>${project.version}</version>
+                            <sources>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14-sources.jar</sources>
+                            <javadoc>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14-javadoc.jar</javadoc>
                         </configuration>
                     </execution>
                     <execution>
@@ -875,6 +881,8 @@
                             <file>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22.pom</pomFile>
                             <version>${project.version}</version>
+                            <sources>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22-sources.jar</sources>
+                            <javadoc>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22-javadoc.jar</javadoc>
                         </configuration>
                     </execution>
                     <execution>
@@ -887,6 +895,8 @@
                             <file>lib/org/andromda/bootstrap/repositories/andromda-repository-emf.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-emf.pom</pomFile>
                             <version>${project.version}</version>
+                            <sources>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-sources.jar</sources>
+                            <javadoc>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-javadoc.jar</javadoc>
                         </configuration>
                     </execution>
                     <execution>
@@ -899,6 +909,8 @@
                             <file>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14.pom</pomFile>
                             <version>${project.version}</version>
+                            <sources>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14-sources.jar</sources>
+                            <javadoc>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14-javadoc.jar</javadoc>
                         </configuration>
                     </execution>
                     <execution>
@@ -911,6 +923,8 @@
                             <file>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22.pom</pomFile>
                             <version>${project.version}</version>
+                            <sources>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22-sources.jar</sources>
+                            <javadoc>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22-javadoc.jar</javadoc>
                         </configuration>
                     </execution>
                     <execution>
@@ -923,6 +937,8 @@
                             <file>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite.pom</pomFile>
                             <version>${project.version}</version>
+                            <sources>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite-sources.jar</sources>
+                            <javadoc>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite-javadoc.jar</javadoc>
                         </configuration>
                     </execution>
                     <execution>
@@ -935,6 +951,8 @@
                             <file>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.pom</pomFile>
                             <version>${project.version}</version>
+                            <sources>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library-sources.jar</sources>
+                            <javadoc>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library-javadoc.jar</javadoc>
                         </configuration>
                     </execution>
                 </executions>
@@ -942,6 +960,12 @@
             <plugin>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <inherited>false</inherited>
+                <configuration>
+                    <properties>
+                        <!-- profile distributionManagement repository info not passed to invoker, tries to deploy to snapshots repo -->
+                        <altDeploymentRepository>${project.distributionManagement.snapshotRepository.id}::default::${project.distributionManagement.snapshotRepository.url}</altDeploymentRepository>
+                    </properties>
+                </configuration>
                 <executions>
                     <execution>
                         <id>deploy_meta_cartridge</id>
@@ -954,6 +978,8 @@
                             <pomFile>lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge.pom</pomFile>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
+                            <files>lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge-sources.jar,lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge-javadoc.jar</files>
+                            <classifiers>sources,javadoc</classifiers>
                         </configuration>
                     </execution>
                     <execution>
@@ -967,6 +993,8 @@
                             <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml.pom</pomFile>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
+                            <files>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml-sources.jar,lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml-javadoc.jar</files>
+                            <classifiers>sources,javadoc</classifiers>
                         </configuration>
                     </execution>
                     <execution>
@@ -980,6 +1008,8 @@
                             <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14.pom</pomFile>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
+                            <files>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14-sources.jar,lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14-javadoc.jar</files>
+                            <classifiers>sources,javadoc</classifiers>
                         </configuration>
                     </execution>
                     <execution>
@@ -993,6 +1023,8 @@
                             <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22.pom</pomFile>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
+                            <files>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22-sources.jar,lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22-javadoc.jar</files>
+                            <classifiers>sources,javadoc</classifiers>
                         </configuration>
                     </execution>
                     <execution>
@@ -1006,6 +1038,8 @@
                             <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-emf.pom</pomFile>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
+                            <files>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-sources.jar,lib/org/andromda/bootstrap/repositories/andromda-repository-emf-javadoc.jar</files>
+                            <classifiers>sources,javadoc</classifiers>
                         </configuration>
                     </execution>
                     <execution>
@@ -1019,6 +1053,8 @@
                             <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14.pom</pomFile>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
+                            <files>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14-sources.jar,lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14-javadoc.jar</files>
+                            <classifiers>sources,javadoc</classifiers>
                         </configuration>
                     </execution>
                     <execution>
@@ -1032,6 +1068,8 @@
                             <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22.pom</pomFile>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
+                            <files>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22-sources.jar,lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22-javadoc.jar</files>
+                            <classifiers>sources,javadoc</classifiers>
                         </configuration>
                     </execution>
                     <execution>
@@ -1045,6 +1083,8 @@
                             <pomFile>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite.pom</pomFile>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
+                            <files>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite-sources.jar,lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite-javadoc.jar</files>
+                            <classifiers>sources,javadoc</classifiers>
                         </configuration>
                     </execution>
                     <execution>
@@ -1058,6 +1098,8 @@
                             <pomFile>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.pom</pomFile>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
+                            <files>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library-sources.jar,lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library-javadoc.jar</files>
+                            <classifiers>sources,javadoc</classifiers>
                         </configuration>
                     </execution>
                 </executions>
@@ -1294,14 +1336,50 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven-javadoc-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
+                                <phase>package</phase>
                                 <goals>
                                     <goal>jar</goal>
+                                    <goal>test-jar</goal>
                                 </goals>
                             </execution>
                         </executions>
+                        <configuration>
+                            <show>package</show>
+                            <version>true</version>
+                            <javadocVersion>${source.version}</javadocVersion>
+                            <failOnError>false</failOnError>
+                            <linksource>true</linksource>
+                            <detectLinks>true</detectLinks>
+                            <detectOfflineLinks>true</detectOfflineLinks>
+                            <extdirs>${project.basedir}/target/src/min/java</extdirs>
+                            <links>
+                                <link>http://download.oracle.com/javase/6/docs/api/</link>
+                                <link>http://download.oracle.com/javaee/1.4/api/</link>
+                                <link>http://download.eclipse.org/modeling/mdt/uml2/javadoc/3.1.0/</link>
+                                <link>http://download.eclipse.org/modeling/emf/emf/javadoc/2.6.0/</link>
+                                <link>http://dom4j.sourceforge.net/dom4j-1.6.1/apidocs/</link>
+                                <link>http://freemarker.org/docs/api/</link>
+                                <link>http://groovy.codehaus.org/api/</link>
+                                <link>http://www.jajakarta.org/ant/ant-1.6.1/docs/ja/manual/api/</link>
+                                <link>http://jakarta.apache.org/commons/collections/apidocs/</link>
+                                <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
+                                <link>http://jakarta.apache.org/regexp/apidocs/</link>
+                                <link>http://jaxb.java.net/nonav/2.2.4/docs/api/</link>
+                                <link>http://logging.apache.org/log4j/docs/api/</link>
+                                <link>http://maven.apache.org/ref/2.2.1/maven-core/apidocs/</link>
+                                <link>http://maven.apache.org/ref/2.2.1/maven-plugin-api/apidocs/</link>
+                                <link>http://maven.apache.org/ref/2.2.1/maven-project/apidocs/</link>
+                                <link>http://maven.apache.org/ref/2.2.1/maven-artifact/apidocs/</link>
+                                <link>http://velocity.apache.org/engine/devel/apidocs/</link>
+                                <link>http://www.andromda.org/docs/jmi-uml1.4/</link>
+                                <link>http://www.csg.is.titech.ac.jp/~chiba/javassist/html/</link>
+                                <link>http://www.junit.org/junit/javadoc/</link>
+                            </links>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
@@ -1323,11 +1401,12 @@
                 <url>http://oss.sonatype.org/content/repositories/snapshots</url>
             </properties>
         </profile>
+        <!-- Needed for releases only. settings.xml: Add same profile with gpg.keyname, gpg.passphrase, pg.homedir properties.
+          Run mvn install javadoc:jar javadoc:test-jar gpg:sign deploy -Psonatype,gpg-andromda > gpg.txt -->
         <profile>
-            <id>gpg</id>
+            <id>gpg-andromda</id>
             <build>
                 <plugins>
-                    <!-- Needed for releases only-->
                     <plugin>
                         <artifactId>maven-gpg-plugin</artifactId>
                         <inherited>true</inherited>
@@ -1937,6 +2016,66 @@
                     </plugin>
                 </plugins>
             </reporting>
+        </profile>
+        <!-- Create/install javadoc and test-javadoc jars during the build. Run as part of deploy process -->
+        <profile>
+            <id>javadocs</id>
+            <build>
+                    <plugins>
+                        <plugin>
+                            <artifactId>maven-javadoc-plugin</artifactId>
+                            <version>${maven-javadoc-plugin.version}</version>
+                            <executions>
+                                <execution>
+                                    <id>javadoc-jar</id>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>jar</goal>
+                                    </goals>
+                                </execution>
+                                <execution>
+                                    <id>test-jar</id>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>test-jar</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                            <configuration>
+                                <show>package</show>
+                                <version>true</version>
+                                <javadocVersion>${source.version}</javadocVersion>
+                                <failOnError>false</failOnError>
+                                <linksource>true</linksource>
+                                <detectLinks>true</detectLinks>
+                                <detectOfflineLinks>true</detectOfflineLinks>
+                                <links>
+                                    <link>http://download.oracle.com/javase/6/docs/api/</link>
+                                    <link>http://download.oracle.com/javaee/1.4/api/</link>
+                                    <link>http://download.eclipse.org/modeling/mdt/uml2/javadoc/3.1.0/</link>
+                                    <link>http://download.eclipse.org/modeling/emf/emf/javadoc/2.6.0/</link>
+                                    <link>http://dom4j.sourceforge.net/dom4j-1.6.1/apidocs/</link>
+                                    <link>http://freemarker.org/docs/api/</link>
+                                    <link>http://groovy.codehaus.org/api/</link>
+                                    <link>http://www.jajakarta.org/ant/ant-1.6.1/docs/ja/manual/api/</link>
+                                    <link>http://jakarta.apache.org/commons/collections/apidocs/</link>
+                                    <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
+                                    <link>http://jakarta.apache.org/regexp/apidocs/</link>
+                                    <link>http://jaxb.java.net/nonav/2.2.4/docs/api/</link>
+                                    <link>http://logging.apache.org/log4j/docs/api/</link>
+                                    <link>http://maven.apache.org/ref/2.2.1/maven-core/apidocs/</link>
+                                    <link>http://maven.apache.org/ref/2.2.1/maven-plugin-api/apidocs/</link>
+                                    <link>http://maven.apache.org/ref/2.2.1/maven-project/apidocs/</link>
+                                    <link>http://maven.apache.org/ref/2.2.1/maven-artifact/apidocs/</link>
+                                    <link>http://velocity.apache.org/engine/devel/apidocs/</link>
+                                    <link>http://www.andromda.org/docs/jmi-uml1.4/</link>
+                                    <link>http://www.csg.is.titech.ac.jp/~chiba/javassist/html/</link>
+                                    <link>http://www.junit.org/junit/javadoc/</link>
+                                </links>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+            </build>
         </profile>
         <!-- This turns off the andromda-lite and local profiles when enabled
              The basedir expression is only recognized by Maven 3.x (see MNG-2363) -->
