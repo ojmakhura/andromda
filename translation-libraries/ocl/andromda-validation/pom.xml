@@ -44,16 +44,23 @@
         <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-bootstrap-install-plugin</artifactId>
+                <artifactId>andromda-bootstrap-plugin</artifactId>
                 <configuration>
-                    <installDirectory>${project.basedir}/../../../lib</installDirectory>
+                    <configurationUri>file:${project.basedir}/../conf/test/andromda.xml</configurationUri>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-bootstrap-plugin</artifactId>
+                <artifactId>andromda-bootstrap-install-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>install</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
-                    <configurationUri>file:${project.basedir}/../conf/test/andromda.xml</configurationUri>
+                    <installDirectory>${project.basedir}/../../../lib</installDirectory>
                 </configuration>
             </plugin>
             <plugin>

@@ -87,6 +87,21 @@ public class BootstrapInstallMojo
     private static final String POM_EXTENSION = "pom";
 
     /**
+     * The qualifier for source artifacts.
+     */
+    private static final String SOURCES_QUALIFIER = "-sources";
+
+    /**
+     * The qualifier for javadoc artifacts.
+     */
+    private static final String JAVADOC_QUALIFIER = "-javadoc";
+
+    /**
+     * The qualifier for test artifacts.
+     */
+    private static final String TEST_QUALIFIER = "-test";
+
+    /**
      * @see org.apache.maven.plugin.Mojo#execute()
      */
     public void execute()
@@ -103,22 +118,44 @@ public class BootstrapInstallMojo
                 }
                 Artifact artifact = this.project.getArtifact();
 
-                final String path = this.replaceExtension(
-                        artifact,
-                        JAR_EXTENSION);
+                final String path = this.replaceExtension(artifact, JAR_EXTENSION, null);
                 final String localRepositoryDirectory = this.localRepository.getBasedir();
                 final File existingFile = new File(localRepositoryDirectory, path);
                 final String bootstrapGroupId = this.getBootstrapGroupId(artifact);
-                final String bootstrapPath = bootstrapGroupId.replace(
-                        '.',
-                        '/') + '/' + artifact.getArtifactId();
-                final File bootstrapFile = new File(installDirectory, bootstrapPath + '.' + JAR_EXTENSION);
-                this.getLog().info("Installing bootstrap artifact: " + bootstrapFile);
-                FileUtils.copyFile(
-                        existingFile,
-                        bootstrapFile);
+                final String bootstrapPath = bootstrapGroupId.replace('.', '/')
+                    + '/' + artifact.getArtifactId();
                 final File bootstrapPomFile = new File(installDirectory, bootstrapPath + '.' + POM_EXTENSION);
                 this.writeMinimalPom(bootstrapPomFile);
+                final File bootstrapFile = new File(installDirectory, bootstrapPath + '.' + JAR_EXTENSION);
+                this.getLog().info("Installing bootstrap artifact: " + bootstrapFile);
+                if (path != null)
+                {
+                    FileUtils.copyFile(existingFile, bootstrapFile);
+                }
+                final String sourcePath = this.replaceExtension(artifact, JAR_EXTENSION, SOURCES_QUALIFIER);
+                if (sourcePath != null)
+                {
+                    this.getLog().info("Installing bootstrap artifact: " + sourcePath);
+                    FileUtils.copyFile(new File(localRepositoryDirectory, sourcePath), new File(installDirectory, bootstrapPath + SOURCES_QUALIFIER + '.' + JAR_EXTENSION));
+                }
+                final String javadocPath = this.replaceExtension(artifact, JAR_EXTENSION, JAVADOC_QUALIFIER);
+                if (javadocPath != null)
+                {
+                    this.getLog().info("Installing bootstrap artifact: " + javadocPath);
+                    FileUtils.copyFile(new File(localRepositoryDirectory, javadocPath), new File(installDirectory, bootstrapPath + JAVADOC_QUALIFIER + '.' + JAR_EXTENSION));
+                }
+                final String testSourcePath = this.replaceExtension(artifact, JAR_EXTENSION, TEST_QUALIFIER + SOURCES_QUALIFIER);
+                if (testSourcePath != null)
+                {
+                    this.getLog().info("Installing bootstrap artifact: " + testSourcePath);
+                    FileUtils.copyFile(new File(localRepositoryDirectory, testSourcePath), new File(installDirectory, bootstrapPath + TEST_QUALIFIER + SOURCES_QUALIFIER + '.' + JAR_EXTENSION));
+                }
+                final String testJavadocPath = this.replaceExtension(artifact, JAR_EXTENSION, TEST_QUALIFIER + JAVADOC_QUALIFIER);
+                if (testJavadocPath != null)
+                {
+                    this.getLog().info("Installing bootstrap artifact: " + testJavadocPath);
+                    FileUtils.copyFile(new File(localRepositoryDirectory, testJavadocPath), new File(installDirectory, bootstrapPath + TEST_QUALIFIER + JAVADOC_QUALIFIER + '.' + JAR_EXTENSION));
+                }
             }
             catch (final Throwable throwable)
             {
@@ -189,28 +226,45 @@ public class BootstrapInstallMojo
     }
 
     /**
-     * Retrieves the extension from the given path.
+     * Retrieves the repository artifact file name with extension removed and qualifier added.
+     * If the file does not yet exist in the local repository, returns null
      *
      * @param artifact     the artifact from which to retrieve the version information.
      * @param newExtension new extension for the file
-     * @return the extension.
+     * @param qualifier the -qualifier for the repo artifact such as -sources -javadocs -test-sources -test-javadocs
+     * @return the artifact name with no version and extension removed.
      */
     private String replaceExtension(
             final Artifact artifact,
-            final String newExtension)
+            final String newExtension,
+            final String qualifier)
     {
         String path = this.localRepository.pathOf(artifact);
+        File artifactFile = new File(this.localRepository.getBasedir(), path);
+        if (!artifactFile.exists())
+        {
+            this.getLog().error("Bootstrap artifact does not exist: " + path);
+            return null;
+        }
         final String version = artifact.getVersion() != null ? artifact.getVersion().trim() : "";
         int versionIndex = path.lastIndexOf(artifact.getVersion());
         final String extension = path.substring(
                 versionIndex + version.length() + 1,
                 path.length());
+        int extensionIndex = path.lastIndexOf(extension);
+        if (StringUtils.isNotBlank(qualifier))
+        {
+            path = path.substring(0, extensionIndex-1) + qualifier + '.' + extension;
+            File qualifiedFile = new File(this.localRepository.getBasedir(), path);
+            if (!qualifiedFile.exists())
+            {
+                this.getLog().warn("Bootstrap qualified artifact does not exist: " + path);
+                return null;
+            }
+        }
         if (!newExtension.equals(extension))
         {
-            int extensionIndex = path.lastIndexOf(extension);
-            path = path.substring(
-                    0,
-                    extensionIndex) + newExtension;
+            path = path.substring(0, extensionIndex) + newExtension;
         }
         return path;
     }

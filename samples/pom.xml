@@ -76,6 +76,23 @@
                             </goals>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>deploy-invoker</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <goals>
+                                <goal>deploy</goal>
+                            </goals>
+                            <properties>
+                                <!-- profile distributionManagement repository info not passed through invoker to generated project >
+                                <altDeploymentRepository>${project.distributionManagement.snapshotRepository.id}::default::${project.distributionManagement.snapshotRepository.url}</altDeploymentRepository -->
+                                <altDeploymentRepository>sonatype::default::https://oss.sonatype.org/service/local/staging/deploy/maven2/</altDeploymentRepository>
+                            </properties>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>

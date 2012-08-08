@@ -1,7 +1,6 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
          xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
-    <!-- Causes build cycle in maven2, not in maven3 -->
     <!--parent>
         <groupId>org.andromda</groupId>
         <artifactId>andromda</artifactId>
@@ -191,7 +190,7 @@
             https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide -->
         <!-- Sonatype id/password must be specified in settings.xml -->
         <profile>
-            <id>sonatype-deploy</id>
+            <id>sonatype</id>
             <distributionManagement>
                 <snapshotRepository>
                     <id>sonatype-nexus-snapshots</id>
