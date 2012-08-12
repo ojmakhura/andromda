@@ -43,7 +43,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.1.5.SP1</version>
+            <version>4.1.6.Final</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -143,7 +143,14 @@
             </plugin>
         </plugins>
     </build>
-        <!-- TODO microcontainer dependencies are not in any maven repository, needed to compile test generated code -->
+    <!-- TODO microcontainer dependencies are not in any maven repository, needed to compile test generated code -->
+    <repositories>
+        <repository>
+            <id>jboss-public</id>
+            <name>JBoss Repository</name>
+            <url>http://repository.jboss.org/nexus/content/groups/public-jboss</url>
+        </repository>
+    </repositories>
     <properties>
         <model.uri>jar:file:${src.dir}/main/uml/EJB3MetafacadeModel.xml.zip!/EJB3MetafacadeModel.xml</model.uri>
         <test.model.uri>jar:file:${test.src.dir}/uml/EJB3CartridgeTestModel.xml.zip!/EJB3CartridgeTestModel.xml</test.model.uri>

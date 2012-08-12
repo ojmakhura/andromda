@@ -457,10 +457,10 @@
         <maven-checkstyle-plugin.version>2.9.1</maven-checkstyle-plugin.version>
         <maven-clean-plugin.version>2.5</maven-clean-plugin.version>
         <maven-compiler-plugin.version>2.5.1</maven-compiler-plugin.version>
-        <maven-dependency-plugin.version>2.4</maven-dependency-plugin.version>
+        <maven-dependency-plugin.version>2.5</maven-dependency-plugin.version>
         <maven-deploy-plugin.version>2.7</maven-deploy-plugin.version>
         <maven-eclipse-plugin.version>2.9</maven-eclipse-plugin.version>
-        <maven-enforcer-plugin.version>1.1</maven-enforcer-plugin.version>
+        <maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>
         <maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
         <maven-install-plugin.version>2.3.1</maven-install-plugin.version>
         <maven-invoker-plugin.version>1.6</maven-invoker-plugin.version>
@@ -468,15 +468,15 @@
         <maven-javadoc-plugin.version>2.8.1</maven-javadoc-plugin.version>
         <maven-jxr-plugin.version>2.3</maven-jxr-plugin.version>
         <maven-pmd-plugin.version>2.7.1</maven-pmd-plugin.version>
-        <maven-project-info-reports-plugin.version>2.4</maven-project-info-reports-plugin.version>
+        <maven-project-info-reports-plugin.version>2.5</maven-project-info-reports-plugin.version>
         <maven-resources-plugin.version>2.5</maven-resources-plugin.version>
-        <maven-site-plugin.version>2.4</maven-site-plugin.version>
-        <maven-source-plugin.version>2.1.2</maven-source-plugin.version>
-        <maven-surefire-plugin.version>2.12</maven-surefire-plugin.version>
-        <maven-surefire-report-plugin.version>2.12</maven-surefire-report-plugin.version>
+        <maven-site-plugin.version>3.1</maven-site-plugin.version>
+        <maven-source-plugin.version>2.2</maven-source-plugin.version>
+        <maven-surefire-plugin.version>2.12.1</maven-surefire-plugin.version>
+        <maven-surefire-report-plugin.version>2.12.1</maven-surefire-report-plugin.version>
         <clirr-maven-plugin.version>2.4</clirr-maven-plugin.version>
         <cobertura-maven-plugin.version>2.5.1</cobertura-maven-plugin.version>
-        <findbugs-maven-plugin.version>2.5.1</findbugs-maven-plugin.version>
+        <findbugs-maven-plugin.version>2.5.2</findbugs-maven-plugin.version>
         <javancss-maven-plugin.version>2.0</javancss-maven-plugin.version>
         <jdepend-maven-plugin.version>2.0-beta-2</jdepend-maven-plugin.version>
         <sablecc-maven-plugin.version>2.2</sablecc-maven-plugin.version>
@@ -1003,6 +1003,126 @@
                     </plugin>
                 </plugins>
             </reporting>
+        </profile>
+        <!-- Create/install javadoc and test-javadoc jars during the build. Run as part of deploy process -->
+        <profile>
+            <id>javadocs</id>
+            <build>
+                    <plugins>
+                        <plugin>
+                            <artifactId>maven-javadoc-plugin</artifactId>
+                            <version>${maven-javadoc-plugin.version}</version>
+                            <executions>
+                                <execution>
+                                    <id>javadoc-jar</id>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>jar</goal>
+                                    </goals>
+                                </execution>
+                                <execution>
+                                    <id>test-jar</id>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>test-jar</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                            <configuration>
+                                <show>package</show>
+                                <version>true</version>
+                                <javadocVersion>${source.version}</javadocVersion>
+                                <failOnError>false</failOnError>
+                                <linksource>true</linksource>
+                                <detectLinks>true</detectLinks>
+                                <detectOfflineLinks>true</detectOfflineLinks>
+                                <links>
+                                    <link>http://download.oracle.com/javase/6/docs/api/</link>
+                                    <link>http://download.oracle.com/javaee/1.4/api/</link>
+                                    <link>http://download.eclipse.org/modeling/mdt/uml2/javadoc/3.1.0/</link>
+                                    <link>http://download.eclipse.org/modeling/emf/emf/javadoc/2.6.0/</link>
+                                    <link>http://dom4j.sourceforge.net/dom4j-1.6.1/apidocs/</link>
+                                    <link>http://freemarker.org/docs/api/</link>
+                                    <link>http://groovy.codehaus.org/api/</link>
+                                    <link>http://www.jajakarta.org/ant/ant-1.6.1/docs/ja/manual/api/</link>
+                                    <link>http://jakarta.apache.org/commons/collections/apidocs/</link>
+                                    <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
+                                    <link>http://jakarta.apache.org/regexp/apidocs/</link>
+                                    <link>http://jaxb.java.net/nonav/2.2.4/docs/api/</link>
+                                    <link>http://logging.apache.org/log4j/docs/api/</link>
+                                    <link>http://maven.apache.org/ref/2.2.1/maven-core/apidocs/</link>
+                                    <link>http://maven.apache.org/ref/2.2.1/maven-plugin-api/apidocs/</link>
+                                    <link>http://maven.apache.org/ref/2.2.1/maven-project/apidocs/</link>
+                                    <link>http://maven.apache.org/ref/2.2.1/maven-artifact/apidocs/</link>
+                                    <link>http://velocity.apache.org/engine/devel/apidocs/</link>
+                                    <link>http://www.andromda.org/docs/jmi-uml1.4/</link>
+                                    <link>http://www.csg.is.titech.ac.jp/~chiba/javassist/html/</link>
+                                    <link>http://www.junit.org/junit/javadoc/</link>
+                                </links>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+            </build>
+        </profile>
+        <!-- Create/install javadoc and test-javadoc jars during the build. Run as part of deploy process -->
+        <profile>
+            <id>javadocs</id>
+            <build>
+                    <plugins>
+                        <plugin>
+                            <artifactId>maven-javadoc-plugin</artifactId>
+                            <version>${maven-javadoc-plugin.version}</version>
+                            <executions>
+                                <execution>
+                                    <id>javadoc-jar</id>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>jar</goal>
+                                    </goals>
+                                </execution>
+                                <execution>
+                                    <id>test-jar</id>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>test-jar</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                            <configuration>
+                                <show>package</show>
+                                <version>true</version>
+                                <javadocVersion>${source.version}</javadocVersion>
+                                <failOnError>false</failOnError>
+                                <linksource>true</linksource>
+                                <detectLinks>true</detectLinks>
+                                <detectOfflineLinks>true</detectOfflineLinks>
+                                <links>
+                                    <link>http://download.oracle.com/javase/6/docs/api/</link>
+                                    <link>http://download.oracle.com/javaee/1.4/api/</link>
+                                    <link>http://download.eclipse.org/modeling/mdt/uml2/javadoc/3.1.0/</link>
+                                    <link>http://download.eclipse.org/modeling/emf/emf/javadoc/2.6.0/</link>
+                                    <link>http://dom4j.sourceforge.net/dom4j-1.6.1/apidocs/</link>
+                                    <link>http://freemarker.org/docs/api/</link>
+                                    <link>http://groovy.codehaus.org/api/</link>
+                                    <link>http://www.jajakarta.org/ant/ant-1.6.1/docs/ja/manual/api/</link>
+                                    <link>http://jakarta.apache.org/commons/collections/apidocs/</link>
+                                    <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
+                                    <link>http://jakarta.apache.org/regexp/apidocs/</link>
+                                    <link>http://jaxb.java.net/nonav/2.2.4/docs/api/</link>
+                                    <link>http://logging.apache.org/log4j/docs/api/</link>
+                                    <link>http://maven.apache.org/ref/2.2.1/maven-core/apidocs/</link>
+                                    <link>http://maven.apache.org/ref/2.2.1/maven-plugin-api/apidocs/</link>
+                                    <link>http://maven.apache.org/ref/2.2.1/maven-project/apidocs/</link>
+                                    <link>http://maven.apache.org/ref/2.2.1/maven-artifact/apidocs/</link>
+                                    <link>http://velocity.apache.org/engine/devel/apidocs/</link>
+                                    <link>http://www.andromda.org/docs/jmi-uml1.4/</link>
+                                    <link>http://www.csg.is.titech.ac.jp/~chiba/javassist/html/</link>
+                                    <link>http://www.junit.org/junit/javadoc/</link>
+                                </links>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+            </build>
         </profile>
         <!-- Create/install javadoc and test-javadoc jars during the build. Run as part of deploy process -->
         <profile>

@@ -976,6 +976,11 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge.pom</pomFile>
+                            <files>lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge-sources.jar,lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge-javadoc.jar</files>
+                            <classifiers>sources,javadoc</classifiers>
+                            <types>jar,jar</types>
+                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
+                            <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                             <files>lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge-sources.jar,lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge-javadoc.jar</files>
@@ -991,6 +996,11 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml.pom</pomFile>
+                            <files>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml-sources.jar,lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml-javadoc.jar</files>
+                            <classifiers>sources,javadoc</classifiers>
+                            <types>jar,jar</types>
+                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
+                            <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                             <files>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml-sources.jar,lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml-javadoc.jar</files>
@@ -1006,6 +1016,11 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14.pom</pomFile>
+                            <files>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14-sources.jar,lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14-javadoc.jar</files>
+                            <classifiers>sources,javadoc</classifiers>
+                            <types>jar,jar</types>
+                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
+                            <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                             <files>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14-sources.jar,lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14-javadoc.jar</files>
@@ -1021,6 +1036,11 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22.pom</pomFile>
+                            <files>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22-sources.jar,lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22-javadoc.jar</files>
+                            <classifiers>sources,javadoc</classifiers>
+                            <types>jar,jar</types>
+                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
+                            <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                             <files>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22-sources.jar,lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22-javadoc.jar</files>
@@ -1036,6 +1056,11 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/repositories/andromda-repository-emf.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-emf.pom</pomFile>
+                            <files>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-sources.jar,lib/org/andromda/bootstrap/repositories/andromda-repository-emf-javadoc.jar</files>
+                            <classifiers>sources,javadoc</classifiers>
+                            <types>jar,jar</types>
+                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
+                            <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                             <files>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-sources.jar,lib/org/andromda/bootstrap/repositories/andromda-repository-emf-javadoc.jar</files>
@@ -1051,6 +1076,8 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14.pom</pomFile>
+                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
+                            <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                             <files>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14-sources.jar,lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14-javadoc.jar</files>
@@ -1066,6 +1093,11 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22.pom</pomFile>
+                            <files>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22-sources.jar,lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22-javadoc.jar</files>
+                            <classifiers>sources,javadoc</classifiers>
+                            <types>jar,jar</types>
+                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
+                            <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                             <files>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22-sources.jar,lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22-javadoc.jar</files>
@@ -1081,6 +1113,11 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite.pom</pomFile>
+                            <files>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite-sources.jar,lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite-javadoc.jar</files>
+                            <classifiers>sources,javadoc</classifiers>
+                            <types>jar,jar</types>
+                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
+                            <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                             <files>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite-sources.jar,lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite-javadoc.jar</files>
@@ -1096,6 +1133,11 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.pom</pomFile>
+                            <files>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library-sources.jar,lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library-javadoc.jar</files>
+                            <classifiers>sources,javadoc</classifiers>
+                            <types>jar,jar</types>
+                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
+                            <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                             <files>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library-sources.jar,lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library-javadoc.jar</files>
@@ -1137,7 +1179,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <!-- Plugin version definitions-->
-        <plexus.util.version>3.0.3</plexus.util.version>
+        <plexus.util.version>3.0.4</plexus.util.version>
         <maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
         <maven-archetype-plugin.version>2.2</maven-archetype-plugin.version>
         <maven-assembly-plugin.version>2.3</maven-assembly-plugin.version>
@@ -1147,7 +1189,7 @@
         <maven-checkstyle-plugin.version>2.9.1</maven-checkstyle-plugin.version>
         <maven-clean-plugin.version>2.5</maven-clean-plugin.version>
         <maven-compiler-plugin.version>2.5.1</maven-compiler-plugin.version>
-        <maven-dependency-plugin.version>2.4</maven-dependency-plugin.version>
+        <maven-dependency-plugin.version>2.5</maven-dependency-plugin.version>
         <maven-deploy-plugin.version>2.7</maven-deploy-plugin.version>
         <maven-eclipse-plugin.version>2.9</maven-eclipse-plugin.version>
         <maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>
@@ -1160,16 +1202,16 @@
         <!-- v2.7 causes ClassCastException: java.lang.String cannot be cast to java.io.File
         at org.apache.maven.plugin.pmd.AbstractPmdReport.getFilesToProcess(AbstractPmdReport.java:284) -->
         <maven-pmd-plugin.version>2.7.1</maven-pmd-plugin.version>
-        <maven-project-info-reports-plugin.version>2.4</maven-project-info-reports-plugin.version>
+        <maven-project-info-reports-plugin.version>2.5</maven-project-info-reports-plugin.version>
         <maven-release-plugin.version>2.3.2</maven-release-plugin.version>
         <maven-resources-plugin.version>2.5</maven-resources-plugin.version>
-        <maven-site-plugin.version>2.4</maven-site-plugin.version>
-        <maven-source-plugin.version>2.1.2</maven-source-plugin.version>
-        <maven-surefire-plugin.version>2.12</maven-surefire-plugin.version>
-        <maven-surefire-report-plugin.version>2.12</maven-surefire-report-plugin.version>
+        <maven-site-plugin.version>3.1</maven-site-plugin.version>
+        <maven-source-plugin.version>2.2</maven-source-plugin.version>
+        <maven-surefire-plugin.version>2.12.1</maven-surefire-plugin.version>
+        <maven-surefire-report-plugin.version>2.12.1</maven-surefire-report-plugin.version>
         <clirr-maven-plugin.version>2.4</clirr-maven-plugin.version>
         <cobertura-maven-plugin.version>2.5.1</cobertura-maven-plugin.version>
-        <findbugs-maven-plugin.version>2.5.1</findbugs-maven-plugin.version>
+        <findbugs-maven-plugin.version>2.5.2</findbugs-maven-plugin.version>
         <javancss-maven-plugin.version>2.0</javancss-maven-plugin.version>
         <jdepend-maven-plugin.version>2.0-beta-2</jdepend-maven-plugin.version>
         <sablecc-maven-plugin.version>2.2</sablecc-maven-plugin.version>
