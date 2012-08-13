@@ -84,9 +84,9 @@
                 <p>
                     The following example illustrates how you can inject environment entries into session beans.
                 </p>
-	            <p>
-	                <img src="images/org/andromda/test/11/a/uml.gif" alt="images/org/andromda/test/11/a/uml.gif"/>
-	            </p>
+                <p>
+                    <img src="images/org/andromda/test/11/a/uml.gif" alt="images/org/andromda/test/11/a/uml.gif"/>
+                </p>
                 <ul>
                     <li class="gen">Auto-generated source that does not need manual editing</li>
                     <li class="impl">Auto-generated source that should be edited manually</li>
@@ -115,17 +115,17 @@
                     <li class="gen"><a class="changed" href="howto/META-INF/ejb-jar.xml"><code>ejb-jar.xml</code></a></li>
                     <li class="gen"><a href="howto/META-INF/jboss.xml"><code>jboss.xml</code></a></li>
                 </ul>
-	            <p>
-	                The two important files to look at are <code>RentalServiceBean.java</code> and
-	                <code>ejb-jar.xml</code>.  The <code>RentalServiceBean.java</code> injects the resource using
-	                the <code>@Resource</code> annotation and specifies the name property corresponding to the
-	                <code>env-entry-name</code> in <code>ejb-jar.xml</code> for the environment entry.
-	            </p>
-	            <p>
-	                Notice here that the <code>Person</code> entity has 2 lifecycle callbacks.  We have modeled
-	                then using stereotypes on instance scoped operations.  Click on
-	                <a href="howto14.html">lifecycle callbacks</a> to find out more.
-	            </p>
+                <p>
+                    The two important files to look at are <code>RentalServiceBean.java</code> and
+                    <code>ejb-jar.xml</code>.  The <code>RentalServiceBean.java</code> injects the resource using
+                    the <code>@Resource</code> annotation and specifies the name property corresponding to the
+                    <code>env-entry-name</code> in <code>ejb-jar.xml</code> for the environment entry.
+                </p>
+                <p>
+                    Notice here that the <code>Person</code> entity has 2 lifecycle callbacks.  We have modeled
+                    then using stereotypes on instance scoped operations.  Click on
+                    <a href="howto14.html">lifecycle callbacks</a> to find out more.
+                </p>
             </subsection>
         </section>
         <section name="Next">

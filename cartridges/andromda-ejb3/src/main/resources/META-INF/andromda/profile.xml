@@ -30,41 +30,41 @@
              an Actor to the operation.
          </p>
     </documentation>
-	<elements>
-		<elementGroup name="Stereotypes">
-			<element name="ENTITY">
-				<documentation>
-					Produces a POJO EJB entity.
-				</documentation>
-				<value>Entity</value>
-				<appliedOnElement>class</appliedOnElement>
-			</element>
-			<element name="MAPPED_SUPERCLASS">
-			    <documentation>
-			        Produces a POJO class annotated as a
-			        mapped/embeddable super class.  This
-			        can only be assigned to the root class
-			        in a hierarchy.
-			    </documentation>
-			    <value>MappedSuperclass</value>
-			    <appliedOnElement>class</appliedOnElement>
-			</element>
-			<element name="SERVICE">
-				<documentation>
-					Produces a Session EJB facade for the POJO EJB
-					entities.
-				</documentation>
-				<value>Service</value>
-				<appliedOnElement>class</appliedOnElement>
-			</element>
-			<element name="MESSAGE_DRIVEN">
-				<documentation>
-					Produces a JMS Message Driven EJB facade that
-					received messages.
-				</documentation>
-				<value>MessageDriven</value>
-				<appliedOnElement>class</appliedOnElement>
-			</element>
+    <elements>
+        <elementGroup name="Stereotypes">
+            <element name="ENTITY">
+                <documentation>
+                    Produces a POJO EJB entity.
+                </documentation>
+                <value>Entity</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="MAPPED_SUPERCLASS">
+                <documentation>
+                    Produces a POJO class annotated as a
+                    mapped/embeddable super class.  This
+                    can only be assigned to the root class
+                    in a hierarchy.
+                </documentation>
+                <value>MappedSuperclass</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="SERVICE">
+                <documentation>
+                    Produces a Session EJB facade for the POJO EJB
+                    entities.
+                </documentation>
+                <value>Service</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="MESSAGE_DRIVEN">
+                <documentation>
+                    Produces a JMS Message Driven EJB facade that
+                    received messages.
+                </documentation>
+                <value>MessageDriven</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
             <element name="ENUMERATION">
                 <documentation>
                     This stereotype will instruct to define an
@@ -76,342 +76,342 @@
                 <value>Enumeration</value>
                 <appliedOnElement>class</appliedOnElement>
             </element>
-			<element name="VERSION">
-				<documentation>
-					Identifies an attribute as an version property
-					(optimistic lock value) of an entity.  Used to
-					ensure integrity when reattaching and for overall
-					optimistic concurrency control.  Only one attribute
-					per entity class is allowed to have the Version
-					stereotype.
-					The following <code>types</code> are supported:
-					<ul>
-					    <li>int</li>
-					    <li>Integer</li>
-					    <li>short</li>
-					    <li>Short</li>
-					    <li>long</li>
-					    <li>Long</li>
-					    <li>Timestamp</li>
-					</ul>
-				</documentation>
-				<value>Version</value>
-				<appliedOnElement>Entity attribute</appliedOnElement>
-			</element>
-			<element name="TRANSIENT">
-				<documentation>
-					Identifies an entity attribute as a transient
-					attribute which is non persistent.
-				</documentation>
-				<value>Transient</value>
-				<appliedOnElement>Entity attribute</appliedOnElement>
-			</element>
-			<element name="PERSISTENCE_CONTEXT">
-				<documentation>
-					Identifies a persistence context used to express a dependency
-					on an EntityManager persistence context.
-				</documentation>
-				<value>PersistenceContext</value>
-				<appliedOnElement>class</appliedOnElement>
-			</element>
-			<element name="IDENTIFIER">
-				<documentation>
-					Identifies an attribute as an identifier (primary
-					key).
-				</documentation>
-				<value>Identifier</value>
-				<appliedOnElement>Entity attribute</appliedOnElement>
-			</element>
-			<element name="CREATE_METHOD">
-				<documentation>
-					Used to tag an EJB create method NOTE: However POJO
-					constructors are used in EJB3
-				</documentation>
-				<value>CreateMethod</value>
-				<appliedOnElement>Entity operation and Session operation</appliedOnElement>
-			</element>
-			<element name="ENTITY_REF">
-				<documentation>
-					Used to reference an entity from another entity or
-					service.
-				</documentation>
-				<value>EntityRef</value>
-				<appliedOnElement>
-					A dependency going into an Entity
-				</appliedOnElement>
-			</element>
-			<element name="SERVICE_REF">
-				<documentation>
-					Used to reference a service from an entity or
-					another service.
-				</documentation>
-				<value>ServiceRef</value>
-				<appliedOnElement>
-					A dependency going into a Service
-				</appliedOnElement>
-			</element>
-			<element name="RESOURCE_REF">
-				<documentation>
-					Used to reference a resource, like a
-					DataSource from a service bean.
-				</documentation>
-				<value>ResourceRef</value>
-				<appliedOnElement>
-					A dependency going into a class having
-					a stereotype of UserTransaction or DataSource,
-					out of a Service.
-				</appliedOnElement>
-			</element>
-			<element name="USER_TRANSACTION">
-				<documentation>
-					Used to inject a javax.transaction.UserTransaction
-					resource.
-				</documentation>
-				<value>UserTransaction</value>
-				<appliedOnElement>
-					class
-				</appliedOnElement>
-			</element>
-			<element name="DATA_SOURCE">
-				<documentation>
-					Used to inject a javax.sql.DataSource
-					resource.
-				</documentation>
-				<value>DataSource</value>
-				<appliedOnElement>
-					class
-				</appliedOnElement>
-			</element>
-			<element name="INTERCEPTOR">
-			    <documentation>
-			        Defines a custome made interceptor for the business
-			        methods of the session bean and message driven
-			        bean.
-			    </documentation>
-			    <value>Interceptor</value>
-			    <appliedOnElement>
-			        class
-			    </appliedOnElement>
-			</element>
-			<element name="LISTENER">
-			    <documentation>
-			        Defines a callback listener class for the entity,
-			        session and message driven beans.  The corresponding
-			        entity, session or message driven beans are annotated
-			        to indicate the listener class.
-			    </documentation>
-			    <value>Listener</value>
-			    <appliedOnElement>
-			        class
-			    </appliedOnElement>
-			</element>
-			<element name="SECURITY_RUN_AS">
-				<documentation>
+            <element name="VERSION">
+                <documentation>
+                    Identifies an attribute as an version property
+                    (optimistic lock value) of an entity.  Used to
+                    ensure integrity when reattaching and for overall
+                    optimistic concurrency control.  Only one attribute
+                    per entity class is allowed to have the Version
+                    stereotype.
+                    The following <code>types</code> are supported:
+                    <ul>
+                        <li>int</li>
+                        <li>Integer</li>
+                        <li>short</li>
+                        <li>Short</li>
+                        <li>long</li>
+                        <li>Long</li>
+                        <li>Timestamp</li>
+                    </ul>
+                </documentation>
+                <value>Version</value>
+                <appliedOnElement>Entity attribute</appliedOnElement>
+            </element>
+            <element name="TRANSIENT">
+                <documentation>
+                    Identifies an entity attribute as a transient
+                    attribute which is non persistent.
+                </documentation>
+                <value>Transient</value>
+                <appliedOnElement>Entity attribute</appliedOnElement>
+            </element>
+            <element name="PERSISTENCE_CONTEXT">
+                <documentation>
+                    Identifies a persistence context used to express a dependency
+                    on an EntityManager persistence context.
+                </documentation>
+                <value>PersistenceContext</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="IDENTIFIER">
+                <documentation>
+                    Identifies an attribute as an identifier (primary
+                    key).
+                </documentation>
+                <value>Identifier</value>
+                <appliedOnElement>Entity attribute</appliedOnElement>
+            </element>
+            <element name="CREATE_METHOD">
+                <documentation>
+                    Used to tag an EJB create method NOTE: However POJO
+                    constructors are used in EJB3
+                </documentation>
+                <value>CreateMethod</value>
+                <appliedOnElement>Entity operation and Session operation</appliedOnElement>
+            </element>
+            <element name="ENTITY_REF">
+                <documentation>
+                    Used to reference an entity from another entity or
+                    service.
+                </documentation>
+                <value>EntityRef</value>
+                <appliedOnElement>
+                    A dependency going into an Entity
+                </appliedOnElement>
+            </element>
+            <element name="SERVICE_REF">
+                <documentation>
+                    Used to reference a service from an entity or
+                    another service.
+                </documentation>
+                <value>ServiceRef</value>
+                <appliedOnElement>
+                    A dependency going into a Service
+                </appliedOnElement>
+            </element>
+            <element name="RESOURCE_REF">
+                <documentation>
+                    Used to reference a resource, like a
+                    DataSource from a service bean.
+                </documentation>
+                <value>ResourceRef</value>
+                <appliedOnElement>
+                    A dependency going into a class having
+                    a stereotype of UserTransaction or DataSource,
+                    out of a Service.
+                </appliedOnElement>
+            </element>
+            <element name="USER_TRANSACTION">
+                <documentation>
+                    Used to inject a javax.transaction.UserTransaction
+                    resource.
+                </documentation>
+                <value>UserTransaction</value>
+                <appliedOnElement>
+                    class
+                </appliedOnElement>
+            </element>
+            <element name="DATA_SOURCE">
+                <documentation>
+                    Used to inject a javax.sql.DataSource
+                    resource.
+                </documentation>
+                <value>DataSource</value>
+                <appliedOnElement>
+                    class
+                </appliedOnElement>
+            </element>
+            <element name="INTERCEPTOR">
+                <documentation>
+                    Defines a custome made interceptor for the business
+                    methods of the session bean and message driven
+                    bean.
+                </documentation>
+                <value>Interceptor</value>
+                <appliedOnElement>
+                    class
+                </appliedOnElement>
+            </element>
+            <element name="LISTENER">
+                <documentation>
+                    Defines a callback listener class for the entity,
+                    session and message driven beans.  The corresponding
+                    entity, session or message driven beans are annotated
+                    to indicate the listener class.
+                </documentation>
+                <value>Listener</value>
+                <appliedOnElement>
+                    class
+                </appliedOnElement>
+            </element>
+            <element name="SECURITY_RUN_AS">
+                <documentation>
                     Represents a dependency from an actor that is
                     identified to apply a run-as identity to the bean
                     when making calls.
                     It does not affect the identity of the
                     method callers.
-				</documentation>
-				<value>RunAs</value>
-				<appliedOnElement>
-					Dependency
-				</appliedOnElement>
-			</element>
-			<element name="VALUE_REF">
-				<documentation>
-					Used to generate an association between an entity
-					and a value object class. Found attributes inside
-					the entity as well as the value object are used to
-					get automatically filled out. The entity will
-					provide the helper method, also for saving a value
-					object to an existing entity. NOTE: This should not
-					be used any longer with EJB3 as there are no value
-					object.
-				</documentation>
-				<value>ValueRef</value>
-				<appliedOnElement>
-					A dependency going into a ValueObject and out of an
-					Entity
-				</appliedOnElement>
-			</element>
-			<element name="ENV_ENTRY">
-			    <documentation>
-			        Used to specify an environment entry which is defined
-			        in the ejb-jar.xml descriptor and can be injected
-			        in a bean.
-			    </documentation>
-			    <value>EnvEntry</value>
-			    <appliedOnElement>
-			        Attribute
-			    </appliedOnElement>
-			</element>
-			<element name="SERVICE_TIMER_TIMEOUT">
-			    <documentation>
-			        Specifies whether the session bean operation
-			        as a Timer Service timeout callback method.
-			    </documentation>
-			    <value>Timeout</value>
-			    <appliedOnElement>
-			        Service Operation
-			    </appliedOnElement>
-			</element>
-			<element name="RESULT_TYPE_FIRST">
-			    <documentation>
-			        Specifies the finder method parameter
-			        result type to specify the starting index.
-			    </documentation>
-			    <value>FirstResult</value>
-			    <appliedOnElement>
-			        Entity Finder Method Parameter
-			    </appliedOnElement>
-			</element>
-			<element name="RESULT_TYPE_MAX">
-			    <documentation>
-			        Specifies the finder method parameter
-			        result type to specify the max or
-			        limit.
-			    </documentation>
-			    <value>MaxResult</value>
-			    <appliedOnElement>
-			        Entity Finder Method Parameter
-			    </appliedOnElement>
-			</element>
-			<element name="POST_CONSTRUCT">
-			    <documentation>
-			        Specifies that the associated operation is a lifecycle
-			        callback handler and will be invoked when the bean is
-			        first created, after any dependency injection is required.
-			    </documentation>
-			    <value>PostConstruct</value>
-			    <appliedOnElement>
-			        Session and Message-Driven Bean Operation
-			    </appliedOnElement>
-			</element>
-			<element name="PRE_DESTROY">
-			    <documentation>
-			        Specifies that the associated operation is a lifecycle
-			        callback handler and will be invoked when the bean is
-			        removed from the pool or destroyed.  For stateful session
-			        beans, this occurs before the @Remove annotated method
-			        is invoked.
-			    </documentation>
-			    <value>PreDestroy</value>
-			    <appliedOnElement>
-			        Session and Message-Driven Bean Operation
-			    </appliedOnElement>
-			</element>
-			<element name="POST_ACTIVATE">
-			    <documentation>
-			        Specifies that the associated operation is a lifecycle
-			        callback handler for a stateful session bean and will
-			        be invoked when the bean instance has just been
-			        reactivated.
-			    </documentation>
-			    <value>PostActivate</value>
-			    <appliedOnElement>
-			        Stateful Session Bean Operation
-			    </appliedOnElement>
-			</element>
-			<element name="PRE_PASSIVATE">
-			    <documentation>
-			        Specifies that the associated operation is a lifecycle
-			        callback handler for a stateful session bean and will
-			        be invoked when container is ready to passivate
-			        the instance.
-			    </documentation>
-			    <value>PrePassivate</value>
-			    <appliedOnElement>
-			        Stateful Session Bean Operation
-			    </appliedOnElement>
-			</element>
-			<element name="PRE_PERSIST">
-			    <documentation>
-			        Specifies that the associated operation is a lifecycle
-			        callback handler for an entity bean and will
-			        be invoked before the entity is created in the
-			        database and will cascade to all associated
-			        cascadable entities.
-			    </documentation>
-			    <value>PrePersist</value>
-			    <appliedOnElement>
-			        Entity Bean Operation
-			    </appliedOnElement>
-			</element>
-			<element name="POST_PERSIST">
-			    <documentation>
-			        Specifies that the associated operation is a lifecycle
-			        callback handler for an entity bean and will
-			        be invoked after the entity is created in the
-			        database and will cascade to all associated
-			        cascadable entities.
-			    </documentation>
-			    <value>PostPersist</value>
-			    <appliedOnElement>
-			        Entity Bean Operation
-			    </appliedOnElement>
-			</element>
-			<element name="PRE_REMOVE">
-			    <documentation>
-			        Specifies that the associated operation is a lifecycle
-			        callback handler for an entity bean and will
-			        be invoked before the entity is deleted from the
-			        database and will cascade to all associated
-			        cascadable entities.
-			    </documentation>
-			    <value>PreRemove</value>
-			    <appliedOnElement>
-			        Entity Bean Operation
-			    </appliedOnElement>
-			</element>
-			<element name="POST_REMOVE">
-			    <documentation>
-			        Specifies that the associated operation is a lifecycle
-			        callback handler for an entity bean and will
-			        be invoked after the entity is deleted from the
-			        database and will cascade to all associated
-			        cascadable entities.
-			    </documentation>
-			    <value>PostRemove</value>
-			    <appliedOnElement>
-			        Entity Bean Operation
-			    </appliedOnElement>
-			</element>
-			<element name="PRE_UPDATE">
-			    <documentation>
-			        Specifies that the associated operation is a lifecycle
-			        callback handler for an entity bean and will
-			        be invoked right before the database is updated.
-			    </documentation>
-			    <value>PreUpdate</value>
-			    <appliedOnElement>
-			        Entity Bean Operation
-			    </appliedOnElement>
-			</element>
-			<element name="POST_UPDATE">
-			    <documentation>
-			        Specifies that the associated operation is a lifecycle
-			        callback handler for an entity bean and will
-			        be invoked immediately after the database has been
-			        updated.
-			    </documentation>
-			    <value>PostUpdate</value>
-			    <appliedOnElement>
-			        Entity Bean Operation
-			    </appliedOnElement>
-			</element>
-			<element name="POST_LOAD">
-			    <documentation>
-			        Specifies that the associated operation is a lifecycle
-			        callback handler for an entity bean and will
-			        be invoked right after the data has been loaded
-			        from the database and associated with the entity.
-			    </documentation>
-			    <value>PostLoad</value>
-			    <appliedOnElement>
-			        Entity Bean Operation
-			    </appliedOnElement>
-			</element>
+                </documentation>
+                <value>RunAs</value>
+                <appliedOnElement>
+                    Dependency
+                </appliedOnElement>
+            </element>
+            <element name="VALUE_REF">
+                <documentation>
+                    Used to generate an association between an entity
+                    and a value object class. Found attributes inside
+                    the entity as well as the value object are used to
+                    get automatically filled out. The entity will
+                    provide the helper method, also for saving a value
+                    object to an existing entity. NOTE: This should not
+                    be used any longer with EJB3 as there are no value
+                    object.
+                </documentation>
+                <value>ValueRef</value>
+                <appliedOnElement>
+                    A dependency going into a ValueObject and out of an
+                    Entity
+                </appliedOnElement>
+            </element>
+            <element name="ENV_ENTRY">
+                <documentation>
+                    Used to specify an environment entry which is defined
+                    in the ejb-jar.xml descriptor and can be injected
+                    in a bean.
+                </documentation>
+                <value>EnvEntry</value>
+                <appliedOnElement>
+                    Attribute
+                </appliedOnElement>
+            </element>
+            <element name="SERVICE_TIMER_TIMEOUT">
+                <documentation>
+                    Specifies whether the session bean operation
+                    as a Timer Service timeout callback method.
+                </documentation>
+                <value>Timeout</value>
+                <appliedOnElement>
+                    Service Operation
+                </appliedOnElement>
+            </element>
+            <element name="RESULT_TYPE_FIRST">
+                <documentation>
+                    Specifies the finder method parameter
+                    result type to specify the starting index.
+                </documentation>
+                <value>FirstResult</value>
+                <appliedOnElement>
+                    Entity Finder Method Parameter
+                </appliedOnElement>
+            </element>
+            <element name="RESULT_TYPE_MAX">
+                <documentation>
+                    Specifies the finder method parameter
+                    result type to specify the max or
+                    limit.
+                </documentation>
+                <value>MaxResult</value>
+                <appliedOnElement>
+                    Entity Finder Method Parameter
+                </appliedOnElement>
+            </element>
+            <element name="POST_CONSTRUCT">
+                <documentation>
+                    Specifies that the associated operation is a lifecycle
+                    callback handler and will be invoked when the bean is
+                    first created, after any dependency injection is required.
+                </documentation>
+                <value>PostConstruct</value>
+                <appliedOnElement>
+                    Session and Message-Driven Bean Operation
+                </appliedOnElement>
+            </element>
+            <element name="PRE_DESTROY">
+                <documentation>
+                    Specifies that the associated operation is a lifecycle
+                    callback handler and will be invoked when the bean is
+                    removed from the pool or destroyed.  For stateful session
+                    beans, this occurs before the @Remove annotated method
+                    is invoked.
+                </documentation>
+                <value>PreDestroy</value>
+                <appliedOnElement>
+                    Session and Message-Driven Bean Operation
+                </appliedOnElement>
+            </element>
+            <element name="POST_ACTIVATE">
+                <documentation>
+                    Specifies that the associated operation is a lifecycle
+                    callback handler for a stateful session bean and will
+                    be invoked when the bean instance has just been
+                    reactivated.
+                </documentation>
+                <value>PostActivate</value>
+                <appliedOnElement>
+                    Stateful Session Bean Operation
+                </appliedOnElement>
+            </element>
+            <element name="PRE_PASSIVATE">
+                <documentation>
+                    Specifies that the associated operation is a lifecycle
+                    callback handler for a stateful session bean and will
+                    be invoked when container is ready to passivate
+                    the instance.
+                </documentation>
+                <value>PrePassivate</value>
+                <appliedOnElement>
+                    Stateful Session Bean Operation
+                </appliedOnElement>
+            </element>
+            <element name="PRE_PERSIST">
+                <documentation>
+                    Specifies that the associated operation is a lifecycle
+                    callback handler for an entity bean and will
+                    be invoked before the entity is created in the
+                    database and will cascade to all associated
+                    cascadable entities.
+                </documentation>
+                <value>PrePersist</value>
+                <appliedOnElement>
+                    Entity Bean Operation
+                </appliedOnElement>
+            </element>
+            <element name="POST_PERSIST">
+                <documentation>
+                    Specifies that the associated operation is a lifecycle
+                    callback handler for an entity bean and will
+                    be invoked after the entity is created in the
+                    database and will cascade to all associated
+                    cascadable entities.
+                </documentation>
+                <value>PostPersist</value>
+                <appliedOnElement>
+                    Entity Bean Operation
+                </appliedOnElement>
+            </element>
+            <element name="PRE_REMOVE">
+                <documentation>
+                    Specifies that the associated operation is a lifecycle
+                    callback handler for an entity bean and will
+                    be invoked before the entity is deleted from the
+                    database and will cascade to all associated
+                    cascadable entities.
+                </documentation>
+                <value>PreRemove</value>
+                <appliedOnElement>
+                    Entity Bean Operation
+                </appliedOnElement>
+            </element>
+            <element name="POST_REMOVE">
+                <documentation>
+                    Specifies that the associated operation is a lifecycle
+                    callback handler for an entity bean and will
+                    be invoked after the entity is deleted from the
+                    database and will cascade to all associated
+                    cascadable entities.
+                </documentation>
+                <value>PostRemove</value>
+                <appliedOnElement>
+                    Entity Bean Operation
+                </appliedOnElement>
+            </element>
+            <element name="PRE_UPDATE">
+                <documentation>
+                    Specifies that the associated operation is a lifecycle
+                    callback handler for an entity bean and will
+                    be invoked right before the database is updated.
+                </documentation>
+                <value>PreUpdate</value>
+                <appliedOnElement>
+                    Entity Bean Operation
+                </appliedOnElement>
+            </element>
+            <element name="POST_UPDATE">
+                <documentation>
+                    Specifies that the associated operation is a lifecycle
+                    callback handler for an entity bean and will
+                    be invoked immediately after the database has been
+                    updated.
+                </documentation>
+                <value>PostUpdate</value>
+                <appliedOnElement>
+                    Entity Bean Operation
+                </appliedOnElement>
+            </element>
+            <element name="POST_LOAD">
+                <documentation>
+                    Specifies that the associated operation is a lifecycle
+                    callback handler for an entity bean and will
+                    be invoked right after the data has been loaded
+                    from the database and associated with the entity.
+                </documentation>
+                <value>PostLoad</value>
+                <appliedOnElement>
+                    Entity Bean Operation
+                </appliedOnElement>
+            </element>
             <element name="WEB_SERVICE">
                 <documentation>
                     Exposes ALL methods of the session bean
@@ -441,9 +441,9 @@
             </element>
             <element name="SEAM_COMPONENT_STARTUP">
                 <documentation>
-                	Specifies that a session scope component is started
-                	immediately at session creation time, unless dependencies
-                	are specified.
+                    Specifies that a session scope component is started
+                    immediately at session creation time, unless dependencies
+                    are specified.
                 </documentation>
                 <value>Startup</value>
                 <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
@@ -468,47 +468,47 @@
             </element>
             <element name="SEAM_BIJECTION_UNWRAP">
                 <documentation>
-                	Specifies that the object returned by the annotated getter method
-                	is the thing that is injected instead of the component instance itself.
+                    Specifies that the object returned by the annotated getter method
+                    is the thing that is injected instead of the component instance itself.
                 </documentation>
                 <value>Unwrap</value>
                 <appliedOnElement>Session and Java Bean Attribute</appliedOnElement>
             </element>
             <element name="SEAM_BIJECTION_FACTORY">
                 <documentation>
-					When this stereotype is used on an operation which return void
-					that operation will be used to initialize the value of the named
-					context variable, when the context variable has no value.
+                    When this stereotype is used on an operation which return void
+                    that operation will be used to initialize the value of the named
+                    context variable, when the context variable has no value.
 
-					When it is used on an operation that returns a value then Seam
-					should use that value to initialize the value of the named context
-					variable, when the context variable has no value.
+                    When it is used on an operation that returns a value then Seam
+                    should use that value to initialize the value of the named context
+                    variable, when the context variable has no value.
 
-					The context variable is specified by tagged value
-					andromda_seam_bijection_factory_value. If the method is a getter
-					method, default to the JavaBeans property name.
+                    The context variable is specified by tagged value
+                    andromda_seam_bijection_factory_value. If the method is a getter
+                    method, default to the JavaBeans property name.
 
-					If no scope is explicitly specified by tagged value
-					andromda_seam_bijection_factory_scope, the scope of the component
-					with the @Factory method is used (unless the component is stateless,
-					in which case the EVENT context is used).
+                    If no scope is explicitly specified by tagged value
+                    andromda_seam_bijection_factory_scope, the scope of the component
+                    with the @Factory method is used (unless the component is stateless,
+                    in which case the EVENT context is used).
                 </documentation>
                 <value>Factory</value>
                 <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
             </element>
             <element name="SEAM_BIJECTION_LOGGER">
                 <documentation>
-	                Specifies that a component field is to be injected with an instance
-	                of org.jboss.seam.log.Log.
+                    Specifies that a component field is to be injected with an instance
+                    of org.jboss.seam.log.Log.
                 </documentation>
                 <value>Logger</value>
                 <appliedOnElement>Session and Java Bean Attribute</appliedOnElement>
             </element>
             <element name="SEAM_BIJECTION_REQUEST_PARAMETER">
                 <documentation>
-	                Specifies that a component attribute is to be injected with the
-	                value of a request parameter. Basic type conversions are performed
-	                automatically.
+                    Specifies that a component attribute is to be injected with the
+                    value of a request parameter. Basic type conversions are performed
+                    automatically.
                 </documentation>
                 <value>RequestParameter</value>
                 <appliedOnElement>Session and Java Bean Attribute</appliedOnElement>
@@ -535,93 +535,93 @@
             </element>
             <element name="SEAM_CONVERSATION_BEGIN">
                 <documentation>
-	                Specifies that a long-running conversation begins when this method
-	                returns a non-null outcome without exception.
+                    Specifies that a long-running conversation begins when this method
+                    returns a non-null outcome without exception.
                 </documentation>
                 <value>Begin</value>
                 <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
             </element>
             <element name="SEAM_CONVERSATION_END">
                 <documentation>
-					Specifies that a long-running conversation ends when this method
-					returns a non-null outcome without exception.
+                    Specifies that a long-running conversation ends when this method
+                    returns a non-null outcome without exception.
                 </documentation>
                 <value>End</value>
                 <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
             </element>
             <element name="SEAM_CONVERSATION_BEGIN_TASK">
                 <documentation>
-                	Specifies that a long-running conversation ends when this method
-                	returns a non-null outcome without exception.
+                    Specifies that a long-running conversation ends when this method
+                    returns a non-null outcome without exception.
                 </documentation>
                 <value>BeginTask</value>
                 <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
             </element>
             <element name="SEAM_CONVERSATION_START_TASK">
                 <documentation>
-	                "Starts" a jBPM task. Specifies that a long-running conversation
-	                begins when this method returns a non-null outcome without exception.
-	                This conversation is associated with the jBPM task specified in the
-	                named request parameter. Within the context of this conversation, a
-	                business process context is also defined, for the business process
-	                instance of the task instance.
+                    "Starts" a jBPM task. Specifies that a long-running conversation
+                    begins when this method returns a non-null outcome without exception.
+                    This conversation is associated with the jBPM task specified in the
+                    named request parameter. Within the context of this conversation, a
+                    business process context is also defined, for the business process
+                    instance of the task instance.
 
-					The jBPM TaskInstance will be available in a request context variable
-					named taskInstance. The jPBM ProcessInstance will be available in a
-					request context variable named processInstance. (Of course, these
-					objects are available for injection via @In.)
+                    The jBPM TaskInstance will be available in a request context variable
+                    named taskInstance. The jPBM ProcessInstance will be available in a
+                    request context variable named processInstance. (Of course, these
+                    objects are available for injection via @In.)
                 </documentation>
                 <value>StartTask</value>
                 <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
             </element>
             <element name="SEAM_CONVERSATION_END_TASK">
                 <documentation>
-					"Ends" a jBPM task. Specifies that a long-running conversation ends
-					when this method returns a non-null outcome, and that the current
-					task is complete. Triggers a jBPM transition. The actual transition
-					triggered will be the default transition unless the application has
-					called Transition.setName() on the built-in component named
-					transition.
+                    "Ends" a jBPM task. Specifies that a long-running conversation ends
+                    when this method returns a non-null outcome, and that the current
+                    task is complete. Triggers a jBPM transition. The actual transition
+                    triggered will be the default transition unless the application has
+                    called Transition.setName() on the built-in component named
+                    transition.
                 </documentation>
                 <value>EndTask</value>
                 <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
             </element>
             <element name="SEAM_CONVERSATION_CREATE_PROCESS">
                 <documentation>
-					Creates a new jBPM process instance when the method returns a
-					non-null outcome without exception. The ProcessInstance object will
-					be available in a context variable named processInstance.
+                    Creates a new jBPM process instance when the method returns a
+                    non-null outcome without exception. The ProcessInstance object will
+                    be available in a context variable named processInstance.
                 </documentation>
                 <value>CreateProcess</value>
                 <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
             </element>
             <element name="SEAM_CONVERSATION_RESUME_PROCESS">
                 <documentation>
-                	Re-enters the scope of an existing jBPM process instance when the
-                	method returns a non-null outcome without exception. The
-                	ProcessInstance object will be available in a context variable
-                	named processInstance.
+                    Re-enters the scope of an existing jBPM process instance when the
+                    method returns a non-null outcome without exception. The
+                    ProcessInstance object will be available in a context variable
+                    named processInstance.
                 </documentation>
                 <value>ResumeProcess</value>
                 <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
             </element>
             <element name="SEAM_TRANSACTION_TRANSACTIONAL">
                 <documentation>
-					Specifies that a JavaBean component should have a similar
-					transactional behavior to the default behavior of a session bean
-					component. ie. method invocations should take place in a
-					transaction, and if no transaction exists when the method is
-					called, a transaction will be started just for that method. This
-					annotation may be applied at either class or method level.
+                    Specifies that a JavaBean component should have a similar
+                    transactional behavior to the default behavior of a session bean
+                    component. ie. method invocations should take place in a
+                    transaction, and if no transaction exists when the method is
+                    called, a transaction will be started just for that method. This
+                    annotation may be applied at either class or method level.
                 </documentation>
                 <value>Transactional</value>
                 <appliedOnElement>Session and Java Beans and Operations</appliedOnElement>
             </element>
             <element name="SEAM_TRANSACTION_ROLLBACK">
                 <documentation>
-					If the outcome of the method matches any of the listed outcomes,
-					or if no outcomes are listed, set the transaction to rollback only
-					when the method completes.
+                    If the outcome of the method matches any of the listed outcomes,
+                    or if no outcomes are listed, set the transaction to rollback only
+                    when the method completes.
                 </documentation>
                 <value>Rollback</value>
                 <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
@@ -647,253 +647,253 @@
             </element>
             <element name="SEAM_WEBREMOTE">
                 <documentation>
-					Indicates that the annotated method may be called from client-side
-					JavaScript. The exclude property is optional and allows objects to
-					be excluded from the result's object graph.
+                    Indicates that the annotated method may be called from client-side
+                    JavaScript. The exclude property is optional and allows objects to
+                    be excluded from the result's object graph.
                 </documentation>
                 <value>WebRemote</value>
                 <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
             </element>
             <element name="SEAM_INTERCEPTOR">
                 <documentation>
-					This stereotype appear on Seam interceptor classes.
+                    This stereotype appear on Seam interceptor classes.
 
-					Please refer to the documentation for the EJB 3.0 specification
-					for information about the annotations required for EJB interceptor
-					definition.
+                    Please refer to the documentation for the EJB 3.0 specification
+                    for information about the annotations required for EJB interceptor
+                    definition.
                 </documentation>
                 <value>Interceptor</value>
                 <appliedOnElement>Interceptor classes</appliedOnElement>
             </element>
             <element name="SEAM_ASYNCHRONOUS">
                 <documentation>
-					Specifies that the method call is processed asynchronously.
+                    Specifies that the method call is processed asynchronously.
                 </documentation>
                 <value>Asynchronous</value>
                 <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
             </element>
             <element name="SEAM_ASYNCHRONOUS_DURATION">
                 <documentation>
-					Specifies that a parameter of the asynchronous call is the duration
-					before the call is processed (or first processed for recurring
-					calls).
+                    Specifies that a parameter of the asynchronous call is the duration
+                    before the call is processed (or first processed for recurring
+                    calls).
                 </documentation>
                 <value>Duration</value>
                 <appliedOnElement>Session and Java Bean Operation Parameters</appliedOnElement>
             </element>
             <element name="SEAM_ASYNCHRONOUS_EXPIRATION">
                 <documentation>
-					Specifies that a parameter of the asynchronous call is the datetime
-					at which the call is processed (or first processed for recurring
-					calls).
+                    Specifies that a parameter of the asynchronous call is the datetime
+                    at which the call is processed (or first processed for recurring
+                    calls).
                 </documentation>
                 <value>Expiration</value>
                 <appliedOnElement>Session and Java Bean Operation Parameters</appliedOnElement>
             </element>
             <element name="SEAM_ASYNCHRONOUS_INTERVAL_DURATION">
                 <documentation>
-					Specifies that an asynchronous method call recurs, and that the
-					annotationed parameter is duration between recurrences.
+                    Specifies that an asynchronous method call recurs, and that the
+                    annotationed parameter is duration between recurrences.
                 </documentation>
                 <value>IntervalDuration</value>
                 <appliedOnElement>Session and Java Bean Operation Parameters</appliedOnElement>
             </element>
             <element name="SEAM_DATA_DATAMODEL">
                 <documentation>
-	                Exposes an attribute of type List, Map, Set or Object[] as a JSF
-	                DataModel into the scope of the owning component (or the EVENT
-	                scope if the owning component is STATELESS). In the case of Map,
-	                each row of the DataModel is a Map.Entry.
+                    Exposes an attribute of type List, Map, Set or Object[] as a JSF
+                    DataModel into the scope of the owning component (or the EVENT
+                    scope if the owning component is STATELESS). In the case of Map,
+                    each row of the DataModel is a Map.Entry.
                 </documentation>
                 <value>DataModel</value>
                 <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
             </element>
             <element name="SEAM_DATA_DATAMODEL_SELECTION">
                 <documentation>
-					Injects the selected value from the JSF DataModel (this is the
-					element of the underlying collection, or the map value).
+                    Injects the selected value from the JSF DataModel (this is the
+                    element of the underlying collection, or the map value).
                 </documentation>
                 <value>DataModelSelection</value>
                 <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
             </element>
             <element name="SEAM_DATA_DATAMODEL_SELECTION_INDEX">
                 <documentation>
-					Exposes the selection index of the JSF DataModel as an attribute
-					of the component (this is the row number of the underlying
-					collection, or the map key).
+                    Exposes the selection index of the JSF DataModel as an attribute
+                    of the component (this is the row number of the underlying
+                    collection, or the map key).
                 </documentation>
                 <value>DataModelSelectionIndex</value>
                 <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
             </element>
-		</elementGroup>
-		<elementGroup name="Tagged Values">
-			<element name="ATTRIBUTE_PERSISTENCE_OPTIONAL">
-				<documentation>
-					Defines the attribute non-null relationship annotations.
-					If set to false, then a non-null relationship must always
-					exist.
-				</documentation>
-				<value>andromda_persistence_optional</value>
-				<appliedOnElement>Entity attribute</appliedOnElement>
-				<allowedValues>
-					<value default="true">true</value>
-					<value>false</value>
-				</allowedValues>
-			</element>
-			<element name="ENTITY_INHERITANCE">
-				<documentation>
-					Used to override the default entity inheritance
-					strategy defined by the
-					<a
-						href="namespace.html#entityInheritanceStrategy">
-						entityInheritanceStrategy
-					</a>
-					namespace property.
-					<ul>
-						Permitted values are:
-						<li>SINGLE_TABLE - table per hierarchy.</li>
-						<li>
-							TABLE_PER_CLASS - table per class in
-							hierarchy.
-						</li>
-						<li>JOINED - Table per class.</li>
-					</ul>
-					<p>
-						The tagged value of
-						andromda_persistence_inheritance is set on the
-						base/root class. All subclasses must then follow
-						the same strategy. The default strategy is
-						defined by the
-						<a
-							href="namespaces.html#entityInheritanceStrategy">
-							entityInheritanceStrategy
-						</a>
-						namespace property.
-					</p>
-				</documentation>
-				<value>andromda_persistence_inheritance</value>
-				<appliedOnElement>
-					<![CDATA[<<Entity>>]]>
-				</appliedOnElement>
-				<allowedValues>
-					<value>SINGLE_TABLE</value>
-					<value>TABLE_PER_CLASS</value>
-					<value>JOINED</value>
-				</allowedValues>
-			</element>
-			<element name="ENTITY_DISCRIMINATOR_TYPE">
-				<documentation>
-					Used to override the default entity inheritance
-					discriminator type defined by the
-					<a href="namespace.html#entityDiscriminatorType">
-						entityDiscriminatorType
-					</a>
-					namespace property.
-					<ul>
-						Permitted values are:
-						<li>STRING</li>
-						<li>CHAR</li>
-						<li>INTEGER</li>
-					</ul>
-					<p>
-						The tagged value of
-						andromda_persistence_discriminator_type is set
-						once on the base/root class to indicate the type
-						of the column used for the discriminator. The
-						default discriminator type is defined by the
-						<a
-							href="namespaces.html#entityDiscriminatorType">
-							entityDiscriminatorType
-						</a>
-						namespace property.
-					</p>
-				</documentation>
-				<value>andromda_persistence_discriminator_type</value>
-				<appliedOnElement>
-					<![CDATA[<<Entity>>]]>
-				</appliedOnElement>
-				<allowedValues>
-					<value>STRING</value>
-					<value>CHAR</value>
-					<value>INTEGER</value>
-				</allowedValues>
-			</element>
-			<element name="ENTITY_DISCRIMINATOR_VALUE">
-				<documentation>
-					Used at the class level of an entity and is
-					optional. This is the value that indicates that the
-					row is an entity of the annotated entity type. It
-					should be specified for each class in the hierarchy.
-				</documentation>
-				<value>andromda_persistence_discriminator_value</value>
-				<appliedOnElement>
-					<![CDATA[<<Entity>>]]>
-				</appliedOnElement>
-			</element>
-			<element name="ENTITY_DISCRIMINATOR_COLUMN">
-				<documentation>
-					Used at the class level of an entity and is
-					optional. This value indicates the name of the
-					column to be used for the discriminator. If not
-					specified for the SINGLE_TABLE or JOINED inheritance
-					mapping strategies, then default to <b>TYPE</b>.
-				</documentation>
-				<value>
-					andromda_persistence_discriminator_column_name
-				</value>
-				<appliedOnElement>
-					<![CDATA[<<Entity>>]]>
-				</appliedOnElement>
-			</element>
-			<element name="ENTITY_DISCRIMINATOR_COLUMN_DEFINITION">
-				<documentation>
-					Used at the class level of an entity and is
-					optional. This value indicates the SQL fragment used
-					when generating the DDL for the discriminator
-					column.
-				</documentation>
-				<value>
-					andromda_persistence_discriminator_column_definition
-				</value>
-				<appliedOnElement>
-					<![CDATA[<<Entity>>]]>
-				</appliedOnElement>
-			</element>
-			<element name="ENTITY_DISCRIMINATOR_COLUMN_LENGTH">
-				<documentation>
-					Used at the class level of an entity and is
-					optional. This value indicates the column length for
-					the String-based discriminator types. It is ignored
-					for the other discriminator types.
-				</documentation>
-				<value>
-					andromda_persistence_discriminator_column_length
-				</value>
-				<appliedOnElement>
-					<![CDATA[<<Entity>>]]>
-				</appliedOnElement>
-			</element>
-			<element name="TEMPORAL_TYPE">
-			    <documentation>
-			        The temporal type tagged value specified on
-			        the attributes of type java.util.Date or
-			        java.util.Calendar or on finder method parameter
-			        specifying, whether to expect one of the following
-			        types Date, Time or Timestamp.
-			    </documentation>
-			    <value>
-			        andromda_persistence_temporal_type
-			    </value>
-			    <appliedOnElement>
-			        Entity Attribute or Entity Finder Method Parameter
-			    </appliedOnElement>
-			    <allowedValues>
-			        <value default="true">DATE</value>
-			        <value>TIME</value>
-			        <value>TIMESTAMP</value>
-			        <value>NONE</value>
-			    </allowedValues>
-			</element>
+        </elementGroup>
+        <elementGroup name="Tagged Values">
+            <element name="ATTRIBUTE_PERSISTENCE_OPTIONAL">
+                <documentation>
+                    Defines the attribute non-null relationship annotations.
+                    If set to false, then a non-null relationship must always
+                    exist.
+                </documentation>
+                <value>andromda_persistence_optional</value>
+                <appliedOnElement>Entity attribute</appliedOnElement>
+                <allowedValues>
+                    <value default="true">true</value>
+                    <value>false</value>
+                </allowedValues>
+            </element>
+            <element name="ENTITY_INHERITANCE">
+                <documentation>
+                    Used to override the default entity inheritance
+                    strategy defined by the
+                    <a
+                        href="namespace.html#entityInheritanceStrategy">
+                        entityInheritanceStrategy
+                    </a>
+                    namespace property.
+                    <ul>
+                        Permitted values are:
+                        <li>SINGLE_TABLE - table per hierarchy.</li>
+                        <li>
+                            TABLE_PER_CLASS - table per class in
+                            hierarchy.
+                        </li>
+                        <li>JOINED - Table per class.</li>
+                    </ul>
+                    <p>
+                        The tagged value of
+                        andromda_persistence_inheritance is set on the
+                        base/root class. All subclasses must then follow
+                        the same strategy. The default strategy is
+                        defined by the
+                        <a
+                            href="namespaces.html#entityInheritanceStrategy">
+                            entityInheritanceStrategy
+                        </a>
+                        namespace property.
+                    </p>
+                </documentation>
+                <value>andromda_persistence_inheritance</value>
+                <appliedOnElement>
+                    <![CDATA[<<Entity>>]]>
+                </appliedOnElement>
+                <allowedValues>
+                    <value>SINGLE_TABLE</value>
+                    <value>TABLE_PER_CLASS</value>
+                    <value>JOINED</value>
+                </allowedValues>
+            </element>
+            <element name="ENTITY_DISCRIMINATOR_TYPE">
+                <documentation>
+                    Used to override the default entity inheritance
+                    discriminator type defined by the
+                    <a href="namespace.html#entityDiscriminatorType">
+                        entityDiscriminatorType
+                    </a>
+                    namespace property.
+                    <ul>
+                        Permitted values are:
+                        <li>STRING</li>
+                        <li>CHAR</li>
+                        <li>INTEGER</li>
+                    </ul>
+                    <p>
+                        The tagged value of
+                        andromda_persistence_discriminator_type is set
+                        once on the base/root class to indicate the type
+                        of the column used for the discriminator. The
+                        default discriminator type is defined by the
+                        <a
+                            href="namespaces.html#entityDiscriminatorType">
+                            entityDiscriminatorType
+                        </a>
+                        namespace property.
+                    </p>
+                </documentation>
+                <value>andromda_persistence_discriminator_type</value>
+                <appliedOnElement>
+                    <![CDATA[<<Entity>>]]>
+                </appliedOnElement>
+                <allowedValues>
+                    <value>STRING</value>
+                    <value>CHAR</value>
+                    <value>INTEGER</value>
+                </allowedValues>
+            </element>
+            <element name="ENTITY_DISCRIMINATOR_VALUE">
+                <documentation>
+                    Used at the class level of an entity and is
+                    optional. This is the value that indicates that the
+                    row is an entity of the annotated entity type. It
+                    should be specified for each class in the hierarchy.
+                </documentation>
+                <value>andromda_persistence_discriminator_value</value>
+                <appliedOnElement>
+                    <![CDATA[<<Entity>>]]>
+                </appliedOnElement>
+            </element>
+            <element name="ENTITY_DISCRIMINATOR_COLUMN">
+                <documentation>
+                    Used at the class level of an entity and is
+                    optional. This value indicates the name of the
+                    column to be used for the discriminator. If not
+                    specified for the SINGLE_TABLE or JOINED inheritance
+                    mapping strategies, then default to <b>TYPE</b>.
+                </documentation>
+                <value>
+                    andromda_persistence_discriminator_column_name
+                </value>
+                <appliedOnElement>
+                    <![CDATA[<<Entity>>]]>
+                </appliedOnElement>
+            </element>
+            <element name="ENTITY_DISCRIMINATOR_COLUMN_DEFINITION">
+                <documentation>
+                    Used at the class level of an entity and is
+                    optional. This value indicates the SQL fragment used
+                    when generating the DDL for the discriminator
+                    column.
+                </documentation>
+                <value>
+                    andromda_persistence_discriminator_column_definition
+                </value>
+                <appliedOnElement>
+                    <![CDATA[<<Entity>>]]>
+                </appliedOnElement>
+            </element>
+            <element name="ENTITY_DISCRIMINATOR_COLUMN_LENGTH">
+                <documentation>
+                    Used at the class level of an entity and is
+                    optional. This value indicates the column length for
+                    the String-based discriminator types. It is ignored
+                    for the other discriminator types.
+                </documentation>
+                <value>
+                    andromda_persistence_discriminator_column_length
+                </value>
+                <appliedOnElement>
+                    <![CDATA[<<Entity>>]]>
+                </appliedOnElement>
+            </element>
+            <element name="TEMPORAL_TYPE">
+                <documentation>
+                    The temporal type tagged value specified on
+                    the attributes of type java.util.Date or
+                    java.util.Calendar or on finder method parameter
+                    specifying, whether to expect one of the following
+                    types Date, Time or Timestamp.
+                </documentation>
+                <value>
+                    andromda_persistence_temporal_type
+                </value>
+                <appliedOnElement>
+                    Entity Attribute or Entity Finder Method Parameter
+                </appliedOnElement>
+                <allowedValues>
+                    <value default="true">DATE</value>
+                    <value>TIME</value>
+                    <value>TIMESTAMP</value>
+                    <value>NONE</value>
+                </allowedValues>
+            </element>
             <element name="OVERRIDE_TYPE">
                 <documentation>
                     The overridden type indicating the overridden type specified on attributes or
@@ -911,48 +911,48 @@
                     Entity Attribute
                 </appliedOnElement>
             </element>
-			<element name="FETCH_TYPE">
-			    <documentation>
-			        Denotes whether or not to hint to the EJB3 container
-			        that the EJB relationship/property should be lazily
-			        or eagerly loaded.
+            <element name="FETCH_TYPE">
+                <documentation>
+                    Denotes whether or not to hint to the EJB3 container
+                    that the EJB relationship/property should be lazily
+                    or eagerly loaded.
                     By default, the loading persistence is EAGER for
                     attributes and relationships of type OneToOne and
                     ManyToOne.
                     Relationships with OneToMany and ManyToMany syntax are
                     LAZY loaded.  You don't need to set anything to
                     accept these default settings.
-			    </documentation>
-			    <value>
-			        andromda_persistence_fetch_type
-			    </value>
-			    <appliedOnElement>
-			        Association End or Entity Attribute
-			    </appliedOnElement>
-			    <allowedValues>
-			        <value>LAZY</value>
-			        <value>EAGER</value>
-			    </allowedValues>
-			</element>
-			<element name="CASCADE_TYPE">
-			    <documentation>
-			        Specifies the override value for the default
-			        cascade setting for this relationship.
-			    </documentation>
-			    <value>
-			        andromda_persistence_cascade_type
-			    </value>
-			    <appliedOnElement>
-			        Association End
-			    </appliedOnElement>
-			    <allowedValues>
-			        <value>ALL</value>
-			        <value>PERSIST</value>
-			        <value>MERGE</value>
-			        <value>REMOVE</value>
-			        <value>REFRESH</value>
-			    </allowedValues>
-			</element>
+                </documentation>
+                <value>
+                    andromda_persistence_fetch_type
+                </value>
+                <appliedOnElement>
+                    Association End or Entity Attribute
+                </appliedOnElement>
+                <allowedValues>
+                    <value>LAZY</value>
+                    <value>EAGER</value>
+                </allowedValues>
+            </element>
+            <element name="CASCADE_TYPE">
+                <documentation>
+                    Specifies the override value for the default
+                    cascade setting for this relationship.
+                </documentation>
+                <value>
+                    andromda_persistence_cascade_type
+                </value>
+                <appliedOnElement>
+                    Association End
+                </appliedOnElement>
+                <allowedValues>
+                    <value>ALL</value>
+                    <value>PERSIST</value>
+                    <value>MERGE</value>
+                    <value>REMOVE</value>
+                    <value>REFRESH</value>
+                </allowedValues>
+            </element>
             <element name="HIBERNATE_CASCADE_TYPE">
                 <documentation>
                     Place a user defined Hibernate specific cascade value at an association end.
@@ -961,55 +961,55 @@
                 <value>andromda_hibernate_cascade</value>
                 <appliedOnElement>Association ends between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
             </element>
-			<element name="ENUMERATION_TYPE">
-			    <documentation>
-			        Specifies the enumeration type for the
-			        persistent property or field.
-			    </documentation>
-			    <value>
-			        andromda_persistence_enumeration_type
-			    </value>
-			    <appliedOnElement>
-			        Entity Attribute
-			    </appliedOnElement>
-			    <allowedValues>
-			        <value default="true">ORDINAL</value>
-			        <value>STRING</value>
-			    </allowedValues>
-			</element>
-			<element name="GENERATOR_TYPE">
-			    <documentation>
-			        Specifies the primary key generation strategy
-			        associated with an entity bean attribute identifier.
-			    </documentation>
-			    <value>
-			        andromda_persistence_generator_type
-			    </value>
-			    <appliedOnElement>
-			        Entity Attribute
-			    </appliedOnElement>
-			    <allowedValues>
-			        <value default="true">AUTO</value>
-			        <value>SEQUENCE</value>
-			        <value>IDENTITY</value>
-			        <value>TABLE</value>
+            <element name="ENUMERATION_TYPE">
+                <documentation>
+                    Specifies the enumeration type for the
+                    persistent property or field.
+                </documentation>
+                <value>
+                    andromda_persistence_enumeration_type
+                </value>
+                <appliedOnElement>
+                    Entity Attribute
+                </appliedOnElement>
+                <allowedValues>
+                    <value default="true">ORDINAL</value>
+                    <value>STRING</value>
+                </allowedValues>
+            </element>
+            <element name="GENERATOR_TYPE">
+                <documentation>
+                    Specifies the primary key generation strategy
+                    associated with an entity bean attribute identifier.
+                </documentation>
+                <value>
+                    andromda_persistence_generator_type
+                </value>
+                <appliedOnElement>
+                    Entity Attribute
+                </appliedOnElement>
+                <allowedValues>
+                    <value default="true">AUTO</value>
+                    <value>SEQUENCE</value>
+                    <value>IDENTITY</value>
+                    <value>TABLE</value>
                     <value>GENERIC</value>
-			        <value>NONE</value>
-			    </allowedValues>
-			</element>
-			<element name="GENERATOR_NAME">
-			    <documentation>
-			        Defines a unique name which is referenced by one
-			        or more classes to be the generator for an
-			        entity bean.
-			    </documentation>
-			    <value>
-			        andromda_persistence_generator_name
-			    </value>
-			    <appliedOnElement>
-			        Entity Attribute
-			    </appliedOnElement>
-			</element>
+                    <value>NONE</value>
+                </allowedValues>
+            </element>
+            <element name="GENERATOR_NAME">
+                <documentation>
+                    Defines a unique name which is referenced by one
+                    or more classes to be the generator for an
+                    entity bean.
+                </documentation>
+                <value>
+                    andromda_persistence_generator_name
+                </value>
+                <appliedOnElement>
+                    Entity Attribute
+                </appliedOnElement>
+            </element>
             <element name="GENERATOR_GENERIC_STRATEGY">
                 <documentation>
                     Defines either a predefined Hibernate strategy
@@ -1023,109 +1023,109 @@
                     Entity Attribute
                 </appliedOnElement>
             </element>
-			<element name="GENERATOR_SOURCE_NAME">
-			    <documentation>
-			        Specifies either the table name that stores the
-			        generated ids or the sequence name which is the
-			        name of the database sequence object used to
-			        get the ids.
-			    </documentation>
-			    <value>
-			        andromda_persistence_generator_source_name
-			    </value>
-			    <appliedOnElement>
-			        Entity Attribute
-			    </appliedOnElement>
-			</element>
-			<element name="GENERATOR_PK_COLUMN_VALUE">
-			    <documentation>
-			        The primary key value in the generator table
-			        that identifies the generated value from
-			        other values in the table.
-			    </documentation>
-			    <value>
-			        andromda_persistence_generator_pkcolumn_value
-			    </value>
-			    <appliedOnElement>
-			        Entity Attribute
-			    </appliedOnElement>
-			</element>
-			<element name="GENERATOR_INITIAL_VALUE">
-			    <documentation>
-			        Specifies the initial starting sequence for id
-			        generation for an entity PK generator.
-			    </documentation>
-			    <value>
-			        andromda_persistence_generator_initial_value
-			    </value>
-			    <appliedOnElement>
-			        Entity Attribute
-			    </appliedOnElement>
-			</element>
-			<element name="GENERATOR_ALLOCATION_SIZE">
-			    <documentation>
-			        Specifies the amount to increment by when
-			        allocating an id number from the generator.
-			    </documentation>
-			    <value>
-			        andromda_persistence_generator_allocation_size
-			    </value>
-			    <appliedOnElement>
-			        Entity Attribute
-			    </appliedOnElement>
-			</element>
-			<element name="COLUMN_DEFINITION">
-			    <documentation>
-			        Specifies the SQL to create the DDL for the
-			        column or entity property.
-			    </documentation>
-			    <value>
-			        andromda_persistence_column_definition
-			    </value>
-			    <appliedOnElement>
-			        Entity Attribute
-			    </appliedOnElement>
-			</element>
-			<element name="COLUMN_PRECISION">
-			    <documentation>
-			        Specifies the precision value for a decimal
-			        column.
-			    </documentation>
-			    <value>
-			        andromda_persistence_column_precision
-			    </value>
-			    <appliedOnElement>
-			        Entity Attribute
-			    </appliedOnElement>
-			</element>
-			<element name="COLUMN_SCALE">
-			    <documentation>
-			        Specifies the scale to use for a decimal
-			        column.
-			    </documentation>
-			    <value>
-			        andromda_persistence_column_scale
-			    </value>
-			    <appliedOnElement>
-			        Entity Attribute
-			    </appliedOnElement>
-			</element>
-			<element name="COLUMN_NULLABLE">
-			    <documentation>
-			        Specifies whether the underlying column
-			        for the entity attribute may be NULL.
-			    </documentation>
-			    <value>
-			        andromda_persistence_column_nullable
-			    </value>
-			    <appliedOnElement>
-			        Entity Attribute
-			    </appliedOnElement>
-			    <allowedValues>
-			        <value>true</value>
-			        <value>false</value>
-			    </allowedValues>
-			</element>
+            <element name="GENERATOR_SOURCE_NAME">
+                <documentation>
+                    Specifies either the table name that stores the
+                    generated ids or the sequence name which is the
+                    name of the database sequence object used to
+                    get the ids.
+                </documentation>
+                <value>
+                    andromda_persistence_generator_source_name
+                </value>
+                <appliedOnElement>
+                    Entity Attribute
+                </appliedOnElement>
+            </element>
+            <element name="GENERATOR_PK_COLUMN_VALUE">
+                <documentation>
+                    The primary key value in the generator table
+                    that identifies the generated value from
+                    other values in the table.
+                </documentation>
+                <value>
+                    andromda_persistence_generator_pkcolumn_value
+                </value>
+                <appliedOnElement>
+                    Entity Attribute
+                </appliedOnElement>
+            </element>
+            <element name="GENERATOR_INITIAL_VALUE">
+                <documentation>
+                    Specifies the initial starting sequence for id
+                    generation for an entity PK generator.
+                </documentation>
+                <value>
+                    andromda_persistence_generator_initial_value
+                </value>
+                <appliedOnElement>
+                    Entity Attribute
+                </appliedOnElement>
+            </element>
+            <element name="GENERATOR_ALLOCATION_SIZE">
+                <documentation>
+                    Specifies the amount to increment by when
+                    allocating an id number from the generator.
+                </documentation>
+                <value>
+                    andromda_persistence_generator_allocation_size
+                </value>
+                <appliedOnElement>
+                    Entity Attribute
+                </appliedOnElement>
+            </element>
+            <element name="COLUMN_DEFINITION">
+                <documentation>
+                    Specifies the SQL to create the DDL for the
+                    column or entity property.
+                </documentation>
+                <value>
+                    andromda_persistence_column_definition
+                </value>
+                <appliedOnElement>
+                    Entity Attribute
+                </appliedOnElement>
+            </element>
+            <element name="COLUMN_PRECISION">
+                <documentation>
+                    Specifies the precision value for a decimal
+                    column.
+                </documentation>
+                <value>
+                    andromda_persistence_column_precision
+                </value>
+                <appliedOnElement>
+                    Entity Attribute
+                </appliedOnElement>
+            </element>
+            <element name="COLUMN_SCALE">
+                <documentation>
+                    Specifies the scale to use for a decimal
+                    column.
+                </documentation>
+                <value>
+                    andromda_persistence_column_scale
+                </value>
+                <appliedOnElement>
+                    Entity Attribute
+                </appliedOnElement>
+            </element>
+            <element name="COLUMN_NULLABLE">
+                <documentation>
+                    Specifies whether the underlying column
+                    for the entity attribute may be NULL.
+                </documentation>
+                <value>
+                    andromda_persistence_column_nullable
+                </value>
+                <appliedOnElement>
+                    Entity Attribute
+                </appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value>false</value>
+                </allowedValues>
+            </element>
             <element name="COLUMN_INSERT">
                 <documentation>
                     Specifies whether a mapped column should be included
@@ -1156,20 +1156,20 @@
                     <value>false</value>
                 </allowedValues>
             </element>
-			<element name="ORDER_BY">
-			    <documentation>
-			        Specifies the column name(s) that will be
-			        used for sorting the returned collection,
-			        with  ASC or DESC optional.  Without a
-			        value, the primary key is assumed.
-			    </documentation>
-			    <value>
-			        andromda_persistence_orderBy
-			    </value>
-			    <appliedOnElement>
-			        Association End
-			    </appliedOnElement>
-			</element>
+            <element name="ORDER_BY">
+                <documentation>
+                    Specifies the column name(s) that will be
+                    used for sorting the returned collection,
+                    with  ASC or DESC optional.  Without a
+                    value, the primary key is assumed.
+                </documentation>
+                <value>
+                    andromda_persistence_orderBy
+                </value>
+                <appliedOnElement>
+                    Association End
+                </appliedOnElement>
+            </element>
             <element name="ASSOCIATION_END_PRIMARY">
                 <documentation>
                     Specifies the side of a bidirectional navigable association which
@@ -1222,1008 +1222,1008 @@
                     <value>A property of this entity</value>
                 </allowedValues>
             </element>
-			<element name="LOB_TYPE">
-			    <documentation>
-			        Override the entity attribute type where
-			        the property is defined as either a large
-			        binary or character type via datatype::Clob or
-			        datatype::Blob respectively.
-			        BLOB fields represent Byte[] or Serializable types.
-			        CLOB fiels represent char[], Character[] or String
-			        types.
-			        Make sure to define the fully qualified type
-			        name for the tagged value.
-			    </documentation>
-			    <value>andromda_persistence_lob_type</value>
-			    <appliedOnElement>
-			        Entity Attribute of Type datatype::Clob or
-			        datatype::Blob
-			    </appliedOnElement>
-			</element>
-			<element name="SERVICE_TYPE">
-				<documentation>
-					Used at the class level of a service bean to
-					override the default session bean type which
-					is determined by the existence of instance
-					variables.
-				</documentation>
-				<value>
-					andromda_service_type
-				</value>
-				<appliedOnElement>
-					<![CDATA[<<Service>>]]>
-				</appliedOnElement>
-				<allowedValues>
-					<value>Stateless</value>
-					<value>Stateful</value>
-				</allowedValues>
-			</element>
-			<element name="SERVICE_PERSISTENCE_CONTEXT_UNIT_NAME">
-				<documentation>
-					Used at the class level of a service bean or
-					a class with stereotype PersistenceContext to
-					determine the persistence context unit
-					name.
-				</documentation>
-				<value>
-					andromda_service_persistence_context_unit_name
-				</value>
-				<appliedOnElement>
-					<![CDATA[<<Service>>]]>
-				</appliedOnElement>
-			</element>
-			<element name="SERVICE_PERSISTENCE_CONTEXT_TYPE">
-				<documentation>
-					Used at the class level of a service bean or
-					a class with stereotype PersistenceContext to
-					determine the persistence context type.
-					This can be set to extend the transaction
-					on a Stateful session bean for it's
-					EntityManager.
-				</documentation>
-				<value>
-					andromda_service_persistence_context_unit_type
-				</value>
-				<appliedOnElement>
-					<![CDATA[<<Service>>]]>
-				</appliedOnElement>
-				<allowedValues>
-					<value>EXTENDED</value>
-					<value>TRANSACTION</value>
-				</allowedValues>
-			</element>
-			<element name="SERVICE_PERSISTENCE_CONTEXT_DATASOURCE">
-				<documentation>
-					Used at the class level of a service bean or
-					a class with stereotype PersistenceContext to
-					determine the persistence context datasource
-					JNDI name.
-					If you don't have a scoped classloader for
-					your application, all persistence contexts
-					defined in your system's global context
-					are made available to all applications.
-				</documentation>
-				<value>
-					andromda_service_persistence_context_datasource
-				</value>
-				<appliedOnElement>
-					Class with <![CDATA[<<Service>>]]>
-				</appliedOnElement>
-			</element>
-			<element name="SERVICE_PERSISTENCE_FLUSH_MODE">
-				<documentation>
-					Used on session bean operations to set
-					the flush mode that determines when the
-					changes to the changes to the database
-					are applied in a transaction.
-				</documentation>
-				<value>
-					andromda_service_persistence_flush_mode
-				</value>
-				<appliedOnElement>
-					Service operation
-				</appliedOnElement>
-				<allowedValues>
-					<value default="true">AUTO</value>
-					<value>COMMIT</value>
-					<value>NEVER</value>
-				</allowedValues>
-			</element>
-			<element name="SERVICE_JNDI_NAME_REMOTE">
-			    <documentation>
-			        Used on a session bean to manually specify
-			        the JNDI name the remote interface is bound
-			        to.
-			    </documentation>
-			    <value>
-			        andromda_service_jndi_remote
-			    </value>
-			    <appliedOnElement>
-			        <![CDATA[<<Service>>]]>
-			    </appliedOnElement>
-			</element>
-			<element name="SERVICE_JNDI_NAME_LOCAL">
-			    <documentation>
-			        Used on a session bean to manually specify
-			        the JNDI name the local interface is bound
-			        to.
-			    </documentation>
-			    <value>
-			        andromda_service_jndi_local
-			    </value>
-			    <appliedOnElement>
-			        <![CDATA[<<Service>>]]>
-			    </appliedOnElement>
-			</element>
-			<element name="TRANSACTION_MANAGEMENT">
-			    <documentation>
-			        Specifies the transaction demarcation strategy
-			        for session  and message-driven beans.
-			        By default, this does not
-			        need to be set for CONTAINER managed transaction
-			        demarcation.
-			    </documentation>
-			    <value>
-			        andromda_ejb_transaction_management
-			    </value>
-			    <appliedOnElement>
-			        Service and Message-Driven Beans
-			    </appliedOnElement>
-			    <allowedValues>
-			        <value default="true">CONTAINER</value>
-			        <value>BEAN</value>
-			    </allowedValues>
-			</element>
-			<element name="SECURITY_PERMIT_ALL">
-				<documentation>
-					Specifies whether to permit all roles to
-					execute the operations in the bean.
-					This can be set on the session bean or on
-					individual operations.
-					If set on the session bean, all operations will
-					inherit this behavior.
-					The permit all tagged value will override
-					the roles allowed.  If both are set, only the
-					permit all tagged value is rendered.
-				</documentation>
-				<value>
-					andromda_service_security_permitAll
-				</value>
-				<appliedOnElement>
-					Service and service operation
-				</appliedOnElement>
-				<allowedValues>
-					<value>true</value>
-					<value>false</value>
-				</allowedValues>
-			</element>
-			<element name="SECURITY_DENY_ALL">
-				<documentation>
-					Specifies whether to deny all roles to
-					execute the operations in the bean.
-					This can be set on the session bean or on
-					individual operations.
-					If set on the session bean, all operations will
-					inherit this behavior.
-					The deny all tagged value will override
-					the roles allowed.  If both are set, only the
-					deny all tagged value is rendered.
-				</documentation>
-				<value>
-					andromda_service_security_denyAll
-				</value>
-				<appliedOnElement>
-					Service and service operation
-				</appliedOnElement>
-				<allowedValues>
-					<value>true</value>
-					<value>false</value>
-				</allowedValues>
-			</element>
-			<element name="SECURITY_REALM">
-				<documentation>
-					Specifies the security domain for
-					role based authorization.  JBoss uses
-					the security realm to match allowed roles.
-				</documentation>
-				<value>
-					andromda_service_security_realm
-				</value>
-				<appliedOnElement>
-					Service
-				</appliedOnElement>
-			</element>
-			<element name="EXCLUDE_DEFAULT_INTERCEPTORS">
-			    <documentation>
-			        Determines whether to exclude the invocation
-			        of the default interceptors for the applied
-			        business method.
-			    </documentation>
-			    <value>andromda_service_interceptor_excludeDefault</value>
-			    <appliedOnElement>
-			        Service Operation
-			    </appliedOnElement>
-			    <allowedValues>
-			        <value>true</value>
-			        <value>false</value>
-			    </allowedValues>
-			</element>
-			<element name="EXCLUDE_CLASS_INTERCEPTORS">
-			    <documentation>
-			        Determines whether to exclude the invocation
-			        of the class interceptors for the applied
-			        business method.
-			    </documentation>
-			    <value>andromda_service_interceptor_excludeClass</value>
-			    <appliedOnElement>
-			        Service Operation
-			    </appliedOnElement>
-			    <allowedValues>
-			        <value>true</value>
-			        <value>false</value>
-			    </allowedValues>
-			</element>
-			<element name="DEFAULT_INTERCEPTOR">
-			    <documentation>
-			        Defines the modeled interceptor as a default
-			        interceptor for all business methods of all
-			        session and message driven beans within this
-			        deployment.
-			    </documentation>
-			    <value>andromda_service_interceptor_default</value>
-			    <appliedOnElement>
-			        Interceptor Class
-			    </appliedOnElement>
-			    <allowedValues>
-			        <value>true</value>
-			        <value>false</value>
-			    </allowedValues>
-			</element>
-			<element name="AUTOMATIC_KEY">
-				<documentation>
-					Can be used in class level of an entity. If you set
-					this to true, the class will use an automatic key
-					generation for the defined primary key. Please note:
-					This is currently only available in BEA Weblogic and
-					can not be used with combined primary keys.
-				</documentation>
-				<value>andromda_ejb_automaticKey</value>
-				<appliedOnElement>
-				    Entity attribute
-				</appliedOnElement>
-			</element>
-			<element name="NO_SYNTHETIC_CREATE_METHOD">
-			    <documentation>
-			        Used on an Entity bean to decide whether to allow
-			        synthetic (auto generated) create/constructors.
-			    </documentation>
-			    <value>andromda_ejb_noSyntheticCreateMethod</value>
-			    <appliedOnElement>
-			        Entity
-			    </appliedOnElement>
-			</element>
-			<element name="QUERY">
-				<documentation>
-					Defines a hibernate query expression. Note that it's
-					encouraged to model your query body as an OCL
-					constraint (instead of using this tagged value).
-				</documentation>
-				<value>andromda_ejb_query</value>
-				<appliedOnElement>
-					An Entity operation marked as a
-					<code>query</code>
-					.
-				</appliedOnElement>
-			</element>
-			<element name="VIEW_TYPE">
-				<documentation>
-					Defines the view type for a Session EJB at the class
-					level or at the operation level for each Session
-					method.
-				</documentation>
-				<value>andromda_ejb_viewType</value>
-				<appliedOnElement>Service or Service operation</appliedOnElement>
-				<allowedValues>
-					<value default="true">remote</value>
-					<value>local</value>
-					<value>both</value>
-				</allowedValues>
-			</element>
-			<element name="TRANSACTION_TYPE">
-				<documentation>
-					Defines a transaction type for a method in the Session
-					EJB or for entity EJB POJO accessor method.
-				</documentation>
-				<value>andromda_ejb_transaction_type</value>
-				<appliedOnElement>Service operation or Entity attribute</appliedOnElement>
-				<allowedValues>
-					<value>NotSupported</value>
-					<value>Supports</value>
-					<value>Required</value>
-					<value>RequiresNew</value>
-					<value>Mandatory</value>
-					<value>Never</value>
-				</allowedValues>
-			</element>
-			<element name="TABLE">
-				<documentation>
-					Defines the relational table name for entity
-					persistence.
-				</documentation>
-				<value>andromda_persistence_table</value>
-				<appliedOnElement>
-					Entity or a many-to-many association.
-				</appliedOnElement>
-			</element>
-			<element name="COLUMN">
-				<documentation>
-					Represents the column name for entity persistence.
-				</documentation>
-				<value>andromda_persistence_column</value>
-				<appliedOnElement>Entity attribute</appliedOnElement>
-			</element>
-			<element name="COLUMN_LENGTH">
-				<documentation>
-					Represents the column length for entity persistence.
-				</documentation>
-				<value>andromda_persistence_column_length</value>
-				<appliedOnElement>Entity attribute</appliedOnElement>
-			</element>
-			<element name="MDB_ACKNOWLEDGE_MODE">
-				<documentation>
-					Represents the acknowledge mode for the JMS message
-					driven bean.  Only needs to be specified if
-					DUPS_OK_ACKNOWLEDGE mode is required.  The default
-					mode is AUTO_ACKNOWLEDGE.
-				</documentation>
-				<value>andromda_ejb_mdb_acknowledge_mode</value>
-				<appliedOnElement>Message Driven Bean</appliedOnElement>
-				<allowedValues>
-					<value default="true">AUTO_ACKNOWLEDGE</value>
-					<value>DUPS_OK_ACKNOWLEDGE</value>
-				</allowedValues>
-			</element>
-			<element name="MDB_DESTINATION">
-				<documentation>
-					Represents the destination queue or topic name
-					this JMS message driven bean is associated with.
-				</documentation>
-				<value>andromda_ejb_mdb_destination</value>
-				<appliedOnElement>Message Driven Bean</appliedOnElement>
-			</element>
-			<element name="MDB_DESTINATION_TYPE">
-				<documentation>
-					Represents the destination type of the JMS message
-					driven bean. If not specified, it is assumed to
-					be a Queue.
-				</documentation>
-				<value>andromda_ejb_mdb_destination_type</value>
-				<appliedOnElement>Message Driven Bean</appliedOnElement>
-				<allowedValues>
-					<value default="true">javax.jms.Queue</value>
-					<value>javax.jms.Topic</value>
-				</allowedValues>
-			</element>
-			<element name="MDB_SELECTOR">
-				<documentation>
-					Represents the JMS message selector logic used
-					when determining the messages that a JMS message
-					driven bean is to receive.
-				</documentation>
-				<value>andromda_ejb_mdb_selector</value>
-				<appliedOnElement>Message Driven Bean</appliedOnElement>
-			</element>
-			<element name="MDB_SUBSCRIPTION_DURABILITY">
-				<documentation>
-					Represents the JMS message driven bean subscription
-					durability mode.  Queues are always durable.  The
-					durability only needs to be specified on topics.
-					By default, topics are non-durable.
-				</documentation>
-				<value>andromda_ejb_mdb_subscription_durability</value>
-				<appliedOnElement>Message Driven Bean</appliedOnElement>
-			</element>
-			<element name="MDB_MINIMUM_POOL_SIZE">
-			    <documentation>
-			        Defines the bean's minimum pool size.
-			        Must be an integer and greater than 0, otherwise
-			        will not be set.
-			    </documentation>
-			    <value>andromda_ejb_mdb_pool_size_min</value>
-			    <appliedOnElement>Message Driven</appliedOnElement>
-			</element>
-			<element name="MDB_MAXIMUM_POOL_SIZE">
-			    <documentation>
-			        Defines the bean's maximum pool size.
-			        Can be used to define singleton message driven
-			        beans.
-			        Must be an integer and greater than 0, otherwise
-			        will not be set.
-			    </documentation>
-			    <value>andromda_ejb_mdb_pool_size_max</value>
-			    <appliedOnElement>Message Driven</appliedOnElement>
-			</element>
-			<element name="ENTITY_CACHE">
-			    <documentation>
-			        Defines the cache strategy the entity.
-			    </documentation>
-			    <value>andromda_persistence_entity_cache</value>
-			    <appliedOnElement>Entities</appliedOnElement>
-			    <allowedValues>
-			        <value>NONE</value>
-			        <value>NONSTRICT_READ_WRITE</value>
-			        <value>READ_ONLY</value>
-			        <value>READ_WRITE</value>
-			        <value>TRANSACTIONAL</value>
-			    </allowedValues>
-			</element>
-			<element name="ASSOCIATION_CACHE">
-			    <documentation>
-			        Defines the cache strategy for relationship
-			        association collection.
-			    </documentation>
-			    <value>andromda_persistence_association_cache</value>
-			    <appliedOnElement>Association End Between Entities</appliedOnElement>
-			    <allowedValues>
-			        <value>NONE</value>
-			        <value>NONSTRICT_READ_WRITE</value>
-			        <value>READ_ONLY</value>
-			        <value>READ_WRITE</value>
-			        <value>TRANSACTIONAL</value>
-			    </allowedValues>
-			</element>
-			<element name="USE_QUERY_CACHE">
-			    <documentation>
-			        Used to override the default option that
-			        enables/disable query cache.
-			    </documentation>
-			    <value>andromda_ejb_query_useCache</value>
-			    <appliedOnElement>Query Operations</appliedOnElement>
-			    <allowedValues>
-			        <value>true</value>
-			        <value>false</value>
-			    </allowedValues>
-			</element>
-			<element name="WEBSERVICE_PARAMETER_STYLE">
-			    <documentation>
-			        Specifies the method parameters represent
-			        the entire message body or are elements
-			        wrapped inside a top-level element named
-			        after the webservice operation.
-			    </documentation>
-			    <value>andromda_webservice_parameter_style</value>
-			    <appliedOnElement>Service and WebService</appliedOnElement>
-			    <allowedValues>
-			        <value>wrapped</value>
-			        <value>bare</value>
-			    </allowedValues>
-			</element>
-			<element name="WEBSERVICE_OPERATION_ONEWAY">
-			    <documentation>
-			        Specifies the method has only an input message
-			        and no output.  A oneway method returns the thread
-			        of control to the calling application prior to
-			        executing the actual business method.  Do not
-			        model on operations that have a return value
-			        or holder parameters or declare any
-			        checked exceptions.
-			    </documentation>
-			    <value>andromda_webservice_operation_oneway</value>
-			    <appliedOnElement>WebService Operation</appliedOnElement>
-			    <allowedValues>
-			        <value>true</value>
-			        <value>false</value>
-			    </allowedValues>
-			</element>
-			<element name="WEBSERVICE_OPERATION_NAME">
-			    <documentation>
-			        Specifies the web service method name.
-			    </documentation>
-			    <value>andromda_webservice_operation_name</value>
-			    <appliedOnElement>Service and WebService</appliedOnElement>
-			</element>
-			<element name="WEBSERVICE_OPERATION_RESULT_NAME">
-			    <documentation>
-			        Specifies the web service method result name.
-			    </documentation>
-			    <value>andromda_webservice_operation_result_name</value>
-			    <appliedOnElement>Service and WebService</appliedOnElement>
-			</element>
-			<element name="SEAM_COMPONENT_NAME">
-			    <documentation>
-			        Override the default Seam component object name.
-			    </documentation>
-			    <value>andromda_seam_component_name</value>
-			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_COMPONENT_SCOPE_TYPE">
-			    <documentation>
-			        The JBoss Seam component scope type.
-			        The default for stateless session beans is STATELESS.
-			        The default for entity beans and stateful session beans
-			        is CONVERSATION.
-			    </documentation>
-			    <value>andromda_seam_component_scope</value>
-			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
-			    <allowedValues>
-			        <value>EVENT</value>
-			        <value>PAGE</value>
-			        <value>CONVERSATION</value>
-			        <value>SESSION</value>
-			        <value>BUSINESS_PROCESS</value>
-			        <value>APPLICATION</value>
-			        <value>STATELESS</value>
-			    </allowedValues>
-			</element>
-			<element name="SEAM_COMPONENT_ROLE_NAME">
-			    <documentation>
-					Allows a Seam component to be bound to multiple contexts variables.
-					The @Name/@Scope annotations define a "default role". Each @Role
-					annotation defines an additional role.
+            <element name="LOB_TYPE">
+                <documentation>
+                    Override the entity attribute type where
+                    the property is defined as either a large
+                    binary or character type via datatype::Clob or
+                    datatype::Blob respectively.
+                    BLOB fields represent Byte[] or Serializable types.
+                    CLOB fiels represent char[], Character[] or String
+                    types.
+                    Make sure to define the fully qualified type
+                    name for the tagged value.
+                </documentation>
+                <value>andromda_persistence_lob_type</value>
+                <appliedOnElement>
+                    Entity Attribute of Type datatype::Clob or
+                    datatype::Blob
+                </appliedOnElement>
+            </element>
+            <element name="SERVICE_TYPE">
+                <documentation>
+                    Used at the class level of a service bean to
+                    override the default session bean type which
+                    is determined by the existence of instance
+                    variables.
+                </documentation>
+                <value>
+                    andromda_service_type
+                </value>
+                <appliedOnElement>
+                    <![CDATA[<<Service>>]]>
+                </appliedOnElement>
+                <allowedValues>
+                    <value>Stateless</value>
+                    <value>Stateful</value>
+                </allowedValues>
+            </element>
+            <element name="SERVICE_PERSISTENCE_CONTEXT_UNIT_NAME">
+                <documentation>
+                    Used at the class level of a service bean or
+                    a class with stereotype PersistenceContext to
+                    determine the persistence context unit
+                    name.
+                </documentation>
+                <value>
+                    andromda_service_persistence_context_unit_name
+                </value>
+                <appliedOnElement>
+                    <![CDATA[<<Service>>]]>
+                </appliedOnElement>
+            </element>
+            <element name="SERVICE_PERSISTENCE_CONTEXT_TYPE">
+                <documentation>
+                    Used at the class level of a service bean or
+                    a class with stereotype PersistenceContext to
+                    determine the persistence context type.
+                    This can be set to extend the transaction
+                    on a Stateful session bean for it's
+                    EntityManager.
+                </documentation>
+                <value>
+                    andromda_service_persistence_context_unit_type
+                </value>
+                <appliedOnElement>
+                    <![CDATA[<<Service>>]]>
+                </appliedOnElement>
+                <allowedValues>
+                    <value>EXTENDED</value>
+                    <value>TRANSACTION</value>
+                </allowedValues>
+            </element>
+            <element name="SERVICE_PERSISTENCE_CONTEXT_DATASOURCE">
+                <documentation>
+                    Used at the class level of a service bean or
+                    a class with stereotype PersistenceContext to
+                    determine the persistence context datasource
+                    JNDI name.
+                    If you don't have a scoped classloader for
+                    your application, all persistence contexts
+                    defined in your system's global context
+                    are made available to all applications.
+                </documentation>
+                <value>
+                    andromda_service_persistence_context_datasource
+                </value>
+                <appliedOnElement>
+                    Class with <![CDATA[<<Service>>]]>
+                </appliedOnElement>
+            </element>
+            <element name="SERVICE_PERSISTENCE_FLUSH_MODE">
+                <documentation>
+                    Used on session bean operations to set
+                    the flush mode that determines when the
+                    changes to the changes to the database
+                    are applied in a transaction.
+                </documentation>
+                <value>
+                    andromda_service_persistence_flush_mode
+                </value>
+                <appliedOnElement>
+                    Service operation
+                </appliedOnElement>
+                <allowedValues>
+                    <value default="true">AUTO</value>
+                    <value>COMMIT</value>
+                    <value>NEVER</value>
+                </allowedValues>
+            </element>
+            <element name="SERVICE_JNDI_NAME_REMOTE">
+                <documentation>
+                    Used on a session bean to manually specify
+                    the JNDI name the remote interface is bound
+                    to.
+                </documentation>
+                <value>
+                    andromda_service_jndi_remote
+                </value>
+                <appliedOnElement>
+                    <![CDATA[<<Service>>]]>
+                </appliedOnElement>
+            </element>
+            <element name="SERVICE_JNDI_NAME_LOCAL">
+                <documentation>
+                    Used on a session bean to manually specify
+                    the JNDI name the local interface is bound
+                    to.
+                </documentation>
+                <value>
+                    andromda_service_jndi_local
+                </value>
+                <appliedOnElement>
+                    <![CDATA[<<Service>>]]>
+                </appliedOnElement>
+            </element>
+            <element name="TRANSACTION_MANAGEMENT">
+                <documentation>
+                    Specifies the transaction demarcation strategy
+                    for session  and message-driven beans.
+                    By default, this does not
+                    need to be set for CONTAINER managed transaction
+                    demarcation.
+                </documentation>
+                <value>
+                    andromda_ejb_transaction_management
+                </value>
+                <appliedOnElement>
+                    Service and Message-Driven Beans
+                </appliedOnElement>
+                <allowedValues>
+                    <value default="true">CONTAINER</value>
+                    <value>BEAN</value>
+                </allowedValues>
+            </element>
+            <element name="SECURITY_PERMIT_ALL">
+                <documentation>
+                    Specifies whether to permit all roles to
+                    execute the operations in the bean.
+                    This can be set on the session bean or on
+                    individual operations.
+                    If set on the session bean, all operations will
+                    inherit this behavior.
+                    The permit all tagged value will override
+                    the roles allowed.  If both are set, only the
+                    permit all tagged value is rendered.
+                </documentation>
+                <value>
+                    andromda_service_security_permitAll
+                </value>
+                <appliedOnElement>
+                    Service and service operation
+                </appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value>false</value>
+                </allowedValues>
+            </element>
+            <element name="SECURITY_DENY_ALL">
+                <documentation>
+                    Specifies whether to deny all roles to
+                    execute the operations in the bean.
+                    This can be set on the session bean or on
+                    individual operations.
+                    If set on the session bean, all operations will
+                    inherit this behavior.
+                    The deny all tagged value will override
+                    the roles allowed.  If both are set, only the
+                    deny all tagged value is rendered.
+                </documentation>
+                <value>
+                    andromda_service_security_denyAll
+                </value>
+                <appliedOnElement>
+                    Service and service operation
+                </appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value>false</value>
+                </allowedValues>
+            </element>
+            <element name="SECURITY_REALM">
+                <documentation>
+                    Specifies the security domain for
+                    role based authorization.  JBoss uses
+                    the security realm to match allowed roles.
+                </documentation>
+                <value>
+                    andromda_service_security_realm
+                </value>
+                <appliedOnElement>
+                    Service
+                </appliedOnElement>
+            </element>
+            <element name="EXCLUDE_DEFAULT_INTERCEPTORS">
+                <documentation>
+                    Determines whether to exclude the invocation
+                    of the default interceptors for the applied
+                    business method.
+                </documentation>
+                <value>andromda_service_interceptor_excludeDefault</value>
+                <appliedOnElement>
+                    Service Operation
+                </appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value>false</value>
+                </allowedValues>
+            </element>
+            <element name="EXCLUDE_CLASS_INTERCEPTORS">
+                <documentation>
+                    Determines whether to exclude the invocation
+                    of the class interceptors for the applied
+                    business method.
+                </documentation>
+                <value>andromda_service_interceptor_excludeClass</value>
+                <appliedOnElement>
+                    Service Operation
+                </appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value>false</value>
+                </allowedValues>
+            </element>
+            <element name="DEFAULT_INTERCEPTOR">
+                <documentation>
+                    Defines the modeled interceptor as a default
+                    interceptor for all business methods of all
+                    session and message driven beans within this
+                    deployment.
+                </documentation>
+                <value>andromda_service_interceptor_default</value>
+                <appliedOnElement>
+                    Interceptor Class
+                </appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value>false</value>
+                </allowedValues>
+            </element>
+            <element name="AUTOMATIC_KEY">
+                <documentation>
+                    Can be used in class level of an entity. If you set
+                    this to true, the class will use an automatic key
+                    generation for the defined primary key. Please note:
+                    This is currently only available in BEA Weblogic and
+                    can not be used with combined primary keys.
+                </documentation>
+                <value>andromda_ejb_automaticKey</value>
+                <appliedOnElement>
+                    Entity attribute
+                </appliedOnElement>
+            </element>
+            <element name="NO_SYNTHETIC_CREATE_METHOD">
+                <documentation>
+                    Used on an Entity bean to decide whether to allow
+                    synthetic (auto generated) create/constructors.
+                </documentation>
+                <value>andromda_ejb_noSyntheticCreateMethod</value>
+                <appliedOnElement>
+                    Entity
+                </appliedOnElement>
+            </element>
+            <element name="QUERY">
+                <documentation>
+                    Defines a hibernate query expression. Note that it's
+                    encouraged to model your query body as an OCL
+                    constraint (instead of using this tagged value).
+                </documentation>
+                <value>andromda_ejb_query</value>
+                <appliedOnElement>
+                    An Entity operation marked as a
+                    <code>query</code>
+                    .
+                </appliedOnElement>
+            </element>
+            <element name="VIEW_TYPE">
+                <documentation>
+                    Defines the view type for a Session EJB at the class
+                    level or at the operation level for each Session
+                    method.
+                </documentation>
+                <value>andromda_ejb_viewType</value>
+                <appliedOnElement>Service or Service operation</appliedOnElement>
+                <allowedValues>
+                    <value default="true">remote</value>
+                    <value>local</value>
+                    <value>both</value>
+                </allowedValues>
+            </element>
+            <element name="TRANSACTION_TYPE">
+                <documentation>
+                    Defines a transaction type for a method in the Session
+                    EJB or for entity EJB POJO accessor method.
+                </documentation>
+                <value>andromda_ejb_transaction_type</value>
+                <appliedOnElement>Service operation or Entity attribute</appliedOnElement>
+                <allowedValues>
+                    <value>NotSupported</value>
+                    <value>Supports</value>
+                    <value>Required</value>
+                    <value>RequiresNew</value>
+                    <value>Mandatory</value>
+                    <value>Never</value>
+                </allowedValues>
+            </element>
+            <element name="TABLE">
+                <documentation>
+                    Defines the relational table name for entity
+                    persistence.
+                </documentation>
+                <value>andromda_persistence_table</value>
+                <appliedOnElement>
+                    Entity or a many-to-many association.
+                </appliedOnElement>
+            </element>
+            <element name="COLUMN">
+                <documentation>
+                    Represents the column name for entity persistence.
+                </documentation>
+                <value>andromda_persistence_column</value>
+                <appliedOnElement>Entity attribute</appliedOnElement>
+            </element>
+            <element name="COLUMN_LENGTH">
+                <documentation>
+                    Represents the column length for entity persistence.
+                </documentation>
+                <value>andromda_persistence_column_length</value>
+                <appliedOnElement>Entity attribute</appliedOnElement>
+            </element>
+            <element name="MDB_ACKNOWLEDGE_MODE">
+                <documentation>
+                    Represents the acknowledge mode for the JMS message
+                    driven bean.  Only needs to be specified if
+                    DUPS_OK_ACKNOWLEDGE mode is required.  The default
+                    mode is AUTO_ACKNOWLEDGE.
+                </documentation>
+                <value>andromda_ejb_mdb_acknowledge_mode</value>
+                <appliedOnElement>Message Driven Bean</appliedOnElement>
+                <allowedValues>
+                    <value default="true">AUTO_ACKNOWLEDGE</value>
+                    <value>DUPS_OK_ACKNOWLEDGE</value>
+                </allowedValues>
+            </element>
+            <element name="MDB_DESTINATION">
+                <documentation>
+                    Represents the destination queue or topic name
+                    this JMS message driven bean is associated with.
+                </documentation>
+                <value>andromda_ejb_mdb_destination</value>
+                <appliedOnElement>Message Driven Bean</appliedOnElement>
+            </element>
+            <element name="MDB_DESTINATION_TYPE">
+                <documentation>
+                    Represents the destination type of the JMS message
+                    driven bean. If not specified, it is assumed to
+                    be a Queue.
+                </documentation>
+                <value>andromda_ejb_mdb_destination_type</value>
+                <appliedOnElement>Message Driven Bean</appliedOnElement>
+                <allowedValues>
+                    <value default="true">javax.jms.Queue</value>
+                    <value>javax.jms.Topic</value>
+                </allowedValues>
+            </element>
+            <element name="MDB_SELECTOR">
+                <documentation>
+                    Represents the JMS message selector logic used
+                    when determining the messages that a JMS message
+                    driven bean is to receive.
+                </documentation>
+                <value>andromda_ejb_mdb_selector</value>
+                <appliedOnElement>Message Driven Bean</appliedOnElement>
+            </element>
+            <element name="MDB_SUBSCRIPTION_DURABILITY">
+                <documentation>
+                    Represents the JMS message driven bean subscription
+                    durability mode.  Queues are always durable.  The
+                    durability only needs to be specified on topics.
+                    By default, topics are non-durable.
+                </documentation>
+                <value>andromda_ejb_mdb_subscription_durability</value>
+                <appliedOnElement>Message Driven Bean</appliedOnElement>
+            </element>
+            <element name="MDB_MINIMUM_POOL_SIZE">
+                <documentation>
+                    Defines the bean's minimum pool size.
+                    Must be an integer and greater than 0, otherwise
+                    will not be set.
+                </documentation>
+                <value>andromda_ejb_mdb_pool_size_min</value>
+                <appliedOnElement>Message Driven</appliedOnElement>
+            </element>
+            <element name="MDB_MAXIMUM_POOL_SIZE">
+                <documentation>
+                    Defines the bean's maximum pool size.
+                    Can be used to define singleton message driven
+                    beans.
+                    Must be an integer and greater than 0, otherwise
+                    will not be set.
+                </documentation>
+                <value>andromda_ejb_mdb_pool_size_max</value>
+                <appliedOnElement>Message Driven</appliedOnElement>
+            </element>
+            <element name="ENTITY_CACHE">
+                <documentation>
+                    Defines the cache strategy the entity.
+                </documentation>
+                <value>andromda_persistence_entity_cache</value>
+                <appliedOnElement>Entities</appliedOnElement>
+                <allowedValues>
+                    <value>NONE</value>
+                    <value>NONSTRICT_READ_WRITE</value>
+                    <value>READ_ONLY</value>
+                    <value>READ_WRITE</value>
+                    <value>TRANSACTIONAL</value>
+                </allowedValues>
+            </element>
+            <element name="ASSOCIATION_CACHE">
+                <documentation>
+                    Defines the cache strategy for relationship
+                    association collection.
+                </documentation>
+                <value>andromda_persistence_association_cache</value>
+                <appliedOnElement>Association End Between Entities</appliedOnElement>
+                <allowedValues>
+                    <value>NONE</value>
+                    <value>NONSTRICT_READ_WRITE</value>
+                    <value>READ_ONLY</value>
+                    <value>READ_WRITE</value>
+                    <value>TRANSACTIONAL</value>
+                </allowedValues>
+            </element>
+            <element name="USE_QUERY_CACHE">
+                <documentation>
+                    Used to override the default option that
+                    enables/disable query cache.
+                </documentation>
+                <value>andromda_ejb_query_useCache</value>
+                <appliedOnElement>Query Operations</appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value>false</value>
+                </allowedValues>
+            </element>
+            <element name="WEBSERVICE_PARAMETER_STYLE">
+                <documentation>
+                    Specifies the method parameters represent
+                    the entire message body or are elements
+                    wrapped inside a top-level element named
+                    after the webservice operation.
+                </documentation>
+                <value>andromda_webservice_parameter_style</value>
+                <appliedOnElement>Service and WebService</appliedOnElement>
+                <allowedValues>
+                    <value>wrapped</value>
+                    <value>bare</value>
+                </allowedValues>
+            </element>
+            <element name="WEBSERVICE_OPERATION_ONEWAY">
+                <documentation>
+                    Specifies the method has only an input message
+                    and no output.  A oneway method returns the thread
+                    of control to the calling application prior to
+                    executing the actual business method.  Do not
+                    model on operations that have a return value
+                    or holder parameters or declare any
+                    checked exceptions.
+                </documentation>
+                <value>andromda_webservice_operation_oneway</value>
+                <appliedOnElement>WebService Operation</appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value>false</value>
+                </allowedValues>
+            </element>
+            <element name="WEBSERVICE_OPERATION_NAME">
+                <documentation>
+                    Specifies the web service method name.
+                </documentation>
+                <value>andromda_webservice_operation_name</value>
+                <appliedOnElement>Service and WebService</appliedOnElement>
+            </element>
+            <element name="WEBSERVICE_OPERATION_RESULT_NAME">
+                <documentation>
+                    Specifies the web service method result name.
+                </documentation>
+                <value>andromda_webservice_operation_result_name</value>
+                <appliedOnElement>Service and WebService</appliedOnElement>
+            </element>
+            <element name="SEAM_COMPONENT_NAME">
+                <documentation>
+                    Override the default Seam component object name.
+                </documentation>
+                <value>andromda_seam_component_name</value>
+                <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_COMPONENT_SCOPE_TYPE">
+                <documentation>
+                    The JBoss Seam component scope type.
+                    The default for stateless session beans is STATELESS.
+                    The default for entity beans and stateful session beans
+                    is CONVERSATION.
+                </documentation>
+                <value>andromda_seam_component_scope</value>
+                <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+                <allowedValues>
+                    <value>EVENT</value>
+                    <value>PAGE</value>
+                    <value>CONVERSATION</value>
+                    <value>SESSION</value>
+                    <value>BUSINESS_PROCESS</value>
+                    <value>APPLICATION</value>
+                    <value>STATELESS</value>
+                </allowedValues>
+            </element>
+            <element name="SEAM_COMPONENT_ROLE_NAME">
+                <documentation>
+                    Allows a Seam component to be bound to multiple contexts variables.
+                    The @Name/@Scope annotations define a "default role". Each @Role
+                    annotation defines an additional role.
 
-					This tagged value specifies the context variable name.
-			    </documentation>
-			    <value>andromda_seam_component_role_name</value>
-			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_COMPONENT_ROLE_SCOPE_TYPE">
-			    <documentation>
-					The context variable scope. When no scope is explicitly specified,
-					the default depends upon the component type, as above.
+                    This tagged value specifies the context variable name.
+                </documentation>
+                <value>andromda_seam_component_role_name</value>
+                <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_COMPONENT_ROLE_SCOPE_TYPE">
+                <documentation>
+                    The context variable scope. When no scope is explicitly specified,
+                    the default depends upon the component type, as above.
 
-					Note! If multiple roles are specified then the list of scopes must
-					be in the same order as the role names.
-			    </documentation>
-			    <value>andromda_seam_component_role_scope</value>
-			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
-			    <allowedValues>
-			        <value>EVENT</value>
-			        <value>PAGE</value>
-			        <value>CONVERSATION</value>
-			        <value>SESSION</value>
-			        <value>BUSINESS_PROCESS</value>
-			        <value>APPLICATION</value>
-			        <value>STATELESS</value>
-			    </allowedValues>
-			</element>
-			<element name="SEAM_COMPONENT_INTERCEPT">
-			    <documentation>
-					Determines when Seam interceptors are active. When no interception
-					type is explicitly specified, the default depends upon the
-					component type. For entity beans, the default is NEVER. For session
-					beans, message driven beans and JavaBeans, the default is ALWAYS.
-			    </documentation>
-			    <value>andromda_seam_component_intercept</value>
-			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
-			    <allowedValues>
-			        <value>ALWAYS</value>
-			        <value>AFTER_RESTORE_VIEW</value>
-			        <value>AFTER_UPDATE_MODEL_VALUES</value>
-			        <value>INVOKE_APPLICATION</value>
-			        <value>NEVER</value>
-			    </allowedValues>
-			</element>
-			<element name="SEAM_COMPONENT_JNDI_NAME">
-			    <documentation>
-					Specifies the JNDI name that Seam will use to look up the EJB
-					component. If no JNDI name is explicitly specified, Seam will use
-					the JNDI pattern specified by org.jboss.seam.core.init.jndiPattern.
-			    </documentation>
-			    <value>andromda_seam_component_jndiname</value>
-			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_COMPONENT_CONVERSIONAL_IFNOTBEGUNOUTCOME">
-			    <documentation>
-					Specifies that a conversation scope component is conversational,
-					meaning that no method of the component can be called unless a
-					long-running conversation started by this component is active
-					(unless the method would begin a new long-running conversation).
-			    </documentation>
-			    <value>andromda_seam_component_conversional_ifnotbegunoutcome</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_COMPONENT_STARTUP_DEPENDS">
-			    <documentation>
-					Specifies that the named components must be started first, if they
-					are installed.
-			    </documentation>
-			    <value>andromda_seam_component_startup_depends</value>
-			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_COMPONENT_SYNCHRONIZED_TIMEOUT">
-			    <documentation>
-					Specifies that a component is accessed concurrently by multiple
-					clients, and that Seam should serialize requests. If a request is
-					not able to obtain its lock on the component in the given timeout
-					period, an exception will be raised.
-			    </documentation>
-			    <value>andromda_seam_component_synchronized_timeout</value>
-			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_COMPONENT_READONLY">
-			    <documentation>
-					Specifies that a JavaBean component or component method does not
-					require state replication at the end of the invocation.
-			    </documentation>
-			    <value>andromda_seam_component_readonly</value>
-			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_BIJECTION_IN_CREATE">
-			    <documentation>
-					Specifies that Seam should instantiate the component with the same
-					name as the context variable if the context variable is undefined
-					(null) in all contexts. Default to false.
-			    </documentation>
-			    <value>andromda_seam_bijection_in_create</value>
-			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
-			</element>
-			<element name="SEAM_BIJECTION_IN_VALUE">
-			    <documentation>
-					Specifies the name of the context variable. Default to the name of
-					the component attribute. Alternatively, specifies a JSF EL
-					expression, surrounded by #{...}.
-			    </documentation>
-			    <value>andromda_seam_bijection_in_value</value>
-			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
-			</element>
-			<element name="SEAM_BIJECTION_OUT_VALUE">
-			    <documentation>
-					Specifies the name of the context variable explicitly, instead of
-					using the annotated instance variable name.
-			    </documentation>
-			    <value>andromda_seam_bijection_out_value</value>
-			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
-			</element>
-			<element name="SEAM_BIJECTION_OUT_SCOPE_TYPE">
-			    <documentation>
-					Specifies that a component attribute that is not a Seam component
-					type is to be outjected to a specific scope at the end of the
-					invocation.
+                    Note! If multiple roles are specified then the list of scopes must
+                    be in the same order as the role names.
+                </documentation>
+                <value>andromda_seam_component_role_scope</value>
+                <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+                <allowedValues>
+                    <value>EVENT</value>
+                    <value>PAGE</value>
+                    <value>CONVERSATION</value>
+                    <value>SESSION</value>
+                    <value>BUSINESS_PROCESS</value>
+                    <value>APPLICATION</value>
+                    <value>STATELESS</value>
+                </allowedValues>
+            </element>
+            <element name="SEAM_COMPONENT_INTERCEPT">
+                <documentation>
+                    Determines when Seam interceptors are active. When no interception
+                    type is explicitly specified, the default depends upon the
+                    component type. For entity beans, the default is NEVER. For session
+                    beans, message driven beans and JavaBeans, the default is ALWAYS.
+                </documentation>
+                <value>andromda_seam_component_intercept</value>
+                <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+                <allowedValues>
+                    <value>ALWAYS</value>
+                    <value>AFTER_RESTORE_VIEW</value>
+                    <value>AFTER_UPDATE_MODEL_VALUES</value>
+                    <value>INVOKE_APPLICATION</value>
+                    <value>NEVER</value>
+                </allowedValues>
+            </element>
+            <element name="SEAM_COMPONENT_JNDI_NAME">
+                <documentation>
+                    Specifies the JNDI name that Seam will use to look up the EJB
+                    component. If no JNDI name is explicitly specified, Seam will use
+                    the JNDI pattern specified by org.jboss.seam.core.init.jndiPattern.
+                </documentation>
+                <value>andromda_seam_component_jndiname</value>
+                <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_COMPONENT_CONVERSIONAL_IFNOTBEGUNOUTCOME">
+                <documentation>
+                    Specifies that a conversation scope component is conversational,
+                    meaning that no method of the component can be called unless a
+                    long-running conversation started by this component is active
+                    (unless the method would begin a new long-running conversation).
+                </documentation>
+                <value>andromda_seam_component_conversional_ifnotbegunoutcome</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_COMPONENT_STARTUP_DEPENDS">
+                <documentation>
+                    Specifies that the named components must be started first, if they
+                    are installed.
+                </documentation>
+                <value>andromda_seam_component_startup_depends</value>
+                <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_COMPONENT_SYNCHRONIZED_TIMEOUT">
+                <documentation>
+                    Specifies that a component is accessed concurrently by multiple
+                    clients, and that Seam should serialize requests. If a request is
+                    not able to obtain its lock on the component in the given timeout
+                    period, an exception will be raised.
+                </documentation>
+                <value>andromda_seam_component_synchronized_timeout</value>
+                <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_COMPONENT_READONLY">
+                <documentation>
+                    Specifies that a JavaBean component or component method does not
+                    require state replication at the end of the invocation.
+                </documentation>
+                <value>andromda_seam_component_readonly</value>
+                <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_BIJECTION_IN_CREATE">
+                <documentation>
+                    Specifies that Seam should instantiate the component with the same
+                    name as the context variable if the context variable is undefined
+                    (null) in all contexts. Default to false.
+                </documentation>
+                <value>andromda_seam_bijection_in_create</value>
+                <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
+            </element>
+            <element name="SEAM_BIJECTION_IN_VALUE">
+                <documentation>
+                    Specifies the name of the context variable. Default to the name of
+                    the component attribute. Alternatively, specifies a JSF EL
+                    expression, surrounded by #{...}.
+                </documentation>
+                <value>andromda_seam_bijection_in_value</value>
+                <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
+            </element>
+            <element name="SEAM_BIJECTION_OUT_VALUE">
+                <documentation>
+                    Specifies the name of the context variable explicitly, instead of
+                    using the annotated instance variable name.
+                </documentation>
+                <value>andromda_seam_bijection_out_value</value>
+                <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
+            </element>
+            <element name="SEAM_BIJECTION_OUT_SCOPE_TYPE">
+                <documentation>
+                    Specifies that a component attribute that is not a Seam component
+                    type is to be outjected to a specific scope at the end of the
+                    invocation.
 
-					Alternatively, if no scope is explicitly specified, the scope of
-					the component with the @Out attribute is used (or the EVENT scope
-					if the component is stateless).
-			    </documentation>
-			    <value>andromda_seam_bijection_out_scope</value>
-			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
-			    <allowedValues>
-			        <value>EVENT</value>
-			        <value>PAGE</value>
-			        <value>CONVERSATION</value>
-			        <value>SESSION</value>
-			        <value>BUSINESS_PROCESS</value>
-			        <value>APPLICATION</value>
-			        <value>STATELESS</value>
-			    </allowedValues>
-			</element>
-			<element name="SEAM_BIJECTION_FACTORY_VALUE">
-			    <documentation>
-					Specifies the name of the context variable. If the method is a
-					getter method, default to the JavaBeans property name.
-			    </documentation>
-			    <value>andromda_seam_bijection_factory_value</value>
-			    <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
-			</element>
-			<element name="SEAM_BIJECTION_FACTORY_SCOPE_TYPE">
-			    <documentation>
-					Specifies the scope that Seam should bind the returned value to.
-					Only meaningful for factory methods which return a value.
-			    </documentation>
-			    <value>andromda_seam_bijection_factory_scope</value>
-			    <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
-			    <allowedValues>
-			        <value>EVENT</value>
-			        <value>PAGE</value>
-			        <value>CONVERSATION</value>
-			        <value>SESSION</value>
-			        <value>BUSINESS_PROCESS</value>
-			        <value>APPLICATION</value>
-			        <value>STATELESS</value>
-			    </allowedValues>
-			</element>
-			<element name="SEAM_BIJECTION_LOGGER_VALUE">
-			    <documentation>
-					Specifies the name of the log category. Default to the name of the
-					component class.
-			    </documentation>
-			    <value>andromda_seam_bijection_logger_value</value>
-			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_BIJECTION_REQUEST_PARAMETER_VALUE">
-			    <documentation>
-					Specifies the name of the request parameter. Default to the name
-					of the component attribute.
-			    </documentation>
-			    <value>andromda_seam_bijection_requestparameter_value</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_LIFECYCLE_OBSERVER_EVENT">
-			    <documentation>
-					Specifies that the method should be called when a component-driven
-					event of the specified type occurs.
-			    </documentation>
-			    <value>andromda_seam_lifecycle_observer_event</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_CONVERSATION_BEGIN_IF_OUTCOME">
-			    <documentation>
-					Specifies that a long-running conversation begins when this action
-					listener method returns with one of the given outcomes.
+                    Alternatively, if no scope is explicitly specified, the scope of
+                    the component with the @Out attribute is used (or the EVENT scope
+                    if the component is stateless).
+                </documentation>
+                <value>andromda_seam_bijection_out_scope</value>
+                <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
+                <allowedValues>
+                    <value>EVENT</value>
+                    <value>PAGE</value>
+                    <value>CONVERSATION</value>
+                    <value>SESSION</value>
+                    <value>BUSINESS_PROCESS</value>
+                    <value>APPLICATION</value>
+                    <value>STATELESS</value>
+                </allowedValues>
+            </element>
+            <element name="SEAM_BIJECTION_FACTORY_VALUE">
+                <documentation>
+                    Specifies the name of the context variable. If the method is a
+                    getter method, default to the JavaBeans property name.
+                </documentation>
+                <value>andromda_seam_bijection_factory_value</value>
+                <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
+            </element>
+            <element name="SEAM_BIJECTION_FACTORY_SCOPE_TYPE">
+                <documentation>
+                    Specifies the scope that Seam should bind the returned value to.
+                    Only meaningful for factory methods which return a value.
+                </documentation>
+                <value>andromda_seam_bijection_factory_scope</value>
+                <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
+                <allowedValues>
+                    <value>EVENT</value>
+                    <value>PAGE</value>
+                    <value>CONVERSATION</value>
+                    <value>SESSION</value>
+                    <value>BUSINESS_PROCESS</value>
+                    <value>APPLICATION</value>
+                    <value>STATELESS</value>
+                </allowedValues>
+            </element>
+            <element name="SEAM_BIJECTION_LOGGER_VALUE">
+                <documentation>
+                    Specifies the name of the log category. Default to the name of the
+                    component class.
+                </documentation>
+                <value>andromda_seam_bijection_logger_value</value>
+                <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_BIJECTION_REQUEST_PARAMETER_VALUE">
+                <documentation>
+                    Specifies the name of the request parameter. Default to the name
+                    of the component attribute.
+                </documentation>
+                <value>andromda_seam_bijection_requestparameter_value</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_LIFECYCLE_OBSERVER_EVENT">
+                <documentation>
+                    Specifies that the method should be called when a component-driven
+                    event of the specified type occurs.
+                </documentation>
+                <value>andromda_seam_lifecycle_observer_event</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_BEGIN_IF_OUTCOME">
+                <documentation>
+                    Specifies that a long-running conversation begins when this action
+                    listener method returns with one of the given outcomes.
 
-					Example: @Begin(ifOutcome={"success", "continue"})
-			    </documentation>
-			    <value>andromda_seam_conversation_begin_ifoutcome</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_CONVERSATION_BEGIN_JOIN">
-			    <documentation>
-					Specifies that if a long-running conversation is already in
-					progress, the conversation context is simply propagated.
-			    </documentation>
-			    <value>andromda_seam_conversation_begin_join</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_CONVERSATION_BEGIN_NESTED">
-			    <documentation>
-					Specifies that if a long-running conversation is already in
-					progress, a new nested conversation context begins. The nested
-					conversation will end when the next @End  is encountered, and the
-					outer conversation will resume. It is perfectly legal for multiple
-					nested conversations to exist concurrently in the same outer
-					conversation.
-			    </documentation>
-			    <value>andromda_seam_conversation_begin_nested</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_CONVERSATION_BEGIN_FLUSH_MODE">
-			    <documentation>
-					Specify the flush mode of any Seam-managed persistence contexts.
-					flushMode=FlushModeType.MANUAL supports the use of atomic
-					conversations where all write operations are queued in the
-					conversation context until an explicit call to flush() (which
-					usually occurs at the end of the conversation).
-			    </documentation>
-			    <value>andromda_seam_conversation_begin_flushmode</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_CONVERSATION_BEGIN_PAGEFLOW">
-			    <documentation>
-					Specifies a jBPM process definition name that defines the pageflow
-					for this conversation.
-			    </documentation>
-			    <value>andromda_seam_conversation_begin_pageflow</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_CONVERSATION_END_IF_OUTCOME">
-			    <documentation>
-				    Specifies that a long-running conversation ends when this action
-				    listener method returns with one of the given outcomes.
-			    </documentation>
-			    <value>andromda_seam_conversation_end_ifoutcome</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_CONVERSATION_END_BEFORE_REDIRECT">
-			    <documentation>
-					By default, the conversation will not actually be destroyed until
-					after any redirect has occurred. Setting beforeRedirect=true
-					specifies that the conversation should be destroyed at the end of
-					the current request, and that the redirect will be processed in a
-					new temporary conversation context.
-			    </documentation>
-			    <value> andromda_seam_conversation_end_beforeredirect</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_CONVERSATION_END_EVEN_IF_EXCEPTION">
-			    <documentation>
-					Specifies that a long-running conversation ends when this action
-					listener method throws one of the specified classes of exception.
-			    </documentation>
-			    <value>andromda_seam_conversation_end_evenifexception</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_CONVERSATION_START_TASK_ID_PARAMETER">
-			    <documentation>
-					The name of a request parameter which holds the id of the task.
-					Default to "taskId", which is also the default used by the Seam
-					taskList JSF component.
-			    </documentation>
-			    <value>andromda_seam_conversation_starttask_taskidparameter</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_CONVERSATION_START_TASK_FLUSH_MODE">
-			    <documentation>
-					Set the flush mode of any Seam-managed Hibernate sessions or JPA
-					persistence contexts that are created during this conversation.
-			    </documentation>
-			    <value>andromda_seam_conversation_starttask_flushmode</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_CONVERSATION_BEGIN_TASK_ID_PARAMETER">
-			    <documentation>
-					The name of a request parameter which holds the id of the task.
-					Default to "taskId", which is also the default used by the Seam
-					taskList JSF component.
-			    </documentation>
-			    <value>andromda_seam_conversation_begintask_taskidparameter</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_CONVERSATION_BEGIN_TASK_FLUSH_MODE">
-			    <documentation>
-					Set the flush mode of any Seam-managed Hibernate sessions or JPA
-					persistence contexts that are created during this conversation.
-			    </documentation>
-			    <value>andromda_seam_conversation_begintask_flushmode</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_CONVERSATION_END_TASK_TRANSITION_NAME">
-			    <documentation>
-					Triggers the given jBPM transition.
-			    </documentation>
-			    <value>andromda_seam_conversation_endtask_transition_name</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_CONVERSATION_END_TASK_IF_OUTCOME">
-			    <documentation>
-					Specifies the JSF outcome or outcomes that result in the end of
-					the task.
-			    </documentation>
-			    <value>andromda_seam_conversation_endtask_ifoutcome</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_CONVERSATION_END_TASK_BEFORE_REDIRECT">
-			    <documentation>
-					By default, the conversation will not actually be destroyed until
-					after any redirect has occurred. Setting beforeRedirect=true
-					specifies that the conversation should be destroyed at the end of
-					the current request, and that the redirect will be processed in a
-					new temporary conversation context.
-			    </documentation>
-			    <value>andromda_seam_conversation_endtask_beforeredirect</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_CONVERSATION_CREATE_PROCESS_DEFINITION">
-			    <documentation>
-					The name of the jBPM process definition deployed via
-					org.jboss.seam.core.jbpm.processDefinitions.
-			    </documentation>
-			    <value>andromda_seam_conversation_createprocess_definition</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_CONVERSATION_RESUME_PROCESS_PROCESS_ID_PARAMETER">
-			    <documentation>
-					The name a request parameter holding the process id. Default to
-					"processId".
-			    </documentation>
-			    <value>andromda_seam_conversation_resumeprocess_processIdParameter</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_TRANSACTION_ROLLBACK_IF_OUTCOME">
-			    <documentation>
-					The JSF outcomes that cause a transaction rollback (no outcomes is
-					interpreted to mean any outcome).
-			    </documentation>
-			    <value>andromda_seam_transaction_rollback_ifoutcome</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_VALIDATION_OUTCOME">
-			    <documentation>
-			        Returns the JSF outcome when validation fails.
-			    </documentation>
-			    <value>andromda_seam_validation_outcome</value>
-			    <appliedOnElement>Session and Java Bean Operation</appliedOnElement>
-			</element>
-			<element name="SEAM_VALIDATION_REFRESH_ENTITIES">
-			    <documentation>
-			        Specifies whether invalid entities in the managed state
-			        should be refreshed from the database when
-			        validation fails.
-			    </documentation>
-			    <value>andromda_seam_validation_refreshEntities</value>
-			    <appliedOnElement>Session and Java Bean Operation</appliedOnElement>
-			</element>
-			<element name="SEAM_WEBREMOTE_EXCLUDE">
-			    <documentation>
-					Excludes objects from the WebRemote call result's object graph
-					(see the Remoting chapter for more details).
-			    </documentation>
-			    <value>andromda_seam_webremote_exclude</value>
-			    <appliedOnElement>Session and Java Bean Operation</appliedOnElement>
-			</element>
-			<element name="SEAM_INTERCEPTOR_STATELESS">
-			    <documentation>
-					Specifies that this interceptor is stateless and Seam may optimize
-					replication.
-			    </documentation>
-			    <value>andromda_seam_interceptor_stateless</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_INTERCEPTOR_TYPE">
-			    <documentation>
-					Specifies that this interceptor is a "client-side" interceptor
-					that is called before the EJB container.
-			    </documentation>
-			    <value>andromda_seam_interceptor_type</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_INTERCEPTOR_AROUND">
-			    <documentation>
-					Specifies that this interceptor is positioned higher in the stack
-					than the given interceptors.
-			    </documentation>
-			    <value>andromda_seam_interceptor_around</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_INTERCEPTOR_WITHIN">
-			    <documentation>
-					Specifies that this interceptor is positioned deeper in the stack
-					than the given interceptors.
-			    </documentation>
-			    <value>andromda_seam_interceptor_within</value>
-			    <appliedOnElement>Session and Java Beans</appliedOnElement>
-			</element>
-			<element name="SEAM_DATA_DATAMODEL_VALUE">
-			    <documentation>
-					Name of the conversation context variable. Default to the attribute
-					name.
-			    </documentation>
-			    <value>andromda_seam_data_datamodel_value</value>
-			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
-			</element>
-			<element name="SEAM_DATA_DATAMODEL_SCOPE_TYPE">
-			    <documentation>
-					If scope=ScopeType.PAGE is explicitly specified, the DataModel will
-					be kept in the PAGE context.
-			    </documentation>
-			    <value>andromda_seam_data_datamodel_scope</value>
-			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
-			    <allowedValues>
-			        <value>EVENT</value>
-			        <value>PAGE</value>
-			        <value>CONVERSATION</value>
-			        <value>SESSION</value>
-			        <value>BUSINESS_PROCESS</value>
-			        <value>APPLICATION</value>
-			        <value>STATELESS</value>
-			    </allowedValues>
-			</element>
-			<element name="SEAM_DATA_DATAMODEL_SELECTION_VALUE">
-			    <documentation>
-					Name of the conversation context variable. Not needed if there is
-					exactly one @DataModel in the component.
-			    </documentation>
-			    <value>andromda_seam_data_datamodelselection_value</value>
-			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
-			</element>
-			<element name="SEAM_DATA_DATAMODEL_SELECTION_INDEX_VALUE">
-			    <documentation>
-					Name of the conversation context variable. Not needed if there is
-					exactly one @DataModel in the component.
-			    </documentation>
-			    <value>andromda_seam_data_datamodelselectionindex_value</value>
-			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
-			</element>
-			<element name="SEAM_DATA_DATABINDER_CLASS">
-			    <documentation>
-					This meta-annotation make it possible to implement similar
-					functionality to @DataModel and @DataModelSelection for other
-					data structures apart from lists.
+                    Example: @Begin(ifOutcome={"success", "continue"})
+                </documentation>
+                <value>andromda_seam_conversation_begin_ifoutcome</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_BEGIN_JOIN">
+                <documentation>
+                    Specifies that if a long-running conversation is already in
+                    progress, the conversation context is simply propagated.
+                </documentation>
+                <value>andromda_seam_conversation_begin_join</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_BEGIN_NESTED">
+                <documentation>
+                    Specifies that if a long-running conversation is already in
+                    progress, a new nested conversation context begins. The nested
+                    conversation will end when the next @End  is encountered, and the
+                    outer conversation will resume. It is perfectly legal for multiple
+                    nested conversations to exist concurrently in the same outer
+                    conversation.
+                </documentation>
+                <value>andromda_seam_conversation_begin_nested</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_BEGIN_FLUSH_MODE">
+                <documentation>
+                    Specify the flush mode of any Seam-managed persistence contexts.
+                    flushMode=FlushModeType.MANUAL supports the use of atomic
+                    conversations where all write operations are queued in the
+                    conversation context until an explicit call to flush() (which
+                    usually occurs at the end of the conversation).
+                </documentation>
+                <value>andromda_seam_conversation_begin_flushmode</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_BEGIN_PAGEFLOW">
+                <documentation>
+                    Specifies a jBPM process definition name that defines the pageflow
+                    for this conversation.
+                </documentation>
+                <value>andromda_seam_conversation_begin_pageflow</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_END_IF_OUTCOME">
+                <documentation>
+                    Specifies that a long-running conversation ends when this action
+                    listener method returns with one of the given outcomes.
+                </documentation>
+                <value>andromda_seam_conversation_end_ifoutcome</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_END_BEFORE_REDIRECT">
+                <documentation>
+                    By default, the conversation will not actually be destroyed until
+                    after any redirect has occurred. Setting beforeRedirect=true
+                    specifies that the conversation should be destroyed at the end of
+                    the current request, and that the redirect will be processed in a
+                    new temporary conversation context.
+                </documentation>
+                <value> andromda_seam_conversation_end_beforeredirect</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_END_EVEN_IF_EXCEPTION">
+                <documentation>
+                    Specifies that a long-running conversation ends when this action
+                    listener method throws one of the specified classes of exception.
+                </documentation>
+                <value>andromda_seam_conversation_end_evenifexception</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_START_TASK_ID_PARAMETER">
+                <documentation>
+                    The name of a request parameter which holds the id of the task.
+                    Default to "taskId", which is also the default used by the Seam
+                    taskList JSF component.
+                </documentation>
+                <value>andromda_seam_conversation_starttask_taskidparameter</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_START_TASK_FLUSH_MODE">
+                <documentation>
+                    Set the flush mode of any Seam-managed Hibernate sessions or JPA
+                    persistence contexts that are created during this conversation.
+                </documentation>
+                <value>andromda_seam_conversation_starttask_flushmode</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_BEGIN_TASK_ID_PARAMETER">
+                <documentation>
+                    The name of a request parameter which holds the id of the task.
+                    Default to "taskId", which is also the default used by the Seam
+                    taskList JSF component.
+                </documentation>
+                <value>andromda_seam_conversation_begintask_taskidparameter</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_BEGIN_TASK_FLUSH_MODE">
+                <documentation>
+                    Set the flush mode of any Seam-managed Hibernate sessions or JPA
+                    persistence contexts that are created during this conversation.
+                </documentation>
+                <value>andromda_seam_conversation_begintask_flushmode</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_END_TASK_TRANSITION_NAME">
+                <documentation>
+                    Triggers the given jBPM transition.
+                </documentation>
+                <value>andromda_seam_conversation_endtask_transition_name</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_END_TASK_IF_OUTCOME">
+                <documentation>
+                    Specifies the JSF outcome or outcomes that result in the end of
+                    the task.
+                </documentation>
+                <value>andromda_seam_conversation_endtask_ifoutcome</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_END_TASK_BEFORE_REDIRECT">
+                <documentation>
+                    By default, the conversation will not actually be destroyed until
+                    after any redirect has occurred. Setting beforeRedirect=true
+                    specifies that the conversation should be destroyed at the end of
+                    the current request, and that the redirect will be processed in a
+                    new temporary conversation context.
+                </documentation>
+                <value>andromda_seam_conversation_endtask_beforeredirect</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_CREATE_PROCESS_DEFINITION">
+                <documentation>
+                    The name of the jBPM process definition deployed via
+                    org.jboss.seam.core.jbpm.processDefinitions.
+                </documentation>
+                <value>andromda_seam_conversation_createprocess_definition</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_RESUME_PROCESS_PROCESS_ID_PARAMETER">
+                <documentation>
+                    The name a request parameter holding the process id. Default to
+                    "processId".
+                </documentation>
+                <value>andromda_seam_conversation_resumeprocess_processIdParameter</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_TRANSACTION_ROLLBACK_IF_OUTCOME">
+                <documentation>
+                    The JSF outcomes that cause a transaction rollback (no outcomes is
+                    interpreted to mean any outcome).
+                </documentation>
+                <value>andromda_seam_transaction_rollback_ifoutcome</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_VALIDATION_OUTCOME">
+                <documentation>
+                    Returns the JSF outcome when validation fails.
+                </documentation>
+                <value>andromda_seam_validation_outcome</value>
+                <appliedOnElement>Session and Java Bean Operation</appliedOnElement>
+            </element>
+            <element name="SEAM_VALIDATION_REFRESH_ENTITIES">
+                <documentation>
+                    Specifies whether invalid entities in the managed state
+                    should be refreshed from the database when
+                    validation fails.
+                </documentation>
+                <value>andromda_seam_validation_refreshEntities</value>
+                <appliedOnElement>Session and Java Bean Operation</appliedOnElement>
+            </element>
+            <element name="SEAM_WEBREMOTE_EXCLUDE">
+                <documentation>
+                    Excludes objects from the WebRemote call result's object graph
+                    (see the Remoting chapter for more details).
+                </documentation>
+                <value>andromda_seam_webremote_exclude</value>
+                <appliedOnElement>Session and Java Bean Operation</appliedOnElement>
+            </element>
+            <element name="SEAM_INTERCEPTOR_STATELESS">
+                <documentation>
+                    Specifies that this interceptor is stateless and Seam may optimize
+                    replication.
+                </documentation>
+                <value>andromda_seam_interceptor_stateless</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_INTERCEPTOR_TYPE">
+                <documentation>
+                    Specifies that this interceptor is a "client-side" interceptor
+                    that is called before the EJB container.
+                </documentation>
+                <value>andromda_seam_interceptor_type</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_INTERCEPTOR_AROUND">
+                <documentation>
+                    Specifies that this interceptor is positioned higher in the stack
+                    than the given interceptors.
+                </documentation>
+                <value>andromda_seam_interceptor_around</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_INTERCEPTOR_WITHIN">
+                <documentation>
+                    Specifies that this interceptor is positioned deeper in the stack
+                    than the given interceptors.
+                </documentation>
+                <value>andromda_seam_interceptor_within</value>
+                <appliedOnElement>Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_DATA_DATAMODEL_VALUE">
+                <documentation>
+                    Name of the conversation context variable. Default to the attribute
+                    name.
+                </documentation>
+                <value>andromda_seam_data_datamodel_value</value>
+                <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
+            </element>
+            <element name="SEAM_DATA_DATAMODEL_SCOPE_TYPE">
+                <documentation>
+                    If scope=ScopeType.PAGE is explicitly specified, the DataModel will
+                    be kept in the PAGE context.
+                </documentation>
+                <value>andromda_seam_data_datamodel_scope</value>
+                <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
+                <allowedValues>
+                    <value>EVENT</value>
+                    <value>PAGE</value>
+                    <value>CONVERSATION</value>
+                    <value>SESSION</value>
+                    <value>BUSINESS_PROCESS</value>
+                    <value>APPLICATION</value>
+                    <value>STATELESS</value>
+                </allowedValues>
+            </element>
+            <element name="SEAM_DATA_DATAMODEL_SELECTION_VALUE">
+                <documentation>
+                    Name of the conversation context variable. Not needed if there is
+                    exactly one @DataModel in the component.
+                </documentation>
+                <value>andromda_seam_data_datamodelselection_value</value>
+                <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
+            </element>
+            <element name="SEAM_DATA_DATAMODEL_SELECTION_INDEX_VALUE">
+                <documentation>
+                    Name of the conversation context variable. Not needed if there is
+                    exactly one @DataModel in the component.
+                </documentation>
+                <value>andromda_seam_data_datamodelselectionindex_value</value>
+                <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
+            </element>
+            <element name="SEAM_DATA_DATABINDER_CLASS">
+                <documentation>
+                    This meta-annotation make it possible to implement similar
+                    functionality to @DataModel and @DataModelSelection for other
+                    data structures apart from lists.
 
-				    The class name of the DataModelBinder class
-			    </documentation>
-			    <value>andromda_seam_data_databinderclass</value>
-			    <appliedOnElement>Java Interfaces</appliedOnElement>
-			</element>
-			<element name="SEAM_DATA_DATASELECTOR_CLASS">
-			    <documentation>
-					This meta-annotation make it possible to implement similar
-					functionality to @DataModel and @DataModelSelection for other
-					data structures apart from lists.
+                    The class name of the DataModelBinder class
+                </documentation>
+                <value>andromda_seam_data_databinderclass</value>
+                <appliedOnElement>Java Interfaces</appliedOnElement>
+            </element>
+            <element name="SEAM_DATA_DATASELECTOR_CLASS">
+                <documentation>
+                    This meta-annotation make it possible to implement similar
+                    functionality to @DataModel and @DataModelSelection for other
+                    data structures apart from lists.
 
-					The DataModelSelector class.
-			    </documentation>
-			    <value>andromda_seam_data_dataselectorclass</value>
-			    <appliedOnElement>Java Interfaces</appliedOnElement>
-			</element>
-		</elementGroup>
-	</elements>
+                    The DataModelSelector class.
+                </documentation>
+                <value>andromda_seam_data_dataselectorclass</value>
+                <appliedOnElement>Java Interfaces</appliedOnElement>
+            </element>
+        </elementGroup>
+    </elements>
 </profile>

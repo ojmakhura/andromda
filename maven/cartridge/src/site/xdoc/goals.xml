@@ -2,33 +2,33 @@
 
 <document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
-  	<properties>
-    	<title>AndroMDA Cartridge Maven Plugin Goals</title>
-  	</properties>
-  	<body>
-    	<section name="Goals">
-      		<table>	
-      			<tr>
-      				<th>
-      					Goal
-      				</th>
-      				<th>
-      					Description
-      				</th>
-      			</tr>
-      			<tr>
-      				<td nowrap="nowrap">
-      					<a href="test-mojo.html">cartridge:test</a>
-      				</td>
-      				<td>
-	        			<p>
-	        				Runs a cartridge test, which consists of generating output from a 
+      <properties>
+        <title>AndroMDA Cartridge Maven Plugin Goals</title>
+      </properties>
+      <body>
+        <section name="Goals">
+              <table>    
+                  <tr>
+                      <th>
+                          Goal
+                      </th>
+                      <th>
+                          Description
+                      </th>
+                  </tr>
+                  <tr>
+                      <td nowrap="nowrap">
+                          <a href="test-mojo.html">cartridge:test</a>
+                      </td>
+                      <td>
+                        <p>
+                            Runs a cartridge test, which consists of generating output from a 
                             model and then comparing this output against the files located in
                             the test archive.
-                            <a href="properties.html#maven.cartridge.test.archive">maven.cartridge.test.archive</a>	
-	        			</p>
-      				</td>
-      			</tr>
+                            <a href="properties.html#maven.cartridge.test.archive">maven.cartridge.test.archive</a>    
+                        </p>
+                      </td>
+                  </tr>
                 <tr>
                     <td nowrap="nowrap">
                         <a href="update-mojo.html">cartridge:update</a>
@@ -40,18 +40,18 @@
                         </p>
                     </td>
                 </tr>
-      			<!--tr>
-      				<td nowrap="nowrap">
-      					cartridge:generate-howto-artifacts
-      				</td>
-      				<td>
-	        			<p>
-	        				Run AndroMDA on a "how-to" model in order to produce artifacts used for a
-                            "how-to" tutorial for a given cartridge.	
-	        			</p>
-      				</td>
-      			</tr-->
-      		</table>
-    	</section>
-  	</body>
+                  <!--tr>
+                      <td nowrap="nowrap">
+                          cartridge:generate-howto-artifacts
+                      </td>
+                      <td>
+                        <p>
+                            Run AndroMDA on a "how-to" model in order to produce artifacts used for a
+                            "how-to" tutorial for a given cartridge.    
+                        </p>
+                      </td>
+                  </tr-->
+              </table>
+        </section>
+      </body>
 </document>

@@ -53,9 +53,9 @@
                     The following example is taken directly from the <a href="howto7.html">exception howto</a>.
                     Only the relevant files are referenced here.
                 </p>
-	            <p>
-	                <img src="images/org/andromda/test/7/a/uml.gif" alt="images/org/andromda/test/7/a/uml.gif"/>
-	            </p>
+                <p>
+                    <img src="images/org/andromda/test/7/a/uml.gif" alt="images/org/andromda/test/7/a/uml.gif"/>
+                </p>
                 <ul>
                     <li class="gen">Auto-generated source that does not need manual editing</li>
                     <li class="impl">Auto-generated source that should be edited manually</li>
@@ -71,11 +71,11 @@
                     <li class="gen"><a href="howto/org/andromda/test/howto7/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
                     <li class="gen"><a href="howto/org/andromda/test/howto7/a/RentalException.java"><code>RentalException.java</code></a></li>
                 </ul>
-	            <p>
-	                The following is an example of how you can use the Service Delegate 
-	                <code>RentalServiceDelegate</code> above in a client or in the web tier.
-	            </p>
-	            <p>
+                <p>
+                    The following is an example of how you can use the Service Delegate 
+                    <code>RentalServiceDelegate</code> above in a client or in the web tier.
+                </p>
+                <p>
 <source><![CDATA[
         Properties prop = new Properties();
         prop.put("java.naming.factory.initial", "org.jnp.interfaces.NamingContextFactory");

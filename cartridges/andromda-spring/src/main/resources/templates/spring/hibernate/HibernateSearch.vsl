@@ -754,10 +754,10 @@ public class $criteriaSearchBaseName
                     break;
                 }
 #end
-            	default:
-            	{
-            	    criteria.add(${hibernateUtils.restrictionClass}.isNull(parameterName));
-            	}
+                default:
+                {
+                    criteria.add(${hibernateUtils.restrictionClass}.isNull(parameterName));
+                }
             }
         }
     }

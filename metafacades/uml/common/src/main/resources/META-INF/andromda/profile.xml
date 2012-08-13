@@ -308,49 +308,49 @@
                     <value>An associationEnd of this entity</value>
                 </allowedValues>
             </element>
-			<element name="PERSISTENCE_ENUMERATION_MEMBER_VARIABLE">
-			    <documentation>
-			        Specifies whether the enumeration attribute is
-			        defined as a member variable rather than a literal.
-			        This should only be set if the attribute is NOT a
-			        literal.
-			    </documentation>
-			    <value>
-			        andromda_persistence_enumeration_member_variable
-			    </value>
-			    <appliedOnElement>
-			        Enumeration Attribute
-			    </appliedOnElement>
-			    <allowedValues>
-			        <value>true</value>
-			        <value>false</value>
-			    </allowedValues>
-			</element>
-			<element name="PERSISTENCE_ENUMERATION_LITERAL_PARAMETERS">
-			    <documentation>
-			        Specifies the enumeration literal parameters which are
-			        passed to the appropriate constructor when created.
-			        The parameters are comma separated.
-			    </documentation>
-			    <value>
-			        andromda_persistence_enumeration_literal_parameters
-			    </value>
-			    <appliedOnElement>
-			        Enumeration Literal
-			    </appliedOnElement>
-			</element>
-			<element name="PERSISTENCE_ASSOCIATION_END_PRIMARY">
-			    <documentation>
+            <element name="PERSISTENCE_ENUMERATION_MEMBER_VARIABLE">
+                <documentation>
+                    Specifies whether the enumeration attribute is
+                    defined as a member variable rather than a literal.
+                    This should only be set if the attribute is NOT a
+                    literal.
+                </documentation>
+                <value>
+                    andromda_persistence_enumeration_member_variable
+                </value>
+                <appliedOnElement>
+                    Enumeration Attribute
+                </appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value>false</value>
+                </allowedValues>
+            </element>
+            <element name="PERSISTENCE_ENUMERATION_LITERAL_PARAMETERS">
+                <documentation>
+                    Specifies the enumeration literal parameters which are
+                    passed to the appropriate constructor when created.
+                    The parameters are comma separated.
+                </documentation>
+                <value>
+                    andromda_persistence_enumeration_literal_parameters
+                </value>
+                <appliedOnElement>
+                    Enumeration Literal
+                </appliedOnElement>
+            </element>
+            <element name="PERSISTENCE_ASSOCIATION_END_PRIMARY">
+                <documentation>
                   Indicates whether or not the association end is considered "primary" used for things like indicating which side of a one-to-one
                   association should get the foreign key.
-			    </documentation>
-			    <value>
-			        andromda_persistence_associationEnd_primary
-			    </value>
-			    <appliedOnElement>
-			        AssociationEnd
-			    </appliedOnElement>
-			</element>
+                </documentation>
+                <value>
+                    andromda_persistence_associationEnd_primary
+                </value>
+                <appliedOnElement>
+                    AssociationEnd
+                </appliedOnElement>
+            </element>
             <element name="ASSOCIATION_END_UNIQUE_GROUP">
                 <documentation>The name of the unique constrain group that this unique association end belongs</documentation>
                 <value>andromda_persistence_associationEnd_uniqueGroup</value>

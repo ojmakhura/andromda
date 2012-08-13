@@ -16,7 +16,7 @@
                 </a>.
             </p>
         </section>
-		<section name="Log4j">
+        <section name="Log4j">
             <subsection name="Overriding log4j settings">
                 <p>
                     To override the default log4j settings:.
@@ -40,7 +40,7 @@
                         limits others to WARN apart from the ejb cartridge which is set
                         to DEBUG.
                     </li>
-                </ul>  	
+                </ul>      
             </subsection>
             <subsection name="Log4J Categories">
                 <table>
@@ -65,7 +65,7 @@
                         <td>Debug messages for the specific cartridge.</td>
                     </tr>
                 </table>
-             </subsection>			
+            </subsection>            
             <subsection name="Core Debugging">
                 <p>
                     TBC
@@ -95,9 +95,9 @@ if (namespaceLogger.isDebugEnabled())
     namespaceLogger.warn("EJBEntityFacadeLogicImpl(" + metaObject + "," + context + ")");
 }
                     </source>
-					Replacing "ejb" with the appropriate cartridge/namespace name.
+                    Replacing "ejb" with the appropriate cartridge/namespace name.
                 </p>
             </subsection>
-		</section>
+        </section>
     </body>
 </document>

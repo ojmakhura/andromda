@@ -12,9 +12,9 @@
         <name/>
     </bannerLeft>
     <publishDate format="dd MMM yyyy hh:mm zzz"/>
-	<body>
-    	<menu ref="parent"/>
-    	<menu name="Available Plugins">
+    <body>
+        <menu ref="parent"/>
+        <menu name="Available Plugins">
             <item name="Andromda" href="/andromda-maven-plugin/index.html"/>
             <item name="Andromdapp" href="/andromdapp-maven-plugin/index.html"/>
             <item name="Andromdanetapp" href="/andromdanetapp-maven-plugin/index.html"/>
@@ -27,7 +27,7 @@
             <item name="Configuration" href="/andromda-configuration-mojo/index.html"/>
             <item name="Cartridge Site" href="/andromda-site-plugins/andromda-site-cartridge-plugin/index.html"/>
             <item name="Site" href="/andromda-site-plugins/andromda-site-plugin/index.html"/>
-    	</menu>
+        </menu>
         <menu ref="reports"/>
-  	</body>
+      </body>
 </project>

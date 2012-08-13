@@ -1,13 +1,13 @@
 <document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd"> 
-	<properties>
-    	<title>Cartridge Descriptor Schema</title> 
+    <properties>
+        <title>Cartridge Descriptor Schema</title> 
     </properties>
-  	<body> 
-  		<section name="Cartridge Descriptor Schema">
-			<p>
-  				Each Cartridge descriptor (andromda-cartridge.xml) must comply with the following XSD Schema: 
-  			</p>
+      <body> 
+          <section name="Cartridge Descriptor Schema">
+            <p>
+                  Each Cartridge descriptor (andromda-cartridge.xml) must comply with the following XSD Schema: 
+              </p>
 <source><![CDATA[
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
     <xs:element name="cartridge">
@@ -157,7 +157,7 @@
     </xs:element>
 </xs:schema>
 ]]>
-	  		</source>
-  		</section>  	
-  	</body> 
+              </source>
+          </section>      
+      </body> 
 </document>

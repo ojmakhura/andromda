@@ -196,7 +196,7 @@ public class ModelElementFacadeLogicImpl
     protected String handleGetPackageName()
     {
         String packageName = UmlUtilities.getPackageName(this.metaObject, this.getNamespaceScope(false), false);
-        
+
         //package names are treated differently so we have to apply the name mask here
         //since there isn't a packageNameMask, we're using the modelElementNameMask
         String nameMask = null;

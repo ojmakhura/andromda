@@ -12,57 +12,57 @@
 
     <section name="What is Schema2XMI?">
         <p>
-			Schema2XMI is a generator that will read a database
-			schema and write your schema into an XMI model.
-			This is useful for a couple of reasons:
+            Schema2XMI is a generator that will read a database
+            schema and write your schema into an XMI model.
+            This is useful for a couple of reasons:
         </p>
-		<ul>
-			<li>
-				Your company wants your DBA(s) to design your
-				schema.
-			</li>
-			<li>
-				Your application already has an existing schema.
-			</li>
-			<li>
-				You want to move a legacy application to AndroMDA.
-			</li>
-		</ul>
+        <ul>
+            <li>
+                Your company wants your DBA(s) to design your
+                schema.
+            </li>
+            <li>
+                Your application already has an existing schema.
+            </li>
+            <li>
+                You want to move a legacy application to AndroMDA.
+            </li>
+        </ul>
     </section>
-	<section name="What kind of models will it produce?">
-		<p>
+    <section name="What kind of models will it produce?">
+        <p>
             The produced XMI model will possess the following attributes:
         </p>
-	    <ul>
-			<li>
+        <ul>
+            <li>
                 Associations will contain correct multiplicities 
-				based on foreign key relations.					
-			</li>
-			<li>
-				Correct multiplicities on attributes that
-				are nullable vs. non-nullable (0..1 and 1).
-			</li>
-			<li>
-				Composite aggregation will be created on relationships
-				marked with cascade deletes.
-			</li>
-			<li>
-				Configurable stereotypes will be added to 
-				classes and identifiers.
-			</li>
-			<li>
-				Optional configurable tagged values for column names 
-				and table names can be added to attributes and
-				tables respectively.
-		    </li>
-	    </ul>			
-		<subsection name="How do I use Schema2XMI?">
-			<p>
-				Schema2XMI is a command line utility that you'll
-				pass arguments to and then execute the main
-				<a href="apidocs/org/andromda/schema2xmi/Schema2XMI.html">Schema2XMI</a> class.
-				The usage is defined below:
-			</p>
+                based on foreign key relations.                    
+            </li>
+            <li>
+                Correct multiplicities on attributes that
+                are nullable vs. non-nullable (0..1 and 1).
+            </li>
+            <li>
+                Composite aggregation will be created on relationships
+                marked with cascade deletes.
+            </li>
+            <li>
+                Configurable stereotypes will be added to 
+                classes and identifiers.
+            </li>
+            <li>
+                Optional configurable tagged values for column names 
+                and table names can be added to attributes and
+                tables respectively.
+            </li>
+        </ul>            
+        <subsection name="How do I use Schema2XMI?">
+            <p>
+                Schema2XMI is a command line utility that you'll
+                pass arguments to and then execute the main
+                <a href="apidocs/org/andromda/schema2xmi/Schema2XMI.html">Schema2XMI</a> class.
+                The usage is defined below:
+            </p>
 <source><![CDATA[
 usage: org.andromda.schema2xmi.Schema2XMI [options] ...]]
 
@@ -97,8 +97,8 @@ Options:
                                     produced
 ]]></source>
         <p>
-			Here's an example of how you could use Schema2XMI with 
-			an Oracle schema from Ant with the <code>java</code> task .
+            Here's an example of how you could use Schema2XMI with 
+            an Oracle schema from Ant with the <code>java</code> task .
         </p>
 <source><![CDATA[
 <java classname="org.andromda.schema2xmi.Schema2XMI" fork="true">
@@ -161,7 +161,7 @@ Options:
     </mapping>
 </mappings>
 ]]></source>
-		</subsection>
+        </subsection>
     </section>
   </body>
 </document>

@@ -75,7 +75,7 @@
                     <li>
                         <p>
                             <strong>Whitespace:</strong> No extra trailing whitespace at the end of a line.
-							Do not add extra whitespace
+                            Do not add extra whitespace
                             around parenthesis (i.e. "if ( this.isComposition() )") or casts
                             ("(ClassifierFacade) element"), instead they should be written
                             written like the following:
@@ -92,12 +92,12 @@ ClassifierFacade classifier = (ClassifierFacade)element;
                     <li>
                         <p>
                             <strong>Collections:</strong> Always use strongly-typed Collections whenever possible. This
-							detects type errors at compile time instead of at runtime, which is much easier to
-							debug and fix, and automatically flags incorrectly implemented methods.
-							In cartridges using UML2 models, use multiplicity * referring to the target Class,
-							rather than the generic List or Collection types, for all attributes/associations/parameters.
-							All casting problems will be flagged as compiler warnings in every build.
-							If calling a non-typesafe underlying method that cannot be modified, add 
+                            detects type errors at compile time instead of at runtime, which is much easier to
+                            debug and fix, and automatically flags incorrectly implemented methods.
+                            In cartridges using UML2 models, use multiplicity * referring to the target Class,
+                            rather than the generic List or Collection types, for all attributes/associations/parameters.
+                            All casting problems will be flagged as compiler warnings in every build.
+                            If calling a non-typesafe underlying method that cannot be modified, add 
                         <source>
 @SuppressWarnings("unchecked")
                         </source>
@@ -106,9 +106,9 @@ ClassifierFacade classifier = (ClassifierFacade)element;
                     <li>
                         <p>
                             <strong>Iterators:</strong> Use Java5 for (VariableType variable : variableList())
-							loops instead of Iterator whenever possible (i.e. not altering the itrated value within the loop).
-							This reduces the amount if code, eliminated type-casting, and is easier to understand.
-							If looping using an iterator, do these in for-loops
+                            loops instead of Iterator whenever possible (i.e. not altering the itrated value within the loop).
+                            This reduces the amount if code, eliminated type-casting, and is easier to understand.
+                            If looping using an iterator, do these in for-loops
                             instead of while loops (because this allows the iterator itself to be scoped
                             into that block). Example:
                        </p>
@@ -128,7 +128,7 @@ for (final Iterator stereotypeIterator = stereotypes.iterator(); stereotypeItera
                             This will improve the project as a whole.  Also add code comments when
                             you think it's necessary (like assumptions), especially when the code
                             is not obvious. Document WHY the code is doing something, not what it is doing
-							unless the operation sequence is very complex (consider refactoring).
+                            unless the operation sequence is very complex (consider refactoring).
                         </p>
                     </li>
                     <li>
@@ -273,9 +273,9 @@ catch (Exception ex)
     ExceptionRecorder.instance().record( ex );
 }
                         </source>
-						<p>
-							This will create a .exc file with the stacktrace and additional
-							debugging and environment information:
+                        <p>
+                            This will create a .exc file with the stacktrace and additional
+                            debugging and environment information:
                         <source>
 ------- AndroMDA Exception Recording -------
 Version ........: 3.4-SNAPSHOT
@@ -289,9 +289,9 @@ Run JDK ........: Sun Microsystems Inc.17.0-b16
 Main Exception .: org.andromda.core.metafacade.MetafacadeFactory.createMetafacade - 'mappingObject' can not be null
 Root Exception .: java.lang.IllegalArgumentException: org.andromda.core.metafacade.MetafacadeFactory.createMetafacade - 'mappingObject' can not be null
 java.lang.IllegalArgumentException: org.andromda.core.metafacade.MetafacadeFactory.createMetafacade - 'mappingObject' can not be null
-	at org.andromda.core.common.ExceptionUtils.checkNull(ExceptionUtils.java:67)
+    at org.andromda.core.common.ExceptionUtils.checkNull(ExceptionUtils.java:67)
                         </source>
-						</p>
+                        </p>
                     </li>
                 </ul>
             </subsection>

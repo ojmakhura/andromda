@@ -20,7 +20,7 @@
               annotated with the <code>Entity</code> annotation, mapped as entities, and queried for as entities.</i>
             </p>
             <p>
-       	      <i>Entities can extend non-entity classes and non-entity classes can extend entity classes.</i>
+                 <i>Entities can extend non-entity classes and non-entity classes can extend entity classes.</i>
             </p>
             
             <p>
@@ -28,7 +28,7 @@
                 hierarchies using the EJB3 cartridge.
             </p>
             <a name="Non_Inheriting_Entities"/>
-			<subsection name="Non Interhiting Entities">
+            <subsection name="Non Interhiting Entities">
                 <p>
                     In a mapped superclass scenario, an entity inherits from a superclass that has persistent state 
                     and mapping information, but the super class is NOT an entity and is not mapped to a relation table.
@@ -49,7 +49,7 @@
                 </p>
             </subsection>
             <a name="Mapped_Superclasses"/>
-			<subsection name="Mapped Superclasses">
+            <subsection name="Mapped Superclasses">
                 <p>
                     To explicitly define an entity as a mapped superclass, model the <![CDATA[<<Entity>>]]> <b>AND</b>
                     <![CDATA[<<MappedSuperclass>>]]> stereotypes on the class.  (Note: The cartridge did attempt to 
@@ -64,14 +64,14 @@
                     The following is an example of this type of inheritance where the <code>Vehicle</code> mapped
                     superclass contains the identifier which is automatically used by the <code>Car</code> entity.
                 </p>
-				<p>
-					<img src="images/org/andromda/test/9/a/uml.gif" alt="images/org/andromda/test/9/a/uml.gif"/>
-				</p>
-				<ul>
-					<li class="gen">Auto-generated source that does not need manual editing</li>
-					<li class="impl">Auto-generated source that should be edited manually</li>
-					<li class="changed">File that is affected by the modifications applied in this section</li>
-				</ul>
+                <p>
+                    <img src="images/org/andromda/test/9/a/uml.gif" alt="images/org/andromda/test/9/a/uml.gif"/>
+                </p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
                 <ul>
                     <li class="gen"><a class="changed" href="howto/org/andromda/test/howto9/a/Vehicle.java"><code>Vehicle.java</code></a></li>
                     <li class="gen"><a class="changed" href="howto/org/andromda/test/howto9/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
@@ -119,7 +119,7 @@
                     If you are going to enable manageable entities, you must ONLY enable
                     your identifiers in the subclass and not the parent mapped superclass.
                 </p>
-			</subsection>
+            </subsection>
             <a name="Single_Table_Strategy"/>
             <subsection name="Single Table Strategy">
                 <p>
@@ -143,15 +143,15 @@
                     The EJB3 cartridge will assume a single table mapping strategy when you model an inheritance
                     hierarchy between entities, unless specified otherwise.
                 </p>
-				<p>
-					<img src="images/org/andromda/test/9/b/uml.gif" alt="images/org/andromda/test/9/b/uml.gif"/>
-				</p>
-				<ul>
-					<li class="gen">Auto-generated source that does not need manual editing</li>
-					<li class="impl">Auto-generated source that should be edited manually</li>
-					<li class="changed">File that is affected by the modifications applied in this section</li>
-				</ul>
-			    <ul>
+                <p>
+                    <img src="images/org/andromda/test/9/b/uml.gif" alt="images/org/andromda/test/9/b/uml.gif"/>
+                </p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+                <ul>
                     <li class="gen"><a class="changed" href="howto/org/andromda/test/howto9/b/Vehicle.java"><code>Vehicle.java</code></a></li>
                     <li class="gen"><a href="howto/org/andromda/test/howto9/b/VehicleDao.java"><code>VehicleDao.java</code></a></li>
                     <li class="gen"><a href="howto/org/andromda/test/howto9/b/VehicleDaoBase.java"><code>VehicleDaoBase.java</code></a></li>
@@ -226,7 +226,7 @@
                 </p>
             </subsection>
             <a name="Table_Per_Class_Strategy"/>
-			<subsection name="Table Per Class Strategy">
+            <subsection name="Table Per Class Strategy">
                 <p>
                     With this strategy, a table exists per class in the hierarchy and each table is comprised of
                     all the properties persisted by that class.  There is no need to define discriminator column
@@ -246,7 +246,7 @@
                     <code>TABLE_PER_CLASS</code> on the root class of the hierarchy.
                     All subclasses follow this same strategy.
                 </p>
-			</subsection>
+            </subsection>
             <a name="Table_Join_Strategy"/>
             <subsection name="Table Join Strategy">
                 <p>
@@ -276,12 +276,12 @@
                 </p>
                 
                 <p>
-            		<i>Support for the table per class inheritance mapping strategy is optional in this release.</i>
+                    <i>Support for the table per class inheritance mapping strategy is optional in this release.</i>
                 </p>
                 <p>
-	                <i>Support for the combination of inheritance strategies within a single entity inheritance 
-	                hierarchy is not required by this specification.</i>
-	            </p>
+                    <i>Support for the combination of inheritance strategies within a single entity inheritance 
+                    hierarchy is not required by this specification.</i>
+                </p>
                 
             </subsection>
         </section>

@@ -76,26 +76,26 @@
                 </p>
             </subsection>
             <subsection name="Seam Component">
-				<p>
-					Every entity or session bean which is to be modeled as a Seam component must have an 
-					extra <![CDATA[<<Seam>>]]> stereotype, along with the traditional <![CDATA[<<Entity>>]]> 
+                <p>
+                    Every entity or session bean which is to be modeled as a Seam component must have an 
+                    extra <![CDATA[<<Seam>>]]> stereotype, along with the traditional <![CDATA[<<Entity>>]]> 
                     or <![CDATA[<<Service>>]]> stereotypes.  However, now you can also model a value object with
                     the <![CDATA[<<ValueObject>>]]> stereotype as a Seam component in the same way.
-				</p>
+                </p>
             </subsection>
             <subsection name="Component Name">
-				<p>
-					If you model the <![CDATA[<<Seam>>]]> stereotype, the <![CDATA[@Name]]> annotation will be 
+                <p>
+                    If you model the <![CDATA[<<Seam>>]]> stereotype, the <![CDATA[@Name]]> annotation will be 
                     generated with the value being the class name. You can override this by modeling the 
-					<![CDATA[andromda_seam_component_name]]> tagged value.
-				</p>
+                    <![CDATA[andromda_seam_component_name]]> tagged value.
+                </p>
             </subsection>
             <subsection name="Component Scope">
-				<p>
-					The <![CDATA[andromda_seam_component_scope]]> tagged value on Seam component classes provides
+                <p>
+                    The <![CDATA[andromda_seam_component_scope]]> tagged value on Seam component classes provides
                     enumerated values to set the scope of the component.  The default scope depends on the component
                     type.
-				</p>
+                </p>
                 <p>
                     If you have modeled roles for the component, then you can use the 
                     <![CDATA[andromda_seam_component_role_scope]]> tagged value where the list of scopes must be
@@ -103,27 +103,27 @@
                 </p>
             </subsection>
             <subsection name="Logger">
-				<p>
-					To make use of the JBoss Seam logger, you can model a component attribute of <i>Object</i>
+                <p>
+                    To make use of the JBoss Seam logger, you can model a component attribute of <i>Object</i>
                     type with stereotype <![CDATA[<<Logger>>]]>.  You can further specify the name of the log
                     category with <![CDATA[andromda_seam_bijection_logger_value]]> tagged value.
-				</p>
+                </p>
             </subsection>
             <subsection name="Bijection">
-				<p>
-					The <![CDATA[@In]]> and <![CDATA[@Out]]> annotations for bijection are rendered on attributes 
+                <p>
+                    The <![CDATA[@In]]> and <![CDATA[@Out]]> annotations for bijection are rendered on attributes 
                     defined on session bean classes where <![CDATA[<<In>>]]> and <![CDATA[<<Out>>]]> stereotypes are
-					modeled respectively.
+                    modeled respectively.
                 </p>
                 <p>
                     If attribute multiplicity is 0, 0..1, 0..*, the 
-					<i>require</i> property is defined in both annotations.
+                    <i>require</i> property is defined in both annotations.
                 </p>
                 <p>
                     If attribute multiplicity is 1, 1..* 
-					the <i>create</i> property is defined on the <![CDATA[@In]]> annotation.  You can explicitly
+                    the <i>create</i> property is defined on the <![CDATA[@In]]> annotation.  You can explicitly
                     specify this using the <![CDATA[andromda_seam_bijection_in_create]]> tagged value.
-				</p>
+                </p>
                 <p>
                     To explicitly specify the name of the context variable for the <![CDATA[@In]]> annotation,
                     model the <![CDATA[andromda_seam_bijection_in_value]]> tagged value.  This can also be used
@@ -133,76 +133,76 @@
                 </p>
             </subsection>
             <subsection name="Creating Seam Component">
-				<p>
-					The <![CDATA[@Create]]> annotation is rendered on session bean operations if a 
-					<![CDATA[<<Create>>]]> stereotype is modeled on this method, indicating that the method
+                <p>
+                    The <![CDATA[@Create]]> annotation is rendered on session bean operations if a 
+                    <![CDATA[<<Create>>]]> stereotype is modeled on this method, indicating that the method
                     should be called when an instance of the component is instantiated by Seam.
-				</p>
+                </p>
             </subsection>
             <subsection name="Destruction of Context Variables">
-				<p>
-					The <![CDATA[@Destroy]]> annotation is rendered on a session bean operation if a 
-					<![CDATA[<<Destroy>>]]> stereotype is modeled on it.  Otherwise, by default,
+                <p>
+                    The <![CDATA[@Destroy]]> annotation is rendered on a session bean operation if a 
+                    <![CDATA[<<Destroy>>]]> stereotype is modeled on it.  Otherwise, by default,
                     a <b>Destroy</b> method is generated with this annotation.
-				</p>
+                </p>
             </subsection>
             <subsection name="Not Null Validation">
-				<p>
-					The <![CDATA[@NotNull]]> annotation will be rendered on getters based on attribute multiplicity.
-				</p>
+                <p>
+                    The <![CDATA[@NotNull]]> annotation will be rendered on getters based on attribute multiplicity.
+                </p>
             </subsection>
             <subsection name="Length Validation">
-				<p>
-					The <![CDATA[@Length]]> annotation's max property is taken from 
-					<![CDATA[andromda_persistence_column_length]]> tagged value. It is planned to specify a min 
-					length, set via the same tagged value with format x,y where x is min, y is max. 
-					This has currently not been implemented.
-				</p>
+                <p>
+                    The <![CDATA[@Length]]> annotation's max property is taken from 
+                    <![CDATA[andromda_persistence_column_length]]> tagged value. It is planned to specify a min 
+                    length, set via the same tagged value with format x,y where x is min, y is max. 
+                    This has currently not been implemented.
+                </p>
             </subsection>
             <subsection name="Component Validation">
-				<p>
-					The <![CDATA[<<Valid>>]]> stereotype can be modeled on session bean component attributes 
-					to render the <![CDATA[@Valid]]> annotation for Hibernate Validator to recursively 
+                <p>
+                    The <![CDATA[<<Valid>>]]> stereotype can be modeled on session bean component attributes 
+                    to render the <![CDATA[@Valid]]> annotation for Hibernate Validator to recursively 
                     validate this and related objects.
-				</p>
+                </p>
                 <p>
                     The <![CDATA[<<Validator>>]]> stereotype can be modeled on Seam component operations indicating
                     the validator must validate the component before invoking the method.
                 </p>
-				<p>
-					This component operation can now model the 
+                <p>
+                    This component operation can now model the 
                     <![CDATA[andromda_seam_validation_outcome]]> tagged value to indicate the JSF outcome when
                     validation fails.
                 </p>
                 <p> 
-					The <![CDATA[andromda_seam_validation_refreshEntities]]> tagged value can also optionally be
+                    The <![CDATA[andromda_seam_validation_refreshEntities]]> tagged value can also optionally be
                     modeled with values 'true' or 
-					'false' and if defined, adds the <i>refreshEntities</i> property to the annotation.  This will
+                    'false' and if defined, adds the <i>refreshEntities</i> property to the annotation.  This will
                     indicate any invalid entity in the managed state be refreshed from the database when 
                     validation fails.  This is used in conjunction with extended persistence context.
-				</p>
+                </p>
             </subsection>
             <subsection name="Stateful Session Bean Components">
-				<p>
-					As soon as you introduce session bean attributes, the cartridge defines 
-					the bean as a stateful session bean only if none of the attributes are modeled with Seam related
+                <p>
+                    As soon as you introduce session bean attributes, the cartridge defines 
+                    the bean as a stateful session bean only if none of the attributes are modeled with Seam related
                     stereotypes or tagged values.  If you have only Seam component attributes in the session bean
                     (which by the way, is a Seam component), the bean is not defined as a SFSB.  If you wish 
                     to explicitly define this bean as a SFSB you can do this via the tagged value 
                     <![CDATA[andromda_service_type]]>.
-				</p>
+                </p>
             </subsection>
             <subsection name="Data Model">
-				<p>
-					The <![CDATA[<<DataModel>>]]> stereotype can be modeled on component attributes 
-					of type List, Map, Set or Object[]. 
-					This will render <![CDATA[@DataModel]]> on the attribute. 
+                <p>
+                    The <![CDATA[<<DataModel>>]]> stereotype can be modeled on component attributes 
+                    of type List, Map, Set or Object[]. 
+                    This will render <![CDATA[@DataModel]]> on the attribute. 
                 </p>
                 <p>
                     An optional tagged value 
-					<![CDATA[andromda_seam_data_datamodel_value]]> can be modeled on such 
-					attributes to defined the context variable name if more than one datamodel exists.
-				</p>
+                    <![CDATA[andromda_seam_data_datamodel_value]]> can be modeled on such 
+                    attributes to defined the context variable name if more than one datamodel exists.
+                </p>
                 <p>
                     The exposed attribute will have the scope of the owning component, or the <b>EVENT</b>
                     scope if the owning component itself has a <b>STATELESS</b> scope.  You can optionally
@@ -210,42 +210,42 @@
                 </p>
             </subsection>
             <subsection name="Data Model Selection">
-				<p>
-					The <![CDATA[<<DataModelSelection>>]]> stereotype can be modeled on component attributes 
-					to inject the selected value from the <b>DataModel</b> into the attribute. The JSF
+                <p>
+                    The <![CDATA[<<DataModelSelection>>]]> stereotype can be modeled on component attributes 
+                    to inject the selected value from the <b>DataModel</b> into the attribute. The JSF
                     DataModel is the underlying collection or map value.  This 
-					will render <![CDATA[@DataModelSelection]]> on the attribute.
+                    will render <![CDATA[@DataModelSelection]]> on the attribute.
                 </p>
                 <p>
                     An optional tagged value 
-					<![CDATA[andromda_seam_data_datamodelselection_value]]> can define the 
-					name of the context variable specified by the appropriate <![CDATA[@DataModel]]>.  
+                    <![CDATA[andromda_seam_data_datamodelselection_value]]> can define the 
+                    name of the context variable specified by the appropriate <![CDATA[@DataModel]]>.  
                     This tagged value is
                     not needed is there is only one <![CDATA[@DataModel]]> element in the Seam component.
-				</p>
+                </p>
             </subsection>
             <subsection name="Initializing Context Variable">
-				<p>
-					The <![CDATA[<<Factory>>]]> stereotype can be modeled on session bean 
-					component operations with the optional <![CDATA[andromda_seam_bijection_factory_value]]>
-					tagged value which can be modeled on the operation to set the context variable name.
+                <p>
+                    The <![CDATA[<<Factory>>]]> stereotype can be modeled on session bean 
+                    component operations with the optional <![CDATA[andromda_seam_bijection_factory_value]]>
+                    tagged value which can be modeled on the operation to set the context variable name.
                     If this tagged value is NOT set, the default value is the property name.  You can optionally
                     explicitly specify the scope of the context variable by using the 
                     <![CDATA[andromda_seam_bijection_factory_scope]]> tagged value.
-				</p>
+                </p>
             </subsection>
             <subsection name="Request Parameters">
-				<p>
-					The <![CDATA[<<RequestParameter>>]]> stereotype can be modeled on session bean 
-					component attributes to indicate an attribute is to be injected with the value 
-					of a request parameter. 
+                <p>
+                    The <![CDATA[<<RequestParameter>>]]> stereotype can be modeled on session bean 
+                    component attributes to indicate an attribute is to be injected with the value 
+                    of a request parameter. 
                 </p>
                 <p>
                     The optional tagged value 
-					<![CDATA[andromda_seam_component_requestparameter_value]]> will define the 
-					request parameter name.  If this is NOT set, the name will default to the name of the
+                    <![CDATA[andromda_seam_component_requestparameter_value]]> will define the 
+                    request parameter name.  If this is NOT set, the name will default to the name of the
                     component attribute.
-				</p>
+                </p>
             </subsection>
             <subsection name="Transaction Rollback">
                 <p>
@@ -254,24 +254,24 @@
                     matches any of the listed outcomes or when no outcomes are listed.  You set the list
                     of outcomes using the following tagged value.
                 </p>
-				<p>
-					The tagged value <![CDATA[andromda_seam_transaction_rollback_ifoutcome]]> which can be set 
-					on bean component operations that have the <![CDATA[<<Rollback>>]]> stereotype, 
+                <p>
+                    The tagged value <![CDATA[andromda_seam_transaction_rollback_ifoutcome]]> which can be set 
+                    on bean component operations that have the <![CDATA[<<Rollback>>]]> stereotype, 
                     can have multiple values to indicate the list of outcomes that trigger a rollback.
-				</p>
+                </p>
             </subsection>
             <subsection name="Action Outcome in Absence of a Conversation">
-				<p>
-					The tagged value <![CDATA[andromda_seam_component_conversational_ifnotbegunoutcome]]>
-					can be set to render the <b>ifNotBegunOutcome</b> property on the <![CDATA[@Conversational]]> 
+                <p>
+                    The tagged value <![CDATA[andromda_seam_component_conversational_ifnotbegunoutcome]]>
+                    can be set to render the <b>ifNotBegunOutcome</b> property on the <![CDATA[@Conversational]]> 
                     annotation to indicate the JSF outcome for the action, if no long-running conversation is 
-					active when the component is invoked.
-				</p>
+                    active when the component is invoked.
+                </p>
             </subsection>
             <subsection name="Beginging a Conversation">
-				<p>
-					The<![CDATA[<<Begin>>]]> stereotype can be modeled on Seam component operations 
-					to indicate a long-running conversation has started.  This will render a <![CDATA[@Begin]]> 
+                <p>
+                    The<![CDATA[<<Begin>>]]> stereotype can be modeled on Seam component operations 
+                    to indicate a long-running conversation has started.  This will render a <![CDATA[@Begin]]> 
                     annotation on the operation. The following tagged values can be defined within the context of this
                     component:
                 </p>
@@ -284,27 +284,27 @@
                 </ul>
             </subsection>
             <subsection name="Ending a Conversation">
-				<p>
-					The <![CDATA[<<End>>]]> stereotype can be modeled on Seam component operations 
-					to indicate the end of a long running conversation. The following tagged values can be
+                <p>
+                    The <![CDATA[<<End>>]]> stereotype can be modeled on Seam component operations 
+                    to indicate the end of a long running conversation. The following tagged values can be
                     defined within the context of this component:
                 </p>
                 <ul>
                     <li><![CDATA[andromda_seam_conversation_end_ifoutcome]]> - can have multiple values</li>
-				    <li><![CDATA[andromda_seam_conversation_end_evenifexception]]></li>
+                    <li><![CDATA[andromda_seam_conversation_end_evenifexception]]></li>
                     <li><![CDATA[andromda_seam_conversation_end_beforeredirect]]></li>
                </ul>
             </subsection>
             <subsection name="jBPM Tasks and Processes">
-				<p>
-					Refer to seam profile for docs on stereotypes/tags for jBPM tasks/processes.
-				</p>
+                <p>
+                    Refer to seam profile for docs on stereotypes/tags for jBPM tasks/processes.
+                </p>
             </subsection>
             <subsection name="Unwrap Stereotype">
-				<p>
-					The stereotype <![CDATA[<<Unwrap>>]]> can be modeled on attributes but is rendered 
-					on getter method of bean components.
-				</p>
+                <p>
+                    The stereotype <![CDATA[<<Unwrap>>]]> can be modeled on attributes but is rendered 
+                    on getter method of bean components.
+                </p>
             </subsection>
         </section>
         <section name="Next">

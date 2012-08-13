@@ -42,7 +42,7 @@
         </conditions>
         <conditions>
             <condition id="transactionPersistenceType" notEqual="none"/>
-			<condition id="dotNetVersion" equal="2.0"/>
+            <condition id="dotNetVersion" equal="2.0"/>
             <output>lib/NHibernate.Nullables2.dll</output>
         </conditions>
         <conditions>

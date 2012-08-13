@@ -23,13 +23,13 @@
     </scm>
     <dependencies>
         <dependency>
-    		<groupId>org.andromda.thirdparty.jmi</groupId>
-      		<artifactId>jmiuml</artifactId>
-    	</dependency>
-    	<dependency>
-    		<groupId>org.andromda.thirdparty.jmi</groupId>
-      		<artifactId>jmi</artifactId>
-    	</dependency>
+            <groupId>org.andromda.thirdparty.jmi</groupId>
+              <artifactId>jmiuml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.thirdparty.jmi</groupId>
+              <artifactId>jmi</artifactId>
+        </dependency>
         <!-- Andromda dependencies -->
         <dependency>
             <groupId>org.andromda.metafacades</groupId>
@@ -41,7 +41,7 @@
             <artifactId>andromda-ocl-validation-library</artifactId>
             <version>${andromda.version}</version>
         </dependency>
-	</dependencies>
+    </dependencies>
     <build>
         <plugins>
             <plugin>
@@ -102,18 +102,18 @@
                 </configuration>
             </plugin>
         </plugins>
- 		<resources>
+         <resources>
             <resource>
                 <directory>src/main/resources</directory>
             </resource>
-	      	<resource>
-		        <directory>../common/src/main/resources</directory>
-	        	<includes>
-	        		<include>META-INF/andromda/**</include>
-	        	</includes>
+              <resource>
+                <directory>../common/src/main/resources</directory>
+                <includes>
+                    <include>META-INF/andromda/**</include>
+                </includes>
                 <filtering>true</filtering>
-	      	</resource>
-    	</resources>
+              </resource>
+        </resources>
     </build>
     <properties>
         <namespace.name>uml-1.4</namespace.name>

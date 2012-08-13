@@ -18,101 +18,101 @@
             </ul>
             <a name="Samples_Demo_EJB3"/>
             <subsection name="Demo EJB3 Sample">
-	            <p>
-	                This sample application is located in the <code>samples/demo-ejb3</code> directory of the
-	                <code>andromda-plugins</code> project on SourceForge.net.
-	            </p>
-	            <p>
-	                The project has the same structure as described in
-	                <a href="http://docs.andromda.org/samples.html">AndroMDA Samples</a>.
-	            </p>
-	            <p>
-	                This sample demo illustrates the use of the EJB3 cartridge (EJB 3.0 functionality), 
-	                manageable entities and web services.  It is built for the MySQL database engine using
-	                JBoss 4.0.4 GA or newer.
-	            </p>
-	            <p>
-	                Simply build the demo by executing <code>mvn</code> in the root of the project directory.
-	            </p>
-	            <p>
-	                Once you have build the sample, you need to create the database called <code>demo-ejb3</code>.
-	                You can then deploy the following to JBoss.
+                <p>
+                    This sample application is located in the <code>samples/demo-ejb3</code> directory of the
+                    <code>andromda-plugins</code> project on SourceForge.net.
                 </p>
-	                <ul>
-	                    <li>demo-ejb3/app/target/demo-ejb3-ds.xml</li>
-	                    <li>demo-ejb3/app/target/demo-ejb3-mq-destinations-service.xml</li>
-	                    <li>demo-ejb3/app/target/demo-ejb3-1.0-SNAPSHOT.ear</li>
-	                </ul>
-	            <p>
-	                The demo also contains simple clients that you can alter and execute to better understand 
-	                the functionality in each demo sub-package.
-	            </p>
-	        </subsection>
+                <p>
+                    The project has the same structure as described in
+                    <a href="http://docs.andromda.org/samples.html">AndroMDA Samples</a>.
+                </p>
+                <p>
+                    This sample demo illustrates the use of the EJB3 cartridge (EJB 3.0 functionality), 
+                    manageable entities and web services.  It is built for the MySQL database engine using
+                    JBoss 4.0.4 GA or newer.
+                </p>
+                <p>
+                    Simply build the demo by executing <code>mvn</code> in the root of the project directory.
+                </p>
+                <p>
+                    Once you have build the sample, you need to create the database called <code>demo-ejb3</code>.
+                    You can then deploy the following to JBoss.
+                </p>
+                    <ul>
+                        <li>demo-ejb3/app/target/demo-ejb3-ds.xml</li>
+                        <li>demo-ejb3/app/target/demo-ejb3-mq-destinations-service.xml</li>
+                        <li>demo-ejb3/app/target/demo-ejb3-1.0-SNAPSHOT.ear</li>
+                    </ul>
+                <p>
+                    The demo also contains simple clients that you can alter and execute to better understand 
+                    the functionality in each demo sub-package.
+                </p>
+            </subsection>
             <a name="Seam_Booking"/>
             <subsection name="Seam Booking Example">
-	            <p>
-	                This sample application is located in the <code>samples/booking-seam</code> directory of the
-	                <code>andromda-plugins</code> project on SourceForge.net.
-	            </p>
-	            <p>
-	                The project has the same structure as described in
-	                <a href="http://docs.andromda.org/samples.html">AndroMDA Samples</a>.
-	            </p>
-	            <p>
-	                This booking system tries to replicate the JBoss Booking System (available from JBoss)
+                <p>
+                    This sample application is located in the <code>samples/booking-seam</code> directory of the
+                    <code>andromda-plugins</code> project on SourceForge.net.
+                </p>
+                <p>
+                    The project has the same structure as described in
+                    <a href="http://docs.andromda.org/samples.html">AndroMDA Samples</a>.
+                </p>
+                <p>
+                    This booking system tries to replicate the JBoss Booking System (available from JBoss)
                     to illustrate the JBoss Seam features.  It also relies on the EJB3 cartridge. 
-	                It is built for the MySQL database engine using JBoss 4.0.5 GA or newer.
-	            </p>
-	            <p>
-	                Simply build the demo by executing <code>mvn</code> in the root of the project directory.
-	            </p>
-	            <p>
-	                Once you have build the sample, you need to create the database called <code>booking-seam</code>.
-	                You can then deploy the following to JBoss.
+                    It is built for the MySQL database engine using JBoss 4.0.5 GA or newer.
+                </p>
+                <p>
+                    Simply build the demo by executing <code>mvn</code> in the root of the project directory.
+                </p>
+                <p>
+                    Once you have build the sample, you need to create the database called <code>booking-seam</code>.
+                    You can then deploy the following to JBoss.
                 </p>
                 <ul>
                     <li>booking-seam/app/target/booking-seam-ds.xml</li>
                     <li>booking-seam/app/target/booking-seam-1.0-SNAPSHOT.ear</li>
                 </ul>
-	            <p>
-	                This example does not contain any view components at this time.  As JBoss Seam functionality
+                <p>
+                    This example does not contain any view components at this time.  As JBoss Seam functionality
                     improves, this project will serve as a complete example for both EJB 3.0 Seam components and
                     JSF with Facelets view components.
-	            </p>
-	        </subsection>
+                </p>
+            </subsection>
             <a name="Timetracker_EJB3"/>
             <subsection name="Timetracker EJB3 JSF Example">
-	            <p>
-	                This sample application is located in the <code>samples/timetracker-ejb</code> directory of the
-	                <code>andromda-plugins</code> project on SourceForge.net.
-	            </p>
-	            <p>
-	                The project has the same structure as described in
-	                <a href="http://docs.andromda.org/samples.html">AndroMDA Samples</a>.
-	            </p>
-	            <p>
-	                This sample application is a re-make of the 
+                <p>
+                    This sample application is located in the <code>samples/timetracker-ejb</code> directory of the
+                    <code>andromda-plugins</code> project on SourceForge.net.
+                </p>
+                <p>
+                    The project has the same structure as described in
+                    <a href="http://docs.andromda.org/samples.html">AndroMDA Samples</a>.
+                </p>
+                <p>
+                    This sample application is a re-make of the 
                     <a href="http://www.andromda.org/index.php?option=com_content&amp;task=category&amp;sectionid=11&amp;id=42&amp;Itemid=89">
                     AndroMDA Timetracker sample application</a> but
                     instead uses the EJB3 and the JSF cartridges.
-	            </p>
-	            <p>
-	                Simply build the demo by executing <code>mvn</code> in the root of the project directory.
-	            </p>
-	            <p>
-	                Once you have build the sample, you need to create the database called <code>timetracker</code>.
-	                You can then deploy the following to JBoss.
+                </p>
+                <p>
+                    Simply build the demo by executing <code>mvn</code> in the root of the project directory.
+                </p>
+                <p>
+                    Once you have build the sample, you need to create the database called <code>timetracker</code>.
+                    You can then deploy the following to JBoss.
                 </p>
                 <ul>
                     <li>timetracker-ejb3/app/target/timetracker-ejb3-ds.xml</li>
                     <li>timetracker-ejb3/app/target/timetracker-ejb3-1.0-SNAPSHOT.ear</li>
                 </ul>
-	            <p>
-	                Once you have deployed the EAR file, you can use the <code>sql.txt</code> MySQL script
+                <p>
+                    Once you have deployed the EAR file, you can use the <code>sql.txt</code> MySQL script
                     to import the data into your database.  This file is located in the root directory of this
                     project.
-	            </p>
-	        </subsection>
+                </p>
+            </subsection>
         </section>
     </body>
 </document>

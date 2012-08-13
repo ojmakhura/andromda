@@ -2,29 +2,29 @@
 
 <document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
-	<properties>
-    	<title>AndroMDA Maven Plug-in Goals</title>
-  	</properties>
-  	<body>
-		<section name="Goals">
-		    <table>
-		        <tr>
-		            <th>Goal</th>
-		            <th>Description</th>
-		        </tr>
-			    <tr>
-				    <td nowrap="nowrap">
-				        <a href="run-mojo.html">bootstrap:run</a>
-				    </td>
-				    <td>
-				        <p>
-					        This is exactly the same as the regular AndroMDAMojo in the
+    <properties>
+        <title>AndroMDA Maven Plug-in Goals</title>
+      </properties>
+      <body>
+        <section name="Goals">
+            <table>
+                <tr>
+                    <th>Goal</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="run-mojo.html">bootstrap:run</a>
+                    </td>
+                    <td>
+                        <p>
+                            This is exactly the same as the regular AndroMDAMojo in the
                             andromda-maven-plugin, however this is the <em>bootstrap</em>
                             plugin which is used to run AndroMDA in bootstrap mode (with the
                             bootstrap artifacts).
                         </p>
-				    </td>
-			    </tr>
+                    </td>
+                </tr>
                 <tr>
                     <td nowrap="nowrap">
                         <a href="test-translation-library-mojo.html">bootstrap:test-translation-library</a>
@@ -45,7 +45,7 @@
                         </p>
                     </td>
                 </tr>
-			</table>
-		</section>
-  	</body>
+            </table>
+        </section>
+      </body>
 </document>

@@ -11,18 +11,18 @@
     <body>
         <section name="Declarative Security with Spring">
             <p>
-				<a href="http://www.springsource.org/spring-security">SpringSecurity</a> is a security framework based on the Spring Framework.
-				It provides authentication and authorization for web and rich client applications.
-				AndroMDA supports Spring declarative role based security for <a href="howto3.html">Spring Services</a>.
+                <a href="http://www.springsource.org/spring-security">SpringSecurity</a> is a security framework based on the Spring Framework.
+                It provides authentication and authorization for web and rich client applications.
+                AndroMDA supports Spring declarative role based security for <a href="howto3.html">Spring Services</a>.
             </p>
-			 <subsection name="Configuration">
-				<p>
-					To enable Security support for the spring cartridge set <a href="namespace.html#serviceSecurity">serviceSecurity</a>
-					to <code>true</code>. All <a href="namespace.html#Spring_Security">other Security properties</a> have been defaulted.
-				</p>
-				<p>
-					The authentication has to be configured in a separate security context file. The following presents a small example,
-					for more details have a look at the <a href="http://static.springsource.org/spring-security/site/docs/3.1.x/reference/springsecurity-single.html#tech-intro-authentication">Spring Security reference</a>.
+             <subsection name="Configuration">
+                <p>
+                    To enable Security support for the spring cartridge set <a href="namespace.html#serviceSecurity">serviceSecurity</a>
+                    to <code>true</code>. All <a href="namespace.html#Spring_Security">other Security properties</a> have been defaulted.
+                </p>
+                <p>
+                    The authentication has to be configured in a separate security context file. The following presents a small example,
+                    for more details have a look at the <a href="http://static.springsource.org/spring-security/site/docs/3.1.x/reference/springsecurity-single.html#tech-intro-authentication">Spring Security reference</a>.
 <source><![CDATA[
 <beans>
     <bean id="myUserDetailsService" class="com.mycompany.MyUserDetailsServiceImpl">
@@ -43,78 +43,78 @@
             </list>
         </property>
     </bean>
-</beans>	
+</beans>    
 ]]></source>
-				</p>
-				<p>
-					To add this additional context file to your spring configuration <a href="namespace.html#beanRefFactory">(beanRefFactory)</a>
-					you can use the	<a href="../index.html#mergeMappingsUri">AndroMDA merge feature</a>
-					with adding the filename to <code><![CDATA[<!-- beanRefFactory merge-point -->]]></code>.
-				</p>
-				<p>
-					The spring cartridge will than generate all code into the
-					<a href="namespace.html#applicationContext">applicationContext</a> file.
-				</p>
-				<p>
-					Please note that if you previously used EJB security, you have to disable it by removing the property 
-					<a href="namespace.html#securityRealm">securityRealm</a> from your AndroMDA build configuration.
-					The nice thing is: you don't have to modify your modeling in this case, the Security support is based on the same notation as the EJB security support.
-				</p>
-			</subsection>
-			<subsection name="Modeling">
-				<p>
-					Now you have to define some roles for your application. This is simply done by adding actors to your model named with the role's name.
-					A role prefix, e.g. <code>ROLE_</code> as proposed by Spring Security for the default <a href="namespace.html#serviceDecisionVoter">serviceDecisionVoter</a> implementation
-					<code>org.springframework.security.access.vote.RoleVoter,</code> can be configured though the namespace property <a href="namespace.html#securityRolePrefix">securityRolePrefix</a>.
-					This prefix is optional for the actor naming and will be automatically added to the generated code, if missing in the model (recommended).
-				</p>
-				<p>
-					<img src="howto/org/andromda/test/8/a/uml.gif" alt="howto/org/andromda/test/8/a/uml.gif"/>
-				</p>
-				<p>
-					The next thing to do is to draw a dependency from a role actor to a <![CDATA[<<Service>>]]> or
-					to one or more methods of the spring service. Making the whole service dependent on an actor grants the role access to all
-					service operations. To grant access to single operation(s) draw the dependency from the actor to the operations(s).
-				</p>
-				<p>
-					<img src="howto/org/andromda/test/8/b/uml.gif" alt="howto/org/andromda/test/8/b/uml.gif"/>
-				</p>
-				<p>
-					AndroMDA now generates a security interceptor with a list of all operations and its assigned roles to the
-					<a href="namespace.html#applicationContext">applicationContext</a> file.
-					Each service call will then be intercepted by the <a href="namespace.html#serviceSecurityInterceptor">serviceSecurityInterceptor</a>.
-					The default interceptor <code>org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor</code> only calls the service method implementation if
-					it successfully authenticated the <code>SecurityContext</code> stored within the <code>ContextHolder.</code>
-					More details on this behavior can be found in the <a href="http://static.springsource.org/spring-security/site/docs/3.1.x/reference/springsecurity-single.html#authz-pre-invocation">Spring Security Reference</a>.
-				</p>
-				<ul>
-					<li class="gen">Auto-generated source that does not need manual editing</li>
-					<li class="impl">Auto-generated source that should be edited manually</li>
-					<li class="changed">File that is affected by the modifications applied in this section</li>
-				</ul>
-				<ul>
-					<li class="gen"><a href="howto/org/andromda/test/7/Car.hbm.xml"><code>Car.hbm.xml</code></a></li>
-					<li class="gen"><a href="howto/org/andromda/test/7/Car.java"><code>Car.java</code></a></li>
-					<li class="impl"><a href="howto/org/andromda/test/7/CarImpl.java"><code>CarImpl.java</code></a></li>
-					<li class="gen"><a href="howto/org/andromda/test/7/CarDao.java"><code>CarDao.java</code></a></li>
-					<li class="gen"><a href="howto/org/andromda/test/7/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-					<li class="impl"><a href="howto/org/andromda/test/7/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-					<li class="gen"><a href="howto/org/andromda/test/7/CarType.java"><code>CarType.java</code></a></li>
-					<li class="gen"><a href="howto/org/andromda/test/7/Person.hbm.xml"><code>Person.hbm.xml</code></a></li>
-					<li class="gen"><a href="howto/org/andromda/test/7/Person.java"><code>Person.java</code></a></li>
-					<li class="gen"><a href="howto/org/andromda/test/7/PersonImpl.java"><code>PersonImpl.java</code></a></li>
-					<li class="gen"><a href="howto/org/andromda/test/7/PersonDao.java"><code>PersonDao.java</code></a></li>
-					<li class="gen"><a href="howto/org/andromda/test/7/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
-					<li class="gen"><a href="howto/org/andromda/test/7/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
-					<li class="gen"><a class="resources" href="howto/org/andromda/test/7/RentalService.java"><code>RentalService.java</code></a></li>
-					<li class="gen"><a class="resources" href="howto/org/andromda/test/7/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
-					<li class="impl"><a href="howto/org/andromda/test/7/RentalServiceImpl.java"><code>RentalServiceImpl.java</code></a></li>
-					<li class="gen"><a class="resources" href="howto/org/andromda/test/7/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
-					<li class="gen"><a href="howto/org/andromda/test/7/ejb/RentalService.java"><code>ejb/RentalService.java</code></a></li>
-					<li class="gen"><a class="resources" href="howto/org/andromda/test/7/ejb/RentalServiceBean.java"><code>ejb/RentalServiceBean.java</code></a></li>
-					<li class="gen"><a href="howto/org/andromda/test/7/ejb/RentalServiceHome.java"><code>ejb/RentalServiceHome.java</code></a></li>
-				</ul>
-			</subsection>
+                </p>
+                <p>
+                    To add this additional context file to your spring configuration <a href="namespace.html#beanRefFactory">(beanRefFactory)</a>
+                    you can use the    <a href="../index.html#mergeMappingsUri">AndroMDA merge feature</a>
+                    with adding the filename to <code><![CDATA[<!-- beanRefFactory merge-point -->]]></code>.
+                </p>
+                <p>
+                    The spring cartridge will than generate all code into the
+                    <a href="namespace.html#applicationContext">applicationContext</a> file.
+                </p>
+                <p>
+                    Please note that if you previously used EJB security, you have to disable it by removing the property 
+                    <a href="namespace.html#securityRealm">securityRealm</a> from your AndroMDA build configuration.
+                    The nice thing is: you don't have to modify your modeling in this case, the Security support is based on the same notation as the EJB security support.
+                </p>
+            </subsection>
+            <subsection name="Modeling">
+                <p>
+                    Now you have to define some roles for your application. This is simply done by adding actors to your model named with the role's name.
+                    A role prefix, e.g. <code>ROLE_</code> as proposed by Spring Security for the default <a href="namespace.html#serviceDecisionVoter">serviceDecisionVoter</a> implementation
+                    <code>org.springframework.security.access.vote.RoleVoter,</code> can be configured though the namespace property <a href="namespace.html#securityRolePrefix">securityRolePrefix</a>.
+                    This prefix is optional for the actor naming and will be automatically added to the generated code, if missing in the model (recommended).
+                </p>
+                <p>
+                    <img src="howto/org/andromda/test/8/a/uml.gif" alt="howto/org/andromda/test/8/a/uml.gif"/>
+                </p>
+                <p>
+                    The next thing to do is to draw a dependency from a role actor to a <![CDATA[<<Service>>]]> or
+                    to one or more methods of the spring service. Making the whole service dependent on an actor grants the role access to all
+                    service operations. To grant access to single operation(s) draw the dependency from the actor to the operations(s).
+                </p>
+                <p>
+                    <img src="howto/org/andromda/test/8/b/uml.gif" alt="howto/org/andromda/test/8/b/uml.gif"/>
+                </p>
+                <p>
+                    AndroMDA now generates a security interceptor with a list of all operations and its assigned roles to the
+                    <a href="namespace.html#applicationContext">applicationContext</a> file.
+                    Each service call will then be intercepted by the <a href="namespace.html#serviceSecurityInterceptor">serviceSecurityInterceptor</a>.
+                    The default interceptor <code>org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor</code> only calls the service method implementation if
+                    it successfully authenticated the <code>SecurityContext</code> stored within the <code>ContextHolder.</code>
+                    More details on this behavior can be found in the <a href="http://static.springsource.org/spring-security/site/docs/3.1.x/reference/springsecurity-single.html#authz-pre-invocation">Spring Security Reference</a>.
+                </p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+                <ul>
+                    <li class="gen"><a href="howto/org/andromda/test/7/Car.hbm.xml"><code>Car.hbm.xml</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/7/Car.java"><code>Car.java</code></a></li>
+                    <li class="impl"><a href="howto/org/andromda/test/7/CarImpl.java"><code>CarImpl.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/7/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/7/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="impl"><a href="howto/org/andromda/test/7/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/7/CarType.java"><code>CarType.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/7/Person.hbm.xml"><code>Person.hbm.xml</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/7/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/7/PersonImpl.java"><code>PersonImpl.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/7/PersonDao.java"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/7/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/7/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a class="resources" href="howto/org/andromda/test/7/RentalService.java"><code>RentalService.java</code></a></li>
+                    <li class="gen"><a class="resources" href="howto/org/andromda/test/7/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                    <li class="impl"><a href="howto/org/andromda/test/7/RentalServiceImpl.java"><code>RentalServiceImpl.java</code></a></li>
+                    <li class="gen"><a class="resources" href="howto/org/andromda/test/7/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/7/ejb/RentalService.java"><code>ejb/RentalService.java</code></a></li>
+                    <li class="gen"><a class="resources" href="howto/org/andromda/test/7/ejb/RentalServiceBean.java"><code>ejb/RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/7/ejb/RentalServiceHome.java"><code>ejb/RentalServiceHome.java</code></a></li>
+                </ul>
+            </subsection>
         </section>
     </body>
 </document>

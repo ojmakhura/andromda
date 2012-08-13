@@ -2,27 +2,27 @@
 
 <document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
-	<properties>
-    	<title>AndroMDA Site Plug-in Goals</title>
-  	</properties>
-  	<body>
-		<section name="Goals">
-		    <table>
-		        <tr>
-		            <th>Goal</th>
-		            <th>Description</th>
-		        </tr>
-			    <tr>
-				    <td nowrap="nowrap">
-				        <a href="copy-documentation-mojo.html">andromda-site:copy-documentation</a>
-				    </td>
-				    <td>
-				        <p>
-					        Copies the required AndroMDA site files to suitable
+    <properties>
+        <title>AndroMDA Site Plug-in Goals</title>
+      </properties>
+      <body>
+        <section name="Goals">
+            <table>
+                <tr>
+                    <th>Goal</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="copy-documentation-mojo.html">andromda-site:copy-documentation</a>
+                    </td>
+                    <td>
+                        <p>
+                            Copies the required AndroMDA site files to suitable
                             locations preparing for deployment.
                         </p>
-				    </td>
-			    </tr>
+                    </td>
+                </tr>
                 <tr>
                     <td nowrap="nowrap">
                         <a href="namespace-xsl-mojo.html">andromda-site:namespace-xsl</a>
@@ -66,7 +66,7 @@
                         </p>
                     </td>
                 </tr>
-			</table>
-		</section>
-  	</body>
+            </table>
+        </section>
+      </body>
 </document>

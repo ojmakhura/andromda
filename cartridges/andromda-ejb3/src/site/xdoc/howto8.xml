@@ -8,9 +8,9 @@
     <body>
         <section name="Declarative Security">
             <p>
-				The JAAS security framework, in JBoss (JBossSX) or other EJB containers provides authentication 
-				and authorization for components in EJB 3.0 applications.
-				The EJB3 cartridge supports declarative role based security for this security framework.
+                The JAAS security framework, in JBoss (JBossSX) or other EJB containers provides authentication 
+                and authorization for components in EJB 3.0 applications.
+                The EJB3 cartridge supports declarative role based security for this security framework.
             </p>
             <p>
                 Currently, the EJB3 cartridge uses metadata annotations to declare security related information.
@@ -18,12 +18,12 @@
                 security policies.
             </p>
             <a name="Configuration"/>
-			<subsection name="Configuration">
-				<p>
-					Enabling security for the EJB3 cartridge is similar to the EJB/hibernate cartridges.  All that
-					is required is to uncomment the <a href="namespace.html#securityRealm">securityRealm</a> 
-					property in your AndroMDA build configuration (andromda.xml).  The <code>ejb3</code>
-					namespace section will look something like the following.
+            <subsection name="Configuration">
+                <p>
+                    Enabling security for the EJB3 cartridge is similar to the EJB/hibernate cartridges.  All that
+                    is required is to uncomment the <a href="namespace.html#securityRealm">securityRealm</a> 
+                    property in your AndroMDA build configuration (andromda.xml).  The <code>ejb3</code>
+                    namespace section will look something like the following.
 <source><![CDATA[
         <namespace name="ejb3">
             <properties>
@@ -34,12 +34,12 @@
             </properties>
         </namespace>
 ]]></source>
-				</p>
-				<p>
-					Once you have done that, the cartridge will create the <code>login-config.xml</code> and
-					and <code>login-service.xml</code> deployment descriptors for JBoss.  
-					Both files are generated to the ear <code>META-INF</code> directory.  The
-					<code>login-config.xml</code> will look like:
+                </p>
+                <p>
+                    Once you have done that, the cartridge will create the <code>login-config.xml</code> and
+                    and <code>login-service.xml</code> deployment descriptors for JBoss.  
+                    Both files are generated to the ear <code>META-INF</code> directory.  The
+                    <code>login-config.xml</code> will look like:
 <source><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
 <policy>
@@ -68,17 +68,17 @@
                     The <code>login-service.xml</code> loads the login module from <code>login-config.xml</code>,
                     making sure the <code>LoginConfigService</code> and <code>SecurityManagerService</code>
                     services are running before the new login module is activated.
-				</p>
-				<p>
-				    These 2 files are generated the first time the security realm is enabled.  They will not be
-				    overridden.  For example, you can modify these files to prevent the queries checking for
-				    case sensitivity by removing the <b>BINARY</b> in the <i>where</i> clauses.
-				</p>
-				<p>
-				    JBoss will load the MBean service configured in <code>login-service.xml</code> by
-				    specifying this service in the <code>jboss-app.xml</code> deployment descriptor.  The EJB3
-				    cartridge will do this for you, so you don't have to worry about it.  It will add the 
-				    following:
+                </p>
+                <p>
+                    These 2 files are generated the first time the security realm is enabled.  They will not be
+                    overridden.  For example, you can modify these files to prevent the queries checking for
+                    case sensitivity by removing the <b>BINARY</b> in the <i>where</i> clauses.
+                </p>
+                <p>
+                    JBoss will load the MBean service configured in <code>login-service.xml</code> by
+                    specifying this service in the <code>jboss-app.xml</code> deployment descriptor.  The EJB3
+                    cartridge will do this for you, so you don't have to worry about it.  It will add the 
+                    following:
 <source><![CDATA[
     ...
     <module>
@@ -86,12 +86,12 @@
     </module>
     ...
 ]]></source>
-				</p>
-				<p>
-					The cartridge will also create an <code>auth.conf</code> file in <i>./app/src/main/config</i>.
-					You will need this file if your client is outside of the server JVM to be able to authenticate
-					your credentials.  This file needs to be in your classpath when you run your external
-					client.
+                </p>
+                <p>
+                    The cartridge will also create an <code>auth.conf</code> file in <i>./app/src/main/config</i>.
+                    You will need this file if your client is outside of the server JVM to be able to authenticate
+                    your credentials.  This file needs to be in your classpath when you run your external
+                    client.
 <source><![CDATA[
 howtomodel {
    // jBoss LoginModule
@@ -104,11 +104,11 @@ howtomodel {
 System.setProperty("java.security.auth.login.config", "./auth.conf");
 ]]></source>
                     Alternatively, when running from the command line, specify the -D arg option.
-				</p>
-				<p>
-				    Remember that you will need to create your table schema corresponding to the authentication
-				    policy defined in login-config.xml.  The DDL would look something like the following if you
-				    were using MySQL:
+                </p>
+                <p>
+                    Remember that you will need to create your table schema corresponding to the authentication
+                    policy defined in login-config.xml.  The DDL would look something like the following if you
+                    were using MySQL:
 <source><![CDATA[
 create table principal 
 (
@@ -124,37 +124,37 @@ ROLE varchar(64) default NULL, ROLE_GROUP varchar(64) default NULL,
 PRIMARY KEY(PRINCIPAL_ID)
 );
 ]]></source>
-				    
-				</p>
-			</subsection>
+                    
+                </p>
+            </subsection>
             <a name="Modeling"/>
             <subsection name="Modeling">
-				<p>
-					Now you have to define some roles for your application. This is simply done by adding actors 
-					to your model named with the role's name.
-				</p>
-				<p>
-					<img src="images/org/andromda/test/8/a/uml.gif" alt="images/org/andromda/test/8/a/uml.gif"/>
-				</p>
-				<p>
-					The next thing to do is to draw a dependency from a logical role actor to a 
-					<![CDATA[<<Service>>]]> and/or to one or more methods of the service. 
-					Making the whole service dependent on an actor grants the 
-					role access to all service operations. To grant access to single operation(s) draw the dependency 
-					from the actor to the operations(s).
-				</p>
-				<p>
-				    Defining security roles is purely optional.  If no roles have been specified, then the bean
-				    operations do not pass any security instructions.
-				</p>
-				<p>
-					<img src="images/org/andromda/test/8/b/uml.gif" alt="images/org/andromda/test/8/b/uml.gif"/>
-				</p>
-				<ul>
-					<li class="gen">Auto-generated source that does not need manual editing</li>
-					<li class="impl">Auto-generated source that should be edited manually</li>
-					<li class="changed">File that is affected by the modifications applied in this section</li>
-				</ul>
+                <p>
+                    Now you have to define some roles for your application. This is simply done by adding actors 
+                    to your model named with the role's name.
+                </p>
+                <p>
+                    <img src="images/org/andromda/test/8/a/uml.gif" alt="images/org/andromda/test/8/a/uml.gif"/>
+                </p>
+                <p>
+                    The next thing to do is to draw a dependency from a logical role actor to a 
+                    <![CDATA[<<Service>>]]> and/or to one or more methods of the service. 
+                    Making the whole service dependent on an actor grants the 
+                    role access to all service operations. To grant access to single operation(s) draw the dependency 
+                    from the actor to the operations(s).
+                </p>
+                <p>
+                    Defining security roles is purely optional.  If no roles have been specified, then the bean
+                    operations do not pass any security instructions.
+                </p>
+                <p>
+                    <img src="images/org/andromda/test/8/b/uml.gif" alt="images/org/andromda/test/8/b/uml.gif"/>
+                </p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
                 <ul>
                     <li class="gen"><a href="howto/org/andromda/test/howto8/b/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
                     <li class="impl"><a href="howto/org/andromda/test/howto8/b/Car.java"><code>Car.java</code></a></li>

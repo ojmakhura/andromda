@@ -5,12 +5,12 @@
         <author email="wouter@andromda.org">Wouter Zoons</author>
     </properties>
     <body>
-  		<section name="AndroMDA Server Howto">
-			<p>
+          <section name="AndroMDA Server Howto">
+            <p>
                 In order to get the best performance out of AndroMDA some improvements have
                 been implemented that will significantly speed-up the generation process,
                 one of these improvements is the AndroMDA server.
-  			</p>
+            </p>
             <p>
                 The server has been designed to (re)load the UML model in the background thereby
                 minimizing the resources needed to keep track of the latest changes. There are
@@ -91,6 +91,6 @@
                     dependencies have been downloaded into your local Maven repository.
                 </p>
             </subsection>
-  		</section>
+          </section>
     </body>
 </document>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <metafacades>
-	<property reference="transactionType"/>
-	<property reference="entityViewType"/>
-	<property reference="entityListenerNamePattern"/>
-	<property reference="entityEmbeddableNamePattern"/>
-	<property reference="entityNamePattern"/>
-	<property reference="entityImplementationNamePattern"/>
-	<property reference="entityCompositePrimaryKeyNamePattern"/>
+    <property reference="transactionType"/>
+    <property reference="entityViewType"/>
+    <property reference="entityListenerNamePattern"/>
+    <property reference="entityEmbeddableNamePattern"/>
+    <property reference="entityNamePattern"/>
+    <property reference="entityImplementationNamePattern"/>
+    <property reference="entityCompositePrimaryKeyNamePattern"/>
     <property reference="labelCollectionNamePattern"/>
     <property reference="labelSingleNamePattern"/>
     <property reference="serviceNamePattern"/>
@@ -57,7 +57,7 @@
     <property reference="daoImplementationNamePattern"/>
     <property reference="daoDefaultExceptionNamePattern"/>
 
-	<!--  Manageable Entity Metafacades -->
+    <!--  Manageable Entity Metafacades -->
     <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogicImpl" contextRoot="true">
         <mapping>
             <stereotype>ENTITY</stereotype>
@@ -65,9 +65,9 @@
         </mapping>
         <property reference="manageableServiceBaseNamePattern"/>
         <property reference="manageableCreateExceptionNamePattern"/>
-	    <property reference="manageableReadExceptionNamePattern"/>
-	    <property reference="manageableUpdateExceptionNamePattern"/>
-	    <property reference="manageableDeleteExceptionNamePattern"/>
+        <property reference="manageableReadExceptionNamePattern"/>
+        <property reference="manageableUpdateExceptionNamePattern"/>
+        <property reference="manageableDeleteExceptionNamePattern"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityAttributeFacadeLogicImpl">
         <mapping>
@@ -85,20 +85,20 @@
     </metafacade>
 
     <!--  Mapped Superclass Metafacades -->
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3MappedSuperclassFacadeLogicImpl" contextRoot="true">
-		<mapping>
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3MappedSuperclassFacadeLogicImpl" contextRoot="true">
+        <mapping>
             <stereotype>ENTITY</stereotype>
-			<stereotype>MAPPED_SUPERCLASS</stereotype>
-		</mapping>
-	</metafacade>
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3MappedSuperclassAttributeFacadeLogicImpl">
-		<mapping>
-			<context>org.andromda.cartridges.ejb3.metafacades.EJB3MappedSuperclassFacade</context>
-		</mapping>
-		<property reference="entityDefaultGeneratorType"/>
-		<property reference="entityDefaultGeneratorInitialValue"/>
-		<property reference="entityDefaultGeneratorAllocationSize"/>
-	</metafacade>
+            <stereotype>MAPPED_SUPERCLASS</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3MappedSuperclassAttributeFacadeLogicImpl">
+        <mapping>
+            <context>org.andromda.cartridges.ejb3.metafacades.EJB3MappedSuperclassFacade</context>
+        </mapping>
+        <property reference="entityDefaultGeneratorType"/>
+        <property reference="entityDefaultGeneratorInitialValue"/>
+        <property reference="entityDefaultGeneratorAllocationSize"/>
+    </metafacade>
 
     <!-- WebService Metafacades -->
     <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacadeLogicImpl" contextRoot="true">
@@ -109,43 +109,43 @@
     </metafacade>
     <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacadeLogicImpl" contextRoot="true">
         <mapping>
-        	<stereotype>SERVICE</stereotype>
+            <stereotype>SERVICE</stereotype>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceOperationFacadeLogicImpl">
         <mapping>
             <stereotype>WEBSERVICE_OPERATION</stereotype>
         </mapping>
-		<property reference="implementationOperationNamePattern"/>
+        <property reference="implementationOperationNamePattern"/>
     </metafacade>
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceOperationFacadeLogicImpl">
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceOperationFacadeLogicImpl">
         <mapping>
             <property name="owner.eJB3WebServiceFacadeMetaType"/>
         </mapping>
-		<property reference="implementationOperationNamePattern"/>
-	</metafacade>
+        <property reference="implementationOperationNamePattern"/>
+    </metafacade>
 
-	<!-- Entity Metafacades -->
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogicImpl">
-		<mapping>
-			<context>
-				org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
-			</context>
-		</mapping>
-		<property reference="implementationOperationNamePattern"/>
-	</metafacade>
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogicImpl" contextRoot="true">
-		<mapping>
-			<stereotype>ENTITY</stereotype>
-		</mapping>
-		<property reference="sqlMappingsUri"/>
-	</metafacade>
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogicImpl">
-		<mapping>
-			<property name="type.eJB3EntityFacadeMetaType"/>
-		</mapping>
-		<property reference="entityCompositeCascade"/>
-		<property reference="entityAggregationCascade"/>
+    <!-- Entity Metafacades -->
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogicImpl">
+        <mapping>
+            <context>
+                org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
+            </context>
+        </mapping>
+        <property reference="implementationOperationNamePattern"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogicImpl" contextRoot="true">
+        <mapping>
+            <stereotype>ENTITY</stereotype>
+        </mapping>
+        <property reference="sqlMappingsUri"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogicImpl">
+        <mapping>
+            <property name="type.eJB3EntityFacadeMetaType"/>
+        </mapping>
+        <property reference="entityCompositeCascade"/>
+        <property reference="entityAggregationCascade"/>
         <property reference="associationCollectionType"/>
         <property reference="specificCollectionInterfaces"/>
         <property reference="defaultCollectionInterface"/>
@@ -156,111 +156,111 @@
         <property reference="mapTypeImplementation"/>
         <property reference="associationEndCollectionIndexName"/>
         <property reference="associationEndCollectionIndexType"/>
-	</metafacade>
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3AssociationFacadeLogicImpl">
-		<mapping>
-			<property name="associationEndA.eJB3AssociationEndFacadeMetaType"/>
-		</mapping>
-	</metafacade>
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogicImpl">
-		<mapping>
-			<context>
-				org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
-			</context>
-		</mapping>
-		<property reference="entityDefaultGeneratorType"/>
-		<property reference="entityDefaultGeneratorInitialValue"/>
-		<property reference="entityDefaultGeneratorAllocationSize"/>
-	</metafacade>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3AssociationFacadeLogicImpl">
+        <mapping>
+            <property name="associationEndA.eJB3AssociationEndFacadeMetaType"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogicImpl">
+        <mapping>
+            <context>
+                org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
+            </context>
+        </mapping>
+        <property reference="entityDefaultGeneratorType"/>
+        <property reference="entityDefaultGeneratorInitialValue"/>
+        <property reference="entityDefaultGeneratorAllocationSize"/>
+    </metafacade>
     <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacadeLogicImpl" contextRoot="true">
-		<mapping>
-			<stereotype>FINDER_METHOD</stereotype>
-			<context>
-				org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
-			</context>
-		</mapping>
-		<property reference="queryUseNamedParameters"/>
-	</metafacade>
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacadeLogicImpl" contextRoot="true">
-		<mapping>
-			<context>
-				org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
-			</context>
-			<property name="query"/>
-		</mapping>
-		<property reference="queryUseNamedParameters"/>
-	</metafacade>
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodArgumentFacadeLogicImpl">
-		<mapping>
-			<context>
-				org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacade
-			</context>
-		</mapping>
-	</metafacade>
+        <mapping>
+            <stereotype>FINDER_METHOD</stereotype>
+            <context>
+                org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
+            </context>
+        </mapping>
+        <property reference="queryUseNamedParameters"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacadeLogicImpl" contextRoot="true">
+        <mapping>
+            <context>
+                org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
+            </context>
+            <property name="query"/>
+        </mapping>
+        <property reference="queryUseNamedParameters"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodArgumentFacadeLogicImpl">
+        <mapping>
+            <context>
+                org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacade
+            </context>
+        </mapping>
+    </metafacade>
 
-	<!-- Session EJB Metafacades -->
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogicImpl" contextRoot="true">
-		<mapping>
-			<stereotype>SERVICE</stereotype>
-		</mapping>
-	</metafacade>
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogicImpl">
-		<mapping>
-			<property name="owner.eJB3SessionFacadeMetaType"/>
-		</mapping>
-		<property reference="implementationOperationNamePattern"/>
-	</metafacade>
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogicImpl">
-		<mapping>
-			<context>
-				org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade
-			</context>
-		</mapping>
-	</metafacade>
+    <!-- Session EJB Metafacades -->
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogicImpl" contextRoot="true">
+        <mapping>
+            <stereotype>SERVICE</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogicImpl">
+        <mapping>
+            <property name="owner.eJB3SessionFacadeMetaType"/>
+        </mapping>
+        <property reference="implementationOperationNamePattern"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogicImpl">
+        <mapping>
+            <context>
+                org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade
+            </context>
+        </mapping>
+    </metafacade>
 
-	<!--  Message Driven EJB Metafacades -->
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogicImpl" contextRoot="true">
-		<mapping>
-			<stereotype>MESSAGE_DRIVEN</stereotype>
-		</mapping>
-		<property reference="messageDrivenNamePattern"/>
-		<property reference="messageDrivenImplementationNamePattern"/>
-		<property reference="messageDrivenListenerNamePattern"/>
-		<property reference="messageDrivenDestinationType"/>
+    <!--  Message Driven EJB Metafacades -->
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogicImpl" contextRoot="true">
+        <mapping>
+            <stereotype>MESSAGE_DRIVEN</stereotype>
+        </mapping>
+        <property reference="messageDrivenNamePattern"/>
+        <property reference="messageDrivenImplementationNamePattern"/>
+        <property reference="messageDrivenListenerNamePattern"/>
+        <property reference="messageDrivenDestinationType"/>
         <property reference="messageDrivenTopicSubscriptionDurability"/>
         <property reference="messageDrivenTestNamePattern"/>
         <property reference="messageDrivenTestPackageNamePattern"/>
         <property reference="messageDrivenDurableSubscriptionIdPattern"/>
-	</metafacade>
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenOperationFacadeLogicImpl">
-		<mapping>
-		    <property name="owner.eJB3MessageDrivenFacadeMetaType"/>
-		</mapping>
-	</metafacade>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenOperationFacadeLogicImpl">
+        <mapping>
+            <property name="owner.eJB3MessageDrivenFacadeMetaType"/>
+        </mapping>
+    </metafacade>
 
-	<!--  Common Metafacades -->
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3InterceptorFacadeLogicImpl" contextRoot="true">
-		<mapping>
-			<stereotype>INTERCEPTOR</stereotype>
-		</mapping>
-		<property reference="interceptorNamePattern"/>
-	</metafacade>
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3EnumerationFacadeLogicImpl">
-		<mapping>
-			<stereotype>ENUMERATION</stereotype>
-		</mapping>
-	</metafacade>
+    <!--  Common Metafacades -->
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3InterceptorFacadeLogicImpl" contextRoot="true">
+        <mapping>
+            <stereotype>INTERCEPTOR</stereotype>
+        </mapping>
+        <property reference="interceptorNamePattern"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3EnumerationFacadeLogicImpl">
+        <mapping>
+            <stereotype>ENUMERATION</stereotype>
+        </mapping>
+    </metafacade>
     <!-- This causes the cartridge to no longer output typesafe enumerations. Should use Java cartridge Enums instead -->
     <!--metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3EnumerationFacadeLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.EnumerationImpl"/>
         <property reference="enumerationNameMask"/>
         <property reference="typeSafeEnumsEnabled"/>
     </metafacade-->
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3PersistenceContextFacadeLogicImpl">
-	    <mapping>
-	        <stereotype>PERSISTENCE_CONTEXT</stereotype>
-	    </mapping>
-	</metafacade>
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3PersistenceContextFacadeLogicImpl">
+        <mapping>
+            <stereotype>PERSISTENCE_CONTEXT</stereotype>
+        </mapping>
+    </metafacade>
     <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3DependencyFacadeLogicImpl"/>
     <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3EmbeddedValueFacadeLogicImpl" contextRoot="true">
         <mapping>
