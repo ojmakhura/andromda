@@ -121,7 +121,7 @@
         </plugins>
     </build>
     <properties>
-		<model.uri>file:${project.basedir}/src/main/uml/timetracker.xmi</model.uri>
+        <model.uri>file:${project.basedir}/src/main/uml/timetracker.xmi</model.uri>
         <filter></filter>
         <validation>true</validation>
         <!-- ant script location for temp copy of resources -->

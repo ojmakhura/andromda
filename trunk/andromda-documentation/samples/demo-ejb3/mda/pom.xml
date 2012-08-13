@@ -71,7 +71,7 @@
         </plugins>
     </build>
     <properties>
-		<model.uri>file:${project.basedir}/src/main/uml/demo-ejb3.xmi</model.uri>
+        <model.uri>file:${project.basedir}/src/main/uml/demo-ejb3.xmi</model.uri>
         <filter></filter>
         <validation>true</validation>
         <conf.dir>${project.basedir}/src/main/config</conf.dir>

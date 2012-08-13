@@ -41,7 +41,7 @@
             </resource>
         </resources>
         <plugins>
-        	<!-- top level project doesn't declare subprojects because they are generated -->
+            <!-- top level project doesn't declare subprojects because they are generated -->
             <plugin>
                 <artifactId>maven-invoker-plugin</artifactId>
                 <configuration>
@@ -87,7 +87,8 @@
                                 <goal>deploy</goal>
                             </goals>
                             <properties>
-                                <!-- profile distributionManagement repository info not passed through invoker to generated project -->
+                                <!-- profile distributionManagement repository info not passed through invoker to generated project >
+                                <altDeploymentRepository>sonatype::default::https://oss.sonatype.org/service/local/staging/deploy/maven2/</altDeploymentRepository-->
                                 <altDeploymentRepository>${project.distributionManagement.snapshotRepository.id}::default::${project.distributionManagement.snapshotRepository.url}</altDeploymentRepository>
                             </properties>
                         </configuration>

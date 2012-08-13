@@ -100,7 +100,7 @@
     </condition>
     <condition name="outputLibraries">$stringUtils.isNotBlank($libraries)</condition>
     <condition name="enablePreferences">
-    	#if($enablePreferences.equalsIgnoreCase("true") &amp;&amp; $stringUtils.isBlank($portletContainer))true#end
+        #if($enablePreferences.equalsIgnoreCase("true") &amp;&amp; $stringUtils.isBlank($portletContainer))true#end
     </condition>
     <condition name="commonsValidator">$validationExtension.equalsIgnoreCase("commons-validator")</condition>
     <condition name="annotationsValidator">$validationExtension.equalsIgnoreCase("annotations")</condition>

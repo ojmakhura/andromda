@@ -117,17 +117,17 @@
    <!--
    <bean name="TimerServiceFactory" class="org.jboss.ejb3.timerservice.quartz.QuartzTimerServiceFactory">
       <property name="properties">
-        	org.quartz.jobStore.class=org.quartz.impl.jdbcjobstore.JobStoreCMT
+            org.quartz.jobStore.class=org.quartz.impl.jdbcjobstore.JobStoreCMT
             org.quartz.jobStore.nonManagedTXDataSource=myDS
             org.quartz.jobStore.driverDelegateClass=org.quartz.impl.jdbcjobstore.HSQLDBDelegate
             org.quartz.jobStore.tablePrefix=QRTZ_
             org.quartz.jobStore.dataSource=myDS
 
-	        # To get it to work with hypersonic
-	        # FIXME: this doesn't lock the row
+            # To get it to work with hypersonic
+            # FIXME: this doesn't lock the row
             org.quartz.jobStore.selectWithLockSQL=SELECT * FROM qrtz_locks WHERE lock_name = ?
 
-        	# from quartz.properties
+            # from quartz.properties
             org.quartz.scheduler.instanceName=JBossEJB3QuartzScheduler
             org.quartz.scheduler.rmi.export=false
             org.quartz.scheduler.rmi.proxy=false
@@ -138,7 +138,7 @@
             org.quartz.threadPool.threadPriority=5
             org.quartz.threadPool.threadsInheritContextClassLoaderOfInitializingThread=true
 
-        	org.quartz.jobStore.misfireThreshold=60000
+            org.quartz.jobStore.misfireThreshold=60000
       </property>
       <property name="dataSource">java:/DefaultDS</property>
       <property name="sqlProperties">

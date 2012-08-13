@@ -58,8 +58,8 @@
             <groupId>org.hibernate</groupId>
         </dependency>
         <dependency>
-  	        <groupId>net.sf.ehcache</groupId>
-  	        <artifactId>ehcache</artifactId>
+              <groupId>net.sf.ehcache</groupId>
+              <artifactId>ehcache</artifactId>
             <type>pom</type>
         </dependency>
         <dependency>
@@ -104,8 +104,8 @@
         <!-- Embeddable and thirdparty dependencies last, otherwise RuntimeException: java.lang.NoSuchFieldError: TRACE
         at org.jboss.ejb3.embedded.EJB3StandaloneBootstrap.boot(EJB3StandaloneBootstrap.java:386) -->
         <!--dependency>
-       	    <groupId>jboss.jboss-embeddable-ejb3</groupId>
-       	    <artifactId>hibernate-all</artifactId>
+               <groupId>jboss.jboss-embeddable-ejb3</groupId>
+               <artifactId>hibernate-all</artifactId>
         </dependency-->
         <dependency>
             <!--groupId>org.jboss.embedded</groupId>
@@ -115,8 +115,8 @@
             <artifactId>jboss-ejb3-all</artifactId>
         </dependency>
         <dependency>
-      	    <groupId>jboss.jboss-embeddable-ejb3</groupId>
-       	    <artifactId>thirdparty-all</artifactId>
+              <groupId>jboss.jboss-embeddable-ejb3</groupId>
+               <artifactId>thirdparty-all</artifactId>
         </dependency>
         <!--dependency>
             <groupId>javax.persistence</groupId>
@@ -171,19 +171,19 @@
                     </excludes>
                 </configuration>
             </plugin>
-			<plugin>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<suiteXmlFiles>
-						<suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
-					</suiteXmlFiles>
-					<!-- This trick allows the JBoss EJB3StandaloneBootstrap to find and deploy our compiled EJBs!! -->
-					<systemProperties>
-						<property>
-							<name>java.class.path</name>
-							<value>target/classes</value>
-						</property>
-					</systemProperties>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                    <!-- This trick allows the JBoss EJB3StandaloneBootstrap to find and deploy our compiled EJBs!! -->
+                    <systemProperties>
+                        <property>
+                            <name>java.class.path</name>
+                            <value>target/classes</value>
+                        </property>
+                    </systemProperties>
                 </configuration>
             </plugin>
         </plugins>
@@ -202,23 +202,23 @@
             </resource>
         </resources>
         <testSourceDirectory>src/test/java</testSourceDirectory>
-		<testResources>
-			<testResource>
-				<directory>src/test/resources</directory>
-				<includes>
-					<include>default.persistence.properties</include>
-					<include>jndi.properties</include>
-					<include>embedded-jboss-beans.xml</include>
-					<include>ejb3-interceptors-aop.xml</include>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <includes>
+                    <include>default.persistence.properties</include>
+                    <include>jndi.properties</include>
+                    <include>embedded-jboss-beans.xml</include>
+                    <include>ejb3-interceptors-aop.xml</include>
                     <include>jboss-jms-beans.xml</include>
-					<include>log4j.xml</include>
-					<include>security-beans.xml</include>
-					<include>login-config.xml</include>
+                    <include>log4j.xml</include>
+                    <include>security-beans.xml</include>
+                    <include>login-config.xml</include>
                     <include>users.properties</include>
                     <include>roles.properties</include>
-				</includes>
-			</testResource>
-		</testResources>
+                </includes>
+            </testResource>
+        </testResources>
     </build>
     <properties>
         <javaVersion>${java.version}</javaVersion>

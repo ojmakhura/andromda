@@ -17,10 +17,10 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-        	<groupId>${project.groupId}</groupId>
-        	<artifactId>timetracker-ejb3-core</artifactId>
-        	<version>${project.version}</version>
-        	<type>ejb</type>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>timetracker-ejb3-core</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>

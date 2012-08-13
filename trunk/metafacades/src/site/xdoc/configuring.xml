@@ -2,16 +2,16 @@
 
 <document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd"> 
-	<properties>
-    	<title>Configuring metafacades</title> 
+    <properties>
+        <title>Configuring metafacades</title> 
         <author email="chad@andromda.org">Chad Brandon</author>
         <author email="wouter@andromda.org">Wouter Zoons</author>
     </properties>
-  	<body> 
-  		<section name="Writing the metafacades descriptor">
-  		    <p>
-  		        Now that you have written metafacades, you'll want to tell
-  		        AndroMDA under which conditions it should instantiate them.
+      <body> 
+          <section name="Writing the metafacades descriptor">
+              <p>
+                  Now that you have written metafacades, you'll want to tell
+                  AndroMDA under which conditions it should instantiate them.
             </p>
             <p class="highlight">
                 Because metafacades are a <em><a href="../namespace.html">namespace component</a></em> they
@@ -94,7 +94,7 @@
         <mapping>
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
         </mapping>
-		<property reference="hibernateTypeMappingsUri"/>
+        <property reference="hibernateTypeMappingsUri"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEmbeddedValueLogicImpl" contextRoot="true">
         <mapping>
@@ -126,7 +126,7 @@
     <metafacade class="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl"/>
         <property reference="classifierNameMask"/>
-	</metafacade>	
+    </metafacade>    
     <metafacade class="org.andromda.metafacades.uml14.EnumerationLiteralFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.EnumerationLiteral$Impl"/>
         <property reference="enumerationLiteralNameMask"/>
@@ -681,6 +681,6 @@ private String getDaoNamePattern()
                     </td>
                 </tr>
             </table>
-		</section>
-  	</body> 
+        </section>
+      </body> 
 </document>

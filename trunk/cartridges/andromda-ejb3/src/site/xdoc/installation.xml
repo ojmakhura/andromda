@@ -14,16 +14,16 @@
             </p>
             <a name="Requirements"/>
             <subsection name="Requirements">
-	            <p>
-	                You must have the latest Maven (currently 3.0.4) installed and configured.
-	                You can install Maven 
-	                <a href="http://maven.apache.org/download.html#Installation">here</a>.
-	            </p>
-	            <p>
-	                You need to have an instance of AndroMDA 3.4.  Follow the anonymous
-	                CVS access at <a href="http://sourceforge.net/cvs/?group_id=73047">AndroMDA project</a> to
-	                checkout and build the latest <b>andromda-all</b> source from the <i>V3_x_HEAD</i> branch.
-	            </p>
+                <p>
+                    You must have the latest Maven (currently 3.0.4) installed and configured.
+                    You can install Maven 
+                    <a href="http://maven.apache.org/download.html#Installation">here</a>.
+                </p>
+                <p>
+                    You need to have an instance of AndroMDA 3.4.  Follow the anonymous
+                    CVS access at <a href="http://sourceforge.net/cvs/?group_id=73047">AndroMDA project</a> to
+                    checkout and build the latest <b>andromda-all</b> source from the <i>V3_x_HEAD</i> branch.
+                </p>
                 <p>
                     Finally, you will need the JBoss Application Server.  It is recommended to download the
                     latest GA JBoss AS.  At the time of writing this guide and with the current status of the
@@ -32,59 +32,59 @@
                     the <a href="http://labs.jboss.com/portal/jbossas/?prjlist=false">JBoss AS</a> and download
                     the installer.
                 </p>
-	        </subsection>
+            </subsection>
             <a name="Getting_the_Cartridge"/>
             <subsection name="Getting the Cartridge">
-	            <p>
-	                Once you have met the requirements above, checkout the latest EJB3 cartridge from
-	                CVS HEAD.  
-	                You have two options:
+                <p>
+                    Once you have met the requirements above, checkout the latest EJB3 cartridge from
+                    CVS HEAD.  
+                    You have two options:
                 </p>
                 <ul>
                     <li>
                         Follow the anonymous CVS access at
-            			<a href="http://sourceforge.net/cvs/?group_id=154568">andromdaplugins project</a>
-            			on SourceForge to checkout the latest <b>andromda-plugins</b> module from 
-            			<code>HEAD</code>.
-                	</li>
-                	<li>
-            	    	If you are using an IDE like Eclipse, open your CVS repository exploring perspective,
-            	    	create a new repository with connection type (pserver), username (anonymous),
-            	    	password(<i>blank</i>) host (andromdaplugins.cvs.sourceforge.net) and repository path
-            	    	(/cvsroot/andromdaplugins).  Once connected, expand HEAD and check out
-            	    	<code>andromda-plugins</code>.
-                	</li>
+                        <a href="http://sourceforge.net/cvs/?group_id=154568">andromdaplugins project</a>
+                        on SourceForge to checkout the latest <b>andromda-plugins</b> module from 
+                        <code>HEAD</code>.
+                    </li>
+                    <li>
+                        If you are using an IDE like Eclipse, open your CVS repository exploring perspective,
+                        create a new repository with connection type (pserver), username (anonymous),
+                        password(<i>blank</i>) host (andromdaplugins.cvs.sourceforge.net) and repository path
+                        (/cvsroot/andromdaplugins).  Once connected, expand HEAD and check out
+                        <code>andromda-plugins</code>.
+                    </li>
                 </ul>  
                 <p>Note that this will check out all cartridges and plugins 
                 which are not relevant to the EJB3 cartridge, but will ease the your build process.</p>
-	        </subsection>
+            </subsection>
             <a name="Building_the_Cartridge"/>
             <subsection name="Building the Cartridge">
-	            <p>
-	                Once you have checked out the <code>andromda-plugins</code> project, you can simply build 
-	                the <b>andromda-ejb3</b> cartridge in <code>andromda-plugins/cartridges/andromda-ejb3</code>
-	                by running <i>mvn</i> in the latter location.
-	            </p>
-	        </subsection>
+                <p>
+                    Once you have checked out the <code>andromda-plugins</code> project, you can simply build 
+                    the <b>andromda-ejb3</b> cartridge in <code>andromda-plugins/cartridges/andromda-ejb3</code>
+                    by running <i>mvn</i> in the latter location.
+                </p>
+            </subsection>
             <a name="Building_Documentation"/>
             <subsection name="Building Documentation">
                 <p class="highlight">
                     You NO LONGER need to download the Maven 2.0.x source to build the cartridge
                     documentation.
                 </p>
-	            <p>
-	                To build the EJB3 cartridge site documentation requires a few extra Maven 2 plugins
-	                to be downloaded from the Maven 2 SVN.  The
-	                <a href="http://maven.apache.org/guides/development/guide-building-m2.html">Maven build</a>
-	                documentation will give you some information on how to access their SVN.
-	            </p>
+                <p>
+                    To build the EJB3 cartridge site documentation requires a few extra Maven 2 plugins
+                    to be downloaded from the Maven 2 SVN.  The
+                    <a href="http://maven.apache.org/guides/development/guide-building-m2.html">Maven build</a>
+                    documentation will give you some information on how to access their SVN.
+                </p>
                 <p>
                     Please follow <a href="http://forum.andromda.org/viewtopic.php?t=3976">Maven 2 site Docs</a>
                     to download and build the necessary Maven 2 projects prior to building the EJB3 cartridge site
                     docs.
                 </p>
-	            <p>
-	                You will need to check out <i>maven-plugins</i> from Maven <b>trunk</b>.  You only required
+                <p>
+                    You will need to check out <i>maven-plugins</i> from Maven <b>trunk</b>.  You only required
                     the following plugins, so you can disable the other modules if you wish.
                 </p>
                 <ul>
@@ -92,22 +92,22 @@
                     <li>maven-changelog-plugin</li>
                 </ul>
                 <p>
-	                Once you have built them (mvn install), these plugins will reside in your local repo.
-	            </p>
-	            <p>
-	                All other require plugins will be downloaded to your local repo if they don't already
-	                exist.
-	            </p>
-	            <p>
-	                You can download the source examples used in the howto for all sections
-	                <a href="howto/HowToModel-src.zip">here</a> and extract to the target/site folder of the
-	                andromda-ejb3 plugin.
-	            </p>
+                    Once you have built them (mvn install), these plugins will reside in your local repo.
+                </p>
+                <p>
+                    All other require plugins will be downloaded to your local repo if they don't already
+                    exist.
+                </p>
+                <p>
+                    You can download the source examples used in the howto for all sections
+                    <a href="howto/HowToModel-src.zip">here</a> and extract to the target/site folder of the
+                    andromda-ejb3 plugin.
+                </p>
                 <p>
                     You can download the UML model containing all models for all sections
                     <a href="howto/HowToModel.xml.zip">here</a>.
                 </p>
-	        </subsection>
+            </subsection>
         </section>
         <section name="Next">
             <p>

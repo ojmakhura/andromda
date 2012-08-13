@@ -71,7 +71,7 @@
     <property reference="generateEntityEqualsAndHashCode"/>
     <property reference="hibernateProxy"/>
     <property reference="toDoTag"/>
-	<property reference="typeSafeEnumsEnabled"/>
+    <property reference="typeSafeEnumsEnabled"/>
     <property reference="enableTemplating"/>
     <property reference="enableAnnotations"/>
     <property reference="hibernateEntityAnnotations"/>
@@ -87,8 +87,8 @@
     <!-- cartridge-property merge-point-->
 
     <condition name="mapSubclassesInSeparateFile">$hibernateUtils.mapSubclassesInSeparateFile</condition>
-	<condition name="typeSafeEnumsEnabled">$typeSafeEnumsEnabled.equalsIgnoreCase("true")</condition>
-	<condition name="generateDatabaseDependentCode">$generateDatabaseDependentCode.equalsIgnoreCase("true")</condition>
+    <condition name="typeSafeEnumsEnabled">$typeSafeEnumsEnabled.equalsIgnoreCase("true")</condition>
+    <condition name="generateDatabaseDependentCode">$generateDatabaseDependentCode.equalsIgnoreCase("true")</condition>
     <condition name="enableTemplating">$enableTemplating.equalsIgnoreCase("true")</condition>
     <condition name="hibernateEntityAnnotations">$hibernateEntityAnnotations.equalsIgnoreCase("true")</condition>
     <!-- condition merge-point-->

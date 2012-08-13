@@ -112,7 +112,7 @@
         <mapping>
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
         </mapping>
-		<property reference="hibernateTypeMappingsUri"/>
+        <property reference="hibernateTypeMappingsUri"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEmbeddedValueLogicImpl" contextRoot="true">
         <mapping>

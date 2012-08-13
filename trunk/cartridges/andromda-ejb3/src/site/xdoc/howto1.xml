@@ -116,7 +116,7 @@
                 </p>
                 <p>
                     <img src="images/org/andromda/test/1/b/uml.gif" alt="images/org/andromda/test/1/b/uml.gif"/>
-	            </p>
+                </p>
                 <ul>
                     <li class="gen">Auto-generated source that does not need manual editing</li>
                     <li class="impl">Auto-generated source that should be edited manually</li>
@@ -130,20 +130,20 @@
                     <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/b/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
                     <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/ab/CarDaoException.java"><code>CarDaoException.java</code></a></li>
                 </ul>
-	            <p>
-	                Entity operations modeled as Query operations are discussed further in the
-	                <a href="howto6.html">Query Howto</a>.  In general entities should NOT contain
-	                any business logic.  The EJB3 cartridge, like other persistence modeling cartridges, 
-	                uses the session facade pattern to contain business logic in session bean operations while
-	                typical CRUD persistence operations are provided through the DAO layer.
-	            </p>
-	            <p>
-	                The above example entity models <code>allCarsAreRented()</code> as classifier scoped and
-	                <code>isRented()</code> as instance scoped.  Both will be added to the entity implementation
-	                subclass <code>Car</code>.  The bulk of the entity detail, including much of the metadata exists
-	                within the <code>CarEmbeddable</code> class.  In such cases where non-query operations exists 
-	                for an entity, the implementation class is generated once only and will not be overridden.
-	            </p>
+                <p>
+                    Entity operations modeled as Query operations are discussed further in the
+                    <a href="howto6.html">Query Howto</a>.  In general entities should NOT contain
+                    any business logic.  The EJB3 cartridge, like other persistence modeling cartridges, 
+                    uses the session facade pattern to contain business logic in session bean operations while
+                    typical CRUD persistence operations are provided through the DAO layer.
+                </p>
+                <p>
+                    The above example entity models <code>allCarsAreRented()</code> as classifier scoped and
+                    <code>isRented()</code> as instance scoped.  Both will be added to the entity implementation
+                    subclass <code>Car</code>.  The bulk of the entity detail, including much of the metadata exists
+                    within the <code>CarEmbeddable</code> class.  In such cases where non-query operations exists 
+                    for an entity, the implementation class is generated once only and will not be overridden.
+                </p>
             </subsection>
             <a name="Entity_Relation_Table"/>
             <subsection name="Entity Relation Table">
@@ -169,7 +169,7 @@
                     <li class="gen"><a href="howto/org/andromda/test/howto1/c/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
                     <li class="gen"><a href="howto/org/andromda/test/howto1/c/CarDaoException.java"><code>CarDaoException.java</code></a></li>
                 </ul>
-	        </subsection>
+            </subsection>
             <a name="Primary_Key_Identifiers"/>
             <subsection name="Primary Key - Identifier">
                 <p>
@@ -185,14 +185,14 @@
                     <li class="impl">Auto-generated source that should be edited manually</li>
                     <li class="changed">File that is affected by the modifications applied in this section</li>
                 </ul>
-	            <ul>
+                <ul>
                     <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/d/Car.java"><code>Car.java</code></a></li>
                     <li class="gen"><a href="howto/org/andromda/test/howto1/d/CarDao.java"><code>CarDao.java</code></a></li>
                     <li class="gen"><a href="howto/org/andromda/test/howto1/d/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
                     <li class="gen"><a href="howto/org/andromda/test/howto1/d/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
                     <li class="gen"><a href="howto/org/andromda/test/howto1/d/CarDaoException.java"><code>CarDaoException.java</code></a></li>
                 </ul>
-	            <p>
+                <p>
                     An entity identifier attribute's table generator can be modeled via the
                     <code>andromda_persistence_generator_type</code> tag on the identifier attribute ONLY.
                     This is used to model the primary key generation strategy associated with the
@@ -308,7 +308,7 @@
                     <li class="gen"><a href="howto/org/andromda/test/howto1/e/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
                     <li class="gen"><a href="howto/org/andromda/test/howto1/e/CarDaoException.java"><code>CarDaoException.java</code></a></li>
                 </ul>
-	            <p>
+                <p>
                     Please note that some UML tools have a default multiplicity value for attributes when not
                     specified by the user, these default values may differ from tool to tool.
                 </p>
@@ -336,7 +336,7 @@
                     <li class="gen"><a href="howto/org/andromda/test/howto1/f/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
                     <li class="gen"><a href="howto/org/andromda/test/howto1/f/CarDaoException.java"><code>CarDaoException.java</code></a></li>
                 </ul>
-	        </subsection>
+            </subsection>
             <a name="Nullable_Parameters"/>
             <subsection name="Nullable Parameters">
                 <p>
@@ -398,7 +398,7 @@
                     <li class="gen"><a href="howto/org/andromda/test/howto1/g/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
                     <li class="gen"><a href="howto/org/andromda/test/howto1/g/CarDaoException.java"><code>CarDaoException.java</code></a></li>
                 </ul>
-	            <p>
+                <p>
                     This example models the attribute named <code>type</code> as a CLOB where the corresponding 
                     column in the table will be of type <code>String</code> and the cartridge will set the fetch type for the 
                     attribute to <b>eagerly</b> fetch.  The attribute <code>information</code> is defined as a LOB,
@@ -426,7 +426,7 @@
                     <li class="gen"><a href="howto/org/andromda/test/howto1/h/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
                     <li class="gen"><a href="howto/org/andromda/test/howto1/h/CarDaoException.java"><code>CarDaoException.java</code></a></li>
                 </ul>
-	            <p>
+                <p>
                     To change the default naming schema for the relational table column, model the
                     <code>andromda_persistence_column</code> tag on the attribute.
                 </p>

@@ -108,7 +108,7 @@
     <!-- Entity Bean Templates -->
 
     <template 
-	    path="templates/ejb3/EntityEmbeddable.vsl"
+        path="templates/ejb3/EntityEmbeddable.vsl"
         outputPattern="$generatedFile" 
         outlet="entity-beans" 
         overwrite="true">
@@ -125,7 +125,7 @@
         entity inheritance hierarchy.
     -->
     <template 
-	    path="templates/ejb3/Entity.vsl"
+        path="templates/ejb3/Entity.vsl"
         outputPattern="$generatedFile" 
         outlet="entity-impls"
         overwrite="false">
@@ -268,7 +268,7 @@
             </modelElement>
         </modelElements>
     </template>
-	
+    
     <template
         path="templates/ejb3/ServiceDelegate.vsl"
         outputPattern="$generatedFile"
@@ -590,8 +590,8 @@
         </modelElements>
     </template>
     
-	<!-- Message Driven Bean Templates -->
-	
+    <!-- Message Driven Bean Templates -->
+    
     <template 
         path="templates/ejb3/MessageDrivenBean.vsl"
         outputPattern="$generatedFile" 
@@ -629,9 +629,9 @@
             </modelElement>
         </modelElements>
     </template>
-	
-	<!-- Common Templates -->
-	
+    
+    <!-- Common Templates -->
+    
     <template 
         path="templates/ejb3/Interceptor.vsl"
         outputPattern="$generatedFile" 
@@ -643,7 +643,7 @@
             </modelElement>
         </modelElements>
     </template>
-	
+    
     <template
         path="templates/ejb3/Enumeration.vsl"
         outputPattern="$generatedFile"

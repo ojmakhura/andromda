@@ -2,11 +2,11 @@
 
 <document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
-  	<properties>
-    	<title>AndroMDA Development Maven Plugin Properties</title>
-  	</properties>
-  	<body>
-    	<section name="AndroMDA Cartridge Maven Plugin Settings">
+      <properties>
+        <title>AndroMDA Development Maven Plugin Properties</title>
+      </properties>
+      <body>
+        <section name="AndroMDA Cartridge Maven Plugin Settings">
             <subsection name="cartridge:test">
                 <table>
                     <tr>
@@ -53,7 +53,7 @@
                                 <code>andromda.cartridge.test.output.dir</code>
                             </p>
                         </td>
-                    </tr>	
+                    </tr>    
                     <tr>
                         <td>andromda.cartridge.test.actual.dir</td>
                         <td>
@@ -81,15 +81,15 @@
                     </tr> 
                 </table>
             </subsection>
-			<subsection name="Including additional test dependencies">
-				<p>
-					Its possible to include additional dependencies for cartridge
+            <subsection name="Including additional test dependencies">
+                <p>
+                    Its possible to include additional dependencies for cartridge
                     tests, to do this, you must add the 
                     <code><![CDATA[<cartridge.testDependency/>]]></code> property
                     to the <code><![CDATA[<properties/>]]></code> section of the dependency
                     (or else it will be ignored), like the example below.
-				</p>
-				<source>
+                </p>
+                <source>
                     <![CDATA[
 <dependency>
     <groupId>andromda</groupId>
@@ -99,9 +99,9 @@
         <cartridge.testDependency/>
     </properties>
 </dependency>
-                    ]]>				
-				</source>          
+                    ]]>                
+                </source>          
             </subsection>
-    	</section>
-  	</body>
+        </section>
+      </body>
 </document>

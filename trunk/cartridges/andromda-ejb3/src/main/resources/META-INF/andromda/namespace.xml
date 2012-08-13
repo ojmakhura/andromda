@@ -1,64 +1,64 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
 <namespace name="ejb3">
-	<components>
-		<component name="cartridge">
-			<path>META-INF/andromda/cartridge.xml</path>
-		</component>
-		<component name="metafacades">
-			<path>META-INF/andromda/metafacades.xml</path>
-		</component>
-		<component name="profile">
-			<path>META-INF/andromda/profile.xml</path>
-		</component>
-	</components>
-	<properties>
-		<!-- namespace-propertyGroup merge-point -->
-		<propertyGroup name="Outlet Properties">
-			<documentation>
-				Defines the locations to which output is generated.
-			</documentation>
+    <components>
+        <component name="cartridge">
+            <path>META-INF/andromda/cartridge.xml</path>
+        </component>
+        <component name="metafacades">
+            <path>META-INF/andromda/metafacades.xml</path>
+        </component>
+        <component name="profile">
+            <path>META-INF/andromda/profile.xml</path>
+        </component>
+    </components>
+    <properties>
+        <!-- namespace-propertyGroup merge-point -->
+        <propertyGroup name="Outlet Properties">
+            <documentation>
+                Defines the locations to which output is generated.
+            </documentation>
             <property name="services">
                 <documentation>
                     The location to which all service classes (including the service locator(s))
                     will be generated.
                 </documentation>
             </property>
-			<property name="entity-beans">
-				<documentation>
-					The directory to which Entity POJOs are generated.
-				</documentation>
-			</property>
-			<property name="entity-impls">
-				<documentation>
-					The location to which Entity POJO implementation
-					files are generated.
-				</documentation>
-			</property>
-			<property name="entity-config">
-			    <documentation>
-			       The location where the persistence XML descriptor
-			       is generated.
-			    </documentation>
-			</property>
-			<property name="session-beans">
-				<documentation>
-					The directory to which Session Bean files are
-					generated.
-				</documentation>
-			</property>
-			<property name="session-impls">
-				<documentation>
-					The directory to which Session Bean implementation
-					files are generated.
-				</documentation>
-			</property>
+            <property name="entity-beans">
+                <documentation>
+                    The directory to which Entity POJOs are generated.
+                </documentation>
+            </property>
+            <property name="entity-impls">
+                <documentation>
+                    The location to which Entity POJO implementation
+                    files are generated.
+                </documentation>
+            </property>
+            <property name="entity-config">
+                <documentation>
+                   The location where the persistence XML descriptor
+                   is generated.
+                </documentation>
+            </property>
+            <property name="session-beans">
+                <documentation>
+                    The directory to which Session Bean files are
+                    generated.
+                </documentation>
+            </property>
+            <property name="session-impls">
+                <documentation>
+                    The directory to which Session Bean implementation
+                    files are generated.
+                </documentation>
+            </property>
             <property name="session-config">
-			    <documentation>
-			        The location where the ejb-jar.xml XML descriptor
-			        is generated.
-			    </documentation>
-			</property>
+                <documentation>
+                    The location where the ejb-jar.xml XML descriptor
+                    is generated.
+                </documentation>
+            </property>
             <property name="daos">
                 <documentation>
                     The location to which EJB3 DAOs, and any support classes
@@ -83,66 +83,66 @@
                 </documentation>
             </property>
             <property name="application-config">
-			    <documentation>
-			        The location where the application specific XML
-			        descriptors are generated.  i.e the application
-			        login-config.xml descriptor.
-			    </documentation>
-			</property>
-			<property name="application-metainf">
-			    <documentation>
-			        The location where the application specific XML
-			        descriptors that are packaged in the ear file are
-			        generated.
-			    </documentation>
-			</property>
-			<property name="message-driven-beans">
-				<documentation>
-					The directory to which Message Driven Bean files
-					are generated.
-				</documentation>
-			</property>
-			<property name="message-driven-impls">
-				<documentation>
-					The directory to which Message Driven Bean
-					implementation files are generated.
-				</documentation>
-			</property>
-			<property name="commons">
-			    <documentation>
-			        The directory to which common classes
-			        for session beans, entity POJOs or MDB
-			        are generated
-			    </documentation>
-			</property>
+                <documentation>
+                    The location where the application specific XML
+                    descriptors are generated.  i.e the application
+                    login-config.xml descriptor.
+                </documentation>
+            </property>
+            <property name="application-metainf">
+                <documentation>
+                    The location where the application specific XML
+                    descriptors that are packaged in the ear file are
+                    generated.
+                </documentation>
+            </property>
+            <property name="message-driven-beans">
+                <documentation>
+                    The directory to which Message Driven Bean files
+                    are generated.
+                </documentation>
+            </property>
+            <property name="message-driven-impls">
+                <documentation>
+                    The directory to which Message Driven Bean
+                    implementation files are generated.
+                </documentation>
+            </property>
+            <property name="commons">
+                <documentation>
+                    The directory to which common classes
+                    for session beans, entity POJOs or MDB
+                    are generated
+                </documentation>
+            </property>
             <property name="user-types">
                 <documentation>
                     The location to which user-types such as enumeration
                     are generated.
                 </documentation>
             </property>
-			<property name="test-config">
-			    <documentation>
+            <property name="test-config">
+                <documentation>
                     The location where manual session bean and entity test resources
                     such as persistence.xml and log4j.xml are generated, as well as
                     the JBoss Embedded/Microcontainer configuration files.  These will not be regenerated
                     and may require user intervention.
-			    </documentation>
-			</property>
-			<property name="tests">
-			    <documentation>
-			        The location where auto generated session bean test classes
+                </documentation>
+            </property>
+            <property name="tests">
+                <documentation>
+                    The location where auto generated session bean test classes
                     are generated.  These are typically the helper classes
                     which are re-generated.
-			    </documentation>
-			</property>
-			<property name="test-impls">
-			    <documentation>
-			        The location where manual session bean and entity test classes
+                </documentation>
+            </property>
+            <property name="test-impls">
+                <documentation>
+                    The location where manual session bean and entity test classes
                     are generated.  These will not be regenerated and require
                     user intervention.
-			    </documentation>
-			</property>
+                </documentation>
+            </property>
             <property name="java-refs">
                 <documentation>
                     The location containing java Impl classes that would have been
@@ -159,23 +159,23 @@
                     every time.
                 </documentation>
             </property>
-		</propertyGroup>
-		<propertyGroup name="JDBC">
-		    <property name="entityManagerName" required="false">
-		        <documentation>
-		            The name assigned to the entity manager.  If no name
-		            is specified, the name of the containing persistence
-		            archive without the .par extension is used.
-		        </documentation>
-		    </property>
-		    <property name="entityManagerJTADataSource">
-		    	<default>java:/DefaultDS</default>
-		    	<documentation>
-		    	    Specifies the global JNDI name of the JTA data source.
-		    	</documentation>
-		    </property>
+        </propertyGroup>
+        <propertyGroup name="JDBC">
+            <property name="entityManagerName" required="false">
+                <documentation>
+                    The name assigned to the entity manager.  If no name
+                    is specified, the name of the containing persistence
+                    archive without the .par extension is used.
+                </documentation>
+            </property>
+            <property name="entityManagerJTADataSource">
+                <default>java:/DefaultDS</default>
+                <documentation>
+                    Specifies the global JNDI name of the JTA data source.
+                </documentation>
+            </property>
             <property name="hibernateHbm2DDLAuto" required="false">
-            	<default>update</default>
+                <default>update</default>
                 <documentation>
                     Automatically export schema DDL to the database when deployed.
                     With create-drop, the database schema will be dropped when
@@ -189,11 +189,11 @@
                 </documentation>
             </property>
             <property name="hibernateDialect" required="false">
-            	<default>org.hibernate.dialect.H2Dialect</default>
-            	<documentation>
-            	    The SQL dialect of the database.
-            	    <ul>
-            	        <li>org.hibernate.dialect.Cache71Dialect</li>
+                <default>org.hibernate.dialect.H2Dialect</default>
+                <documentation>
+                    The SQL dialect of the database.
+                    <ul>
+                        <li>org.hibernate.dialect.Cache71Dialect</li>
                         <li>org.hibernate.dialect.DataDirectOracle9Dialect</li>
                         <li>org.hibernate.dialect.DB2390Dialect</li>
                         <li>org.hibernate.dialect.DB2400Dialect</li>
@@ -213,12 +213,12 @@
                         <li>org.hibernate.dialect.MimerSQLDialect</li>
                         <li>org.hibernate.dialect.MySQL5Dialect</li>
                         <li>org.hibernate.dialect.MySQL5InnoDBDialect</li>
-            	        <li>org.hibernate.dialect.MySQLDialect</li>
-            	        <li>org.hibernate.dialect.MySQLInnoDBDialect</li>
-            	        <li>org.hibernate.dialect.MySQLMyISAMDialect</li>
-            	        <li>org.hibernate.dialect.OracleDialect</li>
-            	        <li>org.hibernate.dialect.Oracle8iDialect</li>
-            	        <li>org.hibernate.dialect.Oracle9Dialect</li>
+                        <li>org.hibernate.dialect.MySQLDialect</li>
+                        <li>org.hibernate.dialect.MySQLInnoDBDialect</li>
+                        <li>org.hibernate.dialect.MySQLMyISAMDialect</li>
+                        <li>org.hibernate.dialect.OracleDialect</li>
+                        <li>org.hibernate.dialect.Oracle8iDialect</li>
+                        <li>org.hibernate.dialect.Oracle9Dialect</li>
                         <li>org.hibernate.dialect.Oracle9iDialect</li>
                         <li>org.hibernate.dialect.Oracle10gDialect</li>
                         <li>org.hibernate.dialect.PointbaseDialect</li>
@@ -229,14 +229,14 @@
                         <li>org.hibernate.dialect.SAPDBDialect</li>
                         <li>org.hibernate.dialect.SQLServer2008Dialect</li>
                         <li>org.hibernate.dialect.SQLServerDialect</li>
-            	        <li>org.hibernate.dialect.SybaseDialect</li>
-            	        <li>org.hibernate.dialect.Sybase11Dialect</li>
+                        <li>org.hibernate.dialect.SybaseDialect</li>
+                        <li>org.hibernate.dialect.Sybase11Dialect</li>
                         <li>org.hibernate.dialect.SybaseAnywhereDialect</li>
                         <li>org.hibernate.dialect.SybaseASE15Dialect</li>
                         <li>org.hibernate.dialect.TeradataDialect</li>
                         <li>org.hibernate.dialect.TimesTenDialect</li>
-            	    </ul>
-            	</documentation>
+                    </ul>
+                </documentation>
             </property>
             <property name="hibernateShowSql" required="false">
                 <documentation>
@@ -363,8 +363,8 @@
                     The JNDI name of data source to use without prefix like java:/.
                 </documentation>
             </property>
-		</propertyGroup>
-		<propertyGroup name="Cache">
+        </propertyGroup>
+        <propertyGroup name="Cache">
             <property name="hibernateCacheProvider" required="false">
                 <documentation>
                     Defines Hibernate Cache Provider implementation class.
@@ -456,25 +456,25 @@
                     </ul>
                 </documentation>
             </property>
-		</propertyGroup>
-		<propertyGroup name="Clustering">
-		    <property name="enableClustering">
-		        <default>false</default>
-		        <documentation>
-		            Enable/disable EJB 3.0 clustering by
-		            the application server.  Applies to
-		            stateless and stateful session bean
-		            clustering.  You can override the
-		            default setting via the
-		            <code>andromda_service_clustered</code>
-		            tagged value.  Possible values are:
-		            <ul>
-		                <li>true</li>
-		                <li>false</li>
-		            </ul>
-		        </documentation>
-		    </property>
-		</propertyGroup>
+        </propertyGroup>
+        <propertyGroup name="Clustering">
+            <property name="enableClustering">
+                <default>false</default>
+                <documentation>
+                    Enable/disable EJB 3.0 clustering by
+                    the application server.  Applies to
+                    stateless and stateful session bean
+                    clustering.  You can override the
+                    default setting via the
+                    <code>andromda_service_clustered</code>
+                    tagged value.  Possible values are:
+                    <ul>
+                        <li>true</li>
+                        <li>false</li>
+                    </ul>
+                </documentation>
+            </property>
+        </propertyGroup>
         <propertyGroup name="Transactions">
             <property name="hibernateTransactionManagerLookupClass" required="false">
                 <documentation>
@@ -512,108 +512,108 @@
                 </documentation>
             </property>
         </propertyGroup>
-		<propertyGroup name="Name Patterns">
-			<property name="entityNamePattern">
-				<default>{0}</default>
-				<documentation>
-					The pattern to use when constructing an entity name.
-					<em>{0}</em>
-					is used to represent the entity name in the model,
-					so if you specified a value of
-					<code>{0}Entity</code>
-					all the entities generated would have a suffix of
-					"Entity".
-				</documentation>
-			</property>
-			<property name="entityImplementationNamePattern">
-				<default>{0}Impl</default>
-				<documentation>
-					The pattern to use when constructing the entity
-					implementation name.
-				</documentation>
-			</property>
-			<property name="entityListenerNamePattern">
-				<default>{0}Listener</default>
-				<documentation>
-					The pattern to use when constructing an entity
-					listener class name.
-				</documentation>
-			</property>
-			<property name="entityEmbeddableNamePattern">
-				<default>{0}Embeddable</default>
-				<documentation>
-					The pattern to use when constructing an entity
-					embeddable super class name.
-				</documentation>
-			</property>
-			<property name="serviceNamePattern">
-				<default>{0}Bean</default>
-				<documentation>
-					The pattern to use when constructing a service bean name.
-					<em>{0}</em>
-					is used to represent the service bean name in the model,
-					so if you specified a value of
-					<code>{0}Bean</code>
-					all the entities generated would have a suffix of
-					"Bean".
-				</documentation>
-			</property>
-			<property name="serviceInterfaceNamePattern">
-				<default>{0}</default>
-				<documentation>
-					The pattern to use when constructing the service
-					bean parent interface name.
-				</documentation>
-			</property>
-			<property name="serviceLocalInterfaceNamePattern">
-				<default>{0}Local</default>
-				<documentation>
-					The pattern to use when constructing the service
-					bean local interface name.
-				</documentation>
-			</property>
-			<property name="serviceRemoteInterfaceNamePattern">
-				<default>{0}Remote</default>
-				<documentation>
-					The pattern to use when constructing the service
-					bean remote interface name.
-				</documentation>
-			</property>
-			<property name="serviceImplementationNamePattern">
-				<default>{0}BeanImpl</default>
-				<documentation>
-					The pattern to use when constructing the service
-					bean implementation name.
-				</documentation>
-			</property>
-			<property name="serviceListenerNamePattern">
-				<default>{0}Listener</default>
-				<documentation>
-					The pattern to use when constructing the service
-					bean listener class name.
-				</documentation>
-			</property>
-			<property name="serviceDelegateNamePattern">
-			    <default>{0}Delegate</default>
-			    <documentation>
-			        The pattern to use when constructing the service
-			        bean delegate class name.
-			    </documentation>
-			</property>
-			<property name="serviceBaseNamePattern">
-			    <default>{0}Base</default>
-			    <documentation>
-			        The pattern to use when constructing the service
-			        bean base class name.
-			    </documentation>
-			</property>
-			<property name="serviceTestNamePattern">
-			    <default>{0}Test</default>
-			    <documentation>
-			        The pattern to use when constructing the service
-			        test class name.
-			    </documentation>
-			</property>
+        <propertyGroup name="Name Patterns">
+            <property name="entityNamePattern">
+                <default>{0}</default>
+                <documentation>
+                    The pattern to use when constructing an entity name.
+                    <em>{0}</em>
+                    is used to represent the entity name in the model,
+                    so if you specified a value of
+                    <code>{0}Entity</code>
+                    all the entities generated would have a suffix of
+                    "Entity".
+                </documentation>
+            </property>
+            <property name="entityImplementationNamePattern">
+                <default>{0}Impl</default>
+                <documentation>
+                    The pattern to use when constructing the entity
+                    implementation name.
+                </documentation>
+            </property>
+            <property name="entityListenerNamePattern">
+                <default>{0}Listener</default>
+                <documentation>
+                    The pattern to use when constructing an entity
+                    listener class name.
+                </documentation>
+            </property>
+            <property name="entityEmbeddableNamePattern">
+                <default>{0}Embeddable</default>
+                <documentation>
+                    The pattern to use when constructing an entity
+                    embeddable super class name.
+                </documentation>
+            </property>
+            <property name="serviceNamePattern">
+                <default>{0}Bean</default>
+                <documentation>
+                    The pattern to use when constructing a service bean name.
+                    <em>{0}</em>
+                    is used to represent the service bean name in the model,
+                    so if you specified a value of
+                    <code>{0}Bean</code>
+                    all the entities generated would have a suffix of
+                    "Bean".
+                </documentation>
+            </property>
+            <property name="serviceInterfaceNamePattern">
+                <default>{0}</default>
+                <documentation>
+                    The pattern to use when constructing the service
+                    bean parent interface name.
+                </documentation>
+            </property>
+            <property name="serviceLocalInterfaceNamePattern">
+                <default>{0}Local</default>
+                <documentation>
+                    The pattern to use when constructing the service
+                    bean local interface name.
+                </documentation>
+            </property>
+            <property name="serviceRemoteInterfaceNamePattern">
+                <default>{0}Remote</default>
+                <documentation>
+                    The pattern to use when constructing the service
+                    bean remote interface name.
+                </documentation>
+            </property>
+            <property name="serviceImplementationNamePattern">
+                <default>{0}BeanImpl</default>
+                <documentation>
+                    The pattern to use when constructing the service
+                    bean implementation name.
+                </documentation>
+            </property>
+            <property name="serviceListenerNamePattern">
+                <default>{0}Listener</default>
+                <documentation>
+                    The pattern to use when constructing the service
+                    bean listener class name.
+                </documentation>
+            </property>
+            <property name="serviceDelegateNamePattern">
+                <default>{0}Delegate</default>
+                <documentation>
+                    The pattern to use when constructing the service
+                    bean delegate class name.
+                </documentation>
+            </property>
+            <property name="serviceBaseNamePattern">
+                <default>{0}Base</default>
+                <documentation>
+                    The pattern to use when constructing the service
+                    bean base class name.
+                </documentation>
+            </property>
+            <property name="serviceTestNamePattern">
+                <default>{0}Test</default>
+                <documentation>
+                    The pattern to use when constructing the service
+                    test class name.
+                </documentation>
+            </property>
             <property name="serviceTestPackageNamePattern">
                 <default>{0}.test</default>
                 <documentation>
@@ -621,13 +621,13 @@
                     the service test class.
                 </documentation>
             </property>
-			<property name="serviceOperationTestNamePattern">
-			    <default>test{0}</default>
-			    <documentation>
-			        The pattern to use when constructing the service
-			        test operation name.
-			    </documentation>
-			</property>
+            <property name="serviceOperationTestNamePattern">
+                <default>test{0}</default>
+                <documentation>
+                    The pattern to use when constructing the service
+                    test operation name.
+                </documentation>
+            </property>
             <property name="implementationOperationNamePattern">
                 <default>handle{0}</default>
                 <documentation>
@@ -645,34 +645,34 @@
                     allowDefaultServiceExceptions is <code>true</code>.
                 </documentation>
             </property>
-			<property name="messageDrivenNamePattern">
-				<default>{0}MDBBean</default>
-				<documentation>
-					The pattern to use when construction the JMS message driven
-					bean class name.
-				</documentation>
-			</property>
-			<property name="messageDrivenListenerNamePattern">
-				<default>{0}Listener</default>
-				<documentation>
-					The pattern to use when constructing the JMS message driven
-					bean listener class name.
-				</documentation>
-			</property>
-			<property name="messageDrivenImplementationNamePattern">
-				<default>{0}MDBBeanImpl</default>
-				<documentation>
-					The pattern to use when constructing the JMS message driven
-					bean implementation class name.
-				</documentation>
-			</property>
-			<property name="messageDrivenTestNamePattern">
-			    <default>{0}Test</default>
-			    <documentation>
-			        The pattern to use when constructing the message driven bean
-			        test class name.
-			    </documentation>
-			</property>
+            <property name="messageDrivenNamePattern">
+                <default>{0}MDBBean</default>
+                <documentation>
+                    The pattern to use when construction the JMS message driven
+                    bean class name.
+                </documentation>
+            </property>
+            <property name="messageDrivenListenerNamePattern">
+                <default>{0}Listener</default>
+                <documentation>
+                    The pattern to use when constructing the JMS message driven
+                    bean listener class name.
+                </documentation>
+            </property>
+            <property name="messageDrivenImplementationNamePattern">
+                <default>{0}MDBBeanImpl</default>
+                <documentation>
+                    The pattern to use when constructing the JMS message driven
+                    bean implementation class name.
+                </documentation>
+            </property>
+            <property name="messageDrivenTestNamePattern">
+                <default>{0}Test</default>
+                <documentation>
+                    The pattern to use when constructing the message driven bean
+                    test class name.
+                </documentation>
+            </property>
             <property name="messageDrivenTestPackageNamePattern">
                 <default>{0}.test</default>
                 <documentation>
@@ -687,34 +687,34 @@
                     ID for a MDB.  Only use for topics with durable subscription.
                 </documentation>
             </property>
-			<property name="interceptorNamePattern">
-			    <default>{0}</default>
-			    <documentation>
-			        The pattern to use when constructing the interceptor
-			        class name.
-			    </documentation>
-			</property>
-			<property name="entityCompositePrimaryKeyNamePattern">
-			    <default>{0}PK</default>
-			    <documentation>
-			        The pattern to use when constructing the composite
-			        primary key class name.
-			    </documentation>
-			</property>
-			<property name="jndiNamePrefix" required="false">
-				<documentation>
-					The prefix to give to the EJB JNDI names (this
-					allows the same EJBs to be deployed multiple times
-					in the same container)
-				</documentation>
-			</property>
-			<property name="manageableServiceBaseNamePattern">
-			    <default>{0}Base</default>
-			    <documentation>
-			        The pattern to use when constructing the
-			        manageable service base name.
-			    </documentation>
-			</property>
+            <property name="interceptorNamePattern">
+                <default>{0}</default>
+                <documentation>
+                    The pattern to use when constructing the interceptor
+                    class name.
+                </documentation>
+            </property>
+            <property name="entityCompositePrimaryKeyNamePattern">
+                <default>{0}PK</default>
+                <documentation>
+                    The pattern to use when constructing the composite
+                    primary key class name.
+                </documentation>
+            </property>
+            <property name="jndiNamePrefix" required="false">
+                <documentation>
+                    The prefix to give to the EJB JNDI names (this
+                    allows the same EJBs to be deployed multiple times
+                    in the same container)
+                </documentation>
+            </property>
+            <property name="manageableServiceBaseNamePattern">
+                <default>{0}Base</default>
+                <documentation>
+                    The pattern to use when constructing the
+                    manageable service base name.
+                </documentation>
+            </property>
             <property name="manageableCreateExceptionNamePattern">
                 <default>{0}CreateManageableException</default>
                 <documentation>
@@ -773,223 +773,223 @@
                     value implementation name.
                 </documentation>
             </property>
-		</propertyGroup>
-		<propertyGroup name="MDB Properties">
-			<property name="messageDrivenDestinationType">
-				<default>javax.jms.Queue</default>
-				<documentation>
-					The default destination type for a JMS message
-					driven bean.  Possible values are:
-					<ul>
-						<li>javax.jms.Queue</li>
-						<li>javax.jms.Topic</li>
-					</ul>
-				</documentation>
-			</property>
-			<property name="messageDrivenTopicSubscriptionDurability">
-				<default>NonDurable</default>
-				<documentation>
-					The default topic subscription durability.
+        </propertyGroup>
+        <propertyGroup name="MDB Properties">
+            <property name="messageDrivenDestinationType">
+                <default>javax.jms.Queue</default>
+                <documentation>
+                    The default destination type for a JMS message
+                    driven bean.  Possible values are:
+                    <ul>
+                        <li>javax.jms.Queue</li>
+                        <li>javax.jms.Topic</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="messageDrivenTopicSubscriptionDurability">
+                <default>NonDurable</default>
+                <documentation>
+                    The default topic subscription durability.
                     Possible values are:
-					<ul>
-						<li>Durable</li>
-						<li>NonDurable</li>
-					</ul>
-				</documentation>
-			</property>
-		</propertyGroup>
-		<propertyGroup name="Entity Properties">
-			<property name="entityViewType">
-				<default>local</default>
-				<documentation>
-					The default view type accessibility for an entity POJO bean.
-					<ul>
-						Permitted values are:
-						<li>local</li>
-						<li>remote</li>
-						<li>both</li>
-					</ul>
-				</documentation>
-			</property>
-			<property name="entityDefaultCascade">
-				<default>NONE</default>
-				<documentation>
-					The value of the
-					<code>CascadeType</code>
-					annotation of the entity association. Possible
-					values are:
-					<ul>
-						<li>ALL</li>
-						<li>PERSIST</li>
-						<li>MERGE</li>
-						<li>REMOVE</li>
-						<li>REFRESH</li>
-						<li>NONE if one does not exist</li>
-					</ul>
-					It is possible to comma separate multiple
-					cascade properties.
-				</documentation>
-			</property>
-			<property name="entityCompositeCascade" required="false">
-				<documentation>
-					Indicates how a UML composition should be
-					interpreted to determine cascadable operations that
-					are propagated to the associated entity.
-					<ul>
-						<li>
-							If undefined, the cascade attribute is
-							computed by AndroMDA. If default cascade is
-							<em>all</em>
-							, then cascade is
-							<em>all</em>
-							otherwise cascade is
-							<em>REMOVE</em>
-							.
-						</li>
-						<li>
-							If this property is defined, its value is
-							generated at each occurrence of a UML
-							composition as the inverse side is not
-							marked with a cascade annotation element
-							which indicates no cascade propagation.
-						</li>
-					</ul>
-				</documentation>
-			</property>
-			<property name="entityAggregationCascade" required="false">
-				<documentation>
-					Indicates how a UML aggregation should be interpreted
-					to determine cascadable operations that are
-					propagated to the associated entity.
-					<ul>
-						<li>
-							If undefined, aggregation is not
-							interpreted as a cascade value.
-						</li>
-						<li>
-							If the property is defined, its value is
-							generated at each occurrence of a UML
-							aggregation ad the inverse side is not
-							marked with a cascade annotation element
-							which indicates no cascade propogation.
-						</li>
-					</ul>
-				</documentation>
-			</property>
-			<property name="entityDefaultGeneratorType">
-				<default>AUTO</default>
-				<documentation>
-					Default entity identifier primary key generator type
-					set to AUTO unless specified using
-					andromda_persistence_column_generatorType tagged
-					value.
-				</documentation>
-			</property>
-			<property name="entityDefaultGeneratorInitialValue">
-				<default>1</default>
-				<documentation>
-					Default generator initial value used when allocating
-					id numbers from the generator.
-				</documentation>
-			</property>
-			<property name="entityDefaultGeneratorAllocationSize">
-				<default>1</default>
-				<documentation>
-					Default generator amount to increment by when
-					allocating id number from the generator.
-				</documentation>
-			</property>
-			<property name="entityInheritanceStrategy">
-				<default>SINGLE_TABLE</default>
-				<documentation>
-					Defines the entity inheritance strategy used for the
-					entity class hierarchy (unless overridden on an
-					entity level by the
-					<a
-						href="profile.html#andromda._persistence_inheritance">
-						andromda_persistence_inheritance
-					</a>
-					tagged value, can be the following possible values:
-					<ul>
-						<li>
+                    <ul>
+                        <li>Durable</li>
+                        <li>NonDurable</li>
+                    </ul>
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Entity Properties">
+            <property name="entityViewType">
+                <default>local</default>
+                <documentation>
+                    The default view type accessibility for an entity POJO bean.
+                    <ul>
+                        Permitted values are:
+                        <li>local</li>
+                        <li>remote</li>
+                        <li>both</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="entityDefaultCascade">
+                <default>NONE</default>
+                <documentation>
+                    The value of the
+                    <code>CascadeType</code>
+                    annotation of the entity association. Possible
+                    values are:
+                    <ul>
+                        <li>ALL</li>
+                        <li>PERSIST</li>
+                        <li>MERGE</li>
+                        <li>REMOVE</li>
+                        <li>REFRESH</li>
+                        <li>NONE if one does not exist</li>
+                    </ul>
+                    It is possible to comma separate multiple
+                    cascade properties.
+                </documentation>
+            </property>
+            <property name="entityCompositeCascade" required="false">
+                <documentation>
+                    Indicates how a UML composition should be
+                    interpreted to determine cascadable operations that
+                    are propagated to the associated entity.
+                    <ul>
+                        <li>
+                            If undefined, the cascade attribute is
+                            computed by AndroMDA. If default cascade is
+                            <em>all</em>
+                            , then cascade is
+                            <em>all</em>
+                            otherwise cascade is
+                            <em>REMOVE</em>
+                            .
+                        </li>
+                        <li>
+                            If this property is defined, its value is
+                            generated at each occurrence of a UML
+                            composition as the inverse side is not
+                            marked with a cascade annotation element
+                            which indicates no cascade propagation.
+                        </li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="entityAggregationCascade" required="false">
+                <documentation>
+                    Indicates how a UML aggregation should be interpreted
+                    to determine cascadable operations that are
+                    propagated to the associated entity.
+                    <ul>
+                        <li>
+                            If undefined, aggregation is not
+                            interpreted as a cascade value.
+                        </li>
+                        <li>
+                            If the property is defined, its value is
+                            generated at each occurrence of a UML
+                            aggregation ad the inverse side is not
+                            marked with a cascade annotation element
+                            which indicates no cascade propogation.
+                        </li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="entityDefaultGeneratorType">
+                <default>AUTO</default>
+                <documentation>
+                    Default entity identifier primary key generator type
+                    set to AUTO unless specified using
+                    andromda_persistence_column_generatorType tagged
+                    value.
+                </documentation>
+            </property>
+            <property name="entityDefaultGeneratorInitialValue">
+                <default>1</default>
+                <documentation>
+                    Default generator initial value used when allocating
+                    id numbers from the generator.
+                </documentation>
+            </property>
+            <property name="entityDefaultGeneratorAllocationSize">
+                <default>1</default>
+                <documentation>
+                    Default generator amount to increment by when
+                    allocating id number from the generator.
+                </documentation>
+            </property>
+            <property name="entityInheritanceStrategy">
+                <default>SINGLE_TABLE</default>
+                <documentation>
+                    Defines the entity inheritance strategy used for the
+                    entity class hierarchy (unless overridden on an
+                    entity level by the
+                    <a
+                        href="profile.html#andromda._persistence_inheritance">
+                        andromda_persistence_inheritance
+                    </a>
+                    tagged value, can be the following possible values:
+                    <ul>
+                        <li>
                             SINGLE_TABLE - A single table per class hierarchy. One table will have all
                             properties of every class in the hierarchy.
                         </li>
-						<li>
-							TABLE_PER_CLASS - A table per concrete class in the
-							hierarchy. Each class will have a table dedicated to it, with all of its
+                        <li>
+                            TABLE_PER_CLASS - A table per concrete class in the
+                            hierarchy. Each class will have a table dedicated to it, with all of its
                             properties and the properties of its superclass mapped to this table.
-						</li>
-						<li>
+                        </li>
+                        <li>
                             JOINED - A table per subclass. Each class will have its own table. Each
                             table will have only the properties that are defined in that particular class.
                             These tables will not have properties of any superclass or subclass.
                         </li>
-					</ul>
-				</documentation>
-			</property>
-			<property name="entityDiscriminatorType">
-				<default>STRING</default>
-				<documentation>
-					The value of the
-					<code>discriminatorType</code>
-					element for the Inheritance annotation of the
-					entity. Possible values are:
-					<ul>
-						<li>STRING</li>
-						<li>CHAR</li>
-						<li>INTEGER</li>
-					</ul>
-				</documentation>
-			</property>
-			<property name="entityDiscriminatorColumnName">
-				<default>TYPE</default>
-				<documentation>
-					The DiscriminatorColumn annotation defines the
-					discriminator column for the SINGLE_TABLE and JOINED
-					mapping inheritance strategies. The name element
-					defines the name of the column to be used for the
-					discriminator. It will default to
-					<code>TYPE</code>
-					if it is required and not specified..
-				</documentation>
-			</property>
-			<property name="entityGenericFinders">
-			    <default>true</default>
-			    <documentation>
-			        Specifies whether to include the generic finder
-			        property.  Generic finders in the entity bean include
-			        findByPrimaryKey and findAll.
-			        Permitted values are:
-			        <ul>
-			            <li>true</li>
-			            <li>false</li>
-			        </ul>
-			    </documentation>
-			</property>
-			<property name="entityDefaultEnumLiteralColumnLength">
-			    <default>20</default>
-			    <documentation>
-			        The default column length specified for the
-			        storage of a string based enumeration literal.
-			    </documentation>
-			</property>
-			<property name="entityDefaultTemporalType">
-				<default>TIMESTAMP</default>
-				<documentation>
-					Specifies that the persistence property should
-					be persisted as a temporal type.
-					This is only specified on fields of type
-					<code>java.util.Date</code> or
-					<code>java.util.Calendar</code>.
-					Possible values are:
-					<ul>
-						<li>DATE</li>
-						<li>TIME</li>
-						<li>TIMESTAMP</li>
-					</ul>
-				</documentation>
-			</property>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="entityDiscriminatorType">
+                <default>STRING</default>
+                <documentation>
+                    The value of the
+                    <code>discriminatorType</code>
+                    element for the Inheritance annotation of the
+                    entity. Possible values are:
+                    <ul>
+                        <li>STRING</li>
+                        <li>CHAR</li>
+                        <li>INTEGER</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="entityDiscriminatorColumnName">
+                <default>TYPE</default>
+                <documentation>
+                    The DiscriminatorColumn annotation defines the
+                    discriminator column for the SINGLE_TABLE and JOINED
+                    mapping inheritance strategies. The name element
+                    defines the name of the column to be used for the
+                    discriminator. It will default to
+                    <code>TYPE</code>
+                    if it is required and not specified..
+                </documentation>
+            </property>
+            <property name="entityGenericFinders">
+                <default>true</default>
+                <documentation>
+                    Specifies whether to include the generic finder
+                    property.  Generic finders in the entity bean include
+                    findByPrimaryKey and findAll.
+                    Permitted values are:
+                    <ul>
+                        <li>true</li>
+                        <li>false</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="entityDefaultEnumLiteralColumnLength">
+                <default>20</default>
+                <documentation>
+                    The default column length specified for the
+                    storage of a string based enumeration literal.
+                </documentation>
+            </property>
+            <property name="entityDefaultTemporalType">
+                <default>TIMESTAMP</default>
+                <documentation>
+                    Specifies that the persistence property should
+                    be persisted as a temporal type.
+                    This is only specified on fields of type
+                    <code>java.util.Date</code> or
+                    <code>java.util.Calendar</code>.
+                    Possible values are:
+                    <ul>
+                        <li>DATE</li>
+                        <li>TIME</li>
+                        <li>TIMESTAMP</li>
+                    </ul>
+                </documentation>
+            </property>
             <property name="entityHibernateValidations">
                 <default>true</default>
                 <documentation>
@@ -1035,28 +1035,28 @@
                     default = true.
                 </documentation>
             </property>
-		</propertyGroup>
-		<propertyGroup name="Service Properties">
-			<property name="serviceViewType">
-				<default>remote</default>
-				<documentation>
-					The default view type accessibility for a session bean.
-					<ul>
-						Permitted values are:
-						<li>local</li>
-						<li>remote</li>
-						<li>both</li>
-					</ul>
-				</documentation>
-			</property>
+        </propertyGroup>
+        <propertyGroup name="Service Properties">
+            <property name="serviceViewType">
+                <default>remote</default>
+                <documentation>
+                    The default view type accessibility for a session bean.
+                    <ul>
+                        Permitted values are:
+                        <li>local</li>
+                        <li>remote</li>
+                        <li>both</li>
+                    </ul>
+                </documentation>
+            </property>
             <property name="serviceLocatorName">
                 <default>ServiceLocator</default>
                 <documentation>
                     The name to give the service locator class.
                 </documentation>
             </property>
-		</propertyGroup>
-		<propertyGroup name="DAO Properties">
+        </propertyGroup>
+        <propertyGroup name="DAO Properties">
             <property name="daoType">
                 <default>ejb3</default>
                 <documentation>
@@ -1135,8 +1135,8 @@
                     default exception name.
                 </documentation>
             </property>
-		</propertyGroup>
-		<propertyGroup name="WebService Properties">
+        </propertyGroup>
+        <propertyGroup name="WebService Properties">
             <property name="webServiceDefaultStyle">
                 <default>rpc</default>
                 <documentation>
@@ -1226,60 +1226,60 @@
                     root for the web service.
                 </documentation>
             </property>
-		</propertyGroup>
-		<propertyGroup name="Security Properties">
-			<property name="securityRealm" required="false">
-				<documentation>
-					Specifies the security domain to use
-					for role based authorization.  Use the
-					security realm to match allowed roles.
-					This is only applicable for session beans
-					and MDBs.
-				</documentation>
-			</property>
-			<property name="manageableRolesAllowed">
-			    <default>Admin</default>
-			    <documentation>
-			        A comma separated list of roles added to the DAO
-			        base <code>RolesAllowed</code> annotation.
-			        This requires <code>securityRealm</code> be
-			        enabled.
-			        This exists because in some cases it is
-			        incorrect to model an actor dependency on the
-			        manageable entity and expect that actor to
-			        define the authorised role on
-			        ManageableServiceBeans.
-			        This property separates
-			        the roles for manageable session beans and
-			        the remaining components.
-			        It is expected that the list of roles
-			        secure all manageable session beans.
-			    </documentation>
-			</property>
-		</propertyGroup>
-		<propertyGroup name="Other Properties">
-			<property name="persistenceProviderExtensions">
-				<default>none</default>
-				<documentation>
-					Determines whether the default persistence provider
-					extensions such as annotations should also be rendered.
-					By default, this is disabled.
-					To enable caching:
-					this must be set to <b>hibernate</b> such that
-					the Hibernate caching annotations are rendered.
-					To enable JBoss Seam:
-					this must be set to <b>hibernate</b> such that
-					the hibernate validator annotations are
-					rendered.
+        </propertyGroup>
+        <propertyGroup name="Security Properties">
+            <property name="securityRealm" required="false">
+                <documentation>
+                    Specifies the security domain to use
+                    for role based authorization.  Use the
+                    security realm to match allowed roles.
+                    This is only applicable for session beans
+                    and MDBs.
+                </documentation>
+            </property>
+            <property name="manageableRolesAllowed">
+                <default>Admin</default>
+                <documentation>
+                    A comma separated list of roles added to the DAO
+                    base <code>RolesAllowed</code> annotation.
+                    This requires <code>securityRealm</code> be
+                    enabled.
+                    This exists because in some cases it is
+                    incorrect to model an actor dependency on the
+                    manageable entity and expect that actor to
+                    define the authorised role on
+                    ManageableServiceBeans.
+                    This property separates
+                    the roles for manageable session beans and
+                    the remaining components.
+                    It is expected that the list of roles
+                    secure all manageable session beans.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Other Properties">
+            <property name="persistenceProviderExtensions">
+                <default>none</default>
+                <documentation>
+                    Determines whether the default persistence provider
+                    extensions such as annotations should also be rendered.
+                    By default, this is disabled.
+                    To enable caching:
+                    this must be set to <b>hibernate</b> such that
+                    the Hibernate caching annotations are rendered.
+                    To enable JBoss Seam:
+                    this must be set to <b>hibernate</b> such that
+                    the hibernate validator annotations are
+                    rendered.
                     To enable Hibernate Criteria Query, this must
                     be set to <b>hibernate</b>.
-					Possible values are:
-					<ul>
-						<li>none</li>
-						<li>hibernate</li>
-					</ul>
-				</documentation>
-			</property>
+                    Possible values are:
+                    <ul>
+                        <li>none</li>
+                        <li>hibernate</li>
+                    </ul>
+                </documentation>
+            </property>
             <property name="javaVersion">
                 <default>1.6</default>
                 <documentation>
@@ -1288,14 +1288,14 @@
                     which is also used by the maven-compiler-plugin. Allowed values=1.4,1.5,1.6. Default=1.6.
                 </documentation>
             </property>
-			<property name="deploymentPlatform">
-				<default>jboss6</default>
-				<documentation>
-					The default container deployment platform name and version.
-					Used when specifying specific annotations and dependencies and tests
-					for different persistence containers.
-					Possible values are:
-					<ul>
+            <property name="deploymentPlatform">
+                <default>jboss6</default>
+                <documentation>
+                    The default container deployment platform name and version.
+                    Used when specifying specific annotations and dependencies and tests
+                    for different persistence containers.
+                    Possible values are:
+                    <ul>
                       <li>jboss7</li>
                       <li>jboss6</li>
                       <li>jboss51</li>
@@ -1319,17 +1319,17 @@
                       <li>resin3</li>
                       <li>resin4</li>
                       <li>sun8</li>
-					</ul>
-				</documentation>
-			</property>
-			<property name="persistenceContainerName">
-				<default>jboss</default>
-				<documentation>
-					The default container deployment platform name and version.
-					Used when specifying specific annotations and dependencies and tests
-					for different persistence containers.
-					Possible values are:
-					<ul>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="persistenceContainerName">
+                <default>jboss</default>
+                <documentation>
+                    The default container deployment platform name and version.
+                    Used when specifying specific annotations and dependencies and tests
+                    for different persistence containers.
+                    Possible values are:
+                    <ul>
                       <li>jboss7</li>
                       <li>jboss6</li>
                       <li>jboss51</li>
@@ -1353,16 +1353,16 @@
                       <li>resin3</li>
                       <li>resin4</li>
                       <li>sun8</li>
-					</ul>
-				</documentation>
-			</property>
-			<property name="persistenceContextUnitName" required="false">
-			    <documentation>
-			        Specifies the default persistence context
-			        unit name associated with the default Entity
-			        Manager.
-			    </documentation>
-			</property>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="persistenceContextUnitName" required="false">
+                <documentation>
+                    Specifies the default persistence context
+                    unit name associated with the default Entity
+                    Manager.
+                </documentation>
+            </property>
             <property name="listTypeImplementation">
                 <default>java.util.ArrayList</default>
                 <documentation>
@@ -1439,45 +1439,45 @@
                     and aggregate associations define lazy loading.
                 </documentation>
             </property>
-			<property name="queryUseNamedParameters">
-				<default>true</default>
-				<documentation>
-					Whether or not named parameters (i.e.
-					':someParameter') or unnamed (i.e. '?') parameters
-					should be used in the SQL queries embedded within
-					the model.
-					<strong>NOTE:</strong>
-					Does not apply to queries written in OCL.
-				</documentation>
-			</property>
-			<property name="valueObjectPackage">
-				<default>{0}</default>
-			</property>
-			<property name="valueObjectName">
-				<default>{0}</default>
-			</property>
-			<property name="transactionType">
-				<default>REQUIRED</default>
-				<documentation>
-					The default value to use for transaction types.
-					<ul>
-						Permitted values are:
-						<li>NOT_SUPPORTED</li>
-						<li>SUPPORTS</li>
-						<li>REQUIRED</li>
-						<li>REQUIRES_NEW</li>
-						<li>MANDATORY</li>
-						<li>NEVER</li>
-					</ul>
-					<strong>NOTE:</strong>
-					Can be overridden on a per bean/bean operation basis with the
-					<a
-						href="profile.html#andromda_ejb_transaction_type">
-						andromda_ejb_transaction_type
-					</a>
-					tagged value.
-				</documentation>
-			</property>
+            <property name="queryUseNamedParameters">
+                <default>true</default>
+                <documentation>
+                    Whether or not named parameters (i.e.
+                    ':someParameter') or unnamed (i.e. '?') parameters
+                    should be used in the SQL queries embedded within
+                    the model.
+                    <strong>NOTE:</strong>
+                    Does not apply to queries written in OCL.
+                </documentation>
+            </property>
+            <property name="valueObjectPackage">
+                <default>{0}</default>
+            </property>
+            <property name="valueObjectName">
+                <default>{0}</default>
+            </property>
+            <property name="transactionType">
+                <default>REQUIRED</default>
+                <documentation>
+                    The default value to use for transaction types.
+                    <ul>
+                        Permitted values are:
+                        <li>NOT_SUPPORTED</li>
+                        <li>SUPPORTS</li>
+                        <li>REQUIRED</li>
+                        <li>REQUIRES_NEW</li>
+                        <li>MANDATORY</li>
+                        <li>NEVER</li>
+                    </ul>
+                    <strong>NOTE:</strong>
+                    Can be overridden on a per bean/bean operation basis with the
+                    <a
+                        href="profile.html#andromda_ejb_transaction_type">
+                        andromda_ejb_transaction_type
+                    </a>
+                    tagged value.
+                </documentation>
+            </property>
             <property name="ejb3TypesPackage">
                 <default>org.andromda.ejb3</default>
                 <documentation>
@@ -1527,6 +1527,6 @@
                    attempt to auto-generate conversions for date/time related attributes.
                 </documentation>
             </property>
-		</propertyGroup>
-	</properties>
+        </propertyGroup>
+    </properties>
 </namespace>

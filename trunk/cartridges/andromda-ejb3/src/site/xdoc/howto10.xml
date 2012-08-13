@@ -52,15 +52,15 @@
                 which is located at <code>queue/howtomodel/howto10a</code>.  The tagged values used are
                 explained further down.
             </p>
-			<p>
-				<img src="images/org/andromda/test/10/a/uml.gif" alt="images/org/andromda/test/10/a/uml.gif"/>
-			</p>
-			<ul>
-				<li class="gen">Auto-generated source that does not need manual editing</li>
-				<li class="impl">Auto-generated source that should be edited manually</li>
-				<li class="changed">File that is affected by the modifications applied in this section</li>
-			</ul>
-		    <ul>
+            <p>
+                <img src="images/org/andromda/test/10/a/uml.gif" alt="images/org/andromda/test/10/a/uml.gif"/>
+            </p>
+            <ul>
+                <li class="gen">Auto-generated source that does not need manual editing</li>
+                <li class="impl">Auto-generated source that should be edited manually</li>
+                <li class="changed">File that is affected by the modifications applied in this section</li>
+            </ul>
+            <ul>
                 <li class="gen"><a href="howto/org/andromda/test/howto10/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
                 <li class="impl"><a href="howto/org/andromda/test/howto10/a/Car.java"><code>Car.java</code></a></li>
                 <li class="gen"><a href="howto/org/andromda/test/howto10/a/CarType.java"><code>CarType.java</code></a></li>
@@ -272,7 +272,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <server>
     <mbean code="org.jboss.mq.server.jmx.Queue"
-	       name="jboss.mq.destination:service=Queue,name=EmailSenderMDBBean">
+           name="jboss.mq.destination:service=Queue,name=EmailSenderMDBBean">
         <depends optional-attribute-name="DestinationManager">jboss.mq:service=DestinationManager</depends>
         <attribute name="JNDIName">queue/emailSender</attribute>
     </mbean>

@@ -2,26 +2,26 @@
 
 <document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
-	<properties>
-    	<title>AndroMDA Maven Plug-in Goals</title>
-  	</properties>
-  	<body>
-		<section name="Goals">
-		    <table>
-		        <tr>
-		            <th>Goal</th>
-		            <th>Description</th>
-		        </tr>
-			    <tr>
-				    <td nowrap="nowrap">
-				        <a href="beautify-imports-mojo.html">beautifier:beautify-imports</a>
-				    </td>
-				    <td>
-				        <p>
-					        Runs andromda beautifier: Changes full-qualified class names to imports.
+    <properties>
+        <title>AndroMDA Maven Plug-in Goals</title>
+      </properties>
+      <body>
+        <section name="Goals">
+            <table>
+                <tr>
+                    <th>Goal</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="beautify-imports-mojo.html">beautifier:beautify-imports</a>
+                    </td>
+                    <td>
+                        <p>
+                            Runs andromda beautifier: Changes full-qualified class names to imports.
                         </p>
-				    </td>
-			    </tr>
+                    </td>
+                </tr>
                 <tr>
                     <td nowrap="nowrap">
                         <a href="help-mojo.html">beautifier:help</a>
@@ -32,7 +32,7 @@
                         </p>
                     </td>
                 </tr>
-			</table>
-		</section>
-  	</body>
+            </table>
+        </section>
+      </body>
 </document>

@@ -18,11 +18,11 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-        	<groupId>${project.groupId}</groupId>
-        	<artifactId>demo-ejb3-core</artifactId>
-        	<version>${project.version}</version>
-        	<type>ejb</type>
-        	<scope>compile</scope>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>demo-ejb3-core</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>

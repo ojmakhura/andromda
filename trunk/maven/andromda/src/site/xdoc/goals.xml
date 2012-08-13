@@ -2,30 +2,30 @@
 
 <document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
-	<properties>
-    	<title>AndroMDA Maven Plug-in Goals</title>
-  	</properties>
-  	<body>
-		<section name="Goals">
-		    <table>
-		        <tr>
-		            <th>Goal</th>
-		            <th>Description</th>
-		        </tr>
-			    <tr>
-				    <td nowrap="nowrap">
-				        <a href="run-mojo.html">andromda:run</a>
-				    </td>
-				    <td>
-				        <p>
-					        Runs the AndroMDA processor with AndroMDA plugins (i.e. cartridges
-					        and translation-libraries) found on your CLASSPATH. AndroMDA is
+    <properties>
+        <title>AndroMDA Maven Plug-in Goals</title>
+      </properties>
+      <body>
+        <section name="Goals">
+            <table>
+                <tr>
+                    <th>Goal</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="run-mojo.html">andromda:run</a>
+                    </td>
+                    <td>
+                        <p>
+                            Runs the AndroMDA processor with AndroMDA plugins (i.e. cartridges
+                            and translation-libraries) found on your CLASSPATH. AndroMDA is
                             configured through the value of the the
                             <a href="properties.html#maven_andromda_configuration_uri">maven.andromda.configuration.uri</a>
                             property.
                         </p>
-				    </td>
-			    </tr>
+                    </td>
+                </tr>
                 <tr>
                     <td nowrap="nowrap">
                         <a href="export2emf-mojo.html">andromda:export2emf</a>
@@ -38,27 +38,27 @@
                         </p>
                     </td>
                 </tr>
-			    <!--tr>
-				    <td nowrap="nowrap">
-				        andromda:schema2xmi
-				    </td>
-				    <td>
-				        <p>
-					        Runs AndroMDA's 
-					        <a href="/andromda-schema2xmi/index.html">Schema2XMI</a>
-					        to provide XMI generation from a database schema. See
-					        <a href="properties.html#schema2xmi">Plugin Settings</a> for more 
-					        information on how to configure this goal.
-					    </p>
-				    </td>
-			    </tr-->
-			    <tr>
-				    <td nowrap="nowrap">
-				        <a href="start-server-mojo.html">andromda:start-server</a>
-				    </td>
-				    <td>
-				        <p>
-					        Starts the AndroMDA server instance. When this is
+                <!--tr>
+                    <td nowrap="nowrap">
+                        andromda:schema2xmi
+                    </td>
+                    <td>
+                        <p>
+                            Runs AndroMDA's 
+                            <a href="/andromda-schema2xmi/index.html">Schema2XMI</a>
+                            to provide XMI generation from a database schema. See
+                            <a href="properties.html#schema2xmi">Plugin Settings</a> for more 
+                            information on how to configure this goal.
+                        </p>
+                    </td>
+                </tr-->
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="start-server-mojo.html">andromda:start-server</a>
+                    </td>
+                    <td>
+                        <p>
+                            Starts the AndroMDA server instance. When this is
                             running, modeling processing will occur on the server.
                             This dramatically helps to improve initialization
                             and loading time when running AndroMDA because these things
@@ -66,20 +66,20 @@
                             processed). The server is configured through
                             <a href="/configuration.html">AndroMDA configuration file</a>.
                         </p>
-				    </td>
-			    </tr>
-			    <tr>
-				    <td nowrap="nowrap">
-				        <a href="stop-server-mojo.html">andromda:stop-server</a>
-				    </td>
-				    <td>
-				        <p>
-					        Stops the AndroMDA server instance (if it's currently running). The server
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="stop-server-mojo.html">andromda:stop-server</a>
+                    </td>
+                    <td>
+                        <p>
+                            Stops the AndroMDA server instance (if it's currently running). The server
                             information is configured through 
                             <a href="/configuration.html">AndroMDA configuration file</a>.
                         </p>
-				    </td>
-			    </tr>
+                    </td>
+                </tr>
                 <tr>
                     <td nowrap="nowrap">
                         <a href="help-mojo.html">andromda:help</a>
@@ -90,7 +90,7 @@
                         </p>
                     </td>
                 </tr>
-			</table>
-		</section>
-  	</body>
+            </table>
+        </section>
+      </body>
 </document>

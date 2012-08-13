@@ -367,7 +367,7 @@
     <from>
         context LegalAgreement 
         inv: allInstances() -> isUnique(documentTitle) 
-	</from>
+    </from>
     <to>
     </to>
 </expression>
@@ -557,11 +557,11 @@ import org.andromda.core.translation.node.APropertyCallExpression;
 import org.andromda.core.translation.TranslationUtils;
 
 /**
- * Performs translation to the following:	
+ * Performs translation to the following:
  * <ul>
  *     
  *     <li>
- *     		Oracle-SQL
+ *             Oracle-SQL
  *     </li>
  *     
  * </ul>
@@ -574,14 +574,14 @@ public class ConstraintTranslator
 
     public void inAPropertyCallExpression(APropertyCallExpression expression) 
     {
-    	//ideally, this is the only content that this method should contain
-    	//but you may need to do some processing before (or instead of) handling the expression. 
+        //ideally, this is the only content that this method should contain
+        //but you may need to do some processing before (or instead of) handling the expression. 
         this.handleTranslationFragment(expression);
     }
     
     /*-------------------------  all handler methods go below here -------------------------*/
     
-}			
+}
 ]]>
                             </source>
                         </p>
@@ -666,11 +666,11 @@ public class ConstraintTranslator
                         </ul>
                         <source>
                             <![CDATA[
-<!-- This is the start of the constraint ('self.allInstances()', '<element name>.allInstances()', or just 'allInstances()') -->	
+<!-- This is the start of the constraint ('self.allInstances()', '<element name>.allInstances()', or just 'allInstances()') -->    
 <fragment name="(\s*(${elementName}|self)\s*\.)?\s*allInstances().*" handlerMethod="handleAllInstances">
     <kind name="inv">
-        alter table $constraintUtils.findTableName($element) add constraint	
-    </kind>	  
+        alter table $constraintUtils.findTableName($element) add constraint    
+    </kind>
 </fragment>
 ]]>
                         </source>
@@ -692,11 +692,11 @@ import org.andromda.core.translation.node.APropertyCallExpression;
 import org.andromda.core.translation.TranslationUtils;
 
 /**
- * Performs translation to the following:	
+ * Performs translation to the following:
  * <ul>
  *     
  *     <li>
- *     		Oracle-SQL
+ *             Oracle-SQL
  *     </li>
  *     
  * </ul>
@@ -709,8 +709,8 @@ public class ConstraintTranslator
 
     public void inAPropertyCallExpression(APropertyCallExpression expression) 
     {
-    	//ideally, this is the only content that this method should contain
-    	//but you may need to do some processing before (or instead of) handling the expression. 
+        //ideally, this is the only content that this method should contain
+        //but you may need to do some processing before (or instead of) handling the expression. 
         this.handleTranslationFragment(expression);
     }
     
@@ -720,11 +720,11 @@ public class ConstraintTranslator
     
     public void handleAllInstances(String translation, Object node) 
     {
-    	//appended the value from the fragment to the expression buffer
+        //appended the value from the fragment to the expression buffer
         this.getExpression().appendToTranslatedExpression(translation);
     }
     
-}			
+}
 ]]>
                         </source>
                     </li>

@@ -241,9 +241,9 @@
                 <p>
                     The following example shows a new persistence context <code>securityEntityManager</code>.
                 </p>
-	            <p>
-	                <img src="images/org/andromda/test/3/b/uml.gif" alt="images/org/andromda/test/3/b/uml.gif"/>
-	            </p>
+                <p>
+                    <img src="images/org/andromda/test/3/b/uml.gif" alt="images/org/andromda/test/3/b/uml.gif"/>
+                </p>
                 <ul>
                     <li class="gen">Auto-generated source that does not need manual editing</li>
                     <li class="impl">Auto-generated source that should be edited manually</li>
@@ -269,12 +269,12 @@
                     <li class="gen"><a class="changed" href="howto/org/andromda/test/howto3/b/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
                     <li class="gen"><a class="changed" href="howto/META-INF/persistence.xml"><code>persistence.xml</code></a></li>
                 </ul>
-	            <p>
-	                Notice that <code>SecondaryEntityManager</code> has defined the 
-	                <code>andromda_service_persistence_context_datasource</code> tagged value specifying the
-	                JNDI name of the JDBC datasource used in this persistence context.  You can specify this tag 
-	                on a class where the <![CDATA[<<PersistenceContext>>]]> stereotype has been modeled.
-	            </p>
+                <p>
+                    Notice that <code>SecondaryEntityManager</code> has defined the 
+                    <code>andromda_service_persistence_context_datasource</code> tagged value specifying the
+                    JNDI name of the JDBC datasource used in this persistence context.  You can specify this tag 
+                    on a class where the <![CDATA[<<PersistenceContext>>]]> stereotype has been modeled.
+                </p>
             </subsection>
             <a name="EJB_Injections"/>
             <subsection name="EJB Injections">

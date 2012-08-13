@@ -5,7 +5,7 @@
 -->
 <mappings name="AxisJavaMappings">
     <extends>Java</extends>
-	<mapping>
+    <mapping>
         <from>Time</from>
         <from>Date</from>
         <from>DateTime</from>
@@ -14,9 +14,9 @@
         <from>PrimitiveTypes::Date</from>
         <from>PrimitiveTypes::DateTime</from>
         <from>PrimitiveTypes::Timestamp</from>
-	  	<from>datatype::Date</from>
+        <from>datatype::Date</from>
         <from>datatype::DateTime</from>
-	  	<from>datatype::Timestamp</from>
+        <from>datatype::Timestamp</from>
         <from>datatype::Time</from>
         <from>XSDDatatypes::date</from>
         <from>XSDDatatypes::time</from>
@@ -26,7 +26,7 @@
         <from>RoseJavaDatatypes::java::sql::Time</from>
         <to>java.util.Calendar</to>
         <!--to>java.util.Date</to-->
-	</mapping>
+    </mapping>
     <mapping>
         <from>Integer</from>
         <from>UML2::Integer</from>

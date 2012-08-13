@@ -133,9 +133,9 @@
                 </ul>
                 <p>You can set multiple cascade options on the target association end which will define
                 the <code>cascade</code> property of the annotation as array.</p>
-	            <p>
-	                <img src="images/org/andromda/test/2/b/uml.gif" alt="images/org/andromda/test/2/b/uml.gif"/>
-	            </p>
+                <p>
+                    <img src="images/org/andromda/test/2/b/uml.gif" alt="images/org/andromda/test/2/b/uml.gif"/>
+                </p>
                 <ul>
                     <li class="gen">Auto-generated source that does not need manual editing</li>
                     <li class="impl">Auto-generated source that should be edited manually</li>
@@ -179,9 +179,9 @@
                 </ul>
                 <p>Therefore, you only need to specify the latter tagged value if you wish to change
                 the fetch type property from the default.</p>
-	            <p>
-	                <img src="images/org/andromda/test/2/c/uml.gif" alt="images/org/andromda/test/2/c/uml.gif"/>
-	            </p>
+                <p>
+                    <img src="images/org/andromda/test/2/c/uml.gif" alt="images/org/andromda/test/2/c/uml.gif"/>
+                </p>
                 <ul>
                     <li class="gen">Auto-generated source that does not need manual editing</li>
                     <li class="impl">Auto-generated source that should be edited manually</li>
@@ -229,9 +229,9 @@
                         </p>
                     </li>
                 </ul>
-	            <p>
-	                <img src="images/org/andromda/test/2/d/uml.gif" alt="images/org/andromda/test/2/d/uml.gif"/>
-	            </p>
+                <p>
+                    <img src="images/org/andromda/test/2/d/uml.gif" alt="images/org/andromda/test/2/d/uml.gif"/>
+                </p>
                 <ul>
                     <li class="gen">Auto-generated source that does not need manual editing</li>
                     <li class="impl">Auto-generated source that should be edited manually</li>
@@ -280,29 +280,29 @@
             </subsection>
             <a name="Aggregation_Composition"/>
             <subsection name="Aggregation and Composition">
-	            <p>
-	                To model the owning side of a One-To-One or Many-To-Many bidirectional relationship, you
-	                indicate that end (the owning end) of the relationship as an <code>aggregate</code> or
-	                <code>composite</code> end. You should use aggregation when an entity is part of 
-	                another one but the latter one does not need the former to exist.
-	            </p>
-	            <p>
-	                By default, the EJB3 cartridge enables the following via the 
-	                <code>compositionDefinesEagerLoading</code> namespace property.  These are employed if no
-	                <code>andromda_persistence_fetch_type</code> tagged value exists.
+                <p>
+                    To model the owning side of a One-To-One or Many-To-Many bidirectional relationship, you
+                    indicate that end (the owning end) of the relationship as an <code>aggregate</code> or
+                    <code>composite</code> end. You should use aggregation when an entity is part of 
+                    another one but the latter one does not need the former to exist.
+                </p>
+                <p>
+                    By default, the EJB3 cartridge enables the following via the 
+                    <code>compositionDefinesEagerLoading</code> namespace property.  These are employed if no
+                    <code>andromda_persistence_fetch_type</code> tagged value exists.
                 </p>
                 <ul>
                     <li>aggregation: lazy-loaded, no cascade</li>
                     <li>composition: eager-loaded, cascade update (cascade option not yet implemented)</li>
                 </ul>
-	            <p>
-	                The following example illustrates the Many-To-Many bidirection relationship between
-	                <code>Car</code> and <code>Person</code> entities.  The aggregate end on the
-	                <code>Person</code> entity indicates that <code>Person</code> is the owning entity.
-	            </p>
-	            <p>
-	                <img src="images/org/andromda/test/2/e/uml.gif" alt="images/org/andromda/test/2/e/uml.gif"/>
-	            </p>
+                <p>
+                    The following example illustrates the Many-To-Many bidirection relationship between
+                    <code>Car</code> and <code>Person</code> entities.  The aggregate end on the
+                    <code>Person</code> entity indicates that <code>Person</code> is the owning entity.
+                </p>
+                <p>
+                    <img src="images/org/andromda/test/2/e/uml.gif" alt="images/org/andromda/test/2/e/uml.gif"/>
+                </p>
                 <ul>
                     <li class="gen">Auto-generated source that does not need manual editing</li>
                     <li class="impl">Auto-generated source that should be edited manually</li>
@@ -321,7 +321,7 @@
                     <li class="gen"><a href="howto/org/andromda/test/howto2/e/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
                     <li class="gen"><a href="howto/org/andromda/test/howto2/e/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
                 </ul>
-	        </subsection>
+            </subsection>
             <a name="Transient_Relationships"/>
             <subsection name="Transient Relationships">
                 <p>
