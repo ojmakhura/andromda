@@ -909,8 +909,6 @@
                             <file>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14.pom</pomFile>
                             <version>${project.version}</version>
-                            <sources>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14-sources.jar</sources>
-                            <javadoc>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14-javadoc.jar</javadoc>
                         </configuration>
                     </execution>
                     <execution>
@@ -960,12 +958,6 @@
             <plugin>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <inherited>false</inherited>
-                <configuration>
-                    <properties>
-                        <!-- profile distributionManagement repository info not passed to invoker, tries to deploy to snapshots repo -->
-                        <altDeploymentRepository>${project.distributionManagement.snapshotRepository.id}::default::${project.distributionManagement.snapshotRepository.url}</altDeploymentRepository>
-                    </properties>
-                </configuration>
                 <executions>
                     <execution>
                         <id>deploy_meta_cartridge</id>
@@ -983,8 +975,6 @@
                             <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
-                            <files>lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge-sources.jar,lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge-javadoc.jar</files>
-                            <classifiers>sources,javadoc</classifiers>
                         </configuration>
                     </execution>
                     <execution>
@@ -1003,8 +993,6 @@
                             <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
-                            <files>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml-sources.jar,lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml-javadoc.jar</files>
-                            <classifiers>sources,javadoc</classifiers>
                         </configuration>
                     </execution>
                     <execution>
@@ -1023,8 +1011,6 @@
                             <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
-                            <files>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14-sources.jar,lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14-javadoc.jar</files>
-                            <classifiers>sources,javadoc</classifiers>
                         </configuration>
                     </execution>
                     <execution>
@@ -1043,8 +1029,6 @@
                             <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
-                            <files>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22-sources.jar,lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22-javadoc.jar</files>
-                            <classifiers>sources,javadoc</classifiers>
                         </configuration>
                     </execution>
                     <execution>
@@ -1063,8 +1047,6 @@
                             <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
-                            <files>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-sources.jar,lib/org/andromda/bootstrap/repositories/andromda-repository-emf-javadoc.jar</files>
-                            <classifiers>sources,javadoc</classifiers>
                         </configuration>
                     </execution>
                     <execution>
@@ -1080,8 +1062,6 @@
                             <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
-                            <files>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14-sources.jar,lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14-javadoc.jar</files>
-                            <classifiers>sources,javadoc</classifiers>
                         </configuration>
                     </execution>
                     <execution>
@@ -1100,8 +1080,6 @@
                             <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
-                            <files>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22-sources.jar,lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22-javadoc.jar</files>
-                            <classifiers>sources,javadoc</classifiers>
                         </configuration>
                     </execution>
                     <execution>
@@ -1120,8 +1098,6 @@
                             <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
-                            <files>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite-sources.jar,lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite-javadoc.jar</files>
-                            <classifiers>sources,javadoc</classifiers>
                         </configuration>
                     </execution>
                     <execution>
@@ -1140,8 +1116,6 @@
                             <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
-                            <files>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library-sources.jar,lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library-javadoc.jar</files>
-                            <classifiers>sources,javadoc</classifiers>
                         </configuration>
                     </execution>
                 </executions>
