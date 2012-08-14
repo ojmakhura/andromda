@@ -159,8 +159,7 @@
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-            <type>pom</type>
+            <artifactId>ehcache-core</artifactId>
         </dependency>
 #if ($cxf)
         <!-- See (http://www.lumidant.com/blog/hibernate-asm-incompatibilities/, http://forum.andromda.org/viewtopic.php?t=5747)
@@ -337,8 +336,7 @@
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-            <type>pom</type>
+            <artifactId>ehcache-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.javassist</groupId>

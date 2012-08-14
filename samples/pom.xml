@@ -86,6 +86,9 @@
                             <goals>
                                 <goal>deploy</goal>
                             </goals>
+                            <profiles>
+                                <profile>javadocs</profile>
+                            </profiles>
                             <properties>
                                 <!-- profile distributionManagement repository info not passed through invoker to generated project >
                                 <altDeploymentRepository>sonatype::default::https://oss.sonatype.org/service/local/staging/deploy/maven2/</altDeploymentRepository-->

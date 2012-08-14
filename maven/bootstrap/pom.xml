@@ -266,7 +266,7 @@
             <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
-        
+
         <!-- Andromda bootstrap dependencies -->
         <dependency>
             <groupId>org.andromda.bootstrap.translationlibraries</groupId>
@@ -318,7 +318,7 @@
             <artifactId>andromda-meta-cartridge</artifactId>
             <version>${andromda.version}</version>
             <scope>runtime</scope>
-        </dependency>        
+        </dependency>
     </dependencies>
     <build>
         <resources>

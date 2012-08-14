@@ -889,6 +889,50 @@
                 <webservice.port></webservice.port>
             </properties>
         </profile>
+        <!-- Only needed when signing release artifacts -->
+        <profile>
+            <id>gpg-andromda</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <inherited>true</inherited>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.4</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <!--Profile configuration for server builds-->
+            <id>sonatype</id>
+            <distributionManagement>
+                <repository>
+                    <id>andromda-releases</id>
+                    <name>Andromda Staging Repository</name>
+                    <url>http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+                    <uniqueVersion>false</uniqueVersion>
+                </repository>
+                <snapshotRepository>
+                    <id>andromda-snapshots</id>
+                    <name>Andromda Snapshot Repository</name>
+                    <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+                    <uniqueVersion>false</uniqueVersion>
+                </snapshotRepository>
+                <site>
+                    <id>website</id>
+                    <url>file:/var/www/docs/samples/timetracker</url>
+                </site>
+            </distributionManagement>
+        </profile>
         <!-- Create/install javadoc and test-javadoc jars during the build. Run as part of deploy process -->
         <profile>
             <id>javadocs</id>

@@ -971,8 +971,8 @@
                             <files>lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge-sources.jar,lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge-javadoc.jar</files>
                             <classifiers>sources,javadoc</classifiers>
                             <types>jar,jar</types>
-                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
-                            <url>${project.distributionManagement.repository.url}</url>
+                            <repositoryId>${project.distributionManagement.snapshotRepository.id}</repositoryId>
+                            <url>${project.distributionManagement.snapshotRepository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                         </configuration>
@@ -989,8 +989,8 @@
                             <files>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml-sources.jar,lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml-javadoc.jar</files>
                             <classifiers>sources,javadoc</classifiers>
                             <types>jar,jar</types>
-                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
-                            <url>${project.distributionManagement.repository.url}</url>
+                            <repositoryId>${project.distributionManagement.snapshotRepository.id}</repositoryId>
+                            <url>${project.distributionManagement.snapshotRepository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                         </configuration>
@@ -1007,8 +1007,8 @@
                             <files>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14-sources.jar,lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14-javadoc.jar</files>
                             <classifiers>sources,javadoc</classifiers>
                             <types>jar,jar</types>
-                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
-                            <url>${project.distributionManagement.repository.url}</url>
+                            <repositoryId>${project.distributionManagement.snapshotRepository.id}</repositoryId>
+                            <url>${project.distributionManagement.snapshotRepository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                         </configuration>
@@ -1025,8 +1025,8 @@
                             <files>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22-sources.jar,lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22-javadoc.jar</files>
                             <classifiers>sources,javadoc</classifiers>
                             <types>jar,jar</types>
-                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
-                            <url>${project.distributionManagement.repository.url}</url>
+                            <repositoryId>${project.distributionManagement.snapshotRepository.id}</repositoryId>
+                            <url>${project.distributionManagement.snapshotRepository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                         </configuration>
@@ -1043,8 +1043,8 @@
                             <files>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-sources.jar,lib/org/andromda/bootstrap/repositories/andromda-repository-emf-javadoc.jar</files>
                             <classifiers>sources,javadoc</classifiers>
                             <types>jar,jar</types>
-                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
-                            <url>${project.distributionManagement.repository.url}</url>
+                            <repositoryId>${project.distributionManagement.snapshotRepository.id}</repositoryId>
+                            <url>${project.distributionManagement.snapshotRepository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                         </configuration>
@@ -1058,8 +1058,8 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14.pom</pomFile>
-                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
-                            <url>${project.distributionManagement.repository.url}</url>
+                            <repositoryId>${project.distributionManagement.snapshotRepository.id}</repositoryId>
+                            <url>${project.distributionManagement.snapshotRepository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                         </configuration>
@@ -1076,8 +1076,8 @@
                             <files>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22-sources.jar,lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22-javadoc.jar</files>
                             <classifiers>sources,javadoc</classifiers>
                             <types>jar,jar</types>
-                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
-                            <url>${project.distributionManagement.repository.url}</url>
+                            <repositoryId>${project.distributionManagement.snapshotRepository.id}</repositoryId>
+                            <url>${project.distributionManagement.snapshotRepository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                         </configuration>
@@ -1094,8 +1094,8 @@
                             <files>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite-sources.jar,lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite-javadoc.jar</files>
                             <classifiers>sources,javadoc</classifiers>
                             <types>jar,jar</types>
-                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
-                            <url>${project.distributionManagement.repository.url}</url>
+                            <repositoryId>${project.distributionManagement.snapshotRepository.id}</repositoryId>
+                            <url>${project.distributionManagement.snapshotRepository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                         </configuration>
@@ -1112,8 +1112,8 @@
                             <files>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library-sources.jar,lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library-javadoc.jar</files>
                             <classifiers>sources,javadoc</classifiers>
                             <types>jar,jar</types>
-                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
-                            <url>${project.distributionManagement.repository.url}</url>
+                            <repositoryId>${project.distributionManagement.snapshotRepository.id}</repositoryId>
+                            <url>${project.distributionManagement.snapshotRepository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                         </configuration>

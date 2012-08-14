@@ -64,7 +64,7 @@
                                     <groupId>${project.groupId}</groupId>
                                     <artifactId>${project.artifactId}-components</artifactId>
                                     <version>${project.version}</version>
-                                </artifactItem>                                
+                                </artifactItem>
                             </artifactItems>
                             <outputDirectory>${project.build.outputDirectory}/resources/WEB-INF/lib</outputDirectory>
                             <stripVersion>true</stripVersion>
