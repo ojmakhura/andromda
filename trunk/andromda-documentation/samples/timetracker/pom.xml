@@ -316,9 +316,8 @@
             </dependency>
             <dependency>
                 <groupId>net.sf.ehcache</groupId>
-                <artifactId>ehcache</artifactId>
+                <artifactId>ehcache-core</artifactId>
                 <version>2.6.0</version>
-                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>org.javassist</groupId>
@@ -907,9 +906,9 @@
                 </site>
             </distributionManagement>
         </profile>
+        <!-- Only needed when signing release artifacts -->
         <profile>
-            <!--Profile configuration for server builds-->
-            <id>server</id>
+            <id>gpg-andromda</id>
             <build>
                 <plugins>
                     <plugin>
@@ -928,6 +927,10 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <profile>
+            <!--Profile configuration for server builds-->
+            <id>sonatype</id>
             <distributionManagement>
                 <repository>
                     <id>andromda-releases</id>

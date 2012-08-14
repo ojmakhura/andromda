@@ -150,6 +150,24 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.12.1</version>
                 </plugin>
+                <plugin>
+                    <artifactId>maven-pmd-plugin</artifactId>
+                    <version>2.7.1</version>
+                    <configuration>
+                        <targetJdk>1.6</targetJdk>
+                        <linkXRef>true</linkXRef>
+                        <rulesets>
+                            <ruleset>andromda/pmd_ruleset.xml</ruleset>
+                        </rulesets>
+                        <excludeRoots>
+                            <excludeRoot>target/generated-sources</excludeRoot>
+                        </excludeRoots>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>2.5</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -158,7 +176,7 @@
         <maven>2.2.1</maven>
     </prerequisites>
     <profiles>
-        <!--Profile configuration for local builds-->
+        <!--Profile configuration for local builds, to match Cloudbees direcory structure -->
         <profile>
             <id>local</id>
             <activation>
@@ -168,18 +186,18 @@
                 <repository>
                     <id>andromda-repository</id>
                     <name>AndroMDA Repository</name>
-                    <url>file:/var/www/maven2</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/</url>
                     <uniqueVersion>false</uniqueVersion>
                 </repository>
                 <snapshotRepository>
                     <id>andromda-snapshots</id>
                     <name>AndroMDA Snapshot Repository</name>
-                    <url>file:/var/www/maven2</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/</url>
                     <uniqueVersion>false</uniqueVersion>
                 </snapshotRepository>
                 <site>
                     <id>website</id>
-                    <url>file:/var/www/docs/maven-config</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/site/</url>
                 </site>
             </distributionManagement>
         </profile>
@@ -379,6 +397,28 @@
                             </configuration>
                         </plugin>
                     </plugins>
+            </build>
+        </profile>
+        <!-- Needed for releases only. settings.xml: Add same profile with gpg.keyname, gpg.passphrase, pg.homedir properties.
+          Run mvn install javadoc:jar javadoc:test-jar gpg:sign deploy -Psonatype,gpg-andromda > gpg.txt -->
+        <profile>
+            <id>gpg-andromda</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <inherited>true</inherited>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
             </build>
         </profile>
     </profiles>

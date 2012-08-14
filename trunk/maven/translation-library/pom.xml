@@ -45,7 +45,7 @@
             <groupId>org.andromda</groupId>
             <artifactId>andromda-core</artifactId>
             <version>${andromda.version}</version>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>andromda-configuration-mojo</artifactId>
@@ -79,7 +79,7 @@
             <artifactId>andromda-metafacades-uml14</artifactId>
             <version>${andromda.version}</version>
             <scope>runtime</scope>
-        </dependency>        
+        </dependency>
     </dependencies>
     <build>
         <resources>
