@@ -103,8 +103,8 @@
         <!-- Embeddable and thirdparty dependencies last, otherwise RuntimeException: java.lang.NoSuchFieldError: TRACE
         at org.jboss.ejb3.embedded.EJB3StandaloneBootstrap.boot(EJB3StandaloneBootstrap.java:386) -->
         <!--dependency>
-               <groupId>jboss.jboss-embeddable-ejb3</groupId>
-               <artifactId>hibernate-all</artifactId>
+            <groupId>jboss.jboss-embeddable-ejb3</groupId>
+            <artifactId>hibernate-all</artifactId>
         </dependency-->
         <dependency>
             <!--groupId>org.jboss.embedded</groupId>
@@ -114,8 +114,8 @@
             <artifactId>jboss-ejb3-all</artifactId>
         </dependency>
         <dependency>
-              <groupId>jboss.jboss-embeddable-ejb3</groupId>
-               <artifactId>thirdparty-all</artifactId>
+            <groupId>jboss.jboss-embeddable-ejb3</groupId>
+            <artifactId>thirdparty-all</artifactId>
         </dependency>
         <!--dependency>
             <groupId>javax.persistence</groupId>

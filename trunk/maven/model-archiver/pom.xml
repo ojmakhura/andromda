@@ -92,6 +92,20 @@
         </dependency>
     </dependencies>
     <build>
+        <extensions>
+            <!-- Configurations for QA checks, accessed as classpath resources -->
+            <extension>
+                <groupId>org.andromda.maven</groupId>
+                <artifactId>maven-config</artifactId>
+                <version>3.4-SNAPSHOT</version>
+            </extension>
+            <!-- Required to deploy a snapshot or a release to the CloudBees remote maven repository using Webdav -->
+            <extension>
+              <groupId>org.apache.maven.wagon</groupId>
+              <artifactId>wagon-webdav</artifactId>
+              <version>1.0-beta-2</version>
+            </extension>
+        </extensions>
         <!-- Avoid 'version not specified' error -->
         <pluginManagement>
             <plugins>
@@ -144,11 +158,11 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>2.1.2</version>
+                    <version>2.2</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.12.1</version>
+                    <version>2.12.2</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-pmd-plugin</artifactId>
@@ -197,7 +211,7 @@
                 </snapshotRepository>
                 <site>
                     <id>website</id>
-                    <url>file:/scratch/hudson/workspace/Andromda/site/</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/site/andromda-maven-plugins/andromda-model-archiver-plugin</url>
                 </site>
             </distributionManagement>
         </profile>
@@ -236,7 +250,7 @@
                 </snapshotRepository>
                 <site>
                     <id>website</id>
-                    <url>file:/var/www/docs/maven-config</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/site/maven/model-archiver</url>
                 </site>
             </distributionManagement>
         </profile>

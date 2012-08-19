@@ -463,7 +463,7 @@
         <maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>
         <maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
         <maven-install-plugin.version>2.3.1</maven-install-plugin.version>
-        <maven-invoker-plugin.version>1.6</maven-invoker-plugin.version>
+        <maven-invoker-plugin.version>1.7</maven-invoker-plugin.version>
         <maven-jar-plugin.version>2.4</maven-jar-plugin.version>
         <maven-javadoc-plugin.version>2.8.1</maven-javadoc-plugin.version>
         <maven-jxr-plugin.version>2.3</maven-jxr-plugin.version>
@@ -472,8 +472,8 @@
         <maven-resources-plugin.version>2.5</maven-resources-plugin.version>
         <maven-site-plugin.version>3.1</maven-site-plugin.version>
         <maven-source-plugin.version>2.2</maven-source-plugin.version>
-        <maven-surefire-plugin.version>2.12.1</maven-surefire-plugin.version>
-        <maven-surefire-report-plugin.version>2.12.1</maven-surefire-report-plugin.version>
+        <maven-surefire-plugin.version>2.12.2</maven-surefire-plugin.version>
+        <maven-surefire-report-plugin.version>2.12.2</maven-surefire-report-plugin.version>
         <clirr-maven-plugin.version>2.4</clirr-maven-plugin.version>
         <cobertura-maven-plugin.version>2.5.1</cobertura-maven-plugin.version>
         <findbugs-maven-plugin.version>2.5.2</findbugs-maven-plugin.version>
@@ -510,7 +510,7 @@
                 </snapshotRepository>
                 <site>
                     <id>website</id>
-                    <url>file:/var/www/docs/maven-config</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/site/maven/maven-parent</url>
                 </site>
             </distributionManagement>
         </profile>
@@ -549,7 +549,7 @@
                 </snapshotRepository>
                 <site>
                     <id>website</id>
-                    <url>file:/var/www/docs/maven-config</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/site/maven/maven-config</url>
                 </site>
             </distributionManagement>
         </profile>
