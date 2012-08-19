@@ -90,6 +90,7 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromdapp-maven-plugin</artifactId>
+                <version>${andromda.version}</version>
                 <executions>
                     <execution>
                         <goals>

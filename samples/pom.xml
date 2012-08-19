@@ -27,7 +27,7 @@
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-script-wrappers</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
         </dependency>
     </dependencies>
     <build>
@@ -101,7 +101,7 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromdapp-maven-plugin</artifactId>
-                <version>${project.version}</version>
+                <version>${andromda.version}</version>
                 <executions>
                     <execution>
                         <id>animal-quiz</id>

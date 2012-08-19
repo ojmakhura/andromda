@@ -413,7 +413,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.12.1</version>
+                    <version>2.12.2</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-ejb-plugin</artifactId>
@@ -797,7 +797,7 @@
                         </plugin>
                         <plugin>
                             <artifactId>maven-surefire-plugin</artifactId>
-                            <version>2.12.1</version>
+                            <version>2.12.2</version>
                         </plugin>
                         <plugin>
                             <artifactId>maven-site-plugin</artifactId>
@@ -817,18 +817,18 @@
                 <repository>
                     <id>andromda-repository</id>
                     <name>AndroMDA Repository</name>
-                    <url>file:/var/www/maven2</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/</url>
                     <uniqueVersion>false</uniqueVersion>
                 </repository>
                 <snapshotRepository>
                     <id>andromda-snapshots</id>
                     <name>AndroMDA Snapshot Repository</name>
-                    <url>file:/var/www/maven2</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/</url>
                     <uniqueVersion>false</uniqueVersion>
                 </snapshotRepository>
                 <site>
                     <id>website</id>
-                    <url>file:/var/www/docs/samples/demo-ejb3</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/site/samples/demo-ejb3</url>
                 </site>
             </distributionManagement>
         </profile>
@@ -929,7 +929,7 @@
                 </snapshotRepository>
                 <site>
                     <id>website</id>
-                    <url>file:/var/www/docs/samples/timetracker</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/site/demo-ejb3</url>
                 </site>
             </distributionManagement>
         </profile>
@@ -1071,7 +1071,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.12.1</version>
+                <version>2.12.2</version>
             </plugin>
             <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>

@@ -28,9 +28,9 @@
                 hierarchies using the EJB3 cartridge.
             </p>
             <a name="Non_Inheriting_Entities"/>
-            <subsection name="Non Interhiting Entities">
+            <subsection name="Non Interiting Entities">
                 <p>
-                    In a mapped superclass scenario, an entity inherits from a superclass that has persistent state 
+                    In a <b>mapped superclass</b> scenario, an entity inherits from a superclass that has persistent state
                     and mapping information, but the super class is NOT an entity and is not mapped to a relation table.
                     This is the strategy employed by the EJB3 cartridge when generating non-inheriting entities if
                     <code>instance</code> scoped operations exist on the entity.
@@ -43,7 +43,7 @@
                     is regenerated on every run, however the subclass is not.
                 </p>
                 <p class="highlight">
-                    Until we declare entity pojos via orm.xml instead of annotations, the inheriting subclass
+                    Until we declare entity POJOs via orm.xml instead of annotations, the inheriting subclass
                     in the latter scenario will require manual modifications if you change certain metamodel
                     tags.
                 </p>
@@ -51,9 +51,9 @@
             <a name="Mapped_Superclasses"/>
             <subsection name="Mapped Superclasses">
                 <p>
-                    To explicitly define an entity as a mapped superclass, model the <![CDATA[<<Entity>>]]> <b>AND</b>
-                    <![CDATA[<<MappedSuperclass>>]]> stereotypes on the class.  (Note: The cartridge did attempt to 
-                    avoid the need to model the <![CDATA[<<Entity>>]]> stereotype, however this caused issue with UML2
+                    To explicitly define an entity as a mapped superclass, model the <b><![CDATA[<<Entity>>]]> AND
+                    <![CDATA[<<MappedSuperclass>>]]></b> stereotypes on the class.  (Note: The cartridge did attempt to
+                    avoid the need to model the <![CDATA[<<Entity>>]]> stereotype, however this caused issues with UML2
                     models)
                 </p>
                 <p class="highlight">
@@ -121,15 +121,15 @@
                 </p>
             </subsection>
             <a name="Single_Table_Strategy"/>
-            <subsection name="Single Table Strategy">
+            <subsection name="Single Table Per Class Inheritance Strategy">
                 <p>
-                    In this strategy, the complete class hierarchy is persisted to a single table.  To differentiate
+                    In this strategy, the <b>complete class hierarchy is persisted to a single table</b>.  To differentiate
                     between class types, a discriminator column is used.  The discriminator column type is
                     specified in the root class along with the inheritance strategy employed.  All classes need to
                     specify the discriminator value associated to each class in the hierarchy.
                 </p>
                 <p>
-                    If the query is based on the root class in the hierarchy, the query is polymorphic which implies
+                    If a query is based on the root class in the hierarchy, the query is polymorphic which implies
                     that entity subclass instances will be returned.  
                 </p>
                 <p>
@@ -187,17 +187,17 @@
             <a name="Discriminator_Components"/>
             <subsection name="Discriminator Components">
                 <p>
-                    The EJB3 cartridge provides a few tagged values to customise the default values for the
+                    The EJB3 cartridge provides a few tagged values to customize the default values for the
                     discriminator components for a single table inheritance mapping strategy.
                 </p>
                 <p>
                     The discriminator column name defaults to <code>TYPE</code> of type <code>STRING</code>.  To
-                    set the discriminator column name, you model the 
-                    <code>andromda_persistence_discriminator_colum_name</code> tagged value on the root class.
+                    set the discriminator column name, you model the <b><![CDATA[<<Entity>>]]>
+                    <code>andromda_persistence_discriminator_colum_name</code></b> tagged value on the root class.
                 </p>
                 <p>
-                    To specify the discriminator colum type, you model the 
-                    <code>andromda_persistence_discriminator_type</code> tagged value on the root class.  Your column
+                    To specify the discriminator column type, you model the <b><![CDATA[<<Entity>>]]>
+                    <code>andromda_persistence_discriminator_type</code></b> tagged value on the root class.  Your column
                     type options are:
                 </p>
                 <ul>
@@ -206,30 +206,30 @@
                     <li>CHAR</li>
                 </ul>
                 <p>
-                    You can set the discriminator column length if the colum type is specified as
-                    <code>STRING</code> by modeling the <code>andromda_persistence_discriminator_column_length</code>
+                    You can set the discriminator column length if the column type is specified as
+                    <code>STRING</code> by modeling the <b><code>andromda_persistence_discriminator_column_length</code></b>
                     tagged value on the root class.  The default is 10.
                 </p>
                 <p>
                     In some cases, you may want to explicitly define the SQL fragment when generating the DDL
                     for the discriminator column.  To do this, simply model the
-                    <code>andromda_persistence_discriminator_colum_definition</code> tagged value on the
+                    <b><code>andromda_persistence_discriminator_colum_definition</code></b> tagged value on the
                     root class.
                 </p>
                 <p>
                     Most importantly, you can model the <code>andromda_persistence_discriminator_value</code>
                     tagged value <b>on all classes</b> in the hierarchy.  This value indicates the row in the table
                     is an entity of the annotated entity type.  This is shown in the above diagram on entities
-                    Vehicle and Car.  However, by default, if no discriminator value is specified for single
+                    Vehicle and Car.  However, by default, if <b>no discriminator value is specified</b> for single
                     table mapping strategy, the cartridge will capitalize and assign the first letter of the entity
-                    as it's discriminator value.
+                    as its discriminator value.
                 </p>
             </subsection>
             <a name="Table_Per_Class_Strategy"/>
-            <subsection name="Table Per Class Strategy">
+            <subsection name="Table Per Concrete Class Inheritance Strategy">
                 <p>
-                    With this strategy, a table exists per class in the hierarchy and each table is comprised of
-                    all the properties persisted by that class.  There is no need to define discriminator column
+                    With this strategy, a table exists per class in the hierarchy and <b>each table is comprised of
+                    all the properties persisted by that class</b>.  There is no need to define discriminator column
                     types or values for this mapping strategy.
                 </p>
                 <p>
@@ -237,21 +237,21 @@
                     that entity subclass instances will be returned.
                 </p>
                 <p>
-                    <b>Cons:</b> Poor support for polymorphic relationships. A separate SQL query per subclass is 
-                    required before queries are executed.
+                    <b>Cons:</b> Poor support for polymorphic relationships. A separate SQL query per subclass, or
+                    SQL UNION, is required before queries are executed.
                 </p>
                 <p>
                     Since the default inheritance mapping strategy is single table per hierarchy, you can model
-                    the <code>andromda_persistence_inheritance</code> tagged value and set it to 
-                    <code>TABLE_PER_CLASS</code> on the root class of the hierarchy.
+                    the <b><code>andromda_persistence_inheritance</code></b> tagged value and set it to
+                    <b><code>TABLE_PER_CLASS</code></b> on the root class of the hierarchy.
                     All subclasses follow this same strategy.
                 </p>
             </subsection>
             <a name="Table_Join_Strategy"/>
-            <subsection name="Table Join Strategy">
+            <subsection name="Joined Subclass Inheritance Strategy">
                 <p>
-                    This strategy has a table per class in the hierarchy, however the subclass tables are comprised
-                    of ONLY the extra attributes defined in the subclass and not the inheriting fields.
+                    This strategy has a table per class in the hierarchy, however the <b>subclass tables are comprised
+                    of ONLY the extra attributes</b> defined in the subclass and not the inheriting fields.
                     There is no need to define discriminator column types or values here.  The primary key column(s)
                     of the subclass table serves as a foreign key to the primary key of the superclass table.
                 </p>
@@ -264,17 +264,17 @@
                 </p>
                 <p>
                     Since the default inheritance mapping strategy is single table per hierarchy, you can model
-                    the <code>andromda_persistence_inheritance</code> tagged value and set it to 
-                    <code>JOINED</code> on the root class of the hierarchy.
+                    the <b><code>andromda_persistence_inheritance</code></b> tagged value and set it to
+                    <b><code>JOINED</code></b> on the root class of the hierarchy.
                     All subclasses follow this same strategy.
                 </p>
             </subsection>
             <a name="Helpful_Hints"/>
             <subsection name="Helpful Hints">
                 <p>
-                    The PFD EJB 3.0 spec says:
+                    The <a href="http://download.oracle.com/otn-pub/jcp/ejb-3.1-mrel-evalu-oth-JSpec/ejb-3_1-mrel-spec.pdf">JSR220 EJB 3.0 spec</a> and
+                    <a href="http://download.oracle.com/otn-pub/jcp/persistence-2.0-fr-eval-oth-JSpec/persistence-2_0-final-spec.pdf">JSR317 JPA2 spec</a> says:
                 </p>
-                
                 <p>
                     <i>Support for the table per class inheritance mapping strategy is optional in this release.</i>
                 </p>

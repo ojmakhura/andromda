@@ -514,7 +514,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.12.1</version>
+                    <version>2.12.2</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-ejb-plugin</artifactId>
@@ -748,6 +748,71 @@
         <hibernate.version>3.6.9.Final</hibernate.version>
         <spring.version>3.1.2.RELEASE</spring.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--
+        Change driver path and jar for appropriate database
+            For MySQL use: mysql-connector-java-X-bin.jar
+            For H2 use: h2-version.jar
+            For Hypersonic use: hsqldb.jar
+        -->
+        <jdbc.driver.jar>
+            <!-- JBoss5 gives classloader exceptions if the JDBC driver is bundled with the EAR -->
+            ${settings.localRepository}/com/h2database/${testdb.artifactId}/${testdb.version}/${testdb.artifactId}-${testdb.version}.jar
+        </jdbc.driver.jar>
+        <!--
+            Change driver for appropriate database
+            For MySQL use: com.mysql.jdbc.Driver
+            For H2 use: org.h2.jdbcDriver
+            For Hypersonic use: org.hsqldb.jdbcDriver
+            For Oracle9i use: oracle.jdbc.driver.OracleDriver
+            For DB2 use: COM.ibm.db2.jdbc.app.DB2Driver
+            For Informix use: com.informix.jdbc.IfxDriver
+            For MSSQL use: com.microsoft.jdbc.sqlserver.SQLServerDriver
+            For Pointbase use: com.pointbase.jdbc.jdbcUniversalDriver
+            For Postgres use: org.postgresql.Driver
+            For Sybase use: com.sybase.jdbc2.jdbc.SybDataSource
+            For SapDB use: com.sap.dbtech.jdbc.DriverSapDB
+            For Progress use: com.progress.sql.jdbc.JdbcProgressDriver
+            For Derby use: org.apache.derby.jdbc.EmbeddedDriver
+        -->
+        <jdbc.driver>org.h2.Driver</jdbc.driver>
+        <!--
+            Change connection url for appropriate database
+            For MySQL use: jdbc:mysql://localhost:3306/timetracker
+            For H2 use: jdbc:h2
+            For Hypersonic use: jdbc:hsqldb:hsql://127.0.0.1:1701
+            For Oracle9i use: jdbc:oracle:thin:@localhost:1521:yoursid
+            For DB2 use: jdbc:db2:timetracker
+            For Informix use: jdbc:informix-sqli://localhost:1557/timetracker:INFORMIXSERVER=myserver
+            For MSSQL use: jdbc:microsoft:sqlserver://localhost:1433;DatabaseName=timetracker
+            For Pointbase use: jdbc:pointbase:server://@pointbase.server@:@pointbase.port/pointbase.timetracker@,new
+            For Postgres use: jdbc:postgresql://localhost/timetracker
+            For Sybase use: jdbc:sybase:Tds:localhost:5000/timetracker?JCONNECT_VERSION=6
+            For SapDB use: jdbc:sapdb://127.0.0.1/timetracker
+            For Progress use: jdbc:JdbcProgress:T:localhost:3305:timetracker
+        -->
+        <jdbc.url>
+            jdbc:h2:~/timetracker;AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1
+        </jdbc.url>
+        <jdbc.username>sa</jdbc.username>
+        <jdbc.password>sa</jdbc.password>
+        <!--
+            Change exception sorter class name for appropriate database
+            For MySQL use: org.jboss.resource.adapter.jdbc.vendor.MySQLExceptionSorter
+            For H2 use: org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
+            For Hypersonic use: org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
+            For Oracle9i use: org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter
+            For DB2 use: org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
+            For Informix use: org.jboss.resource.adapter.jdbc.vendor.InformixExceptionSorter
+            For MSSQL use: org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
+            For Pointbase use: org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
+            For Postgres use: org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
+            For Sybase use: org.jboss.resource.adapter.jdbc.vendor.SybaseExceptionSorter
+            For SapDB use: org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
+            For Progress use: org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
+        -->
+        <jdbc.exception.sorter>
+            org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
+        </jdbc.exception.sorter>
     </properties>
     <profiles>
         <profile>
@@ -755,73 +820,6 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-            <properties>
-                <!--
-                Change driver path and jar for appropriate database
-                    For MySQL use: mysql-connector-java-X-bin.jar
-                    For H2 use: h2-version.jar
-                    For Hypersonic use: hsqldb.jar
-                -->
-                <jdbc.driver.jar>
-                    <!-- JBoss5 gives classloader exceptions if the JDBC driver is bundled with the EAR -->
-                    ${settings.localRepository}/com/h2database/${testdb.artifactId}/${testdb.version}/${testdb.artifactId}-${testdb.version}.jar
-                </jdbc.driver.jar>
-                <!--
-                    Change driver for appropriate database
-                    For MySQL use: com.mysql.jdbc.Driver
-                    For H2 use: org.h2.jdbcDriver
-                    For Hypersonic use: org.hsqldb.jdbcDriver
-                    For Oracle9i use: oracle.jdbc.driver.OracleDriver
-                    For DB2 use: COM.ibm.db2.jdbc.app.DB2Driver
-                    For Informix use: com.informix.jdbc.IfxDriver
-                    For MSSQL use: com.microsoft.jdbc.sqlserver.SQLServerDriver
-                    For Pointbase use: com.pointbase.jdbc.jdbcUniversalDriver
-                    For Postgres use: org.postgresql.Driver
-                    For Sybase use: com.sybase.jdbc2.jdbc.SybDataSource
-                    For SapDB use: com.sap.dbtech.jdbc.DriverSapDB
-                    For Progress use: com.progress.sql.jdbc.JdbcProgressDriver
-                    For Derby use: org.apache.derby.jdbc.EmbeddedDriver
-                -->
-                <jdbc.driver>org.h2.Driver</jdbc.driver>
-                <!--
-                    Change connection url for appropriate database
-                    For MySQL use: jdbc:mysql://localhost:3306/timetracker
-                    For H2 use: jdbc:h2
-                    For Hypersonic use: jdbc:hsqldb:hsql://127.0.0.1:1701
-                    For Oracle9i use: jdbc:oracle:thin:@localhost:1521:yoursid
-                    For DB2 use: jdbc:db2:timetracker
-                    For Informix use: jdbc:informix-sqli://localhost:1557/timetracker:INFORMIXSERVER=myserver
-                    For MSSQL use: jdbc:microsoft:sqlserver://localhost:1433;DatabaseName=timetracker
-                    For Pointbase use: jdbc:pointbase:server://@pointbase.server@:@pointbase.port/pointbase.timetracker@,new
-                    For Postgres use: jdbc:postgresql://localhost/timetracker
-                    For Sybase use: jdbc:sybase:Tds:localhost:5000/timetracker?JCONNECT_VERSION=6
-                    For SapDB use: jdbc:sapdb://127.0.0.1/timetracker
-                    For Progress use: jdbc:JdbcProgress:T:localhost:3305:timetracker
-                -->
-                <jdbc.url>
-                    jdbc:h2:~/timetracker;AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1
-                </jdbc.url>
-                <jdbc.username>sa</jdbc.username>
-                <jdbc.password>sa</jdbc.password>
-                <!--
-                    Change exception sorter class name for appropriate database
-                    For MySQL use: org.jboss.resource.adapter.jdbc.vendor.MySQLExceptionSorter
-                    For H2 use: org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
-                    For Hypersonic use: org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
-                    For Oracle9i use: org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter
-                    For DB2 use: org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
-                    For Informix use: org.jboss.resource.adapter.jdbc.vendor.InformixExceptionSorter
-                    For MSSQL use: org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
-                    For Pointbase use: org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
-                    For Postgres use: org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
-                    For Sybase use: org.jboss.resource.adapter.jdbc.vendor.SybaseExceptionSorter
-                    For SapDB use: org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
-                    For Progress use: org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
-                -->
-                <jdbc.exception.sorter>
-                    org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
-                </jdbc.exception.sorter>
-            </properties>
             <build>
                 <pluginManagement>
                     <plugins>
@@ -871,7 +869,7 @@
                         </plugin>
                         <plugin>
                             <artifactId>maven-surefire-plugin</artifactId>
-                            <version>2.12.1</version>
+                            <version>2.12.2</version>
                         </plugin>
                         <plugin>
                             <artifactId>maven-site-plugin</artifactId>
@@ -891,18 +889,18 @@
                 <repository>
                     <id>andromda-repository</id>
                     <name>AndroMDA Repository</name>
-                    <url>file:/var/www/maven2</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/</url>
                     <uniqueVersion>false</uniqueVersion>
                 </repository>
                 <snapshotRepository>
                     <id>andromda-snapshots</id>
                     <name>AndroMDA Snapshot Repository</name>
-                    <url>file:/var/www/maven2</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/</url>
                     <uniqueVersion>false</uniqueVersion>
                 </snapshotRepository>
                 <site>
                     <id>website</id>
-                    <url>file:/var/www/docs/samples/timetracker</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/site/samples/timetracker</url>
                 </site>
             </distributionManagement>
         </profile>
@@ -946,7 +944,7 @@
                 </snapshotRepository>
                 <site>
                     <id>website</id>
-                    <url>file:/var/www/docs/samples/timetracker</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/site/timetracker</url>
                 </site>
             </distributionManagement>
         </profile>
@@ -1086,7 +1084,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.12.1</version>
+                <version>2.12.2</version>
             </plugin>
             <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>

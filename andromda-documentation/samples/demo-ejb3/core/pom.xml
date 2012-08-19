@@ -82,8 +82,8 @@
               <artifactId>ehcache-core</artifactId>
         </dependency>
         <dependency>
-               <groupId>org.jboss.microcontainer</groupId>
-               <artifactId>hibernate-all</artifactId>
+            <groupId>org.jboss.microcontainer</groupId>
+            <artifactId>hibernate-all</artifactId>
         </dependency>
         <dependency>
             <groupId>jboss.jboss-embeddable-ejb3</groupId>
@@ -92,8 +92,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-              <groupId>jboss.jboss-embeddable-ejb3</groupId>
-               <artifactId>thirdparty-all</artifactId>
+            <groupId>jboss.jboss-embeddable-ejb3</groupId>
+            <artifactId>thirdparty-all</artifactId>
             <version>1.0.0.Alpha9</version>
             <scope>test</scope>
         </dependency-->

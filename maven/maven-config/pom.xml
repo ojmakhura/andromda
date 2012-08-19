@@ -98,7 +98,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.12.1</version>
+                    <version>2.12.2</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -118,18 +118,18 @@
                 <repository>
                     <id>andromda-repository</id>
                     <name>AndroMDA Repository</name>
-                    <url>file:/var/www/maven2</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/</url>
                     <uniqueVersion>false</uniqueVersion>
                 </repository>
                 <snapshotRepository>
                     <id>andromda-snapshots</id>
                     <name>AndroMDA Snapshot Repository</name>
-                    <url>file:/var/www/maven2</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/</url>
                     <uniqueVersion>false</uniqueVersion>
                 </snapshotRepository>
                 <site>
                     <id>website</id>
-                    <url>file:/var/www/docs/maven-config</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/site/maven/maven-config</url>
                 </site>
             </distributionManagement>
         </profile>
@@ -168,7 +168,7 @@
                 </snapshotRepository>
                 <site>
                     <id>website</id>
-                    <url>file:/var/www/docs/maven-config</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/site/maven/maven-config</url>
                 </site>
             </distributionManagement>
         </profile>

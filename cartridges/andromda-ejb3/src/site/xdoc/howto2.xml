@@ -8,19 +8,22 @@
     <body>
         <section name="Relationships">
             <p>
-                Most of the entities that appear in real applications have relationships with other
+                Entities that appear in real applications have relationships with other
                 entities; consider the simple case of a person owning a car. Here we say
                 <code>Person</code> has an <code>owning</code> relationship with the <code>Car</code>, and from
                 the perspective of the person there can be any number of cars that are owned, denoted in UML
-                by <code>[0..*]</code> at the car's end.
-            </p>
-            <p class="highlight">
-                Make sure the association ends are <code>public</code>; some tools allow you to specify the 
-                visibility of an association end.
+                by <code>[0..*]</code> meaning <code>[lowerBound..upperBound]</code> at the car's association end property.
             </p>
             <p>
-                In UML, relationships are modeled using associations, and associations themselves have different
-                properties, which will be discussed here.
+                In UML, <b>relationships are modeled using associations</b>, and associations themselves have different
+                properties, which will be discussed here. In UML2, attributes and associations belonging to a
+                class are the class properties. <b>All associations
+                from an Entity must be to another Entity unless it is Transient, an Enumeration, or an Embedded Value Object</b>.
+            </p>
+            <p>
+                Association ends that are <code>public</code> or <code>private</code> will generate public get/set
+                accessor methods with a private attribute. Association ends that are <code>protected</code> will
+                generate protected get/set accessor methods with a protected attribute.
             </p>
             <p>
                 Let's model another entity, call it <code>Person</code> and give it a few attributes,
@@ -30,7 +33,6 @@
             <p>
                 Draw an association between both entities you have just modeled. Set the multiplicity at the end
                 of the car to <code>[0..*]</code> and name the other end <code>'owner'</code>.
-                If we run AndroMDA over your model, this is what we expect to see.
             </p>
             <p>
                 <img src="images/org/andromda/test/2/a/uml.gif" alt="images/org/andromda/test/2/a/uml.gif"/>
@@ -39,13 +41,17 @@
                 In this example we have added two attributes to the <code>Person</code> entity. 
             </p>
             <ul>
-                <li>name of type <code>datatype::String</code></li>
+                <li>name of type <code>datatype::String</code> (or we can use UMLPrimitiveTypes::String from the UML Standard library)</li>
                 <li>birthDate of type <code>datatype::Date</code></li>
             </ul>
             <p>
-                Please note that also for this entity an identifier will be added by default. 
-                If you explicitly want to add an identifier you should model the <![CDATA[<<Identifier>>]]> 
-                stereotype on an attribute. Refer to <a href="howto1.html">Entities</a> for more information.
+                For this entity an <b>identifier will be added by default</b> because no properties were labeled as <![CDATA[<<Identifier>>]]>.
+                If you explicitly want to specify an identifier you should model the <![CDATA[<<Identifier>>]]>
+                stereotype on a property. Refer to <a href="howto1.html">Entities</a> for more information.
+            </p>
+            <p>
+                The Embeddable class is generated because the Car entity has a classifier operation isRented().
+                If we run AndroMDA over your model, this is what we expect to see.
             </p>
             <ul>
                 <li class="gen">Auto-generated source that does not need manual editing</li>
@@ -66,20 +72,26 @@
                 <li class="gen"><a href="howto/org/andromda/test/howto2/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
             </ul>
             <p>
-                The relationship mapping metadata (annotations) have been generated in the root class of
-                the entity hierarchy.  The metadata for the <code>Car</code> entity is within the mapped superclass.
-                The metadata for the <code>Person</code> entity exists in the auto generated <code>Person</code>
+                The relationship mapping JPA annotations have been generated in the root class of
+                the entity hierarchy.  The annotations for the <code>Car</code> entity are within the mapped superclass.
+                The annotations for the <code>Person</code> entity exist in the auto generated <code>Person</code>
                 class.  Since both ends of the association are navigable, we have a bi-directional relationship.
             </p>
             <ul>
                 <li>
-                    <p>Person.getCars() : Collection</p>
+                    <p><![CDATA[Person.getCars() : List<Car>]]></p>
                     <p>
-                        A One-To-Many relationship has been defined from the
-                        Person entity to the Car entity.  This adds the <code>@javax.persistence.OneToMany</code> 
+                        A One-To-Many relationship has been defined from the Person entity to the Car entity.
+                        This adds the <code>@javax.persistence.OneToMany</code>
                         annotation to the getter method and sets the <code>mappedBy</code> property to 
-                        <code>'owner'</code>. The <code>mappedBy</code> property indicates the other end of 
-                        the association is the owning side of the relationship.
+                        <code>'owner'</code>, which indicates the <b>other end of
+                        the association is the owning side of the relationship and is the only side of the
+                        relationship responsible for mapping the attribute to a table and column</b>.
+                        Person.getCars will not have a <code>@Column</code> annotation. The owner property on Car
+                        refers to the Person entity. The Many side of a bidirectional 1:M relationship
+                        will always be the owner of the association relationship. Only one side of a relationship
+                        can have the <code>mappedBy</code> annotation, while the other side will have the
+                        <code>@JoinColumn</code> annotation.
                     </p>
                 </li>
                 <li>
@@ -96,13 +108,13 @@
                     <p>
                         Since the Car entity end is the owning end, the <code>@javax.persistence.JoinColumn</code>
                         annotation has been defined with a <code>name</code> property.  
-                        This annotation is used to indicate a mapped column for joining an entity association. 
+                        This annotation is used to indicate a <b>mapped column for joining an entity association</b>.
                         The <code>name</code> property defines the foreign key column name.
                     </p>
                 </li>
             </ul>
             <p>By default AndroMDA will look at the multiplicity to generate a good name for the relationship,
-            a few examples where the multiplicity is greater than one:</p>
+            automatically pluralizing * relationship names. A few examples where the multiplicity is greater than one:</p>
             <ul>
                 <li>car: cars</li>
                 <li>property: properties</li>
@@ -110,18 +122,22 @@
                 <li>animal: animals</li>
                 <li>bus: busses</li>
             </ul>
-            <p>You can override these names by adding your own names to the association ends, in our example
+            <p>You can override these names by adding your own names to the association ends. In our example
             you might set the name of the association end at the side of the person to <code>person</code>,
             this will emit the following output during generation:</p>
             <ul>
-                <li>Person.getCars() : Collection</li>
+                <li><![CDATA[Person.getCars() : List<Car>]]></li>
                 <li>Car.getPerson() : Person</li>
             </ul>
+            <p>You can turn off pluralization in the andromda.xml default namespace:
+            <source><![CDATA[<property name="pluralizeAssociationEndNames">false</property>]]></source>.
+
+            </p>
             <a name="Cascading"/>
             <subsection name="Cascading">
                 <p>
                     You can set the cascade option on all association ends by modeling the
-                    <code>andromda_persistence_cascade_type</code> tagged value on the target association end.
+                    <b><![CDATA[<<PersistentAssociationEnd>>]]> <code>andromda_persistence_cascade_type</code></b> tagged value on the target association end.
                     The cascadable options are:
                 </p>
                 <ul>
@@ -154,19 +170,19 @@
                     <li class="gen"><a href="howto/org/andromda/test/howto2/b/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
                     <li class="gen"><a href="howto/org/andromda/test/howto2/b/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
                 </ul>
-                <p class="highlight">
+                <p>
                     If you enable Hibernate extensions by setting the value of the <b>persistenceProviderExtensions</b>
                     namespace property in your andromda.xml to <i>hibernate</i>, you can also model the
-                    <code>andromda_hibernate_cascade</code> tagged value on your association ends.  This way, you
+                    <b><![CDATA[<<PersistentAssociationEnd>>]]> <code>andromda_hibernate_cascade</code></b> tagged value on your association ends.  This way, you
                     can further customize your cascade solution to use Hibernate specific cascade types such as
-                    SAVE_UPDATE and DELETE_ORPHAN.  Remember, this tagged value accepts a comma separated list
+                    SAVE_UPDATE and DELETE_ORPHAN.  This tagged value accepts a comma separated list
                     of fully qualified cascade types.
                 </p>
             </subsection>
             <a name="Fetch_Type"/>
             <subsection name="Fetch Type">
                 <p>
-                    The fetch type tagged value <code>andromda_persistence_fetch_type</code> can be modeled on
+                    The fetch type tagged value <b><![CDATA[<<PersistentProperty>>]]> <code>andromda_persistence_fetch_type</code></b> can be modeled on
                     all association ends.  To set the fetch type on an end, you model this tagged value on
                     the target association end.  The following default are the default fetch types for the
                     available relationships:
@@ -201,32 +217,115 @@
                     <li class="gen"><a href="howto/org/andromda/test/howto2/c/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
                 </ul>
             </subsection>
+            <a name="Aggregation_Composition"/>
+            <subsection name="Aggregation and Composition">
+                <p>
+                    To model the owning side of a One-To-One or Many-To-Many bidirectional relationship, you
+                    indicate the <b>owning end of the relationship as an <code>aggregate</code> or
+                    <code>composite</code> end</b>. You should use aggregation when an entity is part of
+                    another one but the latter one does not need the former to exist.
+                </p>
+                        <p>
+                    By default, the EJB3 cartridge enables the following via the
+                    <code>compositionDefinesEagerLoading</code> namespace property in andromda.xml.  These are employed if no
+                    <code>andromda_persistence_fetch_type</code> tagged value exists.
+                        </p>
+                <ul>
+                    <li>aggregation: lazy-loaded, no cascade</li>
+                    <li>composition: eager-loaded, cascade update (cascade option not yet implemented)</li>
+                    <li>none: defaults for the multiplicity relationship</li>
+                </ul>
+                        <p>
+                    The following example illustrates the Many-To-Many bidirectional relationship between
+                    <code>Car</code> and <code>Person</code> entities.  The aggregate end on the
+                    <code>Person</code> entity indicates that <code>Person</code> is the owning entity.
+                    The Car.getOwners() is on CarEmbeddable class while Person.getCompanyCars() is on the Person class.
+                        </p>
+                        <p>
+                    <img src="images/org/andromda/test/2/e/uml.gif" alt="images/org/andromda/test/2/e/uml.gif"/>
+                </p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+                <ul>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto2/e/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a href="howto/org/andromda/test/howto2/e/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto2/e/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto2/e/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="impl"><a href="howto/org/andromda/test/howto2/e/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto2/e/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto2/e/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto2/e/PersonDao.java"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto2/e/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto2/e/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto2/e/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                </ul>
+            </subsection>
+            <a name="Join_Table_Many_To_Many_And_One_To_Many"/>
+            <subsection name="Join Table for Many-To-Many and One-To-Many Relationship">
+                <p>
+                    For a Many-To-Many and One-To-Many associations, the <code>@javax.persistence.JoinTable</code>
+                    annotation is specified on the OWNING side of the association.  This is determined by modeling the
+                    <code>owning</code> side as an aggregation or composition.
+                </p>
+                <p>
+                    <b>If there is no owning side explicitly defined</b>, AndroMDA follows a set of rules to determine which side
+                    owns the relationship:
+                </p>
+                <ul>
+                    <li>(1) If one side is explicitly designated as the owner through the PersistentAssociationEnd
+                    <b><![CDATA[<<PersistentAssociationEnd>>]]> andromda_persistence_associationEnd_primary</b>;</li>
+                    <li>(2) The <b>aggregate/composite</b> side owns the relationship;</li>
+                    <li>(3)The <b>many</b> side of a 1:M relationship is the owner;</li>
+                    <li>(4) The type with the <b>longest name</b> owns the relationship
+                    (i.e. an association table usually has a longer name because it typically contains the name of the tables it is
+                    associated with);</li>
+                    <li>(5) If all else fails, the default convention of an <b>alphabetical</b> name ordering is adopted.</li>
+                </ul>
+                <p>
+                    The join table name is defined by default to be the table name of the primary table of the owning 
+                    side concatenated with the table name of the primary table of the inverse side.  
+                    You can override the <code>name</code> property by modeling the 
+                    <![CDATA[<<PersistentAssociation>>]]><b><code>andromda_persistence_table</code></b> tagged value on the association or alternatively,
+                    specify a name for the association.
+                </p>
+                <p>
+                    The default relation name separator is adopted from the AndroMDA metafacade namespace layer.
+                    You can simply change this in your application's andromda.xml by specifying the following
+                    property in the <b>ejb3</b> namespace.
+<source><![CDATA[
+    <property name="relationNameSeparator">_</property>
+]]></source>
+                </p>
+            </subsection>
             <a name="Ordering_Collection_Valued_Association"/>
             <subsection name="Ordering Collection Valued Association">
                 <p>
                     You can order the elements of a collection valued association by modeling the
-                    <code>andromda_persistence_orderBy</code> tagged value on the target association end.
+                    <![CDATA[<<PersistentAssociationEnd>>]]> <b><code>andromda_persistence_orderBy</code></b> tagged value on the target association end.
                     A few notes to consider:
                 </p>
                 <ul>
                     <li>
-                        <p>
+                <p>
                             If <code>ASC</code> or <code>DESC</code> is not specified, <code>ASC</code> order is
                             assumed.
-                        </p>
+                </p>
                     </li>
                     <li>
-                        <p>
+                <p>
                             If the ordering tagged value is modeled but no ordering element is supplied, this
                             renders an empty <code>@javax.persistence.OrderBy</code> annotation which indicates
                             to the container to assume ordering by primary key as per the spec.
-                        </p>
+                </p>
                     </li>
                     <li>
-                        <p>
+                <p>
                             The property used in the order by clause must correspond to a persistent field of
                             the associated class and that corresponding column must support comparison operators.
-                        </p>
+                </p>
                     </li>
                 </ul>
                 <p>
@@ -251,82 +350,11 @@
                     <li class="gen"><a href="howto/org/andromda/test/howto2/d/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
                 </ul>
             </subsection>
-            <a name="Join_Table_Many_To_Many_And_One_To_Many"/>
-            <subsection name="Join Table for Many-To-Many and One-To-Many Relationship">
-                <p>
-                    For a Many-To-Many and now One-To-Many association, the <code>@javax.persistence.JoinTable</code> 
-                    annotation is specified on the OWNING side of the association.  This is determined by modeling the
-                    <code>owning</code> side as an aggregation or composition.
-                </p>
-                <p>
-                    If there is no owning side defined, then the AndroMDA default convention of
-                    an alphabetical name ordering is adopted.
-                </p>
-                <p>
-                    The join table name is defined by default to be the table name of the primary table of the owning 
-                    side concatenated with the table name of the primary table of the inverse side.  
-                    You can override the <code>name</code> property by modeling the 
-                    <code>andromda_persistence_table</code> tagged value on the assocation or alternatively,
-                    specify a name for the association.
-                </p>
-                <p>
-                    The default relation name separator is adopted from the AndroMDA metafacade namespace layer.
-                    You can simply change this in your application's andromda.xml by specifying the following
-                    property in the <b>ejb3</b> namespace.
-<source><![CDATA[
-    <property name="relationNameSeparator">_</property>
-]]></source>
-                </p>
-            </subsection>
-            <a name="Aggregation_Composition"/>
-            <subsection name="Aggregation and Composition">
-                <p>
-                    To model the owning side of a One-To-One or Many-To-Many bidirectional relationship, you
-                    indicate that end (the owning end) of the relationship as an <code>aggregate</code> or
-                    <code>composite</code> end. You should use aggregation when an entity is part of 
-                    another one but the latter one does not need the former to exist.
-                </p>
-                <p>
-                    By default, the EJB3 cartridge enables the following via the 
-                    <code>compositionDefinesEagerLoading</code> namespace property.  These are employed if no
-                    <code>andromda_persistence_fetch_type</code> tagged value exists.
-                </p>
-                <ul>
-                    <li>aggregation: lazy-loaded, no cascade</li>
-                    <li>composition: eager-loaded, cascade update (cascade option not yet implemented)</li>
-                </ul>
-                <p>
-                    The following example illustrates the Many-To-Many bidirection relationship between
-                    <code>Car</code> and <code>Person</code> entities.  The aggregate end on the
-                    <code>Person</code> entity indicates that <code>Person</code> is the owning entity.
-                </p>
-                <p>
-                    <img src="images/org/andromda/test/2/e/uml.gif" alt="images/org/andromda/test/2/e/uml.gif"/>
-                </p>
-                <ul>
-                    <li class="gen">Auto-generated source that does not need manual editing</li>
-                    <li class="impl">Auto-generated source that should be edited manually</li>
-                    <li class="changed">File that is affected by the modifications applied in this section</li>
-                </ul>
-                <ul>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto2/e/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
-                    <li class="impl"><a href="howto/org/andromda/test/howto2/e/Car.java"><code>Car.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto2/e/CarDao.java"><code>CarDao.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto2/e/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                    <li class="impl"><a href="howto/org/andromda/test/howto2/e/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto2/e/CarDaoException.java"><code>CarDaoException.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto2/e/Person.java"><code>Person.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto2/e/PersonDao.java"><code>PersonDao.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto2/e/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto2/e/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto2/e/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
-                </ul>
-            </subsection>
             <a name="Transient_Relationships"/>
             <subsection name="Transient Relationships">
                 <p>
                     To indicate an association relationship target as transient (not persisted by the persistence 
-                    container), you model the <![CDATA[<<Transient>>]]> stereotype on the target end.  This adds the
+                    container), you model the <b><![CDATA[<<Transient>>]]></b> stereotype on the target end.  This adds the
                     <code>@javax.persistence.Transient</code> annotation to the relationship getter.
                 </p>
             </subsection>
@@ -336,27 +364,30 @@
                     By default, the foreign key column names are defined by the cartridge and foreign key constraint 
                     names are defined by your database on creation.  This way, we don't impose any complexity 
                     on any project.  However, there are always certain environments and projects which require a
-                    strict architecture.  This is where you may need the flexibility to control the foreign key 
+                    strict architecture, i.e. the foreign key and the primary key column names are the same.
+                    This is where you may need the flexibility to control the generated foreign key
                     names and foreign key constraint names. 
                 </p>
                 <p>
                     Controlling foreign key names is relatively simple as long as you know where to model the right
                     tagged value.  In all four association types, you can use the 
-                    <code>andromda_persistence_column</code> tagged value on an association end to explicitly
+                    <b><![CDATA[<<PersistentProperty>>]]> <code>andromda_persistence_column</code></b> tagged value on an association end to explicitly
                     define the foreign key name.
                 </p>
                 <p>
                     In a <b>many-to-one</b> or <b>one-to-one</b> association, model the 
-                    <code>andromda_persistence_column</code> tagged value on the target association ends.  In a
+                    <![CDATA[<<PersistentProperty>>]]> <b><code>andromda_persistence_column</code></b> tagged value
+                    on the target association ends.  In a
                     <b>one-to-many</b> unidirection or <b>many-to-many</b> association, you can model the
                     <code>andromda_persistence_column</code> tagged value on either one or both ends of the 
                     association.  
                 </p>
                 <p>
                     Remember that you don't have to explicitly define the foreign key column names. The cartridge
-                    will create a suitable name for you using either the <b>JoinColumn</b>
+                    will create a default column name for you on the <b>JoinColumn</b>
                     annotation.  Using the above solution, you are effectively overwriting the auto-generated
-                    foreign key column names.
+                    foreign key column names. In this example, the column name for the Car.owner attribute is
+                    annotated as <code>@JoinColumn(name="OWNER_FK")</code>, so the OWNER_FK column must exist on the CAR table.
                 </p>
                 <p>
                     Explicitly defining foreign key constraint names are slightly more tricky.  There is no
@@ -370,22 +401,31 @@
                     The first thing you need to do to be able to explicitly define your foreign key constraint
                     names is to set the value of the <b>persistenceProviderExtensions</b> namespace property
                     to <b>hibernate</b> in your andromda.xml.  You can then model the
-                    <code>andromda_persistence_foreignkey_constraint</code> tagged value on the appropriate
-                    association ends to explicitly define your foreign key constraint names.
+                    <![CDATA[<<PersistentAssociationEnd>>]]> <b><code>andromda_persistence_foreignkey_constraint</code></b> tagged value on the appropriate
+                    association ends to explicitly define your foreign key constraint names. This will generate the
+                    <code>@org.hibernate.annotations.ForeignKey(name="FK_PARENT")</code> annotation for the @ManyToOne attribute.
                 </p>
                 <p>
                     For <b>many-to-one</b> and <b>one-to-one</b> associations, you model the
-                    <code>andromda_persistence_foreignkey_constraint</code> tagged value on the target association
+                    <b><code>andromda_persistence_foreignkey_constraint</code></b> tagged value on the target association
                     ends.  For <b>one-to-many unidirectional</b> and <b>many-to-many</b> associations, you
                     can model the <code>andromda_persistence_foreignkey_constraint</code> tagged value on either
                     end or both ends of the association depending on what you want.
                 </p>
-                <p class="highlight">
-                    Keep in mind that for <b>one-to-many unidirectional</b> and <b>many-to-many</b> associations,
+                <p>
+                    For <b>one-to-many unidirectional</b> and <b>many-to-many</b> associations,
                     you must model the foreign key constraint name on the source association end if you want
                     to define the foreign key constraint name on the target association end.  If you don't, then
                     neither one will be considered during generation.  You can however only define the foreign key 
                     constraint name on the source end and not the target end.
+                </p>
+                <p class="highlight">
+                    For <b>identifier associations</b>, the order of the columns in the @JoinColumn annotation
+                    MUST match the order of the columns in the table foreign key definition which refers to the non-owning
+                    table primary key definition. In AndroMDA, JoinColumn order is determined by the order of the properties
+                    in the Entity, however if multiple tables contribute identifier properties then we must force a specific
+                    order of the columns in the @JoinColumn list. This is done by setting the column order in the
+                    <b><![CDATA[<<Entity>>]]> <code>andromda_persistence_joincolumn_order</code></b> value.
                 </p>
             </subsection>
             <a name="Tips"/>

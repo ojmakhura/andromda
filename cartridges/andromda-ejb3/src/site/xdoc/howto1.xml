@@ -8,38 +8,36 @@
     <body>
         <section name="Entities">
             <p>
-                With entities we mean what is usually implemented using Entity Beans or EJB3 POJOs (i.e. a
-                persistent entity like a Company or Person for example);
-                in the EJB3 cartridge you will not need to worry about the underlying persistence technology, but
+                With entities we mean Entity Beans or <b>EJB3 JPA2</b> POJOs, i.e. a
+                persistent class like a Company or Person for example.
+                In the EJB3 cartridge you will not need to worry about the underlying persistence technology, but
                 you will probably want to know that EJB3 POJOs will be generated for the
                 entities you model.  The EJB 3.0 container (i.e. JBoss) adopts a suitable configurable persistence 
                 technology. (i.e Hibernate)
             </p>
             <p>
                 In order to successfully generate a single entity it is sufficient to simply
-                model a single class and assign it the <![CDATA[<<Entity>>]]> stereotype, this stereotype tells
+                model a single class and assign it the <b><![CDATA[<<Entity>>]]></b> stereotype, this stereotype tells
                 the EJB3 cartridge to treat this class as an entity.
             </p>
             <p>
                 Let's start by modeling a package <code>org.andromda.test</code> and putting a class
                 inside that package, give that class the name <code>Car</code>.  Now make sure that entity
-                has the <![CDATA[<<Entity>>]]> stereotype, it depends on your UML tool how you need to do
-                that exactly.
+                has the <![CDATA[<<Entity>>]]> stereotype.
             </p>
             <p>
                 <img src="images/org/andromda/test/1/a/uml.gif" alt="images/org/andromda/test/1/a/uml.gif"/>
             </p>
             <p>
-                You can now try to generate code
-                from your model and take a look at what is generated.  If you don't know how to generate code using
-                AndroMDA then head on over to the
+                You can now try to generate code from your model and take a look at what is generated.
+                If you don't know how to generate code using AndroMDA then head on over to the
                 <a href="../starting.html">getting started</a> guide (specifically the section explaining
                 <a href="../starting.html#My_first_AndroMDA_project">how to setup your first AndroMDA project</a>).
             </p>
-            <p class="highlight">
+            <!--p class="highlight">
                 Please note that the EJB3 cartridge is now included in the AndroMDAPP project which means you 
                 can generate your project structure using that generator.
-            </p>
+            </p-->
             <p>
                 If everything went well, all code related to this class will have been generated into
                 the <code>core/target/src</code> project subdirectory, no manual implementation will need
@@ -52,16 +50,20 @@
             </p>
             <ul>
                 <li>
-                    In most cases, your entities will only model classifier scoped finder methods.  If there
+                    In most cases, your entities will only model classifier scoped finder methods, or a separate controller/query
+                    (session bean) class will handle all EJB3 operations for the Entity.  If there
                     are no classifier scoped operations, then the cartridge auto generates (and will regenerate)
-                    your entity components for you.  The entity components include the entity POJO and
-                    the DAO components associated with the entity.
+                    only Entity components for you: the entity POJO and the DAO components associated with the entity.
+                    If there are classifier scoped operations,
+                    an Embeddable component will be generated, where you will put your operation implementation code.
+                    The generated Entity component operations will delegate their implementation to the Embeddable component.
                 </li>
                 <li>
                     The alternative is to have an embeddable/mapped superclass with an entity class that inherits 
                     from this mapped superclass.  This is the case where the entity models instance
                     scoped operations and are involved in non-inheriting hierarchies.
-                    However once you introduce inheritance, this changes. To find out more about inheritance, 
+                    However once you introduce inheritance, the Embeddable Impl class must be maintained.
+                    It is only generated once. To find out more about inheritance,
                     go to the <a href="howto9.html">inheritance</a> section.
                 </li>
             </ul>
@@ -79,80 +81,23 @@
             </ul>
             <p>
                 The class we have modeled does not have any properties, however, by default, AndroMDA creates the
-                <code>id</code> attribute of type <code>datatype:Long</code> if no identifier (primary key)
+                <b><code>id</code></b> attribute of type <b><code>datatype:Long</code></b> if no identifier (primary key)
                 attribute has been modeled by the user.
                 It is possible to override these settings in the
                 <a href="../maven-andromda-plugin/properties.html#Defining_Namespace_Properties">namespace
-                properties for Maven</a> or the
+                properties for the AndroMDA maven plugin</a> or the
                 <a href="../anttask.html#andromda-example">namespace properties for Ant</a>. Click
                 <a href="../andromda-metafacades-uml/namespace.html">here</a>
                 if you want to know more about the default namespace properties you can set.
             </p>
-            <a name="Entity_Operations"/>
-            <subsection name="Entity Operations">
-                <p>
-                    You may also model operations on an entity, this will generate them as methods in the resulting
-                    components. Operations can be classifier scoped (<code>static</code> in Java) where they will
-                    be underlined in UML diagrams as shown below.  You may also define instance scoped operations
-                    if you require.
-                </p>
-                <p class="highlight">
-                    In general, operations will not be defined in the mapped superclass.  
-                    They will be defined in the inheriting subclass.  This has consequences when dealing with a 
-                    multi-tier inheritance hierarchy.  
-                    Refer to the <a href="howto9.html">inheritance</a> howto for further information.
-                    This also implies that operations are only added to the implementation class on the first
-                    run of AndroMDA.  Operations defined in the UML model must be manually added to the
-                    implementation class afterwards.  This shouldn't cause any issues as the developer would have
-                    to define the operation implementation anyway to correspond to the abstract definition in
-                    the mapped superclass.  The primary purpose for this strategy is to avoid having to
-                    annotate the entity operation with <code>@javax.persistence.Transient</code> annotation
-                    in both the mapped superclass and the inheriting implementation class.
-                </p>
-                <p class="highlight">
-                    Classifier scoped operations marked as query operations, known as finder methods, 
-                    modeled on entity are not rendered in the entity components, but instead added to the
-                    DAO components.
-                </p>
-                <p>
-                    <img src="images/org/andromda/test/1/b/uml.gif" alt="images/org/andromda/test/1/b/uml.gif"/>
-                </p>
-                <ul>
-                    <li class="gen">Auto-generated source that does not need manual editing</li>
-                    <li class="impl">Auto-generated source that should be edited manually</li>
-                    <li class="changed">File that is affected by the modifications applied in this section</li>
-                </ul>
-                <ul>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/b/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
-                    <li class="impl"><a class="changed" href="howto/org/andromda/test/howto1/b/Car.java"><code>Car.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/b/CarDao.java"><code>CarDao.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/b/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/b/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/ab/CarDaoException.java"><code>CarDaoException.java</code></a></li>
-                </ul>
-                <p>
-                    Entity operations modeled as Query operations are discussed further in the
-                    <a href="howto6.html">Query Howto</a>.  In general entities should NOT contain
-                    any business logic.  The EJB3 cartridge, like other persistence modeling cartridges, 
-                    uses the session facade pattern to contain business logic in session bean operations while
-                    typical CRUD persistence operations are provided through the DAO layer.
-                </p>
-                <p>
-                    The above example entity models <code>allCarsAreRented()</code> as classifier scoped and
-                    <code>isRented()</code> as instance scoped.  Both will be added to the entity implementation
-                    subclass <code>Car</code>.  The bulk of the entity detail, including much of the metadata exists
-                    within the <code>CarEmbeddable</code> class.  In such cases where non-query operations exists 
-                    for an entity, the implementation class is generated once only and will not be overridden.
-                </p>
-            </subsection>
-            <a name="Entity_Relation_Table"/>
-            <subsection name="Entity Relation Table">
+            <a name="Entity_Database_Table"/>
+            <subsection name="Entity Database Table">
                 <p>
                     Your relational table's name which persists an entity is determined by default from the 
                     actual entity name.
                     To change the table name assignment in the <code>@javax.persistence.Table</code> annotation,
-                    set the <code>andromda_persistence_table</code> tag on the entity.
-                    The same tag can be modeled on a Many-To-Many association relationship.
+                    set the <![CDATA[<<Entity>>]]><b> <code>andromda_persistence_table</code></b> tag on the entity.
+                    The same tag can be modeled on a Many-To-Many association relationship, to name the association table.
                 </p>
                 <p>
                     <img src="images/org/andromda/test/1/c/uml.gif" alt="images/org/andromda/test/1/c/uml.gif"/>
@@ -173,7 +118,7 @@
             <a name="Primary_Key_Identifiers"/>
             <subsection name="Primary Key - Identifier">
                 <p>
-                    To assign an entity's attribute as a primary key, you must assign the <![CDATA[<<Identifier>>]]>
+                    To assign an entity's attribute as a primary key, you must assign the <b><![CDATA[<<Identifier>>]]></b>
                     stereotype to it.  If this identifier is not part of a composite primary key, then
                     <code>@javax.persistence.Id</code> annotation is added to the attribute getter method.
                 </p>
@@ -193,105 +138,120 @@
                     <li class="gen"><a href="howto/org/andromda/test/howto1/d/CarDaoException.java"><code>CarDaoException.java</code></a></li>
                 </ul>
                 <p>
-                    An entity identifier attribute's table generator can be modeled via the
-                    <code>andromda_persistence_generator_type</code> tag on the identifier attribute ONLY.
+                    An entity identifier attribute's generator type can be modeled via the
+                    <![CDATA[<<Identifier>>]]> <b><code>andromda_persistence_generator_type</code></b> tag on the identifier attribute ONLY.
+                    You do not need to configure the andromda_hibernate_generator_class attribute on the Entity stereotype.
                     This is used to model the primary key generation strategy associated with the
                     <code>@javax.persistence.Id</code> annotation for an entity attribute.
-                    Currently, the EJB3 cartridge supports:
+                    Currently, the EJB3 cartridge supports generator types:
                 </p>
                 <ul>
-                    <li>The default type is <code>AUTO</code></li>
-                    <li><code>TABLE</code></li>
-                    <li><code>SEQUENCE</code></li>
+                    <li><code>AUTO</code> which is the default</li>
                     <li><code>NONE</code></li>
+                    <li><code>SEQUENCE</code></li>
+                    <li><code>TABLE</code></li>
                 </ul>
                 <p>
-                    The table generator name can be set using the <code>andromda_persistence_generator_name</code> tag.
-                    This must be a unique name which is referenced by one or more classes to be the generator
-                    for an entity bean.  By setting the <code>andromda_persistence_generator_source_name</code> tag,
-                    you can specify either the table name that stores the generated ids or the sequence name
-                    which is the name of the database sequence object used to get the ids.  For table generator types,
-                    you must specify the <code>andromda_persistence_generator_pkcolumn_value</code> tag which defines
-                    the primary key value in the generator table to identify the specified generated value from 
-                    other values.  For sequence generator types, you can specify the initial value of the 
-                    sequence using <code>andromda_persistence_generator_initial_value</code> tag and the 
+                    <b>Natural keys must specify a generator type of NONE</b>, in order to override the default type, and also
+                    <b><code>andromda_persistence_assigned_identifier=true</code></b>. Generally,
+                    any non-numeric identifier will be a natural key, typically a 'name' column. Many legacy databases
+                    use natural keys for foreign key columns instead of generated identifier values.
+                </p>
+                <p>
+                    <b><code>andromda_persistence_generator_name</code></b> specifies the id generator name.
+                    The <b>generator name must be a unique name</b> for a persistence unit, which is referenced by one or
+                    more classes to be the generator for an entity bean, or else you will get a JPA validation error.
+                    By default, if unspecified, the generator name will be 'Entity_generator'. The name is used both
+                    in the <code>@javax.persistence.GeneratedValue(strategy=GenerationType.XXX, generator="Entity_generator")</code>
+                    and the <code>@javax.persistence.XXXGenerator(name="Entity_generator")</code>
+                    where XXX is the type of generator. This specifies either the <b>table name</b> that stores the generated ids
+                    or the <b>sequence name</b> which is the name of the database sequence object used to get the ids.
+                </p>
+                <p>
+                    For sequence generator types, you can specify the initial value of the
+                    sequence using <![CDATA[<<Identifier>>]]> <code>andromda_persistence_generator_initial_value</code> tag and the
                     allocation size by <code>andromda_persistence_generator_allocation_size</code> tag.  The allocation
                     size sets the amount to increment by when allocating id numbers from the sequence generator.
+                    All of these settings have default values or are allowed to be empty in the annotations.
+                </p>
+                <p>
+                    For a table generator, you
+                    must specify the <code>andromda_persistence_generator_pkcolumn_value</code> tag which defines
+                    the primary key value in the generator table to identify the specified generated value from
+                    other values.
                 </p>
             </subsection>
-            <a name="Unique_Attributes"/>
-            <subsection name="Unique Attributes">
+            <a name="Column_Specifics"/>
+            <subsection name="Column Specifics">
                 <p>
-                    In case you want an entity's attribute to be unique for all instances of that entity's type you
-                    should assign the <![CDATA[<<Unique>>]]> stereotype to it.  This will define the corresponding
-                    unique element in the <code>@javax.persistence.Column</code> annotation.
+                    You can set the column name, size, precision, scale, and DDL definition on
+                    entity properties under the <b><![CDATA[<<PersistentProperty>>]]></b> stereotype.
+                    By default the column name is the upperunderscore version of the property name,
+                    i.e. firstName is column FIRST_NAME. Associations of multiplicity * are pluralized, so you want to
+                    override the default column name. To turn off pluralization, in the andromda.xml default namespace:
+                    <source><![CDATA[<property name="pluralizeAssociationEndNames">false</property>]]>
+                    </source>
                 </p>
-            </subsection>
-            <a name="Attribute_Fetch_Type"/>
-            <subsection name="Attribute Fetch Type">
                 <p>
-                    By default, the EJB3 cartridge and EJB 3.0 spec defines an attribute fetch type as eagerly
-                    fetched.  To specify an attribute as lazy fetched, we hint to the persistence container 
-                    by modeling the <code>andromda_persistence_fetch_type</code> tag on the attribute.  Under
-                    normal circumstances, you do not need to specify this tag.
-                </p>
-            </subsection>
-            <a name="Transient_Attribute"/>
-            <subsection name="Transient Attribute">
-                <p>
-                    To indicate an attribute as transient (not persisted by the persistence container), you
-                    model the <![CDATA[<<Transient>>]]> stereotype on the attribute.  This adds the
-                    <code>@javax.persistence.Transient</code> annotation to the attribute.
-                </p>
-            </subsection>
-            <a name="Insertable_Attribute"/>
-            <subsection name="Insertable Attribute">
-                <p>
-                    To include the mapped column in the SQL insert statement, you set the <code>insertable</code>
-                    property on the <code>@javax.persistence.Column</code> annotation which is done by modeling the
-                    <code>andromda_persistence_column_insert</code> on the attribute.  By default, this is set to
-                    <code>true</code>, so it only needs to be specified if you want the column to be initialized using the
-                    database default value.
-                </p>
-            </subsection>
-            <a name="Updatable_Attribute"/>
-            <subsection name="Updatable Attribute">
-                <p>
-                    To include the mapped column in the SQL update statement, you set the <code>updatable</code>
-                    property on the <code>@javax.persistence.Column</code> annotation which is done by modeling the
-                    <code>andromda_persistence_column_update</code> on the attribute.  By default, this is set to
-                    <code>true</code>, so it only needs to be specified if you want the column to be updated using by the
-                    database automatically.
-                </p>
-            </subsection>
-            <a name="Version_Attribute"/>
-            <subsection name="Version Attribute">
-                <p>
-                    To specify an attribute as a version attribute, where it becomes the optimistic lock value
-                    for an entity, you model the <![CDATA[<<Version>>]]> stereotype on this attribute.  
-                    This can only apply to ONE attribute per class.  Attributes with this stereotype
-                    will not be updated by the persistent container.  The attribute can only of the following types:
+                    <img src="images/org/andromda/test/1/h/uml.gif" alt="images/org/andromda/test/1/h/uml.gif"/>
                 </p>
                 <ul>
-                    <li>int</li>
-                    <li>short</li>
-                    <li>long</li>
-                    <li>Integer</li>
-                    <li>Short</li>
-                    <li>Long</li>
-                    <li>Timestamp</li>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
                 </ul>
+                <ul>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/hg/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/h/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/hg/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/h/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/h/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                </ul>
+                <p>
+                    To change the default naming schema for the relational table column, model the
+                    <![CDATA[<<PersistentProperty>>]]> <b><code>andromda_persistence_schema</code></b> tag on the attribute.
+                </p>
+                <p>
+                    You can set the column length for the relational database table for string based columns
+                    by modeling the <b><code>andromda_persistence_column_length</code></b> tag on the attribute.
+                    String attributes are by default length 20, if unspecified.
+                </p>
+                <p>
+                    If the column is defined as a decimal column (i.e. float or double), you can model the precision
+                    and scale of the column by setting <b><code>andromda_persistence_column_precision</code></b> tag to set
+                    the precision of the decimal column and/or <b><code>andromda_persistence_column_scale</code></b> tag
+                    to set the scale for a decimal column, on the attribute. A column defined as NUMBER(35, 2)
+                    has a precision of 35 (35 significant digits) and a scale of 2 (number of digits to the right (positive)
+                    or left (negative) of the decimal point).
+                    For example, Oracle DBMS supports precision 1-38 and scale -84 to 127
+                </p>
+                <p>
+                    In order to change the creation DDL for the column in the relational table, you can model
+                    <b><code>andromda_persistence_column_definition</code></b> tag on the attribute.
+                    This adds the <code>@javax.persistence.Column(columnDefinition="")</code> annotation.
+                    This DDL is DBMS specific, may not be portable between local test and dev/prod databases.
+                </p>
+                <p>
+                    Length, precision, scale, and lowerBound (nullable) are automatically validated through the
+                    JPA validator annotations, so Entities that fail validation will not be persisted and an error
+                    message is returned. For the serial column, the additional validations will be:
+                </p>
+                <p>
+                    <code>@javax.persistence.Size(max=15)</code>
+                </p>
             </subsection>
             <a name="Attribute_Multiplicity"/>
             <subsection name="Attribute Multiplicity">
                 <p>
-                    It's possible to configure the multiplicity of an entity's attribute, by setting it to
-                    <code>[0..1]</code> an attribute is not required and is allowed to be set to
+                    It's possible to configure the multiplicity of an entity's property, by setting it to
+                    <b><code>[0..1]</code></b>, meaning the lowerBound is 0 and the property is not required and is allowed to be set to
                     <code>null</code>; setting the multiplicity to a value greater than <code>0</code>
-                    means the attribute is required.  In the former case the nullable element will be set to
+                    means the property is required.  In the former case the nullable element will be set to
                     <code>true</code> for the <code>@javax.persistence.Column</code> annotation on the
-                    attribute.  The following class assigns a multiplicity of [0..1] to the <code>name</code>
-                    attribute which means <code>name</code> can be null.
+                    property. If not nullable or required, the <code>@javax.persistence.NotNull(message="serial is required")</code>
+                    annotation will be added to the property. The following class assigns a multiplicity of [0..1]
+                    <b>[lowerBound..upperBound]</b> to the <code>name</code>
+                    property which means <code>name</code> can be null.
                 </p>
                 <p>
                     <img src="images/org/andromda/test/1/e/uml.gif" alt="images/org/andromda/test/1/e/uml.gif"/>
@@ -309,17 +269,83 @@
                     <li class="gen"><a href="howto/org/andromda/test/howto1/e/CarDaoException.java"><code>CarDaoException.java</code></a></li>
                 </ul>
                 <p>
-                    Please note that some UML tools have a default multiplicity value for attributes when not
+                    Some UML tools have a default multiplicity value for attributes when not
                     specified by the user, these default values may differ from tool to tool.
                 </p>
+                <p>
+                    LowerBound (nullable) property is automatically validated through the
+                    Hibernate validator utilities, so Entities that fail validation will not be persisted and an error
+                    message is returned. The additional validation will be:
+                </p>
+                <p>
+                    <code>@javax.persistence.NotNull(message="serial is required")</code>
+                </p>
+            </subsection>
+            <a name="Unique_Attributes"/>
+            <subsection name="Unique Attributes">
+                <p>
+                    If you want an entity's attribute to be unique for all instances of that entity's type,
+                    in UML2 <b>mark the attribute as 'Unique'</b>. In UML14, you
+                    should assign the <![CDATA[<<Unique>>]]> stereotype to it.  This will define the corresponding
+                    unique element in the <code>@javax.persistence.Column</code> annotation. It will also generate a
+                    attribute on the JPA2 <code>@Column(unique=true)</code> annotation, and generate a findByAttribute query,
+                    except for identifier properties.
+                </p>
+            </subsection>
+            <a name="Transient_Attribute"/>
+            <subsection name="Transient Attribute">
+                <p>
+                    To indicate an attribute as transient (not persisted by the persistence container), you
+                    model the <b><![CDATA[<<Transient>>]]></b> stereotype on the attribute.  This adds the
+                    <code>@javax.persistence.Transient</code> annotation to the attribute.
+                </p>
+            </subsection>
+            <a name="Insertable_Attribute"/>
+            <subsection name="Insertable Attribute">
+                <p>
+                    To include the mapped column in the SQL insert statement, you set the <code>insertable</code>
+                    property on the <code>@javax.persistence.Column</code> annotation which is done by modeling the
+                    <b><code>andromda_persistence_column_insert</code></b> on the attribute.  By default, this is set to
+                    <code>true</code>, so it only needs to be specified if you want the column to be initialized using the
+                    database default value.
+                </p>
+            </subsection>
+            <a name="Updatable_Attribute"/>
+            <subsection name="Updatable Attribute">
+                <p>
+                    To include the mapped column in the SQL update statement, you set the <code>updatable</code>
+                    property on the <code>@javax.persistence.Column</code> annotation which is done by modeling the
+                    <b><code>andromda_persistence_column_update</code></b> on the attribute.  By default, this is set to
+                    <code>true</code>, so it only needs to be specified if you want the column to be updated using by the
+                    database automatically. The attribute will be read-only from the database.
+                </p>
+            </subsection>
+            <a name="Version_Attribute"/>
+            <subsection name="Version Attribute">
+                <p>
+                    To specify an attribute as a version attribute, where it becomes the optimistic lock value
+                    for an entity, you model the <b><![CDATA[<<Version>>]]></b> stereotype on this attribute.
+                    This can only apply to ONE attribute per class.  Attributes with this stereotype
+                    will not be updated by the persistent container.  The attribute can only of the following types:
+                </p>
+                <ul>
+                    <li>int</li>
+                    <li>short</li>
+                    <li>long</li>
+                    <li>Integer</li>
+                    <li>Short</li>
+                    <li>Long</li>
+                    <li>Timestamp</li>
+                </ul>
             </subsection>
             <a name="Constant_Attribute"/>
             <subsection name="Constant Attributes">
                 <p>
                     To define static constants within an entity POJO (constants that are not resource injections),
-                    model a classifier scoped attribute (<code>static</code> in Java).  These attributes are defined
+                    model a <b>classifier scoped attribute</b> (<code>static</code> in Java).  These attributes are defined
                     as static with public visibility.  Constants must define a default value in the model.
-                    The following entity defines 3 constants for type.
+                    The following entity defines 3 constants for type. Static attributes and operations are shown
+                    as <u>underlined</u> in the UML model diagram.
                 </p>
                 <p>
                     <img src="images/org/andromda/test/1/f/uml.gif" alt="images/org/andromda/test/1/f/uml.gif"/>
@@ -337,19 +363,6 @@
                     <li class="gen"><a href="howto/org/andromda/test/howto1/f/CarDaoException.java"><code>CarDaoException.java</code></a></li>
                 </ul>
             </subsection>
-            <a name="Nullable_Parameters"/>
-            <subsection name="Nullable Parameters">
-                <p>
-                    If you want an operation to have a parameter which is allowed to be <code>null</code> then simply
-                    assign the <![CDATA[<<Nullable>>]]> stereotype to that parameter. By default service
-                    operations throw an exception when a <code>null</code> argument has been passed.
-                </p>
-                <p>
-                    It is possible to globally disable checking for <code>null</code> arguments, so you will never
-                    need to specify the <![CDATA[<<Nullable>>]]> stereotype; to do so just specify the
-                    <code>parameterRequiredCheck</code> namespace property to have the <code>false</code> value.
-                </p>
-            </subsection>
             <a name="LOB_Attribute"/>
             <subsection name="LOB BLOB/CLOB Attributes">
                 <p>
@@ -358,7 +371,7 @@
                     the <code>@javax.persistence.Lob</code> annotation to the entity attribute.  The EJB3
                     cartridge will assign a default Java type based on the Java mappings specified in AndroMDA.
                     For a Blob, the default is <code>byte[]</code>.  For a Clob, the default is <code>String</code>.
-                    To override the default types, you can model the <code>andromda_persistence_lob_type</code> 
+                    To override the default types, you can model the <b><![CDATA[<<PersistentAttribute>>]]> <code>andromda_persistence_lob_type</code></b>
                     tagged value to the fully qualified name of the required type.
                 </p>
                 <p>
@@ -380,7 +393,7 @@
                 </ul>
                 <p>
                     The default fetch type for a LOB typed attribute is lazy.  To assign a LOB attribute
-                    to be eagerly fetched, model the <code>andromda_persistence_fetch_type</code> tag on the
+                    to be eagerly fetched, model the <b><code>andromda_persistence_fetch_type</code></b> tag on the
                     attribute.
                 </p>
                 <p>
@@ -405,14 +418,61 @@
                     but it's of type <code>char[]</code>.
                 </p>
             </subsection>
-            <a name="Column_Specifics"/>
-            <subsection name="Column Specifics">
+            <a name="Temporal_DataTypes"/>
+            <subsection name="Temporal DataTypes">
                 <p>
-                    Here is an example of some of the tagged values available to model on
-                    entity attributes.
+                    Hibernate supports mapping date, datetime, and time database types to java.util.Data Java type.
+                    The type mapping is done through the <b><![CDATA[<<TemporalElement>>]]> <code>andromda_persistence_temporal_type</code></b>
+                    with options of DATE, TIME, TIMESTAMP, and NONE. This results in
+                    <code>@javax.persistence.Temporal(TemporalType.XXX)</code> annotation on the attribute.
+                </p>
+            </subsection>
+            <a name="Custom_DataTypes"/>
+            <subsection name="Custom DataTypes">
+                <p>
+                    Custom hibernate type mappings can be used for Enumerations or other types. For example, if a Java boolean
+                    type has an underlying column which uses CHAR(1) Y/N values, the PersistentClass stereotype attribute
+                    <b><code>andromda_hibernate_type="yes_no"</code></b>
+                    can be used, resulting in a JPA annotation <code>@org.hibernate.annotations.Type(type="yes_no")</code>.
+                    Note that this is a hibernate-specific extension to JPA.
+                </p>
+            </subsection>
+            <a name="Attribute_Fetch_Type"/>
+            <subsection name="Attribute Fetch Type">
+                <p>
+                    By default, the EJB3 cartridge and EJB 3.0 spec defines an attribute fetch type as eagerly
+                    fetched.  To specify an attribute as lazy fetched, we hint to the persistence container
+                    by modeling the <b><code><![CDATA[<<PersistentAssociationEnd>>]]> andromda_persistence_fetch_type</code></b> tag on the attribute.  Under
+                    normal circumstances, you do not need to specify this tag.
+                </p>
+            </subsection>
+            <a name="Entity_Operations"/>
+            <subsection name="Entity Operations">
+                <p>
+                    You may also model operations on an entity, this will generate them as methods in the resulting
+                    components. Operations can be classifier scoped (<code>static</code> in Java) where they will
+                    be underlined in UML diagrams as shown below.  You may also define instance scoped operations
+                    if you require.
+                </p>
+                <p class="highlight">
+                    In general, operations will not be defined in the mapped superclass.
+                    They will be defined in the inheriting subclass.  This has consequences when dealing with a
+                    multi-tier inheritance hierarchy.
+                    Refer to the <a href="howto9.html">inheritance</a> howto for further information.
+                    This also implies that operations are only added to the implementation class on the first
+                    run of AndroMDA.  Operations defined in the UML model must be manually added to the
+                    implementation class afterwards.  This shouldn't cause any issues, as the developer would have
+                    to define the operation implementation anyway to correspond to the abstract definition in
+                    the mapped superclass.  The primary purpose for this strategy is to avoid having to
+                    annotate the entity operation with <code>@javax.persistence.Transient</code> annotation
+                    in both the mapped superclass and the inheriting implementation class.
+                </p>
+                <p class="highlight">
+                    Classifier scoped operations modeled on entity, marked as query operations (finder methods)
+                     are not rendered in the entity components, but instead added to the DAO components.
                 </p>
                 <p>
-                    <img src="images/org/andromda/test/1/h/uml.gif" alt="images/org/andromda/test/1/h/uml.gif"/>
+                    <img src="images/org/andromda/test/1/b/uml.gif" alt="images/org/andromda/test/1/b/uml.gif"/>
                 </p>
                 <ul>
                     <li class="gen">Auto-generated source that does not need manual editing</li>
@@ -420,29 +480,41 @@
                     <li class="changed">File that is affected by the modifications applied in this section</li>
                 </ul>
                 <ul>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/hg/Car.java"><code>Car.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto1/h/CarDao.java"><code>CarDao.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto1/hg/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto1/h/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto1/h/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/b/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a class="changed" href="howto/org/andromda/test/howto1/b/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/b/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/b/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/b/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/ab/CarDaoException.java"><code>CarDaoException.java</code></a></li>
                 </ul>
                 <p>
-                    To change the default naming schema for the relational table column, model the
-                    <code>andromda_persistence_column</code> tag on the attribute.
+                    Entity operations modeled as Query operations are discussed further in the
+                    <a href="howto6.html">Query Howto</a>.  In general entities should NOT contain
+                    any business logic.  The EJB3 cartridge, like other persistence modeling cartridges,
+                    uses the session facade pattern to contain business logic in session bean operations while
+                    typical CRUD persistence operations are provided through the DAO layer.
                 </p>
                 <p>
-                    You can set the column length for the relational database table for string based columns 
-                    by modeling the <code>andromda_persistence_column_length</code> tag on the attribute.
+                    The above example entity models <code>allCarsAreRented()</code> as classifier scoped and
+                    <code>isRented()</code> as instance scoped.  Both will be added to the entity implementation
+                    subclass <code>Car</code>.  The bulk of the entity detail, including much of the metadata exists
+                    within the <code>CarEmbeddable</code> class.  In such cases where non-query operations exists
+                    for an entity, the implementation class is generated once only and will not be overridden.
+                </p>
+            </subsection>
+            <a name="Nullable_Parameters"/>
+            <subsection name="Nullable Parameters">
+                <p>
+                    If you want an operation to have a parameter which is allowed to be <code>null</code> then simply
+                    set the <b>multiplicity lowerBound to 0</b> (in UML2). In UML14,
+                    assign the <![CDATA[<<Nullable>>]]> stereotype to that parameter. By default service
+                    operations throw an exception when a <code>null</code> argument has been passed.
                 </p>
                 <p>
-                    If the column is defined as a decimal column (i.e. float or double), you can model the precision
-                    and scale of the column by setting <code>andromda_persistence_column_precision</code> tag to set 
-                    the precision of the decimal column and/or <code>andromda_persistence_column_scale</code> tag
-                    to set the scale for a decimal column, on the attribute.
-                </p>
-                <p>
-                    In order to change the creation DDL for the column in the relational table, you can model
-                    <code>andromda_persistence_column_definition</code> tag on the attribute.
+                    It is possible to globally disable checking for <code>null</code> arguments; to do so just specify the
+<source><![CDATA[
+    <property name="parameterRequiredCheck">false</property>
+]]></source>
                 </p>
             </subsection>
             <a name="Listener_Callback"/>
@@ -452,6 +524,29 @@
                     useful.  The EJB3 cartridge provides the facility to define these callback methods
                     in the listener class.  This class is NOT generated by default.  To find out more information,
                     click on <a href="howto14.html">Listener Callback</a>.
+                </p>
+            </subsection>
+            <a name="Entity_Validations"/>
+            <subsection name="Entity Validations">
+                <p>
+                    The following model validations are performed against evey Entity when a model is loaded.
+                </p>
+                <p>
+                    EJB3EntityFacade::entities can only generalize other entities or mapped superclasses
+                </p>
+                <p>
+                    Entity::entities can only specialize other entites
+                </p>
+                <p>
+                    Entity::entity must have at least one primary key
+                </p>
+                <p>
+                    If using a JPA Framework as the ancestor for each entity class, you will
+                    want to model the ancestor generalization, include the framework dependency in the core pom.xml, and disable
+                    this model validation in andromda.xml through:
+                    <source><![CDATA[<constraints enforceAll="true">
+                    <constraint enforce="false">org::andromda::cartridges::ejb3::metafacades::EJB3EntityFacade::entities can only generalize other entities or mapped superclasses</constraint>]]>
+                    </source>
                 </p>
             </subsection>
         </section>
