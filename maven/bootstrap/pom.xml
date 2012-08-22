@@ -337,12 +337,11 @@
             </resource>
         </resources>
         <plugins>
-            <!-- The following plugins do not have their version specified: Not sure how it is used.>
-            <plugin>
-                <artifactId>maven-plugin-plugin</artifactId>
-            </plugin-->
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-plugin-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

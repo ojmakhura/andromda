@@ -10,7 +10,7 @@ project=${applicationParentDirectory.replace('\', '/')}/${applicationId}
 
 #if ($cxf)
 # The CXF XJC version used in wsdl2java and java2ws, not the same as base CXF version, may conflict with J2SE jaxb versions
-cxf.version=2.6.1
+cxf.version=2.6.2
 #end
 
 # Fail on error for ant commands

@@ -64,7 +64,7 @@
             <dependency>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.5</version>
+                <version>2.6</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven.shared</groupId>
@@ -100,43 +100,50 @@
         </dependencies>
     </dependencyManagement>
     <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-plugin-plugin</artifactId>
-                <!-- v3.0: org.apache.maven.plugin.PluginParameterException: The parameters 'modelArchivePattern', 'replaceExtensions', 'modelFilePattern', 'replacementExtensions' 
-                for goal org.andromda.maven.plugins:andromda-model-archiver-plugin:3.4-SNAPSHOT:xml.zip -->
-                <version>2.9</version>
-                <executions>
-                    <execution>
-                        <id>exec-plugin-doc</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <!-- NoClassDefFoundError: org/andromda/maven/plugin/configuration/AbstractConfigurationMojo -->
-                            <!--goal>xdoc</goal-->
-                            <goal>helpmojo</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <!-- Fix m3 api issue. See http://maven.40175.n5.nabble.com/Maven-Plugin-Tools-2-5-Released-td326250.html -->
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.maven.plugin-tools</groupId>
-                        <artifactId>maven-plugin-tools-ant</artifactId>
-                        <version>2.9</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <!-- Fix 'The following plugins do not have their version specified:' from versions plugin, even though
+                    it duplicates the configuration in the parent pom -->
+                    <artifactId>maven-plugin-plugin</artifactId>
+                    <version>${maven-plugin-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>exec-plugin-doc</id>
+                            <phase>generate-sources</phase>
+                            <goals>
+                                <!-- NoClassDefFoundError: org/andromda/maven/plugin/configuration/AbstractConfigurationMojo -->
+                                <!--goal>xdoc</goal-->
+                                <goal>helpmojo</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <!-- Fix m3 api issue. See http://maven.40175.n5.nabble.com/Maven-Plugin-Tools-2-5-Released-td326250.html -->
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.maven.plugin-tools</groupId>
+                            <artifactId>maven-plugin-tools-ant</artifactId>
+                            <version>2.9</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
     <reporting>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>
-                <version>2.9</version>
+                <version>${maven-plugin-plugin.version}</version>
             </plugin>
         </plugins>
     </reporting>
+    <properties>
+        <!-- v3.0: org.apache.maven.plugin.PluginParameterException: The parameters 'modelArchivePattern', 'replaceExtensions', 'modelFilePattern', 'replacementExtensions' 
+        for goal org.andromda.maven.plugins:andromda-model-archiver-plugin:3.4:xml.zip -->
+        <maven-plugin-plugin.version>2.9</maven-plugin-plugin.version>
+    </properties>
     <modules>
         <module>andromda</module>
         <module>andromdapp</module>
