@@ -149,6 +149,8 @@
                 <property name="XMLLongAdapter"></property-->
                 <!-- Needed to convert from primitive to wrapped Boolean for the correct get/isBoolean accessor from Jaxb2 -->
                 <property name="XMLBooleanAdapter"></property>
+                <!-- Allow new optional unexpected elements in XML, for forward compatibility -->
+                <property name="customValidators">javax.xml.bind.helpers.IgnoreUnexpectedElementsHandler</property>
 #else
                 <property name="xmlAttributes">false</property>
 #end
@@ -174,6 +176,11 @@
                 <property name="password">${jdbc.password}</property>
                 <property name="driver">${jdbc.driver}</property>
                 <property name="connectionUrl">${jdbc.url}</property>
+                <property name="testDialect">${testdb.dialect}</property>
+                <property name="testDriver">${testdb.driver}</property>
+                <property name="testConnectionUrl">${testdb.url}</property>
+                <property name="testUsername">${testdb.username}</property>
+                <property name="testPassword">${testdb.password}</property>
                 <property name="entity-beans">${core.generated.dir}</property>
                 <property name="entity-impls">${core.manual.java.dir}</property>
                 <property name="entity-config">${core.generated.dir}</property>

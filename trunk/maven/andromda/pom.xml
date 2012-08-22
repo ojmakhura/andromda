@@ -121,6 +121,9 @@
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>
+            <plugin>
+                <artifactId>maven-plugin-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
 </project>

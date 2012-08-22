@@ -64,4 +64,11 @@
             </plugin>
         </plugins>
     </reporting>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-plugin-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

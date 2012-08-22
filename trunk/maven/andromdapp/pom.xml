@@ -108,9 +108,9 @@
             <scope>runtime</scope>
         </dependency>
     </dependencies>
-    <!--build>
+    <build>
         <plugins>
-            <plugin>
+            <!--plugin>
               <artifactId>maven-invoker-plugin</artifactId>
               <version>1.5</version>
               <configuration>
@@ -131,7 +131,10 @@
                   </goals>
                 </execution>
               </executions>
+            </plugin-->
+            <plugin>
+                <artifactId>maven-plugin-plugin</artifactId>
             </plugin>
         </plugins>
-    </build-->
+    </build>
 </project>

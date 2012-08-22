@@ -1282,7 +1282,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>2.5</version>
+                    <version>2.6</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
@@ -1517,6 +1517,37 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <stagingDirectory>${applicationParentDirectory.replace('\', '/')}/${applicationId}/target/site</stagingDirectory>
 #if ($hibernate || $spring || $ejb3)
+#if ($h2)
+        <testdb.groupId>com.h2database</testdb.groupId>
+        <testdb.artifactId>h2</testdb.artifactId>
+        <testdb.version>1.3.168</testdb.version>
+#elseif ($hypersonic)
+        <testdb.groupId>org.hsqldb</testdb.groupId>
+        <testdb.artifactId>hsqldb</testdb.artifactId>
+        <testdb.version>2.2.8</testdb.version>
+#elseif ($derby)
+        <testdb.groupId>org.apache.derby</testdb.groupId>
+        <testdb.artifactId>derby</testdb.artifactId>
+        <testdb.version>10.8.2.2</testdb.version>
+#end
+#if ($testDatabase.equals("h2")||$testDatabase.equals("hypersonic")||$testDatabase.equals("derby"))
+        <testdb.driver>$${jdbc.driver}</testdb.driver>
+        <testdb.dialect>$${jdbc.dialect}</testdb.dialect>
+        <testdb.url>$${jdbc.url}</testdb.url>
+        <testdb.username>$${jdbc.username}</testdb.username>
+        <testdb.password>$${jdbc.password}</testdb.password>
+#else
+## Always use H2 for testdb because it can emulate most major DBMSs
+        <testdb.groupId>com.h2database</testdb.groupId>
+        <testdb.artifactId>h2</testdb.artifactId>
+        <testdb.version>1.3.168</testdb.version>
+        <testdb.driver>org.h2.Driver</testdb.driver>
+        <testdb.dialect>org.hibernate.dialect.H2Dialect</testdb.dialect>
+        <!-- See http://www.h2database.com/html/features.html#database_url (mixed mode) -->
+        <testdb.url>jdbc:h2:~/${application.id};AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</testdb.url>
+        <testdb.username>sa</testdb.username>
+        <testdb.password>sa</testdb.password>
+#end
         <!--
             Change this to generate to the correct MDA database mappings,
             For MySql use: MySQL
@@ -1682,7 +1713,7 @@
         -->
 #end
 #if ($cxf)
-        <cxf.version>2.6.1</cxf.version>
+        <cxf.version>2.6.2</cxf.version>
         <cxf.xjc.version>2.6.0</cxf.xjc.version>
 #end
 #if ($spring)

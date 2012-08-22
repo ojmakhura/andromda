@@ -17,4 +17,11 @@
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/site/skin</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-plugin-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
