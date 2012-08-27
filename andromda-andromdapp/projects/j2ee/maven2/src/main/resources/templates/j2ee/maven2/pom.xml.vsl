@@ -9,6 +9,12 @@
     <version>$applicationVersion</version>
     <name>$applicationName</name>
     <description>The $applicationName Project.</description>
+    <inceptionYear></inceptionYear>
+    <url></url>
+    <issueManagement>
+        <system></system>
+        <url></url>
+    </issueManagement>
     <scm>
         <connection></connection>
         <developerConnection></developerConnection>
@@ -18,6 +24,14 @@
         <name></name>
         <url></url>
     </organization>
+    <licenses>
+        <license>
+            <name></name>
+            <url></url>
+            <distribution></distribution>
+            <comments></comments>
+        </license>
+    </licenses>
     <ciManagement>
         <system></system>
     </ciManagement>
@@ -1333,7 +1347,7 @@
                     <executions>
                         <execution>
                             <id>attach-sources</id>
-                            <phase>verify</phase>
+                            <phase>package</phase>
                             <goals>
                                 <goal>jar-no-fork</goal>
                             </goals>
@@ -1735,8 +1749,10 @@
         <!-- SCM user ID and Password here, or in user specific settings.xml file -->
         <username></username>
         <password></password>
+        <maven-javadoc-plugin.version>2.8.1</maven-javadoc-plugin.version>
     </properties>
     <profiles>
+        <!--Profile configuration for local builds, activeByDefault, customize for your project -->
         <profile>
             <id>local</id>
             <activation>
@@ -2005,42 +2021,216 @@
                         </plugin>
                         <plugin>
                             <artifactId>maven-compiler-plugin</artifactId>
-                            <version>2.5.1</version>
-                            <configuration>
-                                <source>${java.version}</source>
-                                <target>${java.version}</target>
-                                <compilerArgument>-Xlint:cast,unchecked,fallthrough,finally,serial</compilerArgument>
-                                <showDeprecation>true</showDeprecation>
-                                <showWarnings>true</showWarnings>
-                            </configuration>
                         </plugin>
                         <plugin>
                             <artifactId>maven-surefire-plugin</artifactId>
-                            <version>2.12.2</version>
                         </plugin>
                         <plugin>
                             <artifactId>maven-site-plugin</artifactId>
-                            <version>3.1</version>
-                            <!--dependencies>
-                                <dependency>
-                                    <groupId>org.apache.maven.doxia</groupId>
-                                    <artifactId>doxia-module-twiki</artifactId>
-                                    <version>1.1.3</version>
-                                </dependency>
-                            </dependencies-->
                         </plugin>
                     </plugins>
                 </pluginManagement>
             </build>
+            <!-- Customize for your project -->
+#if ($stringUtils.isNotBlank($distributionManagementRepositoryUrl) && !$distributionManagementRepositoryUrl.equals('$distributionManagementRepositoryUrl'))
+            <distributionManagement>
+                <repository>
+                    <id>$distributionManagementRepositoryId</id>
+                    <url>$distributionManagementRepositoryUrl</url>
+                    <uniqueVersion>true</uniqueVersion>
+                </repository>
+                <snapshotRepository>
+                    <id>$distributionManagementSnapshotRepositoryId</id>
+                    <url>$distributionManagementSnapshotRepositoryUrl</url>
+                    <uniqueVersion>false</uniqueVersion>
+                </snapshotRepository>
+                <site>
+                    <id>website</id>
+                    <url>file:/var/www/docs/$applicationId</url>
+                </site>
+            </distributionManagement>
+#else
+            <!--distributionManagement>
+                <repository>
+                    <id>andromda-repository</id>
+                    <name>AndroMDA Repository</name>
+                    <url>file:/scratch/hudson/workspace/Andromda/$applicationId/</url>
+                    <uniqueVersion>false</uniqueVersion>
+                </repository>
+                <snapshotRepository>
+                    <id>andromda-snapshots</id>
+                    <name>AndroMDA Snapshot Repository</name>
+                    <url>file:/scratch/hudson/workspace/Andromda/$applicationId/</url>
+                    <uniqueVersion>false</uniqueVersion>
+                </snapshotRepository>
+                <site>
+                    <id>website</id>
+                    <url>file:/scratch/hudson/workspace/Andromda/site/$applicationId/</url>
+                </site>
+            </distributionManagement-->
+#end
         </profile>
-        <!-- Create/install javadoc and test-javadoc jars during the build. Run as part of deploy process -->
+        <!-- Cloudbees WebDav: See https://github.com/CloudBees-community/maven-config-github-cloudbees/blob/master/pom.xml
+            Configure server id/password in settings.xml to deploy. -->
+        <profile>
+            <id>cloudbees</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <!-- Deploy releases and snapshots to the CloudBees maven repositories. Customize for your project if using Cloudbees, or remove. -->
+            <distributionManagement>
+              <repository>
+                <id>andromdabuild-cloudbees-release</id>
+                <name>andromdabuild-cloudbees-release</name>
+                <!-- Webdav repository url are prefixed with dav: -->
+                <url>dav:https://repository-andromdabuild.forge.cloudbees.com/release/</url>
+                <uniqueVersion>true</uniqueVersion>
+              </repository>
+              <snapshotRepository>
+                <id>andromdabuild-cloudbees-snapshot</id>
+                <name>andromdabuild-cloudbees-snapshot</name>
+                <url>dav:https://andromdabuild-javaetmoi.forge.cloudbees.com/snapshot/</url>
+                <uniqueVersion>false</uniqueVersion>
+              </snapshotRepository>
+              <site>
+                  <id>website</id>
+                  <url>file:/scratch/hudson/workspace/Andromda/site/</url>
+              </site>
+            </distributionManagement>
+            <repositories>
+              <repository>
+                <id>andromdabuild-cloudbees-release</id>
+                <name>andromdabuild-cloudbees-release</name>
+                <url>https://andromdabuild-javaetmoi.forge.cloudbees.com/release/</url>
+                <releases>
+                  <enabled>true</enabled>
+                </releases>
+                <snapshots>
+                  <enabled>false</enabled>
+                </snapshots>
+              </repository>
+              <repository>
+                <id>andromdabuild-cloudbees-snapshot</id>
+                <name>andromdabuild-cloudbees-snapshot</name>
+                <url>https://repository-andromdabuild.forge.cloudbees.com/snapshot/</url>
+                <releases>
+                  <enabled>false</enabled>
+                </releases>
+                <snapshots>
+                  <enabled>true</enabled>
+                </snapshots>
+              </repository>
+            </repositories>
+        </profile>
+        <!-- Sourceforge SCP site deployment: See http://maven.apache.org/plugins/maven-site-plugin/examples/site-deploy-to-sourceforge.net.html
+            Configure server id/password in settings.xml to deploy. Must create sourceforge shell before running, with 240 minute time limit:
+            ssh -t sfusername,andromda@shell.sf.net create -->
+        <profile>
+            <id>sourceforge</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <distributionManagement>
+              <site>
+                  <id>andromda.sourceforge.net</id>
+                  <url>scp://shell.sourceforge.net/home/project-web/andromda/htdocs</url>
+              </site>
+            </distributionManagement>
+        </profile>
+        <!-- Sonatype builds and distribution, for synch to maven central. See
+        https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide -->
+        <profile>
+            <id>sonatype</id>
+            <build>
+                <plugins>
+                    <!-- Deploy source and javadocs with each snapshot deployment. Javadocs take a while to generate -->
+                    <plugin>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven-javadoc-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                    <goal>test-jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <show>package</show>
+                            <version>true</version>
+                            <javadocVersion>${source.version}</javadocVersion>
+                            <failOnError>false</failOnError>
+                            <linksource>true</linksource>
+                            <detectLinks>true</detectLinks>
+                            <detectOfflineLinks>true</detectOfflineLinks>
+                            <extdirs>${project.basedir}/target/src/min/java</extdirs>
+                            <links>
+                                <link>http://download.oracle.com/javase/6/docs/api/</link>
+                                <link>http://download.oracle.com/javaee/1.4/api/</link>
+                                <link>http://download.eclipse.org/modeling/mdt/uml2/javadoc/3.1.0/</link>
+                                <link>http://download.eclipse.org/modeling/emf/emf/javadoc/2.6.0/</link>
+                                <link>http://dom4j.sourceforge.net/dom4j-1.6.1/apidocs/</link>
+                                <link>http://freemarker.org/docs/api/</link>
+                                <link>http://groovy.codehaus.org/api/</link>
+                                <link>http://www.jajakarta.org/ant/ant-1.6.1/docs/ja/manual/api/</link>
+                                <link>http://jakarta.apache.org/commons/collections/apidocs/</link>
+                                <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
+                                <link>http://jakarta.apache.org/regexp/apidocs/</link>
+                                <link>http://jaxb.java.net/nonav/2.2.4/docs/api/</link>
+                                <link>http://logging.apache.org/log4j/docs/api/</link>
+                                <link>http://maven.apache.org/ref/2.2.1/maven-core/apidocs/</link>
+                                <link>http://maven.apache.org/ref/2.2.1/maven-plugin-api/apidocs/</link>
+                                <link>http://maven.apache.org/ref/2.2.1/maven-project/apidocs/</link>
+                                <link>http://maven.apache.org/ref/2.2.1/maven-artifact/apidocs/</link>
+                                <link>http://velocity.apache.org/engine/devel/apidocs/</link>
+                                <link>http://www.andromda.org/docs/jmi-uml1.4/</link>
+                                <link>http://www.csg.is.titech.ac.jp/~chiba/javassist/html/</link>
+                                <link>http://www.junit.org/junit/javadoc/</link>
+                            </links>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <!-- Sonatype server id/password must be specified in settings.xml -->
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>sonatype-nexus-snapshots</id>
+                    <name>Sonatype Nexus Snapshots</name>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>sonatype-nexus-staging</id>
+                    <name>Nexus Staging Repository</name>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+            <properties>
+                <repositoryId>andromda-snapshots</repositoryId>
+                <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+            </properties>
+        </profile>
+        <!-- Create/install javadoc and test-javadoc jars during the build. Run as part of deploy process. Central synch requires source and javadocs artifacts. -->
         <profile>
             <id>javadocs</id>
             <build>
                     <plugins>
                         <plugin>
                             <artifactId>maven-javadoc-plugin</artifactId>
-                            <version>2.8.1</version>
+                        <version>${maven-javadoc-plugin.version}</version>
                             <executions>
                                 <execution>
                                     <id>javadoc-jar</id>
@@ -2093,6 +2283,29 @@
                     </plugins>
             </build>
         </profile>
+        <!-- Needed for releases only. settings.xml: Add same profile with gpg.keyname, gpg.passphrase, gpg.homedir properties.
+          Run mvn deploy -Pjavadocs,local,gpg-andromda > deploy.txt -->
+        <profile>
+            <id>gpg-andromda</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.4</version>
+                        <inherited>true</inherited>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
     <repositories>
         <repository>
@@ -2118,42 +2331,6 @@
     <prerequisites>
         <maven>2.2.1</maven>
     </prerequisites>
-    <!-- Customize for your project -->
-#if ($stringUtils.isNotBlank($distributionManagementRepositoryUrl) && !$distributionManagementRepositoryUrl.equals('$distributionManagementRepositoryUrl'))
-    <distributionManagement>
-        <repository>
-            <id>$distributionManagementRepositoryId</id>
-            <url>$distributionManagementRepositoryUrl</url>
-            <uniqueVersion>true</uniqueVersion>
-        </repository>
-        <snapshotRepository>
-            <id>$distributionManagementSnapshotRepositoryId</id>
-            <url>$distributionManagementSnapshotRepositoryUrl</url>
-            <uniqueVersion>false</uniqueVersion>
-        </snapshotRepository>
-        <!--site>
-            <id>website</id>
-            <url>file:/var/www/docs/$applicationId</url>
-        </site-->
-    </distributionManagement>
-#else
-    <!--distributionManagement>
-        <repository>
-            <id>$distributionManagementRepositoryId</id>
-            <url>$distributionManagementRepositoryUrl</url>
-            <uniqueVersion>true</uniqueVersion>
-        </repository>
-        <snapshotRepository>
-            <id>$distributionManagementSnapshotRepositoryId</id>
-            <url>$distributionManagementSnapshotRepositoryUrl</url>
-            <uniqueVersion>false</uniqueVersion>
-        </snapshotRepository>
-        <site>
-            <id>website</id>
-            <url>file:/var/www/docs/$applicationId</url>
-        </site>
-    </distributionManagement-->
-#end
     <!-- Comment to disable project reporting using default maven plugins -->
     <reporting>
         <plugins>
@@ -2188,7 +2365,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.8.1</version>
+                <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
                     <minmemory>128m</minmemory>
                     <maxmemory>1g</maxmemory>

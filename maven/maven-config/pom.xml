@@ -12,6 +12,7 @@
     <version>3.4-SNAPSHOT</version>
     <name>Maven Configuration for quality metrics</name>
     <description>AndroMDA Maven Config - global configurations for quality metrics such as PMD FindBugs CheckStyle</description>
+    <url>http://www.andromda.org/docs</url>
     <issueManagement>
         <system>jira</system>
         <url>http://www.andromda.org/jira/browse/MAVEN</url>
@@ -210,7 +211,7 @@
         </profile>
         <!-- Needed for releases only-->
         <profile>
-            <id>gpg</id>
+            <id>gpg-andromda</id>
             <build>
                 <plugins>
                     <plugin>

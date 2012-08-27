@@ -9,7 +9,15 @@
     <version>3.4-SNAPSHOT</version>
     <name>TimeTracker EJB3</name>
     <description>The TimeTracker EJB3 Project.</description>
+    <url>http://www.andromda.org/docs</url>
+    <issueManagement>
+        <system>jira</system>
+        <url>http://jira.andromda.org/</url>
+    </issueManagement>
     <scm>
+        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromda-documentation/samples/timetracker-ejb3</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromda-documentation/samples/timetracker-ejb3</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/viewvc/andromda/trunk/andromda-documentation/samples/timetracker-ejb3/</url>
     </scm>
     <organization>
         <name>AndroMDA.org</name>
@@ -563,7 +571,7 @@
                     <executions>
                         <execution>
                             <id>attach-sources</id>
-                            <phase>verify</phase>
+                            <phase>package</phase>
                             <goals>
                                 <goal>jar-no-fork</goal>
                             </goals>
@@ -668,7 +676,7 @@
                 <executions>
                     <execution>
                         <id>attach-sources</id>
-                        <phase>verify</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>

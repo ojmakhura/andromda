@@ -11,8 +11,8 @@
         <url>http://www.andromda.org/jira/browse/MAVEN</url>
     </issueManagement>
     <scm>
-        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/maven-config</connection>
-        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/maven-config</developerConnection>
+        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/maven-parent</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/maven-parent</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <!-- Duplicated from andromda pom to avoid circular dependency error -->

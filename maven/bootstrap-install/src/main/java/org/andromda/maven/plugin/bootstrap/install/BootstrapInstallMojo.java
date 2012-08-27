@@ -182,12 +182,17 @@ public class BootstrapInstallMojo
         minModel.setGroupId(getBootstrapGroupId(this.project.getArtifact()));
         minModel.setArtifactId(model.getArtifactId());
         minModel.setVersion(model.getVersion());
+        minModel.setName(model.getName());
+        minModel.setPackaging("jar");
         minModel.setDescription(model.getDescription());
         minModel.setModelEncoding(model.getModelEncoding());
         minModel.setModelVersion(model.getModelVersion());
+        minModel.setUrl(model.getUrl());
+        minModel.setScm(model.getScm());
+        minModel.setDevelopers(model.getDevelopers());
+        minModel.setCiManagement(model.getCiManagement());
+        minModel.setIssueManagement(model.getIssueManagement());
 
-        minModel.setName(model.getName());
-        minModel.setPackaging("jar");
         minModel.setPrerequisites(model.getPrerequisites());
         minModel.setOrganization(model.getOrganization());
         minModel.setInceptionYear(model.getInceptionYear());

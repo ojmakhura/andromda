@@ -88,6 +88,8 @@
                             </goals>
                             <profiles>
                                 <profile>javadocs</profile>
+                                <profile>local</profile>
+                                <!--profile>gpg-andromda</profile-->
                             </profiles>
                             <properties>
                                 <!-- profile distributionManagement repository info not passed through invoker to generated project >

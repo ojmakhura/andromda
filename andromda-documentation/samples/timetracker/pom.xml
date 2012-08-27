@@ -546,7 +546,7 @@
                     <executions>
                         <execution>
                             <id>attach-sources</id>
-                            <phase>verify</phase>
+                            <phase>package</phase>
                             <goals>
                                 <goal>jar-no-fork</goal>
                             </goals>
@@ -642,7 +642,7 @@
                 <executions>
                     <execution>
                         <id>attach-sources</id>
-                        <phase>verify</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
@@ -904,15 +904,15 @@
                 </site>
             </distributionManagement>
         </profile>
-        <!-- Only needed when signing release artifacts -->
+        <!-- Only needed for signing release artifacts for sonatype and maven-central. Must configure gpg.keyname, passphrase, homedir in maven settings.xml gpg-andromda profile -->
         <profile>
             <id>gpg-andromda</id>
             <build>
                 <plugins>
                     <plugin>
-                        <inherited>true</inherited>
                         <artifactId>maven-gpg-plugin</artifactId>
                         <version>1.4</version>
+                        <inherited>true</inherited>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
