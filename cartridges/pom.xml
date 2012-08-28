@@ -112,6 +112,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>xml-maven-plugin</artifactId>
+                    <version>${xml-maven-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>transform</id>

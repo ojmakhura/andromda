@@ -12,7 +12,7 @@
                 persistent class like a Company or Person for example.
                 In the EJB3 cartridge you will not need to worry about the underlying persistence technology, but
                 you will probably want to know that EJB3 POJOs will be generated for the
-                entities you model.  The EJB 3.0 container (i.e. JBoss) adopts a suitable configurable persistence 
+                entities you model.  The EJB 3.0 container (i.e. JBoss) adopts a suitable configurable persistence
                 technology. (i.e Hibernate)
             </p>
             <p>
@@ -35,7 +35,7 @@
                 <a href="../starting.html#My_first_AndroMDA_project">how to setup your first AndroMDA project</a>).
             </p>
             <!--p class="highlight">
-                Please note that the EJB3 cartridge is now included in the AndroMDAPP project which means you 
+                Please note that the EJB3 cartridge is now included in the AndroMDAPP project which means you
                 can generate your project structure using that generator.
             </p-->
             <p>
@@ -59,7 +59,7 @@
                     The generated Entity component operations will delegate their implementation to the Embeddable component.
                 </li>
                 <li>
-                    The alternative is to have an embeddable/mapped superclass with an entity class that inherits 
+                    The alternative is to have an embeddable/mapped superclass with an entity class that inherits
                     from this mapped superclass.  This is the case where the entity models instance
                     scoped operations and are involved in non-inheriting hierarchies.
                     However once you introduce inheritance, the Embeddable Impl class must be maintained.
@@ -93,7 +93,7 @@
             <a name="Entity_Database_Table"/>
             <subsection name="Entity Database Table">
                 <p>
-                    Your relational table's name which persists an entity is determined by default from the 
+                    Your relational table's name which persists an entity is determined by default from the
                     actual entity name.
                     To change the table name assignment in the <code>@javax.persistence.Table</code> annotation,
                     set the <![CDATA[<<Entity>>]]><b> <code>andromda_persistence_table</code></b> tag on the entity.
@@ -412,8 +412,8 @@
                     <li class="gen"><a href="howto/org/andromda/test/howto1/g/CarDaoException.java"><code>CarDaoException.java</code></a></li>
                 </ul>
                 <p>
-                    This example models the attribute named <code>type</code> as a CLOB where the corresponding 
-                    column in the table will be of type <code>String</code> and the cartridge will set the fetch type for the 
+                    This example models the attribute named <code>type</code> as a CLOB where the corresponding
+                    column in the table will be of type <code>String</code> and the cartridge will set the fetch type for the
                     attribute to <b>eagerly</b> fetch.  The attribute <code>information</code> is defined as a LOB,
                     but it's of type <code>char[]</code>.
                 </p>

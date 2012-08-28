@@ -10,7 +10,7 @@
             <p>
                 The EJB 3.0 specification introduces inheritance:
             </p>
-            
+
             <p>
               <i>An entity may inherit from another entity class. Entities support inheritance, polymorphic
               associations, and polymorphic queries.</i>
@@ -22,7 +22,7 @@
             <p>
                  <i>Entities can extend non-entity classes and non-entity classes can extend entity classes.</i>
             </p>
-            
+
             <p>
                 The following howto should give you a basic understanding on how to model your inheritance
                 hierarchies using the EJB3 cartridge.
@@ -57,9 +57,9 @@
                     models)
                 </p>
                 <p class="highlight">
-                    You must explicitly define your identifier(s) either in the mapped superclass or in 
+                    You must explicitly define your identifier(s) either in the mapped superclass or in
                     the subclass entity.
-                </p> 
+                </p>
                 <p>
                     The following is an example of this type of inheritance where the <code>Vehicle</code> mapped
                     superclass contains the identifier which is automatically used by the <code>Car</code> entity.
@@ -95,7 +95,7 @@
                     <li class="gen"><a href="howto/org/andromda/test/howto9/a/RentalException.java"><code>RentalException.java</code></a></li>
                 </ul>
                 <p>
-                    It's worthwhile to note that only a <code>Vehicle</code> class is generated which 
+                    It's worthwhile to note that only a <code>Vehicle</code> class is generated which
                     contains all the mapping information.  In this case, because the <code>Vehicle</code> class
                     was explicitly defined as a mapped superclass, the naming pattern does NOT append
                     <code>Embeddable</code> to the class name.
@@ -103,7 +103,7 @@
                     class will be overwritten.
                 </p>
                 <p>
-                    The process also generates a <code>CarEmbeddable</code> mapped superclass, containing all 
+                    The process also generates a <code>CarEmbeddable</code> mapped superclass, containing all
                     mapping information, along with an extending <code>Car</code> implementation entity class.
                     Remember that this only happens if the entity contains <code>instance</code> scoped operations.
                     The naming pattern here dictates that <code>Embeddable</code> is appended to the mapped superclass.
@@ -111,7 +111,7 @@
                 </p>
                 <p>
                     The Person entity operates under normal EJB3 cartridge
-                    guidelines since there is no inheritance hierarchy for this entity.  Therefore, only a 
+                    guidelines since there is no inheritance hierarchy for this entity.  Therefore, only a
                     <code>Person</code> class is generated and should not be modified since it will be overwritten
                     during the next build.
                 </p>
@@ -130,7 +130,7 @@
                 </p>
                 <p>
                     If a query is based on the root class in the hierarchy, the query is polymorphic which implies
-                    that entity subclass instances will be returned.  
+                    that entity subclass instances will be returned.
                 </p>
                 <p>
                     <b>Pros:</b> Good support for polymorphic relationships between entities and queries over the class
@@ -180,7 +180,7 @@
                 <p>
                     Notice in the previous example where <code>Vehicle</code> was defined as a mapped superclass,
                     no DAO components were generated.  In this example, <code>Vehicle</code> is an entity and the
-                    the corresponding DAO components were generated. The discriminator components are discussed 
+                    the corresponding DAO components were generated. The discriminator components are discussed
                     below.
                 </p>
             </subsection>
@@ -282,7 +282,7 @@
                     <i>Support for the combination of inheritance strategies within a single entity inheritance 
                     hierarchy is not required by this specification.</i>
                 </p>
-                
+
             </subsection>
         </section>
         <section name="Next">

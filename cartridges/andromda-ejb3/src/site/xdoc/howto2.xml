@@ -38,7 +38,7 @@
                 <img src="images/org/andromda/test/2/a/uml.gif" alt="images/org/andromda/test/2/a/uml.gif"/>
             </p>
             <p>
-                In this example we have added two attributes to the <code>Person</code> entity. 
+                In this example we have added two attributes to the <code>Person</code> entity.
             </p>
             <ul>
                 <li>name of type <code>datatype::String</code> (or we can use UMLPrimitiveTypes::String from the UML Standard library)</li>
@@ -83,7 +83,7 @@
                     <p>
                         A One-To-Many relationship has been defined from the Person entity to the Car entity.
                         This adds the <code>@javax.persistence.OneToMany</code>
-                        annotation to the getter method and sets the <code>mappedBy</code> property to 
+                        annotation to the getter method and sets the <code>mappedBy</code> property to
                         <code>'owner'</code>, which indicates the <b>other end of
                         the association is the owning side of the relationship and is the only side of the
                         relationship responsible for mapping the attribute to a table and column</b>.
@@ -99,7 +99,7 @@
                     <p>
                         A Many-To-One relationship has been defined from the
                         Car entity to the Person entity.  This adds the <code>@javax.persistence.ManyToOne</code>
-                        annotation to the getter method <code>getOwner</code> in the Car entity.  
+                        annotation to the getter method <code>getOwner</code> in the Car entity.
                         Since the multiplicity on the
                         Person end of the association is set to 1, the annotation has defined the
                         <code>optional</code> property to <code>false</code> which indicates non-null entries
@@ -107,7 +107,7 @@
                     </p>
                     <p>
                         Since the Car entity end is the owning end, the <code>@javax.persistence.JoinColumn</code>
-                        annotation has been defined with a <code>name</code> property.  
+                        annotation has been defined with a <code>name</code> property.
                         This annotation is used to indicate a <b>mapped column for joining an entity association</b>.
                         The <code>name</code> property defines the foreign key column name.
                     </p>
@@ -224,6 +224,9 @@
                     indicate the <b>owning end of the relationship as an <code>aggregate</code> or
                     <code>composite</code> end</b>. You should use aggregation when an entity is part of
                     another one but the latter one does not need the former to exist.
+                    You can order the elements of a collection valued association by modeling the
+                    <![CDATA[<<PersistentAssociationEnd>>]]> <b><code>andromda_persistence_orderBy</code></b> tagged value on the target association end.
+                    A few notes to consider:
                 </p>
                         <p>
                     By default, the EJB3 cartridge enables the following via the
@@ -353,7 +356,7 @@
             <a name="Transient_Relationships"/>
             <subsection name="Transient Relationships">
                 <p>
-                    To indicate an association relationship target as transient (not persisted by the persistence 
+                    To indicate an association relationship target as transient (not persisted by the persistence
                     container), you model the <b><![CDATA[<<Transient>>]]></b> stereotype on the target end.  This adds the
                     <code>@javax.persistence.Transient</code> annotation to the relationship getter.
                 </p>
@@ -361,26 +364,26 @@
             <a name="Foreign_Key_Column_Names_And_Foreign_Key_Constraint_Names"/>
             <subsection name="Foreign Key Column Names and Foreign Key Constraint Names">
                 <p>
-                    By default, the foreign key column names are defined by the cartridge and foreign key constraint 
-                    names are defined by your database on creation.  This way, we don't impose any complexity 
+                    By default, the foreign key column names are defined by the cartridge and foreign key constraint
+                    names are defined by your database on creation.  This way, we don't impose any complexity
                     on any project.  However, there are always certain environments and projects which require a
                     strict architecture, i.e. the foreign key and the primary key column names are the same.
                     This is where you may need the flexibility to control the generated foreign key
-                    names and foreign key constraint names. 
+                    names and foreign key constraint names.
                 </p>
                 <p>
                     Controlling foreign key names is relatively simple as long as you know where to model the right
-                    tagged value.  In all four association types, you can use the 
+                    tagged value.  In all four association types, you can use the
                     <b><![CDATA[<<PersistentProperty>>]]> <code>andromda_persistence_column</code></b> tagged value on an association end to explicitly
                     define the foreign key name.
                 </p>
                 <p>
-                    In a <b>many-to-one</b> or <b>one-to-one</b> association, model the 
+                    In a <b>many-to-one</b> or <b>one-to-one</b> association, model the
                     <![CDATA[<<PersistentProperty>>]]> <b><code>andromda_persistence_column</code></b> tagged value
                     on the target association ends.  In a
                     <b>one-to-many</b> unidirection or <b>many-to-many</b> association, you can model the
-                    <code>andromda_persistence_column</code> tagged value on either one or both ends of the 
-                    association.  
+                    <code>andromda_persistence_column</code> tagged value on either one or both ends of the
+                    association.
                 </p>
                 <p>
                     Remember that you don't have to explicitly define the foreign key column names. The cartridge
@@ -416,7 +419,7 @@
                     For <b>one-to-many unidirectional</b> and <b>many-to-many</b> associations,
                     you must model the foreign key constraint name on the source association end if you want
                     to define the foreign key constraint name on the target association end.  If you don't, then
-                    neither one will be considered during generation.  You can however only define the foreign key 
+                    neither one will be considered during generation.  You can however only define the foreign key
                     constraint name on the source end and not the target end.
                 </p>
                 <p class="highlight">
