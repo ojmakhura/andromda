@@ -83,6 +83,19 @@
 ##end
 ##end
         </xs:schema>
+#elseif ($service.hasStereotype("WSCustomHeader") || $service.hasStereotype("WSSecurity"))
+        <xs:schema>
+#if ($service.hasStereotype("WSCustomHeader"))
+#if ($stringUtils.isEmpty($serviceHeaderXSDlocation))#set ($serviceHeaderXSDlocation=$serviceHeaderNamespace)#end
+            <xs:import namespace="$serviceHeaderNamespace"
+                schemaLocation="$serviceHeaderXSDlocation"/>
+#end
+#if ($service.hasStereotype("WSSecurity"))
+#if ($stringUtils.isEmpty($serviceSecurityXSDlocation))#set ($serviceSecurityXSDlocation=$serviceSecurityNamespace)#end
+            <xs:import namespace="$serviceSecurityNamespace"
+                schemaLocation="$serviceSecurityXSDlocation"/>
+#end
+        </xs:schema>
 #end
 #parse("templates/webservice/jaxws/jaxws-included-xsd.vsl")
     </wsdl:types>

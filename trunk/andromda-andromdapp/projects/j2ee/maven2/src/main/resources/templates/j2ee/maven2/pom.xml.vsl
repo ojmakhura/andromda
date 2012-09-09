@@ -9,31 +9,79 @@
     <version>$applicationVersion</version>
     <name>$applicationName</name>
     <description>The $applicationName Project.</description>
+## Configuration values supplied by andromdapp configuration file, not command line
+#if ($stringUtils.isNotBlank($inceptionYear) && !$inceptionYear.equals('$inceptionYear'))
+    <inceptionYear>$inceptionYear</inceptionYear>
+#else
     <inceptionYear></inceptionYear>
-    <url></url>
+#end
+#if ($stringUtils.isNotBlank($projectUrl) && !$projectUrl.equals('$projectUrl'))
+    <url>$projectUrl</url>
+#else
+    <url>http://www.andromda.org/</url>
+#end
     <issueManagement>
+#if ($stringUtils.isNotBlank($issueSystem) && !$issueSystem.equals('$issueSystem'))
+        <system>$issueSystem</system>
+#else
         <system></system>
+#end
+#if ($stringUtils.isNotBlank($issueUrl) && !$issueUrl.equals('$issueUrl'))
+        <url>$issueUrl</url>
+#else
         <url></url>
+#end
     </issueManagement>
     <scm>
+#if ($stringUtils.isNotBlank($scmConnection) && !$scmConnection.equals('$scmConnection'))
+        <connection>$scmConnection</connection>
+        <developerConnection>$scmConnection</developerConnection>
+        <url>$scmConnection/</url>
+#else
         <connection></connection>
         <developerConnection></developerConnection>
         <url></url>
+#end
     </scm>
     <organization>
+#if ($stringUtils.isNotBlank($organizationName) && !$organizationName.equals('$organizationName'))
+        <name>$organizationName</name>
+#else
         <name></name>
+#end
+#if ($stringUtils.isNotBlank($organizationUrl) && !$organizationUrl.equals('$organizationUrl'))
+        <url>$organizationUrl</url>
+#else
         <url></url>
+#end
     </organization>
     <licenses>
         <license>
+#if ($stringUtils.isNotBlank($licenseName) && !$licenseName.equals('$licenseName'))
+            <name>$licenseName</name>
+#else
             <name></name>
+#end
+#if ($stringUtils.isNotBlank($licenseUrl) && !$licenseUrl.equals('$licenseUrl'))
+            <url>$licenseUrl</url>
+#else
             <url></url>
+#end
             <distribution></distribution>
             <comments></comments>
         </license>
     </licenses>
     <ciManagement>
+#if ($stringUtils.isNotBlank($ciSystem) && !$ciSystem.equals('$ciSystem'))
+        <system>$ciSystem</system>
+#else
         <system></system>
+#end
+#if ($stringUtils.isNotBlank($ciUrl) && !$ciSystem.equals('$ciUrl'))
+        <url>$ciUrl</url>
+#else
+        <url></url>
+#end
     </ciManagement>
     <developers>
         <developer>
@@ -210,7 +258,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.6.6</version>
+                <version>1.7.0</version>
 #if($ear && !$cxf)
                 <scope>provided</scope>
 #end
@@ -218,7 +266,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
-                <version>1.6.6</version>
+                <version>1.7.0</version>
 #if($ear && !$cxf)
                 <scope>provided</scope>
 #end
@@ -558,7 +606,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.6.6</version>
+                <version>1.7.0</version>
 #if($ear && !$cxf)
                 <scope>provided</scope>
 #end
@@ -566,7 +614,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
-                <version>1.6.6</version>
+                <version>1.7.0</version>
 #if($ear && !$cxf)
                 <scope>provided</scope>
 #end
@@ -974,7 +1022,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.6.6</version>
+                <version>1.7.0</version>
 #if($ear && !$cxf)
                 <scope>provided</scope>
 #end
@@ -982,7 +1030,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
-                <version>1.6.6</version>
+                <version>1.7.0</version>
 #if($ear && !$cxf)
                 <scope>provided</scope>
 #end
@@ -1129,7 +1177,7 @@
             <dependency>
                 <groupId>com.sun.xml.bind</groupId>
                 <artifactId>jaxb-xjc</artifactId>
-                <version>2.2.5-b10</version>
+                <version>2.2.7-b41</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -1411,7 +1459,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>2.3.1</version>
+                    <version>2.4</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-deploy-plugin</artifactId>
@@ -1733,15 +1781,15 @@
 #if ($spring)
         <!-- Set andromda.xml hibernateVersion=4, sessionFactory and localTransactionManager to hibernate4
         Spring cartridge only works with hibernate3.
-        <hibernate.version>4.1.6.Final</hibernate.version-->
+        <hibernate.version>4.1.7.Final</hibernate.version-->
         <hibernate.version>3.6.9.Final</hibernate.version>
 #elseif ($hibernate || $ejb3)
         <!-- Set andromda.xml hibernateVersion=3, sessionFactory and localTransactionManager to hibernate3
         <hibernate.version>3.6.9.Final</hibernate.version-->
-        <hibernate.version>4.1.6.Final</hibernate.version>
+        <hibernate.version>4.1.7.Final</hibernate.version>
 #end
 #if ($cxf || $embeddedJetty)
-        <jetty.version>8.1.5.v20120716</jetty.version>
+        <jetty.version>8.1.6.v20120903</jetty.version>
 #end
 #if ($cxf || $spring)
         <spring.version>3.1.2.RELEASE</spring.version>
@@ -2046,7 +2094,11 @@
                 </snapshotRepository>
                 <site>
                     <id>website</id>
+#if ($stringUtils.isNotBlank($website) && !$website.equals('$website'))
+                    <url>$website</url>
+#else
                     <url>file:/var/www/docs/$applicationId</url>
+#end
                 </site>
             </distributionManagement>
 #else
@@ -2065,7 +2117,11 @@
                 </snapshotRepository>
                 <site>
                     <id>website</id>
+#if ($stringUtils.isNotBlank($website) && !$website.equals('$website'))
+                    <url>$website</url>
+#else
                     <url>file:/scratch/hudson/workspace/Andromda/site/$applicationId/</url>
+#end
                 </site>
             </distributionManagement-->
 #end
@@ -2340,7 +2396,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.5</version>
+                <version>2.5.1</version>
                 <reportSets>
                   <reportSet>
                     <reports>

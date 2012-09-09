@@ -165,13 +165,13 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.6.6</version>
+                <version>1.7.0</version>
                 <!--scope>provided</scope-->
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
-                <version>1.6.6</version>
+                <version>1.7.0</version>
                 <!--scope>provided</scope-->
             </dependency>
             <dependency>
@@ -555,7 +555,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>2.3.1</version>
+                    <version>2.4</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-deploy-plugin</artifactId>
@@ -1035,7 +1035,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.5</version>
+                <version>2.5.1</version>
                 <reportSets>
                   <reportSet>
                     <reports>
@@ -1084,7 +1084,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.12.2</version>
+                <version>2.12.3</version>
             </plugin>
             <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>

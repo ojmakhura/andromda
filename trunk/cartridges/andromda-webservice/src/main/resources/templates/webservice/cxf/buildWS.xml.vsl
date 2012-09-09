@@ -29,8 +29,10 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <pathelement location="${m2repo}/wsdl4j/wsdl4j/1.6.2/wsdl4j-1.6.2.jar"/ -->
     <pathelement location="${m2repo}/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar"/>
     <pathelement location="${m2repo}/org/apache/cxf/cxf-bundle/${cxf.version}/cxf-bundle-${cxf.version}.jar"/>
-#if(${cxf.xjc.version}>"2.2")
+#if($stringUtils.isNotBlank(${cxf.xjc.version}) && ${cxf.xjc.version}>"2.2")
 #set($xjcplugins="xjcplugins/")
+#else
+#set($xjcplugins="")
 #end
     <pathelement location="${m2repo}/org/apache/cxf/${xjcplugins}cxf-xjc-dv/${cxf.xjc.version}/cxf-xjc-dv-${cxf.xjc.version}.jar"/>
     <pathelement location="${m2repo}/org/apache/cxf/${xjcplugins}cxf-xjc-ts/${cxf.xjc.version}/cxf-xjc-ts-${cxf.xjc.version}.jar"/>

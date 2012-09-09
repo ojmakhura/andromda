@@ -13,7 +13,7 @@
         xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
 #end
         xmlns:${service.namespacePrefix}="http://$webServiceUtils.reversePackage($pkg.fullyQualifiedName)#if($addNamespaceBackslash)/#end"
-#set ($pkgRefs = $webServiceUtils.getPackageReferences($service, $schemaTypes, $pkg.fullyQualifiedName, $extensionInheritanceDisabled))
+#set ($pkgRefs = $webServiceUtils.getPackageReferences($pkg, $extensionInheritanceDisabled))
 ##        <!-- $pkg $pkg.fullyQualifiedName $pkgRefs $pkgRefs.size() -->
 #foreach ($pkgRef in $pkgRefs)
         xmlns:$webServiceUtils.getPkgAbbr($pkgRef)="http://$webServiceUtils.reversePackage($pkgRef.fullyQualifiedName)#if($addNamespaceBackslash)/#end"

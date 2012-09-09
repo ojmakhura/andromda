@@ -31,7 +31,7 @@
     <licenses>
         <license>
             <name>The AndroMDA Project</name>
-            <url>LICENSE.txt</url>
+            <url>http://www.andromda.org/docs/license.html</url>
             <distribution>repo</distribution>
             <comments>AndroMDA runs under a BSD license</comments>
         </license>
@@ -535,20 +535,6 @@
                         </execution>
                     </executions>
                 </plugin>
-                <!-- Use with mvn install -Dgpg.keyname=<username> -Dgpg.passphrase=<value> -->
-                <plugin>
-                    <artifactId>maven-gpg-plugin</artifactId>
-                    <version>${maven-gpg-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>sign-artifacts</id>
-                            <phase>verify</phase>
-                            <goals>
-                                <goal>sign</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>
                     <version>${maven-install-plugin.version}</version>
@@ -827,6 +813,7 @@
             </plugin-->
             <plugin>
                 <artifactId>maven-install-plugin</artifactId>
+                <inherited>false</inherited>
                 <executions>
                     <execution>
                         <id>install_meta_cartridge</id>
@@ -965,6 +952,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-deploy-plugin</artifactId>
+                <inherited>false</inherited>
                 <executions>
                     <execution>
                         <id>deploy_meta_cartridge</id>
@@ -1184,7 +1172,7 @@
         <maven-eclipse-plugin.version>2.9</maven-eclipse-plugin.version>
         <maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>
         <maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
-        <maven-install-plugin.version>2.3.1</maven-install-plugin.version>
+        <maven-install-plugin.version>2.4</maven-install-plugin.version>
         <maven-invoker-plugin.version>1.7</maven-invoker-plugin.version>
         <maven-jar-plugin.version>2.4</maven-jar-plugin.version>
         <maven-javadoc-plugin.version>2.8.1</maven-javadoc-plugin.version>
@@ -1192,7 +1180,7 @@
         <!-- v2.7 causes ClassCastException: java.lang.String cannot be cast to java.io.File
         at org.apache.maven.plugin.pmd.AbstractPmdReport.getFilesToProcess(AbstractPmdReport.java:284) -->
         <maven-pmd-plugin.version>2.7.1</maven-pmd-plugin.version>
-        <maven-project-info-reports-plugin.version>2.5</maven-project-info-reports-plugin.version>
+        <maven-project-info-reports-plugin.version>2.5.1</maven-project-info-reports-plugin.version>
         <maven-release-plugin.version>2.3.2</maven-release-plugin.version>
         <maven-resources-plugin.version>2.6</maven-resources-plugin.version>
         <maven-site-plugin.version>3.1</maven-site-plugin.version>
@@ -1440,9 +1428,20 @@
             <id>gpg-andromda</id>
             <build>
                 <plugins>
+                    <!-- Configure maven settings.xml gpg.keyname=<username> gpg.passphrase=<value> -->
                     <plugin>
                         <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
                         <inherited>true</inherited>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>

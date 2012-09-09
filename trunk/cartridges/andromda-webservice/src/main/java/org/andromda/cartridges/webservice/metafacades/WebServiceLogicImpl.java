@@ -340,7 +340,11 @@ public class WebServiceLogicImpl
                                 {
                                     for (final ModelElementFacade property : properties)
                                     {
-                                        this.loadTypes(property, types, nonArrayTypes);
+                                        // Avoid StackOverflowError loading self-referenced types
+                                        if (!property.getFullyQualifiedName().equals(modelElement.getFullyQualifiedName()))
+                                        {
+                                            this.loadTypes(property, types, nonArrayTypes);
+                                        }
                                     }
                                 }
                             }
