@@ -30,5 +30,17 @@
         <property name="distributionManagementSnapshotRepositoryUrl">file:/scratch/hudson/workspace/Andromda/</property>
         <property name="distributionManagementRepositoryId">$${project.distributionManagement.repository.id}</property>
         <property name="distributionManagementSnapshotRepositoryId">$${project.distributionManagement.snapshotRepository.id}</property>
+        <property name="inceptionYear">2003</property>
+        <property name="projectUrl">http://www.andromda.org/</property>
+        <property name="issueSystem">jira</property>
+        <property name="issueUrl">http://jira.andromda.org/</property>
+        <property name="scmConnection">scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/samples/animal-quiz</property>
+        <property name="organizationName">AndroMDA.org</property>
+        <property name="organizationUrl">http://www.andromda.org/</property>
+        <property name="licenseName">BSD</property>
+        <property name="licenseUrl">http://www.andromda.org/docs/license.html</property>
+        <property name="ciSystem">jenkins</property>
+        <property name="ciUrl">https://andromdabuild.ci.cloudbees.com/job/Andromda/</property>
+        <property name="website">file:/scratch/hudson/workspace/Andromda/site/animal-quiz/</property>
     </properties>
 </andromdapp>

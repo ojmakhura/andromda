@@ -218,6 +218,7 @@ public final class $manageable.manageableDaoBaseName
             }
 #end
 #end
+            criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 #if ($manageable.maximumListSize > 0)
             criteria.setMaxResults($manageable.maximumListSize);
 

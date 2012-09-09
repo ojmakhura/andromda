@@ -27,7 +27,11 @@
             <models>
                 <model type="emf-uml22">
 #end
+#if ($stringUtils.isNotBlank($model))
+                    <uri>$model</uri>
+#else
                     <uri>${model.uri}</uri>
+#end
                     <!-- List any additional referenced models needed for code generation here, even if already referenced internally within the model file -->
                     <!--uri>file:${project.basedir}/src/main/uml/AdditionalModel.emx</uri-->
                     <moduleSearchLocations>

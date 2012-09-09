@@ -92,8 +92,6 @@
                                 <!--profile>gpg-andromda</profile-->
                             </profiles>
                             <properties>
-                                <!-- profile distributionManagement repository info not passed through invoker to generated project >
-                                <altDeploymentRepository>sonatype::default::https://oss.sonatype.org/service/local/staging/deploy/maven2/</altDeploymentRepository-->
                                 <altDeploymentRepository>${project.distributionManagement.snapshotRepository.id}::default::${project.distributionManagement.snapshotRepository.url}</altDeploymentRepository>
                             </properties>
                         </configuration>

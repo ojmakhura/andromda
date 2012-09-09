@@ -306,6 +306,10 @@
             <a name="Ordering_Collection_Valued_Association"/>
             <subsection name="Ordering Collection Valued Association">
                 <p>
+                    To model the owning side of a One-To-One or Many-To-Many bidirectional relationship, you
+                    indicate the <b>owning end of the relationship as an <code>aggregate</code> or
+                    <code>composite</code> end</b>. You should use aggregation when an entity is part of
+                    another one but the latter one does not need the former to exist.
                     You can order the elements of a collection valued association by modeling the
                     <![CDATA[<<PersistentAssociationEnd>>]]> <b><code>andromda_persistence_orderBy</code></b> tagged value on the target association end.
                     A few notes to consider:

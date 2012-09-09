@@ -171,7 +171,7 @@ $tab$tab1                // property1 $property1.name with $property1.type.allPr
 
 #set ($property1Num=$property1Num+1)
 #if ($property1.many)
-##$tab$tab1                // isMany: property1=$property1 property1.type=$property1.type
+##$tab$tab1                // isMany: property1=$property1.name $property1 property1.type=$property1.type property1.type=$property1.type.fullyQualifiedName
 
 $tab$tab1                ${property1.getterSetterTypeName} ${property1.name}List${propertyNum}${property1Num} = ${property.name}$propertyNum.${property1.getterName}();
 $tab$tab1                if (${property1.name}List${propertyNum}${property1Num} != null && !${property1.name}List${propertyNum}${property1Num}.isEmpty())
