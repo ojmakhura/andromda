@@ -93,9 +93,9 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin.version}</version>
                     <configuration>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
-                        <compilerVersion>${java.version}</compilerVersion>
+                        <source>${java.source.version}</source>
+                        <target>${java.runtime.version}</target>
+                        <compilerVersion>${java.source.version}</compilerVersion>
                         <compilerArgument>-Xlint:cast,unchecked,fallthrough,finally,serial</compilerArgument>
                         <showDeprecation>true</showDeprecation>
                         <showWarnings>true</showWarnings>
@@ -128,6 +128,7 @@
                 <plugin>
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <version>${maven-enforcer-plugin.version}</version>
+                    <inherited>true</inherited>
                     <executions>
                         <execution>
                             <id>enforce-jdk</id>
@@ -136,12 +137,13 @@
                             </goals>
                             <configuration>
                                 <rules>
+                                    <!--dependencyConvergence /-->
                                     <requireMavenVersion>
                                         <version>2.2.1</version>
                                     </requireMavenVersion>
                                     <requireJavaVersion>
-                                        <message>You need at least Java ${java.version}!</message>
-                                        <version>${java.version}</version>
+                                        <message>You need at least Java ${java.required.version}, current version=${java.version}!</message>
+                                        <version>${java.required.version}</version>
                                     </requireJavaVersion>
                                     <requirePluginVersions>
                                         <message>Best Practice is to always define plugin versions!</message>
@@ -201,7 +203,7 @@
                     <configuration>
                         <show>package</show>
                         <version>true</version>
-                        <javadocVersion>${source.version}</javadocVersion>
+                        <javadocVersion>${java.source.version}</javadocVersion>
                         <failOnError>false</failOnError>
                         <linksource>true</linksource>
                         <serialwarn>true</serialwarn>
@@ -323,7 +325,7 @@
                     <artifactId>maven-pmd-plugin</artifactId>
                     <version>${maven-pmd-plugin.version}</version>
                     <configuration>
-                        <targetJdk>${java.version}</targetJdk>
+                        <targetJdk>${java.runtime.version}</targetJdk>
                         <linkXRef>true</linkXRef>
                         <rulesets>
                             <ruleset>andromda/pmd_ruleset.xml</ruleset>
@@ -394,10 +396,10 @@
                         <tagListOptions>
                             <tagClasses>
                                 <tagClass>
-                                    <displayName>Todo Work</displayName>
+                                    <displayName>TODO Work</displayName>
                                     <tags>
                                         <tag>
-                                            <matchString>todo</matchString>
+                                            <matchString>TODO</matchString>
                                             <matchType>ignoreCase</matchType>
                                         </tag>
                                         <tag>
@@ -442,8 +444,10 @@
     </prerequisites>
     <properties>
         <andromda.version>3.4-SNAPSHOT</andromda.version>
+        <java.runtime.version>1.6</java.runtime.version>
+        <java.required.version>1.6</java.required.version>
+        <java.source.version>1.6</java.source.version>
         <maven.version>2.2.1</maven.version>
-        <source.version>1.6</source.version>
         <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
@@ -459,28 +463,42 @@
         <maven-compiler-plugin.version>2.5.1</maven-compiler-plugin.version>
         <maven-dependency-plugin.version>2.5.1</maven-dependency-plugin.version>
         <maven-deploy-plugin.version>2.7</maven-deploy-plugin.version>
+        <maven-ear-plugin.version>2.8</maven-ear-plugin.version>
+        <maven-ejb-plugin.version>2.3</maven-ejb-plugin.version>
         <maven-eclipse-plugin.version>2.9</maven-eclipse-plugin.version>
         <maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>
+        <maven-failsafe-plugin.version>2.12.3</maven-failsafe-plugin.version>
+        <maven-help-plugin.version>2.1.1</maven-help-plugin.version>
         <maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
-        <maven-install-plugin.version>2.3.1</maven-install-plugin.version>
+        <maven-install-plugin.version>2.4</maven-install-plugin.version>
         <maven-invoker-plugin.version>1.7</maven-invoker-plugin.version>
         <maven-jar-plugin.version>2.4</maven-jar-plugin.version>
         <maven-javadoc-plugin.version>2.8.1</maven-javadoc-plugin.version>
         <maven-jxr-plugin.version>2.3</maven-jxr-plugin.version>
         <maven-pmd-plugin.version>2.7.1</maven-pmd-plugin.version>
         <maven-project-info-reports-plugin.version>2.5.1</maven-project-info-reports-plugin.version>
+        <maven-release-plugin.version>2.3.2</maven-release-plugin.version>
+        <maven-repository-plugin.version>2.3.1</maven-repository-plugin.version>
         <maven-resources-plugin.version>2.6</maven-resources-plugin.version>
+        <maven-scm-plugin.version>1.7</maven-scm-plugin.version>
         <maven-site-plugin.version>3.1</maven-site-plugin.version>
         <maven-source-plugin.version>2.2</maven-source-plugin.version>
         <maven-surefire-plugin.version>2.12.3</maven-surefire-plugin.version>
         <maven-surefire-report-plugin.version>2.12.3</maven-surefire-report-plugin.version>
+        <maven-verifier-plugin.version>1.0</maven-verifier-plugin.version>
+        <maven-war-plugin.version>2.2</maven-war-plugin.version>
+        <build-helper-maven-plugin.version>1.7</build-helper-maven-plugin.version>
         <clirr-maven-plugin.version>2.4</clirr-maven-plugin.version>
         <cobertura-maven-plugin.version>2.5.1</cobertura-maven-plugin.version>
+        <exec-maven-plugin.version>1.2.1</exec-maven-plugin.version>
         <findbugs-maven-plugin.version>2.5.2</findbugs-maven-plugin.version>
         <javancss-maven-plugin.version>2.0</javancss-maven-plugin.version>
+        <jbehave-maven-plugin.version>3.6.9</jbehave-maven-plugin.version>
         <jdepend-maven-plugin.version>2.0-beta-2</jdepend-maven-plugin.version>
         <sablecc-maven-plugin.version>2.2</sablecc-maven-plugin.version>
         <taglist-maven-plugin.version>2.4</taglist-maven-plugin.version>
+        <tattletale-maven.version>1.1.2.Final</tattletale-maven.version>
+        <tomcat-maven-plugin.version>1.1</tomcat-maven-plugin.version>
         <versions-maven-plugin.version>1.3.1</versions-maven-plugin.version>
         <xml-maven-plugin.version>1.0</xml-maven-plugin.version>
     </properties>
@@ -631,7 +649,7 @@
                         <configuration>
                             <show>package</show>
                             <version>true</version>
-                            <javadocVersion>${source.version}</javadocVersion>
+                            <javadocVersion>${java.source.version}</javadocVersion>
                             <failOnError>false</failOnError>
                             <linksource>true</linksource>
                             <serialwarn>true</serialwarn>
@@ -655,7 +673,7 @@
                         <artifactId>maven-pmd-plugin</artifactId>
                         <version>${maven-pmd-plugin.version}</version>
                         <configuration>
-                            <targetJdk>${java.version}</targetJdk>
+                            <targetJdk>${java.runtime.version}</targetJdk>
                             <linkXRef>true</linkXRef>
                             <rulesets>
                                 <ruleset>andromda/pmd_ruleset.xml</ruleset>
@@ -880,7 +898,7 @@
                         <configuration>
                             <show>package</show>
                             <version>true</version>
-                            <javadocVersion>${source.version}</javadocVersion>
+                            <javadocVersion>${java.source.version}</javadocVersion>
                             <failOnError>false</failOnError>
                             <linksource>true</linksource>
                             <serialwarn>true</serialwarn>
@@ -904,7 +922,7 @@
                         <artifactId>maven-pmd-plugin</artifactId>
                         <version>${maven-pmd-plugin.version}</version>
                         <configuration>
-                            <targetJdk>${java.version}</targetJdk>
+                            <targetJdk>${java.runtime.version}</targetJdk>
                             <linkXRef>true</linkXRef>
                             <rulesets>
                                 <ruleset>andromda/pmd_ruleset.xml</ruleset>
@@ -1031,7 +1049,7 @@
                             <configuration>
                                 <show>package</show>
                                 <version>true</version>
-                                <javadocVersion>${source.version}</javadocVersion>
+                                <javadocVersion>${java.source.version}</javadocVersion>
                                 <failOnError>false</failOnError>
                                 <linksource>true</linksource>
                                 <detectLinks>true</detectLinks>
