@@ -777,7 +777,7 @@ public class JSFParameterLogicImpl
 
     //TODO remove after 3.4 release
     /**
-     * Hack to keep the compatibility with Andromda 3.4-SNAPSHOT
+     * Hack to keep the compatibility with Andromda 3.4
      */
     /**
      * @see org.andromda.metafacades.uml.FrontEndParameter#getView()

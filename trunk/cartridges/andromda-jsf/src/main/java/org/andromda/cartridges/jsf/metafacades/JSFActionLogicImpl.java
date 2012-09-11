@@ -613,7 +613,7 @@ public class JSFActionLogicImpl
 
     //TODO remove after 3.4 release
     /**
-     * Hack to keep the compatibility with Andromda 3.4-SNAPSHOT
+     * Hack to keep the compatibility with Andromda 3.4
      * @return getSource() instanceof FrontEndView
      */
     public FrontEndView getInput()

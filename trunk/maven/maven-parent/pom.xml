@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.andromda.maven</groupId>
     <artifactId>maven-parent</artifactId>
-    <version>3.4-SNAPSHOT</version>
+    <version>3.4</version>
     <name>Maven Parent Configuration</name>
     <description>AndroMDA Maven Parent - common configuration for all projects</description>
     <issueManagement>
@@ -424,7 +424,7 @@
             </plugin>
         </plugins>
     </build>
-    <repositories>
+    <!--repositories>
         <repository>
             <id>sonatype</id>
             <name>Sonatype AndroMDA Repository</name>
@@ -437,13 +437,13 @@
             <name>Sonatype AndroMDA Repository</name>
             <url>http://oss.sonatype.org/content/groups/public</url>
         </pluginRepository>
-    </pluginRepositories>
+    </pluginRepositories-->
     <prerequisites>
         <!-- Maven runtime version. Lots of problems prior to 2.0.10 with dependency management -->
         <maven>2.2.1</maven>
     </prerequisites>
     <properties>
-        <andromda.version>3.4-SNAPSHOT</andromda.version>
+        <andromda.version>3.4</andromda.version>
         <java.runtime.version>1.6</java.runtime.version>
         <java.required.version>1.6</java.required.version>
         <java.source.version>1.6</java.source.version>

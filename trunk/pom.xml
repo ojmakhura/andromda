@@ -6,7 +6,7 @@
     <groupId>org.andromda</groupId>
     <artifactId>andromda</artifactId>
     <packaging>pom</packaging>
-    <version>3.4-SNAPSHOT</version>
+    <version>3.4</version>
     <name>AndroMDA: The Open Source MDA Tool</name>
     <description>
         AndroMDA (pronounced: andromeda) is an open source code generation framework that follows the Model Driven
@@ -951,14 +951,15 @@
                 </executions>
             </plugin>
             <plugin>
-                <artifactId>maven-deploy-plugin</artifactId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>${maven-gpg-plugin.version}</version>
                 <inherited>false</inherited>
                 <executions>
                     <execution>
                         <id>deploy_meta_cartridge</id>
                         <phase>deploy</phase>
                         <goals>
-                            <goal>deploy-file</goal>
+                            <goal>sign-and-deploy-file</goal>
                         </goals>
                         <inherited>false</inherited>
                         <configuration>
@@ -967,8 +968,8 @@
                             <files>lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge-sources.jar,lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge-javadoc.jar</files>
                             <classifiers>sources,javadoc</classifiers>
                             <types>jar,jar</types>
-                            <repositoryId>${project.distributionManagement.snapshotRepository.id}</repositoryId>
-                            <url>${project.distributionManagement.snapshotRepository.url}</url>
+                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
+                            <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                         </configuration>
@@ -977,7 +978,7 @@
                         <id>deploy_metafacades_uml</id>
                         <phase>deploy</phase>
                         <goals>
-                            <goal>deploy-file</goal>
+                            <goal>sign-and-deploy-file</goal>
                         </goals>
                         <inherited>false</inherited>
                         <configuration>
@@ -986,8 +987,8 @@
                             <files>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml-sources.jar,lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml-javadoc.jar</files>
                             <classifiers>sources,javadoc</classifiers>
                             <types>jar,jar</types>
-                            <repositoryId>${project.distributionManagement.snapshotRepository.id}</repositoryId>
-                            <url>${project.distributionManagement.snapshotRepository.url}</url>
+                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
+                            <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                         </configuration>
@@ -996,7 +997,7 @@
                         <id>deploy_metafacades_uml14</id>
                         <phase>deploy</phase>
                         <goals>
-                            <goal>deploy-file</goal>
+                            <goal>sign-and-deploy-file</goal>
                         </goals>
                         <inherited>false</inherited>
                         <configuration>
@@ -1005,8 +1006,8 @@
                             <files>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14-sources.jar,lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14-javadoc.jar</files>
                             <classifiers>sources,javadoc</classifiers>
                             <types>jar,jar</types>
-                            <repositoryId>${project.distributionManagement.snapshotRepository.id}</repositoryId>
-                            <url>${project.distributionManagement.snapshotRepository.url}</url>
+                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
+                            <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                         </configuration>
@@ -1015,7 +1016,7 @@
                         <id>deploy_metafacades_uml22</id>
                         <phase>deploy</phase>
                         <goals>
-                            <goal>deploy-file</goal>
+                            <goal>sign-and-deploy-file</goal>
                         </goals>
                         <inherited>false</inherited>
                         <configuration>
@@ -1024,8 +1025,8 @@
                             <files>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22-sources.jar,lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22-javadoc.jar</files>
                             <classifiers>sources,javadoc</classifiers>
                             <types>jar,jar</types>
-                            <repositoryId>${project.distributionManagement.snapshotRepository.id}</repositoryId>
-                            <url>${project.distributionManagement.snapshotRepository.url}</url>
+                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
+                            <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                         </configuration>
@@ -1034,7 +1035,7 @@
                         <id>deploy_repositories_uml</id>
                         <phase>deploy</phase>
                         <goals>
-                            <goal>deploy-file</goal>
+                            <goal>sign-and-deploy-file</goal>
                         </goals>
                         <inherited>false</inherited>
                         <configuration>
@@ -1043,8 +1044,8 @@
                             <files>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-sources.jar,lib/org/andromda/bootstrap/repositories/andromda-repository-emf-javadoc.jar</files>
                             <classifiers>sources,javadoc</classifiers>
                             <types>jar,jar</types>
-                            <repositoryId>${project.distributionManagement.snapshotRepository.id}</repositoryId>
-                            <url>${project.distributionManagement.snapshotRepository.url}</url>
+                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
+                            <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                         </configuration>
@@ -1053,14 +1054,14 @@
                         <id>deploy_repositories_uml14</id>
                         <phase>deploy</phase>
                         <goals>
-                            <goal>deploy-file</goal>
+                            <goal>sign-and-deploy-file</goal>
                         </goals>
                         <inherited>false</inherited>
                         <configuration>
                             <file>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14.pom</pomFile>
-                            <repositoryId>${project.distributionManagement.snapshotRepository.id}</repositoryId>
-                            <url>${project.distributionManagement.snapshotRepository.url}</url>
+                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
+                            <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                         </configuration>
@@ -1069,7 +1070,7 @@
                         <id>deploy_repositories_uml22</id>
                         <phase>deploy</phase>
                         <goals>
-                            <goal>deploy-file</goal>
+                            <goal>sign-and-deploy-file</goal>
                         </goals>
                         <inherited>false</inherited>
                         <configuration>
@@ -1078,8 +1079,8 @@
                             <files>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22-sources.jar,lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22-javadoc.jar</files>
                             <classifiers>sources,javadoc</classifiers>
                             <types>jar,jar</types>
-                            <repositoryId>${project.distributionManagement.snapshotRepository.id}</repositoryId>
-                            <url>${project.distributionManagement.snapshotRepository.url}</url>
+                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
+                            <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                         </configuration>
@@ -1088,7 +1089,7 @@
                         <id>deploy_translationlibraries_testsuite</id>
                         <phase>deploy</phase>
                         <goals>
-                            <goal>deploy-file</goal>
+                            <goal>sign-and-deploy-file</goal>
                         </goals>
                         <inherited>false</inherited>
                         <configuration>
@@ -1097,8 +1098,8 @@
                             <files>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite-sources.jar,lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite-javadoc.jar</files>
                             <classifiers>sources,javadoc</classifiers>
                             <types>jar,jar</types>
-                            <repositoryId>${project.distributionManagement.snapshotRepository.id}</repositoryId>
-                            <url>${project.distributionManagement.snapshotRepository.url}</url>
+                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
+                            <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                         </configuration>
@@ -1107,7 +1108,7 @@
                         <id>deploy_translationlibraries_validation</id>
                         <phase>deploy</phase>
                         <goals>
-                            <goal>deploy-file</goal>
+                            <goal>sign-and-deploy-file</goal>
                         </goals>
                         <inherited>false</inherited>
                         <configuration>
@@ -1116,8 +1117,8 @@
                             <files>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library-sources.jar,lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library-javadoc.jar</files>
                             <classifiers>sources,javadoc</classifiers>
                             <types>jar,jar</types>
-                            <repositoryId>${project.distributionManagement.snapshotRepository.id}</repositoryId>
-                            <url>${project.distributionManagement.snapshotRepository.url}</url>
+                            <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
+                            <url>${project.distributionManagement.repository.url}</url>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                         </configuration>
@@ -1126,7 +1127,7 @@
             </plugin>
         </plugins>
     </build>
-    <repositories>
+    <!--repositories>
         <repository>
             <id>sonatype</id>
             <name>Sonatype AndroMDA Repository</name>
@@ -1139,13 +1140,13 @@
             <name>Sonatype AndroMDA Repository</name>
             <url>http://oss.sonatype.org/content/groups/public</url>
         </pluginRepository>
-    </pluginRepositories>
+    </pluginRepositories-->
     <prerequisites>
         <!-- Maven runtime version. Lots of problems prior to 2.0.10 with dependency management -->
         <maven>2.2.1</maven>
     </prerequisites>
     <properties>
-        <andromda.version>3.4-SNAPSHOT</andromda.version>
+        <andromda.version>3.4</andromda.version>
         <maven.version>2.2.1</maven.version>
         <source.version>1.6</source.version>
         <!--maven.test.failure.ignore>true</maven.test.failure.ignore-->

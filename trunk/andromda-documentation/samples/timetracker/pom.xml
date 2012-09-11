@@ -6,7 +6,7 @@
     <groupId>org.andromda.timetracker</groupId>
     <artifactId>timetracker</artifactId>
     <packaging>pom</packaging>
-    <version>3.4-SNAPSHOT</version>
+    <version>3.4</version>
     <name>TimeTracker</name>
     <description>The TimeTracker Project.</description>
     <inceptionYear>2003</inceptionYear>
@@ -16,9 +16,9 @@
         <url>http://jira.andromda.org/</url>
     </issueManagement>
     <scm>
-        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk</connection>
-        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk</developerConnection>
-        <url>http://andromda.svn.sourceforge.net/viewvc/andromda/trunk/</url>
+        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromda-documentation/samples/timetracker</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromda-documentation/samples/timetracker</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/viewvc/andromda/trunk/andromda-documentation/samples/timetracker/</url>
     </scm>
     <organization>
         <name>AndroMDA.org</name>
@@ -682,7 +682,7 @@
         <module>app</module>
     </modules>
     <properties>
-        <andromda.version>3.4-SNAPSHOT</andromda.version>
+        <andromda.version>3.4</andromda.version>
         <downloadSources>true</downloadSources>
         <createChecksum>true</createChecksum>
         <uniqueVersion>false</uniqueVersion>
@@ -1009,7 +1009,7 @@
             </build>
         </profile>
     </profiles>
-    <repositories>
+    <!--repositories>
         <repository>
             <id>sonatype</id>
             <name>Sonatype AndroMDA Repository</name>
@@ -1022,7 +1022,7 @@
             <name>Sonatype AndroMDA Repository</name>
             <url>http://oss.sonatype.org/content/groups/public</url>
         </pluginRepository>
-    </pluginRepositories>
+    </pluginRepositories-->
     <prerequisites>
         <maven>2.2.1</maven>
     </prerequisites>

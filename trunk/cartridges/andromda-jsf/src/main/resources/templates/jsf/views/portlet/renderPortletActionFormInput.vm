@@ -79,7 +79,7 @@
 #foreach ($literal in $field.type.literals)
 #if ($literal.type.stringType)#set ($quote = '')#else#set ($quote = '"')#end
 #set($literalKey = $literal.name)
-#set($literalKey = $literal.defaultValue.replace("'","").replace('"',''))##todo remove after 3.4 release: hack to keep compatibility with Andromda 3.4-SNAPSHOT
+#set($literalKey = $literal.defaultValue.replace("'","").replace('"',''))##todo remove after 3.4 release: hack to keep compatibility with Andromda 3.4
             <f:selectItem itemLabel="#{messages['${parameter.type.messageKey}.${literalKey}']}" itemValue=${quote}${literal.enumerationValue}${quote} />
 #end
         </h:$selectBoxType>

@@ -7,7 +7,7 @@
     See http://community.jboss.org/wiki/ClassLoadingConfiguration. XSD Error on AS7 because java2ParentDelegation=false is the default -->
    <!--class-loading java2ClassLoadingCompliance="false">
       <loader-repository>
-         org.andromda.timetracker:archive=timetracker-web-3.4-SNAPSHOT.war
+         org.andromda.timetracker:archive=timetracker-web-3.4.war
          <loader-repository-config>java2ParentDelegation=false</loader-repository-config>
       </loader-repository>
    </class-loading-->
