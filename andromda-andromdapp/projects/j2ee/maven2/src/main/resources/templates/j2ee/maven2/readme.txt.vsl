@@ -40,7 +40,7 @@
     Important: before launching AndroMDA, be sure to have exported your model.
 
 #elseif ($modelType.equals("rsm6") || $modelType.equals("rsm7"))
-    RSM7 and RSM75 and RSM8 are supported by AndroMDA 3.4-SNAPSHOT. To use an existing model with a generated project:
+    RSM7 and RSM75 and RSM8 are supported by AndroMDA 3.4. To use an existing model with a generated project:
     - Modify mda/src/main/config/andromda.xml to point to the emx model file (only a single file is supported
     per AndroMDA project)
     - Add a RSM pathmap entry (Preferences -> Modeling) for m2repository pointing to the maven repository directory
@@ -48,7 +48,7 @@
     - Add the AndroMDA Datatype reference to the project through Project -> Import Model Library.
     - Mark up the model with the appropriate stereotypes and generate code.
     RSM7.x/8.x is supported by default. To use RSM6, modify the dependencies commented in
-    M2_REPO/org/andromda/maven/plugins/andromda-maven-plugin/3.4-SNAPSHOT/andromda-maven-plugin-3.4-SNAPSHOT.pom
+    M2_REPO/org/andromda/maven/plugins/andromda-maven-plugin/3.4/andromda-maven-plugin-3.4.pom
     to point to emf-uml2 instead of emf-uml22
 
 #end
