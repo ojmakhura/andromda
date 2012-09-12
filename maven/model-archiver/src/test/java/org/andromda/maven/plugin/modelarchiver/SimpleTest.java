@@ -19,7 +19,7 @@ public class SimpleTest
     @Test
     public void testNoReplace()
     {
-        final String version = mojo.escapePattern("3.4");
+        final String version = mojo.escapePattern("3.5-SNAPSHOT");
         final String extension = mojo.escapePattern(".xml");
 
         final String extensionPattern = "((\\-" + version + ")?)" + extension + "(['\"|])";
@@ -34,7 +34,7 @@ public class SimpleTest
     @Test
     public void testReplace_1()
     {
-        final String version = mojo.escapePattern("3.4");
+        final String version = mojo.escapePattern("3.5-SNAPSHOT");
         final String extension = mojo.escapePattern(".xml.zip");
 
         final String extensionPattern = "((\\-" + version + ")?)" + extension + "(['\"|])";
@@ -49,7 +49,7 @@ public class SimpleTest
     @Test
     public void testReplace_2()
     {
-        final String version = mojo.escapePattern("3.4");
+        final String version = mojo.escapePattern("3.5-SNAPSHOT");
         final String extension = mojo.escapePattern(".xml.zip");
 
         final String extensionPattern = "((\\-" + version + ")?)" + extension + "(['\"|])";

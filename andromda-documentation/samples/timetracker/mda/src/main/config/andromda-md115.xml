@@ -9,10 +9,10 @@
         <port>4447</port>
     </server-->
     <repositories>
-    	<repository name="emf-uml22">
-    		<models>
-    			<model type="emf-uml22">
-    				<uri>${model.uri}</uri>
+        <repository name="emf-uml22">
+            <models>
+                <model type="emf-uml22">
+                    <uri>${model.uri}</uri>
                     <!--uri>file:${project.basedir}/src/main/uml2/timetracker.uml</uri-->
                     <moduleSearchLocations>
                         <location patterns="*.uml">${project.basedir}/src/main/uml2</location>
@@ -32,9 +32,9 @@
                         <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
                         <location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location-->
                     </moduleSearchLocations>
-    			</model>
-    		</models>
-    	</repository>
+                </model>
+            </models>
+        </repository>
     </repositories>
     <!-- The mappingsSearchLocations are used by the below '*MappingsUri' namespace
       properties (e.g. languageMappingsUri) so that we can use a "logical" name from the content

@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.andromda</groupId>
         <artifactId>andromda</artifactId>
-        <version>3.4</version>
+        <version>3.5-SNAPSHOT</version>
     </parent>
     <groupId>org.andromda.maven.plugins</groupId>
     <artifactId>andromda-maven-plugins</artifactId>
@@ -141,7 +141,7 @@
     </reporting>
     <properties>
         <!-- v3.0: org.apache.maven.plugin.PluginParameterException: The parameters 'modelArchivePattern', 'replaceExtensions', 'modelFilePattern', 'replacementExtensions' 
-        for goal org.andromda.maven.plugins:andromda-model-archiver-plugin:3.4:xml.zip -->
+        for goal org.andromda.maven.plugins:andromda-model-archiver-plugin:3.5-SNAPSHOT:xml.zip -->
         <maven-plugin-plugin.version>2.9</maven-plugin-plugin.version>
     </properties>
     <modules>

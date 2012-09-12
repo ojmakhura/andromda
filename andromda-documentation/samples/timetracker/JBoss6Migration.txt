@@ -22,7 +22,7 @@ Add ehcache dependency to core.
 Add spring-context-support dependency to core
 
 7. After adding hibernate-ehcache and deleting jta.jar:
-Caused by: java.lang.RuntimeException: Error visiting resource: VFSResourceContext @ net/sf/ehcache/config/generator/model/elements/FactoryConfigurationElement.class / BaseClassLoader@5e26e515{vfs:///C:/Programs/JBoss/6/server/default/deploy/timetracker-3.4-SNAPSHOT.ear}, visitor: org.jboss.scanning.annotations.plugins.GenericAnnotationVisitor@1f0e9d8b
+Caused by: java.lang.RuntimeException: Error visiting resource: VFSResourceContext @ net/sf/ehcache/config/generator/model/elements/FactoryConfigurationElement.class / BaseClassLoader@5e26e515{vfs:///C:/Programs/JBoss/6/server/default/deploy/timetracker-3.5-SNAPSHOT.ear}, visitor: org.jboss.scanning.annotations.plugins.GenericAnnotationVisitor@1f0e9d8b
 Caused by: java.lang.reflect.MalformedParameterizedTypeException
 
 http://community.jboss.org/message/578230
@@ -193,27 +193,27 @@ Message: Unexpected element Unexpected element '{http://java.sun.com/xml/ns/j2ee
 This is schema valid so I don't understand why it doesn't like  description.
 
 15:57:23,523 ERROR [org.jboss.as.deployment] (DeploymentScanner-threads - 1) {"Composite operation failed and was rolled back. Steps that failed:" => {"Operation step-2" => 
-{"Services with missing/unavailable dependencies" => ["jboss.deployment.unit.\"timetracker-3.4.2-SNAPSHOT.ear\".PARSE 
-missing [ jboss.deployment.subunit.\"timetracker-3.4.2-SNAPSHOT.ear\".\"lib/timetracker-common-3.4.2-SNAPSHOT.jar\".STRUCTURE ]"]}}}
+{"Services with missing/unavailable dependencies" => ["jboss.deployment.unit.\"timetracker-3.5-SNAPSHOT.ear\".PARSE 
+missing [ jboss.deployment.subunit.\"timetracker-3.5-SNAPSHOT.ear\".\"lib/timetracker-common-3.5-SNAPSHOT.jar\".STRUCTURE ]"]}}}
 Modify application.xml to remove the jar module reference to common under ear/lib directory. Should be valid - AS7 BUG. AS7 does not recognize core ejb.jar file under lib directory even when specified in application.xml.
 
 22. ClassCastException antlr.CommonToken cannot be cast to antlr.Token
 antlr 2.7.2 vs 2.7.7 different versions in the classloader
 
-Class Path entry commons-beanutils.jar in timetracker-web-3.4-SNAPSHOT.war/WEB-INF/lib/struts-1.2.9.jar"  does not point to a valid jar for a Class-Path reference.
-Class Path entry mysql-connector-java-5.1.14.jar in timetracker-3.4-SNAPSHOT.ear/timetracker-core-3.4-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
-Class Path entry commons-digester.jar in timetracker-3.4-SNAPSHOT.ear/timetracker-web-3.4-SNAPSHOT.war/WEB-INF/lib/struts-1.2.9.jar"  does not point to a valid jar for a Class-Path reference.
-Class Path entry jta-1.1.jar in timetracker-3.4-SNAPSHOT.ear/timetracker-core-3.4-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
-Class Path entry commons-fileupload.jar in timetracker-3.4-SNAPSHOT.ear/timetracker-web-3.4-SNAPSHOT.war/WEB-INF/lib/struts-1.2.9.jar"  does not point to a valid jar for a Class-Path reference.
-Class Path entry slf4j-api-1.5.8.jar in timetracker-3.4-SNAPSHOT.ear/timetracker-core-3.4-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
-Class Path entry commons-logging.jar in timetracker-3.4-SNAPSHOT.ear/timetracker-web-3.4-SNAPSHOT.war/WEB-INF/lib/struts-1.2.9.jar"  does not point to a valid jar for a Class-Path reference.
-Class Path entry ehcache-1.2.3.jar in timetracker-3.4-SNAPSHOT.ear/timetracker-core-3.4-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
-Class Path entry commons-validator.jar in timetracker-web-3.4-SNAPSHOT.war/WEB-INF/lib/struts-1.2.9.jar"  does not point to a valid jar for a Class-Path reference.
-Class Path entry jakarta-oro.jar in timetracker-3.4-SNAPSHOT.ear/timetracker-web-3.4-SNAPSHOT.war/WEB-INF/lib/struts-1.2.9.jar" does not point to a valid jar for a Class-Path reference.
+Class Path entry commons-beanutils.jar in timetracker-web-3.5-SNAPSHOT.war/WEB-INF/lib/struts-1.2.9.jar"  does not point to a valid jar for a Class-Path reference.
+Class Path entry mysql-connector-java-5.1.14.jar in timetracker-3.5-SNAPSHOT.ear/timetracker-core-3.5-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+Class Path entry commons-digester.jar in timetracker-3.5-SNAPSHOT.ear/timetracker-web-3.5-SNAPSHOT.war/WEB-INF/lib/struts-1.2.9.jar"  does not point to a valid jar for a Class-Path reference.
+Class Path entry jta-1.1.jar in timetracker-3.5-SNAPSHOT.ear/timetracker-core-3.5-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+Class Path entry commons-fileupload.jar in timetracker-3.5-SNAPSHOT.ear/timetracker-web-3.5-SNAPSHOT.war/WEB-INF/lib/struts-1.2.9.jar"  does not point to a valid jar for a Class-Path reference.
+Class Path entry slf4j-api-1.5.8.jar in timetracker-3.5-SNAPSHOT.ear/timetracker-core-3.5-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+Class Path entry commons-logging.jar in timetracker-3.5-SNAPSHOT.ear/timetracker-web-3.5-SNAPSHOT.war/WEB-INF/lib/struts-1.2.9.jar"  does not point to a valid jar for a Class-Path reference.
+Class Path entry ehcache-1.2.3.jar in timetracker-3.5-SNAPSHOT.ear/timetracker-core-3.5-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+Class Path entry commons-validator.jar in timetracker-web-3.5-SNAPSHOT.war/WEB-INF/lib/struts-1.2.9.jar"  does not point to a valid jar for a Class-Path reference.
+Class Path entry jakarta-oro.jar in timetracker-3.5-SNAPSHOT.ear/timetracker-web-3.5-SNAPSHOT.war/WEB-INF/lib/struts-1.2.9.jar" does not point to a valid jar for a Class-Path reference.
 
-17:44:23,477 WARN  [SaxJBossXBParser] SchemaLocation: schemaLocation value = 'http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd' must have even number of URI's. @ vfs:///C:/Programs/JBoss/6/server/default/deploy/timetracker-3.4.2-SNAPSHOT.ear/timetracker-web-3.4.2-SNAPSHOT.war/WEB-INF/lib/tomahawk12-1.1.10.jar/META-INF/tomahawk.tld[23,23]
+17:44:23,477 WARN  [SaxJBossXBParser] SchemaLocation: schemaLocation value = 'http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd' must have even number of URI's. @ vfs:///C:/Programs/JBoss/6/server/default/deploy/timetracker-3.5-SNAPSHOT.ear/timetracker-web-3.5-SNAPSHOT.war/WEB-INF/lib/tomahawk12-1.1.10.jar/META-INF/tomahawk.tld[23,23]
 17:44:23,477 WARN  [JBossEntityResolver] Trying to resolve systemId as a non-file URL: http://java.sun.com/xml/ns/javaee
-Caused by: org.jboss.xb.binding.JBossXBException: Failed to parse source: vfs:///C:/Programs/JBoss/6/server/default/deploy/timetracker-3.4.2-SNAPSHOT.ear/timetracker-web-3.4.2-SNAPSHOT.war/WEB-INF/lib/tomahawk12-1.1.10.jar/META-INF/tomahawk.tld@23,23
+Caused by: org.jboss.xb.binding.JBossXBException: Failed to parse source: vfs:///C:/Programs/JBoss/6/server/default/deploy/timetracker-3.5-SNAPSHOT.ear/timetracker-web-3.5-SNAPSHOT.war/WEB-INF/lib/tomahawk12-1.1.10.jar/META-INF/tomahawk.tld@23,23
 Caused by: org.jboss.xb.binding.JBossXBRuntimeException: Failed to parse schema for nsURI=http://java.sun.com/xml/ns/javaee, localName=taglib, schemaLocation=null
 Caused by: org.jboss.xb.binding.JBossXBRuntimeException: -1:-1 31:3 The declaration for the entity "HTML.Version" must end with '>'.
 SEE https://issues.jboss.org/browse/JBAS-8800 AND http://community.jboss.org/thread/164040
@@ -279,8 +279,8 @@ Should define AS7 modules for Hibernate3 etc dependencies in AS7. How to tell AS
 
 AS7 says modules bundled in ear/lib directory are not found on the classpath, throws a warning message:
 dom4j-1.6.1.jar in marketingpinnedofferv2-1.0-SNAPSHOT.ear/marketingpinnedofferv2-core does not point to a valid jar for a Class-Path reference.
-andromda-ejb3-cartridge-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common not found.
-andromda-core-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" not found.
+andromda-ejb3-cartridge-3.5-SNAPSHOT.jar in marketingpinnedofferv2-common not found.
+andromda-core-3.5-SNAPSHOT.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" not found.
 commons-digester-2.1.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" not found.
 commons-io-2.0.1.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" not found.
 xalan-2.7.1.jar in marketingpinnedofferv2-common not found.
@@ -288,16 +288,16 @@ xml-apis-1.0.b2.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" not found
 serializer-2.7.1.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" not found.
 xercesImpl-2.9.1.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" not found.
  doctor-jim-1.0.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" not found.
- andromda-utils-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" not found.
- andromda-ocl-validation-library-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common not found.
- andromda-metafacades-uml-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common not found.
+ andromda-utils-3.5-SNAPSHOT.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" not found.
+ andromda-ocl-validation-library-3.5-SNAPSHOT.jar in marketingpinnedofferv2-common not found.
+ andromda-metafacades-uml-3.5-SNAPSHOT.jar in marketingpinnedofferv2-common not found.
  log4j-1.2.16.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" not found.
- andromda-java-cartridge-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common not found.
- andromda-ocl-query-library-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common not found.
- andromda-ocl-translation-core-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common not found.
+ andromda-java-cartridge-3.5-SNAPSHOT.jar in marketingpinnedofferv2-common not found.
+ andromda-ocl-query-library-3.5-SNAPSHOT.jar in marketingpinnedofferv2-common not found.
+ andromda-ocl-translation-core-3.5-SNAPSHOT.jar in marketingpinnedofferv2-common not found.
  junit-4.8.2.jar in marketingpinnedofferv2-common not found.
- andromda-ejb3-cartridge-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common  does not point to a valid jar for a Class-Path reference.
- andromda-core-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+ andromda-ejb3-cartridge-3.5-SNAPSHOT.jar in marketingpinnedofferv2-common  does not point to a valid jar for a Class-Path reference.
+ andromda-core-3.5-SNAPSHOT.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
  commons-digester-2.1.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
  commons-io-2.0.1.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
  xalan-2.7.1.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" does not point to a valid jar for a Class-Path reference.
@@ -305,13 +305,13 @@ xercesImpl-2.9.1.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" not foun
  serializer-2.7.1.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
  xercesImpl-2.9.1.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
  doctor-jim-1.0.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
- andromda-utils-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
- andromda-ocl-validation-library-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common  does not point to a valid jar for a Class-Path reference.
- andromda-metafacades-uml-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common  does not point to a valid jar for a Class-Path reference.
+ andromda-utils-3.5-SNAPSHOT.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+ andromda-ocl-validation-library-3.5-SNAPSHOT.jar in marketingpinnedofferv2-common  does not point to a valid jar for a Class-Path reference.
+ andromda-metafacades-uml-3.5-SNAPSHOT.jar in marketingpinnedofferv2-common  does not point to a valid jar for a Class-Path reference.
  log4j-1.2.16.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" does not point to a valid jar for a Class-Path reference.
- andromda-java-cartridge-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common  does not point to a valid jar for a Class-Path reference.
- andromda-ocl-query-library-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common  does not point to a valid jar for a Class-Path reference.
- andromda-ocl-translation-core-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common  does not point to a valid jar for a Class-Pathreference.
+ andromda-java-cartridge-3.5-SNAPSHOT.jar in marketingpinnedofferv2-common  does not point to a valid jar for a Class-Path reference.
+ andromda-ocl-query-library-3.5-SNAPSHOT.jar in marketingpinnedofferv2-common  does not point to a valid jar for a Class-Path reference.
+ andromda-ocl-translation-core-3.5-SNAPSHOT.jar in marketingpinnedofferv2-common  does not point to a valid jar for a Class-Pathreference.
  junit-4.8.2.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" does not point to a valid jar for a Class-Path reference.
  commons-lang-2.6.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
  commons-beanutils-1.8.3.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
@@ -349,7 +349,7 @@ Unable to locate static metamodel field : com.wdpr.dc.model.persist.PartnerPacka
 
 JBoss 6.1 Migration:
 - Uses JSF2 by default, must be switched back to JSF12
-- Deployment "persistence.unit:unitName=timetracker-web-3.4-SNAPSHOT.war#timetracker" is in error due to the following reason(s): 
+- Deployment "persistence.unit:unitName=timetracker-web-3.5-SNAPSHOT.war#timetracker" is in error due to the following reason(s): 
 java.lang.ClassCastException:org.hibernate.ejb.HibernatePersistence cannot be cast to javax.persistence.spi.PersistenceProvider
 JBoss and TT hibernate dependencies conflicting with each other. Must deploy ear instead of war to load the jboss-app.xml parentLast configuration value.
 http://community.jboss.org/wiki/ClassLoadingConfiguration use jboss-web.xml instead of jboss-app.xml, if loading only the war file.
@@ -358,8 +358,8 @@ Created file web\src\main\webapp\WEB-INF\jboss-web.xml with required configurati
 - Takes a really long time to deploy compared to JB7 - hibern
 
 - schemaLocation value = 'http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd' must have even number of URI's. 
-timetracker-web-3.4-SNAPSHOT.war/WEB-INF/lib/tomahawk12-1.1.10.jar/META-INF/tomahawk.tld[23,23]
-timetracker-web-3.4-SNAPSHOT.war/WEB-INF/lib/trinidad-impl-1.2.14.jar/META-INF/tr.tld[1,238]
+timetracker-web-3.5-SNAPSHOT.war/WEB-INF/lib/tomahawk12-1.1.10.jar/META-INF/tomahawk.tld[23,23]
+timetracker-web-3.5-SNAPSHOT.war/WEB-INF/lib/trinidad-impl-1.2.14.jar/META-INF/tr.tld[1,238]
 See http://community.jboss.org/message/533953, http://community.jboss.org/message/573741, https://issues.jboss.org/browse/JBAS-8800, http://old.nabble.com/-VOTE--Apache-MyFaces-Trinidad-1.2.14-to30635260.html#a30636561.
 
 - java.lang.OutOfMemoryError: PermGen space
@@ -380,7 +380,7 @@ Add hibernate3 persistence provider as described in http://planet.jboss.org/post
 Have to add hibernate3 module because hibernate4 scanner can't be turned off. Change to hibernate3 scanner by modifying persistence.xml:
 
 2. faces-config.xml https://issues.apache.org/jira/browse/TRINIDAD-1991
-17:48:07,295 ERROR [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/timetracker-web-3.4-SNAPSHOT].[org.andromda.timetracker.web.timetrackerhome.TimeTrackerHome]] (http--127.0.0.1-8080-1) Servlet.service() for servlet org.andromda.timetracker.web.timetrackerhome.TimeTrackerHome threw exception: java.lang.NullPointerException
+17:48:07,295 ERROR [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/timetracker-web-3.5-SNAPSHOT].[org.andromda.timetracker.web.timetrackerhome.TimeTrackerHome]] (http--127.0.0.1-8080-1) Servlet.service() for servlet org.andromda.timetracker.web.timetrackerhome.TimeTrackerHome threw exception: java.lang.NullPointerException
 	at org.apache.myfaces.trinidadinternal.config.dispatch.ContentTypeAndCharacterSet.<init>(ContentTypeAndCharacterSet.java:42) [trinidad-impl-1.2.14.jar:]
 	at org.apache.myfaces.trinidadinternal.config.dispatch.DispatchServletResponse.setContentType(DispatchServletResponse.java:39) [trinidad-impl-1.2.14.jar:]
 	at javax.servlet.ServletResponseWrapper.setContentType(ServletResponseWrapper.java:168) [jboss-servlet-api_3.0_spec-1.0.0.Final.jar:1.0.0.Final]

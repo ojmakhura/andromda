@@ -151,8 +151,8 @@
 #if($groovy)
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>
-                <artifactId>groovy-all-minimal</artifactId>
-                <version>1.5.8</version>
+                <artifactId>groovy-all</artifactId>
+                <version>2.0.2</version>
             </dependency>
 #end
 #end
@@ -1244,7 +1244,7 @@
             <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
-                <version>6.7</version>
+                <version>6.8</version>
                 <scope>test</scope>
 #if ($ejb3)
                 <exclusions>
@@ -2364,11 +2364,11 @@
         </profile>
     </profiles>
     <repositories>
-        <!--repository>
+        <repository>
             <id>sonatype</id>
             <name>Sonatype AndroMDA Repository</name>
             <url>http://oss.sonatype.org/content/groups/public</url>
-        </repository-->
+        </repository>
 #if ($ejb3 || $jbossSeam)
         <repository>
             <id>jboss-public</id>
@@ -2377,13 +2377,13 @@
         </repository>
 #end
     </repositories>
-    <!--pluginRepositories>
+    <pluginRepositories>
         <pluginRepository>
             <id>sonatype</id>
             <name>Sonatype AndroMDA Repository</name>
             <url>http://oss.sonatype.org/content/groups/public</url>
         </pluginRepository>
-    </pluginRepositories-->
+    </pluginRepositories>
     <prerequisites>
         <maven>2.2.1</maven>
     </prerequisites>

@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.andromda</groupId>
         <artifactId>andromda</artifactId>
-        <version>3.4</version>
+        <version>3.5-SNAPSHOT</version>
     </parent>
     <groupId>org.andromda.samples</groupId>
     <artifactId>andromda-samples</artifactId>
@@ -89,10 +89,10 @@
                             <profiles>
                                 <profile>javadocs</profile>
                                 <profile>local</profile>
-                                <profile>gpg-andromda</profile>
+                                <!--profile>gpg-andromda</profile-->
                             </profiles>
                             <properties>
-                                <altDeploymentRepository>${project.distributionManagement.repository.id}::default::${project.distributionManagement.repository.url}</altDeploymentRepository>
+                                <altDeploymentRepository>${project.distributionManagement.snapshotRepository.id}::default::${project.distributionManagement.snapshotRepository.url}</altDeploymentRepository>
                             </properties>
                         </configuration>
                     </execution>
