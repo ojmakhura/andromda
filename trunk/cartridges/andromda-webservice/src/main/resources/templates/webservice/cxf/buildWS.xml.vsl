@@ -18,7 +18,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
   <property name="cxf.home" value="${env.CXF_HOME}"/>
 
   <path id="cxf1.classpath">
-    <!-- These dependencies allow CXF 3.4.x utilities to run outside of maven with no additional classpath >
+    <!-- These dependencies allow CXF 2.6.x utilities to run outside of maven with no additional classpath >
     <pathelement location="${m2repo}/com/sun/xml/bind/jaxb-xjc/2.2.1.1/jaxb-xjc-2.2.1.1.jar"/>
     <pathelement location="${m2repo}/com/sun/xml/bind/jaxb-impl/2.2.1.1/jaxb-impl-2.2.1.1.jar"/>
     <pathelement location="${m2repo}/commons-lang/commons-lang/2.6/commons-lang-2.6.jar"/>

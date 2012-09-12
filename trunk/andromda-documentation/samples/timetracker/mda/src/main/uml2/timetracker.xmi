@@ -10,19 +10,19 @@
 			<module resource='file:/C:/Program%20Files/MagicDraw/168/profiles/UML_Standard_Profile.xml' autoloadType='ALWAYS_LOAD' readOnly='true' loadIndex='true' requiredVersion='-1' version='16.8'>
 				<mount mountPoint='magicdraw_uml_standard_profile_v_0001' mountedOn='eee_1045467100313_135436_1'/>
 			</module>
-			<module resource='file:/C:/Program%20Files/m2repo/org/andromda/profiles/uml2/andromda-profile-service/3.4/andromda-profile-service-3.4.xml.zip' autoloadType='ALWAYS_LOAD' readOnly='true' loadIndex='true' requiredVersion='-1'>
+			<module resource='file:/C:/Program%20Files/m2repo/org/andromda/profiles/uml2/andromda-profile-service/3.5-SNAPSHOT/andromda-profile-service-3.5-SNAPSHOT.xml.zip' autoloadType='ALWAYS_LOAD' readOnly='true' loadIndex='true' requiredVersion='-1'>
 				<mount mountPoint='_11_5_e240333_1154527425687_111873_349' mountedOn='_8a70287_1078771814628_224704_589'/>
 			</module>
-			<module resource='file:/C:/Program%20Files/m2repo/org/andromda/profiles/uml2/andromda-profile-persistence/3.4/andromda-profile-persistence-3.4.xml.zip' autoloadType='ALWAYS_LOAD' readOnly='true' loadIndex='true' requiredVersion='-1'>
+			<module resource='file:/C:/Program%20Files/m2repo/org/andromda/profiles/uml2/andromda-profile-persistence/3.5-SNAPSHOT/andromda-profile-persistence-3.5-SNAPSHOT.xml.zip' autoloadType='ALWAYS_LOAD' readOnly='true' loadIndex='true' requiredVersion='-1'>
 				<mount mountPoint='_11_5_e240333_1154527540265_181005_899' mountedOn='_8a70287_1078771814628_224704_589'/>
 			</module>
-			<module resource='file:/C:/Program%20Files/m2repo/org/andromda/profiles/uml2/andromda-profile-datatype/3.4/andromda-profile-datatype-3.4.xml.zip' autoloadType='ALWAYS_LOAD' readOnly='true' loadIndex='true' requiredVersion='-1'>
+			<module resource='file:/C:/Program%20Files/m2repo/org/andromda/profiles/uml2/andromda-profile-datatype/3.5-SNAPSHOT/andromda-profile-datatype-3.5-SNAPSHOT.xml.zip' autoloadType='ALWAYS_LOAD' readOnly='true' loadIndex='true' requiredVersion='-1'>
 				<mount mountPoint='_9_0_1fe00f9_1119336925546_238419_77' mountedOn='eee_1045467100313_135436_1'/>
 			</module>
-			<module resource='file:/C:/Program%20Files/m2repo/org/andromda/profiles/uml2/andromda-profile-presentation/3.4/andromda-profile-presentation-3.4.xml.zip' autoloadType='ALWAYS_LOAD' readOnly='true' loadIndex='true' requiredVersion='-1'>
+			<module resource='file:/C:/Program%20Files/m2repo/org/andromda/profiles/uml2/andromda-profile-presentation/3.5-SNAPSHOT/andromda-profile-presentation-3.5-SNAPSHOT.xml.zip' autoloadType='ALWAYS_LOAD' readOnly='true' loadIndex='true' requiredVersion='-1'>
 				<mount mountPoint='_11_5_e240333_1154527378140_885914_432' mountedOn='_8a70287_1078771814628_224704_589'/>
 			</module>
-			<module resource='file:/C:/Program%20Files/m2repo/org/andromda/profiles/uml2/andromda-profile/3.4/andromda-profile-3.4.xml.zip' autoloadType='ALWAYS_LOAD' readOnly='true' loadIndex='true' requiredVersion='-1'>
+			<module resource='file:/C:/Program%20Files/m2repo/org/andromda/profiles/uml2/andromda-profile/3.5-SNAPSHOT/andromda-profile-3.5-SNAPSHOT.xml.zip' autoloadType='ALWAYS_LOAD' readOnly='true' loadIndex='true' requiredVersion='-1'>
 				<mount mountPoint='_8a70287_1078771814628_224704_589' mountedOn='eee_1045467100313_135436_1'/>
 			</module>
 		</mountTable>
@@ -146,7 +146,7 @@
 					<packagedElement xmi:type='uml:Class' xmi:id='_9_0_2_8980277_1156481260993_338890_474' name='SecurityService' visibility='public'>
 						<ownedOperation xmi:type='uml:Operation' xmi:id='_9_0_2_8980277_1156481344673_805162_491' name='getUserDetails' visibility='public'>
 							<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1156481425790_683642_493' name='username' visibility='public' direction='inout'>
-								<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+								<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 									<xmi:Extension extender='MagicDraw UML 16.8'>
 										<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 									</xmi:Extension>
@@ -186,7 +186,7 @@
 							<annotatedElement xmi:idref='_9_0_2_8980277_1149642273971_402314_52'/>
 						</ownedComment>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642273971_831120_51' name='name' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
@@ -231,14 +231,14 @@
 						</ownedComment>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642273971_955144_55' name='status' visibility='public' type='_9_0_2_8980277_1149642273971_573140_43'/>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642273971_698132_56' name='startDate' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::Date' referentType='DataType'/>
 								</xmi:Extension>
 							</type>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642273971_524915_60' name='comments' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
@@ -271,7 +271,7 @@
 						<ownedOperation xmi:type='uml:Operation' xmi:id='_9_0_2_8980277_1149642273971_203183_59' name='addTimeAllocation' visibility='public'>
 							<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1149642273971_293483_57' name='timeAllocation' visibility='public' direction='inout' type='_9_0_2_8980277_1149642273971_665184_54'/>
 							<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1149642273971_811971_58' visibility='public' direction='return'>
-								<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_324247_52'>
+								<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_324247_52'>
 									<xmi:Extension extender='MagicDraw UML 16.8'>
 										<referenceExtension referentPath='datatype::void' referentType='DataType'/>
 									</xmi:Extension>
@@ -281,7 +281,7 @@
 						<ownedOperation xmi:type='uml:Operation' xmi:id='_9_0_2_8980277_1150073769279_305880_99' name='findByCriteria' visibility='public' isStatic='true'>
 							<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1150073827973_501476_104' name='criteria' visibility='public' direction='inout' type='_9_0_2_8980277_1149644056824_230589_1219'/>
 							<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1150073827973_998934_105' visibility='public' direction='return'>
-								<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_809265_8'>
+								<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_809265_8'>
 									<xmi:Extension extender='MagicDraw UML 16.8'>
 										<referenceExtension referentPath='datatype::List' referentType='DataType'/>
 									</xmi:Extension>
@@ -337,56 +337,56 @@
 					</packagedElement>
 					<packagedElement xmi:type='uml:Class' xmi:id='_9_0_2_8980277_1148166945702_566518_4' name='User' visibility='public'>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1148166970818_993178_20' name='username' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
 							</type>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1156391997021_783425_0' name='password' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
 							</type>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1148166978629_781315_22' name='firstName' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
 							</type>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1148166990286_642980_24' name='lastName' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
 							</type>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1156394084012_865265_90' name='email' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
 							</type>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1156394096620_646441_94' name='isActive' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::boolean' referentType='DataType'/>
 								</xmi:Extension>
 							</type>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1156394159581_193933_102' name='creationDate' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::Date' referentType='DataType'/>
 								</xmi:Extension>
 							</type>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1156394127975_586420_98' name='comment' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
@@ -404,7 +404,7 @@
 						</ownedAttribute>
 						<ownedOperation xmi:type='uml:Operation' xmi:id='_9_0_2_8980277_1156482096414_149856_561' name='getUserDetails' visibility='public' isStatic='true'>
 							<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1156482138344_562752_566' name='username' visibility='public' direction='inout'>
-								<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+								<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 									<xmi:Extension extender='MagicDraw UML 16.8'>
 										<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 									</xmi:Extension>
@@ -415,7 +415,7 @@
 					</packagedElement>
 					<packagedElement xmi:type='uml:Class' xmi:id='_9_0_2_8980277_1156394472130_552212_164' name='Role' visibility='public'>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1156394800242_614313_180' name='standardUser' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
@@ -423,7 +423,7 @@
 							<defaultValue xmi:type='uml:LiteralString' xmi:id='_16_8_2e90116_1292426454428_821680_1664' visibility='public' value='StandardUser'/>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1156394870994_842055_182' name='administrator' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
@@ -444,7 +444,7 @@
 							<annotatedElement xmi:idref='_9_0_2_8980277_1149642273971_573140_43'/>
 						</ownedComment>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642273971_565573_39' name='draft' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
@@ -452,7 +452,7 @@
 							<defaultValue xmi:type='uml:LiteralString' xmi:id='_16_8_2e90116_1292426454417_359753_1638' visibility='public' value='Draft'/>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642273971_892170_40' name='submitted' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
@@ -460,7 +460,7 @@
 							<defaultValue xmi:type='uml:LiteralString' xmi:id='_16_8_2e90116_1292426454418_848466_1639' visibility='public' value='Submitted'/>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642273971_889994_41' name='approved' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
@@ -468,7 +468,7 @@
 							<defaultValue xmi:type='uml:LiteralString' xmi:id='_16_8_2e90116_1292426454418_846868_1640' visibility='public' value='Approved'/>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642273971_986178_42' name='rejected' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
@@ -501,14 +501,14 @@
 							<annotatedElement xmi:idref='_9_0_2_8980277_1149642273971_861895_67'/>
 						</ownedComment>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642273971_672202_65' name='startTime' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::Date' referentType='DataType'/>
 								</xmi:Extension>
 							</type>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642273971_379562_66' name='endTime' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::Date' referentType='DataType'/>
 								</xmi:Extension>
@@ -519,7 +519,7 @@
 				<packagedElement xmi:type='uml:Package' xmi:id='_9_0_2_8980277_1148170283531_615000_208' name='vo' visibility='public'>
 					<packagedElement xmi:type='uml:Class' xmi:id='_9_0_2_8980277_1149644056824_230589_1219' name='TimecardSearchCriteriaVO' visibility='public'>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149644282249_857951_1235' name='submitterId' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::Long' referentType='DataType'/>
 								</xmi:Extension>
@@ -532,7 +532,7 @@
 							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_16_8_2e90116_1292426454437_431482_1674' visibility='public'/>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149644985850_800718_1237' name='approverId' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::Long' referentType='DataType'/>
 								</xmi:Extension>
@@ -553,7 +553,7 @@
 							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_16_8_2e90116_1292426454440_945379_1678' visibility='public'/>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149645124930_552972_1241' name='startDateMin' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::Date' referentType='DataType'/>
 								</xmi:Extension>
@@ -566,7 +566,7 @@
 							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_16_8_2e90116_1292426454440_943562_1680' visibility='public'/>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149645165398_767038_1243' name='startDateMax' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::Date' referentType='DataType'/>
 								</xmi:Extension>
@@ -581,7 +581,7 @@
 					</packagedElement>
 					<packagedElement xmi:type='uml:Class' xmi:id='_9_0_2_8980277_1149642611356_560722_508' name='TaskVO' visibility='public'>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642611356_334606_506' name='id' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::Long' referentType='DataType'/>
 								</xmi:Extension>
@@ -594,7 +594,7 @@
 							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_16_8_2e90116_1292426454433_165146_1668' visibility='public'/>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642611356_49233_507' name='name' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
@@ -607,7 +607,7 @@
 					</packagedElement>
 					<packagedElement xmi:type='uml:Class' xmi:id='_9_0_2_8980277_1148170347974_962254_242' name='UserVO' visibility='public'>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1148170347974_377658_238' name='id' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::Long' referentType='DataType'/>
 								</xmi:Extension>
@@ -620,21 +620,21 @@
 							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_16_8_2e90116_1292426454432_922557_1666' visibility='public'/>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1148170347974_178367_239' name='username' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
 							</type>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1148170347974_968173_240' name='firstName' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
 							</type>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1148170347974_317055_241' name='lastName' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
@@ -643,14 +643,14 @@
 					</packagedElement>
 					<packagedElement xmi:type='uml:Class' xmi:id='_9_0_2_8980277_1149642611356_405034_505' name='TimePeriodVO' visibility='public'>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642611356_519369_503' name='startTime' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::Date' referentType='DataType'/>
 								</xmi:Extension>
 							</type>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642611356_368024_504' name='endTime' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::Date' referentType='DataType'/>
 								</xmi:Extension>
@@ -660,35 +660,35 @@
 					<packagedElement xmi:type='uml:Class' xmi:id='_9_0_2_8980277_1156396447130_332684_387' name='UserDetailsVO' visibility='public'>
 						<generalization xmi:type='uml:Generalization' xmi:id='_9_0_2_8980277_1156396505704_742699_403' general='_9_0_2_8980277_1148170347974_962254_242'/>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1156396596154_420039_425' name='password' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
 							</type>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1156396606709_664377_427' name='email' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
 							</type>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1156396627790_181991_429' name='isActive' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::boolean' referentType='DataType'/>
 								</xmi:Extension>
 							</type>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1156396638205_988068_431' name='creationDate' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::Date' referentType='DataType'/>
 								</xmi:Extension>
 							</type>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1156396648139_259678_433' name='comment' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
@@ -705,7 +705,7 @@
 					<packagedElement xmi:type='uml:Class' xmi:id='_9_0_2_8980277_1149642611356_915381_513' name='TimecardSummaryVO[]' visibility='public'/>
 					<packagedElement xmi:type='uml:Class' xmi:id='_9_0_2_8980277_1149642611356_414295_533' name='TimeAllocationVO' visibility='public'>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642611356_511463_530' name='id' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::Long' referentType='DataType'/>
 								</xmi:Extension>
@@ -719,7 +719,7 @@
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642611356_635061_531' name='timePeriodVO' visibility='public' type='_9_0_2_8980277_1149642611356_405034_505'/>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642611356_122051_532' name='taskId' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::Long' referentType='DataType'/>
 								</xmi:Extension>
@@ -728,7 +728,7 @@
 					</packagedElement>
 					<packagedElement xmi:type='uml:Class' xmi:id='_9_0_2_8980277_1156396244188_824032_358' name='UserRoleVO' visibility='public'>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1156452689619_859142_441' name='id' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::Long' referentType='DataType'/>
 								</xmi:Extension>
@@ -745,7 +745,7 @@
 					<packagedElement xmi:type='uml:Class' xmi:id='_9_0_2_8980277_1149642611356_750576_500' name='TaskVO[]' visibility='public'/>
 					<packagedElement xmi:type='uml:Class' xmi:id='_9_0_2_8980277_1149642611356_360927_520' name='TimecardSummaryVO' visibility='public'>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642611356_869057_514' name='id' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::Long' referentType='DataType'/>
 								</xmi:Extension>
@@ -759,28 +759,28 @@
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642611356_724459_515' name='status' visibility='public' type='_9_0_2_8980277_1149642273971_573140_43'/>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642611356_185377_516' name='startDate' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::Date' referentType='DataType'/>
 								</xmi:Extension>
 							</type>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642611356_346107_517' name='comments' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
 							</type>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642611356_785312_518' name='submitterName' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
 							</type>
 						</ownedAttribute>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_8980277_1149642611356_681484_519' name='approverName' visibility='public'>
-							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+							<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 								<xmi:Extension extender='MagicDraw UML 16.8'>
 									<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 								</xmi:Extension>
@@ -807,7 +807,7 @@
 									<transition xmi:type='uml:Transition' xmi:id='_9_0_2_8980277_1155433126134_688961_107' visibility='public' source='_9_0_2_8980277_1155433090532_932458_95' target='_9_0_2_8980277_1150204905355_445183_271'>
 										<effect xmi:type='uml:Activity' xmi:id='_9_0_2_8980277_1155433246276_113824_120' visibility='public'>
 											<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1155433169065_562198_118' name='timecardId' visibility='public' direction='inout'>
-												<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
+												<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
 													<xmi:Extension extender='MagicDraw UML 16.8'>
 														<referenceExtension referentPath='datatype::Long' referentType='DataType'/>
 													</xmi:Extension>
@@ -833,35 +833,35 @@
 								<nestedClassifier xmi:type='uml:Class' xmi:id='_9_0_2_8980277_1148695104532_119612_346' name='SearchController' visibility='public'>
 									<ownedOperation xmi:type='uml:Operation' xmi:id='_9_0_2_8980277_1148708055404_975497_254' name='populateSearchScreen' visibility='public'>
 										<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1148865926627_813546_177' name='submitter' visibility='public' direction='inout'>
-											<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
+											<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
 												<xmi:Extension extender='MagicDraw UML 16.8'>
 													<referenceExtension referentPath='datatype::Long' referentType='DataType'/>
 												</xmi:Extension>
 											</type>
 										</ownedParameter>
 										<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1149181572974_418061_209' name='approver' visibility='public' direction='inout'>
-											<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
+											<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
 												<xmi:Extension extender='MagicDraw UML 16.8'>
 													<referenceExtension referentPath='datatype::Long' referentType='DataType'/>
 												</xmi:Extension>
 											</type>
 										</ownedParameter>
 										<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1149992302215_239282_719' name='status' visibility='public' direction='inout'>
-											<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+											<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 												<xmi:Extension extender='MagicDraw UML 16.8'>
 													<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 												</xmi:Extension>
 											</type>
 										</ownedParameter>
 										<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1149992302235_263414_720' name='startDateMinimum' visibility='public' direction='inout'>
-											<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
+											<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
 												<xmi:Extension extender='MagicDraw UML 16.8'>
 													<referenceExtension referentPath='datatype::Date' referentType='DataType'/>
 												</xmi:Extension>
 											</type>
 										</ownedParameter>
 										<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1149992302235_978661_721' name='startDateMaximum' visibility='public' direction='inout'>
-											<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
+											<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
 												<xmi:Extension extender='MagicDraw UML 16.8'>
 													<referenceExtension referentPath='datatype::Date' referentType='DataType'/>
 												</xmi:Extension>
@@ -869,7 +869,7 @@
 										</ownedParameter>
 										<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1149994165274_155779_724' name='timecardSummaries' visibility='public' direction='inout' type='_9_0_2_8980277_1149642611356_915381_513'/>
 										<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1148708055404_8635_253' visibility='public' direction='return'>
-											<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_324247_52'>
+											<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_324247_52'>
 												<xmi:Extension extender='MagicDraw UML 16.8'>
 													<referenceExtension referentPath='datatype::void' referentType='DataType'/>
 												</xmi:Extension>
@@ -878,21 +878,21 @@
 									</ownedOperation>
 									<ownedOperation xmi:type='uml:Operation' xmi:id='_9_0_2_8980277_1155448961023_328025_147' name='initializeTimecardId' visibility='public'>
 										<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1155449076749_458647_149' name='id' visibility='public' direction='inout'>
-											<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
+											<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
 												<xmi:Extension extender='MagicDraw UML 16.8'>
 													<referenceExtension referentPath='datatype::Long' referentType='DataType'/>
 												</xmi:Extension>
 											</type>
 										</ownedParameter>
 										<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1155449076749_754178_150' name='timecardId' visibility='public' direction='inout'>
-											<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
+											<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
 												<xmi:Extension extender='MagicDraw UML 16.8'>
 													<referenceExtension referentPath='datatype::Long' referentType='DataType'/>
 												</xmi:Extension>
 											</type>
 										</ownedParameter>
 										<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1155448961023_326918_146' visibility='public' direction='return'>
-											<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_324247_52'>
+											<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_324247_52'>
 												<xmi:Extension extender='MagicDraw UML 16.8'>
 													<referenceExtension referentPath='datatype::void' referentType='DataType'/>
 												</xmi:Extension>
@@ -924,35 +924,35 @@
 									<transition xmi:type='uml:Transition' xmi:id='_9_0_2_8980277_1149988255797_479508_696' name='search' visibility='public' source='_9_0_2_8980277_1148696866195_452915_430' target='_9_0_2_8980277_1148759126461_544079_92'>
 										<effect xmi:type='uml:Activity' xmi:id='_9_0_2_8980277_1149988405161_472249_710' name='search' visibility='public'>
 											<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1149988372194_81077_707' name='submitter' visibility='public' direction='inout'>
-												<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
+												<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
 													<xmi:Extension extender='MagicDraw UML 16.8'>
 														<referenceExtension referentPath='datatype::Long' referentType='DataType'/>
 													</xmi:Extension>
 												</type>
 											</ownedParameter>
 											<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1149988372194_983079_708' name='approver' visibility='public' direction='inout'>
-												<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
+												<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
 													<xmi:Extension extender='MagicDraw UML 16.8'>
 														<referenceExtension referentPath='datatype::Long' referentType='DataType'/>
 													</xmi:Extension>
 												</type>
 											</ownedParameter>
 											<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1149989831172_353799_714' name='status' visibility='public' direction='inout'>
-												<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+												<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 													<xmi:Extension extender='MagicDraw UML 16.8'>
 														<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 													</xmi:Extension>
 												</type>
 											</ownedParameter>
 											<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1149989831182_405908_715' name='startDateMinimum' visibility='public' direction='inout'>
-												<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
+												<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
 													<xmi:Extension extender='MagicDraw UML 16.8'>
 														<referenceExtension referentPath='datatype::Date' referentType='DataType'/>
 													</xmi:Extension>
 												</type>
 											</ownedParameter>
 											<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1149989831252_384217_716' name='startDateMaximum' visibility='public' direction='inout'>
-												<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
+												<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_195604_13'>
 													<xmi:Extension extender='MagicDraw UML 16.8'>
 														<referenceExtension referentPath='datatype::Date' referentType='DataType'/>
 													</xmi:Extension>
@@ -963,7 +963,7 @@
 									<transition xmi:type='uml:Transition' xmi:id='_9_0_2_8980277_1155618923754_1626_187' visibility='public' source='_9_0_2_8980277_1148696866195_452915_430' target='_9_0_2_8980277_1155618879931_563377_176'>
 										<effect xmi:type='uml:Activity' xmi:id='_9_0_2_8980277_1155619349086_795087_218' name='details' visibility='public'>
 											<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1155619061812_6869_199' name='id' visibility='public' direction='inout'>
-												<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
+												<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
 													<xmi:Extension extender='MagicDraw UML 16.8'>
 														<referenceExtension referentPath='datatype::Long' referentType='DataType'/>
 													</xmi:Extension>
@@ -974,7 +974,7 @@
 									<transition xmi:type='uml:Transition' xmi:id='_9_0_2_8980277_1155619154376_562539_203' visibility='public' source='_9_0_2_8980277_1155618879931_563377_176' target='_9_0_2_8980277_1155619142839_531313_201'>
 										<effect xmi:type='uml:Activity' xmi:id='_9_0_2_8980277_1155619349106_638745_219' visibility='public'>
 											<ownedParameter xmi:type='uml:Parameter' xmi:id='_9_0_2_8980277_1155619191459_43664_214' name='timecardId' visibility='public' direction='inout'>
-												<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
+												<type xmi:type='uml:DataType' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_227130_59'>
 													<xmi:Extension extender='MagicDraw UML 16.8'>
 														<referenceExtension referentPath='datatype::Long' referentType='DataType'/>
 													</xmi:Extension>
@@ -1020,22 +1020,22 @@
 				</packagedElement>
 			</packagedElement>
 		</packagedElement>
-		<packagedElement xmi:type='uml:Package' href='andromda-profile-datatype-3.4.xml.zip#_9_0_1fe00f9_1119336925546_238419_77'>
+		<packagedElement xmi:type='uml:Package' href='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925546_238419_77'>
 			<xmi:Extension extender='MagicDraw UML 16.8'>
 				<referenceExtension referentPath='datatype' referentType='Package'/>
 			</xmi:Extension>
 		</packagedElement>
-		<packagedElement xmi:type='uml:Package' href='andromda-profile-3.4.xml.zip#_8a70287_1078771814628_224704_589'>
+		<packagedElement xmi:type='uml:Package' href='andromda-profile-3.5-SNAPSHOT.xml.zip#_8a70287_1078771814628_224704_589'>
 			<xmi:Extension extender='MagicDraw UML 16.8'>
 				<referenceExtension referentPath='org.andromda.profile' referentType='Package'/>
 			</xmi:Extension>
 		</packagedElement>
-		<packagedElement xmi:type='uml:Profile' href='andromda-profile-xml-3.4.xml.zip#_9_0_2_12ab03bf_1120852471296_986007_0'>
+		<packagedElement xmi:type='uml:Profile' href='andromda-profile-xml-3.5-SNAPSHOT.xml.zip#_9_0_2_12ab03bf_1120852471296_986007_0'>
 			<xmi:Extension extender='MagicDraw UML 16.8'>
 				<referenceExtension referentPath='andromda-xml' referentType='Profile'/>
 			</xmi:Extension>
 		</packagedElement>
-		<packagedElement xmi:type='uml:Profile' href='andromda-profile-webservice-3.4.xml.zip#_9_0_2_12ab03bf_1120852932765_76536_0'>
+		<packagedElement xmi:type='uml:Profile' href='andromda-profile-webservice-3.5-SNAPSHOT.xml.zip#_9_0_2_12ab03bf_1120852932765_76536_0'>
 			<xmi:Extension extender='MagicDraw UML 16.8'>
 				<referenceExtension referentPath='andromda-webservice' referentType='Profile'/>
 			</xmi:Extension>
@@ -2761,7 +2761,7 @@
 		<privateProxies>
 			<proxy xmi:type='uml:Profile' xmi:id='_11_5_e240333_1154527378140_885914_432' name='presentation' visibility='public'>
 				<xmi:Extension extender='MagicDraw UML 16.8'>
-					<moduleExtension moduleRoot='org.andromda.profile::presentation' moduleName='andromda-profile-presentation-3.4.xml.zip' remoteProjectID='' remoteModuleVersion='1292213706833' moduleUsedByProject='true'/>
+					<moduleExtension moduleRoot='org.andromda.profile::presentation' moduleName='andromda-profile-presentation-3.5-SNAPSHOT.xml.zip' remoteProjectID='' remoteModuleVersion='1292213706833' moduleUsedByProject='true'/>
 				</xmi:Extension>
 				<packagedElement xmi:type='uml:Extension' xmi:id='_11_5_e240333_1154527287968_599262_170' visibility='public'>
 					<memberEnd xmi:idref='_11_5_e240333_1154527287968_13317_171'/>
@@ -3050,7 +3050,7 @@
 			</proxy>
 			<proxy xmi:type='uml:Profile' xmi:id='_11_5_e240333_1154527425687_111873_349' name='service' visibility='public'>
 				<xmi:Extension extender='MagicDraw UML 16.8'>
-					<moduleExtension moduleRoot='org.andromda.profile::service' moduleName='andromda-profile-service-3.4.xml.zip' remoteProjectID='' remoteModuleVersion='1292213702317' moduleUsedByProject='true'/>
+					<moduleExtension moduleRoot='org.andromda.profile::service' moduleName='andromda-profile-service-3.5-SNAPSHOT.xml.zip' remoteProjectID='' remoteModuleVersion='1292213702317' moduleUsedByProject='true'/>
 				</xmi:Extension>
 				<packagedElement xmi:type='uml:Extension' xmi:id='_11_5_e240333_1154527399515_941328_249' visibility='public'>
 					<memberEnd xmi:idref='_11_5_e240333_1154527399515_341234_250'/>
@@ -3272,7 +3272,7 @@
 			</proxy>
 			<proxy xmi:type='uml:Package' xmi:id='_9_0_1fe00f9_1119336925546_238419_77' name='datatype' visibility='public'>
 				<xmi:Extension extender='MagicDraw UML 16.8'>
-					<moduleExtension moduleRoot='::datatype' moduleName='andromda-profile-datatype-3.4.xml.zip' remoteProjectID='' remoteModuleVersion='1292213700693' moduleUsedByProject='true'/>
+					<moduleExtension moduleRoot='::datatype' moduleName='andromda-profile-datatype-3.5-SNAPSHOT.xml.zip' remoteProjectID='' remoteModuleVersion='1292213700693' moduleUsedByProject='true'/>
 				</xmi:Extension>
 				<packagedElement xmi:type='uml:DataType' xmi:id='_9_0_1fe00f9_1119336925531_227130_59' name='Long' visibility='public'/>
 				<packagedElement xmi:type='uml:DataType' xmi:id='_9_0_1fe00f9_1119336925531_364079_66' name='String' visibility='public'/>
@@ -3283,7 +3283,7 @@
 			</proxy>
 			<proxy xmi:type='uml:Profile' xmi:id='_11_5_e240333_1154527540265_181005_899' name='persistence' visibility='public'>
 				<xmi:Extension extender='MagicDraw UML 16.8'>
-					<moduleExtension moduleRoot='org.andromda.profile::persistence' moduleName='andromda-profile-persistence-3.4.xml.zip' remoteProjectID='' remoteModuleVersion='1292213705972' moduleUsedByProject='true'/>
+					<moduleExtension moduleRoot='org.andromda.profile::persistence' moduleName='andromda-profile-persistence-3.5-SNAPSHOT.xml.zip' remoteProjectID='' remoteModuleVersion='1292213705972' moduleUsedByProject='true'/>
 				</xmi:Extension>
 				<packagedElement xmi:type='uml:Stereotype' xmi:id='_9_0_1fe00f9_1119337118921_354011_73' name='Entity' visibility='public'>
 					<ownedAttribute xmi:type='uml:Property' xmi:id='_11_5_e240333_1154527517343_546060_358' name='base_Class' visibility='private' type='_9_0_62a020a_1105704885343_144138_7929'/>
@@ -3581,11 +3581,11 @@
 			</proxy>
 			<proxy xmi:type='uml:Package' xmi:id='_8a70287_1078771814628_224704_589' name='org.andromda.profile' visibility='public'>
 				<xmi:Extension extender='MagicDraw UML 16.8'>
-					<moduleExtension moduleRoot='::org.andromda.profile' moduleName='andromda-profile-3.4.xml.zip' remoteProjectID='' remoteModuleVersion='1292213707518' moduleUsedByProject='true'/>
+					<moduleExtension moduleRoot='::org.andromda.profile' moduleName='andromda-profile-3.5-SNAPSHOT.xml.zip' remoteProjectID='' remoteModuleVersion='1292213707518' moduleUsedByProject='true'/>
 				</xmi:Extension>
 				<packagedElement xmi:type='uml:Profile' xmi:id='_11_5_e240333_1154527378140_885914_432' name='presentation' visibility='public'>
 					<xmi:Extension extender='MagicDraw UML 16.8'>
-						<moduleExtension moduleRoot='org.andromda.profile::presentation' moduleName='andromda-profile-presentation-3.4.xml.zip' remoteProjectID='' remoteModuleVersion='1292213706833' moduleUsedByProject='true'/>
+						<moduleExtension moduleRoot='org.andromda.profile::presentation' moduleName='andromda-profile-presentation-3.5-SNAPSHOT.xml.zip' remoteProjectID='' remoteModuleVersion='1292213706833' moduleUsedByProject='true'/>
 					</xmi:Extension>
 					<packagedElement xmi:type='uml:Extension' xmi:id='_11_5_e240333_1154527287968_599262_170' visibility='public'>
 						<memberEnd xmi:idref='_11_5_e240333_1154527287968_13317_171'/>
@@ -3874,7 +3874,7 @@
 				</packagedElement>
 				<packagedElement xmi:type='uml:Profile' xmi:id='_11_5_e240333_1154527425687_111873_349' name='service' visibility='public'>
 					<xmi:Extension extender='MagicDraw UML 16.8'>
-						<moduleExtension moduleRoot='org.andromda.profile::service' moduleName='andromda-profile-service-3.4.xml.zip' remoteProjectID='' remoteModuleVersion='1292213702317' moduleUsedByProject='true'/>
+						<moduleExtension moduleRoot='org.andromda.profile::service' moduleName='andromda-profile-service-3.5-SNAPSHOT.xml.zip' remoteProjectID='' remoteModuleVersion='1292213702317' moduleUsedByProject='true'/>
 					</xmi:Extension>
 					<packagedElement xmi:type='uml:Extension' xmi:id='_11_5_e240333_1154527399515_941328_249' visibility='public'>
 						<memberEnd xmi:idref='_11_5_e240333_1154527399515_341234_250'/>
@@ -3971,7 +3971,7 @@
 				</packagedElement>
 				<packagedElement xmi:type='uml:Profile' xmi:id='_11_5_e240333_1154527540265_181005_899' name='persistence' visibility='public'>
 					<xmi:Extension extender='MagicDraw UML 16.8'>
-						<moduleExtension moduleRoot='org.andromda.profile::persistence' moduleName='andromda-profile-persistence-3.4.xml.zip' remoteProjectID='' remoteModuleVersion='1292213705972' moduleUsedByProject='true'/>
+						<moduleExtension moduleRoot='org.andromda.profile::persistence' moduleName='andromda-profile-persistence-3.5-SNAPSHOT.xml.zip' remoteProjectID='' remoteModuleVersion='1292213705972' moduleUsedByProject='true'/>
 					</xmi:Extension>
 					<packagedElement xmi:type='uml:Stereotype' xmi:id='_9_0_1fe00f9_1119337118921_354011_73' name='Entity' visibility='public'>
 						<ownedAttribute xmi:type='uml:Property' xmi:id='_11_5_e240333_1154527517343_546060_358' name='base_Class' visibility='private' type='_9_0_62a020a_1105704885343_144138_7929'/>
@@ -4436,7 +4436,7 @@
 							<propertyID>MODULES_DIRS</propertyID>
 							<propertyDescriptionID>MODULES_DIRS_DESCRIPTION</propertyDescriptionID>
 							<mdElement elementClass='FileProperty'>
-								<value>&lt;maven2.repository&gt;\org\andromda\profiles\uml14\andromda-profile\3.4\</value>
+								<value>&lt;maven2.repository&gt;\org\andromda\profiles\uml14\andromda-profile\3.5-SNAPSHOT\</value>
 								<selectionMode xmi:value='1'/>
 								<displayFullPath xmi:value='true'/>
 								<useFilePreviewer xmi:value='false'/>
@@ -4444,7 +4444,7 @@
 								<fileType>FILE_TYPE_ANY</fileType>
 							</mdElement>
 							<mdElement elementClass='FileProperty'>
-								<value>&lt;maven2.repository&gt;\org\andromda\profiles\uml14\andromda-profile-datatype\3.4\</value>
+								<value>&lt;maven2.repository&gt;\org\andromda\profiles\uml14\andromda-profile-datatype\3.5-SNAPSHOT\</value>
 								<selectionMode xmi:value='1'/>
 								<displayFullPath xmi:value='true'/>
 								<useFilePreviewer xmi:value='false'/>
@@ -4452,7 +4452,7 @@
 								<fileType>FILE_TYPE_ANY</fileType>
 							</mdElement>
 							<mdElement elementClass='FileProperty'>
-								<value>&lt;maven2.repository&gt;\org\andromda\profiles\uml14\andromda-profile-meta\3.4\</value>
+								<value>&lt;maven2.repository&gt;\org\andromda\profiles\uml14\andromda-profile-meta\3.5-SNAPSHOT\</value>
 								<selectionMode xmi:value='1'/>
 								<displayFullPath xmi:value='true'/>
 								<useFilePreviewer xmi:value='false'/>
@@ -4460,7 +4460,7 @@
 								<fileType>FILE_TYPE_ANY</fileType>
 							</mdElement>
 							<mdElement elementClass='FileProperty'>
-								<value>&lt;maven2.repository&gt;\org\andromda\profiles\uml14\andromda-profile-persistence\3.4\</value>
+								<value>&lt;maven2.repository&gt;\org\andromda\profiles\uml14\andromda-profile-persistence\3.5-SNAPSHOT\</value>
 								<selectionMode xmi:value='1'/>
 								<displayFullPath xmi:value='true'/>
 								<useFilePreviewer xmi:value='false'/>
@@ -4468,7 +4468,7 @@
 								<fileType>FILE_TYPE_ANY</fileType>
 							</mdElement>
 							<mdElement elementClass='FileProperty'>
-								<value>&lt;maven2.repository&gt;\org\andromda\profiles\uml14\andromda-profile-presentation\3.4\</value>
+								<value>&lt;maven2.repository&gt;\org\andromda\profiles\uml14\andromda-profile-presentation\3.5-SNAPSHOT\</value>
 								<selectionMode xmi:value='1'/>
 								<displayFullPath xmi:value='true'/>
 								<useFilePreviewer xmi:value='false'/>
@@ -4476,7 +4476,7 @@
 								<fileType>FILE_TYPE_ANY</fileType>
 							</mdElement>
 							<mdElement elementClass='FileProperty'>
-								<value>&lt;maven2.repository&gt;\org\andromda\profiles\uml14\andromda-profile-process\3.4\</value>
+								<value>&lt;maven2.repository&gt;\org\andromda\profiles\uml14\andromda-profile-process\3.5-SNAPSHOT\</value>
 								<selectionMode xmi:value='1'/>
 								<displayFullPath xmi:value='true'/>
 								<useFilePreviewer xmi:value='false'/>
@@ -4484,7 +4484,7 @@
 								<fileType>FILE_TYPE_ANY</fileType>
 							</mdElement>
 							<mdElement elementClass='FileProperty'>
-								<value>&lt;maven2.repository&gt;\org\andromda\profiles\uml14\andromda-profile-service\3.4\</value>
+								<value>&lt;maven2.repository&gt;\org\andromda\profiles\uml14\andromda-profile-service\3.5-SNAPSHOT\</value>
 								<selectionMode xmi:value='1'/>
 								<displayFullPath xmi:value='true'/>
 								<useFilePreviewer xmi:value='false'/>
@@ -4492,7 +4492,7 @@
 								<fileType>FILE_TYPE_ANY</fileType>
 							</mdElement>
 							<mdElement elementClass='FileProperty'>
-								<value>&lt;maven2.repository&gt;\org\andromda\profiles\uml14\andromda-profiles-uml14\3.4\</value>
+								<value>&lt;maven2.repository&gt;\org\andromda\profiles\uml14\andromda-profiles-uml14\3.5-SNAPSHOT\</value>
 								<selectionMode xmi:value='1'/>
 								<displayFullPath xmi:value='true'/>
 								<useFilePreviewer xmi:value='false'/>
@@ -4500,7 +4500,7 @@
 								<fileType>FILE_TYPE_ANY</fileType>
 							</mdElement>
 							<mdElement elementClass='FileProperty'>
-								<value>&lt;maven2.repository&gt;\org\andromda\profiles\uml14\andromda-profile-webservice\3.4\</value>
+								<value>&lt;maven2.repository&gt;\org\andromda\profiles\uml14\andromda-profile-webservice\3.5-SNAPSHOT\</value>
 								<selectionMode xmi:value='1'/>
 								<displayFullPath xmi:value='true'/>
 								<useFilePreviewer xmi:value='false'/>
@@ -4508,7 +4508,7 @@
 								<fileType>FILE_TYPE_ANY</fileType>
 							</mdElement>
 							<mdElement elementClass='FileProperty'>
-								<value>&lt;maven2.repository&gt;\org\andromda\profiles\uml14\andromda-profile-xml\3.4\</value>
+								<value>&lt;maven2.repository&gt;\org\andromda\profiles\uml14\andromda-profile-xml\3.5-SNAPSHOT\</value>
 								<selectionMode xmi:value='1'/>
 								<displayFullPath xmi:value='true'/>
 								<useFilePreviewer xmi:value='false'/>

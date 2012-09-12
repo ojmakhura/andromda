@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.andromda.cartridges</groupId>
         <artifactId>andromda-cartridges</artifactId>
-        <version>3.4</version>
+        <version>3.5-SNAPSHOT</version>
     </parent>
     <artifactId>andromda-webservice-cartridge</artifactId>
     <packaging>jar</packaging>
@@ -221,7 +221,7 @@
         </plugins>
     </build>
     <properties>
-        <andromda.version>3.4</andromda.version>
+        <andromda.version>3.5-SNAPSHOT</andromda.version>
         <axiom.version>1.2.13</axiom.version>
         <uml2.output.dir>${project.basedir}/target/cartridge-test/actualUML2</uml2.output.dir>
         <uml2.model.uri>file:${src.dir}/uml2/WebServiceMetafacadeModel.uml</uml2.model.uri>

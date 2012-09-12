@@ -23,7 +23,7 @@ Hibernate4 conflicts with Spring 3.0, need v3.1 -->
         </dependencies>
     </deployment>
     <!-- This corresponds to the module for a web deployment within an ear archive -->
-    <sub-deployment name="timetracker-web-3.4.war">
+    <sub-deployment name="timetracker-web.war">
       <exclusions>
         <module name="javax.faces.api" slot="main"/>
         <module name="com.sun.jsf-impl" slot="main"/>

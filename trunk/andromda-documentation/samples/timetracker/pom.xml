@@ -6,7 +6,7 @@
     <groupId>org.andromda.timetracker</groupId>
     <artifactId>timetracker</artifactId>
     <packaging>pom</packaging>
-    <version>3.4</version>
+    <version>3.5-SNAPSHOT</version>
     <name>TimeTracker</name>
     <description>The TimeTracker Project.</description>
     <inceptionYear>2003</inceptionYear>
@@ -427,7 +427,7 @@
             <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
-                <version>6.7</version>
+                <version>6.8</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
@@ -682,7 +682,7 @@
         <module>app</module>
     </modules>
     <properties>
-        <andromda.version>3.4</andromda.version>
+        <andromda.version>3.5-SNAPSHOT</andromda.version>
         <downloadSources>true</downloadSources>
         <createChecksum>true</createChecksum>
         <uniqueVersion>false</uniqueVersion>
@@ -1009,7 +1009,7 @@
             </build>
         </profile>
     </profiles>
-    <!--repositories>
+    <repositories>
         <repository>
             <id>sonatype</id>
             <name>Sonatype AndroMDA Repository</name>
@@ -1022,7 +1022,7 @@
             <name>Sonatype AndroMDA Repository</name>
             <url>http://oss.sonatype.org/content/groups/public</url>
         </pluginRepository>
-    </pluginRepositories-->
+    </pluginRepositories>
     <prerequisites>
         <maven>2.2.1</maven>
     </prerequisites>

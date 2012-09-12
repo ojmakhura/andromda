@@ -8,19 +8,19 @@
 
     <!-- UserService -->
     <bean id="userService" class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
-        <property name="jndiName"><value>timetracker-3.4/ejb/org.andromda.timetracker.service.UserService</value></property>
+        <property name="jndiName"><value>timetracker-3.5-SNAPSHOT/ejb/org.andromda.timetracker.service.UserService</value></property>
         <property name="businessInterface"><value>org.andromda.timetracker.service.UserService</value></property>
     </bean>
 
     <!-- TimeTrackingService -->
     <bean id="timeTrackingService" class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
-        <property name="jndiName"><value>timetracker-3.4/ejb/org.andromda.timetracker.service.TimeTrackingService</value></property>
+        <property name="jndiName"><value>timetracker-3.5-SNAPSHOT/ejb/org.andromda.timetracker.service.TimeTrackingService</value></property>
         <property name="businessInterface"><value>org.andromda.timetracker.service.TimeTrackingService</value></property>
     </bean>
 
     <!-- SecurityService -->
     <bean id="securityService" class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
-        <property name="jndiName"><value>timetracker-3.4/ejb/org.andromda.timetracker.service.SecurityService</value></property>
+        <property name="jndiName"><value>timetracker-3.5-SNAPSHOT/ejb/org.andromda.timetracker.service.SecurityService</value></property>
         <property name="businessInterface"><value>org.andromda.timetracker.service.SecurityService</value></property>
     </bean>
 

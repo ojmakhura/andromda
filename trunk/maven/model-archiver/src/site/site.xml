@@ -6,7 +6,7 @@
     <skin>
         <groupId>org.andromda.maven.plugins.site</groupId>
         <artifactId>andromda-site-skin</artifactId>
-        <version>3.4</version>
+        <version>3.5-SNAPSHOT</version>
     </skin>
     <bannerLeft>
         <name/>
@@ -14,8 +14,8 @@
     <publishDate format="dd MMM yyyy hh:mm zzz"/>
     <body>
         <links>
-    		<item name="AndroMDA Model Archiver Maven Plugin" href="index.html"/>
-    	</links>
+            <item name="AndroMDA Model Archiver Maven Plugin" href="index.html"/>
+        </links>
         <menu ref="parent"/>
         <menu name="Overview">
             <item name="Introduction" href="introduction.html"/>
