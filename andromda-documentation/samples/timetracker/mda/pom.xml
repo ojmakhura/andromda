@@ -18,7 +18,7 @@
             <artifactId>andromda-profile</artifactId>
             <version>${andromda.version}</version>
             <type>xml.zip</type>
-            <scope>runtime</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.andromda.cartridges</groupId>

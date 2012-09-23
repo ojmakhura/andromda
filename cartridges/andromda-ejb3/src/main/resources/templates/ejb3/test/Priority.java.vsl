@@ -1,0 +1,23 @@
+/**
+ * @Priority annotation on TestNG classes to correct the test ordering.
+ * groups, before, after in testng.xml and on the class do not work properly.
+ * This really should be part of TestNG.
+ */
+package org.andromda.dbtest;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+/**
+ * @see "http://beust.com/weblog2/archives/000479.html"
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.METHOD, ElementType.TYPE})
+public @interface Priority {
+    /**
+     * @return value default 0
+     */
+    int value() default 0;
+}

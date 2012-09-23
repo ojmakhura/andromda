@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  This is used to map the JDBC SQL types to UML2 datatypes.
+  Used by andromda-schema2uml2 plugin. Each from type must map to only ONE.
+  Takes into account the numeric precision and scale when mapping type.
+  This is meant to be generic for all DBMSs even with varying datatypes,
+  the default is H2 and Oracle, you must override if your DBMS precision
+  is different. The mapping defaults to the wrapped primitive type which
+  must be converted to the primitive type if not nullable in the model
+  (except for unique and identifier attributes).
+  See http://www.h2database.com/html/datatypes.html and
+  http://docs.oracle.com/cd/E11882_01/server.112/e26088/sql_elements001.htm#autoId0
+-->
+<mappings name="RevengSql">
+    <mapping>
+        <from>TINYINT</from>
+        <to>JavaPrimitiveTypes::byte</to>
+    </mapping>
+    <mapping>
+        <from>BOOLEAN</from>
+        <from>BOOL</from>
+        <from>BIT</from>
+        <to>JavaPrimitiveTypes::boolean</to>
+    </mapping>
+    <mapping>
+        <from>INT</from>
+        <from>INTEGER</from>
+        <from>MEDIUMINT</from>
+        <from>INT4</from>
+        <from>SIGNED</from>
+        <to>JavaPrimitiveTypes::int</to>
+    </mapping>
+    <mapping>
+        <from>SMALLINT</from>
+        <from>INT2</from>
+        <from>YEAR</from>
+        <to>JavaPrimitiveTypes::short</to>
+    </mapping>
+    <mapping>
+        <from>BIGINT</from>
+        <from>INT8</from>
+        <from>IDENTITY</from>
+        <!-- Must map input type regular expression -->
+        <from>NUMBER</from>
+        <from>NUMERIC</from>
+        <to>JavaPrimitiveTypes::long</to>
+    </mapping>
+    <!-- 2 decimal places - use custom datatype mapped to BigDecimal -->
+    <mapping>
+        <from>MONEY</from>
+        <to>datatype::Decimal</to>
+    </mapping>
+    <mapping>
+        <from>DECIMAL</from>
+        <from>DEC</from>
+        <from>NUMBER</from>
+        <from>NUMERIC</from>
+        <!--to>datatype::Decimal</to-->
+        <to>JavaPrimitiveTypes::double</to>
+    </mapping>
+    <mapping>
+        <from>DOUBLE</from>
+        <from>DOUBLE PRECISION</from>
+        <from>FLOAT</from>
+        <from>FLOAT4</from>
+        <from>FLOAT8</from>
+        <from>BINARY_FLOAT</from>
+        <from>BINARY_DOUBLE</from>
+        <to>JavaPrimitiveTypes::double</to>
+    </mapping>
+    <mapping>
+        <from>REAL</from>
+        <to>JavaPrimitiveTypes::float</to>
+    </mapping>
+    <mapping>
+        <from>TIME</from>
+        <to>datatype::Time</to>
+    </mapping>
+    <mapping>
+        <from>DATE</from>
+        <to>datatype::Date</to>
+    </mapping>
+    <mapping>
+        <from>DATETIME</from>
+        <from>SMALLDATETIME</from>
+        <from>TIMESTAMP</from>
+        <to>datatype::DateTime</to>
+    </mapping>
+    <mapping>
+        <from>BINARY</from>
+        <from>VARBINARY</from>
+        <from>LONGVARBINARY</from>
+        <from>RAW</from>
+        <from>BYTEA</from>
+        <from>LONG RAW</from>
+        <to>datatype::byte[]</to>
+    </mapping>
+    <mapping>
+        <from>OTHER</from>
+        <from>ANYTYPE</from>
+        <from>ANYDATA</from>
+        <from>ANYDATASET</from>
+        <to>datatype::Object</to>
+    </mapping>
+    <mapping>
+        <from>VARCHAR</from>
+        <from>LONGVARCHAR</from>
+        <from>VARCHAR2</from>
+        <from>VARCHAR</from>
+        <from>NVARCHAR</from>
+        <from>NVARCHAR2</from>
+        <from>VARCHAR_CASESENSITIVE</from>
+        <from>VARCHAR_IGNORECASE</from>
+        <from>CHAR</from>
+        <from>CHARACTER</from>
+        <from>NCHAR</from>
+        <from>CHARACTER VARYING</from>
+        <from>CHAR VARYING</from>
+        <from>NATIONAL CHAR</from>
+        <from>NATIONAL CHARACTER</from>
+        <from>NATIONAL CHAR VARYING</from>
+        <from>NATIONAL CHARACTER VARYING</from>
+        <from>NCHAR VARYING</from>
+        <to>UMLPrimitiveTypes::String</to>
+    </mapping>
+    <mapping>
+        <from>CHAR(1)</from>
+        <from>CHARACTER(1)</from>
+        <from>NCHAR(1)</from>
+        <to>JavaPrimitiveTypes::char</to>
+    </mapping>
+    <mapping>
+        <from>BLOB</from>
+        <from>TINYBLOB</from>
+        <from>MEDIUMBLOB</from>
+        <from>LONGBLOB</from>
+        <from>IMAGE</from>
+        <from>OID</from>
+        <from>BFILE</from>
+        <to>datatype::Blob</to>
+    </mapping>
+    <mapping>
+        <from>CLOB</from>
+        <from>TINYTEXT</from>
+        <from>TEXT</from>
+        <from>MEDIUMTEXT</from>
+        <from>LONGTEXT</from>
+        <from>NTEXT</from>
+        <from>NCLOB</from>
+        <from>LONG</from>
+        <to>datatype::Clob</to>
+    </mapping>
+    <mapping>
+        <from>UUID</from>
+        <to>datatype::Guid</to>
+    </mapping>
+    <mapping>
+        <from>ARRAY</from>
+        <to>datatype::Object[]</to>
+    </mapping>
+    <mapping>
+        <from>URIType</from>
+        <from>DBURIType</from>
+        <from>XDBURIType</from>
+        <from>HTTPURIType</from>
+        <to>datatype::URI</to>
+    </mapping>
+</mappings>

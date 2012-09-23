@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:MagicDrawProfile="http:///schemas/MagicDrawProfile/_S0qiY_zKEd-wO99S1Sk-5A/0" xmlns:Profile_for_DeploymentCartridgeTestModel1="http:///schemas/Profile_for_DeploymentCartridgeTestModel1/_S0qiYfzKEd-wO99S1Sk-5A/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/2.0.0/UML" xsi:schemaLocation="http:///schemas/MagicDrawProfile/_S0qiY_zKEd-wO99S1Sk-5A/0 UML_Standard_Profile.MagicDraw_Profile.profile.uml#_S0zyQvzKEd-wO99S1Sk-5A http:///schemas/Profile_for_DeploymentCartridgeTestModel1/_S0qiYfzKEd-wO99S1Sk-5A/0 Profile_for_DeploymentCartridgeTestModel1.profile.uml#_S0zuYPzKEd-wO99S1Sk-5A">
+  <uml:Model xmi:id="eee_1045467100313_135436_1" name="Data" viewpoint="">
+    <ownedComment xmi:id="_9_5_1_d860307_1139142798473_652784_0" body="Author:BohlenMa.&#xA;Created:2/5/06 1:27 PM.&#xA;Title:.&#xA;Comment:.&#xA;" annotatedElement="eee_1045467100313_135436_1"/>
+    <packageImport xmi:id="_0primitiveTypesData">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:id="_0javaPrimitiveTypesData">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Package" xmi:id="_9_5_1_d860307_1139143185038_242532_87" name="org">
+      <packagedElement xmi:type="uml:Package" xmi:id="_9_5_1_d860307_1139143190206_4722_88" name="andromda">
+        <packagedElement xmi:type="uml:Package" xmi:id="_9_5_1_d860307_1139143196014_937965_89" name="cartridges">
+          <packagedElement xmi:type="uml:Package" xmi:id="_9_5_1_d860307_1139143201362_963857_90" name="deployment">
+            <packagedElement xmi:type="uml:Package" xmi:id="_9_5_1_d860307_1139143918743_935452_431" name="componenttypes">
+              <packagedElement xmi:type="uml:Component" xmi:id="_9_5_1_d860307_1139143317940_579913_132" name="WebComponent">
+                <ownedAttribute xmi:type="uml:Port" xmi:id="_9_5_1_d860307_1139143335905_203799_144" name="hc" visibility="public" type="_9_5_1_d860307_1139144368710_735723_1066"/>
+                <ownedAttribute xmi:type="uml:Port" xmi:id="_9_5_1_d860307_1139144410951_293053_1076" name="og" visibility="public" type="_9_5_1_d860307_1139144410961_622278_1077" isService="false"/>
+              </packagedElement>
+              <packagedElement xmi:type="uml:Class" xmi:id="_9_5_1_d860307_1139143973883_509788_837" name="SomeConnector" clientDependency="_9_5_1_d860307_1139143586275_116729_224">
+                <interfaceRealization xmi:id="_9_5_1_d860307_1139143586275_116729_224" name="" supplier="_9_5_1_d860307_1139143571194_848658_207" client="_9_5_1_d860307_1139143973883_509788_837" contract="_9_5_1_d860307_1139143571194_848658_207"/>
+              </packagedElement>
+              <packagedElement xmi:type="uml:Interface" xmi:id="_9_5_1_d860307_1139143571194_848658_207" name="SomeService"/>
+              <packagedElement xmi:type="uml:Dependency" xmi:id="_9_5_1_d860307_1139144186308_680570_1027" name="" supplier="_9_5_1_d860307_1139143286715_956832_112" client="_9_5_1_d860307_1139144151688_321438_1000"/>
+              <packagedElement xmi:type="uml:Dependency" xmi:id="_9_5_1_d860307_1139144474543_398336_1100" name="" supplier="_9_5_1_d860307_1139143571194_848658_207" client="_9_5_1_d860307_1139144410961_622278_1077"/>
+              <packagedElement xmi:type="uml:Component" xmi:id="_9_5_1_d860307_1139143392056_259641_150" name="BackendComponent">
+                <ownedAttribute xmi:type="uml:Port" xmi:id="_9_5_1_d860307_1139143411734_729115_162" name="sc" visibility="public" type="_9_5_1_d860307_1139143973883_509788_837" isService="false"/>
+              </packagedElement>
+              <packagedElement xmi:type="uml:Artifact" xmi:id="_16_8_2e90116_1291153041505_513088_1603" name="BackendComponent" clientDependency="_16_8_2e90116_1291153041505_471678_1604" fileName="">
+                <manifestation xmi:id="_16_8_2e90116_1291153041505_471678_1604" name="" supplier="_9_5_1_d860307_1139143392056_259641_150" client="_16_8_2e90116_1291153041505_513088_1603" utilizedElement="_9_5_1_d860307_1139143392056_259641_150"/>
+              </packagedElement>
+              <packagedElement xmi:type="uml:Class" xmi:id="_9_5_1_d860307_1139144410961_622278_1077" name="Outgoing" clientDependency="_9_5_1_d860307_1139144474543_398336_1100"/>
+              <packagedElement xmi:type="uml:Artifact" xmi:id="_16_8_2e90116_1291153041505_483160_1600" name="WebComponent" clientDependency="_16_8_2e90116_1291153041505_301677_1601" fileName="">
+                <manifestation xmi:id="_16_8_2e90116_1291153041505_301677_1601" name="" supplier="_9_5_1_d860307_1139143317940_579913_132" client="_16_8_2e90116_1291153041505_483160_1600" utilizedElement="_9_5_1_d860307_1139143317940_579913_132"/>
+              </packagedElement>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Package" xmi:id="_9_5_1_d860307_1139143217916_847000_91" name="sampledeployment">
+              <packagedElement xmi:type="uml:Artifact" xmi:id="_9_5_1_d860307_1139144151688_321438_1000" name="MyBackendComponents.jar" clientDependency="_9_5_1_d860307_1139144186308_680570_1027 _9_5_1_d860307_1139144165188_51438_1016" fileName="">
+                <manifestation xmi:id="_9_5_1_d860307_1139144165188_51438_1016" name="" supplier="_9_5_1_d860307_1139143392056_259641_150" client="_9_5_1_d860307_1139144151688_321438_1000" utilizedElement="_9_5_1_d860307_1139143392056_259641_150"/>
+              </packagedElement>
+              <packagedElement xmi:type="uml:Node" xmi:id="_9_5_1_d860307_1139143300645_999773_122" name="AppServer1" clientDependency="_16_8_2e90116_1291153041505_748085_1605 _16_8_2e90116_1291153041505_31782_1602">
+                <deployment xmi:id="_16_8_2e90116_1291153041505_31782_1602" name="" supplier="_16_8_2e90116_1291153041505_483160_1600" client="_9_5_1_d860307_1139143300645_999773_122" deployedArtifact="_16_8_2e90116_1291153041505_483160_1600"/>
+                <deployment xmi:id="_16_8_2e90116_1291153041505_748085_1605" name="" supplier="_16_8_2e90116_1291153041505_513088_1603" client="_9_5_1_d860307_1139143300645_999773_122" deployedArtifact="_16_8_2e90116_1291153041505_513088_1603"/>
+              </packagedElement>
+              <packagedElement xmi:type="uml:Package" xmi:id="_9_5_1_d860307_1139346323505_574786_114" name="mywebapp2"/>
+              <packagedElement xmi:type="uml:Artifact" xmi:id="_9_5_1_d860307_1139143820412_463225_318" name="MyWebComponents.jar" clientDependency="_9_5_1_d860307_1139143851797_820435_372 _9_5_1_d860307_1139346339458_564264_151 _9_5_1_d860307_1139143883132_367048_383" fileName="">
+                <manifestation xmi:id="_9_5_1_d860307_1139143851797_820435_372" name="" supplier="_9_5_1_d860307_1139143317940_579913_132" client="_9_5_1_d860307_1139143820412_463225_318" utilizedElement="_9_5_1_d860307_1139143317940_579913_132"/>
+              </packagedElement>
+              <packagedElement xmi:type="uml:Package" xmi:id="_9_5_1_d860307_1139143265634_811229_102" name="mywebapp"/>
+              <packagedElement xmi:type="uml:Dependency" xmi:id="_9_5_1_d860307_1139346339458_564264_151" name="" supplier="_9_5_1_d860307_1139346323505_574786_114" client="_9_5_1_d860307_1139143820412_463225_318"/>
+              <packagedElement xmi:type="uml:Dependency" xmi:id="_9_5_1_d860307_1139143883132_367048_383" name="" supplier="_9_5_1_d860307_1139143265634_811229_102" client="_9_5_1_d860307_1139143820412_463225_318"/>
+              <packagedElement xmi:type="uml:Interface" xmi:id="_9_5_1_d860307_1139144001613_249440_961" name="Frontend"/>
+              <packagedElement xmi:type="uml:Package" xmi:id="_9_5_1_d860307_1139143286715_956832_112" name="mybackendservices"/>
+              <packagedElement xmi:type="uml:Class" xmi:id="_9_5_1_d860307_1139144368710_735723_1066" name="HttpConnector" clientDependency="_9_5_1_d860307_1139144027169_135557_977">
+                <interfaceRealization xmi:id="_9_5_1_d860307_1139144027169_135557_977" name="" supplier="_9_5_1_d860307_1139144001613_249440_961" client="_9_5_1_d860307_1139144368710_735723_1066" contract="_9_5_1_d860307_1139144001613_249440_961"/>
+              </packagedElement>
+            </packagedElement>
+          </packagedElement>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_9_5_1_d860307_1139345038598_39382_0" name="Data types"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="magicdraw_uml_standard_profile_v_0001" name="UML Standard Profile">
+      <ownedComment xmi:id="_be00301_1078843546940_242228_131" body="UML Standard Profile contains UML metamodel (metaclasses without properties and associations), StandardProfileL2 and StandardProfileL3 from UML specification, Standard UML stereotypes defined in annex C of UML specification.&#xA;Profile also includes validation suites for UML model correctness and completeness checking, and stereotypes used by MagicDraw internally." annotatedElement="magicdraw_uml_standard_profile_v_0001"/>
+    </packagedElement>
+    <profileApplication xmi:id="_16_6_8f90291_1254846042821_86742_517profileApplicationData">
+      <eAnnotations xmi:id="_S0z04PzKEd-wO99S1Sk-5A" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.Traceability_customization.profile.uml#_S0zxpPzKEd-wO99S1Sk-5A"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.Traceability_customization.profile.uml#_16_6_8f90291_1254846042821_86742_517"/>
+    </profileApplication>
+    <profileApplication xmi:id="_11_5_f720368_1159529670215_231387_1profileApplicationData">
+      <eAnnotations xmi:id="_S0z04vzKEd-wO99S1Sk-5A" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.Validation_Profile.profile.uml#_S0zsU_zKEd-wO99S1Sk-5A"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.Validation_Profile.profile.uml#_11_5_f720368_1159529670215_231387_1"/>
+    </profileApplication>
+    <profileApplication xmi:id="_16_8_2e90116_1291153041490_405369_1557profileApplicationData">
+      <eAnnotations xmi:id="_S0z05PzKEd-wO99S1Sk-5A" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="Profile_for_DeploymentCartridgeTestModel1.profile.uml#_S0zuYPzKEd-wO99S1Sk-5A"/>
+      </eAnnotations>
+      <appliedProfile href="Profile_for_DeploymentCartridgeTestModel1.profile.uml#_16_8_2e90116_1291153041490_405369_1557"/>
+    </profileApplication>
+    <profileApplication xmi:id="_16_8beta_62a020a_1256807755193_508228_378profileApplicationData">
+      <eAnnotations xmi:id="_S0z05vzKEd-wO99S1Sk-5A" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.StandardProfileL3.profile.uml#_S0zwP_zKEd-wO99S1Sk-5A"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.StandardProfileL3.profile.uml#_16_8beta_62a020a_1256807755193_508228_378"/>
+    </profileApplication>
+    <profileApplication xmi:id="_be00301_1073394351331_445580_2profileApplicationData">
+      <eAnnotations xmi:id="_S0z06PzKEd-wO99S1Sk-5A" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_S0zyQvzKEd-wO99S1Sk-5A"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_be00301_1073394351331_445580_2"/>
+    </profileApplication>
+    <profileApplication xmi:id="_11_5_be00301_1153310565718_226811_161profileApplicationData">
+      <eAnnotations xmi:id="_S0z06vzKEd-wO99S1Sk-5A" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_S0zwkfzKEd-wO99S1Sk-5A"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_11_5_be00301_1153310565718_226811_161"/>
+    </profileApplication>
+    <profileApplication xmi:id="_9_0_be00301_1108050582343_527400_10847profileApplicationData">
+      <eAnnotations xmi:id="_S0z07PzKEd-wO99S1Sk-5A" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.StandardProfileL2.profile.uml#_S0zurfzKEd-wO99S1Sk-5A"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.StandardProfileL2.profile.uml#_9_0_be00301_1108050582343_527400_10847"/>
+    </profileApplication>
+  </uml:Model>
+  <Profile_for_DeploymentCartridgeTestModel1:wraps xmi:id="_S41QsPzKEd-wO99S1Sk-5A" base_Dependency="_9_5_1_d860307_1139346339458_564264_151"/>
+  <Profile_for_DeploymentCartridgeTestModel1:wraps xmi:id="_S41QsfzKEd-wO99S1Sk-5A" base_Dependency="_9_5_1_d860307_1139143883132_367048_383"/>
+  <Profile_for_DeploymentCartridgeTestModel1:wraps xmi:id="_S41QsvzKEd-wO99S1Sk-5A" base_Dependency="_9_5_1_d860307_1139144186308_680570_1027"/>
+  <Profile_for_DeploymentCartridgeTestModel1:use xmi:id="_S41Qs_zKEd-wO99S1Sk-5A" base_Dependency="_9_5_1_d860307_1139144474543_398336_1100"/>
+  <Profile_for_DeploymentCartridgeTestModel1:isService xmi:id="_S41QtPzKEd-wO99S1Sk-5A" isService="false" base_Property="_9_5_1_d860307_1139143411734_729115_162"/>
+  <Profile_for_DeploymentCartridgeTestModel1:isService xmi:id="_S41QtfzKEd-wO99S1Sk-5A" isService="false" base_Property="_9_5_1_d860307_1139144410951_293053_1076"/>
+  <Profile_for_DeploymentCartridgeTestModel1:isBehavior xmi:id="_S41QtvzKEd-wO99S1Sk-5A" isBehavior="false" base_Property="_9_5_1_d860307_1139143411734_729115_162"/>
+  <Profile_for_DeploymentCartridgeTestModel1:isBehavior xmi:id="_S41Qt_zKEd-wO99S1Sk-5A" isBehavior="false" base_Property="_9_5_1_d860307_1139144410951_293053_1076"/>
+  <MagicDrawProfile:auxiliaryResource xmi:id="_S5R81fzKEd-wO99S1Sk-5A" base_Element="magicdraw_uml_standard_profile_v_0001" base_Package="magicdraw_uml_standard_profile_v_0001"/>
+</xmi:XMI>

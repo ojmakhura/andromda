@@ -72,7 +72,7 @@
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>
-            <!--plugin>
+            <plugin>
                 <artifactId>maven-install-plugin</artifactId>
                 <executions>
                     <execution>
@@ -89,7 +89,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin-->
+            </plugin>
         </plugins>
     </build>
 </project>

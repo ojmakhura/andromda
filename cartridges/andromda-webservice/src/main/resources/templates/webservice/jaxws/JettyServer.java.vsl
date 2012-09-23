@@ -49,7 +49,11 @@ public class JettyServer
         Server server = new Server();
 
         SelectChannelConnector connector = new SelectChannelConnector();
+#if ($stringUtils.isBlank($webservicePort))
+        connector.setPort(9090);
+#else
         connector.setPort($webservicePort);
+#end
         server.setConnectors(new Connector[] {connector});
 
         WebAppContext webappcontext = new WebAppContext();

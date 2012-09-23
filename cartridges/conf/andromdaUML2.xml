@@ -1,0 +1,49 @@
+<andromda xmlns="http://andromda.org/core/configuration">
+  <properties>
+    <property name="cartridgeFilter">meta</property>
+  </properties>
+  <repositories>
+    <!--repository name="netBeansMDR">
+      <models>
+        <model>
+          <uri>${model.uri}</uri>
+          <moduleSearchLocations>
+            <location patterns="*.xml.zip">${project.basedir}/src/uml</location>
+            <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
+            <location patterns="*.xml.zip">${project.basedir}/../../metafacades/uml/common/src/main/uml</location>
+            <location patterns="*.xml.zip">${project.basedir}/../../metafacades/uml14/uml/src/main/uml</location>
+            <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../../profiles/uml-1.4</location-->
+  <repository name="emf-uml22">
+      <models>
+        <model type="emf-uml22">
+          <uri>${uml2.model.uri}</uri>
+            <moduleSearchLocations>
+            <location patterns="**/*.uml">${project.basedir}/src/main/uml2</location>
+          </moduleSearchLocations>
+          <modelPackages>
+            <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
+          </modelPackages>
+        </model>
+      </models>
+    </repository>
+  </repositories>
+  <namespaces>
+    <namespace name="meta">
+      <properties>
+        <property name="languageMappingsUri">Java</property>
+        <property name="wrapperMappingsUri">JavaWrapper</property>
+        <property name="facades">${maven.build.src}</property>
+        <property name="facade-logics">${maven.build.src}</property>
+        <property name="facade-logic-impls">${java.src.dir}</property>
+        <property name="enableTemplating">true</property>
+        <property name="enableAnnotations">true</property>
+        <property name="typeSafeEnumsEnabled">true</property>
+        <property name="enumerationLiteralNameMask">upperunderscore</property>
+        <property name="pluralizeAssociationEndNames">true</property>
+        <property name="pluralizeAttributeNames">true</property>
+        <property name="pluralizeParameterNames">true</property>
+        <property name="toDoTag">TODO</property>
+      </properties>
+    </namespace>
+  </namespaces>
+</andromda>

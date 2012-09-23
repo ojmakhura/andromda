@@ -1,11 +1,14 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
          xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
-    <!--parent>
-        <artifactId>andromda-maven-plugins</artifactId-->
-        <groupId>org.andromda.maven.plugins</groupId>
+    <parent>
+        <groupId>org.andromda.maven</groupId>
+        <artifactId>maven-parent</artifactId>
         <version>3.5-SNAPSHOT</version>
-    <!--/parent-->
+        <relativePath></relativePath>
+    </parent>
+    <groupId>org.andromda.maven.plugins</groupId>
+    <version>3.5-SNAPSHOT</version>
     <artifactId>andromda-model-archiver-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <name>AndroMDA Model Archiver Plugin</name>

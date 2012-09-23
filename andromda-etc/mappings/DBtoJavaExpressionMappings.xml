@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  This is used to map SQL expressions to Java expressions, i.e. for DB DEFAULT vale.
+  Used by andromda-schema2uml2 plugin. Each from type must map to only ONE to type.
+  This is meant to be generic for all DBMSs even with varying expressions,
+  the default is H2 and Oracle, you must override if your DBMS expression language
+  is different. For CURRENT_DATE, requires the commons-lang dependency to compile the
+  generated Java expression from andromda.
+  See http://www.h2database.com/html/grammar.html#expression and
+  http://docs.oracle.com/cd/E11882_01/server.112/e26088/sql_elements001.htm#autoId0
+-->
+<mappings name="DBtoJava">
+    <mapping>
+        <from>CURRENT_TIMESTAMP</from>
+        <from>CURRENT_TIMESTAMP()</from>
+        <to>new java.util.Date()</to>
+    </mapping>
+    <!-- Requires commons-lang dependency -->
+    <mapping>
+        <from>CURRENT_DATE</from>
+        <from>CURRENT_DATE()</from>
+        <to>org.apache.commons.lang.time.DateUtils.truncate(new java.util.Date(), java.util.Calendar.DAY_OF_MONTH))</to>
+    </mapping>
+    <!-- Additional mappings for T/F and Y/N values -->
+    <mapping>
+        <from>TRUE</from>
+        <from>T</from>
+        <from>Y</from>
+        <to>true</to>
+    </mapping>
+    <mapping>
+        <from>FALSE</from>
+        <from>F</from>
+        <from>N</from>
+        <to>false</to>
+    </mapping>
+</mappings>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/2.0.0/UML" xmi:id="_16_5_4_2e90116_1263695136856_261046_577" name="Profile_for_HibernateCartridgeTestModel1" metamodelReference="_0metamodelReferenceProfile_for_HibernateCartridgeTestModel1">
+  <eAnnotations xmi:id="_pWRJdQMPEd-FmaSLa4y-cw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <contents xmi:type="ecore:EPackage" xmi:id="_pWRJdgMPEd-FmaSLa4y-cw" name="Profile_for_HibernateCartridgeTestModel1" nsURI="http:///schemas/Profile_for_HibernateCartridgeTestModel1/_pWAqoAMPEd-FmaSLa4y-cw/0" nsPrefix="Profile_for_HibernateCartridgeTestModel1">
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_pWRJdwMPEd-FmaSLa4y-cw" name="andromda_ejb_transaction_type">
+        <eAnnotations xmi:id="_pWRJeAMPEd-FmaSLa4y-cw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_16_5_4_2e90116_1263695136856_550850_578"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_pWRJeQMPEd-FmaSLa4y-cw" name="base_Element" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Element"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_pWRJegMPEd-FmaSLa4y-cw" name="andromda_ejb_transaction_type" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+  </eAnnotations>
+  <packageImport xmi:id="_0metamodelReferenceProfile_for_HibernateCartridgeTestModel1">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:id="_0primitiveTypesProfile_for_HibernateCartridgeTestModel1">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:id="_0javaPrimitiveTypesProfile_for_HibernateCartridgeTestModel1">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_16_5_4_2e90116_1263695136856_550850_578" name="andromda_ejb_transaction_type">
+    <ownedAttribute xmi:id="_16_5_4_2e90116_1263695136857_550533_580" name="base_Element" visibility="private" association="_16_5_4_2e90116_1263695136857_904813_579">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_16_5_4_2e90116_1263695136857_814993_584" name="andromda_ejb_transaction_type" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+    <nestedClassifier xmi:type="uml:Extension" xmi:id="_16_5_4_2e90116_1263695136857_904813_579" name="" memberEnd="_16_5_4_2e90116_1263695136857_550533_580 _16_5_4_2e90116_1263695136857_14651_581">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_16_5_4_2e90116_1263695136857_14651_581" name="extension_" visibility="private" type="_16_5_4_2e90116_1263695136856_550850_578" aggregation="composite" association="_16_5_4_2e90116_1263695136857_904813_579">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_5_4_2e90116_1263695136857_871479_583" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_5_4_2e90116_1263695136857_293111_582" name=""/>
+      </ownedEnd>
+    </nestedClassifier>
+  </packagedElement>
+</uml:Profile>

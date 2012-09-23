@@ -20,15 +20,15 @@
 #end
 #if ($jaxws)
         <dependency>
-            <groupId>com.sun.webservices</groupId>
+            <groupId>org.glassfish.metro</groupId>
             <artifactId>webservices-rt</artifactId>
-            <version>2.1.2</version>
+            <version>2.3-b24</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>com.sun.webservices</groupId>
+            <groupId>org.glassfish.metro</groupId>
             <artifactId>webservices-tools</artifactId>
-            <version>2.1.2</version>
+            <version>2.3-b24</version>
             <scope>runtime</scope>
         </dependency>
     </dependencies>
@@ -173,7 +173,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.2</version>
+                <version>${maven-war-plugin.version}</version>
                 <configuration>
                     <!-- Default for maven is src/main/webapp. WebContent is Eclipse convention. -->
                     <warSourceDirectory>src/main/webapp</warSourceDirectory>

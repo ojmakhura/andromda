@@ -1,0 +1,105 @@
+/**
+ * @see "http://beust.com/weblog2/archives/000479.html"
+ */
+package org.andromda.dbtest;
+
+import java.lang.reflect.Method;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import org.testng.IMethodInstance;
+import org.testng.IMethodInterceptor;
+import org.testng.ITestContext;
+
+/**
+ * Despite setting group names and dependencies the tests still do not run in the correct order.
+ * We want ordering of the suite, or methods within a single class.
+ * If no priority set, default: deleteAll=1000, creates=2000 selects/retrieves=3000, queries/finds=4000, updates=5000, deletes=6000.
+ * Set this listener in testng.xml listeners element, and in Eclipse preferences: TestNG Template XML File reference
+ * @see "http://beust.com/weblog2/archives/000479.html"
+ */
+public class PriorityInterceptor implements IMethodInterceptor
+{
+    /**
+     *
+     */
+    public PriorityInterceptor()
+    {
+        // Auto-generated constructor stub
+    }
+
+    /**
+     * @see org.testng.IMethodInterceptor${esc.hash}intercept(java.util.List, org.testng.ITestContext)
+     */
+#if ($javaVersion.compareTo("1.6")>-1)
+    @Override
+#end
+    public List<IMethodInstance> intercept(List<IMethodInstance> methods, ITestContext context)
+    {
+        Comparator<IMethodInstance> comparator = new Comparator<IMethodInstance>()
+        {
+            private int getPriority(IMethodInstance mi)
+            {
+              int result = 0;
+              Method method = mi.getMethod().getConstructorOrMethod().getMethod();
+              Priority a1 = method.getAnnotation(Priority.class);
+              if (a1 != null)
+              {
+                result = a1.value();
+              }
+              else
+              {
+                Class<?> cls = method.getDeclaringClass();
+                Priority classPriority = cls.getAnnotation(Priority.class);
+                if (classPriority != null)
+                {
+                  result = classPriority.value();
+                }
+                else
+                {
+                    // Leave lots of room between the different CRUD methods on the various entities
+                    if (method.getName().startsWith("deleteAll") || method.getName().startsWith("testDeleteAll"))
+                    {
+                        result += 1000;
+                    }
+                    else if (method.getName().startsWith("create") || method.getName().startsWith("testCreate"))
+                    {
+                        result += 2000;
+                    }
+                    else if (method.getName().startsWith("select") || method.getName().startsWith("testSelect")
+                            || method.getName().startsWith("retrieve") || method.getName().startsWith("testRetrieve"))
+                    {
+                        result += 3000;
+                    }
+                    else if (method.getName().startsWith("query") || method.getName().startsWith("testQuery")
+                            || method.getName().startsWith("find") || method.getName().startsWith("testFind"))
+                    {
+                        result += 4000;
+                    }
+                    else if (method.getName().startsWith("update") || method.getName().startsWith("testUpdate"))
+                    {
+                        result += 5000;
+                    }
+                    else if (method.getName().startsWith("delete") || method.getName().startsWith("testDelete"))
+                    {
+                        result += 6000;
+                    }
+                    //System.out.println(method.getName() + "=" + result);
+                }
+              }
+              return result;
+            }
+
+            public int compare(IMethodInstance m1, IMethodInstance m2)
+            {
+              return getPriority(m1) - getPriority(m2);
+            }
+
+          };
+          Collections.sort(methods, comparator);
+          return methods;
+          /*IMethodInstance[] array = methods.toArray(new IMethodInstance[methods.size()]);
+          Arrays.sort(array, comparator);
+          return Arrays.asList(array);*/
+    }
+}

@@ -369,7 +369,7 @@ public class ModelElementFacadeLogicImpl
     {
         return getDocumentation(
             indent,
-            64);
+            100 - indent.length());
     }
 
     /**
@@ -426,14 +426,14 @@ public class ModelElementFacadeLogicImpl
                 StringUtils.trimToEmpty((String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_DOCUMENTATION)));
         }
         // Add toDoTag if doc is empty: make modelers do the documentation.
-        /*if (StringUtils.isEmpty(documentation.toString()))
+        if (StringUtils.isEmpty(documentation.toString()))
         {
             if (Boolean.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.TODO_FOR_MISSING_DOCUMENTATION)))
             {
                 String todoTag = (String)this.getConfiguredProperty(UMLMetafacadeProperties.TODO_TAG);
                 documentation.append(todoTag).append(": Model Documentation for " + this.getFullyQualifiedName());
             }
-        }*/
+        }
 
         // Only add paragraph tags if doc is not empty
         String rtn = StringUtilsHelper.format(
