@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_16_8_2e90116_1280953287487_867607_1694" name="Profile_for_EJBCartridgeTestModel1" metamodelReference="_16_8_2e90116_1280953287487_184995_1695">
+  <eAnnotations xmi:id="_GpVNK6AGEd-nG5Ba-0SJcw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <contents xmi:type="ecore:EPackage" xmi:id="_GpVNLKAGEd-nG5Ba-0SJcw" name="Profile_for_EJBCartridgeTestModel1" nsURI="http:///schemas/Profile_for_EJBCartridgeTestModel1/_GpLyEKAGEd-nG5Ba-0SJcw/0" nsPrefix="Profile_for_EJBCartridgeTestModel1">
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_GpVNLaAGEd-nG5Ba-0SJcw" name="_andromdaejbquery">
+        <eAnnotations xmi:id="_GpVNLqAGEd-nG5Ba-0SJcw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_16_8_2e90116_1280953287487_496544_1696"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_GpVNL6AGEd-nG5Ba-0SJcw" name="base_Element" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Element"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_GpVNMaAGEd-nG5Ba-0SJcw" name="_andromdaejbquery" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+  </eAnnotations>
+  <packageImport xmi:id="_16_8_2e90116_1280953287487_184995_1695">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:id="_0primitiveTypesProfile_for_EJBCartridgeTestModel1">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:id="_0javaPrimitiveTypesProfile_for_EJBCartridgeTestModel1">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_16_8_2e90116_1280953287487_496544_1696" name="@andromda.ejb.query">
+    <ownedAttribute xmi:id="_16_8_2e90116_1280953287487_254483_1698" name="base_Element" visibility="private" association="_16_8_2e90116_1280953287487_892671_1697">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_16_8_2e90116_1280953287487_849581_1702" name="_andromdaejbquery" visibility="private">
+      <eAnnotations xmi:id="_GpVNOaAGEd-nG5Ba-0SJcw" source="MagicDraw">
+        <details xmi:id="_GpVNOqAGEd-nG5Ba-0SJcw" key="md_property_name" value="@andromda.ejb.query"/>
+      </eAnnotations>
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+    <nestedClassifier xmi:type="uml:Extension" xmi:id="_16_8_2e90116_1280953287487_892671_1697" name="" memberEnd="_16_8_2e90116_1280953287487_254483_1698 _16_8_2e90116_1280953287487_528084_1699" navigableOwnedEnd="_16_8_2e90116_1280953287487_528084_1699">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_16_8_2e90116_1280953287487_528084_1699" name="extension_" visibility="private" type="_16_8_2e90116_1280953287487_496544_1696" aggregation="composite" association="_16_8_2e90116_1280953287487_892671_1697">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8_2e90116_1280953287487_873904_1701" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8_2e90116_1280953287487_496227_1700" name=""/>
+      </ownedEnd>
+    </nestedClassifier>
+  </packagedElement>
+</uml:Profile>

@@ -1,0 +1,1142 @@
+package org.andromda.schema2uml2;
+
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.StringTokenizer;
+import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.engine.ModelProcessorException;
+import org.andromda.core.mapping.Mappings;
+import org.andromda.core.namespace.NamespaceComponents;
+import org.andromda.core.repository.Repositories;
+import org.andromda.core.repository.RepositoryFacade;
+import org.andromda.metafacades.emf.uml22.AssociationEnd;
+import org.andromda.metafacades.emf.uml22.Attribute;
+import org.andromda.metafacades.emf.uml22.TagDefinition;
+import org.apache.commons.dbutils.DbUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.eclipse.uml2.uml.AggregationKind;
+import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.DataType;
+import org.eclipse.uml2.uml.Model;
+import org.eclipse.uml2.uml.MultiplicityElement;
+import org.eclipse.uml2.uml.Stereotype;
+import org.eclipse.uml2.uml.UMLPackage;
+import org.eclipse.uml2.uml.VisibilityKind;
+
+/**
+ * Performs the transformation of database schema to XMI.
+ *
+ * TODO This class really should have the functionality it uses (writing model
+ *       elements) moved to the metafacades.
+ * TODO This class should be refactored into smaller classes.
+ * @author Chad Brandon
+ * @author Joel Kozikowski
+ */
+public class SchemaTransformer
+{
+    private static final Logger logger = Logger.getLogger(SchemaTransformer.class);
+    private RepositoryFacade repository = null;
+
+    /**
+     * The JDBC driver class
+     */
+    private String jdbcDriver = null;
+
+    /**
+     * The JDBC schema user.
+     */
+    private String jdbcUser = null;
+
+    /**
+     * The JDBC schema password.
+     */
+    private String jdbcPassword = null;
+
+    /**
+     * The JDBC connection URL.
+     */
+    private String jdbcConnectionUrl = null;
+
+    /**
+     * The name of the package in which the name of the elements will be
+     * created.
+     */
+    private String packageName = null;
+
+    /**
+     * Stores the name of the schema where the tables can be found.
+     */
+    private String schema = null;
+
+    /**
+     * The regular expression pattern to match on when deciding what table names
+     * to add to the transformed XMI.
+     */
+    private String tableNamePattern = null;
+
+    /**
+     * Stores the schema types to model type mappings.
+     */
+    private Mappings typeMappings = null;
+
+    /**
+     * Stores the classes keyed by table name.
+     */
+    private Map<String, org.eclipse.uml2.uml.Class> classes = new HashMap<String,  org.eclipse.uml2.uml.Class>();
+
+    /**
+     * Stores the foreign keys for each table.
+     */
+    private Map<String, Collection<String>> foreignKeys = new HashMap<String, Collection<String>>();
+
+    /**
+     * Specifies the Class stereotype.
+     */
+    private String classStereotypes = null;
+
+    /**
+     * Stores the name of the column tagged value to use for storing the name of
+     * the column.
+     */
+    private String columnTaggedValue = null;
+
+    /**
+     * Stores the name of the table tagged value to use for storing the name of
+     * the table.
+     */
+    private String tableTaggedValue = null;
+
+    /**
+     * The metadata column name needed to retrieve the database column type field.
+     */
+    private String metaColumnTypeName = "TYPE_NAME";
+
+    /**
+     * The metadata column name needed to retrieve the database column size field.
+     */
+    private String metaColumnColumnSize = "COLUMN_SIZE";
+//    private String metaColumnColumnSize = "PRECISION";
+
+    /**
+     * The metadata column name needed to retrieve the database column number of decimal places
+     */
+    private String metaColumnDecPlaces = null;
+//    private String metaColumnDecPlaces = "SCALE";
+
+    /**
+     * The set of additional tagged values that are (optionally) added to each attribute
+     * in the generated model.
+     */
+    private Map<String, String> attributeTaggedValues = new HashMap<String, String>();
+
+    /**
+     * Stores the version of XMI that will be produced.
+     */
+    private String xmiVersion = null;
+
+    /**
+     * Constructs a new instance of this SchemaTransformer.
+     */
+    public SchemaTransformer()
+    {
+        // Default empty constructor
+    }
+
+    /**
+     * Constructs a new instance of this SchemaTransformer.
+     * @param jdbcDriver
+     * @param jdbcConnectionUrl
+     * @param jdbcUser
+     * @param jdbcPassword
+     */
+    public SchemaTransformer(
+        String jdbcDriver,
+        String jdbcConnectionUrl,
+        String jdbcUser,
+        String jdbcPassword)
+    {
+        ExceptionUtils.checkEmpty("jdbcDriver", jdbcDriver);
+        ExceptionUtils.checkEmpty("jdbcConnectionUrl", jdbcConnectionUrl);
+        ExceptionUtils.checkEmpty("jdbcUser", jdbcUser);
+        ExceptionUtils.checkEmpty("jdbcPassword", jdbcPassword);
+
+        NamespaceComponents.instance().discover();
+        Repositories.instance().initialize();
+        this.repository = Repositories.instance().getImplementation(Schema2UML2Globals.REPOSITORY_NAMESPACE_NETBEANSMDR);
+        if (this.repository == null)
+        {
+            throw new ModelProcessorException(
+                "No Repository could be found, please make sure you have a repository with namespace " + Schema2UML2Globals.REPOSITORY_NAMESPACE_NETBEANSMDR +
+                " on your classpath");
+        }
+        this.repository.open();
+
+        this.jdbcDriver = jdbcDriver;
+        this.jdbcConnectionUrl = jdbcConnectionUrl;
+        this.jdbcUser = jdbcUser;
+        this.jdbcPassword = jdbcPassword;
+        this.jdbcConnectionUrl = jdbcConnectionUrl;
+    }
+
+    /**
+     * Transforms the Schema file and writes it to the location given by
+     * <code>outputLocation</code>. The <code>inputModel</code> must be a
+     * valid URL, otherwise an exception will be thrown.
+     *
+     * @param inputModel the location of the input model to start with (if there
+     *        is one)
+     * @param outputLocation The location to where the transformed output will
+     *        be written.
+     */
+    public void transform(
+        String inputModel,
+        String outputLocation)
+    {
+        long startTime = System.currentTimeMillis();
+        outputLocation = StringUtils.trimToEmpty(outputLocation);
+        if (outputLocation == null)
+        {
+            throw new IllegalArgumentException("'outputLocation' can not be null");
+        }
+        Connection connection = null;
+        try
+        {
+            if (inputModel != null)
+            {
+                logger.info("Input model --> '" + inputModel + '\'');
+            }
+            this.repository.readModel(
+                new String[] {inputModel},
+                null);
+            /*Class.forName(this.jdbcDriver);
+            connection = DriverManager.getConnection(this.jdbcConnectionUrl, this.jdbcUser, this.jdbcPassword);
+            this.repository.writeModel(
+                transform(connection),
+                outputLocation,
+                this.xmiVersion);*/
+        }
+        catch (Throwable th)
+        {
+            throw new SchemaTransformerException(th);
+        }
+        finally
+        {
+            //DbUtils.closeQuietly(connection);
+            this.repository.close();
+        }
+        logger.info(
+            "Completed adding " + this.classes.size() + " classes, writing model to --> '" + outputLocation +
+            "', TIME --> " + ((System.currentTimeMillis() - startTime) / 1000.0) + "[s]");
+    }
+
+    /**
+     * Sets the <code>mappingsUri</code> which is the URI to the sql types to
+     * model type mappings.
+     *
+     * @param typeMappingsUri The typeMappings to set.
+     */
+    public void setTypeMappings(String typeMappingsUri)
+    {
+        try
+        {
+            this.typeMappings = Mappings.getInstance(typeMappingsUri);
+        }
+        catch (final Throwable throwable)
+        {
+            throw new SchemaTransformerException(throwable);
+        }
+    }
+
+    /**
+     * Sets the name of the package to which the model elements will be created.
+     *
+     * @param packageName The packageName to set.
+     */
+    public void setPackageName(String packageName)
+    {
+        this.packageName = packageName;
+    }
+
+    /**
+     * Sets the name of the schema (where the tables can be found).
+     *
+     * @param schema The schema to set.
+     */
+    public void setSchema(String schema)
+    {
+        this.schema = schema;
+    }
+
+    /**
+     * Sets the regular expression pattern to match on when deciding what table
+     * names to add to the transformed XMI.
+     *
+     * @param tableNamePattern The tableNamePattern to set.
+     */
+    public void setTableNamePattern(String tableNamePattern)
+    {
+        this.tableNamePattern = StringUtils.trimToEmpty(tableNamePattern);
+    }
+
+    /**
+     * The column name pattern.
+     */
+    private String columnNamePattern;
+
+    /**
+     * Sets the regular expression pattern to match on when deciding what attributes
+     * to create in the XMI.
+     *
+     * @param columnNamePattern The pattern for filtering the column name.
+     */
+    public void setColumnNamePattern(String columnNamePattern)
+    {
+        this.columnNamePattern = columnNamePattern;
+    }
+
+    /**
+     * Sets the stereotype name for the new classes.
+     *
+     * @param classStereotypes The classStereotypes to set.
+     */
+    public void setClassStereotypes(String classStereotypes)
+    {
+        this.classStereotypes = StringUtils.deleteWhitespace(classStereotypes);
+    }
+
+    /**
+     * Specifies the identifier stereotype.
+     */
+    private String identifierStereotypes = null;
+
+    /**
+     * Sets the stereotype name for the identifiers on the new classes.
+     *
+     * @param identifierStereotypes The identifierStereotypes to set.
+     */
+    public void setIdentifierStereotypes(String identifierStereotypes)
+    {
+        this.identifierStereotypes = StringUtils.deleteWhitespace(identifierStereotypes);
+    }
+
+    /**
+     * Sets the name of the column tagged value to use for storing the name of
+     * the column.
+     *
+     * @param columnTaggedValue The columnTaggedValue to set.
+     */
+    public void setColumnTaggedValue(String columnTaggedValue)
+    {
+        this.columnTaggedValue = StringUtils.trimToEmpty(columnTaggedValue);
+    }
+
+    /**
+     * Sets the name of the table tagged value to use for storing the name of
+     * the table.
+     *
+     * @param tableTaggedValue The tableTaggedValue to set.
+     */
+    public void setTableTaggedValue(String tableTaggedValue)
+    {
+        this.tableTaggedValue = StringUtils.trimToEmpty(tableTaggedValue);
+    }
+
+    /**
+     * @param taggedValues
+     */
+    public void setAttributeTaggedValues(String taggedValues) {
+        if (StringUtils.isNotBlank(taggedValues)) {
+            StringTokenizer tokList = new StringTokenizer(taggedValues, ",");
+            while (tokList.hasMoreTokens()) {
+               String tok = tokList.nextToken();
+               String[] parts = StringUtils.split(tok, "=");
+               if (parts.length == 2) {
+                   String tag = parts[0];
+                   String value = parts[1];
+                   this.attributeTaggedValues.put(tag, value);
+               }
+            } // while
+        }
+    }
+
+    /**
+     * Sets the version of XMI that will be produced.
+     *
+     * @param xmiVersion The xmiVersion to set.
+     */
+    public void setXmiVersion(String xmiVersion)
+    {
+        this.xmiVersion = xmiVersion;
+    }
+
+    /**
+     * The package that is currently being processed.
+     */
+    private UMLPackage umlPackage;
+
+    /**
+     * The model thats currently being processed
+     */
+    private Model model;
+
+    /**
+     * Performs the actual translation of the Schema to the XMI and returns the
+     * object model.
+     */
+    private final Object transform(final Connection connection)
+        throws Exception
+    {
+        /*this.umlPackage = (org.eclipse.uml2.uml.UMLPackage)this.repository.getModel().getModel();
+
+        final ModelManagementPackage modelManagementPackage = this.umlPackage.getModelManagement();
+
+        final Collection models = modelManagementPackage.getModel().refAllOfType();
+        if (models != null && !models.isEmpty())
+        {
+            // A given XMI file can contain multiple models.
+            // Use the first model in the XMI file
+            this.model = (Model)models.iterator().next();
+        }
+        else
+        {
+            this.model = modelManagementPackage.getModel().createModel();
+        }
+
+        // create the package on the model
+        org.eclipse.uml2.uml.UMLPackage leafPackage =
+            this.getOrCreatePackage(
+                this.umlPackage.getModelManagement(),
+                this.model,
+                this.packageName);
+        this.createClasses(
+            connection,
+            leafPackage);*/
+
+        return this.umlPackage;
+    }
+
+    /**
+     * Gets or creates a package having the specified <code>packageName</code>
+     * using the given <code>modelManagementPackage</code>, places it on the
+     * <code>model</code> and returns the last leaf package.
+     *
+     * @param modelManagementPackage from which we retrieve the UmlPackageClass
+     *        to create a UmlPackage.
+     * @param modelPackage the root UmlPackage
+     * @param packageName
+     * @return modelPackage
+    protected org.eclipse.uml2.uml.UMLPackage getOrCreatePackage(
+        ModelManagementPackage modelManagementPackage,
+        org.eclipse.uml2.uml.UMLPackage modelPackage,
+        String packageName)
+    {
+        packageName = StringUtils.trimToEmpty(packageName);
+        if (StringUtils.isNotBlank(packageName))
+        {
+            String[] packages = packageName.split(Schema2UML2Globals.PACKAGE_SEPARATOR);
+            if (packages != null && packages.length > 0)
+            {
+                for (int ctr = 0; ctr < packages.length; ctr++)
+                {
+                    Object umlPackage = ModelElementFinder.find(modelPackage, packages[ctr]);
+
+                    if (umlPackage == null)
+                    {
+                        umlPackage =
+                            modelManagementPackage.getUmlPackage().createUmlPackage(
+                                packages[ctr], VisibilityKind.PUBLIC, false, false, false, false);
+                        modelPackage.getOwnedElement().add(umlPackage);
+                    }
+                    modelPackage = (org.eclipse.uml2.uml.UMLPackage)umlPackage;
+                }
+            }
+        }
+        return modelPackage;
+    }
+     */
+
+    /**
+     * Creates all classes from the tables found in the schema.
+     *
+     * @param connection the Connection used to retrieve the schema metadata.
+     * @param modelPackage the package which the classes are added.
+     * @throws SQLException
+     */
+    protected void createClasses(
+        Connection connection,
+        org.eclipse.uml2.uml.Package modelPackage)
+        throws SQLException
+    {
+        DatabaseMetaData metadata = connection.getMetaData();
+        ResultSet tableRs = metadata.getTables(
+                null,
+                this.schema,
+                null,
+                new String[] {"TABLE"});
+
+        // loop through and create all classes and store then
+        // in the classes Map keyed by table
+        while (tableRs.next())
+        {
+            String tableName = tableRs.getString("TABLE_NAME");
+            if (StringUtils.isNotBlank(this.tableNamePattern))
+            {
+                if (tableName.matches(this.tableNamePattern))
+                {
+                    org.eclipse.uml2.uml.Class umlClass = this.createClass(modelPackage, metadata, tableName);
+                    this.classes.put(tableName, umlClass);
+                }
+            }
+            else
+            {
+                org.eclipse.uml2.uml.Class umlClass = this.createClass(modelPackage, metadata, tableName);
+                this.classes.put(tableName, umlClass);
+            }
+        }
+        DbUtils.closeQuietly(tableRs);
+        if (this.classes.isEmpty())
+        {
+            String schemaName = "";
+            if (StringUtils.isNotBlank(this.schema))
+            {
+                schemaName = " '" + this.schema + "' ";
+            }
+            StringBuilder warning = new StringBuilder("WARNING! No tables found in schema");
+            warning.append(schemaName);
+            if (StringUtils.isNotBlank(this.tableNamePattern))
+            {
+                warning.append(" matching pattern --> '").append(this.tableNamePattern).append('\'');
+            }
+            logger.warn(warning);
+        }
+
+        // add all attributes and associations to the modelPackage
+        for (String tableName : this.classes.keySet())
+        {
+            final org.eclipse.uml2.uml.Class umlClass = this.classes.get(tableName);
+            if (logger.isInfoEnabled())
+            {
+                logger.info("created class --> '" + umlClass.getName() + '\'');
+            }
+
+            /*// create and add all associations to the package
+            modelPackage.getOwnedElement().addAll(this.createAssociations(metadata, corePackage, tableName));
+
+            // create and add all the attributes
+            umlClass.getFeature().addAll(this.createAttributes(metadata, corePackage, tableName));
+
+            modelPackage.getOwnedElement().add(umlClass);*/
+        }
+    }
+
+    /**
+     * Creates and returns a UmlClass with the given <code>name</code> using
+     * the <code>corePackage</code> to create it.
+     * @param modelPackage
+     * @param metadata
+     * @param corePackage used to create the class.
+     * @param tableName to tableName for which we'll create the appropriate
+     *        class.
+     * @return the UmlClass
+     */
+    protected org.eclipse.uml2.uml.Class createClass(
+        org.eclipse.uml2.uml.Package modelPackage,
+        DatabaseMetaData metadata,
+        String tableName)
+    {
+        String className = SqlToModelNameFormatter.toClassName(tableName);
+        org.eclipse.uml2.uml.Class umlClass = modelPackage.createOwnedClass(tableName, false);
+        /*    corePackage.getUmlClass().createUmlClass(
+                className, VisibilityKind.PUBLIC, false, false, false, false, false);
+
+        umlClass.getAppliedStereotypes().addAll(this.getOrCreateStereotypes(modelPackage, this.classStereotypes, "Classifier"));
+
+        if (StringUtils.isNotBlank(this.tableTaggedValue))
+        {
+            // add the tagged value for the table name
+            TaggedValue taggedValue = this.createTaggedValue(modelPackage, this.tableTaggedValue, tableName);
+            if (taggedValue != null)
+            {
+                umlClass.getTaggedValue().add(taggedValue);
+            }
+        }*/
+
+        return umlClass;
+    }
+
+    /**
+     * Creates and returns a collection of attributes from creating an attribute
+     * from every column on the table having the give <code>tableName</code>.
+     *
+     * @param metadata the DatabaseMetaData from which to retrieve the columns.
+     * @param corePackage used to create the class.
+     * @param tableName the tableName for which to find columns.
+     * @return the collection of new attributes.
+     * @throws SQLException
+     */
+    protected Collection createAttributes(
+        DatabaseMetaData metadata,
+        //CorePackage corePackage,
+        String tableName)
+        throws SQLException
+    {
+        final Collection attributes = new ArrayList();
+        final ResultSet columnRs = metadata.getColumns(null, this.schema, tableName, null);
+        final Collection<String> primaryKeyColumns = this.getPrimaryKeyColumns(metadata, tableName);
+
+        ResultSetMetaData colMeta = columnRs.getMetaData();
+        int colCount = colMeta.getColumnCount();
+
+        while (columnRs.next())
+        {
+            final String columnName = columnRs.getString("COLUMN_NAME");
+
+            if (logger.isDebugEnabled()) {
+                for (int c = 1; c <= colCount; c++) {
+                    logger.debug("Meta column " + colMeta.getColumnName(c) + " = " + columnRs.getString(c));
+                }
+            }
+
+            if (this.columnNamePattern == null || columnName.matches(this.columnNamePattern))
+            {
+                final String attributeName = SqlToModelNameFormatter.toAttributeName(columnName);
+                if (logger.isInfoEnabled())
+                {
+                    logger.info("adding attribute --> '" + attributeName + '\'');
+                }
+
+                // do NOT add foreign key columns as attributes (since
+                // they are placed on association ends)
+                if (!this.hasForeignKey(tableName, columnName))
+                {
+                    Classifier typeClass = null;
+
+                    // first we try to find a mapping that maps to the
+                    // database proprietary type
+                    String typeName = columnRs.getString(this.getMetaColumnTypeName());
+                    String colSize = columnRs.getString(this.getMetaColumnColumnSize());
+                    String decPlaces = null;
+                    if (StringUtils.isNotBlank(this.getMetaColumnDecPlaces()))
+                    {
+                        decPlaces = columnRs.getString(this.getMetaColumnDecPlaces());
+                    }
+
+                    String type =
+                        Schema2UML2Utils.constructTypeName(
+                            typeName,
+                            colSize, decPlaces);
+                    logger.info("  -  searching for type mapping '" + type + '\'');
+                    /*if (this.typeMappings.containsFrom(type))
+                    {
+                        typeClass = this.getOrCreateDataType(corePackage, type);
+                    }
+
+                    // - See if we can find a type matching a mapping for a JDBC type
+                    //   (if we haven't found a database specific one)
+                    if (typeClass == null)
+                    {
+                        type = JdbcTypeFinder.find(columnRs.getInt("DATA_TYPE"));
+                        logger.info("  -  searching for type mapping '" + type + '\'');
+                        if (this.typeMappings.containsFrom(type))
+                        {
+                            typeClass = this.getOrCreateDataType(corePackage, type);
+                        }
+                        else
+                        {
+                            logger.warn("  !  no mapping found, type not added to '" + attributeName + '\'');
+                        }
+                    }
+
+                    boolean required = !this.isColumnNullable(metadata, tableName, columnName);
+
+                    Attribute attribute =
+                        corePackage.getAttribute().createAttribute(
+                            attributeName,
+                            VisibilityKind.PUBLIC,
+                            false,
+                            ScopeKindEnum.SK_INSTANCE,
+                            this.createAttributeMultiplicity(
+                                corePackage.getDataTypes(),
+                                required),
+                            ChangeableKindEnum.CK_CHANGEABLE,
+                            ScopeKindEnum.SK_CLASSIFIER,
+                            OrderingKindEnum.OK_UNORDERED,
+                            null);
+                    attribute.setType(typeClass);
+
+                    if (StringUtils.isNotBlank(this.columnTaggedValue))
+                    {
+                        // add the tagged value for the column name
+                        TaggedValue taggedValue =
+                            this.createTaggedValue(corePackage, this.columnTaggedValue, columnName);
+                        if (taggedValue != null)
+                        {
+                            attribute.getTaggedValue().add(taggedValue);
+                        }
+                    }
+
+                    // Add the attribute specific tagged values (if any)...
+                    if (!this.attributeTaggedValues.isEmpty())
+                    {
+                        Set<String> keys = this.attributeTaggedValues.keySet();
+                        for (final String tag : keys)
+                        {
+                            final String value = this.attributeTaggedValues.get(tag);
+                            TaggedValue taggedValue =
+                                    this.createTaggedValue(corePackage, tag, value);
+                            if (taggedValue != null)
+                            {
+                                attribute.getTaggedValue().add(taggedValue);
+                            }
+                        }
+                    }
+
+                    if (primaryKeyColumns.contains(columnName))
+                    {
+                        attribute.getStereotype().addAll(
+                            this.getOrCreateStereotypes(corePackage, this.identifierStereotypes, "Attribute"));
+                    }
+                    attributes.add(attribute);*/
+                }
+            }
+        }
+        DbUtils.closeQuietly(columnRs);
+        return attributes;
+    }
+
+    /**
+     * @param metaColumnDecPlaces
+     */
+    public void setMetaColumnDecPlaces(String metaColumnDecPlaces) {
+        this.metaColumnDecPlaces = metaColumnDecPlaces;
+    }
+
+    /**
+     * @return metaColumnDecPlaces
+     */
+    public String getMetaColumnDecPlaces() {
+        return this.metaColumnDecPlaces;
+    }
+
+    /**
+     * @param metaColumnColumnSize
+     */
+    public void setMetaColumnColumnSize(String metaColumnColumnSize) {
+        this.metaColumnColumnSize = metaColumnColumnSize;
+    }
+
+    /**
+     * @return metaColumnColumnSize
+     */
+    public String getMetaColumnColumnSize() {
+        return this.metaColumnColumnSize;
+    }
+
+    /**
+     * @param metaColumnTypeName
+     */
+    public void setMetaColumnTypeName(String metaColumnTypeName) {
+        this.metaColumnTypeName = metaColumnTypeName;
+    }
+
+    /**
+     * @return metaColumnTypeName
+     */
+    public String getMetaColumnTypeName() {
+        return this.metaColumnTypeName;
+    }
+
+    /**
+     * Gets or creates a new data type instance having the given fully qualified
+     * <code>type</code> name.
+     *
+     * @param corePackage the core package
+     * @param type the fully qualified type name.
+     * @return the DataType
+     */
+    protected DataType getOrCreateDataType(
+        //CorePackage corePackage,
+        String type)
+    {
+        type = this.typeMappings.getTo(type);
+        Object datatype = ModelElementFinder.find(this.model, type);
+        if (datatype == null || !DataType.class.isAssignableFrom(datatype.getClass()))
+        {
+            String[] names = type.split(Schema2UML2Globals.PACKAGE_SEPARATOR);
+            if (names != null && names.length > 0)
+            {
+                // the last name is the type name
+                String typeName = names[names.length - 1];
+                names[names.length - 1] = null;
+                String packageName = StringUtils.join(names, Schema2UML2Globals.PACKAGE_SEPARATOR);
+                /*org.eclipse.uml2.uml.UMLPackage umlPackage =
+                    this.getOrCreatePackage(
+                        this.umlPackage.getModelManagement(),
+                        this.model,
+                        packageName);
+                if (umlPackage != null)
+                {
+                    datatype =
+                        corePackage.getDataType().createDataType(
+                            typeName, VisibilityKind.PUBLIC, false, false, false, false);
+                    umlPackage.getOwnedElement().add(datatype);
+                }*/
+            }
+        }
+        return (DataType)datatype;
+    }
+
+    /**
+     * This method just checks to see if a column is null able or not, if so,
+     * returns true, if not returns false.
+     *
+     * @param metadata the DatabaseMetaData instance used to retrieve the column
+     *        information.
+     * @param tableName the name of the table on which the column exists.
+     * @param columnName the name of the column.
+     * @return true/false on whether or not column is nullable.
+     * @throws SQLException
+     */
+    protected boolean isColumnNullable(
+        DatabaseMetaData metadata,
+        String tableName,
+        String columnName)
+        throws SQLException
+    {
+        boolean nullable = true;
+        ResultSet columnRs = metadata.getColumns(null, this.schema, tableName, columnName);
+        while (columnRs.next())
+        {
+            nullable = columnRs.getInt("NULLABLE") != DatabaseMetaData.attributeNoNulls;
+        }
+        DbUtils.closeQuietly(columnRs);
+        return nullable;
+    }
+
+    /**
+     * Returns a collection of all primary key column names for the given
+     * <code>tableName</code>.
+     *
+     * @param metadata
+     * @param tableName
+     * @return collection of primary key names.
+     * @throws SQLException
+     */
+    protected Collection<String> getPrimaryKeyColumns(
+        DatabaseMetaData metadata,
+        String tableName)
+        throws SQLException
+    {
+        Collection<String> primaryKeys = new HashSet<String>();
+        ResultSet primaryKeyRs = metadata.getPrimaryKeys(null, this.schema, tableName);
+        while (primaryKeyRs.next())
+        {
+            primaryKeys.add(primaryKeyRs.getString("COLUMN_NAME"));
+        }
+        DbUtils.closeQuietly(primaryKeyRs);
+        return primaryKeys;
+    }
+
+    /**
+     * Creates and returns a collection of associations by determining foreign
+     * tables to the table having the given <code>tableName</code>.
+     *
+     * @param metadata the DatabaseMetaData from which to retrieve the columns.
+     * @param corePackage used to create the class.
+     * @param tableName the tableName for which to find columns.
+     * @return the collection of new attributes.
+     * @throws SQLException
+     */
+    protected Collection createAssociations(
+        DatabaseMetaData metadata,
+        UMLPackage corePackage,
+        String tableName)
+        throws SQLException
+    {
+        Collection<String> primaryKeys = this.getPrimaryKeyColumns(metadata, tableName);
+        Collection associations = new ArrayList();
+        ResultSet columnRs = metadata.getImportedKeys(null, this.schema, tableName);
+        while (columnRs.next())
+        {
+            // store the foreign key in the foreignKeys Map
+            String fkColumnName = columnRs.getString("FKCOLUMN_NAME");
+            this.addForeignKey(tableName, fkColumnName);
+
+            // now create the association
+            String foreignTableName = columnRs.getString("PKTABLE_NAME");
+            /*UmlAssociation association =
+                corePackage.getUmlAssociation().createUmlAssociation(
+                    null, VisibilityKind.PUBLIC, false, false, false, false);*/
+
+            // we set the upper range to 1 if the
+            // they primary key of this table is the
+            // foreign key of another table (by default
+            // its set to a many multiplicity)
+            int primaryUpper = -1;
+            if (primaryKeys.contains(fkColumnName))
+            {
+                primaryUpper = 1;
+            }
+
+            String endName = null;
+
+            // primary association
+            /*AssociationEnd primaryEnd =
+                corePackage.getAssociationEnd().createAssociationEnd(
+                    endName,
+                    VisibilityKind.PUBLIC,
+                    false,
+                    true,
+                    OrderingKindEnum.OK_UNORDERED,
+                    AggregationKind.NONE,
+                    ScopeKindEnum.SK_INSTANCE,
+                    this.createMultiplicity(
+                        corePackage.getDataTypes(),
+                        0,
+                        primaryUpper),
+                    ChangeableKindEnum.CK_CHANGEABLE);
+            primaryEnd.setParticipant(this.classes.get(tableName));
+            association.getConnection().add(primaryEnd);*/
+
+            boolean required = !this.isColumnNullable(metadata, tableName, fkColumnName);
+
+            int foreignLower = 0;
+            if (required)
+            {
+                foreignLower = 1;
+            }
+
+            int deleteRule = columnRs.getInt("DELETE_RULE");
+
+            // determine if we should have composition for
+            // the foreign association end depending on cascade delete
+            /*AggregationKind foreignAggregation = AggregationKind.NONE;
+            if (deleteRule == DatabaseMetaData.importedKeyCascade)
+            {
+                foreignAggregation = AggregationKind.COMPOSITE;
+            }
+
+            // foreign association
+            AssociationEnd foreignEnd =
+                corePackage.getAssociationEnd().createAssociationEnd(
+                    endName,
+                    VisibilityKind.PUBLIC,
+                    false,
+                    true,
+                    OrderingKindEnum.OK_UNORDERED,
+                    foreignAggregation,
+                    ScopeKindEnum.SK_INSTANCE,
+                    this.createMultiplicity(
+                        corePackage.getDataTypes(),
+                        foreignLower,
+                        1),
+                    ChangeableKindEnum.CK_CHANGEABLE);
+            final Classifier foreignParticipant = this.classes.get(foreignTableName);
+            if (foreignParticipant == null)
+            {
+                throw new SchemaTransformerException(
+                    "The associated table '" + foreignTableName +
+                    "' must be available in order to create the association");
+            }
+            foreignEnd.setParticipant(foreignParticipant);
+
+            if (StringUtils.isNotBlank(this.columnTaggedValue))
+            {
+                // add the tagged value for the foreign association end
+                TaggedValue taggedValue = this.createTaggedValue(corePackage, this.columnTaggedValue, fkColumnName);
+                if (taggedValue != null)
+                {
+                    foreignEnd.getTaggedValue().add(taggedValue);
+                }
+            }
+
+            association.getConnection().add(foreignEnd);
+            associations.add(association);
+
+            if (logger.isInfoEnabled())
+            {
+                logger.info(
+                    "adding association: '" + primaryEnd.getParticipant().getName() + " <--> " +
+                    foreignEnd.getParticipant().getName() + '\'');
+            }*/
+        }
+        DbUtils.closeQuietly(columnRs);
+        return associations;
+    }
+
+    /**
+     * Creates a tagged value given the specified <code>name</code>.
+     * @param corePackage
+     * @param name the name of the tagged value to create.
+     * @param value the value to populate on the tagged value.
+     * @return returns the new TaggedValue
+    protected TaggedValue createTaggedValue(
+        CorePackage corePackage,
+        String name,
+        String value)
+    {
+        Collection values = new HashSet();
+        values.add(value);
+        TaggedValue taggedValue =
+            corePackage.getTaggedValue().createTaggedValue(name, VisibilityKind.PUBLIC, false, values);
+
+        // see if we can find the tag definition and if so add that
+        // as the type.
+        Object tagDefinition = ModelElementFinder.find(this.umlPackage, name);
+        if (tagDefinition != null && TagDefinition.class.isAssignableFrom(tagDefinition.getClass()))
+        {
+            taggedValue.setType((TagDefinition)tagDefinition);
+        }
+        return taggedValue;
+    }
+     */
+
+    /**
+     * Gets or creates a stereotypes given the specified comma separated list of
+     * <code>names</code>. If any of the stereotypes can't be found, they
+     * will be created.
+     * @param corePackage
+     * @param names comma separated list of stereotype names
+     * @param baseClass the base class for which the stereotype applies.
+     * @return Collection of Stereotypes
+    protected Collection getOrCreateStereotypes(
+        CorePackage corePackage,
+        String names,
+        String baseClass)
+    {
+        Collection stereotypes = new HashSet();
+        String[] stereotypeNames = null;
+        if (names != null)
+        {
+            stereotypeNames = names.split(",");
+        }
+        if (stereotypeNames != null && stereotypeNames.length > 0)
+        {
+            for (int ctr = 0; ctr < stereotypeNames.length; ctr++)
+            {
+                String name = StringUtils.trimToEmpty(stereotypeNames[ctr]);
+
+                // see if we can find the stereotype first
+                Object stereotype = ModelElementFinder.find(this.umlPackage, name);
+                if (stereotype == null || !Stereotype.class.isAssignableFrom(stereotype.getClass()))
+                {
+                    Collection baseClasses = new ArrayList();
+                    baseClasses.add(baseClass);
+                    stereotype =
+                        corePackage.getStereotype().createStereotype(
+                            name, VisibilityKind.PUBLIC, false, false, false, false, null, baseClasses);
+                    this.model.getOwnedElement().add(stereotype);
+                }
+                stereotypes.add(stereotype);
+            }
+        }
+        return stereotypes;
+    }
+     */
+
+    /**
+     * Adds a foreign key column name to the <code>foreignKeys</code> Map. The
+     * map stores a collection of foreign key names keyed by the given
+     * <code>tableName</code>
+     *
+     * @param tableName the name of the table for which to store the keys.
+     * @param columnName the name of the foreign key column name.
+     */
+    protected void addForeignKey(
+        String tableName,
+        String columnName)
+    {
+        if (StringUtils.isNotBlank(tableName) && StringUtils.isNotBlank(columnName))
+        {
+            Collection<String> foreignKeys = this.foreignKeys.get(tableName);
+            if (foreignKeys == null)
+            {
+                foreignKeys = new HashSet<String>();
+            }
+            foreignKeys.add(columnName);
+            this.foreignKeys.put(tableName, foreignKeys);
+        }
+    }
+
+    /**
+     * Returns true if the table with the given <code>tableName</code> has a
+     * foreign key with the specified <code>columnName</code>.
+     *
+     * @param tableName the name of the table to check for the foreign key
+     * @param columnName the name of the foreign key column.
+     * @return true/false depending on whether or not the table has the foreign
+     *         key with the given <code>columnName</code>.
+     */
+    protected boolean hasForeignKey(
+        String tableName,
+        String columnName)
+    {
+        boolean hasForeignKey = false;
+        if (StringUtils.isNotBlank(tableName) && StringUtils.isNotBlank(columnName))
+        {
+            Collection<String> foreignKeys = this.foreignKeys.get(tableName);
+            if (foreignKeys != null)
+            {
+                hasForeignKey = foreignKeys.contains(columnName);
+            }
+        }
+        return hasForeignKey;
+    }
+
+    /**
+     * Creates an attributes multiplicity, if <code>required</code> is true,
+     * then multiplicity is set to 1, if <code>required</code> is false, then
+     * multiplicity is set to 0..1.
+     *
+     * @param dataTypes used to create the Multiplicity
+     * @param required whether or not the attribute is required therefore
+     *        determining the multiplicity value created.
+     * @return the new Multiplicity
+    protected MultiplicityElement createAttributeMultiplicity(
+        DataTypesPackage dataTypes,
+        boolean required)
+    {
+        MultiplicityElement mult = null;
+        if (required)
+        {
+            mult = this.createMultiplicity(dataTypes, 1, 1);
+        }
+        else
+        {
+            mult = this.createMultiplicity(dataTypes, 0, 1);
+        }
+        return mult;
+    }
+     */
+
+    /**
+     * Creates a multiplicity, from <code>lower</code> and <code>upper</code>
+     * ranges.
+     *
+     * @param dataTypes used to create the Multiplicity
+     * @param lower the lower range of the multiplicity
+     * @param upper the upper range of the multiplicity
+     * @return the new Multiplicity
+    protected MultiplicityElement createMultiplicity(
+        DataTypesPackage dataTypes,
+        int lower,
+        int upper)
+    {
+        MultiplicityElement mult = dataTypes.getMultiplicity().createMultiplicity();
+        MultiplicityRange range = dataTypes.getMultiplicityRange().createMultiplicityRange(lower, upper);
+        mult.getRange().add(range);
+        return mult;
+    }
+     */
+}

@@ -138,6 +138,12 @@
             <artifactId>neethi</artifactId>
             <version>3.0.2</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.woodstox</groupId>
+                    <artifactId>stax2-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- Conflicts with parser from JDK 6 -->
         <dependency>

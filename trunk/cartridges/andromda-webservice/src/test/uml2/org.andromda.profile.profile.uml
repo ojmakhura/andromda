@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_8a70287_1078771814628_224704_589" name="org.andromda.profile" metamodelReference="_8a70287_1078771814628_224704_589_packageImportcreatedOnLoad">
+  <eAnnotations xmi:id="_-a2Mjlc3EeCAZLagPSoQkA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <contents xmi:type="ecore:EPackage" xmi:id="_-a2Mj1c3EeCAZLagPSoQkA" name="organdromdaprofile" nsURI="http:///schemas/organdromdaprofile/_-aZURFc3EeCAZLagPSoQkA/0" nsPrefix="organdromdaprofile">
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_-a2MkFc3EeCAZLagPSoQkA" name="MetaGeneralization">
+        <eAnnotations xmi:id="_-a2MkVc3EeCAZLagPSoQkA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_11_5_e240333_1154527239171_844797_1"/>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_-a2Mklc3EeCAZLagPSoQkA" name="andromda_meta_generalization_precedence" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_-a2MlFc3EeCAZLagPSoQkA" name="base_Generalization" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Generalization"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_-a2Mllc3EeCAZLagPSoQkA" name="metaclass">
+        <eAnnotations xmi:id="_-a2Ml1c3EeCAZLagPSoQkA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_1fe00f9_1119337017984_966800_5"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_-a2MmFc3EeCAZLagPSoQkA" name="base_Class" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Class"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_-a2Mmlc3EeCAZLagPSoQkA" name="PSMmetaclass">
+        <eAnnotations xmi:id="_-a2Mm1c3EeCAZLagPSoQkA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_d860307_1139833593980_991234_0"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_-a2MnFc3EeCAZLagPSoQkA" name="base_Class" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Class"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_-a2Mnlc3EeCAZLagPSoQkA" name="metafacade">
+        <eAnnotations xmi:id="_-a2Mn1c3EeCAZLagPSoQkA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_1fe00f9_1119337017984_532936_4"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_-a2MoFc3EeCAZLagPSoQkA" name="base_Class" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Class"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+  </eAnnotations>
+  <packageImport xmi:id="_8a70287_1078771814628_224704_589_packageImportcreatedOnLoad">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:id="_0primitiveTypesorg.andromda.profile">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:id="_0javaPrimitiveTypesorg.andromda.profile">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_11_5_e240333_1154527239171_844797_1" name="MetaGeneralization">
+    <ownedAttribute xmi:id="_9_0_2_12ab03bf_1120851034140_934058_0" name="andromda_meta_generalization_precedence" visibility="private">
+      <ownedComment xmi:id="_9_0_2_12ab03bf_1120851142953_227372_1" body="Defines the precedences of a generalization when a metafacade generalizes more that one other metafacade." annotatedElement="_9_0_2_12ab03bf_1120851034140_934058_0"/>
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_11_5_e240333_1154527239281_62286_7" name="base_Generalization" visibility="private">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Generalization"/>
+      <association xmi:type="uml:Extension" href="org.andromda.profile.meta.profile.uml#_11_5_e240333_1154527239281_409487_6"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_0_1fe00f9_1119337017984_966800_5" name="metaclass">
+    <ownedAttribute xmi:id="_11_5_e240333_1154527239281_688018_22" name="base_Class" visibility="private">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      <association xmi:type="uml:Extension" href="org.andromda.profile.meta.profile.uml#_11_5_e240333_1154527239281_696603_21"/>
+    </ownedAttribute>
+    <icon xmi:id="_11_5_e240333_1154527239171_219695_2" content="" location="" format=""/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_d860307_1139833593980_991234_0" name="PSMmetaclass">
+    <ownedComment xmi:id="_9_5_1_d860307_1139833789612_956247_1" body="Denotes a metaclass which belongs to the PSM. Code for these classes will be generated by the Java cartridge in the form of value objects." annotatedElement="_9_5_1_d860307_1139833593980_991234_0"/>
+    <ownedAttribute xmi:id="_11_5_e240333_1154527239281_36142_12" name="base_Class" visibility="private">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      <association xmi:type="uml:Extension" href="org.andromda.profile.meta.profile.uml#_11_5_e240333_1154527239281_631026_11"/>
+    </ownedAttribute>
+    <icon xmi:id="_11_5_e240333_1154527239171_368376_4" content="" location="" format=""/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_0_1fe00f9_1119337017984_532936_4" name="metafacade">
+    <ownedAttribute xmi:id="_11_5_e240333_1154527239281_573925_17" name="base_Class" visibility="private">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      <association xmi:type="uml:Extension" href="org.andromda.profile.meta.profile.uml#_11_5_e240333_1154527239281_53351_16"/>
+    </ownedAttribute>
+    <icon xmi:id="_11_5_e240333_1154527239171_253242_3" content="" location="" format=""/>
+  </packagedElement>
+</uml:Profile>

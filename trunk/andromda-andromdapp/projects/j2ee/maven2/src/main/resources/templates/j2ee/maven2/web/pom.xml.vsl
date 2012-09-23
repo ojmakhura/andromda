@@ -104,7 +104,7 @@
         <dependency>
             <groupId>org.apache.myfaces.tomahawk</groupId>
             <artifactId>tomahawk</artifactId>
-            <version>1.1.10</version>
+            <version>1.1.13</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/target/src/WEB-INF/lib/tomahawk.jar</systemPath>
         </dependency>
@@ -391,7 +391,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.2</version>
+                <version>${maven-war-plugin.version}</version>
                 <configuration>
                     <warSourceDirectory>target/src/main/webapp</warSourceDirectory>
                     <!-- Needed for mvn 2.1 with war-plugin 2.1. See http://jira.codehaus.org/browse/MWAR-187 -->

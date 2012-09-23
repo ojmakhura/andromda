@@ -239,7 +239,8 @@ $stringUtils.replaceChars($type.getDocumentation("                ", 100, false)
 #*     *##foreach ($literal in $type.literals)
 ##            <!-- $type.name literal: $literal -->
 #if ($stringUtils.isNotBlank($literal.getDocumentation("", 9999, false)))
-                <xs:enumeration value="${escapeUtils.escapeXml($literal.enumerationValue.replaceAll('"', ''))}">
+                <xs:enumeration value="$literal.name">
+##                <xs:enumeration value="${escapeUtils.escapeXml($literal.enumerationValue.replaceAll('"', ''))}">
                     <xs:annotation><xs:documentation>
 $stringUtils.replaceChars($literal.getDocumentation("                        ", 100, false), "\"'&<>", "")
                     </xs:documentation></xs:annotation>

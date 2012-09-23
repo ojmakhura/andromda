@@ -249,6 +249,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>xml-maven-plugin</artifactId>
+                <version>${xml-maven-plugin.version}</version>
                 <configuration>
                     <transformationSets>
                         <transformationSet>
@@ -286,17 +287,4 @@
     <properties>
         <namespace.name>emf-uml22</namespace.name>
     </properties>
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>clirr-maven-plugin</artifactId>
-                <version>2.4</version>
-                <!-- Compare the current code against current version -->
-                <configuration>
-                    <comparisonVersion>${project.version}</comparisonVersion>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
 </project>

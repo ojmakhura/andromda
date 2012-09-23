@@ -45,19 +45,42 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>4.1.7.Final</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.logging</groupId>
+                    <artifactId>jboss-logging</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.spec.javax.interceptor</groupId>
+                    <artifactId>jboss-interceptors-api_1.1_spec</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.spec.javax.transaction</groupId>
+                    <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
-           <groupId>org.jboss.spec</groupId>
-           <artifactId>jboss-javaee-web-6.0</artifactId>
-           <version>3.0.1.Final</version>
-           <type>pom</type>
-           <scope>test</scope>
-           <exclusions>
-               <exclusion>
-                   <groupId>org.apache.xalan</groupId>
-                   <artifactId>xalan</artifactId>
-               </exclusion>
-           </exclusions>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-web-6.0</artifactId>
+            <version>3.0.1.Final</version>
+            <type>pom</type>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.xalan</groupId>
+                    <artifactId>xalan</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.spec.javax.interceptor</groupId>
+                    <artifactId>jboss-interceptors-api_1.1_spec</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+            <version>3.1.0.GA</version>
         </dependency>
         <!-- version 2.7.1-1.jbossorg referenced by jboss-javaee-web-6.0 not in maven central -->
         <dependency>
@@ -99,6 +122,12 @@
             <artifactId>hibernate-validator</artifactId>
             <version>4.3.0.Final</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.logging</groupId>
+                    <artifactId>jboss-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
     <build>
@@ -117,6 +146,22 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-cartridge-plugin</artifactId>
+                <!--executions>
+                    <execution>
+                        <id>uml14</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <actualDirectory>${project.build.directory}/cartridge-test/actualUML14</actualDirectory>
+                            <expectedDirectory>${project.build.directory}/cartridge-test/expectedUML14</expectedDirectory>
+                            <expectedOutputArchive>${basedir}/src/test/expected/cartridge-output.zip</expectedOutputArchive>
+                            <configurationUri>file:${basedir}/conf/test/andromda.xml</configurationUri>
+                            <reportDirectory>${project.build.directory}/cartridge-test/reportsUML14</reportDirectory>
+                        </configuration>
+                    </execution>
+                </executions-->
             </plugin>
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>

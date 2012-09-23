@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  This is used to map the UML2 primitive type names
+  to the UML2 wrapper type names, when creating modeled wrapper types from JDBC database.
+-->
+<mappings name="UML2Wrapper">
+    <mapping>
+        <from>int</from>
+        <from>Java::int</from>
+        <from>PrimitiveTypes::int</from>
+        <from>JavaPrimitiveTypes::int</from>
+        <from>UML Standard Profile::int</from>
+        <from>datatype::int</from>
+        <to>UMLPrimitiveTypes::Integer</to>
+    </mapping>
+    <mapping>
+        <from>char</from>
+        <from>Java::char</from>
+        <from>JavaPrimitiveTypes::char</from>
+        <from>PrimitiveTypes::char</from>
+        <from>UML Standard Profile::char</from>
+        <from>datatype::char</from>
+        <to>datatype::Character</to>
+    </mapping>
+    <mapping>
+        <from>byte</from>
+        <from>Java::byte</from>
+        <from>JavaPrimitiveTypes::byte</from>
+        <from>PrimitiveTypes::byte</from>
+        <from>UML Standard Profile::byte</from>
+        <from>datatype::byte</from>
+        <to>datatype::Byte</to>
+    </mapping>
+    <mapping>
+        <from>short</from>
+        <from>Java::short</from>
+        <from>JavaPrimitiveTypes::short</from>
+        <from>PrimitiveTypes::short</from>
+        <from>UML Standard Profile::short</from>
+        <from>datatype::short</from>
+        <to>datatype::Short</to>
+    </mapping>
+    <mapping>
+        <from>long</from>
+        <from>Java::long</from>
+        <from>JavaPrimitiveTypes::long</from>
+        <from>PrimitiveTypes::long</from>
+        <from>UML Standard Profile::long</from>
+        <from>datatype::long</from>
+        <to>datatype::Long</to>
+    </mapping>
+    <mapping>
+        <from>float</from>
+        <from>Java::float</from>
+        <from>JavaPrimitiveTypes::float</from>
+        <from>PrimitiveTypes::float</from>
+        <from>UML Standard Profile::float</from>
+        <from>datatype::float</from>
+        <to>datatype::Float</to>
+    </mapping>
+    <mapping>
+        <from>double</from>
+        <from>Java::double</from>
+        <from>JavaPrimitiveTypes::double</from>
+        <from>PrimitiveTypes::double</from>
+        <from>UML Standard Profile::double</from>
+        <from>datatype::double</from>
+        <to>datatype::Double</to>
+    </mapping>
+    <mapping>
+        <from>boolean</from>
+        <from>Java::boolean</from>
+        <from>JavaPrimitiveTypes::boolean</from>
+        <from>PrimitiveTypes::boolean</from>
+        <from>UML Standard Profile::boolean</from>
+        <from>datatype::boolean</from>
+        <to>UMLPrimitiveTypes::Boolean</to>
+    </mapping>
+</mappings>

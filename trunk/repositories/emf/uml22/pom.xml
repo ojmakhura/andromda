@@ -222,7 +222,7 @@
                     <installDirectory>${project.basedir}/../../../lib</installDirectory>
                 </configuration>
             </plugin>
-            <!--plugin>
+            <plugin>
                 <artifactId>maven-install-plugin</artifactId>
                 <executions>
                     <execution>
@@ -239,23 +239,10 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin-->
+            </plugin>
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>clirr-maven-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <!-- Compare the current code against current version -->
-                    <comparisonVersion>${project.version}</comparisonVersion>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
 </project>

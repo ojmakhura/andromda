@@ -1,0 +1,46 @@
+<andromda xmlns="http://andromda.org/core/configuration">
+  <properties>
+    <property name="failOnValidationErrors">false</property>
+  </properties>
+  <repositories>
+    <repository name="emf-uml22">
+      <models>
+        <model type="emf-uml22">
+          <uri>${uml2.test.model.uri}</uri>
+          <moduleSearchLocations>
+            <location patterns="*.uml,*.epx,*.emx">${project.basedir}/src/test/uml2</location>
+          </moduleSearchLocations>
+        </model>
+      </models>
+    </repository>
+  </repositories>
+  <namespaces>
+    <namespace name="default">
+      <properties>
+        <property name="overwrite">true</property>
+        <property name="languageMappingsUri">Java</property>
+        <property name="wrapperMappingsUri">JavaWrapper</property>
+        <property name="enableTemplating">true</property>
+        <property name="enableAnnotations">true</property>
+        <property name="typeSafeEnumsEnabled">true</property>
+        <property name="enumerationLiteralNameMask">upperunderscore</property>
+        <property name="pluralizeAssociationEndNames">true</property>
+        <property name="pluralizeAttributeNames">true</property>
+        <property name="pluralizeParameterNames">true</property>
+        <property name="toDoTag">TODO</property>
+      </properties>
+    </namespace>
+    <namespace name="ejb">
+      <properties>
+        <property name="jdbcMappingsUri">JDBC</property>
+        <property name="sqlMappingsUri">Oracle9i</property>
+        <property name="entity-beans">${test.output.dir}</property>
+        <property name="entity-impls">${test.output.dir}</property>
+        <property name="session-beans">${test.output.dir}</property>
+        <property name="session-impls">${test.output.dir}</property>
+        <property name="value-objects">${test.output.dir}</property>
+        <property name="mergeMappingsUri">file:${test.src.dir}/mappings/MergeMappings.xml</property>
+      </properties>
+    </namespace>
+  </namespaces>
+</andromda>

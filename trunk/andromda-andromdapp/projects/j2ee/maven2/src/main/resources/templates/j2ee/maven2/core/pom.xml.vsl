@@ -507,9 +507,9 @@
         </dependency>
 #elseif ($jaxws)
         <dependency>
-            <groupId>com.sun.webservices</groupId>
+            <groupId>org.glassfish.metro</groupId>
             <artifactId>webservices-api</artifactId>
-            <version>2.1.2</version>
+            <version>2.3-b24</version>
         </dependency>
 #elseif ($cxf)
         <dependency>
@@ -687,7 +687,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-ejb-plugin</artifactId>
-                <version>2.3</version>
+                <version>${maven-ejb-plugin.version}</version>
                 <configuration>
 #if ($ejb3)
                     <ejbVersion>3.0</ejbVersion>

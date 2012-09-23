@@ -127,9 +127,10 @@
                 <property name="enumerationLiteralNameMask">upperunderscore</property>
 #if ($spring || $hibernate)
                 <property name="hibernateVersion">${hibernate.version}</property>
-                <property name="hibernateEntityAnnotations">false</property>
+                <property name="hibernateEntityAnnotations">true</property>
 #end
                 <property name="persistenceContainerName">jboss</property>
+                <property name="appServer">jboss</property>
                 <!-- Override default @todo to set to Eclipse default>
                 <property name="toDoTag">TODO</property -->
                 <!-- Automatically makes English names plural (generally adds s if missing).
