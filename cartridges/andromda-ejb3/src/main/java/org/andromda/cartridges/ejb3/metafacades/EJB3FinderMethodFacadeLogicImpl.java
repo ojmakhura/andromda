@@ -137,26 +137,26 @@ public class EJB3FinderMethodFacadeLogicImpl
             queryString = "from " + owner.getName() + " as " + variableName;
                 Collection<ParameterFacade> arguments = this.getArguments();
             //int size = this.getArguments().size();
-                if (arguments != null && !arguments.isEmpty())
-                {
+            if (arguments != null && !arguments.isEmpty())
+            {
                 for (ParameterFacade facade : arguments)
-                    {
+                {
                     EJB3FinderMethodArgumentFacade argument = (EJB3FinderMethodArgumentFacade)facade;
-                        if (!argument.isFirstResult() && !argument.isMaxResults())
+                    if (!argument.isFirstResult() && !argument.isMaxResults())
+                    {
+                        if (!whereClauseExists)
                         {
-                            if (!whereClauseExists)
-                            {
-                                queryString += " where";
-                                whereClauseExists = true;
-                            }
-                            String parameter = "?";
-                            if (this.isUseNamedParameters())
-                            {
-                                parameter = ':' + argument.getName();
-                            }
-                        queryString += ' ' + variableName + '.' + argument.getName() + " = " + parameter + " and";
+                            queryString += " where";
+                            whereClauseExists = true;
                         }
+                        String parameter = "?";
+                        if (this.isUseNamedParameters())
+                        {
+                            parameter = ':' + argument.getName();
+                        }
+                        queryString += ' ' + variableName + '.' + argument.getName() + " = " + parameter + " and";
                     }
+                }
                 if (this.getArguments().size() > 1)
                 {
                     // Remove the final ' and'

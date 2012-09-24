@@ -13,11 +13,14 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityAssociationEnd;
 import org.andromda.metafacades.uml.EntityAttribute;
+import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.EnumerationFacade;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.MetafacadeUtils;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.TypeMappings;
@@ -210,6 +213,7 @@ public class EJB3EntityFacadeLogicImpl
     public Collection handleGetIdentifiers()
     {
         Collection identifiers = new ArrayList();
+        // This looks at dependencies only, not attributes or association identifiers
         for (final DependencyFacade dep : this.getSourceDependencies())
         {
             if (dep.hasStereotype(EJB3Profile.STEREOTYPE_IDENTIFIER))
@@ -220,17 +224,20 @@ public class EJB3EntityFacadeLogicImpl
             }
         }
 
-        // No PK dependency found - try a PK attribute
-        if (this.getIdentifiers(true) != null && !this.getIdentifiers(true).isEmpty())
+        // No PK dependency found - use PK attribute/association identifiers
+        Collection<ModelElementFacade> entityIdentifiers = this.getIdentifiers(true);
+        if (entityIdentifiers != null && !entityIdentifiers.isEmpty())
         {
-            AttributeFacade attr = this.getIdentifiers(true).iterator().next();
-            identifiers.add(attr);
-            return identifiers;
+            identifiers.addAll(entityIdentifiers);
         }
 
         // Still nothing found - recurse up the inheritance tree
-        EJB3EntityFacade decorator = (EJB3EntityFacade)this.getGeneralization();
-        return decorator.getIdentifiers();
+        GeneralizableElementFacade general = this.getGeneralization();
+        if (identifiers.isEmpty() && general instanceof EJB3EntityFacade)
+        {
+            identifiers = ((EJB3EntityFacade)general).getIdentifiers();
+        }
+        return identifiers;
     }
 
     /**
@@ -248,14 +255,19 @@ public class EJB3EntityFacadeLogicImpl
      *        should be followed
      * @return the collection of identifiers.
      */
-    public Collection<EntityAttribute> getIdentifiers(boolean follow)
+    public Collection<ModelElementFacade> getIdentifiers(boolean follow)
     {
         final List<AttributeFacade> attributes = this.getAttributes();
         MetafacadeUtils.filterByStereotype(
             attributes,
             UMLProfile.STEREOTYPE_IDENTIFIER);
 
-        if (attributes.isEmpty() && follow)
+        final List<AssociationEndFacade> associations = this.getAssociationEnds();
+        MetafacadeUtils.filterByStereotype(
+            associations,
+            UMLProfile.STEREOTYPE_IDENTIFIER);
+
+        if (attributes.isEmpty() && associations.isEmpty() && follow)
         {
             if (this.getGeneralization() instanceof EJB3EntityFacade)
             {
@@ -266,10 +278,14 @@ public class EJB3EntityFacadeLogicImpl
                 return ((EJB3MappedSuperclassFacade)this.getGeneralization()).getIdentifiers(follow);
             }
         }
-        Collection<EntityAttribute> identifiers = new ArrayList<EntityAttribute>();
+        Collection<ModelElementFacade> identifiers = new ArrayList<ModelElementFacade>();
         for (AttributeFacade attribute : attributes)
         {
             identifiers.add((EntityAttribute)attribute);
+        }
+        for (AssociationEndFacade association :associations)
+        {
+            identifiers.add((EntityAssociationEnd)association);
         }
         return identifiers;
     }
@@ -852,7 +868,8 @@ public class EJB3EntityFacadeLogicImpl
     private EJB3EntityFacade getSuperEntity()
     {
         EJB3EntityFacade superEntity = null;
-        if ((this.getGeneralization() != null) && this.getGeneralization() instanceof EJB3EntityFacade)
+        if ((this.getGeneralization() != null) && this.getGeneralization() instanceof EJB3EntityFacade
+            && !this.getGeneralization().hasStereotype(EJB3Profile.STEREOTYPE_MAPPED_SUPERCLASS))
         {
             superEntity = (EJB3EntityFacade)this.getGeneralization();
         }
@@ -980,46 +997,71 @@ public class EJB3EntityFacadeLogicImpl
         StringBuilder sb = new StringBuilder();
         String separator = "";
 
-        for (final Iterator it = attributes.iterator(); it.hasNext();)
+        boolean isCompositePKPresent = this.isCompositePrimaryKeyPresent();
+        if (isCompositePKPresent)
         {
-            EJB3EntityAttributeFacade attr = (EJB3EntityAttributeFacade)it.next();
-            /**
-             * Do not include attributes that are assigned for optimistic lock value as a version
-             */
-            boolean isCompositePKPresent = this.isCompositePrimaryKeyPresent();
-            if (!attr.isVersion())
+            if (includeTypes)
             {
-                /*
-                 * Do not include identifier attributes for entities with a composite primary key
-                 * or if includeAutoIdentifiers is false, do not include identifiers with auto generated values.
-                 */
-                if ((isCompositePKPresent && (includeAutoIdentifiers || !attr.isIdentifier())) ||
-                    (!isCompositePKPresent &&
-                            ((!includeAutoIdentifiers && attr.isIdentifier() && attr.isGeneratorTypeNone()) ||
-                            (includeAutoIdentifiers && attr.isIdentifier()) ||
-                            !attr.isIdentifier())))
+                sb.append(this.getFullyQualifiedName()).append("PK");
+            }
+            sb.append(" pk");
+            separator = ", ";
+        }
+        for (final Object obj : attributes)
+        {
+            if (obj instanceof EJB3EntityAttributeFacade)
+            {
+                EJB3EntityAttributeFacade attr = (EJB3EntityAttributeFacade)obj;
+                // Do not include attributes that are assigned for optimistic lock value as a version
+                if (!attr.isVersion())
+                {
+                    /* Do not include identifier attributes for entities with a composite primary key
+                     or if includeAutoIdentifiers is false, do not include identifiers with auto generated values. */
+                    if (!attr.isIdentifier() ||
+                       (!isCompositePKPresent && (includeAutoIdentifiers || attr.isGeneratorTypeNone())))
+                    {
+                        sb.append(separator);
+                        separator = ", ";
+                        if (includeTypes)
+                        {
+                            /*
+                             * If attribute is a LOB and lob type is overridden, then use
+                             * overriding lob type.
+                             */
+                            if (attr.isLob() && StringUtils.isNotBlank(attr.getLobType()))
+                            {
+                                sb.append(attr.getLobType());
+                            }
+                            else
+                            {
+                                sb.append(attr.getGetterSetterTypeName());
+                            }
+                            sb.append(" ");
+                        }
+                        if (includeNames)
+                        {
+                            sb.append(attr.getName());
+                        }
+                    }
+                }
+            }
+            if (obj instanceof EJB3AssociationEndFacade)
+            {
+                EJB3AssociationEndFacade assoc = (EJB3AssociationEndFacade)obj;
+                /* Do not include identifier attributes for entities with a composite primary key
+                 or if includeAutoIdentifiers is false, do not include identifiers with auto generated values.*/
+                //System.out.println(this.getName() + "." + assoc.getName() + " Identifier:" + assoc.isIdentifier() + " isCompositePKPresent:" + isCompositePKPresent + " includeAutoIdentifiers:" + includeAutoIdentifiers);
+                if (!assoc.isIdentifier() || !isCompositePKPresent)
                 {
                     sb.append(separator);
                     separator = ", ";
                     if (includeTypes)
                     {
-                        /**
-                         * If attribute is a LOB and lob type is overridden, then use
-                         * overriding lob type.
-                         */
-                        if (attr.isLob() && StringUtils.isNotBlank(attr.getLobType()))
-                        {
-                            sb.append(attr.getLobType());
-                        }
-                        else
-                        {
-                            sb.append(attr.getGetterSetterTypeName());
-                        }
-                        sb.append(" ");
+                        sb.append(assoc.getGetterSetterTypeName()).append(" ");
                     }
                     if (includeNames)
                     {
-                        sb.append(attr.getName());
+                        sb.append(assoc.getName());
                     }
                 }
             }
@@ -1138,7 +1180,15 @@ public class EJB3EntityFacadeLogicImpl
         {
             if (!this.getIdentifiers().isEmpty())
             {
-                displayAttribute = this.getIdentifiers().iterator().next();
+                ModelElementFacade facade = this.getIdentifiers().iterator().next();
+                if (facade instanceof AttributeFacade)
+                {
+                    displayAttribute = (AttributeFacade)facade;
+                }
+                else if (!attributes.isEmpty())
+                {
+                    displayAttribute = (EntityAttribute)attributes.iterator().next();
+                }
             }
             else if (!attributes.isEmpty())
             {
@@ -1152,9 +1202,15 @@ public class EJB3EntityFacadeLogicImpl
     /**
      * @see EJB3EntityFacadeLogic#handleGetIdentifier()
      */
-    protected EJB3EntityAttributeFacade handleGetIdentifier()
+    protected ModelElementFacade handleGetIdentifier()
     {
-        return (EJB3EntityAttributeFacade)this.getIdentifiers().iterator().next();
+        ModelElementFacade identifier = null;
+        final Collection<ModelElementFacade> identifiers = this.getIdentifiers();
+        if (identifiers != null && !identifiers.isEmpty())
+        {
+            identifier = this.getIdentifiers().iterator().next();
+        }
+        return identifier;
     }
 
     /**
@@ -1454,11 +1510,11 @@ public class EJB3EntityFacadeLogicImpl
     /**
      * @see EJB3EntityFacadeLogic#handleGetInstanceAttributes(boolean, boolean)
      */
-    protected Collection handleGetInstanceAttributes(
+    protected Collection<AttributeFacade> handleGetInstanceAttributes(
             boolean follow,
             boolean withIdentifiers)
     {
-        final Collection attributes = this.getAttributes(follow, withIdentifiers);
+        final Collection<AttributeFacade> attributes = this.getAttributes(follow, withIdentifiers);
         CollectionUtils.filter(
             attributes,
             new Predicate()
@@ -1473,6 +1529,37 @@ public class EJB3EntityFacadeLogicImpl
                     return valid;
                 }
             });
+        // If a 1:1 owned identifier relationship, the dependent identifier attributes should be included in addition to the association
+        // and the generator="foreign" and @PrimaryKeyJoinColumn annotations are used.
+        final List<AssociationEndFacade> associationEnds = this.getAssociationEnds();
+        /*MetafacadeUtils.filterByStereotype(
+            associationEnds,
+            UMLProfile.STEREOTYPE_IDENTIFIER);*/
+        //System.out.println("GetInstanceAttributes " + this.getFullyQualifiedName() + " associationEnds=" + this.getAssociationEnds().size() + " identifiers=" + associationEnds.size());
+        for(AssociationEndFacade associationEnd : associationEnds)
+        {
+            //System.out.println("GetInstanceAttributes " + this.getFullyQualifiedName() + " " + associationEnd.getOtherEnd().getFullyQualifiedName() + " Identifier=" + associationEnd.getOtherEnd().hasStereotype("Identifier") + " associationEnd=" + associationEnd + " One2One=" + associationEnd.getOtherEnd().isOne2One() + " Type=" + associationEnd.getOtherEnd().getType());
+            if (associationEnd.getOtherEnd().hasStereotype("Identifier") && associationEnd.getOtherEnd().isOne2One() && !associationEnd.getOtherEnd().hasStereotype(UMLProfile.STEREOTYPE_TRANSIENT) && associationEnd.getOtherEnd() instanceof EJB3AssociationEndFacade)
+            {
+                EJB3AssociationEndFacade ejb3AssociationEnd = (EJB3AssociationEndFacade) associationEnd;
+                //System.out.println("GetInstanceAttributes " + this.getFullyQualifiedName() + " " + ejb3AssociationEnd + " Owning=" + ejb3AssociationEnd.isOwning() + " Aggregation=" + ejb3AssociationEnd.isAggregation() + " Composition=" + ejb3AssociationEnd.isComposition() + " OAggregation=" + ejb3AssociationEnd.getOtherEnd().isAggregation() + " OComposition=" + ejb3AssociationEnd.getOtherEnd().isComposition());
+                if (ejb3AssociationEnd.isOwning())
+                {
+                    Entity entity = (Entity)ejb3AssociationEnd.getType();
+                    Collection<ModelElementFacade> identifierAttributes = EntityMetafacadeUtils.getIdentifierAttributes(entity, follow);
+                    //System.out.println("GetInstanceAttributes "  + this.getFullyQualifiedName() + " entity=" + entity + " Attributes=" + identifierAttributes);
+                    for(ModelElementFacade identifier : identifierAttributes)
+                    {
+                        //System.out.println(identifier);
+                        if (identifier instanceof AttributeFacade)
+                        {
+                            attributes.add((AttributeFacade)identifier);
+                            //System.out.println("Added "  + identifier + " to entity=" + entity);
+                        }
+                    }
+                }
+            }
+        }
         return attributes;
     }
 

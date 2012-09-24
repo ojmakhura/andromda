@@ -1,11 +1,11 @@
 package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
-import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityAssociationEnd;
 import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
@@ -134,10 +134,10 @@ public class EntityAssociationEndLogicImpl
             if (this.getType() instanceof Entity)
             {
                 final Entity type = (Entity)this.getType();
-                final Collection<EntityAttribute> identifiers = type.getIdentifiers();
+                final Collection<ModelElementFacade> identifiers = type.getIdentifiers();
                 if (identifiers != null && !identifiers.isEmpty())
                 {
-                    AttributeFacade attribute = (AttributeFacade)identifiers.iterator().next();
+                    ModelElementFacade attribute = identifiers.iterator().next();
                     if (attribute instanceof EntityAttribute)
                     {
                         identifier = (EntityAttribute)attribute;
@@ -219,6 +219,7 @@ public class EntityAssociationEndLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityAssociationEnd#isIdentifier()
      */
+    @Override
     protected boolean handleIsIdentifier()
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_IDENTIFIER);

@@ -37,7 +37,7 @@ public abstract class $embeddedValue.name
 #**##if ($embeddedValue.attributes.empty)
 #*  *##set ($parenthesis = "()")
 #**##end
-    public static $embeddedValue.name newInstance${parenthesis}#foreach ($attribute in $embeddedValue.attributes)$attribute.getterSetterTypeName ${attribute.name}#if($velocityCount != $embeddedValue.attributes.size()),#else)#end#end
+    public static $embeddedValue.name newInstance${parenthesis}#foreach ($attribute in $embeddedValue.attributes)$attribute.getterSetterTypeName ${attribute.name}#if($velocityCount != $embeddedValue.attributes.size()), #else)#end#end
 
     {
         $embeddedValue.implementationName object = new ${embeddedValue.implementationName}();

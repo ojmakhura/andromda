@@ -189,6 +189,11 @@ public class AssociationEndFacadeLogicImpl
                 }
             }
         }
+        if (null!=this.getType() && !isMany)
+        {
+            // isCollectionType causes too many problems with the metafacades
+            isMany = this.getType().isArrayType();
+        }
         return isMany;
     }
 
@@ -330,7 +335,7 @@ public class AssociationEndFacadeLogicImpl
     protected String handleGetGetterSetterTypeName()
     {
         String name = null;
-        if (this.isMany())
+        if (this.isMany() && this.getType()!=null && !this.getType().isArrayType() && !this.getType().isCollectionType())
         {
             final TypeMappings mappings = this.getLanguageMappings();
             if (mappings != null)
@@ -345,7 +350,16 @@ public class AssociationEndFacadeLogicImpl
                     ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)))
                     && this.getType() != null)
             {
-                name = name + '<' + this.getType().getFullyQualifiedName() + '>';
+                String type = this.getType().getFullyQualifiedName();
+                /*Collection<GeneralizableElementFacade> specializations = this.getType().getAllSpecializations();
+                if ((specializations != null && !specializations.isEmpty()))
+                {
+                    name += "<? extends " + type + '>';
+                }
+                else
+                {*/
+                    name += '<' + type + '>';
+                //}
             }
         }
         if (name == null && this.getType() != null)
@@ -480,6 +494,7 @@ public class AssociationEndFacadeLogicImpl
      * UML2 only. Can't determine association scope in UML14.
      * @see org.andromda.metafacades.uml.AttributeFacade#isStatic()
      */
+    @Override
     public boolean handleIsStatic()
     {
         return false;

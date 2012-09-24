@@ -333,7 +333,12 @@ public class ParameterFacadeLogicImpl
     //@Override
     protected boolean handleIsMany()
     {
-        return false;
+        boolean isMany = false;
+        if (null!=this.getType())
+        {
+            isMany = this.getType().isArrayType();
+        }
+        return isMany;
      }
 
     /**

@@ -22,6 +22,13 @@
 #*  *##end
 #**##end
 #end
+#set ($entityList = $entityUtils.sortEntities($entities, true))
+        <!-- Entity list needed for testing in J2SE environment entities=$entities.size()-->
+#foreach ($entity in $entityList)
+#if ($umlUtils.shouldOutput($entity))
+        <class>$entity.fullyQualifiedName</class>
+#end
+#end
         <properties>
 #if ($stringUtils.isNotBlank($hibernateHbm2DDLAuto))
             <property name="hibernate.hbm2ddl.auto" value="${hibernateHbm2DDLAuto}"/>

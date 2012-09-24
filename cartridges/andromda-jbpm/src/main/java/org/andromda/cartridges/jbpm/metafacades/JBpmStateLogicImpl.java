@@ -41,7 +41,7 @@ public class JBpmStateLogicImpl
      *
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmStateVertex#getNodeClassName()
      */
-    //@Override
+    @Override
     public String getNodeClassName()
     {
         return this.getSuperJBpmEventState().getNodeClassName();
@@ -51,7 +51,7 @@ public class JBpmStateLogicImpl
      *
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmStateVertex#getNodePackageName()
      */
-    //@Override
+    @Override
     public String getNodePackageName()
     {
         return this.getSuperJBpmEventState().getNodePackageName();
@@ -61,7 +61,7 @@ public class JBpmStateLogicImpl
      *
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmStateVertex#getProcessDefinition()
      */
-    //@Override
+    @Override
     public JBpmProcessDefinition getProcessDefinition()
     {
         return this.getSuperJBpmEventState().getProcessDefinition();
@@ -73,7 +73,7 @@ public class JBpmStateLogicImpl
      * </p>
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmStateVertex#isContainedInBusinessProcess()
      */
-    //@Override
+    @Override
     public boolean isContainedInBusinessProcess()
     {
         return this.getSuperJBpmEventState().isContainedInBusinessProcess();

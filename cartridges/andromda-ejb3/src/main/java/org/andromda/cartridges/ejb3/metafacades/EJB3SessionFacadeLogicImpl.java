@@ -903,8 +903,7 @@ extends EJB3SessionFacadeLogic
     protected String handleGetPersistenceContainer()
     {
         return StringUtils.trimToEmpty(
-                ObjectUtils.toString(this.getConfiguredProperty(PERSISTENCE_CONTAINER)));
-                //ObjectUtils.toString(this.getConfiguredProperty(DEPLOYMENT_PLATFORM)));
+                ObjectUtils.toString(this.getConfiguredProperty(DEPLOYMENT_PLATFORM)));
     }
 
     /**

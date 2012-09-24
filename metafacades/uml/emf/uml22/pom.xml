@@ -224,7 +224,7 @@
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-model-archiver-plugin</artifactId>
             </plugin>
-            <!--plugin>
+            <plugin>
                 <artifactId>maven-install-plugin</artifactId>
                 <executions>
                     <execution>
@@ -241,7 +241,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin-->
+            </plugin>
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>

@@ -2,7 +2,6 @@ package org.andromda.metafacades.emf.uml22;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import org.andromda.metafacades.uml.DependencyFacade;
@@ -76,11 +75,10 @@ public class FrontEndControllerLogicImpl
     {
         final Collection<FrontEndAction> deferringActions = new LinkedHashSet<FrontEndAction>();
 
-        final Collection<OperationFacade> operations = this.getOperations();
-        for (final Iterator<OperationFacade> operationIterator = operations.iterator(); operationIterator.hasNext();)
+        for (final OperationFacade operation : this.getOperations())
         {
-            final FrontEndControllerOperation operation = (FrontEndControllerOperation)operationIterator.next();
-            deferringActions.addAll(operation.getDeferringActions());
+            final FrontEndControllerOperation controllerOperation = (FrontEndControllerOperation)operation;
+            deferringActions.addAll(controllerOperation.getDeferringActions());
         }
         return new ArrayList<FrontEndAction>(deferringActions);
     }

@@ -53,7 +53,7 @@
                         </goals>
                         <configuration>
                             <buildSourceDirectory>${project.basedir}/target/src</buildSourceDirectory>
-                            <configurationUri>file:${project.basedir}/conf/andromda.xml</configurationUri>
+                            <configurationUri>file:${project.basedir}/conf/andromdaUML2.xml</configurationUri>
                             <lastModifiedCheck>true</lastModifiedCheck>
                         </configuration>
                     </execution>

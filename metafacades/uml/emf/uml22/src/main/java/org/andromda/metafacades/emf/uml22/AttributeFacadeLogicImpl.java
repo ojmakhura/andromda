@@ -124,7 +124,7 @@ public class AttributeFacadeLogicImpl
         // Because of MD11.5 (their multiplicity are String), we cannot use isMultiValued()
         // Name or type may be null during the model validation process.
         return this.getUpper() > 1 || this.getUpper() == LiteralUnlimitedNatural.UNLIMITED
-               || (null!=this.getType() && this.getType().isArrayType());
+               || (null!=this.getType() && (this.getType().isArrayType() || this.getType().isCollectionType()));
     }
 
     /**
@@ -269,7 +269,15 @@ public class AttributeFacadeLogicImpl
                 {
                     type = type.substring(0, type.length()-2);
                 }*/
-                name += '<' + type + '>';
+                /*Collection<GeneralizableElementFacade> specializations = this.getType().getAllSpecializations();
+                if ((specializations != null && !specializations.isEmpty()))
+                {
+                    name += "<? extends " + type + '>';
+                }
+                else
+                {*/
+                    name += '<' + type + '>';
+                /*}*/
             }
         }
         if (name == null && this.handleGetType() != null)

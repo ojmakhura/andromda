@@ -15,30 +15,63 @@ public class ${entity.entityCompositePrimaryKeyName}
     implements java.io.Serializable, Comparable<${entity.entityCompositePrimaryKeyName}>
 {
     private static final long serialVersionUID = 1L;
-#set ($identifiers = $entity.getIdentifiers())
-#foreach ($attribute in $identifiers)
-    private $attribute.getterSetterTypeName $attribute.name;
+##Distinguish between attribute identifiers and identifiers on identifier associations
+##set ($identifiers = $entityUtils.getIdentifierAttributes($entity, true))
+#set ($identifiers = $entity.identifiers)
+#foreach ($property in $identifiers)
+    private $property.getterSetterTypeName $property.name;
 #end
-#foreach ($attribute in $identifiers)
+#foreach ($property in $identifiers)
 
-#**##set ($visibility = $attribute.visibility)
+#set ($visibility = $property.visibility)
     /**
-     * Get the $attribute.name property.
-$attribute.getDocumentation("     * ")
-     * @return $attribute.getterSetterTypeName The value of ${attribute.name}
+     * Get the $property.name property.
+$property.getDocumentation("     * ")
+     * @return $property.getterSetterTypeName The value of ${property.name}
+     * owning=$property.otherEnd.owning optional=$property.optional $property.otherEnd.fulyQualifiedName many2One=$property.many2One target=$property.otherEnd.many2One
      */
-    public $attribute.getterSetterTypeName ${attribute.getterName}()
+#if ($property.associationEndFacadeMetaType && $property.otherEnd.owning)
+#set ($target = $property.otherEnd)
+#if ($target.many2One)
+    @javax.persistence.ManyToOne(#if (!$property.optional)optional=false#set ($argExists = true)#end#if ($target.cascadeType)#if ($argExists), #end#**#cascade={${target.cascadeType}}#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end#**#fetch=javax.persistence.FetchType.LAZY#end)
+#elseif ($target.one2Many)
+    @javax.persistence.OneToMany(#if ($target.cascadeType)cascade={${target.cascadeType}}#set ($argExists = true)#end#if ($target.navigable)#if ($argExists) ,#end#**#mappedBy="$property.otherEnd.name"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch=javax.persistence.FetchType.EAGER#end)
+#elseif ($target.one2One)
+    @javax.persistence.OneToOne(#if ($target.cascadeType)cascade={${target.cascadeType}}#set ($argExists = true)#end#if ($target.navigable)#if ($argExists) ,#end#**#mappedBy="$property.otherEnd.name"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch=javax.persistence.FetchType.EAGER#end)
+#end
+##set ($typeIdentifiers = $property.type.identifiers)
+#set ($typeIdentifiers = $entityUtils.getIdentifierAttributes($property.type, true))
+#if ($typeIdentifiers.size()==1)
+#set ($identifier = $typeIdentifiers.get(0))
+    @javax.persistence.JoinColumn(name="${identifier.columnName}"#if (!$identifier.columnNullable), nullable=${identifier.columnNullable}#end, insertable=true, updatable=false)  // ${identifier.owner.name}.${identifier.name}
+#elseif ($typeIdentifiers.size()>1)
+    // Order of the JoinColumns is EXTREMELY important - must match the order in the FK definition
+##    // $property.type.name $property.type.compositePrimaryKeyPresent $property.type
+    @javax.persistence.JoinColumns({
+#foreach ($identifier in $typeIdentifiers)
+##        // $identifier.owner.name $identifier.name
+        @javax.persistence.JoinColumn(name="${identifier.columnName}"#if (!$identifier.columnNullable), nullable=${identifier.columnNullable}#end, insertable=true, updatable=false)#if($velocityCount != $typeIdentifiers.size()),#end   // ${identifier.owner.name}.${identifier.name}
+#end
+##        @javax.persistence.AttributeOverride(name="${property.name}", column=@javax.persistence.Column(name="${property.columnName}"#if ($property.unique), unique=${property.unique}#end#if (!$property.columnNullable), nullable=${property.columnNullable}#end#if ($property.columnLength), length=${property.columnLength}#end#if ($property.columnDefinition), columnDefinition="${property.columnDefinition}"#end#if ($property.columnPrecision), precision=${property.columnPrecision}#end#if ($property.columnScale), scale=${property.columnScale}#end))#if($velocityCount != $identifiers.size()),#end
+##
+#*  *#
+    })
+#end
+#else
+    @javax.persistence.Column(name="$property.columnName", nullable=false)
+#end
+    public $property.getterSetterTypeName ${property.getterName}()
     {
-        return this.$attribute.name;
+        return this.$property.name;
     }
 
     /**
-     * Set the $attribute.name property.
+     * Set the $property.name property.
      * @param value the new value
      */
-    public void ${attribute.setterName}($attribute.getterSetterTypeName value)
+    public void ${property.setterName}($property.getterSetterTypeName value)
     {
-        this.${attribute.name} = value;
+        this.${property.name} = value;
     }
 #end
 
@@ -51,16 +84,21 @@ $attribute.getDocumentation("     * ")
     }
 
     /**
-     * Implementation for the main constructor with all POJO identifier attributes.
+     * Implementation for the main constructor with all POJO identifier properties.
      *
-#foreach($attribute in $identifiers)
-     * @param $attribute.name Value for the ${attribute.name} property
+#set ($identifierList = "")
+#foreach($property in $identifiers)
+     * @param ${property.name} Value for the $property.name property $velocityHasNext
+#set ($identifierList = $identifierList + $property.type.fullyQualifiedName + " " + $property.name)
+#if ($velocityHasNext)
+#set ($identifierList = $identifierList + ", ")
+#end
 #end
      */
-    public ${entity.entityCompositePrimaryKeyName}($entity.getAttributesAsList($identifiers, true, true, true))
+    public ${entity.entityCompositePrimaryKeyName}($identifierList)
     {
-#foreach ($attribute in $identifiers)
-        ${attribute.setterName}($attribute.name);
+#foreach ($property in $identifiers)
+        ${property.setterName}($property.name);
 #end
     }
 
@@ -73,15 +111,15 @@ $attribute.getDocumentation("     * ")
     public int hashCode()
     {
         int result = 0;
-#foreach($attribute in $identifiers)
-#**##if ($attribute.type.primitive)
-#*  *##if ($attribute.type.booleanType)
-        result = 37*result + (this.${attribute.name} ? 0 : 1);
+#foreach($property in $identifiers)
+#**##if ($property.type.primitive)
+#*  *##if ($property.type.booleanType)
+        result = 37*result + (this.${property.name} ? 0 : 1);
 #*  *##else
-        result = 37*result + (int)this.${attribute.name};
+        result = 37*result + (int)this.${property.name};
 #*  *##end
 #**##else
-        result = 37*result + ((this.${attribute.name} != null) ? this.${attribute.name}.hashCode() : 0);
+        result = 37*result + ((this.${property.name} != null) ? this.${property.name}.hashCode() : 0);
 #**##end
 #end
         return result;
@@ -111,12 +149,12 @@ $attribute.getDocumentation("     * ")
         ${entity.entityCompositePrimaryKeyName} pk = (${entity.entityCompositePrimaryKeyName})object;
         return
 #set ($totalIdentifiers = $identifiers.size())
-#foreach($attribute in $identifiers)
-#**##if ($attribute.type.stringType)
-            #if ($velocityCount > 1)&&#end pk.${attribute.name}.equals(this.${attribute.name})#if ($velocityCount == $totalIdentifiers);#end
+#foreach($property in $identifiers)
+#**##if ($property.type.stringType)
+            #if ($velocityCount > 1)&&#end pk.${property.name}.equals(this.${property.name})#if ($velocityCount == $totalIdentifiers);#end
 
 #**##else
-            #if ($velocityCount > 1)&&#end pk.${attribute.name} == this.${attribute.name}#if ($velocityCount == $totalIdentifiers);#end
+            #if ($velocityCount > 1)&&#end pk.${property.name} == this.${property.name}#if ($velocityCount == $totalIdentifiers);#end
 
 #**##end
 #end
@@ -128,7 +166,7 @@ $attribute.getDocumentation("     * ")
     public int compareTo(${entity.entityCompositePrimaryKeyName} o)
     {
         int cmp = 0;
-#set ($identifiers = $class.identifiers)
+##set ($identifiers = $entity.identifiers)
 #if (!$identifiers.empty)
 #**##foreach ($identifier in $identifiers)
 #*  *##if (!$identifier.type.primitive && !$identifier.type.arrayType && !$identifier.lob && !$identifier.containsEmbeddedObject && !$identifier.type.collectionType && !$identifier.type.name.equals("Object"))
@@ -157,6 +195,29 @@ $attribute.getDocumentation("     * ")
 #**##end
 #end
         return cmp;
+    }
+
+    /**
+     * Returns a String representation of the composite key object
+     * @return String Textual representation of the object displaying name/value pairs for all properties
+     * @see Object${esc.hash}toString
+     */
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("${entity.name}PK(");
+#*  *##if ($entity.generalization)
+        sb.append(super.toString());
+#*  *##end
+#*  *##set( $sep = "" )
+#*  *##foreach ($identifier in $identifiers)
+#*    *##set ($attrType = $identifier.type)
+        sb.append(" ${identifier.name}=").append(${identifier.getterName}()#if ($identifier.containsEmbeddedObject).toString()#end);
+#*    *##set( $sep = ", " )
+#*  *##end## foreach
+        sb.append(")");
+        return sb.toString();
     }
 }
 #end

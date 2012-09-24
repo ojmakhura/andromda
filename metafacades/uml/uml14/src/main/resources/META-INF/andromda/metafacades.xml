@@ -52,6 +52,11 @@
         <property reference="enumerationNameMask"/>
         <property reference="typeSafeEnumsEnabled"/>
     </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.EnumerationFacadeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.EnumerationClass$Impl"/>
+        <property reference="enumerationNameMask"/>
+        <property reference="typeSafeEnumsEnabled"/>
+    </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.AssociationClassFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationClass$Impl"/>
     </metafacade>

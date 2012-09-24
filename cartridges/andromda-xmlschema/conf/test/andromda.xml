@@ -3,7 +3,19 @@
     <property name="failOnValidationErrors">false</property>
   </properties>
   <repositories>
-    <repository name="netBeansMDR">
+    <repository name="emf-uml22">
+            <models>
+                <model type="emf-uml22">
+                <uri>file:${basedir}/src/test/uml/XmlSchemaCartridgeTestModel.uml</uri>
+                    <moduleSearchLocations>
+                    <location patterns="*.uml,*.epx,*.emx">${pom.basedir}/src/test/uml2</location>
+                        <location patterns="**/*.uml">${basedir}/../../profiles/emf/uml22</location>
+                        <location patterns="**/*.uml">${pom.basedir}/../../profiles/emf/uml22</location>
+                    </moduleSearchLocations>
+                </model>
+            </models>
+        </repository>
+    <!--repository name="netBeansMDR">
       <models>
         <model>
           <uri>${test.model.uri}</uri>
@@ -13,16 +25,16 @@
           </moduleSearchLocations>
         </model>
       </models>
-    </repository>
+    </repository-->
   </repositories>
   <namespaces>
     <namespace name="default">
       <properties>
         <property name="languageMappingsUri">XmlSchema</property>
         <property name="wrapperMappingsUri">JavaWrapper</property>
-        <property name="enableTemplating">false</property>
-        <property name="enableAnnotations">false</property>
-        <property name="typeSafeEnumsEnabled">false</property>
+        <property name="enableTemplating">true</property>
+        <property name="enableAnnotations">true</property>
+        <property name="typeSafeEnumsEnabled">true</property>
         <property name="enumerationLiteralNameMask">upperunderscore</property>
         <property name="pluralizeAssociationEndNames">true</property>
         <property name="pluralizeAttributeNames">true</property>

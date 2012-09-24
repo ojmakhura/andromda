@@ -289,10 +289,10 @@ public class ManageableEntityLogicImpl
             }
             else
             {
-                final Iterator identifierIterator = entity.getIdentifiers().iterator();
+                final Iterator<ModelElementFacade> identifierIterator = entity.getIdentifiers().iterator();
                 if (identifierIterator.hasNext())
                 {
-                    final AttributeFacade identifier = (AttributeFacade)identifierIterator.next();
+                    final ModelElementFacade identifier = identifierIterator.next();
                     if (identifier != null)
                     {
                         if (buffer.length() > 0)
@@ -300,7 +300,16 @@ public class ManageableEntityLogicImpl
                             buffer.append(", ");
                         }
 
-                        final ClassifierFacade type = identifier.getType();
+                        ClassifierFacade type = null;
+                        if (identifier instanceof AttributeFacade)
+                        {
+                            type = ((AttributeFacade)identifier).getType();
+                        }
+                        else if (identifier instanceof AssociationEndFacade)
+                        {
+                            type = ((AssociationEndFacade)identifier).getType();
+                        }
+
                         if (type != null)
                         {
                             if (listType != null)

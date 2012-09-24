@@ -3,7 +3,6 @@ package org.andromda.cartridges.ejb3.metafacades;
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.metafacades.uml.AttributeFacade;
-import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
@@ -80,11 +79,10 @@ public class EJB3EntityAttributeFacadeLogicImpl
         return required;
     }
 
-    /**
+    /*
      * Override to provide java specific handling of the default value.
      *
      * @see org.andromda.metafacades.uml.AttributeFacade#getDefaultValue()
-     */
     @Override
     public String getDefaultValue()
     {
@@ -104,6 +102,7 @@ public class EJB3EntityAttributeFacadeLogicImpl
         }
         return defaultValue;
     }
+     */
 
     /**
      * @see EJB3EntityAttributeFacade#getFetchType()
@@ -317,7 +316,34 @@ public class EJB3EntityAttributeFacadeLogicImpl
     @Override
     protected String handleGetGeneratorName()
     {
-        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_GENERATOR_NAME);
+        String generatorName = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_GENERATOR_NAME);
+        if (StringUtils.isBlank(generatorName))
+        {
+            generatorName = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_GENERATOR_SOURCE_NAME);
+            if (StringUtils.isBlank(generatorName))
+            {
+                generatorName = this.getOwner().getName() + GENERATOR;
+            }
+            else
+            {
+                generatorName = this.getOwner().getName() + UNDERSCORE + generatorName;
+            }
+        }
+        return generatorName;
+    }
+
+    /**
+     * @see EJB3EntityAttributeFacadeLogic#handleGetGeneratorSourceName()
+     */
+    @Override
+    protected String handleGetGeneratorSourceName()
+    {
+        String sourceName = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_GENERATOR_SOURCE_NAME);
+        if (StringUtils.isBlank(sourceName))
+        {
+            sourceName = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_GENERATOR_NAME);
+        }
+        return sourceName;
     }
 
     /**
@@ -327,15 +353,6 @@ public class EJB3EntityAttributeFacadeLogicImpl
     protected String handleGetGeneratorGenericStrategy()
     {
         return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_GENERATOR_GENERIC_STRATEGY);
-    }
-
-    /**
-     * @see EJB3EntityAttributeFacadeLogic#handleGetGeneratorSourceName()
-     */
-    @Override
-    protected String handleGetGeneratorSourceName()
-    {
-        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_GENERATOR_SOURCE_NAME);
     }
 
     /**
@@ -506,7 +523,7 @@ public class EJB3EntityAttributeFacadeLogicImpl
 
         if (StringUtils.isBlank(nullableString))
         {
-            nullable = (this.isIdentifier() || this.isUnique() ? false : !this.isRequired());
+            nullable = (this.isIdentifier() || this.isUnique()) ? false : !this.isRequired();
         }
         else
         {
@@ -579,8 +596,8 @@ public class EJB3EntityAttributeFacadeLogicImpl
     /**
      * @return findTaggedValue 'andromda_hibernate_type'
      */
-    //@Override
-    protected String getOverrideType()
+    @Override
+    protected String handleGetOverrideType()
     {
         return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_OVERRIDE_TYPE);
     }

@@ -3,6 +3,7 @@ package org.andromda.cartridges.ejb3;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.StringTokenizer;
+import org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacade;
 import org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.collections.CollectionUtils;
@@ -71,11 +72,56 @@ public class EJB3ScriptHelper
         {
             public boolean evaluate(final Object pObj)
             {
-                EJB3EntityAttributeFacade attr = (EJB3EntityAttributeFacade )pObj;
-                return !attr.isVersion() &&
+                if (pObj instanceof EJB3EntityAttributeFacade)
+                {
+                    EJB3EntityAttributeFacade attr = (EJB3EntityAttributeFacade)pObj;
+                    return !attr.isVersion() &&
                         ((isCompositePKPresent && !attr.isIdentifier()) ||
                         (!isCompositePKPresent && (attr.isIdentifier() && attr.isGeneratorTypeNone()) ||
                          !attr.isIdentifier()));
+                }
+                else
+                {
+                    System.out.println("NOT EJB3EntityAttributeFacade: " + pObj);
+                    return false;
+                }
+            }
+        });
+    }
+
+    /**
+     * Filter a list of EntityAttributes by removing all audit attributes.
+     * This filter currently removes all attributes that are of stereotype Version
+     * It also removes identifier attributes for an entity with a composite primary key class
+     * or if the identifier attribute have a specified generator.
+     *
+     * @param list The original list
+     * @param jpaFramework If using a JPA auditing framework. Filter none if not using it.
+     * @return Collection A list of EntityAttributes from the original list that are updatable
+     */
+    public Collection<EJB3EntityAttributeFacade> filterAuditAttributes(final Collection<EJB3EntityAttributeFacade> list, final boolean jpaFramework)
+    {
+        return CollectionUtils.select(list, new Predicate()
+        {
+            public boolean evaluate(final Object pObj)
+            {
+                // returns true if attribute should not be filtered out
+                if (pObj instanceof EJB3EntityAttributeFacade)
+                {
+                    EJB3EntityAttributeFacade attr = (EJB3EntityAttributeFacade)pObj;
+                    /*System.out.println(attr.getOwner().getName() + " jpa=" + jpaFramework + " attr=" + attr.getName()
+                        + " return=" + (!jpaFramework || !(attr.getName().equals("createDate")
+                                || attr.getName().equals("createdBy") || attr.getName().equals("updateDate")
+                                || attr.getName().equals("updatedBy"))));*/
+                    return (!jpaFramework || !(attr.getName().equals("createDate")
+                        || attr.getName().equals("createdBy") || attr.getName().equals("updateDate")
+                        || attr.getName().equals("updatedBy")));
+                }
+                else
+                {
+                    //System.out.println("NOT EJB3EntityAttributeFacade: " + pObj);
+                    return false;
+                }
             }
         });
     }
@@ -96,12 +142,56 @@ public class EJB3ScriptHelper
         {
             public boolean evaluate(final Object pObj)
             {
-                EJB3EntityAttributeFacade attr = (EJB3EntityAttributeFacade )pObj;
-                return !attr.isVersion() && attr.isRequired() &&
-                    ((isCompositePKPresent && !attr.isIdentifier()) ||
-                    (!isCompositePKPresent && (!attr.isIdentifier() ||
-                        (attr.isIdentifier() && attr.isGeneratorTypeNone()))
-                    ));
+                if (pObj instanceof EJB3EntityAttributeFacade)
+                {
+                    // Wrapped primitive may be set to column nullable = false to override nullable datatype
+                    EJB3EntityAttributeFacade attr = (EJB3EntityAttributeFacade)pObj;
+                    return !attr.isVersion() && !attr.isColumnNullable() &&
+                        (!attr.isIdentifier() || (!isCompositePKPresent &&
+                           attr.isGeneratorTypeNone())
+                        /*((isCompositePKPresent && !attr.isIdentifier()) ||
+                        (!isCompositePKPresent && (!attr.isIdentifier() ||
+                            (attr.isGeneratorTypeNone()))*/
+                        );
+                }
+                else
+                {
+                    System.out.println("NOT EJB3EntityAttributeFacade: " + pObj);
+                    return false;
+                }
+            }
+        });
+    }
+
+    /**
+     * Filter a list of EntityAssociationEnds by removing all non-required AssociationEnds.
+     * It also removes identifier AssociationEnds for an entity with a composite primary key class
+     *
+     * @param list The original list
+     * @param isCompositePKPresent True if entity has a composite primary key
+     * @return Collection A list of EntityAssociationEnds from the original list that are updatable
+     */
+    public Collection<EJB3AssociationEndFacade> filterRequiredAssociations(final Collection<EJB3AssociationEndFacade> list, final boolean isCompositePKPresent)
+    {
+        return CollectionUtils.select(list, new Predicate()
+        {
+            public boolean evaluate(final Object pObj)
+            {
+                if (pObj instanceof EJB3AssociationEndFacade)
+                {
+                    EJB3AssociationEndFacade assoc = (EJB3AssociationEndFacade)pObj;
+                    return assoc.getOtherEnd().isRequired() || assoc.isIdentifier();
+                    /*return attr.isRequired() &&
+                        ((isCompositePKPresent && !attr.isIdentifier()) ||
+                        (!isCompositePKPresent && (!attr.isIdentifier() ||
+                            (attr.isIdentifier()))
+                        ));*/
+                }
+                else
+                {
+                    System.out.println("NOT EJB3AssociationEndFacade: " + pObj);
+                    return false;
+                }
             }
         });
     }

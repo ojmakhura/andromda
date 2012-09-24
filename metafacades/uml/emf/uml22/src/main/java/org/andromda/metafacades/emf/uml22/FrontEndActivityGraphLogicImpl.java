@@ -73,8 +73,8 @@ public class FrontEndActivityGraphLogicImpl
         if (!initialStates.isEmpty())
         {
             final PseudostateFacade initialState = initialStates.iterator().next();
-            final Collection<TransitionFacade> outgoing = initialState.getOutgoings();
-            firstAction = outgoing.isEmpty() ? null : outgoing.iterator().next();
+            final Collection<TransitionFacade> outgoings = initialState.getOutgoings();
+            firstAction = outgoings.isEmpty() ? null : outgoings.iterator().next();
         }
         return (FrontEndAction)this.shieldedElement(firstAction);
     }

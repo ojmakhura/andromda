@@ -1,0 +1,41 @@
+<andromda xmlns="http://andromda.org/core/configuration">
+  <properties>
+    <property name="failOnValidationErrors">false</property>
+    <property name="loggingConfigurationUri">file:${project.basedir}/conf/test/log4j.xml</property>
+  </properties>
+  <repositories>
+    <!--repository name="emf-uml22">
+      <models>
+        <model type="emf-uml22">
+          <uri>${uml2.test.model.uri}</uri>
+          <moduleSearchLocations>
+            <location patterns="*.uml,*.epx,*.emx">${project.basedir}/src/test/uml2</location>
+          </moduleSearchLocations-->
+    <repository name="netBeansMDR">
+      <models>
+        <model>
+          <uri>${test.model.uri}</uri>
+          <moduleSearchLocations>
+            <location patterns="*.xml.zip">${project.basedir}/src/uml</location>
+            <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../profiles/uml-1.4</location>
+            <location patterns="*.xml.zip">${project.basedir}/../../metafacades/uml/common/src/main/uml</location>
+            <location patterns="*.xml.zip">${project.basedir}/../../metafacades/uml/uml14/src/main/uml</location>
+            <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0.1/UML_Standard_Profile-1.0.1.jar!/</location>
+          </moduleSearchLocations>
+        </model>
+      </models>
+    </repository>
+  </repositories>
+  <namespaces>
+    <namespace name="deployment">
+      <properties>
+        <property name="languageMappingsUri">Java</property>
+        <property name="wrapperMappingsUri">JavaWrapper</property>
+        <property name="jdbcMappingsUri">JDBC</property>
+        <property name="sqlMappingsUri">Oracle9i</property>
+        <property name="deploymentreport">${test.output.dir}</property>
+        <property name="antprojects">${test.output.dir}</property>
+      </properties>
+    </namespace>
+  </namespaces>
+</andromda>

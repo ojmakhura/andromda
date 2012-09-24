@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.metafacades.uml.EntityAttribute;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ObjectUtils;
@@ -249,9 +250,9 @@ public class EJB3ManageableEntityFacadeLogicImpl
      * super EJB3EntityFacade.
      */
     @Override
-    public EJB3EntityAttributeFacade getIdentifier()
+    public ModelElementFacade getIdentifier()
     {
-        return (EJB3EntityAttributeFacade)super.getIdentifiers().iterator().next();
+        return super.getIdentifiers().iterator().next();
     }
 
     /**

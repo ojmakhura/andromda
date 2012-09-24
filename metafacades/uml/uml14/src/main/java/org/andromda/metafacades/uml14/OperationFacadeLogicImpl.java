@@ -16,6 +16,7 @@ import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.translation.ocl.ExpressionKinds;
+import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
@@ -60,14 +61,14 @@ public class OperationFacadeLogicImpl
     protected String handleGetName()
     {
         final String nameMask = String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.OPERATION_NAME_MASK));
-        /*String name = super.handleGetName();
+        String name = super.handleGetName();
         if (this.isMany() && this.isPluralizeAssociationEndNames())
         {
             name = StringUtilsHelper.pluralize(name);
         }
-        return NameMasker.mask(name, nameMask);*/
+        return NameMasker.mask(name, nameMask);
         // UML14 does not support multiplicity > 1 on operation return parameter
-        return NameMasker.mask(super.handleGetName(), nameMask);
+        //return NameMasker.mask(super.handleGetName(), nameMask);
     }
 
     /**
