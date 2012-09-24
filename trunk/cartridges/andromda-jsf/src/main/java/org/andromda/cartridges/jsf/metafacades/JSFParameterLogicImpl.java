@@ -13,6 +13,7 @@ import java.util.Set;
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
+import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
@@ -981,9 +982,9 @@ public class JSFParameterLogicImpl
      * @return navigableAssociationEnds
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getNavigableAssociationEnds()
      */
-    protected Collection<ClassifierFacade> handleGetNavigableAssociationEnds()
+    protected Collection<AssociationEndFacade> handleGetNavigableAssociationEnds()
     {
-        Collection<ClassifierFacade> associationEnds = null;
+        Collection<AssociationEndFacade> associationEnds = null;
         ClassifierFacade type = this.getType();
         if (type != null)
         {
@@ -996,7 +997,7 @@ public class JSFParameterLogicImpl
                 associationEnds = type.getNavigableConnectingEnds();
             }
         }
-        return associationEnds == null ? new ArrayList<ClassifierFacade>() : associationEnds;
+        return associationEnds == null ? new ArrayList<AssociationEndFacade>() : associationEnds;
     }
 
     /**

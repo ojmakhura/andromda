@@ -13,6 +13,7 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.MetafacadeUtils;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.TaggedValueFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
@@ -284,6 +285,7 @@ public class EJB3AssociationEndFacadeLogicImpl
     @Override
     public boolean isRequired()
     {
+        // TODO: Fix UML Association isRequired to use getOtherEnd
         boolean required = super.isRequired();
         Object type = this.getOtherEnd().getType();
 
@@ -390,16 +392,53 @@ public class EJB3AssociationEndFacadeLogicImpl
     @Override
     protected boolean handleIsOwning()
     {
-        boolean owning = false;
-        if (this.isAggregation() || this.isComposition())
+        return !UMLMetafacadeUtils.isOwningEnd(this);
+        /*boolean owning = false;
+        if (this.isAggregation() || this.isComposition() || !this.getOtherEnd().isNavigable()
+            || BooleanUtils.toBoolean(
+                ObjectUtils.toString(this.findTaggedValue(
+                        EJB3Profile.TAGGEDVALUE_PERSISTENCE_ASSOCIATION_END_PRIMARY))))
         {
             owning = true;
         }
-        else if (!this.isNavigable())
+        // See if this end or the other end is tagged as the association owner
+        else if (BooleanUtils.toBoolean(
+            ObjectUtils.toString(this.getOtherEnd().findTaggedValue(
+                    EJB3Profile.TAGGEDVALUE_PERSISTENCE_ASSOCIATION_END_PRIMARY))))
+        {
+            owning = false;
+        }
+        // If other end not tagged, the many side of 1:M owns the bidirectional relationship
+        else if (this.isMany() && !this.getOtherEnd().isMany())
         {
             owning = true;
         }
-        return owning;
+        // Other side: aggregation/composition owns the bidirectional relationship
+        else if (this.getOtherEnd().isAggregation() || this.getOtherEnd().isComposition())
+        {
+            owning = false;
+        }
+        // Other side: the many side of 1:M owns the bidirectional relationship if no composition/aggregation
+        else if (!this.isMany() && this.getOtherEnd().isMany())
+        {
+            owning = false;
+        }
+        // If bidirectional 1:1 or M:M, choose the side with the longest type name because it typically indicates a composition relationship
+        //else if (this.getOtherEnd().getType().getName().length()
+        //        > this.getType().getName().length())
+        else if (this.getName().length()
+            > this.getOtherEnd().getName().length())
+        {
+            owning = true;
+        }
+        // If length is the same, alphabetically earliest is the owner
+        else if (this.getName().compareTo(
+                this.getOtherEnd().getName()) < 0)
+        {
+            owning = true;
+        }
+        //System.out.println("handleIsOwning=" + owning + " for " + this.getName() + " OName=" + this.getOtherEnd().getName() + " Aggregation=" + this.isAggregation() + " Aggregation=" + this.isAggregation() + " Composition=" + this.isComposition() + " !Navigable=" + !this.isNavigable() + " Many=" + this.isMany() + " OMany=" + this.getOtherEnd().isMany() + " Upper=" + this.getUpper() + " OUpper=" + this.getOtherEnd().getUpper() + " OAggregation=" + this.getOtherEnd().isAggregation() + " OComposition=" + this.getOtherEnd().isComposition() + " ONavigable=" + this.getOtherEnd().isNavigable() + this);
+        return owning;*/
     }
 
     /**
@@ -738,10 +777,22 @@ public class EJB3AssociationEndFacadeLogicImpl
             Object name = this.findTaggedValue(EJB3Profile.TAGGEDVALUE_ASSOCIATION_INDEX);
             if (name == null)
             {
-                // Find the identifier
-                EJB3EntityAttributeFacade identifier = ((EJB3EntityFacade)this.getOtherEnd().getType()).getIdentifier();
-                value = identifier.getType().getFullyQualifiedName();
-                return value.toString();
+                ClassifierFacade facade = this.getOtherEnd().getType();
+                if (facade instanceof EJB3EntityFacade)
+                {
+                    // Find the identifier
+                    ModelElementFacade identifier = ((EJB3EntityFacade)facade).getIdentifier();
+                    if (identifier instanceof AttributeFacade)
+                    {
+                        value = ((AttributeFacade)identifier).getType().getFullyQualifiedName();
+                        return value.toString();
+                    }
+                    else if (identifier instanceof AssociationEndFacade)
+                    {
+                        value = ((AssociationEndFacade)identifier).getType().getFullyQualifiedName();
+                        return value.toString();
+                    }
+                }
             }
             // Find the attribute corresponding to name
             Collection<AttributeFacade> attributes = ((EJB3EntityFacade)this.getOtherEnd().getType()).getAttributes();
@@ -1010,22 +1061,22 @@ public class EJB3AssociationEndFacadeLogicImpl
     @Override
     protected String handleGetForeignKeyName(String suffix)
     {
-        if (StringUtils.isNotBlank(suffix))
-        {
-            suffix = new String(
-                    this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR) +
-                    suffix +
-                    this.getForeignKeySuffix());
-        }
-        else
-        {
-            suffix = this.getForeignKeySuffix();
-        }
-
         String columnName = null;
         // prevent ClassCastException if the association isn't an Entity
         if (this.getType() instanceof Entity)
         {
+            if (StringUtils.isNotBlank(suffix))
+            {
+                suffix = new String(
+                        this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR) +
+                        suffix +
+                        this.getForeignKeySuffix());
+            }
+            else
+            {
+                suffix = this.getForeignKeySuffix();
+            }
+
             final String columnNamePrefix =
                 this.isConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_PREFIX)
                 ? ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_PREFIX)) : null;
@@ -1083,33 +1134,22 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @return isColumnNullable
      * @see EJB3AssociationEndFacadeLogic#handleIsColumnNullable()
      */
-    //@Override
-    protected boolean isColumnNullable()
+    @Override
+    protected boolean handleIsColumnNullable()
     {
         boolean nullable = true;
         String nullableString = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_COLUMN_NULLABLE);
 
         if (StringUtils.isBlank(nullableString))
         {
-            nullable = (this.handleIsIdentifier() || this.isUnique()) ? false : !this.isRequired();
+            nullable = (this.isIdentifier() || this.isUnique()) ? false : !this.isRequired();
         }
         else
         {
             nullable = Boolean.valueOf(nullableString).booleanValue();
         }
         return nullable;
-    }
-
-    /**
-     * @return isIdentifier
-     * @see org.andromda.metafacades.uml.EntityAttribute#isIdentifier()
-     */
-    //@Override
-    protected boolean handleIsIdentifier()
-    {
-        return this.hasStereotype(UMLProfile.STEREOTYPE_IDENTIFIER);
     }
 }

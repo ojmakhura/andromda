@@ -11,7 +11,7 @@
 #**##set ($entityCollectionType = "java.util.Collection")
 #end
 #if ($stringUtils.isNotBlank($entity.packageName))
-package $entity.packageName;
+package ${entity.packageName};
 #end
 
 #set ($superclass = $entity.generalization)
@@ -102,41 +102,43 @@ public interface $entity.daoName
     public void ${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection instances);
 
 #end
-#set ($identifier = $entity.identifiers.iterator().next())
+#set ($identifiers = $entity.identifiers)
+##set ($identifiers = $entityUtils.getIdentifierAttributes($entity, true))
+#if (!$entity.identifiers.empty)
+#set ($identifier = $identifiers.iterator().next())
+#end
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
     /**
      * Loads an instance of $entity.fullyQualifiedEntityName from the persistent store.
-#if ($entity.compositePrimaryKeyPresent)
-#**##foreach ($identifier in $entity.identifers)
-     * @param $identifer.name identifier part of the composite PK of the entity to load.
-#**##end
-#else
-     * @param $identifier.name the identifier of the entity to load.
+##if ($entity.compositePrimaryKeyPresent)
+#foreach ($identifier in $identifiers)
+     * @param $identifier.name $identifier.type.fullyQualifiedName identifier part of the composite PK of the entity to load.
 #end
+##else
+##     * @param $identifier.name the identifier of the entity to load.
+##end
+     * @return $rootEntityType
      * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
      */
-    public $rootEntityType load(#foreach ($identifier in $entity.identifiers)$identifier.type.fullyQualifiedName $identifier.name#if ($velocityCount != $entity.identifiers.size()), #end#end)
+    public $rootEntityType load(#foreach ($identifier in $identifiers)$identifier.type.fullyQualifiedName $identifier.name#if ($velocityCount != $identifiers.size()), #end#end)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
 
     /**
-     *   Does the same thing as {@link ${esc.hash}load($identifier.type.fullyQualifiedName)} with an
+     *   Does the same thing as {@link ${esc.hash}load(#foreach ($identifier in $identifiers)$identifier.type.fullyQualifiedName#if ($velocityCount != $identifiers.size()), #end#end)} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
      *   defined in this class then the result <strong>WILL BE</strong> passed through an operation which can
      *   optionally transform the entity (into a value object for example).  By default, transformation does
      *   not occur.
      *
-#if ($entity.compositePrimaryKeyPresent)
-#**##foreach ($identifier in $entity.identifers)
-     * @param $identifer.name identifier part of the composite PK of the entity to load.
-#**##end
-#else
-     * @param $identifier.name the identifier of the entity to load.
+     * @param transform int transformation flag
+#foreach ($identifier in $identifiers)
+     * @param $identifier.name $identifier.type.fullyQualifiedName identifier part of the composite PK of the entity to load.
 #end
      * @return either the entity or the object transformed from the entity.
      * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
      */
-    public Object load(int transform,#foreach ($identifier in $entity.identifiers) $identifier.type.fullyQualifiedName $identifier.name#if ($velocityCount != $entity.identifiers.size()),#end#end)
+    public Object load(int transform,#foreach ($identifier in $identifiers) $identifier.type.fullyQualifiedName $identifier.name#if ($velocityCount != $identifiers.size()),#end#end)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
 
     /**
@@ -160,6 +162,9 @@ public interface $entity.daoName
      * @return Collection of the loaded entities.
      * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
      */
+#if ($enableTemplating)
+    @SuppressWarnings("rawtypes")
+#end
     public java.util.Collection loadAll(final int transform)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
 
@@ -215,6 +220,9 @@ public interface $entity.daoName
      * @return the created instances. Collection
      * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
      */
+#if ($enableTemplating)
+    @SuppressWarnings({"rawtypes"})
+#end
     public java.util.Collection create(int transform, $entityCollectionType entities)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
 
@@ -335,12 +343,12 @@ public interface $entity.daoName
     /**
      * Removes the instance of $entity.fullyQualifiedEntityName having the given
      * <code>identifier</code> from the persistent store.
-#foreach($identifier in $entity.identifiers)
+#foreach($identifier in $identifiers)
      * @param $identifier.name
 #end
      * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
      */
-    public void remove(#foreach ($identifier in $entity.identifiers)$identifier.type.fullyQualifiedName $identifier.name#if ($velocityCount != $entity.identifiers.size()), #end#end)
+    public void remove(#foreach ($identifier in $identifiers)$identifier.type.fullyQualifiedName $identifier.name#if ($velocityCount != $identifiers.size()), #end#end)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
 
     /**

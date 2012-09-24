@@ -15,14 +15,17 @@ package $entity.packageName;
  */
 #set ($generatedFile = "${stringUtils.replace($entity.fullyQualifiedName,'.','/')}EntityTest.java")
 
-import com.wdpr.dbtest.JPAJUnitAncestor;
+import java.util.List;
+import javax.persistence.TypedQuery;
+import org.andromda.dbtest.JPAJUnitAncestor;
+import org.andromda.dbtest.Priority;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.Test;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import org.testng.Assert;
 
 /**
@@ -31,80 +34,121 @@ import org.testng.Assert;
 public class ${entity.entityName}EntityTest extends JPAJUnitAncestor
 {
 #set ($entityVariable = $stringUtils.uncapitalize($entity.entityName))
+    private static Logger LOGGER = LogManager.getLogger(${entity.entityName}EntityTest.class);
     /** Persisted Entity to retrieve and update and delete from */
     protected static $entity.fullyQualifiedName entity = null;
 
     /**
-     * Creates ${entity.tableName} record
+     * Creates ${entity.tableName} record. TestNG creates test group is run before retrieves and deletes.
      */
     @Test(groups = { "creates" })
+#set ($priority=$entityUtils.getPriority($entity))
+    @Priority(2000+$priority)
     public void testCreate${entity.entityName}()
     {
-        // Delete all rows from table  - avoid duplicate PK error
-        //this.deleteAll();
-        this.em.getTransaction().begin();
-        LOGGER.info("testCreate${entity.entityName}");
-        $entity.fullyQualifiedName $entityVariable = ${entity.entityName}Create.createEntity();
-        LOGGER.info("persisting ${entity.entityName}: " + $entityVariable);
-        this.em.persist($entityVariable);
-        this.em.getTransaction().commit();
+        LOGGER.info("TEST CREATE ${entity.entityName}");
+        // Delete all rows from table  - avoid duplicate PK error or created record not found
+        this.deleteAll();
+        $entity.fullyQualifiedName $entityVariable = ${entity.entityName}Create.createEntity(this.getEm());
+        LOGGER.debug("persisting " + $entityVariable);
+        this.getEm().persist($entityVariable);
         int results = this.logEntities();
         // Will also fail if all rows are not deleted during setUp
         Assert.assertTrue(results > 0, "${entity.entityName} inserted but record not found");
         // Save PK for later retrieve/delete
         ${entity.entityName}EntityTest.entity = $entityVariable;
+        LOGGER.info("SUCCESS: CREATED ${entity.entityName} " + $entityVariable);
     }
 
     /**
-     * Retrieving $entity.tableName record
+     * Retrieving $entity.tableName record. Run after TestNG creates test group and before deletes group.
      */
-    @Test(groups = { "retrieves" })
+##    @Test(groups = { "retrieves" }, dependsOnGroups = { "creates" })
+    @Test(groups = { "retrieves" }, ignoreMissingDependencies=true)
+    @Priority(3000+$priority)
     public void testRetrieve${entity.entityName}()
     {
-        LOGGER.info("testDelete${entity.entityName}");
+        LOGGER.info("TEST RETRIEVE ${entity.entityName}");
 #if ($entity.compositePrimaryKeyPresent)
         $entity.fullyQualifiedEntityCompositePrimaryKeyName pk = ${entity.entityName}Create.createEntityPK(true);
 #else
 #set ($identifier = $entity.identifier)
+##        // $identifier.fullyQualifiedName $identifier.otherEnd.one2one $identifier.otherEnd.owning $identifier.type.fullyQualifiedName $identifier.type.identifier.type $identifier
+#if ($identifier.type.identifier.type && $identifier.otherEnd.owning)
+#set ($identifier = $identifier.type.identifier)
+#end
 #set ($constructor=$umlUtils.createConstructor($identifier, false, $entity))
         $identifier.type.fullyQualifiedName pk = $constructor;
 #end
-        $entity.entityName $entityVariable = this.em.find(${entity.entityName}.class, pk);
+        $entity.entityName $entityVariable = this.getEm().find(${entity.entityName}.class, pk);
         if (${entityVariable}==null)
         {
-            Assert.fail("$entity.entityName not found for Primary Key value: " + pk);
+            LOGGER.info("$entity.entityName not found for Primary Key value: " + pk + ", findingFirst Entity");
+            ${entityVariable} = ${entity.entityName}Create.findFirst(this.getEm());
         }
         else
         {
-            LOGGER.info("deleting $entity.entityName:" + $entityVariable);
+            LOGGER.info("SUCCESS: RETRIEVED $entity.entityName: " + $entityVariable);
         }
     }
 
     /**
-     * Deleting $entity.tableName record
+     * Deleting $entity.tableName record. Run after TestNG creates and retrieves test group.
      */
-    @Test(groups = { "deletes" })
+##    @Test(groups = { "deletes" }, dependsOnGroups = { "retrieves" })
+    @Test(groups = { "deletes" }, ignoreMissingDependencies=true)
+    @Priority(5000+$priority)
     public void testDelete${entity.entityName}()
     {
-        LOGGER.info("testDelete${entity.entityName}");
-        // Reattach persisted object before removal
-        if (${entity.entityName}EntityTest.entity==null)
+        LOGGER.info("TEST DELETE ${entity.entityName}");
+        $entity.entityName $entityVariable = ${entity.entityName}Create.findFirst(this.getEm());
+        if (!this.getEm().contains($entityVariable))
         {
-            Assert.fail("$entity.entityName was null");
+            LOGGER.info("merging ${entity.entityName}: " + $entityVariable);
+            $entityVariable = this.getEm().merge($entityVariable);
         }
-        ${entity.entityName}EntityTest.entity = this.em.merge(${entity.entityName}EntityTest.entity);
-        if (${entity.entityName}EntityTest.entity==null)
-        {
-            Assert.fail("$entity.entityName not found");
-        }
-        LOGGER.info("deleting $entity.entityName: " + ${entity.entityName}EntityTest.entity);
-        this.em.remove(${entity.entityName}EntityTest.entity);
+        LOGGER.info("deleting $entity.entityName: " + $entityVariable);
+        this.getEm().remove($entityVariable);
+        LOGGER.info("SUCCESS: DELETED $entity.entityName");
     }
 
-    private static Logger LOGGER = LogManager.getLogger(${entity.entityName}EntityTest.class);
+    /**
+     * Find All Entities ${entity.entityName} - run only against test DB
+     * @return ${entity.entityName}
+     */
+    public List<${entity.entityName}> findAll()
+    {
+        TypedQuery<${entity.entityName}> query = this.getEm().createNamedQuery("${entity.entityName}.findAll", ${entity.entityName}.class);
+        List<${entity.entityName}> results = query.getResultList();
+        return results;
+    }
+
+    /*
+     * Return a persisted Entity ${entity.entityName} with all attributes and associations set
+     * Used to set persistent association relationships in related entities.
+     * Called by test delete method - this method should not be a test method
+     * @return ${entity.entityName}
+    public ${entity.entityName} findFirst()
+    {
+        ${entity.entityName} $entityVariable = null;
+        List<${entity.entityName}> results = findAll();
+        if (results.size() > 0)
+        {
+            $entityVariable = results.get(0);
+        }
+        else
+        {
+            $entityVariable = ${entity.entityName}Create.createEntity(this.getEm());
+            this.getEm().persist($entityVariable);
+        }
+        return $entityVariable;
+    }
+     */
+
     /**
      * Add any custom code to be executed once before any tests are executed
      */
+    @Override
     @BeforeClass(alwaysRun=true)
     public void setUpBeforeClass()
     {
@@ -115,6 +159,7 @@ public class ${entity.entityName}EntityTest extends JPAJUnitAncestor
     /**
      * Add any custom code to be executed once after all tests are executed
      */
+    @Override
     @AfterClass(alwaysRun=true)
     public void tearDownAfterClass()
     {

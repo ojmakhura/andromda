@@ -64,7 +64,7 @@ public class ArtifactFacadeLogicImpl extends ArtifactFacadeLogic
      */
     protected Collection handleGetTasksForDeploymentPhase()
     {
-        ArrayList packages = new ArrayList();
+        ArrayList<String> packages = new ArrayList<String>();
 
         // find all packages which deploy in this artifact
         Collection<DeployedPackageFacade> wrappedPackages = getWrappedPackages();
@@ -74,7 +74,7 @@ public class ArtifactFacadeLogicImpl extends ArtifactFacadeLogic
         }
 
         // jar all packages into one jar
-        JarTaskCall taskCall = new JarTaskCall(packages, getName(), "jar");
+        JarTaskCall taskCall = new JarTaskCall(getName(), packages, "jar");
         ArrayList result = new ArrayList(1);
         result.add(taskCall);
         return result;

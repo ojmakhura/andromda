@@ -242,7 +242,16 @@ public class AssociationEndFacadeLogicImpl
             if (this.getType() != null && BooleanUtils.toBoolean(
                     ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
             {
-                name += '<' + this.getType().getFullyQualifiedName() + '>';
+                String type = this.getType().getFullyQualifiedName();
+                /*Collection<GeneralizableElementFacade> specializations = this.getType().getAllSpecializations();
+                if ((specializations != null && !specializations.isEmpty()))
+                {
+                    name += "<? extends " + type + '>';
+                }
+                else
+                {*/
+                    name += '<' + type + '>';
+                //}
             }
         }
         if (name == null && this.getType() != null)
@@ -261,7 +270,7 @@ public class AssociationEndFacadeLogicImpl
         // Because of MD11.5 (their multiplicity are String), we cannot use
         // isMultiValued()
         return this.getUpper() > 1 || this.getUpper() == LiteralUnlimitedNatural.UNLIMITED
-               || (this.getType() != null && this.getType().isArrayType());
+               || (this.getType() != null && (this.getType().isArrayType() || this.getType().isCollectionType()));
     }
 
     /**
@@ -388,8 +397,8 @@ public class AssociationEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AttributeFacade#isStatic()
      */
-    //@Override
-    protected boolean isStatic()
+    @Override
+    protected boolean handleIsStatic()
     {
         return this.metaObject.isStatic();
     }

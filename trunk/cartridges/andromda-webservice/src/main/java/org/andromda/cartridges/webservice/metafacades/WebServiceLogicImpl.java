@@ -521,7 +521,7 @@ public class WebServiceLogicImpl
                     if (pkg != null && pkg.indexOf('.') > 0)
                     {
                         // Duplicates logic in wsdl.vsl so that referenced packages are the same.
-                        for (final Iterator<ModelElementFacade> itAttr = type.getAttributes(follow).iterator(); itAttr.hasNext();)
+                        for (final Iterator<AttributeFacade> itAttr = type.getAttributes(follow).iterator(); itAttr.hasNext();)
                         {
                             try
                             {

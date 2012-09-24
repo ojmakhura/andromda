@@ -69,8 +69,8 @@ public class TemplateParameterFacadeLogicImpl
     /**
      * @return getOwnedParameteredElement().getName()
      */
-    //@Override
-    public final String getName()
+    @Override
+    public final String handleGetName()
     {
         // ParameterableElement is actually uml:DataType or uml:Class in the model, even though it doesn't inherit from
         final NamedElement type = (NamedElement) this.metaObject.getOwnedParameteredElement();
@@ -82,8 +82,8 @@ public class TemplateParameterFacadeLogicImpl
      * @return getOwnedParameteredElement()
      * @see org.andromda.metafacades.emf.uml22.TemplateParameterFacadeLogic#handleGetType()
      */
-    //@Override
-    public final ClassifierFacade getType()
+    @Override
+    public final ClassifierFacade handleGetType()
     {
         ClassifierFacade getType2r = null;
         ClassifierTemplateParameter param = (ClassifierTemplateParameter)this.metaObject;
@@ -112,10 +112,10 @@ public class TemplateParameterFacadeLogicImpl
             // Bad things happen if the metafacade type mapping in metafacades.xml is wrong - Warn
             TemplateParameterFacadeLogicImpl.LOGGER.warn("incorrect metafacade cast for TemplateParameterFacadeLogicImpl.getType ClassifierFacade " + handleGetParameter() + ": " + result);
         }
-        if (type==null)
+        /*if (type==null && param.getConstrainingClassifiers()!=null && param.getConstrainingClassifiers().size()>0)
         {
-            System.out.println("NULL " + this.getFullyQualifiedName() + " type=" + type + " metaObject=" + this.metaObject + " element=" + element);
-        }
+            System.out.println("NULL " + this.getFullyQualifiedName() + " type=" + type + " metaObject=" + this.metaObject + " element=" + element + " class=" + param.getConstrainingClassifiers());
+        }*/
         return getType2r;
     }
 
@@ -123,14 +123,14 @@ public class TemplateParameterFacadeLogicImpl
      * @return getOwnedParameteredElement().getName()
      * @see org.andromda.metafacades.emf.uml22.TemplateParameterFacadeLogic#handleGetGetterSetterTypeName()
      */
-    //@Override
-    public final String getGetterSetterTypeName()
+    @Override
+    public final String handleGetGetterSetterTypeName()
     {
         String type = null;
         // ParameterableElement is actually uml:DataType in the model, even though it doesn't inherit from
         // Assumes no templating of template types, no array types, same declared/impl types
         // Classifier name is the parameter type
-        if (this.getType() != null)
+        if (this.handleGetType() != null)
         {
             type = this.getType().getFullyQualifiedName();
         }
@@ -145,10 +145,10 @@ public class TemplateParameterFacadeLogicImpl
      * @return getOwnedParameteredElement().getName()
      * @see org.andromda.metafacades.emf.uml22.TemplateParameterFacadeLogic#handleGetFullyQualifiedName()
      */
-    //@Override
-    public final String getFullyQualifiedName()
+    @Override
+    public final String handleGetFullyQualifiedName()
     {
-        String name = this.getName();
+        String name = this.handleGetName();
         final String className = ((NamedElement)this.metaObject.getOwner().getOwner()).getName();
         if (className != null)
         {
@@ -197,8 +197,8 @@ public class TemplateParameterFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.emf.uml22.TemplateParameterFacadeLogic#handleGetConstrainingClassifiers()
      */
-    //@Override
-    public final List<Classifier> getConstrainingClassifiers()
+    @Override
+    public final List<Classifier> handleGetConstrainingClassifiers()
     {
         TemplateParameter param = this.metaObject;
         // param.getConstrainingClassifiers()) for UML2 3.0, allows multiple classifiers
@@ -216,8 +216,8 @@ public class TemplateParameterFacadeLogicImpl
      * UML2 only. UML14 has no template/template parameter owner
      * @see org.andromda.metafacades.emf.uml22.TemplateParameterFacadeLogic#handleGetOwner()
      */
-    //@Override
-    protected ModelElementFacade getOwner()
+    @Override
+    protected ModelElementFacade handleGetOwner()
     {
         return (ModelElementFacade)this.shieldedElement(this.metaObject.getOwner());
     }
@@ -225,10 +225,10 @@ public class TemplateParameterFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.emf.uml22.TemplateParameterFacadeLogic#handleGetDocumentation(java.lang.String)
      */
-    //@Override
-    protected String getDocumentation(String indent)
+    @Override
+    protected String handleGetDocumentation(String indent)
     {
-        return this.getDocumentation(
+        return this.handleGetDocumentation(
                 indent,
                 100 - indent.length());
     }
@@ -236,12 +236,12 @@ public class TemplateParameterFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.emf.uml22.TemplateParameterFacadeLogic#handleGetDocumentation(java.lang.String, int)
      */
-    //@Override
-    protected String getDocumentation(String indent, int lineLength)
+    @Override
+    protected String handleGetDocumentation(String indent, int lineLength)
     {
         // We really don't want the start/end paragraph returns on the first/last lines. Very annoying. Makes the docs too long with mixed html.
         // That's the only thing that htmlStyle does: convert each line to <p>line</p>. Not necessary.
-        return this.getDocumentation(
+        return this.handleGetDocumentation(
             indent,
             lineLength,
             false);
@@ -250,8 +250,8 @@ public class TemplateParameterFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.emf.uml22.TemplateParameterFacadeLogic#handleGetDocumentation(java.lang.String, int, boolean)
      */
-    //@Override
-    protected String getDocumentation(String indent, int lineLength, boolean htmlStyle)
+    @Override
+    protected String handleGetDocumentation(String indent, int lineLength, boolean htmlStyle)
     {
         final StringBuilder documentation = new StringBuilder();
 
@@ -281,12 +281,12 @@ public class TemplateParameterFacadeLogicImpl
         }
 
         // if there still isn't anything, create a todo tag.
-        if (StringUtils.isEmpty(documentation.toString()))
+        if (StringUtils.isBlank(documentation.toString()))
         {
             if (Boolean.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.TODO_FOR_MISSING_DOCUMENTATION)))
             {
                 String todoTag = (String)this.getConfiguredProperty(UMLMetafacadeProperties.TODO_TAG);
-                documentation.append(todoTag).append(": Model Documentation for " + this.getFullyQualifiedName());
+                documentation.append(todoTag).append(": Model Documentation for " + this.handleGetFullyQualifiedName());
             }
         }
 

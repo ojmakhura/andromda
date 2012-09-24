@@ -42,11 +42,11 @@ public class AttributeFacadeLogicImpl
 
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
-     */
     public ClassifierFacade getValidationOwner()
     {
         return this.getOwner();
     }
+     */
 
     /**
      * @see org.andromda.metafacades.uml.AttributeFacade#getGetterName()
@@ -204,6 +204,11 @@ public class AttributeFacadeLogicImpl
                     isMany = upper > 1 || upper < 0;
                 }
             }
+        }
+        if (null!=this.getType() && !isMany)
+        {
+            // isCollectionType causes too many problems with metafacades
+            isMany = this.getType().isArrayType();
         }
         return isMany;
     }
@@ -474,7 +479,7 @@ public class AttributeFacadeLogicImpl
     {
         String name = null;
         // TODO: Change to check upperBound > 1, not isMany or Array/Collection types
-        if (this.isMany())
+        if (this.isMany() && !this.getType().isArrayType() && !this.getType().isCollectionType())
         {
             final TypeMappings mappings = this.getLanguageMappings();
             if (this.hasStereotype(UMLProfile.STEREOTYPE_UNIQUE))
@@ -492,9 +497,19 @@ public class AttributeFacadeLogicImpl
 
             // set this attribute's type as a template parameter if required
             if (BooleanUtils.toBoolean(
-                    ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
+                    ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)))
+                    && this.getType() != null)
             {
-                name = name + '<' + this.getType().getFullyQualifiedName() + ">";
+                String type = this.getType().getFullyQualifiedName();
+                /*Collection<GeneralizableElementFacade> specializations = this.getType().getAllSpecializations();
+                if ((specializations != null && !specializations.isEmpty()))
+                {
+                    name += "<? extends " + type + '>';
+                }
+                else
+                {*/
+                    name += '<' + type + '>';
+                //}
             }
         }
         if (name == null && this.getType() != null)

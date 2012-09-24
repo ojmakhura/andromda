@@ -8,8 +8,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import org.andromda.core.common.ExceptionUtils;
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -243,7 +241,8 @@ public class EntityMetafacadeUtils
                 }
                 else
                 {
-                    Collection<ClassifierFacade> ends = entity.getNavigableConnectingEnds();
+                    Collection<AssociationEndFacade> ends = entity.getNavigableConnectingEnds();
+                    //System.out.println(entity.getName() + " Nav ends=" + ends.size());
                     // Put the entities with no associations first in the sorted list
                     if (entity.getNavigableConnectingEnds().size()==0)
                     {
@@ -295,17 +294,16 @@ public class EntityMetafacadeUtils
                 toBeMoved = new ArrayList<Entity>();
                 for (Entity entity : unsorted)
                 {
-                    Collection<ClassifierFacade> ends = entity.getNavigableConnectingEnds();
+                    Collection<AssociationEndFacade> ends = entity.getNavigableConnectingEnds();
                     // See if any navigable connecting ends are not owned by this entity
                     boolean createFirst = true;
-                    for (ClassifierFacade entityEnd : ends)
+                    for (AssociationEndFacade end : ends)
                     {
-                        //ClassifierFacade entityEnd = end.getType();
+                        ClassifierFacade entityEnd = end.getType();
                         // Owning relations are sorted after entities on the opposite end
                         int referencedPosition = unsorted.lastIndexOf(entityEnd);
                         //System.out.println(entity.getName() + " -> " + entityEnd.getName() + " refPos=" + referencedPosition + " isOwningEnd " + UMLMetafacadeUtils.isOwningEnd(end));
-                        //if (referencedPosition > -1 && UMLMetafacadeUtils.isOwningEnd(entityEnd) && !entityEnd.getFullyQualifiedName().equals(entity.getFullyQualifiedName()))
-                        if (referencedPosition > -1 && !entityEnd.getFullyQualifiedName().equals(entity.getFullyQualifiedName()))
+                        if (referencedPosition > -1 && UMLMetafacadeUtils.isOwningEnd(end) && !entityEnd.getFullyQualifiedName().equals(entity.getFullyQualifiedName()))
                         {
                             // Other Entity side of an owned relationship must be created first
                             createFirst = false;
@@ -348,6 +346,7 @@ public class EntityMetafacadeUtils
                 if (!entity.isAbstract())
                 {
                     Collection<AssociationEndFacade> ends = entity.getAssociationEnds();
+                    System.out.println(entity.getName() + " Sorting " + ends.size() + " Ends");
                     // Test each association to see if incoming or outgoing. sort outgoing before incoming.
                     for (AssociationEndFacade end : ends)
                     {
@@ -468,28 +467,98 @@ public class EntityMetafacadeUtils
      *        should be followed
      * @return the collection of entity identifier attributes.
      */
-    public static Collection<EntityAttribute> getIdentifiers(
+    public static Collection<ModelElementFacade> getIdentifiers(
         final Entity entity,
         final boolean follow)
     {
+        //final Collection<ModelElementFacade> properties = entity.getAllProperties();
+        final Collection<ModelElementFacade> identifiers = new ArrayList<ModelElementFacade>();
         // TODO Entity.getAttributes returns List<? extends AttributeFacade>, currently unchecked conversion
-        final Collection attributes = new ArrayList(entity.getAttributes());
+        final Collection<AttributeFacade> attributes = new ArrayList<AttributeFacade>(entity.getAttributes());
         MetafacadeUtils.filterByStereotype(
             attributes,
             UMLProfile.STEREOTYPE_IDENTIFIER);
-        final Collection<EntityAttribute> identifiers = new ArrayList<EntityAttribute>();
         identifiers.addAll(attributes);
-        /*final Collection<AssociationEndFacade> associations = new ArrayList<AssociationEndFacade>(entity.getNavigableConnectingEnds(follow));
+        final Collection<AssociationEndFacade> associations = new ArrayList<AssociationEndFacade>(entity.getNavigableConnectingEnds(follow));
         MetafacadeUtils.filterByStereotype(
                 associations,
                 UMLProfile.STEREOTYPE_IDENTIFIER);
-        identifiers.addAll(associations);*/
-
-        if (identifiers.isEmpty() && follow && entity.getGeneralization() instanceof Entity)
+        identifiers.addAll(associations);
+        /*MetafacadeUtils.filterByStereotype(
+                properties,
+                UMLProfile.STEREOTYPE_IDENTIFIER);*/
+        /*// Find identifiers of association identifiers otherEnd
+        for (AssociationEndFacade associationEnd : associations)
         {
-            identifiers.addAll(getIdentifiers((Entity)entity.getGeneralization(), follow));
+            ClassifierFacade classifier = associationEnd.getType();
+            if (classifier instanceof Entity)
+            {
+                Collection<ModelElementFacade> entityIdentifiers = getIdentifiers((Entity)classifier, true);
+                identifiers.addAll(entityIdentifiers);
+            }
+        } */
+        // Reorder join columns if order is specified - must match FK column order
+        final Collection<ModelElementFacade> sortedIdentifiers = new ArrayList<ModelElementFacade>();
+        String joinOrder = (String)entity.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_JOINCOLUMN_ORDER);
+        if (StringUtils.isNotBlank(joinOrder))
+        {
+            //System.out.println(entity.getName() + " getIdentifiers " + joinOrder + " identifiers=" + identifiers.size());
+            String[] joinList = StringUtils.split(joinOrder, " ,;|");
+            for (String column : joinList)
+            {
+                for (ModelElementFacade facade : identifiers)
+                {
+                    if (facade instanceof EntityAssociationEnd)
+                    {
+                        EntityAssociationEnd assoc = (EntityAssociationEnd)facade;
+                        if (assoc.getColumnName().equalsIgnoreCase(column))
+                        {
+                            sortedIdentifiers.add(assoc);
+                            //System.out.println(entity.getName() + " added " + assoc);
+                        }
+                    }
+                    else if (facade instanceof EntityAttribute)
+                    {
+                        EntityAttribute attr = (EntityAttribute)facade;
+                        if (attr.getColumnName().equalsIgnoreCase(column))
+                        {
+                            sortedIdentifiers.add(attr);
+                            //System.out.println(entity.getName() + " added " + attr);
+                        }
+                    }
+                }
+            }
+            //System.out.println(entity.getName() + " getIdentifiers " + joinOrder + " sorted=" + sortedIdentifiers.size() + " " + identifiers.size());
+            // Add remaining identifiers not found in joincolumn ordered list
+            // .contains() does not work correctly for EntityAttribute
+            for (ModelElementFacade facade : identifiers)
+            {
+                boolean contains = false;
+                for (ModelElementFacade sorted : sortedIdentifiers)
+                {
+                    if (sorted.getFullyQualifiedName().equals(facade.getFullyQualifiedName()))
+                    {
+                        contains = true;
+                        //System.out.println(entity.getName() + " contains " + facade.getName() + " facade=" + facade);
+                    }
+                }
+                if (!contains)
+                {
+                    sortedIdentifiers.add(facade);
+                    //System.out.println(entity.getName() + " added " + facade.getName() + " facade=" + facade);
+                }
+            }
+            //System.out.println(entity.getName() + " getIdentifiers " + joinOrder + " sorted=" + sortedIdentifiers.size() + " " +  + identifiers.size());
         }
-        return identifiers;
+        else
+        {
+            sortedIdentifiers.addAll(identifiers);
+        }
+        if (sortedIdentifiers.isEmpty() && follow && entity.getGeneralization() instanceof Entity)
+        {
+            sortedIdentifiers.addAll(getIdentifiers((Entity)entity.getGeneralization(), follow));
+        }
+        return sortedIdentifiers;
     }
 
     /**
@@ -506,14 +575,14 @@ public class EntityMetafacadeUtils
      *        should be followed
      * @return the collection of entity identifier attributes.
      */
-    public static Collection<EntityAttribute> getIdentifierAttributes(
+    public static Collection<ModelElementFacade> getIdentifierAttributes(
         final Entity entity,
         final boolean follow)
     {
-        Collection<EntityAttribute> identifierAttributes = new ArrayList<EntityAttribute>();
-        final Collection<EntityAttribute> identifiers = EntityMetafacadeUtils.getIdentifiers(entity, follow);
+        Collection<ModelElementFacade> identifierAttributes = new ArrayList<ModelElementFacade>();
+        final Collection<ModelElementFacade> identifiers = EntityMetafacadeUtils.getIdentifiers(entity, follow);
         // Find identifiers of association identifiers otherEnd
-        for (EntityAttribute identifier : identifiers)
+        for (ModelElementFacade identifier : identifiers)
         {
             if (identifier instanceof AssociationEndFacade)
             {
@@ -521,7 +590,7 @@ public class EntityMetafacadeUtils
                 ClassifierFacade classifier = associationEnd.getType();
                 if (classifier instanceof Entity)
                 {
-                    Collection<EntityAttribute> entityIdentifiers = getIdentifierAttributes((Entity)classifier, true);
+                    Collection<ModelElementFacade> entityIdentifiers = getIdentifierAttributes((Entity)classifier, true);
                     identifierAttributes.addAll(entityIdentifiers);
                 }
             }
@@ -546,13 +615,13 @@ public class EntityMetafacadeUtils
         }*/
         if (StringUtils.isNotBlank(joinOrder))
         {
-            final Collection<EntityAttribute> sortedIdentifiers = new ArrayList<EntityAttribute>();
+            final Collection<ModelElementFacade> sortedIdentifiers = new ArrayList<ModelElementFacade>();
             String[] joinList = StringUtils.split(joinOrder, " ,;|");
             for (String column : joinList)
             {
-                for (EntityAttribute facade : identifierAttributes)
+                for (ModelElementFacade facade : identifierAttributes)
                 {
-                    /*if (facade instanceof EntityAssociationEnd)
+                    if (facade instanceof EntityAssociationEnd)
                     {
                         EntityAssociationEnd assoc = (EntityAssociationEnd)facade;
                         if (assoc.getColumnName().equalsIgnoreCase(column))
@@ -560,7 +629,7 @@ public class EntityMetafacadeUtils
                             sortedIdentifiers.add(assoc);
                         }
                     }
-                    else if (facade instanceof EntityAttribute)*/
+                    else if (facade instanceof EntityAttribute)
                     {
                         EntityAttribute attr = (EntityAttribute)facade;
                         if (attr.getColumnName().equalsIgnoreCase(column))
@@ -573,7 +642,7 @@ public class EntityMetafacadeUtils
             //System.out.println(entity.getName() + " getIdentifierAttributes " + joinOrder + identifiers.size());
             // Add remaining identifiers not found in joincolumn ordered list
             if (sortedIdentifiers.size() < identifierAttributes.size())
-            for (EntityAttribute facade : identifierAttributes)
+            for (ModelElementFacade facade : identifierAttributes)
             {
                 if (!sortedIdentifiers.contains(facade))
                 {

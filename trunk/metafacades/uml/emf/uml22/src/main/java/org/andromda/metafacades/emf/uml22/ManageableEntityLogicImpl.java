@@ -15,6 +15,7 @@ import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.Entity;
+import org.andromda.metafacades.uml.EntityAssociationEnd;
 import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.ManageableEntity;
@@ -25,6 +26,7 @@ import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -48,6 +50,11 @@ public class ManageableEntityLogicImpl
     {
         super(metaObject, context);
     }
+
+    /**
+     * The logger instance.
+     */
+    private static final Logger LOGGER = Logger.getLogger(ManageableEntityLogicImpl.class);
 
     /**
      * @return the configured property denoting the character sequence to use
@@ -251,9 +258,15 @@ public class ManageableEntityLogicImpl
      * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleGetManageableIdentifier()
      */
     @Override
-    protected Object handleGetManageableIdentifier()
+    protected ModelElementFacade handleGetManageableIdentifier()
     {
-        return this.getIdentifiers(true).iterator().next();
+        ModelElementFacade rtn = null;
+        Collection<ModelElementFacade> identifiers = this.getIdentifiers(true);
+        if (identifiers != null && !identifiers.isEmpty())
+        {
+            rtn = this.getIdentifiers(true).iterator().next();
+        }
+        return rtn;
     }
 
     /**
@@ -314,7 +327,7 @@ public class ManageableEntityLogicImpl
                 }
                 if (listType != null)
                 {
-                    buffer.append("Object");
+                    buffer.append(entity.getFullyQualifiedIdentifierTypeName());
                     if (associationEnd.isMany())
                     {
                         buffer.append("[]");
@@ -325,7 +338,7 @@ public class ManageableEntityLogicImpl
             }
             else
             {
-                for (EntityAttribute identifier : entity.getIdentifiers())
+                for (ModelElementFacade identifier : entity.getIdentifiers())
                 {
                     if (identifier != null)
                     {
@@ -334,7 +347,15 @@ public class ManageableEntityLogicImpl
                             buffer.append(", ");
                         }
 
-                        final ClassifierFacade type = identifier.getType();
+                        ClassifierFacade type = null;
+                        if (identifier instanceof EntityAttribute)
+                        {
+                            type = ((EntityAttribute)identifier).getType();
+                        }
+                        else if (identifier instanceof EntityAssociationEnd)
+                        {
+                            type = ((EntityAssociationEnd)identifier).getType();
+                        }
                         if (type != null)
                         {
                             if (listType != null)
@@ -444,9 +465,18 @@ public class ManageableEntityLogicImpl
 
         if (displayAttribute == null)
         {
-            if (!this.getIdentifiers().isEmpty())
+            final  Collection<ModelElementFacade> identifiers = this.getIdentifiers();
+            if (identifiers != null && !identifiers.isEmpty())
             {
-                displayAttribute = this.getIdentifiers().iterator().next();
+                ModelElementFacade facade = identifiers.iterator().next();
+                if (facade instanceof EntityAttribute)
+                {
+                    displayAttribute = ((EntityAttribute)facade);
+                }
+                else
+                {
+                    displayAttribute = attributes.iterator().next();
+                }
             }
             else if (!attributes.isEmpty())
             {

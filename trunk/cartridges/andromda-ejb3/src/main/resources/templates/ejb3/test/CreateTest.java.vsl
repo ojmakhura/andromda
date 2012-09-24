@@ -15,6 +15,7 @@ package $entity.packageName;
  */
 #set ($generatedFile = "${stringUtils.replace($entity.fullyQualifiedName,'.','/')}CreateTest.java")
 
+import org.andromda.dbtest.JPAJUnitAncestor;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.annotations.AfterClass;
@@ -23,7 +24,6 @@ import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.Assert;
-import com.wdpr.dbtest.JPAJUnitAncestor;
 
 /**
  * Create ${entity.tableName} row from ${entity.entityName} Entity

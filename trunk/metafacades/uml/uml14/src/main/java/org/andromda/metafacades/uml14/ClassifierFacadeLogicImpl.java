@@ -591,9 +591,8 @@ public class ClassifierFacadeLogicImpl
             for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
                  superClass = (ClassifierFacade)superClass.getGeneralization())
             {
-                for (final Iterator<ClassifierFacade> iterator = superClass.getNavigableConnectingEnds().iterator(); iterator.hasNext();)
+                for (final AssociationEndFacade superAssociationEnd : superClass.getNavigableConnectingEnds())
                 {
-                    final AssociationEndFacade superAssociationEnd = (AssociationEndFacade)iterator.next();
                     boolean present = false;
                     for (final Iterator<AssociationEndFacade> endIterator = this.getAssociationEnds().iterator(); endIterator.hasNext();)
                     {
@@ -1014,9 +1013,8 @@ public class ClassifierFacadeLogicImpl
         for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
              superClass = (ClassifierFacade)superClass.getGeneralization())
         {
-            for (final Iterator<ClassifierFacade> iterator = superClass.getNavigableConnectingEnds().iterator(); iterator.hasNext();)
+            for (final AssociationEndFacade superAssociationEnd : superClass.getNavigableConnectingEnds())
             {
-                final AssociationEndFacade superAssociationEnd = (AssociationEndFacade)iterator.next();
                 boolean present = false;
                 for (final Iterator<AssociationEndFacade> endIterator = this.getAssociationEnds().iterator(); endIterator.hasNext();)
                 {

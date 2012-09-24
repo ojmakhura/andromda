@@ -106,6 +106,7 @@
         <uml2.model.uri>file:${src.dir}/uml2/JavaMetafacadeModel.uml</uml2.model.uri>
         <uml2.test.model.uri>file:${test.src.dir}/uml2/JavaCartridgeTestModel.uml</uml2.test.model.uri>
         <!--uml2.test.model.uri>jar:file:${test.src.dir}/uml2/JavaCartridgeTestModel.xml.zip!/JavaCartridgeTestModel.xml</uml2.test.model.uri-->
+        <uml14.output.dir>${project.basedir}/target/cartridge-test/actualUML14</uml14.output.dir>
         <model.uri>jar:file:${src.dir}/uml/JavaMetafacadeModel.xml.zip!/JavaMetafacadeModel.xml</model.uri>
         <test.model.uri>jar:file:${test.src.dir}/uml/JavaCartridgeTestModel.xml.zip!/JavaCartridgeTestModel.xml</test.model.uri>
     </properties>

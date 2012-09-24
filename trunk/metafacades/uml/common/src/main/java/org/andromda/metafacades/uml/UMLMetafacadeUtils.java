@@ -471,12 +471,13 @@ public class UMLMetafacadeUtils
             {
                 if (parameter != null)
                 {
-                    String name = parameter.getValidationName();
+                    /*String name = parameter.getValidationName();
                     if (name==null && parameter.getParameter() != null)
                     {
                         name = parameter.getParameter().getName();
                     }
-                    buffer.append(name);
+                    buffer.append(name);*/
+                    buffer.append(parameter.getName());
                     if (i < size)
                     {
                         buffer.append(COMMA);

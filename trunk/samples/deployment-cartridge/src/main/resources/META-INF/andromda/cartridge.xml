@@ -10,8 +10,8 @@
         overwrite="true"
         outputToSingleFile="true"
         outputOnEmptyElements="false">
-        <modelElements>
-            <modelElement variable="nodes">
+        <modelElements variable="nodes">
+            <modelElement>
                 <type name="org.andromda.cartridges.deployment.metafacades.NodeFacade"/>
             </modelElement>
         </modelElements>
@@ -24,8 +24,8 @@
         overwrite="true"
         outputToSingleFile="false"
         outputOnEmptyElements="false">
-        <modelElements>
-            <modelElement variable="node">
+        <modelElements variable="node">
+            <modelElement>
                 <type name="org.andromda.cartridges.deployment.metafacades.NodeFacade"/>
             </modelElement>
         </modelElements>

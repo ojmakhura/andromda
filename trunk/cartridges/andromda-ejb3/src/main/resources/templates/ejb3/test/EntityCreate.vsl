@@ -10,6 +10,10 @@
 package $entity.packageName;
 
 #end
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import org.andromda.dbtest.JPAJUnitAncestor;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 ##
@@ -43,14 +47,22 @@ public class ${entity.entityName}Create
     extends ${entity.generalization.fullyQualifiedName}Create
 #end
 #end
+#foreach($general in $entity.allGeneralizations)
+#if ($general.name.equals("AbstractEntity") || $general.name.equals("AuditedEntity") || $general.name.equals("AbstractVersionedEntity") || $general.name.equals("AbstractAuditedVersionedEntity") || $general.name.startsWith("AbstractPersistent"))
+#set ($jpaFramework=true)
+#end
+#end
 {
+#if (!$associations.empty)
     private static Logger LOGGER = LogManager.getLogger(${entity.entityName}Create.class);
 
+#end
     /**
      * Create an Entity $entity.name with all attributes and associations set
+     * @param em EntityManager used within this transaction
      * @return $entity.fullyQualifiedName
      */
-    public static ${entity.fullyQualifiedName} createEntity()
+    public static ${entity.fullyQualifiedName} createEntity(EntityManager em)
     {
         $entity.fullyQualifiedName entity = new ${entity.fullyQualifiedName}();
 #if ($entity.compositePrimaryKeyPresent)
@@ -61,78 +73,65 @@ public class ${entity.entityName}Create
 ## Set the value for all properties including ancestor properties
         // Identifier attributes
 #foreach ($property in $properties)
-##        // $property.type.fullyQualifiedName $property.name identifier=$property.identifier usingAssignedIdentifier=$entity.usingAssignedIdentifier transient=$property.transient many=$property.many property=$property type=$property.type
-#if (!$property.transient && $property.identifier && $entity.usingAssignedIdentifier && !$entity.compositePrimaryKeyPresent)
+##        // $property.type.fullyQualifiedName $property.name identifier=$property.identifier usingAssignedIdentifier=$entity.usingAssignedIdentifier property=$property type=$property.type
+#if (!$property.transient && $property.identifier && ($entity.usingAssignedIdentifier || $property.generatorTypeNone) && !$entity.compositePrimaryKeyPresent)
        #if ($property.type.abstract) //#end entity.${property.setterName}($umlUtils.createConstructor($property, $property.many, $entity));
 #end
 #end
 
 #if (!$associations.empty)
-        // Entity Associations
-        javax.persistence.EntityManager em = javax.persistence.Persistence.createEntityManagerFactory(com.wdpr.dbtest.JPAJUnitAncestor.PERSISTENCE_UNIT).createEntityManager();
+        //EntityManager em = javax.persistence.Persistence.createEntityManagerFactory(org.andromda.dbtest.JPAJUnitAncestor.PERSISTENCE_UNIT).createEntityManager();
+        // Entity Associations which need to be retrieved
 #end
 #foreach ($end in $associations)
+## The dependent entity owned by this association should have been created already
+## If not owned, assoc/column is nullable. Don't want recursive create on bidirectional relationship.
 #set ($thisEnd = $end.otherEnd)
-#if (!$thisEnd.transient && !$thisEnd.readOnly && !$thisEnd.identifier)
-#set ($daoVar = $stringUtils.uncapitalize(${thisEnd.type.daoName}))
-        try
-        {
-            ${thisEnd.type.daoName}Impl $daoVar = new ${thisEnd.type.daoName}Impl();
-            // Not injected for unit test, set manually to test persistence context
-            if (${daoVar}.getEmanager()==null)
-            {
-                ${daoVar}.setEmanager(em);
-            }
-#set ($entityVar = $stringUtils.uncapitalize($thisEnd.type.name))
-#set ($entityPK = "")
-            // composite=$thisEnd.type.compositePrimaryKeyPresent size=$thisEnd.type.identifiers.size() end=$end.name thisEnd=$thisEnd.name end.type=$end.type thisEnd.type=$thisEnd.type end=$end thisEnd=$thisEnd
-#foreach ($identifier in $thisEnd.type.identifiers)
-            // identifier=$identifier.fullyQualifiedName
-##if (!$thisEnd.type.compositePrimaryKeyPresent)
-##set ($identifier = $thisEnd.type.identifiers.iterator().next())
-#set ($entityPK = "$entityPK $umlUtils.createConstructor($identifier, false, $entity)#if ($velocityCount != $thisEnd.type.identifiers.size()), #end")
-##end
-#end
-            $thisEnd.type.fullyQualifiedName $entityVar = ${daoVar}.load($entityPK);
-            if ($entityVar == null)
-            {
-                LOGGER.error("Error retrieving ${thisEnd.type.name} by identifier for $entity.Name: "#if($thisEnd.type.identifiers.size()==1) + $entityPK#end);
-            }
-            else
-            {
+#if (!$thisEnd.transient && !$thisEnd.readOnly && $end.owning)
+##        // name=$thisEnd.name oName=$thisEnd.name owning=$end.owning other=$thisEnd.owning identifier=$end.identifier otherIdentifier=$thisEnd.identifier FQN=$thisEnd.type.fullyQualifiedName identifiers=$entityUtils.getIdentifierAttributes($thisEnd.type, true).size()
+#set ($endVar = $thisEnd.name)
+##set ($endVar = $stringUtils.uncapitalize($thisEnd.type.name))
+        $thisEnd.type.fullyQualifiedName $endVar = ${thisEnd.type.name}Create.findFirst(em);
+        $endVar = em.merge($endVar);
+        LOGGER.info("${entity.name}.createEntity merged: " + $endVar);
 #if ($thisEnd.many)
-                $thisEnd.getterSetterTypeName $thisEnd.name = new ${umlUtils.getImplCollection($thisEnd.getterSetterTypeName)}();
-                ${thisEnd.name}.add($entityVar);
-                entity.${thisEnd.setterName}($thisEnd.name);
+        java.util.Set<$thisEnd.type.fullyQualifiedName> ${endVar}List = new java.util.HashSet<$thisEnd.type.fullyQualifiedName>();
+        ${endVar}List.add($endVar);
+        entity.${thisEnd.setterName}(${endVar}List);
+#elseif ($thisEnd.identifier && $entity.compositePrimaryKeyPresent)
+        pk.${thisEnd.setterName}($endVar);
 #else
-                entity.${thisEnd.setterName}($entityVar);
+        entity.${thisEnd.setterName}($endVar);
 #end
-            }
-##       #if ($thisEnd.type.abstract) //#end entity.${thisEnd.setterName}($umlUtils.createConstructor($thisEnd, $thisEnd.many, $entity));
-        }
-        catch (${thisEnd.type.daoName}Exception ex)
-        {
-            LOGGER.error("Error retrieving ${thisEnd.type.name} by identifier", ex);
-        }
+##        // identifier=$end.identifier identifier=$thisEnd.identifier
+##if ($thisEnd.identifier && $entity.compositePrimaryKeyPresent)
+##        // $identifier.name $identifier.type.name $thisEnd.type.name $identifier.owner.compositePrimaryKeyPresent $thisEnd.type.compositePrimaryKeyPresent $identifier.owner $identifier
+##        pk.${identifier.setterName}(${endVar}#if($thisEnd.type.compositePrimaryKeyPresent).getPk()#end.${identifier.getterName}());
+##end
+##end
 #end
 #end
 
-        // Updatable properties
 #foreach ($property in $properties)
-        // $property.type.fullyQualifiedName $property.fullyQualifiedName transient=$property.transient identifier=$property.identifier usingAssignedIdentifier=$entity.usingAssignedIdentifier many=$property.many property=$property type=$property.type
+##        // $property.type.fullyQualifiedName $property.fullyQualifiedName transient=$property.transient identifier=$property.identifier usingAssignedIdentifier=$entity.usingAssignedIdentifier many=$property.many property=$property type=$property.type
 ##        // Transient=$property.hasStereotype("Transient") stereotypes=$property.stereotypeNames.size() #foreach($name in $property.stereotypeNames)$name #end
 #if (!$property.transient && !$property.readOnly && !$property.identifier)
+        // Updatable property
        #if ($property.type.abstract) //#end entity.${property.setterName}($umlUtils.createConstructor($property, $property.many, $entity));
 #end
 #end
 
-        // Transient properties
 #foreach ($property in $properties)
 ##        // $property.type.fullyQualifiedName $property.fullyQualifiedName transient=$property.transient identifier=$property.identifier usingAssignedIdentifier=$entity.usingAssignedIdentifier many=$property.many property=$property type=$property.type
 ##        // Transient=$property.hasStereotype("Transient") stereotypes=$property.stereotypeNames.size() #foreach($name in $property.stereotypeNames)$name #end
 #if ($property.transient)
+        // Transient property
        #if ($property.type.abstract)//#end entity.${property.setterName}($umlUtils.createConstructor($property, $property.many, $entity));
 #end
+#end
+#if ($jpaFramework)
+        // Populate create/update date, create/update user
+        entity.populateDefaultAuditData();
 #end
 #if ($entity.compositePrimaryKeyPresent)
         entity.setPk(pk);
@@ -143,19 +142,58 @@ public class ${entity.entityName}Create
 
     /**
      * Create an Entity $entity.name Primary Key class with all attributes and associations set
-     * @param assignIdentifiers
+     * @param assignIdentifiers If the entity is using assigned identifiers
      * @return $entity.fullyQualifiedName
      */
     public static $entity.fullyQualifiedEntityCompositePrimaryKeyName createEntityPK(boolean assignIdentifiers)
     {
         $entity.fullyQualifiedEntityCompositePrimaryKeyName pk = new ${entity.fullyQualifiedEntityCompositePrimaryKeyName}();
-#set ($identifiers = $entity.getIdentifiers())
-#foreach ($attribute in $identifiers)
-#set ($constructor=$umlUtils.createConstructor($attribute, $attribute.many, $entity))
-        pk.${attribute.setterName}($constructor);
+## identifierAttributes includes associations also. Only set attribute values here, assoc is set in .create()
+#set ($identifiers = $entityUtils.getIdentifiers($entity, true))
+#foreach ($identifier in $identifiers)
+##        // $identifier.associationEndFacadeMetaType $identifier.attributeFacadeMetaType $identifier
+#if ($identifier.attributeFacadeMetaType)
+#set ($constructor=$umlUtils.createConstructor($identifier, $identifier.many, $entity))
+        pk.${identifier.setterName}($constructor);
+#end
 #end
         return pk;
     }
 #end
+
+    /**
+     * Create an Entity ${entity.entityName} with all attributes and associations set
+     * @return ${entity.entityName}
+     */
+    public static List<${entity.entityName}> findAll(EntityManager em)
+    {
+        //EntityManager em = JPAJUnitAncestor.createEntityManager();
+        TypedQuery<${entity.entityName}> query = em.createNamedQuery("${entity.entityName}.findAll", ${entity.entityName}.class);
+        List<${entity.entityName}> results = query.getResultList();
+        return results;
+    }
+
+    /**
+     * Return a persisted Entity ${entity.entityName} with all attributes and associations set
+     * Used to set persistent association relationships in related entities.
+     * @return ${entity.entityName}
+     */
+    public static ${entity.entityName} findFirst(EntityManager em)
+    {
+        ${entity.entityName} entity = null;
+        //EntityManager em = JPAJUnitAncestor.createEntityManager();
+        TypedQuery<${entity.entityName}> query = em.createNamedQuery("${entity.entityName}.findAll", ${entity.entityName}.class);
+        List<${entity.entityName}> results = query.getResultList();
+        if (!results.isEmpty())
+        {
+            entity = results.get(0);
+        }
+        else
+        {
+            entity = createEntity(em);
+            em.persist(entity);
+        }
+        return entity;
+    }
 }
 #end

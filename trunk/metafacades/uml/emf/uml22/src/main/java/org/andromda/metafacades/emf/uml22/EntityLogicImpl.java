@@ -139,7 +139,7 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getIdentifiers()
      */
     @Override
-    protected Collection<EntityAttribute> handleGetIdentifiers()
+    protected Collection<ModelElementFacade> handleGetIdentifiers()
     {
         return this.getIdentifiers(true);
     }
@@ -148,7 +148,7 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getIdentifiers(boolean)
      */
     @Override
-    protected Collection<EntityAttribute> handleGetIdentifiers(final boolean follow)
+    protected Collection<ModelElementFacade> handleGetIdentifiers(final boolean follow)
     {
         return EntityMetafacadeUtils.getIdentifiers(
             this,
@@ -253,7 +253,7 @@ public class EntityLogicImpl
     @Override
     protected boolean handleIsIdentifiersPresent()
     {
-        final Collection<EntityAttribute> identifiers = this.getIdentifiers(true);
+        final Collection<ModelElementFacade> identifiers = this.getIdentifiers(true);
         return identifiers != null && !identifiers.isEmpty();
     }
 
@@ -846,15 +846,25 @@ public class EntityLogicImpl
         if (end != null && end.getType() instanceof Entity)
         {
             final Entity foreignEntity = (Entity)end.getOtherEnd().getType();
-            final Collection<EntityAttribute> identifiers = EntityMetafacadeUtils.getIdentifiers(
+            final Collection<ModelElementFacade> identifiers = EntityMetafacadeUtils.getIdentifiers(
                     foreignEntity,
                     true);
-            for (AttributeFacade identifier : identifiers)
+            for (ModelElementFacade identifier : identifiers)
             {
-                this.createIdentifier(
-                    identifier.getName(),
-                    identifier.getType().getFullyQualifiedName(true),
-                    identifier.getVisibility());
+                if (identifier instanceof EntityAttribute)
+                {
+                    this.createIdentifier(
+                            identifier.getName(),
+                            ((EntityAttribute)identifier).getType().getFullyQualifiedName(true),
+                            identifier.getVisibility());
+                }
+                else if (identifier instanceof EntityAssociationEnd)
+                {
+                    this.createIdentifier(
+                            identifier.getName(),
+                            ((EntityAssociationEnd)identifier).getType().getFullyQualifiedName(true),
+                            identifier.getVisibility());
+                }
                 identifiersAdded = true;
             }
         }
@@ -882,7 +892,8 @@ public class EntityLogicImpl
                     {
                         logger.debug("EntityLogic.getAssociationEnds " + type);
                     }*/
-                    return type != null && (type instanceof Entity || type instanceof EnumerationFacade);
+                    return type != null && (type instanceof Entity || type instanceof EnumerationFacade
+                        || type.hasStereotype(UMLProfile.STEREOTYPE_EMBEDDED_VALUE));
                 }
             });
         return associationEnds;
@@ -927,16 +938,21 @@ public class EntityLogicImpl
     protected boolean handleIsUsingAssignedIdentifier()
     {
         boolean assigned = false;
-        final Collection<EntityAttribute> identifiers = this.getIdentifiers();
+        final Collection<ModelElementFacade> identifiers = this.getIdentifiers();
         if (identifiers != null && !identifiers.isEmpty())
         {
-            final Object id = identifiers.iterator().next();
-            final AttributeFacade identifier = (AttributeFacade)id;
+            final ModelElementFacade identifier = identifiers.iterator().next();
+            // TODO Does not use the value of taggedValue Entity andromda_hibernate_generator_class (13 - assigned)
             assigned =
                     Boolean.valueOf(
                         ObjectUtils.toString(
                         identifier.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_ASSIGNED_IDENTIFIER)))
                        .booleanValue();
+            // Association relationships (FK part of PK related to PK in another table) are always assigned.
+            if (!assigned && identifier instanceof AssociationEndFacade)
+            {
+                assigned = true;
+            }
         }
         return assigned;
     }
@@ -975,8 +991,8 @@ public class EntityLogicImpl
     protected boolean handleIsCompositeIdentifier()
     {
         int identifiers = this.getIdentifiers().isEmpty() ? 0 : this.getIdentifiers().size();
-        identifiers +=
-            this.getIdentifierAssociationEnds().isEmpty() ? 0 : this.getIdentifierAssociationEnds().size();
+        /*identifiers +=
+            this.getIdentifierAssociationEnds().isEmpty() ? 0 : this.getIdentifierAssociationEnds().size();*/
         return identifiers >= 2;
     }
 
@@ -1031,15 +1047,37 @@ public class EntityLogicImpl
     @Override
     public String handleGetFullyQualifiedIdentifierTypeName()
     {
+        String rtn = null;
         if(isCompositeIdentifier())
         {
-            return getFullyQualifiedName()+(String)this.getConfiguredProperty(
+            rtn = getFullyQualifiedName()+(String)this.getConfiguredProperty(
                 UMLMetafacadeProperties.COMPOSITE_IDENTIFIER_TYPE_NAME_SUFIX);
         }
         else
         {
-            return getIdentifiers().iterator().next().getType().getFullyQualifiedName();
+            final Collection<ModelElementFacade> identifiers = getIdentifiers();
+            if (identifiers != null && !identifiers.isEmpty())
+            {
+                final ModelElementFacade facade = identifiers.iterator().next();
+                if (facade instanceof EntityAttribute)
+                {
+                    rtn = ((EntityAttribute)facade).getType().getFullyQualifiedName();
+                }
+                else if (facade instanceof EntityAssociationEnd)
+                {
+                    rtn = ((EntityAssociationEnd)facade).getType().getFullyQualifiedName();
+                }
+                else
+                {
+                    rtn = "";
+                }
+            }
+            else
+            {
+                rtn = "";
+            }
         }
+        return rtn;
     }
 
     /**
@@ -1055,7 +1093,15 @@ public class EntityLogicImpl
         }
         else
         {
-            return getIdentifiers().iterator().next().getName();
+            final Collection<ModelElementFacade> identifiers = getIdentifiers();
+            if (identifiers != null && !identifiers.isEmpty())
+            {
+                return getIdentifiers().iterator().next().getName();
+            }
+            else
+            {
+                return "";
+            }
         }
     }
 
@@ -1069,9 +1115,26 @@ public class EntityLogicImpl
         {
             return getName()+(String)this.getConfiguredProperty(UMLMetafacadeProperties.COMPOSITE_IDENTIFIER_TYPE_NAME_SUFIX);
         }
+        final Collection<ModelElementFacade> identifiers = getIdentifiers();
+        if (identifiers != null && !identifiers.isEmpty())
+        {
+            ModelElementFacade facade = identifiers.iterator().next();
+            if (facade instanceof EntityAttribute)
+            {
+                return ((EntityAttribute)facade).getType().getName();
+            }
+            else if (facade instanceof EntityAssociationEnd)
+            {
+                return ((EntityAssociationEnd)facade).getType().getName();
+            }
+            else
+            {
+                return "";
+            }
+        }
         else
         {
-            return getIdentifiers().iterator().next().getType().getName();
+            return "";
         }
     }
 

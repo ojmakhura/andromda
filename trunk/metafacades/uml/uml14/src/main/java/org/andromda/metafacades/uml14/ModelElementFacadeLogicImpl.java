@@ -1181,7 +1181,7 @@ public class ModelElementFacadeLogicImpl
      * Return true if name matches the pattern [a-zA-Z_$][a-zA-Z\\d_$]*
      * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleIsValidIdentifierName()
      */
-    //@Override
+    @Override
     protected boolean handleIsValidIdentifierName()
     {
         final String name = this.handleGetName();

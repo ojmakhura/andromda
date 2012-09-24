@@ -330,7 +330,15 @@ public class ParameterFacadeLogicImpl
             final String type=getTemplatingType();
             if(type != null)
             {
+                /*Collection<GeneralizableElementFacade> specializations = this.handleGetType().getAllSpecializations();
+                if ((specializations != null && !specializations.isEmpty()))
+                {
+                    name += "<? extends " + type + '>';
+                }
+                else
+                {*/
                 name += '<' + type + '>';
+                //}
             }
         }
         if (name == null && this.getType() != null)

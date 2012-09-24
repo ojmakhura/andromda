@@ -622,7 +622,15 @@ public class OperationFacadeLogicImpl
                 {
                     type = type.substring(0, type.length()-2);
                 }*/
+                /*Collection<GeneralizableElementFacade> specializations = returnType.getAllSpecializations();
+                if ((specializations != null && !specializations.isEmpty()))
+                {
+                    name += "<? extends " + type + '>';
+                }
+                else
+                {*/
                 name += '<' + type + '>';
+                //}
             }
         }
         if (name == null && returnType != null)
@@ -670,7 +678,8 @@ public class OperationFacadeLogicImpl
         final boolean returnMany = returnParameter!=null && returnParameter.getType()!=null &&
            (returnParameter.getUpper() > 1 ||
             returnParameter.getUpper() == LiteralUnlimitedNatural.UNLIMITED
-            || returnParameter.getType().isArrayType());
+            || returnParameter.getType().isArrayType()
+            || returnParameter.getType().isCollectionType());
         return returnMany || this.getUpper() > 1 || this.getUpper() == LiteralUnlimitedNatural.UNLIMITED;
     }
 
@@ -766,11 +775,10 @@ public class OperationFacadeLogicImpl
         return (ParameterFacade)this.shieldedElement(this.metaObject.getReturnResult());
     }
 
-    /**
+    /*
      * Override to change private to public, since it makes no sense to have private operations in generated code
      * Allows for protected, package level visibility of operations in the model
      * @return String visibility
-     */
     @Override
     protected String handleGetVisibility()
     {
@@ -781,6 +789,7 @@ public class OperationFacadeLogicImpl
         }
         return visibility;
     }
+     */
 
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#isOverriding()

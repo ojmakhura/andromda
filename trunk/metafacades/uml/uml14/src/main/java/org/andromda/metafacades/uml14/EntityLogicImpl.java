@@ -131,7 +131,7 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getIdentifiers()
      */
     @Override
-    protected Collection<EntityAttribute> handleGetIdentifiers()
+    protected Collection<ModelElementFacade> handleGetIdentifiers()
     {
         return this.getIdentifiers(true);
     }
@@ -140,7 +140,7 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getIdentifiers(boolean)
      */
     @Override
-    protected Collection<EntityAttribute> handleGetIdentifiers(final boolean follow)
+    protected Collection<ModelElementFacade> handleGetIdentifiers(final boolean follow)
     {
         return EntityMetafacadeUtils.getIdentifiers(
             this,
@@ -217,7 +217,7 @@ public class EntityLogicImpl
     @Override
     protected boolean handleIsIdentifiersPresent()
     {
-        final Collection<EntityAttribute> identifiers = this.getIdentifiers(true);
+        final Collection<ModelElementFacade> identifiers = this.getIdentifiers(true);
         return identifiers != null && !identifiers.isEmpty();
     }
 
@@ -776,16 +776,27 @@ public class EntityLogicImpl
         if (end != null && end.getType() instanceof Entity)
         {
             final Entity foreignEntity = (Entity)end.getOtherEnd().getType();
-            final Collection<EntityAttribute> identifiers = EntityMetafacadeUtils.getIdentifiers(
+            final Collection<ModelElementFacade> identifiers = EntityMetafacadeUtils.getIdentifiers(
                     foreignEntity,
                     true);
-            for (final Iterator<EntityAttribute> iterator = identifiers.iterator(); iterator.hasNext();)
+            for (final ModelElementFacade facade : identifiers)
             {
-                final AttributeFacade identifier = iterator.next();
-                this.createIdentifier(
-                    identifier.getName(),
-                    identifier.getType().getFullyQualifiedName(true),
-                    identifier.getVisibility());
+                if (facade instanceof AttributeFacade)
+                {
+                    AttributeFacade identifier = (AttributeFacade)facade;
+                    this.createIdentifier(
+                            identifier.getName(),
+                            identifier.getType().getFullyQualifiedName(true),
+                            identifier.getVisibility());
+                }
+                else if (facade instanceof AssociationEndFacade)
+                {
+                    AssociationEndFacade identifier = (AssociationEndFacade)facade;
+                    this.createIdentifier(
+                            identifier.getName(),
+                            identifier.getType().getFullyQualifiedName(true),
+                            identifier.getVisibility());
+                }
                 identifiersAdded = true;
             }
         }
@@ -850,15 +861,19 @@ public class EntityLogicImpl
     protected boolean handleIsUsingAssignedIdentifier()
     {
         boolean assigned = false;
-        final Collection<EntityAttribute> identifiers = this.getIdentifiers();
+        final Collection<ModelElementFacade> identifiers = this.getIdentifiers();
         if (identifiers != null && !identifiers.isEmpty())
         {
-            final AttributeFacade identifier = (AttributeFacade)identifiers.iterator().next();
-            assigned =
+            ModelElementFacade facade = identifiers.iterator().next();
+            if (facade instanceof AttributeFacade)
+            {
+                final AttributeFacade identifier = (AttributeFacade)facade;
+                assigned =
                     Boolean.valueOf(
                        ObjectUtils.toString(
                         identifier.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_ASSIGNED_IDENTIFIER)))
                        .booleanValue();
+            }
         }
         return assigned;
     }
@@ -960,7 +975,19 @@ public class EntityLogicImpl
         }
         else
         {
-            return getIdentifiers().iterator().next().getType().getFullyQualifiedName();
+            ModelElementFacade facade = getIdentifiers().iterator().next();
+            if (facade instanceof AttributeFacade)
+            {
+                return ((AttributeFacade)facade).getType().getFullyQualifiedName();
+            }
+            else if (facade instanceof AssociationEndFacade)
+            {
+                return ((AssociationEndFacade)facade).getType().getFullyQualifiedName();
+            }
+            else
+            {
+                return "";
+            }
         }
     }
 
@@ -990,7 +1017,19 @@ public class EntityLogicImpl
         }
         else
         {
-            return getIdentifiers().iterator().next().getType().getName();
+            ModelElementFacade facade = getIdentifiers().iterator().next();
+            if (facade instanceof AttributeFacade)
+            {
+                return ((AttributeFacade)facade).getType().getName();
+            }
+            else if (facade instanceof AssociationEndFacade)
+            {
+                return ((AssociationEndFacade)facade).getType().getName();
+            }
+            else
+            {
+                return "";
+            }
         }
     }
 

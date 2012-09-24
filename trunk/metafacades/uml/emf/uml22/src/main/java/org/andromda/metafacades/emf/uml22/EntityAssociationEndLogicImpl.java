@@ -6,6 +6,7 @@ import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityAssociationEnd;
 import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
@@ -70,13 +71,16 @@ public class EntityAssociationEndLogicImpl
             final String columnNamePrefix =
                 this.isConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_PREFIX)
                 ? ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_PREFIX)) : null;
+            final String columnNameSuffix =
+                this.isConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_SUFFIX)
+                ? ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_SUFFIX)) : null;
             columnName =
                 EntityMetafacadeUtils.getSqlNameFromTaggedValue(
                     columnNamePrefix,
                     this,
                     UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
                     Short.valueOf(((Entity)this.getType()).getMaxSqlNameLength()),
-                    this.getForeignKeySuffix(),
+                    columnNameSuffix,
                     this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
         }
         return columnName;
@@ -142,7 +146,7 @@ public class EntityAssociationEndLogicImpl
             if (this.getType() instanceof Entity)
             {
                 final Entity type = (Entity)this.getType();
-                final Collection<EntityAttribute> identifiers = type.getIdentifiers();
+                final Collection<ModelElementFacade> identifiers = type.getIdentifiers();
                 if (identifiers != null && !identifiers.isEmpty())
                 {
                     final AttributeFacade attribute = (AttributeFacade)identifiers.iterator().next();
@@ -234,8 +238,8 @@ public class EntityAssociationEndLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityAssociationEnd#isIdentifier()
      */
-    //@Override
-    protected boolean isIdentifier()
+    @Override
+    protected boolean handleIsIdentifier()
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_IDENTIFIER);
     }
