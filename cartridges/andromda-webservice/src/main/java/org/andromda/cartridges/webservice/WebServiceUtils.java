@@ -2078,7 +2078,7 @@ public class WebServiceUtils
                 }
                 isEnumeration = true;
             }
-            if (useMany && (isMany==null || isMany ))
+            if (useMany && (isMany==null || isMany.booleanValue()))
             {
                 if (!typeName.startsWith("java.util"))
                 {

@@ -122,7 +122,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
     </delete>
     <!-- Run wsgen (CXF wsdl2java) for each generated webservice class -->
 #foreach ($service in $services)
-#if ($umlUtils.shouldOutput($service))
+#if ($umlUtils.shouldOutput($service) && $service.jaxwsCount>0)
 #set ($dir=${stringUtils.replace($service.packageName, '.', '/')})
     <antcall target="wsgenjava">
       <param name="package" value="$service.packageName"/>
@@ -133,7 +133,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
 #end
 #end
 #foreach ($service in $services)
-#if ($umlUtils.shouldOutput($service))
+#if ($umlUtils.shouldOutput($service) && $service.jaxwsCount>0)
 #set ($dir=${stringUtils.replace($service.packageName, '.', '/')})
 #if (!$service.allowedOperations.empty)
     <!-- Copy CXF generated ObjectFactory to common project so they can be referenced by implementation without circular dependencies -->
@@ -162,7 +162,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
         <!--include name="**/*Fault.java"/-->
         <!--include name="**/package-info.java"/-->
 #foreach ($service in $services)
-#if ($umlUtils.shouldOutput($service))
+#if ($umlUtils.shouldOutput($service) && $service.jaxwsCount>0)
 #set ($dir=${stringUtils.replace($service.packageName, '.', '/')})
         <exclude name="${dir}/ObjectFactory*.java"/>
         <exclude name="${dir}/package-info.java"/>
@@ -172,7 +172,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
     </copy>
     <!-- Copy CXF generated Service Exception FaultBeans to webservice project -->
 #foreach ($service in $services)
-#if ($umlUtils.shouldOutput($service) && !$service.allowedOperationExceptions.empty)
+#if ($umlUtils.shouldOutput($service) && !$service.allowedOperationExceptions.empty && $service.jaxwsCount>0)
     <copy todir="${andromda.project}/common/target/src/main/java" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false">
       <fileset dir="${andromda.project}/CXF/target/src/main/java">
 #foreach ($exception in $service.allowedOperationExceptions)
@@ -186,7 +186,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
 #end
     <!-- Copy CXF generated Test Client, Test Server, and WS Endpoint Client files to webservice project -->
 #foreach ($service in $services)
-#if ($umlUtils.shouldOutput($service))
+#if ($umlUtils.shouldOutput($service) && $service.jaxwsCount>0)
 #set ($dir=${stringUtils.replace($service.packageName, '.', '/')})
     <copy todir="${andromda.project}/webservice/src/test/java/$dir" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false">
       <fileset dir="${andromda.project}/CXF/target/src/main/java/$dir">
@@ -203,7 +203,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
         description="Call java2ws (create client) for each Service, modify URL">
 
 #foreach ($service in $services)
-#if ($umlUtils.shouldOutput($service))
+#if ($umlUtils.shouldOutput($service) && $service.jaxwsCount>0)
 #set ($dir=${stringUtils.replace($service.packageName, '.', '/')})
     <antcall target="wsgenwsdl">
       <param name="package" value="$service.packageName"/>
@@ -214,7 +214,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
 #end
     <!-- Copy Andromda generated Test Client and WS Endpoint Client files to CXF project -->
 #foreach ($service in $services)
-#if ($umlUtils.shouldOutput($service))
+#if ($umlUtils.shouldOutput($service) && $service.jaxwsCount>0)
     <copy todir="${andromda.project}/CXF/src/test/java" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false">
       <fileset dir="${andromda.project}/webservice/src/test/java">
         <include name="**/*_WSClient.java"/>
@@ -230,7 +230,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
 #end
     <!-- Copy default value generator and test client to CXF webservice project for client testing -->
 #foreach ($service in $services)
-#if ($umlUtils.shouldOutput($service))
+#if ($umlUtils.shouldOutput($service) && $service.jaxwsCount>0)
 #set ($dir=${stringUtils.replace($service.packageName, '.', '/')})
     <copy todir="${andromda.project}/CXF/src/test/java" overwrite="true" preservelastmodified="true" verbose="true" failonerror="false">
       <fileset dir="${andromda.project}/webservice/src">
@@ -251,7 +251,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
 #end
     <!-- Overwrite CXF generated Impl which only returns null values -->
 #foreach ($service in $services)
-#if ($umlUtils.shouldOutput($service))
+#if ($umlUtils.shouldOutput($service) && $service.jaxwsCount>0)
     <move file="${andromda.project}/CXF/target/src/main/java/$dir/${service.name}SEIImpl.java"
         tofile="${andromda.project}/CXF/target/src/main/java/$dir/${service.name}SEIImpl.java.ref"
         failonerror="false" verbose="true"/>
@@ -278,7 +278,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
           description="Call wsreplace for each Service">
     <!-- Run wsreplace for each generated webservice class -->
 #foreach ($service in $services)
-#if ($umlUtils.shouldOutput($service))
+#if ($umlUtils.shouldOutput($service) && $service.jaxwsCount>0)
     <antcall target="wsreplace">
       <param name="class" value="$service.name"/>
     </antcall>
@@ -304,7 +304,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
     </java>
 #set ($header=false)
 #foreach ($service in $services)
-#if ($umlUtils.shouldOutput($service))
+#if ($umlUtils.shouldOutput($service) && $service.jaxwsCount>0)
 #if ($service.hasStereotype("WSCustomHeader") || $service.hasStereotype("WSSecurity"))
 #set ($header=true)
 #end

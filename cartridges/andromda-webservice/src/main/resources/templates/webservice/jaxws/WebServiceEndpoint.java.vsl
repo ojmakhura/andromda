@@ -19,14 +19,19 @@ package $service.packageName;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-#else
+#elseif ($service.jaxwsCount>0)
 import javax.jws.WebService;
 #end
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+#if ($service.jaxwsCount>0)
+#set ($serviceSEI="${service.name}${seiSuffix}")
+#else
+#set ($serviceSEI="${service.name}${seiSuffix}Impl")
+#end
 /**
- * WebService Service Endpoint Implementation for the $service.name service endpoint interface (${service.name}${seiSuffix}).
+ * WebService Service Endpoint Implementation for the $service.name service endpoint interface ($serviceSEI).
 $service.getDocumentation(" * ")
  */
 
@@ -50,7 +55,8 @@ $service.getDocumentation(" * ")
 #if ($service.hasStereotype("WSAddressing"))
 @javax.xml.ws.soap.Addressing(enabled=true, required=true)
 #end
-public class ${service.name}${seiSuffix}Impl #if(!$service.rest)implements ${service.name}${seiSuffix}#end
+#set($jaxwsCount=$service.jaxwsCount)
+public class ${service.name}${seiSuffix}Impl #if($jaxwsCount>0)implements ${service.name}${seiSuffix}#end
 
 #if ($service.generalization)
     extends ${service.generalization.fullyQualifiedName}${seiSuffix}Impl
@@ -116,14 +122,14 @@ $operation.getDocumentation("    * ")
 #foreach ( $exception in $operation.exceptions)
     * @throws $exception.fullyQualifiedName
 #end
-    * @see ${service.name}${seiSuffix}#${operation.getSignature(false)}
+    * @see $serviceSEI#${operation.getSignature(false)}
 ##    * @throws RemoteException if ${service.name}.${operation.operationName} fails
 #foreach ($constraint in $operation.constraints)
     * CONSTRAINT:  ${constraint.name}: #if ($constraint.invariant)Invariant #end#if ($constraint.postCondition)PostCondition #end#if ($constraint.preCondition)PreCondition #end ${constraint.body}
 #end
     */
 ## Non public methods do not appear in the Interface class. JDK 1.5 cannot override interface methods
-#if ($enableAnnotations && $operation.visibility == "public" && $javaVersion.compareTo("1.6")>-1)
+#if ($enableAnnotations && $operation.visibility == "public" && $javaVersion.compareTo("1.6")>-1 && $jaxwsCount>0)
     @Override
 #end
 #if ($operation.rest)
