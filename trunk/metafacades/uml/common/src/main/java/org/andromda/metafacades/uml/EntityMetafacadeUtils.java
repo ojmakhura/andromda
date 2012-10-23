@@ -241,7 +241,7 @@ public class EntityMetafacadeUtils
                 }
                 else
                 {
-                    Collection<AssociationEndFacade> ends = entity.getNavigableConnectingEnds();
+                    //Collection<AssociationEndFacade> ends = entity.getNavigableConnectingEnds();
                     //System.out.println(entity.getName() + " Nav ends=" + ends.size());
                     // Put the entities with no associations first in the sorted list
                     if (entity.getNavigableConnectingEnds().size()==0)

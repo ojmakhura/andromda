@@ -184,6 +184,7 @@ public class HtmlExtendedDataTable
 
     /**
      * Gets the value's type attribute or null if value was not defined.
+     * Tomahawk 1.1.10 or later: org.apache.myfaces.component.html.ext.HtmlDataTable.getValueType returns String, not Class
      *
      * @return Class the value's type or null if undefined.
      */
@@ -254,7 +255,7 @@ public class HtmlExtendedDataTable
     private String identifierColumns;
 
     /**
-     * The attrribute that stores the identifier columns.
+     * The attribute that stores the identifier columns.
      */
     public static final String IDENTIFIER_COLUMNS = "identifierColumns";
 

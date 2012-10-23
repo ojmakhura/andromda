@@ -13,7 +13,6 @@ import org.andromda.metafacades.uml.BindingFacade;
 import org.andromda.metafacades.uml.ConstraintFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.NameMasker;
-import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.RedefinableTemplateSignatureFacade;
 import org.andromda.metafacades.uml.TaggedValueFacade;
 import org.andromda.metafacades.uml.TemplateArgumentFacade;

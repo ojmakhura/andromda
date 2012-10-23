@@ -200,6 +200,10 @@ public class AndroMDApp
             }
         }
 
+        if (andromdapp == null)
+        {
+            throw new AndroMDAppException("AndromdaPP is null " + this.types.entrySet());
+        }
         andromdapp.setConfigurations(this.configurations);
         andromdapp.initialize();
 

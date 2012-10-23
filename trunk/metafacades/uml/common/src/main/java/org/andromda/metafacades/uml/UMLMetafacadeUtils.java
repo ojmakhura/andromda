@@ -820,10 +820,10 @@ public class UMLMetafacadeUtils
                 typeName = String.valueOf(type.findTaggedValue("andromda_persistence_lob_type"));
                 // LOB Types have a different datatype than the underlying declared type
             }
-            if (useMany && (isMany==null || isMany ) && !typeName.endsWith("[]"))
+            if (useMany && (isMany==null || isMany.booleanValue()) && !typeName.endsWith("[]"))
             {
                 typeName = UMLMetafacadeUtils.getImplCollection(typeName);
-                if (!typeName.startsWith("java.util"))
+                if (!typeName.startsWith("java.util") && type != null)
                 {
                     if (type.equals("java.util.Collection") || typeName.equals("java.util.List"))
                     {

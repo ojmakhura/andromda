@@ -185,7 +185,10 @@ public class ModelValidationMessage
         {
             final ModelValidationMessage message = (ModelValidationMessage)object;
             // message can never be null at this point, because object cannot be null, despite the compiler warning
-            equals = message.toString().equals(this.toString());
+            if (message != null)
+            {
+                equals = message.toString().equals(this.toString());
+            }
         }
         return equals;
     }
