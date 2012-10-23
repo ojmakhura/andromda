@@ -12,7 +12,7 @@
     <groupId>org.andromda</groupId>
     <artifactId>andromda</artifactId>
     <packaging>pom</packaging>
-    <version>3.5-SNAPSHOT</version>
+    <!-- version>3.5-SNAPSHOT</version-->
     <name>AndroMDA: The Open Source MDA Tool</name>
     <description>
         AndroMDA (pronounced: andromeda) is an open source code generation framework that follows the Model Driven
@@ -327,7 +327,7 @@
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy-all</artifactId>
-                <version>2.0.2</version>
+                <version>2.0.5</version>
             </dependency>
             <dependency>
                 <groupId>org.javassist</groupId>
@@ -416,7 +416,7 @@
             <dependency>
                 <groupId>org.codehaus.plexus</groupId>
                 <artifactId>plexus-archiver</artifactId>
-                <version>2.1.2</version>
+                <version>2.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -823,7 +823,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <!-- Plugin version definitions-->
-        <plexus.util.version>3.0.7</plexus.util.version>
+        <plexus.util.version>3.0.8</plexus.util.version>
         <uniqueVersion>false</uniqueVersion>
     </properties>
     <profiles>
