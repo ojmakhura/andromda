@@ -1590,6 +1590,24 @@ public class WebServiceLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#handleGetJaxwsCount()
+     */
+    @Override
+    protected int handleGetJaxwsCount()
+    {
+        int jaxwsCount = 0;
+        String rest = (String)this.findTaggedValue(WebServiceGlobals.REST);
+        for (WebServiceOperation operation : this.getAllowedOperations())
+        {
+            if (StringUtils.isBlank(rest) || rest.equals(BOOLEAN_FALSE) && (!operation.isRest()))
+            {
+                jaxwsCount++;
+            }
+        }
+        return jaxwsCount;
+    }
+
+    /**
      * @param validationMessages Collection<ModelValidationMessage>
      * @see MetafacadeBase#validateInvariants(Collection validationMessages)
      */

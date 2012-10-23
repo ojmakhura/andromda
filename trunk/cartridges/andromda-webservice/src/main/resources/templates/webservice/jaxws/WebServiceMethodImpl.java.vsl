@@ -230,7 +230,7 @@ $operation.getDocumentation("    * ")
 #end
     */
 #set ($atom=false)
-#if ($service.rest && $service.restProduces.contains("atom"))
+#if ($service.restCount>0 && $service.restProduces.contains("atom"))
 #set ($atom=true)
 #end
 ## Make all these operations public, we are just filling in dummy data $operation.visibility
@@ -246,6 +246,11 @@ $operation.getDocumentation("    * ")
     {
         // Dummy return value implementation with default values...
         // Iterate down through all complex types and create default dummy constructor and attribute values
+#if ($operation.rest && ($returnType.equals("void") || $returnType.equals("Response") || $returnType.equals("javax.ws.rs.core.Response")))
+        org.apache.cxf.jaxrs.impl.ResponseBuilderImpl builder = new org.apache.cxf.jaxrs.impl.ResponseBuilderImpl();
+        builder.status(200); // TODO: handle specific response codes
+        Response rtn = builder.build();
+#else
 #if(!$returnType.equals("void"))
 #set ($isMany = $operation.upper>1 || $operation.upper==-1)
 #if ($isMany)
@@ -253,6 +258,7 @@ $operation.getDocumentation("    * ")
         $operation.returnType.fullyQualifiedName rtn = $webServiceUtils.createConstructor($operation.returnType, false);
 #else
         $returnType rtn = $webServiceUtils.createConstructor($operation.returnType, $isMany);
+#end
 #end
 #end
 ## Add number qualifier to prevent attribute name collision throughout the hierarchy

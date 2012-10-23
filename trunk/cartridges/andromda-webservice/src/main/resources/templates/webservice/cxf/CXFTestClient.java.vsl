@@ -12,7 +12,12 @@
 package ${service.packageName}.test;
 #end
 
-import ${service.fullyQualifiedName}${seiSuffix};
+#if ($service.jaxwsCount>0)
+#set ($serviceSEI="${service.fullyQualifiedName}${seiSuffix}")
+#else
+#set($serviceSEI="${service.fullyQualifiedName}${seiSuffix}Impl")
+#end
+import $serviceSEI;
 import junit.framework.TestSuite;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
@@ -172,7 +177,7 @@ $operation.getDocumentation("    * ")
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 new String[]{"cxf-client.xml"});
 
-        ${service.name}${seiSuffix} client = (${service.name}${seiSuffix})context.getBean("${service.name}Client");
+        $serviceSEI client = ($serviceSEI)context.getBean("${service.name}Client");
 
 ##if ($defaultParameterStyle.equalsIgnoreCase("WRAPPED"))
 ##set ($returnType = "${operation.packageName}.$stringUtils.capitalize(${operation.operationName})Response")
