@@ -13,7 +13,7 @@ package $entity.packageName;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import org.andromda.dbtest.JPAJUnitAncestor;
+//import org.andromda.dbtest.JPAJUnitAncestor;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 ##
@@ -163,6 +163,7 @@ public class ${entity.entityName}Create
 
     /**
      * Create an Entity ${entity.entityName} with all attributes and associations set
+     * @param em EntityManager used to findAll
      * @return ${entity.entityName}
      */
     public static List<${entity.entityName}> findAll(EntityManager em)
@@ -176,6 +177,7 @@ public class ${entity.entityName}Create
     /**
      * Return a persisted Entity ${entity.entityName} with all attributes and associations set
      * Used to set persistent association relationships in related entities.
+     * @param em EntityManager used to findFirst
      * @return ${entity.entityName}
      */
     public static ${entity.entityName} findFirst(EntityManager em)

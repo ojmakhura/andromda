@@ -89,6 +89,9 @@ extends EJB3SessionFacadeLogic
      * The property that stores the persistence container name.
      */
     public static final String PERSISTENCE_CONTAINER = "persistenceContainerName";
+    /**
+     * The property that stores the deployment Platform name.
+     */
     public static final String DEPLOYMENT_PLATFORM = "deploymentPlatform";
 
     /**

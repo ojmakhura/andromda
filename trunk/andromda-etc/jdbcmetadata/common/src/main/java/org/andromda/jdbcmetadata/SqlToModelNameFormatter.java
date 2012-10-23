@@ -37,7 +37,7 @@ public class SqlToModelNameFormatter
     // Contains physical -> logical DB name columns
     private static Map<String, String> wordMap = new HashMap<String, String>();
     // Contains suffix (last word part) name columns
-    private static Map<String, String> suffixMap = new HashMap<String, String>();
+    //private static Map<String, String> suffixMap = new HashMap<String, String>();
     // Used by AppDevs to override the values given in the DBArchitect worksheet for Java/UML names
     private static Map<String, String> overrideMap = new HashMap<String, String>();
 
