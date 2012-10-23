@@ -26,8 +26,6 @@ import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
 
 /**
  * MetafacadeLogic implementation for
@@ -54,7 +52,7 @@ public class ManageableEntityLogicImpl
     /**
      * The logger instance.
      */
-    private static final Logger LOGGER = Logger.getLogger(ManageableEntityLogicImpl.class);
+    //private static final Logger LOGGER = Logger.getLogger(ManageableEntityLogicImpl.class);
 
     /**
      * @return the configured property denoting the character sequence to use
@@ -694,7 +692,7 @@ public class ManageableEntityLogicImpl
     static final class ManageableComparator
         implements Serializable, Comparator
     {
-        @SuppressWarnings("unused")
+        //@SuppressWarnings("unused")
         private static final long serialVersionUID = 1L;
         /**
          * @see java.util.Comparator#compare(Object, Object)
