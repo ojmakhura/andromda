@@ -43,7 +43,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.1.7.Final</version>
+            <version>4.1.8.Final</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -80,7 +80,7 @@
         <dependency>
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging</artifactId>
-            <version>3.1.0.GA</version>
+            <version>3.1.2.GA</version>
         </dependency>
         <!-- version 2.7.1-1.jbossorg referenced by jboss-javaee-web-6.0 not in maven central -->
         <dependency>

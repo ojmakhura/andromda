@@ -112,7 +112,7 @@
             <dependency>
                 <groupId>net.sf.ehcache</groupId>
                 <artifactId>ehcache</artifactId>
-                <version>2.6.0</version>
+                <version>2.6.2</version>
                 <type>pom</type>
             </dependency>
             <dependency>
@@ -335,7 +335,7 @@
         <application.version>1.0-SNAPSHOT</application.version>
         <dataSource.name>jdbc/${application.id}</dataSource.name>
         <dataSource>java:comp/env/${dataSource.name}</dataSource>
-        <hibernate.version>4.1.7.Final</hibernate.version>
+        <hibernate.version>4.1.8.Final</hibernate.version>
     </properties>
     <profiles>
         <profile>
