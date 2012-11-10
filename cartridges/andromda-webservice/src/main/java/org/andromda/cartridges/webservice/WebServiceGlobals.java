@@ -34,6 +34,11 @@ public class WebServiceGlobals
     public static final String ADD_NAMESPACE_BACKSLASH = "addNamespaceBackslash";
 
     /**
+     * Use human readable mixed-case enumeration literal values in XSD, instead of literal key. Default=true, set to false for upper-underscore XSD enum values.
+     */
+    public static final String USE_ENUM_VALUE_IN_XSD = "useEnumValueInXSD";
+
+    /**
      * Defines the style of the web service to be generated (i.e. wrapped, document, rpc). Default=wrapped.
      */
     public static final String WEB_SERVICE_STYLE = "andromda_webservice_style";

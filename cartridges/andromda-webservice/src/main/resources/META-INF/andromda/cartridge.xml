@@ -57,6 +57,7 @@
     <property reference="useArrayWrapper"/>
     <property reference="useAttributes"/>
     <property reference="addNamespaceBackslash"/>
+    <property reference="useEnumValueInXSD"/>
     <property reference="makeNillable"/>
     <property reference="webserviceHost"/>
     <property reference="webservicePort"/>
@@ -105,12 +106,13 @@
     <condition name="cxfRef">#if ($soapStack.equalsIgnoreCase("cxf") &amp;&amp; $generateRefFiles.equals("true"))true#end</condition>
     <condition name="jbossWeb">$stringUtils.isNotBlank($securityRealm)</condition>
     <condition name="securityEnabled">$stringUtils.isNotBlank($securityRealm)</condition>
-    <condition name="spring2">$springVersion.equals("2")</condition>
+    <condition name="spring2">$springVersion.startsWith("2")</condition>
     <condition name="extensionInheritanceDisabled">$extensionInheritanceDisabled.equalsIgnoreCase("true")</condition>
     <condition name="axis2GeneratedWrappedMessageReceiverRendersFaultsAsBeans">$axis2GeneratedWrappedMessageReceiverRendersFaultsAsBeans.equalsIgnoreCase("true")</condition>
     <condition name="useArrayWrapper">$useArrayWrapper.equalsIgnoreCase("true")</condition>
     <condition name="useAttributes">$useAttributes.equalsIgnoreCase("true")</condition>
     <condition name="addNamespaceBackslash">$addNamespaceBackslash.equalsIgnoreCase("true")</condition>
+    <condition name="useEnumValueInXSD">$useEnumValueInXSD.equalsIgnoreCase("true")</condition>
     <condition name="makeNillable">$makeNillable.equalsIgnoreCase("true")</condition>
     <condition name="reverseNamespace">$reverseNamespace.equalsIgnoreCase("true")</condition>
     <condition name="importedXSD">$importedXSD.equalsIgnoreCase("true")</condition>
