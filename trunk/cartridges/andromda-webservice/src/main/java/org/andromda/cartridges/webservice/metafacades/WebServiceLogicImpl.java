@@ -218,18 +218,21 @@ public class WebServiceLogicImpl
         // they'll be ignored the second time this method is
         // called (if the instance is reused)
         this.checkedTypes.clear();
-        for (final Iterator<ParameterFacade> iterator = parameterTypes.iterator(); iterator.hasNext();)
+        for (final ParameterFacade parameter : parameterTypes)
         {
-            this.loadTypes((ModelElementFacade)iterator.next(), types, nonArrayTypes);
+            this.loadTypes((ModelElementFacade)parameter, types, nonArrayTypes);
         }
 
-        final Collection<ModelElementFacade> exceptions = new ArrayList<ModelElementFacade>();
         for (final WebServiceOperation operation : this.getAllowedOperations())
         {
-            exceptions.addAll(operation.getExceptions());
+            final Collection<ModelElementFacade> exceptions = operation.getExceptions();
+            exceptions.addAll(exceptions);
+            // Exceptions may have attributes too
+            for (final ModelElementFacade exception : exceptions)
+            {
+                this.loadTypes(exception, types, nonArrayTypes);
+            }
         }
-
-        types.addAll(exceptions);
 
         // now since we're at the end, and we know the
         // non array types won't override any other types
@@ -321,9 +324,10 @@ public class WebServiceLogicImpl
                                 if (nonArrayType != null)
                                 {
                                     if (nonArrayType.hasStereotype(UMLProfile.STEREOTYPE_VALUE_OBJECT)
+                                       || nonArrayType.hasStereotype(UMLProfile.STEREOTYPE_APPLICATION_EXCEPTION)
                                             || nonArrayType.isEnumeration())
                                     {
-                                        // we add the type when its a non array and
+                                        // we add the type when it's a non array and
                                         // has the correct stereotype (even if we have
                                         // added the array type above) since we need to
                                         // define both an array and non array in the WSDL
@@ -846,6 +850,11 @@ public class WebServiceLogicImpl
             if (type == null && introspector.isReadable(modelElement, typeProperty))
             {
                 type = (ClassifierFacade)introspector.getProperty(modelElement, typeProperty);
+            }
+            // Sometimes the type is sent to this method instead of the property
+            if (type == null && modelElement instanceof ClassifierFacade)
+            {
+                type = (ClassifierFacade)modelElement;
             }
             return type;
         }

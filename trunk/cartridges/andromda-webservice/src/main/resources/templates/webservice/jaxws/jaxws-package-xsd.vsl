@@ -65,7 +65,7 @@ $stringUtils.replaceChars($operation.getDocumentation("                ", 100, f
 #set ($isMany=false)
 #set ($maxOccurs='')
 #end
-##                    <!-- $parameter.name type=$parameter.type.fullyQualifiedName schemaType=$parameter.type.schemaType isMany=$isMany-->
+##                    <!-- $parameter.name type=$parameter.type.fullyQualifiedName schemaType=$parameter.type.schemaType isMany=$isMany nillable=$parameter.nillable lower=$parameter.lower defaultValue=$parameter.defaultValue upper=$parameter.upper -->
 ## Determine if attribute/element is a simple schema type when it starts with xs:
 ##if (!$useAttributes || !$parameter.type.schemaType.startsWith("xs:") || $isMany)
 #if ($parameter.defaultValuePresent)
@@ -237,16 +237,21 @@ $stringUtils.replaceChars($type.getDocumentation("                ", 100, false)
 #if ($stringUtils.isBlank($enumType))#set ($enumType = "xs:string")#end
             <xs:restriction base="$enumType">
 #*     *##foreach ($literal in $type.literals)
-##            <!-- $type.name literal: $literal -->
+#if ($useEnumValueInXSD)
+## Use enumeration key (name) instead of human-readable mixed case value. XSD supports only a single string value
+#set ($xsdValue=${escapeUtils.escapeXml($literal.enumerationValue.replaceAll('"', ''))})
+#else
+#set ($xsdValue=$literal.name)
+#end
+                <!-- Enumeration literal: name=$literal.name value=$literal.enumerationValue -->
 #if ($stringUtils.isNotBlank($literal.getDocumentation("", 9999, false)))
-                <xs:enumeration value="$literal.name">
-##                <xs:enumeration value="${escapeUtils.escapeXml($literal.enumerationValue.replaceAll('"', ''))}">
+                <xs:enumeration value="$xsdValue">
                     <xs:annotation><xs:documentation>
 $stringUtils.replaceChars($literal.getDocumentation("                        ", 100, false), "\"'&<>", "")
                     </xs:documentation></xs:annotation>
                 </xs:enumeration>
 #else
-                <xs:enumeration value="${escapeUtils.escapeXml($literal.enumerationValue.replaceAll('"', ''))}"/>
+                <xs:enumeration value="$xsdValue"/>
 #end
 #*     *##end
             </xs:restriction>
@@ -281,6 +286,7 @@ $stringUtils.replaceChars($type.getDocumentation("                ", 100, false)
 #set ($extensionRequired = $type.generalization && !$extensionInheritanceDisabled)
 #if ($extensionRequired)
             <xs:complexContent>
+##                <!-- $type.generalization.package.fullyQualifiedName $type.generalization.name $pkg.fullyQualifiedName $type $type.generalization $pkg -->
                 <xs:extension base="$webServiceUtils.getPkgAbbr($type.generalization.package,$pkg):$type.generalization.name">
 #set ($tab="        ")
 #else

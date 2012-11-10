@@ -553,6 +553,10 @@ public class WebServiceUtils
                     }
                 }
             }
+            else if (element.getName().endsWith("[]"))
+            {
+                // Ignore modeled array types - assume non-array type is already in the package
+            }
             else
             {
                 // Log the type so we can extend this logic later...
@@ -833,6 +837,10 @@ public class WebServiceUtils
                                 }
                             }
                         }
+                    }
+                    else if (element.getValidationName() != null && element.getValidationName().endsWith("[]"))
+                    {
+                        // Ignore modeled array types - assume non-array type is already in the package
                     }
                     else
                     {
@@ -1396,7 +1404,7 @@ public class WebServiceUtils
                     }*/
                 }
                 // TODO remove 'else' and add ParameterFacade logic type
-                else if (element instanceof ClassifierFacade)
+                if (element instanceof ClassifierFacade)
                 {
                     ClassifierFacade type = (ClassifierFacade)element;
                     facade = getType(type);
@@ -1586,6 +1594,10 @@ public class WebServiceUtils
                             logger.debug("getPackageTypes packageName=" + packageName + " add NavOtherEnd " + type.getPackageName() + '.' + type.getName());
                         }
                     }
+                }
+                else if (facade != null && facade.getName().endsWith("[]"))
+                {
+                    // Ignore modeled array types - assume non-array type is already in the package
                 }
                 else
                 {

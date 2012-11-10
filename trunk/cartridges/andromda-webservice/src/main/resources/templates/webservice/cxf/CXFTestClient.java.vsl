@@ -275,6 +275,13 @@ $operation.getDocumentation("    * ")
 ##if ($defaultParameterStyle.equalsIgnoreCase("WRAPPED"))
 ##        return ${operation.operationName}Response.get$stringUtils.capitalize(${operation.operationName})Response();
 ##else
+#foreach ($exception in $operation.exceptions)
+        }
+        catch ($exception.fullyQualifiedName ex)
+        {
+            // TODO Implement test which causes Exception to occur, and expect that Exception
+            System.out.println("${service.name} client.${operation.name}" + " threw $exception.fullyQualifiedName " + ex);
+#end
         }
         catch (Exception ex)
         {

@@ -13,7 +13,7 @@
         xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
 #end
         xmlns:${service.namespacePrefix}="http://$webServiceUtils.reversePackage($pkg.fullyQualifiedName)#if($addNamespaceBackslash)/#end"
-#set ($pkgRefs = $webServiceUtils.getPackageReferences($pkg, $extensionInheritanceDisabled))
+#set ($pkgRefs = $webServiceUtils.getPackageReferences($service, $schemaTypes, $pkg.fullyQualifiedName, $extensionInheritanceDisabled))
 ##        <!-- $pkg $pkg.fullyQualifiedName $pkgRefs $pkgRefs.size() -->
 #foreach ($pkgRef in $pkgRefs)
         xmlns:$webServiceUtils.getPkgAbbr($pkgRef)="http://$webServiceUtils.reversePackage($pkgRef.fullyQualifiedName)#if($addNamespaceBackslash)/#end"
@@ -203,7 +203,8 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
 #end
 #if ($defaultParameterStyle.equalsIgnoreCase("BARE"))
         <!-- TypeMapping for bare parameters in foreign namespaces -->
-#foreach ($typeMapping in $webServiceUtils.getServiceReferences($service, $extensionInheritanceDisabled))
+#set ($typeMappings = $webServiceUtils.getServiceReferences($service, $extensionInheritanceDisabled))
+#foreach ($typeMapping in $typeMappings)
 ##if ($typeMapping.type)#set($typeMapping=$typeMapping.type)#end
 #set ($type="${webServiceUtils.getPkgAbbr($typeMapping.package)}:${typeMapping.name}")
 ##        <!-- $typeMapping.name $typeMapping.packageName $typeMapping.type.schemaType -->
@@ -212,17 +213,20 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
 #end
 #end
 #end
-        <!-- $schemaTypes.size() Service TypeMapping elements in $pkg.fullyQualifiedName -->
-#foreach ($typeMapping in $webServiceUtils.getPackageTypes($service, $schemaTypes, $pkg.fullyQualifiedName, $extensionInheritanceDisabled))
-#if ($umlUtils.shouldOutput($typeMapping))
-#set ($type = $typeMapping)
-##        <!-- Type mapping for $type.getSchemaType(false, true): qName=${type.qName} typeName=$typeMapping.name type=$typeMapping.type.name -->
-#if ($typeMapping.type)
-#set ($type = $typeMapping.type)
+#set ($packageTypes = $webServiceUtils.getPackageTypes($service, $schemaTypes, $pkg.fullyQualifiedName, true))
+##set ($typeMappings = $webServiceUtils.getPackageTypes($pkg, true))
+        <!-- $packageTypes.size() Service TypeMapping elements in $pkg.fullyQualifiedName -->
+#foreach ($packageType in $packageTypes)
+##        <!-- $packageType.fullyQualifiedName output=$umlUtils.shouldOutput($packageType) $packageType.type.fullyQualifiedName -->
+#if ($umlUtils.shouldOutput($packageType))
+#set ($type = $packageType)
+##        <!-- Type mapping for $type.getSchemaType(false, true): qName=${type.qName} typeName=$packageType.name type=$packageType.type.name -->
+#if ($packageType.type)
+#set ($type = $packageType.type)
 #end
 #set ($arrayItemName = ${stringUtils.uncapitalize($type.getSchemaType(false, false))})
 ## TODO: Add nillable option for all minOccurs=0 elements/attributes
-#if ($typeMapping.many && $useArrayWrapper)
+#if ($packageType.many && $useArrayWrapper)
         <xs:complexType name="$type.wsdlArrayName">
             <xs:sequence>
                 <xs:element name="$arrayItemName" minOccurs="0" maxOccurs="unbounded" form="qualified" type="${type.namespacePrefix}:${type.qName}" />
@@ -238,7 +242,7 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
         </xs:complexType>
 #else
 #* *##if ($type.enumeration)
-##       <!-- Enumeration $type.name $type.getSchemaType(false, true): qName=${type.qName} -->
+        <!-- Enumeration $type.name $type.getSchemaType(false, true): qName=${type.qName} -->
 #*     *##foreach ($literal in $type.literals)
 ##       <!-- $type.name literal: $literal -->
 #*         *##if (!$stringUtils.isBlank($literal.type.schemaType))#set ($enumType = $literal.type.schemaType)#end
@@ -253,16 +257,21 @@ $stringUtils.replaceChars($type.getDocumentation("                ", 100, false)
 #if ($stringUtils.isBlank($enumType))#set ($enumType = "xs:string")#end
             <xs:restriction base="$enumType">
 #*     *##foreach ($literal in $type.literals)
-##            <!-- $type.name literal: $literal -->
+#if ($useEnumValueInXSD)
+## Use enumeration key (name) instead of human-readable mixed case value. XSD supports only a single string value
+#set ($xsdValue=${escapeUtils.escapeXml($literal.enumerationValue.replaceAll('"', ''))})
+#else
+#set ($xsdValue=$literal.name)
+#end
+                <!-- Enumeration literal: name=$literal.name value=$literal.enumerationValue -->
 #if ($stringUtils.isNotBlank($literal.getDocumentation("", 9999, false)))
-                <xs:enumeration value="$literal.name">
-##                <xs:enumeration value="${escapeUtils.escapeXml($literal.enumerationValue.replaceAll('"', ''))}">
+                <xs:enumeration value="$xsdValue">
                     <xs:annotation><xs:documentation>
 $stringUtils.replaceChars($literal.getDocumentation("                        ", 100, false), "\"'&<>", "")
                     </xs:documentation></xs:annotation>
                 </xs:enumeration>
 #else
-                <xs:enumeration value="${escapeUtils.escapeXml($literal.enumerationValue.replaceAll('"', ''))}"/>
+                <xs:enumeration value="$xsdValue"/>
 #end
 #*     *##end
             </xs:restriction>
@@ -293,7 +302,7 @@ $stringUtils.replaceChars($type.getDocumentation("                ", 100, false)
 #set ($extensionRequired = $type.generalization && !$extensionInheritanceDisabled)
 #if ($extensionRequired)
             <xs:complexContent>
-                <xs:extension base="$webServiceUtils.getPkgAbbr($type.generalization.package,$pkg):$type.generalization.qName">
+                <xs:extension base="$webServiceUtils.getPkgAbbr($type.generalization.package,$pkg):$type.generalization.name">
 #set ($tab="        ")
 #else
 #set ($tab="")
