@@ -138,12 +138,6 @@
                         <overrideDescriptor>${project.parent.basedir}/webservice/src/main/webapp/WEB-INF/web.xml</overrideDescriptor>
                         <contextPath>/${project.parent.artifactId}-webservice</contextPath>
                     </webAppConfig>
-                    <connectors>
-                       <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-                          <port>${service.port}</port>
-                          <maxIdleTime>60000</maxIdleTime>
-                       </connector>
-                     </connectors>
                     <useTestClasspath>true</useTestClasspath>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
                     <stopKey>foo</stopKey>

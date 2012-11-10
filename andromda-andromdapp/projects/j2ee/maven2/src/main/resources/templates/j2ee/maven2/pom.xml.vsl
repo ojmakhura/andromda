@@ -551,7 +551,7 @@
             <dependency>
                 <groupId>net.sf.ehcache</groupId>
                 <artifactId>ehcache-core</artifactId>
-                <version>2.6.0</version>
+                <version>2.6.2</version>
                 <scope>provided</scope>
             </dependency>
 #if ($spring || $hibernate)
@@ -597,7 +597,7 @@
             <dependency>
                 <groupId>net.sf.ehcache</groupId>
                 <artifactId>ehcache-core</artifactId>
-                <version>2.6.0</version>
+                <version>2.6.2</version>
             </dependency>
             <dependency>
                 <groupId>org.javassist</groupId>
@@ -1422,7 +1422,7 @@
         <createChecksum>true</createChecksum>
         <uniqueVersion>false</uniqueVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <stagingDirectory>${applicationParentDirectory.replace('\', '/')}/${applicationId}/target/site</stagingDirectory>
+        <stagingDirectory>${project.build.outputDirectory}/target/site</stagingDirectory>
 #if ($hibernate || $spring || $ejb3)
 #if ($h2)
         <testdb.groupId>com.h2database</testdb.groupId>
@@ -1626,15 +1626,15 @@
 #if ($spring)
         <!-- Set andromda.xml hibernateVersion=4, sessionFactory and localTransactionManager to hibernate4
         Spring cartridge only works with hibernate3.
-        <hibernate.version>4.1.7.Final</hibernate.version-->
+        <hibernate.version>4.1.8.Final</hibernate.version-->
         <hibernate.version>3.6.9.Final</hibernate.version>
 #elseif ($hibernate || $ejb3)
         <!-- Set andromda.xml hibernateVersion=3, sessionFactory and localTransactionManager to hibernate3
         <hibernate.version>3.6.9.Final</hibernate.version-->
-        <hibernate.version>4.1.7.Final</hibernate.version>
+        <hibernate.version>4.1.8.Final</hibernate.version>
 #end
 #if ($cxf || $embeddedJetty)
-        <jetty.version>8.1.7.v20120910</jetty.version>
+        <jetty.version>8.1.8.v20121106</jetty.version>
 #end
 #if ($cxf || $spring)
         <spring.version>3.1.2.RELEASE</spring.version>
