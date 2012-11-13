@@ -13,15 +13,15 @@
     </bean>
 
     <!-- applicationContext merge-point -->
-    <bean id="hibernateMappingLocations" class="org.springframework.beans.factory.config.ListFactoryBean">
+    <bean id="hibernateAnnotatedClasses" class="org.springframework.beans.factory.config.ListFactoryBean">
         <property name="sourceList">
             <list>
-                <!-- applicationContext hibernateMappingLocations merge-point -->
-                <value>classpath:org/andromda/timetracker/domain/User.hbm.xml</value>
-                <value>classpath:org/andromda/timetracker/domain/Timecard.hbm.xml</value>
-                <value>classpath:org/andromda/timetracker/domain/TimeAllocation.hbm.xml</value>
-                <value>classpath:org/andromda/timetracker/domain/Task.hbm.xml</value>
-                <value>classpath:org/andromda/timetracker/domain/UserRole.hbm.xml</value>
+                <!-- applicationContext hibernateAnnotatedClasses merge-point -->
+                <value>org.andromda.timetracker.domain.UserImpl</value>
+                <value>org.andromda.timetracker.domain.TimecardImpl</value>
+                <value>org.andromda.timetracker.domain.TimeAllocationImpl</value>
+                <value>org.andromda.timetracker.domain.TaskImpl</value>
+                <value>org.andromda.timetracker.domain.UserRoleImpl</value>
             </list>
          </property>
     </bean>
@@ -40,9 +40,12 @@
     </bean>
 
     <!-- Hibernate SessionFactory -->
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="mappingLocations" ref="hibernateMappingLocations"/>
+        <property name="configurationClass">
+            <value>org.hibernate.cfg.AnnotationConfiguration</value>
+        </property>
+        <property name="annotatedClasses" ref="hibernateAnnotatedClasses"/>
         <property name="hibernateProperties" ref="hibernateProperties"/>
         <!-- applicationContext sessionFactory merge-point -->
     </bean>

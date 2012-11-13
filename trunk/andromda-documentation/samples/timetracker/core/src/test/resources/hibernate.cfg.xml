@@ -25,11 +25,5 @@
         <property name="hibernate.cache.use_query_cache">false</property>
         <property name="hibernate.cache.provider_class">net.sf.ehcache.hibernate.EhCacheProvider</property>
         <property name="hibernate.cache.query_cache_factory">org.hibernate.cache.StandardQueryCacheFactory</property>
-        <!-- mapping files -->
-        <mapping resource="org/andromda/timetracker/domain/User.hbm.xml"/>
-        <mapping resource="org/andromda/timetracker/domain/Timecard.hbm.xml"/>
-        <mapping resource="org/andromda/timetracker/domain/TimeAllocation.hbm.xml"/>
-        <mapping resource="org/andromda/timetracker/domain/Task.hbm.xml"/>
-        <mapping resource="org/andromda/timetracker/domain/UserRole.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

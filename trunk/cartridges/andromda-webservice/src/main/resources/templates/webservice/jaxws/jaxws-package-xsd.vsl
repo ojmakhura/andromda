@@ -1,4 +1,4 @@
-#if ($umlUtils.shouldOutput($pkg) && $importedXSD && $service.jaxwsCount>0)
+#if ($umlUtils.shouldOutput($pkg) && $importedXSD)
 #set ($pkgTypes = $webServiceUtils.getPackageTypes($pkg, $extensionInheritanceDisabled))
 #set ($operations = $webServiceUtils.getAllowedOperations($pkg))
 #if (!$pkgTypes.empty || !$operations.empty)

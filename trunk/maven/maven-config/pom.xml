@@ -93,7 +93,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.12.3</version>
+                    <version>2.12.4</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -102,6 +102,15 @@
         <!-- Maven runtime version. Lots of problems prior to 2.0.10 with dependency management -->
         <maven>2.2.1</maven>
     </prerequisites>
+    <dependencies>
+        <!-- Dependent projects select plexus-utils:1.1 if not specified>
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-utils</artifactId>
+            <version>3.0.8</version>
+            <scope>provided</scope>
+        </dependency -->
+    </dependencies>
     <profiles>
         <!--Profile configuration for local builds-->
         <profile>

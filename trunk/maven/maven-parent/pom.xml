@@ -45,6 +45,17 @@
             <timezone>-5</timezone>
         </developer>
     </developers>
+    <dependencyManagement>
+        <dependencies>
+            <!-- Avoid: Retrieving parent-POM: org.codehaus.plexus:plexus:pom:1.0.4 for project: null:plexus-utils:jar:1.1 from the repository.>
+            <dependency>
+                <groupId>org.codehaus.plexus</groupId>
+                <artifactId>plexus-utils</artifactId>
+                <version>3.0.8</version>
+                <scope>provided</scope>
+            </dependency -->
+        </dependencies>
+    </dependencyManagement>
     <build>
         <defaultGoal>install</defaultGoal>
         <!-- Configurations for QA checks, accessed as classpath resources -->
@@ -245,6 +256,7 @@
                             <link>http://download.eclipse.org/modeling/mdt/uml2/javadoc/3.1.0/</link>
                             <link>http://download.eclipse.org/modeling/emf/emf/javadoc/2.6.0/</link>
                             <link>http://jakarta.apache.org/commons/collections/apidocs</link>
+                            <link>http://commons.apache.org/lang/apidocs</link>
                             <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
                             <link>http://www.junit.org/junit/javadoc/</link>
                             <link>http://logging.apache.org/log4j/docs/api/</link>
@@ -526,7 +538,7 @@
         <maven-ejb-plugin.version>2.3</maven-ejb-plugin.version>
         <maven-eclipse-plugin.version>2.9</maven-eclipse-plugin.version>
         <maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>
-        <maven-failsafe-plugin.version>2.12.3</maven-failsafe-plugin.version>
+        <maven-failsafe-plugin.version>2.12.4</maven-failsafe-plugin.version>
         <maven-help-plugin.version>2.1.1</maven-help-plugin.version>
         <maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
         <maven-install-plugin.version>2.4</maven-install-plugin.version>
@@ -1276,7 +1288,7 @@
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-site-plugin</artifactId>
-                            <version>3.1</version>
+                            <version>3.2</version>
                         </plugin>
                     </plugins>
                 </pluginManagement>
