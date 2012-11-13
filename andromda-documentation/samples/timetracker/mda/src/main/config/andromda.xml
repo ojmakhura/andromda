@@ -107,7 +107,7 @@
                 <property name="enumerationLiteralNameMask">upperunderscore</property>
                 <property name="hibernateVersion">${hibernate.version}</property>
                 <!-- false = hbm.xml mapping files, true = @Annotations in Entity classes. Default=false -->
-                <property name="hibernateEntityAnnotations">false</property>
+                <property name="hibernateEntityAnnotations">true</property>
                 <property name="persistenceContainerName">jboss</property>
                 <!-- Override default @todo to set to Eclipse default>
                 <property name="toDoTag">TODO</property -->
@@ -136,7 +136,7 @@
             <properties>
                 <property name="hibernateQueryUseNamedParameters">true</property>
                 <property name="hibernateEnableCache">false</property>
-                <property name="sessionFactory">org.springframework.orm.hibernate3.LocalSessionFactoryBean</property>
+                <property name="sessionFactory">org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean</property>
                 <property name="localTransactionManager">org.springframework.orm.hibernate3.HibernateTransactionManager</property>
                 <property name="hibernateCacheProvider">net.sf.ehcache.hibernate.EhCacheProvider</property>
                 <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>

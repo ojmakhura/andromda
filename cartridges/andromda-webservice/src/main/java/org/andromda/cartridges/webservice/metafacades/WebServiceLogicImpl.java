@@ -325,7 +325,7 @@ public class WebServiceLogicImpl
                                 {
                                     if (nonArrayType.hasStereotype(UMLProfile.STEREOTYPE_VALUE_OBJECT)
                                        || nonArrayType.hasStereotype(UMLProfile.STEREOTYPE_APPLICATION_EXCEPTION)
-                                            || nonArrayType.isEnumeration())
+                                       || nonArrayType.isEnumeration())
                                     {
                                         // we add the type when it's a non array and
                                         // has the correct stereotype (even if we have

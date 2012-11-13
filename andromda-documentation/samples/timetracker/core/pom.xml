@@ -373,7 +373,9 @@
                                 <basedir>${basedir}/../app/src/main/sql</basedir>
                                 <includes>
                                     <include>schema.sql</include>
+                                    <include>static-data-delete.sql</include>
                                     <include>static-data-insert.sql</include>
+                                    <include>test-data-delete.sql</include>
                                     <include>test-data-insert.sql</include>
                                 </includes>
                             </fileset>

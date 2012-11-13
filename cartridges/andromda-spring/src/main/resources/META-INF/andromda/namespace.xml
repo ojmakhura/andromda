@@ -625,7 +625,8 @@
             <property name="sessionFactory">
                 <default>org.springframework.orm.hibernate.LocalSessionFactoryBean</default>
                 <documentation>
-                    Factory bean that creates a local Hibernate SessionFactory instance within Spring.
+                    Factory bean that creates a local Hibernate SessionFactory instance within Spring. If using annotations
+                    with Spring3, specify org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean.
                 </documentation>
             </property>
             <property name="springTypesPackage">
