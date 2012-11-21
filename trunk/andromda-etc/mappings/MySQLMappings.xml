@@ -33,11 +33,8 @@
     </mapping>
     <mapping>
         <from>Timestamp</from>
-        <from>DateTime</from>
         <from>PrimitiveTypes::Timestamp</from>
-        <from>PrimitiveTypes::DateTime</from>
         <from>datatype::Timestamp</from>
-        <from>datatype::DateTime</from>
         <to>TIMESTAMP</to>
     </mapping>
     <mapping>
