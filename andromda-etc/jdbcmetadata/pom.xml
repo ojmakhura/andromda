@@ -105,9 +105,9 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <artifactId>hibernate-validator</artifactId>
                 <groupId>org.hibernate</groupId>
-                <version>4.3.0.Final</version>
+                <artifactId>hibernate-validator</artifactId>
+                <version>4.3.1.Final</version>
             </dependency>
             <dependency>
                 <groupId>net.sf.ehcache</groupId>
@@ -118,7 +118,7 @@
             <dependency>
                 <groupId>org.javassist</groupId>
                 <artifactId>javassist</artifactId>
-                <version>3.16.1-GA</version>
+                <version>3.17.1-GA</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -267,7 +267,7 @@
     </modules>
     <properties>
         <commons-lang.version>2.6</commons-lang.version>
-        <junit.version>4.10</junit.version>
+        <junit.version>4.11</junit.version>
         <log4j.version>1.2.17</log4j.version>
         <andromda.version>3.5-SNAPSHOT</andromda.version>
         <downloadSources>true</downloadSources>
@@ -277,7 +277,7 @@
         <stagingDirectory>C:/Workspaces/A34/jdbcmetadata/target/site</stagingDirectory>
         <testdb.groupId>com.h2database</testdb.groupId>
         <testdb.artifactId>h2</testdb.artifactId>
-        <testdb.version>1.3.168</testdb.version>
+        <testdb.version>1.3.170</testdb.version>
         <testdb.driver>org.h2.Driver</testdb.driver>
         <testdb.dialect>org.hibernate.dialect.H2Dialect</testdb.dialect>
         <!-- See http://www.h2database.com/html/features.html#database_url (mixed mode) -->

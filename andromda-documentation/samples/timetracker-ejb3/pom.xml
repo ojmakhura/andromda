@@ -140,7 +140,7 @@
             <dependency>
                 <artifactId>hibernate-validator</artifactId>
                 <groupId>org.hibernate</groupId>
-                <version>4.3.0.Final</version>
+                <version>4.3.1.Final</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -350,7 +350,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.10</version>
+                <version>4.11</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -361,7 +361,7 @@
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
-                <version>1.3.168</version>
+                <version>1.3.170</version>
                 <!--scope>test</scope-->
             </dependency>
             <dependency>
@@ -578,7 +578,7 @@
         <testdb.driver>org.h2.Driver</testdb.driver>
         <testdb.dialect>org.hibernate.dialect.H2Dialect</testdb.dialect>
         <!-- See http://www.h2database.com/html/features.html#database_url (mixed mode) -->
-        <testdb.url>jdbc:h2:~/timetracker;AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</testdb.url>
+        <testdb.url>jdbc:h2:~/timetracker-ejb3;AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</testdb.url>
         <testdb.username>sa</testdb.username>
         <testdb.password>sa</testdb.password>
         <!--
@@ -643,7 +643,7 @@
         <dataSource>java:/${dataSource.name}</dataSource>
         <!-- hibernate v4 incompatible with JBoss microcontainer logging TRACE -->
         <hibernate.version>4.1.8.Final</hibernate.version>
-        <spring.version>3.1.2.RELEASE</spring.version>
+        <spring.version>3.1.3.RELEASE</spring.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <profiles>
@@ -696,7 +696,7 @@
                     For SapDB use: jdbc:sapdb://127.0.0.1/timetracker
                     For Progress use: jdbc:JdbcProgress:T:localhost:3305:timetracker
                 -->
-                <jdbc.url>jdbc:h2:~/timetracker;AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</jdbc.url>
+                <jdbc.url>jdbc:h2:~/timetracker-ejb3;AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password>sa</jdbc.password>
                 <!--

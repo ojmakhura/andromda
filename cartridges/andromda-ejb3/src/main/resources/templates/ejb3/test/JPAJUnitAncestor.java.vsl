@@ -116,28 +116,35 @@ public abstract class JPAJUnitAncestor
      */
     public void closeAll()
     {
-        try
+        EntityManager emClose = this.getEm();
+        if (emClose != null)
         {
-            EntityTransaction trans = this.getEm().getTransaction();
-            if (trans.isActive())
+            try
             {
-                if (trans.getRollbackOnly())
+                EntityTransaction trans = emClose.getTransaction();
+                if (trans.isActive())
                 {
-                    trans.rollback();
-                    //JPAJUnitAncestor.LOGGER.info("closeAll rollback Transaction");
-                }
-                else
-                {
-                    trans.commit();
-                    //JPAJUnitAncestor.LOGGER.info("closeAll commit Transaction");
+                    if (trans.getRollbackOnly())
+                    {
+                        trans.rollback();
+                        //JPAJUnitAncestor.LOGGER.info("closeAll rollback Transaction");
+                    }
+                    else
+                    {
+                        trans.commit();
+                        //JPAJUnitAncestor.LOGGER.info("closeAll commit Transaction");
+                    }
                 }
             }
-        }
-        finally
-        {
-            this.getEm().close();
-            JPAJUnitAncestor.emf.close();
-            JPAJUnitAncestor.LOGGER.debug("closeAll() complete, em=" + this.getEm());
+            finally
+            {
+                emClose.close();
+                if (JPAJUnitAncestor.emf != null)
+                {
+                    JPAJUnitAncestor.emf.close();
+                }
+                JPAJUnitAncestor.LOGGER.debug("closeAll() complete, em=" + emClose);
+            }
         }
     }
 

@@ -427,6 +427,7 @@
         <core.generated.dir>${project.basedir}/../core/target/src/main/java</core.generated.dir>
         <core.manual.dir>${project.basedir}/../core/src/main/java</core.manual.dir>
         <core.manual.java.dir>${project.basedir}/../core/src/main/java</core.manual.java.dir>
+        <core.manual.java.resources>${project.basedir}/../core/src/main/resources</core.manual.java.resources>
 #if ($groovy)
         <core.manual.groovy.dir>${project.basedir}/../core/src/main/groovy</core.manual.groovy.dir>
 #end

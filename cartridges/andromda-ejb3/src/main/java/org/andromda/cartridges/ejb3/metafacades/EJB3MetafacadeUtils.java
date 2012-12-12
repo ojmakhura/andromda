@@ -96,12 +96,12 @@ class EJB3MetafacadeUtils
     {
         ExceptionUtils.checkNull("classifer", classifier);
         String viewType = (String)classifier.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_VIEWTYPE);
-        if (StringUtils.isEmpty(viewType))
+        if (StringUtils.isBlank(viewType))
         {
             if (classifier.hasStereotype(EJB3Profile.STEREOTYPE_SERVICE))
             {
                 // if the view type wasn't found, search all super classes
-                if (StringUtils.isEmpty(viewType))
+                if (StringUtils.isBlank(viewType))
                 {
                     viewType = (String)CollectionUtils.find(
                             classifier.getAllGeneralizations(),
@@ -114,7 +114,7 @@ class EJB3MetafacadeUtils
                                 }
                             });
                 }
-                if (StringUtils.isEmpty(viewType))
+                if (StringUtils.isBlank(viewType))
                 {
                     viewType = (StringUtils.isNotBlank(defaultViewType) ?
                             defaultViewType : EJB3Globals.VIEW_TYPE_REMOTE);
@@ -530,7 +530,7 @@ class EJB3MetafacadeUtils
         {
             Object value = element.findTaggedValue(name);
             StringBuilder buffer = new StringBuilder(StringUtils.trimToEmpty((String)value));
-            if (StringUtils.isEmpty(buffer.toString()))
+            if (StringUtils.isBlank(buffer.toString()))
             {
                 // if we can't find the tagValue then use the
                 // element name for the name

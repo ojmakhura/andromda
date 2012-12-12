@@ -220,14 +220,16 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <!-- See http://mojo.codehaus.org/hibernate3-maven-plugin/examples/run-multiple-goals.html -->
+            <!-- See http://mojo.codehaus.org/hibernate3-maven-plugin/examples/run-multiple-goals.html and
+            http://docs.jboss.org/tools/latest/en/hibernatetools/html/ant.html -->
             <plugin>
               <groupId>org.codehaus.mojo</groupId>
               <artifactId>hibernate3-maven-plugin</artifactId>
               <version>3.0</version>
               <executions>
                 <execution>
-                  <phase>process-classes</phase>
+				  <!-- Run after copying target test configuration but before running tests -->
+                  <phase>test-compile</phase>
                   <goals>
                     <goal>hbm2ddl</goal>
                   </goals>
@@ -235,31 +237,16 @@
               </executions>
               <configuration>
                 <hibernatetool destdir="../app/src/main/sql">
-                  <configuration configurationfile="src/test/resources/hibernate.cfg.xml"/>
-                  <hbm2ddl outputfilename="schema.sql" export="false" drop="true" create="true" format="true"/>
-                  <jpaconfiguration/>
+                  <jpaconfiguration persistenceunit="unit_test"/>
+                  <hbm2ddl outputfilename="schema.sql" export="false" drop="true" create="true" format="true" haltonerror="true"/>
                   <!-- Use the test DB configuration and logging when running hbm2ddl -->
                   <classpath>
-                      <path location="src/test/resources"/>
+                      <!--path location="src/test/resources"/-->
+                      <path location="target/test-classes"/>
+                      <path location="target/classes"/>
+                      <path location="target/src/main/java"/>
                   </classpath>
                 </hibernatetool>
-                <!-- hibernate3 plugin v2.2 only. v3 uses ant hibernatetool configuration -->
-                <!--components>
-                  <component>
-                    <name>hbm2ddl</name>
-                    <implementation>jpaconfiguration</implementation>
-                  </component>
-                </components>
-                <componentProperties>
-                  <export>false</export>
-                  <drop>true</drop>
-                  <create>true</create>
-                  <format>true</format>
-                  <jdk5>true</jdk5>
-                  <persistenceunit>${project.parent.artifactId}</persistenceunit>
-                  <configurationfile>src/test/resources/hibernate.cfg.xml</configurationfile>
-                  <outputfilename>../../../../app/src/main/sql/schema.sql</outputfilename>
-                </componentProperties-->
               </configuration>
               <dependencies>
                   <dependency>
@@ -269,18 +256,13 @@
                   </dependency>
                   <dependency>
                     <groupId>org.hibernate</groupId>
-                    <artifactId>hibernate-core</artifactId>
-                    <version>${hibernate.version}</version>
-                  </dependency>
-                  <dependency>
-                    <groupId>org.hibernate</groupId>
                     <artifactId>hibernate-entitymanager</artifactId>
-                    <version>${hibernate.version}</version>
+                    <version>3.6.9.Final</version>
                   </dependency>
                   <dependency>
                       <groupId>org.hibernate</groupId>
                       <artifactId>hibernate-validator</artifactId>
-                      <version>4.3.0.Final</version>
+                      <version>4.3.1.Final</version>
                   </dependency>
                   <!-- Default maven 2.2.1 depends on slf4j-jdk14 1.5.6 which conflicts with JDK6 and slf4j12-log4j -->
                   <dependency>
@@ -362,7 +344,7 @@
                 <executions>
                     <execution>
                         <id>default-cli</id>
-                        <phase>process-test-resources</phase>
+                        <phase>process-test-classes</phase>
                         <goals>
                             <goal>execute</goal>
                         </goals>
@@ -372,10 +354,10 @@
                             <fileset>
                                 <basedir>${basedir}/../app/src/main/sql</basedir>
                                 <includes>
+                                    <!--include>1test-data-delete.sql</include>
+                                    <include>2static-data-delete.sql</include-->
                                     <include>schema.sql</include>
-                                    <include>static-data-delete.sql</include>
                                     <include>static-data-insert.sql</include>
-                                    <include>test-data-delete.sql</include>
                                     <include>test-data-insert.sql</include>
                                 </includes>
                             </fileset>

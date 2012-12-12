@@ -1,0 +1,731 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:MagicDrawProfile="http:///schemas/MagicDrawProfile/_fzkQ0C9YEeKJWOb-Nim0Fg/0" xmlns:Standard="http://www.eclipse.org/uml2/schemas/Standard/1" xmlns:andromdacommon="http:///schemas/andromdacommon/_fzuB0S9YEeKJWOb-Nim0Fg/0" xmlns:andromdapersistence="http:///schemas/andromdapersistence/_fzkQ0i9YEeKJWOb-Nim0Fg/0" xmlns:andromdaservice="http:///schemas/andromdaservice/_fzuB0y9YEeKJWOb-Nim0Fg/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/2.0.0/UML" xsi:schemaLocation="http:///schemas/MagicDrawProfile/_fzkQ0C9YEeKJWOb-Nim0Fg/0 UML_Standard_Profile.MagicDraw_Profile.profile.uml#_fz3_TS9YEeKJWOb-Nim0Fg http://www.eclipse.org/uml2/schemas/Standard/1 pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w http:///schemas/andromdacommon/_fzuB0S9YEeKJWOb-Nim0Fg/0 andromda-common.profile.uml#_fz4FZC9YEeKJWOb-Nim0Fg http:///schemas/andromdapersistence/_fzkQ0i9YEeKJWOb-Nim0Fg/0 andromda-persistence.profile.uml#_fz30Di9YEeKJWOb-Nim0Fg http:///schemas/andromdaservice/_fzuB0y9YEeKJWOb-Nim0Fg/0 andromda-service.profile.uml#_fz4DeC9YEeKJWOb-Nim0Fg">
+  <uml:Model xmi:id="eee_1045467100313_135436_1" name="SpringCartridge How to Model" viewpoint="">
+    <ownedComment xmi:id="_24400562_1092013275546_280654_0" body="Author:Administrator.&#xA;Created:8/8/04 8:58 PM.&#xA;Title:.&#xA;Comment:.&#xA;" annotatedElement="eee_1045467100313_135436_1"/>
+    <packageImport xmi:id="_0primitiveTypesSpringCartridge_How_to_Model">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:id="_0javaPrimitiveTypesSpringCartridge_How_to_Model">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Package" xmi:id="magicdraw_uml_standard_profile_v_0001" name="UML Standard Profile">
+      <ownedComment xmi:id="_be00301_1078843546940_242228_131" body="UML Standard Profile contains UML metamodel (metaclasses without properties and associations), StandardProfileL2 and StandardProfileL3 from UML specification, Standard UML stereotypes defined in annex C of UML specification.&#xA;Profile also includes validation suites for UML model correctness and completeness checking, and stereotypes used by MagicDraw internally." annotatedElement="magicdraw_uml_standard_profile_v_0001"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_9_0_1fe00f9_1119336925546_238419_77" name="datatype">
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_132353_2" name="String[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_265965_3" name="double[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_479934_4" name="Integer">
+        <generalization xmi:id="_9_0_1fe00f9_1119336925531_139840_16" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_213222_11"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_433788_5" name="DateTime">
+        <generalization xmi:id="_9_0_2_12ab03bf_1119654923546_66477_16" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_918521_25"/>
+        <generalization xmi:id="_9_0_1fe00f9_1119336925531_914136_19" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_195604_13"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_736816_6" name="boolean"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_60450_7" name="Object"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_809265_8" name="List">
+        <generalization xmi:id="_9_0_1fe00f9_1119336925531_577418_64" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_331753_26"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_238790_9" name="long"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_367136_10" name="Byte">
+        <generalization xmi:id="_9_0_1fe00f9_1119336925531_732580_14" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_466526_27"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_213222_11" name="int"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_186958_12" name="Mappings"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_195604_13" name="Date"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_754532_15" name="Timestamp[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_902319_17" name="DateTime[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_84233_20" name="Document"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_593311_21" name="Float">
+        <generalization xmi:id="_9_0_1fe00f9_1119336925531_861974_30" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_489135_44"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_991330_22" name="URI"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_794756_24" name="double"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_918521_25" name="Time"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_331753_26" name="Collection"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_466526_27" name="byte"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_193099_28" name="Blob"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_473632_29" name="File[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_290366_31" name="URI[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_788724_32" name="Character[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_700429_33" name="Integer[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_766613_34" name="short"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_468864_35" name="char[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_998932_36" name="char"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_304971_37" name="Double[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_187398_38" name="URL"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_35369_39" name="Boolean[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_877505_40" name="Boolean">
+        <generalization xmi:id="_9_0_1fe00f9_1119336925531_525748_41" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_736816_6"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_798216_42" name="Set">
+        <generalization xmi:id="_9_0_1fe00f9_1119336925531_651753_68" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_331753_26"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_995153_43" name="Byte[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_489135_44" name="float"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_424824_45" name="File"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_654186_46" name="Money"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_568735_47" name="short[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_281112_48" name="Timestamp">
+        <generalization xmi:id="_9_0_1fe00f9_1119336925531_269590_69" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_195604_13"/>
+        <generalization xmi:id="_9_0_2_12ab03bf_1119654920765_9046_5" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_918521_25"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_872061_49" name="URL[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_63233_50" name="long[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_346958_51" name="Long[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_324247_52" name="void"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_45790_53" name="Clob"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_827203_54" name="Object[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_221770_56" name="Double">
+        <generalization xmi:id="_9_0_1fe00f9_1119336925531_316497_55" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_794756_24"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_82915_57" name="Float[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_704502_58" name="byte[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_227130_59" name="Long">
+        <generalization xmi:id="_9_0_1fe00f9_1119336925531_977230_61" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_238790_9"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_817948_60" name="Map"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_357343_62" name="boolean[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_441057_63" name="Character">
+        <generalization xmi:id="_9_0_1fe00f9_1119336925531_256126_18" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_998932_36"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_946801_65" name="Decimal"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_364079_66" name="String"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_229761_67" name="Decimal[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_100716_70" name="Short[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_465331_71" name="int[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_201529_72" name="TreeNode">
+        <ownedComment xmi:id="_9_0_1fe00f9_1119336961750_710036_80" body="Represents a node in a tree" annotatedElement="_9_0_1fe00f9_1119336925531_201529_72"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_21075_73" name="Short">
+        <generalization xmi:id="_9_0_1fe00f9_1119336925531_2175_23" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_766613_34"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_425626_74" name="Time[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_790883_75" name="float[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_500158_76" name="Date[]"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_2_8980277_1133493861932_36226_213" name="Guid"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_12_0_12ab03bf_1174071789843_754800_1" name="PaginationResult"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Model" xmi:id="_9_0_1fe00f9_1106264199675_585661_0" name="Spring Example" viewpoint="">
+      <packagedElement xmi:type="uml:Package" xmi:id="_9_0_1fe00f9_1106264213473_301665_1" name="org.andromda.test">
+        <packagedElement xmi:type="uml:Package" xmi:id="_9_0_1fe00f9_1106264228864_832544_2" name="1">
+          <packagedElement xmi:type="uml:Package" xmi:id="_9_0_1fe00f9_1106264428951_7263_26" name="b">
+            <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106264428951_636639_25" name="Car">
+              <ownedAttribute xmi:id="_9_0_1fe00f9_1106264428951_95407_18" name="serial" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+              <ownedAttribute xmi:id="_9_0_1fe00f9_1106264428951_599541_19" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+              <ownedAttribute xmi:id="_9_0_1fe00f9_1106264428951_910071_20" name="type" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+              <ownedOperation xmi:id="_9_0_1fe00f9_1106264428951_11536_22" name="allCarsAreRented" visibility="public" isStatic="true">
+                <ownedComment xmi:id="_9_0_1fe00f9_1106264508814_386644_154" body="Returns true if all cars are currently rented." annotatedElement="_9_0_1fe00f9_1106264428951_11536_22"/>
+                <ownedParameter xmi:id="_9_0_1fe00f9_1106264428951_709636_21" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:id="_9_0_1fe00f9_1106264428951_748657_24" name="isRented" visibility="public">
+                <ownedComment xmi:id="_9_0_1fe00f9_1106264508814_691224_155" body="Returns true if this car is current rented." annotatedElement="_9_0_1fe00f9_1106264428951_748657_24"/>
+                <ownedParameter xmi:id="_9_0_1fe00f9_1106264428951_211378_23" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" direction="return"/>
+              </ownedOperation>
+            </packagedElement>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Package" xmi:id="_9_0_1fe00f9_1106264448296_626379_35" name="a">
+            <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106264448296_915735_34" name="Car"/>
+          </packagedElement>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_9_0_1fe00f9_1106264233177_514880_3" name="2">
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106264544441_618233_294" name="Car">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106264544441_717557_287" name="serial" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106264544441_609029_288" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106264544441_930929_289" name="type" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265138077_621150_1435" name="owner" visibility="public" type="_9_0_1fe00f9_1106264547706_393517_304" association="_9_0_1fe00f9_1106265138077_740461_1436"/>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106264544441_529167_291" name="allCarsAreRented" visibility="public" isStatic="true">
+              <ownedComment xmi:id="_9_0_1fe00f9_1106264633773_519314_414" body="Returns true if all cars are currently rented." annotatedElement="_9_0_1fe00f9_1106264544441_529167_291"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106264544441_709368_290" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106264544441_845958_293" name="isRented" visibility="public">
+              <ownedComment xmi:id="_9_0_1fe00f9_1106264633773_464180_415" body="Returns true if this car is current rented." annotatedElement="_9_0_1fe00f9_1106264544441_845958_293"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106264544441_27112_292" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" direction="return"/>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106264547706_393517_304" name="Person">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106264573364_719615_335" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106264573379_141538_336" name="birthDate" visibility="public" type="_9_0_1fe00f9_1119336925531_195604_13"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265138077_774787_1434" name="" visibility="public" type="_9_0_1fe00f9_1106264544441_618233_294" association="_9_0_1fe00f9_1106265138077_740461_1436">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_17_0_1_2e90116_1353004866296_315617_3674" name="" value="*"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_17_0_1_2e90116_1353004866296_865822_3673" name=""/>
+            </ownedAttribute>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Association" xmi:id="_9_0_1fe00f9_1106265138077_740461_1436" name="" memberEnd="_9_0_1fe00f9_1106265138077_621150_1435 _9_0_1fe00f9_1106265138077_774787_1434"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_9_0_1fe00f9_1106264234255_684556_4" name="3">
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106264981007_921696_1223" name="RentalService" clientDependency="_9_0_1fe00f9_1106266444308_1175_5389 _9_0_1fe00f9_1106266446840_454551_5400">
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106265088293_459935_1272" name="getAllCars" visibility="public">
+              <ownedComment xmi:id="_9_0_1fe00f9_1106265522689_89018_2439" body="Returns a list of all cars known by the system." annotatedElement="_9_0_1fe00f9_1106265088293_459935_1272"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265088293_991907_1271" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_809265_8" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106265088293_184576_1273" name="getCustomersByName" visibility="public">
+              <ownedComment xmi:id="_9_0_1fe00f9_1106265522689_274599_2440" body="Returns all customers with the specified name." annotatedElement="_9_0_1fe00f9_1106265088293_184576_1273"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265087074_236071_1269" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" direction="inout"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265087074_184211_1270" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_809265_8" direction="return"/>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106265803716_980595_3541" name="Person">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265803716_396433_3539" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265803716_729244_3540" name="birthDate" visibility="public" type="_9_0_1fe00f9_1119336925531_195604_13"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106266486808_127928_5433" name="" visibility="public" type="_9_0_1fe00f9_1106265803716_343613_3553" association="_9_0_1fe00f9_1106266486808_654827_5435">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_17_0_1_2e90116_1353004866343_16974_3676" name="" value="*"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_17_0_1_2e90116_1353004866343_601111_3675" name=""/>
+            </ownedAttribute>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106265803716_343613_3553" name="Car">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265803716_591098_3546" name="serial" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265803716_593869_3547" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265803716_596367_3548" name="type" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106266486808_519318_5434" name="owner" visibility="public" type="_9_0_1fe00f9_1106265803716_980595_3541" association="_9_0_1fe00f9_1106266486808_654827_5435"/>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106265803716_35205_3550" name="allCarsAreRented" visibility="public" isStatic="true">
+              <ownedComment xmi:id="_9_0_1fe00f9_1106265973676_868651_3596" body="Returns true if all cars are currently rented." annotatedElement="_9_0_1fe00f9_1106265803716_35205_3550"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265803716_970676_3549" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106265803716_216206_3552" name="isRented" visibility="public">
+              <ownedComment xmi:id="_9_0_1fe00f9_1106265973676_567362_3597" body="Returns true if this car is current rented." annotatedElement="_9_0_1fe00f9_1106265803716_216206_3552"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265803716_922007_3551" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" direction="return"/>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_9_0_1fe00f9_1106266444308_1175_5389" name="" supplier="_9_0_1fe00f9_1106265803716_343613_3553" client="_9_0_1fe00f9_1106264981007_921696_1223"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_9_0_1fe00f9_1106266446840_454551_5400" name="" supplier="_9_0_1fe00f9_1106265803716_980595_3541" client="_9_0_1fe00f9_1106264981007_921696_1223"/>
+          <packagedElement xmi:type="uml:Association" xmi:id="_9_0_1fe00f9_1106266486808_654827_5435" name="" memberEnd="_9_0_1fe00f9_1106266486808_127928_5433 _9_0_1fe00f9_1106266486808_519318_5434"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_9_0_1fe00f9_1106265526095_3730_2595" name="4">
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_9_0_1fe00f9_1106265526079_371925_2573" name="" supplier="_9_0_1fe00f9_1106265526079_130085_2588" client="_9_0_1fe00f9_1106265526079_313205_2580"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_9_0_1fe00f9_1106265526079_869747_2574" name="" supplier="_9_0_1fe00f9_1106265526079_707113_2594" client="_9_0_1fe00f9_1106265526079_313205_2580"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106265526079_313205_2580" name="RentalService" clientDependency="_9_0_1fe00f9_1106265526079_869747_2574 _9_0_1fe00f9_1106265526079_371925_2573">
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106265526079_825611_2576" name="getAllCars" visibility="public">
+              <ownedComment xmi:id="_9_0_1fe00f9_1106265669871_513949_3074" body="Returns a list of all cars known by the system." annotatedElement="_9_0_1fe00f9_1106265526079_825611_2576"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265526079_551527_2575" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_809265_8" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106265526079_198234_2579" name="getCustomersByName" visibility="public">
+              <ownedComment xmi:id="_9_0_1fe00f9_1106265669871_906056_3075" body="Returns all customers with the specified name." annotatedElement="_9_0_1fe00f9_1106265526079_198234_2579"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265526079_325011_2577" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" direction="inout"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265526079_473850_2578" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_809265_8" direction="return"/>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106265526079_130085_2588" name="Car" clientDependency="_9_0_1fe00f9_1106266571323_663947_5651 _9_0_1fe00f9_1106266573448_648168_5662">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265526079_63753_2581" name="serial" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265526079_880641_2582" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265526079_28520_2583" name="type" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265526079_200410_2590" name="owner" visibility="public" type="_9_0_1fe00f9_1106265526079_707113_2594" association="_9_0_1fe00f9_1106265526079_553329_2591"/>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106265526079_768001_2585" name="allCarsAreRented" visibility="public" isStatic="true">
+              <ownedComment xmi:id="_9_0_1fe00f9_1106265669871_940607_3079" body="Returns true if all cars are currently rented." annotatedElement="_9_0_1fe00f9_1106265526079_768001_2585"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265526079_639292_2584" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106265526079_704518_2587" name="isRented" visibility="public">
+              <ownedComment xmi:id="_9_0_1fe00f9_1106265669871_360509_3080" body="Returns true if this car is current rented." annotatedElement="_9_0_1fe00f9_1106265526079_704518_2587"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265526079_504800_2586" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" direction="return"/>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Association" xmi:id="_9_0_1fe00f9_1106265526079_553329_2591" name="" memberEnd="_9_0_1fe00f9_1106265526079_350797_2589 _9_0_1fe00f9_1106265526079_200410_2590"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106265526079_707113_2594" name="Person">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265526079_946004_2592" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265526079_517476_2593" name="birthDate" visibility="public" type="_9_0_1fe00f9_1119336925531_195604_13"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265526079_350797_2589" name="" visibility="public" type="_9_0_1fe00f9_1106265526079_130085_2588" association="_9_0_1fe00f9_1106265526079_553329_2591">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_17_0_1_2e90116_1353004866358_161398_3678" name="" value="*"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_17_0_1_2e90116_1353004866358_669929_3677" name=""/>
+            </ownedAttribute>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106265540764_890195_2663" name="CarListItem">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265592492_930128_2799" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265592492_330244_2800" name="serial" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265592492_643382_2801" name="ownerName" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106265605927_132170_2984" name="CarDetails">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265605927_996985_2981" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265605927_462901_2982" name="serial" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265605927_907504_2983" name="ownerName" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265641641_978431_3048" name="year" visibility="public" type="_9_0_1fe00f9_1119336925531_195604_13"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265641641_605908_3049" name="timesRented" visibility="public" type="_9_0_1fe00f9_1119336925531_213222_11"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_9_0_1fe00f9_1106266571323_663947_5651" name="" supplier="_9_0_1fe00f9_1106265605927_132170_2984" client="_9_0_1fe00f9_1106265526079_130085_2588"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_9_0_1fe00f9_1106266573448_648168_5662" name="" supplier="_9_0_1fe00f9_1106265540764_890195_2663" client="_9_0_1fe00f9_1106265526079_130085_2588"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_9_0_1fe00f9_1106265693774_683088_3179" name="5">
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_9_0_1fe00f9_1106265693759_575702_3147" name="" supplier="_9_0_1fe00f9_1106265693759_549814_3165" client="_9_0_1fe00f9_1106265693759_61094_3159"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106265693759_769926_3153" name="CarDetails">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265693759_664982_3148" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265693759_227480_3149" name="serial" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265693759_72485_3150" name="ownerName" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265693759_906809_3151" name="year" visibility="public" type="_9_0_1fe00f9_1119336925531_195604_13"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265693759_476716_3152" name="timesRented" visibility="public" type="_9_0_1fe00f9_1119336925531_213222_11"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106265693759_61094_3159" name="RentalService" clientDependency="_9_0_1fe00f9_1106265693759_408648_3166 _9_0_1fe00f9_1106265693759_575702_3147">
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106265693759_97952_3155" name="getAllCars" visibility="public">
+              <ownedComment xmi:id="_9_0_1fe00f9_1106265795060_644477_3286" body="Returns a list of all cars known by the system." annotatedElement="_9_0_1fe00f9_1106265693759_97952_3155"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265693759_908481_3154" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_809265_8" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106265693759_603923_3158" name="getCustomersByName" visibility="public">
+              <ownedComment xmi:id="_9_0_1fe00f9_1106265795060_604629_3287" body="Returns all customers with the specified name." annotatedElement="_9_0_1fe00f9_1106265693759_603923_3158"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265693759_287835_3156" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" direction="inout"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265693759_268877_3157" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_809265_8" direction="return"/>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Association" xmi:id="_9_0_1fe00f9_1106265693759_854475_3162" name="" memberEnd="_9_0_1fe00f9_1106265693759_495672_3161 _9_0_1fe00f9_1106265693759_926924_3160"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106265693759_549814_3165" name="Person">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265693759_999159_3163" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265693759_395979_3164" name="birthDate" visibility="public" type="_9_0_1fe00f9_1119336925531_195604_13"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265693759_926924_3160" name="" visibility="public" type="_9_0_1fe00f9_1106265693759_884679_3178" association="_9_0_1fe00f9_1106265693759_854475_3162">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_17_0_1_2e90116_1353004866358_261614_3680" name="" value="*"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_17_0_1_2e90116_1353004866358_853928_3679" name=""/>
+            </ownedAttribute>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_9_0_1fe00f9_1106265693759_408648_3166" name="" supplier="_9_0_1fe00f9_1106265693759_884679_3178" client="_9_0_1fe00f9_1106265693759_61094_3159"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106265693759_43939_3170" name="CarListItem">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265693759_607901_3167" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265693759_789218_3168" name="serial" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265693759_928411_3169" name="ownerName" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106265693759_884679_3178" name="Car" clientDependency="_9_0_1fe00f9_1106266637338_256374_5903 _9_0_1fe00f9_1106266639276_821154_5914">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265693759_918700_3171" name="serial" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265693759_283189_3172" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265693759_593664_3173" name="type" visibility="public" type="_9_0_1fe00f9_1106265697071_769230_3198"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265693759_495672_3161" name="owner" visibility="public" type="_9_0_1fe00f9_1106265693759_549814_3165" association="_9_0_1fe00f9_1106265693759_854475_3162"/>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106265693759_659881_3175" name="allCarsAreRented" visibility="public" isStatic="true">
+              <ownedComment xmi:id="_9_0_1fe00f9_1106265795060_705519_3298" body="Returns true if all cars are currently rented." annotatedElement="_9_0_1fe00f9_1106265693759_659881_3175"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265693759_370928_3174" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106265693759_43456_3177" name="isRented" visibility="public">
+              <ownedComment xmi:id="_9_0_1fe00f9_1106265795060_166588_3299" body="Returns true if this car is current rented." annotatedElement="_9_0_1fe00f9_1106265693759_43456_3177"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265693759_986159_3176" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" direction="return"/>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106265697071_769230_3198" name="CarType">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265758265_913641_3244" name="sedan" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66">
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_17_0_1_2e90116_1353004866358_134797_3681" name="" value="SEDAN"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265758265_958470_3245" name="liftback" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66">
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_17_0_1_2e90116_1353004866358_459748_3682" name="" value="LIFTBACK"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265758265_330001_3246" name="stationWagon" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66">
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_17_0_1_2e90116_1353004866358_409001_3683" name="" value="STATION_WAGON"/>
+            </ownedAttribute>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_9_0_1fe00f9_1106266637338_256374_5903" name="" supplier="_9_0_1fe00f9_1106265693759_769926_3153" client="_9_0_1fe00f9_1106265693759_884679_3178"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_9_0_1fe00f9_1106266639276_821154_5914" name="" supplier="_9_0_1fe00f9_1106265693759_43939_3170" client="_9_0_1fe00f9_1106265693759_884679_3178"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_9_0_1fe00f9_1106265803716_552604_3563" name="6">
+          <ownedRule xmi:id="_9_0_1fe00f9_1106266157233_394522_4491" name="find person by name or birthdate" constrainedElement="_9_0_1fe00f9_1106265880040_993391_3572">
+            <specification xmi:type="uml:OpaqueExpression" xmi:id="_9_0_1fe00f9_1107455591912_260186_96" name="">
+              <body>context Person::findByNameOrBirthDate(name:String,birthDate:Date):Collection(Person) body findByNameOrBirthDate : allInstances->select(person | person.name = name or person.birthDate = birthDate)</body>
+            </specification>
+          </ownedRule>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106265803716_70523_3531" name="CarListItem">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265803716_312685_3528" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265803716_421737_3529" name="serial" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265803716_571489_3530" name="ownerName" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106265803716_688850_3538" name="CarDetails">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265803716_912760_3533" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265803716_396180_3534" name="serial" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265803716_712331_3535" name="ownerName" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265803716_283173_3536" name="year" visibility="public" type="_9_0_1fe00f9_1119336925531_195604_13"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265803716_788982_3537" name="timesRented" visibility="public" type="_9_0_1fe00f9_1119336925531_213222_11"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106265803716_578436_3545" name="CarType">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265803716_259235_3542" name="sedan" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66">
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_17_0_1_2e90116_1353004866358_179199_3684" name="" value="SEDAN"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265803716_923629_3543" name="liftback" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66">
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_17_0_1_2e90116_1353004866358_196207_3685" name="" value="LIFTBACK"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265803716_871066_3544" name="stationWagon" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66">
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_17_0_1_2e90116_1353004866358_568786_3686" name="" value="STATION_WAGON"/>
+            </ownedAttribute>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106265803716_289934_3562" name="RentalService" clientDependency="_9_0_1fe00f9_1106266743791_298467_6269 _9_0_1fe00f9_1106266745650_357710_6280">
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106265803716_747275_3558" name="getAllCars" visibility="public">
+              <ownedComment xmi:id="_9_0_1fe00f9_1106265973676_205131_3600" body="Returns a list of all cars known by the system." annotatedElement="_9_0_1fe00f9_1106265803716_747275_3558"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265803716_304554_3557" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_809265_8" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106265803716_850569_3561" name="getCustomersByName" visibility="public">
+              <ownedComment xmi:id="_9_0_1fe00f9_1106265973676_101900_3601" body="Returns all customers with the specified name." annotatedElement="_9_0_1fe00f9_1106265803716_850569_3561"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265803716_540826_3559" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" direction="inout"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265803716_439762_3560" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_809265_8" direction="return"/>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106265180115_95603_1729" name="Person">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265180115_107628_1727" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265180115_955762_1728" name="birthDate" visibility="public" type="_9_0_1fe00f9_1119336925531_195604_13"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106266915493_533638_6972" name="" visibility="public" type="_9_0_1fe00f9_1106265180115_484046_1737" association="_9_0_1fe00f9_1106266915493_434660_6974">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_17_0_1_2e90116_1353004866374_122050_3688" name="" value="*"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_17_0_1_2e90116_1353004866374_145873_3687" name=""/>
+            </ownedAttribute>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106265880040_447118_3570" name="findAll" visibility="public" isStatic="true" isQuery="true">
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265880040_413637_3569" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_809265_8" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106265880040_826769_3571" name="findByName" visibility="public" isStatic="true" isQuery="true">
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265873181_928088_3567" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" direction="inout"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265873181_394079_3568" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_809265_8" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106265880040_993391_3572" name="findByNameOrBirthDate" visibility="public" isStatic="true" isQuery="true">
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265861213_156259_3564" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" direction="inout"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265861213_28960_3565" name="birthDate" visibility="public" type="_9_0_1fe00f9_1119336925531_195604_13" direction="inout"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265861213_248968_3566" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_809265_8" direction="return"/>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106265180115_484046_1737" name="Car" clientDependency="_9_0_1fe00f9_1106266751463_730951_6302 _9_0_1fe00f9_1106266748838_929466_6291">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265180115_31592_1730" name="serial" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265180115_53771_1731" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106265180115_227919_1732" name="type" visibility="public" type="_9_0_1fe00f9_1106265803716_578436_3545"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106266915493_857623_6973" name="owner" visibility="public" type="_9_0_1fe00f9_1106265180115_95603_1729" association="_9_0_1fe00f9_1106266915493_434660_6974"/>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106265180115_690553_1736" name="isRented" visibility="public">
+              <ownedComment xmi:id="_9_0_1fe00f9_1106265522689_527354_2434" body="Returns true if this car is current rented." annotatedElement="_9_0_1fe00f9_1106265180115_690553_1736"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265180115_845768_1735" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106265180115_933768_1734" name="allCarsAreRented" visibility="public" isStatic="true">
+              <ownedComment xmi:id="_9_0_1fe00f9_1106265522689_809707_2433" body="Returns true if all cars are currently rented." annotatedElement="_9_0_1fe00f9_1106265180115_933768_1734"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265180115_657244_1733" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106265928257_693781_3578" name="findByType" visibility="public" isStatic="true" isQuery="true">
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265921273_572982_3576" name="type" visibility="public" type="_9_0_1fe00f9_1106265803716_578436_3545" direction="inout"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106265921273_860848_3577" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_809265_8" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1110827686428_401568_177" name="findByCriteria" visibility="public" isStatic="true" isQuery="true">
+              <ownedParameter xmi:id="_9_0_1fe00f9_1110827684709_546724_175" name="criteria" visibility="public" type="_9_0_1fe00f9_1110827570725_661819_105" direction="inout"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1110827684709_616438_176" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_809265_8" direction="return"/>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_9_0_1fe00f9_1106266743791_298467_6269" name="" supplier="_9_0_1fe00f9_1106265180115_484046_1737" client="_9_0_1fe00f9_1106265803716_289934_3562"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_9_0_1fe00f9_1106266745650_357710_6280" name="" supplier="_9_0_1fe00f9_1106265180115_95603_1729" client="_9_0_1fe00f9_1106265803716_289934_3562"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_9_0_1fe00f9_1106266748838_929466_6291" name="" supplier="_9_0_1fe00f9_1106265803716_70523_3531" client="_9_0_1fe00f9_1106265180115_484046_1737"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_9_0_1fe00f9_1106266751463_730951_6302" name="" supplier="_9_0_1fe00f9_1106265803716_688850_3538" client="_9_0_1fe00f9_1106265180115_484046_1737"/>
+          <packagedElement xmi:type="uml:Association" xmi:id="_9_0_1fe00f9_1106266915493_434660_6974" name="" memberEnd="_9_0_1fe00f9_1106266915493_857623_6973 _9_0_1fe00f9_1106266915493_533638_6972"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1110827570725_661819_105" name="CarSearchCriteria">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1110827623975_979522_166" name="serial" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1110827623975_927762_167" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+          </packagedElement>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_9_0_1fe00f9_1106266170874_13582_4694" name="7">
+          <ownedRule xmi:id="_9_0_1fe00f9_1106266170874_802766_4687" name="find person by name or birthdate" constrainedElement="_9_0_1fe00f9_1106266170874_152318_4685">
+            <specification xmi:type="uml:OpaqueExpression" xmi:id="_9_0_1fe00f9_1107455591912_826527_97" name="">
+              <body>context Person::findByNameOrBirthDate(name:String,birthDate:Date):Collection(Person) body findByNameOrBirthDate : allInstances->select(person | person.name = name or person.birthDate = birthDate)</body>
+            </specification>
+          </ownedRule>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106266170858_704947_4652" name="CarType">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106266170858_910111_4649" name="sedan" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66">
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_17_0_1_2e90116_1353004866374_144681_3689" name="" value="SEDAN"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106266170858_598465_4650" name="liftback" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66">
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_17_0_1_2e90116_1353004866374_147615_3690" name="" value="LIFTBACK"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106266170858_536302_4651" name="stationWagon" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66">
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_17_0_1_2e90116_1353004866374_843380_3691" name="" value="STATION_WAGON"/>
+            </ownedAttribute>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106266170858_292255_4658" name="CarDetails">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106266170858_386573_4653" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106266170858_795353_4654" name="serial" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106266170858_440782_4655" name="ownerName" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106266170858_326302_4656" name="year" visibility="public" type="_9_0_1fe00f9_1119336925531_195604_13"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106266170858_942416_4657" name="timesRented" visibility="public" type="_9_0_1fe00f9_1119336925531_213222_11"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106266170858_164105_4662" name="CarListItem">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106266170858_452647_4659" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106266170858_916280_4660" name="serial" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106266170858_802739_4661" name="ownerName" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_9_0_1fe00f9_1106266170858_577816_4663" name="" supplier="_9_0_1fe00f9_1106265803716_980595_3541" client="_9_0_1fe00f9_1106266170874_279931_4693"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106266170858_857214_4674" name="Car" clientDependency="_9_0_1fe00f9_1106266883196_371771_6887 _9_0_1fe00f9_1106266885446_930848_6898">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106266170858_584012_4664" name="serial" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106266170858_916032_4665" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106266170858_362199_4666" name="type" visibility="public" type="_9_0_1fe00f9_1106266170858_704947_4652"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106266170874_911547_4696" name="owner" visibility="public" type="_9_0_1fe00f9_1106266170874_969482_4686" association="_9_0_1fe00f9_1106266170874_623676_4697"/>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106266170858_199759_4670" name="isRented" visibility="public">
+              <ownedComment xmi:id="_9_0_1fe00f9_1106266240623_874935_4787" body="Returns true if this car is current rented." annotatedElement="_9_0_1fe00f9_1106266170858_199759_4670"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106266170858_42936_4669" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106266170858_434176_4668" name="allCarsAreRented" visibility="public" isStatic="true">
+              <ownedComment xmi:id="_9_0_1fe00f9_1106266240623_840359_4786" body="Returns true if all cars are currently rented." annotatedElement="_9_0_1fe00f9_1106266170858_434176_4668"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106266170858_39368_4667" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106266170858_630750_4673" name="findByType" visibility="public" isStatic="true" isQuery="true">
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106266170858_758731_4671" name="type" visibility="public" type="_9_0_1fe00f9_1106266170858_704947_4652" direction="inout"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106266170858_872973_4672" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_809265_8" direction="return"/>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106266170874_969482_4686" name="Person">
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106266170858_347670_4675" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106266170858_197075_4676" name="birthDate" visibility="public" type="_9_0_1fe00f9_1119336925531_195604_13"/>
+            <ownedAttribute xmi:id="_9_0_1fe00f9_1106266170874_640375_4695" name="" visibility="public" type="_9_0_1fe00f9_1106266170858_857214_4674" association="_9_0_1fe00f9_1106266170874_623676_4697">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_17_0_1_2e90116_1353004866374_721727_3693" name="" value="*"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_17_0_1_2e90116_1353004866374_67943_3692" name=""/>
+            </ownedAttribute>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106266170858_126322_4678" name="findAll" visibility="public" isStatic="true" isQuery="true">
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106266170858_786343_4677" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_809265_8" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106266170874_875939_4681" name="findByName" visibility="public" isStatic="true" isQuery="true">
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106266170858_637112_4679" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" direction="inout"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106266170874_839460_4680" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_809265_8" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106266170874_152318_4685" name="findByNameOrBirthDate" visibility="public" isStatic="true" isQuery="true">
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106266170874_773421_4682" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" direction="inout"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106266170874_187772_4683" name="birthDate" visibility="public" type="_9_0_1fe00f9_1119336925531_195604_13" direction="inout"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106266170874_135338_4684" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_809265_8" direction="return"/>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106266170874_279931_4693" name="RentalService" clientDependency="_9_0_1fe00f9_1106266871384_989838_6696 _9_0_1fe00f9_1106266170858_577816_4663 _9_0_1fe00f9_1106266875493_380154_6718">
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106266170874_338297_4689" name="getAllCars" visibility="public">
+              <ownedComment xmi:id="_9_0_1fe00f9_1106266240623_762156_4791" body="Returns a list of all cars known by the system." annotatedElement="_9_0_1fe00f9_1106266170874_338297_4689"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106266170874_366864_4688" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_809265_8" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_9_0_1fe00f9_1106266170874_147076_4692" name="getCustomersByName" visibility="public">
+              <ownedComment xmi:id="_9_0_1fe00f9_1106266240623_27236_4792" body="Returns all customers with the specified name." annotatedElement="_9_0_1fe00f9_1106266170874_147076_4692"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106266170874_208236_4690" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" direction="inout"/>
+              <ownedParameter xmi:id="_9_0_1fe00f9_1106266170874_793816_4691" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_809265_8" direction="return"/>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_0_1fe00f9_1106266186624_523560_4698" name="RentalException"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_9_0_1fe00f9_1106266871384_989838_6696" name="" supplier="_9_0_1fe00f9_1106266170858_857214_4674" client="_9_0_1fe00f9_1106266170874_279931_4693"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_9_0_1fe00f9_1106266875493_380154_6718" name="" supplier="_9_0_1fe00f9_1106266186624_523560_4698" client="_9_0_1fe00f9_1106266170874_279931_4693"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_9_0_1fe00f9_1106266883196_371771_6887" name="" supplier="_9_0_1fe00f9_1106266170858_292255_4658" client="_9_0_1fe00f9_1106266170858_857214_4674"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_9_0_1fe00f9_1106266885446_930848_6898" name="" supplier="_9_0_1fe00f9_1106266170858_164105_4662" client="_9_0_1fe00f9_1106266170858_857214_4674"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_9_0_1fe00f9_1106266170874_623676_4697" name="" memberEnd="_9_0_1fe00f9_1106266170874_640375_4695 _9_0_1fe00f9_1106266170874_911547_4696"/>
+        <packagedElement xmi:type="uml:Package" xmi:id="_9_5_1_5c70206_1125309928387_469681_72" name="8">
+          <packagedElement xmi:type="uml:Class" xmi:id="_9_5_1_5c70206_1125309957343_536048_219" name="RentalService">
+            <ownedOperation xmi:id="_9_5_1_5c70206_1125309957343_554895_215" name="getAllCars" visibility="public">
+              <ownedComment xmi:id="_9_5_1_5c70206_1125310571900_636048_319" body="Returns a list of all cars known by the system." annotatedElement="_9_5_1_5c70206_1125309957343_554895_215"/>
+              <ownedParameter xmi:id="_9_5_1_5c70206_1125309957343_403089_214" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_809265_8" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_9_5_1_5c70206_1125309957343_621600_218" name="getCustomersByName" visibility="public">
+              <ownedComment xmi:id="_9_5_1_5c70206_1125310571900_22928_320" body="Returns all customers with the specified name." annotatedElement="_9_5_1_5c70206_1125309957343_621600_218"/>
+              <ownedParameter xmi:id="_9_5_1_5c70206_1125309957343_417661_216" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" direction="inout"/>
+              <ownedParameter xmi:id="_9_5_1_5c70206_1125309957343_807958_217" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_809265_8" direction="return"/>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Actor" xmi:id="_9_5_1_5c70206_1125312772243_473234_507" name="ASSISTANT" clientDependency="_9_5_1_5c70206_1125314567932_803652_730"/>
+          <packagedElement xmi:type="uml:Actor" xmi:id="_9_5_1_5c70206_1125314519634_234823_673" name="MANAGER" clientDependency="_9_5_1_5c70206_1125314604096_773886_731"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_9_5_1_5c70206_1125314567932_803652_730" name="" supplier="_9_5_1_5c70206_1125309957343_554895_215" client="_9_5_1_5c70206_1125312772243_473234_507"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_9_5_1_5c70206_1125314604096_773886_731" name="" supplier="_9_5_1_5c70206_1125309957343_536048_219" client="_9_5_1_5c70206_1125314519634_234823_673"/>
+          <packagedElement xmi:type="uml:Package" xmi:id="_9_5_1_5c70206_1125480240422_973690_18" name="a"/>
+          <packagedElement xmi:type="uml:Package" xmi:id="_9_5_1_5c70206_1125480244750_793633_46" name="b"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_17_0_1_2e90116_1353005108782_551103_3959" name="9">
+          <ownedRule xmi:id="_17_0_1_2e90116_1353005108797_952713_3972" name="find person by name or birthdate" constrainedElement="_17_0_1_2e90116_1353005109016_734171_4021">
+            <specification xmi:type="uml:OpaqueExpression" xmi:id="_17_0_1_2e90116_1353005109016_863236_4030" name="">
+              <body>context Person::findByNameOrBirthDate(name:String,birthDate:Date):Collection(Person) body findByNameOrBirthDate : allInstances->select(person | person.name = name or person.birthDate = birthDate)</body>
+            </specification>
+          </ownedRule>
+          <packagedElement xmi:type="uml:Class" xmi:id="_17_0_1_2e90116_1353005108782_181653_3961" name="CarDetails">
+            <ownedAttribute xmi:id="_17_0_1_2e90116_1353005109001_374246_4000" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_17_0_1_2e90116_1353005109001_559979_4001" name="serial" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_17_0_1_2e90116_1353005109001_541409_4002" name="ownerName" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_17_0_1_2e90116_1353005109001_622971_4003" name="year" visibility="public" type="_9_0_1fe00f9_1119336925531_195604_13"/>
+            <ownedAttribute xmi:id="_17_0_1_2e90116_1353005109001_184650_4004" name="timesRented" visibility="public" type="_9_0_1fe00f9_1119336925531_213222_11"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_17_0_1_2e90116_1353005108782_906290_3962" name="CarListItem">
+            <ownedAttribute xmi:id="_17_0_1_2e90116_1353005109001_918354_4006" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_17_0_1_2e90116_1353005109001_699795_4007" name="serial" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_17_0_1_2e90116_1353005109001_182652_4008" name="ownerName" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_17_0_1_2e90116_1353005108782_1474_3963" name="" supplier="_9_0_1fe00f9_1106265803716_980595_3541" client="_17_0_1_2e90116_1353005108782_62711_3966"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_17_0_1_2e90116_1353005108782_510423_3964" name="Car" clientDependency="_17_0_1_2e90116_1353005108797_627901_3970 _17_0_1_2e90116_1353005108797_511794_3971">
+            <ownedAttribute xmi:id="_17_0_1_2e90116_1353005109001_882604_4014" name="serial" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_17_0_1_2e90116_1353005109001_536172_4015" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_17_0_1_2e90116_1353005109001_189337_4016" name="type" visibility="public" type="_17_0_1_2e90116_1353005912896_719408_4560"/>
+            <ownedAttribute xmi:id="_17_0_1_2e90116_1353005109001_643657_4017" name="owner" visibility="public" type="_17_0_1_2e90116_1353005108782_230207_3965" association="_17_0_1_2e90116_1353005109001_332960_4010"/>
+            <ownedOperation xmi:id="_17_0_1_2e90116_1353005109001_254552_4011" name="isRented" visibility="public">
+              <ownedComment xmi:id="_17_0_1_2e90116_1353005109032_648927_4077" body="Returns true if this car is current rented." annotatedElement="_17_0_1_2e90116_1353005109001_254552_4011"/>
+              <ownedParameter xmi:id="_17_0_1_2e90116_1353005109032_750073_4076" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_17_0_1_2e90116_1353005109001_742907_4012" name="allCarsAreRented" visibility="public" isStatic="true">
+              <ownedComment xmi:id="_17_0_1_2e90116_1353005109032_460269_4079" body="Returns true if all cars are currently rented." annotatedElement="_17_0_1_2e90116_1353005109001_742907_4012"/>
+              <ownedParameter xmi:id="_17_0_1_2e90116_1353005109032_730180_4078" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_17_0_1_2e90116_1353005109001_712731_4013" name="findByType" visibility="public" isStatic="true" isQuery="true">
+              <ownedParameter xmi:id="_17_0_1_2e90116_1353005109032_713946_4080" name="type" visibility="public" type="_17_0_1_2e90116_1353005912896_719408_4560" direction="inout"/>
+              <ownedParameter xmi:id="_17_0_1_2e90116_1353005109032_877826_4081" name="" visibility="public" type="_17_0_1_2e90116_1353005108782_510423_3964" direction="return">
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_17_0_1_2e90116_1353005356205_544777_4549" name="" value="*"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_17_0_1_2e90116_1353005356205_664391_4548" name=""/>
+              </ownedParameter>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_17_0_1_2e90116_1353005108782_230207_3965" name="Person">
+            <ownedAttribute xmi:id="_17_0_1_2e90116_1353005109016_261919_4022" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
+            <ownedAttribute xmi:id="_17_0_1_2e90116_1353005109016_911021_4023" name="birthDate" visibility="public" type="_9_0_1fe00f9_1119336925531_195604_13"/>
+            <ownedAttribute xmi:id="_17_0_1_2e90116_1353005109016_905922_4024" name="" visibility="public" type="_17_0_1_2e90116_1353005108782_510423_3964" association="_17_0_1_2e90116_1353005109001_332960_4010">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_17_0_1_2e90116_1353005109047_418082_4088" name="" value="*"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_17_0_1_2e90116_1353005109047_26667_4089" name=""/>
+            </ownedAttribute>
+            <ownedOperation xmi:id="_17_0_1_2e90116_1353005109016_500651_4019" name="findAll" visibility="public" isStatic="true" isQuery="true">
+              <ownedParameter xmi:id="_17_0_1_2e90116_1353005109032_272642_4082" name="" visibility="public" type="_17_0_1_2e90116_1353005108782_230207_3965" direction="return">
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_17_0_1_2e90116_1353005420674_77053_4551" name="" value="*"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_17_0_1_2e90116_1353005420674_28915_4550" name=""/>
+              </ownedParameter>
+            </ownedOperation>
+            <ownedOperation xmi:id="_17_0_1_2e90116_1353005109016_700600_4020" name="findByName" visibility="public" isStatic="true" isQuery="true">
+              <ownedParameter xmi:id="_17_0_1_2e90116_1353005109032_404347_4083" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" direction="inout"/>
+              <ownedParameter xmi:id="_17_0_1_2e90116_1353005109032_603529_4084" name="" visibility="public" type="_17_0_1_2e90116_1353005108782_230207_3965" direction="return">
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_17_0_1_2e90116_1353005446659_514590_4553" name="" value="*"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_17_0_1_2e90116_1353005446659_236993_4552" name=""/>
+              </ownedParameter>
+            </ownedOperation>
+            <ownedOperation xmi:id="_17_0_1_2e90116_1353005109016_734171_4021" name="findByNameOrBirthDate" visibility="public" isStatic="true" isQuery="true">
+              <ownedParameter xmi:id="_17_0_1_2e90116_1353005109032_232505_4085" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" direction="inout"/>
+              <ownedParameter xmi:id="_17_0_1_2e90116_1353005109032_414705_4086" name="birthDate" visibility="public" type="_9_0_1fe00f9_1119336925531_195604_13" direction="inout"/>
+              <ownedParameter xmi:id="_17_0_1_2e90116_1353005109032_952790_4087" name="" visibility="public" type="_17_0_1_2e90116_1353005108782_230207_3965" direction="return">
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_17_0_1_2e90116_1353005465659_827265_4555" name="" value="*"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_17_0_1_2e90116_1353005465659_969028_4554" name=""/>
+              </ownedParameter>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_17_0_1_2e90116_1353005108782_62711_3966" name="RentalService" clientDependency="_17_0_1_2e90116_1353005108782_1474_3963">
+            <ownedOperation xmi:id="_17_0_1_2e90116_1353005109016_35821_4026" name="getAllCars" visibility="public" raisedException="_17_0_1_2e90116_1353005108782_157183_3967">
+              <ownedComment xmi:id="_17_0_1_2e90116_1353005109047_142120_4091" body="Returns a list of all cars known by the system." annotatedElement="_17_0_1_2e90116_1353005109016_35821_4026"/>
+              <ownedParameter xmi:id="_17_0_1_2e90116_1353005109047_96387_4090" name="rtn" visibility="public" type="_17_0_1_2e90116_1353005108782_510423_3964" direction="return">
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_17_0_1_2e90116_1353005499487_930036_4557" name="" value="*"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_17_0_1_2e90116_1353005499487_766060_4556" name=""/>
+              </ownedParameter>
+            </ownedOperation>
+            <ownedOperation xmi:id="_17_0_1_2e90116_1353005109016_927094_4027" name="getCustomersByName" visibility="public" raisedException="_17_0_1_2e90116_1353005108782_62711_3966">
+              <ownedComment xmi:id="_17_0_1_2e90116_1353005109047_745062_4094" body="Returns all customers with the specified name." annotatedElement="_17_0_1_2e90116_1353005109016_927094_4027"/>
+              <ownedParameter xmi:id="_17_0_1_2e90116_1353005109047_381782_4092" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" direction="inout"/>
+              <ownedParameter xmi:id="_17_0_1_2e90116_1353005109047_105251_4093" name="rtn" visibility="public" type="_17_0_1_2e90116_1353005108782_230207_3965" direction="return">
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_17_0_1_2e90116_1353005523613_972743_4559" name="" value="*"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_17_0_1_2e90116_1353005523613_805593_4558" name=""/>
+              </ownedParameter>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_17_0_1_2e90116_1353005108782_157183_3967" name="RentalException"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_17_0_1_2e90116_1353005108797_627901_3970" name="" supplier="_17_0_1_2e90116_1353005108782_181653_3961" client="_17_0_1_2e90116_1353005108782_510423_3964"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_17_0_1_2e90116_1353005108797_511794_3971" name="" supplier="_17_0_1_2e90116_1353005108782_906290_3962" client="_17_0_1_2e90116_1353005108782_510423_3964"/>
+          <packagedElement xmi:type="uml:Enumeration" xmi:id="_17_0_1_2e90116_1353005912896_719408_4560" name="CarType">
+            <ownedLiteral xmi:id="_17_0_1_2e90116_1353005924021_183468_4561" name="Sedan" classifier="_17_0_1_2e90116_1353005912896_719408_4560"/>
+            <ownedLiteral xmi:id="_17_0_1_2e90116_1353006067257_424479_4562" name="Liftback" classifier="_17_0_1_2e90116_1353005912896_719408_4560"/>
+            <ownedLiteral xmi:id="_17_0_1_2e90116_1353006075366_391268_4563" name="Station Wagon" classifier="_17_0_1_2e90116_1353005912896_719408_4560"/>
+          </packagedElement>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_17_0_1_2e90116_1353005109001_332960_4010" name="" memberEnd="_17_0_1_2e90116_1353005109016_905922_4024 _17_0_1_2e90116_1353005109001_643657_4017"/>
+      </packagedElement>
+    </packagedElement>
+    <profileApplication xmi:id="_11_5_e240333_1154527578125_463523_83profileApplicationSpringCartridge_How_to_Model">
+      <eAnnotations xmi:id="_fz4JVS9YEeKJWOb-Nim0Fg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-process.profile.uml#_fz3-vS9YEeKJWOb-Nim0Fg"/>
+      </eAnnotations>
+      <appliedProfile href="andromda-process.profile.uml#_11_5_e240333_1154527578125_463523_83"/>
+    </profileApplication>
+    <profileApplication xmi:id="_be00301_1073394351331_445580_2profileApplicationSpringCartridge_How_to_Model">
+      <eAnnotations xmi:id="_fz4JVy9YEeKJWOb-Nim0Fg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_fz3_TS9YEeKJWOb-Nim0Fg"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_be00301_1073394351331_445580_2"/>
+    </profileApplication>
+    <profileApplication xmi:id="_16_6_8f90291_1254846042821_86742_517profileApplicationSpringCartridge_How_to_Model">
+      <eAnnotations xmi:id="_fz4JWS9YEeKJWOb-Nim0Fg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.Traceability_customization.profile.uml#_fz3zJS9YEeKJWOb-Nim0Fg"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.Traceability_customization.profile.uml#_16_6_8f90291_1254846042821_86742_517"/>
+    </profileApplication>
+    <profileApplication xmi:id="_11_5_e240333_1154527540265_181005_899profileApplicationSpringCartridge_How_to_Model">
+      <eAnnotations xmi:id="_fz4JWy9YEeKJWOb-Nim0Fg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-persistence.profile.uml#_fz30Di9YEeKJWOb-Nim0Fg"/>
+      </eAnnotations>
+      <appliedProfile href="andromda-persistence.profile.uml#_11_5_e240333_1154527540265_181005_899"/>
+    </profileApplication>
+    <profileApplication xmi:id="_11_5_e240333_1154527378140_885914_432profileApplicationSpringCartridge_How_to_Model">
+      <eAnnotations xmi:id="_f0A8wS9YEeKJWOb-Nim0Fg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-presentation.profile.uml#_fz35Iy9YEeKJWOb-Nim0Fg"/>
+      </eAnnotations>
+      <appliedProfile href="andromda-presentation.profile.uml#_11_5_e240333_1154527378140_885914_432"/>
+    </profileApplication>
+    <profileApplication xmi:id="_9_0_be00301_1108050582343_527400_10847profileApplicationSpringCartridge_How_to_Model">
+      <eAnnotations xmi:id="_f0A8wy9YEeKJWOb-Nim0Fg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.StandardProfileL2.profile.uml#_fz3z2S9YEeKJWOb-Nim0Fg"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.StandardProfileL2.profile.uml#_9_0_be00301_1108050582343_527400_10847"/>
+    </profileApplication>
+    <profileApplication xmi:id="_8a70287_1078771814628_224704_589profileApplicationSpringCartridge_How_to_Model">
+      <eAnnotations xmi:id="_f0A8xS9YEeKJWOb-Nim0Fg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-common.profile.uml#_fz4FZC9YEeKJWOb-Nim0Fg"/>
+      </eAnnotations>
+      <appliedProfile href="andromda-common.profile.uml#_8a70287_1078771814628_224704_589"/>
+    </profileApplication>
+    <profileApplication xmi:id="_9_0_2_12ab03bf_1120852932765_76536_0profileApplicationSpringCartridge_How_to_Model">
+      <eAnnotations xmi:id="_f0A8xy9YEeKJWOb-Nim0Fg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-webservice.profile.uml#_fz38gS9YEeKJWOb-Nim0Fg"/>
+      </eAnnotations>
+      <appliedProfile href="andromda-webservice.profile.uml#_9_0_2_12ab03bf_1120852932765_76536_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_11_5_e240333_1154527425687_111873_349profileApplicationSpringCartridge_How_to_Model">
+      <eAnnotations xmi:id="_f0A8yS9YEeKJWOb-Nim0Fg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-service.profile.uml#_fz4DeC9YEeKJWOb-Nim0Fg"/>
+      </eAnnotations>
+      <appliedProfile href="andromda-service.profile.uml#_11_5_e240333_1154527425687_111873_349"/>
+    </profileApplication>
+    <profileApplication xmi:id="_11_5_be00301_1153310565718_226811_161profileApplicationSpringCartridge_How_to_Model">
+      <eAnnotations xmi:id="_f0A8yy9YEeKJWOb-Nim0Fg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_fz3y1C9YEeKJWOb-Nim0Fg"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_11_5_be00301_1153310565718_226811_161"/>
+    </profileApplication>
+    <profileApplication xmi:id="_11_5_f720368_1159529670215_231387_1profileApplicationSpringCartridge_How_to_Model">
+      <eAnnotations xmi:id="_f0A8zS9YEeKJWOb-Nim0Fg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.Validation_Profile.profile.uml#_fz4HSS9YEeKJWOb-Nim0Fg"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.Validation_Profile.profile.uml#_11_5_f720368_1159529670215_231387_1"/>
+    </profileApplication>
+    <profileApplication xmi:id="_9_0_2_12ab03bf_1120852471296_986007_0profileApplicationSpringCartridge_How_to_Model">
+      <eAnnotations xmi:id="_f0A8zy9YEeKJWOb-Nim0Fg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-xml.profile.uml#_fz34lS9YEeKJWOb-Nim0Fg"/>
+      </eAnnotations>
+      <appliedProfile href="andromda-xml.profile.uml#_9_0_2_12ab03bf_1120852471296_986007_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_16_8beta_62a020a_1256807755193_508228_378profileApplicationSpringCartridge_How_to_Model">
+      <eAnnotations xmi:id="_f0A80S9YEeKJWOb-Nim0Fg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.StandardProfileL3.profile.uml#_fz4Dci9YEeKJWOb-Nim0Fg"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.StandardProfileL3.profile.uml#_16_8beta_62a020a_1256807755193_508228_378"/>
+    </profileApplication>
+    <profileApplication xmi:id="_0profileApplicationSpringCartridge_How_to_Model">
+      <eAnnotations xmi:id="_f0nZwy9YEeKJWOb-Nim0Fg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Model>
+  <MagicDrawProfile:auxiliaryResource xmi:id="_f0KtwC9YEeKJWOb-Nim0Fg" base_Element="magicdraw_uml_standard_profile_v_0001" base_Package="magicdraw_uml_standard_profile_v_0001"/>
+  <andromdapersistence:Entity xmi:id="_f0dpAy9YEeKJWOb-Nim0Fg" base_Class="_17_0_1_2e90116_1353005108782_230207_3965"/>
+  <andromdapersistence:Entity xmi:id="_f0dpBC9YEeKJWOb-Nim0Fg" base_Class="_17_0_1_2e90116_1353005108782_510423_3964"/>
+  <andromdapersistence:Entity xmi:id="_f0dpBS9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106266170858_857214_4674"/>
+  <andromdapersistence:Entity xmi:id="_f0dpBi9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106265803716_980595_3541"/>
+  <andromdapersistence:Entity xmi:id="_f0dpBy9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106266170874_969482_4686"/>
+  <andromdapersistence:Entity xmi:id="_f0dpCC9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106265526079_707113_2594"/>
+  <andromdapersistence:Entity xmi:id="_f0dpCS9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106264547706_393517_304"/>
+  <andromdapersistence:Entity xmi:id="_f0dpCi9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106265180115_95603_1729"/>
+  <andromdapersistence:Entity xmi:id="_f0dpCy9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106265803716_343613_3553"/>
+  <andromdapersistence:Entity xmi:id="_f0dpDC9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106265693759_884679_3178"/>
+  <andromdapersistence:Entity xmi:id="_f0dpDS9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106265693759_549814_3165"/>
+  <andromdapersistence:Entity xmi:id="_f0nZsC9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106264544441_618233_294"/>
+  <andromdapersistence:Entity xmi:id="_f0nZsS9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106265526079_130085_2588"/>
+  <andromdapersistence:Entity xmi:id="_f0nZsi9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106264428951_636639_25"/>
+  <andromdapersistence:Entity xmi:id="_f0nZsy9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106264448296_915735_34"/>
+  <andromdapersistence:Entity xmi:id="_f0nZtC9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106265180115_484046_1737"/>
+  <andromdapersistence:Criteria xmi:id="_f0nZtS9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1110827570725_661819_105"/>
+  <Standard:ModelLibrary xmi:id="_f0nZxC9YEeKJWOb-Nim0Fg" base_Package="eee_1045467100313_135436_1"/>
+  <Standard:ModelLibrary xmi:id="_f0nZyy9YEeKJWOb-Nim0Fg" base_Package="_9_0_1fe00f9_1119336925546_238419_77"/>
+  <andromdacommon:Enumeration xmi:id="_f0nZzy9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106265697071_769230_3198"/>
+  <andromdacommon:Enumeration xmi:id="_f0nZ0C9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106266170858_704947_4652"/>
+  <andromdacommon:Enumeration xmi:id="_f0nZ0S9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106265803716_578436_3545"/>
+  <andromdacommon:ValueObject xmi:id="_f0nZ0i9YEeKJWOb-Nim0Fg" base_Class="_17_0_1_2e90116_1353005108782_906290_3962"/>
+  <andromdacommon:ValueObject xmi:id="_f0nZ0y9YEeKJWOb-Nim0Fg" base_Class="_17_0_1_2e90116_1353005108782_181653_3961"/>
+  <andromdacommon:ValueObject xmi:id="_f0nZ1C9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106266170858_164105_4662"/>
+  <andromdacommon:ValueObject xmi:id="_f0nZ1S9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106265693759_769926_3153"/>
+  <andromdacommon:ValueObject xmi:id="_f0nZ1i9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106265693759_43939_3170"/>
+  <andromdacommon:ValueObject xmi:id="_f0nZ1y9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106265605927_132170_2984"/>
+  <andromdacommon:ValueObject xmi:id="_f0nZ2C9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106265540764_890195_2663"/>
+  <andromdacommon:ValueObject xmi:id="_f0wjoC9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106265803716_688850_3538"/>
+  <andromdacommon:ValueObject xmi:id="_f0wjoS9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106266170858_292255_4658"/>
+  <andromdacommon:ValueObject xmi:id="_f0wjoi9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106265803716_70523_3531"/>
+  <andromdacommon:ApplicationException xmi:id="_f0wjoy9YEeKJWOb-Nim0Fg" base_Class="_17_0_1_2e90116_1353005108782_157183_3967"/>
+  <andromdacommon:ApplicationException xmi:id="_f0wjpC9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106266186624_523560_4698"/>
+  <andromdaservice:Service xmi:id="_f0wjpS9YEeKJWOb-Nim0Fg" base_Class="_17_0_1_2e90116_1353005108782_62711_3966"/>
+  <andromdaservice:Service xmi:id="_f0wjpi9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106266170874_279931_4693"/>
+  <andromdaservice:Service xmi:id="_f0wjpy9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106265526079_313205_2580"/>
+  <andromdaservice:Service xmi:id="_f0wjqC9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106265693759_61094_3159"/>
+  <andromdaservice:Service xmi:id="_f0wjqS9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106265803716_289934_3562"/>
+  <andromdaservice:Service xmi:id="_f0wjqi9YEeKJWOb-Nim0Fg" base_Class="_9_0_1fe00f9_1106264981007_921696_1223"/>
+  <andromdaservice:Service xmi:id="_f0wjqy9YEeKJWOb-Nim0Fg" base_Class="_9_5_1_5c70206_1125309957343_536048_219"/>
+</xmi:XMI>

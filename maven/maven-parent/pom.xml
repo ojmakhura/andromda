@@ -51,7 +51,7 @@
             <dependency>
                 <groupId>org.codehaus.plexus</groupId>
                 <artifactId>plexus-utils</artifactId>
-                <version>3.0.8</version>
+                <version>3.0.10</version>
                 <scope>provided</scope>
             </dependency -->
         </dependencies>
@@ -554,6 +554,7 @@
         <maven-scm-plugin.version>1.8</maven-scm-plugin.version>
         <maven-site-plugin.version>3.2</maven-site-plugin.version>
         <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
+		<!-- V2.12 timetracker-ejb3 regression: The forked VM terminated without saying properly goodbye. VM crash or System.exit called -->
         <maven-surefire-plugin.version>2.12.4</maven-surefire-plugin.version>
         <maven-surefire-report-plugin.version>2.12.4</maven-surefire-report-plugin.version>
         <maven-verifier-plugin.version>1.0</maven-verifier-plugin.version>
@@ -1160,9 +1161,9 @@
               </site>
             </distributionManagement>
         </profile>
-        <!--Profile configuration for sonatype builds and distribution. See
+        <!--Profile configuration for sonatype builds and distribution. Consistent with sonatype parent settings in
         https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide -->
-        <!-- Sonatype id/password must be specified in settings.xml -->
+        <!-- sonatype-nexus-snapshots server id/password must be specified in your maven settings.xml -->
         <profile>
             <id>sonatype</id>
             <build>
@@ -1232,30 +1233,31 @@
                     </plugin>
                 </plugins>
             </build>
+            <!-- DOES NOT override default distributionManagement scratch directory when activated. altDeploymentRepository must be used -->
             <distributionManagement>
                 <snapshotRepository>
                     <id>sonatype-nexus-snapshots</id>
                     <name>Sonatype Nexus Snapshots</name>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                    <url>${sonatypeOssDistMgmtSnapshotsUrl}</url>
                 </snapshotRepository>
                 <repository>
                     <id>sonatype-nexus-staging</id>
-                    <name>Nexus Staging Repository</name>
+                    <name>Nexus Release Repository</name>
                     <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
                 </repository>
             </distributionManagement>
             <properties>
-                <repositoryId>andromda-snapshots</repositoryId>
-                <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+                <sonatypeOssDistMgmtSnapshotsUrl>https://oss.sonatype.org/content/repositories/snapshots/</sonatypeOssDistMgmtSnapshotsUrl>
+                <altDeploymentRepository>sonatype-nexus-snapshots::default::${sonatypeOssDistMgmtSnapshotsUrl}</altDeploymentRepository>
             </properties>
         </profile>
-        <!-- Needed for releases only. settings.xml: Add same profile with gpg.keyname, gpg.passphrase, pg.homedir properties.
+        <!-- Required for releases only. settings.xml: Add same profile with gpg.keyname, gpg.passphrase, gpg.homedir properties.
           Run mvn deploy -Pjavadocs,local,gpg-andromda > deploy.txt -->
         <profile>
             <id>gpg-andromda</id>
             <build>
                 <plugins>
-                    <!-- Configure maven settings.xml gpg.keyname=<username> gpg.passphrase=<value> -->
+                    <!-- Configure maven settings.xml gpg.keyname=<username> gpg.passphrase=<value> gpg.homedir if an alternate key directory -->
                     <plugin>
                         <artifactId>maven-gpg-plugin</artifactId>
                         <version>${maven-gpg-plugin.version}</version>

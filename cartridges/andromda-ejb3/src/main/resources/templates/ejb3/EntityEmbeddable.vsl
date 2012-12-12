@@ -110,11 +110,12 @@ $entity.getDocumentation(" * ")
 #**##else
 #*  *##set ($finders = $entity.getQueryOperations(false))
 #**##end
+#set ($entityIdVariable = $stringUtils.uncapitalize($entity.name).substring(0,1))
 #**##if (!$finders.empty)
 @javax.persistence.NamedQueries
 ({
 #*  *##if ($entity.genericFinders && !$entity.finderFindAllExists)
-    @javax.persistence.NamedQuery(name="${entity.name}.findAll", query="select $stringUtils.uncapitalize($entity.name) from ${entity.name} AS $stringUtils.uncapitalize($entity.name)")#if (!$finders.empty),#end
+    @javax.persistence.NamedQuery(name="${entity.name}.findAll", query="SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable")#if (!$finders.empty),#end
 
 #*  *##end
 #*  *##foreach ($finder in $finders)
@@ -124,7 +125,7 @@ $entity.getDocumentation(" * ")
 })
 #**##else
 #*  *##if ($entity.genericFinders)
-@javax.persistence.NamedQuery(name="${entity.name}.findAll", query="select $stringUtils.uncapitalize($entity.name) from ${entity.name} AS $stringUtils.uncapitalize($entity.name)")#if (!$finders.empty),#end
+@javax.persistence.NamedQuery(name="${entity.name}.findAll", query="SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable")#if (!$finders.empty),#end
 
 #*  *##end
 #**##end
@@ -502,7 +503,7 @@ $target.getDocumentation("     * ")
 ##
 #*      *##if (!$target.type.compositePrimaryKeyPresent)
 ##    // assocEnd=$associationEnd.fullyQualifiedName optional=$target.optional $target.insertEnabled $target.updateEnabled $associationEnd.insertEnabled $associationEnd.updateEnabled end=$associationEnd.optional target=$target.type.name assocEnd=$associationEnd.type.name
-    @javax.persistence.JoinColumn(name="$target.columnName"#if ($associationEnd.columnDefinition), columnDefinition="$associationEnd.columnDefinition"#end#if ($associationEnd.columnNullable), nullable=false#if (!$associationEnd.insertEnabled), insertable=false#end#if (!$associationEnd.updateEnabled), updatable=false#end#end)
+    @javax.persistence.JoinColumn(name="$target.columnName"#if ($associationEnd.columnDefinition), columnDefinition="$associationEnd.columnDefinition"#end#if ($associationEnd.columnNullable), nullable=false#end, insertable=true, updatable=true)
 #*      *##else
 #*        *##set ($identifiers = $target.type.identifiers)
     // Order of the JoinColumns is EXTREMELY important - must match the order in the FK definition

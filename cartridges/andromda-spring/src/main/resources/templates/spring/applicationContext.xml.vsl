@@ -13,9 +13,10 @@
     </bean>
 
     <!-- applicationContext merge-point -->
+##    <!-- daosEnabled=$daosEnabled recordType=$recordType daos=$daos entities=$entities $entities.size() -->
 #set ($daosEnabled = $daosEnabled && !$entities.empty)
+#set ($daosEnabled = $stringUtils.isNotBlank($daos) && $recordType.equalsIgnoreCase("dao") && !$entities.empty)
 ## only generate this stuff if 'daos' has been defined in a namespace
-#if ($daosEnabled)
 #if (!$hibernateEntityAnnotations)
     <bean id="${beanNamePrefix}hibernateMappingLocations" class="org.springframework.beans.factory.config.ListFactoryBean">
         <property name="sourceList">
@@ -145,6 +146,7 @@
     </bean>
 #end
 
+#if ($daosEnabled)
 #foreach($entity in $entities)
 #if($implementationLanguage == "groovy" && $entity.daoImplementationRequired)
 #set($propertyPrefix="lang:")
@@ -175,7 +177,9 @@
     <!-- $entity.name Entity Proxy with inner $entity.name Entity implementation -->
     <bean id="$entity.getBeanName(false)" class="org.springframework.aop.framework.ProxyFactoryBean">
         <property name="target" ref="$entity.fullyQualifiedDaoImplementationName"/>
+#if ($daosEnabled)
         <property name="proxyInterfaces" value="$entity.fullyQualifiedDaoName"/>
+#end
 #if (!$hibernateUtils.version4)
         <property name="interceptorNames">
             <list>
@@ -209,6 +213,7 @@
     </bean>
 
 #end
+##    <!-- $services.size() services -->
 #foreach($service in $services)
 #if($implementationLanguage == "groovy")
 #set($propertyPrefix="lang:")
@@ -217,17 +222,22 @@
 #set($propertyPrefix="")
     <bean id="$service.fullyQualifiedImplementationName" class="$service.fullyQualifiedImplementationName" #if ($stringUtils.isNotBlank($service.initMethodName))init-method="$service.initMethodName" #end#if ($stringUtils.isNotBlank($service.destroyMethodName))destroy-method="$service.destroyMethodName" #end>
 #end
+#if ($daosEnabled)
 #foreach($entityRef in $service.allEntityReferences)
         <${propertyPrefix}property name="$entityRef.daoName" ref="$entityRef.targetElement.getBeanName(false)"/>
 #end
+#end
+##    <!-- $service.allServiceReferences.size() ServiceReferences -->
 ## Because of a bug in Spring with circular references (and using AOP proxies),
-## we need to use the lookup-method as a work-a-round for dependencies
+## we need to use the lookup-method as a work-around for dependencies
 #foreach($serviceRef in $service.allServiceReferences)
         <${propertyPrefix}lookup-method name="$serviceRef.getterName" bean="$serviceRef.targetElement.beanName"/>
 #end
+##    <!-- $service.allMessagingDestinations.size() MessagingDestinations -->
 #foreach($destination in $service.allMessagingDestinations)
         <${propertyPrefix}property name="$destination.templateBeanName" ref="$destination.templateBeanName"/>
 #end
+##    <!-- $service.operations.size() service operations -->
 #foreach ($operation in $service.operations)
 #if ($operation.incomingMessageOperation)
 ## Set this as lookup methods (otherwise we'll have a circular refrence back to the container listener)

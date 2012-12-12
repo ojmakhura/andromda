@@ -42,7 +42,8 @@
             <element name="UNIQUE">
                 <documentation>
                     Denotes an attribute to be unique among all possible instances of the underlying entity.
-                    In UML2, the attribute 'Unique' property=true has the same effect.
+                    In UML2, the attribute 'Unique' property=true has the same effect. Deprecated: Use UML2 unique
+                    flag instead.
                 </documentation>
                 <value>Unique</value>
                 <appliedOnElement>Entity attribute</appliedOnElement>
@@ -86,7 +87,8 @@
             <element name="ENUMERATION">
                 <documentation>
                     This class will instruct the generation of a type-safe enumeration class.
-                    Deprecated: Use UML Enumeration types instead of the stereotype.
+                    Deprecated: Use UML Enumeration types instead of the stereotype. Deprecated: Use UML
+                    Enumeration instead.
                 </documentation>
                 <value>Enumeration</value>
                 <appliedOnElement>class</appliedOnElement>
@@ -124,7 +126,7 @@
             <element name="NULLABLE">
                 <documentation>
                     Indicates a service operation argument may be left unspecified (eg. Java <code>null</code>).
-                    Deprecated: Use the parameter multiplicity lowerBound=0 instead
+                    Deprecated: Use the parameter multiplicity lowerBound=0 instead.
                 </documentation>
                 <value>Nullable</value>
                 <appliedOnElement>Service operation parameter</appliedOnElement>
@@ -254,34 +256,38 @@
             </element>
             <element name="PERSISTENCE_TABLE">
                 <documentation>
-                    The name of the table corresponding to this entity in the persistent store.
+                    The name of the table corresponding to this entity in the persistent store. If unspecified, the table name
+                    is the upper-underscore version of the Entity name.
                 </documentation>
                 <value>andromda_persistence_table</value>
             </element>
             <element name="PERSISTENCE_COLUMN">
                 <documentation>
-                    The name of the column corresponding to this property in the persistent store.
+                    The name of the column corresponding to this property in the persistent store. If unspecified, the column name
+                    is the upper-underscore version of the Entity property name.
                 </documentation>
                 <value>andromda_persistence_column</value>
             </element>
             <element name="PERSISTENCE_COLUMN_LENGTH">
-                <documentation></documentation>
+                <documentation>Default if unspecified = 25. Applies to String values only.</documentation>
                 <value>andromda_persistence_column_length</value>
             </element>
             <element name="PERSISTENCE_COLUMN_INDEX">
-                <documentation></documentation>
+                <documentation>The index to create on the property column</documentation>
                 <value>andromda_persistence_column_index</value>
             </element>
             <element name="COLUMN_UNIQUE_GROUP">
-                <documentation>The name of the unique constrain group that this unique attribute belongs</documentation>
+                <documentation>The name of the unique constraint group to which this unique attribute belongs</documentation>
                 <value>andromda_persistence_column_uniqueGroup</value>
             </element>
             <element name="PERSISTENCE_FOREIGN_IDENTIFIER">
-                <documentation></documentation>
+                <documentation>Default=false. If true, the same Entity identifier values for this FK will also
+                be used for the associated Entity PK</documentation>
                 <value>andromda_persistence_foreign_identifier</value>
             </element>
             <element name="PERSISTENCE_ASSIGNED_IDENTIFIER">
-                <documentation></documentation>
+                <documentation>Default=true: Create an assigned identifier attribute for the entity if no attributes
+                are designated as identifier attributes.</documentation>
                 <value>andromda_persistence_assigned_identifier</value>
             </element>
             <element name="PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME">
@@ -313,7 +319,7 @@
                     Specifies whether the enumeration attribute is
                     defined as a member variable rather than a literal.
                     This should only be set if the attribute is NOT a
-                    literal.
+                    literal. Deprecated: Use UML Enumerations instead.
                 </documentation>
                 <value>
                     andromda_persistence_enumeration_member_variable
@@ -330,7 +336,7 @@
                 <documentation>
                     Specifies the enumeration literal parameters which are
                     passed to the appropriate constructor when created.
-                    The parameters are comma separated.
+                    The parameters are comma separated. Deprecated: Use UML Enumerations instead.
                 </documentation>
                 <value>
                     andromda_persistence_enumeration_literal_parameters
@@ -341,8 +347,8 @@
             </element>
             <element name="PERSISTENCE_ASSOCIATION_END_PRIMARY">
                 <documentation>
-                  Indicates whether or not the association end is considered "primary" used for things like indicating which side of a one-to-one
-                  association should get the foreign key.
+                  Indicates whether or not the association end is considered "primary", to indicate which side of a one-to-one
+                  or many-to-many association should get the foreign key (be the relationship owner).
                 </documentation>
                 <value>
                     andromda_persistence_associationEnd_primary
@@ -352,7 +358,7 @@
                 </appliedOnElement>
             </element>
             <element name="ASSOCIATION_END_UNIQUE_GROUP">
-                <documentation>The name of the unique constrain group that this unique association end belongs</documentation>
+                <documentation>The name of the unique constraint group to which this unique association end belongs</documentation>
                 <value>andromda_persistence_associationEnd_uniqueGroup</value>
             </element>
             <element name="PRESENTATION_CONTROLLER_USECASE">
@@ -423,7 +429,7 @@
                 <value>andromda_role_name</value>
             </element>
             <element name="SERIALVERSION_UID">
-                <documentation></documentation>
+                <documentation>The serialVersionUID value to put on an Entity</documentation>
                 <value>andromda_serialVersionUID</value>
             </element>
             <element name="MANAGEABLE_DISPLAY_NAME">
@@ -431,7 +437,7 @@
                     The column representing this entity,by default the first <![CDATA[<<Unique>>]]> attribute found
                     is taken but you might want to specify another column yourself. This value is used when one entity
                     has a foreign key to another one and you want to select the value of this foreign key
-                    from a combobox and you would like to see a more meaningful label for each option, if no
+                    from a combo-box and you would like to see a more meaningful label for each option, if no
                     <![CDATA[<<Unique>>]]> attribute is found the identifier is used, which isn't very helpful.
                 </documentation>
                 <value>andromda_manageable_table_displayname</value>
@@ -448,19 +454,19 @@
                 <value>datatype::Object</value>
             </element>
             <element name="COLLECTION_TYPE">
-                <documentation></documentation>
+                <documentation>Deprecated: Use UML2 unordered non-unique 1:M relationship instead</documentation>
                 <value>datatype::Collection</value>
             </element>
             <element name="LIST_TYPE">
-                <documentation></documentation>
+                <documentation>Deprecated: Use UML2 ordered non-unique 1:M relationship instead</documentation>
                 <value>datatype::List</value>
             </element>
             <element name="SET_TYPE">
-                <documentation></documentation>
+                <documentation>Deprecated: Use UML2 unordered unique 1:M relationship instead</documentation>
                 <value>datatype::Set</value>
             </element>
             <element name="ORDERED_SET_TYPE">
-                <documentation></documentation>
+                <documentation>Deprecated: Use UML2 ordered unique 1:M relationship instead</documentation>
                 <value>datatype::SortedSet</value>
             </element>
             <element name="MAP_TYPE">

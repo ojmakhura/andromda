@@ -222,8 +222,9 @@ public class EntityMetafacadeUtils
         boolean ascending)
     {
         // Initially holds entities with no outgoing relations. Add related entities to the end
+    	// Multiple andromda invocations - entity list is cached - check size
         List<Entity> sorted = new ArrayList<Entity>();
-        if (sortedEntities!=null && !sortedEntities.isEmpty())
+        if (sortedEntities!=null && !sortedEntities.isEmpty() && sortedEntities.size() == entities.size())
         {
             sorted = sortedEntities;
         }

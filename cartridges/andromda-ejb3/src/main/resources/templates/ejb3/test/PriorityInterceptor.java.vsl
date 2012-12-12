@@ -98,6 +98,9 @@ public class PriorityInterceptor implements IMethodInterceptor
               return result;
             }
 
+#if ($javaVersion.compareTo("1.6")>-1)
+            @Override
+#end
             public int compare(IMethodInstance m1, IMethodInstance m2)
             {
               return getPriority(m1) - getPriority(m2);

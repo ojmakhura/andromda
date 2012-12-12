@@ -7,7 +7,6 @@
        xmlns:lang="http://www.springframework.org/schema/lang"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-${springVersion}.xsd http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-${springVersion}.xsd">
 
-
     <!-- ========================= DATASOURCE DEFINITION ========================= -->
 
     <!-- Local DataSource that works in any environment -->
@@ -17,6 +16,32 @@
         <property name="password" value="$password"/>
         <property name="url" value="$connectionUrl"/>
     </bean>
+#if ($hibernateEntityAnnotations)
+
+    <bean id="entityManagerFactory"
+        class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" />
+        <property name="persistenceUnitName" value="unit_test" />
+        <property name="persistenceProvider" ref="persistenceProvider" />
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+        <property name="jpaDialect" ref="jpaDialect" />
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="javax.persistence.validation.mode">none</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="persistenceProvider" class="org.hibernate.ejb.HibernatePersistence" />
+    <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+    <bean id="jpaVendorAdapter"
+        class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <!--property name="database" value="H2" /-->
+    </bean>
+#end
 
     <!-- ====================== End of DATASOURCE DEFINITION ====================== -->
 
@@ -27,6 +52,9 @@
     <bean id="${beanNamePrefix}transactionManager" class="$localTransactionManager">
 #if ($localTransactionManager.indexOf('HibernateTransactionManager') != -1)
         <property name="sessionFactory" ref="${beanNamePrefix}sessionFactory"/>
+#if ($hibernateEntityAnnotations)
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+#end
 #end
     </bean>
 

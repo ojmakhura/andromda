@@ -40,21 +40,13 @@
     </bean>
 
     <!-- Hibernate SessionFactory -->
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="configurationClass">
-            <value>org.hibernate.cfg.AnnotationConfiguration</value>
-        </property>
         <property name="annotatedClasses" ref="hibernateAnnotatedClasses"/>
         <property name="hibernateProperties" ref="hibernateProperties"/>
         <!-- applicationContext sessionFactory merge-point -->
     </bean>
 
-    <!-- The Hibernate interceptor -->
-    <bean id="hibernateInterceptor" class="org.springframework.orm.hibernate3.HibernateInterceptor">
-        <property name="sessionFactory" ref="sessionFactory"/>
-        <!-- applicationContext hibernateInterceptor merge-point -->
-    </bean>
 
     <bean id="org.andromda.timetracker.domain.UserDaoImpl" class="org.andromda.timetracker.domain.UserDaoImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
@@ -66,11 +58,6 @@
     <bean id="userDao" class="org.springframework.aop.framework.ProxyFactoryBean">
         <property name="target" ref="org.andromda.timetracker.domain.UserDaoImpl"/>
         <property name="proxyInterfaces" value="org.andromda.timetracker.domain.UserDao"/>
-        <property name="interceptorNames">
-            <list>
-                <value>hibernateInterceptor</value>
-            </list>
-        </property>
     </bean>
 
     <bean id="org.andromda.timetracker.domain.TimecardDaoImpl" class="org.andromda.timetracker.domain.TimecardDaoImpl">
@@ -83,11 +70,6 @@
     <bean id="timecardDao" class="org.springframework.aop.framework.ProxyFactoryBean">
         <property name="target" ref="org.andromda.timetracker.domain.TimecardDaoImpl"/>
         <property name="proxyInterfaces" value="org.andromda.timetracker.domain.TimecardDao"/>
-        <property name="interceptorNames">
-            <list>
-                <value>hibernateInterceptor</value>
-            </list>
-        </property>
     </bean>
 
     <bean id="org.andromda.timetracker.domain.TimeAllocationDaoImpl" class="org.andromda.timetracker.domain.TimeAllocationDaoImpl">
@@ -99,11 +81,6 @@
     <bean id="timeAllocationDao" class="org.springframework.aop.framework.ProxyFactoryBean">
         <property name="target" ref="org.andromda.timetracker.domain.TimeAllocationDaoImpl"/>
         <property name="proxyInterfaces" value="org.andromda.timetracker.domain.TimeAllocationDao"/>
-        <property name="interceptorNames">
-            <list>
-                <value>hibernateInterceptor</value>
-            </list>
-        </property>
     </bean>
 
     <bean id="org.andromda.timetracker.domain.TaskDaoImpl" class="org.andromda.timetracker.domain.TaskDaoImpl">
@@ -115,11 +92,6 @@
     <bean id="taskDao" class="org.springframework.aop.framework.ProxyFactoryBean">
         <property name="target" ref="org.andromda.timetracker.domain.TaskDaoImpl"/>
         <property name="proxyInterfaces" value="org.andromda.timetracker.domain.TaskDao"/>
-        <property name="interceptorNames">
-            <list>
-                <value>hibernateInterceptor</value>
-            </list>
-        </property>
     </bean>
 
     <bean id="org.andromda.timetracker.domain.UserRoleDaoImpl" class="org.andromda.timetracker.domain.UserRoleDaoImpl">
@@ -131,11 +103,6 @@
     <bean id="userRoleDao" class="org.springframework.aop.framework.ProxyFactoryBean">
         <property name="target" ref="org.andromda.timetracker.domain.UserRoleDaoImpl"/>
         <property name="proxyInterfaces" value="org.andromda.timetracker.domain.UserRoleDao"/>
-        <property name="interceptorNames">
-            <list>
-                <value>hibernateInterceptor</value>
-            </list>
-        </property>
     </bean>
 
     <!-- ========================= Start of SERVICE DEFINITIONS ========================= -->
@@ -165,7 +132,6 @@
         <property name="interceptorNames">
             <list>
                 <value>serviceTransactionInterceptor</value>
-                <value>hibernateInterceptor</value>
             </list>
         </property>
     </bean>
@@ -182,7 +148,6 @@
         <property name="interceptorNames">
             <list>
                 <value>serviceTransactionInterceptor</value>
-                <value>hibernateInterceptor</value>
             </list>
         </property>
     </bean>
@@ -199,7 +164,6 @@
         <property name="interceptorNames">
             <list>
                 <value>serviceTransactionInterceptor</value>
-                <value>hibernateInterceptor</value>
             </list>
         </property>
     </bean>

@@ -53,12 +53,12 @@ public class HibernateFinderMethodLogicImpl
         // if there wasn't any stored query, create one by default.
         if (StringUtils.isEmpty(queryString))
         {
-            String variableName = StringUtils.uncapitalize(this.getOwner().getName());
-            queryString = "from " + this.getOwner().getFullyQualifiedName() + " as " + variableName;
+            String variableName = StringUtils.uncapitalize(this.getOwner().getName()).substring(0,1);
+            queryString = "SELECT " + variableName + " FROM " + this.getOwner().getName() + " AS " + variableName;
             Collection arguments = this.getArguments();
             if (arguments != null && !arguments.isEmpty())
             {
-                queryString = queryString + " where";
+                queryString = queryString + " WHERE";
                 Iterator argumentIt = arguments.iterator();
                 for (; argumentIt.hasNext();)
                 {
@@ -71,7 +71,7 @@ public class HibernateFinderMethodLogicImpl
                     queryString = queryString + ' ' + variableName + '.' + argument.getName() + " = " + parameter;
                     if (argumentIt.hasNext())
                     {
-                        queryString = queryString + " and";
+                        queryString = queryString + " AND";
                     }
                 }
             }

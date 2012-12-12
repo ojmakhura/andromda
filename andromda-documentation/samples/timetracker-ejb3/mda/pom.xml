@@ -123,6 +123,7 @@
     </build>
     <properties>
         <model.uri>file:${project.basedir}/src/main/uml/timetracker.xmi</model.uri>
+        <javaVersion>${java.version}</javaVersion>
         <filter></filter>
         <validation>true</validation>
         <!-- ant script location for temp copy of resources -->
@@ -134,6 +135,7 @@
         <core.generated.dir>${project.basedir}/../core/target/src/main/java</core.generated.dir>
         <core.manual.dir>${project.basedir}/../core/src/main/java</core.manual.dir>
         <core.manual.java.dir>${project.basedir}/../core/src/main/java</core.manual.java.dir>
+        <core.manual.java.resources>${project.basedir}/../core/src/main/resources</core.manual.java.resources>
         <core.manual.test.resources>${project.basedir}/../core/src/test/resources</core.manual.test.resources>
         <core.generated.test.dir>${project.basedir}/../core/target/src/main/java</core.generated.test.dir>
         <core.manual.test.dir>${project.basedir}/../core/src/test/java</core.manual.test.dir>

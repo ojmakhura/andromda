@@ -3,13 +3,19 @@
         <property name="failOnValidationErrors">true</property>
     </properties>
     <repositories>
-        <repository name="netBeansMDR">
+		<repository name="emf-uml22">
+		  <models>
+			<model type="emf-uml22">
+			  <uri>${src.dir}/site/resources/howto/HowToModel.uml</uri>
+			  <moduleSearchLocations>
+				<location patterns="*.uml">${src.dir}/site/resources/howto</location>
+        <!--repository name="netBeansMDR">
             <models>
                 <model>
                     <uri>${andromda.cartridge.howto.model.uri}</uri>
                     <moduleSearchLocations>
                         <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../../profiles/uml-1.4</location>
-                        <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0.1/UML_Standard_Profile-1.0.1.jar!/</location>
+                        <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0.1/UML_Standard_Profile-1.0.1.jar!/</location-->
                     </moduleSearchLocations>
                 </model>
             </models>            

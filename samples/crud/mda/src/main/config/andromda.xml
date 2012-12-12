@@ -43,14 +43,14 @@
                 <property name="hibernateHbm2DDLAuto">update</property>
                 <property name="hibernateQueryUseNamedParameters">true</property>
                 <property name="hibernateEnableCache">false</property>
-                <property name="sessionFactory">org.springframework.orm.hibernate3.LocalSessionFactoryBean</property>
-                <property name="localTransactionManager">org.springframework.orm.hibernate3.HibernateTransactionManager</property>
+                <property name="sessionFactory">org.springframework.orm.hibernate4.LocalSessionFactoryBean</property>
+                <property name="localTransactionManager">org.springframework.orm.hibernate4.HibernateTransactionManager</property>
                 <property name="hibernateCacheProvider">org.hibernate.cache.EhCacheProvider</property>
                 <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
                 <property name="mergeMappingsUri">file:${conf.dir}/mappings/SpringMergeMappings.xml</property>
                 <property name="hibernateDialect">${hibernate.dialect}</property>
                 <property name="hibernateShowSql">${hibernate.db.showSql}</property>
-                <property name="transactionManager">org.springframework.orm.hibernate3.HibernateTransactionManager</property>
+                <property name="transactionManager">org.springframework.orm.hibernate4.HibernateTransactionManager</property>
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="springTypesPackage">${application.package}</property>
                 <property name="daos">${core.generated.dir}</property>

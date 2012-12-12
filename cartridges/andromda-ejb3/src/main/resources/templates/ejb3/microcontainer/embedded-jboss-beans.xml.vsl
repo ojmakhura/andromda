@@ -52,7 +52,6 @@
       <property name="serializable">false</property>
    </bean>
 
-
    <bean name="TransactionManager" class="java.lang.Object">
       <constructor factoryMethod="getTransactionManager">
          <factory bean="TransactionManagerInitializer"/>
@@ -194,7 +193,6 @@
          INSERT_MISFIRE_ACCESS = INSERT INTO qrtz_locks values('MISFIRE_ACCESS')
       </property>
    </bean>
-
    -->
 
 </deployment>

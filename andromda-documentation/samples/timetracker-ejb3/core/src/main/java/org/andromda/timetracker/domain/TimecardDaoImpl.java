@@ -7,28 +7,30 @@ package org.andromda.timetracker.domain;
 
 import java.util.List;
 
+import org.andromda.timetracker.vo.TimecardSearchCriteriaVO;
+import org.andromda.timetracker.vo.TimecardSummaryVO;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
-import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 /**
- * @see org.andromda.timetracker.domain.Timecard
+ * @see Timecard
  */
 public class TimecardDaoImpl
-    extends org.andromda.timetracker.domain.TimecardDaoBase
+    extends TimecardDaoBase
 {
     private Log logger = LogFactory.getLog(TimecardDaoImpl.class);
 
     /**
-     * @see org.andromda.timetracker.domain.TimecardDao#findByCriteria(org.andromda.timetracker.vo.TimecardSearchCriteriaVO)
+     * @see TimecardDao#findByCriteria(TimecardSearchCriteriaVO)
      */
-    protected java.util.List handleFindByCriteria(org.andromda.timetracker.vo.TimecardSearchCriteriaVO criteria)
+    @Override
+    protected List handleFindByCriteria(TimecardSearchCriteriaVO criteria)
     {
         // Create the timecard criteria
-        Criteria timecardCriteria = hibernateSession.createCriteria(Timecard.class);
+        Criteria timecardCriteria = this.hibernateSession.createCriteria(Timecard.class);
         timecardCriteria.setFetchMode("submitter", FetchMode.JOIN);
         timecardCriteria.setFetchMode("approver", FetchMode.JOIN);
 
@@ -63,21 +65,22 @@ public class TimecardDaoImpl
         }
 
         List timecards = timecardCriteria.list();
-        if (logger.isDebugEnabled())
+        if (this.logger.isDebugEnabled())
         {
-            logger.debug(timecards.size() + " timecards found");
+            this.logger.debug(timecards.size() + " timecards found");
         }
         return timecards;
     }
 
     /**
-     * @see org.andromda.timetracker.domain.TimecardDao#toTimecardSummaryVO(org.andromda.timetracker.domain.Timecard, org.andromda.timetracker.vo.TimecardSummaryVO)
+     * @see TimecardDao#toTimecardSummaryVO(Timecard, TimecardSummaryVO)
      */
+    @Override
     public void toTimecardSummaryVO(
-        org.andromda.timetracker.domain.Timecard sourceEntity,
-        org.andromda.timetracker.vo.TimecardSummaryVO targetVO)
+        Timecard sourceEntity,
+        TimecardSummaryVO targetVO)
     {
-        // ${toDoTag} verify behavior of toTimecardSummaryVO
+        // TODO verify behavior of toTimecardSummaryVO
         super.toTimecardSummaryVO(sourceEntity, targetVO);
 
         // add the related entities
@@ -90,11 +93,12 @@ public class TimecardDaoImpl
 
 
     /**
-     * @see org.andromda.timetracker.domain.TimecardDao#toTimecardSummaryVO(org.andromda.timetracker.domain.Timecard)
+     * @see TimecardDao#toTimecardSummaryVO(Timecard)
      */
-    public org.andromda.timetracker.vo.TimecardSummaryVO toTimecardSummaryVO(final org.andromda.timetracker.domain.Timecard entity)
+    @Override
+    public TimecardSummaryVO toTimecardSummaryVO(final Timecard entity)
     {
-        // ${toDoTag} verify behavior of toTimecardSummaryVO
+        // TODO verify behavior of toTimecardSummaryVO
         return super.toTimecardSummaryVO(entity);
     }
 
@@ -104,16 +108,17 @@ public class TimecardDaoImpl
      * from the object store. If no such entity object exists in the object store,
      * a new, blank entity is created
      */
-    private org.andromda.timetracker.domain.Timecard loadTimecardFromTimecardSummaryVO(org.andromda.timetracker.vo.TimecardSummaryVO timecardSummaryVO)
+    @SuppressWarnings("static-method")
+    private Timecard loadTimecardFromTimecardSummaryVO(TimecardSummaryVO timecardSummaryVO)
     {
-        // ${toDoTag} implement loadTimecardFromTimecardSummaryVO
-        throw new java.lang.UnsupportedOperationException("org.andromda.timetracker.domain.loadTimecardFromTimecardSummaryVO(org.andromda.timetracker.vo.TimecardSummaryVO) not yet implemented.");
+        // TODO implement loadTimecardFromTimecardSummaryVO
+        throw new java.lang.UnsupportedOperationException("loadTimecardFromTimecardSummaryVO(TimecardSummaryVO) not yet implemented.");
 
         /* A typical implementation looks like this:
-        org.andromda.timetracker.domain.Timecard timecard = this.load(timecardSummaryVO.getId());
+        Timecard timecard = this.load(timecardSummaryVO.getId());
         if (timecard == null)
         {
-            timecard = org.andromda.timetracker.domain.Timecard.Factory.newInstance();
+            timecard = Timecard.Factory.newInstance();
         }
         return timecard;
         */
@@ -121,26 +126,28 @@ public class TimecardDaoImpl
 
 
     /**
-     * @see org.andromda.timetracker.domain.TimecardDao#timecardSummaryVOToEntity(org.andromda.timetracker.vo.TimecardSummaryVO)
+     * @see TimecardDao#timecardSummaryVOToEntity(TimecardSummaryVO)
      */
-    public org.andromda.timetracker.domain.Timecard timecardSummaryVOToEntity(org.andromda.timetracker.vo.TimecardSummaryVO timecardSummaryVO)
+    @Override
+    public Timecard timecardSummaryVOToEntity(TimecardSummaryVO timecardSummaryVO)
     {
-        // ${toDoTag} verify behavior of timecardSummaryVOToEntity
-        org.andromda.timetracker.domain.Timecard entity = this.loadTimecardFromTimecardSummaryVO(timecardSummaryVO);
+        // TODO verify behavior of timecardSummaryVOToEntity
+        Timecard entity = this.loadTimecardFromTimecardSummaryVO(timecardSummaryVO);
         this.timecardSummaryVOToEntity(timecardSummaryVO, entity, true);
         return entity;
     }
 
 
     /**
-     * @see org.andromda.timetracker.domain.TimecardDao#timecardSummaryVOToEntity(org.andromda.timetracker.vo.TimecardSummaryVO, org.andromda.timetracker.domain.Timecard)
+     * @see TimecardDao#timecardSummaryVOToEntity(TimecardSummaryVO, Timecard, boolean)
      */
+    @Override
     public void timecardSummaryVOToEntity(
-        org.andromda.timetracker.vo.TimecardSummaryVO sourceVO,
-        org.andromda.timetracker.domain.Timecard targetEntity,
+        TimecardSummaryVO sourceVO,
+        Timecard targetEntity,
         boolean copyIfNull)
     {
-        // ${toDoTag} verify behavior of timecardSummaryVOToEntity
+        // TODO verify behavior of timecardSummaryVOToEntity
         super.timecardSummaryVOToEntity(sourceVO, targetEntity, copyIfNull);
     }
 

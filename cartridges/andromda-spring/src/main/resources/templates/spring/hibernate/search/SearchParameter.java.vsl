@@ -1,3 +1,4 @@
+#if ($recordType.equalsIgnoreCase("dao"))
 // license-header java merge-point
 //
 // Attention: Generated code! Do not modify by hand!
@@ -305,3 +306,4 @@ public class $className
 
     private static final long serialVersionUID = 1L;
 }
+#end

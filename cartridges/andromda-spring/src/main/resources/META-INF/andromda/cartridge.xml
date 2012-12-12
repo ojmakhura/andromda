@@ -206,6 +206,9 @@
     <property reference="remoteServicePassword"/>
     <property reference="remoteAuthenticatingHttpInvokerRequestExecutorName"/>
     <property reference="springVersion"/>
+    <property reference="recordType"/>
+    <property reference="xmlConfiguration"/>
+    <property reference="rooScripts"/>
 
     <!-- cartridge-property merge-point -->
 
@@ -231,6 +234,8 @@
     <condition name="enableCaching">$hibernateEnableCache.equalsIgnoreCase("true")</condition>
     <condition name="hibernateEntityAnnotations">$hibernateEntityAnnotations.equalsIgnoreCase("true")</condition>
     <condition name="remoteUsernameAuthenticationEnabled">$stringUtils.isNotBlank($remoteServiceUsername)</condition>
+    <condition name="xmlConfiguration">$xmlConfiguration.equalsIgnoreCase("true")</condition>
+    <condition name="rooScripts">$rooScripts.equalsIgnoreCase("true")</condition>
     <!-- condition merge-point-->
 
     <!-- cartridge-resource merge-point -->
