@@ -8,24 +8,25 @@ package org.andromda.timetracker.domain;
 import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
-
 import org.andromda.timetracker.vo.UserDetailsVO;
 import org.andromda.timetracker.vo.UserRoleVO;
+import org.andromda.timetracker.vo.UserVO;
 
 /**
- * @see org.andromda.timetracker.domain.User
+ * @see User
  */
 public class UserDaoImpl
-    extends org.andromda.timetracker.domain.UserDaoBase
+    extends UserDaoBase
 {
     /**
-     * @see org.andromda.timetracker.domain.UserDao#toUserVO(org.andromda.timetracker.domain.User, org.andromda.timetracker.vo.UserVO)
+     * @see UserDao#toUserVO(User, org.andromda.timetracker.vo.UserVO)
      */
+    @Override
     public void toUserVO(
-        org.andromda.timetracker.domain.User sourceEntity,
-        org.andromda.timetracker.vo.UserVO targetVO)
+        User sourceEntity,
+        UserVO targetVO)
     {
-        // ${toDoTag} verify behavior of toUserVO
+        // TODO verify behavior of toUserVO
         super.toUserVO(sourceEntity, targetVO);
         // WARNING! No conversion for targetVO.id (can't convert sourceEntity.getId():java.lang.Long to java.lang.Long
         // WARNING! No conversion for targetVO.username (can't convert sourceEntity.getUsername():java.lang.String to java.lang.String
@@ -35,11 +36,12 @@ public class UserDaoImpl
 
 
     /**
-     * @see org.andromda.timetracker.domain.UserDao#toUserVO(org.andromda.timetracker.domain.User)
+     * @see UserDao#toUserVO(User)
      */
-    public org.andromda.timetracker.vo.UserVO toUserVO(final org.andromda.timetracker.domain.User entity)
+    @Override
+    public UserVO toUserVO(final User entity)
     {
-        // ${toDoTag} verify behavior of toUserVO
+        // TODO verify behavior of toUserVO
         return super.toUserVO(entity);
     }
 
@@ -49,16 +51,16 @@ public class UserDaoImpl
      * from the object store. If no such entity object exists in the object store,
      * a new, blank entity is created
      */
-    private org.andromda.timetracker.domain.User loadUserFromUserVO(org.andromda.timetracker.vo.UserVO userVO)
+    private User loadUserFromUserVO(UserVO userVO)
     {
-        // ${toDoTag} implement loadUserFromUserVO
-        throw new java.lang.UnsupportedOperationException("org.andromda.timetracker.domain.loadUserFromUserVO(org.andromda.timetracker.vo.UserVO) not yet implemented.");
+        // TODO implement loadUserFromUserVO
+        throw new java.lang.UnsupportedOperationException("loadUserFromUserVO(UserVO) not yet implemented.");
 
         /* A typical implementation looks like this:
-        org.andromda.timetracker.domain.User user = this.load(userVO.getId());
+        User user = this.load(userVO.getId());
         if (user == null)
         {
-            user = org.andromda.timetracker.domain.User.Factory.newInstance();
+            user = User.Factory.newInstance();
         }
         return user;
         */
@@ -66,26 +68,28 @@ public class UserDaoImpl
 
 
     /**
-     * @see org.andromda.timetracker.domain.UserDao#userVOToEntity(org.andromda.timetracker.vo.UserVO)
+     * @see UserDao#userVOToEntity(UserVO)
      */
-    public org.andromda.timetracker.domain.User userVOToEntity(org.andromda.timetracker.vo.UserVO userVO)
+    @Override
+    public User userVOToEntity(UserVO userVO)
     {
-        // ${toDoTag} verify behavior of userVOToEntity
-        org.andromda.timetracker.domain.User entity = this.loadUserFromUserVO(userVO);
+        // TODO verify behavior of userVOToEntity
+        User entity = this.loadUserFromUserVO(userVO);
         this.userVOToEntity(userVO, entity, true);
         return entity;
     }
 
 
     /**
-     * @see org.andromda.timetracker.domain.UserDao#userVOToEntity(org.andromda.timetracker.vo.UserVO, org.andromda.timetracker.domain.User)
+     * @see UserDao#userVOToEntity(UserVO, User, boolean)
      */
+    @Override
     public void userVOToEntity(
-        org.andromda.timetracker.vo.UserVO sourceVO,
-        org.andromda.timetracker.domain.User targetEntity,
+        UserVO sourceVO,
+        User targetEntity,
         boolean copyIfNull)
     {
-        // ${toDoTag} verify behavior of userVOToEntity
+        // TODO verify behavior of userVOToEntity
         super.userVOToEntity(sourceVO, targetEntity, copyIfNull);
         // No conversion for targetEntity.username (can't convert sourceVO.getUsername():java.lang.String to java.lang.String
         // No conversion for targetEntity.firstName (can't convert sourceVO.getFirstName():java.lang.String to java.lang.String
@@ -93,16 +97,17 @@ public class UserDaoImpl
     }
 
     /**
-     * @see org.andromda.timetracker.domain.UserDao#toUserDetailsVO(org.andromda.timetracker.domain.User, org.andromda.timetracker.vo.UserDetailsVO)
+     * @see UserDao#toUserDetailsVO(User, UserDetailsVO)
      */
+    @Override
     public void toUserDetailsVO(
-        org.andromda.timetracker.domain.User sourceEntity,
-        org.andromda.timetracker.vo.UserDetailsVO targetVO)
+        User sourceEntity,
+        UserDetailsVO targetVO)
     {
         super.toUserDetailsVO(sourceEntity, targetVO);
 
         // Convert roles
-        Collection srcRoles = sourceEntity.getRoles();
+        Collection<UserRole> srcRoles = sourceEntity.getRoles();
         UserRoleVO[] targetRoles = new UserRoleVO[srcRoles.size()];
         int i=0;
         for (Object srcRole : srcRoles)
@@ -118,9 +123,9 @@ public class UserDaoImpl
      * from the object store. If no such entity object exists in the object store,
      * a new, blank entity is created
      */
-    private org.andromda.timetracker.domain.User loadUserFromUserDetailsVO(org.andromda.timetracker.vo.UserDetailsVO userDetailsVO)
+    private User loadUserFromUserDetailsVO(UserDetailsVO userDetailsVO)
     {
-        org.andromda.timetracker.domain.User user = null;
+        User user = null;
         if (userDetailsVO != null && userDetailsVO.getId() != null)
         {
             try
@@ -140,21 +145,23 @@ public class UserDaoImpl
     }
 
     /**
-     * @see org.andromda.timetracker.domain.UserDao#userDetailsVOToEntity(org.andromda.timetracker.vo.UserDetailsVO)
+     * @see UserDao#userDetailsVOToEntity(UserDetailsVO)
      */
+    @Override
     public User userDetailsVOToEntity(UserDetailsVO userDetailsVO)
     {
-        org.andromda.timetracker.domain.User entity = this.loadUserFromUserDetailsVO(userDetailsVO);
+        User entity = this.loadUserFromUserDetailsVO(userDetailsVO);
         this.userDetailsVOToEntity(userDetailsVO, entity, true);
         return entity;
     }
 
     /**
-     * @see org.andromda.timetracker.domain.UserDao#userDetailsVOToEntity(org.andromda.timetracker.vo.UserDetailsVO, org.andromda.timetracker.domain.User)
+     * @see UserDao#userDetailsVOToEntity(UserDetailsVO, User, boolean)
      */
+    @Override
     public void userDetailsVOToEntity(
-        org.andromda.timetracker.vo.UserDetailsVO sourceVO,
-        org.andromda.timetracker.domain.User targetEntity,
+        UserDetailsVO sourceVO,
+        User targetEntity,
         boolean copyIfNull)
     {
         // @todo verify behavior of userDetailsVOToEntity

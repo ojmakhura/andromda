@@ -1109,10 +1109,10 @@
   <andromdapersistence:Entity xmi:id="_UOHB88OZEeCLkef3OvcEkA" base_Class="_9_5_1_8c50279_1170820851000_517922_1925"/>
   <andromdapersistence:PreUpdate xmi:id="_UOHB9MOZEeCLkef3OvcEkA" base_Operation="_9_5_1_8c50279_1170818978390_249319_1432"/>
   <andromdapersistence:Version xmi:id="_UOHB9cOZEeCLkef3OvcEkA" base_Property="_9_5_1_8c50279_1181832064593_603373_16"/>
-  <andromdapersistence:FinderMethod xmi:id="_UOHB9sOZEeCLkef3OvcEkA" andromda_ejb_query="select distinct entityOne from EntityOne as entityOne where entityOne.attributeTwo = :attributeTwo" base_Operation="_24400562_1093397321156_728387_2"/>
-  <andromdapersistence:FinderMethod xmi:id="_UOHB98OZEeCLkef3OvcEkA" andromda_hibernate_query="select sum(entityFourteen.one) from EntityFourteen entityFourteen" base_Operation="_9_0_7da0265_1120161757361_260878_1"/>
+  <andromdapersistence:FinderMethod xmi:id="_UOHB9sOZEeCLkef3OvcEkA" andromda_ejb_query="select distinct e from EntityOne as e where e.attributeTwo = :attributeTwo" base_Operation="_24400562_1093397321156_728387_2"/>
+  <andromdapersistence:FinderMethod xmi:id="_UOHB98OZEeCLkef3OvcEkA" andromda_hibernate_query="select sum(e.one) from EntityFourteen e" base_Operation="_9_0_7da0265_1120161757361_260878_1"/>
   <andromdapersistence:FinderMethod xmi:id="_UOHB-MOZEeCLkef3OvcEkA" base_Operation="_9_0_66e017e_1132187281410_404325_3" andromda_hibernate_query_useNamedParameters="false"/>
-  <andromdapersistence:FinderMethod xmi:id="_UOHB-cOZEeCLkef3OvcEkA" andromda_hibernate_query="select distinct(entityFourteen.one) from EntityFourteenImp  entityFourteen" base_Operation="_9_0_7da0265_1120162091651_875731_15"/>
+  <andromdapersistence:FinderMethod xmi:id="_UOHB-cOZEeCLkef3OvcEkA" andromda_hibernate_query="select distinct(e.one) from EntityFourteenImp e" base_Operation="_9_0_7da0265_1120162091651_875731_15"/>
   <andromdapersistence:PrePersist xmi:id="_UOHB-sOZEeCLkef3OvcEkA" base_Operation="_9_5_1_8c50279_1170818978390_392276_1430"/>
   <andromdapersistence:FirstResult xmi:id="_UOHB-8OZEeCLkef3OvcEkA" base_Parameter="_9_5_1_8c50279_1170821039109_847389_1953"/>
   <andromdapersistence:FirstResult xmi:id="_UOHB_MOZEeCLkef3OvcEkA" base_Parameter="_9_5_1_8c50279_1170820993500_712706_1951"/>

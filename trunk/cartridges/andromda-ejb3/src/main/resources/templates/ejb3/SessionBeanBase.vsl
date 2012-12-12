@@ -58,18 +58,23 @@ public abstract class ${service.serviceBaseName}
 {
     // ------ Session Context Injection ------
 
+    /**
+     * javax.ejb.SessionContext Injection
+     */
     @javax.annotation.Resource
     protected javax.ejb.SessionContext context;
 #if ($service.transactionManagementBean)
 
     // ---------- User Transaction Injection ---------
 
+    /**
+     * javax.transaction.UserTransaction Injection
+     */
     @javax.annotation.Resource
     protected javax.transaction.UserTransaction userTrans;
 #end
 
     // ------ Persistence Context Definitions --------
-
 #set ($argExists = false)
     /**
      * Inject persistence context #if ($service.persistenceContextUnitName)${service.persistenceContextUnitName}#end
@@ -230,7 +235,9 @@ public abstract class ${service.serviceBaseName}
 
     // --------------- Constructors ---------------
 
-## Default create method with no arguments.
+    /**
+     * Default constructor method with no arguments.
+     */
     public ${service.serviceBaseName}()
     {
         super();
@@ -322,6 +329,7 @@ $attribute.getDocumentation("     * ")
 
     /**
      * Get the injected DAO ${daoReference.daoName}
+     * @return $daoReference.fullyQualifiedDaoName
      */
     protected $daoReference.fullyQualifiedDaoName ${daoDependency.daoGetterName}()
     {
@@ -342,6 +350,15 @@ $attribute.getDocumentation("     * ")
 #*  *##if (!$operation.lifecycleCallback && $operation.visibility == "public")
     /**
 $operation.getDocumentation("     * ")
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name
+#end
+#if ($operation.returnTypePresent)
+     * @return $operation.returnType.fullyQualifiedName
+#end
+#if ($operation.exceptionsPresent)
+     * @${operation.throwsClause}
+#end
      */
 #*    *##if (!$service.transactionManagementBean)
 #*      *##if ($stringUtils.isNotBlank($operation.transactionType))
@@ -499,6 +516,13 @@ $operation.getDocumentation("     * ")
 #*    *##end
     /**
      * Performs the core logic for {@link ${esc.hash}${operation.getSignature(false)}}
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name
+#end
+#if ($operation.returnTypePresent)
+     * @return $operation.returnType.fullyQualifiedName
+#end
+     * @throws Exception
      */
     protected abstract $operation.returnType.fullyQualifiedName $operation.implementationSignature
         throws Exception;
@@ -534,6 +558,9 @@ $operation.getDocumentation("     * ")
 
     /**
      * Performs the core logic for {@link ${esc.hash}${operation.name}()}
+#if ($operation.returnTypePresent)
+     * @return $operation.returnType.fullyQualifiedName
+#end
      */
     protected abstract $operation.returnType.fullyQualifiedName handle${stringUtils.capitalize(${operation.name})}();
 

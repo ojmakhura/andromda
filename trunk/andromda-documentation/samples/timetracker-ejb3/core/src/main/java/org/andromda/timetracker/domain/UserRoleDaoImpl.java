@@ -5,29 +5,33 @@
  */
 package org.andromda.timetracker.domain;
 
+import org.andromda.timetracker.vo.UserRoleVO;
+
 /**
- * @see org.andromda.timetracker.domain.UserRole
+ * @see UserRole
  */
 public class UserRoleDaoImpl
-    extends org.andromda.timetracker.domain.UserRoleDaoBase
+    extends UserRoleDaoBase
 {
     /**
-     * @see org.andromda.timetracker.domain.UserRoleDao#toUserRoleVO(org.andromda.timetracker.domain.UserRole, org.andromda.timetracker.vo.UserRoleVO)
+     * @see UserRoleDao#toUserRoleVO(UserRole, UserRoleVO)
      */
+    @Override
     public void toUserRoleVO(
-        org.andromda.timetracker.domain.UserRole sourceEntity,
-        org.andromda.timetracker.vo.UserRoleVO targetVO)
+        UserRole sourceEntity,
+        UserRoleVO targetVO)
     {
-        // ${toDoTag} verify behavior of toUserRoleVO
+        // TODO verify behavior of toUserRoleVO
         super.toUserRoleVO(sourceEntity, targetVO);
     }
 
     /**
-     * @see org.andromda.timetracker.domain.UserRoleDao#toUserRoleVO(org.andromda.timetracker.domain.UserRole)
+     * @see UserRoleDao#toUserRoleVO(UserRole)
      */
-    public org.andromda.timetracker.vo.UserRoleVO toUserRoleVO(final org.andromda.timetracker.domain.UserRole entity)
+    @Override
+    public UserRoleVO toUserRoleVO(final UserRole entity)
     {
-        // ${toDoTag} verify behavior of toUserRoleVO
+        // TODO verify behavior of toUserRoleVO
         return super.toUserRoleVO(entity);
     }
 
@@ -36,9 +40,9 @@ public class UserRoleDaoImpl
      * from the object store. If no such entity object exists in the object store,
      * a new, blank entity is created
      */
-    private org.andromda.timetracker.domain.UserRole loadUserRoleFromUserRoleVO(org.andromda.timetracker.vo.UserRoleVO userRoleVO)
+    private UserRole loadUserRoleFromUserRoleVO(UserRoleVO userRoleVO)
     {
-        org.andromda.timetracker.domain.UserRole userRole = null;
+        UserRole userRole = null;
         if (userRoleVO != null && userRoleVO.getId() != null)
         {
             try
@@ -58,25 +62,27 @@ public class UserRoleDaoImpl
     }
 
     /**
-     * @see org.andromda.timetracker.domain.UserRoleDao#userRoleVOToEntity(org.andromda.timetracker.vo.UserRoleVO)
+     * @see UserRoleDao#userRoleVOToEntity(UserRoleVO)
      */
-    public org.andromda.timetracker.domain.UserRole userRoleVOToEntity(org.andromda.timetracker.vo.UserRoleVO userRoleVO)
+    @Override
+    public UserRole userRoleVOToEntity(UserRoleVO userRoleVO)
     {
-        // ${toDoTag} verify behavior of userRoleVOToEntity
-        org.andromda.timetracker.domain.UserRole entity = this.loadUserRoleFromUserRoleVO(userRoleVO);
+        // TODO verify behavior of userRoleVOToEntity
+        UserRole entity = this.loadUserRoleFromUserRoleVO(userRoleVO);
         this.userRoleVOToEntity(userRoleVO, entity, true);
         return entity;
     }
 
     /**
-     * @see org.andromda.timetracker.domain.UserRoleDao#userRoleVOToEntity(org.andromda.timetracker.vo.UserRoleVO, org.andromda.timetracker.domain.UserRole)
+     * @see UserRoleDao#userRoleVOToEntity(UserRoleVO, UserRole, boolean)
      */
+    @Override
     public void userRoleVOToEntity(
-        org.andromda.timetracker.vo.UserRoleVO sourceVO,
-        org.andromda.timetracker.domain.UserRole targetEntity,
+        UserRoleVO sourceVO,
+        UserRole targetEntity,
         boolean copyIfNull)
     {
-        // ${toDoTag} verify behavior of userRoleVOToEntity
+        // TODO verify behavior of userRoleVOToEntity
         super.userRoleVOToEntity(sourceVO, targetEntity, copyIfNull);
     }
 }

@@ -1,6 +1,10 @@
 package org.andromda.cartridges.spring;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import org.andromda.cartridges.spring.metafacades.SpringGlobals;
+import org.andromda.metafacades.uml.Entity;
 
 /**
  * Contains utilities used within the Spring cartridge
@@ -45,6 +49,41 @@ public class SpringHibernateUtils
     public String getCriterionPackage()
     {
         return this.getBasePackage() + (this.isVersion3() || this.isVersion4() ? ".criterion" : ".expression");
+    }
+
+    /**
+     * Gets the appropriate hibernate criterion package name for the given <code>version</code>.
+     *
+     * @return the Hibernate criterion package name.
+     */
+    public String getEntityBasePackage(Collection<Entity> entities)
+    {
+        String base = "";
+        List<String> packages = new ArrayList<String>();
+        // Get unique packages containing entities
+        for (Entity entity : entities)
+        {
+            String packageName = entity.getPackageName();
+            if (!packages.contains(packageName))
+            {
+                // TODO: Allow entities in vastly different packages
+                /*for (String pkgName : packages)
+                {
+                    if (packageName.length() < pkgName.length() &&
+                        pkgName.contains(packageName))
+                    {
+                        // replace the longer contained package name in the List
+                    }
+                }*/
+                packages.add(packageName);
+            }
+        }
+        // Get unique top level packages containing entities
+        for (String packageName : packages)
+        {
+
+        }
+        return base;
     }
 
     /**

@@ -242,7 +242,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.10</version>
+                <version>4.11</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -332,7 +332,7 @@
             <dependency>
                 <groupId>org.javassist</groupId>
                 <artifactId>javassist</artifactId>
-                <version>3.16.1-GA</version>
+                <version>3.17.1-GA</version>
             </dependency>
             <!-- maven-project-info-reports-plugin Dependency Management report refers to jsp-api 2.2.1 which does not exist -->
             <dependency>
@@ -823,7 +823,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <!-- Plugin version definitions-->
-        <plexus.util.version>3.0.8</plexus.util.version>
+        <plexus.util.version>3.0.10</plexus.util.version>
         <uniqueVersion>false</uniqueVersion>
     </properties>
     <profiles>

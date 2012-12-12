@@ -116,6 +116,7 @@
                 <property name="pluralizeAssociationEndNames">true</property>
                 <property name="pluralizeAttributeNames">true</property>
                 <property name="pluralizeParameterNames">true</property -->
+                <property name="javaVersion">${javaVersion}</property>
                 <property name="xmlAttributes">false</property>
                 <property name="dataSource">${dataSource}</property>
                 <property name="hibernateDialect">${hibernate.dialect}</property>
@@ -129,6 +130,9 @@
                 <property name="testConnectionUrl">${testdb.url}</property>
                 <property name="testDialect">${testdb.dialect}</property>
                 <property name="hibernateHbm2DDLAuto">update</property>
+                <property name="foreignKeySuffix"></property>
+                <property name="defaultIdentifierPattern">{0}Id</property>
+                <property name="relationNameSeparator">_</property>
             </properties>
         </namespace>
         <!-- See http://docs.andromda.org/andromda-cartridges/andromda-spring-cartridge/namespace.html -->
@@ -136,8 +140,10 @@
             <properties>
                 <property name="hibernateQueryUseNamedParameters">true</property>
                 <property name="hibernateEnableCache">false</property>
-                <property name="sessionFactory">org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean</property>
-                <property name="localTransactionManager">org.springframework.orm.hibernate3.HibernateTransactionManager</property>
+                <property name="sessionFactory">org.springframework.orm.hibernate4.LocalSessionFactoryBean</property>
+                <!--property name="sessionFactory">org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean</property>
+                <property name="localTransactionManager">org.springframework.orm.jpa.JpaTransactionManager</property-->
+                <property name="localTransactionManager">org.springframework.orm.hibernate4.HibernateTransactionManager</property>
                 <property name="hibernateCacheProvider">net.sf.ehcache.hibernate.EhCacheProvider</property>
                 <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
                 <property name="mergeMappingsUri">file:${conf.dir}/mappings/SpringMergeMappings.xml</property>

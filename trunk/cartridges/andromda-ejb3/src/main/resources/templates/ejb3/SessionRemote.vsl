@@ -39,10 +39,19 @@ public interface ${service.serviceRemoteInterfaceName}
 ## Only expose public methods with remote view type accessability
 ##
 #*  *##if ($operation.viewTypeAbsoluteRemote)
+#*    *##set ($returnType = $operation.returnType.fullyQualifiedName)
     /**
 $operation.getDocumentation("     * ")
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name
+#end
+#if ($operation.returnTypePresent)
+     * @return $returnType
+#end
+#if ($operation.exceptionsPresent)
+     * @${operation.throwsClause}
+#end
      */
-#*    *##set ($returnType = $operation.returnType.fullyQualifiedName)
 #*    *##if ($operation.exceptionsPresent)
     public $returnType $operation.signature
         $operation.throwsClause;

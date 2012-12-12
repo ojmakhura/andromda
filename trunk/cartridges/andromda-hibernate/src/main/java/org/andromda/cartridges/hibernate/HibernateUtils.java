@@ -1,6 +1,8 @@
 package org.andromda.cartridges.hibernate;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import org.andromda.cartridges.hibernate.metafacades.HibernateGlobals;
 import org.andromda.metafacades.uml.Role;
@@ -243,5 +245,31 @@ public class HibernateUtils
             inheritanceType = "SINGLE_TABLE";
         }
         return inheritanceType;
+    }
+
+    private static final SimpleDateFormat DF = new SimpleDateFormat("MM/dd/yyyy HH:mm:ssZ");
+    /**
+     * Returns the current Date in the specified format. $conversionUtils does not seem to work in vsl.
+     *
+     * @param format The format for the output date
+     * @return the current date in the specified format.
+     */
+    public static String getDate(String format)
+    {
+        /*if (DF == null || !format.equals(DF.toLocalizedPattern()))
+        {
+            DF = new SimpleDateFormat(format);
+        }*/
+        return DF.format(new Date());
+    }
+
+    /**
+     * Returns the current Date in the specified format.
+     *
+     * @return the current date with the default format .
+     */
+    public static String getDate()
+    {
+        return DF.format(new Date());
     }
 }

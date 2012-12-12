@@ -1,3 +1,4 @@
+#if ($recordType.equalsIgnoreCase("dao"))
 // license-header java merge-point
 //
 // Attention: Generated code! Do not modify by hand!
@@ -132,3 +133,4 @@ public class ${criteriaSearchBaseName}Configuration
         this.maximumResultSize = maximumResultSizeIn;
     }
 }
+#end

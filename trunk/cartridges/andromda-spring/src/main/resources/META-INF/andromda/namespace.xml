@@ -178,6 +178,42 @@
                     </ul>
                 </documentation>
             </property>
+            <property name="recordType">
+                <default>dao</default>
+                <documentation>
+                    The data record type. Use dao for Spring 2.x., use active for JpaTemplate,
+                    use repository for Spring Data JPA, or use one of the other Spring data implementations.
+                    Currently only dao and repository are supported.
+                    <ul>
+                        Permitted values are:
+                        <li>dao</li>
+                        <li>active</li>
+                        <li>repository</li>
+                        <li>hadoop</li>
+                        <li>redis</li>
+                        <li>mongo</li>
+                        <li>neo4j</li>
+                        <li>hbase</li>
+                        <li>gemfire</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="xmlConfiguration">
+                <default>true</default>
+                <documentation>
+                    Create Spring XML configuration files. If false, create Spring annotations (3.x).
+                </documentation>
+            </property>
+            <property name="rooScripts">
+                <default>false</default>
+                <documentation>
+                    Create Spring Roo scripts. If true, two scripts are created: One for one-time project
+                    scaffolding setup, and one for ongoing entity/service/ui/test creation. Roo scripts are
+                    run in a separate ../Roo subdirectory under the project, and are not run automatically as
+                    part of the project build. The outputs can be combined with the AndroMDA outputs, or the
+                    design patterns can be compared.
+                </documentation>
+            </property>
             <property name="webServiceOutgoingAttachmentHandlerCallPattern" required="false">
                 <documentation>
                     The pattern to use when constructing the call to the attachment handler (used for sending
@@ -607,7 +643,7 @@
                 </documentation>
             </property>
             <property name="localTransactionManager">
-                <default>org.springframework.orm.hibernate.HibernateTransactionManager</default>
+                <default>org.springframework.orm.hibernate4.HibernateTransactionManager</default>
                 <documentation>
                     The transaction manager implementation used by Spring for the local datasource (applicationContextLocalDataSource).
                 </documentation>
@@ -623,10 +659,11 @@
                 </documentation>
             </property>
             <property name="sessionFactory">
-                <default>org.springframework.orm.hibernate.LocalSessionFactoryBean</default>
+                <default>org.springframework.orm.hibernate4.LocalSessionFactoryBean</default>
                 <documentation>
                     Factory bean that creates a local Hibernate SessionFactory instance within Spring. If using annotations
-                    with Spring3, specify org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean.
+                    with Spring3, specify org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean. Or use
+					org.springframework.orm.hibernate4.LocalSessionFactoryBean.
                 </documentation>
             </property>
             <property name="springTypesPackage">
@@ -933,9 +970,10 @@
         <propertyGroup name="Hibernate">
             <documentation>
                 The properties for configuring <a href="http://www.hibernate.org">Hibernate</a> support generation.
+                Use ${hibernate.version} to get value from pom.xml files when hibernate.version is set.
             </documentation>
             <property name="hibernateVersion">
-                <default>3</default>
+                <default>4</default>
                 <documentation>
                     The version of Hibernate to use when generating.
                     <ul>
@@ -947,7 +985,7 @@
                 </documentation>
             </property>
             <property name="hibernateEntityAnnotations" required="false">
-                <default>false</default>
+                <default>true</default>
                 <documentation>
                     Set to <code>true</code> to enable Hibernate @Annotations on Entity classes for ORM properties,
                     no hbm.xml files will be generated. The <code>hibernateVersion</code> namespace property must be set to <code>3</code> or <code>4</code>.

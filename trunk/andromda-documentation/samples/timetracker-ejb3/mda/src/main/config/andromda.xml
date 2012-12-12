@@ -20,7 +20,7 @@
         <repository name="netBeansMDR">
             <models>
                 <model>
-                    <uri>${model.uri}</uri>
+                    <uri>file:${project.basedir}/src/main/uml/timetracker.xmi</uri>
                     <moduleSearchLocations>
                         <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../../../../profiles/uml-1.4</location>
                         <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0.1/UML_Standard_Profile-1.0.1.jar!/</location>
@@ -89,7 +89,7 @@
                 <property name="entityPropertyNameMask">none</property>
                 <property name="parameterNameMask">none</property -->
                 <property name="enumerationLiteralNameMask">upperunderscore</property>
-                <property name="hibernateVersion">4</property>
+                <property name="hibernateVersion">${hibernate.version}</property>
                 <property name="persistenceContainerName">jboss</property>
                 <!-- Override default @todo to set to Eclipse default>
                 <property name="toDoTag">TODO</property -->
@@ -105,12 +105,16 @@
                 <property name="username">${jdbc.username}</property>
                 <property name="password">${jdbc.password}</property>
                 <property name="driver">${jdbc.driver}</property>
+                <property name="connectionUrl">${jdbc.url}</property>
                 <property name="testUsername">${testdb.username}</property>
                 <property name="testPassword">${testdb.password}</property>
                 <property name="testDriver">${testdb.driver}</property>
                 <property name="testConnectionUrl">${testdb.url}</property>
                 <property name="testDialect">${testdb.dialect}</property>
                 <property name="hibernateHbm2DDLAuto">update</property>
+                <property name="foreignKeySuffix"></property>
+                <property name="defaultIdentifierPattern">{0}Id</property>
+                <property name="relationNameSeparator">_</property>
             </properties>
         </namespace>
         <!-- See http://docs.andromda.org/andromda-cartridges/andromda-ejb3-cartridge/namespace.html -->
@@ -120,7 +124,7 @@
                 <property name="connectionUrl">${jdbc.url}</property>
                 <property name="entity-beans">${core.generated.dir}</property>
                 <property name="entity-impls">${core.manual.java.dir}</property>
-                <property name="entity-config">${core.generated.dir}</property>
+                <property name="entity-config">${core.manual.java.resources}</property>
                 <property name="session-beans">${core.generated.dir}</property>
                 <property name="session-impls">${core.manual.java.dir}</property>
                 <property name="session-config">${core.generated.dir}</property>

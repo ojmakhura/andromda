@@ -30,7 +30,9 @@
             <property name="hibernate.connection.password" value="${testPassword}"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.show_sql" value="true"/>
-            <!--property name="hibernate.hbm2ddl.auto" value="validate"/-->
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.id.new_generator_mappings" value="true"/>
+            <property name="hibernate.jdbc.batch_size" value="0"/>
         </properties>
     </persistence-unit>
 </persistence>

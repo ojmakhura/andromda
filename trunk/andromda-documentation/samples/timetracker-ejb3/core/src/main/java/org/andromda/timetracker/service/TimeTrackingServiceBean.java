@@ -25,6 +25,9 @@ public class TimeTrackingServiceBean
 {
     // --------------- Constructors ---------------
 
+    /**
+     * 
+     */
     public TimeTrackingServiceBean()
     {
         super();
@@ -35,6 +38,7 @@ public class TimeTrackingServiceBean
     /**
      * @see org.andromda.timetracker.service.TimeTrackingServiceBase#findTimecards(org.andromda.timetracker.vo.TimecardSearchCriteriaVO)
      */
+    @Override
     protected org.andromda.timetracker.vo.TimecardSummaryVO[] handleFindTimecards(org.andromda.timetracker.vo.TimecardSearchCriteriaVO criteria)
         throws Exception
     {

@@ -270,6 +270,11 @@
                     URL for the JDBC Driver to make the connection to the database.
                 </documentation>
             </property>
+            <property name="testDialect" required="false">
+                <documentation>
+                    JDBC Test Dialect for hibernate. For H2 we can use Oracle or DB2 in emulation mode set in connection URL
+                </documentation>
+            </property>
             <property name="testDriver" required="false">
                 <documentation>
                     JDBC Driver to make test database connection, this should be a fully qualified Java class name.

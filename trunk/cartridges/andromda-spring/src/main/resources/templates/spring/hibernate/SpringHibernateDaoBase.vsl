@@ -1,3 +1,4 @@
+#if ($recordType.equalsIgnoreCase("dao"))
 #set ($generatedFile = "${entity.packagePath}/${entity.daoBaseName}.java")
 // license-header java merge-point
 //
@@ -1607,3 +1608,4 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #end
     // spring-hibernate-dao-base merge-point
 }
+#end

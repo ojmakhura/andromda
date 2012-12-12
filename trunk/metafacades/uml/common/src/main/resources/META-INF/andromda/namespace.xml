@@ -328,14 +328,14 @@
                 <documentation>
                     The pattern used to construct the default identifier name of an entity, where <em>{0}</em>
                     represents the name of the entity as lower camel case (i.e. if <code>defaultIdentifierPattern</code>
-                    had a value of <em>{0}Id</em>, then the resulting identifier of a an Entity named PersonName would
-                    be <em>personNameId</em>).
+                    had a value of <em>{0}Id</em>, then the resulting identifier of a an Entity named Person would
+                    be <em>personId</em>).
                 </documentation>
             </property>
             <property name="defaultIdentifierType">
                 <default>datatype::Long</default>
                 <documentation>
-                    The type to give default identifiers.
+                    The UML type to give default identifiers.
                 </documentation>
             </property>
             <property name="defaultIdentifierVisibility">
@@ -347,7 +347,7 @@
             <property name="defaultEnumerationLiteralType">
                 <default>datatype::String</default>
                 <documentation>
-                    The type to give default enumeration literals.
+                    The type to give default enumeration literals. Deprecated: Use UML enumeration name+value instead, for typesafe enum output.
                 </documentation>
             </property>
             <property name="compositeIdentifierTypeNameSuffix">
@@ -402,7 +402,7 @@
                 Indicates whether enumerations must be generated using a Java 5 type-safe enum or a
                 traditional enumeration-pattern class. Note that there are 2 prerequisites for this
                 property to work correctly: you must use a Java 5 compiler and you must use Hibernate 3
-                for Object-relational mapping.
+                or later for Object-relational mapping.
             </documentation>
             </property>
             <property name="toDoForMissingDocumentation">

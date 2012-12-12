@@ -255,9 +255,9 @@
             </dependency>
 #if (!$spring && !$hibernate && !$ejb3)
             <dependency>
-                <artifactId>hibernate-validator</artifactId>
                 <groupId>org.hibernate</groupId>
-                <version>4.3.0.Final</version>
+                <artifactId>hibernate-validator</artifactId>
+                <version>4.3.1.Final</version>
             </dependency>
 #end
             <dependency>
@@ -449,9 +449,9 @@
                 <version>${hibernate.version}</version>
             </dependency>
             <dependency>
-                <artifactId>hibernate-validator</artifactId>
                 <groupId>org.hibernate</groupId>
-                <version>4.3.0.Final</version>
+                <artifactId>hibernate-validator</artifactId>
+                <version>4.3.1.Final</version>
             </dependency>
             <!-- JBoss Dependencies -->
             <dependency>
@@ -559,7 +559,7 @@
             <dependency>
                 <groupId>org.javassist</groupId>
                 <artifactId>javassist</artifactId>
-                <version>3.16.1-GA</version>
+                <version>3.17.1-GA</version>
             </dependency>
 #end
 #else
@@ -590,9 +590,9 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <artifactId>hibernate-validator</artifactId>
                 <groupId>org.hibernate</groupId>
-                <version>4.3.0.Final</version>
+                <artifactId>hibernate-validator</artifactId>
+                <version>4.3.1.Final</version>
             </dependency>
             <dependency>
                 <groupId>net.sf.ehcache</groupId>
@@ -602,7 +602,7 @@
             <dependency>
                 <groupId>org.javassist</groupId>
                 <artifactId>javassist</artifactId>
-                <version>3.16.1-GA</version>
+                <version>3.17.1-GA</version>
 #if ($ear)
                 <scope>test</scope>
 #end
@@ -1012,7 +1012,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.10</version>
+                <version>4.11</version>
 #if (!$ejb)
                 <scope>test</scope>
 #end
@@ -1238,7 +1238,7 @@
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
-                <version>1.3.168</version>
+                <version>1.3.170</version>
 #if (!$embeddedJetty)
                 <scope>test</scope>
 #end
@@ -1427,7 +1427,7 @@
 #if ($h2)
         <testdb.groupId>com.h2database</testdb.groupId>
         <testdb.artifactId>h2</testdb.artifactId>
-        <testdb.version>1.3.168</testdb.version>
+        <testdb.version>1.3.170</testdb.version>
 #elseif ($hypersonic)
         <testdb.groupId>org.hsqldb</testdb.groupId>
         <testdb.artifactId>hsqldb</testdb.artifactId>
@@ -1447,7 +1447,7 @@
 ## Always use H2 for testdb because it can emulate most major DBMSs
         <testdb.groupId>com.h2database</testdb.groupId>
         <testdb.artifactId>h2</testdb.artifactId>
-        <testdb.version>1.3.168</testdb.version>
+        <testdb.version>1.3.170</testdb.version>
         <testdb.driver>org.h2.Driver</testdb.driver>
         <testdb.dialect>org.hibernate.dialect.H2Dialect</testdb.dialect>
         <!-- See http://www.h2database.com/html/features.html#database_url (mixed mode) -->
@@ -1626,8 +1626,8 @@
 #if ($spring)
         <!-- Set andromda.xml hibernateVersion=4, sessionFactory and localTransactionManager to hibernate4
         Spring cartridge only works with hibernate3.
-        <hibernate.version>4.1.8.Final</hibernate.version-->
-        <hibernate.version>3.6.9.Final</hibernate.version>
+        <hibernate.version>3.6.9.Final</hibernate.version-->
+        <hibernate.version>4.1.8.Final</hibernate.version>
 #elseif ($hibernate || $ejb3)
         <!-- Set andromda.xml hibernateVersion=3, sessionFactory and localTransactionManager to hibernate3
         <hibernate.version>3.6.9.Final</hibernate.version-->
@@ -1637,7 +1637,7 @@
         <jetty.version>8.1.8.v20121106</jetty.version>
 #end
 #if ($cxf || $spring)
-        <spring.version>3.1.2.RELEASE</spring.version>
+        <spring.version>3.1.3.RELEASE</spring.version>
 #end
         <!-- SCM user ID and Password here, or in user specific settings.xml file -->
         <username></username>

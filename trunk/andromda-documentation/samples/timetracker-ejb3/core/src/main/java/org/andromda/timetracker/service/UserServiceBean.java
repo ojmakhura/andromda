@@ -29,6 +29,9 @@ public class UserServiceBean
 {
     // --------------- Constructors ---------------
 
+    /**
+     * 
+     */
     public UserServiceBean()
     {
         super();
@@ -39,6 +42,7 @@ public class UserServiceBean
     /**
      * @see org.andromda.timetracker.service.UserServiceBase#getAllUsers()
      */
+    @Override
     protected org.andromda.timetracker.vo.UserVO[] handleGetAllUsers()
         throws Exception
     {
@@ -49,6 +53,7 @@ public class UserServiceBean
     /**
      * @see org.andromda.timetracker.service.UserServiceBase#handleRegisterUser(org.andromda.timetracker.vo.UserDetailsVO)
      */
+    @Override
     protected UserDetailsVO handleRegisterUser(UserDetailsVO userDetailVO) throws Exception
     {
         User user = this.getUserDao().userDetailsVOToEntity(userDetailVO);
@@ -59,6 +64,7 @@ public class UserServiceBean
     /**
      * @see org.andromda.timetracker.service.UserServiceBase#handleGetUser(java.lang.String)
      */
+    @Override
     protected UserVO handleGetUser(String username) throws Exception
     {
         try
@@ -75,6 +81,7 @@ public class UserServiceBean
     /**
      * @see org.andromda.timetracker.service.UserServiceBase#handleRemoveUser(org.andromda.timetracker.vo.UserVO)
      */
+    @Override
     protected void handleRemoveUser(UserVO userVO) throws Exception
     {
         getUserDao().remove(userVO.getId());
