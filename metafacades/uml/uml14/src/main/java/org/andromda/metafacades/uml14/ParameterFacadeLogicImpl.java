@@ -105,7 +105,7 @@ public class ParameterFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ParameterFacade#getDefaultValue()
      */
-    @SuppressWarnings("null")
+    //@SuppressWarnings("null")
     @Override
     public String handleGetDefaultValue()
     {
@@ -118,7 +118,7 @@ public class ParameterFacadeLogicImpl
         }
         // Put single or double quotes around default in case modeler forgot to do it. Most templates
         // declare Type parameter = $parameter.defaultValue, requiring quotes around the value
-        if (StringUtils.isNotBlank(defaultValue))
+        if (StringUtils.isNotBlank(defaultValue) && defaultValue != null)
         {
             String typeName = this.metaObject.getType().getName();
             if ("String".equals(typeName) && defaultValue.indexOf('"')<0)

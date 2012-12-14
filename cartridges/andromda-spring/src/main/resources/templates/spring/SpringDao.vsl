@@ -99,6 +99,8 @@ public interface $entity.daoName
     /**
      * Converts this DAO's entity to a Collection of instances of type {@link $valueObjectRef.targetElement.fullyQualifiedName}.
      * @param entities
+     * @return Collection#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end
+
      */
     public Collection#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end ${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection#if($enableTemplating)<?>#end entities);
 

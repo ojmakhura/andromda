@@ -76,7 +76,6 @@ public class MetaCartridgeUtils
      * @param constraint the constraint of which to retrieve the name.
      * @return the fully qualified name.
      */
-    @SuppressWarnings("null")
     public static String getFullyQualifiedConstraintName(final ConstraintFacade constraint)
     {
         final StringBuilder name = new StringBuilder();
@@ -85,7 +84,7 @@ public class MetaCartridgeUtils
             final ModelElementFacade contextElement = constraint.getContextElement();
             final String contextElementName =
                 contextElement != null ? contextElement.getFullyQualifiedName(true) : null;
-            if (StringUtils.isNotBlank(contextElementName))
+            if (StringUtils.isNotBlank(contextElementName) && contextElementName != null)
             {
                 name.append(contextElementName.trim());
                 name.append(MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR);

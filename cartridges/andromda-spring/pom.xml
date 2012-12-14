@@ -61,6 +61,22 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-cartridge-plugin</artifactId>
+                <!--executions>
+                    <execution>
+                        <id>uml14</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <actualDirectory>${project.build.directory}/cartridge-test/actualUML14</actualDirectory>
+                            <expectedDirectory>${project.build.directory}/cartridge-test/expectedUML14</expectedDirectory>
+                            <expectedOutputArchive>${project.basedir}/src/test/expected/cartridge-output.zip</expectedOutputArchive>
+                            <configurationUri>file:${project.basedir}/conf/test/andromda.xml</configurationUri>
+                            <reportDirectory>${project.build.directory}/cartridge-test/reportsUML14</reportDirectory>
+                        </configuration>
+                    </execution>
+                </executions-->
             </plugin>
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
@@ -89,5 +105,6 @@
         <uml2.test.model.uri>file:${test.src.dir}/uml2/SpringCartridgeTestModel.uml</uml2.test.model.uri>
         <model.uri>jar:file:${src.dir}/uml/SpringMetafacadeModel.xml.zip!/SpringMetafacadeModel.xml</model.uri>
         <test.model.uri>jar:file:${test.src.dir}/uml/SpringCartridgeTestModel.xml.zip!/SpringCartridgeTestModel.xml</test.model.uri>
+        <!--maven.test.failure.ignore>true</maven.test.failure.ignore-->
     </properties>
 </project>

@@ -33,7 +33,7 @@
                 <property name="ejbJndiNamePrefix">${application.id}</property>
                 <!-- used in both hibernate and spring cartridges -->
                 <property name="hibernateVersion">${hibernate.version}</property>
-                <property name="hibernateEntityAnnotations">false</property>
+                <property name="hibernateEntityAnnotations">true</property>
             </properties>
         </namespace>
         <!-- See http://docs.andromda.org/andromda-cartridges/andromda-spring-cartridge/namespace.html -->

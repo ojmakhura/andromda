@@ -594,7 +594,7 @@
         <!-- JBoss7 uses java:/ and everyone else uses java:comp/env for server compatibility -->
         <dataSource>java:/${dataSource.name}</dataSource>
         <hibernate.version>4.1.8.Final</hibernate.version>
-        <spring.version>3.1.3.RELEASE</spring.version>
+        <spring.version>3.2.0.RELEASE</spring.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--
         Change driver path and jar for appropriate database

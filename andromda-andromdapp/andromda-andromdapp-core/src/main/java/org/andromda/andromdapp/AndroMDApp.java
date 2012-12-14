@@ -155,7 +155,6 @@ public class AndroMDApp
      * Prompts the user to choose the type of application, and then runs that AndroMDAppType.
      * @throws Exception
      */
-    @SuppressWarnings("null")
     private List<File> chooseTypeAndRun(final boolean write)
         throws Exception
     {

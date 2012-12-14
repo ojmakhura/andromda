@@ -64,7 +64,6 @@ class SpringMetafacadeUtils
      * @param defaultServiceRemotingType
      * @return String the remoting type name.
      */
-    @SuppressWarnings("null")
     static String getServiceRemotingType(ClassifierFacade classifier, String defaultServiceRemotingType)
     {
         ExceptionUtils.checkNull("classifer", classifier);
@@ -90,7 +89,7 @@ class SpringMetafacadeUtils
                 remotingType = remotingTypeValue;
             }
         }
-        if (StringUtils.isBlank(remotingType))
+        if (StringUtils.isBlank(remotingType) || remotingType == null)
         {
             remotingType = defaultServiceRemotingType;
         }
@@ -149,7 +148,6 @@ class SpringMetafacadeUtils
      * @param defaultRemoteServicePort
      * @return String the remote service port.
      */
-    @SuppressWarnings("null")
     static String getServiceRemotePort(ClassifierFacade classifier, String defaultRemoteServicePort)
     {
         ExceptionUtils.checkNull("classifer", classifier);
@@ -175,7 +173,7 @@ class SpringMetafacadeUtils
                 remoteServicePort = remoteServicePortValue;
             }
         }
-        if (StringUtils.isBlank(remoteServicePort))
+        if (StringUtils.isBlank(remoteServicePort) || remoteServicePort == null)
         {
             remoteServicePort = defaultRemoteServicePort;
         }

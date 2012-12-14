@@ -144,6 +144,14 @@
 #end
         <!-- applicationContext hibernateInterceptor merge-point -->
     </bean>
+
+#elseif ($hibernateUtils.version4)
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+ 
+    <!-- Translates Hibernate exceptions to Spring Data Access Exceptions -->
+    <bean class="org.springframework.orm.hibernate4.HibernateExceptionTranslator"/>
 #end
 
 #if ($daosEnabled)
