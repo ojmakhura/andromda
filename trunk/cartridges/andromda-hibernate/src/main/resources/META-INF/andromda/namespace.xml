@@ -549,6 +549,15 @@
                     Manager.
                 </documentation>
             </property>
+            <property name="javaVersion">
+                <default>1.6</default>
+                <documentation>
+                    Determines if some annotations or JDK-specific features are output such as @Override compareTo().
+                    v1.5 give compile error on @Override on methods that override interface methods.
+                    If 1.4, templating and generics should be turned off. Should be set by property java.version in pom.xml
+                    which is also used by the maven-compiler-plugin. Allowed values=1.4,1.5,1.6. Default=1.6.
+                </documentation>
+            </property>
             <property name="hibernateVersion">
                 <default>3</default>
                 <documentation>

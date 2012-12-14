@@ -34,7 +34,7 @@ public class TimecardDaoImpl
         timecardCriteria.setFetchMode("submitter", FetchMode.JOIN);
         timecardCriteria.setFetchMode("approver", FetchMode.JOIN);
 
-        // Add sumitter criteria
+        // Add submitter criteria
         if (criteria.getSubmitterId() != null)
         {
             timecardCriteria.createCriteria("submitter").add(Restrictions.idEq(criteria.getSubmitterId()));
@@ -137,7 +137,6 @@ public class TimecardDaoImpl
         return entity;
     }
 
-
     /**
      * @see TimecardDao#timecardSummaryVOToEntity(TimecardSummaryVO, Timecard, boolean)
      */
@@ -150,5 +149,4 @@ public class TimecardDaoImpl
         // TODO verify behavior of timecardSummaryVOToEntity
         super.timecardSummaryVOToEntity(sourceVO, targetEntity, copyIfNull);
     }
-
 }

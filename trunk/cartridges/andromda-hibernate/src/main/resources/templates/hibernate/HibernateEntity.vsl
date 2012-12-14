@@ -150,14 +150,21 @@ public abstract class $entity.entityName
     }
 
 #end
+#if (!$entity.attributes.empty)
     // Generate $entity.attributes.size() attributes
+#end
 ## Identifier attribute is automatically added to the list of attributes.
 #foreach ($attribute in $entity.attributes)
 #renderAttribute($entity $attribute)
 #end
+#if (!$entity.associationEnds.empty)
     // Generate $entity.associationEnds.size() associations
+#end
 #foreach ($associationEnd in $entity.associationEnds)
 #renderAssociation($entity $associationEnd)
+#end
+#if (!$entity.businessOperations.empty)
+    // Generate $entity.businessOperations.size() businessOperations
 #end
 #foreach ($operation in $entity.businessOperations)
     /**

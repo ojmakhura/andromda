@@ -45,6 +45,7 @@ public class UserDaoImpl
      * from the object store. If no such entity object exists in the object store,
      * a new, blank entity is created
      */
+    @SuppressWarnings("static-method")
     private User loadUserFromUserVO(UserVO userVO)
     {
         // TODO implement loadUserFromUserVO
@@ -126,6 +127,7 @@ public class UserDaoImpl
      * from the object store. If no such entity object exists in the object store,
      * a new, blank entity is created
      */
+    @SuppressWarnings("static-method")
     private User loadUserFromUserDetailsVO(UserDetailsVO userDetailsVO)
     {
         // TODO implement loadUserFromUserDetailsVO
@@ -140,7 +142,6 @@ public class UserDaoImpl
         return user;
         */
     }
-
 
     /**
      * @see org.andromda.timetracker.domain.UserDao#userDetailsVOToEntity(UserDetailsVO)
@@ -174,8 +175,8 @@ public class UserDaoImpl
     @Override
     protected User handleGetUserDetails(String username) throws Exception {
 
-        User user = (User)getSession().createQuery(
-            "from UserImpl user left join fetch user.roles where user.username = :username")
+        User user = (User)this.getSessionFactory().getCurrentSession().createQuery(
+            "SELECT FROM UserImpl u left join fetch u.roles where u.username = :username")
             .setParameter("username", username)
             .uniqueResult();
         return user;

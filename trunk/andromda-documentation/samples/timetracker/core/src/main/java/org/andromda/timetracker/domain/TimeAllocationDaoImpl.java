@@ -15,7 +15,7 @@ public class TimeAllocationDaoImpl
     extends TimeAllocationDaoBase
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void toTimeAllocationVO(
@@ -27,7 +27,7 @@ public class TimeAllocationDaoImpl
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public TimeAllocationVO toTimeAllocationVO(final TimeAllocation entity)
@@ -57,8 +57,9 @@ public class TimeAllocationDaoImpl
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
+    @Override
     public TimeAllocation timeAllocationVOToEntity(TimeAllocationVO timeAllocationVO)
     {
         // TODO verify behavior of timeAllocationVOToEntity
@@ -68,7 +69,7 @@ public class TimeAllocationDaoImpl
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void timeAllocationVOToEntity(

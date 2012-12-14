@@ -542,7 +542,7 @@
         <maven-help-plugin.version>2.1.1</maven-help-plugin.version>
         <maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
         <maven-install-plugin.version>2.4</maven-install-plugin.version>
-        <maven-invoker-plugin.version>1.7</maven-invoker-plugin.version>
+        <maven-invoker-plugin.version>1.8</maven-invoker-plugin.version>
         <maven-jar-plugin.version>2.4</maven-jar-plugin.version>
         <maven-javadoc-plugin.version>2.9</maven-javadoc-plugin.version>
         <maven-jxr-plugin.version>2.3</maven-jxr-plugin.version>
@@ -554,7 +554,7 @@
         <maven-scm-plugin.version>1.8</maven-scm-plugin.version>
         <maven-site-plugin.version>3.2</maven-site-plugin.version>
         <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
-		<!-- V2.12 timetracker-ejb3 regression: The forked VM terminated without saying properly goodbye. VM crash or System.exit called -->
+		<!-- V2.12 timetracker-ejb3 regression: The forked VM terminated without saying properly goodbye. VM crash or System.exit called: If persistence.xml entities wrong -->
         <maven-surefire-plugin.version>2.12.4</maven-surefire-plugin.version>
         <maven-surefire-report-plugin.version>2.12.4</maven-surefire-report-plugin.version>
         <maven-verifier-plugin.version>1.0</maven-verifier-plugin.version>
@@ -571,7 +571,7 @@
         <taglist-maven-plugin.version>2.4</taglist-maven-plugin.version>
         <tattletale-maven.version>1.1.2.Final</tattletale-maven.version>
         <tomcat-maven-plugin.version>1.1</tomcat-maven-plugin.version>
-        <versions-maven-plugin.version>1.3.1</versions-maven-plugin.version>
+        <versions-maven-plugin.version>2.0</versions-maven-plugin.version>
         <xml-maven-plugin.version>1.0</xml-maven-plugin.version>
     </properties>
     <profiles>

@@ -28,7 +28,6 @@
         <property name="pluralizeAssociationEndNames">true</property>
         <property name="pluralizeAttributeNames">true</property>
         <property name="pluralizeParameterNames">true</property>
-        <!--property name="hibernateVersion">3</property-->
         <property name="toDoTag">TODO</property>
         <property name="username">auser</property>
         <property name="password">apassword</property>
@@ -38,7 +37,7 @@
         <property name="testPassword">sa</property>
         <property name="testDriver">org.h2.Driver</property>
         <property name="testConnectionUrl">jdbc:h2:~/springcartridge;MODE=Oracle;</property>
-        <property name="hibernateVersion">3</property>
+        <property name="hibernateVersion">4</property>
         <property name="hibernateEntityAnnotations">false</property>
       </properties>
     </namespace>

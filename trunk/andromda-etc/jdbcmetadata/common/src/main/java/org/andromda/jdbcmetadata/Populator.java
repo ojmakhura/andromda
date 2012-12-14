@@ -49,6 +49,7 @@ public class Populator
     private List<String> tableNameExcludePatterns = new ArrayList<String>();
     private String typeMappingsUri;
     private String wrapperMappingsUri;
+    @SuppressWarnings("unused")
     private String expressionMappingsUri;
     private JdbcTypeFinder typeMapper = new JdbcTypeFinder();
     private Properties overrides = new Properties();
@@ -189,6 +190,7 @@ public class Populator
      * @param pattern
      * @param patternList
      */
+    @SuppressWarnings("static-method")
     public void populatePattern(String pattern, List<String> patternList)
     {
         if (StringUtils.isNotBlank(pattern) && patternList != null)
@@ -449,7 +451,6 @@ public class Populator
      * @param property
      * @return rtnValue
      */
-    @SuppressWarnings("null")
     public String getOverride(String dbName, String umlName, String property)
     {
         String rtnValue = null;
@@ -478,7 +479,7 @@ public class Populator
         }
         else
         {
-            if (StringUtils.isNotBlank(rtnValue))
+            if (StringUtils.isNotBlank(rtnValue) && rtnValue != null)
             {
                 rtnValue = rtnValue.trim();
             }

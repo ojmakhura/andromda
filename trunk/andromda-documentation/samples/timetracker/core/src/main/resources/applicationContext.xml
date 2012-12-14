@@ -47,6 +47,12 @@
         <!-- applicationContext sessionFactory merge-point -->
     </bean>
 
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+ 
+    <!-- Translates Hibernate exceptions to Spring Data Access Exceptions -->
+    <bean class="org.springframework.orm.hibernate4.HibernateExceptionTranslator"/>
 
     <bean id="org.andromda.timetracker.domain.UserDaoImpl" class="org.andromda.timetracker.domain.UserDaoImpl">
         <property name="sessionFactory" ref="sessionFactory"/>

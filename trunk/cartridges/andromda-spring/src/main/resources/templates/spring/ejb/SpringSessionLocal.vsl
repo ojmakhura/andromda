@@ -34,7 +34,9 @@ $operation.getDocumentation("     * ")
 #foreach ($argument in $operation.arguments)
      * @param $argument.name $argument.getDocumentation("")
 #end
+#if ($operation.returnTypePresent)
      * @return $operation.getterSetterReturnTypeName
+#end
 #if ($operation.exceptionsPresent)
      * @${operation.throwsClause}
 #end

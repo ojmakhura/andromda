@@ -49,10 +49,10 @@ public class DAOFactory extends AbstractDAOFactory
      * GenericDAO Interface instance for $entity.name
      * @return new AbstractDAO generic from identifier class $keyClass
      */
-	public static GenericDAOIF<$entity.name, $keyClass> get${entity.name}DAO()
-	{
-		return new AbstractDAO<$entity.name, $keyClass>() {};
-	}
+    public static GenericDAOIF<$entity.name, $keyClass> get${entity.name}DAO()
+    {
+        return new AbstractDAO<$entity.name, $keyClass>() {};
+    }
 
 #end
 #end

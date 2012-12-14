@@ -620,7 +620,6 @@ public class UMLMetafacadeUtils
      * @param parent Object containing this facade, which may have an attribute named dependency to a different type
      * @return Constructor String with facade name
      */
-    @SuppressWarnings("null")
     public String createConstructor(ModelElementFacade facade, boolean useMany, ModelElementFacade parent)
     {
         if (facade==null)

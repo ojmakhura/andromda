@@ -1009,7 +1009,7 @@
                 <documentation>
                     Set to <i>TRUE</i> to enable Hibernate's
                     <a href="http://www.hibernate.org/hib_docs/v3/reference/en/html/xml.html">XML persistence support</a>
-                    using dom4J. "hibernateVersion" must be set to "3"
+                    using dom4J. "hibernateVersion" must be set to <code>3</code> or <code>4</code>
                 </documentation>
             </property>
             <property name="hibernateQueryUseNamedParameters">

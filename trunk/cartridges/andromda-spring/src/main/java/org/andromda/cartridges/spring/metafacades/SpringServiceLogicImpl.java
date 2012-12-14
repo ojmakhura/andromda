@@ -321,14 +321,13 @@ public class SpringServiceLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringServiceLogic#handleGetInterceptors()
      */
-    @SuppressWarnings("null")
     protected Collection<String> handleGetInterceptors()
     {
         String serviceInterceptorString =
             this.isConfiguredProperty(SpringGlobals.SERVICE_INTERCEPTORS) ? ObjectUtils.toString(this
                 .getConfiguredProperty(SpringGlobals.SERVICE_INTERCEPTORS)) : null;
         Collection<String> interceptors = null;
-        if (StringUtils.isNotBlank(serviceInterceptorString))
+        if (StringUtils.isNotBlank(serviceInterceptorString) && serviceInterceptorString != null)
         {
             interceptors = Arrays.asList(serviceInterceptorString.split(","));
         }

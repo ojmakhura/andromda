@@ -69,7 +69,6 @@ public class AttributeFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AttributeFacade#getDefaultValue()
      */
-    @SuppressWarnings("null")
     @Override
     public String handleGetDefaultValue()
     {
@@ -80,7 +79,7 @@ public class AttributeFacadeLogicImpl
         }
         // Put single or double quotes around default in case modeler forgot to do it. Most templates
         // declare Type attribute = $attribute.defaultValue, requiring quotes around the value
-        if (StringUtils.isNotBlank(defaultValue) && !this.isMany() && this.metaObject.getType() != null)
+        if (StringUtils.isNotBlank(defaultValue) && !this.isMany() && this.metaObject.getType() != null && defaultValue != null)
         {
             String typeName = this.metaObject.getType().getName();
             if ("String".equals(typeName) && defaultValue.indexOf('"')<0)

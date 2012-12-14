@@ -15,7 +15,7 @@ public class UserRoleDaoImpl
     extends UserRoleDaoBase
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void toUserRoleVO(
@@ -27,7 +27,7 @@ public class UserRoleDaoImpl
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public UserRoleVO toUserRoleVO(final UserRole entity)
@@ -57,8 +57,9 @@ public class UserRoleDaoImpl
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
+    @Override
     public UserRole userRoleVOToEntity(UserRoleVO userRoleVO)
     {
         // TODO verify behavior of userRoleVOToEntity
@@ -68,7 +69,7 @@ public class UserRoleDaoImpl
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void userRoleVOToEntity(
