@@ -509,8 +509,8 @@ $target.getDocumentation("     * ")
 
 #*      *##else
 #*        *##if ($target.hasTaggedValue("andromda_persistence_orderBy"))
-#*          *##if ($stringUtils.isNotBlank(${target.orderByClause}))
-    @javax.persistence.OrderBy("${target.orderByClause}")
+#*          *##if ($stringUtils.isNotBlank(${target.orderByColumns}))
+    @javax.persistence.OrderBy("${target.orderByColumns}")
 #*          *##else
     @javax.persistence.OrderBy
 #*          *##end
