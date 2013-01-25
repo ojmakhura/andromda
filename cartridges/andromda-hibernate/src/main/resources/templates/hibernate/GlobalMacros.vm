@@ -292,11 +292,10 @@ $attribute.getDocumentation("     * ")
 ##
 ## Render AssociationOverrides for embedded object if associations exist on the embedded object
 ##
-#*        *##if (!$attribute.type.associationEnds.empty)
+#*        *##if (!$attribute.type.navigableConnectingEnds.empty)
     @javax.persistence.AssociationOverrides
     ({
-#*          *##foreach ($associationEnd in $attribute.type.associationEnds)
-#*            *##set ($target = $associationEnd.otherEnd)
+#*          *##foreach ($target in $attribute.type.navigableConnectingEnds)
 #*            *##if (!$target.type.compositePrimaryKeyPresent)
         @javax.persistence.AssociationOverride(name = "$target.name", joinColumns = @javax.persistence.JoinColumn(name = "${target.columnName}_$stringUtils.upperCase($target.name)"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end))#if($velocityCount != $attribute.type.associationEnds.size()),#end
 

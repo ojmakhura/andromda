@@ -7,9 +7,12 @@
     <repository name="emf-uml22">
       <models>
         <model type="emf-uml22">
-          <uri>${uml2.test.model.uri}</uri>
+          <uri>file:${test.src.dir}/uml2/SpringCartridgeTestModel.uml</uri>
           <moduleSearchLocations>
-            <location patterns="*.uml,*.epx,*.emx">${project.basedir}/src/test/uml2</location>
+            <location patterns="*.uml,*.epx,*.emx">${test.src.dir}/uml2</location>
+          <!--uri>file:${project.basedir}/../andromda-hibernate/src/test/uml2/HibernateCartridgeTestModel.uml</uri>
+          <moduleSearchLocations>
+            <location patterns="*.uml,*.epx,*.emx">${project.basedir}/../andromda-hibernate/src/test/uml2</location-->
           </moduleSearchLocations>
         </model>
       </models>
@@ -42,6 +45,10 @@
     </namespace>
     <namespace name="spring">
       <properties>
+        <property name="projectId">${project.parent.artifactId}</property>
+        <property name="projectName">${project.parent.name}</property>
+        <property name="projectGroupId">${project.parent.groupId}</property>
+        <property name="projectVersion">${project.parent.version}</property>
         <property name="overwrite">true</property>
         <property name="jdbcMappingsUri">JDBC</property>
         <property name="sqlMappingsUri">Oracle9i</property>
@@ -86,6 +93,7 @@
         <property name="client">${test.output.dir}</property>
         <property name="client-test">${test.output.dir}</property>
         <property name="osgi">${test.output.dir}</property>
+        <property name="roo-directory">${test.output.dir}/Roo</property>
       </properties>
     </namespace>
   </namespaces>

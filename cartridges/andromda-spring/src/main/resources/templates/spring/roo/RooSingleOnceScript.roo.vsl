@@ -1,0 +1,23 @@
+## Overwrite this .roo script each time roo is run - assumes one time script has been run, this just runs all entities
+#set ($generatedFile = "${projectId}SingleOnce.roo")
+// Create AndroMDA ${projectId} using Spring Roo. This file is one-time setup for a single project module containing persistence and web
+// To run: %ROO_HOME%\bin\roo.bat script --file $generatedFile
+// Generated on $springUtils.date
+
+// $entities.size() $entities.get(0) $model
+project --topLevelPackage $entityUtils.getTopLevelPackage($entities, false) --parent org.andromda.maven:maven-parent:3.5-SNAPSHOT  --packaging WAR
+logging setup --level INFO
+
+//DATABASE_DOT_COM        DB2_400                 DB2_EXPRESS_C
+//DERBY_CLIENT            DERBY_EMBEDDED          FIREBIRD
+//GOOGLE_APP_ENGINE       H2_IN_MEMORY            HYPERSONIC_IN_MEMORY
+//HYPERSONIC_PERSISTENT   MSSQL                   MYSQL
+//ORACLE                  POSTGRES                SYBASE
+jpa setup --provider HIBERNATE --database H2_IN_MEMORY 
+// Change from in-memory jdbc:h2:mem:${projectId};DB_CLOSE_DELAY=-1 for persistent
+database properties set --key database.url --value jdbc:h2:~/${projectId};AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1
+database properties list
+dependency add --groupId org.springframework --artifactId spring-tx --version ${spring.version}
+dependency add --groupId org.hibernate.javax.persistence --artifactId hibernate-jpa-2.0-api --version 1.0.1.Final
+web mvc setup
+security setup

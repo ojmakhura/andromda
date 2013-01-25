@@ -1,0 +1,71 @@
+## Overwrite this .roo script each time roo is run - assumes one time script has been run, this just runs all entities
+#set ($generatedFile = "${projectId}SingleEachTime.roo")
+// Create AndroMDA ${projectId} sample using Spring Roo. This script should be run every time the model changes
+// To run: %ROO_HOME%\bin\roo.bat script --file $generatedFile
+// Generated on $springUtils.date
+
+#if (!$entities.empty)
+// Persistence scaffolding for $entities.size() entities
+project --topLevelPackage $entityUtils.getTopLevelPackage($entities, false).fullyQualifiedName --parent org.andromda.maven:maven-parent:3.5-SNAPSHOT  --packaging WAR
+logging setup --level INFO
+web mvc setup
+security setup
+jpa setup --provider HIBERNATE --database H2_IN_MEMORY 
+// Change from in-memory jdbc:h2:mem:${projectId};DB_CLOSE_DELAY=-1 for persistent
+database properties set --key database.url --value jdbc:h2:~/${projectId};AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1
+database properties list
+// Roo bug - these dependencies are missing
+dependency add --groupId org.springframework --artifactId spring-tx --version ${spring.version}
+dependency add --groupId org.hibernate.javax.persistence --artifactId hibernate-jpa-2.0-api --version 1.0.1.Final
+#set ($daosEnabled = $stringUtils.isNotBlank($daos) && $recordType.equalsIgnoreCase("dao"))
+##set ($dataJpa = $recordType.equalsIgnoreCase("active"))
+#end
+
+#if (!$enums.empty)
+// $enums.size() Enumerations
+#foreach($enumeration in $enums)
+// name=$enumeration.name $enumeration.literals.size() literals $enumeration
+#foreach ($line in $springUtils.getRooEnum($enumeration))
+$line
+#end
+
+#end
+#end
+#if (!$classes.empty)
+// $classes.size() ValueObjects and Embedded classes
+#foreach($class in $classes)
+#foreach ($line in $springUtils.getRooClass($class))
+$line
+#end
+
+#end
+#end
+#if (!$entities.empty)
+// $entities.size() Entities
+#foreach($entity in $entities)
+## Outputs both composite key embeddable and the Entity class definition $recordType
+#foreach ($line in $springUtils.getRooEntity($entity, "active"))
+$line
+#end
+#foreach ($attribute in $entity.attributes)
+#if (!$attribute.identifier)
+##// $attribute.fullyQualifiedName $attribute.type.fullyQualifiedName
+$springUtils.getRooField($attribute)
+#end
+#end
+
+#end
+
+// Entity Associations:
+#foreach($entity in $entities)
+#foreach ($end in $entity.navigableConnectingEnds)
+#if (!$end.identifier)
+##// $end.fullyQualifiedName $end.type.fullyQualifiedName
+$springUtils.getRooField($end)
+#end
+#end
+#if (!$entity.navigableConnectingEnds.empty)
+
+#end
+#end
+#end

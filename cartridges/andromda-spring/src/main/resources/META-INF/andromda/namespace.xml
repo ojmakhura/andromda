@@ -163,8 +163,45 @@
                     will be generated.
                 </documentation>
             </property>
+            <property name="roo-directory" required="false">
+                <documentation>
+                    The location to which Spring Roo scripts will be generated. Default if unspecified = 'Roo'.
+                </documentation>
+            </property>
         </propertyGroup>
         <propertyGroup name="Other">
+            <property name="projectId">
+                <default>${project.parent.artifactId}</default>
+                <documentation>
+                    The artifactId of the project (i.e. timetracker), passed into the templates as a configuration value.
+                    Typically lowercase, no spaces. Must be specified if using Roo scripts.
+                    Use ${project.parent.artifactId} to get value from pom.xml files.
+                </documentation>
+            </property>
+            <property name="projectName">
+                <default>${project.parent.name}</default>
+                <documentation>
+                    The name of the project (i.e. TimeTracker), passed into the templates as a configuration value.
+                    Typically mixed case, may contain spaces.
+                    Use ${project.parent.name} to get value from pom.xml files.
+                </documentation>
+            </property>
+            <property name="projectGroupId">
+                <default>${project.parent.groupId}</default>
+                <documentation>
+                    The groupId of the project (i.e. org.andromda.timetracker), passed into the templates as a configuration value.
+                    Used by Roo scripts when creating multi-module subprojects. Must be specified if using Roo scripts.
+                    Use ${project.parent.groupId} to get value from pom.xml files.
+                </documentation>
+            </property>
+            <property name="projectVersion">
+                <default>${project.parent.version}</default>
+                <documentation>
+                    The version of the project (i.e. 3.5-SNAPSHOT), passed into the templates as a configuration value.
+                    Used by Roo scripts when creating multi-module subprojects. Must be specified if using Roo scripts.
+                    Use ${project.parent.version} to get value from pom.xml files.
+                </documentation>
+            </property>
             <property name="springVersion">
                 <default>3.0</default>
                 <documentation>
@@ -176,6 +213,14 @@
                         <li>2.5</li>
                         <li>3.0</li>
                     </ul>
+                </documentation>
+            </property>
+            <property name="javaVersion">
+                <default>1.6</default>
+                <documentation>
+                    The version of Java to use/support when generating. Necessary when Annotation changes make
+                    some annotations new or deprecated. For example, Java 1.6 uses @Override on implementation
+                    methods for interface implementation classes. Use ${javaVersion} property from the pom.xml.
                 </documentation>
             </property>
             <property name="recordType">
@@ -207,7 +252,7 @@
             <property name="rooScripts">
                 <default>false</default>
                 <documentation>
-                    Create Spring Roo scripts. If true, two scripts are created: One for one-time project
+                    Create Spring Roo scripts in the roo outlet location. If true, two scripts are created: One for one-time project
                     scaffolding setup, and one for ongoing entity/service/ui/test creation. Roo scripts are
                     run in a separate ../Roo subdirectory under the project, and are not run automatically as
                     part of the project build. The outputs can be combined with the AndroMDA outputs, or the

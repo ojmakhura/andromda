@@ -157,8 +157,8 @@ public abstract class $entity.entityName
 #foreach ($attribute in $entity.attributes)
 #renderAttribute($entity $attribute)
 #end
-#if (!$entity.associationEnds.empty)
-    // Generate $entity.associationEnds.size() associations
+#if (!$entity.navigableConnectingEnds.empty)
+    // Generate $entity.navigableConnectingEnds.size() associations
 #end
 #foreach ($associationEnd in $entity.associationEnds)
 #renderAssociation($entity $associationEnd)
@@ -297,7 +297,11 @@ ${comma}${property.getterSetterTypeName} ${property.name}## no newline
 #foreach ($property in $entity.allRequiredConstructorParameters)
 #if (!$property.identifier || $entity.usingForeignIdentifier)
 #if ($property.hibernateEntityAttributeMetaType || ($property.navigable && $property.otherEnd))
+#if ($property.readOnly)
+            entity.${property.name} = ${property.name};
+#else
             entity.${property.setterName}(${property.name});
+#end
 #end
 #end
 #end
@@ -336,7 +340,11 @@ ${comma}${property.getterSetterTypeName} ${property.name}## no newline
 #foreach ($property in $entity.allProperties)
 #if (!$property.identifier || $entity.usingForeignIdentifier)
 #if ($property.hibernateEntityAttributeMetaType || ($property.navigable && $property.otherEnd))
+#if ($property.readOnly)
+            entity.${property.name} = ${property.name};
+#else
             entity.${property.setterName}(${property.name});
+#end
 #end
 #end
 #end

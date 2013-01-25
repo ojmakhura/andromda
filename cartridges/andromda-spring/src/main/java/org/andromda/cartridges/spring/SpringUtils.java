@@ -9,7 +9,14 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import org.andromda.cartridges.spring.metafacades.SpringService;
+import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.Entity;
+import org.andromda.metafacades.uml.EntityAttribute;
+import org.andromda.metafacades.uml.EnumerationFacade;
+import org.andromda.metafacades.uml.EnumerationLiteralFacade;
+import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.Service;
@@ -18,6 +25,7 @@ import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -28,6 +36,11 @@ import org.apache.commons.lang.StringUtils;
  */
 public class SpringUtils
 {
+    /**
+     * The logger instance.
+     */
+    private static final Logger logger = Logger.getLogger(SpringUtils.class);
+
     /**
      * Retrieves all roles from the given <code>services</code> collection.
      *
@@ -436,6 +449,328 @@ public class SpringUtils
         return fullName.toString();
     }
 
+    /**
+     * Constructs the fully qualified class definition from the facade. Used for
+     * ValueObject, EmbeddedValue
+     * @param facade the class to construct the roo field definition.
+     * @return the Roo class definition.
+     */
+    public static List<String> getRooEnum(final EnumerationFacade facade)
+    {
+        List<String> results = new ArrayList<String>();
+        String result = "enum type --class " + facade.getFullyQualifiedName() + " --permitReservedWords";
+        results.add(result);
+        for (AttributeFacade literal : facade.getLiterals())
+        {
+            result = "enum constant --name " + literal.getName();
+            results.add(result);
+        }
+        return results;
+    }
+
+    /**
+     * Constructs the fully qualified class definition from the facade. Used for
+     * ValueObject, EmbeddedValue
+     * @param facade the class to construct the roo field definition.
+     * @return the Roo class definition.
+     */
+    public static List<String> getRooClass(final ClassifierFacade facade)
+    {
+        List<String> results = new ArrayList<String>();
+        String result = null;
+        if (facade.isEmbeddedValue() || facade.hasStereotype("ValueObject"))
+        {
+            if (facade.isEmbeddedValue())
+            {
+                result = "embeddable --class ";
+            }
+            else if (facade.hasStereotype("ValueObject"))
+            {
+                result = "class --class ";
+            }
+            result += facade.getFullyQualifiedName() + " --permitReservedWords";
+            if (facade.isAbstract())
+            {
+                result += " --abstract";
+            }
+            if (facade.getGeneralization() != null)
+            {
+                result += " --extends " + facade.getGeneralization().getFullyQualifiedName();
+            }
+            results.add(result);
+            for (AttributeFacade attr : facade.getAttributes())
+            {
+                results.add(getRooField(attr));
+            }
+            //results.add("");
+        }
+        // Old style Java 1.4 enumeration class
+        /*else if (facade.hasStereotype("Enumeration"))
+        {
+            result = "enum type --class " + facade.getName() + " --permitReservedWords";
+            results.add(result);
+            for (AttributeFacade literal : facade.getAttributes())
+            {
+                result = "enum constant --name " + literal.getName();
+                results.add(result);
+            }
+            results.add("");
+        }*/
+        return results;
+    }
+
+    /**
+     * Constructs the fully qualified class name from the packageName and name.
+     * Removes the words 'Test' and 'TestCase' because Roo cannot create tests for Entities
+     * with those names.
+     * @param entity the entity to construct the roo script definition.
+     * @return the Roo field definition.
+     */
+    public static String getRooEntityName(final Entity entity)
+    {
+        return StringUtils.remove(entity.getFullyQualifiedName(), "Test");
+    }
+
+    /**
+     * Constructs the fully qualified class name from the packageName and name.
+     * @param entity the entity to construct the roo script definition.
+     * @param recordType Either 'dao' or 'repository'
+     * @return the Roo field definition.
+     */
+    public static List<String> getRooEntity(final Entity entity, String recordType)
+    {
+        List<String> results = new ArrayList<String>();
+        Collection<ModelElementFacade> identifiers = entity.getIdentifiers(false);
+        String identifierLine = null;
+        // Keep track of entities already output, so that descendants are created after ancestors.
+        if (entity.isCompositeIdentifier())
+        {
+            String line = "embeddable --class " + StringUtils.remove(entity.getFullyQualifiedIdentifierTypeName(), "Test") + " --serializable";
+            //String line = "embeddable --class " + entity.getFullyQualifiedIdentifierTypeName() + " --serializable";
+            results.add(line);
+            for (AssociationEndFacade associationEnd : entity.getIdentifierAssociationEnds())
+            {
+                //results.add(SpringUtils.getRooField(associationEnd));
+                if (associationEnd.isMany2One())
+                {
+                    line = "field other --fieldName " + associationEnd.getOtherEnd().getName() + " --type " + associationEnd.getOtherEnd().getType().getFullyQualifiedName();
+                    results.add(line);
+                }
+            }
+            for (ModelElementFacade identifier : identifiers)
+            {
+                logger.info("getRooField identifier: " + getRooField(identifier) + " for " + identifier);
+                results.add(SpringUtils.getRooField(identifier));
+            }
+            identifierLine = " --identifierField " + entity.getIdentifierName() + " --identifierType " + StringUtils.remove(entity.getFullyQualifiedIdentifierTypeName(), "Test");
+        }
+        // Hibernate cartridge automatically adds default identifier if none, spring cartridge does not
+        else if (entity.getIdentifiers(false).size()==0)
+        {
+            identifierLine = " --identifierField id --identifierType java.lang.Long --identifierColumn ID";
+        }
+        else if (entity.getIdentifiers(false).size()==1)
+        {
+            ModelElementFacade id = entity.getIdentifiers(false).iterator().next();
+            String identifierType = entity.getFullyQualifiedIdentifierTypeName();
+            // Identifier properties can be either attribute or associationEnd. If end, associated class identifiers are added to this class identifiers.
+            if (id instanceof EntityAttribute)
+            {
+                ClassifierFacade type = ((EntityAttribute)id).getType();
+                if (type.isPrimitive())
+                {
+                    // Primitive type not allowed for identifier in Spring Roo
+                    identifierType = type.getWrapperName();
+                }
+            }
+            // Some test models have 'Test' in entity/attribute names, conflicting with names created for test scaffolding
+            identifierLine = " --identifierField " + entity.getIdentifierName() + " --identifierType " + StringUtils.remove(identifierType, "Test");
+        }
+        else
+        {
+            // Should never get to this place
+        }
+        // Identifiers: identifiers.size()
+        String activeRecord = " --activeRecord true";
+        // false = Use Spring Data JPA, no DAOs. True = Dao helpers
+        if (recordType.equals("active"))
+        {
+            activeRecord = " --activeRecord false";
+        }
+        String mappedSuperclass = "";
+        if (entity.hasStereotype("MappedSuperclass"))
+        {
+            mappedSuperclass = " --mappedSuperclass";
+        }
+        String extension = "";
+        GeneralizableElementFacade general = entity.getGeneralization();
+        if (general != null)
+        {
+            extension = " --extends " + general.getFullyQualifiedName();
+        }
+        String isAbstract = "";
+        if (entity.isAbstract())
+        {
+            isAbstract = " --abstract";
+        }
+        String schema = "";
+        if (StringUtils.isNotBlank(entity.getSchema()))
+        {
+            schema = " --schema " + entity.getSchema();
+        }
+        String version = "";
+        String entityVersion = (String) entity.findTaggedValue("andromda_hibernate_version");
+        for (AttributeFacade attr : entity.getAttributes())
+        {
+            if (attr.hasStereotype("Version"))
+            {
+                version = " --versionField " + attr.getName() + " --versionColumn " + ((EntityAttribute)attr).getColumnName() + " --versionType " + attr.getType().getFullyQualifiedName();
+            }
+        }
+        // TODO Check for global configured property "versionProperty" for adding version property to all entities
+        if (StringUtils.isNotBlank(entityVersion) && StringUtils.isBlank(version))
+        {
+            // Add automatic version identifier to entity definition
+            version = " --versionField version --versionColumn VERSION --versionType java.lang.Integer";
+        }
+        // TODO version*, inheritanceType, persistenceUnit, entityName, sequenceName
+        String line = "entity jpa --class " + StringUtils.remove(entity.getFullyQualifiedName(), "Test") + activeRecord + " --table " + entity.getTableName() + identifierLine + mappedSuperclass + extension + version + isAbstract + schema + " --equals --serializable --testAutomatically --permitReservedWords";
+        results.add(StringUtils.replace(line, "  ", " "));
+        return results;
+    }
+
+    /**
+     * Constructs the fully qualified class name from the packageName and name.
+     * @param facade the property (attribute or associationEnd) to construct the roo field definition.
+     * @return the Roo field definition.
+     */
+    public static String getRooField(final ModelElementFacade facade)
+    {
+        String result = " --fieldName " + facade.getName();
+        if (facade instanceof AssociationEndFacade)
+        {
+            AssociationEndFacade end = (AssociationEndFacade)facade;
+            ClassifierFacade type = end.getOtherEnd().getType();
+            String typeName = " --type " + type.getFullyQualifiedName();
+            if (end.isMany2One())
+            {
+                result = "field reference " + result + typeName;
+            }
+            else if (end.isOne2Many())
+            {
+                result = "field set " + result + typeName;
+            }
+            else
+            {
+                result = "field other " + result + typeName;
+            }
+            //System.out.println(end.getBindedFullyQualifiedName(end) + " " + end.getQualifiedName());
+            String owner = end.getFullyQualifiedName();
+            if (owner.lastIndexOf('.') > 0)
+            {
+                owner = owner.substring(0, owner.lastIndexOf('.'));
+                result += " --class " + owner;
+            }
+            else
+            {
+                logger.error("getRooField invalid owner: " + owner + " for " + facade.getFullyQualifiedName());
+            }
+        }
+        else if (facade instanceof AttributeFacade)
+        {
+            AttributeFacade attribute = (AttributeFacade)facade;
+            ClassifierFacade type = attribute.getType();
+            String typeName = " --type " + type.getFullyQualifiedName();
+            //logger.info("getRooField " + attribute.getFullyQualifiedName() + " type=" + type.getFullyQualifiedName() + " Integer=" + type.isIntegerType());
+            if ((attribute.isMany() || attribute.getName().endsWith("[]")) && !type.isDataType())
+            {
+                // The Many side of M:1 relationship, as an Attribute instead of an AssociationEnd
+                result = "field reference " + result + typeName;
+            }
+            // Version attribute is specified in the entity definition, skip this field definition
+            else if (type.getFullyQualifiedName().endsWith("[]") || attribute.hasStereotype("Version"))
+            {
+                // TODO: Convert DataType * to column Map with association. Punt for now.
+                result = "";
+            }
+            else
+            {
+                String primitive = "";
+                if (type.isPrimitive())
+                {
+                    primitive = " --primitive ";
+                }
+                if (type.isIntegerType() || type.isLongType() || type.isDoubleType() || type.isFloatType())
+                {
+                    result = "field number " + result + primitive + typeName;
+                }
+                else if (type.isBooleanType())
+                {
+                    result = "field boolean " + result + primitive;
+                }
+                else if (type.isStringType() || type.isCharacterType())
+                {
+                    result = "field string " + result;
+                }
+                else if (type.isDateType())
+                {
+                    result = "field date " + result + typeName;
+                }
+                // EmbeddedValue cannot have column, notNull, comment options in Roo
+                else if (type.isEmbeddedValue())
+                {
+                    result = "field embedded " + result + typeName;
+                }
+                else if (type.isEnumeration())
+                {
+                    result = "field enum " + result + typeName;
+                }
+                else if (type.isDateType())
+                {
+                    result = "field reference " + result + typeName;
+                }
+                else if (type.isDateType())
+                {
+                    result = "field set " + result + typeName;
+                }
+                else
+                {
+                    result = "field other " + result + typeName;
+                }
+                if (attribute instanceof EntityAttribute && !type.isEmbeddedValue())
+                {
+                    String column = ((EntityAttribute)attribute).getColumnName();
+                    if (StringUtils.isNotBlank(column))
+                    {
+                        result += " --column " + column;
+                    }
+                }
+                else
+                {
+                    //logger.error("getRooField facade should be EntityAttribute: " + attribute);
+                }
+                int lower = attribute.getLower();
+                if (lower > 0 && !type.isEmbeddedValue())
+                {
+                    result += " --notNull ";
+                }
+                String comment = attribute.getDocumentation("", 9999, false);
+                if (StringUtils.isNotBlank(comment) && !type.isEmbeddedValue())
+                {
+                    result += " --comment \"" + comment + "\"";
+                }
+            }
+        }
+        else
+        {
+            throw new RuntimeException("getRooField facade must be Attribute or AssociationEnd: " + facade);
+        }
+        if (StringUtils.isNotBlank(result))
+        {
+            result = StringUtils.replace(result + " --permitReservedWords", "  ", " ");
+        }
+        return result;
+    }
     private static final SimpleDateFormat DF = new SimpleDateFormat("MM/dd/yyyy HH:mm:ssZ");
     /**
      * Returns the current Date in the specified format. $conversionUtils does not seem to work in vsl.
