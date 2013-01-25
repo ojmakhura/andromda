@@ -5,6 +5,7 @@ import java.text.StringCharacterIterator;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
 import org.andromda.core.common.ExceptionUtils;
@@ -814,5 +815,59 @@ public class EntityMetafacadeUtils
     public static void clearForeignKeyConstraintNameCache()
     {
         foreignKeyConstraintNameCache.clear();
+    }
+
+    /**
+     * Finds the top level package in the model containing any classes or entity classes.
+     * Can be used to define a groupId for a model, or in code generation scripts where top level package
+     * is the starting point for further operations.
+     * @param classifiers Entities in the current model
+     * @param entityOnly true to find the top package containing entities
+     * @return Package at the top level
+     */
+    public static PackageFacade getTopLevelPackage(LinkedHashSet<ClassifierFacade> classifiers, boolean entityOnly)
+    {
+        PackageFacade pkgFacade = null;
+        if (classifiers == null || classifiers.isEmpty()) return pkgFacade;
+        //System.out.println("getTopLevelPackage classifiers=" + classifiers.size());
+        List<PackageFacade> packages = new ArrayList<PackageFacade>();
+        for (ClassifierFacade classifier : classifiers)
+        {
+            //System.out.println("getTopLevelPackage classifier=" + classifier);
+            if (!classifier.isDataType())
+        	{
+        		if (!entityOnly || classifier instanceof Entity)
+        		{
+        			if (classifier.getStereotypeNames().size() > 0 && !packages.contains(classifier.getPackage()))
+        			{
+        				packages.add((PackageFacade)classifier.getPackage());
+                        //System.out.println("getTopLevelPackage add " + ((PackageFacade)classifier.getPackage()).getFullyQualifiedName());
+                    }
+        		}
+        	}
+        }
+        if (packages.size()>0)
+        {
+        	pkgFacade = packages.get(0);
+        	// Find the shortest name in package list containing the other names
+	        for (PackageFacade pkg : packages)
+	        {
+	        	//System.out.println(pkgFacade.getFullyQualifiedName() + " " + pkg.getFullyQualifiedName());
+	        	if (pkgFacade.getFullyQualifiedName().indexOf(pkg.getFullyQualifiedName()) > 0)
+	        	{
+	        		pkgFacade = pkg;
+	        	}
+	        	else if (pkg.getFullyQualifiedName().indexOf(pkgFacade.getFullyQualifiedName()) > 0)
+	        	{
+	        		// Shortest name is there already
+	        	}
+	        	else
+	        	{
+	        		
+	        	}
+	        }
+	    	//System.out.println(pkgFacade.getFullyQualifiedName());
+        }
+        return pkgFacade;
     }
 }

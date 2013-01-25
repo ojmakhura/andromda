@@ -26,6 +26,11 @@ public class FrontEndControllerLogicImpl
     private static final long serialVersionUID = -8765076432370916838L;
 
     /**
+     * The logger instance.
+    private static final Logger LOGGER = Logger.getLogger(FrontEndControllerLogicImpl.class);
+     */
+
+    /**
      * @param metaObject
      * @param context
      */

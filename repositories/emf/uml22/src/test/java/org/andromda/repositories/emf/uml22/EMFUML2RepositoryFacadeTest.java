@@ -125,7 +125,8 @@ public class EMFUML2RepositoryFacadeTest
     {
         long now = System.currentTimeMillis();
         // Load from org.eclipse.uml2.resources jar.
-        URL url = this.getClass().getResource("profiles/Standard.profile.uml");
+        // UML2 v4: Standard.profile changed to StandardL2 + StandardL3 profiles
+        URL url = this.getClass().getResource("profiles/UML2.profile.uml");
         if (url!=null)
         {
             this.repository.readModel(

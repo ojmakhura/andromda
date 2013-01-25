@@ -187,7 +187,7 @@ public class JSFActionLogicImpl
         {
             // - remove any forms that don't have arguments
             final JSFControllerOperation operation = (JSFControllerOperation)iterator.next();
-            if (operation.getArguments().isEmpty())
+            if (operation != null && operation.getArguments() != null && operation.getArguments().isEmpty())
             {
                 iterator.remove();
             }
@@ -196,10 +196,13 @@ public class JSFActionLogicImpl
         for (final Iterator<FrontEndControllerOperation> iterator = deferredOperations.iterator(); iterator.hasNext();)
         {
             final JSFControllerOperation operation = (JSFControllerOperation)iterator.next();
-            list.append(operation.getFormName());
-            if (iterator.hasNext())
+            if (operation != null)
             {
-                list.append(", ");
+                list.append(operation.getFormName());
+                if (iterator.hasNext())
+                {
+                    list.append(", ");
+                }
             }
         }
         return list.toString();

@@ -1565,6 +1565,7 @@ public class AssociationEndImpl
     }
 
     /*
+     * UML2 v3.6 only, method removed in v4
      * @param arg0
      * @param arg1
      * @return this.property.validateRedefinedPropertyInherited(arg0, arg1)
@@ -1576,9 +1577,11 @@ public class AssociationEndImpl
         return this.property.validateNavigablePropertyRedefinition(
             arg0,
             arg1);
-    }*/
+    }
+     */
 
     /**
+     * UML2 v3.6 only, method removed in v4
      * @see org.eclipse.uml2.uml.Property#validateNavigableReadonly(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
     public boolean validateNavigableReadonly(
@@ -2360,4 +2363,64 @@ public class AssociationEndImpl
     {
         return this.property.eInvoke(operation, arguments);
     }
+
+    /*
+     * UML2 4.0 (Eclipse 4.2) only
+     * @see org.eclipse.uml2.uml.Property#getInterface()
+    @Override
+    public Interface getInterface()
+    {
+        return this.property.getInterface();
+    }
+     */
+
+    /*
+     * UML2 4.0 (Eclipse 4.2) only
+     * @see org.eclipse.uml2.uml.Property#setInterface(org.eclipse.uml2.uml.Interface)
+    @Override
+    public void setInterface(Interface value)
+    {
+        this.property.setInterface(value);
+    }
+     */
+
+    /*
+     * UML2 4.0 (Eclipse 4.2) only
+     * @see org.eclipse.uml2.uml.Property#isID()
+    @Override
+    public boolean isID()
+    {
+        return this.property.isID();
+    }
+     */
+
+    /*
+     * UML2 4.0 (Eclipse 4.2) only
+     * @see org.eclipse.uml2.uml.Property#setIsID(boolean)
+    @Override
+    public void setIsID(boolean value)
+    {
+        this.property.setIsID(value);
+    }
+     */
+
+    /*
+     * UML2 4.0 (Eclipse 4.2) only
+     * @see org.eclipse.uml2.uml.Property#setRealDefaultValue(double)
+    @Override
+    public void setRealDefaultValue(double value)
+    {
+        this.property.setRealDefaultValue(value);
+    }
+     */
+
+    /*
+     * UML2 4.0 (Eclipse 4.2) only
+     * @see org.eclipse.uml2.uml.RedefinableElement#validateNonLeafRedefinition(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+    @Override
+    public boolean validateNonLeafRedefinition(DiagnosticChain diagnostics, Map<Object, Object> context)
+    {
+        return this.property.validateNonLeafRedefinition(diagnostics, context);
+    }
+     */
 }

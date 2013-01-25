@@ -716,7 +716,7 @@ public class ClassifierFacadeLogicImpl
     {
         final String integerType = UMLProfile.INTEGER_TYPE_NAME;
         // Check both int and Integer by taking the part after datatype::
-        final String intType = integerType.substring(integerType.indexOf(':')+1).substring(0, 3).toLowerCase();
+        final String intType = integerType.substring(integerType.lastIndexOf(':')+1).substring(0, 3).toLowerCase();
         return UMLMetafacadeUtils.isType(
             this,
             intType) ||

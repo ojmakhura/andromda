@@ -52,13 +52,23 @@ public class EMXProxyResolvingResourceSet extends ResourceSetImpl
             {
                 if (e.getMessage().contains("FileNotFoundException"))
                 {
-                    // Don't need entire stack trace if referenced file is not found, message is enough.
-                    logger.warn("Referenced model FileNotFound: " + uri + (System.currentTimeMillis() - now) + " ms: " +
-                            uri.toString() + " " + e.getCause().getMessage());
+                    // MagicDraw and Standard Profiles generally not needed, exporting them takes lots of space
+                    if (e.getMessage().contains("UML_Standard_Profile"))
+                    {
+                        // Don't need entire stack trace if referenced file is not found, message is enough.
+                        logger.warn("Referenced model FileNotFound: " + uri + (System.currentTimeMillis() - now) + " ms: " +
+                                uri.toString() + " " + e.getCause().getMessage());
+                    }
+                    else
+                    {
+                        // Don't need entire stack trace if referenced file is not found, message is enough.
+                        logger.error("Referenced model FileNotFound: " + uri + (System.currentTimeMillis() - now) + " ms: " +
+                                uri.toString() + " " + e.getCause().getMessage());
+                    }
                 }
                 else
                 {
-                    logger.warn("Could not load referenced model uri " + (System.currentTimeMillis() - now) + "ms: " +
+                    logger.error("Could not load referenced model uri " + (System.currentTimeMillis() - now) + "ms: " +
                             uri.toString() + " " + e.getCause().getMessage(), e.getCause());
                 }
             }
