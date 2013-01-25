@@ -161,7 +161,7 @@ public abstract class $entity.daoBaseName
         if (transform == TRANSFORM_XML)
         {
             final Object entity =#if($hibernate4) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.${executeWithNativeSessionMethodname}(
-                    new org.springframework.orm.hibernate3.HibernateCallback()
+                    new org.springframework.orm.hibernate3.HibernateCallback<Object>()
                     {
                         public Object doInHibernate(${hibernateUtils.basePackage}.Session hibernateSession)
                             throws ${hibernateUtils.basePackage}.HibernateException
@@ -217,7 +217,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         if (transform == TRANSFORM_XML)
         {
             final Object entity = this.getHibernateTemplate().${executeWithNativeSessionMethodname}(
-                    new org.springframework.orm.hibernate3.HibernateCallback()
+                    new org.springframework.orm.hibernate3.HibernateCallback<Object>()
                     {
                         public Object doInHibernate(${hibernateUtils.basePackage}.Session hibernateSession)
                             throws ${hibernateUtils.basePackage}.HibernateException
@@ -386,7 +386,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         return create(transform, entity);
 #else
         Object newID = this.getHibernateTemplate().${executeWithNativeSessionMethodname}((
-                new org.springframework.orm.hibernate3.HibernateCallback()
+                new org.springframework.orm.hibernate3.HibernateCallback<Object>()
                 {
                     public Object doInHibernate(${hibernateUtils.basePackage}.Session hibernateSession)
                         throws ${hibernateUtils.basePackage}.HibernateException
@@ -468,7 +468,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         return transformed;
 #else
         this.getHibernateTemplate().${executeWithNativeSessionMethodname}(
-            new ${hibernateUtils.springHibernatePackage}.HibernateCallback()
+            new ${hibernateUtils.springHibernatePackage}.HibernateCallback<Object>()
             {
                 public Object doInHibernate(${hibernateUtils.basePackage}.Session session)
                     throws ${hibernateUtils.basePackage}.HibernateException
@@ -619,7 +619,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 ##        }
 #else
         this.getHibernateTemplate().${executeWithNativeSessionMethodname}(
-                new org.springframework.orm.hibernate3.HibernateCallback()
+                new org.springframework.orm.hibernate3.HibernateCallback<Object>()
                 {
                     public Object doInHibernate(${hibernateUtils.basePackage}.Session hibernateSession)
                         throws ${hibernateUtils.basePackage}.HibernateException
@@ -653,7 +653,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         }
 #else
         this.getHibernateTemplate().${executeWithNativeSessionMethodname}(
-            new ${hibernateUtils.springHibernatePackage}.HibernateCallback()
+            new ${hibernateUtils.springHibernatePackage}.HibernateCallback<Object>()
             {
                 public Object doInHibernate(${hibernateUtils.basePackage}.Session session)
                     throws ${hibernateUtils.basePackage}.HibernateException
@@ -708,7 +708,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #if($hibernate4)
 #else
         this.getHibernateTemplate().${executeWithNativeSessionMethodname}(
-                new org.springframework.orm.hibernate3.HibernateCallback()
+                new org.springframework.orm.hibernate3.HibernateCallback<Object>()
                 {
                     public Object doInHibernate(${hibernateUtils.basePackage}.Session hibernateSession)
                         throws ${hibernateUtils.basePackage}.HibernateException
