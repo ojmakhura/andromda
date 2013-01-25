@@ -414,7 +414,7 @@ public class UmlUtilities
      * <code>follow</code> is true. Overridden properties will be omitted.
      *
      * @param classifier the UML class instance from which to retrieve all properties
-     * @param follow        whether or not the inheritance hierarchy should be followed
+     * @param follow whether or not the inheritance hierarchy should be followed upward
      * @return all retrieved attributes. No associations or enumerations.
      */
     public static List<Property> getAttributes(
@@ -430,7 +430,7 @@ public class UmlUtilities
         {
             for (Property property : attributeList)
             {
-                if (!classifier.getQualifiedName().startsWith("andromda"))
+                if (!classifier.getQualifiedName().startsWith("andromda") && LOGGER.isDebugEnabled())
                 {
                     LOGGER.debug("UMLUtilities.getAttributes " + classifier.getQualifiedName()
                         + " " + property.getName() + " " + property.getType().getName());

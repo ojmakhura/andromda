@@ -29,6 +29,7 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
  * MetafacadeLogic implementation for
@@ -51,6 +52,11 @@ public class FrontEndActionLogicImpl
     {
         super(metaObject, context);
     }
+
+    /**
+     * The logger instance.
+     */
+    private static final Logger LOGGER = Logger.getLogger(FrontEndActionLogicImpl.class);
 
     /**
      * @see org.andromda.metafacades.uml.FrontEndAction#getInput()
@@ -191,7 +197,7 @@ public class FrontEndActionLogicImpl
 
     /**
      * Initializes all action states, action forwards, decision transitions and
-     * transitions in one shot, so that they can be queried more effiencently
+     * transitions in one shot, so that they can be queried more efficiently
      * later on.
      */
     private void initializeCollections()
@@ -492,11 +498,14 @@ public class FrontEndActionLogicImpl
         {
             for (final FrontEndControllerOperation operation : this.getDeferredOperations())
             {
-                for (ParameterFacade parameter : operation.getArguments())
+                if (operation != null)
                 {
-                    formFieldMap.put(
-                            parameter.getName(),
-                            parameter);
+                    for (ParameterFacade parameter : operation.getArguments())
+                    {
+                        formFieldMap.put(
+                                parameter.getName(),
+                                parameter);
+                    }
                 }
             }
         }

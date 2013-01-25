@@ -13,9 +13,10 @@ import org.apache.commons.collections.Predicate;
  *
  * @author Anthony Mowers
  * @author Chad Brandon
+ * @param <T> Type within the Collection
  */
-public abstract class FilteredCollection
-    extends ArrayList
+public abstract class FilteredCollection<T>
+    extends ArrayList<T>
     implements Predicate
 {
     /**
@@ -23,7 +24,7 @@ public abstract class FilteredCollection
      *
      * @param collection
      */
-    public FilteredCollection(Collection collection)
+    public FilteredCollection(Collection<T> collection)
     {
         this.addAll(collection);
         CollectionUtils.filter(

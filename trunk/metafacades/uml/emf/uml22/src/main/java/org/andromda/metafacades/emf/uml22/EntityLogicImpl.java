@@ -141,7 +141,7 @@ public class EntityLogicImpl
     @Override
     protected Collection<ModelElementFacade> handleGetIdentifiers()
     {
-        return this.getIdentifiers(true);
+        return this.handleGetIdentifiers(true);
     }
 
     /**

@@ -154,7 +154,7 @@ public class CartridgeTest
         Collection<File> expectedFiles = Collections.emptyList();
 
         final File directory = this.getExpectedOutputDirectory();
-        if(null!=directory && directory.exists())
+        if (null!=directory && directory.exists())
         {
             expectedFiles = FileUtils.listFiles(
                     directory.isDirectory()? directory : directory.getParentFile(),

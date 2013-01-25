@@ -26,10 +26,10 @@
                     <!--uri>file:${project.basedir}/uml/AdditionalModel.emx</uri-->
                     <moduleSearchLocations>
                         <location patterns="*.uml">${project.basedir}/src/main/uml2</location>
-                        <location patterns="**/${andromda.version}/**/*-${andromda.version}.uml">${settings.localRepository}/org/andromda/profiles/emf/uml22</location>
+                        <!--location patterns="**/${andromda.version}/**/*-${andromda.version}.uml">${settings.localRepository}/org/andromda/profiles/emf/uml22</location>
                         <location patterns="**/${andromda.version}/**/*-${andromda.version}.profile.uml">${settings.localRepository}/org/andromda/profiles/emf/uml22</location>
                         <location patterns="**/${andromda.version}/**/*-${andromda.version}.library.uml">${settings.localRepository}/org/andromda/profiles/emf/uml22</location>
-                        <location patterns="**/${andromda.version}/*.e*x">${settings.localRepository}/org/andromda/profiles/emf/rsm75</location>
+                        <location patterns="**/${andromda.version}/*.e*x">${settings.localRepository}/org/andromda/profiles/emf/rsm75</location-->
         <!--repository name="netBeansMDR">
             <models>
                 <model>
@@ -84,6 +84,8 @@
         <!-- See http://www.andromda.org/docs/andromda-metafacades/andromda-uml-metafacades/andromda-metafacades-emf-uml2/namespace.html -->
         <namespace name="default">
             <properties>
+                <!--property name="projactId">${project.parent.artifactId}</property>
+                <property name="projactName">${project.parent.name}</property-->
                 <!-- Use enums, strongly typed collections with templates, and @annotation markups -->
                 <property name="enableTemplating">true</property>
                 <property name="enableAnnotations">true</property>
@@ -116,7 +118,6 @@
                 <property name="pluralizeAssociationEndNames">true</property>
                 <property name="pluralizeAttributeNames">true</property>
                 <property name="pluralizeParameterNames">true</property -->
-                <property name="javaVersion">${javaVersion}</property>
                 <property name="javaVersion">${javaVersion}</property>
                 <property name="xmlAttributes">false</property>
                 <property name="dataSource">${dataSource}</property>

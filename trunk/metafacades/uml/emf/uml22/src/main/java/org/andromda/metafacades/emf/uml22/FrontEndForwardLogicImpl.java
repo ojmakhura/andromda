@@ -34,6 +34,12 @@ public class FrontEndForwardLogicImpl
     extends FrontEndForwardLogic
 {
     private static final long serialVersionUID = 34L;
+
+    /**
+     * The logger instance.
+    private static final Logger LOGGER = Logger.getLogger(FrontEndForwardLogicImpl.class);
+     */
+
     /**
      * @param metaObject
      * @param context
