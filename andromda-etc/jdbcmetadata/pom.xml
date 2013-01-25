@@ -335,7 +335,7 @@
         <application.version>1.0-SNAPSHOT</application.version>
         <dataSource.name>jdbc/${application.id}</dataSource.name>
         <dataSource>java:comp/env/${dataSource.name}</dataSource>
-        <hibernate.version>4.1.8.Final</hibernate.version>
+        <hibernate.version>4.1.9.Final</hibernate.version>
     </properties>
     <profiles>
         <profile>

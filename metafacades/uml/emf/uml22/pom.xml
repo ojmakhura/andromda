@@ -35,7 +35,7 @@
             <artifactId>andromda-metafacades-uml</artifactId>
             <version>${andromda.version}</version>
         </dependency>
-        <!-- Duplicate dependencies here from uml22 repository, for test and decoupling from uml2>
+        <!-- Duplicate dependencies here from uml22 repository, for test and decoupling from uml2-->
         <dependency>
             <groupId>org.eclipse.uml2</groupId>
             <artifactId>org.eclipse.uml2.uml.resources</artifactId>
@@ -44,7 +44,7 @@
             <groupId>org.eclipse.uml2</groupId>
             <artifactId>org.eclipse.uml2.uml</artifactId>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>org.eclipse.uml2</groupId>
             <artifactId>org.eclipse.uml2.common</artifactId>
         </dependency>
@@ -64,7 +64,7 @@
             <groupId>org.eclipse.emf</groupId>
             <artifactId>org.eclipse.emf.mapping.ecore2xml</artifactId>
         </dependency -->
-        <dependency>
+        <!--dependency>
             <groupId>org.eclipse.uml2</groupId>
             <artifactId>org.eclipse.uml2.uml.resources</artifactId>
             <version>3.1.0.v201005031530</version>
@@ -94,8 +94,8 @@
                     <artifactId>org.eclipse.core.runtime</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
+        </dependency-->
+        <!--dependency>
             <groupId>org.eclipse.uml2</groupId>
             <artifactId>org.eclipse.uml2.common</artifactId>
             <version>1.5.0.v201005031530</version>
@@ -205,7 +205,7 @@
                     <artifactId>org.eclipse.core.runtime</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency-->
     </dependencies>
     <build>
         <plugins>

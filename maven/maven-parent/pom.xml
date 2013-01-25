@@ -116,9 +116,10 @@
                         <source>${java.source.version}</source>
                         <target>${java.runtime.version}</target>
                         <compilerVersion>${java.source.version}</compilerVersion>
-                        <compilerArgument>-Xlint:cast,unchecked,fallthrough,finally,serial</compilerArgument>
-                        <showDeprecation>true</showDeprecation>
-                        <showWarnings>true</showWarnings>
+                        <debug>${compiler.debug}</debug>
+                        <showDeprecation>${compiler.showDeprecation}</showDeprecation>
+                        <showWarnings>${compiler.showWarnings}</showWarnings>
+                        <compilerArgument>${compiler.argument}</compilerArgument>
                         <encoding>${project.build.sourceEncoding}</encoding>
                         <fork>true</fork>
                     </configuration>
@@ -510,6 +511,11 @@
         <java.runtime.version>1.6</java.runtime.version>
         <java.required.version>1.6</java.required.version>
         <java.source.version>1.6</java.source.version>
+        <!-- compiler plugin displays all wanings as errors, configured in descendant will still use these settings unless property is overridden -->
+        <compiler.debug>true</compiler.debug>
+        <compiler.showDeprecation>true</compiler.showDeprecation>
+        <compiler.showWarnings>true</compiler.showWarnings>
+        <compiler.argument>-Xlint:cast,unchecked,fallthrough,finally,serial</compiler.argument>
         <maven.version>2.2.1</maven.version>
         <require.maven.version>2.2.1</require.maven.version>
         <enforcer.fail>true</enforcer.fail>
@@ -555,8 +561,8 @@
         <maven-site-plugin.version>3.2</maven-site-plugin.version>
         <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
 		<!-- V2.12 timetracker-ejb3 regression: The forked VM terminated without saying properly goodbye. VM crash or System.exit called: If persistence.xml entities wrong -->
-        <maven-surefire-plugin.version>2.12.4</maven-surefire-plugin.version>
-        <maven-surefire-report-plugin.version>2.12.4</maven-surefire-report-plugin.version>
+        <maven-surefire-plugin.version>2.13</maven-surefire-plugin.version>
+        <maven-surefire-report-plugin.version>2.13</maven-surefire-report-plugin.version>
         <maven-verifier-plugin.version>1.0</maven-verifier-plugin.version>
         <maven-war-plugin.version>2.3</maven-war-plugin.version>
         <build-helper-maven-plugin.version>1.7</build-helper-maven-plugin.version>

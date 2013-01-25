@@ -394,6 +394,25 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+            <dependency>
+                <groupId>org.eclipse.uml2</groupId>
+                <artifactId>org.eclipse.uml2.uml</artifactId>
+                <version>3.1.0.v201006071150</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.eclipse.osgi</groupId>
+                        <artifactId>org.eclipse.osgi</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.eclipse.equinox</groupId>
+                        <artifactId>org.eclipse.equinox.registry</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.eclipse.core</groupId>
+                        <artifactId>org.eclipse.core.runtime</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
 
             <!-- Maven dependencies -->
             <dependency>
