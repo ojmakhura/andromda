@@ -2068,7 +2068,8 @@ public class WebServiceUtils
                     if (literal instanceof EnumerationLiteralFacade)
                     {
                         EnumerationLiteralFacade enumLiteral = (EnumerationLiteralFacade) literal;
-                        defaultValue = enumLiteral.getValue();
+                        // Use the literal name to retrieve the value with .valueOf(). XML version has only the name.
+                        defaultValue = enumLiteral.getName();
                     }
                     else if (literal instanceof AttributeFacade)
                     {
@@ -2142,6 +2143,10 @@ public class WebServiceUtils
             else if ("java.util.Calendar".equals(typeName))
             {
                 rtn = "java.util.Calendar.getInstance()";
+            }
+            else if ("org.joda.time.LocalTime".equals(typeName))
+            {
+                rtn = "new org.joda.time.LocalTime(1, 1)";
             }
             else if ("char".equals(typeName))
             {

@@ -15,7 +15,7 @@
           <eLiterals xmi:id="_RcYAUh-lEd6lZ_21UMRSKg" name="default"/>
           <eLiterals xmi:id="_RcYAUx-lEd6lZ_21UMRSKg" name="RPC" value="1"/>
           <eLiterals xmi:id="_RcYAVB-lEd6lZ_21UMRSKg" name="EJB" value="2"/>
-          <eLiterals xmi:id="_RcYAVR-lEd6lZ_21UMRSKg" name="JAX-WS" value="3"/>
+          <eLiterals xmi:id="_RcYAVR-lEd6lZ_21UMRSKg" name="JAXWS" value="3"/>
         </eClassifiers>
         <eClassifiers xmi:type="ecore:EEnum" xmi:id="_RcYAVh-lEd6lZ_21UMRSKg" name="WebServiceUse">
           <eAnnotations xmi:id="_RcYAVx-lEd6lZ_21UMRSKg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_1fe00f9_1119337599234_508718_16"/>
@@ -334,6 +334,13 @@
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.1.0/UML#//Operation"/>
           </eStructuralFeatures>
         </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_SIouwFqCEeKwC6RAHZ8EBA" name="WebServiceParameterDirection">
+          <eAnnotations xmi:id="_SIouwVqCEeKwC6RAHZ8EBA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_d1OT8FnNEeKwC6RAHZ8EBA"/>
+          <eLiterals xmi:id="_SIouwlqCEeKwC6RAHZ8EBA" name="default"/>
+          <eLiterals xmi:id="_SIouw1qCEeKwC6RAHZ8EBA" name="IN" value="1"/>
+          <eLiterals xmi:id="_SIouxFqCEeKwC6RAHZ8EBA" name="INOUT" value="2"/>
+          <eLiterals xmi:id="_SIouxVqCEeKwC6RAHZ8EBA" name="OUT" value="3"/>
+        </eClassifiers>
       </contents>
     </eAnnotations>
     <packageImport xmi:id="_0metamodelReferenceandromda-webservice">
@@ -518,6 +525,16 @@
       <ownedLiteral xmi:id="_9_5_1_2e90116_1229975825667_67637_0" name="default" classifier="_9_5_1_2e90116_1229442786298_883324_88"/>
       <ownedLiteral xmi:id="_9_5_1_2e90116_1229442795283_652949_89" name="wrapped" classifier="_9_5_1_2e90116_1229442786298_883324_88"/>
       <ownedLiteral xmi:id="_9_5_1_2e90116_1229442800470_568833_90" name="bare" classifier="_9_5_1_2e90116_1229442786298_883324_88"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_d1OT8FnNEeKwC6RAHZ8EBA" name="WebServiceParameterDirection">
+      <ownedComment xmi:id="_vx8YMFnNEeKwC6RAHZ8EBA">
+        <body>Parameter Direction: IN INOUT OUT. default=IN.&#xD;
+OUT/INOUT parameters must be wrapped with javax.xml.ws.Holder</body>
+      </ownedComment>
+      <ownedLiteral xmi:id="_6AsEIFnNEeKwC6RAHZ8EBA" name="default"/>
+      <ownedLiteral xmi:id="_8od-sFnNEeKwC6RAHZ8EBA" name="IN"/>
+      <ownedLiteral xmi:id="_92jicFnNEeKwC6RAHZ8EBA" name="INOUT"/>
+      <ownedLiteral xmi:id="__EfVMFnNEeKwC6RAHZ8EBA" name="OUT"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_2090114_1235189840952_369943_0" name="TernaryBoolean">
       <ownedLiteral xmi:id="_9_5_1_2090114_1235189850741_866785_1" name="default" classifier="_9_5_1_2090114_1235189840952_369943_0"/>
@@ -1047,6 +1064,9 @@ ws-security namespace and SOAP Header information to the service definition and 
         </ownedComment>
         <defaultValue xmi:type="uml:LiteralString" xmi:id="_ev6vEC2AEeCw7u-i2lbLPQ" value="UsernameToken"/>
       </ownedAttribute>
+      <ownedAttribute xmi:id="_RcK3IFnOEeKwC6RAHZ8EBA" name="andromda_security_header_direction" type="_d1OT8FnNEeKwC6RAHZ8EBA">
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_RcK3IVnOEeKwC6RAHZ8EBA" value="IN"/>
+      </ownedAttribute>
       <ownedAttribute xmi:id="_K5L_ACpXEeCEp4eYah8h_A" name="base_Class" visibility="private" association="_K5L_TipXEeCEp4eYah8h_A">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
       </ownedAttribute>
@@ -1070,7 +1090,7 @@ and SOAP Header information to the service definition and WebService client.</bo
       </ownedComment>
       <ownedAttribute xmi:id="_K5L_HipXEeCEp4eYah8h_A" name="andromda_wsdl_header_use" visibility="private" type="_9_0_1fe00f9_1119337599234_508718_16">
         <ownedComment xmi:id="_K5L_ISpXEeCEp4eYah8h_A" annotatedElement="_K5L_HipXEeCEp4eYah8h_A">
-          <body>wsdl&amp;nbsp;element custom header&amp;nbsp;document&amp;nbsp;use&amp;nbsp;type&amp;nbsp;lieral/encoded.&amp;nbsp;Default=literal.</body>
+          <body>wsdl element custom header document use type lieral/encoded. Default=literal.</body>
         </ownedComment>
       </ownedAttribute>
       <ownedAttribute xmi:id="_K5L_JCpXEeCEp4eYah8h_A" name="andromda_wsdl_header_element" visibility="private">
@@ -1102,6 +1122,9 @@ and SOAP Header information to the service definition and WebService client.</bo
           <body>Namespace abbreviation associated with the ws custom header element references.</body>
         </ownedComment>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_EWlg8FnOEeKwC6RAHZ8EBA" name="andromda_header_direction" type="_d1OT8FnNEeKwC6RAHZ8EBA">
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_ME2NIFnOEeKwC6RAHZ8EBA" value="IN"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_K5L_QipXEeCEp4eYah8h_A" name="base_Class" visibility="private" association="_K5L_WipXEeCEp4eYah8h_A">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>

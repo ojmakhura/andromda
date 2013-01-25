@@ -1,4 +1,5 @@
 #if ($umlUtils.shouldOutput($pkg) && $importedXSD)
+<?xml version="1.0" encoding="$xmlEncoding"?>
 #set ($pkgTypes = $webServiceUtils.getPackageTypes($pkg, $extensionInheritanceDisabled))
 #set ($operations = $webServiceUtils.getAllowedOperations($pkg))
 #if (!$pkgTypes.empty || !$operations.empty)
@@ -60,7 +61,7 @@ $stringUtils.replaceChars($operation.getDocumentation("                ", 100, f
 ## Metafacade: Parameter.getUpper returns -1 for multiplicity *
 #if (!$useArrayWrapper && ($parameter.upper>1 || $parameter.upper==-1))
 #set ($isMany=true)
-#set ($maxOccurs=' maxOccurs="unbounded"')
+#if ($parameter.upper>1)#set ($maxOccurs=" maxOccurs=$quote$parameter.upper$quote")#else#set ($maxOccurs=" maxOccurs=${quote}unbounded$quote")#end
 #else
 #set ($isMany=false)
 #set ($maxOccurs='')
@@ -73,7 +74,7 @@ $stringUtils.replaceChars($operation.getDocumentation("                ", 100, f
 ##set ($default='"$default"')
 #set ($use = " minOccurs=${quote}0$quote default=$quote$default$quote")
 #elseif (!$parameter.nillable || $parameter.lower>0)
-#set ($use = ' minOccurs="1"')
+#set ($use = " minOccurs=${quote}$parameter.lower$quote")
 #else
 #set ($use = ' minOccurs="0"')
 #end
@@ -128,11 +129,13 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
 #end
 #if (($operation.returnParameter.lower<1 || $operation.lower<1) && $operation.returnParameter.nillable)
 #set ($minOccurs=' minOccurs="0"')
+#elseif (($operation.returnParameter.lower>1 || $operation.lower>1) && !$operation.returnParameter.nillable)
+#set ($minOccurs=" minOccurs=${quote}$operation.returnParameter.lower${quote}")
 #else
 #set ($minOccurs='')
 #end
 #if (!$useArrayWrapper && ($operation.returnParameter.many || $operation.upper>1 || $operation.upper==-1 || $type.arrayType))
-#set ($maxOccurs=' maxOccurs="unbounded"')
+#if ($operation.returnParameter.upper>1)#set ($maxOccurs=" maxOccurs=$quote$operation.returnParameter.upper$quote")#else#set ($maxOccurs=" maxOccurs=${quote}unbounded$quote")#end
 #else
 #set ($maxOccurs='')
 #end
@@ -181,13 +184,13 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
         <xs:complexType name="${exception.name}">
             <xs:sequence>
 #foreach($property in $exception.allProperties)
-#if($property.lower==0)
-#set ($multiplicity="0")
-#elseif($property.lower==1)
-#set ($multiplicity="1")
-#else
-#set ($multiplicity="unlimited")
-#end
+##if($property.lower==0)
+##set ($multiplicity="0")
+##elseif($property.lower==1)
+#set ($multiplicity="$property.lower")
+##else
+##set ($multiplicity="unlimited")
+##end
 #if ($property.type.packageName.equals($pkg.fullyQualifiedName) || $stringUtils.isBlank($property.type.packageName) || $property.type.schemaType.startsWith("xs:"))
                 <xs:element name="${property.name}" type="${property.type.schemaType}" minOccurs="$multiplicity"/>
 #else
@@ -206,13 +209,6 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
 #if ($umlUtils.shouldOutput($type))
 #set ($arrayItemName = ${stringUtils.uncapitalize($type.getSchemaType(false, false))})
 ## TODO: Add nillable option for all minOccurs=0 elements/attributes
-#if ($type.many && $useArrayWrapper)
-        <xs:complexType name="$type.wsdlArrayName">
-            <xs:sequence>
-                <xs:element name="$arrayItemName" minOccurs="0" maxOccurs="unbounded" form="qualified" type="${type.namespacePrefix}:${type.name}" />
-            </xs:sequence>
-        </xs:complexType>
-#end
 ## If the declared type ends in [] (configurable metafacade property)
 #if ($type.arrayType && $useArrayWrapper)
         <xs:complexType name="$type.getSchemaType(false, true)">
@@ -325,7 +321,7 @@ $tab            <xs:sequence>
 #set ($schemaType = "$attribute.type.schemaType")
 #end
 #if (!$useArrayWrapper && ($attribute.many || $attributeType.arrayType))
-#set ($maxOccurs=' maxOccurs="unbounded"')
+#if ($attribute.upper>1)#set ($maxOccurs=" maxOccurs=$quote$attribute.upper$quote")#else#set ($maxOccurs=" maxOccurs=${quote}unbounded$quote")#end
 #set ($isMany=true)
 #else
 #set ($maxOccurs='')
@@ -335,7 +331,7 @@ $tab            <xs:sequence>
 #set ($default=${attribute.defaultValue.replaceAll('"', '')})
 #set ($use = ' minOccurs="0" default=$quote$default$quote')
 #elseif (!$attribute.nillable || $attribute.lower>0)
-#set ($use = ' minOccurs="1"')
+#set ($use = " minOccurs=${quote}$attribute.lower${quote}")
 #else
 #set ($use = ' minOccurs="0"')
 #end

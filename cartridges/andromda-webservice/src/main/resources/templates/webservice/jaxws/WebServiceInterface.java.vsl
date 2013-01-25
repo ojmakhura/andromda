@@ -79,6 +79,8 @@ public interface ${service.name}${seiSuffix}
 #set ($serviceClassName = "${webServiceUtils.getPackageName($serviceNamespace)}.$serviceElementName")
 #set ($serviceParameterName = $stringUtils.uncapitalize($serviceElementName))
 #set ($servicePartName = $service.findTaggedValue("andromda_wsdl_header_partName"))
+#set ($serviceParamDirection = $service.findTaggedValue("andromda_header_direction"))
+#if ($stringUtils.isBlank($serviceParamDirection))#set ($serviceParamDirection="IN")#end
 #end
 #if ($service.hasStereotype("WSSecurity"))
 #set ($securityElementName = $service.findTaggedValue("andromda_wsdl_security_element"))
@@ -86,7 +88,9 @@ public interface ${service.name}${seiSuffix}
 #set ($securityClassName = "${webServiceUtils.getPackageName($securityNamespace)}.$securityElementName")
 #set ($securityParameterName = $stringUtils.uncapitalize($securityElementName))
 #set ($securityPartName = $service.findTaggedValue("andromda_wsdl_security_partName"))
-#if ($stringUtils.isEmpty($securityNamespace))#set ($securityNamespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd")#end
+#if ($stringUtils.isBlank($securityNamespace))#set ($securityNamespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd")#end
+#set ($securityParamDirection = $service.findTaggedValue("andromda_security_header_direction"))
+#if ($stringUtils.isBlank($securityParamDirection))#set ($securityParamDirection="IN")#end
 #end
 
    /**
@@ -208,13 +212,31 @@ $operation.getDocumentation("    * ")
 #end
 #end
 #if ($service.hasStereotype("WSCustomHeader"))
+#if ($serviceParamDirection.equals("IN") || $serviceParamDirection.equals("INOUT"))
       ${comma}@WebParam(header=true, name = "$serviceElementName", targetNamespace = "$serviceNamespace", partName="$servicePartName")
-        $serviceClassName $serviceParameterName
+        $serviceClassName ${serviceParameterName}In
 #set ($comma = ", ")
 #end
+#end
 #if ($service.hasStereotype("WSSecurity"))
+#if ($stringUtils.isBlank($securityParamDirection) || $securityParamDirection.equals("IN") || $securityParamDirection.equals("INOUT"))
       ${comma}@WebParam(header=true, name = "$securityElementName", targetNamespace = "$securityNamespace", partName="$securityPartName")
-        $securityClassName $securityParameterName
+        $securityClassName ${securityParameterName}In
+#set ($comma = ", ")
+#end
+#end
+#if ($service.hasStereotype("WSCustomHeader"))
+#if ($serviceParamDirection.equals("OUT") || $serviceParamDirection.equals("INOUT"))
+      ${comma}@WebParam(header=true, mode=WebParam.Mode.$serviceParamDirection, name = "$serviceElementName", targetNamespace = "$serviceNamespace", partName="$servicePartName")
+        javax.xml.ws.Holder<$serviceClassName> ${serviceParameterName}Out
+#set ($comma = ", ")
+#end
+#end
+#if ($service.hasStereotype("WSSecurity"))
+#if ($securityParamDirection.equals("OUT") || $securityParamDirection.equals("INOUT"))
+      ${comma}@WebParam(header=true, mode=WebParam.Mode.$securityParamDirection, name = "$securityElementName", targetNamespace = "$securityNamespace", partName="$securityPartName")
+        javax.xml.ws.Holder<$securityClassName> ${securityParameterName}Out
+#end
 #end
 ##end
 #if ($operation.exceptionsPresent)
