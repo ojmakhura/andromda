@@ -190,6 +190,7 @@ $member.getDocumentation("     * ")
      */
     public static $enumeration.name fromValue($literalTypeName value)
     {
+        // Allow either the Enum name or value string to be used to retrieve the enum
         for (${enumeration.name} enumName: ${enumeration.name}.values())
         {
 #if ($enumeration.literalType.primitive)
@@ -205,6 +206,13 @@ $member.getDocumentation("     * ")
 #end
             {
                 return enumName;
+            }
+        }
+        for (String enumName: ${enumeration.name}.names())
+        {
+            if (enumName.equals(value))
+            {
+                return ${enumeration.name}.valueOf(enumName);
             }
         }
         throw new IllegalArgumentException("${enumeration.name}.fromValue(" + $exceptionString + ')');

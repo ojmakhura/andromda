@@ -27,6 +27,7 @@
         <property name="enableAnnotations">true</property>
         <property name="typeSafeEnumsEnabled">true</property>
         <property name="overwrite">true</property>
+        <property name="enumerationLiteralNameMask">upperunderscore</property>
         <!--Automatically makes English names plural (generally adds s if missing). 
         Set to false if using Jaxb/CXF 2.0 or simpleBindingMode=false.-->
         <property name="pluralizeAssociationEndNames">true</property>
