@@ -31,20 +31,20 @@
             <groupId>org.andromda.thirdparty.jmi</groupId>
             <artifactId>jmiuml</artifactId>
             <scope>runtime</scope>
+        </dependency-->
+        <dependency>
+            <groupId>org.eclipse.uml2</groupId>
+            <artifactId>org.eclipse.uml2.uml.resources</artifactId>
         </dependency>
         <dependency>
             <groupId>org.eclipse.uml2</groupId>
             <artifactId>org.eclipse.uml2.uml</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>org.eclipse.uml2</groupId>
             <artifactId>org.eclipse.uml2.common</artifactId>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.uml2</groupId>
-            <artifactId>org.eclipse.uml2.uml.resources</artifactId>
         </dependency>
         <dependency>
             <groupId>org.eclipse.emf</groupId>
@@ -66,7 +66,7 @@
             <artifactId>org.eclipse.emf.mapping.ecore2xml</artifactId>
             <scope>runtime</scope>
         </dependency-->
-        <dependency>
+        <!--dependency>
             <groupId>org.eclipse.uml2</groupId>
             <artifactId>org.eclipse.uml2.uml.resources</artifactId>
             <version>3.1.0.v201005031530</version>
@@ -213,7 +213,7 @@
                     <artifactId>org.eclipse.core.runtime</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency-->
 
         <!-- Maven dependencies -->
         <dependency>

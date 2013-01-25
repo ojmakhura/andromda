@@ -141,10 +141,9 @@
         </dependency>
         <!-- validator-legacy forces an earlier version of annotations. Change scope if < JBoss6 -->
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.common</groupId>
             <artifactId>hibernate-commons-annotations</artifactId>
-            <!-- Do not use bad version 3.3.0.ga -->
-            <version>3.2.0.Final</version>
+            <version>4.0.1.Final</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>

@@ -188,122 +188,6 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>org.eclipse.uml2</groupId>
-      <artifactId>org.eclipse.uml2.common</artifactId>
-      <version>1.5.0.v201005031530</version>
-      <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>org.eclipse.osgi</artifactId>
-          <groupId>org.eclipse.osgi</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>org.eclipse.core.runtime</artifactId>
-          <groupId>org.eclipse.core</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.emf</groupId>
-      <artifactId>org.eclipse.emf.common</artifactId>
-      <version>2.6.0.v20100614-1136</version>
-      <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>org.eclipse.osgi</artifactId>
-          <groupId>org.eclipse.osgi</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>org.eclipse.equinox.common</artifactId>
-          <groupId>org.eclipse.equinox</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>org.eclipse.core.runtime</artifactId>
-          <groupId>org.eclipse.core</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.emf</groupId>
-      <artifactId>org.eclipse.emf.ecore</artifactId>
-      <version>2.6.0.v20100614-1136</version>
-      <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>org.eclipse.osgi</artifactId>
-          <groupId>org.eclipse.osgi</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>org.eclipse.equinox.common</artifactId>
-          <groupId>org.eclipse.equinox</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>org.eclipse.equinox.registry</artifactId>
-          <groupId>org.eclipse.equinox</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>org.eclipse.core.contenttype</artifactId>
-          <groupId>org.eclipse.core</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>org.eclipse.core.jobs</artifactId>
-          <groupId>org.eclipse.core</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>org.eclipse.core.runtime</artifactId>
-          <groupId>org.eclipse.core</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>org.eclipse.core.resources</artifactId>
-          <groupId>org.eclipse.core</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.emf</groupId>
-      <artifactId>org.eclipse.emf.ecore.xmi</artifactId>
-      <version>2.5.0.v20100521-1846</version>
-      <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>org.eclipse.osgi</artifactId>
-          <groupId>org.eclipse.osgi</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>org.eclipse.equinox.common</artifactId>
-          <groupId>org.eclipse.equinox</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>org.eclipse.equinox.registry</artifactId>
-          <groupId>org.eclipse.equinox</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>org.eclipse.core.contenttype</artifactId>
-          <groupId>org.eclipse.core</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>org.eclipse.core.runtime</artifactId>
-          <groupId>org.eclipse.core</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.emf</groupId>
-      <artifactId>org.eclipse.emf.mapping.ecore2xml</artifactId>
-      <version>2.5.0.v20100521-1847</version>
-      <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>org.eclipse.equinox.registry</artifactId>
-          <groupId>org.eclipse.equinox</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>org.eclipse.core.runtime</artifactId>
-          <groupId>org.eclipse.core</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
       <groupId>commons-collections</groupId>
       <artifactId>commons-collections</artifactId>
       <version>3.2.1</version>
@@ -324,7 +208,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.10</version>
+      <version>4.11</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

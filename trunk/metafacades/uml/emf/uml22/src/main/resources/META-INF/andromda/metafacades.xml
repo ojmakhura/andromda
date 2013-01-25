@@ -40,9 +40,11 @@
     <metafacade class="org.andromda.metafacades.emf.uml22.PackageFacadeLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.PackageImpl"/>
     </metafacade>
+    <!-- UML2 Model can also be a Package -->
+    <!--metafacade class="org.andromda.metafacades.emf.uml22.ModelFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.ModelImpl"/>
+    </metafacade-->
     <metafacade class="org.andromda.metafacades.emf.uml22.ModelFacadeLogicImpl">
-        <!--mapping class="org.eclipse.uml2.uml.internal.impl.PackageImpl"/>
-        <mapping class="org.eclipse.uml2.uml.internal.impl.ModelImpl"/-->
         <mapping class="org.eclipse.uml2.uml.internal.resource.UMLResourceImpl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.emf.uml22.ClassifierFacadeLogicImpl">
