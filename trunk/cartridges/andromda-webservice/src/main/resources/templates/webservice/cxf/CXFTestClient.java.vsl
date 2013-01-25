@@ -215,15 +215,36 @@ $operation.getDocumentation("    * ")
 #if ($service.hasStereotype("WSCustomHeader"))
 #set ($serviceElementName = $service.findTaggedValue("andromda_wsdl_header_element"))
 #set ($serviceNamespace = $service.findTaggedValue("andromda_header_namespace"))
+#set ($serviceParamDirection = $service.findTaggedValue("andromda_header_direction"))
+#if ($stringUtils.isBlank($serviceParamDirection))#set ($serviceParamDirection="IN")#end
+#if ($serviceParamDirection.equals("IN") || $serviceParamDirection.equals("INOUT"))
 #set ($serviceClassName = "${webServiceUtils.getPackageName($serviceNamespace)}.$serviceElementName")
                 ${comma} new ${serviceClassName}()  // WSCustomHeader serviceElementName
 #set ($comma = ",")
 #end
+#end
 #if ($service.hasStereotype("WSSecurity"))
 #set ($securityElementName = $service.findTaggedValue("andromda_wsdl_security_element"))
 #set ($securityNamespace = $service.findTaggedValue("andromda_security_namespace"))
+#set ($securityParamDirection = $service.findTaggedValue("andromda_security_header_direction"))
+#if ($stringUtils.isBlank($securityParamDirection))#set ($securityParamDirection="IN")#end
+#if ($securityParamDirection.equals("IN") || $securityParamDirection.equals("INOUT"))
 #set ($securityClassName = "${webServiceUtils.getPackageName($securityNamespace)}.$securityElementName")
                 ${comma} new ${securityClassName}()  // WSSecurity securityElementName
+#end
+#end
+#if ($service.hasStereotype("WSCustomHeader"))
+#if ($serviceParamDirection.equals("OUT") || $serviceParamDirection.equals("INOUT"))
+#set ($serviceClassName = "javax.xml.ws.Holder<${webServiceUtils.getPackageName($serviceNamespace)}.$serviceElementName>")
+                ${comma} new ${serviceClassName}()  // WSCustomHeader serviceElementName
+#set ($comma = ",")
+#end
+#end
+#if ($service.hasStereotype("WSSecurity"))
+#if ($securityParamDirection.equals("OUT") || $securityParamDirection.equals("INOUT"))
+#set ($securityClassName = "javax.xml.ws.Holder<${webServiceUtils.getPackageName($securityNamespace)}.$securityElementName>")
+                ${comma} new ${securityClassName}()  // WSSecurity securityElementName
+#end
 #end
             );
 #if ($operation.returnType.primitive)
@@ -248,17 +269,22 @@ $operation.getDocumentation("    * ")
                 ${comma} ${operation.name}Input.${argument.getterName}()  // $argument.getterSetterTypeName
 #set ($comma = ", ")
 #end
-#if ($service.hasStereotype("WSCustomHeader"))
-#set ($serviceElementName = $service.findTaggedValue("andromda_wsdl_header_element"))
-#set ($serviceNamespace = $service.findTaggedValue("andromda_header_namespace"))
+#if ($service.hasStereotype("WSCustomHeader") && ($serviceParamDirection.equals("IN") || $serviceParamDirection.equals("INOUT")))
 #set ($serviceClassName = "${webServiceUtils.getPackageName($serviceNamespace)}.$serviceElementName")
                 ${comma} new ${serviceClassName}()  // WSCustomHeader serviceElementName
 #set ($comma = ",")
 #end
-#if ($service.hasStereotype("WSSecurity"))
-#set ($securityElementName = $service.findTaggedValue("andromda_wsdl_security_element"))
-#set ($securityNamespace = $service.findTaggedValue("andromda_security_namespace"))
+#if ($service.hasStereotype("WSSecurity") && ($securityParamDirection.equals("IN") || $securityParamDirection.equals("INOUT")))
 #set ($securityClassName = "${webServiceUtils.getPackageName($securityNamespace)}.$securityElementName")
+                ${comma} new ${securityClassName}()  // WSSecurity securityElementName
+#end
+#if ($service.hasStereotype("WSCustomHeader") && ($serviceParamDirection.equals("OUT") || $serviceParamDirection.equals("INOUT")))
+#set ($serviceClassName = "javax.xml.ws.Holder<${webServiceUtils.getPackageName($serviceNamespace)}.$serviceElementName>")
+                ${comma} new ${serviceClassName}()  // WSCustomHeader serviceElementName
+#set ($comma = ",")
+#end
+#if ($service.hasStereotype("WSSecurity") && ($securityParamDirection.equals("OUT") || $securityParamDirection.equals("INOUT")))
+#set ($securityClassName = "javax.xml.ws.Holder<${webServiceUtils.getPackageName($securityNamespace)}.$securityElementName>")
                 ${comma} new ${securityClassName}()  // WSSecurity securityElementName
 #end
                 );
@@ -266,12 +292,10 @@ $operation.getDocumentation("    * ")
 ##elseif ($operation.restAtom || $operation.returnTypePresent)
 ##        $returnType ${operation.operationName}Response = client.${operation.name}(${operation.argumentNames});
 ##end
-##        System.out.println(" Result = " + ${operation.operationName}Response.toString());
 ##else
 ##        client.${operation.name}(${operation.argumentNames});
 ##end
 ##end
-##$indent        System.out.println("Finished test: " + this.getName() + " for ${service.name}.${operation.name}(${operation.argumentNames})");
 ##if ($defaultParameterStyle.equalsIgnoreCase("WRAPPED"))
 ##        return ${operation.operationName}Response.get$stringUtils.capitalize(${operation.operationName})Response();
 ##else

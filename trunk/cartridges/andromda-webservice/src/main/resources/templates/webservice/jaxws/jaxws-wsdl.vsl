@@ -32,20 +32,24 @@
 #set ($serviceHeaderPartName = $service.findTaggedValue("andromda_wsdl_header_partName"))
 #set ($serviceHeaderElementName = $service.findTaggedValue("andromda_wsdl_header_element"))
 #set ($serviceHeaderXSDlocation = $service.findTaggedValue("andromda_header_XSDlocation"))
+#set ($serviceHeaderParamDirection = $service.findTaggedValue("andromda_header_direction"))
+#if ($stringUtils.isBlank($serviceHeaderParamDirection))#set ($serviceHeaderParamDirection="IN")#end
     xmlns:$serviceHeaderAbbr="$serviceHeaderNamespace"
 #end
 #if ($service.hasStereotype("WSSecurity"))
-#set ($serviceSecurityAbbr = $service.findTaggedValue("andromda_security_abbr"))
-#if ($stringUtils.isEmpty($serviceSecurityAbbr))#set ($serviceSecurityAbbr="wsse")#end
-#set ($serviceSecurityNamespace = $service.findTaggedValue("andromda_security_namespace"))
-#if ($stringUtils.isEmpty($serviceSecurityNamespace))#set ($serviceSecurityNamespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd")#end
-#set ($serviceSecurityPartName = $service.findTaggedValue("andromda_wsdl_security_partName"))
-#if ($stringUtils.isEmpty($serviceSecurityPartName))#set ($serviceSecurityPartName="Security")#end
-#set ($serviceSecurityElementName = $service.findTaggedValue("andromda_wsdl_security_element"))
-#if ($stringUtils.isEmpty($serviceSecurityElementName))#set ($serviceSecurityElementName="Security")#end
-#set ($serviceSecurityXSDlocation = $service.findTaggedValue("andromda_security_XSDlocation"))
-#if ($stringUtils.isEmpty($serviceSecurityXSDlocation))#set ($serviceSecurityXSDlocation="http://wdpr-interface-simulator.wdw.disney.com/oasis-200401-wss-wssecurity-secext-1.0.xsd")#end
-    xmlns:$serviceSecurityAbbr="$serviceSecurityNamespace"
+#set ($securityAbbr = $service.findTaggedValue("andromda_security_abbr"))
+#if ($stringUtils.isBlank($securityAbbr))#set ($securityAbbr="wsse")#end
+#set ($securityNamespace = $service.findTaggedValue("andromda_security_namespace"))
+#if ($stringUtils.isBlank($securityNamespace))#set ($securityNamespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd")#end
+#set ($securityPartName = $service.findTaggedValue("andromda_wsdl_security_partName"))
+#if ($stringUtils.isBlank($securityPartName))#set ($securityPartName="Security")#end
+#set ($securityElementName = $service.findTaggedValue("andromda_wsdl_security_element"))
+#if ($stringUtils.isBlank($securityElementName))#set ($securityElementName="Security")#end
+#set ($securityXSDlocation = $service.findTaggedValue("andromda_security_XSDlocation"))
+#if ($stringUtils.isBlank($securityXSDlocation))#set ($securityXSDlocation="http://wdpr-interface-simulator.wdw.disney.com/oasis-200401-wss-wssecurity-secext-1.0.xsd")#end
+#set ($securityParamDirection = $service.findTaggedValue("andromda_security_header_direction"))
+#if ($stringUtils.isBlank($securityParamDirection))#set ($securityParamDirection="IN")#end
+    xmlns:$securityAbbr="$securityNamespace"
     xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
 #end
     xmlns:wsdl="$wsdlNamespace">
@@ -58,42 +62,32 @@
 #if($importedXSD)
         <xs:schema>
 ##<!-- service.package.namespace=$service.package.namespace -->
-##            <xs:import namespace="$service.package.namespace"
-##                schemaLocation="$service.package.schemaLocation"/>
 #foreach ($pkgRef in $exceptionRefs)
             <xs:import namespace="http://$webServiceUtils.reversePackage($pkgRef.fullyQualifiedName)#if($addNamespaceBackslash)/#end"
-##            <xs:import namespace="$pkgRef.namespace"
-##                schemaLocation="$pkgRef.schemaLocation"/>
                 schemaLocation="xsd/${webServiceUtils.reversePackage($pkgRef.fullyQualifiedName)}.xsd"/>
 #end
 #if ($service.hasStereotype("WSCustomHeader"))
-#if ($stringUtils.isEmpty($serviceHeaderXSDlocation))#set ($serviceHeaderXSDlocation=$serviceHeaderNamespace)#end
+#if ($stringUtils.isBlank($serviceHeaderXSDlocation))#set ($serviceHeaderXSDlocation=$serviceHeaderNamespace)#end
             <xs:import namespace="$serviceHeaderNamespace"
                 schemaLocation="$serviceHeaderXSDlocation"/>
 #end
 #if ($service.hasStereotype("WSSecurity"))
-#if ($stringUtils.isEmpty($serviceSecurityXSDlocation))#set ($serviceSecurityXSDlocation=$serviceSecurityNamespace)#end
-            <xs:import namespace="$serviceSecurityNamespace"
-                schemaLocation="$serviceSecurityXSDlocation"/>
+#if ($stringUtils.isBlank($securityXSDlocation))#set ($securityXSDlocation=$securityNamespace)#end
+            <xs:import namespace="$securityNamespace"
+                schemaLocation="$securityXSDlocation"/>
 #end
-##if ($defaultParameterStyle.equalsIgnoreCase("BARE"))
-##            <xs:import namespace="http://$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end" schemaLocation="http://$webServiceUtils.reversePackage($service.packageName)"/>
-##foreach ($pkgRef in $pkgRefs)
-##            <xs:import namespace="http://$webServiceUtils.reversePackage($pkgRef.fullyQualifiedName)#if($addNamespaceBackslash)/#end" schemaLocation="http://$webServiceUtils.reversePackage($pkgRef.fullyQualifiedName)#if($addNamespaceBackslash)/#end"/>
-##end
-##end
         </xs:schema>
 #elseif ($service.hasStereotype("WSCustomHeader") || $service.hasStereotype("WSSecurity"))
         <xs:schema>
 #if ($service.hasStereotype("WSCustomHeader"))
-#if ($stringUtils.isEmpty($serviceHeaderXSDlocation))#set ($serviceHeaderXSDlocation=$serviceHeaderNamespace)#end
+#if ($stringUtils.isBlank($serviceHeaderXSDlocation))#set ($serviceHeaderXSDlocation=$serviceHeaderNamespace)#end
             <xs:import namespace="$serviceHeaderNamespace"
                 schemaLocation="$serviceHeaderXSDlocation"/>
 #end
 #if ($service.hasStereotype("WSSecurity"))
-#if ($stringUtils.isEmpty($serviceSecurityXSDlocation))#set ($serviceSecurityXSDlocation=$serviceSecurityNamespace)#end
-            <xs:import namespace="$serviceSecurityNamespace"
-                schemaLocation="$serviceSecurityXSDlocation"/>
+#if ($stringUtils.isBlank($securityXSDlocation))#set ($securityXSDlocation=$securityNamespace)#end
+            <xs:import namespace="$securityNamespace"
+                schemaLocation="$securityXSDlocation"/>
 #end
         </xs:schema>
 #end
@@ -124,7 +118,7 @@
         <!--wsdl:part name="$serviceHeaderPartName" element="$serviceHeaderAbbr:$serviceHeaderElementName"/-->
 #end
 #if ($service.hasStereotype("WSSecurity"))
-        <!--wsdl:part name="$serviceSecurityPartName" element="$serviceSecurityAbbr:$serviceSecurityElementName"/-->
+        <!--wsdl:part name="$securityPartName" element="$securityAbbr:$securityElementName"/-->
 #end
     </wsdl:message>
 #else
@@ -153,7 +147,7 @@ $stringUtils.replaceChars($parameter.getDocumentation("            ", 100, false
         <wsdl:part name="$serviceHeaderPartName" element="$serviceHeaderAbbr:$serviceHeaderElementName"/>
 #end
 #if ($service.hasStereotype("WSSecurity"))
-        <wsdl:part name="$serviceSecurityPartName" element="$serviceSecurityAbbr:$serviceSecurityElementName"/>
+        <wsdl:part name="$securityPartName" element="$securityAbbr:$securityElementName"/>
 #end
     </wsdl:message>
 #if ($operation.returnTypePresent || $operation.exceptionsPresent)
@@ -185,9 +179,9 @@ $stringUtils.replaceChars($parameter.getDocumentation("            ", 100, false
     </wsdl:message>
 #end
 #if ($service.hasStereotype("WSSecurity"))
-#if ($stringUtils.isEmpty($serviceSecurityElementName))#set ($serviceSecurityElementName="Security")#end
-    <wsdl:message name="$serviceSecurityPartName">
-        <wsdl:part name="$serviceSecurityPartName" element="$serviceSecurityAbbr:$serviceSecurityElementName"/>
+#if ($stringUtils.isBlank($securityElementName))#set ($securityElementName="Security")#end
+    <wsdl:message name="$securityPartName">
+        <wsdl:part name="$securityPartName" element="$securityAbbr:$securityElementName"/>
     </wsdl:message>
 #end
 
@@ -224,21 +218,24 @@ $stringUtils.replaceChars($operation.getDocumentation("                ", 100, f
 #if ($operation.visibility.equals("public") && !$operation.rest)
         <wsdl:operation name="$operation.operationName">
             <soap:operation soapAction="$operation.operationName" style="document" />
-##if ($defaultParameterStyle.equalsIgnoreCase("WRAPPED"))
-##            <wsdl:input name="${operation.operationName}RequestWrapper">
-##else
             <wsdl:input name="${operation.operationName}">
-##end
-#if ($service.hasStereotype("WSCustomHeader"))
+#if ($service.hasStereotype("WSCustomHeader") && !$serviceHeaderParamDirection.equals("OUT"))
                 <soap:header message="impl:$serviceHeaderPartName" part="$serviceHeaderPartName" use="literal"/>
 #end
-#if ($service.hasStereotype("WSSecurity"))
-                <soap:header message="impl:$serviceSecurityPartName" part="$serviceSecurityPartName" use="literal"/>
+#if ($service.hasStereotype("WSSecurity") && !$securityParamDirection.equals("OUT"))
+                <soap:header message="impl:$securityPartName" part="$securityPartName" use="literal"/>
 #end
                 <soap:body use="literal"/>
             </wsdl:input>
 #if ($operation.returnTypePresent || $operation.exceptionsPresent)
             <wsdl:output name="${operation.operationName}Response">
+## Return the ServiceContext in the response for debugging and correlation
+#if ($service.hasStereotype("WSCustomHeader") && ($serviceHeaderParamDirection.equals("OUT") || $serviceHeaderParamDirection.equals("INOUT")))
+                <soap:header message="impl:$serviceHeaderPartName" part="$serviceHeaderPartName" use="literal"/>
+#end
+#if ($service.hasStereotype("WSSecurity") && ($securityParamDirection.equals("OUT") || $securityParamDirection.equals("INOUT")))
+                <soap:header message="impl:$securityPartName" part="$securityPartName" use="literal"/>
+#end
                 <soap:body use="literal"/>
             </wsdl:output>
 ##else

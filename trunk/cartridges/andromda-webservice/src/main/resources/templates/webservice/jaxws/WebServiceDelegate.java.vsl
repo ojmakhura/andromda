@@ -90,13 +90,17 @@ $operation.getDocumentation("    * ")
 #set ($serviceNamespace = $service.findTaggedValue("andromda_header_namespace"))
 #set ($serviceClassName = "${webServiceUtils.getPackageName($serviceNamespace)}.$serviceElementName")
 #set ($serviceParameterName = $stringUtils.uncapitalize($serviceElementName))
+#set ($serviceParamDirection = $service.findTaggedValue("andromda_header_direction"))
+#if ($stringUtils.isBlank($serviceParamDirection))#set ($serviceParamDirection="IN")#end
 #end
 #if ($service.hasStereotype("WSSecurity"))
 #set ($securityElementName = $service.findTaggedValue("andromda_wsdl_security_element"))
 #set ($securityNamespace = $service.findTaggedValue("andromda_security_namespace"))
 #set ($securityClassName = "${webServiceUtils.getPackageName($securityNamespace)}.$securityElementName")
 #set ($securityParameterName = $stringUtils.uncapitalize($securityElementName))
-#if ($stringUtils.isEmpty($securityNamespace))#set ($securityNamespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd")#end
+#if ($stringUtils.isBlank($securityNamespace))#set ($securityNamespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd")#end
+#set ($securityParamDirection = $service.findTaggedValue("andromda_security_header_direction"))
+#if ($stringUtils.isBlank($securityParamDirection))#set ($securityParamDirection="IN")#end
 #end
 #set ($returnTypeName=$stringUtils.uncapitalize($operation.returnType.nonArray.name))
 #set ($arguments="$operation.argumentNames")
@@ -143,11 +147,27 @@ $operation.getDocumentation("    * ")
 #end
 #end
 #if ($service.hasStereotype("WSCustomHeader"))
-      ${comma} $serviceClassName $serviceParameterName
+#if ($serviceParamDirection.equals("IN") || $serviceParamDirection.equals("INOUT"))
+      ${comma} $serviceClassName ${serviceParameterName}In
 #set ($comma = ",")
 #end
+#end
 #if ($service.hasStereotype("WSSecurity"))
-      ${comma} $securityClassName $securityParameterName
+#if ($securityParamDirection.equals("IN") || $securityParamDirection.equals("INOUT"))
+      ${comma} $securityClassName ${securityParameterName}In
+#set ($comma = ",")
+#end
+#end
+#if ($service.hasStereotype("WSCustomHeader"))
+#if ($serviceParamDirection.equals("OUT") || $serviceParamDirection.equals("INOUT"))
+      ${comma}javax.xml.ws.Holder<$serviceClassName> ${serviceParameterName}Out
+#set ($comma = ",")
+#end
+#end
+#if ($service.hasStereotype("WSSecurity"))
+#if ($securityParamDirection.equals("OUT") || $securityParamDirection.equals("INOUT"))
+      ${comma}javax.xml.ws.Holder<$securityClassName> ${securityParameterName}Out
+#end
 #end
     )
 #if ($operation.exceptionsPresent)
@@ -164,12 +184,19 @@ $operation.getDocumentation("    * ")
             ${comma}$parameter.name
 #set ($comma = ", ")
 #end
-#if ($service.hasStereotype("WSCustomHeader"))
-            ${comma}$serviceParameterName
+#if ($service.hasStereotype("WSCustomHeader") && ($serviceParamDirection.equals("IN") || $serviceParamDirection.equals("INOUT")))
+            ${comma}${serviceParameterName}In
 #set ($comma = ", ")
 #end
-#if ($service.hasStereotype("WSSecurity"))
-            ${comma}$securityParameterName
+#if ($service.hasStereotype("WSSecurity") && ($securityParamDirection.equals("IN") || $securityParamDirection.equals("INOUT")))
+            ${comma}${securityParameterName}In
+#end
+#if ($service.hasStereotype("WSCustomHeader") &&($serviceParamDirection.equals("OUT") || $serviceParamDirection.equals("INOUT")))
+            ${comma}${serviceParameterName}Out
+#set ($comma = ", ")
+#end
+#if ($service.hasStereotype("WSSecurity") && ($securityParamDirection.equals("OUT") || $securityParamDirection.equals("INOUT")))
+            ${comma}${securityParameterName}Out
 #end
         );
 #end
