@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -460,9 +461,11 @@ public class SpringUtils
         List<String> results = new ArrayList<String>();
         String result = "enum type --class " + facade.getFullyQualifiedName() + " --permitReservedWords";
         results.add(result);
-        for (AttributeFacade literal : facade.getLiterals())
+        // Can't do for: because literal may be AttributeFacade or EnumerationLiteralFacade - ClassCastException
+        Iterator literals = facade.getLiterals().iterator();
+        while (literals.hasNext())
         {
-            result = "enum constant --name " + literal.getName();
+            result = "enum constant --name " + ((ModelElementFacade)literals.next()).getName();
             results.add(result);
         }
         return results;
