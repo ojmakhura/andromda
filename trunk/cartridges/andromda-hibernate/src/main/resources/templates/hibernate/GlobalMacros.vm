@@ -504,15 +504,15 @@ $target.getDocumentation("     * ")
     )
 #*      *##end
 #*      *##if ($target.map)
-    @javax.persistence.MapKey#if ($target.hasTaggedValue("andromda_persistence_collection_index"))(name = "$target.collectionIndexName")#end
+#set($collectionIndexName="")
+#set($collectionIndexName=$target.findTaggedValue("andromda_persistence_collection_index"))
+    @javax.persistence.MapKey#if ($stringUtils.isNotBlank($collectionIndexName))(name = "$collectionIndexName")#end
 
 #*      *##else
-#*        *##if ($target.hasTaggedValue("andromda_persistence_orderBy"))
-#*          *##if ($stringUtils.isNotBlank(${target.orderByColumns}))
-    @javax.persistence.OrderBy("${target.orderByColumns}")
-#*          *##else
-    @javax.persistence.OrderBy
-#*          *##end
+#set($orderBy="")
+#set($orderBy=$target.findTaggedValue("andromda_persistence_orderBy"))
+#*        *##if ($stringUtils.isNotBlank(${orderBy}))
+    @javax.persistence.OrderBy("${orderBy}")
 #*        *##elseif ($hibernateExtensionEnabled)
 ##
 ## Override the Hibernate foreign key constraint name
@@ -639,15 +639,15 @@ $target.getDocumentation("     * ")
 #*        *##end
 #*      *##end
 #*      *##if ($target.map)
-    @javax.persistence.MapKey#if ($target.hasTaggedValue("andromda_persistence_collection_index"))(name = "${target.collectionIndexName}")#end
+#set($collectionIndexName="")
+#set($collectionIndexName=$target.findTaggedValue("andromda_persistence_collection_index"))
+    @javax.persistence.MapKey#if ($collectionIndexName)(name = "${collectionIndexName}")#end
 
 #*      *##else
-#*        *##if ($target.hasTaggedValue("andromda_persistence_orderBy"))
-#*          *##if ($stringUtils.isNotBlank(${target.orderByClause}))
-    @javax.persistence.OrderBy("${target.orderByClause}")
-#*          *##else
-    @javax.persistence.OrderBy
-#*          *##end
+#set($orderBy="")
+#set($orderBy=$target.findTaggedValue("andromda_persistence_orderBy"))
+#*        *##if ($stringUtils.isNotBlank(${orderBy}))
+    @javax.persistence.OrderBy("${orderBy}")
 #*        *##elseif ($hibernateExtensionEnabled)
 ##
 ## Only add the IndexColumn annotation if Hibernate extensions are enabled
