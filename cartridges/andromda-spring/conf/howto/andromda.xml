@@ -3,12 +3,12 @@
         <property name="failOnValidationErrors">true</property>
     </properties>
     <repositories>
-		<repository name="emf-uml22">
-		  <models>
-			<model type="emf-uml22">
-			  <uri>${src.dir}/site/resources/howto/HowToModel.uml</uri>
-			  <moduleSearchLocations>
-				<location patterns="*.uml">${src.dir}/site/resources/howto</location>
+        <repository name="emf-uml22">
+          <models>
+            <model type="emf-uml22">
+              <uri>${src.dir}/site/resources/howto/HowToModel.uml</uri>
+              <moduleSearchLocations>
+                <location patterns="*.uml">${src.dir}/site/resources/howto</location>
         <!--repository name="netBeansMDR">
             <models>
                 <model>

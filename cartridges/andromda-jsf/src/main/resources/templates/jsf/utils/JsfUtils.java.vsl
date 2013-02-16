@@ -388,7 +388,7 @@ public class $className
     public static javax.faces.convert.Converter getConverter(
             final String converterId)
     {
-        if(StringUtils.isEmpty(converterId))
+        if(StringUtils.isBlank(converterId))
         {
             return null;
         }
@@ -411,7 +411,7 @@ public class $className
         final javax.faces.context.FacesContext facesContext=javax.faces.context.FacesContext.getCurrentInstance();
         final javax.faces.convert.Converter converter = facesContext.getApplication().createConverter(converterId);
         return converter.getAsString(facesContext,
-                org.apache.commons.lang.StringUtils.isEmpty(componentId)?null:facesContext.getViewRoot().findComponent(componentId),
+                org.apache.commons.lang.StringUtils.isBlank(componentId)?null:facesContext.getViewRoot().findComponent(componentId),
                 value);
     }
 

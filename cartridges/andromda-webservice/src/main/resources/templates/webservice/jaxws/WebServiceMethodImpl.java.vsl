@@ -19,8 +19,8 @@
  * CONSTRAINT:  ${constraint.name}: #if ($constraint.invariant)Invariant #end#if ($constraint.postCondition)PostCondition #end#if ($constraint.preCondition)PreCondition #end $constraint.body
 #end
 */
-#if ($stringUtils.isNotBlank($operation.packageName))
-package $operation.packageName;
+#if ($stringUtils.isNotBlank($service.packageName))
+package $service.packageName;
 #end
 
 /**

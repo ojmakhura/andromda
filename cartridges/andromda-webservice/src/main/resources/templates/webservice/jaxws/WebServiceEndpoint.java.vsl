@@ -167,7 +167,7 @@ $operation.getDocumentation("    * ")
 #end
 #if ($service.hasStereotype("WSCustomHeader"))
 #set ($serviceParamDirection = $service.findTaggedValue("andromda_header_direction"))
-#if ($stringUtils.isEmpty($serviceParamDirection))#set ($serviceParamDirection="IN")#end
+#if ($stringUtils.isBlank($serviceParamDirection))#set ($serviceParamDirection="IN")#end
 #if ($serviceParamDirection.equals("IN") || $serviceParamDirection.equals("INOUT"))
         ${comma}$serviceClassName ${serviceParameterName}In
 #set ($comma = ", ")

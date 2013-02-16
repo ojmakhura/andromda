@@ -643,7 +643,7 @@
         <dataSource>java:/${dataSource.name}</dataSource>
         <!-- hibernate v4 incompatible with JBoss microcontainer logging TRACE -->
         <hibernate.version>4.1.9.Final</hibernate.version>
-        <spring.version>3.2.0.RELEASE</spring.version>
+        <spring.version>3.2.1.RELEASE</spring.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <profiles>

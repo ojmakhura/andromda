@@ -47,11 +47,17 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
         </dependency>
-        <!-- Uncomment below if using JDBC or Test features>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
         </dependency>
+        <!-- Uncomment below if using JDBC or Test features>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
@@ -228,7 +234,7 @@
               <version>3.0</version>
               <executions>
                 <execution>
-				  <!-- Run after copying target test configuration but before running tests -->
+                  <!-- Run after copying target test configuration but before running tests -->
                   <phase>test-compile</phase>
                   <goals>
                     <goal>hbm2ddl</goal>

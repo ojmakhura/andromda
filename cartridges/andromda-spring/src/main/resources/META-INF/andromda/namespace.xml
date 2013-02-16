@@ -708,7 +708,7 @@
                 <documentation>
                     Factory bean that creates a local Hibernate SessionFactory instance within Spring. If using annotations
                     with Spring3, specify org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean. Or use
-					org.springframework.orm.hibernate4.LocalSessionFactoryBean.
+                    org.springframework.orm.hibernate4.LocalSessionFactoryBean.
                 </documentation>
             </property>
             <property name="springTypesPackage">

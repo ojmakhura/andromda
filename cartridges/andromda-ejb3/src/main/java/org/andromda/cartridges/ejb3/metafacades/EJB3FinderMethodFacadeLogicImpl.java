@@ -112,7 +112,7 @@ public class EJB3FinderMethodFacadeLogicImpl
         // otherwise see if there is a query stored as a tagged value
         if (StringUtils.isBlank(queryString))
         {
-        	queryString = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_QUERY);
+            queryString = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_QUERY);
             if (queryString != null)
             {
                 // remove any excess whitespace

@@ -168,7 +168,7 @@
               <version>3.0</version>
               <executions>
                 <execution>
-				  <!-- Run after copying target test configuration but before running tests -->
+                  <!-- Run after copying target test configuration but before running tests -->
                   <phase>test-compile</phase>
                   <goals>
                     <goal>hbm2ddl</goal>
