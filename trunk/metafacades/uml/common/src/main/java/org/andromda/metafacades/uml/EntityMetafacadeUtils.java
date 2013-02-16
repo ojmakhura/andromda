@@ -223,11 +223,11 @@ public class EntityMetafacadeUtils
         boolean ascending)
     {
         // Initially holds entities with no outgoing relations. Add related entities to the end
-    	// Multiple andromda invocations - entity list is cached - check size
+        // Multiple andromda invocations - entity list is cached - check size
         List<Entity> sorted = new ArrayList<Entity>();
         if (sortedEntities==null)
         {
-        	sortedEntities = new ArrayList<Entity>();
+            sortedEntities = new ArrayList<Entity>();
         }
         if (entities == null || entities.isEmpty() || 
             (sortedEntities!=null && !sortedEntities.isEmpty() && sortedEntities.size() == entities.size()
@@ -237,8 +237,8 @@ public class EntityMetafacadeUtils
         }
         else
         {
-        	// Clear left-over entities from last time.
-        	sortedEntities.clear();
+            // Clear left-over entities from last time.
+            sortedEntities.clear();
             // Move entities into the sorted list step by step
             List<Entity> toBeMoved = new ArrayList<Entity>();
             List<Entity> unsorted = new ArrayList<Entity>();
@@ -835,38 +835,38 @@ public class EntityMetafacadeUtils
         {
             //System.out.println("getTopLevelPackage classifier=" + classifier);
             if (!classifier.isDataType())
-        	{
-        		if (!entityOnly || classifier instanceof Entity)
-        		{
-        			if (classifier.getStereotypeNames().size() > 0 && !packages.contains(classifier.getPackage()))
-        			{
-        				packages.add((PackageFacade)classifier.getPackage());
+            {
+                if (!entityOnly || classifier instanceof Entity)
+                {
+                    if (classifier.getStereotypeNames().size() > 0 && !packages.contains(classifier.getPackage()))
+                    {
+                        packages.add((PackageFacade)classifier.getPackage());
                         //System.out.println("getTopLevelPackage add " + ((PackageFacade)classifier.getPackage()).getFullyQualifiedName());
                     }
-        		}
-        	}
+                }
+            }
         }
         if (packages.size()>0)
         {
-        	pkgFacade = packages.get(0);
-        	// Find the shortest name in package list containing the other names
-	        for (PackageFacade pkg : packages)
-	        {
-	        	//System.out.println(pkgFacade.getFullyQualifiedName() + " " + pkg.getFullyQualifiedName());
-	        	if (pkgFacade.getFullyQualifiedName().indexOf(pkg.getFullyQualifiedName()) > 0)
-	        	{
-	        		pkgFacade = pkg;
-	        	}
-	        	else if (pkg.getFullyQualifiedName().indexOf(pkgFacade.getFullyQualifiedName()) > 0)
-	        	{
-	        		// Shortest name is there already
-	        	}
-	        	else
-	        	{
-	        		
-	        	}
-	        }
-	    	//System.out.println(pkgFacade.getFullyQualifiedName());
+            pkgFacade = packages.get(0);
+            // Find the shortest name in package list containing the other names
+            for (PackageFacade pkg : packages)
+            {
+                //System.out.println(pkgFacade.getFullyQualifiedName() + " " + pkg.getFullyQualifiedName());
+                if (pkgFacade.getFullyQualifiedName().indexOf(pkg.getFullyQualifiedName()) > 0)
+                {
+                    pkgFacade = pkg;
+                }
+                else if (pkg.getFullyQualifiedName().indexOf(pkgFacade.getFullyQualifiedName()) > 0)
+                {
+                    // Shortest name is there already
+                }
+                else
+                {
+                    
+                }
+            }
+            //System.out.println(pkgFacade.getFullyQualifiedName());
         }
         return pkgFacade;
     }

@@ -1,6 +1,6 @@
 ## This recursively iterates through complex type attributes and associations and
 ## creates default constructor / values for each, returning a fully developed variable
-#if ($stringUtils.isEmpty($level))
+#if ($stringUtils.isBlank($level))
 ## Uniquely name each duplicate nested attribute, prevent infinite recursion
 #set ($level=0)
 #else

@@ -42,7 +42,8 @@
     </jaxws:client>
 
 #end
-    <bean id="validator" class="javax.xml.bind.helpers.IgnoreUnexpectedElementsHandler"/>
+    <!-- See http://whileonefork.blogspot.com/2010_11_01_archive.html if you want to ignore unexpected elements in the response -->
+    <!--bean id="validator" class="javax.xml.bind.helpers.IgnoreUnexpectedElementsHandler"/-->
 
 #foreach ($service in $services)
 <!-- Service from ${service.fullyQualifiedName} -->

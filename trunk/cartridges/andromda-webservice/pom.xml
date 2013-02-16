@@ -122,7 +122,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>httpcomponents-httpcore</groupId>
+            <groupId>org.apache.httpcomponents</groupId>
             <artifactId>jakarta-httpcore</artifactId>
             <version>4.0-alpha4</version>
             <scope>test</scope>
@@ -166,9 +166,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>woodstox</groupId>
+            <groupId>org.codehaus.woodstox</groupId>
             <artifactId>wstx-asl</artifactId>
-            <version>3.2.7</version>
+            <version>4.0.6</version>
+            <type>pom</type>
             <scope>test</scope>
         </dependency>
         <dependency>

@@ -19,7 +19,7 @@
 #end
 */
 #if ($stringUtils.isNotBlank($service.packageName))
-package $operation.packageName;
+package $service.packageName;
 #end
 
 import java.io.Serializable;

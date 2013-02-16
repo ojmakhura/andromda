@@ -169,7 +169,7 @@ public final class ${service.name}_WSClient extends TestCase
 #set ($serviceElementName = $service.findTaggedValue("andromda_wsdl_header_element"))
 #set ($serviceNamespace = $service.findTaggedValue("andromda_header_namespace"))
 #set ($serviceParamDirection = $service.findTaggedValue("andromda_header_direction"))
-#if ($stringUtils.isEmpty($serviceParamDirection))#set ($serviceParamDirection="IN")#end
+#if ($stringUtils.isBlank($serviceParamDirection))#set ($serviceParamDirection="IN")#end
 #if ($serviceParamDirection.equals("IN") || $serviceParamDirection.equals("INOUT"))
 #set ($serviceClassName = "${webServiceUtils.getPackageName($serviceNamespace)}.$serviceElementName")
 #end
@@ -179,7 +179,7 @@ public final class ${service.name}_WSClient extends TestCase
 #set ($securityElementName = $service.findTaggedValue("andromda_wsdl_security_element"))
 #set ($securityNamespace = $service.findTaggedValue("andromda_security_namespace"))
 #set ($securityParamDirection = $service.findTaggedValue("andromda_security_header_direction"))
-#if ($stringUtils.isEmpty($securityParamDirection))#set ($securityParamDirection="IN")#end
+#if ($stringUtils.isBlank($securityParamDirection))#set ($securityParamDirection="IN")#end
 #if ($securityParamDirection.equals("IN") || $securityParamDirection.equals("INOUT"))
 #set ($securityClassName = "${webServiceUtils.getPackageName($securityNamespace)}.$securityElementName")
 #end

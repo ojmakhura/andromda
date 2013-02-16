@@ -1640,7 +1640,7 @@
         <jetty.version>8.1.8.v20121106</jetty.version>
 #end
 #if ($cxf || $spring)
-        <spring.version>3.2.0.RELEASE</spring.version>
+        <spring.version>3.2.1.RELEASE</spring.version>
 #end
         <!-- To override parent default settings for compiler plugin and compliance checks-->
         <dependencyConvergence>true</dependencyConvergence>
