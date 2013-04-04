@@ -16,11 +16,9 @@ public class $manageable.manageableValueObjectClassName
     implements java.io.Serializable
 #end
 {
-#if (!$manageable.generalization)
     /** The serial version UID of this class. Needed for serialization. */
     private static final long serialVersionUID = ${manageable.serialVersionUID}L;
 
-#end
 #foreach ($member in $manageable.getAttributes(false))
 #set ($visibility = $member.visibility)
 #if ($visibility.equals("public"))#set ($visibility = "private")#end
