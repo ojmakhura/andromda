@@ -27,6 +27,7 @@ public#if($service.abstract) abstract#end class $service.implementationName
     /**
      * @see ${service.fullyQualifiedName}${esc.hash}${operation.getSignature(false)}
      */
+    @Override
 #set ($abstract = $service.abstract && $operation.abstract)
     protected#if ($abstract) abstract#end  $operation.implementationReturnTypeName $operation.implementationSignature
 #if ($abstract)
