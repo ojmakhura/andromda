@@ -46,6 +46,16 @@ public class SymbolicLinkExplodedEarMojo
      * @parameter expression="${env.JBOSS_HOME}/server/default/deploy"
      */
     private String deployLocation;
+    
+
+    /**
+     * The number of levels allowed to travel up before we get to the "root project" (i.e. this
+     * will prevent the system from attempting to get parent project that aren't really
+     * part of the direct project).
+     *
+     * @parameter expression="1"
+     */
+    private int rootProjectLimit;
 
     /**
      * Artifact factory, needed to download source jars for inclusion in
@@ -247,15 +257,10 @@ public class SymbolicLinkExplodedEarMojo
         if (this.rootProject == null)
         {
             MavenProject root = null;
-            for (root = this.project.getParent(); root.getParent() != null; root = root.getParent())
+            int ctr = 1;
+            for (root = this.project.getParent(); root.getParent() != null && ctr < this.rootProjectLimit; root = root.getParent(), ctr++)
             {
             }
-            // root cannot be null - compiler warning.
-            /*if (root == null)
-            {
-                throw new MojoExecutionException("No parent could be retrieved for project --> " +
-                    this.project.getId() + "', you must specify a parent project");
-            }*/
             this.rootProject = root;
         }
         return this.rootProject;
@@ -273,6 +278,8 @@ public class SymbolicLinkExplodedEarMojo
         throws MojoExecutionException
     {
         final DirectoryScanner scanner = new DirectoryScanner();
+        System.out.println("root project: " + this.getRootProject());
+        System.out.println("the basedir=" + this.getRootProject().getBasedir());
         scanner.setBasedir(this.getRootProject().getBasedir());
         scanner.setIncludes(INCLUDE_ALL_POMS);
         scanner.scan();
