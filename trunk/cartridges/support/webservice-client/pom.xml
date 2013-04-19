@@ -236,6 +236,7 @@
                                                   **/*/pom.xml,
                                                   **/*/pom.properties,
                                                   **/*.html,
+                                                  **/module.xml
                                                   **/*.mar"/>
                                     <rule pattern="org.apache.axis2.receivers.**"
                                           result="org.apache.axis2a.receivers.@1"/>
@@ -249,6 +250,8 @@
                                           result="org.apache.axis2a.transport.http.@1"/>
                                     <rule pattern="org.apache.axis2.builder.**" result="org.apache.axis2a.builder.@1"/>
                                     <rule pattern="org.apache.axis2.engine.**" result="org.apache.axis2a.engine.@1"/>
+									<rule pattern="org.apache.axis2.i18n.**" result="org.apache.axis2a.i18n.@1"/> 
+									<rule pattern="org.apache.axis2.*.i18n.**" result="org.apache.axis2a.@1.i18n.@2"/>       
                                     <rule pattern="com.ibm.wsdl.factory.**" result="com.ibm.wsdla.factory.@1"/>
                                     <rule pattern="com.ctc.wstx.stax.**" result="com.ctc.wstxa.stax.@1"/>
                                     <rule pattern="com.ctc.wstx.compat.**" result="com.ctc.wstxa.compat.@1"/>
