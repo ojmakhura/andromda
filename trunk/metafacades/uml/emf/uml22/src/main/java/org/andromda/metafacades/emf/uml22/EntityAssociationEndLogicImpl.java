@@ -80,7 +80,7 @@ public class EntityAssociationEndLogicImpl
                     this,
                     UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
                     Short.valueOf(((Entity)this.getType()).getMaxSqlNameLength()),
-                    columnNameSuffix,
+                    columnNameSuffix+this.getForeignKeySuffix(),
                     this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
         }
         return columnName;
