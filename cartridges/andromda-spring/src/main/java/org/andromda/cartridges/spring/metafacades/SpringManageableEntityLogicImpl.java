@@ -137,6 +137,30 @@ public class SpringManageableEntityLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringManageableEntityLogic#handleGetManageableSearchExampleFullPath()
+     */
+    protected String handleGetManageableSearchExampleFullPath()
+    {
+        return StringUtils.replace(this.getFullyQualifiedManageableSearchExampleName(), this.getNamespaceProperty(), "/");
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringManageableEntityLogic#handleGetManageableSearchExampleClassName()
+     */
+    protected String handleGetManageableSearchExampleClassName()
+    {
+        return getName() + "SearchExample";
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringManageableEntityLogic#handleGetFullyQualifiedManageableSearchExampleName()
+     */
+    protected String handleGetFullyQualifiedManageableSearchExampleName()
+    {
+        return getManageablePackageName() + getNamespaceProperty() + getManageableSearchExampleClassName();
+    }
+
+    /**
      * @see org.andromda.cartridges.spring.metafacades.SpringManageableEntityLogic#handleIsRemotingTypeRmi()
      */
     protected boolean handleIsRemotingTypeRmi()
