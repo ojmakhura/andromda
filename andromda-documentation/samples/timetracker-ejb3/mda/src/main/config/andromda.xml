@@ -188,6 +188,7 @@
         <!-- See http://docs.andromda.org/andromda-cartridges/andromda-jsf-cartridge/namespace.html -->
         <namespace name="jsf">
             <properties>
+                <property name="useAutocompleteLookup">true</property>
                 <property name="viewType">facelets</property>
                 <property name="applicationName">${application.name}</property>
                 <property name="forms">${web.generated.java.dir}</property>
