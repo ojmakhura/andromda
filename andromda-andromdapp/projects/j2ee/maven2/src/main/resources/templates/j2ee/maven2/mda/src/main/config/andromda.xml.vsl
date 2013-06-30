@@ -543,6 +543,7 @@
         <!-- See http://docs.andromda.org/andromda-cartridges/andromda-jsf-cartridge/namespace.html -->
         <namespace name="jsf">
             <properties>
+                <property name="useAutocompleteLookup">true</property>
 #if ($webservice && !$jsr181Webservice && !$cxf)
                 <property name="languageMappingsUri">AxisJavaMappings</property>
 #end
