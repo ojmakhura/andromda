@@ -15,7 +15,7 @@ public final class $manageable.searchFormBeanClassName
 {
 #foreach ($field in $manageable.manageableAttributes)
 #if ($field.type.collectionType)
-#set ($fieldTypeName = "java.util.List")
+#set ($fieldTypeName = "java.util.Collection")
 #else
 #if ($field.type.primitive)
 #set ($fieldTypeName = $field.type.wrapperName)
