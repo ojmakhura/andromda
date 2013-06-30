@@ -111,5 +111,7 @@ public class ${manageableServiceLocatorName}
             getContext().getBean("$manageable.manageableServiceName");
     }
 #end
+
+    // spring-crud-service-locator merge-point
 }
 #end

@@ -13,15 +13,14 @@
                 ${manageable.fullyQualifiedManageableServiceName}.create=PROPAGATION_REQUIRED
 #end
 #if ($manageable.read)
+                ${manageable.fullyQualifiedManageableServiceName}.searchByExample=PROPAGATION_REQUIRED
                 ${manageable.fullyQualifiedManageableServiceName}.read=PROPAGATION_REQUIRED
                 ${manageable.fullyQualifiedManageableServiceName}.readAll=PROPAGATION_REQUIRED
+                ${manageable.fullyQualifiedManageableServiceName}.readById=PROPAGATION_REQUIRED
 #foreach ($member in $manageable.manageableAttributes)
 #if ($member.manageableGetterAvailable)
                 ${manageable.fullyQualifiedManageableServiceName}.${member.getterName}=PROPAGATION_REQUIRED
 #end
-#end
-#if (!$manageable.manageableAssociationEnds.empty)
-                ${manageable.fullyQualifiedManageableServiceName}.readBackingLists=PROPAGATION_REQUIRED
 #end
 #end
 #if ($manageable.update)
@@ -52,14 +51,13 @@
     <!-- $manageable.manageableDaoName Implementation  -->
     <bean id="$manageable.manageableDaoBaseName" class="$manageable.fullyQualifiedManageableDaoBaseName">
         <property name="sessionFactory"><ref bean="sessionFactory"/></property>
-        <property name="dao"><ref bean="$manageable.daoReferenceName"/></property>
 #foreach ($member in $manageable.manageableAssociationEnds)
         <property name="$member.daoName"><ref bean="$member.daoReferenceName"/></property>
 #end
     </bean>
 
     <!-- $manageable.manageableServiceName Service Implementation  -->
-    <bean id="$manageable.manageableServiceBaseName" class="$manageable.fullyQualifiedManageableServiceBaseName">
+    <bean id="$manageable.manageableServiceBaseName" class="${manageable.fullyQualifiedManageableServiceName}Impl">
         <property name="dao"><ref local="$manageable.manageableDaoName"/></property>
     </bean>
 
