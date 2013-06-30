@@ -9,14 +9,17 @@
         <property name="transactionAttributeSource">
             <value>
                 org.andromda.timetracker.domain.crud.UserManageableService.create=PROPAGATION_REQUIRED
+                org.andromda.timetracker.domain.crud.UserManageableService.searchByExample=PROPAGATION_REQUIRED
                 org.andromda.timetracker.domain.crud.UserManageableService.read=PROPAGATION_REQUIRED
                 org.andromda.timetracker.domain.crud.UserManageableService.readAll=PROPAGATION_REQUIRED
-                org.andromda.timetracker.domain.crud.UserManageableService.readBackingLists=PROPAGATION_REQUIRED
+                org.andromda.timetracker.domain.crud.UserManageableService.readById=PROPAGATION_REQUIRED
                 org.andromda.timetracker.domain.crud.UserManageableService.update=PROPAGATION_REQUIRED
                 org.andromda.timetracker.domain.crud.UserManageableService.delete=PROPAGATION_REQUIRED
                 org.andromda.timetracker.domain.crud.TaskManageableService.create=PROPAGATION_REQUIRED
+                org.andromda.timetracker.domain.crud.TaskManageableService.searchByExample=PROPAGATION_REQUIRED
                 org.andromda.timetracker.domain.crud.TaskManageableService.read=PROPAGATION_REQUIRED
                 org.andromda.timetracker.domain.crud.TaskManageableService.readAll=PROPAGATION_REQUIRED
+                org.andromda.timetracker.domain.crud.TaskManageableService.readById=PROPAGATION_REQUIRED
                 org.andromda.timetracker.domain.crud.TaskManageableService.update=PROPAGATION_REQUIRED
                 org.andromda.timetracker.domain.crud.TaskManageableService.delete=PROPAGATION_REQUIRED
             </value>
@@ -39,12 +42,11 @@
     <!-- UserManageableDao Implementation  -->
     <bean id="UserManageableDaoBase" class="org.andromda.timetracker.domain.crud.UserManageableDaoBase">
         <property name="sessionFactory"><ref bean="sessionFactory"/></property>
-        <property name="dao"><ref bean="userDao"/></property>
         <property name="rolesDao"><ref bean="userRoleDao"/></property>
     </bean>
 
     <!-- UserManageableService Service Implementation  -->
-    <bean id="UserManageableServiceBase" class="org.andromda.timetracker.domain.crud.UserManageableServiceBase">
+    <bean id="UserManageableServiceBase" class="org.andromda.timetracker.domain.crud.UserManageableServiceImpl">
         <property name="dao"><ref local="UserManageableDao"/></property>
     </bean>
 
@@ -78,11 +80,10 @@
     <!-- TaskManageableDao Implementation  -->
     <bean id="TaskManageableDaoBase" class="org.andromda.timetracker.domain.crud.TaskManageableDaoBase">
         <property name="sessionFactory"><ref bean="sessionFactory"/></property>
-        <property name="dao"><ref bean="taskDao"/></property>
     </bean>
 
     <!-- TaskManageableService Service Implementation  -->
-    <bean id="TaskManageableServiceBase" class="org.andromda.timetracker.domain.crud.TaskManageableServiceBase">
+    <bean id="TaskManageableServiceBase" class="org.andromda.timetracker.domain.crud.TaskManageableServiceImpl">
         <property name="dao"><ref local="TaskManageableDao"/></property>
     </bean>
 
