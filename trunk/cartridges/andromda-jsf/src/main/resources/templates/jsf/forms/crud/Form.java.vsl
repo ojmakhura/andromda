@@ -88,12 +88,12 @@ public class $manageable.formBeanClassName
         this.searchForm = searchFormIn;
     }
 
-    private java.util.List $manageable.listName = null;
+    private java.util.Collection $manageable.listName = null;
 
     /**
      * @return $manageable.listName
      */
-    public java.util.List ${manageable.listGetterName}()
+    public java.util.Collection ${manageable.listGetterName}()
     {
         return this.$manageable.listName;
     }
@@ -101,7 +101,7 @@ public class $manageable.formBeanClassName
     /**
      * @param ${manageable.listName}In
      */
-    public void ${manageable.listSetterName}(java.util.List ${manageable.listName}In)
+    public void ${manageable.listSetterName}(java.util.Collection ${manageable.listName}In)
     {
         this.$manageable.listName = ${manageable.listName}In;
     }
@@ -126,7 +126,7 @@ public class $manageable.formBeanClassName
 
 #foreach ($field in $manageable.manageableAttributes)
 #if ($field.type.collectionType)
-#set ($fieldTypeName = "java.util.List")
+#set ($fieldTypeName = "java.util.Collection")
 #elseif ($field.inputFile)
 #set ($fieldTypeName = "$fileTypeName")
 #else

@@ -82,7 +82,7 @@ public abstract class ${manageable.controllerName}
 
 #if ($manageable.preload)
         @SuppressWarnings("unchecked")
-        final java.util.List list = ${manageable.manageableServiceAccessorCall}.readAll();
+        final java.util.Collection list = ${manageable.manageableServiceAccessorCall}.readAll();
 
         form.${manageable.listSetterName}(list);
 
@@ -333,6 +333,7 @@ public abstract class ${manageable.controllerName}
      * @param form
      * @throws Exception
      */
+    @SuppressWarnings("deprecation")
     public void doSave(${manageable.formBeanType} form)
         throws Exception
     {
@@ -459,11 +460,12 @@ public abstract class ${manageable.controllerName}
      * @param form
      * @throws Exception
      */
+    @SuppressWarnings("deprecation")
     public void doSearch(${manageable.formBeanType} form)
         throws Exception
     {
         @SuppressWarnings("rawtypes")
-        final java.util.List list;
+        final java.util.Collection list;
         //if all search fields are null, call readAll()
         if (
 #set ($and = '')
@@ -587,6 +589,7 @@ public abstract class ${manageable.controllerName}
      * Helper method to fill the autocomplete component list.
      * @param event
      */
+    @SuppressWarnings("deprecation")
     public void fillAutocomplete(javax.faces.event.ActionEvent event)
     {
         final javax.faces.context.FacesContext facesContext = this.getContext();
@@ -594,7 +597,7 @@ public abstract class ${manageable.controllerName}
         final Object fieldValue = parameters.get(this.getParameterValue("searchFieldRequestParamName",event));
         try{
             @SuppressWarnings("rawtypes")
-            final java.util.List list = ${manageable.manageableServiceAccessorCall}.read(
+            final java.util.Collection list = ${manageable.manageableServiceAccessorCall}.read(
 #set ($comma = '')
 #foreach ($member in $manageable.manageableMembers)
 #if($member.name == $manageable.displayAttribute.name)
