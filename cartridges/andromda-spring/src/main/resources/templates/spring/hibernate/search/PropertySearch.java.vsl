@@ -23,9 +23,6 @@ import org.apache.commons.beanutils.PropertyUtils;
 /**
  * Provides the ability to search by properties.
  */
-#if ($enableTemplating)
-@SuppressWarnings({"unchecked"})
-#end
 public class $className
     extends CriteriaSearch
 {
@@ -41,7 +38,7 @@ public class $className
      */
     public $className(
         final ${hibernateUtils.basePackage}.Session session,
-        final Class entityType,
+        final Class<?> entityType,
         final Search searchIn)
     {
         super(session, entityType);
@@ -150,10 +147,10 @@ public class $className
 #if ($enableAnnotations)
     @Override
 #end
-    public java.util.List executeAsList()
+    public java.util.List<?> executeAsList()
         throws ${hibernateUtils.basePackage}.HibernateException
     {
-        java.util.List results = super.executeAsList();
+        java.util.List<?> results = super.executeAsList();
         if (!this.search.isUseSqlLimiting() && this.search.getPageNumber() > 0 && this.search.getPageSize() > 0)
         {
             int start = this.calculateFirstResult(this.search.getPageNumber(), this.search.getPageSize());
@@ -235,7 +232,7 @@ public class $className
      *
      * @exception ConversionException if thrown by an underlying Converter
      */
-    protected Object convert(Object value, Class type)
+    protected Object convert(Object value, Class<?> type)
     {
         Converter converter = ConvertUtils.lookup(type);
         Object result;
@@ -257,7 +254,7 @@ public class $className
      * @param parameter the parameter from which to get the value.
      * @return the appropriate value.
      */
-    private Object getValue(Class type, final SearchParameter parameter)
+    private Object getValue(Class<?> type, final SearchParameter parameter)
     {
         try
         {
@@ -265,11 +262,11 @@ public class $className
             // - don't try to convert null values or classes
             if (value != null && !value.getClass().equals(Class.class))
             {
-                Class propertyType = type;
+                Class<?> propertyType = type;
                 for (final StringTokenizer tokenizer = new StringTokenizer(parameter.getName(), PERIOD); tokenizer.hasMoreTokens();)
                 {
                     final String token = tokenizer.nextToken().trim();
-                    Class lastType = type;
+                    Class<?> lastType = type;
                     type = CriteriaSearchProperties.getPropertyType(type, token);
                     if (!tokenizer.hasMoreTokens())
                     {
@@ -314,6 +311,9 @@ public class $className
         /**
          * @see org.apache.commons.beanutils.Converter${esc.hash}convert(Class, Object)
          */
+#if ($enableAnnotations)
+        @SuppressWarnings("rawtypes")
+#end
         public Object convert(
             Class type,
             Object value)
@@ -351,6 +351,9 @@ public class $className
         /**
          * @see org.apache.commons.beanutils.Converter${esc.hash}convert(Class, Object)
          */
+ #if ($enableAnnotations)
+       @SuppressWarnings("rawtypes")
+#end
         public Object convert(
             Class type,
             Object value)

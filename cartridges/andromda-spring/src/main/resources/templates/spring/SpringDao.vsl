@@ -102,7 +102,7 @@ public interface $entity.daoName
      * @return Collection#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end
 
      */
-    public Collection#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end ${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection#if($enableTemplating)<?>#end entities);
+    public Collection#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end ${valueObjectRef.transformationToCollectionMethodName}($entityCollectionType entities);
 
     /**
      * Converts this DAO's entity to an array of instances of type {@link $valueObjectRef.targetElement.fullyQualifiedName}.
@@ -408,6 +408,12 @@ public interface $entity.daoName
     public void update(org.dom4j.Element $argumentName);
 
 #end
+    /**
+     * Create or Update the <code>$argumentName</code> instance in the persistent store.
+     * @param $argumentName
+     */
+    public $entity.fullyQualifiedEntityName createOrUpdate($entity.fullyQualifiedEntityName $argumentName);
+
     /**
      * Updates all instances in the <code>entities</code> collection in the persistent store.
      * @param entities
@@ -774,7 +780,7 @@ $operation.getDocumentation("     * ")
      * @param search the search object which provides the search parameters and pagination specification.
      * @return any found results from the search.
      */
-    public java.util.Set#if($enableTemplating)<?>#end search(final int transform, final $fullyQualifiedSearchClassName search);
+    public java.util.Collection#if($enableTemplating)<?>#end search(final int transform, final $fullyQualifiedSearchClassName search);
 
     /**
      * Performs a search using the parameters specified in the given <code>search</code> object.
@@ -782,7 +788,7 @@ $operation.getDocumentation("     * ")
      * @param search the search object which provides the search parameters and pagination specification.
      * @return any found results from the search.
      */
-    public java.util.Set#if($enableTemplating)<#if($daoInheritance)? extends #end${rootEntityType}>#end search(final $fullyQualifiedSearchClassName search);
+    public java.util.Collection#if($enableTemplating)<#if($daoInheritance)? extends #end${rootEntityType}>#end search(final $fullyQualifiedSearchClassName search);
 
     /**
      * Allows transformation of entities into value objects
@@ -845,6 +851,7 @@ $operation.getDocumentation("     * ")
 
 #end
 #end
+
     // spring-dao merge-point
 }
 #end

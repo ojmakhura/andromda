@@ -341,6 +341,38 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         return firstResult;
     }
 
+    /**
+     * beforeCreate event - This method is called before creating the entity and can be overriden
+     */
+    protected void _beforeCreate(final $entity.fullyQualifiedName $argumentName)
+    {
+        //empty method 
+    }
+     
+    /**
+     * beforeSave event - This method is called before creating/updating the entity and can be overriden
+     */
+    protected void _beforeSave(final $entity.fullyQualifiedName $argumentName)
+    {
+        //empty method 
+    }
+     
+    /**
+     * beforeUpdate event - This method is called before updating the entity and can be overriden
+     */
+    protected void _beforeUpdate(final $entity.fullyQualifiedName $argumentName)
+    {
+        //empty method 
+    }
+     
+    /**
+     * beforeDelete event - This method is called before deleting the entity and can be overriden
+     */
+    protected void _beforeDelete(final $entity.fullyQualifiedName $argumentName)
+    {
+        //empty method 
+    }
+     
 ## Only add these methods if the entity isn't abstract
 #if (!$entity.abstract)
     /**
@@ -414,6 +446,12 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
             throw new IllegalArgumentException(
                 "${entity.name}.create - '$argumentName' can not be null");
         }
+
+        //beforeSave event
+        _beforeSave($argumentName);
+        //beforeCreate event
+        _beforeCreate($argumentName);
+
 #if ($hibernateUtils.xmlPersistenceActive)
 #set ($identifierProperty = "identifier")
 #if($identifierTypePrimitive)
@@ -595,6 +633,12 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
             throw new IllegalArgumentException(
                 "${entity.name}.update - '$argumentName' can not be null");
         }
+        
+        //beforeSave event
+        _beforeSave($argumentName);
+        //beforeUpdate event
+        _beforeUpdate($argumentName);
+
        #if($hibernate4) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.update($argumentName);
     }
 
@@ -688,6 +732,9 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
             throw new IllegalArgumentException(
                 "${entity.name}.remove - '$argumentName' can not be null");
         }
+        //beforeDelete event
+        _beforeDelete($argumentName);
+        
        #if($hibernate4) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.delete($argumentName);
     }
 
@@ -766,6 +813,9 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         }
         for ($rootEntityType entity : entities)
         {
+            //beforeDelete event
+            _beforeDelete(entity);
+
            #if($hibernate4) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.delete(entity);
         }
     }
@@ -998,6 +1048,9 @@ $h3tab            queryObject.setMaxResults(pageSize);
 $h3tab        }
 #end
 #if ($finder.returnType.setType || !($finder.returnType.collectionType || $finder.many))
+#if ($enableTemplating)
+$h3tab        @SuppressWarnings({ "unchecked", "rawtypes" })
+#end
 $h3tab        java.util.Set results = new java.util.LinkedHashSet(queryObject.list());
 #else
 $h3tab        java.util.List results = queryObject.list();
@@ -1258,7 +1311,7 @@ $h3tab        }
         {
 #foreach ($valueObjectRef in $transformReferences)
             case ${valueObjectRef.transformationConstantName} :
-                ${valueObjectRef.transformationToCollectionMethodName}(entities);
+                org.apache.commons.collections.CollectionUtils.transform(entities, this.${valueObjectRef.transformationAnonymousName});
                 break;
 #end
             case ${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName : // fall-through
@@ -1297,7 +1350,8 @@ $h3tab        }
                 Object result = null;
                 if (input instanceof Object[])
                 {
-                    result = toEntity((Object[])input);
+                    final Object[] rows = (Object[])input; 
+                    result = toEntity(rows);
                 }
                 else if (input instanceof $entity.fullyQualifiedEntityName)
                 {
@@ -1340,15 +1394,21 @@ $h3tab        }
 #if ($enableTemplating)
     @SuppressWarnings({"unchecked"})
 #end
-    public final Collection#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end ${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection#if($enableTemplating)<?>#end entities)
+    public final Collection#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end ${valueObjectRef.transformationToCollectionMethodName}($entityCollectionType entities)
     {
-        java.util.Collection#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end result = new java.util.ArrayList<${valueObjectRef.targetElement.fullyQualifiedName}>();
-        if (entities != null)
+        if (entities == null)
         {
-            org.apache.commons.collections.CollectionUtils.transform(entities, this.${valueObjectRef.transformationAnonymousName});
-            result.addAll((Collection#if($enableTemplating)<? extends ${valueObjectRef.targetElement.fullyQualifiedName}>#end) entities);
+            return null;
         }
-        return result;
+        else
+        {
+#if($enableTemplating)
+            @SuppressWarnings("rawtypes")
+#end            
+            java.util.Collection result = new java.util.ArrayList(entities);
+            org.apache.commons.collections.CollectionUtils.transform(result, this.${valueObjectRef.transformationAnonymousName});
+            return#if($enableTemplating) (Collection<${valueObjectRef.targetElement.fullyQualifiedName}>)#end result;
+        }
     }
 
     /**
@@ -1365,7 +1425,9 @@ $h3tab        }
         ${valueObjectRef.targetElement.fullyQualifiedName}[] result = null;
         if (entities != null)
         {
-            // Unchecked transformation: reuses entities Collection
+#if($enableTemplating)
+        @SuppressWarnings("rawtypes")
+#end            
             final java.util.Collection collection = new java.util.ArrayList(entities);
             this.${valueObjectRef.transformationToCollectionMethodName}(collection);
             result = (${valueObjectRef.targetElement.fullyQualifiedName}[]) collection.toArray(new ${valueObjectRef.targetElement.fullyQualifiedName}[collection.size()]);
@@ -1402,11 +1464,13 @@ $h3tab        }
                 Object result = null;
                 if (input instanceof $entity.fullyQualifiedEntityName)
                 {
-                    result = ${valueObjectRef.transformationMethodName}(($entity.fullyQualifiedEntityName)input);
+                    final $entity.fullyQualifiedEntityName entity = ($entity.fullyQualifiedEntityName)input;
+                    result = ${valueObjectRef.transformationMethodName}(entity);
                 }
                 else if (input instanceof Object[])
                 {
-                    result = ${valueObjectRef.transformationMethodName}((Object[])input);
+                    final Object[] rows = (Object[])input;
+                    result = ${valueObjectRef.transformationMethodName}(rows);
                 }
                 return result;
             }
@@ -1628,12 +1692,12 @@ $h3tab        }
 #if ($enableAnnotations)
     @Override
 #end
-    public java.util.Set#if($enableTemplating)<?>#end search(final int transform, final $fullyQualifiedSearchClassName search)
+    public java.util.Collection#if($enableTemplating)<?>#end search(final int transform, final $fullyQualifiedSearchClassName search)
     {
 #if ($hibernate4)
         final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
             this.sessionFactory.getCurrentSession(), ${entity.fullyQualifiedEntityImplementationName}.class, search);
-        final#if($enableTemplating) java.util.Set<?>#else java.util.Set#end results = propertySearch.executeAsSet();
+        final#if($enableTemplating) java.util.Collection<?>#else java.util.Collection#end results = propertySearch.executeAsList();
         this.transformEntities(transform, results);
         return results;
 #else
@@ -1641,7 +1705,7 @@ $h3tab        }
         {
             final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
                 this.getSession(false), ${entity.fullyQualifiedEntityImplementationName}.class, search);
-            final#if($enableTemplating) java.util.Set<?>#else java.util.Set#end results = propertySearch.executeAsSet();
+            final#if($enableTemplating) java.util.Collection<?>#else java.util.Collection#end results = propertySearch.executeAsList();
             this.transformEntities(transform, results);
             return results;
         }
@@ -1661,9 +1725,9 @@ $h3tab        }
 #if ($enableTemplating)
     @SuppressWarnings("unchecked")
 #end
-    public java.util.Set#if($enableTemplating)<#if($daoInheritance)? extends #end${rootEntityType}>#end search(final $fullyQualifiedSearchClassName search)
+    public java.util.Collection#if($enableTemplating)<#if($daoInheritance)? extends #end${rootEntityType}>#end search(final $fullyQualifiedSearchClassName search)
     {
-        return#if($enableTemplating) (java.util.Set<#if($daoInheritance)? extends #end${rootEntityType}>)#end this.search(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName, search);
+        return#if($enableTemplating) (java.util.Collection<#if($daoInheritance)? extends #end${rootEntityType}>)#end this.search(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName, search);
     }
 
     /**
@@ -1692,7 +1756,7 @@ $h3tab        }
             queryObject.setMaxResults(pageSize);
         }
         // Unchecked transformation because Set object is reused, cannot be strongly typed.
-        java.util.Set results = new java.util.LinkedHashSet(queryObject.list());
+        java.util.Collection results = new java.util.ArrayList(queryObject.list());
         transformEntities(transform, results);
         return new ${fullyQualifiedPagingResultName}(results.toArray(new Object[results.size()]), totalCount);
 #else
@@ -1708,7 +1772,7 @@ $h3tab        }
                 queryObject.setMaxResults(pageSize);
             }
             // Unchecked transformation because Set object is reused, cannot be strongly typed.
-            java.util.Set results = new java.util.LinkedHashSet(queryObject.list());
+            java.util.Collection results = new java.util.ArrayList(queryObject.list());
             transformEntities(transform, results);
             return new ${fullyQualifiedPagingResultName}(results.toArray(new Object[results.size()]), totalCount);
         }
@@ -1737,7 +1801,7 @@ $h3tab        }
             }
         );
 
-        final java.util.Set#if($enableTemplating)<#if($daoInheritance)? extends #end${rootEntityType}>#end searchResult=this.search(search);
+        final java.util.Collection#if($enableTemplating)<#if($daoInheritance)? extends #end${rootEntityType}>#end searchResult=this.search(search);
         switch(searchResult.size())
         {
             case 0: return null;
@@ -1764,6 +1828,31 @@ $h3tab        }
 
 #end
 #end
+
+    /**
+     * Create or Update the <code>$argumentName</code> instance in the persistent store.
+     * @param $argumentName
+     */
+#if ($enableAnnotations)
+    @Override
+#end
+    public $entity.fullyQualifiedEntityName createOrUpdate($entity.fullyQualifiedEntityName $argumentName)
+    {
+        if(${argumentName}.${entity.identifiers.get(0).getterName}() == null)
+        {
+#if ($entity.abstract)
+            throw new RuntimeException("Abstract entity $entity.fullyQualifiedEntityName cannot be created.");
+#else
+            return ($entity.fullyQualifiedEntityName)this.create(${entity.daoNoTransformationConstantName},$argumentName);
+#end            
+        }
+        else
+        {
+            this.update($argumentName);
+            return $argumentName;
+        }
+    }
+    
     // spring-hibernate-dao-base merge-point
 }
 #end

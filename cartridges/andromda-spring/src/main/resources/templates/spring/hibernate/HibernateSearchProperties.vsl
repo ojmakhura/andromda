@@ -17,14 +17,11 @@ package $springTypesPackage;
  *
  * @author Chad Brandon
  */
-#if ($enableTemplating)
-@SuppressWarnings({"unchecked"})
-#end
 public class ${criteriaSearchBaseName}Properties
 {
-    private static final java.util.Map embeddedValuesByType = new java.util.HashMap();
-    private static final java.util.Map embeddedValueNamesByType = new java.util.HashMap();
-    private static final java.util.Map navigableAssociationEndsByType = new java.util.HashMap();
+    private static final java.util.Map<Class<?>,Collection<PropertyType>> embeddedValuesByType = new java.util.HashMap<Class<?>,Collection<PropertyType>>();
+    private static final java.util.Map<Class<?>,Collection<String>> embeddedValueNamesByType = new java.util.HashMap<Class<?>,Collection<String>>();
+    private static final java.util.Map<Class<?>,Collection<PropertyType>> navigableAssociationEndsByType = new java.util.HashMap<Class<?>,Collection<PropertyType>>();
 
     static
     {
@@ -95,9 +92,9 @@ public class ${criteriaSearchBaseName}Properties
      * @param type the type of which to retrieve the value.
      * @return the collection of embedded value names.
      */
-    public static java.util.Collection getEmbeddedValues(final Class type)
+    public static java.util.Collection<String> getEmbeddedValues(final Class<?> type)
     {
-        return (java.util.Collection)embeddedValueNamesByType.get(type);
+        return embeddedValueNamesByType.get(type);
     }
 
     /**
@@ -108,7 +105,7 @@ public class ${criteriaSearchBaseName}Properties
      * @param name the name of the association end to find.
      * @return the type of the association end.
      */
-    public static Class getNavigableAssociationEndType(final Class ownerType, final String name)
+    public static Class<?> getNavigableAssociationEndType(final Class<?> ownerType, final String name)
     {
         return getPropertyType(navigableAssociationEndsByType, ownerType, name);
     }
@@ -121,7 +118,7 @@ public class ${criteriaSearchBaseName}Properties
      * @param name the name of the association end to find.
      * @return the type of the association end.
      */
-    public static Class getEmbeddedValueType(final Class ownerType, final String name)
+    public static Class<?> getEmbeddedValueType(final Class<?> ownerType, final String name)
     {
         return getPropertyType(embeddedValuesByType, ownerType, name);
     }
@@ -135,9 +132,9 @@ public class ${criteriaSearchBaseName}Properties
      * @param name the name of the association end to find.
      * @return the type of the association end.
      */
-    public static Class getPropertyType(final java.util.Map properties, final Class ownerType, final String name)
+    public static Class<?> getPropertyType(final java.util.Map<Class<?>,Collection<PropertyType>> properties, final Class<?> ownerType, final String name)
     {
-        final java.util.Collection ends = (java.util.Collection)properties.get(ownerType);
+        final java.util.Collection<PropertyType> ends = properties.get(ownerType);
         final PropertyType type = (PropertyType)org.apache.commons.collections.CollectionUtils.find(
             ends,
             new org.apache.commons.collections.Predicate()
@@ -158,12 +155,30 @@ public class ${criteriaSearchBaseName}Properties
      * @param name the name of the association end to find.
      * @return the type of the association end.
      */
-    public static Class getPropertyType(final Class ownerType, final String name)
+    public static Class<?> getPropertyType(final Class<?> ownerType, final String name)
     {
-        Class type = getNavigableAssociationEndType(ownerType, name);
+        Class<?> type = getNavigableAssociationEndType(ownerType, name);
         if (type == null)
         {
             type = getEmbeddedValueType(ownerType, name);
+        }
+        if (type == null)
+        {
+            try 
+            {
+                java.lang.reflect.Method getter;
+                try
+                {
+                    getter=ownerType.getMethod("get"+org.apache.commons.lang.StringUtils.capitalize(name), (Class[])null);
+                } catch (NoSuchMethodException e) {
+                    getter=ownerType.getMethod("is"+org.apache.commons.lang.StringUtils.capitalize(name), (Class[])null);
+                }
+                type = getter.getReturnType();
+            } catch (SecurityException e) {
+                throw new RuntimeException(e);
+            } catch (NoSuchMethodException e) {
+                throw new RuntimeException("No accessible property named '" + name + "', exists on: " + ownerType.getName()); 
+            }
         }
         return type;
     }
@@ -177,7 +192,7 @@ public class ${criteriaSearchBaseName}Properties
          * @param nameIn
          * @param typeIn
          */
-        protected PropertyType(final String nameIn, final Class typeIn)
+        protected PropertyType(final String nameIn, final Class<?> typeIn)
         {
             this.name = nameIn;
             this.type = typeIn;
@@ -186,7 +201,7 @@ public class ${criteriaSearchBaseName}Properties
         /** PropertyType name */
         protected String name;
         /** PropertyType type Class */
-        protected Class type;
+        protected Class<?> type;
     }
 }
 #end

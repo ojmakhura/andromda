@@ -1478,6 +1478,30 @@
     </template>
 
     <template
+        path="templates/spring/crud/SpringCrudServiceImpl.vsl"
+        outputPattern="$generatedFile"
+        outlet="services"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/crud/SpringCrudSearchExample.vsl"
+        outputPattern="$generatedFile"
+        outlet="value-objects"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
         path="templates/spring/crud/SpringCrudDao.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
