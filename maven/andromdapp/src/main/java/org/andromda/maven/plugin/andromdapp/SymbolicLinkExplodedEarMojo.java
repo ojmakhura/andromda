@@ -278,8 +278,6 @@ public class SymbolicLinkExplodedEarMojo
         throws MojoExecutionException
     {
         final DirectoryScanner scanner = new DirectoryScanner();
-        System.out.println("root project: " + this.getRootProject());
-        System.out.println("the basedir=" + this.getRootProject().getBasedir());
         scanner.setBasedir(this.getRootProject().getBasedir());
         scanner.setIncludes(INCLUDE_ALL_POMS);
         scanner.scan();
