@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:cc="http://java.sun.com/jsf/composite"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:ajsfc="http://java.sun.com/jsf/composite/components">
+    
+    <cc:interface>
+        <cc:attribute name="value" required="true" />
+        <cc:attribute name="required" default="false"/>
+        <cc:attribute name="completeMethod"
+            method-signature="java.util.Collection complete(java.lang.String)" required="true" />
+        <cc:attribute name="rendered" default="true"/>
+        <cc:attribute name="label"/>
+        <cc:attribute name="var"/>
+        <cc:attribute name="itemValue"/>
+        <cc:attribute name="itemLabel"/>
+        <cc:attribute name="multiple" default="false"/>
+        <cc:attribute name="url"/>
+        <cc:attribute name="queryDelay" default="500"/>
+        <cc:attribute name="converter"/>
+        <cc:attribute name="forceSelection" default="false"/>
+        <cc:attribute name="readonly" default="false"/>
+    </cc:interface>
+    <cc:implementation>
+        <c:set var="baseName" value="#{fn:replace(cc.clientId,':','_')}" />
+        <c:set var="valueSetter" value="#{baseName}_setValue" />
+        <p:panelGrid columns="2" rendered="#{cc.attrs.rendered}">
+            <p:autoComplete id="autoComplete" value="#{cc.attrs.value}" label="#{cc.attrs.label}" completeMethod="#{cc.attrs.completeMethod}" required="#{cc.attrs.required}"
+                var="#{cc.attrs.var}" itemValue="#{cc.attrs.itemValue}" itemLabel="#{cc.attrs.itemLabel}" dropdown="true" multiple="#{cc.attrs.multiple}" forceSelection="#{cc.attrs.forceSelection}"
+                queryDelay="#{cc.attrs.queryDelay}" readonly="#{cc.attrs.readonly}">
+                <f:converter converterId="#{cc.attrs.converter}" />
+                <cc:insertChildren />
+            </p:autoComplete>
+            <h:panelGroup>
+            <ajsfc:useCaseDialog id="dialog" url="#{cc.attrs.url}" 
+                valueSetter="#{valueSetter}"/>
+            <h:outputScript>
+                function #{valueSetter}(id,value){
+                //TODO buscar do converter
+//                    document.getElementById('#{cc.clientId}:autoComplete_hinput').value=id;
+//                    document.getElementById('#{cc.clientId}:autoComplete_hinput').value=id;
+                }
+            </h:outputScript>
+            <p:commandButton id="newAction" icon="ui-icon-plus" rendered="#{!cc.attrs.readonly}"
+                onclick="#{baseName}_dialog_show(); return false;"/>
+            </h:panelGroup>
+        </p:panelGrid>
+    </cc:implementation>
+</html>

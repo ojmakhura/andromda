@@ -1,0 +1,119 @@
+#set ($className = "${useCase.actionClassName}ViewPopulator")
+#if ($stringUtils.isNotEmpty($useCase.packageName))
+package $useCase.packageName;
+#end
+##WIM *** move combinations to java code
+## holds the fromFrom -> toForm matches, where exists at least one equal field (name+type)
+## actually it should only combine forms having a linking forward
+#set($formCombinations = [])
+
+/**
+ * Provides the ability to populate any view in the ${useCase.name}
+ */
+public final class $className
+{
+#foreach ($view in $useCase.views)
+#foreach ($viewAction in $view.formActions)
+#foreach ($action in $useCase.actions)
+#if(!$action.formFields.empty && !$action.equals($view.formActions))
+#set($commonFields = [])##holds the matching fields in fromForm -> toForm, this block should go to java code
+#foreach ($field in $action.formFields)
+#foreach ($testField in $viewAction.formFields) 
+#if($testField.name == $field.name && $testField.type.equals($field.type))##check if the field exists in both forms
+#set($dummy = $commonFields.add($field))    
+#end
+#end
+#end
+#if(!$commonFields.empty)
+#set($dummy=$formCombinations.add("${action.fullyQualifiedFormImplementationName}-${viewAction.fullyQualifiedFormImplementationName}"))
+    /**
+     * Map fields from $action.fullyQualifiedFormImplementationName form
+     * to $viewAction.fullyQualifiedFormImplementationName form
+     *
+     * @param fromForm origin form
+     * @param toForm destiny form
+     */
+    public static void populateForm($action.fullyQualifiedFormImplementationName fromForm, $viewAction.fullyQualifiedFormImplementationName toForm)
+    {
+#foreach($field in $commonFields)
+        if(fromForm.is${stringUtils.capitalize($field.formAttributeSetProperty)}())
+        {
+            toForm.${field.setterName}(fromForm.${field.getterName}());
+        }
+#if ($field.selectable || $field.type.enumeration)##This test should go to a needsBackingList method
+#set ($backingListMethod = $stringUtils.capitalize($field.backingListName))
+        if(fromForm.get${backingListMethod}() != null)
+        {
+            toForm.set${backingListMethod}(fromForm.get${backingListMethod}());
+        }
+#end
+#end
+    }
+
+#end
+#end
+#end
+#end
+##page variable populators
+#if(!$view.variables.empty)
+#set($showElse = false)
+    /**
+     * Populate page variables for view $view.name
+     *
+     * @param fromForm origin form
+     * @param pageVariables the page variables
+     */
+    public static void populate$stringUtils.upperCamelCaseName($view.name)PageVariables(Object fromForm, java.util.Map<String,Object> pageVariables)
+    {
+#foreach ($action in $useCase.actions)
+#set($commonFields = [])##holds the matching fields/variables, this block should go to java code
+#foreach ($testVariable in $view.variables) 
+#foreach ($field in $action.formFields)
+#if($testVariable.name == $field.name && $testVariable.type.equals($field.type))##check if the field exists in form and variables
+#set($dummy = $commonFields.add($field))    
+#end
+#end
+#end
+#if(!$commonFields.empty)
+       #if($showElse) else#end if(fromForm instanceof $action.fullyQualifiedFormImplementationName)
+        {
+            final $action.fullyQualifiedFormImplementationName sourceForm=($action.fullyQualifiedFormImplementationName)fromForm;
+#foreach($field in $commonFields)
+            if(sourceForm.is${stringUtils.capitalize($field.formAttributeSetProperty)}())
+            {
+                pageVariables.put("${field.name}",sourceForm.${field.getterName}());
+            }
+#end
+#set($showElse = true)
+        }
+#end
+#end
+    }
+
+#end
+#foreach ($viewAction in $view.formActions)
+    /**
+     * Populates the view using the appropriate view populator.
+     *
+     * @param fromForm the origin form
+     * @param toForm the destiny form
+     */
+    public static void populateForm(Object fromForm, $viewAction.fullyQualifiedFormImplementationName toForm)
+    {
+## WIM: it looks to the values should be kept during all the form life (useCaseScope) 
+##     toForm.resetIsSetFlags();
+#set($showElse = false)
+#foreach ($action in $useCase.actions)
+#if($formCombinations.contains("${action.fullyQualifiedFormImplementationName}-${viewAction.fullyQualifiedFormImplementationName}") )
+       #if($showElse) else#end if(fromForm instanceof $action.fullyQualifiedFormImplementationName)
+        {
+            populateForm(($action.fullyQualifiedFormImplementationName)fromForm,toForm);
+        }
+#set($showElse = true)
+#end
+#end
+    }
+    
+#end
+#end    
+}

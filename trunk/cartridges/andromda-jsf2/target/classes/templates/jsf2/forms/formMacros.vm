@@ -1,0 +1,110 @@
+##
+##  This macro defines the fieldType
+##
+#macro (setFieldTypeName $field $fieldTypeName)
+#if ($field.pageableTable)
+#set ($fieldTypeName = "javax.faces.model.DataModel")
+#elseif ($field.type.collectionType)
+#set ($fieldTypeName = "java.util.Collection")
+#elseif ($field.type.fileType || $field.needsFileUpload)
+#set ($fieldTypeName = "$fileTypeName")
+#else
+#set ($fieldTypeName = ${field.getterSetterTypeName})
+#end
+#end
+##
+##  This macro sets the fieldTypeName of an associationEnd
+##
+#macro (setAssociationEndFieldTypeName $end)
+#if($end.type.manageable)
+#set ($fieldType = $end.manageableIdentifier.type)
+#set ($fieldTypeName = $fieldType.fullyQualifiedName)
+#else
+#if($end.type.compositeIdentifier)
+#set ($fieldTypeName = "Object")
+#else
+#set ($fieldType = $end.type.identifiers.iterator().next().type)
+#set ($fieldTypeName = $fieldType.fullyQualifiedName)
+#end
+#end
+#end
+##
+##  This macro defines the fieldWrapperTypeName
+##
+#macro (setFieldWrapperTypeName $field $fieldWrapperTypeName)
+#if ($field.pageableTable)
+#set ($fieldWrapperTypeName = "javax.faces.model.DataModel")
+#elseif ($field.type.collectionType)
+#set ($fieldWrapperTypeName = "java.util.Collection")
+#elseif ($field.type.fileType || $field.needsFileUpload)
+#set ($fieldWrapperTypeName = "$fileTypeName")
+#elseif ($field.type.primitive)
+#set ($fieldWrapperTypeName = ${field.type.wrapperName})
+#else
+#set ($fieldWrapperTypeName = ${field.getterSetterTypeName})
+#end
+#end
+##
+##  This macro copies from an object
+##
+#macro (renderCopyFrom $beanClass $attributes $associationEnds)
+    /*
+     * Fills this form using values of a Map
+     *
+     * @param source the source Map
+     */     
+     public ${beanClass} copyFrom(java.util.Map<String,Object> source)
+    {
+#foreach ($field in $attributes)
+#setFieldWrapperTypeName($field $fieldWrapperTypeName)
+#if($field.many)
+        if(source.containsKey("${field.name}"))
+        {
+            this.${field.setterName}(($fieldWrapperTypeName)source.get("${field.name}"));
+        }
+#else    
+        if(source.containsKey("${field.name}"))
+        {
+            this.${field.setterName}(($fieldWrapperTypeName)org.apache.commons.beanutils.ConvertUtils.convert(source.get("${field.name}"),${fieldWrapperTypeName}.class));
+        }
+#end
+#end
+#foreach ($end in $associationEnds)
+#setAssociationEndFieldTypeName($end)
+#if($end.many)
+        if(source.containsKey("${end.name}"))
+        {
+            this.${end.setterName}((${fieldTypeName}[])source.get("${end.name}"));
+        }
+#else    
+        if(source.containsKey("${end.name}"))
+        {
+            this.${end.setterName}(($fieldTypeName)org.apache.commons.beanutils.ConvertUtils.convert(source.get("${end.name}"),${fieldTypeName}.class));
+        }
+#end
+#end
+        return this;
+    }
+#end
+##
+##  This macro renders the backing list support for the form interface
+##
+#macro (renderBackingListSupport $field $ownerParameter)
+#if ($field.backingListName)
+#set ($backingListName = $field.backingListName)
+#else
+#set ($backingListName = $field.getBackingListName($ownerParameter))
+#end
+#set ($backingListMethod = $stringUtils.capitalize($backingListName))
+
+    /**
+     * @return backingList java.util.Collection<javax.faces.model.SelectItem>
+     */
+    public java.util.Collection<javax.faces.model.SelectItem> get${backingListMethod}();
+
+    /**
+     * @param ${backingListName}In
+     */
+    public void set${backingListMethod}(java.util.Collection<javax.faces.model.SelectItem> ${backingListName}In);
+    
+#end
