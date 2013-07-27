@@ -245,6 +245,11 @@
         </dependency>
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-jsf2-cartridge</artifactId>
+            <version>${andromda.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-spring-cartridge</artifactId>
             <version>${andromda.version}</version>
         </dependency>
