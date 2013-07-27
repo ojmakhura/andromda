@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:cc="http://java.sun.com/jsf/composite" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:tr="http://myfaces.apache.org/trinidad"
+    xmlns:trh="http://myfaces.apache.org/trinidad/html" xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:ajsf="http://www.andromda.org/cartridges/jsf/facelets">
+<cc:interface>
+    <cc:attribute name="value" required="true" />
+    <cc:attribute name="required" />
+    <cc:attribute name="columns" />
+    <cc:attribute name="contentStyle" />
+    <cc:attribute name="completeMethod"
+        method-signature="java.util.Collection complete(java.util.Map)" required="true" />
+    <cc:attribute name="resultValueFieldName" />
+    <cc:attribute name="resultVisibleFieldName" />
+    <cc:attribute name="filter" default="#{null}" /> <!-- attributo1=valor1; attributo2=valor2; -->
+    <cc:attribute name="converterId" />
+</cc:interface>
+<cc:implementation>
+    <c:set var="jsFunctionPrefix" value="#{fn:replace(cc.clientId,':','_')}_" />
+    <tr:selectManyListbox id="hiddenSelectManyListbox" value="#{cc.attrs.value}"
+        required="#{cc.attrs.required}" readOnly="#{cc.attrs.readOnly}" simple="true"
+        valuePassThru="true" inlineStyle="display:none">
+<!--         <c:forEach var="item" items="#{cc.attrs.value}"> -->
+<!--             <f:selectItem itemValue="#{item}"/> -->
+<!--         </c:forEach> -->
+    </tr:selectManyListbox>
+    <tr:subform id="subform">
+        <trh:script>
+        //gambiarra para forçar a seleção, deve sumir depois
+        var #{jsFunctionPrefix}_old_window_load=window.onload;
+        function #{jsFunctionPrefix}_new_window_load(){
+            if(typeof #{jsFunctionPrefix}_old_window_load == 'function'){
+                #{jsFunctionPrefix}_old_window_load();
+            }
+            var hiddenList = #{jsFunctionPrefix}getHiddenList();
+            <c:forEach var="item" items="#{cc.attrs.value}">
+                hiddenList.add(new Option(#{item}, #{item}, true,true),null);
+            </c:forEach>
+        }
+        window.onload=#{jsFunctionPrefix}_new_window_load;
+        //===========
+        
+            function #{jsFunctionPrefix}getHiddenList(){
+                return document.getElementById('#{cc.clientId}:hiddenSelectManyListbox');
+            }
+            function #{jsFunctionPrefix}getVisibleList(){
+                return document.getElementById('#{cc.clientId}:subform:selectOneListBox');
+            }
+            function #{jsFunctionPrefix}addNewItem(value, label){
+                if(value){
+                    var hiddenList = #{jsFunctionPrefix}getHiddenList();
+                    var found=false;
+                    for (var i = hiddenList.length - 1; i&gt;=0; i--) {
+                        if(hiddenList.options[i].value == value){
+                            found=true;
+                            break;
+                        }
+                    }
+                    if(!found){
+                        hiddenList.add(new Option(label, value, true,true),null);
+                        var visibleList = #{jsFunctionPrefix}getVisibleList();
+                        if(!label){
+                            label=value;
+                        }
+                        visibleList.add(new Option(label, value, false,false),null);
+                    }
+                }
+            }
+            function #{jsFunctionPrefix}addItem(){
+                var autocompleteInputText=document.getElementById('#{cc.clientId}:subform:hiddenValue');
+                var value=autocompleteInputText.value;
+                var autocompleteEdit=document.getElementById('#{cc.clientId}:subform:subform:edit');
+                var label=autocompleteEdit.value;
+                #{jsFunctionPrefix}addNewItem(value, label);
+                autocompleteInputText.value="";        
+                autocompleteEdit.value="";            
+            }
+            function #{jsFunctionPrefix}removeItem(){
+                var hiddenList = #{jsFunctionPrefix}getHiddenList();
+                var visibleList = #{jsFunctionPrefix}getVisibleList();
+                for (var i = visibleList.length - 1; i&gt;=0; i--) {
+                    if (visibleList.options[i].selected) {
+                        visibleList.remove(i);
+                        hiddenList.remove(i);
+                        break;
+                    }
+                }
+            }
+            function #{jsFunctionPrefix}isEnter(_event){
+                var event = window.event || _event;
+                var _keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+                return _keyCode==13;
+            }
+        </trh:script>
+        <ui:include src="autocomplete-body.xhtml">
+            <ui:param name="paramClientId" value="#{cc.clientId}:subform" />
+            <ui:param name="paramOnchange"
+                value="#{jsFunctionPrefix}addItem(); return false;" />
+            <ui:param name="paramValue" value="#{pageFlowScope['__autocompleteMultiDummy__']}" />
+        </ui:include>
+        <tr:panelGroupLayout layout="horizontal">
+        <tr:selectOneListbox id="selectOneListBox" valuePassThru="true" ondblclick="#{jsFunctionPrefix}removeItem(); return false;" onkeydown="if(#{jsFunctionPrefix}isEnter(event)) #{jsFunctionPrefix}removeItem(); return false; ">
+            <f:selectItems value="#{autocompleteHelper.itemsToSelectItems(cc.attrs.value,cc.attrs.converterId)}"/>
+        </tr:selectOneListbox>
+        <tr:commandButton id="remove" 
+            icon="/images/tableDelete.gif" text=""
+            onclick="#{jsFunctionPrefix}removeItem(); return false;"
+            inlineStyle="margin: 0 0 0 2px; padding: 0;"/>
+        </tr:panelGroupLayout>
+    </tr:subform>
+</cc:implementation>
+</html>

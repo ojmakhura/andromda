@@ -1,0 +1,1913 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:UMLStandardProfile="http:///schemas/UMLStandardProfile/_iMSlMJqJEd-df-Hu2EsiuA/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/2.0.0/UML" xsi:schemaLocation="http:///schemas/UMLStandardProfile/_iMSlMJqJEd-df-Hu2EsiuA/0 UML_Standard_Profile.UML_Standard_Profile.profile.uml#_iUe5gpqJEd-df-Hu2EsiuA">
+  <uml:Profile xmi:id="_iUfFdpqJEd-df-Hu2EsiuA" name="andromda-persistence" metamodelReference="_iUfG8ZqJEd-df-Hu2EsiuA">
+    <eAnnotations xmi:id="_iUfFd5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <contents xmi:type="ecore:EPackage" xmi:id="_iUfFeJqJEd-df-Hu2EsiuA" name="andromdapersistence" nsURI="http:///schemas/andromdapersistence/_iMSlMZqJEd-df-Hu2EsiuA/0" nsPrefix="andromdapersistence">
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfFeZqJEd-df-Hu2EsiuA" name="HibernateOuterJoin">
+          <eAnnotations xmi:id="_iUfFepqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfG9JqJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfFe5qJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfFfJqJEd-df-Hu2EsiuA" name="auto" value="1"/>
+          <eLiterals xmi:id="_iUfFfZqJEd-df-Hu2EsiuA" name="true" value="2"/>
+          <eLiterals xmi:id="_iUfFfpqJEd-df-Hu2EsiuA" name="false" value="3"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfFf5qJEd-df-Hu2EsiuA" name="HibernateCollection">
+          <eAnnotations xmi:id="_iUfFgJqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfG-ZqJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfFgZqJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfFgpqJEd-df-Hu2EsiuA" name="list" value="1"/>
+          <eLiterals xmi:id="_iUfFg5qJEd-df-Hu2EsiuA" name="map" value="2"/>
+          <eLiterals xmi:id="_iUfFhJqJEd-df-Hu2EsiuA" name="set" value="3"/>
+          <eLiterals xmi:id="_iUfFhZqJEd-df-Hu2EsiuA" name="bag" value="4"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfFhpqJEd-df-Hu2EsiuA" name="EjbViewType">
+          <eAnnotations xmi:id="_iUfFh5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfHAJqJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfFiJqJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfFiZqJEd-df-Hu2EsiuA" name="remote" value="1"/>
+          <eLiterals xmi:id="_iUfFipqJEd-df-Hu2EsiuA" name="local" value="2"/>
+          <eLiterals xmi:id="_iUfFi5qJEd-df-Hu2EsiuA" name="both" value="3"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfFjJqJEd-df-Hu2EsiuA" name="HibernateCache">
+          <eAnnotations xmi:id="_iUfFjZqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfHBpqJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfFjpqJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfFj5qJEd-df-Hu2EsiuA" name="read-write" value="1"/>
+          <eLiterals xmi:id="_iUfFkJqJEd-df-Hu2EsiuA" name="nonstrict-read-write" value="2"/>
+          <eLiterals xmi:id="_iUfFkZqJEd-df-Hu2EsiuA" name="read-only" value="3"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfFkpqJEd-df-Hu2EsiuA" name="HibernateCriteriaComparator">
+          <eAnnotations xmi:id="_iUfFk5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfHC5qJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfFlJqJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfFlZqJEd-df-Hu2EsiuA" name="like" value="1"/>
+          <eLiterals xmi:id="_iUfFlpqJEd-df-Hu2EsiuA" name="equal" value="2"/>
+          <eLiterals xmi:id="_iUfFl5qJEd-df-Hu2EsiuA" name="greater" value="3"/>
+          <eLiterals xmi:id="_iUfFmJqJEd-df-Hu2EsiuA" name="greater_equal" value="4"/>
+          <eLiterals xmi:id="_iUfFmZqJEd-df-Hu2EsiuA" name="less" value="5"/>
+          <eLiterals xmi:id="_iUfFmpqJEd-df-Hu2EsiuA" name="less_equal" value="6"/>
+          <eLiterals xmi:id="_iUfFm5qJEd-df-Hu2EsiuA" name="insensitive_like" value="7"/>
+          <eLiterals xmi:id="_iUfFnJqJEd-df-Hu2EsiuA" name="in" value="8"/>
+          <eLiterals xmi:id="_iUfFnZqJEd-df-Hu2EsiuA" name="not_equal" value="9"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfFnpqJEd-df-Hu2EsiuA" name="HibernateGeneratorClass">
+          <eAnnotations xmi:id="_iUfFn5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfHGJqJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfFoJqJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfFoZqJEd-df-Hu2EsiuA" name="increment" value="1"/>
+          <eLiterals xmi:id="_iUfFopqJEd-df-Hu2EsiuA" name="identity" value="2"/>
+          <eLiterals xmi:id="_iUfFo5qJEd-df-Hu2EsiuA" name="sequence" value="3"/>
+          <eLiterals xmi:id="_iUfFpJqJEd-df-Hu2EsiuA" name="hilo" value="4"/>
+          <eLiterals xmi:id="_iUfFpZqJEd-df-Hu2EsiuA" name="seqhilo" value="5"/>
+          <eLiterals xmi:id="_iUfFppqJEd-df-Hu2EsiuA" name="uuid.hex" value="6"/>
+          <eLiterals xmi:id="_iUfFp5qJEd-df-Hu2EsiuA" name="uuid.string" value="7"/>
+          <eLiterals xmi:id="_iUfFqJqJEd-df-Hu2EsiuA" name="native" value="8"/>
+          <eLiterals xmi:id="_iUfFqZqJEd-df-Hu2EsiuA" name="foreign" value="9"/>
+          <eLiterals xmi:id="_iUfFqpqJEd-df-Hu2EsiuA" name="uuid" value="10"/>
+          <eLiterals xmi:id="_iUfFq5qJEd-df-Hu2EsiuA" name="guid" value="11"/>
+          <eLiterals xmi:id="_iUfFrJqJEd-df-Hu2EsiuA" name="select" value="12"/>
+          <eLiterals xmi:id="_iUfFrZqJEd-df-Hu2EsiuA" name="assigned" value="13"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfFrpqJEd-df-Hu2EsiuA" name="HibernateOrderDirection">
+          <eAnnotations xmi:id="_iUfFr5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfHM5qJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfFsJqJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfFsZqJEd-df-Hu2EsiuA" name="ascending" value="1"/>
+          <eLiterals xmi:id="_iUfFspqJEd-df-Hu2EsiuA" name="descending" value="2"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfFs5qJEd-df-Hu2EsiuA" name="HibernateCriteriaOrder">
+          <eAnnotations xmi:id="_iUfFtJqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfHN5qJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfFtZqJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfFtpqJEd-df-Hu2EsiuA" name="ascending" value="1"/>
+          <eLiterals xmi:id="_iUfFt5qJEd-df-Hu2EsiuA" name="descending" value="2"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfFuJqJEd-df-Hu2EsiuA" name="HibernateSortType">
+          <eAnnotations xmi:id="_iUfFuZqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfHPpqJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfFupqJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfFu5qJEd-df-Hu2EsiuA" name="unsorted" value="1"/>
+          <eLiterals xmi:id="_iUfFvJqJEd-df-Hu2EsiuA" name="natural" value="2"/>
+          <eLiterals xmi:id="_iUfFvZqJEd-df-Hu2EsiuA" name="comparatorClass" value="3"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfFvpqJEd-df-Hu2EsiuA" name="HibernateMatchMode">
+          <eAnnotations xmi:id="_iUfFv5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfHQ5qJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfFwJqJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfFwZqJEd-df-Hu2EsiuA" name="anywhere" value="1"/>
+          <eLiterals xmi:id="_iUfFwpqJEd-df-Hu2EsiuA" name="start" value="2"/>
+          <eLiterals xmi:id="_iUfFw5qJEd-df-Hu2EsiuA" name="end" value="3"/>
+          <eLiterals xmi:id="_iUfFxJqJEd-df-Hu2EsiuA" name="exact" value="4"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfFxZqJEd-df-Hu2EsiuA" name="HibernateInheritanceStrategy">
+          <eAnnotations xmi:id="_iUfFxpqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfHSZqJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfFx5qJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfFyJqJEd-df-Hu2EsiuA" name="class" value="1"/>
+          <eLiterals xmi:id="_iUfFyZqJEd-df-Hu2EsiuA" name="subclass" value="2"/>
+          <eLiterals xmi:id="_iUfFypqJEd-df-Hu2EsiuA" name="concrete" value="3"/>
+          <eLiterals xmi:id="_iUfFy5qJEd-df-Hu2EsiuA" name="interface" value="4"/>
+          <eLiterals xmi:id="_iUfFzJqJEd-df-Hu2EsiuA" name="union-subclass" value="5"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfFzZqJEd-df-Hu2EsiuA" name="HibernateCascade">
+          <eAnnotations xmi:id="_iUfFzpqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfHUZqJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfFz5qJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfF0JqJEd-df-Hu2EsiuA" name="create" value="1"/>
+          <eLiterals xmi:id="_iUfF0ZqJEd-df-Hu2EsiuA" name="merge" value="2"/>
+          <eLiterals xmi:id="_iUfF0pqJEd-df-Hu2EsiuA" name="save-update" value="3"/>
+          <eLiterals xmi:id="_iUfF05qJEd-df-Hu2EsiuA" name="delete" value="4"/>
+          <eLiterals xmi:id="_iUfF1JqJEd-df-Hu2EsiuA" name="lock" value="5"/>
+          <eLiterals xmi:id="_iUfF1ZqJEd-df-Hu2EsiuA" name="refresh" value="6"/>
+          <eLiterals xmi:id="_iUfF1pqJEd-df-Hu2EsiuA" name="evict" value="7"/>
+          <eLiterals xmi:id="_iUfF15qJEd-df-Hu2EsiuA" name="replicate" value="8"/>
+          <eLiterals xmi:id="_iUfF2JqJEd-df-Hu2EsiuA" name="all" value="9"/>
+          <eLiterals xmi:id="_iUfF2ZqJEd-df-Hu2EsiuA" name="none" value="10"/>
+          <eLiterals xmi:id="_iUfF2pqJEd-df-Hu2EsiuA" name="delete-orphan" value="11"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfF25qJEd-df-Hu2EsiuA" name="EjbGeneratorType">
+          <eAnnotations xmi:id="_iUfF3JqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfHXpqJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfF3ZqJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfF3pqJEd-df-Hu2EsiuA" name="TABLE" value="1"/>
+          <eLiterals xmi:id="_iUfF35qJEd-df-Hu2EsiuA" name="SEQUENCE" value="2"/>
+          <eLiterals xmi:id="_iUfF4JqJEd-df-Hu2EsiuA" name="IDENTITY" value="3"/>
+          <eLiterals xmi:id="_iUfF4ZqJEd-df-Hu2EsiuA" name="AUTO" value="4"/>
+          <eLiterals xmi:id="_iUfF4pqJEd-df-Hu2EsiuA" name="NONE" value="5"/>
+          <eLiterals xmi:id="_iUfF45qJEd-df-Hu2EsiuA" name="GENERIC" value="6"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfF5JqJEd-df-Hu2EsiuA" name="EjbFinderParameterResultType">
+          <eAnnotations xmi:id="_iUfF5ZqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfHZ5qJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfF5pqJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfF55qJEd-df-Hu2EsiuA" name="First" value="1"/>
+          <eLiterals xmi:id="_iUfF6JqJEd-df-Hu2EsiuA" name="Max" value="2"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfF6ZqJEd-df-Hu2EsiuA" name="EjbFetchType">
+          <eAnnotations xmi:id="_iUfF6pqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfHbJqJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfF65qJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfF7JqJEd-df-Hu2EsiuA" name="EAGER" value="1"/>
+          <eLiterals xmi:id="_iUfF7ZqJEd-df-Hu2EsiuA" name="LAZY" value="2"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfF7pqJEd-df-Hu2EsiuA" name="EjbEnumerationType">
+          <eAnnotations xmi:id="_iUfF75qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfHcZqJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfF8JqJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfF8ZqJEd-df-Hu2EsiuA" name="ORDINAL" value="1"/>
+          <eLiterals xmi:id="_iUfF8pqJEd-df-Hu2EsiuA" name="STRING" value="2"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfF85qJEd-df-Hu2EsiuA" name="EjbDiscriminatorType">
+          <eAnnotations xmi:id="_iUfF9JqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfHdpqJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfF9ZqJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfF9pqJEd-df-Hu2EsiuA" name="STRING" value="1"/>
+          <eLiterals xmi:id="_iUfF95qJEd-df-Hu2EsiuA" name="CHAR" value="2"/>
+          <eLiterals xmi:id="_iUfF-JqJEd-df-Hu2EsiuA" name="INTEGER" value="3"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfF-ZqJEd-df-Hu2EsiuA" name="EjbCascadeType">
+          <eAnnotations xmi:id="_iUfF-pqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfHfJqJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfF-5qJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfF_JqJEd-df-Hu2EsiuA" name="ALL" value="1"/>
+          <eLiterals xmi:id="_iUfF_ZqJEd-df-Hu2EsiuA" name="PERSIST" value="2"/>
+          <eLiterals xmi:id="_iUfF_pqJEd-df-Hu2EsiuA" name="MERGE" value="3"/>
+          <eLiterals xmi:id="_iUfF_5qJEd-df-Hu2EsiuA" name="REMOVE" value="4"/>
+          <eLiterals xmi:id="_iUfGAJqJEd-df-Hu2EsiuA" name="REFRESH" value="5"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfGAZqJEd-df-Hu2EsiuA" name="EjbCollectionType">
+          <eAnnotations xmi:id="_iUfGApqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfHhJqJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfGA5qJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfGBJqJEd-df-Hu2EsiuA" name="list" value="1"/>
+          <eLiterals xmi:id="_iUfGBZqJEd-df-Hu2EsiuA" name="map" value="2"/>
+          <eLiterals xmi:id="_iUfGBpqJEd-df-Hu2EsiuA" name="set" value="3"/>
+          <eLiterals xmi:id="_iUfGB5qJEd-df-Hu2EsiuA" name="bag" value="4"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfGCJqJEd-df-Hu2EsiuA" name="EjbTemporalType">
+          <eAnnotations xmi:id="_iUfGCZqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfHjJqJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfGCpqJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfGC5qJEd-df-Hu2EsiuA" name="DATE" value="1"/>
+          <eLiterals xmi:id="_iUfGDJqJEd-df-Hu2EsiuA" name="TIME" value="2"/>
+          <eLiterals xmi:id="_iUfGDZqJEd-df-Hu2EsiuA" name="TIMESTAMP" value="3"/>
+          <eLiterals xmi:id="_iUfGDpqJEd-df-Hu2EsiuA" name="NONE" value="4"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfGD5qJEd-df-Hu2EsiuA" name="EjbInheritancesStrategy">
+          <eAnnotations xmi:id="_iUfGEJqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfHk5qJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfGEZqJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfGEpqJEd-df-Hu2EsiuA" name="SINGLE_TABLE" value="1"/>
+          <eLiterals xmi:id="_iUfGE5qJEd-df-Hu2EsiuA" name="TABLE_PER_CLASS" value="2"/>
+          <eLiterals xmi:id="_iUfGFJqJEd-df-Hu2EsiuA" name="JOINED" value="3"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfGFZqJEd-df-Hu2EsiuA" name="EjbCacheStrategy">
+          <eAnnotations xmi:id="_iUfGFpqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfHmZqJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfGF5qJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfGGJqJEd-df-Hu2EsiuA" name="NONE" value="1"/>
+          <eLiterals xmi:id="_iUfGGZqJEd-df-Hu2EsiuA" name="NONSTRICT_READ_WRITE" value="2"/>
+          <eLiterals xmi:id="_iUfGGpqJEd-df-Hu2EsiuA" name="READ_ONLY" value="3"/>
+          <eLiterals xmi:id="_iUfGG5qJEd-df-Hu2EsiuA" name="READ_WRITE" value="4"/>
+          <eLiterals xmi:id="_iUfGHJqJEd-df-Hu2EsiuA" name="TRANSACTIONAL" value="5"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUfGHZqJEd-df-Hu2EsiuA" name="TernaryBoolean">
+          <eAnnotations xmi:id="_iUfGHpqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfHoZqJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUfGH5qJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUfGIJqJEd-df-Hu2EsiuA" name="true" value="1"/>
+          <eLiterals xmi:id="_iUfGIZqJEd-df-Hu2EsiuA" name="false" value="2"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGIpqJEd-df-Hu2EsiuA" name="Criteria">
+          <eAnnotations xmi:id="_iUfGI5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfIMZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGJJqJEd-df-Hu2EsiuA" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGJZqJEd-df-Hu2EsiuA" name="Entity">
+          <eAnnotations xmi:id="_iUfGJpqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfINZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGJ5qJEd-df-Hu2EsiuA" name="andromda_ejb_resourceref_jndiname" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGKJqJEd-df-Hu2EsiuA" name="andromda_ejb_resourceref_resauth" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGKZqJEd-df-Hu2EsiuA" name="andromda_hibernate_generator_class" ordered="false" lowerBound="1" eType="_iUfFnpqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGKpqJEd-df-Hu2EsiuA" name="andromda_ejb_noSyntheticCreateMethod" ordered="false" defaultValueLiteral="true">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGK5qJEd-df-Hu2EsiuA" name="andromda_ejb_automaticKey" ordered="false" upperBound="-1" eType="_iUfGHZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGLJqJEd-df-Hu2EsiuA" name="andromda_hibernate_entity_cache" ordered="false" lowerBound="1" eType="_iUfFjJqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGLZqJEd-df-Hu2EsiuA" name="andromda_hibernate_entity_proxy" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGLpqJEd-df-Hu2EsiuA" name="andromda_hibernate_ehcache_maxElementsInMemory" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGL5qJEd-df-Hu2EsiuA" name="andromda_hibernate_ehcache_eternal" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGMJqJEd-df-Hu2EsiuA" name="andromda_hibernate_ehcache_timeToIdleSeconds" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGMZqJEd-df-Hu2EsiuA" name="andromda_hibernate_ehcache_timeToLiveSeconds" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGMpqJEd-df-Hu2EsiuA" name="andromda_hibernate_ehcache_overflowToDisk" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGM5qJEd-df-Hu2EsiuA" name="andromda_hibernate_inheritance" ordered="false" lowerBound="1" eType="_iUfFxZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGNJqJEd-df-Hu2EsiuA" name="andromda_hibernate_entity_dynamicUpdate" ordered="false" eType="_iUfGHZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGNZqJEd-df-Hu2EsiuA" name="andromda_hibernate_entity_dynamicInsert" ordered="false" eType="_iUfGHZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGNpqJEd-df-Hu2EsiuA" name="andromda_hibernate_version" ordered="false" lowerBound="1" defaultValueLiteral="3">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGN5qJEd-df-Hu2EsiuA" name="andromda_persistence_discriminator_column_definition" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGOJqJEd-df-Hu2EsiuA" name="andromda_persistence_discriminator_column_length" ordered="false" lowerBound="1" defaultValueLiteral="10">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGOZqJEd-df-Hu2EsiuA" name="andromda_persistence_discriminator_column_name" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGOpqJEd-df-Hu2EsiuA" name="andromda_persistence_discriminator_type" ordered="false" lowerBound="1" eType="_iUfF85qJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGO5qJEd-df-Hu2EsiuA" name="andromda_persistence_discriminator_value" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGPJqJEd-df-Hu2EsiuA" name="andromda_persistence_inheritance" ordered="false" lowerBound="1" eType="_iUfGD5qJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGPZqJEd-df-Hu2EsiuA" name="andromda_persistence_entity_cache" ordered="false" lowerBound="1" eType="_iUfGFZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGPpqJEd-df-Hu2EsiuA" name="andromda_persistence_schema" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGP5qJEd-df-Hu2EsiuA" name="andromda_hibernate_entity_cache_distributed" ordered="false" eType="_iUfGHZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGQJqJEd-df-Hu2EsiuA" name="andromda_serialVersionUID" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGQZqJEd-df-Hu2EsiuA" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGQpqJEd-df-Hu2EsiuA" name="EntityRef">
+          <eAnnotations xmi:id="_iUfGQ5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfInpqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGRJqJEd-df-Hu2EsiuA" name="base_Dependency" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Dependency"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGRZqJEd-df-Hu2EsiuA" name="Unique">
+          <eAnnotations xmi:id="_iUfGRpqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfIoZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGR5qJEd-df-Hu2EsiuA" name="base_Property" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGSJqJEd-df-Hu2EsiuA" name="FinderMethod">
+          <eAnnotations xmi:id="_iUfGSZqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfIpZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGSpqJEd-df-Hu2EsiuA" name="andromda_ejb_query" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGS5qJEd-df-Hu2EsiuA" name="andromda_hibernate_query_useCache" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGTJqJEd-df-Hu2EsiuA" name="andromda_ejb_query_useCache" ordered="false" lowerBound="1" eType="_iUfGHZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGTZqJEd-df-Hu2EsiuA" name="andromda_ejb_query_weblogic" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGTpqJEd-df-Hu2EsiuA" name="andromda_hibernate_query" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGT5qJEd-df-Hu2EsiuA" name="andromda_ejb_query_dialect" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGUJqJEd-df-Hu2EsiuA" name="andromda_hibernate_query_useNamedParameters" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGUZqJEd-df-Hu2EsiuA" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Operation"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGUpqJEd-df-Hu2EsiuA" name="EmbeddedValue">
+          <eAnnotations xmi:id="_iUfGU5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfIwZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGVJqJEd-df-Hu2EsiuA" name="andromda_serialVersionUID" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGVZqJEd-df-Hu2EsiuA" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGVpqJEd-df-Hu2EsiuA" name="ValueRef">
+          <eAnnotations xmi:id="_iUfGV5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfIyJqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGWJqJEd-df-Hu2EsiuA" name="base_Relationship" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Relationship"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGWZqJEd-df-Hu2EsiuA" name="SelectMethod">
+          <eAnnotations xmi:id="_iUfGWpqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfIy5qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGW5qJEd-df-Hu2EsiuA" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Operation"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGXJqJEd-df-Hu2EsiuA" name="CreateMethod">
+          <eAnnotations xmi:id="_iUfGXZqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfIzpqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGXpqJEd-df-Hu2EsiuA" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Operation"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGX5qJEd-df-Hu2EsiuA" name="Identifier">
+          <eAnnotations xmi:id="_iUfGYJqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfI0ZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGYZqJEd-df-Hu2EsiuA" name="andromda_persistence_assigned_identifier" ordered="false" lowerBound="1" eType="_iUfGHZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGYpqJEd-df-Hu2EsiuA" name="andromda_persistence_generator_allocation_size" ordered="false" lowerBound="1" defaultValueLiteral="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGY5qJEd-df-Hu2EsiuA" name="andromda_persistence_generator_initial_value" ordered="false" lowerBound="1" defaultValueLiteral="0">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGZJqJEd-df-Hu2EsiuA" name="andromda_persistence_generator_name" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGZZqJEd-df-Hu2EsiuA" name="andromda_persistence_generator_pkcolumn_value" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGZpqJEd-df-Hu2EsiuA" name="andromda_persistence_generator_source_name" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGZ5qJEd-df-Hu2EsiuA" name="andromda_persistence_generator_type" ordered="false" lowerBound="1" eType="_iUfF25qJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGaJqJEd-df-Hu2EsiuA" name="andromda_persistence_generator_genericStrategy" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGaZqJEd-df-Hu2EsiuA" name="base_Property" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGapqJEd-df-Hu2EsiuA" name="Version">
+          <eAnnotations xmi:id="_iUfGa5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfI95qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGbJqJEd-df-Hu2EsiuA" name="base_Property" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGbZqJEd-df-Hu2EsiuA" name="Transient">
+          <eAnnotations xmi:id="_iUfGbpqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfI-5qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGb5qJEd-df-Hu2EsiuA" name="andromda_hibernate_formula" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGcJqJEd-df-Hu2EsiuA" name="base_Property" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGcZqJEd-df-Hu2EsiuA" name="PreUpdate">
+          <eAnnotations xmi:id="_iUfGcpqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfJA5qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGc5qJEd-df-Hu2EsiuA" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Operation"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGdJqJEd-df-Hu2EsiuA" name="PreRemove">
+          <eAnnotations xmi:id="_iUfGdZqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfJB5qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGdpqJEd-df-Hu2EsiuA" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Operation"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGd5qJEd-df-Hu2EsiuA" name="PrePersist">
+          <eAnnotations xmi:id="_iUfGeJqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfJC5qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGeZqJEd-df-Hu2EsiuA" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Operation"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGepqJEd-df-Hu2EsiuA" name="PostUpdate">
+          <eAnnotations xmi:id="_iUfGe5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfJD5qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGfJqJEd-df-Hu2EsiuA" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Operation"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGfZqJEd-df-Hu2EsiuA" name="PostRemove">
+          <eAnnotations xmi:id="_iUfGfpqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfJE5qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGf5qJEd-df-Hu2EsiuA" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Operation"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGgJqJEd-df-Hu2EsiuA" name="PostPersist">
+          <eAnnotations xmi:id="_iUfGgZqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfJF5qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGgpqJEd-df-Hu2EsiuA" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Operation"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGg5qJEd-df-Hu2EsiuA" name="PostLoad">
+          <eAnnotations xmi:id="_iUfGhJqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfJG5qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGhZqJEd-df-Hu2EsiuA" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Operation"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGhpqJEd-df-Hu2EsiuA" name="MaxResult">
+          <eAnnotations xmi:id="_iUfGh5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfJH5qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGiJqJEd-df-Hu2EsiuA" name="base_Parameter" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Parameter"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGiZqJEd-df-Hu2EsiuA" name="MappedSuperclass">
+          <eAnnotations xmi:id="_iUfGipqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfJI5qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGi5qJEd-df-Hu2EsiuA" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGjJqJEd-df-Hu2EsiuA" name="FirstResult">
+          <eAnnotations xmi:id="_iUfGjZqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfJJ5qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGjpqJEd-df-Hu2EsiuA" name="base_Parameter" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Parameter"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGj5qJEd-df-Hu2EsiuA" name="CriteriaAttribute">
+          <eAnnotations xmi:id="_iUfGkJqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfJK5qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGkZqJEd-df-Hu2EsiuA" name="andromda_hibernate_criteria_order_relevance" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGkpqJEd-df-Hu2EsiuA" name="andromda_hibernate_criteria_comparator" ordered="false" eType="_iUfFkpqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGk5qJEd-df-Hu2EsiuA" name="andromda_hibernate_criteria_order_direction" ordered="false" lowerBound="1" eType="_iUfFrpqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGlJqJEd-df-Hu2EsiuA" name="andromda_hibernate_criteria_nullable" ordered="false" lowerBound="1" eType="_iUfGHZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGlZqJEd-df-Hu2EsiuA" name="andromda_hibernate_criteria_attribute" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGlpqJEd-df-Hu2EsiuA" name="andromda_hibernate_criteria_matchmode" ordered="false" lowerBound="1" eType="_iUfFvpqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGl5qJEd-df-Hu2EsiuA" name="base_Property" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGmJqJEd-df-Hu2EsiuA" name="PersistentProperty">
+          <eAnnotations xmi:id="_iUfGmZqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfJSpqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGmpqJEd-df-Hu2EsiuA" name="andromda_persistence_column_index" ordered="false" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGm5qJEd-df-Hu2EsiuA" name="andromda_persistence_column" ordered="false" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGnJqJEd-df-Hu2EsiuA" name="andromda_persistence_column_equality" ordered="false" lowerBound="1" eType="_iUfGHZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGnZqJEd-df-Hu2EsiuA" name="andromda_persistence_fetch_type" ordered="false" eType="_iUfF6ZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGnpqJEd-df-Hu2EsiuA" name="base_Property" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGn5qJEd-df-Hu2EsiuA" name="PersistentAssociation">
+          <eAnnotations xmi:id="_iUfGoJqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfJX5qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGoZqJEd-df-Hu2EsiuA" name="andromda_ejb_generateCMR" ordered="false" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGopqJEd-df-Hu2EsiuA" name="andromda_hibernate_association_cache_distributed" ordered="false" eType="_iUfGHZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGo5qJEd-df-Hu2EsiuA" name="andromda_hibernate_association_cache" ordered="false" eType="_iUfFjJqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGpJqJEd-df-Hu2EsiuA" name="andromda_persistence_table" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGpZqJEd-df-Hu2EsiuA" name="andromda_ejb_generateVOreference" ordered="false" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGppqJEd-df-Hu2EsiuA" name="base_Association" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Association"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGp5qJEd-df-Hu2EsiuA" name="PersistentAttribute">
+          <eAnnotations xmi:id="_iUfGqJqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfJdJqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGqZqJEd-df-Hu2EsiuA" name="andromda_persistence_column_length" ordered="false" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGqpqJEd-df-Hu2EsiuA" name="andromda_persistence_column_uniqueGroup" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGq5qJEd-df-Hu2EsiuA" name="andromda_persistence_column_scale" ordered="false" defaultValueLiteral="2">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGrJqJEd-df-Hu2EsiuA" name="andromda_persistence_column_nullable" ordered="false" eType="_iUfGHZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGrZqJEd-df-Hu2EsiuA" name="andromda_persistence_column_precision" ordered="false" defaultValueLiteral="12">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGrpqJEd-df-Hu2EsiuA" name="andromda_persistence_column_definition" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGr5qJEd-df-Hu2EsiuA" name="andromda_hibernate_property_update" ordered="false" eType="_iUfGHZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGsJqJEd-df-Hu2EsiuA" name="andromda_persistence_column_insert" ordered="false" eType="_iUfGHZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGsZqJEd-df-Hu2EsiuA" name="andromda_persistence_column_weblogicDataType" ordered="false" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGspqJEd-df-Hu2EsiuA" name="andromda_persistence_column_update" ordered="false" eType="_iUfGHZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGs5qJEd-df-Hu2EsiuA" name="andromda_hibernate_property_insert" ordered="false" eType="_iUfGHZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGtJqJEd-df-Hu2EsiuA" name="andromda_persistence_lob_type" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGtZqJEd-df-Hu2EsiuA" name="base_Property" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGtpqJEd-df-Hu2EsiuA" name="PersistentAssociationEnd">
+          <eAnnotations xmi:id="_iUfGt5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfJq5qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGuJqJEd-df-Hu2EsiuA" name="andromda_hibernate_xml_embed" ordered="false" eType="_iUfGHZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGuZqJEd-df-Hu2EsiuA" name="andromda_hibernate_orderByColumns" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGupqJEd-df-Hu2EsiuA" name="andromda_persistence_foreignkey_constraint" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGu5qJEd-df-Hu2EsiuA" name="andromda_hibernate_outerjoin" ordered="false" upperBound="-1" eType="_iUfFeZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGvJqJEd-df-Hu2EsiuA" name="andromda_persistence_optional" ordered="false" eType="_iUfGHZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGvZqJEd-df-Hu2EsiuA" name="andromda_hibernate_whereClause" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGvpqJEd-df-Hu2EsiuA" name="andromda_hibernate_sort_type" ordered="false" eType="_iUfFuJqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGv5qJEd-df-Hu2EsiuA" name="andromda_persistence_cascade_type" ordered="false" upperBound="-1" eType="_iUfF-ZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGwJqJEd-df-Hu2EsiuA" name="andromda_hibernate_collection_index_type" ordered="false">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//DataType"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGwZqJEd-df-Hu2EsiuA" name="andromda_persistence_orderBy" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGwpqJEd-df-Hu2EsiuA" name="andromda_persistence_collection_type" ordered="false" eType="_iUfGAZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGw5qJEd-df-Hu2EsiuA" name="andromda_hibernate_cascade" ordered="false" lowerBound="1" defaultValueLiteral="none">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGxJqJEd-df-Hu2EsiuA" name="andromda_hibernate_collection_type" ordered="false" eType="_iUfFf5qJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGxZqJEd-df-Hu2EsiuA" name="andromda_persistence_foreign_identifier" ordered="false" lowerBound="1" eType="_iUfGHZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGxpqJEd-df-Hu2EsiuA" name="andromda_hibernate_collection_index" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGx5qJEd-df-Hu2EsiuA" name="andromda_persistence_association_cache" ordered="false" lowerBound="1" eType="_iUfGFZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGyJqJEd-df-Hu2EsiuA" name="andromda_ejb_generateVOreference" ordered="false" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGyZqJEd-df-Hu2EsiuA" name="andromda_persistence_associationEnd_primary" ordered="false" lowerBound="1" eType="_iUfGHZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGypqJEd-df-Hu2EsiuA" name="andromda_persistence_collection_index" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGy5qJEd-df-Hu2EsiuA" name="andromda_persistence_collection_index_type" ordered="false">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//DataType"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfGzJqJEd-df-Hu2EsiuA" name="andromda_persistence_associationEnd_uniqueGroup" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfGzZqJEd-df-Hu2EsiuA" name="base_Property" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfGzpqJEd-df-Hu2EsiuA" name="PersistentElement">
+          <eAnnotations xmi:id="_iUfGz5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfKCZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfG0JqJEd-df-Hu2EsiuA" name="andromda_hibernate_lazy" ordered="false" upperBound="-1" eType="_iUfGHZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfG0ZqJEd-df-Hu2EsiuA" name="andromda_hibernate_xml_tagName" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfG0pqJEd-df-Hu2EsiuA" name="base_Property" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfG05qJEd-df-Hu2EsiuA" name="base_Classifier" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Classifier"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfG1JqJEd-df-Hu2EsiuA" name="PersistentClass">
+          <eAnnotations xmi:id="_iUfG1ZqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfKFpqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfG1pqJEd-df-Hu2EsiuA" name="andromda_persistence_dummyload_size" ordered="false" upperBound="-1" defaultValueLiteral="20">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfG15qJEd-df-Hu2EsiuA" name="andromda_persistence_immutable" ordered="false" eType="_iUfGHZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfG2JqJEd-df-Hu2EsiuA" name="andromda_persistence_table" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfG2ZqJEd-df-Hu2EsiuA" name="andromda_serialVersionUID" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfG2pqJEd-df-Hu2EsiuA" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfG25qJEd-df-Hu2EsiuA" name="EnumerationLiteral">
+          <eAnnotations xmi:id="_iUfG3JqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfKKpqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfG3ZqJEd-df-Hu2EsiuA" name="andromda_persistence_enumeration_member_variable" ordered="false" lowerBound="1" eType="_iUfGHZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfG3pqJEd-df-Hu2EsiuA" name="andromda_persistence_enumeration_literal_parameters" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfG35qJEd-df-Hu2EsiuA" name="andromda_persistence_enumeration_type" ordered="false" eType="_iUfF7pqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfG4JqJEd-df-Hu2EsiuA" name="base_Property" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfG4ZqJEd-df-Hu2EsiuA" name="TemporalElement">
+          <eAnnotations xmi:id="_iUfG4pqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUfKO5qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfG45qJEd-df-Hu2EsiuA" name="andromda_persistence_temporal_type" ordered="false" eType="_iUfGCJqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfG5JqJEd-df-Hu2EsiuA" name="base_Parameter" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Parameter"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfG5ZqJEd-df-Hu2EsiuA" name="base_Property" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfG5pqJEd-df-Hu2EsiuA" name="PersistentPackage">
+          <eAnnotations xmi:id="_iUfG55qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUoo6JqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfG6JqJEd-df-Hu2EsiuA" name="andromda_persistence_table_prefix" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfG6ZqJEd-df-Hu2EsiuA" name="base_Element" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Element"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUfG6pqJEd-df-Hu2EsiuA" name="Manageable">
+          <eAnnotations xmi:id="_iUfG65qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUoo7ZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfG7JqJEd-df-Hu2EsiuA" name="andromda_manageable_table_pagesize" ordered="false" lowerBound="1" defaultValueLiteral="20">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfG7ZqJEd-df-Hu2EsiuA" name="andromda_manageable_table_displayname" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfG7pqJEd-df-Hu2EsiuA" name="andromda_manageable_table_maxlistsize" ordered="false" lowerBound="1" defaultValueLiteral="250">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUfG75qJEd-df-Hu2EsiuA" name="andromda_manageable_table_resolveable" ordered="false" lowerBound="1" eType="_iUfGHZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUfG8JqJEd-df-Hu2EsiuA" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+      </contents>
+    </eAnnotations>
+    <packageImport xmi:id="_iUfG8ZqJEd-df-Hu2EsiuA">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:id="_iUfG8pqJEd-df-Hu2EsiuA">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:id="_iUfG85qJEd-df-Hu2EsiuA">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfG9JqJEd-df-Hu2EsiuA" name="HibernateOuterJoin">
+      <ownedLiteral xmi:id="_iUfG9ZqJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfG9pqJEd-df-Hu2EsiuA" name="auto"/>
+      <ownedLiteral xmi:id="_iUfG95qJEd-df-Hu2EsiuA" name="true"/>
+      <ownedLiteral xmi:id="_iUfG-JqJEd-df-Hu2EsiuA" name="false"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfG-ZqJEd-df-Hu2EsiuA" name="HibernateCollection">
+      <ownedComment xmi:id="_iUfG-pqJEd-df-Hu2EsiuA" body="The possible definintions of the hibernate Collection type, this definition will be used in the associated tagged value on the AssociationEnd" annotatedElement="_iUfG-ZqJEd-df-Hu2EsiuA"/>
+      <ownedLiteral xmi:id="_iUfG-5qJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfG_JqJEd-df-Hu2EsiuA" name="list"/>
+      <ownedLiteral xmi:id="_iUfG_ZqJEd-df-Hu2EsiuA" name="map"/>
+      <ownedLiteral xmi:id="_iUfG_pqJEd-df-Hu2EsiuA" name="set"/>
+      <ownedLiteral xmi:id="_iUfG_5qJEd-df-Hu2EsiuA" name="bag"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfHAJqJEd-df-Hu2EsiuA" name="EjbViewType">
+      <ownedComment xmi:id="_iUfHAZqJEd-df-Hu2EsiuA" body="Represents the view type an EJB (i.e. what interface type should be exposed)." annotatedElement="_iUfHAJqJEd-df-Hu2EsiuA"/>
+      <ownedLiteral xmi:id="_iUfHApqJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfHA5qJEd-df-Hu2EsiuA" name="remote"/>
+      <ownedLiteral xmi:id="_iUfHBJqJEd-df-Hu2EsiuA" name="local"/>
+      <ownedLiteral xmi:id="_iUfHBZqJEd-df-Hu2EsiuA" name="both"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfHBpqJEd-df-Hu2EsiuA" name="HibernateCache">
+      <ownedLiteral xmi:id="_iUfHB5qJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfHCJqJEd-df-Hu2EsiuA" name="read-write"/>
+      <ownedLiteral xmi:id="_iUfHCZqJEd-df-Hu2EsiuA" name="nonstrict-read-write"/>
+      <ownedLiteral xmi:id="_iUfHCpqJEd-df-Hu2EsiuA" name="read-only"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfHC5qJEd-df-Hu2EsiuA" name="HibernateCriteriaComparator">
+      <ownedComment xmi:id="_iUfHDJqJEd-df-Hu2EsiuA" body="Contains the values for the possible criteria comparators." annotatedElement="_iUfHC5qJEd-df-Hu2EsiuA"/>
+      <ownedLiteral xmi:id="_iUfHDZqJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfHDpqJEd-df-Hu2EsiuA" name="like"/>
+      <ownedLiteral xmi:id="_iUfHD5qJEd-df-Hu2EsiuA" name="equal"/>
+      <ownedLiteral xmi:id="_iUfHEJqJEd-df-Hu2EsiuA" name="greater"/>
+      <ownedLiteral xmi:id="_iUfHEZqJEd-df-Hu2EsiuA" name="greater_equal"/>
+      <ownedLiteral xmi:id="_iUfHEpqJEd-df-Hu2EsiuA" name="less"/>
+      <ownedLiteral xmi:id="_iUfHE5qJEd-df-Hu2EsiuA" name="less_equal"/>
+      <ownedLiteral xmi:id="_iUfHFJqJEd-df-Hu2EsiuA" name="insensitive_like">
+        <ownedComment xmi:id="_iUfHFZqJEd-df-Hu2EsiuA" body="Case insensitive like comparator." annotatedElement="_iUfHFJqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUfHFpqJEd-df-Hu2EsiuA" name="in"/>
+      <ownedLiteral xmi:id="_iUfHF5qJEd-df-Hu2EsiuA" name="not_equal"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfHGJqJEd-df-Hu2EsiuA" name="HibernateGeneratorClass">
+      <ownedComment xmi:id="_iUfHGZqJEd-df-Hu2EsiuA" body="The possible definintions of the hibernate generator class.  This is the type of identiifer that will be used on a hibernate entity." annotatedElement="_iUfHGJqJEd-df-Hu2EsiuA"/>
+      <ownedLiteral xmi:id="_iUfHGpqJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfHG5qJEd-df-Hu2EsiuA" name="increment">
+        <ownedComment xmi:id="_iUfHHJqJEd-df-Hu2EsiuA" body="Generates identifiers of type long, short or int that are unique only when no other process is inserting data into the same table. Do not use in a cluster." annotatedElement="_iUfHG5qJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUfHHZqJEd-df-Hu2EsiuA" name="identity">
+        <ownedComment xmi:id="_iUfHHpqJEd-df-Hu2EsiuA" body="Supports identity columns in DB2, MySQL, MS SQL Server, Sybase and HypersonicSQL. The returned identifier is of type long, short or int." annotatedElement="_iUfHHZqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUfHH5qJEd-df-Hu2EsiuA" name="sequence">
+        <ownedComment xmi:id="_iUfHIJqJEd-df-Hu2EsiuA" body="Uses a sequence in DB2, PostgreSQL, Oracle, SAP DB, McKoi or a generator in Interbase. The returned identifier is of type long, short or int" annotatedElement="_iUfHH5qJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUfHIZqJEd-df-Hu2EsiuA" name="hilo">
+        <ownedComment xmi:id="_iUfHIpqJEd-df-Hu2EsiuA" body="Uses a hi/lo algorithm to efficiently generate identifiers of type long, short or int, given a table and column (by default hibernate_unique_key and next_hi respectively) as a source of hi values. The hi/lo algorithm generates identifiers that are unique only for a particular database." annotatedElement="_iUfHIZqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUfHI5qJEd-df-Hu2EsiuA" name="seqhilo">
+        <ownedComment xmi:id="_iUfHJJqJEd-df-Hu2EsiuA" body="Uses a hi/lo algorithm to efficiently generate identifiers of type long, short or int, given a named database sequence." annotatedElement="_iUfHI5qJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUfHJZqJEd-df-Hu2EsiuA" name="uuid.hex"/>
+      <ownedLiteral xmi:id="_iUfHJpqJEd-df-Hu2EsiuA" name="uuid.string"/>
+      <ownedLiteral xmi:id="_iUfHJ5qJEd-df-Hu2EsiuA" name="native">
+        <ownedComment xmi:id="_iUfHKJqJEd-df-Hu2EsiuA" body="Picks identity, sequence or hilo depending upon the capabilities of the underlying database." annotatedElement="_iUfHJ5qJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUfHKZqJEd-df-Hu2EsiuA" name="foreign">
+        <ownedComment xmi:id="_iUfHKpqJEd-df-Hu2EsiuA" body="Uses the identifier of another associated object. Usually used in conjunction with a &lt;one-to-one> primary key association." annotatedElement="_iUfHKZqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUfHK5qJEd-df-Hu2EsiuA" name="uuid">
+        <ownedComment xmi:id="_iUfHLJqJEd-df-Hu2EsiuA" body="Uses a 128-bit UUID algorithm to generate identifiers of type string, unique within a network (the IP address is used). The UUID is encoded as a string of hexadecimal digits of length 32." annotatedElement="_iUfHK5qJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUfHLZqJEd-df-Hu2EsiuA" name="guid">
+        <ownedComment xmi:id="_iUfHLpqJEd-df-Hu2EsiuA" body="Uses a database-generated GUID string on MS SQL Server and MySQL." annotatedElement="_iUfHLZqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUfHL5qJEd-df-Hu2EsiuA" name="select">
+        <ownedComment xmi:id="_iUfHMJqJEd-df-Hu2EsiuA" body="Retrieves a primary key assigned by a database trigger by selecting the row by some unique key and retrieving the primary key value." annotatedElement="_iUfHL5qJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUfHMZqJEd-df-Hu2EsiuA" name="assigned">
+        <ownedComment xmi:id="_iUfHMpqJEd-df-Hu2EsiuA" body="Lets the application to assign an identifier to the object before save() is called. This is the default strategy if no &lt;generator> element is specified." annotatedElement="_iUfHMZqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfHM5qJEd-df-Hu2EsiuA" name="HibernateOrderDirection">
+      <ownedLiteral xmi:id="_iUfHNJqJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfHNZqJEd-df-Hu2EsiuA" name="ascending"/>
+      <ownedLiteral xmi:id="_iUfHNpqJEd-df-Hu2EsiuA" name="descending"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfHN5qJEd-df-Hu2EsiuA" name="HibernateCriteriaOrder">
+      <ownedComment xmi:id="_iUfHOJqJEd-df-Hu2EsiuA" body="Represents the order of result that a criteria query can be in." annotatedElement="_iUfHN5qJEd-df-Hu2EsiuA"/>
+      <ownedLiteral xmi:id="_iUfHOZqJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfHOpqJEd-df-Hu2EsiuA" name="ascending">
+        <ownedComment xmi:id="_iUfHO5qJEd-df-Hu2EsiuA" body="An order of 'ascending'." annotatedElement="_iUfHOpqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUfHPJqJEd-df-Hu2EsiuA" name="descending">
+        <ownedComment xmi:id="_iUfHPZqJEd-df-Hu2EsiuA" body="An order of 'descending'." annotatedElement="_iUfHPJqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfHPpqJEd-df-Hu2EsiuA" name="HibernateSortType">
+      <ownedLiteral xmi:id="_iUfHP5qJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfHQJqJEd-df-Hu2EsiuA" name="unsorted"/>
+      <ownedLiteral xmi:id="_iUfHQZqJEd-df-Hu2EsiuA" name="natural"/>
+      <ownedLiteral xmi:id="_iUfHQpqJEd-df-Hu2EsiuA" name="comparatorClass"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfHQ5qJEd-df-Hu2EsiuA" name="HibernateMatchMode">
+      <ownedLiteral xmi:id="_iUfHRJqJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfHRZqJEd-df-Hu2EsiuA" name="anywhere"/>
+      <ownedLiteral xmi:id="_iUfHRpqJEd-df-Hu2EsiuA" name="start"/>
+      <ownedLiteral xmi:id="_iUfHR5qJEd-df-Hu2EsiuA" name="end"/>
+      <ownedLiteral xmi:id="_iUfHSJqJEd-df-Hu2EsiuA" name="exact"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfHSZqJEd-df-Hu2EsiuA" name="HibernateInheritanceStrategy">
+      <ownedComment xmi:id="_iUfHSpqJEd-df-Hu2EsiuA" body="Represents the inheritance stragey to use when using Hibernate.  The option you select will determine how Hibernate deals with sub entity tables." annotatedElement="_iUfHSZqJEd-df-Hu2EsiuA"/>
+      <ownedLiteral xmi:id="_iUfHS5qJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfHTJqJEd-df-Hu2EsiuA" name="class"/>
+      <ownedLiteral xmi:id="_iUfHTZqJEd-df-Hu2EsiuA" name="subclass"/>
+      <ownedLiteral xmi:id="_iUfHTpqJEd-df-Hu2EsiuA" name="concrete"/>
+      <ownedLiteral xmi:id="_iUfHT5qJEd-df-Hu2EsiuA" name="interface"/>
+      <ownedLiteral xmi:id="_iUfHUJqJEd-df-Hu2EsiuA" name="union-subclass"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfHUZqJEd-df-Hu2EsiuA" name="HibernateCascade">
+      <ownedLiteral xmi:id="_iUfHUpqJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfHU5qJEd-df-Hu2EsiuA" name="create"/>
+      <ownedLiteral xmi:id="_iUfHVJqJEd-df-Hu2EsiuA" name="merge"/>
+      <ownedLiteral xmi:id="_iUfHVZqJEd-df-Hu2EsiuA" name="save-update"/>
+      <ownedLiteral xmi:id="_iUfHVpqJEd-df-Hu2EsiuA" name="delete"/>
+      <ownedLiteral xmi:id="_iUfHV5qJEd-df-Hu2EsiuA" name="lock"/>
+      <ownedLiteral xmi:id="_iUfHWJqJEd-df-Hu2EsiuA" name="refresh"/>
+      <ownedLiteral xmi:id="_iUfHWZqJEd-df-Hu2EsiuA" name="evict"/>
+      <ownedLiteral xmi:id="_iUfHWpqJEd-df-Hu2EsiuA" name="replicate"/>
+      <ownedLiteral xmi:id="_iUfHW5qJEd-df-Hu2EsiuA" name="all"/>
+      <ownedLiteral xmi:id="_iUfHXJqJEd-df-Hu2EsiuA" name="none"/>
+      <ownedLiteral xmi:id="_iUfHXZqJEd-df-Hu2EsiuA" name="delete-orphan"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfHXpqJEd-df-Hu2EsiuA" name="EjbGeneratorType">
+      <ownedComment xmi:id="_iUfHX5qJEd-df-Hu2EsiuA" body="Represents the generation strategies for EJB3." annotatedElement="_iUfHXpqJEd-df-Hu2EsiuA"/>
+      <ownedLiteral xmi:id="_iUfHYJqJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfHYZqJEd-df-Hu2EsiuA" name="TABLE"/>
+      <ownedLiteral xmi:id="_iUfHYpqJEd-df-Hu2EsiuA" name="SEQUENCE"/>
+      <ownedLiteral xmi:id="_iUfHY5qJEd-df-Hu2EsiuA" name="IDENTITY"/>
+      <ownedLiteral xmi:id="_iUfHZJqJEd-df-Hu2EsiuA" name="AUTO"/>
+      <ownedLiteral xmi:id="_iUfHZZqJEd-df-Hu2EsiuA" name="NONE"/>
+      <ownedLiteral xmi:id="_iUfHZpqJEd-df-Hu2EsiuA" name="GENERIC"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfHZ5qJEd-df-Hu2EsiuA" name="EjbFinderParameterResultType">
+      <ownedComment xmi:id="_iUfHaJqJEd-df-Hu2EsiuA" body="Enumeration of types for the finder method parameter.&#xA;First - indicates the starting index for the result set.&#xA;Max - the maximum number of results to return." annotatedElement="_iUfHZ5qJEd-df-Hu2EsiuA"/>
+      <ownedLiteral xmi:id="_iUfHaZqJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfHapqJEd-df-Hu2EsiuA" name="First"/>
+      <ownedLiteral xmi:id="_iUfHa5qJEd-df-Hu2EsiuA" name="Max"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfHbJqJEd-df-Hu2EsiuA" name="EjbFetchType">
+      <ownedComment xmi:id="_iUfHbZqJEd-df-Hu2EsiuA" body="Represents the fetch types for EJB3." annotatedElement="_iUfHbJqJEd-df-Hu2EsiuA"/>
+      <ownedLiteral xmi:id="_iUfHbpqJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfHb5qJEd-df-Hu2EsiuA" name="EAGER"/>
+      <ownedLiteral xmi:id="_iUfHcJqJEd-df-Hu2EsiuA" name="LAZY"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfHcZqJEd-df-Hu2EsiuA" name="EjbEnumerationType">
+      <ownedComment xmi:id="_iUfHcpqJEd-df-Hu2EsiuA" body="Available enum types." annotatedElement="_iUfHcZqJEd-df-Hu2EsiuA"/>
+      <ownedLiteral xmi:id="_iUfHc5qJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfHdJqJEd-df-Hu2EsiuA" name="ORDINAL"/>
+      <ownedLiteral xmi:id="_iUfHdZqJEd-df-Hu2EsiuA" name="STRING"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfHdpqJEd-df-Hu2EsiuA" name="EjbDiscriminatorType">
+      <ownedComment xmi:id="_iUfHd5qJEd-df-Hu2EsiuA" body="Represents the enumeration of types available to set as the type of the object/column used as the class discriminator." annotatedElement="_iUfHdpqJEd-df-Hu2EsiuA"/>
+      <ownedLiteral xmi:id="_iUfHeJqJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfHeZqJEd-df-Hu2EsiuA" name="STRING"/>
+      <ownedLiteral xmi:id="_iUfHepqJEd-df-Hu2EsiuA" name="CHAR"/>
+      <ownedLiteral xmi:id="_iUfHe5qJEd-df-Hu2EsiuA" name="INTEGER"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfHfJqJEd-df-Hu2EsiuA" name="EjbCascadeType">
+      <ownedComment xmi:id="_iUfHfZqJEd-df-Hu2EsiuA" body="Represents the cascade types, operations that are propogated to the association entity." annotatedElement="_iUfHfJqJEd-df-Hu2EsiuA"/>
+      <ownedLiteral xmi:id="_iUfHfpqJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfHf5qJEd-df-Hu2EsiuA" name="ALL"/>
+      <ownedLiteral xmi:id="_iUfHgJqJEd-df-Hu2EsiuA" name="PERSIST"/>
+      <ownedLiteral xmi:id="_iUfHgZqJEd-df-Hu2EsiuA" name="MERGE"/>
+      <ownedLiteral xmi:id="_iUfHgpqJEd-df-Hu2EsiuA" name="REMOVE"/>
+      <ownedLiteral xmi:id="_iUfHg5qJEd-df-Hu2EsiuA" name="REFRESH"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfHhJqJEd-df-Hu2EsiuA" name="EjbCollectionType">
+      <ownedComment xmi:id="_iUfHhZqJEd-df-Hu2EsiuA" body="The possible definintions of the EJB3 Collection types, this definition will be used in the associated tagged value on the AssociationEnd." annotatedElement="_iUfHhJqJEd-df-Hu2EsiuA"/>
+      <ownedLiteral xmi:id="_iUfHhpqJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfHh5qJEd-df-Hu2EsiuA" name="list"/>
+      <ownedLiteral xmi:id="_iUfHiJqJEd-df-Hu2EsiuA" name="map"/>
+      <ownedLiteral xmi:id="_iUfHiZqJEd-df-Hu2EsiuA" name="set"/>
+      <ownedLiteral xmi:id="_iUfHipqJEd-df-Hu2EsiuA" name="bag">
+        <ownedComment xmi:id="_iUfHi5qJEd-df-Hu2EsiuA" body="Currently, this is only referenced in the Hibernate cartridge." annotatedElement="_iUfHipqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfHjJqJEd-df-Hu2EsiuA" name="EjbTemporalType">
+      <ownedComment xmi:id="_iUfHjZqJEd-df-Hu2EsiuA" body="Temporal types specified on the finder method args to specify DATE, TIME, TIMESTAMP or NONE.  This will override the default type found." annotatedElement="_iUfHjJqJEd-df-Hu2EsiuA"/>
+      <ownedLiteral xmi:id="_iUfHjpqJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfHj5qJEd-df-Hu2EsiuA" name="DATE"/>
+      <ownedLiteral xmi:id="_iUfHkJqJEd-df-Hu2EsiuA" name="TIME"/>
+      <ownedLiteral xmi:id="_iUfHkZqJEd-df-Hu2EsiuA" name="TIMESTAMP"/>
+      <ownedLiteral xmi:id="_iUfHkpqJEd-df-Hu2EsiuA" name="NONE"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfHk5qJEd-df-Hu2EsiuA" name="EjbInheritancesStrategy">
+      <ownedComment xmi:id="_iUfHlJqJEd-df-Hu2EsiuA" body="Represents the inheritance stragey to use dealing with EJB3 inheritance between entities." annotatedElement="_iUfHk5qJEd-df-Hu2EsiuA"/>
+      <ownedLiteral xmi:id="_iUfHlZqJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfHlpqJEd-df-Hu2EsiuA" name="SINGLE_TABLE"/>
+      <ownedLiteral xmi:id="_iUfHl5qJEd-df-Hu2EsiuA" name="TABLE_PER_CLASS"/>
+      <ownedLiteral xmi:id="_iUfHmJqJEd-df-Hu2EsiuA" name="JOINED"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfHmZqJEd-df-Hu2EsiuA" name="EjbCacheStrategy">
+      <ownedComment xmi:id="_iUfHmpqJEd-df-Hu2EsiuA" body="Provides the list of available cache concurrency strategies for the entity cache." annotatedElement="_iUfHmZqJEd-df-Hu2EsiuA"/>
+      <ownedLiteral xmi:id="_iUfHm5qJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfHnJqJEd-df-Hu2EsiuA" name="NONE"/>
+      <ownedLiteral xmi:id="_iUfHnZqJEd-df-Hu2EsiuA" name="NONSTRICT_READ_WRITE"/>
+      <ownedLiteral xmi:id="_iUfHnpqJEd-df-Hu2EsiuA" name="READ_ONLY"/>
+      <ownedLiteral xmi:id="_iUfHn5qJEd-df-Hu2EsiuA" name="READ_WRITE"/>
+      <ownedLiteral xmi:id="_iUfHoJqJEd-df-Hu2EsiuA" name="TRANSACTIONAL"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUfHoZqJEd-df-Hu2EsiuA" name="TernaryBoolean">
+      <ownedLiteral xmi:id="_iUfHopqJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUfHo5qJEd-df-Hu2EsiuA" name="true"/>
+      <ownedLiteral xmi:id="_iUfHpJqJEd-df-Hu2EsiuA" name="false"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfHpZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfHppqJEd-df-Hu2EsiuA _iUfJqZqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfHppqJEd-df-Hu2EsiuA" name="extension_PersistentAttribute" visibility="private" type="_iUfJdJqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfHpZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfHp5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfHqJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfHqZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfHqpqJEd-df-Hu2EsiuA _iUfIxpqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfHqpqJEd-df-Hu2EsiuA" name="extension_EmbeddedValue" visibility="private" type="_iUfIwZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfHqZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfHq5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfHrJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfHrZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfHrpqJEd-df-Hu2EsiuA _iUfIv5qJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfHrpqJEd-df-Hu2EsiuA" name="extension_FinderMethod" visibility="private" type="_iUfIpZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfHrZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfHr5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfHsJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfHsZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfIo5qJEd-df-Hu2EsiuA _iUfHspqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfHspqJEd-df-Hu2EsiuA" name="extension_Unique" visibility="private" type="_iUfIoZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfHsZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfHs5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfHtJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfHtZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfHtpqJEd-df-Hu2EsiuA _iUfJGZqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfHtpqJEd-df-Hu2EsiuA" name="extension_PostPersist" visibility="private" type="_iUfJF5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfHtZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfHt5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfHuJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfHuZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfHupqJEd-df-Hu2EsiuA _iUfKKJqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfHupqJEd-df-Hu2EsiuA" name="extension_PersistentClass" visibility="private" type="_iUfKFpqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfHuZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfHu5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfHvJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfHvZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfHvpqJEd-df-Hu2EsiuA _iUfInJqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfHvpqJEd-df-Hu2EsiuA" name="extension_Entity" visibility="private" type="_iUfINZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfHvZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfHv5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfHwJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfHwZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfHwpqJEd-df-Hu2EsiuA _iUfKOZqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfHwpqJEd-df-Hu2EsiuA" name="extension_EnumerationLiteral" visibility="private" type="_iUfKKpqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfHwZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfHw5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfHxJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfHxZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfJCZqJEd-df-Hu2EsiuA _iUfHxpqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfHxpqJEd-df-Hu2EsiuA" name="extension_PreRemove" visibility="private" type="_iUfJB5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfHxZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfHx5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfHyJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfHyZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfHypqJEd-df-Hu2EsiuA _iUfI-ZqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfHypqJEd-df-Hu2EsiuA" name="extension_Version" visibility="private" type="_iUfI95qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfHyZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfHy5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfHzJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfHzZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfJcpqJEd-df-Hu2EsiuA _iUfHzpqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfHzpqJEd-df-Hu2EsiuA" name="extension_PersistentAssociation" visibility="private" type="_iUfJX5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfHzZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfHz5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfH0JqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfH0ZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfJFZqJEd-df-Hu2EsiuA _iUfH0pqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfH0pqJEd-df-Hu2EsiuA" name="extension_PostRemove" visibility="private" type="_iUfJE5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfH0ZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfH05qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfH1JqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfH1ZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfH1pqJEd-df-Hu2EsiuA _iUopAZqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfH1pqJEd-df-Hu2EsiuA" name="extension_Manageable" visibility="private" type="_iUoo7ZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfH1ZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfH15qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfH2JqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfH2ZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfH2pqJEd-df-Hu2EsiuA _iUfIn5qJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfH2pqJEd-df-Hu2EsiuA" name="extension_EntityRef" visibility="private" type="_iUfInpqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfH2ZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfH25qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfH3JqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfH3ZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfKB5qJEd-df-Hu2EsiuA _iUfH3pqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfH3pqJEd-df-Hu2EsiuA" name="extension_PersistentAssociationEnd" visibility="private" type="_iUfJq5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfH3ZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfH35qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfH4JqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfH4ZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfH4pqJEd-df-Hu2EsiuA _iUfJAZqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfH4pqJEd-df-Hu2EsiuA" name="extension_Transient" visibility="private" type="_iUfI-5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfH4ZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfH45qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfH5JqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfH5ZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfKE5qJEd-df-Hu2EsiuA _iUfH5pqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfH5pqJEd-df-Hu2EsiuA" name="extension_PersistentElement" visibility="private" type="_iUfKCZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfH5ZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfH55qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfH6JqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfH6ZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfKFJqJEd-df-Hu2EsiuA _iUfH6pqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfH6pqJEd-df-Hu2EsiuA" name="extension_PersistentElement" visibility="private" type="_iUfKCZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfH6ZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfH65qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfH7JqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfH7ZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfH7pqJEd-df-Hu2EsiuA _iUfJDZqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfH7pqJEd-df-Hu2EsiuA" name="extension_PrePersist" visibility="private" type="_iUfJC5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfH7ZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfH75qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfH8JqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfH8ZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfH8pqJEd-df-Hu2EsiuA _iUfJXZqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfH8pqJEd-df-Hu2EsiuA" name="extension_PersistentProperty" visibility="private" type="_iUfJSpqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfH8ZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfH85qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfH9JqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfH9ZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfIzJqJEd-df-Hu2EsiuA _iUfH9pqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfH9pqJEd-df-Hu2EsiuA" name="extension_SelectMethod" visibility="private" type="_iUfIy5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfH9ZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfH95qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfH-JqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfH-ZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfH-pqJEd-df-Hu2EsiuA _iUfIM5qJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfH-pqJEd-df-Hu2EsiuA" name="extension_Criteria" visibility="private" type="_iUfIMZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfH-ZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfH-5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfH_JqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfH_ZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfH_pqJEd-df-Hu2EsiuA _iUfIz5qJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfH_pqJEd-df-Hu2EsiuA" name="extension_CreateMethod" visibility="private" type="_iUfIzpqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfH_ZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfH_5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIAJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfIAZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfIApqJEd-df-Hu2EsiuA _iUoo5ZqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfIApqJEd-df-Hu2EsiuA" name="extension_TemporalElement" visibility="private" type="_iUfKO5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfIAZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIA5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIBJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfIBZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUoo5pqJEd-df-Hu2EsiuA _iUfIBpqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfIBpqJEd-df-Hu2EsiuA" name="extension_TemporalElement" visibility="private" type="_iUfKO5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfIBZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIB5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfICJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfICZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfICpqJEd-df-Hu2EsiuA _iUfJHZqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfICpqJEd-df-Hu2EsiuA" name="extension_PostLoad" visibility="private" type="_iUfJG5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfICZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIC5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIDJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfIDZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfJJZqJEd-df-Hu2EsiuA _iUfIDpqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfIDpqJEd-df-Hu2EsiuA" name="extension_MappedSuperclass" visibility="private" type="_iUfJI5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfIDZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfID5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIEJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfIEZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfJKZqJEd-df-Hu2EsiuA _iUfIEpqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfIEpqJEd-df-Hu2EsiuA" name="extension_FirstResult" visibility="private" type="_iUfJJ5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfIEZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIE5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIFJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfIFZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfIFpqJEd-df-Hu2EsiuA _iUoo65qJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfIFpqJEd-df-Hu2EsiuA" name="extension_PersistentPackage" visibility="private" type="_iUoo6JqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfIFZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIF5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIGJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfIGZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfIGpqJEd-df-Hu2EsiuA _iUfJEZqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfIGpqJEd-df-Hu2EsiuA" name="extension_PostUpdate" visibility="private" type="_iUfJD5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfIGZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIG5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIHJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfIHZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfIHpqJEd-df-Hu2EsiuA _iUfI9ZqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfIHpqJEd-df-Hu2EsiuA" name="extension_Identifier" visibility="private" type="_iUfI0ZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfIHZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIH5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIIJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfIIZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfIyZqJEd-df-Hu2EsiuA _iUfIIpqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfIIpqJEd-df-Hu2EsiuA" name="extension_ValueRef" visibility="private" type="_iUfIyJqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfIIZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfII5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIJJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfIJZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfIJpqJEd-df-Hu2EsiuA _iUfJIZqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfIJpqJEd-df-Hu2EsiuA" name="extension_MaxResult" visibility="private" type="_iUfJH5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfIJZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIJ5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIKJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfIKZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfJSJqJEd-df-Hu2EsiuA _iUfIKpqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfIKpqJEd-df-Hu2EsiuA" name="extension_CriteriaAttribute" visibility="private" type="_iUfJK5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfIKZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIK5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfILJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUfILZqJEd-df-Hu2EsiuA" name="" memberEnd="_iUfILpqJEd-df-Hu2EsiuA _iUfJBZqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUfILpqJEd-df-Hu2EsiuA" name="extension_PreUpdate" visibility="private" type="_iUfJA5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUfILZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIL5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIMJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfIMZqJEd-df-Hu2EsiuA" name="Criteria">
+      <ownedComment xmi:id="_iUfIMpqJEd-df-Hu2EsiuA" body="Represents a criteria search class." annotatedElement="_iUfIMZqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUfIM5qJEd-df-Hu2EsiuA" name="base_Class" visibility="private" association="_iUfH-ZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfINJqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfINZqJEd-df-Hu2EsiuA" name="Entity">
+      <ownedComment xmi:id="_iUfINpqJEd-df-Hu2EsiuA" body="A class that represents a persistent entity should be stereoyped with this class. " annotatedElement="_iUfINZqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUfIN5qJEd-df-Hu2EsiuA" name="andromda_ejb_resourceref_jndiname" visibility="private">
+        <eAnnotations xmi:id="_iUfIOJqJEd-df-Hu2EsiuA" source="MagicDraw">
+          <details xmi:id="_iUfIOZqJEd-df-Hu2EsiuA" key="md_property_name" value="andromda_ejb_resource-ref_jndi-name"/>
+        </eAnnotations>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIOpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIO5qJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIPJqJEd-df-Hu2EsiuA" name="andromda_ejb_resourceref_resauth" visibility="private">
+        <eAnnotations xmi:id="_iUfIPZqJEd-df-Hu2EsiuA" source="MagicDraw">
+          <details xmi:id="_iUfIPpqJEd-df-Hu2EsiuA" key="md_property_name" value="andromda_ejb_resource-ref_res-auth"/>
+        </eAnnotations>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIP5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIQJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIQZqJEd-df-Hu2EsiuA" name="andromda_hibernate_generator_class" visibility="private" type="_iUfHGJqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfIQpqJEd-df-Hu2EsiuA" body="Allows the definintion of the hibernate generator class (increment, identity, sequence, hilo, seqhilo, uuid.hex, uuid.string,  native, assigned, foreign)." annotatedElement="_iUfIQZqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIQ5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIRJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfIRZqJEd-df-Hu2EsiuA" name="" instance="_iUfHGpqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIRpqJEd-df-Hu2EsiuA" name="andromda_ejb_noSyntheticCreateMethod" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIR5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfISJqJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_iUfISZqJEd-df-Hu2EsiuA" name="" value="true"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfISpqJEd-df-Hu2EsiuA" name="andromda_ejb_automaticKey" visibility="private" type="_iUfHoZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIS5qJEd-df-Hu2EsiuA" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfITJqJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfITZqJEd-df-Hu2EsiuA" name="" instance="_iUfHopqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfITpqJEd-df-Hu2EsiuA" name="andromda_hibernate_entity_cache" visibility="private" type="_iUfHBpqJEd-df-Hu2EsiuA">
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfIT5qJEd-df-Hu2EsiuA" name="" instance="_iUfHB5qJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIUJqJEd-df-Hu2EsiuA" name="andromda_hibernate_entity_proxy" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIUZqJEd-df-Hu2EsiuA" name="andromda_hibernate_ehcache_maxElementsInMemory" visibility="private">
+        <ownedComment xmi:id="_iUfIUpqJEd-df-Hu2EsiuA" body="EhCache property. Defines the maximum number of objects that will be created in memory." annotatedElement="_iUfIUZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIU5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIVJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIVZqJEd-df-Hu2EsiuA" name="andromda_hibernate_ehcache_eternal" visibility="private">
+        <ownedComment xmi:id="_iUfIVpqJEd-df-Hu2EsiuA" body="EhCache property. Defines if elements are eternal." annotatedElement="_iUfIVZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIV5qJEd-df-Hu2EsiuA" name="andromda_hibernate_ehcache_timeToIdleSeconds" visibility="private">
+        <ownedComment xmi:id="_iUfIWJqJEd-df-Hu2EsiuA" body="EhCache property. Defines the time to idle for an element before it expires." annotatedElement="_iUfIV5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIWZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIWpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIW5qJEd-df-Hu2EsiuA" name="andromda_hibernate_ehcache_timeToLiveSeconds" visibility="private">
+        <ownedComment xmi:id="_iUfIXJqJEd-df-Hu2EsiuA" body="EhCache property. Defines the time to live for an element before it expires." annotatedElement="_iUfIW5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIXZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIXpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIX5qJEd-df-Hu2EsiuA" name="andromda_hibernate_ehcache_overflowToDisk" visibility="private">
+        <ownedComment xmi:id="_iUfIYJqJEd-df-Hu2EsiuA" body="EhCache property. Defines if elements can overflow to disk" annotatedElement="_iUfIX5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIYZqJEd-df-Hu2EsiuA" name="andromda_hibernate_inheritance" visibility="private" type="_iUfHSZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIYpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIY5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfIZJqJEd-df-Hu2EsiuA" name="" instance="_iUfHS5qJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIZZqJEd-df-Hu2EsiuA" name="andromda_hibernate_entity_dynamicUpdate" visibility="private" type="_iUfHoZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfIZpqJEd-df-Hu2EsiuA" body="Defines if the entity will limit the SQL update statements to properties that are modified" annotatedElement="_iUfIZZqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIZ5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIaJqJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfIaZqJEd-df-Hu2EsiuA" name="" instance="_iUfHopqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIapqJEd-df-Hu2EsiuA" name="andromda_hibernate_entity_dynamicInsert" visibility="private" type="_iUfHoZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfIa5qJEd-df-Hu2EsiuA" body="Defines if the entity will limit the SQL insert statement to properties with values" annotatedElement="_iUfIapqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIbJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIbZqJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfIbpqJEd-df-Hu2EsiuA" name="" instance="_iUfHopqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIb5qJEd-df-Hu2EsiuA" name="andromda_hibernate_version" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_iUfIcJqJEd-df-Hu2EsiuA" name="" value="3"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIcZqJEd-df-Hu2EsiuA" name="andromda_persistence_discriminator_column_definition" visibility="private">
+        <ownedComment xmi:id="_iUfIcpqJEd-df-Hu2EsiuA" body="The SQL fragment used when generating DDL for the discriminator column.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfIcZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIc5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIdJqJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIdZqJEd-df-Hu2EsiuA" name="andromda_persistence_discriminator_column_length" visibility="private">
+        <ownedComment xmi:id="_iUfIdpqJEd-df-Hu2EsiuA" body="The column length if the discriminator type is a STRING.  Otherwise, it is ignored for the other discriminator types.  Default is 10.&#xA;Applies to cartridges: EJB3, Hibernate" annotatedElement="_iUfIdZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfId5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIeJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_iUfIeZqJEd-df-Hu2EsiuA" name="" value="10"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIepqJEd-df-Hu2EsiuA" name="andromda_persistence_discriminator_column_name" visibility="private">
+        <ownedComment xmi:id="_iUfIe5qJEd-df-Hu2EsiuA" body="Represents the name of the column to be used for the discriminator.&#xA;Applies to cartridges: EJB3, Hibernate" annotatedElement="_iUfIepqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIfJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIfZqJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIfpqJEd-df-Hu2EsiuA" name="andromda_persistence_discriminator_type" visibility="private" type="_iUfHdpqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfIf5qJEd-df-Hu2EsiuA" body="The type of object/column to use as a class discriminator.  Default is STRING.  This should be set on the root class to indicate the type of the column for the discriminator.&#xA;Applies to cartridges: EJB3, Hibernate" annotatedElement="_iUfIfpqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIgJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIgZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfIgpqJEd-df-Hu2EsiuA" name="" instance="_iUfHeJqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIg5qJEd-df-Hu2EsiuA" name="andromda_persistence_discriminator_value" visibility="private">
+        <ownedComment xmi:id="_iUfIhJqJEd-df-Hu2EsiuA" body="The value indicating the row is an entity of the annoted entity type.  It should be specified for each class in the hierarchy.&#xA;Applies to cartridges: EJB3, Hibernate" annotatedElement="_iUfIg5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIhZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIhpqJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIh5qJEd-df-Hu2EsiuA" name="andromda_persistence_inheritance" visibility="private" type="_iUfHk5qJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfIiJqJEd-df-Hu2EsiuA" body="Represents the entity inheritance strategy.  Default is SINGLE_TABLE.  This should be set on the root class.  All subclasses must follow the same strategy.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfIh5qJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIiZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIipqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfIi5qJEd-df-Hu2EsiuA" name="" instance="_iUfHlZqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIjJqJEd-df-Hu2EsiuA" name="andromda_persistence_entity_cache" visibility="private" type="_iUfHmZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfIjZqJEd-df-Hu2EsiuA" body="Specify the entity cache strategy for the entity.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfIjJqJEd-df-Hu2EsiuA"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfIjpqJEd-df-Hu2EsiuA" name="" instance="_iUfHm5qJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIj5qJEd-df-Hu2EsiuA" name="andromda_persistence_schema" visibility="private">
+        <ownedComment xmi:id="_iUfIkJqJEd-df-Hu2EsiuA" body="Denotes the database schema to use when persisting this entity." annotatedElement="_iUfIj5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIkZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIkpqJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIk5qJEd-df-Hu2EsiuA" name="andromda_hibernate_entity_cache_distributed" visibility="private" type="_iUfHoZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfIlJqJEd-df-Hu2EsiuA" body="Specifies whether the cache for the tagged entity will be distributed." annotatedElement="_iUfIk5qJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIlZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIlpqJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfIl5qJEd-df-Hu2EsiuA" name="" instance="_iUfHopqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfImJqJEd-df-Hu2EsiuA" name="andromda_serialVersionUID" visibility="private">
+        <ownedComment xmi:id="_iUfImZqJEd-df-Hu2EsiuA" body="Override the default generated serialVersionUID value." annotatedElement="_iUfImJqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfImpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIm5qJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfInJqJEd-df-Hu2EsiuA" name="base_Class" visibility="private" association="_iUfHvZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfInZqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfInpqJEd-df-Hu2EsiuA" name="EntityRef">
+      <ownedAttribute xmi:id="_iUfIn5qJEd-df-Hu2EsiuA" name="base_Dependency" visibility="private" association="_iUfH2ZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Dependency"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfIoJqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfIoZqJEd-df-Hu2EsiuA" name="Unique">
+      <ownedComment xmi:id="_iUfIopqJEd-df-Hu2EsiuA" body="A attribute stereotyped with this is considered unique." annotatedElement="_iUfIoZqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUfIo5qJEd-df-Hu2EsiuA" name="base_Property" visibility="private" association="_iUfHsZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfIpJqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfIpZqJEd-df-Hu2EsiuA" name="FinderMethod">
+      <ownedComment xmi:id="_iUfIppqJEd-df-Hu2EsiuA" body="Indicates that an operation on an entity should be a finder operation." annotatedElement="_iUfIpZqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUfIp5qJEd-df-Hu2EsiuA" name="andromda_ejb_query" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIqJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIqZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIqpqJEd-df-Hu2EsiuA" name="andromda_hibernate_query_useCache" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIq5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIrJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIrZqJEd-df-Hu2EsiuA" name="andromda_ejb_query_useCache" visibility="private" type="_iUfHoZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfIrpqJEd-df-Hu2EsiuA" body="Used to enabled or disable query cache for modelled query.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfIrZqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIr5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIsJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfIsZqJEd-df-Hu2EsiuA" name="" instance="_iUfHopqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIspqJEd-df-Hu2EsiuA" name="andromda_ejb_query_weblogic" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIs5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfItJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfItZqJEd-df-Hu2EsiuA" name="andromda_hibernate_query" visibility="private">
+        <ownedComment xmi:id="_iUfItpqJEd-df-Hu2EsiuA" body="The query string for Hibernate." annotatedElement="_iUfItZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIt5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIuJqJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIuZqJEd-df-Hu2EsiuA" name="andromda_ejb_query_dialect" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIupqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIu5qJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIvJqJEd-df-Hu2EsiuA" name="andromda_hibernate_query_useNamedParameters" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIvZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIvpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIv5qJEd-df-Hu2EsiuA" name="base_Operation" visibility="private" association="_iUfHrZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfIwJqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfIwZqJEd-df-Hu2EsiuA" name="EmbeddedValue">
+      <ownedAttribute xmi:id="_iUfIwpqJEd-df-Hu2EsiuA" name="andromda_serialVersionUID" visibility="private">
+        <ownedComment xmi:id="_iUfIw5qJEd-df-Hu2EsiuA" body="Override the default generated serialVersionUID value." annotatedElement="_iUfIwpqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfIxJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfIxZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfIxpqJEd-df-Hu2EsiuA" name="base_Class" visibility="private" association="_iUfHqZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfIx5qJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfIyJqJEd-df-Hu2EsiuA" name="ValueRef">
+      <ownedAttribute xmi:id="_iUfIyZqJEd-df-Hu2EsiuA" name="base_Relationship" visibility="private" association="_iUfIIZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Relationship"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfIypqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfIy5qJEd-df-Hu2EsiuA" name="SelectMethod">
+      <ownedAttribute xmi:id="_iUfIzJqJEd-df-Hu2EsiuA" name="base_Operation" visibility="private" association="_iUfH9ZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfIzZqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfIzpqJEd-df-Hu2EsiuA" name="CreateMethod">
+      <ownedAttribute xmi:id="_iUfIz5qJEd-df-Hu2EsiuA" name="base_Operation" visibility="private" association="_iUfH_ZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfI0JqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfI0ZqJEd-df-Hu2EsiuA" name="Identifier">
+      <ownedComment xmi:id="_iUfI0pqJEd-df-Hu2EsiuA" body="Any attribute that represents the identifier should be stereotyped with this.  Note, that at this moment, only one attribute can be stereotyped with this PrimaryKey stereotype.  If you do not stereotype an entity with this, AndroMDA will place a default identifier (of a given default type and name) on the entity (so it is not necessary to model dumb keys for example)." annotatedElement="_iUfI0ZqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUfI05qJEd-df-Hu2EsiuA" name="andromda_persistence_assigned_identifier" visibility="private" type="_iUfHoZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfI1JqJEd-df-Hu2EsiuA" body="Indicates whether or not this identifier is 'assigned'.  This means that the identifer value will be manually assigned instead of automatically generated." annotatedElement="_iUfI05qJEd-df-Hu2EsiuA"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfI1ZqJEd-df-Hu2EsiuA" name="" instance="_iUfHopqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfI1pqJEd-df-Hu2EsiuA" name="andromda_persistence_generator_allocation_size" visibility="private">
+        <ownedComment xmi:id="_iUfI15qJEd-df-Hu2EsiuA" body="Amount to increment by when allocating id number from the generator.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfI1pqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfI2JqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfI2ZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_iUfI2pqJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfI25qJEd-df-Hu2EsiuA" name="andromda_persistence_generator_initial_value" visibility="private">
+        <ownedComment xmi:id="_iUfI3JqJEd-df-Hu2EsiuA" body="Initial starting sequence for id generation.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfI25qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfI3ZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfI3pqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_iUfI35qJEd-df-Hu2EsiuA" name="" value="0"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfI4JqJEd-df-Hu2EsiuA" name="andromda_persistence_generator_name" visibility="private">
+        <ownedComment xmi:id="_iUfI4ZqJEd-df-Hu2EsiuA" body="A unique name which is referenced by one or more classes to be the generator for an entity bean.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfI4JqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfI4pqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfI45qJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfI5JqJEd-df-Hu2EsiuA" name="andromda_persistence_generator_pkcolumn_value" visibility="private">
+        <ownedComment xmi:id="_iUfI5ZqJEd-df-Hu2EsiuA" body="The primary key value in the generator table to identify the specified generated value from other values.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfI5JqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfI5pqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfI55qJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfI6JqJEd-df-Hu2EsiuA" name="andromda_persistence_generator_source_name" visibility="private">
+        <ownedComment xmi:id="_iUfI6ZqJEd-df-Hu2EsiuA" body="Either the table name that stores the generated ids or the sequence name which is the name of the database sequence object used to get the ids.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfI6JqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfI6pqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfI65qJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfI7JqJEd-df-Hu2EsiuA" name="andromda_persistence_generator_type" visibility="private" type="_iUfHXpqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfI7ZqJEd-df-Hu2EsiuA" body="Specified the primary key generation strategy associated with the @Id annotation for an entity attribute.&#xA;TABLE - persistence provider assigns the identifiers using underlying db table&#xA;SEQUENCE - db sequence&#xA;IDENTITY - identity column&#xA;AUTO - persistence provider picks appropriate strategy for the db&#xA;NONE - no PK generation - application is responsilble&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfI7JqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfI7pqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfI75qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfI8JqJEd-df-Hu2EsiuA" name="" instance="_iUfHYJqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfI8ZqJEd-df-Hu2EsiuA" name="andromda_persistence_generator_genericStrategy" visibility="private">
+        <ownedComment xmi:id="_iUfI8pqJEd-df-Hu2EsiuA" body="The generic strategy name for a generator type GENERIC.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfI8ZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfI85qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfI9JqJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfI9ZqJEd-df-Hu2EsiuA" name="base_Property" visibility="private" association="_iUfIHZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfI9pqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfI95qJEd-df-Hu2EsiuA" name="Version">
+      <ownedComment xmi:id="_iUfI-JqJEd-df-Hu2EsiuA" body="Indicates this property is considered the version attribute for this entity.  This is the optimistic lock value for the class.  Only apply to ONE attribute per class!  Attributes with this stereotypes should NOT be updated by the application.&#xA;Supported types: int, Integer, short, Short, long, Long, Timestamp&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfI95qJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUfI-ZqJEd-df-Hu2EsiuA" name="base_Property" visibility="private" association="_iUfHyZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfI-pqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfI-5qJEd-df-Hu2EsiuA" name="Transient">
+      <ownedComment xmi:id="_iUfI_JqJEd-df-Hu2EsiuA" body="Indicates this property should be ignored by the persistence layer." annotatedElement="_iUfI-5qJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUfI_ZqJEd-df-Hu2EsiuA" name="andromda_hibernate_formula" visibility="private">
+        <ownedComment xmi:id="_iUfI_pqJEd-df-Hu2EsiuA" body="Stores the SQL formula that will be used for calculating the value to this attribute" annotatedElement="_iUfI_ZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfI_5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJAJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJAZqJEd-df-Hu2EsiuA" name="base_Property" visibility="private" association="_iUfH4ZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfJApqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfJA5qJEd-df-Hu2EsiuA" name="PreUpdate">
+      <ownedComment xmi:id="_iUfJBJqJEd-df-Hu2EsiuA" body="Implies the annotated entity operation is an entity lifecycle callback. It is invoked right before the database is updated.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfJA5qJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUfJBZqJEd-df-Hu2EsiuA" name="base_Operation" visibility="private" association="_iUfILZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfJBpqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfJB5qJEd-df-Hu2EsiuA" name="PreRemove">
+      <ownedComment xmi:id="_iUfJCJqJEd-df-Hu2EsiuA" body="Implies the annotated entity operation is an entity lifecycle callback. It is invoked right before the entity is deleted in the database and will cascade to all entities to which this operation is cascaded.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfJB5qJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUfJCZqJEd-df-Hu2EsiuA" name="base_Operation" visibility="private" association="_iUfHxZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfJCpqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfJC5qJEd-df-Hu2EsiuA" name="PrePersist">
+      <ownedComment xmi:id="_iUfJDJqJEd-df-Hu2EsiuA" body="Implies the annotated entity operation is an entity lifecycle callback.  It is invoked right before the entity is created in the database and will cascade to all entities to which this operation is cascaded.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfJC5qJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUfJDZqJEd-df-Hu2EsiuA" name="base_Operation" visibility="private" association="_iUfH7ZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfJDpqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfJD5qJEd-df-Hu2EsiuA" name="PostUpdate">
+      <ownedComment xmi:id="_iUfJEJqJEd-df-Hu2EsiuA" body="Implies the annotated entity operation is an entity lifecycle callback. It is invoked immediately after the database has been updated.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfJD5qJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUfJEZqJEd-df-Hu2EsiuA" name="base_Operation" visibility="private" association="_iUfIGZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfJEpqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfJE5qJEd-df-Hu2EsiuA" name="PostRemove">
+      <ownedComment xmi:id="_iUfJFJqJEd-df-Hu2EsiuA" body="Implies the annotated entity operation is an entity lifecycle callback. It is invoked right after the entity is deleted in the database and will cascade to all entities to which this operation is cascaded.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfJE5qJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUfJFZqJEd-df-Hu2EsiuA" name="base_Operation" visibility="private" association="_iUfH0ZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfJFpqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfJF5qJEd-df-Hu2EsiuA" name="PostPersist">
+      <ownedComment xmi:id="_iUfJGJqJEd-df-Hu2EsiuA" body="Implies the annotated entity operation is an entity lifecycle callback. It is invoked right after the entity is created in the database and will cascade to all entities to which this operation is cascaded.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfJF5qJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUfJGZqJEd-df-Hu2EsiuA" name="base_Operation" visibility="private" association="_iUfHtZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfJGpqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfJG5qJEd-df-Hu2EsiuA" name="PostLoad">
+      <ownedComment xmi:id="_iUfJHJqJEd-df-Hu2EsiuA" body="Implies the annotated entity operation is an entity lifecycle callback. It is invoked right after data has been loaded form the database and associated with the entity.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfJG5qJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUfJHZqJEd-df-Hu2EsiuA" name="base_Operation" visibility="private" association="_iUfICZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfJHpqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfJH5qJEd-df-Hu2EsiuA" name="MaxResult">
+      <ownedComment xmi:id="_iUfJIJqJEd-df-Hu2EsiuA" body="Indicates the finder method parameter result type that specifies the limit.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfJH5qJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUfJIZqJEd-df-Hu2EsiuA" name="base_Parameter" visibility="private" association="_iUfIJZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Parameter"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfJIpqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfJI5qJEd-df-Hu2EsiuA" name="MappedSuperclass">
+      <ownedComment xmi:id="_iUfJJJqJEd-df-Hu2EsiuA" body="Indicates this class is marked to be a an embeddable superclass in the model.  This class must be the root class as you cannot have an embeddable/mapped super class in the middle of a hierarchy.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfJI5qJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUfJJZqJEd-df-Hu2EsiuA" name="base_Class" visibility="private" association="_iUfIDZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfJJpqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfJJ5qJEd-df-Hu2EsiuA" name="FirstResult">
+      <ownedComment xmi:id="_iUfJKJqJEd-df-Hu2EsiuA" body="Indicates the finder method parameter result type that specifies the starting index.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfJJ5qJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUfJKZqJEd-df-Hu2EsiuA" name="base_Parameter" visibility="private" association="_iUfIEZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Parameter"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfJKpqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfJK5qJEd-df-Hu2EsiuA" name="CriteriaAttribute">
+      <ownedAttribute xmi:id="_iUfJLJqJEd-df-Hu2EsiuA" name="andromda_hibernate_criteria_order_relevance" visibility="private">
+        <ownedComment xmi:id="_iUfJLZqJEd-df-Hu2EsiuA" body="Specifies the relevance of the order information. The lower the number, the more relevant the information." annotatedElement="_iUfJLJqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJLpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJL5qJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJMJqJEd-df-Hu2EsiuA" name="andromda_hibernate_criteria_comparator" visibility="private" type="_iUfHC5qJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfJMZqJEd-df-Hu2EsiuA" body="The comparator to be used with a hibernate criteria search." annotatedElement="_iUfJMJqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJMpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJM5qJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJNJqJEd-df-Hu2EsiuA" name="" instance="_iUfHDZqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJNZqJEd-df-Hu2EsiuA" name="andromda_hibernate_criteria_order_direction" visibility="private" type="_iUfHM5qJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfJNpqJEd-df-Hu2EsiuA" body="Specifies the order direction for the attribute being tagged." annotatedElement="_iUfJNZqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJN5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJOJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJOZqJEd-df-Hu2EsiuA" name="" instance="_iUfHNJqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJOpqJEd-df-Hu2EsiuA" name="andromda_hibernate_criteria_nullable" visibility="private" type="_iUfHoZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfJO5qJEd-df-Hu2EsiuA" body="If set to 'true', denotes that the underlying attriibute in the queried entity may be NULL and therefore should be included in the query if the attribute is set to 'null'." annotatedElement="_iUfJOpqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJPJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJPZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJPpqJEd-df-Hu2EsiuA" name="" instance="_iUfHopqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJP5qJEd-df-Hu2EsiuA" name="andromda_hibernate_criteria_attribute" visibility="private">
+        <ownedComment xmi:id="_iUfJQJqJEd-df-Hu2EsiuA" body="Specifies which attribute should be queried on the underlying entity." annotatedElement="_iUfJP5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJQZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJQpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJQ5qJEd-df-Hu2EsiuA" name="andromda_hibernate_criteria_matchmode" visibility="private" type="_iUfHQ5qJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfJRJqJEd-df-Hu2EsiuA" body="Defines the matchmode for string comparisons." annotatedElement="_iUfJQ5qJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJRZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJRpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJR5qJEd-df-Hu2EsiuA" name="" instance="_iUfHRJqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJSJqJEd-df-Hu2EsiuA" name="base_Property" visibility="private" association="_iUfIKZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfJSZqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfJSpqJEd-df-Hu2EsiuA" name="PersistentProperty">
+      <ownedAttribute xmi:id="_iUfJS5qJEd-df-Hu2EsiuA" name="andromda_persistence_column_index" visibility="private">
+        <ownedComment xmi:id="_iUfJTJqJEd-df-Hu2EsiuA" body="Stores the index name of a column." annotatedElement="_iUfJS5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJTZqJEd-df-Hu2EsiuA" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJTpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJT5qJEd-df-Hu2EsiuA" name="andromda_persistence_column" visibility="private">
+        <ownedComment xmi:id="_iUfJUJqJEd-df-Hu2EsiuA" body="Stores a relational table column name for entity persistence.&#xA;Applies to cartridges: EJB, EJB3, Hibernate, Spring" annotatedElement="_iUfJT5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJUZqJEd-df-Hu2EsiuA" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJUpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJU5qJEd-df-Hu2EsiuA" name="andromda_persistence_column_equality" visibility="private" type="_iUfHoZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfJVJqJEd-df-Hu2EsiuA" body="Identifies that a column or association will be used for equality check if the entity is transient." annotatedElement="_iUfJU5qJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJVZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJVpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJV5qJEd-df-Hu2EsiuA" name="" instance="_iUfHopqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJWJqJEd-df-Hu2EsiuA" name="andromda_persistence_fetch_type" visibility="private" type="_iUfHbJqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfJWZqJEd-df-Hu2EsiuA" body="Denotes whether or not to hint to the EJB3 container that the EJB relationship/property should be lazily or eagerly loaded.&#xA;By default, the loading persistence is EAGER for attributes and relationships of type OneToOne &amp; ManyToOne.&#xA;Relationships with OneToMany and ManyToMany syntax are LAZY loaded.  You don't need to set anything to accept these default settings.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfJWJqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJWpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJW5qJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJXJqJEd-df-Hu2EsiuA" name="" instance="_iUfHbpqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJXZqJEd-df-Hu2EsiuA" name="base_Property" visibility="private" association="_iUfH8ZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfJXpqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfJX5qJEd-df-Hu2EsiuA" name="PersistentAssociation">
+      <ownedAttribute xmi:id="_iUfJYJqJEd-df-Hu2EsiuA" name="andromda_ejb_generateCMR" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJYZqJEd-df-Hu2EsiuA" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJYpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJY5qJEd-df-Hu2EsiuA" name="andromda_hibernate_association_cache_distributed" visibility="private" type="_iUfHoZqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJZJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJZZqJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJZpqJEd-df-Hu2EsiuA" name="" instance="_iUfHopqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJZ5qJEd-df-Hu2EsiuA" name="andromda_hibernate_association_cache" visibility="private" type="_iUfHBpqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJaJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJaZqJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJapqJEd-df-Hu2EsiuA" name="" instance="_iUfHB5qJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJa5qJEd-df-Hu2EsiuA" name="andromda_persistence_table" visibility="private">
+        <ownedComment xmi:id="_iUfJbJqJEd-df-Hu2EsiuA" body="Stores the name of a relational table that persists an entity.&#xA;Applies to cartridges: EJB, EJB3, Hibernate, Spring" annotatedElement="_iUfJa5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJbZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJbpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJb5qJEd-df-Hu2EsiuA" name="andromda_ejb_generateVOreference" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJcJqJEd-df-Hu2EsiuA" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJcZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJcpqJEd-df-Hu2EsiuA" name="base_Association" visibility="private" association="_iUfHzZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Association"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfJc5qJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfJdJqJEd-df-Hu2EsiuA" name="PersistentAttribute">
+      <ownedAttribute xmi:id="_iUfJdZqJEd-df-Hu2EsiuA" name="andromda_persistence_column_length" visibility="private">
+        <ownedComment xmi:id="_iUfJdpqJEd-df-Hu2EsiuA" body="Stores a relational table column length" annotatedElement="_iUfJdZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJd5qJEd-df-Hu2EsiuA" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJeJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJeZqJEd-df-Hu2EsiuA" name="andromda_persistence_column_uniqueGroup" visibility="private">
+        <ownedComment xmi:id="_iUfJepqJEd-df-Hu2EsiuA" body="The name of the unique group that this unique attribute belongs" annotatedElement="_iUfJeZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJe5qJEd-df-Hu2EsiuA" name="andromda_persistence_column_scale" visibility="private">
+        <ownedComment xmi:id="_iUfJfJqJEd-df-Hu2EsiuA" body="The scale for a decimal column.&#xA;Applies to cartridge: EJB3" annotatedElement="_iUfJe5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJfZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJfpqJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_iUfJf5qJEd-df-Hu2EsiuA" name="" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJgJqJEd-df-Hu2EsiuA" name="andromda_persistence_column_nullable" visibility="private" type="_iUfHoZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfJgZqJEd-df-Hu2EsiuA" body="If set to 'true', denotes that the underlying column for this attribute may be NULL.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfJgJqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJgpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJg5qJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJhJqJEd-df-Hu2EsiuA" name="" instance="_iUfHopqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJhZqJEd-df-Hu2EsiuA" name="andromda_persistence_column_precision" visibility="private">
+        <ownedComment xmi:id="_iUfJhpqJEd-df-Hu2EsiuA" body="The precision for a decimal column.&#xA;Applies to cartridge: EJB3" annotatedElement="_iUfJhZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJh5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJiJqJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_iUfJiZqJEd-df-Hu2EsiuA" name="" value="12"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJipqJEd-df-Hu2EsiuA" name="andromda_persistence_column_definition" visibility="private">
+        <ownedComment xmi:id="_iUfJi5qJEd-df-Hu2EsiuA" body="The SQL to create the DDL for the column (property).&#xA;Applies to cartridge: EJB3" annotatedElement="_iUfJipqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJjJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJjZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJjpqJEd-df-Hu2EsiuA" name="andromda_hibernate_property_update" visibility="private" type="_iUfHoZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfJj5qJEd-df-Hu2EsiuA" body="Specifies whether the mapped column should be included in SQL UPDATE statements. Setting to false allows the column to be updated using other mechanisms such as a value defaulted by the database." annotatedElement="_iUfJjpqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJkJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJkZqJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJkpqJEd-df-Hu2EsiuA" name="" instance="_iUfHopqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJk5qJEd-df-Hu2EsiuA" name="andromda_persistence_column_insert" visibility="private" type="_iUfHoZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfJlJqJEd-df-Hu2EsiuA" body="Specifies whether the mapped column should be included in SQL INSERT statements. Setting to false allows the column to be initialized using other mechanisms such as a value defaulted by the database.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfJk5qJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJlZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJlpqJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJl5qJEd-df-Hu2EsiuA" name="" instance="_iUfHopqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJmJqJEd-df-Hu2EsiuA" name="andromda_persistence_column_weblogicDataType" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJmZqJEd-df-Hu2EsiuA" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJmpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJm5qJEd-df-Hu2EsiuA" name="andromda_persistence_column_update" visibility="private" type="_iUfHoZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfJnJqJEd-df-Hu2EsiuA" body="Specifies whether the mapped column should be included in SQL UPDATE statements. Setting to false allows the column to be updated using other mechanisms such as a value defaulted by the database.&#xA;Applies to cartridge: EJB3" annotatedElement="_iUfJm5qJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJnZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJnpqJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJn5qJEd-df-Hu2EsiuA" name="" instance="_iUfHopqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJoJqJEd-df-Hu2EsiuA" name="andromda_hibernate_property_insert" visibility="private" type="_iUfHoZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfJoZqJEd-df-Hu2EsiuA" body="Specifies whether the mapped column should be included in SQL INSERT statements. Setting to false allows the column to be initialized using other mechanisms such as a value defaulted by the database." annotatedElement="_iUfJoJqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJopqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJo5qJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJpJqJEd-df-Hu2EsiuA" name="" instance="_iUfHopqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJpZqJEd-df-Hu2EsiuA" name="andromda_persistence_lob_type" visibility="private">
+        <ownedComment xmi:id="_iUfJppqJEd-df-Hu2EsiuA" body="Indicates the Java type for the large persistent property modelled with UML type datatype::Clob or datatype::Blob.&#xA;&#xA;Andromda elects default types based on the following:&#xA;datatype::Clob - String&#xA;datatype::Blob - byte[]&#xA;&#xA;To override the above, you can assign the following tagged values.&#xA;&#xA;May be either binary or character types.&#xA;BLOB fields - Byte[] or Serializable type&#xA;CLOB fields - char[], Character[] or String&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfJpZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJp5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJqJqJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJqZqJEd-df-Hu2EsiuA" name="base_Property" visibility="private" association="_iUfHpZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfJqpqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfJq5qJEd-df-Hu2EsiuA" name="PersistentAssociationEnd">
+      <ownedAttribute xmi:id="_iUfJrJqJEd-df-Hu2EsiuA" name="andromda_hibernate_xml_embed" visibility="private" type="_iUfHoZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfJrZqJEd-df-Hu2EsiuA" body="Specifies wheter or not the entity attached to the association end should be embedded as a complete XML structure, or simply as a referenc to its ID. Controls the  embed-xml  attribute in the Hibernate mapping file." annotatedElement="_iUfJrJqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJrpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJr5qJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJsJqJEd-df-Hu2EsiuA" name="" instance="_iUfHopqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJsZqJEd-df-Hu2EsiuA" name="andromda_hibernate_orderByColumns" visibility="private">
+        <ownedComment xmi:id="_iUfJspqJEd-df-Hu2EsiuA" body="Column names that will be used for sorting the collection, with asc or desc optionally." annotatedElement="_iUfJsZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJs5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJtJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJtZqJEd-df-Hu2EsiuA" name="andromda_persistence_foreignkey_constraint" visibility="private">
+        <ownedComment xmi:id="_iUfJtpqJEd-df-Hu2EsiuA" body="Used on an association end to denote to name of the foreign key constraint to use in the database." annotatedElement="_iUfJtZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJt5qJEd-df-Hu2EsiuA" name="andromda_hibernate_outerjoin" visibility="private" type="_iUfG9JqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJuJqJEd-df-Hu2EsiuA" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJuZqJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJupqJEd-df-Hu2EsiuA" name="" instance="_iUfG9ZqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJu5qJEd-df-Hu2EsiuA" name="andromda_persistence_optional" visibility="private" type="_iUfHoZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfJvJqJEd-df-Hu2EsiuA" body="If set to 'true', denotes that the underlying association relationship may be NULL.  The default value for the annotation in EJB3 is true.  If set to false, then a non-null relationship must alwasy exist.  Applies to Many-to-One and One-to-One relationships.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfJu5qJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJvZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJvpqJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJv5qJEd-df-Hu2EsiuA" name="" instance="_iUfHopqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJwJqJEd-df-Hu2EsiuA" name="andromda_hibernate_whereClause" visibility="private">
+        <ownedComment xmi:id="_iUfJwZqJEd-df-Hu2EsiuA" body="Sql condition to define a subset of available data for the collection" annotatedElement="_iUfJwJqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJwpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJw5qJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJxJqJEd-df-Hu2EsiuA" name="andromda_hibernate_sort_type" visibility="private" type="_iUfHPpqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfJxZqJEd-df-Hu2EsiuA" body="Used to define how elements will be sorted within the collection defined by the association. (Only available for maps and sets)" annotatedElement="_iUfJxJqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJxpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJx5qJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJyJqJEd-df-Hu2EsiuA" name="" instance="_iUfHP5qJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJyZqJEd-df-Hu2EsiuA" name="andromda_persistence_cascade_type" visibility="private" type="_iUfHfJqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfJypqJEd-df-Hu2EsiuA" body="Locally override the default cascade setting for this relationship.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfJyZqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJy5qJEd-df-Hu2EsiuA" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJzJqJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJzZqJEd-df-Hu2EsiuA" name="" instance="_iUfHfpqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJzpqJEd-df-Hu2EsiuA" name="andromda_hibernate_collection_index_type" visibility="private">
+        <ownedComment xmi:id="_iUfJz5qJEd-df-Hu2EsiuA" body="The type of the collection index (used when a map is the collection type)." annotatedElement="_iUfJzpqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#DataType"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJ0JqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJ0ZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJ0pqJEd-df-Hu2EsiuA" name="andromda_persistence_orderBy" visibility="private">
+        <ownedComment xmi:id="_iUfJ05qJEd-df-Hu2EsiuA" body="Column name(s) that will be used for sorting the collection, with asc or desc optionally. Without a value, the PK is assumed.&#xA;Example: surname, age ASC.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfJ0pqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJ1JqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJ1ZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJ1pqJEd-df-Hu2EsiuA" name="andromda_persistence_collection_type" visibility="private" type="_iUfHhJqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfJ15qJEd-df-Hu2EsiuA" body="Used to define the mapping for EJB3 association collections. Should be modelled on Association Ends.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUfJ1pqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJ2JqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJ2ZqJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJ2pqJEd-df-Hu2EsiuA" name="" instance="_iUfHhpqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJ25qJEd-df-Hu2EsiuA" name="andromda_hibernate_cascade" visibility="private">
+        <ownedComment xmi:id="_iUfJ3JqJEd-df-Hu2EsiuA" body="Locally override the default cascade setting for this relationship." annotatedElement="_iUfJ25qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJ3ZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJ3pqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_iUfJ35qJEd-df-Hu2EsiuA" name="" value="none"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJ4JqJEd-df-Hu2EsiuA" name="andromda_hibernate_collection_type" visibility="private" type="_iUfG-ZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfJ4ZqJEd-df-Hu2EsiuA" body="Used to define the mapping for hibernate collections. Should be modelled on Association Ends" annotatedElement="_iUfJ4JqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJ4pqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJ45qJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJ5JqJEd-df-Hu2EsiuA" name="" instance="_iUfG-5qJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJ5ZqJEd-df-Hu2EsiuA" name="andromda_persistence_foreign_identifier" visibility="private" type="_iUfHoZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfJ5pqJEd-df-Hu2EsiuA" body="Indicates whether or not the identifier of persistent entity that is part of an association should be foreign (meaning the identifier used will be the same as the identifier of the entity on the opposite end of the association).  This normally would only make sense to use a on a parent-child one-to-one relationship." annotatedElement="_iUfJ5ZqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJ55qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJ6JqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJ6ZqJEd-df-Hu2EsiuA" name="" instance="_iUfHopqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJ6pqJEd-df-Hu2EsiuA" name="andromda_hibernate_collection_index" visibility="private">
+        <ownedComment xmi:id="_iUfJ65qJEd-df-Hu2EsiuA" body="Column containing the collection index" annotatedElement="_iUfJ6pqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJ7JqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJ7ZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJ7pqJEd-df-Hu2EsiuA" name="andromda_persistence_association_cache" visibility="private" type="_iUfHmZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfJ75qJEd-df-Hu2EsiuA" body="Defines the cache strategy for relationship association.&#xA;Applies to cartriges: EJB3" annotatedElement="_iUfJ7pqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJ8JqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJ8ZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJ8pqJEd-df-Hu2EsiuA" name="" instance="_iUfHm5qJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJ85qJEd-df-Hu2EsiuA" name="andromda_ejb_generateVOreference" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJ9JqJEd-df-Hu2EsiuA" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJ9ZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJ9pqJEd-df-Hu2EsiuA" name="andromda_persistence_associationEnd_primary" visibility="private" type="_iUfHoZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfJ95qJEd-df-Hu2EsiuA" body="Indicates that an association end is &quot;primary&quot;.  This can be used to indicate which side of a one-to-one a foreign key should be placed on (the &quot;primary&quot; end will get the foreign key)." annotatedElement="_iUfJ9pqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJ-JqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJ-ZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfJ-pqJEd-df-Hu2EsiuA" name="" instance="_iUfHopqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJ-5qJEd-df-Hu2EsiuA" name="andromda_persistence_collection_index" visibility="private">
+        <ownedComment xmi:id="_iUfJ_JqJEd-df-Hu2EsiuA" body="Column containing the collection index" annotatedElement="_iUfJ-5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfJ_ZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfJ_pqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfJ_5qJEd-df-Hu2EsiuA" name="andromda_persistence_collection_index_type" visibility="private">
+        <ownedComment xmi:id="_iUfKAJqJEd-df-Hu2EsiuA" body="The type of the collection index (used when a map is the collection type)." annotatedElement="_iUfJ_5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#DataType"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfKAZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfKApqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfKA5qJEd-df-Hu2EsiuA" name="andromda_persistence_associationEnd_uniqueGroup" visibility="private">
+        <ownedComment xmi:id="_iUfKBJqJEd-df-Hu2EsiuA" body="The name of the unique group that this unique association end belongs to." annotatedElement="_iUfKA5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfKBZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfKBpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfKB5qJEd-df-Hu2EsiuA" name="base_Property" visibility="private" association="_iUfH3ZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfKCJqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfKCZqJEd-df-Hu2EsiuA" name="PersistentElement">
+      <ownedAttribute xmi:id="_iUfKCpqJEd-df-Hu2EsiuA" name="andromda_hibernate_lazy" visibility="private" type="_iUfHoZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfKC5qJEd-df-Hu2EsiuA" body="Denotes whether or not the hibernate entity/relationship/property will be lazily loaded." annotatedElement="_iUfKCpqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfKDJqJEd-df-Hu2EsiuA" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfKDZqJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfKDpqJEd-df-Hu2EsiuA" name="" instance="_iUfHopqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfKD5qJEd-df-Hu2EsiuA" name="andromda_hibernate_xml_tagName" visibility="private">
+        <ownedComment xmi:id="_iUfKEJqJEd-df-Hu2EsiuA" body="Defines the name of the XML element that is generated when an entity, attribute, or associated entity is represented in XML format. Valid only when XML persistence has been enabled. Controls the  node  attribute in the Hibernate mapping file" annotatedElement="_iUfKD5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfKEZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfKEpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfKE5qJEd-df-Hu2EsiuA" name="base_Property" visibility="private" association="_iUfH5ZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfKFJqJEd-df-Hu2EsiuA" name="base_Classifier" visibility="private" association="_iUfH6ZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfKFZqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfKFpqJEd-df-Hu2EsiuA" name="PersistentClass">
+      <ownedAttribute xmi:id="_iUfKF5qJEd-df-Hu2EsiuA" name="andromda_persistence_dummyload_size" visibility="private">
+        <ownedComment xmi:id="_iUfKGJqJEd-df-Hu2EsiuA" body="When generating an dummy load for a database, this tagged value denotes how many rows will be inserted for the table represented by the class on which the tagged value has been modeled." annotatedElement="_iUfKF5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfKGZqJEd-df-Hu2EsiuA" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfKGpqJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_iUfKG5qJEd-df-Hu2EsiuA" name="" value="20"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfKHJqJEd-df-Hu2EsiuA" name="andromda_persistence_immutable" visibility="private" type="_iUfHoZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfKHZqJEd-df-Hu2EsiuA" body="Whether or not a type is immutable (normally used on EmbeddedValues)" annotatedElement="_iUfKHJqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfKHpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfKH5qJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfKIJqJEd-df-Hu2EsiuA" name="" instance="_iUfHopqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfKIZqJEd-df-Hu2EsiuA" name="andromda_persistence_table" visibility="private">
+        <ownedComment xmi:id="_iUfKIpqJEd-df-Hu2EsiuA" body="Stores the name of a relational table that persists an entity.&#xA;Applies to cartridges: EJB, EJB3, Hibernate, Spring" annotatedElement="_iUfKIZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfKI5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfKJJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfKJZqJEd-df-Hu2EsiuA" name="andromda_serialVersionUID" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfKJpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfKJ5qJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfKKJqJEd-df-Hu2EsiuA" name="base_Class" visibility="private" association="_iUfHuZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfKKZqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfKKpqJEd-df-Hu2EsiuA" name="EnumerationLiteral">
+      <ownedAttribute xmi:id="_iUfKK5qJEd-df-Hu2EsiuA" name="andromda_persistence_enumeration_member_variable" visibility="private" type="_iUfHoZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfKLJqJEd-df-Hu2EsiuA" body="If true, the enumeration attribute is defined as a member variable rather than a literal." annotatedElement="_iUfKK5qJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfKLZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfKLpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfKL5qJEd-df-Hu2EsiuA" name="" instance="_iUfHopqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfKMJqJEd-df-Hu2EsiuA" name="andromda_persistence_enumeration_literal_parameters" visibility="private">
+        <ownedComment xmi:id="_iUfKMZqJEd-df-Hu2EsiuA" body="Defines the enumeration literal parameters as a comma separated list." annotatedElement="_iUfKMJqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfKMpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfKM5qJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfKNJqJEd-df-Hu2EsiuA" name="andromda_persistence_enumeration_type" visibility="private" type="_iUfHcZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUfKNZqJEd-df-Hu2EsiuA" body="Defines the persistent property/field enumeration type.  If not specifed, enumeration is assumed to be of ORDINAL type.&#xA;Applies to cartridge: EJB3" annotatedElement="_iUfKNJqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUfKNpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUfKN5qJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUfKOJqJEd-df-Hu2EsiuA" name="" instance="_iUfHc5qJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUfKOZqJEd-df-Hu2EsiuA" name="base_Property" visibility="private" association="_iUfHwZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUfKOpqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUfKO5qJEd-df-Hu2EsiuA" name="TemporalElement">
+      <ownedAttribute xmi:id="_iUoo4JqJEd-df-Hu2EsiuA" name="andromda_persistence_temporal_type" visibility="private" type="_iUfHjJqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUoo4ZqJEd-df-Hu2EsiuA" body="Temporal type tagged value specified on entity attributes with type java.util.Date or java.util.Calendar OR on finder method arguments of type Date, Time and Timestamp.&#xA;Applies to cartridges: EJB3" annotatedElement="_iUoo4JqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUoo4pqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUoo45qJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUoo5JqJEd-df-Hu2EsiuA" name="" instance="_iUfHjpqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUoo5ZqJEd-df-Hu2EsiuA" name="base_Parameter" visibility="private" association="_iUfIAZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Parameter"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUoo5pqJEd-df-Hu2EsiuA" name="base_Property" visibility="private" association="_iUfIBZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUoo55qJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUoo6JqJEd-df-Hu2EsiuA" name="PersistentPackage">
+      <ownedAttribute xmi:id="_iUoo6ZqJEd-df-Hu2EsiuA" name="andromda_persistence_table_prefix" visibility="private">
+        <ownedComment xmi:id="_iUoo6pqJEd-df-Hu2EsiuA" body="The table name would be composed of the main prefix (the one set with tableNamePrefix namespace property in andromda.xml) + the prefix for the package + the SQL name from the entity." annotatedElement="_iUoo6ZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUoo65qJEd-df-Hu2EsiuA" name="base_Element" visibility="private" association="_iUfIFZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUoo7JqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUoo7ZqJEd-df-Hu2EsiuA" name="Manageable">
+      <ownedAttribute xmi:id="_iUoo7pqJEd-df-Hu2EsiuA" name="andromda_manageable_table_pagesize" visibility="private">
+        <ownedComment xmi:id="_iUoo75qJEd-df-Hu2EsiuA" body="The number of table records to show at the same time for this entity." annotatedElement="_iUoo7pqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUoo8JqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUoo8ZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_iUoo8pqJEd-df-Hu2EsiuA" name="" value="20"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUoo85qJEd-df-Hu2EsiuA" name="andromda_manageable_table_displayname" visibility="private">
+        <ownedComment xmi:id="_iUoo9JqJEd-df-Hu2EsiuA" body="The name to display for this table when referencing it from another table's context." annotatedElement="_iUoo85qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUoo9ZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUoo9pqJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUoo95qJEd-df-Hu2EsiuA" name="andromda_manageable_table_maxlistsize" visibility="private">
+        <ownedComment xmi:id="_iUoo-JqJEd-df-Hu2EsiuA" body="The maximum number of rows to load from the database when managing this element." annotatedElement="_iUoo95qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUoo-ZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUoo-pqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_iUoo-5qJEd-df-Hu2EsiuA" name="" value="250"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUoo_JqJEd-df-Hu2EsiuA" name="andromda_manageable_table_resolveable" visibility="private" type="_iUfHoZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUoo_ZqJEd-df-Hu2EsiuA" body="When this table is referenced by another table the keys for this table for be resolved, allowing the user to select one from a list, set this value to 'false' when this table is known to contain a lot of records." annotatedElement="_iUoo_JqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUoo_pqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUoo_5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUopAJqJEd-df-Hu2EsiuA" name="" instance="_iUfHopqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUopAZqJEd-df-Hu2EsiuA" name="base_Class" visibility="private" association="_iUfH1ZqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUopApqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <profileApplication xmi:id="_iUorDpqJEd-df-Hu2EsiuA">
+      <eAnnotations xmi:id="_iUorD5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.UML_Standard_Profile.profile.uml#_iUe5gpqJEd-df-Hu2EsiuA"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.UML_Standard_Profile.profile.uml#_iUe5gJqJEd-df-Hu2EsiuA"/>
+    </profileApplication>
+  </uml:Profile>
+  <UMLStandardProfile:modelLibrary xmi:id="_iUorEJqJEd-df-Hu2EsiuA" base_Package="_iUfFdpqJEd-df-Hu2EsiuA"/>
+</xmi:XMI>
