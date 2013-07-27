@@ -1,0 +1,78 @@
+#macro(securityEntries $useCases $manageables $roles)
+#foreach ($useCase in $useCases)
+#if(!$useCase.registrationUseCase)
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>$useCase.name resources</web-resource-name>
+            <description>
+                This collection secures all views and resources
+                as well as the actions called in the "$useCase.name" use-case
+            </description>
+            <url-pattern>${useCase.pathRoot}/*</url-pattern>
+        </web-resource-collection>
+#if ($useCase.secured || $stringUtils.isNotBlank($defaultRole))
+        <auth-constraint>
+#if ($stringUtils.isNotBlank($defaultRole))
+            <role-name>${defaultRole}</role-name>
+#end
+#foreach ($user in $useCase.roles)
+            <role-name>$user.name</role-name>
+#end
+        </auth-constraint>
+#end
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+#end
+#end
+#foreach ($manageable in $manageables)
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Manage ${manageable.name} resources</web-resource-name>
+            <description>
+                This collection secures all views and resources
+                as well as the actions called in the "Manage ${manageable.name}" use-case
+            </description>
+            <url-pattern>${manageable.viewFullPath}.${facesServletExtension}</url-pattern>
+        </web-resource-collection>
+#if (!$manageable.roles.empty || $stringUtils.isNotBlank($defaultRole))
+        <auth-constraint>
+#if ($stringUtils.isNotBlank($defaultRole))
+            <role-name>${defaultRole}</role-name>
+#end
+#foreach ($role in $manageable.roles)
+            <role-name>${role.name}</role-name>
+#end
+        </auth-constraint>
+#end
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+#end
+    <login-config>
+        <auth-method>$loginConfigAuthMethod</auth-method>
+        <realm-name>$securityRealm</realm-name>
+#if ($loginConfigAuthMethod == 'FORM')
+        <form-login-config>
+            <form-login-page>/${loginFileName}.${facesServletExtension}</form-login-page>
+            <form-error-page>/${loginFileName}.${facesServletExtension}?action=error</form-error-page>
+        </form-login-config>
+#end
+    </login-config>
+
+#foreach ($user in $roles)
+    <security-role>
+        <role-name>$user.name</role-name>
+    </security-role>
+#end
+#if ($stringUtils.isNotBlank($defaultRole))
+    <security-role>
+        <role-name>${defaultRole}</role-name>
+    </security-role>
+    
+#end
+#end
