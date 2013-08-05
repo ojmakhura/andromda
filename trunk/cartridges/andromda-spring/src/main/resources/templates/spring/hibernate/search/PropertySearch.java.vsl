@@ -278,11 +278,10 @@ public class $className
                     }
                     propertyType = type;
                 }
-                final Object object = propertyType.newInstance();
                 final String name = parameter.getName().replaceAll(".*\\" + PERIOD, "");
                 try
                 {
-                    value = convert(value, PropertyUtils.getPropertyType(object, name));
+                    value = convert(value, propertyType.getMethod("get"+StringUtils.capitalize(name), (Class<?>[])null).getReturnType());
                 }
                 catch (final NoSuchMethodException noSuchMethodException)
                 {
