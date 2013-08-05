@@ -6,14 +6,14 @@ class JsfExceptionHandler
     extends javax.faces.context.ExceptionHandlerWrapper 
 {
     /**
-     * Parent ExceptionHandler
+     * Parent javax.faces.context.ExceptionHandler
      */
     private javax.faces.context.ExceptionHandler parent;
 
     /**
      * Constructor
      *
-     * @param parent the parent ExceptionHandler
+     * @param parent the parent javax.faces.context.ExceptionHandler
      */
     public JsfExceptionHandler(javax.faces.context.ExceptionHandler parent) 
     {
@@ -40,11 +40,11 @@ class JsfExceptionHandler
                                  final javax.faces.application.FacesMessage.Severity severity)
     {
         javax.faces.context.FacesContext.getCurrentInstance().addMessage(clientId, 
-                        new FacesMessage(severity,message,null));
+                        new javax.faces.application.FacesMessage(severity,message,null));
     }
 
     /**
-     * Append a message to the current instance of FacesContext
+     * Append a message to the current instance of javax.faces.context.FacesContext
      *
      * @param message the message to be appended
      * @param severity the severity of the message
@@ -65,7 +65,7 @@ class JsfExceptionHandler
      */
     private void addErrorMessage(String clientId, String message)
     {
-        addFacesMessage(clientId, message, FacesMessage.SEVERITY_ERROR);
+        addFacesMessage(clientId, message, javax.faces.application.FacesMessage.SEVERITY_ERROR);
     }
     
     /**
@@ -81,7 +81,7 @@ class JsfExceptionHandler
     /**
      * Show validation messages of a given severity
      *
-     * @param validationMessages collection of ValidationExceptionInfo
+     * @param validationMessages java.util.Collection of ValidationExceptionInfo
      * @param severity the severity of the validation messages
      * @return true if some clientId has any attached message
      */    
@@ -142,7 +142,7 @@ class JsfExceptionHandler
         return existsFieldMessage;
     }
 
-    private static final java.util.regex.Pattern compiledPattern = java.util.regex.Pattern.compile("${exceptionHandlerPattern}");
+    private static final java.util.regex.Pattern compiledPattern = java.util.regex.Pattern.compile("(.*)(\\{\\s*([\\w|\\.+]*)\\s*\\})(.*)");
 
     /**
      * The property on the exception which could possibly contain any 
@@ -241,7 +241,7 @@ class JsfExceptionHandler
             final Throwable t = context.getException();
             if (t instanceof javax.faces.application.ViewExpiredException) 
             {
-                final javax.faces.context.FacesContext fc = FacesContext.getCurrentInstance();
+                final javax.faces.context.FacesContext fc = javax.faces.context.FacesContext.getCurrentInstance();
                 final javax.faces.application.NavigationHandler nav = fc.getApplication().getNavigationHandler();
                 try {
                     nav.handleNavigation(fc, null, "/login.jsf?faces-redirect=true");
@@ -257,8 +257,8 @@ class JsfExceptionHandler
                 {
                     final ValidationException vd = (ValidationException)cause;
                     existsFieldMessage=
-                        showValidationMessages(vd.getErrors(),FacesMessage.SEVERITY_ERROR) ||
-                        showValidationMessages(vd.getWarnings(),FacesMessage.SEVERITY_WARN);
+                        showValidationMessages(vd.getErrors(),javax.faces.application.FacesMessage.SEVERITY_ERROR) ||
+                        showValidationMessages(vd.getWarnings(),javax.faces.application.FacesMessage.SEVERITY_WARN);
                     i.remove();
                     existsMessage=true;
                 }
@@ -267,12 +267,38 @@ class JsfExceptionHandler
                     i.remove();
                     existsMessage=true;
                 }
+                else 
+                {
+
+                    Throwable exception = t; 
+                    while(exception != null && !(exception instanceof java.sql.SQLException))//verifica se é exceção de banco 
+                    {
+                        exception = exception.getCause();
+                    }
+                    
+                    String message;
+                    if(exception instanceof java.sql.SQLException)
+                    {
+                        message = Messages.get("attention", new String[]{exception.getMessage()});
+                    } 
+                    else 
+                    {
+                        final String excMessage = t.getMessage()==null?t.toString():t.getMessage();
+                        message = Messages.get("unexpected.error", new String[]{excMessage});
+                        java.util.logging.Logger.getAnonymousLogger().severe(excMessage);
+                    }
+                    
+                    JsfUtils.addErrorMessage(message);
+
+                    i.remove();
+                    existsMessage=true;                    
+                }
             }
         }
 
         if(existsMessage)
         {
-            FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("jsfMessagesTitle", Messages.get("errors.header"));
+            javax.faces.context.FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("jsfMessagesTitle", Messages.get("errors.header"));
             if(existsFieldMessage)
             {
                 addErrorMessage(Messages.get("there.are.field.validation.errors"));
