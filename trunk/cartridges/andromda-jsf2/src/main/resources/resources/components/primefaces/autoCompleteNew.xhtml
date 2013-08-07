@@ -40,7 +40,7 @@
                 valueSetter="#{valueSetter}"/>
             <h:outputScript>
                 function #{valueSetter}(id,value){
-                //TODO buscar do converter
+                //TODO get from the converter
 //                    document.getElementById('#{cc.clientId}:autoComplete_hinput').value=id;
 //                    document.getElementById('#{cc.clientId}:autoComplete_hinput').value=id;
                 }
@@ -49,5 +49,16 @@
                 onclick="#{baseName}_dialog_show(); return false;"/>
             </h:panelGroup>
         </p:panelGrid>
+        
+        <!-- The following code is needed to put the '*' in the labels. See: http://stackoverflow.com/questions/15002441/primefaces-outputlabel-for-composite-component -->
+        <h:outputScript rendered="#{cc.attrs.required}">
+            /*<![CDATA[*/
+            var label = $("label[for='#{cc.clientId}:autoComplete_input']");
+            if(label){
+                label.html(label.html()+'<span class="ui-outputlabel-rfi">*</span>');
+            }
+            /*]]>*/
+        </h:outputScript>
+        
     </cc:implementation>
 </html>
