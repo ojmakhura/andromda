@@ -45,15 +45,16 @@
             <plugin>
                 <artifactId>maven-invoker-plugin</artifactId>
                 <configuration>
-                <!-- skipping invocation until finish the JSF2 cartridge inclusion -->
+                <!-- skipping invocation until finish the JSF2 cartridge inclusion>
                     <skipInstallation>true</skipInstallation>
-                    <skipInvocation>true</skipInvocation>
+                    <skipInvocation>true</skipInvocation -->
                 <!-- -->
                     <streamLogs>true</streamLogs>
                     <projectsDirectory>${project.basedir}</projectsDirectory>
-                    <pomIncludes>
-                        <pomInclude>*/pom.xml</pomInclude>
-                    </pomIncludes>
+                    <pomExcludes>
+                        <!--pomInclude>*/pom.xml</pomInclude-->
+                        <pomExclude>crud/pom.xml</pomExclude>
+                    </pomExcludes>
                 </configuration>
                 <executions>
                     <execution>
