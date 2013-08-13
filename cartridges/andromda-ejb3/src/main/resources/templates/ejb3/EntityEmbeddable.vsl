@@ -503,7 +503,7 @@ $target.getDocumentation("     * ")
 ##
 #*      *##if (!$target.type.compositePrimaryKeyPresent)
 ##    // assocEnd=$associationEnd.fullyQualifiedName optional=$target.optional $target.insertEnabled $target.updateEnabled $associationEnd.insertEnabled $associationEnd.updateEnabled end=$associationEnd.optional target=$target.type.name assocEnd=$associationEnd.type.name
-    @javax.persistence.JoinColumn(name="$target.columnName"#if ($associationEnd.columnDefinition), columnDefinition="$associationEnd.columnDefinition"#end#if ($associationEnd.columnNullable), nullable=false#end, insertable=true, updatable=true)
+    @javax.persistence.JoinColumn(name="$target.columnName"#if ($associationEnd.columnDefinition), columnDefinition="$associationEnd.columnDefinition"#end#if (!$associationEnd.columnNullable), nullable=false#end, insertable=true, updatable=true)
 #*      *##else
 #*        *##set ($identifiers = $target.type.identifiers)
     // Order of the JoinColumns is EXTREMELY important - must match the order in the FK definition
