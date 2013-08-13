@@ -31,6 +31,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIHelperImpl;
 import org.eclipse.uml2.uml.Abstraction;
 import org.eclipse.uml2.uml.Comment;
@@ -296,7 +297,22 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected String handleGetId()
     {
-        return xmiHelper.getID(this.metaObject);
+        if (this.metaObject == null || this.metaObject.eResource() == null)
+            return null;
+        // From http://www.openarchitectureware.org/forum/viewtopic.php?showtopic=6653
+        Resource xmiResource = this.metaObject.eResource();
+        String rtn = ((XMLResource) xmiResource).getID(this.metaObject);
+        /*if (rtn == null)
+        {
+            // From http://www.eclipse.org/forums/index.php?t=msg&th=130555/
+            rtn = xmiResource.getURIFragment(this.metaObject);
+            if (rtn == null)
+            {
+                // This always returns null for UML2, but just in case something changes, try anyway
+                rtn = xmiHelper.getID(this.metaObject);
+            }
+        }*/
+        return rtn;
     }
 
     /**
