@@ -75,7 +75,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <buildSourceDirectory>${project.basedir}/target/src</buildSourceDirectory>
+                        <buildSourceDirectory>${project.basedir}/target/src/main/java</buildSourceDirectory>
                         <lastModifiedCheck>true</lastModifiedCheck>
                     </configuration>
                 </plugin>
@@ -91,7 +91,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <buildSourceDirectory>${project.basedir}/target/src</buildSourceDirectory>
+                        <buildSourceDirectory>${project.basedir}/target/src/main/java</buildSourceDirectory>
                         <lastModifiedCheck>true</lastModifiedCheck>
                     </configuration>
                 </plugin>
@@ -147,7 +147,7 @@
     <properties>
         <model.file>${project.basedir}/src/main/uml/${project.artifactId}.xml.zip</model.file>
         <maven.andromda.model.uri>jar:file:${model.file}!/${project.artifactId}.xml</maven.andromda.model.uri>
-        <maven.build.src>${project.basedir}/target/src</maven.build.src>
+        <maven.build.src>${project.basedir}/target/src/main/java</maven.build.src>
         <maven.src.dir>${project.basedir}/src/main</maven.src.dir>
     </properties>
 </project>

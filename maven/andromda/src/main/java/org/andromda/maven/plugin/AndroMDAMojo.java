@@ -25,14 +25,16 @@ public class AndroMDAMojo
      * Checks files in buildSourceDirectory against configurationUri and referenced model dates.
      *
      * @parameter expression="${lastModifiedCheck}"
+     *   default-value=true
      */
-    private boolean lastModifiedCheck = false;
+    private boolean lastModifiedCheck = true;
 
     /**
      * Whether or not processing should be skipped (this is if you just want to force AndroMDA
      * not to run on your model).
      *
      * @parameter expression="${andromda.run.skip}"
+     *   default-value=false
      */
     private boolean skipProcessing = false;
 
@@ -81,6 +83,11 @@ public class AndroMDAMojo
     public void execute(final Configuration configuration)
         throws MojoExecutionException
     {
+    	if (getLog().isDebugEnabled())
+    	{
+        	getLog().debug("lastModifiedCheck="+this.lastModifiedCheck + " skipProcessing="+this.skipProcessing 
+            		+ " modelOutputHistory="+this.modelOutputHistory + " allowMultipleRuns="+this.allowMultipleRuns);    		
+    	}
         if (!this.skipProcessing)
         {
             boolean execute = true;
@@ -89,6 +96,10 @@ public class AndroMDAMojo
                 long date = this.getLastModelConfigDate(configuration);
                 execute = ResourceUtils.modifiedAfter(date,
                         this.buildSourceDirectory);
+            	if (getLog().isDebugEnabled())
+            	{
+                	getLog().debug("this.lastModifiedCheck="+this.lastModifiedCheck + " execute="+execute + " date="+date);    		
+            	}
             }
             if (execute)
             {

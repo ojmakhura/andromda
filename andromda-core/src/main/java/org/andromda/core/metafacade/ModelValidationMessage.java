@@ -177,7 +177,6 @@ public class ModelValidationMessage
     /**
      * @see Object#equals(Object)
      */
-    @SuppressWarnings("null") // Compiler doesn't not recognize that object cannot be null when using message
     public boolean equals(Object object)
     {
         boolean equals = object != null && ModelValidationMessage.class == object.getClass();
