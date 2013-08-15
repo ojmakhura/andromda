@@ -100,23 +100,23 @@
         <conf.dir>${pom.basedir}/conf</conf.dir>
         <!-- cartridge output locations -->
 #if (!$transactionPersistenceType.equals("none"))
-        <core.generated.dir>${project.build.sourceDirectory}/../../../../core/target/src</core.generated.dir>
+        <core.generated.dir>${project.build.sourceDirectory}/../../../../core/target/src/main/java</core.generated.dir>
         <core.manual.dir>${project.build.sourceDirectory}/../../../../core/src/main/cs</core.manual.dir>
 #end
 #if ($web)
         <web.dir>${project.build.sourceDirectory}/../../../../web</web.dir>
-        <web.generated.dir>${project.build.sourceDirectory}/../../../../web/target/src</web.generated.dir>
+        <web.generated.dir>${project.build.sourceDirectory}/../../../../web/target/src/main/webapp</web.generated.dir>
         <web.manual.dir>${project.build.sourceDirectory}/../../../../web/src/main</web.manual.dir>
 #end
 #if ($workflow)
         <workflow.generated.dir>${project.build.sourceDirectory}/../../../../workflow/target/src</workflow.generated.dir>
-        <workflow.manual.dir>${project.build.sourceDirectory}/../../../../workflow/src/main</workflow.manual.dir>
+        <workflow.manual.dir>${project.build.sourceDirectory}/../../../../workflow/src/main/java</workflow.manual.dir>
 #end
 #if ($webservice)
-        <webservice.generated.dir>${project.build.sourceDirectory}/../../../../webservice/target/src</webservice.generated.dir>
+        <webservice.generated.dir>${project.build.sourceDirectory}/../../../../webservice/target/src/main/java</webservice.generated.dir>
         <webservice.generated.wsdl.dir>${webservice.generated.dir}/wsdl</webservice.generated.wsdl.dir>
 #end
-        <common.generated.dir>${project.build.sourceDirectory}/../../../../common/target/src</common.generated.dir>
+        <common.generated.dir>${project.build.sourceDirectory}/../../../../common/target/src/main/java</common.generated.dir>
 #if ($nhibernate || $nspring)
         <!-- hibernate configuration -->
         <!-- default strategy to use when using inhertiance -->

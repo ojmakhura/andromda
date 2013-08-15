@@ -15,7 +15,7 @@
             <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../../profiles/uml-1.4</location-->
   <repository name="emf-uml22">
       <models>
-        <model type="emf-uml22">
+        <model type="emf-uml22" lastModifiedCheck="true">
           <uri>${uml2.model.uri}</uri>
             <moduleSearchLocations>
             <location patterns="**/*.uml">${project.basedir}/src/main/uml2</location>

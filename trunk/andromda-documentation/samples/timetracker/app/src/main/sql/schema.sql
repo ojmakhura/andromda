@@ -6,16 +6,16 @@
         drop constraint FKAC90A02DE0D9D5F3;
 
     alter table TIMECARD 
-        drop constraint FKB2DA8F5DFE6750ED;
+        drop constraint FKB2DA8F5D6F97679F;
 
     alter table TIMECARD 
-        drop constraint FKB2DA8F5D30444EA9;
+        drop constraint FKB2DA8F5D1392C063;
 
     alter table TIME_ALLOCATION 
-        drop constraint FKA0527592E9D46723;
+        drop constraint FKA05275922A5D9FDD;
 
     alter table TIME_ALLOCATION 
-        drop constraint FKA0527592C6D38653;
+        drop constraint FKA05275928DFDC35D;
 
     drop table ROLES_USER if exists;
 
@@ -48,8 +48,8 @@
         COMMENTS varchar(255),
         START_DATE timestamp,
         STATUS varchar(255),
-        APPROVER bigint,
-        SUBMITTER bigint not null,
+        APPROVER_FK bigint,
+        SUBMITTER_FK bigint not null,
         primary key (TIMECARD_ID)
     );
 
@@ -57,8 +57,8 @@
         TIME_ALLOCATION_ID bigint not null,
         TIME_PERIOD_END_TIME timestamp,
         TIME_PERIOD_START_TIME timestamp,
-        TASK bigint not null,
-        TIMECARD bigint not null,
+        TASK_FK bigint not null,
+        TIMECARD_FK bigint not null,
         primary key (TIME_ALLOCATION_ID)
     );
 
@@ -92,23 +92,23 @@
         references USERS;
 
     alter table TIMECARD 
-        add constraint FKB2DA8F5DFE6750ED 
-        foreign key (SUBMITTER) 
+        add constraint FKB2DA8F5D6F97679F 
+        foreign key (SUBMITTER_FK) 
         references USERS;
 
     alter table TIMECARD 
-        add constraint FKB2DA8F5D30444EA9 
-        foreign key (APPROVER) 
+        add constraint FKB2DA8F5D1392C063 
+        foreign key (APPROVER_FK) 
         references USERS;
 
     alter table TIME_ALLOCATION 
-        add constraint FKA0527592E9D46723 
-        foreign key (TASK) 
-        references TASK;
+        add constraint FKA05275922A5D9FDD 
+        foreign key (TIMECARD_FK) 
+        references TIMECARD;
 
     alter table TIME_ALLOCATION 
-        add constraint FKA0527592C6D38653 
-        foreign key (TIMECARD) 
-        references TIMECARD;
+        add constraint FKA05275928DFDC35D 
+        foreign key (TASK_FK) 
+        references TASK;
 
     create sequence hibernate_sequence start with 1 increment by 1;

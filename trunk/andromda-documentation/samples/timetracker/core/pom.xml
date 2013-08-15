@@ -100,7 +100,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>net.sf.ehcache</groupId>
+            <groupId>net.sf.ehcache.internal</groupId>
             <artifactId>ehcache-core</artifactId>
         </dependency>
         <dependency>
@@ -268,7 +268,7 @@
                   <dependency>
                       <groupId>org.hibernate</groupId>
                       <artifactId>hibernate-validator</artifactId>
-                      <version>4.3.1.Final</version>
+                      <version>5.0.1.Final</version>
                   </dependency>
                   <!-- Default maven 2.2.1 depends on slf4j-jdk14 1.5.6 which conflicts with JDK6 and slf4j12-log4j -->
                   <dependency>
@@ -300,7 +300,8 @@
                 </execution>
               </executions>
             </plugin-->
-            <!-- Run h2 tcp server manually by 'mvn exec:java sql:execute' for local unit testing, this is configuration only, not run during build -->
+            <!-- Run h2 tcp server manually by 'mvn exec:java sql:execute' for local unit testing, this is configuration only,
+            not run during build because it can't be shut down separately. -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -362,7 +363,9 @@
                                 <includes>
                                     <!--include>1test-data-delete.sql</include>
                                     <include>2static-data-delete.sql</include-->
+                                    <!-- Run hibernate generated SQL until manual DBA SQL is available -->
                                     <include>schema.sql</include>
+                                    <!-- These test SQL files are manually created/maintained, run only for manual tests requiring data -->
                                     <include>static-data-insert.sql</include>
                                     <include>test-data-insert.sql</include>
                                 </includes>

@@ -149,7 +149,7 @@
         <dependency>
             <groupId>org.hibernate.common</groupId>
             <artifactId>hibernate-commons-annotations</artifactId>
-            <version>4.0.1.Final</version>
+            <version>4.0.2.Final</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -164,7 +164,7 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>net.sf.ehcache</groupId>
+            <groupId>net.sf.ehcache.internal</groupId>
             <artifactId>ehcache-core</artifactId>
         </dependency>
 #if ($cxf)
@@ -175,7 +175,7 @@
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
 #if (!$spring)
-            <version>2.2.2</version>
+            <version>3.0</version>
 #end
         </dependency>
 #if (!$spring && $cxf)
@@ -223,12 +223,20 @@
         </dependency>
 #end
         <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+        <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
         </dependency>
         <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
@@ -241,14 +249,6 @@
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
         </dependency>
 #if ($ejb3)
         <dependency>
@@ -318,7 +318,7 @@
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
-            <version>2.2.2</version>
+            <version>3.0</version>
         </dependency>
 #end
         <dependency>
@@ -341,7 +341,7 @@
 #end
         </dependency>
         <dependency>
-            <groupId>net.sf.ehcache</groupId>
+            <groupId>net.sf.ehcache.internal</groupId>
             <artifactId>ehcache-core</artifactId>
         </dependency>
         <dependency>
@@ -528,7 +528,7 @@
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
-            <version>2.2.2</version>
+            <version>3.0</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

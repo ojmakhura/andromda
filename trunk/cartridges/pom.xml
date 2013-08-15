@@ -84,7 +84,7 @@
                                 <goal>run</goal>
                             </goals>
                             <configuration>
-                                <buildSourceDirectory>${project.basedir}/target/src</buildSourceDirectory>
+                                <buildSourceDirectory>${project.basedir}/target/src/main/java</buildSourceDirectory>
                                 <configurationUri>file:${project.basedir}/../conf/andromdaUML2.xml</configurationUri>
                                 <lastModifiedCheck>true</lastModifiedCheck>
                             </configuration>
@@ -189,9 +189,10 @@
         <module>andromda-xmlschema</module>
         <module>manageable-entities</module>
         <module>support</module>
+        <module>andromda-jsf2</module>
     </modules>
     <properties>
-        <maven.build.src>${project.basedir}/target/src</maven.build.src>
+        <maven.build.src>${project.basedir}/target/src/main/java</maven.build.src>
         <java.src.dir>${project.build.sourceDirectory}</java.src.dir>
         <test.src.dir>${project.basedir}/src/test</test.src.dir>
         <src.dir>${project.basedir}/src</src.dir>

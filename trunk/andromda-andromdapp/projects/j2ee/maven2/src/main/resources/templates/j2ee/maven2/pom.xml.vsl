@@ -24,7 +24,7 @@
 #if ($stringUtils.isNotBlank($projectUrl) && !$projectUrl.equals('$projectUrl'))
     <url>$projectUrl</url>
 #else
-    <url>http://www.andromda.org/</url>
+    <url>http://andromda.sourceforge.net/</url>
 #end
     <issueManagement>
 #if ($stringUtils.isNotBlank($issueSystem) && !$issueSystem.equals('$issueSystem'))
@@ -158,7 +158,7 @@
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy-all</artifactId>
-                <version>2.0.2</version>
+                <version>2.1.4</version>
             </dependency>
 #end
 #end
@@ -220,7 +220,7 @@
             <dependency>
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
-                <version>1.0.0.GA</version>
+                <version>1.1.0.GA</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.extensions.validator</groupId>
@@ -257,13 +257,13 @@
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>4.3.1.Final</version>
+                <version>5.0.1.Final</version>
             </dependency>
 #end
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.7.2</version>
+                <version>1.7.5</version>
 #if($ear && !$cxf)
                 <scope>provided</scope>
 #end
@@ -271,7 +271,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
-                <version>1.7.2</version>
+                <version>1.7.5</version>
 #if($ear && !$cxf)
                 <scope>provided</scope>
 #end
@@ -407,7 +407,7 @@
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
-                <version>1.7</version>
+                <version>1.8</version>
             </dependency>
             <dependency>
                 <groupId>commons-collections</groupId>
@@ -421,7 +421,7 @@
             <dependency>
                 <groupId>commons-fileupload</groupId>
                 <artifactId>commons-fileupload</artifactId>
-                <version>1.2.2</version>
+                <version>1.3</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
@@ -437,7 +437,7 @@
             <dependency>
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
-                <version>1.1.1</version>
+                <version>1.1.2</version>
 #if ($ear && !$cxf)
                 <scope>provided</scope>
 #end
@@ -451,7 +451,7 @@
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>4.3.1.Final</version>
+                <version>5.0.1.Final</version>
             </dependency>
             <!-- JBoss Dependencies -->
             <dependency>
@@ -549,9 +549,9 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>net.sf.ehcache</groupId>
+                <groupId>net.sf.ehcache.internal</groupId>
                 <artifactId>ehcache-core</artifactId>
-                <version>2.6.3</version>
+                <version>2.7.2</version>
                 <scope>provided</scope>
             </dependency>
 #if ($spring || $hibernate)
@@ -559,7 +559,7 @@
             <dependency>
                 <groupId>org.javassist</groupId>
                 <artifactId>javassist</artifactId>
-                <version>3.17.1-GA</version>
+                <version>3.18.0-GA</version>
             </dependency>
 #end
 #else
@@ -567,9 +567,7 @@
                 <groupId>jboss</groupId>
                 <artifactId>jboss-j2ee</artifactId>
                 <version>4.2.2.GA</version>
-#if ($ear)
                 <scope>provided</scope>
-#end
             </dependency>
 #end
 #if (!$ejb && !$ejb3)
@@ -592,17 +590,17 @@
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>4.3.1.Final</version>
+                <version>5.0.1.Final</version>
             </dependency>
             <dependency>
-                <groupId>net.sf.ehcache</groupId>
+                <groupId>net.sf.ehcache.internal</groupId>
                 <artifactId>ehcache-core</artifactId>
-                <version>2.6.2</version>
+                <version>2.7.2</version>
             </dependency>
             <dependency>
                 <groupId>org.javassist</groupId>
                 <artifactId>javassist</artifactId>
-                <version>3.17.1-GA</version>
+                <version>3.18.0-GA</version>
 #if ($ear)
                 <scope>test</scope>
 #end
@@ -611,7 +609,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.7.2</version>
+                <version>1.7.5</version>
 #if($ear && !$cxf)
                 <scope>provided</scope>
 #end
@@ -619,7 +617,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
-                <version>1.7.2</version>
+                <version>1.7.5</version>
 #if($ear && !$cxf)
                 <scope>provided</scope>
 #end
@@ -709,7 +707,7 @@
             <dependency>
                 <groupId>cglib</groupId>
                 <artifactId>cglib-nodep</artifactId>
-                <version>2.2.2</version>
+                <version>3.0</version>
                 <scope>runtime</scope>
             </dependency>
 #end
@@ -753,7 +751,7 @@
             <dependency>
                 <groupId>com.lowagie</groupId>
                 <artifactId>itext</artifactId>
-                <version>2.1.7</version>
+                <version>4.2.1</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
@@ -778,6 +776,7 @@
             <dependency>
                 <groupId>struts</groupId>
                 <artifactId>struts</artifactId>
+                <!-- v1.3: package org.apache.struts.actions does not exist -->
                 <version>1.2.9</version>
                 <exclusions>
                     <exclusion>
@@ -870,7 +869,7 @@
             <dependency>
                 <groupId>wsdl4j</groupId>
                 <artifactId>wsdl4j</artifactId>
-                <version>1.6.2</version>
+                <version>1.6.3</version>
             </dependency>
 #else
             <!-- Axis2 Dependencies -->
@@ -980,7 +979,7 @@
             <dependency>
                 <groupId>wsdl4j</groupId>
                 <artifactId>wsdl4j</artifactId>
-                <version>1.6.2</version>
+                <version>1.6.3</version>
             </dependency>
 #end
 #elseif ($xfire)
@@ -1029,7 +1028,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.7.2</version>
+                <version>1.7.5</version>
 #if($ear && !$cxf)
                 <scope>provided</scope>
 #end
@@ -1037,7 +1036,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
-                <version>1.7.2</version>
+                <version>1.7.5</version>
 #if($ear && !$cxf)
                 <scope>provided</scope>
 #end
@@ -1113,10 +1112,53 @@
                 <artifactId>cxf-bundle</artifactId>
                 <version>${cxf.version}</version>
                 <exclusions>
-                    <!-- Remove exclusion if using JMS -->
+                    <!--Remove exclusion if using JavaMail or MTOM/SAAJ -->
+                    <exclusion>
+                        <groupId>org.apache.geronimo.specs</groupId>
+                        <artifactId>geronimo-javamail_1.4_spec</artifactId>
+                    </exclusion>
+                    <!--Jetty should not be compile scope, should not be bundled-->
+                    <exclusion>
+				        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-server</artifactId>
+                    </exclusion>
+                    <exclusion>
+				        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-continuation</artifactId>
+                    </exclusion>
+                    <exclusion>
+				        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-http</artifactId>
+                    </exclusion>
+                    <exclusion>
+				        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-io</artifactId>
+                    </exclusion>
+                    <exclusion>
+				        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-util</artifactId>
+                    </exclusion>
+                    <exclusion>
+				        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-security</artifactId>
+                    </exclusion>
+                    <!--Remove exclusions if using JMS-->
+                    <exclusion>
+				        <groupId>org.apache.geronimo.specs</groupId>
+                        <artifactId>geronimo-jms_1.1_spec</artifactId>
+                    </exclusion>
                     <exclusion>
                         <groupId>org.springframework</groupId>
                         <artifactId>spring-jms</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-tx</artifactId>
+                    </exclusion>
+                    <!-- Now part of spring-core, no new versions after v3.2 -->
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-asm</artifactId>
                     </exclusion>
                     <exclusion>
                         <groupId>org.apache.activemq</groupId>
@@ -1160,6 +1202,11 @@
                         <groupId>jaxen</groupId>
                         <artifactId>jaxen</artifactId>
                     </exclusion>
+                    <!-- CXF 2.7.5 references outdated version 2.5.1. groupId changed in v2.7 -->
+                    <exclusion>
+                        <groupId>net.sf.ehcache</groupId>
+                        <artifactId>ehcache-core</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <!-- CXF bundle dependencies needed for build that should not be bundled with artifact, especially for WebSphere-->
@@ -1181,17 +1228,23 @@
                 <version>1.6.4</version>
                 <scope>provided</scope>
             </dependency>
+            <!-- CXF 2.7.5 references outdated version 2.5.1. groupId changed in v2.7. Add dependency to projects if you need caching -->
+            <dependency>
+                <groupId>net.sf.ehcache.internal</groupId>
+                <artifactId>ehcache-core</artifactId>
+                <version>2.7.2</version>
+            </dependency>
             <!-- Should be either in the JDK6 runtime, or deployed on the AppServer already -->
             <dependency>
                 <groupId>com.sun.xml.bind</groupId>
                 <artifactId>jaxb-xjc</artifactId>
-                <version>2.2.7-b41</version>
+                <version>2.2.7-b63</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>xerces</groupId>
                 <artifactId>xercesImpl</artifactId>
-                <version>2.10.0</version>
+                <version>2.11.0</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -1212,9 +1265,9 @@
             </dependency>
 #elseif ($postgres)
             <dependency>
-                <groupId>postgresql</groupId>
+                <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
-                <version>9.1-901.jdbc4</version>
+                <version>9.2-1002-jdbc4</version>
 #if (!$embeddedJetty)
                 <scope>test</scope>
 #end
@@ -1223,7 +1276,7 @@
             <dependency>
                 <groupId>org.apache.derby</groupId>
                 <artifactId>derby</artifactId>
-                <version>10.8.2.2</version>
+                <version>10.9.1.0</version>
 #if (!$embeddedJetty)
                 <scope>test</scope>
 #end
@@ -1241,7 +1294,7 @@
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
-                <version>1.3.170</version>
+                <version>1.3.172</version>
 #if (!$embeddedJetty)
                 <scope>test</scope>
 #end
@@ -1252,7 +1305,7 @@
             <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
-                <version>6.8</version>
+                <version>6.8.5</version>
                 <scope>test</scope>
 #if ($ejb3)
                 <exclusions>
@@ -1430,7 +1483,7 @@
 #if ($h2)
         <testdb.groupId>com.h2database</testdb.groupId>
         <testdb.artifactId>h2</testdb.artifactId>
-        <testdb.version>1.3.170</testdb.version>
+        <testdb.version>1.3.172</testdb.version>
 #elseif ($hypersonic)
         <testdb.groupId>org.hsqldb</testdb.groupId>
         <testdb.artifactId>hsqldb</testdb.artifactId>
@@ -1438,7 +1491,7 @@
 #elseif ($derby)
         <testdb.groupId>org.apache.derby</testdb.groupId>
         <testdb.artifactId>derby</testdb.artifactId>
-        <testdb.version>10.8.2.2</testdb.version>
+        <testdb.version>10.9.1.0</testdb.version>
 #end
 #if ($testDatabase.equals("h2")||$testDatabase.equals("hypersonic")||$testDatabase.equals("derby"))
         <testdb.driver>$${jdbc.driver}</testdb.driver>
@@ -1450,7 +1503,7 @@
 ## Always use H2 for testdb because it can emulate most major DBMSs
         <testdb.groupId>com.h2database</testdb.groupId>
         <testdb.artifactId>h2</testdb.artifactId>
-        <testdb.version>1.3.170</testdb.version>
+        <testdb.version>1.3.172</testdb.version>
         <testdb.driver>org.h2.Driver</testdb.driver>
         <testdb.dialect>org.hibernate.dialect.H2Dialect</testdb.dialect>
         <!-- See http://www.h2database.com/html/features.html#database_url (mixed mode) -->
@@ -1623,24 +1676,25 @@
         -->
 #end
 #if ($cxf)
-        <cxf.version>2.7.2</cxf.version>
+        <cxf.version>2.7.6</cxf.version>
         <cxf.xjc.version>2.6.1</cxf.xjc.version>
 #end
 #if ($spring)
         <!-- Set andromda.xml hibernateVersion=4, sessionFactory and localTransactionManager to hibernate4
         Spring cartridge only works with hibernate3.
         <hibernate.version>3.6.9.Final</hibernate.version-->
-        <hibernate.version>4.1.9.Final</hibernate.version>
+        <hibernate.version>4.2.2.Final</hibernate.version>
 #elseif ($hibernate || $ejb3)
         <!-- Set andromda.xml hibernateVersion=3, sessionFactory and localTransactionManager to hibernate3
         <hibernate.version>3.6.9.Final</hibernate.version-->
-        <hibernate.version>4.1.9.Final</hibernate.version>
+        <hibernate.version>4.2.2.Final</hibernate.version>
 #end
 #if ($cxf || $embeddedJetty)
+        <!-- v 9.x only supports JDK7. v8.1.10 gives IllegalThreadStateException on shutdown. v8.1.9 gives SocketException: Socket is closed-->
         <jetty.version>8.1.8.v20121106</jetty.version>
 #end
 #if ($cxf || $spring)
-        <spring.version>3.2.1.RELEASE</spring.version>
+        <spring.version>3.2.4.RELEASE</spring.version>
 #end
         <!-- To override parent default settings for compiler plugin and compliance checks-->
         <dependencyConvergence>true</dependencyConvergence>
@@ -2087,17 +2141,21 @@
                     <sourcepath>${project.basedir}/src/main/java;${project.basedir}/target/src/main/java</sourcepath>
                     <detectLinks/>
                     <links>
-                        <link>http://java.sun.com/javase/6/docs/api/</link>
-                        <link>http://java.sun.com/j2ee/1.4/docs/api/</link>
+                        <link>http://docs.oracle.com/javase/6/docs/api/</link>
+                        <link>http://docs.oracle.com/javaee/6/api/</link>
 #if ($spring || $hibernate || $cxf)
-                        <link>http://docs.jboss.org/hibernate/stable/core/javadocs/</link>
-                        <link>http://static.springsource.org/spring/docs/3.0.x/javadoc-api</link>
+                        <link>http://docs.jboss.org/hibernate/stable/orm/javadocs/</link>
+                        <link>http://static.springsource.org/spring/docs/3.2.x/javadoc-api/</link>
+#if ($cxf)
+                        <link>http://cxf.apache.org/javadoc/latest/</link>
+                        <link>http://jax-ws.java.net/nonav/jaxws-api/2.2/</link>
 #end
-                        <link>http://jakarta.apache.org/commons/collections/apidocs</link>
-                        <link>http://jakarta.apache.org/commons/lang/apidocs</link>
+#end
+                        <link>http://jakarta.apache.org/commons/collections/apidocs/</link>
+                        <link>http://jakarta.apache.org/commons/lang/apidocs/</link>
                         <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
-                        <link>http://logging.apache.org/log4j/docs/api/</link>
-                        <link>http://www.junit.org/junit/javadoc/</link>
+                        <link>http://logging.apache.org/log4j/1.2/apidocs/</link>
+                        <link>http://junit.sourceforge.net/javadoc/</link>
                     </links>
                 </configuration>
             </plugin>

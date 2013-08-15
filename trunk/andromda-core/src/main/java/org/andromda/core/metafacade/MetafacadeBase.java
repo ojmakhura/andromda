@@ -263,11 +263,12 @@ public class MetafacadeBase implements Serializable, Comparable
 
     /**
      * Gets a configured property from the container. Note that the configured property must be registered first.
+     * Needs to be public so that a metafacade reference passed to a utility class can call this method.
      *
      * @param property the property name
      * @return Object the configured property instance (mappings, etc)
      */
-    protected Object getConfiguredProperty(final String property)
+    public Object getConfiguredProperty(final String property)
     {
         return MetafacadeFactory.getInstance().getRegisteredProperty(
             this,

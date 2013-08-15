@@ -93,6 +93,10 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-cartridge-plugin</artifactId>
             </plugin>

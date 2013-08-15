@@ -307,13 +307,13 @@
                 <property name="hibernateQueryUseNamedParameters">true</property>
                 <property name="hibernateEnableCache">false</property>
                 <property name="sessionFactory">org.springframework.orm.hibernate4.LocalSessionFactoryBean</property>
+#if ($war)
+                <property name="transactionManager">org.springframework.orm.hibernate4.HibernateTransactionManager</property>
+#end
                 <property name="localTransactionManager">org.springframework.orm.hibernate4.HibernateTransactionManager</property>
                 <property name="hibernateCacheProvider">net.sf.ehcache.hibernate.EhCacheProvider</property>
                 <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
                 <property name="mergeMappingsUri">file:${conf.dir}/mappings/SpringMergeMappings.xml</property>
-#if ($war)
-                <property name="transactionManager">org.springframework.orm.hibernate4.HibernateTransactionManager</property>
-#end
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="springTypesPackage">${application.package}</property>
 #if ($webservice && !$cxf)
