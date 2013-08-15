@@ -2,15 +2,17 @@
 ##
 ##
 ##
-#macro (resetField $fieldName $fieldType)
-#if ($fieldType.primitive)
-#if ($fieldType.fullyQualifiedName == 'boolean')
-$fieldName = false;
+#macro (resetField $field)
+#if ($field.type.primitive)
+#if ($field.type.fullyQualifiedName == 'boolean')
+this.$field.name = false;
+#elseif($field.type.longType)
+this.$field.name = 0L;
 #else
-$fieldName = 0;
+this.$field.name = 0;
 #end
 #else
-$fieldName = null;
+this.$field.name = null;
 #end
 #end
 ##
@@ -259,7 +261,7 @@ $member.getDocumentation("     * ")
 
 #renderCopyFrom($manageable.formBeanClassName $manageable.manageableAttributes $manageable.manageableAssociationEnds)
 
-   /**
+    /**
      * The serial version UID of this class. Needed for serialization.
      */
     private static final long serialVersionUID = ${manageable.formSerialVersionUID}L;
