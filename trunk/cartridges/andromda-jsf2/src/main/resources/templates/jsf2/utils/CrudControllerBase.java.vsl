@@ -75,7 +75,7 @@ public abstract class CrudControllerBase extends ControllerBase {
     public abstract String saveAndKeepEditing() throws Throwable;
     
     protected abstract void fillFormFromParameters(final java.util.Map<String,Object> useCaseParameters);
-    protected abstract boolean isIdSetted();
+    protected abstract boolean isIdSet();
     protected abstract void internalLoad(final Object idParam) throws Throwable;
     
     final static String CRUD_OPERATION_KEY = "_crudAction";
@@ -251,7 +251,7 @@ public abstract class CrudControllerBase extends ControllerBase {
      */    
     public boolean isShowDeleteAction()
     {
-        return this.isIdSetted() && (this.isFiltered() || !this.isUseCaseInDialog());
+        return this.isIdSet() && (this.isFiltered() || !this.isUseCaseInDialog());
     }
 
     /**

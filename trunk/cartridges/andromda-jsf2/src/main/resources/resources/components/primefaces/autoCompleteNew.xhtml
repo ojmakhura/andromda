@@ -28,7 +28,7 @@
     <cc:implementation>
         <c:set var="baseName" value="#{fn:replace(cc.clientId,':','_')}" />
         <c:set var="valueSetter" value="#{baseName}_setValue" />
-        <p:panelGrid columns="2" rendered="#{cc.attrs.rendered}">
+        <p:panelGrid columns="2" rendered="#{cc.attrs.rendered}" styleClass="padding_autocompletenew">
             <p:autoComplete id="autoComplete" value="#{cc.attrs.value}" label="#{cc.attrs.label}" completeMethod="#{cc.attrs.completeMethod}" required="#{cc.attrs.required}"
                 var="#{cc.attrs.var}" itemValue="#{cc.attrs.itemValue}" itemLabel="#{cc.attrs.itemLabel}" dropdown="true" multiple="#{cc.attrs.multiple}" forceSelection="#{cc.attrs.forceSelection}"
                 queryDelay="#{cc.attrs.queryDelay}" readonly="#{cc.attrs.readonly}">
@@ -55,7 +55,10 @@
             /*<![CDATA[*/
             var label = $("label[for='#{cc.clientId}:autoComplete_input']");
             if(label){
-                label.html(label.html()+'<span class="ui-outputlabel-rfi">*</span>');
+                var theSpan='<span class="ui-outputlabel-rfi">*</span>';
+                if(label.html().indexOf(theSpan) == -1){ 
+                    label.html(label.html()+theSpan);
+                }
             }
             /*]]>*/
         </h:outputScript>

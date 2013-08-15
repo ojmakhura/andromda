@@ -60,7 +60,7 @@ public abstract class ${manageable.controllerName}
     }
 
     @Override
-    protected boolean isIdSetted()
+    protected boolean isIdSet() 
     {
         return this.getForm().${manageable.identifierGetterName}() != null#if(!$manageable.compositeIdentifier && ($identifierIsIntegerType || $identifierIsLongType)) && this.getForm().${manageable.identifierGetterName}()!=0#end;
     }
