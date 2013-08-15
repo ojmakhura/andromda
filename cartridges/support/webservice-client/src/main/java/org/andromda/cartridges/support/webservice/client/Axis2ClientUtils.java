@@ -16,7 +16,7 @@ import org.apache.axiom.om.OMAbstractFactory;
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.OMFactory;
 import org.apache.axiom.om.OMNamespace;
-import org.apache.axiom.om.util.Base64;
+import org.apache.axiom.util.base64.Base64Utils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Element;
@@ -232,7 +232,7 @@ public class Axis2ClientUtils
             }
             else if (bean instanceof byte[])
             {
-                omElement.addChild(factory.createOMText(Base64.encode((byte[])bean)));
+                omElement.addChild(factory.createOMText(Base64Utils.encode((byte[])bean)));
             }
             else
             {
@@ -691,7 +691,7 @@ public class Axis2ClientUtils
         }
         else if (type == byte[].class)
         {
-            bean = Base64.decode(element.getText());
+            bean = Base64Utils.decode(element.getText());
         }
         else
         {

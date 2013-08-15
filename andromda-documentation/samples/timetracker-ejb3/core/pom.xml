@@ -21,10 +21,6 @@
             <artifactId>commons-collections</artifactId>
         </dependency>
         <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-        </dependency>
-        <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <scope>test</scope>
@@ -54,11 +50,15 @@
             <artifactId>hibernate-entitymanager</artifactId>
         </dependency>
         <dependency>
-            <artifactId>hibernate-validator</artifactId>
             <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.sf.ehcache</groupId>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.ehcache.internal</groupId>
             <artifactId>ehcache-core</artifactId>
         </dependency>
         <dependency>
@@ -166,9 +166,9 @@
               <groupId>org.codehaus.mojo</groupId>
               <artifactId>hibernate3-maven-plugin</artifactId>
               <version>3.0</version>
+              <!-- Run after copying target test configuration but before running tests -->
               <executions>
                 <execution>
-                  <!-- Run after copying target test configuration but before running tests -->
                   <phase>test-compile</phase>
                   <goals>
                     <goal>hbm2ddl</goal>
@@ -202,12 +202,12 @@
                   <dependency>
                       <groupId>org.hibernate</groupId>
                       <artifactId>hibernate-validator</artifactId>
-                      <version>4.3.1.Final</version>
+                      <version>5.0.1.Final</version>
                   </dependency>
                   <dependency>
                       <groupId>commons-logging</groupId>
                       <artifactId>commons-logging</artifactId>
-                      <version>1.1.1</version>
+                      <version>1.1.3</version>
                   </dependency>
                   <!-- Default maven 2.2.1 depends on slf4j-jdk14 1.5.6 which conflicts with JDK6 and slf4j12-log4j -->
                   <dependency>
@@ -216,11 +216,103 @@
                       <version>3.0.4</version>
                   </dependency>
                   <!-- Not possible to exclude slf4j-nop: Class path contains multiple SLF4J bindings. -->
+                  <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <version>1.7.5</version>
+                  </dependency>
+                  <!-- Still gives ClassNotFoundException: org.jboss.logging.util.OnlyOnceErrorHandler. -->
+                  <dependency>
+                      <groupId>org.jboss.logging</groupId>
+                      <artifactId>jboss-logging-log4j</artifactId>
+                      <version>2.1.2.GA</version>
+                  </dependency>
+                </dependencies>
+            </plugin>
+            <!-- Run h2 tcp server manually by 'mvn exec:java sql:execute' for local unit testing, this is configuration only,
+            not run during build because it can't be shut down separately. -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <executions>
+                  <execution>
+                      <!--phase>test-compile</phase-->
+                      <goals>
+                          <goal>java</goal>
+                      </goals>
+                  </execution>
+                </executions>
+                <configuration>
+                    <mainClass>org.andromda.dbtest.H2</mainClass>
+                    <classpathScope>test</classpathScope>
+                    <workingDirectory>${project.basedir}/target</workingDirectory>
+                    <arguments>
+                    </arguments>
+                </configuration>
+                <dependencies>
+                  <dependency>
+                    <groupId>${testdb.groupId}</groupId>
+                    <artifactId>${testdb.artifactId}</artifactId>
+                    <version>${testdb.version}</version>
+                  </dependency>
+                </dependencies>
+            </plugin>
+            <!-- See http://mojo.codehaus.org/sql-maven-plugin/examples/execute.html -->
+            <!-- Can't connect to the h2 process outside of the mvn JVM because it locks the DB -->
+            <!-- See http://www.h2database.com/html/cheatSheet.html -->
+            <!-- Can't use in-memory DB for tomcat/jetty initialization - goes away on exit -->
+            <!-- Use for in-memory DB jdbc:h2:timetracker;MODE=MySQL for in-JVM connections only, but it must be started within maven -->
+            <!-- Use for server DB jdbc:h2:tcp://localhost/timetracker;MODE=MySQL for external connections, but it must be started outside maven -->
+            <!-- default-cli execution id allows us to run the same configuration from the mvn command line -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sql-maven-plugin</artifactId>
+                <version>1.5</version>
+                <configuration>
+                    <driver>${testdb.driver}</driver>
+                    <url>${testdb.url}</url>
+                    <username>${testdb.username}</username>
+                    <password>${testdb.password}</password>
+                    <autocommit>true</autocommit>
+                    <skip>${maven.test.skip}</skip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>default-cli</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <autocommit>true</autocommit>
+                            <orderFile>ascending</orderFile><!-- Ascending alphabetical order, not the order of files in includes -->
+                            <fileset>
+                                <basedir>${basedir}/../app/src/main/sql</basedir>
+                                <includes>
+                                    <!--include>1test-data-delete.sql</include>
+                                    <include>2static-data-delete.sql</include-->
+                                    <include>schema.sql</include>
+                                    <!-- These test SQL files are manually created/maintained, run only for manual tests requiring data -->
+                                    <!--include>static-data-insert.sql</include>
+                                    <include>test-data-insert.sql</include-->
+                                </includes>
+                            </fileset>
+                            <onError>continue</onError>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>${testdb.groupId}</groupId>
+                        <artifactId>${testdb.artifactId}</artifactId>
+                        <version>${testdb.version}</version>
+                    </dependency>
                 </dependencies>
             </plugin>
             <plugin>
                 <artifactId>maven-ejb-plugin</artifactId>
-                <version>2.3</version>
+                <version>${maven-ejb-plugin.version}</version>
                 <configuration>
                     <ejbVersion>3.0</ejbVersion>
                     <archive>

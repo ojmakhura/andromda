@@ -48,12 +48,11 @@
                 <!-- skipping invocation until finish the JSF2 cartridge inclusion>
                     <skipInstallation>true</skipInstallation>
                     <skipInvocation>true</skipInvocation -->
-                <!-- -->
                     <streamLogs>true</streamLogs>
                     <projectsDirectory>${project.basedir}</projectsDirectory>
                     <pomExcludes>
-                        <!--pomInclude>*/pom.xml</pomInclude-->
                         <pomExclude>crud/pom.xml</pomExclude>
+                        <pomExclude>andromdaTestCase-jsf2/pom.xml</pomExclude>
                     </pomExcludes>
                 </configuration>
                 <executions>

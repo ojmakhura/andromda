@@ -88,9 +88,10 @@
         <module name="CovariantEquals">
             <property name="severity" value="error"/>
         </module>
-        <module name="DoubleCheckedLocking">
+        <!-- Removed from checkstyle 5.6, make field volatile or immutable, see http://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html >
+        <module name="DoubleCheckedLocking" />
             <property name="severity" value="error"/>
-        </module>
+        </module-->
         <module name="EmptyStatement" />
         <module name="EqualsHashCode">
             <property name="severity" value="error"/>

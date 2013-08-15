@@ -26,7 +26,7 @@
         COMMENTS varchar(255) not null,
         START_DATE timestamp not null,
         STATUS VARCHAR(20) not null,
-        APPROVER_FK bigint not null,
+        APPROVER_FK bigint,
         SUBMITTER_FK bigint not null,
         primary key (TIMECARD_ID)
     );

@@ -6,7 +6,7 @@
     <version>3.5-SNAPSHOT</version>
     <name>Maven Configuration for quality metrics</name>
     <description>AndroMDA Maven Config - global configurations for quality metrics such as PMD FindBugs CheckStyle</description>
-    <url>http://www.andromda.org/docs</url>
+    <url>http://andromda.sourceforge.net</url>
     <issueManagement>
         <system>jira</system>
         <url>http://www.andromda.org/jira/browse/MAVEN</url>
@@ -19,7 +19,7 @@
     <!-- Duplicated from andromda pom to avoid circular dependency error -->
     <organization>
         <name>AndroMDA.org</name>
-        <url>http://www.andromda.org/docs/index.html</url>
+        <url>http://andromda.sourceforge.net/index.html</url>
     </organization>
     <licenses>
         <license>
@@ -55,7 +55,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.5.1</version>
+                    <version>3.1</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-deploy-plugin</artifactId>
@@ -79,7 +79,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.2</version>
+                    <version>3.3</version>
                     <configuration>
                         <locales>en</locales>
                     </configuration>
@@ -93,11 +93,38 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.13</version>
+                    <version>2.15</version>
                 </plugin>
             </plugins>
         </pluginManagement>
     </build>
+	<!-- Avoid maven 3.1 error: NoClassDefFoundError: org/sonatype/aether/graph/Dependency -->
+	<reporting>
+        <plugins>
+			<plugin>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.7</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>dependencies</report>
+							<report>dependency-convergence</report>
+							<report>dependency-management</report>
+							<report>index</report>
+							<report>plugin-management</report>
+							<report>summary</report>
+							<report>project-team</report>
+							<report>mailing-list</report>
+							<report>cim</report>
+							<report>issue-tracking</report>
+							<report>license</report>
+							<report>scm</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+        </plugins>
+	</reporting>
     <prerequisites>
         <!-- Maven runtime version. Lots of problems prior to 2.0.10 with dependency management -->
         <maven>2.2.1</maven>
@@ -107,7 +134,7 @@
         <dependency>
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-utils</artifactId>
-            <version>3.0.10</version>
+            <version>3.0.14</version>
             <scope>provided</scope>
         </dependency -->
     </dependencies>

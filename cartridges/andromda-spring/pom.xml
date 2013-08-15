@@ -59,6 +59,10 @@
                 </dependencies>
             </plugin>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-cartridge-plugin</artifactId>
                 <!--executions>
@@ -105,6 +109,5 @@
         <uml2.test.model.uri>file:${test.src.dir}/uml2/SpringCartridgeTestModel.uml</uml2.test.model.uri>
         <model.uri>jar:file:${src.dir}/uml/SpringMetafacadeModel.xml.zip!/SpringMetafacadeModel.xml</model.uri>
         <test.model.uri>jar:file:${test.src.dir}/uml/SpringCartridgeTestModel.xml.zip!/SpringCartridgeTestModel.xml</test.model.uri>
-        <!--maven.test.failure.ignore>true</maven.test.failure.ignore-->
     </properties>
 </project>
