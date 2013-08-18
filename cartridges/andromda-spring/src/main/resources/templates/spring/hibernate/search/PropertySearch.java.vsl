@@ -285,7 +285,14 @@ public class $className
                 }
                 catch (final NoSuchMethodException noSuchMethodException)
                 {
-                    throw new RuntimeException("No accessible property named '" + name + "', exists on: " + propertyType.getName());
+                    try //try to find the 'is' 
+                    {
+                        value = convert(value, propertyType.getMethod("is"+StringUtils.capitalize(name), (Class<?>[])null).getReturnType());
+                    }
+                    catch (final NoSuchMethodException noSuchMethodException)
+                    {
+                        throw new RuntimeException("No accessible property named '" + name + "', exists on: " + propertyType.getName());
+                    }
                 }
             }
             return value;
