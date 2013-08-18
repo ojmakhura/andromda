@@ -283,7 +283,7 @@ public class $className
                 {
                     value = convert(value, propertyType.getMethod("get"+StringUtils.capitalize(name), (Class<?>[])null).getReturnType());
                 }
-                catch (final NoSuchMethodException noSuchMethodException)
+                catch (final NoSuchMethodException e)
                 {
                     try //try to find the 'is' 
                     {
