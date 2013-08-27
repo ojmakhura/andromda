@@ -350,6 +350,7 @@ public final class $manageable.manageableDaoBaseName
         criteria.setMaxResults($manageable.maximumListSize);
 
 #end
+        criteria.addOrder(org.hibernate.criterion.Order.asc("${manageable.displayAttribute.name}"));
         return (java.util.Collection<${manageable.fullyQualifiedEntityName}>)criteria.list();
     }
     
