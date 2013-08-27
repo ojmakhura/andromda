@@ -8,7 +8,7 @@
     xmlns:t="http://myfaces.apache.org/tomahawk"
     xmlns:p="http://primefaces.org/ui">
 #set ($targetColumns = $table.targettedTableColumnNames)
-    <p:dataTable id="$table.name" var="row" value="#{viewVariables.${table.name}}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false">
+    <p:dataTable id="$table.name" var="row" value="#{viewVariables.${table.name}}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" emptyMessage="#{messages['empty.result.set']}">
 #if (!$table.tableColumns.empty)
 #foreach ($column in $table.tableColumns)
 #if($column.name)

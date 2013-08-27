@@ -102,7 +102,7 @@ ${ident}    </f:facet>
 #if($field.many)
 ${ident}    <p:commandButton id="showPanel_${field.name}" icon="ui-icon-newwin" title="#{messages['action.show.detail.records']}" rendered="#{not empty row.${field.name}}"/>
 ${ident}    <p:overlayPanel id="panel_${field.name}" for="showPanel_${field.name}" rendered="#{not empty row.${field.name}}">  
-${ident}        <p:dataTable id="${field.name}" var="item" value="#{row.${field.name}}" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" rows="10">
+${ident}        <p:dataTable id="${field.name}" var="item" value="#{row.${field.name}}" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" rows="10" emptyMessage="#{messages['empty.result.set']}">
 ${ident}            <p:column>
 ${ident}                <h:outputText id="item_${field.name}" value="#{item}" converter="$field.type.converterType"/>
 ${ident}            </p:column>
@@ -160,7 +160,7 @@ ${ident}</p:column>
         </p:panelGrid>
     </ui:define>
     <ui:define name="searchResult">
-        <p:dataTable id="searchResult" var="row" value="#{${formName}.${manageable.listName}}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" style="display:#{${formName}.${manageable.listName} == null? 'none': ''}">
+        <p:dataTable id="searchResult" var="row" value="#{${formName}.${manageable.listName}}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" style="display:#{${formName}.${manageable.listName} == null? 'none': ''}" emptyMessage="#{messages['empty.result.set']}">
             <p:column style="width:0px;" exportable="false">
                 <p:panelGrid columns="#{${manageable.controllerBeanName}.showSelectAction?3:2}">
                     <p:commandButton id="selectAction" icon="ui-icon-circle-check" title="#{messages['action.select']}" action="#{${manageable.controllerBeanName}.select(row.${manageable.identifierName})}" immediate="true" process="@this" rendered="#{${manageable.controllerBeanName}.showSelectAction}"/>
@@ -211,7 +211,7 @@ ${ident}</p:column>
 #if($field.otherEnd.navigable && $field.otherEnd.composition && $field.many)
 #set($detailManageable = $field.type)
             <p:outputLabel id="${field.name}_table_label" for="${field.name}_table" value="#{messages['$field.messageKey']}:"/>
-            <p:dataTable id="${field.name}_table" var="row" value="#{${detailManageable.controllerBeanName}.readByFilter('${field.otherEnd.name}',${formName}.${manageable.identifierName})}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false">
+            <p:dataTable id="${field.name}_table" var="row" value="#{${detailManageable.controllerBeanName}.readByFilter('${field.otherEnd.name}',${formName}.${manageable.identifierName})}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" emptyMessage="#{messages['empty.result.set']}">
                 <p:column style="width:0px;">
                     <p:panelGrid columns="2">
                         <p:commandButton id="loadAction" icon="ui-icon-pencil" title="#{messages['action.edit']}" immediate="true" process="@this" update="@form"
