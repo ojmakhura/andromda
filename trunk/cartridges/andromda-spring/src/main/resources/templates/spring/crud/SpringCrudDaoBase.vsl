@@ -296,55 +296,58 @@ public final class $manageable.manageableDaoBaseName
 
         final Criteria criteria = session.createCriteria(${manageable.fullyQualifiedEntityImplementationName}.class);
 
+        if(example != null)
+        {
 #foreach ($member in $manageable.manageableAttributes)
-        if (example.${member.getterName}() != null)
+            if (example.${member.getterName}() != null)
 #if ($member.type.stringType)
-        {
-            criteria.add(Restrictions.ilike("$member.name", example.${member.getterName}(), $matchMode));
-        }
+            {
+                criteria.add(Restrictions.ilike("$member.name", example.${member.getterName}(), $matchMode));
+            }
 #elseif ($member.type.dateType)
-        {
-            // we check whether or not the user supplied time information within this particular date argument
-            // if he/she didn't we assume he/she wishes to search in the scope of the entire day
-            final java.util.Calendar calendar = new java.util.GregorianCalendar();
-            calendar.setTime(example.${member.getterName}());
-            if ( calendar.get(java.util.Calendar.HOUR) != 0
-                 || calendar.get(java.util.Calendar.MINUTE) != 0
-                 || calendar.get(java.util.Calendar.SECOND) != 0
-                 || calendar.get(java.util.Calendar.MILLISECOND) != 0 )
+            {
+                // we check whether or not the user supplied time information within this particular date argument
+                // if he/she didn't we assume he/she wishes to search in the scope of the entire day
+                final java.util.Calendar calendar = new java.util.GregorianCalendar();
+                calendar.setTime(example.${member.getterName}());
+                if ( calendar.get(java.util.Calendar.HOUR) != 0
+                     || calendar.get(java.util.Calendar.MINUTE) != 0
+                    || calendar.get(java.util.Calendar.SECOND) != 0
+                    || calendar.get(java.util.Calendar.MILLISECOND) != 0 )
+                {
+                    criteria.add(Restrictions.eq("$member.name", example.${member.getterName}()));
+                }
+                else
+                {
+                    calendar.add(java.util.Calendar.DATE, 1);
+                    calendar.add(java.util.Calendar.MILLISECOND, -1);
+                    criteria.add(Restrictions.between("$member.name", example.${member.getterName}(), calendar.getTime()));
+                }
+            }
+#elseif ($member.type.booleanType)
+            {
+                criteria.add(Restrictions.eq("$member.name", example.${member.getterName}().booleanValue()));
+            }
+#else
             {
                 criteria.add(Restrictions.eq("$member.name", example.${member.getterName}()));
             }
-            else
-            {
-                calendar.add(java.util.Calendar.DATE, 1);
-                calendar.add(java.util.Calendar.MILLISECOND, -1);
-                criteria.add(Restrictions.between("$member.name", example.${member.getterName}(), calendar.getTime()));
-            }
-        }
-#elseif ($member.type.booleanType)
-        {
-            criteria.add(Restrictions.eq("$member.name", example.${member.getterName}().booleanValue()));
-        }
-#else
-        {
-            criteria.add(Restrictions.eq("$member.name", example.${member.getterName}()));
-        }
 #end
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
 #if ($member.many)
-        if (example.${member.getterName}() != null && example.${member.getterName}().length > 0)
-        {
-            criteria.createCriteria("$member.name").add(Restrictions.in("$member.type.identifierName", example.${member.getterName}()));
-        }
+            if (example.${member.getterName}() != null && example.${member.getterName}().length > 0)
+            {
+                criteria.createCriteria("$member.name").add(Restrictions.in("$member.type.identifierName", example.${member.getterName}()));
+            }
 #else
-        if (example.${member.getterName}() != null)
-        {
-            criteria.createCriteria("$member.name").add(Restrictions.eq("$member.type.identifierName", example.${member.getterName}()));
+            if (example.${member.getterName}() != null)
+            {
+                criteria.createCriteria("$member.name").add(Restrictions.eq("$member.type.identifierName", example.${member.getterName}()));
+            }   
+#end
+#end
         }
-#end
-#end
         criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 #if ($manageable.maximumListSize > 0)
         criteria.setMaxResults($manageable.maximumListSize);
