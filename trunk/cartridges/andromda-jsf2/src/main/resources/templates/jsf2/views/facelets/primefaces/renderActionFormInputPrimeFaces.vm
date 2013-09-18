@@ -30,8 +30,7 @@ ${ident}<p:calendar id="$propertyId" value="#{${formValuePropertyName}}" label="
 ${ident}    <f:convertDateTime pattern="$parameter.format"/>
 ${ident}</p:calendar>
 #elseif ($parameter.inputCheckbox)
-##não está sendo usado pq não pega o boolean na entrada do form ${ident}<p:selectBooleanButton id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" onLabel="#{messages['yes']}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close" readOnly="$parameter.readOnly"/>
-${ident}<h:selectBooleanCheckbox id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" readOnly="$parameter.readOnly"/>
+${ident}<p:selectBooleanButton id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" onLabel="#{messages['yes']}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close" readOnly="$parameter.readOnly"/>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration)
 #set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
 #set ($selectBoxType = "selectOneMenu")
