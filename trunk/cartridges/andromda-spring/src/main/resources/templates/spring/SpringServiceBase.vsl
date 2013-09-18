@@ -162,7 +162,7 @@ $attribute.getDocumentation("     * ")
     {
 #if ($requiredCheckEnabled)
 #foreach ($argument in $operation.arguments)
-#if ($argument.required && !$argument.type.primitive && !$attribute.static)
+#if ($argument.required && !$argument.type.primitive)
 #if (!$argument.type.stringType || $argument.many)
         if ($argument.name == null)
         {
@@ -176,7 +176,7 @@ $attribute.getDocumentation("     * ")
                 "${service.fullyQualifiedName}.${operation.signature} - '${argument.name}' can not be null or empty");
         }
 #end
-#if (!$argument.type.enumeration && !$argument.type.entityMetaType)
+#if (!$argument.many && !$argument.type.enumeration && !$argument.type.entityMetaType)
 #foreach ($attribute in $argument.type.getAttributes(true))
 #if ($attribute.required && !$attribute.type.primitive && !$attribute.static)
 #if (!$attribute.type.stringType || $attribute.many)
