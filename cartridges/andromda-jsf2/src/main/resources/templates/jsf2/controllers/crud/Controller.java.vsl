@@ -91,7 +91,7 @@ public abstract class ${manageable.controllerName}
         throws Throwable
     {
 #if ($manageable.preload)
-        final java.util.Collection<${manageable.valueObjectClassName}> list = ${manageable.manageableServiceAccessorCall}.readAll();
+        final java.util.Collection<${manageable.valueObjectClassName}> list = ${manageable.manageableServiceAccessorCall}.searchByExample(null);
 
         form.${manageable.listSetterName}(list);
 
@@ -405,6 +405,9 @@ public abstract class ${manageable.controllerName}
 #foreach ($member in $manageable.manageableSearchAttributes)
         searchExample.${member.setterName}(form.getSearchForm().${member.getterName}());
 #end
+#foreach ($member in $manageable.manageableSearchAssociationEnds)
+        searchExample.${member.setterName}(form.getSearchForm().${member.getterName}());
+#end
         
         final java.util.Collection<${manageable.valueObjectClassName}> list=${manageable.manageableServiceAccessorCall}.searchByExample(searchExample);
 
@@ -474,7 +477,7 @@ public abstract class ${manageable.controllerName}
         throws Throwable
     {
         final java.util.Collection<${manageable.valueObjectClassName}> vos;
-        vos = ${manageable.manageableServiceAccessorCall}.readAll();
+        vos = ${manageable.manageableServiceAccessorCall}.searchByExample(null);
         final java.util.Collection<javax.faces.model.SelectItem> result=new java.util.ArrayList<javax.faces.model.SelectItem>(vos.size());
         for(${manageable.valueObjectClassName} vo: vos){
             result.add(new javax.faces.model.SelectItem(vo.${manageable.identifierGetterName}(),org.apache.commons.lang.ObjectUtils.toString(vo.get$stringUtils.upperCamelCaseName($manageable.displayAttribute.name)())));
