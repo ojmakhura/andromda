@@ -60,6 +60,7 @@
         <form-login-config>
             <form-login-page>/${loginFileName}.${facesServletExtension}</form-login-page>
             <form-error-page>/${loginFileName}.${facesServletExtension}?action=error</form-error-page>
+            <form-default-page>/</form-default-page>
         </form-login-config>
 #end
     </login-config>
