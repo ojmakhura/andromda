@@ -28,6 +28,37 @@ public class SpringProfile
      * Stores the service destroy-method stereotype.
      */
     public static final String STEREOTYPE_PRE_DESTROY_METHOD = PROFILE.get("PRE_DESTROY");
+
+    /**
+     * 'PrePersist' Specifies the entity business operation as a pre-persist callback
+     */
+    public static final String STEREOTYPE_PRE_PERSIST = PROFILE.get("PRE_PERSIST");
+
+    /**
+     * 'PostPersist' Specifies the entity operation as a post-persist operation
+     */
+    public static final String STEREOTYPE_POST_PERSIST = PROFILE.get("POST_PERSIST");
+
+    /**
+     * 'PreRemove' Specifies the entity business operati operationre-remove operation
+     */
+    public static final String STEREOTYPE_PRE_REMOVE = PROFILE.get("PRE_REMOVE");
+
+    /**
+     * 'PostRemove' Specifies the entity business operation as a post-remove operation
+     */
+    public static final String STEREOTYPE_POST_REMOVE = PROFILE.get("POST_REMOVE");
+
+    /**
+     * 'PreUpdate' Specifies the entity business operation as a pre-update operation
+     */
+    public static final String STEREOTYPE_PRE_UPDATE = PROFILE.get("PRE_UPDATE");
+
+    /**
+     * 'PostUpdate' Specifies the entity business operation as a post-update operation
+     */
+    public static final String STEREOTYPE_POST_UPDATE = PROFILE.get("POST_UPDATE");
+
     /* ----------------- Tagged Values -------------------- */
 
     /**

@@ -65,6 +65,67 @@
                 <value>PreDestroy</value>
                 <appliedOnElement>Service operation</appliedOnElement>
             </element>
+            <element name="PRE_PERSIST">
+                <documentation>
+                    Specifies that the associated operation will
+                    be invoked before the entity is created.
+                </documentation>
+                <value>PrePersist</value>
+                <appliedOnElement>
+                    Entity Business Operation
+                </appliedOnElement>
+            </element>
+            <element name="POST_PERSIST">
+                <documentation>
+                    Specifies that the associated operation will
+                    be invoked after the entity is created.
+                </documentation>
+                <value>PostPersist</value>
+                <appliedOnElement>
+                    Entity Business Operation
+                </appliedOnElement>
+            </element>
+            <element name="PRE_REMOVE">
+                <documentation>
+                    Specifies that the associated operation will
+                    be invoked before the entity is deleted.
+                </documentation>
+                <value>PreRemove</value>
+                <appliedOnElement>
+                    Entity Business Operation
+                </appliedOnElement>
+            </element>
+            <element name="POST_REMOVE">
+                <documentation>
+                    Specifies that the associated operation will
+                    be invoked after the entity is deleted.
+                </documentation>
+                <value>PostRemove</value>
+                <appliedOnElement>
+                    Entity Business Operation
+                </appliedOnElement>
+            </element>
+            <element name="PRE_UPDATE">
+                <documentation>
+                    Specifies that the associated operation will
+                    be invoked right before the database is updated.
+                </documentation>
+                <value>PreUpdate</value>
+                <appliedOnElement>
+                    Entity Business Operation
+                </appliedOnElement>
+            </element>
+            <element name="POST_UPDATE">
+                <documentation>
+                    Specifies that the associated operation will
+                    be invoked immediately after the database has been
+                    updated.
+                </documentation>
+                <value>PostUpdate</value>
+                <appliedOnElement>
+                    Entity Business Operation
+                </appliedOnElement>
+            </element>
         </elementGroup>
         <elementGroup name="Tagged Values">
             <documentation>

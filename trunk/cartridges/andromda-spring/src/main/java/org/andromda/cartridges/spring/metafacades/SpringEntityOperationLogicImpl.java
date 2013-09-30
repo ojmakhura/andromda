@@ -2,8 +2,11 @@ package org.andromda.cartridges.spring.metafacades;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.apache.commons.lang.StringUtils;
+
+import org.andromda.cartridges.spring.SpringProfile;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.spring.metafacades.SpringEntityOperation.
@@ -79,4 +82,57 @@ public class SpringEntityOperationLogicImpl
         return arguments;
     }
 
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation#handleIsPrePersist()
+     */
+    @Override
+    protected boolean handleIsPrePersist()
+    {
+        return this.hasStereotype(SpringProfile.STEREOTYPE_PRE_PERSIST);
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation#handleIsPostPersist()
+     */
+    @Override
+    protected boolean handleIsPostPersist()
+    {
+        return this.hasStereotype(SpringProfile.STEREOTYPE_POST_PERSIST);
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation#handleIsPreRemove()
+     */
+    @Override
+    protected boolean handleIsPreRemove()
+    {
+        return this.hasStereotype(SpringProfile.STEREOTYPE_PRE_REMOVE);
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation#handleIsPostRemove()
+     */
+    @Override
+    protected boolean handleIsPostRemove()
+    {
+        return this.hasStereotype(SpringProfile.STEREOTYPE_POST_REMOVE);
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation#handleIsPreUpdate()
+     */
+    @Override
+    protected boolean handleIsPreUpdate()
+    {
+        return this.hasStereotype(SpringProfile.STEREOTYPE_PRE_UPDATE);
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation#handleIsPostUpdate()
+     */
+    @Override
+    protected boolean handleIsPostUpdate()
+    {
+        return this.hasStereotype(SpringProfile.STEREOTYPE_POST_UPDATE);
+    }
 }
