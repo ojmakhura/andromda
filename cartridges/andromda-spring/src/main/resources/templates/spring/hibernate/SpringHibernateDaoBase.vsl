@@ -342,35 +342,93 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * beforeCreate event - This method is called before creating the entity and can be overriden
+     * prePersist event - This method is called before creating the entity
      */
-    protected void _beforeCreate(final $entity.fullyQualifiedName $argumentName)
+    protected void _prePersist(final $entity.fullyQualifiedName $argumentName)
     {
-        //empty method 
+#if ($daoInheritance)
+        super._prePersist($argumentName)
+#end
+#foreach ($operation in $entity.daoBusinessOperations)
+#if($operation.prePersist)
+        ${operation.name}($argumentName);
+#end
+#end
     }
      
     /**
-     * beforeSave event - This method is called before creating/updating the entity and can be overriden
+     * postPersist event - This method is called after creating the entity
      */
-    protected void _beforeSave(final $entity.fullyQualifiedName $argumentName)
+    protected void _postPersist(final $entity.fullyQualifiedName $argumentName)
     {
-        //empty method 
+#if ($daoInheritance)
+        super._postPersist($argumentName)
+#end
+#foreach ($operation in $entity.daoBusinessOperations)
+#if($operation.postPersist)
+        ${operation.name}($argumentName);
+#end
+#end
     }
      
     /**
-     * beforeUpdate event - This method is called before updating the entity and can be overriden
+     * preUpdate event - This method is called before updating the entity
      */
-    protected void _beforeUpdate(final $entity.fullyQualifiedName $argumentName)
+    protected void _preUpdate(final $entity.fullyQualifiedName $argumentName)
     {
-        //empty method 
+#if ($daoInheritance)
+        super._preUpdate($argumentName)
+#end
+#foreach ($operation in $entity.daoBusinessOperations)
+#if($operation.preUpdate)
+        ${operation.name}($argumentName);
+#end
+#end
     }
      
     /**
-     * beforeDelete event - This method is called before deleting the entity and can be overriden
+     * postUpdate event - This method is called after updating the entity
      */
-    protected void _beforeDelete(final $entity.fullyQualifiedName $argumentName)
+    protected void _postUpdate(final $entity.fullyQualifiedName $argumentName)
     {
-        //empty method 
+#if ($daoInheritance)
+        super._postUpdate($argumentName)
+#end
+#foreach ($operation in $entity.daoBusinessOperations)
+#if($operation.postUpdate)
+        ${operation.name}($argumentName);
+#end
+#end
+    }
+     
+    /**
+     * preRemove event - This method is called before deleting the entity
+     */
+    protected void _preRemove(final $entity.fullyQualifiedName $argumentName)
+    {
+#if ($daoInheritance)
+        super._preRemove($argumentName)
+#end
+#foreach ($operation in $entity.daoBusinessOperations)
+#if($operation.preRemove)
+        ${operation.name}($argumentName);
+#end
+#end
+    }
+     
+    /**
+     * postRemove event - This method is called after deleting the entity
+     */
+    protected void _postRemove(final $entity.fullyQualifiedName $argumentName)
+    {
+#if ($daoInheritance)
+        super._postRemove($argumentName)
+#end
+#foreach ($operation in $entity.daoBusinessOperations)
+#if($operation.postRemove)
+        ${operation.name}($argumentName);
+#end
+#end
     }
      
 ## Only add these methods if the entity isn't abstract
@@ -447,10 +505,8 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
                 "${entity.name}.create - '$argumentName' can not be null");
         }
 
-        //beforeSave event
-        _beforeSave($argumentName);
-        //beforeCreate event
-        _beforeCreate($argumentName);
+        //prePersist event
+        _prePersist($argumentName);
 
 #if ($hibernateUtils.xmlPersistenceActive)
 #set ($identifierProperty = "identifier")
@@ -460,12 +516,20 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #set ($identifierProperty = "($identifierTypeName)$identifierProperty")
 #end
         Object identifier =#if($hibernate4) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.save($argumentName);
+
+        //postPersist event
+        _postPersist($argumentName);
+
         if (transform == TRANSFORM_XML)
           return this.load(TRANSFORM_XML, (($identifierProperty)));
         else
           return this.transformEntity(transform, $argumentName);
 #else
        #if($hibernate4) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.save($argumentName);
+
+        //postPersist event
+        _postPersist($argumentName);
+
         return this.transformEntity(transform, $argumentName);
 #end
     }
@@ -634,12 +698,13 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
                 "${entity.name}.update - '$argumentName' can not be null");
         }
         
-        //beforeSave event
-        _beforeSave($argumentName);
-        //beforeUpdate event
-        _beforeUpdate($argumentName);
+        //preUpdate event
+        _preUpdate($argumentName);
 
        #if($hibernate4) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.update($argumentName);
+
+        //postUpdate event
+        _postUpdate($argumentName);
     }
 
 #if ($hibernateUtils.xmlPersistenceActive)
@@ -732,10 +797,13 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
             throw new IllegalArgumentException(
                 "${entity.name}.remove - '$argumentName' can not be null");
         }
-        //beforeDelete event
-        _beforeDelete($argumentName);
+        //preRemove event
+        _preRemove($argumentName);
         
        #if($hibernate4) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.delete($argumentName);
+
+        //postRemove event
+        _postRemove($argumentName);
     }
 
 #if ($hibernateUtils.xmlPersistenceActive)
@@ -813,10 +881,13 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         }
         for ($rootEntityType entity : entities)
         {
-            //beforeDelete event
-            _beforeDelete(entity);
+            //preRemove event
+            _preRemove(entity);
 
            #if($hibernate4) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.delete(entity);
+
+            //postRemove event
+            _postRemove(entity);
         }
     }
 ##
