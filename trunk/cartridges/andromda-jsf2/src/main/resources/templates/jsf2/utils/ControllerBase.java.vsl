@@ -154,7 +154,8 @@ public abstract class ControllerBase
             useCaseParameters=this.getUseCaseParameters();
         }
 
-        this.resetUseCaseScope();
+        //reset the useCaseScope and put the parameters available.
+        this.resetUseCaseScope().put(USE_CASE_PARAMETERS_KEY,useCaseParameters);
         
         setUseCaseInDialog(org.apache.commons.lang.BooleanUtils.toBoolean(org.apache.commons.lang.ObjectUtils.toString(useCaseParameters.get(USE_CASE_IN_DIALOG_KEY))));
 
