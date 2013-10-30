@@ -551,9 +551,9 @@ public abstract class ${manageable.controllerName}
 #if($member.type.stringType)
         searchExample.${member.setterName}(searchValue);
 #elseif($member.type.dateType)
-        searchExample.${member.setterName}(new ${member.type.fullyQualifiedName}(java.text.DateFormat.getInstance().parse(searchValue).getTime()));
+        searchExample.${member.setterName}(org.apache.commons.lang3.StringUtils.isEmpty(searchValue)? null: new ${member.type.fullyQualifiedName}(java.text.DateFormat.getInstance().parse(searchValue).getTime()));
 #else    
-        searchExample.${member.setterName}(#if($member.type.primitive)${member.type.wrapperName}#else ${member.type.fullyQualifiedName}#end.valueOf(searchValue));
+        searchExample.${member.setterName}(org.apache.commons.lang3.StringUtils.isEmpty(searchValue)? null: #if($member.type.primitive)${member.type.wrapperName}#else ${member.type.fullyQualifiedName}#end.valueOf(searchValue));
 #end
 #end                    
 #end

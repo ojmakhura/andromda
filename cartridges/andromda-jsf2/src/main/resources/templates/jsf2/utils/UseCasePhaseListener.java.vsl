@@ -22,6 +22,20 @@ public class UseCasePhaseListener implements javax.faces.event.PhaseListener {
                 }
             }
         }
+        else if(event.getPhaseId().equals(PhaseId.RENDER_RESPONSE))
+        {
+            //forward to the same usecase
+            final javax.faces.context.FacesContext facesContext=event.getFacesContext();
+            final java.util.Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
+            final java.util.Map<String, Object> viewScope = facesContext.getViewRoot().getViewMap();
+            //Response: if the current view does not have the scope key but the request has, new view - forward
+            if(!viewScope.containsKey(ControllerBase.USE_CASE_SCOPE_KEY) && 
+                requestMap.containsKey(ControllerBase.USE_CASE_SCOPE_KEY))
+            {
+                //copy the scope key
+                viewScope.put(ControllerBase.USE_CASE_SCOPE_KEY,requestMap.get(ControllerBase.USE_CASE_SCOPE_KEY));
+            }
+        }
     }
 
     @Override
@@ -44,7 +58,8 @@ public class UseCasePhaseListener implements javax.faces.event.PhaseListener {
                 viewScope.put(ControllerBase.USE_CASE_SCOPE_KEY,requestMap.get(ControllerBase.USE_CASE_SCOPE_KEY));
             }
         } 
-        else if(event.getPhaseId().equals(javax.faces.event.PhaseId.RENDER_RESPONSE)){
+        else if(event.getPhaseId().equals(javax.faces.event.PhaseId.RENDER_RESPONSE))
+        {
             // keep the useCaseScope alive in the next request
             event.getFacesContext().getExternalContext().getFlash().keep(ControllerBase.USE_CASE_SCOPE_KEY);
         }

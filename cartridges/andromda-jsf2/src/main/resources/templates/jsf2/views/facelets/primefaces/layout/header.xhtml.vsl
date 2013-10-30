@@ -13,7 +13,7 @@
             </p:menuButton>
         </h:form>
 #end        
-        <p:ajaxStatus >
+        <p:ajaxStatus id="ajax-loader">
             <f:facet name="start">
                 <h:graphicImage value="resources/images/ajax-loader.gif" />
             </f:facet>

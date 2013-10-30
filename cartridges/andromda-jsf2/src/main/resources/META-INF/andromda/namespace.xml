@@ -408,6 +408,13 @@
                     be generated (such as the layout options class, etc).
                 </documentation>
             </property>
+            <property name="testPackage">
+                <default>org.andromda.presentation.jsf.test</default>
+                <documentation>
+                    Defines the the package in which any extra test classes will
+                    be generated.
+                </documentation>
+            </property>
 <!--             <property name="jsfComponentsPackage"> -->
 <!--                 <default>org.andromda.presentation.jsf.components</default> -->
 <!--                 <documentation> -->

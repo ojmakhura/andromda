@@ -32,6 +32,7 @@
     <property reference="messageResources"/>
     <property reference="facesServletExtension"/>
     <property reference="managedBeansPackage"/>
+    <property reference="testPackage"/>
     <property reference="applicationName"/>
     <property reference="exceptionHandlerPattern"/>
     <property reference="converterPattern"/>
@@ -509,6 +510,37 @@
 
     <!-- Test classes -->
 
+    <template
+        path="templates/jsf2/test/SeleniumCommand.java.vsl"
+        outputPattern="$stringUtils.replace($testPackage, '.', '/')/SeleniumCommand.java"
+        outlet="test"
+        overwrite="true"/>
+    
+    <template
+        path="templates/jsf2/test/WebCommand.java.vsl"
+        outputPattern="$stringUtils.replace($testPackage, '.', '/')/WebCommand.java"
+        outlet="test"
+        overwrite="true"/>
+    
+    <template
+        path="templates/jsf2/test/SeleniumFactory.java.vsl"
+        outputPattern="$stringUtils.replace($testPackage, '.', '/')/SeleniumFactory.java"
+        outlet="test"
+        overwrite="true"/>
+    
+    <template
+        path="templates/jsf2/test/crud/CrudEditForm.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="test"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
 <!--     
     <template
         path="templates/jsf2/test/FormAccess.java.vsl"
