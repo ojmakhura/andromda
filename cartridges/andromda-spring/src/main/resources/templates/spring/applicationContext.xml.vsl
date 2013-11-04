@@ -211,7 +211,9 @@
 #foreach ($service in $services)
 #if (!$service.private)
 #foreach ($operation in $springUtils.filterUniqueByName($service.implementationOperations))
+#if(!$operation.visibility.equalsIgnoreCase("private") && !$operation.visibility.equalsIgnoreCase("protected"))
                 ${service.fullyQualifiedName}.${operation.name}=${operation.transactionType}
+#end
 #end
 #end
 #end
