@@ -115,6 +115,12 @@
                     If using XMLBindingAnnotations, annotate simple types as attributes instead of elements.
                 </documentation>
             </property>
+            <property name="dateTimeGeneratedText">
+                <default>true</default>
+                <documentation>
+                    Adds a comment with the current date and time to the generated.
+                </documentation>
+            </property>
             <property name="javaVersion">
                 <default>1.6</default>
                 <documentation>
