@@ -43,6 +43,13 @@ public class EMXProxyResolvingResourceSet extends ResourceSetImpl
         long now = System.currentTimeMillis();
         try
         {
+            // Allow both UML2 v2 and v3+ profile references. Changed from Standard.profile.uml to StandardL2.profile.uml and StandardL3.profile.uml in v3
+            //if (uri.toString().contains("Standard.profile.uml"))
+            //{
+                /*String newUri = uri.toString().replace("Standard.profile.uml", "StandardL2.profile.uml");
+                possiblyResolvedObject = super.getEObject(URI.createURI(newUri), loadOnDemand);*/
+                //uri = URI.createURI(uri.toString().replace("Standard.profile.uml", "StandardL3.profile.uml"));
+            //}
             possiblyResolvedObject = super.getEObject(uri, loadOnDemand);
         }
         catch (Exception e)
@@ -53,22 +60,13 @@ public class EMXProxyResolvingResourceSet extends ResourceSetImpl
                 if (e.getMessage().contains("FileNotFoundException"))
                 {
                     // MagicDraw and Standard Profiles generally not needed, exporting them takes lots of space
-                    if (e.getMessage().contains("UML_Standard_Profile"))
-                    {
-                        // Don't need entire stack trace if referenced file is not found, message is enough.
-                        logger.warn("Referenced model FileNotFound: " + uri + (System.currentTimeMillis() - now) + " ms: " +
-                                uri.toString() + " " + e.getCause().getMessage());
-                    }
-                    else
-                    {
-                        // Don't need entire stack trace if referenced file is not found, message is enough.
-                        logger.error("Referenced model FileNotFound: " + uri + (System.currentTimeMillis() - now) + " ms: " +
-                                uri.toString() + " " + e.getCause().getMessage());
-                    }
+                    // Don't need entire stack trace if referenced file is not found, message is enough.
+                    logger.warn("Referenced model FileNotFound: " + uri + " " + (System.currentTimeMillis() - now) + " ms: " +
+                            uri.toString() + " " + e.getCause().getMessage());
                 }
                 else
                 {
-                    logger.error("Could not load referenced model uri " + (System.currentTimeMillis() - now) + "ms: " +
+                    logger.error("Could not load referenced model uri " + " " + (System.currentTimeMillis() - now) + "ms: " +
                             uri.toString() + " " + e.getCause().getMessage(), e.getCause());
                 }
             }

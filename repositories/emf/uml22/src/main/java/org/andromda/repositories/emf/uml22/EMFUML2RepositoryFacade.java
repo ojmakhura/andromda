@@ -1,6 +1,7 @@
 package org.andromda.repositories.emf.uml22;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.metafacade.ModelAccessFacade;
@@ -21,6 +22,7 @@ import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMLParserPoolImpl;
 import org.eclipse.emf.mapping.ecore2xml.Ecore2XMLPackage;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.UMLPackage;
@@ -90,14 +92,17 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
         packageRegistry.put("http://schema.omg.org/spec/XMI/2.1.2", UMLPackage.eINSTANCE);
         packageRegistry.put("http://schema.omg.org/spec/XMI/2.2", UMLPackage.eINSTANCE);
         packageRegistry.put("http://schema.omg.org/spec/XMI/2.3", UMLPackage.eINSTANCE);
+        packageRegistry.put("http://schema.omg.org/spec/XMI/2.4", UMLPackage.eINSTANCE);
+        packageRegistry.put("http://schema.omg.org/spec/XMI/2.4.1", UMLPackage.eINSTANCE);
         packageRegistry.put("http://schema.omg.org/spec/UML/2.0", UMLPackage.eINSTANCE);
         packageRegistry.put("http://schema.omg.org/spec/UML/2.1", UMLPackage.eINSTANCE);
         packageRegistry.put("http://schema.omg.org/spec/UML/2.1.1", UMLPackage.eINSTANCE);
         packageRegistry.put("http://schema.omg.org/spec/UML/2.1.2", UMLPackage.eINSTANCE);
         packageRegistry.put("http://schema.omg.org/spec/UML/2.2", UMLPackage.eINSTANCE);
         packageRegistry.put("http://schema.omg.org/spec/UML/2.3", UMLPackage.eINSTANCE);
-        //packageRegistry.put("http://schema.omg.org/spec/UML/3.0", UMLPackage.eINSTANCE);
-        //packageRegistry.put("http://schema.omg.org/spec/UML/3.1", UMLPackage.eINSTANCE);
+        packageRegistry.put("http://schema.omg.org/spec/UML/2.4", UMLPackage.eINSTANCE);
+        packageRegistry.put("http://schema.omg.org/spec/UML/2.4.1", UMLPackage.eINSTANCE);
+        packageRegistry.put("http://schema.omg.org/spec/UML/2.5", UMLPackage.eINSTANCE);
 
         // Maps from file extension to resource for XML deserialization
         final Map<String, Object> extensionToFactoryMap = proxyResourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap();
@@ -105,7 +110,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
         // Register all files with all extensions as .uml resources, for loading purposes
         //extensionToFactoryMap.put(Resource.Factory.Registry.DEFAULT_EXTENSION, UMLResource.Factory.INSTANCE);
         // register known file extensions:
-        // - *.uml -> native Eclipse/UML2 2.x resource
+        // - *.uml -> native Eclipse/UML2 2.x 3.x 4.x resource
         // - *.uml2 -> native Eclipse/UML2 1.x resource
         // - *.xmi, *.xml -> OMG XMI UML2 resource
         // - *.emx, *.epx -> IBM Rational Modeler UML2 model and profile resource
@@ -171,6 +176,12 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
                 URI.createURI(UMLPackage.eNS_URI));
         uriMap.put(URI.createURI("http://schema.omg.org/spec/UML/2.3"),
                 URI.createURI(UMLPackage.eNS_URI));
+        uriMap.put(URI.createURI("http://schema.omg.org/spec/UML/2.4"),
+                URI.createURI(UMLPackage.eNS_URI));
+        uriMap.put(URI.createURI("http://schema.omg.org/spec/UML/2.4.1"),
+                URI.createURI(UMLPackage.eNS_URI));
+        uriMap.put(URI.createURI("http://schema.omg.org/spec/UML/2.5"),
+                URI.createURI(UMLPackage.eNS_URI));
         // Add pathmap for RSM UML2_MSL_PROFILES in com/ibm/xtools/uml/msl/7.10.500/msl-7.10.500.jar
         url = this.getClass().getResource("/profiles/Default.epx");
         if (url!=null)
@@ -209,14 +220,18 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
         }
 
         // - populate the load options
-        final Map<String, Boolean> loadOptions = this.getLoadOptions();
+        final Map<String, Object> loadOptions = this.getLoadOptions();
         // Enable notifications during load. Profiles not found do not generate a notification
+        // See http://sdqweb.ipd.kit.edu/wiki/EMF_Model_Loading_Performance_Tweaks
         loadOptions.put(XMLResource.OPTION_DISABLE_NOTIFY, Boolean.FALSE);
         loadOptions.put(XMLResource.OPTION_DOM_USE_NAMESPACES_IN_SCOPE, Boolean.TRUE);
         loadOptions.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
         loadOptions.put(XMLResource.OPTION_DEFER_ATTACHMENT, Boolean.TRUE);
         loadOptions.put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, Boolean.TRUE);
         loadOptions.put(XMLResource.OPTION_PROCESS_DANGLING_HREF_RECORD, Boolean.TRUE);
+        loadOptions.put(XMLResource.OPTION_USE_DEPRECATED_METHODS, Boolean.TRUE);
+        loadOptions.put(XMLResource.OPTION_USE_PARSER_POOL, new XMLParserPoolImpl());
+        loadOptions.put(XMLResource.OPTION_USE_XML_NAME_TO_FEATURE_MAP, new HashMap());
 
         return proxyResourceSet;
     }

@@ -98,10 +98,10 @@ public class TemplateParameterFacadeLogicImpl
         {
             type = (Classifier)element;
         }
-        if (type == null)
+        /*if (type == null)
         {
-            System.out.println(this.getFullyQualifiedName() + " type=" + type + " metaObject=" + this.metaObject + " element=" + element);
-        }
+            LOGGER.info(this.getFullyQualifiedName() + " type=" + type + " metaObject=" + this.metaObject + " element=" + element);
+        }*/
         final Object result = this.shieldedElement(type);
         try
         {
@@ -114,7 +114,7 @@ public class TemplateParameterFacadeLogicImpl
         }
         /*if (type==null && param.getConstrainingClassifiers()!=null && param.getConstrainingClassifiers().size()>0)
         {
-            System.out.println("NULL " + this.getFullyQualifiedName() + " type=" + type + " metaObject=" + this.metaObject + " element=" + element + " class=" + param.getConstrainingClassifiers());
+            LOGGER.info("NULL " + this.getFullyQualifiedName() + " type=" + type + " metaObject=" + this.metaObject + " element=" + element + " class=" + param.getConstrainingClassifiers());
         }*/
         return getType2r;
     }
