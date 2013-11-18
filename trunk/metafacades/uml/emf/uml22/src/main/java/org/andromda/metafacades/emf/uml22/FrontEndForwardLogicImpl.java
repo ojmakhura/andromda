@@ -23,6 +23,7 @@ import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
  * MetafacadeLogic implementation for
@@ -37,8 +38,8 @@ public class FrontEndForwardLogicImpl
 
     /**
      * The logger instance.
-    private static final Logger LOGGER = Logger.getLogger(FrontEndForwardLogicImpl.class);
      */
+    private static final Logger LOGGER = Logger.getLogger(FrontEndForwardLogicImpl.class);
 
     /**
      * @param metaObject
@@ -335,11 +336,15 @@ public class FrontEndForwardLogicImpl
     protected FrontEndControllerOperation handleGetOperationCall()
     {
         FrontEndControllerOperation operation = null;
-        final EventFacade triggerEvent = this.getTrigger();
-        if (triggerEvent instanceof FrontEndEvent)
+        final EventFacade trigger = this.getTrigger();
+        if (trigger instanceof FrontEndEvent)
         {
-            final FrontEndEvent trigger = (FrontEndEvent)triggerEvent;
-            operation = trigger.getControllerCall();
+            final FrontEndEvent triggerEvent = (FrontEndEvent)trigger;
+            operation = triggerEvent.getControllerCall();
+        }
+        else
+        {
+            LOGGER.info("FrontEndForward has no FrontEndEvent trigger defined. forward=" + this.getFullyQualifiedName(false) + " trigger=" + trigger);
         }
         return operation;
     }

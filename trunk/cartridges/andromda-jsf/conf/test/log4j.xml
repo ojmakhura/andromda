@@ -9,7 +9,7 @@
           Append error messages to a local error log    
          ============================================ -->
     <appender name="FILE" class="org.apache.log4j.FileAppender">
-        <param name="File" value="jsf2.log"/>
+        <param name="File" value="jsf.log"/>
         <param name="Threshold" value="DEBUG"/>
         <param name="Append" value="false"/>
         <layout class="org.apache.log4j.PatternLayout">

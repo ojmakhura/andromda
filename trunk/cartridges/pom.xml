@@ -117,7 +117,11 @@
                                 <goal>test</goal>
                             </goals>
                             <configuration>
+                                <actualDirectory>${project.build.directory}/cartridge-test/actualUML14</actualDirectory>
+                                <expectedDirectory>${project.build.directory}/cartridge-test/expectedUML14</expectedDirectory>
+                                <expectedOutputArchive>${project.basedir}/src/test/expected/cartridge-output.zip</expectedOutputArchive>
                                 <configurationUri>file:${project.basedir}/conf/test/andromda.xml</configurationUri>
+                                <reportDirectory>${project.build.directory}/cartridge-test/reportsUML14</reportDirectory>
                             </configuration>
                         </execution-->
                     </executions>

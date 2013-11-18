@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 
 /**
@@ -459,5 +460,15 @@ public class MetafacadeBase implements Serializable, Comparable
             return -1;
         }
         return metafacade.getValidationName().compareTo(this.getValidationName());
+    }
+
+    /**
+     * For debug purposes, when we need more than just class and metaclass name
+     * @return String representation of all properties including metaObject info
+     * @see Object#toString()
+     */
+    public String getDebug()
+    {
+        return ToStringBuilder.reflectionToString(this) + '[' + this.metafacadeName + ": " + this.metaObject.getClass().getName() + ": " + ToStringBuilder.reflectionToString(this.metaObject) + ']';
     }
 }

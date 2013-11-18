@@ -184,7 +184,7 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>jboss</groupId>
+                <groupId>org.jboss</groupId>
                 <artifactId>jnp-client</artifactId>
                 <version>4.2.2.GA</version>
                 <scope>provided</scope>
@@ -216,7 +216,7 @@
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
-                <version>4.2.2.Final</version>
+                <version>4.2.7.SP1</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -330,7 +330,7 @@
             <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
-                <version>6.8.5</version>
+                <version>6.8.7</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -382,7 +382,7 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <!--version>6.8.5</version>
+            <!--version>6.8.7</version>
             <scope>test</scope-->
         </dependency>
         <!--dependency>

@@ -5,7 +5,7 @@
     <!-- Comma separated list of cartridges to be processed by namespace name, such as java,webservice. Empty = true = process all>
     <property name="cartridgeFilter">${filter}</property -->
     <!-- Debug andromda processing using example log4jUML2.xml file>
-    <property name="loggingConfigurationUri">file:${basedir}/conf/test/log4jUML2.xml</property -->
+    <property name="loggingConfigurationUri">file:${basedir}/conf/test/log4j.xml</property -->
   </properties>
   <repositories>
     <repository name="emf-uml22">

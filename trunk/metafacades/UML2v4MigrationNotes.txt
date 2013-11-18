@@ -1,0 +1,71 @@
+MD 17.0.1 Sep 2012 supports UML2 4.x (v2.4.1) only.
+http://www.nomagic.com/news/news-noteworthy/magicdraw-17-0-1.html
+http://www.nomagic.com/supported-uml-specification-changes.html
+
+Not backwards compatible with UML2 v3: Standard.profile -> StandardL2, L3 profiles
+http://wiki.eclipse.org/MDT/UML2/UML2_4.0_Migration_Guide
+
+UML14 MF error:
+ClassNotFoundException: org.andromda.translation.ocl.validation.OCLIntrospector
+but andromda-ocl-validation-library is in the classpath.
+
+UML22 Repository Test error:
+Not loading andromda-common profile, no message about referenced profile.
+stereotypes: []
+WARN  [EMXProxyResolvingResourceSet] Referenced model FileNotFound: pathmap://UML_PROFILES/Standard.profile.uml#_00 ms: pathmap://UML_PROFILES/Standard.profile.uml#_0 JAR entry profiles/Standard.profile.uml not found in C:\Programs\m2repo\org\eclipse\uml2\org.eclipse.uml2.uml.resources\4.0.1\org.eclipse.uml2.uml.resources-4.0.1.jar
+
+Should we have a separate loader for UML2 v3 and v4?
+
+Can we serialize the v3 model to v4 for loading?
+
+Are we OK if we don't use any of the Standard.profile stereotypes?
+
+Upgrade process:
+1. Download artifacts from download.eclipse.com. UML2, EMF, Core
+2. build.xml + build.properties: old and new versions.
+ecore.util.ECoreEMap 52, 92: ecore does not compile: type parameter E is not within its bound
+Upgrade base org.eclipse.core.runtime version?
+3. Install uml2 and emf artifacts to m2repo. Update org.eclipse pom.xml, Add new uml2.types dependency.
+4. Update mf and repository dependencies to new version
+5. Fix AssociationEndImpl, AttributeImpl for changed APIs for UML2 Property
+
+
+Second rebuild seems to work OK with legacy UML2 models.
+
+Controller operation is null
+java.lang.NullPointerException
+org.andromda.cartridges.jsf.metafacades.JSFActionLogicImpl.handleGetFormImplementationInterfaceList(JSFActionLogicImpl.java:190)
+getDeferredOperations() -> FrontEndActionLogic.handleGetDeferredOperations()
+getDecisionTransitions() -> FroneEndEvent (FrontEndForwardLogicImpl)forward.getDecisionTrigger()
+return (FrontEndEvent)(this.isEnteringDecisionPoint() ? this.shieldedElement(this.getTrigger()) : null);
+TransitionFacadeLogic.getTrigger()
+
+After re-export of jsf test model:
+WARN  [EMXProxyResolvingResourceSet] Could not load referenced model uri 32ms: file:/C:/Workspaces/A34/andromda35/cartridges/andromda-jsf/src/test/uml2/andromda-webservice.profile.uml#_9_0_2_12ab03bf_1120852932765_76536_0 Value 'org.eclipse.uml2.uml.internal.impl.EnumerationImpl@17372afb (name: WSSecurityType, visibility: <unset>) (isLeaf: false, isAbstract: false, isFinalSpecialization: false)' is not legal. (file:/C:/Workspaces/A34/andromda35/cartridges/andromda-jsf/src/test/uml2/andromda-webservice.profile.uml, 958, 78)
+org.eclipse.emf.ecore.xmi.IllegalValueException: Value 'org.eclipse.uml2.uml.internal.impl.EnumerationImpl@17372afb (name: WSSecurityType, visibility: <unset>) (isLeaf: false, isAbstract: false, isFinalSpecialization: false)' is not legal. (file:/C:/Workspaces/A34/andromda35/cartridges/andromda-jsf/src/test/uml2/andromda-webservice.profile.uml, 958, 78)
+	at org.eclipse.emf.ecore.xmi.impl.XMLHandler.setFeatureValue(XMLHandler.java:2657)
+	at org.eclipse.emf.ecore.xmi.impl.XMLHandler.handleForwardReferences(XMLHandler.java:1143)
+Caused by: java.lang.UnsupportedOperationException
+	at org.eclipse.emf.common.util.BasicEList$UnmodifiableEList.grow(BasicEList.java:1029)
+	at org.eclipse.emf.common.util.BasicEList.addUnique(BasicEList.java:435)
+ org.eclipse.emf.ecore.xmi.impl.XMLHelperImpl.setValue(XMLHelperImpl.java:1185)
+     at org.eclipse.emf.ecoError: Value 
+ 'org.eclipse.uml2.uml.internal.impl.EnumerationImpl@825cf3 (name:
+ CodeList.Wettbewerbsart, visibility: <unset>) (isLeaf: false, 
+ isAbstract: false, isFinalSpecialization: false)' is not legal. 
+ (file:/model2/xhamsterzucht.uml, -1, 
+ -1)re.xmi.impl.XMLHandler.setFeatureValue(XMLHandler.java:2652)
+ 
+See http://www.eclipse.org/forums/index.php/t/353280/
+Wait till 4.3 SR2? https://bugs.eclipse.org/bugs/show_bug.cgi?id=389542
+
+
+
+C:\Workspaces\A34\andromda35\andromda-documentation\samples\timetracker\web\src\main\java\org\andromda\timetracker\web\timecardsearch\SearchControllerImpl.java:[49,12] cannot find method setSubmitterBackingList(java.util.List<org.andromda.timetracker.vo.UserVO>,java.lang.String,java.lang.String)
+[ERROR] location: interface org.andromda.timetracker.web.timecardsearch.PopulateSearchScreenForm
+C:\Workspaces\A34\andromda35\andromda-documentation\samples\timetracker\web\src\main\java\org\andromda\timetracker\web\timecardsearch\SearchControllerImpl.java:[50,12] cannot find method setApproverBackingList(java.util.List<org.andromda.timetracker.vo.UserVO>,java.lang.String,java.lang.String)
+[ERROR] location: interface org.andromda.timetracker.web.timecardsearch.PopulateSearchScreenForm
+C:\Workspaces\A34\andromda35\andromda-documentation\samples\timetracker\web\src\main\java\org\andromda\timetracker\web\timecardsearch\SearchControllerImpl.java:[57,12] cannot find method setStatusLabelList(java.lang.Object[])
+[ERROR] location: interface org.andromda.timetracker.web.timecardsearch.PopulateSearchScreenForm
+C:\Workspaces\A34\andromda35\andromda-documentation\samples\timetracker\web\src\main\java\org\andromda\timetracker\web\timecardsearch\SearchControllerImpl.java:[58,12] cannot find method setStatusValueList(java.lang.Object[])
+[ERROR] location: interface org.andromda.timetracker.web.timecardsearch.PopulateSearchScreenForm

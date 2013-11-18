@@ -24,6 +24,7 @@ import org.eclipse.uml2.uml.Dependency;
 import org.eclipse.uml2.uml.Deployment;
 import org.eclipse.uml2.uml.DirectedRelationship;
 import org.eclipse.uml2.uml.Element;
+//import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.MultiplicityElement;
 import org.eclipse.uml2.uml.NamedElement;
@@ -1581,19 +1582,6 @@ public class AssociationEndImpl
      */
 
     /**
-     * UML2 v3.6 only, method removed in v4
-     * @see org.eclipse.uml2.uml.Property#validateNavigableReadonly(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
-     */
-    public boolean validateNavigableReadonly(
-        final DiagnosticChain arg0,
-        final Map<Object, Object> arg1)
-    {
-        return this.property.validateNavigableReadonly(
-            arg0,
-            arg1);
-    }
-
-    /**
      * @param arg0
      * @param arg1
      * @return !this.property.validateHasQualifiedName(arg0, arg1)
@@ -2362,6 +2350,19 @@ public class AssociationEndImpl
     public Object eInvoke(final EOperation operation, final EList<?> arguments) throws InvocationTargetException
     {
         return this.property.eInvoke(operation, arguments);
+    }
+
+    /**
+     * UML2 v3.6 only, method removed in v4
+     * @see org.eclipse.uml2.uml.Property#validateNavigableReadonly(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+     */
+    public boolean validateNavigableReadonly(
+        final DiagnosticChain arg0,
+        final Map<Object, Object> arg1)
+    {
+        return this.property.validateNavigableReadonly(
+            arg0,
+            arg1);
     }
 
     /*

@@ -50,7 +50,7 @@ public abstract class AbstractCartridgeTestMojo
 
     /**
      * The location of the archive storing the expected output.
-     * @parameter expression="${basedir}/src/test/expected/cartridge-output.zip"
+     * @parameter expression="${basedir}/src/test/expected/cartridge-outputUML2.zip"
      * @required
      */
     protected File expectedOutputArchive;
@@ -58,7 +58,7 @@ public abstract class AbstractCartridgeTestMojo
     /**
      * This is the URI to the AndroMDA configuration file.
      *
-     * @parameter expression="file:${basedir}/conf/test/andromda.xml"
+     * @parameter expression="file:${basedir}/conf/test/andromdaUML2.xml"
      * @required
      */
     protected String configurationUri;

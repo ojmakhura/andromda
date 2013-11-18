@@ -303,11 +303,6 @@ $actionState.getDocumentation("     * ")
         String forward = null;
 #if ($actionState.controllerCalls.empty)
 ## TODO UMLMETA-106 uml22 StateVertex outgoing FinalState target returns null/unknown for Exception transition.
-##        // actionState=$actionState controllerCalls=$actionState.controllerCalls.size()
-##foreach ($outgoing in $actionState.outgoings)
-##        // outgoing=$outgoing target=$outgoing.target
-##end
-##        // forward=$actionState.forward name=$actionState.name
         forward = #processTransition($actionState.forward)
 #else
 #set($exceptions = $actionState.exceptions)
