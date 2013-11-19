@@ -1,6 +1,14 @@
 package org.andromda.cartridges.spring.metafacades;
 
+import java.util.Collection;
+
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.EntityQueryOperation;
+import org.andromda.metafacades.uml.ManageableEntity;
+import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -327,5 +335,60 @@ public class SpringManageableEntityLogicImpl
     {
         return StringUtils.isNotBlank(this.getRemoteContext());
     }
+    
+    /**
+     * Only allow business operations returning the entity or instances of the id type 
+     *
+     * @return Allowed business operations.
+     */
+    public Collection<OperationFacade> getManageableBusinessOperations()
+    {
+        final Collection<OperationFacade> result=super.getBusinessOperations();
+        CollectionUtils.filter(result, new Predicate()
+        {
+            @Override
+            public boolean evaluate(Object obj) 
+            {
+                final OperationFacade operation=(OperationFacade)obj;
+                final ClassifierFacade returnType=operation.getReturnType();
+                return operation.getVisibility().equals("public") &&
+                       (returnType.isDataType() ||
+                        returnType.getFullyQualifiedName().equals(getFullyQualifiedName()));
+            }
+        });
+        return result;
+    }
 
+    /**
+     * Only allow query operations returning the entity
+     *
+     * @return Allowed query operations.
+     */
+    public Collection<EntityQueryOperation> getManageableQueryOperations()
+    {
+        final Collection<EntityQueryOperation> result=super.getQueryOperations();
+        CollectionUtils.filter(result, new Predicate()
+        {
+            @Override
+            public boolean evaluate(Object obj) 
+            {
+                final EntityQueryOperation operation=(EntityQueryOperation)obj;
+                final ClassifierFacade returnType=operation.getReturnType();
+                return operation.getVisibility().equals("public") && 
+                       (returnType.isDataType() ||
+                        returnType.getFullyQualifiedName().equals(getFullyQualifiedName()));
+            }
+        });
+        return result;
+    }
+    
+    /**
+     * Helper function
+     *
+     * @return true if the operation returns a collection
+     */
+    public boolean isCollection(OperationFacade operation)
+    {
+        return (operation.getUpper() > 1 || operation.getUpper() == -1);
+    }
 }

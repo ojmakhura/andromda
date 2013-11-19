@@ -29,6 +29,9 @@
 #if ($manageable.delete)
                 ${manageable.fullyQualifiedManageableServiceName}.delete=PROPAGATION_REQUIRED
 #end
+#foreach ($operation in $manageable.businessOperations)
+                ${manageable.fullyQualifiedManageableServiceName}.${operation.name}=PROPAGATION_REQUIRED
+#end
 #end
             </value>
         </property>

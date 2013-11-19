@@ -288,6 +288,43 @@ public abstract class $manageable.manageableServiceBaseName
     }
 #end
 #end
+#foreach ($operation in $manageable.manageableBusinessOperations)
+
+#if ($operation.returnType.dataType)
+#set ($returnType = $operation.getterSetterReturnTypeName)
+#elseif ($manageable.isCollection($operation))
+#set ($isCollection = true) 
+#set ($returnType = "java.util.Collection<${manageable.fullyQualifiedManageableValueObjectName}>")
+#else
+#set ($isCollection = false) 
+#set ($returnType = "${manageable.fullyQualifiedManageableValueObjectName}")
+#end
+    /**
+$operation.getDocumentation("     * ")
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name $argument.getDocumentation("")
+#end
+     * @return $returnType
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
+#end
+     */
+#if ($operation.exceptionsPresent)
+    public $returnType $operation.signature
+        throws $operation.exceptionList
+#else
+    public $returnType $operation.signature
+#end
+    {
+#if ($operation.returnType.dataType)
+       #if($returnType != "void") return#end this.dao.${operation.call};
+#elseif ($isCollection)
+        return this.dao.toValueObjectCollection(this.dao.${operation.call}); 
+#else
+        return this.dao.toValueObject(this.dao.${operation.call}); 
+#end
+    }
+#end
 
     // spring-crud-service-base merge-point
 }
