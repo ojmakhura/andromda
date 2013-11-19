@@ -139,6 +139,33 @@ public interface $manageable.manageableServiceName
     public ${manageable.fullyQualifiedManageableValueObjectName} $searchUniqueMethod(final ${attribute.type.fullyQualifiedName} ${attribute.name});
 #end
 #end
+#foreach ($operation in $manageable.manageableBusinessOperations)
+
+#if ($operation.returnType.dataType)
+#set ($returnType = $operation.getterSetterReturnTypeName)
+#elseif ($manageable.isCollection($operation))
+#set ($returnType = "java.util.Collection<${manageable.fullyQualifiedManageableValueObjectName}>")
+#else
+#set ($returnType = "${manageable.fullyQualifiedManageableValueObjectName}")
+#end
+    /**
+$operation.getDocumentation("     * ")
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name $argument.getDocumentation("")
+#end
+     * @return $returnType
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
+#end
+     */
+#if ($operation.exceptionsPresent)
+    public $returnType $operation.signature
+        throws $operation.exceptionList;
+#else
+    public $returnType $operation.signature;
+#end
+
+#end
 
     // spring-crud-service merge-point
 }
