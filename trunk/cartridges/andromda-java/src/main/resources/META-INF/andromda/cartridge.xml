@@ -45,6 +45,7 @@
     <condition name="generateIsBooleanGetters">$generateIsBooleanGetters.equalsIgnoreCase("true")</condition>
     <condition name="generateChainedSetters">$generateChainedSetters.equalsIgnoreCase("true")</condition>
     <condition name="addNamespaceBackslash">$addNamespaceBackslash.equalsIgnoreCase("true")</condition>
+    <condition name="dateTimeGeneratedText">$dateTimeGeneratedText.equalsIgnoreCase("true")</condition>
     <!-- condition merge-point-->
 
     <!-- cartridge-resource merge-point -->
