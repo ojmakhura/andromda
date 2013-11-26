@@ -104,7 +104,7 @@ public class SpringHibernateUtils
      */
     public String getSpringHibernatePackage()
     {
-        return this.isVersion3() ? "org.springframework.orm.hibernate3" : this.isVersion4() ? "org.springframework.orm.hibernate3" : "org.springframework.orm.hibernate";
+        return this.isVersion3() ? "org.springframework.orm.hibernate3" : this.isVersion4() ? "org.springframework.orm.hibernate4" : "org.springframework.orm.hibernate";
     }
 
     /**
