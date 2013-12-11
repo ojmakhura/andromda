@@ -271,7 +271,7 @@ class JsfExceptionHandler
                 {
 
                     Throwable exception = t; 
-                    while(exception != null && !(exception instanceof java.sql.SQLException))//verifica se é exceção de banco 
+                    while(exception != null && !(exception instanceof java.sql.SQLException))//DB exception ? 
                     {
                         exception = exception.getCause();
                     }
