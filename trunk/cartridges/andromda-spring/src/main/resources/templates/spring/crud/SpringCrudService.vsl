@@ -139,7 +139,7 @@ public interface $manageable.manageableServiceName
     public ${manageable.fullyQualifiedManageableValueObjectName} $searchUniqueMethod(final ${attribute.type.fullyQualifiedName} ${attribute.name});
 #end
 #end
-#foreach ($operation in $manageable.manageableBusinessOperations)
+#foreach ($operation in $manageable.manageableDaoBusinessOperations)
 
 #if ($operation.returnType.dataType)
 #set ($returnType = $operation.getterSetterReturnTypeName)

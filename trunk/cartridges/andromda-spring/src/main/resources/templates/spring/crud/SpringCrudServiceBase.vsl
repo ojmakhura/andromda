@@ -288,7 +288,7 @@ public abstract class $manageable.manageableServiceBaseName
     }
 #end
 #end
-#foreach ($operation in $manageable.manageableBusinessOperations)
+#foreach ($operation in $manageable.manageableDaoBusinessOperations)
 
 #if ($operation.returnType.dataType)
 #set ($returnType = $operation.getterSetterReturnTypeName)

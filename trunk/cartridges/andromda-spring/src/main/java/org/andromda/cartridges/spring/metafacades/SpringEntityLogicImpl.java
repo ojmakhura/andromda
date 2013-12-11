@@ -536,4 +536,14 @@ public class SpringEntityLogicImpl
         return "true".equalsIgnoreCase(richClient);
     }
 
+    /**
+     * Helper function
+     *
+     * @return searchUnique function name
+     */
+    public String getSearchUniqueFunctionName(String attributeName)
+    {
+        return "searchUnique"+StringUtils.capitalize(attributeName);
+    }
+    
 }
