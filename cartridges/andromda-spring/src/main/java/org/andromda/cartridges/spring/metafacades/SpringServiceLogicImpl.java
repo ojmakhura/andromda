@@ -468,7 +468,7 @@ public class SpringServiceLogicImpl
         Collection<OperationFacade> operations = this.getOperations();
         if (!this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE))
         {
-            operations = new FilteredCollection(operations)
+            operations = new FilteredCollection<OperationFacade>(operations)
             {
                 private static final long serialVersionUID = 34L;
                 public boolean evaluate(Object object)

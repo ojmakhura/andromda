@@ -29,8 +29,15 @@
 #if ($manageable.delete)
                 ${manageable.fullyQualifiedManageableServiceName}.delete=PROPAGATION_REQUIRED
 #end
-#foreach ($operation in $manageable.manageableBusinessOperations)
+#foreach ($operation in $manageable.manageableDaoBusinessOperations)
                 ${manageable.fullyQualifiedManageableServiceName}.${operation.name}=PROPAGATION_REQUIRED
+#end
+#set ($attributes = $manageable.getAttributes(true, $manageable.usingAssignedIdentifier))
+#foreach ($attribute in $attributes)
+#if ($attribute.unique)
+#set ($searchUniqueMethod = "searchUnique${stringUtils.capitalise($attribute.name)}")
+                ${manageable.fullyQualifiedManageableServiceName}.${searchUniqueMethod}=PROPAGATION_REQUIRED
+#end
 #end
 #end
             </value>
@@ -44,11 +51,13 @@
          <property name="proxyInterfaces">
              <value>$manageable.fullyQualifiedManageableDaoName</value>
          </property>
+ #if (!$hibernateUtils.version4)
          <property name="interceptorNames">
              <list>
                  <value>hibernateInterceptor</value>
              </list>
          </property>
+#end         
      </bean>
 
     <!-- $manageable.manageableDaoName Implementation  -->
@@ -75,7 +84,9 @@
 #if (!$ejbsEnabled)
                  <value>manageableServiceTransactionInterceptor</value>
 #end
+#if (!$hibernateUtils.version4)
                  <value>hibernateInterceptor</value>
+#end                 
              </list>
          </property>
      </bean>

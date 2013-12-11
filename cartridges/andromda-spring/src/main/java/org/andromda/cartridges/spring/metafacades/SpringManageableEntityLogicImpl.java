@@ -2,9 +2,11 @@ package org.andromda.cartridges.spring.metafacades;
 
 import java.util.Collection;
 
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EntityQueryOperation;
 import org.andromda.metafacades.uml.ManageableEntity;
+import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.collections.CollectionUtils;
@@ -341,21 +343,22 @@ public class SpringManageableEntityLogicImpl
      *
      * @return Allowed business operations.
      */
-    public Collection<OperationFacade> getManageableBusinessOperations()
+    public Collection<SpringEntityOperation> getManageableDaoBusinessOperations()
     {
-        final Collection<OperationFacade> result=super.getBusinessOperations();
-        CollectionUtils.filter(result, new Predicate()
+        Collection<SpringEntityOperation> result=super.getDaoBusinessOperations();
+        result = new FilteredCollection<SpringEntityOperation>(result)
         {
-            @Override
-            public boolean evaluate(Object obj) 
+            private static final long serialVersionUID = 34L;
+            public boolean evaluate(Object object)
             {
-                final OperationFacade operation=(OperationFacade)obj;
+                final SpringEntityOperation operation=(SpringEntityOperation)object;
                 final ClassifierFacade returnType=operation.getReturnType();
                 return operation.getVisibility().equals("public") &&
                        (returnType.isDataType() ||
                         returnType.getFullyQualifiedName().equals(getFullyQualifiedName()));
             }
-        });
+        };
+
         return result;
     }
 
@@ -366,22 +369,22 @@ public class SpringManageableEntityLogicImpl
      */
     public Collection<EntityQueryOperation> getManageableQueryOperations()
     {
-        final Collection<EntityQueryOperation> result=super.getQueryOperations();
-        CollectionUtils.filter(result, new Predicate()
+        Collection<EntityQueryOperation> result=super.getQueryOperations();
+        result = new FilteredCollection<EntityQueryOperation>(result)
         {
-            @Override
-            public boolean evaluate(Object obj) 
+            private static final long serialVersionUID = 34L;
+            public boolean evaluate(Object object)
             {
-                final EntityQueryOperation operation=(EntityQueryOperation)obj;
+                final EntityQueryOperation operation=(EntityQueryOperation)object;
                 final ClassifierFacade returnType=operation.getReturnType();
-                return operation.getVisibility().equals("public") && 
+                return operation.getVisibility().equals("public") &&
                        (returnType.isDataType() ||
                         returnType.getFullyQualifiedName().equals(getFullyQualifiedName()));
             }
-        });
+        };
         return result;
     }
-    
+ 
     /**
      * Helper function
      *
