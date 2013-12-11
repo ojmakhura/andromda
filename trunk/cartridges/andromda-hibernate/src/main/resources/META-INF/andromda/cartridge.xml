@@ -71,6 +71,7 @@
     <property reference="hibernateCacheProvider"/>
     <property reference="hibernateQueryCacheFactory"/>
     <property reference="xmlEncoding"/>
+    <property reference="dateTimeGeneratedText"/>
     <property reference="generateEntityEqualsAndHashCode"/>
     <property reference="hibernateProxy"/>
     <property reference="toDoTag"/>
@@ -94,6 +95,7 @@
     <condition name="generateDatabaseDependentCode">$generateDatabaseDependentCode.equalsIgnoreCase("true")</condition>
     <condition name="enableTemplating">$enableTemplating.equalsIgnoreCase("true")</condition>
     <condition name="hibernateEntityAnnotations">$hibernateEntityAnnotations.equalsIgnoreCase("true")</condition>
+    <condition name="dateTimeGeneratedText">$dateTimeGeneratedText.equalsIgnoreCase("true")</condition>
     <!-- condition merge-point-->
 
     <!-- cartridge-resource merge-point -->

@@ -497,10 +497,15 @@ $target.getDocumentation("     * ")
     @javax.persistence.JoinTable
     (
         name = "${associationEnd.association.tableName}",
-#*      *##set ($identifiers = $entity.getIdentifiers())
-        joinColumns = {#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "$attribute.columnName")#if($velocityCount != $identifiers.size()), #end#end},
-#*      *##set ($identifiers = $target.type.getIdentifiers())
-        inverseJoinColumns = {#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "$attribute.columnName")#if($velocityCount != $identifiers.size()), #end#end}
+#if($entity.getIdentifiers().size() > 1 || $target.type.getIdentifiers().size() > 1)        
+#set ($identifiers = $entity.getIdentifiers())
+        joinColumns = {#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end},
+#set ($identifiers = $target.type.getIdentifiers())
+        inverseJoinColumns = {#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end}
+#else
+        joinColumns = {@javax.persistence.JoinColumn(name = "${associationEnd.columnName}")},
+        inverseJoinColumns = {@javax.persistence.JoinColumn(name = "${target.columnName}")}
+#end                
     )
 #*      *##end
 #*      *##if ($target.map)
@@ -631,10 +636,15 @@ $target.getDocumentation("     * ")
     @javax.persistence.JoinTable
     (
         name = "${associationEnd.association.tableName}",
+#if($entity.getIdentifiers().size() > 1 || $target.type.getIdentifiers().size() > 1)        
 #set ($identifiers = $entity.getIdentifiers())
         joinColumns = {#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end},
 #set ($identifiers = $target.type.getIdentifiers())
         inverseJoinColumns = {#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end}
+#else
+        joinColumns = {@javax.persistence.JoinColumn(name = "${associationEnd.columnName}")},
+        inverseJoinColumns = {@javax.persistence.JoinColumn(name = "${target.columnName}")}
+#end                
     )
 #*        *##end
 #*      *##end
