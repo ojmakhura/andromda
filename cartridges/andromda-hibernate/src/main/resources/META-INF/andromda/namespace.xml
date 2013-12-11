@@ -906,6 +906,12 @@
                     Encoding for generated XML files.
                 </documentation>
             </property>
+            <property name="dateTimeGeneratedText">
+                <default>true</default>
+                <documentation>
+                    Adds the current date and time to the generated files (as comment).
+                </documentation>
+            </property>
             <property name="generateEntityEqualsAndHashCode">
                 <default>true</default>
                 <documentation>

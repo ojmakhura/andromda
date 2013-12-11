@@ -173,7 +173,8 @@ ${indent}</many-to-one>
 #if ($otherEnd.set || $otherEnd.map)
 ${indent}<$otherEnd.collectionType name="$otherEnd.name" table="$otherEnd.association.tableName"#if($stringUtils.isNotBlank($entity.schema)) schema="$associationSchema"#end order-by="$sourceEnd.orderByColumns" lazy="$otherEnd.lazy" fetch="$otherEnd.outerJoin" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end#if ($stringUtils.isNotBlank($otherEnd.sortType)) sort="$otherEnd.sortType"#end>
 #elseif ($otherEnd.bag)
-${indent}<$otherEnd.collectionType name="$otherEnd.name" table="$otherEnd.association.tableName" order-by="$sourceEnd.orderByColumns" lazy="$otherEnd.lazy" fetch="$otherEnd.outerJoin" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end>
+${indent}<$otherEnd.collectionType name="$otherEnd.name" table="$otherEnd.association.tableName"#if($hibernateVersion != "4") order-by="$sourceEnd.orderByColumns"#end lazy="$otherEnd.lazy" fetch="$otherEnd.outerJoin" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end>
+## Not sure why but hibernate 4 does not support the order-by clause in <bag                
 #elseif ($otherEnd.list)
 ${indent}<$otherEnd.collectionType name="$otherEnd.name" table="$otherEnd.association.tableName" lazy="$otherEnd.lazy" fetch="$otherEnd.outerJoin" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end>
 #end
