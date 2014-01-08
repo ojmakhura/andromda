@@ -15,6 +15,9 @@
                 org.andromda.timetracker.domain.crud.UserManageableService.readById=PROPAGATION_REQUIRED
                 org.andromda.timetracker.domain.crud.UserManageableService.update=PROPAGATION_REQUIRED
                 org.andromda.timetracker.domain.crud.UserManageableService.delete=PROPAGATION_REQUIRED
+                org.andromda.timetracker.domain.crud.UserManageableService.getUserDetails=PROPAGATION_REQUIRED
+                org.andromda.timetracker.domain.crud.UserManageableService.searchUniqueUsername=PROPAGATION_REQUIRED
+                org.andromda.timetracker.domain.crud.UserManageableService.searchUniqueEmail=PROPAGATION_REQUIRED
                 org.andromda.timetracker.domain.crud.TaskManageableService.create=PROPAGATION_REQUIRED
                 org.andromda.timetracker.domain.crud.TaskManageableService.searchByExample=PROPAGATION_REQUIRED
                 org.andromda.timetracker.domain.crud.TaskManageableService.read=PROPAGATION_REQUIRED
@@ -22,6 +25,7 @@
                 org.andromda.timetracker.domain.crud.TaskManageableService.readById=PROPAGATION_REQUIRED
                 org.andromda.timetracker.domain.crud.TaskManageableService.update=PROPAGATION_REQUIRED
                 org.andromda.timetracker.domain.crud.TaskManageableService.delete=PROPAGATION_REQUIRED
+                org.andromda.timetracker.domain.crud.TaskManageableService.searchUniqueName=PROPAGATION_REQUIRED
             </value>
         </property>
     </bean>
@@ -32,12 +36,7 @@
          <property name="proxyInterfaces">
              <value>org.andromda.timetracker.domain.crud.UserManageableDao</value>
          </property>
-         <property name="interceptorNames">
-             <list>
-                 <value>hibernateInterceptor</value>
-             </list>
-         </property>
-     </bean>
+      </bean>
 
     <!-- UserManageableDao Implementation  -->
     <bean id="UserManageableDaoBase" class="org.andromda.timetracker.domain.crud.UserManageableDaoBase">
@@ -59,7 +58,6 @@
          <property name="interceptorNames">
              <list>
                  <value>manageableServiceTransactionInterceptor</value>
-                 <value>hibernateInterceptor</value>
              </list>
          </property>
      </bean>
@@ -70,12 +68,7 @@
          <property name="proxyInterfaces">
              <value>org.andromda.timetracker.domain.crud.TaskManageableDao</value>
          </property>
-         <property name="interceptorNames">
-             <list>
-                 <value>hibernateInterceptor</value>
-             </list>
-         </property>
-     </bean>
+      </bean>
 
     <!-- TaskManageableDao Implementation  -->
     <bean id="TaskManageableDaoBase" class="org.andromda.timetracker.domain.crud.TaskManageableDaoBase">
@@ -96,7 +89,6 @@
          <property name="interceptorNames">
              <list>
                  <value>manageableServiceTransactionInterceptor</value>
-                 <value>hibernateInterceptor</value>
              </list>
          </property>
      </bean>
