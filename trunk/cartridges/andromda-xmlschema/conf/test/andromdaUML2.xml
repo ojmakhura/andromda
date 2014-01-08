@@ -6,9 +6,9 @@
     <repository name="emf-uml22">
         <models>
             <model type="emf-uml22">
-            <uri>file:${basedir}/src/test/uml2/XmlSchemaCartridgeTestModel.uml</uri>
+            <uri>file:${test.src.dir}/uml2/XmlSchemaCartridgeTestModel.uml</uri>
                 <moduleSearchLocations>
-                    <location patterns="*.uml,*.epx,*.emx">${pom.basedir}/src/test/uml2</location>
+                    <location patterns="*.uml,*.epx,*.emx">${projact.basedir}/src/test/uml2</location>
                 </moduleSearchLocations>
             </model>
         </models>
