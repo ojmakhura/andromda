@@ -1,9 +1,9 @@
 
     alter table ROLES_USER 
-        drop constraint FKAC90A02D5B88778A;
+        drop constraint FKAC90A02D9EB15801;
 
     alter table ROLES_USER 
-        drop constraint FKAC90A02DE0D9D5F3;
+        drop constraint FKAC90A02DE0D9D59D;
 
     alter table TIMECARD 
         drop constraint FKB2DA8F5D6F97679F;
@@ -32,9 +32,9 @@
     drop sequence hibernate_sequence;
 
     create table ROLES_USER (
-        USER_ID bigint not null,
-        USER_ROLE_ID bigint not null,
-        unique (USER_ROLE_ID)
+        USER_FK bigint not null,
+        ROLES_FK bigint not null,
+        unique (ROLES_FK)
     );
 
     create table TASK (
@@ -82,13 +82,13 @@
     );
 
     alter table ROLES_USER 
-        add constraint FKAC90A02D5B88778A 
-        foreign key (USER_ROLE_ID) 
+        add constraint FKAC90A02D9EB15801 
+        foreign key (ROLES_FK) 
         references USER_ROLE;
 
     alter table ROLES_USER 
-        add constraint FKAC90A02DE0D9D5F3 
-        foreign key (USER_ID) 
+        add constraint FKAC90A02DE0D9D59D 
+        foreign key (USER_FK) 
         references USERS;
 
     alter table TIMECARD 

@@ -20,9 +20,6 @@ package $entity.packageName;
  * @see $entity.fullyQualifiedEntityName
  */
 // HibernateEntityImpl.vsl annotations merge-point
-#if ($hibernateEntityAnnotations)
-@javax.persistence.Entity
-#end
 public#if ($entity.abstract) abstract#end class $entity.entityImplementationName
     extends $entity.fullyQualifiedEntityName
 {
