@@ -270,13 +270,13 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <configuration>
                     <webAppSourceDirectory>${project.basedir}/target/src/main/java</webAppSourceDirectory>
-                    <webAppConfig>
+                    <webApp>
                         <contextPath>/</contextPath>
-                        <baseResource implementation="org.mortbay.resource.ResourceCollection">
+                        <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
                             <resourcesAsCSV>${project.basedir}/src/main/webapp, ${project.basedir}/target/src/main/webapp</resourcesAsCSV>
                         </baseResource>
                         <contextPath>/${application.id}-${project.version}</contextPath>
-                    </webAppConfig>
+                    </webApp>
                 </configuration>
             </plugin>
         </plugins>

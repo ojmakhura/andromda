@@ -80,7 +80,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
-        </dependency>
+        </dependency-->
         <!-- Uncomment below if using Test features>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -175,7 +175,7 @@
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
 #if (!$spring)
-            <version>3.0</version>
+            <version>3.1</version>
 #end
         </dependency>
 #if (!$spring && $cxf)
@@ -226,6 +226,7 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
         </dependency>
+#if ($spring || $hibernate)
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
@@ -238,6 +239,7 @@
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
         </dependency>
+#end
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -318,7 +320,7 @@
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
-            <version>3.0</version>
+            <version>3.1</version>
         </dependency>
 #end
         <dependency>
@@ -528,7 +530,7 @@
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
-            <version>3.0</version>
+            <version>3.1</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -682,7 +684,7 @@
                         <phase>initialize</phase>
                         <configuration>
                             <target>
-                                <mkdir dir="${basedir}/target/classes"/>
+                                <mkdir dir="${project.basedir}/target/classes"/>
                             </target>
                         </configuration>
                         <goals>

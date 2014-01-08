@@ -210,7 +210,7 @@
             <dependency>
                 <groupId>cglib</groupId>
                 <artifactId>cglib-nodep</artifactId>
-                <version>3.0</version>
+                <version>3.1</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
@@ -267,12 +267,12 @@
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
-                <version>1.8.3</version>
+                <version>1.9.0</version>
             </dependency>
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
-                <version>1.8</version>
+                <version>1.9</version>
             </dependency>
             <dependency>
                 <groupId>commons-collections</groupId>
@@ -334,12 +334,12 @@
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>5.0.1.Final</version>
+                <version>5.0.2.Final</version>
             </dependency>
             <dependency>
                 <groupId>net.sf.ehcache.internal</groupId>
                 <artifactId>ehcache-core</artifactId>
-                <version>2.7.4</version>
+                <version>2.8.0</version>
             </dependency>
             <dependency>
                 <groupId>org.javassist</groupId>
@@ -592,8 +592,8 @@
         <dataSource.name>jdbc/${application.id}</dataSource.name>
         <!-- JBoss7 uses java:/ and everyone else uses java:comp/env for server compatibility -->
         <dataSource>java:/${dataSource.name}</dataSource>
-        <hibernate.version>4.2.7.SP1</hibernate.version>
-        <spring.version>3.2.5.RELEASE</spring.version>
+        <hibernate.version>4.3.0.Final</hibernate.version>
+        <spring.version>4.0.0.RELEASE</spring.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--
         Change driver path and jar for appropriate database

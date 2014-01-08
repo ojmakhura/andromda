@@ -443,6 +443,7 @@
                     <webAppConfig>
                         <contextPath>/${application.id}-${project.version}</contextPath>
                     </webAppConfig>
+                    <useProvidedScope>true</useProvidedScope>
                     <stopKey>foo</stopKey>
                     <stopPort>9999</stopPort>
                 </configuration>

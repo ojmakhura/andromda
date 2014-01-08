@@ -8,7 +8,7 @@
                 <model type="emf-uml22">
                 <uri>file:${basedir}/src/test/uml/XmlSchemaCartridgeTestModel.uml</uri>
                     <moduleSearchLocations>
-                    <location patterns="*.uml,*.epx,*.emx">${pom.basedir}/src/test/uml2</location>
+                        <location patterns="*.uml,*.epx,*.emx">${pom.basedir}/src/test/uml2</location>
                         <location patterns="**/*.uml">${basedir}/../../profiles/emf/uml22</location>
                         <location patterns="**/*.uml">${pom.basedir}/../../profiles/emf/uml22</location>
                     </moduleSearchLocations>

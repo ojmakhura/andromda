@@ -46,7 +46,6 @@ public class SymbolicLinkExplodedEarMojo
      * @parameter expression="${env.JBOSS_HOME}/server/default/deploy"
      */
     private String deployLocation;
-    
 
     /**
      * The number of levels allowed to travel up before we get to the "root project" (i.e. this

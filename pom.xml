@@ -191,7 +191,7 @@
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
-                <version>1.8.3</version>
+                <version>1.9.0</version>
             </dependency>
             <dependency>
                 <groupId>commons-cli</groupId>
@@ -231,7 +231,7 @@
             <dependency>
               <groupId>org.apache.commons</groupId>
               <artifactId>commons-lang3</artifactId>
-              <version>3.1</version>
+              <version>3.2</version>
             </dependency>
             <dependency>
                 <groupId>commons-logging</groupId>
@@ -275,7 +275,7 @@
             <dependency>
                 <groupId>jaxen</groupId>
                 <artifactId>jaxen</artifactId>
-                <version>1.1.4</version>
+                <version>1.1.6</version>
                 <exclusions>
                     <!--Exclude old xerces-->
                     <exclusion>
@@ -306,7 +306,7 @@
             <dependency>
                 <groupId>org.apache.ant</groupId>
                 <artifactId>ant</artifactId>
-                <version>1.9.2</version>
+                <version>1.9.3</version>
             </dependency>
             <dependency>
                 <groupId>org.freemarker</groupId>
@@ -331,7 +331,7 @@
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy-all</artifactId>
-                <version>2.1.9</version>
+                <version>2.2.1</version>
             </dependency>
             <dependency>
                 <groupId>org.javassist</groupId>
@@ -482,7 +482,8 @@
                             <link>http://download.eclipse.org/modeling/emf/emf/javadoc/2.6.0/</link>
                             <!--link>http://download.eclipse.org/modeling/mdt/uml2/javadoc/4.1.0/</link>
                             <link>http://download.eclipse.org/modeling/emf/emf/javadoc/2.9.0/</link-->
-                            <link>http://xerces.apache.org/xerces2-j/javadocs/api/</link>
+                            <!--link>http://download.eclipse.org/modeling/mdt/uml2/javadoc/4.1.0/</link>
+                            <link>http://download.eclipse.org/modeling/emf/emf/javadoc/2.9.0/</link-->
                             <!--link>http://download.eclipse.org/modeling/mdt/uml2/javadoc/4.0.0/</link>
                             <link>http://download.eclipse.org/modeling/emf/emf/javadoc/2.8.0/</link-->
                             <link>http://xerces.apache.org/xerces2-j/javadocs/api/</link>
@@ -886,7 +887,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <!-- Plugin version definitions-->
-        <plexus.util.version>3.0.15</plexus.util.version>
+        <plexus.util.version>3.0.16</plexus.util.version>
         <uniqueVersion>false</uniqueVersion>
     </properties>
     <profiles>
@@ -1081,6 +1082,7 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-site-plugin</artifactId>
+                        <version>${maven-site-plugin.version}</version>
                     </plugin>
                     <plugin>
                         <artifactId>maven-antrun-plugin</artifactId>
@@ -1393,6 +1395,7 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-site-plugin</artifactId>
+                        <version>${maven-site-plugin.version}</version>
                     </plugin>
                     <plugin>
                         <artifactId>maven-antrun-plugin</artifactId>
@@ -1482,7 +1485,6 @@
                                 <link>http://download.eclipse.org/modeling/emf/emf/javadoc/2.9.0/</link-->
                                 <link>http://download.eclipse.org/modeling/mdt/uml2/javadoc/3.1.0/</link>
                                 <link>http://download.eclipse.org/modeling/emf/emf/javadoc/2.6.0/</link>
-                                <link>http://xerces.apache.org/xerces2-j/javadocs/api/</link>
                                 <link>http://xerces.apache.org/xerces2-j/javadocs/api/</link>
                                 <link>http://dom4j.sourceforge.net/dom4j-1.6.1/apidocs/</link>
                                 <link>http://freemarker.org/docs/api/</link>

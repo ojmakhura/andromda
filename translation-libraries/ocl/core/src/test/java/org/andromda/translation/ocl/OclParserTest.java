@@ -75,7 +75,7 @@ public class OclParserTest
             else
             {
                 DepthFirstAdapter adapter = new DepthFirstAdapter();
-                Lexer lexer = new Lexer(new PushbackReader(new FileReader(url.getFile())));
+                Lexer lexer = new Lexer(new PushbackReader(new FileReader(url.getFile().replace("%20", " "))));
                 OclParser parser = new OclParser(lexer);
                 Start startNode = parser.parse();
                 startNode.apply(adapter);
