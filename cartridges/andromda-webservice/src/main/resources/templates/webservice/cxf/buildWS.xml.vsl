@@ -49,8 +49,8 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <path path="${runtime_classpath}"/>
   </path>
   <path id="project1.classpath">
-    <pathelement location="${m2repo}/org/hibernate/hibernate-core/3.6.7.Final/hibernate-core-3.6.7.Final.jar"/>
-    <pathelement location="${m2repo}/org/springframework/spring-core/3.0.6.RELEASE/spring-core-3.0.6.RELEASE.jar"/>
+    <pathelement location="${m2repo}/org/hibernate/hibernate-core/4.3.0.Final/hibernate-core-4.3.0.Final.jar"/>
+    <pathelement location="${m2repo}/org/springframework/spring-core/3.2.5.RELEASE/spring-core-3.2.5.RELEASE.jar"/>
     <pathelement location="${m2repo}/jboss/jboss-j2ee/4.2.2.GA/jboss-j2ee-4.2.2.GA.jar"/>
     <path refid="cxf1.classpath"/>
     <fileset dir="${andromda.project}/webservice">

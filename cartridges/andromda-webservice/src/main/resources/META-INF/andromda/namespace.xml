@@ -521,6 +521,16 @@
                     Set this to true or leave unset (default=true) if you want to output a human-readable display value in the enum XSD interface definition.
                 </documentation>
             </property>
+            <property name="outputGeneratedAnnotationJavadoc">
+                <default>false</default>
+                <documentation>
+                    In Java6 or later, output @javax.annotation.Generated and javadoc @generated tags to indicate that the code is  generated.
+                    Also output xmiID values as part of the generated tags. Currently, the tags are only output at the class and XML element 
+                    level, but in the future they may be used to distinguish between generated and manual methods within a generated file.
+                    adding xmi:id (xmiId) to the generated annotation comments allows matching renamed and moved model elements to their
+                    original values, for bi-directional synchronization of model and code (future) or with alternate tools.
+                </documentation>
+            </property>
             <property name="makeNillable">
                 <default>false</default>
                 <documentation>

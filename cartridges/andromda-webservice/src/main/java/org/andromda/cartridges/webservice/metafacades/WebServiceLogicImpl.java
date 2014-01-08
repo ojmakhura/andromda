@@ -1617,6 +1617,23 @@ public class WebServiceLogicImpl
     }
 
     /**
+     * Used to map between XML (list of restricted strings) and Java enum (has both a name and a value).
+     *
+     * @return useEnumValueInXSD true if EnumerationLiteral.value is used instead of EnumerationLiteral.Name.
+     */
+    public Boolean useEnumValueInXSD()
+    {
+        final String propertyName = WebServiceGlobals.USE_ENUM_VALUE_IN_XSD;
+        // getConfiguredProperty is protected so we must wrap it for use in WebServiceUtils
+        Object property = this.getConfiguredProperty(propertyName);
+        if (property != null && String.class.isAssignableFrom(property.getClass()))
+        {
+            return Boolean.valueOf(String.valueOf(property)).booleanValue();
+        }
+        return Boolean.TRUE;
+    }
+
+    /**
      * @param validationMessages Collection<ModelValidationMessage>
      * @see MetafacadeBase#validateInvariants(Collection validationMessages)
      */

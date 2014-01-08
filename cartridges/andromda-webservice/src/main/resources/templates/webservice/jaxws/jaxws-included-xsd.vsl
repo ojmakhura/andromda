@@ -3,6 +3,11 @@
 #set ($schemaTypes = $service.typeMappingElements)
 #set ($quote='"')
 #set ($pkgs = $webServiceUtils.getPackages($service, $schemaTypes, $extensionInheritanceDisabled))
+#if ($outputGeneratedAnnotationJavadoc)
+#set ($generated=true)
+#else
+#set ($generated=false)
+#end
 #foreach ($pkg in $pkgs)
 #if ($pkg.fullyQualifiedName.equals($service.packageName) || !$importedXSD)
     <xs:schema targetNamespace="http://$webServiceUtils.reversePackage($pkg.fullyQualifiedName)#if($addNamespaceBackslash)/#end"
@@ -19,6 +24,7 @@
         xmlns:$webServiceUtils.getPkgAbbr($pkgRef)="http://$webServiceUtils.reversePackage($pkgRef.fullyQualifiedName)#if($addNamespaceBackslash)/#end"
 #end
         xmlns:xs="$xmlSchemaNamespace">
+##        <!-- $pkg $pkg.fullyQualifiedName $pkgRefs.size() $pkgRefs -->
 #foreach ($pkgRef in $pkgRefs)
         <xs:import namespace="http://$webServiceUtils.reversePackage($pkgRef.fullyQualifiedName)#if($addNamespaceBackslash)/#end" xmlns="http://www.w3.org/2001/XMLSchema"
 #if($importedXSD)          schemaLocation="xsd/${webServiceUtils.reversePackage($pkgRef.fullyQualifiedName)}.xsd"#end/>
@@ -37,9 +43,18 @@
 ## RequestWrapper must be the same as the operation name, or else the java is Bare instead of wrapped
         <xs:element name="${operation.operationName}">
 #if ($stringUtils.isNotBlank($operation.getDocumentation("", 9999, false)))
-            <xs:annotation><xs:documentation>
-$stringUtils.replaceChars($operation.getDocumentation("                ", 100, false), "\"'&<>", "")
-            </xs:documentation></xs:annotation>
+            <xs:annotation>
+              <xs:documentation>
+$stringUtils.replaceChars($operation.getDocumentation("                  ", 100, false), "\"'&<>", "")
+              </xs:documentation>
+#if ($generated)
+              <xs:appinfo><xmi-id>$operation.id</xmi-id></xs:appinfo>
+#end
+            </xs:annotation>
+#elseif ($generated)
+            <xs:annotation><xs:appinfo>
+              <xmi-id>$operation.id</xmi-id>
+            </xs:appinfo></xs:annotation>
 #end
 #if (!$operation.arguments.empty)
             <xs:complexType>
@@ -97,7 +112,13 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
 #if ($parameter.type.booleanType && $parameter.type.wrappedPrimitive && $stringUtils.isNotBlank($XMLBooleanAdapter))
                           <xs:appinfo><jxb:property><jxb:baseType>
                             <xjc:javaType name="Boolean" adapter="$XMLBooleanAdapter"/>
-                          </jxb:baseType></jxb:property></xs:appinfo>
+                          </jxb:baseType></jxb:property>
+#if ($generated)
+                          <xmi-id>$parameter.id</xmi-id>
+#end
+                          </xs:appinfo>
+#elseif ($generated)
+                          <xs:appinfo><xmi-id>$parameter.id</xmi-id></xs:appinfo>
 #end
                         </xs:annotation>
 ## JAXB does not bind wrapped types properly - always primitive if no custimization, always wrapped if customization
@@ -109,6 +130,11 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
 ##                        <xs:annotation><xs:appinfo><jxb:property><jxb:baseType>
 ##                          <xjc:javaType name="$parameter.getterSetterTypeName" adapter="$XMLBooleanAdapter"/>
 ##                        </jxb:baseType></jxb:property></xs:appinfo></xs:annotation>
+#if ($generated)
+                          <xmi-id>$parameter.id</xmi-id>
+#end
+#elseif ($generated)
+                          <xs:appinfo><xmi-id>$parameter.id</xmi-id></xs:appinfo>
 #end
                     </xs:element>
 ##end
@@ -152,7 +178,7 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
 #if ($returnName.endsWith("[]"))
 #set ($returnName=$returnName.nonArray)
 #end
-##            <!-- $operation.returnParameter.name type=$operation.returnParameter.type.fullyQualifiedName schemaType=$operation.returnParameter.type.schemaType isMany=$operation.returnParameter.many defaultValue=$operation.returnParameter.defaultValue nillable=$operation.returnParameter.nillable lower=$operation.returnParameter.lower opLower=$operation.lower -->
+##            <!-- opUpper=$operation.returnParameter.upper upper=$operation.upper $operation.returnParameter.name type=$operation.returnParameter.type.fullyQualifiedName schemaType=$operation.returnParameter.type.schemaType isMany=$operation.returnParameter.many defaultValue=$operation.returnParameter.defaultValue nillable=$operation.returnParameter.nillable lower=$operation.returnParameter.lower opLower=$operation.lower -->
             <xs:complexType>
                 <xs:sequence>
 ##                    <!-- $type $operation.returnType.name $operation.returnType $operation.returnType.schemaType -->
@@ -239,9 +265,18 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
 #set ($typeName = ${type.name})
         <xs:simpleType name="${typeName}">
 #if ($stringUtils.isNotBlank($type.getDocumentation("", 9999, false)))
-            <xs:annotation><xs:documentation>
-$stringUtils.replaceChars($type.getDocumentation("                ", 100, false), "\"'&<>", "")
-            </xs:documentation></xs:annotation>
+            <xs:annotation>
+              <xs:documentation>
+$stringUtils.replaceChars($type.getDocumentation("                  ", 100, false), "\"'&<>", "")
+              </xs:documentation>
+#if ($generated)
+              <xs:appinfo><xmi-id>$type.id</xmi-id></xs:appinfo>
+#end
+            </xs:annotation>
+#elseif ($generated)
+            <xs:annotation><xs:appinfo>
+              <xmi-id>$type.id</xmi-id>
+            </xs:appinfo></xs:annotation>
 #end
 #if ($stringUtils.isBlank($enumType))#set ($enumType = "xs:string")#end
             <xs:restriction base="$enumType">
@@ -256,8 +291,18 @@ $stringUtils.replaceChars($type.getDocumentation("                ", 100, false)
 #if ($stringUtils.isNotBlank($literal.getDocumentation("", 9999, false)))
                 <xs:enumeration value="$xsdValue">
                     <xs:annotation><xs:documentation>
-$stringUtils.replaceChars($literal.getDocumentation("                        ", 100, false), "\"'&<>", "")
-                    </xs:documentation></xs:annotation>
+$stringUtils.replaceChars($literal.getDocumentation("                          ", 100, false), "\"'&<>", "")
+                      </xs:documentation>
+#if ($generated)
+                      <xs:appinfo><xmi-id>$literal.id</xmi-id></xs:appinfo>
+#end
+                    </xs:annotation>
+                </xs:enumeration>
+#elseif ($generated)
+                <xs:enumeration value="$xsdValue">
+                   <xs:annotation><xs:appinfo>
+                     <xmi-id>$literal.id</xmi-id>
+                    </xs:appinfo></xs:annotation>
                 </xs:enumeration>
 #else
                 <xs:enumeration value="$xsdValue"/>
@@ -285,8 +330,16 @@ $stringUtils.replaceChars($literal.getDocumentation("                        ", 
         <xs:complexType name="$typeName">
 #if ($stringUtils.isNotBlank($type.getDocumentation("", 9999, false)))
             <xs:annotation><xs:documentation>
-$stringUtils.replaceChars($type.getDocumentation("                ", 100, false), "\"'&<>", "")
-            </xs:documentation></xs:annotation>
+$stringUtils.replaceChars($type.getDocumentation("                  ", 100, false), "\"'&<>", "")
+              </xs:documentation>
+#if ($generated)
+              <xs:appinfo><xmi-id>$type.id</xmi-id></xs:appinfo>
+#end
+            </xs:annotation>
+#elseif ($generated)
+            <xs:annotation><xs:appinfo>
+              <xmi-id>$type.id</xmi-id>
+            </xs:appinfo></xs:annotation>
 #end
 #set ($extensionRequired = $type.generalization && !$extensionInheritanceDisabled)
 #if ($extensionRequired)
@@ -344,19 +397,29 @@ $tab            <xs:sequence>
 #set ($use = ' minOccurs="0"')
 #end
 #if ((!$useAttributes) || ($isMany) || (!$attribute.type.schemaType.startsWith("xs:")))
+##$tab                <!-- upper=$attribute.upper -->
 $tab                <xs:element name="$attribute.name"#if (!$attribute.hasStereotype("Validation")) type="$schemaType"#end${use}${maxOccurs}>
 #renderRestrictions($attribute, $schemaType)
+$tab                  <xs:annotation>
 #if ($stringUtils.isNotBlank($attribute.getDocumentation("", 9999, false)))
-$tab                  <xs:annotation><xs:documentation>
-$stringUtils.replaceChars($attribute.getDocumentation("                        ", 100, false), "\"'&<>", "")
-$tab                  </xs:documentation></xs:annotation>
+$tab                    <xs:documentation>
+$stringUtils.replaceChars($attribute.getDocumentation("                          ", 100, false), "\"'&<>", "")
+$tab                    </xs:documentation></xs:annotation>
 ## JAXB does not bind wrapped types properly - always primitive if no custimization, always wrapped if customization
 #if ($attribute.type.booleanType && $attribute.type.wrappedPrimitive && $stringUtils.isNotBlank($XMLBooleanAdapter))
-$tab                  <xs:annotation><xs:appinfo><jxb:property><jxb:baseType>
-$tab                    <xjc:javaType name="Boolean" adapter="$XMLBooleanAdapter"/>
-$tab                  </jxb:baseType></jxb:property></xs:appinfo></xs:annotation>
+$tab                    <xs:appinfo>
+$tab                      <jxb:property><jxb:baseType>
+$tab                        <xjc:javaType name="Boolean" adapter="$XMLBooleanAdapter"/>
+$tab                      </jxb:baseType></jxb:property></xs:appinfo>
+#if ($generated)
+$tab                      <xmi-id>$attribute.id</xmi-id>
+#end
+$tab                    </xs:appinfo>
+#elseif ($generated)
+                        <xs:appinfo><xmi-id>$attribute.id</xmi-id></xs:appinfo>
 #end
 #end
+$tab                  </xs:annotation>
 $tab                </xs:element>
 #end
 #end
@@ -391,22 +454,36 @@ $tab            <xs:attribute name="$attribute.name"#if (!$attribute.hasStereoty
 #renderRestrictions($attribute, $attributeType.schemaType)
 #if ($stringUtils.isNotBlank($attribute.getDocumentation("", 9999, false)))
 $tab              <xs:annotation>
-$tab                  <xs:documentation>
-$stringUtils.replaceChars($attribute.getDocumentation("                  ", 100, false), "\"'&<>", "")
-$tab                  </xs:documentation>
+$tab                <xs:documentation>
+$stringUtils.replaceChars($attribute.getDocumentation("                ", 100, false), "\"'&<>", "")
+$tab                </xs:documentation>
 ## JAXB does not bind wrapped types properly - always primitive if no custimization, always wrapped if customization
 #if ($attribute.type.booleanType && $attribute.type.wrappedPrimitive && $stringUtils.isNotBlank($XMLBooleanAdapter))
-$tab                  <xs:appinfo><jxb:property><jxb:baseType>
+$tab                <xs:appinfo><jxb:property><jxb:baseType>
 $tab                    <xjc:javaType name="Boolean" adapter="$XMLBooleanAdapter"/>
-$tab                  </jxb:baseType></jxb:property></xs:appinfo>
+$tab                  </jxb:baseType></jxb:property>
+#if ($generated)
+                      <xmi-id>$attribute.id</xmi-id>
+#end
+$tab                </xs:appinfo>
+#elseif ($generated)
+                    <xs:appinfo><xmi-id>$attribute.id</xmi-id></xs:appinfo>
 #end
 $tab              </xs:annotation>
 #else
 ## JAXB does not bind wrapped types properly - always primitive if no custimization, always wrapped if customization
 #if ($attribute.type.booleanType && $attribute.type.wrappedPrimitive && $stringUtils.isNotBlank($XMLBooleanAdapter))
-$tab                <xs:annotation><xs:appinfo><jxb:property><jxb:baseType>
+$tab              <xs:annotation><xs:appinfo><jxb:property><jxb:baseType>
 $tab                  <xjc:javaType name="Boolean" adapter="$XMLBooleanAdapter"/>
-$tab                </jxb:baseType></jxb:property></xs:appinfo></xs:annotation>
+$tab                </jxb:baseType></jxb:property></xs:appinfo>
+#if ($generated)
+                    <xmi-id>$attribute.id</xmi-id>
+#end
+$tab              </xs:annotation>
+#elseif ($generated)
+                  <xs:annotation><xs:appinfo>
+                    <xmi-id>$attribute.id</xmi-id>
+                   </xs:appinfo></xs:annotation>
 #end
 #end
 $tab            </xs:attribute>
