@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType;
+import org.andromda.cartridges.webservice.metafacades.WSDLEnumerationTypeLogic;
 import org.andromda.cartridges.webservice.metafacades.WSDLType;
 import org.andromda.cartridges.webservice.metafacades.WSDLTypeAssociationEnd;
 import org.andromda.cartridges.webservice.metafacades.WSDLTypeAssociationEndLogic;
@@ -2052,13 +2053,13 @@ public class WebServiceUtils
                     }
                 }
             }
-            if (type instanceof EnumerationFacade)
+            if (type instanceof WSDLEnumerationTypeLogic)
             {
                 if (logger.isDebugEnabled())
                 {
                     logger.debug("facade=" + facade + " type=" + type + " default=" + defaultValue);
                 }
-                EnumerationFacade enumer = (EnumerationFacade) type;
+                WSDLEnumerationTypeLogic enumer = (WSDLEnumerationTypeLogic) type;
                 //type = enumer.getLiteralType().getFullyQualifiedName();
                 Collection<AttributeFacade> literals = enumer.getLiterals();
                 if (StringUtils.isEmpty(defaultValue) && !literals.isEmpty())
@@ -2068,8 +2069,16 @@ public class WebServiceUtils
                     if (literal instanceof EnumerationLiteralFacade)
                     {
                         EnumerationLiteralFacade enumLiteral = (EnumerationLiteralFacade) literal;
-                        // Use the literal name to retrieve the value with .valueOf(). XML version has only the name.
-                        defaultValue = enumLiteral.getName();
+                        // Use the literal name to retrieve the value with .valueOf(). XML version has only the value.
+                        Boolean useEnumValueInXSD = Boolean.valueOf(String.valueOf(enumer.getConfiguredProperty("useEnumValueInXSD")));
+                        if (useEnumValueInXSD)
+                        {
+                            defaultValue = enumLiteral.getValue();
+                        }
+                        else
+                        {
+                            defaultValue = enumLiteral.getName();
+                        }
                     }
                     else if (literal instanceof AttributeFacade)
                     {

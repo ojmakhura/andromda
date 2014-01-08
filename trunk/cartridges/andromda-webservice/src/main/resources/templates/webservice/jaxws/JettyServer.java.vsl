@@ -17,7 +17,11 @@
 
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Handler;
+//import org.eclipse.jetty.server.HttpConfiguration;
+//import org.eclipse.jetty.server.HttpConnectionFactory;
 import org.eclipse.jetty.server.Server;
+//import org.eclipse.jetty.server.ServerConnector;
+//import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.eclipse.jetty.server.nio.SelectChannelConnector;
@@ -38,7 +42,7 @@ public class JettyServer
 
         /** See http://wiki.eclipse.org/Jetty/Tutorial/Embedding_Jetty
          * Important: This code simply starts up a servlet container and adds
-         * the web application in src/webapp to it. Normally you would be using
+         * the web application in src/main/webapp to it. Normally you would be using
          * Jetty or Tomcat and have the webapp packaged as a WAR. This is simply
          * a convenience so you do not need to configure your servlet container to
          * see CXF in action or run integration tests!. For additional logging and debugging, add:
@@ -55,6 +59,24 @@ public class JettyServer
         connector.setPort($webservicePort);
 #end
         server.setConnectors(new Connector[] {connector});
+        // Jetty v9 changes in comments, in case they ever get the jetty.port configuration functionality working from maven
+        /* HttpConfiguration http_config = new HttpConfiguration();
+        //http_config.setSecureScheme("https");
+        //http_config.setSecurePort(8443);
+        //http_config.setOutputBufferSize(32768);
+        //http_config.setRequestHeaderSize(8192);
+        //http_config.setResponseHeaderSize(8192);
+        //http_config.setSendServerVersion(true);
+        //http_config.setSendDateHeader(false);
+
+        ServerConnector http = new ServerConnector(server, new HttpConnectionFactory(http_config));
+#if ($stringUtils.isBlank($webservicePort))
+        http.setPort(9090);
+#else
+        http.setPort($webservicePort);
+#end
+        //http.setIdleTimeout(30000);
+        server.addConnector(http); */
 
         WebAppContext webappcontext = new WebAppContext();
         webappcontext.setContextPath("/$webContext");
@@ -62,6 +84,9 @@ public class JettyServer
         webappcontext.setWar("src/main/webapp");
 
         HandlerCollection handlers = new HandlerCollection();
+        /* ContextHandlerCollection contexts = new ContextHandlerCollection();
+        handlers.setHandlers(new Handler[] { contexts, new DefaultHandler() });
+        handlers.addHandler(webappcontext); */
         handlers.setHandlers(new Handler[] {webappcontext, new DefaultHandler()});
 
         //EventLogInInterceptor myInterceptor = new EventLogInInterceptor();
