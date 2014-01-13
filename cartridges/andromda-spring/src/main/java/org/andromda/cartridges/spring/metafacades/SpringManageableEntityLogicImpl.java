@@ -1,16 +1,11 @@
 package org.andromda.cartridges.spring.metafacades;
 
 import java.util.Collection;
-
-import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EntityQueryOperation;
-import org.andromda.metafacades.uml.ManageableEntity;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -386,8 +381,9 @@ public class SpringManageableEntityLogicImpl
     }
  
     /**
-     * Helper function
-     *
+     * Helper function TRUE when operation upperBound > 1
+     * TODO Check Operation return type upper bound also
+     * @param operation 
      * @return true if the operation returns a collection
      */
     public boolean isCollection(OperationFacade operation)

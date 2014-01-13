@@ -341,6 +341,7 @@ public class XmlObjectFactory
          * @param exception the exception from which to extract the message.
          * @return the message.
          */
+        @SuppressWarnings("static-method")
         private String getMessage(final SAXParseException exception)
         {
             final StringBuilder message = new StringBuilder(100);

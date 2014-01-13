@@ -1329,10 +1329,10 @@
                 </file>
             </activation>
             <!-- If a plugin version is not compatible with maven3, put the compatible version here -->
-			<properties>
+            <properties>
                 <sonar-maven-plugin.version>1.0</sonar-maven-plugin.version>
                 <maven-shade-plugin.version>1.7.1</maven-shade-plugin.version>
-			</properties>
+            </properties>
         </profile>
     </profiles>
 </project>

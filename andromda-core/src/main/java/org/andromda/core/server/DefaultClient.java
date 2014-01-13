@@ -1,6 +1,7 @@
 package org.andromda.core.server;
 
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ConnectException;
@@ -43,6 +44,7 @@ public class DefaultClient
      * @param object the object to pass to the server.
      * @throws ConnectException if an error occurs while attempting to connect to the server.
      */
+    @SuppressWarnings("static-method")
     private void performServerOperation(
         final Configuration configuration,
         final Object object)
@@ -53,9 +55,9 @@ public class DefaultClient
             final Server serverConfiguration = configuration.getServer();
             if (serverConfiguration != null)
             {
+                Socket server = null;
                 try
                 {
-                    Socket server;
                     ObjectInputStream objectInput;
                     ObjectOutputStream out;
                     final String host = serverConfiguration.getHost();
@@ -94,6 +96,21 @@ public class DefaultClient
                 catch (final Throwable throwable)
                 {
                     throw new ClientException(throwable);
+                }
+                finally
+                {
+                    if (server != null)
+                    {
+                        try
+                        {
+                            server.close();
+                        }
+                        catch (IOException ex)
+                        {
+                            // Ignore
+                        }
+                    }
+                    
                 }
             }
         }

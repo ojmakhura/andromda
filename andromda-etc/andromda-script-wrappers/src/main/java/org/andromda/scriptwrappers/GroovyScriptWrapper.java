@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -101,6 +102,7 @@ public class GroovyScriptWrapper
      * @return the contents of the resource as a string.
      * @throws FileNotFoundException
      */
+    @SuppressWarnings("static-method")
     private String getContents(final File file)
         throws FileNotFoundException
     {
@@ -120,6 +122,17 @@ public class GroovyScriptWrapper
         {
             throw new RuntimeException(throwable);
         }
+        finally
+        {
+            try
+            {
+                resource.close();
+            }
+            catch (IOException ex)
+            {
+                // Ignore
+            }
+        }
 
         // - return the contents and remove any throws clauses (since groovy doesn't support those)
         return contents.toString().trim().replaceAll(
@@ -135,6 +148,7 @@ public class GroovyScriptWrapper
      * @param to the instance of which to copy all properties.
      * @throws Exception
      */
+    @SuppressWarnings("static-method")
     private void copyProperties(
         final Object from,
         final GroovyObject to)

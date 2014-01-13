@@ -83,7 +83,7 @@ public class SpringEntityOperationLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation#handleIsPrePersist()
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation#isPrePersist()
      */
     @Override
     protected boolean handleIsPrePersist()
@@ -92,7 +92,7 @@ public class SpringEntityOperationLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation#handleIsPostPersist()
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation#isPostPersist()
      */
     @Override
     protected boolean handleIsPostPersist()
@@ -101,7 +101,7 @@ public class SpringEntityOperationLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation#handleIsPreRemove()
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation#isPreRemove()
      */
     @Override
     protected boolean handleIsPreRemove()
@@ -110,7 +110,7 @@ public class SpringEntityOperationLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation#handleIsPostRemove()
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation#isPostRemove()
      */
     @Override
     protected boolean handleIsPostRemove()
@@ -119,7 +119,7 @@ public class SpringEntityOperationLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation#handleIsPreUpdate()
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation#isPreUpdate()
      */
     @Override
     protected boolean handleIsPreUpdate()
@@ -128,7 +128,7 @@ public class SpringEntityOperationLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation#handleIsPostUpdate()
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation#isPostUpdate()
      */
     @Override
     protected boolean handleIsPostUpdate()

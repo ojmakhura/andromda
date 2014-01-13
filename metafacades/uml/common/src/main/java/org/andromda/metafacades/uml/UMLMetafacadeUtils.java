@@ -1100,14 +1100,14 @@ public class UMLMetafacadeUtils
         else if (associationEnd.getName().length()
             < otherEnd.getName().length())
         {
-        	owning = (associationEnd.getName().length() < otherEnd.getName().length());
+            owning = (associationEnd.getName().length() < otherEnd.getName().length());
             //LOGGER.info("Owning=true: " + assoc + "endLength=" + associationEnd.getName().length() + " Olength=" + otherEnd.getName().length());
         }
         // If length is the same, alphabetically earliest is the owner
         else if (associationEnd.getName().compareTo(
             otherEnd.getName()) < 0)
         {
-        	owning = (associationEnd.getName().compareTo(otherEnd.getName()) < 0);
+            owning = (associationEnd.getName().compareTo(otherEnd.getName()) < 0);
             //LOGGER.info("Owning=true: " + assoc + "name=" + associationEnd.getName() + " < OName=" + otherEnd.getName());
         }
         /*LOGGER.info(((Entity)associationEnd.getOtherEnd().getValidationOwner()).getName()

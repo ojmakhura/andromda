@@ -53,7 +53,7 @@ public class SpringHibernateUtils
 
     /**
      * Gets the appropriate hibernate criterion package name for the given <code>version</code>.
-     *
+     * @param entities 
      * @return the Hibernate criterion package name.
      */
     public String getEntityBasePackage(Collection<Entity> entities)
@@ -79,10 +79,11 @@ public class SpringHibernateUtils
             }
         }
         // Get unique top level packages containing entities
-        for (String packageName : packages)
+        /*for (String packageName : packages)
         {
 
-        }
+        }*/
+        // TODO Implement this function. Right now it just returns "" always
         return base;
     }
 

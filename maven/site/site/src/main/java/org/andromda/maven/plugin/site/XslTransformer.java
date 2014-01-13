@@ -119,10 +119,12 @@ public class XslTransformer
                             parent.mkdirs();
                         }
 
-                        XMLWriter writer = new XMLWriter(new FileWriter(fileOutput));
+                        FileWriter fwriter = new FileWriter(fileOutput);
+                        XMLWriter writer = new XMLWriter(fwriter);
                         writer.write(document);
                         writer.flush();
                         writer.close();
+                        fwriter.close();
                     }
                 }
             }
@@ -141,6 +143,7 @@ public class XslTransformer
      * @throws IOException
      * @throws SAXException
      */
+    @SuppressWarnings("static-method")
     private Document urlToDocument(String url)
         throws Exception
     {
@@ -172,6 +175,7 @@ public class XslTransformer
         /**
          * @see org.xml.sax.EntityResolver#resolveEntity(String, String)
          */
+        @SuppressWarnings("resource")
         public InputSource resolveEntity(
             final String publicId,
             final String systemId)

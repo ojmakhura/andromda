@@ -55,6 +55,12 @@ public class CallEventFacadeLogicImpl extends CallEventFacadeLogic
         {
             nodes = this.metaObject.getOwnedNodes();
         }*/
+        // UML2 v3: What previously was in getNodes is now in getOwnedNodes, while getNodes returns null
+        // This causes JSF cartridge to fail unless implemented.
+        /*if (nodes==null || nodes.isEmpty())
+        {
+            nodes = this.metaObject.getOwnedNodes();
+        }*/
         for (final ActivityNode nextNode : nodes)
         {
             if (nextNode instanceof CallOperationAction)

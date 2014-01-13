@@ -1119,32 +1119,32 @@
                     </exclusion>
                     <!--Jetty should not be compile scope, should not be bundled-->
                     <exclusion>
-				        <groupId>org.eclipse.jetty</groupId>
+                        <groupId>org.eclipse.jetty</groupId>
                         <artifactId>jetty-server</artifactId>
                     </exclusion>
                     <exclusion>
-				        <groupId>org.eclipse.jetty</groupId>
+                        <groupId>org.eclipse.jetty</groupId>
                         <artifactId>jetty-continuation</artifactId>
                     </exclusion>
                     <exclusion>
-				        <groupId>org.eclipse.jetty</groupId>
+                        <groupId>org.eclipse.jetty</groupId>
                         <artifactId>jetty-http</artifactId>
                     </exclusion>
                     <exclusion>
-				        <groupId>org.eclipse.jetty</groupId>
+                        <groupId>org.eclipse.jetty</groupId>
                         <artifactId>jetty-io</artifactId>
                     </exclusion>
                     <exclusion>
-				        <groupId>org.eclipse.jetty</groupId>
+                        <groupId>org.eclipse.jetty</groupId>
                         <artifactId>jetty-util</artifactId>
                     </exclusion>
                     <exclusion>
-				        <groupId>org.eclipse.jetty</groupId>
+                        <groupId>org.eclipse.jetty</groupId>
                         <artifactId>jetty-security</artifactId>
                     </exclusion>
                     <!--Remove exclusions if using JMS-->
                     <exclusion>
-				        <groupId>org.apache.geronimo.specs</groupId>
+                        <groupId>org.apache.geronimo.specs</groupId>
                         <artifactId>geronimo-jms_1.1_spec</artifactId>
                     </exclusion>
                     <exclusion>

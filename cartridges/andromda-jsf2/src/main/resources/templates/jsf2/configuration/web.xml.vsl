@@ -179,17 +179,17 @@
 #if($authTypeSecurityFilter)
     <!-- Security Filter -->
     <filter>
-		<filter-name>Security Filter</filter-name>
-		<filter-class>org.securityfilter.filter.SecurityFilter</filter-class>
-		<init-param>
-			<param-name>config</param-name>
-			<param-value>/WEB-INF/securityfilter-config.xml</param-value>
-		</init-param>
-		<init-param>
-			<param-name>validate</param-name>
-			<param-value>false</param-value>
-		</init-param>
-	</filter>
+        <filter-name>Security Filter</filter-name>
+        <filter-class>org.securityfilter.filter.SecurityFilter</filter-class>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>/WEB-INF/securityfilter-config.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>validate</param-name>
+            <param-value>false</param-value>
+        </init-param>
+    </filter>
 
 #end
 #if($trinidad)    
@@ -203,10 +203,10 @@
     <!-- filter-mapping merge-point -->
 
 #if($authTypeSecurityFilter)
-	<filter-mapping>
-		<filter-name>Security Filter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+    <filter-mapping>
+        <filter-name>Security Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
 #end
 #if($trinidad)    
