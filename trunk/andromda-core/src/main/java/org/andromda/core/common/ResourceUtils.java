@@ -134,6 +134,14 @@ public class ResourceUtils
                     final ZipEntry entry = entries.nextElement();
                     contents.add(entry.getName());
                 }
+                try
+                {
+                    archive.close();
+                }
+                catch (IOException ex)
+                {
+                    // Ignore
+                }
             }
         }
         return contents;

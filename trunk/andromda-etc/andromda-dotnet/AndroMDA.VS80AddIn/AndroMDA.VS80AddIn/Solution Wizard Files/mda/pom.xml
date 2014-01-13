@@ -16,7 +16,7 @@
         <model.uri>file:${project.build.sourceDirectory}/${wizard.application.model.uri}</model.uri>
 
         <resources.dir>${pom.basedir}/resources</resources.dir>
-    
+
         <conf.dir>${pom.basedir}/conf</conf.dir>
 
         <!-- cartridge output locations -->
@@ -48,7 +48,7 @@
 
         <filter></filter>
 
-    </properties>   
+    </properties>
 
     <dependencies>
         <dependency>

@@ -308,7 +308,8 @@ public class SymbolicLinkExplodedEarMojo
 
         for (final File pom : this.getPoms())
         {
-            final Model model = reader.read(new FileReader(pom));
+            FileReader freader = new FileReader(pom);
+            final Model model = reader.read(freader);
             String groupId = model.getGroupId();
             for (Parent parent = model.getParent(); groupId == null && model.getParent() != null;
                 parent = model.getParent())
@@ -337,6 +338,14 @@ public class SymbolicLinkExplodedEarMojo
             {
                 artifacts.add(artifact);
                 artifact.setFile(artifactFile);
+            }
+            try
+            {
+                freader.close();
+            }
+            catch (Exception ex)
+            {
+                // Ignore
             }
         }
         return artifacts;

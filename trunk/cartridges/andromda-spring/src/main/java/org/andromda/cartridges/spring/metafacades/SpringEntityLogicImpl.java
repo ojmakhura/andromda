@@ -440,6 +440,7 @@ public class SpringEntityLogicImpl
      * @param the SpringEntity from which to retrieve the inheritance tagged value.
      * @return String inheritance tagged value.
      */
+    @SuppressWarnings("static-method")
     private String getInheritance(SpringEntity entity)
     {
         String inheritance = null;
@@ -537,8 +538,8 @@ public class SpringEntityLogicImpl
     }
 
     /**
-     * Helper function
-     *
+     * Helper function "searchUnique" + capitalize(attributeName)
+     * @param attributeName 
      * @return searchUnique function name
      */
     public String getSearchUniqueFunctionName(String attributeName)

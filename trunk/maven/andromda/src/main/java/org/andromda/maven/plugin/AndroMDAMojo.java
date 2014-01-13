@@ -83,11 +83,11 @@ public class AndroMDAMojo
     public void execute(final Configuration configuration)
         throws MojoExecutionException
     {
-    	if (getLog().isDebugEnabled())
-    	{
-        	getLog().debug("lastModifiedCheck="+this.lastModifiedCheck + " skipProcessing="+this.skipProcessing 
-            		+ " modelOutputHistory="+this.modelOutputHistory + " allowMultipleRuns="+this.allowMultipleRuns);    		
-    	}
+        if (getLog().isDebugEnabled())
+        {
+            getLog().debug("lastModifiedCheck="+this.lastModifiedCheck + " skipProcessing="+this.skipProcessing 
+                    + " modelOutputHistory="+this.modelOutputHistory + " allowMultipleRuns="+this.allowMultipleRuns);            
+        }
         if (!this.skipProcessing)
         {
             boolean execute = true;
@@ -96,10 +96,10 @@ public class AndroMDAMojo
                 long date = this.getLastModelConfigDate(configuration);
                 execute = ResourceUtils.modifiedAfter(date,
                         this.buildSourceDirectory);
-            	if (getLog().isDebugEnabled())
-            	{
-                	getLog().debug("this.lastModifiedCheck="+this.lastModifiedCheck + " execute="+execute + " date="+date);    		
-            	}
+                if (getLog().isDebugEnabled())
+                {
+                    getLog().debug("this.lastModifiedCheck="+this.lastModifiedCheck + " execute="+execute + " date="+date);            
+                }
             }
             if (execute)
             {

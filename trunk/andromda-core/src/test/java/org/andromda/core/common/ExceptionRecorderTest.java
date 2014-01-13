@@ -29,10 +29,11 @@ public class ExceptionRecorderTest
             "exception file not created:" + excFile,
             excFile.exists());
         FileReader fr = null;
+        BufferedReader br = null;
         try
         {
             fr = new FileReader(excFile);
-            BufferedReader br = new BufferedReader(fr);
+            br = new BufferedReader(fr);
             String inline;
             inline = br.readLine();
             assertTrue(
@@ -100,6 +101,14 @@ public class ExceptionRecorderTest
                 // in the andromda directory and not a
                 // target directory.
                 excFile.delete();
+            }
+            catch (Exception e)
+            {
+                // ignore
+            }
+            try
+            {
+                if (br != null) {br.close();}
             }
             catch (Exception e)
             {

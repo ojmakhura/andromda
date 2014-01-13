@@ -242,6 +242,7 @@ public class VelocityTemplateEngine
                     mergedTemplateLocation);
                 template = this.velocityEngine.getTemplate(templateFile);
                 this.mergedTemplateFiles.add(new File(mergedTemplateLocation));
+                resource.close();
             }
             this.discoveredTemplates.put(templateFile, template);
         }

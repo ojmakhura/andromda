@@ -48,6 +48,14 @@ public class AndroMDAppCleanMojo
                 for (URL url : urls) {
                     System.err.println("cp:" + url);
                 }
+                try
+                {
+                    ucl.close();
+                }
+                catch (Exception ex)
+                {
+                    // Ignore
+                }
             }
             System.out.println( "Exception:" + ncdfe );
             ncdfe.printStackTrace(System.err);

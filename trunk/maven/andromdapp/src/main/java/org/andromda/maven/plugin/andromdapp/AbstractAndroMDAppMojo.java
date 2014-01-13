@@ -142,7 +142,7 @@ public abstract class AbstractAndroMDAppMojo
     }
 
     /**
-     * Retrieves the interpolated {@link #configurationUri} contents as a String.
+     * Retrieves the interpolated {#configurationUri} contents as a String.
      *
      * @return the contents of the configuration as a string.
      * @throws MojoExecutionException
@@ -182,22 +182,32 @@ public abstract class AbstractAndroMDAppMojo
      * @param properties the properties used to perform the replacement.
      * @param string the fileContents to perform replacement on.
      */
+    @SuppressWarnings("resource")
     private String replaceProperties(final Properties properties, final String string) throws IOException
     {
+        String replacement = null;
         final StringReader stringReader = new StringReader(string);
         InterpolationFilterReader reader = new InterpolationFilterReader(stringReader, properties, "${", "}");
         reader.reset();
-        reader = new InterpolationFilterReader(
-                reader,
-                new BeanProperties(this.project),
-                BEGIN_TOKEN,
-                END_TOKEN);
-        reader = new InterpolationFilterReader(
-                reader,
-                new BeanProperties(this.project),
-                BEGIN_TOKEN,
-                END_TOKEN);
-        return ResourceUtils.getContents(reader);
+        try
+        {
+            reader = new InterpolationFilterReader(
+                    reader,
+                    new BeanProperties(this.project),
+                    BEGIN_TOKEN,
+                    END_TOKEN);
+            reader = new InterpolationFilterReader(
+                    reader,
+                    new BeanProperties(this.project),
+                    BEGIN_TOKEN,
+                    END_TOKEN);
+            replacement = ResourceUtils.getContents(reader);
+        }
+        finally
+        {
+            reader.close();
+        }
+        return replacement;
     }
 
 }
