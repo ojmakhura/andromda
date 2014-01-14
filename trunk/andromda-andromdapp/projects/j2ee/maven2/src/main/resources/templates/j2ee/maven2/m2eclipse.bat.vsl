@@ -69,11 +69,6 @@ mkdir CXF\src\main\java
 mkdir CXF\target\src\main\java
 
 #end
-#if ($workflow)
-mkdir workflow\src\main\java
-mkdir workflow\target\src\main\java
-
-#end
 rename ..\.project old.project
 rename ..\.classpath old.classpath
 

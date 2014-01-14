@@ -47,13 +47,6 @@
             <type>war</type>
         </dependency>
 #end
-#if ($workflow)
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>${applicationId}-workflow</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-#end
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
@@ -167,13 +160,6 @@
                             <groupId>${project.groupId}</groupId>
                             <artifactId>${applicationId}-core</artifactId>
                         </ejbModule>
-#if ($workflow)
-                        <jarModule>
-                            <groupId>${project.groupId}</groupId>
-                            <artifactId>${applicationId}-workflow</artifactId>
-                            <includeInApplicationXml>false</includeInApplicationXml>
-                        </jarModule>
-#end
 #end
 #if ($web)
                         <webModule>
