@@ -10,24 +10,43 @@
                 <model>
                     <uri>${model.uri}</uri>
                     <moduleSearchLocations>
+                    	<location patterns="**/${andromda.version}/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
+                        <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0.1/UML_Standard_Profile-1.0.1.jar!/</location>
+                        <!-- 
                         <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../../../profiles/uml-1.4</location>
                         <location patterns="**/${andromda.version}/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
                         <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0.1/UML_Standard_Profile-1.0.1.jar!/</location>
+                    	 -->
                     </moduleSearchLocations>
                 </model>
             </models>
         </repository>
     </repositories>
+    <!-- The mappingsSearchLocations are used by the below '*MappingsUri' namespace
+      properties (e.g. languageMappingsUri) so that we can use a "logical" name from the content
+      of any *.xml files in the search locations (instead of having to specify explicit paths...).
+      Except for 'profileMappingsUri', this approach did not seem to work as there is no
+      "logical" mapping name. mappingsUri is specified without 'Mappings' suffix on file name.
+      See http://docs.andromda.org/mappings.html.
+      A default empty mda/config/mappings/JavaMappings.xml is provided with the generated project.
+      It can be used to customize mappings from UML to Java datatypes used by all cartridges. -->
+    <mappingsSearchLocations>
+        <!-- Add additional mappings files under mda/config/mappings, referenced by languageMappingsUri -->
+        <location patterns="*.xml">${conf.dir}/mappings</location>
+    </mappingsSearchLocations>
+    <!-- To add/remove an additional cartridge to the code generation process (i.e. modeldump):
+    - Add the namespace elements to andromda.xml
+    - Add the cartridge dependency (including version) to mda/pom.xml
+    - Add additional build dependencies to individual project pom.xml files -->
     <namespaces>
         <!-- namespace property values used by ALL cartridges -->
         <!-- Variable references refer to properties defined in root pom.xml or mda/pom.xml files -->
         <!-- See http://www.andromda.org/docs/andromda-metafacades/andromda-uml-metafacades/andromda-metafacades-emf-uml2/namespace.html -->
         <namespace name="default">
             <properties>
-                <!-- Use enums, strongly typed collections with templates, and @annotation markups>
                 <property name="enableTemplating">true</property>
                 <property name="enableAnnotations">true</property>
-                <property name="typeSafeEnumsEnabled">true</property -->
+                <property name="typeSafeEnumsEnabled">true</property>
                 <property name="languageMappingsUri">Java</property>
                 <property name="wrapperMappingsUri">JavaWrapper</property>
                 <property name="sqlMappingsUri">${sql.mappings}</property>
@@ -37,22 +56,36 @@
                 <property name="ejbJndiNamePrefix">${application.id}-${project.version}</property>
                 <!-- these masking properties allow you to configure the way
                       your model element names are generated -->
-                <property name="classifierNameMask">none</property>
-                <property name="operationNameMask">none</property>
-                <property name="roleNameMask">none</property>
-                <property name="enumerationNameMask">none</property>
+                <property name="modelElementNameMask">noaccent</property>
+                <property name="classifierNameMask">noaccent</property>
+                <property name="operationNameMask">noaccent</property>
+                <property name="roleNameMask">noaccent</property>
+                <property name="enumerationNameMask">noaccent</property>
+                <property name="entityNameMask">noaccent</property>
+                <property name="entityPropertyNameMask">noaccent</property>
+                <property name="parameterNameMask">noaccent</property>
+                <property name="xmlEncoding">UTF-8</property>
                 <property name="enumerationLiteralNameMask">upperunderscore</property>
-                <property name="entityNameMask">none</property>
-                <property name="entityPropertyNameMask">none</property>
-                <property name="parameterNameMask">none</property>
-                <property name="hibernateVersion">${hibernate.version}</property>
-                <property name="hibernateEntityAnnotations">true</property>
+                <property name="hibernateVersion">4</property>
+                <property name="hibernateEntityAnnotations">false</property>
+                <property name="persistenceContainerName">jboss</property>
+                <!-- Automatically makes English names plural (generally adds s if missing).
+                default=true, set to false if using non-English models or Jaxb/CXF 2.0 or JAXB simpleBindingMode=false.-->
+                <property name="pluralizeAssociationEndNames">false</property>
+                <property name="pluralizeAttributeNames">false</property>
+                <property name="pluralizeParameterNames">false</property>
+                <!-- JDK5 error on @Override on methods implemented from Interfaces -->
+                <property name="javaVersion">${javaVersion}</property>
                 <property name="xmlAttributes">false</property>
+                <property name="dateTimeGeneratedText">false</property>
+                <property name="mergeLocation">${conf.dir}/merge</property>
             </properties>
         </namespace>
         <!-- See http://docs.andromda.org/andromda-cartridges/andromda-spring-cartridge/namespace.html -->
         <namespace name="spring">
             <properties>
+            	<property name="parameterRequiredCheck">false</property>
+                <property name="manageableSearchMatchMode">anywhere</property>
                 <property name="dataSource">${dataSource}</property>
                 <property name="username">${jdbc.username}</property>
                 <property name="password">${jdbc.password}</property>
@@ -68,6 +101,7 @@
                 <property name="hibernateCacheProvider">org.hibernate.cache.EhCacheProvider</property>
                 <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
                 <property name="mergeMappingsUri">file:${conf.dir}/mappings/SpringMergeMappings.xml</property>
+                <property name="transactionManager">org.springframework.orm.hibernate4.HibernateTransactionManager</property>
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="springTypesPackage">${application.package}</property>
                 <property name="daos">${core.generated.dir}</property>
@@ -78,9 +112,9 @@
                 <property name="service-interfaces">${common.generated.dir}</property>
                 <property name="criteria">${common.generated.dir}</property>
                 <property name="value-objects">${common.generated.dir}</property>
-                <property name="enableSpringTransactionsWhenEjbsEnabled">true</property>
-                <!-- to remove any dependency on EJB, comment the following property -->
+                <!-- to remove any dependency on EJB, comment the following property 
                 <property name="session-ejbs">${core.generated.dir}</property>
+                -->
                 <!-- uncomment to enable EJB security
                 <property name="securityRealm">${application.id}</property>
                  -->
@@ -92,6 +126,9 @@
         <!-- See http://docs.andromda.org/andromda-cartridges/andromda-hibernate-cartridge/namespace.html -->
         <namespace name="hibernate">
             <properties>
+            	<property name="configuration">${core.generated.dir}</property>
+            	<property name="hibernateAssociationCollectionType">bag</property>
+            	<property name="generateDatabaseDependentCode">false</property>
                 <property name="hibernateEnableCache">false</property>
                 <property name="hibernateEnableAssociationsCache">false</property>
                 <property name="hibernateTypeMappingsUri">Hibernate</property>
@@ -108,30 +145,6 @@
                 <property name="cache">${core.generated.dir}</property>
             </properties>
         </namespace>
-        <!-- See http://docs.andromda.org/andromda-cartridges/andromda-webservice-cartridge/namespace.html -->
-        <namespace name="webservice">
-            <properties>
-                <property name="soapStack">axis</property>
-                <property name="axisVersion">2</property>
-                <property name="schemaTypeMappingsUri">AxisWSDLMappings</property>
-                <property name="languageMappingsUri">AxisJavaMappings</property>
-                <property name="defaultProvider">RPC</property>
-                <property name="applicationName">${application.id}</property>
-                <property name="wsdlSoapAddress">http://${service.host}:${service.port}/${application.id}-ws/services</property>
-                <property name="webserviceTypesPackage">${application.package}</property>
-                <property name="rpcClassNamePattern">{0}.{1}WSDelegator</property>
-                <property name="wsdls">${webservice.generated.dir}</property>
-                <property name="configuration">${webservice.generated.dir}</property>
-                <property name="webservice-project">${webservice.project}</property>
-                <property name="webservice-types">${core.generated.dir}</property>
-                <property name="webservice-impl">${webservice.manual.java.dir}</property>
-                <property name="webservice-tests">${webservice.test.dir}</property>
-                <property name="core-tests">${core.manual.test.dir}</property>
-                <property name="service-impls">${core.manual.java.dir}</property>
-                <property name="jaxb-impl">${common.manual.dir}</property>
-                <property name="jaxb-gen">${common.generated.dir}</property>
-            </properties>
-        </namespace>
         <!-- See http://docs.andromda.org/andromda-cartridges/andromda-java-cartridge/namespace.html -->
         <namespace name="java">
             <properties>
@@ -145,25 +158,38 @@
                 <property name="interfaces">${common.generated.dir}</property>
             </properties>
         </namespace>
-        <!-- See http://docs.andromda.org/andromda-cartridges/andromda-bpm4struts-cartridge/namespace.html -->
-        <namespace name="bpm4struts">
-            <properties>
+        <!-- See http://docs.andromda.org/andromda-cartridges/andromda-jsf2-cartridge/namespace.html -->
+        <namespace name="jsf2">
+             <properties>
+                <property name="componentSet">primefaces</property>
+                <property name="managedBeansPackage">${application.package}</property>
+                <property name="facesConfigFiles"></property>
                 <property name="defaultDateFormat">MM/dd/yyyy</property>
-                <property name="normalizeMessages">true</property>
+                <property name="useAutocompleteLookup">true</property>
+                <property name="applicationName">${application.name}</property>
+                <property name="exceptions">${common.generated.dir}</property>
                 <property name="forms">${web.generated.java.dir}</property>
-                <property name="pages">${web.generated.web.dir}</property>
-                <property name="actions">${web.generated.java.dir}</property>
+                <property name="views">${web.generated.web.dir}</property>
+                <property name="managed-beans">${web.generated.java.dir}</property>
                 <property name="controllers">${web.generated.java.dir}</property>
                 <property name="controller-impls">${web.manual.java.dir}</property>
-                <property name="decorators">${web.manual.java.dir}</property>
-                <property name="messages">${web.generated.web.dir}/WEB-INF/classes</property>
-                <property name="configuration">${web.generated.web.dir}/WEB-INF</property>
-                <!-- uncomment to enable web tier security
-                <property name="securityRealm">${application.id}</property>
-                 -->
+                <property name="messages">${web.generated.web.dir}</property>
+                <property name="configuration">${web.generated.web.dir}</property>
+                <property name="custom-configuration">${web.manual.dir}/resources</property>
+                <property name="libraries">${web.generated.web.dir}</property>
+                <property name="custom-resources">${web.manual.web.dir}</property>
+                <!-- property name="authenticationType">securityFilter</property>
+                <property name="securityRealm"></property>
+                <property name="defaultRole">${defaultRole}</property -->
                 <property name="serviceAccessorPattern">${application.package}.ServiceLocator.instance().get{1}()</property>
-                <property name="mergeMappingsUri">file:${conf.dir}/mappings/WebMergeMappings.xml</property>
                 <property name="manageableServiceAccessorPattern">${application.package}.ManageableServiceLocator.instance().get{1}()</property>
+                <property name="mergeMappingsUri">file:${conf.dir}/mappings/WebMergeMappings.xml</property>
+                <property name="dummyData">false</property>
+                <property name="enableFaceletsDevelopmentSupport">true</property>
+                <property name="enableMyFacesDevelopmentSupport">true</property>
+                <property name="enablePreferences">false</property>
+                <property name="controllerScope">session</property>
+                <property name="navigationBeanScope">session</property>
             </properties>
         </namespace>
     </namespaces>

@@ -4,34 +4,32 @@ package org.andromda.samples.carrental.contracts.web.registerAccident;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.struts.action.ActionMapping;
 
 /**
  * @see org.andromda.samples.carrental.contracts.web.registerAccident.RegisterAccidentController
  */
 public class RegisterAccidentControllerImpl extends RegisterAccidentController
 {
-    /**
-     * @see org.andromda.samples.carrental.contracts.web.registerAccident.RegisterAccidentController#searchForContractsOfCustomer(org.apache.struts.action.ActionMapping, SearchForContractsOfCustomerForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    public final void searchForContractsOfCustomer(ActionMapping mapping, SearchForContractsOfCustomerForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        // populating the table with a dummy list
+	/**
+	 * @see org.andromda.samples.carrental.contracts.web.registerAccident.RegisterAccidentController#searchForContractsOfCustomer(org.andromda.samples.carrental.contracts.web.registerAccident.SearchForContractsOfCustomerForm)
+	 */
+	@Override
+	public void searchForContractsOfCustomer(
+			SearchForContractsOfCustomerForm form) throws Throwable {
+		// populating the table with a dummy list
         form.setContracts(contractsDummyList);
-    }
+	}
 
-    /**
-     * @see org.andromda.samples.carrental.contracts.web.registerAccident.RegisterAccidentController#registerAccident(org.apache.struts.action.ActionMapping, RegisterAccidentForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    public final String registerAccident(ActionMapping mapping, RegisterAccidentForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        // this property receives a default value, just to have the application running on dummy data
+	/**
+	 * @see org.andromda.samples.carrental.contracts.web.registerAccident.RegisterAccidentController#registerAccident(org.andromda.samples.carrental.contracts.web.registerAccident.RegisterAccidentForm)
+	 */
+	@Override
+	public String registerAccident(RegisterAccidentForm form) throws Throwable {
+		// this property receives a default value, just to have the application running on dummy data
         form.setIdContract("idContract-test");
         return null;
-    }
-
+	}
+	
     /**
      * This dummy variable is used to populate the "contracts" table.
      * You may delete it when you add you own code in this controller.

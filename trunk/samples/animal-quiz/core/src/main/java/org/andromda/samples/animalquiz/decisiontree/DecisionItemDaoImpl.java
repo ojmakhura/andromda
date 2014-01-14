@@ -12,6 +12,16 @@ public class DecisionItemDaoImpl
     extends DecisionItemDaoBase
 {
     /**
+	 * @see org.andromda.samples.animalquiz.decisiontree.DecisionItemDaoBase#findRoot(int)
+	 */
+	@Override
+    public Object findRoot(final int transform)
+        throws DecisionException
+    {
+        return this.findRoot(transform, "from DecisionItemImpl as decisionItem where decisionItem.rootItem = true");
+    }
+	
+    /**
      * @see org.andromda.samples.animalquiz.decisiontree.DecisionItemDao#toVODecisionItem(DecisionItem)
      */
     @Override

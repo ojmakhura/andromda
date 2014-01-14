@@ -5,63 +5,60 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.struts.action.ActionMapping;
 
 /**
  * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController
  */
 public class RegisterCustomerControllerImpl extends RegisterCustomerController
 {
-    /**
-     * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController#createCustomer(org.apache.struts.action.ActionMapping, CreateCustomerForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    public final String createCustomer(ActionMapping mapping, CreateCustomerForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        // this property receives a default value, just to have the application running on dummy data
+	/**
+	 * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController#createCustomer(org.andromda.samples.carrental.customers.web.registerCustomer.CreateCustomerForm)
+	 */
+	@Override
+	public String createCustomer(CreateCustomerForm form) throws Throwable {
+		// this property receives a default value, just to have the application running on dummy data
         form.setPassword("password-test");
         // this property receives a default value, just to have the application running on dummy data
         form.setCustomerNo("customerNo-test");
         // this property receives a default value, just to have the application running on dummy data
         form.setName("name-test");
         return null;
-    }
+	}
 
-    /**
-     * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController#searchAllCustomers(org.apache.struts.action.ActionMapping, SearchAllCustomersForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    public final Collection searchAllCustomers(ActionMapping mapping, SearchAllCustomersForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        // populating the table with a dummy list
+	/**
+	 * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController#searchAllCustomers(org.andromda.samples.carrental.customers.web.registerCustomer.SearchAllCustomersForm)
+	 */
+	@Override
+	public Collection searchAllCustomers(SearchAllCustomersForm form)
+			throws Throwable {
+		// populating the table with a dummy list
         form.setCustomers(customersDummyList);
         return null;
-    }
+	}
 
-    /**
-     * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController#loadExistingCustomers(org.apache.struts.action.ActionMapping, LoadExistingCustomersForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    public final void loadExistingCustomers(ActionMapping mapping, LoadExistingCustomersForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        // this property receives a default value, just to have the application running on dummy data
-        form.setCustomerNo("customerNo-test");
-    }
+	/**
+	 * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController#loadExistingCustomers(org.andromda.samples.carrental.customers.web.registerCustomer.LoadExistingCustomersForm)
+	 */
+	@Override
+	public void loadExistingCustomers(LoadExistingCustomersForm form)
+			throws Throwable {
+		// populating the table with a dummy list
+		form.setCustomerNo("customerNo-test");
+	}
 
-    /**
-     * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController#loadExistingDrivers(org.apache.struts.action.ActionMapping, LoadExistingDriversForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    public final void loadExistingDrivers(ActionMapping mapping, LoadExistingDriversForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        // populating the table with a dummy list
+	/**
+	 * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController#loadExistingDrivers(org.andromda.samples.carrental.customers.web.registerCustomer.LoadExistingDriversForm)
+	 */
+	@Override
+	public void loadExistingDrivers(LoadExistingDriversForm form)
+			throws Throwable {
+		// populating the table with a dummy list
         form.setDrivers(driversDummyList);
-    }
+	}
 
-    /**
-     * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController#saveDriver(org.apache.struts.action.ActionMapping, SaveDriverForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    public final void saveDriver(ActionMapping mapping, SaveDriverForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        // this property receives a default value, just to have the application running on dummy data
+	@Override
+	public void saveDriver(SaveDriverForm form) throws Throwable {
+		// this property receives a default value, just to have the application running on dummy data
         form.setLicenseIssuedBy("licenseIssuedBy-test");
         // this property receives a default value, just to have the application running on dummy data
         form.setSurname("surname-test");
@@ -70,8 +67,9 @@ public class RegisterCustomerControllerImpl extends RegisterCustomerController
         // this property receives a default value, just to have the application running on dummy data
         form.setName("name-test");
         // setting a date
-        form.setBirthDateAsDate(new Date());
-    }
+        form.setBirthDate(new Date());
+		
+	}
 
     /**
      * This dummy variable is used to populate the "customers" table.

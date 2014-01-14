@@ -2,42 +2,81 @@
 package org.andromda.samples.carrental.inventory.web.registerCar;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.struts.action.ActionMapping;
+import java.util.List;
+
+import javax.faces.model.SelectItem;
+
+import org.andromda.samples.carrental.inventory.CarType;
 
 /**
  * @see org.andromda.samples.carrental.inventory.web.registerCar.RegisterCarController
  */
 public class RegisterCarControllerImpl extends RegisterCarController
 {
-    /**
-     * @see org.andromda.samples.carrental.inventory.web.registerCar.RegisterCarController#createCar(org.apache.struts.action.ActionMapping, CreateCarForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    public final String createCar(ActionMapping mapping, CreateCarForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        // this property receives a default value, just to have the application running on dummy data
-        form.setCarTypeId("carTypeId-test");
-        form.setCarTypeIdValueList(new Object[] {"carTypeId-1", "carTypeId-2", "carTypeId-3", "carTypeId-4", "carTypeId-5"});
-        form.setCarTypeIdLabelList(form.getCarTypeIdValueList());
-        return null;
-    }
 
-    /**
-     * @see org.andromda.samples.carrental.inventory.web.registerCar.RegisterCarController#searchAllCars(org.apache.struts.action.ActionMapping, SearchAllCarsForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    public final void searchAllCars(ActionMapping mapping, SearchAllCarsForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        // this property receives a default value, just to have the application running on dummy data
-        form.setCarTypeId("carTypeId-test");
-        form.setCarTypeIdValueList(new Object[] {"carTypeId-1", "carTypeId-2", "carTypeId-3", "carTypeId-4", "carTypeId-5"});
-        form.setCarTypeIdLabelList(form.getCarTypeIdValueList());
-        // populating the table with a dummy list
-        form.setExistingcars(existingcarsDummyList);
-    }
+	/**
+     * 
+	 * @see org.andromda.samples.carrental.inventory.web.registerCar.RegisterCarController#createCar(org.andromda.samples.carrental.inventory.web.registerCar.CreateCarForm)
+	 */
+	@Override
+	public String createCar(CreateCarForm form) throws Throwable {
+		// this property receives a default value, just to have the application
+		// running on dummy data
+		form.setCarTypeId("carTypeId-test");
+		List<SelectItem> carTypes = new ArrayList<SelectItem>();
+		CarType carType0 = CarType.Factory.newInstance(null, "carTypeId-1",
+				null, null);
+		CarType carType1 = CarType.Factory.newInstance(null, "carTypeId-2",
+				null, null);
+		CarType carType2 = CarType.Factory.newInstance(null, "carTypeId-3",
+				null, null);
+		CarType carType3 = CarType.Factory.newInstance(null, "carTypeId-4",
+				null, null);
+		CarType carType4 = CarType.Factory.newInstance(null, "carTypeId-5",
+				null, null);
+		carTypes.add(new SelectItem(carType0, carType0.getIdentifier()));
+		carTypes.add(new SelectItem(carType1, carType1.getIdentifier()));
+		carTypes.add(new SelectItem(carType2, carType2.getIdentifier()));
+		carTypes.add(new SelectItem(carType3, carType3.getIdentifier()));
+		carTypes.add(new SelectItem(carType4, carType4.getIdentifier()));
+		form.setCarTypeIdBackingList(carTypes);
+		return null;
+	}
 
+	/**
+	 * @see org.andromda.samples.carrental.inventory.web.registerCar.RegisterCarController#searchAllCars(org.andromda.samples.carrental.inventory.web.registerCar.SearchAllCarsForm)
+	 */
+	@Override
+	public void searchAllCars(SearchAllCarsForm form) throws Throwable {
+		// this property receives a default value, just to have the application
+		// running on dummy data
+		form.setCarTypeId("carTypeId-test");
+		// form.setCarTypeIdValueList(new Object[] {"carTypeId-1",
+		// "carTypeId-2", "carTypeId-3", "carTypeId-4", "carTypeId-5"});
+		List<SelectItem> carTypes = new ArrayList<SelectItem>();
+		CarType carType0 = CarType.Factory.newInstance(null, "carTypeId-1",
+				null, null);
+		CarType carType1 = CarType.Factory.newInstance(null, "carTypeId-2",
+				null, null);
+		CarType carType2 = CarType.Factory.newInstance(null, "carTypeId-3",
+				null, null);
+		CarType carType3 = CarType.Factory.newInstance(null, "carTypeId-4",
+				null, null);
+		CarType carType4 = CarType.Factory.newInstance(null, "carTypeId-5",
+				null, null);
+		carTypes.add(new SelectItem(carType0, carType0.getIdentifier()));
+		carTypes.add(new SelectItem(carType1, carType1.getIdentifier()));
+		carTypes.add(new SelectItem(carType2, carType2.getIdentifier()));
+		carTypes.add(new SelectItem(carType3, carType3.getIdentifier()));
+		carTypes.add(new SelectItem(carType4, carType4.getIdentifier()));
+		form.setCarTypeIdBackingList(carTypes);
+		// populating the table with a dummy list
+		form.setExistingcars(existingcarsDummyList);
+	}
+	
     /**
      * This dummy variable is used to populate the "existingcars" table.
      * You may delete it when you add you own code in this controller.

@@ -4,48 +4,52 @@ package org.andromda.samples.carrental.contracts.web.handOut;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.struts.action.ActionMapping;
 
 /**
  * @see org.andromda.samples.carrental.contracts.web.handOut.HandOutCarController
  */
 public class HandOutCarControllerImpl extends HandOutCarController
 {
-    /**
-     * @see org.andromda.samples.carrental.contracts.web.handOut.HandOutCarController#loadAvailableCars(org.apache.struts.action.ActionMapping, LoadAvailableCarsForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    public final String loadAvailableCars(ActionMapping mapping, LoadAvailableCarsForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        // populating the table with a dummy list
-        form.setAvailableCars(availableCarsDummyList);
-        // this property receives a default value, just to have the application running on dummy data
-        form.setIdReservation("idReservation-test");
-        return null;
-    }
+	/**
+	 * @see org.andromda.samples.carrental.contracts.web.handOut.HandOutCarController#loadAvailableCars(org.andromda.samples.carrental.contracts.web.handOut.LoadAvailableCarsForm)
+	 */
+	@Override
+	public String loadAvailableCars(LoadAvailableCarsForm form)
+			throws Throwable {
+		 // populating the table with a dummy list
+      form.setAvailableCars(availableCarsDummyList);
+      // this property receives a default value, just to have the application running on dummy data
+      form.setIdReservation("idReservation-test");
+      return null;
+	}
 
-    /**
-     * @see org.andromda.samples.carrental.contracts.web.handOut.HandOutCarController#searchForReservationsOfCustomer(org.apache.struts.action.ActionMapping, SearchForReservationsOfCustomerForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    public final void searchForReservationsOfCustomer(ActionMapping mapping, SearchForReservationsOfCustomerForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        // populating the table with a dummy list
-        form.setCustomerReservations(customerReservationsDummyList);
-    }
+	/**
+	 * @see org.andromda.samples.carrental.contracts.web.handOut.HandOutCarController#searchForReservationsOfCustomer(org.andromda.samples.carrental.contracts.web.handOut.SearchForReservationsOfCustomerForm)
+	 */
+	@Override
+	public void searchForReservationsOfCustomer(
+			SearchForReservationsOfCustomerForm form) throws Throwable {
+		// populating the table with a dummy list
+      form.setCustomerReservations(customerReservationsDummyList);
+		
+	}
 
-    /**
-     * @see org.andromda.samples.carrental.contracts.web.handOut.HandOutCarController#saveSelectedCar(org.apache.struts.action.ActionMapping, SaveSelectedCarForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    public final void saveSelectedCar(ActionMapping mapping, SaveSelectedCarForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        // this property receives a default value, just to have the application running on dummy data
-        form.setId("id-test");
-    }
-
+	/**
+	 * @see org.andromda.samples.carrental.contracts.web.handOut.HandOutCarController#saveSelectedCar(org.andromda.samples.carrental.contracts.web.handOut.SaveSelectedCarForm)
+	 */
+	@Override
+	public void saveSelectedCar(SaveSelectedCarForm form) throws Throwable {
+		// this property receives a default value, just to have the application running on dummy data
+      form.setId("id-test");
+		
+	}
+	
     /**
      * This dummy variable is used to populate the "availableCars" table.
      * You may delete it when you add you own code in this controller.
+     */
+    /**
+     * 
      */
     private static final Collection availableCarsDummyList =
         Arrays.asList(new AvailableCarsDummy("inventoryNo-1", "registrationNo-1", "id-1"),
