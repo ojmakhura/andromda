@@ -5,9 +5,8 @@
         <p>This wizard creates an AndroMDA powered J2EE application. An empty model is provided for your convenience.</p>
         <p>You can select amongst the following additional features:</p>
         <li><b>Persistence</b>: You can select the transaction/persistence framework that best suits your needs (EJB, EJB3, Spring, Hibernate)</li>
-        <li><b>Workflow capabilities</b>: Add JBoss JBPM support to your application</li>
         <li><b>Webservices</b>: Enable web services for your project and choose an appropriate web service framework</li>
-        <li><b>Web front-end</b>: If your project needs a web based user interface, you can choose between JSF standalone and JSF portlet</li>
+        <li><b>Web front-end</b>: If your project needs a web based user interface.</li>
         ]]>
     </documentation>
     <resourceLocations>
@@ -17,10 +16,6 @@
         <conditions>
             <condition id="ear" equal="true"/>
             <output patterns="**/*">app/</output>
-        </conditions>
-        <conditions>
-            <condition id="workflow" equal="true"/>
-            <output patterns="**/*">workflow/</output>
         </conditions>
         <conditions type="or">
             <condition id="transactionPersistenceType" equal="ejb"/>
@@ -332,14 +327,6 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>mysql</response>
                 </responses>
             </prompt-->
-            <prompt id="workflow">
-                <text>Will your project need workflow engine capabilities? (it uses jBPM and Hibernate3)?</text>
-                <shortText>Enable workflow capabilities</shortText>
-                <responses type="java.lang.Boolean">
-                    <response>yes</response>
-                    <response>no</response>
-                </responses>
-            </prompt>
             <prompt id="web">
                 <text>Will your project have a web user interface?</text>
                 <shortText>Web interface</shortText>
@@ -347,50 +334,9 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>yes</response>
                     <response>no</response>
                 </responses>
-            </prompt>
-            <prompt id="webType" setResponseAsTrue="true">
-                <text>Would you like your web user interface to use JSF or Struts?</text>
-                <shortText>Web interface technology</shortText>
-                <preconditions>
-                    <condition id="web" equal="true"/>
-                </preconditions>
-                <responses>
-                    <response>jsf</response>
-                    <response>struts</response>
-                </responses>
-            </prompt>
-            <prompt id="jsfApplicationType" setResponseAsTrue="true">
-                <text>Would you like a standalone or portlet JSF application (Note: Liferay is the only currently supported portlet container)?</text>
-                <shortText>Web interface technology</shortText>
-                <preconditions>
-                    <condition id="webType" equal="jsf"/>
-                </preconditions>
-                <responses>
-                    <response>standalone</response>
-                    <response>portlet</response>
-                </responses>
-                <conditions>
-                    <condition equal="portlet">
-                        <setProperty id="portletContainer">liferay</setProperty>
-                    </condition>
-                </conditions>
-            </prompt>
-            <prompt id="ajaxLibraryType" setResponseAsTrue="true">
-                <text>Would you like to add ICEFaces support to your portlet?</text>
-                <shortText>Add ICEFaces support</shortText>
-                <preconditions>
-                    <condition id="portlet" equal="true"/>
-                </preconditions>
-                <responses type="java.lang.Boolean">
-                    <response>yes</response>
-                    <response>no</response>
-                </responses>
                 <conditions>
                     <condition equal="yes">
-                        <setProperty id="ajaxLibrary">icefaces</setProperty>
-                    </condition>
-                    <condition equal="no">
-                        <setProperty id="ajaxLibrary">trinidad</setProperty>
+                        <setProperty id="jsf">true</setProperty><!-- currently only JSF is supported -->
                     </condition>
                 </conditions>
             </prompt>
@@ -400,7 +346,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 <preconditions>
                     <condition id="transactionPersistenceType" equal="ejb3"/>
                     <condition id="web" equal="true"/>
-                    <condition id="webType" equal="jsf"/>
+                    <condition id="jsf" equal="true"/>
                 </preconditions>
                 <responses type="java.lang.Boolean">
                     <response>yes</response>

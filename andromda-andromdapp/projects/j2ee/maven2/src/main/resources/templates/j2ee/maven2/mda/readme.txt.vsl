@@ -182,21 +182,6 @@
          |              Web context root directory, containing META-INF, WEB-INF, and wsdl
          |
 #end
-#if ($workflow)
-         +-- /workflow
-         |     |
-         |     |    The Workflow module collects those resources and classes
-         |     |    that are needed to support the workflow engine
-         |     |
-         |     +-- pom.xml
-         |     |        lists Workflow dependencies
-         |     +-- /src/main/sar
-         |     |        files used to configure the workflow engine connection,
-         |     |        please note that these files contain properties
-         |     |        that will be dynamically replaced during the build
-         |     +-- /target
-         |
-#end
 #if ($web)
          +-- /web
          |     |
@@ -332,12 +317,6 @@
 
             only build the core module
 
-#if ($workflow)
-        %> mvn -N andromdapp:build -Dmodules=workflow (or mvn -f workflow/pom.xml)
-
-            only build the workflow module
-
-#end
 #if ($web)
         %> mvn -N andromdapp:build -Dmodules=web (or mvn -f web/pom.xml)
 

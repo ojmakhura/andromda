@@ -26,13 +26,6 @@
             <artifactId>${applicationId}-common</artifactId>
             <version>${project.version}</version>
         </dependency>
-#if ($workflow)
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>${applicationId}-workflow</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-#end
 #if ($spring || $hibernate)
 #if ($spring)
         <dependency>

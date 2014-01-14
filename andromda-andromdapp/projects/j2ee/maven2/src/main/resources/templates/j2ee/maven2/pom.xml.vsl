@@ -165,47 +165,23 @@
 #if ($jsf)
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
-                <artifactId>andromda-jsf-cartridge</artifactId>
+                <artifactId>andromda-jsf2-cartridge</artifactId>
                 <version>${andromda.version}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>org.andromda.cartridges</groupId>
-                <artifactId>andromda-jsf-cartridge-components</artifactId>
-                <version>${andromda.version}</version>
-                <scope>runtime</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.andromda</groupId>
-                        <artifactId>andromda-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.andromda.metafacades</groupId>
-                        <artifactId>andromda-metafacades-uml</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.andromda.translationlibraries</groupId>
-                        <artifactId>andromda-ocl-validation-library</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
                 <groupId>org.apache.myfaces.core</groupId>
                 <artifactId>myfaces-api</artifactId>
-                <version>1.2.9</version>
+                <version>2.1.12</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.core</groupId>
                 <artifactId>myfaces-impl</artifactId>
-                <version>1.2.9</version>
+                <version>2.1.12</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.tomahawk</groupId>
-                <artifactId>tomahawk12</artifactId>
+                <artifactId>tomahawk20</artifactId>
                 <version>1.1.13</version>
 #if($ear)
                 <exclusions>
@@ -220,38 +196,32 @@
             <dependency>
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
-                <version>1.1.0.GA</version>
+                <version>1.1.0.Final</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.extensions.validator</groupId>
                 <artifactId>myfaces-extval-core</artifactId>
-                <version>1.2.4</version>
+                <version>2.0.5</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
                 <artifactId>myfaces-extval-property-validation</artifactId>
-                <version>1.2.4</version>
+                <version>2.0.5</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
                 <artifactId>myfaces-extval-bean-validation</artifactId>
-                <version>1.2.4</version>
+                <version>2.0.5</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.extensions.validator.component-support-modules</groupId>
                 <artifactId>myfaces-extval-generic-support</artifactId>
-                <version>1.2.4</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>cglib</groupId>
-                        <artifactId>cglib</artifactId>
-                    </exclusion>
-                </exclusions>
+                <version>2.0.4</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.myfaces.extensions.validator.component-support-modules</groupId>
-                <artifactId>myfaces-extval-trinidad-support</artifactId>
-                <version>1.2.4</version>
+                <groupId>org.primefaces</groupId>
+                <artifactId>primefaces</artifactId>
+                <version>3.4.2</version>
             </dependency>
 #if (!$spring && !$hibernate && !$ejb3)
             <dependency>
@@ -276,51 +246,6 @@
                 <scope>provided</scope>
 #end
             </dependency>
-#if ($portlet)
-            <dependency>
-                <groupId>javax.portlet</groupId>
-                <artifactId>portlet-api</artifactId>
-                <version>1.0</version>
-                <scope>provided</scope>
-            </dependency>
-#if ($ajaxLibrary.equals("icefaces"))
-            <dependency>
-                <groupId>org.icefaces</groupId>
-                <artifactId>icefaces</artifactId>
-                <version>1.8.0</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.icefaces</groupId>
-                <artifactId>icefaces-comps</artifactId>
-                <version>1.8.0</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.icefaces</groupId>
-                <artifactId>icefaces-facelets</artifactId>
-                <version>1.8.0</version>
-                <scope>runtime</scope>
-            </dependency>
-#end
-#else
-            <dependency>
-                <groupId>org.apache.myfaces.trinidad</groupId>
-                <artifactId>trinidad-api</artifactId>
-                <version>1.2.14</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.myfaces.trinidad</groupId>
-                <artifactId>trinidad-impl</artifactId>
-                <version>1.2.14</version>
-            </dependency>
-            <dependency>
-                <groupId>com.sun.facelets</groupId>
-                <artifactId>jsf-facelets</artifactId>
-                <version>1.1.15</version>
-                <scope>runtime</scope>
-            </dependency>
-#end
             <dependency>
                 <groupId>org.andromda</groupId>
                 <artifactId>andromda-utils</artifactId>
@@ -711,24 +636,7 @@
                 <scope>runtime</scope>
             </dependency>
 #end
-#if ($workflow)
-            <dependency>
-                <groupId>org.jbpm</groupId>
-                <artifactId>jbpm</artifactId>
-                <version>3.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jbpm</groupId>
-                <artifactId>jbpm-identity</artifactId>
-                <version>3.0</version>
-            </dependency>
-            <dependency>
-                <groupId>c3p0</groupId>
-                <artifactId>c3p0</artifactId>
-                <version>0.8.5.2</version>
-            </dependency>
-#end
-#if ($web || $hibernate || $workflow)
+#if ($web || $hibernate)
             <dependency>
                 <groupId>antlr</groupId>
                 <artifactId>antlr</artifactId>
@@ -745,14 +653,14 @@
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
-                <version>2.5</version>
+                <version>3.0</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>com.lowagie</groupId>
-                <artifactId>itext</artifactId>
-                <version>4.2.1</version>
-                <scope>runtime</scope>
+                <groupId>javax.el</groupId>
+                <artifactId>el-api</artifactId>
+                <version>2.2.1-b04</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
@@ -766,71 +674,6 @@
                 <version>2.0.8</version>
                 <scope>runtime</scope>
             </dependency>
-#end
-#if ($struts)
-            <dependency>
-                <groupId>commons-validator</groupId>
-                <artifactId>commons-validator</artifactId>
-                <version>1.4.0</version>
-            </dependency>
-            <dependency>
-                <groupId>struts</groupId>
-                <artifactId>struts</artifactId>
-                <!-- v1.3: package org.apache.struts.actions does not exist -->
-                <version>1.2.9</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>commons-chain</groupId>
-                        <artifactId>commons-chain</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>commons-digester</groupId>
-                        <artifactId>commons-digester</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>xalan</groupId>
-                        <artifactId>xalan</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>struts-menu</groupId>
-                <artifactId>struts-menu</artifactId>
-                <version>2.3</version>
-            </dependency>
-            <dependency>
-                <groupId>displaytag</groupId>
-                <artifactId>displaytag</artifactId>
-                <version>1.2</version>
-                <scope>runtime</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>taglibs</groupId>
-                        <artifactId>standard</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-#end
-#if ($jsf)
-#if ($jbossSeam)
-            <!-- MyFaces Dependencies -->
-            <dependency>
-                <groupId>org.apache.myfaces.core</groupId>
-                <artifactId>myfaces-api</artifactId>
-                <version>1.1.5</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.myfaces.core</groupId>
-                <artifactId>myfaces-impl</artifactId>
-                <version>1.1.5</version>
-                <scope>provided</scope>
-            </dependency>
-#end
 #end
 #if ($axis)
             <dependency>
@@ -1119,32 +962,32 @@
                     </exclusion>
                     <!--Jetty should not be compile scope, should not be bundled-->
                     <exclusion>
-                        <groupId>org.eclipse.jetty</groupId>
+				        <groupId>org.eclipse.jetty</groupId>
                         <artifactId>jetty-server</artifactId>
                     </exclusion>
                     <exclusion>
-                        <groupId>org.eclipse.jetty</groupId>
+				        <groupId>org.eclipse.jetty</groupId>
                         <artifactId>jetty-continuation</artifactId>
                     </exclusion>
                     <exclusion>
-                        <groupId>org.eclipse.jetty</groupId>
+				        <groupId>org.eclipse.jetty</groupId>
                         <artifactId>jetty-http</artifactId>
                     </exclusion>
                     <exclusion>
-                        <groupId>org.eclipse.jetty</groupId>
+				        <groupId>org.eclipse.jetty</groupId>
                         <artifactId>jetty-io</artifactId>
                     </exclusion>
                     <exclusion>
-                        <groupId>org.eclipse.jetty</groupId>
+				        <groupId>org.eclipse.jetty</groupId>
                         <artifactId>jetty-util</artifactId>
                     </exclusion>
                     <exclusion>
-                        <groupId>org.eclipse.jetty</groupId>
+				        <groupId>org.eclipse.jetty</groupId>
                         <artifactId>jetty-security</artifactId>
                     </exclusion>
                     <!--Remove exclusions if using JMS-->
                     <exclusion>
-                        <groupId>org.apache.geronimo.specs</groupId>
+				        <groupId>org.apache.geronimo.specs</groupId>
                         <artifactId>geronimo-jms_1.1_spec</artifactId>
                     </exclusion>
                     <exclusion>
@@ -1388,7 +1231,7 @@
                               <port>${service.port}</port>
                               <maxIdleTime>60000</maxIdleTime>
                            </connector>
-                        </connectors>
+                         </connectors>
                         <useProvidedScope>true</useProvidedScope>
                         <stopKey>foo</stopKey>
                         <stopPort>9999</stopPort>
@@ -1446,8 +1289,7 @@
         spring=$spring
         web=$web
         webservice=$webservice
-        struts=$struts
-        jsf=$jsf
+        jsf2=$jsf
         cxf=$cxf
         rest=$rest
         jbossSeam=$jbossSeam
@@ -1459,7 +1301,7 @@
 #if (!$transactionPersistenceType.equals("none") || $cxf)
         <module>core</module>
 #end
-#if ($struts || $jsf)
+#if ($jsf)
         <module>web</module>
 #end
 #if ($webservice && !$jsr181Webservice && ($ear || $cxf))
@@ -1467,9 +1309,6 @@
 #if ($cxf)
         <module>CXF</module>
 #end
-#end
-#if ($workflow)
-        <module>workflow</module>
 #end
 #if ($ear)
         <module>app</module>
@@ -1696,7 +1535,7 @@
         <jetty.version>8.1.14.v20131031</jetty.version>
 #end
 #if ($cxf || $spring)
-        <spring.version>3.2.5.RELEASE</spring.version>
+        <spring.version>3.2.6.RELEASE</spring.version>
 #end
         <!-- To override parent default settings for compiler plugin and compliance checks-->
         <dependencyConvergence>true</dependencyConvergence>
@@ -1834,7 +1673,7 @@
                     Change connection url for appropriate database
                     For H2 use: jdbc:h2:~/$applicationId
                     For MySQL use: jdbc:mysql://localhost:3306/$applicationId
-                    For Hypersonic use: jdbc:hsqldb:hsql://127.0.0.1:1701
+                    For Hypersonic use: jdbc:hsqldb:hsql://127.0.0.1/$applicationId or jdbc:hsqldb:file:<path>/$applicationId;shutdown=true
                     For Oracle9i use: jdbc:oracle:thin:@localhost:1521:yoursid
                     For DB2 use: jdbc:db2:$applicationId
                     For Informix use: jdbc:informix-sqli://localhost:1557/${applicationId}:INFORMIXSERVER=myserver
@@ -1874,7 +1713,7 @@
 #if ($embeddedJetty)
                     jdbc:hsqldb:file:database/${applicationId};shutdown=true
 #else
-                    jdbc:hsqldb:hsql://127.0.0.1:1701
+                    jdbc:hsqldb:mem:${applicationId}
 #end
 #end
                 </jdbc.url>

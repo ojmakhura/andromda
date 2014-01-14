@@ -103,14 +103,6 @@
             <scope>runtime</scope>
         </dependency>
 #end
-#if ($workflow)
-        <dependency>
-            <groupId>org.andromda.cartridges</groupId>
-            <artifactId>andromda-jbpm-cartridge</artifactId>
-            <version>${andromda.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-#end
 #if ($webservice && !$jsr181Webservice)
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
@@ -125,17 +117,10 @@
             <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
-#if ($struts)
+#if ($jsf)
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
-            <artifactId>andromda-bpm4struts-cartridge</artifactId>
-            <version>${andromda.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-#elseif ($jsf)
-        <dependency>
-            <groupId>org.andromda.cartridges</groupId>
-            <artifactId>andromda-jsf-cartridge</artifactId>
+            <artifactId>andromda-jsf2-cartridge</artifactId>
             <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
@@ -443,10 +428,6 @@
         <web.manual.dir>${project.basedir}/../web/src/main</web.manual.dir>
         <web.manual.web.dir>${web.manual.dir}/webapp</web.manual.web.dir>
         <web.manual.java.dir>${web.manual.dir}/java</web.manual.java.dir>
-#end
-#if ($workflow)
-        <workflow.generated.dir>${project.basedir}/../workflow/target/src/main/java</workflow.generated.dir>
-        <workflow.manual.dir>${project.basedir}/../workflow/src/main</workflow.manual.dir>
 #end
 #if ($webservice && !$jsr181Webservice)
         <webservice.project>${project.basedir}/../webservice</webservice.project>
