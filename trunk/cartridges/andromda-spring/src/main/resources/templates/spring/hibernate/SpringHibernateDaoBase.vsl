@@ -99,7 +99,6 @@ public abstract class $entity.daoBaseName
      * @deprecated Use this.sessionFactory.getCurrentSession() instead
      * @return currentSession
      */
-    @Deprecated
     protected org.hibernate.Session getSession() {
         return this.sessionFactory.getCurrentSession();
     }
