@@ -4,25 +4,23 @@ package org.andromda.samples.carrental.admins.web.main;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.struts.action.ActionMapping;
 
 /**
  * @see org.andromda.samples.carrental.admins.web.main.AdministrationController
  */
 public class AdministrationControllerImpl extends AdministrationController
 {
-    /**
-     * @see org.andromda.samples.carrental.admins.web.main.AdministrationController#loadCarAndCarTypes(org.apache.struts.action.ActionMapping, LoadCarAndCarTypesForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    public final void loadCarAndCarTypes(ActionMapping mapping, LoadCarAndCarTypesForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        // populating the table with a dummy list
-        form.setCars(carsDummyList);
-        // populating the table with a dummy list
-        form.setCarTypes(carTypesDummyList);
-    }
+	/**
+	 * @see org.andromda.samples.carrental.admins.web.main.AdministrationController#loadCarAndCarTypes(org.andromda.samples.carrental.admins.web.main.LoadCarAndCarTypesForm)
+	 */
+	@Override
+	public void loadCarAndCarTypes(LoadCarAndCarTypesForm form)
+			throws Throwable {
+		// populating the table with a dummy list
+		form.setCars(carsDummyList);
+		// populating the table with a dummy list
+		form.setCarTypes(carTypesDummyList);
+	}
 
     /**
      * This dummy variable is used to populate the "cars" table.

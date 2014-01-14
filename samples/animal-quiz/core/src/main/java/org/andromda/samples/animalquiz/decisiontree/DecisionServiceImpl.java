@@ -20,7 +20,8 @@ public class DecisionServiceImpl
         VODecisionItem item = (VODecisionItem)this.getDecisionItemDao().findRoot(DecisionItemDao.TRANSFORM_VODECISIONITEM);
         if (item == null)
         {
-            item = (VODecisionItem)this.getAnimalDao().create(DecisionItemDao.TRANSFORM_VODECISIONITEM, "elephant", true);
+        	DecisionItem animal = (DecisionItem) this.getAnimalDao().create("elephant", true);
+        	item = (VODecisionItem)this.getDecisionItemDao().toVODecisionItem(animal);
         }
         return item;
     }

@@ -2,53 +2,70 @@
 package org.andromda.samples.carrental.contracts.web.reserveCar;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.struts.action.ActionMapping;
+import java.util.List;
+
+import javax.faces.model.SelectItem;
 
 /**
  * @see org.andromda.samples.carrental.contracts.web.reserveCar.CustomerReservesCarController
  */
 public class CustomerReservesCarControllerImpl extends CustomerReservesCarController
 {
-    /**
-     * @see org.andromda.samples.carrental.contracts.web.reserveCar.CustomerReservesCarController#searchForReservations(org.apache.struts.action.ActionMapping, SearchForReservationsForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    public final void searchForReservations(ActionMapping mapping, SearchForReservationsForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        // populating the table with a dummy list
-        form.setReservations(reservationsDummyList);
-        // this property receives a default value, just to have the application running on dummy data
-        form.setComfortClass("comfortClass-test");
-        form.setComfortClassValueList(new Object[] {"comfortClass-1", "comfortClass-2", "comfortClass-3", "comfortClass-4", "comfortClass-5"});
-        form.setComfortClassLabelList(form.getComfortClassValueList());
-    }
+	/**
+	 * @see org.andromda.samples.carrental.contracts.web.reserveCar.CustomerReservesCarController#searchForReservations(org.andromda.samples.carrental.contracts.web.reserveCar.SearchForReservationsForm)
+	 */
+	@Override
+	public void searchForReservations(SearchForReservationsForm form)
+			throws Throwable {
+		// populating the table with a dummy list
+		form.setReservations(reservationsDummyList);
+		// this property receives a default value, just to have the application
+		// running on dummy data
+		form.setComfortClass("comfortClass-test");
 
-    /**
-     * @see org.andromda.samples.carrental.contracts.web.reserveCar.CustomerReservesCarController#reserve(org.apache.struts.action.ActionMapping, ReserveForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    public final void reserve(ActionMapping mapping, ReserveForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        // setting a date
-        form.setReservationDateAsDate(new Date());
-        // this property receives a default value, just to have the application running on dummy data
-        form.setComfortClass("comfortClass-test");
-        form.setComfortClassValueList(new Object[] {"comfortClass-1", "comfortClass-2", "comfortClass-3", "comfortClass-4", "comfortClass-5"});
-        form.setComfortClassLabelList(form.getComfortClassValueList());
-    }
+		List<SelectItem> confortClass = new ArrayList<SelectItem>();
+		confortClass.add(new SelectItem("comfortClass-1"));
+		confortClass.add(new SelectItem("comfortClass-2"));
+		confortClass.add(new SelectItem("comfortClass-3"));
+		confortClass.add(new SelectItem("comfortClass-4"));
+		confortClass.add(new SelectItem("comfortClass-5"));
+		form.setComfortClassBackingList(confortClass);
+	}
 
-    /**
-     * @see org.andromda.samples.carrental.contracts.web.reserveCar.CustomerReservesCarController#deleteReservation(org.apache.struts.action.ActionMapping, DeleteReservationForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    public final void deleteReservation(ActionMapping mapping, DeleteReservationForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        // this property receives a default value, just to have the application running on dummy data
-        form.setIdReservation("idReservation-test");
-    }
+	/**
+	 * @see org.andromda.samples.carrental.contracts.web.reserveCar.CustomerReservesCarController#reserve(org.andromda.samples.carrental.contracts.web.reserveCar.ReserveForm)
+	 */
+	@Override
+	public void reserve(ReserveForm form) throws Throwable {
+		// setting a date
+		form.setReservationDate(new Date());
+		// this property receives a default value, just to have the application
+		// running on dummy data
+		form.setComfortClass("comfortClass-test");
+		List<SelectItem> confortClass = new ArrayList<SelectItem>();
+		confortClass.add(new SelectItem("comfortClass-1"));
+		confortClass.add(new SelectItem("comfortClass-2"));
+		confortClass.add(new SelectItem("comfortClass-3"));
+		confortClass.add(new SelectItem("comfortClass-4"));
+		confortClass.add(new SelectItem("comfortClass-5"));
+		form.setComfortClassBackingList(confortClass);
+	}
 
+	
+	/**
+	 * @see org.andromda.samples.carrental.contracts.web.reserveCar.CustomerReservesCarController#deleteReservation(org.andromda.samples.carrental.contracts.web.reserveCar.DeleteReservationForm)
+	 */
+	@Override
+	public void deleteReservation(DeleteReservationForm form) throws Throwable {
+		// this property receives a default value, just to have the application
+		// running on dummy data
+		form.setIdReservation("idReservation-test");
+	}
+	
     /**
      * This dummy variable is used to populate the "reservations" table.
      * You may delete it when you add you own code in this controller.
@@ -111,4 +128,6 @@ public class CustomerReservesCarControllerImpl extends CustomerReservesCarContro
         }
 
     }
+
+	
 }

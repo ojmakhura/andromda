@@ -9,13 +9,11 @@
         <property name="applicationName">AndroMDA CRUD Sample</property>
         <property name="applicationVersion">$${project.version}</property>
         <property name="applicationPackage">org.andromda.samples.crud</property>
-        <property name="applicationType">ear</property>
+        <property name="applicationType">war</property>
         <property name="transactionPersistenceType">spring</property>
         <property name="persistenceProviderExtensions">hibernate</property>
-        <property name="workflow">no</property>
         <property name="implementationLanguage">java</property>
         <property name="web">yes</property>
-        <property name="webType">struts</property>
         <property name="webservice">no</property>
         <property name="model">jar:file:${project.basedir}/src/main/uml/CRUDModel.xml.zip!/CRUDModel.xml</property>
         <property name="configurationUri">${project.basedir}/src/main/config/andromda.xml</property>
