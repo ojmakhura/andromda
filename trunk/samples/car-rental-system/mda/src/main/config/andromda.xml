@@ -5,6 +5,12 @@
     <property name="cartridgeFilter">${filter}</property>
   </properties>
   <repositories>
+    <!--repository name="emf-uml22">
+        <models>
+            <model type="emf-uml22">
+                <uri>file:${project.basedir}/src/main/uml2/CarRentalSystem.uml</uri>
+                <moduleSearchLocations>
+                    <location patterns="andromda*.uml,UML_*.uml">${project.basedir}/src/main/uml2</location-->
     <repository name="netBeansMDR">
       <models>
         <model type="uml-1.4">
@@ -103,7 +109,7 @@
     </namespace>
         <!-- See http://docs.andromda.org/andromda-cartridges/andromda-jsf2-cartridge/namespace.html -->
         <namespace name="jsf2">
-             <properties>
+            <properties>
                 <property name="componentSet">primefaces</property>
                 <property name="managedBeansPackage">${application.package}</property>
                 <property name="facesConfigFiles"></property>

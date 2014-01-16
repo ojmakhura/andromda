@@ -5,6 +5,13 @@
         <property name="cartridgeFilter">${filter}</property>
     </properties>
     <repositories>
+        <!--repository name="emf-uml22">
+            <models>
+                <model type="emf-uml22">
+                    <uri>file:${project.basedir}/src/main/uml2/AnimalQuiz.uml</uri>
+                    <moduleSearchLocations>
+                        <location patterns="andromda*.uml,UML_*.uml">${project.basedir}/src/main/uml2</location>
+                    </moduleSearchLocations-->
         <repository name="netBeansMDR">
             <models>
                 <model>
@@ -12,11 +19,6 @@
                     <moduleSearchLocations>
                     	<location patterns="**/${andromda.version}/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
                         <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0.1/UML_Standard_Profile-1.0.1.jar!/</location>
-                        <!-- 
-                        <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../../../profiles/uml-1.4</location>
-                        <location patterns="**/${andromda.version}/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
-                        <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0.1/UML_Standard_Profile-1.0.1.jar!/</location>
-                    	 -->
                     </moduleSearchLocations>
                 </model>
             </models>
@@ -160,7 +162,7 @@
         </namespace>
         <!-- See http://docs.andromda.org/andromda-cartridges/andromda-jsf2-cartridge/namespace.html -->
         <namespace name="jsf2">
-             <properties>
+            <properties>
                 <property name="componentSet">primefaces</property>
                 <property name="managedBeansPackage">${application.package}</property>
                 <property name="facesConfigFiles"></property>

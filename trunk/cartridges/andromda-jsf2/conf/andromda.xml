@@ -10,10 +10,10 @@
           <uri>${model.uri}</uri>
           <moduleSearchLocations>
             <location patterns="*.xml.zip">${project.basedir}/src/uml</location>
-            <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
-            <location patterns="*.xml.zip">/home/walter/workspace/andromda-all/metafacades/uml/common/src/main/uml</location>
-            <location patterns="*.xml.zip">/home/walter/workspace/andromda-all/metafacades/uml14/uml/src/main/uml</location>
-            <location patterns="**/src/main/uml/*.xml.zip">/home/walter/workspace/andromda-all/profiles/uml-1.4</location -->
+            <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0.1/UML_Standard_Profile-1.0.1.jar!/</location>
+            <location patterns="*.xml.zip">${project.basedir}/../../metafacades/uml/common/src/main/uml</location>
+            <location patterns="*.xml.zip">${project.basedir}/../../metafacades/uml14/uml/src/main/uml</location>
+            <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../../profiles/uml-1.4</location-->
   <repository name="emf-uml22">
       <models>
         <model type="emf-uml22">

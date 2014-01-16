@@ -3,7 +3,7 @@
     <property name="cartridgeFilter">jbpm</property>
     <property name="failOnValidationErrors">false</property>
     <!-- Debug andromda processing using example log4j.xml file -->
-    <property name="loggingConfigurationUri">file:${basedir}/conf/test/log4j.xml</property>
+    <property name="loggingConfigurationUri">file:${project.basedir}/conf/test/log4j.xml</property>
   </properties>
   <repositories>
     <repository name="emf-uml22">
