@@ -63,13 +63,13 @@
     </metafacade>
     <!--metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.ClassifierImpl"/>
-    </metafacade>
+    </metafacade-->
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLEnumerationTypeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.EnumerationClass$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLEnumerationTypeLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.EnumerationImpl"/>
-    </metafacade-->
+    </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLEnumerationTypeLogicImpl">
         <mapping>
             <stereotype>ENUMERATION</stereotype>

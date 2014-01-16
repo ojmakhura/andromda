@@ -77,10 +77,8 @@
         </plugins>
     </build>
     <properties>
-    <!--  -->
         <skipTests>true</skipTests>
         <maven.test.skip>true</maven.test.skip>
-    <!--  -->    
         <uml2.output.dir>${project.basedir}/target/cartridge-test/actualUML2</uml2.output.dir>
         <uml2.model.uri>file:${src.dir}/uml2/JSF2MetafacadeModel.uml</uml2.model.uri>
         <uml2.test.model.uri>file:${test.src.dir}/uml2/JSFCartridgeTestModel.uml</uml2.test.model.uri>

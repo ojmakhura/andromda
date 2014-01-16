@@ -221,7 +221,7 @@
             <dependency>
                 <groupId>org.primefaces</groupId>
                 <artifactId>primefaces</artifactId>
-                <version>3.4.2</version>
+                <version>4.0</version>
             </dependency>
 #if (!$spring && !$hibernate && !$ejb3)
             <dependency>
@@ -327,7 +327,7 @@
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
-                <version>1.9.0</version>
+                <version>1.9.1</version>
             </dependency>
             <dependency>
                 <groupId>commons-codec</groupId>
@@ -362,7 +362,7 @@
             <dependency>
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
-                <version>1.1.2</version>
+                <version>1.1.3</version>
 #if ($ear && !$cxf)
                 <scope>provided</scope>
 #end
@@ -652,8 +652,8 @@
             </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
-                <artifactId>servlet-api</artifactId>
-                <version>3.0</version>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>3.1.0</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -857,9 +857,7 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>4.11</version>
-#if (!$ejb)
                 <scope>test</scope>
-#end
             </dependency>
             <dependency>
                 <groupId>log4j</groupId>
@@ -962,32 +960,32 @@
                     </exclusion>
                     <!--Jetty should not be compile scope, should not be bundled-->
                     <exclusion>
-				        <groupId>org.eclipse.jetty</groupId>
+                        <groupId>org.eclipse.jetty</groupId>
                         <artifactId>jetty-server</artifactId>
                     </exclusion>
                     <exclusion>
-				        <groupId>org.eclipse.jetty</groupId>
+                        <groupId>org.eclipse.jetty</groupId>
                         <artifactId>jetty-continuation</artifactId>
                     </exclusion>
                     <exclusion>
-				        <groupId>org.eclipse.jetty</groupId>
+                        <groupId>org.eclipse.jetty</groupId>
                         <artifactId>jetty-http</artifactId>
                     </exclusion>
                     <exclusion>
-				        <groupId>org.eclipse.jetty</groupId>
+                        <groupId>org.eclipse.jetty</groupId>
                         <artifactId>jetty-io</artifactId>
                     </exclusion>
                     <exclusion>
-				        <groupId>org.eclipse.jetty</groupId>
+                        <groupId>org.eclipse.jetty</groupId>
                         <artifactId>jetty-util</artifactId>
                     </exclusion>
                     <exclusion>
-				        <groupId>org.eclipse.jetty</groupId>
+                        <groupId>org.eclipse.jetty</groupId>
                         <artifactId>jetty-security</artifactId>
                     </exclusion>
                     <!--Remove exclusions if using JMS-->
                     <exclusion>
-				        <groupId>org.apache.geronimo.specs</groupId>
+                        <groupId>org.apache.geronimo.specs</groupId>
                         <artifactId>geronimo-jms_1.1_spec</artifactId>
                     </exclusion>
                     <exclusion>
@@ -1231,7 +1229,7 @@
                               <port>${service.port}</port>
                               <maxIdleTime>60000</maxIdleTime>
                            </connector>
-                         </connectors>
+                        </connectors>
                         <useProvidedScope>true</useProvidedScope>
                         <stopKey>foo</stopKey>
                         <stopPort>9999</stopPort>
@@ -1280,6 +1278,9 @@
         applicationType=$applicationType
         war=$war
         ear=$ear
+        appServer=$appServer
+        databaseType=$databaseType
+        testDatabase=$testDatabase
         ejb3Persistence=$ejb3Persistence
         transactionPersistenceType=$transactionPersistenceType
         jsr181Webservice=$jsr181Webservice
