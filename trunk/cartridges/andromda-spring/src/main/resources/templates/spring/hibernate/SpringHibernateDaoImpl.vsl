@@ -34,6 +34,9 @@ public class $entity.daoImplementationName
     /**
      * {@inheritDoc}
      */
+#if ($enableAnnotations)
+    @Override
+#end
     protected $operation.getterSetterReturnTypeName $signature
 #if ($operation.exceptionsPresent)
         throws $operation.exceptionList
@@ -45,13 +48,16 @@ public class $entity.daoImplementationName
 #else
         throw new UnsupportedOperationException("${entity.fullyQualifiedName}.${signature} Not implemented!");
 #end
-}
+    }
 
 #end
 #foreach ($valueObjectRef in $entity.valueObjectReferences)
     /**
      * {@inheritDoc}
      */
+#if ($enableAnnotations)
+    @Override
+#end
     public void ${valueObjectRef.transformationMethodName}(
         $entity.fullyQualifiedEntityName source,
         $valueObjectRef.targetElement.fullyQualifiedName target)
@@ -74,6 +80,9 @@ public class $entity.daoImplementationName
     /**
      * {@inheritDoc}
      */
+#if ($enableAnnotations)
+    @Override
+#end
     public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}(final $entity.fullyQualifiedName entity)
     {
         // ${toDoTag} verify behavior of ${valueObjectRef.transformationMethodName}
