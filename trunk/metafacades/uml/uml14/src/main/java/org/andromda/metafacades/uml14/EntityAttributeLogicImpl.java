@@ -63,7 +63,8 @@ public class EntityAttributeLogicImpl
         return EntityMetafacadeUtils.getSqlNameFromTaggedValue(
             columnNamePrefix, this, UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
             maxSqlNameLength, columnNameSuffix,
-            this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
+            this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR),
+            this.getConfiguredProperty(UMLMetafacadeProperties.SHORTEN_SQL_NAMES_METHOD));
     }
 
     /**

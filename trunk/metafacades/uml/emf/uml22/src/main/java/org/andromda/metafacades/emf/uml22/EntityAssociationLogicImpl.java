@@ -62,7 +62,8 @@ public class EntityAssociationLogicImpl
                         this,
                         UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
                         Short.valueOf(((Entity)type).getMaxSqlNameLength()),
-                        this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
+                        this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR),
+                        this.getConfiguredProperty(UMLMetafacadeProperties.SHORTEN_SQL_NAMES_METHOD));
             }
         }
         return tableName;

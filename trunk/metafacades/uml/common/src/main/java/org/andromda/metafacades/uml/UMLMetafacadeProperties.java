@@ -148,6 +148,14 @@ public class UMLMetafacadeProperties
     public static final String MAX_SQL_NAME_LENGTH = "maxSqlNameLength";
 
     /**
+     * The method to be used to ensure name length. 
+     * Supported values: truncate or removeVowels. Default = truncate
+     */
+    public static final String SHORTEN_SQL_NAMES_METHOD = "shortenSqlNamesMethod";
+    public static final String SHORTEN_SQL_NAMES_METHOD_TRUNCATE = "truncate";
+    public static final String SHORTEN_SQL_NAMES_METHOD_REMOVE_VOWELS = "removeVowels";
+
+    /**
      * Whether or not to allow default identifiers for modeled entities.
      */
     public static final String ALLOW_DEFAULT_IDENTITIFIERS = "allowDefaultIdentifiers";

@@ -192,8 +192,20 @@
                     The maximum length that a SQL name (such as a column name or
                     table name) may be.  This is useful for databases that have a limit
                     on the length that a name used in DDL may be (like Oracle).  If you set
-                    this to 30 for example, then all names will be truncated
+                    this to 30 for example, then all names will be shortened 
+                    using the method set in shortenSqlNamesMethod
                     after 30 characters when retrieving the column name or table name.
+                </documentation>
+            </property>
+            <property name="shortenSqlNamesMethod">
+                <default>truncate</default>
+                <documentation>
+                    The method to be used to ensure name length. 
+                    Supported values: 
+                        truncate 
+                        removeVowels
+                    The removeVowels remove the needed vowels from the end until it 
+                    reaches the needed length.
                 </documentation>
             </property>
             <property name="schemaName" required="false">

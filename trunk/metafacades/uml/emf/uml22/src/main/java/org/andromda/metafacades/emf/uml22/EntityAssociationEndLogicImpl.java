@@ -81,7 +81,8 @@ public class EntityAssociationEndLogicImpl
                     UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
                     Short.valueOf(((Entity)this.getType()).getMaxSqlNameLength()),
                     columnNameSuffix+this.getForeignKeySuffix(),
-                    this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
+                    this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR),
+                    this.getConfiguredProperty(UMLMetafacadeProperties.SHORTEN_SQL_NAMES_METHOD));
         }
         return columnName;
     }
@@ -115,7 +116,8 @@ public class EntityAssociationEndLogicImpl
             (EntityAssociationEnd)THIS(),
             ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.CONSTRAINT_SUFFIX)).trim(),
             ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR)).trim(),
-            ObjectUtils.toString(getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH)).trim());
+            ObjectUtils.toString(getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH)).trim(),
+            ObjectUtils.toString(getConfiguredProperty(UMLMetafacadeProperties.SHORTEN_SQL_NAMES_METHOD)).trim());
     }
 
     /**

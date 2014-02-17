@@ -281,7 +281,8 @@ public class EntityLogicImpl
             this,
             UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
             Short.valueOf(this.getMaxSqlNameLength()),
-            this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
+            this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR),
+            this.getConfiguredProperty(UMLMetafacadeProperties.SHORTEN_SQL_NAMES_METHOD));
     }
 
     /**

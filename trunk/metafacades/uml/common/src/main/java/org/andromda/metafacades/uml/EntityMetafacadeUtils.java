@@ -78,7 +78,8 @@ public class EntityMetafacadeUtils
         ModelElementFacade element,
         String name,
         Short nameMaxLength,
-        Object separator)
+        Object separator,
+        Object shortenSqlNamesMethod)
     {
         return getSqlNameFromTaggedValue(
             prefix,
@@ -86,7 +87,8 @@ public class EntityMetafacadeUtils
             name,
             nameMaxLength,
             null,
-            separator);
+            separator,
+            shortenSqlNamesMethod);
     }
 
     /**
@@ -108,7 +110,8 @@ public class EntityMetafacadeUtils
         String name,
         Short nameMaxLength,
         String suffix,
-        Object separator)
+        Object separator,
+        Object shortenSqlNamesMethod)
     {
         return getSqlNameFromTaggedValue(
             null,
@@ -116,7 +119,8 @@ public class EntityMetafacadeUtils
             name,
             nameMaxLength,
             suffix,
-            separator);
+            separator,
+            shortenSqlNamesMethod);
     }
 
     /**
@@ -135,7 +139,8 @@ public class EntityMetafacadeUtils
         ModelElementFacade element,
         String name,
         Short nameMaxLength,
-        Object separator)
+        Object separator,
+        Object shortenSqlNamesMethod)
     {
         return getSqlNameFromTaggedValue(
             null,
@@ -143,7 +148,8 @@ public class EntityMetafacadeUtils
             name,
             nameMaxLength,
             null,
-            separator);
+            separator,
+            shortenSqlNamesMethod);
     }
 
     /**
@@ -168,7 +174,8 @@ public class EntityMetafacadeUtils
         String name,
         final Short nameMaxLength,
         String suffix,
-        final Object separator)
+        final Object separator,
+        final Object shortenSqlNamesMethod)
     {
         if (element != null)
         {
@@ -190,7 +197,8 @@ public class EntityMetafacadeUtils
                         new StringBuilder(
                             EntityMetafacadeUtils.ensureMaximumNameLength(
                                 buffer.toString(),
-                                Short.valueOf(maxLength)));
+                                Short.valueOf(maxLength),
+                                (String)shortenSqlNamesMethod));
                 }
                 if (StringUtils.isNotBlank(prefix))
                 {
@@ -437,7 +445,7 @@ public class EntityMetafacadeUtils
         return priority;
     }
 
-    /**
+    /** 
      * <p/> Trims the passed in value to the maximum name length.
      * </p>
      * If no maximum length has been set then this method does nothing.
@@ -449,11 +457,29 @@ public class EntityMetafacadeUtils
      */
     public static String ensureMaximumNameLength(
         String name,
-        Short nameMaxLength)
+        Short nameMaxLength,
+        String method)
     {
         if (StringUtils.isNotBlank(name) && nameMaxLength != null)
         {
             short max = nameMaxLength.shortValue();
+            if(method != null && method.equalsIgnoreCase(UMLMetafacadeProperties.SHORTEN_SQL_NAMES_METHOD_REMOVE_VOWELS))
+            {
+                while(name.length() > max)
+                {
+                    final String[] vowels = new String[]{"A","E","I","O","U","a","e","i","o","u"};
+                    final int lastVowelPos = StringUtils.lastIndexOfAny(name, vowels);
+                    if(lastVowelPos == -1)
+                    {
+                        break; //no more vowels
+                    }
+                    else
+                    {
+                        name = name.substring(0,lastVowelPos)+name.substring(lastVowelPos+1); 
+                    }
+                }
+            }
+            
             if (name.length() > max)
             {
                 name = name.substring(
@@ -716,7 +742,7 @@ public class EntityMetafacadeUtils
      * @param maxLengthProperty the numeric value stored as a string indicating the max length the constraint may be.
      * @return the constructed foreign key constraint name.
      */
-    public static String getForeignKeyConstraintName(EntityAssociationEnd associationEnd, String suffix, String sqlNameSeparator, String maxLengthProperty)
+    public static String getForeignKeyConstraintName(EntityAssociationEnd associationEnd, String suffix, String sqlNameSeparator, String maxLengthProperty, String shortenSqlNamesMethod)
     {
         String constraintName;
 
@@ -745,7 +771,7 @@ public class EntityMetafacadeUtils
 
             // we take into consideration the maximum length allowed
             final short maxLength = (short)(Short.valueOf(maxLengthProperty).shortValue() - suffix.length());
-            buffer = new StringBuilder(EntityMetafacadeUtils.ensureMaximumNameLength(constraintName, Short.valueOf(maxLength)));
+            buffer = new StringBuilder(EntityMetafacadeUtils.ensureMaximumNameLength(constraintName, Short.valueOf(maxLength), shortenSqlNamesMethod));
             buffer.append(suffix);
             constraintName = EntityMetafacadeUtils.getUniqueForeignKeyConstraintName(buffer.toString());
         }
