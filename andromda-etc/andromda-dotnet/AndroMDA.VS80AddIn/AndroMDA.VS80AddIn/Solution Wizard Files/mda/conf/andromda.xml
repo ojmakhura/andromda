@@ -57,6 +57,7 @@
                 -->
 
                 <property name="maxSqlNameLength">30</property>
+                <property name="shortenSqlNamesMethod">truncate</property>
                 <property name="foreignKeySuffix">_FK</property>
 
                 <!-- these masking properties allow you to configure the way
