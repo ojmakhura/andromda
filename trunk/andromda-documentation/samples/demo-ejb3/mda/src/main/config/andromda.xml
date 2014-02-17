@@ -29,6 +29,7 @@
                 <property name="sqlMappingsUri">${sql.mappings}</property>
                 <property name="jdbcMappingsUri">JDBC</property>
                 <property name="maxSqlNameLength">30</property>
+                <property name="shortenSqlNamesMethod">truncate</property>
                 <property name="foreignKeySuffix">_FK</property>
                 <property name="ejbJndiNamePrefix">${application.id}-${project.version}</property>
                  <!-- these masking properties allow you to configure the way
