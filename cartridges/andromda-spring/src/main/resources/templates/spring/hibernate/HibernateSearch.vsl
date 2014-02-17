@@ -43,9 +43,9 @@ public class $criteriaSearchBaseName
     private ${hibernateUtils.basePackage}.Criteria rootCriteria;
     private Map#if ($enableTemplating)<String, ${hibernateUtils.basePackage}.Criteria>#end childCriteriaMap;
     private List#if ($enableTemplating)<CriteriaSearchParameter>#end orderList;
-##if ($enableTemplating)
-##    @SuppressWarnings({ "unchecked", "rawtypes" })
-##end
+#if ($enableTemplating)
+    @SuppressWarnings("rawtypes")
+#end
     private Class resultType;
 
     private static final class ParameterComparator
@@ -87,7 +87,7 @@ public class $criteriaSearchBaseName
      * @param session The Hibernate session.
      * @param resultTypeIn The <code>Class</code> of the result.
      */
-    public ${criteriaSearchBaseName}(${hibernateUtils.basePackage}.Session session, Class resultTypeIn)
+    public ${criteriaSearchBaseName}(${hibernateUtils.basePackage}.Session session,#if ($enableTemplating)@SuppressWarnings("rawtypes")#end Class resultTypeIn)
     {
         this.configuration = new ${criteriaSearchBaseName}Configuration();
         this.resultType = resultTypeIn;
@@ -255,6 +255,9 @@ public class $criteriaSearchBaseName
             // to traverse to get the right criteria object
             childEntityCriteria = this.rootCriteria;
             // Evaluating the proper criteria object for the defined parameter
+#if ($enableTemplating)
+            @SuppressWarnings("rawtypes")
+#end 
             Class type = this.resultType;
             for (int index = 0; index < (path.length - 1); index++)
             {
@@ -296,6 +299,9 @@ public class $criteriaSearchBaseName
             // We have a parameter affecting an attribute of an inner childEntity object so we need
             // to traverse to get the correct parameter name
             // Evaluating the proper criteria object for the defined parameter
+#if ($enableTemplating)
+            @SuppressWarnings("rawtypes")
+#end 
             Class type = this.resultType;
             for (int index = 0; index < (path.length - 1); index++)
             {
