@@ -27,6 +27,7 @@
                 <property name="jdbcMappingsUri">JDBC</property>
                 <property name="sqlMappingsUri">HypersonicSql</property>
                 <property name="maxSqlNameLength">30</property>
+                <property name="shortenSqlNamesMethod">truncate</property>
                 <property name="foreignKeySuffix">_FK</property>
                 <property name="ejbJndiNamePrefix">ejb3test-1.0-SNAPSHOT</property>
                  <!-- these masking properties allow you to configure the way
