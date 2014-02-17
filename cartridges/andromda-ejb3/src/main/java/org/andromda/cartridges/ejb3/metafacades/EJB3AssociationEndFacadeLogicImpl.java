@@ -1042,8 +1042,9 @@ public class EJB3AssociationEndFacadeLogicImpl
              */
             final String maxLengthString = (String)super.getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH);
             final short maxLength = (short)(Short.valueOf(maxLengthString).shortValue() - constraintSuffix.length());
+            final String method = (String)super.getConfiguredProperty(UMLMetafacadeProperties.SHORTEN_SQL_NAMES_METHOD);
             buffer = new StringBuilder(
-                    EntityMetafacadeUtils.ensureMaximumNameLength(constraintName, Short.valueOf(maxLength)));
+                    EntityMetafacadeUtils.ensureMaximumNameLength(constraintName, Short.valueOf(maxLength),method));
             buffer.append(constraintSuffix);
         }
         else
@@ -1087,7 +1088,8 @@ public class EJB3AssociationEndFacadeLogicImpl
                     UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
                     ((Entity)this.getType()).getMaxSqlNameLength(),
                     suffix,
-                    this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
+                    this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR),
+                    this.getConfiguredProperty(UMLMetafacadeProperties.SHORTEN_SQL_NAMES_METHOD));
         }
         return columnName;
     }

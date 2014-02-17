@@ -524,7 +524,8 @@ class EJB3MetafacadeUtils
         String name,
         final Short nameMaxLength,
         String suffix,
-        final Object separator)
+        final Object separator,
+        final Object shortenSqlNameMethod)
     {
         if (element != null)
         {
@@ -548,7 +549,8 @@ class EJB3MetafacadeUtils
                         new StringBuilder(
                             EntityMetafacadeUtils.ensureMaximumNameLength(
                                 buffer.toString(),
-                                new Short(maxLength)));
+                                new Short(maxLength),
+                                (String)shortenSqlNameMethod));
                 }
                 if (StringUtils.isNotBlank(prefix))
                 {

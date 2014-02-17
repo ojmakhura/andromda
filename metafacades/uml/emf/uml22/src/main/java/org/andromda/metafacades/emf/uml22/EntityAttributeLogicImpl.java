@@ -77,7 +77,8 @@ public class EntityAttributeLogicImpl
             this,
             UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
             maxSqlNameLength,
-            this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
+            this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR),
+            this.getConfiguredProperty(UMLMetafacadeProperties.SHORTEN_SQL_NAMES_METHOD));
     }
 
     /**

@@ -67,7 +67,8 @@ public class EJB3AssociationFacadeLogicImpl
                                 UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
                                 ((Entity)end.getType()).getMaxSqlNameLength(),
                                 null,
-                                this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
+                                this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR),
+                                this.getConfiguredProperty(UMLMetafacadeProperties.SHORTEN_SQL_NAMES_METHOD));
                     }
                     break;
                 }
