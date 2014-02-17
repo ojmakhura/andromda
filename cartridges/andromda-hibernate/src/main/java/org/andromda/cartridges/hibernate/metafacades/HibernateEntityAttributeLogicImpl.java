@@ -111,14 +111,15 @@ public class HibernateEntityAttributeLogicImpl
         String name)
     {
         String returnValue = name;
-        if (StringUtils.isNotBlank(prefix))
+        if (StringUtils.isNotBlank(prefix)) 
         {
             returnValue = prefix + this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR) + name;
 
             // handle maxSqlNameLength
             Short maxSqlNameLength =
                 Short.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH));
-            returnValue = EntityMetafacadeUtils.ensureMaximumNameLength(returnValue, maxSqlNameLength);
+            final String method = (String)super.getConfiguredProperty(UMLMetafacadeProperties.SHORTEN_SQL_NAMES_METHOD);
+            returnValue = EntityMetafacadeUtils.ensureMaximumNameLength(returnValue, maxSqlNameLength,method);
         }
         return returnValue;
     }
