@@ -1824,6 +1824,9 @@ $h3tab        }
             queryObject.setMaxResults(pageSize);
         }
         // Unchecked transformation because Set object is reused, cannot be strongly typed.
+#if ($enableTemplating)
+        @SuppressWarnings("rawtypes")
+#end
         java.util.Collection results = new java.util.ArrayList(queryObject.list());
         transformEntities(transform, results);
         return new ${fullyQualifiedPagingResultName}(results.toArray(new Object[results.size()]), totalCount);
