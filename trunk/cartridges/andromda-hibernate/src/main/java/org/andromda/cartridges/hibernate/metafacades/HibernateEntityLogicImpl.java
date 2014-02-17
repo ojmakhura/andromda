@@ -855,9 +855,10 @@ public class HibernateEntityLogicImpl
         final String sequenceSuffix = this.getSequenceSuffix();
         // Implicit conversion from short to int
         final int maxLength = this.getMaxSqlNameLength() - this.getSequenceSuffix().length();
-        if (maxLength > -0)
+        if (maxLength > 0)
         {
-            sequenceName = EntityMetafacadeUtils.ensureMaximumNameLength(sequenceName, Integer.valueOf(maxLength).shortValue()) + sequenceSuffix;
+            final Object method = this.getConfiguredProperty(UMLMetafacadeProperties.SHORTEN_SQL_NAMES_METHOD);
+            sequenceName = EntityMetafacadeUtils.ensureMaximumNameLength(sequenceName, Integer.valueOf(maxLength).shortValue(), (String)method) + sequenceSuffix;
         }
         return sequenceName;
     }
