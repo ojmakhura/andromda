@@ -710,22 +710,6 @@
     <!-- manageable -->
 
     <template
-        path="templates/jsf2/configuration/crud-functions-taglib.xml.vsl"
-        outputPattern="WEB-INF/crud-functions-taglib.xml"
-        outlet="configuration"
-        overwrite="true"
-        outputToSingleFile="true"
-        outputOnEmptyElements="false">
-        <modelElements>
-            <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity">
-                    <property name="needsUserInterface"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
         path="templates/jsf2/flow/crud/ActionForward.java.vsl"
         outputPattern="$generatedFile"
         outlet="controllers"
