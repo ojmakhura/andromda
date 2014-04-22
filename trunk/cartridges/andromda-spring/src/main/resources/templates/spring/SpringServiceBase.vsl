@@ -152,7 +152,7 @@ $attribute.getDocumentation("     * ")
     /**
      * {@inheritDoc}
      */
-#if ($enableAnnotations && $operation.visibility != "private")
+#if ($enableAnnotations && $operation.visibility != "private" && $operation.visibility != "protected")
     @Override
 #end
     $operation.visibility $operation.getterSetterReturnTypeName $operation.getSignature("final")
