@@ -11,14 +11,6 @@
     <distributable/>
 
 #end
-##a ser revisto
-  <context-param>
-    <description>Project stage for the application (new in 2.0). Expects one of
-      the following values: Development, Production, SystemTest, UnitTest
-    </description>
-    <param-name>javax.faces.PROJECT_STAGE</param-name>
-    <param-value>#if($enableMyFacesDevelopmentSupport)Development#else Production#end</param-value>
-  </context-param>
 #if($trinidad)
     <context-param>
         <param-name>org.apache.myfaces.trinidad.ENABLE_LIGHTWEIGHT_DIALOGS</param-name>
