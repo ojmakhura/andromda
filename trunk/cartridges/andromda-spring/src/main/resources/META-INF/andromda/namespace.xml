@@ -1586,6 +1586,12 @@
                     The name to give the AuthenticatingHttpInvokerRequestExecutor class.
                 </documentation>
             </property>
+            <property name="dateTimeGeneratedText">
+                <default>true</default>
+                <documentation>
+                    Adds a comment with the current date and time to the generated file.
+                </documentation>
+            </property>
         </propertyGroup>
     </properties>
 </namespace>
