@@ -6,12 +6,14 @@ import org.andromda.timetracker.vo.TimecardSearchCriteriaVO;
 import org.andromda.timetracker.vo.TimecardSummaryVO;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Ignore;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 /**
  *
  */
+@Ignore
 public class TimeTrackingServiceTest {
     private static String TimecardHdrFormat = "%-13s %-13s %-10s %-11s";
     private static String TimecardRowFormat = "%-13s %-13s %-10s %-11tD";
@@ -78,5 +80,6 @@ public class TimeTrackingServiceTest {
                     timecards[i].getStartDate());
             this.logger.info(formatter.toString());
         }
+        formatter.close();
     }
 }

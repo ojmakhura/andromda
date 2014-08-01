@@ -878,16 +878,16 @@ public class UMLMetafacadeUtils
             }
             else if ("Boolean".equals(typeName) || "java.lang.Boolean".equals(typeName))
             {
-                rtn = (StringUtils.isNotEmpty(defaultValue) ? "Boolean." + defaultValue.toUpperCase() : "Boolean.TRUE");
+                rtn = (StringUtils.isNotBlank(defaultValue) ? "Boolean." + defaultValue.toUpperCase() : "Boolean.TRUE");
             }
             else if ("boolean".equals(typeName))
             {
-                rtn = (StringUtils.isNotEmpty(defaultValue) ? defaultValue : "true");
+                rtn = (StringUtils.isNotBlank(defaultValue) ? defaultValue : "true");
             }
             else if ("int".equals(typeName) || "short".equals(typeName) || "long".equals(typeName)
                     || "byte".equals(typeName) || "float".equals(typeName) || "double".equals(typeName))
             {
-                rtn = (StringUtils.isNotEmpty(defaultValue) ? defaultValue : "1");
+                rtn = (StringUtils.isNotBlank(defaultValue) ? defaultValue : "1");
             }
             else if ("java.util.Date".equals(typeName))
             {
@@ -900,6 +900,10 @@ public class UMLMetafacadeUtils
             else if ("java.util.Calendar".equals(typeName))
             {
                 rtn = "java.util.Calendar.getInstance()";
+            }
+            else if ("org.joda.time.LocalTime".equals(typeName))
+            {
+                rtn = "new org.joda.time.LocalTime(1, 1)";
             }
             else if ("char".equals(typeName))
             {

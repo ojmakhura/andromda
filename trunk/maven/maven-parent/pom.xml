@@ -51,7 +51,7 @@
             <dependency>
                 <groupId>org.codehaus.plexus</groupId>
                 <artifactId>plexus-utils</artifactId>
-                <version>3.0.15</version>
+                <version>3.0.17</version>
                 <scope>provided</scope>
             </dependency -->
         </dependencies>
@@ -76,7 +76,7 @@
                         <dependency>
                             <groupId>org.apache.ant</groupId>
                             <artifactId>ant-nodeps</artifactId>
-                            <version>1.7.1</version>
+                            <version>1.8.1</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -150,6 +150,8 @@
                     </configuration>
                 </plugin>
                 <plugin>
+                    <!-- See https://github.com/lkwg82/enforcer-maven-plugin. Patched original. Fix cloudbees error on pom download -->
+                    <groupId>de.lgohlke.mojo</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <version>${maven-enforcer-plugin.version}</version>
                     <inherited>true</inherited>
@@ -232,7 +234,7 @@
                         <dependency>
                             <groupId>org.apache.velocity</groupId>
                             <artifactId>velocity-tools</artifactId>
-                            <version>2.0-beta4</version>
+                            <version>2.0</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -291,7 +293,7 @@
                         <dependency><!-- add support for ssh/scp -->
                           <groupId>org.apache.maven.wagon</groupId>
                           <artifactId>wagon-ssh</artifactId>
-                          <version>2.2</version>
+                          <version>2.6</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -378,7 +380,7 @@
                         <dependency>
                             <groupId>org.apache.velocity</groupId>
                             <artifactId>velocity-tools</artifactId>
-                            <version>2.0-beta4</version>
+                            <version>2.0</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -484,7 +486,10 @@
         </pluginManagement>
         <plugins>
             <plugin>
+                <!-- See https://github.com/lkwg82/enforcer-maven-plugin. Patched original. Fix cloudbees error on pom download -->
+                <groupId>de.lgohlke.mojo</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${maven-enforcer-plugin.version}</version>
             </plugin>
         </plugins>
     </build>
@@ -511,13 +516,13 @@
         <java.runtime.version>1.6</java.runtime.version>
         <java.required.version>1.6</java.required.version>
         <java.source.version>1.6</java.source.version>
-        <!-- compiler plugin displays all wanings as errors, configured in descendant will still use these settings unless property is overridden -->
+        <!-- compiler plugin displays all warnings as errors, configured in descendant will still use these settings unless property is overridden -->
         <compiler.debug>true</compiler.debug>
         <compiler.showDeprecation>true</compiler.showDeprecation>
         <compiler.showWarnings>true</compiler.showWarnings>
         <compiler.argument>-Xlint:cast,unchecked,fallthrough,finally,serial</compiler.argument>
         <maven.version>2.2.1</maven.version>
-        <require.maven.version>2.2.1</require.maven.version>
+        <require.maven.version>3.0.1</require.maven.version>
         <enforcer.fail>true</enforcer.fail>
         <checkstyle.configLocation>andromda/checkstyle_checks.xml</checkstyle.configLocation>
         <checkstyle.failsOnError>false</checkstyle.failsOnError>
@@ -528,53 +533,54 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <!-- Plugin version definitions, may be different for maven v3 -->
-        <plexus.util.version>3.0.6</plexus.util.version>
+        <plexus.util.version>3.0.17</plexus.util.version>
         <maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
         <maven-archetype-plugin.version>2.2</maven-archetype-plugin.version>
         <maven-assembly-plugin.version>2.4</maven-assembly-plugin.version>
-        <maven-changelog-plugin.version>2.2</maven-changelog-plugin.version>
-        <maven-changes-plugin.version>2.9</maven-changes-plugin.version>
+        <maven-changelog-plugin.version>2.3</maven-changelog-plugin.version>
+        <maven-changes-plugin.version>2.10</maven-changes-plugin.version>
         <!-- v2.11 gives NPE, see http://jira.codehaus.org/browse/MCHECKSTYLE-205 -->
-        <maven-checkstyle-plugin.version>2.10</maven-checkstyle-plugin.version>
+        <maven-checkstyle-plugin.version>2.12.1</maven-checkstyle-plugin.version>
         <maven-clean-plugin.version>2.5</maven-clean-plugin.version>
         <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
         <maven-dependency-plugin.version>2.8</maven-dependency-plugin.version>
         <maven-doap-plugin.version>1.0</maven-doap-plugin.version>
         <maven-deploy-plugin.version>2.8.1</maven-deploy-plugin.version>
-        <maven-ear-plugin.version>2.9</maven-ear-plugin.version>
+        <maven-ear-plugin.version>2.9.1</maven-ear-plugin.version>
         <maven-ejb-plugin.version>2.3</maven-ejb-plugin.version>
         <maven-eclipse-plugin.version>2.9</maven-eclipse-plugin.version>
-        <maven-enforcer-plugin.version>1.3.1</maven-enforcer-plugin.version>
-        <maven-failsafe-plugin.version>2.16</maven-failsafe-plugin.version>
+        <maven-enforcer-plugin.version>1.3.1.2</maven-enforcer-plugin.version>
+        <maven-failsafe-plugin.version>2.17</maven-failsafe-plugin.version>
         <maven-help-plugin.version>2.2</maven-help-plugin.version>
-        <maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
+        <maven-gpg-plugin.version>1.5</maven-gpg-plugin.version>
         <maven-install-plugin.version>2.5.1</maven-install-plugin.version>
-        <maven-invoker-plugin.version>1.8</maven-invoker-plugin.version>
-        <maven-jar-plugin.version>2.4</maven-jar-plugin.version>
+        <maven-invoker-plugin.version>1.9</maven-invoker-plugin.version>
+        <maven-jar-plugin.version>2.5</maven-jar-plugin.version>
         <maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
         <maven-jxr-plugin.version>2.4</maven-jxr-plugin.version>
         <maven-pmd-plugin.version>3.0.1</maven-pmd-plugin.version>
         <maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
-        <maven-release-plugin.version>2.4.2</maven-release-plugin.version>
+        <maven-release-plugin.version>2.5</maven-release-plugin.version>
         <maven-repository-plugin.version>2.3.1</maven-repository-plugin.version>
         <maven-resources-plugin.version>2.6</maven-resources-plugin.version>
         <maven-scm-plugin.version>1.8.1</maven-scm-plugin.version>
         <maven-site-plugin.version>3.3</maven-site-plugin.version>
-        <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
+        <maven-source-plugin.version>2.3</maven-source-plugin.version>
         <!-- V2.12 timetracker-ejb3 regression: The forked VM terminated without saying properly goodbye. VM crash or System.exit called: If persistence.xml entities wrong -->
-        <maven-surefire-plugin.version>2.16</maven-surefire-plugin.version>
-        <maven-surefire-report-plugin.version>2.16</maven-surefire-report-plugin.version>
+        <maven-surefire-plugin.version>2.17</maven-surefire-plugin.version>
+        <maven-surefire-report-plugin.version>2.17</maven-surefire-report-plugin.version>
         <maven-verifier-plugin.version>1.0</maven-verifier-plugin.version>
         <maven-war-plugin.version>2.4</maven-war-plugin.version>
-        <build-helper-maven-plugin.version>1.8</build-helper-maven-plugin.version>
+        <build-helper-maven-plugin.version>1.9</build-helper-maven-plugin.version>
         <clirr-maven-plugin.version>2.6.1</clirr-maven-plugin.version>
         <cobertura-maven-plugin.version>2.6</cobertura-maven-plugin.version>
         <dashboard-maven-plugin.version>1.0.0-beta-1</dashboard-maven-plugin.version>
-        <exec-maven-plugin.version>1.2.1</exec-maven-plugin.version>
-        <findbugs-maven-plugin.version>2.5.3</findbugs-maven-plugin.version>
+        <exec-maven-plugin.version>1.3.1</exec-maven-plugin.version>
+        <findbugs-maven-plugin.version>3.0.0</findbugs-maven-plugin.version>
         <javancss-maven-plugin.version>2.0</javancss-maven-plugin.version>
-        <jbehave-maven-plugin.version>3.8</jbehave-maven-plugin.version>
-        <jdepend-maven-plugin.version>2.0-beta-2</jdepend-maven-plugin.version>
+        <jbehave-maven-plugin.version>3.9.3</jbehave-maven-plugin.version>
+        <jdepend-maven-plugin.version>2.0</jdepend-maven-plugin.version>
+        <sonar-maven-plugin.version>2.4</sonar-maven-plugin.version>
         <taglist-maven-plugin.version>2.4</taglist-maven-plugin.version>
         <tattletale-maven.version>1.1.2.Final</tattletale-maven.version>
         <tomcat-maven-plugin.version>1.1</tomcat-maven-plugin.version>

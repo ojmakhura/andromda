@@ -510,12 +510,12 @@
             <property name="useEnumValueInXSD">
                 <default>false</default>
                 <documentation>
-                    Java Enumeration Literals are modeled with both a key and a value. The key should be unchanging, typically
-                    an uppercase-underscore version of the human-readable value for display. Enumeration literals should be modeled with
+                    Java Enumeration Literals are modelled with both a key and a value. The key should be unchanging, typically
+                    an uppercase-underscore version of the human-readable value for display. Enumeration literals should be modelled with
                     both the key and value, and both will be output in the Java5 Enum. XSD enumerations allow only a single
                     string value list. If useEnumValueInXSD=true, the enum literal value is output in the XSD string list of values instead
                     of the enum literal key. The key in the client generated enum will be an upper-underscore version of the literal value,
-                    and may not match what has been modeled in UML.
+                    and may not match what has been modelled in UML.
                     Set this to false if you want to model a different enum literal key than what gets converted by default from the value
                     and have that key as part of the XSD service interface definition.
                     Set this to true or leave unset (default=true) if you want to output a human-readable display value in the enum XSD interface definition.
@@ -701,8 +701,8 @@
                     When the generated wrapped message receiver is being used it will render faults as strong-typed
                     beans into the 'details' section of the SOAP body. Exceptions from the JDK will only have their
                     'message' and 'stackTrace' properties rendered, while custom exceptions only include the
-                    properties which have been modeled on them.
-                    Setting this property to 'false' will have each exception rendered as a plaintext Axis fault
+                    properties which have been modelled on them.
+                    Setting this property to 'false' will have each exception rendered as a plain text Axis fault
                     in which you will only find the stacktrace.
                 </documentation>
             </property>

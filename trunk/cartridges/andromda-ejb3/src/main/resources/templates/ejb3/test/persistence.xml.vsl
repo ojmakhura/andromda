@@ -10,7 +10,7 @@
                         http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
     version="2.0">
     <persistence-unit name="UNIT_TEST" transaction-type="RESOURCE_LOCAL">
-        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>${test.dataSource}</jta-data-source>
 #set ($entityList = $entityUtils.sortEntities($entities, true))
         <!-- Entity list needed for testing in J2SE environment entities=$entities.size()-->

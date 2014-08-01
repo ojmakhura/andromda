@@ -95,7 +95,7 @@
         <dependency>
             <groupId>org.hibernate.common</groupId>
             <artifactId>hibernate-commons-annotations</artifactId>
-            <version>4.0.4.Final</version>
+            <version>4.0.5.Final</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -202,11 +202,11 @@
                         </property>
                         <property>
                             <name>createOutputPath</name>
-                            <value>${project.basedir}/../app/target/schema-create.sql</value>
+                            <value>${project.basedir}/src/main/sql/schema-create.sql</value>
                         </property>
                         <property>
                             <name>dropOutputPath</name>
-                            <value>${project.basedir}/../app/target/schema-drop.sql</value>
+                            <value>${project.basedir}/src/main/sql/schema-drop.sql</value>
                         </property>
                     </properties>
                     <!-- You might need to execute additional scripts, just uncomment and add
@@ -233,15 +233,15 @@
               <version>3.0</version>
               <executions>
                 <execution>
-                  <!-- Run after copying target test configuration but before running tests -->
+                  <!-- Run after copying target test configuration but before running tests>
                   <phase>test-compile</phase>
                   <goals>
                     <goal>hbm2ddl</goal>
-                  </goals>
+                  </goals -->
                 </execution>
               </executions>
               <configuration>
-                <hibernatetool destdir="../app/src/main/sql">
+                <hibernatetool destdir="src/main/sql">
                   <jpaconfiguration persistenceunit="unit_test"/>
                   <hbm2ddl outputfilename="schema.sql" export="false" drop="true" create="true" format="true" haltonerror="true"/>
                   <!-- Use the test DB configuration and logging when running hbm2ddl -->
@@ -259,6 +259,7 @@
                     <artifactId>h2</artifactId>
                     <version>${testdb.version}</version>
                   </dependency>
+                  <!-- Does not work with hibernate v4 -->
                   <dependency>
                     <groupId>org.hibernate</groupId>
                     <artifactId>hibernate-entitymanager</artifactId>
@@ -267,7 +268,7 @@
                   <dependency>
                       <groupId>org.hibernate</groupId>
                       <artifactId>hibernate-validator</artifactId>
-                      <version>5.0.2.Final</version>
+                      <version>5.1.2.Final</version>
                   </dependency>
                   <!-- Default maven 2.2.1 depends on slf4j-jdk14 1.5.6 which conflicts with JDK6 and slf4j12-log4j -->
                   <dependency>
@@ -283,11 +284,10 @@
               <artifactId>maven-antrun-plugin</artifactId>
               <executions>
                 <execution>
-                <execution>
                   <phase>generate-test-sources</phase>
                   <configuration>
                     <target>
-                      <replace dir="${basedir}/../app/src/main/sql" value="">
+                      <replace dir="${basedir}/src/main/sql" value="">
                         <include name="schema.sql"/>
                         <replacetoken> ENGINE=InnoDB</replacetoken>
                       </replace>
@@ -304,7 +304,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2.1</version>
+                <version>1.3.2</version>
                 <executions>
                   <execution>
                       <!--phase>test-compile</phase-->
@@ -461,5 +461,6 @@
         <!-- Need a running db instance. Changed to automatic maven configured H2 DB -->
         <maven.test.failure.ignore>true</maven.test.failure.ignore>
         <testFailureIgnore>true</testFailureIgnore>
+        <slf4j.version>1.7.5</slf4j.version>
     </properties>
 </project>

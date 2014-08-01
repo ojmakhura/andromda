@@ -97,7 +97,7 @@
         <model.uri>file:${project.build.sourceDirectory}/${applicationId}.xmi</model.uri>
 #end
         <filter></filter>
-        <conf.dir>${pom.basedir}/conf</conf.dir>
+        <conf.dir>${project.basedir}/conf</conf.dir>
         <!-- cartridge output locations -->
 #if (!$transactionPersistenceType.equals("none"))
         <core.generated.dir>${project.build.sourceDirectory}/../../../../core/target/src/main/java</core.generated.dir>

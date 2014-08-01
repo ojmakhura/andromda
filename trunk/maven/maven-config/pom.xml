@@ -63,7 +63,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-gpg-plugin</artifactId>
-                    <version>1.4</version>
+                    <version>1.5</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>
@@ -71,7 +71,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.4</version>
+                    <version>2.5</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
@@ -87,13 +87,13 @@
                         <dependency><!-- add support for ssh/scp -->
                           <groupId>org.apache.maven.wagon</groupId>
                           <artifactId>wagon-ssh</artifactId>
-                          <version>2.2</version>
+                          <version>2.6</version>
                         </dependency>
                     </dependencies>
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.16</version>
+                    <version>2.17</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -134,7 +134,7 @@
         <dependency>
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-utils</artifactId>
-            <version>3.0.15</version>
+            <version>3.0.17</version>
             <scope>provided</scope>
         </dependency -->
     </dependencies>

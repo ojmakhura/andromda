@@ -37,7 +37,7 @@
             <type>xml.zip</type>
             <scope>provided</scope>
         </dependency>
-#elseif ($modelType.equals("emf-uml22") || $modelType.equals("rsm7"))
+#elseif ($modelType.equals("emf-uml22") || $modelType.equals("rsm7") || $modelType.equals("rsa8"))
         <dependency>
             <groupId>org.andromda.profiles.emf.uml22</groupId>
             <artifactId>andromda-common</artifactId>
@@ -63,7 +63,7 @@
             <type>xml.zip</type>
             <scope>provided</scope>
         </dependency>
-#elseif ($modelType.equals("emf-uml22") || $modelType.equals("rsm7"))
+#elseif ($modelType.equals("emf-uml22") || $modelType.equals("rsm7") || $modelType.equals("rsa8"))
         <dependency>
             <groupId>org.andromda.profiles.emf.uml22</groupId>
             <artifactId>andromda-seam</artifactId>
@@ -381,7 +381,7 @@
                   <dependency>
                       <groupId>org.apache.ant</groupId>
                       <artifactId>ant-nodeps</artifactId>
-                      <version>1.7.1</version>
+                      <version>1.8.1</version>
                   </dependency>
               </dependencies>
             </plugin>
@@ -396,7 +396,7 @@
         <model.uri>file:${project.basedir}/src/main/uml/${applicationId}.xmi</model.uri>
 #elseif ($modelType.equals("emf-uml22") || $modelType.equals("uml2"))
         <model.uri>file:${project.basedir}/src/main/uml/${applicationId}.uml</model.uri>
-#elseif ($modelType.equals("rsm7"))
+#elseif ($modelType.equals("rsm7") || $modelType.equals("rsa8"))
         <model.uri>file:${project.basedir}/src/main/uml/${applicationId}.emx</model.uri>
 #end
 #end
