@@ -39,6 +39,7 @@
     <!-- Exists only in internal 3rd party repository -->
     <rule groupId="jboss" comparisonMethod="maven">
       <ignoreVersions>
+        <ignoreVersion type="exact">4.2.3.GA</ignoreVersion>
         <ignoreVersion type="exact">4.3.0.GA</ignoreVersion>
       </ignoreVersions>
     </rule>

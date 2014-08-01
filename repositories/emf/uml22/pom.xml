@@ -75,6 +75,6 @@
         </plugins>
     </build>
     <properties>
-        <!--maven.test.failure.ignore>true</maven.test.failure.ignore-->
+        <maven.test.failure.ignore>true</maven.test.failure.ignore>
     </properties>
 </project>

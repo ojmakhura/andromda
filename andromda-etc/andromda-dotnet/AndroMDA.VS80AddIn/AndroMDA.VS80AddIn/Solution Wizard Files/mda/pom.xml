@@ -15,25 +15,25 @@
 
         <model.uri>file:${project.build.sourceDirectory}/${wizard.application.model.uri}</model.uri>
 
-        <resources.dir>${pom.basedir}/resources</resources.dir>
+        <resources.dir>${project.basedir}/resources</resources.dir>
 
-        <conf.dir>${pom.basedir}/conf</conf.dir>
+        <conf.dir>${project.basedir}/conf</conf.dir>
 
         <!-- cartridge output locations -->
-        <core.dir>${pom.basedir}/../${wizard.projects.core.dir}</core.dir>
-        <core.generated.dir>${pom.basedir}/../${wizard.projects.core.dir}/target</core.generated.dir>
-        <core.manual.dir>${pom.basedir}/../${wizard.projects.core.dir}/src</core.manual.dir>
+        <core.dir>${project.basedir}/../${wizard.projects.core.dir}</core.dir>
+        <core.generated.dir>${project.basedir}/../${wizard.projects.core.dir}/target</core.generated.dir>
+        <core.manual.dir>${project.basedir}/../${wizard.projects.core.dir}/src</core.manual.dir>
         <core.assembly.name>${wizard.projects.core.name}</core.assembly.name>
 
-        <common.dir>${pom.basedir}/../${wizard.projects.common.dir}</common.dir>
-        <common.generated.dir>${pom.basedir}/../${wizard.projects.common.dir}/target</common.generated.dir>
+        <common.dir>${project.basedir}/../${wizard.projects.common.dir}</common.dir>
+        <common.generated.dir>${project.basedir}/../${wizard.projects.common.dir}/target</common.generated.dir>
         <common.assembly.name>${wizard.projects.common.name}</common.assembly.name>
 
-        <web.dir>${pom.basedir}/../${wizard.projects.web.dir}</web.dir>
-        <web.generated.dir>${pom.basedir}/../${wizard.projects.web.dir}/target/src</web.generated.dir>
-        <web.manual.dir>${pom.basedir}/../${wizard.projects.web.dir}/src/main</web.manual.dir>
+        <web.dir>${project.basedir}/../${wizard.projects.web.dir}</web.dir>
+        <web.generated.dir>${project.basedir}/../${wizard.projects.web.dir}/target/src</web.generated.dir>
+        <web.manual.dir>${project.basedir}/../${wizard.projects.web.dir}/src/main</web.manual.dir>
 
-        <schemaexport.dir>${pom.basedir}/../${wizard.projects.schemaexport.dir}</schemaexport.dir>
+        <schemaexport.dir>${project.basedir}/../${wizard.projects.schemaexport.dir}</schemaexport.dir>
         <schemaexport.available>${wizard.projects.schemaexport.create}</schemaexport.available>
 
         <!-- hibernate configuration -->

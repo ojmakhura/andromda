@@ -4,12 +4,14 @@ import org.andromda.timetracker.ServiceLocator;
 import org.andromda.timetracker.vo.UserVO;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Ignore;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 /**
  *
  */
+@Ignore
 public class UserServiceTest
 {
     private Log logger = LogFactory.getLog(UserServiceTest.class);

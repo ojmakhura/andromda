@@ -174,7 +174,7 @@
                                 <scriptWrapper>org.andromda.scriptwrappers.GroovyScriptWrapper</scriptWrapper>
                                 <locations>
                                     <location>
-                                        <rootPath>${pom.basedir}/src/main/java</rootPath>
+                                        <rootPath>${project.basedir}/src/main/java</rootPath>
                                         <!-- adjust these to include or exclude specific files, by default
                                              all files found in the rootPath are considered
                                         <includes>

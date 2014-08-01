@@ -5,7 +5,7 @@
 ******************************************************************************
 * Log4j Configuration
 *
-* Logging levels (higest to lowest):
+* Logging levels (highest to lowest):
 *   off, fatal, error, warn, info, debug, all
 * A logging request is enabled if its level is
 * higher than or equal to the level of its logger.
@@ -18,7 +18,7 @@
   <!-- ConsoleAppender                                                     -->
   <!-- ******************************************************************* -->
   <appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
-    <param name="Threshold" value="warn"/>
+    <param name="Threshold" value="info"/>
 
     <layout class="org.apache.log4j.PatternLayout">
       <!-- Conversion pattern: Message\n -->
@@ -49,12 +49,12 @@
   <!-- ******************************************************************* -->
   <!-- Log hibernate messages -->
   <logger name="org.hibernate">
-    <level value="warn"/>
+    <level value="info"/>
   </logger>
 
   <!-- Log HQL query parser activity -->
   <logger name="org.hibernate.hql.ast.AST">
-    <level value="warn"/>
+    <level value="info"/>
   </logger>
 
   <!-- Log just the SQL -->
@@ -69,32 +69,32 @@
 
   <!-- Log schema export/update -->
   <logger name="org.hibernate.tool.hbm2ddl">
-    <level value="warn"/>
+    <level value="info"/>
   </logger>
 
   <!-- Log HQL parse trees -->
   <logger name="org.hibernate.hql">
-    <level value="warn"/>
+    <level value="info"/>
   </logger>
 
   <!-- Log cache activity -->
   <logger name="org.hibernate.cache">
-    <level value="warn"/>
+    <level value="info"/>
   </logger>
 
   <!-- Log transaction activity -->
   <logger name="org.hibernate.transaction">
-    <level value="warn"/>
+    <level value="info"/>
   </logger>
 
   <!-- Log JDBC resource acquisition -->
   <logger name="org.hibernate.jdbc">
-    <level value="warn"/>
+    <level value="info"/>
   </logger>
 
   <!-- Track down connection leakages when using DriverManagerConnectionProvider -->
   <logger name="org.hibernate.connection.DriverManagerConnectionProvider">
-    <level value="warn"/>
+    <level value="info"/>
   </logger>
 
   <!-- Log TimeTracker messages -->

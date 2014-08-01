@@ -2126,20 +2126,20 @@ public class WebServiceUtils
             }
             else if ("String".equals(typeName) || "java.lang.String".equals(typeName))
             {
-                rtn = (!StringUtils.isEmpty(defaultValue) ? defaultValue : '\"' + name + '\"');
+                rtn = (StringUtils.isNotBlank(defaultValue) ? defaultValue : '\"' + name + '\"');
             }
             else if ("Boolean".equals(typeName) || "java.lang.Boolean".equals(typeName))
             {
-                rtn = (!StringUtils.isEmpty(defaultValue) ? "Boolean." + defaultValue.toUpperCase() : "Boolean.TRUE");
+                rtn = (StringUtils.isNotBlank(defaultValue) ? "Boolean." + defaultValue.toUpperCase() : "Boolean.TRUE");
             }
             else if ("boolean".equals(typeName))
             {
-                rtn = (!StringUtils.isEmpty(defaultValue) ? defaultValue : "true");
+                rtn = (StringUtils.isNotBlank(defaultValue) ? defaultValue : "true");
             }
             else if ("int".equals(typeName) || "short".equals(typeName) || "long".equals(typeName)
                     || "byte".equals(typeName) || "float".equals(typeName) || "double".equals(typeName))
             {
-                rtn = (!StringUtils.isEmpty(defaultValue) ? defaultValue : "1");
+                rtn = (StringUtils.isNotBlank(defaultValue) ? defaultValue : "1");
             }
             else if ("java.util.Date".equals(typeName))
             {
@@ -2159,11 +2159,11 @@ public class WebServiceUtils
             }
             else if ("char".equals(typeName))
             {
-                rtn = (!StringUtils.isEmpty(defaultValue) ? defaultValue : "'c'");
+                rtn = "'" + (StringUtils.isNotEmpty(defaultValue) ? defaultValue : name.substring(0, 1)) + "'";
             }
             else if ("Character".equals(typeName))
             {
-                rtn = (!StringUtils.isEmpty(defaultValue) ? "new Character(" + defaultValue : "new Character('0')");
+                rtn = "new Character('" + (StringUtils.isNotEmpty(defaultValue) ? "new Character(" + defaultValue : name.substring(0, 1)) + "')";
             }
             else if ("Byte".equals(typeName) || "java.lang.Byte".equals(typeName))
             {
@@ -2184,11 +2184,24 @@ public class WebServiceUtils
             }
             else if ("byte[]".equals(typeName))
             {
-                rtn = "{1}";
+                rtn = (StringUtils.isNotBlank(defaultValue) ? defaultValue : '\"' + name + '\"') + ".getBytes()";
             }
-            else if ("byte[]".equals(typeName))
+            else if ("char[]".equals(typeName))
             {
-                rtn = "{1}";
+                String value = StringUtils.isNotBlank(defaultValue) ? defaultValue : name;
+                if (!value.startsWith("\""))
+                {
+                    value = "\"" + value;
+                }
+                if (!value.endsWith("\""))
+                {
+                    value = value + "\"";
+                }
+                rtn = value + ".toCharArray()";
+            }
+            else if ("String[]".equals(typeName))
+            {
+                rtn = "new String[] { " + (StringUtils.isNotBlank(defaultValue) ? defaultValue : '\"' + name + '\"') + " }";
             }
             else if (isEnumeration)
             {
@@ -2257,6 +2270,7 @@ public class WebServiceUtils
                 rtn = "new " + typeName + "()";
             }
             rtn = StringUtils.replace(rtn, "java.util.Collection", "java.util.ArrayList") + toString;
+            rtn = StringUtils.replace(rtn, "java.util.Set", "java.util.HashSet") + toString;
             if (logger.isDebugEnabled())
             {
                 logger.debug("facade=" + facade + " facadeName=" + facade.getName() + " type=" + type + " typeName=" + typeName + " name=" + name + " isMany=" + isMany + " defaultValue=" + defaultValue + " rtn=" + rtn);

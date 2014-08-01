@@ -140,18 +140,18 @@
             <dependency>
                 <artifactId>hibernate-validator</artifactId>
                 <groupId>org.hibernate</groupId>
-                <version>5.0.2.Final</version>
+                <version>5.1.2.Final</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.7.5</version>
+                <version>1.7.7</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
-                <version>1.7.5</version>
+                <version>1.7.7</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -224,7 +224,7 @@
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
-                <version>1.9.1</version>
+                <version>1.9.2</version>
             </dependency>
             <dependency>
                 <groupId>commons-codec</groupId>
@@ -242,7 +242,7 @@
             <dependency>
                 <groupId>commons-fileupload</groupId>
                 <artifactId>commons-fileupload</artifactId>
-                <version>1.3</version>
+                <version>1.3.1</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
@@ -258,7 +258,7 @@
             <dependency>
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
-                <version>1.1.3</version>
+                <version>1.2</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -291,7 +291,7 @@
             <dependency>
                 <groupId>net.sf.ehcache.internal</groupId>
                 <artifactId>ehcache-core</artifactId>
-                <version>2.8.0</version>
+                <version>2.8.3</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -361,13 +361,13 @@
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
-                <version>1.3.174</version>
+                <version>1.4.180</version>
                 <!--scope>test</scope-->
             </dependency>
             <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
-                <version>6.8.7</version>
+                <version>6.8.8</version>
                 <scope>test</scope>
                 <exclusions>
                     <exclusion>
@@ -497,7 +497,7 @@
                 <plugin>
                     <groupId>org.mortbay.jetty</groupId>
                     <artifactId>jetty-maven-plugin</artifactId>
-                    <version>8.1.14.v20131031</version>
+                    <version>8.1.15.v20140411</version>
                 </plugin>
                 <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
                 <plugin>
@@ -528,6 +528,8 @@
         </pluginManagement>
         <plugins>
             <plugin>
+                <!-- See https://github.com/lkwg82/enforcer-maven-plugin. Patched original. Fix cloudbees error on pom download -->
+                <groupId>de.lgohlke.mojo</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
             </plugin>
             <plugin>
@@ -574,7 +576,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <testdb.groupId>com.h2database</testdb.groupId>
         <testdb.artifactId>h2</testdb.artifactId>
-        <testdb.version>1.3.174</testdb.version>
+        <testdb.version>1.4.180</testdb.version>
         <testdb.driver>org.h2.Driver</testdb.driver>
         <testdb.dialect>org.hibernate.dialect.H2Dialect</testdb.dialect>
         <!-- See http://www.h2database.com/html/features.html#database_url (mixed mode) -->
@@ -642,9 +644,10 @@
         <dataSource.name>jdbc/${application.id}</dataSource.name>
         <dataSource>java:/${dataSource.name}</dataSource>
         <!-- hibernate v4 incompatible with JBoss microcontainer logging TRACE -->
-        <!-- hibernate v4.3 NoClassDef org/hibernate/ejb/packaging/PersistenceXmlLoader -->
-        <hibernate.version>4.2.8.Final</hibernate.version>
-        <spring.version>4.0.0.RELEASE</spring.version>
+        <!-- hibernate v4.3 NoClassDef org/hibernate/ejb/packaging/PersistenceXmlLoader from EJB3 Container Test org.jboss.ejb3.Ejb3Deployment.initializePersistenceUnits:444. TODO: Migrate to Arquillian -->
+        <!-- TODO EJB3 Container Test: You have not defined a jta-data-source for a JTA enabled persistence context named: UNIT_TEST -->
+        <hibernate.version>4.2.12.Final</hibernate.version>
+        <spring.version>4.0.6.RELEASE</spring.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <profiles>
@@ -663,7 +666,7 @@
                     <!-- JBoss gives classloader exceptions if the JDBC driver is bundled with the EAR
                     Updated here for JBoss7
                     ${jboss.home}/server/default/lib/mysql-connector-java-5.1.14.jar -->
-                    ${jboss.home}/modules/com/h2database/h2/main/h2-1.2.145.jar
+                    ${jboss.home}/modules/com/h2database/h2/main/h2-1.4.180.jar
                 </jdbc.driver.jar>
                 <!--
                     Change driver for appropriate database
@@ -833,7 +836,7 @@
                     <plugin>
                         <inherited>true</inherited>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.4</version>
+                        <version>1.5</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>

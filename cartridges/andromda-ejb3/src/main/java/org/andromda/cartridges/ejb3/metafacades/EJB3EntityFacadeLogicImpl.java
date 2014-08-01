@@ -829,7 +829,7 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * Gets the default entity inhertance strategy from namespace.
+     * Gets the default entity inheritance strategy from namespace.
      *
      * @return the default entity inheritance strategy.
      */
