@@ -298,7 +298,8 @@ public class ResourceWriter
      */
     private void recordHistory(File file)
     {
-        if (this.history != null)
+        // Resource files may be merged multiple times to the temp directory, before the final output file is written
+        if (this.history != null && !file.getName().endsWith(".vsl"))
         {
             this.history.append(file).append(',');
         }

@@ -276,7 +276,7 @@
         <stagingDirectory>C:/Workspaces/A34/jdbcmetadata/target/site</stagingDirectory>
         <testdb.groupId>com.h2database</testdb.groupId>
         <testdb.artifactId>h2</testdb.artifactId>
-        <testdb.version>1.4.180</testdb.version>
+        <testdb.version>1.4.181</testdb.version>
         <testdb.driver>org.h2.Driver</testdb.driver>
         <testdb.dialect>org.hibernate.dialect.H2Dialect</testdb.dialect>
         <!-- See http://www.h2database.com/html/features.html#database_url (mixed mode) -->
@@ -525,7 +525,7 @@
         </pluginRepository-->
     </pluginRepositories>
     <prerequisites>
-        <maven>2.2.1</maven>
+        <maven>3.0.1</maven>
     </prerequisites>
     <!-- Uncomment to add additional project reporting, must include references to parent reporting plugins -->
     <!--reporting>
@@ -556,7 +556,7 @@
             <!--plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>clirr-maven-plugin</artifactId>
-                <version>2.6</version>
+                <version>${clirr-maven-plugin.version}</version>
                 <inherited>true</inherited>
                 <configuration>
                     <minSeverity>info</minSeverity>

@@ -499,6 +499,7 @@
                 <!-- See https://github.com/lkwg82/enforcer-maven-plugin. Patched original. Fix cloudbees error on pom download -->
                 <groupId>de.lgohlke.mojo</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${maven-enforcer-plugin.version}</version>
             </plugin>
             <plugin>
                 <artifactId>maven-site-plugin</artifactId>
@@ -541,7 +542,7 @@
         <!-- H2 Database with No emulation mode and Hibernate dialect, for local in-memory testing -->
         <testdb.groupId>com.h2database</testdb.groupId>
         <testdb.artifactId>h2</testdb.artifactId>
-        <testdb.version>1.4.180</testdb.version>
+        <testdb.version>1.4.181</testdb.version>
         <testdb.driver>org.h2.Driver</testdb.driver>
         <testdb.dialect>org.hibernate.dialect.H2Dialect</testdb.dialect>
         <!-- See http://www.h2database.com/html/features.html#database_url (mixed mode) -->

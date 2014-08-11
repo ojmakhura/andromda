@@ -176,17 +176,25 @@ public class XmlObjectFactory
                         '.',
                         '/') + SCHEMA_SUFFIX;
                 this.schemaUri = XmlObjectFactory.class.getResource(schemaLocation);
+                InputStream stream = null;
                 try
                 {
                     if (this.schemaUri != null)
                     {
-                        InputStream stream = this.schemaUri.openStream();
+                        stream = this.schemaUri.openStream();
                         IOUtils.closeQuietly(stream);
                     }
                 }
                 catch (final IOException exception)
                 {
                     this.schemaUri = null;
+                }
+                finally
+                {
+                    if (stream != null)
+                    {
+                        IOUtils.closeQuietly(stream);
+                    }
                 }
                 if (this.schemaUri == null)
                 {
@@ -448,5 +456,19 @@ public class XmlObjectFactory
             }
             return source;
         }
+    }
+
+    /**
+     * @see Object#toString()
+     */
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append(super.toString()).append(" [digester=").append(this.digester)
+                .append(", objectClass=").append(this.objectClass).append(", objectRulesXml=")
+                .append(this.objectRulesXml).append(", schemaUri=").append(this.schemaUri)
+                .append("]");
+        return builder.toString();
     }
 }
