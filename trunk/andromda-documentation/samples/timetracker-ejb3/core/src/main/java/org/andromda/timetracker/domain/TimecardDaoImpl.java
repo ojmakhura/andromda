@@ -6,7 +6,6 @@
 package org.andromda.timetracker.domain;
 
 import java.util.List;
-
 import org.andromda.timetracker.vo.TimecardSearchCriteriaVO;
 import org.andromda.timetracker.vo.TimecardSummaryVO;
 import org.apache.commons.logging.Log;
@@ -91,7 +90,6 @@ public class TimecardDaoImpl
         }
     }
 
-
     /**
      * @see TimecardDao#toTimecardSummaryVO(Timecard)
      */
@@ -101,7 +99,6 @@ public class TimecardDaoImpl
         // TODO verify behavior of toTimecardSummaryVO
         return super.toTimecardSummaryVO(entity);
     }
-
 
     /**
      * Retrieves the entity object that is associated with the specified value object
@@ -123,7 +120,6 @@ public class TimecardDaoImpl
         return timecard;
         */
     }
-
 
     /**
      * @see TimecardDao#timecardSummaryVOToEntity(TimecardSummaryVO)

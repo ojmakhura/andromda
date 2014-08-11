@@ -1,21 +1,31 @@
 <andromda xmlns="http://andromda.org/core/configuration">
+    <!-- See http://docs.andromda.org/configuration.html for andromda.xml properties documentation -->
     <properties>
         <property name="modelValidation">${validation}</property>
+        <property name="xmlValidation">true</property>
+        <property name="failOnValidationErrors">true</property>
+        <!-- Comma separated list of cartridges to be processed by namespace name, such as java,webservice. Empty = true = process all -->
         <property name="cartridgeFilter">${filter}</property>
+        <!-- Debug andromda processing using example log4j.xml file -->
+        <!--property name="loggingConfigurationUri">file:${project.basedir}/log4j.xml</property-->
     </properties>
+    <!-- Server will load and validate model in the background automatically when anything changes.
+    To start server from mda directory: mvn andromda:start-server.
+    Leave commented, or else AndroMDA will try to connect each time.>
     <server>
         <host>localhost</host>
-        <port>4457</port>
-    </server>
+        <port>4447</port>
+    </server -->
     <repositories>
         <repository name="netBeansMDR">
             <models>
                 <model>
-                    <uri>${model.uri}</uri>
+                    <uri>file:${project.basedir}/src/main/uml/demo-ejb3.xmi</uri>
                     <moduleSearchLocations>
                         <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../../../../profiles/uml-1.4</location>
                         <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0.1/UML_Standard_Profile-1.0.1.jar!/</location>
-                        <!--location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location-->
+                        <location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
+                        <location patterns="**/*.xml.zip,**/*.xml">${basedir}/../../profiles/uml-1.4</location>
                     </moduleSearchLocations>
                 </model>
             </models>
@@ -24,6 +34,11 @@
     <namespaces>
         <namespace name="default">
             <properties>
+                <!-- Use enums, strongly typed collections with templates, and @annotation markups -->
+                <property name="enableTemplating">true</property>
+                <property name="enableAnnotations">true</property>
+                <property name="typeSafeEnumsEnabled">true</property>
+                <!-- Replaces default JavaMappings with customized mappings which extend Java, for PrimitiveTypes etc. -->
                 <property name="languageMappingsUri">Java</property>
                 <property name="wrapperMappingsUri">JavaWrapper</property>
                 <property name="sqlMappingsUri">${sql.mappings}</property>
@@ -32,16 +47,42 @@
                 <property name="shortenSqlNamesMethod">truncate</property>
                 <property name="foreignKeySuffix">_FK</property>
                 <property name="ejbJndiNamePrefix">${application.id}-${project.version}</property>
-                 <!-- these masking properties allow you to configure the way
-                      your model element names are generated -->
+                <!-- these masking properties allow you to configure the way
+                      your model element names are generated>
                 <property name="classifierNameMask">none</property>
                 <property name="operationNameMask">none</property>
                 <property name="roleNameMask">none</property>
                 <property name="enumerationNameMask">none</property>
-                <property name="enumerationLiteralNameMask">upperunderscore</property>
                 <property name="entityNameMask">none</property>
                 <property name="entityPropertyNameMask">none</property>
-                <property name="parameterNameMask">none</property>
+                <property name="parameterNameMask">none</property -->
+                <property name="enumerationLiteralNameMask">upperunderscore</property>
+                <property name="hibernateVersion">${hibernate.version}</property>
+                <property name="persistenceContainerName">jboss</property>
+                <!-- Override default @todo to set to Eclipse default>
+                <property name="toDoTag">TODO</property -->
+                <!-- Automatically makes English names plural (generally adds s if missing).
+                default=true, set to false if using non-English models or Jaxb/CXF 2.0 or JAXB simpleBindingMode=false.>
+                <property name="pluralizeAssociationEndNames">true</property>
+                <property name="pluralizeAttributeNames">true</property>
+                <property name="pluralizeParameterNames">true</property -->
+                <property name="javaVersion">${javaVersion}</property>
+                <property name="xmlAttributes">false</property>
+                <property name="dataSource">${dataSource}</property>
+                <property name="hibernateDialect">${hibernate.dialect}</property>
+                <property name="username">${jdbc.username}</property>
+                <property name="password">${jdbc.password}</property>
+                <property name="driver">${jdbc.driver}</property>
+                <property name="connectionUrl">${jdbc.url}</property>
+                <property name="testUsername">${testdb.username}</property>
+                <property name="testPassword">${testdb.password}</property>
+                <property name="testDriver">${testdb.driver}</property>
+                <property name="testConnectionUrl">${testdb.url}</property>
+                <property name="testDialect">${testdb.dialect}</property>
+                <property name="hibernateHbm2DDLAuto">update</property>
+                <property name="foreignKeySuffix"></property>
+                <property name="defaultIdentifierPattern">{0}Id</property>
+                <property name="relationNameSeparator">_</property>
             </properties>
         </namespace>
         <namespace name="ejb3">
@@ -53,15 +94,15 @@
                 <property name="driver">${jdbc.driver}</property>
                 <property name="connectionUrl">${jdbc.url}</property>
                 <property name="entity-beans">${core.generated.dir}</property>
-                <property name="entity-impls">${core.manual.dir}</property>
-                <property name="entity-config">${core.generated.dir}</property>
+                <property name="entity-impls">${core.manual.java.dir}</property>
+                <property name="entity-config">${core.manual.java.resources}</property>
                 <property name="session-beans">${core.generated.dir}</property>
-                <property name="session-impls">${core.manual.dir}</property>
+                <property name="session-impls">${core.manual.java.dir}</property>
                 <property name="session-config">${core.generated.dir}</property>
                 <property name="message-driven-beans">${core.generated.dir}</property>
-                <property name="message-driven-impls">${core.manual.dir}</property>
+                <property name="message-driven-impls">${core.manual.java.dir}</property>
                 <property name="daos">${core.generated.dir}</property>
-                <property name="dao-impls">${core.manual.dir}</property>
+                <property name="dao-impls">${core.manual.java.dir}</property>
                 <property name="commons">${common.generated.dir}</property>
                 <property name="user-types">${common.generated.dir}</property>
                 <property name="services">${core.generated.dir}</property>

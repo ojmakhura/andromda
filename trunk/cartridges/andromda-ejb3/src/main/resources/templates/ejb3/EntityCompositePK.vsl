@@ -163,6 +163,9 @@ $property.getDocumentation("     * ")
     /**
      * @see Comparable${esc.hash}compareTo
      */
+#if ($javaVersion.compareTo("1.6")>-1)
+    @Override
+#end
     public int compareTo(${entity.entityCompositePrimaryKeyName} o)
     {
         int cmp = 0;

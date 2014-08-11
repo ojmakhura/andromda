@@ -25,7 +25,7 @@ public class $service.serviceDelegateName
     }
 
     /**
-     * Constructor setting the envirinment properties.
+     * Constructor setting the environment properties.
      *
      * @param properties
      */
@@ -69,13 +69,13 @@ public class $service.serviceDelegateName
      * @param $argument.name
 #end
 #if ($operation.returnTypePresent)
-     * @return $operation.returnType.fullyQualifiedName
+     * @return $operation.getterSetterReturnTypeName
 #end
 #if ($operation.exceptionsPresent)
      * @${operation.throwsClause}
 #end
      */
-    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+    $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
 #*  *##if ($operation.exceptionsPresent)
         $operation.throwsClause
 #*  *##end

@@ -11,9 +11,10 @@ package $service.packageName;
  */
 @javax.jws.WebService(targetNamespace = "${service.namespace}")
 @javax.jws.soap.SOAPBinding(style = javax.jws.soap.SOAPBinding.Style.${stringUtils.upperCase($service.style)}, use = javax.jws.soap.SOAPBinding.Use.${stringUtils.upperCase($service.use)}, parameterStyle = javax.jws.soap.SOAPBinding.ParameterStyle.${stringUtils.upperCase($service.parameterStyle)})
-#if ($stringUtils.startsWith(${deploymentPlatform}, "jboss"))
-@org.jboss.ws.annotation.PortComponent(contextRoot = "${webServiceContextRoot}", urlPattern="${webServiceUrlPattern}/${service.qName}/*")
-#end
+##if ($stringUtils.startsWith(${deploymentPlatform}, "jboss"))
+##@org.jboss.ws.annotation.PortComponent(contextRoot = "${webServiceContextRoot}", urlPattern="${webServiceUrlPattern}/${service.qName}/*")
+##end
+@javax.ejb.Stateless
 public interface ${service.webServiceInterfaceName}
     extends java.rmi.Remote
 {
@@ -34,7 +35,7 @@ public interface ${service.webServiceInterfaceName}
 #*    *##if ($operation.oneway)
     @javax.jws.Oneway
 #*    *##end
-    public $operation.returnType.fullyQualifiedName $operation.annotatedSignature#if ($operation.exceptionsPresent) $operation.throwsClause, java.rmi.RemoteException#else throws java.rmi.RemoteException#end;
+    public $operation.getterSetterReturnTypeName $operation.annotatedSignature#if ($operation.exceptionsPresent) $operation.throwsClause, java.rmi.RemoteException#else throws java.rmi.RemoteException#end;
 
 #*  *##end
 #**##end

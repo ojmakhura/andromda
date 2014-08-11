@@ -14,8 +14,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 //import org.andromda.dbtest.JPAJUnitAncestor;
+#set ($associations = $entity.entityRelations)
+#if (!$associations.empty)
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+#end
 ##
 ## If the entity is in the middle of an inheritance hierarchy
 ## it cannot be:
@@ -40,13 +43,13 @@ import org.apache.log4j.Logger;
 $entity.getDocumentation(" * ")
  */
 public class ${entity.entityName}Create
-#if($entity.requiresGeneralizationMapping && !$entity.generalization.interface && !$entity.generalization.abstract)
-#if($entity.embeddableSuperclassGeneralizationExists && $entity.generalization.entityImplementationRequired)
-    extends ${entity.generalization.fullyQualifiedEntityEmbeddableName}Create
-#else
-    extends ${entity.generalization.fullyQualifiedName}Create
-#end
-#end
+##if($entity.requiresGeneralizationMapping && !$entity.generalization.interface && !$entity.generalization.abstract)
+##if($entity.embeddableSuperclassGeneralizationExists && $entity.generalization.entityImplementationRequired)
+##    extends ${entity.generalization.fullyQualifiedEntityEmbeddableName}Create
+##else
+##    extends ${entity.generalization.fullyQualifiedName}Create
+##end
+##end
 #foreach($general in $entity.allGeneralizations)
 #if ($general.name.equals("AbstractEntity") || $general.name.equals("AuditedEntity") || $general.name.equals("AbstractVersionedEntity") || $general.name.equals("AbstractAuditedVersionedEntity") || $general.name.startsWith("AbstractPersistent"))
 #set ($jpaFramework=true)
@@ -69,7 +72,6 @@ public class ${entity.entityName}Create
         ${entity.entityName}PK pk = ${entity.entityName}Create.createEntityPK(true);
 #end
 #set ($properties = $entity.getAttributes(true))
-#set ($associations = $entity.entityRelations)
 ## Set the value for all properties including ancestor properties
         // Identifier attributes
 #foreach ($property in $properties)
@@ -91,7 +93,7 @@ public class ${entity.entityName}Create
 ##        // name=$thisEnd.name oName=$thisEnd.name owning=$end.owning other=$thisEnd.owning identifier=$end.identifier otherIdentifier=$thisEnd.identifier FQN=$thisEnd.type.fullyQualifiedName identifiers=$entityUtils.getIdentifierAttributes($thisEnd.type, true).size()
 #set ($endVar = $thisEnd.name)
 ##set ($endVar = $stringUtils.uncapitalize($thisEnd.type.name))
-        $thisEnd.type.fullyQualifiedName $endVar = ${thisEnd.type.name}Create.findFirst(em);
+        $thisEnd.type.fullyQualifiedName $endVar = ${thisEnd.type.fullyQualifiedName}Create.findFirst(em);
         $endVar = em.merge($endVar);
         LOGGER.info("${entity.name}.createEntity merged: " + $endVar);
 #if ($thisEnd.many)
@@ -113,7 +115,7 @@ public class ${entity.entityName}Create
 #end
 
 #foreach ($property in $properties)
-##        // $property.type.fullyQualifiedName $property.fullyQualifiedName transient=$property.transient identifier=$property.identifier usingAssignedIdentifier=$entity.usingAssignedIdentifier many=$property.many property=$property type=$property.type
+        // $property.type.fullyQualifiedName $property.getterSetterTypeName $property.fullyQualifiedName transient=$property.transient identifier=$property.identifier usingAssignedIdentifier=$entity.usingAssignedIdentifier many=$property.many type=$property.type property=$property
 ##        // Transient=$property.hasStereotype("Transient") stereotypes=$property.stereotypeNames.size() #foreach($name in $property.stereotypeNames)$name #end
 #if (!$property.transient && !$property.readOnly && !$property.identifier)
         // Updatable property

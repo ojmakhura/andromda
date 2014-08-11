@@ -2,7 +2,7 @@
 #set ($generatedFile = "${projectId}MultiOnce.roo")
 // Create AndroMDA ${projectId} using Spring Roo. This file is one-time setup
 // To run: %ROO_HOME%\bin\roo.bat script --file $generatedFile
-// Generated on $springUtils.date
+// Generated#if($dateTimeGeneratedText) on $springUtils.date#end.
 
 project --topLevelPackage ${projectGroupId} --parent org.andromda.maven:maven-parent:3.5-SNAPSHOT  --packaging POM
 module create --moduleName ${projectId}-common --topLevelPackage ${projectGroupId} --parent ${projectGroupId}:${projectId}:0.1.0.BUILD-SNAPSHOT --packaging JAR
@@ -20,7 +20,7 @@ logging setup --level INFO
 //GOOGLE_APP_ENGINE       H2_IN_MEMORY            HYPERSONIC_IN_MEMORY
 //HYPERSONIC_PERSISTENT   MSSQL                   MYSQL
 //ORACLE                  POSTGRES                SYBASE
-jpa setup --provider HIBERNATE --database H2_IN_MEMORY 
+jpa setup --provider HIBERNATE --database H2_IN_MEMORY
 database properties list
 // Change from in-memory jdbc:h2:mem:${projectId};DB_CLOSE_DELAY=-1 for persistence that won't go away + multiple client concurrent access
 database properties set --key database.url --value jdbc:h2:~/${projectId};AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1

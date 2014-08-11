@@ -12,8 +12,9 @@ package $embeddedValue.packageName;
 $embeddedValue.getDocumentation(" * ")
  *
  * Migrated from using @javax.persistence.Embeddable annotation to mapping in orm.xml
- * Still use the attribute annotations
+ * Still needs the attribute annotations
  */
+@javax.persistence.Embeddable
 public abstract class $embeddedValue.name
 #if($embeddedValue.generalization)
     extends $embeddedValue.generalization.fullyQualifiedName
@@ -146,7 +147,7 @@ $embeddedValue.getDocumentation("     * ")
 
 #end
 #foreach ($operation in $embeddedValue.operations)
-#set ($returnType = $operation.returnType)
+#set ($returnType = $operation.getterSetterReturnTypeName)
 #set ($signature = $operation.signature)
     /**
 $operation.getDocumentation("     * ")
@@ -154,17 +155,17 @@ $operation.getDocumentation("     * ")
      * @param $argument.name $argument.getterSetterTypeName
 #end
 #if ($operation.returnTypePresent)
-     * @return $operation.returnType.fulyQualifiedName
+     * @return $operation.getterSetterReturnTypeName
 #end
 #foreach ($exception in $operation.exceptionList)
      * @throws $exception.fullyQualifiedName
 #end
      */
 #*  *##if ($operation.exceptionsPresent)
-    $operation.visibility abstract $returnType.fullyQualifiedName $signature
+    $operation.visibility abstract $operation.getterSetterReturnTypeName $signature
         throws $operation.exceptionList;
 #*  *##else
-    $operation.visibility abstract $returnType.fullyQualifiedName $signature;
+    $operation.visibility abstract $operation.getterSetterReturnTypeName $signature;
 #*  *##end
 
 #end

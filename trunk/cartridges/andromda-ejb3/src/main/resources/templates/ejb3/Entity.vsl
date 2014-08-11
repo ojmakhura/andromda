@@ -115,7 +115,7 @@ public#if ($entity.abstract) abstract#end class ${entity.entityName}
 #foreach ($operation in $entity.getCreateMethods(true))
 #**##set ($opArguments = $transform.getArgumentsAsList(${operation.argumentNames}))
     /**
-     * Explicitly defined constuctor with specified args list.
+     * Explicitly defined constructor with specified args list.
 $operation.getDocumentation("    * ")
 #**##foreach($attribute in $opArguments)
      * @param $attribute Value for the $attribute property
@@ -136,7 +136,7 @@ $operation.getDocumentation("    * ")
 #*  *##if (!$operation.lifecycleCallback)
 #*    *##set ($signature = $operation.signature)
 #*    *##set ($visibility = $operation.visibility.toString())
-#*    *##set ($returnType = $operation.returnType.fullyQualifiedName)
+#*    *##set ($returnType = $operation.getterSetterReturnTypeName)
     /**
 $operation.getDocumentation("     * ")
      */

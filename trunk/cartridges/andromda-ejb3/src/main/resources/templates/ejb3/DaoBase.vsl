@@ -160,7 +160,6 @@ public abstract class $entity.daoBaseName
     /**
      * @see ${rootDaoType}${esc.hash}loadAll(int)
      */
-    @SuppressWarnings("rawtypes")
 #if ($javaVersion.compareTo("1.6")>-1)
     @Override
 #end
@@ -547,7 +546,17 @@ public abstract class $entity.daoBaseName
         }
     }
 
-#foreach ($finder in $entity.getQueryOperations(true))
+##
+## With daoInheritance disabled, only generate the finder methods defined on this entity; do NOT
+## include those defined on any of the super-entities.
+##
+#if ($daoInheritance)
+#set ($queryOperations = $entity.getQueryOperations(true))
+#else
+#set ($queryOperations = $entity.queryOperations)
+#end
+##
+#foreach ($finder in $queryOperations)
 #set ($returnType = $finder.returnType.fullyQualifiedName)
     /**
      * @see ${rootDaoType}${esc.hash}$finder.getSignature(false)
@@ -597,8 +606,14 @@ public abstract class $entity.daoBaseName
 #**##end
     }
 
-#**##if (!$finder.returnType.collectionType)
-#*  *##set ($returnType = "Object")
+#**##if ($finder.returnTypePresent)
+#*  *##if ($finder.returnType.setType)
+#set ($transformReturn = "java.util.Set")
+#*  *##elseif ($finder.returnType.collectionType)
+#set ($transformReturn = "java.util.List")
+#*  *##else
+#set ($transformReturn = "Object")
+#*  *##end
 #**##end
     /**
      * @see ${rootDaoType}${esc.hash}${finder.name}(int#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
@@ -606,7 +621,7 @@ public abstract class $entity.daoBaseName
 #if ($javaVersion.compareTo("1.6")>-1)
     @Override
 #end
-    $finder.visibility#if ($finder.returnTypePresent) $returnType#else void#end ${finder.name}(final int transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+    $finder.visibility#if ($finder.returnTypePresent) $transformReturn#else void#end ${finder.name}(final int transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #**##if ($finder.exceptionsPresent)
         throws $finder.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
 #**##else
@@ -676,7 +691,7 @@ public abstract class $entity.daoBaseName
 #if ($javaVersion.compareTo("1.6")>-1)
     @Override
 #end
-    $finder.visibility#if ($finder.returnTypePresent) $returnType#else void#end ${finder.name}(final int transform, final String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+    $finder.visibility#if ($finder.returnTypePresent) $transformReturn#else void#end ${finder.name}(final int transform, final String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #**##if ($finder.exceptionsPresent)
         throws ${finder.exceptionList}, ${entity.fullyQualifiedDaoDefaultExceptionName}
 #**##else
@@ -750,7 +765,7 @@ public abstract class $entity.daoBaseName
 #if ($javaVersion.compareTo("1.6")>-1)
     @Override
 #end
-    $operation.visibility $returnType.fullyQualifiedName ${operation.name}(${operation.getTypedArgumentList('final')})
+    $operation.visibility $operation.getterSetterReturnTypeName ${operation.name}(${operation.getTypedArgumentList('final')})
 #**##if ($operation.exceptionsPresent)
         throws $operation.exceptionList
 #**##end
@@ -794,10 +809,10 @@ public abstract class $entity.daoBaseName
 #foreach($argument in $operation.arguments)
       * @param $argument.name $argument.fullyQualifiedType
 #end
-      * @return $operation.returnType.fullyQualifiedName 
+      * @return $operation.getterSetterReturnTypeName
       * @throws Exception
       */
-    protected abstract $operation.returnType.fullyQualifiedName $operation.implementationSignature
+    protected abstract $operation.getterSetterReturnTypeName $operation.implementationSignature
         throws Exception;
 
 #end
@@ -951,7 +966,8 @@ public abstract class $entity.daoBaseName
     {
         if (instances != null)
         {
-            for (final java.util.Iterator iterator = instances.iterator(); iterator.hasNext();)
+            for (@SuppressWarnings("rawtypes")
+                final java.util.Iterator iterator = instances.iterator(); iterator.hasNext();)
             {
                 // - remove objects that are null or not of the correct instance
                 if (!(iterator.next() instanceof $valueObjectRef.targetElement.fullyQualifiedName))
@@ -990,7 +1006,7 @@ public abstract class $entity.daoBaseName
 #* *##foreach ($entityProperty in $entityProperties)
 #*    *##if ($property.name.equals($entityProperty.name))
 #*        *##set ($entityPropertyGetterValue = false)
-#*        *##if ($entity.compositePrimaryKeyPresent)
+#*        *##if ($entity.compositePrimaryKeyPresent && $entityProperty.identifier)
 #*          *##set ($entityPropertyGetterValue = $converter.typeConvert($entityProperty.type.fullyQualifiedName, "source.getPk().${entityProperty.getterName}()", $property.type.fullyQualifiedName))
 #*        *##else
 #*          *##set ($entityPropertyGetterValue = $converter.typeConvert($entityProperty.type.fullyQualifiedName, "source.${entityProperty.getterName}()", $property.type.fullyQualifiedName))

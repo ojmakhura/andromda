@@ -53,8 +53,8 @@
     </test>
 #if (!$services.isEmpty() || !$mdbs.isEmpty())
     <!-- Run the Services and MDB tests against the Embeddable EJB3 container -->
-    <test name="${entityManagerName} Services Test" preserve-order="true">
-        <classes>
+    <!-- test name="${entityManagerName} Services Test" preserve-order="true">
+        <classes-->
 #if($stringUtils.isNotBlank($ejb3TypesPackage))
 #**##set ($testPackage = "${ejb3TypesPackage}.test.")
 #else
@@ -62,7 +62,7 @@
 #end
 #if (!$services.isEmpty() || !$mdbs.isEmpty())
             <!-- Always start the EJB3 embeddable container before running the tests -->
-            <class name="${testPackage}EJB3Container"/>
+            <!--class name="${testPackage}EJB3Container"/>
 #end
 #foreach ($service in $services)
             <class name="${service.fullyQualifiedServiceTestName}"/>
@@ -71,7 +71,7 @@
             <class name="${mdb.fullyQualifiedMessageDrivenTestName}"/>
 #end
         </classes>
-    </test>
+    </test-->
 #end
     <!-- Set @Priority on individual test methods, for proper ordering -->
     <listeners>

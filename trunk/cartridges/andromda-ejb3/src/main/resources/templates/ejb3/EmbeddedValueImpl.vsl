@@ -25,6 +25,9 @@ public#if ($embeddedValue.abstract) abstract#end class $embeddedValue.implementa
     /**
      * @see ${embeddedValue.fullyQualifiedName}${esc.hash}${operation.getSignature(false)}
      */
+#if ($javaVersion.compareTo("1.6")>-1)
+    @Override
+#end
     $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
 #if ($operation.exceptionsPresent)
         throws $operation.exceptionList
