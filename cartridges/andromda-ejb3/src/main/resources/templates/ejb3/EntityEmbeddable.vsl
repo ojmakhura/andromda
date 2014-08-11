@@ -173,7 +173,7 @@ public#if ($entity.entityImplementationRequired) abstract class ${entity.entityE
 ## Composite PK may be an identifier on an association
 ##
 #**##if ($entity.compositePrimaryKeyPresent)
-    private ${entity.fullyQualifiedEntityCompositePrimaryKeyName} pk;
+    protected ${entity.fullyQualifiedEntityCompositePrimaryKeyName} pk;
 #**##end
 ##
 ## Only declare instance attributes that are NOT inherited.
@@ -202,9 +202,9 @@ public#if ($entity.entityImplementationRequired) abstract class ${entity.entityE
 #*  *##if ($doAttribute)
 ##
 ## Check for overriding LOB type
-## If the attribute is used in optimistic locking, make public, otherwise make private
+## If the attribute is used in optimistic locking, make public, otherwise make protected
 ##
-    #if (!$attribute.transient && $attribute.version)public#else#**#private#end #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.getterSetterTypeName}#end $attribute.name;
+    #if (!$attribute.transient && $attribute.version)public#else#**#protected#end #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.getterSetterTypeName}#end $attribute.name;
 #*  *##end
 #**##end
 #end
@@ -218,9 +218,9 @@ public#if ($entity.entityImplementationRequired) abstract class ${entity.entityE
 ##    // $target.name $target.getterSetterTypeName id=$target.hasStereotype("Identifier") pk=$entity.compositePrimaryKeyPresent nav=$target.navigable
 #*  *##if ($target.navigable)
 #*    *##if ($target.many)
-    private $target.getterSetterTypeName $target.name = new ${umlUtils.getImplCollection($target.getterSetterTypeName)}();
+    protected $target.getterSetterTypeName $target.name = new ${umlUtils.getImplCollection($target.getterSetterTypeName)}();
 #*    *##elseif (!$target.hasStereotype("Identifier") || !$entity.compositePrimaryKeyPresent)
-    private $target.getterSetterTypeName $target.name;
+    protected $target.getterSetterTypeName $target.name;
 #*    *##end
 #*  *##end
 #**##end
@@ -239,9 +239,9 @@ public#if ($entity.entityImplementationRequired) abstract class ${entity.entityE
 #*  *##if ($target.navigable)
 #*    *##if ($target.type.manageable && $target.type.manageableDisplayAttribute.name != $target.type.identifier.name)
 #*      *##if ($target.many)
-    private java.util.Collection<${target.type.manageableDisplayAttribute.type.fullyQualifiedName}> ${target.labelName};    // Manageable display attribute
+    protected java.util.Collection<${target.type.manageableDisplayAttribute.type.fullyQualifiedName}> ${target.labelName};    // Manageable display attribute
 #*      *##else
-    private $target.type.manageableDisplayAttribute.type.fullyQualifiedName ${target.labelName};    // Manageable display attribute
+    protected $target.type.manageableDisplayAttribute.type.fullyQualifiedName ${target.labelName};    // Manageable display attribute
 #*      *##end
 #*    *##end
 #*  *##end
@@ -321,7 +321,7 @@ $constant.getDocumentation("     * ")
 $attribute.getDocumentation("     * ")
      * Get the $attribute.name property.
      * @return $typeName The value of ${attribute.name}
-##     * identifier=$attribute.identifier transient=$attribute.transient version=$attribute.version containsEmbeddedObject=$attribute.containsEmbeddedObject
+##     * identifier=$attribute.identifier transient=$attribute.transient version=$attribute.version lob=$attribute.lobType containsEmbeddedObject=$attribute.containsEmbeddedObject
 ##     * generatorType=$attribute.generatorType generatorTypeSequence=$attribute.generatorTypeSequence generatorTypeGeneric=$attribute.generatorTypeGeneric
      */
 ##
@@ -927,7 +927,7 @@ $target.getDocumentation("     * ")
      * @param pk $entity.fullyQualifiedEntityCompositePrimaryKeyName The composite primary key class
 #end
 #**##foreach($attribute in $updatableAttributes)
-     * @param $attribute.name $attribute.getterSetterTypeName value for the ${attribute.name} property $attribute.required  $attribute.lower
+     * @param $attribute.name $attribute.getterSetterTypeName value for the ${attribute.name} property required=$attribute.required lower=$attribute.lower
 #**##end
      */
     public #if ($entity.entityImplementationRequired)${entity.entityEmbeddableName}#else${entity.entityName}#end($entity.getAttributesAsList($allAttributes, true, true, false))
@@ -1028,7 +1028,7 @@ $target.getDocumentation("     * ")
      */
 ##    //  $entity.getAttributesAsList($allAttributes, true, true, false) $updatableAttributes.empty $relations.size()
 #set ($attributeList = $entity.getAttributesAsList($requiredAttributes, true, true, false))
-    public #if ($entity.entityImplementationRequired)${entity.entityEmbeddableName}#else${entity.entityName}#end($attributeList#if(!$requiredAssociations.empty), #end#foreach ($relation in $requiredAssociations)${relation.otherEnd.getterSetterTypeName} $relation.otherEnd.name#if($velocityCount != $requiredAssociations.size()), #end#end)
+    public #if ($entity.entityImplementationRequired)${entity.entityEmbeddableName}#else${entity.entityName}#end($attributeList#if(!$requiredAssociations.empty && !$attributeList.empty), #end#foreach ($relation in $requiredAssociations)${relation.otherEnd.getterSetterTypeName} $relation.otherEnd.name#if($velocityCount != $requiredAssociations.size()), #end#end)
     {
 #if ($entity.compositePrimaryKeyPresent)
         setPk(pk);

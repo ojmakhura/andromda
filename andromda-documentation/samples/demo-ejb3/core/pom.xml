@@ -21,8 +21,9 @@
             <artifactId>commons-collections</artifactId>
         </dependency>
         <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
@@ -33,16 +34,56 @@
             <artifactId>commons-lang</artifactId>
         </dependency>
         <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-j2ee</artifactId>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
         </dependency>
         <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-ejb3-client</artifactId>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.ehcache.internal</groupId>
+            <artifactId>ehcache-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-script-wrappers</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.181</version>
+            <scope>test</scope>
+        </dependency>
+        <!--dependency>
             <groupId>jboss</groupId>
-            <artifactId>jboss-ejb3x</artifactId>
+            <artifactId>ejb3-persistence</artifactId>
         </dependency>
         <dependency>
             <groupId>jboss</groupId>
@@ -56,51 +97,63 @@
         <dependency>
             <groupId>jboss</groupId>
             <artifactId>jboss-aop-jdk50-client</artifactId>
-        </dependency>
+        </dependency-->
         <!--dependency>
             <groupId>jboss</groupId>
             <artifactId>jboss-aspect-jdk50-client</artifactId>
         </dependency-->
+        <!-- Embeddable and thirdparty dependencies last, otherwise RuntimeException: java.lang.NoSuchFieldError: TRACE
+        at org.jboss.ejb3.embedded.EJB3StandaloneBootstrap.boot(EJB3StandaloneBootstrap.java:386) -->
+        <!--dependency>
+            <groupId>jboss.jboss-embeddable-ejb3</groupId>
+            <artifactId>hibernate-all</artifactId>
+        </dependency-->
         <dependency>
-            <groupId>org.jboss</groupId>
-            <artifactId>jbossws-client</artifactId>
-        </dependency>
-<!--        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-client</artifactId>
-        </dependency>-->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda</groupId>
-            <artifactId>andromda-script-wrappers</artifactId>
+            <!--groupId>org.jboss.embedded</groupId>
+            <artifactId>jboss-embedded-all</artifactId>
+            <version>beta3.SP15</version-->
+            <groupId>jboss.jboss-embeddable-ejb3</groupId>
+            <artifactId>jboss-ejb3-all</artifactId>
         </dependency>
         <!--dependency>
-            <groupId>net.sf.ehcache.internal</groupId>
-            <artifactId>ehcache-core</artifactId>
+            <groupId>jboss.jboss-embeddable-ejb3</groupId>
+            <artifactId>thirdparty-all</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss.microcontainer</groupId>
-            <artifactId>hibernate-all</artifactId>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>jboss.jboss-embeddable-ejb3</groupId>
             <artifactId>jboss-ejb3-all</artifactId>
             <version>1.0.0.Alpha9</version>
             <scope>test</scope>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>jboss.jboss-embeddable-ejb3</groupId>
             <artifactId>thirdparty-all</artifactId>
-            <version>1.0.0.Alpha9</version>
             <scope>test</scope>
-        </dependency-->
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
         </dependency>
+        <dependency>
+            <groupId>jboss</groupId>
+            <artifactId>jboss-j2ee</artifactId>
+        </dependency>
+        <!--dependency>
+          <groupId>oswego-concurrent</groupId>
+          <artifactId>concurrent</artifactId>
+          <version>1.3.4</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>jboss</groupId>
+            <artifactId>jboss-ejb3-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jboss</groupId>
+            <artifactId>jboss-ejb3x</artifactId>
+        </dependency-->
     </dependencies>
     <build>
         <plugins>
@@ -108,26 +161,236 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
             </plugin>
+            <!-- See http://mojo.codehaus.org/hibernate3-maven-plugin/examples/run-multiple-goals.html and
+            http://docs.jboss.org/tools/latest/en/hibernatetools/html/ant.html -->
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>hibernate3-maven-plugin</artifactId>
+              <version>3.0</version>
+              <!-- Run after copying target test configuration but before running tests -->
+              <executions>
+                <execution>
+                  <phase>test-compile</phase>
+                  <goals>
+                    <goal>hbm2ddl</goal>
+                  </goals>
+                </execution>
+              </executions>
+              <configuration>
+                <hibernatetool destdir="../app/src/main/sql">
+                  <jpaconfiguration persistenceunit="UNIT_TEST"/>
+                  <hbm2ddl outputfilename="schema.sql" export="false" drop="true" create="true" format="true" haltonerror="true"/>
+                  <!-- Use the test DB configuration and logging when running hbm2ddl -->
+                  <classpath>
+                      <path location="src/test/resources"/>
+                      <path location="target/test-classes"/>
+                      <path location="target/classes"/>
+                      <path location="target/src/main/java"/>
+                  </classpath>
+                </hibernatetool>
+              </configuration>
+              <dependencies>
+                  <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <version>${testdb.version}</version>
+                  </dependency>
+                  <dependency>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-entitymanager</artifactId>
+                    <version>3.6.9.Final</version>
+                  </dependency>
+                  <dependency>
+                      <groupId>org.hibernate</groupId>
+                      <artifactId>hibernate-validator</artifactId>
+                      <version>5.1.2.Final</version>
+                  </dependency>
+                  <!-- Unable to load 'javax.el.ExpressionFactory' -->
+                  <dependency>
+                      <groupId>javax.el</groupId>
+                      <artifactId>el-api</artifactId>
+                      <version>2.2.1-b04</version>
+                  </dependency>
+                  <dependency>
+                      <groupId>commons-logging</groupId>
+                      <artifactId>commons-logging</artifactId>
+                      <version>1.1.3</version>
+                  </dependency>
+                  <!-- Default maven 2.2.1 depends on slf4j-jdk14 1.5.6 which conflicts with JDK6 and slf4j12-log4j -->
+                  <dependency>
+                      <groupId>org.apache.maven</groupId>
+                      <artifactId>maven-core</artifactId>
+                      <version>3.0.4</version>
+                  </dependency>
+                  <!-- Not possible to exclude slf4j-nop: Class path contains multiple SLF4J bindings. -->
+                  <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <version>1.7.7</version>
+                  </dependency>
+                  <!-- Still gives ClassNotFoundException: org.jboss.logging.util.OnlyOnceErrorHandler. -->
+                  <dependency>
+                      <groupId>org.jboss.logging</groupId>
+                      <artifactId>jboss-logging-log4j</artifactId>
+                      <version>2.1.2.GA</version>
+                  </dependency>
+                </dependencies>
+            </plugin>
+            <!-- Run h2 tcp server manually by 'mvn exec:java sql:execute' for local unit testing, this is configuration only,
+            not run during build because it can't be shut down separately. -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${exec-maven-plugin.version}</version>
+                <executions>
+                  <execution>
+                      <!--phase>test-compile</phase-->
+                      <goals>
+                          <goal>java</goal>
+                      </goals>
+                  </execution>
+                </executions>
+                <configuration>
+                    <mainClass>org.andromda.dbtest.H2</mainClass>
+                    <classpathScope>test</classpathScope>
+                    <workingDirectory>${project.basedir}/target</workingDirectory>
+                    <arguments>
+                    </arguments>
+                </configuration>
+                <dependencies>
+                  <dependency>
+                    <groupId>${testdb.groupId}</groupId>
+                    <artifactId>${testdb.artifactId}</artifactId>
+                    <version>${testdb.version}</version>
+                  </dependency>
+                </dependencies>
+            </plugin>
+            <!-- See http://mojo.codehaus.org/sql-maven-plugin/examples/execute.html -->
+            <!-- Can't connect to the h2 process outside of the mvn JVM because it locks the DB -->
+            <!-- See http://www.h2database.com/html/cheatSheet.html -->
+            <!-- Can't use in-memory DB for tomcat/jetty initialization - goes away on exit -->
+            <!-- Use for in-memory DB jdbc:h2:timetracker;MODE=MySQL for in-JVM connections only, but it must be started within maven -->
+            <!-- Use for server DB jdbc:h2:tcp://localhost/timetracker;MODE=MySQL for external connections, but it must be started outside maven -->
+            <!-- default-cli execution id allows us to run the same configuration from the mvn command line -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sql-maven-plugin</artifactId>
+                <version>1.5</version>
+                <configuration>
+                    <driver>${testdb.driver}</driver>
+                    <url>${testdb.url}</url>
+                    <username>${testdb.username}</username>
+                    <password>${testdb.password}</password>
+                    <autocommit>true</autocommit>
+                    <skip>${maven.test.skip}</skip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>default-cli</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <autocommit>true</autocommit>
+                            <orderFile>ascending</orderFile><!-- Ascending alphabetical order, not the order of files in includes -->
+                            <fileset>
+                                <basedir>${basedir}/../app/src/main/sql</basedir>
+                                <includes>
+                                    <!--include>1test-data-delete.sql</include>
+                                    <include>2static-data-delete.sql</include-->
+                                    <include>schema.sql</include>
+                                    <!-- These test SQL files are manually created/maintained, run only for manual tests requiring data -->
+                                    <!--include>static-data-insert.sql</include>
+                                    <include>test-data-insert.sql</include-->
+                                </includes>
+                            </fileset>
+                            <onError>continue</onError>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>${testdb.groupId}</groupId>
+                        <artifactId>${testdb.artifactId}</artifactId>
+                        <version>${testdb.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
             <plugin>
                 <artifactId>maven-ejb-plugin</artifactId>
-                <version>2.3</version>
+                <version>${maven-ejb-plugin.version}</version>
                 <configuration>
+                    <ejbVersion>3.0</ejbVersion>
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
                         </manifest>
                     </archive>
                     <generateClient>true</generateClient>
+                    <excludes>
+                        <exclude>**/*.ref</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <!-- v2.12 regression: The forked VM terminated without saying properly goodbye. >
+                <version>2.11</version-->
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                    <!-- This trick allows the JBoss EJB3StandaloneBootstrap to find and deploy our compiled EJBs!! -->
+                    <systemProperties>
+                        <property>
+                            <name>java.class.path</name>
+                            <value>target/classes</value>
+                        </property>
+                    </systemProperties>
                 </configuration>
             </plugin>
         </plugins>
         <resources>
             <resource>
-                <directory>target/src</directory>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>META-INF/persistence.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>target/src/main/java</directory>
                 <excludes>
                     <exclude>**/*.java</exclude>
                 </excludes>
             </resource>
         </resources>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <includes>
+                    <include>META-INF/persistence.xml</include>
+                    <include>testng.xml</include>
+                    <include>testBeanRefFactory.xml</include>
+                    <include>default.persistence.properties</include>
+                    <include>jndi.properties</include>
+                    <include>embedded-jboss-beans.xml</include>
+                    <include>ejb3-interceptors-aop.xml</include>
+                    <include>jboss-jms-beans.xml</include>
+                    <include>log4j.xml</include>
+                    <include>security-beans.xml</include>
+                    <include>login-config.xml</include>
+                    <include>users.properties</include>
+                    <include>roles.properties</include>
+                </includes>
+            </testResource>
+        </testResources>
     </build>
+    <properties>
+        <javaVersion>${java.version}</javaVersion>
+        <validation>true</validation>
+        <!-- Until 'org.jboss.ejb3.embedded.UserTransactionImpl IllegalArgumentException: Null name' is fixed -->
+        <maven.test.failure.ignore>true</maven.test.failure.ignore>
+    </properties>
 </project>

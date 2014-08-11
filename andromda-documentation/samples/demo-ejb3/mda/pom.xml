@@ -14,23 +14,32 @@
         <dependency>
             <groupId>org.andromda.profiles.uml14</groupId>
             <artifactId>andromda-profile</artifactId>
+            <version>${andromda.version}</version>
             <type>xml.zip</type>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-ejb3-cartridge</artifactId>
+            <version>${andromda.version}</version>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-java-cartridge</artifactId>
+            <version>${andromda.version}</version>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-bpm4struts-cartridge</artifactId>
+            <version>${andromda.version}</version>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.andromda.translationlibraries</groupId>
             <artifactId>andromda-ocl-query-library</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
     <build>
@@ -73,19 +82,28 @@
     </build>
     <properties>
         <model.uri>file:${project.basedir}/src/main/uml/demo-ejb3.xmi</model.uri>
+        <javaVersion>${java.version}</javaVersion>
         <filter></filter>
         <validation>true</validation>
+        <!-- ant script location for temp copy of resources -->
+        <andromda.project>${project.basedir}/..</andromda.project>
         <conf.dir>${project.basedir}/src/main/config</conf.dir>
         <!-- cartridge output locations -->
-        <core.generated.dir>${project.basedir}/../core/target/src</core.generated.dir>
+        <common.generated.dir>${project.basedir}/../common/target/src/main/java</common.generated.dir>
+        <common.manual.dir>${project.basedir}/../common/src/main/java</common.manual.dir>
+        <core.generated.dir>${project.basedir}/../core/target/src/main/java</core.generated.dir>
         <core.manual.dir>${project.basedir}/../core/src/main/java</core.manual.dir>
+        <core.manual.java.dir>${project.basedir}/../core/src/main/java</core.manual.java.dir>
+        <core.manual.java.resources>${project.basedir}/../core/src/main/resources</core.manual.java.resources>
         <core.manual.test.resources>${project.basedir}/../core/src/test/resources</core.manual.test.resources>
-        <core.generated.test.dir>${project.basedir}/../core/target/src</core.generated.test.dir>
+        <core.generated.test.dir>${project.basedir}/../core/target/src/main/java</core.generated.test.dir>
         <core.manual.test.dir>${project.basedir}/../core/src/test/java</core.manual.test.dir>
-        <web.generated.dir>${project.basedir}/../web/target/src</web.generated.dir>
+        <web.generated.dir>${project.basedir}/../web/target</web.generated.dir>
+        <web.generated.java.dir>${web.generated.dir}/src/main/java</web.generated.java.dir>
+        <web.generated.web.dir>${web.generated.dir}/src/main/webapp</web.generated.web.dir>
         <web.manual.dir>${project.basedir}/../web/src/main</web.manual.dir>
+        <web.manual.web.dir>${web.manual.dir}/webapp</web.manual.web.dir>
         <web.manual.java.dir>${web.manual.dir}/java</web.manual.java.dir> 
-        <common.generated.dir>${project.basedir}/../common/target/src</common.generated.dir>      
         <application.config.dir>${project.basedir}/../app/src/main/config</application.config.dir>
         <application.metainf.dir>${project.basedir}/../app/src/main/application/META-INF</application.metainf.dir>
     </properties>

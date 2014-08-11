@@ -360,14 +360,14 @@ public interface $entity.daoName
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
 
 #foreach ($operation in $entity.queryOperations)
-#**##set ($returnType = $operation.returnType.fullyQualifiedName)
+#**##set ($returnType = $operation.getterSetterReturnTypeName)
     /**
 $operation.getDocumentation("     * ")
 #foreach($argument in $operation.arguments)
      * @param $argument.name
 #end
 #if ($operation.returnTypePresent)
-     * @return $returnType
+     * @return $operation.getterSetterReturnTypeName
 #end
 #if ($operation.exceptionsPresent)
      * @throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
@@ -375,7 +375,7 @@ $operation.getDocumentation("     * ")
      * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
 #end
      */
-    $operation.visibility $returnType $operation.signature
+    $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
 #**##if ($operation.exceptionsPresent)
         throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName};
 #**##else
@@ -405,8 +405,14 @@ $operation.getDocumentation("     * ")
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
 #end
 
-#**##if ($operation.query && !$operation.returnType.collectionType)
-#set ($returnType = "Object")
+#**##if ($operation.returnTypePresent)
+#*  *##if ($operation.returnType.setType)
+#set ($transformReturn = "java.util.Set")
+#*  *##elseif ($operation.returnType.collectionType)
+#set ($transformReturn = "java.util.List")
+#*  *##else
+#set ($transformReturn = "Object")
+#*  *##end
 #**##end
     /**
      * Does the same thing as {@link ${esc.hash}${operation.getSignature(false)}} with an
@@ -421,7 +427,7 @@ $operation.getDocumentation("     * ")
      * @param $argument.name
 #end
 #if ($operation.returnTypePresent)
-     * @return $returnType
+     * @return $transformReturn
 #end
 #if ($operation.exceptionsPresent)
      * @throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
@@ -429,7 +435,7 @@ $operation.getDocumentation("     * ")
      * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
 #end
      */
-    $operation.visibility#if ($operation.returnTypePresent) $returnType#else void#end ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+    $operation.visibility#if ($operation.returnTypePresent) $transformReturn#else void#end ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
 #**##if ($operation.exceptionsPresent)
         throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName};
 #**##else
@@ -446,7 +452,7 @@ $operation.getDocumentation("     * ")
      * @param $argument.name
 #end
 #if ($operation.returnTypePresent)
-     * @return $returnType
+     * @return $transformReturn
 #end
 #if ($operation.exceptionsPresent)
      * @throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
@@ -454,7 +460,7 @@ $operation.getDocumentation("     * ")
      * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
 #end
      */
-    $operation.visibility#if ($operation.returnTypePresent) $returnType#else void#end ${operation.name}(int transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+    $operation.visibility#if ($operation.returnTypePresent) $transformReturn#else void#end ${operation.name}(int transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
 #**##if ($operation.exceptionsPresent)
         throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName};
 #**##else

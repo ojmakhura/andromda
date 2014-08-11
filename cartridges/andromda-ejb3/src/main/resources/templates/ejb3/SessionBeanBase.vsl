@@ -112,7 +112,11 @@ public abstract class ${service.serviceBaseName}
      */
     @javax.ejb.EJB
 #*  *##end
+#*  *##if ($service.viewType == "local")
+    protected ${reference.fullyQualifiedServiceLocalInterfaceName} $stringUtils.uncapitalize(${reference.name});
+#*  *##else
     protected ${reference.fullyQualifiedServiceRemoteInterfaceName} $stringUtils.uncapitalize(${reference.name});
+#*  *##end
 #**##end
 #end
 #set ($entityReferences = $service.entityReferences)
@@ -354,7 +358,7 @@ $operation.getDocumentation("     * ")
      * @param $argument.name
 #end
 #if ($operation.returnTypePresent)
-     * @return $operation.returnType.fullyQualifiedName
+     * @return $operation.getterSetterReturnTypeName
 #end
 #if ($operation.exceptionsPresent)
      * @${operation.throwsClause}
@@ -460,7 +464,7 @@ $operation.getDocumentation("     * ")
     @org.jboss.seam.annotations.Observer$operation.seamObserverEventName
 #*      *##end
 #*    *##end
-    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+    $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
 #*    *##if ($operation.exceptionsPresent)
         $operation.throwsClause
 #*    *##end
@@ -520,11 +524,11 @@ $operation.getDocumentation("     * ")
      * @param $argument.name
 #end
 #if ($operation.returnTypePresent)
-     * @return $operation.returnType.fullyQualifiedName
+     * @return $operation.getterSetterReturnTypeName
 #end
      * @throws Exception
      */
-    protected abstract $operation.returnType.fullyQualifiedName $operation.implementationSignature
+    protected abstract $operation.getterSetterReturnTypeName $operation.implementationSignature
         throws Exception;
 
 #*  *##end
@@ -559,10 +563,10 @@ $operation.getDocumentation("     * ")
     /**
      * Performs the core logic for {@link ${esc.hash}${operation.name}()}
 #if ($operation.returnTypePresent)
-     * @return $operation.returnType.fullyQualifiedName
+     * @return $operation.getterSetterReturnTypeName
 #end
      */
-    protected abstract $operation.returnType.fullyQualifiedName handle${stringUtils.capitalize(${operation.name})}();
+    protected abstract $operation.getterSetterReturnTypeName handle${stringUtils.capitalize(${operation.name})}();
 
 #*  *##end
 #**##end

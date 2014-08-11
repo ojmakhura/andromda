@@ -102,13 +102,16 @@ $operation.getDocumentation("     * ")
 $operation.getDocumentation("     * ")
 #*    *##end
      */
+#if ($javaVersion.compareTo("1.6")>-1 && $operation.visibility == "public")
+    @Override
+#end
 #*    *##set ($abstract = $service.abstract && $operation.abstract)
 #*    *##if ($operation.visibility == "public")
     protected## no newline
 #*    *##else
     $operation.visibility##no newline
 #*    *##end
-#if ($abstract) abstract#end $operation.returnType.fullyQualifiedName $operation.implementationSignature
+#if ($abstract) abstract#end $operation.getterSetterReturnTypeName $operation.implementationSignature
 #*    *##if ($abstract)
         throws Exception;
 #*    *##else
@@ -136,6 +139,9 @@ $operation.getDocumentation("     * ")
     /**
      * @see ${service.fullyQualifiedServiceName}${esc.hash}${operation.name}()
      */
+#if ($javaVersion.compareTo("1.6")>-1)
+    @Override
+#end
     protected void handle${stringUtils.capitalize(${operation.name})}()
     {
         // TODO put your lifecycle callback implementation here.

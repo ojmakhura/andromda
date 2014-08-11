@@ -54,6 +54,8 @@ public class H2
     public static void initDb(String url, String sqlFile) //throws SQLException, ClassNotFoundException
     {
         long now = System.currentTimeMillis();
+        Connection conn = null;
+        Statement stmt = null;
         try
         {
             Class.forName("${testDriver}");
@@ -85,10 +87,10 @@ public class H2
             }
             // Starts H2, allowing TCP connections also, to jdbc:h2:tcp://localhost/${sql.database}
             // Must use id/password with embedded persisted mode
-            Connection conn = DriverManager.getConnection(url, "${testUsername}", "${testPassword}");
+            conn = DriverManager.getConnection(url, "${testUsername}", "${testPassword}");
             LOGGER.info("Connected to DB " + url + "\r in " + (System.currentTimeMillis() - now) + " ms");
             long now1 = System.currentTimeMillis();
-            Statement stat = conn.createStatement();
+            stmt = conn.createStatement();
             int stmtCount = 0;
             int successfulCount = 0;
             for (String sql : sqls)
@@ -99,10 +101,10 @@ public class H2
                     boolean resultSet = false;
                     try
                     {
-                        resultSet = stat.execute(sql);
+                        resultSet = stmt.execute(sql);
                         if (resultSet)
                         {
-                            ResultSet rset = stat.getResultSet();
+                            ResultSet rset = stmt.getResultSet();
                             LOGGER.info(sql + ";\r" + "ResultSet: " + rset + "\r");
                             try
                             {
@@ -113,9 +115,9 @@ public class H2
                                 LOGGER.error(e);
                             }
                         }
-                        else if (stat.getUpdateCount() > 0)
+                        else if (stmt.getUpdateCount() > 0)
                         {
-                            LOGGER.info(sql + ";\r" + "Updated rows: " + stat.getUpdateCount() + "\r");
+                            LOGGER.info(sql + ";\r" + "Updated rows: " + stmt.getUpdateCount() + "\r");
                         }
                         else if (StringUtils.containsIgnoreCase(sql, "INSERT INTO ") ||
                                 StringUtils.containsIgnoreCase(sql, "UPDATE ") ||
@@ -156,6 +158,31 @@ public class H2
         catch (SQLException e)
         {
             LOGGER.error(e);
+        }
+        finally
+        {
+            if (stmt != null)
+            {
+                try
+                {
+                    stmt.close();
+                }
+                catch (Exception e)
+                {
+                    LOGGER.warn(e);
+                }
+            }
+            if (conn != null)
+            {
+                try
+                {
+                    conn.close();
+                }
+                catch (Exception e)
+                {
+                    LOGGER.warn(e);
+                }
+            }
         }
     }
 

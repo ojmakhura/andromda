@@ -361,7 +361,7 @@
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
-                <version>1.4.180</version>
+                <version>1.4.181</version>
                 <!--scope>test</scope-->
             </dependency>
             <dependency>
@@ -576,7 +576,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <testdb.groupId>com.h2database</testdb.groupId>
         <testdb.artifactId>h2</testdb.artifactId>
-        <testdb.version>1.4.180</testdb.version>
+        <testdb.version>1.4.181</testdb.version>
         <testdb.driver>org.h2.Driver</testdb.driver>
         <testdb.dialect>org.hibernate.dialect.H2Dialect</testdb.dialect>
         <!-- See http://www.h2database.com/html/features.html#database_url (mixed mode) -->
@@ -666,7 +666,7 @@
                     <!-- JBoss gives classloader exceptions if the JDBC driver is bundled with the EAR
                     Updated here for JBoss7
                     ${jboss.home}/server/default/lib/mysql-connector-java-5.1.14.jar -->
-                    ${jboss.home}/modules/com/h2database/h2/main/h2-1.4.180.jar
+                    ${jboss.home}/modules/com/h2database/h2/main/h2-1.4.181.jar
                 </jdbc.driver.jar>
                 <!--
                     Change driver for appropriate database

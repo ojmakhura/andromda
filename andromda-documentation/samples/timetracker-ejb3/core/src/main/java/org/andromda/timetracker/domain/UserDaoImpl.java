@@ -34,7 +34,6 @@ public class UserDaoImpl
         // WARNING! No conversion for targetVO.lastName (can't convert sourceEntity.getLastName():java.lang.String to java.lang.String
     }
 
-
     /**
      * @see UserDao#toUserVO(User)
      */
@@ -44,7 +43,6 @@ public class UserDaoImpl
         // TODO verify behavior of toUserVO
         return super.toUserVO(entity);
     }
-
 
     /**
      * Retrieves the entity object that is associated with the specified value object
@@ -66,7 +64,6 @@ public class UserDaoImpl
         */
     }
 
-
     /**
      * @see UserDao#userVOToEntity(UserVO)
      */
@@ -78,7 +75,6 @@ public class UserDaoImpl
         this.userVOToEntity(userVO, entity, true);
         return entity;
     }
-
 
     /**
      * @see UserDao#userVOToEntity(UserVO, User, boolean)
@@ -179,5 +175,4 @@ public class UserDaoImpl
             targetEntity.setRoles(roles);
         }
     }
-
 }

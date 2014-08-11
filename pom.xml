@@ -542,6 +542,7 @@
                 <!-- See https://github.com/lkwg82/enforcer-maven-plugin. Patched original. Fix cloudbees error on pom download -->
                 <groupId>de.lgohlke.mojo</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${maven-enforcer-plugin.version}</version>
             </plugin>
             <plugin>
                 <artifactId>maven-install-plugin</artifactId>

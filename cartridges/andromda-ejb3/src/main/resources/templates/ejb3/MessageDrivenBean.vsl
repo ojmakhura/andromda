@@ -135,11 +135,10 @@ $operation.getDocumentation("     * ")
 #*  *##elseif ($operation.preDestroy)
     @javax.annotation.PreDestroy
 #*  *##end
-#*  *##set ($returnType = $operation.returnType.fullyQualifiedName)
 #*  *##if ($operation.exceptionsPresent)
-    $visibility abstract $returnType $operation.signature throws $operation.exceptionList;
+    $visibility abstract $operation.getterSetterReturnTypeName $operation.signature throws $operation.exceptionList;
 #*  *##else
-    $visibility abstract $returnType $operation.signature;
+    $visibility abstract $operation.getterSetterReturnTypeName $operation.signature;
 #*  *##end
 
 #**##end

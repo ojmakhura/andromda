@@ -184,7 +184,7 @@
             </element>
             <element name="INTERCEPTOR">
                 <documentation>
-                    Defines a custome made interceptor for the business
+                    Defines a custom made interceptor for the business
                     methods of the session bean and message driven
                     bean.
                 </documentation>
@@ -331,7 +331,7 @@
                     callback handler for an entity bean and will
                     be invoked before the entity is created in the
                     database and will cascade to all associated
-                    cascadable entities.
+                    cascadeable entities.
                 </documentation>
                 <value>PrePersist</value>
                 <appliedOnElement>
@@ -344,7 +344,7 @@
                     callback handler for an entity bean and will
                     be invoked after the entity is created in the
                     database and will cascade to all associated
-                    cascadable entities.
+                    cascadeable entities.
                 </documentation>
                 <value>PostPersist</value>
                 <appliedOnElement>
@@ -357,7 +357,7 @@
                     callback handler for an entity bean and will
                     be invoked before the entity is deleted from the
                     database and will cascade to all associated
-                    cascadable entities.
+                    cascadeable entities.
                 </documentation>
                 <value>PreRemove</value>
                 <appliedOnElement>
@@ -370,7 +370,7 @@
                     callback handler for an entity bean and will
                     be invoked after the entity is deleted from the
                     database and will cascade to all associated
-                    cascadable entities.
+                    cascadeable entities.
                 </documentation>
                 <value>PostRemove</value>
                 <appliedOnElement>
@@ -451,7 +451,7 @@
             <element name="SEAM_BIJECTION_IN">
                 <documentation>
                     Indicates a Seam component attribute which is to be injected
-                    from a context variable at the begining of each component method
+                    from a context variable at the beginning of each component method
                     invocation.
                 </documentation>
                 <value>In</value>
@@ -609,7 +609,7 @@
                 <documentation>
                     Specifies that a JavaBean component should have a similar
                     transactional behavior to the default behavior of a session bean
-                    component. ie. method invocations should take place in a
+                    component. i.e. method invocations should take place in a
                     transaction, and if no transaction exists when the method is
                     called, a transaction will be started just for that method. This
                     annotation may be applied at either class or method level.
@@ -693,7 +693,7 @@
             <element name="SEAM_ASYNCHRONOUS_INTERVAL_DURATION">
                 <documentation>
                     Specifies that an asynchronous method call recurs, and that the
-                    annotationed parameter is duration between recurrences.
+                    annotated parameter is duration between recurrences.
                 </documentation>
                 <value>IntervalDuration</value>
                 <appliedOnElement>Session and Java Bean Operation Parameters</appliedOnElement>
@@ -1131,7 +1131,7 @@
                     Specifies whether a mapped column should be included
                     in SQL INSERT statements. Setting to <code>false</code>
                     allows the column to be initialized using other mechanisms
-                    such as a value defaulted by thedatabase. Defaults to
+                    such as a value defaulted by the database. Defaults to
                     <code>true</code>.
                 </documentation>
                 <value>andromda_persistence_column_insert</value>
@@ -1229,7 +1229,7 @@
                     binary or character type via datatype::Clob or
                     datatype::Blob respectively.
                     BLOB fields represent Byte[] or Serializable types.
-                    CLOB fiels represent char[], Character[] or String
+                    CLOB fields represent char[], Character[] or String
                     types.
                     Make sure to define the fully qualified type
                     name for the tagged value.

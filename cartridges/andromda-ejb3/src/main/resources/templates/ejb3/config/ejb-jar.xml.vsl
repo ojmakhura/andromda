@@ -27,7 +27,7 @@
             <remote>${service.fullyQualifiedServiceRemoteInterfaceName}</remote>
 #**##end
 #**##if ($service.viewTypeLocal)
-            <local>${service.fullyQualifiedServiceLocalInterfaceName}</local>
+            <business-local>${service.fullyQualifiedServiceLocalInterfaceName}</business-local>
 #**##end
             <ejb-class>${service.fullyQualifiedServiceName}</ejb-class>
             <session-type>${service.type}</session-type>
@@ -75,7 +75,7 @@
                 ]]>
             </description>
             <ejb-name>${entity.daoName}</ejb-name>
-            <local>${entity.fullyQualifiedDaoName}</local>
+            <business-local>${entity.fullyQualifiedDaoName}</business-local>
             <ejb-class>${entity.fullyQualifiedDaoImplementationName}</ejb-class>
             <session-type>Stateless</session-type>
             <transaction-type>Container</transaction-type>

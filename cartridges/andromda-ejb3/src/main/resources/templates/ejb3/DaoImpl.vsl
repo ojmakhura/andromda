@@ -34,7 +34,10 @@ public class $entity.daoImplementationName
     /**
      * @see ${entity.fullyQualifiedDaoName}${esc.hash}${operation.getSignature(false)}
      */
-    protected $returnType.fullyQualifiedName $signature
+#if ($javaVersion.compareTo("1.6")>-1)
+    @Override
+#end
+    protected $operation.getterSetterReturnTypeName $signature
 #**##if ($operation.exceptionsPresent)
         throws $operation.exceptionList
 #**##end
@@ -52,6 +55,9 @@ public class $entity.daoImplementationName
     /**
      * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationMethodName}($entity.fullyQualifiedEntityName, $valueObjectRef.targetElement.fullyQualifiedName)
      */
+#if ($javaVersion.compareTo("1.6")>-1)
+    @Override
+#end
     public void ${valueObjectRef.transformationMethodName}(
         $entity.fullyQualifiedEntityName sourceEntity,
         $valueObjectRef.targetElement.fullyQualifiedName targetVO)
@@ -74,6 +80,9 @@ public class $entity.daoImplementationName
     /**
      * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationMethodName}($entity.fullyQualifiedEntityName)
      */
+#if ($javaVersion.compareTo("1.6")>-1)
+    @Override
+#end
     public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}(final $entity.fullyQualifiedEntityName entity)
     {
         // ${toDoTag} verify behavior of ${valueObjectRef.transformationMethodName}
@@ -103,6 +112,9 @@ public class $entity.daoImplementationName
     /**
      * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName)
      */
+#if ($javaVersion.compareTo("1.6")>-1)
+    @Override
+#end
     public $entity.fullyQualifiedEntityName ${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName $stringUtils.uncapitalize($valueObjectRef.name))
     {
         // ${toDoTag} verify behavior of ${valueObjectRef.transformationToEntityMethodName}
@@ -112,8 +124,11 @@ public class $entity.daoImplementationName
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName, $entity.fullyQualifiedEntityName)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName, $entity.fullyQualifiedEntityName, boolean)
      */
+#if ($javaVersion.compareTo("1.6")>-1)
+    @Override
+#end
     public void ${valueObjectRef.transformationToEntityMethodName}(
         $valueObjectRef.targetElement.fullyQualifiedName sourceVO,
         $entity.fullyQualifiedEntityName targetEntity,

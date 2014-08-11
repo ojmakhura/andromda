@@ -99,11 +99,34 @@
                 <version>${andromda.version}</version>
                 <scope>provided</scope>
             </dependency>
+            <!-- validation dependencies -->
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>1.1.0.Final</version>
+            </dependency>
+            <dependency>
+                <artifactId>hibernate-validator</artifactId>
+                <groupId>org.hibernate</groupId>
+                <version>5.1.2.Final</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.7</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>1.7.7</version>
+                <scope>provided</scope>
+            </dependency>
             <dependency>
                 <groupId>org.andromda.translationlibraries</groupId>
                 <artifactId>andromda-ocl-query-library</artifactId>
                 <version>${andromda.version}</version>
-                <scope>provided</scope>
+                <scope>runtime</scope>
                 <exclusions>
                     <exclusion>
                         <groupId>log4j</groupId>
@@ -118,7 +141,7 @@
                 <groupId>org.andromda</groupId>
                 <artifactId>andromda-script-wrappers</artifactId>
                 <version>${andromda.version}</version>
-                <scope>provided</scope>
+                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>commons-beanutils</groupId>
@@ -126,9 +149,40 @@
                 <version>1.9.2</version>
             </dependency>
             <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.9</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
                 <groupId>commons-collections</groupId>
                 <artifactId>commons-collections</artifactId>
                 <version>3.2.1</version>
+                <!-- JBoss contains a version which causes a classloader conflict unless not bundled -->
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>commons-digester</groupId>
+                <artifactId>commons-digester</artifactId>
+                <version>2.1</version>
+                <scope>runtime</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>xml-apis</groupId>
+                        <artifactId>xml-apis</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>1.3.1</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.4</version>
             </dependency>
             <dependency>
                 <groupId>commons-lang</groupId>
@@ -142,6 +196,11 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
+                <groupId>commons-validator</groupId>
+                <artifactId>commons-validator</artifactId>
+                <version>1.4.0</version>
+            </dependency>
+            <!--dependency>
                 <groupId>jboss</groupId>
                 <artifactId>jboss-j2ee</artifactId>
                 <version>4.2.2.GA</version>
@@ -152,14 +211,14 @@
                 <artifactId>jbossall-client</artifactId>
                 <version>5.0.0.GA</version>
                 <scope>provided</scope>
-            </dependency>
+            </dependency-->
             <dependency>
                 <groupId>jboss</groupId>
                 <artifactId>jboss-ejb3-client</artifactId>
                 <version>4.2.2.GA</version>
                 <scope>provided</scope>
             </dependency>
-            <dependency>
+            <!--dependency>
                 <groupId>jboss</groupId>
                 <artifactId>jboss-ejb3x</artifactId>
                 <version>4.2.2.GA</version>
@@ -194,7 +253,7 @@
                 <artifactId>jboss-aop-jdk50-client</artifactId>
                 <version>4.2.2.GA</version>
                 <scope>provided</scope>
-            </dependency>
+            </dependency-->
             <!--dependency>
                 <groupId>jboss</groupId>
                 <artifactId>jboss-aspect-jdk50-client</artifactId>
@@ -207,18 +266,12 @@
                 <version>4.0.5-GA</version>
                 <scope>provided</scope>
             </dependency>
-            <dependency>
+            <!--dependency>
                 <groupId>jboss.jbossws</groupId>
                 <artifactId>jboss-jaxrpc</artifactId>
                 <version>2.0.3.GA</version>
                 <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-entitymanager</artifactId>
-                <version>4.3.6.Final</version>
-                <scope>provided</scope>
-            </dependency>
+            </dependency-->
             <dependency>
                 <groupId>xerces</groupId>
                 <artifactId>xercesImpl</artifactId>
@@ -235,32 +288,37 @@
                 <version>1.3</version>
             </dependency>
             <dependency>
-                <groupId>antlr</groupId>
-                <artifactId>antlr</artifactId>
-                <version>2.7.7</version>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>${hibernate.version}</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>commons-digester</groupId>
-                <artifactId>commons-digester</artifactId>
-                <version>2.1</version>
-                <scope>runtime</scope>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${hibernate.version}</version>
                 <exclusions>
+                    <exclusion>
+                        <groupId>javax.transaction</groupId>
+                        <artifactId>jta</artifactId>
+                    </exclusion>
                     <exclusion>
                         <groupId>xml-apis</groupId>
                         <artifactId>xml-apis</artifactId>
                     </exclusion>
                 </exclusions>
+                <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>commons-fileupload</groupId>
-                <artifactId>commons-fileupload</artifactId>
-                <version>1.3.1</version>
-                <scope>runtime</scope>
+                <groupId>net.sf.ehcache.internal</groupId>
+                <artifactId>ehcache-core</artifactId>
+                <version>2.8.3</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>commons-validator</groupId>
-                <artifactId>commons-validator</artifactId>
-                <version>1.4.0</version>
+                <groupId>antlr</groupId>
+                <artifactId>antlr</artifactId>
+                <version>2.7.7</version>
             </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
@@ -348,6 +406,109 @@
                         <artifactId>commons-digester</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <!-- JBoss Dependencies -->
+            <!--dependency>
+                <groupId>org.jboss</groupId>
+                <artifactId>ejb3-persistence</artifactId>
+                <version>4.0.5-GA</version>
+                <scope>provided</scope>
+            </dependency-->
+            <dependency>
+                <groupId>jboss</groupId>
+                <artifactId>jboss-annotations-ejb3</artifactId>
+                <version>4.2.2.GA</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jboss</groupId>
+                <artifactId>jboss-serialization</artifactId>
+                <version>4.2.2.GA</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jboss</groupId>
+                <artifactId>jboss-remoting</artifactId>
+                <version>4.2.2.GA</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jboss</groupId>
+                <artifactId>jboss-aop-jdk50-client</artifactId>
+                <version>4.2.2.GA</version>
+                <scope>provided</scope>
+            </dependency>
+            <!--dependency>
+                <groupId>org.jboss</groupId>
+                <artifactId>jboss-aspect-jdk50-client</artifactId>
+                <version>4.0.5-GA</version>
+                <scope>provided</scope>
+            </dependency-->
+            <dependency>
+                <groupId>org.jboss.client</groupId>
+                <artifactId>jbossall-client</artifactId>
+                <version>5.0.0.GA</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss</groupId>
+                <artifactId>jnp-client</artifactId>
+                <version>4.2.2.GA</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>jboss.jboss-embeddable-ejb3</groupId>
+                <artifactId>jboss-ejb3-all</artifactId>
+                <version>1.0.0.Alpha9</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jboss.jboss-embeddable-ejb3</groupId>
+                <artifactId>thirdparty-all</artifactId>
+                <version>1.0.0.Alpha9</version>
+                <scope>provided</scope>
+            </dependency>
+            <!--dependency>
+                <groupId>org.jboss.microcontainer</groupId>
+                <artifactId>jboss-ejb3-all</artifactId>
+                <version>alpha_9</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jboss.jboss-embeddable-ejb3</groupId>
+                <artifactId>thirdparty-all</artifactId>
+                <version>1.0.0.Alpha9</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.microcontainer</groupId>
+                <artifactId>jms-ra</artifactId>
+                <version>alpha_9</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.microcontainer</groupId>
+                <artifactId>jcainflow</artifactId>
+                <version>alpha_9</version>
+                <scope>provided</scope>
+            </dependency-->
+            <dependency>
+                <groupId>jboss</groupId>
+                <artifactId>jboss-j2ee</artifactId>
+                <version>4.2.2.GA</version>
+                <scope>provided</scope>
+            </dependency>
+            <!--dependency>
+                <groupId>jboss</groupId>
+                <artifactId>jboss-ejb3-client</artifactId>
+                <version>4.2.2.GA</version>
+                <scope>provided</scope>
+            </dependency-->
+            <dependency>
+                <groupId>jboss</groupId>
+                <artifactId>jboss-ejb3x</artifactId>
+                <version>4.2.2.GA</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>struts-menu</groupId>
@@ -454,6 +615,7 @@
                 <!-- See https://github.com/lkwg82/enforcer-maven-plugin. Patched original. Fix cloudbees error on pom download -->
                 <groupId>de.lgohlke.mojo</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${maven-enforcer-plugin.version}</version>
             </plugin>
         </plugins>
     </build>
@@ -467,8 +629,22 @@
     </modules>
     <properties>
         <andromda.version>3.5-SNAPSHOT</andromda.version>
+        <downloadSources>true</downloadSources>
+        <createChecksum>true</createChecksum>
+        <uniqueVersion>false</uniqueVersion>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <testdb.groupId>com.h2database</testdb.groupId>
+        <testdb.artifactId>h2</testdb.artifactId>
+        <testdb.version>1.4.181</testdb.version>
+        <testdb.driver>org.h2.Driver</testdb.driver>
+        <testdb.dialect>org.hibernate.dialect.H2Dialect</testdb.dialect>
+        <!-- See http://www.h2database.com/html/features.html#database_url (mixed mode) -->
+        <testdb.url>jdbc:h2:~/timetracker-ejb3;AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</testdb.url>
+        <testdb.username>sa</testdb.username>
+        <testdb.password>sa</testdb.password>
         <!--
             Change this to generate to the correct MDA database mappings,
+            For H2 use: H2Sql
             For MySql use: MySQL
             For Hypersonic use: HypersonicSql
             For Oracle9i use: Oracle9i
@@ -526,6 +702,12 @@
         <application.version>${project.version}</application.version>
         <dataSource.name>jdbc/${application.id}</dataSource.name>
         <dataSource>java:/${dataSource.name}</dataSource>
+        <!-- hibernate v4 incompatible with JBoss microcontainer logging TRACE -->
+        <!-- hibernate v4.3 NoClassDef org/hibernate/ejb/packaging/PersistenceXmlLoader from EJB3 Container Test org.jboss.ejb3.Ejb3Deployment.initializePersistenceUnits:444. TODO: Migrate to Arquillian -->
+        <!-- TODO EJB3 Container Test: You have not defined a jta-data-source for a JTA enabled persistence context named: UNIT_TEST -->
+        <hibernate.version>4.2.12.Final</hibernate.version>
+        <spring.version>4.0.6.RELEASE</spring.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <profiles>
         <profile>
