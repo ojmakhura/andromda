@@ -1137,7 +1137,7 @@
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
-                <version>1.4.180</version>
+                <version>1.4.181</version>
 #if (!$embeddedJetty)
                 <scope>test</scope>
 #end
@@ -1272,6 +1272,7 @@
                 <!-- See https://github.com/lkwg82/enforcer-maven-plugin. Patched original. Fix cloudbees error on pom download -->
                 <groupId>de.lgohlke.mojo</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${maven-enforcer-plugin.version}</version>
             </plugin>
         </plugins>
     </build>

@@ -150,7 +150,7 @@
                             Applied on: <appliedOnElement>
                     class
                 </appliedOnElement></td></tr><tr><td class="documentation"><documentation>
-                    Defines a custome made interceptor for the business
+                    Defines a custom made interceptor for the business
                     methods of the session bean and message driven
                     bean.
                 </documentation></td></tr></table></div>
@@ -261,7 +261,7 @@
                     callback handler for an entity bean and will
                     be invoked before the entity is created in the
                     database and will cascade to all associated
-                    cascadable entities.
+                    cascadeable entities.
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="PostPersist" class="profileElementTitle">PostPersist</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>
@@ -271,7 +271,7 @@
                     callback handler for an entity bean and will
                     be invoked after the entity is created in the
                     database and will cascade to all associated
-                    cascadable entities.
+                    cascadeable entities.
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="PreRemove" class="profileElementTitle">PreRemove</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>
@@ -281,7 +281,7 @@
                     callback handler for an entity bean and will
                     be invoked before the entity is deleted from the
                     database and will cascade to all associated
-                    cascadable entities.
+                    cascadeable entities.
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="PostRemove" class="profileElementTitle">PostRemove</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>
@@ -291,7 +291,7 @@
                     callback handler for an entity bean and will
                     be invoked after the entity is deleted from the
                     database and will cascade to all associated
-                    cascadable entities.
+                    cascadeable entities.
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="PreUpdate" class="profileElementTitle">PreUpdate</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>
@@ -346,7 +346,7 @@
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="In" class="profileElementTitle">In</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Attribute</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
                     Indicates a Seam component attribute which is to be injected
-                    from a context variable at the begining of each component method
+                    from a context variable at the beginning of each component method
                     invocation.
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="Out" class="profileElementTitle">Out</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
@@ -459,7 +459,7 @@
                             Applied on: <appliedOnElement>Session and Java Beans and Operations</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
                     Specifies that a JavaBean component should have a similar
                     transactional behavior to the default behavior of a session bean
-                    component. ie. method invocations should take place in a
+                    component. i.e. method invocations should take place in a
                     transaction, and if no transaction exists when the method is
                     called, a transaction will be started just for that method. This
                     annotation may be applied at either class or method level.
@@ -516,7 +516,7 @@
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="IntervalDuration" class="profileElementTitle">IntervalDuration</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Operation Parameters</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
                     Specifies that an asynchronous method call recurs, and that the
-                    annotationed parameter is duration between recurrences.
+                    annotated parameter is duration between recurrences.
                 </documentation></td></tr></table></div>
             <div class="profileElement"><table><tr><td class="profileElementTitle"><a name="DataModel" class="profileElementTitle">DataModel</a><a href="#Stereotypes" title="Go to Stereotypes profile element group">(Back to Stereotypes)</a></td></tr><tr><td>
                             Applied on: <appliedOnElement>Session and Java Bean Attributes</appliedOnElement></td></tr><tr><td class="documentation"><documentation>
@@ -842,7 +842,7 @@
                     Specifies whether a mapped column should be included
                     in SQL INSERT statements. Setting to <code>false</code>
                     allows the column to be initialized using other mechanisms
-                    such as a value defaulted by thedatabase. Defaults to
+                    such as a value defaulted by the database. Defaults to
                     <code>true</code>.
                 </documentation></td></tr><tr><td>
                             Allowed values for this element:
@@ -914,7 +914,7 @@
                     binary or character type via datatype::Clob or
                     datatype::Blob respectively.
                     BLOB fields represent Byte[] or Serializable types.
-                    CLOB fiels represent char[], Character[] or String
+                    CLOB fields represent char[], Character[] or String
                     types.
                     Make sure to define the fully qualified type
                     name for the tagged value.
