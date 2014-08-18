@@ -1,6 +1,7 @@
 #if ($umlUtils.shouldOutput($service))
 <?xml version="1.0" encoding="UTF-8"?>
 ##<bindings jxb:version=#if ($cxfVersion.startsWith("2.0"))"2.0"#else"2.1"#end
+#set ($cxf21=$cxfVersion.substring(0,2).compareTo("2.1")>0)
 <bindings jxb:extensionBindingPrefixes="xjc"
     wsdlLocation="../${service.name}.wsdl"
     xmlns="http://java.sun.com/xml/ns/jaxws"
@@ -53,16 +54,16 @@
     <bindings node="wsdl:definitions/wsdl:types/xs:schema[1]">
       <!-- Preserve underscore instead of using it as a word break in class/attribute/literal names -->
       <!-- Generate IsSet methods for optional elements -->
-#if (!$cxfVersion.startsWith("2.0"))
+#if (!$cxf21)
       <!-- CXF 2.1 will not work unless jxb:extensionBindingPrefixes declared here. Causes an error with RAD 7.5. -->
 #end
-      <jxb:globalBindings#if (!$cxfVersion.startsWith("2.0")) jxb:extensionBindingPrefixes="xjc" xmlns:jxb="http://java.sun.com/xml/ns/jaxb" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"#end
+      <jxb:globalBindings#if ($cxf21) jxb:extensionBindingPrefixes="xjc" xmlns:jxb="http://java.sun.com/xml/ns/jaxb" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"#end
 
       choiceContentProperty="false" collectionType="java.util.ArrayList" underscoreBinding="asWordSeparator"
-        enableJavaNamingConventions="true" generateIsSetMethod="false"#if (!$cxfVersion.startsWith("2.0")) generateElementProperty="false"#end>
+        enableJavaNamingConventions="true" generateIsSetMethod="false"#if (!$cxf21) generateElementProperty="false"#end>
         <!-- Add implements Serializable with SerialVersionUID=1L-->
         <jxb:serializable uid="1"/>
-#if ($cxfVersion.startsWith("2.0"))
+#if (!$cxf21)
         <!-- Bug in CXF 2.0.x: bindings are not allowing any xjc: elements. -->
 #elseif ($simpleBindingMode && ($pluralizeAssociationEndNames || $pluralizeAttributeNames || $pluralizeParameterNames))
         <!-- XJC binding extension with simple binding, which prevents most object name collisions by assuming type is uniquely used -->
@@ -85,7 +86,7 @@
 #end
 #else
 #if ($dateMapping.equals("java.util.Date"))
-#if ($cxfVersion.startsWith("2.0"))
+#if (!$cxf21)
         <!-- Requires custom developed datatype bindings for both print and parse methods -->
         <!--jxb:javaType xmlType="xs:date" name="java.util.Date"
                       parseMethod="com.xxx.DatatypeConverter.parseXsDate"
@@ -94,7 +95,7 @@
         <xjc:javaType xmlType="xs:date" name="java.util.Date" adapter="$XMLDateAdapter"/>
 #end
 #elseif ($dateMapping.equals("java.util.Calendar"))
-#if ($cxfVersion.startsWith("2.0"))
+#if (!$cxf21)
         <jxb:javaType xmlType="xs:date" name="java.util.Calendar"
                       parseMethod="javax.xml.bind.DatatypeConverter.parseDate"
                       printMethod="javax.xml.bind.DatatypeConverter.printDate"/>
@@ -118,7 +119,7 @@
 #end
 #else
 #if ($timeMapping.equals("java.util.Date"))
-#if ($cxfVersion.startsWith("2.0"))
+#if (!$cxf21)
         <!-- Requires custom developed datatype bindings -->
         <!--jxb:javaType xmlType="xs:time" name="java.util.Date"
                       parseMethod="com.xxx.DatatypeConverter.parseXsTime"
@@ -127,7 +128,7 @@
         <xjc:javaType xmlType="xs:time" name="java.util.Date" adapter="$XMLTimeAdapter"/>
 #end
 #elseif ($timeMapping.equals("java.util.Calendar"))
-#if ($cxfVersion.startsWith("2.0"))
+#if (!$cxf21)
         <xjc:javaType xmlType="xs:time" name="java.util.Calendar"
                       parseMethod="javax.xml.bind.DatatypeConverter.parseTime"
                       printMethod="javax.xml.bind.DatatypeConverter.printTime"/>
@@ -151,7 +152,7 @@
 #end
 #elseif ($stringUtils.isNotBlank($XMLDateTimeAdapter))
 #if ($datetimeMapping.equals("java.util.Date") || $datetimeMapping.equals("java.sql.Timestamp"))
-#if ($cxfVersion.startsWith("2.0"))
+#if (!$cxf21)
         <!-- Requires custom developed datatype bindings -->
         <!--jxb:javaType xmlType="xs:dateTime" name="java.util.Date"
                       parseMethod="com.xxx.DatatypeConverter.parseXsDateTime"
@@ -160,7 +161,7 @@
         <xjc:javaType xmlType="xs:dateTime" name="java.util.Date" adapter="$XMLDateTimeAdapter"/>
 #end
 #elseif ($datetimeMapping.equals("java.util.Calendar"))
-#if ($cxfVersion.startsWith("2.0"))
+#if (!$cxf21)
         <jxb:javaType xmlType="xs:dateTime" name="$datetimeMapping"
                       parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime"
                       printMethod="javax.xml.bind.DatatypeConverter.printDateTime"/>
@@ -168,7 +169,7 @@
         <xjc:javaType xmlType="xs:dateTime" name="$datetimeMapping" adapter="$XMLDateTimeAdapter"/>
 #end
 ##elseif ($datetimeMapping.equals("java.sql.Timestamp"))
-##if ($cxfVersion.startsWith("2.0"))
+##if (!$cxf21)
 ##        <jxb:javaType xmlType="xs:dateTime" name="java.sql.Timestamp" adapter="$XMLTimestampAdapter"/-->
 ##                      parseMethod="com.xxx.DatatypeConverter.parseTimestamp"
 ##                      printMethod="com.xxx.DatatypeConverter.printTimestamp"/>
@@ -183,7 +184,7 @@
 #if ($stringUtils.isNotBlank($XMLBooleanAdapter))
 #if ($webServiceUtils.getTypeMapping($service.languageMappings, "Boolean").equals("Boolean") || $webServiceUtils.getTypeMapping($service.languageMappings, "Boolean").equals("java.lang.Boolean"))
         <!-- Each boolean attribute with required=false must be bound to Boolean, instead of globally -->
-#if ($cxfVersion.startsWith("2.0"))
+#if (!$cxf21))
         <!--xjc:javaType xmlType="xs:boolean" name="boolean"
                       parseMethod="com.xxx.DatatypeConverter.parseBoolean"
                       printMethod="com.xxx.DatatypeConverter.printBoolean"/-->
@@ -198,7 +199,7 @@
 #if ($stringUtils.isNotBlank($XMLIntegerAdapter))
 #if ($webServiceUtils.getTypeMapping($service.languageMappings, "Integer").equals("Integer") || $webServiceUtils.getTypeMapping($service.languageMappings, "Integer").equals("java.lang.Integer"))
         <!-- Default XJC binding is BigInteger, must match java cartridge mapping -->
-#if ($cxfVersion.startsWith("2.0"))
+#if (!$cxf21)
         <!--xjc:javaType xmlType="xs:integer" name="Integer"
                       parseMethod="com.xxx.DatatypeConverter.parseInteger"
                       printMethod="com.xxx.DatatypeConverter.printInteger"/-->
@@ -210,7 +211,7 @@
 #if ($stringUtils.isNotBlank($XMLDecimalAdapter))
 #if ($webServiceUtils.getTypeMapping($service.languageMappings, "Decimal").equals("Double") || $webServiceUtils.getTypeMapping($service.languageMappings, "Decimal").equals("java.lang.Double"))
         <!-- Default XJC binding is BigInteger, must match java cartridge mapping -->
-#if ($cxfVersion.startsWith("2.0"))
+#if (!$cxf21)
         <!-- Requires custom developed datatype bindings -->
         <!--xjc:javaType xmlType="xs:decimal" name="Double"
                       parseMethod="com.xxx.DatatypeConverter.parseDecimal"

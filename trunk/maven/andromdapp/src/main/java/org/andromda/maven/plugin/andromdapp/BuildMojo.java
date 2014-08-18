@@ -481,7 +481,7 @@ public class BuildMojo
         }
         catch (final Throwable throwable)
         {
-            throw new MojoExecutionException("An error occured while attempting to execute projects", throwable);
+            throw new MojoExecutionException("An error occurred while attempting to execute projects", throwable);
         }
     }
 

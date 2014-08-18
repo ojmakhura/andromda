@@ -303,9 +303,9 @@
                 <version>1.2</version>
             </dependency>
             <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-j2ee</artifactId>
-                <version>4.2.2.GA</version>
+                <groupId>org.jboss.spec</groupId>
+                <artifactId>jboss-javaee-all-7.0</artifactId>
+                <version>1.0.1.Final</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -524,7 +524,7 @@
         rest=$rest
         ear=true
         jbossSeam=$jbossSeam
-        soapStack=$soapStack
+        webserviceStack=$webserviceStack
         -->
         <module>mda</module>
         <module>common</module>

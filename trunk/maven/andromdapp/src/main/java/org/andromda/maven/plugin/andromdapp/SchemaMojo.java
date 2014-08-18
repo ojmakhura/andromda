@@ -257,7 +257,7 @@ public class SchemaMojo
         }
         catch (final Throwable throwable)
         {
-            throw new MojoExecutionException("An error occured while attempting to create the schema", throwable);
+            throw new MojoExecutionException("An error occurred while attempting to create the schema", throwable);
         }
         finally
         {

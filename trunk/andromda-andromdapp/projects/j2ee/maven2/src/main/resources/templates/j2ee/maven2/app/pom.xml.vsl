@@ -39,7 +39,7 @@
             <type>war</type>
         </dependency>
 #end
-#if ($webservice && !$jsr181Webservice)
+#if (!$webservice.equals("none") && !$jsr181Webservice)
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>${applicationId}-webservice</artifactId>
@@ -168,7 +168,7 @@
                             <contextRoot>/${application.id}</contextRoot>
                         </webModule>
 #end
-#if ($webservice && !$jsr181Webservice)
+#if (!$webservice.equals("none") && !$jsr181Webservice)
                         <webModule>
                             <groupId>${project.groupId}</groupId>
                             <artifactId>${project.parent.artifactId}-webservice</artifactId>

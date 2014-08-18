@@ -16,16 +16,17 @@ http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
         <param-value>/WEB-INF/applicationContext-CXF.xml</param-value>
     </context-param> -->
 
-#set ($cxf24=$cxfVersion.substring(0,2).compareTo("2.4")<0)
     <!-- Load CXF Spring configuration files from cxf runtime. Comment out unneeded extensions -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+#set ($cxf24=$cxfVersion.substring(0,2).compareTo("2.4")>0)
 #if ($cxf24)
     <!-- CXF 2.4.x no longer requires the cxf-extension-* declarations -->
-#end
+#else
     <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
-    #if ($cxf24 || !$service.hasStereotype("WSAddressing"))<!--import#else<import#end
- resource="classpath:META-INF/cxf/cxf-extension-addr.xml"#if ($cxf24 || !$service.hasStereotype("WSAddressing"))/-->#else/>#end
+#end
+#if ($cxf24 || !$service.hasStereotype("WSAddressing"))
+    <!--import#else<import#end resource="classpath:META-INF/cxf/cxf-extension-addr.xml"#if ($cxf24 || !$service.hasStereotype("WSAddressing"))/-->#else/>#end
 
     <!--import resource="classpath:META-INF/cxf/cxf-extension-http.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-extension-http-binding.xml"/>

@@ -29,7 +29,7 @@
             <output patterns="**/*">webservice/</output>
         </conditions>
         <conditions>
-            <condition id="soapStack" equal="cxf"/>
+            <condition id="webserviceStack" equal="cxf"/>
             <output patterns="**/*">CXF/</output>
         </conditions>
         <conditions>
@@ -96,7 +96,7 @@
         </conditions>
         <conditions type="or">
             <condition id="transactionPersistenceType" notEqual="none"/>
-            <condition id="soapStack" equal="cxf"/>
+            <condition id="webserviceStack" equal="cxf"/>
             <output patterns="**/*">core</output>
         </conditions>
     </conditionalOutput>
@@ -310,7 +310,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>javadb</response>
                 </responses>
             </prompt>
-            <!--prompt id="testDatabase" setResponseAsTrue="true">
+            <prompt id="testDatabase" setResponseAsTrue="true">
                 <text>Please enter the in-memory database to be used for unit and local integration testing</text>
                 <shortText>Test Database</shortText>
                 <preconditions type="and">
@@ -326,7 +326,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>derby</response>
                     <response>mysql</response>
                 </responses>
-            </prompt-->
+            </prompt>
             <prompt id="web">
                 <text>Will your project have a web user interface?</text>
                 <shortText>Web interface</shortText>
@@ -354,18 +354,20 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 </responses>
             </prompt>
             <prompt id="webservice">
-                <text>Would you like to be able to expose your services as web services?</text>
-                <shortText>Enable web services</shortText>
-                <responses type="java.lang.Boolean">
-                    <response>yes</response>
-                    <response>no</response>
+                <text>What type of webservices would you like to be able to expose your services as?</text>
+                <shortText>Web services type</shortText>
+                <responses type="java.lang.String">
+                    <response>soap</response>
+                    <response>rest</response>
+                    <response>both</response>
+                    <response>none</response>
                 </responses>
             </prompt>
             <prompt id="jsr181Webservice" setResponseAsTrue="false">
                 <text>Would you like to use the JSR181 (webservice defined by annotations) EJB3 cartridge specific implementation?</text>
                 <shortText>JSR181 compliant webservices</shortText>
                 <preconditions type="and">
-                    <condition id="webservice" equal="true"/>
+                    <condition id="webservice" notEqual="none"/>
                     <condition id="transactionPersistenceType" equal="ejb3"/>
                 </preconditions>
                 <responses type="java.lang.Boolean">
@@ -373,25 +375,25 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>no</response>
                 </responses>
             </prompt>
-            <prompt id="soapStack"  setResponseAsTrue="true">
-                <text>Would you like to use Axis, XFire, CXF, or Sun's Jax-WS as your SOAP Stack?</text>
+            <prompt id="webserviceStack"  setResponseAsTrue="true">
+                <text>Would you like to use Axis, XFire, CXF, or Sun's Jax-WS as your Webservice Stack?</text>
                 <shortText>SOAP stack</shortText>
                 <preconditions type="and">
-                    <condition id="webservice" equal="true"/>
+                    <condition id="webservice" notEqual="none"/>
                     <condition id="jsr181Webservice" notEqual="true"/>
                 </preconditions>
                 <responses>
-                    <response>axis</response>
-                    <response>xfire</response>
                     <response>cxf</response>
+                    <response>axis</response>
                     <response>jaxws</response>
+                    <response>xfire</response>
                 </responses>
             </prompt>
             <prompt id="axisVersion">
                 <text>Would you like to use Axis 1.x or Axis 2.x (enter '1' for 1.x or '2' for 2.x)?</text>
                 <shortText>Axis version</shortText>
                 <preconditions>
-                    <condition id="soapStack" equal="axis"/>
+                    <condition id="webserviceStack" equal="axis"/>
                 </preconditions>
                 <responses>
                     <response>1</response>
@@ -402,8 +404,9 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 <text>What is your JAX-WS REST provider/consumer media type?
 (none for JAX-WS only, xml for JAX-RS only, or appxml, json, atom, plain, multipart, fastinfoset, yaml)</text>
                 <shortText>REST Media type</shortText>
-                <preconditions>
-                    <condition id="soapStack" equal="cxf"/>
+                <preconditions type="or">
+                    <condition id="webservice" equal="rest"/>
+                    <condition id="webservice" equal="both"/>
                 </preconditions>
                 <responses>
                     <response>none</response>
@@ -422,7 +425,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 <shortText>Use the Jetty web server</shortText>
                 <preconditions type="or">
                     <condition id="jsfApplicationType" equal="standalone"/>
-                    <condition id="soapStack" equal="cxf"/>
+                    <condition id="webserviceStack" equal="cxf"/>
                 </preconditions>
                 <responses type="java.lang.Boolean">
                     <response>yes</response>

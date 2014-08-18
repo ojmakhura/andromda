@@ -31,49 +31,9 @@
             <artifactId>commons-logging</artifactId>
         </dependency>
         <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-j2ee</artifactId>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-all-7.0</artifactId>
         </dependency>
-        <!--dependency>
-            <groupId>org.jboss.client</groupId>
-            <artifactId>jbossall-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss</groupId>
-            <artifactId>jboss-ejb3-client</artifactId>
-        </dependency-->
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-ejb3x</artifactId>
-        </dependency>
-        <!--dependency>
-            <groupId>org.jboss</groupId>
-            <artifactId>ejb3-persistence</artifactId>
-        </dependency-->
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-annotations-ejb3</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-serialization</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-remoting</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss</groupId>
-            <artifactId>jnp-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-aop-jdk50-client</artifactId>
-        </dependency>
-        <!--dependency>
-            <groupId>org.jboss</groupId>
-            <artifactId>jboss-aspect-jdk50-client</artifactId>
-        </dependency-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>

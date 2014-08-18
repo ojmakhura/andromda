@@ -66,6 +66,7 @@
                             <goals>
                                 <goal>clean</goal>
                             </goals>
+                            <failOnError>false</failOnError>
                         </configuration>
                     </execution>
                     <execution>
@@ -101,6 +102,33 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <!-- Clean any generated project files that are regenerated each time -->
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <includes>
+                                <include>**/*.exc</include>
+                                <include>**/*.log</include>
+                                <include>**/*.class</include>
+                                <include>**/*.ref</include>
+                                <include>**/target</include>
+                                <include>**/pom.xml</include>
+                                <include>**/build.bat</include>
+                                <include>**/readme.txt</include>
+                                <include>**/m2eclipse.bat</include>
+                            </includes>
+                            <excludes>
+                                <exclude>conf/**</exclude>
+                                <exclude>deployment-cartridge/**</exclude>
+                                <exclude>pom.xml</exclude>
+                            </excludes>
+                        </fileset>
+                    </filesets>
+                    <failOnError>false</failOnError>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>

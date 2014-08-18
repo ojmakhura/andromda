@@ -99,6 +99,13 @@
                 <groupId>org.apache.myfaces.tomahawk</groupId>
                 <artifactId>tomahawk12</artifactId>
                 <version>1.1.13</version>
+                <exclusions>
+                    <!-- See http://swordsystems.com/2011/06/29/xerces-and-xml-api-dependency-hell/ -->
+                    <exclusion>
+                        <groupId>xml-apis</groupId>
+                        <artifactId>xmlParserAPIs</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <!-- validation dependencies -->
             <dependency>
@@ -377,107 +384,11 @@
                 </exclusions>
             </dependency>
             <!-- JBoss Dependencies -->
-            <!--dependency>
-                <groupId>org.jboss</groupId>
-                <artifactId>ejb3-persistence</artifactId>
-                <version>4.0.5-GA</version>
-                <scope>provided</scope>
-            </dependency-->
             <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-annotations-ejb3</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-serialization</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-remoting</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-aop-jdk50-client</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <!--dependency>
-                <groupId>org.jboss</groupId>
-                <artifactId>jboss-aspect-jdk50-client</artifactId>
-                <version>4.0.5-GA</version>
-                <scope>provided</scope>
-            </dependency-->
-            <dependency>
-                <groupId>org.jboss.client</groupId>
-                <artifactId>jbossall-client</artifactId>
-                <version>5.0.0.GA</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss</groupId>
-                <artifactId>jnp-client</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>jboss.jboss-embeddable-ejb3</groupId>
-                <artifactId>jboss-ejb3-all</artifactId>
-                <version>1.0.0.Alpha9</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>jboss.jboss-embeddable-ejb3</groupId>
-                <artifactId>thirdparty-all</artifactId>
-                <version>1.0.0.Alpha9</version>
-                <scope>provided</scope>
-            </dependency>
-            <!--dependency>
-                <groupId>org.jboss.microcontainer</groupId>
-                <artifactId>jboss-ejb3-all</artifactId>
-                <version>alpha_9</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>jboss.jboss-embeddable-ejb3</groupId>
-                <artifactId>thirdparty-all</artifactId>
-                <version>1.0.0.Alpha9</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.microcontainer</groupId>
-                <artifactId>jms-ra</artifactId>
-                <version>alpha_9</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.microcontainer</groupId>
-                <artifactId>jcainflow</artifactId>
-                <version>alpha_9</version>
-                <scope>provided</scope>
-            </dependency-->
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-j2ee</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <!--dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-ejb3-client</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency-->
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-ejb3x</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
+              <groupId>org.jboss.spec</groupId>
+              <artifactId>jboss-javaee-all-7.0</artifactId>
+              <version>1.0.1.Final</version>
+              <scope>provided</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -560,7 +471,7 @@
         rest=$rest
         ear=true
         jbossSeam=false
-        soapStack=$soapStack
+        webserviceStack=$webserviceStack
         -->
         <module>mda</module>
         <module>common</module>
@@ -647,7 +558,7 @@
         <!-- hibernate v4 incompatible with JBoss microcontainer logging TRACE -->
         <!-- hibernate v4.3 NoClassDef org/hibernate/ejb/packaging/PersistenceXmlLoader from EJB3 Container Test org.jboss.ejb3.Ejb3Deployment.initializePersistenceUnits:444. TODO: Migrate to Arquillian -->
         <!-- TODO EJB3 Container Test: You have not defined a jta-data-source for a JTA enabled persistence context named: UNIT_TEST -->
-        <hibernate.version>4.2.12.Final</hibernate.version>
+        <hibernate.version>4.3.6.Final</hibernate.version>
         <spring.version>4.0.6.RELEASE</spring.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>

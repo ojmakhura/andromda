@@ -58,7 +58,7 @@ mkdir web\src\main\java
 mkdir web\target\src\main\java
 
 #end
-#if ($webservice)
+#if (!$webservice.equals("none"))
 mkdir webservice\src\main\java
 mkdir webservice\src\test\java
 mkdir webservice\target\src\main\java

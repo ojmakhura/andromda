@@ -234,7 +234,7 @@ public class SymbolicLinkExplodedEarMojo
         }
         catch (Exception exception)
         {
-            throw new MojoExecutionException("A failure occured while trying to link the ear", exception);
+            throw new MojoExecutionException("A failure occurred while trying to link the ear", exception);
         }
     }
 

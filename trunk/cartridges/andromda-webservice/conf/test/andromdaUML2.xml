@@ -67,7 +67,7 @@
     </namespace>
     <namespace name="webservice">
       <properties>
-        <property name="soapStack">cxf</property>
+        <property name="webserviceStack">cxf</property>
         <property name="cxfVersion">${cxf.version}</property>
         <!--CXF Only - supports SOAP 1.1 and 1.2. Default=1.1>
         <property name="soapVersion">1.2</property-->

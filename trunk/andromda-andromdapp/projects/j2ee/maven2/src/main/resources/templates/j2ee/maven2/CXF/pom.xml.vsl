@@ -45,27 +45,87 @@
         </dependency>
 
         <!-- Depending on your requirements you may need more or less modules from cxf -->
+#if ($webservice.equals("soap") || $webservice.equals("both"))
         <dependency>
             <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-bundle</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-server</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-io</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-continuation</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-http</artifactId>
-                </exclusion>
-            </exclusions>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+        </dependency>
+        <!-- Tools not included within a single dependency - annoying -->
+        <dependency>
+           <groupId>org.apache.cxf</groupId>
+           <artifactId>cxf-tools-validator</artifactId>
+           <version>${cxf.version}</version>
+           <scope>provided</scope>
+        </dependency>
+        <dependency>
+           <groupId>org.apache.cxf</groupId>
+           <artifactId>cxf-tools-java2ws</artifactId>
+           <version>${cxf.version}</version>
+           <scope>provided</scope>
+#end
+#if($webservice.equals("rest") || $webservice.equals("both"))
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+        </dependency>
+#end
+        </dependency>
+        <!-- Jetty is needed for building/testing the CXFServlet (creates geronimo dependencies) -->
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>${jetty.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-webapp</artifactId>
+            <version>${jetty.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-continuation</artifactId>
+            <version>${jetty.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-http</artifactId>
+            <version>${jetty.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-io</artifactId>
+            <version>${jetty.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-util</artifactId>
+            <version>${jetty.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-security</artifactId>
+            <version>${jetty.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Tomcat contains this dependency, but not Jetty -->
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>el-api</artifactId>
+            <version>2.2.1-b04</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Otherwise when we launch jetty we get 'Could not load extension class org.apache.cxf.javascript.JavascriptServerListener.' -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-javascript</artifactId>
+            <version>${cxf.version}</version>
+            <scope>test</scope>
         </dependency>
 #end
         <dependency>
@@ -89,6 +149,7 @@
                     <packagingExcludes>**/*.java,**/*.ref,**/andromda-*.jar,**/active*.jar,**/antlr*.jar,**/backport*.jar,**/bsh*.jar,**/*-pool.jar,**/cxf-rt*.jar,**/cxf-api*.jar,**/cxf-common*.jar,**/cxf-tools*.jar,**/dom4j*.jar,**/ehcache*.jar,**/geronimo-servlet*.jar,**/geronimo-jms*.jar,**/groovy*.jar,**/jaxb-xjc*.jar,**/jetty*.jar,**/jaxen*.jar,**/jdom*.jar,**/qdox*.jar,**/spring-2.0.8.jar,**/xalan*.jar,**/xerces*.jar, **/xml-api*.jar,**/xmlbean*.jar,**/xmlsec*.jar</packagingExcludes>
                 </configuration>
             </plugin>
+#if ($webservice.equals("soap") || $webservice.equals("both"))
             <!-- Run the generated buildWS ant script which runs CXF wsdl2java and java2ws -->
             <plugin>
               <artifactId>maven-antrun-plugin</artifactId>
@@ -116,6 +177,7 @@
                 </execution>
               </executions>
             </plugin>
+#end
             <!-- See http://wiki.eclipse.org/Jetty/Reference and http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin -->
             <!-- Must start webservice server project from CXF client project in order to execute all phases properly in a single project -->
             <!-- All phases before test-compile executed twice, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=342643 -->
@@ -134,14 +196,14 @@
                        </connector>
                     </connectors>
                     <webAppSourceDirectory>${project.parent.basedir}/webservice/src/main/webapp</webAppSourceDirectory>
-                    <webAppConfig>
-                        <overrideDescriptor>${project.parent.basedir}/webservice/src/main/webapp/WEB-INF/web.xml</overrideDescriptor>
+                    <webApp>
                         <contextPath>/${project.parent.artifactId}-webservice</contextPath>
-                    </webAppConfig>
+                    </webApp>
                     <useTestClasspath>true</useTestClasspath>
-                    <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <scanIntervalSeconds>5</scanIntervalSeconds>
                     <stopKey>foo</stopKey>
                     <stopPort>9999</stopPort>
+                    <stopWait>5</stopWait>
                 </configuration>
                 <executions>
                     <execution>

@@ -40,18 +40,6 @@
                     <groupId>net.sf.ehcache</groupId>
                     <artifactId>ehcache</artifactId>
                 </exclusion>
-                <exclusion>
-                    <groupId>jboss.jboss-embeddable-ejb3</groupId>
-                    <artifactId>hibernate-all</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>jboss.jboss-embeddable-ejb3</groupId>
-                    <artifactId>jboss-ejb3-all</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>jboss.jboss-embeddable-ejb3</groupId>
-                    <artifactId>thirdparty-all</artifactId>
-                </exclusion>
             </exclusions>
         </dependency>
         <dependency>

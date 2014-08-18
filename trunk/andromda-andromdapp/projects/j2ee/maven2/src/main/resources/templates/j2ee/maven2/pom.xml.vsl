@@ -183,14 +183,12 @@
                 <groupId>org.apache.myfaces.tomahawk</groupId>
                 <artifactId>tomahawk20</artifactId>
                 <version>1.1.13</version>
-#if($ear)
                 <exclusions>
                     <exclusion>
                         <groupId>xml-apis</groupId>
                         <artifactId>xmlParserAPIs</artifactId>
                     </exclusion>
                 </exclusions>
-#end
             </dependency>
             <!-- validation dependencies -->
             <dependency>
@@ -380,98 +378,10 @@
             </dependency>
             <!-- JBoss Dependencies -->
             <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-j2ee</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <!--dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-ejb3-client</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency-->
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-ejb3x</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-serialization</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-remoting</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-aop-jdk50-client</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <!--dependency>
-                <groupId>org.jboss</groupId>
-                <artifactId>jboss-aspect-jdk50-client</artifactId>
-                <version>4.0.5-GA</version>
-                <scope>provided</scope>
-            </dependency-->
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jbossall-client</artifactId>
-                <version>5.0.0.GA</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jnp-client</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>runtime</scope>
-            </dependency>
-#if ($jsr181Webservice || $jaxws)
-            <!-- Webservice JBossWS Dependencies -->
-            <dependency>
-                <groupId>org.jboss.ws</groupId>
-                <artifactId>jbossws-framework</artifactId>
-                <version>3.4.1.GA</version>
-                <scope>provided</scope>
-            </dependency>
-#end
-            <!-- Embedded Microcontainer Dependencies -->
-            <dependency>
-                <groupId>org.jboss.microcontainer</groupId>
-                <artifactId>hibernate-all</artifactId>
-                <version>alpha_9</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.microcontainer</groupId>
-                <artifactId>jboss-ejb3-all</artifactId>
-                <version>alpha_9</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.microcontainer</groupId>
-                <artifactId>thirdparty-all</artifactId>
-                <version>alpha_9</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.microcontainer</groupId>
-                <artifactId>jms-ra</artifactId>
-                <version>alpha_9</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.microcontainer</groupId>
-                <artifactId>jcainflow</artifactId>
-                <version>alpha_9</version>
-                <scope>provided</scope>
+              <groupId>org.jboss.spec</groupId>
+              <artifactId>jboss-javaee-all-7.0</artifactId>
+              <version>1.0.1.Final</version>
+              <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>net.sf.ehcache.internal</groupId>
@@ -489,9 +399,9 @@
 #end
 #else
             <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-j2ee</artifactId>
-                <version>4.2.2.GA</version>
+                <groupId>org.jboss.spec</groupId>
+                <artifactId>jboss-javaee-all-7.0</artifactId>
+                <version>1.0.1.Final</version>
                 <scope>provided</scope>
             </dependency>
 #end
@@ -948,115 +858,32 @@
                 <artifactId>aopalliance</artifactId>
                 <version>1.0</version>
             </dependency -->
+#if ($webservice.equals("soap") || $webservice.equals("both"))
             <dependency>
                 <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-bundle</artifactId>
+                <artifactId>cxf-rt-frontend-jaxws</artifactId>
                 <version>${cxf.version}</version>
                 <exclusions>
-                    <!--Remove exclusion if using JavaMail or MTOM/SAAJ -->
+                    <!--Remove exclusion if using WSSecurity or WSPolicy -->
                     <exclusion>
-                        <groupId>org.apache.geronimo.specs</groupId>
-                        <artifactId>geronimo-javamail_1.4_spec</artifactId>
+                        <groupId>org.apache.cxf</groupId>
+                        <artifactId>cxf-rt-ws-addr</artifactId>
                     </exclusion>
                     <!--Jetty should not be compile scope, should not be bundled-->
                     <exclusion>
-                        <groupId>org.eclipse.jetty</groupId>
-                        <artifactId>jetty-server</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.jetty</groupId>
-                        <artifactId>jetty-continuation</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.jetty</groupId>
-                        <artifactId>jetty-http</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.jetty</groupId>
-                        <artifactId>jetty-io</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.jetty</groupId>
-                        <artifactId>jetty-util</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.jetty</groupId>
-                        <artifactId>jetty-security</artifactId>
-                    </exclusion>
-                    <!--Remove exclusions if using JMS-->
-                    <exclusion>
-                        <groupId>org.apache.geronimo.specs</groupId>
-                        <artifactId>geronimo-jms_1.1_spec</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-jms</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-tx</artifactId>
-                    </exclusion>
-                    <!-- Now part of spring-core, no new versions after v3.2 -->
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-asm</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.activemq</groupId>
-                        <artifactId>activemq-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>commons-pool</groupId>
-                        <artifactId>commons-pool</artifactId>
-                    </exclusion>
-                    <!-- Remove exclusion if using Apache Abdera for REST -->
-                    <exclusion>
-                        <groupId>org.apache.abdera</groupId>
-                        <artifactId>abdera-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.abdera</groupId>
-                        <artifactId>abdera-i18n</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.abdera</groupId>
-                        <artifactId>abdera-parser</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.abdera</groupId>
-                        <artifactId>abdera-extensions-main</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.abdera</groupId>
-                        <artifactId>abdera-extensions-json</artifactId>
-                    </exclusion>
-                    <!-- Remove exclusion if using REST -->
-                    <exclusion>
-                        <groupId>org.apache.ws.commons.axiom</groupId>
-                        <artifactId>axiom-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.ws.commons.axiom</groupId>
-                        <artifactId>axiom-impl</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>jaxen</groupId>
-                        <artifactId>jaxen</artifactId>
-                    </exclusion>
-                    <!-- CXF 2.7.5 references outdated version 2.5.1. groupId changed in v2.7 -->
-                    <exclusion>
-                        <groupId>net.sf.ehcache</groupId>
-                        <artifactId>ehcache-core</artifactId>
+                        <groupId>org.apache.cxf</groupId>
+                        <artifactId>cxf-rt-ws-policy</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
-            <!-- CXF bundle dependencies needed for build that should not be bundled with artifact, especially for WebSphere-->
+#end
+#if($webservice.equals("rest") || $webservice.equals("both"))
             <dependency>
-                <groupId>org.apache.geronimo.specs</groupId>
-                <artifactId>geronimo-servlet_3.0_spec</artifactId>
-                <version>1.0</version>
-                <scope>provided</scope>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+                <version>${cxf.version}</version>
             </dependency>
+#end
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-server</artifactId>
@@ -1079,12 +906,6 @@
 #end
             <!-- Should be either in the JDK6 runtime, or deployed on the AppServer already -->
             <dependency>
-                <groupId>com.sun.xml.bind</groupId>
-                <artifactId>jaxb-xjc</artifactId>
-                <version>2.2.10-b140310.1920</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
                 <groupId>xerces</groupId>
                 <artifactId>xercesImpl</artifactId>
                 <version>2.11.0</version>
@@ -1093,7 +914,8 @@
             <dependency>
                 <groupId>xml-apis</groupId>
                 <artifactId>xml-apis</artifactId>
-                <version>2.0.2</version>
+                <!-- version 1.x is NEWER than 2.0.x in maven Central. See http://swordsystems.com/2011/06/29/xerces-and-xml-api-dependency-hell/ -->
+                <version>1.4.01</version>
                 <scope>provided</scope>
             </dependency>
 #end
@@ -1231,8 +1053,10 @@
                            </connector>
                         </connectors>
                         <useProvidedScope>true</useProvidedScope>
+                        <scanIntervalSeconds>5</scanIntervalSeconds>
                         <stopKey>foo</stopKey>
                         <stopPort>9999</stopPort>
+                        <stopWait>5</stopWait>
                     </configuration>
                     <executions>
                         <execution>
@@ -1297,7 +1121,7 @@
         cxf=$cxf
         rest=$rest
         jbossSeam=$jbossSeam
-        soapStack=$soapStack
+        webserviceStack=$webserviceStack
         embeddedJetty=$embeddedJetty
         -->
         <module>mda</module>
@@ -1308,7 +1132,7 @@
 #if ($jsf)
         <module>web</module>
 #end
-#if ($webservice && !$jsr181Webservice && ($ear || $cxf))
+#if (!$webservice.equals("none") && !$jsr181Webservice && ($ear || $cxf))
         <module>webservice</module>
 #if ($cxf)
         <module>CXF</module>
@@ -1522,8 +1346,8 @@
         -->
 #end
 #if ($cxf)
-        <cxf.version>2.7.12</cxf.version>
-        <cxf.xjc.version>2.7.0</cxf.xjc.version>
+        <cxf.version>3.0.1</cxf.version>
+        <cxf.xjc.version>3.0.1</cxf.xjc.version>
 #end
 #if ($spring)
         <!-- Set andromda.xml hibernateVersion=4, sessionFactory and localTransactionManager to hibernate4.
@@ -1779,13 +1603,13 @@
                     org.jboss.resource.adapter.jdbc.NullExceptionSorter
 #end
                 </jdbc.exception.sorter>
-#if ($webservice)
+#if (!$webservice.equals("none"))
                 <!-- Change this to the host on which your webapp/service will be deployed -->
                 <service.host>localhost</service.host>
 #end
 #if ($cxf || $embeddedJetty)
                 <!-- Change this the port on which your webapp/service will be deployed -->
-                <service.port>9090</service.port>
+                <service.port>8080</service.port>
 #end
             </properties>
             <build>

@@ -147,7 +147,7 @@
          |              configuration files are generated here
          |
 #end
-#if ($webservice)
+#if (!$webservice.equals("none"))
          +-- /webservice
          |     |
          |     |    The WEBSERVICE module collects those resources and

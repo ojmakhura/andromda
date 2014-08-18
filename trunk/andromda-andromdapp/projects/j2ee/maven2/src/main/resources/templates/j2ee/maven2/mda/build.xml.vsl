@@ -21,7 +21,12 @@ Customize as necessary - it is generated once only, when the project is created.
 
 #if ($cxf)
   <path id="cxf.classpath">
-    <pathelement location="${m2repo}/org/apache/cxf/cxf-bundle/${cxf.version}/cxf-bundle-${cxf.version}.jar"/>
+#if ($webservice.equals("soap") || $webservice.equals("both"))
+    <pathelement location="${m2repo}/org/apache/cxf/cxf-rt-frontend-jaxws/${cxf.version}/cxf-rt-frontend-jaxws-${cxf.version}.jar"/>
+#end
+#if($webservice.equals("rest") || $webservice.equals("both"))
+    <pathelement location="${m2repo}/org/apache/cxf/cxf-rt-frontend-jaxrs/${cxf.version}/cxf-rt-frontend-jaxrs-${cxf.version}.jar"/>
+#end
     <pathelement location="${m2repo}/commons-lang/commons-lang/2.6/commons-lang-2.6.jar"/>
     <fileset dir="${m2repo}/org/andromda/thirdparty/jaxb-commons">
         <include name="**/*.jar"/>
@@ -158,7 +163,7 @@ Customize as necessary - it is generated once only, when the project is created.
     <!-- Rename log file so that it won't be automatically overwritten on multiple runs -->
     <move file="${project}/mda/andromda.log"
       tofile="${project}/mda/andromda${timestamp}.log" failonerror="false" verbose="true" preservelastmodified="true"/>
-#if ($webservice)
+#if (!$webservice.equals("none"))
     <move file="${project}/mda/andromda-webservice.log"
       tofile="${project}/mda/andromda-webservice${timestamp}.log" failonerror="false" verbose="true" preservelastmodified="true"/>
 #end
@@ -241,7 +246,7 @@ Customize as necessary - it is generated once only, when the project is created.
         </classpath>
     </javac-->
 #end
-#if ($webservice)
+#if (!$webservice.equals("none"))
     <echo message="Refreshing and building project ${application.id}-webservice"/>
     <mkdir dir="${andromda.project}/webservice/src/main/java"/>
     <mkdir dir="${andromda.project}/webservice/target/src/main/java"/>

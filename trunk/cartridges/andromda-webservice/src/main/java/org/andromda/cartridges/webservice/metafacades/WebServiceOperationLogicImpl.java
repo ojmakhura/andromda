@@ -587,8 +587,8 @@ public class WebServiceOperationLogicImpl
     protected boolean handleIsWebFaultOnAllExceptions()
     {
         boolean result = true;
-        String soapStack = String.valueOf(this.getConfiguredProperty("soapStack"));
-        if (soapStack.equals("cxf") || soapStack.equals("jaxws"))
+        String webserviceStack = String.valueOf(this.getConfiguredProperty("webserviceStack"));
+        if (webserviceStack.equals("cxf") || webserviceStack.equals("jaxws"))
         {
             Collection<ModelElementFacade> exceptions = this.getExceptions();
             for (ModelElementFacade exception : exceptions)

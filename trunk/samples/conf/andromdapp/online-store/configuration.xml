@@ -12,7 +12,7 @@
         <property name="applicationType">war</property>
         <property name="transactionPersistenceType">none</property>
         <property name="web">yes</property>
-        <property name="webservice">no</property>
+        <property name="webservice">none</property>
         <property name="model">jar:file:${project.basedir}/src/main/uml/online-store.xml.zip!/online-store.xml</property>
         <property name="databaseType">h2</property>
         <property name="testDatabase">h2</property>

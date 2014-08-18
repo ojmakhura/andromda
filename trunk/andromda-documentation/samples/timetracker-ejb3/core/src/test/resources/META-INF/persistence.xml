@@ -11,7 +11,7 @@
     version="2.0">
     <persistence-unit name="UNIT_TEST" transaction-type="RESOURCE_LOCAL">
         <!-- Can't use h4 org.hibernate.jpa.HibernatePersistenceProvider with hibernate3 maven plugin -->
-        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!--jta-data-source>java:/jdbc/timetracker-ejb3</jta-data-source>
         <non-jta-data-source>java:/jdbc/timetracker-ejb3</non-jta-data-source-->
         <!-- Entity list needed for testing in J2SE environment entities=3-->

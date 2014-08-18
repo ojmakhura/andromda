@@ -399,7 +399,7 @@ public class AndroMDAppType
                                 }
                                 catch (final Throwable throwable)
                                 {
-                                    throw new AndroMDAppException("An error occured while processing template --> '" +
+                                    throw new AndroMDAppException("An error occurred while processing template --> '" +
                                         path + "' with template context '" + this.templateContext + '\'', throwable);
                                 }
                                 writer.flush();

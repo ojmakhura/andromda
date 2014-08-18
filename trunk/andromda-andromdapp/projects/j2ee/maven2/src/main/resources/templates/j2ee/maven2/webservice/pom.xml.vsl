@@ -55,51 +55,18 @@
             <artifactId>spring-jms</artifactId>
             <version>${spring.version}</version>
         </dependency-->
+#if ($webservice.equals("soap") || $webservice.equals("both"))
         <dependency>
             <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-bundle</artifactId>
-            <exclusions>
-                <!-- Spring components cause classloader issue with Jetty test, just include spring bundle -->
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-beans</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-context</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-context-support</artifactId>
-                </exclusion>
-#if ($spring)
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-dao</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-jms</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-pool</artifactId>
-                </exclusion>
-#end
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-tx</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-web</artifactId>
-                </exclusion>
-            </exclusions>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
         </dependency>
+#end
+#if($webservice.equals("rest") || $webservice.equals("both"))
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+        </dependency>
+#end
         <!-- Jetty is needed for building/testing the CXFServlet (creates geronimo dependencies) -->
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
@@ -141,6 +108,13 @@
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-security</artifactId>
             <version>${jetty.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Tomcat contains this dependency, but not Jetty -->
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>el-api</artifactId>
+            <version>2.2.1-b04</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -196,9 +170,10 @@
                     </archive>
                 </configuration>
             </plugin>
-            <!-- See http://wiki.eclipse.org/Jetty/Reference and http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin -->
+            <!-- See http://wiki.eclipse.org/Jetty/Reference and http://www.eclipse.org/jetty/documentation/current/jetty-maven-plugin.html -->
             <!-- If you see ClassNotFoundException: org.springframework.web.context.ContextLoaderListener
                 and are running maven2, switch jetty.version to 7.x. v8 requires maven3 -->
+            <!-- Jetty v9: Not possible to configure jetty port through maven, doesn't run jetty.xml properly -->
 #if ($embeddedJetty)
             <plugin>
 #else
@@ -214,14 +189,14 @@
                        </connector>
                     </connectors>
                     <webAppSourceDirectory>${project.basedir}/src/main/webapp</webAppSourceDirectory>
-                    <webAppConfig>
-                        <overrideDescriptor>${project.basedir}/src/main/webapp/WEB-INF/web.xml</overrideDescriptor>
+                    <webApp>
                         <contextPath>/${project.artifactId}</contextPath>
-                    </webAppConfig>
+                    </webApp>
                     <useTestClasspath>true</useTestClasspath>
-                    <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <scanIntervalSeconds>5</scanIntervalSeconds>
                     <stopKey>foo</stopKey>
                     <stopPort>9999</stopPort>
+                    <stopWait>5</stopWait>
                 </configuration>
                 <executions>
                     <execution>
