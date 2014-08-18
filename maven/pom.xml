@@ -168,7 +168,8 @@
             <dependency>
                 <groupId>xml-apis</groupId>
                 <artifactId>xml-apis</artifactId>
-                <version>2.0.2</version>
+                <!-- version 1.x is NEWER than 2.0.x in maven Central. See http://swordsystems.com/2011/06/29/xerces-and-xml-api-dependency-hell/ -->
+                <version>1.4.01</version>
                 <scope>runtime</scope>
             </dependency>
             <!-- Avoid NoClassDefFoundError: org/w3c/dom/ElementTraversal during log4j initialization-->
@@ -177,6 +178,12 @@
                 <artifactId>batik-ext</artifactId>
                 <version>1.7</version>
                 <scope>runtime</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>xml-apis</groupId>
+                        <artifactId>xmlParserAPIs</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -221,7 +228,7 @@
         </plugins>
     </reporting>
     <properties>
-        <!-- v3.0: org.apache.maven.plugin.PluginParameterException: The parameters 'modelArchivePattern', 'replaceExtensions', 'modelFilePattern', 'replacementExtensions' 
+        <!-- v3.0: org.apache.maven.plugin.PluginParameterException: The parameters 'modelArchivePattern', 'replaceExtensions', 'modelFilePattern', 'replacementExtensions'
         for goal org.andromda.maven.plugins:andromda-model-archiver-plugin:3.5-SNAPSHOT:xml.zip -->
         <maven-plugin-plugin.version>2.9</maven-plugin-plugin.version>
     </properties>

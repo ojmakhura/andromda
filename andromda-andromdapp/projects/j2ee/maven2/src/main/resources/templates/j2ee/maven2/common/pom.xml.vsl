@@ -27,11 +27,18 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
         </dependency>
-#if ($cxf)
+#if ($cxf && ($webservice.equals("soap") || $webservice.equals("both")))
         <!-- XMLBindingAnnotations dependencies -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-bundle</artifactId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+        </dependency>
+        <!-- Needed to compile Adapter classes, not at runtime -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-tools-common</artifactId>
+            <version>${cxf.version}</version>
+            <scope>provided</scope>
         </dependency>
 #end
     </dependencies>

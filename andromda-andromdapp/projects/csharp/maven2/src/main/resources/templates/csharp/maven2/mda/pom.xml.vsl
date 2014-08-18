@@ -36,7 +36,7 @@
             <artifactId>andromda-jbpm-cartridge</artifactId>
         </dependency>
 #end
-#if ($webservice)
+#if (!$webservice.equals("none"))
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-webservice-cartridge</artifactId>
@@ -112,7 +112,7 @@
         <workflow.generated.dir>${project.build.sourceDirectory}/../../../../workflow/target/src</workflow.generated.dir>
         <workflow.manual.dir>${project.build.sourceDirectory}/../../../../workflow/src/main/java</workflow.manual.dir>
 #end
-#if ($webservice)
+#if (!$webservice.equals("none"))
         <webservice.generated.dir>${project.build.sourceDirectory}/../../../../webservice/target/src/main/java</webservice.generated.dir>
         <webservice.generated.wsdl.dir>${webservice.generated.dir}/wsdl</webservice.generated.wsdl.dir>
 #end

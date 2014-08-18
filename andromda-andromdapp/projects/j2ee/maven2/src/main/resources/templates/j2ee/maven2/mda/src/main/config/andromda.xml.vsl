@@ -21,11 +21,11 @@
 #if ($modelType.equals("uml1.4"))
         <repository name="netBeansMDR">
             <models>
-                <model>
+                <model lastModifiedCheck="true">
 #elseif ($modelType.equals("uml2") || $modelType.equals("emf-uml22") || $modelType.equals("rsm7"))
         <repository name="emf-uml22">
             <models>
-                <model type="emf-uml22">
+                <model type="emf-uml22" lastModifiedCheck="true">
 #end
 #if ($stringUtils.isNotBlank($model))
                     <uri>$model</uri>
@@ -317,7 +317,7 @@
                 <property name="mergeMappingsUri">file:${conf.dir}/mappings/SpringMergeMappings.xml</property>
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="springTypesPackage">${application.package}</property>
-#if ($webservice && !$cxf)
+#if (!$webservice.equals("none") && !$cxf)
                 <property name="javaTypeConversionIgnoreList">java.util.Date,java.sql.Timestamp,java.sql.Date</property>
 #if ($axis)
                 <property name="webServiceOutgoingAttachmentHandlerCallPattern">${application.package}.AttachmentHandler.saveAttachment(content, contentType, dime)</property>
@@ -376,11 +376,11 @@
             </properties>
         </namespace>
 #end
-#if ($webservice && !$jsr181Webservice)
+#if (!$webservice.equals("none") && !$jsr181Webservice)
         <!-- See http://docs.andromda.org/andromda-cartridges/andromda-webservice-cartridge/namespace.html -->
         <namespace name="webservice">
             <properties>
-                <property name="soapStack">$soapStack</property>
+                <property name="webserviceStack">$webserviceStack</property>
 #if ($cxf)
                 <property name="cxfVersion">${cxf.version}</property>
                 <!-- CXF Only - supports SOAP 1.1 and 1.2. Default=1.1>
@@ -456,7 +456,7 @@
                 <property name="useArraysForMultiplicitiesOfTypeMany">false</property>
                 <!-- ValueObjects have JAXB2 XmlAttribute/XmlElement annotations -->
                 <property name="XMLBindingAnnotations">true</property>
-#elseif ($webservice && !$jsr181Webservice)
+#elseif (!$webservice.equals("none") && !$jsr181Webservice)
                 <property name="languageMappingsUri">AxisJavaMappings</property>
                 <property name="useArraysForMultiplicitiesOfTypeMany">true</property>
                 <property name="XMLBindingAnnotations">false</property>
@@ -509,7 +509,7 @@
                 <property name="facesConfigFiles"></property>
                 <property name="defaultDateFormat">MM/dd/yyyy</property>
 
-#if ($webservice && !$jsr181Webservice && !$cxf)
+#if (!$webservice.equals("none") && !$jsr181Webservice && !$cxf)
                 <property name="languageMappingsUri">AxisJavaMappings</property>
 #end
                 <!-- generates smaller resource bundles with duplicate element names specified by a single message.

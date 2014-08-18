@@ -200,93 +200,17 @@
                 <artifactId>commons-validator</artifactId>
                 <version>1.4.0</version>
             </dependency>
-            <!--dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-j2ee</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
             <dependency>
-                <groupId>org.jboss.client</groupId>
-                <artifactId>jbossall-client</artifactId>
-                <version>5.0.0.GA</version>
-                <scope>provided</scope>
-            </dependency-->
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-ejb3-client</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
+              <groupId>org.jboss.spec</groupId>
+              <artifactId>jboss-javaee-all-7.0</artifactId>
+              <version>1.0.1.Final</version>
+              <scope>provided</scope>
             </dependency>
             <!--dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-ejb3x</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-annotations-ejb3</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-serialization</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-remoting</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss</groupId>
-                <artifactId>jnp-client</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-aop-jdk50-client</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency-->
-            <!--dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-aspect-jdk50-client</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency-->
-            <dependency>
-                <groupId>org.jboss</groupId>
-                <artifactId>jbossws-client</artifactId>
-                <version>4.0.5-GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <!--dependency>
-                <groupId>jboss.jbossws</groupId>
-                <artifactId>jboss-jaxrpc</artifactId>
-                <version>2.0.3.GA</version>
-                <scope>provided</scope>
-            </dependency-->
-            <dependency>
                 <groupId>xerces</groupId>
                 <artifactId>xercesImpl</artifactId>
                 <version>2.9.1</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.geronimo.specs</groupId>
-                <artifactId>geronimo-activation_1.0.2_spec</artifactId>
-                <version>1.2</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.geronimo.specs</groupId>
-                <artifactId>geronimo-javamail_1.3.1_spec</artifactId>
-                <version>1.3</version>
-            </dependency>
+            </dependency-->
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
@@ -320,12 +244,12 @@
                 <artifactId>antlr</artifactId>
                 <version>2.7.7</version>
             </dependency>
-            <dependency>
+            <!--dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
                 <version>2.5</version>
                 <scope>provided</scope>
-            </dependency>
+            </dependency-->
             <dependency>
                 <groupId>com.lowagie</groupId>
                 <artifactId>itext</artifactId>
@@ -408,108 +332,6 @@
                 </exclusions>
             </dependency>
             <!-- JBoss Dependencies -->
-            <!--dependency>
-                <groupId>org.jboss</groupId>
-                <artifactId>ejb3-persistence</artifactId>
-                <version>4.0.5-GA</version>
-                <scope>provided</scope>
-            </dependency-->
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-annotations-ejb3</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-serialization</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-remoting</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-aop-jdk50-client</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <!--dependency>
-                <groupId>org.jboss</groupId>
-                <artifactId>jboss-aspect-jdk50-client</artifactId>
-                <version>4.0.5-GA</version>
-                <scope>provided</scope>
-            </dependency-->
-            <dependency>
-                <groupId>org.jboss.client</groupId>
-                <artifactId>jbossall-client</artifactId>
-                <version>5.0.0.GA</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss</groupId>
-                <artifactId>jnp-client</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>jboss.jboss-embeddable-ejb3</groupId>
-                <artifactId>jboss-ejb3-all</artifactId>
-                <version>1.0.0.Alpha9</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>jboss.jboss-embeddable-ejb3</groupId>
-                <artifactId>thirdparty-all</artifactId>
-                <version>1.0.0.Alpha9</version>
-                <scope>provided</scope>
-            </dependency>
-            <!--dependency>
-                <groupId>org.jboss.microcontainer</groupId>
-                <artifactId>jboss-ejb3-all</artifactId>
-                <version>alpha_9</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>jboss.jboss-embeddable-ejb3</groupId>
-                <artifactId>thirdparty-all</artifactId>
-                <version>1.0.0.Alpha9</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.microcontainer</groupId>
-                <artifactId>jms-ra</artifactId>
-                <version>alpha_9</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.microcontainer</groupId>
-                <artifactId>jcainflow</artifactId>
-                <version>alpha_9</version>
-                <scope>provided</scope>
-            </dependency-->
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-j2ee</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <!--dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-ejb3-client</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency-->
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-ejb3x</artifactId>
-                <version>4.2.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
             <dependency>
                 <groupId>struts-menu</groupId>
                 <artifactId>struts-menu</artifactId>
@@ -533,38 +355,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <!--version>6.8.8</version>
-            <scope>test</scope-->
-        </dependency>
-        <!--dependency>
-            <groupId>jboss.jboss-embeddable-ejb3</groupId>
-            <artifactId>hibernate-all</artifactId>
-            <version>1.0.0.Alpha9</version>
-            <scope>test</scope>
-        </dependency-->
-        <dependency>
-            <groupId>jboss.jboss-embeddable-ejb3</groupId>
-            <artifactId>jboss-ejb3-all</artifactId>
-            <version>1.0.0.Alpha9</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>jboss.jboss-embeddable-ejb3</groupId>
-            <artifactId>thirdparty-all</artifactId>
-            <version>1.0.0.Alpha9</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
     <build>
         <pluginManagement>
             <plugins>

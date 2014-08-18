@@ -255,57 +255,9 @@
             <artifactId>hibernate-validator</artifactId>
         </dependency>
         <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-j2ee</artifactId>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-all-7.0</artifactId>
         </dependency>
-        <!--dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-ejb3-client</artifactId>
-        </dependency-->
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-ejb3x</artifactId>
-        </dependency>
-        <!--dependency>
-            <groupId>hibernate-entitymanager</groupId>
-            <artifactId>ejb3-persistence</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>${hibernate.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>ejb3-persistence</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-annotations-ejb3</artifactId>
-        </dependency-->
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-remoting</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-aop-jdk50-client</artifactId>
-        </dependency>
-        <!--dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-aspect-jdk50-client</artifactId>
-            <scope>provided</scope>
-        </dependency-->
-#if ($jsr181Webservice || $jaxws)
-        <dependency>
-            <groupId>org.jboss</groupId>
-            <artifactId>jbossws-client</artifactId>
-            <version>2.0.1.SP2</version>
-            <scope>provided</scope>
-        </dependency>
-#end
 #if ($hibernate)
 #if ($cxf)
         <!-- See (http://www.lumidant.com/blog/hibernate-asm-incompatibilities/, http://forum.andromda.org/viewtopic.php?t=5747)
@@ -333,6 +285,7 @@
                     <groupId>cglib</groupId>
                     <artifactId>cglib</artifactId>
                 </exclusion>
+            </exclusions>
 #end
         </dependency>
         <dependency>
@@ -352,56 +305,6 @@
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
 #end
-        <dependency>
-            <groupId>org.jboss.microcontainer</groupId>
-            <artifactId>hibernate-all</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.microcontainer</groupId>
-            <artifactId>jboss-ejb3-all</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.microcontainer</groupId>
-            <artifactId>thirdparty-all</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.microcontainer</groupId>
-            <artifactId>jms-ra</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.microcontainer</groupId>
-            <artifactId>jcainflow</artifactId>
-        </dependency>
-        <!--dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
-            <version>1.0.1.Final</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>jboss.jboss-embeddable-ejb3</groupId>
-            <artifactId>jboss-ejb3-all</artifactId>
-            <version>1.0.0.Alpha9</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>jboss.jboss-embeddable-ejb3</groupId>
-            <artifactId>thirdparty-all</artifactId>
-            <version>1.0.0.Alpha9</version>
-            <scope>test</scope>
-        </dependency-->
-        <!-- for javax.annotation.Resource, see http://jaitechwriteups.blogspot.com/2011/02/resource-and-new-lookup-attribute-how.html -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.annotation</groupId>
-            <artifactId>jboss-annotations-api_1.1_spec</artifactId>
-            <version>1.0.0.Final</version>
-            <scope>provided</scope>
-        </dependency>
-#else
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-j2ee</artifactId>
-        </dependency>
 #end
 #if ($jbossSeam.equals("no"))
 #set ($jbossSeam=false)
@@ -513,10 +416,18 @@
             <version>2.3-b24</version>
         </dependency>
 #elseif ($cxf)
+#if ($webservice.equals("soap") || $webservice.equals("both"))
         <dependency>
             <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-bundle</artifactId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
         </dependency>
+#end
+#if($webservice.equals("rest") || $webservice.equals("both"))
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+        </dependency>
+#end
 #if (!$spring && !$hibernate)
         <!-- See (http://www.lumidant.com/blog/hibernate-asm-incompatibilities/, http://forum.andromda.org/viewtopic.php?t=5747)
         for purpose of this fix, so that we can be compatible with the cxf webservices -->

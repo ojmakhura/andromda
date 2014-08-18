@@ -178,13 +178,13 @@ public class TranslationLibraryTestMojo
                 }
                 else if (this.testFailureIgnore)
                 {
-                    this.getLog().error("An error occured while testing translation-library '" +
+                    this.getLog().error("An error occurred while testing translation-library '" +
                             this.translationName + '\'',
                         ExceptionUtils.getRootCause(throwable));
                 }
                 else
                 {
-                    throw new MojoExecutionException("An error occured while testing translation-library '" +
+                    throw new MojoExecutionException("An error occurred while testing translation-library '" +
                             this.translationName + '\'',
                             ExceptionUtils.getRootCause(throwable));
                 }

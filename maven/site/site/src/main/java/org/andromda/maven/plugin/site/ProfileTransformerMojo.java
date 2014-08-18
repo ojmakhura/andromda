@@ -100,7 +100,7 @@ public class ProfileTransformerMojo
             {
                 throw (MojoExecutionException)throwable;
             }
-            throw new MojoExecutionException("An error occured creating profile site document '" +
+            throw new MojoExecutionException("An error occurred creating profile site document '" +
                 this.project.getArtifactId() + '\'',
                 ExceptionUtils.getRootCause(throwable));
         }

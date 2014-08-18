@@ -34,7 +34,8 @@ import javax.jws.soap.SOAPBinding.Use;
 #if ($operation.restAtom)
 import org.apache.abdera.model.Feed;
 #end
-#if (!$cxfVersion.startsWith("2.0"))
+#set ($cxf21=$cxfVersion.substring(0,2).compareTo("2.1")>0)
+#if ($cxf21)
 import javax.xml.bind.annotation.XmlSeeAlso;
 #end
 ## Request and Response Wrapper classes are copied from CXF scratch area after running buildWS.xml
@@ -54,7 +55,7 @@ $service.getDocumentation(" * ")
             name = "${service.name}")
 ## Always use Doc/Literal bare, multiple in parameters will be wrapped automatically, assume all parameters are IN only
 #set ($packageRefs = $webServiceUtils.getServiceDescendantPackages($service, true))
-#if (!$packageRefs.empty && !$cxfVersion.startsWith("2.0"))
+#if (!$packageRefs.empty && $cxf21)
 @XmlSeeAlso({
 #foreach ($pkg in $packageRefs)
     ${pkg.fullyQualifiedName}.ObjectFactory.class,

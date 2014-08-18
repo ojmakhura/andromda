@@ -200,6 +200,15 @@
             </modelElement>
         </modelElements>
     </template>
+    <!-- Run all entities before individual entities, so entity sort/priority is cached for all -->
+    <template
+        path="templates/ejb3/config/beans.xml.vsl"
+        outputPattern="META-INF/beans.xml"
+        outlet="entity-config"
+        overwrite="false"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+    </template>
 
     <!-- Run all entities before individual entities, so entity sort/priority is cached for all -->
     <template

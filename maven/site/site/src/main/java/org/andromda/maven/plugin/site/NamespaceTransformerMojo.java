@@ -101,7 +101,7 @@ public class NamespaceTransformerMojo
             {
                 throw (MojoExecutionException)throwable;
             }
-            throw new MojoExecutionException("An error occured creating namespace site document '" +
+            throw new MojoExecutionException("An error occurred creating namespace site document '" +
                 this.project.getArtifactId() + '\'',
                 ExceptionUtils.getRootCause(throwable));
         }

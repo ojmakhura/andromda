@@ -202,34 +202,15 @@
             <artifactId>andromda-script-wrappers</artifactId>
             <scope>provided</scope>
         </dependency>
-#if (!$transactionPersistenceType.equals("none"))
-        <!-- Needed to compile JPA2 annotations in the core project -->
         <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>persistence-api</artifactId>
-            <version>1.0.2</version>
-            <scope>provided</scope>
-        </dependency>
-#end
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-j2ee</artifactId>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-all-7.0</artifactId>
         </dependency>
 #if ($ejb3)
-        <!--dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-ejb3-client</artifactId>
-        </dependency-->
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-ejb3x</artifactId>
-        </dependency>
-##if($hibernate)
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
         </dependency>
-##end
 #end
 #if ($spring)
 #if ($ear)
@@ -394,8 +375,10 @@
                         <contextPath>/${application.id}-${project.version}</contextPath>
                     </webAppConfig>
                     <useProvidedScope>true</useProvidedScope>
+                    <scanIntervalSeconds>5</scanIntervalSeconds>
                     <stopKey>foo</stopKey>
                     <stopPort>9999</stopPort>
+                    <stopWait>5</stopWait>
                 </configuration>
                 <executions>
                     <execution>

@@ -106,7 +106,7 @@
 #if ($web)
         <module>web</module>
 #end
-#if ($webservice)
+#if (!$webservice.equals("none"))
         <module>webservice</module>
 #end
         <module>mda</module>
@@ -145,7 +145,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-#if ($webservice)
+#if (!$webservice.equals("none"))
                 <!-- Change this to the host on which your webservice will be deployed -->
                 <webservice.host>localhost</webservice.host>
                 <!-- Change this the port on which your webservice will be deploy -->

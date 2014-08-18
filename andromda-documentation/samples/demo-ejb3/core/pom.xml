@@ -81,79 +81,10 @@
             <version>1.4.181</version>
             <scope>test</scope>
         </dependency>
-        <!--dependency>
-            <groupId>jboss</groupId>
-            <artifactId>ejb3-persistence</artifactId>
-        </dependency>
         <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-annotations-ejb3</artifactId>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-all-7.0</artifactId>
         </dependency>
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-remoting</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-aop-jdk50-client</artifactId>
-        </dependency-->
-        <!--dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-aspect-jdk50-client</artifactId>
-        </dependency-->
-        <!-- Embeddable and thirdparty dependencies last, otherwise RuntimeException: java.lang.NoSuchFieldError: TRACE
-        at org.jboss.ejb3.embedded.EJB3StandaloneBootstrap.boot(EJB3StandaloneBootstrap.java:386) -->
-        <!--dependency>
-            <groupId>jboss.jboss-embeddable-ejb3</groupId>
-            <artifactId>hibernate-all</artifactId>
-        </dependency-->
-        <dependency>
-            <!--groupId>org.jboss.embedded</groupId>
-            <artifactId>jboss-embedded-all</artifactId>
-            <version>beta3.SP15</version-->
-            <groupId>jboss.jboss-embeddable-ejb3</groupId>
-            <artifactId>jboss-ejb3-all</artifactId>
-        </dependency>
-        <!--dependency>
-            <groupId>jboss.jboss-embeddable-ejb3</groupId>
-            <artifactId>thirdparty-all</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>persistence-api</artifactId>
-            <version>1.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>jboss.jboss-embeddable-ejb3</groupId>
-            <artifactId>jboss-ejb3-all</artifactId>
-            <version>1.0.0.Alpha9</version>
-            <scope>test</scope>
-        </dependency-->
-        <dependency>
-            <groupId>jboss.jboss-embeddable-ejb3</groupId>
-            <artifactId>thirdparty-all</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-j2ee</artifactId>
-        </dependency>
-        <!--dependency>
-          <groupId>oswego-concurrent</groupId>
-          <artifactId>concurrent</artifactId>
-          <version>1.3.4</version>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-ejb3-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-ejb3x</artifactId>
-        </dependency-->
     </dependencies>
     <build>
         <plugins>

@@ -14,7 +14,7 @@
         <property name="persistenceProviderExtensions">hibernate</property>
         <property name="implementationLanguage">java</property>
         <property name="web">yes</property>
-        <property name="webservice">no</property>
+        <property name="webservice">none</property>
         <property name="model">jar:file:${project.basedir}/src/main/uml/AnimalQuiz.xml.zip!/AnimalQuiz.xml</property>
         <property name="configurationUri">${project.basedir}/src/main/config/andromda.xml</property>
         <property name="databaseType">hypersonic</property>

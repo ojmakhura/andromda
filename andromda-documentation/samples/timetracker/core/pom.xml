@@ -143,8 +143,8 @@
             <artifactId>commons-fileupload</artifactId>
         </dependency>
         <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-j2ee</artifactId>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-all-7.0</artifactId>
         </dependency>
         <dependency>
             <groupId>org.andromda</groupId>
@@ -225,28 +225,81 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <!-- hibernate4 not supported in maven plugin, use ant instead. -->
+            <plugin>
+              <artifactId>maven-antrun-plugin</artifactId>
+              <!-- Run after copying target test configuration but before running tests -->
+              <executions>
+                <execution>
+                  <phase>test-compile</phase>
+                  <goals>
+                    <goal>run</goal>
+                  </goals>
+                </execution>
+              </executions>
+              <configuration>
+                <target>
+                    <property name="maven_compile_classpath" refid="maven.compile.classpath"/>
+                    <property name="maven_test_classpath" refid="maven.test.classpath"/>
+                    <property name="maven_plugin_classpath" refid="maven.plugin.classpath"/>
+                    <path id="hibernate_tools_path">
+                        <pathelement path="${maven_compile_classpath}" />
+                        <pathelement path="${maven_test_classpath}" />
+                        <pathelement path="${maven_plugin_classpath}" />
+                    </path>
+                    <property name="hibernate_tools_classpath" refid="hibernate_tools_path"></property>
+                    <echo message="hibernate_tools classpath:  ${hibernate_tools_classpath}"></echo>
+                    <taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask"
+                        classpathref="hibernate_tools_path"></taskdef>
+                    <mkdir dir="${project.build.directory}/../app/src/main/sql"></mkdir>
+                    <hibernatetool destdir="${project.build.directory}/../app/src/main/sql">
+                        <classpath refid="hibernate_tools_path"></classpath>
+                        <jpaconfiguration persistenceunit="UNIT_TEST"></jpaconfiguration>
+                        <hbm2ddl export="true" drop="true" create="true" format="true" outputfilename="schema.sql"></hbm2ddl>
+                    </hibernatetool>
+                </target>
+                <detail>true</detail>
+              </configuration>
+              <dependencies>
+                  <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <version>${testdb.version}</version>
+                  </dependency>
+                  <dependency>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-tools</artifactId>
+                    <version>4.3.1.CR1</version>
+                  </dependency>
+                  <!-- hibernatetool has dependencies on old ant:ant:1.6.5 which gives error 'Could not create task or type of type: componentdef.' -->
+                  <dependency>
+                      <groupId>ant</groupId>
+                      <artifactId>ant</artifactId>
+                      <version>1.7.0</version>
+                  </dependency>
+                  <!-- Classloader error in hibernatetool: javax.validation.ValidationFactory not found, after loading other classes from validation-api.jar -->
+                  <dependency>
+                    <groupId>javax.validation</groupId>
+                    <artifactId>validation-api</artifactId>
+                    <version>1.1.0.Final</version>
+                  </dependency>
+                 </dependencies>
+            </plugin>
             <!-- See http://mojo.codehaus.org/hibernate3-maven-plugin/examples/run-multiple-goals.html and
             http://docs.jboss.org/tools/latest/en/hibernatetools/html/ant.html -->
-            <plugin>
+            <!--plugin>
               <groupId>org.codehaus.mojo</groupId>
               <artifactId>hibernate3-maven-plugin</artifactId>
               <version>3.0</version>
               <executions>
                 <execution>
-                  <!-- Run after copying target test configuration but before running tests>
-                  <phase>test-compile</phase>
-                  <goals>
-                    <goal>hbm2ddl</goal>
-                  </goals -->
                 </execution>
               </executions>
               <configuration>
                 <hibernatetool destdir="src/main/sql">
                   <jpaconfiguration persistenceunit="unit_test"/>
                   <hbm2ddl outputfilename="schema.sql" export="false" drop="true" create="true" format="true" haltonerror="true"/>
-                  <!-- Use the test DB configuration and logging when running hbm2ddl -->
                   <classpath>
-                      <!--path location="src/test/resources"/-->
                       <path location="target/test-classes"/>
                       <path location="target/classes"/>
                       <path location="target/src/main/java"/>
@@ -259,7 +312,6 @@
                     <artifactId>h2</artifactId>
                     <version>${testdb.version}</version>
                   </dependency>
-                  <!-- Does not work with hibernate v4 -->
                   <dependency>
                     <groupId>org.hibernate</groupId>
                     <artifactId>hibernate-entitymanager</artifactId>
@@ -270,15 +322,13 @@
                       <artifactId>hibernate-validator</artifactId>
                       <version>5.1.2.Final</version>
                   </dependency>
-                  <!-- Default maven 2.2.1 depends on slf4j-jdk14 1.5.6 which conflicts with JDK6 and slf4j12-log4j -->
                   <dependency>
                       <groupId>org.apache.maven</groupId>
                       <artifactId>maven-core</artifactId>
                       <version>3.0.4</version>
                   </dependency>
-                  <!-- Not possible to exclude slf4j-nop: Class path contains multiple SLF4J bindings. -->
                 </dependencies>
-            </plugin>
+            </plugin-->
             <!-- H2 chokes on 'ENGINE=InnoDB' in DDL, remove from generated SQL before running against H2 DB -->
             <!--plugin>
               <artifactId>maven-antrun-plugin</artifactId>

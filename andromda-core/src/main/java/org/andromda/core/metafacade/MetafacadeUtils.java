@@ -83,7 +83,7 @@ final class MetafacadeUtils
                 if (getLogger().isDebugEnabled())
                 {
                     getLogger().debug(
-                        "An error occured while " + "evaluating properties on metafacade '" + metafacade +
+                        "An error occurred while " + "evaluating properties on metafacade '" + metafacade +
                         "', setting valid to 'false'",
                         throwable);
                 }

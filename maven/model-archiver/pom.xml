@@ -215,7 +215,7 @@
     </build>
     <prerequisites>
         <!-- Maven runtime version. Lots of problems prior to 2.0.10 with dependency management -->
-        <maven>2.2.1</maven>
+        <maven>3.0.1</maven>
     </prerequisites>
     <profiles>
         <!--Profile configuration for local builds, to match Cloudbees direcory structure -->

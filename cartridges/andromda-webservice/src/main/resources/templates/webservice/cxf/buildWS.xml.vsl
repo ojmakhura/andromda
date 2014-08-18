@@ -18,7 +18,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
   <property name="cxf.home" value="${env.CXF_HOME}"/>
 
   <path id="cxf1.classpath">
-    <!-- These dependencies allow CXF 2.6.x utilities to run outside of maven with no additional classpath >
+    <!-- These dependencies allow CXF 2+ utilities to run outside of maven with no additional classpath >
     <pathelement location="${m2repo}/com/sun/xml/bind/jaxb-xjc/2.2.1.1/jaxb-xjc-2.2.1.1.jar"/>
     <pathelement location="${m2repo}/com/sun/xml/bind/jaxb-impl/2.2.1.1/jaxb-impl-2.2.1.1.jar"/>
     <pathelement location="${m2repo}/commons-lang/commons-lang/2.6/commons-lang-2.6.jar"/>
@@ -28,7 +28,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <pathelement location="${m2repo}/org/apache/ws/xmlschema/xmlschema-core/2.0/xmlschema-core-2.0.jar"/>
     <pathelement location="${m2repo}/wsdl4j/wsdl4j/1.6.2/wsdl4j-1.6.2.jar"/ -->
     <pathelement location="${m2repo}/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar"/>
-    <pathelement location="${m2repo}/org/apache/cxf/cxf-bundle/${cxf.version}/cxf-bundle-${cxf.version}.jar"/>
+    <pathelement location="${m2repo}/org/apache/cxf/cxf-rt-frontend-jaxws/${cxf.version}/cxf-rt-frontend-jaxws-${cxf.version}.jar"/>
 #if($stringUtils.isNotBlank(${cxf.xjc.version}) && ${cxf.xjc.version}>"2.2")
 #set($xjcplugins="xjcplugins/")
 #else
@@ -49,8 +49,8 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <path path="${runtime_classpath}"/>
   </path>
   <path id="project1.classpath">
-    <pathelement location="${m2repo}/org/hibernate/hibernate-core/4.3.0.Final/hibernate-core-4.3.0.Final.jar"/>
-    <pathelement location="${m2repo}/org/springframework/spring-core/3.2.5.RELEASE/spring-core-3.2.5.RELEASE.jar"/>
+    <pathelement location="${m2repo}/org/hibernate/hibernate-core/4.3.6.Final/hibernate-core-4.3.6.Final.jar"/>
+    <pathelement location="${m2repo}/org/springframework/spring-core/4.0.6.RELEASE/spring-core-4.0.6.RELEASE.jar"/>
     <pathelement location="${m2repo}/jboss/jboss-j2ee/4.2.2.GA/jboss-j2ee-4.2.2.GA.jar"/>
     <path refid="cxf1.classpath"/>
     <fileset dir="${andromda.project}/webservice">
@@ -327,7 +327,10 @@ and allows double-checking of both java and wsdl code generation and all annotat
       <arg value="-verbose"/>
       <arg value="-exsh"/>
       <arg value="true"/>
-#if (!$cxfVersion.startsWith("2.0"))
+      <!--arg value="-validate"/-->
+      <arg value="-mark-generated"/>
+#set ($cxf21=$cxfVersion.substring(0,2).compareTo("2.1")>0)
+#if (!$cxf21)
       <arg value="-autoNameResolution"/>
       <!-- Bug: CXF StackOverflow if values are bidirectional -->
       <!--arg value="-defaultValues=org.apache.cxf.tools.wsdlto.core.RandomValueProvider"/-->
@@ -350,7 +353,16 @@ and allows double-checking of both java and wsdl code generation and all annotat
       <!-- Gives 'no appenders found' error even when log4j.xml is in the classpath -->
       <sysproperty key="log4j.configuration" value="file:/${andromda.project}/mda/log4j.xml"/>
     </java>
-#if ($cxfVersion.startsWith("2.0"))
+    <!-- CXF v2 v3 inconsistency: v3 generates ServiceImpl not ServiceSEIImpl, despite the jxb binding configuration -->
+    <replace dir="${andromda.project}/CXF/target/src/main/java" token="${service}Impl" value="${service}SEIImpl"/>
+    <!--echo message="move from=*${service}Impl.java to=*${service}SEIImpl.java"/-->
+    <move toDir="${andromda.project}/CXF/target/src/main/java" includeemptydirs="false" verbose="true">
+        <fileset dir="${andromda.project}/CXF/target/src/main/java">
+          <include name="**/*"/>
+        </fileset>
+        <globmapper from="*${service}Impl.java" to="*${service}SEIImpl.java"/>
+    </move>
+#if (!$cxf21)
     <!-- Copy JAXB2 Adapter and package info classes to ValueObjects location. CXF/Jaxb2.1 allows customized adapter name -->
     <copy todir="${jaxb-gen}" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false">
       <fileset dir="${andromda.project}/CXF/target/src/main/java">
@@ -362,10 +374,10 @@ and allows double-checking of both java and wsdl code generation and all annotat
   <!-- Adapter, ${seiSuffix}Impl, and wrapper classes are required to run java2wsdl properly. -->
   <!-- CXF generated wsdl is used only to point out potential problems in java code. -->
 
-  <!-- Generate WebService artifacts using CXF version ${cxfVersion}. $cxfVersion.startsWith("2.0")
+  <!-- Generate WebService artifacts using CXF version ${cxfVersion}.
        http://cxf.apache.org/docs/java-to-ws.html -->
 ## CXF 2.1 uses java2ws, java2wsdl no longer exists.
-#if ($cxfVersion.startsWith("2.0"))
+#if (!$cxf21)
   <target name="wsgenwsdl" description="Generate WebService code artifacts using CXF java2wsdl utility.">
     <echo message="running java2wsdl for service ${service}"/>
     <java classname="org.apache.cxf.tools.java2wsdl.JavaToWSDL" fork="true" failonerror="true" append="true">
@@ -399,7 +411,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
         <arg value="-portname"/>
         <arg value="${service}"/>
 ## java2ws does not add schemaLocation to xsd imports in schema files = namespace error
-#if ($importedXSD && !$cxfVersion.startsWith("2.0"))
+#if ($importedXSD && !$cxf21)
         <!-- bug: xsd schemas inport other references but do not provide schemaLocation -->
         <!--arg value="-createxsdimports"/-->
 #end

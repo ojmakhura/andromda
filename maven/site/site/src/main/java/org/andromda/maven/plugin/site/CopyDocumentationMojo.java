@@ -136,7 +136,7 @@ public class CopyDocumentationMojo
             {
                 throw (MojoExecutionException)throwable;
             }
-            throw new MojoExecutionException("An error occured copying the animal-quiz model '" +
+            throw new MojoExecutionException("An error occurred copying the animal-quiz model '" +
                 this.project.getArtifactId() + '\'',
                 ExceptionUtils.getRootCause(throwable));
         }
@@ -170,7 +170,7 @@ public class CopyDocumentationMojo
             {
                 throw (MojoExecutionException)throwable;
             }
-            throw new MojoExecutionException("An error occured copying the car-rental-system model '" +
+            throw new MojoExecutionException("An error occurred copying the car-rental-system model '" +
                 this.project.getArtifactId() + '\'',
                 ExceptionUtils.getRootCause(throwable));
         }
@@ -210,7 +210,7 @@ public class CopyDocumentationMojo
             {
                 throw (MojoExecutionException)throwable;
             }
-            throw new MojoExecutionException("An error occured copying mappings '" +
+            throw new MojoExecutionException("An error occurred copying mappings '" +
                 this.project.getArtifactId() + '\'',
                 ExceptionUtils.getRootCause(throwable));
         }
@@ -280,7 +280,7 @@ public class CopyDocumentationMojo
             {
                 throw (MojoExecutionException)throwable;
             }
-            throw new MojoExecutionException("An error occured copying documentation/reporting artifacts '" +
+            throw new MojoExecutionException("An error occurred copying documentation/reporting artifacts '" +
                 this.project.getArtifactId() + '\'',
                 ExceptionUtils.getRootCause(throwable));
         }

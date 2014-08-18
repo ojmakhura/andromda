@@ -103,7 +103,7 @@
             <scope>runtime</scope>
         </dependency>
 #end
-#if ($webservice && !$jsr181Webservice)
+#if (!$webservice.equals("none") && !$jsr181Webservice)
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-webservice-cartridge</artifactId>
@@ -148,20 +148,46 @@
         </dependency>
 #end
 #if ($cxf)
-        <!-- CXF 2.3.x wsdl2java on JDK6 gives NoSuchMethodException: javax.xml.bind.annotation.XmlElementRef.required()
-        unless we roll back XJC version to 2.1.x to match the JDK6 embedded version -->
+        <!-- Override jaxb versions for xjc and wsdl2java only, use jaxb JDK version at runtime -->
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-xjc</artifactId>
-            <version>2.1.13</version>
+            <version>${jaxb.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>${jaxb.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>${jaxb.version}</version>
+            <scope>provided</scope>
+        </dependency>
+#if($webservice.equals("soap") || $webservice.equals("both"))
         <!-- Need to reference the classpath for ant in wsdl2java java2ws -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-bundle</artifactId>
+            <artifactId>cxf-tools-wsdlto-core</artifactId>
+            <version>${cxf.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-tools-wsdlto-frontend-jaxws</artifactId>
+            <version>${cxf.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-tools-wsdlto-databinding-jaxb</artifactId>
+            <version>${cxf.version}</version>
+            <scope>provided</scope>
+        </dependency>
+#end
         <!-- Contains xjc plugins to customize cxf/jaxb2 generated code, see https://jaxb2-commons.dev.java.net/ -->
         <!-- If put in compile classpath, the xjc plugins are not added to ant maven.compile.classpath -->
         <dependency>
@@ -182,13 +208,6 @@
             <artifactId>cxf-xjc-ts</artifactId>
             <version>${cxf.xjc.version}</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-           <groupId>org.apache.cxf</groupId>
-           <artifactId>cxf-tools</artifactId>
-           <version>${cxf.version}</version>
-           <type>pom</type>
-           <scope>provided</scope>
         </dependency>
 #end
     </dependencies>
@@ -326,6 +345,7 @@
                     </goals>
                 </execution>
 #end
+#if($webservice.equals("soap") || $webservice.equals("both"))
                 <!-- Clean the implementation code and WSDL code also, during mvn clean -->
                 <execution>
                   <id>clean</id>
@@ -375,6 +395,7 @@
                     <goal>run</goal>
                   </goals>
                 </execution>
+#end
               </executions>
               <dependencies>
                   <!-- Ant optional tasks are not included by default, very annoying -->
@@ -399,6 +420,9 @@
 #elseif ($modelType.equals("rsm7") || $modelType.equals("rsa8"))
         <model.uri>file:${project.basedir}/src/main/uml/${applicationId}.emx</model.uri>
 #end
+#end
+#if ($cxf)
+        <jaxb.version>2.2.10-b140310.1920</jaxb.version>
 #end
         <javaVersion>${java.version}</javaVersion>
         <filter></filter>
@@ -429,7 +453,7 @@
         <web.manual.web.dir>${web.manual.dir}/webapp</web.manual.web.dir>
         <web.manual.java.dir>${web.manual.dir}/java</web.manual.java.dir>
 #end
-#if ($webservice && !$jsr181Webservice)
+#if (!$webservice.equals("none") && !$jsr181Webservice)
         <webservice.project>${project.basedir}/../webservice</webservice.project>
 #if ($cxf || $axis)
         <webservice.generated.dir>${project.basedir}/../webservice/src/main/webapp</webservice.generated.dir>

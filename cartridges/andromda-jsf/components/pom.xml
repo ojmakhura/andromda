@@ -47,6 +47,11 @@
                     <groupId>commons-collections</groupId>
                     <artifactId>commons-collections</artifactId>
                 </exclusion>
+                <!-- See http://swordsystems.com/2011/06/29/xerces-and-xml-api-dependency-hell/ -->
+                <exclusion>
+                    <groupId>xml-apis</groupId>
+                    <artifactId>xmlParserAPIs</artifactId>
+                </exclusion>
             </exclusions>
             <scope>provided</scope>
         </dependency>
