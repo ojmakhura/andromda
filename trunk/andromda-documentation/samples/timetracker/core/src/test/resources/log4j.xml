@@ -68,8 +68,8 @@
   </logger>
 
   <!-- Log schema export/update -->
-  <logger name="org.hibernate.tool.hbm2ddl">
-    <level value="info"/>
+  <logger name="org.hibernate.tool">
+    <level value="debug"/>
   </logger>
 
   <!-- Log HQL parse trees -->

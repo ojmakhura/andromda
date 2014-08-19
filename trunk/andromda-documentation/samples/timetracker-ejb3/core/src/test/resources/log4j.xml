@@ -35,6 +35,11 @@
       <appender-ref ref="logfile"/>
    </logger-->
 
+   <!-- Log schema export/update -->
+   <logger name="org.hibernate.tool">
+     <level value="debug"/>
+   </logger>
+
    <root>
       <level value="info"/>
       <appender-ref ref="CONSOLE"/>
