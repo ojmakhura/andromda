@@ -240,12 +240,15 @@
               <configuration>
                 <target>
                     <property name="maven_compile_classpath" refid="maven.compile.classpath"/>
+                    <echo message="maven_compile_classpath:  ${maven_compile_classpath}"></echo>
                     <property name="maven_test_classpath" refid="maven.test.classpath"/>
+                    <echo message="maven_test_classpath:  ${maven_test_classpath}"></echo>
                     <property name="maven_plugin_classpath" refid="maven.plugin.classpath"/>
+                    <echo message="maven_plugin_classpath:  ${maven_plugin_classpath}"></echo>
                     <path id="hibernate_tools_path">
                         <pathelement path="${maven_compile_classpath}" />
                         <pathelement path="${maven_test_classpath}" />
-                        <pathelement path="${maven_plugin_classpath}" />
+                        <!--pathelement path="${maven_plugin_classpath}" /-->
                     </path>
                     <property name="hibernate_tools_classpath" refid="hibernate_tools_path"></property>
                     <echo message="hibernate_tools classpath:  ${hibernate_tools_classpath}"></echo>
@@ -354,7 +357,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.3.2</version>
+                <version>${exec-maven-plugin.version}</version>
                 <executions>
                   <execution>
                       <!--phase>test-compile</phase-->
