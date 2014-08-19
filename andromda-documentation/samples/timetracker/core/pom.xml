@@ -165,6 +165,36 @@
             <version>${testdb.version}</version>
             <!--scope>test</scope-->
         </dependency>
+        <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-tools</artifactId>
+          <version>4.3.1.CR1</version>
+          <scope>test</scope>
+          <exclusions>
+              <!-- Very old version of ant -->
+              <exclusion>
+                  <groupId>ant</groupId>
+                  <artifactId>ant</artifactId>
+              </exclusion>
+              <!-- Why does hibernate tools require eclipse dependencies ? -->
+              <exclusion>
+                  <groupId>org.eclipse.tycho</groupId>
+                  <artifactId>org.eclipse.jdt.core</artifactId>
+              </exclusion>
+              <exclusion>
+                  <groupId>org.eclipse</groupId>
+                  <artifactId>text</artifactId>
+              </exclusion>
+              <exclusion>
+                  <groupId>org.eclipse.core</groupId>
+                  <artifactId>runtime</artifactId>
+              </exclusion>
+              <exclusion>
+                  <groupId>org.eclipse.equinox</groupId>
+                  <artifactId>common</artifactId>
+              </exclusion>
+          </exclusions>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -240,18 +270,19 @@
               <configuration>
                 <target>
                     <property name="maven_compile_classpath" refid="maven.compile.classpath"/>
-                    <echo message="maven_compile_classpath:  ${maven_compile_classpath}"></echo>
+                    <!--echo message="maven_compile_classpath:  ${maven_compile_classpath}"></echo-->
                     <property name="maven_test_classpath" refid="maven.test.classpath"/>
-                    <echo message="maven_test_classpath:  ${maven_test_classpath}"></echo>
+                    <!--echo message="maven_test_classpath:  ${maven_test_classpath}"></echo-->
                     <property name="maven_plugin_classpath" refid="maven.plugin.classpath"/>
                     <echo message="maven_plugin_classpath:  ${maven_plugin_classpath}"></echo>
                     <path id="hibernate_tools_path">
-                        <pathelement path="${maven_compile_classpath}" />
+                        <!--pathelement path="${maven_compile_classpath}" /-->
+                        <pathelement location="${project.build.testOutputDirectory}" />
                         <pathelement path="${maven_test_classpath}" />
                         <!--pathelement path="${maven_plugin_classpath}" /-->
                     </path>
                     <property name="hibernate_tools_classpath" refid="hibernate_tools_path"></property>
-                    <echo message="hibernate_tools classpath:  ${hibernate_tools_classpath}"></echo>
+                    <echo message="hibernate_tools classpath: ${hibernate_tools_classpath}"></echo>
                     <taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask"
                         classpathref="hibernate_tools_path"></taskdef>
                     <mkdir dir="${project.build.directory}/../app/src/main/sql"></mkdir>
@@ -285,6 +316,16 @@
                     <groupId>javax.validation</groupId>
                     <artifactId>validation-api</artifactId>
                     <version>1.1.0.Final</version>
+                  </dependency>
+                  <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                    <version>${slf4j.version}</version>
+                  </dependency>
+                  <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
+                    <version>${slf4j.version}</version>
                   </dependency>
                  </dependencies>
             </plugin>
