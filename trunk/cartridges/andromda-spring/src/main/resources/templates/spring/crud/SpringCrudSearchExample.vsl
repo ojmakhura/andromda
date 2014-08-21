@@ -22,6 +22,7 @@ public class $manageable.manageableSearchExampleClassName
 
 #foreach ($member in $manageable.getAttributes(false))
 #set ($visibility = $member.visibility)
+#if (!$member.inputFile && !$member.needsFileUpload)
 #if ($visibility.equals("public"))#set ($visibility = "private")#end
 #if ($member.type.primitive)
 #set ($memberTypeName = ${member.type.wrapperName})
@@ -48,6 +49,7 @@ $member.getDocumentation("     * ")
         this.$member.name = ${member.name}In;
     }
 
+#end
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
 #if (!$manageable.generalization.manageableAssociationEnds.contains($member))## do not process associations defined in an ancestor

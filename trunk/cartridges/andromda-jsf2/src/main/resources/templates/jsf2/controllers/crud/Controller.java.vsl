@@ -302,7 +302,7 @@ public abstract class ${manageable.controllerName}
         final ${manageable.valueObjectClassName} vo = new ${manageable.valueObjectClassName}();
 #foreach ($member in $manageable.manageableMembers)
 #if ($member.inputFile || $member.needsFileUpload)
-        vo.${member.setterName}(form.${member.getterName}()==null?null:org.apache.commons.io.IOUtils.toByteArray(form.${member.getterName}().getInputStream()));
+        vo.${member.setterName}(form.${member.getterName}()==null?null:org.apache.commons.io.IOUtils.toByteArray(form.${member.getterName}().getInputstream()));
 #else
         vo.${member.setterName}(form.${member.getterName}());
 #end
@@ -566,7 +566,9 @@ public abstract class ${manageable.controllerName}
     {
         final $searchExampleClassName searchExample = new ${searchExampleClassName}();
 #foreach ($member in $manageable.manageableMembers)
-        searchExample.${member.setterName}(filter.${member.getterName}());
+#if (!$member.inputFile && !$member.needsFileUpload)
+    searchExample.${member.setterName}(filter.${member.getterName}());
+#end
 #end
 
         final java.util.Collection<${manageable.valueObjectClassName}> result = ${manageable.manageableServiceAccessorCall}.searchByExample(searchExample);
