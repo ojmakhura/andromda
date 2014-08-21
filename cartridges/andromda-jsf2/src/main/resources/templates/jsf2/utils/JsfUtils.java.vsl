@@ -311,6 +311,16 @@ public class JsfUtils
     }
 
     /**
+     * Returns an UIComponent from the current view root
+     *
+     * @param id the id of the component.
+     * @return ParameterValue
+     */
+    public static javax.faces.component.UIComponent getComponent(String id) { 
+        return javax.faces.context.FacesContext.getCurrentInstance().getViewRoot().findComponent(id) ; 
+    }
+    
+    /**
      * Force the component to get its value from the backing bean before rendering
      *
      * @param uic the parent UIComponent.
