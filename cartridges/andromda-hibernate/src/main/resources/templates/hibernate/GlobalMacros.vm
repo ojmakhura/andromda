@@ -224,6 +224,10 @@
 #set ($visibility="private")
 #end
 #if (!$entity.compositeIdentifier || ($entity.compositeIdentifier && !$attribute.identifier))
+#if ($generateAttributeNameConstant)
+    public static final String ${attributeNameConstantPrefix}${attribute.name}="${attribute.name}";
+
+#end
     $visibility $typeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
 
 #end

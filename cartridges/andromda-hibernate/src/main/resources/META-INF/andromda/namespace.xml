@@ -940,6 +940,19 @@
                     (This property is only supported for hibernate 3 code generation)
                 </documentation>
             </property>
+            <property name="generateAttributeNameConstant">
+                <default>false</default>
+                <documentation>
+                    Indicates whether or not to generate a constant string with the attributes names in entities
+                    to easier the references in criteria (and other) queries. 
+                </documentation>
+            </property>
+            <property name="attributeNameConstantPrefix">
+                <default>_</default>
+                <documentation>
+                    Prefix to be used in the constant name, when generateAttributeNameConstant=true
+                </documentation>
+            </property>
         </propertyGroup>
     </properties>
 </namespace>
