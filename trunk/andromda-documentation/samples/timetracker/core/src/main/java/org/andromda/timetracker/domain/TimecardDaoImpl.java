@@ -116,6 +116,7 @@ public class TimecardDaoImpl
     /**
      * @see org.andromda.timetracker.domain.TimecardDao#timecardSummaryVOToEntity(TimecardSummaryVO)
      */
+    @Override
     public Timecard timecardSummaryVOToEntity(TimecardSummaryVO timecardSummaryVO)
     {
         // TODO verify behavior of timecardSummaryVOToEntity
@@ -188,6 +189,7 @@ public class TimecardDaoImpl
     /**
      * @see org.andromda.timetracker.domain.TimecardDao#timecardVOToEntity(TimecardVO)
      */
+    @Override
     public Timecard timecardVOToEntity(TimecardVO timecardVO)
     {
         // TODO verify behavior of timecardVOToEntity

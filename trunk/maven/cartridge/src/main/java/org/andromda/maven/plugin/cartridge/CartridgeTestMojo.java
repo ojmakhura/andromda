@@ -132,6 +132,8 @@ public class CartridgeTestMojo
                 final CartridgeTest cartridgeTest = CartridgeTest.instance();
                 cartridgeTest.setActualOutputPath(this.actualDirectory.getAbsolutePath());
                 cartridgeTest.setExpectedOutputPath(this.expectedDirectory.getAbsolutePath());
+                cartridgeTest.setActualOutputDirectory(null);
+                cartridgeTest.setExpectedOutputDirectory(null);
                 cartridgeTest.setBinarySuffixes(this.binaryOutputSuffixes);
 
                 final CartridgeTestFormatter formatter = new CartridgeTestFormatter();

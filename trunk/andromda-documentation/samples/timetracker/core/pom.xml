@@ -269,24 +269,18 @@
               </executions>
               <configuration>
                 <target>
-                    <property name="maven_compile_classpath" refid="maven.compile.classpath"/>
-                    <!--echo message="maven_compile_classpath:  ${maven_compile_classpath}"></echo-->
                     <property name="maven_test_classpath" refid="maven.test.classpath"/>
                     <!--echo message="maven_test_classpath:  ${maven_test_classpath}"></echo-->
-                    <property name="maven_plugin_classpath" refid="maven.plugin.classpath"/>
-                    <echo message="maven_plugin_classpath:  ${maven_plugin_classpath}"></echo>
                     <path id="hibernate_tools_path">
-                        <!--pathelement path="${maven_compile_classpath}" /-->
                         <pathelement location="${project.build.testOutputDirectory}" />
                         <pathelement path="${maven_test_classpath}" />
-                        <!--pathelement path="${maven_plugin_classpath}" /-->
                     </path>
                     <property name="hibernate_tools_classpath" refid="hibernate_tools_path"></property>
                     <echo message="hibernate_tools classpath: ${hibernate_tools_classpath}"></echo>
                     <taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask"
                         classpathref="hibernate_tools_path"></taskdef>
-                    <mkdir dir="${project.build.directory}/../app/src/main/sql"></mkdir>
-                    <hibernatetool destdir="${project.build.directory}/../app/src/main/sql">
+                    <mkdir dir="${project.basedir}/src/main/sql"></mkdir>
+                    <hibernatetool destdir="${project.basedir}/src/main/sql">
                         <classpath refid="hibernate_tools_path"></classpath>
                         <jpaconfiguration persistenceunit="UNIT_TEST"></jpaconfiguration>
                         <hbm2ddl export="true" drop="true" create="true" format="true" outputfilename="schema.sql"></hbm2ddl>
@@ -294,85 +288,7 @@
                 </target>
                 <detail>true</detail>
               </configuration>
-              <dependencies>
-                  <dependency>
-                    <groupId>com.h2database</groupId>
-                    <artifactId>h2</artifactId>
-                    <version>${testdb.version}</version>
-                  </dependency>
-                  <dependency>
-                    <groupId>org.hibernate</groupId>
-                    <artifactId>hibernate-tools</artifactId>
-                    <version>4.3.1.CR1</version>
-                  </dependency>
-                  <!-- hibernatetool has dependencies on old ant:ant:1.6.5 which gives error 'Could not create task or type of type: componentdef.' -->
-                  <dependency>
-                      <groupId>ant</groupId>
-                      <artifactId>ant</artifactId>
-                      <version>1.7.0</version>
-                  </dependency>
-                  <!-- Classloader error in hibernatetool: javax.validation.ValidationFactory not found, after loading other classes from validation-api.jar -->
-                  <dependency>
-                    <groupId>javax.validation</groupId>
-                    <artifactId>validation-api</artifactId>
-                    <version>1.1.0.Final</version>
-                  </dependency>
-                  <dependency>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                    <version>${slf4j.version}</version>
-                  </dependency>
-                  <dependency>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-simple</artifactId>
-                    <version>${slf4j.version}</version>
-                  </dependency>
-                 </dependencies>
             </plugin>
-            <!-- See http://mojo.codehaus.org/hibernate3-maven-plugin/examples/run-multiple-goals.html and
-            http://docs.jboss.org/tools/latest/en/hibernatetools/html/ant.html -->
-            <!--plugin>
-              <groupId>org.codehaus.mojo</groupId>
-              <artifactId>hibernate3-maven-plugin</artifactId>
-              <version>3.0</version>
-              <executions>
-                <execution>
-                </execution>
-              </executions>
-              <configuration>
-                <hibernatetool destdir="src/main/sql">
-                  <jpaconfiguration persistenceunit="unit_test"/>
-                  <hbm2ddl outputfilename="schema.sql" export="false" drop="true" create="true" format="true" haltonerror="true"/>
-                  <classpath>
-                      <path location="target/test-classes"/>
-                      <path location="target/classes"/>
-                      <path location="target/src/main/java"/>
-                  </classpath>
-                </hibernatetool>
-              </configuration>
-              <dependencies>
-                  <dependency>
-                    <groupId>com.h2database</groupId>
-                    <artifactId>h2</artifactId>
-                    <version>${testdb.version}</version>
-                  </dependency>
-                  <dependency>
-                    <groupId>org.hibernate</groupId>
-                    <artifactId>hibernate-entitymanager</artifactId>
-                    <version>3.6.9.Final</version>
-                  </dependency>
-                  <dependency>
-                      <groupId>org.hibernate</groupId>
-                      <artifactId>hibernate-validator</artifactId>
-                      <version>5.1.2.Final</version>
-                  </dependency>
-                  <dependency>
-                      <groupId>org.apache.maven</groupId>
-                      <artifactId>maven-core</artifactId>
-                      <version>3.0.4</version>
-                  </dependency>
-                </dependencies>
-            </plugin-->
             <!-- H2 chokes on 'ENGINE=InnoDB' in DDL, remove from generated SQL before running against H2 DB -->
             <!--plugin>
               <artifactId>maven-antrun-plugin</artifactId>
@@ -452,7 +368,7 @@
                             <autocommit>true</autocommit>
                             <orderFile>ascending</orderFile><!-- Ascending alphabetical order, not the order of files in includes -->
                             <fileset>
-                                <basedir>${basedir}/../app/src/main/sql</basedir>
+                                <basedir>${project.basedir}/src/main/sql</basedir>
                                 <includes>
                                     <!--include>1test-data-delete.sql</include>
                                     <include>2static-data-delete.sql</include-->
@@ -489,6 +405,14 @@
                         <exclude>**/*.ref</exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+              <artifactId>maven-surefire-plugin</artifactId>
+              <configuration>
+                <suiteXmlFiles>
+                  <suiteXmlFile>${project.basedir}/src/test/resources/testng.xml</suiteXmlFile>
+                </suiteXmlFiles>
+              </configuration>
             </plugin>
             <!--plugin>
                 <artifactId>maven-jar-plugin</artifactId>

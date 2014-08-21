@@ -11,6 +11,7 @@ $manageable.getDocumentation(" * ")
 public interface $manageable.manageableDaoName
     extends $manageable.fullyQualifiedDaoName
 {
+    /** 10001 */
     public static final int TRANSFORM_VALUEOBJECT = 10001;
 
     /**
@@ -18,6 +19,9 @@ public interface $manageable.manageableDaoName
      * @param entity
      * @return Object
      */
+#if ($enableAnnotations && $javaVersion.compareTo("1.6")>=0)
+    @Override
+#end
     public Object transformEntity(final int transform, final ${manageable.fullyQualifiedEntityName} entity);
 
     /**
@@ -45,6 +49,7 @@ public interface $manageable.manageableDaoName
 
     /**
      * @param entities
+     * @return Collection<${manageable.fullyQualifiedManageableValueObjectName}>
      */
     public java.util.Collection<${manageable.fullyQualifiedManageableValueObjectName}> toValueObjectCollection(java.util.Collection<${manageable.fullyQualifiedEntityName}> entities);
 
@@ -61,6 +66,7 @@ public interface $manageable.manageableDaoName
     public java.util.Collection<${manageable.fullyQualifiedEntityName}> searchByExample($manageable.fullyQualifiedManageableSearchExampleName example);
 
     /**
+     * @param transform
      * @param example
      * @return java.util.Collection<?>
      */
