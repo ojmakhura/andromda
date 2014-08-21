@@ -80,6 +80,8 @@
     <property reference="enableAnnotations"/>
     <property reference="hibernateEntityAnnotations"/>
     <property reference="hibernateJAXBPersistence"/>
+    <property reference="generateAttributeNameConstant"/>
+    <property reference="attributeNameConstantPrefix"/>
     <!-- These 6 properties are only relevant for Hibernate 3 -->
     <property reference="hibernateQueryFactory"/>
     <property reference="hibernateOneToManyNotFoundAction"/>
@@ -96,6 +98,7 @@
     <condition name="enableTemplating">$enableTemplating.equalsIgnoreCase("true")</condition>
     <condition name="hibernateEntityAnnotations">$hibernateEntityAnnotations.equalsIgnoreCase("true")</condition>
     <condition name="dateTimeGeneratedText">$dateTimeGeneratedText.equalsIgnoreCase("true")</condition>
+    <condition name="generateAttributeNameConstant">$generateAttributeNameConstant.equalsIgnoreCase("true")</condition>
     <!-- condition merge-point-->
 
     <!-- cartridge-resource merge-point -->

@@ -131,6 +131,10 @@ public class $entity.entityName
 #if ($hibernateEntityAnnotations)
     @javax.persistence.EmbeddedId
 #end
+#if ($generateAttributeNameConstant)
+    public static final String ${attributeNameConstantPrefix}${entity.identifierName}="${entity.identifierName}";
+
+#end
     private $entity.fullyQualifiedIdentifierTypeName $entity.identifierName;
 
     /**
