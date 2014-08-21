@@ -68,7 +68,8 @@ $entity.getDocumentation(" * ")
 #if (!$finders.empty)
 @javax.persistence.NamedQueries
 ({
-#if ($entity.genericFinders && !$entity.finderFindAllExists)
+##if ($entity.genericFinders && !$entity.finderFindAllExists)
+#if (!$entity.finderFindAllExists)
     @javax.persistence.NamedQuery(name = "${entity.name}.findAll", query = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable")#if (!$finders.empty),#end
 
 #end
@@ -78,14 +79,14 @@ $entity.getDocumentation(" * ")
 #end
 })
 #else
-#if ($entity.genericFinders)
+##if ($entity.genericFinders)
 @javax.persistence.NamedQuery(name = "${entity.name}.findAll", query = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable")#if (!$finders.empty),#end
 
-#end
+##end
 #end
 #end
 // HibernateEntity.vsl annotations merge-point
-public abstract class $entity.entityName
+public class $entity.entityName
 #if($entity.generalization)
 #if ($entity.generalization.fullyQualifiedEntityImplementationName)
 #set ($generalizationName = $entity.generalization.fullyQualifiedEntityImplementationName)
@@ -180,10 +181,12 @@ $operation.getDocumentation("     * ")
 #end
      */
 #if ($operation.exceptionsPresent)
-    $operation.visibility abstract $operation.getterSetterReturnTypeName $operation.signature
-        throws $operation.exceptionList;
+    $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
+        throws $operation.exceptionList
+    {};
 #else
-    $operation.visibility abstract $operation.getterSetterReturnTypeName $operation.signature;
+    $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
+    {};
 #end
 
 #end

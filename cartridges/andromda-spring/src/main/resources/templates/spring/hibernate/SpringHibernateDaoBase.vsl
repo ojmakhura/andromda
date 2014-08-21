@@ -340,11 +340,14 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 
     /**
      * prePersist event - This method is called before creating the entity
+     * @param $argumentName $entity.fullyQualifiedName
      */
     protected void _prePersist(final $entity.fullyQualifiedName $argumentName)
     {
 #if ($daoInheritance)
         super._prePersist($argumentName)
+#elseif($entity.daoBusinessOperations.empty)
+        // Abstract method - your implementation goes in the descendant
 #end
 #foreach ($operation in $entity.daoBusinessOperations)
 #if($operation.prePersist)
@@ -352,14 +355,17 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #end
 #end
     }
-     
+
     /**
      * postPersist event - This method is called after creating the entity
+     * @param $argumentName $entity.fullyQualifiedName
      */
     protected void _postPersist(final $entity.fullyQualifiedName $argumentName)
     {
 #if ($daoInheritance)
         super._postPersist($argumentName)
+#elseif($entity.daoBusinessOperations.empty)
+        // Abstract method - your implementation goes in the descendant
 #end
 #foreach ($operation in $entity.daoBusinessOperations)
 #if($operation.postPersist)
@@ -367,14 +373,17 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #end
 #end
     }
-     
+
     /**
      * preUpdate event - This method is called before updating the entity
+     * @param $argumentName $entity.fullyQualifiedName
      */
     protected void _preUpdate(final $entity.fullyQualifiedName $argumentName)
     {
 #if ($daoInheritance)
         super._preUpdate($argumentName)
+#elseif($entity.daoBusinessOperations.empty)
+        // Abstract method - your implementation goes in the descendant
 #end
 #foreach ($operation in $entity.daoBusinessOperations)
 #if($operation.preUpdate)
@@ -382,14 +391,17 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #end
 #end
     }
-     
+
     /**
      * postUpdate event - This method is called after updating the entity
+     * @param $argumentName $entity.fullyQualifiedName
      */
     protected void _postUpdate(final $entity.fullyQualifiedName $argumentName)
     {
 #if ($daoInheritance)
         super._postUpdate($argumentName)
+#elseif($entity.daoBusinessOperations.empty)
+        // Abstract method - your implementation goes in the descendant
 #end
 #foreach ($operation in $entity.daoBusinessOperations)
 #if($operation.postUpdate)
@@ -397,14 +409,17 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #end
 #end
     }
-     
+
     /**
      * preRemove event - This method is called before deleting the entity
+     * @param $argumentName $entity.fullyQualifiedName
      */
     protected void _preRemove(final $entity.fullyQualifiedName $argumentName)
     {
 #if ($daoInheritance)
         super._preRemove($argumentName)
+#elseif($entity.daoBusinessOperations.empty)
+        // Abstract method - your implementation goes in the descendant
 #end
 #foreach ($operation in $entity.daoBusinessOperations)
 #if($operation.preRemove)
@@ -412,14 +427,17 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #end
 #end
     }
-     
+
     /**
      * postRemove event - This method is called after deleting the entity
+     * @param $argumentName $entity.fullyQualifiedName
      */
     protected void _postRemove(final $entity.fullyQualifiedName $argumentName)
     {
 #if ($daoInheritance)
         super._postRemove($argumentName)
+#elseif($entity.daoBusinessOperations.empty)
+        // Abstract method - your implementation goes in the descendant
 #end
 #foreach ($operation in $entity.daoBusinessOperations)
 #if($operation.postRemove)
@@ -427,7 +445,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #end
 #end
     }
-     
+
 ## Only add these methods if the entity isn't abstract
 #if (!$entity.abstract)
     /**
@@ -694,7 +712,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
             throw new IllegalArgumentException(
                 "${entity.name}.update - '$argumentName' can not be null");
         }
-        
+
         //preUpdate event
         _preUpdate($argumentName);
 
@@ -796,7 +814,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         }
         //preRemove event
         _preRemove($argumentName);
-        
+
        #if($hibernate4) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.delete($argumentName);
 
         //postRemove event
@@ -1418,7 +1436,7 @@ $h3tab        }
                 Object result = null;
                 if (input instanceof Object[])
                 {
-                    final Object[] rows = (Object[])input; 
+                    final Object[] rows = (Object[])input;
                     result = toEntity(rows);
                 }
                 else if (input instanceof $entity.fullyQualifiedEntityName)
@@ -1468,15 +1486,12 @@ $h3tab        }
         {
             return null;
         }
-        else
-        {
 #if($enableTemplating)
-            @SuppressWarnings("rawtypes")
-#end            
-            java.util.Collection result = new java.util.ArrayList(entities);
-            org.apache.commons.collections.CollectionUtils.transform(result, this.${valueObjectRef.transformationAnonymousName});
-            return#if($enableTemplating) (Collection<${valueObjectRef.targetElement.fullyQualifiedName}>)#end result;
-        }
+        @SuppressWarnings("rawtypes")
+#end
+        java.util.Collection result = new java.util.ArrayList(entities);
+        org.apache.commons.collections.CollectionUtils.transform(result, this.${valueObjectRef.transformationAnonymousName});
+        return result;
     }
 
     /**
@@ -1495,7 +1510,7 @@ $h3tab        }
         {
 #if($enableTemplating)
         @SuppressWarnings("rawtypes")
-#end            
+#end
             final java.util.Collection collection = new java.util.ArrayList(entities);
             this.${valueObjectRef.transformationToCollectionMethodName}(collection);
             result = (${valueObjectRef.targetElement.fullyQualifiedName}[]) collection.toArray(new ${valueObjectRef.targetElement.fullyQualifiedName}[collection.size()]);
@@ -1712,9 +1727,6 @@ $h3tab        }
 #if ($enableAnnotations)
     @Override
 #end
-#if ($enableTemplating)
-    @SuppressWarnings({ "unchecked" })
-#end
     public $fullyQualifiedPagingResultName search(final int transform, final int pageNumber, final int pageSize, final $fullyQualifiedSearchClassName search)
     {
 #if ($hibernate4)
@@ -1722,7 +1734,7 @@ $h3tab        }
         search.setPageSize(pageSize);
         final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
             this.sessionFactory.getCurrentSession(), ${entity.fullyQualifiedEntityImplementationName}.class, search);
-        final java.util.List results = propertySearch.executeAsList();
+        final java.util.List#if($enableTemplating)<?>#end results = propertySearch.executeAsList();
         this.transformEntities(transform, results);
         return new $fullyQualifiedPagingResultName(results.toArray(new Object[results.size()]), propertySearch.getTotalCount());
 #else
@@ -1732,7 +1744,7 @@ $h3tab        }
             search.setPageSize(pageSize);
             final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
                 this.getSession(false), ${entity.fullyQualifiedEntityImplementationName}.class, search);
-            final java.util.List results = propertySearch.executeAsList();
+            final java.util.List#if($enableTemplating)<?>#end results = propertySearch.executeAsList();
             this.transformEntities(transform, results);
             return new $fullyQualifiedPagingResultName(results.toArray(new Object[results.size()]), propertySearch.getTotalCount());
         }
@@ -1915,15 +1927,12 @@ $h3tab        }
             throw new RuntimeException("Abstract entity $entity.fullyQualifiedEntityName cannot be created.");
 #else
             return ($entity.fullyQualifiedEntityName)this.create(${entity.daoNoTransformationConstantName},$argumentName);
-#end            
+#end
         }
-        else
-        {
-            this.update($argumentName);
-            return $argumentName;
-        }
+        this.update($argumentName);
+        return $argumentName;
     }
-    
+
     // spring-hibernate-dao-base merge-point
 }
 #end

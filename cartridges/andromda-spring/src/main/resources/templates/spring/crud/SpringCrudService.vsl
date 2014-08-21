@@ -12,8 +12,13 @@ $manageable.getDocumentation(" * ")
 public interface $manageable.manageableServiceName
 {
 #if ($manageable.create)
+    /**
+     * @param valueObject
+     * @return ${manageable.fullyQualifiedManageableValueObjectName}
+     * @throws Exception
+     */
     public ${manageable.fullyQualifiedManageableValueObjectName} create(${manageable.fullyQualifiedManageableValueObjectName} valueObject) throws Exception;
-    
+
     /**
 #foreach($attribute in $manageable.manageableAttributes)
      * @param $attribute.name $attribute.getDocumentation("")
@@ -33,6 +38,11 @@ public interface $manageable.manageableServiceName
 
 #end
 #if ($manageable.read)
+    /**
+     * @param example
+     * @return Collection<${manageable.fullyQualifiedManageableValueObjectName}>
+     * @throws Exception
+     */
     public java.util.Collection<${manageable.fullyQualifiedManageableValueObjectName}> searchByExample($manageable.fullyQualifiedManageableSearchExampleName example) throws Exception;
 
     /**
@@ -89,6 +99,11 @@ public interface $manageable.manageableServiceName
 #end
 #end
 #if ($manageable.update)
+    /**
+     * @param valueObject
+     * @return ${manageable.fullyQualifiedManageableValueObjectName}
+     * @throws Exception
+     */
     public ${manageable.fullyQualifiedManageableValueObjectName} update(${manageable.fullyQualifiedManageableValueObjectName} valueObject) throws Exception;
 
     /**
@@ -113,6 +128,10 @@ public interface $manageable.manageableServiceName
 
 #end
 #if ($manageable.delete)
+    /**
+     * @param ids Collection<${manageable.fullyQualifiedIdentifierTypeName}>
+     * @throws Exception
+     */
     public void delete(java.util.Collection<${manageable.fullyQualifiedIdentifierTypeName}> ids) throws Exception;
 
     /**

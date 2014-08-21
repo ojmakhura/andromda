@@ -48,17 +48,16 @@ public final class $manageable.manageableDaoBaseName
     }
 
 #end
+#if ($enableAnnotations)
     @Override
+#end
     public Object transformEntity(final int transform, final ${manageable.fullyQualifiedEntityName} entity)
     {
         if(transform == ${manageable.manageableDaoName}.TRANSFORM_VALUEOBJECT)
         {
             return toValueObject(entity);
         }
-        else
-        {
-            return super.transformEntity(transform, entity);
-        }
+        return super.transformEntity(transform, entity);
     }
 
     /**
@@ -69,6 +68,9 @@ public final class $manageable.manageableDaoBaseName
     private org.apache.commons.collections.Transformer VALUEOBJECT_TRANSFORMER =
         new org.apache.commons.collections.Transformer()
         {
+#if ($enableAnnotations)
+            @Override
+#end
             public Object transform(Object input)
             {
                 Object result = null;
@@ -87,7 +89,9 @@ public final class $manageable.manageableDaoBaseName
     /**
      * {@inheritDoc}
      */
+#if ($enableAnnotations)
     @Override
+#end
     public void transformEntities(final int transform, final java.util.Collection<?> entities)
     {
         if(transform == ${manageable.manageableDaoName}.TRANSFORM_VALUEOBJECT)
@@ -102,6 +106,8 @@ public final class $manageable.manageableDaoBaseName
 
     /**
      * {@inheritDoc}
+     * @param row
+     * @return ${manageable.fullyQualifiedManageableValueObjectName}
      */
     protected ${manageable.fullyQualifiedManageableValueObjectName} toValueObject(Object[] row)
     {
@@ -111,31 +117,32 @@ public final class $manageable.manageableDaoBaseName
     /**
      * {@inheritDoc}
      */
+#if ($enableAnnotations)
     @Override
+#end
 #if($enableTemplating)
     @SuppressWarnings("unchecked")
-#end            
+#end
     public java.util.Collection<${manageable.fullyQualifiedManageableValueObjectName}> toValueObjectCollection(java.util.Collection<${manageable.fullyQualifiedEntityName}> entities)
     {
         if (entities == null)
         {
             return null;
         }
-        else
-        {
 #if($enableTemplating)
-            @SuppressWarnings("rawtypes")
-#end            
-            java.util.Collection result = new java.util.ArrayList(entities);
-            org.apache.commons.collections.CollectionUtils.transform(result, this.VALUEOBJECT_TRANSFORMER);
-            return#if($enableTemplating) (java.util.Collection<${manageable.fullyQualifiedManageableValueObjectName}>)#end result;
-        }
+        @SuppressWarnings("rawtypes")
+#end
+        java.util.Collection result = new java.util.ArrayList(entities);
+        org.apache.commons.collections.CollectionUtils.transform(result, this.VALUEOBJECT_TRANSFORMER);
+        return result;
     }
 
     /**
      * {@inheritDoc}
      */
+#if ($enableAnnotations)
     @Override
+#end
     public final void valueObjectToEntityCollection(java.util.Collection<?> instances)
     {
         if (instances != null)
@@ -155,6 +162,9 @@ public final class $manageable.manageableDaoBaseName
     private final org.apache.commons.collections.Transformer ValueObjectToEntityTransformer =
         new org.apache.commons.collections.Transformer()
         {
+#if ($enableAnnotations)
+            @Override
+#end
             public Object transform(Object input)
             {
                 return valueObjectToEntity((${manageable.fullyQualifiedManageableValueObjectName})input);
@@ -165,7 +175,9 @@ public final class $manageable.manageableDaoBaseName
     /**
      * {@inheritDoc}
      */
+#if ($enableAnnotations)
     @Override
+#end
     public void toValueObject(
         ${manageable.fullyQualifiedEntityName} source,
         ${manageable.fullyQualifiedManageableValueObjectName} target)
@@ -210,7 +222,9 @@ public final class $manageable.manageableDaoBaseName
     /**
      * {@inheritDoc}
      */
+#if ($enableAnnotations)
     @Override
+#end
     public ${manageable.fullyQualifiedManageableValueObjectName} toValueObject(final ${manageable.fullyQualifiedEntityName} entity)
     {
         ${manageable.fullyQualifiedManageableValueObjectName} target = null;
@@ -225,7 +239,9 @@ public final class $manageable.manageableDaoBaseName
     /**
      * {@inheritDoc}
      */
+#if ($enableAnnotations)
     @Override
+#end
     public void valueObjectToEntity(
         ${manageable.fullyQualifiedManageableValueObjectName} source,
         ${manageable.fullyQualifiedEntityName} target)
@@ -251,7 +267,7 @@ public final class $manageable.manageableDaoBaseName
             target.${member.setterName}(values);
         }
 #else
-        target.${member.setterName}(source.${member.getterName}() == null? null: 
+        target.${member.setterName}(source.${member.getterName}() == null? null:
             ($member.type.fullyQualifiedName)#if($hibernate4) this.getSessionFactory().getCurrentSession()#else this.getHibernateTemplate()#end.load(${member.type.fullyQualifiedEntityImplementationName}.class, source.${member.getterName}()));
 #end
 #end
@@ -260,7 +276,9 @@ public final class $manageable.manageableDaoBaseName
     /**
      * {@inheritDoc}
      */
+#if ($enableAnnotations)
     @Override
+#end
     public ${manageable.fullyQualifiedEntityName} valueObjectToEntity(${manageable.fullyQualifiedManageableValueObjectName} source)
     {
         final ${manageable.fullyQualifiedEntityName} entity;
@@ -279,7 +297,7 @@ public final class $manageable.manageableDaoBaseName
         valueObjectToEntity(source, entity);
         return entity;
     }
-    
+
 #if($manageableSearchMatchMode == 'anywhere')
 #set($matchMode = 'MatchMode.ANYWHERE')
 #else
@@ -288,8 +306,9 @@ public final class $manageable.manageableDaoBaseName
     /**
      * {@inheritDoc}
      */
+#if ($enableAnnotations)
     @Override
-    @SuppressWarnings("unchecked")
+#end
     public java.util.Collection<${manageable.fullyQualifiedEntityName}> searchByExample($manageable.fullyQualifiedManageableSearchExampleName example)
     {
         final Session session =#if($hibernate4) this.getSessionFactory().getCurrentSession();#else this.getSession(false);#end
@@ -344,23 +363,25 @@ public final class $manageable.manageableDaoBaseName
             if (example.${member.getterName}() != null)
             {
                 criteria.createCriteria("$member.name").add(Restrictions.eq("$member.type.identifierName", example.${member.getterName}()));
-            }   
+            }
 #end
 #end
         }
-        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        criteria.setResultTransformer(org.hibernate.criterion.CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 #if ($manageable.maximumListSize > 0)
         criteria.setMaxResults($manageable.maximumListSize);
 
 #end
         criteria.addOrder(org.hibernate.criterion.Order.asc("${manageable.displayAttribute.name}"));
-        return (java.util.Collection<${manageable.fullyQualifiedEntityName}>)criteria.list();
+        return criteria.list();
     }
-    
+
     /**
      * {@inheritDoc}
      */
+#if ($enableAnnotations)
     @Override
+#end
     public java.util.Collection<?> searchByExample(int transform, $manageable.fullyQualifiedManageableSearchExampleName example)
     {
         final java.util.Collection<?> result=this.searchByExample(example);

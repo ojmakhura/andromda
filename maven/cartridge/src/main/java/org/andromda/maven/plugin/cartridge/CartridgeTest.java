@@ -266,6 +266,19 @@ public class CartridgeTest
     }
 
     /**
+     * Resets the expected output directory.
+     *
+     * @param file the file representing the directory.
+     */
+    protected void setExpectedOutputDirectory(File file)
+    {
+       if (file == null)
+       {
+           this.expectedOutputDirectory = this.getDirectory(this.expectedOutputPath);
+       }
+    }
+
+    /**
      * The actual output directory.
      */
     private File actualOutputDirectory;
@@ -277,6 +290,18 @@ public class CartridgeTest
             this.actualOutputDirectory = this.getDirectory(this.actualOutputPath);
         }
         return this.actualOutputDirectory;
+    }
+
+    /**
+     * Used when resetting the cartridge test instance, to avoid results overlap
+     * @param file
+     */
+    protected void setActualOutputDirectory(File file)
+    {
+        if (file == null)
+        {
+            this.actualOutputDirectory = this.getDirectory(this.actualOutputPath);
+        }
     }
 
     /**

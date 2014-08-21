@@ -1,10 +1,20 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="TimeTracker Test Suite" verbose="1">
-  <test name="Services Test">
-    <classes>
-       <class name="org.andromda.timetracker.service.UserServiceTest" />
-       <class name="org.andromda.timetracker.service.TimeTrackingServiceTest" />
-    </classes>
-  </test>
+<suite name="TimeTracker Test Suite" verbose="2" parallel="false">
+    <!-- Create all entities in the proper dependency referential integrity order -->
+    <test name="timetracker CRUD Tests" preserve-order="true" group-by-instances="false" verbose="2">
+        <packages>
+            <package name="org.andromda.timetracker.domain"></package>
+        </packages>
+    </test>
+    <test name="Services Test">
+      <classes>
+         <class name="org.andromda.timetracker.service.UserServiceTest" />
+         <class name="org.andromda.timetracker.service.TimeTrackingServiceTest" />
+      </classes>
+    </test>
+    <!-- Set @Priority on individual test methods, for proper ordering -->
+    <!--listeners>
+        <listener class-name="org.andromda.dbtest.PriorityInterceptor"></listener>
+    </listeners-->
 </suite>

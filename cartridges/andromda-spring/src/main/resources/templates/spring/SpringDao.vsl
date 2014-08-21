@@ -411,6 +411,7 @@ public interface $entity.daoName
     /**
      * Create or Update the <code>$argumentName</code> instance in the persistent store.
      * @param $argumentName
+     * @return $entity.fullyQualifiedEntityName
      */
     public $entity.fullyQualifiedEntityName createOrUpdate($entity.fullyQualifiedEntityName $argumentName);
 
