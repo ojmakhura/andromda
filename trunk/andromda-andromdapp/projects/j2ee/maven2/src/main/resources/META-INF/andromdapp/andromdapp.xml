@@ -23,7 +23,7 @@
             <output>core/META-INF/ejb-jar.xml</output>
         </conditions>
         <conditions type="and">
-            <condition id="webservice" equal="true"/>
+            <condition id="webservice" notEqual="none"/>
             <condition id="jsr181Webservice" notEqual="true"/>
             <!--condition id="ear" equal="true"/-->
             <output patterns="**/*">webservice/</output>
@@ -39,7 +39,7 @@
             <output>web/target/${applicationId}-web-${applicationVersion}/target/src/WEB-INF/web.xml</output>
         </conditions>
         <conditions>
-            <condition id="webservice" equal="true"/>
+            <condition id="webservice" notEqual="none"/>
             <output>webservice/src/main/webapp/META-INF/context.xml.vsl</output>
             <output>webservice/src/main/webapp/WEB-INF/web.xml</output>
         </conditions>
@@ -57,7 +57,7 @@
         </conditions>
         <conditions type="and">
             <condition id="war" equal="true"/>
-            <condition id="webservice" equal="true"/>
+            <condition id="webservice" notEqual="none"/>
             <output>mda/src/main/config/mappings/WebMergeMappings.xml.vsl</output>
         </conditions>
         <conditions type="and">
@@ -438,7 +438,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 <shortText>Application deployment runtime</shortText>
                 <preconditions type="and">
                     <condition id="applicationType" notEqual="war"/>
-                    <condition id="webservice" notEqual="true"/>
+                    <condition id="webservice" notEqual="none"/>
                 </preconditions>
                 <responses>
                     <response>jboss7</response>
@@ -471,7 +471,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 <shortText>Application deployment runtime</shortText>
                 <preconditions type="or">
                     <condition id="applicationType" equal="war"/>
-                    <condition id="webservice" equal="true"/>
+                    <condition id="webservice" notEqual="none"/>
                 </preconditions>
                 <responses>
                     <response>jboss7</response>

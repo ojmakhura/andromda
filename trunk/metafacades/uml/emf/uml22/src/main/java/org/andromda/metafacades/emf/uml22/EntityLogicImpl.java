@@ -655,7 +655,7 @@ public class EntityLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.Entity#getAttributes(boolean, boolean)
+     * @see org.andromda.metafacades.uml.Entity#getAttributes(boolean, boolean, boolean)
      */
     @Override
     protected Collection<AttributeFacade> handleGetAttributes(

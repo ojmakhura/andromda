@@ -31,7 +31,7 @@ public class UserServiceImpl
     protected UserVO[] handleGetAllUsers()
         throws Exception
     {
-        Collection userVOs = getUserDao().loadAll(UserDao.TRANSFORM_USERVO);
-        return (UserVO[]) userVOs.toArray(new UserVO[userVOs.size()]);
+        Collection<?> userVOs = getUserDao().loadAll(UserDao.TRANSFORM_USERVO);
+        return userVOs.toArray(new UserVO[userVOs.size()]);
     }
 }

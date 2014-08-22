@@ -187,11 +187,15 @@ $operation.getDocumentation("     * ")
 #if ($operation.exceptionsPresent)
     $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
         throws $operation.exceptionList
-    {};
 #else
     $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
-    {};
 #end
+    {
+#if ($operation.returnTypePresent)
+        // Your implementation required in descendant
+        return null;
+#end
+    }
 
 #end
 #if ($generateEntityEqualsAndHashCode.equalsIgnoreCase('true'))
@@ -362,5 +366,8 @@ ${comma}${property.getterSetterTypeName} ${property.name}## no newline
 
 #end
 #renderCompareToMethod($entity $entity.entityName $entity.identifiers)
+
+## Don't want to render associations because we may get an infinite loop on bidirectional relationships. Can we render only the remote Entity IDs?
+#renderToStringMethod($entity $entity.entityName $entity.getAttributes(true))
 // HibernateEntity.vsl merge-point
 }

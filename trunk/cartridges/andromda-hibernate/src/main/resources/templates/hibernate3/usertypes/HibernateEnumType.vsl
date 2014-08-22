@@ -24,13 +24,14 @@ import org.hibernate.usertype.ParameterizedType;
  */
 public class $className implements EnhancedUserType, ParameterizedType
 {
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "rawtypes" })
     private Class<Enum> enumClass;
 
     /**
      * @see org.hibernate.usertype.ParameterizedType${esc.hash}setParameterValues(java.util.Properties)
      */
-    @SuppressWarnings("unchecked")
+    @Override
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public void setParameterValues(Properties parameters)
     {
         final String enumClassName = parameters.getProperty("enumClassName");
@@ -48,6 +49,7 @@ public class $className implements EnhancedUserType, ParameterizedType
     /**
      * @see org.hibernate.usertype.UserType${esc.hash}assemble(java.io.Serializable, Object)
      */
+    @Override
     public Object assemble(Serializable cached, Object owner) throws HibernateException
     {
         return cached;
@@ -56,6 +58,7 @@ public class $className implements EnhancedUserType, ParameterizedType
     /**
      * @see org.hibernate.usertype.UserType${esc.hash}deepCopy(Object)
      */
+    @Override
     public Object deepCopy(Object value) throws HibernateException
     {
         return value;
@@ -64,7 +67,8 @@ public class $className implements EnhancedUserType, ParameterizedType
     /**
      * @see org.hibernate.usertype.UserType${esc.hash}disassemble(Object)
      */
-    @SuppressWarnings("unchecked")
+    @Override
+    @SuppressWarnings({ "rawtypes" })
     public Serializable disassemble(Object value) throws HibernateException
     {
         return (Enum)value;
@@ -73,6 +77,7 @@ public class $className implements EnhancedUserType, ParameterizedType
     /**
      * @see org.hibernate.usertype.UserType${esc.hash}equals(Object, Object)
      */
+     @Override
     public boolean equals(Object x, Object y) throws HibernateException
     {
         return x == y;
@@ -81,6 +86,7 @@ public class $className implements EnhancedUserType, ParameterizedType
     /**
      * @see org.hibernate.usertype.UserType${esc.hash}hashCode(Object)
      */
+    @Override
     public int hashCode(Object x) throws HibernateException
     {
         return x.hashCode();
@@ -89,13 +95,20 @@ public class $className implements EnhancedUserType, ParameterizedType
     /**
      * @see org.hibernate.usertype.UserType${esc.hash}isMutable()
      */
+    @Override
     public boolean isMutable()
     {
         return false;
     }
 
     /**
-     * @see org.hibernate.usertype.UserType${esc.hash}nullSafeGet(java.sql.ResultSet, String[], Object)
+     * @param resultSet
+     * @param names
+     * @param owner
+     * @return name
+     * @throws HibernateException
+     * @throws SQLException
+     * @see org.hibernate.usertype.UserType${esc.hash}nullSafeGet(java.sql.ResultSet, String[]#if($hibernateUtils.version4), SessionImplementor#end, Object)
      */
     @SuppressWarnings("unchecked")
 #if ($enableAnnotations && $hibernateUtils.version3)
@@ -108,9 +121,14 @@ public class $className implements EnhancedUserType, ParameterizedType
     }
 
     /**
-     * @see org.hibernate.usertype.UserType${esc.hash}nullSafeSet(java.sql.PreparedStatement, Object, int)
+     * @param statement
+     * @param value
+     * @param index
+     * @throws HibernateException
+     * @throws SQLException
+     * @see org.hibernate.usertype.UserType${esc.hash}nullSafeSet(java.sql.PreparedStatement, Object, int#if($hibernateUtils.version4), SessionImplementor#end)
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "rawtypes" })
 #if ($enableAnnotations && $hibernateUtils.version3)
     @Override
 #end
@@ -134,7 +152,7 @@ public class $className implements EnhancedUserType, ParameterizedType
     }
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeGet(java.sql.ResultSet, String[], Object)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeGet(java.sql.ResultSet, String[]#if($hibernateUtils.version4), SessionImplementor#end, Object)
      */
 #if ($enableAnnotations && $hibernateUtils.version4)
     @Override
@@ -146,7 +164,7 @@ public class $className implements EnhancedUserType, ParameterizedType
     }
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeSet(java.sql.PreparedStatement, Object, int)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeSet(java.sql.PreparedStatement, Object, int#if($hibernateUtils.version4), SessionImplementor#end)
      */
 #if ($enableAnnotations && $hibernateUtils.version4)
     @Override
@@ -164,6 +182,7 @@ public class $className implements EnhancedUserType, ParameterizedType
     /**
      * @see org.hibernate.usertype.UserType${esc.hash}replace(Object, Object, Object)
      */
+    @Override
     public Object replace(Object original, Object target, Object owner) throws HibernateException
     {
         return original;
@@ -172,7 +191,7 @@ public class $className implements EnhancedUserType, ParameterizedType
     /**
      * @see org.hibernate.usertype.UserType${esc.hash}returnedClass()
      */
-    @SuppressWarnings("unchecked")
+    @Override
     public Class returnedClass()
     {
         return this.enumClass;
@@ -181,6 +200,7 @@ public class $className implements EnhancedUserType, ParameterizedType
     /**
      * @see org.hibernate.usertype.UserType${esc.hash}sqlTypes()
      */
+    @Override
     public int[] sqlTypes()
     {
         return new int[]{Types.VARCHAR};
@@ -190,6 +210,7 @@ public class $className implements EnhancedUserType, ParameterizedType
      * @see org.hibernate.usertype.EnhancedUserType${esc.hash}fromXMLString(String)
      */
     @SuppressWarnings("unchecked")
+    @Override
     public Object fromXMLString(String xmlValue)
     {
         return Enum.valueOf(this.enumClass, xmlValue);
@@ -198,7 +219,8 @@ public class $className implements EnhancedUserType, ParameterizedType
     /**
      * @see org.hibernate.usertype.EnhancedUserType${esc.hash}objectToSQLString(Object)
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "rawtypes" })
+    @Override
     public String objectToSQLString(Object value)
     {
         return '\'' + ((Enum)value).name() + '\'';
@@ -207,7 +229,8 @@ public class $className implements EnhancedUserType, ParameterizedType
     /**
      * @see org.hibernate.usertype.EnhancedUserType${esc.hash}toXMLString(Object)
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "rawtypes" })
+    @Override
     public String toXMLString(Object value)
     {
         return ((Enum)value).name();

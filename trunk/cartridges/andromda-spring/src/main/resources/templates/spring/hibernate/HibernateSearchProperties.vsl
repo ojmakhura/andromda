@@ -139,6 +139,7 @@ public class ${criteriaSearchBaseName}Properties
             ends,
             new org.apache.commons.collections.Predicate()
             {
+                @Override
                 public boolean evaluate(final Object object)
                 {
                     return ((PropertyType)object).name.equals(name);
@@ -164,7 +165,7 @@ public class ${criteriaSearchBaseName}Properties
         }
         if (type == null)
         {
-            try 
+            try
             {
                 java.lang.reflect.Method getter;
                 try
@@ -177,7 +178,7 @@ public class ${criteriaSearchBaseName}Properties
             } catch (SecurityException e) {
                 throw new RuntimeException(e);
             } catch (NoSuchMethodException e) {
-                throw new RuntimeException("No accessible property named '" + name + "', exists on: " + ownerType.getName()); 
+                throw new RuntimeException("No accessible property named '" + name + "', exists on: " + ownerType.getName());
             }
         }
         return type;
