@@ -49,8 +49,12 @@ public class $criteriaSearchBaseName
     private Class resultType;
 
     private static final class ParameterComparator
-        implements Comparator
+        implements Comparator#if($enableTemplating)<Object>#end
+
     {
+#if ($enableAnnotations)
+        @Override
+#end
         public int compare(final Object object1, final Object object2)
         {
             final CriteriaSearchParameter parameter1 = (CriteriaSearchParameter)object1;
@@ -104,7 +108,8 @@ public class $criteriaSearchBaseName
      * @return result The result of the query.
      * @throws ${hibernateUtils.basePackage}.HibernateException
      */
-    public Set executeAsSet()
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public Set#if($enableTemplating)<?>#end executeAsSet()
         throws ${hibernateUtils.basePackage}.HibernateException
     {
         return new LinkedHashSet(this.executeAsList());
@@ -118,6 +123,7 @@ public class $criteriaSearchBaseName
      * @return result The result of the query as a List
      * @throws ${hibernateUtils.basePackage}.HibernateException
      */
+    @SuppressWarnings({ "rawtypes", "synthetic-access" })
     public List executeAsList()
         throws ${hibernateUtils.basePackage}.HibernateException
     {
@@ -257,12 +263,12 @@ public class $criteriaSearchBaseName
             // Evaluating the proper criteria object for the defined parameter
 #if ($enableTemplating)
             @SuppressWarnings("rawtypes")
-#end 
+#end
             Class type = this.resultType;
             for (int index = 0; index < (path.length - 1); index++)
             {
                 final String childEntityName = path[index];
-                final Collection embeddedValues = CriteriaSearchProperties.getEmbeddedValues(type);
+                final Collection<String> embeddedValues = CriteriaSearchProperties.getEmbeddedValues(type);
                 if (embeddedValues != null && embeddedValues.contains(childEntityName))
                 {
                     // - use the rest of the path as the parameter name
@@ -301,12 +307,12 @@ public class $criteriaSearchBaseName
             // Evaluating the proper criteria object for the defined parameter
 #if ($enableTemplating)
             @SuppressWarnings("rawtypes")
-#end 
+#end
             Class type = this.resultType;
             for (int index = 0; index < (path.length - 1); index++)
             {
                 final String childEntityName = path[index];
-                final Collection embeddedValues = CriteriaSearchProperties.getEmbeddedValues(type);
+                final Collection<String> embeddedValues = CriteriaSearchProperties.getEmbeddedValues(type);
                 if (embeddedValues != null && embeddedValues.contains(childEntityName))
                 {
                     // - use the rest of the path as the parameter name
@@ -492,7 +498,7 @@ public class $criteriaSearchBaseName
                         {
                             if (parameterValue instanceof Collection)
                             {
-                                criteria.add(${hibernateUtils.restrictionClass}.in(parameterName, (Collection)parameterValue));
+                                criteria.add(${hibernateUtils.restrictionClass}.in(parameterName, (Collection<Object>)parameterValue));
                             }
                             break;
                         }
@@ -500,7 +506,7 @@ public class $criteriaSearchBaseName
                         {
                             if (parameterValue instanceof Collection)
                             {
-                                criteria.add(${hibernateUtils.restrictionClass}.not(${hibernateUtils.restrictionClass}.in(parameterName, (Collection)parameterValue)));
+                                criteria.add(${hibernateUtils.restrictionClass}.not(${hibernateUtils.restrictionClass}.in(parameterName, (Collection<Object>)parameterValue)));
                             }
                             break;
                         }
@@ -511,6 +517,8 @@ public class $criteriaSearchBaseName
                             break;
                         }
 #end
+                        default:
+                            break;
                     }
                 }
                 else
@@ -734,6 +742,8 @@ public class $criteriaSearchBaseName
                     break;
                 }
 #end
+                default:
+                    break;
             }
 
             if (disjunction != null)
@@ -784,7 +794,7 @@ public class $criteriaSearchBaseName
     {
         if (this.childCriteriaMap.containsKey(childEntityName))
         {
-            return (${hibernateUtils.basePackage}.Criteria) this.childCriteriaMap.get(childEntityName);
+            return this.childCriteriaMap.get(childEntityName);
         }
         ${hibernateUtils.basePackage}.Criteria childCriteria = parentCriteria.createCriteria(childEntityName);
         if (this.configuration.isForceEagerLoading())

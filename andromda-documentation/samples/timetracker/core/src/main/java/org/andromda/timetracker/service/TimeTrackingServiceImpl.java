@@ -6,6 +6,7 @@
 package org.andromda.timetracker.service;
 
 import java.util.List;
+import org.andromda.timetracker.domain.Timecard;
 import org.andromda.timetracker.vo.TimecardSearchCriteriaVO;
 import org.andromda.timetracker.vo.TimecardSummaryVO;
 
@@ -25,8 +26,8 @@ public class TimeTrackingServiceImpl
     protected TimecardSummaryVO[] handleFindTimecards(TimecardSearchCriteriaVO criteria)
         throws Exception
     {
-        List timecards = getTimecardDao().findByCriteria(criteria);
+        List<Timecard> timecards = getTimecardDao().findByCriteria(criteria);
         getTimecardDao().toTimecardSummaryVOCollection(timecards);
-        return (TimecardSummaryVO[]) timecards.toArray(new TimecardSummaryVO[timecards.size()]);
+        return timecards.toArray(new TimecardSummaryVO[timecards.size()]);
     }
 }

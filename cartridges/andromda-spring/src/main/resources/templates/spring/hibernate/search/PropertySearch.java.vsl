@@ -285,7 +285,7 @@ public class $className
                 }
                 catch (final NoSuchMethodException e)
                 {
-                    try //try to find the 'is' 
+                    try //try to find the 'is'
                     {
                         value = convert(value, propertyType.getMethod("is"+StringUtils.capitalize(name), (Class<?>[])null).getReturnType());
                     }
@@ -318,7 +318,8 @@ public class $className
          * @see org.apache.commons.beanutils.Converter${esc.hash}convert(Class, Object)
          */
 #if ($enableAnnotations)
-        @SuppressWarnings("rawtypes")
+        @SuppressWarnings({ "rawtypes", "unchecked" })
+        @Override
 #end
         public Object convert(
             Class type,
@@ -357,8 +358,9 @@ public class $className
         /**
          * @see org.apache.commons.beanutils.Converter${esc.hash}convert(Class, Object)
          */
- #if ($enableAnnotations)
-       @SuppressWarnings("rawtypes")
+#if ($enableAnnotations)
+        @SuppressWarnings({ "rawtypes", "unchecked" })
+        @Override
 #end
         public Object convert(
             Class type,

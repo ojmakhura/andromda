@@ -20,6 +20,7 @@
         <property name="configurationUri">${project.basedir}/src/main/config/andromda.xml</property>
         <property name="databaseType">hypersonic</property>
         <property name="testDatabase">h2</property>
+        <property name="deploymentPlatform">jboss7</property>
         <!--property name="distributionManagementRepositoryUrl">$${project.distributionManagement.repository.url}</property>
         <property name="distributionManagementSnapshotRepositoryUrl">$${project.distributionManagement.snapshotRepository.url}</property-->
         <property name="distributionManagementRepositoryUrl">file:/scratch/hudson/workspace/Andromda/</property>

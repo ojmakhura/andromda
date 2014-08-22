@@ -9,6 +9,8 @@ import java.util.List;
 import org.andromda.timetracker.vo.TimecardSearchCriteriaVO;
 import org.andromda.timetracker.vo.TimecardSummaryVO;
 import org.andromda.timetracker.vo.TimecardVO;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.criterion.Restrictions;
@@ -19,6 +21,8 @@ import org.hibernate.criterion.Restrictions;
 public class TimecardDaoImpl
     extends TimecardDaoBase
 {
+    /** */
+    protected static final Log LOGGER = LogFactory.getLog(TimecardDaoImpl.class);
     /**
      * @see org.andromda.timetracker.domain.TimecardDao#findByCriteria(TimecardSearchCriteriaVO)
      */
@@ -32,35 +36,41 @@ public class TimecardDaoImpl
             .setFetchMode("approver", FetchMode.JOIN);
 
         // Add submitter criteria
-        if (criteria.getSubmitterId() != null) {
+        if (criteria.getSubmitterId() != null)
+        {
             timecardCriteria.createCriteria("submitter")
                 .add(Restrictions.idEq(criteria.getSubmitterId()));
         }
 
         // Add approver criteria
-        if (criteria.getApproverId() != null) {
+        if (criteria.getApproverId() != null)
+        {
             timecardCriteria.createCriteria("approver")
                 .add(Restrictions.idEq(criteria.getApproverId()));
         }
 
         // Add status criteria
-        if (criteria.getStatus() != null) {
+        if (criteria.getStatus() != null)
+        {
             timecardCriteria.add(Restrictions.eq("status", criteria.getStatus()));
         }
 
         // Add startDateMin criteria
-        if (criteria.getStartDateMin() != null) {
+        if (criteria.getStartDateMin() != null)
+        {
             timecardCriteria.add(Restrictions.ge("startDate", criteria.getStartDateMin()));
         }
 
         // Add startDateMax criteria
-        if (criteria.getStartDateMax() != null) {
+        if (criteria.getStartDateMax() != null)
+        {
             timecardCriteria.add(Restrictions.le("startDate", criteria.getStartDateMax()));
         }
 
         List<Timecard> timecards = timecardCriteria.list();
-        if (this.logger.isDebugEnabled()) {
-            this.logger.debug(timecards.size() + " timecards found");
+        if (TimecardDaoImpl.LOGGER.isDebugEnabled())
+        {
+            TimecardDaoImpl.LOGGER.debug(timecards.size() + " timecards found");
         }
         return timecards;
     }
@@ -75,11 +85,11 @@ public class TimecardDaoImpl
     {
         super.toTimecardSummaryVO(sourceEntity, targetVO);
         targetVO.setSubmitterName(sourceEntity.getSubmitter().getUsername());
-        if (sourceEntity.getApprover() != null) {
+        if (sourceEntity.getApprover() != null)
+        {
             targetVO.setApproverName(sourceEntity.getApprover().getUsername());
         }
     }
-
 
     /**
      * @see org.andromda.timetracker.domain.TimecardDao#toTimecardSummaryVO(Timecard)
@@ -90,7 +100,6 @@ public class TimecardDaoImpl
         // TODO verify behavior of toTimecardSummaryVO
         return super.toTimecardSummaryVO(entity);
     }
-
 
     /**
      * Retrieves the entity object that is associated with the specified value object
@@ -112,7 +121,6 @@ public class TimecardDaoImpl
         */
     }
 
-
     /**
      * @see org.andromda.timetracker.domain.TimecardDao#timecardSummaryVOToEntity(TimecardSummaryVO)
      */
@@ -124,7 +132,6 @@ public class TimecardDaoImpl
         this.timecardSummaryVOToEntity(timecardSummaryVO, entity, true);
         return entity;
     }
-
 
     /**
      * @see org.andromda.timetracker.domain.TimecardDao#timecardSummaryVOToEntity(TimecardSummaryVO, Timecard, boolean)
@@ -153,7 +160,6 @@ public class TimecardDaoImpl
         // sourceEntity.getAllocations():org.andromda.timetracker.domain.TimeAllocation to org.andromda.timetracker.vo.TimeAllocationVO[]
     }
 
-
     /**
      * @see org.andromda.timetracker.domain.TimecardDao#toTimecardVO(Timecard)
      */
@@ -163,7 +169,6 @@ public class TimecardDaoImpl
         // TODO verify behavior of toTimecardVO
         return super.toTimecardVO(entity);
     }
-
 
     /**
      * Retrieves the entity object that is associated with the specified value object
@@ -185,7 +190,6 @@ public class TimecardDaoImpl
         */
     }
 
-
     /**
      * @see org.andromda.timetracker.domain.TimecardDao#timecardVOToEntity(TimecardVO)
      */
@@ -197,7 +201,6 @@ public class TimecardDaoImpl
         this.timecardVOToEntity(timecardVO, entity, true);
         return entity;
     }
-
 
     /**
      * @see org.andromda.timetracker.domain.TimecardDao#timecardVOToEntity(TimecardVO, Timecard, boolean)

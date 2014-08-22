@@ -73,7 +73,13 @@ public class $className
     }
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeGet(java.sql.ResultSet, String[], Object)
+     * @param resultSet
+     * @param names
+     * @param owner
+     * @return blob
+     * @throws HibernateException
+     * @throws SQLException
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeGet(java.sql.ResultSet, String[]#if($hibernateUtils.version4), SessionImplementor#end, Object)
      */
 #if ($enableAnnotations && $hibernateUtils.version3)
     @Override
@@ -100,6 +106,7 @@ public class $className
                 {
                     outputStream.write(buffer, 0, read);
                 }
+                inputStream.close();
                 outputStream.close();
             }
             catch (IOException exception)
@@ -113,7 +120,11 @@ public class $className
     }
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeSet(java.sql.PreparedStatement, Object, int)
+     * @param statement
+     * @param value
+     * @param index
+     * @throws SQLException
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeSet(java.sql.PreparedStatement, Object, int#if($hibernateUtils.version4), SessionImplementor#end)
      */
 #if ($enableAnnotations && $hibernateUtils.version3)
     @Override
@@ -140,7 +151,7 @@ public class $className
     }
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeGet(java.sql.ResultSet, String[], Object)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeGet(java.sql.ResultSet, String[], SessionImplementor, Object)
      */
 #if ($enableAnnotations && $hibernateUtils.version4)
     @Override
@@ -152,7 +163,7 @@ public class $className
     }
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeSet(java.sql.PreparedStatement, Object, int)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeSet(java.sql.PreparedStatement, Object, int, SessionImplementor)
      */
 #if ($enableAnnotations && $hibernateUtils.version4)
     @Override
