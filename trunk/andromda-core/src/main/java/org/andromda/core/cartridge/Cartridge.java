@@ -62,15 +62,23 @@ public class Cartridge
         {
             for (Resource resource : resources)
             {
-                if (resource instanceof Template)
+                try
                 {
-                    this.processTemplate(
-                        factory,
-                        (Template)resource);
+                    if (resource instanceof Template)
+                    {
+                        this.processTemplate(
+                            factory,
+                            (Template)resource);
+                    }
+                    else
+                    {
+                        this.processResource(resource);
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    this.processResource(resource);
+                    // Don't kill the entire code generation if one output fails
+                    LOGGER.error("Error processing resource " + resource.toString(), e);
                 }
             }
         }
@@ -246,6 +254,7 @@ public class Cartridge
             }
             catch (final Throwable throwable)
             {
+                LOGGER.error("Error Processing " + template.getPath(), throwable);
                 throw new CartridgeException(throwable);
             }
         }
@@ -469,7 +478,8 @@ public class Cartridge
             final String message =
                 "Error processing template '" + template.getPath() + "' with template context '" + templateContext +
                 "' using cartridge '" + this.getNamespace() + '\'';
-            throw new CartridgeException(message, throwable);
+            LOGGER.error(message, throwable);
+            //throw new CartridgeException(message, throwable);
         }
     }
 
@@ -612,7 +622,8 @@ public class Cartridge
                 outputFile.delete();
                 this.getLogger().info("Removed: '" + outputFile + '\'');
             }
-            throw new CartridgeException(throwable);
+            LOGGER.error("Error writing resource " + resource.getOutlet() + " to URL " + resourceUrl.toString(), throwable);
+            //throw new CartridgeException(throwable);
         }
     }
 
@@ -796,5 +807,21 @@ public class Cartridge
         this.conditions.clear();
         this.evaluatedConditions.clear();
         this.templatePostProcessor.clear();
+    }
+
+    /**
+     * @see Object#toString()
+     */
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append(super.toString());
+        //builder.append(" [resources=").append(this.resources); // StackOverflow
+        builder.append(" [conditions=").append(this.conditions);
+        builder.append(", evaluatedConditions=").append(this.evaluatedConditions);
+        builder.append(", templatePostProcessor=").append(this.templatePostProcessor);
+        builder.append(", conditionsEvaluated=").append(this.conditionsEvaluated).append("]");
+        return builder.toString();
     }
 }

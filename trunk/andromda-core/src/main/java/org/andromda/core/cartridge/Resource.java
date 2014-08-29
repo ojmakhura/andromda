@@ -249,4 +249,22 @@ public class Resource
     {
         return StringUtils.trimToEmpty(this.outputPattern);
     }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append(super.toString());
+        builder.append(" [outlet=").append(this.outlet);
+        builder.append(", outputCondition=").append(this.outputCondition);
+        builder.append(", overwrite=").append(this.overwrite);
+        builder.append(", lastModifiedCheck=").append(this.lastModifiedCheck);
+        builder.append(", path=").append(this.path);
+        builder.append(", cartridge=").append(this.cartridge);
+        builder.append(", outputPattern=").append(this.outputPattern).append("]");
+        return builder.toString();
+    }
 }

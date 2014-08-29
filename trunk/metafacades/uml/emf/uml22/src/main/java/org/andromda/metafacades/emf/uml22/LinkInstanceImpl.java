@@ -1228,4 +1228,14 @@ public class LinkInstanceImpl implements LinkInstance
     {
         return this.instanceSpecification.eInvoke(arg0, arg1);
     }
+
+    /*
+     * UML2 5.0 (Eclipse 4.4) only
+     * @see org.eclipse.uml2.uml.InstanceSpecification#validateNamespaceNeedsVisibility(org.eclipse.emf.common.util.DiagnosticChain, Map)
+    @Override
+    public boolean validateNamespaceNeedsVisibility(DiagnosticChain diagnostics, Map<Object, Object> context)
+    {
+        return this.instanceSpecification.validateNamespaceNeedsVisibility(diagnostics, context);
+    }
+     */
 }

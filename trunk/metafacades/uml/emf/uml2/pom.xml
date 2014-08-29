@@ -111,6 +111,17 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!--dependency>
+            <groupId>org.eclipse.uml2</groupId>
+            <artifactId>org.eclipse.uml2.uml.resources</artifactId>
+            <version>5.0.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.eclipse.core</groupId>
+                    <artifactId>runtime</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency-->
     </dependencies>
     <build>
         <plugins>
@@ -121,6 +132,10 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-model-archiver-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>

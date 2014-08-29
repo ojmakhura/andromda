@@ -17,12 +17,31 @@
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <dependencies>
+        <!--dependency>
+            <groupId>org.eclipse.emf</groupId>
+            <artifactId>org.eclipse.emf.ecore</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.emf</groupId>
+            <artifactId>org.eclipse.emf.common</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.emf</groupId>
+            <artifactId>org.eclipse.emf.ecore.xmi</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.emf</groupId>
+            <artifactId>org.eclipse.emf.mapping.ecore2xml</artifactId>
+            <scope>compile</scope>
+        </dependency-->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>andromda-repository-emf</artifactId>
             <version>${andromda.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.andromda.metafacades</groupId>
             <artifactId>andromda-metafacades-emf-uml22</artifactId>
