@@ -83,7 +83,7 @@ public class AssociationEndImpl
         {
             Property other = ((AttributeImpl)obj).property;
             return this.property.equals(other);
-        } 
+        }
         else if (obj instanceof AssociationEndImpl)
         {
             final Property other = ((AssociationEndImpl)obj).property;
@@ -990,6 +990,7 @@ public class AssociationEndImpl
 
     /**
      * @see org.eclipse.uml2.uml.MultiplicityElement#includesCardinality(int)
+     * Removed in UML2 2.5
      */
     public boolean includesCardinality(final int arg0)
     {
@@ -1791,15 +1792,26 @@ public class AssociationEndImpl
     }
 
     /**
+     * New in UML2 v5
+     * @see org.eclipse.uml2.uml.Property#isAttribute()
+    public boolean isAttribute()
+    {
+        return this.property.isAttribute();
+    }
+     */
+
+    /*
      * @see org.eclipse.uml2.uml.Property#isAttribute(org.eclipse.uml2.uml.Property)
+     * Removed in UML2 2.5
      */
     public boolean isAttribute(final Property prop)
     {
         return this.property.isAttribute(prop);
     }
 
-    /**
+    /*
      * @see org.eclipse.uml2.uml.Property#isSetDefault()
+     * Removed in UML2 2.5
      */
     public boolean isSetDefault()
     {
@@ -1878,8 +1890,9 @@ public class AssociationEndImpl
         this.property.setUnlimitedNaturalDefaultValue(value);
     }
 
-    /**
+    /*
      * @see org.eclipse.uml2.uml.Property#unsetDefault()
+     * Removed in UML2 2.5
      */
     public void unsetDefault()
     {
@@ -2422,6 +2435,46 @@ public class AssociationEndImpl
     public boolean validateNonLeafRedefinition(DiagnosticChain diagnostics, Map<Object, Object> context)
     {
         return this.property.validateNonLeafRedefinition(diagnostics, context);
+    }
+     */
+
+    /*
+     * UML2 5.0 (Eclipse 4.4) only
+     * @see org.eclipse.uml2.uml.Property#validateTypeOfOppositeEnd(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+    @Override
+    public boolean validateTypeOfOppositeEnd(DiagnosticChain diagnostics, Map<Object, Object> context)
+    {
+        return this.property.validateTypeOfOppositeEnd(diagnostics, context);
+    }
+     */
+
+    /*
+     * UML2 5.0 (Eclipse 4.4) only
+     * @see org.eclipse.uml2.uml.Property#validateQualifiedIsAssociationEnd(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+    @Override
+    public boolean validateQualifiedIsAssociationEnd(DiagnosticChain diagnostics, Map<Object, Object> context)
+    {
+        return this.property.validateQualifiedIsAssociationEnd(diagnostics, context);
+    }
+     */
+
+    /*
+     * UML2 5.0 (Eclipse 4.4) only
+     * @see org.eclipse.uml2.uml.Property#validateLowerIsInteger(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+    @Override
+    public boolean validateLowerIsInteger(DiagnosticChain diagnostics, Map<Object, Object> context)
+    {
+        return this.property.validateLowerIsInteger(diagnostics, context);
+    }
+     */
+
+    /*
+     * UML2 5.0 (Eclipse 4.4) only
+     * @see org.eclipse.uml2.uml.Property#validateUpperIsUnlimitedNatural(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+    @Override
+    public boolean validateUpperIsUnlimitedNatural(DiagnosticChain diagnostics, Map<Object, Object> context)
+    {
+        return this.property.validateUpperIsUnlimitedNatural(diagnostics, context);
     }
      */
 }

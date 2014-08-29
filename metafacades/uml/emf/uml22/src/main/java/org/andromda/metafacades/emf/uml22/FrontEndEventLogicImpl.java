@@ -86,7 +86,7 @@ public class FrontEndEventLogicImpl
         // - Note: this is the same implementation as CallEvent.getOperationCall()
         final Activity activity = (Activity)this.metaObject;
         final List<Operation> operations = new ArrayList<Operation>();
-        Collection<ActivityNode> nodes = activity.getNodes();
+        final Collection<ActivityNode> nodes = activity.getNodes();
         // UML2 v3: What previously was in getNodes is now in getOwnedNodes, while getNodes returns null
         // This causes JSF cartridge to fail unless implemented
         /*if (nodes==null || nodes.isEmpty())

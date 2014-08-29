@@ -49,15 +49,11 @@ public class CallEventFacadeLogicImpl extends CallEventFacadeLogic
         // We get every operation from each CallOperationAction instance.
         final List<Operation> operations = new ArrayList<Operation>();
         final Collection<ActivityNode> nodes = this.metaObject.getNodes();
-        // UML2 v3: What previously was in getNodes is now in getOwnedNodes, while getNodes returns null
-        // This causes JSF cartridge to fail unless implemented.
-        /*if (nodes==null || nodes.isEmpty())
-        {
-            nodes = this.metaObject.getOwnedNodes();
-        }*/
-        // UML2 v3: What previously was in getNodes is now in getOwnedNodes, while getNodes returns null
-        // This causes JSF cartridge to fail unless implemented.
-        /*if (nodes==null || nodes.isEmpty())
+        /* Collection<ActivityNode> nodes = this.metaObject.getNodes();
+        // UML2 v3 and later: What previously was in getNodes is now in getOwnedNodes, while getNodes returns null
+        // This causes JSF cartridge to fail unless getOwnedNodes exists in UML2 metamodel.
+        // Activity Node operation parameters will have the incorrect owner type.
+        if (nodes==null || nodes.isEmpty())
         {
             nodes = this.metaObject.getOwnedNodes();
         }*/

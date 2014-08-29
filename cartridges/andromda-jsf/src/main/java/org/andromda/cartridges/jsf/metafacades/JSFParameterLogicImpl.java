@@ -562,7 +562,7 @@ public class JSFParameterLogicImpl
                 final String name = this.getName();
                 final String typeName = type.getFullyQualifiedName();
 
-                // - if the parameter is not selectable but on a targetting page it IS selectable we must
+                // - if the parameter is not selectable but on a targeting page it IS selectable we must
                 //   allow the user to set the backing list too
                 final Collection<FrontEndView> views = this.getAction().getTargetViews();
                 for (final Iterator<FrontEndView> iterator = views.iterator(); iterator.hasNext() && !selectable;)

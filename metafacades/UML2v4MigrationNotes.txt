@@ -3,7 +3,9 @@ http://www.nomagic.com/news/news-noteworthy/magicdraw-17-0-1.html
 http://www.nomagic.com/supported-uml-specification-changes.html
 
 Not backwards compatible with UML2 v3: Standard.profile -> StandardL2, L3 profiles
+
 http://wiki.eclipse.org/MDT/UML2/UML2_4.0_Migration_Guide
+https://wiki.eclipse.org/MDT/UML2/UML2_5.0_Migration_Guide
 
 UML14 MF error:
 ClassNotFoundException: org.andromda.translation.ocl.validation.OCLIntrospector
@@ -27,18 +29,10 @@ ecore.util.ECoreEMap 52, 92: ecore does not compile: type parameter E is not wit
 Upgrade base org.eclipse.core.runtime version?
 3. Install uml2 and emf artifacts to m2repo. Update org.eclipse pom.xml, Add new uml2.types dependency.
 4. Update mf and repository dependencies to new version
-5. Fix AssociationEndImpl, AttributeImpl for changed APIs for UML2 Property
-
+5. Fix AssociationEndImpl, AttributeImpl, LinkInstanceImpl, ObjectInstanceImpl for changed APIs for UML2 Property
+Schema2UML2Mojo:143 defaultProfile.getOwnedStereotype("documentation", true, false); Last parameter removed from API.
 
 Second rebuild seems to work OK with legacy UML2 models.
-
-Controller operation is null
-java.lang.NullPointerException
-org.andromda.cartridges.jsf.metafacades.JSFActionLogicImpl.handleGetFormImplementationInterfaceList(JSFActionLogicImpl.java:190)
-getDeferredOperations() -> FrontEndActionLogic.handleGetDeferredOperations()
-getDecisionTransitions() -> FroneEndEvent (FrontEndForwardLogicImpl)forward.getDecisionTrigger()
-return (FrontEndEvent)(this.isEnteringDecisionPoint() ? this.shieldedElement(this.getTrigger()) : null);
-TransitionFacadeLogic.getTrigger()
 
 After re-export of jsf test model:
 WARN  [EMXProxyResolvingResourceSet] Could not load referenced model uri 32ms: file:/C:/Workspaces/A34/andromda35/cartridges/andromda-jsf/src/test/uml2/andromda-webservice.profile.uml#_9_0_2_12ab03bf_1120852932765_76536_0 Value 'org.eclipse.uml2.uml.internal.impl.EnumerationImpl@17372afb (name: WSSecurityType, visibility: <unset>) (isLeaf: false, isAbstract: false, isFinalSpecialization: false)' is not legal. (file:/C:/Workspaces/A34/andromda35/cartridges/andromda-jsf/src/test/uml2/andromda-webservice.profile.uml, 958, 78)
@@ -58,8 +52,7 @@ Caused by: java.lang.UnsupportedOperationException
  
 See http://www.eclipse.org/forums/index.php/t/353280/
 Wait till 4.3 SR2? https://bugs.eclipse.org/bugs/show_bug.cgi?id=389542
-
-
+This is fixed in UML2 v5 (!)
 
 C:\Workspaces\A34\andromda35\andromda-documentation\samples\timetracker\web\src\main\java\org\andromda\timetracker\web\timecardsearch\SearchControllerImpl.java:[49,12] cannot find method setSubmitterBackingList(java.util.List<org.andromda.timetracker.vo.UserVO>,java.lang.String,java.lang.String)
 [ERROR] location: interface org.andromda.timetracker.web.timecardsearch.PopulateSearchScreenForm
@@ -69,3 +62,37 @@ C:\Workspaces\A34\andromda35\andromda-documentation\samples\timetracker\web\src\
 [ERROR] location: interface org.andromda.timetracker.web.timecardsearch.PopulateSearchScreenForm
 C:\Workspaces\A34\andromda35\andromda-documentation\samples\timetracker\web\src\main\java\org\andromda\timetracker\web\timecardsearch\SearchControllerImpl.java:[58,12] cannot find method setStatusValueList(java.lang.Object[])
 [ERROR] location: interface org.andromda.timetracker.web.timecardsearch.PopulateSearchScreenForm
+
+Timecard submitter and approver not rendered with backing lists
+andromda-jsf cartridge (forms\Form.java.vsl) calls FormMacros.vm #renderBackingListSupport($field "")
+#foreach ($field in $operation.formFields) FrontEndActionImpl.handleGetFormFields:358
+submitter/approver isAction=false isControllerArg=true isSelect=false
+ParameterFacade.getEvent:266 Parameter.getOwner instanceof Activity in UML23, instanceof Operation in UML24/5. 2 different nodes in the model.
+How to find the Activity from the Parameter in UML2 v5? Is this a different metafacade mapping? 
+Parameter -> Operation -> Class -> StateMachine down-> region -> Transition -> Effect (Activity) -> ownedParameter
+Effect parameters are not mapped to metafacades correctly. Wrong owner/object.
+            <packagedElement xmi:type="uml:UseCase" xmi:id="_9_0_2_8980277_1148683477163_356076_67" name="Search Timecards">
+              <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_9_0_2_8980277_1148684838280_146770_258" name="Search Timecards Activity Diagram">
+                <region xmi:id="_16_5_4_2e90116_1261262429215_495779_383" name="SearchTimecardsRegion" visibility="public">
+                  <transition xmi:id="_9_0_2_8980277_1149988255797_479508_696" name="search" visibility="public" source="_9_0_2_8980277_1148696866195_452915_430" target="_9_0_2_8980277_1148759126461_544079_92">
+                    <effect xmi:type="uml:Activity" xmi:id="_9_0_2_8980277_1149988405161_472249_710" name="search">
+                      <ownedParameter xmi:id="_9_0_2_8980277_1149988372194_81077_707" name="submitter" visibility="public" type="_9_0_1fe00f9_1119336925531_227130_59" direction="inout"/>
+**Fix CallEventFacadeLogicImpl.handleGetOperations:51 getNodes now in getOwnedNodes
+
+calls getDeferredOperations():498
+Transition Controller operation is null in Controllers.vsl:306
+#if ($actionState.controllerCalls.empty)
+        forward = #processTransition($actionState.forward)
+
+        $action.decisionTransition / operationCal is null FrontEndForward.getOperationCall()
+        getTrigger instanceof FrontEndEvent -> FrontEndEvent.getControllerCall()
+        java.lang.NullPointerException
+org.andromda.cartridges.jsf.metafacades.JSFActionLogicImpl.handleGetFormImplementationInterfaceList(JSFActionLogicImpl.java:190)
+getDeferredOperations() -> FrontEndActionLogicImpl.handleGetDeferredOperations():133
+getDecisionTransitions() -> **FrontEndEvent (FrontEndForwardLogicImpl)forward.getDecisionTrigger():231 calls EventFacade.getTrigger()
+return (FrontEndEvent)(this.isEnteringDecisionPoint() ? this.shieldedElement(this.getTrigger()) : null);
+TransitionFacadeLogic.getTrigger() -> this.metaObject.getEffect(); returns Behavior
+
+UML2 v5 notes 8/22/2014: v342
+- Not creating BuildWS.xml files, but creating .wsdl files (WebService stereotype is recognized) - cxf setting not configured correctly
+- Samples: 

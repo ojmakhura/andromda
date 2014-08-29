@@ -5,7 +5,6 @@ import org.andromda.core.cartridge.Resource;
 import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * This class implements the <code>&lt;template&gt;</code> tag in a cartridge
@@ -189,9 +188,17 @@ public class Template
     /**
      * @see Object#toString()
      */
+    @Override
     public String toString()
     {
-        return ToStringBuilder.reflectionToString(this);
+        StringBuilder builder = new StringBuilder();
+        builder.append(super.toString());
+        builder.append(" [generateEmptyFiles=").append(this.generateEmptyFiles);
+        builder.append(", outputToSingleFile=").append(this.outputToSingleFile);
+        builder.append(", outputOnEmptyElements=").append(this.outputOnEmptyElements);
+        builder.append(", supportedModelElements=").append(this.supportedModelElements);
+        builder.append("]");
+        return builder.toString();
     }
 
     /**

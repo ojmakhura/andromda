@@ -81,6 +81,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
         packageRegistry.put("http://www.eclipse.org/uml2/3.0.0/UML", UMLPackage.eINSTANCE);
         packageRegistry.put("http://www.eclipse.org/uml2/3.1.0/UML", UMLPackage.eINSTANCE);
         packageRegistry.put("http://www.eclipse.org/uml2/4.0.0/UML", UMLPackage.eINSTANCE);
+        packageRegistry.put("http://www.eclipse.org/uml2/5.0.0/UML", UMLPackage.eINSTANCE);
         packageRegistry.put(Ecore2XMLPackage.eNS_URI, Ecore2XMLPackage.eINSTANCE);
         packageRegistry.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
         // register the UML2 schema against the standard UML namespace for UML 2.0 and 2.1

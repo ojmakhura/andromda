@@ -190,6 +190,14 @@ public final class Introspector
                     object,
                     name);
         }
+        catch (final NullPointerException ex)
+        {
+            return "null";
+        }
+        catch (final StackOverflowError ex)
+        {
+            return "StackOverflowError";
+        }
         catch (final IntrospectorException throwable)
         {
             // Don't catch our own exceptions.
@@ -524,7 +532,11 @@ public final class Introspector
                         location += ' ' + throwable.getMessage();
                     }
                     logger.error("Introspector " + throwable + " invoking " + object + " METHOD " + method + " WITH " + name + location);
-                    throw new IntrospectorException(throwable);
+                    // Unrecoverable errors may result in infinite loop, in particular StackOverflowError
+                    if (throwable instanceof Exception)
+                    {
+                        throw new IntrospectorException(throwable);
+                    }
                 }
             }
             this.evaluatingObjects.remove(object);
