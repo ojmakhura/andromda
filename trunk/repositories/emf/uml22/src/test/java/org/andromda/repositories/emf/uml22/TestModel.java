@@ -20,8 +20,9 @@ public class TestModel
     {
         try
         {
-            String testModel = "/Test-Model.emx";
-            //String testModel = "/Test-Model.uml";
+            // UML2 Standard profile older version from RSA7 no longer works for reading stereotypes
+            //String testModel = "/Test-Model.emx";
+            String testModel = "/Test-Model.uml";
             //String testModel = "/Test-Model-MD155.uml";
             URL modelUri = TestModel.class.getResource(testModel);
             if (modelUri == null)
