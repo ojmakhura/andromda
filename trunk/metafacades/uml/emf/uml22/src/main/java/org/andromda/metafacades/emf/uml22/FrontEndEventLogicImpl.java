@@ -8,10 +8,12 @@ import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndControllerOperation;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.ActivityNode;
 import org.eclipse.uml2.uml.CallOperationAction;
 import org.eclipse.uml2.uml.Element;
+import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Transition;
 import org.eclipse.uml2.uml.UseCase;
@@ -86,13 +88,13 @@ public class FrontEndEventLogicImpl
         // - Note: this is the same implementation as CallEvent.getOperationCall()
         final Activity activity = (Activity)this.metaObject;
         final List<Operation> operations = new ArrayList<Operation>();
-        final Collection<ActivityNode> nodes = activity.getNodes();
+        Collection<ActivityNode> nodes = activity.getNodes();
         // UML2 v3: What previously was in getNodes is now in getOwnedNodes, while getNodes returns null
         // This causes JSF cartridge to fail unless implemented
-        /*if (nodes==null || nodes.isEmpty())
+        if (nodes==null || nodes.isEmpty())
         {
             nodes = activity.getOwnedNodes();
-        }*/
+        }
         for (final Iterator<ActivityNode> iterator = nodes.iterator(); iterator.hasNext();)
         {
             final Object nextNode = iterator.next();
@@ -121,5 +123,20 @@ public class FrontEndEventLogicImpl
             action = (FrontEndAction)transition;
         }
         return action;
+    }
+
+    /**
+     * UML2 v5: ActivityImpl returns NULL for namespace. Need another way to get package name
+     * @see org.andromda.metafacades.uml.FrontEndEvent#getPackageName()
+     */
+    @Override
+    protected String handleGetPackageName()
+    {
+        String packageName = UmlUtilities.getPackageName((NamedElement)this.metaObject, ".", false);
+        if (StringUtils.isBlank(packageName))
+        {
+            packageName = this.getPackage().getFullyQualifiedName();
+        }
+        return packageName;
     }
 }

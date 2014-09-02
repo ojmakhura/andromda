@@ -18,6 +18,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.uml2.uml.NamedElement;
 
 /**
  * MetafacadeLogic implementation for
@@ -239,5 +240,20 @@ public class FrontEndParameterLogicImpl
             tableAttributeNames.add(attribute.getName());
         }
         return tableAttributeNames;
+    }
+
+    /**
+     * UML2 v5: FrontEndParameter returns NULL for namespace. Need another way to get package name
+     * @see org.andromda.metafacades.uml.FrontEndEvent#getPackageName()
+     */
+    @Override
+    protected String handleGetPackageName()
+    {
+        String packageName = UmlUtilities.getPackageName((NamedElement)this.metaObject, ".", false);
+        if (StringUtils.isBlank(packageName))
+        {
+            packageName = this.getPackage().getFullyQualifiedName();
+        }
+        return packageName;
     }
 }

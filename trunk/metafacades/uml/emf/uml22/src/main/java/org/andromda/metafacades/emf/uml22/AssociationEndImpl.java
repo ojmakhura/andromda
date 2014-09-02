@@ -24,7 +24,7 @@ import org.eclipse.uml2.uml.Dependency;
 import org.eclipse.uml2.uml.Deployment;
 import org.eclipse.uml2.uml.DirectedRelationship;
 import org.eclipse.uml2.uml.Element;
-//import org.eclipse.uml2.uml.Interface;
+import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.MultiplicityElement;
 import org.eclipse.uml2.uml.NamedElement;
@@ -988,14 +988,14 @@ public class AssociationEndImpl
             arg1);
     }
 
-    /**
+    /*
      * @see org.eclipse.uml2.uml.MultiplicityElement#includesCardinality(int)
      * Removed in UML2 2.5
-     */
     public boolean includesCardinality(final int arg0)
     {
         return this.property.includesCardinality(arg0);
     }
+     */
 
     /**
      * @see org.eclipse.uml2.uml.MultiplicityElement#includesMultiplicity(org.eclipse.uml2.uml.MultiplicityElement)
@@ -1792,31 +1792,31 @@ public class AssociationEndImpl
     }
 
     /**
-     * New in UML2 v5
+     * UML2 5.0 (Eclipse 4.4) only
      * @see org.eclipse.uml2.uml.Property#isAttribute()
+     */
     public boolean isAttribute()
     {
         return this.property.isAttribute();
     }
-     */
 
     /*
      * @see org.eclipse.uml2.uml.Property#isAttribute(org.eclipse.uml2.uml.Property)
      * Removed in UML2 2.5
-     */
     public boolean isAttribute(final Property prop)
     {
         return this.property.isAttribute(prop);
     }
+     */
 
     /*
      * @see org.eclipse.uml2.uml.Property#isSetDefault()
      * Removed in UML2 2.5
-     */
     public boolean isSetDefault()
     {
         return this.property.isSetDefault();
     }
+     */
 
     /**
      * @see org.eclipse.uml2.uml.Property#setBooleanDefaultValue(boolean)
@@ -1893,11 +1893,11 @@ public class AssociationEndImpl
     /*
      * @see org.eclipse.uml2.uml.Property#unsetDefault()
      * Removed in UML2 2.5
-     */
     public void unsetDefault()
     {
         this.property.unsetDefault();
     }
+     */
 
     /**
      * @see org.eclipse.uml2.uml.Property#validateBindingToAttribute(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
@@ -2365,10 +2365,9 @@ public class AssociationEndImpl
         return this.property.eInvoke(operation, arguments);
     }
 
-    /**
+    /*
      * UML2 v3.6 only, method removed in v4
      * @see org.eclipse.uml2.uml.Property#validateNavigableReadonly(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
-     */
     public boolean validateNavigableReadonly(
         final DiagnosticChain arg0,
         final Map<Object, Object> arg1)
@@ -2377,104 +2376,105 @@ public class AssociationEndImpl
             arg0,
             arg1);
     }
+     */
 
-    /*
+    /**
      * UML2 4.0 (Eclipse 4.2) only
      * @see org.eclipse.uml2.uml.Property#getInterface()
+     */
     @Override
     public Interface getInterface()
     {
         return this.property.getInterface();
     }
-     */
 
-    /*
+    /**
      * UML2 4.0 (Eclipse 4.2) only
      * @see org.eclipse.uml2.uml.Property#setInterface(org.eclipse.uml2.uml.Interface)
+     */
     @Override
     public void setInterface(Interface value)
     {
         this.property.setInterface(value);
     }
-     */
 
-    /*
+    /**
      * UML2 4.0 (Eclipse 4.2) only
      * @see org.eclipse.uml2.uml.Property#isID()
+     */
     @Override
     public boolean isID()
     {
         return this.property.isID();
     }
-     */
 
-    /*
+    /**
      * UML2 4.0 (Eclipse 4.2) only
      * @see org.eclipse.uml2.uml.Property#setIsID(boolean)
+     */
     @Override
     public void setIsID(boolean value)
     {
         this.property.setIsID(value);
     }
-     */
 
-    /*
+    /**
      * UML2 4.0 (Eclipse 4.2) only
      * @see org.eclipse.uml2.uml.Property#setRealDefaultValue(double)
+     */
     @Override
     public void setRealDefaultValue(double value)
     {
         this.property.setRealDefaultValue(value);
     }
-     */
 
-    /*
+    /**
      * UML2 4.0 (Eclipse 4.2) only
      * @see org.eclipse.uml2.uml.RedefinableElement#validateNonLeafRedefinition(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+     */
     @Override
     public boolean validateNonLeafRedefinition(DiagnosticChain diagnostics, Map<Object, Object> context)
     {
         return this.property.validateNonLeafRedefinition(diagnostics, context);
     }
-     */
 
-    /*
+    /**
      * UML2 5.0 (Eclipse 4.4) only
      * @see org.eclipse.uml2.uml.Property#validateTypeOfOppositeEnd(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+     */
     @Override
     public boolean validateTypeOfOppositeEnd(DiagnosticChain diagnostics, Map<Object, Object> context)
     {
         return this.property.validateTypeOfOppositeEnd(diagnostics, context);
     }
-     */
 
-    /*
+    /**
      * UML2 5.0 (Eclipse 4.4) only
      * @see org.eclipse.uml2.uml.Property#validateQualifiedIsAssociationEnd(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+     */
     @Override
     public boolean validateQualifiedIsAssociationEnd(DiagnosticChain diagnostics, Map<Object, Object> context)
     {
         return this.property.validateQualifiedIsAssociationEnd(diagnostics, context);
     }
-     */
 
-    /*
+    /**
      * UML2 5.0 (Eclipse 4.4) only
      * @see org.eclipse.uml2.uml.Property#validateLowerIsInteger(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+     */
     @Override
     public boolean validateLowerIsInteger(DiagnosticChain diagnostics, Map<Object, Object> context)
     {
         return this.property.validateLowerIsInteger(diagnostics, context);
     }
-     */
 
-    /*
+    /**
      * UML2 5.0 (Eclipse 4.4) only
      * @see org.eclipse.uml2.uml.Property#validateUpperIsUnlimitedNatural(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+     */
     @Override
     public boolean validateUpperIsUnlimitedNatural(DiagnosticChain diagnostics, Map<Object, Object> context)
     {
         return this.property.validateUpperIsUnlimitedNatural(diagnostics, context);
     }
-     */
 }

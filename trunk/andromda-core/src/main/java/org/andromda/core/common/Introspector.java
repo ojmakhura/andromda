@@ -609,4 +609,19 @@ public final class Introspector
         this.evaluatingObjects.clear();
         Introspector.instance = null;
     }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append(super.toString()).append(" [writeMethodsCache=").append(this.writeMethodsCache)
+                .append(", readMethodsCache=").append(this.readMethodsCache)
+                .append(", propertyDescriptorsCache=").append(this.propertyDescriptorsCache)
+                .append(", propertyNamePattern=").append(this.propertyNamePattern)
+                .append(", evaluatingObjects=").append(this.evaluatingObjects).append("]");
+        return builder.toString();
+    }
 }

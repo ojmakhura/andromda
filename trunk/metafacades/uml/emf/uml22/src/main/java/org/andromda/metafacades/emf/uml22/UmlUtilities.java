@@ -382,10 +382,10 @@ public class UmlUtilities
 
                 if (isAssociation && property.getAssociation() != null)
                 {
-                    if (LOGGER.isDebugEnabled())
+                    /*if (LOGGER.isDebugEnabled())
                     {
                         LOGGER.debug("Association found for " + classifier.getName() + ": " + property.getName());
-                    }
+                    }*/
                     // property represents an association end
                     attributeMap.put(
                         property.getName(),
@@ -393,10 +393,10 @@ public class UmlUtilities
                 }
                 else if (!isAssociation && property.getAssociation() == null)
                 {
-                    if (LOGGER.isDebugEnabled())
+                    /*if (LOGGER.isDebugEnabled())
                     {
                         LOGGER.debug("Attribute found for " + classifier.getName() + ": " + property.getName());
-                    }
+                    }*/
                     // property represents an attribute
                     attributeMap.put(
                         property.getName(),
@@ -1181,6 +1181,24 @@ public class UmlUtilities
             }
         }
         String packageName = buffer.toString();
+        /* // TODO Remove Model Name from the package hierarchy
+        if (StringUtils.isBlank(packageName))
+        {
+            packageName =
+                getPackageName(
+                    metaObject.getOwner(),
+                    separator,
+                    modelName);
+        }
+        if (StringUtils.isBlank(packageName) && metaObject instanceof Classifier)
+        {
+            packageName = ((Classifier)metaObject).getPackage().getQualifiedName();
+        }
+        // Allow for empty namespace - new in UML2 v5
+        if (StringUtils.isBlank(packageName))
+        {
+            packageName = metaObject.getNearestPackage().getQualifiedName();
+        }*/
         if (modelName && StringUtils.isNotBlank(packageName))
         {
             packageName =
@@ -1215,7 +1233,7 @@ public class UmlUtilities
         {
             return null;
         }
-        final String packageName;
+        String packageName = null;
 
         if (metaObject instanceof NamedElement)
         {
@@ -1237,6 +1255,23 @@ public class UmlUtilities
                     separator,
                     modelName);
         }
+        /* if (StringUtils.isBlank(packageName))
+        {
+            packageName =
+                getPackageName(
+                    metaObject.getOwner(),
+                    separator,
+                    modelName);
+        }
+        // TODO Remove model name from the front of the FQ package name
+        if (StringUtils.isBlank(packageName) && metaObject instanceof Classifier)
+        {
+            packageName = ((Classifier)metaObject).getPackage().getQualifiedName();
+        }
+        if (StringUtils.isBlank(packageName))
+        {
+            packageName = metaObject.getNearestPackage().getQualifiedName();
+        }*/
 
         return packageName;
     }
