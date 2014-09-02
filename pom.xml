@@ -387,10 +387,9 @@
                 <artifactId>openide-util</artifactId>
                 <version>20050711</version>
             </dependency>
-            <dependency>
+            <!--dependency>
                 <groupId>org.eclipse.uml2</groupId>
                 <artifactId>org.eclipse.uml2.uml.resources</artifactId>
-                <!--version>4.1.0</version-->
                 <version>3.1.0.v201005031530</version>
                 <scope>runtime</scope>
                 <exclusions>
@@ -403,7 +402,6 @@
             <dependency>
                 <groupId>org.eclipse.uml2</groupId>
                 <artifactId>org.eclipse.uml2.uml</artifactId>
-                <!--version>4.1.1</version-->
                 <version>3.1.0.v201006071150</version>
                 <exclusions>
                     <exclusion>
@@ -419,8 +417,8 @@
                         <artifactId>org.eclipse.core.runtime</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
-            <!-- Eclipse 4.4 Luna UML2 dependencies. uml artifacts screwed up the references to emf artifacts >
+            </dependency-->
+            <!-- Eclipse 4.4 Luna UML2 dependencies. uml artifacts screwed up the references to emf artifacts -->
             <dependency>
                 <groupId>org.eclipse.uml2.uml</groupId>
                 <artifactId>resources</artifactId>
@@ -535,7 +533,7 @@
                 <artifactId>org.eclipse.emf.mapping.ecore2xml</artifactId>
                 <version>2.8.0-v20140519-0339</version>
                 <scope>runtime</scope>
-            </dependency-->
+            </dependency>
 
             <!-- Maven dependencies -->
             <dependency>

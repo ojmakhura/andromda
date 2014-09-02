@@ -17,7 +17,7 @@
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <dependencies>
-        <!--dependency>
+        <dependency>
             <groupId>org.eclipse.emf</groupId>
             <artifactId>org.eclipse.emf.ecore</artifactId>
             <scope>compile</scope>
@@ -36,7 +36,7 @@
             <groupId>org.eclipse.emf</groupId>
             <artifactId>org.eclipse.emf.mapping.ecore2xml</artifactId>
             <scope>compile</scope>
-        </dependency-->
+        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>andromda-repository-emf</artifactId>
