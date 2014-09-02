@@ -19,7 +19,7 @@
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <dependencies>
-        <dependency>
+        <!--dependency>
             <groupId>org.eclipse.uml2</groupId>
             <artifactId>org.eclipse.uml2.uml.resources</artifactId>
             <scope>runtime</scope>
@@ -27,8 +27,8 @@
         <dependency>
             <groupId>org.eclipse.uml2</groupId>
             <artifactId>org.eclipse.uml2.uml</artifactId>
-        </dependency>
-        <!--dependency>
+        </dependency-->
+        <dependency>
             <groupId>org.eclipse.uml2.uml</groupId>
             <artifactId>resources</artifactId>
         </dependency>
@@ -50,7 +50,7 @@
             <groupId>org.eclipse.emf</groupId>
             <artifactId>org.eclipse.emf.mapping.ecore2xml</artifactId>
             <scope>compile</scope>
-        </dependency-->
+        </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
