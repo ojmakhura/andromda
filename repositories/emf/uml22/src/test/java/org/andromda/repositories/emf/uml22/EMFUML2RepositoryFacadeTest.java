@@ -126,18 +126,21 @@ public class EMFUML2RepositoryFacadeTest
         long now = System.currentTimeMillis();
         // Load from org.eclipse.uml2.resources jar.
         // UML2 v4: Standard.profile changed to StandardL2 + StandardL3 profiles
-        URL url = this.getClass().getResource("profiles/UML2.profile.uml");
+        URL url = this.getClass().getResource("profiles/Standard.profile.uml");
         if (url!=null)
         {
+            System.out.println("Model=" + this.modelUrl.toString());
             this.repository.readModel(
                 new String[] {this.modelUrl.toString()},
                 new String[] {url.toString(),
                     this.getClass().getResource("libraries/UMLPrimitiveTypes.library.uml").toString(),
                     this.getClass().getResource("libraries/JavaPrimitiveTypes.library.uml").toString(),
-                    this.getClass().getResource("metamodels/UML.metamodel.uml").toString()});
+                    this.getClass().getResource("metamodels/UML.metamodel.uml").toString(),
+                    this.getClass().getResource("andromda-common-3.5-SNAPSHOT.profile.uml").toString()});
         }
         else
         {
+            System.out.println("Model=" + this.modelUrl.toString());
             this.repository.readModel(
                 new String[] {this.modelUrl.toString()},
                 null);
