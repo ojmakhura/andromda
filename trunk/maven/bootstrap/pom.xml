@@ -32,7 +32,7 @@
             <artifactId>jmiuml</artifactId>
             <scope>runtime</scope>
         </dependency-->
-        <dependency>
+        <!--dependency>
             <groupId>org.eclipse.uml2</groupId>
             <artifactId>org.eclipse.uml2.uml.resources</artifactId>
         </dependency>
@@ -40,9 +40,9 @@
             <groupId>org.eclipse.uml2</groupId>
             <artifactId>org.eclipse.uml2.uml</artifactId>
             <scope>runtime</scope>
-        </dependency>
+        </dependency-->
         <!-- UML2 v5 updates from Eclipse 4.4 Luna -->
-        <!--dependency>
+        <dependency>
             <groupId>org.eclipse.uml2.uml</groupId>
             <artifactId>resources</artifactId>
         </dependency>
@@ -65,7 +65,7 @@
         <dependency>
             <groupId>org.eclipse.emf</groupId>
             <artifactId>org.eclipse.emf.mapping.ecore2xml</artifactId>
-        </dependency-->
+        </dependency>
 
         <!-- Maven dependencies -->
         <dependency>
