@@ -58,6 +58,12 @@
     <dependencies>
         <!-- We need an older maven API but can update the plexus dependencies to the latest -->
         <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+            <version>1.4.01</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-utils</artifactId>
             <version>3.0.17</version>

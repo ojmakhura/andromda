@@ -180,4 +180,69 @@ public class EMFUML2RepositoryFacadeTest
             assertFalse(getStereotypeNames(umlClass).isEmpty());
         }
     }
+
+    /**
+     *
+     */
+    public void testRSAModel()
+    {
+        long now = System.currentTimeMillis();
+        // Load from org.eclipse.uml2.resources jar.
+        // UML2 v4: Standard.profile changed to StandardL2 + StandardL3 profiles
+        URL url = this.getClass().getResource("profiles/Standard.profile.uml");
+        URL RSAmodelUrl = TestModel.getRSAModel();
+        assertNotNull(RSAmodelUrl);
+        if (url!=null)
+        {
+            System.out.println("Model=" + RSAmodelUrl.toString());
+            this.repository.readModel(
+                new String[] {RSAmodelUrl.toString()},
+                new String[] {url.toString(),
+                    this.getClass().getResource("libraries/UMLPrimitiveTypes.library.uml").toString(),
+                    this.getClass().getResource("libraries/JavaPrimitiveTypes.library.uml").toString(),
+                    this.getClass().getResource("metamodels/UML.metamodel.uml").toString(),
+                    this.getClass().getResource("andromda-common-3.5-SNAPSHOT.profile.uml").toString()});
+        }
+        else
+        {
+            System.out.println("Model=" + RSAmodelUrl.toString());
+            this.repository.readModel(
+                new String[] {RSAmodelUrl.toString()},
+                null);
+        }
+        long now2 = System.currentTimeMillis();
+        final ModelAccessFacade modelFacade = this.repository.getModel();
+        long now3 = System.currentTimeMillis();
+        System.out.println("read=" + (now2-now) + "ms getModel=" + (now3-now2) + "ms");
+        assertNotNull(modelFacade);
+        assertNotNull(modelFacade.getModel());
+        assertTrue(modelFacade.getModel() instanceof List);
+        List modelList = (ArrayList)modelFacade.getModel();
+        for (Object resource : modelList)
+        {
+            assertTrue(resource instanceof UMLResource);
+            UMLResource umlResource = (UMLResource) resource;
+            /*Model model = (Model)EcoreUtil.getObjectByType(
+                    ((UMLResource)this.repository.getModel().getModel()).getContents(),
+                    EcorePackage.eINSTANCE.getEObject());*/
+            Model model = (Model)EcoreUtil.getObjectByType(
+                    umlResource.getContents(),
+                    EcorePackage.eINSTANCE.getEObject());
+            assertEquals(
+                "Test Model",
+                model.getName());
+            Collection elements = UMLUtil.findNamedElements(
+                    model.eResource(),
+                    "Test Model::testPackage::Top",
+                    true);
+            org.eclipse.uml2.uml.Class umlClass = (org.eclipse.uml2.uml.Class)elements.iterator().next();
+            assertEquals(
+                "Top",
+                umlClass.getName());
+            getStereotypeNames(umlClass);
+            // Can't find the classpath reference to UMLStandardProfile, to load stereotype.
+            // This fails with UML2 1.x dependencies - skip unless dependencies are changed.
+            assertFalse(getStereotypeNames(umlClass).isEmpty());
+        }
+    }
 }

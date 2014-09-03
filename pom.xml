@@ -992,7 +992,7 @@
         <andromda.version>3.5-SNAPSHOT</andromda.version>
         <maven.version>2.2.1</maven.version>
         <!-- proguard in webservice-client does not yet support JDK8, see http://sourceforge.net/p/proguard/feature-requests/138 -->
-        <java.required.version>[1.6.0, 1.8.0)</java.required.version>
+        <java.required.version>[1.6.0, 1.9.0)</java.required.version>
         <!--maven.test.failure.ignore>true</maven.test.failure.ignore-->
         <!--uniqueVersion>false</uniqueVersion-->
         <!-- Update lib\ bootstrap artifacts. Artifacts are installed as the very first build step

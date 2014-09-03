@@ -516,6 +516,7 @@ class EJB3MetafacadeUtils
      * @param suffix the optional suffix to add to the sql name (i.e. foreign
      *        key suffix, etc.)
      * @param separator character used to separate words
+     * @param shortenSqlNameMethod The method used to shorten the name, i.e. removeVowels
      * @return the SQL name as a String.
      */
     public static String getSqlNameFromTaggedValue(
