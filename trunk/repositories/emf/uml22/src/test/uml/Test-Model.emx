@@ -2,7 +2,7 @@
 <!--xtools2_universal_type_manager-->
 <?com.ibm.xtools.emf.core.signature <signature id="com.ibm.xtools.uml.msl.model" version="7.0.0"><feature description="" name="com.ibm.xtools.ruml.feature" url="" version="7.0.0"/></signature>?>
 <?com.ibm.xtools.emf.core.signature <signature id="com.ibm.xtools.mmi.ui.signatures.diagram" version="7.0.0"><feature description="" name="Rational Modeling Platform (com.ibm.xtools.rmp)" url="" version="7.0.0"/></signature>?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Standard="http://www.eclipse.org/uml2/schemas/Standard/1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmlns:umlnotation="http://www.ibm.com/xtools/1.5.3/Umlnotation" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Standard/1 pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Standard="http://www.eclipse.org/uml2/schemas/Standard/1" xmlns:andromdacommon="http:///schemas/andromdacommon/_ST4I8GB0EeCkQ4mwhZJr4Q/2" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmlns:umlnotation="http://www.ibm.com/xtools/1.5.3/Umlnotation" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Standard/1 pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w http:///schemas/andromdacommon/_ST4I8GB0EeCkQ4mwhZJr4Q/2 andromda-common-3.5-SNAPSHOT.epx#_ST4I8WB0EeCkQ4mwhZJr4Q?andromda-common/andromdacommon?">
   <uml:Model xmi:id="_bNydsFhwEdquTMArbARUzA" name="Test Model">
     <packageImport xmi:id="_2AKen1hxEdqH16B_Ge2uMQ">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -165,7 +165,14 @@
       </eAnnotations>
       <appliedProfile href="pathmap://UML2_MSL_PROFILES/Deployment.epx#_vjbuwOvHEdiDX5bji0iVSA?Deployment?"/>
     </profileApplication>
+    <profileApplication xmi:id="_mAvg8DLMEeSy28ayy39b-g">
+      <eAnnotations xmi:id="_mAvg8TLMEeSy28ayy39b-g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-common-3.5-SNAPSHOT.epx#_ST4I8WB0EeCkQ4mwhZJr4Q?andromda-common/andromdacommon?"/>
+      </eAnnotations>
+      <appliedProfile href="andromda-common-3.5-SNAPSHOT.epx#_8a70287_1078771814628_224704_589?andromda-common?"/>
+    </profileApplication>
   </uml:Model>
   <Standard:ImplementationClass xmi:id="_YzZHAE0fEd60KbaIlrDIWg" base_Class="_TG490GEdEdqXhrT_oEIPZg"/>
   <Standard:Type xmi:id="_TB144DLKEeSy28ayy39b-g" base_Class="_TG490GEdEdqXhrT_oEIPZg"/>
+  <andromdacommon:ValueObject xmi:id="_nq4HgDLMEeSy28ayy39b-g" base_Class="_TG490GEdEdqXhrT_oEIPZg"/>
 </xmi:XMI>

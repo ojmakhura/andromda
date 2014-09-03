@@ -1194,10 +1194,20 @@ public class UmlUtilities
         {
             packageName = ((Classifier)metaObject).getPackage().getQualifiedName();
         }
-        // Allow for empty namespace - new in UML2 v5
+        // Allow for empty namespace - new after UML2 v3
         if (StringUtils.isBlank(packageName))
         {
-            packageName = metaObject.getNearestPackage().getQualifiedName();
+            Package modelPackage = metaObject.getModel();
+            String name = metaObject.getNearestPackage().getQualifiedName();
+            if (modelPackage instanceof Model)
+            {
+                // Remove model name from the front of Package Name string
+                String model = modelPackage.getName();
+                if (model != null && name.indexOf(model) > -1 && (name.length() >= model.length() + separator.length() + 1))
+                {
+                    packageName = name.substring(model.length() + separator.length() + 1);
+                }
+            }
         }*/
         if (modelName && StringUtils.isNotBlank(packageName))
         {

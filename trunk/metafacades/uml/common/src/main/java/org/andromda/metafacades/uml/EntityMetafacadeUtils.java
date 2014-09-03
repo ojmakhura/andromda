@@ -71,6 +71,7 @@ public class EntityMetafacadeUtils
      * @param nameMaxLength if this is not null, then the name returned will be
      *        trimmed to this length (if it happens to be longer).
      * @param separator character used to separate words
+     * @param shortenSqlNamesMethod Method of shortening SQL Names, i.e. removeVowels
      * @return the SQL name as a String.
      */
     public static String getSqlNameFromTaggedValue(
@@ -103,6 +104,7 @@ public class EntityMetafacadeUtils
      * @param suffix the optional suffix to add to the sql name (i.e. foreign
      *        key suffix, etc.)
      * @param separator character used to separate words
+     * @param shortenSqlNamesMethod Method of shortening SQL Names, i.e. removeVowels
      * @return the SQL name as a String.
      */
     public static String getSqlNameFromTaggedValue(
@@ -133,6 +135,7 @@ public class EntityMetafacadeUtils
      * @param nameMaxLength if this is not null, then the name returned will be
      *        trimmed to this length (if it happens to be longer).
      * @param separator character used to separate words
+     * @param shortenSqlNamesMethod Method of shortening SQL Names, i.e. removeVowels
      * @return the SQL name as a String.
      */
     public static String getSqlNameFromTaggedValue(
@@ -166,6 +169,7 @@ public class EntityMetafacadeUtils
      * @param suffix the optional suffix to add to the sql name (i.e. foreign
      *        key suffix, etc.)
      * @param separator character used to separate words
+     * @param shortenSqlNamesMethod Method of shortening SQL Names, i.e. removeVowels
      * @return the SQL name as a String.
      */
     public static String getSqlNameFromTaggedValue(
@@ -237,7 +241,7 @@ public class EntityMetafacadeUtils
         {
             sortedEntities = new ArrayList<Entity>();
         }
-        if (entities == null || entities.isEmpty() || 
+        if (entities == null || entities.isEmpty() ||
             (sortedEntities!=null && !sortedEntities.isEmpty() && sortedEntities.size() == entities.size()
             && sortedEntities.contains(entities.iterator().next())))
         {
@@ -445,7 +449,7 @@ public class EntityMetafacadeUtils
         return priority;
     }
 
-    /** 
+    /**
      * <p/> Trims the passed in value to the maximum name length.
      * </p>
      * If no maximum length has been set then this method does nothing.
@@ -453,6 +457,7 @@ public class EntityMetafacadeUtils
      * @param name the name length to check and trim if necessary
      * @param nameMaxLength if this is not null, then the name returned will be
      *        trimmed to this length (if it happens to be longer).
+     * @param method Method of shortening SQL Names, i.e. removeVowels
      * @return String the string to be used as SQL type
      */
     public static String ensureMaximumNameLength(
@@ -475,11 +480,11 @@ public class EntityMetafacadeUtils
                     }
                     else
                     {
-                        name = name.substring(0,lastVowelPos)+name.substring(lastVowelPos+1); 
+                        name = name.substring(0,lastVowelPos)+name.substring(lastVowelPos+1);
                     }
                 }
             }
-            
+
             if (name.length() > max)
             {
                 name = name.substring(
@@ -740,6 +745,7 @@ public class EntityMetafacadeUtils
      * @param suffix the suffix appended to the constraint name (if not limited by length).
      * @param sqlNameSeparator the SQL name separator to use (i.e. '_').
      * @param maxLengthProperty the numeric value stored as a string indicating the max length the constraint may be.
+     * @param shortenSqlNamesMethod Method of shortening SQL Names, i.e. removeVowels
      * @return the constructed foreign key constraint name.
      */
     public static String getForeignKeyConstraintName(EntityAssociationEnd associationEnd, String suffix, String sqlNameSeparator, String maxLengthProperty, String shortenSqlNamesMethod)
@@ -867,7 +873,7 @@ public class EntityMetafacadeUtils
                     if (classifier.getStereotypeNames().size() > 0 && !packages.contains(classifier.getPackage()))
                     {
                         packages.add((PackageFacade)classifier.getPackage());
-                        //System.out.println("getTopLevelPackage add " + ((PackageFacade)classifier.getPackage()).getFullyQualifiedName());
+                        //System.out.println("getTopLevelPackage add " + ((PackageFacade)classifier.getPackage()).getFullyQualifiedName() + " package=" + classifier.getPackage());
                     }
                 }
             }
@@ -878,7 +884,7 @@ public class EntityMetafacadeUtils
             // Find the shortest name in package list containing the other names
             for (PackageFacade pkg : packages)
             {
-                //System.out.println(pkgFacade.getFullyQualifiedName() + " " + pkg.getFullyQualifiedName());
+                //System.out.println("getTopLevelPackage fqn=" + pkgFacade.getFullyQualifiedName() + " " + pkg.getFullyQualifiedName());
                 if (pkgFacade.getFullyQualifiedName().indexOf(pkg.getFullyQualifiedName()) > 0)
                 {
                     pkgFacade = pkg;
@@ -889,10 +895,10 @@ public class EntityMetafacadeUtils
                 }
                 else
                 {
-                    
+
                 }
             }
-            //System.out.println(pkgFacade.getFullyQualifiedName());
+            //System.out.println("getTopLevelPackage pkgFacade=" + pkgFacade.getFullyQualifiedName());
         }
         return pkgFacade;
     }

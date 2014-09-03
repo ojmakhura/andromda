@@ -65,9 +65,11 @@ public class GroovyScriptWrapper
             this.copyProperties(
                 this.stub,
                 groovyObject);
-            return groovyObject.invokeMethod(
+            Object rtn = groovyObject.invokeMethod(
                 methodName,
                 args);
+            grooveyClassLoader.close();
+            return rtn;
         }
         catch (final Throwable throwable)
         {
