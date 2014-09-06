@@ -15,7 +15,7 @@
         <property name="implementationLanguage">java</property>
         <property name="web">yes</property>
         <property name="webservice">none</property>
-        <property name="embeddedJetty">yes</property>
+        <property name="embeddedWebServer">tomcat</property>   
         <property name="model">jar:file:${project.basedir}/src/main/uml/CarRentalSystem.xml.zip!/CarRentalSystem.xml</property>
         <property name="configurationUri">${project.basedir}/src/main/config/andromda.xml</property>
         <property name="databaseType">hypersonic</property>

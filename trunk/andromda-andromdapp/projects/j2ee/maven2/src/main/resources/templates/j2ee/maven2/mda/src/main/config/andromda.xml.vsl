@@ -292,11 +292,11 @@
 #if ($groovy)
                 <property name="implementationLanguage">groovy</property>
 #end
-#if ($embeddedJetty)
+#if ($jetty)
                <!-- uncomment to use the context configured datasource
 #end
                 <property name="dataSource">${dataSource}</property>
-#if ($embeddedJetty)
+#if ($jetty)
                 -->
 #end
                 <property name="username">${jdbc.username}</property>

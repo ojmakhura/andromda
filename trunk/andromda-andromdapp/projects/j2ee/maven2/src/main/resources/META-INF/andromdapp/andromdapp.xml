@@ -420,16 +420,17 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>multipart</response>
                 </responses>
             </prompt>
-            <prompt id="embeddedJetty" setResponseAsTrue="true">
-                <text>Would you like to use the embedded Jetty web server (Maven plugin)?</text>
-                <shortText>Use the Jetty web server</shortText>
+            <prompt id="embeddedWebServer" setResponseAsTrue="true">
+                <text>Would you like to use an embedded web server (Maven plugin - enter 'none' if you don't want to use one)?</text>
+                <shortText>Use an embedded web server</shortText>
                 <preconditions type="or">
-                    <condition id="jsfApplicationType" equal="standalone"/>
+                    <condition id="applicationType" equal="war"/>
                     <condition id="webserviceStack" equal="cxf"/>
                 </preconditions>
-                <responses type="java.lang.Boolean">
-                    <response>yes</response>
-                    <response>no</response>
+                <responses>
+                    <response>tomcat</response>
+                    <response>jetty</response>
+                    <response>none</response>
                 </responses>
             </prompt>
             <!-- This determines dependency versions, which dependencies are bundled or provided, jee version, and which configuration files are created >
