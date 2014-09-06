@@ -29,6 +29,7 @@ public class ${manageable.searchFilterName}
     private static final long serialVersionUID = ${manageable.searchFilterSerialVersionUID}L;
 
 #foreach ($field in $manageable.manageableAttributes)
+#if (!$field.inputFile && !$field.needsFileUpload)
 #setFieldWrapperTypeName($field $fieldWrapperTypeName)
     private $fieldWrapperTypeName $field.name=null;
 
@@ -65,6 +66,7 @@ public class ${manageable.searchFilterName}
 #end
     }
 
+#end
 #end
 #end    
 #foreach ($member in $manageable.manageableAssociationEnds)
