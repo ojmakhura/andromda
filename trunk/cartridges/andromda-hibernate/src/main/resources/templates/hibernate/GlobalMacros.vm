@@ -421,6 +421,10 @@ $attribute.getDocumentation("     * ")
 #set ($visibility="private")
 #end
 #if ($target.navigable || ($associationEnd.child && $entity.foreignHibernateGeneratorClass))
+#if ($generateAttributeNameConstant)
+    public static final String ${attributeNameConstantPrefix}${target.name}="${target.name}";
+
+#end
 #if ($target.many)
     $visibility $target.getterSetterTypeName $target.name = $target.collectionTypeImplementation;
 #else
