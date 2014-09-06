@@ -170,15 +170,12 @@
                     </archive>
                 </configuration>
             </plugin>
+#if ($jetty)
             <!-- See http://wiki.eclipse.org/Jetty/Reference and http://www.eclipse.org/jetty/documentation/current/jetty-maven-plugin.html -->
             <!-- If you see ClassNotFoundException: org.springframework.web.context.ContextLoaderListener
                 and are running maven2, switch jetty.version to 7.x. v8 requires maven3 -->
             <!-- Jetty v9: Not possible to configure jetty port through maven, doesn't run jetty.xml properly -->
-#if ($embeddedJetty)
             <plugin>
-#else
-            <!--plugin>
-#end
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <configuration>
@@ -218,7 +215,39 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin#if (!$embeddedJetty)--#end>
+            </plugin>
+#elseif ($tomcat)
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <configuration>
+                    <contextFile>src/test/resources/context.xml</contextFile>
+                    <path>/${project.build.finalName}</path>
+                    <port>8080</port>
+                    <warDirectory>target/${project.build.finalName}</warDirectory>
+                    <ignorePackaging>true</ignorePackaging>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>tomcat-run</id>
+                        <goals>
+                            <goal>run-war</goal>
+                        </goals>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <fork>false</fork>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>tomcat-shutdown</id>
+                        <goals>
+                            <goal>shutdown</goal>
+                        </goals>
+                        <phase>post-integration-test</phase>
+                    </execution>
+                </executions>
+            </plugin>                   
+#end
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>

@@ -64,7 +64,7 @@
             <artifactId>spring-tx</artifactId>
             <version>${spring.version}</version>
         </dependency>
-#if ($embeddedJetty)
+#if ($tomcat || $jetty)
         <!-- Uncomment below if using JDBC or Test features>
         <dependency>
             <groupId>org.springframework</groupId>

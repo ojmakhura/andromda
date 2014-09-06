@@ -503,7 +503,7 @@
                 <artifactId>spring-expression</artifactId>
                 <version>${spring.version}</version>
             </dependency>
-#if ($embeddedJetty)
+#if ($jetty || $tomcat)
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jdbc</artifactId>
@@ -822,7 +822,7 @@
                 <artifactId>spring-context-support</artifactId>
                 <version>${spring.version}</version>
             </dependency>
-#if (!$embeddedJetty)
+#if (!$jetty && !$tomcat)
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-aop</artifactId>
@@ -924,7 +924,7 @@
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>5.1.31</version>
-#if (!$embeddedJetty)
+#if (!$jetty && !$tomcat)
                 <scope>test</scope>
 #end
             </dependency>
@@ -933,7 +933,7 @@
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
                 <version>9.3-1101-jdbc41</version>
-#if (!$embeddedJetty)
+#if (!$jetty && !$tomcat)
                 <scope>test</scope>
 #end
             </dependency>
@@ -942,7 +942,7 @@
                 <groupId>org.apache.derby</groupId>
                 <artifactId>derby</artifactId>
                 <version>10.9.1.0</version>
-#if (!$embeddedJetty)
+#if (!$jetty && !$tomcat)
                 <scope>test</scope>
 #end
             </dependency>
@@ -951,7 +951,7 @@
                 <groupId>org.hsqldb</groupId>
                 <artifactId>hsqldb</artifactId>
                 <version>2.3.2</version>
-#if (!$embeddedJetty)
+#if (!$jetty && !$tomcat)
                 <scope>test</scope>
 #end
             </dependency>
@@ -960,7 +960,7 @@
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <version>1.4.181</version>
-#if (!$embeddedJetty)
+#if (!$jetty && !$tomcat)
                 <scope>test</scope>
 #end
             </dependency>
@@ -1031,11 +1031,8 @@
                     <artifactId>andromdapp-maven-plugin</artifactId>
                     <version>${andromda.version}</version>
                 </plugin>
-#if ($embeddedJetty)
+#if ($jetty)
                 <plugin>
-#else
-                <!--plugin>
-#end
                     <groupId>org.mortbay.jetty</groupId>
                     <artifactId>jetty-maven-plugin</artifactId>
                     <version>${jetty.version}</version>
@@ -1079,7 +1076,42 @@
                         </execution>
                     </executions>
 #end
-                </plugin#if (!$embeddedJetty)--#end>
+                </plugin>
+#elseif ($tomcat)
+                <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat7-maven-plugin</artifactId>
+                    <version>${tomcat.version}</version>
+#if ($cxf)
+                    <configuration>
+                        <contextFile>src/test/resources/context.xml</contextFile>
+                        <path>/${project.build.finalName}</path>
+                        <port>${service.port}</port>
+                        <warDirectory>target/${project.build.finalName}</warDirectory>
+                        <ignorePackaging>true</ignorePackaging>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>tomcat-run</id>
+                            <goals>
+                                <goal>run-war</goal>
+                            </goals>
+                            <phase>pre-integration-test</phase>
+                            <configuration>
+                                <fork>true</fork>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>tomcat-shutdown</id>
+                            <goals>
+                                <goal>shutdown</goal>
+                            </goals>
+                            <phase>post-integration-test</phase>
+                        </execution>
+                    </executions>
+#end
+                </plugin>                   
+#end
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>tomcat-maven-plugin</artifactId>
@@ -1122,7 +1154,8 @@
         rest=$rest
         jbossSeam=$jbossSeam
         webserviceStack=$webserviceStack
-        embeddedJetty=$embeddedJetty
+        jetty=$jetty
+        tomcat=$tomcat
         -->
         <module>mda</module>
         <module>common</module>
@@ -1333,7 +1366,7 @@
         <application.package>$applicationPackage</application.package>
         <application.name>$applicationName</application.name>
         <application.version>$applicationVersion</application.version>
-#if ($embeddedJetty)
+#if ($jetty || $tomcat)
         <!-- uncomment to use the context configured datasource
 #end
         <dataSource.name>jdbc/${application.id}</dataSource.name>
@@ -1342,7 +1375,7 @@
 #else
         <dataSource>java:comp/env/${dataSource.name}</dataSource>
 #end
-#if ($embeddedJetty)
+#if ($jetty || $tomcat)
         -->
 #end
 #if ($cxf)
@@ -1358,9 +1391,11 @@
         <hibernate.version>3.6.9.Final</hibernate.version-->
         <hibernate.version>4.3.6.Final</hibernate.version>
 #end
-#if ($cxf || $embeddedJetty)
+#if ($jetty)
         <!-- v 9.x only supports JDK7 and you cannot configure jetty.port from maven.-->
         <jetty.version>8.1.15.v20140411</jetty.version>
+#elseif ($tomcat)
+        <tomcat.version>2.2</tomcat.version>
 #end
 #if ($cxf)
         <spring.version>4.0.6.RELEASE</spring.version>
@@ -1541,7 +1576,7 @@
 #elseif ($h2)
                     jdbc:h2:~/$applicationId
 #elseif ($hypersonic)
-#if ($embeddedJetty)
+#if ($jetty || $tomcat)
                     jdbc:hsqldb:file:database/${applicationId};shutdown=true
 #else
                     jdbc:hsqldb:mem:${applicationId}
@@ -1607,7 +1642,7 @@
                 <!-- Change this to the host on which your webapp/service will be deployed -->
                 <service.host>localhost</service.host>
 #end
-#if ($cxf || $embeddedJetty)
+#if ($cxf || $jetty || $tomcat)
                 <!-- Change this the port on which your webapp/service will be deployed -->
                 <service.port>8080</service.port>
 #end
