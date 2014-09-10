@@ -1398,7 +1398,7 @@
         <tomcat.version>2.2</tomcat.version>
 #end
 #if ($cxf)
-        <spring.version>4.0.6.RELEASE</spring.version>
+        <spring.version>4.1.0.RELEASE</spring.version>
 #elseif ($spring)
         <!-- v4 migration needed -->
         <spring.version>3.2.6.RELEASE</spring.version>
@@ -1848,11 +1848,11 @@
                     <sourcepath>${project.basedir}/src/main/java;${project.basedir}/target/src/main/java</sourcepath>
                     <detectLinks/>
                     <links>
-                        <link>http://docs.oracle.com/javase/6/docs/api/</link>
-                        <link>http://docs.oracle.com/javaee/6/api/</link>
+                                    <link>http://docs.oracle.com/javase/8/docs/api/</link>
+                                    <link>http://docs.oracle.com/javaee/7/api/</link>
 #if ($spring || $hibernate || $cxf)
                         <link>http://docs.jboss.org/hibernate/stable/orm/javadocs/</link>
-                        <link>http://static.springsource.org/spring/docs/3.2.x/javadoc-api/</link>
+                        <link>http://docs.spring.io/spring/docs/current/javadoc-api/</link>
 #if ($cxf)
                         <link>http://cxf.apache.org/javadoc/latest/</link>
                         <link>http://jax-ws.java.net/nonav/jaxws-api/2.2/</link>

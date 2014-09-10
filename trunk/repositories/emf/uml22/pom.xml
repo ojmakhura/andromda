@@ -38,6 +38,16 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>org.eclipse.uml2</groupId>
+            <artifactId>types</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.uml2.uml.profile</groupId>
+            <artifactId>standard</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>andromda-repository-emf</artifactId>
             <version>${andromda.version}</version>

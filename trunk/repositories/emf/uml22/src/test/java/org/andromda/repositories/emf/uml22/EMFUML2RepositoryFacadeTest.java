@@ -7,8 +7,10 @@ import java.util.List;
 import junit.framework.TestCase;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.metafacade.ModelAccessFacade;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.uml2.types.TypesPackage;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Stereotype;
@@ -127,9 +129,32 @@ public class EMFUML2RepositoryFacadeTest
         // Load from org.eclipse.uml2.resources jar.
         // UML2 v4: Standard.profile changed to StandardL2 + StandardL3 profiles
         URL url = this.getClass().getResource("profiles/Standard.profile.uml");
-        if (url!=null)
+        if (url==null)
         {
-            System.out.println("Model=" + this.modelUrl.toString());
+            url = this.getClass().getResource("Standard.profile.uml");
+            if (url!=null)
+            {
+                EClass typesPackage = TypesPackage.eINSTANCE.eClass();
+                System.out.println("Model=" + this.modelUrl.toString() + " URL=" + url + " typesPackage=" + typesPackage);
+                this.repository.readModel(
+                    new String[] {this.modelUrl.toString()},
+                    new String[] {url.toString(),
+                        this.getClass().getResource("UMLPrimitiveTypes.library.uml").toString(),
+                        this.getClass().getResource("JavaPrimitiveTypes.library.uml").toString(),
+                        this.getClass().getResource("ECorePrimitiveTypes.library.uml").toString(),
+                        this.getClass().getResource("andromda-common-3.5-SNAPSHOT.profile.uml").toString()});
+            }
+            else
+            {
+                System.out.println("Model=" + this.modelUrl.toString());
+                this.repository.readModel(
+                    new String[] {this.modelUrl.toString()},
+                    null);
+            }
+        }
+        else
+        {
+            System.out.println("Model=" + this.modelUrl.toString() + " URL=" + url);
             this.repository.readModel(
                 new String[] {this.modelUrl.toString()},
                 new String[] {url.toString(),
@@ -137,13 +162,6 @@ public class EMFUML2RepositoryFacadeTest
                     this.getClass().getResource("libraries/JavaPrimitiveTypes.library.uml").toString(),
                     this.getClass().getResource("metamodels/UML.metamodel.uml").toString(),
                     this.getClass().getResource("andromda-common-3.5-SNAPSHOT.profile.uml").toString()});
-        }
-        else
-        {
-            System.out.println("Model=" + this.modelUrl.toString());
-            this.repository.readModel(
-                new String[] {this.modelUrl.toString()},
-                null);
         }
         long now2 = System.currentTimeMillis();
         final ModelAccessFacade modelFacade = this.repository.getModel();

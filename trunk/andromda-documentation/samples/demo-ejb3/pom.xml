@@ -496,7 +496,7 @@
         <!-- hibernate v4.3 NoClassDef org/hibernate/ejb/packaging/PersistenceXmlLoader from EJB3 Container Test org.jboss.ejb3.Ejb3Deployment.initializePersistenceUnits:444. TODO: Migrate to Arquillian -->
         <!-- TODO EJB3 Container Test: You have not defined a jta-data-source for a JTA enabled persistence context named: UNIT_TEST -->
         <hibernate.version>4.2.12.Final</hibernate.version>
-        <spring.version>4.0.6.RELEASE</spring.version>
+        <spring.version>4.1.0.RELEASE</spring.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <profiles>
@@ -749,10 +749,10 @@
                     <detectLinks>true</detectLinks>
                     <detectOfflineLinks>true</detectOfflineLinks>
                     <links>
-                        <link>http://docs.oracle.com/javase/6/docs/api/</link>
-                        <link>http://docs.oracle.com/javaee/6/api/</link>
+                        <link>http://docs.oracle.com/javase/8/docs/api/</link>
+                        <link>http://docs.oracle.com/javaee/7/api/</link>
                         <link>http://docs.jboss.org/hibernate/stable/orm/javadocs/</link>
-                        <link>http://static.springsource.org/spring/docs/3.2.x/javadoc-api</link>
+                        <link>http://docs.spring.io/spring/docs/current/javadoc-api/</link>
                         <link>http://jakarta.apache.org/commons/collections/apidocs/</link>
                         <link>http://jakarta.apache.org/commons/lang/apidocs/</link>
                         <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
