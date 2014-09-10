@@ -11,10 +11,6 @@
     <repository name="emf-uml22">
       <models>
         <model type="emf-uml22">
-          <!--uri>${project.basedir}/src/test/uml2/JSFCartridgeTestModel.uml</uri>
-          <moduleSearchLocations>
-            <location patterns="*.uml,*.epx,*.emx">C:/Workspaces/A34/andromda342/cartridges/andromda-jsf/src/test/uml2</location>
-          </moduleSearchLocations-->
           <uri>file:${project.basedir}/src/test/uml2/JSFCartridgeTestModel.uml</uri>
           <moduleSearchLocations>
             <location patterns="*.uml,*.epx,*.emx">${project.basedir}/src/test/uml2</location>

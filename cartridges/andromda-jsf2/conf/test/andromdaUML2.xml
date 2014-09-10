@@ -5,7 +5,7 @@
     <!-- Comma separated list of cartridges to be processed by namespace name, such as java,webservice. Empty = true = process all>
     <property name="cartridgeFilter">${filter}</property -->
     <!-- Debug andromda processing using example log4jUML2.xml file>
-    <property name="loggingConfigurationUri">file:${project.basedir}/conf/test/log4jUML2.xml</property -->
+    <property name="loggingConfigurationUri">file:${project.basedir}/conf/test/log4j.xml</property -->
   </properties>
   <repositories>
     <repository name="emf-uml22">
@@ -13,7 +13,7 @@
         <model type="emf-uml22">
           <uri>file:${project.basedir}/src/test/uml2/JSFCartridgeTestModel.uml</uri>
           <moduleSearchLocations>
-            <location patterns="*.uml,*.epx,*.emx">${project.basedir}/src/uml2</location>
+            <location patterns="*.uml,*.epx,*.emx">${project.basedir}/src/test/uml2</location>
           </moduleSearchLocations>
           <modelPackages>
             <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>

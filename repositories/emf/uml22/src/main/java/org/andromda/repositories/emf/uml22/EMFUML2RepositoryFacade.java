@@ -24,8 +24,10 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLParserPoolImpl;
 import org.eclipse.emf.mapping.ecore2xml.Ecore2XMLPackage;
+import org.eclipse.uml2.types.TypesPackage;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.UMLPackage;
+import org.eclipse.uml2.uml.profile.standard.StandardPackage;
 import org.eclipse.uml2.uml.resource.UML22UMLExtendedMetaData;
 import org.eclipse.uml2.uml.resource.UML22UMLResource;
 import org.eclipse.uml2.uml.resource.UMLResource;
@@ -82,6 +84,11 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
         packageRegistry.put("http://www.eclipse.org/uml2/3.1.0/UML", UMLPackage.eINSTANCE);
         packageRegistry.put("http://www.eclipse.org/uml2/4.0.0/UML", UMLPackage.eINSTANCE);
         packageRegistry.put("http://www.eclipse.org/uml2/5.0.0/UML", UMLPackage.eINSTANCE);
+        packageRegistry.put("http://www.eclipse.org/uml2/4.0.0/Types", TypesPackage.eINSTANCE);
+        packageRegistry.put("http://www.eclipse.org/uml2/5.0.0/Types", TypesPackage.eINSTANCE);
+        packageRegistry.put("http://www.eclipse.org/uml2/4.0.0/UML/Profile/L2", StandardPackage.eINSTANCE);
+        packageRegistry.put("http://www.eclipse.org/uml2/4.0.0/UML/Profile/L3", StandardPackage.eINSTANCE);
+        packageRegistry.put("http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard", StandardPackage.eINSTANCE);
         packageRegistry.put(Ecore2XMLPackage.eNS_URI, Ecore2XMLPackage.eINSTANCE);
         packageRegistry.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
         // register the UML2 schema against the standard UML namespace for UML 2.0 and 2.1
@@ -183,6 +190,8 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
                 URI.createURI(UMLPackage.eNS_URI));
         uriMap.put(URI.createURI("http://schema.omg.org/spec/UML/2.5"),
                 URI.createURI(UMLPackage.eNS_URI));
+        uriMap.put(URI.createURI("http://www.eclipse.org/uml2/4.0.0/Types"),
+                URI.createURI(TypesPackage.eNS_URI));
         // Add pathmap for RSM UML2_MSL_PROFILES in com/ibm/xtools/uml/msl/7.10.500/msl-7.10.500.jar
         url = this.getClass().getResource("/profiles/Default.epx");
         if (url!=null)

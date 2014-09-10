@@ -594,7 +594,7 @@
         <!-- JBoss7 uses java:/ and everyone else uses java:comp/env for server compatibility -->
         <dataSource>java:/${dataSource.name}</dataSource>
         <hibernate.version>4.3.6.Final</hibernate.version>
-        <spring.version>4.0.6.RELEASE</spring.version>
+        <spring.version>4.1.0.RELEASE</spring.version>
         <slf4j.version>1.7.7</slf4j.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--
@@ -782,10 +782,10 @@
                     <detectLinks>true</detectLinks>
                     <detectOfflineLinks>true</detectOfflineLinks>
                     <links>
-                        <link>http://docs.oracle.com/javase/6/docs/api/</link>
-                        <link>http://docs.oracle.com/javaee/6/api/</link>
+                        <link>http://docs.oracle.com/javase/8/docs/api/</link>
+                        <link>http://docs.oracle.com/javaee/7/api/</link>
                         <link>http://docs.jboss.org/hibernate/stable/orm/javadocs/</link>
-                        <link>http://static.springsource.org/spring/docs/3.2.x/javadoc-api</link>
+                        <link>http://docs.spring.io/spring/docs/current/javadoc-api/</link>
                         <link>http://jakarta.apache.org/commons/collections/apidocs/</link>
                         <link>http://jakarta.apache.org/commons/lang/apidocs/</link>
                         <link>http://jakarta.apache.org/commons/logging/apidocs/</link>

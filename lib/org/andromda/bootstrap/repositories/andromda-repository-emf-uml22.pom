@@ -179,6 +179,34 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>org.eclipse.uml2</groupId>
+      <artifactId>types</artifactId>
+      <version>2.0.0-v20140602-0749</version>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>runtime</artifactId>
+          <groupId>org.eclipse.core</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>ecore</artifactId>
+          <groupId>org.eclipse.emf</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.uml2.uml.profile</groupId>
+      <artifactId>standard</artifactId>
+      <version>1.0.0-v20140602-0749</version>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>runtime</artifactId>
+          <groupId>org.eclipse.core</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
