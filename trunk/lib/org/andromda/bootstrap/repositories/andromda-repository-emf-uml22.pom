@@ -7,7 +7,7 @@
   <version>3.5-SNAPSHOT</version>
   <name>AndroMDA EMF UML2 2.X Repository</name>
   <description>This EMF UML2 2.x repository module allows AndroMDA to load Eclipse .uml models into EMF.</description>
-  <url>http://andromda.sourceforge.net/andromda-repositories/emf/andromda-repository-emf-uml22</url>
+  <url>http://www.andromda.org/andromda-repositories/emf/andromda-repository-emf-uml22</url>
   <inceptionYear>2003</inceptionYear>
   <organization>
     <name>AndroMDA.org</name>
@@ -22,6 +22,26 @@
     </license>
   </licenses>
   <developers>
+    <developer>
+      <id>bobfields</id>
+      <name>Bob Fields</name>
+      <email>bob@andromda.org</email>
+      <organization>AndroMDA</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-5</timezone>
+    </developer>
+    <developer>
+      <id>walter</id>
+      <name>Walter Mourão</name>
+      <email>walter@andromda.org</email>
+      <organization>AndroMDA</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-5</timezone>
+    </developer>
     <developer>
       <id>mattes3</id>
       <name>Matthias Bohlen</name>
@@ -108,16 +128,6 @@
       <timezone>-5</timezone>
     </developer>
     <developer>
-      <id>bobfields</id>
-      <name>Bob Fields</name>
-      <email>bob@andromda.org</email>
-      <organization>AndroMDA</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>-5</timezone>
-    </developer>
-    <developer>
       <id>catforce</id>
       <name>Michail Plushnikov</name>
       <email>michail@andromda.org</email>
@@ -141,13 +151,13 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/repositories/emf/uml2</connection>
-    <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/repositories/emf/uml2</developerConnection>
-    <url>http://andromda.svn.sourceforge.net/</url>
+    <connection>scm:svn:http://svn.code.sf.net/p/andromda/svn/trunk/repositories/emf/uml2</connection>
+    <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/repositories/emf/uml2</developerConnection>
+    <url>http://svn.code.sf.net/p/andromda/svn/trunk/repositories/emf/uml2/</url>
   </scm>
   <issueManagement>
     <system>jira</system>
-    <url>http://jira.andromda.org/</url>
+    <url>https://andromda.atlassian.net/browse/ANDROMDA</url>
   </issueManagement>
   <ciManagement>
     <system>jenkins</system>
