@@ -40,7 +40,7 @@ public interface $entity.daoName
     public static final int $entity.daoNoTransformationConstantName = 0;
 
 #end
-#foreach ($valueObjectRef in $entity.valueObjectReferences)
+#foreach ($valueObjectRef in $entity.allValueObjectReferences)
     /**
      * This constant is used as a transformation flag; entities can be converted automatically into value objects
      * or other types, different methods in a class implementing this interface support this feature: look for
