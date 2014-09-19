@@ -10,6 +10,11 @@
     <artifactId>timetracker-app</artifactId>
     <packaging>ear</packaging>
     <name>TimeTracker Application</name>
+    <scm>
+        <connection>scm:svn:http://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/timetracker/app</connection>
+        <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/timetracker/app</developerConnection>
+        <url>http://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/timetracker/app</url>
+    </scm>
     <dependencies>
         <!-- jar dependencies not needed if not using EJBs -->
         <!--dependency>

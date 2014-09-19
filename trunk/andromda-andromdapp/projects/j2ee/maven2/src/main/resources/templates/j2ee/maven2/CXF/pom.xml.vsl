@@ -153,6 +153,7 @@
             <!-- Run the generated buildWS ant script which runs CXF wsdl2java and java2ws -->
             <plugin>
               <artifactId>maven-antrun-plugin</artifactId>
+              <version>${maven-antrun-plugin.version}</version>
               <executions>
                 <!-- Generated ant script runs java2ws for each service -->
                 <execution>
@@ -254,7 +255,7 @@
                         <phase>post-integration-test</phase>
                     </execution>
                 </executions>
-            </plugin>                   
+            </plugin>
 #end
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -281,7 +282,7 @@
                     </execution>
                 </executions>
             </plugin>
-#end            
+#end
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>

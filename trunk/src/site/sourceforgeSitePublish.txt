@@ -1,0 +1,133 @@
+https://sourceforge.net/p/forge/documentation/Shell%20Service/
+From email message sent 7/6/2012
+
+1. Upload SSH key(s) to sourceforge.
+2. Create site locally with: mvn %OFFLINE% %OPTS% site site:deploy -Plocal,andromda-site-light,coverage -Dmaven.version.rules=file:/%M2_HOME%/conf/versions-rules.xml > site.txt
+3. Create a zip file of the site under /scratch/hudson/workspace/Andromda/site
+4. login to sourceforge shell using SSH: ssh -t bobfields,andromda@shell.sourceforge.net create
+Requesting a new shell for "bobfields" and waiting for it to start.
+queued... creating... starting...
+
+This is an interactive shell created for user bobfields,andromda.
+Use the "timeleft" command to see how much time remains before shutdown.
+Use the "shutdown" command to destroy the shell before the time limit.
+For path information and login help, type "sf-help".
+5. WARNING: terminal is not fully functional
+(press RETURN)
+set terminal type
+6. Start a local sftp session:
+sftp bobfields,andromda@web.sourceforge.net
+RSA key fingerprint is b0:a8:eb:30:ce:1a:0e:6a:4d:7a:6b:3a:0a:c6:27:60.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'web.sourceforge.net,216.34.181.70' (RSA) to the list of known hosts.
+Password:
+Connected to web.sourceforge.net.
+No entry for terminal type "msys";
+using dumb terminal settings.
+No entry for terminal type "msys";
+using dumb terminal settings.
+7. Change to remote docs directory and local site directory (I use cygwin sftp):
+sftp> help
+Available commands:
+bye                                Quit sftp
+cd path                            Change remote directory to 'path'
+chgrp grp path                     Change group of file 'path' to 'grp'
+chmod mode path                    Change permissions of file 'path' to 'mode'
+chown own path                     Change owner of file 'path' to 'own'
+df [-hi] [path]                    Display statistics for current directory or
+                                   filesystem containing 'path'
+exit                               Quit sftp
+get [-Ppr] remote [local]          Download file
+help                               Display this help text
+lcd path                           Change local directory to 'path'
+lls [ls-options [path]]            Display local directory listing
+lmkdir path                        Create local directory
+ln oldpath newpath                 Symlink remote file
+lpwd                               Print local working directory
+ls [-1afhlnrSt] [path]             Display remote directory listing
+lumask umask                       Set local umask to 'umask'
+mkdir path                         Create remote directory
+progress                           Toggle display of progress meter
+put [-Ppr] local [remote]          Upload file
+pwd                                Display remote working directory
+quit                               Quit sftp
+rename oldpath newpath             Rename remote file
+rm path                            Delete remote file
+rmdir path                         Remove remote directory
+symlink oldpath newpath            Symlink remote file
+version                            Show SFTP version
+!command                           Execute 'command' in local shell
+!                                  Escape to local shell
+?                                  Synonym for help
+
+sftp> pwd
+Remote working directory: /home/project-web/andromda
+sftp> lpwd
+Local working directory: /cygdrive/c/Workspaces/A34/andromda35
+sftp> cd htdocs
+sftp> pwd
+Remote working directory: /home/project-web/andromda/htdocs
+sftp> lcd /cygdrive/c/scratch/hudson/workspace/Andromda/site
+sftp> lls
+8. SFTP transfer file from local directory to remote:
+sftp> put site.zip
+9. From the SSH shell session, unzip the contents to the htdocs directory:
+[bobfields@shell-24004 andromda]$ pwd
+/home/project-web/andromda
+[bobfields@shell-24004 andromda]$ unzip
+UnZip 6.00 of 20 April 2009, by Info-ZIP.  Maintained by C. Spieler.  Send
+bug reports using http://www.info-zip.org/zip-bug.html; see README for details.
+
+Usage: unzip [-Z] [-opts[modifiers]] file[.zip] [list] [-x xlist] [-d exdir]
+  Default action is to extract files in list, except those in xlist, to exdir;
+  file[.zip] may be a wildcard.  -Z => ZipInfo mode ("unzip -Z" for usage).
+
+  -p  extract files to pipe, no messages     -l  list files (short format)
+  -f  freshen existing files, create none    -t  test compressed archive data
+  -u  update files, create if necessary      -z  display archive comment only
+  -v  list verbosely/show version info       -T  timestamp archive to latest
+  -x  exclude files that follow (in xlist)   -d  extract files into exdir
+modifiers:
+  -n  never overwrite existing files         -q  quiet mode (-qq => quieter)
+  -o  overwrite files WITHOUT prompting      -a  auto-convert any text files
+  -j  junk paths (do not make directories)   -aa treat ALL files as text
+  -U  use escapes for all non-ASCII Unicode  -UU ignore any Unicode fields
+  -C  match filenames case-insensitively     -L  make (some) names lowercase
+  -X  restore UID/GID info                   -V  retain VMS version numbers
+  -K  keep setuid/setgid/tacky permissions   -M  pipe through "more" pager
+See "unzip -hh" or unzip.txt for more help.  Examples:
+  unzip data1 -x joe   => extract all files except joe from zipfile data1.zip
+  unzip -p foo | more  => send contents of foo.zip via pipe into program more
+  unzip -fo foo ReadMe => quietly replace existing ReadMe if archive file newer
+
+Basic unzip command line:
+  unzip [-Z] options archive[.zip] [file ...] [-x xfile ...] [-d exdir]
+
+Some examples:
+  unzip -l foo.zip        - list files in short format in archive foo.zip
+  unzip -t foo            - test the files in archive foo
+  unzip -Z foo            - list files using more detailed zipinfo format
+  unzip foo               - unzip the contents of foo in current dir
+  unzip -a foo            - unzip foo and convert text files to local OS
+
+[bobfields@shell-24004 andromda]$ unzip -aoq site.zip -d htdocs
+
+9A.? chmod 664 *
+
+10. Test that site is updated correctly - navigate to http://andromda.sourceforge.net/index.html
+
+11. Copy site.zip to /home/frs/project/a/an/andromda/1. andromda V3.x/andromda-docs-3.5.zip
+
+To publish the site using maven...
+1. Add login information to your local maven settings.xml 'id,andromda' as the ID (note the comma in the id value)
+2. Run 'mvn site -Plocal,andromda-site-light' locally to create a local version of the site under /target/site, so that the site does not have to be created during the deployment process. This takes me about an hour. Verify the site documentation and links are correct after creation.
+3. Create a temporary shell for yourself with 'ssh -t <username>,andromda@shell.sf.net create'. You have 240 minutes after creation to complete all SCP operations as part of the build before the shell goes away (you see a 'connection refused' error from the SCP build).
+4. Log into the remote shell from another prompt using 'ssh <username>,andromda@shell.sf.net'. If you get an error message about the authenticity of the host, type 'yes'. This adds the host name and SSH key to the file ~user/.ssh/known_hosts (%USERPROFILE% in Windows), to avoid this prompt in the future. Connect (once) to the same shell using @shell.sourceforge.net, that's a host alias but the authenticity error shows up for that host name in addition to shell.sf.net. Maven does not propagate this prompt but apparently does update the known_hosts file. I've done this several times but still get the authenticity error below.
+5. Run 'mvn site:deploy -Psourceforge,andromda-lite > sourceforge.log' (I use a log to check and record progress)
+6. If you see the following error, type 'yes' on the command line (see https://sourceforge.net/apps/trac/sourceforge/wiki/SCP#Authentication):
+[INFO] --- maven-site-plugin:3.1:deploy (default-cli) @ andromda ---
+The authenticity of host 'shell.sourceforge.net' can't be established.
+RSA key fingerprint is 80:1c:ee:50:14:cd:ef:28:3e:82:c6:ef:44:55:d7:74.
+Are you sure you want to continue connecting? (yes/no): scp://shell.sourceforge.net/home/project-web/andromda/htdocs/
+7. Deployment will run a very long time, it does zip/scp/unzip/chmod for 144 projects in the hierarchy. chmod runs against the entire hierarchy under htdocs, every time a project directory is uploaded.
+8. When complete, verify the site with http://andromda.sourceforge.net/index.html. https does not work, it gives an 'interrupted while the page was loading' error message.

@@ -13,14 +13,10 @@
         The JSF cartridge is used to generate JSF applications from UML models using both static and dynamic model elements.
         Generated applications have default security and internationalization implementations and can be deployed as they are.
     </description>
-    <issueManagement>
-        <system>jira</system>
-        <url>http://www.andromda.org/jira/browse/JSF</url>
-    </issueManagement>
     <scm>
-        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-jsf</connection>
-        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-jsf</developerConnection>
-        <url>http://andromda.svn.sourceforge.net/</url>
+        <connection>scm:svn:http://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-jsf</connection>
+        <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-jsf</developerConnection>
+        <url>http://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-jsf/</url>
     </scm>
     <dependencies>
         <dependency>

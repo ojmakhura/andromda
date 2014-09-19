@@ -12,6 +12,11 @@
     <artifactId>timetracker-mda</artifactId>
     <packaging>pom</packaging>
     <name>TimeTracker MDA</name>
+    <scm>
+        <connection>scm:svn:http://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/timetracker/mda</connection>
+        <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/timetracker/mda</developerConnection>
+        <url>http://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/timetracker/mda</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>org.andromda.profiles.uml2</groupId>

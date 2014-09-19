@@ -10,6 +10,11 @@
     <artifactId>demo-ejb3-web</artifactId>
     <packaging>war</packaging>
     <name>Demo EJB3 Web</name>
+    <scm>
+        <connection>scm:svn:http://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/demo-ejb3/web</connection>
+        <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/demo-ejb3/web</developerConnection>
+        <url>http://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/demo-ejb3/web</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>

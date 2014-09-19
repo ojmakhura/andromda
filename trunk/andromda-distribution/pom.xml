@@ -11,12 +11,7 @@
     <packaging>pom</packaging>
     <name>AndroMDA Distribution</name>
     <description>Provides the assembly of the AndroMDA distribution</description>
-    <issueManagement>
-        <system>jira</system>
-        <url>http://www.andromda.org/jira/browse/SITE</url>
-    </issueManagement>
     <dependencies>
-        <!--Andromda core module-->
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-core</artifactId>
@@ -28,7 +23,6 @@
             <version>${andromda.version}</version>
         </dependency>
 
-        <!--Andromdapp module-->
         <dependency>
             <groupId>org.andromda.andromdapp</groupId>
             <artifactId>andromda-andromdapp-core</artifactId>
@@ -45,7 +39,6 @@
             <version>${andromda.version}</version>
         </dependency>
 
-        <!--Ant module-->
         <dependency>
             <groupId>org.andromda.ant</groupId>
             <artifactId>andromda-ant</artifactId>
@@ -57,7 +50,6 @@
             <version>${andromda.version}</version>
         </dependency>
 
-        <!--Maven module-->
         <dependency>
             <groupId>org.andromda.maven.plugins</groupId>
             <artifactId>andromda-maven-plugin</artifactId>
@@ -114,8 +106,6 @@
             <version>${andromda.version}</version>
         </dependency>
 
-
-        <!--Andromda metafacedes module-->
         <dependency>
             <groupId>org.andromda.metafacades</groupId>
             <artifactId>andromda-metafacades-uml</artifactId>
@@ -139,28 +129,24 @@
             <version>${andromda.version}</version>
         </dependency>
 
-        <!--Andromda profiles module-->
         <dependency>
             <groupId>org.andromda.profiles.uml14</groupId>
             <artifactId>andromda-profile</artifactId>
             <version>${andromda.version}</version>
             <type>xml.zip</type>
         </dependency>
-
         <dependency>
             <groupId>org.andromda.profiles.uml2</groupId>
             <artifactId>andromda-profile</artifactId>
             <version>${andromda.version}</version>
             <type>xml.zip</type>
         </dependency>
-
         <dependency>
             <groupId>org.andromda.profiles.emf.rsm75</groupId>
             <artifactId>andromda-common</artifactId>
             <version>${andromda.version}</version>
             <type>epx</type>
         </dependency>
-
         <!--dependency>
             <groupId>org.andromda.profiles.emf.uml2</groupId>
             <artifactId>andromda-profile-common</artifactId>
@@ -174,7 +160,6 @@
             <type>profile.uml</type>
         </dependency>
 
-        <!--Andromda repositories module-->
         <dependency>
             <groupId>org.andromda.repositories</groupId>
             <artifactId>andromda-repository-mdr</artifactId>
@@ -202,7 +187,6 @@
             <version>${andromda.version}</version>
         </dependency>
 
-        <!--Andromda cartriges module-->
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-meta-cartridge</artifactId>
@@ -269,7 +253,6 @@
             <version>${andromda.version}</version>
         </dependency>
 
-        <!--Andromda template engines-->
         <dependency>
             <groupId>org.andromda.templateengines</groupId>
             <artifactId>andromda-templateengine-velocity</artifactId>
@@ -281,7 +264,6 @@
             <version>${andromda.version}</version>
         </dependency>
 
-        <!--Andromda translation libraries-->
         <dependency>
             <groupId>org.andromda.translationlibraries</groupId>
             <artifactId>andromda-ocl-translation-core</artifactId>

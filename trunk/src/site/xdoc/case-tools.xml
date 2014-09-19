@@ -13,7 +13,7 @@
             <subsection name="AndroMDA compatibility">
                 <p>
                     On this page you'll find a list of UML modeling tools that have been tested for
-                    AndroMDA compatibility. This list is not complete and will probably change in 
+                    AndroMDA compatibility. This list is not complete and will probably change in
                     time: as more tools are tested, they'll be added here. Unsupported tools will be removed.
                 </p>
             </subsection>
@@ -68,7 +68,7 @@
             <p>Q:
                 <b>Information for tool X is incorrect or outdated, how to update?</b>
             </p>
-            <p>A: AndroMDA site documentation is in XDoc format in the source tree. Corrections can be submitted as 
+            <p>A: AndroMDA site documentation is in XDoc format in the source tree. Corrections can be submitted as
                 a patch through the normal source update process. Links to tutorials using AndroMDA are particularly welcome.
                 See Coding / Patching -> <a href="/coding-conventions.html#Submitting_Patches">"How to submit a patch</a> through JIRA.</p>
         </section>
@@ -96,7 +96,7 @@
                         <a href="http://www.magicdraw.com/">MagicDraw UML</a>
                         <img src="images/flash.gif" alt="images/flash.gif"/>
                     </td>
-                    <td>9.x (UML14) / 11.5 through 17+ (EMF UML2 export)</td>
+                    <td>9.x (UML14) / 11.5 through 18+ (EMF UML2 export)</td>
                     <td>1.0 / 1.1 / 1.2 / 2.0(EMF)</td>
                     <td>1.4 / 2.0</td>
                     <td style="text-align: center;">
@@ -114,7 +114,7 @@
                     </td>
                     <td style="text-align: center;">US $149 (many different licenses available)</td>
                     <td>Standalone, or integrates with Eclipse 3.X, NetBeans, IntelliJ IDEA 4.X, Borland's JBuilder.
-                        UML 2.0 models from MagicDraw 11.5+ are supported through the use of 
+                        UML 2.0 models from MagicDraw 11.5+ are supported through the use of
                         Eclipse Modeling Framework (EMF) export. XMI files are stored as .xml.zip or .mdzip files.
                         UML14 version does not support unique/ordered in attributes/parameters, UML2 migration marks all as unique.
                         UML14 version does not support multiplicity * on operation parameters or return types.
@@ -125,9 +125,9 @@
                         <a href="http://www-01.ibm.com/software/rational/products/swarchitect/">IBM Rational Modeler/Architect</a>
                         <img src="images/flash.gif" alt="images/flash.gif"/>
                     </td>
-                    <td>7.X 8.X</td>
+                    <td>7.X 8.X 9.X</td>
                     <td>2.X EMF</td>
-                    <td>2.2+</td>
+                    <td>2.2 2.3</td>
                     <td style="text-align: center;">
                         <img src="images/check.gif" alt="images/check.gif"/>
                     </td>
@@ -148,9 +148,9 @@
                     <td>
                         <a href="http://www.eclipse.org/modeling/mdt/papyrus/">Eclipse Papyrus</a>
                     </td>
-                    <td>3.6</td>
+                    <td>1.0</td>
                     <td>2.X EMF</td>
-                    <td>2.3</td>
+                    <td>2.5</td>
                     <td style="text-align: center;">
                         <img src="images/check.gif" alt="images/check.gif"/>
                     </td>
@@ -165,33 +165,8 @@
                         <img src="images/check.gif" alt="images/check.gif"/>
                     </td>
                     <td style="text-align: center;">Open Source</td>
-                    <td>Follow-on implementation for Eclipse UMLTools, to be merged with TopCased.
+                    <td>Follow-on implementation for Eclipse UMLTools, yearly June release train with the Eclipse project.
                     MoDisco can be used for reverse engineering.</td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="http://wiki.eclipse.org/MDT-UML2Tools">Eclipse UMLTools</a>
-                        <img src="images/flash.gif" alt="images/flash.gif"/>
-                    </td>
-                    <td>3.4 3.5 3.6</td>
-                    <td>2.X EMF</td>
-                    <td>2.2+</td>
-                    <td style="text-align: center;">
-                        <img src="images/check.gif" alt="images/check.gif"/>
-                    </td>
-                    <td style="text-align: center;">
-                        <img src="images/check.gif" alt="images/check.gif"/>
-                    </td>
-                    <td style="text-align: center;">
-                        <img src="images/check.gif" alt="images/check.gif"/>
-                    </td>
-                    <td style="text-align: center;">Eclipse</td>
-                    <td style="text-align: center;">
-                        <img src="images/check.gif" alt="images/check.gif"/>
-                    </td>
-                    <td style="text-align: center;">Open Source</td>
-                    <td>Reference implementation for Eclipse EMF Tools. 
-                    See <a href="http://www.vogella.de/articles/UML/article.html">http://www.vogella.de/articles/UML/article.html</a></td>
                 </tr>
                 <tr>
                     <td>
@@ -214,13 +189,13 @@
                         <img src="images/check.gif" alt="images/check.gif"/>
                     </td>
                     <td style="text-align: center;">Free</td>
-                    <td></td>
+                    <td>Migrating to <a href="http://polarsys.org/">PolarSys</a> Working Group, and are migrating TopCased features to the Eclipse Papyrus platform.</td>
                 </tr>
                 <tr>
                     <td>
                         <a href="http://argouml.tigris.org/">ArgoUML</a>
                     </td>
-                    <td>0.32</td>
+                    <td>0.34</td>
                     <td>1.2</td>
                     <td>1.4, 2.0 (pre-release)</td>
                     <td style="text-align: center;">
@@ -237,16 +212,16 @@
                         <img src="images/check.gif" alt="images/check.gif"/>
                     </td>
                     <td style="text-align: center;">Open Source</td>
-                    <td>UML2 supported as a special enabled pre-release feature only, see 
+                    <td>UML2 supported as a special enabled pre-release feature only, see
                     <a href="http://argouml.tigris.org/wiki/UML_2.x_support">http://argouml.tigris.org/wiki/UML_2.x_support</a>.
                     Models and Profiles stored in .zargo format, must be imported and exported.</td>
                 </tr>
                 <tr>
                     <td>
-                        <a href="http://www.gentleware.com/">Poseidon UML</a>
+                        <a href="http://www.gentleware.com/new-poseidon-for-uml-8-0.html">Poseidon for UML</a>
                         <img src="images/flash.gif" alt="images/flash.gif"/>
                     </td>
-                    <td>1.6+ / 2.x / 3.0</td>
+                    <td>8.0</td>
                     <td>1.2</td>
                     <td>1.4 / 2.0</td>
                     <td style="text-align: center;">
@@ -263,12 +238,12 @@
                         <img src="images/check.gif" alt="images/check.gif"/>
                     </td>
                     <td style="text-align: center;">US $249 or more</td>
-                    <td>Good support. There is also
+                    <td>Good support. Commercial version of ArgoUML. There is also
                         a free community edition with limited support.</td>
                 </tr>
                 <tr>
                     <td>
-                        <a href="http://www.omondo.com/">Omondo EclipseUML Studio</a>
+                        <a href="http://www.ejb3.org/">Omondo EclipseUML Studio</a>
                     </td>
                     <td>Eclipse 3.6</td>
                     <td>2.3</td>
@@ -284,19 +259,18 @@
                     <td style="text-align: center;">
                         <img src="images/check.gif" alt="images/check.gif"/>
                     </td>
-                    <td style="text-align: center;">EUR 1.990,00, or Free edition</td>
-                    <td>EclipseUML Studio stores information of your UML model as Javadoc annotations
-                        directly in the Java source code. Free Edition is only 3.3 Europa compliant</td>
+                    <td style="text-align: center;">EUR 3.950,00</td>
+                    <td>EclipseUML omondo.org longer exists. EJB3.org took over maintenance of this tool. Not updated since 2012 (Eclipse 3.7)</td>
                 </tr>
                 <tr>
                     <td>
-                        <a href="http://www.sparxsystems.com.au/">Sparx Enterprise Architect</a>
+                        <a href="http://www.sparxsystems.com/">Sparx Enterprise Architect</a>
                     </td>
-                    <td>8</td>
+                    <td>11.1</td>
                     <td>XMI 2.1
                         <img src="images/warning.gif" alt="images/warning.gif"/>
                     </td>
-                    <td>2.3</td>
+                    <td>2.5</td>
                     <td style="text-align: center;">
                         <img src="images/check.gif" alt="images/check.gif"/>
                     </td>
@@ -310,7 +284,7 @@
                         <br/>Visual Studio
                     </td>
                     <td style="text-align: center;">Windows / Linux</td>
-                    <td style="text-align: center;">starts at US $135</td>
+                    <td style="text-align: center;">$199 for reverse engineering and project sharing</td>
                     <td>The XMI 1.2 export will support the UML 1.4 metamodel.
                     Or you can export to EMF UML 2.3</td>
                 </tr>
@@ -371,7 +345,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <a href="http://www.objecteering.com/">Objecteering Modeler</a>
+                        <a href="http://www.objecteering.com/">Objecteering UML</a>
                     </td>
                     <td>6</td>
                     <td>UML2 metamodel</td>
@@ -384,27 +358,8 @@
                     <td>Eclipse 2.0</td>
                     <td style="text-align: center;">Windows / Linux / Solaris</td>
                     <td style="text-align: center;">US $859, Free Edition</td>
-                    <td>Complex user interface.</td>
+                    <td>Complex user interface. French company.</td>
                 </tr>
-                <!--tr>
-                    <td>
-                        <a href="http://www.sybase.com/">Sybase Power Designer</a>
-                    </td>
-                    <td>10.1</td>
-                    <td>XMI 1.1 / UML 1.3 metamodel
-                        <img src="images/warning.gif" alt="images/warning.gif"/>
-                    </td>
-                    <td>1.4</td>
-                    <td style="text-align: center;">One per element</td>
-                    <td style="text-align: center;">
-                        <img src="images/check.gif" alt="images/check.gif"/>
-                    </td>
-                    <td style="text-align: center;">?</td>
-                    <td></td>
-                    <td style="text-align: center;">Windows</td>
-                    <td>US $5990</td>
-                    <td></td>
-                </tr-->
                 <tr>
                     <td>
                         <a href="http://www.visual-paradigm.com/">Visual Paradigm for UML</a>
@@ -432,6 +387,30 @@
                     <td style="text-align: center;">US $299</td>
                     <td>It is not possible to display classes without their containment packages if they relate
                         to another package.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="http://wiki.eclipse.org/MDT-UML2Tools">Eclipse UMLTools</a>
+                    </td>
+                    <td>3.4 3.5 3.6</td>
+                    <td>2.X EMF</td>
+                    <td>2.2+</td>
+                    <td style="text-align: center;">
+                        <img src="images/check.gif" alt="images/check.gif"/>
+                    </td>
+                    <td style="text-align: center;">
+                        <img src="images/check.gif" alt="images/check.gif"/>
+                    </td>
+                    <td style="text-align: center;">
+                        <img src="images/check.gif" alt="images/check.gif"/>
+                    </td>
+                    <td style="text-align: center;">Eclipse</td>
+                    <td style="text-align: center;">
+                        <img src="images/check.gif" alt="images/check.gif"/>
+                    </td>
+                    <td style="text-align: center;">Open Source</td>
+                    <td>Deprecated implementation for Eclipse EMF Tools. Use Papyrus.
+                    See <a href="http://www.vogella.de/articles/UML/article.html">http://www.vogella.de/articles/UML/article.html</a></td>
                 </tr>
             </table>
         </section>

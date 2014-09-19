@@ -9,12 +9,12 @@
     <url>http://andromda.sourceforge.net</url>
     <issueManagement>
         <system>jira</system>
-        <url>http://www.andromda.org/jira/browse/MAVEN</url>
+        <url>https://andromda.atlassian.net/browse/ANDROMDA</url>
     </issueManagement>
     <scm>
-        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/maven-config</connection>
-        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/maven-config</developerConnection>
-        <url>http://andromda.svn.sourceforge.net/</url>
+        <connection>scm:svn:http://svn.code.sf.net/p/andromda/svn/trunk/maven/maven-config</connection>
+        <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/maven/maven-config</developerConnection>
+        <url>http://svn.code.sf.net/p/andromda/svn/trunk/maven/maven-config/</url>
     </scm>
     <!-- Duplicated from andromda pom to avoid circular dependency error -->
     <organization>

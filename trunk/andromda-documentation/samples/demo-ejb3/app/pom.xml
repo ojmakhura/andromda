@@ -10,6 +10,11 @@
     <artifactId>demo-ejb3-app</artifactId>
     <packaging>ear</packaging>
     <name>Demo EJB3 Application</name>
+    <scm>
+        <connection>scm:svn:http://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/demo-ejb3/app</connection>
+        <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/demo-ejb3/app</developerConnection>
+        <url>http://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/demo-ejb3/app</url>
+    </scm>
     <dependencyManagement>
         <dependencies>
             <dependency>

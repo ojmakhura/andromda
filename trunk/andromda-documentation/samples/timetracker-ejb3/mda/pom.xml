@@ -12,6 +12,11 @@
     <artifactId>timetracker-ejb3-mda</artifactId>
     <packaging>pom</packaging>
     <name>TimeTracker EJB3 MDA</name>
+    <scm>
+        <connection>scm:svn:http://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/timetracker-ejb3/mda</connection>
+        <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/timetracker-ejb3/mda</developerConnection>
+        <url>http://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/timetracker-ejb3/mda</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>org.andromda.profiles.uml14</groupId>
@@ -144,7 +149,7 @@
         <web.generated.web.dir>${web.generated.dir}/src/main/webapp</web.generated.web.dir>
         <web.manual.dir>${project.basedir}/../web/src/main</web.manual.dir>
         <web.manual.web.dir>${web.manual.dir}/webapp</web.manual.web.dir>
-        <web.manual.java.dir>${web.manual.dir}/java</web.manual.java.dir> 
+        <web.manual.java.dir>${web.manual.dir}/java</web.manual.java.dir>
         <application.config.dir>${project.basedir}/../app/src/main/config</application.config.dir>
         <application.metainf.dir>${project.basedir}/../app/src/main/application/META-INF</application.metainf.dir>
     </properties>

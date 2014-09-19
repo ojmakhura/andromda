@@ -14,14 +14,10 @@
     <description>
         Andromda sample applications
     </description>
-    <issueManagement>
-        <system>jira</system>
-        <url>http://www.andromda.org/jira/browse/SAMPLES</url>
-    </issueManagement>
     <scm>
-        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/samples</connection>
-        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/samples</developerConnection>
-        <url>http://andromda.svn.sourceforge.net/</url>
+        <connection>scm:svn:http://svn.code.sf.net/p/andromda/svn/trunk/samples</connection>
+        <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/samples</developerConnection>
+        <url>http://svn.code.sf.net/p/andromda/svn/trunk/samples/</url>
     </scm>
     <dependencies>
         <dependency>

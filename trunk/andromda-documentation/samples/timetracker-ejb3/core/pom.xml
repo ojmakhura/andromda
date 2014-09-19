@@ -10,6 +10,11 @@
     <artifactId>timetracker-ejb3-core</artifactId>
     <packaging>ejb</packaging>
     <name>TimeTracker EJB3 Core Business Tier</name>
+    <scm>
+        <connection>scm:svn:http://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/timetracker-ejb3/core</connection>
+        <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/timetracker-ejb3/core</developerConnection>
+        <url>http://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/timetracker-ejb3/core</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>

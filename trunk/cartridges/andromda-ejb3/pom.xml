@@ -12,14 +12,10 @@
     <name>AndroMDA EJB3 Cartridge</name>
     <description>Produces EJB 3.0 persistence layer from a model.</description>
     <inceptionYear>2006</inceptionYear>
-    <issueManagement>
-        <system>jira</system>
-        <url>http://www.andromda.org/jira/browse/EJB</url>
-    </issueManagement>
     <scm>
-        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-ejb3</connection>
-        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-ejb3</developerConnection>
-        <url>http://andromda.svn.sourceforge.net/andromda</url>
+        <connection>scm:svn:http://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-ejb3</connection>
+        <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-ejb3</developerConnection>
+        <url>http://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-ejb3/</url>
     </scm>
     <dependencies>
         <dependency>
