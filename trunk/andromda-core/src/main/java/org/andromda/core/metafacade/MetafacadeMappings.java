@@ -169,7 +169,7 @@ public class MetafacadeMappings
     }
 
     /**
-     * <p/> Retrieves the MetafacadeMapping belonging to the unique
+     * <p> Retrieves the MetafacadeMapping belonging to the unique
      * <code>key</code> created from the <code>mappingObject</code>'s
      * class, <code>context</code> and given <code>stereotypes</code>. It's
      * <strong>IMPORTANT </strong> to note that contexts have a higher priority
@@ -184,7 +184,7 @@ public class MetafacadeMappings
      * <li>multiple stereotypes with a context</li>
      * </ul>
      * </p>
-     * <p/> NOTE: mapping properties are inherited from super metafacades.
+     * <p> NOTE: mapping properties are inherited from super metafacades.
      * </p>
      *
      * @param mappingObject an instance of the class to which the mapping
@@ -677,11 +677,11 @@ public class MetafacadeMappings
     }
 
     /**
-     * <p/> Attempts to get the MetafacadeMapping identified by the given
+     * <p> Attempts to get the MetafacadeMapping identified by the given
      * <code>mappingClass</code>,<code>context</code> and
      * <code>stereotypes<code>, from the mappings for the given <code>namespace</code>. If it can <strong>not</strong>
      * be found, it will search the default mappings and return that instead. </p>
-     * <p/>
+     * <p>
      * <strong>IMPORTANT:</strong> The <code>context</code> will take precedence over any <code>stereotypes</code> with
      * the mapping. </p>
      *

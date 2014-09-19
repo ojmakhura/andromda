@@ -275,7 +275,7 @@ public class ClassUtils
     }
 
     /**
-     * <p/>
+     * <p>
      * Checks if a given type name is a Java primitive type. </p>
      *
      * @param name a <code>String</code> with the name of the type

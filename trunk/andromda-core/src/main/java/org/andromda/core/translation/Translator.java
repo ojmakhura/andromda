@@ -10,7 +10,7 @@ public interface Translator
     /**
      * Translates the expression into a translated Expression instance.
      *
-     * @param translationLibrary the library and translation to lookup perform the translation (i.e. sql.Oracle9i -->
+     * @param translationLibrary the library and translation to lookup perform the translation (i.e. sql.Oracle9i:
      *                           library to use would be "sql" and translation from the sql library would be
      *                           'Oracle9i').
      * @param contextElement     the optional element in the model to which the expression applies (the context element

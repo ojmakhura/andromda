@@ -124,7 +124,7 @@ public class Namespaces
     /**
      * Retrieves a property from the Namespace with the namespaceName. If the <code>ignore</code> attribute of the
      * Property instance is set to <code>true</code> then lookup of the property will not be attempted and null will
-     * just be returned instead. If the property is not found and <code>ignore<code> is not <code>true</code> a warning
+     * just be returned instead. If the property is not found and <code>ignore</code> is not <code>true</code> a warning
      * message is logged.
      *
      * @param namespaceName name of the Plugin to which the namespace applies
@@ -145,7 +145,7 @@ public class Namespaces
     /**
      * Retrieves a property from the Namespace with the namespaceName. If the <code>ignore</code> attribute of the
      * Property instance is set to <code>true</code> then lookup of the property will not be attempted and null will
-     * just be returned instead. If the propety is not found and <code>ignore<code> is not <code>true</code> a warning
+     * just be returned instead. If the property is not found and <code>ignore</code> is not <code>true</code> a warning
      * message is logged.
      *
      * @param namespaceName name of the Plugin to which the namespace applies

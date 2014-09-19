@@ -17,7 +17,7 @@ public class ResourceFinder
      * found in.
      *
      * @param resource the resource to find
-     * @return a <code>array of resource URLs<code>
+     * @return a <code>array of resource URLs</code>
      */
     public static URL[] findResources(final String resource)
     {

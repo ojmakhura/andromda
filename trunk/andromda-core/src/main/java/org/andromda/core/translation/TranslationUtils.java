@@ -13,10 +13,10 @@ import org.apache.commons.lang.StringUtils;
 public class TranslationUtils
 {
     /**
-     * <p/>
+     * <p>
      * <code>TranslationUtils</code> instances should NOT be constructed in standard programming. Instead, the class
      * should be used as <code>TranslationUtils.replacePattern(" some pattern ");</code>. </p>
-     * <p/>
+     * <p>
      * This constructor is public to permit tools that require a JavaBean instance to operate. </p>
      */
     public TranslationUtils()
@@ -25,7 +25,7 @@ public class TranslationUtils
     }
 
     /**
-     * Searches for and replaces the specified pattern with braces around it, like so --> "{pattern}" every time it
+     * Searches for and replaces the specified pattern with braces around it, like so: "{pattern}" every time it
      * occurs in the string.
      *
      * @param string      the string to to perform replacement on.
@@ -48,7 +48,7 @@ public class TranslationUtils
     }
 
     /**
-     * Searches for and replaces the specified pattern with braces around it, like so --> "{pattern}" the first time it
+     * Searches for and replaces the specified pattern with braces around it, like so: "{pattern}" the first time it
      * occurs in the string
      *
      * @param string      the string to to perform replacement on.
@@ -71,7 +71,7 @@ public class TranslationUtils
     }
 
     /**
-     * Returns true if the specified pattern with braces around it, like so --> "{pattern}" exists in the string.
+     * Returns true if the specified pattern with braces around it, like so: "{pattern}" exists in the string.
      *
      * @param string  the string to to perform replacement on.
      * @param pattern the pattern to find
@@ -114,7 +114,7 @@ public class TranslationUtils
 
     /**
      * Retrieves the "starting" property name from one that is nested, for example, will return ' <name1>' from the
-     * string --> <name1>. <name2>. <name3>. If the property isn't nested, then just return the name that is passed in.
+     * string <name1>. <name2>. <name3>. If the property isn't nested, then just return the name that is passed in.
      *
      * @param property the property.
      * @return String
@@ -131,7 +131,7 @@ public class TranslationUtils
     }
 
     /**
-     * Removes any extra whitespace --> does not remove the spaces between the words. Only removes tabs and newline
+     * Removes any extra whitespace. Does not remove the spaces between the words. Only removes tabs and newline
      * characters. This is to allow everything to be on one line while keeping the spaces between words.
      *
      * @param string the string

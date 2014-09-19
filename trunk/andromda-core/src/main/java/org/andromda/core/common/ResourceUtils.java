@@ -380,9 +380,9 @@ public class ResourceUtils
     }
 
     /**
-     * <p/>
+     * <p>
      * Retrieves a resource from an optionally given <code>directory</code> or from the package on the classpath. </p>
-     * <p/>
+     * <p>
      * If the directory is specified and is a valid directory then an attempt at finding the resource by appending the
      * <code>resourceName</code> to the given <code>directory</code> will be made, otherwise an attempt to find the
      * <code>resourceName</code> directly on the classpath will be initiated. </p>
@@ -484,6 +484,7 @@ public class ResourceUtils
      * <p>
      * Retrieves a resource from an optionally given <code>directory</code> or from the package on the classpath.
      * </p>
+     * <p>
      * If the directory is specified and is a valid directory then an attempt at finding the resource by appending the
      * <code>resourceName</code> to the given <code>directory</code> will be made, otherwise an attempt to find the
      * <code>resourceName</code> directly on the classpath will be initiated. </p>
@@ -545,13 +546,13 @@ public class ResourceUtils
     /**
      * Resolves a URL to a classpath resource, this method will treat occurrences of the exclamation mark
      * similar to what {@link URL} does with the <code>jar:file</code> protocol.
-     * <p/>
+     * <p>
      * Example: <code>my/path/to/some.zip!/file.xml</code> represents a resource <code>file.xml</code>
      * that is located in a ZIP file on the classpath called <code>my/path/to/some.zip</code>
-     * <p/>
+     * <p>
      * It is possible to have nested ZIP files, example:
      * <code>my/path/to/first.zip!/subdir/second.zip!/file.xml</code>.
-     * <p/>
+     * <p>
      * <i>Please note that the extension of the ZIP file can be anything,
      * but in the case the extension is <code>.jar</code> the JVM will automatically unpack resources
      * one level deep and put them all on the classpath</i>

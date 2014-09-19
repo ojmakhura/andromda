@@ -8,7 +8,7 @@ import org.andromda.core.configuration.Property;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * <p/>
+ * <p>
  * This class implements the <code>&lt;resource&gt;</code> tag in a cartridge descriptor file and represents the base
  * cartridge resource element. </p>
  *
