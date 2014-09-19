@@ -205,9 +205,11 @@ public class Mappings
     private static Mappings getInstance(final File mappingsFile)
         throws Exception
     {
+        final FileReader reader = new FileReader(mappingsFile);
         final Mappings mappings =
-            (Mappings)XmlObjectFactory.getInstance(Mappings.class).getObject(new FileReader(mappingsFile));
+            (Mappings)XmlObjectFactory.getInstance(Mappings.class).getObject(reader);
         mappings.resource = mappingsFile.toURI().toURL();
+        reader.close();
         return mappings;
     }
 

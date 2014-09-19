@@ -827,7 +827,7 @@ public abstract class $entity.daoBaseName
      * This method will return instances of these types:
      * <ul>
      *   <li>{@link ${rootEntityType}} - {@link ${esc.hash}$entity.daoNoTransformationConstantName}</li>
-#**##foreach ($valueObjectRef in $entity.valueObjectReferences)
+#**##foreach ($valueObjectRef in $entity.allValueObjectReferences)
 #*  *##set ($targetElement = $valueObjectRef.targetElement)
      *   <li>{@link $targetElement.fullyQualifiedName} - {@link ${esc.hash}${valueObjectRef.transformationConstantName}}</li>
 #**##end

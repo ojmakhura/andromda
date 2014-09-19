@@ -7,6 +7,7 @@
     <packaging>pom</packaging>
     <name>Maven Parent Configuration</name>
     <description>AndroMDA Maven Parent - common configuration for all projects</description>
+    <inceptionYear>2003</inceptionYear>
     <url>http://www.andromda.org</url>
     <issueManagement>
         <system>jira</system>
@@ -549,6 +550,14 @@
                     </configuration>
                 </execution>
             </executions>
+            <!-- Not really necessary, but having jacoco ant tasks jar available locally is very useful for consolidating multiple exec reports -->
+            <dependencies>
+                <dependency>
+                  <groupId>org.jacoco</groupId>
+                  <artifactId>org.jacoco.ant</artifactId>
+                  <version>${jacoco.version}</version>
+                </dependency>
+            </dependencies>
           </plugin>
         </plugins>
     </build>

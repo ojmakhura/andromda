@@ -116,7 +116,7 @@ Some examples:
 
 10. Test that site is updated correctly - navigate to http://andromda.sourceforge.net/index.html
 
-11. Copy site.zip to /home/frs/project/a/an/andromda/1. andromda V3.x/andromda-docs-3.5.zip
+11. mv site.zip /home/frs/project/a/an/andromda/1. andromda V3.x/andromda-docs-3.5.zip
 
 To publish the site using maven...
 1. Add login information to your local maven settings.xml 'id,andromda' as the ID (note the comma in the id value)
