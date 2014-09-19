@@ -9,7 +9,7 @@
   <description>AndroMDA (pronounced: andromeda) is an open source code generation framework that follows the Model Driven
         Architecture (MDA) paradigm. It takes model(s) from UML tool(s) and generates fully deployable applications and
         other components.</description>
-  <url>http://andromda.sourceforge.net/andromda-translation-libraries/andromda-ocl-translation-libraries/andromda-ocl-translation-testsuite</url>
+  <url>http://www.andromda.org/andromda-translation-libraries/andromda-ocl-translation-libraries/andromda-ocl-translation-testsuite</url>
   <inceptionYear>2003</inceptionYear>
   <organization>
     <name>AndroMDA.org</name>
@@ -24,6 +24,26 @@
     </license>
   </licenses>
   <developers>
+    <developer>
+      <id>bobfields</id>
+      <name>Bob Fields</name>
+      <email>bob@andromda.org</email>
+      <organization>AndroMDA</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-5</timezone>
+    </developer>
+    <developer>
+      <id>walter</id>
+      <name>Walter Mourão</name>
+      <email>walter@andromda.org</email>
+      <organization>AndroMDA</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-5</timezone>
+    </developer>
     <developer>
       <id>mattes3</id>
       <name>Matthias Bohlen</name>
@@ -110,16 +130,6 @@
       <timezone>-5</timezone>
     </developer>
     <developer>
-      <id>bobfields</id>
-      <name>Bob Fields</name>
-      <email>bob@andromda.org</email>
-      <organization>AndroMDA</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>-5</timezone>
-    </developer>
-    <developer>
       <id>catforce</id>
       <name>Michail Plushnikov</name>
       <email>michail@andromda.org</email>
@@ -143,13 +153,13 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries/ocl/testsuite</connection>
-    <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries/ocl/testsuite</developerConnection>
-    <url>http://andromda.svn.sourceforge.net/</url>
+    <connection>scm:svn:http://svn.code.sf.net/p/andromda/svn/trunk/translation-libraries/ocl/testsuite</connection>
+    <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/translation-libraries/ocl/testsuite</developerConnection>
+    <url>http://svn.code.sf.net/p/andromda/svn/trunk/translation-libraries/ocl/testsuite/</url>
   </scm>
   <issueManagement>
     <system>jira</system>
-    <url>http://www.andromda.org/jira/browse/OCL</url>
+    <url>https://andromda.atlassian.net/browse/ANDROMDA</url>
   </issueManagement>
   <ciManagement>
     <system>jenkins</system>

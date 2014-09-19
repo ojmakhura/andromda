@@ -7,7 +7,7 @@
   <version>3.5-SNAPSHOT</version>
   <name>AndroMDA Meta Cartridge</name>
   <description>Produces AndroMDA Metafacades.</description>
-  <url>http://andromda.sourceforge.net/andromda-cartridges/andromda-meta-cartridge</url>
+  <url>http://www.andromda.org/andromda-cartridges/andromda-meta-cartridge</url>
   <inceptionYear>2003</inceptionYear>
   <organization>
     <name>AndroMDA.org</name>
@@ -22,6 +22,26 @@
     </license>
   </licenses>
   <developers>
+    <developer>
+      <id>bobfields</id>
+      <name>Bob Fields</name>
+      <email>bob@andromda.org</email>
+      <organization>AndroMDA</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-5</timezone>
+    </developer>
+    <developer>
+      <id>walter</id>
+      <name>Walter Mourão</name>
+      <email>walter@andromda.org</email>
+      <organization>AndroMDA</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-5</timezone>
+    </developer>
     <developer>
       <id>mattes3</id>
       <name>Matthias Bohlen</name>
@@ -108,16 +128,6 @@
       <timezone>-5</timezone>
     </developer>
     <developer>
-      <id>bobfields</id>
-      <name>Bob Fields</name>
-      <email>bob@andromda.org</email>
-      <organization>AndroMDA</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>-5</timezone>
-    </developer>
-    <developer>
       <id>catforce</id>
       <name>Michail Plushnikov</name>
       <email>michail@andromda.org</email>
@@ -141,13 +151,13 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-meta</connection>
-    <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-meta</developerConnection>
-    <url>http://andromda.svn.sourceforge.net/</url>
+    <connection>scm:svn:http://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-meta</connection>
+    <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-meta</developerConnection>
+    <url>http://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-meta/</url>
   </scm>
   <issueManagement>
     <system>jira</system>
-    <url>http://www.andromda.org/jira/browse/META</url>
+    <url>https://andromda.atlassian.net/browse/ANDROMDA</url>
   </issueManagement>
   <ciManagement>
     <system>jenkins</system>
@@ -165,18 +175,6 @@
       <artifactId>log4j</artifactId>
       <version>1.2.17</version>
       <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-core</artifactId>
-      <version>1.3</version>
-      <scope>runtime</scope>
     </dependency>
   </dependencies>
 </project>
