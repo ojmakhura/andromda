@@ -189,6 +189,7 @@
             <!-- Commented out because these dependencies should only be bundled with the war, not the ear
             plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
+                <version>${maven-antrun-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>remove problem classes</id>

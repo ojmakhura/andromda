@@ -293,6 +293,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
+                <version>${maven-antrun-plugin.version}</version>
                 <executions>
                     <execution>
                         <phase>process-resources</phase>
@@ -427,7 +428,7 @@
                         <phase>post-integration-test</phase>
                     </execution>
                 </executions>
-            </plugin>                   
+            </plugin>
 #end
         </plugins>
     </build>

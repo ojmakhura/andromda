@@ -7,19 +7,20 @@
     <packaging>pom</packaging>
     <name>Maven Parent Configuration</name>
     <description>AndroMDA Maven Parent - common configuration for all projects</description>
+    <url>http://www.andromda.org</url>
     <issueManagement>
         <system>jira</system>
-        <url>https://andromda.atlassian.net/browse/MAVEN</url>
+        <url>https://andromda.atlassian.net/browse/ANDROMDA</url>
     </issueManagement>
     <scm>
-        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/maven-parent</connection>
-        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/maven-parent</developerConnection>
-        <url>http://andromda.svn.sourceforge.net/</url>
+        <connection>scm:svn:http://svn.code.sf.net/p/andromda/svn/trunk/maven/maven-parent</connection>
+        <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/maven/maven-parent</developerConnection>
+        <url>http://svn.code.sf.net/p/andromda/svn/trunk/maven/maven-parent/</url>
     </scm>
     <!-- Duplicated from andromda pom to avoid circular dependency error -->
     <organization>
         <name>AndroMDA.org</name>
-        <url>http://andromda.sourceforge.net/index.html</url>
+        <url>http://www.andromda.org</url>
     </organization>
     <licenses>
         <license>
@@ -294,7 +295,7 @@
                         <dependency><!-- add support for ssh/scp -->
                           <groupId>org.apache.maven.wagon</groupId>
                           <artifactId>wagon-ssh</artifactId>
-                          <version>2.6</version>
+                          <version>2.7</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -497,6 +498,58 @@
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>${maven-enforcer-plugin.version}</version>
             </plugin>
+            <!-- See http://www.petrikainulainen.net/programming/maven/creating-code-coverage-reports-for-unit-and-integration-tests-with-the-jacoco-maven-plugin/ -->
+            <plugin>
+              <groupId>org.jacoco</groupId>
+              <artifactId>jacoco-maven-plugin</artifactId>
+              <executions>
+                <execution>
+                    <id>agent</id>
+                    <phase>process-classes</phase>
+                    <goals>
+                        <goal>prepare-agent</goal>
+                    </goals>
+                    <configuration>
+                        <destFile>${jacoco.file}</destFile>
+                        <propertyName>argLine</propertyName>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>report</id>
+                    <phase>prepare-package</phase>
+                    <goals>
+                        <goal>report</goal>
+                    </goals>
+                    <configuration>
+                        <dataFile>${jacoco.file}</dataFile>
+                        <outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>integration</id>
+                    <phase>pre-integration-test</phase>
+                    <goals>
+                        <goal>prepare-agent-integration</goal>
+                    </goals>
+                    <configuration>
+                        <append>true</append>
+                        <destFile>${project.build.directory}/jacoco-it.exec</destFile>
+                        <propertyName>failsafeArgLine</propertyName>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>post-integration-test</id>
+                    <phase>post-integration-test</phase>
+                    <goals>
+                        <goal>report</goal>
+                    </goals>
+                    <configuration>
+                        <dataFile>${project.build.directory}/coverage-reports/jacoco-it.exec</dataFile>
+                        <outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
+                    </configuration>
+                </execution>
+            </executions>
+          </plugin>
         </plugins>
     </build>
     <repositories>
@@ -564,13 +617,13 @@
         <maven-jar-plugin.version>2.5</maven-jar-plugin.version>
         <maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
         <maven-jxr-plugin.version>2.4</maven-jxr-plugin.version>
-        <maven-pmd-plugin.version>3.0.1</maven-pmd-plugin.version>
+        <maven-pmd-plugin.version>3.1</maven-pmd-plugin.version>
         <maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
         <maven-release-plugin.version>2.5</maven-release-plugin.version>
         <maven-repository-plugin.version>2.3.1</maven-repository-plugin.version>
         <maven-resources-plugin.version>2.6</maven-resources-plugin.version>
         <maven-scm-plugin.version>1.8.1</maven-scm-plugin.version>
-        <maven-site-plugin.version>3.3</maven-site-plugin.version>
+        <maven-site-plugin.version>3.4</maven-site-plugin.version>
         <maven-source-plugin.version>2.3</maven-source-plugin.version>
         <!-- V2.12 timetracker-ejb3 regression: The forked VM terminated without saying properly goodbye. VM crash or System.exit called: If persistence.xml entities wrong -->
         <maven-surefire-plugin.version>2.17</maven-surefire-plugin.version>
@@ -591,7 +644,7 @@
         <tomcat-maven-plugin.version>1.1</tomcat-maven-plugin.version>
         <versions-maven-plugin.version>2.1</versions-maven-plugin.version>
         <xml-maven-plugin.version>1.0</xml-maven-plugin.version>
-        <jacoco.version>0.7.1.201405082137</jacoco.version>
+        <jacoco.version>0.7.2.201409121644</jacoco.version>
         <jacoco.append>true</jacoco.append>
         <jacoco.skip>false</jacoco.skip>
         <jacoco.includes>*</jacoco.includes>
@@ -759,10 +812,11 @@
                             <show>package</show>
                             <version>true</version>
                             <links>
-                                <link>http://download.oracle.com/javase/6/docs/api/</link>
-                                <link>http://download.oracle.com/javaee/6/api/</link>
-                                <link>http://download.eclipse.org/modeling/mdt/uml2/javadoc/3.1.0/</link>
-                                <link>http://download.eclipse.org/modeling/emf/emf/javadoc/2.6.0/</link>
+                                <link>http://docs.oracle.com/javase/8/docs/api/</link>
+                                <link>http://docs.oracle.com/javaee/7/api/</link>
+                                <link>http://download.eclipse.org/modeling/mdt/uml2/javadoc/5.0.0/</link>
+                                <link>http://download.eclipse.org/modeling/emf/emf/javadoc/2.9.0/</link>
+                                <link>http://download.eclipse.org/modeling/emf/emf/javadoc/xsd/2.9.0/</link>
                                 <link>http://jakarta.apache.org/commons/collections/apidocs</link>
                                 <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
                                 <link>http://junit.sourceforge.net/javadoc/</link>
@@ -820,7 +874,18 @@
                         <version>${clirr-maven-plugin.version}</version>
                         <configuration>
                             <minSeverity>info</minSeverity>
-                            <comparisonVersion>3.3</comparisonVersion>
+                            <comparisonVersion>${clirr.comparisonVersion}</comparisonVersion>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>${jacoco.version}</version>
+                        <configuration>
+                            <skip>${jacoco.skip}</skip>
+                            <formats>
+                                <format>html</format>
+                            </formats>
                         </configuration>
                     </plugin>
                     <plugin>
@@ -980,10 +1045,11 @@
                             <show>package</show>
                             <version>true</version>
                             <links>
-                                <link>http://download.oracle.com/javase/6/docs/api/</link>
-                                <link>http://download.oracle.com/javaee/6/api/</link>
-                                <link>http://download.eclipse.org/modeling/mdt/uml2/javadoc/3.1.0/</link>
-                                <link>http://download.eclipse.org/modeling/emf/emf/javadoc/2.6.0/</link>
+                                <link>http://docs.oracle.com/javase/8/docs/api/</link>
+                                <link>http://docs.oracle.com/javaee/7/api/</link>
+                                <link>http://download.eclipse.org/modeling/mdt/uml2/javadoc/5.0.0/</link>
+                                <link>http://download.eclipse.org/modeling/emf/emf/javadoc/2.9.0/</link>
+                                <link>http://download.eclipse.org/modeling/emf/emf/javadoc/xsd/2.9.0/</link>
                                 <link>http://jakarta.apache.org/commons/collections/apidocs</link>
                                 <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
                                 <link>http://junit.sourceforge.net/javadoc/</link>
@@ -1085,163 +1151,19 @@
                             </tagListOptions>
                         </configuration>
                     </plugin>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>${jacoco.version}</version>
+                        <configuration>
+                            <skip>${jacoco.skip}</skip>
+                            <formats>
+                                <format>html</format>
+                            </formats>
+                        </configuration>
+                    </plugin>
                 </plugins>
             </reporting>
-        </profile>
-        <!-- Optionally run code coverage. Do not run at the same time as overall instrumentation with MAVEN_OPTS -->
-        <!-- See http://www.petrikainulainen.net/programming/maven/creating-code-coverage-reports-for-unit-and-integration-tests-with-the-jacoco-maven-plugin/ -->
-        <profile>
-          <id>coverage</id>
-          <build>
-            <plugins>
-                <plugin>
-                  <groupId>org.jacoco</groupId>
-                  <artifactId>jacoco-maven-plugin</artifactId>
-                  <!--version>${jacoco.version}</version>
-                  <configuration>
-                      <append>true</append>
-                      <skip>${jacoco.skip}</skip>
-                      <destFile>${jacoco.file}</destFile>
-                      <dataFile>${jacoco.file}</dataFile>
-                  </configuration-->
-                  <executions>
-                    <execution>
-                        <id>agent</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                        <configuration>
-                            <destFile>${jacoco.file}</destFile>
-                            <propertyName>surefireArgLine</propertyName>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                        <configuration>
-                            <dataFile>${jacoco.file}</dataFile>
-                            <outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>integration</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>prepare-agent-integration</goal>
-                        </goals>
-                        <configuration>
-                            <append>true</append>
-                            <destFile>${project.build.directory}/jacoco-it.exec</destFile>
-                            <propertyName>failsafeArgLine</propertyName>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>post-integration-test</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                        <configuration>
-                            <dataFile>${project.build.directory}/coverage-reports/jacoco-it.exec</dataFile>
-                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-              </plugin>
-              <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>unit-tests</id>
-                        <configuration>
-                            <argLine>${surefireArgLine}</argLine>
-                            <skipTests>${skip.unit.tests}</skipTests>
-                        </configuration>
-                    </execution>
-                </executions>
-              </plugin>
-              <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>${maven-failsafe-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>integration-tests</id>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                        <configuration>
-                            <argLine>${failsafeArgLine}</argLine>
-                            <skipTests>${jacoco.integration.tests}</skipTests>
-                        </configuration>
-                    </execution>
-                </executions>
-              </plugin>
-            </plugins>
-          </build>
-        </profile>
-        <!-- Aggregation must be done *after* all subproject builds are run -->
-        <!-- See http://www.petrikainulainen.net/programming/maven/creating-code-coverage-reports-for-unit-and-integration-tests-with-the-jacoco-maven-plugin/ -->
-        <profile>
-          <id>post-coverage</id>
-          <build>
-            <plugins>
-              <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.version}</version>
-                <configuration>
-                    <skip>${jacoco.skip}</skip>
-                    <destFile>${project.build.directory}/jacoco.exec</destFile>
-                    <dataFile>${project.build.directory}/jacoco.exec</dataFile>
-                </configuration>
-                <executions>
-                  <execution>
-                      <id>merge</id>
-                      <phase>verify</phase>
-                      <goals>
-                          <goal>merge</goal>
-                      </goals>
-                      <configuration>
-                          <fileSets>
-                            <fileSet>
-                              <directory>${project.basedir}</directory>
-                              <includes>
-                                <include>**/target/jacoco.exec</include>
-                                <include>**/target/jacoco-it.exec</include>
-                              </includes>
-                            </fileSet>
-                          </fileSets>
-                          <destFile>${project.build.directory}/jacoco-merged.exec</destFile>
-                      </configuration>
-                  </execution>
-                  <execution>
-                      <id>aggregate</id>
-                      <phase>install</phase>
-                      <goals>
-                          <goal>report</goal>
-                      </goals>
-                      <configuration>
-                          <includes>
-                            <fileSet dir="${project.basedir}">
-                              <include name="**/target/classes"/>
-                            </fileSet>
-                          </includes>
-                          <dataFile>${project.build.directory}/jacoco-merged.exec</dataFile>
-                          <outputDirectory>${project.reporting.outputDirectory}/jacoco-merged</outputDirectory>
-                      </configuration>
-                  </execution>
-              </executions>
-            </plugin>
-            </plugins>
-          </build>
         </profile>
         <!-- Create/install javadoc and test-javadoc jars during the build. Run as part of deploy process -->
         <profile>

@@ -10,6 +10,11 @@
     <artifactId>timetracker-ejb3-common</artifactId>
     <packaging>jar</packaging>
     <name>TimeTracker EJB3 Common</name>
+    <scm>
+        <connection>scm:svn:http://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/timetracker-ejb3/common</connection>
+        <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/timetracker-ejb3/common</developerConnection>
+        <url>http://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/timetracker-ejb3/common</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -29,9 +34,6 @@
         </dependency>
     </dependencies>
     <build>
-        <!-- To change from default src/main/java and src/test/java - doesn't work for Cobertura>
-        <sourceDirectory>src</sourceDirectory>
-        <testSourceDirectory>src-test</testSourceDirectory -->
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>

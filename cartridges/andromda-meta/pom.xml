@@ -10,14 +10,10 @@
     <packaging>jar</packaging>
     <name>AndroMDA Meta Cartridge</name>
     <description>Produces AndroMDA Metafacades.</description>
-    <issueManagement>
-        <system>jira</system>
-        <url>http://www.andromda.org/jira/browse/META</url>
-    </issueManagement>
     <scm>
-        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-meta</connection>
-        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-meta</developerConnection>
-        <url>http://andromda.svn.sourceforge.net/</url>
+        <connection>scm:svn:http://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-meta</connection>
+        <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-meta</developerConnection>
+        <url>http://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-meta/</url>
     </scm>
     <build>
         <plugins>

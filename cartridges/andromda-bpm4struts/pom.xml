@@ -13,14 +13,10 @@
         The Bpm4Struts cartridge is used to generate Struts applications from UML models using both static and dynamic model elements.
         Generated applications have default security and internationalization implementations and can be deployed as they are.
     </description>
-    <issueManagement>
-        <system>jira</system>
-        <url>http://www.andromda.org/jira/browse/BPM</url>
-    </issueManagement>
     <scm>
-        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-bpm4struts</connection>
-        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-bpm4struts</developerConnection>
-        <url>http://andromda.svn.sourceforge.net/</url>
+        <connection>scm:svn:http://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-bpm4struts</connection>
+        <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-bpm4struts</developerConnection>
+        <url>http://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-bpm4struts</url>
     </scm>
     <dependencies>
         <dependency>

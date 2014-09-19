@@ -253,6 +253,7 @@
             <!-- Update the .uml snapshot profiles from the maven download to the local model directory (avoid PATHMAP references) -->
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
+                <version>${maven-antrun-plugin.version}</version>
                 <executions>
                     <execution>
                         <phase>initialize</phase>
@@ -326,6 +327,7 @@
             <!-- Run the generated buildWS ant script which runs CXF wsdl2java and java2ws and copies ObjectFactory etc to andromda projects -->
             <plugin>
               <artifactId>maven-antrun-plugin</artifactId>
+              <version>${maven-antrun-plugin.version}</version>
               <executions>
                 <!-- $modelType $andromdaVersion $andromdaVersion.endsWith("-SNAPSHOT") -->
 #if ($modelType.equals("emf-uml22") && $andromdaVersion.endsWith("-SNAPSHOT"))

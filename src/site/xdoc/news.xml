@@ -6,9 +6,26 @@
         <author email="michail@andromda.org">Michail Plushnikov</author>
     </properties>
     <body>
+        <section name="AndroMDA Supports Eclipse 4.4 Luna">
+
+          <p>Monday, 15 September 2014</p>
+          <p>AndroMDA 3.5-SNAPSHOT now supports the <a href="https://www.eclipse.org/luna/">Eclipse 4.4 (Luna)</a> and <a href="https://www.eclipse.org/papyrus/">Eclipse Papyrus 1.0</a> releases from July 2014.
+           Also the <a href="http://www.nomagic.com/products/magicdraw.html">MagicDraw v18</a> release from <a href="http://www.nomagic.com/news/new-noteworthy/magicdraw-noteworthy.html">June 2014</a>. Any UML2 v2.x releases supported by any UML2 modelling tool are backwards-compatible, including Rational Software Architect (RSA) v8 and v9. We appreciate the ongoing support from both organizations.</p>
+        </section>
+
+        <section name="AndroMDA 3.4 Release">
+          <p>Friday, Friday 7 September 2012</p>
+          <p>The AndroMDA <a href="http://www.andromda.org/changes-report.html#a3.4">3.4 Release</a> is published to the Maven Central repository.</p>
+        </section>
+
+        <section name="AndroMDA Hosted at Cloudbees">
+          <p>Sunday, 1 July 2012</p>
+          <p>AndroMDA Continuous Integration is hosted at <a href="https://andromdabuild.ci.cloudbees.com">Cloudbees</a>.</p>
+          <p>Our deep appreciation for their FOSS (Free and Open Source) hosting services.</p>
+        </section>
+
         <section name="UML2 2.x is now the default supported by 3.4">
             <p>Wednesday, 17 February 2010</p>
-
             <p>The default EMF UML2 repository implementation was changed from UML2 1.x to UML2 2.x, in order to support
                 the most current versions of the MagicDraw and Rational tools. Due to conflicting dependencies in the
                 uml libraries, both implementations could not be supported at the same time.

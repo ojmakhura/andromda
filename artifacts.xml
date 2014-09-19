@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Bob Fields 9/16/2014.
+Copy additional site docs to the right location. Create sourceforge zip artifacts for bin, src, doc for upload to /home/frs/project/a/an/andromda/1. andromda V3.x/3.5 -->
+<project name="Ant script for merging multiple jacoco.exec files"
+ default="archive">
+	<description>
+	      Ant build file that copies additional site docs to the right location.
+          Create sourceforge zip artifacts for bin, src, doc for upload to /home/frs/project/a/an/andromda/1. andromda V3.x/3.5.
+	    </description>
+  <property environment="env"/>
+  <property name="m2repo" value="${env.M2_REPO}"/>
+  <property name="release" value="3.5"/>
+  <property name="snapshot" value="-SNAPSHOT"/>
+  <property name="site" value="C:/scratch/hudson/workspace/Andromda"/>
+  <!-- Invoke the ant task and provide the name of the merged result file -->
+  <target name="archive">
+    <echo message="Creating sourceforge archives for ${release}${snapshot}"/>
+  	<zip destfile="${site}/andromda-bin-${release}.zip">
+        <fileset dir="${m2repo}/org/andromda" includes="**/${release}${snapshot}/*-${release}${snapshot}.pom"/>
+        <fileset dir="${m2repo}/org/andromda" includes="**/${release}${snapshot}/*-${release}${snapshot}.pom.sha1"/>
+        <fileset dir="${m2repo}/org/andromda" includes="**/${release}${snapshot}/*-${release}${snapshot}.pom.asc"/>
+        <fileset dir="${m2repo}/org/andromda" includes="**/${release}${snapshot}/*-${release}${snapshot}.pom.md5"/>
+        <fileset dir="${m2repo}/org/andromda" includes="**/${release}${snapshot}/*-${release}${snapshot}.jar.sha1"/>
+        <fileset dir="${m2repo}/org/andromda" includes="**/${release}${snapshot}/*-${release}${snapshot}.jar.asc"/>
+        <fileset dir="${m2repo}/org/andromda" includes="**/${release}${snapshot}/*-${release}${snapshot}.jar.md5"/>
+        <fileset dir="${m2repo}/org/andromda" includes="**/${release}${snapshot}/*-${release}${snapshot}.jar"/>
+    </zip>
+    <zip destfile="${site}/andromda-javadoc-${release}.zip">
+        <fileset dir="${m2repo}/org/andromda" includes="**/${release}${snapshot}/*-${release}${snapshot}.pom"/>
+        <fileset dir="${m2repo}/org/andromda" includes="**/${release}${snapshot}/*-${release}${snapshot}-*javadoc.*"/>
+    </zip>
+    <zip destfile="${site}/andromda-src-${release}.zip">
+        <fileset dir="${m2repo}/org/andromda" includes="**/${release}${snapshot}/*-${release}${snapshot}.pom"/>
+        <fileset dir="${m2repo}/org/andromda" includes="**/${release}${snapshot}/*-${release}${snapshot}-*sources.*"/>
+    </zip>
+  	<echo message="Sourceforge artifacts complete"/>
+  </target>
+</project>

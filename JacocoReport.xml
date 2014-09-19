@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Bob Fields 9/8/2014.
+This consolidates the individual jacoco.exec files created in each subproject for code coverage, into
+a single exec file to display overall test coverage. I couldn't use maven-antrun because the multiple
+plugin dependency configurations messed up running hibernatetools, so I had to run this ant file standalone.
+See http://scn.sap.com/docs/DOC-34172 http://www.eclemma.org/jacoco/trunk/doc/ant.html
+http://www.petrikainulainen.net/programming/maven/creating-code-coverage-reports-for-unit-and-integration-tests-with-the-jacoco-maven-plugin/
+http://www.lordofthejars.com/2012/07/jacoco-in-maven-multi-module-projects.html -->
+<!-- To display errors, run with debug flag: ant [-debug] -f JacocoReport.xml > jacoco.txt -->
+<project name="Ant script for merging multiple jacoco.exec files"
+ default="report" xmlns:jacoco="antlib:org.jacoco.ant">
+	<description>
+	      Ant build file that demonstrates how JaCoCo can be used with
+	      offline instrumentation. This requires preprocessing of the class files
+	      before the test is launched and adding the JaCoCo agent to the classpath.
+	    </description>
+  <property environment="env"/>
+  <property name="m2repo" value="${env.M2_REPO}"/>
+  <!--property name="m2home" value="${env.M2_HOME}"/>
+  <property name="m2opts" value="${env.MAVEN_OPTS}"/-->
+  <property name="jacoco.version" value="0.7.2.201409121644"/>
+  <!-- Downloaded automatically by maven when running -Pcoverage. Other than that, this ant file has no maven/plugin dependencies, but uses maven layout conventions -->
+  <path id="jacoco.classpath">
+    <pathelement location="${m2repo}/org/jacoco/org.jacoco.agent/${jacoco.version}/org.jacoco.agent-${jacoco.version}-runtime.jar"/>
+    <pathelement location="${m2repo}/org/jacoco/org.jacoco.ant/${jacoco.version}/org.jacoco.ant-${jacoco.version}.jar"/>
+    <pathelement location="${m2repo}/org/jacoco/org.jacoco.core/${jacoco.version}/org.jacoco.core-${jacoco.version}.jar"/>
+    <pathelement location="${m2repo}/org/jacoco/org.jacoco.report/${jacoco.version}/org.jacoco.report-${jacoco.version}.jar"/>
+    <pathelement location="${m2repo}/org/ow2/asm/asm-debug-all/5.0.2/asm-debug-all-5.0.2.jar"/>
+  </path>
+  <echo message="Launching jacoco ${basedir} ${m2repo}"/>
+  <echo message="jacoco.classpath=${jacoco.classpath}"/>
+  <taskdef name="jacoco-report" classname="org.jacoco.ant.ReportTask"
+ 	classpathref="jacoco.classpath"/>
+  <!-- Invoke the ant task and provide the name of the merged result file -->
+  <target name="report">
+    <echo message="Jacoco report starting"/>
+    <jacoco-report>
+        <executiondata>
+            <fileset dir="${basedir}" id="exec" includes="**/target/*.exec" excludes="andromda-documentation/samples/timetracker/**"/>
+        </executiondata>
+        <structure name="AndroMDA">
+        	<!-- Classfile directories must exist. Classes must be the same classes used during instrumentation -->
+        	<!-- filesets must be specified RELATIVE to the base dir, exclude specific duplicate classes from different projects -->
+            <classfiles>
+            	<!--dirset dir="${basedir}" includes="**/target/classes" excludes="andromda-documentation/samples/timetracker/**,samples/animal-quiz/core/target/classes/org/andromda/persistence/hibernate/usertypes,samples/car-rental-system/core/target/classes"/-->
+            	<fileset dir="${basedir}" includes="**/target/classes/**/*.class" excludes="andromda-documentation/samples/timetracker/**,samples/animal-quiz/core/target/classes/org/andromda/persistence/hibernate/usertypes/**,samples/car-rental-system/core/target/classes/org/andromda/persistence/hibernate/usertypes/**"/>
+            	<!--dirset dir="" includes="andromda-core/target/classes"/>
+            	<dirset dir="" includes="andromda-andromdapp/andromda-andromdapp-core/target/classes"/>
+            	<dirset dir="" includes="andromda-etc/andromda-schema2xmi/target/classes"/>
+                <dirset dir="" includes="andromda-etc/andromda-script-wrappers/target/classes"/>
+                <dirset dir="" includes="andromda-etc/andromda-taglibs/andromda-breadcrumbs-taglib/target/classes"/>
+                <dirset dir="" includes="andromda-etc/andromda-taglibs/andromda-collections-taglib/target/classes"/>
+                <dirset dir="" includes="andromda-etc/andromda-taglibs/andromda-formatting-taglib/target/classes"/>
+                <dirset dir="" includes="andromda-templateengines/andromda-templateengine-freemarker/target/classes"/>
+                <dirset dir="" includes="andromda-templateengines/andromda-templateengine-velocity/target/classes"/>
+                <dirset dir="" includes="andromda-utils/target/classes"/>
+                <dirset dir="" includes="ant/andromda/target/classes"/>
+                <dirset dir="" includes="ant/task/target/classes"/>
+                <dirset dir="" includes="cartridges/andromda-bpm4struts/target/classes"/>
+                <dirset dir="" includes="cartridges/andromda-ejb/target/classes"/>
+                <dirset dir="" includes="cartridges/andromda-ejb3/target/classes"/>
+                <dirset dir="" includes="cartridges/andromda-hibernate/target/classes"/>
+                <dirset dir="" includes="cartridges/andromda-java/target/classes"/>
+                <dirset dir="" includes="cartridges/andromda-jbpm/target/classes"/>
+                <dirset dir="" includes="cartridges/andromda-jsf/target/classes"/>
+                <dirset dir="" includes="cartridges/andromda-jsf/components/target/classes"/>
+                <dirset dir="" includes="cartridges/andromda-meta/target/classes"/>
+                <dirset dir="" includes="cartridges/andromda-spring/target/classes"/>
+                <dirset dir="" includes="cartridges/andromda-webservice/target/classes"/>
+                <dirset dir="" includes="cartridges/andromda-xmlschema/target/classes"/>
+                <dirset dir="" includes="cartridges/support/webservice-client/target/classes"/>
+                <dirset dir="" includes="maven/andromda/target/classes"/>
+                <dirset dir="" includes="maven/andromdapp/target/classes"/>
+                <dirset dir="" includes="maven/beautifier/target/classes"/>
+                <dirset dir="" includes="maven/bootstrap/target/classes"/>
+                <dirset dir="" includes="maven/bootstrap-install/target/classes"/>
+                <dirset dir="" includes="maven/cartridge/target/classes"/>
+                <dirset dir="" includes="maven/configuration/target/classes"/>
+                <dirset dir="" includes="maven/model-archiver/target/classes"/>
+                <dirset dir="" includes="maven/site/cartridge/target/classes"/>
+                <dirset dir="" includes="maven/site/site/target/classes"/>
+                <dirset dir="" includes="maven/translation-library/target/classes"/>
+                <dirset dir="" includes="metafacades/uml/common/target/classes"/>
+                <dirset dir="" includes="metafacades/uml/emf/uml22/target/classes"/>
+                <dirset dir="" includes="metafacades/uml/uml14/target/classes"/>
+                <dirset dir="" includes="repositories/emf/target/classes"/>
+                <dirset dir="" includes="repositories/emf/uml22/target/classes"/>
+                <dirset dir="" includes="repositories/mdr/common/target/classes"/>
+                <dirset dir="" includes="translation-libraries/ocl/andromda-query/target/classes"/>
+                <dirset dir="" includes="translation-libraries/ocl/andromda-validation/target/classes"/>
+                <dirset dir="" includes="translation-libraries/ocl/core/target/classes"/>
+                <dirset dir="" includes="translation-libraries/ocl/testsuite/target/classes"/>
+            	<dirset dir="" includes="andromda-documentation/samples/timetracker-ejb3/common/target/classes"/>
+            	<dirset dir="" includes="andromda-documentation/samples/timetracker-ejb3/core/target/classes"/>
+            	<dirset dir="" includes="andromda-documentation/samples/timetracker-ejb3/web/target/classes"/-->
+            </classfiles>
+            <sourcefiles>
+            	<!-- dir="${basedir}" and dir="." does not select the source files and create source links for html display -->
+                <dirset dir="" includes="**/src/main/java" excludes="andromda-documentation/samples/timetracker/**"/>
+            </sourcefiles>
+        </structure>
+        <html destdir="${basedir}/target/site/jacoco"/>
+    </jacoco-report>
+    <echo message="Jacoco report complete"/>
+  </target>
+</project>

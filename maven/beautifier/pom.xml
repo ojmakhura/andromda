@@ -9,6 +9,11 @@
     <artifactId>andromda-beautifier-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <name>AndroMDA Beautifier Plugin</name>
+    <scm>
+        <connection>scm:svn:http://svn.code.sf.net/p/andromda/svn/trunk/maven/beautifier</connection>
+        <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/maven/beautifier</developerConnection>
+        <url>http://svn.code.sf.net/p/andromda/svn/trunk/maven/beautifier/</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>org.andromda</groupId>

@@ -583,6 +583,7 @@
             <!-- Create the /target/classes dir in case we run a clean with an empty model - avoid ejb plugin build failure -->
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
+                <version>${maven-antrun-plugin.version}</version>
                 <executions>
                     <execution>
                         <phase>initialize</phase>

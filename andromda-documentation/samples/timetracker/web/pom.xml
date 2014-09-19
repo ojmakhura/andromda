@@ -10,6 +10,11 @@
     <artifactId>timetracker-web</artifactId>
     <packaging>war</packaging>
     <name>TimeTracker Web</name>
+    <scm>
+        <connection>scm:svn:http://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/timetracker/web</connection>
+        <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/timetracker/web</developerConnection>
+        <url>http://svn.code.sf.net/p/andromda/svn/trunk/andromda-documentation/samples/timetracker/web</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -252,6 +257,6 @@
         </plugins>
     </build>
     <properties>
-        <spring.security.version>3.2.4.RELEASE</spring.security.version>
+        <spring.security.version>3.2.5.RELEASE</spring.security.version>
     </properties>
 </project>

@@ -10,6 +10,7 @@
     <ignoreVersion type="regex">.*[-\.][Rr][Cc].*</ignoreVersion>
     <ignoreVersion type="regex">.*[-\.]jboss.*</ignoreVersion>
     <ignoreVersion type="regex">.*[-\.][Bb][Ee][Tt][Aa].*</ignoreVersion>
+    <ignoreVersion type="regex">.*[-\.][Dd][Rr][Aa][Ff][Tt].*</ignoreVersion>
   </ignoreVersions>
   <rules>
     <!-- Jetty v9 and > 8.1.8 requires JDK7 -->
@@ -41,6 +42,12 @@
       <ignoreVersions>
         <ignoreVersion type="exact">4.2.3.GA</ignoreVersion>
         <ignoreVersion type="exact">4.3.0.GA</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <!-- Release versions are totally screwed up. v1.4.01 is later than v2.x -->
+    <rule groupId="xml-apis" artifactId="xml-apis" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="regex">2.0.*</ignoreVersion>
       </ignoreVersions>
     </rule>
   </rules>

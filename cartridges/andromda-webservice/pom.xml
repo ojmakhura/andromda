@@ -10,14 +10,10 @@
     <packaging>jar</packaging>
     <name>AndroMDA WebService Cartridge</name>
     <description>Produces Apache Axis WSDD (Web Service Deployment Descriptors and WSDLs) used in conjunction with Session EJBs generated from 'Service' stereotypes (or just plain POJOs) defined within a model.</description>
-    <issueManagement>
-        <system>jira</system>
-        <url>http://www.andromda.org/jira/browse/WS</url>
-    </issueManagement>
     <scm>
-        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-webservice</connection>
-        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-webservice</developerConnection>
-        <url>http://andromda.svn.sourceforge.net/</url>
+        <connection>scm:svn:http://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-webservice</connection>
+        <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-webservice</developerConnection>
+        <url>http://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-webservice/</url>
     </scm>
     <dependencies>
         <dependency>
