@@ -7,7 +7,7 @@ import org.andromda.core.common.ExceptionUtils;
 import org.apache.log4j.Logger;
 
 /**
- * Finds LibraryTranslations by code>translation</code> (i.e. library and name).
+ * Finds LibraryTranslations by <code>translation</code> (i.e. library and name).
  *
  * @author Chad Brandon
  */

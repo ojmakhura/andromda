@@ -44,7 +44,7 @@ public class MetafacadeBase implements Serializable, Comparable
     /**
      * Retrieves the <code>owner</code> of this metafacade (for example: an operation owns its parameters, a class owns
      * its attributes).
-     * <p/>
+     * <p>
      * By default <code>null</code> is returned, however this method is overridden by subclasses which have a
      * <code>parent</code> or <code>owner</code>. This is used to give the model validation messages more context as to
      * where the validation error occurred. </p>
@@ -58,7 +58,7 @@ public class MetafacadeBase implements Serializable, Comparable
 
     /**
      * Retrieves the <code>name</code> of this metafacade used within the validation messages.
-     * <p/>
+     * <p>
      * By default <code>null</code> is returned, however this method is overridden by subclasses model elements that do
      * have a name. </p>
      *
@@ -95,9 +95,9 @@ public class MetafacadeBase implements Serializable, Comparable
 
     /**
      * Validates that this facade's meta object is in a valid state.
-     * <p/>
+     * <p>
      * Validate is called during metafacade creation by the factory. In the lifecycle of a metafacade it is validated
-     * only once, this is enforced by the caching within the metafacade factory.
+     * only once, this is enforced by the caching within the metafacade factory.</p>
      *
      * @param validationMessages any messages generated during validation.
      */
@@ -107,10 +107,10 @@ public class MetafacadeBase implements Serializable, Comparable
     }
 
     /**
-     * <p/>
+     * <p>
      * The logic of modeled OCL invariants from derived metafacades will be generated into this method and validation
      * messages created and collected into the <code>messages</code> collection. This method is called by {@link #validate(Collection validationMessages)}
-     * <p/>
+     * </p>
      * By default this method is empty. </p>
      * @param messages Collection of org.andromda.core.metafacade.ModelValidationMessage
      */
@@ -426,7 +426,7 @@ public class MetafacadeBase implements Serializable, Comparable
      * you'd need to check if <code>this</code> was an instance of a given metafacade.
      * For example: <code>THIS() instanceof SomeMetafacade</code>.
      *
-     * This <strong>MUST</strong> be used instead of <em>this<em> in order to access the correct
+     * This <strong>MUST</strong> be used instead of <em>this</em> in order to access the correct
      * metafacade instance in the hierarchy (since we use delegate inheritance).
      * @return this.shieldedElement(this.metaObject)
      */

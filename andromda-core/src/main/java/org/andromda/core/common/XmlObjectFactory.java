@@ -28,7 +28,7 @@ import org.xml.sax.SAXParseException;
  * This XML object factory allows us to define a consistent/clean of configuring java objects from XML configuration
  * files (i.e. it uses the class name of the java object to find what rule file and what XSD file to use). It also
  * allows us to define a consistent way in which schema validation is performed.
- * <p/>
+ * </p>
  * <p>
  * It separates each concern into one file, for example: to configure and perform validation on the MetafacadeMappings
  * class, we need 3 files 1.) the java object (MetafacadeMappings.java), 2.) the rules file which tells the apache
@@ -452,6 +452,7 @@ public class XmlObjectFactory
                         source.setPublicId(publicId);
                         source.setSystemId(uri.toString());
                     }
+                    // TODO Close InputStream while still returning a valid InputSource
                 }
             }
             return source;

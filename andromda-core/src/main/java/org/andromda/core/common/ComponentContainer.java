@@ -8,13 +8,13 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
- * <p/> This handles all registration and retrieval of components within the
+ * <p> This handles all registration and retrieval of components within the
  * framework. The purpose of this container is so that we can register default
  * services in a consistent manner by creating a component interface and then
  * placing the file which defines the default implementation in the
  * 'META-INF/services/' directory found on the classpath.
  * </p>
- * <p/> In order to create a new component that can be registered/found through
+ * <p> In order to create a new component that can be registered/found through
  * this container you must perform the following steps:
  * <ol>
  * <li>Create the component interface (i.e.
@@ -27,7 +27,7 @@ import org.apache.log4j.Logger;
  * org.andromda.repositories.mdr.MDRepostioryFacade) and place this in the
  * META-INF/services/ directory within the core.</li>
  * </ol>
- * After you perform the above steps, the component can be found by the methods
+ * <p>After you perform the above steps, the component can be found by the methods
  * within this class. See each below method for more information on how each
  * performs lookup/retrieval of the components.
  * </p>

@@ -107,7 +107,7 @@ public class MetafacadeMapping
     private boolean contextRoot = false;
 
     /**
-     * <p/>
+     * <p>
      * Gets whether or not this mapping represents a <code>contextRoot</code>, by default a mapping is <strong>NOT
      * </strong> a contextRoot. You'll want to specify this as true when other metafacades need to be created within the
      * context of this metafacade. </p>

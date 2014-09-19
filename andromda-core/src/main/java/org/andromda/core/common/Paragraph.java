@@ -6,7 +6,7 @@ import java.util.StringTokenizer;
 
 /**
  * A utility object useful for formatting paragraph output.
- * <p/>
+ * <p>
  * Represents a paragraph, made of lines. The whole paragraph has a limit for the line length. Words can be added, the
  * class will reformat the paragraph according to max. line length. </p>
  *
@@ -19,7 +19,7 @@ public class Paragraph
     private int maxLineWidth;
 
     /**
-     * <p/>
+     * <p>
      * Constructs an HtmlParagraph with a specified maximum line length. </p>
      *
      * @param lineLength maximum line length
@@ -30,7 +30,7 @@ public class Paragraph
     }
 
     /**
-     * <p/>
+     * <p>
      * Appends another word to this paragraph. </p>
      *
      * @param word the word
@@ -46,7 +46,7 @@ public class Paragraph
     }
 
     /**
-     * <p/>
+     * <p>
      * Appends a bunch of words to the paragraph. </p>
      *
      * @param text the text to add to the paragraph
@@ -69,7 +69,7 @@ public class Paragraph
     private final Collection<String> lines = new ArrayList<String>();
 
     /**
-     * <p/>
+     * <p>
      * Returns the lines in this paragraph. </p>
      *
      * @return Collection the lines as collection of Strings

@@ -64,7 +64,7 @@ public class Library
     }
 
     /**
-     * Sets the <cod>translatorClass</code> that will perform the translation processing.
+     * Sets the <code>translatorClass</code> that will perform the translation processing.
      *
      * @param translatorClass the Class for the Translator implementation.
      */

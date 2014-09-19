@@ -168,7 +168,7 @@ public class Expression
     }
 
     /**
-     * Sets the context element (the element to which the expression applies --> the element declared after the
+     * Sets the context element (the element to which the expression applies: the element declared after the
      * <code>context</code>)
      *
      * @param contextElement the name of the element which is the context element.

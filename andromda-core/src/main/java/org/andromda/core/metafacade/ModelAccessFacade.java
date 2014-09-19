@@ -4,13 +4,13 @@ import java.util.Collection;
 import org.andromda.core.configuration.Filters;
 
 /**
- * <p/>
+ * <p>
  * Provides access to a model loaded by a Repository and made available to be used to retrieve information about
  * model elements and metafacades. </p>
- * <p/>
+ * <p>
  * Models can be instances of any metamodel. The most common models will be UML models. This interface is an
  * abstraction. Any model that implements this interface can be used with AndroMDA. </p>
- * <p/>
+ * <p>
  * Design goal: This class should only contain the <b>minimum amount of methods </b> that will be needed such that the
  * AndroMDA core can deal with it. All other stuff should be done in cartridge-specific classes!!! So, please don't make
  * this class grow! </p>

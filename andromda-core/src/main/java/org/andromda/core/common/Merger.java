@@ -16,9 +16,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
- * <p/>
+ * <p>
  * A class that performs the merging abilities for the AndroMDA core. </p>
- * <p/>
+ * <p>
  * Merging takes place when the {@link NamespaceProperties#MERGE_MAPPINGS_URI} is found within the
  * <code>namespace</code> and merge mappings are used to replace any matching patterns in the given <code>string</code>.
  * </p>

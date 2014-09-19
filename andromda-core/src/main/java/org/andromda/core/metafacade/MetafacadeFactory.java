@@ -786,7 +786,7 @@ public final class MetafacadeFactory
     }
 
     /**
-     * Performs shutdown procedures for the factory. This should be called <strong>ONLY</code> when model processing has
+     * Performs shutdown procedures for the factory. This should be called <strong>ONLY</strong> when model processing has
      * completed.
      */
     public void shutdown()

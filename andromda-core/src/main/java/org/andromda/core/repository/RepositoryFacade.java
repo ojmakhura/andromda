@@ -5,7 +5,7 @@ import org.andromda.core.metafacade.ModelAccessFacade;
 
 /**
  * An interface for objects responsible for being a repository into which an object model can be loaded.
- * <p/>
+ * <p>
  * AndroMDA does code generation from an object model. There must exist a repository in which the model can be loaded.
  * The repository must be able to load the object model given a URL. Any repository that supports this API can be used
  * by AndroMDA. </p>
@@ -43,7 +43,6 @@ public interface RepositoryFacade
     /**
      * Reads the object model into the repository from the given model streams. If the streams is
      * <strong>null </strong> then an empty model will be created in the repository and can be retrieved from {@link #getModel()}.
-     * <p/>
      *
      * @param streams a list of InputStream instances containing a model.
      * @param uris a list of URIs from which each stream in the <code>streams</code> parameter was loaded (note that the size

@@ -670,10 +670,10 @@ public class ModelProcessor
     private static final String CARTRIDGE_FILTER_NEGATOR = "~";
 
     /**
-     * <p/>
+     * <p>
      * Sets the current cartridge filter. This is a comma separated list of namespaces (matching cartridges names) that
      * should be processed. </p>
-     * <p/>
+     * <p>
      * If this filter is defined, then any cartridge names found in this list <strong>will be processed </strong>, while
      * any other discovered cartridges <strong>will not be processed </strong>. </p>
      *
@@ -724,14 +724,14 @@ public class ModelProcessor
     }
 
     /**
-     * <p/>
+     * <p>
      * Sets the <code>loggingConfigurationUri</code> for AndroMDA. This is the URI to an external logging configuration
      * file. This is useful when you want to override the default logging configuration of AndroMDA. </p>
-     * <p/>
+     * <p>
      * You can retrieve the default log4j.xml contained within the {@link org.andromda.core.common}package, customize
      * it, and then specify the location of this logging file with this operation. </p>
      *
-     * @param loggingConfigurationUri the URI to the external logging configuation file.
+     * @param loggingConfigurationUri the URI to the external logging configuration file.
      */
     public void setLoggingConfigurationUri(final String loggingConfigurationUri)
     {

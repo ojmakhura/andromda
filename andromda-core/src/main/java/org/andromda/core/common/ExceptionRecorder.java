@@ -12,7 +12,7 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
 /**
- * <p/>
+ * <p>
  * ExceptionRecorder provides a function to record an exception to a file along with the trace data if active. </p>
  *
  * @author Martin West
@@ -78,9 +78,9 @@ public final class ExceptionRecorder
     }
 
     /**
-     * <p/>
+     * <p>
      * Writes out the exception to a file along with trace data if active. The file name is of the form sYYMMDDHHMMSS
-     * <_nn>.exc where YY..SS is the timestamp <_nn>is an ascending sequence number when multiple exceptions occur in
+     * (_nn).exc where YY..SS is the timestamp (_nn) is an ascending sequence number when multiple exceptions occur in
      * the same second. Returns the filename of the generated exception report. </p>
      *
      * @param throwable to record.
@@ -92,9 +92,9 @@ public final class ExceptionRecorder
     }
 
     /**
-     * <p/>
+     * <p>
      * Writes out the exception to a file along with trace data if active. The file name is of the form sYYMMDDHHMMSS
-     * <_nn>.exc where YY..SS is the timestamp <_nn>is an ascending sequence number when multiple exceptions occur in
+     * (_nn).exc where YY..SS is the timestamp (_nn) is an ascending sequence number when multiple exceptions occur in
      * the same second. Returns the filename of the generated exception report. </p>
      *
      * @param errorMessage to log with the exception report.
@@ -114,9 +114,9 @@ public final class ExceptionRecorder
     private static final String DEFAULT_PREFIX = "andromda";
 
     /**
-     * <p/>
+     * <p>
      * Writes out the exception to a file along with trace data if active. The file name is of the form sYYMMDDHHMMSS
-     * <_nn>.exc where YY..SS is the timestamp <_nn>is an ascending sequence number when multiple exceptions occur in
+     * (_nn).exc where YY..SS is the timestamp <_nn>is an ascending sequence number when multiple exceptions occur in
      * the same second. </p>
      *
      * @param message   diagnostic message
