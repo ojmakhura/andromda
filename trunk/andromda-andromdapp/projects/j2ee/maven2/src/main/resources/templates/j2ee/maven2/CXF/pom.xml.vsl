@@ -227,34 +227,33 @@
             </plugin>
             <!-- Run integration tests *ITCase.java against running Jetty server in the webservice project -->
             <!-- See http://docs.codehaus.org/display/MAVENUSER/Maven+and+Integration+Testing -->
-#elseif ($tomcat)
+#end
+#if ($tomcat)
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <configuration>
-                    <port>${service.port}</port>
-                    <warDirectory>target/${project.build.finalName}</warDirectory>
+                    <!-- Address $server.port in use when running after webservice build -->
+                    <port>9090</port>
+                    <contextFile>${project.parent.basedir}/webservice/src/main/resources/META-INF/context.xml</contextFile>
+                    <!--configurationDir>${project.build.directory}/tomcat</configurationDir-->
+                    <warSourceDirectory>${project.parent.basedir}/webservice/src/main/webapp</warSourceDirectory>
+                    <warDirectory>${project.parent.basedir}/webservice/target/${project.build.finalName}</warDirectory>
                     <ignorePackaging>true</ignorePackaging>
+                    <path>/${project.parent.artifactId}-webservice</path>
+                    <!-- optional if you want to add some extra directories into the classloader -->
+                    <additionalClasspathDirs>
+                      <additionalClasspathDir></additionalClasspathDir>
+                    </additionalClasspathDirs>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>tomcat-run</id>
-                        <goals>
-                            <goal>run-war</goal>
-                        </goals>
-                        <phase>pre-integration-test</phase>
-                        <configuration>
-                            <fork>false</fork>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>tomcat-shutdown</id>
-                        <goals>
-                            <goal>shutdown</goal>
-                        </goals>
-                        <phase>post-integration-test</phase>
-                    </execution>
-                </executions>
+                <!-- Needed to run webservice project with webservice dependencies -->
+                <dependencies>
+                    <dependency>
+                        <groupId>${project.parent.groupId}</groupId>
+                        <artifactId>${project.parent.artifactId}-core</artifactId>
+                        <version>${project.parent.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 #end
             <plugin>
@@ -286,38 +285,34 @@
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>
-        </plugins>
 #if ($cxf)
-        <pluginManagement>
-            <plugins>
-                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.apache.maven.plugins</groupId>
-                                        <artifactId>maven-antrun-plugin</artifactId>
-                                        <versionRange>[1.6,)</versionRange>
-                                        <goals>
-                                            <goal>run</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore></ignore>
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+            <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+            <plugin>
+                <groupId>org.eclipse.m2e</groupId>
+                <artifactId>lifecycle-mapping</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <lifecycleMappingMetadata>
+                        <pluginExecutions>
+                            <pluginExecution>
+                                <pluginExecutionFilter>
+                                    <groupId>org.apache.maven.plugins</groupId>
+                                    <artifactId>maven-antrun-plugin</artifactId>
+                                    <versionRange>[1.6,)</versionRange>
+                                    <goals>
+                                        <goal>run</goal>
+                                    </goals>
+                                </pluginExecutionFilter>
+                                <action>
+                                    <ignore></ignore>
+                                </action>
+                            </pluginExecution>
+                        </pluginExecutions>
+                    </lifecycleMappingMetadata>
+                </configuration>
+            </plugin>
 #end
+        </plugins>
     </build>
     <properties>
         <andromda.project>${project.basedir}/..</andromda.project>

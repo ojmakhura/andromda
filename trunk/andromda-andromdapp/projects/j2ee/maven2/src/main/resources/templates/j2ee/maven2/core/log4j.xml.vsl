@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 
-<!-- the log configuration file for the AndroMDA project. Modify as needed for your project and testing -->
+<!-- the log configuration file for the AndroMDA core project. Modify as needed for your project and testing -->
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
 
@@ -9,7 +9,7 @@
           Append error messages to a local error log
          ============================================ -->
     <appender name="FILE" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="andromda.log"/>
+        <param name="File" value="core.log"/>
         <!-- Added HHmm so that new file with minute timestamp is created on each MDA run -->
         <param name="DatePattern" value="MMdd-HH"/>
         <param name="Threshold" value="DEBUG"/>
@@ -32,7 +32,6 @@
         </layout>
     </appender>
 
-
     <!-- ==================
           Limit categories
          ================== -->
@@ -54,42 +53,6 @@
     </category>
 
     <category name="org.andromda">
-        <priority value="DEBUG" />
-    </category>
-
-    <category name="org.andromda.core.metafacades">
-        <priority value="DEBUG" />
-    </category>
-
-    <category name="org.andromda.core.configuration">
-        <priority value="INFO" />
-    </category>
-
-    <category name="org.andromda.namespaces.webservice">
-        <priority value="DEBUG" />
-    </category>
-
-    <!--category name="org.andromda.namespaces.java">
-        <priority value="DEBUG" />
-    </category-->
-
-    <category name="org.andromda.cartridges">
-        <priority value="INFO" />
-    </category>
-
-    <category name="org.andromda.cartridges.webservice">
-        <priority value="DEBUG" />
-    </category>
-
-    <category name="org.andromda.cartridges.java">
-        <priority value="DEBUG" />
-    </category>
-
-    <category name="org.andromda.templateengines">
-        <priority value="INFO" />
-    </category>
-
-    <category name="org.andromda.translation">
         <priority value="INFO" />
     </category>
 

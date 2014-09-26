@@ -216,37 +216,19 @@
                     </execution>
                 </executions>
             </plugin>
-#elseif ($tomcat)
+#end
+#if ($tomcat)
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <configuration>
-                    <contextFile>src/test/resources/context.xml</contextFile>
+                    <contextFile>src/main/resources/META-INF/context.xml</contextFile>
                     <path>/${project.build.finalName}</path>
-                    <port>8080</port>
+                    <port>${service.port}</port>
                     <warDirectory>target/${project.build.finalName}</warDirectory>
                     <ignorePackaging>true</ignorePackaging>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>tomcat-run</id>
-                        <goals>
-                            <goal>run-war</goal>
-                        </goals>
-                        <phase>pre-integration-test</phase>
-                        <configuration>
-                            <fork>false</fork>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>tomcat-shutdown</id>
-                        <goals>
-                            <goal>shutdown</goal>
-                        </goals>
-                        <phase>post-integration-test</phase>
-                    </execution>
-                </executions>
-            </plugin>                   
+            </plugin>
 #end
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>

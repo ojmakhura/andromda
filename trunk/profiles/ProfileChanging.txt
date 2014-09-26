@@ -31,5 +31,13 @@ Because of these issues, the approach for modifying profiles should be:
 - Start with modifications to the EMF UML22 (.profile.uml) profile using the Eclipse UML2 editor. Use the Eclipse 3.5 version (for namespace http://www.eclipse.org/uml2/2.0.0/UML), not the Eclipse 3.6 version: The UML2/2.0 profiles are forwards compatible and updated on-the-fly when loaded by the referencing model. Using Eclipse UML2/3.0 will result in a 'profile version not found' error message.
 - Create the stereotype, stereotype attributes with UMLPrimitiveTypes datatypes such as String, Integer, Boolean. Add comments at all levels (Stereotype, attribute) and lower multiplicity values. Define the profile version (UMLEditor -> Profile -> Define), copy the new references to the old namespace version, delete the new namespace version (in accordance with http://www.eclipse.org/modeling/mdt/uml2/docs/articles/Introduction_to_UML2_Profiles/article.html). Be very careful when creating new profile internal namespace versions, to avoid unnecessary model migrations.
 - Import the profile into RSM7.5 to create a new epx version under profiles\emf\rsm75
-- Import the profile into MagicDraw (v15 or later), save the UML2.xml.zip file (version 2.0, not verson 3.0). Export the profile to UML14 using the MagicDraw plugin.
+- Import the profile into MagicDraw (v15 or later), save the UML2.xml.zip file (version 2.0, not version 3.0). Export the profile to UML14 using the MagicDraw plugin.
 - Manually modify any ArgoUML profiles (TODO: Create a utility to put the MD XMI output in the proper format for ArgoUML).
+
+All stereotype attributes should be lower bound 0 unless they have a default value or unless they are truly required to be entered by the modeller for the stereotype to have meaning.
+Missing/undefined values in uml22 profiles:
+- Webservice: Missing defined values on Webservice andromda_webservice_wsdlLocation andromda_webservice_serviceName, WebFault andromda_webservice_fault_name andromda_webservice_fault_faultName, WSSecurity andromda_security_header_direction, WSCustomHeader andromda_header_direction, many places where lowerBound=1
+- Common: lowerBound=0 on all String attributes (serialVersionUID), missing datatype on andromda_validation_customValidators
+- Persistence: upperBound="-1" and <upperValue xmi:type="uml:LiteralUnlimitedNatural" name="" value="*"/>on many properties should be upperBound="1" or empty, lowerBound=1 on String properties, 
+
+Stereotypes which can be applied to multiple elements (i.e. Class, Property, Operation) should have lowerBound=0 or else Error 'must be set' when applied to a different type.
