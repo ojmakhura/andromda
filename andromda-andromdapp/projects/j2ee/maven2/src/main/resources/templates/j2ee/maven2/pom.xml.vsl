@@ -1077,7 +1077,8 @@
                     </executions>
 #end
                 </plugin>
-#elseif ($tomcat)
+#end
+#if ($tomcat)
                 <plugin>
                     <groupId>org.apache.tomcat.maven</groupId>
                     <artifactId>tomcat7-maven-plugin</artifactId>
@@ -1094,7 +1095,7 @@
                         <execution>
                             <id>tomcat-run</id>
                             <goals>
-                                <goal>run-war</goal>
+                                <goal>run</goal>
                             </goals>
                             <phase>pre-integration-test</phase>
                             <configuration>
@@ -1134,13 +1135,15 @@
     </build>
     <modules>
         <!-- Save the values used to generate this project from andromdapp
+        applicationParentDirectory=$applicationParentDirectory
+        author=$author
+        modelType=$modelType
         applicationType=$applicationType
         war=$war
         ear=$ear
         appServer=$appServer
         databaseType=$databaseType
         testDatabase=$testDatabase
-        ejb3Persistence=$ejb3Persistence
         transactionPersistenceType=$transactionPersistenceType
         jsr181Webservice=$jsr181Webservice
         ejb=$ejb
@@ -1154,6 +1157,7 @@
         rest=$rest
         jbossSeam=$jbossSeam
         webserviceStack=$webserviceStack
+        embeddedWebServer=$embeddedWebServer
         jetty=$jetty
         tomcat=$tomcat
         -->
@@ -1391,10 +1395,11 @@
         <hibernate.version>3.6.9.Final</hibernate.version-->
         <hibernate.version>4.3.6.Final</hibernate.version>
 #end
-#if ($jetty)
+#if ($jetty || !$webservice.equals("none"))
         <!-- v 9.x only supports JDK7 and you cannot configure jetty.port from maven.-->
         <jetty.version>8.1.15.v20140411</jetty.version>
-#elseif ($tomcat)
+#end
+#if ($tomcat)
         <tomcat.version>2.2</tomcat.version>
 #end
 #if ($cxf)

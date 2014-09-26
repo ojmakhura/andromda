@@ -22,43 +22,43 @@
             <condition id="transactionPersistenceType" equal="ejb3"/>
             <output>core/META-INF/ejb-jar.xml</output>
         </conditions>
+        <conditions type="or">
+            <condition id="transactionPersistenceType" notEqual="none"/>
+            <condition id="webserviceStack" equal="cxf"/>
+            <output patterns="**/*">core</output>
+        </conditions>
+        <conditions>
+            <condition id="web" equal="true"/>
+            <output patterns="**/*">web/</output>
+            <output>mda/src/main/config/mappings/WebMergeMappings.xml.vsl</output>
+            <output>web/src/main/resources/META-INF/context.xml.vsl</output>
+            <output>web/target/${applicationId}-${applicationVersion}/target/src/WEB-INF/web.xml</output>
+            <output>web/target/${applicationId}-web-${applicationVersion}/target/src/WEB-INF/web.xml</output>
+        </conditions>
         <conditions type="and">
             <condition id="webservice" notEqual="none"/>
             <condition id="jsr181Webservice" notEqual="true"/>
-            <!--condition id="ear" equal="true"/-->
             <output patterns="**/*">webservice/</output>
+            <output>webservice/src/main/webapp/WEB-INF/web.xml</output>
+        </conditions>
+        <conditions type="and">
+            <condition id="webservice" notEqual="none"/>
+            <condition id="tomcat" equal="true"/>
+            <condition id="jsr181Webservice" notEqual="true"/>
+            <output>webservice/src/test/resources/META-INF/context.xml.vsl</output>
         </conditions>
         <conditions>
             <condition id="webserviceStack" equal="cxf"/>
             <output patterns="**/*">CXF/</output>
         </conditions>
-        <conditions>
-            <condition id="web" equal="true"/>
-            <output>web/src/main/resources/META-INF/context.xml.vsl</output>
-            <output>web/target/${applicationId}-${applicationVersion}/target/src/WEB-INF/web.xml</output>
-            <output>web/target/${applicationId}-web-${applicationVersion}/target/src/WEB-INF/web.xml</output>
-        </conditions>
-        <conditions>
+        <conditions type="and">
+            <condition id="war" equal="true"/>
             <condition id="webservice" notEqual="none"/>
-            <output>webservice/src/main/webapp/META-INF/context.xml.vsl</output>
-            <output>webservice/src/main/webapp/WEB-INF/web.xml</output>
-        </conditions>
-        <conditions type="or">
-            <condition id="web" equal="true"/>
-            <output patterns="**/*">web/</output>
-        </conditions>
-        <conditions>
-            <condition id="web" equal="true"/>
             <output>mda/src/main/config/mappings/WebMergeMappings.xml.vsl</output>
         </conditions>
         <conditions>
             <condition id="spring" equal="true"/>
             <output>mda/src/main/config/mappings/SpringMergeMappings.xml.vsl</output>
-        </conditions>
-        <conditions type="and">
-            <condition id="war" equal="true"/>
-            <condition id="webservice" notEqual="none"/>
-            <output>mda/src/main/config/mappings/WebMergeMappings.xml.vsl</output>
         </conditions>
         <conditions type="and">
             <condition id="model" present="false"/>
@@ -69,10 +69,6 @@
             <condition id="model" present="false"/>
             <condition id="modelType" equal="uml2"/>
             <output>mda/src/main/uml/${applicationId}.xml.vsl</output>
-        </conditions>
-        <conditions type="and">
-            <condition id="model" present="false"/>
-            <condition id="modelType" equal="uml2"/>
             <output>mda/src/main/uml/${applicationId}.mdr.vsl</output>
         </conditions>
         <conditions type="and">
@@ -84,6 +80,8 @@
             <condition id="model" present="false"/>
             <condition id="repositoryType" equal="emf-uml22"/>
             <output patterns="andromda-*-${andromda.version}.*.uml">mda/src/main/uml/</output>
+            <output patterns="*.di">mda/src/main/uml/</output>
+            <output patterns="*.notation">mda/src/main/uml/</output>
         </conditions>
         <conditions type="and">
             <condition id="model" present="false"/>
@@ -93,11 +91,6 @@
         <conditions>
             <condition id="configurationUri" present="false"/>
             <output>mda/src/main/config/andromda.xml</output>
-        </conditions>
-        <conditions type="or">
-            <condition id="transactionPersistenceType" notEqual="none"/>
-            <condition id="webserviceStack" equal="cxf"/>
-            <output patterns="**/*">core</output>
         </conditions>
     </conditionalOutput>
     <mappings>
@@ -119,7 +112,19 @@
         </mapping>
         <mapping>
             <from>empty-model.uml</from>
-            <to>${applicationId}.uml.vsl</to>
+            <to>${applicationId}.uml</to>
+        </mapping>
+        <mapping>
+            <from>empty-model.di</from>
+            <to>${applicationId}.di.vsl</to>
+        </mapping>
+        <mapping>
+            <from>mda/empty-model.notation.vsl</from>
+            <to>mda/src/main/uml/${applicationId}.notation.vsl</to>
+        </mapping>
+        <mapping>
+            <from>core/log4j.xml.vsl</from>
+            <to>core/src/main/resources/log4j.xml.vsl</to>
         </mapping>
         <mapping>
             <from>app/src/main/config/jboss-datasource.xml.vsl</from>
@@ -140,6 +145,14 @@
         <mapping>
             <from>web/context.xml.vsl</from>
             <to>web/src/main/resources/META-INF/context.xml.vsl</to>
+        </mapping>
+        <mapping>
+            <from>web/context.xml.vsl</from>
+            <to>webservice/src/main/resources/META-INF/context.xml.vsl</to>
+        </mapping>
+        <mapping>
+            <from>web/context.xml.vsl</from>
+            <to>CXF/src/main/resources/META-INF/context.xml.vsl</to>
         </mapping>
         <mapping>
             <from>webservice/web.xml</from>
@@ -239,7 +252,6 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                         <setProperty id="hibernate">false</setProperty>
                         <setProperty id="spring">false</setProperty>
                         <setProperty id="ejb">false</setProperty>
-                        <setProperty id="war">false</setProperty>
                     </condition>
                  </conditions>
             </prompt>
@@ -362,6 +374,22 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>both</response>
                     <response>none</response>
                 </responses>
+                <conditions>
+                    <condition equal="soap">
+                        <setProperty id="soap">true</setProperty>
+                    </condition>
+                    <condition equal="rest">
+                        <setProperty id="rest">true</setProperty>
+                    </condition>
+                    <condition equal="both">
+                        <setProperty id="soap">true</setProperty>
+                        <setProperty id="rest">true</setProperty>
+                    </condition>
+                    <condition equal="none">
+                        <setProperty id="soap">false</setProperty>
+                        <setProperty id="rest">false</setProperty>
+                    </condition>
+                 </conditions>
             </prompt>
             <prompt id="jsr181Webservice" setResponseAsTrue="false">
                 <text>Would you like to use the JSR181 (webservice defined by annotations) EJB3 cartridge specific implementation?</text>
@@ -388,6 +416,11 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>jaxws</response>
                     <response>xfire</response>
                 </responses>
+                <conditions>
+                    <condition id="webserviceStack" equal="cxf">
+                        <setProperty id="cxf">true</setProperty>
+                    </condition>
+                </conditions>
             </prompt>
             <prompt id="axisVersion">
                 <text>Would you like to use Axis 1.x or Axis 2.x (enter '1' for 1.x or '2' for 2.x)?</text>
@@ -432,6 +465,14 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>jetty</response>
                     <response>none</response>
                 </responses>
+                <conditions>
+                    <condition equal="tomcat">
+                        <setProperty id="tomcat">true</setProperty>
+                    </condition>
+                    <condition equal="jetty">
+                        <setProperty id="jetty">true</setProperty>
+                    </condition>
+                 </conditions>
             </prompt>
             <!-- This determines dependency versions, which dependencies are bundled or provided, jee version, and which configuration files are created >
             <prompt id="deploymentPlatform" setResponseAsTrue="true">
@@ -442,6 +483,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <condition id="webservice" notEqual="none"/>
                 </preconditions>
                 <responses>
+                    <response>wildfly8</response>
                     <response>jboss7</response>
                     <response>jboss6</response>
                     <response>jboss51</response>
@@ -449,57 +491,24 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>jboss42</response>
                     <response>jboss4</response>
                     <response>jboss3</response>
+                    <response>tomcat8</response>
+                    <response>tomcat7</response>
+                    <response>tomcat6</response>
+                    <response>was85</response>
                     <response>was8</response>
                     <response>was7</response>
                     <response>was61</response>
+                    <response>liberty</response>
                     <response>wasce2</response>
+                    <response>glassfish4</response>
                     <response>glassfish3</response>
                     <response>glassfish2</response>
+                    <response>weblogic12</response>
                     <response>weblogic11</response>
                     <response>weblogic10</response>
                     <response>weblogic9</response>
                     <response>weblogic8</response>
                     <response>geronimo</response>
-                    <response>jonas5</response>
-                    <response>oracleas</response>
-                    <response>resin4</response>
-                    <response>resin3</response>
-                    <response>sun8</response>
-                </responses>
-            </prompt>
-            <prompt id="deploymentPlatform" setResponseAsTrue="true">
-                <text>What application deployment platform runtime/version do you want to use?</text>
-                <shortText>Application deployment runtime</shortText>
-                <preconditions type="or">
-                    <condition id="applicationType" equal="war"/>
-                    <condition id="webservice" notEqual="none"/>
-                </preconditions>
-                <responses>
-                    <response>jboss7</response>
-                    <response>jboss6</response>
-                    <response>jboss51</response>
-                    <response>jboss5</response>
-                    <response>jboss42</response>
-                    <response>jboss4</response>
-                    <response>jboss3</response>
-                    <response>tomcat7</response>
-                    <response>tomcat6</response>
-                    <response>tomcat5</response>
-                    <response>tomcat4</response>
-                    <response>jetty6</response>
-                    <response>jetty7</response>
-                    <response>was8</response>
-                    <response>was7</response>
-                    <response>was61</response>
-                    <response>wasce2</response>
-                    <response>glassfish3</response>
-                    <response>glassfish2</response>
-                    <response>weblogic11</response>
-                    <response>weblogic10</response>
-                    <response>weblogic9</response>
-                    <response>weblogic8</response>
-                    <response>geronimo3</response>
-                    <response>geronimo2</response>
                     <response>jonas5</response>
                     <response>oracleas</response>
                     <response>resin4</response>

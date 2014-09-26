@@ -399,10 +399,12 @@
                     </execution>
                 </executions>
             </plugin>
-#elseif ($tomcat)
+#end
+#if ($tomcat)
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
+#if (!$cxf)
                 <configuration>
                     <path>/${project.build.finalName}</path>
                     <port>${service.port}</port>
@@ -413,7 +415,7 @@
                     <execution>
                         <id>tomcat-run</id>
                         <goals>
-                            <goal>run-war</goal>
+                            <goal>run</goal>
                         </goals>
                         <phase>pre-integration-test</phase>
                         <configuration>
@@ -428,6 +430,7 @@
                         <phase>post-integration-test</phase>
                     </execution>
                 </executions>
+#end
             </plugin>
 #end
         </plugins>
