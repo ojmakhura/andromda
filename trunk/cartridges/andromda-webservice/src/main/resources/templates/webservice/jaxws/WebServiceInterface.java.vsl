@@ -34,7 +34,7 @@ import javax.jws.soap.SOAPBinding.Use;
 #if ($operation.restAtom)
 import org.apache.abdera.model.Feed;
 #end
-#set ($cxf21=$cxfVersion.substring(0,2).compareTo("2.1")>0)
+#set ($cxf21=$cxfVersion.substring(0,3).compareTo("2.1")>0)
 #if ($cxf21)
 import javax.xml.bind.annotation.XmlSeeAlso;
 #end

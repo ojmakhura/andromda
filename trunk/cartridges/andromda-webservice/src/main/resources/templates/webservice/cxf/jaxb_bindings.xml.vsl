@@ -1,7 +1,7 @@
 #if ($umlUtils.shouldOutput($service))
 <?xml version="1.0" encoding="UTF-8"?>
 ##<bindings jxb:version=#if ($cxfVersion.startsWith("2.0"))"2.0"#else"2.1"#end
-#set ($cxf21=$cxfVersion.substring(0,2).compareTo("2.1")>0)
+#set ($cxf21=$cxfVersion.substring(0,3).compareTo("2.1")>0)
 <bindings jxb:extensionBindingPrefixes="xjc"
     wsdlLocation="../${service.name}.wsdl"
     xmlns="http://java.sun.com/xml/ns/jaxws"
