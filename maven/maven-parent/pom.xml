@@ -53,7 +53,7 @@
             <dependency>
                 <groupId>org.codehaus.plexus</groupId>
                 <artifactId>plexus-utils</artifactId>
-                <version>3.0.17</version>
+                <version>3.0.18</version>
                 <scope>provided</scope>
             </dependency -->
         </dependencies>
@@ -581,9 +581,9 @@
     </prerequisites>
     <properties>
         <andromda.version>3.5-SNAPSHOT</andromda.version>
-        <java.runtime.version>1.6</java.runtime.version>
-        <java.required.version>1.6</java.required.version>
-        <java.source.version>1.6</java.source.version>
+        <java.runtime.version>1.7</java.runtime.version>
+        <java.required.version>1.7</java.required.version>
+        <java.source.version>1.7</java.source.version>
         <!-- compiler plugin displays all warnings as errors, configured in descendant will still use these settings unless property is overridden -->
         <compiler.debug>true</compiler.debug>
         <compiler.showDeprecation>true</compiler.showDeprecation>
@@ -601,17 +601,17 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <!-- Plugin version definitions, may be different for maven v3 -->
-        <plexus.util.version>3.0.17</plexus.util.version>
+        <plexus.util.version>3.0.18</plexus.util.version>
         <maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
         <maven-archetype-plugin.version>2.2</maven-archetype-plugin.version>
         <maven-assembly-plugin.version>2.4.1</maven-assembly-plugin.version>
         <maven-changelog-plugin.version>2.3</maven-changelog-plugin.version>
-        <maven-changes-plugin.version>2.10</maven-changes-plugin.version>
+        <maven-changes-plugin.version>2.11</maven-changes-plugin.version>
         <!-- v2.11 gives NPE, see http://jira.codehaus.org/browse/MCHECKSTYLE-205 -->
-        <maven-checkstyle-plugin.version>2.12.1</maven-checkstyle-plugin.version>
-        <maven-clean-plugin.version>2.5</maven-clean-plugin.version>
+        <maven-checkstyle-plugin.version>2.13</maven-checkstyle-plugin.version>
+        <maven-clean-plugin.version>2.6</maven-clean-plugin.version>
         <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
-        <maven-dependency-plugin.version>2.8</maven-dependency-plugin.version>
+        <maven-dependency-plugin.version>2.9</maven-dependency-plugin.version>
         <maven-doap-plugin.version>1.0</maven-doap-plugin.version>
         <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
         <maven-ear-plugin.version>2.9.1</maven-ear-plugin.version>
@@ -624,21 +624,21 @@
         <maven-install-plugin.version>2.5.2</maven-install-plugin.version>
         <maven-invoker-plugin.version>1.9</maven-invoker-plugin.version>
         <maven-jar-plugin.version>2.5</maven-jar-plugin.version>
-        <maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>2.10.1</maven-javadoc-plugin.version>
         <maven-jxr-plugin.version>2.4</maven-jxr-plugin.version>
         <maven-pmd-plugin.version>3.1</maven-pmd-plugin.version>
         <maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
-        <maven-release-plugin.version>2.5</maven-release-plugin.version>
+        <maven-release-plugin.version>2.5.1</maven-release-plugin.version>
         <maven-repository-plugin.version>2.3.1</maven-repository-plugin.version>
-        <maven-resources-plugin.version>2.6</maven-resources-plugin.version>
+        <maven-resources-plugin.version>2.7</maven-resources-plugin.version>
         <maven-scm-plugin.version>1.8.1</maven-scm-plugin.version>
         <maven-site-plugin.version>3.4</maven-site-plugin.version>
-        <maven-source-plugin.version>2.3</maven-source-plugin.version>
+        <maven-source-plugin.version>2.4</maven-source-plugin.version>
         <!-- V2.12 timetracker-ejb3 regression: The forked VM terminated without saying properly goodbye. VM crash or System.exit called: If persistence.xml entities wrong -->
         <maven-surefire-plugin.version>2.17</maven-surefire-plugin.version>
         <maven-surefire-report-plugin.version>2.17</maven-surefire-report-plugin.version>
         <maven-verifier-plugin.version>1.0</maven-verifier-plugin.version>
-        <maven-war-plugin.version>2.4</maven-war-plugin.version>
+        <maven-war-plugin.version>2.5</maven-war-plugin.version>
         <build-helper-maven-plugin.version>1.9.1</build-helper-maven-plugin.version>
         <clirr-maven-plugin.version>2.6.1</clirr-maven-plugin.version>
         <dashboard-maven-plugin.version>1.0.0-beta-1</dashboard-maven-plugin.version>

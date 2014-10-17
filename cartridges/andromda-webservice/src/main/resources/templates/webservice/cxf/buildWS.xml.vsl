@@ -329,7 +329,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
       <arg value="true"/>
       <!--arg value="-validate"/-->
       <arg value="-mark-generated"/>
-#set ($cxf21=$cxfVersion.substring(0,2).compareTo("2.1")>0)
+#set ($cxf21=$cxfVersion.substring(0,3).compareTo("2.1")>0)
 #if (!$cxf21)
       <arg value="-autoNameResolution"/>
       <!-- Bug: CXF StackOverflow if values are bidirectional -->

@@ -64,7 +64,7 @@ public class EnumerationFacadeLogicImpl
         //           without filtering
         final Collection<? extends ModelElementFacade> literals =
             this.metaObject instanceof Enumeration
-            ? ((Enumeration)this.metaObject).getOwnedLiterals()
+            ? (Collection) ((Enumeration)this.metaObject).getOwnedLiterals()
             : CollectionUtils.collect(this.getAttributes(), UmlUtilities.ELEMENT_TRANSFORMER);
 
         CollectionUtils.filter(

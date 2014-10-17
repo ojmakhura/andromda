@@ -130,7 +130,7 @@
                 </documentation>
             </property>
             <property name="webserviceStack">
-                <default>axis</default>
+                <default>cxf</default>
                 <documentation>
                     The webservice Stack to use for your webservices, valid values are:
                     <ul>
@@ -152,7 +152,7 @@
                 </documentation>
             </property>
             <property name="cxfVersion">
-                <default>2.0</default>
+                <default>2.1</default>
                 <documentation>
                     The cxf version to use for your webservices, default=2.0, determined by pom.xml property cxf.version
                     used to determine if java2ws should be run instead of java2wsdl, and if custom adapter classes can
@@ -160,6 +160,7 @@
                     <ul>
                         <li>2.0</li>
                         <li>2.1</li>
+                        <li>3.0</li>
                     </ul>
                 </documentation>
             </property>
@@ -525,7 +526,7 @@
                 <default>false</default>
                 <documentation>
                     In Java6 or later, output @javax.annotation.Generated and javadoc @generated tags to indicate that the code is  generated.
-                    Also output xmiID values as part of the generated tags. Currently, the tags are only output at the class and XML element 
+                    Also output xmiID values as part of the generated tags. Currently, the tags are only output at the class and XML element
                     level, but in the future they may be used to distinguish between generated and manual methods within a generated file.
                     adding xmi:id (xmiId) to the generated annotation comments allows matching renamed and moved model elements to their
                     original values, for bi-directional synchronization of model and code (future) or with alternate tools.
