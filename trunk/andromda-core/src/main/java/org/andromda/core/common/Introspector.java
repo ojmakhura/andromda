@@ -6,7 +6,9 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
@@ -262,11 +264,6 @@ public final class Introspector
     }
 
     /**
-     * Cache for a class's write methods.
-     */
-    private final Map<Class, Map<String, Method>> writeMethodsCache = new HashMap<Class, Map<String, Method>>();
-
-    /**
      * Gets the writable method for the property.
      *
      * @param object the object from which to retrieve the property method.
@@ -277,34 +274,8 @@ public final class Introspector
         final Object object,
         final String name)
     {
-        Method writeMethod = null;
-        final Class objectClass = object.getClass();
-        Map<String, Method> classWriteMethods = this.writeMethodsCache.get(objectClass);
-        if (classWriteMethods == null)
-        {
-            classWriteMethods = new HashMap<String, Method>();
-        }
-        else
-        {
-            writeMethod = classWriteMethods.get(name);
-        }
-        if (writeMethod == null)
-        {
-            final PropertyDescriptor descriptor = this.getPropertyDescriptor(
-                    object.getClass(),
-                    name);
-            writeMethod = descriptor != null ? descriptor.getWriteMethod() : null;
-            if (writeMethod != null)
-            {
-                classWriteMethods.put(
-                    name,
-                    writeMethod);
-                this.writeMethodsCache.put(
-                    objectClass,
-                    classWriteMethods);
-            }
-        }
-        return writeMethod;
+        final PropertyDescriptor descriptor = getPropertyDescriptor(object.getClass(), name);
+        return descriptor != null ? descriptor.getWriteMethod() : null;
     }
 
     /**
@@ -342,11 +313,6 @@ public final class Introspector
     }
 
     /**
-     * Cache for a class's read methods.
-     */
-    private final Map<Class, Map<String, Method>> readMethodsCache = new HashMap<Class, Map<String, Method>>();
-
-    /**
      * Gets the readable method for the property.
      *
      * @param object the object from which to retrieve the property method.
@@ -357,40 +323,14 @@ public final class Introspector
         final Object object,
         final String name)
     {
-        Method readMethod = null;
-        final Class objectClass = object.getClass();
-        Map<String, Method> classReadMethods = this.readMethodsCache.get(objectClass);
-        if (classReadMethods == null)
-        {
-            classReadMethods = new HashMap<String, Method>();
-        }
-        else
-        {
-            readMethod = classReadMethods.get(name);
-        }
-        if (readMethod == null)
-        {
-            final PropertyDescriptor descriptor = this.getPropertyDescriptor(
-                    object.getClass(),
-                    name);
-            readMethod = descriptor != null ? descriptor.getReadMethod() : null;
-            if (readMethod != null)
-            {
-                classReadMethods.put(
-                    name,
-                    readMethod);
-                this.readMethodsCache.put(
-                    objectClass,
-                    classReadMethods);
-            }
-        }
-        return readMethod;
+        final PropertyDescriptor descriptor = getPropertyDescriptor(object.getClass(), name);
+        return descriptor != null ? descriptor.getReadMethod() : null;
     }
 
     /**
      * The cache of property descriptors.
      */
-    private final Map<Class, Map<String, PropertyDescriptor>> propertyDescriptorsCache = new HashMap<Class, Map<String, PropertyDescriptor>>();
+    private final Map<Class, Map<String, PropertyDescriptor>> propertyDescriptorsCache = new ConcurrentHashMap<Class, Map<String, PropertyDescriptor>>();
 
     /**
      * The pattern for property names.
@@ -427,10 +367,8 @@ public final class Introspector
                 final PropertyDescriptor[] descriptors =
                     java.beans.Introspector.getBeanInfo(type).getPropertyDescriptors();
                 final int descriptorNumber = descriptors.length;
-                for (int ctr = 0; ctr < descriptorNumber; ctr++)
+                for (PropertyDescriptor descriptor : descriptors)
                 {
-                    final PropertyDescriptor descriptor = descriptors[ctr];
-
                     // - handle names that start with a lowercased letter and have an uppercase as the second letter
                     final String compareName =
                         propertyNamePattern.matcher(name).matches() ? StringUtils.capitalize(name) : name;
@@ -474,12 +412,6 @@ public final class Introspector
     }
 
     /**
-     * Prevents stack-over-flows by storing the objects that
-     * are currently being evaluated within {@link #internalGetProperty(Object, String)}.
-     */
-    private final Map<Object, String> evaluatingObjects = new HashMap<Object, String>();
-
-    /**
      * Attempts to get the value of the property with <code>name</code> on the
      * given <code>object</code> (throws an exception if the property
      * is not readable on the object).
@@ -492,14 +424,32 @@ public final class Introspector
         final Object object,
         final String name)
     {
+    	return internalGetProperty(object, name, new HashMap<Object, String>());
+    }
+
+    /**
+     * Attempts to get the value of the property with <code>name</code> on the
+     * given <code>object</code> (throws an exception if the property
+     * is not readable on the object).
+     *
+     * @param object the object from which to retrieve the property.
+     * @param name the name of the property
+     * @param evaluatingObjects prevents stack-over-flow by storing the objects that are currently being evaluated.
+     * @return the resulting property value
+     */
+    private Object internalGetProperty(
+        final Object object,
+        final String name,
+        final Map<Object, String> evaluatingObjects)
+    {
         Object property = null;
 
         // - prevent stack overflows by checking to make sure
         //   we aren't entering any circular evaluations
-        final Object value = this.evaluatingObjects.get(object);
+        final Object value = evaluatingObjects.get(object);
         if (value == null || !value.equals(name))
         {
-            this.evaluatingObjects.put(
+            evaluatingObjects.put(
                 object,
                 name);
             if (object != null || StringUtils.isNotBlank(name))
@@ -520,7 +470,7 @@ public final class Introspector
                 }
                 catch (Throwable throwable)
                 {
-                    if (throwable.getCause()!=null)
+                    if (throwable.getCause() != null)
                     {
                         throwable = throwable.getCause();
                     }
@@ -539,7 +489,6 @@ public final class Introspector
                     }
                 }
             }
-            this.evaluatingObjects.remove(object);
         }
         return property;
     }
@@ -560,7 +509,7 @@ public final class Introspector
     {
         if (object != null || (StringUtils.isNotBlank(name)))
         {
-            Class expectedType = null;
+            Class expectedType;
             if (value != null && object != null)
             {
                 final PropertyDescriptor descriptor = this.getPropertyDescriptor(
@@ -604,24 +553,18 @@ public final class Introspector
     public void shutdown()
     {
         this.propertyDescriptorsCache.clear();
-        this.writeMethodsCache.clear();
-        this.readMethodsCache.clear();
-        this.evaluatingObjects.clear();
         Introspector.instance = null;
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * @see Object#toString()
      */
     @Override
     public String toString()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append(super.toString()).append(" [writeMethodsCache=").append(this.writeMethodsCache)
-                .append(", readMethodsCache=").append(this.readMethodsCache)
-                .append(", propertyDescriptorsCache=").append(this.propertyDescriptorsCache)
-                .append(", propertyNamePattern=").append(this.propertyNamePattern)
-                .append(", evaluatingObjects=").append(this.evaluatingObjects).append("]");
+        builder.append(super.toString()).append(" [propertyDescriptorsCache=").append(this.propertyDescriptorsCache)
+                .append(", propertyNamePattern=").append(this.propertyNamePattern).append("]");
         return builder.toString();
     }
 }
