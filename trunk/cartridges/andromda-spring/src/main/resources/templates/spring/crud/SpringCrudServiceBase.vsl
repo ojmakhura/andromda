@@ -54,7 +54,9 @@ public abstract class $manageable.manageableServiceBaseName
 
         final $searchExampleClassName searchExample=new $searchExampleClassName();
 #foreach ($member in $manageable.manageableMembers)
+#if (!$member.inputFile && !$member.needsFileUpload)
         searchExample.${member.setterName}(${member.name});
+#end
 #end
 
         return searchExample;
