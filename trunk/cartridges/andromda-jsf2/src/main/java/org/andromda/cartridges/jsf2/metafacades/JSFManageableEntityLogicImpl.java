@@ -8,6 +8,7 @@ import java.util.LinkedHashSet;
 import org.andromda.cartridges.jsf2.JSFGlobals;
 import org.andromda.cartridges.jsf2.JSFProfile;
 import org.andromda.cartridges.jsf2.JSFUtils;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ManageableEntityAssociationEnd;
 import org.andromda.metafacades.uml.ManageableEntityAttribute;
@@ -552,7 +553,7 @@ public class JSFManageableEntityLogicImpl
         {
             for(ManageableEntityAttribute attr: getManageableAttributes())
             {
-                if(attr.isDisplay() && !attr.getType().isBlobType())
+                if(attr.isDisplay() && !attr.getType().isBlobType() && !attr.getType().isClobType())
                 {
                     searchAttributes.add((JSFManageableEntityAttribute)attr);
                 }
@@ -870,5 +871,26 @@ protected Collection handleGetRoles()
             }
         }
         return editAttributes;
+    }
+    
+    /**
+     * @return manageableDetailsAssociations
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getManageableDetailsAssociations()
+     */
+    @Override
+    protected Collection<ManageableEntityAssociationEnd> handleGetManageableDetailsAssociationsEnds()
+    {
+        final Collection<ManageableEntityAssociationEnd> manageableDetailsAssociationsEnds = new ArrayList<ManageableEntityAssociationEnd>();
+        
+        for(ManageableEntityAssociationEnd associationEnd: (Collection<ManageableEntityAssociationEnd>)this.getManageableAssociationEnds())
+        {
+            if(associationEnd.isMany() && associationEnd.getType().hasStereotype(UMLProfile.STEREOTYPE_MANAGEABLE) && 
+               associationEnd.getOtherEnd().isNavigable() && associationEnd.getOtherEnd().isComposition())
+            {
+                manageableDetailsAssociationsEnds.add(associationEnd);
+            }
+        }
+
+        return manageableDetailsAssociationsEnds;
     }
 }

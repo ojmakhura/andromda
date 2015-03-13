@@ -189,8 +189,8 @@ $field.getDocumentation("     * ")
 
 #end
 #if (!$manageable.manageableAssociationEnds.empty)
-
     // Manageable associationEnds in $manageable.name
+    
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
 #if($member.type.manageable)
@@ -258,7 +258,31 @@ $member.getDocumentation("     * ")
     }
 
 #end
+    // Master/detail view helpers
+#foreach ($member in $manageable.manageableDetailsAssociationsEnds)
+#set($fullyQualifiedDetailValueObjectName = "${member.type.manageablePackageName}.${member.type.valueObjectClassName}")
+#set($detailsCollectionType="java.util.Collection<${fullyQualifiedDetailValueObjectName}>")
+#set($detailsName="${member.name}${crudDetailsSuffix}")
 
+    private $detailsCollectionType $detailsName;
+    
+    /**
+     * The collection of ${fullyQualifiedDetailValueObjectName}.
+     */
+    public $detailsCollectionType ${member.getterName}${crudDetailsSuffix}()
+    {
+        return this.$detailsName;
+    }
+
+    /**
+     * The collection of ${fullyQualifiedDetailValueObjectName}.
+     */
+    public void ${member.setterName}${crudDetailsSuffix}($detailsCollectionType ${detailsName}In)
+    {
+        this.$detailsName = ${detailsName}In;
+    }
+    
+#end
 #renderCopyFrom($manageable.formBeanClassName $manageable.manageableAttributes $manageable.manageableAssociationEnds)
 
     /**

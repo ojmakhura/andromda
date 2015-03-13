@@ -21,6 +21,8 @@ package $manageable.manageablePackageName;
 #set($identifierType = $manageable.fullyQualifiedIdentifierTypeName)
 #end
 #end
+import org.primefaces.component.datatable.DataTable;
+
 /**
  * Java Server Faces Controller of the ${manageable.name} CRUD management.
  */
@@ -144,9 +146,22 @@ public abstract class ${manageable.controllerName}
         form.${member.setterName}(vo.${member.getterName}());
 #end
 
+#foreach ($member in $manageable.manageableDetailsAssociationsEnds)
+#set($loadDetailMethodName = "load${stringUtils.upperCamelCaseName(${member.name})}${crudDetailsSuffix}")
+        ${loadDetailMethodName}(${manageable.identifierName});
+#end
+
         form.setEditState(true);
     }
 
+#foreach ($member in $manageable.manageableDetailsAssociationsEnds)
+#set($loadDetailMethodName = "load${stringUtils.upperCamelCaseName($member.name)}${crudDetailsSuffix}")
+    public void ${loadDetailMethodName}(${identifierType} ${manageable.identifierName}) throws Exception 
+    {
+        this.getForm().${member.setterName}${crudDetailsSuffix}(${member.type.manageablePackageName}.${member.type.controllerName}.instance().readByFilter("${member.otherEnd.name}", ${manageable.identifierName}));
+    }
+    
+#end
     /**
      * The cancel edit action
      *
@@ -235,7 +250,11 @@ public abstract class ${manageable.controllerName}
         form.${member.setterName}(null);
 #end
 #end
-
+#if (!$manageable.manageableDetailsAssociationsEnds.empty)
+#foreach ($member in $manageable.manageableDetailsAssociationsEnds)
+        form.${member.setterName}${crudDetailsSuffix}(null);
+#end
+#end
         //is it filtered? if so, set the property with the filter value
         final String filterAttribute=this.getFilterAttribute();
         if(filterAttribute != null)
@@ -380,7 +399,19 @@ public abstract class ${manageable.controllerName}
         this.setLastPostedFormClientId(FORM_BEAN_NAME);
         final ${manageable.formBeanType} form = this.getForm();
         this.doSearch(form);
+		setResultToFirstPage();
         return null;
+    }
+
+    private static final String DATA_TABLE_SEARCH_NAME="searchResult";
+    
+    /**
+    * Sets the resulta datatable to the first page
+    */
+    protected void setResultToFirstPage(){
+        //Set page to 0 after call search
+        DataTable dataTable = (DataTable) JsfUtils.findComponentInRoot(":"+FORM_BEAN_NAME+":"+DATA_TABLE_SEARCH_NAME);
+        dataTable.setFirst(0);
     }
 
     /**
@@ -565,10 +596,11 @@ public abstract class ${manageable.controllerName}
     public java.util.Collection<${manageable.valueObjectClassName}> readByFilter(${manageable.searchFilterName} filter) throws Exception
     {
         final $searchExampleClassName searchExample = new ${searchExampleClassName}();
-#foreach ($member in $manageable.manageableMembers)
-#if (!$member.inputFile && !$member.needsFileUpload)
-    searchExample.${member.setterName}(filter.${member.getterName}());
+#foreach ($field in $manageable.manageableSearchAttributes)
+            searchExample.${field.setterName}(filter.${field.getterName}());
 #end
+#foreach ($member in $manageable.manageableAssociationEnds)
+            searchExample.${member.setterName}(filter.${member.getterName}());
 #end
 
         final java.util.Collection<${manageable.valueObjectClassName}> result = ${manageable.manageableServiceAccessorCall}.searchByExample(searchExample);
