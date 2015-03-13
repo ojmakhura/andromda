@@ -531,6 +531,12 @@
                     The suffix to append to the names of generated value objects used in CRUD (manageable entities).
                 </documentation>
             </property>
+            <property name="crudDetailsSuffix">
+                <default>Details</default>
+                <documentation>
+                    The suffix to append to the names of generated details (in compositions) elements used in CRUD (manageable entities).
+                </documentation>
+            </property>
             <property name="crudConfirmationMessages">
                 <default>true</default>
                 <documentation>
@@ -538,7 +544,7 @@
                 </documentation>
             </property>
             <property name="trimInputStrings">
-                <default>true</default>
+                <default>false</default>
                 <documentation>
                     Trim form entered strings;
                 </documentation>

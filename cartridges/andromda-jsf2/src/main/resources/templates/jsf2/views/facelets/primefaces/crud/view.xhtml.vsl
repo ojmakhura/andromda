@@ -210,21 +210,22 @@ ${ident}</p:column>
 ## master/detail 
 #if($field.otherEnd.navigable && $field.otherEnd.composition && $field.many)
 #set($detailManageable = $field.type)
+#set($loadDetailMethodName = "load${stringUtils.upperCamelCaseName($field.name)}${crudDetailsSuffix}")
             <p:outputLabel id="${field.name}_table_label" for="${field.name}_table" value="#{messages['$field.messageKey']}:"/>
-            <p:dataTable id="${field.name}_table" var="row" value="#{${detailManageable.controllerBeanName}.readByFilter('${field.otherEnd.name}',${formName}.${manageable.identifierName})}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" emptyMessage="#{messages['empty.result.set']}">
+            <p:dataTable id="${field.name}_table" var="row" value="#{${formName}.${field.name}${crudDetailsSuffix}}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" emptyMessage="#{messages['empty.result.set']}">
                 <p:column style="width:0px;">
                     <p:panelGrid columns="2">
                         <p:commandButton id="loadAction" icon="ui-icon-pencil" title="#{messages['action.edit']}" immediate="true" process="@this" update="@form"
                             onclick="${formName}_${field.name}_dialog_show('${detailManageable.actionFullPath}.${facesServletExtension}?_useCaseParameter._dialog=true&amp;_useCaseParameter._crudAction=edit&amp;_useCaseParameter.editId=#{row.${detailManageable.identifierName}}&amp;_useCaseParameter.filterAttribute=${field.otherEnd.name}&amp;_useCaseParameter.filterValue=#{${formName}.${manageable.identifierName}}',${field.name}_tableUpdate); return false;"/>
-                        <p:commandButton id="deleteAction" icon="ui-icon-trash" title="#{messages['action.delete']}" action="#{${detailManageable.controllerBeanName}.delete(row.${detailManageable.identifierName})}" immediate="true" process="@this" update="${field.name}_table"
-                            onclick="return confirm('#{messages['confirm.delete.this']} #{messages['${detailManageable.viewTitleKey}']}');" />
+                        <p:commandButton id="deleteAction" icon="ui-icon-trash" title="#{messages['action.delete']}" actionListener="#{${detailManageable.controllerBeanName}.delete(row.${detailManageable.identifierName})}" immediate="true" process="@this" update="${field.name}_table"
+                            action="#{${manageable.controllerBeanName}.${loadDetailMethodName}(${formName}.${manageable.identifierName})}" onclick="return confirm('#{messages['confirm.delete.this']} #{messages['${detailManageable.viewTitleKey}']}');" />
                     </p:panelGrid>
                 </p:column>
 #renderTableColumnsPrimeFaces($detailManageable "                ")            
             </p:dataTable>
             <p:panelGrid columns="3">
                 <ajsfc:useCaseDialog id="${field.name}_dialog"/>
-                <p:remoteCommand name="${field.name}_tableUpdate" update="${field.name}_table" immediate="true" global="false"/>  
+                <p:remoteCommand name="${field.name}_tableUpdate" update="${field.name}_table" immediate="true" global="false" actionListener="#{${manageable.controllerBeanName}.${loadDetailMethodName}(${formName}.${manageable.identifierName})}"/>  
                 <p:commandButton id="${field.name}_newAction" icon="ui-icon-plus" title="#{messages['action.new']}" immediate="true" process="@this" update="@form"
                      onclick="if(_crudCheckCurrentSaved(#{${formName}.${manageable.identifierName}})) ${formName}_${field.name}_dialog_show('${detailManageable.actionFullPath}.${facesServletExtension}?_useCaseParameter._dialog=true&amp;_useCaseParameter._crudAction=create&amp;_useCaseParameter.filterAttribute=${field.otherEnd.name}&amp;_useCaseParameter.filterValue=#{${formName}.${manageable.identifierName}}',${field.name}_tableUpdate); return false;"/>
             </p:panelGrid>

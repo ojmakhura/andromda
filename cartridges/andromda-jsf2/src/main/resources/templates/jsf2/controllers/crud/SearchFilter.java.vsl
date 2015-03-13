@@ -28,8 +28,7 @@ public class ${manageable.searchFilterName}
      */
     private static final long serialVersionUID = ${manageable.searchFilterSerialVersionUID}L;
 
-#foreach ($field in $manageable.manageableAttributes)
-#if (!$field.inputFile && !$field.needsFileUpload)
+#foreach ($field in $manageable.manageableSearchAttributes)
 #setFieldWrapperTypeName($field $fieldWrapperTypeName)
     private $fieldWrapperTypeName $field.name=null;
 
@@ -68,7 +67,6 @@ public class ${manageable.searchFilterName}
 
 #end
 #end
-#end    
 #foreach ($member in $manageable.manageableAssociationEnds)
 #setAssociatonEndType($member $fieldType $fieldTypeName)
     private $fieldTypeName $member.name;
@@ -105,10 +103,16 @@ public class ${manageable.searchFilterName}
 #end
     public ${manageable.searchFilterName} loadFromStringsMap(final java.util.Map<String,String> source)
     {
-#foreach ($field in $manageable.manageableMembers)
+#foreach ($field in $manageable.manageableSearchAttributes)
         if(source.containsKey("${field.name}"))
         {
             this.${field.setterName}(source.get("${field.name}"));
+        }
+#end
+#foreach ($member in $manageable.manageableAssociationEnds)
+        if(source.containsKey("${member.name}"))
+        {
+            this.${member.setterName}(source.get("${member.name}"));
         }
 #end        
         return this;    
@@ -116,7 +120,7 @@ public class ${manageable.searchFilterName}
     
     public ${manageable.searchFilterName} loadFromObjectsMap(final java.util.Map<String,Object> source)
     {
-#foreach ($field in $manageable.manageableAttributes)
+#foreach ($field in $manageable.manageableSearchAttributes)
 #setFieldWrapperTypeName($field $fieldWrapperTypeName)
         if(source.containsKey("${field.name}"))
         {
