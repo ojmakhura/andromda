@@ -30,7 +30,7 @@
         <c:set var="valueSetter" value="#{baseName}_setValue" />
         <p:panelGrid columns="2" rendered="#{cc.attrs.rendered}" styleClass="padding_autocompletenew">
             <p:autoComplete id="autoComplete" value="#{cc.attrs.value}" label="#{cc.attrs.label}" completeMethod="#{cc.attrs.completeMethod}" required="#{cc.attrs.required}"
-                var="#{cc.attrs.var}" itemValue="#{cc.attrs.itemValue}" itemLabel="#{cc.attrs.itemLabel}" dropdown="true" multiple="#{cc.attrs.multiple}" forceSelection="#{cc.attrs.forceSelection}"
+                var="#{cc.attrs.var}" itemValue="#{cc.attrs.itemValue}" itemLabel="#{cc.attrs.itemLabel}" dropdown="#{not cc.attrs.readonly}" multiple="#{cc.attrs.multiple}" forceSelection="#{cc.attrs.forceSelection}"
                 queryDelay="#{cc.attrs.queryDelay}" readonly="#{cc.attrs.readonly}">
                 <f:converter converterId="#{cc.attrs.converter}" />
                 <cc:insertChildren />
