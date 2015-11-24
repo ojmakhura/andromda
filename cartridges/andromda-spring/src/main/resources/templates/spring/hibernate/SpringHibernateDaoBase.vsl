@@ -1,3 +1,15 @@
+##==== Local Macros
+#macro(renderEvictCollection $theEntity)
+#if($theEntity.generalization)
+#renderEvictCollection($theEntity.generalization)
+#end
+#foreach ($sourceEnd in $theEntity.associationEnds)
+#if ($sourceEnd.navigable && $sourceEnd.many)
+            cache.evictCollectionRegion("${sourceEnd.otherEnd.type.fullyQualifiedEntityImplementationName}.${sourceEnd.name}");
+#end
+#end
+#end
+##=========================
 #if ($recordType.equalsIgnoreCase("dao"))
 #set ($generatedFile = "${entity.packagePath}/${entity.daoBaseName}.java")
 #if ($hibernateVersion.startsWith("4"))
@@ -230,8 +242,19 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #else
 #set ($xmlIndent = "")
 #end
+#if($enableCaching)
+#set ($oldXmlIndent = $xmlIndent)
+$oldXmlIndent        try{
+#set ($xmlIndent = "    $xmlIndent")
+#end
 $xmlIndent        final Object entity =#if($hibernate4) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.get(${entity.fullyQualifiedEntityImplementationName}.class, $argument);
 $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)entity);
+#if($enableCaching)
+$oldXmlIndent        }catch(org.hibernate.WrongClassException exc){
+$oldXmlIndent            //No display error message caused by the cache L2 hibernate as stated in https://hibernate.atlassian.net/browse/HHH-4953 and https://hibernate.atlassian.net/browse/HHH-9028
+$oldXmlIndent            return null;
+$oldXmlIndent        }
+#end
 #if ($hibernateUtils.xmlPersistenceActive)
         }
 #end
@@ -299,6 +322,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
             criteria.setFirstResult(this.calculateFirstResult(pageNumber, pageSize));
             criteria.setMaxResults(pageSize);
         }
+        criteria.setCacheable(true);
         final java.util.Collection#if($enableTemplating)<?>#end results = criteria.list();
         this.transformEntities(transform, results);
         return results;
@@ -311,6 +335,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
                 criteria.setFirstResult(this.calculateFirstResult(pageNumber, pageSize));
                 criteria.setMaxResults(pageSize);
             }
+            criteria.setCacheable(true);
             final java.util.Collection#if($enableTemplating)<?>#end results = criteria.list();
             this.transformEntities(transform, results);
             return results;
@@ -338,6 +363,20 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         return firstResult;
     }
 
+#if($enableCaching)
+    /**
+     * evict all the dependent collections to avoid 'id not found' refers to https://hibernate.atlassian.net/browse/HHH-4910
+     * should not be generated when using hibernate annotations
+     */
+    protected void evictAllReferencingCollections() 
+    {
+        final org.hibernate.Cache cache=this.sessionFactory.getCache();
+        if(cache != null){
+#renderEvictCollection($entity)
+        }
+    }
+        
+#end
     /**
      * prePersist event - This method is called before creating the entity
      * @param $argumentName $entity.fullyQualifiedName
@@ -523,6 +562,12 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         //prePersist event
         _prePersist($argumentName);
 
+#if($enableCaching)
+        //evict all the dependent collections to avoid 'id not found' refers to https://hibernate.atlassian.net/browse/HHH-4910
+        //should not be generated when using hibernate annotations
+        evictAllReferencingCollections();
+        
+#end
 #if ($hibernateUtils.xmlPersistenceActive)
 #set ($identifierProperty = "identifier")
 #if($identifierTypePrimitive)
@@ -716,6 +761,12 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         //preUpdate event
         _preUpdate($argumentName);
 
+#if($enableCaching)
+        //evict all the dependent collections to avoid 'id not found' refers to https://hibernate.atlassian.net/browse/HHH-4910
+        //should not be generated when using hibernate annotations
+        evictAllReferencingCollections();
+        
+#end
        #if($hibernate4) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.update($argumentName);
 
         //postUpdate event
@@ -815,7 +866,13 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         //preRemove event
         _preRemove($argumentName);
 
-       #if($hibernate4) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.delete($argumentName);
+#if($enableCaching)
+        //evict all the dependent collections to avoid 'id not found' refers to https://hibernate.atlassian.net/browse/HHH-4910
+        //should not be generated when using hibernate annotations
+        evictAllReferencingCollections();
+        
+#end
+        #if($hibernate4) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.delete($argumentName);
 
         //postRemove event
         _postRemove($argumentName);
@@ -899,6 +956,12 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
             //preRemove event
             _preRemove(entity);
 
+#if($enableCaching)
+            //evict all the dependent collections to avoid 'id not found' refers to https://hibernate.atlassian.net/browse/HHH-4910
+            //should not be generated when using hibernate annotations
+            evictAllReferencingCollections();
+        
+#end
            #if($hibernate4) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.delete(entity);
 
             //postRemove event
@@ -1137,9 +1200,9 @@ $h3tab        }
 #if ($enableTemplating)
 $h3tab        @SuppressWarnings({ "unchecked", "rawtypes" })
 #end
-$h3tab        java.util.Set results = new java.util.LinkedHashSet(queryObject.list());
+$h3tab        java.util.Set results = new java.util.LinkedHashSet(queryObject.setCacheable(true).list());
 #else
-$h3tab        java.util.List results = queryObject.list();
+$h3tab        java.util.List results = queryObject.setCacheable(true).list();
 #end
 #if (!($finder.returnType.collectionType || $finder.many))
 $h3tab        Object result = null;
@@ -1826,7 +1889,7 @@ $h3tab        }
         final int transform, int pageNumber, int pageSize)
     {
 #if ($hibernate4)
-        final ${hibernateUtils.basePackage}.ScrollableResults scrollableResults = queryObject.scroll();
+        final ${hibernateUtils.basePackage}.ScrollableResults scrollableResults = queryObject.setCacheable(true).scroll();
         scrollableResults.last();
         int totalCount = scrollableResults.getRowNumber();
         totalCount = totalCount >= 0 ? totalCount + 1 : 0;
@@ -1839,7 +1902,7 @@ $h3tab        }
 #if ($enableTemplating)
         @SuppressWarnings("rawtypes")
 #end
-        java.util.Collection results = new java.util.ArrayList(queryObject.list());
+        java.util.Collection results = new java.util.ArrayList(queryObject.setCacheable(true).list());
         transformEntities(transform, results);
         return new ${fullyQualifiedPagingResultName}(results.toArray(new Object[results.size()]), totalCount);
 #else
@@ -1855,7 +1918,7 @@ $h3tab        }
                 queryObject.setMaxResults(pageSize);
             }
             // Unchecked transformation because Set object is reused, cannot be strongly typed.
-            java.util.Collection results = new java.util.ArrayList(queryObject.list());
+            java.util.Collection results = new java.util.ArrayList(queryObject.setCacheable(true).list());
             transformEntities(transform, results);
             return new ${fullyQualifiedPagingResultName}(results.toArray(new Object[results.size()]), totalCount);
         }

@@ -324,7 +324,7 @@ public final class $manageable.manageableDaoBaseName
             {
                 criteria.add(Restrictions.ilike("$member.name", example.${member.getterName}(), $matchMode));
             }
-#elseif ($member.type.dateType)
+#elseif ($member.type.dateType && $member.type.timeType)
             {
                 // we check whether or not the user supplied time information within this particular date argument
                 // if he/she didn't we assume he/she wishes to search in the scope of the entire day
@@ -375,6 +375,7 @@ public final class $manageable.manageableDaoBaseName
 
 #end
         criteria.addOrder(org.hibernate.criterion.Order.asc("${manageable.displayAttribute.name}"));
+        criteria.setCacheable(true);
         return criteria.list();
     }
 
