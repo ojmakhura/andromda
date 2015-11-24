@@ -22,8 +22,13 @@ import org.hibernate.usertype.ParameterizedType;
  * A Hibernate UserType for Java5 enumerations. Taken from
  * <a href="http://www.hibernate.org/272.html">Java 5 EnumUserType</a>.
  */
-public class $className implements EnhancedUserType, ParameterizedType
+public class $className implements Serializable, EnhancedUserType, ParameterizedType
 {
+    /**
+     * The serial version UID of this class. Needed for serialization.
+     */
+    private static final long serialVersionUID = 1L;
+
     @SuppressWarnings({ "rawtypes" })
     private Class<Enum> enumClass;
 
