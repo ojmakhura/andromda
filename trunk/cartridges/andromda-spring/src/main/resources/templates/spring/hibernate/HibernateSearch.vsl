@@ -96,6 +96,7 @@ public class $criteriaSearchBaseName
         this.configuration = new ${criteriaSearchBaseName}Configuration();
         this.resultType = resultTypeIn;
         this.rootCriteria = session.createCriteria(this.resultType);
+        this.rootCriteria.setCacheable(true);
         this.childCriteriaMap = new HashMap<String, ${hibernateUtils.basePackage}.Criteria>();
         this.orderList = new ArrayList<CriteriaSearchParameter>();
     }
