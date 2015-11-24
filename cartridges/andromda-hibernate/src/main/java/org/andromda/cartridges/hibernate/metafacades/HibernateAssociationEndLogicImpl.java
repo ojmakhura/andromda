@@ -849,4 +849,31 @@ public class HibernateAssociationEndLogicImpl
         }
         return owning;
     }
+    
+
+    
+    /**
+     * returns a default index name
+     */
+    @Override
+    public String getColumnIndex()
+    {
+        String returnValue = super.getColumnIndex();
+        
+        HibernateEntityLogicImpl entity=(HibernateEntityLogicImpl)this.getOtherEnd().getType();
+        
+        if(returnValue == null){
+            final String sufix=entity.nextIndexSuffix();
+            returnValue = EntityMetafacadeUtils.getSqlNameFromTaggedValue(
+                entity.getTableName(),
+                this,
+                UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
+                (short)30, // dá pau - Short.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH)),
+                sufix,
+                this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR),
+                this.getConfiguredProperty(UMLMetafacadeProperties.SHORTEN_SQL_NAMES_METHOD));
+        }
+
+        return returnValue;       
+    }
 }

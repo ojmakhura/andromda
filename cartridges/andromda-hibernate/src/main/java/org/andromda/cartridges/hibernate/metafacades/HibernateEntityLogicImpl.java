@@ -869,4 +869,12 @@ public class HibernateEntityLogicImpl
     {
         return ObjectUtils.toString(this.getConfiguredProperty(SEQUENCE_IDENTIFIER_SUFFIX));
     }
+    
+    //keeps fk index unique
+    int lastIndexCounter=1;
+    
+    protected String nextIndexSuffix(){
+        lastIndexCounter++;
+        return String.valueOf(lastIndexCounter);
+    }
 }
