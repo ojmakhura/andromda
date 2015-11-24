@@ -99,7 +99,7 @@
                 <prop key="hibernate.query.substitutions">$hibernateQuerySubstitutions</prop>
 #end
 #if ($enableCaching)
-                <prop key="hibernate.cache.use_query_cache">$hibernateEnableCache</prop>
+                <prop key="hibernate.cache.use_query_cache">$enableCaching</prop>
 #end
 #if ($stringUtils.isNotBlank($hibernateCacheProvider))
                 <prop key="hibernate.cache.provider_class">$hibernateCacheProvider</prop>
