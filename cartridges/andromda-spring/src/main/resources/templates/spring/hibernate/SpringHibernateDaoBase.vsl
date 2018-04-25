@@ -5,7 +5,7 @@
 #end
 #foreach ($sourceEnd in $theEntity.associationEnds)
 #if ($sourceEnd.navigable && $sourceEnd.many)
-            cache.evictCollectionRegion("${sourceEnd.otherEnd.type.fullyQualifiedEntityImplementationName}.${sourceEnd.name}");
+            cache.evictCollectionRegion("${sourceEnd.otherEnd.type.fullyQualifiedEntityName}.${sourceEnd.name}");
 #end
 #end
 #end
@@ -176,7 +176,7 @@ public abstract class $entity.daoBaseName
                             throws ${hibernateUtils.basePackage}.HibernateException
                         {
                             ${hibernateUtils.basePackage}.Session xmlSession = hibernateSession.getSession(${hibernateUtils.basePackage}.EntityMode.DOM4J);
-                            return xmlSession.get(${entity.fullyQualifiedEntityImplementationName}.class, $argument);
+                            return xmlSession.get(${entity.fullyQualifiedEntityName}.class, $argument);
                         }
                     }${executeWithNativeSessionParameter});
             return entity;
@@ -186,7 +186,7 @@ public abstract class $entity.daoBaseName
 #else
 #set ($xmlIndent = "")
 #end
-$xmlIndent        final Object entity =#if($hibernate4) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.get(${entity.fullyQualifiedEntityImplementationName}.class, $argument);
+$xmlIndent        final Object entity =#if($hibernate4) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.get(${entity.fullyQualifiedEntityName}.class, $argument);
 $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)entity);
 #if ($hibernateUtils.xmlPersistenceActive)
         }
@@ -232,7 +232,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
                             throws ${hibernateUtils.basePackage}.HibernateException
                         {
                             ${hibernateUtils.basePackage}.Session xmlSession = hibernateSession.getSession(${hibernateUtils.basePackage}.EntityMode.DOM4J);
-                            return xmlSession.get(${entity.fullyQualifiedEntityImplementationName}.class, $argument);
+                            return xmlSession.get(${entity.fullyQualifiedEntityName}.class, $argument);
                         }
                     }${executeWithNativeSessionParameter});
             return entity;
@@ -247,7 +247,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 $oldXmlIndent        try{
 #set ($xmlIndent = "    $xmlIndent")
 #end
-$xmlIndent        final Object entity =#if($hibernate4) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.get(${entity.fullyQualifiedEntityImplementationName}.class, $argument);
+$xmlIndent        final Object entity =#if($hibernate4) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.get(${entity.fullyQualifiedEntityName}.class, $argument);
 $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)entity);
 #if($enableCaching)
 $oldXmlIndent        }catch(org.hibernate.WrongClassException exc){
@@ -316,7 +316,7 @@ $oldXmlIndent        }
     public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int transform, final int pageNumber, final int pageSize)
     {
 #if($hibernate4)
-        final ${hibernateUtils.basePackage}.Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(${entity.fullyQualifiedEntityImplementationName}.class);
+        final ${hibernateUtils.basePackage}.Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(${entity.fullyQualifiedEntityName}.class);
         if (pageNumber > 0 && pageSize > 0)
         {
             criteria.setFirstResult(this.calculateFirstResult(pageNumber, pageSize));
@@ -329,7 +329,7 @@ $oldXmlIndent        }
 #else
         try
         {
-            final ${hibernateUtils.basePackage}.Criteria criteria = this.getSession(false).createCriteria(${entity.fullyQualifiedEntityImplementationName}.class);
+            final ${hibernateUtils.basePackage}.Criteria criteria = this.getSession(false).createCriteria(${entity.fullyQualifiedEntityName}.class);
             if (pageNumber > 0 && pageSize > 0)
             {
                 criteria.setFirstResult(this.calculateFirstResult(pageNumber, pageSize));
@@ -536,7 +536,7 @@ $oldXmlIndent        }
                         throws ${hibernateUtils.basePackage}.HibernateException
                     {
                         ${hibernateUtils.basePackage}.Session xmlSession = hibernateSession.getSession(${hibernateUtils.basePackage}.EntityMode.DOM4J);
-                        return xmlSession.save("$entity.fullyQualifiedEntityImplementationName", $argumentName);
+                        return xmlSession.save("$entity.fullyQualifiedEntityName", $argumentName);
                     }
                 }${executeWithNativeSessionParameter});
 
@@ -684,7 +684,7 @@ $oldXmlIndent        }
 
 #end
     {
-        $entity.fullyQualifiedEntityName entity = new ${entity.fullyQualifiedEntityImplementationName}();
+        $entity.fullyQualifiedEntityName entity = new ${entity.fullyQualifiedEntityName}();
 #if ($entity.usingForeignIdentifier)
 #set ($entityIdentifiers=$entity.identifierAssociatinEnds)
 #if (!$entityIdentifiers.empty)
@@ -734,7 +734,7 @@ $oldXmlIndent        }
 
 #end
     {
-        $entity.fullyQualifiedEntityName entity = new ${entity.fullyQualifiedEntityImplementationName}();
+        $entity.fullyQualifiedEntityName entity = new ${entity.fullyQualifiedEntityName}();
 #foreach ($property in $requiredProperties)
         entity.${property.setterName}($property.name);
 #end
@@ -800,7 +800,7 @@ $oldXmlIndent        }
                         throws ${hibernateUtils.basePackage}.HibernateException
                     {
                         ${hibernateUtils.basePackage}.Session xmlSession = hibernateSession.getSession(${hibernateUtils.basePackage}.EntityMode.DOM4J);
-                        xmlSession.update("$entity.fullyQualifiedEntityImplementationName", $argumentName);
+                        xmlSession.update("$entity.fullyQualifiedEntityName", $argumentName);
                         return null;
                     }
                 }${executeWithNativeSessionParameter});
@@ -1263,7 +1263,7 @@ $h3tab        return results;
         try
         {
 #end
-$h3tab        ${springTypesPackage}.${criteriaSearchBaseName} criteriaSearch = new ${springTypesPackage}.${criteriaSearchBaseName}(super.getSession(false), ${entity.fullyQualifiedEntityImplementationName}.class);
+$h3tab        ${springTypesPackage}.${criteriaSearchBaseName} criteriaSearch = new ${springTypesPackage}.${criteriaSearchBaseName}(super.getSession(false), ${entity.fullyQualifiedEntityName}.class);
 $h3tab        criteriaSearch.getConfiguration().setFirstResult(${criteriaArgumentName}.getFirstResult());
 $h3tab        criteriaSearch.getConfiguration().setFetchSize(${criteriaArgumentName}.getFetchSize());
 $h3tab        criteriaSearch.getConfiguration().setMaximumResultSize(${criteriaArgumentName}.getMaximumResultSize());
@@ -1796,7 +1796,7 @@ $h3tab        }
         search.setPageNumber(pageNumber);
         search.setPageSize(pageSize);
         final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
-            this.sessionFactory.getCurrentSession(), ${entity.fullyQualifiedEntityImplementationName}.class, search);
+            this.sessionFactory.getCurrentSession(), ${entity.fullyQualifiedEntityName}.class, search);
         final java.util.List#if($enableTemplating)<?>#end results = propertySearch.executeAsList();
         this.transformEntities(transform, results);
         return new $fullyQualifiedPagingResultName(results.toArray(new Object[results.size()]), propertySearch.getTotalCount());
@@ -1806,7 +1806,7 @@ $h3tab        }
             search.setPageNumber(pageNumber);
             search.setPageSize(pageSize);
             final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
-                this.getSession(false), ${entity.fullyQualifiedEntityImplementationName}.class, search);
+                this.getSession(false), ${entity.fullyQualifiedEntityName}.class, search);
             final java.util.List#if($enableTemplating)<?>#end results = propertySearch.executeAsList();
             this.transformEntities(transform, results);
             return new $fullyQualifiedPagingResultName(results.toArray(new Object[results.size()]), propertySearch.getTotalCount());
@@ -1839,7 +1839,7 @@ $h3tab        }
     {
 #if ($hibernate4)
         final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
-            this.sessionFactory.getCurrentSession(), ${entity.fullyQualifiedEntityImplementationName}.class, search);
+            this.sessionFactory.getCurrentSession(), ${entity.fullyQualifiedEntityName}.class, search);
         final#if($enableTemplating) java.util.Collection<?>#else java.util.Collection#end results = propertySearch.executeAsList();
         this.transformEntities(transform, results);
         return results;
@@ -1847,7 +1847,7 @@ $h3tab        }
         try
         {
             final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
-                this.getSession(false), ${entity.fullyQualifiedEntityImplementationName}.class, search);
+                this.getSession(false), ${entity.fullyQualifiedEntityName}.class, search);
             final#if($enableTemplating) java.util.Collection<?>#else java.util.Collection#end results = propertySearch.executeAsList();
             this.transformEntities(transform, results);
             return results;

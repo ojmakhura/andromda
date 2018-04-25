@@ -16,9 +16,10 @@
 #else
 #set($columnName = $column)
 #end
-        <p:column sortBy="$columnName">
+#set($columnId = $columnName.replace(".", "_"))
+        <p:column sortBy="$columnId">
             <f:facet name="header">
-                <h:outputText id="columnHeader_${columnName}" value="#{messages['$table.getTableColumnMessageKey($columnName)']}"/>
+                <h:outputText id="columnHeader_${columnId}" value="#{messages['$table.getTableColumnMessageKey($columnName)']}"/>
             </f:facet>
 #set ($tableColumnActions = $table.getTableColumnActions($columnName))
 #if (!$tableColumnActions.empty)
@@ -35,7 +36,7 @@
 #end
             </p:commandLink>
 #else
-            <h:outputText id="${columnName}" value="#{row.${columnName}}">
+            <h:outputText id="${columnId}" value="#{row.${columnName}}">
 #if ($column.type.dateType)
                 <f:convertDateTime pattern="$column.format"/>
 #end
@@ -45,7 +46,7 @@
 #end
 #else
         <p:column>
-            <h:outputText id="${columnName}" value="#{row}">
+            <h:outputText id="${columnId}" value="#{row}">
 #if ($column.type.dateType)
                 <f:convertDateTime pattern="$column.format"/>
 #end

@@ -26,7 +26,7 @@ public class $entity.identifierTypeName implements java.io.Serializable, Compara
 #set ($comma = "")
 #foreach($associationEnd in $entity.identifierAssociationEnds)
 #if($associationEnd.many2One)
-${comma}${associationEnd.otherEnd.type.fullyQualifiedEntityImplementationName} ${associationEnd.otherEnd.name}## no newline
+${comma}${associationEnd.otherEnd.type.fullyQualifiedEntityName} ${associationEnd.otherEnd.name}## no newline
 #set ($comma = ", ")
 #end
 #end
@@ -48,14 +48,14 @@ ${comma}${identifier.type.fullyQualifiedName} ${identifier.name}## no newline
 
 #foreach($associationEnd in $entity.identifierAssociationEnds)
 #if($associationEnd.many2One)
-    private $associationEnd.otherEnd.type.fullyQualifiedEntityImplementationName $associationEnd.otherEnd.name;
+    private $associationEnd.otherEnd.type.fullyQualifiedEntityName $associationEnd.otherEnd.name;
 
-    public $associationEnd.otherEnd.type.fullyQualifiedEntityImplementationName ${associationEnd.otherEnd.getterName}()
+    public $associationEnd.otherEnd.type.fullyQualifiedEntityName ${associationEnd.otherEnd.getterName}()
     {
         return this.${associationEnd.otherEnd.name};
     }
 
-    public void ${associationEnd.otherEnd.setterName}(${associationEnd.otherEnd.type.fullyQualifiedEntityImplementationName} $associationEnd.otherEnd.name)
+    public void ${associationEnd.otherEnd.setterName}(${associationEnd.otherEnd.type.fullyQualifiedEntityName} $associationEnd.otherEnd.name)
     {
         this.${associationEnd.otherEnd.name} = $associationEnd.otherEnd.name;
     }

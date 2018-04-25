@@ -37,7 +37,7 @@
             <list>
                 <!-- applicationContext hibernateAnnotatedClasses merge-point -->
 #foreach($entity in $entities)
-                <value>${entity.packageName}.${entity.entityName}Impl</value>
+                <value>${entity.packageName}.${entity.entityName}</value>
 #end
             </list>
          </property>

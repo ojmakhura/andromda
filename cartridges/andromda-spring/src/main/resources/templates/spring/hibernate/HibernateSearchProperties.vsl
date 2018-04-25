@@ -38,15 +38,15 @@ public class ${criteriaSearchBaseName}Properties
 #set ($embeddedValueListDefinition = "java.util.Arrays.asList(new String[] {$entity.attributeEmbeddedValueList})")
 #end
         embeddedValueNamesByType.put(
-            ${entity.fullyQualifiedEntityImplementationName}.class,
+            ${entity.fullyQualifiedEntityName}.class,
             $embeddedValueListDefinition);
 #if ($entity.embeddedValues.empty)
         embeddedValuesByType.put(
-            ${entity.fullyQualifiedEntityImplementationName}.class,
+            ${entity.fullyQualifiedEntityName}.class,
             null);
 #else
         embeddedValuesByType.put(
-            ${entity.fullyQualifiedEntityImplementationName}.class,
+            ${entity.fullyQualifiedEntityName}.class,
             java.util.Arrays.asList(
                 new PropertyType[]
                 {
@@ -63,18 +63,18 @@ public class ${criteriaSearchBaseName}Properties
 #end
 #if ($entity.getNavigableConnectingEnds(true).empty)
         navigableAssociationEndsByType.put(
-            ${entity.fullyQualifiedEntityImplementationName}.class,
+            ${entity.fullyQualifiedEntityName}.class,
             null);
 #else
         navigableAssociationEndsByType.put(
-            ${entity.fullyQualifiedEntityImplementationName}.class,
+            ${entity.fullyQualifiedEntityName}.class,
             java.util.Arrays.asList(
                 new PropertyType[]
                 {
 #foreach($end in $entity.getNavigableConnectingEnds(true))
 ## TODO Validate Entity Associations are Entities or EmbeddedValues
-#if ($end.type.fullyQualifiedEntityImplementationName.equals("$end.type.fullyQualifiedEntityImplementationName"))
-                    new PropertyType("$end.name", ${end.type.fullyQualifiedEntityImplementationName}.class)#if($velocityHasNext),
+#if ($end.type.fullyQualifiedEntityName.equals("$end.type.fullyQualifiedEntityName"))
+                    new PropertyType("$end.name", ${end.type.fullyQualifiedEntityName}.class)#if($velocityHasNext),
 #end
 #end#end
 

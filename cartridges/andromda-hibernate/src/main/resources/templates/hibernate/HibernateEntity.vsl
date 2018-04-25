@@ -20,7 +20,7 @@ $entity.getDocumentation(" * ")
 @javax.persistence.Table(name = "${entity.tableName}"#if($stringUtils.isNotBlank($entity.schema)), schema="$entity.schema"#end)
 ##, uniqueConstraints=@UniqueConstraint(name="",columnNames={"", ""}
 ##if(!$entity.lazy), lazy="false"#end
-##if($entity.hibernateProxy), proxy="$entity.fullyQualifiedEntityImplementationName"#end
+##if($entity.hibernateProxy), proxy="$entity.fullyQualifiedEntityName"#end
 ##, dynamic-insert="$entity.dynamicInsert" dynamic-update="$entity.dynamicUpdate"
 ##if (!$entity.specializations.empty && $entity.hibernateInheritanceClass && !$entity.abstract), discriminator-value="$entity.hibernateDiscriminatorValue"#end
 ##if ($entity.xmlTagName), node="$entity.xmlTagName"#end
@@ -88,8 +88,8 @@ $entity.getDocumentation(" * ")
 // HibernateEntity.vsl annotations merge-point
 public class $entity.entityName
 #if($entity.generalization)
-#if ($entity.generalization.fullyQualifiedEntityImplementationName)
-#set ($generalizationName = $entity.generalization.fullyQualifiedEntityImplementationName)
+#if ($entity.generalization.fullyQualifiedEntityName)
+#set ($generalizationName = $entity.generalization.fullyQualifiedEntityName)
 #else
 #set ($generalizationName = $entity.generalization.fullyQualifiedName)
 #end
@@ -204,7 +204,7 @@ $operation.getDocumentation("     * ")
 #if ($identifiers.empty)
      * This entity does not have any identifiers
 #if (${entity.generalization.fullyQualifiedEntityName})
-     * but since it extends the <code>$entity.generalization.fullyQualifiedEntityImplementationName</code> class
+     * but since it extends the <code>$entity.generalization.fullyQualifiedEntityName</code> class
      * it will simply delegate the call up there.
      *
      * @see ${entity.generalization.fullyQualifiedEntityName}${esc.hash}equals(Object)
@@ -232,7 +232,7 @@ $operation.getDocumentation("     * ")
 #if ($identifiers.empty)
      * This entity does not have any identifiers
 #if (${entity.generalization.fullyQualifiedEntityName})
-     * but since it extends the <code>$entity.generalization.fullyQualifiedEntityImplementationName</code> class
+     * but since it extends the <code>$entity.generalization.fullyQualifiedEntityName</code> class
      * it will simply delegate the call up there.
      *
      * @see ${entity.generalization.fullyQualifiedEntityName}${esc.hash}hashCode()
@@ -261,11 +261,11 @@ $operation.getDocumentation("     * ")
     {
         /**
          * Constructs a new instance of {@link ${entity.fullyQualifiedName}}.
-         * @return new ${entity.fullyQualifiedEntityImplementationName}()
+         * @return new ${entity.fullyQualifiedEntityName}()
          */
         public static $entity.fullyQualifiedName newInstance()
         {
-            return new ${entity.fullyQualifiedEntityImplementationName}();
+            return new ${entity.fullyQualifiedEntityName}();
         }
 
 ## Allow for the possibility that identifiers might be seen as required if default multiplicity is set to 1
@@ -304,7 +304,7 @@ ${comma}${property.getterSetterTypeName} ${property.name}## no newline
 #end
 )
         {
-            final ${entity.fullyQualifiedName} entity = new ${entity.fullyQualifiedEntityImplementationName}();
+            final ${entity.fullyQualifiedName} entity = new ${entity.fullyQualifiedEntityName}();
 #foreach ($property in $entity.allRequiredConstructorParameters)
 #if (!$property.identifier || $entity.usingForeignIdentifier)
 #if ($property.hibernateEntityAttributeMetaType || ($property.navigable && $property.otherEnd))
@@ -347,7 +347,7 @@ ${comma}${property.getterSetterTypeName} ${property.name}## no newline
 #end
 )
         {
-            final ${entity.fullyQualifiedName} entity = new ${entity.fullyQualifiedEntityImplementationName}();
+            final ${entity.fullyQualifiedName} entity = new ${entity.fullyQualifiedEntityName}();
 #foreach ($property in $entity.allProperties)
 #if (!$property.identifier || $entity.usingForeignIdentifier)
 #if ($property.hibernateEntityAttributeMetaType || ($property.navigable && $property.otherEnd))
