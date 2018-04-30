@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.andromda.maven</groupId>
         <artifactId>maven-parent</artifactId>
-        <version>3.5-SNAPSHOT</version>
+        <version>4.0-SNAPSHOT</version>
         <relativePath></relativePath>
     </parent>
     <groupId>org.andromda.timetracker</groupId>
@@ -531,7 +531,7 @@
         <module>app</module>
     </modules>
     <properties>
-        <andromda.version>3.5-SNAPSHOT</andromda.version>
+        <andromda.version>4.0-SNAPSHOT</andromda.version>
         <downloadSources>true</downloadSources>
         <createChecksum>true</createChecksum>
         <uniqueVersion>false</uniqueVersion>

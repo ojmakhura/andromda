@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.andromda.maven</groupId>
         <artifactId>maven-parent</artifactId>
-        <version>3.5-SNAPSHOT</version>
+        <version>4.0-SNAPSHOT</version>
         <relativePath></relativePath>
     </parent>
     <groupId>$applicationPackage</groupId>
@@ -219,13 +219,13 @@
             <dependency>
                 <groupId>org.primefaces</groupId>
                 <artifactId>primefaces</artifactId>
-                <version>4.0</version>
+                <version>6.0</version>
             </dependency>
 #if (!$spring && !$hibernate && !$ejb3)
             <dependency>
-                <groupId>org.hibernate</groupId>
+                <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>5.1.2.Final</version>
+                <version>6.0.9.Final</version>
             </dependency>
 #end
             <dependency>
@@ -372,9 +372,9 @@
                 <version>${hibernate.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.hibernate</groupId>
+                <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>5.1.2.Final</version>
+                <version>6.0.9.Final</version>
             </dependency>
             <!-- JBoss Dependencies -->
             <dependency>
@@ -401,7 +401,7 @@
             <dependency>
                 <groupId>org.jboss.spec</groupId>
                 <artifactId>jboss-javaee-all-7.0</artifactId>
-                <version>1.0.1.Final</version>
+                <version>1.1.1.Final</version>
                 <scope>provided</scope>
             </dependency>
 #end
@@ -422,10 +422,23 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+            <!-- Hibernate Jcache -->
+		    <dependency>
+		      <groupId>org.hibernate</groupId>
+		      <artifactId>hibernate-jcache</artifactId>
+		      <version>${hibernate.version}</version>
+			    <scope>provided</scope>
+		    </dependency>
+		    <dependency>
+			    <groupId>org.hibernate</groupId>
+			    <artifactId>hibernate-ehcache</artifactId>
+			    <version>${hibernate.version}</version>
+			    <scope>provided</scope>
+			</dependency>
             <dependency>
-                <groupId>org.hibernate</groupId>
+                <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>5.1.2.Final</version>
+                <version>6.0.9.Final</version>
             </dependency>
             <dependency>
                 <groupId>net.sf.ehcache.internal</groupId>
@@ -1389,11 +1402,12 @@
 #if ($spring)
         <!-- Set andromda.xml hibernateVersion=4, sessionFactory and localTransactionManager to hibernate4.
         <hibernate.version>3.6.9.Final</hibernate.version-->
-        <hibernate.version>4.3.6.Final</hibernate.version>
+        <hibernate.version>5.2.2.Final</hibernate.version>
 #elseif ($hibernate || $ejb3)
         <!-- Set andromda.xml hibernateVersion=3, sessionFactory and localTransactionManager to hibernate3
         <hibernate.version>3.6.9.Final</hibernate.version-->
-        <hibernate.version>4.3.6.Final</hibernate.version>
+        <!-- new Hibername 5 inclusion -->
+        <hibernate.version>5.2.2.Final</hibernate.version>
 #end
 #if ($jetty || !$webservice.equals("none"))
         <!-- v 9.x only supports JDK7 and you cannot configure jetty.port from maven.-->
@@ -1403,10 +1417,10 @@
         <tomcat.version>2.2</tomcat.version>
 #end
 #if ($cxf)
-        <spring.version>4.1.1.RELEASE</spring.version>
+        <spring.version>5.0.5.RELEASE</spring.version>
 #elseif ($spring)
         <!-- v4 migration needed -->
-        <spring.version>3.2.6.RELEASE</spring.version>
+        <spring.version>5.0.5.RELEASE</spring.version>
 #end
         <!-- To override parent default settings for compiler plugin and compliance checks-->
         <dependencyConvergence>true</dependencyConvergence>

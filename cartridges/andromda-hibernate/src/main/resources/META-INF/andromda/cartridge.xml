@@ -115,7 +115,7 @@
             </modelElement>
         </modelElements>
     </template>
-
+	
     <template
         path="templates/hibernate/HibernateEntityImpl.vsl"
         outputPattern="$generatedFile"
@@ -143,7 +143,7 @@
             </modelElement>
         </modelElements>
     </template>
-
+ 	
     <template
         path="templates/hibernate/HibernateEntityPK.vsl"
         outputPattern="$generatedFile"

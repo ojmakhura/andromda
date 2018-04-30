@@ -18,7 +18,7 @@ public class SpringHibernateUtils
     /**
      * The version of Hibernate we're generating for.
      */
-    private String hibernateVersion = SpringGlobals.HIBERNATE_VERSION_3;
+    private String hibernateVersion = SpringGlobals.HIBERNATE_VERSION_5;
 
     /**
      * Sets the version of Hibernate we're generating for.
@@ -38,7 +38,7 @@ public class SpringHibernateUtils
      */
     public String getBasePackage()
     {
-        return this.isVersion3() || this.isVersion4() ? "org.hibernate" : "net.sf.hibernate";
+        return this.isVersion3() || this.isVersion4() || this.isVersion5() ? "org.hibernate" : "net.sf.hibernate";
     }
 
     /**
@@ -48,7 +48,7 @@ public class SpringHibernateUtils
      */
     public String getCriterionPackage()
     {
-        return this.getBasePackage() + (this.isVersion3() || this.isVersion4() ? ".criterion" : ".expression");
+        return this.getBasePackage() + (this.isVersion3() || this.isVersion4() || this.isVersion5() ? ".criterion" : ".expression");
     }
 
     /**
@@ -94,7 +94,7 @@ public class SpringHibernateUtils
      */
     public String getRestrictionClass()
     {
-        return getCriterionPackage() + (this.isVersion3() || this.isVersion4() ? ".Restrictions" : ".Expression");
+        return getCriterionPackage() + (this.isVersion3() || this.isVersion4() || this.isVersion5() ? ".Restrictions" : ".Expression");
     }
 
     /**
@@ -105,7 +105,15 @@ public class SpringHibernateUtils
      */
     public String getSpringHibernatePackage()
     {
-        return this.isVersion3() ? "org.springframework.orm.hibernate3" : this.isVersion4() ? "org.springframework.orm.hibernate4" : "org.springframework.orm.hibernate";
+    	if(this.isVersion3()) {
+    		return "org.springframework.orm.hibernate3";
+    	} else if(this.isVersion4()) {
+    		return "org.springframework.orm.hibernate4";
+    	} else if(this.isVersion5()) {
+    		return "org.springframework.orm.hibernate5";
+    	} else {
+    		return "org.springframework.orm.hibernate";
+    	}
     }
 
     /**
@@ -116,7 +124,7 @@ public class SpringHibernateUtils
      */
     public String getEagerFetchMode()
     {
-        return this.isVersion3() || this.isVersion4() ? "JOIN" : "EAGER";
+        return this.isVersion3() || this.isVersion4() || this.isVersion5() ? "JOIN" : "EAGER";
     }
 
     /**
@@ -126,7 +134,7 @@ public class SpringHibernateUtils
      */
     public String getDisjunctionClassName()
     {
-        return this.getCriterionPackage() + (this.isVersion3() || this.isVersion4() ? ".Restrictions" : ".Expression");
+        return this.getCriterionPackage() + (this.isVersion3() || this.isVersion4() || this.isVersion5() ? ".Restrictions" : ".Expression");
     }
 
     /**
@@ -160,6 +168,16 @@ public class SpringHibernateUtils
     }
 
     /**
+     * Indicates whether or not version 5 is the one that is currently being used.
+     *
+     * @return true/false
+     */
+    public boolean isVersion5()
+    {
+        return isVersion5(hibernateVersion);
+    }
+
+    /**
      * @param hibernateVersionPropertyValue
      * @return hibernateVersionPropertyValue.startsWith(SpringGlobals.HIBERNATE_VERSION_2)
      */
@@ -184,6 +202,15 @@ public class SpringHibernateUtils
     public static boolean isVersion4(String hibernateVersionPropertyValue)
     {
         return hibernateVersionPropertyValue.startsWith(SpringGlobals.HIBERNATE_VERSION_4);
+    }
+
+    /**
+     * @param hibernateVersionPropertyValue
+     * @return hibernateVersionPropertyValue.startsWith(SpringGlobals.HIBERNATE_VERSION_5)
+     */
+    public static boolean isVersion5(String hibernateVersionPropertyValue)
+    {
+        return hibernateVersionPropertyValue.startsWith(SpringGlobals.HIBERNATE_VERSION_5);
     }
 
     /**

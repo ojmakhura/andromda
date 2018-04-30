@@ -41,21 +41,6 @@ public class $className
     }
 
     /**
-     * The bean factory reference instance.
-     */
-    private org.springframework.beans.factory.access.BeanFactoryReference beanFactoryReference;
-
-    /**
-     * The bean factory reference location.
-     */
-    private String beanFactoryReferenceLocation;
-
-    /**
-     * The bean factory reference id.
-     */
-    private String beanRefFactoryReferenceId;
-
-    /**
      * Initializes the Spring application context from the default settings.
      */
     public synchronized void init()
@@ -74,9 +59,6 @@ public class $className
      */
     public synchronized void init(final String beanFactoryReferenceLocationIn, final String beanRefFactoryReferenceIdIn)
     {
-        this.beanFactoryReferenceLocation = beanFactoryReferenceLocationIn;
-        this.beanRefFactoryReferenceId = beanRefFactoryReferenceIdIn;
-        this.beanFactoryReference = null;
         // - initialize the context
         this.getContext();
     }
@@ -91,9 +73,6 @@ public class $className
      */
     public synchronized void init(final String beanFactoryReferenceLocationIn)
     {
-        this.beanFactoryReferenceLocation = beanFactoryReferenceLocationIn;
-        this.beanFactoryReference = null;
-        // - initialize the context
         this.getContext();
     }
 
@@ -113,22 +92,7 @@ public class $className
      */
     public synchronized org.springframework.context.ApplicationContext getContext()
     {
-        if (this.beanFactoryReference == null)
-        {
-            if (this.beanFactoryReferenceLocation == null)
-            {
-                this.beanFactoryReferenceLocation = this.DEFAULT_BEAN_REFERENCE_LOCATION;
-            }
-            if (this.beanRefFactoryReferenceId == null)
-            {
-                this.beanRefFactoryReferenceId = this.DEFAULT_BEAN_REFERENCE_ID;
-            }
-            org.springframework.beans.factory.access.BeanFactoryLocator beanFactoryLocator =
-                org.springframework.context.access.ContextSingletonBeanFactoryLocator.getInstance(
-                    this.beanFactoryReferenceLocation);
-            this.beanFactoryReference = beanFactoryLocator.useBeanFactory(this.beanRefFactoryReferenceId);
-        }
-        return (org.springframework.context.ApplicationContext)this.beanFactoryReference.getFactory();
+        return ApplicationContextProvider.getApplicationContext();
     }
 
     /**
@@ -136,12 +100,7 @@ public class $className
      */
     public synchronized void shutdown()
     {
-        ((org.springframework.context.support.AbstractApplicationContext)this.getContext()).close();
-        if (this.beanFactoryReference != null)
-        {
-            this.beanFactoryReference.release();
-            this.beanFactoryReference = null;
-        }
+        
     }
 
     /**

@@ -559,7 +559,7 @@
                 </documentation>
             </property>
             <property name="hibernateVersion">
-                <default>3</default>
+                <default>5</default>
                 <documentation>
                     The version of Hibernate to use when generating.
                     Allowable values are:
@@ -567,6 +567,7 @@
                         <li>2 - Hibernate 2.x</li>
                         <li>3 - Hibernate 3.x</li>
                         <li>4 - Hibernate 4.x</li>
+                        <li>5 - Hibernate 5.x</li>
                     </ul>
                 </documentation>
             </property>

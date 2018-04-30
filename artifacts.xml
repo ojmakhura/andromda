@@ -9,7 +9,7 @@ Copy additional site docs to the right location. Create sourceforge zip artifact
 	    </description>
   <property environment="env"/>
   <property name="m2repo" value="${env.M2_REPO}"/>
-  <property name="release" value="3.5"/>
+  <property name="release" value="4.0"/>
   <property name="snapshot" value="-SNAPSHOT"/>
   <property name="site" value="C:/scratch/hudson/workspace/Andromda"/>
   <!-- Invoke the ant task and provide the name of the merged result file -->

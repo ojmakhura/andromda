@@ -58,14 +58,7 @@ public class ${manageableServiceLocatorName}
      */
     public synchronized void init(String beanFactoryReferenceLocationIn)
     {
-        this.beanFactoryReferenceLocation = beanFactoryReferenceLocationIn;
-        this.beanFactoryReference = null;
     }
-
-    /**
-     * The bean factory reference instance.
-     */
-    private org.springframework.beans.factory.access.BeanFactoryReference beanFactoryReference;
 
     /**
      * Gets the Spring ApplicationContext.
@@ -73,18 +66,8 @@ public class ${manageableServiceLocatorName}
      */
     protected synchronized org.springframework.context.ApplicationContext getContext()
     {
-        if (this.beanFactoryReference == null)
-        {
-            if (this.beanFactoryReferenceLocation == null)
-            {
-                this.beanFactoryReferenceLocation = this.DEFAULT_BEAN_REFERENCE_LOCATION;
-            }
-            org.springframework.beans.factory.access.BeanFactoryLocator beanFactoryLocator =
-                org.springframework.context.access.ContextSingletonBeanFactoryLocator.getInstance(
-                    this.beanFactoryReferenceLocation);
-            this.beanFactoryReference = beanFactoryLocator.useBeanFactory("$beanRefFactoryId");
-        }
-        return (org.springframework.context.ApplicationContext)this.beanFactoryReference.getFactory();
+        
+        return ${springTypesPackage}.ApplicationContextProvider.getApplicationContext();
     }
 
     /**
@@ -92,12 +75,7 @@ public class ${manageableServiceLocatorName}
      */
     public synchronized void shutdown()
     {
-        ((org.springframework.context.support.AbstractApplicationContext)this.getContext()).close();
-        if (this.beanFactoryReference != null)
-        {
-            this.beanFactoryReference.release();
-            this.beanFactoryReference = null;
-        }
+        //((org.springframework.context.support.AbstractApplicationContext)this.getContext()).close();
     }
 #foreach ($manageable in $manageables)
 

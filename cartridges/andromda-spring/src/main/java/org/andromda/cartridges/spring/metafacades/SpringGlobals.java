@@ -238,6 +238,12 @@ public class SpringGlobals
      * The version for Hibernate 4.
      */
     public static final String HIBERNATE_VERSION_4 = "4";
+    
+    /**
+     * The version for Hibernate 5.
+     */
+    public static final String HIBERNATE_VERSION_5 = "5";
+
 
     /**
      * JMS Message types.

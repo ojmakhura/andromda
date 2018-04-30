@@ -954,6 +954,14 @@
     </template>
 
      <template
+        path="templates/spring/ApplicationContextProvider.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="services"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="true"/>
+        
+     <template
         path="templates/spring/SpringBeanLocator.java.vsl"
         outputPattern="$generatedFile"
         outlet="services"

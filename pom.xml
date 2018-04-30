@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.andromda.maven</groupId>
         <artifactId>maven-parent</artifactId>
-        <version>3.5-SNAPSHOT</version>
+        <version>4.0-SNAPSHOT</version>
         <relativePath></relativePath>
     </parent>
     <groupId>org.andromda</groupId>
@@ -664,7 +664,7 @@
         <plugins>
             <plugin>
                 <!-- See https://github.com/lkwg82/enforcer-maven-plugin. Patched original. Fix cloudbees error on pom download -->
-                <groupId>de.lgohlke.mojo</groupId>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
             </plugin>
             <plugin>
@@ -997,7 +997,7 @@
         </pluginRepository>
     </pluginRepositories>
     <properties>
-        <andromda.version>3.5-SNAPSHOT</andromda.version>
+        <andromda.version>4.0-SNAPSHOT</andromda.version>
         <maven.version>2.2.1</maven.version>
         <!-- proguard in webservice-client does not yet support JDK8, see http://sourceforge.net/p/proguard/feature-requests/138 -->
         <java.required.version>[1.6.0, 1.9.0)</java.required.version>

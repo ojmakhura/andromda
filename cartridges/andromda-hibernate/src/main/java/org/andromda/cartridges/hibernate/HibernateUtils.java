@@ -65,7 +65,7 @@ public class HibernateUtils
      */
     public String getHibernatePackage()
     {
-        return this.isVersion3() || this.isVersion4() ? "org.hibernate" : "net.sf.hibernate";
+        return this.isVersion3() || this.isVersion4() || this.isVersion5() ? "org.hibernate" : "net.sf.hibernate";
     }
 
     /**
@@ -76,7 +76,7 @@ public class HibernateUtils
      */
     public String getHibernateUserTypePackage()
     {
-        return this.isVersion3() || this.isVersion4() ? this.getHibernatePackage() + ".usertype" : this.getHibernatePackage();
+        return this.isVersion3() || this.isVersion4() || this.isVersion5() ? this.getHibernatePackage() + ".usertype" : this.getHibernatePackage();
     }
 
     /**
@@ -100,7 +100,7 @@ public class HibernateUtils
     }
 
     /**
-     * Indicates whether or not Hibernate 3 is enabled.
+     * Indicates whether or not Hibernate 5 is enabled.
      *
      * @return true/false
      */
@@ -109,6 +109,15 @@ public class HibernateUtils
         return isVersion4(this.hibernateVersion);
     }
 
+    /**
+     * Indicates whether or not Hibernate 5 is enabled.
+     *
+     * @return true/false
+     */
+    public boolean isVersion5()
+    {
+        return isVersion5(this.hibernateVersion);
+    }
     /**
      * Indicates whether or not the given property value is version 3 or not.
      *
@@ -155,6 +164,22 @@ public class HibernateUtils
             version4 = hibernateVersionPropertyValue.startsWith(HibernateGlobals.HIBERNATE_VERSION_4);
         }
         return version4;
+    }
+    
+    /**
+     * Indicates whether or not the given property value is version 3 or not.
+     *
+     * @param hibernateVersionPropertyValue the value of the property
+     * @return true/false
+     */
+    public static boolean isVersion5(String hibernateVersionPropertyValue)
+    {
+        boolean version5 = false;
+        if (hibernateVersionPropertyValue != null)
+        {
+            version5 = hibernateVersionPropertyValue.startsWith(HibernateGlobals.HIBERNATE_VERSION_5);
+        }
+        return version5;
     }
 
     /**

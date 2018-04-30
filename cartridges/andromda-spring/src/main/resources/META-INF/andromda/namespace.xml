@@ -203,7 +203,7 @@
                 </documentation>
             </property>
             <property name="springVersion">
-                <default>3.0</default>
+                <default>5.0</default>
                 <documentation>
                     The version of Spring to use/support when generating. Necessary when API changes make
                     some classes and/or methods deprecated.
@@ -212,6 +212,8 @@
                         <li>2.0</li>
                         <li>2.5</li>
                         <li>3.0</li>
+                        <li>4.0</li>
+                        <li>5.0</li>
                     </ul>
                 </documentation>
             </property>
@@ -688,7 +690,7 @@
                 </documentation>
             </property>
             <property name="localTransactionManager">
-                <default>org.springframework.orm.hibernate4.HibernateTransactionManager</default>
+                <default>org.springframework.orm.hibernate5.HibernateTransactionManager</default>
                 <documentation>
                     The transaction manager implementation used by Spring for the local datasource (applicationContextLocalDataSource).
                 </documentation>
@@ -704,11 +706,11 @@
                 </documentation>
             </property>
             <property name="sessionFactory">
-                <default>org.springframework.orm.hibernate4.LocalSessionFactoryBean</default>
+                <default>org.springframework.orm.hibernate5.LocalSessionFactoryBean</default>
                 <documentation>
                     Factory bean that creates a local Hibernate SessionFactory instance within Spring. If using annotations
                     with Spring3, specify org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean. Or use
-                    org.springframework.orm.hibernate4.LocalSessionFactoryBean.
+                    org.springframework.orm.hibernate5.LocalSessionFactoryBean.
                 </documentation>
             </property>
             <property name="springTypesPackage">
@@ -1018,7 +1020,7 @@
                 Use ${hibernate.version} to get value from pom.xml files when hibernate.version is set.
             </documentation>
             <property name="hibernateVersion">
-                <default>4</default>
+                <default>5</default>
                 <documentation>
                     The version of Hibernate to use when generating.
                     <ul>
@@ -1026,6 +1028,7 @@
                         <li>2 - Hibernate 2.x</li>
                         <li>3 - Hibernate 3.x</li>
                         <li>4 - Hibernate 4.x</li>
+                        <li>5 - Hibernate 5.x</li>
                     </ul>
                 </documentation>
             </property>
@@ -1210,7 +1213,7 @@
                 </documentation>
             </property>
             <property name="hibernateCacheProvider">
-                <default>net.sf.hibernate.cache.EhCacheProvider</default>
+                <default>org.hibernate.cache.EhCacheProvider</default>
                 <documentation>
                      Defines the Hibernate cache provider implementation class.
                 </documentation>

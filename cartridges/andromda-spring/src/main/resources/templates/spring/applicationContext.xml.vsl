@@ -99,13 +99,16 @@
                 <prop key="hibernate.query.substitutions">$hibernateQuerySubstitutions</prop>
 #end
 #if ($enableCaching)
-                <prop key="hibernate.cache.use_query_cache">$enableCaching</prop>
+                <!--prop key="hibernate.cache.use_query_cache">$enableCaching</prop-->
+                <prop key="hibernate.cache.use_second_level_cache">true</prop>
+#else
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
 #end
 #if ($stringUtils.isNotBlank($hibernateCacheProvider))
-                <prop key="hibernate.cache.provider_class">$hibernateCacheProvider</prop>
+                <!--prop key="hibernate.cache.provider_class">$hibernateCacheProvider</prop--!>
 #end
 #if ($stringUtils.isNotBlank($hibernateQueryCacheFactory))
-                <prop key="hibernate.cache.query_cache_factory">$hibernateQueryCacheFactory</prop>
+                <!--prop key="hibernate.cache.query_cache_factory">$hibernateQueryCacheFactory</prop-->
 #end
 #if ($stringUtils.isNotBlank($hibernateConnectionReleaseMode))
                 <prop key="hibernate.connection.release_mode">$hibernateConnectionReleaseMode</prop>
@@ -137,7 +140,7 @@
 
 #if (!$hibernateUtils.version4)
     <!-- The Hibernate interceptor -->
-    <bean id="${beanNamePrefix}hibernateInterceptor" class="${hibernateUtils.springHibernatePackage}.HibernateInterceptor">
+    <bean id="${beanNamePrefix}hibernateInterceptor" class="${hibernateUtils.springHibernatePackage}.HibernateTransactionManager">
         <property name="sessionFactory" ref="${beanNamePrefix}sessionFactory"/>
 #if ($stringUtils.isNotBlank($hibernateInterceptorFlushMode))
         <property name="flushMode" value="$hibernateInterceptorFlushMode"/>
