@@ -142,7 +142,7 @@ public class EMFUML2RepositoryFacadeTest
                         this.getClass().getResource("UMLPrimitiveTypes.library.uml").toString(),
                         this.getClass().getResource("JavaPrimitiveTypes.library.uml").toString(),
                         this.getClass().getResource("ECorePrimitiveTypes.library.uml").toString(),
-                        this.getClass().getResource("andromda-common-3.5-SNAPSHOT.profile.uml").toString()});
+                        this.getClass().getResource("andromda-common-4.0-SNAPSHOT.profile.uml").toString()});
             }
             else
             {
@@ -161,7 +161,7 @@ public class EMFUML2RepositoryFacadeTest
                     this.getClass().getResource("libraries/UMLPrimitiveTypes.library.uml").toString(),
                     this.getClass().getResource("libraries/JavaPrimitiveTypes.library.uml").toString(),
                     this.getClass().getResource("metamodels/UML.metamodel.uml").toString(),
-                    this.getClass().getResource("andromda-common-3.5-SNAPSHOT.profile.uml").toString()});
+                    this.getClass().getResource("andromda-common-4.0-SNAPSHOT.profile.uml").toString()});
         }
         long now2 = System.currentTimeMillis();
         final ModelAccessFacade modelFacade = this.repository.getModel();
@@ -219,7 +219,7 @@ public class EMFUML2RepositoryFacadeTest
                     this.getClass().getResource("libraries/UMLPrimitiveTypes.library.uml").toString(),
                     this.getClass().getResource("libraries/JavaPrimitiveTypes.library.uml").toString(),
                     this.getClass().getResource("metamodels/UML.metamodel.uml").toString(),
-                    this.getClass().getResource("andromda-common-3.5-SNAPSHOT.profile.uml").toString()});
+                    this.getClass().getResource("andromda-common-4.0-SNAPSHOT.profile.uml").toString()});
         }
         else
         {

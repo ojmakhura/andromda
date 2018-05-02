@@ -197,7 +197,7 @@
             <property name="projectVersion">
                 <default>${project.parent.version}</default>
                 <documentation>
-                    The version of the project (i.e. 3.5-SNAPSHOT), passed into the templates as a configuration value.
+                    The version of the project (i.e. 4.0-SNAPSHOT), passed into the templates as a configuration value.
                     Used by Roo scripts when creating multi-module subprojects. Must be specified if using Roo scripts.
                     Use ${project.parent.version} to get value from pom.xml files.
                 </documentation>

@@ -5,7 +5,7 @@
 // Generated#if($dateTimeGeneratedText) on $springUtils.date#end.
 
 // $entities.size() $entities.get(0) $model
-project --topLevelPackage $entityUtils.getTopLevelPackage($entities, false) --parent org.andromda.maven:maven-parent:3.5-SNAPSHOT  --packaging WAR
+project --topLevelPackage $entityUtils.getTopLevelPackage($entities, false) --parent org.andromda.maven:maven-parent:4.0-SNAPSHOT  --packaging WAR
 logging setup --level INFO
 
 //DATABASE_DOT_COM        DB2_400                 DB2_EXPRESS_C

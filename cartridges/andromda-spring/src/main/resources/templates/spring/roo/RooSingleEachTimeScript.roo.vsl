@@ -6,7 +6,7 @@
 
 #if (!$entities.empty)
 // Persistence scaffolding for $entities.size() entities
-project --topLevelPackage $entityUtils.getTopLevelPackage($entities, false).fullyQualifiedName --parent org.andromda.maven:maven-parent:3.5-SNAPSHOT  --packaging WAR
+project --topLevelPackage $entityUtils.getTopLevelPackage($entities, false).fullyQualifiedName --parent org.andromda.maven:maven-parent:4.0-SNAPSHOT  --packaging WAR
 logging setup --level INFO
 web mvc setup
 security setup

@@ -4,7 +4,7 @@
 // To run: %ROO_HOME%\bin\roo.bat script --file $generatedFile
 // Generated#if($dateTimeGeneratedText) on $springUtils.date#end.
 
-project --topLevelPackage ${projectGroupId} --parent org.andromda.maven:maven-parent:3.5-SNAPSHOT  --packaging POM
+project --topLevelPackage ${projectGroupId} --parent org.andromda.maven:maven-parent:4.0-SNAPSHOT  --packaging POM
 module create --moduleName ${projectId}-common --topLevelPackage ${projectGroupId} --parent ${projectGroupId}:${projectId}:0.1.0.BUILD-SNAPSHOT --packaging JAR
 logging setup --level INFO
 // Should not have to add this for common module

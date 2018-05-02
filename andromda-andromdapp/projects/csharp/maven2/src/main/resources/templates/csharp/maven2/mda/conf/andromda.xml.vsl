@@ -71,7 +71,7 @@
 #if (${transactionPersistenceType} != "none")
         <namespace name="nhibernate">
             <properties>
-                <property name="hibernateVersion">2</property>
+                <property name="hibernateVersion">5</property>
 #if (${dotNetVersion} == "1.1")
                 <property name="hibernateTypeMappingsUri">file:${conf.dir}/dotnet-1.1-mappings/NHibernateTypeMappings.xml</property>
 #else

@@ -1,6 +1,6 @@
 
 
-    A n d r o M D A  -  3.5-SNAPSHOT
+    A n d r o M D A  -  4.0-SNAPSHOT
 
 
     AndroMDA is an open-source MDA framework distributed under the BSD license.
