@@ -19,6 +19,7 @@ package $service.implementationPackageName;
 /**
  * @see $service.fullyQualifiedName
  */
+@org.springframework.stereotype.Service("$service.fullyQualifiedName")
 public#if($service.abstract) abstract#end class $service.implementationName
     extends $service.fullyQualifiedBaseName
 {

@@ -172,17 +172,17 @@
             <dependency>
                 <groupId>org.apache.myfaces.core</groupId>
                 <artifactId>myfaces-api</artifactId>
-                <version>2.1.12</version>
+                <version>${myfaces.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.core</groupId>
                 <artifactId>myfaces-impl</artifactId>
-                <version>2.1.12</version>
+                <version>${myfaces.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.tomahawk</groupId>
-                <artifactId>tomahawk20</artifactId>
-                <version>1.1.13</version>
+                <artifactId>tomahawk21</artifactId>
+                <version>1.1.14</version>
                 <exclusions>
                     <exclusion>
                         <groupId>xml-apis</groupId>
@@ -194,27 +194,33 @@
             <dependency>
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
-                <version>1.1.0.Final</version>
+                <version>2.0.0.Final</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.extensions.validator</groupId>
                 <artifactId>myfaces-extval-core</artifactId>
-                <version>2.0.5</version>
+                <version>2.0.8</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
                 <artifactId>myfaces-extval-property-validation</artifactId>
-                <version>2.0.5</version>
+                <version>2.0.8</version>
+                <exclusions>
+                	<exclusion>
+                        <groupId>javax.persistence</groupId>
+                        <artifactId>persistence-api</artifactId>                	
+                	</exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
                 <artifactId>myfaces-extval-bean-validation</artifactId>
-                <version>2.0.5</version>
+                <version>2.0.8</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.extensions.validator.component-support-modules</groupId>
                 <artifactId>myfaces-extval-generic-support</artifactId>
-                <version>2.0.4</version>
+                <version>2.0.8</version>
             </dependency>
             <dependency>
                 <groupId>org.primefaces</groupId>
@@ -380,7 +386,7 @@
             <dependency>
               <groupId>org.jboss.spec</groupId>
               <artifactId>jboss-javaee-all-7.0</artifactId>
-              <version>1.0.1.Final</version>
+              <version>1.1.1.Final</version>
               <scope>provided</scope>
             </dependency>
             <dependency>
@@ -439,6 +445,12 @@
                 <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
                 <version>6.0.9.Final</version>
+                <exclusions>
+                	<exclusion>
+                		<groupId>javax.validation</groupId>
+                		<artifactId>validation-api</artifactId>
+                   	</exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>net.sf.ehcache.internal</groupId>
@@ -555,7 +567,7 @@
             <dependency>
                 <groupId>cglib</groupId>
                 <artifactId>cglib-nodep</artifactId>
-                <version>3.1</version>
+                <version>3.2.6</version>
                 <scope>runtime</scope>
             </dependency>
 #end
@@ -936,7 +948,7 @@
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.31</version>
+                <version>8.0.11</version>
 #if (!$jetty && !$tomcat)
                 <scope>test</scope>
 #end
@@ -945,7 +957,7 @@
             <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
-                <version>9.3-1101-jdbc41</version>
+                <version>9.4.1212</version>
 #if (!$jetty && !$tomcat)
                 <scope>test</scope>
 #end
@@ -1400,12 +1412,10 @@
         <cxf.xjc.version>3.0.2</cxf.xjc.version>
 #end
 #if ($spring)
-        <!-- Set andromda.xml hibernateVersion=4, sessionFactory and localTransactionManager to hibernate4.
-        <hibernate.version>3.6.9.Final</hibernate.version-->
+        <!-- Set andromda.xml hibernateVersion=4, sessionFactory and localTransactionManager to hibernate4.-->
         <hibernate.version>5.2.2.Final</hibernate.version>
 #elseif ($hibernate || $ejb3)
-        <!-- Set andromda.xml hibernateVersion=3, sessionFactory and localTransactionManager to hibernate3
-        <hibernate.version>3.6.9.Final</hibernate.version-->
+        <!-- Set andromda.xml hibernateVersion=5, sessionFactory and localTransactionManager to hibernate5->
         <!-- new Hibername 5 inclusion -->
         <hibernate.version>5.2.2.Final</hibernate.version>
 #end
@@ -1416,10 +1426,13 @@
 #if ($tomcat)
         <tomcat.version>2.2</tomcat.version>
 #end
+#if ($jsf)
+        <myfaces.version>2.3.0</myfaces.version>
+#end
 #if ($cxf)
         <spring.version>5.0.5.RELEASE</spring.version>
 #elseif ($spring)
-        <!-- v4 migration needed -->
+        <!-- v5 migration needed -->
         <spring.version>5.0.5.RELEASE</spring.version>
 #end
         <!-- To override parent default settings for compiler plugin and compliance checks-->

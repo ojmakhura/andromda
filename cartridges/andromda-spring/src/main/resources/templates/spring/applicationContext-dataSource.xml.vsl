@@ -5,9 +5,9 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:lang="http://www.springframework.org/schema/lang"
        xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-${springVersion}.xsd
-           http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-${springVersion}.xsd
-           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-${springVersion}.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 #if ($dataSourceEnabled || !$entities.empty)
     <!-- ========================= DATASOURCE DEFINITION ========================= -->

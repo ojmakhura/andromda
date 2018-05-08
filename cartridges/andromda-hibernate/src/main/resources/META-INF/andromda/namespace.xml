@@ -165,7 +165,7 @@
                 </documentation>
             </property>
             <property name="hibernateCacheProvider">
-                <default>net.sf.hibernate.cache.EhCacheProvider</default>
+                <default>org.hibernate.cache.EhCacheProvider</default>
                 <documentation>
                     Defines Hibernate Cache Provider implementation class.
                     Possible values for Hibernate2 are:
@@ -189,7 +189,7 @@
                 </documentation>
             </property>
             <property name="hibernateQueryCacheFactory">
-                <default>net.sf.hibernate.cache.StandardQueryCacheFactory</default>
+                <default>org.hibernate.cache.StandardQueryCacheFactory</default>
                 <documentation>
                     Defines Hibernate Query Cache Factory implementation class. Possible value for Hibernate2 is:
                     <ul>

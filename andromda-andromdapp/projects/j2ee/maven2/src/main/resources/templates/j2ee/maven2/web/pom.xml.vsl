@@ -91,7 +91,7 @@
         <dependency>
             <groupId>org.apache.myfaces.tomahawk</groupId>
             <artifactId>tomahawk</artifactId>
-            <version>1.1.13</version>
+            <version>1.1.14</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/target/src/WEB-INF/lib/tomahawk.jar</systemPath>
         </dependency>
@@ -134,7 +134,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.myfaces.tomahawk</groupId>
-            <artifactId>tomahawk20</artifactId>
+            <artifactId>tomahawk21</artifactId>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>

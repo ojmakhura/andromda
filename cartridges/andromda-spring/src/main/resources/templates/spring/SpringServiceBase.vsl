@@ -26,6 +26,7 @@ package $service.implementationPackageName;
  *
  * @see $service.fullyQualifiedName
  */
+//@org.springframework.stereotype.Service
 public abstract class $service.baseName
 #if($service.generalization)
     extends $service.generalization.fullyQualifiedImplementationName
@@ -81,6 +82,7 @@ $attribute.getDocumentation("     * ")
 
 #end
 #foreach($entityRef in $service.entityReferences)
+	@org.springframework.beans.factory.annotation.Autowired
     private $entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName;
 
     /**

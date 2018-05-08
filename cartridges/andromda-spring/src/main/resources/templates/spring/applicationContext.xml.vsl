@@ -3,7 +3,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:lang="http://www.springframework.org/schema/lang"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-${springVersion}.xsd http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-${springVersion}.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       					http://www.springframework.org/schema/beans/spring-beans.xsd 
+       					http://www.springframework.org/schema/lang 
+       					http://www.springframework.org/schema/lang/spring-lang.xsd">
 
     <!-- ========================= GENERAL DEFINITIONS ========================= -->
 
@@ -105,7 +108,7 @@
 				<prop key="hibernate.cache.use_second_level_cache">false</prop>
 #end
 #if ($stringUtils.isNotBlank($hibernateCacheProvider))
-                <!--prop key="hibernate.cache.provider_class">$hibernateCacheProvider</prop--!>
+                <!--prop key="hibernate.cache.provider_class">$hibernateCacheProvider</prop-->
 #end
 #if ($stringUtils.isNotBlank($hibernateQueryCacheFactory))
                 <!--prop key="hibernate.cache.query_cache_factory">$hibernateQueryCacheFactory</prop-->
@@ -125,7 +128,7 @@
     <bean id="${beanNamePrefix}sessionFactory" class="$sessionFactory">
         <property name="dataSource" ref="${beanNamePrefix}dataSource"/>
 #if ($hibernateEntityAnnotations)
-#if (!$hibernateUtils.version4)
+#if (!($hibernateUtils.version4 || $hibernateUtils.version5))
         <property name="configurationClass">
             <value>org.hibernate.cfg.AnnotationConfiguration</value>
         </property>
@@ -138,7 +141,7 @@
         <!-- applicationContext sessionFactory merge-point -->
     </bean>
 
-#if (!$hibernateUtils.version4)
+#if (!($hibernateUtils.version4 || $hibernateUtils.version5))
     <!-- The Hibernate interceptor -->
     <bean id="${beanNamePrefix}hibernateInterceptor" class="${hibernateUtils.springHibernatePackage}.HibernateTransactionManager">
         <property name="sessionFactory" ref="${beanNamePrefix}sessionFactory"/>
@@ -155,6 +158,13 @@
  
     <!-- Translates Hibernate exceptions to Spring Data Access Exceptions -->
     <bean class="org.springframework.orm.hibernate4.HibernateExceptionTranslator"/>
+#elseif ($hibernateUtils.version5)
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+ 
+    <!-- Translates Hibernate exceptions to Spring Data Access Exceptions -->
+    <bean class="org.springframework.orm.hibernate5.HibernateExceptionTranslator"/>
 #end
 
 #if ($daosEnabled)
@@ -191,7 +201,7 @@
 #if ($daosEnabled)
         <property name="proxyInterfaces" value="$entity.fullyQualifiedDaoName"/>
 #end
-#if (!$hibernateUtils.version4)
+#if (!($hibernateUtils.version4 || $hibernateUtils.version5))
         <property name="interceptorNames">
             <list>
                 <value>${beanNamePrefix}hibernateInterceptor</value>
@@ -276,7 +286,7 @@
 #if ($enableSpringTransactions)
                 <value>${beanNamePrefix}serviceTransactionInterceptor</value>
 #end
-#if ((!$entities.empty || !$service.allEntityReferences.empty) && $service.hibernateInterceptorEnabled && !$hibernateUtils.version4)
+#if ((!$entities.empty || !$service.allEntityReferences.empty) && $service.hibernateInterceptorEnabled && !$hibernateUtils.version4 && !$hibernateUtils.version5)
                 <value>${beanNamePrefix}hibernateInterceptor</value>
 #end
 #foreach($interceptor in $service.interceptors)
