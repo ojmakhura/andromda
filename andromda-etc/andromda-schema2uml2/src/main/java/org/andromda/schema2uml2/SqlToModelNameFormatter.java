@@ -1,6 +1,6 @@
 package org.andromda.schema2uml2;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Provides formatting functions, when converting SQL names to model names.

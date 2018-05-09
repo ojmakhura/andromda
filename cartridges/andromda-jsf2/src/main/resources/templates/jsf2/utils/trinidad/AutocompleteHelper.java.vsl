@@ -41,13 +41,13 @@ public class AutocompleteHelper {
      * @return collection of SelectItems
      */
     public java.util.Collection<javax.faces.model.SelectItem> itemsToSelectItems(Object[] items, String converterId){
-        if(org.apache.commons.lang.ArrayUtils.isEmpty(items)){
+        if(org.apache.commons.lang3.ArrayUtils.isEmpty(items)){
             return null;
         } 
         else 
         {
             final java.util.Collection<javax.faces.model.SelectItem> result=new java.util.ArrayList<javax.faces.model.SelectItem>(items.length);
-            if(org.apache.commons.lang.StringUtils.isBlank(converterId)){
+            if(org.apache.commons.lang3.StringUtils.isBlank(converterId)){
                 for(final Object obj: items){
                     result.add(new SelectItem(obj,obj.toString()));
                 }

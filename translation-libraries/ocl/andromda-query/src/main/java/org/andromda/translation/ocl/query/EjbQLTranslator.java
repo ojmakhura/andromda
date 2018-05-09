@@ -3,7 +3,7 @@ package org.andromda.translation.ocl.query;
 import java.util.HashMap;
 import java.util.Map;
 import org.andromda.core.translation.TranslationUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Performs translation to the following: <ul> <li>EJB-QL</li> </ul>

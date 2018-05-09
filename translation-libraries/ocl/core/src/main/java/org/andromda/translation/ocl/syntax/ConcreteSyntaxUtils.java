@@ -26,8 +26,8 @@ import org.andromda.translation.ocl.node.PRelationalExpression;
 import org.andromda.translation.ocl.node.PVariableDeclaration;
 import org.andromda.translation.ocl.node.PVariableDeclarationList;
 import org.andromda.translation.ocl.node.TName;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 /**

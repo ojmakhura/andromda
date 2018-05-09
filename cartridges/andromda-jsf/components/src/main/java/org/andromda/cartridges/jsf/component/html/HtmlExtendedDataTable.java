@@ -8,8 +8,8 @@ import java.util.ListIterator;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.myfaces.component.html.ext.HtmlDataTable;
 
 /**

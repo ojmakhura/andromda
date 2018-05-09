@@ -5,7 +5,7 @@
 package $managedBeansPackage;
 #end
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Utilities used within the JSF Cartridge
@@ -411,7 +411,7 @@ public class $className
         final javax.faces.context.FacesContext facesContext=javax.faces.context.FacesContext.getCurrentInstance();
         final javax.faces.convert.Converter converter = facesContext.getApplication().createConverter(converterId);
         return converter.getAsString(facesContext,
-                org.apache.commons.lang.StringUtils.isBlank(componentId)?null:facesContext.getViewRoot().findComponent(componentId),
+                org.apache.commons.lang3.StringUtils.isBlank(componentId)?null:facesContext.getViewRoot().findComponent(componentId),
                 value);
     }
 

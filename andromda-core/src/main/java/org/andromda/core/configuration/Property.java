@@ -1,8 +1,8 @@
 package org.andromda.core.configuration;
 
 import java.io.Serializable;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * This class represents properties which are used to configure Namespace objects which are made available to configure

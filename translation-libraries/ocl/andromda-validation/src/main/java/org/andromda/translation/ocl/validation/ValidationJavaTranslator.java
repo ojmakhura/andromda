@@ -16,7 +16,7 @@ import org.andromda.translation.ocl.node.*;
 import org.andromda.translation.ocl.syntax.ConcreteSyntaxUtils;
 import org.andromda.translation.ocl.syntax.OCLFeatures;
 import org.andromda.translation.ocl.syntax.OCLPatterns;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * <p/>

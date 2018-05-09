@@ -7,7 +7,7 @@ import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.translation.ocl.validation.OCLIntrospector;
 import org.andromda.utils.StringUtilsHelper;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 /**

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ExceptionUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Stores the validation messages that are collected during model validation.

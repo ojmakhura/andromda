@@ -19,7 +19,7 @@ import javax.xml.transform.stream.StreamSource;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.configuration.Transformation;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * An implementation of Transformer that provides

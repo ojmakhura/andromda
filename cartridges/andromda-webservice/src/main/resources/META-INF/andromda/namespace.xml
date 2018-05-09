@@ -620,7 +620,7 @@
                     XJC plugins are available under Jaxb2 Commons: https://jaxb2-commons.dev.java.net .
                     The default XJC arguments value does not require downloading any Jaxb commons plugins.
                     Plugins must be added to CXF_HOME\lib directory or JAXB_HOME\commons directory. Suggested value:
-                    -Xcommons-lang,-Xcommons-lang:ToStringStyle=DEFAULT_STYLE,-Xdefault-value,-Xvalue-constructor,-Xcollection-setter-injector,-simple-preserve"
+                    -Xcommons-lang3,-Xcommons-lang3:ToStringStyle=DEFAULT_STYLE,-Xdefault-value,-Xvalue-constructor,-Xcollection-setter-injector,-simple-preserve"
                      Can be customized for individual attributes through XmlAdapter stereotype. />
                 </documentation>
             </property>

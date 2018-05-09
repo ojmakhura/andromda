@@ -16,7 +16,7 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.SetUtils;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.collections.bag.HashBag;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Used to translated OCL collection expressions to their corresponding Java collection expressions.

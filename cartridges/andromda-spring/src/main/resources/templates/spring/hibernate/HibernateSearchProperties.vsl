@@ -170,9 +170,9 @@ public class ${criteriaSearchBaseName}Properties
                 java.lang.reflect.Method getter;
                 try
                 {
-                    getter=ownerType.getMethod("get"+org.apache.commons.lang.StringUtils.capitalize(name), (Class[])null);
+                    getter=ownerType.getMethod("get"+org.apache.commons.lang3.StringUtils.capitalize(name), (Class[])null);
                 } catch (NoSuchMethodException e) {
-                    getter=ownerType.getMethod("is"+org.apache.commons.lang.StringUtils.capitalize(name), (Class[])null);
+                    getter=ownerType.getMethod("is"+org.apache.commons.lang3.StringUtils.capitalize(name), (Class[])null);
                 }
                 type = getter.getReturnType();
             } catch (SecurityException e) {

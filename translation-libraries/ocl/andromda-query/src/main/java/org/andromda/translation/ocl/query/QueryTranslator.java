@@ -12,7 +12,7 @@ import org.andromda.translation.ocl.node.ARelationalExpressionTail;
 import org.andromda.translation.ocl.node.AStandardDeclarator;
 import org.andromda.translation.ocl.node.PRelationalExpression;
 import org.andromda.translation.ocl.syntax.ConcreteSyntaxUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Performs translation to the following: <ul> <li>Hibernate-QL</li> </ul>

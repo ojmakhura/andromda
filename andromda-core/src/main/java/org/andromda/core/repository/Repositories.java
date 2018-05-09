@@ -13,7 +13,7 @@ import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.namespace.PropertyDefinition;
 import org.andromda.core.transformation.Transformer;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * This class provides access to all repositories available within the system (that

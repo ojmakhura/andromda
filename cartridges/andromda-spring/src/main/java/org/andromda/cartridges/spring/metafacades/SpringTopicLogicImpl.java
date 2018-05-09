@@ -1,7 +1,7 @@
 package org.andromda.cartridges.spring.metafacades;
 
 import org.andromda.utils.StringUtilsHelper;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.spring.metafacades.SpringTopic.

@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import org.andromda.core.AndroMDAServer;
 import org.andromda.core.configuration.Configuration;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.taskdefs.MatchingTask;
 

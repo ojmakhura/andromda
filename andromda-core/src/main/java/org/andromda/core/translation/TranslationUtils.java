@@ -2,8 +2,8 @@ package org.andromda.core.translation;
 
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Introspector;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Contains translation utilities.

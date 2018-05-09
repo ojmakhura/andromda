@@ -168,7 +168,7 @@ public abstract class CrudControllerBase extends ControllerBase {
      */
     public String getFilterAttribute()
     {
-        return org.apache.commons.lang.ObjectUtils.toString(ControllerBase.getUseCaseScope().get(CRUD_FILTER_ATTRIBUTE_KEY));
+        return org.apache.commons.lang3.ObjectUtils.toString(ControllerBase.getUseCaseScope().get(CRUD_FILTER_ATTRIBUTE_KEY));
     }
     
     /**

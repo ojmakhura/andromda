@@ -4,7 +4,7 @@
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
         <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>
-    <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
+    <templateObject name="stringUtils" className="org.apache.commons.lang3.StringUtils"/>
     <templateObject name="javaUtils" className="org.andromda.cartridges.java.JavaUtils"/>
     <templateObject name="umlUtils" className="org.andromda.metafacades.uml.UMLMetafacadeUtils"/>
     <!-- cartridge-templateObject merge-point-->

@@ -15,7 +15,7 @@ import org.andromda.metafacades.uml.GuardFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.utils.StringUtilsHelper;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 /**
  * MetafacadeLogic implementation.
  *

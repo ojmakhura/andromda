@@ -31,10 +31,10 @@ import org.andromda.translation.ocl.ExpressionKinds;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.log4j.Logger;
 import org.omg.uml.behavioralelements.statemachines.StateMachine;
 import org.omg.uml.foundation.core.Abstraction;
@@ -396,7 +396,7 @@ public class ModelElementFacadeLogicImpl
         boolean htmlStyle)
     {
         final StringBuilder documentation = new StringBuilder();
-
+        
         if (lineLength < 1)
         {
             lineLength = Integer.MAX_VALUE;
@@ -434,10 +434,13 @@ public class ModelElementFacadeLogicImpl
                 documentation.append(todoTag).append(": Model Documentation for " + this.handleGetFullyQualifiedName());
             }
         }
-
+        String trimmed = StringUtils.trimToEmpty(documentation.toString());
+        if(lineLength > trimmed.length()) {
+        	lineLength = 100 - indent.length();
+        }
         // Only add paragraph tags if doc is not empty
         String rtn = StringUtilsHelper.format(
-            StringUtils.trimToEmpty(documentation.toString()),
+        	trimmed,
             indent,
             lineLength,
             htmlStyle);

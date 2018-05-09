@@ -2,7 +2,7 @@ package org.andromda.cartridges.ejb.metafacades;
 
 import org.andromda.cartridges.ejb.EJBGlobals;
 import org.andromda.cartridges.ejb.EJBProfile;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb.metafacades.EJBOperationFacade.

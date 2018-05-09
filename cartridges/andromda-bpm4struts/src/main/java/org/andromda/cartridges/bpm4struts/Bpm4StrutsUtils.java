@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 import org.andromda.metafacades.uml.ManageableEntity;
 import org.andromda.utils.StringUtilsHelper;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Contains utilities for bpm4struts.

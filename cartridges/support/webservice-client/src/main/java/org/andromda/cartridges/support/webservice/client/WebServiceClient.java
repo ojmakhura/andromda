@@ -24,7 +24,7 @@ import org.apache.axis2.client.ServiceClient;
 import org.apache.axis2.client.async.Callback;
 import org.apache.axis2.transport.http.HTTPConstants;
 import org.apache.axis2.transport.http.HttpTransportProperties.Authenticator;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.xml.sax.InputSource;
 
 /**

@@ -10,7 +10,7 @@
     <translator>org.andromda.translation.ocl.query.QueryTranslator</translator>
 
     <!-- transformers -->
-    <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
+    <templateObject name="stringUtils" className="org.apache.commons.lang3.StringUtils"/>
 
     <translation name="Hibernate-QL">
         <description>

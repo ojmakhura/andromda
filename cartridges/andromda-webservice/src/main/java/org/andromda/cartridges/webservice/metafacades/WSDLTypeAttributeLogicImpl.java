@@ -6,7 +6,7 @@ import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.translation.ocl.validation.OCLIntrospector;
 import org.andromda.utils.StringUtilsHelper;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.webservice.metafacades.WSDLTypeAttribute.

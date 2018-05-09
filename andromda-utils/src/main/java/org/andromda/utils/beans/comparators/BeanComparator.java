@@ -12,7 +12,7 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Introspector;
 import org.andromda.utils.beans.BeanSorter;
 import org.andromda.utils.beans.SortCriteria;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Used by BeanSorter to provide sorting capabilities for

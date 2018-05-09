@@ -20,7 +20,7 @@ import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.profile.Profile;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * The registry for namespace components. Namespace components are components

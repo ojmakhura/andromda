@@ -92,7 +92,7 @@ $identifier.getDocumentation("     * ")
             return false;
         }
         final $entity.identifierTypeName that = ($entity.identifierTypeName)object;
-        return new org.apache.commons.lang.builder.EqualsBuilder()
+        return new org.apache.commons.lang3.builder.EqualsBuilder()
 #foreach($associationEnd in $entity.identifierAssociationEnds)
 #if($associationEnd.many2One)
             .append(this.${associationEnd.otherEnd.getterName}(),that.${associationEnd.otherEnd.getterName}())
@@ -107,7 +107,7 @@ $identifier.getDocumentation("     * ")
     @Override
     public int hashCode()
     {
-        return new org.apache.commons.lang.builder.HashCodeBuilder()
+        return new org.apache.commons.lang3.builder.HashCodeBuilder()
 #foreach($associationEnd in $entity.identifierAssociationEnds)
 #if($associationEnd.many2One)
             .append(${associationEnd.otherEnd.getterName}())

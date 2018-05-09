@@ -3,8 +3,8 @@ package org.andromda.cartridges.hibernate.metafacades;
 import java.text.MessageFormat;
 import java.util.Collection;
 import org.andromda.cartridges.hibernate.HibernateProfile;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * MetafacadeLogic implementation for

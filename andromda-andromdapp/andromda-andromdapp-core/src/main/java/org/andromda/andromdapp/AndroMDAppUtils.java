@@ -2,9 +2,9 @@ package org.andromda.andromdapp;
 
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.Converter;
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Some utilities for dealing with the AndroMDApp generator.

@@ -2,7 +2,7 @@ package org.andromda.translation.ocl.validation;
 
 import java.util.Arrays;
 import java.util.Collection;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Contains a single operation {@link #isPredicateFeature(String)} that determines if a passed in <code>feature</code>

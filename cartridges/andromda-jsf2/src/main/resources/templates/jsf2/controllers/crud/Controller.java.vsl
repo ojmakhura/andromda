@@ -511,7 +511,7 @@ public abstract class ${manageable.controllerName}
         vos = ${manageable.manageableServiceAccessorCall}.searchByExample(null);
         final java.util.Collection<javax.faces.model.SelectItem> result=new java.util.ArrayList<javax.faces.model.SelectItem>(vos.size());
         for(${manageable.valueObjectClassName} vo: vos){
-            result.add(new javax.faces.model.SelectItem(vo.${manageable.identifierGetterName}(),org.apache.commons.lang.ObjectUtils.toString(vo.get$stringUtils.upperCamelCaseName($manageable.displayAttribute.name)())));
+            result.add(new javax.faces.model.SelectItem(vo.${manageable.identifierGetterName}(),org.apache.commons.lang3.ObjectUtils.toString(vo.get$stringUtils.upperCamelCaseName($manageable.displayAttribute.name)())));
         }
         return result;
     }

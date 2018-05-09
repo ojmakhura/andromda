@@ -2,7 +2,7 @@ package org.andromda.metafacades.uml14;
 
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.ManageableEntityAttribute.

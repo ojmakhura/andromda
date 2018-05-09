@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.regex.PatternSyntaxException;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.core.metafacade.MetafacadeFactory;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Stores information about all {@link Filter} instances that should or should not be applied

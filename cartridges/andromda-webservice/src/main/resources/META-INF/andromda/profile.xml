@@ -279,7 +279,7 @@
                 <documentation>
                     WebService stereotype: Override global default XJC arguments used when creating Jaxb XML bindings 
                     from the webservice definition through the wsdl2java utility. Default is 
-                    -Xcommons-lang,-Xcommons-lang:ToStringStyle=DEFAULT_STYLE,-Xdefault-value,-Xvalue-constructor,-Xcollection-setter-injector,-simple-preserve.
+                    -Xcommons-lang3,-Xcommons-lang3:ToStringStyle=DEFAULT_STYLE,-Xdefault-value,-Xvalue-constructor,-Xcollection-setter-injector,-simple-preserve.
                     This creates toString methods using apache commons-lang, creates ValueObject constructor,
                     get/set on Collection types, and allows preserving methods and some code across multiple 
                     code generation invocations. Uses JAXB2 plugin dependencies referenced by BuildWS.xml ant script.

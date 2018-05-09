@@ -2,8 +2,8 @@ package org.andromda.cartridges.jsf.metafacades;
 
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.utils.StringUtilsHelper;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jsf.metafacades.JSFEnumeration.

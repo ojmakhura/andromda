@@ -19,7 +19,7 @@ import org.andromda.cartridges.jsf.validator.JSFValidator;
 import org.andromda.cartridges.jsf.validator.JSFValidatorException;
 import org.andromda.cartridges.jsf.validator.ValidatorMessages;
 import org.andromda.utils.StringUtilsHelper;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.Arg;

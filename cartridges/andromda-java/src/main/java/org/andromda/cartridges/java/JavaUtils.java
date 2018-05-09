@@ -1,8 +1,8 @@
 package org.andromda.cartridges.java;
 
 import java.util.Date;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.FastDateFormat;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.FastDateFormat;
 
 /**
  * Contains utilities used within the WebService cartridge.

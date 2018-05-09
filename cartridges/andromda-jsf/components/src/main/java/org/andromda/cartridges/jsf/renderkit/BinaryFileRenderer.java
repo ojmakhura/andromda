@@ -10,7 +10,7 @@ import javax.faces.render.Renderer;
 import javax.servlet.http.HttpServletResponse;
 
 import org.andromda.cartridges.jsf.component.BinaryFile;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 
 /**

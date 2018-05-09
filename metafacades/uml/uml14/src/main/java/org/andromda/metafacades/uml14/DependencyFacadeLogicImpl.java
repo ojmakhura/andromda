@@ -1,7 +1,7 @@
 package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.omg.uml.foundation.core.Dependency;
 
 /**

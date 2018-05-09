@@ -6,8 +6,8 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.utils.StringUtilsHelper;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.omg.uml.foundation.core.Comment;
 import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.core.TemplateParameter;
@@ -169,6 +169,10 @@ public class TemplateParameterFacadeLogicImpl
             }
         }
 
+        String trimmed = StringUtils.trimToEmpty(documentation.toString());
+        if(lineLength > trimmed.length()) {
+        	lineLength = 80 - indent.length();
+        }
         // Only add paragraph tags if doc is not empty
         String rtn = StringUtilsHelper.format(
             StringUtils.trimToEmpty(documentation.toString()),

@@ -13,8 +13,8 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.templateengine.TemplateEngine;
 import org.andromda.core.translation.Translator;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 
 /**

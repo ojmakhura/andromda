@@ -10,7 +10,7 @@ import java.util.Collection;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.mapping.Mappings;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * This object is configured from the AndroMDA configuration

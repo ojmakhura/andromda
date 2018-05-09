@@ -1,6 +1,6 @@
 package org.andromda.schema2xmi;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Contains utilities for the Schema2XMI tool.

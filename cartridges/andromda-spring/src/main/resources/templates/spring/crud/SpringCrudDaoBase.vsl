@@ -319,7 +319,7 @@ public final class $manageable.manageableDaoBaseName
         {
 #foreach ($member in $manageable.manageableAttributes)
 #if (!$member.inputFile && !$member.needsFileUpload)
-            if (#if($member.type.stringType) org.apache.commons.lang.StringUtils.isNotEmpty(example.${member.getterName}())#else example.${member.getterName}() != null#end)
+            if (#if($member.type.stringType) org.apache.commons.lang3.StringUtils.isNotEmpty(example.${member.getterName}())#else example.${member.getterName}() != null#end)
 #if ($member.type.stringType)
             {
                 criteria.add(Restrictions.ilike("$member.name", example.${member.getterName}(), $matchMode));

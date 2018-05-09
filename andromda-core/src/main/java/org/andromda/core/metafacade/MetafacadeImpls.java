@@ -14,7 +14,7 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.namespace.NamespaceRegistry;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Discovers all metafacade interfaces and implementation classes in each namespace registry. This class is

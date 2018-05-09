@@ -22,7 +22,7 @@ import org.andromda.core.templateengine.TemplateEngine;
 import org.andromda.core.templateengine.TemplateEngineException;
 import org.apache.commons.collections.ExtendedProperties;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;

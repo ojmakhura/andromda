@@ -3,7 +3,7 @@ package org.andromda.cartridges.hibernate.metafacades;
 import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.utils.JavaTypeConverter;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 

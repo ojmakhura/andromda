@@ -442,8 +442,8 @@ $field.getDocumentation("     * ")
 
     public String toString()
     {
-        org.apache.commons.lang.builder.ToStringBuilder builder =
-            new org.apache.commons.lang.builder.ToStringBuilder(this);
+        org.apache.commons.lang3.builder.ToStringBuilder builder =
+            new org.apache.commons.lang3.builder.ToStringBuilder(this);
 #foreach ($field in $fields)
 #if ($field.password)
         builder.append("$field.name", "***");

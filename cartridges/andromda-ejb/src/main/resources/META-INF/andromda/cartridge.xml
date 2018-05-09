@@ -3,7 +3,7 @@
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine"/>
     
     <!-- define the template objects that are made available to the template -->
-    <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
+    <templateObject name="stringUtils" className="org.apache.commons.lang3.StringUtils"/>
     <templateObject name="transform" className="org.andromda.cartridges.ejb.EJBScriptHelper"/>
     <templateObject name="javaConverter" className="org.andromda.utils.JavaTypeConverter"/>
     <templateObject name="umlUtils" className="org.andromda.metafacades.uml.UMLMetafacadeUtils"/>

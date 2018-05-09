@@ -6,8 +6,8 @@ import java.io.StringReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.andromda.utils.inflector.EnglishInflector;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.WordUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.WordUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -504,9 +504,21 @@ public class StringUtilsHelper
 
                     // - append the wrapped text, the indentation is prefixed
                     // with a newline
+                    // TODO: clean up the hack for using commons-lang3 by restricting wrap column to 100
+                    String trimmed = line.trim();
+                    int tlength = wrapAtColumn;
+                    
+                    if(wrapAtColumn > trimmed.length()){
+                    	if(trimmed.length() < 100) {
+                    		tlength = trimmed.length();
+                    	} else {
+                    		tlength = 100;
+                    	}
+                    }
+                    
                     formattedText.append(WordUtils.wrap(
-                        line.trim(),
-                        wrapAtColumn,
+                    	trimmed,
+                    	tlength,
                         lineSeparator + indentation,
                         false));
 

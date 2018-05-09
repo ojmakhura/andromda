@@ -9,8 +9,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
 import org.andromda.core.common.ExceptionUtils;
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -56,7 +56,10 @@ public class EntityMetafacadeUtils
             character = Character.toUpperCase(character);
             sqlName.append(character);
         }
-        return StringEscapeUtils.escapeSql(sqlName.toString());
+        if (sqlName.toString() == null) {
+            return null;
+        }
+        return StringUtils.replace(sqlName.toString(), "'", "''");
     }
 
     /**

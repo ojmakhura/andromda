@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.metafacades.uml.ParameterFacade;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author Chad Brandon

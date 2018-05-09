@@ -27,10 +27,10 @@ import org.andromda.translation.ocl.ExpressionKinds;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIHelperImpl;
@@ -605,8 +605,13 @@ public class ModelElementFacadeLogicImpl
             }*/
         }
 
+        String trimmed = StringUtils.trimToEmpty(documentation.toString());
+        if(lineLength > trimmed.length()) {
+        	lineLength = 64 - indent.length();
+        }
+        
         return StringUtilsHelper.format(
-            StringUtils.trimToEmpty(documentation.toString()),
+            trimmed,
             indent,
             lineLength,
             htmlStyle);

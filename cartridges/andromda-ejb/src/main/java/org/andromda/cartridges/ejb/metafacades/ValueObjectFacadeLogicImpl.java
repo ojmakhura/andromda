@@ -4,7 +4,7 @@ import java.text.MessageFormat;
 import java.util.StringTokenizer;
 import org.andromda.cartridges.ejb.EJBProfile;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb.metafacades.ValueObjectFacade.

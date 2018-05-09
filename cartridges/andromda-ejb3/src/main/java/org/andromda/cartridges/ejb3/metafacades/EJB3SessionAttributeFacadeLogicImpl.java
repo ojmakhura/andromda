@@ -3,8 +3,8 @@ package org.andromda.cartridges.ejb3.metafacades;
 import java.util.ArrayList;
 import java.util.List;
 import org.andromda.cartridges.ejb3.EJB3Profile;
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacade.

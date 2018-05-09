@@ -23,7 +23,7 @@ import org.andromda.metafacades.emf.uml22.AssociationEnd;
 import org.andromda.metafacades.emf.uml22.Attribute;
 import org.andromda.metafacades.emf.uml22.TagDefinition;
 import org.apache.commons.dbutils.DbUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.uml2.uml.AggregationKind;
 import org.eclipse.uml2.uml.Classifier;

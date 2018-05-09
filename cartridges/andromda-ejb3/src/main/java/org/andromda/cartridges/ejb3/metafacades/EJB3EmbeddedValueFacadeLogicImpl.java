@@ -2,8 +2,8 @@ package org.andromda.cartridges.ejb3.metafacades;
 
 import java.text.MessageFormat;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3EmbeddedValueFacade.

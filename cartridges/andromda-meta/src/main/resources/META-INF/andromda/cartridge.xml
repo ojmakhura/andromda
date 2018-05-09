@@ -6,8 +6,8 @@
     </templateEngine>
 
     <!-- define the template objects that are made available to the template -->
-    <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
-    <templateObject name="escapeUtils" className="org.apache.commons.lang.StringEscapeUtils"/>
+    <templateObject name="stringUtils" className="org.apache.commons.lang3.StringUtils"/>
+    <templateObject name="escapeUtils" className="org.apache.commons.text.StringEscapeUtils"/>
     <templateObject name="metaUtils" className="org.andromda.cartridges.meta.MetaCartridgeUtils"/>
 
     <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>

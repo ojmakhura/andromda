@@ -8,7 +8,7 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Introspector;
 import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.profile.Profile;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Represents a single template &lt;modelElement/&gt; nested within the &lt;modelElements/&gt; element. It stores the

@@ -1,7 +1,7 @@
 package org.andromda.core.configuration;
 
 import java.io.Serializable;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Represents the configuration for the

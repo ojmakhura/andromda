@@ -5,8 +5,8 @@ import org.andromda.core.translation.Expression;
 import org.andromda.core.translation.ExpressionTranslator;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.translation.ocl.ExpressionKinds;
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.omg.uml.foundation.core.Constraint;
 
 /**

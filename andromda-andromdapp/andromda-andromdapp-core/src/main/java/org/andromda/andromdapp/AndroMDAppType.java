@@ -20,8 +20,8 @@ import org.andromda.core.common.ResourceFinder;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.ResourceWriter;
 import org.andromda.core.templateengine.TemplateEngine;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Represents an AndroMDApp type (j2ee, .net, etc).

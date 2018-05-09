@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Set;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.profile.Profile;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * A meta facade mapping class. This class is a child of {@link MetafacadeMappings}

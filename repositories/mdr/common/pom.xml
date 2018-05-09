@@ -31,10 +31,13 @@
             <artifactId>log4j</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <!-- <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-        </dependency>
-
+        </dependency> -->
         <dependency>
             <groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
             <artifactId>jmiutils</artifactId>

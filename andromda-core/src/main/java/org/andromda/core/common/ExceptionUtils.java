@@ -1,6 +1,6 @@
 package org.andromda.core.common;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Contains Exception handling utilities.
@@ -219,7 +219,7 @@ public class ExceptionUtils
      */
     public static Throwable getRootCause(Throwable throwable)
     {
-        final Throwable root = org.apache.commons.lang.exception.ExceptionUtils.getRootCause(throwable);
+        final Throwable root = org.apache.commons.lang3.exception.ExceptionUtils.getRootCause(throwable);
         if (root != null)
         {
             throwable = root;

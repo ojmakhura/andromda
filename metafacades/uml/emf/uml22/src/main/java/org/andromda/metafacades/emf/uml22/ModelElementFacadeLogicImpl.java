@@ -25,10 +25,10 @@ import org.andromda.translation.ocl.ExpressionKinds;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
@@ -579,12 +579,16 @@ public class ModelElementFacadeLogicImpl
         final boolean htmlStyle)
     {
         final StringBuilder documentation = new StringBuilder();
-
+        
+        if(lineLength > 100) {
+        	lineLength = 100 - indent.length();
+        }
+        
         if (lineLength < 1)
         {
             lineLength = Integer.MAX_VALUE;
         }
-
+        
         final Collection<Comment> comments = this.metaObject.getOwnedComments();
         if (comments != null && !comments.isEmpty())
         {
@@ -625,8 +629,13 @@ public class ModelElementFacadeLogicImpl
             documentation.append(todoTag).append(": Model Documentation for " + this.handleGetFullyQualifiedName());
         }
 
+        String trimmed = StringUtils.trimToEmpty(documentation.toString());
+        if(lineLength > trimmed.length()) {
+        	lineLength = 100 - indent.length();
+        }
+        
         return StringUtilsHelper.format(
-            StringUtils.trimToEmpty(documentation.toString()),
+        	trimmed,
             indent,
             lineLength,
             htmlStyle);

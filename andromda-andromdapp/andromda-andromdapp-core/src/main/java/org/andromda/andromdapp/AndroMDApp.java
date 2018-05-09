@@ -16,7 +16,7 @@ import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ResourceFinder;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.XmlObjectFactory;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Represents an instance of the AndroMDA application

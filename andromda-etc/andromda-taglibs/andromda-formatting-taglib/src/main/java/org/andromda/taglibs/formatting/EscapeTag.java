@@ -1,6 +1,6 @@
 package org.andromda.taglibs.formatting;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -44,11 +44,11 @@ public class EscapeTag extends BodyTagSupport
 
             if ("html".equalsIgnoreCase(language))
             {
-                escapedString = StringEscapeUtils.escapeHtml(escapedString);
+                escapedString = StringEscapeUtils.escapeHtml4(escapedString);
             }
             else if ("javascript".equalsIgnoreCase(language))
             {
-                escapedString = StringEscapeUtils.escapeJavaScript(escapedString);
+                escapedString = StringEscapeUtils.escapeEcmaScript(escapedString);
             }
             else if ("java".equalsIgnoreCase(language))
             {

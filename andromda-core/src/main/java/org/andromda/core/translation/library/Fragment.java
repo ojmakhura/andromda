@@ -3,8 +3,8 @@ package org.andromda.core.translation.library;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.andromda.core.common.ExceptionUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * A Translation "fragment" of a translation file. This fragment belongs to a Translation object.

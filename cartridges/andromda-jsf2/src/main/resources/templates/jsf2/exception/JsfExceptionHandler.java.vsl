@@ -108,12 +108,12 @@ class JsfExceptionHandler
                 else
                 {
                     //changing from complex.field to complexField
-                    final String[] nameParts=org.apache.commons.lang.StringUtils.split(fieldName,'.');
+                    final String[] nameParts=org.apache.commons.lang3.StringUtils.split(fieldName,'.');
                     for(int c=1; c<nameParts.length; c++)
                     {
-                        nameParts[c]=org.apache.commons.lang.StringUtils.capitalize(nameParts[c]);
+                        nameParts[c]=org.apache.commons.lang3.StringUtils.capitalize(nameParts[c]);
                     }
-                    fieldName=org.apache.commons.lang.StringUtils.join(nameParts);
+                    fieldName=org.apache.commons.lang3.StringUtils.join(nameParts);
 
                     //creates the clientId using the last posted form
                     final String clientId=lastPostedForm()+namingSeparator+fieldName;
@@ -225,7 +225,7 @@ class JsfExceptionHandler
     private String lastPostedForm()
     {
         final Object value=javax.faces.context.FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(ControllerBase.LAST_POSTED_FORM_CLIENT_ID);
-        return value==null?org.apache.commons.lang.StringUtils.EMPTY:value.toString();
+        return value==null?org.apache.commons.lang3.StringUtils.EMPTY:value.toString();
     }
 
     @Override
@@ -252,7 +252,7 @@ class JsfExceptionHandler
             }
             else
             {
-                final Throwable cause = org.apache.commons.lang.exception.ExceptionUtils.getRootCause(t);
+                final Throwable cause = org.apache.commons.lang3.exception.ExceptionUtils.getRootCause(t);
                 if(cause instanceof ValidationException)
                 {
                     final ValidationException vd = (ValidationException)cause;

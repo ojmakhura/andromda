@@ -9,7 +9,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ResourceUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * A single child mapping instance belonging to a Mappings instance. It doesn't make sense to instantiate this class by

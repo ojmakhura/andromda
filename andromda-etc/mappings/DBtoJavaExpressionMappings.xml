@@ -19,7 +19,7 @@
     <mapping>
         <from>CURRENT_DATE</from>
         <from>CURRENT_DATE()</from>
-        <to>org.apache.commons.lang.time.DateUtils.truncate(new java.util.Date(), java.util.Calendar.DAY_OF_MONTH))</to>
+        <to>org.apache.commons.lang3.time.DateUtils.truncate(new java.util.Date(), java.util.Calendar.DAY_OF_MONTH))</to>
     </mapping>
     <!-- Additional mappings for T/F and Y/N values -->
     <mapping>

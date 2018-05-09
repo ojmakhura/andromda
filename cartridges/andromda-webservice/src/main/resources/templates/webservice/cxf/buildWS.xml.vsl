@@ -21,7 +21,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <!-- These dependencies allow CXF 2+ utilities to run outside of maven with no additional classpath >
     <pathelement location="${m2repo}/com/sun/xml/bind/jaxb-xjc/2.2.1.1/jaxb-xjc-2.2.1.1.jar"/>
     <pathelement location="${m2repo}/com/sun/xml/bind/jaxb-impl/2.2.1.1/jaxb-impl-2.2.1.1.jar"/>
-    <pathelement location="${m2repo}/commons-lang/commons-lang/2.6/commons-lang-2.6.jar"/>
+    <pathelement location="${m2repo}/org/apache/commons/commons-lang3/3.7/commons-lang3-3.7.jar"/>
     <pathelement location="${m2repo}/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar"/>
     <pathelement location="${m2repo}/javax/xml/bin/jaxb-api/2.2.1/jaxb-api-2.2.1.jar"/>
     <pathelement location="${m2repo}/org/apache/neethi/neethi/3.0.0/neethi-3.0.0.jar"/>

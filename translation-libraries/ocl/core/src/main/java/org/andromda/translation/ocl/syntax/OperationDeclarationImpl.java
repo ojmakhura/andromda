@@ -1,7 +1,7 @@
 package org.andromda.translation.ocl.syntax;
 
 import org.andromda.core.common.ExceptionUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * An implementation of the ocl OperationDeclaration facade.

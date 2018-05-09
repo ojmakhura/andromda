@@ -13,7 +13,7 @@ import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.metafacades.uml.PackageFacade;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 /**

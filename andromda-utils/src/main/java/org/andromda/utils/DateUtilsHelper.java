@@ -1,6 +1,6 @@
 package org.andromda.utils;
 
-import org.apache.commons.lang.time.DateUtils;
+import org.apache.commons.lang3.time.DateUtils;
 
 /**
  * Provides additional methods supporting various date-related features

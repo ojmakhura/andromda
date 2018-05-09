@@ -13,8 +13,8 @@
     <description>This tag-library can be used to format strings in a web application.</description>
     <dependencies>
         <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>

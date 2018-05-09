@@ -5,8 +5,8 @@ import java.net.URL;
 import java.util.Map;
 import org.andromda.core.AndroMDA;
 import org.andromda.core.common.ResourceUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.taskdefs.MatchingTask;
 

@@ -5,8 +5,8 @@
         <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>
 
-    <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
-    <templateObject name="escapeUtils" className="org.apache.commons.lang.StringEscapeUtils"/>
+    <templateObject name="stringUtils" className="org.apache.commons.lang3.StringUtils"/>
+    <templateObject name="escapeUtils" className="org.apache.commons.text.StringEscapeUtils"/>
     <templateObject name="umlUtils" className="org.andromda.metafacades.uml.UMLMetafacadeUtils"/>
     <templateObject name="webServiceUtils" className="org.andromda.cartridges.webservice.WebServiceUtils"/>
     <!-- cartridge-templateObject merge-point-->

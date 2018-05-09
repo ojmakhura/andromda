@@ -3,7 +3,7 @@ package org.andromda.metafacades.uml;
 import java.text.Normalizer;
 
 import org.andromda.utils.StringUtilsHelper;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Provides the ability to <code>mask</code> names in a standard manner.

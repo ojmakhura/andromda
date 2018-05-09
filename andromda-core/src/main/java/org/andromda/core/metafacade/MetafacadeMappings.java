@@ -19,7 +19,7 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.configuration.Namespace;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.namespace.BaseNamespaceComponent;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -116,7 +116,7 @@ public class MetafacadeMappings
         if (metafacadeClass != null)
         {
             metafacadeInterface = metafacadeClass;
-            final List<Class> interfaces = ClassUtils.getAllInterfaces(metafacadeClass);
+            final List<Class<?>> interfaces = ClassUtils.getAllInterfaces(metafacadeClass);
             if (interfaces != null && !interfaces.isEmpty())
             {
                 metafacadeInterface = interfaces.iterator().next();
@@ -260,7 +260,7 @@ public class MetafacadeMappings
             if (StringUtils.isNotBlank(pattern))
             {
                 hierarchy = new ArrayList<String>();
-                List<Class> metafacadeInterfaces = ClassUtils.getAllInterfaces(mappingObject.getClass());
+                List<Class<?>> metafacadeInterfaces = ClassUtils.getAllInterfaces(mappingObject.getClass());
                 for (final Class metafacadeInterface : metafacadeInterfaces)
                 {
                     final String packageName = ClassUtils.getPackageName(metafacadeInterface);

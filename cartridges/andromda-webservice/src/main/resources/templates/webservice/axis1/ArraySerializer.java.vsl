@@ -6,7 +6,7 @@ package $webserviceTypesPackage;
 import java.io.IOException;
 import javax.xml.namespace.QName;
 import org.apache.axis.encoding.SerializationContext;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.xml.sax.Attributes;
 
 /**

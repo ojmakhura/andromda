@@ -2,7 +2,7 @@ package org.andromda.translation.ocl.parser;
 
 import java.util.StringTokenizer;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Retrieves information from the OCL parser exceptions in a more user friendly format.

@@ -20,7 +20,7 @@ import org.andromda.core.namespace.NamespaceComponents;
 import org.andromda.core.repository.Repositories;
 import org.andromda.core.repository.RepositoryFacade;
 import org.apache.commons.dbutils.DbUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.omg.uml.UmlPackage;
 import org.omg.uml.foundation.core.AssociationEnd;

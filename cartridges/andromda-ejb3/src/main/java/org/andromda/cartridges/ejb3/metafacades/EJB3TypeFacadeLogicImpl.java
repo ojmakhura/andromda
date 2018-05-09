@@ -2,7 +2,7 @@ package org.andromda.cartridges.ejb3.metafacades;
 
 import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.metafacades.uml.TypeMappings;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3TypeFacade.

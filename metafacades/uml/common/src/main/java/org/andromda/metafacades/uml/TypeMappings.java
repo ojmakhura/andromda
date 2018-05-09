@@ -2,7 +2,7 @@ package org.andromda.metafacades.uml;
 
 import org.andromda.core.mapping.Mapping;
 import org.andromda.core.mapping.Mappings;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * <p/>

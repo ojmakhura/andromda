@@ -1,7 +1,7 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
 import org.andromda.utils.JavaTypeConverter;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 
 /**

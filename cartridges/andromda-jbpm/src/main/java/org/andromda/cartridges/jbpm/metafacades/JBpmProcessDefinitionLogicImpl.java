@@ -10,7 +10,7 @@ import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.utils.StringUtilsHelper;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinition.

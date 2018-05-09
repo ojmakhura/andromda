@@ -4,7 +4,7 @@ import java.io.File;
 import org.andromda.core.cartridge.Resource;
 import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.metafacade.MetafacadeConstants;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * This class implements the <code>&lt;template&gt;</code> tag in a cartridge

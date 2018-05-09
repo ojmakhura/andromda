@@ -320,7 +320,7 @@ public class $criteriaSearchBaseName
                     final int number = path.length - index;
                     final String[] restOfPath = new String[path.length - index];
                     System.arraycopy(path, index, restOfPath, 0, number);
-                    parameterName = org.apache.commons.lang.StringUtils.join(restOfPath, ".");
+                    parameterName = org.apache.commons.lang3.StringUtils.join(restOfPath, ".");
                     break;
                 }
                 type = CriteriaSearchProperties.getNavigableAssociationEndType(type, childEntityName);

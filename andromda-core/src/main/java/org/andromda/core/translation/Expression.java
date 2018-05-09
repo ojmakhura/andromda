@@ -1,8 +1,8 @@
 package org.andromda.core.translation;
 
 import org.andromda.core.common.ExceptionUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Stores the translated expression,

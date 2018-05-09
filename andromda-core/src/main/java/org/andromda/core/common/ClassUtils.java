@@ -11,7 +11,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 // TODO: FindBugs: This class has a simple name that is identical to that of its superclass. This can be exceptionally confusing.
 /**
@@ -21,7 +21,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Bob Fields
  */
 public class ClassUtils
-    extends org.apache.commons.lang.ClassUtils
+    extends org.apache.commons.lang3.ClassUtils
 {
     /**
      * Creates a new instance of the class having the given <code>className</code>.

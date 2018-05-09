@@ -3,8 +3,8 @@ package org.andromda.cartridges.meta.metafacades;
 import java.util.Collection;
 import org.andromda.cartridges.meta.MetaProfile;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.meta.metafacades.MetafacadeGeneralization.

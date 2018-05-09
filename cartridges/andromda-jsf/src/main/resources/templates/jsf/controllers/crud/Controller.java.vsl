@@ -472,11 +472,11 @@ public abstract class ${manageable.controllerName}
 #foreach ($member in $manageable.manageableMembers)
 #if(!$member.hidden)##isn't working the ($manageable.searchable($member))
 #if($member.type.stringType)
-            ${and} org.apache.commons.lang.StringUtils.isBlank(form.getSearchForm().${member.getterName}())
+            ${and} org.apache.commons.lang3.StringUtils.isBlank(form.getSearchForm().${member.getterName}())
 #elseif($member.type.collectionType)
             ${and} org.apache.commons.collections.CollectionUtils.isEmpty(form.getSearchForm().${member.getterName}())
 #elseif($member.type.arrayType)
-            ${and} org.apache.commons.lang.ArrayUtils.isEmpty(form.getSearchForm().${member.getterName}())
+            ${and} org.apache.commons.lang3.ArrayUtils.isEmpty(form.getSearchForm().${member.getterName}())
 #else
             ${and} form.getSearchForm().#if($member.type.primitive && $member.type.booleanType)get${stringUtils.upperCamelCaseName($member.name)}#else${member.getterName}#end() == null
 #end
@@ -635,7 +635,7 @@ public abstract class ${manageable.controllerName}
      */
     static public ${manageable.valueObjectClassName} load(${identifierType} ${manageable.identifierName})
     {
-        if(#if(!$identifierIsPrimitive)${manageable.identifierName} == null ||#end #if(!$manageable.compositeIdentifier && $identifierIsStringType)org.apache.commons.lang.StringUtils.isBlank(${manageable.identifierName})#else${manageable.identifierName} == 0#end)
+        if(#if(!$identifierIsPrimitive)${manageable.identifierName} == null ||#end #if(!$manageable.compositeIdentifier && $identifierIsStringType)org.apache.commons.lang3.StringUtils.isBlank(${manageable.identifierName})#else${manageable.identifierName} == 0#end)
         {
             return null;
         }
@@ -666,7 +666,7 @@ public abstract class ${manageable.controllerName}
         }
         final java.util.Collection<javax.faces.model.SelectItem> result=new java.util.ArrayList<javax.faces.model.SelectItem>(vos.size());
         for(${manageable.valueObjectClassName} vo: vos){
-            result.add(new javax.faces.model.SelectItem(vo.${manageable.identifierGetterName}(),org.apache.commons.lang.ObjectUtils.toString(vo.get$stringUtils.upperCamelCaseName($manageable.displayAttribute.name)())));
+            result.add(new javax.faces.model.SelectItem(vo.${manageable.identifierGetterName}(),org.apache.commons.lang3.ObjectUtils.toString(vo.get$stringUtils.upperCamelCaseName($manageable.displayAttribute.name)())));
         }
         return result;
     }
