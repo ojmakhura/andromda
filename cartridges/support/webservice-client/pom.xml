@@ -137,7 +137,7 @@
         </dependency>
     </dependencies>
     <properties>
-        <spring.version>4.1.1.RELEASE</spring.version>
+        <spring.version>5.0.5.RELEASE</spring.version>
     </properties>
     <build>
         <plugins>
@@ -192,10 +192,6 @@
 					            <groupId>org.apache.commons</groupId>
 					            <artifactId>commons-lang3</artifactId>
 					        </inclusion>
-                            <!-- <inclusion>
-                                <groupId>commons-lang</groupId>
-                                <artifactId>commons-lang</artifactId>
-                            </inclusion> -->
                             <inclusion>
                                 <groupId>commons-beanutils</groupId>
                                 <artifactId>commons-beanutils</artifactId>
