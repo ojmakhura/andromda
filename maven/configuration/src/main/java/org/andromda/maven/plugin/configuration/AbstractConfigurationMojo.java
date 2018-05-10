@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Properties;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.configuration.Configuration;
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.repository.ArtifactRepository;

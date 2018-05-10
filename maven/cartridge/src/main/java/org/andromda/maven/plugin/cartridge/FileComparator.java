@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.List;
 import junit.framework.TestCase;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Compares two files. It checks if both file do exist and if the contents of

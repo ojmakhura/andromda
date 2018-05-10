@@ -10,8 +10,8 @@ import java.util.Map;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.maven.plugin.andromdapp.SchemaManagement;
 import org.andromda.maven.plugin.andromdapp.SchemaManagementException;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.plexus.util.DirectoryScanner;
 

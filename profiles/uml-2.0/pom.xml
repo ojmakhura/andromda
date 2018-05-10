@@ -23,6 +23,12 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-model-archiver-plugin</artifactId>
+                <configuration>
+                	<replaceExtensions>true</replaceExtensions>
+                	<replacementExtensions>.xml,.xml.zip,.xmi</replacementExtensions>
+                	<modelFilePattern>.*(\.xml|\.xmi)</modelFilePattern>
+                	<modelArchivePattern>.*(\.xml\.zip)</modelArchivePattern>
+                </configuration>
             </plugin>
         </plugins>
     </build>

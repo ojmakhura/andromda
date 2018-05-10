@@ -26,6 +26,11 @@
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-model-archiver-plugin</artifactId>
                 <version>${andromda.version}</version>
+                <configuration>
+                	<replaceExtensions>false</replaceExtensions>
+                	<replacementExtensions>.epx</replacementExtensions>
+                	<modelFilePattern>.*(\.epx)</modelFilePattern>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -3,7 +3,7 @@ package org.andromda.maven.plugin.cartridge.site;
 import java.io.File;
 import java.util.List;
 import org.andromda.maven.plugin.AndroMDAMojo;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;

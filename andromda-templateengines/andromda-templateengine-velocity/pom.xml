@@ -14,12 +14,12 @@
         <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
-            <exclusions>
+            <!-- <exclusions>
             	<exclusion>
             		<groupId>commons-lang</groupId>
                 	<artifactId>commons-lang</artifactId>	
             	</exclusion>
-            </exclusions>
+            </exclusions> -->
         </dependency>
         <dependency>
             <groupId>org.apache.velocity</groupId>

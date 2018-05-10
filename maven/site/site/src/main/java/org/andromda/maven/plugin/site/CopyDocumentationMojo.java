@@ -2,7 +2,7 @@ package org.andromda.maven.plugin.site;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;

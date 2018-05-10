@@ -10,7 +10,7 @@ import javassist.LoaderClassPath;
 import javassist.Modifier;
 import javassist.NotFoundException;
 import org.andromda.core.common.ExceptionUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * This class instruments a given class file in order for it be scripted.  A class modified

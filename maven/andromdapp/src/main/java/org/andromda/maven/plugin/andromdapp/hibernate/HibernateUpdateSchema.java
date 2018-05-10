@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Random;
 import org.andromda.core.common.Constants;
 import org.andromda.core.common.ResourceWriter;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Provides the ability to create a schema from Hibernate

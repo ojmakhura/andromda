@@ -1,7 +1,7 @@
 package org.andromda.repositories.emf;
 
 import org.andromda.core.repository.RepositoryFacadeException;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.eclipse.emf.common.util.URI;
 
 /**

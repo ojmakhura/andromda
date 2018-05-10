@@ -11,7 +11,7 @@ import java.util.Map;
 import javax.jmi.reflect.RefPackage;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ResourceUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.netbeans.api.xmi.XMIInputConfig;
 import org.netbeans.lib.jmi.xmi.XmiContext;

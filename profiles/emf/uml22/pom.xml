@@ -25,6 +25,11 @@
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-model-archiver-plugin</artifactId>
                 <version>${andromda.version}</version>
+                <configuration>
+                	<replaceExtensions>false</replaceExtensions>
+                	<replacementExtensions>.uml</replacementExtensions>
+                	<modelFilePattern>.*(\.uml)</modelFilePattern>
+                </configuration>
             </plugin>
         </plugins>
     </build>

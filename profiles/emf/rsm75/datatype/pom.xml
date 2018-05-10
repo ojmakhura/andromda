@@ -16,4 +16,18 @@
       <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/profiles/emf/rsm75/datatype</developerConnection>
       <url>http://svn.code.sf.net/p/andromda/svn/trunk/profiles/emf/rsm75/datatype/</url>
     </scm>
+    <build>
+        <plugins>
+            <plugin>
+                <extensions>true</extensions>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-model-archiver-plugin</artifactId>
+                <configuration>
+                	<replaceExtensions>false</replaceExtensions>
+                	<replacementExtensions>.emx</replacementExtensions>
+                	<modelFilePattern>.*(\.emx)</modelFilePattern>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

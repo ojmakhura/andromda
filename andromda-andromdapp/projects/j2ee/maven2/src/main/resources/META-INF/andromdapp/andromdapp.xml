@@ -165,7 +165,7 @@
     </mappings>
     <instructions>readme.txt</instructions>
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine" extensions="vsl"/>
-    <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
+    <templateObject name="stringUtils" className="org.apache.commons.lang3.StringUtils"/>
     <prompts>
         <promptGroup name="Basic Project Information">
             <documentation>

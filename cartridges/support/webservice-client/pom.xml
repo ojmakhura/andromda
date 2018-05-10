@@ -188,10 +188,14 @@
                                 <groupId>commons-codec</groupId>
                                 <artifactId>commons-codec</artifactId>
                             </inclusion>
-                            <inclusion>
+					        <inclusion>
+					            <groupId>org.apache.commons</groupId>
+					            <artifactId>commons-lang3</artifactId>
+					        </inclusion>
+                            <!-- <inclusion>
                                 <groupId>commons-lang</groupId>
                                 <artifactId>commons-lang</artifactId>
-                            </inclusion>
+                            </inclusion> -->
                             <inclusion>
                                 <groupId>commons-beanutils</groupId>
                                 <artifactId>commons-beanutils</artifactId>

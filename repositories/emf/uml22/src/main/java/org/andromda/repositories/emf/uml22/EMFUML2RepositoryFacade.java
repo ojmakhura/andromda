@@ -9,7 +9,7 @@ import org.andromda.core.repository.RepositoryFacadeException;
 import org.andromda.metafacades.emf.uml22.UMLModelAccessFacade;
 import org.andromda.metafacades.emf.uml22.UmlUtilities;
 import org.andromda.repositories.emf.EMFRepositoryFacade;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
