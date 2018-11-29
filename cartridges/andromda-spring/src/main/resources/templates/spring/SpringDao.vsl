@@ -834,7 +834,7 @@ $operation.getDocumentation("     * ")
 #set ($attributes = $entity.getAttributes(true, $entity.usingAssignedIdentifier))
 #foreach ($attribute in $attributes)
 #if ($attribute.unique)
-#set ($searchUniqueMethod = "searchUnique${stringUtils.capitalise($attribute.name)}")
+#set ($searchUniqueMethod = "searchUnique${stringUtils.capitalize($attribute.name)}")
     /**
      * Searches for a single instance of ${entity.fullyQualifiedEntityName}.
      * @param ${attribute.name} the unique ${attribute.name} to be used in the search.'

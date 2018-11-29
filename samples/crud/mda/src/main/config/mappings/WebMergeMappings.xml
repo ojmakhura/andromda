@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    This is used to map merge patterns in files generated
+    by jsf2 cartridge to new patterns. Just add content to the
+    CDATA sections of the <to/> elements in order to
+    use the following merge points.
+-->
+<mappings name="WebMerge">
+    <mapping>
+        <from><![CDATA[<!-- context-param merge-point -->]]></from>
+        <to>
+            <![CDATA[
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- facelets-libraries merge-point -->]]></from>
+        <to>
+            <![CDATA[
+    <!-- uncomment if you want to add your own project specific facelet tags
+         (and of course make sure "/WEB-INF/custom.taglib.xml" is the actual path
+          to your facelet tag descriptor)
+            /WEB-INF/custom.taglib.xml;
+    -->
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- filter merge-point -->]]></from>
+        <to>
+            <![CDATA[
+    <!-- uncomment the following if you're using the open-session-in-view pattern
+         note: that you'll need to update the filter-class value if you've changed
+         the defaults for the package and/or filter name
+    <filter>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <filter-class>org.andromda.spring.presentation.AndroMDAOpenSessionInViewFilter</filter-class>
+        <init-param>
+            <param-name>singleSession</param-name>
+            <param-value>false</param-value>
+        </init-param>
+    </filter>
+    -->
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- filter-mapping merge-point -->]]></from>
+        <to>
+            <![CDATA[
+    <!-- uncomment the following if you're using the open-session-in-view pattern
+    <filter-mapping>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    -->
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- listener merge-point -->]]></from>
+        <to>
+            <![CDATA[
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- error-page merge-point -->]]></from>
+        <to>
+            <![CDATA[
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- servlet merge-point -->]]></from>
+        <to>
+            <![CDATA[
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- servlet-mapping merge-point -->]]></from>
+        <to>
+            <![CDATA[
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- welcome-file-list merge-point -->]]></from>
+        <to>
+            <![CDATA[
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- security-constraint merge-point -->]]></from>
+        <to>
+            <![CDATA[
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- security-role merge-point -->]]></from>
+        <to>
+            <![CDATA[
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- global-forwards merge-point -->]]></from>
+        <to>
+            <![CDATA[
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- mime-type merge-point -->]]></from>
+        <to>
+            <![CDATA[
+            ]]>
+        </to>
+    </mapping>
+    <!--
+        This next mapping will merge the entire messages.properties into the generated
+        messages.properties
+    -->
+    <mapping>
+        <from><![CDATA[# custom-messages merge-point]]></from>
+        <to>
+            <path>../../../../../web/src/main/properties/messages.properties</path>
+        </to>
+    </mapping>
+</mappings>

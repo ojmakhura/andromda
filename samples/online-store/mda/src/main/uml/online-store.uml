@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xmi:id="_7zZYwCXvEdyeC6-v07fheA" name="NewModel">
+  <eAnnotations xmi:id="_NrW40CXwEdyeC6-v07fheA" source="http://www.eclipse.org/emf/2002/Ecore"/>
+  <packageImport xmi:id="_8AD7wCXvEdyeC6-v07fheA">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:id="_U3frsN6eEd2HIsKNg8eTvA">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:id="_7tQHQExuEd60KbaIlrDIWg">
+    <importedPackage xmi:type="uml:Model" href="andromda-datatype-4.0-SNAPSHOT.uml#eee_1045467100313_135436_1"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Package" xmi:id="_UW5VUHBCEdyzBeV1cEAmlQ" name="PrimitiveTypes">
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_UW5VVHBCEdyzBeV1cEAmlQ" name="BigDecimal"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_jJoe8HBEEdyzBeV1cEAmlQ" name="BigInteger"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_UW5VUXBCEdyzBeV1cEAmlQ" name="Date"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_eZJhQHRoEd2XYY41Ptd_Hw" name="DateTime"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_UW5VUnBCEdyzBeV1cEAmlQ" name="Double"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_5Ml1QHBDEdyzBeV1cEAmlQ" name="Money"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_pYgRcHBDEdyzBeV1cEAmlQ" name="Object"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_czE7UHRoEd2XYY41Ptd_Hw" name="Time"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_fuFT4HRoEd2XYY41Ptd_Hw" name="Timestamp"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_9zVW4HBDEdyzBeV1cEAmlQ" name="void"/>
+  </packagedElement>
+  <profileApplication xmi:id="_75DU0yXvEdyeC6-v07fheA">
+    <eAnnotations xmi:id="_75DU1CXvEdyeC6-v07fheA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
+    </eAnnotations>
+    <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+  </profileApplication>
+  <profileApplication xmi:id="_u18doExuEd60KbaIlrDIWg">
+    <eAnnotations xmi:id="_u2iTgExuEd60KbaIlrDIWg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="andromda-common-4.0-SNAPSHOT.profile.uml#_UlacSiOuEd6Yv5u3OIooDQ"/>
+    </eAnnotations>
+    <appliedProfile href="andromda-common-4.0-SNAPSHOT.profile.uml#_8a70287_1078771814628_224704_589"/>
+  </profileApplication>
+  <profileApplication xmi:id="_w8IuEExuEd60KbaIlrDIWg">
+    <eAnnotations xmi:id="_w8IuEUxuEd60KbaIlrDIWg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="andromda-persistence-4.0-SNAPSHOT.profile.uml#_UlaW6yOuEd6Yv5u3OIooDQ"/>
+    </eAnnotations>
+    <appliedProfile href="andromda-persistence-4.0-SNAPSHOT.profile.uml#_9_0_2_12ab03bf_1120853774265_65497_87"/>
+  </profileApplication>
+  <profileApplication xmi:id="_yyjdIExuEd60KbaIlrDIWg">
+    <eAnnotations xmi:id="_yyjdIUxuEd60KbaIlrDIWg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="andromda-presentation-4.0-SNAPSHOT.profile.uml#_UlaRsSOuEd6Yv5u3OIooDQ"/>
+    </eAnnotations>
+    <appliedProfile href="andromda-presentation-4.0-SNAPSHOT.profile.uml#_9_0_2_12ab03bf_1120853223187_211304_0"/>
+  </profileApplication>
+  <profileApplication xmi:id="_0TaL4ExuEd60KbaIlrDIWg">
+    <eAnnotations xmi:id="_0TaL4UxuEd60KbaIlrDIWg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="andromda-process-4.0-SNAPSHOT.profile.uml#_Ulab1COuEd6Yv5u3OIooDQ"/>
+    </eAnnotations>
+    <appliedProfile href="andromda-process-4.0-SNAPSHOT.profile.uml#_9_0_2_12ab03bf_1120853175671_502460_0"/>
+  </profileApplication>
+  <profileApplication xmi:id="_2CinMExuEd60KbaIlrDIWg">
+    <eAnnotations xmi:id="_2CinMUxuEd60KbaIlrDIWg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="andromda-service-4.0-SNAPSHOT.profile.uml#_UlaeICOuEd6Yv5u3OIooDQ"/>
+    </eAnnotations>
+    <appliedProfile href="andromda-service-4.0-SNAPSHOT.profile.uml#_9_0_2_12ab03bf_1120852978046_265263_0"/>
+  </profileApplication>
+  <profileApplication xmi:id="_3c2CAExuEd60KbaIlrDIWg">
+    <eAnnotations xmi:id="_3c2CAUxuEd60KbaIlrDIWg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="andromda-webservice-4.0-SNAPSHOT.profile.uml#_RcYASR-lEd6lZ_21UMRSKg"/>
+    </eAnnotations>
+    <appliedProfile href="andromda-webservice-4.0-SNAPSHOT.profile.uml#_9_0_2_12ab03bf_1120852932765_76536_0"/>
+  </profileApplication>
+  <profileApplication xmi:id="_44fgoExuEd60KbaIlrDIWg">
+    <eAnnotations xmi:id="_44fgoUxuEd60KbaIlrDIWg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="andromda-xml-4.0-SNAPSHOT.profile.uml#_RcX_pR-lEd6lZ_21UMRSKg"/>
+    </eAnnotations>
+    <appliedProfile href="andromda-xml-4.0-SNAPSHOT.profile.uml#_9_0_2_12ab03bf_1120852471296_986007_0"/>
+  </profileApplication>
+</uml:Model>

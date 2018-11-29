@@ -1,0 +1,34 @@
+<cartridge>
+     <templateObject name="date" className="java.util.Date" /> 
+
+     <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
+
+     <template
+        path="templates/deployment/DeploymentReport.vsl"
+        outputPattern="DeploymentReport.xml"
+        outlet="deploymentreport"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements variable="nodes">
+            <modelElement>
+                <type name="org.andromda.cartridges.deployment.metafacades.NodeFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/deployment/AntProject.vsl"
+        outputPattern="build.xml"
+        outlet="antprojects"
+        overwrite="true"
+        outputToSingleFile="false"
+        outputOnEmptyElements="false">
+        <modelElements variable="node">
+            <modelElement>
+                <type name="org.andromda.cartridges.deployment.metafacades.NodeFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+</cartridge>

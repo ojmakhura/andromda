@@ -287,7 +287,7 @@ $attribute.getDocumentation("     * ")
     @javax.persistence.AttributeOverrides
     ({
 #*          *##foreach ($embeddedAttribute in $attribute.type.attributes)
-        @javax.persistence.AttributeOverride(name = "${embeddedAttribute.name}", column = @javax.persistence.Column(name = "${attribute.columnName}_${embeddedAttribute.columnName}", unique =#if ($embeddedAttribute.unique && $embeddedAttribute.required) ${embeddedAttribute.unique}#else false#end#if (!$embeddedAttribute.required), nullable = ${embeddedAttribute.required}#end
+        @javax.persistence.AttributeOverride(name = "${embeddedAttribute.name}", column = @javax.persistence.Column(name = "${attribute.columnName}_${embeddedAttribute.columnName}", unique =#if ($embeddedAttribute.unique && $embeddedAttribute.required) ${embeddedAttribute.unique}#else false#end#if (!$embeddedAttribute.required), nullable =#if($embeddedAttribute.required) false#else true#end#end
 , insertable = ${embeddedAttribute.insertEnabled}, updatable = ${embeddedAttribute.updateEnabled}#if ($embeddedAttribute.columnLength), length = ${embeddedAttribute.columnLength}#end#if ($embeddedAttribute.columnDefinition), columnDefinition = "${embeddedAttribute.columnDefinition}"#end#if ($embeddedAttribute.columnPrecision), precision = ${embeddedAttribute.columnPrecision}#end#if ($embeddedAttribute.columnScale), scale = ${embeddedAttribute.columnScale}#end))#if($velocityCount != $attribute.type.attributes.size()),#end
 
 #*          *##end
@@ -319,7 +319,7 @@ $attribute.getDocumentation("     * ")
     })
 #*        *##end
 #*      *##else
-    @javax.persistence.Column(name = "${attribute.columnName}", unique =#if ($attribute.unique && $attribute.required) ${attribute.unique}#else false#end, nullable = ${attribute.required}, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
+    @javax.persistence.Column(name = "${attribute.columnName}", unique =#if ($attribute.unique && $attribute.required) ${attribute.unique}#else false#end, nullable =#if($attribute.required) false#else true#end, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
 #*      *##end
 #*      *##if (!$attribute.lob && $attribute.lazy)
 ##
@@ -630,7 +630,7 @@ $target.getDocumentation("     * ")
 ## In this situation, the target entity is a mapped superclass.
 ##
 #*      *##if ($target.type.embeddableSuperclass && $hibernateExtensionEnabled)
-    @org.hibernate.annotations.CollectionOfElements#if ($target.eager)(fetch = javax.persistence.FetchType.EAGER)#end
+    @org.hibernate.annotations.CollectionOfElements#if ($target.lazy )(fetch = javax.persistence.FetchType.EAGER)#end
 
 #*      *##else
     @javax.persistence.ManyToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end fetch = javax.persistence.FetchType.EAGER#end)

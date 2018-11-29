@@ -1,0 +1,24 @@
+#set ($project = $node.transformToAntProject())
+<project name="$project.name" default="$project.defaultTargetName">
+#foreach ($target in $project.targets)
+
+#if ($target.dependencyList)
+    <target name="$target.name" depends="$target.dependencyList">
+#else
+    <target name="$target.name">
+#end
+#foreach ($task in $target.taskcalls)
+#if ($task.taskName == "javac")
+      <javac package="$task.packageToBeCompiled" />
+#elseif($task.taskName == "jar")
+      <jar name="$task.jarName">
+#foreach ($package in $task.packagesToBeJarred)
+          <package name="$package" />
+#end
+      </jar>
+#end
+#end
+    </target>
+#end
+
+</project>

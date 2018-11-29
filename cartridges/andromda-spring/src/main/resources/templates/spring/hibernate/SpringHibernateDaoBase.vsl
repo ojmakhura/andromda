@@ -74,7 +74,6 @@ package $entity.packageName;
  */
 #if($hibernate4or5)
 @org.springframework.stereotype.Repository
-//@org.springframework.stereotype.Service
 #end
 public abstract class $entity.daoBaseName
 #if ($daoInheritance)
@@ -85,15 +84,9 @@ public abstract class $entity.daoBaseName
     implements $entity.fullyQualifiedDaoName
 {
 #if($hibernate4or5)
-    /**
-     * For backwards compatibility with HibernateDao method
-     * @deprecated Use LogFactory.getLog on each subclass, for the correct class name
-     * Apache commons logging logger used by all subclasses
-     */
-    @Deprecated
-    protected org.apache.commons.logging.Log logger = org.apache.commons.logging.LogFactory.getLog(${entity.daoBaseName}.class);
+    
+    //protected org.apache.commons.logging.Log logger = org.apache.commons.logging.LogFactory.getLog(${entity.daoBaseName}.class);
 
-    //@javax.annotation.Resource
     @org.springframework.beans.factory.annotation.Autowired
     private org.hibernate.SessionFactory sessionFactory;
     /**
@@ -113,16 +106,6 @@ public abstract class $entity.daoBaseName
      */
     protected org.hibernate.Session getSession() {
         return this.sessionFactory.getCurrentSession();
-    }
-    /**
-     * For backwards compatibility with HibernateDao method
-     * @deprecated Use this.sessionFactory.getCurrentSession() instead
-     * @param ignore boolean - always create new session if needed
-     * @return currentSession
-     */
-    @Deprecated
-    protected org.hibernate.Session getSession(boolean ignore) {
-        return this.getSession();
     }
 
 #end
@@ -335,7 +318,7 @@ $oldXmlIndent        }
 #else
         try
         {
-            final ${hibernateUtils.basePackage}.Criteria criteria = this.getSession(false).createCriteria(${entity.fullyQualifiedEntityName}.class);
+            final ${hibernateUtils.basePackage}.Criteria criteria = this.getSession().createCriteria(${entity.fullyQualifiedEntityName}.class);
             if (pageNumber > 0 && pageSize > 0)
             {
                 criteria.setFirstResult(this.calculateFirstResult(pageNumber, pageSize));
@@ -1164,7 +1147,7 @@ $oldXmlIndent        }
 #if (!$hibernate4or5)
         try
         {
-            ${hibernateUtils.basePackage}.Query queryObject = super.getSession(false).createQuery(queryString);
+            ${hibernateUtils.basePackage}.Query queryObject = super.getSession().createQuery(queryString);
 #else
         ${hibernateUtils.basePackage}.Query queryObject = this.sessionFactory.getCurrentSession().createQuery(queryString);
 #end
@@ -1269,7 +1252,7 @@ $h3tab        return results;
         try
         {
 #end
-$h3tab        ${springTypesPackage}.${criteriaSearchBaseName} criteriaSearch = new ${springTypesPackage}.${criteriaSearchBaseName}(super.getSession(false), ${entity.fullyQualifiedEntityName}.class);
+$h3tab        ${springTypesPackage}.${criteriaSearchBaseName} criteriaSearch = new ${springTypesPackage}.${criteriaSearchBaseName}(super.getSession(), ${entity.fullyQualifiedEntityName}.class);
 $h3tab        criteriaSearch.getConfiguration().setFirstResult(${criteriaArgumentName}.getFirstResult());
 $h3tab        criteriaSearch.getConfiguration().setFetchSize(${criteriaArgumentName}.getFetchSize());
 $h3tab        criteriaSearch.getConfiguration().setMaximumResultSize(${criteriaArgumentName}.getMaximumResultSize());
@@ -1298,11 +1281,6 @@ $h3tab        }
 #set($comparatorArgument = "")
 #end
 #set ($parameterName = "parameter${velocityCount}")
-##            // entity=$entity
-##            // finder=$finder
-##            // arg=$criteriaArgument finder.criteriaArgument
-##            // class=$criteriaClass criteriaArgument.type
-##            // attr=$criteriaAttribute criteriaClass.getAttributes(true)
 $h3tab        ${springTypesPackage}.${criteriaSearchBaseName}Parameter $parameterName =
 $h3tab            new ${springTypesPackage}.${criteriaSearchBaseName}Parameter(
 $h3tab                ${criteriaArgumentName}.${criteriaAttribute.getterName}(),
@@ -1812,7 +1790,7 @@ $h3tab        }
             search.setPageNumber(pageNumber);
             search.setPageSize(pageSize);
             final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
-                this.getSession(false), ${entity.fullyQualifiedEntityName}.class, search);
+                this.getSession(), ${entity.fullyQualifiedEntityName}.class, search);
             final java.util.List#if($enableTemplating)<?>#end results = propertySearch.executeAsList();
             this.transformEntities(transform, results);
             return new $fullyQualifiedPagingResultName(results.toArray(new Object[results.size()]), propertySearch.getTotalCount());
@@ -1853,7 +1831,7 @@ $h3tab        }
         try
         {
             final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
-                this.getSession(false), ${entity.fullyQualifiedEntityName}.class, search);
+                this.getSession(), ${entity.fullyQualifiedEntityName}.class, search);
             final#if($enableTemplating) java.util.Collection<?>#else java.util.Collection#end results = propertySearch.executeAsList();
             this.transformEntities(transform, results);
             return results;
@@ -1938,7 +1916,7 @@ $h3tab        }
 #set ($attributes = $entity.getAttributes(true, $entity.usingAssignedIdentifier))
 #foreach ($attribute in $attributes)
 #if ($attribute.unique)
-#set ($searchUniqueMethod = "searchUnique${stringUtils.capitalise($attribute.name)}")
+#set ($searchUniqueMethod = "searchUnique${stringUtils.capitalize($attribute.name)}")
     /**
      * {@inheritDoc}
      */

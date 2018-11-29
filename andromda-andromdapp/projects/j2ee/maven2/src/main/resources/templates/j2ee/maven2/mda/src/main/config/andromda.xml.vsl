@@ -423,7 +423,7 @@
                 <property name="importedXSD">true</property>
                 <property name="simpleBindingMode">true</property>
                 <!-- CXF XJC binding arguments, using Jaxb2 commons plugins which must be added to %JAXB_HOME%\commons directory. Suggested value:
-                     -Xcommons-lang,-Xcommons-lang:ToStringStyle=DEFAULT_STYLE,-Xdefault-value,-Xvalue-constructor,-Xcollection-setter-injector,-simple-preserve -->
+                     -Xcommons-lang3,-Xcommons-lang3:ToStringStyle=DEFAULT_STYLE,-Xdefault-value,-Xvalue-constructor,-Xcollection-setter-injector,-simple-preserve -->
                 <property name="xjcArguments">-Xts,-Xts:style:simple,-Xdv</property>
                 <!-- webserviceHost:webservicePort/webContext/servicesPath used in wsdl and spring configuration -->
                 <property name="webserviceHost">${service.host}</property>

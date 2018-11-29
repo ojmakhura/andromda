@@ -142,7 +142,7 @@
         <dependency>
             <groupId>org.hibernate.common</groupId>
             <artifactId>hibernate-commons-annotations</artifactId>
-            <version>4.0.5.Final</version>
+            <version>5.0.3.Final</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -242,8 +242,12 @@
             <artifactId>commons-logging</artifactId>
         </dependency>
         <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
         </dependency>
 #if ($ejb3)
         <dependency>

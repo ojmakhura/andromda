@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context reloadable="true" antiJARLocking="true" antiResourceLocking="false">
+
+    <Resource name="${dataSource.name}" auth="Container" type="javax.sql.DataSource"
+              maxActive="100" maxIdle="30" maxWait="10000"
+              driverClassName="${jdbc.driver}"
+              username="${jdbc.username}" password="${jdbc.password}"
+              url="${jdbc.url}"
+              defaultAutoCommit="false" removeAbandoned="true"
+              removeAbandonedTimeout="60" logAbandoned="true"/>
+</Context>

@@ -1,0 +1,5 @@
+Just an empty place holder so that the maven-ejb-plugin will build the ejb
+without having an actual ejb-jar.xml (since the model will be empty initially).
+
+Note that running mvn clean will delete this file. If there are no EJBs modeled,
+mvn install will throw an error that the ejb-jar file is missing.

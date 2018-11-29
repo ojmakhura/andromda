@@ -43,8 +43,15 @@
             <artifactId>commons-codec</artifactId>
         </dependency>
         <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+#if ($ear)
+            <scope>provided</scope>
+#end
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
 #if ($ear)
             <scope>provided</scope>
 #end
