@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.andromda.bootstrap.repositories</groupId>
+  <artifactId>andromda-repository-emf-uml2</artifactId>
+  <version>4.0-SNAPSHOT</version>
+  <name>AndroMDA EMF UML2 Repository</name>
+  <description>This EMF UML2 repository module allows AndroMDA to load Eclipse UML2 models into EMF.</description>
+  <inceptionYear>2003</inceptionYear>
+  <url>http://www.andromda.org/docs</url>
+  <issueManagement>
+      <system>jira</system>
+      <url>http://jira.andromda.org/</url>
+  </issueManagement>
+  <scm>
+      <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk</connection>
+      <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk</developerConnection>
+      <url>http://andromda.svn.sourceforge.net/viewvc/andromda/trunk/</url>
+  </scm>
+  <organization>
+    <name>AndroMDA.org</name>
+    <url>http://www.andromda.org/</url>
+  </organization>
+  <licenses>
+    <license>
+      <name>The AndroMDA Project</name>
+      <url>LICENSE.txt</url>
+      <distribution>repo</distribution>
+      <comments>AndroMDA runs under a BSD license</comments>
+    </license>
+  </licenses>
+    <developers>
+        <developer>
+            <id>mattes3</id>
+            <name>Matthias Bohlen</name>
+            <email>matthias@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+                <role>Documentation</role>
+                <role>Project Admin</role>
+            </roles>
+            <timezone>1</timezone>
+        </developer>
+        <developer>
+            <id>cwbrandon</id>
+            <name>Chad Brandon</name>
+            <email>chad@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+                <role>Documentation</role>
+                <role>Release Manager</role>
+                <role>Project Admin</role>
+            </roles>
+            <timezone>-6</timezone>
+        </developer>
+        <developer>
+            <id>amartinwest</id>
+            <name>Martin West</name>
+            <email>martin@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>0</timezone>
+        </developer>
+        <developer>
+            <id>carloslcuenca</id>
+            <name>Carlos Cuenca</name>
+            <email>carlos@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>1</timezone>
+        </developer>
+        <developer>
+            <id>freter</id>
+            <name>Peter Friese</name>
+            <email>peter@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>1</timezone>
+        </developer>
+        <developer>
+            <name>Naresh Bhatia</name>
+            <id>nbhatia</id>
+            <email>naresh@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>-5</timezone>
+        </developer>
+        <developer>
+            <id>stjerman</id>
+            <name>Steve Jerman</name>
+            <email>steve@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>6</timezone>
+        </developer>
+        <developer>
+            <id>joelkoz</id>
+            <name>Joel Kozikowski</name>
+            <email>joel@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>-5</timezone>
+        </developer>
+        <developer>
+            <id>bobfields</id>
+            <name>Bob Fields</name>
+            <email>bob@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>-5</timezone>
+        </developer>
+        <developer>
+            <id>catforce</id>
+            <name>Michail Plushnikov</name>
+            <email>michail@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+                <role>Documentation</role>
+                <role>Project Admin</role>
+            </roles>
+            <timezone>1</timezone>
+        </developer>
+        <developer>
+            <id>vancek</id>
+            <name>Vance Karimi</name>
+            <email>vance@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>8</timezone>
+        </developer>
+    </developers>
+  <dependencies>
+    <dependency>
+      <groupId>org.eclipse</groupId>
+      <artifactId>uml2</artifactId>
+      <version>1.1.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.uml2</groupId>
+      <artifactId>common</artifactId>
+      <version>1.1.1</version>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>runtime</artifactId>
+          <groupId>org.eclipse.core</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.uml2</groupId>
+      <artifactId>resources</artifactId>
+      <version>1.1.0</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.emf</groupId>
+      <artifactId>common</artifactId>
+      <version>2.1.0</version>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>runtime</artifactId>
+          <groupId>org.eclipse.core</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.emf</groupId>
+      <artifactId>ecore</artifactId>
+      <version>2.1.0</version>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>runtime</artifactId>
+          <groupId>org.eclipse.core</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>resources</artifactId>
+          <groupId>org.eclipse.core</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.emf.ecore</groupId>
+      <artifactId>xmi</artifactId>
+      <version>2.1.0</version>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>runtime</artifactId>
+          <groupId>org.eclipse.core</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.emf.mapping</groupId>
+      <artifactId>ecore2xml</artifactId>
+      <version>2.2.0</version>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>runtime</artifactId>
+          <groupId>org.eclipse.core</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.7</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>
