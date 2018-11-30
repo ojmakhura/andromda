@@ -1435,10 +1435,10 @@
         <myfaces.version>2.3.0</myfaces.version>
 #end
 #if ($cxf)
-        <spring.version>5.0.5.RELEASE</spring.version>
+        <spring.version>5.1.2.RELEASE</spring.version>
 #elseif ($spring)
         <!-- v5 migration needed -->
-        <spring.version>5.0.5.RELEASE</spring.version>
+        <spring.version>5.1.2.RELEASE</spring.version>
 #end
         <!-- To override parent default settings for compiler plugin and compliance checks-->
         <dependencyConvergence>true</dependencyConvergence>
