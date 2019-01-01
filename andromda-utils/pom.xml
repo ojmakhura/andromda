@@ -16,8 +16,8 @@
             <version>${andromda.version}</version>
         </dependency>
         <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -27,10 +27,6 @@
         	<groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
 		</dependency>
-        <!-- <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-        </dependency> -->
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
