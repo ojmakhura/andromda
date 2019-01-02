@@ -1474,6 +1474,7 @@ public class UmlUtilities
         {
             if (multValue instanceof LiteralInteger)
             {
+            	
                 final LiteralInteger litInt = (LiteralInteger)multValue;
                 value = litInt.getValue();
             }

@@ -355,8 +355,7 @@ public class AssociationEndFacadeLogicImpl
     @Override
     protected int handleGetLower()
     {
-        // MD11.5 Exports multiplicity as String
-        return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLowerValue(), this.getType(), "1");
+    	return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLowerValue(), this.getType(), "1");
     }
 
     /**

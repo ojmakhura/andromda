@@ -584,13 +584,13 @@ $target.getDocumentation("     * ")
 ## Otherwise add the JoinColumn annotation.
 ##
 #*        *##if (!$target.type.compositePrimaryKeyPresent)
-    @javax.persistence.JoinColumn(name = "${target.columnName}"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
+    @javax.persistence.JoinColumn(name = "${target.columnName}"#if(!$target.required), nullable = true#end#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
 #*        *##else
 #*          *##set ($identifiers = $target.type.getIdentifiers())
     @javax.persistence.JoinColumns
     ({
 #*          *##foreach ($attribute in $identifiers)
-        @javax.persistence.JoinColumn(name = "${attribute.columnName}"##, referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()),#end
+        @javax.persistence.JoinColumn(name = "${attribute.columnName}"#if(!$target.required), nullable = true#end##, referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()),#end
 #*          *##end
     })
 #*        *##end
