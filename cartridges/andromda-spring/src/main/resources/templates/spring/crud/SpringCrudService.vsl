@@ -148,14 +148,14 @@ public interface $manageable.manageableServiceName
 #set ($attributes = $manageable.getAttributes(true, $manageable.usingAssignedIdentifier))
 #foreach ($attribute in $attributes)
 #if ($attribute.unique)
-#set ($searchUniqueMethod = "searchUnique${stringUtils.capitalise($attribute.name)}")
+#set ($attributeNameCapitalized = $stringUtils.capitalize($attribute.name))
 
     /**
      * Searches for a single instance of ${manageable.fullyQualifiedEntityName}.
      * @param ${attribute.name} the unique ${attribute.name} to be used in the search.'
      * @return ${manageable.fullyQualifiedManageableValueObjectName}.
      */
-    public ${manageable.fullyQualifiedManageableValueObjectName} $searchUniqueMethod(final ${attribute.type.fullyQualifiedName} ${attribute.name});
+    public ${manageable.fullyQualifiedManageableValueObjectName} searchUnique$attributeNameCapitalized(final ${attribute.type.fullyQualifiedName} ${attribute.name});
 #end
 #end
 #foreach ($operation in $manageable.manageableDaoBusinessOperations)
