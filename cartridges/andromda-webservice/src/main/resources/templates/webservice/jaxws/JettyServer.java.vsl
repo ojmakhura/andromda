@@ -24,7 +24,6 @@ import org.eclipse.jetty.server.Server;
 //import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerCollection;
-import org.eclipse.jetty.server.nio.SelectChannelConnector;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 /**
@@ -50,15 +49,13 @@ public class JettyServer
          * See https://cwiki.apache.org/confluence/display/CXF20DOC/Debugging+and+Logging
          * Or add mda/log4j.xml to the test classpath.
          */
-        Server server = new Server();
+        
 
-        SelectChannelConnector connector = new SelectChannelConnector();
 #if ($stringUtils.isBlank($webservicePort))
-        connector.setPort(9090);
+        Server server = new Server(9090);
 #else
-        connector.setPort($webservicePort);
+        Server server = new Server($webservicePort);
 #end
-        server.setConnectors(new Connector[] {connector});
         // Jetty v9 changes in comments, in case they ever get the jetty.port configuration functionality working from maven
         /* HttpConfiguration http_config = new HttpConfiguration();
         //http_config.setSecureScheme("https");

@@ -77,8 +77,8 @@
 #if ($stringUtils.isBlank($XMLDateAdapter))
 #if ($dateMapping.equals("java.util.Date"))
         <jxb:javaType xmlType="xs:date" name="java.util.Date"
-                      parseMethod="org.apache.cxf.tools.common.DataTypeAdapter.parseDateTime"
-                      printMethod="org.apache.cxf.tools.common.DataTypeAdapter.printDateTime"/>
+                      parseMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.parseDateTime"
+                      printMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.printDateTime"/>
 #elseif ($dateMapping.equals("java.util.Calendar"))
         <jxb:javaType xmlType="xs:date" name="java.util.Calendar"
                       parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime"
@@ -110,8 +110,8 @@
 #if ($stringUtils.isBlank($XMLTimeAdapter))
 #if ($timeMapping.equals("java.util.Date"))
         <jxb:javaType xmlType="xs:time" name="java.util.Date"
-                      parseMethod="org.apache.cxf.tools.common.DataTypeAdapter.parseTime"
-                      printMethod="org.apache.cxf.tools.common.DataTypeAdapter.printTime"/>
+                      parseMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.parseTime"
+                      printMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.printTime"/>
 #elseif ($timeMapping.equals("java.util.Calendar"))
         <jxb:javaType xmlType="xs:time" name="java.util.Calendar"
                       parseMethod="javax.xml.bind.DatatypeConverter.parseTime"
@@ -143,8 +143,8 @@
 #if ($stringUtils.isBlank($XMLDateTimeAdapter))
 #if ($datetimeMapping.equals("java.util.Date"))
         <jxb:javaType xmlType="xs:dateTime" name="java.util.Date"
-                      parseMethod="org.apache.cxf.tools.common.DataTypeAdapter.parseDateTime"
-                      printMethod="org.apache.cxf.tools.common.DataTypeAdapter.printDateTime"/>
+                      parseMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.parseDateTime"
+                      printMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.printDateTime"/>
 #elseif ($datetimeMapping.equals("java.util.Calendar"))
         <jxb:javaType xmlType="xs:dateTime" name="java.util.Calendar"
                       parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime"

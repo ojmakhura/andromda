@@ -23,7 +23,6 @@ public class ApplicationContextProvider implements ApplicationContextAware {
     public static ApplicationContext getApplicationContext() {
     	if(context == null) {
     		context = new ClassPathXmlApplicationContext("applicationContext.xml", "applicationContext-dataSource.xml");
-    		System.out.println("Context is " + context.toString());
     	}
         return context;
     }

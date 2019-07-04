@@ -22,7 +22,7 @@
 #else
 #set($columnName = $column)
 #end
-        <tr:column sortable="true" sortProperty="$columnName">
+        <tr:column sortable="true" sortProperty="row.${columnName}">
             <f:facet name="header">
                 <tr:outputText value="#{messages['$table.getTableColumnMessageKey($columnName)']}"/>
             </f:facet>

@@ -44,8 +44,7 @@
     <ciManagement>
         <system>jenkins</system>
         <url>https://andromdabuild.ci.cloudbees.com/job/Andromda/</url>
-        <!--system>hudson</system>
-        <url>http://www.andromda.org/hudson</url-->
+        <!--system>hudson</system> <url>http://www.andromda.org/hudson</url -->
     </ciManagement>
     <mailingLists>
         <mailingList>
@@ -209,10 +208,10 @@
                 <version>1.4</version>
             </dependency>
             <dependency>
-			    <groupId>org.apache.commons</groupId>
-			    <artifactId>commons-collections4</artifactId>
-			    <version>4.2</version>
-			</dependency>            
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>4.2</version>
+            </dependency>
             <dependency>
                 <groupId>commons-dbutils</groupId>
                 <artifactId>commons-dbutils</artifactId>
@@ -234,14 +233,14 @@
                 <version>2.4</version>
             </dependency>
             <dependency>
-              <groupId>org.apache.commons</groupId>
-              <artifactId>commons-lang3</artifactId>
-              <version>3.7</version>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.7</version>
             </dependency>
             <dependency>
-              <groupId>org.apache.commons</groupId>
-              <artifactId>commons-text</artifactId>
-              <version>1.3</version>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>1.3</version>
             </dependency>
             <dependency>
                 <groupId>commons-logging</groupId>
@@ -288,7 +287,7 @@
                 <artifactId>jaxen</artifactId>
                 <version>1.1.6</version>
                 <exclusions>
-                    <!--Exclude old xerces-->
+                    <!--Exclude old xerces -->
                     <exclusion>
                         <groupId>xerces</groupId>
                         <artifactId>xercesImpl</artifactId>
@@ -349,7 +348,8 @@
                 <artifactId>javassist</artifactId>
                 <version>3.18.2-GA</version>
             </dependency>
-            <!-- maven-project-info-reports-plugin Dependency Management report refers to jsp-api 2.2.1 which does not exist -->
+            <!-- maven-project-info-reports-plugin Dependency Management report refers 
+            to jsp-api 2.2.1 which does not exist -->
             <dependency>
                 <groupId>javax.servlet.jsp</groupId>
                 <artifactId>jsp-api</artifactId>
@@ -361,7 +361,7 @@
                 <version>2.5</version>
             </dependency>
 
-            <!-- Some dependencies, which can not be found in maven repository-->
+            <!-- Some dependencies, which can not be found in maven repository -->
             <dependency>
                 <groupId>org.andromda.thirdparty.jmi</groupId>
                 <artifactId>jmiuml</artifactId>
@@ -397,38 +397,17 @@
                 <artifactId>openide-util</artifactId>
                 <version>20050711</version>
             </dependency>
-            <!--dependency>
-                <groupId>org.eclipse.uml2</groupId>
-                <artifactId>org.eclipse.uml2.uml.resources</artifactId>
-                <version>3.1.0.v201005031530</version>
-                <scope>runtime</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.eclipse.core</groupId>
-                        <artifactId>org.eclipse.core.runtime</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.uml2</groupId>
-                <artifactId>org.eclipse.uml2.uml</artifactId>
-                <version>3.1.0.v201006071150</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.eclipse.osgi</groupId>
-                        <artifactId>org.eclipse.osgi</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.equinox</groupId>
-                        <artifactId>org.eclipse.equinox.registry</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.core</groupId>
-                        <artifactId>org.eclipse.core.runtime</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency-->
-            <!-- Eclipse 4.4 Luna UML2 dependencies. uml artifacts screwed up the references to emf artifacts -->
+            <!--dependency> <groupId>org.eclipse.uml2</groupId> <artifactId>org.eclipse.uml2.uml.resources</artifactId> 
+            <version>3.1.0.v201005031530</version> <scope>runtime</scope> <exclusions> 
+            <exclusion> <groupId>org.eclipse.core</groupId> <artifactId>org.eclipse.core.runtime</artifactId> 
+            </exclusion> </exclusions> </dependency> <dependency> <groupId>org.eclipse.uml2</groupId> 
+            <artifactId>org.eclipse.uml2.uml</artifactId> <version>3.1.0.v201006071150</version> 
+            <exclusions> <exclusion> <groupId>org.eclipse.osgi</groupId> <artifactId>org.eclipse.osgi</artifactId> 
+            </exclusion> <exclusion> <groupId>org.eclipse.equinox</groupId> <artifactId>org.eclipse.equinox.registry</artifactId> 
+            </exclusion> <exclusion> <groupId>org.eclipse.core</groupId> <artifactId>org.eclipse.core.runtime</artifactId> 
+            </exclusion> </exclusions> </dependency -->
+            <!-- Eclipse 4.4 Luna UML2 dependencies. uml artifacts screwed up the 
+            references to emf artifacts -->
             <dependency>
                 <groupId>org.eclipse.uml2.uml</groupId>
                 <artifactId>resources</artifactId>
@@ -579,11 +558,12 @@
                 <artifactId>maven-config</artifactId>
                 <version>${andromda.version}</version>
             </extension>
-            <!-- Required to deploy a snapshot or a release to the CloudBees remote maven repository using Webdav -->
+            <!-- Required to deploy a snapshot or a release to the CloudBees remote 
+            maven repository using Webdav -->
             <extension>
-              <groupId>org.apache.maven.wagon</groupId>
-              <artifactId>wagon-webdav</artifactId>
-              <version>1.0-beta-2</version>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-webdav</artifactId>
+                <version>1.0-beta-2</version>
             </extension>
         </extensions>
         <pluginManagement>
@@ -663,7 +643,8 @@
         </pluginManagement>
         <plugins>
             <plugin>
-                <!-- See https://github.com/lkwg82/enforcer-maven-plugin. Patched original. Fix cloudbees error on pom download -->
+                <!-- See https://github.com/lkwg82/enforcer-maven-plugin. Patched original. 
+                Fix cloudbees error on pom download -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
             </plugin>
@@ -1001,32 +982,36 @@
         <maven.version>2.2.1</maven.version>
         <!-- proguard in webservice-client does not yet support JDK8, see http://sourceforge.net/p/proguard/feature-requests/138 -->
         <java.required.version>[1.6.0, 1.9.0)</java.required.version>
-        <!--maven.test.failure.ignore>true</maven.test.failure.ignore-->
-        <!--uniqueVersion>false</uniqueVersion-->
-        <!-- Update lib\ bootstrap artifacts. Artifacts are installed as the very first build step
-        <bootstrap.artifacts>true</bootstrap.artifacts-->
-        <!-- French Encoding from Cedric in some files: can't use UTF-8, TODO update source files -->
+        <!--maven.test.failure.ignore>true</maven.test.failure.ignore -->
+        <!--uniqueVersion>false</uniqueVersion -->
+        <!-- Update lib\ bootstrap artifacts. Artifacts are installed as the very 
+        first build step <bootstrap.artifacts>true</bootstrap.artifacts -->
+        <!-- French Encoding from Cedric in some files: can't use UTF-8, TODO update 
+        source files -->
         <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
-        <!-- Plugin version definitions-->
+        <!-- Plugin version definitions -->
         <plexus.util.version>3.0.18</plexus.util.version>
         <uniqueVersion>false</uniqueVersion>
     </properties>
     <profiles>
         <profile>
-            <!-- This profile configuration is needed to install the model-archive-plugin and maven-config extensions.
-            Before this project can be built, the command "mvn -P andromda-prepare' must be executed.
-            (since these plugins must exist before the build even starts) -->
-            <!-- This no longer works, the two extensions must be installed by changing to the subdirectory and running 'mvn install' -->
+            <!-- This profile configuration is needed to install the model-archive-plugin 
+            and maven-config extensions. Before this project can be built, the command 
+            "mvn -P andromda-prepare' must be executed. (since these plugins must exist 
+            before the build even starts) -->
+            <!-- This no longer works, the two extensions must be installed by changing 
+            to the subdirectory and running 'mvn install' -->
             <id>andromda-prepare</id>
             <modules>
                 <module>maven/model-archiver</module>
                 <module>maven/maven-config</module>
             </modules>
         </profile>
-        <!--Profile configuration for light build. It builds all modules without javadoc packaging.
-        Note: activeByDefault means it is DEACTIVATED if another profile is specifically activated i.e. through -Pprofile. -->
+        <!--Profile configuration for light build. It builds all modules without 
+        javadoc packaging. Note: activeByDefault means it is DEACTIVATED if another 
+        profile is specifically activated i.e. through -Pprofile. -->
         <profile>
             <id>andromda-lite</id>
             <activation>
@@ -1054,7 +1039,7 @@
                 <module>samples</module>
             </modules>
         </profile>
-        <!--Profile configuration for local builds-->
+        <!--Profile configuration for local builds -->
         <profile>
             <id>local</id>
             <activation>
@@ -1083,8 +1068,8 @@
                 </site>
             </distributionManagement>
         </profile>
-        <!--Profile configuration for cloudbees WebDav. See https://github.com/CloudBees-community/maven-config-github-cloudbees/blob/master/pom.xml
-            Need to configure server id/password in settings.xml in order to deploy. -->
+        <!--Profile configuration for cloudbees WebDav. See https://github.com/CloudBees-community/maven-config-github-cloudbees/blob/master/pom.xml 
+        Need to configure server id/password in settings.xml in order to deploy. -->
         <profile>
             <id>cloudbees</id>
             <activation>
@@ -1092,48 +1077,48 @@
             </activation>
             <!-- Deploy releases and snapshots to the CloudBees maven repositories -->
             <distributionManagement>
-              <repository>
-                <id>andromdabuild-cloudbees-release</id>
-                <name>andromdabuild-cloudbees-release</name>
-                <!-- Webdav repository url are prefixed with dav: -->
-                <url>dav:https://repository-andromdabuild.forge.cloudbees.com/release/</url>
-                <uniqueVersion>true</uniqueVersion>
-              </repository>
-              <snapshotRepository>
-                <id>andromdabuild-cloudbees-snapshot</id>
-                <name>andromdabuild-cloudbees-snapshot</name>
-                <url>dav:https://andromdabuild-javaetmoi.forge.cloudbees.com/snapshot/</url>
-                <uniqueVersion>false</uniqueVersion>
-              </snapshotRepository>
-              <site>
-                  <id>website</id>
-                  <url>file:/scratch/hudson/workspace/Andromda/site/</url>
-              </site>
+                <repository>
+                    <id>andromdabuild-cloudbees-release</id>
+                    <name>andromdabuild-cloudbees-release</name>
+                    <!-- Webdav repository url are prefixed with dav: -->
+                    <url>dav:https://repository-andromdabuild.forge.cloudbees.com/release/</url>
+                    <uniqueVersion>true</uniqueVersion>
+                </repository>
+                <snapshotRepository>
+                    <id>andromdabuild-cloudbees-snapshot</id>
+                    <name>andromdabuild-cloudbees-snapshot</name>
+                    <url>dav:https://andromdabuild-javaetmoi.forge.cloudbees.com/snapshot/</url>
+                    <uniqueVersion>false</uniqueVersion>
+                </snapshotRepository>
+                <site>
+                    <id>website</id>
+                    <url>file:/scratch/hudson/workspace/Andromda/site/</url>
+                </site>
             </distributionManagement>
             <repositories>
-              <!-- Cloudbees maven repositories for releases and snapshots -->
-              <repository>
-                <id>andromdabuild-cloudbees-release</id>
-                <name>andromdabuild-cloudbees-release</name>
-                <url>https://andromdabuild-javaetmoi.forge.cloudbees.com/release/</url>
-                <releases>
-                  <enabled>true</enabled>
-                </releases>
-                <snapshots>
-                  <enabled>false</enabled>
-                </snapshots>
-              </repository>
-              <repository>
-                <id>andromdabuild-cloudbees-snapshot</id>
-                <name>andromdabuild-cloudbees-snapshot</name>
-                <url>https://repository-andromdabuild.forge.cloudbees.com/snapshot/</url>
-                <releases>
-                  <enabled>false</enabled>
-                </releases>
-                <snapshots>
-                  <enabled>true</enabled>
-                </snapshots>
-              </repository>
+                <!-- Cloudbees maven repositories for releases and snapshots -->
+                <repository>
+                    <id>andromdabuild-cloudbees-release</id>
+                    <name>andromdabuild-cloudbees-release</name>
+                    <url>https://andromdabuild-javaetmoi.forge.cloudbees.com/release/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>andromdabuild-cloudbees-snapshot</id>
+                    <name>andromdabuild-cloudbees-snapshot</name>
+                    <url>https://repository-andromdabuild.forge.cloudbees.com/snapshot/</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
             </repositories>
         </profile>
         <profile>
@@ -1173,7 +1158,7 @@
             </build>
         </profile>
         <profile>
-            <!--Profile configuration for site builds-->
+            <!--Profile configuration for site builds -->
             <id>andromda-site</id>
             <modules>
                 <module>maven/maven-config</module>
@@ -1190,7 +1175,7 @@
                 <module>andromda-etc</module>
                 <module>translation-libraries</module>
                 <module>andromda-documentation</module>
-                <!--module>samples</module-->
+                <!--module>samples</module -->
             </modules>
             <properties>
                 <invoker.skip>true</invoker.skip>
@@ -1199,7 +1184,7 @@
                 <skipProcessing>true</skipProcessing>
                 <maven.test.skip>true</maven.test.skip>
                 <andromda.translation.test.skip>true</andromda.translation.test.skip>
-                <!--maven.test.failure.ignore>true</maven.test.failure.ignore-->
+                <!--maven.test.failure.ignore>true</maven.test.failure.ignore -->
             </properties>
             <build>
                 <plugins>
@@ -1217,23 +1202,35 @@
                                 <phase>site</phase>
                                 <configuration>
                                     <target>
-                                        <!-- copy andromda mapping files-->
-                                        <copy todir="${project.reporting.outputDirectory}/mappings" overwrite="false"
-                                          failonerror="false" flatten="true" preservelastmodified="true" verbose="true">
-                                            <fileset dir="${project.basedir}/andromda-etc/mappings" includes="**/*.xml"/>
+                                        <!-- copy andromda mapping files -->
+                                        <copy
+                                            todir="${project.reporting.outputDirectory}/mappings"
+                                            overwrite="false" failonerror="false" flatten="true"
+                                            preservelastmodified="true" verbose="true">
+                                            <fileset
+                                                dir="${project.basedir}/andromda-etc/mappings"
+                                                includes="**/*.xml" />
                                         </copy>
-                                        <!-- Update the xsd artifacts on the server, to validate XML with http URL under andromda.sourceforge.net/xsd -->
-                                        <copy todir="${project.reporting.outputDirectory}/xsd" overwrite="false"
-                                          failonerror="false" flatten="true" preservelastmodified="true" verbose="true">
-                                            <fileset dir="${project.basedir}/andromda-core/src/main/resources" includes="**/*.xsd"/>
+                                        <!-- Update the xsd artifacts on the server, to validate XML with 
+                                        http URL under andromda.sourceforge.net/xsd -->
+                                        <copy todir="${project.reporting.outputDirectory}/xsd"
+                                                                                      overwrite="false" failonerror="false" flatten="true"
+                                                                                      preservelastmodified="true" verbose="true">
+                                            <fileset
+                                                dir="${project.basedir}/andromda-core/src/main/resources"
+                                                includes="**/*.xsd" />
                                         </copy>
-                                        <copy todir="${project.reporting.outputDirectory}/xsd" overwrite="false"
-                                          failonerror="false" flatten="true" preservelastmodified="true" verbose="true">
-                                            <fileset dir="${project.basedir}/andromda-andromdapp/andromda-andromdapp-core/src/main/resources" includes="**/*.xsd"/>
+                                        <copy todir="${project.reporting.outputDirectory}/xsd"
+                                                                                      overwrite="false" failonerror="false" flatten="true"
+                                                                                      preservelastmodified="true" verbose="true">
+                                            <fileset
+                                                dir="${project.basedir}/andromda-andromdapp/andromda-andromdapp-core/src/main/resources"
+                                                includes="**/*.xsd" />
                                         </copy>
-                                        <!-- Extract jmi-uml 1.4 javadoc-->
-                                        <unzip src="${project.basedir}/src/site/resources/resources/jmi-uml1.4.zip"
-                                               dest="${project.reporting.outputDirectory}"/>
+                                        <!-- Extract jmi-uml 1.4 javadoc -->
+                                        <unzip
+                                            src="${project.basedir}/src/site/resources/resources/jmi-uml1.4.zip"
+                                            dest="${project.reporting.outputDirectory}" />
                                     </target>
                                 </configuration>
                                 <goals>
@@ -1244,7 +1241,8 @@
                     </plugin>
                 </plugins>
             </build>
-            <!-- Reporting configurations are not picked up from pluginManagement section -->
+            <!-- Reporting configurations are not picked up from pluginManagement 
+            section -->
             <reporting>
                 <plugins>
                     <plugin>
@@ -1453,29 +1451,16 @@
                             </reportSet>
                         </reportSets>
                     </plugin>
-                    <!--plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>dashboard-maven-plugin</artifactId>
-                        <version>1.0.0-beta-1</version>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-doap-plugin</artifactId>
-                        <version>1.1</version>
-                        <configuration>
-                        <doapOptions>
-                            <programmingLanguage>java</programmingLanguage>
-                            <category>build-management</category>
-                        </doapOptions>
-                        <asfExtOptions>
-                            <included>false</included>
-                        </asfExtOptions>
-                        </configuration>
-                    </plugin-->
+                    <!--plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>dashboard-maven-plugin</artifactId> 
+                    <version>1.0.0-beta-1</version> </plugin> <plugin> <artifactId>maven-doap-plugin</artifactId> 
+                    <version>1.1</version> <configuration> <doapOptions> <programmingLanguage>java</programmingLanguage> 
+                    <category>build-management</category> </doapOptions> <asfExtOptions> <included>false</included> 
+                    </asfExtOptions> </configuration> </plugin -->
                 </plugins>
             </reporting>
         </profile>
         <profile>
-            <!--Profile configuration for site builds-->
+            <!--Profile configuration for site builds -->
             <id>andromda-site-light</id>
             <modules>
                 <module>maven/maven-config</module>
@@ -1500,7 +1485,7 @@
                 <skipProcessing>true</skipProcessing>
                 <maven.test.skip>true</maven.test.skip>
                 <andromda.translation.test.skip>true</andromda.translation.test.skip>
-                <!--maven.test.failure.ignore>true</maven.test.failure.ignore-->
+                <!--maven.test.failure.ignore>true</maven.test.failure.ignore -->
             </properties>
             <build>
                 <plugins>
@@ -1518,23 +1503,35 @@
                                 <phase>site</phase>
                                 <configuration>
                                     <target>
-                                        <!-- copy andromda mapping files-->
-                                        <copy todir="${project.reporting.outputDirectory}/mappings" overwrite="false"
-                                          failonerror="false" flatten="true" preservelastmodified="true" verbose="true">
-                                            <fileset dir="${project.basedir}/andromda-etc/mappings" includes="**/*.xml"/>
+                                        <!-- copy andromda mapping files -->
+                                        <copy
+                                            todir="${project.reporting.outputDirectory}/mappings"
+                                            overwrite="false" failonerror="false" flatten="true"
+                                            preservelastmodified="true" verbose="true">
+                                            <fileset
+                                                dir="${project.basedir}/andromda-etc/mappings"
+                                                includes="**/*.xml" />
                                         </copy>
-                                        <!-- Update the xsd artifacts on the server, to validate XML with http URL under andromda.sourceforge.net/xsd -->
-                                        <copy todir="${project.reporting.outputDirectory}/xsd" overwrite="false"
-                                          failonerror="false" flatten="true" preservelastmodified="true" verbose="true">
-                                            <fileset dir="${project.basedir}/andromda-core/src/main/resources" includes="**/*.xsd"/>
+                                        <!-- Update the xsd artifacts on the server, to validate XML with 
+                                        http URL under andromda.sourceforge.net/xsd -->
+                                        <copy todir="${project.reporting.outputDirectory}/xsd"
+                                                                                      overwrite="false" failonerror="false" flatten="true"
+                                                                                      preservelastmodified="true" verbose="true">
+                                            <fileset
+                                                dir="${project.basedir}/andromda-core/src/main/resources"
+                                                includes="**/*.xsd" />
                                         </copy>
-                                        <copy todir="${project.reporting.outputDirectory}/xsd" overwrite="false"
-                                          failonerror="false" flatten="true" preservelastmodified="true" verbose="true">
-                                            <fileset dir="${project.basedir}/andromda-andromdapp/andromda-andromdapp-core/src/main/resources" includes="**/*.xsd"/>
+                                        <copy todir="${project.reporting.outputDirectory}/xsd"
+                                                                                      overwrite="false" failonerror="false" flatten="true"
+                                                                                      preservelastmodified="true" verbose="true">
+                                            <fileset
+                                                dir="${project.basedir}/andromda-andromdapp/andromda-andromdapp-core/src/main/resources"
+                                                includes="**/*.xsd" />
                                         </copy>
-                                        <!-- Extract jmi-uml 1.4 javadoc-->
-                                        <unzip src="${project.basedir}/src/site/resources/resources/jmi-uml1.4.zip"
-                                               dest="${project.reporting.outputDirectory}"/>
+                                        <!-- Extract jmi-uml 1.4 javadoc -->
+                                        <unzip
+                                            src="${project.basedir}/src/site/resources/resources/jmi-uml1.4.zip"
+                                            dest="${project.reporting.outputDirectory}" />
                                     </target>
                                 </configuration>
                                 <goals>
@@ -1545,7 +1542,8 @@
                     </plugin>
                 </plugins>
             </build>
-            <!-- Reporting configurations are not picked up from pluginManagement section -->
+            <!-- Reporting configurations are not picked up from pluginManagement 
+            section -->
             <reporting>
                 <plugins>
                     <plugin>
@@ -1724,66 +1722,67 @@
                 </plugins>
             </reporting>
         </profile>
-        <!-- Create/install javadoc and test-javadoc jars during the build. Run as part of deploy process -->
+        <!-- Create/install javadoc and test-javadoc jars during the build. Run 
+        as part of deploy process -->
         <profile>
             <id>javadocs</id>
             <build>
-                    <plugins>
-                        <plugin>
-                            <artifactId>maven-javadoc-plugin</artifactId>
-                            <version>${maven-javadoc-plugin.version}</version>
-                            <executions>
-                                <execution>
-                                    <id>javadoc-jar</id>
-                                    <phase>package</phase>
-                                    <goals>
-                                        <goal>jar</goal>
-                                    </goals>
-                                </execution>
-                                <execution>
-                                    <id>test-jar</id>
-                                    <phase>package</phase>
-                                    <goals>
-                                        <goal>test-jar</goal>
-                                    </goals>
-                                </execution>
-                            </executions>
-                            <configuration>
-                                <show>package</show>
-                                <version>true</version>
-                                <javadocVersion>${source.version}</javadocVersion>
-                                <failOnError>false</failOnError>
-                                <linksource>true</linksource>
-                                <detectLinks>true</detectLinks>
-                                <detectOfflineLinks>true</detectOfflineLinks>
-                                <links>
-                                    <link>http://docs.oracle.com/javase/8/docs/api/</link>
-                                    <link>http://docs.oracle.com/javaee/7/api/</link>
-                                    <link>http://download.eclipse.org/modeling/mdt/uml2/javadoc/5.0.0/</link>
-                                    <link>http://download.eclipse.org/modeling/emf/emf/javadoc/2.9.0/</link>
-                                    <link>http://download.eclipse.org/modeling/emf/emf/javadoc/xsd/2.9.0/</link>
-                                    <link>http://xerces.apache.org/xerces2-j/javadocs/api/</link>
-                                    <link>http://dom4j.sourceforge.net/apidocs/</link>
-                                    <link>http://freemarker.org/docs/api/</link>
-                                    <link>http://groovy.codehaus.org/api/</link>
-                                    <link>http://www.jajakarta.org/ant/ant-1.6.1/docs/ja/manual/api/</link>
-                                    <link>http://jakarta.apache.org/commons/collections/apidocs/</link>
-                                    <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
-                                    <link>http://jakarta.apache.org/regexp/apidocs/</link>
-                                    <link>http://jaxb.java.net/nonav/2.2.7/docs/api/</link>
-                                    <link>http://logging.apache.org/log4j/1.2/apidocs/</link>
-                                    <link>http://maven.apache.org/ref/2.2.1/maven-core/apidocs/</link>
-                                    <link>http://maven.apache.org/ref/2.2.1/maven-plugin-api/apidocs/</link>
-                                    <link>http://maven.apache.org/ref/2.2.1/maven-project/apidocs/</link>
-                                    <link>http://maven.apache.org/ref/2.2.1/maven-artifact/apidocs/</link>
-                                    <link>http://velocity.apache.org/engine/devel/apidocs/</link>
-                                    <link>http://andromda.sourceforge.net/jmi-uml1.4/</link>
-                                    <link>http://www.csg.is.titech.ac.jp/~chiba/javassist/html/</link>
-                                    <link>http://junit.sourceforge.net/javadoc/</link>
-                                </links>
-                            </configuration>
-                        </plugin>
-                    </plugins>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven-javadoc-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>javadoc-jar</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>test-jar</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>test-jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <show>package</show>
+                            <version>true</version>
+                            <javadocVersion>${source.version}</javadocVersion>
+                            <failOnError>false</failOnError>
+                            <linksource>true</linksource>
+                            <detectLinks>true</detectLinks>
+                            <detectOfflineLinks>true</detectOfflineLinks>
+                            <links>
+                                <link>http://docs.oracle.com/javase/8/docs/api/</link>
+                                <link>http://docs.oracle.com/javaee/7/api/</link>
+                                <link>http://download.eclipse.org/modeling/mdt/uml2/javadoc/5.0.0/</link>
+                                <link>http://download.eclipse.org/modeling/emf/emf/javadoc/2.9.0/</link>
+                                <link>http://download.eclipse.org/modeling/emf/emf/javadoc/xsd/2.9.0/</link>
+                                <link>http://xerces.apache.org/xerces2-j/javadocs/api/</link>
+                                <link>http://dom4j.sourceforge.net/apidocs/</link>
+                                <link>http://freemarker.org/docs/api/</link>
+                                <link>http://groovy.codehaus.org/api/</link>
+                                <link>http://www.jajakarta.org/ant/ant-1.6.1/docs/ja/manual/api/</link>
+                                <link>http://jakarta.apache.org/commons/collections/apidocs/</link>
+                                <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
+                                <link>http://jakarta.apache.org/regexp/apidocs/</link>
+                                <link>http://jaxb.java.net/nonav/2.2.7/docs/api/</link>
+                                <link>http://logging.apache.org/log4j/1.2/apidocs/</link>
+                                <link>http://maven.apache.org/ref/2.2.1/maven-core/apidocs/</link>
+                                <link>http://maven.apache.org/ref/2.2.1/maven-plugin-api/apidocs/</link>
+                                <link>http://maven.apache.org/ref/2.2.1/maven-project/apidocs/</link>
+                                <link>http://maven.apache.org/ref/2.2.1/maven-artifact/apidocs/</link>
+                                <link>http://velocity.apache.org/engine/devel/apidocs/</link>
+                                <link>http://andromda.sourceforge.net/jmi-uml1.4/</link>
+                                <link>http://www.csg.is.titech.ac.jp/~chiba/javassist/html/</link>
+                                <link>http://junit.sourceforge.net/javadoc/</link>
+                            </links>
+                        </configuration>
+                    </plugin>
+                </plugins>
             </build>
         </profile>
     </profiles>

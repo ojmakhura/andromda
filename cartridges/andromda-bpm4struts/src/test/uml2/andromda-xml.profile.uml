@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
+  <uml:Profile xmi:id="_9_0_2_12ab03bf_1120852471296_986007_0" name="andromda-xml" visibility="public" URI="" metamodelReference="_0metamodelReferenceandromda-xml">
+    <eAnnotations xmi:id="_zHtWkCFWEemZsbA_hUHNlg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <contents xmi:type="ecore:EPackage" xmi:id="_zHtWkSFWEemZsbA_hUHNlg" name="andromdaxml" nsURI="http:///schemas/andromdaxml/_ygBrgCFWEemZsbA_hUHNlg/0" nsPrefix="andromdaxml">
+        <eAnnotations xmi:id="_zHtWkiFWEemZsbA_hUHNlg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+          <details xmi:id="_zHtWkyFWEemZsbA_hUHNlg" key="originalName" value="andromda-xml"/>
+        </eAnnotations>
+      </contents>
+    </eAnnotations>
+    <packageImport xmi:id="_0metamodelReferenceandromda-xml">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:id="_0primitiveTypesandromda-xml">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:id="_0javaPrimitiveTypesandromda-xml">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <profileApplication xmi:id="_0profileApplicationandromda-xml">
+      <eAnnotations xmi:id="_zKb6dCFWEemZsbA_hUHNlg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Profile>
+  <standard:ModelLibrary xmi:id="_zKchgCFWEemZsbA_hUHNlg" base_Package="_9_0_2_12ab03bf_1120852471296_986007_0"/>
+</xmi:XMI>

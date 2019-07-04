@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:MagicDrawProfile="http://www.omg.org/spec/UML/20131001/MagicDrawProfile" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.omg.org/spec/UML/20131001/MagicDrawProfile UML_Standard_Profile.MagicDraw_Profile.profile.uml#_zH0FdyFWEemZsbA_hUHNlg">
+  <uml:Profile xmi:id="_16_8_2e90116_1280953064832_683579_2277" name="Profile_for_BPM4StrutsCartridgeTestModel1" visibility="public" URI="" metamodelReference="_16_8_2e90116_1280953064832_708314_2278">
+    <eAnnotations xmi:id="_zH3uyCFWEemZsbA_hUHNlg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <contents xmi:type="ecore:EPackage" xmi:id="_zH3uySFWEemZsbA_hUHNlg" name="Profile_for_BPM4StrutsCartridgeTestModel1" nsURI="http:///schemas/Profile_for_BPM4StrutsCartridgeTestModel1/_ygV0kCFWEemZsbA_hUHNlg/0" nsPrefix="Profile_for_BPM4StrutsCartridgeTestModel1">
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_zH3uyiFWEemZsbA_hUHNlg" name="_andromdastrutscontrollerusecase">
+          <eAnnotations xmi:id="_zH3uyyFWEemZsbA_hUHNlg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_16_8_2e90116_1280953065066_40440_2513">
+            <details xmi:id="_zH3uzCFWEemZsbA_hUHNlg" key="originalName" value="@andromda.struts.controller.usecase"/>
+          </eAnnotations>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_zH3uzSFWEemZsbA_hUHNlg" name="base_Element" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Element"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_zH3uzyFWEemZsbA_hUHNlg" name="_andromdastrutscontrollerusecase" ordered="false" lowerBound="1">
+            <eAnnotations xmi:id="_zH3u0CFWEemZsbA_hUHNlg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+              <details xmi:id="_zH3u0SFWEemZsbA_hUHNlg" key="originalName" value="@andromda.struts.controller.usecase"/>
+            </eAnnotations>
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_zH3u0yFWEemZsbA_hUHNlg" name="hyperlinkText">
+          <eAnnotations xmi:id="_zH3u1CFWEemZsbA_hUHNlg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_16_8_2e90116_1280953064254_236221_1782"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_zH3u1SFWEemZsbA_hUHNlg" name="hyperlinkText" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_zH3u1yFWEemZsbA_hUHNlg" name="base_Element" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Element"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_zH3u2SFWEemZsbA_hUHNlg" name="hyperlinkTextActive">
+          <eAnnotations xmi:id="_zH3u2iFWEemZsbA_hUHNlg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_16_8_2e90116_1280953064254_600429_1785"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_zH3u2yFWEemZsbA_hUHNlg" name="hyperlinkTextActive" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_zH3u3SFWEemZsbA_hUHNlg" name="base_Element" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Element"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+      </contents>
+    </eAnnotations>
+    <packageImport xmi:id="_16_8_2e90116_1280953064832_708314_2278">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:id="_0primitiveTypesProfile_for_BPM4StrutsCartridgeTestModel1">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:id="_0javaPrimitiveTypesProfile_for_BPM4StrutsCartridgeTestModel1">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_16_8_2e90116_1280953065066_40440_2513" name="@andromda.struts.controller.usecase" visibility="public">
+      <ownedAttribute xmi:id="_16_8_2e90116_1280953065066_624883_2515" name="base_Element" visibility="private" association="_16_8_2e90116_1280953065066_215442_2514">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_16_8_2e90116_1280953065082_514559_2519" name="@andromda.struts.controller.usecase" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <nestedClassifier xmi:type="uml:Extension" xmi:id="_16_8_2e90116_1280953065066_215442_2514" name="" visibility="public" memberEnd="_16_8_2e90116_1280953065066_624883_2515 _16_8_2e90116_1280953065066_531613_2516" navigableOwnedEnd="_16_8_2e90116_1280953065066_531613_2516">
+        <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_16_8_2e90116_1280953065066_531613_2516" name="extension_" visibility="private" type="_16_8_2e90116_1280953065066_40440_2513" aggregation="composite" association="_16_8_2e90116_1280953065066_215442_2514">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8_2e90116_1280953065066_42412_2517" name="" visibility="public"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8_2e90116_1280953065066_160605_2518" name="" visibility="public" value="1"/>
+        </ownedEnd>
+      </nestedClassifier>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_16_8_2e90116_1280953064832_255234_2280" name="" visibility="public" memberEnd="_16_8_2e90116_1280953064832_895002_2281 _16_8_2e90116_1280953064848_574820_2282" navigableOwnedEnd="_16_8_2e90116_1280953064848_574820_2282">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_16_8_2e90116_1280953064848_574820_2282" name="extension_hyperlinkText" visibility="private" type="_16_8_2e90116_1280953064254_236221_1782" aggregation="composite" association="_16_8_2e90116_1280953064832_255234_2280">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8_2e90116_1280953064848_897556_2283" name="" visibility="public"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8_2e90116_1280953064848_388685_2284" name="" visibility="public" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_16_8_2e90116_1280953064254_236221_1782" name="hyperlinkText" visibility="public">
+      <ownedAttribute xmi:id="_9_0_1fe00f9_1104636478327_574916_56" name="hyperlinkText" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8_2e90116_1280953064254_397352_1780" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8_2e90116_1280953064254_961624_1781" name="" visibility="public" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_16_8_2e90116_1280953064832_895002_2281" name="base_Element" visibility="private" association="_16_8_2e90116_1280953064832_255234_2280">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_16_8_2e90116_1280953064848_168120_2285" name="" visibility="public" memberEnd="_16_8_2e90116_1280953064848_123568_2286 _16_8_2e90116_1280953064848_300790_2287" navigableOwnedEnd="_16_8_2e90116_1280953064848_300790_2287">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_16_8_2e90116_1280953064848_300790_2287" name="extension_hyperlinkTextActive" visibility="private" type="_16_8_2e90116_1280953064254_600429_1785" aggregation="composite" association="_16_8_2e90116_1280953064848_168120_2285">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8_2e90116_1280953064848_193448_2288" name="" visibility="public"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8_2e90116_1280953064848_891466_2289" name="" visibility="public" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_16_8_2e90116_1280953064254_600429_1785" name="hyperlinkTextActive" visibility="public">
+      <ownedAttribute xmi:id="_9_0_1fe00f9_1104636478327_507708_58" name="hyperlinkTextActive" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8_2e90116_1280953064254_542208_1783" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8_2e90116_1280953064254_921912_1784" name="" visibility="public" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_16_8_2e90116_1280953064848_123568_2286" name="base_Element" visibility="private" association="_16_8_2e90116_1280953064848_168120_2285">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+      </ownedAttribute>
+    </packagedElement>
+    <profileApplication xmi:id="_be00301_1073394351331_445580_2profileApplicationProfile_for_BPM4StrutsCartridgeTestModel1">
+      <eAnnotations xmi:id="_zJZYoiFWEemZsbA_hUHNlg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_zH0FdyFWEemZsbA_hUHNlg"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_be00301_1073394351331_445580_2"/>
+    </profileApplication>
+  </uml:Profile>
+  <MagicDrawProfile:InvisibleStereotype xmi:id="_zJZYoyFWEemZsbA_hUHNlg" base_Element="_9_0_1fe00f9_1104636478327_574916_56"/>
+  <MagicDrawProfile:InvisibleStereotype xmi:id="_zJZ_sCFWEemZsbA_hUHNlg" base_Element="_9_0_1fe00f9_1104636478327_507708_58"/>
+</xmi:XMI>

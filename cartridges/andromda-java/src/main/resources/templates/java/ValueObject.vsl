@@ -409,20 +409,6 @@ $attribute.getDocumentation("     * ")
         return this.$attribute.name;
     }
 
-#if ($attribute.type.booleanType && $generateIsBooleanGetters)
-    /**
-$attribute.getDocumentation("     * ")
-     * Duplicates#if ($attribute.type.primitive) isBoolean#else getBoolean#end method, for use as Jaxb2 compatible object
-     * Get the $attribute.name Attribute
-     * @return $attribute.name $returnType
-     */
-    @Deprecated
-    public $returnType#if ($attribute.type.primitive) get#else is#end$stringUtils.capitalize(${attribute.name})()
-    {
-        return this.$attribute.name;
-    }
-
-#end
 #if (!$attribute.readOnly)
 ## - always have as public, having read-only causes too many issues when attempting to
 ##   use in other cartridges
