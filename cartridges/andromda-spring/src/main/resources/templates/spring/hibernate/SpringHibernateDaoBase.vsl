@@ -1444,7 +1444,7 @@ $h3tab        }
         {
 #foreach ($valueObjectRef in $transformReferences)
             case ${valueObjectRef.transformationConstantName} :
-                org.apache.commons.collections.CollectionUtils.transform(entities, this.${valueObjectRef.transformationAnonymousName});
+                org.apache.commons.collections4.CollectionUtils.transform(entities, this.${valueObjectRef.transformationAnonymousName});
                 break;
 #end
             case ${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName : // fall-through
@@ -1463,7 +1463,7 @@ $h3tab        }
     {
         if (results != null)
         {
-            org.apache.commons.collections.CollectionUtils.transform(results, this.ENTITYTRANSFORMER);
+            org.apache.commons.collections4.CollectionUtils.transform(results, this.ENTITYTRANSFORMER);
         }
     }
 
@@ -1472,8 +1472,8 @@ $h3tab        }
      * (which result in an array of entities) to {@link ${entity.fullyQualifiedEntityName}}
      * using the Jakarta Commons-Collections Transformation API.
      */
-    private org.apache.commons.collections.Transformer ENTITYTRANSFORMER =
-        new org.apache.commons.collections.Transformer()
+    private org.apache.commons.collections4.Transformer ENTITYTRANSFORMER =
+        new org.apache.commons.collections4.Transformer()
         {
 #if ($enableAnnotations && $javaVersion.compareTo("1.6")>=0)
             @Override
@@ -1537,7 +1537,7 @@ $h3tab        }
         @SuppressWarnings("rawtypes")
 #end
         java.util.Collection result = new java.util.ArrayList(entities);
-        org.apache.commons.collections.CollectionUtils.transform(result, this.${valueObjectRef.transformationAnonymousName});
+        org.apache.commons.collections4.CollectionUtils.transform(result, this.${valueObjectRef.transformationAnonymousName});
         return result;
     }
 
@@ -1583,8 +1583,8 @@ $h3tab        }
      * (which result in an array of objects) to {@link ${valueObjectRef.targetElement.fullyQualifiedName}}
      * using the Jakarta Commons-Collections Transformation API.
      */
-    private org.apache.commons.collections.Transformer $valueObjectRef.transformationAnonymousName =
-        new org.apache.commons.collections.Transformer()
+    private org.apache.commons.collections4.Transformer $valueObjectRef.transformationAnonymousName =
+        new org.apache.commons.collections4.Transformer()
         {
 #if ($enableAnnotations && $javaVersion.compareTo("1.6")>=0)
             @Override
@@ -1624,12 +1624,12 @@ $h3tab        }
                     iterator.remove();
                 }
             }
-            org.apache.commons.collections.CollectionUtils.transform(instances, this.$valueObjectRef.valueObjectToEntityTransformerName);
+            org.apache.commons.collections4.CollectionUtils.transform(instances, this.$valueObjectRef.valueObjectToEntityTransformerName);
         }
     }
 
-    private final org.apache.commons.collections.Transformer $valueObjectRef.valueObjectToEntityTransformerName =
-        new org.apache.commons.collections.Transformer()
+    private final org.apache.commons.collections4.Transformer $valueObjectRef.valueObjectToEntityTransformerName =
+        new org.apache.commons.collections4.Transformer()
         {
 #if ($enableAnnotations && $javaVersion.compareTo("1.6")>=0)
             @Override

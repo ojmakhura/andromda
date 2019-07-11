@@ -182,13 +182,13 @@ $attribute.getDocumentation("     * ")
 #foreach ($attribute in $argument.type.getAttributes(true))
 #if ($attribute.required && !$attribute.type.primitive && !$attribute.static)
 #if (!$attribute.type.stringType || $attribute.many)
-        if (${argument.name}.get${stringUtils.capitalize($attribute.name)}() == null)
+        if (${argument.name}.${attribute.getterName}() == null)
         {
             throw new IllegalArgumentException(
                 "${service.fullyQualifiedName}.${operation.signature} - '$argument.name.$attribute.name' can not be null");
         }
 #else
-        if (${argument.name}.get${stringUtils.capitalize($attribute.name)}() == null || ${argument.name}.get${stringUtils.capitalize($attribute.name)}().trim().length() == 0)
+        if (${argument.name}.${attribute.getterName}() == null || ${argument.name}.${attribute.getterName}().trim().length() == 0)
         {
             throw new IllegalArgumentException(
                 "${service.fullyQualifiedName}.${operation.signature} - '$argument.name.$attribute.name' can not be null or empty");

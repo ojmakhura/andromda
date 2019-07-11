@@ -135,9 +135,9 @@ public class ${criteriaSearchBaseName}Properties
     public static Class<?> getPropertyType(final java.util.Map<Class<?>,Collection<PropertyType>> properties, final Class<?> ownerType, final String name)
     {
         final java.util.Collection<PropertyType> ends = properties.get(ownerType);
-        final PropertyType type = (PropertyType)org.apache.commons.collections.CollectionUtils.find(
+        final PropertyType type = (PropertyType)org.apache.commons.collections4.CollectionUtils.find(
             ends,
-            new org.apache.commons.collections.Predicate()
+            new org.apache.commons.collections4.Predicate()
             {
                 @Override
                 public boolean evaluate(final Object object)
