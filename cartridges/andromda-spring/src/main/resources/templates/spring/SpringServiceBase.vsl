@@ -26,7 +26,6 @@ package $service.implementationPackageName;
  *
  * @see $service.fullyQualifiedName
  */
-//@org.springframework.stereotype.Service
 public abstract class $service.baseName
 #if($service.generalization)
     extends $service.generalization.fullyQualifiedImplementationName
@@ -332,18 +331,16 @@ $attribute.getDocumentation("     * ")
     }
 #end
 
+	@org.springframework.beans.factory.annotation.Autowired
+	MessageSource messageSource;
+
     /**
      * Gets the message source available to this service.
      * @return MessageSource
      */
     protected org.springframework.context.MessageSource getMessages()
     {
-#set ($beanLocator =  "BeanLocator")
-#if($stringUtils.isNotBlank($springTypesPackage))
-#set ($beanLocator = "$springTypesPackage.$beanLocator")
-#end
-        return (org.springframework.context.MessageSource)
-            ${beanLocator}.instance().getBean("$messageSourceBeanName");
+        return messageSource;
     }
 
     /**

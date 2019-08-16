@@ -89,6 +89,7 @@ $class.getDocumentation(" * ")
 #end
 #end
 #end
+@org.springframework.stereotype.Component
 public#if($class.leaf) final#end#if($class.abstract) abstract#end class $umlUtils.getClassDeclaration($class, $className, $enableTemplating)
 #if($class.generalization)
 ## Class should only extend another ValueObject, which already declares Serializable and Comparable

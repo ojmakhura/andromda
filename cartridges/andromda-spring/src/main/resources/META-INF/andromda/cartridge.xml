@@ -953,21 +953,43 @@
         </modelElements>
     </template>
 
-     <template
+     <!-- <template
         path="templates/spring/ApplicationContextProvider.java.vsl"
         outputPattern="$generatedFile"
         outlet="services"
         overwrite="true"
         outputToSingleFile="true"
-        outputOnEmptyElements="true"/>
+        outputOnEmptyElements="true"/> -->
         
      <template
+        path="templates/spring/BeanFactory.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="services"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="true">        
+        <modelElements>
+            <modelElement variable="entities">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
+            </modelElement>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="abstract">false</property>
+                </type>
+            </modelElement>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
+            </modelElement>
+        </modelElements>
+     </template>
+        
+     <!-- <template
         path="templates/spring/SpringBeanLocator.java.vsl"
         outputPattern="$generatedFile"
         outlet="services"
         overwrite="true"
         outputToSingleFile="true"
-        outputOnEmptyElements="true"/>
+        outputOnEmptyElements="true"/> -->
 
      <template
         path="templates/spring/remoting/RemoteDispatcherServlet.java.vsl"
@@ -1098,7 +1120,7 @@
         </modelElements>
     </template>
 
-    <template
+    <!-- <template
         path="templates/spring/SpringServiceLocator.vsl"
         outputPattern="$generatedFile"
         outlet="services"
@@ -1117,7 +1139,7 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <template
         path="templates/spring/SpringServiceLocator.vsl"

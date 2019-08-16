@@ -138,6 +138,7 @@ public abstract class $entity.daoBaseName
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public Object get(final int transform, final ${identifierTypeName} ${identifierName})
     {
 #set ($argument = ${identifierName})
@@ -183,6 +184,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public $rootEntityType get(${identifierTypeName} ${identifierName})
     {
         return ($entity.fullyQualifiedEntityName)this.get($entity.daoNoTransformationConstantName, ${identifierName});
@@ -194,6 +196,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public Object load(final int transform, final ${identifierTypeName} ${identifierName})
     {
 #set ($argument = ${identifierName})
@@ -251,6 +254,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public $rootEntityType load(${identifierTypeName} ${identifierName})
     {
         return ($entity.fullyQualifiedEntityName)this.load($entity.daoNoTransformationConstantName, ${identifierName});
@@ -265,6 +269,7 @@ $oldXmlIndent        }
 #if ($enableTemplating)
     @SuppressWarnings({"unchecked"})
 #end
+	@org.springframework.transaction.annotation.Transactional
     public $entityCollectionType loadAll()
     {
         return#if($enableTemplating) ($entityCollectionType)#end this.loadAll(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName);
@@ -276,6 +281,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int transform)
     {
         return this.loadAll(transform, -1, -1);
@@ -287,6 +293,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int pageNumber, final int pageSize)
     {
         return this.loadAll(${entity.fullyQualifiedDaoName}.${entity.daoNoTransformationConstantName}, pageNumber, pageSize);
@@ -298,6 +305,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int transform, final int pageNumber, final int pageSize)
     {
 #if($hibernate4or5)       
@@ -482,6 +490,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public $rootEntityType create($entity.fullyQualifiedEntityName $argumentName)
     {
         return ($entity.fullyQualifiedEntityName)this.create(${entity.fullyQualifiedDaoName}.${entity.daoNoTransformationConstantName}, $argumentName);
@@ -494,6 +503,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public $rootEntityType create(org.dom4j.Element $argumentName)
     {
        return ($entity.fullyQualifiedEntityName)this.create(${entity.fullyQualifiedDaoName}.${entity.daoNoTransformationConstantName}, $argumentName);
@@ -508,6 +518,7 @@ $oldXmlIndent        }
 #if ($enableTemplating)
     @SuppressWarnings({"unchecked"})
 #end
+	@org.springframework.transaction.annotation.Transactional
     public Object create(int transform, final org.dom4j.Element $argumentName)
     {
         if ($argumentName == null)
@@ -540,6 +551,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public Object create(final int transform, final $entity.fullyQualifiedName $argumentName)
     {
         if ($argumentName == null)
@@ -592,6 +604,7 @@ $oldXmlIndent        }
 #if ($enableTemplating)
     @SuppressWarnings({"unchecked"})
 #end
+	@org.springframework.transaction.annotation.Transactional
     public $entityCollectionType create(final $entityCollectionType entities)
     {
         return#if($enableTemplating) ($entityCollectionType)#end create(${entity.fullyQualifiedDaoName}.${entity.daoNoTransformationConstantName}, entities);
@@ -603,6 +616,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public java.util.Collection#if($enableTemplating)<?>#end create(final int transform, final $entityCollectionType entities)
     {
         if (entities == null)
@@ -651,6 +665,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public $rootEntityType create(
 #foreach($attribute in $attributes)
         $attribute.getterSetterTypeName $attribute.name#if($velocityHasNext),#else)#end
@@ -666,6 +681,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public Object create(
         final int transform,
 #foreach($attribute in $attributes)
@@ -701,6 +717,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public $rootEntityType create(
 #foreach($property in $requiredProperties)
         $property.getterSetterTypeName $property.name#if($velocityHasNext),#else)#end
@@ -716,6 +733,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public Object create(
         final int transform,
 #foreach($property in $requiredProperties)
@@ -739,6 +757,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public void update($entity.fullyQualifiedEntityName $argumentName)
     {
         if ($argumentName == null)
@@ -769,6 +788,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public void update(final org.dom4j.Element $argumentName)
     {
         if ($argumentName == null)
@@ -803,6 +823,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public void update(final $entityCollectionType entities)
     {
         if (entities == null)
@@ -845,6 +866,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public void remove($entity.fullyQualifiedEntityName $argumentName)
     {
         if ($argumentName == null)
@@ -874,6 +896,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public void remove(final org.dom4j.Element $argumentName)
     {
         if ($argumentName == null)
@@ -904,6 +927,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public void remove($identifierTypeName $identifierName)
     {
 #set ($argument = $identifierName)
@@ -933,6 +957,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public void remove($entityCollectionType entities)
     {
         if (entities == null)
@@ -1966,6 +1991,7 @@ $h3tab        }
 #if ($enableAnnotations)
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional
     public $entity.fullyQualifiedEntityName createOrUpdate($entity.fullyQualifiedEntityName $argumentName)
     {
         if(${argumentName}.${entity.identifiers.get(0).getterName}() == null)

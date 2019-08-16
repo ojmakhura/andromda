@@ -92,7 +92,7 @@ public class $className
      */
     public synchronized org.springframework.context.ApplicationContext getContext()
     {
-        return ApplicationContextProvider.getApplicationContext();
+        return null;//ApplicationContextProvider.getApplicationContext();
     }
 
     /**

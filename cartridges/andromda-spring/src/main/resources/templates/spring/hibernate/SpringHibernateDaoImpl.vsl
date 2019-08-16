@@ -25,7 +25,7 @@ package $entity.packageName;
 /**
  * @see $entity.fullyQualifiedName
  */
-@org.springframework.stereotype.Repository
+@org.springframework.stereotype.Repository("$stringUtils.uncapitalize($entity.daoName)")
 public class $entity.daoImplementationName
     extends $entity.fullyQualifiedDaoBaseName
 {

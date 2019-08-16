@@ -23,7 +23,7 @@
 #set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles) )
 #set ($children = $pUseCase.navigationChildren)
 #if ($children.empty)
-${ident}<p:menuitem value="#{messages['$pUseCase.titleKey']}" url="${pUseCase.path}.${facesServletExtension}"#if ($securityEnabled) rendered="#{p:ifAnyGranted('$roles')}"#end/>     
+${ident}<p:menuitem value="#{messages['$pUseCase.titleKey']}" url="#{request.contextPath}${pUseCase.path}.${facesServletExtension}"#if ($securityEnabled) rendered="#{p:ifAnyGranted('$roles')}"#end/>     
 #else
 ${ident}<p:submenu label="#{messages['$pUseCase.titleKey']}"#if ($securityEnabled) rendered="#{p:ifAnyGranted('$roles')}"#end>
 #foreach ($child in $children)
@@ -45,7 +45,7 @@ ${ident}</p:submenu>
 #set ($roles = $manageable.actionRoles)
 #addDefaultRole($roles)
 #set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles))
-            <p:menuitem value="#{messages['$manageable.viewTitleKey']}" url="${manageable.actionPath}.${facesServletExtension}"#if ($securityEnabled) rendered="#{p:ifAnyGranted('$roles')}"#end/>     
+            <p:menuitem value="#{messages['$manageable.viewTitleKey']}" url="#{request.contextPath}${manageable.actionPath}.${facesServletExtension}"#if ($securityEnabled) rendered="#{p:ifAnyGranted('$roles')}"#end/>     
 #end    
 #foreach ($useCase in $useCases)
 #renderMenuItem($useCase "            ")    
