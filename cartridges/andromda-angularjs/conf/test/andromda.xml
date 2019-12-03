@@ -1,0 +1,64 @@
+<andromda xmlns="http://andromda.org/core/configuration">
+  <properties>
+    <property name="cartridgeFilter">angularjs</property>
+    <property name="failOnValidationErrors">false</property>
+    <!-- Comma separated list of cartridges to be processed by namespace name, such as java,webservice. Empty = true = process all>
+    <property name="cartridgeFilter">${filter}</property -->
+    <!-- Debug andromda processing using example log4j.xml file>
+    <property name="loggingConfigurationUri">file:${basedir}/conf/test/log4j.xml</property -->
+  </properties>
+  <repositories>
+    <repository name="netBeansMDR">
+      <models>
+        <model>
+          <uri>${test.model.uri}</uri>
+          <moduleSearchLocations>
+            <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../../profiles/uml-1.4</location>
+            <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0.1/UML_Standard_Profile-1.0.1.jar!/</location>
+          </moduleSearchLocations>
+          <modelPackages>
+            <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
+          </modelPackages>
+        </model>
+      </models>
+    </repository>
+  </repositories>
+  <namespaces>
+    <namespace name="default">
+      <properties>
+        <property name="languageMappingsUri">Java</property>
+        <property name="wrapperMappingsUri">JavaWrapper</property>
+        <property name="enableTemplating">true</property>
+        <property name="enableAnnotations">true</property>
+        <property name="typeSafeEnumsEnabled">true</property>
+        <property name="enumerationLiteralNameMask">upperunderscore</property>
+        <property name="pluralizeAssociationEndNames">true</property>
+        <property name="pluralizeAttributeNames">true</property>
+        <property name="pluralizeParameterNames">true</property>
+        <property name="toDoTag">@todo</property>
+      </properties>
+    </namespace>
+    <namespace name="angularjs">
+      <properties>
+        <property name="applicationName">test-application</property>
+        <property name="forms">${test.output.dir}</property>
+        <property name="views">${test.output.dir}</property>
+        <property name="managed-beans">${test.output.dir}</property>
+        <property name="controllers">${test.output.dir}</property>
+        <property name="controller-impls">${test.output.dir}</property>
+        <property name="messages">${test.output.dir}</property>
+        <property name="configuration">${test.output.dir}</property>
+        <property name="enablePreferences">true</property>
+        <property name="menuLayout">vbr</property>
+        <property name="securityRealm">test-security-realm</property>
+        <property name="serviceAccessorPattern">my.packagename.ServiceLocator.instance().get{1}()</property>
+        <property name="stateSavingMethod">client</property>
+        <property name="sessionTimeout">-1</property>
+        <property name="distributable">true</property>
+        <property name="custom-resources">${test.output.dir}</property>
+        <property name="paginationResultClassName">org.andromda.spring.cartridge.PaginationResult</property>
+        <property name="validationExtension">commons-validator</property>
+      </properties>
+    </namespace>
+  </namespaces>
+</andromda>

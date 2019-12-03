@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<namespace name="angularjs">
+    <components>
+        <component name="cartridge">
+            <path>META-INF/andromda/cartridge.xml</path>
+        </component>
+        <component name="metafacades">
+            <path>META-INF/andromda/metafacades.xml</path>
+        </component>
+        <component name="profile">
+            <path>META-INF/andromda/profile.xml</path>
+        </component>
+    </components>
+    <properties>
+        <!-- namespace-propertyGroup merge-point -->
+        <propertyGroup name="Outlets">
+            <documentation>
+                Defines the locations to which output is generated.
+            </documentation>
+
+            <property name="output">
+                <documentation>
+                    The location to which any controllers are generated (this outlet
+                    contains classes which are fully generated and should not be
+                    touched).
+                </documentation>
+            </property>
+
+            <property name="controllers">
+                <documentation>
+                    The location to which any controllers are generated (this outlet
+                    contains classes which are fully generated and should not be
+                    touched).
+                </documentation>
+            </property>
+            <property name="views">
+                <documentation>
+                    Where the application views are output.
+                </documentation>
+            </property>
+            <property name="forms">
+                <documentation>
+                    The forms to which input is stored are output here.
+                </documentation>
+            </property>
+        </propertyGroup>
+    </properties>
+</namespace>

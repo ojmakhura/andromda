@@ -1,0 +1,68 @@
+/* start selectInputText style */
+.iceSelInpTxtRow, .iceSelInpTxtSelRow 
+{
+    vertical-align: top;
+    padding: 2px;
+    border-top: 1px solid #ADD8E6;
+    color: #000000;
+}
+
+.iceSelInpTxtSelRow 
+{
+    color: #FFFFFF;
+    background-color: #008B8B;
+}
+
+.iceSelInpTxtList 
+{
+    border: 1px solid #CCCCCC;
+    background-color: #FFFFFF;
+}
+/* end selectInputText style */
+
+/* start outputConnectionStatus status style */
+.navConnectionStatus 
+{
+    float:right;
+}
+/* end outputConnectionStatus status style */
+
+/* start dataTable style */
+.iceDatTbl
+{
+    width: 100%;
+    border: none;
+    margin-top: 10px;
+}
+
+.iceDatTbl th 
+{
+    padding: 2px;
+    text-align: left;
+    border: none;
+}
+
+.iceDatTbl td 
+{
+    border: none;
+}
+
+.iceDatTbl tr
+{
+    border: none;
+}
+
+.iceDatTblColHdr1
+{
+    background-image: none;
+    background-color: transparent;
+    border: none;
+}
+
+.iceDatTblColHdr2
+{
+    background-image: none;
+    background-color: transparent;
+    border: none;
+}
+/* end dataTable style */

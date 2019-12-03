@@ -156,6 +156,7 @@ $attribute.getDocumentation("     * ")
 #if ($enableAnnotations && $operation.visibility != "private" && $operation.visibility != "protected")
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional(propagation = org.springframework.transaction.annotation.Propagation.REQUIRED)
     $operation.visibility $operation.getterSetterReturnTypeName $operation.getSignature("final")
 #if ($operation.exceptionsPresent)
         $operation.throwsClause
