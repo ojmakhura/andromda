@@ -28,7 +28,7 @@
             <output patterns="**/*">core</output>
         </conditions>
         <conditions>
-            <condition id="web" equal="true"/>
+            <condition id="jsf" equal="true"/>
             <output patterns="**/*">web/</output>
             <output>mda/src/main/config/mappings/WebMergeMappings.xml.vsl</output>
             <output>web/src/main/resources/META-INF/context.xml.vsl</output>
@@ -346,9 +346,37 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>yes</response>
                     <response>no</response>
                 </responses>
-                <conditions>
+                <!--<conditions>
                     <condition equal="yes">
-                        <setProperty id="jsf">true</setProperty><!-- currently only JSF is supported -->
+                        <setProperty id="jsf">true</setProperty>
+                    </condition>
+                </conditions>-->
+            </prompt>
+            <prompt id="webType">
+                <text>Would you like your web user interface to use JSF or AngularJS?</text>
+                <shortText>Web interface technology</shortText>
+                <preconditions>
+                    <condition id="web" equal="true"/>
+                </preconditions>
+                <responses>
+                    <response>jsf</response>
+                    <response>angularjs</response>
+                    <response>both</response>
+                </responses>
+                <conditions>
+                    <condition equal="jsf">
+                        <setProperty id="jsf">true</setProperty>
+                        <setProperty id="angularjs">false</setProperty> <!--A hack to stop activation of angularjs and writing of the web sub module-->
+                        <setProperty id="web">true</setProperty>
+                    </condition>
+                    <condition equal="angularjs">
+                        <setProperty id="jsf">false</setProperty>
+                        <setProperty id="angularjs">true</setProperty>
+                        <setProperty id="web">false</setProperty> <!--A hack to stop activation of jsf and writing of the web sub module-->
+                    </condition>
+                    <condition equal="both">
+                        <setProperty id="angularjs">true</setProperty>
+                        <setProperty id="jsf">true</setProperty> <!--A hack to stop activation of jsf and writing of the web sub module-->
                     </condition>
                 </conditions>
             </prompt>
@@ -357,8 +385,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 <shortText>Enable JBoss Seam</shortText>
                 <preconditions>
                     <condition id="transactionPersistenceType" equal="ejb3"/>
-                    <condition id="web" equal="true"/>
-                    <condition id="jsf" equal="true"/>
+                    <condition id="webType" equal="jsf"/>
                 </preconditions>
                 <responses type="java.lang.Boolean">
                     <response>yes</response>
