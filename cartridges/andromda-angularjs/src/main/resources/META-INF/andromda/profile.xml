@@ -19,28 +19,13 @@
         </p>
     </documentation>
     <elements>
-
         <elementGroup name="Stereotypes">
-
-            <element name="ANGULAR_FACTORY">
-                <documentation>Says that an class is an Angularjs factory class.</documentation>
-                <value>AngularFactory</value>
-                <appliedOnElement>classifier</appliedOnElement>
-            </element>
-            <element name="ANGULAR_CONTROLLER">
-                <documentation>Says that an class is an Angularjs Controller class.</documentation>
-                <value>AngularController</value>
-                <appliedOnElement>classifier</appliedOnElement>
-            </element>
-            <element name="ANGULAR_VIEW">
-                <documentation>Says that an class is an Angularjs view state.</documentation>
-                <value>AngularView</value>
-                <appliedOnElement>state</appliedOnElement>
-            </element>
-            <element name="ANGULAR_ACTION">
-                <documentation>Says that an class is an Angularjs Action state.</documentation>
-                <value>AngularAction</value>
-                <appliedOnElement>state</appliedOnElement>
+            <element name="MANAGEABLE_ATTRIBUTE">
+                <documentation>
+                    Modeled on a property.
+                </documentation>
+                <value>ManageableAttribute</value>
+                <appliedOnElement>Attribute of Manageable class</appliedOnElement>
             </element>
             <element name="FRONT_END_EXCEPTION">
                 <documentation>
@@ -50,19 +35,10 @@
                 <value>FrontEndException</value>
                 <appliedOnElement>Transition</appliedOnElement>
             </element>
-
-            <element name="FRONT_END_FIELD">
-                <documentation>
-                    Modeled on a transition it designates an exception occuring while processing an action,
-                    must exit an action state and enter a <![CDATA[<<FrontEndView>>]]>.
-                </documentation>
-                <value>FrontEndField</value>
-                <appliedOnElement>Parameter</appliedOnElement>
-            </element>
             <element name="FRONT_END_REGISTRATION">
                 <documentation>
                     Modeled on a use case, this stereotype indicates that this use case
-                    is a front-end registration wizard. This will cause a link on the login
+                    is a front-end registration wizard.  This will cause a link on the login
                     taking the user to this use case.
                 </documentation>
                 <value>FrontEndRegistration</value>
@@ -71,7 +47,7 @@
             <element name="FRONT_END_NAVIGATION">
                 <documentation>
                     Modeled on a use case, this stereotype indicates that this use case
-                    is a front-end navigation element. This will cause this use-case to
+                    is a front-end navigation element.  This will cause this use-case to
                     be included in the menu-model for the application.
                 </documentation>
                 <value>FrontEndNavigation</value>
@@ -79,165 +55,81 @@
             </element>
             <element name="FRONT_END_SESSION_OBJECT">
                 <documentation>
-
+                    These classes can be associated to controllers. They represent objects that persist
+                    during the session of the user. For each such session object associated with a controller
+                    the controller will have accessor methods for this object. <i>Use a dependency from the controller
+                    to the session object to properly model this relationship, a controller can depend on many
+                    such session objects; and in the same way a session object might be shared between controllers.</i>
                 </documentation>
                 <value>FrontEndSessionObject</value>
                 <appliedOnElement>Class</appliedOnElement>
             </element>
         </elementGroup>
-
         <elementGroup name="Tagged Values">
             <documentation>
-                AngularJS allows you to add tagged values here and there but provides a
+                Jsf allows you to add tagged values here and there but provides a
                 default value in the event that they are missing.
             </documentation>
-
-            <element name="ANGULAR_FACTORY_URL">
+            <element name="MANAGEABLE_IMPLEMENTATION">
                 <documentation>
-                    Defines the tagged value: name.
+                    Added to manageable classes that needs the Impl class to change the
+                    default behavior.
                 </documentation>
-                <value>andromda_angular_factory_url</value>
-                <appliedOnElement>classifier</appliedOnElement>
-
-            </element>
-            <element name="ANGULAR_FACTORY_SHOW_PARAMS">
-                <documentation>
-                    Defines the tagged value: name.
-                </documentation>
-                <value>andromda_angular_factory_showParams</value>
-                <appliedOnElement>classifier</appliedOnElement>
-            </element>
-            <element name="ANGULAR_FACTORY_DELETE_PARAMS">
-                <documentation>
-                    Defines the tagged value: name.
-                </documentation>
-                <value>andromda_angular_factory_delete_params</value>
-                <appliedOnElement>classifier</appliedOnElement>
-            </element>
-
-            <element name="ANGULAR_FACTORY_CREATE">
-                <documentation>
-                    Defines the tagged value: name.
-                </documentation>
-                <value>andromda_angular_factory_create</value>
-                <appliedOnElement>classifier</appliedOnElement>
+                <value>andromda_manageable_implementation</value>
+                <appliedOnElement>Manageable class</appliedOnElement>
                 <allowedValues>
                     <value>true</value>
                     <value default="true">false</value>
                 </allowedValues>
             </element>
-            <element name="ANGULAR_FACTORY_UPDATE">
+            <element name="ATTRIBUTE_SEARCHABLE">
                 <documentation>
-                    Defines the tagged value: UPDATE.
                 </documentation>
-                <value>andromda_angular_factory_update</value>
-                <appliedOnElement>classifier</appliedOnElement>
+                <value>andromda_manageable_attribute_searchable</value>
+                <appliedOnElement>Manageable attribute</appliedOnElement>
                 <allowedValues>
                     <value>true</value>
                     <value default="true">false</value>
                 </allowedValues>
             </element>
-            <element name="ANGULAR_FACTORY_DELETE">
+            <element name="ATTRIBUTE_IGNORE">
                 <documentation>
-                    Defines the tagged value: delete.
                 </documentation>
-                <value>andromda_angular_factory_delete</value>
-                <appliedOnElement>classifier</appliedOnElement>
+                <value>andromda_manageable_attribute_ignore</value>
+                <appliedOnElement>Manageable attribute</appliedOnElement>
                 <allowedValues>
                     <value>true</value>
                     <value default="true">false</value>
                 </allowedValues>
             </element>
-            <element name="ANGULAR_FACTORY_QUERY">
+            <element name="ATTRIBUTE_DISPLAY">
                 <documentation>
-                    Defines the tagged value: query.
+                    The column representing this entity,by default the first <![CDATA[<<Unique>>]]> attribute found
+                    is taken but you might want to specify another column yourself. This value is used when one entity
+                    has a foreign key to another one and you want to select the value of this foreign key
+                    from a combobox and you would like to see a more meaningful label for each option, if no
+                    <![CDATA[<<Unique>>]]> attribute is found the identifier is used, which isn't very helpful.
                 </documentation>
-                <value>andromda_angular_factory_query</value>
-                <appliedOnElement>classifier</appliedOnElement>
+                <value>andromda_manageable_attribute_display</value>
+                <appliedOnElement>Manageable attribute</appliedOnElement>
                 <allowedValues>
-                    <value default="true">true</value>
-                    <value>false</value>
-                </allowedValues>
-            </element>
-            <element name="ANGULAR_FACTORY_NAME">
-                <documentation>
-                    Defines the tagged value: controller name.
-                </documentation>
-                <value>andromda_angular_factory_name</value>
-                <appliedOnElement>classifier</appliedOnElement>
-            </element>
-            <element name="ANGULAR_FACTORY_FACTORY_TYPE">
-                <documentation>
-                    Defines the tagged value: factorytype name.
-                </documentation>
-                <value>andromda_angular_factory_factoryType</value>
-                <appliedOnElement>classifier</appliedOnElement>
-                <allowedValues>
-                    <value default="true">master</value>
-                    <value>helper</value>
-                </allowedValues>
-            </element>
-
-            <element name="ANGULAR_VIEW_MASTER">
-                <documentation>
-                    Defines the tagged value: controller name.
-                </documentation>
-                <value>andromda_angular_view_master</value>
-                <appliedOnElement>state</appliedOnElement>
-                <allowedValues>
-                    <value default="true">true</value>
-                    <value>false</value>
-                </allowedValues>
-            </element>
-            <element name="ANGULAR_VIEW_DETAIL">
-                <documentation>
-                    Defines the tagged value: controller name.
-                </documentation>
-                <value>andromda_angular_view_detail</value>
-                <appliedOnElement>state</appliedOnElement>
-                <allowedValues>
-                    <value default="false">false</value>
                     <value>true</value>
+                    <value default="true">false</value>
                 </allowedValues>
             </element>
-
-            <element name="ANGULAR_VIEW_VIEW_TYPE">
-                <documentation>
-                    Defines the tagged value: controller name.
-                </documentation>
-                <value>andromda_angular_view_viewType</value>
-                <appliedOnElement>state</appliedOnElement>
-                <allowedValues>
-                    <value default="false">false</value>
-                    <value>true</value>
-                </allowedValues>
-            </element>
-
-            <element name="ANGULAR_VIEW_MODEL">
-                <documentation>
-                    Defines the tagged value: controller name.
-                </documentation>
-                <value>andromda_angular_view_model</value>
-                <appliedOnElement>state</appliedOnElement>
-            </element>
-
             <element name="ACTION_TYPE">
                 <documentation>
-                    Modeled on a transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]>
-                    stereotype.
-                    Indicates the type of trigger causing the action, possible values are hyperlink, image and form.
-                    Form
+                    Modeled on a transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype.
+                    Indicates the type of trigger causing the action, possible values are hyperlink, image and form. Form
                     is the default value.
                 </documentation>
                 <value>andromda_presentation_web_action_type</value>
-                <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]>
-                    stereotype
-                </appliedOnElement>
+                <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">form</value>
                     <value>hyperlink</value>
                     <value>image</value>
-                    <value>popup</value>
+                    <!--                <value>popup</value>  popup isn't working -->
                 </allowedValues>
             </element>
             <element name="ACTION_TABLELINK">
@@ -248,25 +140,66 @@
                     column will be created for it.
                 </documentation>
                 <value>andromda_presentation_web_action_tablelink</value>
-                <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]>
-                    stereotype
-                </appliedOnElement>
+                <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
             </element>
-
+            <element name="ACTION_FORM_SCOPE">
+                <documentation>
+                    This allows one to override the action form scope defined
+                    by the <a href="namespace.html#formScope">formScope</a> namespace property.
+                </documentation>
+                <value>andromda_presentation_web_action_form_scope</value>
+                <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>session</value>
+                    <value>request</value>
+                </allowedValues>
+            </element>
+            <element name="ACTION_FORM_RESET">
+                <documentation>
+                    This allows one to reset all parameter values on the form after
+                    the action is invoked (this is useful when you have an action transition
+                    coming back to the same page and want the form variables reset to their original
+                    values before the action was submitted).
+                </documentation>
+                <value>andromda_presentation_web_action_form_reset</value>
+                <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value default="true">false</value>
+                </allowedValues>
+            </element>
+            <element name="ACTION_FORM_KEY">
+                <documentation>
+                    Denotes the name of the key under which this action's form is stored under.
+                    Will only be used when the form is not empty, and is ignored otherwise. This feature is useful
+                    when you are doing something that requires more than one action to be executed at the same
+                    time and you don't want form key names colliding.
+                </documentation>
+                <value>andromda_presentation_web_action_form_key</value>
+                <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value default="true">form</value>
+                    <value>any string is allowed</value>
+                </allowedValues>
+            </element>
+            <element name="ACTION_RESETTABLE">
+                <documentation>
+                    Set this value to <code>true</code> if you want to be able
+                    to reset forms to their initial values (i.e. have a reset button rendered).
+                </documentation>
+                <value>andromda_presentation_web_action_resettable</value>
+                <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value default="true">false</value>
+                    <value>true</value>
+                </allowedValues>
+            </element>
             <element name="VIEW_TYPE">
                 <documentation>
                     Represents the type of view (regular, popup, etc).
                 </documentation>
                 <value>andromda_presentation_web_view_type</value>
                 <appliedOnElement>A <![CDATA[<<FrontEndView>>]]></appliedOnElement>
-                <allowedValues>
-                    <value default="true">default</value>
-                    <value>regular</value>
-                    <value>popup</value>
-                    <value>tabular</value>
-                    <value>form</value>
-                    <value>grid</value>
-                </allowedValues>
             </element>
             <element name="INPUT_TYPE">
                 <documentation>
@@ -275,9 +208,7 @@
                     hidden and plaintext.
                 </documentation>
                 <value>andromda_presentation_web_view_field_type</value>
-                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]>
-                    stereotype
-                </appliedOnElement>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">text</value>
                     <value>select</value>
@@ -292,19 +223,31 @@
             <element name="INPUT_RESET">
                 <documentation>
                     Indicates whether or not the field should be reset (to its orginal value)
-                    after the execution of the action. This is useful when you want only
+                    after the execution of the action.  This is useful when you want only
                     some of the parameters reset on the form but not all of them.
                 </documentation>
                 <value>andromda_presentation_web_view_field_reset</value>
-                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]>
-                    stereotype
-                </appliedOnElement>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">false</value>
                     <value>true</value>
                 </allowedValues>
             </element>
-
+            <element name="INPUT_VALIDWHEN">
+                <documentation>
+                    Additional validation to be performed, specify a
+                    commons-validator condition here, see
+                    <a href="http://struts.apache.org/userGuide/dev_validator.html"
+                       target="_blank">Struts-Validator</a> and go to the section labeled
+                    <code>http://struts.apache.org/userGuide/dev_validator.html</code>. The required
+                    parentheses will automatically be placed around your condition.
+                </documentation>
+                <value>andromda_presentation_web_view_field_validwhen</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>a Struts 'validwhen' condition</value>
+                </allowedValues>
+            </element>
             <element name="INPUT_EQUAL">
                 <documentation>
                     Allows the comparison between 2 fields, this allows you to specify the
@@ -312,14 +255,87 @@
                     comparing two passwords)
                 </documentation>
                 <value>andromda_presentation_web_view_field_equal</value>
-                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]>
-                    stereotype
-                </appliedOnElement>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>a Struts 'validwhen' condition</value>
                 </allowedValues>
             </element>
-
+            <element name="INPUT_VALIDATORS">
+                <documentation>
+                    Custom validation to be performed, you can add one or more of your own validators here.
+                    Make sure you add your validator definitions in <code>validator-rules.xml</code>,
+                    there is a <a href="../andromda-cartridges/index.html#mergeMappingsUri">merge point</a>
+                    that can be used to have them automatically inserted.
+                    Validator values look like this: <code>myValidator</code>,
+                    <code>myValidator(myVar=myArg)</code>,
+                    <code>myValidator(myVar=myArg,myVar2=myArg2)</code>, etc...
+                    Specify each validator using a new value, don't specify all of them in a single value.
+                    Be careful when using multiple validators with the same 'var' name, the last one
+                    found will be used! Normally speaking this should not happen, so try to avoid it
+                    (I recommend against using names used by known validators: minlength,
+                    test, datePattern, ...)
+                </documentation>
+                <value>andromda_presentation_web_view_field_validators</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>a call to one of your custom validators</value>
+                </allowedValues>
+            </element>
+            <element name="INPUT_TABLELINK">
+                <documentation>
+                    The value is of the format <code>table.column</code> where
+                    <code>table</code> denotes a parameter coming into
+                    the page of type Collection (and containing a tagged value
+                    to indicate it is to be displayed as a table); the
+                    <code>column</code> part is used to indicate which column of
+                    the corresponding table is to be used for linking.
+                    The result will be that the specified table column will contain
+                    a hyperlink reference to the action on which this parameter
+                    resides, this is useful for example, to display a list of persons and view
+                    their details by simply clicking on their names in the table
+                    (for that to work this parameter's type should be 'link', use the
+                    <code>andromda_presentation_web_view_field_type=link</code> tagged value for that).
+                    The column name is optional, if you do not specify it the name
+                    of the parameter will be assumed. By setting the parameter type you
+                    can have any widget rendered into the table.
+                </documentation>
+                <value>andromda_presentation_web_view_field_tablelink</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>
+                        Any name of a table page-variable that is a collection type followed by a dot
+                        and the name of the target column
+                    </value>
+                </allowedValues>
+            </element>
+            <element name="IS_TABLE">
+                <documentation>
+                    A flag indicating whether or not a parameter should be considered a table.  This must be
+                    set to true when you wish to display a list of simple types (such as strings) within a table.
+                </documentation>
+                <value>andromda_presentation_view_table</value>
+                <appliedOnElement>
+                    A collection type parameter going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
+                </appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value default="true">false</value>
+                </allowedValues>
+            </element>
+            <element name="INPUT_TABLE_IDENTIFIER_COLUMNS">
+                <documentation>
+                    Allows one to define which columns should be considered identifiers when creating an input table, these
+                    columns determine how the value is merged with the backing value of the table to be submitted.
+                </documentation>
+                <value>andromda_presentation_view_field_table_identifier_columns</value>
+                <appliedOnElement>
+                    A collection type parameter (array is preferred) going out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
+                </appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value default="true">false</value>
+                </allowedValues>
+            </element>
             <element name="TABLE_COLUMNS">
                 <documentation>
                     The collection will be displayed in scrollable tabular format.
@@ -331,8 +347,7 @@
                 </documentation>
                 <value>andromda_presentation_view_table_columns</value>
                 <appliedOnElement>
-                    A collection type parameter going into an action state carrying the <![CDATA[<<FrontEndView>>]]>
-                    stereotype
+                    A collection type parameter going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
                 </appliedOnElement>
                 <allowedValues>
                     <value>Comma-separated list of column names</value>
@@ -340,13 +355,10 @@
             </element>
             <element name="TABLE_PAGEABLE">
                 <documentation>
-                    A flag indicating whether or not a table is "pageable". When a table is flagged as "pageable",
-                    support for DB paging is generated.
+                    A flag indicating whether or not a table is "pageable".  When a table is flagged as "pageable", support for DB paging is generated.
                 </documentation>
                 <value>andromda_presentation_view_table_pageable</value>
-                <appliedOnElement>A collection type parameter going into an action state carrying the
-                    <![CDATA[<<FrontEndView>>]]> stereotype
-                </appliedOnElement>
+                <appliedOnElement>A collection type parameter going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>true</value>
                     <value default="true">false</value>
@@ -358,9 +370,7 @@
                     checked (you cannot enter a String value when an int is expected)
                 </documentation>
                 <value>andromda_presentation_view_field_required</value>
-                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]>
-                    stereotype
-                </appliedOnElement>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">false</value>
                     <value>true</value>
@@ -371,9 +381,7 @@
                     Denotes the number of columns an input field should have.
                 </documentation>
                 <value>andromda_presentation_web_view_field_size</value>
-                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]>
-                    stereotype
-                </appliedOnElement>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">browser specific</value>
                     <value>any strictly positive integer</value>
@@ -386,8 +394,7 @@
                 <value>andromda_presentation_web_view_field_rows</value>
                 <appliedOnElement>
                     Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype,
-                    while having
-                    <code>andromda_presentation_web_view_field_textarea</code>
+                    while having <code>andromda_presentation_web_view_field_textarea</code>
                 </appliedOnElement>
                 <allowedValues>
                     <value default="true">5</value>
@@ -399,25 +406,10 @@
                     Indicates the parameter is read only, it's value cannot be entered by the user
                 </documentation>
                 <value>andromda_presentation_view_field_readonly</value>
-                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]>
-                    stereotype
-                </appliedOnElement>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">false</value>
                     <value>true</value>
-                </allowedValues>
-            </element>
-            <element name="ACTION_FACTORY_BINDING">
-                <documentation>
-                    On action completion will have a success message rendered on screen
-                </documentation>
-                <value>andromda_presentation_action_success_message</value>
-                <appliedOnElement>Transition</appliedOnElement>
-                <allowedValues>
-                    <value>
-                        Any message you would like to see displayed, it will be included in the resource bundle
-                        for internationalization
-                    </value>
                 </allowedValues>
             </element>
             <element name="ACTION_SUCCESS_MESSAGE">
@@ -463,9 +455,7 @@
                                 <td>range</td>
                                 <td>2 of this type</td>
                                 <td>range 2 12</td>
-                                <td>Specifies in which range the value of this attribute must fall, '-' means no limit
-                                    so 'range - 10' means any number less than or equal 10
-                                </td>
+                                <td>Specifies in which range the value of this attribute must fall, '-' means no limit so 'range - 10' means any number less than or equal 10</td>
                             </tr>
                             <tr>
                                 <td>java.lang.String</td>
@@ -487,49 +477,38 @@
                                 <td>a regular expression</td>
                                 <td>pattern [a-zA-Z]*</td>
                                 <td>Validates format according to a regular expression (**), the leading
-                                    '^' and trailing '$' must not be specified
-                                </td>
+                                    '^' and trailing '$' must not be specified</td>
                             </tr>
                             <tr>
                                 <td>java.lang.String</td>
                                 <td>creditcard</td>
                                 <td>N/A</td>
                                 <td>creditcard</td>
-                                <td>Validates the value to be a creditcard number, according to what is known as the
-                                    Luhn check
-                                </td>
+                                <td>Validates the value to be a creditcard number, according to what is known as the Luhn check</td>
                             </tr>
                             <tr>
                                 <td>java.lang.String</td>
                                 <td>email</td>
                                 <td>N/A</td>
                                 <td>email</td>
-                                <td>Checks if the specified value is a possible email address, IP addresses are also
-                                    taken into account
-                                </td>
+                                <td>Checks if the specified value is a possible email address, IP addresses are also taken into account</td>
                             </tr>
                         </table>
                     </p>
                     <p>
                         (*) The format is specified by the java.text.SimpleDateFormat class from the Java 2 SDK, please
-                        refer to the JavaDoc documentation of that class for more information, this format is
-                        case-sensitive
+                        refer to the JavaDoc documentation of that class for more information, this format is case-sensitive
                         <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html">
-                            SimpleDateFormat JavaDoc
-                        </a>
+                            SimpleDateFormat JavaDoc</a>
                         <br/>
                         (**) The pattern expression is a Perl regular expression as you would you use in Javascript,
-                        by convention it requires the ^ and $ to denote respectively the beginning and ending of the
-                        pattern
+                        by convention it requires the ^ and $ to denote respectively the beginning and ending of the pattern
                         <a href="http://devedge.netscape.com/library/manuals/2000/javascript/1.5/guide/regexp.html#1010689">
-                            Netscape's guide to regular expressions in Javascript
-                        </a>
+                            Netscape's guide to regular expressions in Javascript</a>
                     </p>
                 </documentation>
                 <value>andromda_presentation_view_field_format</value>
-                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]>
-                    stereotype
-                </appliedOnElement>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>Any of the formats listed above</value>
                 </allowedValues>
@@ -560,6 +539,7 @@
             </element>
             <element name="MANAGEABLE_DISPLAY_NAME">
                 <documentation>
+                    "Deprecated" - use ATTRIBUTE_DISPLAY
                     The column representing this entity,by default the first <![CDATA[<<Unique>>]]> attribute found
                     is taken but you might want to specify another column yourself. This value is used when one entity
                     has a foreign key to another one and you want to select the value of this foreign key
@@ -573,7 +553,19 @@
                     <value default="true">the name of the identifier column</value>
                 </allowedValues>
             </element>
-
+            <element name="MANAGEABLE_RESOLVEABLE">
+                <documentation>
+                    Whether or not the assocation to another entity should be represented using a combobox. You might
+                    want to disable this feature if you are sure the target entity can have many different values
+                    (meaning a table with lots of records).
+                </documentation>
+                <value>andromda_manageable_table_resolveable</value>
+                <appliedOnElement>Association end to a class with the <![CDATA[<<Manageable>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value default="true">true</value>
+                    <value>false</value>
+                </allowedValues>
+            </element>
         </elementGroup>
         <elementGroup name="Data Types">
             <element name="CHARACTER_TYPE">

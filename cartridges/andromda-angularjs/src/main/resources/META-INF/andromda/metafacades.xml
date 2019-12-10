@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <metafacades>
- 	<metafacade
+ 	<!--<metafacade
 		contextRoot="true"
 		class="org.andromda.cartridges.angularjs.metafacades.AngularFactoryLogicImpl">
 		<mapping>
 			<stereotype>ANGULAR_FACTORY</stereotype>
 		</mapping>
-	</metafacade>
-	<metafacade class="org.andromda.cartridges.angularjs.metafacades.AngularViewLogicImpl">
+	</metafacade>-->
+	<metafacade class="org.andromda.cartridges.angularjs.metafacades.AngularJSViewLogicImpl">
         <mapping>
 			<stereotype>ANGULAR_VIEW</stereotype>
 		</mapping>
 	</metafacade>
-	<metafacade class="org.andromda.cartridges.angularjs.metafacades.AngularControllerLogicImpl">
+	<metafacade class="org.andromda.cartridges.angularjs.metafacades.AngularJSControllerLogicImpl">
            <mapping>
 			<stereotype>ANGULAR_CONTROLLER</stereotype>
 		</mapping>
 	</metafacade>
-   <metafacade class="org.andromda.cartridges.angularjs.metafacades.AngularActionLogicImpl">
+   <metafacade class="org.andromda.cartridges.angularjs.metafacades.AngularJSActionLogicImpl">
            <mapping>
 			<stereotype>ANGULAR_ACTION</stereotype>
 		</mapping>

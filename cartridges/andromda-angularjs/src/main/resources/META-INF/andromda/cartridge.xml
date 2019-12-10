@@ -2,7 +2,7 @@
 
 
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
-    
+
         <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>
 
@@ -13,489 +13,53 @@
 
     <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
 
-
-    <!-- condition merge-point-->
-<!-- 
-
-  <resource
-        path="html/atlanta/*.html"
-       outputPattern="{0}"
-        outlet="output"
-        overwrite="true"/>
-        
-   
-           <resource
-        path="html/atlanta/assets/*.*"
-       outputPattern="assets/{0}"
-        outlet="output"
-        overwrite="true"/>
-        
-       <resource
-        path="html/atlanta/assets/images/*.*"
-       outputPattern="assets/images/{0}"
-        outlet="output"
-        overwrite="true"/>
-        
-          <resource
-        path="html/atlanta/assets/images/blog/*.*"
-       outputPattern="assets/images/blog/{0}"
-        outlet="output"
-        overwrite="true"/>
-        
-          <resource
-        path="html/atlanta/assets/images/gallery/*.*"
-       outputPattern="assets/images/gallery/{0}"
-        outlet="output"
-        overwrite="true"/>
-        
-          <resource
-        path="html/atlanta/assets/images/users/*.*"
-       outputPattern="assets/images/users/{0}"
-        outlet="output"
-        overwrite="true"/>
-               <resource
-        path="html/atlanta/assets/plugins/nvd3/*.*"
-       outputPattern="assets/plugins/nvd3/{0}"
-        outlet="output"
-        overwrite="true"/>
-               <resource
-        path="html/atlanta/assets/*.*"
-       outputPattern="assets/{0}"
-        outlet="output"
-        overwrite="true"/>
-               <resource
-        path="html/atlanta/assets/*.*"
-       outputPattern="assets/{0}"
-        outlet="output"
-        overwrite="true"/>
-        
-    
-            <resource
-         path="html/atlanta/lib/angular/*.*"
-         outputPattern="lib/angular/{0}"
-        outlet="output"
-        overwrite="true"/>
-        
-   
-        
     <resource
-        path="html/atlanta/js/*.*"
-       outputPattern="js/{0}"
-        outlet="output"
-        overwrite="true"/>
-        
+            path="css/*.*"
+            outputPattern="css/{0}"
+            outlet="output"
+            overwrite="true"/>
+    <resource
+            path="css/bootstrap/*.*"
+            outputPattern="css/bootstrap/{0}"
+            outlet="output"
+            overwrite="true"/>
+    <resource
+            path="lib/angular/*.*"
+            outputPattern="lib/angular/{0}"
+            outlet="output"
+            overwrite="true"/>
+    <resource
+            path="jquery/*.*"
+            outputPattern="js/jquery/{0}"
+            outlet="output"
+            overwrite="true"/>
+    <resource
+            path="bootstrap/*.*"
+            outputPattern="js/bootstrap/{0}"
+            outlet="output"
+            overwrite="true"/>
+    <!-- Creates only one JS file that contains informations about all AngularJS Factories elements -->
+    <!--<template
+            path="templates/angularjs/services/Services.vsl"
+            outputPattern="components/services.js"
+            outlet="controllers"
+            overwrite="true"
+            outputToSingleFile="true"
+            outputOnEmptyElements="false">
+        <modelElements variable="angularFactoryFacades">
+            <modelElement>
+                <type name="org.andromda.cartridges.angularjs.metafacades.AngularFactory"/>
+            </modelElement>
+        </modelElements>
+    </template>-->
 
-       
-               <resource
-        path="html/atlanta/js/plugins/*.*"
-       outputPattern="js/plugins/{0}"
-        outlet="output"
-        overwrite="true"/> 
-
-
-       <resource
-        path="html/atlanta/js/plugins/blueimp/*.*"
-       outputPattern="js/plugins/blueimp/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-         <resource
-        path="html/atlanta/js/plugins/bootstrap/*.*"
-       outputPattern="js/plugins/bootstrap/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-         <resource
-        path="html/atlanta/js/plugins/jquery/*.*"
-       outputPattern="js/plugins/jquery/{0}"
-        outlet="output"
-        overwrite="true"/> 
-         <resource
-        path="html/atlanta/js/plugins/codemirror/*.*"
-       outputPattern="js/plugins/codemirror/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-         <resource
-        path="html/atlanta/js/plugins/datatables/*.*"
-       outputPattern="js/plugins/datatables/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-         <resource
-        path="html/atlanta/js/plugins/daterangepicker/*.*"
-       outputPattern="js/plugins/daterangepicker/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-         <resource
-        path="html/atlanta/js/plugins/dropzone/*.*"
-       outputPattern="js/plugins/dropzone/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-        
-         <resource
-        path="html/atlanta/js/plugins/fileinput/*.*"
-       outputPattern="js/plugins/fileinput/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-        
-         <resource
-        path="html/atlanta/js/plugins/filetree/*.*"
-       outputPattern="js/plugins/filetree/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-        
-         <resource
-        path="html/atlanta/js/plugins/fullcalender/*.*"
-       outputPattern="js/plugins/fullcalender/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-         <resource
-        path="html/atlanta/js/plugins/highlight/*.*"
-       outputPattern="js/plugins/highlight/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-            <resource
-        path="html/atlanta/js/plugins/icheck/*.*"
-       outputPattern="js/plugins/icheck/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-            <resource
-        path="html/atlanta/js/plugins/jquery-validation/*.*"
-       outputPattern="js/plugins/jquery-validation/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-            <resource
-        path="html/atlanta/js/plugins/jvectormap/*.*"
-       outputPattern="js/plugins/jvectormap/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-            <resource
-        path="html/atlanta/js/plugins/knob/*.*"
-       outputPattern="js/plugins/knob/{0}"
-        outlet="output"
-        overwrite="true"/> 
-            <resource
-        path="html/atlanta/js/plugins/lesscss/*.*"
-       outputPattern="js/plugins/lesscss/{0}"
-        outlet="output"
-        overwrite="true"/> 
-                 <resource
-        path="html/atlanta/js/plugins/maskedinput/*.*"
-       outputPattern="js/plugins/maskedinput/{0}"
-        outlet="output"
-        overwrite="true"/> 
-                      <resource
-        path="html/atlanta/js/plugins/mcustomscrollbar/*.*"
-       outputPattern="js/plugins/mcustomscrollbar/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-                 <resource
-        path="html/atlanta/js/plugins/morris/*.*"
-       outputPattern="js/plugins/morris/{0}"
-        outlet="output"
-        overwrite="true"/> 
-                 <resource
-        path="html/atlanta/js/plugins/noty/*.*"
-       outputPattern="js/plugins/noty/{0}"
-        outlet="output"
-        overwrite="true"/> 
-                 <resource
-        path="html/atlanta/js/plugins/nvd3/*.*"
-       outputPattern="js/plugins/nvd3/{0}"
-        outlet="output"
-        overwrite="true"/> 
-                 <resource
-        path="html/atlanta/js/plugins/owl/*.*"
-       outputPattern="js/plugins/owl/{0}"
-        outlet="output"
-        overwrite="true"/> 
-                 <resource
-        path="html/atlanta/js/plugins/rangeslider/*.*"
-       outputPattern="js/plugins/rangeslider/{0}"
-        outlet="output"
-        overwrite="true"/> 
-                         <resource
-        path="html/atlanta/js/plugins/rickshaw/*.*"
-       outputPattern="js/plugins/rickshaw/{0}"
-        outlet="output"
-        overwrite="true"/> 
-                         <resource
-        path="html/atlanta/js/plugins/scrolltotop/*.*"
-       outputPattern="js/plugins/scrolltotop/{0}"
-        outlet="output"
-        overwrite="true"/> 
-                         <resource
-        path="html/atlanta/js/plugins/smartwizard/*.*"
-       outputPattern="js/plugins/smartwizard/{0}"
-        outlet="output"
-        overwrite="true"/> 
-                         <resource
-        path="html/atlanta/js/plugins/rangeslider/*.*"
-       outputPattern="js/plugins/rangeslider/{0}"
-        outlet="output"
-        overwrite="true"/> 
-                         <resource
-        path="html/atlanta/js/plugins/summernote/*.*"
-       outputPattern="js/plugins/summernote/{0}"
-        outlet="output"
-        overwrite="true"/> 
-                         <resource
-        path="html/atlanta/js/plugins/tableexport/*.*"
-       outputPattern="js/plugins/tableexport/{0}"
-        outlet="output"
-        overwrite="true"/> 
-                         <resource
-        path="html/atlanta/js/plugins/tagsinput/*.*"
-       outputPattern="js/plugins/tagsinput/{0}"
-        outlet="output"
-        overwrite="true"/> 
-                         <resource
-        path="html/atlanta/js/plugins/tocify/*.*"
-       outputPattern="js/plugins/tocify/{0}"
-        outlet="output"
-        overwrite="true"/> 
-                         <resource
-        path="html/atlanta/js/plugins/tour/*.*"
-       outputPattern="js/plugins/tour/{0}"
-        outlet="output"
-        overwrite="true"/> 
-                         <resource
-        path="html/atlanta/js/plugins/validationengine/*.*"
-       outputPattern="js/plugins/validationengine/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-  
-        <resource
-        path="html/atlanta/css/*.css"
-       outputPattern="css/{0}"
-        outlet="output"
-        overwrite="true"/>
- 
-              <resource
-        path="html/atlanta/css/animate/*.css"
-       outputPattern="css/animate/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-                  <resource
-        path="html/atlanta/css/blueimp/*.css"
-       outputPattern="css/blueimp/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-       <resource
-        path="html/atlanta/css/bootstrap/*.css"
-       outputPattern="css/bootstrap/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-           <resource
-        path="html/atlanta/css/codemirror/*.css"
-       outputPattern="css/codemirror/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-          <resource
-        path="html/atlanta/css/dropzone/*.css"
-       outputPattern="css/dropzone/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-              <resource
-        path="html/atlanta/css/fontawesome/*.css"
-       outputPattern="css/fontawesome/{0}"
-        outlet="output"
-        overwrite="true"/> 
-         
-                    <resource
-        path="html/atlanta/css/fonts/*.*"
-       outputPattern="css/fonts/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-        
-        
-      <resource
-        path="html/atlanta/css/fullcalendar/*.*"
-       outputPattern="css/fullcalendar/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-          <resource
-        path="html/atlanta/css/jquery/*.css"
-       outputPattern="css/jquery/{0}"
-        outlet="output"
-        overwrite="true"/> 
-        
-           
-          <resource
-        path="html/atlanta/css/mcustomscrollbar/*.css"
-       outputPattern="css/mcustomscrollbar/{0}"
-        outlet="output"
-        overwrite="true"/>  
-              
-          <resource
-        path="html/atlanta/css/nvd3/*.css"
-       outputPattern="css/nvd3/{0}"
-        outlet="output"
-        overwrite="true"/>  
-        
-        
-           <resource
-        path="html/atlanta/css/rickshaw/*.css"
-       outputPattern="css/rickshaw/{0}"
-        outlet="output"
-        overwrite="true"/>  
-        
-        
-              <resource
-        path="html/atlanta/css/summernote/*.css"
-       outputPattern="css/summernote/{0}"
-        outlet="output"
-        overwrite="true"/>  
-     
-     
-   
-              <resource
-        path="html/atlanta/img/*.*"
-       outputPattern="img/{0}"
-        outlet="output"
-        overwrite="true"/>
-  
-         <resource
-        path="html/atlanta/img/backgrounds/*.*"
-       outputPattern="img/backgrounds/{0}"
-        outlet="output"
-        overwrite="true"/>
-        
-           <resource
-        path="html/atlanta/img/blueimp/*.*"
-       outputPattern="img/blueimp/{0}"
-        outlet="output"
-        overwrite="true"/>
-        
-            <resource
-        path="html/atlanta/img/colorpicker/*.*"
-       outputPattern="img/colorpicker/{0}"
-        outlet="output"
-        overwrite="true"/>
-        
-            <resource
-        path="html/atlanta/img/dropzone/*.*"
-       outputPattern="img/dropzone/{0}"
-        outlet="output"
-        overwrite="true"/>
-        
-             <resource
-        path="html/atlanta/img/fileinput/*.*"
-       outputPattern="img/fileinput/{0}"
-        outlet="output"
-        overwrite="true"/>
-        
-            <resource
-        path="html/atlanta/img/filetree/*.*"
-       outputPattern="img/filetree/{0}"
-        outlet="output"
-        overwrite="true"/>
-        
-            <resource
-        path="html/atlanta/img/icheck/*.*"
-       outputPattern="img/icheck/{0}"
-        outlet="output"
-        overwrite="true"/>
-        
-            <resource
-        path="html/atlanta/img/icons/*.*"
-       outputPattern="img/icons/{0}"
-        outlet="output"
-        overwrite="true"/>
-        
-            <resource
-        path="html/atlanta/img/jquery/*.*"
-       outputPattern="img/jquery/{0}"
-        outlet="output"
-        overwrite="true"/>
-        
-            <resource
-        path="html/atlanta/img/loaders/*.*"
-       outputPattern="img/loaders/{0}"
-        outlet="output"
-        overwrite="true"/>
-        
-            <resource
-        path="html/atlanta/img/owl/*.*"
-       outputPattern="img/owl/{0}"
-        outlet="output"
-        overwrite="true"/>
-        
-            <resource
-        path="html/atlanta/img/themes/*.*"
-       outputPattern="img/themes/{0}"
-        outlet="output"
-        overwrite="true"/>
-        
-        -->
-         <resource
-        path="css/*.*"
-       outputPattern="css/{0}"
-        outlet="output"
-        overwrite="true"/>
-         <resource
-        path="css/bootstrap/*.*"
-       outputPattern="css/bootstrap/{0}"
-        outlet="output"
-        overwrite="true"/>
-         <resource
-        path="lib/angular/*.*"
-       outputPattern="lib/angular/{0}"
-        outlet="output"
-        overwrite="true"/>
-        
-        
-      <resource
-        path="jquery/*.*"
-       outputPattern="js/jquery/{0}"
-        outlet="output"
-        overwrite="true"></resource>
-         <resource
-        path="bootstrap/*.*"
-       outputPattern="js/bootstrap/{0}"
-        outlet="output"
-        overwrite="true"/>
-		<!-- Creates only one JS file that contains informations about all AngularJS Factories elements -->
-	<template
-		path="templates/angularjs/services/Services.vsl"
-		outputPattern="components/services.js"
-		outlet="controllers"
-		overwrite="true"
-		outputToSingleFile="true"
-		outputOnEmptyElements="false">
-		<modelElements variable="angularFactoryFacades">
-			<modelElement>
-				<type name="org.andromda.cartridges.angularjs.metafacades.AngularFactory" />
-			</modelElement>
-		</modelElements>
-	</template>
-	  
-   <template
-        path="templates/angularjs/App.js.vsl"
-        outputPattern="app.js"
-        outlet="controllers"
-        outputToSingleFile="true"
-        outputOnEmptyElements="false"
-        overwrite="true">
+    <!--<template
+            path="templates/angularjs/App.js.vsl"
+            outputPattern="app.js"
+            outlet="controllers"
+            outputToSingleFile="true"
+            outputOnEmptyElements="false"
+            overwrite="true">
         <modelElements variable="controllers">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndController">
@@ -503,17 +67,17 @@
                 </type>
             </modelElement>
             <modelElement>
-				<type name="org.andromda.cartridges.angularjs.metafacades.AngularFactory" />
-			</modelElement>
+                <type name="org.andromda.cartridges.angularjs.metafacades.AngularFactory"/>
+            </modelElement>
         </modelElements>
-    </template>
-    <template
-        path="templates/angularjs/controllers/Controllers.vsl"
-        outputPattern="components/controllers.js"
-        outlet="controllers"
-        outputToSingleFile="true"
-        outputOnEmptyElements="false"
-        overwrite="true">
+    </template>-->
+    <!--<template
+            path="templates/angularjs/controllers/Controllers.vsl"
+            outputPattern="components/controllers.js"
+            outlet="controllers"
+            outputToSingleFile="true"
+            outputOnEmptyElements="false"
+            overwrite="true">
         <modelElements variable="controllers">
             <modelElement>
                 <type name="org.andromda.cartridges.angularjs.metafacades.AngularController">
@@ -521,19 +85,19 @@
                 </type>
             </modelElement>
             <modelElement>
-				<type name="org.andromda.cartridges.angularjs.metafacades.AngularAction" >
-				<property name="useCase"/>
-				</type>
-			</modelElement>
-   </modelElements>
-    </template>
+                <type name="org.andromda.cartridges.angularjs.metafacades.AngularAction">
+                    <property name="useCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>-->
 
-    <template
-        path="templates/angularjs/views/View.vsl"
-        outputPattern="components/{1}/{1}.html"
-        outlet="controllers"
-        outputToSingleFile="false"
-        overwrite="true">
+    <!--<template
+            path="templates/angularjs/views/View.vsl"
+            outputPattern="components/{1}/{1}.html"
+            outlet="controllers"
+            outputToSingleFile="false"
+            overwrite="true">
         <modelElements variable="viewer">
             <modelElement>
                 <type name="org.andromda.cartridges.angularjs.metafacades.AngularView">
@@ -541,55 +105,55 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template>-->
 
-    <template
-        path="templates/angularjs/views/HomeScreen.vsl"
-        outputPattern="index.html"
-        outlet="controllers"
-        outputToSingleFile="true"
-        overwrite="true">
-       <modelElements variable="pages">
+    <!--<template
+            path="templates/angularjs/views/HomeScreen.vsl"
+            outputPattern="index.html"
+            outlet="controllers"
+            outputToSingleFile="true"
+            overwrite="true">
+        <modelElements variable="pages">
             <modelElement>
                 <type name="org.andromda.cartridges.angularjs.metafacades.AngularController">
                     <property name="useCase"/>
                 </type>
             </modelElement>
             <modelElement>
-				<type name="org.andromda.cartridges.angularjs.metafacades.AngularFactory" />
-			</modelElement>
+                <type name="org.andromda.cartridges.angularjs.metafacades.AngularFactory"/>
+            </modelElement>
         </modelElements>
-    </template>
-    <template
-        path="templates/angularjs/views/Header.vsl"
-        outputPattern="components/Header.html"
-        outlet="controllers"
-        outputToSingleFile="true"
-        overwrite="true">
-       <modelElements variable="pages">
+    </template>-->
+    <!--<template
+            path="templates/angularjs/views/Header.vsl"
+            outputPattern="components/Header.html"
+            outlet="controllers"
+            outputToSingleFile="true"
+            overwrite="true">
+        <modelElements variable="pages">
             <modelElement>
                 <type name="org.andromda.cartridges.angularjs.metafacades.AngularController">
                     <property name="useCase"/>
                 </type>
             </modelElement>
         </modelElements>
-    </template>
-    
-    <template
-        path="templates/angularjs/views/Content.vsl"
-        outputPattern="components/Content.html"
-        outlet="controllers"
-        outputToSingleFile="true"
-        overwrite="true">
-       <modelElements variable="pages">
+    </template>-->
+
+    <!--<template
+            path="templates/angularjs/views/Content.vsl"
+            outputPattern="components/Content.html"
+            outlet="controllers"
+            outputToSingleFile="true"
+            overwrite="true">
+        <modelElements variable="pages">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndController">
                     <property name="useCase"/>
                 </type>
             </modelElement>
             <modelElement>
-				<type name="org.andromda.cartridges.angularjs.metafacades.AngularFactory" />
-			</modelElement>
+                <type name="org.andromda.cartridges.angularjs.metafacades.AngularFactory"/>
+            </modelElement>
         </modelElements>
-    </template>
+    </template>-->
 </cartridge>

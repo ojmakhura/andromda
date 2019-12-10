@@ -447,7 +447,13 @@
         <core.generated.test.dir>${project.basedir}/../core/target/src/test/java</core.generated.test.dir>
         <core.manual.test.dir>${project.basedir}/../core/src/test/java</core.manual.test.dir>
 #end
-#if ($war || $web)
+#if ($angularjs)
+        <angularjs.model.dir>${project.basedir}/../angularjs/src/app/model</angularjs.model.dir>
+        <angularjs.service.dir>${project.basedir}/../angularjs/src/app/service</angularjs.service.dir>
+        <angularjs.service.impl.dir>${project.basedir}/../angularjs/src/app/service/impls</angularjs.service.impl.dir>
+        <angularjs.view.dir>${project.basedir}/../angularjs/src/app/view</angularjs.view.dir>
+#end
+#if ($war || $jsf)
         <web.generated.dir>${project.basedir}/../web/target</web.generated.dir>
         <web.generated.java.dir>${web.generated.dir}/src/main/java</web.generated.java.dir>
         <web.generated.web.dir>${web.generated.dir}/src/main/webapp</web.generated.web.dir>

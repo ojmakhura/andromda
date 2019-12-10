@@ -27,11 +27,16 @@
                 </documentation>
             </property>
 
-            <property name="controllers">
+            <property name="services">
                 <documentation>
-                    The location to which any controllers are generated (this outlet
+                    The location to which any services are generated (this outlet
                     contains classes which are fully generated and should not be
                     touched).
+                </documentation>
+            </property>
+            <property name="service-impls">
+                <documentation>
+                    The location to which any services implementations that the must be edited
                 </documentation>
             </property>
             <property name="views">
@@ -39,9 +44,9 @@
                     Where the application views are output.
                 </documentation>
             </property>
-            <property name="forms">
+            <property name="models">
                 <documentation>
-                    The forms to which input is stored are output here.
+                    The models are output here.
                 </documentation>
             </property>
         </propertyGroup>
