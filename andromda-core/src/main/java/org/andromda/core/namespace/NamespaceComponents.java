@@ -190,7 +190,9 @@ public class NamespaceComponents
     private Map<NamespaceRegistry, URL> discoverAllRegistries()
     {
         final Map<NamespaceRegistry, URL> registries = new HashMap<NamespaceRegistry, URL>();
+        AndroMDALogger.info("Path = " + this.getPath());
         final URL[] resources = ResourceFinder.findResources(this.getPath());
+        AndroMDALogger.info("resources = " + resources);
         final XmlObjectFactory registryFactory = XmlObjectFactory.getInstance(NamespaceRegistry.class);
         if (resources != null)
         {

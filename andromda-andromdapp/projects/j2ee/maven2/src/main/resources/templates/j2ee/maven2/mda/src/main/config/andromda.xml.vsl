@@ -546,12 +546,14 @@
 #end
 #if($angularjs)
         <namespace name="angularjs">
-            <property name="applicationName">${application.name}</property>
-            <property name="views">${angularjs.view.dir}</property>
-            <property name="services">${angularjs.service.dir}</property>
-            <property name="service-impls">${angularjs.service.impl.dir}</property>
-            <property name="models">${angularjs.model.dir}</property>
-        </namespace
+            <properties>
+                <property name="applicationName">${application.name}</property>
+                <property name="views">${angularjs.view.dir}</property>
+                <property name="services">${angularjs.service.dir}</property>
+                <property name="service-impls">${angularjs.service.impl.dir}</property>
+                <property name="models">${angularjs.model.dir}</property>
+            </properties>
+        </namespace>
 #end
     </namespaces>
 </andromda>
