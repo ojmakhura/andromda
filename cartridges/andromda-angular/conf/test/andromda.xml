@@ -1,6 +1,6 @@
 <andromda xmlns="http://andromda.org/core/configuration">
   <properties>
-    <property name="cartridgeFilter">angularjs</property>
+    <property name="cartridgeFilter">angular</property>
     <property name="failOnValidationErrors">false</property>
     <!-- Comma separated list of cartridges to be processed by namespace name, such as java,webservice. Empty = true = process all>
     <property name="cartridgeFilter">${filter}</property -->
@@ -38,7 +38,7 @@
         <property name="toDoTag">@todo</property>
       </properties>
     </namespace>
-    <namespace name="angularjs">
+    <namespace name="angular">
       <properties>
         <property name="applicationName">test-application</property>
         <property name="forms">${test.output.dir}</property>

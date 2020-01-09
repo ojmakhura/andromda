@@ -107,6 +107,7 @@ public class XmlObjectFactory
         ExceptionUtils.checkNull(
                 "objectRulesXml",
                 objectRulesXml);
+        logger.info("XmlObjectFactory " + objectRulesXml);
         this.digester = DigesterLoader.createDigester(objectRulesXml);
         this.digester.setUseContextClassLoader(true);
     }

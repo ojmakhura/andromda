@@ -1,0 +1,103 @@
+2019-12-11 08:41:19,996 INFO  [AndroMDA] Applying transformation --> 'file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/org/andromda/core/transformation/transformation1.xsl'
+2019-12-11 08:41:20,226 INFO  [AndroMDA] Applying transformation --> 'file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/org/andromda/core/transformation/transformation2.xsl'
+2019-12-11 08:41:20,235 INFO  [org.andromda.core.common.XmlObjectFactory] XmlObjectFactory file:/home/junior/programming/maven/andromda/andromda-core/target/classes/org/andromda/core/namespace/NamespaceComponents-Rules.xml
+2019-12-11 08:41:20,443 INFO  [AndroMDA] - discovering namespaces -
+2019-12-11 08:41:20,444 INFO  [org.andromda.core.common.XmlObjectFactory] XmlObjectFactory file:/home/junior/programming/maven/andromda/andromda-core/target/classes/org/andromda/core/namespace/NamespaceRegistry-Rules.xml
+2019-12-11 08:41:20,449 INFO  [AndroMDA] Path = META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,452 INFO  [AndroMDA] resources = [Ljava.net.URL;@6cd166b8
+2019-12-11 08:41:20,478 INFO  [AndroMDA] registryMap --> '{org.andromda.core.namespace.NamespaceRegistry@61a1ea2c[test]=file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml}
+2019-12-11 08:41:20,478 INFO  [AndroMDA] org.andromda.core.namespace.NamespaceRegistry@61a1ea2c[test] --> 'file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,478 INFO  [AndroMDA] registries --> '[org.andromda.core.namespace.NamespaceRegistry@61a1ea2c[test]]
+2019-12-11 08:41:20,494 INFO  [AndroMDA] getNamespaceResourceRoot(final URL resource)  --> 'file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,495 INFO  [AndroMDA] found namespace --> 'test'
+2019-12-11 08:41:20,495 INFO  [AndroMDA]   +  registering component 'cartridge'
+2019-12-11 08:41:20,495 INFO  [org.andromda.core.common.XmlObjectFactory] XmlObjectFactory file:/home/junior/programming/maven/andromda/andromda-core/target/classes/org/andromda/core/cartridge/Cartridge-Rules.xml
+2019-12-11 08:41:20,534 INFO  [AndroMDA]   +  registering component 'metafacades'
+2019-12-11 08:41:20,534 INFO  [org.andromda.core.common.XmlObjectFactory] XmlObjectFactory file:/home/junior/programming/maven/andromda/andromda-core/target/classes/org/andromda/core/metafacade/MetafacadeMappings-Rules.xml
+2019-12-11 08:41:20,571 INFO  [AndroMDA]   +  registering component 'profile'
+2019-12-11 08:41:20,571 INFO  [org.andromda.core.common.XmlObjectFactory] XmlObjectFactory file:/home/junior/programming/maven/andromda/andromda-core/target/classes/org/andromda/core/profile/Profile-Rules.xml
+2019-12-11 08:41:20,583 INFO  [AndroMDA]   +  registering component 'translation-library'
+2019-12-11 08:41:20,583 INFO  [org.andromda.core.common.XmlObjectFactory] XmlObjectFactory file:/home/junior/programming/maven/andromda/andromda-core/target/classes/org/andromda/core/translation/library/Library-Rules.xml
+2019-12-11 08:41:20,600 INFO  [AndroMDA]   +  registering component 'repository'
+2019-12-11 08:41:20,600 INFO  [org.andromda.core.common.XmlObjectFactory] XmlObjectFactory file:/home/junior/programming/maven/andromda/andromda-core/target/classes/org/andromda/core/repository/Repository-Rules.xml
+2019-12-11 08:41:20,608 INFO  [org.andromda.core.common.XmlObjectFactory] XmlObjectFactory file:/home/junior/programming/maven/andromda/andromda-core/target/classes/org/andromda/core/configuration/Configuration-Rules.xml
+2019-12-11 08:41:20,646 INFO  [AndroMDA] - discovering namespaces -
+2019-12-11 08:41:20,646 INFO  [AndroMDA] Path = META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,647 INFO  [AndroMDA] resources = [Ljava.net.URL;@42b6d0cc
+2019-12-11 08:41:20,656 INFO  [AndroMDA] registryMap --> '{org.andromda.core.namespace.NamespaceRegistry@a0db585[test]=file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml}
+2019-12-11 08:41:20,656 INFO  [AndroMDA] org.andromda.core.namespace.NamespaceRegistry@a0db585[test] --> 'file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,656 INFO  [AndroMDA] registries --> '[org.andromda.core.namespace.NamespaceRegistry@a0db585[test]]
+2019-12-11 08:41:20,660 INFO  [AndroMDA] - discovering namespaces -
+2019-12-11 08:41:20,660 INFO  [AndroMDA] Path = META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,661 INFO  [AndroMDA] resources = [Ljava.net.URL;@69391e08
+2019-12-11 08:41:20,668 INFO  [AndroMDA] registryMap --> '{org.andromda.core.namespace.NamespaceRegistry@3a22bad6[test]=file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml}
+2019-12-11 08:41:20,668 INFO  [AndroMDA] org.andromda.core.namespace.NamespaceRegistry@3a22bad6[test] --> 'file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,668 INFO  [AndroMDA] registries --> '[org.andromda.core.namespace.NamespaceRegistry@3a22bad6[test]]
+2019-12-11 08:41:20,669 INFO  [AndroMDA] - discovering namespaces -
+2019-12-11 08:41:20,669 INFO  [AndroMDA] Path = META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,670 INFO  [AndroMDA] resources = [Ljava.net.URL;@64fe9da7
+2019-12-11 08:41:20,678 INFO  [AndroMDA] registryMap --> '{org.andromda.core.namespace.NamespaceRegistry@245ec1a6[test]=file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml}
+2019-12-11 08:41:20,678 INFO  [AndroMDA] org.andromda.core.namespace.NamespaceRegistry@245ec1a6[test] --> 'file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,678 INFO  [AndroMDA] registries --> '[org.andromda.core.namespace.NamespaceRegistry@245ec1a6[test]]
+2019-12-11 08:41:20,679 INFO  [AndroMDA] - discovering namespaces -
+2019-12-11 08:41:20,679 INFO  [AndroMDA] Path = META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,680 INFO  [AndroMDA] resources = [Ljava.net.URL;@38792286
+2019-12-11 08:41:20,687 INFO  [AndroMDA] registryMap --> '{org.andromda.core.namespace.NamespaceRegistry@6f1a80fb[test]=file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml}
+2019-12-11 08:41:20,687 INFO  [AndroMDA] org.andromda.core.namespace.NamespaceRegistry@6f1a80fb[test] --> 'file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,687 INFO  [AndroMDA] registries --> '[org.andromda.core.namespace.NamespaceRegistry@6f1a80fb[test]]
+2019-12-11 08:41:20,688 INFO  [AndroMDA] - discovering namespaces -
+2019-12-11 08:41:20,688 INFO  [AndroMDA] Path = META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,688 INFO  [AndroMDA] resources = [Ljava.net.URL;@7d2998d8
+2019-12-11 08:41:20,694 INFO  [AndroMDA] registryMap --> '{org.andromda.core.namespace.NamespaceRegistry@28cb3a25[test]=file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml}
+2019-12-11 08:41:20,694 INFO  [AndroMDA] org.andromda.core.namespace.NamespaceRegistry@28cb3a25[test] --> 'file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,694 INFO  [AndroMDA] registries --> '[org.andromda.core.namespace.NamespaceRegistry@28cb3a25[test]]
+2019-12-11 08:41:20,695 INFO  [AndroMDA] - discovering namespaces -
+2019-12-11 08:41:20,695 INFO  [AndroMDA] Path = META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,695 INFO  [AndroMDA] resources = [Ljava.net.URL;@6cfd9a54
+2019-12-11 08:41:20,701 INFO  [AndroMDA] registryMap --> '{org.andromda.core.namespace.NamespaceRegistry@5a2fa51f[test]=file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml}
+2019-12-11 08:41:20,701 INFO  [AndroMDA] org.andromda.core.namespace.NamespaceRegistry@5a2fa51f[test] --> 'file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,701 INFO  [AndroMDA] registries --> '[org.andromda.core.namespace.NamespaceRegistry@5a2fa51f[test]]
+2019-12-11 08:41:20,703 INFO  [AndroMDA] - discovering namespaces -
+2019-12-11 08:41:20,703 INFO  [AndroMDA] Path = META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,703 INFO  [AndroMDA] resources = [Ljava.net.URL;@49ede9c7
+2019-12-11 08:41:20,710 INFO  [AndroMDA] registryMap --> '{org.andromda.core.namespace.NamespaceRegistry@45404d5[test]=file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml}
+2019-12-11 08:41:20,710 INFO  [AndroMDA] org.andromda.core.namespace.NamespaceRegistry@45404d5[test] --> 'file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,710 INFO  [AndroMDA] registries --> '[org.andromda.core.namespace.NamespaceRegistry@45404d5[test]]
+2019-12-11 08:41:20,710 INFO  [AndroMDA] - discovering namespaces -
+2019-12-11 08:41:20,710 INFO  [AndroMDA] Path = META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,711 INFO  [AndroMDA] resources = [Ljava.net.URL;@5cbe2654
+2019-12-11 08:41:20,716 INFO  [AndroMDA] registryMap --> '{org.andromda.core.namespace.NamespaceRegistry@435e60ff[test]=file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml}
+2019-12-11 08:41:20,716 INFO  [AndroMDA] org.andromda.core.namespace.NamespaceRegistry@435e60ff[test] --> 'file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,717 INFO  [AndroMDA] registries --> '[org.andromda.core.namespace.NamespaceRegistry@435e60ff[test]]
+2019-12-11 08:41:20,753 ERROR [AndroMDA] Exception recorded in --> '/home/junior/programming/maven/andromda/andromda-core/test191211084120.exc'
+2019-12-11 08:41:20,761 INFO  [AndroMDA] - discovering namespaces -
+2019-12-11 08:41:20,761 INFO  [AndroMDA] Path = META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,762 INFO  [AndroMDA] resources = [Ljava.net.URL;@6caf7803
+2019-12-11 08:41:20,768 INFO  [AndroMDA] registryMap --> '{org.andromda.core.namespace.NamespaceRegistry@1716e8c5[test]=file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml}
+2019-12-11 08:41:20,768 INFO  [AndroMDA] org.andromda.core.namespace.NamespaceRegistry@1716e8c5[test] --> 'file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,768 INFO  [AndroMDA] registries --> '[org.andromda.core.namespace.NamespaceRegistry@1716e8c5[test]]
+2019-12-11 08:41:20,769 INFO  [AndroMDA] - discovering namespaces -
+2019-12-11 08:41:20,769 INFO  [AndroMDA] Path = META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,769 INFO  [AndroMDA] resources = [Ljava.net.URL;@4052c8c2
+2019-12-11 08:41:20,776 INFO  [AndroMDA] registryMap --> '{org.andromda.core.namespace.NamespaceRegistry@317a118b[test]=file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml}
+2019-12-11 08:41:20,776 INFO  [AndroMDA] org.andromda.core.namespace.NamespaceRegistry@317a118b[test] --> 'file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,776 INFO  [AndroMDA] registries --> '[org.andromda.core.namespace.NamespaceRegistry@317a118b[test]]
+2019-12-11 08:41:20,778 INFO  [org.andromda.core.common.XmlObjectFactory] XmlObjectFactory file:/home/junior/programming/maven/andromda/andromda-core/target/classes/org/andromda/core/mapping/Mappings-Rules.xml
+2019-12-11 08:41:20,802 INFO  [AndroMDA] - discovering namespaces -
+2019-12-11 08:41:20,802 INFO  [AndroMDA] Path = META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,803 INFO  [AndroMDA] resources = [Ljava.net.URL;@1457fde
+2019-12-11 08:41:20,809 INFO  [AndroMDA] registryMap --> '{org.andromda.core.namespace.NamespaceRegistry@671d1157[test]=file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml}
+2019-12-11 08:41:20,809 INFO  [AndroMDA] org.andromda.core.namespace.NamespaceRegistry@671d1157[test] --> 'file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,809 INFO  [AndroMDA] registries --> '[org.andromda.core.namespace.NamespaceRegistry@671d1157[test]]
+2019-12-11 08:41:20,829 INFO  [AndroMDA] - discovering namespaces -
+2019-12-11 08:41:20,829 INFO  [AndroMDA] Path = META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,829 INFO  [AndroMDA] resources = [Ljava.net.URL;@2bfb6b49
+2019-12-11 08:41:20,835 INFO  [AndroMDA] registryMap --> '{org.andromda.core.namespace.NamespaceRegistry@7afc4db9[test]=file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml}
+2019-12-11 08:41:20,835 INFO  [AndroMDA] org.andromda.core.namespace.NamespaceRegistry@7afc4db9[test] --> 'file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,835 INFO  [AndroMDA] registries --> '[org.andromda.core.namespace.NamespaceRegistry@7afc4db9[test]]
+2019-12-11 08:41:20,835 INFO  [AndroMDA] - discovering namespaces -
+2019-12-11 08:41:20,835 INFO  [AndroMDA] Path = META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,836 INFO  [AndroMDA] resources = [Ljava.net.URL;@63884e4
+2019-12-11 08:41:20,840 INFO  [AndroMDA] registryMap --> '{org.andromda.core.namespace.NamespaceRegistry@38b8b6c0[test]=file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml}
+2019-12-11 08:41:20,841 INFO  [AndroMDA] org.andromda.core.namespace.NamespaceRegistry@38b8b6c0[test] --> 'file:/home/junior/programming/maven/andromda/andromda-core/target/test-classes/META-INF/andromda/namespace.xml
+2019-12-11 08:41:20,841 INFO  [AndroMDA] registries --> '[org.andromda.core.namespace.NamespaceRegistry@38b8b6c0[test]]

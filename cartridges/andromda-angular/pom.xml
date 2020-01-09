@@ -9,17 +9,17 @@
         <version>4.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>andromda-angularjs-cartridge</artifactId>
+    <artifactId>andromda-angular-cartridge</artifactId>
     <packaging>jar</packaging>
-    <name>AndroMDA AngularJS Cartridge</name>
+    <name>AndroMDA Angular Cartridge</name>
     <description>
-        The AngularJS cartridge is used to generate Angular applications from UML models using both static and dynamic model elements.
+        The Angular cartridge is used to generate Angular applications from UML models using both static and dynamic model elements.
         Generated applications have default security and internationalization implementations and can be deployed as they are.
     </description>
     <scm>
-        <connection>scm:svn:http://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-angularjs</connection>
-        <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-angularjs</developerConnection>
-        <url>http://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-angularjs/</url>
+        <connection>scm:svn:http://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-angular</connection>
+        <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-angular</developerConnection>
+        <url>http://svn.code.sf.net/p/andromda/svn/trunk/cartridges/andromda-angular/</url>
     </scm>
     <dependencies>
         <dependency>
@@ -76,7 +76,7 @@
                         <artifactId>andromda-cartridge-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>angularjs-uml2</id>
+                                <id>angular-uml2</id>
                                 <phase>generate-test-sources</phase>
                                 <goals>
                                     <goal>test</goal>
@@ -96,7 +96,7 @@
                 <artifactId>andromda-cartridge-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>angularjs</id>
+                        <id>angular</id>
                         <phase>generate-test-sources</phase>
                         <goals>
                             <goal>test</goal>
@@ -124,9 +124,9 @@
     <properties>
         <uml2.output.dir>${project.basedir}/target/cartridge-test/actualUML2</uml2.output.dir>
         <test.output.dir>${project.basedir}/target/cartridge-test/actual</test.output.dir>
-        <uml2.model.uri>file:${src.dir}/uml2/AngularJSMetafacadeModel.uml</uml2.model.uri>
-        <uml2.test.model.uri>file:${test.src.dir}/uml2/AngularJSCartridgeTestModel.uml</uml2.test.model.uri>
-        <model.uri>jar:file:${src.dir}/uml/AngularJSMetafacadeModel.xml.zip!/AngularJSMetafacadeModel.xml</model.uri>
-        <test.model.uri>jar:file:${test.src.dir}/uml/AngularJSCartridgeTestModel.xml.zip!/AngularJSCartridgeTestModel.xml</test.model.uri>
+        <uml2.model.uri>file:${src.dir}/uml2/AngularMetafacadeModel.uml</uml2.model.uri>
+        <uml2.test.model.uri>file:${test.src.dir}/uml2/AngularCartridgeTestModel.uml</uml2.test.model.uri>
+        <model.uri>jar:file:${src.dir}/uml/AngularMetafacadeModel.xml.zip!/AngularMetafacadeModel.xml</model.uri>
+        <test.model.uri>jar:file:${test.src.dir}/uml/AngularCartridgeTestModel.xml.zip!/AngularCartridgeTestModel.xml</test.model.uri>
     </properties>
 </project>

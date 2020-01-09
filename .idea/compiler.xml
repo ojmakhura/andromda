@@ -9,7 +9,6 @@
         <module name="andromda-cartridge-plugin" />
         <module name="andromda-profile-persistence (2) (org.andromda.profiles.uml14)" />
         <module name="andromda-repository-emf" />
-        <module name="andromda-collections-taglib" />
         <module name="andromda-translation-library-plugin" />
         <module name="andromda-profile-datatype (2) (org.andromda.profiles.uml14)" />
         <module name="andromda-presentation (2) (org.andromda.profiles.emf.uml22)" />
@@ -20,25 +19,25 @@
         <module name="andromda-profile (2) (org.andromda.profiles.uml2)" />
         <module name="andromda-profile-service (3) (org.andromda.profiles.uml2)" />
         <module name="andromda-spring-cartridge" />
-        <module name="andromda-persistence (2) (org.andromda.profiles.emf.uml22)" />
         <module name="andromda-profile-presentation (2) (org.andromda.profiles.uml14)" />
         <module name="andromda-profile-datatype (1) (org.andromda.profiles.emf.uml2)" />
-        <module name="andromda-model-archiver-plugin" />
         <module name="andromda-andromdapp-core" />
         <module name="andromda-profile-process (2) (org.andromda.profiles.uml14)" />
+        <module name="UML_Standard_Profile.UML_Standard_Profile" />
         <module name="andromda-jsf-cartridge" />
         <module name="andromda-profile-presentation (3) (org.andromda.profiles.uml2)" />
         <module name="andromda-process (2) (org.andromda.profiles.emf.uml22)" />
         <module name="andromda-java-cartridge" />
-        <module name="andromda-webservice-cartridge" />
+        <module name="andromda-ejb3-cartridge" />
         <module name="andromda-service (1) (org.andromda.profiles.emf.rsm75)" />
         <module name="andromda-jsf2-cartridge" />
         <module name="andromda-messaging (2) (org.andromda.profiles.emf.uml22)" />
         <module name="andromda-bpm4struts-cartridge" />
         <module name="andromda-webservice-client" />
         <module name="andromda-meta-cartridge" />
-        <module name="andromda-common (1) (org.andromda.profiles.emf.rsm75)" />
         <module name="andromda-repository-emf-uml22" />
+        <module name="andromda-common (1) (org.andromda.profiles.emf.rsm75)" />
+        <module name="andromda-andromdapp-projects-csharp-maven2" />
         <module name="andromda-bootstrap-plugin" />
         <module name="andromda-xml (2) (org.andromda.profiles.emf.uml22)" />
         <module name="andromda-metafacades-emf-uml22" />
@@ -46,8 +45,10 @@
         <module name="andromda-templateengine-freemarker" />
         <module name="andromda-profile-messaging (2) (org.andromda.profiles.uml14)" />
         <module name="andromda-jsf-cartridge-components" />
+        <module name="andromda-site-plugin" />
         <module name="andromda-repository-mdr-uml14" />
         <module name="andromda-profile-xml (2) (org.andromda.profiles.uml14)" />
+        <module name="andromda-beautifier-plugin" />
         <module name="andromda-profile-service (1) (org.andromda.profiles.emf.uml2)" />
         <module name="andromda-presentation (1) (org.andromda.profiles.emf.rsm75)" />
         <module name="andromda-profile-process (3) (org.andromda.profiles.uml2)" />
@@ -70,6 +71,7 @@
         <module name="andromda-configuration-mojo" />
         <module name="andromda-breadcrumbs-taglib" />
         <module name="andromda-ocl-translation-testsuite" />
+        <module name="andromda-site-cartridge-plugin" />
         <module name="andromda-xmlschema-cartridge" />
         <module name="andromda-script-wrappers" />
         <module name="andromda-profile-xml (1) (org.andromda.profiles.emf.uml2)" />
@@ -80,26 +82,26 @@
         <module name="andromda-profile-messaging (1) (org.andromda.profiles.emf.uml2)" />
         <module name="andromda-profile-meta (2) (org.andromda.profiles.uml14)" />
         <module name="andromda-webservice (2) (org.andromda.profiles.emf.uml22)" />
+        <module name="andromda-angular-cartridge" />
         <module name="andromda-metafacades-uml14" />
         <module name="andromda-bootstrap-install-plugin" />
         <module name="andromda-schema2xmi" />
         <module name="andromda-andromdapp-project-richclient-ant" />
+        <module name="andromda-persistence (1) (org.andromda.profiles.emf.rsm75)" />
         <module name="andromda-profile (1) (org.andromda.profiles.uml14)" />
-        <module name="andromda-beautifier-plugin" />
-        <module name="UML_Standard_Profile.UML_Standard_Profile" />
+        <module name="andromda-profile-webservice (2) (org.andromda.profiles.uml14)" />
+        <module name="andromda-persistence (2) (org.andromda.profiles.emf.uml22)" />
         <module name="andromda-jbpm-cartridge" />
         <module name="andromda-profile-process (1) (org.andromda.profiles.emf.uml2)" />
         <module name="andromda-profile-common" />
-        <module name="andromda-angularjs-cartridge" />
         <module name="andromda-common (2) (org.andromda.profiles.emf.uml22)" />
         <module name="andromda-webservice (1) (org.andromda.profiles.emf.rsm75)" />
         <module name="andromda-profile-webservice (1) (org.andromda.profiles.emf.uml2)" />
         <module name="andromda-service (2) (org.andromda.profiles.emf.uml22)" />
         <module name="andromda-meta (1) (org.andromda.profiles.emf.rsm75)" />
-        <module name="andromda-persistence (1) (org.andromda.profiles.emf.rsm75)" />
+        <module name="andromda-webservice-cartridge" />
         <module name="andromda-datatype (1) (org.andromda.profiles.emf.rsm75)" />
-        <module name="andromda-ejb3-cartridge" />
-        <module name="andromda-profile-webservice (2) (org.andromda.profiles.uml14)" />
+        <module name="andromda-model-archiver-plugin" />
         <module name="andromda-ejb-cartridge" />
         <module name="andromda-profile-service (2) (org.andromda.profiles.uml14)" />
         <module name="andromda-profile-meta (1) (org.andromda.profiles.emf.uml2)" />
@@ -108,7 +110,7 @@
         <module name="andromda-andromdapp-project-j2ee-maven2" />
         <module name="andromda-utils" />
         <module name="andromda-profile-persistence (1) (org.andromda.profiles.emf.uml2)" />
-        <module name="andromda-andromdapp-projects-csharp-maven2" />
+        <module name="andromda-collections-taglib" />
         <module name="andromda-repository-mdr" />
       </profile>
     </annotationProcessing>
@@ -120,6 +122,7 @@
       <module name="andromda-andromdapp-project-richclient-ant" target="1.7" />
       <module name="andromda-andromdapp-projects" target="1.5" />
       <module name="andromda-andromdapp-projects-csharp-maven2" target="1.7" />
+      <module name="andromda-angular-cartridge" target="1.7" />
       <module name="andromda-angularjs" target="1.7" />
       <module name="andromda-angularjs-cartridge" target="1.7" />
       <module name="andromda-ant" target="1.7" />
@@ -220,6 +223,8 @@
       <module name="andromda-script-wrappers" target="1.7" />
       <module name="andromda-service (1) (org.andromda.profiles.emf.rsm75)" target="1.5" />
       <module name="andromda-service (2) (org.andromda.profiles.emf.uml22)" target="1.5" />
+      <module name="andromda-site-cartridge-plugin" target="1.7" />
+      <module name="andromda-site-plugin" target="1.7" />
       <module name="andromda-site-plugins" target="1.5" />
       <module name="andromda-spring-cartridge" target="1.7" />
       <module name="andromda-taglibs" target="1.5" />
@@ -249,6 +254,7 @@
       <module name="andromda-andromdapp-project-j2ee-maven2" options="-Xlint:cast,unchecked,fallthrough,finally,serial" />
       <module name="andromda-andromdapp-project-richclient-ant" options="-Xlint:cast,unchecked,fallthrough,finally,serial" />
       <module name="andromda-andromdapp-projects-csharp-maven2" options="-Xlint:cast,unchecked,fallthrough,finally,serial" />
+      <module name="andromda-angular-cartridge" options="-Xlint:cast,unchecked,fallthrough,finally,serial" />
       <module name="andromda-angularjs" options="-Xlint:cast,unchecked,fallthrough,finally,serial" />
       <module name="andromda-angularjs-cartridge" options="-Xlint:cast,unchecked,fallthrough,finally,serial" />
       <module name="andromda-ant" options="-Xlint:cast,unchecked,fallthrough,finally,serial" />
@@ -287,6 +293,8 @@
       <module name="andromda-repository-mdr-uml14" options="-Xlint:cast,unchecked,fallthrough,finally,serial" />
       <module name="andromda-schema2xmi" options="-Xlint:cast,unchecked,fallthrough,finally,serial" />
       <module name="andromda-script-wrappers" options="-Xlint:cast,unchecked,fallthrough,finally,serial" />
+      <module name="andromda-site-cartridge-plugin" options="-Xlint:cast,unchecked,fallthrough,finally,serial" />
+      <module name="andromda-site-plugin" options="-Xlint:cast,unchecked,fallthrough,finally,serial" />
       <module name="andromda-spring-cartridge" options="-Xlint:cast,unchecked,fallthrough,finally,serial" />
       <module name="andromda-templateengine-freemarker" options="-Xlint:cast,unchecked,fallthrough,finally,serial" />
       <module name="andromda-templateengine-velocity" options="-Xlint:cast,unchecked,fallthrough,finally,serial" />

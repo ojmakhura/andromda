@@ -31,6 +31,8 @@ public class ResourceFinder
                 resources.add(enumeration.nextElement());
             }
 
+            System.out.println(resources);
+
             return resources.toArray(new URL[resources.size()]);
         }
         catch (final Exception exception)
