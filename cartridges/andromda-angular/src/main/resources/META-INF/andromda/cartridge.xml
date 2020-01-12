@@ -13,7 +13,7 @@
 
     <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
 
-    <resource
+    <!--<resource
             path="css/*.*"
             outputPattern="css/{0}"
             outlet="output"
@@ -37,24 +37,41 @@
             path="bootstrap/*.*"
             outputPattern="js/bootstrap/{0}"
             outlet="output"
-            overwrite="true"/>
-    <!-- Creates only one JS file that contains informations about all AngularJS Factories elements -->
+            overwrite="true"/>-->
+    <template
+        path="templates/angular/app/app.module.ts.vsl"
+        outputPattern="src/app/{$stringUtils.lowerCase(${applicationId})}.module.ts"
+        outlet="controllers"
+        outputToSingleFile="false"
+        overwrite="true">
+        <modelElements variable="controllers">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndController">
+                    <property name="useCase"/>
+                </type>
+            </modelElement>
+            <modelElement>
+		<type name="org.andromda.cartridges.angular.metafacades.AngularFactory" />
+            </modelElement>
+        </modelElements>
+    </template>
+    <!-- Creates only one JS file that contains informations about all Angular Factories elements -->
     <!--<template
-            path="templates/angularjs/services/Services.vsl"
-            outputPattern="components/services.js"
+            path="templates/angular/app/service/Service.ts.vsl"
+            outputPattern="src/app/service/services.ts"
             outlet="controllers"
             overwrite="true"
             outputToSingleFile="true"
             outputOnEmptyElements="false">
         <modelElements variable="angularFactoryFacades">
             <modelElement>
-                <type name="org.andromda.cartridges.angularjs.metafacades.AngularFactory"/>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularFactory"/>
             </modelElement>
         </modelElements>
     </template>-->
 
     <!--<template
-            path="templates/angularjs/App.js.vsl"
+            path="templates/angular/App.js.vsl"
             outputPattern="app.js"
             outlet="controllers"
             outputToSingleFile="true"
@@ -67,12 +84,12 @@
                 </type>
             </modelElement>
             <modelElement>
-                <type name="org.andromda.cartridges.angularjs.metafacades.AngularFactory"/>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularFactory"/>
             </modelElement>
         </modelElements>
     </template>-->
     <!--<template
-            path="templates/angularjs/controllers/Controllers.vsl"
+            path="templates/angular/controllers/Controllers.vsl"
             outputPattern="components/controllers.js"
             outlet="controllers"
             outputToSingleFile="true"
@@ -80,27 +97,40 @@
             overwrite="true">
         <modelElements variable="controllers">
             <modelElement>
-                <type name="org.andromda.cartridges.angularjs.metafacades.AngularController">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
                     <property name="useCase"/>
                 </type>
             </modelElement>
             <modelElement>
-                <type name="org.andromda.cartridges.angularjs.metafacades.AngularAction">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularAction">
                     <property name="useCase"/>
                 </type>
             </modelElement>
         </modelElements>
     </template>-->
-
     <!--<template
-            path="templates/angularjs/views/View.vsl"
+        path="templates/angular/app/model/model.ts.vsl"
+        outputPattern="src/app/model/{1}/{1}.ts"
+        outlet="controllers"
+        outputToSingleFile="false"
+        overwrite="true">
+        <modelElements variable="viewer">
+            <modelElement>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
+                    <property name="useCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>-->
+    <!--<template
+            path="templates/angular/app/view/View.vsl"
             outputPattern="components/{1}/{1}.html"
             outlet="controllers"
             outputToSingleFile="false"
             overwrite="true">
         <modelElements variable="viewer">
             <modelElement>
-                <type name="org.andromda.cartridges.angularjs.metafacades.AngularView">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
                     <property name="useCase"/>
                 </type>
             </modelElement>
@@ -108,31 +138,31 @@
     </template>-->
 
     <!--<template
-            path="templates/angularjs/views/HomeScreen.vsl"
+            path="templates/angular/views/HomeScreen.vsl"
             outputPattern="index.html"
             outlet="controllers"
             outputToSingleFile="true"
             overwrite="true">
         <modelElements variable="pages">
             <modelElement>
-                <type name="org.andromda.cartridges.angularjs.metafacades.AngularController">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
                     <property name="useCase"/>
                 </type>
             </modelElement>
             <modelElement>
-                <type name="org.andromda.cartridges.angularjs.metafacades.AngularFactory"/>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularFactory"/>
             </modelElement>
         </modelElements>
     </template>-->
     <!--<template
-            path="templates/angularjs/views/Header.vsl"
+            path="templates/angular/views/Header.vsl"
             outputPattern="components/Header.html"
             outlet="controllers"
             outputToSingleFile="true"
             overwrite="true">
         <modelElements variable="pages">
             <modelElement>
-                <type name="org.andromda.cartridges.angularjs.metafacades.AngularController">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
                     <property name="useCase"/>
                 </type>
             </modelElement>
@@ -140,7 +170,7 @@
     </template>-->
 
     <!--<template
-            path="templates/angularjs/views/Content.vsl"
+            path="templates/angular/views/Content.vsl"
             outputPattern="components/Content.html"
             outlet="controllers"
             outputToSingleFile="true"
@@ -152,7 +182,7 @@
                 </type>
             </modelElement>
             <modelElement>
-                <type name="org.andromda.cartridges.angularjs.metafacades.AngularFactory"/>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularFactory"/>
             </modelElement>
         </modelElements>
     </template>-->

@@ -162,6 +162,30 @@
             <from>CXF/web.xml</from>
             <to>CXF/target/${applicationId}-CXF-${applicationVersion}/WEB-INF/web.xml</to>
         </mapping>
+        <mapping>
+            <from>angular/src/app/header/header.component.ts.vsl</from>
+            <to>angular/src/app/header/$stringUtils.lowerCase(${applicationId})-header.component.ts.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/header/header.component.spec.ts.vsl</from>
+            <to>angular/src/app/header/$stringUtils.lowerCase(${applicationId})-header.component.spec.ts.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/header/header.component.css.vsl</from>
+            <to>angular/src/app/header/$stringUtils.lowerCase(${applicationId})-header.component.css.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/layout/layout.component.ts.vsl</from>
+            <to>angular/src/app/layout/$stringUtils.lowerCase(${applicationId})-layout.component.ts.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/layout/layout.component.spec.ts.vsl</from>
+            <to>angular/src/app/layout/$stringUtils.lowerCase(${applicationId})-layout.component.spec.ts.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/layout/layout.component.css.vsl</from>
+            <to>angular/src/app/layout/$stringUtils.lowerCase(${applicationId})-layout.component.css.vsl</to>
+        </mapping>
     </mappings>
     <instructions>readme.txt</instructions>
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine" extensions="vsl"/>
@@ -353,30 +377,30 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 </conditions>-->
             </prompt>
             <prompt id="webType">
-                <text>Would you like your web user interface to use JSF or AngularJS?</text>
+                <text>Would you like your web user interface to use JSF or Angular?</text>
                 <shortText>Web interface technology</shortText>
                 <preconditions>
                     <condition id="web" equal="true"/>
                 </preconditions>
-                <responses>
+                <responses type="java.lang.String">
                     <response>jsf</response>
-                    <response>angularjs</response>
+                    <response>angular</response>
                     <response>both</response>
                 </responses>
                 <conditions>
                     <condition equal="jsf">
                         <setProperty id="jsf">true</setProperty>
-                        <setProperty id="angularjs">false</setProperty> <!--A hack to stop activation of angularjs and writing of the web sub module-->
+                        <setProperty id="angular">false</setProperty>
                         <setProperty id="web">true</setProperty>
                     </condition>
-                    <condition equal="angularjs">
+                    <condition equal="angular">
                         <setProperty id="jsf">false</setProperty>
-                        <setProperty id="angularjs">true</setProperty>
-                        <setProperty id="web">false</setProperty> <!--A hack to stop activation of jsf and writing of the web sub module-->
+                        <setProperty id="angular">true</setProperty>
+                        <setProperty id="web">false</setProperty>
                     </condition>
                     <condition equal="both">
-                        <setProperty id="angularjs">true</setProperty>
-                        <setProperty id="jsf">true</setProperty> <!--A hack to stop activation of jsf and writing of the web sub module-->
+                        <setProperty id="angular">true</setProperty>
+                        <setProperty id="jsf">true</setProperty>
                     </condition>
                 </conditions>
             </prompt>

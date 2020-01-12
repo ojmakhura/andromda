@@ -117,10 +117,18 @@
             <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
-#if ($jsf)
+#if ($webType.equals("jsf") || $webType.equals("both"))
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-jsf2-cartridge</artifactId>
+            <version>${andromda.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+#end
+#if ($angular)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-angular-cartridge</artifactId>
             <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
@@ -447,13 +455,13 @@
         <core.generated.test.dir>${project.basedir}/../core/target/src/test/java</core.generated.test.dir>
         <core.manual.test.dir>${project.basedir}/../core/src/test/java</core.manual.test.dir>
 #end
-#if ($angularjs)
-        <angularjs.model.dir>${project.basedir}/../angularjs/src/app/model</angularjs.model.dir>
-        <angularjs.service.dir>${project.basedir}/../angularjs/src/app/service</angularjs.service.dir>
-        <angularjs.service.impl.dir>${project.basedir}/../angularjs/src/app/service/impls</angularjs.service.impl.dir>
-        <angularjs.view.dir>${project.basedir}/../angularjs/src/app/view</angularjs.view.dir>
+#if ($angular)
+        <angular.model.dir>${project.basedir}/../angular/src/app/model</angular.model.dir>
+        <angular.service.dir>${project.basedir}/../angular/src/app/service</angular.service.dir>
+        <angular.service.impl.dir>${project.basedir}/../angular/src/app/service/impls</angular.service.impl.dir>
+        <angular.view.dir>${project.basedir}/../angular/src/app/view</angular.view.dir>
 #end
-#if ($war || $jsf)
+#if ($war || $webType.equals("jsf") || $webType.equals("both"))
         <web.generated.dir>${project.basedir}/../web/target</web.generated.dir>
         <web.generated.java.dir>${web.generated.dir}/src/main/java</web.generated.java.dir>
         <web.generated.web.dir>${web.generated.dir}/src/main/webapp</web.generated.web.dir>

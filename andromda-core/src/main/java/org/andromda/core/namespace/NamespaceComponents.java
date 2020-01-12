@@ -78,14 +78,8 @@ public class NamespaceComponents
 
         // - discover all registries and sort them by name
         final Map<NamespaceRegistry, URL> registryMap = this.discoverAllRegistries();
-        AndroMDALogger.info("registryMap --> '" + registryMap);
-
-        for(NamespaceRegistry r : registryMap.keySet()) {
-            AndroMDALogger.info(r + " --> '" + registryMap.get(r));
-        }
 
         final List<NamespaceRegistry> registries = new ArrayList<NamespaceRegistry>(registryMap.keySet());
-        AndroMDALogger.info("registries --> '" + registries);
         Collections.sort(
             registries,
             new NamespaceRegistryComparator());
@@ -198,21 +192,8 @@ public class NamespaceComponents
     private Map<NamespaceRegistry, URL> discoverAllRegistries()
     {
         final Map<NamespaceRegistry, URL> registries = new HashMap<NamespaceRegistry, URL>();
-        AndroMDALogger.info("Path = " + this.getPath());
-        try {
-            File file = new File(this.getPath());
-
-            BufferedReader br = new BufferedReader(new FileReader(file));
-
-            String st;
-            while ((st = br.readLine()) != null)
-                System.out.println(st);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
 
         final URL[] resources = ResourceFinder.findResources(this.getPath());
-        AndroMDALogger.info("resources = " + resources);
         final XmlObjectFactory registryFactory = XmlObjectFactory.getInstance(NamespaceRegistry.class);
         if (resources != null)
         {
@@ -299,7 +280,6 @@ public class NamespaceComponents
      */
     private URL getNamespaceResourceRoot(final URL resource)
     {
-        AndroMDALogger.info("getNamespaceResourceRoot(final URL resource)  --> '" + resource);
         final String resourcePath = resource != null ? resource.toString().replace(
                 '\\',
                 '/') : null;

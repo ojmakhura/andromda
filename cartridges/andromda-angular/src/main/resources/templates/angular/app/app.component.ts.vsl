@@ -1,0 +1,10 @@
+import { Component } from '@angular/core';
+#set ($component = "component")
+@Component({
+  selector: 'app-root',
+  templateUrl: './$stringUtils.lowerCase(${applicationId}).${component}.html',
+  styleUrls: ['./$stringUtils.lowerCase(${applicationId}).${component}.css']
+})
+export class $stringUtils.capitalize(${applicationId})Component {
+  title = '$stringUtils.capitalize(${applicationId})';
+}

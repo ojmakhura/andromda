@@ -1,0 +1,36 @@
+#set ($component = 'component')
+import { TestBed, async } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { $stringUtils.capitalize(${applicationId})Component } from './$stringUtils.capitalize(${applicationId}).$component';
+
+describe('${applicationId}Component', () => {
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule
+      ],
+      declarations: [
+        $stringUtils.capitalize(${applicationId})Component
+      ],
+    }).compileComponents();
+  }));
+
+  it('should create the app', () => {
+    const fixture = TestBed.createComponent($stringUtils.capitalize(${applicationId})Component);
+    const app = fixture.debugElement.componentInstance;
+    expect(app).toBeTruthy();
+  });
+
+  it(`should have as title '$stringUtils.capitalize(${applicationId})'`, () => {
+    const fixture = TestBed.createComponent($stringUtils.capitalize(${applicationId})Component);
+    const app = fixture.debugElement.componentInstance;
+    expect(app.title).toEqual('$stringUtils.capitalize(${applicationId})');
+  });
+
+  it('should render title in a h1 tag', () => {
+    const fixture = TestBed.createComponent(${applica$stringUtils.capitalize(${applicationId})Component);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to $stringUtils.capitalize(${applicationId})!');
+  });
+});

@@ -37,7 +37,7 @@
         <from><![CDATA[<!-- filter merge-point -->]]></from>
         <to>
             <![CDATA[
-#if ($spring && $web)
+#if ($spring && ($webType.equals("jsf") || $webType.equals("both")))
     <!-- uncomment the following if you're using the open-session-in-view pattern
          note: that you'll need to update the filter-class value if you've changed
          the defaults for the package and/or filter name
@@ -58,7 +58,7 @@
         <from><![CDATA[<!-- filter-mapping merge-point -->]]></from>
         <to>
             <![CDATA[
-#if ($spring && $web)
+#if ($spring && ($webType.equals("jsf") || $webType.equals("both")))
     <!-- uncomment the following if you're using the open-session-in-view pattern
     <filter-mapping>
         <filter-name>OpenSessionInViewFilter</filter-name>
@@ -232,7 +232,7 @@
             ]]>
         </to>
     </mapping>
-#if ($web)
+#if ($webType.equals("jsf") || $webType.equals("jsf"))
     <!--
         This next mapping will merge the entire messages.properties into the generated
         messages.properties

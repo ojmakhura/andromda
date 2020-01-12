@@ -162,7 +162,7 @@
             </dependency>
 #end
 #end
-#if ($jsf)
+#if ($webType.equals("jsf") || $webType.equals("both"))
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-jsf2-cartridge</artifactId>
@@ -470,7 +470,7 @@
                 <scope>test</scope>
 #end
             </dependency>
-#if (!$jsf)
+#if (!($webType.equals("jsf") || $webType.equals("both")))
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
@@ -576,14 +576,14 @@
                 <scope>runtime</scope>
             </dependency>
 #end
-#if ($web || $hibernate)
+#if ($webType.equals("jsf") || $webType.equals("both") || $hibernate)
             <dependency>
                 <groupId>antlr</groupId>
                 <artifactId>antlr</artifactId>
                 <version>2.7.7</version>
             </dependency>
 #end
-#if ($web)
+#if ($webType.equals("jsf") || $webType.equals("both"))
             <dependency>
                 <groupId>commons-digester</groupId>
                 <artifactId>commons-digester</artifactId>
@@ -805,7 +805,7 @@
                 <version>1.2.17</version>
                 <!--scope>test</scope-->
             </dependency>
-#if (!$jsf && !$spring && !$hibernate)
+#if (!($webType.equals("jsf") || $webType.equals("both")) && !$spring && !$hibernate)
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
@@ -1186,9 +1186,8 @@
         ejb3=$ejb3
         hibernate=$hibernate
         spring=$spring
-        web=$web
+        webType=$webType
         webservice=$webservice
-        jsf2=$jsf
         cxf=$cxf
         rest=$rest
         jbossSeam=$jbossSeam
@@ -1202,7 +1201,7 @@
 #if (!$transactionPersistenceType.equals("none") || $cxf)
         <module>core</module>
 #end
-#if ($jsf)
+#if ($webType.equals("both") || $webType.equals("jsf"))
         <module>web</module>
 #end
 #if (!$webservice.equals("none") && !$jsr181Webservice && ($ear || $cxf))
@@ -1437,7 +1436,7 @@
 #if ($tomcat)
         <tomcat.version>2.2</tomcat.version>
 #end
-#if ($jsf)
+#if ($webType.equals("jsf") || $webType.equals("both"))
         <myfaces.version>2.3.2</myfaces.version>
 #end
 #if ($cxf)

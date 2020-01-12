@@ -3,22 +3,22 @@
 <metafacades>
  	<!--<metafacade
 		contextRoot="true"
-		class="org.andromda.cartridges.angularjs.metafacades.AngularFactoryLogicImpl">
+		class="org.andromda.cartridges.angular.metafacades.AngularFactoryLogicImpl">
 		<mapping>
 			<stereotype>ANGULAR_FACTORY</stereotype>
 		</mapping>
 	</metafacade>-->
-	<metafacade class="org.andromda.cartridges.angularjs.metafacades.AngularJSViewLogicImpl">
+	<metafacade class="org.andromda.cartridges.angular.metafacades.AngularViewLogicImpl">
         <mapping>
 			<stereotype>ANGULAR_VIEW</stereotype>
 		</mapping>
 	</metafacade>
-	<metafacade class="org.andromda.cartridges.angularjs.metafacades.AngularJSControllerLogicImpl">
+	<metafacade class="org.andromda.cartridges.angular.metafacades.AngularControllerLogicImpl">
            <mapping>
 			<stereotype>ANGULAR_CONTROLLER</stereotype>
 		</mapping>
 	</metafacade>
-   <metafacade class="org.andromda.cartridges.angularjs.metafacades.AngularJSActionLogicImpl">
+   <metafacade class="org.andromda.cartridges.angular.metafacades.AngularActionLogicImpl">
            <mapping>
 			<stereotype>ANGULAR_ACTION</stereotype>
 		</mapping>

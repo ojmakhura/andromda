@@ -70,7 +70,7 @@
             <scope>provided</scope>
 #end
         </dependency>
-#if ($web)
+#if ($webType.equals("jsf") || $webType.equals("both"))
         <dependency>
             <groupId>commons-digester</groupId>
             <artifactId>commons-digester</artifactId>
@@ -79,7 +79,7 @@
             <groupId>oro</groupId>
             <artifactId>oro</artifactId>
         </dependency>
-#if ($jsf)
+#if ($webType.equals("jsf") || $webType.equals("both"))
 #if ($jbossSeam)
         <dependency>
             <groupId>org.jboss</groupId>

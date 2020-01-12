@@ -1,0 +1,17 @@
+## Velocity Template.
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-$stringUtils.lowerCase(${applicationId})-header',
+  templateUrl: './$stringUtils.lowerCase(${applicationId})-header.component.html',
+  styleUrls: ['./$stringUtils.lowerCase(${applicationId})-header.component.css']
+})
+export class $stringUtils.capitalize(${applicationId})HeaderComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+
+  }
+
+}

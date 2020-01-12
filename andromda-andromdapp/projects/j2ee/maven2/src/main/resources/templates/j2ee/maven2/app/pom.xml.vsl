@@ -31,7 +31,7 @@
 #else
         </dependency-->
 #end
-#if ($web)
+#if ($webType.equals("jsf") || $webType.equals("both"))
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>${applicationId}-web</artifactId>
@@ -161,7 +161,7 @@
                             <artifactId>${applicationId}-core</artifactId>
                         </ejbModule>
 #end
-#if ($web)
+#if ($webType.equals("jsf") || $webType.equals("both"))
                         <webModule>
                             <groupId>${project.groupId}</groupId>
                             <artifactId>${applicationId}-web</artifactId>

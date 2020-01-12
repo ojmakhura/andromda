@@ -1,0 +1,44 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+#set ($component = "component")
+
+import { $stringUtils.capitalize(${applicationId})RoutingModule } from './$stringUtils.lowerCase(${applicationId})-routing.module';
+import { $stringUtils.capitalize(${applicationId})Component } from './$stringUtils.lowerCase(${applicationId}).$component';
+
+import { CommonModule } from '@angular/common';
+import { MatTabsModule, MatSidenavModule, MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+
+@NgModule({
+  declarations: [
+    $stringUtils.capitalize(${applicationId})Component
+  ],
+  imports: [
+    CommonModule,
+    MatTabsModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    BrowserModule,,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    FormsModule,
+    $stringUtils.capitalize(${applicationId})RoutingModule
+  ],
+  exports: [
+    MatTabsModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule
+  ],
+  providers: [],
+  bootstrap: [$stringUtils.capitalize(${applicationId})Component]
+})
+export class $stringUtils.capitalize(${applicationId})Module { }
