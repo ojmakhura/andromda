@@ -23,11 +23,6 @@
     </scm>
     <dependencies>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.9</version>
-        </dependency>
-        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>andromda-meta-cartridge</artifactId>
             <version>${andromda.version}</version>
@@ -36,6 +31,10 @@
     </dependencies>
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-maven-plugin</artifactId>
@@ -46,57 +45,13 @@
                         <version>${andromda.version}</version>
                     </dependency>
                 </dependencies>
-            </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.7</version>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <!-- here the phase you need -->
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.outputDirectory}/resources/WEB-INF/</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${project.build.outputDirectory}/resources/html/atlanta/</directory>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <!--
-                    <plugin>
-                        <groupId>org.andromda.maven.plugins</groupId>
-                        <artifactId>andromda-cartridge-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>angular-uml2</id>
-                                <phase>generate-test-sources</phase>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                                <configuration>
-                                    <actualDirectory>${project.build.directory}/cartridge-test/actualUML2</actualDirectory>
-                                    <expectedDirectory>${project.build.directory}/cartridge-test/expectedUML2</expectedDirectory>
-                                    <expectedOutputArchive>${project.basedir}/src/test/expected/cartridge-outputUML2.zip</expectedOutputArchive>
-                                    <configurationUri>file:${project.basedir}/conf/test/andromdaUML2.xml</configurationUri>
-                                    <reportDirectory>${project.build.directory}/cartridge-test/reportsUML2</reportDirectory>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin> -->
+            </plugin> 
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-cartridge-plugin</artifactId>
-                <executions>
+                <!--<executions>
                     <execution>
-                        <id>angular</id>
+                        <id>angular-uml2</id>
                         <phase>generate-test-sources</phase>
                         <goals>
                             <goal>test</goal>
@@ -109,7 +64,7 @@
                             <reportDirectory>${project.build.directory}/cartridge-test/reportsUML</reportDirectory>
                         </configuration>
                     </execution>
-                </executions>
+                </executions>-->
             </plugin>
 
             <plugin>
@@ -122,11 +77,13 @@
         </plugins>
     </build>
     <properties>
+        <!--skipTests>true</skipTests>
+        <maven.test.skip>true</maven.test.skip-->
         <uml2.output.dir>${project.basedir}/target/cartridge-test/actualUML2</uml2.output.dir>
         <test.output.dir>${project.basedir}/target/cartridge-test/actual</test.output.dir>
         <uml2.model.uri>file:${src.dir}/uml2/AngularMetafacadeModel.uml</uml2.model.uri>
         <uml2.test.model.uri>file:${test.src.dir}/uml2/AngularCartridgeTestModel.uml</uml2.test.model.uri>
-        <model.uri>jar:file:${src.dir}/uml/AngularMetafacadeModel.xml.zip!/AngularMetafacadeModel.xml</model.uri>
+        <!--<model.uri>jar:file:${src.dir}/uml/AngularMetafacadeModel.xml.zip!/AngularMetafacadeModel.xml</model.uri> -->
         <test.model.uri>jar:file:${test.src.dir}/uml/AngularCartridgeTestModel.xml.zip!/AngularCartridgeTestModel.xml</test.model.uri>
     </properties>
 </project>
