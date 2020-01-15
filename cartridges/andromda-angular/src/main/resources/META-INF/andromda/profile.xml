@@ -88,10 +88,9 @@
                     <value>GET</value>   
                     <value>DELETE</value>    
                 </allowedValues>
-                <appliedOnElement></appliedOnElement>
             </element>
         </elementGroup>
-        <!--elementGroup name="Data Types">
+        <elementGroup name="Data Types">
             <element name="CHARACTER_TYPE">
                 <documentation>
                 </documentation>
@@ -137,6 +136,6 @@
                 </documentation>
                 <value>datatype::Time</value>
             </element>
-        </elementGroup-->
+        </elementGroup>
     </elements>
 </profile>

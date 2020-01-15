@@ -1,0 +1,5 @@
+export class $class.name {
+#foreach ($attribute in $class.attributes)
+    $attribute.name;
+#end
+}

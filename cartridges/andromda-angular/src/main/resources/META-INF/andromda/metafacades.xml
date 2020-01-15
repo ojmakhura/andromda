@@ -3,9 +3,9 @@
 <metafacades>
     <metafacade
         contextRoot="true"
-        class="org.andromda.cartridges.angular.metafacades.AngularFactoryLogicImpl">
+        class="org.andromda.cartridges.angular.metafacades.AngularModelLogicImpl">
         <mapping>
-            <stereotype>ANGULAR_FACTORY</stereotype>
+            <stereotype>ANGULAR_MODEL</stereotype>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.angular.metafacades.AngularViewLogicImpl">

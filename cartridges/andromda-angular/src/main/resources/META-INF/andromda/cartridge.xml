@@ -1,44 +1,19 @@
 <cartridge>
 
-
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
 
         <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>
 
     <!-- define the template objects that are made available to the template -->
-    <templateObject name="stringUtils" className="org.andromda.utils.StringUtilsHelper"/>
+    <templateObject name="stringUtilsHelper" className="org.andromda.utils.StringUtilsHelper"/>
+    <templateObject name="stringUtils" className="org.apache.commons.lang3.StringUtils"/>
 
     <!-- cartridge-templateObject merge-point-->
 
     <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
 
-    <!--<resource
-            path="css/*.*"
-            outputPattern="css/{0}"
-            outlet="output"
-            overwrite="true"/>
-    <resource
-            path="css/bootstrap/*.*"
-            outputPattern="css/bootstrap/{0}"
-            outlet="output"
-            overwrite="true"/>
-    <resource
-            path="lib/angular/*.*"
-            outputPattern="lib/angular/{0}"
-            outlet="output"
-            overwrite="true"/>
-    <resource
-            path="jquery/*.*"
-            outputPattern="js/jquery/{0}"
-            outlet="output"
-            overwrite="true"/>
-    <resource
-            path="bootstrap/*.*"
-            outputPattern="js/bootstrap/{0}"
-            outlet="output"
-            overwrite="true"/>-->
-    <template
+    <!--<template
         path="templates/angular/app/app.module.ts.vsl"
         outputPattern="src/app/{$stringUtils.lowerCase(${applicationId})}.module.ts"
         outlet="controllers"
@@ -51,7 +26,18 @@
                 </type>
             </modelElement>
             <modelElement>
-		<type name="org.andromda.cartridges.angular.metafacades.AngularFactory" />
+		<type name="org.andromda.cartridges.angular.metafacades.AngularController" />
+            </modelElement>
+        </modelElements>
+    </template>-->
+    <template
+        path="templates/angular/app/model/model.ts.vsl"
+        outputPattern="{0}/${className}.ts"
+        outlet="models"
+        overwrite="true">
+        <modelElements variable="class">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.ValueObject"/>
             </modelElement>
         </modelElements>
     </template>

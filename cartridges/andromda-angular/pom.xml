@@ -83,7 +83,7 @@
         <test.output.dir>${project.basedir}/target/cartridge-test/actual</test.output.dir>
         <uml2.model.uri>file:${src.dir}/uml2/AngularMetafacadeModel.uml</uml2.model.uri>
         <uml2.test.model.uri>file:${test.src.dir}/uml2/AngularCartridgeTestModel.uml</uml2.test.model.uri>
-        <!--<model.uri>jar:file:${src.dir}/uml/AngularMetafacadeModel.xml.zip!/AngularMetafacadeModel.xml</model.uri> -->
+        <model.uri>jar:file:${src.dir}/uml/AngularMetafacadeModel.xml.zip!/AngularMetafacadeModel.xml</model.uri>
         <test.model.uri>jar:file:${test.src.dir}/uml/AngularCartridgeTestModel.xml.zip!/AngularCartridgeTestModel.xml</test.model.uri>
     </properties>
 </project>
