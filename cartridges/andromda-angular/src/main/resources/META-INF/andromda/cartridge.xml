@@ -6,12 +6,24 @@
     </templateEngine>
 
     <!-- define the template objects that are made available to the template -->
-    <templateObject name="stringUtilsHelper" className="org.andromda.utils.StringUtilsHelper"/>
     <templateObject name="stringUtils" className="org.apache.commons.lang3.StringUtils"/>
+    <templateObject name="javaUtils" className="org.andromda.cartridges.java.JavaUtils"/>
+    <templateObject name="umlUtils" className="org.andromda.metafacades.uml.UMLMetafacadeUtils"/>
 
     <!-- cartridge-templateObject merge-point-->
 
     <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
+    
+    <property reference="generateRefFiles"/>
+    <property reference="overwriteAll"/>
+    <property reference="toDoTag"/>
+    <property reference="enableTemplating"/>
+    <property reference="addNamespaceBackslash"/>
+    
+    <condition name="generateRefFiles">$generateRefFiles.equalsIgnoreCase("true")</condition>
+    <condition name="overwriteAll">$overwriteAll.equalsIgnoreCase("true")</condition>
+    <condition name="enableTemplating">$enableTemplating.equalsIgnoreCase("true")</condition>
+    <condition name="addNamespaceBackslash">$addNamespaceBackslash.equalsIgnoreCase("true")</condition>
 
     <!--<template
         path="templates/angular/app/app.module.ts.vsl"

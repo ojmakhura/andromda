@@ -49,5 +49,22 @@
                 </documentation>
             </property>
         </propertyGroup>
+        <propertyGroup name="Other">
+            <property name="generateRefFiles" required="false">
+                <default>true</default>
+                <documentation>
+                    Generates File.ref files if overwrite=false for a template output. Ref files contain
+                    what would have been generated to the original file if overwrite=true or if the file did
+                    not already exist. Can be used to replace or merge with the exiting file.
+                </documentation>
+            </property>
+            <property name="overwriteAll" required="false">
+                <default>false</default>
+                <documentation>
+                    Overwrite all files when generating output. Default=false. Use for project testing where
+                    all output will overwritten.
+                </documentation>
+            </property>
+        </propertyGroup>
     </properties>
 </namespace>
