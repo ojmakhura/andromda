@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <metafacades>
+    <metafacade class="org.andromda.cartridges.java.metafacades.JavaClassLogicImpl"/>
     <metafacade
         contextRoot="true"
         class="org.andromda.cartridges.angular.metafacades.AngularModelLogicImpl">

@@ -1,7 +1,6 @@
 <cartridge>
 
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
-
         <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>
 
@@ -9,6 +8,7 @@
     <templateObject name="stringUtils" className="org.apache.commons.lang3.StringUtils"/>
     <templateObject name="javaUtils" className="org.andromda.cartridges.java.JavaUtils"/>
     <templateObject name="umlUtils" className="org.andromda.metafacades.uml.UMLMetafacadeUtils"/>
+    <templateObject name="angularHelper" className="org.andromda.cartridges.angular.AngularHelper"/>
 
     <!-- cartridge-templateObject merge-point-->
 
@@ -18,12 +18,10 @@
     <property reference="overwriteAll"/>
     <property reference="toDoTag"/>
     <property reference="enableTemplating"/>
-    <property reference="addNamespaceBackslash"/>
     
     <condition name="generateRefFiles">$generateRefFiles.equalsIgnoreCase("true")</condition>
     <condition name="overwriteAll">$overwriteAll.equalsIgnoreCase("true")</condition>
     <condition name="enableTemplating">$enableTemplating.equalsIgnoreCase("true")</condition>
-    <condition name="addNamespaceBackslash">$addNamespaceBackslash.equalsIgnoreCase("true")</condition>
 
     <!--<template
         path="templates/angular/app/app.module.ts.vsl"
@@ -44,7 +42,7 @@
     </template>-->
     <template
         path="templates/angular/app/model/model.ts.vsl"
-        outputPattern="{0}/${className}.ts"
+        outputPattern="$destination/${fileName}.ts"
         outlet="models"
         overwrite="true">
         <modelElements variable="class">
@@ -53,6 +51,17 @@
             </modelElement>
         </modelElements>
     </template>
+    <!--<template
+        path="templates/angular/app/model/spec.ts.vsl"
+        outputPattern="$destination/${fileName}.ts"
+        outlet="models"
+        overwrite="true">
+        <modelElements variable="class">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.ValueObject"/>
+            </modelElement>
+        </modelElements>
+    </template>-->
     <!-- Creates only one JS file that contains informations about all Angular Factories elements -->
     <!--<template
             path="templates/angular/app/service/Service.ts.vsl"

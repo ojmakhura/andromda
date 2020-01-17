@@ -1,5 +1,9 @@
+#set($destination = $angularHelper.getModelDestination(${class.packageName}))
+#set($fileName = $angularHelper.getModelFileName(${class.name}))
 export class $class.name {
 #foreach ($attribute in $class.attributes)
-    $attribute.name;
+#set ($returnType = $attribute.getterSetterTypeName)
+    $attribute.name: $angularHelper.getAttributeDatatype($returnType);
 #end
 }
+$angularHelper.generateModelSpecFile($destination, $fileName, $class.name)

@@ -1,9 +1,15 @@
-package org.andromda.cartridges.angular.metafacades;
+package org.andromda.cartridges.angular;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AngularHelper {
 
@@ -32,5 +38,126 @@ public class AngularHelper {
 
         return stringArgument;
     }
+    
+    /**
+     * Find the best destination for the model.
+     * 
+     * If the package ends with a 'vo', then we use the token before it.
+     * 
+     * @param _package
+     * @return 
+     */
+    public static String getModelDestination(final String _package) {
+        String[] tmp = _package.split("\\.");
+        
+        int length = tmp.length;
+        if(tmp[length-1].equalsIgnoreCase("vo") && length > 1) {
+            return tmp[length-2];
+        }
+        
+        return _package.toLowerCase();        
+    }
+    
+    /**
+     * Find a proper lower case name for the model file.
+     * 
+     * If the value object name ends with vo or value name
+     * 
+     * @param model
+     * @return 
+     */
+    public static String getModelFileName(final String model) {
+        
+        StringBuilder builder = new StringBuilder();
+        
+        String stmp = model.substring(0, model.length());
+        
+        for(int i = 0; i < model.length(); i++) {
+            char c = model.charAt(i);
+            if(Character.isUpperCase(c)) {
+                c = Character.toLowerCase(c);
+                if(i > 0 && !Character.isUpperCase(model.charAt(i-1))) {
+                    builder.append('-');
+                } 
+            } 
+            builder.append(c);
+        }
+        
+        return builder.toString();
+    }
+    
+    /**
+     * Convert java datatypes to typescript datatypes
+     * @param type
+     * @return 
+     */
+    public static String getAttributeDatatype(final String type) {
+        String datatype = "";
+        try {
+            Class cls = Class.forName(type);
+                        
+            // Anything that inherits from number
+            if(cls.getSuperclass().getName().equalsIgnoreCase("java.lang.Number"))
+            {
+                return "number";
+            }
+                        
+            Object obj = cls.newInstance();
 
+            if(obj instanceof String) {
+                datatype = "string";
+            } else if(obj instanceof Date) {
+                datatype = "Date";
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            
+            e.printStackTrace();
+        } 
+        
+        return datatype;
+    }
+    
+    /**
+     * This is a hack to generate the spec file for the model.
+     * 
+     * This might be served better by using velocity template.
+     * 
+     * @param path
+     * @param fileName
+     * @param modelName 
+     */
+    public static void generateModelSpecFile(String path, String fileName, String modelName) {
+        FileWriter writer = null;
+        try {
+            String outPath = System.getProperty("user.dir") + "//angular/src/app/model/" + path + "/" + fileName + ".spec.ts";
+            
+            File file = new File(outPath);
+            writer = new FileWriter(file);
+            
+            StringBuilder builder = new StringBuilder();
+            builder.append("import { ");
+            builder.append(modelName);
+            builder.append(" } from './" + fileName + "';\n");
+            builder.append("describe('");
+            builder.append(modelName);
+            builder.append("', () => {\n");
+            builder.append("\tit('it sohuld create an instance', () => {\n");
+            builder.append("\t\texpect(new ");
+            builder.append(modelName);
+            builder.append("()).toBeTruthy();\n");
+            builder.append("\t});\n});\n");
+            
+            writer.write(builder.toString());
+            
+        } catch (IOException ex) {
+            Logger.getLogger(AngularHelper.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                writer.close();
+            } catch (IOException ex) {
+                Logger.getLogger(AngularHelper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }
 }
