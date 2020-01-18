@@ -1,1 +1,10 @@
-$model
+#set($destination = $angularHelper.getModelDestination(${class.packageName}))
+#set($fileName = $angularHelper.getModelFileName(${class.name}))
+import { ${class.name} } from './role-vo';
+
+describe('${class.name}', () => {
+	it('it should create an instance', () => {
+		expect(new ${class.name}()).toBeTruthy();
+	});
+});
+

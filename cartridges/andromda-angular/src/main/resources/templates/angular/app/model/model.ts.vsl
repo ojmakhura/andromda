@@ -6,4 +6,4 @@ export class $class.name {
     $attribute.name: $angularHelper.getAttributeDatatype($returnType);
 #end
 }
-$angularHelper.generateModelSpecFile($destination, $fileName, $class.name)
+##$angularHelper.generateModelSpecFile($destination, $fileName, $class.name)
