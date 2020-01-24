@@ -1,9 +1,76 @@
+##set ($generatedFile = $stringUtils.)
+#set ($menuItems = "")
+##
+## This macro adds the default role to the roles string
+##
+#macro (addDefaultRole $roles)
+#if($stringUtils.isNotBlank($defaultRole))
+#if($stringUtils.isBlank($roles))
+#set($roles = $defaultRole)
+#else
+#set($roles = "${roles},${defaultRole}")
+#end
+#end
+#end
+##
+## A macro that renders the appropriate menu item
+##
+## parameters:
+##     o  $pUseCase - the useCase to render
+##     o  $ident - spaces to ident
+##
+#macro(renderMenuItem $pUseCase $ident)
+#set ($roles = $useCase.actionRoles)
+#addDefaultRole($roles)
+#set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles) )
+#set ($children = $pUseCase.navigationChildren)
+#set ($componentName = $stringUtils.deleteWhitespace(${useCase.name}))
+#set ($componentName = "${componentName}Component")
+#set ($routeName = $stringUtils.deleteWhitespace($stringUtils.lowerCase($useCase.name)))
+#if ($stringUtils.isNotBlank($menuItems))
+#set ($menuItems = "$menuItems,
+")
+#end
+#if ($children.empty)
+#set ($menuItems = "$menuItems { route: '$routeName', component: $componentName }")
+#else
+#set ($menuItems = "$menuItems { route: '$routeName', component: $componentName }")
+#foreach ($child in $children)
+#renderMenuItem ($child "$ident    ")    
+#end    
+#end    
+#end
+##
+## A macro for rendering import of route components
+##
+#macro (renderImports $puseCase)
+#set ( $children = $pUseCase.navigationChildren)
+#set ( $componentName = $stringUtils.deleteWhitespace(${puseCase.name}))
+#set ( $componentName = "${componentName}Component")
+#set ( $newPackage = $stringUtils.substringAfter($puseCase.packageName, $applicationPackage ) )
+#set ( $componentPath = $stringUtils.replaceChars($newPackage, '\\.', '\\/') )
+#set ( $componentFile = $stringUtils.replaceChars($stringUtils.lowerCase(${puseCase.name}), '\\ ', '\\-'))
+#if ($children.empty)
+import { $componentName } from './views${componentPath}/${componentFile}.component';
+#else
+import { $componentName } from './views${componentPath}/${componentFile}.component';
+#foreach ($child in $children)
+#renderImports ($child )    
+#end    
+#end   
+#end
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
+#foreach ($useCase in $useCases)
+#renderImports($useCase)
+#end
 
 const routes: Routes = [
+#foreach ($useCase in $useCases)
+#renderMenuItem($useCase "            ")    
+#end
+$menuItems
 ];
 
 @NgModule({

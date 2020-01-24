@@ -1,15 +1,12 @@
 package org.andromda.cartridges.angular;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.andromda.metafacades.uml.ParameterFacade;
 
 public class AngularHelper {
 
@@ -116,48 +113,9 @@ public class AngularHelper {
         
         return datatype;
     }
-    
-    /**
-     * This is a hack to generate the spec file for the model.
-     * 
-     * This might be served better by using velocity template.
-     * 
-     * @param path
-     * @param fileName
-     * @param modelName 
-     */
-    public static void generateModelSpecFile(String path, String fileName, String modelName) {
-        FileWriter writer = null;
-        try {
-            String outPath = System.getProperty("user.dir") + "//angular/src/app/model/" + path + "/" + fileName + ".spec.ts";
-            
-            File file = new File(outPath);
-            writer = new FileWriter(file);
-            
-            StringBuilder builder = new StringBuilder();
-            builder.append("import { ");
-            builder.append(modelName);
-            builder.append(" } from './" + fileName + "';\n");
-            builder.append("describe('");
-            builder.append(modelName);
-            builder.append("', () => {\n");
-            builder.append("\tit('it sohuld create an instance', () => {\n");
-            builder.append("\t\texpect(new ");
-            builder.append(modelName);
-            builder.append("()).toBeTruthy();\n");
-            builder.append("\t});\n});\n");
-            
-            writer.write(builder.toString());
-            
-        } catch (IOException ex) {
-            Logger.getLogger(AngularHelper.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                writer.close();
-            } catch (IOException ex) {
-                Logger.getLogger(AngularHelper.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+
+    public static String sanitiseArguments(Collection<ParameterFacade> arguments) {
         
+        return "";
     }
 }

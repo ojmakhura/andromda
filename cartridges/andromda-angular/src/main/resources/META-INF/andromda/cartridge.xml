@@ -1,7 +1,15 @@
 <cartridge>
 
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
-        <!-- cartridge-macrolibrary merge-point-->
+        <macrolibrary name="templates/jsf2/escapeMacros.vm"/>
+        <macrolibrary name="templates/jsf2/controllers/Controller.java.vm"/>
+        <macrolibrary name="templates/jsf2/views/facelets/trinidad/renderActionFormInputTrinidad.vm"/>
+        <macrolibrary name="templates/jsf2/views/facelets/primefaces/renderActionFormInputPrimeFaces.vm"/>
+        <macrolibrary name="templates/jsf2/views/renderActionCommandLinkParameter.vm"/>
+        <macrolibrary name="templates/jsf2/views/renderTableCommandLinkParameters.vm"/>
+        <macrolibrary name="templates/jsf2/forms/formMacros.vm"/>
+        <macrolibrary name="templates/jsf2/forms/formImplMacros.vm"/>
+        <macrolibrary name="templates/jsf2/configuration/securityMacros.vm"/>
     </templateEngine>
 
     <!-- define the template objects that are made available to the template -->
@@ -18,28 +26,26 @@
     <property reference="overwriteAll"/>
     <property reference="toDoTag"/>
     <property reference="enableTemplating"/>
+    <property reference="applicationName"/>    
+    <property reference="applicationId"/>
+    <property reference="applicationPackage"/>
     
     <condition name="generateRefFiles">$generateRefFiles.equalsIgnoreCase("true")</condition>
     <condition name="overwriteAll">$overwriteAll.equalsIgnoreCase("true")</condition>
     <condition name="enableTemplating">$enableTemplating.equalsIgnoreCase("true")</condition>
 
-    <!--<template
+    <template
         path="templates/angular/app/app.module.ts.vsl"
-        outputPattern="src/app/{$stringUtils.lowerCase(${applicationId})}.module.ts"
-        outlet="controllers"
-        outputToSingleFile="false"
-        overwrite="true">
-        <modelElements variable="controllers">
-            <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndController">
-                    <property name="useCase"/>
-                </type>
-            </modelElement>
-            <modelElement>
-		<type name="org.andromda.cartridges.angular.metafacades.AngularController" />
+        outputPattern="${appModule}.module.ts"
+        outlet="angularAppDir"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="useCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
             </modelElement>
         </modelElements>
-    </template>-->
+    </template>
     <template
         path="templates/angular/app/model/model.ts.vsl"
         outputPattern="$destination/${fileName}.ts"
@@ -62,17 +68,63 @@
             </modelElement>
         </modelElements>
     </template>
-    <!-- Creates only one JS file that contains informations about all Angular Factories elements -->
+    
     <!--<template
-            path="templates/angular/app/service/Service.ts.vsl"
-            outputPattern="src/app/service/services.ts"
-            outlet="controllers"
-            overwrite="true"
+        path="templates/angular/app/service/service.ts.vsl"
+        outputPattern="service.ts"
+        outlet="services"
+        overwrite="true">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.Service"/>
+            </modelElement>
+        </modelElements>
+    </template>-->
+    
+    <template
+        path="templates/angular/app/service/service.ts.vsl"
+        outputPattern="$generatedFile"
+        outlet="services"
+        overwrite="true">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndController">
+                    <property name="useCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/angular/app/app-routing.module.ts.vsl"
+        outputPattern="$stringUtils.lowerCase(${applicationId})-routing.module.ts"
+        outlet="angularAppDir"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="useCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
+            </modelElement>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <!--<template
+            path="templates/angular/app/service/service.impl.ts.vsl"
+            outputPattern="services.ts"
+            outlet="service-impls"
+            overwrite="false"
             outputToSingleFile="true"
             outputOnEmptyElements="false">
-        <modelElements variable="angularFactoryFacades">
+        <modelElements variable="serviceImpl">
             <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularFactory"/>
+                <type name="org.andromda.metafacades.uml.FrontEndController">
+                    <property name="useCase"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>-->
@@ -129,7 +181,7 @@
             </modelElement>
         </modelElements>
     </template>-->
-    <!--<template
+    <template
             path="templates/angular/app/view/View.vsl"
             outputPattern="components/{1}/{1}.html"
             outlet="controllers"
@@ -142,7 +194,7 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>-->
+    </template>
 
     <!--<template
             path="templates/angular/views/HomeScreen.vsl"

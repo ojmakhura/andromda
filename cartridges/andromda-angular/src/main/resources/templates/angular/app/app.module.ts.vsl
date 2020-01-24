@@ -1,20 +1,83 @@
+#set ( $appModule = $stringUtils.lowerCase(${applicationId}) )
+#set ( $imports = "" )
+##
+## This macro adds the default role to the roles string
+##
+#macro (addDefaultRole $roles)
+#if($stringUtils.isNotBlank($defaultRole))
+#if($stringUtils.isBlank($roles))
+#set($roles = $defaultRole)
+#else
+#set($roles = "${roles},${defaultRole}")
+#end
+#end
+#end
+##
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
-#set ($component = "component")
-
-import { $stringUtils.capitalize(${applicationId})RoutingModule } from './$stringUtils.lowerCase(${applicationId})-routing.module';
-import { $stringUtils.capitalize(${applicationId})Component } from './$stringUtils.lowerCase(${applicationId}).$component';
-
 import { CommonModule } from '@angular/common';
 import { MatTabsModule, MatSidenavModule, MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { $stringUtils.capitalize(${applicationId})LayoutComponent } from './layout/$stringUtils.lowerCase(${applicationId})-layout.component';
+import { $stringUtils.capitalize(${applicationId})HeaderComponent } from './header/$stringUtils.lowerCase(${applicationId})-header.component';
+#set ($component = "component")
+import { $stringUtils.capitalize(${applicationId})RoutingModule } from './$stringUtils.lowerCase(${applicationId})-routing.module';
+import { $stringUtils.capitalize(${applicationId})Component } from './$stringUtils.lowerCase(${applicationId}).$component';
+#macro (renderImports $puseCase)
+#set ( $children = $pUseCase.navigationChildren)
+#set ( $componentName = $stringUtils.deleteWhitespace(${puseCase.name}))
+#set ( $componentName = "${componentName}Component")
+#set ( $newPackage = $stringUtils.substringAfter($puseCase.packageName, $applicationPackage ) )
+#set ( $componentPath = $stringUtils.replaceChars($newPackage, '\\.', '\\/') )
+#set ( $componentFile = $stringUtils.replaceChars($stringUtils.lowerCase(${puseCase.name}), '\\ ', '\\-'))
+#if ($children.empty)
+import { $componentName } from './views${componentPath}/${componentFile}.component';
+#else
+import { $componentName } from './views${componentPath}/${componentFile}.component';
+#foreach ($child in $children)
+#renderImports ($child )    
+#end    
+#end   
+#end
+#foreach ($useCase in $useCases)
+#renderImports($useCase)
+#set ($roles = $useCase.actionRoles)
+#addDefaultRole($roles)
+#set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles) )
+#set ($children = $useCase.navigationChildren)
+#if (!$children.empty)
+#foreach ($childUseCase in $children)
+#renderImports($childUseCase)
+#end
+#end
+#end
 
 @NgModule({
   declarations: [
-    $stringUtils.capitalize(${applicationId})Component
+#set ($imports = "$stringUtils.capitalize(${applicationId})Component,
+    $stringUtils.capitalize(${applicationId})LayoutComponent,
+    $stringUtils.capitalize(${applicationId})HeaderComponent")
+#foreach ($useCase in $useCases)
+#set ( $componentName = $stringUtils.deleteWhitespace(${useCase.name}))
+#set ( $componentName = "${componentName}Component")
+#set ($imports = "$imports,
+    $componentName")
+#set ($roles = $useCase.actionRoles)
+#addDefaultRole($roles)
+#set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles) )
+#set ($children = $useCase.navigationChildren)
+#if (!$children.empty)
+#foreach ($childUseCase in $children)
+#set ( $componentName = $stringUtils.deleteWhitespace(${childUseCase.name}))
+#set ( $componentName = "${componentName}Component")
+#set ($imports = "$imports, 
+    $componentName")
+#end
+#end
+#end
+    $imports
   ],
   imports: [
     CommonModule,

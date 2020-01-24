@@ -547,7 +547,11 @@
 #if($angular)
         <namespace name="angular">
             <properties>
+                <property name="applicationPackage">${application.package}</property>
+            	<property name="applicationId">${application.id}</property>
                 <property name="applicationName">${application.name}</property>
+                <property name="angularBase">${angular.base.dir}</property>
+                <property name="angularAppDir">${angular.base.dir}/src/app</property>
                 <property name="views">${angular.view.dir}</property>
                 <property name="services">${angular.service.dir}</property>
                 <property name="service-impls">${angular.service.impl.dir}</property>

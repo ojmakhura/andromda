@@ -458,7 +458,7 @@
 #if ($angular)
         <angular.model.dir>${project.basedir}/../angular/src/app/model</angular.model.dir>
         <angular.service.dir>${project.basedir}/../angular/src/app/service</angular.service.dir>
-        <angular.service.impl.dir>${project.basedir}/../angular/src/app/service/impls</angular.service.impl.dir>
+        <angular.service.impl.dir>${project.basedir}/../angular/src/app/service/impl</angular.service.impl.dir>
         <angular.view.dir>${project.basedir}/../angular/src/app/view</angular.view.dir>
 #end
 #if ($war || $webType.equals("jsf") || $webType.equals("both"))

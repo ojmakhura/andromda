@@ -24,4 +24,11 @@
             <stereotype>ANGULAR_ACTION</stereotype>
         </mapping>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFControllerLogicImpl">
+        <mapping>
+            <property name="useCase"/>
+        </mapping>
+        <property reference="controllerImplementationPattern"/>
+        <property reference="classifierNameMask"/>
+    </metafacade>
 </metafacades>
