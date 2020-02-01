@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <metafacades>
+    <property reference="wsdlOperationSortMode"/>
+    <property reference="webserviceStack"/>
+    
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
+        <mapping>
+            <stereotype>WEBSERVICE</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
+        <mapping>
+            <stereotype>SERVICE</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl">
+        <mapping>
+            <stereotype>WEBSERVICE_OPERATION</stereotype>
+        </mapping>
+        <property reference="testImplementationOperationNamePrefix"/>
+    </metafacade>
     <metafacade class="org.andromda.cartridges.java.metafacades.JavaClassLogicImpl"/>
     <metafacade
         contextRoot="true"

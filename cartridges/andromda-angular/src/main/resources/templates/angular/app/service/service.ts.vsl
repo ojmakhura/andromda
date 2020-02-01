@@ -1,22 +1,69 @@
-#set ( $newPackage = $stringUtils.substringAfter($service.packageName, $applicationPackage ) )
-#set ( $componentPath = $stringUtils.replaceChars($newPackage, '\\.', '\\/') )
-#set ($generatedFile = "$componentPath/${service.name}.ts")
-import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { ${service.name}Impl } from './impl/${service.name}Impl'
-
-@Injectable
-export abstract class $service.name {
-
+#set ( $componentPath = $angularHelper.getComponentDestination($service.packageName ) )
+#set ($fileName = $angularHelper.getComponentFileName($service.name))
+#set ($args = [])
+#set ($ret = false)
 #foreach ($operation in $service.operations)
-    #set ($arguments = "")##$angularHelper.sanitiseArguments($operation.arguments))
-    $operation.returnType.name $operation.name($arguments) {
-        handle$stringUtils.capitalize($operation.name)();
-    }
-
-    abstract $operation.returnType.name handle$stringUtils.capitalize($operation.name)($arguments);
-
+#foreach ( $argument in $operation.arguments)
+#set ($ret = $args.add($argument))
+#end
+#end
+#if ($service.restCount>0 && $stringUtils.isNotBlank($service.restPath))
+#set ($basePath = "http://localhost:8080")
+import { HttpClient} from '@angular/common/http';
+#end
+import { Observable } from 'rxjs';
+#foreach ($tmp in $angularHelper.getArgumentImports($args, $applicationPackage))
+$tmp
 #end
 
+export abstract class $service.name {
+
+#if ($service.restCount>0)
+#if ($stringUtils.isNotBlank($service.restPath))
+    protected path: string;
+
+#end
+#end 
+#if ($service.restCount>0 && $stringUtils.isNotBlank($service.restPath))
+  constructor(protected http: HttpClient) {
+    this.path = '$basePath$service.restPath';
+  }
+#end
+#foreach ($operation in $service.operations)
+#set ($arguments = "")
+#foreach($arg in $operation.arguments)
+#set ($argType = $angularHelper.getDatatype($arg.type.fullyQualifiedName))
+#if($arg.upper>1 || $arg.upper==-1)
+#set ($argType = "$argType[]")
+#end
+#if($stringUtils.isAllEmpty($arguments))
+#set($arguments = "$arg.name: $argType")
+#else
+#set($arguments = ", $arg.name: $argType")
+#end
+#end
+#set ($returnType = $angularHelper.getDatatype($operation.returnType.name))
+#if (!$useArrayWrapper && ($operation.upper>1 || $operation.upper==-1))
+#set ($returnType = "$returnType[]")
+#end
+#set ($returnType = "Observable<$returnType>")
+    /**
+     * 
+##if ($operation.rest)
+#if ($stringUtils.isNotBlank($operation.restRequestType))
+     * $operation.restRequestType
+#end
+     * @Path($operation.restPath)
+#if ($stringUtils.isNotBlank($operation.restProduces))
+     * @Produces($operation.restProduces)
+#end
+#if ($stringUtils.isNotBlank($operation.restConsumes))
+     * @javax.ws.rs.Consumes($operation.restConsumes)
+#end
+##end
+     */
+    abstract public ${operation.name}($arguments): $returnType;
+
+#end
 }
+

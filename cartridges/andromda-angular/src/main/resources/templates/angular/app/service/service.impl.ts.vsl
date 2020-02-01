@@ -1,1 +1,56 @@
-${serviceImpl.name}Impl 
+#set ( $componentPath = $angularHelper.getComponentDestination($service.packageName ) )
+#set ($fileName = $angularHelper.getComponentFileName($service.name))
+#set ($args = [])
+#set ($ret = false)
+#set ($rType = "")
+#foreach ($operation in $service.operations)
+#foreach ( $argument in $operation.arguments)
+#set ($ret = $args.add($argument))
+#end
+#end
+import { Injectable } from '@angular/core';
+#if ($service.restCount>0 && $stringUtils.isNotBlank($service.restPath))
+import { HttpClient} from '@angular/common/http';
+#end
+import { Observable } from 'rxjs';
+import { $service.name } from './$fileName';
+#foreach ($tmp in $angularHelper.getArgumentImports($args, $applicationPackage))
+$tmp
+#end
+
+@Injectable()
+export class ${service.name}Impl extends ${service.name} {
+#if ($service.restCount>0 && $stringUtils.isNotBlank($service.restPath))
+    constructor(http: HttpClient) {
+        super(http);
+    }
+#end
+
+#foreach ($operation in $service.operations)
+#set ($arguments = "")
+#set ($restParams = "")
+#foreach($arg in $operation.arguments)
+#set ($argType = $angularHelper.getDatatype($arg.type.fullyQualifiedName))
+#if($arg.upper>1 || $arg.upper==-1)
+#set ($argType = "$argType[]")
+#end
+#if($stringUtils.isAllEmpty($arguments))
+#set($arguments = "$arg.name: $argType")
+#set($restParams = "$arg.name")
+#else
+#set($arguments = ", $arg.name: $argType")
+#set($restParams = ", $arg.name")
+#end
+#end
+#set ($returnType = $angularHelper.getDatatype($operation.returnType.name))
+#if (!$useArrayWrapper && ($operation.upper>1 || $operation.upper==-1))
+#set ($returnType = "$returnType[]")
+#end
+#set ($rType = $returnType)
+#set ($returnType = "Observable<$returnType>")
+    public ${operation.name}($arguments): $returnType {
+        // TODO: Implement this method
+    }
+
+#end
+}

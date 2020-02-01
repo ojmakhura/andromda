@@ -1,8 +1,11 @@
-#set($destination = $angularHelper.getModelDestination(${class.packageName}))
-#set($fileName = $angularHelper.getModelFileName(${class.name}))
+#set($destination = $angularHelper.getComponentDestination(${class.packageName}))
+#set($fileName = $angularHelper.getComponentFileName(${class.name}))
 export class $class.name {
 #foreach ($attribute in $class.attributes)
-#set ($returnType = $attribute.getterSetterTypeName)
-    $attribute.name: $angularHelper.getAttributeDatatype($returnType);
+#set ($returnType = $angularHelper.getDatatype($attribute.getterSetterTypeName))
+#if($attribute.upper>1 || $attribute.upper==-1)
+#set ($returnType = "$returnType[]")
+#end
+    $attribute.name: $returnType;
 #end
 }

@@ -10,6 +10,7 @@
         <macrolibrary name="templates/jsf2/forms/formMacros.vm"/>
         <macrolibrary name="templates/jsf2/forms/formImplMacros.vm"/>
         <macrolibrary name="templates/jsf2/configuration/securityMacros.vm"/>
+        <macrolibrary name="templates/webservice/jaxws/RenderRestrictions.vm"/>
     </templateEngine>
 
     <!-- define the template objects that are made available to the template -->
@@ -17,7 +18,8 @@
     <templateObject name="javaUtils" className="org.andromda.cartridges.java.JavaUtils"/>
     <templateObject name="umlUtils" className="org.andromda.metafacades.uml.UMLMetafacadeUtils"/>
     <templateObject name="angularHelper" className="org.andromda.cartridges.angular.AngularHelper"/>
-
+    <templateObject name="webServiceUtils" className="org.andromda.cartridges.webservice.WebServiceUtils"/>
+    
     <!-- cartridge-templateObject merge-point-->
 
     <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
@@ -30,9 +32,119 @@
     <property reference="applicationId"/>
     <property reference="applicationPackage"/>
     
+    <property reference="wsdlSoapAddress"/>
+    <property reference="securityRealm"/>
+    <property reference="testServiceLocatorName"/>
+    <property reference="testServiceLocatorPackage"/>
+    <property reference="servicesPath"/>
+    <property reference="webContext"/>
+    <property reference="ejbJndiUrl"/>
+    <property reference="ejbNamingContextFactory"/>
+    <property reference="sessionTimeout"/>
+    <property reference="webserviceTypesPackage"/>
+    <property reference="wsdlSoapNamespace"/>
+    <property reference="xmlSchemaNamespace"/>
+    <property reference="wsdlNamespace"/>
+    <property reference="wsSecurityNamespace"/>
+    <property reference="wsSecurityImportLocation"/>
+    <property reference="documentStyleTransportNamespace"/>
+    <property reference="xmlEncoding"/>
+    <property reference="signedRequest"/>
+    <property reference="encryptedRequest"/>
+    <property reference="encryptedResponse"/>
+    <property reference="signedResponse"/>
+    <property reference="cryptoKeyStore"/>
+    <property reference="cryptoKeyStoreType"/>
+    <property reference="cryptoKeyStoreAlias"/>
+    <property reference="cryptoAliasPassword"/>
+    <property reference="cryptoKeyStorePassword"/>
+    <property reference="attachmentsDirectory"/>
+    <property reference="javaVersion"/>
+    <property reference="axisVersion"/>
+    <property reference="cxfVersion"/>
+    <property reference="webserviceStack"/>
+    <property reference="soapVersion"/>
+    <property reference="axis2WrappedMessageReceiver"/>
+    <property reference="axis2DefaultMessageReceiver"/>
+    <property reference="axis2GeneratedWrappedMessageReceiverRendersFaultsAsBeans"/>
+    <property reference="springVersion"/>
+    <property reference="extensionInheritanceDisabled"/>
+    <property reference="useArrayWrapper"/>
+    <property reference="useAttributes"/>
+    <property reference="addNamespaceBackslash"/>
+    <property reference="outputGeneratedAnnotationJavadoc"/>
+    <property reference="useEnumValueInXSD"/>
+    <property reference="makeNillable"/>
+    <property reference="webserviceHost"/>
+    <property reference="webservicePort"/>
+    <property reference="namespacePrefix"/>
+    <property reference="qualifiedNameLocalPartPattern"/>
+    <property reference="namespacePattern"/>
+    <property reference="reverseNamespace"/>
+    <property reference="seiSuffix"/>
+    <property reference="defaultStyle"/>
+    <property reference="defaultUse"/>
+    <property reference="defaultParameterStyle"/>
+    <property reference="importedXSD"/>
+    <property reference="validateSchema"/>
+    <property reference="customValidator"/>
+    <property reference="generateMethodImpl"/>
+    <property reference="enableAnnotations"/>
+    <property reference="generateIsBooleanGetters"/>
+    <property reference="generateChainedSetters"/>
+    <property reference="simpleBindingMode"/>
+    <property reference="xjcArguments"/>
+    <property reference="XMLDateAdapter"/>
+    <property reference="XMLDateTimeAdapter"/>
+    <property reference="XMLTimeAdapter"/>
+    <property reference="XMLBooleanAdapter"/>
+    <property reference="XMLIntegerAdapter"/>
+    <property reference="XMLDecimalAdapter"/>
+    <property reference="jaxb-gen"/>
+    <property reference="pluralizeAssociationEndNames"/>
+    <property reference="pluralizeAttributeNames"/>
+    <property reference="pluralizeParameterNames"/>
+    
     <condition name="generateRefFiles">$generateRefFiles.equalsIgnoreCase("true")</condition>
     <condition name="overwriteAll">$overwriteAll.equalsIgnoreCase("true")</condition>
     <condition name="enableTemplating">$enableTemplating.equalsIgnoreCase("true")</condition>
+    
+    <condition name="generateRefFiles">$generateRefFiles.equalsIgnoreCase("true")</condition>
+    <condition name="overwriteAll">$overwriteAll.equalsIgnoreCase("true")</condition>
+    <condition name="xfire">$webserviceStack.equalsIgnoreCase("xfire")</condition>
+    <condition name="axis">$webserviceStack.equalsIgnoreCase("axis")</condition>
+    <condition name="axis1">#if ($webserviceStack.equalsIgnoreCase("axis") &amp;&amp; $axisVersion.equals("1"))true#end</condition>
+    <condition name="axis2">#if ($webserviceStack.equalsIgnoreCase("axis") &amp;&amp; $axisVersion.equals("2"))true#end</condition>
+    <condition name="jaxws">$webserviceStack.equalsIgnoreCase("jaxws")</condition>
+    <condition name="cxf">$webserviceStack.equalsIgnoreCase("cxf")</condition>
+    <condition name="xfireRef">#if ($webserviceStack.equalsIgnoreCase("xfire") &amp;&amp; $generateRefFiles.equals("true"))true#end</condition>
+    <condition name="axisRef">#if ($webserviceStack.equalsIgnoreCase("axis") &amp;&amp; $generateRefFiles.equals("true"))true#end</condition>
+    <condition name="axis1Ref">#if ($webserviceStack.equalsIgnoreCase("axis") &amp;&amp; $axisVersion.equals("1") &amp;&amp; $generateRefFiles.equals("true"))true#end</condition>
+    <condition name="axis2Ref">#if ($webserviceStack.equalsIgnoreCase("axis") &amp;&amp; $axisVersion.equals("2") &amp;&amp; $generateRefFiles.equals("true"))true#end</condition>
+    <condition name="jaxwsRef">#if ($webserviceStack.equalsIgnoreCase("jaxws") &amp;&amp; $generateRefFiles.equals("true"))true#end</condition>
+    <condition name="cxfRef">#if ($webserviceStack.equalsIgnoreCase("cxf") &amp;&amp; $generateRefFiles.equals("true"))true#end</condition>
+    <condition name="jbossWeb">$stringUtils.isNotBlank($securityRealm)</condition>
+    <condition name="securityEnabled">$stringUtils.isNotBlank($securityRealm)</condition>
+    <condition name="spring2">$springVersion.startsWith("2")</condition>
+    <condition name="extensionInheritanceDisabled">$extensionInheritanceDisabled.equalsIgnoreCase("true")</condition>
+    <condition name="axis2GeneratedWrappedMessageReceiverRendersFaultsAsBeans">$axis2GeneratedWrappedMessageReceiverRendersFaultsAsBeans.equalsIgnoreCase("true")</condition>
+    <condition name="useArrayWrapper">$useArrayWrapper.equalsIgnoreCase("true")</condition>
+    <condition name="useAttributes">$useAttributes.equalsIgnoreCase("true")</condition>
+    <condition name="addNamespaceBackslash">$addNamespaceBackslash.equalsIgnoreCase("true")</condition>
+    <condition name="useEnumValueInXSD">$useEnumValueInXSD.equalsIgnoreCase("true")</condition>
+    <condition name="outputGeneratedAnnotationJavadoc">$outputGeneratedAnnotationJavadoc.equalsIgnoreCase("true")</condition>
+    <condition name="makeNillable">$makeNillable.equalsIgnoreCase("true")</condition>
+    <condition name="reverseNamespace">$reverseNamespace.equalsIgnoreCase("true")</condition>
+    <condition name="importedXSD">$importedXSD.equalsIgnoreCase("true")</condition>
+    <condition name="validateSchema">$validateSchema.equalsIgnoreCase("true")</condition>
+    <condition name="generateMethodImpl">$generateMethodImpl.equalsIgnoreCase("true")</condition>
+    <condition name="enableAnnotations">$enableAnnotations.equalsIgnoreCase("true")</condition>
+    <condition name="generateIsBooleanGetters">$generateIsBooleanGetters.equalsIgnoreCase("true")</condition>
+    <condition name="generateChainedSetters">$generateChainedSetters.equalsIgnoreCase("true")</condition>
+    <condition name="simpleBindingMode">$simpleBindingMode.equalsIgnoreCase("true")</condition>
+    <condition name="pluralizeAssociationEndNames">$pluralizeAssociationEndNames.equalsIgnoreCase("true")</condition>
+    <condition name="pluralizeAttributeNames">$pluralizeAttributeNames.equalsIgnoreCase("true")</condition>
+    <condition name="pluralizeParameterNames">$pluralizeParameterNames.equalsIgnoreCase("true")</condition>
 
     <template
         path="templates/angular/app/app.module.ts.vsl"
@@ -69,32 +181,6 @@
         </modelElements>
     </template>
     
-    <!--<template
-        path="templates/angular/app/service/service.ts.vsl"
-        outputPattern="service.ts"
-        outlet="services"
-        overwrite="true">
-        <modelElements variable="controller">
-            <modelElement>
-                <type name="org.andromda.metafacades.uml.Service"/>
-            </modelElement>
-        </modelElements>
-    </template>-->
-    
-    <template
-        path="templates/angular/app/service/service.ts.vsl"
-        outputPattern="$generatedFile"
-        outlet="services"
-        overwrite="true">
-        <modelElements variable="service">
-            <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndController">
-                    <property name="useCase"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-    
     <template
         path="templates/angular/app/app-routing.module.ts.vsl"
         outputPattern="$stringUtils.lowerCase(${applicationId})-routing.module.ts"
@@ -113,75 +199,49 @@
         </modelElements>
     </template>
     
-    <!--<template
-            path="templates/angular/app/service/service.impl.ts.vsl"
-            outputPattern="services.ts"
-            outlet="service-impls"
-            overwrite="false"
-            outputToSingleFile="true"
-            outputOnEmptyElements="false">
-        <modelElements variable="serviceImpl">
+    <template
+        path="templates/angular/app/service/service.ts.vsl"
+        outputPattern="$componentPath/${fileName}.ts"
+        outlet="services"
+        overwrite="true">
+        <modelElements variable="service">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndController">
-                    <property name="useCase"/>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
                 </type>
             </modelElement>
         </modelElements>
-    </template>-->
+    </template>
+        
+    <template
+        path="templates/angular/app/service/service.impl.ts.vsl"
+        outputPattern="$componentPath/${fileName}.impl.ts"
+        outlet="service-impls"
+        overwrite="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <!-- <template
+        path="templates/angular/app/service/service.impl.spec.ts.vsl"
+        outputPattern="$componentPath/${fileName}.ts"
+        outlet="services"
+        overwrite="true">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template> -->
 
     <!--<template
-            path="templates/angular/App.js.vsl"
-            outputPattern="app.js"
-            outlet="controllers"
-            outputToSingleFile="true"
-            outputOnEmptyElements="false"
-            overwrite="true">
-        <modelElements variable="controllers">
-            <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndController">
-                    <property name="useCase"/>
-                </type>
-            </modelElement>
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularFactory"/>
-            </modelElement>
-        </modelElements>
-    </template>-->
-    <!--<template
-            path="templates/angular/controllers/Controllers.vsl"
-            outputPattern="components/controllers.js"
-            outlet="controllers"
-            outputToSingleFile="true"
-            outputOnEmptyElements="false"
-            overwrite="true">
-        <modelElements variable="controllers">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
-                    <property name="useCase"/>
-                </type>
-            </modelElement>
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularAction">
-                    <property name="useCase"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>-->
-    <!--<template
-        path="templates/angular/app/model/model.ts.vsl"
-        outputPattern="src/app/model/{1}/{1}.ts"
-        outlet="controllers"
-        outputToSingleFile="false"
-        overwrite="true">
-        <modelElements variable="viewer">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
-                    <property name="useCase"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>-->
-    <template
             path="templates/angular/app/view/View.vsl"
             outputPattern="components/{1}/{1}.html"
             outlet="controllers"
@@ -194,7 +254,7 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <!--<template
             path="templates/angular/views/HomeScreen.vsl"

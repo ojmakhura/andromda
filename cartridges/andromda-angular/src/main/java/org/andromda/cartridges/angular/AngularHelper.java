@@ -4,9 +4,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.metafacades.uml.ValueObject;
+import org.apache.commons.lang3.StringUtils;
 
 public class AngularHelper {
 
@@ -44,14 +49,18 @@ public class AngularHelper {
      * @param _package
      * @return 
      */
-    public static String getModelDestination(final String _package) {
+    public static String getComponentDestination(final String _package) {
+        
         String[] tmp = _package.split("\\.");
-        
         int length = tmp.length;
-        if(tmp[length-1].equalsIgnoreCase("vo") && length > 1) {
-            return tmp[length-2];
-        }
         
+        if(tmp[length-1].equalsIgnoreCase("vo") || tmp[length-1].equalsIgnoreCase("service")) {
+            if(length > 1)
+                return tmp[length-2];
+            else
+                return "";
+        }
+                
         return _package.toLowerCase();        
     }
     
@@ -63,17 +72,17 @@ public class AngularHelper {
      * @param model
      * @return 
      */
-    public static String getModelFileName(final String model) {
+    public static String getComponentFileName(final String className) {
         
         StringBuilder builder = new StringBuilder();
         
-        String stmp = model.substring(0, model.length());
+        String stmp = className.substring(0, className.length());
         
-        for(int i = 0; i < model.length(); i++) {
-            char c = model.charAt(i);
+        for(int i = 0; i < className.length(); i++) {
+            char c = className.charAt(i);
             if(Character.isUpperCase(c)) {
                 c = Character.toLowerCase(c);
-                if(i > 0 && !Character.isUpperCase(model.charAt(i-1))) {
+                if(i > 0 && !Character.isUpperCase(className.charAt(i-1))) {
                     builder.append('-');
                 } 
             } 
@@ -88,10 +97,11 @@ public class AngularHelper {
      * @param type
      * @return 
      */
-    public static String getAttributeDatatype(final String type) {
+    public static String getDatatype(final String typeName) {
+                                
         String datatype = "";
         try {
-            Class cls = Class.forName(type);
+            Class cls = Class.forName(typeName);
                         
             // Anything that inherits from number
             if(cls.getSuperclass().getName().equalsIgnoreCase("java.lang.Number"))
@@ -105,11 +115,29 @@ public class AngularHelper {
                 datatype = "string";
             } else if(obj instanceof Date) {
                 datatype = "Date";
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            } else if(obj instanceof List) {
+                if(typeName.contains("<")) {
+                    String tmp = StringUtils.substringAfter(typeName, "<");
+                    tmp = StringUtils.substringBefore(tmp, ">");
+                    datatype = getDatatype(tmp) + "[]";
+                } else {
+                    datatype = "Object[]";
+                }
+            } else if(obj instanceof Map) {
+                datatype = "Map";
+            }      
             
+        } catch (InstantiationException | IllegalAccessException e) {            
             e.printStackTrace();
-        } 
+        } catch (ClassNotFoundException e) {
+            
+            if(typeName.equalsIgnoreCase("java.lang.Boolean")) {
+                datatype = "boolean";
+            } else {
+                String[] tmp = typeName.split("\\.");
+                datatype = tmp[tmp.length-1];
+            }
+        }
         
         return datatype;
     }
@@ -117,5 +145,31 @@ public class AngularHelper {
     public static String sanitiseArguments(Collection<ParameterFacade> arguments) {
         
         return "";
+    }
+    
+    public static HashSet<String> getArgumentImports(List<ParameterFacade> args, String applicationPackage) {
+        
+        HashSet<String> set = new HashSet<>();
+        for(ParameterFacade arg : args) {
+            if(arg.getType() instanceof ValueObject) {
+                StringBuilder builder = new StringBuilder();
+                builder.append("import { ");
+                builder.append(arg.getType().getName());
+                builder.append(" } from '../../model/");
+                builder.append(getComponentDestination(arg.getType().getPackageName()));
+                builder.append("/");
+                //String tn = StringUtils.substringBefore(arg.getType().getName(), ".ts");
+                builder.append(getComponentFileName(arg.getType().getName()));
+                builder.append("';");
+                set.add(builder.toString());
+            }
+        }
+        
+        return set;
+    }
+    
+    public static String getComponentPath(String componentPackage, String applicationPackage) {
+        String subPackage = StringUtils.substringAfter(componentPackage, applicationPackage );
+        return StringUtils.replaceChars(subPackage, "\\.", "\\/");
     }
 }

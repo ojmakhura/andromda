@@ -1,6 +1,6 @@
-#set($destination = $angularHelper.getModelDestination(${class.packageName}))
-#set($fileName = $angularHelper.getModelFileName(${class.name}))
-import { ${class.name} } from './role-vo';
+#set($destination = $angularHelper.getComponentDestination(${class.packageName}))
+#set($fileName = $angularHelper.getComponentFileName(${class.name}))
+import { ${class.name} } from './$fileName';
 
 describe('${class.name}', () => {
 	it('it should create an instance', () => {
