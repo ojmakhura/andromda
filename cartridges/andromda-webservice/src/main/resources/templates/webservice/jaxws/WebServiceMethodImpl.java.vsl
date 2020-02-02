@@ -273,7 +273,7 @@ $operation.getDocumentation("    * ")
 #if ($operation.rest && ($returnType.equals("void") || $returnType.equals("Response") || $returnType.equals("javax.ws.rs.core.Response")))
         org.apache.cxf.jaxrs.impl.ResponseBuilderImpl builder = new org.apache.cxf.jaxrs.impl.ResponseBuilderImpl();
         builder.status(200); // TODO: handle specific response codes
-        Response rtn = builder.build();
+        javax.ws.rs.core.Response rtn = builder.build();
 #else
 #if(!$returnType.equals("void"))
 #set ($isMany = $operation.upper>1 || $operation.upper==-1)

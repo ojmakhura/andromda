@@ -1,9 +1,8 @@
-import 'hammerjs'
+import 'hammerjs';
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 #set( $module = "module" )
-
 import { $stringUtils.capitalize(${applicationId})Module } from './app/$stringUtils.lowerCase(${applicationId}).${module}';
 import { environment } from './environments/environment';
 

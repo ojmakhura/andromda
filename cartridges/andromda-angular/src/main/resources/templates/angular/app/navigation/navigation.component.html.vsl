@@ -1,0 +1,8 @@
+<mat-nav-list class="card my-5">
+    <div>
+	<button mat-button [matMenuTriggerFor]="roleMenu">Roles</button>
+	<mat-menu #roleMenu="matMenu">
+            <button mat-menu-item routerLink="/addrole" (click)="onSidenavClose()">Edit Role</button>
+        </mat-menu>
+    </div>
+</mat-nav-list>

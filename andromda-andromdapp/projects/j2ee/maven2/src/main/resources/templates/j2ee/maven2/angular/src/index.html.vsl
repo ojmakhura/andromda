@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>$stringUtils.capitalize(${applicationId})</title>
+  <title>$stringUtils.capitalize($applicationName)</title>
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,6 +17,6 @@
   <link rel="stylesheet">
 </head>
 <body>
-  <app-root></app-root>
+  <$stringUtils.lowerCase(${applicationId})-root></$stringUtils.lowerCase(${applicationId})-root>
 </body>
 </html>

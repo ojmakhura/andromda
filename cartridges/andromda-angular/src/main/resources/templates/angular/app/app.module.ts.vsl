@@ -17,11 +17,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MatTabsModule, MatSidenavModule, MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule } from '@angular/material';
+import { MatTabsModule, MatListModule, MatSidenavModule, MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { $stringUtils.capitalize(${applicationId})LayoutComponent } from './layout/$stringUtils.lowerCase(${applicationId})-layout.component';
 import { $stringUtils.capitalize(${applicationId})HeaderComponent } from './header/$stringUtils.lowerCase(${applicationId})-header.component';
+import { $stringUtils.capitalize(${applicationId})NavigationComponent } from './header/$stringUtils.lowerCase(${applicationId})-navigation.component';
 #set ($component = "component")
 import { $stringUtils.capitalize(${applicationId})RoutingModule } from './$stringUtils.lowerCase(${applicationId})-routing.module';
 import { $stringUtils.capitalize(${applicationId})Component } from './$stringUtils.lowerCase(${applicationId}).$component';
@@ -58,7 +59,8 @@ import { $componentName } from './views${componentPath}/${componentFile}.compone
   declarations: [
 #set ($imports = "$stringUtils.capitalize(${applicationId})Component,
     $stringUtils.capitalize(${applicationId})LayoutComponent,
-    $stringUtils.capitalize(${applicationId})HeaderComponent")
+    $stringUtils.capitalize(${applicationId})HeaderComponent,
+    $stringUtils.capitalize(${applicationId})NavigationComponent")
 #foreach ($useCase in $useCases)
 #set ( $componentName = $stringUtils.deleteWhitespace(${useCase.name}))
 #set ( $componentName = "${componentName}Component")
@@ -82,6 +84,7 @@ import { $componentName } from './views${componentPath}/${componentFile}.compone
   imports: [
     CommonModule,
     MatTabsModule,
+    MatListModule,
     MatSidenavModule,
     MatToolbarModule,
     MatButtonModule,

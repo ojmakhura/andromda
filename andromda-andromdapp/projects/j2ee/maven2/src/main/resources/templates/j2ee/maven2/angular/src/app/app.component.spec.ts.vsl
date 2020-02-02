@@ -28,7 +28,7 @@ describe('${applicationId}Component', () => {
   });
 
   it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(${applica$stringUtils.capitalize(${applicationId})Component);
+    const fixture = TestBed.createComponent($stringUtils.capitalize(${applicationId})Component);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Welcome to $stringUtils.capitalize(${applicationId})!');

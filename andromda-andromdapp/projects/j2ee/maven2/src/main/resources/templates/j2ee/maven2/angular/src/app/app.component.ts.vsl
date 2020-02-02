@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 #set ($component = "component")
 @Component({
-  selector: 'app-root',
+  selector: '$stringUtils.lowerCase(${applicationId})-root',
   templateUrl: './$stringUtils.lowerCase(${applicationId}).${component}.html',
   styleUrls: ['./$stringUtils.lowerCase(${applicationId}).${component}.css']
 })

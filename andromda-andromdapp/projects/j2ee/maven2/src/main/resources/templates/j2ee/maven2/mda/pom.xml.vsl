@@ -456,9 +456,12 @@
         <core.manual.test.dir>${project.basedir}/../core/src/test/java</core.manual.test.dir>
 #end
 #if ($angular)
+        <angular.base.dir>${project.basedir}/../angular</angular.base.dir>
         <angular.model.dir>${project.basedir}/../angular/src/app/model</angular.model.dir>
         <angular.service.dir>${project.basedir}/../angular/src/app/service</angular.service.dir>
-        <angular.service.impl.dir>${project.basedir}/../angular/src/app/service/impl</angular.service.impl.dir>
+        <angular.service.impl.dir>${project.basedir}/../angular/src/app/service</angular.service.impl.dir>
+        <angular.controller.dir>${project.basedir}/../angular/src/app/service</angular.controller.dir>
+        <angular.controller.impl.dir>${project.basedir}/../angular/src/app/controller</angular.controller.impl.dir>
         <angular.view.dir>${project.basedir}/../angular/src/app/view</angular.view.dir>
 #end
 #if ($war || $webType.equals("jsf") || $webType.equals("both"))

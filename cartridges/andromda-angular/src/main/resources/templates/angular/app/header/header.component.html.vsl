@@ -1,6 +1,0 @@
-## Velocity Template.
-<mat-toolbar color="primary">
-  <button mat-button [matMenuTriggerFor]="menu">Roles</button>
-  <mat-menu #menu="matMenu">
-  </mat-menu>
-</mat-toolbar>

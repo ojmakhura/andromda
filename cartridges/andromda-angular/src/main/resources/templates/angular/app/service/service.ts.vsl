@@ -62,7 +62,7 @@ export abstract class $service.name {
 #end
 ##end
      */
-    abstract public ${operation.name}($arguments): $returnType;
+    public abstract ${operation.name}($arguments): $returnType;
 
 #end
 }
