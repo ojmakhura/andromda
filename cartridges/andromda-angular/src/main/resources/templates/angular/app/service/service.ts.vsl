@@ -1,4 +1,4 @@
-#set ( $componentPath = $angularHelper.getComponentDestination($service.packageName ) )
+#set ( $componentPath = $angularHelper.getComponentPath($service.packageName, $applicationPackage ) )
 #set ($fileName = $angularHelper.getComponentFileName($service.name))
 #set ($args = [])
 #set ($ret = false)
@@ -12,7 +12,7 @@
 import { HttpClient} from '@angular/common/http';
 #end
 import { Observable } from 'rxjs';
-#foreach ($tmp in $angularHelper.getArgumentImports($args, $applicationPackage))
+#foreach ($tmp in $angularHelper.getImports($args, $applicationPackage))
 $tmp
 #end
 

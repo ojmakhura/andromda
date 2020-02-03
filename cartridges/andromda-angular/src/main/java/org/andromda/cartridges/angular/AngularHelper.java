@@ -8,9 +8,13 @@ import java.util.List;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.StringTokenizer;
+import org.andromda.core.metafacade.MetafacadeBase;
 
 import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ValueObject;
+import org.andromda.metafacades.uml.Service;
 import org.apache.commons.lang3.StringUtils;
 
 public class AngularHelper {
@@ -42,7 +46,7 @@ public class AngularHelper {
     }
     
     /**
-     * Find the best destination for the model.
+     * Find the best destination for the component based on the package.
      * 
      * If the package ends with a 'vo', then we use the token before it.
      * 
@@ -55,9 +59,14 @@ public class AngularHelper {
         int length = tmp.length;
         
         if(tmp[length-1].equalsIgnoreCase("vo") || tmp[length-1].equalsIgnoreCase("service")) {
-            if(length > 1)
+            if(length > 1){
+                StringBuilder builder = new StringBuilder();
+                for(int i = 0; i < tmp.length-1; i++) {
+                    builder.append(tmp[i]);
+                    builder.append("/");
+                }
                 return tmp[length-2];
-            else
+            } else
                 return "";
         }
                 
@@ -115,11 +124,13 @@ public class AngularHelper {
                 datatype = "string";
             } else if(obj instanceof Date) {
                 datatype = "Date";
-            } else if(obj instanceof List) {
+            } else if(obj instanceof List || obj instanceof Collection) {
+                
                 if(typeName.contains("<")) {
                     String tmp = StringUtils.substringAfter(typeName, "<");
                     tmp = StringUtils.substringBefore(tmp, ">");
                     datatype = getDatatype(tmp) + "[]";
+                    
                 } else {
                     datatype = "Object[]";
                 }
@@ -134,34 +145,69 @@ public class AngularHelper {
             if(typeName.equalsIgnoreCase("java.lang.Boolean")) {
                 datatype = "boolean";
             } else {
-                String[] tmp = typeName.split("\\.");
-                datatype = tmp[tmp.length-1];
+                if(typeName.contains("<")) {
+                    String tmp = StringUtils.substringAfter(typeName, "<");
+                    tmp = StringUtils.substringBefore(tmp, ">");
+                    String[] tmp2 = tmp.split("\\.");
+                    datatype = getDatatype(tmp2[tmp2.length-1]);
+                    
+                } else {
+            
+                    String[] tmp = typeName.split("\\.");
+                    datatype = tmp[tmp.length-1];
+                }
             }
         }
         
         return datatype;
     }
+        
+    public static HashSet<String> getImports(List<ModelElementFacade> args, String applicationPackage) {
+        
+        HashSet<String> set = new HashSet<String>();
+        for(ModelElementFacade arg : args) {
+            ModelElementFacade facade = null;
+            if(arg instanceof ParameterFacade) {
+                ParameterFacade tmp = (ParameterFacade)arg;
+                facade = tmp.getType();
+            } else if(arg instanceof AttributeFacade) {
+                facade = ((AttributeFacade)arg).getType();
+            } else if(arg instanceof ModelElementFacade) {
+                facade = (ModelElementFacade)arg;
+            }
+            
+            if(facade != null) {
+                String angPath = "";
+                boolean addImport = false;
+                if(facade instanceof ValueObject) {
+                    angPath = "model/";
+                    addImport = true;
+                } else if(facade instanceof Service) {
+                    angPath = "service/";
+                    addImport = true;
+                }
+                
+                if(addImport) {
+                    StringBuilder builder = new StringBuilder();
+                    builder.append("import { ");
+                    builder.append(facade.getName());
+                    builder.append(" } from '../");
 
-    public static String sanitiseArguments(Collection<ParameterFacade> arguments) {
-        
-        return "";
-    }
-    
-    public static HashSet<String> getArgumentImports(List<ParameterFacade> args, String applicationPackage) {
-        
-        HashSet<String> set = new HashSet<>();
-        for(ParameterFacade arg : args) {
-            if(arg.getType() instanceof ValueObject) {
-                StringBuilder builder = new StringBuilder();
-                builder.append("import { ");
-                builder.append(arg.getType().getName());
-                builder.append(" } from '../../model/");
-                builder.append(getComponentDestination(arg.getType().getPackageName()));
-                builder.append("/");
-                //String tn = StringUtils.substringBefore(arg.getType().getName(), ".ts");
-                builder.append(getComponentFileName(arg.getType().getName()));
-                builder.append("';");
-                set.add(builder.toString());
+                    // Need to handle arbitrary package depth
+                    String subPackage = getComponentDestination(facade.getPackageName());
+                    String[] ar = subPackage.split("\\.");
+
+                    for(String s : ar) {
+                        builder.append("../");
+                    }
+
+                    builder.append(angPath);
+                    builder.append(getComponentDestination(facade.getPackageName()));
+                    builder.append("/");
+                    builder.append(getComponentFileName(facade.getName()));
+                    builder.append("';");
+                    set.add(builder.toString());
+                }
             }
         }
         
@@ -170,6 +216,22 @@ public class AngularHelper {
     
     public static String getComponentPath(String componentPackage, String applicationPackage) {
         String subPackage = StringUtils.substringAfter(componentPackage, applicationPackage );
-        return StringUtils.replaceChars(subPackage, "\\.", "\\/");
+        String[] tmp = subPackage.split("\\.");
+        int length = tmp.length;
+        
+        if(tmp[length-1].equalsIgnoreCase("vo") || tmp[length-1].equalsIgnoreCase("service")) {
+            if(length > 1){
+                StringBuilder builder = new StringBuilder();
+                for(int i = 0; i < tmp.length-1; i++) {
+                    builder.append(tmp[i]);
+                    builder.append("/");
+                }
+                return tmp[length-2];
+            } else
+                return "";
+        }
+                
+        //return _package.toLowerCase();    
+        return StringUtils.replaceChars(subPackage, "\\.", "\\/").toLowerCase();
     }
 }

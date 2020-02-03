@@ -1,5 +1,13 @@
-#set($destination = $angularHelper.getComponentDestination(${class.packageName}))
+#set($destination = $angularHelper.getComponentPath(${class.packageName}, $applicationPackage))
 #set($fileName = $angularHelper.getComponentFileName(${class.name}))
+#set ($attributes = [])
+#foreach ($tmp in $class.attributes)
+#set ( $ret = $attributes.add($tmp.type) )
+#end
+#foreach ($tmp in $angularHelper.getImports($attributes, $applicationPackage))
+$tmp
+#end
+
 export class $class.name {
 #foreach ($attribute in $class.attributes)
 #set ($returnType = $angularHelper.getDatatype($attribute.getterSetterTypeName))
