@@ -1,0 +1,53 @@
+##
+## This macro adds the default role to the roles string
+##
+#macro (addDefaultRole $roles)
+#if($stringUtils.isNotBlank($defaultRole))
+#if($stringUtils.isBlank($roles))
+#set($roles = $defaultRole)
+#else
+#set($roles = "${roles},${defaultRole}")
+#end
+#end
+#end
+
+##
+## A macro for rendering import of route components
+##
+#macro (renderImports $puseCase)
+#foreach ($view in $puseCase.views)
+#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.name}), '\\ ', '\\/') )
+#set ( $fileName = $stringUtils.replaceChars($stringUtils.lowerCase(${view.name}), '\\ ', '\\-'))
+#set ( $className = "$stringUtils.replaceChars($stringUtils.capitalize(${view.name}), '\\ ', '')View")
+import { $className } from './view/${componentPath}/${fileName}.component';
+#end
+#set ($roles = $puseCase.actionRoles)
+#addDefaultRole($roles)
+#set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles) )
+#set ($children = $puseCase.navigationChildren)
+#if (!$children.empty)
+#foreach ($childUseCase in $children)
+#renderImports($childUseCase)
+#end
+#end 
+#end
+
+##
+## Render the declarations
+##
+#macro (renderUseCaseDeclarations $puseCase)
+#foreach ($view in $puseCase.views)
+#set ( $className = "$stringUtils.replaceChars($stringUtils.capitalize(${view.name}), '\\ ', '')View")
+#set ($imports = "$imports, 
+    $className")
+#end
+#set ($roles = $puseCase.actionRoles)
+#addDefaultRole($roles)
+#set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles) )
+#set ($children = $puseCase.navigationChildren)
+#if (!$children.empty)
+#foreach ($childUseCase in $children)
+#renderUseCaseDeclarations ($childUseCase )
+#end
+#end
+#end

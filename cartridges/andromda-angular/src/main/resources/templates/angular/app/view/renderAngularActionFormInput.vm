@@ -1,0 +1,57 @@
+##
+## A macro that renders the appropriate action form input field
+##
+## parameters:
+##     o  $parameter - the actual parameter to render
+##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
+##
+#macro(renderAngularActionInput $parameter $ownerParameter $ident)
+#if ($parameter.backingListName)
+#if ($ownerParameter.type.hasStereotype('Entity'))
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
+#else
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#end
+#set ($backingListName = $parameter.backingListName)
+#set ($backingValueName = $parameter.backingValueName)
+#else
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
+#set ($backingListName = ${parameter.getBackingListName($ownerParameter)})
+#set ($backingValueName = ${parameter.getBackingValueName($ownerParameter)})
+#end
+#set ($formValuePropertyName = "${formName}.${valuePropertyName}")
+${ident}	<!-- ${propertyId} -->
+${ident}	<mat-form-field>
+${ident}		<mat-label>$stringUtils.capitalize($parameter.name)</mat-label> 
+#if ($parameter.type.dateType)
+${ident}	  	<input matInput [matDatepicker]="$propertyId" [(ngModel)]="${formValuePropertyName}"#if($parameter.required) required#end>
+${ident}	  	<mat-datepicker-toggle matSuffix [for]="$propertyId"></mat-datepicker-toggle>
+${ident}	  	<mat-datepicker #$propertyId></mat-datepicker>
+#elseif ($parameter.inputSelect || $parameter.type.enumeration)
+${ident}		<mat-select name="$propertyId" [(ngModel)]="${formValuePropertyName}">
+#if ($parameter.type.enumeration)
+${ident}			<mat-option *ngFor="let item of Object.keys($parameter.type.name.values())" [value]="item">{{item}}</mat-option>
+#else
+${ident}			<mat-option *ngFor="let item of ${formName}.${backingListName}}" [value]="item">{{item}}</mat-option>
+#end
+${ident}		</mat-select>
+#elseif ($parameter.plainText)
+${ident}		<input matInput
+${ident}			[(ngModel)]="${formValuePropertyName}" id="$propertyId" name="$propertyId"
+${ident}			#if($parameter.required) required#end #$propertyId="ngModel">
+#elseif ($parameter.inputSecret)
+${ident}		<input matInput [type]="hide ? 'password' : 'text'">
+${ident}			[(ngModel)]="${formValuePropertyName}" id="$propertyId" name="$propertyId" #$propertyId="ngModel">
+${ident}		<button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+${ident}			<mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+${ident}		</button>
+#else
+${ident}		<input matInput
+${ident}			[(ngModel)]="${formValuePropertyName}" id="$propertyId" name="$propertyId"
+${ident}			#if($parameter.required) required#end #$propertyId="ngModel">
+#end
+${ident}	</mat-form-field>
+#end
