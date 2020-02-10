@@ -1,10 +1,35 @@
+#set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.source.name}), '\\ ', '\\/')/$stringUtils.lowerCase(${action.trigger.name})" )
+#set ( $actionName = "$stringUtils.lowerCase($action.trigger.name)" )
+#set($formName = $action.formBeanName)
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-role-form',
-  templateUrl: './role-form.component.html',
-  styleUrls: ['./role-form.component.css']
+  selector: '${actionName}-form',
+  templateUrl: './${actionName}.component.html',
+  styleUrls: ['./${actionName}.component.css']
 })
 
-export class 
+export class $action.formImplementationName implements OnInit {
+
+#foreach ($parameter in $action.parameters)
+#if ($parameter.type.enumeration )
+1
+#else
+2
+#end
+	$parameter.name: $parameter.type.name;
+#end
+	
+	constructor(private route: ActivatedRoute, private router: Router, private ${action.controller.beanName}: ${action.controller.name}) {
+	}
+
+	ngOnInit(): void {
+#foreach ($field in $action.formFields)
+$field
+		if (this.$field.name == null) {
+			this.$field.name = new $angularHelper.getDatatype($field.type.name)();
+		}
+#end
+	}
+}

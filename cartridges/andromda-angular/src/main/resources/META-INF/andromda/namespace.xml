@@ -152,6 +152,13 @@
                     Normally common/target/src/main/java.
                 </documentation>
             </property>
+            <property name="controllers">
+                <documentation>
+                    The location to which any controllers are generated (this outlet
+                    contains classes which are fully generated and should not be
+                    touched).
+                </documentation>
+            </property>
         </propertyGroup>
         <propertyGroup name="Configuration">
             <documentation>
@@ -963,6 +970,94 @@
                     Handles parse/print of customized String formats. Outputs Decimal instead of BigDecimal.
                     Can be customized for individual attributes through
                     XmlAdapter stereotype.
+                </documentation>
+            </property>
+        </propertyGroup>
+		<propertyGroup name="Views">
+            <documentation>
+                Properties that configure view information.
+            </documentation>
+            <property name="loginFileName">
+                <default>login</default>
+                <documentation>
+                    The path to the file that provides the login page (minus the extension).
+                </documentation>
+            </property>
+            <property name="logoutFileName">
+                <default>logout</default>
+                <documentation>
+                    The path to the file that provides application logout (minus the extension)
+                </documentation>
+            </property>
+            <property name="defaultMultiSelectSize">
+                <default>3</default>
+                <documentation>
+                    The default size to use for multi select boxes.
+                </documentation>
+            </property>
+            <property name="enableFaceletsDevelopmentSupport">
+                <default>false</default>
+                <documentation>
+                    Whether or not the Facelet development support should be enabled (in the generated web.xml), this is
+                    useful to enable when developing with Facelets, however should be disabled when going to production.
+                </documentation>
+            </property>
+            <property name="enableMyFacesDevelopmentSupport">
+                <default>false</default>
+                <documentation>
+                    Whether or not the MyFaces development support should be enabled (in the generated web.xml), this is
+                    useful to enable when developing with MyFaces, however should be disabled when going to production.
+                </documentation>
+            </property>
+            <property name="defaultDateFormat">
+                <default>MM/dd/yyyy</default>
+                <documentation>
+                    The default date format to use in case it has not been explicitly
+                    specified, for event parameters.
+                    Take a look
+                    <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html">here</a>
+                    to see how to properly construct date formats.
+                </documentation>
+            </property>
+            <property name="strictDateTimeFormat">
+                <default>false</default>
+                <documentation>
+                    Specifies whether or not date and time formats are to be strictly matched.
+                    This property takes either true or false as values. If set to true all dates and times
+                    entered by the end-user will fail validation if they do not strictly adhere to their given format.
+                    Note that this strictness can always be overriden locally
+                    using the andromda_struts_view_field_format tagged value.
+                </documentation>
+            </property>
+            <property name="defaultTimeFormat">
+                <default>HH:mm</default>
+                <documentation>
+                    The default time format to use when it has not been explicitly
+                    specified for event parameters. Take a look
+                    <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html">here</a>
+                    to see how to properly construct time formats.
+                </documentation>
+            </property>
+            <property name="defaultInputColumnCount" required="false">
+                <documentation>
+                    If specified denotes the default length of text input fields,
+                    the value specifies the <code>size</code> attribute of the corresponding
+                    <code>input</code> or <code>textarea</code> element.
+                    Not speciying any valid value will make the cartridge ignore it and resort
+                    to the default browser value by not rendering any <code>size</code> attribute.
+                </documentation>
+            </property>
+            <property name="defaultInputRowCount" required="false">
+                <documentation>
+                    If specified denotes the default number of rows of <code>textarea</code> elements.
+                    Not speciying any valid value will make the cartridge ignore it and resort
+                    to the default browser value by not rendering any <code>size</code> attribute.
+                </documentation>
+            </property>
+            <property name="defaultTableExportTypes">
+                <default>xml csv excel pdf</default>
+                <documentation>
+                    The types of files to which a table can be exported.
                 </documentation>
             </property>
         </propertyGroup>

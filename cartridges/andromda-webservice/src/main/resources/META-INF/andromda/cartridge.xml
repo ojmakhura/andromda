@@ -500,7 +500,7 @@
         path="templates/webservice/jaxws/WebServiceMethodImpl.java.vsl"
         outputPattern="$stringUtils.replace(${service.packageName}, '.', '/')/${stringUtils.capitalize($operation.operationName)}Impl.java.ref"
         outlet="service-impls"
-        overwrite="true"
+        overwrite="false"
         outputCondition="cxfRef">
         <modelElements variable="operation">
             <modelElement>

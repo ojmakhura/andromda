@@ -14,7 +14,7 @@ export class $stringUtils.capitalize(${applicationId})NavigationComponent implem
 
     }
 
-    public onToggleSidenav = () => {
+    public onSidenavClose = () => {
         this.sidenavToggle.emit();
     }
 

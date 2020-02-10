@@ -1,4 +1,4 @@
-#set ( $componentPath = $angularHelper.getComponentPath($service.packageName, $applicationPackage ) )
+#set ($componentPath = $stringUtils.replaceChars(${service.packageName}, "\\.", "\\/"))
 #set ($fileName = $angularHelper.getComponentFileName($service.name))
 #set ($args = [])
 #set ($ret = false)
@@ -6,13 +6,15 @@
 #foreach ( $argument in $operation.arguments)
 #set ($ret = $args.add($argument))
 #end
+#set ( $ret = $args.add($operation.returnType))
 #end
 #if ($service.restCount>0 && $stringUtils.isNotBlank($service.restPath))
 #set ($basePath = "http://localhost:8080")
 import { HttpClient} from '@angular/common/http';
 #end
 import { Observable } from 'rxjs';
-#foreach ($tmp in $angularHelper.getImports($args, $applicationPackage))
+#set ($suffix = "")
+#foreach ($tmp in $angularHelper.getImports($args, ${service.packageName}, $suffix))
 $tmp
 #end
 

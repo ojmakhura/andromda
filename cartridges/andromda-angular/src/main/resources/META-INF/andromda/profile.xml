@@ -20,6 +20,13 @@
     </documentation>
     <elements>
         <elementGroup name="Stereotypes">
+            <element name="ENUMERATION">
+                <documentation>
+                     Produces type-safe Angular enumeration objects.
+                </documentation>
+                <value>Enumeration</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
             <element name="ANGULAR_MODEL">
                 <documentation>
                     Modeled on an Entity or ValueObject

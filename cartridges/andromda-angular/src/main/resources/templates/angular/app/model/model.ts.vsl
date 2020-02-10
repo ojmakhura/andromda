@@ -1,13 +1,17 @@
-#set($destination = $angularHelper.getComponentPath(${class.packageName}, $applicationPackage))
+#set($destination = $stringUtils.replaceChars(${class.packageName}, "\\.", "\\/"))
 #set($fileName = $angularHelper.getComponentFileName(${class.name}))
 #set ($attributes = [])
+import { Injectable } from '@angular/core';
+
 #foreach ($tmp in $class.attributes)
 #set ( $ret = $attributes.add($tmp.type) )
 #end
-#foreach ($tmp in $angularHelper.getImports($attributes, $applicationPackage))
+#set ($suffix = "")
+#foreach ($tmp in $angularHelper.getImports($attributes, ${class.packageName}, $suffix))
 $tmp
 #end
 
+@Injectable
 export class $class.name {
 #foreach ($attribute in $class.attributes)
 #set ($returnType = $angularHelper.getDatatype($attribute.getterSetterTypeName))

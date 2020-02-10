@@ -1,0 +1,27 @@
+#set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.source.name}), '\\ ', '\\/')/$stringUtils.lowerCase(${action.trigger.name})" )
+#set ( $actionName = "$stringUtils.lowerCase($action.trigger.name)" )
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { ${action.formImplementationName} } from './${action.formImplementationName}.component';
+
+describe('${action.formImplementationName}', () => {
+	let component: ${action.formImplementationName};
+	let fixture: ComponentFixture<${action.formImplementationName}>;
+
+	beforeEach(async(() => {
+		TestBed.configureTestingModule({
+			declarations: [${action.formImplementationName}]
+		})
+			.compileComponents();
+	}));
+
+	beforeEach(() => {
+		fixture = TestBed.createComponent(${action.formImplementationName});
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
+
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
+});

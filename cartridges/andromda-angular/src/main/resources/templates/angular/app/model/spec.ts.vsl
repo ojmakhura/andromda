@@ -1,4 +1,4 @@
-#set($destination = $angularHelper.getComponentDestination(${class.packageName}))
+#set($destination = $stringUtils.replaceChars(${class.packageName}, "\\.", "\\/"))
 #set($fileName = $angularHelper.getComponentFileName(${class.name}))
 import { ${class.name} } from './$fileName';
 

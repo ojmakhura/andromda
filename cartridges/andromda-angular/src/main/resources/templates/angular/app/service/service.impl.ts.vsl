@@ -1,20 +1,21 @@
-#set ( $componentPath = $angularHelper.getComponentDestination($service.packageName ) )
-#set ($fileName = $angularHelper.getComponentFileName($service.name))
+#set ($componentPath = $stringUtils.replaceChars(${service.packageName}, "\\.", "\\/"))
+#set ($fileName = $angularHelper.getComponentFileName("${service.name}Impl"))
 #set ($args = [])
 #set ($ret = false)
-#set ($rType = "")
 #foreach ($operation in $service.operations)
 #foreach ( $argument in $operation.arguments)
-#set ($ret = $args.add($argument))
+#set ( $ret = $args.add($argument))
 #end
+#set ( $ret = $args.add($operation.returnType))
 #end
 import { Injectable } from '@angular/core';
 #if ($service.restCount>0 && $stringUtils.isNotBlank($service.restPath))
 import { HttpClient} from '@angular/common/http';
 #end
 import { Observable } from 'rxjs';
-import { $service.name } from './$fileName';
-#foreach ($tmp in $angularHelper.getArgumentImports($args, $applicationPackage))
+import { $service.name } from './$angularHelper.getComponentFileName(${service.name})';
+#set ($suffix = "")
+#foreach ($tmp in $angularHelper.getImports($args, ${service.packageName}, $suffix))
 $tmp
 #end
 

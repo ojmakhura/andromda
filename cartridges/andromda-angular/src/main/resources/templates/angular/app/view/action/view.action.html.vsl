@@ -1,0 +1,38 @@
+#set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.source.name}), '\\ ', '\\/')/$stringUtils.lowerCase(${action.trigger.name})" )
+#set ( $actionName = "$stringUtils.lowerCase($action.trigger.name)" )
+#set($formName = $action.formBeanName)
+<div class="card my-5">
+	<div class="card-body">
+		<form ${escTool.hash}${formName}="ngForm">
+#if ($action.hyperlink)
+##<p:commandLink id="${action.triggerName}Action" action="#{${action.controller.beanName}.${action.triggerName}}" immediate="true" ajax="false">
+##        <h:outputText id="${action.triggerName}ActionMessage" value="#{messages['$action.messageKey']}"/>
+<a routerLink="/crisis-center" routerLinkActive="active">Crisis Center</a>
+#foreach ($parameter in $action.parameters)
+#if (!$parameter.complex || $parameter.type.enumeration)
+#renderAngularActionCommandLinkParameter($parameter "" "        ")
+#end
+#foreach ($attribute in $parameter.attributes)
+#renderAngularActionCommandLinkParameter($attribute $parameter "        ")
+#end
+#end
+##    </p:commandLink>
+#else
+##if (!$action.hiddenParameters.empty)
+##    <ui:include src="${action.viewFragmentPath}-hidden-params.xhtml"/>
+##end
+#set($triggerId = "${action.triggerName}Action")        
+#foreach ($parameter in $action.parameters)
+#if (!$parameter.complex || $parameter.type.enumeration)
+#renderAngularActionInput($parameter "" "        ")
+#else
+#foreach ($attribute in $parameter.attributes)
+#renderAngularActionInput($attribute $parameter "        ")
+#end
+#end
+#end
+			<button type="button" (click)="${action.controller.beanName}.${action.triggerName}()" class="btn btn-info">$stringUtils.capitalize(${action.trigger.name})</button>
+#end
+		</form>
+	</div>
+</div>

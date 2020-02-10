@@ -306,32 +306,50 @@ $operation.getDocumentation("    * ")
 ##        ${property1.getterSetterTypeName} ${property1.name}${propertyNum} = ${webServiceUtils.createConstructor($property1, false, $operation.returnType)};
 #set ($property3Num=0)
 #set ($property2Num=$property2Num+1)
+#if (${property1.type.enumeration})
+        ${property1.type.fullyQualifiedName} ${property1.name}${propertyNum} = ${property1.type.fullyQualifiedName}.values()[0];
+#else
         ${property1.type.fullyQualifiedName} ${property1.name}${propertyNum} = $webServiceUtils.createConstructor($property1, false, $property.type);
+#end
 #foreach ($property2 in $property1.type.allProperties)
 #if (!$property2.type.allProperties.empty)
         // Property2 $property2.name#if ($property2.many) isMany#end has $property2.type.allProperties.size() properties:#foreach ($property3 in $property2.type.allProperties) $property3.name#end
 
 #set ($property3Num=$property3Num+1)
+#if ($property2.type.enumeration)
+        ${property2.type.fullyQualifiedName} ${property2.name}${propertyNum}${property2Num} = ${property3.type.fullyQualifiedName}.values()[0];
+#else
         ${property2.type.fullyQualifiedName} ${property2.name}${propertyNum}${property2Num} = $webServiceUtils.createConstructor($property2, false, $property1.type);
+#end
 #foreach ($property3 in $property2.type.allProperties)
 #if (!$property3.type.allProperties.empty)
-
         // Property3 $property3.name#if ($property3.many) isMany#end has $property3.type.allProperties.size() properties:#foreach ($property4 in $property3.type.allProperties) $property4.name#end
 
+#if($property3.type.enumeration)
+		${property3.type.fullyQualifiedName} ${property3.name}${propertyNum}${property2Num}${property3Num} = ${property3.type.fullyQualifiedName}.values()[0];
+#else
         ${property3.type.fullyQualifiedName} ${property3.name}${propertyNum}${property2Num}${property3Num} = $webServiceUtils.createConstructor($property3, false, $property2.type);
-        // TODO: Foreach property4 in ${property3.type.fullyQualifiedName} ${property3.name}${propertyNum}${property2Num}${property3Num}.setXXX(value) or getList().add(value)
+#end
+		// TODO: Foreach property4 in ${property3.type.fullyQualifiedName} ${property3.name}${propertyNum}${property2Num}${property3Num}.setXXX(value) or getList().add(value)
 #if ($property3.many)
         ${property2.name}${propertyNum}${property2Num}.${property3.getterName}().add(${property3.name}${propertyNum}${property2Num}${property3Num});
 #else
         ${property2.name}${propertyNum}${property2Num}.${property3.setterName}(${property3.name}${propertyNum}${property2Num}${property3Num});
 #end
 #else
-
         // Property3 $property3.name#if ($property3.many) isMany#end has $property3.type.allProperties.size() properties $property3 $property3.type
 #if ($property3.many)
+#if($property3.type.enumeration)
+        ${property2.name}${propertyNum}${property2Num}.${property3.getterName}().add(${property3.type.fullyQualifiedName}.values()[0]);
+#else
         ${property2.name}${propertyNum}${property2Num}.${property3.getterName}().add($webServiceUtils.createConstructor($property3, false, $property2.type));
+#end
+#else
+#if($property3.type.enumeration)
+		${property2.name}${propertyNum}${property2Num}.${property3.setterName}(${property3.type.fullyQualifiedName}.values()[0]);
 #else
         ${property2.name}${propertyNum}${property2Num}.${property3.setterName}($webServiceUtils.createConstructor($property3, false, $property2.type));
+#end
 #end
 #end
 #end
@@ -341,12 +359,13 @@ $operation.getDocumentation("    * ")
         ${property1.name}${propertyNum}.${property2.setterName}(${property2.name}${propertyNum}${property2Num});
 #end
 #else
-
+#if (!${property1.type.enumeration})
         // Property2 $property2.name#if ($property2.many) isMany#end has $property2.type.allProperties.size() properties $property2 $property2.type
 #if ($property2.many)
         ${property1.name}${propertyNum}.${property2.getterName}().add($webServiceUtils.createConstructor($property2, false, $property1.type));
 #else
         ${property1.name}${propertyNum}.${property2.setterName}($webServiceUtils.createConstructor($property2, false, $property1.type));
+#end
 #end
 #end
 #end
@@ -416,6 +435,7 @@ $operation.getDocumentation("    * ")
 #else
 #set ($parameterName = "${parameter.name}Param$paramNum")
 #end
+
         // parameter$paramNum $parameterName with $parameter.type.allProperties.size() properties:#foreach ($property in $parameter.type.allProperties) $property.name#end
 
         $parameter.type.fullyQualifiedName $parameterName = ${webServiceUtils.createConstructor($parameter, false)};
@@ -460,7 +480,12 @@ $operation.getDocumentation("    * ")
 
         // $property.name property1 $paramNum$propertyNum$property1Num $property1.name with $property1.type.allProperties.size() properties:#foreach ($property2 in $property1.type.allProperties) $property2.name#end
 
+#if(${property1.type.enumeration})
+        ${property1.getterSetterTypeName} ${property1.name}$paramNum$propertyNum$property1Num = ${property1.getterSetterTypeName}.values()[0];
+#else
         ${property1.getterSetterTypeName} ${property1.name}$paramNum$propertyNum$property1Num = ${webServiceUtils.createConstructor($property1, false, $property.type)};
+#end
+#if (!${property1.type.enumeration})
 #foreach ($property2 in $property1.type.allProperties)
 #if (!$property2.type.allProperties.empty)
         // $property1.name property2 $property2.name with $property2.type.allProperties.size() properties:#foreach ($property3 in $property2.type.allProperties) $property3.name#end
@@ -470,6 +495,7 @@ $operation.getDocumentation("    * ")
         ${property1.name}$paramNum$propertyNum$property1Num.${property2.getterName}().add(${webServiceUtils.createConstructor($property2, false, $property1.type)});
 #else
         ${property1.name}$paramNum$propertyNum$property1Num.${property2.setterName}(${webServiceUtils.createConstructor($property2, false, $property1.type)});
+#end
 #end
 #end
         ${property.name}$paramNum$propertyNum.${property1.setterName}(${property1.name}$paramNum$propertyNum$property1Num);

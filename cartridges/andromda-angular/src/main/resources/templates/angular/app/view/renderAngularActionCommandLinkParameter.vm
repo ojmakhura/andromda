@@ -1,7 +1,7 @@
 ##
 ## A macro that renders the appropriate action commandLink parameter
 ##
-#macro(renderActionCommandLinkParameter $parameter $ownerParameter $ident)
+#macro(renderAngularActionCommandLinkParameter $parameter $ownerParameter $ident)
 #if ($parameter.backingListName)
 #set ($propertyId = $parameter.name)
 #set ($valuePropertyName = $parameter.name)

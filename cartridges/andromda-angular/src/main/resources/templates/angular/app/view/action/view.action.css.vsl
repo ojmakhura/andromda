@@ -1,0 +1,2 @@
+#set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.source.name}), '\\ ', '\\/')/$stringUtils.lowerCase(${action.trigger.name})" )
+#set ( $actionName = "$stringUtils.lowerCase($action.trigger.name)" )

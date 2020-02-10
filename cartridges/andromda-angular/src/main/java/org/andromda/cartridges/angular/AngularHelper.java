@@ -14,6 +14,7 @@ import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ValueObject;
+import org.andromda.metafacades.uml.EnumerationFacade;
 import org.andromda.metafacades.uml.Service;
 import org.apache.commons.lang3.StringUtils;
 
@@ -53,25 +54,25 @@ public class AngularHelper {
      * @param _package
      * @return 
      */
-    public static String getComponentDestination(final String _package) {
-        
-        String[] tmp = _package.split("\\.");
-        int length = tmp.length;
-        
-        if(tmp[length-1].equalsIgnoreCase("vo") || tmp[length-1].equalsIgnoreCase("service")) {
-            if(length > 1){
-                StringBuilder builder = new StringBuilder();
-                for(int i = 0; i < tmp.length-1; i++) {
-                    builder.append(tmp[i]);
-                    builder.append("/");
-                }
-                return tmp[length-2];
-            } else
-                return "";
-        }
-                
-        return _package.toLowerCase();        
-    }
+//    public static String getComponentDestination(final String _package) {
+//        
+//        String[] tmp = _package.split("\\.");
+//        int length = tmp.length;
+//        
+//        if(tmp[length-1].equalsIgnoreCase("vo") || tmp[length-1].equalsIgnoreCase("service")) {
+//            if(length > 1){
+//                StringBuilder builder = new StringBuilder();
+//                for(int i = 0; i < tmp.length-1; i++) {
+//                    builder.append(tmp[i]);
+//                    builder.append("/");
+//                }
+//                return tmp[length-2];
+//            } else
+//                return "";
+//        }
+//                
+//        return _package.toLowerCase();        
+//    }
     
     /**
      * Find a proper lower case name for the model file.
@@ -97,8 +98,8 @@ public class AngularHelper {
             } 
             builder.append(c);
         }
-        
-        return builder.toString();
+
+		return builder.toString();
     }
     
     /**
@@ -107,7 +108,7 @@ public class AngularHelper {
      * @return 
      */
     public static String getDatatype(final String typeName) {
-                                
+        
         String datatype = "";
         try {
             Class cls = Class.forName(typeName);
@@ -132,7 +133,7 @@ public class AngularHelper {
                     datatype = getDatatype(tmp) + "[]";
                     
                 } else {
-                    datatype = "Object[]";
+                    datatype = "any[]";
                 }
             } else if(obj instanceof Map) {
                 datatype = "Map";
@@ -141,8 +142,9 @@ public class AngularHelper {
         } catch (InstantiationException | IllegalAccessException e) {            
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            
-            if(typeName.equalsIgnoreCase("java.lang.Boolean")) {
+            if(typeName.equalsIgnoreCase("byte[]")) {
+                datatype = "File";
+            }else if(typeName.equalsIgnoreCase("java.lang.Boolean")) {
                 datatype = "boolean";
             } else {
                 if(typeName.contains("<")) {
@@ -161,50 +163,58 @@ public class AngularHelper {
         
         return datatype;
     }
-        
-    public static HashSet<String> getImports(List<ModelElementFacade> args, String applicationPackage) {
+    
+    /**
+     * Create import statements
+     * 
+     * @param args
+     * @param applicationPackage
+     * @return 
+     */
+    public static HashSet<String> getImports(List<ModelElementFacade> args, String destPackage, String suffix) {
         
         HashSet<String> set = new HashSet<String>();
         for(ModelElementFacade arg : args) {
             ModelElementFacade facade = null;
+			
             if(arg instanceof ParameterFacade) {
                 ParameterFacade tmp = (ParameterFacade)arg;
                 facade = tmp.getType();
             } else if(arg instanceof AttributeFacade) {
                 facade = ((AttributeFacade)arg).getType();
-            } else if(arg instanceof ModelElementFacade) {
+            } else {
                 facade = (ModelElementFacade)arg;
             }
             
             if(facade != null) {
                 String angPath = "";
                 boolean addImport = false;
-                if(facade instanceof ValueObject) {
+                if(facade instanceof ValueObject || facade instanceof EnumerationFacade) {
                     angPath = "model/";
                     addImport = true;
                 } else if(facade instanceof Service) {
                     angPath = "service/";
                     addImport = true;
-                }
+                } 
                 
                 if(addImport) {
                     StringBuilder builder = new StringBuilder();
                     builder.append("import { ");
                     builder.append(facade.getName());
+                    builder.append(suffix);
                     builder.append(" } from '../");
 
                     // Need to handle arbitrary package depth
-                    String subPackage = getComponentDestination(facade.getPackageName());
-                    String[] ar = subPackage.split("\\.");
+                    String[] ar = destPackage.split("\\.");
 
                     for(String s : ar) {
                         builder.append("../");
                     }
 
                     builder.append(angPath);
-                    builder.append(getComponentDestination(facade.getPackageName()));
+                    builder.append(StringUtils.replaceChars(facade.getPackageName(), "\\.", "\\/"));
                     builder.append("/");
-                    builder.append(getComponentFileName(facade.getName()));
+                    builder.append(getComponentFileName(facade.getName()+suffix));
                     builder.append("';");
                     set.add(builder.toString());
                 }
@@ -213,25 +223,20 @@ public class AngularHelper {
         
         return set;
     }
-    
-    public static String getComponentPath(String componentPackage, String applicationPackage) {
-        String subPackage = StringUtils.substringAfter(componentPackage, applicationPackage );
-        String[] tmp = subPackage.split("\\.");
-        int length = tmp.length;
         
-        if(tmp[length-1].equalsIgnoreCase("vo") || tmp[length-1].equalsIgnoreCase("service")) {
-            if(length > 1){
-                StringBuilder builder = new StringBuilder();
-                for(int i = 0; i < tmp.length-1; i++) {
-                    builder.append(tmp[i]);
-                    builder.append("/");
-                }
-                return tmp[length-2];
-            } else
-                return "";
+    /**
+     * Get the bottom most directory name given a path
+     * @param name
+     * @return 
+     */
+    public static String getBottomLevelDir(String path, String extra){
+        
+        String tmp[] = path.split("\\");
+       
+        if(extra != null && extra.trim().length() > 0) {
+            return tmp[tmp.length] + "-" + extra;
         }
-                
-        //return _package.toLowerCase();    
-        return StringUtils.replaceChars(subPackage, "\\.", "\\/").toLowerCase();
+        
+        return tmp[tmp.length];
     }
 }

@@ -1,1 +1,42 @@
-## Velocity Template.
+#set ( $componentPath = $stringUtils.replaceChars($controller.packageName, '\\.', '\\/') )
+#set ( $fileName =  ${angularHelper.getComponentFileName($controller.name)})
+import { Injectable } from '@angular/core';
+import { ${controller.name} } from './$fileName';
+#set ($args = [])
+#foreach ($service in $controller.allServices)
+#set ($ret = $args.add($service))
+#end
+#set ($suffix = "Impl")
+#foreach ($tmp in $angularHelper.getImports($args, $controller.packageName, $suffix))
+$tmp
+#end
+
+@Injectable()
+export class ${controller.implementationName} extends ${controller.name} {
+
+#set ($serviceInc = "")
+#foreach ($service in $controller.allServices)
+#if ($stringUtils.isBlank($serviceInc))
+#set ($serviceInc = "private $stringUtils.uncapitalize($service.name): ${service.name}Impl")
+#else
+#set ($serviceInc = "$serviceInc, private $stringUtils.uncapitalize($service.name): ${service.name}Impl")
+#end
+#end
+	constructor($serviceInc) {
+#set ($serviceParams = "")
+#foreach ($service in $controller.allServices)
+#if ($stringUtils.isBlank($serviceParams))
+#set ($serviceParams = "$stringUtils.uncapitalize($service.name)")
+#else
+#set ($serviceParams = "$serviceParams, $stringUtils.uncapitalize($service.name)")
+#end
+#end
+		super($serviceParams);
+	}
+
+#foreach ($operation in $controller.operations)
+	public ${operation.name}(): Observable<void> {
+	}
+
+#end
+}

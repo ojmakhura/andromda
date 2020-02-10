@@ -4,6 +4,88 @@
     <property reference="wsdlOperationSortMode"/>
     <property reference="webserviceStack"/>
     
+    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFViewLogicImpl">
+        <mapping>
+            <property name="frontEndView"/>
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+        <property reference="actionFormKey"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFActionLogicImpl">
+        <mapping>
+            <property name="exitingInitialState"/>
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+        <property reference="formImplementationPattern"/>
+        <property reference="formBeanPattern"/>
+        <property reference="formScope"/>
+        <property reference="actionFormKey"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFActionLogicImpl">
+        <mapping>
+            <property name="exitingView"/>
+        </mapping>
+        <property reference="formImplementationPattern"/>
+        <property reference="formBeanPattern"/>
+        <property reference="formScope"/>
+        <property reference="actionFormKey"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml22.EnumerationLiteralFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.EnumerationLiteralImpl"/>
+        <property reference="enumerationLiteralNameMask"/>
+    </metafacade>
+	<metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFFinalStateLogicImpl">
+        <mapping>
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <!-- mapping rule for uml14 support -->
+    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFEventLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.SignalEvent$Impl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <!-- mapping rule for uml14 support -->
+    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFEventLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <!-- mapping rule for uml2-emf support -->
+    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFEventLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ActivityImpl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <!-- mapping rule for emf-uml22 support -->
+    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFEventLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.ActivityImpl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFParameterLogicImpl">
+        <mapping>
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+        <property reference="defaultDateFormat"/>
+        <property reference="defaultTimeFormat"/>
+        <property reference="backingListPattern"/>
+        <property reference="backingValuePattern"/>
+        <property reference="labelListPattern"/>
+        <property reference="valueListPattern"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml22.EnumerationFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.EnumerationImpl"/>
+        <property reference="enumerationNameMask"/>
+        <property reference="typeSafeEnumsEnabled"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml22.EnumerationFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.ClassImpl">
+            <stereotype>ENUMERATION</stereotype>
+        </mapping>
+        <property reference="enumerationNameMask"/>
+        <property reference="typeSafeEnumsEnabled"/>
+    </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
         <mapping>
             <stereotype>WEBSERVICE</stereotype>
@@ -43,11 +125,26 @@
             <stereotype>ANGULAR_ACTION</stereotype>
         </mapping>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFControllerOperationLogicImpl">
+        <mapping>
+            <property name="ownerIsController"/>
+        </mapping>
+        <property reference="formPattern"/>
+    </metafacade>
     <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFControllerLogicImpl">
         <mapping>
             <property name="useCase"/>
         </mapping>
         <property reference="controllerImplementationPattern"/>
         <property reference="classifierNameMask"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFAttributeLogicImpl">
+        <mapping/>
+        <property reference="defaultDateFormat"/>
+        <property reference="defaultTimeFormat"/>
+        <property reference="backingListPattern"/>
+        <property reference="backingValuePattern"/>
+        <property reference="labelListPattern"/>
+        <property reference="valueListPattern"/>
     </metafacade>
 </metafacades>
