@@ -26,7 +26,6 @@ export class $action.formImplementationName implements OnInit {
 
 	ngOnInit(): void {
 #foreach ($field in $action.formFields)
-$field
 		if (this.$field.name == null) {
 			this.$field.name = new $angularHelper.getDatatype($field.type.name)();
 		}
