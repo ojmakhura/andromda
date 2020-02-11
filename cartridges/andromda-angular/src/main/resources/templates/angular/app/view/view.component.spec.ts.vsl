@@ -1,23 +1,23 @@
-#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.name}), '\\ ', '\\/') )
+#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
 #set ( $fileName = $stringUtils.replaceChars($stringUtils.lowerCase(${view.name}), '\\ ', '\\-'))
 #set ( $className = $stringUtils.replaceChars($stringUtils.capitalize(${view.name}), '\\ ', ''))
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ${className}Component } from './${fileName}.component';
+import { ${className}View } from './${fileName}.component';
 
-describe('${className}Component', () => {
+describe('${className}View', () => {
 	let component: ${className}Component;
-	let fixture: ComponentFixture<${className}Component>;
+	let fixture: ComponentFixture<${className}View>;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [${className}Component]
+			declarations: [${className}View]
 		})
 			.compileComponents();
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(${className}Component);
+		fixture = TestBed.createComponent(${className}View);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

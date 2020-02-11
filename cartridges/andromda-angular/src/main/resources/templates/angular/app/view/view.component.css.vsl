@@ -1,4 +1,4 @@
-#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.name}), '\\ ', '\\/') )
+#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
 #set ( $fileName = $stringUtils.replaceChars($stringUtils.lowerCase(${view.name}), '\\ ', '\\-'))
 #set ( $className = $stringUtils.replaceChars($stringUtils.capitalize(${view.name}), '\\ ', ''))
 /* TODO

@@ -323,7 +323,7 @@
         </modelElements>
     </template>
 	
-	<template
+<!--	<template
         path="templates/angular/app/view/action/view.action.html.vsl"
         outputPattern="$actionPath/${actionName}.action.html"
         outlet="views"
@@ -381,11 +381,11 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template>-->
 
-    <template
+<!--    <template
         path="templates/angular/app/controller/controller.impl.ts.vsl"
-        outputPattern="$componentPath/${fileName}.impl.ts"
+        outputPattern="$componentPath/${fileName}.ts"
         outlet="controllers"
         overwrite="true">
         <modelElements variable="controller">
@@ -423,5 +423,5 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>    
+    </template>    -->
 </cartridge>

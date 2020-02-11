@@ -1,2 +1,3 @@
-#set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.source.name}), '\\ ', '\\/')/$stringUtils.lowerCase(${action.trigger.name})" )
+#set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/')/$stringUtils.lowerCase(${action.trigger.name})" )
 #set ( $actionName = "$stringUtils.lowerCase($action.trigger.name)" )
+/* TODO */

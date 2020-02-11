@@ -1,34 +1,51 @@
-#set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.source.name}), '\\ ', '\\/')/$stringUtils.lowerCase(${action.trigger.name})" )
+#set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/')/$stringUtils.lowerCase(${action.trigger.name})" )
 #set ( $actionName = "$stringUtils.lowerCase($action.trigger.name)" )
 #set($formName = $action.formBeanName)
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+#set ( $parameters = [] )
+#foreach( $parameter in $action.parameters )
+#set ( $ret = $parameters.add($parameter) )
+#end
+#set ( $suffix = "" )
+#foreach ($tmp in $angularHelper.getImports($parameters, "${action.packageName}.$stringUtils.lowerCase(${action.trigger.name})", $suffix))
+$tmp
+#end
+#set ($args = [])
+#foreach ($service in $action.controller.allServices)
+#set ($ret = $args.add($service))
+#end
+#set ($suffix = "Impl")
+#foreach ($tmp in $angularHelper.getImports($args, "${action.packageName}.$stringUtils.lowerCase(${action.trigger.name})", $suffix))
+$tmp
+#end
 
 @Component({
-  selector: '${actionName}-form',
+  selector: '$stringUtils.replaceChars($stringUtils.lowerCase(${action.source.name}), '\\ ', '\\-')-${action.name}',
   templateUrl: './${actionName}.component.html',
   styleUrls: ['./${actionName}.component.css']
 })
-
 export class $action.formImplementationName implements OnInit {
 
-#foreach ($parameter in $action.parameters)
-#if ($parameter.type.enumeration )
-1
-#else
-2
+#if (!$action.formFields.empty)
+    // Action $action.name formFields
 #end
-	$parameter.name: $parameter.type.name;
+## Impl uses $action.formFields, Form uses $operation.formFields
+#foreach ($field in $action.formFields)
+#if ( $field.many )
+    private $field.name: $angularHelper.getDatatype($field.type.name)[];
 #end
-	
-	constructor(private route: ActivatedRoute, private router: Router, private ${action.controller.beanName}: ${action.controller.name}) {
+#end
+
+	constructor(private route: ActivatedRoute, 
+				private router: Router#foreach($parameter in $action.parameters),
+				private $parameter.name: $angularHelper.getDatatype($parameter.type.name)#end#foreach ($service in $action.controller.allServices),
+				private $stringUtils.uncapitalize($service.name): ${service.name}Impl#end) {
 	}
 
 	ngOnInit(): void {
-#foreach ($field in $action.formFields)
-		if (this.$field.name == null) {
-			this.$field.name = new $angularHelper.getDatatype($field.type.name)();
-		}
-#end
+	}
+	
+	${action.triggerName}() {
 	}
 }

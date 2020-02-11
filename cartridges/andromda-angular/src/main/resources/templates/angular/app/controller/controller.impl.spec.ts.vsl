@@ -1,8 +1,8 @@
 #set ( $componentPath = $stringUtils.replaceChars($controller.packageName, '\\.', '\\/') )
-#set ( $fileName =  ${angularHelper.getComponentFileName($controller.name)})
+#set ( $fileName =  $angularHelper.getComponentFileName("${controller.name}"))
 import { TestBed } from '@angular/core/testing';
 
-import { ${controller.name}Impl } from './${fileName}.impl.spec';
+import { ${controller.name}Impl } from './${fileName}-impl';
 
 describe('${controller.name}Impl', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

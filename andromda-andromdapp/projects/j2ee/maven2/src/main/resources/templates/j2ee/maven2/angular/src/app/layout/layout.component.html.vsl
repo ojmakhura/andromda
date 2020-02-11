@@ -1,5 +1,5 @@
 <mat-sidenav-container> 
-    <mat-sidenav  mode="side" #sidenav>
+    <mat-sidenav  mode="side" #sidenav [(opened)]="opened">
         <!--this is a place for us to add side-nav code--> 
 		<$stringUtils.lowerCase(${applicationId})-navigation></$stringUtils.lowerCase(${applicationId})-navigation>
     </mat-sidenav> 

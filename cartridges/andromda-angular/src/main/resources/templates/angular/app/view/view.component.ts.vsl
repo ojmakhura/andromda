@@ -1,14 +1,72 @@
-#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.name}), '\\ ', '\\/') )
+#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
 #set ( $fileName = $stringUtils.replaceChars($stringUtils.lowerCase(${view.name}), '\\ ', '\\-'))
 #set ( $className = "$stringUtils.replaceChars($stringUtils.capitalize(${view.name}), '\\ ', '')View")
+## Find all the fields in the actions of the view
+#set ( $fields = [] )
+#foreach ( $action in $view.actions )
+#foreach ( $field in $action.formFields )
+#set ( $rt = $fields.add($field))
+#end
+#end
+#set ( $finalFields = [] )
+#foreach ($finalField in $angularHelper.getFacadeSet($fields) )
+#set ( $rt = $finalFields.add($finalField) )
+#end
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+#set ( $suffix = "" )
+#foreach ( $tmp in $angularHelper.getImports($finalFields, ${view.packageName}, $suffix) )
+$tmp
+#end
+#foreach ( $action in $view.actions )
+#end
+## Get the services
+## We handle services separately because we need the implementations, not the bases
+#set ($services = [] )
+#foreach ($action in $view.actions)
+#foreach ($service in $action.controller.allServices)
+#set ( $rt = $services.add($service) )
+#end
+#end
+#set ( $finalServices = [] ) ## No repetisions
+#foreach ( $finalService in $angularHelper.getFacadeSet($services) )
+#set ($rt = $finalServices.add($finalService) )
+#end
+#set ($suffix = "Impl")
+#foreach ($tmp in $angularHelper.getImports($finalServices, $view.packageName, $suffix))
+$tmp
+#end
 
 @Component({
   selector: '${fileName}-view',
   templateUrl: './${fileName}.component.html',
   styleUrls: ['./${fileName}.component.css']
 })
+export class ${className} implements OnInit {
+	
+#foreach ($field in $finalFields)
+#if ( $field.many )
+    private $field.name: $angularHelper.getDatatype($field.type.name)[];
+#end
+#end
+	constructor(private route: ActivatedRoute, 
+				private router: Router#foreach ($service in $finalServices),
+				private $stringUtils.uncapitalize($service.name): ${service.name}Impl#end#foreach ($field in $finalFields)#if (!$field.many),
+				private $field.name: $angularHelper.getDatatype($field.type.name)#end#end) {
 
-export class ${className} {
+	}
+	
+	ngOnInit() {
+#foreach ($field in $fields)
+#if ( $field.many )
+	    this.$field.name = [];
+#end
+#end
+	}
+
+#foreach ( $action in $view.actions )
+	${action.triggerName}(){
+	}
+#end
+
 }

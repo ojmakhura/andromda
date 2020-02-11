@@ -51,6 +51,7 @@ export class ${service.name}Impl extends ${service.name} {
 #set ($returnType = "Observable<$returnType>")
     public ${operation.name}($arguments): $returnType {
         // TODO: Implement this method
+		return Object();
     }
 
 #end

@@ -1,8 +1,8 @@
-#set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.source.name}), '\\ ', '\\/')/$stringUtils.lowerCase(${action.trigger.name})" )
+#set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/')/$stringUtils.lowerCase(${action.trigger.name})" )
 #set ( $actionName = "$stringUtils.lowerCase($action.trigger.name)" )
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ${action.formImplementationName} } from './${action.formImplementationName}.component';
+import { ${action.formImplementationName} } from './${actionName}.action';
 
 describe('${action.formImplementationName}', () => {
 	let component: ${action.formImplementationName};

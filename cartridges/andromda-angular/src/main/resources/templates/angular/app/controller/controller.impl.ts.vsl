@@ -1,7 +1,8 @@
 #set ( $componentPath = $stringUtils.replaceChars($controller.packageName, '\\.', '\\/') )
-#set ( $fileName =  ${angularHelper.getComponentFileName($controller.name)})
+#set ( $fileName =  ${angularHelper.getComponentFileName("${controller.name}Impl")})
 import { Injectable } from '@angular/core';
-import { ${controller.name} } from './$fileName';
+import { Observable } from 'rxjs';
+import { ${controller.name} } from './${angularHelper.getComponentFileName("${controller.name}")}';
 #set ($args = [])
 #foreach ($service in $controller.allServices)
 #set ($ret = $args.add($service))
@@ -23,15 +24,7 @@ export class ${controller.implementationName} extends ${controller.name} {
 #end
 #end
 	constructor($serviceInc) {
-#set ($serviceParams = "")
-#foreach ($service in $controller.allServices)
-#if ($stringUtils.isBlank($serviceParams))
-#set ($serviceParams = "$stringUtils.uncapitalize($service.name)")
-#else
-#set ($serviceParams = "$serviceParams, $stringUtils.uncapitalize($service.name)")
-#end
-#end
-		super($serviceParams);
+		super();
 	}
 
 #foreach ($operation in $controller.operations)

@@ -11,7 +11,7 @@ import { Injectable } from '@angular/core';
 $tmp
 #end
 
-@Injectable
+@Injectable()
 export class $class.name {
 #foreach ($attribute in $class.attributes)
 #set ($returnType = $angularHelper.getDatatype($attribute.getterSetterTypeName))

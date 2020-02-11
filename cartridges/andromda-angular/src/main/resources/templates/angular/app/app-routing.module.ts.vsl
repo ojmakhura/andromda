@@ -16,7 +16,7 @@
 #end
 #set ( $className = "$stringUtils.replaceChars($stringUtils.capitalize(${view.name}), '\\ ', '')View")
 #set ($routeName = $stringUtils.deleteWhitespace($stringUtils.lowerCase($view.name)))
-#set ($menuItems = "$menuItems { route: '$routeName', component: $className }")
+#set ($menuItems = "$menuItems { path: '$routeName', component: $className }")
 #end
 #if (!$children.empty)
 #foreach ($child in $children)

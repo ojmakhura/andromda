@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-@Injectable
+@Injectable()
 export abstract class $controller.name {
 
 #foreach ($operation in $controller.operations)

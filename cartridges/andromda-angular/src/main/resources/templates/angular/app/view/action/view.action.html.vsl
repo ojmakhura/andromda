@@ -1,4 +1,4 @@
-#set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.source.name}), '\\ ', '\\/')/$stringUtils.lowerCase(${action.trigger.name})" )
+#set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/')/$stringUtils.lowerCase(${action.trigger.name})" )
 #set ( $actionName = "$stringUtils.lowerCase($action.trigger.name)" )
 #set($formName = $action.formBeanName)
 <div class="card my-5">
@@ -31,7 +31,7 @@
 #end
 #end
 #end
-			<button type="button" (click)="${action.controller.beanName}.${action.triggerName}()" class="btn btn-info">$stringUtils.capitalize(${action.trigger.name})</button>
+			<button type="button" (click)="${action.triggerName}()" class="btn btn-info">$stringUtils.capitalize(${action.trigger.name})</button>
 #end
 		</form>
 	</div>

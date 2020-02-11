@@ -16,6 +16,7 @@ import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ValueObject;
 import org.andromda.metafacades.uml.EnumerationFacade;
 import org.andromda.metafacades.uml.Service;
+import org.andromda.metafacades.uml.FrontEndController;
 import org.apache.commons.lang3.StringUtils;
 
 public class AngularHelper {
@@ -167,13 +168,14 @@ public class AngularHelper {
     /**
      * Create import statements
      * 
-     * @param args
-     * @param applicationPackage
-     * @return 
-     */
+	 * @param args
+	 * @param destPackage
+	 * @param suffix
+	 * @return 
+	 */
     public static HashSet<String> getImports(List<ModelElementFacade> args, String destPackage, String suffix) {
-        
-        HashSet<String> set = new HashSet<String>();
+
+		HashSet<String> set = new HashSet<String>();
         for(ModelElementFacade arg : args) {
             ModelElementFacade facade = null;
 			
@@ -195,21 +197,27 @@ public class AngularHelper {
                 } else if(facade instanceof Service) {
                     angPath = "service/";
                     addImport = true;
+                } else if(facade instanceof FrontEndController) {
+                    angPath = "controller/";
+                    addImport = true;
                 } 
-                
-                if(addImport) {
+
+				if(addImport) {
                     StringBuilder builder = new StringBuilder();
                     builder.append("import { ");
                     builder.append(facade.getName());
                     builder.append(suffix);
-                    builder.append(" } from '../");
-
-                    // Need to handle arbitrary package depth
-                    String[] ar = destPackage.split("\\.");
-
-                    for(String s : ar) {
-                        builder.append("../");
-                    }
+					
+					if(StringUtils.isBlank(destPackage)) {
+						builder.append(" } from './");
+					} else {
+						builder.append(" } from '../");
+						// Need to handle arbitrary package depth
+						String[] ar = destPackage.split("\\.");
+						for(String s : ar) {
+							builder.append("../");
+						}
+					}
 
                     builder.append(angPath);
                     builder.append(StringUtils.replaceChars(facade.getPackageName(), "\\.", "\\/"));
@@ -239,4 +247,17 @@ public class AngularHelper {
         
         return tmp[tmp.length];
     }
+	
+	public static HashSet<ModelElementFacade> getFacadeSet(List<ModelElementFacade> facades) {
+		HashSet<String> nameSet = new HashSet<>();
+		HashSet<ModelElementFacade> elementSet =  new HashSet<>();
+		
+		for(ModelElementFacade facade : facades) {
+			if(nameSet.add(facade.getName())) {
+				elementSet.add(facade);
+			}
+		}
+		
+		return elementSet;
+	}
 }
