@@ -257,7 +257,7 @@
         path="templates/angular/app/service/service.impl.ts.vsl"
         outputPattern="$componentPath/${fileName}.ts"
         outlet="service-impls"
-        overwrite="true">
+        overwrite="false">
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.webservice.metafacades.WebService">
