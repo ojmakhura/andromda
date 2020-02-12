@@ -103,7 +103,7 @@
             <scope>runtime</scope>
         </dependency>
 #end
-#if (!$webservice.equals("none") && !$jsr181Webservice)
+#if ((!$webservice.equals("none") && !$jsr181Webservice) || $angular)
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-webservice-cartridge</artifactId>
@@ -117,7 +117,7 @@
             <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
-#if ($webType.equals("jsf") || $webType.equals("both"))
+#if ($webType.equals("jsf") || $webType.equals("both") || $angular)
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-jsf2-cartridge</artifactId>

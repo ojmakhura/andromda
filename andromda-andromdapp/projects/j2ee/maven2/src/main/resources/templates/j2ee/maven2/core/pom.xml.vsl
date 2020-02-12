@@ -502,6 +502,10 @@
 #else
         <!-- add the database jdbc dependency -->
 #end
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-dbcp</artifactId>
+		</dependency>
     </dependencies>
     <build>
         <plugins>

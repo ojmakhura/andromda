@@ -260,4 +260,15 @@ public class AngularHelper {
 		
 		return elementSet;
 	}
+	
+	public String getWebServiceMethodName(String fullName) {
+		String[] splits = fullName.split("\\.");
+		return splits[splits.length-1].toLowerCase();
+	}
+	
+	public String getWebServiceOperationPath(String fullPath) {
+		
+		String tmp = StringUtils.substringBetween(fullPath, "\"");
+		return StringUtils.substringBefore(tmp, "{");
+	}
 }

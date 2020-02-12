@@ -1485,17 +1485,17 @@ public class WebServiceLogicImpl
         }
         if (!(this.getRestCount()>0) || StringUtils.isBlank(path) || path.equals(DEFAULT))
         {
-            path = QUOTE + SLASH + this.getName().toLowerCase() + SLASH + QUOTE;
+            path = SLASH + this.getName().toLowerCase() + SLASH;
         }
         else
         {
             if (!path.startsWith(QUOTE))
             {
-                path = QUOTE + path;
+                path = path;
             }
             if (!path.endsWith(QUOTE) || path.length()<2)
             {
-                path = path + QUOTE;
+                path = path;
             }
         }
         return path;
