@@ -43,6 +43,7 @@ import { $stringUtils.capitalize(${applicationId})Component } from './$stringUti
 ## We handle services separately because we need the implementations, not the bases
 #set ($services = [] )
 #set ($fields = [] )
+#set ($otherFacades = [] )
 #foreach ($useCase in $useCases)
 #foreach ($action in $useCase.actions)
 #foreach ($service in $action.controller.allServices)
@@ -52,7 +53,16 @@ import { $stringUtils.capitalize(${applicationId})Component } from './$stringUti
 #set ( $rt = $fields.add($field.type))
 #end
 #end
+#foreach ($view in $useCase.views)
+#foreach ($table in $view.tables)
+#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${table.packageName}), '\\.', '\\/') )
+#set ( $fileName = $stringUtils.replaceChars($stringUtils.lowerCase("${table.view.name}-${table.name}"), '\\ ', '\\-'))
+#set ( $className = $angularHelper.getComponentName($fileName, "-"))
+import { $className } from './view/$componentPath/${fileName}.component';
 #end
+#end
+#end
+
 #set ( $finalServices = $angularHelper.getFacadeSet($services) ) ## No repetisions
 #foreach ( $finalService in $finalServices )
 #set ($componentPath = $stringUtils.replaceChars(${finalService.packageName}, "\\.", "\\/"))
@@ -128,6 +138,16 @@ $tmp
 #else
 #set ($imp = "$imp, 
 		${field.name}")
+#end
+#end
+#foreach ($useCase in $useCases)
+#foreach ($view in $useCase.views)
+#foreach ($table in $view.tables)
+#set ( $fileName = $stringUtils.replaceChars($stringUtils.lowerCase("${table.view.name}-${table.name}"), '\\ ', '\\-'))
+#set ( $className = $angularHelper.getComponentName($fileName, "-"))
+#set ($imp = "$imp, 
+		$className")
+#end
 #end
 #end
 		$imp

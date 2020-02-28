@@ -51,7 +51,7 @@ export class ${className} implements OnInit {
 #end
 	constructor(private route: ActivatedRoute, 
 				private router: Router#foreach ($service in $finalServices),
-				private $stringUtils.uncapitalize($service.name): ${service.name}Impl#end#foreach ($field in $finalFields)#if (!$field.many),
+				private $stringUtils.uncapitalize($service.name): ${service.name}$suffix#end#foreach ($field in $finalFields)#if (!$field.many),
 				private $field.name: $angularHelper.getDatatype($field.type.name)#end#end) {
 
 	}

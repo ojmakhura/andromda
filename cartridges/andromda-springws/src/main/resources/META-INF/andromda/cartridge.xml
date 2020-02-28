@@ -1,0 +1,19 @@
+<cartridge>
+
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
+        <macrolibrary name="templates/webservice/jaxws/RenderRestrictions.vm"/>
+    </templateEngine>
+
+    <!-- define the template objects that are made available to the template -->
+    <templateObject name="stringUtils" className="org.apache.commons.lang3.StringUtils"/>
+    <templateObject name="javaUtils" className="org.andromda.cartridges.java.JavaUtils"/>
+    <templateObject name="umlUtils" className="org.andromda.metafacades.uml.UMLMetafacadeUtils"/>
+    <templateObject name="springWSHelper" className="org.andromda.cartridges.springws.SpringWSHelper"/>
+    <templateObject name="webServiceUtils" className="org.andromda.cartridges.webservice.WebServiceUtils"/>
+    <templateObject name="escTool" className="org.apache.velocity.tools.generic.EscapeTool"/>
+    
+    <!-- cartridge-templateObject merge-point-->
+
+    <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
+    
+</cartridge>

@@ -1,0 +1,13 @@
+#set ($componentPath = $stringUtils.replaceChars(${service.packageName}, "\\.", "\\/"))
+#set ($webserviceName = '${service.name}SWS')
+
+@org.springframework.web.bind.annotation.RestController
+@org.springframework.web.bind.annotation.RequestMapping(#if ($stringUtils.isNotBlank($service.restPath))"$service.restPath"#else"${service.name.toLowerCase()}sws"#end)
+@org.springframework.stereotype.Component
+public class $webserviceName {
+	
+	@org.springframework.beans.factory.annotation.Autowired
+	private ${service.type.name} ${service.name};
+
+	
+}

@@ -3,7 +3,14 @@
 <metafacades>
     <property reference="wsdlOperationSortMode"/>
     <property reference="webserviceStack"/>
+	<property reference="normalizeMessages"/>
     
+    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFControllerOperationLogicImpl">
+        <mapping>
+            <property name="ownerIsController"/>
+        </mapping>
+        <property reference="formPattern"/>
+    </metafacade>
     <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFViewLogicImpl">
         <mapping>
             <property name="frontEndView"/>
@@ -33,6 +40,17 @@
     <metafacade class="org.andromda.metafacades.emf.uml22.EnumerationLiteralFacadeLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.EnumerationLiteralImpl"/>
         <property reference="enumerationLiteralNameMask"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFUseCaseLogicImpl">
+        <mapping>
+            <stereotype>FRONT_END_APPLICATION</stereotype>
+        </mapping>
+        <property reference="actionFormKey"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFUseCaseLogicImpl">
+        <mapping>
+            <stereotype>FRONT_END_USE_CASE</stereotype>
+        </mapping>
     </metafacade>
 	<metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFFinalStateLogicImpl">
         <mapping>
@@ -73,6 +91,11 @@
         <property reference="backingValuePattern"/>
         <property reference="labelListPattern"/>
         <property reference="valueListPattern"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFActivityGraphLogicImpl">
+        <mapping>
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
     </metafacade>
     <metafacade class="org.andromda.metafacades.emf.uml22.EnumerationFacadeLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.EnumerationImpl"/>

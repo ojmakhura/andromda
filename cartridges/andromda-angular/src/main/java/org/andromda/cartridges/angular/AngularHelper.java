@@ -17,6 +17,7 @@ import org.andromda.metafacades.uml.ValueObject;
 import org.andromda.metafacades.uml.EnumerationFacade;
 import org.andromda.metafacades.uml.Service;
 import org.andromda.metafacades.uml.FrontEndController;
+import org.andromda.metafacades.uml.FrontEndView;
 import org.apache.commons.lang3.StringUtils;
 
 public class AngularHelper {
@@ -200,6 +201,9 @@ public class AngularHelper {
                 } else if(facade instanceof FrontEndController) {
                     angPath = "controller/";
                     addImport = true;
+                } else if(facade instanceof FrontEndView) {
+                    angPath = "view/";
+                    addImport = true;
                 } 
 
 				if(addImport) {
@@ -231,6 +235,12 @@ public class AngularHelper {
         
         return set;
     }
+	
+	public HashSet<String> getStringSet(List<String> strings) {
+		HashSet<String> set = new HashSet<String>();
+		set.addAll(strings);		
+		return set;
+	}
         
     /**
      * Get the bottom most directory name given a path
@@ -253,7 +263,7 @@ public class AngularHelper {
 		HashSet<ModelElementFacade> elementSet =  new HashSet<>();
 		
 		for(ModelElementFacade facade : facades) {
-			if(nameSet.add(facade.getName())) {
+			if(facade != null && nameSet.add(facade.getName())) {
 				elementSet.add(facade);
 			}
 		}
@@ -270,5 +280,17 @@ public class AngularHelper {
 		
 		String tmp = StringUtils.substringBetween(fullPath, "\"");
 		return StringUtils.substringBefore(tmp, "{");
+	}
+	
+	public static String getComponentName(String cName, String remove) {
+		
+		String[] splits = cName.split(remove);
+		StringBuilder builder = new StringBuilder();
+		
+		for( String s : splits) {
+			builder.append(StringUtils.capitalize(s));
+		}
+		
+		return builder.toString();
 	}
 }

@@ -1,13 +1,34 @@
 ##
 ## This macro renders the <f:param> elements for a command link
 ##
-#macro (renderAngularTableCommandLinkParameters $ident)
+#macro (renderAngularTableCommandLinkParameters)
+#set ( $params = "")
 #foreach ($parameter in $action.parameters)
 #if ($table.tableColumnNames.contains($parameter.name) || $table.tableAttributeNames.contains($parameter.name))
 #set ($parameterValue = "row.${parameter.name}")
 #else
 #set ($parameterValue = "$parameter.name")
 #end
-${ident}<f:setPropertyActionListener target="#{${action.formBeanName}.${parameter.name}}" value="#{${parameterValue}}"/>
+#if($stringUtils.isAllEmpty($arguments))
+#set ($params = "${parameterValue}")
+#else
+#set ($params = ", ${parameterValue}") 
 #end
+#end
+$params
+#end
+
+##
+## This macro renders the parameters for a function
+##
+#macro (renderAngularTableCommandLinkParametersWithTypes)
+#set ( $params = "")
+#foreach ($parameter in $action.parameters)
+#if($stringUtils.isAllEmpty($arguments))
+#set ($params = "$parameter.name: $angularHelper.getDatatype(${parameter.type.fullyQualifiedName})")
+#else
+#set ($params = ", $parameter.name: $angularHelper.getDatatype(${parameter.type.fullyQualifiedName})")
+#end
+#end
+$params
 #end

@@ -820,26 +820,31 @@
 #if ($cxf)
             <!-- Explicit Spring dependencies to avoid compile/run version mismatch, shown by: Error creating bean Caused by: java.lang.NoSuchFieldError: NULL -->
 #if (!$spring)
-            <dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-parent</artifactId>
+				<version>${spring-boot.version}</version>
+			</dependency>
+            <!--dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-beans</artifactId>
                 <version>${spring.version}</version>
-            </dependency>
-            <dependency>
+            </dependency-->
+            <!--dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-core</artifactId>
                 <version>${spring.version}</version>
-            </dependency>
-            <dependency>
+            </dependency-->
+            <!--dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
                 <version>${spring.version}</version>
-            </dependency>
-            <dependency>
+            </dependency-->
+            <!--dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context-support</artifactId>
                 <version>${spring.version}</version>
-            </dependency>
+            </dependency-->
 #if (!$jetty && !$tomcat)
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -1009,6 +1014,23 @@
                 </exclusions>
 #end
             </dependency>
+#if ($springws)
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web-services</artifactId>
+				<version>${spring-boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${spring-boot.version}</version>
+			</dependency>		
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-test</artifactId>
+				<version>${spring-boot.version}</version>
+			</dependency>
+#end
             <dependency>
 				<groupId>org.apache.tomcat</groupId>
 				<artifactId>tomcat-dbcp</artifactId>
@@ -1183,6 +1205,7 @@
         webservice=$webservice
         cxf=$cxf
         rest=$rest
+		springws=$springws
         jbossSeam=$jbossSeam
         webserviceStack=$webserviceStack
         embeddedWebServer=$embeddedWebServer
@@ -1205,6 +1228,9 @@
 #end
 #if ($ear)
         <module>app</module>
+#end
+#if ($springws)
+		<module>springws</module>
 #end
     </modules>
     <properties>
@@ -1434,9 +1460,10 @@
 #end
 #if ($cxf)
         <spring.version>5.1.3.RELEASE</spring.version>
-#elseif ($spring)
+#elseif ($spring || $springws)
         <!-- v5 migration needed -->
         <spring.version>5.1.3.RELEASE</spring.version>
+		<spring-boot.version>2.2.4.RELEASE</spring-boot.version>
 #end
         <!-- To override parent default settings for compiler plugin and compliance checks-->
         <dependencyConvergence>true</dependencyConvergence>

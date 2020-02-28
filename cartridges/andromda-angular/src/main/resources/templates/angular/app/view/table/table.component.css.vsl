@@ -1,0 +1,5 @@
+#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${table.packageName}), '\\.', '\\/') )
+#set ( $fileName = $stringUtils.replaceChars($stringUtils.lowerCase("${table.view.name}-${table.name}"), '\\ ', '\\-'))
+#set ( $className = $angularHelper.getComponentName($fileName, "-"))
+/* TODO
+ */

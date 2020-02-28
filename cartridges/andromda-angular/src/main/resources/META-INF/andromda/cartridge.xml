@@ -299,7 +299,7 @@
         path="templates/angular/app/view/view.component.css.vsl"
         outputPattern="$componentPath/${fileName}.component.css"
         outlet="views"
-        overwrite="true">
+        overwrite="false">
         <modelElements variable="view">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndView">
@@ -318,6 +318,62 @@
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndView">
                     <property name="popup">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+	
+	<template
+        path="templates/angular/app/view/table/table.component.ts.vsl"
+        outputPattern="$componentPath/${fileName}.component.ts"
+        outlet="views"
+        overwrite="true">
+        <modelElements>
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="tables" variable="table"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+	
+	<template
+        path="templates/angular/app/view/table/table.component.html.vsl"
+        outputPattern="$componentPath/${fileName}.component.html"
+        outlet="views"
+        overwrite="true">
+        <modelElements>
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="tables" variable="table"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+	
+	<template
+        path="templates/angular/app/view/table/table.component.spec.ts.vsl"
+        outputPattern="$componentPath/${fileName}.component.spec.ts"
+        outlet="views"
+        overwrite="false">
+        <modelElements>
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="tables" variable="table"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+	
+	<template
+        path="templates/angular/app/view/table/table.component.css.vsl"
+        outputPattern="$componentPath/${fileName}.component.css"
+        outlet="views"
+        overwrite="false">
+        <modelElements>
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="tables" variable="table"/>
                 </type>
             </modelElement>
         </modelElements>

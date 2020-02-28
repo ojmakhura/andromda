@@ -1,0 +1,13 @@
+package ${applicationPackage}.springws;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class ${stringUtils.capitalize($applicationId)}WSApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}

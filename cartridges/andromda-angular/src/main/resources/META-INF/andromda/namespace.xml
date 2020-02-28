@@ -18,12 +18,6 @@
             <documentation>
                 Defines the locations to which output is generated.
             </documentation>
-            <property name="applicationName" required="true">
-                <documentation>
-                    The name of the application (this is used as the display
-                    name of the application).
-                </documentation>
-            </property>
             <property name="applicationId" required="true">
                 <documentation>
                     The id of the application (this is used as the display
@@ -217,6 +211,30 @@
                 <default>true</default>
                 <documentation>
                     Uses 'redirect' instead of 'forward' to navigate between views.
+                </documentation>
+            </property>
+        </propertyGroup>		
+        <propertyGroup name="Messages and i18n">
+            <documentation>
+                Properties related to the configuration of messages and internationalization in general.
+            </documentation>
+            <property name="applicationName" required="true">
+                <documentation>
+                    The name of the application (this is used as the display
+                    name of the application).
+                </documentation>
+            </property>
+            <property name="normalizeMessages">
+                <default>true</default>
+                <documentation>
+                    Denotes the way application resource messages ought to be generated.
+                    When messages are normalized it means that elements with the same name
+                    will reuse the same label, even if they are located in entirely different
+                    use-cases or pages.
+                    This results in resource bundles that are not only smaller in size but
+                    also more straightforward to translate. The downside is that it will be
+                    less evident to customize labels for certain fields (which is rarely the
+                    case anyway).
                 </documentation>
             </property>
         </propertyGroup>

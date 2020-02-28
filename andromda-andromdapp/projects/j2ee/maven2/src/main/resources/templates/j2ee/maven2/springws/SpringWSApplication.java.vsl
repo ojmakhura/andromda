@@ -1,0 +1,13 @@
+package ${applicationPackage}.springws;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ${stringUtils.capitalize($applicationId)}WSApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringwsApplication.class, args);
+	}
+
+}
