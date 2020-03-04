@@ -5,56 +5,26 @@
 ## Render the form for each action
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
-    #set($formName = $action.formBeanName)
+#set ( $actionName = "${action.name}" )
 	<div class="card my-5">
-		<div class="card-body">
-			<form ${escTool.hash}${formName}="ngForm">
-#if ($action.hyperlink)
-				<a routerLink="/crisis-center" routerLinkActive="active">Crisis Center</a>
-#foreach ($parameter in $action.parameters)
-#if (!$parameter.complex || $parameter.type.enumeration)
-				<div>
-#renderAngularActionCommandLinkParameter($parameter "" "        ")
-				</div>
-#end
-#foreach ($attribute in $parameter.attributes)
-				<div>
-#renderAngularActionCommandLinkParameter($attribute $parameter "        ")
-				</div>
-#end
-#end
-##    </p:commandLink>
-#else
-##if (!$action.hiddenParameters.empty)
-##    <ui:include src="${action.viewFragmentPath}-hidden-params.xhtml"/>
-##end
-#set($triggerId = "${action.triggerName}Action")        
-#foreach ($parameter in $action.parameters)
-#if (!$parameter.complex || $parameter.type.enumeration)
-				<div>
-#renderAngularActionInput($parameter "" "        ")
-				</div>
-#else
-#foreach ($attribute in $parameter.attributes)
-				<div>
-#renderAngularActionInput($attribute $parameter "        ")
-				</div>
-#end
-#end
-#end
-				<div>
-					<button type="button" (click)="${action.triggerName}()" class="btn btn-info">$stringUtils.capitalize(${action.trigger.name})</button>
-				</div>
-#end
-			</form>
-		</div>
+		<$actionName></$actionName>
 	</div>
 #end
 #end
+#set ( $tables = [] )
 #foreach ($variable in $view.variables)
 #if ($variable.table)
-    <!-- Need a table for $variable.name: $variable.type.name -->
+#set ( $tmp = $tables.add($variable) )
 #end
 #end
-
+#if ( $tables.size() > 0 )
+	<mat-tab-group animationDuration="0ms">
+#foreach ( $table in $tables )
+#set ( $tableName = $stringUtils.replaceChars($stringUtils.lowerCase("${table.view.name}-${table.name}"), '\\ ', '\\-'))
+		<mat-tab label="${table.name}">
+			<$tableName></$tableName>
+		</mat-tab>
+#end
+	</mat-tab-group>
+#end
 </div>

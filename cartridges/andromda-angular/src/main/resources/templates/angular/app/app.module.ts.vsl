@@ -58,7 +58,13 @@ import { $stringUtils.capitalize(${applicationId})Component } from './$stringUti
 #set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${table.packageName}), '\\.', '\\/') )
 #set ( $fileName = $stringUtils.replaceChars($stringUtils.lowerCase("${table.view.name}-${table.name}"), '\\ ', '\\-'))
 #set ( $className = $angularHelper.getComponentName($fileName, "-"))
-import { $className } from './view/$componentPath/${fileName}.component';
+import { ${className}Impl } from './view/$componentPath/${fileName}.impl.component';
+#end
+#foreach ($action in $view.actions)
+#set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/')" )
+#set ( $actionFileName = $stringUtils.lowerCase($stringUtils.replaceChars("${action.useCase.name}-$action.trigger.name", '\\ ', '\\-')) )
+#set ( $actionName = "${angularHelper.getComponentName($action.name, '-')}Impl" )
+import { $actionName } from './view/$actionPath/${actionFileName}.impl.component';
 #end
 #end
 #end
@@ -71,7 +77,10 @@ import { ${finalService.name}Impl } from './service/$componentPath/$fileName'
 #end
 #set ( $finalFields = [] )
 #foreach ($finalField in $angularHelper.getFacadeSet($fields) )
+#set ($dt = $angularHelper.getDatatype($finalField.fullyQualifiedName))
+#if ($dt != "number" && $dt != "string" && $dt != "Date")
 #set ( $rt = $finalFields.add($finalField) )
+#end
 #end
 #set ( $suffix = "" )
 #foreach ( $tmp in $angularHelper.getImports($finalFields, "", $suffix) )
@@ -86,6 +95,19 @@ $tmp
     $stringUtils.capitalize(${applicationId})NavigationComponent")
 #foreach ($useCase in $useCases)
 #renderUseCaseDeclarations ($useCase )
+#foreach ($view in $useCase.views)
+#foreach ($table in $view.tables)
+#set ( $fileName = $stringUtils.replaceChars($stringUtils.lowerCase("${table.view.name}-${table.name}"), '\\ ', '\\-'))
+#set ( $className = $angularHelper.getComponentName($fileName, "-"))
+#set ($imports = "$imports, 
+	${className}Impl")
+#end
+#foreach ($action in $view.actions)
+#set ( $actionName = "${angularHelper.getComponentName($action.name, '-')}Impl" )
+#set ($imports = "$imports, 
+	$actionName")
+#end
+#end
 #end
     $imports
   ],
@@ -129,7 +151,7 @@ $tmp
 #set ($imp = "${finalService.name}Impl")
 #else
 #set ($imp = "$imp, 
-		${finalService.name}Impl")
+	${finalService.name}Impl")
 #end
 #end
 #foreach ($field in $finalFields)
@@ -137,7 +159,7 @@ $tmp
 #set ($imp = "${field.name}")
 #else
 #set ($imp = "$imp, 
-		${field.name}")
+	${field.name}")
 #end
 #end
 #foreach ($useCase in $useCases)
@@ -146,7 +168,12 @@ $tmp
 #set ( $fileName = $stringUtils.replaceChars($stringUtils.lowerCase("${table.view.name}-${table.name}"), '\\ ', '\\-'))
 #set ( $className = $angularHelper.getComponentName($fileName, "-"))
 #set ($imp = "$imp, 
-		$className")
+	${className}Impl")
+#end
+#foreach ($action in $view.actions)
+#set ( $actionName = "${angularHelper.getComponentName($action.name, '-')}Impl" )
+#set ($imp = "$imp, 
+	$actionName")
 #end
 #end
 #end

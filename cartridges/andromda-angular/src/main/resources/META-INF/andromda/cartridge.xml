@@ -338,6 +338,20 @@
     </template>
 	
 	<template
+        path="templates/angular/app/view/table/table.component.impl.ts.vsl"
+        outputPattern="$componentPath/${fileName}.impl.component.ts"
+        outlet="views"
+        overwrite="true">
+        <modelElements>
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="tables" variable="table"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+	
+	<template
         path="templates/angular/app/view/table/table.component.html.vsl"
         outputPattern="$componentPath/${fileName}.component.html"
         outlet="views"
@@ -379,9 +393,9 @@
         </modelElements>
     </template>
 	
-<!--	<template
+	<template
         path="templates/angular/app/view/action/view.action.html.vsl"
-        outputPattern="$actionPath/${actionName}.action.html"
+        outputPattern="$actionPath/${actionName}.component.html"
         outlet="views"
         overwrite="true">
         <modelElements variable="action">
@@ -396,7 +410,22 @@
     
 	<template
         path="templates/angular/app/view/action/view.action.ts.vsl"
-        outputPattern="$actionPath/${actionName}.action.ts"
+        outputPattern="$actionPath/${actionName}.component.ts"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="action">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndAction">
+                    <property name="tableLink">false</property>
+                    <property name="input"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+	
+	<template
+        path="templates/angular/app/view/action/view.action.impl.ts.vsl"
+        outputPattern="$actionPath/${actionName}.impl.component.ts"
         outlet="views"
         overwrite="true">
         <modelElements variable="action">
@@ -411,7 +440,7 @@
     
 	<template
         path="templates/angular/app/view/action/view.action.css.vsl"
-        outputPattern="$actionPath/${actionName}.action.css"
+        outputPattern="$actionPath/${actionName}.component.css"
         outlet="views"
         overwrite="true">
         <modelElements variable="action">
@@ -426,7 +455,7 @@
     
 	<template
         path="templates/angular/app/view/action/view.action.spec.ts.vsl"
-        outputPattern="$actionPath/${actionName}.action.spec.ts"
+        outputPattern="$actionPath/${actionName}.component.spec.ts"
         outlet="views"
         overwrite="false">
         <modelElements variable="action">
@@ -437,7 +466,7 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>-->
+    </template>
 
 <!--    <template
         path="templates/angular/app/controller/controller.impl.ts.vsl"

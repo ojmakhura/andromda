@@ -259,8 +259,8 @@ public class AngularHelper {
     }
 	
 	public static HashSet<ModelElementFacade> getFacadeSet(List<ModelElementFacade> facades) {
-		HashSet<String> nameSet = new HashSet<>();
-		HashSet<ModelElementFacade> elementSet =  new HashSet<>();
+		HashSet<String> nameSet = new HashSet<String>();
+		HashSet<ModelElementFacade> elementSet =  new HashSet<ModelElementFacade>();
 		
 		for(ModelElementFacade facade : facades) {
 			if(facade != null && nameSet.add(facade.getName())) {
