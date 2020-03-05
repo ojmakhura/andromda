@@ -17,6 +17,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 #foreach ($tmp in $angularHelper.getImports($finalServices, $table.packageName, $suffix))
 $tmp
 #end
+import { ${className} } from './${fileName}.component';
+#set ($viewName = "${angularHelper.getComponentName($stringUtils.replaceChars(${table.view.name}, '\\ ', '\\-'), '-')}View" )
+import { $viewName } from './${stringUtils.replaceChars($stringUtils.lowerCase("${table.view.name}"), '\\ ', '\\-')}.component';
 
 @Component({
   selector: '${fileName}',
@@ -24,6 +27,13 @@ $tmp
   styleUrls: ['./${fileName}.component.css']
 })
 export class ${className}Impl extends ${className} {
+
+	constructor(private route: ActivatedRoute, 
+				private router: Router#foreach($service in $finalServices),
+				private $stringUtils.uncapitalize($service.name): ${service.name}$suffix#end,
+				private $stringUtils.uncapitalize($viewName): $viewName) {
+		super();
+	}
 
 #foreach ($action in $table.tableFormActions)
 

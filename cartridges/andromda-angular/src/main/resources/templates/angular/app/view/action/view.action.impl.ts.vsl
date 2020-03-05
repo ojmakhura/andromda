@@ -23,6 +23,9 @@ $tmp
 #foreach ($tmp in $angularHelper.getImports($args, "${action.packageName}", $suffix))
 $tmp
 #end
+import { $angularHelper.getComponentName($action.name, "-") } from './${actionName}.component';
+#set ($viewName = "${angularHelper.getComponentName($stringUtils.replaceChars(${action.source.name}, '\\ ', '\\-'), '-')}View" )
+import { $viewName } from './${stringUtils.replaceChars($stringUtils.lowerCase("${action.source.name}"), '\\ ', '\\-')}.component';
 
 @Component({
   selector: '${action.name}',
@@ -30,6 +33,13 @@ $tmp
   styleUrls: ['./${actionName}.component.css']
 })
 export class $angularHelper.getComponentName($action.name, "-")Impl extends $angularHelper.getComponentName($action.name, "-") {
+
+	constructor(private route: ActivatedRoute, 
+				private router: Router#foreach ($service in $action.controller.allServices),
+				private $stringUtils.uncapitalize($service.name): ${service.name}Impl#end,
+				private $stringUtils.uncapitalize($viewName): $viewName) {
+		super();
+	}
 	
 	${action.triggerName}() {
 	}

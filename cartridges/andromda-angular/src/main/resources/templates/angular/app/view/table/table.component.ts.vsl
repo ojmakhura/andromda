@@ -2,39 +2,12 @@
 #set ( $componentPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${table.packageName}), '\\.', '\\/')" )
 #set ( $fileName = $stringUtils.replaceChars($stringUtils.lowerCase("${table.view.name}-${table.name}"), '\\ ', '\\-'))
 #set ( $className = $angularHelper.getComponentName($fileName, "-"))
-#set ($services = [${action.controller.allServices}])
-#foreach ($action in $table.tableFormActions)
-#foreach ($service in ${action.controller.allServices})
-#set ( $ret = $services.add($service) )
-#end
-#end
-#set ( $finalServices = [] ) ## No repetisions
-#foreach ( $finalService in $angularHelper.getFacadeSet($services) )
-#set ($rt = $finalServices.add($finalService) )
-#end
-import { Component, OnInit} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-#set ($suffix = "Impl")
-#foreach ($tmp in $angularHelper.getImports($finalServices, $table.packageName, $suffix))
-$tmp
-#end
 
-@Component({
-  selector: '${fileName}',
-  templateUrl: './${fileName}.component.html',
-  styleUrls: ['./${fileName}.component.css']
-})
+import { OnInit} from '@angular/core';
+
 export abstract class ${className} implements OnInit {
+	
+	constructor() {}
 
-	constructor(private route: ActivatedRoute, 
-				private router: Router#foreach($service in $finalServices),
-				private $stringUtils.uncapitalize($service.name): ${service.name}$suffix#end) {
-	}
-
-	ngOnInit(): void {
-	}
-#foreach ($action in $table.tableFormActions)
-
-	abstract ${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes());
-#end
+	ngOnInit(): void {}
 }

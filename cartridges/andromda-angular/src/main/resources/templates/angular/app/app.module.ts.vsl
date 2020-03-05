@@ -61,6 +61,7 @@ import { $stringUtils.capitalize(${applicationId})Component } from './$stringUti
 import { ${className}Impl } from './view/$componentPath/${fileName}.impl.component';
 #end
 #foreach ($action in $view.actions)
+#if (!$action.tableLink)
 #set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/')" )
 #set ( $actionFileName = $stringUtils.lowerCase($stringUtils.replaceChars("${action.useCase.name}-$action.trigger.name", '\\ ', '\\-')) )
 #set ( $actionName = "${angularHelper.getComponentName($action.name, '-')}Impl" )
@@ -68,12 +69,12 @@ import { $actionName } from './view/$actionPath/${actionFileName}.impl.component
 #end
 #end
 #end
-
+#end
 #set ( $finalServices = $angularHelper.getFacadeSet($services) ) ## No repetisions
 #foreach ( $finalService in $finalServices )
 #set ($componentPath = $stringUtils.replaceChars(${finalService.packageName}, "\\.", "\\/"))
 #set ($fileName = $angularHelper.getComponentFileName("${finalService.name}Impl"))
-import { ${finalService.name}Impl } from './service/$componentPath/$fileName'
+import { ${finalService.name}Impl } from './service/$componentPath/$fileName';
 #end
 #set ( $finalFields = [] )
 #foreach ($finalField in $angularHelper.getFacadeSet($fields) )
@@ -103,9 +104,11 @@ $tmp
 	${className}Impl")
 #end
 #foreach ($action in $view.actions)
+#if (!$action.tableLink)
 #set ( $actionName = "${angularHelper.getComponentName($action.name, '-')}Impl" )
 #set ($imports = "$imports, 
 	$actionName")
+#end
 #end
 #end
 #end
@@ -162,22 +165,22 @@ $tmp
 	${field.name}")
 #end
 #end
-#foreach ($useCase in $useCases)
-#foreach ($view in $useCase.views)
-#foreach ($table in $view.tables)
-#set ( $fileName = $stringUtils.replaceChars($stringUtils.lowerCase("${table.view.name}-${table.name}"), '\\ ', '\\-'))
-#set ( $className = $angularHelper.getComponentName($fileName, "-"))
-#set ($imp = "$imp, 
-	${className}Impl")
-#end
-#foreach ($action in $view.actions)
-#set ( $actionName = "${angularHelper.getComponentName($action.name, '-')}Impl" )
-#set ($imp = "$imp, 
-	$actionName")
-#end
-#end
-#end
-		$imp
+###foreach ($useCase in $useCases)
+###foreach ($view in $useCase.views)
+##foreach ($table in $view.tables)
+##set ( $fileName = $stringUtils.replaceChars($stringUtils.lowerCase("${table.view.name}-${table.name}"), '\\ ', '\\-'))
+##set ( $className = $angularHelper.getComponentName($fileName, "-"))
+##set ($imp = "$imp, 
+##	${className}Impl")
+##end
+##foreach ($action in $view.actions)
+##set ( $actionName = "${angularHelper.getComponentName($action.name, '-')}Impl" )
+##set ($imp = "$imp, 
+##	$actionName")
+##end
+##end
+##end
+	$imp
   ],
   bootstrap: [$stringUtils.capitalize(${applicationId})Component]
 })
