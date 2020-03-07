@@ -1,22 +1,23 @@
 #set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/')" )
 #set ( $actionName = $stringUtils.lowerCase($stringUtils.replaceChars("${action.useCase.name}-$action.trigger.name", '\\ ', '\\-')) )
+#set ( $name = $angularHelper.getComponentName($action.name, "-") )
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ${action.formImplementationName} } from './${actionName}.action';
+import { ${name}Impl } from './${actionName}.impl.component';
 
-describe('${action.formImplementationName}', () => {
-	let component: ${action.formImplementationName};
-	let fixture: ComponentFixture<${action.formImplementationName}>;
+describe('${name}Impl', () => {
+	let component: ${name}Impl;
+	let fixture: ComponentFixture<${name}Impl>;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [${action.formImplementationName}]
+			declarations: [${name}Impl]
 		})
 			.compileComponents();
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(${action.formImplementationName});
+		fixture = TestBed.createComponent(${name}Impl);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

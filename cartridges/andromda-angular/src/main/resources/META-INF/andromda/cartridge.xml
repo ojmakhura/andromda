@@ -296,6 +296,20 @@
     </template>
 	
 	<template
+        path="templates/angular/app/view/view.component.impl.ts.vsl"
+        outputPattern="$componentPath/${fileName}.impl.component.ts"
+        outlet="views"
+        overwrite="false">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="popup">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+	
+	<template
         path="templates/angular/app/view/view.component.css.vsl"
         outputPattern="$componentPath/${fileName}.component.css"
         outlet="views"

@@ -19,21 +19,23 @@ $tmp
 #end
 import { ${className} } from './${fileName}.component';
 #set ($viewName = "${angularHelper.getComponentName($stringUtils.replaceChars(${table.view.name}, '\\ ', '\\-'), '-')}View" )
-import { $viewName } from './${stringUtils.replaceChars($stringUtils.lowerCase("${table.view.name}"), '\\ ', '\\-')}.component';
+import { ${viewName}Impl } from './${stringUtils.replaceChars($stringUtils.lowerCase("${table.view.name}"), '\\ ', '\\-')}.impl.component';
 
 @Component({
   selector: '${fileName}',
   templateUrl: './${fileName}.component.html',
   styleUrls: ['./${fileName}.component.css']
 })
-export class ${className}Impl extends ${className} {
+export class ${className}Impl extends ${className}  implements OnInit {
 
 	constructor(private route: ActivatedRoute, 
 				private router: Router#foreach($service in $finalServices),
 				private $stringUtils.uncapitalize($service.name): ${service.name}$suffix#end,
-				private $stringUtils.uncapitalize($viewName): $viewName) {
+				private $stringUtils.uncapitalize($viewName): ${viewName}Impl) {
 		super();
 	}
+	
+	ngOnInit(): void {}
 
 #foreach ($action in $table.tableFormActions)
 

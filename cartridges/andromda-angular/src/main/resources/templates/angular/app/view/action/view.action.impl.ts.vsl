@@ -25,22 +25,24 @@ $tmp
 #end
 import { $angularHelper.getComponentName($action.name, "-") } from './${actionName}.component';
 #set ($viewName = "${angularHelper.getComponentName($stringUtils.replaceChars(${action.source.name}, '\\ ', '\\-'), '-')}View" )
-import { $viewName } from './${stringUtils.replaceChars($stringUtils.lowerCase("${action.source.name}"), '\\ ', '\\-')}.component';
+import { ${viewName}Impl } from './${stringUtils.replaceChars($stringUtils.lowerCase("${action.source.name}"), '\\ ', '\\-')}.impl.component';
 
 @Component({
   selector: '${action.name}',
   templateUrl: './${actionName}.component.html',
   styleUrls: ['./${actionName}.component.css']
 })
-export class $angularHelper.getComponentName($action.name, "-")Impl extends $angularHelper.getComponentName($action.name, "-") {
+export class $angularHelper.getComponentName($action.name, "-")Impl extends $angularHelper.getComponentName($action.name, "-") implements OnInit {
 
 	constructor(private route: ActivatedRoute, 
 				private router: Router#foreach ($service in $action.controller.allServices),
 				private $stringUtils.uncapitalize($service.name): ${service.name}Impl#end,
-				private $stringUtils.uncapitalize($viewName): $viewName) {
+				private $stringUtils.uncapitalize($viewName): ${viewName}Impl) {
 		super();
 	}
 	
 	${action.triggerName}() {
 	}
+
+	ngOnInit(): void {}
 }

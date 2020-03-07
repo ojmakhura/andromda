@@ -2,12 +2,8 @@
 #set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/')" )
 #set ( $actionName = $stringUtils.lowerCase($stringUtils.replaceChars("${action.useCase.name}-$action.trigger.name", '\\ ', '\\-')) )
 #set($formName = $action.formBeanName)
-import { OnInit} from '@angular/core';
 
-export abstract class $angularHelper.getComponentName($action.name, "-") implements OnInit {
+export abstract class $angularHelper.getComponentName($action.name, "-"){
 
-	constructor() {}
-
-	ngOnInit(): void {}
-	
+	constructor() {}	
 }

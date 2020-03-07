@@ -3,11 +3,8 @@
 #set ( $fileName = $stringUtils.replaceChars($stringUtils.lowerCase("${table.view.name}-${table.name}"), '\\ ', '\\-'))
 #set ( $className = $angularHelper.getComponentName($fileName, "-"))
 
-import { OnInit} from '@angular/core';
-
-export abstract class ${className} implements OnInit {
+export abstract class ${className} {
 	
 	constructor() {}
 
-	ngOnInit(): void {}
 }

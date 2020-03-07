@@ -13,6 +13,8 @@
 #foreach ($finalField in $angularHelper.getFacadeSet($fields) )
 #set ( $rt = $finalFields.add($finalField) )
 #end
+import { Component, OnInit} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 #set ( $attr = [] )
 #foreach ( $action in $view.actions )
 #if (!$action.tableLink)
@@ -36,34 +38,35 @@ import { $angularHelper.getComponentName($action.name, "-")Impl } from './${acti
 $a
 #end
 
-export abstract class ${className} {
+@Component({
+  selector: '${fileName}-view',
+  templateUrl: './${fileName}.component.html',
+  styleUrls: ['./${fileName}.component.css']
+})
+export class ${className}Impl extends ${className} implements OnInit {
 
-#foreach ( $action in $view.actions )
-#if (!$action.tableLink)
-#if (!$action.formFields.empty)
-    // Action $action.name formFields
-#end
-## Impl uses $action.formFields, Form uses $operation.formFields
-#set ( $attr = [] )
-#foreach ($field in $action.formFields)
-#if (!(${field.action} && $field.action.tableLinkName))
-#if ( $field.many )
-#set ( $rt = $attr.add($field ))
-#else
-#set ( $rt = $attr.add($field))
-#end
-#end
-#end
-#foreach ( $tmp in $angularHelper.getStringSet($attr) )
-#if ( $tmp.many )
-	$tmp.name: $angularHelper.getDatatype($tmp.type.fullyQualifiedName)[];
-#else
-	$tmp.name: $angularHelper.getDatatype($tmp.type.fullyQualifiedName);
-#end
-#end
-#end
-#end
-	constructor() {
+	constructor(private route: ActivatedRoute, 
+				private router: Router) {
+		super();
 	}
 	
+	ngOnInit() {
+#foreach ( $action in $view.actions )
+#if (!$action.tableLink)
+
+#foreach ($field in $action.formFields)
+#if ( $field.many )
+		this.$field.name = [];
+#else
+#set ($dtype = $angularHelper.getDatatype($field.type.fullyQualifiedName))
+#if ($dtype == "string")
+		this.$field.name = "";
+#elseif ($dtype != "number")
+		this.$field.name = new $dtype();
+#end
+#end
+#end
+#end
+#end
+	}
 }

@@ -165,22 +165,11 @@ $tmp
 	${field.name}")
 #end
 #end
-###foreach ($useCase in $useCases)
-###foreach ($view in $useCase.views)
-##foreach ($table in $view.tables)
-##set ( $fileName = $stringUtils.replaceChars($stringUtils.lowerCase("${table.view.name}-${table.name}"), '\\ ', '\\-'))
-##set ( $className = $angularHelper.getComponentName($fileName, "-"))
-##set ($imp = "$imp, 
-##	${className}Impl")
-##end
-##foreach ($action in $view.actions)
-##set ( $actionName = "${angularHelper.getComponentName($action.name, '-')}Impl" )
-##set ($imp = "$imp, 
-##	$actionName")
-##end
-##end
-##end
-	$imp
+#set ($imports = $imp )
+#foreach ($useCase in $useCases)
+#renderUseCaseDeclarations ($useCase )
+#end
+	$imports
   ],
   bootstrap: [$stringUtils.capitalize(${applicationId})Component]
 })

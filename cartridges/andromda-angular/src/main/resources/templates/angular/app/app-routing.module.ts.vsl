@@ -14,7 +14,7 @@
 #set ($menuItems = "$menuItems,
 ")
 #end
-#set ( $className = "$stringUtils.replaceChars($stringUtils.capitalize(${view.name}), '\\ ', '')View")
+#set ( $className = "$stringUtils.replaceChars($stringUtils.capitalize(${view.name}), '\\ ', '')ViewImpl")
 #set ($routeName = $stringUtils.deleteWhitespace($stringUtils.lowerCase($view.name)))
 #set ($menuItems = "$menuItems { path: '$routeName', component: $className }")
 #end
