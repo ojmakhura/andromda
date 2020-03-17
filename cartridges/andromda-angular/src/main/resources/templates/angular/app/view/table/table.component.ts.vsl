@@ -25,26 +25,11 @@ export abstract class ${className} {
 #else
 #if($x == 1)
 #set ($params = "$params, 
-	//	$param.name: {")
+	//	$param.name: { JSON.stringify($param.name) }")
 #else
 #set ($params = "$params
-	//	$param.name: {")
+	//	$param.name: { $param.name: { JSON.stringify($param.name) }")
 #end
-#set ( $i = 0 )
-#foreach ($attr in $param.type.attributes)
-#if($i == 1)
-#if(!$attr.complex)	
-#set ($params = "$params,
-	//		${param.name}.$attr.name")
-#end
-#else
-#set ($params = "$params
-	//		${param.name}.$attr.name")
-#end
-#set ( $i = 1 )
-#end
-#set ($params = "$params
-	//	}")
 #end
 #set ($x = 1)
 #end
