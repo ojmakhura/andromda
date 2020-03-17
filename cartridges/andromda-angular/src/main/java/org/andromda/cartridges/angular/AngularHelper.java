@@ -193,16 +193,16 @@ public class AngularHelper {
                 String angPath = "";
                 boolean addImport = false;
                 if(facade instanceof ValueObject || facade instanceof EnumerationFacade) {
-                    angPath = "model/";
+                    angPath = "src/app/model/";
                     addImport = true;
                 } else if(facade instanceof Service) {
-                    angPath = "service/";
+                    angPath = "src/app/service/";
                     addImport = true;
                 } else if(facade instanceof FrontEndController) {
-                    angPath = "controller/";
+                    angPath = "src/app/controller/";
                     addImport = true;
                 } else if(facade instanceof FrontEndView) {
-                    angPath = "view/";
+                    angPath = "src/app/view/";
                     addImport = true;
                 } 
 
@@ -211,8 +211,9 @@ public class AngularHelper {
                     builder.append("import { ");
                     builder.append(facade.getName());
                     builder.append(suffix);
+                    builder.append(" } from ");
 					
-					if(StringUtils.isBlank(destPackage)) {
+					/*if(StringUtils.isBlank(destPackage)) {
 						builder.append(" } from './");
 					} else {
 						builder.append(" } from '../");
@@ -221,8 +222,9 @@ public class AngularHelper {
 						for(String s : ar) {
 							builder.append("../");
 						}
-					}
+					}*/
 
+                    builder.append("'");
                     builder.append(angPath);
                     builder.append(StringUtils.replaceChars(facade.getPackageName(), "\\.", "\\/"));
                     builder.append("/");

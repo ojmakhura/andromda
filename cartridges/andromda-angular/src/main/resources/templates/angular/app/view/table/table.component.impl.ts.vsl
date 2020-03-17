@@ -36,7 +36,6 @@ export class ${className}Impl extends ${className}  implements OnInit {
 	}
 	
 	ngOnInit(): void {}
-
 #foreach ($action in $table.tableFormActions)
 
 	${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes()) {

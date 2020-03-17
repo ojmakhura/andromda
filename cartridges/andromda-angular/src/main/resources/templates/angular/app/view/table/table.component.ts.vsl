@@ -6,5 +6,61 @@
 export abstract class ${className} {
 	
 	constructor() {}
-
+	
+#foreach ($action in $table.tableFormActions)
+#foreach ($transition in $action.transitions)
+#if ($transition.enteringFinalState)
+#if ($transition.target.interUseCaseParameters.size() > 0 )
+#set ($x = 0)
+#set ($params = "let params = {")
+#foreach ($param in $transition.target.interUseCaseParameters)
+#if (!$param.complex)
+#if($x == 1)
+#set ($params = "$params,
+	//		$param.name")
+#else
+#set ($params = "$params
+	//	$param.name")
+#end
+#else
+#if($x == 1)
+#set ($params = "$params, 
+	//	$param.name: {")
+#else
+#set ($params = "$params
+	//	$param.name: {")
+#end
+#set ( $i = 0 )
+#foreach ($attr in $param.type.attributes)
+#if($i == 1)
+#if(!$attr.complex)	
+#set ($params = "$params,
+	//		${param.name}.$attr.name")
+#end
+#else
+#set ($params = "$params
+	//		${param.name}.$attr.name")
+#end
+#set ( $i = 1 )
+#end
+#set ($params = "$params
+	//	}")
+#end
+#set ($x = 1)
+#end
+#set ($params = "$params
+	// };")
+	// This params variable is for passing data between routed pages.
+	// $params
+	// You can pass the data to the views in the '$transition.target.name' Use Case as follows
+#foreach ($view in $transition.target.targetUseCase.views)
+#set ($routeName = $stringUtils.deleteWhitespace($stringUtils.lowerCase($view.name)))
+	// this.router.navigate(['/$routeName'], {state: {params}});
+#end
+	abstract ${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes());
+#end	
+#end
+#end
+#end
+	
 }

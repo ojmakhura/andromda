@@ -18,7 +18,7 @@
 #foreach ($view in $puseCase.views)
 #set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
 #set ( $fileName = $stringUtils.replaceChars($stringUtils.lowerCase(${view.name}), '\\ ', '\\-'))
-#set ( $className = "$stringUtils.replaceChars($stringUtils.capitalize(${view.name}), '\\ ', '')ViewImpl")
+#set ( $className = "$stringUtils.replaceChars($stringUtils.capitalize(${view.name}), '\\ ', '')Impl")
 import { ${className} } from './view/${componentPath}/${fileName}.impl.component';
 #end
 #set ($roles = $puseCase.actionRoles)
@@ -37,7 +37,7 @@ import { ${className} } from './view/${componentPath}/${fileName}.impl.component
 ##
 #macro (renderUseCaseDeclarations $puseCase)
 #foreach ($view in $puseCase.views)
-#set ( $className = "$stringUtils.replaceChars($stringUtils.capitalize(${view.name}), '\\ ', '')ViewImpl")
+#set ( $className = "$stringUtils.replaceChars($stringUtils.capitalize(${view.name}), '\\ ', '')Impl")
 #set ($imports = "$imports, 
     $className")
 #end
