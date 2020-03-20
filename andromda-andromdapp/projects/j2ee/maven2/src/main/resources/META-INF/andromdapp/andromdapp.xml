@@ -169,6 +169,14 @@
         
         <!-- Angular -->
         <mapping>
+            <from>angular/src/main/java/SpringApplication.java.vsl</from>
+            <to>angular/src/main/java/${applicationPackage}/${stringUtils.capitalize($applicationId)}AngularApplication.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/test/SpringApplicationTest.java.vsl</from>
+            <to>angular/src/test/java/${applicationPackage}/${stringUtils.capitalize($applicationId)}AngularApplicationTests.java.vsl</to>
+        </mapping>
+        <mapping>
             <from>angular/src/app/app.component.ts.vsl</from>
             <to>angular/src/app/$stringUtils.lowerCase(${applicationId}).${component}.ts.vsl</to>
         </mapping>
@@ -240,7 +248,7 @@
         </mapping>
 		
 		<!-- Spring REST Webservices -->
-        <!--mapping>
+        <mapping>
             <from>springws/SpringWSApplication.java.vsl</from>
             <to>springws/src/main/java/${applicationPackage}/springws/${stringUtils.capitalize($applicationId)}WSApplication.java.vsl</to>
         </mapping>
@@ -255,7 +263,7 @@
         <mapping>
             <from>springws/application.properties.vsl</from>
             <to>springws/src/main/resources/${applicationPackage}/springws/application.properties.vsl</to>
-        </mapping-->
+        </mapping>
     </mappings>
     <instructions>readme.txt</instructions>
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine" extensions="vsl"/>

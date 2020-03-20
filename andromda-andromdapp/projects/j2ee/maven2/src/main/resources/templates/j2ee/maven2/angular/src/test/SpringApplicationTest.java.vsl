@@ -1,0 +1,13 @@
+package ${applicationPackage}.angular;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class ${stringUtils.capitalize($applicationId)}AngularApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}

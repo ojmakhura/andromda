@@ -1,0 +1,13 @@
+package ${applicationPackage}.angular;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ${stringUtils.capitalize($applicationId)}AngularApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(${stringUtils.capitalize($applicationId)}AngularApplication.class, args);
+	}
+
+}

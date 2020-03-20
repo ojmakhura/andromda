@@ -464,6 +464,12 @@
         <angular.controller.impl.dir>${project.basedir}/../angular/src/app/controller</angular.controller.impl.dir>
         <angular.view.dir>${project.basedir}/../angular/src/app/view</angular.view.dir>
 #end
+#if ($springws)		
+        <springws.generated.dir>${project.basedir}/../springws/target</springws.generated.dir>
+        <springws.generated.java.dir>${springws.generated.dir}/src/main/java</springws.generated.java.dir>
+        <springws.manual.dir>${project.basedir}/../springws/src/main</springws.manual.dir>
+        <springws.manual.java.dir>${springws.manual.dir}/java</springws.manual.java.dir>
+#end
 #if ($war || $webType.equals("jsf") || $webType.equals("both"))
         <web.generated.dir>${project.basedir}/../web/target</web.generated.dir>
         <web.generated.java.dir>${web.generated.dir}/src/main/java</web.generated.java.dir>

@@ -9,5 +9,11 @@ public class $webserviceName {
 	@org.springframework.beans.factory.annotation.Autowired
 	private ${service.type.name} ${service.name};
 
+#foreach ($operation in $service.allowedOperations)
+	$operation
+	$operation.visibility $operation.getterSetterReturnTypeName $operation.signature {
+		
+	}
+#end
 	
 }

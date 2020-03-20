@@ -15,5 +15,19 @@
     <!-- cartridge-templateObject merge-point-->
 
     <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
+	
+	<template
+        path="templates/springws/service.java.vsl"
+        outputPattern="$stringUtils.replace($service.packageName, '.', '/')/${service.name}WS.java"
+        outlet="services"
+        overwrite="true">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
     
 </cartridge>

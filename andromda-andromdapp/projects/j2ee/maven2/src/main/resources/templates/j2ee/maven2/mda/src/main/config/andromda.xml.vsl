@@ -563,5 +563,15 @@
             </properties>
         </namespace>
 #end
+#if($springws)
+        <namespace name="springws">
+            <properties>
+                <property name="applicationPackage">${application.package}</property>
+            	<property name="applicationId">${application.id}</property>
+                <property name="applicationName">${application.name}</property>
+                <property name="services">${springws.generated.java.dir}</property>
+            </properties>
+        </namespace>
+#end
     </namespaces>
 </andromda>
