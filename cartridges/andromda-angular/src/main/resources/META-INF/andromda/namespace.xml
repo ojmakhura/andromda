@@ -139,13 +139,13 @@
                     Normally common/src/main/java.
                 </documentation>
             </property>
-            <property name="jaxb-gen">
+            <!--property name="jaxb-gen">
                 <documentation>
                     The directory to which JAXB generated classes will be generated (i.e. package-info, ObjectFactory),
                     and to which CXF client generated classes will be copied.
                     Normally common/target/src/main/java.
                 </documentation>
-            </property>
+            </property-->
             <property name="controllers">
                 <documentation>
                     The location to which any controllers are generated (this outlet
@@ -705,11 +705,11 @@
                     is the current model element name.
                 </documentation>
             </property>
-            <property name="wsdlSoapAddress">
+            <!--property name="wsdlSoapAddress">
                 <documentation>
                     The location of where the WSDL will reside (i.e. "http://localhost:8080/security-service/services")
                 </documentation>
-            </property>
+            </property>-->
             <property name="securityRealm" required="false">
                 <documentation>
                     The security realm to use for securing your web service(s).

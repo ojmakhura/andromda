@@ -1019,12 +1019,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-web-services</artifactId>
 				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>mysql</groupId>
-				<artifactId>mysql-connector-java</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>		
+			</dependency>	
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-test</artifactId>

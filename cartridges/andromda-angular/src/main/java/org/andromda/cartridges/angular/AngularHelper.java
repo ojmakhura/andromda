@@ -47,35 +47,7 @@ public class AngularHelper {
 
         return stringArgument;
     }
-    
-    /**
-     * Find the best destination for the component based on the package.
-     * 
-     * If the package ends with a 'vo', then we use the token before it.
-     * 
-     * @param _package
-     * @return 
-     */
-//    public static String getComponentDestination(final String _package) {
-//        
-//        String[] tmp = _package.split("\\.");
-//        int length = tmp.length;
-//        
-//        if(tmp[length-1].equalsIgnoreCase("vo") || tmp[length-1].equalsIgnoreCase("service")) {
-//            if(length > 1){
-//                StringBuilder builder = new StringBuilder();
-//                for(int i = 0; i < tmp.length-1; i++) {
-//                    builder.append(tmp[i]);
-//                    builder.append("/");
-//                }
-//                return tmp[length-2];
-//            } else
-//                return "";
-//        }
-//                
-//        return _package.toLowerCase();        
-//    }
-    
+        
     /**
      * Find a proper lower case name for the model file.
      * 
@@ -88,7 +60,7 @@ public class AngularHelper {
         
         StringBuilder builder = new StringBuilder();
         
-        String stmp = className.substring(0, className.length());
+        String stmp = className.trim().substring(0, className.length());
         
         for(int i = 0; i < className.length(); i++) {
             char c = className.charAt(i);
@@ -101,7 +73,7 @@ public class AngularHelper {
             builder.append(c);
         }
 
-		return builder.toString();
+		return StringUtils.replaceChars(builder.toString().replaceAll("[^a-zA-Z0-9\\-\\ ]", "").trim(), " ",  "-");
     }
     
     /**
@@ -286,13 +258,13 @@ public class AngularHelper {
 	
 	public static String getComponentName(String cName, String remove) {
 		
-		String[] splits = cName.split(remove);
+		String[] splits = cName.trim().split(remove);
 		StringBuilder builder = new StringBuilder();
 		
 		for( String s : splits) {
 			builder.append(StringUtils.capitalize(s));
 		}
 		
-		return builder.toString();
+		return builder.toString().replaceAll("[^a-zA-Z0-9]", "");
 	}
 }

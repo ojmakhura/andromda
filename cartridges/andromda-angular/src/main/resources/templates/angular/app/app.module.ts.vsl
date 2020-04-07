@@ -104,9 +104,10 @@ $tmp
 #end
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
-#set ( $actionName = "${angularHelper.getComponentName($action.name, '-')}Impl" )
+#set ( $fileName = $angularHelper.getComponentFileName("${action.useCase.name.lowercase()} $action.trigger.name") )
+#set ( $actionName = $angularHelper.getComponentName($action.name, "-") )
 #set ($imports = "$imports, 
-	$actionName")
+	${actionName}Impl")
 #end
 #end
 #end

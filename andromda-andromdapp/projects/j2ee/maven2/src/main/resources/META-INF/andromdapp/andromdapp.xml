@@ -96,6 +96,10 @@
             <condition id="springws" equal="true"/>
             <output patterns="**/*">springws/</output>
         </conditions>
+        <conditions>
+            <condition id="angular" equal="true"/>
+            <output patterns="**/*">angular/</output>
+        </conditions>
     </conditionalOutput>
     <mappings>
         <mapping>
@@ -170,11 +174,11 @@
         <!-- Angular -->
         <mapping>
             <from>angular/src/main/java/SpringApplication.java.vsl</from>
-            <to>angular/src/main/java/${applicationPackage}/${stringUtils.capitalize($applicationId)}AngularApplication.java.vsl</to>
+            <to>angular/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}AngularApplication.java.vsl</to>
         </mapping>
         <mapping>
             <from>angular/src/test/SpringApplicationTest.java.vsl</from>
-            <to>angular/src/test/java/${applicationPackage}/${stringUtils.capitalize($applicationId)}AngularApplicationTests.java.vsl</to>
+            <to>angular/src/test/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}AngularApplicationTests.java.vsl</to>
         </mapping>
         <mapping>
             <from>angular/src/app/app.component.ts.vsl</from>
@@ -250,19 +254,19 @@
 		<!-- Spring REST Webservices -->
         <mapping>
             <from>springws/SpringWSApplication.java.vsl</from>
-            <to>springws/src/main/java/${applicationPackage}/springws/${stringUtils.capitalize($applicationId)}WSApplication.java.vsl</to>
+            <to>springws/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WSApplication.java.vsl</to>
         </mapping>
         <mapping>
             <from>springws/SpringWSApplicationTests.java.vsl</from>
-            <to>springws/src/test/java/${applicationPackage}/springws/${stringUtils.capitalize($applicationId)}WSApplicationTests.java.vsl</to>
+            <to>springws/src/test/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WSApplicationTests.java.vsl</to>
         </mapping>
         <mapping>
             <from>springws/SpringWSConfiguration.java.vsl</from>
-            <to>springws/src/main/java/${applicationPackage}/springws/${stringUtils.capitalize($applicationId)}WSConfiguration.java.vsl</to>
+            <to>springws/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WSConfiguration.java.vsl</to>
         </mapping>
         <mapping>
             <from>springws/application.properties.vsl</from>
-            <to>springws/src/main/resources/${applicationPackage}/springws/application.properties.vsl</to>
+            <to>springws/src/main/resources/$stringUtils.replace(${applicationPackage}, '.', '/')/application.properties.vsl</to>
         </mapping>
     </mappings>
     <instructions>readme.txt</instructions>
@@ -477,14 +481,17 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                         <setProperty id="web">false</setProperty>
                         <setProperty id="component">component</setProperty>
 						
-						<!-- Spring Web Service -->
-						<setProperty id="rest">true</setProperty>
-						<setProperty id="springws">true</setProperty>
+			<!-- Spring Web Service -->
+			<setProperty id="rest">true</setProperty>
+			<setProperty id="springws">true</setProperty>
                     </condition>
                     <condition equal="both">
                         <setProperty id="angular">true</setProperty>
                         <setProperty id="jsf">true</setProperty>
                         <setProperty id="component">component</setProperty>
+			<!-- Spring Web Service -->
+			<setProperty id="rest">true</setProperty>
+			<setProperty id="springws">true</setProperty>
                     </condition>
                 </conditions>
             </prompt>
@@ -523,6 +530,9 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <condition equal="none">
                         <setProperty id="soap">false</setProperty>
                         <setProperty id="rest">false</setProperty>
+                    </condition>
+                    <condition id="angular" equal="true">
+                        <setProperty id="rest">true</setProperty>
                     </condition>
                  </conditions>
             </prompt>

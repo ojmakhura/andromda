@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<namespace name="angular">
+<namespace name="springws">
     <components>
         <component name="cartridge">
             <path>META-INF/andromda/cartridge.xml</path>
@@ -43,44 +43,17 @@
                     touched).
                 </documentation>
             </property>
-            <property name="services">
-                <documentation>
-                    The location to which any services are generated (this outlet
-                    contains classes which are fully generated and should not be
-                    touched).
-                </documentation>
-            </property>
             <property name="java-types">
                 <documentation>
                     The directory to which any non implementation Java files will be generated.
                     Normally common/target/src/main/java
                 </documentation>
             </property>
-            <property name="configuration">
+            <property name="services">
                 <documentation>
-                    The directory to which any configuration files
-                    are generated (such as the web.xml, etc). Normally webservice/src/main/webapp/WEB-INF.
-                </documentation>
-            </property>
-            <property name="axis-tests" required="false">
-                <documentation>
-                    The directory to which AXIS specific test classes are generated.
-                </documentation>
-            </property>
-            <property name="axis-test-impls" required="false">
-                <documentation>
-                    The directory to which the AXIS specific test implementation classes are generated.
-                </documentation>
-            </property>
-            <property name="wss4j-configuration" required="false">
-                <documentation>
-                    The directory to which any <a href="http://ws.apache.org/ws-fx/wss4j/index.html">WSS4J</a>
-                    specific configuration files are generated.
-                </documentation>
-            </property>
-            <property name="webservice-project">
-                <documentation>
-                    The webservice maven project directory, where buildWS ant scripts will be created and run.
+                    The location to which any services are generated (this outlet
+                    contains classes which are fully generated and should not be
+                    touched).
                 </documentation>
             </property>
             <property name="webservice-types">
@@ -99,26 +72,6 @@
                 <documentation>
                     The directory to which any extra webservice classes will be generated (i.e. an AttachmentHandler
                     for example). Normally webservice/src/main/java.
-                </documentation>
-            </property>
-            <property name="core-tests">
-                <documentation>
-                    The directory to which webservice impl tests will be generated (in the core project),
-                    so that they can be run as part of the maven test phases.
-                    Normally core/src/test/java. Output is only generated once.
-                </documentation>
-            </property>
-            <property name="jaxb-impl">
-                <documentation>
-                    The directory to which customized JAXB implementation classes will be generated (i.e. Adapter).
-                    Normally common/src/main/java.
-                </documentation>
-            </property>
-            <property name="jaxb-gen">
-                <documentation>
-                    The directory to which JAXB generated classes will be generated (i.e. package-info, ObjectFactory),
-                    and to which CXF client generated classes will be copied.
-                    Normally common/target/src/main/java.
                 </documentation>
             </property>
         </propertyGroup>
@@ -143,19 +96,6 @@
                     The name to use for the virtual host (if one is required).  For example application.myserver.com.
                 </documentation>
             </property>
-            <property name="sessionTimeout">
-                <default>45</default>
-                <documentation>
-                    The number of minutes the session may be idle before timeout occurs.
-                </documentation>
-            </property>
-            <property name="distributable">
-                <default>false</default>
-                <documentation>
-                    Whether or not the web application should be considered <em>distributable</em>;
-                    this means that the session will be persisted and restored.
-                </documentation>
-            </property>
             <property name="fileTypeName">
                 <default>org.primefaces.model.UploadedFile</default>
                 <documentation>
@@ -163,23 +103,11 @@
                     for file uploads).
                 </documentation>
             </property>
-            <property name="dummyData">
-                <default>true</default>
-                <documentation>
-                    Indicates whether or not dummy data should be rendered (in places like controllers).
-                </documentation>
-            </property>
             <property name="testPackage">
                 <default>org.andromda.presentation.jsf.test</default>
                 <documentation>
                     Defines the the package in which any extra test classes will
                     be generated.
-                </documentation>
-            </property>
-            <property name="xmlEncoding">
-                <default>UTF-8</default>
-                <documentation>
-                    Encoding for generated XML files.
                 </documentation>
             </property>
             <property name="messageResources">
@@ -241,29 +169,6 @@
                     </ul>
                 </documentation>
             </property>
-            <property name="soapVersion">
-                <default>1.1</default>
-                <documentation>
-                    The soap version to use for your webservices, default=1.1, valid values are:
-                    <ul>
-                        <li>1.1</li>
-                        <li>1.2</li>
-                    </ul>
-                </documentation>
-            </property>
-            <property name="cxfVersion">
-                <default>2.1</default>
-                <documentation>
-                    The cxf version to use for your webservices, default=2.0, determined by pom.xml property cxf.version
-                    used to determine if java2ws should be run instead of java2wsdl, and if custom adapter classes can
-                    be referenced by the jaxb bindings files. Valid values are:
-                    <ul>
-                        <li>2.0</li>
-                        <li>2.1</li>
-                        <li>3.0</li>
-                    </ul>
-                </documentation>
-            </property>
             <property name="javaVersion">
                 <default>1.7</default>
                 <documentation>
@@ -283,11 +188,6 @@
                 <documentation>
                     Whether or not inheritance using XSD extensions is disabled.  If true - inheritance is "faked" in that
                     an object inheriting from another will include its inherited properties (it will be flatted) in its WSDL schema definition.
-                </documentation>
-            </property>
-            <property name="attachmentsDirectory" required="false">
-                <documentation>
-                    The directory where attachments end up. This should be in the syntax appropriate for the target platform.
                 </documentation>
             </property>
             <property name="namespacePrefix">
@@ -329,13 +229,6 @@
                         <li>true</li>
                         <li>false</li>
                     </ul>
-                </documentation>
-            </property>
-            <property name="seiSuffix">
-                <default>SEI</default>
-                <documentation>
-                    Specifies the suffix to append to the service name when identifying the
-                    portType name and service endpoint interface class. default=SEI
                 </documentation>
             </property>
             <property name="defaultProvider">
@@ -693,72 +586,6 @@
                     and in https://jaxb.dev.java.net/2.1.2/docs/vendorCustomizations.html.
                     Makes all elements @XMLRootElement, pluralizes attribute/association/parameter names of multiplicity *.
                      Can be customized for individual attributes through XmlAdapter stereotype.
-                </documentation>
-            </property>
-            <property name="xjcArguments">
-                <default>-Xts,-Xts:style:simple,-Xdv</default>
-                <documentation>
-                    Add additional CXF xjc arguments to the wsdl2java command, to customize the Jaxb2 generated classes.
-                    XJC plugins are available under Jaxb2 Commons: https://jaxb2-commons.dev.java.net .
-                    The default XJC arguments value does not require downloading any Jaxb commons plugins.
-                    Plugins must be added to CXF_HOME\lib directory or JAXB_HOME\commons directory. Suggested value:
-                    -Xcommons-lang3,-Xcommons-lang3:ToStringStyle=DEFAULT_STYLE,-Xdefault-value,-Xvalue-constructor,-Xcollection-setter-injector,-simple-preserve"
-                     Can be customized for individual attributes through XmlAdapter stereotype. />
-                </documentation>
-            </property>
-            <property name="XMLDateAdapter">
-                <default></default>
-                <documentation>
-                    Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Date&lt;.
-                    Handles parse/print of customized String formats. Outputs java.util.Date or java.util.Calendar
-                    instead of XMLGregorianCalendar. Can be customized for individual attributes through
-                    XmlAdapter stereotype.
-                </documentation>
-            </property>
-            <property name="XMLDateTimeAdapter">
-                <default></default>
-                <documentation>
-                    Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Date&lt;.
-                    Handles parse/print of customized String formats. Outputs java.util.Date or java.util.Calendar
-                    instead of XMLGregorianCalendar. Can be customized for individual attributes through
-                    XmlAdapter stereotype.
-                </documentation>
-            </property>
-            <property name="XMLTimeAdapter">
-                <default></default>
-                <documentation>
-                    Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Date&lt;.
-                    Handles parse/print of customized String formats. Outputs java.util.Date or java.util.Calendar
-                    instead of XMLGregorianCalendar. Can be customized for individual attributes through
-                    XmlAdapter stereotype.
-                </documentation>
-            </property>
-            <property name="XMLBooleanAdapter">
-                <default></default>
-                <documentation>
-                    Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Boolean&lt;.
-                    Handles parse/print of customized String formats. Outputs Boolean instead of boolean.
-                    Primitive boolean can cause issues with XML return values.
-                    Can be customized for individual attributes through
-                    XmlAdapter stereotype.
-                </documentation>
-            </property>
-            <property name="XMLIntegerAdapter">
-                <default></default>
-                <documentation>
-                    Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Integer&lt;.
-                    Handles parse/print of customized String formats. Outputs Integer instead of BigInteger.
-                    Can be customized for individual attributes through
-                    XmlAdapter stereotype.
-                </documentation>
-            </property>
-            <property name="XMLDecimalAdapter">
-                <default></default>
-                <documentation>
-                    Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Decimal&lt;.
-                    Handles parse/print of customized String formats. Outputs Decimal instead of BigDecimal.
-                    Can be customized for individual attributes through
-                    XmlAdapter stereotype.
                 </documentation>
             </property>
         </propertyGroup>

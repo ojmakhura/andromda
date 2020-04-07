@@ -1,4 +1,4 @@
-package ${applicationPackage}.springws;
+package ${applicationPackage};
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ${stringUtils.capitalize($applicationId)}WSApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringwsApplication.class, args);
+		SpringApplication.run(${stringUtils.capitalize($applicationId)}WSApplication.class, args);
 	}
 
 }

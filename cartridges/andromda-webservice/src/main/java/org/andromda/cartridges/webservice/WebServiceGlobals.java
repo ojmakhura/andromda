@@ -161,6 +161,11 @@ public class WebServiceGlobals
      * REST: andromda_REST_path
      */
     public static final String REST_PATH = "andromda_REST_path";
+    
+    /**
+     * REST: andromda_REST_response_status
+     */
+    public static final String REST_RESPONSE_STATUS = "andromda_REST_response_status";
 
     /**
      * REST: andromda_REST_produces

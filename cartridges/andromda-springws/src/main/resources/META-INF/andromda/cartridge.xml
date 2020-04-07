@@ -21,7 +21,7 @@
         outputPattern="$stringUtils.replace($service.packageName, '.', '/')/${service.name}WS.java"
         outlet="services"
         overwrite="true">
-        <modelElements variable="services">
+        <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.webservice.metafacades.WebService">
                     <property name="allowedOperations"/>

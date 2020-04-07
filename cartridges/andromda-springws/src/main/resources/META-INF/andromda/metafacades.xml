@@ -21,5 +21,21 @@
         <property reference="testImplementationOperationNamePrefix"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.java.metafacades.JavaClassLogicImpl"/>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl">
+        <mapping>
+            <property name="owner.webServiceMetaType"/>
+        </mapping>
+        <property reference="testImplementationOperationNamePrefix"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl">
+        <mapping>
+            <property name="owner.interface"/>
+        </mapping>
+        <property reference="testImplementationOperationNamePrefix"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceParameterLogicImpl">
+        <mapping>
+            <property name="operation.webServiceOperationMetaType"/>
+        </mapping>
     </metafacade>
 </metafacades>

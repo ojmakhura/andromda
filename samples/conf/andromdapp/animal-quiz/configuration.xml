@@ -3,7 +3,7 @@
     <properties>
         <property name="andromdappType">j2ee</property>
         <property name="author">AndroMDA Team</property>
-        <property name="modelType">uml1.4</property>
+        <property name="modelType">emf-uml22/property>
         <property name="applicationParentDirectory">$${project.basedir}</property>
         <property name="applicationId">animal-quiz</property>
         <property name="applicationName">AndroMDA Animal Quiz Sample</property>
@@ -14,6 +14,7 @@
         <property name="persistenceProviderExtensions">hibernate</property>
         <property name="implementationLanguage">java</property>
         <property name="web">yes</property>
+        <property name="angular">yes</property>
         <property name="webservice">none</property>
         <property name="embeddedWebServer">tomcat</property>        
         <property name="model">jar:file:${project.basedir}/src/main/uml/AnimalQuiz.xml.zip!/AnimalQuiz.xml</property>

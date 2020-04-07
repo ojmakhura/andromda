@@ -484,6 +484,16 @@ public class WebServiceOperationLogicImpl
         }
         return requestType;
     }
+    
+    @Override
+    protected String handleGetRestResponseStatus() {
+        String responseStatus = (String) this.findTaggedValue(WebServiceGlobals.REST_RESPONSE_STATUS);
+        if(responseStatus == null) {
+            return "";
+        }
+        
+        return "@org.springframework.web.bind.annotation.ResponseStatus(code = org.springframework.http.HttpStatus." + responseStatus + ")";
+    }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestRequestType()

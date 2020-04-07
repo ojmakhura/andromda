@@ -25,8 +25,10 @@
 ")
 #end
 #set ( $className = "$stringUtils.replaceChars($stringUtils.capitalize(${view.name}), '\\ ', '')Impl")
-#set ($routeName = $stringUtils.deleteWhitespace($stringUtils.lowerCase($view.name)))
-#set ($menuItems = "$menuItems { path: '$routeName', component: $className }")
+#set ( $fileName = $angularHelper.getComponentFileName($stringUtils.lowerCase(${view.name})))
+#set ( $className = $angularHelper.getComponentName($fileName, "-") )
+#set ($routeName = $stringUtils.replaceChars($fileName, '-', ''))
+#set ($menuItems = "$menuItems { path: '$routeName', component: ${className}Impl }")
 #end
 #if (!$children.empty)
 #foreach ($child in $children)

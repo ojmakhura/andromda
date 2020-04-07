@@ -17,9 +17,9 @@
 #macro (renderImports $puseCase)
 #foreach ($view in $puseCase.views)
 #set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
-#set ( $fileName = $stringUtils.replaceChars($stringUtils.lowerCase(${view.name}), '\\ ', '\\-'))
-#set ( $className = "$stringUtils.replaceChars($stringUtils.capitalize(${view.name}), '\\ ', '')Impl")
-import { ${className} } from './view/${componentPath}/${fileName}.impl.component';
+#set ( $fileName = $angularHelper.getComponentFileName($stringUtils.lowerCase(${view.name})))
+#set ( $className = $angularHelper.getComponentName($fileName, "-") )
+import { ${className}Impl } from './view/${componentPath}/${fileName}.impl.component';
 #end
 #set ($roles = $puseCase.actionRoles)
 #addDefaultRole($roles)
@@ -37,9 +37,11 @@ import { ${className} } from './view/${componentPath}/${fileName}.impl.component
 ##
 #macro (renderUseCaseDeclarations $puseCase)
 #foreach ($view in $puseCase.views)
-#set ( $className = "$stringUtils.replaceChars($stringUtils.capitalize(${view.name}), '\\ ', '')Impl")
+#set ( $fileName = $angularHelper.getComponentFileName("$stringUtils.lowerCase(${view.name})") )
+##set ( $fileName = $stringUtils.replaceChars($stringUtils.lowerCase(${view.name}), '\\ ', '\\-'))
+#set ( $className = $angularHelper.getComponentName($fileName, "-") )
 #set ($imports = "$imports, 
-    $className")
+    ${className}Impl")
 #end
 #set ($roles = $puseCase.actionRoles)
 #addDefaultRole($roles)

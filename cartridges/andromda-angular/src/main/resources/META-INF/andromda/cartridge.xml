@@ -36,8 +36,7 @@
     <property reference="applicationName"/>    
     <property reference="applicationId"/>
     <property reference="applicationPackage"/>
-    
-    <property reference="wsdlSoapAddress"/>
+    <!--property reference="wsdlSoapAddress"/-->
     <property reference="securityRealm"/>
     <property reference="testServiceLocatorName"/>
     <property reference="testServiceLocatorPackage"/>
@@ -105,7 +104,7 @@
     <property reference="XMLBooleanAdapter"/>
     <property reference="XMLIntegerAdapter"/>
     <property reference="XMLDecimalAdapter"/>
-    <property reference="jaxb-gen"/>
+    <!--property reference="jaxb-gen"/-->
     <property reference="pluralizeAssociationEndNames"/>
     <property reference="pluralizeAttributeNames"/>
     <property reference="pluralizeParameterNames"/>
@@ -409,7 +408,7 @@
 	
 	<template
         path="templates/angular/app/view/action/view.action.html.vsl"
-        outputPattern="$actionPath/${actionName}.component.html"
+        outputPattern="$actionPath/${fileName}.component.html"
         outlet="views"
         overwrite="true">
         <modelElements variable="action">
@@ -424,7 +423,7 @@
     
 	<template
         path="templates/angular/app/view/action/view.action.ts.vsl"
-        outputPattern="$actionPath/${actionName}.component.ts"
+        outputPattern="$actionPath/${fileName}.component.ts"
         outlet="views"
         overwrite="true">
         <modelElements variable="action">
@@ -439,7 +438,7 @@
 	
 	<template
         path="templates/angular/app/view/action/view.action.impl.ts.vsl"
-        outputPattern="$actionPath/${actionName}.impl.component.ts"
+        outputPattern="$actionPath/${fileName}.impl.component.ts"
         outlet="views"
         overwrite="false">
         <modelElements variable="action">
@@ -454,7 +453,7 @@
     
 	<template
         path="templates/angular/app/view/action/view.action.css.vsl"
-        outputPattern="$actionPath/${actionName}.component.css"
+        outputPattern="$actionPath/${fileName}.component.css"
         outlet="views"
         overwrite="false">
         <modelElements variable="action">
@@ -469,7 +468,7 @@
     
 	<template
         path="templates/angular/app/view/action/view.action.spec.ts.vsl"
-        outputPattern="$actionPath/${actionName}.component.spec.ts"
+        outputPattern="$actionPath/${fileName}.component.spec.ts"
         outlet="views"
         overwrite="false">
         <modelElements variable="action">
