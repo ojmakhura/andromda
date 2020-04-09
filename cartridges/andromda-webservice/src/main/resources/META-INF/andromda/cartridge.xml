@@ -9,6 +9,7 @@
     <templateObject name="escapeUtils" className="org.apache.commons.text.StringEscapeUtils"/>
     <templateObject name="umlUtils" className="org.andromda.metafacades.uml.UMLMetafacadeUtils"/>
     <templateObject name="webServiceUtils" className="org.andromda.cartridges.webservice.WebServiceUtils"/>
+    <templateObject name="escTool" className="org.apache.velocity.tools.generic.EscapeTool"/>
     <!-- cartridge-templateObject merge-point-->
 
     <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
@@ -95,6 +96,7 @@
     <condition name="overwriteAll">$overwriteAll.equalsIgnoreCase("true")</condition>
     <condition name="xfire">$webserviceStack.equalsIgnoreCase("xfire")</condition>
     <condition name="axis">$webserviceStack.equalsIgnoreCase("axis")</condition>
+    <condition name="springws">$webserviceStack.equalsIgnoreCase("spring")</condition>
     <condition name="axis1">#if ($webserviceStack.equalsIgnoreCase("axis") &amp;&amp; $axisVersion.equals("1"))true#end</condition>
     <condition name="axis2">#if ($webserviceStack.equalsIgnoreCase("axis") &amp;&amp; $axisVersion.equals("2"))true#end</condition>
     <condition name="jaxws">$webserviceStack.equalsIgnoreCase("jaxws")</condition>
@@ -1123,6 +1125,21 @@
         outlet="wsdls"
         overwrite="true"
         outputCondition="jaxws">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+        
+    <template
+        path="templates/webservice/springws/SpringWS.java.vsl"
+        outputPattern="$stringUtils.replace($service.packageName, '.', '/')/${service.name}WS.java"
+        outlet="springwebservices"
+        overwrite="true"
+        outputCondition="springws">
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.webservice.metafacades.WebService">

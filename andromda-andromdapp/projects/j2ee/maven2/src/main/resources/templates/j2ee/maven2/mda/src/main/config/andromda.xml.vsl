@@ -126,6 +126,9 @@
                 <property name="parameterNameMask">none</property -->
                 <property name="xmlEncoding">ISO-8859-1</property>
                 <property name="enumerationLiteralNameMask">upperunderscore</property>
+                <property name="applicationName">${application.name}</property>
+                <property name="applicationPackage">${application.package}</property>
+            	<property name="applicationId">${application.id}</property>
 #if ($spring || $hibernate)
                 <property name="hibernateVersion">${hibernate.version}</property>
                 <property name="hibernateEntityAnnotations">true</property>
@@ -376,11 +379,12 @@
             </properties>
         </namespace>
 #end
-#if (!$webservice.equals("none") && !$jsr181Webservice)
+#if ((!$webservice.equals("none") && !$jsr181Webservice) || $springws)
         <!-- See http://docs.andromda.org/andromda-cartridges/andromda-webservice-cartridge/namespace.html -->
         <namespace name="webservice">
             <properties>
                 <property name="webserviceStack">$webserviceStack</property>
+
 #if ($cxf)
                 <property name="cxfVersion">${cxf.version}</property>
                 <!-- CXF Only - supports SOAP 1.1 and 1.2. Default=1.1>
@@ -390,22 +394,23 @@
                 <property name="axisVersion">$axisVersion</property>
                 <property name="schemaTypeMappingsUri">AxisWSDLMappings</property>
                 <property name="languageMappingsUri">AxisJavaMappings</property>
-#else
-                <property name="springVersion">3.2.5.RELEASE</property>
+#elseif(!$springws)
+                <property name="springVersion">5.2.4.RELEASE</property>
                 <property name="schemaTypeMappingsUri">XmlSchema</property>
                 <property name="languageMappingsUri">JavaMappings</property>
 #end
+#if (!$springws)
                 <property name="defaultProvider">RPC</property>
-                <property name="applicationName">${application.id}</property>
                 <property name="wsdlSoapAddress">http://${service.host}:${service.port}/${application.id}-ws/services</property>
                 <property name="webserviceTypesPackage">${application.package}</property>
+#end
 #if ($spring || $hibernate)
                 <property name="ejbInterfacePattern">{0}.ejb.{1}</property>
                 <property name="ejbHomeInterfacePattern">{0}.ejb.{1}Home</property>
 #elseif ($ejb)
                 <property name="ejbInterfacePattern">{0}.ejb.{1}</property>
                 <property name="ejbHomeInterfacePattern">{0}.ejb.{1}LocalHome</property>
-#else
+#elseif (!$springws)
                 <property name="rpcClassNamePattern">{0}.{1}WSDelegator</property>
 #end
 #if ($axisVersion.equals("1"))
@@ -433,9 +438,13 @@
                 <!-- Creates default/dummy implementation for service, iterating down through parameter hierarchy -->
                 <property name="generateMethodImpl">true</property>
                 <property name="wsdls">${webservice.generated.dir}/wsdl</property>
-#else
+#elseif (!$springws)
                 <property name="wsdls">${webservice.generated.dir}</property>
 #end
+#if($springws)
+                <property name="springVersion">5.2.4.RELEASE</property>
+                <property name="springwebservices">${springws.generated.java.dir}</property>
+#else
                 <property name="configuration">${webservice.generated.dir}</property>
                 <property name="webservice-project">${webservice.project}</property>
                 <property name="webservice-types">${core.generated.dir}</property>
@@ -445,6 +454,7 @@
                 <property name="service-impls">${core.manual.java.dir}</property>
                 <property name="jaxb-impl">${common.manual.dir}</property>
                 <property name="jaxb-gen">${common.generated.dir}</property>
+#end
             </properties>
         </namespace>
 #end
@@ -560,16 +570,6 @@
                 <property name="wsdlSoapAddress">http://${service.host}:${service.port}/${application.id}-ws/services</property>
                 <property name="jaxb-gen">${common.generated.dir}</property>
 #end
-            </properties>
-        </namespace>
-#end
-#if($springws)
-        <namespace name="springws">
-            <properties>
-                <property name="applicationPackage">${application.package}</property>
-            	<property name="applicationId">${application.id}</property>
-                <property name="applicationName">${application.name}</property>
-                <property name="services">${springws.generated.java.dir}</property>
             </properties>
         </namespace>
 #end

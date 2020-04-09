@@ -2724,4 +2724,33 @@ public class WebServiceUtils
         }
         return simple;
     }
+    
+    /**
+     * Convert request type to Spring request types
+     * 
+     * @param requestType
+     * @return 
+     */
+    public static String getRequestType(String requestType) {
+        
+        String[] splits = requestType.split("\\.");        
+        String rt = splits[splits.length-1];
+        
+        if(rt == null) {
+            rt = "POST";
+        }
+        
+        if(rt.equals("GET")) {
+            return "@org.springframework.web.bind.annotation.GetMapping";
+        } else if(rt.equals("DELETE")) {
+            return "@org.springframework.web.bind.annotation.DeleteMapping";
+        } else if(rt.equals("PATCH")) {
+            return "@org.springframework.web.bind.annotation.PatchMapping";
+        } else if(rt.equals("PUT")) {
+            return "@org.springframework.web.bind.annotation.PutMapping";
+        } else {
+            return "@org.springframework.web.bind.annotation.PostMapping";
+        }
+        
+    }
 }

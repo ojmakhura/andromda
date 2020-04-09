@@ -484,6 +484,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
 			<!-- Spring Web Service -->
 			<setProperty id="rest">true</setProperty>
 			<setProperty id="springws">true</setProperty>
+                        <setProperty id="webserviceStack">spring</setProperty>
                     </condition>
                     <condition equal="both">
                         <setProperty id="angular">true</setProperty>
@@ -492,6 +493,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
 			<!-- Spring Web Service -->
 			<setProperty id="rest">true</setProperty>
 			<setProperty id="springws">true</setProperty>
+                        <setProperty id="webserviceStack">spring</setProperty>
                     </condition>
                 </conditions>
             </prompt>
@@ -533,6 +535,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     </condition>
                     <condition id="angular" equal="true">
                         <setProperty id="rest">true</setProperty>
+                        <setProperty id="webserviceStack">spring</setProperty>
                     </condition>
                  </conditions>
             </prompt>
@@ -554,16 +557,21 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 <preconditions type="and">
                     <condition id="webservice" notEqual="none"/>
                     <condition id="jsr181Webservice" notEqual="true"/>
+                    <condition id="springws" notEqual="true"/>
                 </preconditions>
                 <responses>
                     <response>cxf</response>
                     <response>axis</response>
                     <response>jaxws</response>
                     <response>xfire</response>
+                    <response>spring</response>
                 </responses>
                 <conditions>
                     <condition id="webserviceStack" equal="cxf">
                         <setProperty id="cxf">true</setProperty>
+                    </condition>
+                    <condition equal="spring">
+                        <setProperty id="springws">true</setProperty>
                     </condition>
                 </conditions>
             </prompt>

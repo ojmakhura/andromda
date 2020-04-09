@@ -381,6 +381,13 @@
                 <value>andromda_REST_path</value>
                 <appliedOnElement>WebService,WebServiceOperation</appliedOnElement>
             </element>
+            <element name="WEBSERVICE_REST_RESPONSE_STATUS">
+                <documentation>
+                    Response status on a webservice operation.
+                </documentation>
+                <value>andromda_REST_response_status</value>
+                <appliedOnElement>WebServiceOperation</appliedOnElement>
+            </element>
             <element name="WEBSERVICE_REST_PRODUCES">
                 <documentation>
                     Type of service output produced by the service.
