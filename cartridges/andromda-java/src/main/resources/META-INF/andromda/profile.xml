@@ -32,6 +32,13 @@
                 <value>Enumeration</value>
                 <appliedOnElement>class</appliedOnElement>
             </element>
+            <element name="ANNOTATION_TYPE">
+                <documentation>
+                     Produces new annotation types.
+                </documentation>
+                <value>AnnotationType</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
             <element name="EXCEPTION">
                 <documentation>
                     Produces java checked exception objects. This will produce the same thing as a classifier

@@ -222,6 +222,13 @@
         </mapping>
         <property reference="useArraysForMultiplicitiesOfTypeMany"/>
     </metafacade>
+    
+    <!-- Annotation type metafacades -->
+    <metafacade class="org.andromda.metafacades.emf.uml22.AnnotationTypeFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.ClassImpl">
+            <stereotype>ANNOTATION_TYPE</stereotype>
+        </mapping>
+    </metafacade>
 
     <!--
     Manageable metafacades:

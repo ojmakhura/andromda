@@ -383,7 +383,11 @@
         <!-- See http://docs.andromda.org/andromda-cartridges/andromda-webservice-cartridge/namespace.html -->
         <namespace name="webservice">
             <properties>
+#if($springws)
+                <property name="webserviceStack">spring</property>
+#else
                 <property name="webserviceStack">$webserviceStack</property>
+#end
 
 #if ($cxf)
                 <property name="cxfVersion">${cxf.version}</property>

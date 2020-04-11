@@ -230,6 +230,13 @@
                 <value>perspective</value>
                 <appliedOnElement>Package</appliedOnElement>
             </element>
+            <element name="ANNOTATION_TYPE">
+                <documentation>
+                    Modeled component is an annotation.
+                </documentation>
+                <value>AnnotationType</value>
+                <appliedOnElement>Class</appliedOnElement>
+            </element>
         </elementGroup>
         <elementGroup name="Tagged Values">
             <element name="DOCUMENTATION">
@@ -446,6 +453,30 @@
                     <value>any column name present in this entity</value>
                     <value default="true">the name of the identifier column</value>
                 </allowedValues>
+            </element>
+            <element name="ANNOTATION_TYPE_RETENTION">
+                <documentation>
+                    Annotation type retention.
+                </documentation>
+                <value>retention</value>
+            </element>
+            <element name="ANNOTATION_TYPE_TARGET">
+                <documentation>
+                    Annotation type target.
+                </documentation>
+                <value>target</value>
+            </element>
+            <element name="ANNOTATION_TYPE_DOCUMENTED">
+                <documentation>
+                    Annotation type documented
+                </documentation>
+                <value>documented</value>
+            </element>
+            <element name="ANNOTATION_TYPE_EXTRA_ANNOTATION">
+                <documentation>
+                    Annotation type extra annotation
+                </documentation>
+                <value>extraAnnotation</value>
             </element>
         </elementGroup>
         <elementGroup name="Data Types">
