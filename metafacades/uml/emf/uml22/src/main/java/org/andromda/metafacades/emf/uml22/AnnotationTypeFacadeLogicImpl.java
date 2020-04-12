@@ -42,24 +42,23 @@ public class AnnotationTypeFacadeLogicImpl
      * TODO: Model Documentation for org.andromda.metafacades.uml.AnnotationTypeFacade.targets
      * @see org.andromda.metafacades.uml.AnnotationTypeFacade#getTargets()
      */
-    protected Collection<String> handleGetTargets()
+    protected String handleGetTarget()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("@java.lang.annotation.Target(");
+        builder.append("@java.lang.annotation.Target({");
         int i = 0;
         for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_ANNOTATION_TYPE_TARGET))
         {
             if(i > 0){
-                builder.append(", java.lang.annotation.ElementType.");
-            } else {
-                builder.append("java.lang.annotation.ElementType.");
+                builder.append(", ");
             }
+            builder.append("java.lang.annotation.ElementType.");
             
             builder.append(o.toString());
             i++;
         }
         
-        builder.append(")");
+        builder.append("})");
         // TODO put your implementation here.
         return builder.toString();
     }
@@ -70,12 +69,23 @@ public class AnnotationTypeFacadeLogicImpl
      */
     protected boolean handleIsDocumented()
     {
-        // TODO put your implementation here.
-        return true;
+        String o = (String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_ANNOTATION_TYPE_DOCUMENTED);
+                        
+        if(o != null && o.equalsIgnoreCase("true")) {
+            return true;
+        }
+        
+        return false;
     }
 
     @Override
-    public Collection<String> getExtraAnnotations() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    protected Collection<String> handleGetExtraAnnotations() {
+        HashSet<String> annotations = new HashSet<String>();
+        for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_ANNOTATION_TYPE_EXTRA_ANNOTATION))
+        {
+            annotations.add(o.toString());
+        }
+        return annotations;
     }
+
 }

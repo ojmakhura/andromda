@@ -2,9 +2,12 @@
 package $annotation.packageName;
 
 $annotation.retention
-$annotation.targets
-#if ($annotation.documented)
+$annotation.target
+#if ( $annotation.documented )
 @java.lang.annotation.Documented
+#end
+#foreach ($o in $annotation.extraAnnotations)
+@$o
 #end
 public @interface $annotation.name {
 }

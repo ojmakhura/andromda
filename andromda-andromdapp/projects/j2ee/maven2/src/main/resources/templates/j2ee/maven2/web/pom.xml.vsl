@@ -247,9 +247,9 @@
             <scope>provided</scope>
         </dependency>
 #end
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
+	<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
 #if ($ear)
             <scope>provided</scope>
 #end
