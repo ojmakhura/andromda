@@ -19,6 +19,7 @@ import org.andromda.metafacades.uml.Service;
 import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.WordUtils;
 
 public class AngularHelper {
 
@@ -257,8 +258,8 @@ public class AngularHelper {
 	}
 	
 	public static String getComponentName(String cName, String remove) {
-		
-		String[] splits = cName.trim().split(remove);
+		      
+		String[] splits = WordUtils.capitalize(cName).trim().split(remove);
 		StringBuilder builder = new StringBuilder();
 		
 		for( String s : splits) {

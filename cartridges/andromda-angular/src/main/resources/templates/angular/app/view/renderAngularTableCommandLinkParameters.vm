@@ -23,10 +23,11 @@ $params
 #macro (renderAngularTableCommandLinkParametersWithTypes)
 #set ( $params = "")
 #foreach ($parameter in $action.parameters)
+#set ( $type = $angularHelper.getDatatype(${parameter.type.fullyQualifiedName}))
 #if($stringUtils.isAllEmpty($arguments))
-#set ($params = "$parameter.name: $angularHelper.getDatatype(${parameter.type.fullyQualifiedName})")
+#set ($params = "$parameter.name: $type")
 #else
-#set ($params = ", $parameter.name: $angularHelper.getDatatype(${parameter.type.fullyQualifiedName})")
+#set ($params = ", $parameter.name: $type")
 #end
 #end
 $params

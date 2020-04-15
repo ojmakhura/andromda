@@ -18,7 +18,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 $tmp
 #end
 import { ${className} } from './${fileName}.component';
-#set ($viewName = "${angularHelper.getComponentName($stringUtils.replaceChars(${table.view.name}, '\\ ', '\\-'), '-')}View" )
+#set ($viewName = "${angularHelper.getComponentName($stringUtils.lowerCase(${table.view.name}), '-')}" )
 import { ${viewName}Impl } from './${stringUtils.replaceChars($stringUtils.lowerCase("${table.view.name}"), '\\ ', '\\-')}.impl.component';
 
 @Component({
