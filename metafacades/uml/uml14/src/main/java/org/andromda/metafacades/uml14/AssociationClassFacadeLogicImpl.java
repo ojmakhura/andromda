@@ -1,6 +1,8 @@
 package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
+import java.util.HashSet;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.omg.uml.foundation.core.AssociationClass;
 
 /**

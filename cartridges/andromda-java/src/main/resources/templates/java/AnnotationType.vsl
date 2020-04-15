@@ -6,7 +6,7 @@ $annotation.target
 #if ( $annotation.documented )
 @java.lang.annotation.Documented
 #end
-#foreach ($o in $annotation.extraAnnotations)
+#foreach ($o in $annotation.additionalAnnotations)
 @$o
 #end
 public @interface $annotation.name {

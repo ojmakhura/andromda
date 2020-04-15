@@ -66,7 +66,7 @@ public class AngularHelper {
             char c = className.charAt(i);
             if(Character.isUpperCase(c)) {
                 c = Character.toLowerCase(c);
-                if(i > 0 && !Character.isUpperCase(className.charAt(i-1))) {
+                if(i > 0 && !Character.isUpperCase(className.charAt(i-1)) && className.charAt(i-1) != ' ') {
                     builder.append('-');
                 } 
             } 

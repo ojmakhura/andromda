@@ -438,15 +438,15 @@ public class UMLProfile
     
     /**
      * 'andromda_annotation_type_documented'
-     * Indicates if the annotation type is documented.
+     * Extra annotations not covered by the normal AndroMDA features.
      */
     public static final String TAGGEDVALUE_ANNOTATION_TYPE_DOCUMENTED = profile.get("ANNOTATION_TYPE_DOCUMENTED");
     
     /**
-     * 'andromda_annotation_type_documented'
+     * 'andromda_additional_annotation'
      * Indicates if the annotation type is documented.
      */
-    public static final String TAGGEDVALUE_ANNOTATION_TYPE_EXTRA_ANNOTATION = profile.get("ANNOTATION_TYPE_EXTRA_ANNOTATION");
+    public static final String TAGGEDVALUE_ADDITIONAL_ANNOTATION = profile.get("ANDROMDA_ADDITIONAL_ANNOTATION");
 
     /* ----------------- Data Types -------------------- */
 

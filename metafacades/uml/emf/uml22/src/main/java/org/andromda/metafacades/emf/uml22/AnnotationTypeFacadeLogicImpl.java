@@ -77,15 +77,4 @@ public class AnnotationTypeFacadeLogicImpl
         
         return false;
     }
-
-    @Override
-    protected Collection<String> handleGetExtraAnnotations() {
-        HashSet<String> annotations = new HashSet<String>();
-        for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_ANNOTATION_TYPE_EXTRA_ANNOTATION))
-        {
-            annotations.add(o.toString());
-        }
-        return annotations;
-    }
-
 }

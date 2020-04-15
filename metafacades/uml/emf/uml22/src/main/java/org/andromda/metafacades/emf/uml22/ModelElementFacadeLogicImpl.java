@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 import org.andromda.core.metafacade.MetafacadeConstants;
+import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.metafacades.uml.BindingFacade;
 import org.andromda.metafacades.uml.ConstraintFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -1267,5 +1269,15 @@ public class ModelElementFacadeLogicImpl
     {
         final String name = this.handleGetName();
         return IDENTIFIER_PATTERN.matcher(name).matches();
+    }
+
+    @Override
+    protected Collection<String> handleGetAdditionalAnnotations() {
+        HashSet<String> annotations = new HashSet<String>();
+        for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_ADDITIONAL_ANNOTATION))
+        {
+            annotations.add(o.toString());
+        }
+        return annotations;
     }
 }

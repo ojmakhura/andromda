@@ -1,7 +1,7 @@
 #set ($generatedFile = $metafacade.logicFile)
 // license-header java merge-point
 //
-// Attention: generated code (by MetafacadeLogic.vsl) - do not modify!
+// Attention: generated code (by MetafacadeLogic.vsl) - do not modify! ================
 //
 #if ($stringUtils.isNotBlank($metafacade.logicPackageName))
 package $metafacade.logicPackageName;

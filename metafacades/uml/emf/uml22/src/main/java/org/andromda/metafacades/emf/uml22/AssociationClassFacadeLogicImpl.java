@@ -1,7 +1,9 @@
 package org.andromda.metafacades.emf.uml22;
 
 import java.util.Collection;
+import java.util.HashSet;
 import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.eclipse.uml2.uml.AssociationClass;
 
@@ -37,5 +39,15 @@ public class AssociationClassFacadeLogicImpl
         return CollectionUtils.collect(
                 this.metaObject.getMemberEnds(),
                 UmlUtilities.ELEMENT_TRANSFORMER);
+    }
+    
+    @Override
+    public Collection<String> getAdditionalAnnotations() {
+        HashSet<String> annotations = new HashSet<String>();
+        for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_ADDITIONAL_ANNOTATION))
+        {
+            annotations.add(o.toString());
+        }
+        return annotations;
     }
 }
