@@ -26,7 +26,7 @@ public class ${service.name}WS {
     @org.springframework.web.bind.annotation.ResponseBody
 #end
     $operation.visibility $operation.getterSetterReturnTypeName ${operation.name}(#getOperationArgs($operation)) {
-#if ($operation.getterSetterReturnTypeName != 'void')   return #end$stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames);
+#if ($operation.getterSetterReturnTypeName != 'void')        return #end$stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames);
     }
 
 #end

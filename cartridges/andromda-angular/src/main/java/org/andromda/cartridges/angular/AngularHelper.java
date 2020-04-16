@@ -20,8 +20,13 @@ import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
+import org.apache.log4j.Logger;
 
 public class AngularHelper {
+    /**
+     * The logger instance.
+     */
+    private static final Logger logger = Logger.getLogger(AngularHelper.class);
 
     public static Collection<String> getArgumentsAsList(final String args) {
         StringTokenizer st = new StringTokenizer(args, ",");
@@ -84,6 +89,19 @@ public class AngularHelper {
      */
     public static String getDatatype(final String typeName) {
         
+        if(typeName == null) {
+            logger.error("typeName should not be null", new NullPointerException());
+        }
+        
+        if(typeName.equalsIgnoreCase("java.lang.Boolean") || typeName.equalsIgnoreCase("boolean")) {
+            return "boolean";
+        }
+        
+        // If the dataset is a java.util.Collection without type parameters
+        if(typeName.equalsIgnoreCase("java.util.Collection")) {
+            return "Object[]";
+        }
+        
         String datatype = "";
         try {
             Class cls = Class.forName(typeName);
@@ -92,6 +110,11 @@ public class AngularHelper {
             if(cls.getSuperclass().getName().equalsIgnoreCase("java.lang.Number"))
             {
                 return "number";
+            }
+            
+            if(cls.getSuperclass().getName().equalsIgnoreCase("java.lang.Boolean"))
+            {
+                return "boolean";
             }
                         
             Object obj = cls.newInstance();
@@ -108,20 +131,22 @@ public class AngularHelper {
                     datatype = getDatatype(tmp) + "[]";
                     
                 } else {
-                    datatype = "any[]";
+                    datatype = "Object[]";
                 }
             } else if(obj instanceof Map) {
                 datatype = "Map";
             }      
             
-        } catch (InstantiationException | IllegalAccessException e) {            
+        } catch (InstantiationException | IllegalAccessException e) {
+            if(typeName.equalsIgnoreCase("java.lang.Boolean")) {
+                datatype = "boolean";
+            }
+            logger.error("Could find the instance for " + typeName);
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             if(typeName.equalsIgnoreCase("byte[]")) {
                 datatype = "File";
-            }else if(typeName.equalsIgnoreCase("java.lang.Boolean")) {
-                datatype = "boolean";
-            } else {
+            }else {
                 if(typeName.contains("<")) {
                     String tmp = StringUtils.substringAfter(typeName, "<");
                     tmp = StringUtils.substringBefore(tmp, ">");
@@ -152,7 +177,7 @@ public class AngularHelper {
 		HashSet<String> set = new HashSet<String>();
         for(ModelElementFacade arg : args) {
             ModelElementFacade facade = null;
-			
+            			
             if(arg instanceof ParameterFacade) {
                 ParameterFacade tmp = (ParameterFacade)arg;
                 facade = tmp.getType();
@@ -238,6 +263,7 @@ public class AngularHelper {
 		HashSet<ModelElementFacade> elementSet =  new HashSet<ModelElementFacade>();
 		
 		for(ModelElementFacade facade : facades) {
+            
 			if(facade != null && nameSet.add(facade.getName())) {
 				elementSet.add(facade);
 			}
