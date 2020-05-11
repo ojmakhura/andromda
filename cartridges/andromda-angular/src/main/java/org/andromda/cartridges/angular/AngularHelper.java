@@ -9,7 +9,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.StringTokenizer;
 import org.andromda.core.metafacade.MetafacadeBase;
-
+import org.andromda.cartridges.webservice.metafacades.WebServiceOperation;
+  
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
@@ -18,6 +19,7 @@ import org.andromda.metafacades.uml.EnumerationFacade;
 import org.andromda.metafacades.uml.Service;
 import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndView;
+import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
 import org.apache.log4j.Logger;
@@ -65,14 +67,13 @@ public class AngularHelper {
     public static String getComponentFileName(final String className) {
         
         StringBuilder builder = new StringBuilder();
-        
         String stmp = className.trim().substring(0, className.length());
         
         for(int i = 0; i < className.length(); i++) {
             char c = className.charAt(i);
             if(Character.isUpperCase(c)) {
                 c = Character.toLowerCase(c);
-                if(i > 0 && !Character.isUpperCase(className.charAt(i-1)) && className.charAt(i-1) != ' ') {
+                if(i > 0 && !Character.isUpperCase(className.charAt(i-1)) && className.charAt(i-1) != ' ' && className.charAt(i-1) != '-') {
                     builder.append('-');
                 } 
             } 
@@ -93,13 +94,21 @@ public class AngularHelper {
             logger.error("typeName should not be null", new NullPointerException());
         }
         
-        if(typeName.equalsIgnoreCase("java.lang.Boolean") || typeName.equalsIgnoreCase("boolean")) {
+        if(typeName.equalsIgnoreCase("java.lang.Boolean") || typeName.equalsIgnoreCase("Boolean") || typeName.equalsIgnoreCase("boolean")) {
             return "boolean";
         }
         
+        if(typeName.equalsIgnoreCase("int") ||
+                typeName.equalsIgnoreCase("short") ||
+                typeName.equalsIgnoreCase("long") || 
+                typeName.equalsIgnoreCase("float") ||
+                typeName.equalsIgnoreCase("double")) {
+            return "number";
+        }
+        
         // If the dataset is a java.util.Collection without type parameters
-        if(typeName.equalsIgnoreCase("java.util.Collection")) {
-            return "Object[]";
+        if((typeName.equalsIgnoreCase("java.util.Collection") || typeName.equalsIgnoreCase("Collection"))) {
+            return "any[]";
         }
         
         String datatype = "";
@@ -210,17 +219,6 @@ public class AngularHelper {
                     builder.append(facade.getName());
                     builder.append(suffix);
                     builder.append(" } from ");
-					
-					/*if(StringUtils.isBlank(destPackage)) {
-						builder.append(" } from './");
-					} else {
-						builder.append(" } from '../");
-						// Need to handle arbitrary package depth
-						String[] ar = destPackage.split("\\.");
-						for(String s : ar) {
-							builder.append("../");
-						}
-					}*/
 
                     builder.append("'");
                     builder.append(angPath);
@@ -235,8 +233,17 @@ public class AngularHelper {
         
         return set;
     }
+    
+    public static HashSet<String> getImportsFromSets(List<String> names, List<String> paths) {
+		HashSet<String> set = new HashSet<String>();
+        for(int i = 0; i < names.size(); i++) {
+            set.add("import {" + names.get(i) + "} from '" + paths.get(i) + "';");
+        }
+        
+        return set;
+    }
 	
-	public HashSet<String> getStringSet(List<String> strings) {
+	public static HashSet<String> getStringSet(List<String> strings) {
 		HashSet<String> set = new HashSet<String>();
 		set.addAll(strings);		
 		return set;
@@ -272,8 +279,14 @@ public class AngularHelper {
 		return elementSet;
 	}
 	
-	public String getWebServiceMethodName(String fullName) {
-		String[] splits = fullName.split("\\.");
+	public String getWebServiceMethodName(WebServiceOperation operation) {
+        
+        if(StringUtils.isBlank(operation.getRestRequestType())) {
+            return "post";
+        }
+        
+		String[] splits = operation.getRestRequestType().split("\\.");
+        
 		return splits[splits.length-1].toLowerCase();
 	}
 	
@@ -294,4 +307,72 @@ public class AngularHelper {
 		
 		return builder.toString().replaceAll("[^a-zA-Z0-9]", "");
 	}
+    
+    public static boolean isNative(String datatype) {
+        
+        if((datatype != "number" || datatype != "number[]")
+                && (datatype.equals("string") || datatype.equals("string[]"))
+                && (datatype.equals("Date") || datatype.equals("Date[]"))
+                && (datatype.equals("boolean") || datatype.equals("boolean[]"))
+                && (datatype.equals("Object") || datatype.equals("Object[]"))
+                && (datatype.equals("any") || datatype.equals("any[]"))) {
+            
+            return true;
+        }
+        
+        return true;
+    }
+    
+    public static String getMethodSignatureArguments(List<ParameterFacade> arguments) {
+        
+        StringBuilder builder = new StringBuilder();
+        
+        for(int i = 0; i < arguments.size(); i++) {
+            if(i > 0) {
+                builder.append(", ");
+            }
+            ParameterFacade arg = arguments.get(i);
+            builder.append(arg.getName());
+            builder.append(": ");
+            builder.append(getDatatype(arg.getType().getFullyQualifiedName()));
+        }
+        
+        return builder.toString();
+    }
+    
+    public static String getMethodCallArguments(List<ParameterFacade> arguments) {
+        
+        if(arguments.size() == 1) {
+            return arguments.get(0).getName();
+        } else {
+            StringBuilder builder = new StringBuilder();
+            
+            builder.append("{");
+            
+            for(int i = 0; i < arguments.size(); i++) {
+                if(i > 0) {
+                    builder.append(", ");
+                }
+                ParameterFacade arg = arguments.get(i);
+                builder.append(arg.getName());
+                builder.append(": ");
+                builder.append(arg.getName());
+            }
+            
+            builder.append("}");
+
+            return builder.toString();
+        }
+    }
+    
+    public static void addDefaultRole() {
+        
+    }
+    
+    public static HashSet<String> getFacadeNameSet(List<UseCaseFacade> useCases) {
+        
+        HashSet<String> names = new HashSet<>();
+                
+        return names;
+    }
 }

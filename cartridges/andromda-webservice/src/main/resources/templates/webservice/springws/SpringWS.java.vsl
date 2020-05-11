@@ -11,6 +11,9 @@ package ${service.packageName};
 @org.springframework.web.bind.annotation.RestController
 @org.springframework.web.bind.annotation.RequestMapping(#if ($stringUtils.isNotBlank($service.restPath))"$service.restPath"#else"${service.name.toLowerCase()}sws"#end)
 @org.springframework.stereotype.Component
+#foreach($annotation in $service.additionalAnnotations)
+@$annotation
+#end
 public class ${service.name}WS {
 	
     @org.springframework.beans.factory.annotation.Autowired

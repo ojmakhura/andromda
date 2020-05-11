@@ -32,20 +32,8 @@ export abstract class $service.name {
   }
 #end
 #foreach ($operation in $service.operations)
-#set ($arguments = "")
-#set ($argNames = "")
-#foreach($arg in $operation.arguments)
-#set ($argType = $angularHelper.getDatatype($arg.type.fullyQualifiedName))
-#if($arg.upper>1 || $arg.upper==-1)
-#set ($argType = "$argType[]")
-#end
-#if($stringUtils.isAllEmpty($arguments))
-#set($arguments = "$arg.name: $argType")
-#else
-#set($arguments = ", $arg.name: $argType")
-#end
-#set ($argNames = ", $arg.name")
-#end
+#set ($arguments = $angularHelper.getMethodSignatureArguments($operation.arguments))
+#set ($argNames = $angularHelper.getMethodCallArguments($operation.arguments))
 #set ($returnType = $angularHelper.getDatatype($operation.returnType.name))
 #if (!$useArrayWrapper && ($operation.upper>1 || $operation.upper==-1))
 #set ($returnType = "$returnType[]")

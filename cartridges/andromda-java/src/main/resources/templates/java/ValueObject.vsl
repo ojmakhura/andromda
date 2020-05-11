@@ -90,6 +90,9 @@ $class.getDocumentation(" * ")
 #end
 #end
 @org.springframework.stereotype.Component
+#foreach($annotation in $class.additionalAnnotations)
+@$annotation
+#end
 public#if($class.leaf) final#end#if($class.abstract) abstract#end class $umlUtils.getClassDeclaration($class, $className, $enableTemplating)
 #if($class.generalization)
 ## Class should only extend another ValueObject, which already declares Serializable and Comparable
@@ -211,6 +214,9 @@ $attribute.getDocumentation("     * ")
 #end
 #end
 #set ($returnType = $attribute.getterSetterTypeName)
+#foreach($annotation in $attribute.additionalAnnotations)
+    @$annotation
+#end
     protected $returnType $attribute.name#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#end;
 #if ($attribute.type.primitive)
     /**
@@ -607,20 +613,27 @@ $connectingEnd.getDocumentation("     * ")
 #end
     public String toString()
     {
-        return new ToStringBuilder(this)
+
+        StringBuilder builder = new StringBuilder();
+#set ($i = 0)
+        builder.append("{\n");
 #foreach($attr in $class.getAttributes(true))
-            .append("${attr.name}", this.${attr.getterName}())
+        builder.append("\t#if($i == 1),#end\"${attr.name}\" : \"" + this.${attr.getterName}() + "\"");
+#if($i == 0)#set($i = 1)#end
 #end
 #foreach($associationEnd in $class.navigableConnectingEnds)
 ## Do not append one of the two ends if bidirectional navigation. Comment out 1 end of 1:*, or end with lower alphabetical name.
 #if (!$umlUtils.isOwningEnd($associationEnd) && $associationEnd.otherEnd.navigable)
             // Prevent recursive bidirectional relationship infinite loop
-            //.append("${associationEnd.name}", this.${associationEnd.getterName}())
+        builder.append("\t#if($i == 1),#end\"${associationEnd.name}\" : \"" + this.${associationEnd.getterName}() + "\"");
 #else
-            .append("${associationEnd.name}", this.${associationEnd.getterName}())
+        builder.append("\t#if($i == 1),#end\"$${associationEnd.name}\" : \"" + this.${associationEnd.getterName}() + "\"");
 #end
-#end
-            .toString();
+#if($i == 0)#set($i = 1)#end
+#end        
+        builder.append("}");
+        return builder.toString();
+
     }
 
 ##

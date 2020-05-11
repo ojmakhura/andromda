@@ -598,7 +598,7 @@ public class WebServiceOperationLogicImpl
     {
         boolean result = true;
         String webserviceStack = String.valueOf(this.getConfiguredProperty("webserviceStack"));
-        if (webserviceStack.equals("cxf") || webserviceStack.equals("jaxws"))
+        if (webserviceStack.equals("cxf") || webserviceStack.equals("jaxws") || webserviceStack.equals("spring"))
         {
             Collection<ModelElementFacade> exceptions = this.getExceptions();
             for (ModelElementFacade exception : exceptions)

@@ -1,5 +1,8 @@
 #set ( $appModule = $stringUtils.lowerCase(${applicationId}) )
-#set ( $imports = "" )
+#set ( $classNames = [] )
+#set ( $imports = [] )
+#set ($fields = [] )
+#set ($services = [] )
 // license-header angular merge-point
 //
 /**
@@ -15,18 +18,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MatTabsModule, 
-		 MatListModule,
-		 MatSidenavModule,
-		 MatToolbarModule,
-		 MatButtonModule,
-		 MatIconModule,
-		 MatMenuModule,
-		 MatDatepickerModule, 
-   	  	 MatNativeDateModule,
-   		 MatFormFieldModule,
-   		 MatInputModule,
-         MatCheckboxModule } from '@angular/material';
+import { MatTabsModule,
+        MatListModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatIconModule,
+        MatMenuModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCheckboxModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { $stringUtils.capitalize(${applicationId})LayoutComponent } from './layout/$stringUtils.lowerCase(${applicationId})-layout.component';
@@ -38,47 +41,15 @@ import { $stringUtils.capitalize(${applicationId})Component } from './$stringUti
 #foreach ($useCase in $useCases)
 #renderImports($useCase)
 #end
-## Get the services
-## We handle services separately because we need the implementations, not the bases
-#set ($services = [] )
-#set ($fields = [] )
-#set ($otherFacades = [] )
-#foreach ($useCase in $useCases)
-#foreach ($action in $useCase.actions)
-#foreach ($service in $action.controller.allServices)
-#set ( $rt = $services.add($service) )
-#end
-#foreach ( $field in $action.formFields )
-#set ( $rt = $fields.add($field.type))
-#end
-#end
-#foreach ($view in $useCase.views)
-#foreach ($table in $view.tables)
-#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${table.packageName}), '\\.', '\\/') )
-#set ( $fileName = $stringUtils.replaceChars($stringUtils.lowerCase("${table.view.name}-${table.name}"), '\\ ', '\\-'))
-#set ( $className = $angularHelper.getComponentName($fileName, "-"))
-import { ${className}Impl } from './view/$componentPath/${fileName}.impl.component';
-#end
-#foreach ($action in $view.actions)
-#if (!$action.tableLink)
-#set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/')" )
-#set ( $actionFileName = $stringUtils.lowerCase($stringUtils.replaceChars("${action.useCase.name}-$action.trigger.name", '\\ ', '\\-')) )
-#set ( $actionName = "${angularHelper.getComponentName($action.name, '-')}Impl" )
-import { $actionName } from './view/$actionPath/${actionFileName}.impl.component';
-#end
-#end
-#end
-#end
-#set ( $finalServices = $angularHelper.getFacadeSet($services) ) ## No repetisions
-#foreach ( $finalService in $finalServices )
-#set ($componentPath = $stringUtils.replaceChars(${finalService.packageName}, "\\.", "\\/"))
-#set ($fileName = $angularHelper.getComponentFileName("${finalService.name}Impl"))
-import { ${finalService.name}Impl } from './service/$componentPath/$fileName';
+
+#set ( $nameSet = $angularHelper.getStringSet($classNames) )
+#foreach ( $import in $angularHelper.getStringSet($imports) )
+$import
 #end
 #set ( $finalFields = [] )
 #foreach ($finalField in $angularHelper.getFacadeSet($fields) )
 #set ($dt = $angularHelper.getDatatype($finalField.fullyQualifiedName))
-#if ($dt != "number" && $dt != "string" && $dt != "Date")
+#if ($dt != "number" && $dt != "string" && $dt != "Date" && $dt != "Collection" && $dt != "any")
 #set ( $rt = $finalFields.add($finalField) )
 #end
 #end
@@ -86,91 +57,81 @@ import { ${finalService.name}Impl } from './service/$componentPath/$fileName';
 #foreach ( $tmp in $angularHelper.getImports($finalFields, "", $suffix) )
 $tmp
 #end
+#set ( $finalServices = $angularHelper.getFacadeSet($services) )
+#foreach ( $finalService in $finalServices )
+#set ($componentPath = $stringUtils.replaceChars(${finalService.packageName}, "\\.", "\\/"))
+#set ($fileName = $angularHelper.getComponentFileName("${finalService.name}Impl"))
+import { ${finalService.name}Impl } from './service/$componentPath/$fileName';
+#end
 
 @NgModule({
-  declarations: [
-#set ($imports = "$stringUtils.capitalize(${applicationId})Component,
-    $stringUtils.capitalize(${applicationId})LayoutComponent,
-    $stringUtils.capitalize(${applicationId})HeaderComponent,
-    $stringUtils.capitalize(${applicationId})NavigationComponent")
-#foreach ($useCase in $useCases)
-#renderUseCaseDeclarations ($useCase )
-#foreach ($view in $useCase.views)
-#foreach ($table in $view.tables)
-#set ( $fileName = $stringUtils.replaceChars($stringUtils.lowerCase("${table.view.name}-${table.name}"), '\\ ', '\\-'))
-#set ( $className = $angularHelper.getComponentName($fileName, "-"))
-#set ($imports = "$imports, 
-	${className}Impl")
-#end
-#foreach ($action in $view.actions)
-#if (!$action.tableLink)
-#set ( $fileName = $angularHelper.getComponentFileName("${action.useCase.name.lowercase()} $action.trigger.name") )
-#set ( $actionName = $angularHelper.getComponentName($action.name, "-") )
-#set ($imports = "$imports, 
-	${actionName}Impl")
+    declarations: [
+        $stringUtils.capitalize(${applicationId})Component,
+        $stringUtils.capitalize(${applicationId})LayoutComponent,
+        $stringUtils.capitalize(${applicationId})HeaderComponent,
+        $stringUtils.capitalize(${applicationId})NavigationComponent,
+#set ($i = 0)
+#foreach ( $name in $nameSet )
+#set ( $i = $i + 1 )
+        $name#if($i < $nameSet.size()),
 #end
 #end
+
+    ],
+    imports: [
+        CommonModule,
+        MatTabsModule,
+        MatListModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatIconModule,
+        MatMenuModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCheckboxModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        FormsModule,
+        $stringUtils.capitalize(${applicationId})RoutingModule
+    ],
+    exports: [
+        MatTabsModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatIconModule,
+        MatMenuModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCheckboxModule
+    ],
+    providers: [
+#foreach ($finalField in $angularHelper.getFacadeSet($fields) )
+#set ($dt = $angularHelper.getDatatype($finalField.fullyQualifiedName))
+#if ($dt != "number" && $dt != "string" && $dt != "Date" && $dt != "Collection" && $dt != "any")
+        $finalField.name,
 #end
 #end
-    $imports
-  ],
-  imports: [
-    CommonModule,
-    MatTabsModule,
-    MatListModule,
-    MatSidenavModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatMenuModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    FormsModule,
-    $stringUtils.capitalize(${applicationId})RoutingModule
-  ],
-  exports: [
-    MatTabsModule,
-    MatSidenavModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatMenuModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule
-  ],
-  providers: [
-#set ($imp = "")
+#set ($i = 0)
+#foreach ( $name in $nameSet )
+#set ( $i = $i + 1 )
+        $name#if($i < $nameSet.size()),
+#end
+#end
+#set ($i = 0)
+#set ( $finalServices = $angularHelper.getFacadeSet($services) ) ## No repetisions
 #foreach ( $finalService in $finalServices )
-#if ($stringUtils.isBlank($imp))		
-#set ($imp = "${finalService.name}Impl")
-#else
-#set ($imp = "$imp, 
-	${finalService.name}Impl")
+        ${finalService.name}Impl#if($i < $finalService.size()),
 #end
 #end
-#foreach ($field in $finalFields)
-#if ($stringUtils.isBlank($imp))
-#set ($imp = "${field.name}")
-#else
-#set ($imp = "$imp, 
-	${field.name}")
-#end
-#end
-#set ($imports = $imp )
-#foreach ($useCase in $useCases)
-#renderUseCaseDeclarations ($useCase )
-#end
-	$imports
-  ],
-  bootstrap: [$stringUtils.capitalize(${applicationId})Component]
+
+    ],
+    bootstrap: [$stringUtils.capitalize(${applicationId})Component]
 })
 export class $stringUtils.capitalize(${applicationId})Module { }

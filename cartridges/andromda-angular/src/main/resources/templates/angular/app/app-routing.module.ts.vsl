@@ -1,3 +1,5 @@
+#set ( $classNames = [] )
+#set ( $imports = [] )
 // license-header angular merge-point
 //
 /**
@@ -16,38 +18,60 @@
 ##     o  $pUseCase - the useCase to render
 ##     o  $ident - spaces to ident
 ##
-#macro(renderMenuItem $pUseCase $ident)
+#set ($menus = [])
+#macro(getMenuItem $pUseCase $ident)
 #set ($roles = $useCase.actionRoles)
 #addDefaultRole($roles)
 #foreach ($view in $pUseCase.views)
-#if ($stringUtils.isNotBlank($menuItems))
-#set ($menuItems = "$menuItems,
-")
-#end
-#set ( $className = "$stringUtils.replaceChars($stringUtils.capitalize(${view.name}), '\\ ', '')Impl")
-#set ( $fileName = $angularHelper.getComponentFileName($stringUtils.lowerCase(${view.name})))
+#set ($rt = $menus.add($view))
+#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
+#set ( $fileName = $angularHelper.getComponentFileName("${view.useCase.name}-${view.name}"))
 #set ( $className = $angularHelper.getComponentName($fileName, "-") )
-#set ($routeName = $stringUtils.replaceChars($fileName, '-', ''))
-#set ($menuItems = "$menuItems { path: '$routeName', component: ${className}Impl }")
+#set ( $rt = $classNames.add("${className}Impl"))
+#set ( $rt = $imports.add("import { ${className}Impl } from ${escTool.s}./view/${componentPath}/${fileName}.impl.component${escTool.s};"))
+## Actions
+#foreach ($action in $view.actions)
+#if (!$action.tableLink)
+#set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/')" )
+#set ( $actionFileName = $angularHelper.getComponentFileName("${action.useCase.name} $action.trigger.name") )
+#set ( $actionName = "${angularHelper.getComponentName($action.name, '-')}" )
+#set ( $rt = $classNames.add("${actionName}Impl"))
+#set ( $rt = $imports.add("import { ${actionName}Impl } from ${escTool.s}./view/${actionPath}/${actionFileName}.impl.component${escTool.s};"))
+#end
+#end
+## Tables
+#foreach ($table in $view.tables)
+#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${table.packageName}), '\\.', '\\/') )
+#set ( $fileName = $angularHelper.getComponentFileName("${table.view.useCase.name}-${table.view.name}-${table.name}") )
+#set ( $className = $angularHelper.getComponentName($fileName, "-"))
+#set ( $rt = $classNames.add("${className}Impl"))
+#set ( $rt = $imports.add("import { ${className}Impl } from ${escTool.s}./view/${componentPath}/${fileName}.impl.component${escTool.s};"))
+#end
 #end
 #if (!$children.empty)
 #foreach ($child in $children)
-#renderMenuItem ($child "$ident    ")    
-#end    
-#end    
+#getMenuItem ($child "$ident    ")    
+#end
+#end
 #end
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 #foreach ($useCase in $useCases)
-#renderImports($useCase)
+#getMenuItem($useCase)
+#end
+#foreach ( $import in $angularHelper.getStringSet($imports) )
+$import
 #end
 
 const routes: Routes = [
-#foreach ($useCase in $useCases)
-#renderMenuItem($useCase "            ")    
+#set ( $i = 0 )
+#foreach ($menu in $angularHelper.getStringSet($classNames) )
+#set ( $i = $i + 1 )
+    { path: '$stringUtils.lowerCase($stringUtils.substringBefore($menu, "Impl"))', component: ${menu} }#if( $i < $classNames.size() ),
 #end
-$menuItems
+#end
+
 ];
 
 @NgModule({

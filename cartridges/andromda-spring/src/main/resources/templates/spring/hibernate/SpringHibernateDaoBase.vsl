@@ -85,7 +85,18 @@ public abstract class $entity.daoBaseName
 {
 #if($hibernate4or5)
     
-    //protected org.apache.commons.logging.Log logger = org.apache.commons.logging.LogFactory.getLog(${entity.daoBaseName}.class);
+    protected org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(${entity.daoBaseName}.class);
+
+    @Autowired
+    protected javax.persistence.EntityManager entityManager;
+
+    public void setEntityManager(javax.persistence.EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+    public javax.persistence.EntityManager getEntityManager() {
+        return this.entityManager;
+    }
 
     @org.springframework.beans.factory.annotation.Autowired
     private org.hibernate.SessionFactory sessionFactory;
@@ -109,14 +120,15 @@ public abstract class $entity.daoBaseName
     }
 
 #end
-#foreach($entityRef in $entity.entityReferences)
+#foreach($entityRef in $entity.entityReferences)    
     private $entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName;
 
     /**
      * Sets the reference to <code>$entityRef.daoName</code>.
      * @param ${entityRef.daoName}In
      */
-    public void ${entityRef.daoSetterName}($entityRef.targetElement.fullyQualifiedDaoName ${entityRef.daoName}In)
+    @org.springframework.beans.factory.annotation.Autowired
+    public void ${entityRef.daoSetterName}(@org.springframework.context.annotation.Lazy $entityRef.targetElement.fullyQualifiedDaoName ${entityRef.daoName}In)
     {
         this.$entityRef.daoName = ${entityRef.daoName}In;
     }
@@ -1894,7 +1906,7 @@ $h3tab        }
     @SuppressWarnings({ "unchecked" })
 #end
     protected $fullyQualifiedPagingResultName getPaginationResult(
-        final ${hibernateUtils.basePackage}.Query queryObject,
+        final ${hibernateUtils.basePackage}.query.Query queryObject,
         final int transform, int pageNumber, int pageSize)
     {
 #if ($hibernate4or5)

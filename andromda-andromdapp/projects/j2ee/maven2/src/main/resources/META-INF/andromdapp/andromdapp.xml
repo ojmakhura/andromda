@@ -266,7 +266,7 @@
         </mapping>
         <mapping>
             <from>springws/application.properties.vsl</from>
-            <to>springws/src/main/resources/$stringUtils.replace(${applicationPackage}, '.', '/')/application.properties.vsl</to>
+            <to>springws/src/main/resources/application.properties.vsl</to>
         </mapping>
     </mappings>
     <instructions>readme.txt</instructions>
