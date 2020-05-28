@@ -85,7 +85,7 @@ $entity.getDocumentation(" * ")
 ##end
 #end
 #end
-#foreach($annotation in $service.additionalAnnotations)
+#foreach($annotation in $entity.additionalAnnotations)
 @$annotation
 #end
 // HibernateEntity.vsl annotations merge-point
