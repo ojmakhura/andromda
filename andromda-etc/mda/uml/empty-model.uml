@@ -1,68 +1,175 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
-  <uml:Model xmi:id="_7zZYwCXvEdyeC6-v07fheA" name="NewModel" visibility="public" URI="" viewpoint="">
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:MagicDrawProfile="http://UML_Standard_Profile/MagicDraw_Profile/_be00301_1073394351331_445580_2" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xsi:schemaLocation="http://UML_Standard_Profile/MagicDraw_Profile/_be00301_1073394351331_445580_2 UML_Standard_Profile.MagicDraw_Profile.profile.uml#_1dQmqbJmEeqj1vE0YAl0kQ">
+  <uml:Model xmi:id="_7zZYwCXvEdyeC6-v07fheA" name="NewModel" viewpoint="">
+    <ownedComment xmi:id="_18_1beta_8c90288_1415101994820_370998_4336" body="Author:junior.&#xA;Created:6/19/20 9:55 PM.&#xA;Title:.&#xA;Comment:.&#xA;" annotatedElement="_7zZYwCXvEdyeC6-v07fheA"/>
+    <ownedComment xmi:id="_19_0_3_90e0298_1592596511910_902813_7661" body="Author:junior.&#xA;Created:6/19/20 9:43 PM.&#xA;Title:.&#xA;Comment:.&#xA;" annotatedElement="_7zZYwCXvEdyeC6-v07fheA"/>
+    <packageImport xmi:id="_7tQHQExuEd60KbaIlrDIWg" importedPackage="eee_1045467100313_135436_1"/>
     <packageImport xmi:id="_0primitiveTypesNewModel">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
     </packageImport>
     <packageImport xmi:id="_0javaPrimitiveTypesNewModel">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
     </packageImport>
-    <packageImport xmi:id="_7tQHQExuEd60KbaIlrDIWg">
-      <importedPackage xmi:type="uml:Model" href="andromda-datatype-4.0-SNAPSHOT.uml#eee_1045467100313_135436_1"/>
-    </packageImport>
-    <packagedElement xmi:type="uml:Package" xmi:id="_UW5VUHBCEdyzBeV1cEAmlQ" name="PrimitiveTypes" visibility="public" URI="">
-      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_UW5VVHBCEdyzBeV1cEAmlQ" name="BigDecimal" visibility="public"/>
-      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_jJoe8HBEEdyzBeV1cEAmlQ" name="BigInteger" visibility="public"/>
-      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_UW5VUXBCEdyzBeV1cEAmlQ" name="Date" visibility="public"/>
-      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_eZJhQHRoEd2XYY41Ptd_Hw" name="DateTime" visibility="public"/>
-      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_UW5VUnBCEdyzBeV1cEAmlQ" name="Double" visibility="public"/>
-      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_5Ml1QHBDEdyzBeV1cEAmlQ" name="Money" visibility="public"/>
-      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_pYgRcHBDEdyzBeV1cEAmlQ" name="Object" visibility="public"/>
-      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_czE7UHRoEd2XYY41Ptd_Hw" name="Time" visibility="public"/>
-      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_fuFT4HRoEd2XYY41Ptd_Hw" name="Timestamp" visibility="public"/>
-      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_9zVW4HBDEdyzBeV1cEAmlQ" name="void" visibility="public"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="magicdraw_uml_standard_profile_v_0001" name="UML Standard Profile">
+      <ownedComment xmi:id="_be00301_1078843546940_242228_131" body="UML Standard Profile contains a UML metamodel (metaclasses without properties and associations), Standard UML stereotypes defined in the annex C of UML specification, validation suites for UML model correctness and completeness checking, and stereotypes used by MagicDraw internally." annotatedElement="magicdraw_uml_standard_profile_v_0001"/>
     </packagedElement>
-    <profileApplication xmi:id="_8a70287_1078771814628_224704_589profileApplicationNewModel">
-      <eAnnotations xmi:id="_W-X6MHqMEeqxaKFBPsR-Hw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="andromda-common-4.0-SNAPSHOT.profile.uml#_W-Oxi3qMEeqxaKFBPsR-Hw"/>
-      </eAnnotations>
-      <appliedProfile href="andromda-common-4.0-SNAPSHOT.profile.uml#_8a70287_1078771814628_224704_589"/>
-    </profileApplication>
-    <profileApplication xmi:id="__9_0_2_12ab03bf_1120853774265_65497_87profileApplicationNewModel">
-      <eAnnotations xmi:id="_jEiP5X5qEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="andromda-persistence-4.0-SNAPSHOT.profile.uml#_jEiP5X5qEeqRi6MoZAwwVw"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_UW5VUHBCEdyzBeV1cEAmlQ" name="PrimitiveTypes">
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_UW5VVHBCEdyzBeV1cEAmlQ" name="BigDecimal"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_jJoe8HBEEdyzBeV1cEAmlQ" name="BigInteger"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_UW5VUXBCEdyzBeV1cEAmlQ" name="Date"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_eZJhQHRoEd2XYY41Ptd_Hw" name="DateTime"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_UW5VUnBCEdyzBeV1cEAmlQ" name="Double"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_5Ml1QHBDEdyzBeV1cEAmlQ" name="Money"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_pYgRcHBDEdyzBeV1cEAmlQ" name="Object"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_czE7UHRoEd2XYY41Ptd_Hw" name="Time"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_fuFT4HRoEd2XYY41Ptd_Hw" name="Timestamp"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_9zVW4HBDEdyzBeV1cEAmlQ" name="void"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Model" xmi:id="eee_1045467100313_135436_1" name="AndroMDADatatypes" viewpoint="">
+      <ownedComment xmi:id="_9_0_1fe00f9_1119336961750_648645_79" body="Author:ZOO.&#xA;Created:6/21/05 8:55 AM.&#xA;Title:.&#xA;Comment:.&#xA;" annotatedElement="eee_1045467100313_135436_1"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="_9_0_1fe00f9_1119336925546_238419_77" name="datatype">
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_132353_2" name="String[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_265965_3" name="double[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_479934_4" name="Integer">
+          <generalization xmi:id="_9_0_1fe00f9_1119336925531_139840_16" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_213222_11"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_433788_5" name="DateTime">
+          <generalization xmi:id="_9_0_2_12ab03bf_1119654923546_66477_16" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_918521_25"/>
+          <generalization xmi:id="_9_0_1fe00f9_1119336925531_914136_19" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_195604_13"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_736816_6" name="boolean"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_60450_7" name="Object"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_809265_8" name="List">
+          <generalization xmi:id="_9_0_1fe00f9_1119336925531_577418_64" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_331753_26"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_238790_9" name="long"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_367136_10" name="Byte">
+          <generalization xmi:id="_9_0_1fe00f9_1119336925531_732580_14" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_466526_27"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_213222_11" name="int"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_186958_12" name="Mappings"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_195604_13" name="Date"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_754532_15" name="Timestamp[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_902319_17" name="DateTime[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_84233_20" name="Document"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_593311_21" name="Float">
+          <generalization xmi:id="_9_0_1fe00f9_1119336925531_861974_30" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_489135_44"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_991330_22" name="URI"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_794756_24" name="double"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_918521_25" name="Time"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_331753_26" name="Collection"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_466526_27" name="byte"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_193099_28" name="Blob"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_473632_29" name="File[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_290366_31" name="URI[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_788724_32" name="Character[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_700429_33" name="Integer[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_766613_34" name="short"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_468864_35" name="char[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_998932_36" name="char"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_304971_37" name="Double[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_187398_38" name="URL"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_35369_39" name="Boolean[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_877505_40" name="Boolean">
+          <generalization xmi:id="_9_0_1fe00f9_1119336925531_525748_41" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_736816_6"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_798216_42" name="Set">
+          <generalization xmi:id="_9_0_1fe00f9_1119336925531_651753_68" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_331753_26"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_995153_43" name="Byte[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_489135_44" name="float"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_424824_45" name="File"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_654186_46" name="Money"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_568735_47" name="short[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_281112_48" name="Timestamp">
+          <generalization xmi:id="_9_0_1fe00f9_1119336925531_269590_69" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_195604_13"/>
+          <generalization xmi:id="_9_0_2_12ab03bf_1119654920765_9046_5" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_918521_25"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_872061_49" name="URL[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_63233_50" name="long[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_346958_51" name="Long[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_324247_52" name="void"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_45790_53" name="Clob"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_827203_54" name="Object[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_221770_56" name="Double">
+          <generalization xmi:id="_9_0_1fe00f9_1119336925531_316497_55" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_794756_24"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_82915_57" name="Float[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_704502_58" name="byte[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_227130_59" name="Long">
+          <generalization xmi:id="_9_0_1fe00f9_1119336925531_977230_61" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_238790_9"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_817948_60" name="Map"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_357343_62" name="boolean[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_441057_63" name="Character">
+          <generalization xmi:id="_9_0_1fe00f9_1119336925531_256126_18" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_998932_36"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_946801_65" name="Decimal"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_364079_66" name="String"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_229761_67" name="Decimal[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_100716_70" name="Short[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_465331_71" name="int[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_201529_72" name="TreeNode">
+          <ownedComment xmi:id="_9_0_1fe00f9_1119336961750_710036_80" body="Represents a node in a tree" annotatedElement="_9_0_1fe00f9_1119336925531_201529_72"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_21075_73" name="Short">
+          <generalization xmi:id="_9_0_1fe00f9_1119336925531_2175_23" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_766613_34"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_425626_74" name="Time[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_790883_75" name="float[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_500158_76" name="Date[]"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_2_8980277_1133493861932_36226_213" name="Guid"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_5_1_12ab03bf_1174506208296_724612_18" name="PaginationResult"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_5_1_2090114_1235195176755_128352_18" name="SortedSet">
+          <generalization xmi:id="_9_5_1_2090114_1235195203028_306732_79" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_798216_42"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_9_5_1_2090114_1235195331747_252836_137" name="SortedMap">
+          <generalization xmi:id="_9_5_1_2090114_1235195367089_169635_198" isSubstitutable="false" general="_9_0_1fe00f9_1119336925531_817948_60"/>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <profileApplication xmi:id="_9_0_2_12ab03bf_1120853774265_65497_87profileApplicationNewModel">
+      <eAnnotations xmi:id="_1dUP4LJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-persistence-4.0-SNAPSHOT.profile.uml#_1dOzjrJmEeqj1vE0YAl0kQ"/>
       </eAnnotations>
       <appliedProfile href="andromda-persistence-4.0-SNAPSHOT.profile.uml#_9_0_2_12ab03bf_1120853774265_65497_87"/>
     </profileApplication>
     <profileApplication xmi:id="_9_0_2_12ab03bf_1120853223187_211304_0profileApplicationNewModel">
-      <eAnnotations xmi:id="_W-ZIUHqMEeqxaKFBPsR-Hw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="andromda-presentation-4.0-SNAPSHOT.profile.uml#_W-PYgHqMEeqxaKFBPsR-Hw"/>
+      <eAnnotations xmi:id="_1dU28LJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-presentation-4.0-SNAPSHOT.profile.uml#_1dTEF7JmEeqj1vE0YAl0kQ"/>
       </eAnnotations>
       <appliedProfile href="andromda-presentation-4.0-SNAPSHOT.profile.uml#_9_0_2_12ab03bf_1120853223187_211304_0"/>
     </profileApplication>
     <profileApplication xmi:id="_9_0_2_12ab03bf_1120853175671_502460_0profileApplicationNewModel">
-      <eAnnotations xmi:id="_W-WsEHqMEeqxaKFBPsR-Hw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="andromda-process-4.0-SNAPSHOT.profile.uml#_W-Lt8nqMEeqxaKFBPsR-Hw"/>
+      <eAnnotations xmi:id="_1dWFErJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-process-4.0-SNAPSHOT.profile.uml#_1dTDALJmEeqj1vE0YAl0kQ"/>
       </eAnnotations>
       <appliedProfile href="andromda-process-4.0-SNAPSHOT.profile.uml#_9_0_2_12ab03bf_1120853175671_502460_0"/>
     </profileApplication>
     <profileApplication xmi:id="_9_0_2_12ab03bf_1120852978046_265263_0profileApplicationNewModel">
-      <eAnnotations xmi:id="_W-aWcHqMEeqxaKFBPsR-Hw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="andromda-service-4.0-SNAPSHOT.profile.uml#_W-P-73qMEeqxaKFBPsR-Hw"/>
+      <eAnnotations xmi:id="_1dWFEbJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-service-4.0-SNAPSHOT.profile.uml#_1dOwUrJmEeqj1vE0YAl0kQ"/>
       </eAnnotations>
       <appliedProfile href="andromda-service-4.0-SNAPSHOT.profile.uml#_9_0_2_12ab03bf_1120852978046_265263_0"/>
     </profileApplication>
     <profileApplication xmi:id="_9_0_2_12ab03bf_1120852932765_76536_0profileApplicationNewModel">
-      <eAnnotations xmi:id="_mtKPsnpkEeqDQO3iy_ZHxA" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="andromda-webservice-4.0-SNAPSHOT.profile.uml#_mtKPsnpkEeqDQO3iy_ZHxA"/>
+      <eAnnotations xmi:id="_1dWsIrJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-webservice-4.0-SNAPSHOT.profile.uml#_1dP_HbJmEeqj1vE0YAl0kQ"/>
       </eAnnotations>
       <appliedProfile href="andromda-webservice-4.0-SNAPSHOT.profile.uml#_9_0_2_12ab03bf_1120852932765_76536_0"/>
     </profileApplication>
     <profileApplication xmi:id="_9_0_2_12ab03bf_1120852471296_986007_0profileApplicationNewModel">
-      <eAnnotations xmi:id="_W-a9gXqMEeqxaKFBPsR-Hw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="andromda-xml-4.0-SNAPSHOT.profile.uml#_W-Ow9XqMEeqxaKFBPsR-Hw"/>
+      <eAnnotations xmi:id="_1dTo0bJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-xml-4.0-SNAPSHOT.profile.uml#_1dTDg7JmEeqj1vE0YAl0kQ"/>
       </eAnnotations>
       <appliedProfile href="andromda-xml-4.0-SNAPSHOT.profile.uml#_9_0_2_12ab03bf_1120852471296_986007_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_19_0_3_90e0298_1592595842721_396463_7234profileApplicationNewModel">
+      <eAnnotations xmi:id="_1dX6QbJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-common-4.0-SNAPSHOT.profile.uml#_1dSd-7JmEeqj1vE0YAl0kQ"/>
+      </eAnnotations>
+      <appliedProfile href="andromda-common-4.0-SNAPSHOT.profile.uml#_19_0_3_90e0298_1592595842721_396463_7234"/>
     </profileApplication>
   </uml:Model>
 </xmi:XMI>

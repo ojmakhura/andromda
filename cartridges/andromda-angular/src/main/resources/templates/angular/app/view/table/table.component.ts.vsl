@@ -2,10 +2,63 @@
 #set ( $componentPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${table.packageName}), '\\.', '\\/')" )
 #set ( $fileName = $angularHelper.getComponentFileName("${table.view.useCase.name}-${table.view.name}-${table.name}") )
 #set ( $className = $angularHelper.getComponentName($fileName, "-"))
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+#set ( $types = [] )
+#set ( $rt = $types.add($table.type) )
+#set ( $suffix = "" )
+#foreach ( $tmp in $angularHelper.getImports($types, "", $suffix) )
+$tmp
+#end
+#set ($services = [${action.controller.allServices}])
+#foreach ($action in $table.tableFormActions)
+#foreach ($service in ${action.controller.allServices})
+#set ( $ret = $services.add($service) )
+#end
+#end
+#set ( $finalServices = [] ) ## No repetisions
+#foreach ( $finalService in $angularHelper.getFacadeSet($services) )
+#set ($rt = $finalServices.add($finalService) )
+#end
 
-export abstract class ${className} {
-	
-	constructor() {}
+import { ActivatedRoute, Router } from '@angular/router';
+#set ($suffix = "Impl")
+#foreach ($tmp in $angularHelper.getImports($finalServices, $table.packageName, $suffix))
+$tmp
+#end
+#set ( $viewFile = $angularHelper.getComponentFileName("${table.view.useCase.name}-${table.view.name}") )
+#set ($viewName = $angularHelper.getComponentName($viewFile, '-') )
+import { ${viewName}Impl } from './${viewFile}.impl.component';
+
+export abstract class ${className} implements OnInit {
+#set($cr = '
+')
+    ${table.name}Columns = [
+        ' ',
+#set($i = 0)
+#foreach ($column in $table.tableColumns)
+#if(!($column.upper>1 || $column.upper==-1))
+        '$column.name'#if($i < $table.tableColumns.size()),$cr#end
+#end
+#set($i = $i + 1)
+#end
+    ];
+
+    ${table.name}: MatTableDataSource<$table.type.name>;
+
+    @ViewChild('${table.name}Paginator', {static: true}) ${table.name}Paginator: MatPaginator;
+    @ViewChild('${table.name}Sort', {static: true}) ${table.name}Sort: MatSort;
+
+    constructor(protected route: ActivatedRoute, 
+                protected router: Router#foreach($service in $finalServices),
+                protected $stringUtils.uncapitalize($service.name): ${service.name}$suffix#end,
+                protected $stringUtils.uncapitalize($viewName): ${viewName}Impl) {
+
+    }
+
+    ngOnInit(): void {}
 	
 #foreach ($action in $table.tableFormActions)
 #foreach ($transition in $action.transitions)

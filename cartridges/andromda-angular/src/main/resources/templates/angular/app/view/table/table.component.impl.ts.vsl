@@ -2,22 +2,7 @@
 #set ( $componentPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${table.packageName}), '\\.', '\\/')" )
 #set ( $fileName = $angularHelper.getComponentFileName("${table.view.useCase.name}-${table.view.name}-${table.name}") )
 #set ( $className = $angularHelper.getComponentName($fileName, "-"))
-#set ($services = [${action.controller.allServices}])
-#foreach ($action in $table.tableFormActions)
-#foreach ($service in ${action.controller.allServices})
-#set ( $ret = $services.add($service) )
-#end
-#end
-#set ( $finalServices = [] ) ## No repetisions
-#foreach ( $finalService in $angularHelper.getFacadeSet($services) )
-#set ($rt = $finalServices.add($finalService) )
-#end
-import { Component, OnInit} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-#set ($suffix = "Impl")
-#foreach ($tmp in $angularHelper.getImports($finalServices, $table.packageName, $suffix))
-$tmp
-#end
+import { Component } from '@angular/core';
 import { ${className} } from './${fileName}.component';
 #set ( $viewFile = $angularHelper.getComponentFileName("${table.view.useCase.name}-${table.view.name}") )
 #set ($viewName = $angularHelper.getComponentName($viewFile, '-') )
@@ -28,16 +13,8 @@ import { ${viewName}Impl } from './${viewFile}.impl.component';
   templateUrl: './${fileName}.component.html',
   styleUrls: ['./${fileName}.component.css']
 })
-export class ${className}Impl extends ${className}  implements OnInit {
-
-	constructor(private route: ActivatedRoute, 
-				private router: Router#foreach($service in $finalServices),
-				private $stringUtils.uncapitalize($service.name): ${service.name}$suffix#end,
-				private $stringUtils.uncapitalize($viewName): ${viewName}Impl) {
-		super();
-	}
+export class ${className}Impl extends ${className}{
 	
-	ngOnInit(): void {}
 #foreach ($action in $table.tableFormActions)
 
 	${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes()) {

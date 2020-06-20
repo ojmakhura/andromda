@@ -6,35 +6,30 @@
 <div class="card-body">
 #set ($targetColumns = $table.targettedTableColumnNames)
 #if (!$table.tableColumns.empty)
-	<table id="$table.name" class="table table-bordered table-striped">
-		<thead class="thead-dark">
-#if ($table.tableFormActions.size() > 0)
-			<th scope="col"></th>
-#end
-#foreach ($column in $table.tableColumns)
-#if (!$column.inputHidden && !$column.inputTable && !$column.inputMultibox)
-			<th scope="col">$stringUtils.capitalize(${column})</th>
-#end
-#end
-		</thead>
-		<tbody>
-			<tr *ngFor="let row of ${stringUtils.uncapitalize($viewName)}.${table.name}">
+    <div class="mat-elevation-z8">
+        <mat-table matSort [dataSource]="${table.name}" #${table.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
+            <ng-container matColumnDef=" ">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <div class = "form-group">
 #foreach ($action in $table.tableFormActions)
-				<td id="action">
-					<div class="form-group">
-						<button class="btn btn-info" (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())">
-							$stringUtils.capitalize($action.trigger.messageKey)
-						</button>
-					</div>
-				</td>
+                        <button type = "button" class="btn btn-info" (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())">
+                            $stringUtils.capitalize($action.trigger.messageKey)
+                        </button>
 #end
+                    </div>    
+                </mat-cell>
+            </ng-container>
 #foreach ($column in $table.tableColumns)
-#if (!$column.inputHidden && !$column.inputTable && !$column.inputMultibox)
-				<td>{{ row.${column} }}</td>
+            <ng-container matColumnDef="batchId">
+                <mat-header-cell *matHeaderCellDef>$stringUtils.capitalize(${column.name})</mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row.${column.name} }} </mat-cell>
+            </ng-container>
 #end
-#end
-			</tr>
-		</tbody>
-	</table>
+            <mat-header-row *matHeaderRowDef="${table.name}Columns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: ${table.name}Columns;"></mat-row>
+        </mat-table>
+        <mat-paginator #${table.name}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+    </div>
 #end
 </div>

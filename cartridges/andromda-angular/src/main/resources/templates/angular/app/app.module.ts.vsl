@@ -15,23 +15,35 @@
  */
 ##
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { NgModule, ErrorHandler } from '@angular/core';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MatTabsModule,
-        MatListModule,
-        MatSidenavModule,
-        MatToolbarModule,
-        MatButtonModule,
-        MatIconModule,
-        MatMenuModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatCheckboxModule } from '@angular/material';
+import { MatTabsModule} from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table'  
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgForm }   from '@angular/forms';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+import { MomentModule } from 'angular2-moment';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { RequestOptions } from '@angular/http';
+
 import { $stringUtils.capitalize(${applicationId})LayoutComponent } from './layout/$stringUtils.lowerCase(${applicationId})-layout.component';
 import { $stringUtils.capitalize(${applicationId})HeaderComponent } from './header/$stringUtils.lowerCase(${applicationId})-header.component';
 import { $stringUtils.capitalize(${applicationId})NavigationComponent } from './navigation/$stringUtils.lowerCase(${applicationId})-navigation.component';
@@ -41,11 +53,12 @@ import { $stringUtils.capitalize(${applicationId})Component } from './$stringUti
 #foreach ($useCase in $useCases)
 #renderImports($useCase)
 #end
-
+#set ( $finalServices = $angularHelper.getFacadeSet($services) )
 #set ( $nameSet = $angularHelper.getStringSet($classNames) )
 #foreach ( $import in $angularHelper.getStringSet($imports) )
-$import
+$import 
 #end
+
 #set ( $finalFields = [] )
 #foreach ($finalField in $angularHelper.getFacadeSet($fields) )
 #set ($dt = $angularHelper.getDatatype($finalField.fullyQualifiedName))
@@ -54,14 +67,10 @@ $import
 #end
 #end
 #set ( $suffix = "" )
-#foreach ( $tmp in $angularHelper.getImports($finalFields, "", $suffix) )
-$tmp
-#end
-#set ( $finalServices = $angularHelper.getFacadeSet($services) )
-#foreach ( $finalService in $finalServices )
-#set ($componentPath = $stringUtils.replaceChars(${finalService.packageName}, "\\.", "\\/"))
-#set ($fileName = $angularHelper.getComponentFileName("${finalService.name}Impl"))
-import { ${finalService.name}Impl } from './service/$componentPath/$fileName';
+#foreach ( $field in $finalFields )
+#set($destination = $stringUtils.replaceChars(${field.packageName}, "\\.", "\\/"))
+#set($fileName = $angularHelper.getComponentFileName(${field.name}))
+import { $field.name } from './model/$destination/$fileName';
 #end
 
 @NgModule({
@@ -70,6 +79,12 @@ import { ${finalService.name}Impl } from './service/$componentPath/$fileName';
         $stringUtils.capitalize(${applicationId})LayoutComponent,
         $stringUtils.capitalize(${applicationId})HeaderComponent,
         $stringUtils.capitalize(${applicationId})NavigationComponent,
+#set ($i = 0)
+#foreach ( $finalService in $finalServices )
+#set ( $i = $i + 1 )
+        ${finalService.name}Impl#if($i < $nameSet.size()),
+#end
+#end
 #set ($i = 0)
 #foreach ( $name in $nameSet )
 #set ( $i = $i + 1 )
@@ -80,54 +95,75 @@ import { ${finalService.name}Impl } from './service/$componentPath/$fileName';
     ],
     imports: [
         CommonModule,
-        MatTabsModule,
-        MatListModule,
-        MatSidenavModule,
-        MatToolbarModule,
         MatButtonModule,
-        MatIconModule,
-        MatMenuModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatFormFieldModule,
-        MatInputModule,
         MatCheckboxModule,
+        MatDatepickerModule,
+        MatDialogModule,
+        MatIconModule,
+        MatInputModule,
+        MatListModule,
+        MatMenuModule,
+        MatNativeDateModule,
+        MatPaginatorModule,
+        MatRippleModule,
+        MatSelectModule,
+        MatSidenavModule,
+        MatSortModule,
+        MatTableModule,
+        MatTabsModule,
+        MatToolbarModule,
+        MatTooltipModule,
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
         FormsModule,
+        NgIdleKeepaliveModule.forRoot(),
+        MomentModule,
+        ModalModule.forRoot(),
         $stringUtils.capitalize(${applicationId})RoutingModule
     ],
     exports: [
-        MatTabsModule,
-        MatSidenavModule,
-        MatToolbarModule,
         MatButtonModule,
-        MatIconModule,
-        MatMenuModule,
+        MatCheckboxModule,
         MatDatepickerModule,
-        MatNativeDateModule,
-        MatFormFieldModule,
+        MatDialogModule,
+        MatIconModule,
         MatInputModule,
-        MatCheckboxModule
+        MatListModule,
+        MatMenuModule,
+        MatNativeDateModule,
+        MatPaginatorModule,
+        MatRippleModule,
+        MatSelectModule,
+        MatSidenavModule,
+        MatSortModule,
+        MatTableModule,
+        MatTabsModule,
+        MatToolbarModule,
+        MatTooltipModule
     ],
     providers: [
+#set ($j = 0)
 #foreach ($finalField in $angularHelper.getFacadeSet($fields) )
 #set ($dt = $angularHelper.getDatatype($finalField.fullyQualifiedName))
 #if ($dt != "number" && $dt != "string" && $dt != "Date" && $dt != "Collection" && $dt != "any")
+#set ( $j = $j + 1 )
         $finalField.name,
 #end
 #end
 #set ($i = 0)
 #foreach ( $name in $nameSet )
 #set ( $i = $i + 1 )
+#set ( $j = $j + 1 )
         $name#if($i < $nameSet.size()),
 #end
 #end
-#set ($i = 0)
 #set ( $finalServices = $angularHelper.getFacadeSet($services) ) ## No repetisions
+#if($finalServices.size() > 0 && $j > 0),
+#end
+#set ($i = 0)
 #foreach ( $finalService in $finalServices )
-        ${finalService.name}Impl#if($i < $finalService.size()),
+        ${finalService.name}Impl#if($i < $finalServices.size()),
 #end
 #end
 

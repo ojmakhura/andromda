@@ -1,294 +1,291 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
-  <uml:Profile xmi:id="_9_0_2_12ab03bf_1120852978046_265263_0" name="andromda-service" visibility="public" URI="" metamodelReference="_0metamodelReferenceandromda-service">
-    <eAnnotations xmi:id="_gdzQvX5wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-      <contents xmi:type="ecore:EPackage" xmi:id="_gdzQvn5wEeqRi6MoZAwwVw" name="andromdaservice" nsURI="http:///schemas/andromdaservice/_gdtu4H5wEeqRi6MoZAwwVw/0" nsPrefix="andromdaservice">
-        <eAnnotations xmi:id="_gdzQv35wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-          <details xmi:id="_gdzQwH5wEeqRi6MoZAwwVw" key="originalName" value="andromda-service"/>
-        </eAnnotations>
-        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_gdzQwX5wEeqRi6MoZAwwVw" name="SpringRemotingProtocol">
-          <eAnnotations xmi:id="_gdzQwn5wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_1fe00f9_1119337557859_990547_75"/>
-          <eLiterals xmi:id="_gdzQw35wEeqRi6MoZAwwVw" name="default"/>
-          <eLiterals xmi:id="_gdzQxH5wEeqRi6MoZAwwVw" name="burlap" value="1"/>
-          <eLiterals xmi:id="_gdzQxX5wEeqRi6MoZAwwVw" name="hessian" value="2"/>
-          <eLiterals xmi:id="_gdzQxn5wEeqRi6MoZAwwVw" name="httpinvoker" value="3"/>
-          <eLiterals xmi:id="_gdzQx35wEeqRi6MoZAwwVw" name="none" value="4"/>
-          <eLiterals xmi:id="_gdzQyH5wEeqRi6MoZAwwVw" name="rmi" value="5"/>
-          <eLiterals xmi:id="_gdzQyX5wEeqRi6MoZAwwVw" name="lingo" value="6"/>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Standard="http://www.eclipse.org/uml2/schemas/Standard/1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Standard/1 pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w">
+  <uml:Profile xmi:id="_9_0_2_12ab03bf_1120852978046_265263_0" name="andromda-service" metamodelReference="_0metamodelReferenceandromda-service">
+    <eAnnotations xmi:id="_1dOwUbJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <contents xmi:type="ecore:EPackage" xmi:id="_1dOwUrJmEeqj1vE0YAl0kQ" name="andromdaservice" nsURI="http://andromda-service/_9_0_2_12ab03bf_1120852978046_265263_0" nsPrefix="andromdaservice">
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_1dOwU7JmEeqj1vE0YAl0kQ" name="SpringRemotingProtocol">
+          <eAnnotations xmi:id="_1dOwVLJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_1fe00f9_1119337557859_990547_75"/>
+          <eLiterals xmi:id="_1dOwVbJmEeqj1vE0YAl0kQ" name="default"/>
+          <eLiterals xmi:id="_1dOwVrJmEeqj1vE0YAl0kQ" name="burlap" value="1"/>
+          <eLiterals xmi:id="_1dOwV7JmEeqj1vE0YAl0kQ" name="hessian" value="2"/>
+          <eLiterals xmi:id="_1dOwWLJmEeqj1vE0YAl0kQ" name="httpinvoker" value="3"/>
+          <eLiterals xmi:id="_1dOwWbJmEeqj1vE0YAl0kQ" name="none" value="4"/>
+          <eLiterals xmi:id="_1dOwWrJmEeqj1vE0YAl0kQ" name="rmi" value="5"/>
+          <eLiterals xmi:id="_1dOwW7JmEeqj1vE0YAl0kQ" name="lingo" value="6"/>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_gdzQyn5wEeqRi6MoZAwwVw" name="EjbTransactionType">
-          <eAnnotations xmi:id="_gdzQy35wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_1fe00f9_1119337557859_467824_83"/>
-          <eLiterals xmi:id="_gdzQzH5wEeqRi6MoZAwwVw" name="default"/>
-          <eLiterals xmi:id="_gdzQzX5wEeqRi6MoZAwwVw" name="NotSupported" value="1"/>
-          <eLiterals xmi:id="_gdzQzn5wEeqRi6MoZAwwVw" name="Supports" value="2"/>
-          <eLiterals xmi:id="_gdzQz35wEeqRi6MoZAwwVw" name="Required" value="3"/>
-          <eLiterals xmi:id="_gdzQ0H5wEeqRi6MoZAwwVw" name="RequiresNew" value="4"/>
-          <eLiterals xmi:id="_gdzQ0X5wEeqRi6MoZAwwVw" name="Mandatory" value="5"/>
-          <eLiterals xmi:id="_gdzQ0n5wEeqRi6MoZAwwVw" name="Never" value="6"/>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_1dOwXLJmEeqj1vE0YAl0kQ" name="EjbTransactionType">
+          <eAnnotations xmi:id="_1dOwXbJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_1fe00f9_1119337557859_467824_83"/>
+          <eLiterals xmi:id="_1dOwXrJmEeqj1vE0YAl0kQ" name="default"/>
+          <eLiterals xmi:id="_1dOwX7JmEeqj1vE0YAl0kQ" name="NotSupported" value="1"/>
+          <eLiterals xmi:id="_1dOwYLJmEeqj1vE0YAl0kQ" name="Supports" value="2"/>
+          <eLiterals xmi:id="_1dOwYbJmEeqj1vE0YAl0kQ" name="Required" value="3"/>
+          <eLiterals xmi:id="_1dOwYrJmEeqj1vE0YAl0kQ" name="RequiresNew" value="4"/>
+          <eLiterals xmi:id="_1dOwY7JmEeqj1vE0YAl0kQ" name="Mandatory" value="5"/>
+          <eLiterals xmi:id="_1dOwZLJmEeqj1vE0YAl0kQ" name="Never" value="6"/>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_gdzQ035wEeqRi6MoZAwwVw" name="SpringTransactionType">
-          <eAnnotations xmi:id="_gdzQ1H5wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_1fe00f9_1119337557859_949884_69"/>
-          <eLiterals xmi:id="_gdzQ1X5wEeqRi6MoZAwwVw" name="default"/>
-          <eLiterals xmi:id="_gdzQ1n5wEeqRi6MoZAwwVw" name="PROPAGATION_MANDATORY" value="1"/>
-          <eLiterals xmi:id="_gdzQ135wEeqRi6MoZAwwVw" name="PROPAGATION_NESTED" value="2"/>
-          <eLiterals xmi:id="_gdzQ2H5wEeqRi6MoZAwwVw" name="PROPAGATION_NEVER" value="3"/>
-          <eLiterals xmi:id="_gdzQ2X5wEeqRi6MoZAwwVw" name="PROPAGATION_NOT_SUPPORTED" value="4"/>
-          <eLiterals xmi:id="_gdzQ2n5wEeqRi6MoZAwwVw" name="PROPAGATION_REQUIRED" value="5"/>
-          <eLiterals xmi:id="_gdzQ235wEeqRi6MoZAwwVw" name="PROPAGATION_REQUIRES_NEW" value="6"/>
-          <eLiterals xmi:id="_gdzQ3H5wEeqRi6MoZAwwVw" name="PROPAGATION_SUPPORTS" value="7"/>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_1dOwZbJmEeqj1vE0YAl0kQ" name="SpringTransactionType">
+          <eAnnotations xmi:id="_1dOwZrJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_1fe00f9_1119337557859_949884_69"/>
+          <eLiterals xmi:id="_1dOwZ7JmEeqj1vE0YAl0kQ" name="default"/>
+          <eLiterals xmi:id="_1dOwaLJmEeqj1vE0YAl0kQ" name="PROPAGATION_MANDATORY" value="1"/>
+          <eLiterals xmi:id="_1dOwabJmEeqj1vE0YAl0kQ" name="PROPAGATION_NESTED" value="2"/>
+          <eLiterals xmi:id="_1dOwarJmEeqj1vE0YAl0kQ" name="PROPAGATION_NEVER" value="3"/>
+          <eLiterals xmi:id="_1dOwa7JmEeqj1vE0YAl0kQ" name="PROPAGATION_NOT_SUPPORTED" value="4"/>
+          <eLiterals xmi:id="_1dOwbLJmEeqj1vE0YAl0kQ" name="PROPAGATION_REQUIRED" value="5"/>
+          <eLiterals xmi:id="_1dOwbbJmEeqj1vE0YAl0kQ" name="PROPAGATION_REQUIRES_NEW" value="6"/>
+          <eLiterals xmi:id="_1dOwbrJmEeqj1vE0YAl0kQ" name="PROPAGATION_SUPPORTS" value="7"/>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_gdzQ3X5wEeqRi6MoZAwwVw" name="EjbViewType">
-          <eAnnotations xmi:id="_gdzQ3n5wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_2_12ab03bf_1122060056406_374453_0"/>
-          <eLiterals xmi:id="_gdzQ335wEeqRi6MoZAwwVw" name="default"/>
-          <eLiterals xmi:id="_gdzQ4H5wEeqRi6MoZAwwVw" name="remote" value="1"/>
-          <eLiterals xmi:id="_gdzQ4X5wEeqRi6MoZAwwVw" name="local" value="2"/>
-          <eLiterals xmi:id="_gdzQ4n5wEeqRi6MoZAwwVw" name="both" value="3"/>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_1dOwb7JmEeqj1vE0YAl0kQ" name="EjbViewType">
+          <eAnnotations xmi:id="_1dOwcLJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_2_12ab03bf_1122060056406_374453_0"/>
+          <eLiterals xmi:id="_1dOwcbJmEeqj1vE0YAl0kQ" name="default"/>
+          <eLiterals xmi:id="_1dOwcrJmEeqj1vE0YAl0kQ" name="remote" value="1"/>
+          <eLiterals xmi:id="_1dOwc7JmEeqj1vE0YAl0kQ" name="local" value="2"/>
+          <eLiterals xmi:id="_1dOwdLJmEeqj1vE0YAl0kQ" name="both" value="3"/>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_gdzQ435wEeqRi6MoZAwwVw" name="EjbMdbSubscriptionDurabilityType">
-          <eAnnotations xmi:id="_gdzQ5H5wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264833711_619951_90"/>
-          <eLiterals xmi:id="_gdzQ5X5wEeqRi6MoZAwwVw" name="default"/>
-          <eLiterals xmi:id="_gdzQ5n5wEeqRi6MoZAwwVw" name="Durable" value="1"/>
-          <eLiterals xmi:id="_gdzQ535wEeqRi6MoZAwwVw" name="NonDurable" value="2"/>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_1dOwdbJmEeqj1vE0YAl0kQ" name="EjbMdbSubscriptionDurabilityType">
+          <eAnnotations xmi:id="_1dOwdrJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264833711_619951_90"/>
+          <eLiterals xmi:id="_1dOwd7JmEeqj1vE0YAl0kQ" name="default"/>
+          <eLiterals xmi:id="_1dOweLJmEeqj1vE0YAl0kQ" name="Durable" value="1"/>
+          <eLiterals xmi:id="_1dOwebJmEeqj1vE0YAl0kQ" name="NonDurable" value="2"/>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_gdzQ6H5wEeqRi6MoZAwwVw" name="EjbMdbDestinationType">
-          <eAnnotations xmi:id="_gdzQ6X5wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264833711_204308_93"/>
-          <eLiterals xmi:id="_gdzQ6n5wEeqRi6MoZAwwVw" name="default"/>
-          <eLiterals xmi:id="_gdzQ635wEeqRi6MoZAwwVw" name="javax.jms.Queue" value="1"/>
-          <eLiterals xmi:id="_gdzQ7H5wEeqRi6MoZAwwVw" name="javax.jms.Topic" value="2"/>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_1dOwerJmEeqj1vE0YAl0kQ" name="EjbMdbDestinationType">
+          <eAnnotations xmi:id="_1dOwe7JmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264833711_204308_93"/>
+          <eLiterals xmi:id="_1dOwfLJmEeqj1vE0YAl0kQ" name="default"/>
+          <eLiterals xmi:id="_1dOwfbJmEeqj1vE0YAl0kQ" name="javax.jms.Queue" value="1"/>
+          <eLiterals xmi:id="_1dOwfrJmEeqj1vE0YAl0kQ" name="javax.jms.Topic" value="2"/>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_gdzQ7X5wEeqRi6MoZAwwVw" name="EjbMdbAcknowledgeMode">
-          <eAnnotations xmi:id="_gdzQ7n5wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264833711_902139_96"/>
-          <eLiterals xmi:id="_gdzQ735wEeqRi6MoZAwwVw" name="default"/>
-          <eLiterals xmi:id="_gdzQ8H5wEeqRi6MoZAwwVw" name="AUTO_ACKNOWLEDGE" value="1"/>
-          <eLiterals xmi:id="_gdzQ8X5wEeqRi6MoZAwwVw" name="DUPS_OK_ACKNOWLEDGE" value="2"/>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_1dOwf7JmEeqj1vE0YAl0kQ" name="EjbMdbAcknowledgeMode">
+          <eAnnotations xmi:id="_1dOwgLJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264833711_902139_96"/>
+          <eLiterals xmi:id="_1dOwgbJmEeqj1vE0YAl0kQ" name="default"/>
+          <eLiterals xmi:id="_1dOwgrJmEeqj1vE0YAl0kQ" name="AUTO_ACKNOWLEDGE" value="1"/>
+          <eLiterals xmi:id="_1dOwg7JmEeqj1vE0YAl0kQ" name="DUPS_OK_ACKNOWLEDGE" value="2"/>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_gdzQ8n5wEeqRi6MoZAwwVw" name="EjbTransactionManagement">
-          <eAnnotations xmi:id="_gdzQ835wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264833726_945883_99"/>
-          <eLiterals xmi:id="_gdzQ9H5wEeqRi6MoZAwwVw" name="default"/>
-          <eLiterals xmi:id="_gdzQ9X5wEeqRi6MoZAwwVw" name="BEAN" value="1"/>
-          <eLiterals xmi:id="_gdzQ9n5wEeqRi6MoZAwwVw" name="CONTAINER" value="2"/>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_1dOwhLJmEeqj1vE0YAl0kQ" name="EjbTransactionManagement">
+          <eAnnotations xmi:id="_1dOwhbJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264833726_945883_99"/>
+          <eLiterals xmi:id="_1dOwhrJmEeqj1vE0YAl0kQ" name="default"/>
+          <eLiterals xmi:id="_1dOwh7JmEeqj1vE0YAl0kQ" name="BEAN" value="1"/>
+          <eLiterals xmi:id="_1dOwiLJmEeqj1vE0YAl0kQ" name="CONTAINER" value="2"/>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_gdzQ935wEeqRi6MoZAwwVw" name="EjbServiceType">
-          <eAnnotations xmi:id="_gdzQ-H5wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264833726_224593_102"/>
-          <eLiterals xmi:id="_gdzQ-X5wEeqRi6MoZAwwVw" name="default"/>
-          <eLiterals xmi:id="_gdzQ-n5wEeqRi6MoZAwwVw" name="Stateful" value="1"/>
-          <eLiterals xmi:id="_gdzQ-35wEeqRi6MoZAwwVw" name="Stateless" value="2"/>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_1dOwibJmEeqj1vE0YAl0kQ" name="EjbServiceType">
+          <eAnnotations xmi:id="_1dOwirJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264833726_224593_102"/>
+          <eLiterals xmi:id="_1dOwi7JmEeqj1vE0YAl0kQ" name="default"/>
+          <eLiterals xmi:id="_1dOwjLJmEeqj1vE0YAl0kQ" name="Stateful" value="1"/>
+          <eLiterals xmi:id="_1dOwjbJmEeqj1vE0YAl0kQ" name="Stateless" value="2"/>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_gdzQ_H5wEeqRi6MoZAwwVw" name="EjbPersistenceUnitType">
-          <eAnnotations xmi:id="_gdzQ_X5wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264833726_968699_105"/>
-          <eLiterals xmi:id="_gdzQ_n5wEeqRi6MoZAwwVw" name="default"/>
-          <eLiterals xmi:id="_gdzQ_35wEeqRi6MoZAwwVw" name="TRANSACTION" value="1"/>
-          <eLiterals xmi:id="_gdzRAH5wEeqRi6MoZAwwVw" name="EXTENDED" value="2"/>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_1dOwjrJmEeqj1vE0YAl0kQ" name="EjbPersistenceUnitType">
+          <eAnnotations xmi:id="_1dOwj7JmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264833726_968699_105"/>
+          <eLiterals xmi:id="_1dOwkLJmEeqj1vE0YAl0kQ" name="default"/>
+          <eLiterals xmi:id="_1dOwkbJmEeqj1vE0YAl0kQ" name="TRANSACTION" value="1"/>
+          <eLiterals xmi:id="_1dOwkrJmEeqj1vE0YAl0kQ" name="EXTENDED" value="2"/>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_gdzRAX5wEeqRi6MoZAwwVw" name="EjbServiceFlushMode">
-          <eAnnotations xmi:id="_gdzRAn5wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141265110836_846841_163"/>
-          <eLiterals xmi:id="_gdzRA35wEeqRi6MoZAwwVw" name="default"/>
-          <eLiterals xmi:id="_gdzRBH5wEeqRi6MoZAwwVw" name="AUTO" value="1"/>
-          <eLiterals xmi:id="_gdzRBX5wEeqRi6MoZAwwVw" name="COMMIT" value="2"/>
-          <eLiterals xmi:id="_gdzRBn5wEeqRi6MoZAwwVw" name="NEVER" value="3"/>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_1dOwk7JmEeqj1vE0YAl0kQ" name="EjbServiceFlushMode">
+          <eAnnotations xmi:id="_1dOwlLJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141265110836_846841_163"/>
+          <eLiterals xmi:id="_1dOwlbJmEeqj1vE0YAl0kQ" name="default"/>
+          <eLiterals xmi:id="_1dOwlrJmEeqj1vE0YAl0kQ" name="AUTO" value="1"/>
+          <eLiterals xmi:id="_1dOwl7JmEeqj1vE0YAl0kQ" name="COMMIT" value="2"/>
+          <eLiterals xmi:id="_1dOwmLJmEeqj1vE0YAl0kQ" name="NEVER" value="3"/>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_gdzRB35wEeqRi6MoZAwwVw" name="TernaryBoolean">
-          <eAnnotations xmi:id="_gdz1gH5wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_2e90116_1229377170683_166153_2"/>
-          <eLiterals xmi:id="_gdz1gX5wEeqRi6MoZAwwVw" name="default"/>
-          <eLiterals xmi:id="_gdz1gn5wEeqRi6MoZAwwVw" name="true" value="1"/>
-          <eLiterals xmi:id="_gdz1g35wEeqRi6MoZAwwVw" name="false" value="2"/>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_1dOwmbJmEeqj1vE0YAl0kQ" name="TernaryBoolean">
+          <eAnnotations xmi:id="_1dOwmrJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_2e90116_1229377170683_166153_2"/>
+          <eLiterals xmi:id="_1dOwm7JmEeqj1vE0YAl0kQ" name="default"/>
+          <eLiterals xmi:id="_1dOwnLJmEeqj1vE0YAl0kQ" name="true" value="1"/>
+          <eLiterals xmi:id="_1dOwnbJmEeqj1vE0YAl0kQ" name="false" value="2"/>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_gdz1hH5wEeqRi6MoZAwwVw" name="Service">
-          <eAnnotations xmi:id="_gdz1hX5wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_1fe00f9_1119337557859_21792_59"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz1hn5wEeqRi6MoZAwwVw" name="andromda_spring_service_interceptors" ordered="false">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_1dOwnrJmEeqj1vE0YAl0kQ" name="Service">
+          <eAnnotations xmi:id="_1dOwn7JmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_1fe00f9_1119337557859_21792_59"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOwoLJmEeqj1vE0YAl0kQ" name="andromda_spring_service_interceptors" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz1iH5wEeqRi6MoZAwwVw" name="andromda_spring_service_config_only" ordered="false" lowerBound="1" eType="_gdzRB35wEeqRi6MoZAwwVw" defaultValueLiteral="default"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz1in5wEeqRi6MoZAwwVw" name="andromda_service_jndi_local" ordered="false">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOworJmEeqj1vE0YAl0kQ" name="andromda_spring_service_config_only" ordered="false" lowerBound="1" eType="_1dOwmbJmEeqj1vE0YAl0kQ" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOwpLJmEeqj1vE0YAl0kQ" name="andromda_service_jndi_local" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz1jH5wEeqRi6MoZAwwVw" name="andromda_service_jndi_remote" ordered="false">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOwprJmEeqj1vE0YAl0kQ" name="andromda_service_jndi_remote" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz1jn5wEeqRi6MoZAwwVw" name="andromda_service_security_realm" ordered="false">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOwqLJmEeqj1vE0YAl0kQ" name="andromda_service_security_realm" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz1kH5wEeqRi6MoZAwwVw" name="andromda_service_type" ordered="false" lowerBound="1" eType="_gdzQ935wEeqRi6MoZAwwVw" defaultValueLiteral="default"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz1kn5wEeqRi6MoZAwwVw" name="andromda_service_private" ordered="false" lowerBound="1" eType="_gdzRB35wEeqRi6MoZAwwVw" defaultValueLiteral="default"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz1lH5wEeqRi6MoZAwwVw" name="andromda_ejb_transaction_management" ordered="false" lowerBound="1" eType="_gdzQ8n5wEeqRi6MoZAwwVw" defaultValueLiteral="default"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz1ln5wEeqRi6MoZAwwVw" name="andromda_spring_service_remoting_type" ordered="false" lowerBound="1" eType="_gdzQwX5wEeqRi6MoZAwwVw" defaultValueLiteral="default"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz1mH5wEeqRi6MoZAwwVw" name="andromda_spring_service_remote_port" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOwqrJmEeqj1vE0YAl0kQ" name="andromda_service_type" ordered="false" lowerBound="1" eType="_1dOwibJmEeqj1vE0YAl0kQ" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOwrLJmEeqj1vE0YAl0kQ" name="andromda_service_private" ordered="false" lowerBound="1" eType="_1dOwmbJmEeqj1vE0YAl0kQ" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOwrrJmEeqj1vE0YAl0kQ" name="andromda_ejb_transaction_management" ordered="false" lowerBound="1" eType="_1dOwhLJmEeqj1vE0YAl0kQ" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOwsLJmEeqj1vE0YAl0kQ" name="andromda_spring_service_remoting_type" ordered="false" lowerBound="1" eType="_1dOwU7JmEeqj1vE0YAl0kQ" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOwsrJmEeqj1vE0YAl0kQ" name="andromda_spring_service_remote_port" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz1mn5wEeqRi6MoZAwwVw" name="andromda_serialVersionUID" ordered="false">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOwtLJmEeqj1vE0YAl0kQ" name="andromda_serialVersionUID" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_gdz1nH5wEeqRi6MoZAwwVw" name="base_Class" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_1dOwtrJmEeqj1vE0YAl0kQ" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Class"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz1nn5wEeqRi6MoZAwwVw" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOwuLJmEeqj1vE0YAl0kQ" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_gdz1oH5wEeqRi6MoZAwwVw" name="ServiceRef">
-          <eAnnotations xmi:id="_gdz1oX5wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_1fe00f9_1119337557859_652828_60"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_gdz1on5wEeqRi6MoZAwwVw" name="base_Dependency" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Dependency"/>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_1dOwurJmEeqj1vE0YAl0kQ" name="ServiceRef">
+          <eAnnotations xmi:id="_1dOwu7JmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_1fe00f9_1119337557859_652828_60"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_1dOwvLJmEeqj1vE0YAl0kQ" name="base_Dependency" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Dependency"/>
           </eStructuralFeatures>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_gdz1pH5wEeqRi6MoZAwwVw" name="UserTransaction">
-          <eAnnotations xmi:id="_gdz1pX5wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_845675_121"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_gdz1pn5wEeqRi6MoZAwwVw" name="base_Class" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_1dOwvrJmEeqj1vE0YAl0kQ" name="UserTransaction">
+          <eAnnotations xmi:id="_1dOwv7JmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_845675_121"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_1dOwwLJmEeqj1vE0YAl0kQ" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Class"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz1qH5wEeqRi6MoZAwwVw" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
-          </eStructuralFeatures>
-        </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_gdz1qn5wEeqRi6MoZAwwVw" name="Timeout">
-          <eAnnotations xmi:id="_gdz1q35wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_822470_122"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_gdz1rH5wEeqRi6MoZAwwVw" name="base_Operation" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Operation"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOwwrJmEeqj1vE0YAl0kQ" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_gdz1rn5wEeqRi6MoZAwwVw" name="RunAs">
-          <eAnnotations xmi:id="_gdz1r35wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_662921_123"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_gdz1sH5wEeqRi6MoZAwwVw" name="base_Dependency" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Dependency"/>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_1dOwxLJmEeqj1vE0YAl0kQ" name="Timeout">
+          <eAnnotations xmi:id="_1dOwxbJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_822470_122"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_1dOwxrJmEeqj1vE0YAl0kQ" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Operation"/>
           </eStructuralFeatures>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_gdz1sn5wEeqRi6MoZAwwVw" name="ResourceRef">
-          <eAnnotations xmi:id="_gdz1s35wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_27265_124"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_gdz1tH5wEeqRi6MoZAwwVw" name="base_Dependency" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Dependency"/>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_1dOwyLJmEeqj1vE0YAl0kQ" name="RunAs">
+          <eAnnotations xmi:id="_1dOwybJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_662921_123"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_1dOwyrJmEeqj1vE0YAl0kQ" name="base_Dependency" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Dependency"/>
           </eStructuralFeatures>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_gdz1tn5wEeqRi6MoZAwwVw" name="PrePassivate">
-          <eAnnotations xmi:id="_gdz1t35wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_299020_125"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_gdz1uH5wEeqRi6MoZAwwVw" name="base_Operation" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Operation"/>
-          </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz1un5wEeqRi6MoZAwwVw" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_1dOwzLJmEeqj1vE0YAl0kQ" name="ResourceRef">
+          <eAnnotations xmi:id="_1dOwzbJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_27265_124"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_1dOwzrJmEeqj1vE0YAl0kQ" name="base_Dependency" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Dependency"/>
           </eStructuralFeatures>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_gdz1vH5wEeqRi6MoZAwwVw" name="PreDestroy">
-          <eAnnotations xmi:id="_gdz1vX5wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_886205_126"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_gdz1vn5wEeqRi6MoZAwwVw" name="base_Operation" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Operation"/>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_1dOw0LJmEeqj1vE0YAl0kQ" name="PrePassivate">
+          <eAnnotations xmi:id="_1dOw0bJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_299020_125"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_1dOw0rJmEeqj1vE0YAl0kQ" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Operation"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz1wH5wEeqRi6MoZAwwVw" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
-          </eStructuralFeatures>
-        </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_gdz1wn5wEeqRi6MoZAwwVw" name="PostConstruct">
-          <eAnnotations xmi:id="_gdz1w35wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_22970_127"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_gdz1xH5wEeqRi6MoZAwwVw" name="base_Operation" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Operation"/>
-          </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz1xn5wEeqRi6MoZAwwVw" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOw1LJmEeqj1vE0YAl0kQ" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_gdz1yH5wEeqRi6MoZAwwVw" name="PostActivate">
-          <eAnnotations xmi:id="_gdz1yX5wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_269174_128"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_gdz1yn5wEeqRi6MoZAwwVw" name="base_Operation" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Operation"/>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_1dOw1rJmEeqj1vE0YAl0kQ" name="PreDestroy">
+          <eAnnotations xmi:id="_1dOw17JmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_886205_126"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_1dOw2LJmEeqj1vE0YAl0kQ" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Operation"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz1zH5wEeqRi6MoZAwwVw" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
-          </eStructuralFeatures>
-        </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_gdz1zn5wEeqRi6MoZAwwVw" name="PersistenceContext">
-          <eAnnotations xmi:id="_gdz1z35wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_422538_129"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz10H5wEeqRi6MoZAwwVw" name="andromda_service_persistence_context_datasource" ordered="false">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
-          </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz10n5wEeqRi6MoZAwwVw" name="andromda_service_persistence_context_unit_type" ordered="false" lowerBound="1" eType="_gdzQ_H5wEeqRi6MoZAwwVw" defaultValueLiteral="default"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz11H5wEeqRi6MoZAwwVw" name="andromda_service_persistence_context_unit_name" ordered="false">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
-          </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_gdz11n5wEeqRi6MoZAwwVw" name="base_Class" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
-          </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz12H5wEeqRi6MoZAwwVw" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOw2rJmEeqj1vE0YAl0kQ" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_gdz12n5wEeqRi6MoZAwwVw" name="MessageDriven">
-          <eAnnotations xmi:id="_gdz1235wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_475801_130"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz13H5wEeqRi6MoZAwwVw" name="andromda_ejb_mdb_acknowledge_mode" ordered="false" lowerBound="1" eType="_gdzQ7X5wEeqRi6MoZAwwVw" defaultValueLiteral="default"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz13n5wEeqRi6MoZAwwVw" name="andromda_ejb_mdb_destination" ordered="false">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_1dOw3LJmEeqj1vE0YAl0kQ" name="PostConstruct">
+          <eAnnotations xmi:id="_1dOw3bJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_22970_127"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_1dOw3rJmEeqj1vE0YAl0kQ" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Operation"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz14H5wEeqRi6MoZAwwVw" name="andromda_ejb_mdb_destination_type" ordered="false" eType="_gdzQ6H5wEeqRi6MoZAwwVw" defaultValueLiteral="default"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz14n5wEeqRi6MoZAwwVw" name="andromda_ejb_mdb_selector" ordered="false">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
-          </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz15H5wEeqRi6MoZAwwVw" name="andromda_ejb_mdb_subscription_durability" ordered="false" lowerBound="1" eType="_gdzQ435wEeqRi6MoZAwwVw" defaultValueLiteral="default"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz15n5wEeqRi6MoZAwwVw" name="andromda_ejb_mdb_pool_size_min" ordered="false" lowerBound="1" defaultValueLiteral="1">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
-          </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz16H5wEeqRi6MoZAwwVw" name="andromda_ejb_mdb_pool_size_max" ordered="false" lowerBound="1" defaultValueLiteral="1">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
-          </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_gdz16n5wEeqRi6MoZAwwVw" name="base_Class" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
-          </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz17H5wEeqRi6MoZAwwVw" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOw4LJmEeqj1vE0YAl0kQ" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_gdz17n5wEeqRi6MoZAwwVw" name="Listener">
-          <eAnnotations xmi:id="_gdz1735wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_698681_131"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_gdz18H5wEeqRi6MoZAwwVw" name="base_Class" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_1dOw4rJmEeqj1vE0YAl0kQ" name="PostActivate">
+          <eAnnotations xmi:id="_1dOw47JmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_269174_128"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_1dOw5LJmEeqj1vE0YAl0kQ" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Operation"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz18n5wEeqRi6MoZAwwVw" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
-          </eStructuralFeatures>
-        </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_gdz19H5wEeqRi6MoZAwwVw" name="Interceptor">
-          <eAnnotations xmi:id="_gdz19X5wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_642587_132"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz19n5wEeqRi6MoZAwwVw" name="andromda_service_interceptor_default" ordered="false" lowerBound="1" eType="_gdzRB35wEeqRi6MoZAwwVw" defaultValueLiteral="default"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_gdz1-H5wEeqRi6MoZAwwVw" name="base_Class" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
-          </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz1-n5wEeqRi6MoZAwwVw" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOw5rJmEeqj1vE0YAl0kQ" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_gdz1_H5wEeqRi6MoZAwwVw" name="DataSource">
-          <eAnnotations xmi:id="_gdz1_X5wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_676122_133"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_gdz1_n5wEeqRi6MoZAwwVw" name="base_Class" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_1dOw6LJmEeqj1vE0YAl0kQ" name="PersistenceContext">
+          <eAnnotations xmi:id="_1dOw6bJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_422538_129"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOw6rJmEeqj1vE0YAl0kQ" name="andromda_service_persistence_context_datasource" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz2AH5wEeqRi6MoZAwwVw" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOw7LJmEeqj1vE0YAl0kQ" name="andromda_service_persistence_context_unit_type" ordered="false" lowerBound="1" eType="_1dOwjrJmEeqj1vE0YAl0kQ" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOw7rJmEeqj1vE0YAl0kQ" name="andromda_service_persistence_context_unit_name" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
-        </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_gdz2An5wEeqRi6MoZAwwVw" name="ServiceElement">
-          <eAnnotations xmi:id="_gdz2A35wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_2e90116_1229376971586_51778_0"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz2BH5wEeqRi6MoZAwwVw" name="andromda_ejb_transaction_type" ordered="false" lowerBound="1" eType="_gdzQyn5wEeqRi6MoZAwwVw" defaultValueLiteral="default"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz2Bn5wEeqRi6MoZAwwVw" name="andromda_ejb_viewType" ordered="false" lowerBound="1" eType="_gdzQ3X5wEeqRi6MoZAwwVw" defaultValueLiteral="default"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz2CH5wEeqRi6MoZAwwVw" name="andromda_service_security_denyAll" ordered="false" lowerBound="1" eType="_gdzRB35wEeqRi6MoZAwwVw" defaultValueLiteral="default"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz2Cn5wEeqRi6MoZAwwVw" name="andromda_service_security_permitAll" ordered="false" lowerBound="1" eType="_gdzRB35wEeqRi6MoZAwwVw" defaultValueLiteral="default"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz2DH5wEeqRi6MoZAwwVw" name="andromda_spring_transaction_type" ordered="false" lowerBound="1" eType="_gdzQ035wEeqRi6MoZAwwVw" defaultValueLiteral="default"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_gdz2Dn5wEeqRi6MoZAwwVw" name="base_Operation" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Operation"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_1dOw8LJmEeqj1vE0YAl0kQ" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Class"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_gdz2EH5wEeqRi6MoZAwwVw" name="base_Class" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
-          </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz2En5wEeqRi6MoZAwwVw" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOw8rJmEeqj1vE0YAl0kQ" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_gdz2FH5wEeqRi6MoZAwwVw" name="ServiceOperation">
-          <eAnnotations xmi:id="_gdz2FX5wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_2e90116_1229377114729_124920_1"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz2Fn5wEeqRi6MoZAwwVw" name="andromda_service_persistence_flush_mode" ordered="false" lowerBound="1" eType="_gdzRAX5wEeqRi6MoZAwwVw" defaultValueLiteral="default"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz2GH5wEeqRi6MoZAwwVw" name="andromda_service_interceptor_excludeDefault" ordered="false" lowerBound="1" eType="_gdzRB35wEeqRi6MoZAwwVw" defaultValueLiteral="default"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz2Gn5wEeqRi6MoZAwwVw" name="andromda_service_interceptor_excludeClass" ordered="false" lowerBound="1" eType="_gdzRB35wEeqRi6MoZAwwVw" defaultValueLiteral="default"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_gdz2HH5wEeqRi6MoZAwwVw" name="base_Operation" ordered="false" lowerBound="1">
-            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Operation"/>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_1dOw9LJmEeqj1vE0YAl0kQ" name="MessageDriven">
+          <eAnnotations xmi:id="_1dOw9bJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_475801_130"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOw9rJmEeqj1vE0YAl0kQ" name="andromda_ejb_mdb_acknowledge_mode" ordered="false" lowerBound="1" eType="_1dOwf7JmEeqj1vE0YAl0kQ" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOw-LJmEeqj1vE0YAl0kQ" name="andromda_ejb_mdb_destination" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_gdz2Hn5wEeqRi6MoZAwwVw" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
-            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOw-rJmEeqj1vE0YAl0kQ" name="andromda_ejb_mdb_destination_type" ordered="false" eType="_1dOwerJmEeqj1vE0YAl0kQ" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOw_LJmEeqj1vE0YAl0kQ" name="andromda_ejb_mdb_selector" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOw_rJmEeqj1vE0YAl0kQ" name="andromda_ejb_mdb_subscription_durability" ordered="false" lowerBound="1" eType="_1dOwdbJmEeqj1vE0YAl0kQ" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOxALJmEeqj1vE0YAl0kQ" name="andromda_ejb_mdb_pool_size_min" ordered="false" lowerBound="1" defaultValueLiteral="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOxArJmEeqj1vE0YAl0kQ" name="andromda_ejb_mdb_pool_size_max" ordered="false" lowerBound="1" defaultValueLiteral="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_1dOxBLJmEeqj1vE0YAl0kQ" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOxBrJmEeqj1vE0YAl0kQ" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_1dOxCLJmEeqj1vE0YAl0kQ" name="Listener">
+          <eAnnotations xmi:id="_1dOxCbJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_698681_131"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_1dOxCrJmEeqj1vE0YAl0kQ" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOxDLJmEeqj1vE0YAl0kQ" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_1dOxDrJmEeqj1vE0YAl0kQ" name="Interceptor">
+          <eAnnotations xmi:id="_1dOxD7JmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_642587_132"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOxELJmEeqj1vE0YAl0kQ" name="andromda_service_interceptor_default" ordered="false" lowerBound="1" eType="_1dOwmbJmEeqj1vE0YAl0kQ" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_1dOxErJmEeqj1vE0YAl0kQ" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOxFLJmEeqj1vE0YAl0kQ" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_1dOxFrJmEeqj1vE0YAl0kQ" name="DataSource">
+          <eAnnotations xmi:id="_1dOxF7JmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_192d044b_1141264862929_676122_133"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_1dOxGLJmEeqj1vE0YAl0kQ" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOxGrJmEeqj1vE0YAl0kQ" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_1dOxHLJmEeqj1vE0YAl0kQ" name="ServiceElement">
+          <eAnnotations xmi:id="_1dOxHbJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_2e90116_1229376971586_51778_0"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOxHrJmEeqj1vE0YAl0kQ" name="andromda_ejb_transaction_type" ordered="false" lowerBound="1" eType="_1dOwXLJmEeqj1vE0YAl0kQ" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOxILJmEeqj1vE0YAl0kQ" name="andromda_ejb_viewType" ordered="false" lowerBound="1" eType="_1dOwb7JmEeqj1vE0YAl0kQ" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOxIrJmEeqj1vE0YAl0kQ" name="andromda_service_security_denyAll" ordered="false" lowerBound="1" eType="_1dOwmbJmEeqj1vE0YAl0kQ" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOxJLJmEeqj1vE0YAl0kQ" name="andromda_service_security_permitAll" ordered="false" lowerBound="1" eType="_1dOwmbJmEeqj1vE0YAl0kQ" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOxJrJmEeqj1vE0YAl0kQ" name="andromda_spring_transaction_type" ordered="false" lowerBound="1" eType="_1dOwZbJmEeqj1vE0YAl0kQ" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_1dOxKLJmEeqj1vE0YAl0kQ" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Operation"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_1dOxKrJmEeqj1vE0YAl0kQ" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOxLLJmEeqj1vE0YAl0kQ" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_1dOxLrJmEeqj1vE0YAl0kQ" name="ServiceOperation">
+          <eAnnotations xmi:id="_1dOxL7JmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_2e90116_1229377114729_124920_1"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOxMLJmEeqj1vE0YAl0kQ" name="andromda_service_persistence_flush_mode" ordered="false" lowerBound="1" eType="_1dOwk7JmEeqj1vE0YAl0kQ" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOxMrJmEeqj1vE0YAl0kQ" name="andromda_service_interceptor_excludeDefault" ordered="false" lowerBound="1" eType="_1dOwmbJmEeqj1vE0YAl0kQ" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOxNLJmEeqj1vE0YAl0kQ" name="andromda_service_interceptor_excludeClass" ordered="false" lowerBound="1" eType="_1dOwmbJmEeqj1vE0YAl0kQ" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_1dOxNrJmEeqj1vE0YAl0kQ" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/3.0.0/UML#//Operation"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_1dOxOLJmEeqj1vE0YAl0kQ" name="andromda_additionalAnnotations" ordered="false" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
           </eStructuralFeatures>
         </eClassifiers>
       </contents>
@@ -302,554 +299,554 @@
     <packageImport xmi:id="_0javaPrimitiveTypesandromda-service">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
     </packageImport>
-    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_0_1fe00f9_1119337557859_990547_75" name="SpringRemotingProtocol" visibility="public">
-      <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_517772_99" annotatedElement="_9_0_1fe00f9_1119337557859_990547_75" body="The available Spring remoting protocol types. "/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229974470478_192513_3" name="default" visibility="public"/>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_114029_73" name="burlap" visibility="public"/>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_753466_74" name="hessian" visibility="public"/>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_455110_72" name="httpinvoker" visibility="public"/>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_213374_70" name="none" visibility="public"/>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_349718_71" name="rmi" visibility="public"/>
-      <ownedLiteral xmi:id="_9_5_1_8080247_1163509003198_400970_0" name="lingo" visibility="public"/>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_0_1fe00f9_1119337557859_990547_75" name="SpringRemotingProtocol">
+      <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_517772_99" body="The available Spring remoting protocol types. " annotatedElement="_9_0_1fe00f9_1119337557859_990547_75"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229974470478_192513_3" name="default" classifier="_9_0_1fe00f9_1119337557859_990547_75"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_114029_73" name="burlap" classifier="_9_0_1fe00f9_1119337557859_990547_75"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_753466_74" name="hessian" classifier="_9_0_1fe00f9_1119337557859_990547_75"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_455110_72" name="httpinvoker" classifier="_9_0_1fe00f9_1119337557859_990547_75"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_213374_70" name="none" classifier="_9_0_1fe00f9_1119337557859_990547_75"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_349718_71" name="rmi" classifier="_9_0_1fe00f9_1119337557859_990547_75"/>
+      <ownedLiteral xmi:id="_9_5_1_8080247_1163509003198_400970_0" name="lingo" classifier="_9_0_1fe00f9_1119337557859_990547_75"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_0_1fe00f9_1119337557859_467824_83" name="EjbTransactionType" visibility="public">
-      <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_698837_103" annotatedElement="_9_0_1fe00f9_1119337557859_467824_83" body="Represents the possible EJB transaction types."/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229974022519_55389_5" name="default" visibility="public"/>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_616847_77" name="NotSupported" visibility="public"/>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_618413_78" name="Supports" visibility="public"/>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_458612_79" name="Required" visibility="public"/>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_216523_80" name="RequiresNew" visibility="public"/>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_444979_81" name="Mandatory" visibility="public"/>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_200031_82" name="Never" visibility="public"/>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_0_1fe00f9_1119337557859_467824_83" name="EjbTransactionType">
+      <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_698837_103" body="Represents the possible EJB transaction types." annotatedElement="_9_0_1fe00f9_1119337557859_467824_83"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229974022519_55389_5" name="default" classifier="_9_0_1fe00f9_1119337557859_467824_83"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_616847_77" name="NotSupported" classifier="_9_0_1fe00f9_1119337557859_467824_83"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_618413_78" name="Supports" classifier="_9_0_1fe00f9_1119337557859_467824_83"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_458612_79" name="Required" classifier="_9_0_1fe00f9_1119337557859_467824_83"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_216523_80" name="RequiresNew" classifier="_9_0_1fe00f9_1119337557859_467824_83"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_444979_81" name="Mandatory" classifier="_9_0_1fe00f9_1119337557859_467824_83"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_200031_82" name="Never" classifier="_9_0_1fe00f9_1119337557859_467824_83"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_0_1fe00f9_1119337557859_949884_69" name="SpringTransactionType" visibility="public">
-      <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_728941_91" annotatedElement="_9_0_1fe00f9_1119337557859_949884_69" body="Represents the possible Spring transaction types."/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229974051426_390330_7" name="default" visibility="public"/>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_784968_62" name="PROPAGATION_MANDATORY" visibility="public">
-        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_181161_92" annotatedElement="_9_0_1fe00f9_1119337557859_784968_62" body="Support a current transaction, throw an exception if none exists."/>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_0_1fe00f9_1119337557859_949884_69" name="SpringTransactionType">
+      <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_728941_91" body="Represents the possible Spring transaction types." annotatedElement="_9_0_1fe00f9_1119337557859_949884_69"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229974051426_390330_7" name="default" classifier="_9_0_1fe00f9_1119337557859_949884_69"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_784968_62" name="PROPAGATION_MANDATORY" classifier="_9_0_1fe00f9_1119337557859_949884_69">
+        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_181161_92" body="Support a current transaction, throw an exception if none exists." annotatedElement="_9_0_1fe00f9_1119337557859_784968_62"/>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_931637_63" name="PROPAGATION_NESTED" visibility="public">
-        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_787947_93" annotatedElement="_9_0_1fe00f9_1119337557859_931637_63" body="Execute within a nested transaction if a current transaction exists, or behave like PROPAGATION_REQUIRED else."/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_931637_63" name="PROPAGATION_NESTED" classifier="_9_0_1fe00f9_1119337557859_949884_69">
+        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_787947_93" body="Execute within a nested transaction if a current transaction exists, or behave like PROPAGATION_REQUIRED else." annotatedElement="_9_0_1fe00f9_1119337557859_931637_63"/>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_170854_64" name="PROPAGATION_NEVER" visibility="public">
-        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_910198_94" annotatedElement="_9_0_1fe00f9_1119337557859_170854_64" body="Execute non-transactionally, throw an exception if a transaction exists."/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_170854_64" name="PROPAGATION_NEVER" classifier="_9_0_1fe00f9_1119337557859_949884_69">
+        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_910198_94" body="Execute non-transactionally, throw an exception if a transaction exists." annotatedElement="_9_0_1fe00f9_1119337557859_170854_64"/>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_364595_65" name="PROPAGATION_NOT_SUPPORTED" visibility="public">
-        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_549289_95" annotatedElement="_9_0_1fe00f9_1119337557859_364595_65" body="Execute non-transactionally, suspending the current transaction if one exists."/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_364595_65" name="PROPAGATION_NOT_SUPPORTED" classifier="_9_0_1fe00f9_1119337557859_949884_69">
+        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_549289_95" body="Execute non-transactionally, suspending the current transaction if one exists." annotatedElement="_9_0_1fe00f9_1119337557859_364595_65"/>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_374965_66" name="PROPAGATION_REQUIRED" visibility="public">
-        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_425383_96" annotatedElement="_9_0_1fe00f9_1119337557859_374965_66" body="Support a current transaction, create a new one if none exists."/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_374965_66" name="PROPAGATION_REQUIRED" classifier="_9_0_1fe00f9_1119337557859_949884_69">
+        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_425383_96" body="Support a current transaction, create a new one if none exists." annotatedElement="_9_0_1fe00f9_1119337557859_374965_66"/>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_590090_67" name="PROPAGATION_REQUIRES_NEW" visibility="public">
-        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_974270_97" annotatedElement="_9_0_1fe00f9_1119337557859_590090_67" body="Create a new transaction, suspending the current transaction if one exists."/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_590090_67" name="PROPAGATION_REQUIRES_NEW" classifier="_9_0_1fe00f9_1119337557859_949884_69">
+        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_974270_97" body="Create a new transaction, suspending the current transaction if one exists." annotatedElement="_9_0_1fe00f9_1119337557859_590090_67"/>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_784722_68" name="PROPAGATION_SUPPORTS" visibility="public">
-        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_945826_98" annotatedElement="_9_0_1fe00f9_1119337557859_784722_68" body="Support a current transaction, execute non-transactionally if none exists."/>
-      </ownedLiteral>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_0_2_12ab03bf_1122060056406_374453_0" name="EjbViewType" visibility="public">
-      <ownedComment xmi:id="_9_0_2_12ab03bf_1122060141937_481582_3" annotatedElement="_9_0_2_12ab03bf_1122060056406_374453_0" body="Represents the type of an Ejb view (local/remote). default=remote."/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229973776297_465579_3" name="default" visibility="public">
-        <ownedComment xmi:id="_9_5_1_2e90116_1229973826486_543122_6" annotatedElement="_9_5_1_2e90116_1229973776297_465579_3" body="default unspecified value for view type. Cartridge default type prevails."/>
-      </ownedLiteral>
-      <ownedLiteral xmi:id="_9_0_2_12ab03bf_1122060139625_253621_2" name="remote" visibility="public">
-        <ownedComment xmi:id="_9_0_2_12ab03bf_1122060141937_726464_5" annotatedElement="_9_0_2_12ab03bf_1122060139625_253621_2" body="Represents a 'remote' view type (that is interfaces are capable of remote communication)."/>
-      </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229973488513_37780_1" name="local" visibility="public">
-        <ownedComment xmi:id="_9_5_1_2e90116_1229973826486_732327_4" annotatedElement="_9_5_1_2e90116_1229973488513_37780_1" body="Represents a 'local' view type (that is interfaces are NOT capable of remote communication)."/>
-      </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229973554232_908544_2" name="both" visibility="public">
-        <ownedComment xmi:id="_9_5_1_2e90116_1229973826486_433294_5" annotatedElement="_9_5_1_2e90116_1229973554232_908544_2" body="Allow both local and remote interfaces."/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337557859_784722_68" name="PROPAGATION_SUPPORTS" classifier="_9_0_1fe00f9_1119337557859_949884_69">
+        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_945826_98" body="Support a current transaction, execute non-transactionally if none exists." annotatedElement="_9_0_1fe00f9_1119337557859_784722_68"/>
       </ownedLiteral>
     </packagedElement>
-    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_192d044b_1141264833711_619951_90" name="EjbMdbSubscriptionDurabilityType" visibility="public">
-      <ownedComment xmi:id="_9_5_1_192d044b_1141264836257_586089_106" annotatedElement="_9_5_1_192d044b_1141264833711_619951_90" body="Topic subscription durability options."/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229973970284_392930_1" name="default" visibility="public"/>
-      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833711_139601_88" name="Durable" visibility="public"/>
-      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833711_611101_89" name="NonDurable" visibility="public"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_192d044b_1141264833711_204308_93" name="EjbMdbDestinationType" visibility="public">
-      <ownedComment xmi:id="_9_5_1_192d044b_1141264836257_896543_107" annotatedElement="_9_5_1_192d044b_1141264833711_204308_93" body="The available list of destination types for JMS message driven bean."/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229973954237_105101_0" name="default" visibility="public"/>
-      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833711_370274_91" name="javax.jms.Queue" visibility="public"/>
-      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833711_780857_92" name="javax.jms.Topic" visibility="public"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_192d044b_1141264833711_902139_96" name="EjbMdbAcknowledgeMode" visibility="public">
-      <ownedComment xmi:id="_9_5_1_192d044b_1141264836257_558758_108" annotatedElement="_9_5_1_192d044b_1141264833711_902139_96" body="The acknowledge mode for JMS message driven bean.  Default is AUTO_ACKNOWLEDGE."/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229974370868_105114_0" name="default" visibility="public"/>
-      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833711_472200_94" name="AUTO_ACKNOWLEDGE" visibility="public"/>
-      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833711_934031_95" name="DUPS_OK_ACKNOWLEDGE" visibility="public"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_192d044b_1141264833726_945883_99" name="EjbTransactionManagement" visibility="public">
-      <ownedComment xmi:id="_9_5_1_192d044b_1141264836257_774484_109" annotatedElement="_9_5_1_192d044b_1141264833726_945883_99" body="The options for transaction demaracation strategies."/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229974431306_606147_2" name="default" visibility="public"/>
-      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833726_439318_97" name="BEAN" visibility="public"/>
-      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833726_448535_98" name="CONTAINER" visibility="public"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_192d044b_1141264833726_224593_102" name="EjbServiceType" visibility="public">
-      <ownedComment xmi:id="_9_5_1_192d044b_1141264836257_751925_110" annotatedElement="_9_5_1_192d044b_1141264833726_224593_102" body="The type of session EJB.  Supported values are Stateful or Stateless."/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229974011426_122599_4" name="default" visibility="public"/>
-      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833726_173542_100" name="Stateful" visibility="public">
-        <ownedComment xmi:id="_9_5_1_192d044b_1141264836257_726975_111" annotatedElement="_9_5_1_192d044b_1141264833726_173542_100" body="Stateful session bean."/>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_0_2_12ab03bf_1122060056406_374453_0" name="EjbViewType">
+      <ownedComment xmi:id="_9_0_2_12ab03bf_1122060141937_481582_3" body="Represents the type of an Ejb view (local/remote). default=remote." annotatedElement="_9_0_2_12ab03bf_1122060056406_374453_0"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229973776297_465579_3" name="default" classifier="_9_0_2_12ab03bf_1122060056406_374453_0">
+        <ownedComment xmi:id="_9_5_1_2e90116_1229973826486_543122_6" body="default unspecified value for view type. Cartridge default type prevails." annotatedElement="_9_5_1_2e90116_1229973776297_465579_3"/>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833726_372498_101" name="Stateless" visibility="public">
-        <ownedComment xmi:id="_9_5_1_192d044b_1141264836257_156755_112" annotatedElement="_9_5_1_192d044b_1141264833726_372498_101" body="Stateless session bean."/>
+      <ownedLiteral xmi:id="_9_0_2_12ab03bf_1122060139625_253621_2" name="remote" classifier="_9_0_2_12ab03bf_1122060056406_374453_0">
+        <ownedComment xmi:id="_9_0_2_12ab03bf_1122060141937_726464_5" body="Represents a 'remote' view type (that is interfaces are capable of remote communication)." annotatedElement="_9_0_2_12ab03bf_1122060139625_253621_2"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229973488513_37780_1" name="local" classifier="_9_0_2_12ab03bf_1122060056406_374453_0">
+        <ownedComment xmi:id="_9_5_1_2e90116_1229973826486_732327_4" body="Represents a 'local' view type (that is interfaces are NOT capable of remote communication)." annotatedElement="_9_5_1_2e90116_1229973488513_37780_1"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229973554232_908544_2" name="both" classifier="_9_0_2_12ab03bf_1122060056406_374453_0">
+        <ownedComment xmi:id="_9_5_1_2e90116_1229973826486_433294_5" body="Allow both local and remote interfaces." annotatedElement="_9_5_1_2e90116_1229973554232_908544_2"/>
       </ownedLiteral>
     </packagedElement>
-    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_192d044b_1141264833726_968699_105" name="EjbPersistenceUnitType" visibility="public">
-      <ownedComment xmi:id="_9_5_1_192d044b_1141264836257_769441_113" annotatedElement="_9_5_1_192d044b_1141264833726_968699_105" body="Represents the possible persistence unit types.  Either set to a transaction scope or extended persistence context."/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229973995332_130982_3" name="default" visibility="public"/>
-      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833726_469514_103" name="TRANSACTION" visibility="public">
-        <ownedComment xmi:id="_9_5_1_192d044b_1141264836257_317574_114" annotatedElement="_9_5_1_192d044b_1141264833726_469514_103" body="Transaction scoped persistence context."/>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_192d044b_1141264833711_619951_90" name="EjbMdbSubscriptionDurabilityType">
+      <ownedComment xmi:id="_9_5_1_192d044b_1141264836257_586089_106" body="Topic subscription durability options." annotatedElement="_9_5_1_192d044b_1141264833711_619951_90"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229973970284_392930_1" name="default" classifier="_9_5_1_192d044b_1141264833711_619951_90"/>
+      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833711_139601_88" name="Durable" classifier="_9_5_1_192d044b_1141264833711_619951_90"/>
+      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833711_611101_89" name="NonDurable" classifier="_9_5_1_192d044b_1141264833711_619951_90"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_192d044b_1141264833711_204308_93" name="EjbMdbDestinationType">
+      <ownedComment xmi:id="_9_5_1_192d044b_1141264836257_896543_107" body="The available list of destination types for JMS message driven bean." annotatedElement="_9_5_1_192d044b_1141264833711_204308_93"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229973954237_105101_0" name="default" classifier="_9_5_1_192d044b_1141264833711_204308_93"/>
+      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833711_370274_91" name="javax.jms.Queue" classifier="_9_5_1_192d044b_1141264833711_204308_93"/>
+      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833711_780857_92" name="javax.jms.Topic" classifier="_9_5_1_192d044b_1141264833711_204308_93"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_192d044b_1141264833711_902139_96" name="EjbMdbAcknowledgeMode">
+      <ownedComment xmi:id="_9_5_1_192d044b_1141264836257_558758_108" body="The acknowledge mode for JMS message driven bean.  Default is AUTO_ACKNOWLEDGE." annotatedElement="_9_5_1_192d044b_1141264833711_902139_96"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229974370868_105114_0" name="default" classifier="_9_5_1_192d044b_1141264833711_902139_96"/>
+      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833711_472200_94" name="AUTO_ACKNOWLEDGE" classifier="_9_5_1_192d044b_1141264833711_902139_96"/>
+      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833711_934031_95" name="DUPS_OK_ACKNOWLEDGE" classifier="_9_5_1_192d044b_1141264833711_902139_96"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_192d044b_1141264833726_945883_99" name="EjbTransactionManagement">
+      <ownedComment xmi:id="_9_5_1_192d044b_1141264836257_774484_109" body="The options for transaction demaracation strategies." annotatedElement="_9_5_1_192d044b_1141264833726_945883_99"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229974431306_606147_2" name="default" classifier="_9_5_1_192d044b_1141264833726_945883_99"/>
+      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833726_439318_97" name="BEAN" classifier="_9_5_1_192d044b_1141264833726_945883_99"/>
+      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833726_448535_98" name="CONTAINER" classifier="_9_5_1_192d044b_1141264833726_945883_99"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_192d044b_1141264833726_224593_102" name="EjbServiceType">
+      <ownedComment xmi:id="_9_5_1_192d044b_1141264836257_751925_110" body="The type of session EJB.  Supported values are Stateful or Stateless." annotatedElement="_9_5_1_192d044b_1141264833726_224593_102"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229974011426_122599_4" name="default" classifier="_9_5_1_192d044b_1141264833726_224593_102"/>
+      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833726_173542_100" name="Stateful" classifier="_9_5_1_192d044b_1141264833726_224593_102">
+        <ownedComment xmi:id="_9_5_1_192d044b_1141264836257_726975_111" body="Stateful session bean." annotatedElement="_9_5_1_192d044b_1141264833726_173542_100"/>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833726_373799_104" name="EXTENDED" visibility="public">
-        <ownedComment xmi:id="_9_5_1_192d044b_1141264836257_371149_115" annotatedElement="_9_5_1_192d044b_1141264833726_373799_104" body="Long lived extended persistence context."/>
+      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833726_372498_101" name="Stateless" classifier="_9_5_1_192d044b_1141264833726_224593_102">
+        <ownedComment xmi:id="_9_5_1_192d044b_1141264836257_156755_112" body="Stateless session bean." annotatedElement="_9_5_1_192d044b_1141264833726_372498_101"/>
       </ownedLiteral>
     </packagedElement>
-    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_192d044b_1141265110836_846841_163" name="EjbServiceFlushMode" visibility="public">
-      <ownedComment xmi:id="_9_5_1_192d044b_1141265146711_762062_168" annotatedElement="_9_5_1_192d044b_1141265110836_846841_163" body="The available options for session bean operation flush mode."/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229974394352_41128_1" name="default" visibility="public"/>
-      <ownedLiteral xmi:id="_9_5_1_192d044b_1141265142007_576649_164" name="AUTO" visibility="public"/>
-      <ownedLiteral xmi:id="_9_5_1_192d044b_1141265142007_438509_165" name="COMMIT" visibility="public"/>
-      <ownedLiteral xmi:id="_9_5_1_192d044b_1141265142007_927562_166" name="NEVER" visibility="public"/>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_192d044b_1141264833726_968699_105" name="EjbPersistenceUnitType">
+      <ownedComment xmi:id="_9_5_1_192d044b_1141264836257_769441_113" body="Represents the possible persistence unit types.  Either set to a transaction scope or extended persistence context." annotatedElement="_9_5_1_192d044b_1141264833726_968699_105"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229973995332_130982_3" name="default" classifier="_9_5_1_192d044b_1141264833726_968699_105"/>
+      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833726_469514_103" name="TRANSACTION" classifier="_9_5_1_192d044b_1141264833726_968699_105">
+        <ownedComment xmi:id="_9_5_1_192d044b_1141264836257_317574_114" body="Transaction scoped persistence context." annotatedElement="_9_5_1_192d044b_1141264833726_469514_103"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_9_5_1_192d044b_1141264833726_373799_104" name="EXTENDED" classifier="_9_5_1_192d044b_1141264833726_968699_105">
+        <ownedComment xmi:id="_9_5_1_192d044b_1141264836257_371149_115" body="Long lived extended persistence context." annotatedElement="_9_5_1_192d044b_1141264833726_373799_104"/>
+      </ownedLiteral>
     </packagedElement>
-    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_2e90116_1229377170683_166153_2" name="TernaryBoolean" visibility="public">
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229377219418_87867_5" name="default" visibility="public"/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229377179011_285833_3" name="true" visibility="public"/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229377208871_922745_4" name="false" visibility="public"/>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_192d044b_1141265110836_846841_163" name="EjbServiceFlushMode">
+      <ownedComment xmi:id="_9_5_1_192d044b_1141265146711_762062_168" body="The available options for session bean operation flush mode." annotatedElement="_9_5_1_192d044b_1141265110836_846841_163"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229974394352_41128_1" name="default" classifier="_9_5_1_192d044b_1141265110836_846841_163"/>
+      <ownedLiteral xmi:id="_9_5_1_192d044b_1141265142007_576649_164" name="AUTO" classifier="_9_5_1_192d044b_1141265110836_846841_163"/>
+      <ownedLiteral xmi:id="_9_5_1_192d044b_1141265142007_438509_165" name="COMMIT" classifier="_9_5_1_192d044b_1141265110836_846841_163"/>
+      <ownedLiteral xmi:id="_9_5_1_192d044b_1141265142007_927562_166" name="NEVER" classifier="_9_5_1_192d044b_1141265110836_846841_163"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265578_842401_411" name="" visibility="public" memberEnd="_12_1_2e90116_1238689265578_562914_413 _12_1_2e90116_1238689265578_334158_412" navigableOwnedEnd="_12_1_2e90116_1238689265578_562914_413">
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_2e90116_1229377170683_166153_2" name="TernaryBoolean">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229377219418_87867_5" name="default" classifier="_9_5_1_2e90116_1229377170683_166153_2"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229377179011_285833_3" name="true" classifier="_9_5_1_2e90116_1229377170683_166153_2"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229377208871_922745_4" name="false" classifier="_9_5_1_2e90116_1229377170683_166153_2"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265578_842401_411" name="" memberEnd="_12_1_2e90116_1238689265578_562914_413 _12_1_2e90116_1238689265578_334158_412" navigableOwnedEnd="_12_1_2e90116_1238689265578_562914_413">
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1238689265578_562914_413" name="extension_ServiceOperation" visibility="private" type="_9_5_1_2e90116_1229377114729_124920_1" aggregation="composite" association="_12_1_2e90116_1238689265578_842401_411">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265578_909281_414" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265578_791203_415" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265578_791203_415" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265578_909281_414" name=""/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265578_766241_416" name="" visibility="public" memberEnd="_12_1_2e90116_1238689265578_734641_418 _12_1_2e90116_1238689265578_140125_417" navigableOwnedEnd="_12_1_2e90116_1238689265578_734641_418">
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265578_766241_416" name="" memberEnd="_12_1_2e90116_1238689265578_734641_418 _12_1_2e90116_1238689265578_140125_417" navigableOwnedEnd="_12_1_2e90116_1238689265578_734641_418">
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1238689265578_734641_418" name="extension_PostActivate" visibility="private" type="_9_5_1_192d044b_1141264862929_269174_128" aggregation="composite" association="_12_1_2e90116_1238689265578_766241_416">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265578_295297_419" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265578_6926_420" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265578_6926_420" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265578_295297_419" name=""/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265578_858444_422" name="" visibility="public" memberEnd="_12_1_2e90116_1238689265578_131738_424 _12_1_2e90116_1238689265578_596888_423" navigableOwnedEnd="_12_1_2e90116_1238689265578_131738_424">
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265578_858444_422" name="" memberEnd="_12_1_2e90116_1238689265578_131738_424 _12_1_2e90116_1238689265578_596888_423" navigableOwnedEnd="_12_1_2e90116_1238689265578_131738_424">
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1238689265578_131738_424" name="extension_MessageDriven" visibility="private" type="_9_5_1_192d044b_1141264862929_475801_130" aggregation="composite" association="_12_1_2e90116_1238689265578_858444_422">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265578_682015_425" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265578_816572_426" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265578_816572_426" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265578_682015_425" name=""/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265578_880479_428" name="" visibility="public" memberEnd="_12_1_2e90116_1238689265578_327992_430 _12_1_2e90116_1238689265578_583670_429" navigableOwnedEnd="_12_1_2e90116_1238689265578_327992_430">
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265578_880479_428" name="" memberEnd="_12_1_2e90116_1238689265578_327992_430 _12_1_2e90116_1238689265578_583670_429" navigableOwnedEnd="_12_1_2e90116_1238689265578_327992_430">
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1238689265578_327992_430" name="extension_PostConstruct" visibility="private" type="_9_5_1_192d044b_1141264862929_22970_127" aggregation="composite" association="_12_1_2e90116_1238689265578_880479_428">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265578_166661_431" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265578_775518_432" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265578_775518_432" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265578_166661_431" name=""/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265578_671213_433" name="" visibility="public" memberEnd="_12_1_2e90116_1238689265578_847048_435 _12_1_2e90116_1238689265578_623960_434" navigableOwnedEnd="_12_1_2e90116_1238689265578_847048_435">
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265578_671213_433" name="" memberEnd="_12_1_2e90116_1238689265578_847048_435 _12_1_2e90116_1238689265578_623960_434" navigableOwnedEnd="_12_1_2e90116_1238689265578_847048_435">
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1238689265578_847048_435" name="extension_ResourceRef" visibility="private" type="_9_5_1_192d044b_1141264862929_27265_124" aggregation="composite" association="_12_1_2e90116_1238689265578_671213_433">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265578_959355_436" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265578_870745_437" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265578_870745_437" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265578_959355_436" name=""/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_384488_444" name="" visibility="public" memberEnd="_12_1_2e90116_1238689265594_443566_446 _12_1_2e90116_1238689265594_618024_445" navigableOwnedEnd="_12_1_2e90116_1238689265594_443566_446">
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_384488_444" name="" memberEnd="_12_1_2e90116_1238689265594_443566_446 _12_1_2e90116_1238689265594_618024_445" navigableOwnedEnd="_12_1_2e90116_1238689265594_443566_446">
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1238689265594_443566_446" name="extension_PersistenceContext" visibility="private" type="_9_5_1_192d044b_1141264862929_422538_129" aggregation="composite" association="_12_1_2e90116_1238689265594_384488_444">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_60824_447" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_656943_448" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_656943_448" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_60824_447" name=""/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_560567_450" name="" visibility="public" memberEnd="_12_1_2e90116_1238689265594_547644_452 _12_1_2e90116_1238689265594_198225_451" navigableOwnedEnd="_12_1_2e90116_1238689265594_547644_452">
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_560567_450" name="" memberEnd="_12_1_2e90116_1238689265594_547644_452 _12_1_2e90116_1238689265594_198225_451" navigableOwnedEnd="_12_1_2e90116_1238689265594_547644_452">
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1238689265594_547644_452" name="extension_Interceptor" visibility="private" type="_9_5_1_192d044b_1141264862929_642587_132" aggregation="composite" association="_12_1_2e90116_1238689265594_560567_450">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_358368_453" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_898918_454" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_898918_454" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_358368_453" name=""/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_301893_456" name="" visibility="public" memberEnd="_12_1_2e90116_1238689265594_605099_458 _12_1_2e90116_1238689265594_725504_457" navigableOwnedEnd="_12_1_2e90116_1238689265594_605099_458">
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_301893_456" name="" memberEnd="_12_1_2e90116_1238689265594_605099_458 _12_1_2e90116_1238689265594_725504_457" navigableOwnedEnd="_12_1_2e90116_1238689265594_605099_458">
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1238689265594_605099_458" name="extension_RunAs" visibility="private" type="_9_5_1_192d044b_1141264862929_662921_123" aggregation="composite" association="_12_1_2e90116_1238689265594_301893_456">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_675052_459" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_369972_460" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_369972_460" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_675052_459" name=""/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_35410_461" name="" visibility="public" memberEnd="_12_1_2e90116_1238689265594_215506_463 _12_1_2e90116_1238689265594_240085_462" navigableOwnedEnd="_12_1_2e90116_1238689265594_215506_463">
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_35410_461" name="" memberEnd="_12_1_2e90116_1238689265594_215506_463 _12_1_2e90116_1238689265594_240085_462" navigableOwnedEnd="_12_1_2e90116_1238689265594_215506_463">
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1238689265594_215506_463" name="extension_DataSource" visibility="private" type="_9_5_1_192d044b_1141264862929_676122_133" aggregation="composite" association="_12_1_2e90116_1238689265594_35410_461">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_980641_464" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_548911_465" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_548911_465" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_980641_464" name=""/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_279850_468" name="" visibility="public" memberEnd="_12_1_2e90116_1238689265594_381638_470 _12_1_2e90116_1238689265594_940658_469" navigableOwnedEnd="_12_1_2e90116_1238689265594_381638_470">
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_279850_468" name="" memberEnd="_12_1_2e90116_1238689265594_381638_470 _12_1_2e90116_1238689265594_940658_469" navigableOwnedEnd="_12_1_2e90116_1238689265594_381638_470">
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1238689265594_381638_470" name="extension_Service" visibility="private" type="_9_0_1fe00f9_1119337557859_21792_59" aggregation="composite" association="_12_1_2e90116_1238689265594_279850_468">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_713437_471" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_27621_472" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_27621_472" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_713437_471" name=""/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_971483_475" name="" visibility="public" memberEnd="_12_1_2e90116_1238689265594_672640_477 _12_1_2e90116_1238689265594_675150_476" navigableOwnedEnd="_12_1_2e90116_1238689265594_672640_477">
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_971483_475" name="" memberEnd="_12_1_2e90116_1238689265594_672640_477 _12_1_2e90116_1238689265594_675150_476" navigableOwnedEnd="_12_1_2e90116_1238689265594_672640_477">
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1238689265594_672640_477" name="extension_ServiceElement" visibility="private" type="_9_5_1_2e90116_1229376971586_51778_0" aggregation="composite" association="_12_1_2e90116_1238689265594_971483_475">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_776442_478" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_252047_479" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_252047_479" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_776442_478" name=""/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_754533_480" name="" visibility="public" memberEnd="_12_1_2e90116_1238689265594_682677_482 _12_1_2e90116_1238689265594_602856_481" navigableOwnedEnd="_12_1_2e90116_1238689265594_682677_482">
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_754533_480" name="" memberEnd="_12_1_2e90116_1238689265594_682677_482 _12_1_2e90116_1238689265594_602856_481" navigableOwnedEnd="_12_1_2e90116_1238689265594_682677_482">
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1238689265594_682677_482" name="extension_ServiceElement" visibility="private" type="_9_5_1_2e90116_1229376971586_51778_0" aggregation="composite" association="_12_1_2e90116_1238689265594_754533_480">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_213574_483" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_905113_484" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_905113_484" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_213574_483" name=""/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_809471_485" name="" visibility="public" memberEnd="_12_1_2e90116_1238689265594_734289_487 _12_1_2e90116_1238689265594_835644_486" navigableOwnedEnd="_12_1_2e90116_1238689265594_734289_487">
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_809471_485" name="" memberEnd="_12_1_2e90116_1238689265594_734289_487 _12_1_2e90116_1238689265594_835644_486" navigableOwnedEnd="_12_1_2e90116_1238689265594_734289_487">
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1238689265594_734289_487" name="extension_ServiceRef" visibility="private" type="_9_0_1fe00f9_1119337557859_652828_60" aggregation="composite" association="_12_1_2e90116_1238689265594_809471_485">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_533322_488" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_959119_489" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_959119_489" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_533322_488" name=""/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_56956_492" name="" visibility="public" memberEnd="_12_1_2e90116_1238689265594_513769_494 _12_1_2e90116_1238689265594_236286_493" navigableOwnedEnd="_12_1_2e90116_1238689265594_513769_494">
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_56956_492" name="" memberEnd="_12_1_2e90116_1238689265594_513769_494 _12_1_2e90116_1238689265594_236286_493" navigableOwnedEnd="_12_1_2e90116_1238689265594_513769_494">
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1238689265594_513769_494" name="extension_PreDestroy" visibility="private" type="_9_5_1_192d044b_1141264862929_886205_126" aggregation="composite" association="_12_1_2e90116_1238689265594_56956_492">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_253863_495" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_920215_496" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_920215_496" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_253863_495" name=""/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_93843_497" name="" visibility="public" memberEnd="_12_1_2e90116_1238689265594_599280_499 _12_1_2e90116_1238689265594_854722_498" navigableOwnedEnd="_12_1_2e90116_1238689265594_599280_499">
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_93843_497" name="" memberEnd="_12_1_2e90116_1238689265594_599280_499 _12_1_2e90116_1238689265594_854722_498" navigableOwnedEnd="_12_1_2e90116_1238689265594_599280_499">
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1238689265594_599280_499" name="extension_Timeout" visibility="private" type="_9_5_1_192d044b_1141264862929_822470_122" aggregation="composite" association="_12_1_2e90116_1238689265594_93843_497">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_82393_500" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_318912_501" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_318912_501" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_82393_500" name=""/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_156564_502" name="" visibility="public" memberEnd="_12_1_2e90116_1238689265594_481009_504 _12_1_2e90116_1238689265594_609973_503" navigableOwnedEnd="_12_1_2e90116_1238689265594_481009_504">
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_156564_502" name="" memberEnd="_12_1_2e90116_1238689265594_481009_504 _12_1_2e90116_1238689265594_609973_503" navigableOwnedEnd="_12_1_2e90116_1238689265594_481009_504">
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1238689265594_481009_504" name="extension_Listener" visibility="private" type="_9_5_1_192d044b_1141264862929_698681_131" aggregation="composite" association="_12_1_2e90116_1238689265594_156564_502">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_947270_505" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_386352_506" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_386352_506" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_947270_505" name=""/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_192478_507" name="" visibility="public" memberEnd="_12_1_2e90116_1238689265594_365206_509 _12_1_2e90116_1238689265594_49219_508" navigableOwnedEnd="_12_1_2e90116_1238689265594_365206_509">
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_192478_507" name="" memberEnd="_12_1_2e90116_1238689265594_365206_509 _12_1_2e90116_1238689265594_49219_508" navigableOwnedEnd="_12_1_2e90116_1238689265594_365206_509">
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1238689265594_365206_509" name="extension_PrePassivate" visibility="private" type="_9_5_1_192d044b_1141264862929_299020_125" aggregation="composite" association="_12_1_2e90116_1238689265594_192478_507">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_959264_510" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_571654_511" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_571654_511" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_959264_510" name=""/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_227740_512" name="" visibility="public" memberEnd="_12_1_2e90116_1238689265594_957845_514 _12_1_2e90116_1238689265594_274635_513" navigableOwnedEnd="_12_1_2e90116_1238689265594_957845_514">
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689265594_227740_512" name="" memberEnd="_12_1_2e90116_1238689265594_957845_514 _12_1_2e90116_1238689265594_274635_513" navigableOwnedEnd="_12_1_2e90116_1238689265594_957845_514">
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1238689265594_957845_514" name="extension_UserTransaction" visibility="private" type="_9_5_1_192d044b_1141264862929_845675_121" aggregation="composite" association="_12_1_2e90116_1238689265594_227740_512">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_257812_515" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_553102_516" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265594_553102_516" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265594_257812_515" name=""/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_0_1fe00f9_1119337557859_21792_59" name="Service" visibility="public">
-      <ownedComment xmi:id="_9_5_1_192d044b_1142394060015_383850_2" annotatedElement="_9_0_1fe00f9_1119337557859_21792_59" body="Indicates this bean is a session bean."/>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_0_1fe00f9_1119337557859_21792_59" name="Service">
+      <ownedComment xmi:id="_9_5_1_192d044b_1142394060015_383850_2" body="Indicates this bean is a session bean." annotatedElement="_9_0_1fe00f9_1119337557859_21792_59"/>
       <ownedAttribute xmi:id="_9_0_66e017e_1125477765493_287886_0" name="andromda_spring_service_interceptors" visibility="private">
-        <ownedComment xmi:id="_9_0_66e017e_1125478129526_50992_3" annotatedElement="_9_0_66e017e_1125477765493_287886_0" body="A comma separated list of interceptor names."/>
+        <ownedComment xmi:id="_9_0_66e017e_1125478129526_50992_3" body="A comma separated list of interceptor names." annotatedElement="_9_0_66e017e_1125477765493_287886_0"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_436827_340" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_937791_341" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_937791_341" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_436827_340" name=""/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_0_66e017e_1125091573135_111389_0" name="andromda_spring_service_config_only" visibility="private" type="_9_5_1_2e90116_1229377170683_166153_2">
-        <ownedComment xmi:id="_9_0_2_12ab03bf_1125896873500_975505_86" annotatedElement="_9_0_66e017e_1125091573135_111389_0" body="Whether or not only the spring configuration support should be generated (no java classes)."/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_504219_342" name="" visibility="public" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_441411_343" name="" visibility="public" value="1"/>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_910341_491" name="" visibility="public" instance="_9_5_1_2e90116_1229377219418_87867_5"/>
+        <ownedComment xmi:id="_9_0_2_12ab03bf_1125896873500_975505_86" body="Whether or not only the spring configuration support should be generated (no java classes)." annotatedElement="_9_0_66e017e_1125091573135_111389_0"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_441411_343" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_504219_342" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_910341_491" name="" instance="_9_5_1_2e90116_1229377219418_87867_5"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_5_1_192d044b_1141265745726_503991_197" name="andromda_service_jndi_local" visibility="private">
-        <ownedComment xmi:id="_9_5_1_192d044b_1141265883976_33185_205" annotatedElement="_9_5_1_192d044b_1141265745726_503991_197" body="Specifies the JNDI name of the local interface bound to the session bean.&#xA;Applies to cartridges: EJB3"/>
+        <ownedComment xmi:id="_9_5_1_192d044b_1141265883976_33185_205" body="Specifies the JNDI name of the local interface bound to the session bean.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141265745726_503991_197"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_483558_344" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_18488_345" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_18488_345" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_483558_344" name=""/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_5_1_192d044b_1141265870507_594474_198" name="andromda_service_jndi_remote" visibility="private">
-        <ownedComment xmi:id="_9_5_1_192d044b_1141265883976_708748_208" annotatedElement="_9_5_1_192d044b_1141265870507_594474_198" body="Specifies the JNDI name of the remote interface bound to the session bean.&#xA;Applies to cartridge: EJB3"/>
+        <ownedComment xmi:id="_9_5_1_192d044b_1141265883976_708748_208" body="Specifies the JNDI name of the remote interface bound to the session bean.&#xA;Applies to cartridge: EJB3" annotatedElement="_9_5_1_192d044b_1141265870507_594474_198"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_652109_346" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_757360_347" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_757360_347" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_652109_346" name=""/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_5_1_192d044b_1141265870507_783181_201" name="andromda_service_security_realm" visibility="private">
-        <ownedComment xmi:id="_9_5_1_192d044b_1141265883976_432720_217" annotatedElement="_9_5_1_192d044b_1141265870507_783181_201" body="The security domain used for role based authorization.  The application server uses the security realm to match allowed roles.  This tag would specify a custom security realm different to the application wide default.&#xA;Applies to cartridges: EJB3"/>
+        <ownedComment xmi:id="_9_5_1_192d044b_1141265883976_432720_217" body="The security domain used for role based authorization.  The application server uses the security realm to match allowed roles.  This tag would specify a custom security realm different to the application wide default.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141265870507_783181_201"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_743771_348" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_505816_349" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_505816_349" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_743771_348" name=""/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_5_1_192d044b_1141265870507_554302_202" name="andromda_service_type" visibility="private" type="_9_5_1_192d044b_1141264833726_224593_102">
-        <ownedComment xmi:id="_9_5_1_192d044b_1141265883976_895494_220" annotatedElement="_9_5_1_192d044b_1141265870507_554302_202" body="Represents the type of session EJB.  This can be used to override the default which is determined by the existence of instance variables in the session bean.&#xA;Applies to cartridges: EJB3"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_382396_350" name="" visibility="public" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_503896_351" name="" visibility="public" value="1"/>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_175986_473" name="" visibility="public" instance="_9_5_1_2e90116_1229974011426_122599_4"/>
+        <ownedComment xmi:id="_9_5_1_192d044b_1141265883976_895494_220" body="Represents the type of session EJB.  This can be used to override the default which is determined by the existence of instance variables in the session bean.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141265870507_554302_202"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_503896_351" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_382396_350" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_175986_473" name="" instance="_9_5_1_2e90116_1229974011426_122599_4"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_5_1_181f040a_1190304290406_381668_0" name="andromda_service_private" visibility="private" type="_9_5_1_2e90116_1229377170683_166153_2">
-        <ownedComment xmi:id="_9_5_1_181f040a_1190304378937_690114_3" annotatedElement="_9_5_1_181f040a_1190304290406_381668_0" body="Whether or not this service is private."/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_429689_352" name="" visibility="public" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_928351_353" name="" visibility="public" value="1"/>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265578_529712_427" name="" visibility="public" instance="_9_5_1_2e90116_1229377219418_87867_5"/>
+        <ownedComment xmi:id="_9_5_1_181f040a_1190304378937_690114_3" body="Whether or not this service is private." annotatedElement="_9_5_1_181f040a_1190304290406_381668_0"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_928351_353" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_429689_352" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265578_529712_427" name="" instance="_9_5_1_2e90116_1229377219418_87867_5"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_5_1_192d044b_1141265214914_97936_170" name="andromda_ejb_transaction_management" visibility="private" type="_9_5_1_192d044b_1141264833726_945883_99">
-        <ownedComment xmi:id="_9_5_1_192d044b_1141265292836_160933_176" annotatedElement="_9_5_1_192d044b_1141265214914_97936_170" body="The transaction demarcation strategy.  By default, this does not need to be set for CONTAINER managed transactions.  Only set for BEAN managed transactions.  Can be set on session and message-driven beans.&#xA;Applies to cartridges: EJB3"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_226839_354" name="" visibility="public" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_362433_355" name="" visibility="public" value="1"/>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_159092_442" name="" visibility="public" instance="_9_5_1_2e90116_1229974431306_606147_2"/>
+        <ownedComment xmi:id="_9_5_1_192d044b_1141265292836_160933_176" body="The transaction demarcation strategy.  By default, this does not need to be set for CONTAINER managed transactions.  Only set for BEAN managed transactions.  Can be set on session and message-driven beans.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141265214914_97936_170"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_362433_355" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_226839_354" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_159092_442" name="" instance="_9_5_1_2e90116_1229974431306_606147_2"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_0_1fe00f9_1119337557859_688397_76" name="andromda_spring_service_remoting_type" visibility="private" type="_9_0_1fe00f9_1119337557859_990547_75">
-        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_989813_102" annotatedElement="_9_0_1fe00f9_1119337557859_688397_76" body="Services marked with this stereotype will be exported using Spring's remoting architecture."/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_711837_356" name="" visibility="public" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_534527_357" name="" visibility="public" value="1"/>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_981606_490" name="" visibility="public" instance="_9_5_1_2e90116_1229974470478_192513_3"/>
+        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_989813_102" body="Services marked with this stereotype will be exported using Spring's remoting architecture." annotatedElement="_9_0_1fe00f9_1119337557859_688397_76"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_534527_357" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_711837_356" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_981606_490" name="" instance="_9_5_1_2e90116_1229974470478_192513_3"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_0_1fe00f9_1119337557859_865340_85" name="andromda_spring_service_remote_port" visibility="private">
-        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_289789_109" annotatedElement="_9_0_1fe00f9_1119337557859_865340_85" body="Sets the port this service will be exported on. You must also tag the service using andromda_spring_service_remote_port."/>
+        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_289789_109" body="Sets the port this service will be exported on. You must also tag the service using andromda_spring_service_remote_port." annotatedElement="_9_0_1fe00f9_1119337557859_865340_85"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_330793_358" name="" visibility="public" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_188925_359" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_188925_359" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_330793_358" name="" value="1"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_5_1_2e90116_1238680763498_840895_0" name="andromda_serialVersionUID" visibility="private">
-        <ownedComment xmi:id="_9_5_1_2e90116_1238680845997_389630_3" annotatedElement="_9_5_1_2e90116_1238680763498_840895_0" body="Override the default generated serialVersionUID value in both the generated and Impl classes."/>
+        <ownedComment xmi:id="_9_5_1_2e90116_1238680845997_389630_3" body="Override the default generated serialVersionUID value in both the generated and Impl classes." annotatedElement="_9_5_1_2e90116_1238680763498_840895_0"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_954527_360" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_561278_361" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_561278_361" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_954527_360" name=""/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_12_1_2e90116_1238689265594_940658_469" name="base_Class" visibility="private" association="_12_1_2e90116_1238689265594_279850_468">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_19_0_3_90e0298_1586883054450_728276_5199" name="andromda_additionalAnnotations" visibility="private">
-        <ownedComment xmi:id="_19_0_3_90e0298_1586883054452_965857_5201" annotatedElement="_19_0_3_90e0298_1586883054450_728276_5199" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified."/>
+        <ownedComment xmi:id="_19_0_3_90e0298_1586883054452_965857_5201" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified." annotatedElement="_19_0_3_90e0298_1586883054450_728276_5199"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883054453_18848_5202" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883054452_913209_5200" name="" visibility="public" value="*"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883054452_913209_5200" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883054453_18848_5202" name=""/>
       </ownedAttribute>
-      <icon xmi:id="_12_1_2e90116_1238689265531_592491_339" content="" format="" location=""/>
+      <icon xmi:id="_12_1_2e90116_1238689265531_592491_339" content="" location="" format=""/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_0_1fe00f9_1119337557859_652828_60" name="ServiceRef" visibility="public">
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_0_1fe00f9_1119337557859_652828_60" name="ServiceRef">
       <ownedAttribute xmi:id="_12_1_2e90116_1238689265594_835644_486" name="base_Dependency" visibility="private" association="_12_1_2e90116_1238689265594_809471_485">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Dependency"/>
       </ownedAttribute>
-      <icon xmi:id="_12_1_2e90116_1238689265531_599538_362" content="" format="" location=""/>
+      <icon xmi:id="_12_1_2e90116_1238689265531_599538_362" content="" location="" format=""/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_845675_121" name="UserTransaction" visibility="public">
-      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_543547_134" annotatedElement="_9_5_1_192d044b_1141264862929_845675_121" body="Specifies a resource reference injection which will define a @Resource annotation and declare a javax.transaction.UserTransaction injection.&#xA;Applies to cartridges: EJB3"/>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_845675_121" name="UserTransaction">
+      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_543547_134" body="Specifies a resource reference injection which will define a @Resource annotation and declare a javax.transaction.UserTransaction injection.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141264862929_845675_121"/>
       <ownedAttribute xmi:id="_12_1_2e90116_1238689265594_274635_513" name="base_Class" visibility="private" association="_12_1_2e90116_1238689265594_227740_512">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_19_0_3_90e0298_1586883061858_924305_5211" name="andromda_additionalAnnotations" visibility="private">
-        <ownedComment xmi:id="_19_0_3_90e0298_1586883061859_747110_5213" annotatedElement="_19_0_3_90e0298_1586883061858_924305_5211" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified."/>
+        <ownedComment xmi:id="_19_0_3_90e0298_1586883061859_747110_5213" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified." annotatedElement="_19_0_3_90e0298_1586883061858_924305_5211"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883061860_598638_5214" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883061859_50884_5212" name="" visibility="public" value="*"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883061859_50884_5212" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883061860_598638_5214" name=""/>
       </ownedAttribute>
-      <icon xmi:id="_12_1_2e90116_1238689265531_669933_363" content="" format="" location=""/>
+      <icon xmi:id="_12_1_2e90116_1238689265531_669933_363" content="" location="" format=""/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_822470_122" name="Timeout" visibility="public">
-      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_109599_135" annotatedElement="_9_5_1_192d044b_1141264862929_822470_122" body="Represents whether the session bean operation is a timeout callback method for the Timer Service.&#xA;Applies to cartridge: EJB3"/>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_822470_122" name="Timeout">
+      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_109599_135" body="Represents whether the session bean operation is a timeout callback method for the Timer Service.&#xA;Applies to cartridge: EJB3" annotatedElement="_9_5_1_192d044b_1141264862929_822470_122"/>
       <ownedAttribute xmi:id="_12_1_2e90116_1238689265594_854722_498" name="base_Operation" visibility="private" association="_12_1_2e90116_1238689265594_93843_497">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
       </ownedAttribute>
-      <icon xmi:id="_12_1_2e90116_1238689265531_339508_364" content="" format="" location=""/>
+      <icon xmi:id="_12_1_2e90116_1238689265531_339508_364" content="" location="" format=""/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_662921_123" name="RunAs" visibility="public">
-      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_703856_136" annotatedElement="_9_5_1_192d044b_1141264862929_662921_123" body="Specifies whether the identity of the actor applies a run-as identity to the bean when making calls.  The Actor's name or corresponding andromda_role_name contains the logical role name.  Only applicable on an the dependency between an Actor and a bean.  Applies the runAs identity to session bean and message driven beans.&#xA;Applies to cartridges: EJB3"/>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_662921_123" name="RunAs">
+      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_703856_136" body="Specifies whether the identity of the actor applies a run-as identity to the bean when making calls.  The Actor's name or corresponding andromda_role_name contains the logical role name.  Only applicable on an the dependency between an Actor and a bean.  Applies the runAs identity to session bean and message driven beans.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141264862929_662921_123"/>
       <ownedAttribute xmi:id="_12_1_2e90116_1238689265594_725504_457" name="base_Dependency" visibility="private" association="_12_1_2e90116_1238689265594_301893_456">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Dependency"/>
       </ownedAttribute>
-      <icon xmi:id="_12_1_2e90116_1238689265531_933185_365" content="" format="" location=""/>
+      <icon xmi:id="_12_1_2e90116_1238689265531_933185_365" content="" location="" format=""/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_27265_124" name="ResourceRef" visibility="public">
-      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_239613_137" annotatedElement="_9_5_1_192d044b_1141264862929_27265_124" body="Set on dependency relationship to represent injection of a new javax.sql.DataSource into the session EJB. The name associated with the @Resource annotation, used as the JNDI name lookup for the datasource is the name of the class.&#xA;Applies to cartridges: EJB3"/>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_27265_124" name="ResourceRef">
+      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_239613_137" body="Set on dependency relationship to represent injection of a new javax.sql.DataSource into the session EJB. The name associated with the @Resource annotation, used as the JNDI name lookup for the datasource is the name of the class.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141264862929_27265_124"/>
       <ownedAttribute xmi:id="_12_1_2e90116_1238689265578_623960_434" name="base_Dependency" visibility="private" association="_12_1_2e90116_1238689265578_671213_433">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Dependency"/>
       </ownedAttribute>
-      <icon xmi:id="_12_1_2e90116_1238689265531_99231_366" content="" format="" location=""/>
+      <icon xmi:id="_12_1_2e90116_1238689265531_99231_366" content="" location="" format=""/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_299020_125" name="PrePassivate" visibility="public">
-      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_260579_138" annotatedElement="_9_5_1_192d044b_1141264862929_299020_125" body="Implies a lifecycle callback method for statefull session bean instances ONLY.  It signals the intent of the container to passivate the instance.&#xA;Applies to cartridges: EJB3"/>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_299020_125" name="PrePassivate">
+      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_260579_138" body="Implies a lifecycle callback method for statefull session bean instances ONLY.  It signals the intent of the container to passivate the instance.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141264862929_299020_125"/>
       <ownedAttribute xmi:id="_12_1_2e90116_1238689265594_49219_508" name="base_Operation" visibility="private" association="_12_1_2e90116_1238689265594_192478_507">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_19_0_3_90e0298_1586883044019_797338_5187" name="andromda_additionalAnnotations" visibility="private">
-        <ownedComment xmi:id="_19_0_3_90e0298_1586883044020_328942_5189" annotatedElement="_19_0_3_90e0298_1586883044019_797338_5187" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified."/>
+        <ownedComment xmi:id="_19_0_3_90e0298_1586883044020_328942_5189" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified." annotatedElement="_19_0_3_90e0298_1586883044019_797338_5187"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883044021_670683_5190" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883044020_819789_5188" name="" visibility="public" value="*"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883044020_819789_5188" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883044021_670683_5190" name=""/>
       </ownedAttribute>
-      <icon xmi:id="_12_1_2e90116_1238689265531_552644_367" content="" format="" location=""/>
+      <icon xmi:id="_12_1_2e90116_1238689265531_552644_367" content="" location="" format=""/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_886205_126" name="PreDestroy" visibility="public">
-      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_937074_139" annotatedElement="_9_5_1_192d044b_1141264862929_886205_126" body="Implies that the associated operation is a lifecycle callback handler and will be invoked when the bean is removed from the pool or destroyed.  For stateful session beans, this occurs before the @Remove annotated method is invoked.  In the EJB3 cartridge, it annotates the operation with @PreDestroy.&#xA;Applies to cartridges: EJB3"/>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_886205_126" name="PreDestroy">
+      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_937074_139" body="Implies that the associated operation is a lifecycle callback handler and will be invoked when the bean is removed from the pool or destroyed.  For stateful session beans, this occurs before the @Remove annotated method is invoked.  In the EJB3 cartridge, it annotates the operation with @PreDestroy.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141264862929_886205_126"/>
       <ownedAttribute xmi:id="_12_1_2e90116_1238689265594_236286_493" name="base_Operation" visibility="private" association="_12_1_2e90116_1238689265594_56956_492">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_19_0_3_90e0298_1586883043052_614542_5183" name="andromda_additionalAnnotations" visibility="private">
-        <ownedComment xmi:id="_19_0_3_90e0298_1586883043054_401490_5185" annotatedElement="_19_0_3_90e0298_1586883043052_614542_5183" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified."/>
+        <ownedComment xmi:id="_19_0_3_90e0298_1586883043054_401490_5185" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified." annotatedElement="_19_0_3_90e0298_1586883043052_614542_5183"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883043054_304238_5186" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883043053_573138_5184" name="" visibility="public" value="*"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883043053_573138_5184" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883043054_304238_5186" name=""/>
       </ownedAttribute>
-      <icon xmi:id="_12_1_2e90116_1238689265531_32822_368" content="" format="" location=""/>
+      <icon xmi:id="_12_1_2e90116_1238689265531_32822_368" content="" location="" format=""/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_22970_127" name="PostConstruct" visibility="public">
-      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_611037_140" annotatedElement="_9_5_1_192d044b_1141264862929_22970_127" body="Implies that the associated operation is a lifecycle callback handler and will be invoked when the bean is first created, after any dependency injection is required.  In the EJB3 cartridge, it annotates the operation with @PostConstruct.&#xA;Applies to cartridges: EJB3"/>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_22970_127" name="PostConstruct">
+      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_611037_140" body="Implies that the associated operation is a lifecycle callback handler and will be invoked when the bean is first created, after any dependency injection is required.  In the EJB3 cartridge, it annotates the operation with @PostConstruct.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141264862929_22970_127"/>
       <ownedAttribute xmi:id="_12_1_2e90116_1238689265578_583670_429" name="base_Operation" visibility="private" association="_12_1_2e90116_1238689265578_880479_428">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_19_0_3_90e0298_1586883042216_36982_5179" name="andromda_additionalAnnotations" visibility="private">
-        <ownedComment xmi:id="_19_0_3_90e0298_1586883042217_937817_5181" annotatedElement="_19_0_3_90e0298_1586883042216_36982_5179" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified."/>
+        <ownedComment xmi:id="_19_0_3_90e0298_1586883042217_937817_5181" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified." annotatedElement="_19_0_3_90e0298_1586883042216_36982_5179"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883042217_222951_5182" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883042216_431179_5180" name="" visibility="public" value="*"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883042216_431179_5180" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883042217_222951_5182" name=""/>
       </ownedAttribute>
-      <icon xmi:id="_12_1_2e90116_1238689265531_626513_369" content="" format="" location=""/>
+      <icon xmi:id="_12_1_2e90116_1238689265531_626513_369" content="" location="" format=""/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_269174_128" name="PostActivate" visibility="public">
-      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_963211_141" annotatedElement="_9_5_1_192d044b_1141264862929_269174_128" body="Implies a lifecycle callback method for statefull session bean instances ONLY.  It signals that the stateful session bean instance has just been reactivated.&#xA;Applies to cartridges: EJB3"/>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_269174_128" name="PostActivate">
+      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_963211_141" body="Implies a lifecycle callback method for statefull session bean instances ONLY.  It signals that the stateful session bean instance has just been reactivated.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141264862929_269174_128"/>
       <ownedAttribute xmi:id="_12_1_2e90116_1238689265578_140125_417" name="base_Operation" visibility="private" association="_12_1_2e90116_1238689265578_766241_416">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_19_0_3_90e0298_1586883041429_805969_5175" name="andromda_additionalAnnotations" visibility="private">
-        <ownedComment xmi:id="_19_0_3_90e0298_1586883041430_547282_5177" annotatedElement="_19_0_3_90e0298_1586883041429_805969_5175" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified."/>
+        <ownedComment xmi:id="_19_0_3_90e0298_1586883041430_547282_5177" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified." annotatedElement="_19_0_3_90e0298_1586883041429_805969_5175"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883041430_331764_5178" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883041429_689776_5176" name="" visibility="public" value="*"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883041429_689776_5176" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883041430_331764_5178" name=""/>
       </ownedAttribute>
-      <icon xmi:id="_12_1_2e90116_1238689265531_403192_370" content="" format="" location=""/>
+      <icon xmi:id="_12_1_2e90116_1238689265531_403192_370" content="" location="" format=""/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_422538_129" name="PersistenceContext" visibility="public">
-      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_41729_142" annotatedElement="_9_5_1_192d044b_1141264862929_422538_129" body="Modelled on a target class of a dependency from a bean to represent injection of a new persistence context into the session EJB.&#xA;Applies to cartridges: EJB3"/>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_422538_129" name="PersistenceContext">
+      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_41729_142" body="Modelled on a target class of a dependency from a bean to represent injection of a new persistence context into the session EJB.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141264862929_422538_129"/>
       <ownedAttribute xmi:id="_9_5_1_192d044b_1142393749031_234326_0" name="andromda_service_persistence_context_datasource" visibility="private">
-        <ownedComment xmi:id="_9_5_1_192d044b_1142394060031_787525_5" annotatedElement="_9_5_1_192d044b_1142393749031_234326_0" body="Specifies the persistence context datasource.  The default is derived from the application andromda descriptor.  This can be modelled on a session bean or a class with a PersistenceContext stereotype.  eg. java:/jdbc/TestDS"/>
+        <ownedComment xmi:id="_9_5_1_192d044b_1142394060031_787525_5" body="Specifies the persistence context datasource.  The default is derived from the application andromda descriptor.  This can be modelled on a session bean or a class with a PersistenceContext stereotype.  eg. java:/jdbc/TestDS" annotatedElement="_9_5_1_192d044b_1142393749031_234326_0"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_566535_372" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_675711_373" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_675711_373" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_566535_372" name=""/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_5_1_192d044b_1141265870507_279114_200" name="andromda_service_persistence_context_unit_type" visibility="private" type="_9_5_1_192d044b_1141264833726_968699_105">
-        <ownedComment xmi:id="_9_5_1_192d044b_1141265883976_417421_214" annotatedElement="_9_5_1_192d044b_1141265870507_279114_200" body="Specifies whether a transaction scoped or extended persistence context is to be used.  This can be modelled on a session bean or a class modelled with a PersistenceContext stereotype.&#xA;Applies to cartridges: EJB3"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_106446_374" name="" visibility="public" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_413084_375" name="" visibility="public" value="1"/>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_776958_455" name="" visibility="public" instance="_9_5_1_2e90116_1229973995332_130982_3"/>
+        <ownedComment xmi:id="_9_5_1_192d044b_1141265883976_417421_214" body="Specifies whether a transaction scoped or extended persistence context is to be used.  This can be modelled on a session bean or a class modelled with a PersistenceContext stereotype.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141265870507_279114_200"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_413084_375" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_106446_374" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_776958_455" name="" instance="_9_5_1_2e90116_1229973995332_130982_3"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_5_1_192d044b_1141265870507_248681_199" name="andromda_service_persistence_context_unit_name" visibility="private">
-        <ownedComment xmi:id="_9_5_1_192d044b_1141265883976_439368_211" annotatedElement="_9_5_1_192d044b_1141265870507_248681_199" body="Specify the name of the persistence unit.  Only set if more than one persistence unit exists.  This can be modelled on a session bean or a class modelled with a PersistenceContext stereotype.&#xA;Applies to cartridge: EJB3"/>
+        <ownedComment xmi:id="_9_5_1_192d044b_1141265883976_439368_211" body="Specify the name of the persistence unit.  Only set if more than one persistence unit exists.  This can be modelled on a session bean or a class modelled with a PersistenceContext stereotype.&#xA;Applies to cartridge: EJB3" annotatedElement="_9_5_1_192d044b_1141265870507_248681_199"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_904860_376" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_74364_377" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_74364_377" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_904860_376" name=""/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_12_1_2e90116_1238689265594_618024_445" name="base_Class" visibility="private" association="_12_1_2e90116_1238689265594_384488_444">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_19_0_3_90e0298_1586883040622_378003_5171" name="andromda_additionalAnnotations" visibility="private">
-        <ownedComment xmi:id="_19_0_3_90e0298_1586883040623_698766_5173" annotatedElement="_19_0_3_90e0298_1586883040622_378003_5171" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified."/>
+        <ownedComment xmi:id="_19_0_3_90e0298_1586883040623_698766_5173" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified." annotatedElement="_19_0_3_90e0298_1586883040622_378003_5171"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883040623_339068_5174" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883040623_959534_5172" name="" visibility="public" value="*"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883040623_959534_5172" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883040623_339068_5174" name=""/>
       </ownedAttribute>
-      <icon xmi:id="_12_1_2e90116_1238689265531_175892_371" content="" format="" location=""/>
+      <icon xmi:id="_12_1_2e90116_1238689265531_175892_371" content="" location="" format=""/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_475801_130" name="MessageDriven" visibility="public">
-      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_39974_143" annotatedElement="_9_5_1_192d044b_1141264862929_475801_130" body="Specifies a message driven EJB.&#xA;Applies to cartridges: EJB3"/>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_475801_130" name="MessageDriven">
+      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_39974_143" body="Specifies a message driven EJB.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141264862929_475801_130"/>
       <ownedAttribute xmi:id="_9_5_1_192d044b_1141264862914_853286_116" name="andromda_ejb_mdb_acknowledge_mode" visibility="private" type="_9_5_1_192d044b_1141264833711_902139_96">
-        <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_180730_146" annotatedElement="_9_5_1_192d044b_1141264862914_853286_116" body="Specifies the acknowledge mode for JMS message driven bean.  Only needs to be specified if DUPS_OK_ACKNOWLEDGE mode is required.  Default is AUTO_ACKNOWLEDGE.&#xA;Applies to cartridges: EJB3"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_552913_379" name="" visibility="public" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_743282_380" name="" visibility="public" value="1"/>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_85224_467" name="" visibility="public" instance="_9_5_1_2e90116_1229974370868_105114_0"/>
+        <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_180730_146" body="Specifies the acknowledge mode for JMS message driven bean.  Only needs to be specified if DUPS_OK_ACKNOWLEDGE mode is required.  Default is AUTO_ACKNOWLEDGE.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141264862914_853286_116"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_743282_380" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_552913_379" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_85224_467" name="" instance="_9_5_1_2e90116_1229974370868_105114_0"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_5_1_192d044b_1141264862914_304701_117" name="andromda_ejb_mdb_destination" visibility="private">
-        <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_159989_149" annotatedElement="_9_5_1_192d044b_1141264862914_304701_117" body="Specifies the destination queue or topic name this message driven bean is associated with.&#xA;Applies to cartridges: EJB3"/>
+        <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_159989_149" body="Specifies the destination queue or topic name this message driven bean is associated with.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141264862914_304701_117"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_628237_381" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_850506_382" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_850506_382" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_628237_381" name=""/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_5_1_192d044b_1141264862914_770658_118" name="andromda_ejb_mdb_destination_type" visibility="private" type="_9_5_1_192d044b_1141264833711_204308_93">
-        <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_942077_152" annotatedElement="_9_5_1_192d044b_1141264862914_770658_118" body="The destination type of the JMS message driven bean.  Possible values are javax.jms.Queue or javax.jms.Topic.&#xA;Applies to cartridges: EJB3"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_90074_383" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_949651_384" name="" visibility="public" value="1"/>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_726407_449" name="" visibility="public" instance="_9_5_1_2e90116_1229973954237_105101_0"/>
+        <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_942077_152" body="The destination type of the JMS message driven bean.  Possible values are javax.jms.Queue or javax.jms.Topic.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141264862914_770658_118"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265531_949651_384" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265531_90074_383" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_726407_449" name="" instance="_9_5_1_2e90116_1229973954237_105101_0"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_5_1_192d044b_1141264862914_751686_119" name="andromda_ejb_mdb_selector" visibility="private">
-        <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_20035_155" annotatedElement="_9_5_1_192d044b_1141264862914_751686_119" body="Specifies the JMS message selector used when determining the messages a JMS message driven bean is to receive.&#xA;Applies to cartridges: EJB3"/>
+        <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_20035_155" body="Specifies the JMS message selector used when determining the messages a JMS message driven bean is to receive.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141264862914_751686_119"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265547_154980_385" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265547_348881_386" name="" visibility="public" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265547_348881_386" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265547_154980_385" name=""/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_5_1_192d044b_1141264862914_9769_120" name="andromda_ejb_mdb_subscription_durability" visibility="private" type="_9_5_1_192d044b_1141264833711_619951_90">
-        <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_280302_158" annotatedElement="_9_5_1_192d044b_1141264862914_9769_120" body="Specifies the JMS message driven bean subscription durability.  Queues are always durable.  The durability only needs to be specified on topics.  By default, topics are non-durable.&#xA;Applies to cartridges: EJB3"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265547_875713_387" name="" visibility="public" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265547_697808_388" name="" visibility="public" value="1"/>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265578_713127_408" name="" visibility="public" instance="_9_5_1_2e90116_1229973970284_392930_1"/>
+        <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_280302_158" body="Specifies the JMS message driven bean subscription durability.  Queues are always durable.  The durability only needs to be specified on topics.  By default, topics are non-durable.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141264862914_9769_120"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265547_697808_388" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265547_875713_387" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265578_713127_408" name="" instance="_9_5_1_2e90116_1229973970284_392930_1"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_5_1_192d044b_1149347441625_582934_0" name="andromda_ejb_mdb_pool_size_min" visibility="private">
-        <ownedComment xmi:id="_9_5_1_192d044b_1149347618593_511963_2" annotatedElement="_9_5_1_192d044b_1149347441625_582934_0" body="Set the message driven bean's minimum pool size.  This must be an integer and greater than 0, otherwise will not be set.&#xA;Applies to cartridges: EJB3"/>
+        <ownedComment xmi:id="_9_5_1_192d044b_1149347618593_511963_2" body="Set the message driven bean's minimum pool size.  This must be an integer and greater than 0, otherwise will not be set.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1149347441625_582934_0"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_12_1_2e90116_1238689265578_329771_410" name="" visibility="public" value="1"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_12_1_2e90116_1238689265578_329771_410" name="" value="1"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_5_1_192d044b_1149347560843_996017_1" name="andromda_ejb_mdb_pool_size_max" visibility="private">
-        <ownedComment xmi:id="_9_5_1_192d044b_1149347618593_775983_3" annotatedElement="_9_5_1_192d044b_1149347560843_996017_1" body="Set the message driven bean's maximum pool size.  This must be an integer and greater than 0, otherwise will not be set.  It can be used to setup a singleton message driven bean by setting this value to 1.&#xA;Applies to cartridges: EJB3"/>
+        <ownedComment xmi:id="_9_5_1_192d044b_1149347618593_775983_3" body="Set the message driven bean's maximum pool size.  This must be an integer and greater than 0, otherwise will not be set.  It can be used to setup a singleton message driven bean by setting this value to 1.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1149347560843_996017_1"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_12_1_2e90116_1238689265594_198663_474" name="" visibility="public" value="1"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_12_1_2e90116_1238689265594_198663_474" name="" value="1"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_12_1_2e90116_1238689265578_596888_423" name="base_Class" visibility="private" association="_12_1_2e90116_1238689265578_858444_422">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_19_0_3_90e0298_1586883039853_85479_5167" name="andromda_additionalAnnotations" visibility="private">
-        <ownedComment xmi:id="_19_0_3_90e0298_1586883039854_519143_5169" annotatedElement="_19_0_3_90e0298_1586883039853_85479_5167" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified."/>
+        <ownedComment xmi:id="_19_0_3_90e0298_1586883039854_519143_5169" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified." annotatedElement="_19_0_3_90e0298_1586883039853_85479_5167"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883039855_500621_5170" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883039854_249662_5168" name="" visibility="public" value="*"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883039854_249662_5168" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883039855_500621_5170" name=""/>
       </ownedAttribute>
-      <icon xmi:id="_12_1_2e90116_1238689265531_44930_378" content="" format="" location=""/>
+      <icon xmi:id="_12_1_2e90116_1238689265531_44930_378" content="" location="" format=""/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_698681_131" name="Listener" visibility="public">
-      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_678140_159" annotatedElement="_9_5_1_192d044b_1141264862929_698681_131" body="Specified that a callback listener class for either the entity, session or message driven bean is to be created.  In EJB3, the entity, session or message driven bean is annotated to indicate the callback listener class.&#xA;Applies to cartridges: EJB3"/>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_698681_131" name="Listener">
+      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_678140_159" body="Specified that a callback listener class for either the entity, session or message driven bean is to be created.  In EJB3, the entity, session or message driven bean is annotated to indicate the callback listener class.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141264862929_698681_131"/>
       <ownedAttribute xmi:id="_12_1_2e90116_1238689265594_609973_503" name="base_Class" visibility="private" association="_12_1_2e90116_1238689265594_156564_502">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_19_0_3_90e0298_1586883038653_532194_5163" name="andromda_additionalAnnotations" visibility="private">
-        <ownedComment xmi:id="_19_0_3_90e0298_1586883038654_932909_5165" annotatedElement="_19_0_3_90e0298_1586883038653_532194_5163" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified."/>
+        <ownedComment xmi:id="_19_0_3_90e0298_1586883038654_932909_5165" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified." annotatedElement="_19_0_3_90e0298_1586883038653_532194_5163"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883038654_526441_5166" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883038653_822693_5164" name="" visibility="public" value="*"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883038653_822693_5164" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883038654_526441_5166" name=""/>
       </ownedAttribute>
-      <icon xmi:id="_12_1_2e90116_1238689265547_293213_389" content="" format="" location=""/>
+      <icon xmi:id="_12_1_2e90116_1238689265547_293213_389" content="" location="" format=""/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_642587_132" name="Interceptor" visibility="public">
-      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_938737_160" annotatedElement="_9_5_1_192d044b_1141264862929_642587_132" body="Specified that a callback listener class for either the entity, session or message driven bean is to be created.  In EJB3, the entity, session or message driven bean is annotated to indicate the callback listener class.&#xA;Applies to cartridges: EJB3"/>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_642587_132" name="Interceptor">
+      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_938737_160" body="Specified that a callback listener class for either the entity, session or message driven bean is to be created.  In EJB3, the entity, session or message driven bean is annotated to indicate the callback listener class.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141264862929_642587_132"/>
       <ownedAttribute xmi:id="_9_5_1_192d044b_1142395992812_667803_0" name="andromda_service_interceptor_default" visibility="private" type="_9_5_1_2e90116_1229377170683_166153_2">
-        <ownedComment xmi:id="_9_5_1_192d044b_1142396098125_969305_1" annotatedElement="_9_5_1_192d044b_1142395992812_667803_0" body="Indicates that this interceptor class is a default interceptor for all business methods of session or message driven beans within the deployment.&#xA;Applies to cartridges: EJB3"/>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265578_176572_409" name="" visibility="public" instance="_9_5_1_2e90116_1229377219418_87867_5"/>
+        <ownedComment xmi:id="_9_5_1_192d044b_1142396098125_969305_1" body="Indicates that this interceptor class is a default interceptor for all business methods of session or message driven beans within the deployment.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1142395992812_667803_0"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265578_176572_409" name="" instance="_9_5_1_2e90116_1229377219418_87867_5"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_12_1_2e90116_1238689265594_198225_451" name="base_Class" visibility="private" association="_12_1_2e90116_1238689265594_560567_450">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_19_0_3_90e0298_1586883035293_994152_5159" name="andromda_additionalAnnotations" visibility="private">
-        <ownedComment xmi:id="_19_0_3_90e0298_1586883035294_248873_5161" annotatedElement="_19_0_3_90e0298_1586883035293_994152_5159" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified."/>
+        <ownedComment xmi:id="_19_0_3_90e0298_1586883035294_248873_5161" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified." annotatedElement="_19_0_3_90e0298_1586883035293_994152_5159"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883035294_944804_5162" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883035294_142050_5160" name="" visibility="public" value="*"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883035294_142050_5160" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883035294_944804_5162" name=""/>
       </ownedAttribute>
-      <icon xmi:id="_12_1_2e90116_1238689265547_964781_390" content="" format="" location=""/>
+      <icon xmi:id="_12_1_2e90116_1238689265547_964781_390" content="" location="" format=""/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_676122_133" name="DataSource" visibility="public">
-      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_722662_161" annotatedElement="_9_5_1_192d044b_1141264862929_676122_133" body="Specifies a resource reference injection which will define a @Resource annotation and declare a javax.sql.DataSource injection.&#xA;Applies to cartridges: EJB3"/>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_192d044b_1141264862929_676122_133" name="DataSource">
+      <ownedComment xmi:id="_9_5_1_192d044b_1141264867851_722662_161" body="Specifies a resource reference injection which will define a @Resource annotation and declare a javax.sql.DataSource injection.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141264862929_676122_133"/>
       <ownedAttribute xmi:id="_12_1_2e90116_1238689265594_240085_462" name="base_Class" visibility="private" association="_12_1_2e90116_1238689265594_35410_461">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_19_0_3_90e0298_1586883030254_901796_5155" name="andromda_additionalAnnotations" visibility="private">
-        <ownedComment xmi:id="_19_0_3_90e0298_1586883030255_246151_5157" annotatedElement="_19_0_3_90e0298_1586883030254_901796_5155" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified."/>
+        <ownedComment xmi:id="_19_0_3_90e0298_1586883030255_246151_5157" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified." annotatedElement="_19_0_3_90e0298_1586883030254_901796_5155"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883030255_77897_5158" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883030255_829188_5156" name="" visibility="public" value="*"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883030255_829188_5156" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883030255_77897_5158" name=""/>
       </ownedAttribute>
-      <icon xmi:id="_12_1_2e90116_1238689265547_586137_391" content="" format="" location=""/>
+      <icon xmi:id="_12_1_2e90116_1238689265547_586137_391" content="" location="" format=""/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_2e90116_1229376971586_51778_0" name="ServiceElement" visibility="public">
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_2e90116_1229376971586_51778_0" name="ServiceElement">
       <ownedAttribute xmi:id="_9_0_1fe00f9_1119337557859_415417_84" name="andromda_ejb_transaction_type" visibility="private" type="_9_0_1fe00f9_1119337557859_467824_83">
-        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_189659_106" annotatedElement="_9_0_1fe00f9_1119337557859_415417_84" body="Stores the transaction type on an EJB service operation or the EJB service bean.  This can also be modelled on message-driven beans with limitation.&#xA;IMPORTANT: The EJB 3.0 spec defines that the transaction management type cannot be specified for EJB 3.0 entities.  These entities execute within the transactional context of the caller, which is the session bean.&#xA;Applies to cartridges: EJB, EJB3, Hibernate, Spring"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265547_583142_393" name="" visibility="public" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265547_737182_394" name="" visibility="public" value="1"/>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_775459_443" name="" visibility="public" instance="_9_5_1_2e90116_1229974022519_55389_5"/>
+        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_189659_106" body="Stores the transaction type on an EJB service operation or the EJB service bean.  This can also be modelled on message-driven beans with limitation.&#xA;IMPORTANT: The EJB 3.0 spec defines that the transaction management type cannot be specified for EJB 3.0 entities.  These entities execute within the transactional context of the caller, which is the session bean.&#xA;Applies to cartridges: EJB, EJB3, Hibernate, Spring" annotatedElement="_9_0_1fe00f9_1119337557859_415417_84"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265547_737182_394" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265547_583142_393" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_775459_443" name="" instance="_9_5_1_2e90116_1229974022519_55389_5"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_0_1fe00f9_1119337557875_544393_86" name="andromda_ejb_viewType" visibility="private" type="_9_0_2_12ab03bf_1122060056406_374453_0">
-        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_421954_110" annotatedElement="_9_0_1fe00f9_1119337557875_544393_86" body="Defines the view type for a Session EJB.  Can be 'remote' or 'local' or 'both'.&#xA;This tag is available at the operation level as well as the class level.&#xA;Applies to cartridges: EJB, EJB3, Hibernate, Spring. If default, cartridge default view type prevails."/>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_501382_466" name="" visibility="public" instance="_9_5_1_2e90116_1229973776297_465579_3"/>
+        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_421954_110" body="Defines the view type for a Session EJB.  Can be 'remote' or 'local' or 'both'.&#xA;This tag is available at the operation level as well as the class level.&#xA;Applies to cartridges: EJB, EJB3, Hibernate, Spring. If default, cartridge default view type prevails." annotatedElement="_9_0_1fe00f9_1119337557875_544393_86"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_501382_466" name="" instance="_9_5_1_2e90116_1229973776297_465579_3"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_5_1_192d044b_1141265571273_518464_180" name="andromda_service_security_denyAll" visibility="private" type="_9_5_1_2e90116_1229377170683_166153_2">
-        <ownedComment xmi:id="_9_5_1_192d044b_1141265611664_425039_193" annotatedElement="_9_5_1_192d044b_1141265571273_518464_180" body="If set to true on a session bean operation, then NO roles are permitted to execute that operation.  If set to true on a session bean, then NO roles are permitted to execute all operations in that session bean.  This tag will override any roles that may have been specified.&#xA;Applies to cartridges: EJB3"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265547_8350_395" name="" visibility="public" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265547_685802_396" name="" visibility="public" value="1"/>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265578_84989_439" name="" visibility="public" instance="_9_5_1_2e90116_1229377219418_87867_5"/>
+        <ownedComment xmi:id="_9_5_1_192d044b_1141265611664_425039_193" body="If set to true on a session bean operation, then NO roles are permitted to execute that operation.  If set to true on a session bean, then NO roles are permitted to execute all operations in that session bean.  This tag will override any roles that may have been specified.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141265571273_518464_180"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265547_685802_396" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265547_8350_395" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265578_84989_439" name="" instance="_9_5_1_2e90116_1229377219418_87867_5"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_5_1_192d044b_1141265599523_990559_181" name="andromda_service_security_permitAll" visibility="private" type="_9_5_1_2e90116_1229377170683_166153_2">
-        <ownedComment xmi:id="_9_5_1_192d044b_1141265611664_164497_196" annotatedElement="_9_5_1_192d044b_1141265599523_990559_181" body="If set to true on a session bean operation, then all roles are permitted to execute that operation.  If set to true on a session bean then all roles are permitted to execute all operations in that session bean.  This tag will override the specified roles.&#xA;Applies to cartridges: EJB3"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265547_411492_397" name="" visibility="public" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265547_767151_398" name="" visibility="public" value="1"/>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_236578_440" name="" visibility="public" instance="_9_5_1_2e90116_1229377219418_87867_5"/>
+        <ownedComment xmi:id="_9_5_1_192d044b_1141265611664_164497_196" body="If set to true on a session bean operation, then all roles are permitted to execute that operation.  If set to true on a session bean then all roles are permitted to execute all operations in that session bean.  This tag will override the specified roles.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141265599523_990559_181"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265547_767151_398" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265547_411492_397" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_236578_440" name="" instance="_9_5_1_2e90116_1229377219418_87867_5"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_0_1fe00f9_1119337557859_56258_61" name="andromda_spring_transaction_type" visibility="private" type="_9_0_1fe00f9_1119337557859_949884_69">
-        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_212443_90" annotatedElement="_9_0_1fe00f9_1119337557859_56258_61" body="Stores the transaction type of a Spring service operation."/>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_65452_517" name="" visibility="public" instance="_9_5_1_2e90116_1229974051426_390330_7"/>
+        <ownedComment xmi:id="_9_0_1fe00f9_1119337578296_212443_90" body="Stores the transaction type of a Spring service operation." annotatedElement="_9_0_1fe00f9_1119337557859_56258_61"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_65452_517" name="" instance="_9_5_1_2e90116_1229974051426_390330_7"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_12_1_2e90116_1238689265594_675150_476" name="base_Operation" visibility="private" association="_12_1_2e90116_1238689265594_971483_475">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
@@ -858,49 +855,49 @@
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_19_0_3_90e0298_1586883055801_363368_5203" name="andromda_additionalAnnotations" visibility="private">
-        <ownedComment xmi:id="_19_0_3_90e0298_1586883055802_816180_5205" annotatedElement="_19_0_3_90e0298_1586883055801_363368_5203" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified."/>
+        <ownedComment xmi:id="_19_0_3_90e0298_1586883055802_816180_5205" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified." annotatedElement="_19_0_3_90e0298_1586883055801_363368_5203"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883055803_573428_5206" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883055802_374122_5204" name="" visibility="public" value="*"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883055802_374122_5204" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883055803_573428_5206" name=""/>
       </ownedAttribute>
-      <icon xmi:id="_12_1_2e90116_1238689265547_767172_392" content="" format="" location=""/>
+      <icon xmi:id="_12_1_2e90116_1238689265547_767172_392" content="" location="" format=""/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_2e90116_1229377114729_124920_1" name="ServiceOperation" visibility="public">
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_2e90116_1229377114729_124920_1" name="ServiceOperation">
       <ownedAttribute xmi:id="_9_5_1_192d044b_1141265510617_723032_179" name="andromda_service_persistence_flush_mode" visibility="private" type="_9_5_1_192d044b_1141265110836_846841_163">
-        <ownedComment xmi:id="_9_5_1_192d044b_1141265611664_800902_190" annotatedElement="_9_5_1_192d044b_1141265510617_723032_179" body="Represents the flush mode for session operations to determine when the database changes are reflected to the database in a transaction.  Typically set in a stateful session bean where a transaction spans several method operations.&#xA;Applies to cartridges: EJB3"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265547_879803_400" name="" visibility="public" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265547_875491_401" name="" visibility="public" value="1"/>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265578_395204_438" name="" visibility="public" instance="_9_5_1_2e90116_1229974394352_41128_1"/>
+        <ownedComment xmi:id="_9_5_1_192d044b_1141265611664_800902_190" body="Represents the flush mode for session operations to determine when the database changes are reflected to the database in a transaction.  Typically set in a stateful session bean where a transaction spans several method operations.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141265510617_723032_179"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265547_875491_401" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265547_879803_400" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265578_395204_438" name="" instance="_9_5_1_2e90116_1229974394352_41128_1"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_5_1_192d044b_1141265486132_787960_178" name="andromda_service_interceptor_excludeDefault" visibility="private" type="_9_5_1_2e90116_1229377170683_166153_2">
-        <ownedComment xmi:id="_9_5_1_192d044b_1141265611664_187618_187" annotatedElement="_9_5_1_192d044b_1141265486132_787960_178" body="Specifies to the container to exclude the invocation of the default interceptors for the applied business method.&#xA;Applies to cartridge: EJB3"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265547_921795_402" name="" visibility="public" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265547_282026_403" name="" visibility="public" value="1"/>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265578_278234_421" name="" visibility="public" instance="_9_5_1_2e90116_1229377219418_87867_5"/>
+        <ownedComment xmi:id="_9_5_1_192d044b_1141265611664_187618_187" body="Specifies to the container to exclude the invocation of the default interceptors for the applied business method.&#xA;Applies to cartridge: EJB3" annotatedElement="_9_5_1_192d044b_1141265486132_787960_178"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265547_282026_403" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265547_921795_402" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265578_278234_421" name="" instance="_9_5_1_2e90116_1229377219418_87867_5"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_5_1_192d044b_1141265465632_401404_177" name="andromda_service_interceptor_excludeClass" visibility="private" type="_9_5_1_2e90116_1229377170683_166153_2">
-        <ownedComment xmi:id="_9_5_1_192d044b_1141265611664_556146_184" annotatedElement="_9_5_1_192d044b_1141265465632_401404_177" body="Specifies to the container to exclude the invocation of the class interceptors for the applied business method.&#xA;Applies to cartridges: EJB3"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265547_758562_404" name="" visibility="public" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265547_613786_405" name="" visibility="public" value="1"/>
-        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_875227_441" name="" visibility="public" instance="_9_5_1_2e90116_1229377219418_87867_5"/>
+        <ownedComment xmi:id="_9_5_1_192d044b_1141265611664_556146_184" body="Specifies to the container to exclude the invocation of the class interceptors for the applied business method.&#xA;Applies to cartridges: EJB3" annotatedElement="_9_5_1_192d044b_1141265465632_401404_177"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689265547_613786_405" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689265547_758562_404" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689265594_875227_441" name="" instance="_9_5_1_2e90116_1229377219418_87867_5"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_12_1_2e90116_1238689265578_334158_412" name="base_Operation" visibility="private" association="_12_1_2e90116_1238689265578_842401_411">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_19_0_3_90e0298_1586883056993_858981_5207" name="andromda_additionalAnnotations" visibility="private">
-        <ownedComment xmi:id="_19_0_3_90e0298_1586883056994_596665_5209" annotatedElement="_19_0_3_90e0298_1586883056993_858981_5207" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified."/>
+        <ownedComment xmi:id="_19_0_3_90e0298_1586883056994_596665_5209" body="Additional annotations not in the core andromda functionality. Thy should be fully qualified." annotatedElement="_19_0_3_90e0298_1586883056993_858981_5207"/>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883056994_732847_5210" name="" visibility="public"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883056993_340873_5208" name="" visibility="public" value="*"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586883056993_340873_5208" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586883056994_732847_5210" name=""/>
       </ownedAttribute>
-      <icon xmi:id="_12_1_2e90116_1238689265547_212270_399" content="" format="" location=""/>
+      <icon xmi:id="_12_1_2e90116_1238689265547_212270_399" content="" location="" format=""/>
     </packagedElement>
     <profileApplication xmi:id="_0profileApplicationandromda-service">
-      <eAnnotations xmi:id="_ge0iIH5wEeqRi6MoZAwwVw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
+      <eAnnotations xmi:id="_1eWKobJmEeqj1vE0YAl0kQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
       </eAnnotations>
       <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
     </profileApplication>
   </uml:Profile>
-  <standard:ModelLibrary xmi:id="_ge1JMH5wEeqRi6MoZAwwVw" base_Package="_9_0_2_12ab03bf_1120852978046_265263_0"/>
+  <Standard:ModelLibrary xmi:id="_1eX_0LJmEeqj1vE0YAl0kQ" base_Package="_9_0_2_12ab03bf_1120852978046_265263_0"/>
 </xmi:XMI>
