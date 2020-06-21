@@ -3,49 +3,21 @@
 #set ( $fileName = $angularHelper.getComponentFileName("${action.useCase.name} $action.trigger.name") )
 #set ( $className = $angularHelper.getComponentName($action.name, "-") )
 #set($formName = $action.formBeanName)
-import { Component, OnInit} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-#set ( $parameters = [] )
-#foreach( $parameter in $action.parameters )
-#set ( $ret = $parameters.add($parameter) )
-#end
-#foreach ($field in $action.formFields)
-#set ( $ret = $parameters.add($field) )
-#end
-#set ( $suffix = "" )
-#foreach ($tmp in $angularHelper.getImports($parameters, "${action.packageName}", $suffix))
-$tmp
-#end
-#set ($args = [])
-#foreach ($service in $action.controller.allServices)
-#set ($ret = $args.add($service))
-#end
-#set ($suffix = "Impl")
-#foreach ($tmp in $angularHelper.getImports($args, "${action.packageName}", $suffix))
-$tmp
-#end
+import { Component, Injector } from '@angular/core';
 import { $className } from './${fileName}.component';
-#set ( $viewFile = $angularHelper.getComponentFileName("${action.source.useCase.name}-${action.source.name}") )
-#set ( $viewName = $angularHelper.getComponentName($viewFile, '-') )
-import { ${viewName}Impl } from './${viewFile}.impl.component';
 
 @Component({
   selector: '${action.name}',
   templateUrl: './${fileName}.component.html',
   styleUrls: ['./${fileName}.component.css']
 })
-export class ${className}Impl extends $className implements OnInit {
+export class ${className}Impl extends $className {
 
-	constructor(private route: ActivatedRoute, 
-				private router: Router#foreach ($service in $action.controller.allServices),
-				private $stringUtils.uncapitalize($service.name): ${service.name}Impl#end,
-				private $stringUtils.uncapitalize($viewName): ${viewName}Impl) {
-		super();
-	}
-	
-	${action.triggerName}() {
-	}
+    construtor(private injector: Injector) {
+        super(injector);
+    }
 
-	ngOnInit(): void {}
+    ${action.triggerName}() {
+    }
 
 }

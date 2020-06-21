@@ -4,7 +4,7 @@
 #set ( $className = $angularHelper.getComponentName($fileName, "-"))
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Injector } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 #set ( $types = [] )
 #set ( $rt = $types.add($table.type) )
@@ -32,6 +32,10 @@ $tmp
 #set ($viewName = $angularHelper.getComponentName($viewFile, '-') )
 import { ${viewName}Impl } from './${viewFile}.impl.component';
 
+@Component({
+  selector: '${fileName}-base',
+  template: ''
+})
 export abstract class ${className} implements OnInit {
 #set($cr = '
 ')
@@ -51,11 +55,20 @@ export abstract class ${className} implements OnInit {
     @ViewChild('${table.name}Paginator', {static: true}) ${table.name}Paginator: MatPaginator;
     @ViewChild('${table.name}Sort', {static: true}) ${table.name}Sort: MatSort;
 
-    constructor(protected route: ActivatedRoute, 
-                protected router: Router#foreach($service in $finalServices),
-                protected $stringUtils.uncapitalize($service.name): ${service.name}$suffix#end,
-                protected $stringUtils.uncapitalize($viewName): ${viewName}Impl) {
+    protected route: ActivatedRoute;
+    protected router: Router;
+#foreach($service in $finalServices)
+    protected $stringUtils.uncapitalize($service.name): ${service.name}$suffix;
+#end
+    protected $stringUtils.uncapitalize($viewName): ${viewName}Impl;
 
+    constructor(injector: Injector) {
+        this.route = injector.get(ActivatedRoute);
+        this.router = injector.get(Router);
+#foreach($service in $finalServices)
+        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name}$suffix);
+#end
+        this.$stringUtils.uncapitalize($viewName) = injector.get(${viewName}Impl);
     }
 
     ngOnInit(): void {}

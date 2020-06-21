@@ -8,7 +8,7 @@
 #end
 #set ( $ret = $args.add($operation.returnType))
 #end
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 #if ($service.restCount>0 && $stringUtils.isNotBlank($service.restPath))
 import { HttpClient} from '@angular/common/http';
 #end
@@ -21,11 +21,10 @@ $tmp
 
 @Injectable()
 export class ${service.name}Impl extends ${service.name} {
-#if ($service.restCount>0 && $stringUtils.isNotBlank($service.restPath))
-    constructor(http: HttpClient) {
-        super(http);
+
+    constructor(private injector: Injector) {
+        super(injector);
     }
-#end
 
 #foreach ($operation in $service.operations)
 #set ($arguments = $angularHelper.getMethodSignatureArguments($operation.arguments))
@@ -40,15 +39,15 @@ export class ${service.name}Impl extends ${service.name} {
 #set ($methodName = $angularHelper.getWebServiceMethodName($operation))
 #set ($methodPath = $angularHelper.getWebServiceOperationPath($operation.restPath))
 #if ( $methodName.equals("get")) 
-                return this.http.get<$rType>(this.path + '$methodPath/'#foreach($arg in $operation.arguments) + $arg.name + '/'#end);
+        return this.http.get<$rType>(this.path + '$methodPath'#foreach($arg in $operation.arguments) + $arg.name#end);
 #elseif ( $methodName.equals("post")) 
-                return this.http.post<$rType>(this.path + '$methodPath'#if (!$stringUtils.isBlank($restParams)), $restParams#end);
+        return this.http.post<$rType>(this.path + '$methodPath'#if (!$stringUtils.isBlank($restParams)), $restParams#end);
 #elseif ( $methodName.equals("delete")) 
-                return this.http.delete<$rType>(this.path + '$methodPath/'#foreach ($arg in $operation.arguments) + $arg.name + '/'#end)
+        return this.http.delete<$rType>(this.path + '$methodPath'#foreach ($arg in $operation.arguments) + $arg.name#end)
 #elseif ( $methodName.equals("put")) 
-                return this.http.put<$rType>(this.path + '$methodPath'#if (!$stringUtils.isBlank($restParams)), $restParams#end);
+        return this.http.put<$rType>(this.path + '$methodPath'#if (!$stringUtils.isBlank($restParams)), $restParams#end);
 #else 
-                return this.http.post<$rType>(this.path + '$methodPath'#if (!$stringUtils.isBlank($restParams)), $restParams#end);
+        return this.http.post<$rType>(this.path + '$methodPath'#if (!$stringUtils.isBlank($restParams)), $restParams#end);
 #end
     }
 

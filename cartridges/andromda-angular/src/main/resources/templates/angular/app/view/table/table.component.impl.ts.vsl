@@ -2,7 +2,7 @@
 #set ( $componentPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${table.packageName}), '\\.', '\\/')" )
 #set ( $fileName = $angularHelper.getComponentFileName("${table.view.useCase.name}-${table.view.name}-${table.name}") )
 #set ( $className = $angularHelper.getComponentName($fileName, "-"))
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { ${className} } from './${fileName}.component';
 #set ( $viewFile = $angularHelper.getComponentFileName("${table.view.useCase.name}-${table.view.name}") )
 #set ($viewName = $angularHelper.getComponentName($viewFile, '-') )
@@ -14,6 +14,10 @@ import { ${viewName}Impl } from './${viewFile}.impl.component';
   styleUrls: ['./${fileName}.component.css']
 })
 export class ${className}Impl extends ${className}{
+
+    construtor(private injector: Injector) {
+        super(injector);
+    }
 	
 #foreach ($action in $table.tableFormActions)
 

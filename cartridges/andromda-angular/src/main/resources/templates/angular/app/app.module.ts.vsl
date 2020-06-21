@@ -80,12 +80,6 @@ import { $field.name } from './model/$destination/$fileName';
         $stringUtils.capitalize(${applicationId})HeaderComponent,
         $stringUtils.capitalize(${applicationId})NavigationComponent,
 #set ($i = 0)
-#foreach ( $finalService in $finalServices )
-#set ( $i = $i + 1 )
-        ${finalService.name}Impl#if($i < $nameSet.size()),
-#end
-#end
-#set ($i = 0)
 #foreach ( $name in $nameSet )
 #set ( $i = $i + 1 )
         $name#if($i < $nameSet.size()),

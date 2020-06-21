@@ -11,6 +11,7 @@
 #if ($service.restCount>0 && $stringUtils.isNotBlank($service.restPath))
 #set ($basePath = "http://localhost:8080")
 import { HttpClient} from '@angular/common/http';
+import { Injector } from '@angular/core';
 #end
 import { Observable } from 'rxjs';
 #set ($suffix = "")
@@ -27,9 +28,11 @@ export abstract class $service.name {
 #end
 #end 
 #if ($service.restCount>0 && $stringUtils.isNotBlank($service.restPath))
-  constructor(protected http: HttpClient) {
-    this.path = '$basePath$service.restPath';
-  }
+    protected http: HttpClient;
+    constructor(injector: Injector) {
+        this.path = '$basePath$service.restPath';
+        this.http = injector.get(HttpClient);
+    }
 #end
 #foreach ($operation in $service.operations)
 #set ($arguments = $angularHelper.getMethodSignatureArguments($operation.arguments))

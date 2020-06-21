@@ -21,7 +21,7 @@
                 </mat-cell>
             </ng-container>
 #foreach ($column in $table.tableColumns)
-            <ng-container matColumnDef="batchId">
+            <ng-container matColumnDef="${column.name}">
                 <mat-header-cell *matHeaderCellDef>$stringUtils.capitalize(${column.name})</mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{ row.${column.name} }} </mat-cell>
             </ng-container>
