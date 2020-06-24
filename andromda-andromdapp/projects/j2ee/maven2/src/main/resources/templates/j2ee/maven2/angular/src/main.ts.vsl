@@ -3,12 +3,12 @@ import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 #set( $module = "module" )
-import { $stringUtils.capitalize(${applicationId})Module } from './app/$stringUtils.lowerCase(${applicationId}).${module}';
+import { $stringUtils.capitalize($stringUtils.replace(${applicationId}, '_', ''))Module } from './app/$stringUtils.lowerCase(${applicationId}).${module}';
 import { environment } from './environments/environment';
 
 if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule($stringUtils.capitalize(${applicationId})Module)
+platformBrowserDynamic().bootstrapModule($stringUtils.capitalize($stringUtils.replace(${applicationId}, '_', ''))Module)
   .catch(err => console.error(err));
