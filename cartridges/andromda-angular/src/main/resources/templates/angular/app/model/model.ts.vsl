@@ -2,6 +2,7 @@
 #set($fileName = $angularHelper.getComponentFileName(${class.name}))
 #set ($attributes = [])
 import { Injectable } from '@angular/core';
+import { prop, model, propArray, propObject } from '@rxweb/reactive-form-validators';
 
 #foreach ($tmp in $class.attributes)
 #set ( $ret = $attributes.add($tmp.type) )
@@ -12,12 +13,15 @@ $tmp
 #end
 
 @Injectable()
+@model([])
 export class $class.name {
 #foreach ($attribute in $class.attributes)
+
 #set ($returnType = $angularHelper.getDatatype($attribute.getterSetterTypeName))
-#if($attribute.upper>1 || $attribute.upper==-1)
+#if($attribute.many)
 #set ($returnType = "$returnType[]")
 #end
+	@$angularHelper.getRxwebDecorator($attribute)
     $attribute.name: $returnType;
 #end
 }

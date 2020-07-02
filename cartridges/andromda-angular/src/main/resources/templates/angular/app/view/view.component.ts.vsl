@@ -3,6 +3,8 @@
 #set ( $fileName = $angularHelper.getComponentFileName("${view.name}"))
 import { Component, OnInit, Injector} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RxFormBuilder } from '@rxweb/reactive-form-validators';
+import { NgForm, FormGroup, FormControl, FormArray } from '@angular/forms';
 ## Find all the fields in the actions of the view
 #set ( $fields = [] )
 #foreach ( $action in $view.actions )
@@ -18,8 +20,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 #foreach ( $action in $view.actions )
 #if (!$action.tableLink)
 #set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/')" )
-#set ( $actionName = $angularHelper.getComponentFileName("$action.trigger.name") )
-import { $angularHelper.getComponentName($action.name, "-")Impl } from './${actionName}.impl.component';
+#set ( $actionName = $angularHelper.getComponentFileName("$action.name") )
+import { $angularHelper.getComponentName($action.name, "-")ImplComponent } from './${actionName}.impl.component';
 #foreach ($field in $action.formFields)
 #if (!(${field.action} && $field.action.tableLinkName))
 #if ($field.complex)
@@ -37,19 +39,20 @@ import { $angularHelper.getComponentName($action.name, "-")Impl } from './${acti
 $a
 #end
 
+#set ($tmpName = ${angularHelper.getComponentName("$fileName", "-")})
 @Component({
   selector: '${fileName}-base',
   template: ''
 })
-export abstract class ${angularHelper.getComponentName("$fileName", "-")}Component implements OnInit {
+export abstract class ${tmpName}Component implements OnInit {
 
+#set ( $attr = [] )
 #foreach ( $action in $view.actions )
 #if (!$action.tableLink)
 #if (!$action.formFields.empty)
     // Action $action.name formFields
 #end
 ## Impl uses $action.formFields, Form uses $operation.formFields
-#set ( $attr = [] )
 #foreach ($field in $action.formFields)
 #if (!(${field.action} && $field.action.tableLinkName))
 #if ( $field.many )
@@ -59,42 +62,57 @@ export abstract class ${angularHelper.getComponentName("$fileName", "-")}Compone
 #end
 #end
 #end
-#foreach ( $tmp in $angularHelper.getStringSet($attr) )
-#if ( $tmp.many )
-	$tmp.name: $angularHelper.getDatatype($tmp.type.fullyQualifiedName)[];
-#else
-	$tmp.name: $angularHelper.getDatatype($tmp.type.fullyQualifiedName);
 #end
 #end
-#end
-#end
+###foreach ( $tmp in $angularHelper.getStringSet($attr) )
+###if ( $tmp.many )
+##	$tmp.name: $angularHelper.getDatatype($tmp.type.fullyQualifiedName)[];
+###else
+##	$tmp.name: $angularHelper.getDatatype($tmp.type.fullyQualifiedName);
+##end
+####end
+#if($attr.size() > 0)
+	${stringUtils.uncapitalize($tmpName)}Form: FormGroup;
+#end 
     protected route: ActivatedRoute;
     protected router: Router;
+	protected formBuilder: RxFormBuilder;
 
     constructor(injector: Injector) {
         this.route = injector.get(ActivatedRoute);
         this.router = injector.get(Router);
+        this.formBuilder = injector.get(RxFormBuilder);
     }
 
     ngOnInit() {
-#foreach ( $action in $view.actions )
-#if (!$action.tableLink)
-#foreach ($field in $action.formFields)
-
-#if ( $field.many )
-        this.$field.name = [];
+#set ($i = 1)
+#set ($cr = "
+")
+		this.${stringUtils.uncapitalize(${tmpName})}Form = this.formBuilder.formGroup({
+#foreach ( $tmp in $angularHelper.getStringSet($attr) )
+#if($tmp.many)
+			$tmp.name: this.formBuilder.array([
+				this.formBuilder.formGroup(new $angularHelper.getDatatype($tmp.type.fullyQualifiedName)())
+			])#if($i < $attr.size()),#end$cr
+#elseif($angularHelper.isComplex($tmp))
+			$tmp.name: this.formBuilder.formGroup(new $angularHelper.getDatatype($tmp.type.fullyQualifiedName)())#if($i < $attr.size()),#end$cr
 #else
-#set ($dtype = $angularHelper.getDatatype($field.type.fullyQualifiedName))
-#if ($dtype == "string")
-        this.$field.name = "";
-#elseif ($dtype == "boolean")
-        this.#if($stringUtils.isBlank($field.defaultValue))$field.name = false;#else$field.name = $field.defaultValue;#end
-#elseif ($dtype != "number" && $dtype != "any")
-        this.$field.name = new $dtype();
+			$tmp.name: this.formBuilder.control()#if($i < $attr.size()),#end$cr
 #end
+#set ($i = $i + 1)
 #end
-#end
-#end
-#end
+		});
     }
+
+	getItemControl(name): FormControl {
+		return this.${stringUtils.uncapitalize(${tmpName})}Form.get(name) as FormControl;
+	}
+
+	getGroupControl(name): FormGroup {
+		return this.${stringUtils.uncapitalize(${tmpName})}Form.get(name) as FormGroup;
+	}
+
+	getArrayControl(name): FormArray {
+		return this.${stringUtils.uncapitalize(${tmpName})}Form.get(name) as FormArray;
+	}
 }

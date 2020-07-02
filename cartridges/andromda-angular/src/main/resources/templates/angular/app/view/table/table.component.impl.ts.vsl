@@ -15,7 +15,7 @@ import { ${viewName}ImplComponent } from './${viewFile}.impl.component';
 })
 export class ${className}ImplComponent extends ${className}Component {
 
-    construtor(private injector: Injector) {
+    constructor(private injector: Injector) {
         super(injector);
     }
 	

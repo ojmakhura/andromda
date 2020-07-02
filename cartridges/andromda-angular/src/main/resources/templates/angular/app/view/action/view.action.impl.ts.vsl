@@ -4,7 +4,7 @@
 #set ( $className = $angularHelper.getComponentName($action.name, "-") )
 #set($formName = $action.formBeanName)
 import { Component, Injector } from '@angular/core';
-import { $className }Component from './${fileName}.component';
+import { ${className}Component } from './${fileName}.component';
 
 @Component({
   selector: '${action.name}',
@@ -13,7 +13,7 @@ import { $className }Component from './${fileName}.component';
 })
 export class ${className}ImplComponent extends ${className}Component {
 
-    construtor(private injector: Injector) {
+    constructor(private injector: Injector) {
         super(injector);
     }
 

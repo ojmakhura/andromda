@@ -20,16 +20,16 @@
 ## Views
 #foreach ($view in $puseCase.views)
 #set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
-#set ( $fileName = $angularHelper.getComponentFileName("${view.useCase.name}-${view.name}"))
+#set ( $fileName = $angularHelper.getComponentFileName("${view.name}"))
 #set ( $className = $angularHelper.getComponentName($fileName, "-") )
-#set ( $rt = $classNames.add("${className}ImplCompnent"))
-#set ( $rt = $imports.add("import { ${className}ImplCompnent } from ${escTool.s}./view/${componentPath}/${fileName}.impl.component${escTool.s};"))
+#set ( $rt = $classNames.add("${className}ImplComponent"))
+#set ( $rt = $imports.add("import { ${className}ImplComponent } from ${escTool.s}./view/${componentPath}/${fileName}.impl.component${escTool.s};"))
 ## Actions
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
 #set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/')" )
-#set ( $actionFileName = $angularHelper.getComponentFileName("${action.useCase.name} $action.trigger.name") )
-#set ( $actionName = "${angularHelper.getComponentName($action.name, '-')}ImplCompnent" )
+#set ( $actionFileName = $angularHelper.getComponentFileName("$action.name") )
+#set ( $actionName = "${angularHelper.getComponentName($action.name, '-')}ImplComponent" )
 #set ( $rt = $classNames.add("${actionName}"))
 #set ( $rt = $imports.add("import { ${actionName} } from ${escTool.s}./view/${actionPath}/${actionFileName}.impl.component${escTool.s};"))
 #end
@@ -38,9 +38,9 @@
 #foreach ($service in $action.controller.allServices)
 #set ( $rt = $services.add($service) )
 #set ($componentPath = $stringUtils.replaceChars(${service.packageName}, "\\.", "\\/"))
-#set ($fileName = $angularHelper.getComponentFileName("${service.name}ImplCompnent"))
+#set ($fileName = $angularHelper.getComponentFileName("${service.name}Impl"))
 ##set ( $rt = $classNames.add("${service.name}Impl"))
-#set ( $rt = $imports.add("import { ${service.name}ImplCompnent } from ${escTool.s}./service/$componentPath/$fileName${escTool.s};"))
+#set ( $rt = $imports.add("import { ${service.name}Impl } from ${escTool.s}./service/$componentPath/$fileName${escTool.s};"))
 #set ( $rt = $services.add(service))
 #end
 ## Form fields
@@ -54,8 +54,8 @@
 #set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${table.packageName}), '\\.', '\\/') )
 #set ( $fileName = $angularHelper.getComponentFileName("${table.view.name}-${table.name}") )
 #set ( $className = $angularHelper.getComponentName($fileName, "-"))
-#set ( $rt = $classNames.add("${className}ImplCompnent"))
-#set ( $rt = $imports.add("import { ${className}ImplCompnent } from ${escTool.s}./view/${componentPath}/${fileName}.impl.component${escTool.s};"))
+#set ( $rt = $classNames.add("${className}ImplComponent"))
+#set ( $rt = $imports.add("import { ${className}ImplComponent } from ${escTool.s}./view/${componentPath}/${fileName}.impl.component${escTool.s};"))
 #end
 #end
 #set ($roles = $puseCase.actionRoles)

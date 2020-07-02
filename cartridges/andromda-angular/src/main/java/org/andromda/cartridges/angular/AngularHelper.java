@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.StringTokenizer;
+import org.andromda.cartridges.jsf2.metafacades.JSFAttribute;
 import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.cartridges.webservice.metafacades.WebServiceOperation;
   
@@ -20,6 +21,7 @@ import org.andromda.metafacades.uml.Service;
 import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.UseCaseFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
 import org.apache.log4j.Logger;
@@ -375,4 +377,41 @@ public class AngularHelper {
                 
         return names;
     }
+	
+	public static Boolean isComplex(ModelElementFacade element) {
+		
+		Boolean complex = false;
+        ClassifierFacade type = null;
+		
+		if(element instanceof AttributeFacade) {
+			type = ((AttributeFacade)element).getType();
+		} else if(element instanceof ParameterFacade) {
+			type = ((ParameterFacade)element).getType();
+		}
+		
+        if (type != null)
+        {
+            complex = !type.getAttributes().isEmpty();
+            if (!complex)
+            {
+                complex = !type.getAssociationEnds().isEmpty();
+            }
+        }
+		
+		//System.out.println("=============================================== " + complex);
+        return complex;
+	}
+	
+	public static String getRxwebDecorator(JSFAttribute attribute) {
+		
+		String decorator = "prop()";
+		
+		if(attribute.isMany()) {
+			decorator = "propArray()";
+		} else if(isComplex(attribute)) {
+			decorator = "propObject()";
+		}
+		
+		return decorator;
+	}
 }

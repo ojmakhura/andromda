@@ -23,7 +23,7 @@ import { ${className}Component } from './${fileName}.component';
 })
 export class ${className}ImplComponent extends ${className}Component {
 
-    construtor(private injector: Injector) {
+    constructor(private injector: Injector) {
         super(injector);
     }
 }

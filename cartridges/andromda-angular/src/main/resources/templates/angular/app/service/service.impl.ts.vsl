@@ -35,7 +35,7 @@ export class ${service.name}Impl extends ${service.name} {
 #end
 #set ($rType = $returnType)
 #set ($returnType = "Observable<$returnType>")
-    public ${operation.name}($arguments): $returnType {        
+    public ${operation.name}($arguments): $returnType {
 #set ($methodName = $angularHelper.getWebServiceMethodName($operation))
 #set ($methodPath = $angularHelper.getWebServiceOperationPath($operation.restPath))
 #if ( $methodName.equals("get")) 
@@ -43,7 +43,7 @@ export class ${service.name}Impl extends ${service.name} {
 #elseif ( $methodName.equals("post")) 
         return this.http.post<$rType>(this.path + '$methodPath'#if (!$stringUtils.isBlank($restParams)), $restParams#end);
 #elseif ( $methodName.equals("delete")) 
-        return this.http.delete<$rType>(this.path + '$methodPath'#foreach ($arg in $operation.arguments) + $arg.name#end)
+        return this.http.delete<$rType>(this.path + '$methodPath'#foreach ($arg in $operation.arguments) + $arg.name#end);
 #elseif ( $methodName.equals("put")) 
         return this.http.put<$rType>(this.path + '$methodPath'#if (!$stringUtils.isBlank($restParams)), $restParams#end);
 #else 
