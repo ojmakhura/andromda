@@ -20,4 +20,10 @@ export class ${className}ImplComponent extends ${className}Component {
     ${action.triggerName}() {
     }
 
+	beforeOnInit(){
+	}
+	
+	afterOnInit() {
+	}
+
 }

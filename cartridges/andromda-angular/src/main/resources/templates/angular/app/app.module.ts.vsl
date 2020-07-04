@@ -112,6 +112,7 @@ import { $field.name } from './model/$destination/$fileName';
         BrowserAnimationsModule,
         HttpClientModule,
         FormsModule,
+		ReactiveFormsModule,
 		RxReactiveFormsModule,
         NgIdleKeepaliveModule.forRoot(),
         MomentModule,

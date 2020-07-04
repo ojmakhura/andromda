@@ -11,7 +11,7 @@
 #foreach ($view in $pUseCase.views)
 ##${ident}<button value="#{messages['$pUseCase.titleKey']}" url="#{request.contextPath}${pUseCase.path}.${facesServletExtension}"#if ($securityEnabled) rendered="#{p:ifAnyGranted('$roles')}"#end/>     
 #set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
-#set ( $fileName = $angularHelper.getComponentFileName("${view.useCase.name}-${view.name}"))
+#set ( $fileName = $angularHelper.getComponentFileName("${view.name}"))
 #set ( $className = $angularHelper.getComponentName($fileName, "-") )
 ${ident}<button mat-menu-item routerLink="/$stringUtils.lowerCase($className)" (click)="onSidenavClose()">$view.name</button>
 #end
@@ -19,7 +19,7 @@ ${ident}<button mat-menu-item routerLink="/$stringUtils.lowerCase($className)" (
 #foreach ($view in $pUseCase.views)
 ##${ident}<p:submenu label="#{messages['$pUseCase.titleKey']}"#if ($securityEnabled) rendered="#{p:ifAnyGranted('$roles')}"#end
 #set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
-#set ( $fileName = $angularHelper.getComponentFileName("${view.useCase.name}-${view.name}"))
+#set ( $fileName = $angularHelper.getComponentFileName("${view.name}"))
 #set ( $className = $angularHelper.getComponentName($fileName, "-") )
 ${ident}<button mat-menu-item routerLink="/$stringUtils.lowerCase($className)" (click)="onSidenavClose()">$view.name</button>
 #end

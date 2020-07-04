@@ -46,34 +46,8 @@ $a
 })
 export abstract class ${tmpName}Component implements OnInit {
 
-#set ( $attr = [] )
-#foreach ( $action in $view.actions )
-#if (!$action.tableLink)
-#if (!$action.formFields.empty)
-    // Action $action.name formFields
-#end
-## Impl uses $action.formFields, Form uses $operation.formFields
-#foreach ($field in $action.formFields)
-#if (!(${field.action} && $field.action.tableLinkName))
-#if ( $field.many )
-#set ( $rt = $attr.add($field ))
-#else
-#set ( $rt = $attr.add($field))
-#end
-#end
-#end
-#end
-#end
-###foreach ( $tmp in $angularHelper.getStringSet($attr) )
-###if ( $tmp.many )
-##	$tmp.name: $angularHelper.getDatatype($tmp.type.fullyQualifiedName)[];
-###else
-##	$tmp.name: $angularHelper.getDatatype($tmp.type.fullyQualifiedName);
-##end
-####end
-#if($attr.size() > 0)
 	${stringUtils.uncapitalize($tmpName)}Form: FormGroup;
-#end 
+
     protected route: ActivatedRoute;
     protected router: Router;
 	protected formBuilder: RxFormBuilder;
@@ -84,26 +58,15 @@ export abstract class ${tmpName}Component implements OnInit {
         this.formBuilder = injector.get(RxFormBuilder);
     }
 
+	abstract beforeOnInit();
+	
     ngOnInit() {
-#set ($i = 1)
-#set ($cr = "
-")
-		this.${stringUtils.uncapitalize(${tmpName})}Form = this.formBuilder.formGroup({
-#foreach ( $tmp in $angularHelper.getStringSet($attr) )
-#if($tmp.many)
-			$tmp.name: this.formBuilder.array([
-				this.formBuilder.formGroup(new $angularHelper.getDatatype($tmp.type.fullyQualifiedName)())
-			])#if($i < $attr.size()),#end$cr
-#elseif($angularHelper.isComplex($tmp))
-			$tmp.name: this.formBuilder.formGroup(new $angularHelper.getDatatype($tmp.type.fullyQualifiedName)())#if($i < $attr.size()),#end$cr
-#else
-			$tmp.name: this.formBuilder.control()#if($i < $attr.size()),#end$cr
-#end
-#set ($i = $i + 1)
-#end
-		});
+		this.beforeOnInit();
+		
+		this.afterOnInit()
     }
 
+	abstract afterOnInit();
 	getItemControl(name): FormControl {
 		return this.${stringUtils.uncapitalize(${tmpName})}Form.get(name) as FormControl;
 	}

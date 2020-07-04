@@ -18,6 +18,12 @@ export class ${className}ImplComponent extends ${className}Component {
     constructor(private injector: Injector) {
         super(injector);
     }
+
+	beforeOnInit(){
+	}
+	
+	afterOnInit() {
+	}
 	
 #foreach ($action in $table.tableFormActions)
 

@@ -28,11 +28,11 @@ ${ident}	<!-- ${propertyId} -->
 ${ident}	<mat-form-field>
 ${ident}		<mat-label>$stringUtils.capitalize($parameter.name)</mat-label> 
 #if ($parameter.type.dateType)
-${ident}	  	<input matInput [matDatepicker]="$propertyId" name="$propertyId" [(ngModel)]="${stringUtils.uncapitalize(${viewName})}.${formValuePropertyName}"#if($parameter.required) required#end>
+${ident}	  	<input matInput [matDatepicker]="$propertyId" formControlName="${parameter.name}" id="$propertyId"#if($parameter.required) required#end>
 ${ident}	  	<mat-datepicker-toggle matSuffix [for]="$propertyId"></mat-datepicker-toggle>
 ${ident}	  	<mat-datepicker #$propertyId></mat-datepicker>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration)
-${ident}		<mat-select name="$propertyId" [(ngModel)]="${stringUtils.uncapitalize(${viewName})}.${formValuePropertyName}">
+${ident}		<mat-select name="$propertyId" formControlName="${parameter.name}" id="$propertyId">
 #if ($parameter.type.enumeration)
 ${ident}			<mat-option *ngFor="let item of Object.keys($parameter.type.name.values())" [value]="item">{{item}}</mat-option>
 #else
@@ -41,18 +41,18 @@ ${ident}			<mat-option *ngFor="let item of ${formName}.${backingListName}}" [val
 ${ident}		</mat-select>
 #elseif ($parameter.plainText)
 ${ident}		<input matInput
-${ident}			[(ngModel)]="${stringUtils.uncapitalize(${viewName})}.${formValuePropertyName}" id="$propertyId" name="$propertyId"
-${ident}			#if($parameter.required) required#end #$propertyId="ngModel">
+${ident}			formControlName="${parameter.name}" id="$propertyId"
+${ident}			#if($parameter.required) required#end>
 #elseif ($parameter.inputSecret)
 ${ident}		<input matInput [type]="hide ? 'password' : 'text'">
-${ident}			[(ngModel)]="${stringUtils.uncapitalize(${viewName})}.${formValuePropertyName}" id="$propertyId" name="$propertyId" #$propertyId="ngModel">
+${ident}			formControlName="${parameter.name}" id="$propertyId">
 ${ident}		<button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
 ${ident}			<mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
 ${ident}		</button>
 #else
 ${ident}		<input matInput
-${ident}			[(ngModel)]="${stringUtils.uncapitalize(${viewName})}.${formValuePropertyName}" id="$propertyId" name="$propertyId"
-${ident}			#if($parameter.required) required#end #$propertyId="ngModel">
+${ident}			formControlName="${parameter.name}" id="$propertyId"
+${ident}			#if($parameter.required) required#end>
 #end
 ${ident}	</mat-form-field>
 ${ident}</div>

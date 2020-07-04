@@ -71,8 +71,16 @@ export abstract class ${className}Component implements OnInit {
         this.$stringUtils.uncapitalize($viewName) = injector.get(${viewName}ImplComponent);
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+		this.beforeOnInit();
+		
+		this.afterOnInit()
+	}
 	
+	abstract beforeOnInit();
+	
+	abstract afterOnInit();
+
 #foreach ($action in $table.tableFormActions)
 #foreach ($transition in $action.transitions)
 #if ($transition.enteringFinalState)

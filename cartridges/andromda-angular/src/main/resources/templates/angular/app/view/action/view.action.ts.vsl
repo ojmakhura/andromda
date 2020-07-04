@@ -4,6 +4,9 @@
 #set ( $className = $angularHelper.getComponentName("$fileName", "-") )
 import { Component, OnInit, Injector} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RxFormBuilder } from '@rxweb/reactive-form-validators';
+import { NgForm, FormGroup, FormControl, FormArray } from '@angular/forms';
+
 #set ( $viewFile = $angularHelper.getComponentFileName("${action.source.name}") )
 #set ( $viewName = $angularHelper.getComponentName($viewFile, '-') )
 import { ${viewName}ImplComponent } from './${viewFile}.impl.component';
@@ -33,12 +36,36 @@ $tmp
 })
 export abstract class ${className}Component implements OnInit {
 
-    protected route: ActivatedRoute;
-    protected router: Router;
+#set ($cr = "
+")
+#set ( $attr = [] )
+## Impl uses $action.formFields, Form uses $operation.formFields
+#foreach ($field in $action.formFields)
+#if ($field.table)
+#set ($i = 1)
+	${field.name}Columns = [
+#foreach($column in $field.tableColumns)
+		'$column.name'#if($i < $field.tableColumns.size()),#end$cr
+#set ($i = $i + 1)
+#end
+	];
+#end
+#if (!(${field.action} && $field.action.tableLinkName))
+#if ( $field.many )
+#set ( $rt = $attr.add($field ))
+#else
+#set ( $rt = $attr.add($field))
+#end
+#end
+#end
+	${stringUtils.uncapitalize($className)}Form: FormGroup;
+	protected route: ActivatedRoute;
+	protected router: Router;
 #foreach ($service in $action.controller.allServices)
     protected $stringUtils.uncapitalize($service.name): ${service.name}Impl;
 #end
     protected $stringUtils.uncapitalize($viewName): ${viewName}ImplComponent;
+	protected formBuilder: RxFormBuilder;
 
     constructor(injector: Injector) {
 
@@ -48,9 +75,66 @@ export abstract class ${className}Component implements OnInit {
         this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name}Impl);
 #end
         this.$stringUtils.uncapitalize($viewName) = injector.get(${viewName}ImplComponent);
+        this.formBuilder = injector.get(RxFormBuilder);
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+	
+	this.beforeOnInit();
+
+#set ($i = 1)
+		this.${stringUtils.uncapitalize(${className})}Form = this.formBuilder.group({
+#foreach ( $tmp in $attr )
+#if($tmp.many || $tmp.table)
+			$tmp.name: this.formBuilder.array([{
+#if($tmp.table && $tmp.tableColumns.size() > 0)
+#set ($j = 1)
+#foreach($column in $tmp.tableColumns)
+				$column.name: ''#if($j < $tmp.tableColumns.size()),#end$cr
+#set ($j = $j + 1)
+#end
+#else
+#if($angularHelper.isComplex($tmp))
+### Each attribute
+#set ($i = 1)
+#foreach($attribute in $tmp.attributes)
+#if(!$angularHelper.isComplex($attribute) && !$attribute.many) ### Only non complex attributes and non collection
+				$attribute.name: ''#if($i < $tmp.attributes.size()),#end$cr
+#set ($i = $i + 1)
+#end
+#end
+#else
+				$tmp.name: ''$cr
+#end
+#end
+			}])#if($i < $attr.size()),#end$cr
+#elseif($angularHelper.isComplex($tmp))
+			$tmp.name: this.formBuilder.group(new $angularHelper.getDatatype($tmp.type.fullyQualifiedName)())#if($i < $attr.size()),#end$cr
+#else
+			$tmp.name: this.formBuilder.control()#if($i < $attr.size()),#end$cr
+#end
+#set ($i = $i + 1)
+#end
+		});
+
+		this.afterOnInit();
+	}
 
     abstract ${action.triggerName}();
+
+	abstract beforeOnInit();
+	
+	abstract afterOnInit();
+
+	getItemControl(name): FormControl {
+		return this.${stringUtils.uncapitalize(${className})}Form.get(name) as FormControl;
+	}
+
+	getGroupControl(name): FormGroup {
+		return this.${stringUtils.uncapitalize(${className})}Form.get(name) as FormGroup;
+	}
+
+	getArrayControl(name): FormArray {
+		return this.${stringUtils.uncapitalize(${className})}Form.get(name) as FormArray;
+	}
 }
