@@ -24,7 +24,22 @@
 #end
 #set ($formValuePropertyName = "${valuePropertyName}")
 ${ident}<div>
-${ident}	<!-- ${propertyId} -->
+${ident}	<!-- ${propertyId}#if($parameter.inputTable) table#end -->
+#if($parameter.inputTable)
+${ident}	<div class="mat-elevation-z8">
+${ident}		<mat-table matSort [dataSource]="${parameter.name}.controls" #${parameter.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
+#foreach($column in $angularHelper.getTableColumns($parameter))
+${ident}			<ng-container matColumnDef="$column">
+${ident}				<mat-header-cell *matHeaderCellDef>$stringUtils.capitalize(${column})</mat-header-cell>
+${ident}                <mat-cell *matCellDef="let row"> {{ row.${column} }} </mat-cell>
+${ident}			</ng-container>
+#end
+${ident}			<mat-header-row *matHeaderRowDef="${parameter.name}Columns"></mat-header-row>
+${ident}			<mat-row *matRowDef="let row; columns: ${parameter.name}Columns;"></mat-row>
+${ident}		</mat-table>
+${ident}		<mat-paginator #${parameter.name}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+${ident}	</div>
+#else
 ${ident}	<mat-form-field>
 ${ident}		<mat-label>$stringUtils.capitalize($parameter.name)</mat-label> 
 #if ($parameter.type.dateType)
@@ -39,7 +54,11 @@ ${ident}			<mat-option *ngFor="let item of Object.keys($parameter.type.name.valu
 ${ident}			<mat-option *ngFor="let item of ${formName}.${backingListName}}" [value]="item">{{item}}</mat-option>
 #end
 ${ident}		</mat-select>
-#elseif ($parameter.plainText)
+#elseif ($parameter.inputTextarea)
+${ident}		<textarea matInput
+${ident}			formControlName="${parameter.name}" id="$propertyId"
+${ident}			#if($parameter.required) required#end></textarea>
+#elseif ($parameter.inputText)
 ${ident}		<input matInput
 ${ident}			formControlName="${parameter.name}" id="$propertyId"
 ${ident}			#if($parameter.required) required#end>
@@ -55,5 +74,6 @@ ${ident}			formControlName="${parameter.name}" id="$propertyId"
 ${ident}			#if($parameter.required) required#end>
 #end
 ${ident}	</mat-form-field>
+#end
 ${ident}</div>
 #end

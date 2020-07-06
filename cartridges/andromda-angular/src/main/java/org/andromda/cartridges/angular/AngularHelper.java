@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.StringTokenizer;
+import org.andromda.cartridges.jsf2.JSFProfile;
 import org.andromda.cartridges.jsf2.metafacades.JSFAttribute;
 import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.cartridges.webservice.metafacades.WebServiceOperation;
@@ -22,6 +23,8 @@ import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.TaggedValueFacade;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
 import org.apache.log4j.Logger;
@@ -413,5 +416,16 @@ public class AngularHelper {
 		}
 		
 		return decorator;
+	}
+	
+	public static Collection<?> getTableColumns(JSFAttribute attribute) {
+		String cols = ObjectUtils.toString(attribute.findTaggedValue(JSFProfile.TAGGEDVALUE_TABLE_COLUMNS));
+		Collection<String> columns = new ArrayList<>();
+		
+		for(String col : cols.split(",") ) {
+			columns.add(col);
+		}
+		
+		return columns;
 	}
 }

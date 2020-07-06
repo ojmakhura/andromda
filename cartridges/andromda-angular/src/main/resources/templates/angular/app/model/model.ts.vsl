@@ -32,7 +32,7 @@ export class $class.name {
 #set ($default = "null")
 #end
 	@$angularHelper.getRxwebDecorator($attribute)
-    $attribute.name: $returnType = $default;
+    $attribute.name: $returnType#if(!$attribute.type.enumeration) = $default#end;
 #end
 
 }

@@ -46,7 +46,7 @@ $a
 })
 export abstract class ${tmpName}Component implements OnInit {
 
-	${stringUtils.uncapitalize($tmpName)}Form: FormGroup;
+	protected ${stringUtils.uncapitalize($tmpName)}Form: FormGroup;
 
     protected route: ActivatedRoute;
     protected router: Router;
@@ -63,10 +63,11 @@ export abstract class ${tmpName}Component implements OnInit {
     ngOnInit() {
 		this.beforeOnInit();
 		
-		this.afterOnInit()
+		this.afterOnInit();
     }
 
 	abstract afterOnInit();
+
 	getItemControl(name): FormControl {
 		return this.${stringUtils.uncapitalize(${tmpName})}Form.get(name) as FormControl;
 	}

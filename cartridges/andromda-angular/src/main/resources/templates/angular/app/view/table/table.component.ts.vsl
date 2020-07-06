@@ -6,6 +6,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Component, OnInit, ViewChild, Injector } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { RxFormBuilder } from '@rxweb/reactive-form-validators';
+import { NgForm, FormGroup, FormControl, FormArray } from '@angular/forms';
 #set ( $types = [] )
 #set ( $rt = $types.add($table.type) )
 #set ( $suffix = "" )
@@ -40,7 +42,9 @@ export abstract class ${className}Component implements OnInit {
 #set($cr = '
 ')
     ${table.name}Columns = [
-        ' ',
+#if($table.tableFormActions.size() > 0)
+		'actions',
+#end
 #set($i = 0)
 #foreach ($column in $table.tableColumns)
 #if(!($column.upper>1 || $column.upper==-1))
@@ -50,11 +54,12 @@ export abstract class ${className}Component implements OnInit {
 #end
     ];
 
-    ${table.name}: MatTableDataSource<$table.type.name>;
+    protected ${table.name}Form: FormArray;
 
     @ViewChild('${table.name}Paginator', {static: true}) ${table.name}Paginator: MatPaginator;
     @ViewChild('${table.name}Sort', {static: true}) ${table.name}Sort: MatSort;
 
+	protected formBuilder: RxFormBuilder;
     protected route: ActivatedRoute;
     protected router: Router;
 #foreach($service in $finalServices)
@@ -69,12 +74,23 @@ export abstract class ${className}Component implements OnInit {
         this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name}$suffix);
 #end
         this.$stringUtils.uncapitalize($viewName) = injector.get(${viewName}ImplComponent);
+        this.formBuilder = injector.get(RxFormBuilder);
     }
 
     ngOnInit(): void {
 		this.beforeOnInit();
+
+		this.${table.name}Form = this.formBuilder.array([{
+#set($i = 0)
+#foreach ($column in $table.tableColumns)
+#if(!($column.upper>1 || $column.upper==-1))
+			$column.name: null#if($i < $table.tableColumns.size()),$cr#end
+#end
+#set($i = $i + 1)
+#end
+		}]);
 		
-		this.afterOnInit()
+		this.afterOnInit();
 	}
 	
 	abstract beforeOnInit();
@@ -122,5 +138,8 @@ export abstract class ${className}Component implements OnInit {
 #end
 #end
 #end
-	
+
+	get ${table.name}(): FormArray {
+		return this.${table.name}Form;
+	}
 }
