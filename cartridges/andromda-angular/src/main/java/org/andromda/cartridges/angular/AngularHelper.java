@@ -248,11 +248,11 @@ public class AngularHelper {
         return set;
     }
 	
-	public static HashSet<String> getStringSet(List<String> strings) {
-		HashSet<String> set = new HashSet<String>();
-		set.addAll(strings);		
-		return set;
-	}
+    public static HashSet<String> getStringSet(List<String> strings) {
+        HashSet<String> set = new HashSet<String>();
+        set.addAll(strings);
+        return set;
+    }
         
     /**
      * Get the bottom most directory name given a path
@@ -428,4 +428,14 @@ public class AngularHelper {
 		
 		return columns;
 	}
+        
+        public static String getColumnName(Object column) {
+            if(column instanceof String) {
+                return (String)column;
+            } else {
+                JSFAttribute attr = (JSFAttribute)column;
+                
+                return attr.getName();
+            }
+        }
 }

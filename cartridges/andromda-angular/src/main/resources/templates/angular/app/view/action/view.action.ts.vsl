@@ -54,21 +54,21 @@ export abstract class ${className}Component implements OnInit {
 #set($i = $i + 1)
 #end
     ];
-	@ViewChild('${attribute.name}Paginator', {static: true}) ${attribute.name}Paginator: MatPaginator;
+    @ViewChild('${attribute.name}Paginator', {static: true}) ${attribute.name}Paginator: MatPaginator;
     @ViewChild('${attribute.name}Sort', {static: true}) ${attribute.name}Sort: MatSort;
 #end
 #end
 #end
 #end
 
-	protected ${stringUtils.uncapitalize($className)}Form: FormGroup;
-	protected route: ActivatedRoute;
-	protected router: Router;
+    protected ${stringUtils.uncapitalize($className)}Form: FormGroup;
+    protected route: ActivatedRoute;
+    protected router: Router;
 #foreach ($service in $action.controller.allServices)
     protected $stringUtils.uncapitalize($service.name): ${service.name}Impl;
 #end
     protected $stringUtils.uncapitalize($viewName): ${viewName}ImplComponent;
-	protected formBuilder: RxFormBuilder;
+    protected formBuilder: RxFormBuilder;
 
     constructor(injector: Injector) {
 
@@ -83,74 +83,74 @@ export abstract class ${className}Component implements OnInit {
 
     ngOnInit(): void {
 	
-		this.beforeOnInit();
+        this.beforeOnInit();
 
 #set ($i = 1)
 #if($action.parameters.size() > 0)
-		this.${stringUtils.uncapitalize(${className})}Form = this.formBuilder.group({
+        this.${stringUtils.uncapitalize(${className})}Form = this.formBuilder.group({
 #foreach ( $tmp in $action.parameters )
 #if($tmp.many || $tmp.table)
-			$tmp.name: this.formBuilder.array([{
+        $tmp.name: this.formBuilder.array([{
 #if($tmp.table && $tmp.tableColumns.size() > 0)
 #set ($j = 1)
 #foreach($column in $tmp.tableColumns)
-				$column.name: ''#if($j < $tmp.tableColumns.size()),#end$cr
+            $column.name: ''#if($j < $tmp.tableColumns.size()),#end$cr
 #set ($j = $j + 1)
 #end
 #else
 #if($angularHelper.isComplex($tmp))
 ### Each attribute
-#set ($i = 1)
+#set ($k = 1)
 #foreach($attribute in $tmp.attributes)
 #if(!$angularHelper.isComplex($attribute) && !$attribute.many) ### Only non complex attributes and non collection
-				$attribute.name: ''#if($i < $tmp.attributes.size()),#end$cr
-#set ($i = $i + 1)
+                $attribute.name: ''#if($k < $tmp.attributes.size()),#end$cr
+#set ($k = $k + 1)
 #end
 #end
 #else
-				$tmp.name: ''$cr
+                $tmp.name: ''$cr
 #end
 #end
-			}])#if($i < $attr.size()),#end$cr
+            }])#if($i < $$action.parameters.size()),#end$cr
 #elseif($angularHelper.isComplex($tmp))
-			$tmp.name: this.formBuilder.group(new $angularHelper.getDatatype($tmp.type.fullyQualifiedName)())#if($i < $attr.size()),#end$cr
+            $tmp.name: this.formBuilder.group(new $angularHelper.getDatatype($tmp.type.fullyQualifiedName)())#if($i < $$action.parameters.size()),#end$cr
 #else
-			$tmp.name: this.formBuilder.control()#if($i < $attr.size()),#end$cr
+            $tmp.name: this.formBuilder.control()#if($i < $$action.parameters.size()),#end$cr
 #end
 #set ($i = $i + 1)
 #end
-		});
+        });
 #end
 
-		this.afterOnInit();
-	}
+        this.afterOnInit();
+    }
 
     abstract ${action.triggerName}();
 
-	abstract beforeOnInit();
+    abstract beforeOnInit();
 	
-	abstract afterOnInit();
+    abstract afterOnInit();
 
-	getItemControl(name): FormControl {
-		return this.${stringUtils.uncapitalize(${className})}Form.get(name) as FormControl;
-	}
+    getItemControl(name): FormControl {
+        return this.${stringUtils.uncapitalize(${className})}Form.get(name) as FormControl;
+    }
 
-	getGroupControl(name): FormGroup {
-		return this.${stringUtils.uncapitalize(${className})}Form.get(name) as FormGroup;
-	}
+    getGroupControl(name): FormGroup {
+        return this.${stringUtils.uncapitalize(${className})}Form.get(name) as FormGroup;
+    }
 
-	getArrayControl(name): FormArray {
-		return this.${stringUtils.uncapitalize(${className})}Form.get(name) as FormArray;
-	}
+    getArrayControl(name): FormArray {
+        return this.${stringUtils.uncapitalize(${className})}Form.get(name) as FormArray;
+    }
 
 #foreach ( $tmp in $action.parameters )
 #if($angularHelper.isComplex($tmp))
 #set ($i = 1)
 #foreach($attribute in $tmp.attributes)
 #if($attribute.inputTable)
-	get ${attribute.name}(): FormArray {
-		return this.getGroupControl('$tmp.name').get('$attribute.name') as FormArray;
-	}
+    get ${attribute.name}(): FormArray {
+        return this.getGroupControl('$tmp.name').get('$attribute.name') as FormArray;
+    }
 #end
 #end
 #end

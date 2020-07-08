@@ -1,8 +1,11 @@
 #set ( $appModule = $stringUtils.lowerCase(${applicationId}) )
-#set ( $classNames = [] )
-#set ( $imports = [] )
-#set ($fields = [] )
-#set ($services = [] )
+#set ( $fields = [] )
+#set ( $services = [] )
+#set ( $tables = [] )
+#set ( $actions = [] )
+#set ( $views = [] )
+#set ( $cr = "
+")
 // license-header angular merge-point
 //
 /**
@@ -54,10 +57,37 @@ import { $stringUtils.capitalize(${applicationId})Component } from './$stringUti
 #foreach ($useCase in $useCases)
 #renderImports($useCase)
 #end
+
 #set ( $finalServices = $angularHelper.getFacadeSet($services) )
-#set ( $nameSet = $angularHelper.getStringSet($classNames) )
-#foreach ( $import in $angularHelper.getStringSet($imports) )
-$import
+#foreach($service in $finalServices)
+#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${service.packageName}), '\\.', '\\/') )
+#set ( $fileName = $angularHelper.getComponentFileName("${service.name}") )
+#set ( $className = $angularHelper.getComponentName($fileName, "-"))
+import { ${service.name}Impl } from ${escTool.s}./service/$componentPath/$fileName${escTool.s};
+#end
+
+#set ( $componentSet = $angularHelper.getFacadeSet($views) )
+#foreach($view in $componentSet)
+#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
+#set ( $fileName = $angularHelper.getComponentFileName("${view.name}") )
+#set ( $className = $angularHelper.getComponentName($fileName, "-"))
+import { ${className}ImplComponent } from ${escTool.s}./view/${componentPath}/${fileName}.impl.component${escTool.s};
+#end
+
+#set ( $componentSet = $angularHelper.getFacadeSet($tables) )
+#foreach($table in $componentSet)
+#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${table.packageName}), '\\.', '\\/') )
+#set ( $fileName = $angularHelper.getComponentFileName("${table.view.name}-${table.name}") )
+#set ( $className = $angularHelper.getComponentName($fileName, "-"))
+import { ${className}ImplComponent } from ${escTool.s}./view/${componentPath}/${fileName}.impl.component${escTool.s};
+#end
+
+#set ( $componentSet = $angularHelper.getFacadeSet($actions) )
+#foreach($action in $componentSet)
+#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/') )
+#set ( $fileName = $angularHelper.getComponentFileName("${action.name}") )
+#set ( $className = $angularHelper.getComponentName($fileName, "-"))
+import { ${className}ImplComponent } from ${escTool.s}./view/${componentPath}/${fileName}.impl.component${escTool.s};
 #end
 
 #set ( $finalFields = [] )
@@ -80,11 +110,27 @@ import { $field.name } from './model/$destination/$fileName';
         $stringUtils.capitalize(${applicationId})LayoutComponent,
         $stringUtils.capitalize(${applicationId})HeaderComponent,
         $stringUtils.capitalize(${applicationId})NavigationComponent,
-#set ($i = 0)
-#foreach ( $name in $nameSet )
-#set ( $i = $i + 1 )
-        $name#if($i < $nameSet.size()),
+
+#set ( $componentSet = $angularHelper.getFacadeSet($views) )
+#foreach($view in $componentSet)
+#set ( $fileName = $angularHelper.getComponentFileName("${view.name}") )
+#set ( $className = $angularHelper.getComponentName($fileName, "-"))
+        ${className}ImplComponent,
 #end
+
+#set ( $componentSet = $angularHelper.getFacadeSet($tables) )
+#foreach($table in $componentSet)
+#set ( $fileName = $angularHelper.getComponentFileName("${table.view.name}-${table.name}") )
+#set ( $className = $angularHelper.getComponentName($fileName, "-"))
+        ${className}ImplComponent,
+#end
+
+#set ($i = 1)
+#set ( $componentSet = $angularHelper.getFacadeSet($actions) )
+#foreach($action in $componentSet)
+#set ( $fileName = $angularHelper.getComponentFileName("${action.name}") )
+#set ( $className = $angularHelper.getComponentName($fileName, "-"))
+        ${className}ImplComponent#if($i < $componentSet.size()),#end${escTool.n}#set ( $i = $i + 1 )
 #end
 
     ],
@@ -112,8 +158,8 @@ import { $field.name } from './model/$destination/$fileName';
         BrowserAnimationsModule,
         HttpClientModule,
         FormsModule,
-		ReactiveFormsModule,
-		RxReactiveFormsModule,
+        ReactiveFormsModule,
+        RxReactiveFormsModule,
         NgIdleKeepaliveModule.forRoot(),
         MomentModule,
         ModalModule.forRoot(),
@@ -148,23 +194,34 @@ import { $field.name } from './model/$destination/$fileName';
         $finalField.name,
 #end
 #end
-#set ($i = 0)
-#foreach ( $name in $nameSet )
-#set ( $i = $i + 1 )
-#set ( $j = $j + 1 )
-        $name#if($i < $nameSet.size()),
-#end
-#end
-#set ( $finalServices = $angularHelper.getFacadeSet($services) ) ## No repetisions
-#if($finalServices.size() > 0 && $j > 0),
-#end
-#set ($i = 1)
-#set ( $cr = "
-" )
+
+#set ( $finalServices = $angularHelper.getFacadeSet($services) )
 #foreach ( $finalService in $finalServices )
-        ${finalService.name}Impl#if($i < $finalServices.size()),#end$cr
-#set ($i = $i + 1)
+        ${finalService.name}Impl,
 #end
+
+#set ( $componentSet = $angularHelper.getFacadeSet($views) )
+#foreach($view in $componentSet)
+#set ( $fileName = $angularHelper.getComponentFileName("${view.name}") )
+#set ( $className = $angularHelper.getComponentName($fileName, "-"))
+        ${className}ImplComponent,
+#end
+
+#set ( $componentSet = $angularHelper.getFacadeSet($tables) )
+#foreach($table in $componentSet)
+#set ( $fileName = $angularHelper.getComponentFileName("${table.view.name}-${table.name}") )
+#set ( $className = $angularHelper.getComponentName($fileName, "-"))
+        ${className}ImplComponent,
+#end
+
+#set ($i = 1)
+#set ( $componentSet = $angularHelper.getFacadeSet($actions) )
+#foreach($action in $componentSet)
+#set ( $fileName = $angularHelper.getComponentFileName("${action.name}") )
+#set ( $className = $angularHelper.getComponentName($fileName, "-"))
+        ${className}ImplComponent#if($i < $componentSet.size()),#end${escTool.n}#set ( $i = $i + 1 )
+#end
+
     ],
     bootstrap: [$stringUtils.capitalize(${applicationId})Component]
 })
