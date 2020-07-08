@@ -72,6 +72,7 @@ public class AngularHelper {
     public static String getComponentFileName(final String className) {
         
         StringBuilder builder = new StringBuilder();
+		
         String stmp = className.trim().substring(0, className.length());
         
         for(int i = 0; i < className.length(); i++) {
@@ -177,6 +178,15 @@ public class AngularHelper {
         
         return datatype;
     }
+	
+	public static boolean isArray(final String typeName) {
+		
+		if(typeName.contains("[]")) {
+			return true;
+		}
+		
+		return false;
+	}
     
     /**
      * Create import statements

@@ -154,7 +154,7 @@
 
     <template
         path="templates/angular/app/app.module.ts.vsl"
-        outputPattern="${appModule}.module.ts"
+        outputPattern="${moduleFileName}.module.ts"
         outlet="angularAppDir"
         overwrite="true"
         outputToSingleFile="true">
@@ -223,7 +223,7 @@
 
     <template
         path="templates/angular/app/app-routing.module.ts.vsl"
-        outputPattern="$stringUtils.lowerCase(${applicationId})-routing.module.ts"
+        outputPattern="${moduleFileName}-routing.module.ts"
         outlet="angularAppDir"
         overwrite="true"
         outputToSingleFile="true">

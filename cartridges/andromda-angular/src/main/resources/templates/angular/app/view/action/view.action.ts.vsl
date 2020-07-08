@@ -41,7 +41,6 @@ export abstract class ${className}Component implements OnInit {
 #set ($cr = "
 ")
 #set ( $attr = [] )
-
 #foreach ( $tmp in $action.parameters )
 #if($angularHelper.isComplex($tmp))
 #set ($i = 1)
@@ -125,8 +124,6 @@ export abstract class ${className}Component implements OnInit {
         this.afterOnInit();
     }
 
-    abstract ${action.triggerName}();
-
     abstract beforeOnInit();
 	
     abstract afterOnInit();
@@ -155,4 +152,14 @@ export abstract class ${className}Component implements OnInit {
 #end
 #end
 #end
+	
+	abstract do$stringUtils.capitalize(${action.triggerName})();
+    ${action.triggerName}() {
+		this.do$stringUtils.capitalize(${action.triggerName})();
+#if($action.finalStateTarget)
+#set ( $viewFileName = $angularHelper.getComponentFileName("${action.target.name}"))
+#set ($tmpName = ${angularHelper.getComponentName("$viewFileName", "-")})
+		this.router.navigate(['/$stringUtils.lowerCase($tmpName)']);
+#end
+    }
 }

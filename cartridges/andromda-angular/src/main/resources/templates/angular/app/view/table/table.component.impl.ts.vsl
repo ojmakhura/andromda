@@ -23,11 +23,10 @@ export class ${className}ImplComponent extends ${className}Component {
 	}
 	
 	afterOnInit() {
-	}
-	
+	}	
 #foreach ($action in $table.tableFormActions)
 
-	${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes()) {
+	do$stringUtils.capitalize(${action.triggerName})(#renderAngularTableCommandLinkParametersWithTypes()): any {
 	}
 #end
 }

@@ -2,6 +2,8 @@
 ##     o  $pUseCase - the useCase to render
 ##     o  $ident - spaces to ident
 ##
+#set ( $moduleFileName = $angularHelper.getComponentFileName("${applicationId}") )
+#set ( $moduleName = $angularHelper.getComponentName($moduleFileName, "-"))
 #macro(renderAngularMenuItem $pUseCase $ident)
 #set ($roles = $useCase.actionRoles)
 #addDefaultRole($roles)

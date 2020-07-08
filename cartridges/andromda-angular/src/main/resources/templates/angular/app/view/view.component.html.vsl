@@ -22,7 +22,7 @@
 	<mat-tab-group animationDuration="0ms" class = "tables">
 #foreach ( $table in $tables )
 #set ( $tableName = $$angularHelper.getComponentFileName("${view.name}-${table.name}"))
-		<mat-tab label="${table.name}">
+		<mat-tab label="$stringUtils.capitalize(${table.name})">
 			<$tableName></$tableName>
 		</mat-tab>
 #end

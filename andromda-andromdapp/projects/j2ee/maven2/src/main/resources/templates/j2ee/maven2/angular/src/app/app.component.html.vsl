@@ -1,1 +1,2 @@
-<$stringUtils.lowerCase(${applicationId})-layout  class="col-md-12"></$stringUtils.lowerCase(${applicationId})-layout>
+#set ( $moduleFileName = $angularHelper.getComponentFileName("${applicationId}") )
+<$stringUtils.lowerCase(${moduleFileName})-layout  class="col-md-12"></$stringUtils.lowerCase(${moduleFileName})-layout>
