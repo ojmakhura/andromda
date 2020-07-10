@@ -21,7 +21,7 @@ import { NgForm, FormGroup, FormControl, FormArray } from '@angular/forms';
 #if (!$action.tableLink)
 #set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/')" )
 #set ( $actionName = $angularHelper.getComponentFileName("$action.name") )
-import { $angularHelper.getComponentName($action.name, "-")ImplComponent } from './${actionName}.impl.component';
+import { $angularHelper.getComponentName($action.name, "-")ImplComponent } from 'src/app/impl/view/$actionPath/${actionName}.impl.component';
 #foreach ($field in $action.formFields)
 #if (!(${field.action} && $field.action.tableLinkName))
 #if ($field.complex)
@@ -35,8 +35,11 @@ import { $angularHelper.getComponentName($action.name, "-")ImplComponent } from 
 #foreach ( $at in $angularHelper.getFacadeSet($attr) )
 #set ($rt = $finalAttr.add($at) )
 #end
-#foreach ($a in $angularHelper.getImports($finalAttr, $view.packageName, ""))
-$a
+
+#foreach($a in $finalAttr)
+#set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${a.packageName}), '\\.', '\\/')" )
+#set ( $name = $angularHelper.getComponentFileName("$a.name") )
+import { $a.name } from 'sc/app/gen/model/$path/$name';
 #end
 
 #set ($tmpName = ${angularHelper.getComponentName("$fileName", "-")})

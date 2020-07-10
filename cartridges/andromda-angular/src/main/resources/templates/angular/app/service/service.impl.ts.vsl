@@ -1,22 +1,28 @@
 #set ($componentPath = $stringUtils.replaceChars(${service.packageName}, "\\.", "\\/"))
 #set ($fileName = $angularHelper.getComponentFileName("${service.name}Impl"))
-#set ($args = [])
+#set ($types = [])
 #set ($ret = false)
 #foreach ($operation in $service.operations)
 #foreach ( $argument in $operation.arguments)
-#set ( $ret = $args.add($argument))
+#if($argument.type.attributes.size() > 0)
+#set ( $ret = $types.add($argument.type))
 #end
-#set ( $ret = $args.add($operation.returnType))
 #end
+#if($operation.returnType.attributes.size() > 0)
+#set ( $ret = $types.add($operation.returnType))
+#end
+#end
+
 import { Injectable, Injector } from '@angular/core';
 #if ($service.restCount>0 && $stringUtils.isNotBlank($service.restPath))
 import { HttpClient} from '@angular/common/http';
 #end
 import { Observable } from 'rxjs';
-import { $service.name } from './$angularHelper.getComponentFileName(${service.name})';
+import { $service.name } from 'src/app/gen/service/$componentPath/$angularHelper.getComponentFileName(${service.name})';
 #set ($suffix = "")
-#foreach ($tmp in $angularHelper.getImports($args, ${service.packageName}, $suffix))
-$tmp
+#foreach ($tmp in $angularHelper.getFacadeSet($types))
+#set ($path = $stringUtils.replaceChars(${tmp.packageName}, "\\.", "\\/"))
+import { $tmp.name } from 'src/app/gen/model/$path/$angularHelper.getComponentFileName(${tmp.name})';
 #end
 
 @Injectable()

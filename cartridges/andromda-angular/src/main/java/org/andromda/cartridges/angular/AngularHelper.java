@@ -198,7 +198,7 @@ public class AngularHelper {
 	 */
     public static HashSet<String> getImports(List<ModelElementFacade> args, String destPackage, String suffix) {
 
-		HashSet<String> set = new HashSet<String>();
+        HashSet<String> set = new HashSet<String>();
         for(ModelElementFacade arg : args) {
             ModelElementFacade facade = null;
             			
@@ -215,20 +215,20 @@ public class AngularHelper {
                 String angPath = "";
                 boolean addImport = false;
                 if(facade instanceof ValueObject || facade instanceof EnumerationFacade) {
-                    angPath = "src/app/model/";
+                    angPath = "src/app/gen/model/";
                     addImport = true;
                 } else if(facade instanceof Service) {
-                    angPath = "src/app/service/";
+                    angPath = "src/app/gen/service/";
                     addImport = true;
                 } else if(facade instanceof FrontEndController) {
-                    angPath = "src/app/controller/";
+                    angPath = "src/app/gen/controller/";
                     addImport = true;
                 } else if(facade instanceof FrontEndView) {
-                    angPath = "src/app/view/";
+                    angPath = "src/app/gen/view/";
                     addImport = true;
                 } 
 
-				if(addImport) {
+                if(addImport) {
                     StringBuilder builder = new StringBuilder();
                     builder.append("import { ");
                     builder.append(facade.getName());
@@ -250,7 +250,7 @@ public class AngularHelper {
     }
     
     public static HashSet<String> getImportsFromSets(List<String> names, List<String> paths) {
-		HashSet<String> set = new HashSet<String>();
+        HashSet<String> set = new HashSet<String>();
         for(int i = 0; i < names.size(); i++) {
             set.add("import {" + names.get(i) + "} from '" + paths.get(i) + "';");
         }
@@ -391,16 +391,16 @@ public class AngularHelper {
         return names;
     }
 	
-	public static Boolean isComplex(ModelElementFacade element) {
+    public static Boolean isComplex(ModelElementFacade element) {
 		
-		Boolean complex = false;
+        Boolean complex = false;
         ClassifierFacade type = null;
 		
-		if(element instanceof AttributeFacade) {
-			type = ((AttributeFacade)element).getType();
-		} else if(element instanceof ParameterFacade) {
-			type = ((ParameterFacade)element).getType();
-		}
+        if(element instanceof AttributeFacade) {
+            type = ((AttributeFacade)element).getType();
+        } else if(element instanceof ParameterFacade) {
+            type = ((ParameterFacade)element).getType();
+        }
 		
         if (type != null)
         {
@@ -411,41 +411,41 @@ public class AngularHelper {
             }
         }
 		
-		//System.out.println("=============================================== " + complex);
+        //System.out.println("=============================================== " + complex);
         return complex;
-	}
+    }
 	
-	public static String getRxwebDecorator(JSFAttribute attribute) {
+    public static String getRxwebDecorator(JSFAttribute attribute) {
 		
-		String decorator = "prop()";
+        String decorator = "prop()";
 		
-		if(attribute.isMany()) {
-			decorator = "propArray()";
-		} else if(isComplex(attribute)) {
-			decorator = "propObject()";
-		}
-		
-		return decorator;
-	}
-	
-	public static Collection<?> getTableColumns(JSFAttribute attribute) {
-		String cols = ObjectUtils.toString(attribute.findTaggedValue(JSFProfile.TAGGEDVALUE_TABLE_COLUMNS));
-		Collection<String> columns = new ArrayList<>();
-		
-		for(String col : cols.split(",") ) {
-			columns.add(col);
-		}
-		
-		return columns;
-	}
-        
-        public static String getColumnName(Object column) {
-            if(column instanceof String) {
-                return (String)column;
-            } else {
-                JSFAttribute attr = (JSFAttribute)column;
-                
-                return attr.getName();
-            }
+        if(attribute.isMany()) {
+            decorator = "propArray()";
+        } else if(isComplex(attribute)) {
+            decorator = "propObject()";
         }
+		
+        return decorator;
+    }
+	
+    public static Collection<?> getTableColumns(JSFAttribute attribute) {
+        String cols = ObjectUtils.toString(attribute.findTaggedValue(JSFProfile.TAGGEDVALUE_TABLE_COLUMNS));
+        Collection<String> columns = new ArrayList<>();
+		
+        for(String col : cols.split(",") ) {
+            columns.add(col);
+        }
+		
+        return columns;
+    }
+        
+    public static String getColumnName(Object column) {
+        if(column instanceof String) {
+            return (String)column;
+        } else {
+            JSFAttribute attr = (JSFAttribute)column;
+                
+            return attr.getName();
+        }
+    }
 }

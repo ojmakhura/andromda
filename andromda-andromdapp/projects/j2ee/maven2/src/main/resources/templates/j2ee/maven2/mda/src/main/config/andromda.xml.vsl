@@ -567,8 +567,11 @@
                 <property name="angularBase">${angular.base.dir}</property>
                 <property name="angularAppDir">${angular.base.dir}/src/app</property>
                 <property name="views">${angular.view.dir}</property>
+                <property name="view-impls">${angular.view.impl.dir}</property>
                 <property name="services">${angular.service.dir}</property>
                 <property name="service-impls">${angular.service.impl.dir}</property>
+                <property name="controllers">${angular.controller.dir}</property>
+                <property name="controller-impls">${angular.controller.impl.dir}</property>
                 <property name="models">${angular.model.dir}</property>
 #if (!$webservice.equals("none") && !$jsr181Webservice)
                 <property name="wsdlSoapAddress">http://${service.host}:${service.port}/${application.id}-ws/services</property>

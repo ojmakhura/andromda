@@ -6,7 +6,7 @@ import { Component, Injector } from '@angular/core';
 import { ${className}Component } from './${fileName}.component';
 #set ( $viewFile = $angularHelper.getComponentFileName("${table.view.name}") )
 #set ($viewName = $angularHelper.getComponentName($viewFile, '-') )
-import { ${viewName}ImplComponent } from './${viewFile}.impl.component';
+import { ${viewName}ImplComponent } from 'src/app/gen/view/$componentPath/${viewFile}.impl.component';
 
 @Component({
   selector: '${fileName}',

@@ -457,12 +457,13 @@
 #end
 #if ($angular)
         <angular.base.dir>${project.basedir}/../angular</angular.base.dir>
-        <angular.model.dir>${project.basedir}/../angular/src/app/model</angular.model.dir>
-        <angular.service.dir>${project.basedir}/../angular/src/app/service</angular.service.dir>
-        <angular.service.impl.dir>${project.basedir}/../angular/src/app/service</angular.service.impl.dir>
-        <angular.controller.dir>${project.basedir}/../angular/src/app/service</angular.controller.dir>
-        <angular.controller.impl.dir>${project.basedir}/../angular/src/app/controller</angular.controller.impl.dir>
-        <angular.view.dir>${project.basedir}/../angular/src/app/view</angular.view.dir>
+        <angular.model.dir>${project.basedir}/../angular/src/app/gen/model</angular.model.dir>
+        <angular.service.dir>${project.basedir}/../angular/src/app/gen/service</angular.service.dir>
+        <angular.service.impl.dir>${project.basedir}/../angular/src/app/impl/service</angular.service.impl.dir>
+        <angular.controller.dir>${project.basedir}/../angular/src/app/gen/controller</angular.controller.dir>
+        <angular.controller.impl.dir>${project.basedir}/../angular/src/app/impl/controller</angular.controller.impl.dir>
+        <angular.view.dir>${project.basedir}/../angular/src/app/gen/view</angular.view.dir>
+        <angular.view.impl.dir>${project.basedir}/../angular/src/app/impl/view</angular.view.impl.dir>
 #end
 #if ($springws)		
         <springws.generated.dir>${project.basedir}/../springws/target</springws.generated.dir>
