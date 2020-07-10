@@ -46,13 +46,13 @@ export abstract class ${className}Component implements OnInit {
 #if($table.tableFormActions.size() > 0)
 		'actions',
 #end
-#set($i = 0)
+#set($i = 1)
 #foreach ($column in $table.tableColumns)
 #if(!($column.upper>1 || $column.upper==-1))
         '$angularHelper.getColumnName($column)'#if($i < $table.tableColumns.size()),$cr#end
 #end
 #set($i = $i + 1)
-#end
+#end$cr
     ];
 
     protected ${table.name}Form: FormArray;
@@ -82,16 +82,16 @@ export abstract class ${className}Component implements OnInit {
         this.beforeOnInit();
 
         this.${table.name}Form = this.formBuilder.array([{
-#set($i = 0)
+#set($i = 1)
 #foreach ($column in $table.tableColumns)
 #if(!($column.upper>1 || $column.upper==-1))
             $angularHelper.getColumnName($column): ['']#if($i < $table.tableColumns.size()),$cr#end
 #end
 #set($i = $i + 1)
-#end
+#end$cr
         }]);
 
-		this.${table.name}Form.removeAt(0);
+        this.${table.name}Form.removeAt(0);
 
         this.afterOnInit();
     }
@@ -148,7 +148,39 @@ export abstract class ${className}Component implements OnInit {
 #end
 #end
 
-	get ${table.name}(): FormArray {
-		return this.${table.name}Form;
-	}
+    get ${table.name}(): FormArray {
+        return this.${table.name}Form;
+    }
+
+    addDummyData() {
+        this.${table.name}Form.push(this.formBuilder.group({
+#set($i = 1)
+#foreach ($column in $table.tableColumns)
+#if(!($column.upper>1 || $column.upper==-1))
+            $angularHelper.getColumnName($column): ['$column.name']#if($i < $table.tableColumns.size()),$cr#end
+#end
+#set($i = $i + 1)
+#end$cr
+        }));
+
+        this.${table.name}Form.push(this.formBuilder.group({
+#set($i = 1)
+#foreach ($column in $table.tableColumns)
+#if(!($column.upper>1 || $column.upper==-1))
+            $angularHelper.getColumnName($column): ['$column.name']#if($i < $table.tableColumns.size()),$cr#end
+#end
+#set($i = $i + 1)
+#end$cr
+        }));
+
+        this.${table.name}Form.push(this.formBuilder.group({
+#set($i = 1)
+#foreach ($column in $table.tableColumns)
+#if(!($column.upper>1 || $column.upper==-1))
+            $angularHelper.getColumnName($column): ['$column.name']#if($i < $table.tableColumns.size()),$cr#end
+#end
+#set($i = $i + 1)
+#end$cr
+        }));
+    }
 }

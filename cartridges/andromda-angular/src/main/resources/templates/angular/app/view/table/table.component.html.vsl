@@ -25,7 +25,7 @@
 #foreach ($column in $table.tableColumns)
             <ng-container matColumnDef="${column.name}">
                 <mat-header-cell *matHeaderCellDef>$stringUtils.capitalize(${column.name})</mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{ row.${column.name} }} </mat-cell>
+                <mat-cell *matCellDef="let row"> {{ row.get('${column.name}').value }} </mat-cell>
             </ng-container>
 #end
             <mat-header-row *matHeaderRowDef="${table.name}Columns"></mat-header-row>
