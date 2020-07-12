@@ -158,6 +158,16 @@
                     touched).
                 </documentation>
             </property>
+            <property name="controller-impls">
+                <documentation>
+                    The location to which any controllers are implementation.
+                </documentation>
+            </property>           
+            <property name="forms">
+                <documentation>
+                    The forms to which input is stored are output here.
+                </documentation>
+            </property>
         </propertyGroup>
         <propertyGroup name="Configuration">
             <documentation>

@@ -1,12 +1,71 @@
 #set ( $componentPath = $stringUtils.replaceChars($controller.packageName, '\\.', '\\/') )
 #set ( $fileName =  ${angularHelper.getComponentFileName($controller.name)})
-import { Injectable } from '@angular/core';
+#set($viewPopulator = "${controller.useCase.actionClassName}ViewPopulator")##should go to the controller metafacade
+import { Injectable, Injector } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-@Injectable()
-export abstract class $controller.name {
+#foreach ($service in $controller.allServices)
+#set ($path = $stringUtils.replaceChars(${service.packageName}, "\\.", "\\/"))
+#set ($file = $angularHelper.getComponentFileName("${service.name}Impl"))
+import { ${service.name}Impl } from 'src/app/impl/service/$path/$file';
+#end
 
+//@Injectable()
+export abstract class $controller.name extends ControllerBase {
+
+#foreach ($service in $controller.allServices)
+    protected $stringUtils.uncapitalize($service.name): ${service.name}Impl;
+#end
+
+    constructor(injector: Injector) {
+#foreach ($service in $controller.allServices)  
+        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name}Impl);
+#end
+    }
+
+/**
+     * Populate action form and page variables
+     *
+     * @param currentView the current view
+     * @param forward the forward view
+     * @param sourceForm the source form
+     * @throws IllegalAccessException
+     * @throws java.lang.reflect.InvocationTargetException
+     * @throws NoSuchMethodException
+     */
+    private populateActionFormsAndPageVariables(final String currentView, String forward, final Object sourceForm): void //throws IllegalAccessException, java.lang.reflect.InvocationTargetException, NoSuchMethodException
+    {
+        if(forward == null)
+        {
+            forward=currentView;
+        }
+        
+        const jpageVariables = this.getPageVariables(forward);
+#set($showElse=false)
+#foreach ($view in $controller.useCase.views)
+#if ($view.populatorRequired)
+#if($showElse)
+        else
+#end
+        if("$angularHelper.getComponentFileName("${view.name}")".equals(forward))
+        {
+#foreach ($viewAction in $view.formActions)
+            ${viewPopulator}.populateForm(sourceForm, this.${viewAction.formImplementationGetter});
+#end
+#if(!$view.variables.empty)
+            ${viewPopulator}.populate$stringUtils.upperCamelCaseName($view.name)PageVariables(sourceForm,pageVariables);
+#end
+        }
+#set($showElse=true)
+#if($velocityCount < $controller.useCase.views.size() && $showElse)
+#set($showElse=true)
+#end
+#end
+#end
+        ControllerBase.getUseCaseScope()[CURRENT_PAGE_VARIABLES_KEY] = pageVariables;
+    }
+    
 #foreach ($operation in $controller.operations)
     /**
 $operation.getDocumentation("     * ")
@@ -14,7 +73,222 @@ $operation.getDocumentation("     * ")
      * @param form the associated form
      * @throws Throwable
      */
-    public abstract ${operation.name}(): Observable<void>;
+    $operation.formSignature
+        throws Throwable;
 
+#end
+
+#foreach ($action in $controller.useCase.actions)
+#if (!$action.formFields.empty)
+    /**
+     * Retrieves the {@link $action.fullyQualifiedFormImplementationName} form instance 
+     *
+     * @return $action.fullyQualifiedFormImplementationName
+     */
+    protected $action.fullyQualifiedFormImplementationName $action.formImplementationGetter
+    {
+        return ($action.fullyQualifiedFormImplementationName)localStorage.getItem("$action.formBeanName");
+    }
+
+#end
+#set ($formPopulationOperationRequired = !$action.formFields.empty)
+    /**
+#if($action.exitingInitialState)
+     * This method is called when the use case '${controller.useCase.name}' starts.
+#else
+$action.trigger.getDocumentation("     * ")
+     * This method is called when '${action.trigger.name}' is triggered in the view '${action.source.name}'.
+#end
+     * It can be safely overridden in descendant classes.
+#if($formPopulationOperationRequired)
+     *
+     * @param form the associated form
+#end
+     */
+    protected void ${action.triggerMethodName}(#if($formPopulationOperationRequired)$action.fullyQualifiedFormImplementationName form#end)
+    {
+        //this method can be overridden
+    }
+
+    /**
+#if($action.exitingInitialState)     
+     * Retrieves the internal start use case
+#else
+     * Retrieves ${action.triggerName}()
+#end
+     *    
+     * @return ${action.triggerName}
+     * @throws Throwable
+     */
+#if($action.exitingInitialState)     
+    protected internalStartUseCase(useCaseParameters: Object): string
+#else
+    public ${action.triggerName}(): string
+#end
+        throws Throwable
+    {
+        this.setLastPostedFormClientId("${action.formBeanName}");
+        
+        forward: string = null;
+#if ($action.finalStateTarget)
+#if ($formPopulationOperationRequired)
+        this.${action.formImplementationGetter}.copyTo(getUseCaseParameters());
+    
+#end
+#set($targetController = $action.target.targetControllerFullyQualifiedName)
+#set($targetControllerBeanName = $action.target.targetControllerBeanName)
+        forward=#if($targetController)(($targetController)localStorage.getItem("$targetControllerBeanName")).startUseCase()#else closeDialog()#end;
+        
+#else
+#if ($formPopulationOperationRequired)
+        const $action.fullyQualifiedFormImplementationName form =
+            this.$action.formImplementationGetter;
+            
+#if($action.exitingInitialState)
+        //copy parameters form caller use case
+        form.copyFrom(useCaseParameters);
+        
+#end
+#end
+        //trigger method execution
+        ${action.triggerMethodName}(#if($formPopulationOperationRequired)form#end);
+
+        forward = #processTransition($action)
+#saveMessages($action "        ")
+#if ($formPopulationOperationRequired)
+        populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"${action.source.path}.${facesServletExtension}"#end,forward,form);
+#if(!$action.exitingInitialState && !$action.enteringFinalState)
+        if(forward !== null)
+        {
+            if("${action.name}".equals(forward))
+            {
+                forward = null; //the destination form is the same, stay on the current view
+            }
+        }
+        
+#end
+#end
+#end
+        return forward;
+    }
+
+#foreach ($actionState in $action.actionStates)
+    /**
+$actionState.getDocumentation("     * ")
+     *
+#if (!$action.formFields.empty)
+     * @param form the associated form
+#end
+     * @return the forward view
+     * @throws Throwable
+     */
+    protected ${actionState.actionMethodName}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form#end): string
+    {
+        forward: null = null;
+#if ($actionState.controllerCalls.empty && $actionState.serviceCalls.empty)
+## TODO UMLMETA-106 uml22 StateVertex outgoing FinalState target returns null/unknown for Exception transition.
+##        // actionState=$actionState controllerCalls=$actionState.controllerCalls.size()
+##foreach ($outgoing in $actionState.outgoings)
+##        // outgoing=$outgoing target=$outgoing.target
+##end
+##        // forward=$actionState.forward name=$actionState.name
+        forward = #processTransition($actionState.forward)
+#saveMessages($actionState.forward "        ")
+#else
+#set($exceptions = $actionState.exceptions)
+#if($exceptions.empty)
+#set($ident="")
+#else
+#set($ident="    ")
+        try
+        {
+#end
+#foreach ($serviceCall in $actionState.serviceCalls)
+##TODO add validation service params -> action params/form fields
+${ident}        this.get${serviceCall.owner.name}().${serviceCall.name}(#foreach($args in $serviceCall.arguments)form.${args.getterName}()#end);
+#end
+#foreach ($controllerCall in $actionState.controllerCalls)
+    
+#if (!$action.actionFormFields.empty)
+${ident}        $controllerCall.formCall;
+#else
+${ident}        // we pass an empty form implementation to the controller, we know there are no parameters on this operation because the
+${ident}        // cartridge would have issued a model validation error
+${ident}        ${controllerCall.name}(new ${controllerCall.interfaceName}());
+#end
+#end
+${ident}        forward = #processTransition($actionState.forward)
+#saveMessages($actionState.forward "${ident}        ")
+#if(!$exceptions.empty)
+        }
+        catch(Throwable t)
+        {
+#* *##if($exceptions.size() == 1 && $stringUtils.isBlank($exceptions.iterator().next().exceptionType))
+            forward = "${actionState.exceptions.iterator().next().target.path}.${facesServletExtension}";
+#* *##else
+            forward = null;
+#*  *##set($exceptionCount=0)
+#*  *##foreach($exception in $exceptions)
+#*   *##if($stringUtils.isNotBlank($exception.exceptionType))
+            if(#if($exceptionCount > 0)forward === null && #end t instanceof ${exception.exceptionType})
+            {
+                forward = "${exception.target.path}.${facesServletExtension}";
+            }
+#*    *##set($exceptionCount=$exceptionCount+1)
+#*   *##end
+#*   *##foreach($exception in $exceptions)
+#*    *##if($stringUtils.isBlank($exception.exceptionType))
+            if(forward === null)
+            {
+                forward = "${exception.target.path}.${facesServletExtension}";
+            }
+#*    *##end
+#*   *##end
+#*  *##end
+
+            if(forward === null)
+            {
+                //no match, throw the exception
+                throw t;
+            }
+#* *##end
+        }
+#end
+#end
+        return forward;
+    }
+
+#end
+#foreach ($decisionTransition in $action.decisionTransitions)
+    /**
+$decisionTransition.getDocumentation("     * ")
+     *
+     * @return a transition
+     */
+    protected __${decisionTransition.operationCall.name}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form#end): string
+    {
+        const value: string = '$decisionTransition.operationCall.formCall';
+        forward: string = null;
+#set($outgoings = $decisionTransition.target.outgoings)
+#foreach ($outcome in $outgoings)
+#set ($defaultOutcome = $outcome)
+        if (value === "$outcome.guard.name")
+        {
+            forward = #processTransition($outcome)
+#saveMessages($outcome "            ")
+        }
+#end
+        if (forward === null)
+        {
+            // throw exception in case we have an invalid return value from the controller
+            throw new RuntimeException("Runtime model error: no valid path selected. Selected path="+value);
+        }
+        else
+        {
+            return forward;
+        }
+    }
+
+#end
 #end
 }

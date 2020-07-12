@@ -268,6 +268,34 @@
     </template>
     
     <template
+        path="templates/angular/app/controller/controller.ts.vsl"
+        outputPattern="$componentPath/${fileName}.ts"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndController">
+                    <property name="useCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+        
+    <template
+        path="templates/angular/app/controller/controller.impl.ts.vsl"
+        outputPattern="$componentPath/${fileName}.ts"
+        outlet="controller-impls"
+        overwrite="false">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndController">
+                    <property name="useCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
         path="templates/angular/app/view/view.component.html.vsl"
         outputPattern="$componentPath/${fileName}.component.html"
         outlet="view-impls"
@@ -481,4 +509,48 @@
             </modelElement>
         </modelElements>
     </template>
+    <template
+        path="templates/angular/app/forms/FormImpl.ts.vsl"
+        outputPattern="$generatedFile"
+        outlet="forms"
+        overwrite="true">
+        <modelElements variable="action">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndAction">
+                    <property name="formFields"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    <template
+        path="templates/angular/app/forms/Form.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="forms"
+        overwrite="true">
+        <modelElements variable="operation">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndControllerOperation">
+                    <property name="formFields"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    <template
+        path="templates/angular/app/flow/view.populator.vsl"
+        outputPattern="$stringUtils.replace($useCase.packageName, '.', '/')/${fileName}.view.populator.ts"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements>
+            <modelElement variable="useCase">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="views"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    <template
+        path="templates/angular/app/utils/controller.base.ts.vsl"
+        outputPattern="$generatedFile"
+        outlet="controllers"
+        overwrite="true"/>
 </cartridge>

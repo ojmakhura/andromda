@@ -17,6 +17,7 @@ import { NgForm, FormGroup, FormControl, FormArray } from '@angular/forms';
 #set ( $rt = $finalFields.add($finalField) )
 #end
 #set ( $attr = [] )
+#set ( $types = [] )
 #foreach ( $action in $view.actions )
 #if (!$action.tableLink)
 #set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/')" )
@@ -26,20 +27,21 @@ import { $angularHelper.getComponentName($action.name, "-")ImplComponent } from 
 #if (!(${field.action} && $field.action.tableLinkName))
 #if ($field.complex)
 #set ( $rt = $attr.add($field ))
+#set ( $rt = $types.add($field.type))
 #end
 #end
 #end
 #end
 #end
 #set ( $finalAttr = [] ) ## No repetisions
-#foreach ( $at in $angularHelper.getFacadeSet($attr) )
+#foreach ( $at in $angularHelper.getFacadeSet($types) )
 #set ($rt = $finalAttr.add($at) )
 #end
 
 #foreach($a in $finalAttr)
 #set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${a.packageName}), '\\.', '\\/')" )
 #set ( $name = $angularHelper.getComponentFileName("$a.name") )
-import { $a.name } from 'sc/app/gen/model/$path/$name';
+import { $a.name } from 'src/app/gen/model/$path/$name';
 #end
 
 #set ($tmpName = ${angularHelper.getComponentName("$fileName", "-")})
@@ -53,7 +55,7 @@ export abstract class ${tmpName}Component implements OnInit {
 
     protected route: ActivatedRoute;
     protected router: Router;
-	protected formBuilder: RxFormBuilder;
+    protected formBuilder: RxFormBuilder;
 
     constructor(injector: Injector) {
         this.route = injector.get(ActivatedRoute);
@@ -61,25 +63,25 @@ export abstract class ${tmpName}Component implements OnInit {
         this.formBuilder = injector.get(RxFormBuilder);
     }
 
-	abstract beforeOnInit();
+    abstract beforeOnInit();
 	
     ngOnInit() {
-		this.beforeOnInit();
+        this.beforeOnInit();
 		
-		this.afterOnInit();
+        this.afterOnInit();
     }
 
-	abstract afterOnInit();
+    abstract afterOnInit();
 
-	getItemControl(name): FormControl {
-		return this.${stringUtils.uncapitalize(${tmpName})}Form.get(name) as FormControl;
-	}
+    getItemControl(name): FormControl {
+        return this.${stringUtils.uncapitalize(${tmpName})}Form.get(name) as FormControl;
+    }
 
-	getGroupControl(name): FormGroup {
-		return this.${stringUtils.uncapitalize(${tmpName})}Form.get(name) as FormGroup;
-	}
+    getGroupControl(name): FormGroup {
+        return this.${stringUtils.uncapitalize(${tmpName})}Form.get(name) as FormGroup;
+    }
 
-	getArrayControl(name): FormArray {
-		return this.${stringUtils.uncapitalize(${tmpName})}Form.get(name) as FormArray;
-	}
+    getArrayControl(name): FormArray {
+        return this.${stringUtils.uncapitalize(${tmpName})}Form.get(name) as FormArray;
+    }
 }

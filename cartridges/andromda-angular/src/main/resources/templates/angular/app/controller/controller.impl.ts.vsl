@@ -1,34 +1,18 @@
 #set ( $componentPath = $stringUtils.replaceChars($controller.packageName, '\\.', '\\/') )
 #set ( $fileName =  ${angularHelper.getComponentFileName("${controller.name}Impl")})
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ${controller.name} } from './${angularHelper.getComponentFileName("${controller.name}")}';
-#set ($args = [])
-#foreach ($service in $controller.allServices)
-#set ($ret = $args.add($service))
-#end
-#set ($suffix = "Impl")
-#foreach ($tmp in $angularHelper.getImports($args, $controller.packageName, $suffix))
-$tmp
-#end
+import { ${controller.name} } from 'src/app/gen/controller/$componentPath/${angularHelper.getComponentFileName("${controller.name}")}';
 
 @Injectable()
 export class ${controller.implementationName} extends ${controller.name} {
 
-#set ($serviceInc = "")
-#foreach ($service in $controller.allServices)
-#if ($stringUtils.isBlank($serviceInc))
-#set ($serviceInc = "private $stringUtils.uncapitalize($service.name): ${service.name}Impl")
-#else
-#set ($serviceInc = "$serviceInc, private $stringUtils.uncapitalize($service.name): ${service.name}Impl")
-#end
-#end
-	constructor($serviceInc) {
-		super();
-	}
+    constructor(private injector: Injector) {
+        super(injector);
+    }
 
 #foreach ($operation in $controller.operations)
-	public ${operation.name}(): Observable<void> {
+	public ${operation.name}(): $angularHelper.getDatatype($operation.returnType.name) {
 	}
 
 #end

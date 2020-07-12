@@ -3,7 +3,7 @@
 ##
 #macro (setFieldTypeName $field $fieldTypeName)
 #if ($field.pageableTable)
-#set ($fieldTypeName = "javax.faces.model.DataModel")
+#set ($fieldTypeName = "java.util.Collection")
 #elseif ($field.type.collectionType)
 #set ($fieldTypeName = "java.util.Collection")
 #elseif ($field.type.fileType || $field.needsFileUpload)
@@ -33,7 +33,7 @@
 ##
 #macro (setFieldWrapperTypeName $field $fieldWrapperTypeName)
 #if ($field.pageableTable)
-#set ($fieldWrapperTypeName = "javax.faces.model.DataModel")
+#set ($fieldWrapperTypeName = "java.util.Collection")
 #elseif ($field.type.collectionType)
 #set ($fieldWrapperTypeName = "java.util.Collection")
 #elseif ($field.type.fileType || $field.needsFileUpload)

@@ -18,6 +18,7 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ValueObject;
 import org.andromda.metafacades.uml.EnumerationFacade;
+import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.Service;
 import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndView;
@@ -400,6 +401,8 @@ public class AngularHelper {
             type = ((AttributeFacade)element).getType();
         } else if(element instanceof ParameterFacade) {
             type = ((ParameterFacade)element).getType();
+        } else if(element instanceof FrontEndParameter) {
+            type = ((FrontEndParameter)element).getType();
         }
 		
         if (type != null)
