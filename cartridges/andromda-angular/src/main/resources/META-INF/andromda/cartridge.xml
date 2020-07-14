@@ -523,7 +523,7 @@
         </modelElements>
     </template>
     <template
-        path="templates/angular/app/forms/Form.java.vsl"
+        path="templates/angular/app/forms/Form.ts.vsl"
         outputPattern="$generatedFile"
         outlet="forms"
         overwrite="true">
@@ -536,7 +536,7 @@
         </modelElements>
     </template>
     <template
-        path="templates/angular/app/flow/view.populator.vsl"
+        path="templates/angular/app/flow/view.populator.ts.vsl"
         outputPattern="$stringUtils.replace($useCase.packageName, '.', '/')/${fileName}.view.populator.ts"
         outlet="controllers"
         overwrite="true">

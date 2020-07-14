@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import org.andromda.cartridges.jsf2.JSFProfile;
 import org.andromda.cartridges.jsf2.metafacades.JSFAttribute;
+import org.andromda.cartridges.jsf2.metafacades.JSFControllerOperationLogic;
 import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.cartridges.webservice.metafacades.WebServiceOperation;
   
@@ -25,6 +26,7 @@ import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.TaggedValueFacade;
+import org.andromda.metafacades.uml.OperationFacade;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
@@ -450,5 +452,31 @@ public class AngularHelper {
                 
             return attr.getName();
         }
+    }
+    /**
+     * Constructs the signature that takes the form for this operation.
+     *
+     * @param isAbstract whether or not the signature is abstract.
+     * @return the appropriate signature.
+     */
+    public static String getFormOperationSignature(JSFControllerOperationLogic operation, boolean isAbstract)
+    {
+        final StringBuilder signature = new StringBuilder();
+        signature.append(operation.getVisibility() + ' ');
+        if (isAbstract)
+        {
+            signature.append("abstract ");
+        }
+        
+        signature.append(" " + operation.getName() + "(");
+        if (!operation.getFormFields().isEmpty())
+        {
+            signature.append("form: " + operation.getFormName());
+        }
+        signature.append("): ");
+        final ModelElementFacade returnType = operation.getReturnType();
+        signature.append(returnType != null ? returnType.getFullyQualifiedName() : null);
+        
+        return signature.toString();
     }
 }

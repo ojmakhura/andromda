@@ -1,10 +1,34 @@
 #set ($className = "${useCase.actionClassName}ViewPopulator")
-#set ( $componentPath = "" )
 #if ($stringUtils.isNotEmpty($useCase.packageName))
-package $useCase.packageName;
 #set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${useCase.packageName}), '\\.', '\\/') )
 #end
 #set ( $fileName = $angularHelper.getComponentFileName("${useCase.actionClassName}"))
+#set($commonFields = [])##holds the matching fields in fromForm -> toForm, this block should go to java code
+#set($forms = [])##holds the matching fields in fromForm -> toForm, this block should go to java code
+#foreach ($view in $useCase.views)
+#foreach ($viewAction in $view.formActions)
+#foreach ($action in $useCase.actions)
+#if(!$action.formFields.empty && !$action.equals($view.formActions))
+#foreach ($field in $action.formFields)
+#foreach ($testField in $viewAction.formFields) 
+#if($testField.name == $field.name && $testField.type.equals($field.type))##check if the field exists in both forms
+#set($dummy = $commonFields.add($field))    
+#end
+#end
+#end
+#if(!$commonFields.empty)
+#set ( $dummy = $forms.add($action) )
+#set ( $dummy = $forms.add($viewAction) )
+#end
+#end
+#end
+#end
+#end
+#foreach ( $form in $angularHelper.getFacadeSet($forms) )
+#set ( $formPath = $stringUtils.replaceChars($form.packageName, '\\.', '\\/') )
+#set ( $formFile =  ${angularHelper.getComponentFileName("${form.formImplementationName}")})
+import { $form.getFormImplementationName() } from 'src/app/gen/form/$formPath/${formFile}';
+#end
 ##WIM *** move combinations to java code
 ## holds the fromFrom -> toForm matches, where exists at least one equal field (name+type)
 ## actually it should only combine forms having a linking forward
@@ -28,20 +52,20 @@ export class $className
 #end
 #end
 #if(!$commonFields.empty)
-#set($dummy=$formCombinations.add("${action.fullyQualifiedFormImplementationName}-${viewAction.fullyQualifiedFormImplementationName}"))
+#set($dummy=$formCombinations.add("${action.getFormImplementationName()}-${viewAction.getFormImplementationName()}"))
     /**
-     * Map fields from $action.fullyQualifiedFormImplementationName form
-     * to $viewAction.fullyQualifiedFormImplementationName form
+     * Map fields from $action.getFormImplementationName() form
+     * to $viewAction.getFormImplementationName() form
      *
      * @param fromForm origin form
      * @param toForm destiny form
      */
-    static populateForm($action.fullyQualifiedFormImplementationName fromForm, $viewAction.fullyQualifiedFormImplementationName toForm): void
+    static populateForm${action.getFormImplementationName()}(fromForm: $action.getFormImplementationName(), toForm: $viewAction.getFormImplementationName()): void
     {
 #foreach($field in $commonFields)
-        if(fromForm.$field.name)
+        if(fromForm.is${stringUtils.capitalize($field.formAttributeSetProperty)}())
         {
-            toForm.${field.name} = fromForm.${field.name});
+            toForm.${field.setterName}(fromForm.${field.getterName}());
         }
 #if ($field.selectable || $field.type.enumeration)##This test should go to a needsBackingList method
 #set ($backingListMethod = $stringUtils.capitalize($field.backingListName))
@@ -66,7 +90,7 @@ export class $className
      * @param fromForm origin form
      * @param pageVariables the page variables
      */
-    static populate$stringUtils.upperCamelCaseName($view.name)PageVariables(Object fromForm, pageVariables: Object): void
+    static populate$stringUtils.upperCamelCaseName($view.name)PageVariables(fromForm: Object, pageVariables: Object): void
     {
 #foreach ($action in $useCase.actions)
 #set($commonFields = [])##holds the matching fields/variables, this block should go to java code
@@ -78,9 +102,9 @@ export class $className
 #end
 #end
 #if(!$commonFields.empty)
-       #if($showElse) else#end if(fromForm instanceof $action.fullyQualifiedFormImplementationName)
+       #if($showElse) else#end if(fromForm instanceof $action.getFormImplementationName())
         {
-            final $action.fullyQualifiedFormImplementationName sourceForm=($action.fullyQualifiedFormImplementationName)fromForm;
+            final $action.getFormImplementationName() sourceForm=($action.getFormImplementationName())fromForm;
 #foreach($field in $commonFields)
             if(sourceForm.$field.formAttributeSetProperty))
             {
@@ -101,16 +125,17 @@ export class $className
      * @param fromForm the origin form
      * @param toForm the destiny form
      */
-    static populateForm(Object fromForm, $viewAction.fullyQualifiedFormImplementationName toForm): void
+    static populateForm(fromForm: Object, toForm: $viewAction.getFormImplementationName()): void
     {
 ## WIM: it looks to the values should be kept during all the form life (useCaseScope) 
 ##     toForm.resetIsSetFlags();
 #set($showElse = false)
 #foreach ($action in $useCase.actions)
-#if($formCombinations.contains("${action.fullyQualifiedFormImplementationName}-${viewAction.fullyQualifiedFormImplementationName}") )
-       #if($showElse) else#end if(fromForm instanceof $action.fullyQualifiedFormImplementationName)
+#if($formCombinations.contains("${action.getFormImplementationName()}-${viewAction.getFormImplementationName()}") )
+#set( $methodName = "populateForm${action.getFormImplementationName}" )
+       #if($showElse) else#end if(fromForm instanceof $action.getFormImplementationName())
         {
-            populateForm(($action.fullyQualifiedFormImplementationName)fromForm,toForm);
+            ${className}.populateForm${action.getFormImplementationName()}(<$action.getFormImplementationName()>fromForm, toForm);
         }
 #set($showElse = true)
 #end

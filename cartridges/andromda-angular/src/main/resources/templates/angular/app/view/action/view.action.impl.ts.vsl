@@ -20,13 +20,13 @@ export class ${className}ImplComponent extends ${className}Component {
     ${action.triggerName}() {
     }
 
-	beforeOnInit(){
-	}
+    beforeOnInit(){
+    }
 	
-	afterOnInit() {
-	}
+    afterOnInit() {
+    }
 
 
-	do$stringUtils.capitalize($action.triggerName)() {
-	}
+    do$stringUtils.capitalize($action.triggerName)() {
+    }
 }
