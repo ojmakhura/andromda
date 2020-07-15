@@ -90,7 +90,7 @@ export class $className
      * @param fromForm origin form
      * @param pageVariables the page variables
      */
-    static populate$stringUtils.upperCamelCaseName($view.name)PageVariables(fromForm: Object, pageVariables: Object): void
+    static populate$stringUtilsHelper.upperCamelCaseName($view.name)PageVariables(fromForm: Object, pageVariables: Object): void
     {
 #foreach ($action in $useCase.actions)
 #set($commonFields = [])##holds the matching fields/variables, this block should go to java code
@@ -104,11 +104,11 @@ export class $className
 #if(!$commonFields.empty)
        #if($showElse) else#end if(fromForm instanceof $action.getFormImplementationName())
         {
-            final $action.getFormImplementationName() sourceForm=($action.getFormImplementationName())fromForm;
+            final sourceForm: $action.getFormImplementationName() = <$action.getFormImplementationName()>fromForm;
 #foreach($field in $commonFields)
             if(sourceForm.$field.formAttributeSetProperty))
             {
-                pageVariables['${field.name}'] = sourceForm.${field.name});
+                pageVariables['${field.name}'] = sourceForm.${field.name};
             }
 #end
 #set($showElse = true)

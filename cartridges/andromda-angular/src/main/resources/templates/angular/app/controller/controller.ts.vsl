@@ -13,6 +13,15 @@ import { ControllerBase } from 'src/app/gen/controller/utils/controller.base';
 #set ($file = $angularHelper.getComponentFileName("${service.name}Impl"))
 import { ${service.name}Impl } from 'src/app/impl/service/$path/$file';
 #end
+import { $viewPopulator } from './${angularHelper.getComponentFileName(${controller.useCase.actionClassName})}.view.populator';
+
+#foreach ($action in $controller.useCase.actions)
+#if($action.formFields.size() > 0)
+#set ( $path = $stringUtils.replaceChars($action.packageName, '\\.', '\\/') )
+#set ( $file =  ${angularHelper.getComponentFileName("${action.formImplementationName}")})
+import { $action.formImplementationName } from 'src/app/gen/form/$path/$file';
+#end
+#end
 
 //@Injectable()
 export abstract class $controller.name extends ControllerBase {
@@ -58,7 +67,7 @@ export abstract class $controller.name extends ControllerBase {
             ${viewPopulator}.populateForm(sourceForm, this.${viewAction.formImplementationGetter});
 #end
 #if(!$view.variables.empty)
-            ${viewPopulator}.populate$stringUtils.upperCamelCaseName($view.name)PageVariables(sourceForm,pageVariables);
+            ${viewPopulator}.populate$stringUtilsHelper.upperCamelCaseName($view.name)PageVariables(sourceForm, pageVariables);
 #end
         }
 #set($showElse=true)
@@ -86,9 +95,10 @@ $operation.getDocumentation("     * ")
      *
      * @return $action.fullyQualifiedFormImplementationName
      */
-    protected $action.fullyQualifiedFormImplementationName $action.formImplementationGetter
+    protected $action.formImplementationGetter: $action.formImplementationName
     {
-        return ($action.fullyQualifiedFormImplementationName)localStorage.getItem("$action.formBeanName");
+#set ($form = $stringUtils.substringBefore($action.formImplementationName, "Impl"))
+        return <$action.formImplementationName>JSON.parse(localStorage.getItem('$stringUtils.uncapitalize($form)'));
     }
 
 #end
@@ -106,7 +116,7 @@ $action.trigger.getDocumentation("     * ")
      * @param form the associated form
 #end
      */
-    protected ${action.triggerMethodName}(#if($formPopulationOperationRequired)$action.fullyQualifiedFormImplementationName form#end): void
+    protected ${action.triggerMethodName}(#if($formPopulationOperationRequired)form: $action.formImplementationName#end): void
     {
         //this method can be overridden
     }
@@ -141,7 +151,7 @@ $action.trigger.getDocumentation("     * ")
         
 #else
 #if ($formPopulationOperationRequired)
-        const $action.fullyQualifiedFormImplementationName form =
+        const form: $action.formImplementationName =
             this.$action.formImplementationGetter;
             
 #if($action.exitingInitialState)
@@ -156,7 +166,7 @@ $action.trigger.getDocumentation("     * ")
         forward = #processTransition($action)
 #saveMessages($action "        ")
 #if ($formPopulationOperationRequired)
-        populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"${action.name}"#end, forward, form);
+        this.populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"${action.name}"#end, forward, form);
 #if(!$action.exitingInitialState && !$action.enteringFinalState)
         if(forward !== null)
         {
@@ -182,9 +192,9 @@ $actionState.getDocumentation("     * ")
      * @return the forward view
      * @throws Throwable
      */
-    protected ${actionState.actionMethodName}(#if (!$action.formFields.empty)const form: ${action.name}Impl#end): string
+    protected ${actionState.actionMethodName}(#if (!$action.formFields.empty)form: ${action.formImplementationName}#end): string
     {
-        forward: sttring = null;
+        let forward: string = null;
 #if ($actionState.controllerCalls.empty && $actionState.serviceCalls.empty)
 ## TODO UMLMETA-106 uml22 StateVertex outgoing FinalState target returns null/unknown for Exception transition.
 ##        // actionState=$actionState controllerCalls=$actionState.controllerCalls.size()
@@ -210,11 +220,11 @@ ${ident}        this.get${serviceCall.owner.name}().${serviceCall.name}(#foreach
 #foreach ($controllerCall in $actionState.controllerCalls)
     
 #if (!$action.actionFormFields.empty)
-${ident}        $controllerCall.formCall;
+${ident}        this.$controllerCall.formCall;
 #else
 ${ident}        // we pass an empty form implementation to the controller, we know there are no parameters on this operation because the
 ${ident}        // cartridge would have issued a model validation error
-${ident}        ${controllerCall.name}(new ${controllerCall.interfaceName}());
+${ident}        this.${controllerCall.name}(new ${controllerCall.interfaceName}());
 #end
 #end
 ${ident}        forward = #processTransition($actionState.forward)
@@ -224,7 +234,8 @@ ${ident}        forward = #processTransition($actionState.forward)
         catch(Throwable t)
         {
 #* *##if($exceptions.size() == 1 && $stringUtils.isBlank($exceptions.iterator().next().exceptionType))
-            forward = "${actionState.exceptions.iterator().next().target.path}.${facesServletExtension}";
+#set ($pt = ${actionState.exceptions.iterator().next().target.name})
+            forward = "$angularHelper.getComponentFileName($pt)";
 #* *##else
             forward = null;
 #*  *##set($exceptionCount=0)
@@ -232,7 +243,8 @@ ${ident}        forward = #processTransition($actionState.forward)
 #*   *##if($stringUtils.isNotBlank($exception.exceptionType))
             if(#if($exceptionCount > 0)forward === null && #end t instanceof ${exception.exceptionType})
             {
-                forward = "${exception.target.path}.${facesServletExtension}";
+#set ($pt = ${exception.target.name})
+                forward = "$angularHelper.getComponentFileName($pt)";
             }
 #*    *##set($exceptionCount=$exceptionCount+1)
 #*   *##end
@@ -240,7 +252,8 @@ ${ident}        forward = #processTransition($actionState.forward)
 #*    *##if($stringUtils.isBlank($exception.exceptionType))
             if(forward === null)
             {
-                forward = "${exception.target.path}.${facesServletExtension}";
+#set ($pt = ${exception.target.name})
+                forward = "$angularHelper.getComponentFileName($pt)";
             }
 #*    *##end
 #*   *##end

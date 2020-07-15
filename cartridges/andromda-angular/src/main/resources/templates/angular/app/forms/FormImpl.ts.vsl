@@ -17,7 +17,7 @@ import { $field.type.name } from 'src/app/gen/model/${path}/$file';
 #end
 #end
 #foreach($opr in $action.getDeferredOperations() )
-import { $opr.formName } from './${angularHelper.getComponentFileName("${opr.name}")}';
+import { $opr.formName } from './${angularHelper.getComponentFileName("${opr.formName}")}';
 #end
 
 /**
@@ -28,7 +28,7 @@ export class $action.formImplementationName
 
 {
     /**
-     * Default constructor
+     * constructor
      */
     constructor()
     {
@@ -135,5 +135,5 @@ $field.getDocumentation("     * ")
 #end
     }
 
-##renderCopyFrom($action.formImplementationName $action.formFields "")
+#renderCopyFrom($action.formImplementationName $action.formFields "")
 }

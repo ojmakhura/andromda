@@ -1,0 +1,47 @@
+##
+##  This macro renders the backing list support for the form implementation
+##
+#macro(renderBackingListImplSupport $field $ownerParameter)
+#if ($field.backingListName)
+#set ($backingListName = $field.backingListName)
+#else
+#set ($backingListName = $field.getBackingListName($ownerParameter))
+#end
+
+    /**
+     * Stores the label/value pairs.
+     */
+    private $backingListName: Array<Object>;
+
+#set ($backingListMethod = $stringUtils.capitalize($backingListName))
+
+    /**
+     * @return backingList Array<Object>
+     */
+    get${backingListMethod}(): Array<Object>
+    {
+        return $backingListName;
+    }
+
+    /**
+     * @param ${backingListName}In
+     */
+    public set${backingListMethod}(${backingListName}In: Array<Object>): void
+    {
+        this.$backingListName = ${backingListName}In;
+    }
+    
+#end
+##
+##  This macro renders an alternate getter to boolean types because some frameworks
+##  like Primefaces does not work well with 'is' in boolean types
+##
+#macro (renderAlternateGetterForPrimitiveBoolean $fieldName $fieldType $defaultGetter)
+#if($defaultGetter.startsWith("is"))
+#set($newGetter = $defaultGetter.replaceFirst("is","get"))
+    public $newGetter(): $angularHelper.getDatatype($fieldType.name)
+    {
+        return this.$fieldName;
+    }
+#end
+#end

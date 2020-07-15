@@ -1,7 +1,6 @@
 #set ( $componentPath = $stringUtils.replaceChars($controller.packageName, '\\.', '\\/') )
 #set ( $fileName =  ${angularHelper.getComponentFileName("${controller.name}Impl")})
 import { Injectable, Injector } from '@angular/core';
-import { Observable } from 'rxjs';
 import { ${controller.name} } from 'src/app/gen/controller/$componentPath/${angularHelper.getComponentFileName("${controller.name}")}';
 
 @Injectable()

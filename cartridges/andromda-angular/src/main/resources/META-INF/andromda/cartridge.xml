@@ -6,19 +6,21 @@
 		<macrolibrary name="templates/angular/app/view/renderAngularActionCommandLinkParameter.vm"/>
 		<macrolibrary name="templates/angular/app/view/renderAngularTableCommandLinkParameters.vm"/>
 <!--        <macrolibrary name="templates/jsf2/escapeMacros.vm"/>
-        <macrolibrary name="templates/jsf2/controllers/Controller.java.vm"/>
         <macrolibrary name="templates/jsf2/views/facelets/trinidad/renderActionFormInputTrinidad.vm"/>
         <macrolibrary name="templates/jsf2/views/facelets/primefaces/renderActionFormInputPrimeFaces.vm"/>
         <macrolibrary name="templates/jsf2/views/renderActionCommandLinkParameter.vm"/>
         <macrolibrary name="templates/jsf2/views/renderTableCommandLinkParameters.vm"/>
-        <macrolibrary name="templates/jsf2/forms/formMacros.vm"/>
-        <macrolibrary name="templates/jsf2/forms/formImplMacros.vm"/>-->
+        -->
+        <macrolibrary name="templates/angular/app/controller/controller.ts.vm"/>
+        <macrolibrary name="templates/angular/app/forms/angularFormMacros.vm"/>
+        <macrolibrary name="templates/angular/app/forms/angularFormImplMacros.vm"/>
         <macrolibrary name="templates/jsf2/configuration/securityMacros.vm"/>
         <macrolibrary name="templates/webservice/jaxws/RenderRestrictions.vm"/>
     </templateEngine>
 
     <!-- define the template objects that are made available to the template -->
     <templateObject name="stringUtils" className="org.apache.commons.lang3.StringUtils"/>
+    <templateObject name="stringUtilsHelper" className="org.andromda.utils.StringUtilsHelper"/>
     <templateObject name="wordUtils" className="org.apache.commons.lang3.text.WordUtils"/>
     <templateObject name="javaUtils" className="org.andromda.cartridges.java.JavaUtils"/>
     <templateObject name="umlUtils" className="org.andromda.metafacades.uml.UMLMetafacadeUtils"/>

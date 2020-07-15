@@ -5,15 +5,16 @@
 #if (!$transition)
 null;
 #elseif ($transition.enteringFinalState)
-#set($targetController = $transition.target.targetControllerFullyQualifiedName)
+#set($targetController = $transition.target.targetElement.controller.name)
 #set($targetControllerBeanName = $transition.target.targetControllerBeanName)
-#if($targetController)(localStorage.getItem('$targetControllerBeanName')).startUseCase()#else closeDialog()#end;
+#if($targetController)(<$targetController>JSON.parse(localStorage.getItem('$targetControllerBeanName'))).startUseCase()#else closeDialog()#end;
 #elseif ($transition.enteringView)
-"${transition.target.path}.${facesServletExtension}";
+#set ($pt = ${transition.target.name})
+"$angularHelper.getComponentFileName($pt)";
 #elseif ($transition.enteringDecisionPoint)
-__${transition.operationCall.name}(#if (!$action.formFields.empty)form#end);
+this.__${transition.operationCall.name}(#if (!$action.formFields.empty)form#end);
 #else
-${transition.target.actionMethodName}(#if (!$action.formFields.empty)form#end);
+this.${transition.target.actionMethodName}(#if (!$action.formFields.empty)form#end);
 #end
 #end
 ##
