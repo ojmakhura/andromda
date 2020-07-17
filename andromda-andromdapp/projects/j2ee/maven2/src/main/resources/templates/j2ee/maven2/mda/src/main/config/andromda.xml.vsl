@@ -573,7 +573,7 @@
                 <property name="controllers">${angular.controller.dir}</property>
                 <property name="controller-impls">${angular.controller.impl.dir}</property>
                 <property name="models">${angular.model.dir}</property>
-                <property name="forms">${web.generated.java.dir}</property>
+                <property name="forms">${angular.form.dir}</property>
 #if (!$webservice.equals("none") && !$jsr181Webservice)
                 <property name="wsdlSoapAddress">http://${service.host}:${service.port}/${application.id}-ws/services</property>
                 <property name="jaxb-gen">${common.generated.dir}</property>

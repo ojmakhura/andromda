@@ -149,7 +149,7 @@ public class AngularHelper {
                     datatype = getDatatype(tmp) + "[]";
                     
                 } else {
-                    datatype = "Object[]";
+                    datatype = "any[]";
                 }
             } else if(obj instanceof Map) {
                 datatype = "Map";

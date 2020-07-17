@@ -11,22 +11,22 @@
     /**
      * Stores the label/value pairs.
      */
-    private $backingListName: Array<Object>;
+    private $backingListName: Array<any>;
 
 #set ($backingListMethod = $stringUtils.capitalize($backingListName))
 
     /**
-     * @return backingList Array<Object>
+     * @return backingList Array<any>
      */
-    get${backingListMethod}(): Array<Object>
+    get${backingListMethod}(): Array<any>
     {
-        return $backingListName;
+        return this.$backingListName;
     }
 
     /**
      * @param ${backingListName}In
      */
-    public set${backingListMethod}(${backingListName}In: Array<Object>): void
+    public set${backingListMethod}(${backingListName}In: Array<any>): void
     {
         this.$backingListName = ${backingListName}In;
     }

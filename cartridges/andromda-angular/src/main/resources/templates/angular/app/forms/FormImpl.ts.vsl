@@ -65,6 +65,7 @@ $field.getDocumentation("     * ")
 #end
         return this.${field.name};
     }
+#renderAlternateGetterForPrimitiveBoolean($field.name $fieldTypeName ${field.getterName})
 
     /**
      * Keeps track of whether or not the value of $field.name has
@@ -104,19 +105,19 @@ $field.getDocumentation("     * ")
         this.$field.name = ${field.name}In;
         this.$field.formAttributeSetProperty = true;
     }
-##renderBackingListImplSupport($field "")
-##if (!$field.type.enumeration)
-##if (!$field.attributes.empty)
+#renderBackingListImplSupport($field "")
+#if (!$field.type.enumeration)
+#if (!$field.attributes.empty)
 
     // $field.name attributes
-##end
-##foreach ($attribute in $field.attributes)
+#end
+#foreach ($attribute in $field.attributes)
 ## - Chad Brandon - we ALWAYS render the backing list for attributes in the form
 ##   impl (because there are complex conditions where they might not show up and cause
 ##   uncompilable code; if we always render, we don't need to figure out what they are)
-##renderBackingListImplSupport($attribute $field)
-##end
-##end
+#renderBackingListImplSupport($attribute $field)
+#end
+#end
 
 #end
 
@@ -125,7 +126,7 @@ $field.getDocumentation("     * ")
      *
      * @param dest the destination Map
      */  
-    public copyTo(dest: Object)
+    public copyTo(dest: any)
     {
 #foreach ($field in $action.formFields)
         if(this.${field.formAttributeSetProperty})

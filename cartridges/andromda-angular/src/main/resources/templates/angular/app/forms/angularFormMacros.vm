@@ -21,7 +21,7 @@
 #set ($fieldTypeName = $fieldType.fullyQualifiedName)
 #else
 #if($end.type.compositeIdentifier)
-#set ($fieldTypeName = "Object")
+#set ($fieldTypeName = "any")
 #else
 #set ($fieldType = $end.type.identifiers.iterator().next().type)
 #set ($fieldTypeName = $fieldType.fullyQualifiedName)
@@ -53,7 +53,7 @@
      *
      * @param source the source Map
      */     
-     copyFrom(source: Object): ${beanClass}
+     copyFrom(source: any): ${beanClass}
     {
 #foreach ($field in $attributes)
 #setFieldWrapperTypeName($field $fieldWrapperTypeName)
@@ -69,7 +69,7 @@
         }
 #end
 #end
-#foreach ($end in $associationEnds)
+#foreach ($end in $assocvsliationEnds)
 #setAssociationEndFieldTypeName($end)
 #if($end.many)
         if('${field.name}' in source)
@@ -100,11 +100,11 @@
     /**
      * @return backingList java.util.Collection<javax.faces.model.SelectItem>
      */
-    get${backingListMethod}(): Array<Object>;
+    get${backingListMethod}(): Array<any>;
 
     /**
      * @param ${backingListName}In
      */
-    set${backingListMethod}(${backingListName}In: Array<Object>): void;
+    set${backingListMethod}(${backingListName}In: Array<any>): void;
     
 #end

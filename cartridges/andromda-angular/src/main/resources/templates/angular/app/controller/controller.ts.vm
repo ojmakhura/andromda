@@ -5,16 +5,18 @@
 #if (!$transition)
 null;
 #elseif ($transition.enteringFinalState)
-#set($targetController = $transition.target.targetElement.controller.name)
+#set($targetController = $transition.target.targetElement.controller)
 #set($targetControllerBeanName = $transition.target.targetControllerBeanName)
-#if($targetController)(<$targetController>JSON.parse(localStorage.getItem('$targetControllerBeanName'))).startUseCase()#else closeDialog()#end;
+##if($targetControlle.name)(<$targetController.name>JSON.parse(localStorage.getItem('$targetControllerBeanName'))).startUseCase()#else closeDialog()#end;
+#if($targetController.name)this.${stringUtils.uncapitalize(${targetController.name})}.startUseCase()#else closeDialog()#end;
 #elseif ($transition.enteringView)
-#set ($pt = ${transition.target.name})
-"$angularHelper.getComponentFileName($pt)";
+#set ($pt = $angularHelper.getComponentFileName(${transition.target.name}))
+#set ( $cls = $angularHelper.getComponentName($pt, "-") )
+'$stringUtils.lowerCase($cls)';
 #elseif ($transition.enteringDecisionPoint)
 this.__${transition.operationCall.name}(#if (!$action.formFields.empty)form#end);
 #else
-this.${transition.target.actionMethodName}(#if (!$action.formFields.empty)form#end);
+this.${transition.target.actionMethodName}#if (!$action.formFields.empty)${action.formImplementationName}#end(#if (!$action.formFields.empty)form#end);
 #end
 #end
 ##

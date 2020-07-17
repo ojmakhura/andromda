@@ -30,7 +30,7 @@
 #set ( $fileName = $angularHelper.getComponentFileName("${view.name}"))
 #set ( $className = $angularHelper.getComponentName($fileName, "-") )
 #set ( $rt = $classNames.add("${className}ImplComponent"))
-#set ( $rt = $imports.add("import { ${className}ImplComponent } from ${escTool.s}./view/${componentPath}/${fileName}.impl.component${escTool.s};"))
+#set ( $rt = $imports.add("import { ${className}ImplComponent } from ${escTool.s}./impl/view/${componentPath}/${fileName}.impl.component${escTool.s};"))
 ## Actions
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
@@ -38,7 +38,7 @@
 #set ( $actionFileName = $angularHelper.getComponentFileName("$action.name") )
 #set ( $actionName = "${angularHelper.getComponentName($action.name, '-')}" )
 #set ( $rt = $classNames.add("${actionName}ImplComponent"))
-#set ( $rt = $imports.add("import { ${actionName}ImplComponent } from ${escTool.s}./view/${actionPath}/${actionFileName}.impl.component${escTool.s};"))
+#set ( $rt = $imports.add("import { ${actionName}ImplComponent } from ${escTool.s}./impl/view/${actionPath}/${actionFileName}.impl.component${escTool.s};"))
 #end
 #end
 ## Tables
@@ -47,7 +47,7 @@
 #set ( $fileName = $angularHelper.getComponentFileName("${table.view.name}-${table.name}") )
 #set ( $className = $angularHelper.getComponentName($fileName, "-"))
 #set ( $rt = $classNames.add("${className}ImplComponent"))
-#set ( $rt = $imports.add("import { ${className}ImplComponent } from ${escTool.s}./view/${componentPath}/${fileName}.impl.component${escTool.s};"))
+#set ( $rt = $imports.add("import { ${className}ImplComponent } from ${escTool.s}./impl/view/${componentPath}/${fileName}.impl.component${escTool.s};"))
 #end
 #end
 #if (!$children.empty)
