@@ -172,7 +172,7 @@ package org.fornax.cartridges.uml2.spring;/**
                             index];
                         java.lang.System.arraycopy(path, index, restOfPath, 0,
                             number);
-                        parameterName = org.apache.commons.lang.StringUtils.join(restOfPath,
+                        parameterName = org.apache.commons.lang3.StringUtils.join(restOfPath,
                                 ".");
 
                         break;
