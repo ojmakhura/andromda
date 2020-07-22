@@ -7,7 +7,7 @@ null;
 #elseif ($transition.enteringFinalState)
 #set($targetController = $transition.target.targetElement.controller)
 #set($targetControllerBeanName = $transition.target.targetControllerBeanName)
-##if($targetControlle.name)(<$targetController.name>JSON.parse(localStorage.getItem('$targetControllerBeanName'))).startUseCase()#else closeDialog()#end;
+##if($targetControlle.name)(<$targetController.name>JSON.parse(localStorage.getItem('$targetControllerBeanName'))).startUseCase()#else this.closeDialog()#end;
 #if($targetController.name)
 #if(${targetController.name} != $controller.name)
 this.${stringUtils.uncapitalize(${targetController.name})}.startUseCase()
@@ -15,7 +15,7 @@ this.${stringUtils.uncapitalize(${targetController.name})}.startUseCase()
 this.startUseCase()
 #end
 #else 
-closeDialog()
+this.closeDialog()
 #end;
 #elseif ($transition.enteringView)
 #set ($pt = $angularHelper.getComponentFileName(${transition.target.name}))

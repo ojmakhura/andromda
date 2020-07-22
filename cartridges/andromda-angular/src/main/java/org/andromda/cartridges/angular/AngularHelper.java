@@ -152,7 +152,7 @@ public class AngularHelper {
                     datatype = "any[]";
                 }
             } else if(obj instanceof Map) {
-                datatype = "Map";
+                datatype = "any";
             }      
             
         } catch (InstantiationException | IllegalAccessException e) {
@@ -394,8 +394,13 @@ public class AngularHelper {
         return names;
     }
 	
-    public static Boolean isComplex(ModelElementFacade element) {
-		
+    public static Boolean isComplex(Object element) {
+        
+        // If this is a value object, then it's complex
+        if(element instanceof ValueObject) {
+            return true;
+        }
+        
         Boolean complex = false;
         ClassifierFacade type = null;
 		
@@ -405,6 +410,8 @@ public class AngularHelper {
             type = ((ParameterFacade)element).getType();
         } else if(element instanceof FrontEndParameter) {
             type = ((FrontEndParameter)element).getType();
+        } else {
+            //type = element;
         }
 		
         if (type != null)
@@ -416,7 +423,6 @@ public class AngularHelper {
             }
         }
 		
-        //System.out.println("=============================================== " + complex);
         return complex;
     }
 	
@@ -488,7 +494,7 @@ public class AngularHelper {
         }
         signature.append("): ");
         final ModelElementFacade returnType = operation.getReturnType();
-        signature.append(returnType != null ? returnType.getFullyQualifiedName() : null);
+        signature.append(returnType != null ? getDatatype(returnType.getFullyQualifiedName()) : null);
         
         return signature.toString();
     }

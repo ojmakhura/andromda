@@ -5,7 +5,11 @@ import { Injectable } from '@angular/core';
 import { prop, model, propArray, propObject } from '@rxweb/reactive-form-validators';
 
 #foreach ($tmp in $class.attributes)
+#if ($angularHelper.isComplex($tmp))
+#if($tmp.type.name != ${class.name})
 #set ( $ret = $attributes.add($tmp.type) )
+#end
+#end
 #end
 #set ($suffix = "")
 #foreach ($tmp in $angularHelper.getImports($attributes, ${class.packageName}, $suffix))

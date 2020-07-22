@@ -5,12 +5,12 @@ import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 #set( $module = "module" )
-import { ${moduleFileName}Module } from './app/$stringUtils.lowerCase(${applicationId}).${module}';
+import { ${moduleName}Module } from './app/$stringUtils.lowerCase(${applicationId}).${module}';
 import { environment } from './environments/environment';
 
 if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(${moduleFileName}Module)
+platformBrowserDynamic().bootstrapModule(${moduleName}Module)
   .catch(err => console.error(err));

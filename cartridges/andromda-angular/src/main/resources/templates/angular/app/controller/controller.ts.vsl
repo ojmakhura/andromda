@@ -24,20 +24,22 @@ import { $action.formImplementationName } from 'src/app/gen/form/$path/$file';
 #end
 #set($controllers = [])
 #foreach ($action in $controller.useCase.actions)
-#if ($action.finalStateTarget)
+#if ($action.finalStateTarget && $action.target.targetElement.controller.name != $controller.name)
 #set ($rt = $controllers.add($action.target.targetElement.controller))
 #end
 #foreach ($actionState in $action.actionStates)
-#if ($actionState.forward.enteringFinalState)
+#if ($actionState.forward.enteringFinalState && $actionState.forward.target.targetElement.controller.name != $controller.name)
 #set ($rt = $controllers.add($actionState.forward.target.targetElement.controller))
 #end
 #end
 #end
 #set ($controllerSet = $angularHelper.getFacadeSet($controllers))
 #foreach($cnt in $controllerSet)
+#if($cnt.name != $controller.name)
 #set ( $path = $stringUtils.replaceChars($cnt.packageName, '\\.', '\\/') )
 #set ( $file =  ${angularHelper.getComponentFileName("${cnt.name}Impl")})
 import { ${cnt.name}Impl } from 'src/app/impl/controller/$path/${file}';
+#end
 #end
 
 #foreach ($operation in $controller.operations)
@@ -48,7 +50,18 @@ import { $operation.getFormName() } from 'src/app/gen/form/$path/$file';
 #end
 #end
 
-//@Injectable()
+#set ($types = [])
+#foreach ($operation in $controller.operations)
+#if($angularHelper.isComplex($operation.returnType))
+#set ($rt = $types.add($operation.returnType))
+#end
+#end
+#foreach($type in $angularHelper.getFacadeSet($types))
+#set ( $path = $stringUtils.replaceChars($type.packageName, '\\.', '\\/') )
+#set ( $file =  ${angularHelper.getComponentFileName($type.name)})
+import { $type.name } from 'src/app/gen/model/$path/$file';
+#end
+
 export abstract class $controller.name extends ControllerBase {
 
 #foreach ($service in $controller.allServices)
@@ -182,11 +195,11 @@ $action.trigger.getDocumentation("     * ")
 #end
 #set($targetController = $action.target.targetControllerFullyQualifiedName)
 #set($targetControllerBeanName = $action.target.targetControllerBeanName)
-        //forward = #if($targetController)(($targetController)localStorage.getItem("$targetControllerBeanName")).startUseCase()#else closeDialog()#end;
+        //forward = #if($targetController)(($targetController)localStorage.getItem("$targetControllerBeanName")).startUseCase()#else this.closeDialog()#end;
 #if(${targetControllerBeanName} == $controller.name)
-        forward = #if($targetController)this.startUseCase()#else closeDialog()#end;
+        forward = #if($targetController)this.startUseCase()#else this.closeDialog()#end;
 #else
-        forward = #if($targetController)this.${targetControllerBeanName}.startUseCase()#else closeDialog()#end;
+        forward = #if($targetController)this.${targetControllerBeanName}.startUseCase()#else this.closeDialog()#end;
 #end
 #else
 #if ($formPopulationOperationRequired)
@@ -215,7 +228,7 @@ $action.trigger.getDocumentation("     * ")
 #if(!$action.exitingInitialState && !$action.enteringFinalState)
         if(forward !== null)
         {
-            if('$stringUtils.lowerCase(${actionClass})'' === forward)
+            if('$stringUtils.lowerCase(${actionClass})' === forward)
             {
                 forward = null; //the destination form is the same, stay on the current view
             }
