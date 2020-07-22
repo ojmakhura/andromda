@@ -4,6 +4,7 @@
 #set ( $tables = [] )
 #set ( $actions = [] )
 #set ( $views = [] )
+#set ( $controllers = [] )
 #set ( $cr = "
 ")
 #set ( $moduleFileName = $angularHelper.getComponentFileName("${applicationId}") )
@@ -66,6 +67,14 @@ import { ${moduleName}Component } from './${moduleFileName}.$component';
 #set ( $fileName = $angularHelper.getComponentFileName("${service.name}") )
 #set ( $className = $angularHelper.getComponentName($fileName, "-"))
 import { ${service.name}Impl } from ${escTool.s}./impl/service/$componentPath/${fileName}-impl${escTool.s};
+#end
+
+#set ( $controllerSet = $angularHelper.getFacadeSet($controllers) )
+#foreach($controller in $controllerSet)
+#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${controller.packageName}), '\\.', '\\/') )
+#set ( $fileName = $angularHelper.getComponentFileName("${controller.name}") )
+#set ( $className = $angularHelper.getComponentName($fileName, "-"))
+import { ${controller.name}Impl } from ${escTool.s}./impl/controller/$componentPath/${fileName}-impl${escTool.s};
 #end
 
 #set ( $componentSet = $angularHelper.getFacadeSet($views) )
@@ -200,6 +209,11 @@ import { $field.name } from './gen/model/$destination/$fileName';
 #set ( $finalServices = $angularHelper.getFacadeSet($services) )
 #foreach ( $finalService in $finalServices )
         ${finalService.name}Impl,
+#end
+
+#set ( $componentSet = $angularHelper.getFacadeSet($controllers) )
+#foreach ( $controller in $componentSet )
+        ${controller.name}Impl,
 #end
 
 #set ( $componentSet = $angularHelper.getFacadeSet($views) )

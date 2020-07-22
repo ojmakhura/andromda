@@ -19,6 +19,12 @@ export abstract class ControllerBase
     static USE_CASE_JS_RETURN_VALUE_KEY = 'jsReturnValue';
     static USE_CASE_PARAMETER_NAMES = 'parameterNames';
 
+    protected router: Router;
+
+    constructor(injector: Injector) {
+        this.router = injector.get(Router);
+    }
+
     /**
      * Returns the page variables associated with the view.
      *

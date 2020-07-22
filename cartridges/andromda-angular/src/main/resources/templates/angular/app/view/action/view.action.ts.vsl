@@ -11,25 +11,29 @@ import { MatSort } from '@angular/material/sort';
 
 #set ( $viewFile = $angularHelper.getComponentFileName("${action.source.name}") )
 #set ( $viewName = $angularHelper.getComponentName($viewFile, '-') )
-import { ${viewName}ImplComponent } from './${viewFile}.impl.component';
+import { ${viewName}ImplComponent } from 'src/app/impl/view/$actionPath/${viewFile}.impl.component';
 #set ( $parameters = [] )
 #foreach( $parameter in $action.parameters )
-#set ( $ret = $parameters.add($parameter) )
+#if($parameter.complex)
+#set ( $ret = $parameters.add($parameter.type) )
 #end
-###foreach ($field in $action.formFields)
-###set ( $ret = $parameters.add($field) )
-###end
-#set ( $suffix = "" )
-#foreach ($tmp in $angularHelper.getImports($parameters, "${action.packageName}", $suffix))
-$tmp
+#end
+#foreach ($param in $angularHelper.getFacadeSet($parameters))
+#set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${param.packageName}), '\\.', '\\/')" )
+#set ( $fname = $angularHelper.getComponentFileName("${param.name}") )
+import { ${param.name} } from 'src/app/gen/model/$path/$fname';
 #end
 #set ($args = [])
 #foreach ($service in $action.controller.allServices)
-#set ($ret = $args.add($service))
+#set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${service.packageName}), '\\.', '\\/')" )
+#set ( $fname = $angularHelper.getComponentFileName("${service.name}Impl") )
+import { ${service.name}Impl } from 'src/app/impl/service/$path/$fname';
 #end
-#set ($suffix = "Impl")
-#foreach ($tmp in $angularHelper.getImports($args, "${action.packageName}", $suffix))
-$tmp
+
+#if($action.controller)
+#set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.controller.packageName}), '\\.', '\\/')" )
+#set ( $fname = $angularHelper.getComponentFileName("${action.controller.name}Impl") )
+import { ${action.controller.name}Impl } from 'src/app/impl/controller/$path/$fname';
 #end
 
 @Component({
@@ -47,9 +51,10 @@ export abstract class ${className}Component implements OnInit {
 #foreach($attribute in $tmp.attributes)
 #if($attribute.inputTable)
 	${attribute.name}Columns = [
-#set($i = 0)
-#foreach ($column in $angularHelper.getTableColumns($attribute))
-        '$column'#if($i < $angularHelper.getTableColumns($attribute).size()),$cr#end
+#set($i = 1)
+#set ($columns = $angularHelper.getTableColumns($attribute))
+#foreach ($column in $columns)
+        '$column'#if($i < $columns.size()),#end$cr
 #set($i = $i + 1)
 #end
     ];
@@ -59,8 +64,8 @@ export abstract class ${className}Component implements OnInit {
 #end
 #end
 #end
-
-    protected ${stringUtils.uncapitalize($className)}Form: FormGroup;
+    
+    protected $action.formBeanName: FormGroup;
     protected route: ActivatedRoute;
     protected router: Router;
 #foreach ($service in $action.controller.allServices)
@@ -68,6 +73,7 @@ export abstract class ${className}Component implements OnInit {
 #end
     protected $stringUtils.uncapitalize($viewName): ${viewName}ImplComponent;
     protected formBuilder: RxFormBuilder;
+    protected ${action.controller.beanName}: ${action.controller.name}Impl;
 
     constructor(injector: Injector) {
 
@@ -78,6 +84,7 @@ export abstract class ${className}Component implements OnInit {
 #end
         this.$stringUtils.uncapitalize($viewName) = injector.get(${viewName}ImplComponent);
         this.formBuilder = injector.get(RxFormBuilder);
+        this.${action.controller.beanName} = injector.get(${action.controller.name}Impl);
     }
 
     ngOnInit(): void {
@@ -86,7 +93,7 @@ export abstract class ${className}Component implements OnInit {
 
 #set ($i = 1)
 #if($action.parameters.size() > 0)
-        this.${stringUtils.uncapitalize(${className})}Form = this.formBuilder.group({
+        this.$action.formBeanName = this.formBuilder.group({
 #foreach ( $tmp in $action.parameters )
 #if($tmp.many || $tmp.table)
         $tmp.name: this.formBuilder.array([{
@@ -110,11 +117,11 @@ export abstract class ${className}Component implements OnInit {
                 $tmp.name: ''$cr
 #end
 #end
-            }])#if($i < $$action.parameters.size()),#end$cr
+            }])#if($i < $action.parameters.size()),#end$cr
 #elseif($angularHelper.isComplex($tmp))
-            $tmp.name: this.formBuilder.group(new $angularHelper.getDatatype($tmp.type.fullyQualifiedName)())#if($i < $$action.parameters.size()),#end$cr
+            $tmp.name: this.formBuilder.group(new $angularHelper.getDatatype($tmp.type.fullyQualifiedName)())#if($i < $action.parameters.size()),#end$cr
 #else
-            $tmp.name: this.formBuilder.control()#if($i < $$action.parameters.size()),#end$cr
+            $tmp.name: this.formBuilder.control()#if($i < $action.parameters.size()),#end$cr
 #end
 #set ($i = $i + 1)
 #end
@@ -129,15 +136,15 @@ export abstract class ${className}Component implements OnInit {
     abstract afterOnInit();
 
     getItemControl(name): FormControl {
-        return this.${stringUtils.uncapitalize(${className})}Form.get(name) as FormControl;
+        return this.${action.formBeanName}.get(name) as FormControl;
     }
 
     getGroupControl(name): FormGroup {
-        return this.${stringUtils.uncapitalize(${className})}Form.get(name) as FormGroup;
+        return this.${action.formBeanName}.get(name) as FormGroup;
     }
 
     getArrayControl(name): FormArray {
-        return this.${stringUtils.uncapitalize(${className})}Form.get(name) as FormArray;
+        return this.${action.formBeanName}.get(name) as FormArray;
     }
 
 #foreach ( $tmp in $action.parameters )
@@ -154,12 +161,9 @@ export abstract class ${className}Component implements OnInit {
 #end
 	
 	abstract do$stringUtils.capitalize(${action.triggerName})();
+    
     ${action.triggerName}() {
 		this.do$stringUtils.capitalize(${action.triggerName})();
-#if($action.finalStateTarget)
-#set ( $viewFileName = $angularHelper.getComponentFileName("${action.target.name}"))
-#set ($tmpName = ${angularHelper.getComponentName("$viewFileName", "-")})
-		this.router.navigate(['/$stringUtils.lowerCase($tmpName)']);
-#end
+        this.${action.controller.beanName}.${action.triggerName}();
     }
 }

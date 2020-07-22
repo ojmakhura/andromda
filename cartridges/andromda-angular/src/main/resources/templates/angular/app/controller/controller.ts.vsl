@@ -59,7 +59,7 @@ export abstract class $controller.name extends ControllerBase {
 #end
 
     constructor(injector: Injector) {
-        super();
+        super(injector);
 #foreach ($service in $controller.allServices)  
         this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name}Impl);
 #end
@@ -133,7 +133,7 @@ $operation.getDocumentation("     * ")
     protected $action.formImplementationGetter: $action.formImplementationName
     {
 #set ($form = $stringUtils.substringBefore($action.formImplementationName, "Impl"))
-        return JSON.parse(localStorage.getItem('$stringUtils.uncapitalize($form)')) as $action.formImplementationName;
+        return JSON.parse(localStorage.getItem('${action.formBeanName}')) as $action.formImplementationName;
     }
 
 #end
@@ -169,7 +169,7 @@ $action.trigger.getDocumentation("     * ")
 #if($action.exitingInitialState)     
     protected internalStartUseCase(useCaseParameters: any): string
 #else
-    public ${action.triggerName}(): string
+    public ${action.triggerName}()
 #end
     {
         this.setLastPostedFormClientId("${action.formBeanName}");
@@ -183,7 +183,11 @@ $action.trigger.getDocumentation("     * ")
 #set($targetController = $action.target.targetControllerFullyQualifiedName)
 #set($targetControllerBeanName = $action.target.targetControllerBeanName)
         //forward = #if($targetController)(($targetController)localStorage.getItem("$targetControllerBeanName")).startUseCase()#else closeDialog()#end;
+#if(${targetControllerBeanName} == $controller.name)
+        forward = #if($targetController)this.startUseCase()#else closeDialog()#end;
+#else
         forward = #if($targetController)this.${targetControllerBeanName}.startUseCase()#else closeDialog()#end;
+#end
 #else
 #if ($formPopulationOperationRequired)
         const form: $action.formImplementationName =
@@ -211,7 +215,7 @@ $action.trigger.getDocumentation("     * ")
 #if(!$action.exitingInitialState && !$action.enteringFinalState)
         if(forward !== null)
         {
-            if("${action.name}" === forward)
+            if('$stringUtils.lowerCase(${actionClass})'' === forward)
             {
                 forward = null; //the destination form is the same, stay on the current view
             }
@@ -220,7 +224,14 @@ $action.trigger.getDocumentation("     * ")
 #end
 #end
 #end
-        return forward;
+#if($action.exitingInitialState)     
+    return forward;
+#else
+    if(forward !== null) {
+        this.router.navigate(['/' + forward]);
+    } 
+#end
+        
     }
 
 #foreach ($actionState in $action.actionStates)

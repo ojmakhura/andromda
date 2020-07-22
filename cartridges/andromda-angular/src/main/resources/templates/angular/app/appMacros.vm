@@ -30,6 +30,7 @@
 #foreach ($service in $action.controller.allServices)
 #set ( $rt = $services.add($service) )
 #end
+#set ( $rt = $controllers.add($action.controller) )
 ## Form fields
 #foreach ( $field in $action.formFields )
 #set ($dt = $angularHelper.getDatatype($field.fullyQualifiedName))

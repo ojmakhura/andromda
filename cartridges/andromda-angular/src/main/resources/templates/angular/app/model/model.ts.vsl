@@ -19,7 +19,9 @@ export class $class.name {
 
 ### Find the return type and the default values
 #set ($returnType = $angularHelper.getDatatype($attribute.getterSetterTypeName))
-#if($angularHelper.isArray($attribute.getterSetterTypeName))
+#if($returnType == "File")
+#set ($default = "null")
+#elseif($angularHelper.isArray($attribute.getterSetterTypeName))
 #set ($default = "[]")
 #elseif($attribute.many)
 #set ($returnType = "$returnType[]")

@@ -434,11 +434,24 @@ public class AngularHelper {
     }
 	
     public static Collection<?> getTableColumns(JSFAttribute attribute) {
-        String cols = ObjectUtils.toString(attribute.findTaggedValue(JSFProfile.TAGGEDVALUE_TABLE_COLUMNS));
         Collection<String> columns = new ArrayList<>();
-		
-        for(String col : cols.split(",") ) {
-            columns.add(col);
+        if(!StringUtils.isBlank(attribute.getInputTableIdentifierColumns())) {       
+
+            for(String col : attribute.getInputTableIdentifierColumns().split(",") ) {
+                columns.add(col);
+            }
+        } else {
+            String cols = ObjectUtils.toString(attribute.findTaggedValue(JSFProfile.TAGGEDVALUE_TABLE_COLUMNS));
+            
+            if(!StringUtils.isBlank(cols)) {
+                for(String col : cols.split(",") ) {
+                    columns.add(col);
+                }
+            } else {
+                for(AttributeFacade attr : attribute.getType().getAttributes()) {
+                    columns.add(attr.getName());
+                }
+            }
         }
 		
         return columns;

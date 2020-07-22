@@ -7,7 +7,7 @@
 ')
 #foreach ($parameter in $action.parameters)
 #if ($table.tableColumnNames.contains($parameter.name) || $table.tableAttributeNames.contains($parameter.name))
-#set ($ret = $params.add("row.${parameter.name}"))
+#set ($ret = $params.add("row.get('${parameter.name}').value"))
 #else
 #set ($ret = $params.add("$parameter.name"))
 #end
