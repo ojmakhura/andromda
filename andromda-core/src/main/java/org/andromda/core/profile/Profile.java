@@ -213,4 +213,14 @@ public class Profile
     {
         Profile.instance = null;
     }
+    
+    public String toString() {
+		Map<String, String> namespaceElements = this.getNamespaceElements(this.getNamespace());
+		String str ="";
+		for(Map.Entry<String,String> entry : namespaceElements.entrySet()) {
+			str = str + entry.getKey() + ": " + entry.getValue() + "\n"; 
+		}
+		
+		return str;
+	}
 }

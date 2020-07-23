@@ -306,10 +306,6 @@ public class AttributeFacadeLogicImpl
             }
         }
         
-        if(name.equals("java.util.Calendar")) {
-            return "java.util.Date";
-        }
-        
         return name;
     }
 

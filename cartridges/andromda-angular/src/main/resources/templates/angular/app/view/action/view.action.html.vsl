@@ -37,11 +37,13 @@
 #foreach ($attribute in $parameter.attributes)
 2 $attribute
 2 $attribute.taggedValues
+2 $angularHelper.isTable($attribute)
 2 $attribute.table
 2 $attribute.inputTable
 2 $attribute.inputTableIdentifierColumns
 2 $attribute.type
-2 $attribute.type.table
+2 $attribute.type.inputTable
+2 $attribute.type.inputTableIdentifierColumns
 #if (!$attribute.inputHidden)
 #renderAngularActionInput($attribute $parameter "		    ")
 #end

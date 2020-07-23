@@ -32,6 +32,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
 import org.apache.log4j.Logger;
 
+import org.andromda.cartridges.angular.metafacades.AngularGlobals;
+
 public class AngularHelper {
     /**
      * The logger instance.
@@ -497,5 +499,19 @@ public class AngularHelper {
         signature.append(returnType != null ? getDatatype(returnType.getFullyQualifiedName()) : null);
         
         return signature.toString();
+    }
+
+    public static boolean isTable(JSFAttribute attribute) {
+
+        System.out.println(attribute.getTaggedValues().toString());
+        System.out.println("--------- " + this.isInputType(AngularGlobals.INPUT_TABLE));
+
+        for(TaggedValueFacade tv : attribute.getTaggedValues()) {
+            if(tv.getName().equals(AngularProfile.INPUT_TYPE)) {
+                System.out.println(">>>>> " + tv.getName());
+            }
+        }
+
+        return false;
     }
 }
