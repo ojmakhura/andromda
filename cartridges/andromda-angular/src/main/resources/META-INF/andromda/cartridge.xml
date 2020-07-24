@@ -454,7 +454,7 @@
     
 	<template
         path="templates/angular/app/view/action/view.action.ts.vsl"
-        outputPattern="$actionPath/${fileName}.component.ts"
+        outputPattern="${actionPath}.component.ts"
         outlet="views"
         overwrite="true">
         <modelElements variable="action">

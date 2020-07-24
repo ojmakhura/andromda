@@ -1,4 +1,4 @@
-package org.andromda.cartridges.angular.metafacades;
+package org.andromda.cartridges.angular;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -3,36 +3,32 @@ package org.andromda.cartridges.angular;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.StringTokenizer;
+
 import org.andromda.cartridges.jsf2.JSFProfile;
 import org.andromda.cartridges.jsf2.metafacades.JSFAttribute;
 import org.andromda.cartridges.jsf2.metafacades.JSFControllerOperationLogic;
-import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.cartridges.webservice.metafacades.WebServiceOperation;
-  
-import org.andromda.metafacades.uml.ParameterFacade;
-import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
-import org.andromda.metafacades.uml.ValueObject;
-import org.andromda.metafacades.uml.EnumerationFacade;
-import org.andromda.metafacades.uml.FrontEndParameter;
-import org.andromda.metafacades.uml.Service;
-import org.andromda.metafacades.uml.FrontEndController;
-import org.andromda.metafacades.uml.FrontEndView;
-import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.EnumerationFacade;
+import org.andromda.metafacades.uml.FrontEndController;
+import org.andromda.metafacades.uml.FrontEndParameter;
+import org.andromda.metafacades.uml.FrontEndView;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.metafacades.uml.Service;
 import org.andromda.metafacades.uml.TaggedValueFacade;
-import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.UseCaseFacade;
+import org.andromda.metafacades.uml.ValueObject;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
 import org.apache.log4j.Logger;
-
-import org.andromda.cartridges.angular.metafacades.AngularGlobals;
 
 public class AngularHelper {
     /**
@@ -504,7 +500,7 @@ public class AngularHelper {
     public static boolean isTable(JSFAttribute attribute) {
 
         System.out.println(attribute.getTaggedValues().toString());
-        System.out.println("--------- " + this.isInputType(AngularGlobals.INPUT_TABLE));
+        //System.out.println("--------- " + this.isInputType(AngularGlobals.INPUT_TABLE));
 
         for(TaggedValueFacade tv : attribute.getTaggedValues()) {
             if(tv.getName().equals(AngularProfile.INPUT_TYPE)) {

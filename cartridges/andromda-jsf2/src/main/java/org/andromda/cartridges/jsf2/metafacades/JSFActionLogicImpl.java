@@ -9,6 +9,8 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
 import org.andromda.cartridges.jsf2.JSFGlobals;
 import org.andromda.cartridges.jsf2.JSFProfile;
 import org.andromda.cartridges.jsf2.JSFUtils;
@@ -708,7 +710,7 @@ public class JSFActionLogicImpl
      */
     protected boolean handleIsFormReset()
     {
-        return Boolean.valueOf(ObjectUtils.toString(this.findTaggedValue(
+        return Boolean.valueOf(Objects.toString(this.findTaggedValue(
             JSFProfile.TAGGEDVALUE_ACTION_FORM_RESET))).booleanValue();
     }
 
