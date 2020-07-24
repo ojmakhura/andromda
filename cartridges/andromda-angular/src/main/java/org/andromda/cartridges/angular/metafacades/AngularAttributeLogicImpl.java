@@ -4,8 +4,19 @@
 package org.andromda.cartridges.angular.metafacades;
 
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
+
+import org.andromda.cartridges.angular.AngularGlobals;
+import org.andromda.cartridges.angular.AngularHelper;
+import org.andromda.cartridges.angular.AngularProfile;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndParameter;
+import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ParameterFacade;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Represents an attribute on a classifier used by a JSF application.
@@ -60,14 +71,29 @@ public class AngularAttributeLogicImpl
     }
 
     /**
+     * Indicates whether or not we should normalize messages.
+     *
+     * @return true/false
+     */
+    private boolean isNormalizeMessages()
+    {
+        final String normalizeMessages =
+            Objects.toString(this.getConfiguredProperty(AngularGlobals.NORMALIZE_MESSAGES));
+        return Boolean.valueOf(normalizeMessages).booleanValue();
+    }
+
+    /**
      * The dummy value to give the attribute when creating a dummy instance of this attribute's
      * owner.
      * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#getDummyValue()
      */
     protected String handleGetDummyValue()
     {
-        final String typeName = AngularHelper.getDatatype(type.getFullyQualifiedName());
-        final String name = AngularHelper.getDatatype(this.getName());
+        final ClassifierFacade type = this.getType();
+        if (type != null)
+        {
+            final String typeName = AngularHelper.getDatatype(type.getFullyQualifiedName());
+            final String name = AngularHelper.getDatatype(this.getName());
             if ("string".equals(typeName))
             {
                 return "'" + name + "-test" + "'";
@@ -211,6 +237,17 @@ public class AngularAttributeLogicImpl
     }
 
     /**
+     * Gets the current value of the specified input type (or an empty string
+     * if one isn't specified).
+     *
+     * @return the input type name.
+     */
+    private String getInputType()
+    {
+        return Objects.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
+    }
+
+    /**
      * The dummy value for a value list.
      * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#getValueListDummyValue()
      */
@@ -272,8 +309,9 @@ public class AngularAttributeLogicImpl
      */
     protected boolean handleIsEqualValidator()
     {
-        final String equal = JSFUtils.getEqual((ModelElementFacade)this.THIS());
-        return equal != null && equal.trim().length() > 0;
+        //final String equal = JSFUtils.getEqual((ModelElementFacade)this.THIS());
+        //return equal != null && equal.trim().length() > 0;
+        return null;
     }
 
     /**
@@ -382,7 +420,7 @@ public class AngularAttributeLogicImpl
     {
         final String backingListName =
             StringUtils.replace(
-                ObjectUtils.toString(this.getConfiguredProperty(AngularGlobals.BACKING_LIST_PATTERN)),
+                Objects.toString(this.getConfiguredProperty(AngularGlobals.BACKING_LIST_PATTERN)),
                 "{0}",
                 this.getFormPropertyId(ownerParameter));
         return StringUtilsHelper.lowerCamelCaseName(backingListName);
@@ -444,9 +482,9 @@ public class AngularAttributeLogicImpl
                             parameterIterator.hasNext() && !selectable;)
                         {
                             final FrontEndParameter object = parameterIterator.next();
-                            if (object instanceof JSFParameter)
+                            if (object instanceof AngularParameter)
                             {
-                                final JSFParameter parameter = (JSFParameter)object;
+                                final AngularParameter parameter = (AngularParameter)object;
                                 final String parameterName = parameter.getName();
                                 final ClassifierFacade parameterType = parameter.getType();
                                 if (parameterType != null)
@@ -473,9 +511,9 @@ public class AngularAttributeLogicImpl
                     for (final Iterator<FrontEndParameter> fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !selectable;)
                     {
                         final FrontEndParameter object = fieldIterator.next();
-                        if (object instanceof JSFParameter)
+                        if (object instanceof AngularParameter)
                         {
-                            final JSFParameter parameter = (JSFParameter)object;
+                            final AngularParameter parameter = (AngularParameter)object;
                             if (name.equals(parameter.getName()))
                             {
                                 selectable = parameter.isSelectable();
@@ -566,9 +604,9 @@ public class AngularAttributeLogicImpl
                             parameterIterator.hasNext() && !required;)
                         {
                             final FrontEndParameter object = parameterIterator.next();
-                            if (object instanceof JSFParameter)
+                            if (object instanceof AngularParameter)
                             {
-                                final JSFParameter parameter = (JSFParameter)object;
+                                final AngularParameter parameter = (AngularParameter)object;
                                 final String parameterName = parameter.getName();
                                 final ClassifierFacade parameterType = parameter.getType();
                                 if (parameterType != null)
@@ -590,15 +628,15 @@ public class AngularAttributeLogicImpl
                 final Collection<FrontEndAction> actions = ownerParameter.getControllerOperation().getDeferringActions();
                 for (final Iterator<FrontEndAction> actionIterator = actions.iterator(); actionIterator.hasNext();)
                 {
-                    final JSFAction action = (JSFAction)actionIterator.next();
+                    final AngularAction action = (AngularAction)actionIterator.next();
                     final Collection<FrontEndParameter> formFields = action.getFormFields();
                     for (final Iterator<FrontEndParameter> fieldIterator = formFields.iterator();
                         fieldIterator.hasNext() && !required;)
                     {
                         final FrontEndParameter object = fieldIterator.next();
-                        if (object instanceof JSFParameter)
+                        if (object instanceof AngularParameter)
                         {
-                            final JSFParameter parameter = (JSFParameter)object;
+                            final AngularParameter parameter = (AngularParameter)object;
                             if (name.equals(parameter.getName()))
                             {
                                 required = parameter.isBackingValueRequired();
