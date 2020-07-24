@@ -32,8 +32,22 @@ public class AngularAttributeLogicImpl
      */
     protected String handleGetMessageKey()
     {
-        // TODO put your implementation here.
-        return null;
+        final StringBuilder messageKey = new StringBuilder();
+        if (!this.isNormalizeMessages())
+        {
+            final ClassifierFacade owner = this.getOwner();
+            if (owner != null)
+            {
+                messageKey.append(StringUtilsHelper.toResourceMessageKey(owner.getName()));
+                messageKey.append('.');
+            }
+        }
+        final String name = this.getName();
+        if (name != null && name.trim().length() > 0)
+        {
+            messageKey.append(StringUtilsHelper.toResourceMessageKey(name));
+        }
+        return messageKey.toString();
     }
 
     /**
@@ -42,8 +56,7 @@ public class AngularAttributeLogicImpl
      */
     protected String handleGetMessageValue()
     {
-        // TODO put your implementation here.
-        return null;
+        return StringUtilsHelper.toPhrase(super.getName());
     }
 
     /**
@@ -53,8 +66,39 @@ public class AngularAttributeLogicImpl
      */
     protected String handleGetDummyValue()
     {
-        // TODO put your implementation here.
-        return null;
+        final String typeName = AngularHelper.getDatatype(type.getFullyQualifiedName());
+        final String name = AngularHelper.getDatatype(this.getName());
+            if ("string".equals(typeName))
+            {
+                return "'" + name + "-test" + "'";
+            }
+            if ("Date".equals(typeName))
+            {
+                return "new Date()";
+            }
+
+            if ("number".equals(typeName))
+            {
+                return "0";
+            }
+            if ("boolean".equals(typeName))
+            {
+                return "false";
+            }
+
+            //if (type.isArrayType()) return constructDummyArray();
+            if (type.isSetType())
+            {
+                return "[]";
+            }
+            if (type.isCollectionType())
+            {
+                return "[]";
+            }
+
+            // maps and others types will simply not be treated
+        }
+        return "null";
     }
 
     /**
@@ -65,7 +109,11 @@ public class AngularAttributeLogicImpl
      */
     protected String handleGetFormat()
     {
-        // TODO put your implementation here.
+        // return JSFUtils.getFormat(
+        //     (ModelElementFacade)this.THIS(),
+        //     this.getType(),
+        //     this.getDefaultDateFormat(),
+        //     this.getDefaultTimeFormat());
         return null;
     }
 
@@ -75,8 +123,7 @@ public class AngularAttributeLogicImpl
      */
     protected boolean handleIsInputTextarea()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(AngularGlobals.INPUT_TEXTAREA);
     }
 
     /**
@@ -85,8 +132,7 @@ public class AngularAttributeLogicImpl
      */
     protected boolean handleIsInputText()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(AngularGlobals.INPUT_TEXT);
     }
 
     /**
@@ -95,8 +141,7 @@ public class AngularAttributeLogicImpl
      */
     protected boolean handleIsInputSecret()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(AngularGlobals.INPUT_PASSWORD);
     }
 
     /**
@@ -105,8 +150,7 @@ public class AngularAttributeLogicImpl
      */
     protected boolean handleIsInputSelect()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(AngularGlobals.INPUT_SELECT);
     }
 
     /**
@@ -115,8 +159,7 @@ public class AngularAttributeLogicImpl
      */
     protected boolean handleIsInputRadio()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(AngularGlobals.INPUT_RADIO);
     }
 
     /**
@@ -125,8 +168,7 @@ public class AngularAttributeLogicImpl
      */
     protected boolean handleIsInputMultibox()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(AngularGlobals.INPUT_MULTIBOX);
     }
 
     /**
@@ -135,8 +177,7 @@ public class AngularAttributeLogicImpl
      */
     protected boolean handleIsInputHidden()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(AngularGlobals.INPUT_HIDDEN);
     }
 
     /**
@@ -145,8 +186,13 @@ public class AngularAttributeLogicImpl
      */
     protected boolean handleIsInputFile()
     {
-        // TODO put your implementation here.
-        return false;
+        boolean file = false;
+        ClassifierFacade type = getType();
+        if (type != null)
+        {
+            file = type.isFileType();
+        }
+        return file;
     }
 
     /**
@@ -155,8 +201,13 @@ public class AngularAttributeLogicImpl
      */
     protected boolean handleIsInputCheckbox()
     {
-        // TODO put your implementation here.
-        return false;
+        boolean checkbox = this.isInputType(AngularGlobals.INPUT_CHECKBOX);
+        if (!checkbox && this.getInputType().length() == 0)
+        {
+            final ClassifierFacade type = this.getType();
+            checkbox = type != null ? type.isBooleanType() : false;
+        }
+        return checkbox;
     }
 
     /**
@@ -165,8 +216,7 @@ public class AngularAttributeLogicImpl
      */
     protected String handleGetValueListDummyValue()
     {
-        // TODO put your implementation here.
-        return null;
+        return this.constructDummyArray();
     }
 
     /**
@@ -177,7 +227,7 @@ public class AngularAttributeLogicImpl
      */
     protected String handleGetValidWhen()
     {
-        // TODO put your implementation here.
+        //return JSFUtils.getValidWhen(this);
         return null;
     }
 
@@ -187,6 +237,9 @@ public class AngularAttributeLogicImpl
      */
     protected Collection handleGetValidatorTypes()
     {
+        // return JSFUtils.getValidatorTypes(
+        //     (ModelElementFacade)this.THIS(),
+        //     this.getType());
         // TODO put your implementation here.
         return null;
     }
@@ -198,8 +251,7 @@ public class AngularAttributeLogicImpl
      */
     protected boolean handleIsValidationRequired()
     {
-        // TODO put your implementation here.
-        return false;
+        return !this.getValidatorTypes().isEmpty();
     }
 
     /**
@@ -209,6 +261,7 @@ public class AngularAttributeLogicImpl
      */
     protected boolean handleIsStrictDateFormat()
     {
+        //return JSFUtils.isStrictDateFormat((ModelElementFacade)this.THIS());
         // TODO put your implementation here.
         return false;
     }
@@ -219,8 +272,8 @@ public class AngularAttributeLogicImpl
      */
     protected boolean handleIsEqualValidator()
     {
-        // TODO put your implementation here.
-        return false;
+        final String equal = JSFUtils.getEqual((ModelElementFacade)this.THIS());
+        return equal != null && equal.trim().length() > 0;
     }
 
     /**
@@ -229,8 +282,7 @@ public class AngularAttributeLogicImpl
      */
     protected boolean handleIsInputTable()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.getInputTableIdentifierColumns().length() > 0 || this.isInputType(AngularGlobals.INPUT_TABLE);
     }
 
     /**
@@ -239,8 +291,15 @@ public class AngularAttributeLogicImpl
      */
     protected boolean handleIsInputTypePresent()
     {
-        // TODO put your implementation here.
-        return false;
+        boolean present = false;
+        final ClassifierFacade type = this.getType();
+        if (type != null)
+        {
+            present =
+                (StringUtils.isNotBlank(this.getInputType()) || type.isDateType() || type.isBooleanType()) &&
+                !this.isPlaintext();
+        }
+        return present;
     }
 
     /**
@@ -250,8 +309,7 @@ public class AngularAttributeLogicImpl
      */
     protected boolean handleIsPlaintext()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(AngularGlobals.PLAIN_TEXT);
     }
 
     /**
@@ -261,8 +319,7 @@ public class AngularAttributeLogicImpl
      */
     protected String handleGetInputTableIdentifierColumns()
     {
-        // TODO put your implementation here.
-        return null;
+        return Objects.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)).trim();
     }
 
     /**
@@ -271,7 +328,18 @@ public class AngularAttributeLogicImpl
      */
     protected String handleGetMaxLength()
     {
-        // TODO put your implementation here.
+        final Collection<List<String>> vars = this.getValidatorVars(null);
+        if(vars == null)
+        {
+            return null;
+        }
+        for(final List<String> values : vars)
+        {
+            if("maxlength".equals(values.get(0)))
+            {
+                return values.get(1);
+            }
+        }
         return null;
     }
 
@@ -282,8 +350,18 @@ public class AngularAttributeLogicImpl
      */
     protected String handleGetFormPropertyName(ParameterFacade ownerParameter)
     {
-        // TODO put your implementation here.
-        return null;
+        final StringBuilder propertyName = new StringBuilder();
+        if (ownerParameter != null)
+        {
+            propertyName.append(ownerParameter.getName());
+            propertyName.append('.');
+        }
+        final String name = this.getName();
+        if (name != null && name.trim().length() > 0)
+        {
+            propertyName.append(name);
+        }
+        return propertyName.toString();
     }
 
     /**
@@ -292,8 +370,7 @@ public class AngularAttributeLogicImpl
      */
     protected String handleGetFormPropertyId(ParameterFacade ownerParameter)
     {
-        // TODO put your implementation here.
-        return null;
+        return StringUtilsHelper.lowerCamelCaseName(this.getFormPropertyName(ownerParameter));
     }
 
     /**
@@ -303,8 +380,12 @@ public class AngularAttributeLogicImpl
      */
     protected String handleGetBackingListName(ParameterFacade ownerParameter)
     {
-        // TODO put your implementation here.
-        return null;
+        final String backingListName =
+            StringUtils.replace(
+                ObjectUtils.toString(this.getConfiguredProperty(AngularGlobals.BACKING_LIST_PATTERN)),
+                "{0}",
+                this.getFormPropertyId(ownerParameter));
+        return StringUtilsHelper.lowerCamelCaseName(backingListName);
     }
 
     /**
@@ -315,8 +396,10 @@ public class AngularAttributeLogicImpl
      */
     protected String handleGetLabelListName(ParameterFacade ownerParameter)
     {
-        // TODO put your implementation here.
-        return null;
+        return StringUtils.replace(
+            Objects.toString(this.getConfiguredProperty(AngularGlobals.LABEL_LIST_PATTERN)),
+            "{0}",
+            this.getFormPropertyId(ownerParameter));
     }
 
     /**
@@ -326,8 +409,10 @@ public class AngularAttributeLogicImpl
      */
     protected String handleGetValueListName(ParameterFacade ownerParameter)
     {
-        // TODO put your implementation here.
-        return null;
+        return StringUtils.replace(
+            Objects.toString(this.getConfiguredProperty(AngularGlobals.VALUE_LIST_PATTERN)),
+            "{0}",
+            this.getFormPropertyId(ownerParameter));
     }
 
     /**
@@ -336,8 +421,71 @@ public class AngularAttributeLogicImpl
      */
     protected boolean handleIsSelectable(FrontEndParameter ownerParameter)
     {
-        // TODO put your implementation here.
-        return false;
+        boolean selectable = false;
+        if (ownerParameter != null)
+        {
+            if (ownerParameter.isActionParameter())
+            {
+                selectable = this.isInputMultibox() || this.isInputSelect() || this.isInputRadio();
+                final ClassifierFacade type = this.getType();
+
+                if (!selectable && type != null)
+                {
+                    final String name = this.getName();
+                    final String typeName = type.getFullyQualifiedName();
+
+                    // - if the parameter is not selectable but on a targeting page it IS selectable we must
+                    //   allow the user to set the backing list too
+                    final Collection<FrontEndView> views = ownerParameter.getAction().getTargetViews();
+                    for (final Iterator<FrontEndView> iterator = views.iterator(); iterator.hasNext() && !selectable;)
+                    {
+                        final Collection<FrontEndParameter> parameters = iterator.next().getAllActionParameters();
+                        for (final Iterator<FrontEndParameter> parameterIterator = parameters.iterator();
+                            parameterIterator.hasNext() && !selectable;)
+                        {
+                            final FrontEndParameter object = parameterIterator.next();
+                            if (object instanceof JSFParameter)
+                            {
+                                final JSFParameter parameter = (JSFParameter)object;
+                                final String parameterName = parameter.getName();
+                                final ClassifierFacade parameterType = parameter.getType();
+                                if (parameterType != null)
+                                {
+                                    final String parameterTypeName = parameterType.getFullyQualifiedName();
+                                    if (name.equals(parameterName) && typeName.equals(parameterTypeName))
+                                    {
+                                        selectable =
+                                            parameter.isInputMultibox() || parameter.isInputSelect() ||
+                                            parameter.isInputRadio();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if (ownerParameter.isControllerOperationArgument())
+            {
+                final String name = this.getName();
+                for (final FrontEndAction action : ownerParameter.getControllerOperation().getDeferringActions())
+                {
+                    final Collection<FrontEndParameter> formFields = action.getFormFields();
+                    for (final Iterator<FrontEndParameter> fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !selectable;)
+                    {
+                        final FrontEndParameter object = fieldIterator.next();
+                        if (object instanceof JSFParameter)
+                        {
+                            final JSFParameter parameter = (JSFParameter)object;
+                            if (name.equals(parameter.getName()))
+                            {
+                                selectable = parameter.isSelectable();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return selectable;
     }
 
     /**
@@ -346,6 +494,9 @@ public class AngularAttributeLogicImpl
      */
     protected Collection handleGetValidatorArgs(String validatorType)
     {
+        // return JSFUtils.getValidatorArgs(
+        //     (ModelElementFacade)this.THIS(),
+        //     validatorType);
         // TODO put your implementation here.
         return null;
     }
@@ -357,8 +508,8 @@ public class AngularAttributeLogicImpl
      */
     protected String handleGetDateFormatter(AngularParameter ownerParameter)
     {
-        // TODO put your implementation here.
-        return null;
+        final ClassifierFacade type = this.getType();
+        return type != null && type.isDateType() ? this.getFormPropertyId(ownerParameter) + "DateFormatter" : null;
     }
 
     /**
@@ -367,8 +518,8 @@ public class AngularAttributeLogicImpl
      */
     protected String handleGetTimeFormatter(AngularParameter ownerParameter)
     {
-        // TODO put your implementation here.
-        return null;
+        final ClassifierFacade type = this.getType();
+        return type != null && type.isTimeType() ? this.getFormPropertyId(ownerParameter) + "TimeFormatter" : null;
     }
 
     /**
@@ -377,8 +528,12 @@ public class AngularAttributeLogicImpl
      */
     protected String handleGetBackingValueName(ParameterFacade ownerParameter)
     {
-        // TODO put your implementation here.
-        return null;
+        final String backingListName =
+            StringUtils.replace(
+                Objects.toString(this.getConfiguredProperty(AngularGlobals.BACKING_VALUE_PATTERN)),
+                "{0}",
+                this.getFormPropertyId(ownerParameter));
+        return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
     }
 
     /**
@@ -388,8 +543,72 @@ public class AngularAttributeLogicImpl
      */
     protected boolean handleIsBackingValueRequired(FrontEndParameter ownerParameter)
     {
-        // TODO put your implementation here.
-        return false;
+        boolean required = false;
+        if (ownerParameter != null)
+        {
+            if (ownerParameter.isActionParameter())
+            {
+                required = this.isInputTable();
+                final ClassifierFacade type = this.getType();
+
+                if (!required && type != null)
+                {
+                    final String name = this.getName();
+                    final String typeName = type.getFullyQualifiedName();
+
+                    // - if the parameter is not selectable but on a targetting page it IS selectable we must
+                    //   allow the user to set the backing list too
+                    final Collection<FrontEndView> views = ownerParameter.getAction().getTargetViews();
+                    for (final Iterator<FrontEndView> iterator = views.iterator(); iterator.hasNext() && !required;)
+                    {
+                        final Collection<FrontEndParameter> parameters = iterator.next().getAllActionParameters();
+                        for (final Iterator<FrontEndParameter> parameterIterator = parameters.iterator();
+                            parameterIterator.hasNext() && !required;)
+                        {
+                            final FrontEndParameter object = parameterIterator.next();
+                            if (object instanceof JSFParameter)
+                            {
+                                final JSFParameter parameter = (JSFParameter)object;
+                                final String parameterName = parameter.getName();
+                                final ClassifierFacade parameterType = parameter.getType();
+                                if (parameterType != null)
+                                {
+                                    final String parameterTypeName = parameterType.getFullyQualifiedName();
+                                    if (name.equals(parameterName) && typeName.equals(parameterTypeName))
+                                    {
+                                        required = parameter.isInputTable();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if (ownerParameter.isControllerOperationArgument())
+            {
+                final String name = this.getName();
+                final Collection<FrontEndAction> actions = ownerParameter.getControllerOperation().getDeferringActions();
+                for (final Iterator<FrontEndAction> actionIterator = actions.iterator(); actionIterator.hasNext();)
+                {
+                    final JSFAction action = (JSFAction)actionIterator.next();
+                    final Collection<FrontEndParameter> formFields = action.getFormFields();
+                    for (final Iterator<FrontEndParameter> fieldIterator = formFields.iterator();
+                        fieldIterator.hasNext() && !required;)
+                    {
+                        final FrontEndParameter object = fieldIterator.next();
+                        if (object instanceof JSFParameter)
+                        {
+                            final JSFParameter parameter = (JSFParameter)object;
+                            if (name.equals(parameter.getName()))
+                            {
+                                required = parameter.isBackingValueRequired();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return required;
     }
 
     /**
@@ -398,7 +617,10 @@ public class AngularAttributeLogicImpl
      */
     protected Collection handleGetValidatorVars(AngularParameter ownerParameter)
     {
-        // TODO put your implementation here.
+        // return JSFUtils.getValidatorVars(
+        //     (ModelElementFacade)this.THIS(),
+        //     this.getType(),
+        //     ownerParameter);
         return null;
     }
 }

@@ -758,7 +758,7 @@ public class JSFAttributeLogicImpl
      */
     protected String handleGetInputTableIdentifierColumns()
     {
-        return ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)).trim();
+        return Objects.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)).trim();
     }
 
     /**
