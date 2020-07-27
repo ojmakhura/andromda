@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.StringTokenizer;
 
 import org.andromda.cartridges.jsf2.JSFProfile;
@@ -439,22 +440,20 @@ public class AngularHelper {
 	
     public static Collection<?> getTableColumns(JSFAttribute attribute) {
         Collection<String> columns = new ArrayList<>();
-        if(!StringUtils.isBlank(attribute.getInputTableIdentifierColumns())) {       
+        String identifierColumns = Objects.toString(attribute.findTaggedValue("andromda_presentation_view_field_table_identifier_columns"), "").trim();
+        String viewColumns = Objects.toString(attribute.findTaggedValue("andromda_presentation_view_table_columns"), "").trim();
 
-            for(String col : attribute.getInputTableIdentifierColumns().split(",") ) {
+        if(!StringUtils.isBlank(identifierColumns)) {
+            for(String col : identifierColumns.split(",")) {
+                columns.add(col);
+            }
+        } else if(!StringUtils.isBlank(viewColumns)) {
+            for(String col : viewColumns.split(",")) {
                 columns.add(col);
             }
         } else {
-            String cols = ObjectUtils.toString(attribute.findTaggedValue(JSFProfile.TAGGEDVALUE_TABLE_COLUMNS));
-            
-            if(!StringUtils.isBlank(cols)) {
-                for(String col : cols.split(",") ) {
-                    columns.add(col);
-                }
-            } else {
-                for(AttributeFacade attr : attribute.getType().getAttributes()) {
-                    columns.add(attr.getName());
-                }
+            for(AttributeFacade attr : attribute.getType().getAttributes()) {
+                columns.add(attr.getName());
             }
         }
 		
@@ -499,13 +498,17 @@ public class AngularHelper {
 
     public static boolean isTable(JSFAttribute attribute) {
 
-        System.out.println(attribute.getTaggedValues().toString());
-        //System.out.println("--------- " + this.isInputType(AngularGlobals.INPUT_TABLE));
+        String columns = Objects.toString(attribute.findTaggedValue("andromda_presentation_view_field_table_identifier_columns"), "").trim();
+        String viewColumns = Objects.toString(attribute.findTaggedValue("andromda_presentation_view_table_columns"), "").trim();
+        String fieldType = Objects.toString(attribute.findTaggedValue("andromda_presentation_web_view_field_type"), "").trim();
+        String viewTable = Objects.toString(attribute.findTaggedValue("andromda_presentation_view_table"), "").trim();
 
-        for(TaggedValueFacade tv : attribute.getTaggedValues()) {
-            if(tv.getName().equals(AngularProfile.INPUT_TYPE)) {
-                System.out.println(">>>>> " + tv.getName());
-            }
+        if(Boolean.valueOf(viewTable) ||
+            !StringUtils.isBlank(viewColumns) ||
+            fieldType.equals("table") ||
+            !StringUtils.isBlank(columns)) {
+            
+            return true;
         }
 
         return false;

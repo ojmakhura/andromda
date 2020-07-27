@@ -11,7 +11,7 @@ import { MatSort } from '@angular/material/sort';
 
 #set ( $viewFile = $angularHelper.getComponentFileName("${action.source.name}") )
 #set ( $viewName = $angularHelper.getComponentName($viewFile, '-') )
-import { ${viewName}ImplComponent } from 'src/app/impl/view/$actionPath/${viewFile}.impl.component';
+import { ${viewName}ImplComponent } from 'src/app/impl/view${action.source.path}.impl.component';
 #set ( $parameters = [] )
 #foreach( $parameter in $action.parameters )
 #if($parameter.complex)
@@ -25,7 +25,6 @@ import { ${param.name} } from 'src/app/gen/model/$path/$fname';
 #end
 #set ($args = [])
 #foreach ($service in $action.controller.allServices)
-$service.path
 #set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${service.packageName}), '\\.', '\\/')" )
 #set ( $fname = $angularHelper.getComponentFileName("${service.name}Impl") )
 import { ${service.name}Impl } from 'src/app/impl/service/$path/$fname';
@@ -42,7 +41,6 @@ import { ${action.controller.name}Impl } from 'src/app/impl/controller/$path/$fn
   template: ''
 })
 export abstract class ${className}Component implements OnInit {
-
 #set ($cr = "
 ")
 #set ( $attr = [] )
@@ -50,12 +48,13 @@ export abstract class ${className}Component implements OnInit {
 #if($angularHelper.isComplex($tmp))
 #set ($i = 1)
 #foreach($attribute in $tmp.attributes)
-#if($attribute.inputTable)
+#if($angularHelper.isTable($attribute))
+
 	${attribute.name}Columns = [
 #set($i = 1)
 #set ($columns = $angularHelper.getTableColumns($attribute))
 #foreach ($column in $columns)
-        '$column'#if($i < $columns.size()),#end$cr
+        '$column'#if($i < $columns.size()),$cr#else$cr#end
 #set($i = $i + 1)
 #end
     ];
