@@ -15,6 +15,7 @@ import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import java.util.Objects;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jsf2.metafacades.JSFAttribute.

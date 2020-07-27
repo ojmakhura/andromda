@@ -9,15 +9,21 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.Objects;
 
 import org.andromda.cartridges.angular.AngularGlobals;
 import org.andromda.cartridges.angular.AngularHelper;
 import org.andromda.cartridges.angular.AngularProfile;
+import org.andromda.cartridges.jsf2.JSFProfile;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndControllerOperation;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
+import org.andromda.metafacades.uml.FrontEndAction;
+import org.andromda.metafacades.uml.FrontEndActionState;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections4.CollectionUtils;
@@ -120,10 +126,10 @@ public class AngularActionLogicImpl
      */
     protected String handleGetFormScope()
     {
-        String scope = Objects.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_FORM_SCOPE));
+        String scope = Objects.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_FORM_SCOPE));
         if (StringUtils.isEmpty(scope))
         {
-            scope = Objects.toString(this.getConfiguredProperty(AgularGlobals.FORM_SCOPE));
+            scope = Objects.toString(this.getConfiguredProperty(AngularGlobals.FORM_SCOPE));
         }
         return scope;
     }
@@ -281,7 +287,7 @@ public class AngularActionLogicImpl
     {
         String tableLink = null;
 
-        final Object value = findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_TABLELINK);
+        final Object value = findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_TABLELINK);
         if (value != null)
         {
             tableLink = StringUtils.trimToNull(value.toString());
@@ -305,7 +311,7 @@ public class AngularActionLogicImpl
     protected String handleGetTableLinkColumnName()
     {
         String tableLink = null;
-        final Object value = findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_TABLELINK);
+        final Object value = findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_TABLELINK);
         if (value != null)
         {
             tableLink = StringUtils.trimToNull(value.toString());
@@ -327,7 +333,7 @@ public class AngularActionLogicImpl
      */
     protected boolean handleIsTableLink()
     {
-        this.getTableLinkParameter() != null
+        return this.getTableLinkParameter() != null;
     }
 
     /**
@@ -336,7 +342,7 @@ public class AngularActionLogicImpl
      */
     protected boolean handleIsHyperlink()
     {
-        final Object value = findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_TYPE);
+        final Object value = findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_TYPE);
         return AngularGlobals.ACTION_TYPE_HYPERLINK.equalsIgnoreCase(value == null ? null : value.toString());
     }
 
@@ -396,8 +402,17 @@ public class AngularActionLogicImpl
      */
     protected boolean handleIsResettable()
     {
-        final Object value = findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_RESETTABLE);
+        final Object value = findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_RESETTABLE);
         return this.isTrue(value == null ? null : value.toString());
+    }
+
+    /**
+     * Convenient method to detect whether or not a String instance represents a boolean <code>true</code> value.
+     */
+    private boolean isTrue(String string)
+    {
+        return "yes".equalsIgnoreCase(string) || "true".equalsIgnoreCase(string) || "on".equalsIgnoreCase(string) ||
+        "1".equalsIgnoreCase(string);
     }
 
     /**
@@ -406,7 +421,7 @@ public class AngularActionLogicImpl
      */
     protected String handleGetFormKey()
     {
-        final Object formKeyValue = this.findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_FORM_KEY);
+        final Object formKeyValue = this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_FORM_KEY);
         return formKeyValue == null ? Objects.toString(this.getConfiguredProperty(AngularGlobals.ACTION_FORM_KEY))
                                     : String.valueOf(formKeyValue);
     }
@@ -417,7 +432,7 @@ public class AngularActionLogicImpl
      */
     protected boolean handleIsTableAction()
     {
-        return AngularGlobals.ACTION_TYPE_TABLE.equals(this.findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_TYPE));
+        return AngularGlobals.ACTION_TYPE_TABLE.equals(this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_TYPE));
     }
 
     /**
@@ -449,7 +464,7 @@ public class AngularActionLogicImpl
      */
     protected boolean handleIsPopup()
     {
-        boolean popup = Objects.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_TYPE)).equalsIgnoreCase(
+        boolean popup = Objects.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_TYPE)).equalsIgnoreCase(
             AngularGlobals.ACTION_TYPE_POPUP);
         return popup;
     }
@@ -478,7 +493,6 @@ public class AngularActionLogicImpl
         }
         return resetRequired;
     }
-    }
 
     /**
      * Whether or not the entire form should be reset (all action parameters on the form).
@@ -486,8 +500,8 @@ public class AngularActionLogicImpl
      */
     protected boolean handleIsFormReset()
     {
-        // TODO put your implementation here.
-        return false;
+        return Boolean.valueOf(Objects.toString(this.findTaggedValue(
+            JSFProfile.TAGGEDVALUE_ACTION_FORM_RESET))).booleanValue();
     }
 
     /**
@@ -496,8 +510,7 @@ public class AngularActionLogicImpl
      */
     protected String handleGetFormImplementationGetter()
     {
-        return Boolean.valueOf(Objects.toString(this.findTaggedValue(
-            AngularProfile.TAGGEDVALUE_ACTION_FORM_RESET))).booleanValue();
+        return "get" + StringUtils.capitalize(this.getFormBeanName(false)) + "()";
     }
 
     /**
@@ -603,7 +616,7 @@ public class AngularActionLogicImpl
      */
     protected Map handleGetWarningMessages()
     {
-        return this.getMessages(AngularProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
+        return this.getMessages(JSFProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
     }
 
     /**
@@ -621,7 +634,7 @@ public class AngularActionLogicImpl
      */
     protected Map<String, String> handleGetSuccessMessages()
     {
-        return this.getMessages(AngularProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
+        return this.getMessages(JSFProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
     }
 
     /**
@@ -677,6 +690,35 @@ public class AngularActionLogicImpl
             methodName.append(StringUtilsHelper.lowerCamelCaseName(suffix));
         }
         return "_"+methodName.toString();
+    }
+    
+    /**
+     * Collects specific messages in a map.
+     *
+     * @param taggedValue the tagged value from which to read the message
+     * @return maps message keys to message values, but only those that match the arguments
+     *         will have been recorded
+     */
+    private Map<String, String> getMessages(String taggedValue)
+    {
+        Map<String, String> messages;
+
+        final Collection taggedValues = this.findTaggedValues(taggedValue);
+        if (taggedValues.isEmpty())
+        {
+            messages = Collections.EMPTY_MAP;
+        }
+        else
+        {
+            messages = new LinkedHashMap<String, String>(); // we want to keep the order
+            for (final Object tag : taggedValues)
+            {
+                final String value = (String)tag;
+                messages.put(StringUtilsHelper.toResourceMessageKey(value), value);
+            }
+        }
+
+        return messages;
     }
 
     /**
