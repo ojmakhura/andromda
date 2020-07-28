@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import org.andromda.cartridges.jsf2.JSFGlobals;
@@ -47,8 +48,8 @@ public class JSFControllerLogicImpl
      */
     protected String handleGetImplementationName()
     {
-        final String pattern = ObjectUtils.toString(
-            this.getConfiguredProperty(JSFGlobals.CONTROLLER_IMPLEMENTATION_PATTERN));
+        final String pattern = Objects.toString(
+            this.getConfiguredProperty(JSFGlobals.CONTROLLER_IMPLEMENTATION_PATTERN), "");
         return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
     }
 

@@ -6,6 +6,7 @@ package org.andromda.cartridges.angular.metafacades;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import org.andromda.cartridges.angular.AngularGlobals;
 import org.andromda.metafacades.uml.DependencyFacade;
@@ -39,8 +40,7 @@ public class AngularControllerLogicImpl
      */
     protected String handleGetImplementationName()
     {
-        final String pattern = ObjectUtils.toString(this.getConfiguredProperty(AngularGlobals.CONTROLLER_IMPLEMENTATION_PATTERN));
-        System.out.print("------------ AngularControllerLogicImpl.handleGetImplementationName " + pattern);
+        final String pattern = Objects.toString(this.getConfiguredProperty(AngularGlobals.CONTROLLER_IMPLEMENTATION_PATTERN), "");
         return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
     }
 
@@ -74,7 +74,6 @@ public class AngularControllerLogicImpl
      */
     protected String handleGetBeanName()
     {
-        // TODO put your implementation here.
         return StringUtilsHelper.lowerCamelCaseName(this.getName());
     }
 
