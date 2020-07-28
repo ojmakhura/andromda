@@ -1,4 +1,4 @@
-#set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/')" )
+#set ( $actionPath = $action.path )
 #set ( $fileName = $angularHelper.getComponentFileName("$action.name") )
 #set ( $className = $angularHelper.getComponentName($action.name, "-") )
 #set ( $formName = $action.formBeanName)
@@ -33,10 +33,21 @@
 #renderAngularActionInput($parameter "" "		")
 #else
 		<div formGroupName="${parameter.name}">
-#foreach ($attribute in $parameter.attributes)
+#set ($normals = $angularHelper.getStandardAttributes($parameter))
+#set ($tables = $angularHelper.getTableAttributes($parameter))
+#foreach ($attribute in $normals)
 #if (!$attribute.inputHidden)
 #renderAngularActionInput($attribute $parameter "		    ")
 #end
+#end
+#if ($tables.size() > 0)
+            <mat-tab-group animationDuration="0ms" class = "view-tabs">
+#foreach($table in $tables)
+                <mat-tab label="$table.label">
+#renderAngularActionInput($table $parameter "		            ")
+                </mat-tab>
+#end
+            </mat-tab-group>
 #end
 		</div>
 #end

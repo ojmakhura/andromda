@@ -20,9 +20,9 @@ import { NgForm, FormGroup, FormControl, FormArray } from '@angular/forms';
 #set ( $types = [] )
 #foreach ( $action in $view.actions )
 #if (!$action.tableLink)
-#set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/')" )
+#set ( $actionPath = ${action.path} )
 #set ( $actionName = $angularHelper.getComponentFileName("$action.name") )
-import { $angularHelper.getComponentName($action.name, "-")ImplComponent } from 'src/app/impl/view/$actionPath/${actionName}.impl.component';
+import { $angularHelper.getComponentName($action.name, "-")ImplComponent } from 'src/app/impl/view${actionPath}.impl.component';
 #foreach ($field in $action.formFields)
 #if (!(${field.action} && $field.action.tableLinkName))
 #if ($field.complex)

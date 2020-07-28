@@ -439,7 +439,7 @@
 	
 	<template
         path="templates/angular/app/view/action/view.action.html.vsl"
-        outputPattern="$actionPath/${fileName}.component.html"
+        outputPattern="${actionPath}.component.html"
         outlet="view-impls"
         overwrite="true">
         <modelElements variable="action">
@@ -469,7 +469,7 @@
 	
 	<template
         path="templates/angular/app/view/action/view.action.impl.ts.vsl"
-        outputPattern="$actionPath/${fileName}.impl.component.ts"
+        outputPattern="${actionPath}.impl.component.ts"
         outlet="view-impls"
         overwrite="false">
         <modelElements variable="action">
@@ -484,7 +484,7 @@
     
 	<template
         path="templates/angular/app/view/action/view.action.css.vsl"
-        outputPattern="$actionPath/${fileName}.component.css"
+        outputPattern="${actionPath}.component.css"
         outlet="view-impls"
         overwrite="false">
         <modelElements variable="action">
@@ -499,7 +499,7 @@
     
 	<template
         path="templates/angular/app/view/action/view.action.spec.ts.vsl"
-        outputPattern="$actionPath/${fileName}.component.spec.ts"
+        outputPattern="${actionPath}.component.spec.ts"
         outlet="views"
         overwrite="false">
         <modelElements variable="action">

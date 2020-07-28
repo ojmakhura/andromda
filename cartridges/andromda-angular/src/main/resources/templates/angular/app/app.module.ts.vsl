@@ -98,7 +98,7 @@ import { ${className}ImplComponent } from ${escTool.s}./impl/view/${componentPat
 #set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/') )
 #set ( $fileName = $angularHelper.getComponentFileName("${action.name}") )
 #set ( $className = $angularHelper.getComponentName($fileName, "-"))
-import { ${className}ImplComponent } from ${escTool.s}./impl/view/${componentPath}/${fileName}.impl.component${escTool.s};
+import { ${className}ImplComponent } from ${escTool.s}./impl/view/${action.path}.impl.component${escTool.s};
 #end
 
 #set ( $finalFields = [] )

@@ -11,8 +11,10 @@ import java.util.Objects;
 import java.util.StringTokenizer;
 
 import org.andromda.cartridges.jsf2.JSFProfile;
+import org.andromda.cartridges.jsf2.metafacades.JSFAction;
 import org.andromda.cartridges.jsf2.metafacades.JSFAttribute;
 import org.andromda.cartridges.jsf2.metafacades.JSFControllerOperationLogic;
+import org.andromda.cartridges.jsf2.metafacades.JSFParameter;
 import org.andromda.cartridges.webservice.metafacades.WebServiceOperation;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -26,8 +28,10 @@ import org.andromda.metafacades.uml.Service;
 import org.andromda.metafacades.uml.TaggedValueFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.metafacades.uml.ValueObject;
+import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.CaseUtils;
 import org.apache.commons.text.WordUtils;
 import org.apache.log4j.Logger;
 
@@ -512,5 +516,55 @@ public class AngularHelper {
         }
 
         return false;
+    }
+
+    /**
+     * 
+     * 
+     * @param action
+     * @return
+     */
+    public static Collection<JSFAttribute> getStandardAttributes(FrontEndParameter feParameter) {
+
+        List<JSFAttribute> attributes = new ArrayList<>();
+
+        if(feParameter instanceof JSFParameter) {
+            final JSFParameter parameter = (JSFParameter)feParameter;
+            for(Object tmp : parameter.getAttributes()) {
+                JSFAttribute attribute = (JSFAttribute)tmp;
+                if(!isTable(attribute)) {
+                    attributes.add(attribute);
+                }
+            }
+        }
+
+        return attributes;
+    }
+
+    public static Collection<JSFAttribute> getTableAttributes(FrontEndParameter feParameter) {
+
+        List<JSFAttribute> attributes = new ArrayList<>();
+            
+        if(feParameter instanceof JSFParameter) {
+            final JSFParameter parameter = (JSFParameter)feParameter;
+            for(Object tmp : parameter.getAttributes()) {
+                JSFAttribute attribute = (JSFAttribute)tmp;
+                if(isTable(attribute)) {
+                    attributes.add(attribute);
+                }
+            }
+        }
+
+        return attributes;
+    }
+
+    public static String getNameFromPath(final String path) {
+
+        if(StringUtils.isBlank(path)) {
+            return "";
+        }
+
+        String[] splits = path.split("/");
+        return splits[splits.length - 1];
     }
 }

@@ -47,9 +47,7 @@ export abstract class ${className}Component implements OnInit {
 #foreach ( $tmp in $action.parameters )
 #if($angularHelper.isComplex($tmp))
 #set ($i = 1)
-#foreach($attribute in $tmp.attributes)
-#if($angularHelper.isTable($attribute))
-
+#foreach($attribute in $angularHelper.getTableAttributes($tmp))
 	${attribute.name}Columns = [
 #set($i = 1)
 #set ($columns = $angularHelper.getTableColumns($attribute))
@@ -60,7 +58,6 @@ export abstract class ${className}Component implements OnInit {
     ];
     @ViewChild('${attribute.name}Paginator', {static: true}) ${attribute.name}Paginator: MatPaginator;
     @ViewChild('${attribute.name}Sort', {static: true}) ${attribute.name}Sort: MatSort;
-#end
 #end
 #end
 #end

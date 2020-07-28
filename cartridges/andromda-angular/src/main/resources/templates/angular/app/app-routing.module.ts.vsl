@@ -38,7 +38,7 @@
 #set ( $actionFileName = $angularHelper.getComponentFileName("$action.name") )
 #set ( $actionName = "${angularHelper.getComponentName($action.name, '-')}" )
 #set ( $rt = $classNames.add("${actionName}ImplComponent"))
-#set ( $rt = $imports.add("import { ${actionName}ImplComponent } from ${escTool.s}./impl/view/${actionPath}/${actionFileName}.impl.component${escTool.s};"))
+#set ( $rt = $imports.add("import { ${actionName}ImplComponent } from ${escTool.s}./impl/view/${action.path}.impl.component${escTool.s};"))
 #end
 #end
 ## Tables
