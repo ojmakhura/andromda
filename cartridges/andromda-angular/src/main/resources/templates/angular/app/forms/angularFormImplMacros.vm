@@ -11,25 +11,7 @@
     /**
      * Stores the label/value pairs.
      */
-    private $backingListName: Array<any>;
-
-#set ($backingListMethod = $stringUtils.capitalize($backingListName))
-
-    /**
-     * @return backingList Array<any>
-     */
-    get${backingListMethod}(): Array<any>
-    {
-        return this.$backingListName;
-    }
-
-    /**
-     * @param ${backingListName}In
-     */
-    public set${backingListMethod}(${backingListName}In: Array<any>): void
-    {
-        this.$backingListName = ${backingListName}In;
-    }
+    $backingListName: Array<any>;
     
 #end
 ##

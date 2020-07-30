@@ -67,18 +67,13 @@ export abstract class $controller.name extends ControllerBase {
 #foreach ($service in $controller.allServices)
     protected $stringUtils.uncapitalize($service.name): ${service.name}Impl;
 #end
-#foreach($cnt in $controllerSet)
-    protected $stringUtils.uncapitalize($cnt.name): ${cnt.name}Impl;
-#end
+    protected _injector: Injector;
 
     constructor(injector: Injector) {
         super(injector);
 #foreach ($service in $controller.allServices)  
         this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name}Impl);
-#end
-#foreach($cnt in $controllerSet)
-        this.$stringUtils.uncapitalize($cnt.name) = injector.get(${cnt.name}Impl);
-#end
+#end        
     }
 
     /**
@@ -93,9 +88,9 @@ export abstract class $controller.name extends ControllerBase {
      */
     private populateActionFormsAndPageVariables(currentView: string, forward: string, sourceForm: any): void //throws IllegalAccessException, java.lang.reflect.InvocationTargetException, NoSuchMethodException
     {
-        if(forward == null)
+        if(forward === null)
         {
-            forward=currentView;
+            forward = currentView;
         }
         
         const pageVariables = this.getPageVariables(forward);
@@ -124,7 +119,9 @@ export abstract class $controller.name extends ControllerBase {
 #end
 #end
 #end
-        ControllerBase.getUseCaseScope()[ControllerBase.CURRENT_PAGE_VARIABLES_KEY] = pageVariables;
+        let useCaseScope = ControllerBase.getUseCaseScope();
+        useCaseScope[ControllerBase.CURRENT_PAGE_VARIABLES_KEY] = pageVariables;
+        this.setUseCaseScope(useCaseScope);
     }
     
 #foreach ($operation in $controller.operations)
@@ -146,7 +143,11 @@ $operation.getDocumentation("     * ")
     protected $action.formImplementationGetter: $action.formImplementationName
     {
 #set ($form = $stringUtils.substringBefore($action.formImplementationName, "Impl"))
-        return JSON.parse(localStorage.getItem('${action.formBeanName}')) as $action.formImplementationName;
+        let form: ${action.formImplementationName} = JSON.parse(localStorage.getItem('${action.formBeanName}'));
+        if(!form) {
+            form = new ${action.formImplementationName}();
+        }
+        return form; //JSON.parse(localStorage.getItem('${action.formBeanName}')) as ${action.formImplementationName};
     }
 
 #end
@@ -185,7 +186,7 @@ $action.trigger.getDocumentation("     * ")
     public ${action.triggerName}()
 #end
     {
-        this.setLastPostedFormClientId("${action.formBeanName}");
+        this.setLastPostedFormClientId('${action.formBeanName}');
         
         let forward: string = null;
 #if ($action.finalStateTarget)
@@ -203,12 +204,12 @@ $action.trigger.getDocumentation("     * ")
 #end
 #else
 #if ($formPopulationOperationRequired)
-        const form: $action.formImplementationName =
+        let form: $action.formImplementationName =
             this.$action.formImplementationGetter;
             
 #if($action.exitingInitialState)
         //copy parameters form caller use case
-        form.copyFrom(useCaseParameters);
+        form = ${action.formImplementationName}.copyFrom(useCaseParameters);
         
 #end
 #end
@@ -224,6 +225,7 @@ $action.trigger.getDocumentation("     * ")
 #set ( $actionFile = $angularHelper.getComponentFileName("${action.name}"))
 #set ( $actionClass = $angularHelper.getComponentName($actionFile, "-") )
         this.populateActionFormsAndPageVariables('$stringUtils.lowerCase($actionClass)', forward, form);
+        localStorage.setItem('${action.formBeanName}', JSON.stringify(form));
 #end
 #if(!$action.exitingInitialState && !$action.enteringFinalState)
         if(forward !== null)
@@ -238,11 +240,11 @@ $action.trigger.getDocumentation("     * ")
 #end
 #end
 #if($action.exitingInitialState)     
-    return forward;
+        return forward;
 #else
-    if(forward !== null) {
-        this.router.navigate(['/' + forward]);
-    } 
+        if(forward !== null) {
+            this.router.navigate(['/' + forward]);
+        } 
 #end
         
     }
@@ -368,5 +370,12 @@ $decisionTransition.getDocumentation("     * ")
     }
 
 #end
+#end
+#foreach($cnt in $controllerSet)
+
+    get ${cnt.beanName}(): ${cnt.name}Impl {
+        
+        return this._injector.get(${cnt.name}Impl);
+    }
 #end
 }

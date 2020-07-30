@@ -75,7 +75,7 @@ export class $className
     static populate$angularHelper.getComponentName("${t2}-with-${t1}", "-")(fromForm: $action.getFormImplementationName(), toForm: $viewAction.getFormImplementationName()): void
     {
 #foreach($field in $commonFields)
-        if(fromForm.is${stringUtils.capitalize($field.formAttributeSetProperty)}())
+        if(fromForm.${field.formAttributeSetProperty})
         {
             toForm.${field.setterName}(fromForm.${field.getterName}());
         }

@@ -34,7 +34,7 @@ export class $action.formImplementationName
     {
 #foreach ($field in $action.formFields)
 #if ($field.defaultValuePresent)
-        ${field.setterName}($field.defaultValue);
+        this.${field.name} = $field.defaultValue;
 #end
 #end
     }
@@ -44,67 +44,24 @@ export class $action.formImplementationName
 #end
 ## Impl uses $action.formFields, Form uses $operation.formFields
 #foreach ($field in $action.formFields)
-    private $field.name: $angularHelper.getDatatype($field.type.name);
-
-    /**
-$field.getDocumentation("     * ")
-     *
-     * @return ${field.name} $field.getDocumentation("")
-     */
-##if ($implList)
-##    @Override
-##end
-    public ${field.getterName}(): $angularHelper.getDatatype($field.type.name )
-    {
-#if ($field.complex && !$field.many && !$field.type.enumeration)
-        if (this.$field.name == null)
-        {
-            this.$field.name = new ${field.type.name}();
-            this.${field.setterName}(this.$field.name);
-        }
+#set ($type = $angularHelper.getDatatype($field.type.name))
+#if($field.many)
+#set ($type = "${type}[]")
 #end
-        return this.${field.name};
-    }
-#renderAlternateGetterForPrimitiveBoolean($field.name $fieldTypeName ${field.getterName})
+    $field.name: ${type};
 
     /**
      * Keeps track of whether or not the value of $field.name has
      * be populated at least once.
      */
-    private $field.formAttributeSetProperty = false;
-## WIM: it looks to the values should be kept during all the form life (useCaseScope)
-##    /**
-##     * Resets the value of the $field.formAttributeSetProperty to false
-##     */
-##    public void reset${stringUtils.capitalize($field.formAttributeSetProperty)}()
-##    {
-##        this.$field.formAttributeSetProperty = false;
-##    }
+    $field.formAttributeSetProperty = false;
 
-    /**
-     * Indicates whether or not the value for $field.name has been set at least
-     * once.
-     *
-     * @return true/false
-     */
-    public is${stringUtils.capitalize($field.formAttributeSetProperty)}(): boolean
+    static ${field.setterName}(form: ${action.formImplementationName}, ${field.name}In: ${type}): void
     {
-        return this.$field.formAttributeSetProperty;
+        form.$field.name = ${field.name}In;
+        form.$field.formAttributeSetProperty = true;
     }
 
-    /**
-$field.getDocumentation("     * ")
-     *
-     * @param ${field.name}In $field.getDocumentation("")
-     */
-##if ($implList)
-##    @Override
-##end
-    public ${field.setterName}(${field.name}In: $angularHelper.getDatatype($field.type.name)): void
-    {
-        this.$field.name = ${field.name}In;
-        this.$field.formAttributeSetProperty = true;
-    }
 #renderBackingListImplSupport($field "")
 #if (!$field.type.enumeration)
 #if (!$field.attributes.empty)
@@ -126,14 +83,16 @@ $field.getDocumentation("     * ")
      *
      * @param dest the destination Map
      */  
-    public copyTo(dest: any)
+    static copyTo(form: ${action.formImplementationName}, dest: any)
     {
+        if(dest && form){
 #foreach ($field in $action.formFields)
-        if(this.${field.formAttributeSetProperty})
-        {
-            dest['${field.name}'] = this.${field.name};
-        }
+            if(form.${field.formAttributeSetProperty})
+            {
+                dest['${field.name}'] = form.${field.name};
+            }
 #end
+        }
     }
 
 #renderCopyFrom($action.formImplementationName $action.formFields "")

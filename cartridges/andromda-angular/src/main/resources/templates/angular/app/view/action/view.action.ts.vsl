@@ -70,7 +70,7 @@ export abstract class ${className}Component implements OnInit {
 #end
     protected $stringUtils.uncapitalize($viewName): ${viewName}ImplComponent;
     protected formBuilder: RxFormBuilder;
-    protected ${action.controller.beanName}: ${action.controller.name}Impl;
+    protected _injector: Injector;
 
     constructor(injector: Injector) {
 
@@ -81,7 +81,7 @@ export abstract class ${className}Component implements OnInit {
 #end
         this.$stringUtils.uncapitalize($viewName) = injector.get(${viewName}ImplComponent);
         this.formBuilder = injector.get(RxFormBuilder);
-        this.${action.controller.beanName} = injector.get(${action.controller.name}Impl);
+        this._injector = injector;
     }
 
     ngOnInit(): void {
@@ -163,4 +163,11 @@ export abstract class ${className}Component implements OnInit {
 		this.do$stringUtils.capitalize(${action.triggerName})();
         this.${action.controller.beanName}.${action.triggerName}();
     }
+
+#if($action.controller)
+    get ${action.controller.beanName}(): ${action.controller.name}Impl {
+        
+        return this._injector.get(${action.controller.name}Impl);
+    }
+#end
 }

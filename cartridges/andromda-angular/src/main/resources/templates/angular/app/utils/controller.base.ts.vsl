@@ -37,7 +37,7 @@ export abstract class ControllerBase
         const key=view + '-' + ControllerBase.PAGE_VARIABLES_SUFFIX;
         let useCaseScope = ControllerBase.getUseCaseScope();
         let pageVariables;
-        if(useCaseScope.containsKey(key))
+        if(useCaseScope[key])
         {
             pageVariables = useCaseScope[key];
         } 
@@ -90,7 +90,12 @@ export abstract class ControllerBase
      */
     static getUseCaseScope(): any
     {
-        return localStorage.getItem(ControllerBase.USE_CASE_SCOPE_KEY);
+        let useCaseScope = JSON.parse(localStorage.getItem(ControllerBase.USE_CASE_SCOPE_KEY));
+        if(!useCaseScope) {
+            useCaseScope = {};
+        }
+
+        return useCaseScope;
     }
     
     /**
@@ -100,7 +105,7 @@ export abstract class ControllerBase
      */
     setUseCaseScope(useCaseScope: any)
     {
-        localStorage.setItem(ControllerBase.USE_CASE_SCOPE_KEY, useCaseScope);
+        localStorage.setItem(ControllerBase.USE_CASE_SCOPE_KEY, JSON.stringify(useCaseScope));
         return useCaseScope;
     }
     

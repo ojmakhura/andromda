@@ -44,6 +44,10 @@ import { $angularHelper.getComponentName($action.name, "-")ImplComponent } from 
 import { $a.name } from 'src/app/gen/model/$path/$name';
 #end
 
+#set ( $path = $stringUtils.replaceChars($view.useCase.controller.packageName, '\\.', '\\/') )
+#set ( $file =  ${angularHelper.getComponentFileName("${view.useCase.controller.name}Impl")})
+import { ${view.useCase.controller.name}Impl } from 'src/app/impl/controller/$path/${file}';
+
 #set ($tmpName = ${angularHelper.getComponentName("$fileName", "-")})
 @Component({
   selector: '${fileName}-base',
@@ -56,11 +60,14 @@ export abstract class ${tmpName}Component implements OnInit {
     protected route: ActivatedRoute;
     protected router: Router;
     protected formBuilder: RxFormBuilder;
+    protected _injector: Injector;
 
     constructor(injector: Injector) {
         this.route = injector.get(ActivatedRoute);
         this.router = injector.get(Router);
         this.formBuilder = injector.get(RxFormBuilder);
+
+        this._injector = injector;
     }
 
     abstract beforeOnInit();
@@ -84,4 +91,10 @@ export abstract class ${tmpName}Component implements OnInit {
     getArrayControl(name): FormArray {
         return this.${stringUtils.uncapitalize(${tmpName})}Form.get(name) as FormArray;
     }
+
+    get ${view.useCase.controller.beanName}(): ${view.useCase.controller.name}Impl {
+        
+        return this._injector.get(${view.useCase.controller.name}Impl);
+    }
+
 }

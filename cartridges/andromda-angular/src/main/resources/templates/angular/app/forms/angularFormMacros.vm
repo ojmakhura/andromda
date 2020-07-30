@@ -53,37 +53,40 @@
      *
      * @param source the source Map
      */     
-     copyFrom(source: any): ${beanClass}
+    static copyFrom(source: any): ${beanClass}
     {
+        let form = new ${beanClass}();
+        if(source) {
 #foreach ($field in $attributes)
 #setFieldWrapperTypeName($field $fieldWrapperTypeName)
 #if($field.many)
-        if('${field.name}' in source)
-        {
-            this.${field.setterName}(source['${field.name}']);
-        }
+            if('${field.name}' in source)
+            {
+                form.${field.name} = source['${field.name}'];
+            }
 #else    
-        if('${field.name}' in source)
-        {
-            this.${field.setterName}(source['${field.name}']);
-        }
+            if('${field.name}' in source)
+            {
+                form.${field.name} = source['${field.name}'];
+            }
 #end
 #end
 #foreach ($end in $assocvsliationEnds)
 #setAssociationEndFieldTypeName($end)
 #if($end.many)
-        if('${field.name}' in source)
-        {
-            this.${end.setterName}(source['${end.name}']);
-        }
+            if('${field.name}' in source)
+            {
+                form.${end.name} = source['${end.name}'];
+            }
 #else    
-        if('${field.name}' in source)
-        {
-            this.${end.setterName}(source['${end.name}']);
+            if('${field.name}' in source)
+            {
+                form.${end.name} = source['${end.name}'];
+            }
+#end
+#end
         }
-#end
-#end
-        return this;
+        return form;
     }
 #end
 ##
