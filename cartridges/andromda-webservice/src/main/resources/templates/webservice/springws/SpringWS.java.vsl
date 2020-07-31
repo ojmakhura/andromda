@@ -10,11 +10,13 @@ package ${service.packageName};
 
 @org.springframework.web.bind.annotation.RestController
 @org.springframework.web.bind.annotation.RequestMapping(#if ($stringUtils.isNotBlank($service.restPath))"$service.restPath"#else"${service.name.toLowerCase()}sws"#end)
-@org.springframework.stereotype.Component
+@org.springframework.web.bind.annotation.CrossOrigin()
 #foreach($annotation in $service.additionalAnnotations)
 @$annotation
 #end
 public class ${service.name}WS {
+
+    private static org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(${service.name}WS.class);
 	
     @org.springframework.beans.factory.annotation.Autowired
     private ${service.fullyQualifiedName} $stringUtils.uncapitalize(${service.name});
@@ -29,7 +31,7 @@ public class ${service.name}WS {
     @org.springframework.web.bind.annotation.ResponseBody
 #end
     $operation.visibility $operation.getterSetterReturnTypeName ${operation.name}(#getOperationArgs($operation)) {
-#if ($operation.getterSetterReturnTypeName != 'void')        return #end$stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames);
+        #if ($operation.getterSetterReturnTypeName != 'void')return #end$stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames);
     }
 
 #end

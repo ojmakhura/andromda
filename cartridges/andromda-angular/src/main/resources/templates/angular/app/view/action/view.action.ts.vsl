@@ -29,11 +29,13 @@ import { ${param.name} } from 'src/app/gen/model/$path/$fname';
 #set ( $fname = $angularHelper.getComponentFileName("${service.name}Impl") )
 import { ${service.name}Impl } from 'src/app/impl/service/$path/$fname';
 #end
-
 #if($action.controller)
 #set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.controller.packageName}), '\\.', '\\/')" )
 #set ( $fname = $angularHelper.getComponentFileName("${action.controller.name}Impl") )
 import { ${action.controller.name}Impl } from 'src/app/impl/controller/$path/$fname';
+#end
+#if($action.parameters.size() > 0)
+import { $action.formImplementationName } from 'src/app/gen/form${action.path}-form-impl';
 #end
 
 @Component({
@@ -161,6 +163,20 @@ export abstract class ${className}Component implements OnInit {
     
     ${action.triggerName}() {
 		this.do$stringUtils.capitalize(${action.triggerName})();
+
+#if($action.parameters.size() > 0)
+        let form: $action.formImplementationName = JSON.parse(localStorage.getItem('$action.formBeanName'));
+        if(!form) {
+            form = new ${action.formImplementationName}();
+        }
+#foreach ($parameter in $action.parameters)
+
+        let $parameter.name = this.getItemControl('$parameter.name').value;
+        ${action.formImplementationName}.${parameter.setterName}(form, $parameter.name);
+#end
+
+        localStorage.setItem('${action.formBeanName}', JSON.stringify(form));
+#end
         this.${action.controller.beanName}.${action.triggerName}();
     }
 

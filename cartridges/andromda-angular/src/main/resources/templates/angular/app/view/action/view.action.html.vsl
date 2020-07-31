@@ -41,13 +41,13 @@
 #end
 #end
 #if ($tables.size() > 0)
-            <mat-tab-group animationDuration="0ms" class = "view-tabs">
+            <!--mat-tab-group animationDuration="0ms" class = "view-tabs">
 #foreach($table in $tables)
                 <mat-tab label="$table.label">
 #renderAngularActionInput($table $parameter "		            ")
                 </mat-tab>
 #end
-            </mat-tab-group>
+            </mat-tab-group-->
 #end
 		</div>
 #end

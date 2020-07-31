@@ -14,7 +14,6 @@ import { ControllerBase } from 'src/app/gen/controller/utils/controller.base';
 import { ${service.name}Impl } from 'src/app/impl/service/$path/$file';
 #end
 import { $viewPopulator } from './${angularHelper.getComponentFileName(${controller.useCase.actionClassName})}.view.populator';
-
 #foreach ($action in $controller.useCase.actions)
 #if($action.formFields.size() > 0)
 #set ( $path = $stringUtils.replaceChars($action.packageName, '\\.', '\\/') )
@@ -41,7 +40,6 @@ import { $action.formImplementationName } from 'src/app/gen/form/$path/$file';
 import { ${cnt.name}Impl } from 'src/app/impl/controller/$path/${file}';
 #end
 #end
-
 #foreach ($operation in $controller.operations)
 #if (!$operation.getFormFields().isEmpty())
 #set ( $path = $stringUtils.replaceChars($controller.packageName, '\\.', '\\/') )
@@ -49,7 +47,6 @@ import { ${cnt.name}Impl } from 'src/app/impl/controller/$path/${file}';
 import { $operation.getFormName() } from 'src/app/gen/form/$path/$file';
 #end
 #end
-
 #set ($types = [])
 #foreach ($operation in $controller.operations)
 #if($angularHelper.isComplex($operation.returnType))
@@ -73,7 +70,8 @@ export abstract class $controller.name extends ControllerBase {
         super(injector);
 #foreach ($service in $controller.allServices)  
         this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name}Impl);
-#end        
+#end
+        this._injector = injector;
     }
 
     /**
@@ -105,9 +103,11 @@ export abstract class $controller.name extends ControllerBase {
         if('$stringUtils.lowerCase($viewClass)' === forward)
         {
 #foreach ($viewAction in $view.formActions)
+            let _${viewAction.formBeanName} = this.${viewAction.formImplementationGetter};
             ${viewPopulator}.
                 populate${viewAction.getFormImplementationName()}
-                    (sourceForm, this.${viewAction.formImplementationGetter});
+                    (sourceForm, _${viewAction.formBeanName});
+            localStorage.setItem('${viewAction.formBeanName}', JSON.stringify(_${viewAction.formBeanName}));
 #end
 #if(!$view.variables.empty)
             ${viewPopulator}.populate$stringUtilsHelper.upperCamelCaseName($view.name)PageVariables(sourceForm, pageVariables);
@@ -222,7 +222,7 @@ $action.trigger.getDocumentation("     * ")
 #if($action.exitingInitialState)
         this.populateActionFormsAndPageVariables(null, forward, form);
 #else
-#set ( $actionFile = $angularHelper.getComponentFileName("${action.name}"))
+#set ( $actionFile = $angularHelper.getComponentFileName("${action.source.name}"))
 #set ( $actionClass = $angularHelper.getComponentName($actionFile, "-") )
         this.populateActionFormsAndPageVariables('$stringUtils.lowerCase($actionClass)', forward, form);
         localStorage.setItem('${action.formBeanName}', JSON.stringify(form));

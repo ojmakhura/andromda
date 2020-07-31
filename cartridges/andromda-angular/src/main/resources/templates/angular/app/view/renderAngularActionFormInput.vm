@@ -24,7 +24,6 @@
 #end
 #set ($formValuePropertyName = "${valuePropertyName}")
 ${ident}<div>
-${ident}	<!-- ${propertyId}#if($angularHelper.isTable($parameter)) table#end -->
 #if($angularHelper.isTable($parameter))
 ${ident}	<div class="mat-elevation-z8">
 ${ident}		<mat-table matSort [dataSource]="${parameter.name}.controls" #${parameter.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
@@ -49,7 +48,7 @@ ${ident}	  	<mat-datepicker #$propertyId></mat-datepicker>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration)
 ${ident}		<mat-select name="$propertyId" formControlName="${parameter.name}" id="$propertyId">
 #if ($parameter.type.enumeration)
-${ident}			<mat-option *ngFor="let item of Object.keys($parameter.type.name.values())" [value]="item">{{item}}</mat-option>
+${ident}			<mat-option *ngFor="let item of Object.keys(${parameter.type.name}.values())" [value]="item">{{item}}</mat-option>
 #else
 ${ident}			<mat-option *ngFor="let item of ${formName}.${backingListName}}" [value]="item">{{item}}</mat-option>
 #end

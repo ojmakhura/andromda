@@ -77,13 +77,12 @@ export class $className
 #foreach($field in $commonFields)
         if(fromForm.${field.formAttributeSetProperty})
         {
-            toForm.${field.setterName}(fromForm.${field.getterName}());
+            ${viewAction.getFormImplementationName()}.${field.setterName}(toForm, fromForm.${field.name});
         }
 #if ($field.selectable || $field.type.enumeration)##This test should go to a needsBackingList method
-#set ($backingListMethod = $stringUtils.capitalize($field.backingListName))
-        if(fromForm.get${backingListMethod}() != null)
+        if(fromForm.$field.backingListName)
         {
-            toForm.set${backingListMethod}(fromForm.get${backingListMethod}());
+            toForm.$field.backingListName = fromForm.$field.backingListName;
         }
 #end
 #end
@@ -118,9 +117,9 @@ export class $className
         {
             const sourceForm: $action.getFormImplementationName() = fromForm;
 #foreach($field in $commonFields)
-            if(sourceForm.is$stringUtils.capitalize($field.formAttributeSetProperty)())
+            if(sourceForm.$field.formAttributeSetProperty)
             {
-                pageVariables['${field.name}'] = sourceForm.get$stringUtils.capitalize(${field.name})();
+                pageVariables['${field.name}'] = sourceForm.${field.name};
             }
 #end
 #set($showElse = true)

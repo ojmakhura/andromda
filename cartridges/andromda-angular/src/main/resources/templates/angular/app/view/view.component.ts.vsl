@@ -74,7 +74,10 @@ export abstract class ${tmpName}Component implements OnInit {
 	
     ngOnInit() {
         this.beforeOnInit();
-		
+
+#if(${view.useCase.controller})
+        this.${view.useCase.controller.beanName}.startUseCase();
+#end
         this.afterOnInit();
     }
 
@@ -92,9 +95,10 @@ export abstract class ${tmpName}Component implements OnInit {
         return this.${stringUtils.uncapitalize(${tmpName})}Form.get(name) as FormArray;
     }
 
+#if(${view.useCase.controller})
     get ${view.useCase.controller.beanName}(): ${view.useCase.controller.name}Impl {
         
         return this._injector.get(${view.useCase.controller.name}Impl);
     }
-
+#end
 }

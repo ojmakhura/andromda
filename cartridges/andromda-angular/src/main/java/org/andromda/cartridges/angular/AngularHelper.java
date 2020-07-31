@@ -491,7 +491,7 @@ public class AngularHelper {
         signature.append(" " + operation.getName() + "(");
         if (!operation.getFormFields().isEmpty())
         {
-            signature.append("form: " + operation.getFormName());
+            signature.append("form");
         }
         signature.append("): ");
         final ModelElementFacade returnType = operation.getReturnType();

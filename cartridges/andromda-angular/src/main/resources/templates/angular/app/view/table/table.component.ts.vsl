@@ -35,6 +35,12 @@ import { ${service.name}Impl } from 'src/app/impl/service/$path/$fname';
 #set ( $viewFile = $angularHelper.getComponentFileName("${table.view.name}") )
 #set ($viewName = $angularHelper.getComponentName($viewFile, '-') )
 import { ${viewName}ImplComponent } from 'src/app/impl/view/$componentPath/${viewFile}.impl.component';
+#set ( $path = $stringUtils.replaceChars($table.view.useCase.controller.packageName, '\\.', '\\/') )
+#set ( $file =  ${angularHelper.getComponentFileName("${table.view.useCase.controller.name}Impl")})
+import { ${table.view.useCase.controller.name}Impl } from 'src/app/impl/controller/$path/${file}';
+#foreach ($action in $table.tableFormActions)
+import { $action.formImplementationName } from 'src/app/gen/form${action.path}-form-impl';
+#end
 
 @Component({
   selector: '${fileName}-base',
@@ -69,6 +75,7 @@ export abstract class ${className}Component implements OnInit {
     protected $stringUtils.uncapitalize($service.name): ${service.name}$suffix;
 #end
     protected $stringUtils.uncapitalize($viewName): ${viewName}ImplComponent;
+    protected _injector: Injector;
 
     constructor(injector: Injector) {
         this.route = injector.get(ActivatedRoute);
@@ -78,6 +85,7 @@ export abstract class ${className}Component implements OnInit {
 #end
         this.$stringUtils.uncapitalize($viewName) = injector.get(${viewName}ImplComponent);
         this.formBuilder = injector.get(RxFormBuilder);
+        this._injector = injector;
     }
 
     ngOnInit(): void {
@@ -90,7 +98,7 @@ export abstract class ${className}Component implements OnInit {
             $angularHelper.getColumnName($column): ['']#if($i < $table.tableColumns.size()),$cr#end
 #end
 #set($i = $i + 1)
-#end$cr
+#end
         }]);
 
         this.${table.name}Form.removeAt(0);
@@ -143,12 +151,26 @@ export abstract class ${className}Component implements OnInit {
 	${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes()) {
 
 		let params = this.do$stringUtils.capitalize(${action.triggerName})(#renderAngularTableCommandLinkParametersPlain());
-		// this.router.navigate(['/$stringUtils.lowerCase($routeName)'], {state: {params}});
+        let form = JSON.parse(localStorage.getItem('${action.formBeanName}'));
+
+        if(!form) {
+            form = new ${action.formImplementationName}();
+        }
+#foreach ($parameter in $action.parameters)
+        ${action.formImplementationName}.${parameter.setterName}(form, $parameter.name);
+#end
+        localStorage.setItem('${action.formBeanName}', JSON.stringify(form));
+        this.${action.controller.beanName}.${action.triggerName}();
 	}
 #end	
 #end
 #end
 #end
+
+    get ${table.view.useCase.controller.beanName}(): ${table.view.useCase.controller.name}Impl {
+        
+        return this._injector.get(${table.view.useCase.controller.name}Impl);
+    }
 
     get ${table.name}(): FormArray {
         return this.${table.name}Form;
@@ -162,7 +184,17 @@ export abstract class ${className}Component implements OnInit {
             $angularHelper.getColumnName($column): ['$column.name']#if($i < $table.tableColumns.size()),$cr#end
 #end
 #set($i = $i + 1)
-#end$cr
+#end
+        }));
+
+        this.${table.name}Form.push(this.formBuilder.group({
+#set($i = 1)
+#foreach ($column in $table.tableColumns)
+#if(!($column.upper > 1 || $column.upper == -1))
+            $angularHelper.getColumnName($column): ['$column.name']#if($i < $table.tableColumns.size()),$cr#end
+#end
+#set($i = $i + 1)
+#end
         }));
 
         this.${table.name}Form.push(this.formBuilder.group({
@@ -172,17 +204,7 @@ export abstract class ${className}Component implements OnInit {
             $angularHelper.getColumnName($column): ['$column.name']#if($i < $table.tableColumns.size()),$cr#end
 #end
 #set($i = $i + 1)
-#end$cr
-        }));
-
-        this.${table.name}Form.push(this.formBuilder.group({
-#set($i = 1)
-#foreach ($column in $table.tableColumns)
-#if(!($column.upper>1 || $column.upper==-1))
-            $angularHelper.getColumnName($column): ['$column.name']#if($i < $table.tableColumns.size()),$cr#end
 #end
-#set($i = $i + 1)
-#end$cr
         }));
     }
 }

@@ -36,8 +36,8 @@ export class ${service.name}Impl extends ${service.name} {
 #set ($arguments = $angularHelper.getMethodSignatureArguments($operation.arguments))
 #set ($restParams = $angularHelper.getMethodCallArguments($operation.arguments))
 #set ($returnType = $angularHelper.getDatatype($operation.returnType.name))
-#if (!$useArrayWrapper && ($operation.upper>1 || $operation.upper==-1))
-#set ($returnType = "$returnType[]")
+#if (!$useArrayWrapper && ($operation.upper > 1 || $operation.upper == -1))
+#set ($returnType = "${returnType}[]")
 #end
 #set ($rType = $returnType)
 #set ($returnType = "Observable<$returnType>")
