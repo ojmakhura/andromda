@@ -217,7 +217,7 @@ $attribute.getDocumentation("     * ")
 #foreach($annotation in $attribute.additionalAnnotations)
     @$annotation
 #end
-    protected $returnType $attribute.name#if (!$attribute.many && $attribute.defaultValuePresent) = #if($attribute.type.enumeration)${returnType}.#end${attribute.defaultValue}#end;
+    protected $returnType $attribute.name#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#end;
 #if ($attribute.type.primitive)
     /**
      * boolean setter for primitive attribute, so we can tell if it's initialized

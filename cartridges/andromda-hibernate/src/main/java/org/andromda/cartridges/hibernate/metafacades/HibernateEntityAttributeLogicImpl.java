@@ -75,11 +75,11 @@ public class HibernateEntityAttributeLogicImpl
             {
                 defaultValue = fullyQualifiedName + ".valueOf(" + defaultValue + ')';
             }
-            else if (type.isEnumeration())
+            /*else if (type.isEnumeration())
             {
                 final String mask = (String)this.getConfiguredProperty(UMLMetafacadeProperties.ENUMERATION_LITERAL_NAME_MASK);
-                defaultValue = type.getFullyQualifiedName() + '.' + NameMasker.mask(defaultValue, mask);
-            }
+                defaultValue = defaultValue;
+            }*/
         }
         return defaultValue;
     }
