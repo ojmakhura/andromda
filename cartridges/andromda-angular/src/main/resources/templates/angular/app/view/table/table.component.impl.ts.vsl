@@ -22,7 +22,12 @@ export class ${className}ImplComponent extends ${className}Component {
 	}
 	
 	afterOnInit() {
-	}	
+	}
+
+  doNgAfterViewInit() {
+    
+  }
+
 #foreach ($action in $table.tableFormActions)
 
 	do$stringUtils.capitalize(${action.triggerName})(#renderAngularTableCommandLinkParametersWithTypes()): any {

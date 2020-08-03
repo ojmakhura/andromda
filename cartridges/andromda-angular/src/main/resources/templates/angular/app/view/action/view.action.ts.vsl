@@ -2,10 +2,10 @@
 #set ( $actionPath = $action.path )
 #set ( $fileName = $angularHelper.getComponentFileName("$action.name") )
 #set ( $className = $angularHelper.getComponentName("$fileName", "-") )
-import { Component, OnInit, Injector, ViewChild } from '@angular/core';
+import { Component, OnInit, Injector, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
-import { NgForm, FormGroup, FormControl, FormArray } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
@@ -13,15 +13,26 @@ import { MatSort } from '@angular/material/sort';
 #set ( $viewName = $angularHelper.getComponentName($viewFile, '-') )
 import { ${viewName}ImplComponent } from 'src/app/impl/view${action.source.path}.impl.component';
 #set ( $parameters = [] )
+#set ( $enumerations = [] )
 #foreach( $parameter in $action.parameters )
 #if($parameter.complex)
 #set ( $ret = $parameters.add($parameter.type) )
+#foreach( $attribute in $parameter.attributes )
+#if($attribute.type.enumeration)
+#set ( $ret = $enumerations.add($attribute.type) )
+#end
+#end
 #end
 #end
 #foreach ($param in $angularHelper.getFacadeSet($parameters))
 #set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${param.packageName}), '\\.', '\\/')" )
 #set ( $fname = $angularHelper.getComponentFileName("${param.name}") )
 import { ${param.name} } from 'src/app/gen/model/$path/$fname';
+#end
+#foreach ($enum in $angularHelper.getFacadeSet($enumerations))
+#set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${enum.packageName}), '\\.', '\\/')" )
+#set ( $fname = $angularHelper.getComponentFileName("${enum.name}") )
+import { ${enum.name} } from 'src/app/gen/model/$path/$fname';
 #end
 #set ($args = [])
 #foreach ($service in $action.controller.allServices)
@@ -64,15 +75,36 @@ export abstract class ${className}Component implements OnInit {
 #end
 #end
     
-    protected $action.formBeanName: FormGroup;
+    @Input() protected $stringUtils.uncapitalize($viewName)Form: FormGroup;
+#foreach ( $table in $action.source.tables )
+	@Output() ${table.name}: EventEmitter<any> = new EventEmitter();
+#end
+#foreach ($act in $action.source.actions)
+#foreach ($param in $act.parameters)
+	@Output() $param.name: EventEmitter<any> = new EventEmitter();
+#end
+#end
     protected route: ActivatedRoute;
     protected router: Router;
 #foreach ($service in $action.controller.allServices)
     protected $stringUtils.uncapitalize($service.name): ${service.name}Impl;
 #end
     protected $stringUtils.uncapitalize($viewName): ${viewName}ImplComponent;
-    protected formBuilder: RxFormBuilder;
+    protected formBuilder: FormBuilder;
     protected _injector: Injector;
+#foreach( $parameter in $action.parameters )
+#if($parameter.complex)
+#foreach( $attribute in $parameter.attributes )
+#if($attribute.type.enumeration)
+    protected $attribute.name = $attribute.type.name;
+    protected ${attribute.name}Options = [];
+#elseif($attribute.inputSelect)
+#set ($backingListName = ${attribute.getBackingListName($parameter)})
+    protected $backingListName: Array<$attribute.type.name>;
+#end
+#end
+#end
+#end
 
     constructor(injector: Injector) {
 
@@ -82,50 +114,22 @@ export abstract class ${className}Component implements OnInit {
         this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name}Impl);
 #end
         this.$stringUtils.uncapitalize($viewName) = injector.get(${viewName}ImplComponent);
-        this.formBuilder = injector.get(RxFormBuilder);
+        this.formBuilder = injector.get(FormBuilder);
         this._injector = injector;
+#foreach( $parameter in $action.parameters )
+#if($parameter.complex)
+#foreach( $attribute in $parameter.attributes )
+#if($attribute.type.enumeration)
+        this.${attribute.name}Options = Object.keys(this.$attribute.name);
+#end
+#end
+#end
+#end
     }
 
     ngOnInit(): void {
 	
         this.beforeOnInit();
-
-#set ($i = 1)
-#if($action.parameters.size() > 0)
-        this.$action.formBeanName = this.formBuilder.group({
-#foreach ( $tmp in $action.parameters )
-#if($tmp.many || $tmp.table)
-        $tmp.name: this.formBuilder.array([{
-#if($tmp.table && $tmp.tableColumns.size() > 0)
-#set ($j = 1)
-#foreach($column in $tmp.tableColumns)
-            $column.name: ''#if($j < $tmp.tableColumns.size()),#end$cr
-#set ($j = $j + 1)
-#end
-#else
-#if($angularHelper.isComplex($tmp))
-### Each attribute
-#set ($k = 1)
-#foreach($attribute in $tmp.attributes)
-#if(!$angularHelper.isComplex($attribute) && !$attribute.many) ### Only non complex attributes and non collection
-                $attribute.name: ''#if($k < $tmp.attributes.size()),#end$cr
-#set ($k = $k + 1)
-#end
-#end
-#else
-                $tmp.name: ''$cr
-#end
-#end
-            }])#if($i < $action.parameters.size()),#end$cr
-#elseif($angularHelper.isComplex($tmp))
-            $tmp.name: this.formBuilder.group(new $angularHelper.getDatatype($tmp.type.fullyQualifiedName)())#if($i < $action.parameters.size()),#end$cr
-#else
-            $tmp.name: this.formBuilder.control()#if($i < $action.parameters.size()),#end$cr
-#end
-#set ($i = $i + 1)
-#end
-        });
-#end
 
         this.afterOnInit();
     }
@@ -133,17 +137,23 @@ export abstract class ${className}Component implements OnInit {
     abstract beforeOnInit();
 	
     abstract afterOnInit();
+    
+    abstract doNgAfterViewInit();
+
+    ngAfterViewInit() {
+        this.doNgAfterViewInit();
+    }
 
     getItemControl(name): FormControl {
-        return this.${action.formBeanName}.get(name) as FormControl;
+        return this.${stringUtils.uncapitalize($viewName)}Form.get(name) as FormControl;
     }
 
     getGroupControl(name): FormGroup {
-        return this.${action.formBeanName}.get(name) as FormGroup;
+        return this.${stringUtils.uncapitalize($viewName)}Form.get(name) as FormGroup;
     }
 
     getArrayControl(name): FormArray {
-        return this.${action.formBeanName}.get(name) as FormArray;
+        return this.${stringUtils.uncapitalize($viewName)}Form.get(name) as FormArray;
     }
 
 #foreach ( $tmp in $action.parameters )
@@ -160,30 +170,46 @@ export abstract class ${className}Component implements OnInit {
 #end
 	
 	abstract do$stringUtils.capitalize(${action.triggerName})();
+    abstract after$stringUtils.capitalize(${action.triggerName})();
     
     ${action.triggerName}() {
 		this.do$stringUtils.capitalize(${action.triggerName})();
-
 #if($action.parameters.size() > 0)
-        let form: $action.formImplementationName = JSON.parse(localStorage.getItem('$action.formBeanName'));
-        if(!form) {
-            form = new ${action.formImplementationName}();
-        }
 #foreach ($parameter in $action.parameters)
 
         let $parameter.name = this.getItemControl('$parameter.name').value;
-        ${action.formImplementationName}.${parameter.setterName}(form, $parameter.name);
+        let form = this.getForm();
+        form = ${action.formImplementationName}.${parameter.setterName}(form, $parameter.name);
+        this.setForm(form);
 #end
-
-        localStorage.setItem('${action.formBeanName}', JSON.stringify(form));
 #end
         this.${action.controller.beanName}.${action.triggerName}();
+
+        this.after$stringUtils.capitalize(${action.triggerName})();
     }
 
 #if($action.controller)
     get ${action.controller.beanName}(): ${action.controller.name}Impl {
         
         return this._injector.get(${action.controller.name}Impl);
+    }
+#end
+
+#if($action.parameters.size() > 0)
+    getForm(): $action.formImplementationName {
+        
+        let tmp = localStorage.getItem('$action.formBeanName');
+        let form: $action.formImplementationName = new ${action.formImplementationName}();
+        
+        if(tmp && tmp !== 'undefined' && tmp !== 'null') {
+            form = JSON.parse(tmp);
+        }
+
+        return form;
+    }
+
+    setForm(form: $action.formImplementationName) {
+        localStorage.setItem('$action.formBeanName', JSON.stringify(form));
     }
 #end
 }

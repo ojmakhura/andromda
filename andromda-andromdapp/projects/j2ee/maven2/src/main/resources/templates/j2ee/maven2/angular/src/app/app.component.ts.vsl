@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './$stringUtils.lowerCase(${applicationId}).${component}.html',
   styleUrls: ['./$stringUtils.lowerCase(${applicationId}).${component}.css']
 })
-export class ${moduleName}Component {
+export class ${stringUtils.capitalize($applicationId)}Component {
   title = '$stringUtils.capitalize(${applicationId})';
 }

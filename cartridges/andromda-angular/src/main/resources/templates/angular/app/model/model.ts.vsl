@@ -23,14 +23,16 @@ export class $class.name {
 
 ### Find the return type and the default values
 #set ($returnType = $angularHelper.getDatatype($attribute.getterSetterTypeName))
-#if($returnType == "File")
+#if($attribute.defaultValuePresent)
+#set ($default = $attribute.defaultValue)
+#elseif($returnType == "File")
 #set ($default = "null")
 #elseif($angularHelper.isArray($attribute.getterSetterTypeName))
 #set ($default = "[]")
 #elseif($attribute.many)
 #set ($returnType = "$returnType[]")
 #set ($default = "[]")
-#elseif ($angularHelper.isComplex($attribute))
+#elseif ($attribute.type.name != ${class.name} && $angularHelper.isComplex($attribute) && !$attribute.type.enumeration) ## Avoid cyclic dependency and using new on enumerations
 #set ($default = "new ${attribute.type.name}()")
 #elseif ($returnType == "Date")
 #set ($default = "new Date()")
@@ -40,7 +42,7 @@ export class $class.name {
 #set ($default = "null")
 #end
 	@$angularHelper.getRxwebDecorator($attribute)
-    $attribute.name: $returnType#if(!$attribute.type.enumeration) = $default#end;
+    $attribute.name: $returnType = $default;
 #end
 
 }

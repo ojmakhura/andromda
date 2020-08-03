@@ -4,10 +4,10 @@
 #set ( $className = $angularHelper.getComponentName($fileName, "-"))
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Component, OnInit, ViewChild, Injector } from '@angular/core';
+import { Component, OnInit, ViewChild, Injector, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
-import { NgForm, FormGroup, FormControl, FormArray } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 #set ( $types = [] )
 #set ( $rt = $types.add($table.type) )
 #set ( $suffix = "" )
@@ -63,12 +63,12 @@ export abstract class ${className}Component implements OnInit {
 #end$cr
     ];
 
-    protected ${table.name}Form: FormArray;
+    @Input() $stringUtils.uncapitalize($viewName)Form: FormGroup;
 
     @ViewChild('${table.name}Paginator', {static: true}) ${table.name}Paginator: MatPaginator;
     @ViewChild('${table.name}Sort', {static: true}) ${table.name}Sort: MatSort;
 
-	protected formBuilder: RxFormBuilder;
+	protected formBuilder: FormBuilder;
     protected route: ActivatedRoute;
     protected router: Router;
 #foreach($service in $finalServices)
@@ -84,31 +84,25 @@ export abstract class ${className}Component implements OnInit {
         this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name}$suffix);
 #end
         this.$stringUtils.uncapitalize($viewName) = injector.get(${viewName}ImplComponent);
-        this.formBuilder = injector.get(RxFormBuilder);
+        this.formBuilder = injector.get(FormBuilder);
         this._injector = injector;
     }
 
     ngOnInit(): void {
         this.beforeOnInit();
-
-        this.${table.name}Form = this.formBuilder.array([{
-#set($i = 1)
-#foreach ($column in $table.tableColumns)
-#if(!($column.upper>1 || $column.upper==-1))
-            $angularHelper.getColumnName($column): ['']#if($i < $table.tableColumns.size()),$cr#end
-#end
-#set($i = $i + 1)
-#end
-        }]);
-
-        this.${table.name}Form.removeAt(0);
-
+        this.${table.name}.removeAt(0);
         this.afterOnInit();
     }
 	
     abstract beforeOnInit();
 	
     abstract afterOnInit();
+    
+    abstract doNgAfterViewInit();
+
+    ngAfterViewInit() {
+        this.doNgAfterViewInit();
+    }
 
 #foreach ($action in $table.tableFormActions)
 #foreach ($transition in $action.transitions)
@@ -173,11 +167,11 @@ export abstract class ${className}Component implements OnInit {
     }
 
     get ${table.name}(): FormArray {
-        return this.${table.name}Form;
+        return <FormArray>this.${stringUtils.uncapitalize($viewName)}Form.get('${table.name}');
     }
 
     addDummyData() {
-        this.${table.name}Form.push(this.formBuilder.group({
+        this.${table.name}.push(this.formBuilder.group({
 #set($i = 1)
 #foreach ($column in $table.tableColumns)
 #if(!($column.upper>1 || $column.upper==-1))
@@ -187,7 +181,7 @@ export abstract class ${className}Component implements OnInit {
 #end
         }));
 
-        this.${table.name}Form.push(this.formBuilder.group({
+        this.${table.name}.push(this.formBuilder.group({
 #set($i = 1)
 #foreach ($column in $table.tableColumns)
 #if(!($column.upper > 1 || $column.upper == -1))
@@ -197,7 +191,7 @@ export abstract class ${className}Component implements OnInit {
 #end
         }));
 
-        this.${table.name}Form.push(this.formBuilder.group({
+        this.${table.name}.push(this.formBuilder.group({
 #set($i = 1)
 #foreach ($column in $table.tableColumns)
 #if(!($column.upper>1 || $column.upper==-1))

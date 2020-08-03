@@ -301,7 +301,7 @@
         path="templates/angular/app/view/view.component.html.vsl"
         outputPattern="$componentPath/${fileName}.component.html"
         outlet="view-impls"
-        overwrite="true">
+        overwrite="false">
         <modelElements variable="view">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndView">
@@ -399,7 +399,7 @@
         path="templates/angular/app/view/table/table.component.html.vsl"
         outputPattern="$componentPath/${fileName}.component.html"
         outlet="view-impls"
-        overwrite="true">
+        overwrite="false">
         <modelElements>
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndView">
@@ -441,7 +441,7 @@
         path="templates/angular/app/view/action/view.action.html.vsl"
         outputPattern="${actionPath}.component.html"
         outlet="view-impls"
-        overwrite="true">
+        overwrite="false">
         <modelElements variable="action">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndAction">

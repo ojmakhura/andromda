@@ -3,7 +3,8 @@
 ##
 #macro (getOperationArgs $operation)
 #set ( $i = 0 )
-#foreach ( $arg in $operation.arguments )#if ( $i == 1 ), #else#set ( $i = 1 )#end#if(!$arg.primitive)@org.springframework.web.bind.annotation.RequestBody #end${arg.type.fullyQualifiedName} ${arg.name}#end
+#foreach ( $arg in $webServiceUtils.getSpringOperationArgs($operation) )
+#if ( $i == 1 ), #else#set ( $i = 1 )#end$arg#end
 #end
 package ${service.packageName};
 #set ($componentPath = $stringUtils.replaceChars(${service.packageName}, "\\.", "\\/"))
@@ -23,7 +24,7 @@ public class ${service.name}WS {
 
 #foreach ($operation in $service.allowedOperations)
 #set ($responseStatus = $operation.restResponseStatus)
-    $webServiceUtils.getRequestType(${operation.restRequestType})(#if (!$stringUtils.isBlank($operation.restPath))value = $operation.restPath#end)
+    $webServiceUtils.getRequestType(${operation.restRequestType})($webServiceUtils.getSpringOperationPath($operation))
 #if (!$stringUtils.isBlank($responseStatus))
     $operation.restResponseStatus
 #end

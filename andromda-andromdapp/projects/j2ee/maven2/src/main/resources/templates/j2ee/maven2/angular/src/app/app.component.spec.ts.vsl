@@ -1,38 +1,36 @@
 #set ($component = 'component')
-#set ( $moduleFileName = $angularHelper.getComponentFileName("${applicationId}") )
-#set ( $moduleName = $angularHelper.getComponentName($moduleFileName, "-"))
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ${moduleName}Component } from './${moduleFileName}.$component';
+import { $stringUtils.capitalize(${applicationId})Component } from './$stringUtils.lowerCase(${applicationId}).$component';
 
-describe('${moduleName}Component', () => {
+describe('$stringUtils.capitalize(${applicationId})Component', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule
       ],
       declarations: [
-        ${moduleName}Component
+        $stringUtils.capitalize(${applicationId})Component
       ],
     }).compileComponents();
   }));
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(${moduleName}Component);
+    const fixture = TestBed.createComponent($stringUtils.capitalize(${applicationId})Component);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title '${moduleName}'`, () => {
-    const fixture = TestBed.createComponent(${moduleName}Component);
+  it(`should have as title '$stringUtils.capitalize(${applicationId})'`, () => {
+    const fixture = TestBed.createComponent($stringUtils.capitalize(${applicationId})Component);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('${moduleName}');
+    expect(app.title).toEqual('$stringUtils.capitalize(${applicationId})');
   });
 
   it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(${moduleName}Component);
+    const fixture = TestBed.createComponent($stringUtils.capitalize(${applicationId})Component);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to ${moduleName}!');
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to $stringUtils.capitalize(${applicationId})!');
   });
 });

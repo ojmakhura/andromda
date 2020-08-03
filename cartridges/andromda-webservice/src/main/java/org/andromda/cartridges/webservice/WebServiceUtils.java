@@ -21,6 +21,7 @@ import org.andromda.cartridges.webservice.metafacades.WSDLTypeLogic;
 import org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl;
 import org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl.OperationNameComparator;
 import org.andromda.cartridges.webservice.metafacades.WebServiceOperation;
+import org.andromda.cartridges.webservice.metafacades.WebServiceParameter;
 import org.andromda.cartridges.webservice.metafacades.WebServiceParameterLogic;
 import org.andromda.core.common.Introspector;
 import org.andromda.core.metafacade.MetafacadeBase;
@@ -2752,5 +2753,59 @@ public class WebServiceUtils
             return "@org.springframework.web.bind.annotation.PostMapping";
         }
         
+    }
+
+    public static String getSpringOperationPath(WebServiceOperation operation) {
+
+        StringBuilder builder = new StringBuilder();
+        String path = operation.getRestPath();
+        builder.append("\"/");
+        builder.append(path.substring(2, path.length() - 1));
+
+        for(ParameterFacade parameter : operation.getArguments()) {
+            WebServiceParameter param = (WebServiceParameter)parameter;
+            String paramType = param.getRestParamType();
+            if(paramType.contains("PathParam")) {
+                builder.append("/" + parameter.getName());
+                builder.append("/{" + parameter.getName() + "}");
+            }
+        }
+        
+        return builder.toString() + "\"";
+    }
+    
+    public static Collection<String> getSpringOperationArgs(WebServiceOperation operation) {
+
+        ArrayList<String> args = new ArrayList<>();
+
+        for(ParameterFacade parameter : operation.getArguments()) {
+            WebServiceParameter param = (WebServiceParameter)parameter;
+            StringBuilder builder = new StringBuilder();
+            String paramType = param.getRestParamType();
+
+            if(param.getType().getAttributes().size() > 0) {
+                builder.append("@org.springframework.web.bind.annotation.RequestBody");
+            }
+
+            if(paramType.contains("PathParam")) {
+                if(builder.length() > 0) {
+                    builder.append(" ");
+                }
+                builder.append("@org.springframework.web.bind.annotation.PathVariable(\"");
+                builder.append(param.getName() + "\")");
+
+            } 
+
+            if(builder.length() > 0) {
+                builder.append(" ");
+            }
+
+            builder.append(param.getType().getFullyQualifiedName() + " " + param.getName());
+
+            args.add(builder.toString());
+        }
+
+        return args;
+
     }
 }

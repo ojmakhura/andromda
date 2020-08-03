@@ -56,25 +56,26 @@ export class $action.formImplementationName
      */
     $field.formAttributeSetProperty = false;
 
-    static ${field.setterName}(form: ${action.formImplementationName}, ${field.name}In: ${type}): void
+    static ${field.setterName}(form: ${action.formImplementationName}, ${field.name}In: ${type}): ${action.formImplementationName}
     {
         form.$field.name = ${field.name}In;
         form.$field.formAttributeSetProperty = true;
+
+        return form;
     }
 
-#renderBackingListImplSupport($field "")
-#if (!$field.type.enumeration)
-#if (!$field.attributes.empty)
-
-    // $field.name attributes
-#end
-#foreach ($attribute in $field.attributes)
+##renderBackingListImplSupport($field "")
+##if (!$field.type.enumeration)
+##if (!$field.attributes.empty)
+##    // $field.name attributes
+##end
+##foreach ($attribute in $field.attributes)
 ## - Chad Brandon - we ALWAYS render the backing list for attributes in the form
 ##   impl (because there are complex conditions where they might not show up and cause
 ##   uncompilable code; if we always render, we don't need to figure out what they are)
-#renderBackingListImplSupport($attribute $field)
-#end
-#end
+##renderBackingListImplSupport($attribute $field)
+##end
+##end
 
 #end
 
@@ -83,7 +84,7 @@ export class $action.formImplementationName
      *
      * @param dest the destination Map
      */  
-    static copyTo(form: ${action.formImplementationName}, dest: any)
+    static copyTo(form: ${action.formImplementationName}, dest: any): ${action.formImplementationName}
     {
         if(dest && form){
 #foreach ($field in $action.formFields)
@@ -93,6 +94,8 @@ export class $action.formImplementationName
             }
 #end
         }
+
+        return form;
     }
 
 #renderCopyFrom($action.formImplementationName $action.formFields "")

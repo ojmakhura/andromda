@@ -23,7 +23,7 @@ export class ${controller.implementationName} extends ${controller.name} {
     }
 
 #foreach ($operation in $controller.operations)
-	public ${operation.name}(): $angularHelper.getDatatype($operation.returnType.name) {
+	$angularHelper.getFormOperationSignature($operation, true) {
 	}
 
 #end

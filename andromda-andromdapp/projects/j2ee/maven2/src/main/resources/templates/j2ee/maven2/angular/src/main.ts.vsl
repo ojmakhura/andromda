@@ -1,16 +1,14 @@
-#set ( $moduleFileName = $angularHelper.getComponentFileName("${applicationId}") )
-#set ( $moduleName = $angularHelper.getComponentName($moduleFileName, "-"))
 import 'hammerjs';
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 #set( $module = "module" )
-import { ${moduleName}Module } from './app/$stringUtils.lowerCase(${applicationId}).${module}';
+import { $stringUtils.capitalize(${applicationId})Module } from './app/$stringUtils.lowerCase(${applicationId}).${module}';
 import { environment } from './environments/environment';
 
 if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(${moduleName}Module)
+platformBrowserDynamic().bootstrapModule($stringUtils.capitalize(${applicationId})Module)
   .catch(err => console.error(err));

@@ -413,16 +413,19 @@ public class AngularHelper {
             type = ((ParameterFacade)element).getType();
         } else if(element instanceof FrontEndParameter) {
             type = ((FrontEndParameter)element).getType();
-        } else {
-            //type = element;
         }
 		
         if (type != null)
         {
-            complex = !type.getAttributes().isEmpty();
-            if (!complex)
-            {
-                complex = !type.getAssociationEnds().isEmpty();
+            if(type.isEnumeration()) { /// Enumerations are complex
+                complex = true;
+            } else {
+
+                complex = !type.getAttributes().isEmpty(); // If it has more than one attribute then it's complex
+                if (!complex)
+                {
+                    complex = !type.getAssociationEnds().isEmpty();
+                }
             }
         }
 		

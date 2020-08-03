@@ -91,7 +91,7 @@ export abstract class $controller.name extends ControllerBase {
             forward = currentView;
         }
         
-        const pageVariables = this.getPageVariables(forward);
+        let pageVariables = this.getPageVariables(forward);
 #set($showElse=false)
 #foreach ($view in $controller.useCase.views)
 #if ($view.populatorRequired)
@@ -103,14 +103,16 @@ export abstract class $controller.name extends ControllerBase {
         if('$stringUtils.lowerCase($viewClass)' === forward)
         {
 #foreach ($viewAction in $view.formActions)
+
             let _${viewAction.formBeanName} = this.${viewAction.formImplementationGetter};
-            ${viewPopulator}.
-                populate${viewAction.getFormImplementationName()}
-                    (sourceForm, _${viewAction.formBeanName});
+            _${viewAction.formBeanName} = ${viewPopulator}.
+                                                populate${viewAction.getFormImplementationName()}
+                                                    (sourceForm, _${viewAction.formBeanName});
             localStorage.setItem('${viewAction.formBeanName}', JSON.stringify(_${viewAction.formBeanName}));
 #end
 #if(!$view.variables.empty)
-            ${viewPopulator}.populate$stringUtilsHelper.upperCamelCaseName($view.name)PageVariables(sourceForm, pageVariables);
+
+            pageVariables = ${viewPopulator}.populate$stringUtilsHelper.upperCamelCaseName($view.name)PageVariables(sourceForm, pageVariables);
 #end
         }
 #set($showElse=true)
@@ -119,6 +121,7 @@ export abstract class $controller.name extends ControllerBase {
 #end
 #end
 #end
+
         let useCaseScope = ControllerBase.getUseCaseScope();
         useCaseScope[ControllerBase.CURRENT_PAGE_VARIABLES_KEY] = pageVariables;
         this.setUseCaseScope(useCaseScope);
@@ -143,11 +146,13 @@ $operation.getDocumentation("     * ")
     protected $action.formImplementationGetter: $action.formImplementationName
     {
 #set ($form = $stringUtils.substringBefore($action.formImplementationName, "Impl"))
-        let form: ${action.formImplementationName} = JSON.parse(localStorage.getItem('${action.formBeanName}'));
-        if(!form) {
-            form = new ${action.formImplementationName}();
+        let tmp = localStorage.getItem('${action.formBeanName}');
+        let form: ${action.formImplementationName} = new ${action.formImplementationName}();
+        if(tmp !== 'undefined' && tmp != 'null') {
+            form = JSON.parse(tmp);
         }
-        return form; //JSON.parse(localStorage.getItem('${action.formBeanName}')) as ${action.formImplementationName};
+
+        return form;
     }
 
 #end

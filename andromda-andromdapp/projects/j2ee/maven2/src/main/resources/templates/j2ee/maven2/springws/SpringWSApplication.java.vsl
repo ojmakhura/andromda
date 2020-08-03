@@ -2,8 +2,12 @@ package ${applicationPackage};
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-@SpringBootApplication
+@SpringBootApplication(
+		exclude = SecurityAutoConfiguration.class, 
+		scanBasePackages = {"${applicationPackage}"}
+)
 public class ${stringUtils.capitalize($applicationId)}WSApplication {
 
 	public static void main(String[] args) {

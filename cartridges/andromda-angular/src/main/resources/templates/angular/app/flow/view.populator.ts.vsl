@@ -72,12 +72,12 @@ export class $className
      * @param fromForm origin form
      * @param toForm destiny form
      */
-    static populate$angularHelper.getComponentName("${t2}-with-${t1}", "-")(fromForm: $action.getFormImplementationName(), toForm: $viewAction.getFormImplementationName()): void
+    static populate$angularHelper.getComponentName("${t2}-with-${t1}", "-")(fromForm: $action.getFormImplementationName(), toForm: $viewAction.getFormImplementationName()): $viewAction.getFormImplementationName()
     {
 #foreach($field in $commonFields)
         if(fromForm.${field.formAttributeSetProperty})
         {
-            ${viewAction.getFormImplementationName()}.${field.setterName}(toForm, fromForm.${field.name});
+            toForm = ${viewAction.getFormImplementationName()}.${field.setterName}(toForm, fromForm.${field.name});
         }
 #if ($field.selectable || $field.type.enumeration)##This test should go to a needsBackingList method
         if(fromForm.$field.backingListName)
@@ -86,6 +86,7 @@ export class $className
         }
 #end
 #end
+        return toForm;
     }
 
 #end
@@ -101,7 +102,7 @@ export class $className
      * @param fromForm origin form
      * @param pageVariables the page variables
      */
-    static populate$stringUtilsHelper.upperCamelCaseName($view.name)PageVariables(fromForm: any, pageVariables: any): void
+    static populate$stringUtilsHelper.upperCamelCaseName($view.name)PageVariables(fromForm: any, pageVariables: any): any
     {
 #foreach ($action in $useCase.actions)
 #set($commonFields = [])##holds the matching fields/variables, this block should go to java code
@@ -126,6 +127,7 @@ export class $className
         }
 #end
 #end
+        return pageVariables;
     }
 
 #end
@@ -136,7 +138,7 @@ export class $className
      * @param fromForm the origin form
      * @param toForm the destiny form
      */
-    static populate${viewAction.getFormImplementationName()}(fromForm: any, toForm: $viewAction.getFormImplementationName()): void
+    static populate${viewAction.getFormImplementationName()}(fromForm: any, toForm: $viewAction.getFormImplementationName()): $viewAction.getFormImplementationName()
     {
 ## WIM: it looks to the values should be kept during all the form life (useCaseScope) 
 ##     toForm.resetIsSetFlags();
@@ -147,13 +149,14 @@ export class $className
 #set ($t2 = $stringUtils.substringBefore(${viewAction.getFormImplementationName()}, "Impl"))
        #if($showElse) else#end if (fromForm instanceof $action.getFormImplementationName())
         {
-            ${className}.
+            toForm = ${className}.
                 populate$angularHelper.getComponentName("${t2}-with-${t1}", "-")
                     (fromForm, toForm);
         }
 #set($showElse = true)
 #end
 #end
+        return toForm;
     }
     
 #end

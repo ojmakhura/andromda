@@ -32,4 +32,8 @@ export class ${className}ImplComponent extends ${className}Component {
 	
     afterOnInit() {
     }
+
+    doNgAfterViewInit() {
+      
+    }
 }

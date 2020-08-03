@@ -277,11 +277,11 @@ public class WebServiceOperationLogicImpl
             while (parameters.hasNext())
             {
                 ParameterFacade param = parameters.next();
-                if (WebServiceUtils.isSimpleType(param))
-                {
+                //if (WebServiceUtils.isSimpleType(param))
+                //{
                     String paramName = param.getName();
                     pathBuffer.append(paramName).append(SLASH).append(LBRACKET).append(paramName).append(RBRACKET).append(SLASH);
-                } else {
+                /*} else {
                     if (param instanceof WebServiceParameter) {
                         WebServiceParameter p = (WebServiceParameter)param;
                         String type = p.getRestParamType().toLowerCase();
@@ -290,7 +290,7 @@ public class WebServiceOperationLogicImpl
                             pathBuffer.append(paramName).append(SLASH).append(LBRACKET).append(paramName).append(RBRACKET).append(SLASH);
                         }
                     }
-                }
+                }*/
             }
             pathBuffer.append(QUOTE);
         }

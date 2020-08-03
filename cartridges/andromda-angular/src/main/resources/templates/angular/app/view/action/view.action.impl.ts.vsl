@@ -4,7 +4,7 @@
 #set ( $className = $angularHelper.getComponentName($action.name, "-") )
 #set($formName = $action.formBeanName)
 import { Component, Injector } from '@angular/core';
-import { ${className}Component } from 'src/app/gen/view/${actionPath}.component';
+import { ${className}Component } from 'src/app/gen/view${actionPath}.component';
 
 @Component({
   selector: '${action.name}',
@@ -13,16 +13,20 @@ import { ${className}Component } from 'src/app/gen/view/${actionPath}.component'
 })
 export class ${className}ImplComponent extends ${className}Component {
 
-    constructor(private injector: Injector) {
-        super(injector);
-    }
+  constructor(private injector: Injector) {
+      super(injector);
+  }
 
-    beforeOnInit(){
-    }
+  beforeOnInit(){
+  }
 	
-    afterOnInit() {
-    }
+  afterOnInit() {
+  }
 
-    do$stringUtils.capitalize($action.triggerName)() {
-    }
+  doNgAfterViewInit() {
+    
+  }
+
+  do$stringUtils.capitalize($action.triggerName)() {
+  }
 }
