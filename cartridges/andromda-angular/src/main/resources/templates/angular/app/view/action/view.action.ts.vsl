@@ -81,7 +81,8 @@ export abstract class ${className}Component implements OnInit {
 #end
 #foreach ($act in $action.source.actions)
 #foreach ($param in $act.parameters)
-	@Output() $param.name: EventEmitter<any> = new EventEmitter();
+#set($name = $stringUtils.replaceChars(${act.trigger.name}, '\\ ', ''))
+	@Output() $stringUtils.uncapitalize($name)$stringUtils.capitalize($param.name): EventEmitter<any> = new EventEmitter();
 #end
 #end
     protected route: ActivatedRoute;
@@ -145,24 +146,25 @@ export abstract class ${className}Component implements OnInit {
     }
 
     getItemControl(name): FormControl {
-        return this.${stringUtils.uncapitalize($viewName)}Form.get(name) as FormControl;
+        return <FormControl>this.${stringUtils.uncapitalize($viewName)}Form.get(name);
     }
 
     getGroupControl(name): FormGroup {
-        return this.${stringUtils.uncapitalize($viewName)}Form.get(name) as FormGroup;
+        return <FormGroup>this.${stringUtils.uncapitalize($viewName)}Form.get(name);
     }
 
     getArrayControl(name): FormArray {
-        return this.${stringUtils.uncapitalize($viewName)}Form.get(name) as FormArray;
+        return <FormArray>this.${stringUtils.uncapitalize($viewName)}Form.get(name);
     }
 
-#foreach ( $tmp in $action.parameters )
-#if($angularHelper.isComplex($tmp))
+#foreach ( $parameter in $action.parameters )
+#if($angularHelper.isComplex($parameter))
 #set ($i = 1)
-#foreach($attribute in $tmp.attributes)
-#if($attribute.inputTable)
+#foreach($attribute in $parameter.attributes)
+#if($angularHelper.isTable($attribute))
+
     get ${attribute.name}(): FormArray {
-        return this.getGroupControl('$tmp.name').get('$attribute.name') as FormArray;
+        return <FormArray>this.getItemControl('${action.trigger.name}$stringUtils.capitalize($parameter.name)').get('$attribute.name');
     }
 #end
 #end
@@ -177,7 +179,7 @@ export abstract class ${className}Component implements OnInit {
 #if($action.parameters.size() > 0)
 #foreach ($parameter in $action.parameters)
 
-        let $parameter.name = this.getItemControl('$parameter.name').value;
+        let $parameter.name = this.getItemControl('${action.trigger.name}$stringUtils.capitalize($parameter.name)').value;
         let form = this.getForm();
         form = ${action.formImplementationName}.${parameter.setterName}(form, $parameter.name);
         this.setForm(form);

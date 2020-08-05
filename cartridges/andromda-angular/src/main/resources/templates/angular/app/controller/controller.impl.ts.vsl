@@ -23,7 +23,7 @@ export class ${controller.implementationName} extends ${controller.name} {
     }
 
 #foreach ($operation in $controller.operations)
-	$angularHelper.getFormOperationSignature($operation, true) {
+	$angularHelper.getFormOperationSignature($operation, false) {
 	}
 
 #end

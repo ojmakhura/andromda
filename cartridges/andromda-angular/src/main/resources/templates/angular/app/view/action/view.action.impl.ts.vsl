@@ -27,6 +27,10 @@ export class ${className}ImplComponent extends ${className}Component {
     
   }
 
+
+  after$stringUtils.capitalize(${action.triggerName})() {    
+  }
+
   do$stringUtils.capitalize($action.triggerName)() {
   }
 }
