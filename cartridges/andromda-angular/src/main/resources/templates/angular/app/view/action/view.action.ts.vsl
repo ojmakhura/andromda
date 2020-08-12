@@ -20,6 +20,8 @@ import { ${viewName}ImplComponent } from 'src/app/impl/view${action.source.path}
 #foreach( $attribute in $parameter.attributes )
 #if($attribute.type.enumeration)
 #set ( $ret = $enumerations.add($attribute.type) )
+#elseif($angularHelper.isComplex($attribute))
+#set ( $ret = $parameters.add($attribute.type) )
 #end
 #end
 #end
@@ -93,6 +95,7 @@ export abstract class ${className}Component implements OnInit {
     protected $stringUtils.uncapitalize($viewName): ${viewName}ImplComponent;
     protected formBuilder: FormBuilder;
     protected _injector: Injector;
+#set ($selections = [])
 #foreach( $parameter in $action.parameters )
 #if($parameter.complex)
 #foreach( $attribute in $parameter.attributes )
@@ -101,10 +104,14 @@ export abstract class ${className}Component implements OnInit {
     protected ${attribute.name}Options = [];
 #elseif($attribute.inputSelect)
 #set ($backingListName = ${attribute.getBackingListName($parameter)})
+#set($ret = $selections.add($attribute.type))
     protected $backingListName: Array<$attribute.type.name>;
 #end
 #end
 #end
+#end
+#foreach($selection in $angularHelper.getFacadeSet($selections))
+    protected $stringUtils.uncapitalize(${selection.name})BackingList: Array<$selection.name>;
 #end
 
     constructor(injector: Injector) {
