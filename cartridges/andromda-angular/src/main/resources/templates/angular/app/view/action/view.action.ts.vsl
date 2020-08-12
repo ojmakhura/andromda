@@ -77,7 +77,7 @@ export abstract class ${className}Component implements OnInit {
 #end
 #end
     
-    @Input() protected $stringUtils.uncapitalize($viewName)Form: FormGroup;
+    @Input() $stringUtils.uncapitalize($viewName)Form: FormGroup;
 #foreach ( $table in $action.source.tables )
 	@Output() ${table.name}: EventEmitter<any> = new EventEmitter();
 #end
@@ -100,12 +100,12 @@ export abstract class ${className}Component implements OnInit {
 #if($parameter.complex)
 #foreach( $attribute in $parameter.attributes )
 #if($attribute.type.enumeration)
-    protected $attribute.name = $attribute.type.name;
-    protected ${attribute.name}Options = [];
+    $attribute.name = $attribute.type.name;
+    ${attribute.name}Options = [];
 #elseif($attribute.inputSelect)
 #set ($backingListName = ${attribute.getBackingListName($parameter)})
 #set($ret = $selections.add($attribute.type))
-    protected $backingListName: Array<$attribute.type.name>;
+    $backingListName: Array<$attribute.type.name>;
 #end
 #end
 #end

@@ -73,7 +73,7 @@ import { ${view.useCase.controller.name}Impl } from 'src/app/impl/controller/$pa
 })
 export abstract class ${tmpName}Component implements OnInit {
 
-	protected ${stringUtils.uncapitalize($tmpName)}Form: FormGroup;
+	${stringUtils.uncapitalize($tmpName)}Form: FormGroup;
 
     protected route: ActivatedRoute;
     protected router: Router;

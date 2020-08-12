@@ -2758,7 +2758,12 @@ public class WebServiceUtils
     public static String getSpringOperationPath(WebServiceOperation operation) {
 
         StringBuilder builder = new StringBuilder();
+
         String path = operation.getRestPath();
+        if(path.indexOf('{') != -1) {
+            path = path.substring(0, path.indexOf('{'));
+        }
+
         builder.append("\"/");
         builder.append(path.substring(2, path.length() - 1));
 
@@ -2766,7 +2771,6 @@ public class WebServiceUtils
             WebServiceParameter param = (WebServiceParameter)parameter;
             String paramType = param.getRestParamType();
             if(paramType.contains("PathParam")) {
-                builder.append("/" + parameter.getName());
                 builder.append("/{" + parameter.getName() + "}");
             }
         }
