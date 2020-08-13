@@ -2,6 +2,7 @@
 #set ($fileName = $angularHelper.getComponentFileName($service.name))
 #set ($types = [])
 #set ($ret = false)
+import { BASE_URL } from 'src/app/${stringUtils.lowerCase($applicationId)}.constants';
 #foreach ($operation in $service.operations)
 #foreach ( $argument in $operation.arguments)
 #if($argument.type.attributes.size() > 0)
@@ -13,7 +14,6 @@
 #end
 #end
 #if ($service.restCount>0 && $stringUtils.isNotBlank($service.restPath))
-#set ($basePath = "http://localhost:8080")
 import { HttpClient} from '@angular/common/http';
 import { Injector } from '@angular/core';
 #end
@@ -27,14 +27,13 @@ export abstract class $service.name {
 
 #if ($service.restCount>0)
 #if ($stringUtils.isNotBlank($service.restPath))
-    protected path: string;
+    protected path = BASE_URL + #if($stringUtils.isNotBlank($service.restPath))"$service.restPath"#else"${service.name.toLowerCase()}sws"#end;
 
 #end
 #end 
 #if ($service.restCount>0 && $stringUtils.isNotBlank($service.restPath))
     protected http: HttpClient;
     constructor(injector: Injector) {
-        this.path = '$basePath$service.restPath';
         this.http = injector.get(HttpClient);
     }
 #end
