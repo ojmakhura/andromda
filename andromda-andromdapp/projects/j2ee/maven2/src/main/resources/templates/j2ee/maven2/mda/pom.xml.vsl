@@ -103,7 +103,7 @@
             <scope>runtime</scope>
         </dependency>
 #end
-#if (!$webservice.equals("none") && !$jsr181Webservice)
+#if ((!$webservice.equals("none") && !$jsr181Webservice) || $angular)
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-webservice-cartridge</artifactId>
@@ -117,10 +117,18 @@
             <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
-#if ($jsf)
+#if ($webType.equals("jsf") || $webType.equals("both") || $angular)
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-jsf2-cartridge</artifactId>
+            <version>${andromda.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+#end
+#if ($angular)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-angular-cartridge</artifactId>
             <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
@@ -447,7 +455,24 @@
         <core.generated.test.dir>${project.basedir}/../core/target/src/test/java</core.generated.test.dir>
         <core.manual.test.dir>${project.basedir}/../core/src/test/java</core.manual.test.dir>
 #end
-#if ($war || $web)
+#if ($angular)
+        <angular.base.dir>${project.basedir}/../angular</angular.base.dir>
+        <angular.model.dir>${project.basedir}/../angular/src/app/gen/model</angular.model.dir>
+        <angular.service.dir>${project.basedir}/../angular/src/app/gen/service</angular.service.dir>
+        <angular.service.impl.dir>${project.basedir}/../angular/src/app/impl/service</angular.service.impl.dir>
+        <angular.controller.dir>${project.basedir}/../angular/src/app/gen/controller</angular.controller.dir>
+        <angular.controller.impl.dir>${project.basedir}/../angular/src/app/impl/controller</angular.controller.impl.dir>
+        <angular.view.dir>${project.basedir}/../angular/src/app/gen/view</angular.view.dir>
+        <angular.view.impl.dir>${project.basedir}/../angular/src/app/impl/view</angular.view.impl.dir>
+        <angular.form.dir>${project.basedir}/../angular/src/app/gen/form</angular.form.dir>
+#end
+#if ($springws)		
+        <springws.generated.dir>${project.basedir}/../springws/target</springws.generated.dir>
+        <springws.generated.java.dir>${springws.generated.dir}/src/main/java</springws.generated.java.dir>
+        <springws.manual.dir>${project.basedir}/../springws/src/main</springws.manual.dir>
+        <springws.manual.java.dir>${springws.manual.dir}/java</springws.manual.java.dir>
+#end
+#if ($war || $webType.equals("jsf") || $webType.equals("both"))
         <web.generated.dir>${project.basedir}/../web/target</web.generated.dir>
         <web.generated.java.dir>${web.generated.dir}/src/main/java</web.generated.java.dir>
         <web.generated.web.dir>${web.generated.dir}/src/main/webapp</web.generated.web.dir>
@@ -469,6 +494,9 @@
 #if ($cxf)
         <webservice.test.dir>${project.basedir}/../webservice/src/test/java</webservice.test.dir>
 #end
+#end
+#if ($springws)
+        <springws.generated.java.dir>${project.basedir}/../springws/target/src/main/java</springws.generated.java.dir>
 #end
 #if ($ejb3)
         <application.config.dir>${project.basedir}/../app/src/main/config</application.config.dir>

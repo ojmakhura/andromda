@@ -3,6 +3,8 @@ package org.andromda.cartridges.jsf2.metafacades;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
 import org.andromda.cartridges.jsf2.JSFGlobals;
 import org.andromda.cartridges.jsf2.JSFProfile;
 import org.andromda.cartridges.jsf2.JSFUtils;
@@ -15,6 +17,7 @@ import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import java.util.Objects;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jsf2.metafacades.JSFAttribute.
@@ -758,7 +761,7 @@ public class JSFAttributeLogicImpl
      */
     protected String handleGetInputTableIdentifierColumns()
     {
-        return ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)).trim();
+        return Objects.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS), "").trim();
     }
 
     /**

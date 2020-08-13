@@ -12,7 +12,7 @@ public class JSFProfile
     /**
      * The Profile instance from which we retrieve the mapped profile names.
      */
-    private static final Profile PROFILE = Profile.instance();
+    public static final Profile PROFILE = Profile.instance();
 
     /* ----------------- Stereotypes -------------------- */
     /** FRONT_END_REGISTRATION */

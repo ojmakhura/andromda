@@ -295,6 +295,10 @@ $decisionTransition.getDocumentation("     * ")
 #end
 #end
 #foreach ($service in $controller.allServices)
+
+	@org.springframework.beans.factory.annotation.Autowired
+	private $service.fullyQualifiedName $stringUtils.uncapitalize($service.name);
+
     /**
      * Returns a reference to the $service.name back-end service.
      *
@@ -302,14 +306,7 @@ $decisionTransition.getDocumentation("     * ")
      */
     protected final $service.fullyQualifiedName get${service.name}()
     {
-        try
-        {
-            return $service.accessorImplementation;
-        }
-        catch (final Throwable throwable)
-        {
-            throw new RuntimeException(throwable);
-        }
+        return $stringUtils.uncapitalize($service.name);
     }
 
 #end

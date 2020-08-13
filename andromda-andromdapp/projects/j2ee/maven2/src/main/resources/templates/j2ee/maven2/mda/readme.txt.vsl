@@ -182,7 +182,7 @@
          |              Web context root directory, containing META-INF, WEB-INF, and wsdl
          |
 #end
-#if ($web)
+#if ($webType.equals("jsf") || $webType.equals("jsf"))
          +-- /web
          |     |
 #if ($ear)
@@ -317,7 +317,7 @@
 
             only build the core module
 
-#if ($web)
+#if ($webType.equals("jsf") || $webType.equals("both"))
         %> mvn -N andromdapp:build -Dmodules=web (or mvn -f web/pom.xml)
 
             only build the web module

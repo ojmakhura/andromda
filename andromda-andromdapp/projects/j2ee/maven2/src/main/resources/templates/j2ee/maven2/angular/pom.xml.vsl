@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.4.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<groupId>$applicationPackage</groupId>
+	<artifactId>${applicationId}-angular</artifactId>
+	<version>$applicationVersion</version>
+	<packaging>jar</packaging>
+
+	<name>${applicationName} Angular Frontend</name>
+	<description>${applicationName} angular front end</description>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>install node and npm</id>
+						<goals>
+							<goal>install-node-and-npm</goal>
+						</goals>
+						<configuration>
+							<nodeVersion>v12.16.1</nodeVersion>
+							<npmVersion>6.13.4</npmVersion>
+						</configuration>
+					</execution>
+					<execution>
+						<id>npm run build</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>run build</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>
+

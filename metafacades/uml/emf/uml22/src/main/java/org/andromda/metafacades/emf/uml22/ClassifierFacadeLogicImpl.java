@@ -85,8 +85,8 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected String handleGetName()
     {
-        String nameMask = null;
-        try
+        String nameMask = "none";
+        /*try
         {
             nameMask = String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_NAME_MASK));
         }
@@ -94,7 +94,7 @@ public class ClassifierFacadeLogicImpl
         {
             LOGGER.warn("classifierNameMask not found in " + this.toString());
             nameMask = "none";
-        }
+        }*/
         return NameMasker.mask(super.handleGetName(), nameMask);
     }
 

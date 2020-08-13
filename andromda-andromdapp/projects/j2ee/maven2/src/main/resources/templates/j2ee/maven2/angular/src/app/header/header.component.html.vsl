@@ -1,0 +1,9 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row class="card-title text-center text-white py-3">
+        <button mat-icon-button>
+            <mat-icon (click)="onToggleSidenav()">menu</mat-icon>
+        </button>
+        <h1>{{ title }}</h1>
+        <span class="menu-spacer"></span>
+    </mat-toolbar-row>
+</mat-toolbar>

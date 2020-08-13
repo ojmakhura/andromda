@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -1189,5 +1190,15 @@ public class ModelElementFacadeLogicImpl
     {
         final String name = this.handleGetName();
         return IDENTIFIER_PATTERN.matcher(name).matches();
+    }
+
+    @Override
+    protected Collection<String> handleGetAdditionalAnnotations() {
+        HashSet<String> annotations = new HashSet<String>();
+        for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_ADDITIONAL_ANNOTATION))
+        {
+            annotations.add(o.toString());
+        }
+        return annotations;
     }
 }

@@ -1,0 +1,10 @@
+#set($destination = $stringUtils.replaceChars(${class.packageName}, "\\.", "\\/"))
+#set($fileName = $angularHelper.getComponentFileName(${class.name}))
+import { ${class.name} } from './$fileName';
+
+describe('${class.name}', () => {
+	it('it should create an instance', () => {
+		expect(new ${class.name}()).toBeTruthy();
+	});
+});
+

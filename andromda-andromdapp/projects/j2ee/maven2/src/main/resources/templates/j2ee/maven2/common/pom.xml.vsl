@@ -31,6 +31,10 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
 #if ($cxf && ($webservice.equals("soap") || $webservice.equals("both")))
         <!-- XMLBindingAnnotations dependencies -->
         <dependency>
@@ -48,6 +52,17 @@
             <version>${cxf.version}</version>
             <scope>provided</scope>
         </dependency>
+#end
+#if ($springws)
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web-services</artifactId>
+            </dependency>
+            <!-- For Working with Json Web Tokens (JWT) -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+            </dependency>
 #end
     </dependencies>
     <build>

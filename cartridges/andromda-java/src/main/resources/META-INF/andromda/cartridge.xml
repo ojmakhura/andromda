@@ -98,6 +98,18 @@
             </modelElement>
         </modelElements>
     </template>
+    
+    <template
+        path="templates/java/AnnotationType.vsl"
+        outputPattern="{0}/${annotationName}.java"
+        outlet="annotation-types"
+        overwrite="true">
+        <modelElements variable="annotation">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.AnnotationTypeFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
 
     <template
         path="templates/java/ApplicationException.vsl"

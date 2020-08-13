@@ -90,9 +90,13 @@ public class AttributeFacadeLogicImpl
             else if (fullyQualifiedName.startsWith("java.lang") && defaultValue.indexOf(".valueOf(")<0)
             {
                 defaultValue = fullyQualifiedName + ".valueOf(" + defaultValue + ')';
+            } else if(this.getType().isEnumeration()) {
+                defaultValue = this.getType().getName() + "." + defaultValue;
             }
         }
-        if (defaultValue==null) {defaultValue="";}
+        if (defaultValue==null) {
+            defaultValue="";
+        }
         return defaultValue;
     }
 
@@ -305,6 +309,7 @@ public class AttributeFacadeLogicImpl
                 }*/
             }
         }
+        
         return name;
     }
 

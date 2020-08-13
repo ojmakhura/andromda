@@ -1,5 +1,7 @@
 package org.andromda.cartridges.jsf2.metafacades;
 
+import java.util.Objects;
+
 import org.andromda.cartridges.jsf2.JSFGlobals;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.lang3.ObjectUtils;
@@ -29,7 +31,7 @@ public class JSFControllerOperationLogicImpl
      */
     protected String handleGetFormName()
     {
-        final String pattern = ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.FORM_PATTERN));
+        final String pattern = Objects.toString(this.getConfiguredProperty(JSFGlobals.FORM_PATTERN), "");
         return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
     }
 

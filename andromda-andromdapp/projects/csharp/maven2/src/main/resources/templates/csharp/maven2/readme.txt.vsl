@@ -130,7 +130,7 @@
          |     +-- /target
          |
 #end
-#if ($web)
+#if ($webType.equals("jsf") || $webType.equals("java"))
          +-- /web
          |     |
          |     |    The WEB module collects those resources and classes

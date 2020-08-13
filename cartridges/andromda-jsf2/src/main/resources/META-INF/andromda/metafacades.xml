@@ -55,7 +55,7 @@
             <property name="useCase"/>
         </mapping>
         <property reference="controllerImplementationPattern"/>
-        <property reference="classifierNameMask"/>
+        <!--property reference="classifierNameMask"/-->
     </metafacade>
     <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFUseCaseLogicImpl">
         <mapping>

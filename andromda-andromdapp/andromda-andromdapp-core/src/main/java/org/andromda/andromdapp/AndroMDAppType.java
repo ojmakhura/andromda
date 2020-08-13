@@ -306,6 +306,7 @@ public class AndroMDAppType
         // - first write any mapped resources
         for (final String location : this.resourceLocations)
         {
+
             final URL[] resourceDirectories = ResourceFinder.findResources(location);
             if (resourceDirectories != null)
             {
@@ -379,8 +380,10 @@ public class AndroMDAppType
                             path,
                             location,
                             "");
+
                     if (this.isWriteable(projectRelativePath))
                     {
+
                         if (this.isValidTemplate(path))
                         {
                             final File outputFile =
@@ -496,6 +499,7 @@ public class AndroMDAppType
      */
     private boolean isWriteable(String path)
     {
+
         path = path.replaceAll(
                 "\\\\+",
                 FORWARD_SLASH);

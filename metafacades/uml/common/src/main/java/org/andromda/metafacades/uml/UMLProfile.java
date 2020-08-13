@@ -210,6 +210,8 @@ public class UMLProfile
      * 'perspective' Modeled component should be ignored. Do not generate code.
      */
     public static final String STEREOTYPE_PERSPECTIVE = profile.get("PERSPECTIVE");
+    
+    public static final String STEREOTYPE_ANNOTATION_TYPE = profile.get("ANNOTATION_TYPE");
 
     /* ----------------- Tagged Values -------------------- */
 
@@ -421,6 +423,30 @@ public class UMLProfile
      */
     public static final String TAGGEDVALUE_PERSISTENCE_ASSOCIATION_END_PRIMARY = profile.get(
         "PERSISTENCE_ASSOCIATION_END_PRIMARY");
+    
+    /**
+     * 'andromda_annotation_type_retention'
+     * Indicates the retention for the annotation type.
+     */
+    public static final String TAGGEDVALUE_ANNOTATION_TYPE_RETENTION = profile.get("ANNOTATION_TYPE_RETENTION");
+    
+    /**
+     * 'andromda_annotation_type_target'
+     * Indicates the target of the annotation type.
+     */
+    public static final String TAGGEDVALUE_ANNOTATION_TYPE_TARGET = profile.get("ANNOTATION_TYPE_TARGET");
+    
+    /**
+     * 'andromda_annotation_type_documented'
+     * Extra annotations not covered by the normal AndroMDA features.
+     */
+    public static final String TAGGEDVALUE_ANNOTATION_TYPE_DOCUMENTED = profile.get("ANNOTATION_TYPE_DOCUMENTED");
+    
+    /**
+     * 'andromda_additional_annotation'
+     * Indicates if the annotation type is documented.
+     */
+    public static final String TAGGEDVALUE_ADDITIONAL_ANNOTATION = profile.get("ANDROMDA_ADDITIONAL_ANNOTATION");
 
     /* ----------------- Data Types -------------------- */
 

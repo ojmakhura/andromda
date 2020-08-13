@@ -10,18 +10,21 @@
         <from>UMLTypes::String</from>
         <from>UMLPrimitiveTypes::String</from>
         <from>datatype::String</from>
+        <from>AndroMDADatatypes::datatype::String</from>
         <to>VARCHAR(256)</to>
     </mapping>
     <mapping>
         <from>Date</from>
         <from>PrimitiveTypes::Date</from>
         <from>datatype::Date</from>
+        <from>AndroMDADatatypes::datatype::Date</from>
         <to>DATE</to>
     </mapping>
     <mapping>
         <from>Time</from>
         <from>PrimitiveTypes::Time</from>
         <from>datatype::Time</from>
+        <from>AndroMDADatatypes::datatype::Time</from>
         <to>TIME</to>
     </mapping>
     <mapping>
@@ -31,6 +34,8 @@
         <from>PrimitiveTypes::DateTime</from>
         <from>datatype::Timestamp</from>
         <from>datatype::DateTime</from>
+        <from>AndroMDADatatypes::datatype::Timestamp</from>
+        <from>AndroMDADatatypes::datatype::DateTime</from>
         <to>TIMESTAMP</to>
     </mapping>
     <mapping>
@@ -42,6 +47,8 @@
         <from>PrimitiveTypes::Character</from>
         <from>datatype::char</from>
         <from>datatype::Character</from>
+        <from>AndroMDADatatypes::datatype::char</from>
+        <from>AndroMDADatatypes::datatype::Character</from>
         <to>CHAR</to>
     </mapping>
     <mapping>
@@ -54,6 +61,8 @@
         <from>UML Standard Profile::byte</from>
         <from>datatype::byte</from>
         <from>datatype::Byte</from>
+        <from>AndroMDADatatypes::datatype::byte</from>
+        <from>AndroMDADatatypes::datatype::Byte</from>
         <to>CHAR BYTE</to>
     </mapping>
     <mapping>
@@ -66,6 +75,8 @@
         <from>UML Standard Profile::short</from>
         <from>datatype::short</from>
         <from>datatype::Short</from>
+        <from>AndroMDADatatypes::datatype::short</from>
+        <from>AndroMDADatatypes::datatype::Short</from>
         <to>SMALLINT</to>
     </mapping>
     <mapping>
@@ -81,6 +92,8 @@
         <from>UML Standard Profile::int</from>
         <from>datatype::int</from>
         <from>datatype::Integer</from>
+        <from>AndroMDADatatypes::datatype::int</from>
+        <from>AndroMDADatatypes::datatype::Integer</from>
         <to>INTEGER</to>
     </mapping>
     <mapping>
@@ -95,6 +108,8 @@
         <from>PrimitiveTypes::Long</from>
         <from>datatype::long</from>
         <from>datatype::Long</from>
+        <from>AndroMDADatatypes::datatype::long</from>
+        <from>AndroMDADatatypes::datatype::Long</from>
         <to>BIGINT</to>
     </mapping>
     <mapping>
@@ -107,6 +122,8 @@
         <from>UML Standard Profile::float</from>
         <from>datatype::float</from>
         <from>datatype::Float</from>
+        <from>AndroMDADatatypes::datatype::float</from>
+        <from>AndroMDADatatypes::datatype::Float</from>
         <to>REAL</to>
     </mapping>
     <mapping>
@@ -121,6 +138,9 @@
         <from>datatype::double</from>
         <from>datatype::Double</from>
         <from>datatype::Money</from>
+        <from>AndroMDADatatypes::datatype::double</from>
+        <from>AndroMDADatatypes::datatype::Double</from>
+        <from>AndroMDADatatypes::datatype::Money</from>
         <to>DOUBLE</to>
     </mapping>
     <mapping>
@@ -135,6 +155,8 @@
         <from>PrimitiveTypes::Boolean</from>
         <from>datatype::boolean</from>
         <from>datatype::Boolean</from>
+        <from>AndroMDADatatypes::datatype::boolean</from>
+        <from>AndroMDADatatypes::datatype::Boolean</from>
         <to>SMALLINT</to>
     </mapping>
     <mapping>
@@ -143,14 +165,17 @@
         <from>PrimitiveTypes::decimal</from>
         <from>PrimitiveTypes::Decimal</from>
         <from>datatype::Decimal</from>
+        <from>AndroMDADatatypes::datatype::Decimal</from>
         <to>DECIMAL</to>
     </mapping>
     <mapping>
         <from>datatype::Clob</from>
+        <from>AndroMDADatatypes::datatype::Clob</from>
         <to>CLOB</to>
     </mapping>
     <mapping>
         <from>datatype::Blob</from>
+        <from>AndroMDADatatypes::datatype::Blob</from>
         <to>BLOB</to>
     </mapping>
 </mappings>

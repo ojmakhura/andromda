@@ -1,0 +1,25 @@
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { $stringUtils.capitalize(${applicationId})NavigationComponent } from './$stringUtils.lowerCase(${applicationId})-navigation.component';
+
+describe('$stringUtils.capitalize(${applicationId})NavigationComponent', () => {
+  let component: $stringUtils.capitalize(${applicationId})NavigationComponent;
+  let fixture: ComponentFixture<$stringUtils.capitalize(${applicationId})NavigationComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ $stringUtils.capitalize(${applicationId})NavigationComponent ]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent($stringUtils.capitalize(${applicationId})NavigationComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import org.andromda.cartridges.jsf2.JSFGlobals;
 import org.andromda.cartridges.jsf2.JSFProfile;
@@ -69,7 +70,7 @@ public class JSFParameterLogicImpl
     protected boolean handleIsPageableTable()
     {
         final Object value = this.findTaggedValue(JSFProfile.TAGGEDVALUE_TABLE_PAGEABLE);
-        return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
+        return Boolean.valueOf(Objects.toString(value, "")).booleanValue();
     }
 
     /**
@@ -399,7 +400,7 @@ public class JSFParameterLogicImpl
      */
     private String getInputType()
     {
-        return ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
+        return Objects.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
     }
 
     /**
@@ -530,7 +531,7 @@ public class JSFParameterLogicImpl
      */
     protected String handleGetBackingListName()
     {
-        return ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.BACKING_LIST_PATTERN)).replaceAll(
+        return Objects.toString(this.getConfiguredProperty(JSFGlobals.BACKING_LIST_PATTERN), "").replaceAll(
             "\\{0\\}",
             this.getName());
     }
@@ -541,7 +542,7 @@ public class JSFParameterLogicImpl
      */
     protected String handleGetBackingValueName()
     {
-        return ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.BACKING_VALUE_PATTERN)).replaceAll(
+        return Objects.toString(this.getConfiguredProperty(JSFGlobals.BACKING_VALUE_PATTERN), "").replaceAll(
             "\\{0\\}",
             this.getName());
     }
@@ -552,7 +553,7 @@ public class JSFParameterLogicImpl
      */
     protected String handleGetValueListName()
     {
-        return ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.VALUE_LIST_PATTERN)).replaceAll(
+        return Objects.toString(this.getConfiguredProperty(JSFGlobals.VALUE_LIST_PATTERN), "").replaceAll(
             "\\{0\\}",
             this.getName());
     }
@@ -563,7 +564,7 @@ public class JSFParameterLogicImpl
      */
     protected String handleGetLabelListName()
     {
-        return ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.LABEL_LIST_PATTERN)).replaceAll(
+        return Objects.toString(this.getConfiguredProperty(JSFGlobals.LABEL_LIST_PATTERN), "").replaceAll(
             "\\{0\\}",
             this.getName());
     }
@@ -1114,7 +1115,7 @@ public class JSFParameterLogicImpl
      */
     protected String handleGetInputTableIdentifierColumns()
     {
-        return ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)).trim();
+        return Objects.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS), "").trim();
     }
 
     /**

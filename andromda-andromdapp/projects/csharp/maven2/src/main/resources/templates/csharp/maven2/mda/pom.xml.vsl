@@ -47,7 +47,7 @@
             <artifactId>andromda-cs-cartridge</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-#if ($web)
+#if ($webType.equals("jsf") || $webType.equals("both"))
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-aspdotnet-cartridge</artifactId>
@@ -103,7 +103,7 @@
         <core.generated.dir>${project.build.sourceDirectory}/../../../../core/target/src/main/java</core.generated.dir>
         <core.manual.dir>${project.build.sourceDirectory}/../../../../core/src/main/cs</core.manual.dir>
 #end
-#if ($web)
+#if ($webType.equals("jsf") || $webType.equals("both"))
         <web.dir>${project.build.sourceDirectory}/../../../../web</web.dir>
         <web.generated.dir>${project.build.sourceDirectory}/../../../../web/target/src/main/webapp</web.generated.dir>
         <web.manual.dir>${project.build.sourceDirectory}/../../../../web/src/main</web.manual.dir>

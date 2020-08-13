@@ -1,0 +1,48 @@
+#set($destination = $stringUtils.replaceChars(${class.packageName}, "\\.", "\\/"))
+#set($fileName = $angularHelper.getComponentFileName(${class.name}))
+#set ($attributes = [])
+import { Injectable } from '@angular/core';
+import { prop, model, propArray, propObject } from '@rxweb/reactive-form-validators';
+
+#foreach ($tmp in $class.attributes)
+#if ($angularHelper.isComplex($tmp))
+#if($tmp.type.name != ${class.name})
+#set ( $ret = $attributes.add($tmp.type) )
+#end
+#end
+#end
+#set ($suffix = "")
+#foreach ($tmp in $angularHelper.getImports($attributes, ${class.packageName}, $suffix))
+$tmp
+#end
+
+@Injectable()
+@model([])
+export class $class.name {
+#foreach ($attribute in $class.attributes)
+
+### Find the return type and the default values
+#set ($returnType = $angularHelper.getDatatype($attribute.getterSetterTypeName))
+#if($attribute.defaultValuePresent)
+#set ($default = $attribute.defaultValue)
+#elseif($returnType == "File")
+#set ($default = "null")
+#elseif($angularHelper.isArray($attribute.getterSetterTypeName))
+#set ($default = "[]")
+#elseif($attribute.many)
+#set ($returnType = "$returnType[]")
+#set ($default = "[]")
+#elseif ($attribute.type.name != ${class.name} && $angularHelper.isComplex($attribute) && !$attribute.type.enumeration) ## Avoid cyclic dependency and using new on enumerations
+#set ($default = "new ${attribute.type.name}()")
+#elseif ($returnType == "Date")
+#set ($default = "new Date()")
+#elseif ($returnType == "number")
+#set ($default = "0")
+#else
+#set ($default = "null")
+#end
+	@$angularHelper.getRxwebDecorator($attribute)
+    $attribute.name: $returnType = $default;
+#end
+
+}

@@ -1,0 +1,55 @@
+## parameters:
+##     o  $pUseCase - the useCase to render
+##     o  $ident - spaces to ident
+##
+#set ( $moduleFileName = $angularHelper.getComponentFileName("${applicationId}") )
+#set ( $moduleName = $angularHelper.getComponentName($moduleFileName, "-"))
+#macro(renderAngularMenuItem $pUseCase $ident)
+#set ($roles = $useCase.actionRoles)
+#addDefaultRole($roles)
+#set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles) )
+#set ($children = $pUseCase.navigationChildren)
+#if ($children.empty)
+#foreach ($view in $pUseCase.views)
+##${ident}<button value="#{messages['$pUseCase.titleKey']}" url="#{request.contextPath}${pUseCase.path}.${facesServletExtension}"#if ($securityEnabled) rendered="#{p:ifAnyGranted('$roles')}"#end/>     
+#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
+#set ( $fileName = $angularHelper.getComponentFileName("${view.name}"))
+#set ( $className = $angularHelper.getComponentName($fileName, "-") )
+${ident}<button mat-menu-item routerLink="/$stringUtils.lowerCase($className)" (click)="onSidenavClose()">$view.name</button>
+#end
+#else
+#foreach ($view in $pUseCase.views)
+##${ident}<p:submenu label="#{messages['$pUseCase.titleKey']}"#if ($securityEnabled) rendered="#{p:ifAnyGranted('$roles')}"#end
+#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
+#set ( $fileName = $angularHelper.getComponentFileName("${view.name}"))
+#set ( $className = $angularHelper.getComponentName($fileName, "-") )
+${ident}<button mat-menu-item routerLink="/$stringUtils.lowerCase($className)" (click)="onSidenavClose()">$view.name</button>
+#end
+#foreach ($child in $children)
+#renderAngularMenuItem ($child "$ident    ")    
+#end    
+#end    
+#end
+<mat-nav-list class="card my-5">
+    <div>
+#if ($manageables.size() > 0)
+		<button mat-button [matMenuTriggerFor]="menu">Menu</button>
+		<mat-menu #menu="matMenu">
+#foreach ($manageable in $manageables)
+#set ($roles = $manageable.actionRoles)
+#addDefaultRole($roles)
+#set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles))
+			${ident}<button mat-menu-item routerLink="/$stringUtils.deleteWhitespace($stringUtils.lowerCase($manageable.actionName))" (click)="onSidenavClose()">Edit Role</button>
+#end
+        </mat-menu>
+#end
+#if ( $useCases.size() > 0 )    
+		<button mat-button [matMenuTriggerFor]="appMenu">Application Menu</button>
+		<mat-menu ${escTool.hash}appMenu="matMenu">
+#foreach ($useCase in $useCases)
+#renderAngularMenuItem($useCase "            ")  
+#end  
+#end
+        </mat-menu>
+    </div>
+</mat-nav-list>

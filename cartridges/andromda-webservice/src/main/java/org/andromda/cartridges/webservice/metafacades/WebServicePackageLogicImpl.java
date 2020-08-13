@@ -231,7 +231,7 @@ public class WebServicePackageLogicImpl
         Collection<WebServiceOperation> operations = new WebServiceUtils().getAllowedOperations(this);
         // Log the actual offending operation name, since validator only shows the package name
         String webserviceStack = String.valueOf(this.getConfiguredProperty("webserviceStack"));
-        if (webserviceStack.equals("cxf") || webserviceStack.equals("jaxws"))
+        if (webserviceStack.equals("cxf") || webserviceStack.equals("jaxws") || webserviceStack.equals("spring"))
         {
             for (WebServiceOperation operation : operations)
             {
@@ -265,7 +265,7 @@ public class WebServicePackageLogicImpl
         // If the cartridge is configured to use CXF or JAX-WS, and schemas are imported...
         String webserviceStack = String.valueOf(this.getConfiguredProperty("webserviceStack"));
         String importedSchema = String.valueOf(this.getConfiguredProperty("importedXSD"));
-        if (importedSchema.equals("true") && (webserviceStack.equals("cxf") || webserviceStack.equals("jaxws")))
+        if (importedSchema.equals("true") && (webserviceStack.equals("cxf") || webserviceStack.equals("jaxws") || webserviceStack.equals("spring")))
         {
             int serviceCount = this.getAllowedOperations().size();
             // Check this package is it contains services

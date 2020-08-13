@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.GeneralizationFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
@@ -493,5 +495,15 @@ public class MetafacadeLogicImpl
             }
         }
         return allParents;
+    }
+    
+	@Override
+    public Collection<String> getAdditionalAnnotations() {
+        HashSet<String> annotations = new HashSet<String>();
+        for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_ADDITIONAL_ANNOTATION))
+        {
+            annotations.add(o.toString());
+        }
+        return annotations;
     }
 }

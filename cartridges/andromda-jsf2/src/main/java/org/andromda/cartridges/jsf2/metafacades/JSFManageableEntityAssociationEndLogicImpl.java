@@ -1,5 +1,7 @@
 package org.andromda.cartridges.jsf2.metafacades;
 
+import java.util.Objects;
+
 import org.andromda.cartridges.jsf2.JSFGlobals;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
@@ -94,7 +96,7 @@ public class JSFManageableEntityAssociationEndLogicImpl
     {
         final String backingListName =
             StringUtils.replace(
-                ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.BACKING_LIST_PATTERN)),
+                Objects.toString(this.getConfiguredProperty(JSFGlobals.BACKING_LIST_PATTERN), ""),
                 "{0}",
                 this.getName());
         return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
@@ -106,7 +108,7 @@ public class JSFManageableEntityAssociationEndLogicImpl
      */
     protected String handleGetValueListName()
     {
-        return ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.VALUE_LIST_PATTERN)).replaceAll(
+        return Objects.toString(this.getConfiguredProperty(JSFGlobals.VALUE_LIST_PATTERN), "").replaceAll(
             "\\{0\\}",
             this.getName());
     }
@@ -117,7 +119,7 @@ public class JSFManageableEntityAssociationEndLogicImpl
      */
     protected String handleGetLabelListName()
     {
-        return ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.LABEL_LIST_PATTERN)).replaceAll(
+        return Objects.toString(this.getConfiguredProperty(JSFGlobals.LABEL_LIST_PATTERN), "").replaceAll(
             "\\{0\\}",
             this.getName());
     }

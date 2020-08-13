@@ -28,7 +28,7 @@
             <output patterns="**/*">core</output>
         </conditions>
         <conditions>
-            <condition id="web" equal="true"/>
+            <condition id="jsf" equal="true"/>
             <output patterns="**/*">web/</output>
             <output>mda/src/main/config/mappings/WebMergeMappings.xml.vsl</output>
             <output>web/src/main/resources/META-INF/context.xml.vsl</output>
@@ -91,6 +91,14 @@
         <conditions>
             <condition id="configurationUri" present="false"/>
             <output>mda/src/main/config/andromda.xml</output>
+        </conditions>
+        <conditions>
+            <condition id="springws" equal="true"/>
+            <output patterns="**/*">springws/</output>
+        </conditions>
+        <conditions>
+            <condition id="angular" equal="true"/>
+            <output patterns="**/*">angular/</output>
         </conditions>
     </conditionalOutput>
     <mappings>
@@ -161,6 +169,108 @@
         <mapping>
             <from>CXF/web.xml</from>
             <to>CXF/target/${applicationId}-CXF-${applicationVersion}/WEB-INF/web.xml</to>
+        </mapping>
+        
+        <!-- Angular -->
+        <mapping>
+            <from>angular/src/main/java/SpringApplication.java.vsl</from>
+            <to>angular/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}AngularApplication.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/test/SpringApplicationTest.java.vsl</from>
+            <to>angular/src/test/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}AngularApplicationTests.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/app.component.ts.vsl</from>
+            <to>angular/src/app/$stringUtils.lowerCase(${applicationId}).${component}.ts.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/app.component.spec.ts.vsl</from>
+            <to>angular/src/app/$stringUtils.lowerCase(${applicationId}).${component}.spec.ts.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/app.component.css.vsl</from>
+            <to>angular/src/app/$stringUtils.lowerCase(${applicationId}).${component}.css.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/app.component.html.vsl</from>
+            <to>angular/src/app/$stringUtils.lowerCase(${applicationId}).${component}.html.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/app.constants.ts.vsl</from>
+            <to>angular/src/app/${stringUtils.lowerCase(${applicationId})}.constants.ts.vsl</to>
+        </mapping>
+        
+        <!-- Angular Header -->
+        <mapping>
+            <from>angular/src/app/header/header.component.ts.vsl</from>
+            <to>angular/src/app/header/$stringUtils.lowerCase(${applicationId})-header.component.ts.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/header/header.component.spec.ts.vsl</from>
+            <to>angular/src/app/header/$stringUtils.lowerCase(${applicationId})-header.component.spec.ts.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/header/header.component.css.vsl</from>
+            <to>angular/src/app/header/$stringUtils.lowerCase(${applicationId})-header.component.css.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/header/header.component.html.vsl</from>
+            <to>angular/src/app/header/$stringUtils.lowerCase(${applicationId})-header.component.html.vsl</to>
+        </mapping>
+        
+        <!-- Angular Layout -->
+        <mapping>
+            <from>angular/src/app/layout/layout.component.ts.vsl</from>
+            <to>angular/src/app/layout/$stringUtils.lowerCase(${applicationId})-layout.component.ts.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/layout/layout.component.spec.ts.vsl</from>
+            <to>angular/src/app/layout/$stringUtils.lowerCase(${applicationId})-layout.component.spec.ts.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/layout/layout.component.css.vsl</from>
+            <to>angular/src/app/layout/$stringUtils.lowerCase(${applicationId})-layout.component.css.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/layout/layout.component.html.vsl</from>
+            <to>angular/src/app/layout/$stringUtils.lowerCase(${applicationId})-layout.component.html.vsl</to>
+        </mapping>
+        
+        <!-- Angular Navigation -->
+        <mapping>
+            <from>angular/src/app/navigation/navigation.component.ts.vsl</from>
+            <to>angular/src/app/navigation/$stringUtils.lowerCase(${applicationId})-navigation.component.ts.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/navigation/navigation.component.spec.ts.vsl</from>
+            <to>angular/src/app/navigation/$stringUtils.lowerCase(${applicationId})-navigation.component.spec.ts.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/navigation/navigation.component.css.vsl</from>
+            <to>angular/src/app/navigation/$stringUtils.lowerCase(${applicationId})-navigation.component.css.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/navigation/navigation.component.html.vsl</from>
+            <to>angular/src/app/navigation/$stringUtils.lowerCase(${applicationId})-navigation.component.html.vsl</to>
+        </mapping>
+		
+		<!-- Spring REST Webservices -->
+        <mapping>
+            <from>springws/SpringWSApplication.java.vsl</from>
+            <to>springws/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WSApplication.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>springws/SpringWSApplicationTests.java.vsl</from>
+            <to>springws/src/test/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WSApplicationTests.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>springws/SpringWSConfiguration.java.vsl</from>
+            <to>springws/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WSConfiguration.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>springws/application.properties.vsl</from>
+            <to>springws/src/main/resources/application.properties.vsl</to>
         </mapping>
     </mappings>
     <instructions>readme.txt</instructions>
@@ -346,9 +456,48 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>yes</response>
                     <response>no</response>
                 </responses>
-                <conditions>
+                <!--<conditions>
                     <condition equal="yes">
-                        <setProperty id="jsf">true</setProperty><!-- currently only JSF is supported -->
+                        <setProperty id="jsf">true</setProperty>
+                    </condition>
+                </conditions>-->
+            </prompt>
+            <prompt id="webType">
+                <text>Would you like your web user interface to use JSF or Angular?</text>
+                <shortText>Web interface technology</shortText>
+                <preconditions>
+                    <condition id="web" equal="true"/>
+                </preconditions>
+                <responses type="java.lang.String">
+                    <response>jsf</response>
+                    <response>angular</response>
+                    <response>both</response>
+                </responses>
+                <conditions>
+                    <condition equal="jsf">
+                        <setProperty id="jsf">true</setProperty>
+                        <setProperty id="angular">false</setProperty>
+                        <setProperty id="web">true</setProperty>
+                    </condition>
+                    <condition equal="angular">
+                        <setProperty id="jsf">false</setProperty>
+                        <setProperty id="angular">true</setProperty>
+                        <setProperty id="web">false</setProperty>
+                        <setProperty id="component">component</setProperty>
+						
+			<!-- Spring Web Service -->
+			<setProperty id="rest">true</setProperty>
+			<setProperty id="springws">true</setProperty>
+                        <setProperty id="webserviceStack">spring</setProperty>
+                    </condition>
+                    <condition equal="both">
+                        <setProperty id="angular">true</setProperty>
+                        <setProperty id="jsf">true</setProperty>
+                        <setProperty id="component">component</setProperty>
+			<!-- Spring Web Service -->
+			<setProperty id="rest">true</setProperty>
+			<setProperty id="springws">true</setProperty>
+                        <setProperty id="webserviceStack">spring</setProperty>
                     </condition>
                 </conditions>
             </prompt>
@@ -357,8 +506,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 <shortText>Enable JBoss Seam</shortText>
                 <preconditions>
                     <condition id="transactionPersistenceType" equal="ejb3"/>
-                    <condition id="web" equal="true"/>
-                    <condition id="jsf" equal="true"/>
+                    <condition id="webType" equal="jsf"/>
                 </preconditions>
                 <responses type="java.lang.Boolean">
                     <response>yes</response>
@@ -389,6 +537,10 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                         <setProperty id="soap">false</setProperty>
                         <setProperty id="rest">false</setProperty>
                     </condition>
+                    <condition id="angular" equal="true">
+                        <setProperty id="rest">true</setProperty>
+                        <setProperty id="webserviceStack">spring</setProperty>
+                    </condition>
                  </conditions>
             </prompt>
             <prompt id="jsr181Webservice" setResponseAsTrue="false">
@@ -409,16 +561,21 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 <preconditions type="and">
                     <condition id="webservice" notEqual="none"/>
                     <condition id="jsr181Webservice" notEqual="true"/>
+                    <condition id="springws" notEqual="true"/>
                 </preconditions>
                 <responses>
                     <response>cxf</response>
                     <response>axis</response>
                     <response>jaxws</response>
                     <response>xfire</response>
+                    <response>spring</response>
                 </responses>
                 <conditions>
                     <condition id="webserviceStack" equal="cxf">
                         <setProperty id="cxf">true</setProperty>
+                    </condition>
+                    <condition equal="spring">
+                        <setProperty id="springws">true</setProperty>
                     </condition>
                 </conditions>
             </prompt>

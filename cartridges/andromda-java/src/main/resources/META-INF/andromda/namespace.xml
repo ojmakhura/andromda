@@ -33,6 +33,11 @@
                     The directory to which value objects are generated.
                 </documentation>
             </property>
+            <property name="annotation-types" required="false">
+                <documentation>
+                    The directory to which annotation types are generated.
+                </documentation>
+            </property>
             <property name="exceptions" required="false">
                 <documentation>
                     The directory to which exceptions are generated.

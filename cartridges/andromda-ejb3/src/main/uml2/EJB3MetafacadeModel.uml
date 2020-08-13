@@ -3641,6 +3641,11 @@
                 <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_17_0_1_2e90116_1311870643264_977494_2660" name="" value="1"/>
                 <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_17_0_1_2e90116_1311870643264_882002_2662" name="" value="1"/>
               </ownedAttribute>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1586692450301_388058_4823" name="additionalAnnotations" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" isReadOnly="true">
+                <ownedComment xmi:id="_19_0_3_90e0298_1586694072009_837251_4841" annotatedElement="_19_0_3_90e0298_1586692450301_388058_4823" body="Extra annotations not covered by the normal AndroMDA features. The list of these annotations should be separated by semi colons."/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1586692740498_288105_4839" name="" visibility="public"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1586692740498_281204_4840" name="" visibility="public" value="*"/>
+              </ownedAttribute>
               <ownedOperation xmi:id="_d860307_1071761849080_536335_221" name="findTaggedValue" visibility="public">
                 <ownedComment xmi:id="_24400562_1082335345671_964492_89" body="Finds the tagged value with the specified 'tagName'. In case there are more values the first one found will be returned." annotatedElement="_d860307_1071761849080_536335_221"/>
                 <ownedParameter xmi:id="_d860307_1071761867056_395417_223" name="tagName" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>

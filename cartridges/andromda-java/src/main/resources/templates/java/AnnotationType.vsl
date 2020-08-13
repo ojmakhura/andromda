@@ -1,0 +1,13 @@
+#set ($annotationName = $annotation.name)
+package $annotation.packageName;
+
+$annotation.retention
+$annotation.target
+#if ( $annotation.documented )
+@java.lang.annotation.Documented
+#end
+#foreach ($o in $annotation.additionalAnnotations)
+@$o
+#end
+public @interface $annotation.name {
+}

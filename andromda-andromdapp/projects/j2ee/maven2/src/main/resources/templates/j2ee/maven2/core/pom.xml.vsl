@@ -44,26 +44,13 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-tx</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>   
 #if ($tomcat || $jetty)
         <!-- Uncomment below if using JDBC or Test features>
         <dependency>
@@ -432,6 +419,10 @@
             <artifactId>cxf-rt-frontend-jaxrs</artifactId>
         </dependency>
 #end
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-dbcp</artifactId>
+	</dependency>
 #if (!$spring && !$hibernate)
         <!-- See (http://www.lumidant.com/blog/hibernate-asm-incompatibilities/, http://forum.andromda.org/viewtopic.php?t=5747)
         for purpose of this fix, so that we can be compatible with the cxf webservices -->
@@ -498,6 +489,10 @@
 #else
         <!-- add the database jdbc dependency -->
 #end
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-dbcp</artifactId>
+		</dependency>
     </dependencies>
     <build>
         <plugins>

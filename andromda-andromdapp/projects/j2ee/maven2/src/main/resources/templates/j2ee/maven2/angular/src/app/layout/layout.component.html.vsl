@@ -1,0 +1,13 @@
+<mat-sidenav-container> 
+    <mat-sidenav  mode="side" #sidenav [(opened)]="opened">
+        <!--this is a place for us to add side-nav code--> 
+		<$stringUtils.lowerCase(${applicationId})-navigation></$stringUtils.lowerCase(${applicationId})-navigation>
+    </mat-sidenav> 
+    <mat-sidenav-content> 
+        <!--in here all the content must reside. We will add a navigation header as well-->
+        <$stringUtils.lowerCase(${applicationId})-header (sidenavToggle)="sidenav.toggle()"></$stringUtils.lowerCase(${applicationId})-header>
+        <main class="col-md-12">
+            <router-outlet></router-outlet>
+        </main>
+    </mat-sidenav-content> 
+</mat-sidenav-container>

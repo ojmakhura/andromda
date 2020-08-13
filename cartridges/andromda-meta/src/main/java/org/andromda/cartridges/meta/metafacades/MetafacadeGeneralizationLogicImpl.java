@@ -1,8 +1,10 @@
 package org.andromda.cartridges.meta.metafacades;
 
 import java.util.Collection;
+import java.util.HashSet;
 import org.andromda.cartridges.meta.MetaProfile;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -104,5 +106,15 @@ public class MetafacadeGeneralizationLogicImpl
         return ObjectUtils.toString(
             this.getConfiguredProperty(MetaGlobals.PROPERTY_GENERALIZATION_NAME_PATTERN))
                           .replaceAll("\\{0\\}", name);
+    }
+    
+	@Override
+    public Collection<String> getAdditionalAnnotations() {
+        HashSet<String> annotations = new HashSet<String>();
+        for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_ADDITIONAL_ANNOTATION))
+        {
+            annotations.add(o.toString());
+        }
+        return annotations;
     }
 }

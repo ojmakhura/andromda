@@ -1,0 +1,61 @@
+#set ($componentPath = $stringUtils.replaceChars(${service.packageName}, "\\.", "\\/"))
+#set ($fileName = $angularHelper.getComponentFileName("${service.name}Impl"))
+#set ($types = [])
+#set ($ret = false)
+#foreach ($operation in $service.operations)
+#foreach ( $argument in $operation.arguments)
+#if($argument.type.attributes.size() > 0)
+#set ( $ret = $types.add($argument.type))
+#end
+#end
+#if($operation.returnType.attributes.size() > 0)
+#set ( $ret = $types.add($operation.returnType))
+#end
+#end
+
+import { Injectable, Injector } from '@angular/core';
+#if ($service.restCount>0 && $stringUtils.isNotBlank($service.restPath))
+import { HttpClient} from '@angular/common/http';
+#end
+import { Observable } from 'rxjs';
+import { $service.name } from 'src/app/gen/service/$componentPath/$angularHelper.getComponentFileName(${service.name})';
+#set ($suffix = "")
+#foreach ($tmp in $angularHelper.getFacadeSet($types))
+#set ($path = $stringUtils.replaceChars(${tmp.packageName}, "\\.", "\\/"))
+import { $tmp.name } from 'src/app/gen/model/$path/$angularHelper.getComponentFileName(${tmp.name})';
+#end
+
+@Injectable()
+export class ${service.name}Impl extends ${service.name} {
+
+    constructor(private injector: Injector) {
+        super(injector);
+    }
+
+#foreach ($operation in $service.operations)
+#set ($arguments = $angularHelper.getMethodSignatureArguments($operation.arguments))
+#set ($restParams = $angularHelper.getMethodCallArguments($operation.arguments))
+#set ($returnType = $angularHelper.getDatatype($operation.returnType.name))
+#if (!$useArrayWrapper && ($operation.upper > 1 || $operation.upper == -1))
+#set ($returnType = "${returnType}[]")
+#end
+#set ($rType = $returnType)
+#set ($returnType = "Observable<$returnType>")
+    public ${operation.name}($arguments): $returnType {
+#set ($methodName = $angularHelper.getWebServiceMethodName($operation))
+#set ($methodPath = $angularHelper.getWebServiceOperationPath($operation.restPath))
+#if ( $methodName.equals("get")) 
+        return this.http.get<$rType>(this.path + '$methodPath'#foreach($arg in $operation.arguments) + $arg.name#end);
+#elseif ( $methodName.equals("post")) 
+        return this.http.post<$rType>(this.path + '$methodPath'#if (!$stringUtils.isBlank($restParams)), $restParams#end);
+#elseif ( $methodName.equals("delete")) 
+        return this.http.delete<$rType>(this.path + '$methodPath'#foreach ($arg in $operation.arguments) + $arg.name#end);
+#elseif ( $methodName.equals("put")) 
+        return this.http.put<$rType>(this.path + '$methodPath'#if (!$stringUtils.isBlank($restParams)), $restParams#end);
+#else 
+        return this.http.post<$rType>(this.path + '$methodPath'#if (!$stringUtils.isBlank($restParams)), $restParams#end);
+#end
+    }
+
+#end
+}

@@ -1,0 +1,39 @@
+##
+## This macro prints out the operation arguments
+##
+#macro (getOperationArgs $operation)
+#set ( $i = 0 )
+#foreach ( $arg in $webServiceUtils.getSpringOperationArgs($operation) )
+#if ( $i == 1 ), #else#set ( $i = 1 )#end$arg#end
+#end
+package ${service.packageName};
+#set ($componentPath = $stringUtils.replaceChars(${service.packageName}, "\\.", "\\/"))
+
+@org.springframework.web.bind.annotation.RestController
+@org.springframework.web.bind.annotation.RequestMapping(#if ($stringUtils.isNotBlank($service.restPath))"$service.restPath"#else"${service.name.toLowerCase()}sws"#end)
+@org.springframework.web.bind.annotation.CrossOrigin()
+#foreach($annotation in $service.additionalAnnotations)
+@$annotation
+#end
+public class ${service.name}WS {
+
+    private static org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(${service.name}WS.class);
+	
+    @org.springframework.beans.factory.annotation.Autowired
+    private ${service.fullyQualifiedName} $stringUtils.uncapitalize(${service.name});
+
+#foreach ($operation in $service.allowedOperations)
+#set ($responseStatus = $operation.restResponseStatus)
+    $webServiceUtils.getRequestType(${operation.restRequestType})($webServiceUtils.getSpringOperationPath($operation))
+#if (!$stringUtils.isBlank($responseStatus))
+    $operation.restResponseStatus
+#end
+#if ($operation.returnTypePresent)
+    @org.springframework.web.bind.annotation.ResponseBody
+#end
+    $operation.visibility $operation.getterSetterReturnTypeName ${operation.name}(#getOperationArgs($operation)) {
+        #if ($operation.getterSetterReturnTypeName != 'void')return #end$stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames);
+    }
+
+#end
+}

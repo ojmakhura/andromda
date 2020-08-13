@@ -162,7 +162,7 @@
             </dependency>
 #end
 #end
-#if ($jsf)
+#if ($webType.equals("jsf") || $webType.equals("both"))
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-jsf2-cartridge</artifactId>
@@ -470,7 +470,7 @@
                 <scope>test</scope>
 #end
             </dependency>
-#if (!$jsf)
+#if (!($webType.equals("jsf") || $webType.equals("both")))
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
@@ -491,46 +491,29 @@
 #end
 #end
 #if ($spring)
-## spring-asm now packaged with spring-core 3.2
-##            <!--dependency>
-##                <groupId>org.springframework</groupId>
-##                <artifactId>spring-asm</artifactId>
-##                <version>${spring.asm.version}</version>
-##            </dependency-->
             <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-beans</artifactId>
-                <version>${spring.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-core</artifactId>
-                <version>${spring.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-orm</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>	
             <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context-support</artifactId>
-                <version>${spring.version}</version>
-                <scope>runtime</scope>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-web</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-expression</artifactId>
                 <version>${spring.version}</version>
             </dependency>
 #if ($jetty || $tomcat)
@@ -576,14 +559,14 @@
                 <scope>runtime</scope>
             </dependency>
 #end
-#if ($web || $hibernate)
+#if ($webType.equals("jsf") || $webType.equals("both") || $hibernate)
             <dependency>
                 <groupId>antlr</groupId>
                 <artifactId>antlr</artifactId>
                 <version>2.7.7</version>
             </dependency>
 #end
-#if ($web)
+#if ($webType.equals("jsf") || $webType.equals("both"))
             <dependency>
                 <groupId>commons-digester</groupId>
                 <artifactId>commons-digester</artifactId>
@@ -805,7 +788,7 @@
                 <version>1.2.17</version>
                 <!--scope>test</scope-->
             </dependency>
-#if (!$jsf && !$spring && !$hibernate)
+#if (!($webType.equals("jsf") || $webType.equals("both")) && !$spring && !$hibernate)
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
@@ -826,32 +809,41 @@
 #if ($cxf)
             <!-- Explicit Spring dependencies to avoid compile/run version mismatch, shown by: Error creating bean Caused by: java.lang.NoSuchFieldError: NULL -->
 #if (!$spring)
-## spring-asm now packaged with spring-core 3.2
-##            <!--dependency>
-##                <groupId>org.springframework</groupId>
-##                <artifactId>spring-asm</artifactId>
-##                <version>${spring.asm.version}</version>
-##            </dependency-->
             <dependency>
+                <groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-test</artifactId>
+		<version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web-services</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <!--dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-beans</artifactId>
                 <version>${spring.version}</version>
-            </dependency>
-            <dependency>
+            </dependency-->
+            <!--dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-core</artifactId>
                 <version>${spring.version}</version>
-            </dependency>
-            <dependency>
+            </dependency-->
+            <!--dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
                 <version>${spring.version}</version>
-            </dependency>
-            <dependency>
+            </dependency-->
+            <!--dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context-support</artifactId>
                 <version>${spring.version}</version>
-            </dependency>
+            </dependency-->
 #if (!$jetty && !$tomcat)
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -913,12 +905,11 @@
                 <artifactId>cxf-rt-frontend-jaxrs</artifactId>
                 <version>${cxf.version}</version>
             </dependency>
-			<dependency>
-			    <groupId>org.apache.cxf.xjc-utils</groupId>
-			    <artifactId>cxf-xjc-runtime</artifactId>
-			    <version>${cxf.xjc.version}</version>
-			</dependency>
-            
+            <dependency>
+                <groupId>org.apache.cxf.xjc-utils</groupId>
+                <artifactId>cxf-xjc-runtime</artifactId>
+                <version>${cxf.xjc.version}</version>
+            </dependency>
 #end
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
@@ -1020,6 +1011,24 @@
                     </exclusion-->
                 </exclusions>
 #end
+            </dependency>
+#if ($springws)
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web-services</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <!-- For Working with Json Web Tokens (JWT) -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>0.9.0</version>
+            </dependency>
+#end
+            <dependency>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat-dbcp</artifactId>
+		<version>9.0.30</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -1186,11 +1195,11 @@
         ejb3=$ejb3
         hibernate=$hibernate
         spring=$spring
-        web=$web
+        webType=$webType
         webservice=$webservice
-        jsf2=$jsf
         cxf=$cxf
         rest=$rest
+		springws=$springws
         jbossSeam=$jbossSeam
         webserviceStack=$webserviceStack
         embeddedWebServer=$embeddedWebServer
@@ -1202,7 +1211,7 @@
 #if (!$transactionPersistenceType.equals("none") || $cxf)
         <module>core</module>
 #end
-#if ($jsf)
+#if ($webType.equals("both") || $webType.equals("jsf"))
         <module>web</module>
 #end
 #if (!$webservice.equals("none") && !$jsr181Webservice && ($ear || $cxf))
@@ -1213,6 +1222,9 @@
 #end
 #if ($ear)
         <module>app</module>
+#end
+#if ($springws)
+		<module>springws</module>
 #end
     </modules>
     <properties>
@@ -1437,14 +1449,15 @@
 #if ($tomcat)
         <tomcat.version>2.2</tomcat.version>
 #end
-#if ($jsf)
+#if ($webType.equals("jsf") || $webType.equals("both"))
         <myfaces.version>2.3.2</myfaces.version>
 #end
 #if ($cxf)
-        <spring.version>5.1.3.RELEASE</spring.version>
-#elseif ($spring)
+        <spring.version>5.2.3.RELEASE</spring.version>
+#elseif ($spring || $springws)
         <!-- v5 migration needed -->
-        <spring.version>5.1.3.RELEASE</spring.version>
+        <spring.version>5.2.3.RELEASE</spring.version>
+	<spring-boot.version>2.2.4.RELEASE</spring-boot.version>
 #end
         <!-- To override parent default settings for compiler plugin and compliance checks-->
         <dependencyConvergence>true</dependencyConvergence>

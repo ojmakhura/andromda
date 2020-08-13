@@ -11,6 +11,7 @@
         <from>JavaPrimitiveTypes::int</from>
         <from>UML Standard Profile::int</from>
         <from>datatype::int</from>
+        <from>AndroMDADatatypes::datatype::int</from>
         <to>UMLPrimitiveTypes::Integer</to>
     </mapping>
     <mapping>
@@ -20,6 +21,7 @@
         <from>PrimitiveTypes::char</from>
         <from>UML Standard Profile::char</from>
         <from>datatype::char</from>
+        <from>AndroMDADatatypes::datatype::char</from>
         <to>datatype::Character</to>
     </mapping>
     <mapping>
@@ -29,6 +31,7 @@
         <from>PrimitiveTypes::byte</from>
         <from>UML Standard Profile::byte</from>
         <from>datatype::byte</from>
+        <from>AndroMDADatatypes::datatype::byte</from>
         <to>datatype::Byte</to>
     </mapping>
     <mapping>
@@ -38,6 +41,7 @@
         <from>PrimitiveTypes::short</from>
         <from>UML Standard Profile::short</from>
         <from>datatype::short</from>
+        <from>AndroMDADatatypes::datatype::short</from>
         <to>datatype::Short</to>
     </mapping>
     <mapping>
@@ -47,6 +51,7 @@
         <from>PrimitiveTypes::long</from>
         <from>UML Standard Profile::long</from>
         <from>datatype::long</from>
+        <from>AndroMDADatatypes::datatype::long</from>
         <to>datatype::Long</to>
     </mapping>
     <mapping>
@@ -56,6 +61,7 @@
         <from>PrimitiveTypes::float</from>
         <from>UML Standard Profile::float</from>
         <from>datatype::float</from>
+        <from>AndroMDADatatypes::datatype::float</from>
         <to>datatype::Float</to>
     </mapping>
     <mapping>
@@ -65,6 +71,7 @@
         <from>PrimitiveTypes::double</from>
         <from>UML Standard Profile::double</from>
         <from>datatype::double</from>
+        <from>AndroMDADatatypes::datatype::double</from>
         <to>datatype::Double</to>
     </mapping>
     <mapping>
@@ -74,6 +81,7 @@
         <from>PrimitiveTypes::boolean</from>
         <from>UML Standard Profile::boolean</from>
         <from>datatype::boolean</from>
+        <from>AndroMDADatatypes::datatype::boolean</from>
         <to>UMLPrimitiveTypes::Boolean</to>
     </mapping>
 </mappings>

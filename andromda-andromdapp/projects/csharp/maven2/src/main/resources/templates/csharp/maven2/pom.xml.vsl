@@ -110,7 +110,7 @@
 #if (${transactionPersistenceType} != "none")
         <module>core</module>
 #end
-#if ($web)
+#if ($webType.equals("jsf") || $webType.equals("both"))
         <module>web</module>
 #end
 #if (!$webservice.equals("none"))

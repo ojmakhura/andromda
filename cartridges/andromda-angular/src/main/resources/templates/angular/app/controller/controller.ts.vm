@@ -1,0 +1,67 @@
+##
+##  This macro determines what to do when processing a transition
+##
+#macro (processTransition $transition)
+#if (!$transition)
+null;
+#elseif ($transition.enteringFinalState)
+#set($targetController = $transition.target.targetElement.controller)
+#set($targetControllerBeanName = $transition.target.targetControllerBeanName)
+##if($targetControlle.name)(<$targetController.name>JSON.parse(localStorage.getItem('$targetControllerBeanName'))).startUseCase()#else this.closeDialog()#end;
+#if($targetController.name)
+#if(${targetController.name} != $controller.name)
+this.${stringUtils.uncapitalize(${targetController.name})}.startUseCase()
+#else
+this.startUseCase()
+#end
+#else 
+this.closeDialog()
+#end;
+#elseif ($transition.enteringView)
+#set ($pt = $angularHelper.getComponentFileName(${transition.target.name}))
+#set ( $cls = $angularHelper.getComponentName($pt, "-") )
+'$stringUtils.lowerCase($cls)';
+#elseif ($transition.enteringDecisionPoint)
+this.__${transition.operationCall.name}(#if (!$action.formFields.empty)form#end);
+#else
+this.${transition.target.actionMethodName}#if (!$action.formFields.empty)${action.formImplementationName}#end(#if (!$action.formFields.empty)form#end);
+#end
+#end
+##
+##   This macro generates code to save any success messages and warning messages
+##
+#macro (saveMessages $transition $indent)
+#set ($messagesFullyQualifiedName = "Messages")
+#if ($stringUtils.isNotBlank($managedBeansPackage))
+#set($messagesFullyQualifiedName = "${managedBeansPackage}.${messagesFullyQualifiedName}")
+#end
+#if ($transition.successMessagesPresent)
+#foreach ($message in $transition.successMessages.entrySet())
+//${indent}${managedBeansPackage}.JsfUtils.addInfoMessage(${messagesFullyQualifiedName}.get('$message.key', (Object[])null));
+#end
+#end
+#if ($transition.warningMessagesPresent)
+#foreach ($message in $transition.warningMessages.entrySet())
+//${indent}${managedBeansPackage}.JsfUtils.addWarningMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
+#end
+#end
+#end
+##
+##   This macro generates code to save any success messages and warning messages in decision transitions
+##
+#macro (saveDecisionMessages $transition $indent)
+#set ($messagesFullyQualifiedName = "Messages")
+#if ($stringUtils.isNotBlank($managedBeansPackage))
+#set($messagesFullyQualifiedName = "${managedBeansPackage}.${messagesFullyQualifiedName}")
+#end
+#if ($transition.successMessagesPresent)
+#foreach ($message in $transition.successMessages.entrySet())
+//${indent}${managedBeansPackage}.JsfUtils.addInfoMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
+#end
+#end
+#if ($transition.warningMessagesPresent)
+#foreach ($message in $transition.warningMessages.entrySet())
+//${indent}${managedBeansPackage}.JsfUtils.addWarningMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
+#end
+#end
+#end

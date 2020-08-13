@@ -24,6 +24,7 @@
         <from>File</from>
         <from>PrimitiveTypes::File</from>
         <from>datatype::File</from>
+        <from>AndroMDADatatypes::datatype::File</from>
         <to>System.IO.File</to>
     </mapping>
     <mapping>
@@ -32,6 +33,7 @@
         <from>UMLTypes::String</from>
         <from>UMLPrimitiveTypes::String</from>
         <from>datatype::String</from>
+        <from>AndroMDADatatypes::datatype::String</from>
         <to>String</to>
     </mapping>
     <mapping>
@@ -47,6 +49,10 @@
         <from>datatype::Date</from>
         <from>datatype::DateTime</from>
         <from>datatype::Timestamp</from>
+        <from>AndroMDADatatypes::datatype::Time</from>
+        <from>AndroMDADatatypes::datatype::Date</from>
+        <from>AndroMDADatatypes::datatype::DateTime</from>
+        <from>AndroMDADatatypes::datatype::Timestamp</from>
         <to>DateTime?</to>
     </mapping>
     <mapping>
@@ -54,12 +60,14 @@
         <from>PrimitiveTypes::char</from>
         <from>JavaPrimitiveTypes::char</from>
         <from>datatype::char</from>
+        <from>AndroMDADatatypes::datatype::char</from>
         <to>char</to>
     </mapping>
     <mapping>
         <from>Character</from>
         <from>PrimitiveTypes::Character</from>
         <from>datatype::Character</from>
+        <from>AndroMDADatatypes::datatype::Character</from>
         <to>char?</to>
     </mapping>
     <mapping>
@@ -67,12 +75,14 @@
         <from>PrimitiveTypes::byte</from>
         <from>JavaPrimitiveTypes::byte</from>
         <from>datatype::byte</from>
+        <from>AndroMDADatatypes::datatype::byte</from>
         <to>byte</to>
     </mapping>
     <mapping>
         <from>Byte</from>
         <from>PrimitiveTypes::Byte</from>
         <from>datatype::Byte</from>
+        <from>AndroMDADatatypes::datatype::Byte</from>
         <to>byte?</to>
     </mapping>
     <mapping>
@@ -80,6 +90,7 @@
         <from>PrimitiveTypes::short</from>
         <from>JavaPrimitiveTypes::short</from>
         <from>datatype::short</from>
+        <from>AndroMDADatatypes::datatype::short</from>
         <to>short</to>
     </mapping>
     <mapping>
@@ -87,6 +98,7 @@
         <from>Java::Short</from>
         <from>PrimitiveTypes::Short</from>
         <from>datatype::Short</from>
+        <from>AndroMDADatatypes::datatype::Short</from>
         <to>short?</to>
     </mapping>
     <mapping>
@@ -94,12 +106,14 @@
         <from>PrimitiveTypes::int</from>
         <from>JavaPrimitiveTypes::int</from>
         <from>datatype::int</from>
+        <from>AndroMDADatatypes::datatype::int</from>
         <to>int</to>
     </mapping>
     <mapping>
         <from>Integer</from>
         <from>PrimitiveTypes::Integer</from>
         <from>datatype::Integer</from>
+        <from>AndroMDADatatypes::datatype::Integer</from>
         <to>int?</to>
     </mapping>
     <mapping>
@@ -107,12 +121,14 @@
         <from>PrimitiveTypes::long</from>
         <from>JavaPrimitiveTypes::long</from>
         <from>datatype::long</from>
+        <from>AndroMDADatatypes::datatype::long</from>
         <to>long</to>
     </mapping>
     <mapping>
         <from>Long</from>
         <from>PrimitiveTypes::Long</from>
         <from>datatype::Long</from>
+        <from>AndroMDADatatypes::datatype::Long</from>
         <to>long?</to>
     </mapping>
     <mapping>
@@ -120,12 +136,14 @@
         <from>PrimitiveTypes::float</from>
         <from>JavaPrimitiveTypes::float</from>
         <from>datatype::float</from>
+        <from>AndroMDADatatypes::datatype::float</from>
         <to>float</to>
     </mapping>
     <mapping>
         <from>Float</from>
         <from>PrimitiveTypes::Float</from>
         <from>datatype::Float</from>
+        <from>AndroMDADatatypes::datatype::Float</from>
         <to>float?</to>
     </mapping>
     <mapping>
@@ -133,6 +151,7 @@
         <from>PrimitiveTypes::double</from>
         <from>JavaPrimitiveTypes::double</from>
         <from>datatype::double</from>
+        <from>AndroMDADatatypes::datatype::double</from>
         <to>double</to>
     </mapping>
     <mapping>
@@ -142,18 +161,22 @@
         <from>PrimitiveTypes::Money</from>
         <from>datatype::Double</from>
         <from>datatype::Money</from>
+        <from>AndroMDADatatypes::datatype::Double</from>
+        <from>AndroMDADatatypes::datatype::Money</from>
         <to>double?</to>
     </mapping>
     <mapping>
         <from>Decimal</from>
         <from>PrimitiveTypes::Decimal</from>
         <from>datatype::Decimal</from>
+        <from>AndroMDADatatypes::datatype::Decimal</from>
         <to>decimal?</to>
     </mapping>
     <mapping>
         <from>Boolean</from>
         <from>PrimitiveTypes::Boolean</from>
         <from>datatype::Boolean</from>
+        <from>AndroMDADatatypes::datatype::Boolean</from>
         <to>bool?</to>
     </mapping>
     <mapping>
@@ -162,24 +185,28 @@
         <from>PrimitiveTypes::boolean</from>
         <from>JavaPrimitiveTypes::boolean</from>
         <from>datatype::boolean</from>
+        <from>AndroMDADatatypes::datatype::boolean</from>
         <to>bool</to>
     </mapping>
     <mapping>
         <from>Guid</from>
         <from>PrimitiveTypes::Guid</from>
         <from>datatype::Guid</from>
+        <from>AndroMDADatatypes::datatype::Guid</from>
         <to>System.Guid</to>
     </mapping>
     <mapping>
         <from>Collection</from>
         <from>PrimitiveTypes::Collection</from>
         <from>datatype::Collection</from>
+        <from>AndroMDADatatypes::datatype::Collection</from>
         <to>System.Collections.ICollection</to>
     </mapping>
     <mapping>
         <from>List</from>
         <from>PrimitiveTypes::List</from>
         <from>datatype::List</from>
+        <from>AndroMDADatatypes::datatype::List</from>
         <to>System.Collections.IList</to>
     </mapping>
     <mapping>
@@ -188,18 +215,22 @@
         <from>PrimitiveTypes::SortedSet</from>
         <from>datatype::Set</from>
         <from>datatype::SortedSet</from>
+        <from>AndroMDADatatypes::datatype::Set</from>
+        <from>AndroMDADatatypes::datatype::SortedSet</from>
         <to>Iesi.Collections.ISet</to>
     </mapping>
     <mapping>
         <from>Clob</from>
         <from>PrimitiveTypes::Clob</from>
         <from>datatype::Clob</from>
+        <from>AndroMDADatatypes::datatype::Clob</from>
         <to>String</to>
     </mapping>
     <mapping>
         <from>Blob</from>
         <from>PrimitiveTypes::Blob</from>
         <from>datatype::Blob</from>
+        <from>AndroMDADatatypes::datatype::Blob</from>
         <to>Byte[]</to>
     </mapping>
     <mapping>
@@ -208,53 +239,63 @@
         <from>PrimitiveTypes::SortedMap</from>
         <from>datatype::Map</from>
         <from>datatype::SortedMap</from>
+        <from>AndroMDADatatypes::datatype::Map</from>
+        <from>AndroMDADatatypes::datatype::SortedMap</from>
         <to>System.Collections.IDictionary</to>
     </mapping>
     <mapping>
         <from>Mappings</from>
         <from>PrimitiveTypes::Mappings</from>
         <from>datatype::Mappings</from>
+        <from>AndroMDADatatypes::datatype::Mappings</from>
         <to>org.andromda.metafacades.uml.TypeMappings</to>
     </mapping>
     <mapping>
         <from>URI</from>
         <from>PrimitiveTypes::URI</from>
         <from>datatype::URI</from>
+        <from>AndroMDADatatypes::datatype::URI</from>
         <to>Uri</to>
     </mapping>
     <mapping>
         <from>URL</from>
         <from>PrimitiveTypes::URL</from>
         <from>datatype::URL</from>
+        <from>AndroMDADatatypes::datatype::URL</from>
         <to>Uri</to>
     </mapping>
     <mapping>
         <from>PrimitiveTypes::Object</from>
         <from>datatype::Object</from>
+        <from>AndroMDADatatypes::datatype::Object</from>
         <to>Object</to>
     </mapping>
     <mapping>
         <from>Void</from>
         <from>PrimitiveTypes::void</from>
         <from>datatype::void</from>
+        <from>AndroMDADatatypes::datatype::void</from>
         <to>void</to>
     </mapping>
     <mapping>
         <from>Document</from>
         <from>PrimitiveTypes::Document</from>
         <from>datatype::Document</from>
+        <from>AndroMDADatatypes::datatype::Document</from>
         <to>System.Xml.XmlDocument</to>
     </mapping>
     <mapping>
         <from>ContentHandler</from>
         <from>PrimitiveTypes::ContentHandler</from>
         <from>datatype::ContentHandler</from>
+        <from>AndroMDADatatypes::datatype::ContentHandler</from>
         <to>System.Xml.XmlReader</to>
     </mapping>
     <mapping>
         <from>TreeNode</from>
         <from>PrimitiveTypes::TreeNode</from>
         <from>datatype::TreeNode</from>
+        <from>AndroMDADatatypes::datatype::TreeNode</from>
         <to>System.Windows.Forms.TreeNode</to>
     </mapping>
 </mappings>

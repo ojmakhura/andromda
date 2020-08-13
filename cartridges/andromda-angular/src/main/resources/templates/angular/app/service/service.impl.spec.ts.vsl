@@ -1,0 +1,14 @@
+#set ($componentPath = $stringUtils.replaceChars(${class.packageName}, "\\.", "\\/"))
+#set ($fileName = $angularHelper.getComponentFileName($service.name))
+import { TestBed } from '@angular/core/testing';
+
+import { ${service.name}Impl } from 'src/app/impl/service/$componentPath/$fileName';
+
+describe('${service.name}Impl', () => {
+  beforeEach(() => TestBed.configureTestingModule({}));
+
+  it('should be created', () => {
+    const service: ${service.name}Impl = TestBed.get(${service.name}Impl);
+    expect(service).toBeTruthy();
+  });
+});

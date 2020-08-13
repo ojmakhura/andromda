@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import java.util.StringTokenizer;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -567,7 +568,6 @@ public class ResourceUtils
         if (path.startsWith(CLASSPATH_PREFIX))
         {
             path = path.substring(CLASSPATH_PREFIX.length(), path.length());
-
             // - the value of the following constant is -1 of no nested resources were specified,
             //   otherwise it points to the location of the first occurrence
             final int nestedPathOffset = path.indexOf("!/");
@@ -591,36 +591,52 @@ public class ResourceUtils
             {
                 try
                 {
+
                     // - extract the filename from the entire resource path
                     final int fileNameOffset = resourcePath.lastIndexOf('/');
-                    final String resourceFileName =
+                    String resourceFileName =
                         fileNameOffset == -1 ? resourcePath : resourcePath.substring(fileNameOffset + 1);
 
                     if (logger.isDebugEnabled())
                     {
                         logger.debug("Creating temporary copy on the file system of the classpath resource");
                     }
-                    final File fileSystemResource = File.createTempFile(resourceFileName, null);
+
+                    File fileSystemResource = File.createTempFile(resourceFileName, null);
                     if (logger.isDebugEnabled())
                     {
                         logger.debug("Temporary file will be deleted on VM exit: " + fileSystemResource.getAbsolutePath());
                     }
+
                     fileSystemResource.deleteOnExit();
                     if (logger.isDebugEnabled())
                     {
                         logger.debug("Copying classpath resource contents into temporary file");
                     }
-                    writeUrlToFile(urlResource, fileSystemResource.toString());
 
+                    writeUrlToFile(urlResource, fileSystemResource.toString());
                     // - count the times the actual resource to resolve has been nested
                     final int nestingCount = StringUtils.countMatches(path, "!/");
                     // - this buffer is used to construct the URL spec to that specific resource
                     final StringBuilder buffer = new StringBuilder();
-                    for (int ctr = 0; ctr < nestingCount; ctr++)
-                    {
-                        buffer.append(ARCHIVE_PREFIX);
+                    StringTokenizer tok = new StringTokenizer(nestingPath, "!/");
+
+                    while(tok.hasMoreTokens()) {
+                        resourceFileName = fileSystemResource.getAbsolutePath() + "/" + tok.nextToken();
+                        fileSystemResource = File.createTempFile(resourceFileName, null);
                     }
+
+                    /*for (int ctr = 0; ctr < nestingCount; ctr++)
+                    {
+                        String tmp = nestingPath.substring(2);
+                        logger.info("tmp = " + tmp);
+                        logger.info("ARCHIVE_PREFIX = " + ARCHIVE_PREFIX);
+                        buffer.append(ARCHIVE_PREFIX);
+                        logger.info("Buffer = " + buffer.toString());
+                    }*/
+
                     buffer.append(FILE_PREFIX).append(fileSystemResource.getAbsolutePath()).append(nestingPath);
+                    
                     if (logger.isDebugEnabled())
                     {
                         logger.debug("Constructing URL to " +
@@ -631,6 +647,7 @@ public class ResourceUtils
                 }
                 catch (final IOException exception)
                 {
+
                     logger.warn("Unable to resolve classpath resource", exception);
                     // - impossible to properly resolve the path into a URL
                     urlResource = null;

@@ -1,0 +1,113 @@
+##
+##  This macro defines the fieldType
+##
+#macro (setFieldTypeName $field $fieldTypeName)
+#if ($field.pageableTable)
+#set ($fieldTypeName = "Array")
+#elseif ($field.type.collectionType)
+#set ($fieldTypeName = "Array")
+#elseif ($field.type.fileType || $field.needsFileUpload)
+#set ($fieldTypeName = "$fileTypeName")
+#else
+#set ($fieldTypeName = ${field.getterSetterTypeName})
+#end
+#end
+##
+##  This macro sets the fieldTypeName of an associationEnd
+##
+#macro (setAssociationEndFieldTypeName $end)
+#if($end.type.manageable)
+#set ($fieldType = $end.manageableIdentifier.type)
+#set ($fieldTypeName = $fieldType.fullyQualifiedName)
+#else
+#if($end.type.compositeIdentifier)
+#set ($fieldTypeName = "any")
+#else
+#set ($fieldType = $end.type.identifiers.iterator().next().type)
+#set ($fieldTypeName = $fieldType.fullyQualifiedName)
+#end
+#end
+#end
+##
+##  This macro defines the fieldWrapperTypeName
+##
+#macro (setFieldWrapperTypeName $field $fieldWrapperTypeName)
+#if ($field.pageableTable)
+#set ($fieldWrapperTypeName = "Array")
+#elseif ($field.type.collectionType)
+#set ($fieldWrapperTypeName = "Array")
+#elseif ($field.type.fileType || $field.needsFileUpload)
+#set ($fieldWrapperTypeName = "$fileTypeName")
+#elseif ($field.type.primitive)
+#set ($fieldWrapperTypeName = ${field.type.wrapperName})
+#else
+#set ($fieldWrapperTypeName = ${field.getterSetterTypeName})
+#end
+#end
+##
+##  This macro copies from an object
+##
+#macro (renderCopyFrom $beanClass $attributes $associationEnds)
+    /*
+     * Fills this form using values of a Map
+     *
+     * @param source the source Map
+     */     
+    static copyFrom(source: any): ${beanClass}
+    {
+        let form = new ${beanClass}();
+        if(source) {
+#foreach ($field in $attributes)
+#setFieldWrapperTypeName($field $fieldWrapperTypeName)
+#if($field.many)
+            if('${field.name}' in source)
+            {
+                form.${field.name} = source['${field.name}'];
+            }
+#else    
+            if('${field.name}' in source)
+            {
+                form.${field.name} = source['${field.name}'];
+            }
+#end
+#end
+#foreach ($end in $assocvsliationEnds)
+#setAssociationEndFieldTypeName($end)
+#if($end.many)
+            if('${field.name}' in source)
+            {
+                form.${end.name} = source['${end.name}'];
+            }
+#else    
+            if('${field.name}' in source)
+            {
+                form.${end.name} = source['${end.name}'];
+            }
+#end
+#end
+        }
+        return form;
+    }
+#end
+##
+##  This macro renders the backing list support for the form interface
+##
+#macro (renderBackingListSupport $field $ownerParameter)
+#if ($field.backingListName)
+#set ($backingListName = $field.backingListName)
+#else
+#set ($backingListName = $field.getBackingListName($ownerParameter))
+#end
+#set ($backingListMethod = $stringUtils.capitalize($backingListName))
+
+    /**
+     * @return backingList java.util.Collection<javax.faces.model.SelectItem>
+     */
+    get${backingListMethod}(): Array<any>;
+
+    /**
+     * @param ${backingListName}In
+     */
+    set${backingListMethod}(${backingListName}In: Array<any>): void;
+    
+#end

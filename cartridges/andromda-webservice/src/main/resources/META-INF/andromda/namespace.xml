@@ -18,19 +18,19 @@
             <documentation>
                 Defines the locations to which output is generated.
             </documentation>
-            <property name="wsdls">
+            <property name="wsdls" required="false">
                 <documentation>
                     Specifies the directory to which generated WSDL's will be placed.
                      Normally webservice/src/main/webapp/WEB-INF/wsdl.
                 </documentation>
             </property>
-            <property name="java-types">
+            <property name="java-types" required="false">
                 <documentation>
                     The directory to which any non implementation Java files will be generated.
                     Normally common/target/src/main/java
                 </documentation>
             </property>
-            <property name="configuration">
+            <property name="configuration" required="false">
                 <documentation>
                     The directory to which any configuration files
                     are generated (such as the web.xml, etc). Normally webservice/src/main/webapp/WEB-INF.
@@ -52,59 +52,66 @@
                     specific configuration files are generated.
                 </documentation>
             </property>
-            <property name="webservice-project">
+            <property name="webservice-project" required="false">
                 <documentation>
                     The webservice maven project directory, where buildWS ant scripts will be created and run.
                 </documentation>
             </property>
-            <property name="webservice-types">
+            <property name="webservice-types" required="false">
                 <documentation>
                     The directory to which any extra webservice classes will be generated (i.e. an AttachmentHandler
                     for example). Normally core/src/main/java.
                 </documentation>
             </property>
-            <property name="webservice-tests">
+            <property name="webservice-tests" required="false">
                 <documentation>
                     The directory to which webservice tests will be generated, so that they can be run as part of the maven test phases.
                     Normally webservice/src/test/java. Output is only generated once. Testing requires a running Jetty server.
                 </documentation>
             </property>
-            <property name="webservice-impl">
+            <property name="webservice-impl" required="false">
                 <documentation>
                     The directory to which any extra webservice classes will be generated (i.e. an AttachmentHandler
                     for example). Normally webservice/src/main/java.
                 </documentation>
             </property>
-            <property name="core-tests">
+            <property name="core-tests" required="false">
                 <documentation>
                     The directory to which webservice impl tests will be generated (in the core project),
                     so that they can be run as part of the maven test phases.
                     Normally core/src/test/java. Output is only generated once.
                 </documentation>
             </property>
-            <property name="service-impls">
+            <property name="service-impls" required="false">
                 <documentation>
                     The directory to which any service implementation classes will be generated.
                     Normally core/src/main/java.
                 </documentation>
             </property>
-            <property name="jaxb-impl">
+            <property name="jaxb-impl" required="false">
                 <documentation>
                     The directory to which customized JAXB implementation classes will be generated (i.e. Adapter).
                     Normally common/src/main/java.
                 </documentation>
             </property>
-            <property name="jaxb-gen">
+            <property name="jaxb-gen" required="false">
                 <documentation>
                     The directory to which JAXB generated classes will be generated (i.e. package-info, ObjectFactory),
                     and to which CXF client generated classes will be copied.
                     Normally common/target/src/main/java.
                 </documentation>
             </property>
+            <property name="springwebservices" required="false">
+                <documentation>
+                    The location to which any services are generated (this outlet
+                    contains classes which are fully generated and should not be
+                    touched).
+                </documentation>
+            </property>
         </propertyGroup>
         <propertyGroup name="Other">
             <property name="generateRefFiles" required="false">
-                <default>true</default>
+                <default>false</default>
                 <documentation>
                     Generates File.ref files if overwrite=false for a template output. Ref files contain
                     what would have been generated to the original file if overwrite=true or if the file did
@@ -138,6 +145,7 @@
                         <li>xfire</li>
                         <li>jaxws</li>
                         <li>cxf</li>
+                        <li>springws</li>
                     </ul>
                 </documentation>
             </property>
@@ -335,7 +343,7 @@
                     Specifies the prefix to give to names of WSDL array elements.
                 </documentation>
             </property>
-            <property name="schemaTypeMappingsUri">
+            <property name="schemaTypeMappingsUri" required="false">
                 <documentation>
                     URI specifying the specific mappings from UML model types to WSDL Schema types.
                     (i.e. <code>file:${basedir}/XmlSchemaMappings.xml</code>)
@@ -382,7 +390,7 @@
                     (i.e. Security Services}
                 </documentation>
             </property>
-            <property name="wsdlSoapAddress">
+            <property name="wsdlSoapAddress" required="false">
                 <documentation>
                     The location of where the WSDL will reside (i.e. "http://localhost:8080/security-service/services")
                 </documentation>

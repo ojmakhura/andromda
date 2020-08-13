@@ -1,0 +1,89 @@
+##
+## This macro adds the default role to the roles string
+##
+#macro (addDefaultRole $roles)
+#if($stringUtils.isNotBlank($defaultRole))
+#if($stringUtils.isBlank($roles))
+#set($roles = $defaultRole)
+#else
+#set($roles = "${roles},${defaultRole}")
+#end
+#end
+#end
+
+##
+## A macro for creating import statements
+## The 4 vsl arrays should have been declared. These are classNames, classPaths
+## services and fields.
+##
+#macro (renderImports $puseCase)
+## Views
+#foreach ($view in $puseCase.views)
+#set ( $rt = $views.add($view) )
+## Actions
+#foreach ($action in $view.actions)
+#if (!$action.tableLink)
+#set ( $rt = $actions.add($action) )
+#end
+## Services
+## DO not add services to class names
+#foreach ($service in $action.controller.allServices)
+#set ( $rt = $services.add($service) )
+#end
+#set ( $rt = $controllers.add($action.controller) )
+## Form fields
+#foreach ( $field in $action.formFields )
+#set ($dt = $angularHelper.getDatatype($field.fullyQualifiedName))
+#if($field.complex)
+#set ( $rt = $fields.add($field.type))
+#end
+#end
+#end
+## Tables
+#foreach ($table in $view.tables)
+#set ( $rt = $tables.add($table) )
+#end
+#end
+#set ($roles = $puseCase.actionRoles)
+#addDefaultRole($roles)
+#set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles) )
+#set ($children = $puseCase.navigationChildren)
+#if (!$children.empty)
+#foreach ($childUseCase in $children)
+#renderImports($childUseCase)
+#end
+#end 
+#end
+
+##
+## Render the declarations
+##
+#macro (renderUseCaseDeclarations $puseCase)
+#foreach ($view in $puseCase.views)
+#set ( $fileName = $angularHelper.getComponentFileName("${view.useCase.name}-${view.name}") )
+#set ( $className = $angularHelper.getComponentName($fileName, "-") )
+#set ( $rt = $items.add("${className}Impl"))
+## Tables
+#foreach ($table in $view.tables)
+#set ( $fileName = $angularHelper.getComponentFileName("${table.view.useCase.name}-${table.view.name}-${table.name}") )
+#set ( $className = $angularHelper.getComponentName($fileName, "-"))
+#set ( $rt = $items.add("${className}Impl"))
+#end
+## Actions
+#foreach ($action in $view.actions)
+#if (!$action.tableLink)
+#set ( $actionName = $angularHelper.getComponentName($action.name, "-") )
+#set ( $rt = $items.add("${actionName}Impl"))
+#end
+#end
+#end
+#set ($roles = $puseCase.actionRoles)
+#addDefaultRole($roles)
+#set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles) )
+#set ($children = $puseCase.navigationChildren)
+#if (!$children.empty)
+#foreach ($childUseCase in $children)
+#renderUseCaseDeclarations ($childUseCase )
+#end
+#end
+#end

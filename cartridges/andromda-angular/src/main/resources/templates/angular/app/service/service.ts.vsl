@@ -1,0 +1,67 @@
+#set ($componentPath = $stringUtils.replaceChars(${service.packageName}, "\\.", "\\/"))
+#set ($fileName = $angularHelper.getComponentFileName($service.name))
+#set ($types = [])
+#set ($ret = false)
+import { BASE_URL } from 'src/app/${stringUtils.lowerCase($applicationId)}.constants';
+#foreach ($operation in $service.operations)
+#foreach ( $argument in $operation.arguments)
+#if($argument.type.attributes.size() > 0)
+#set ( $ret = $types.add($argument.type))
+#end
+#end
+#if($operation.returnType.attributes.size() > 0)
+#set ( $ret = $types.add($operation.returnType))
+#end
+#end
+#if ($service.restCount>0 && $stringUtils.isNotBlank($service.restPath))
+import { HttpClient} from '@angular/common/http';
+import { Injector } from '@angular/core';
+#end
+import { Observable } from 'rxjs';
+#foreach ($tmp in $angularHelper.getFacadeSet($types))
+#set ($path = $stringUtils.replaceChars(${tmp.packageName}, "\\.", "\\/"))
+import { $tmp.name } from 'src/app/gen/model/$path/$angularHelper.getComponentFileName(${tmp.name})';
+#end
+
+export abstract class $service.name {
+
+#if ($service.restCount>0)
+#if ($stringUtils.isNotBlank($service.restPath))
+    protected path = BASE_URL + #if($stringUtils.isNotBlank($service.restPath))"$service.restPath"#else"${service.name.toLowerCase()}sws"#end;
+
+#end
+#end 
+#if ($service.restCount>0 && $stringUtils.isNotBlank($service.restPath))
+    protected http: HttpClient;
+    constructor(injector: Injector) {
+        this.http = injector.get(HttpClient);
+    }
+#end
+#foreach ($operation in $service.operations)
+#set ($arguments = $angularHelper.getMethodSignatureArguments($operation.arguments))
+#set ($argNames = $angularHelper.getMethodCallArguments($operation.arguments))
+#set ($returnType = $angularHelper.getDatatype($operation.returnType.name))
+#if (!$useArrayWrapper && ($operation.upper>1 || $operation.upper==-1))
+#set ($returnType = "$returnType[]")
+#end
+#set ($returnType2 = "Observable<$returnType>")
+    /**
+     * 
+##if ($operation.rest)
+#if ($stringUtils.isNotBlank($operation.restRequestType))
+     * $operation.restRequestType
+#end
+     * @Path($operation.restPath)
+#if ($stringUtils.isNotBlank($operation.restProduces))
+     * @Produces($operation.restProduces)
+#end
+#if ($stringUtils.isNotBlank($operation.restConsumes))
+     * @javax.ws.rs.Consumes($operation.restConsumes)
+#end
+##end
+     */
+    public abstract ${operation.name}($arguments): $returnType2;
+
+#end
+}
+

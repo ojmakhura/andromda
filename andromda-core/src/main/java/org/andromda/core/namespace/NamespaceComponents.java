@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.io.*;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.Merger;
@@ -77,6 +78,7 @@ public class NamespaceComponents
 
         // - discover all registries and sort them by name
         final Map<NamespaceRegistry, URL> registryMap = this.discoverAllRegistries();
+
         final List<NamespaceRegistry> registries = new ArrayList<NamespaceRegistry>(registryMap.keySet());
         Collections.sort(
             registries,
@@ -190,6 +192,7 @@ public class NamespaceComponents
     private Map<NamespaceRegistry, URL> discoverAllRegistries()
     {
         final Map<NamespaceRegistry, URL> registries = new HashMap<NamespaceRegistry, URL>();
+
         final URL[] resources = ResourceFinder.findResources(this.getPath());
         final XmlObjectFactory registryFactory = XmlObjectFactory.getInstance(NamespaceRegistry.class);
         if (resources != null)

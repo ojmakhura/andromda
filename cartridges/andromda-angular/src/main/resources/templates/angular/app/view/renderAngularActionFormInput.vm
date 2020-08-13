@@ -1,0 +1,79 @@
+##
+## A macro that renders the appropriate action form input field
+##
+## parameters:
+##     o  $parameter - the actual parameter to render
+##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
+##
+#macro(renderAngularActionInput $parameter $ownerParameter $ident)
+#if ($parameter.backingListName)
+#if ($ownerParameter.type.hasStereotype('Entity'))
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
+#else
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#end
+#set ($backingListName = $parameter.backingListName)
+#set ($backingValueName = $parameter.backingValueName)
+#else
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
+#set ($backingListName = ${parameter.getBackingListName($ownerParameter)})
+#set ($backingValueName = ${parameter.getBackingValueName($ownerParameter)})
+#end
+#set ($formValuePropertyName = "${valuePropertyName}")
+${ident}<div #if($angularHelper.isComplex($parameter) && !$parameter.type.enumeration && !$angularHelper.isTable($parameter))formGroupName="${parameter.name}"#end>
+#if($angularHelper.isTable($parameter))
+${ident}	<div class="mat-elevation-z8">
+${ident}		<mat-table matSort [dataSource]="${parameter.name}.controls" #${parameter.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
+#foreach( $column in $angularHelper.getTableColumns($parameter) )
+${ident}			<ng-container matColumnDef="$column">
+${ident}				<mat-header-cell *matHeaderCellDef>$stringUtils.capitalize(${column})</mat-header-cell>
+${ident}                <mat-cell *matCellDef="let row"> {{ row.get('${column}').value }} </mat-cell>
+${ident}			</ng-container>
+#end
+${ident}			<mat-header-row *matHeaderRowDef="${parameter.name}Columns"></mat-header-row>
+${ident}			<mat-row *matRowDef="let row; columns: ${parameter.name}Columns;"></mat-row>
+${ident}		</mat-table>
+${ident}		<mat-paginator #${parameter.name}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+${ident}	</div>
+#else
+${ident}	<mat-form-field>
+${ident}		<mat-label>$stringUtils.capitalize($parameter.name)</mat-label> 
+#if ($parameter.type.dateType)
+${ident}	  	<input matInput [matDatepicker]="$propertyId" formControlName="${parameter.name}" id="$propertyId"#if($parameter.required) required#end>
+${ident}	  	<mat-datepicker-toggle matSuffix [for]="$propertyId"></mat-datepicker-toggle>
+${ident}	  	<mat-datepicker #$propertyId></mat-datepicker>
+#elseif ($parameter.inputSelect || $parameter.type.enumeration)
+${ident}		<mat-select name="$propertyId" formControlName="#if($angularHelper.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" id="$propertyId">
+${ident}			<mat-option value = "">Select one ...</mat-option>
+#if ($parameter.type.enumeration)
+${ident}			<mat-option *ngFor="let key of ${parameter.name}Options" [value]="key">{{ ${parameter.name}[key] }}</mat-option>
+#else
+${ident}			<mat-option *ngFor="let item of ${backingListName}" [value]="item#if($angularHelper.isComplex($parameter) && !$parameter.type.enumeration).id#end">{{ item#if($angularHelper.isComplex($parameter) && !$parameter.type.enumeration).id#end }}</mat-option>
+#end
+${ident}		</mat-select>
+#elseif ($parameter.inputTextarea)
+${ident}		<textarea matInput
+${ident}			formControlName="${parameter.name}" id="$propertyId"
+${ident}			#if($parameter.required) required#end></textarea>
+#elseif ($parameter.inputText)
+${ident}		<input matInput
+${ident}			formControlName="${parameter.name}" id="$propertyId"
+${ident}			#if($parameter.required) required#end>
+#elseif ($parameter.inputSecret)
+${ident}		<input matInput [type]="hide ? 'password' : 'text'">
+${ident}			formControlName="${parameter.name}" id="$propertyId">
+${ident}		<button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+${ident}			<mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+${ident}		</button>
+#else
+${ident}		<input matInput
+${ident}			formControlName="${parameter.name}" id="$propertyId"
+${ident}			#if($parameter.required) required#end>
+#end
+${ident}	</mat-form-field>
+#end
+${ident}</div>
+#end

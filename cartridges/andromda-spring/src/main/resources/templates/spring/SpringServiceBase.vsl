@@ -32,6 +32,7 @@ public abstract class $service.baseName
 #end
     implements $service.fullyQualifiedName
 {
+    protected org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(${service.baseName}.class);
 #foreach ($attribute in $service.attributes)
 #set ($typeName = $attribute.getterSetterTypeName)
     /**
@@ -156,6 +157,7 @@ $attribute.getDocumentation("     * ")
 #if ($enableAnnotations && $operation.visibility != "private" && $operation.visibility != "protected")
     @Override
 #end
+	@org.springframework.transaction.annotation.Transactional(propagation = org.springframework.transaction.annotation.Propagation.REQUIRED)
     $operation.visibility $operation.getterSetterReturnTypeName $operation.getSignature("final")
 #if ($operation.exceptionsPresent)
         $operation.throwsClause

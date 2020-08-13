@@ -1,5 +1,7 @@
 package org.andromda.cartridges.jsf2.metafacades;
 
+import java.util.Objects;
+
 import org.andromda.cartridges.jsf2.JSFGlobals;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.ObjectUtils;
@@ -30,7 +32,7 @@ public class JSFEnumerationLogicImpl
     protected String handleGetConverterName()
     {
         return StringUtils.replace(
-            ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.CONVERTER_PATTERN)),
+            Objects.toString(this.getConfiguredProperty(JSFGlobals.CONVERTER_PATTERN), ""),
             "{0}",
             this.getName());
     }

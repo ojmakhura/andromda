@@ -28,7 +28,7 @@
     <ui:include src="${action.viewFragmentPath}-hidden-params.xhtml"/>
 #end
     <p:panelGrid columns="3">
-#set($triggerId = "${action.triggerName}Action")        
+#set($triggerId = "${action.triggerName}Action")   
 #foreach ($parameter in $action.parameters)
 #if (!$parameter.complex || $parameter.type.enumeration)
 #renderActionInputPrimeFaces($parameter "" "        ")

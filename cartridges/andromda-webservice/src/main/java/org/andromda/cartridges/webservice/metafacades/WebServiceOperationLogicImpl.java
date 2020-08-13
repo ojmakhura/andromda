@@ -281,7 +281,16 @@ public class WebServiceOperationLogicImpl
                 //{
                     String paramName = param.getName();
                     pathBuffer.append(paramName).append(SLASH).append(LBRACKET).append(paramName).append(RBRACKET).append(SLASH);
-                //}
+                /*} else {
+                    if (param instanceof WebServiceParameter) {
+                        WebServiceParameter p = (WebServiceParameter)param;
+                        String type = p.getRestParamType().toLowerCase();
+                        if(type.contains("get") || type.contains("delete")) {
+                            String paramName = p.getRestPathParam();
+                            pathBuffer.append(paramName).append(SLASH).append(LBRACKET).append(paramName).append(RBRACKET).append(SLASH);
+                        }
+                    }
+                }*/
             }
             pathBuffer.append(QUOTE);
         }
@@ -484,6 +493,16 @@ public class WebServiceOperationLogicImpl
         }
         return requestType;
     }
+    
+    @Override
+    protected String handleGetRestResponseStatus() {
+        String responseStatus = (String) this.findTaggedValue(WebServiceGlobals.REST_RESPONSE_STATUS);
+        if(responseStatus == null) {
+            return "";
+        }
+        
+        return "@org.springframework.web.bind.annotation.ResponseStatus(code = org.springframework.http.HttpStatus." + responseStatus + ")";
+    }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestRequestType()
@@ -588,7 +607,7 @@ public class WebServiceOperationLogicImpl
     {
         boolean result = true;
         String webserviceStack = String.valueOf(this.getConfiguredProperty("webserviceStack"));
-        if (webserviceStack.equals("cxf") || webserviceStack.equals("jaxws"))
+        if (webserviceStack.equals("cxf") || webserviceStack.equals("jaxws") || webserviceStack.equals("spring"))
         {
             Collection<ModelElementFacade> exceptions = this.getExceptions();
             for (ModelElementFacade exception : exceptions)

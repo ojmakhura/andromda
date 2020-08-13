@@ -228,7 +228,7 @@ Customize as necessary - it is generated once only, when the project is created.
             <path refid="project.classpath"/>
         </classpath>
     </javac-->
-#if ($web)
+#if ($webType.equals("both") || $webType.equals("jsf"))
     <echo message="Refreshing and building project ${application.id}-web"/>
     <mkdir dir="${andromda.project}/web/src/main/java"/>
     <mkdir dir="${andromda.project}/web/target/src/main/java"/>

@@ -1,0 +1,1198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<namespace name="angular">
+    <components>
+        <component name="cartridge">
+            <path>META-INF/andromda/cartridge.xml</path>
+        </component>
+        <component name="metafacades">
+            <path>META-INF/andromda/metafacades.xml</path>
+        </component>
+        <component name="profile">
+            <path>META-INF/andromda/profile.xml</path>
+        </component>
+    </components>
+    <properties>
+        <!-- namespace-propertyGroup merge-point -->
+        <propertyGroup name="Outlets">
+            <documentation>
+                Defines the locations to which output is generated.
+            </documentation>
+            <property name="applicationId" required="true">
+                <documentation>
+                    The id of the application (this is used as the display
+                    name of the application).
+                </documentation>
+            </property>            
+            <property name="applicationPackage" required="true">
+                <documentation>
+                    The id of the application (this is used as the display
+                    name of the application).
+                </documentation>
+            </property>           
+            <property name="angularBase" required="true">
+                <documentation>
+                    The location of the angular module.
+                </documentation>
+            </property>           
+            <property name="angularAppDir" required="true">
+                <documentation>
+                    The location of the src/app directory.
+                </documentation>
+            </property>
+            <property name="output">
+                <documentation>
+                    The location to which any controllers are generated (this outlet
+                    contains classes which are fully generated and should not be
+                    touched).
+                </documentation>
+            </property>
+            <property name="services">
+                <documentation>
+                    The location to which any services are generated (this outlet
+                    contains classes which are fully generated and should not be
+                    touched).
+                </documentation>
+            </property>
+            <property name="service-impls">
+                <documentation>
+                    The location to which any services implementations that the must be edited
+                </documentation>
+            </property>
+            <property name="views">
+                <documentation>
+                    Where the application views are output.
+                </documentation>
+            </property>
+            <property name="view-impls">
+                <documentation>
+                    Where the application views are output.
+                </documentation>
+            </property>
+            <property name="models">
+                <documentation>
+                    The models are generated here.
+                </documentation>
+            </property>
+            <property name="wsdls">
+                <documentation>
+                    Specifies the directory to which generated WSDL's will be placed.
+                     Normally webservice/src/main/webapp/WEB-INF/wsdl.
+                </documentation>
+            </property>
+            <property name="java-types">
+                <documentation>
+                    The directory to which any non implementation Java files will be generated.
+                    Normally common/target/src/main/java
+                </documentation>
+            </property>
+            <property name="configuration">
+                <documentation>
+                    The directory to which any configuration files
+                    are generated (such as the web.xml, etc). Normally webservice/src/main/webapp/WEB-INF.
+                </documentation>
+            </property>
+            <property name="axis-tests" required="false">
+                <documentation>
+                    The directory to which AXIS specific test classes are generated.
+                </documentation>
+            </property>
+            <property name="axis-test-impls" required="false">
+                <documentation>
+                    The directory to which the AXIS specific test implementation classes are generated.
+                </documentation>
+            </property>
+            <property name="wss4j-configuration" required="false">
+                <documentation>
+                    The directory to which any <a href="http://ws.apache.org/ws-fx/wss4j/index.html">WSS4J</a>
+                    specific configuration files are generated.
+                </documentation>
+            </property>
+            <property name="webservice-project">
+                <documentation>
+                    The webservice maven project directory, where buildWS ant scripts will be created and run.
+                </documentation>
+            </property>
+            <property name="webservice-types">
+                <documentation>
+                    The directory to which any extra webservice classes will be generated (i.e. an AttachmentHandler
+                    for example). Normally core/src/main/java.
+                </documentation>
+            </property>
+            <property name="webservice-tests">
+                <documentation>
+                    The directory to which webservice tests will be generated, so that they can be run as part of the maven test phases.
+                    Normally webservice/src/test/java. Output is only generated once. Testing requires a running Jetty server.
+                </documentation>
+            </property>
+            <property name="webservice-impl">
+                <documentation>
+                    The directory to which any extra webservice classes will be generated (i.e. an AttachmentHandler
+                    for example). Normally webservice/src/main/java.
+                </documentation>
+            </property>
+            <property name="core-tests">
+                <documentation>
+                    The directory to which webservice impl tests will be generated (in the core project),
+                    so that they can be run as part of the maven test phases.
+                    Normally core/src/test/java. Output is only generated once.
+                </documentation>
+            </property>
+            <property name="jaxb-impl">
+                <documentation>
+                    The directory to which customized JAXB implementation classes will be generated (i.e. Adapter).
+                    Normally common/src/main/java.
+                </documentation>
+            </property>
+            <!--property name="jaxb-gen">
+                <documentation>
+                    The directory to which JAXB generated classes will be generated (i.e. package-info, ObjectFactory),
+                    and to which CXF client generated classes will be copied.
+                    Normally common/target/src/main/java.
+                </documentation>
+            </property-->
+            <property name="controllers">
+                <documentation>
+                    The location to which any controllers are generated (this outlet
+                    contains classes which are fully generated and should not be
+                    touched).
+                </documentation>
+            </property>
+            <property name="controller-impls">
+                <documentation>
+                    The location to which any controllers are implementation.
+                </documentation>
+            </property>           
+            <property name="forms">
+                <documentation>
+                    The forms to which input is stored are output here.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Configuration">
+            <documentation>
+               The properties that provide configuration of the JSF configuration files.
+            </documentation>
+            <property name="facesConfig">
+                <default>faces-config.xml</default>
+                <documentation>
+                    The name of the JSF configuration file (this file stores the JSF managed bean
+                    form information and navigation rules).
+                </documentation>
+            </property>
+            <property name="facesConfigFiles" required="false">
+                <documentation>
+                    Comma separated list of URIs of (additional) faces config files.
+                    (e.g. /WEB-INF/jsf-config.xml).  See JSF 1.0 PRD2, 10.3.2
+                </documentation>
+            </property>
+            <property name="formScope">
+                <default>request</default>
+                <documentation>
+                    The scope to given the forms.  This value can be overriddem by a tagged value.
+                </documentation>
+            </property>
+            <property name="controllerScope">
+                <default>request</default>
+                <documentation>
+                    The scope to given the controllers.
+                </documentation>
+            </property>
+            <property name="navigationBeanScope">
+                <default>request</default>
+                <documentation>
+                    The scope to given the navigation items.
+                </documentation>
+            </property>
+            <property name="facesServletExtension">
+                <default>jsf</default>
+                <documentation>
+                    The extension used for the application's handling of JSF pages.
+                </documentation>
+            </property>
+            <property name="fileUploadMaxMemoryPerRequest">
+                <default>512000</default>
+                <documentation>
+                    Maximum memory per request (in bytes) for file uploads.
+                </documentation>
+            </property>
+            <property name="fileUploadMaxDiskSpacePerRequest">
+                <default>10240000</default>
+                <documentation>
+                    Maximum memory per request (in bytes) for file uploads.
+                </documentation>
+            </property>
+            <property name="navigationUsesRedirect">
+                <default>true</default>
+                <documentation>
+                    Uses 'redirect' instead of 'forward' to navigate between views.
+                </documentation>
+            </property>
+        </propertyGroup>		
+        <propertyGroup name="Messages and i18n">
+            <documentation>
+                Properties related to the configuration of messages and internationalization in general.
+            </documentation>
+            <property name="applicationName" required="true">
+                <documentation>
+                    The name of the application (this is used as the display
+                    name of the application).
+                </documentation>
+            </property>
+            <property name="normalizeMessages">
+                <default>true</default>
+                <documentation>
+                    Denotes the way application resource messages ought to be generated.
+                    When messages are normalized it means that elements with the same name
+                    will reuse the same label, even if they are located in entirely different
+                    use-cases or pages.
+                    This results in resource bundles that are not only smaller in size but
+                    also more straightforward to translate. The downside is that it will be
+                    less evident to customize labels for certain fields (which is rarely the
+                    case anyway).
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Other">
+            <property name="generateRefFiles" required="false">
+                <default>true</default>
+                <documentation>
+                    Generates File.ref files if overwrite=false for a template output. Ref files contain
+                    what would have been generated to the original file if overwrite=true or if the file did
+                    not already exist. Can be used to replace or merge with the exiting file.
+                </documentation>
+            </property>
+            <property name="overwriteAll" required="false">
+                <default>false</default>
+                <documentation>
+                    Overwrite all files when generating output. Default=false. Use for project testing where
+                    all output will overwritten.
+                </documentation>
+            </property>
+            <property name="virtualHost" required="false">
+                <documentation>
+                    The name to use for the virtual host (if one is required).  For example application.myserver.com.
+                </documentation>
+            </property>
+            <property name="useCaseForwardsClassName">
+                <default>UseCaseForwards</default>
+                <documentation>
+                    The name of the class containing all use case forwards.
+                </documentation>
+            </property>
+            <property name="sessionTimeout">
+                <default>45</default>
+                <documentation>
+                    The number of minutes the session may be idle before timeout occurs.
+                </documentation>
+            </property>
+            <property name="distributable">
+                <default>false</default>
+                <documentation>
+                    Whether or not the web application should be considered <em>distributable</em>;
+                    this means that the session will be persisted and restored.
+                </documentation>
+            </property>
+            <property name="stateSavingMethod">
+                <default>client</default>
+                <documentation>
+                    The JSF state saving method to use within the application (can be
+                    either <em>client</em> or <em>server</em>).
+                </documentation>
+            </property>
+            <property name="fileTypeName">
+                <default>org.primefaces.model.UploadedFile</default>
+                <documentation>
+                    The fully qualified type name to use when file types are modeled for parameters (used for
+                    for file uploads).
+                </documentation>
+            </property>
+            <property name="dummyData">
+                <default>true</default>
+                <documentation>
+                    Indicates whether or not dummy data should be rendered (in places like controllers).
+                </documentation>
+            </property>
+            <property name="backingListPattern">
+                <default>{0}BackingList</default>
+                <documentation>
+                    The pattern used for constructing a parameter's backing list name.  A backing list
+                    is used when you want to select the value of the parameter from a list (typically
+                    used for drop-down select input types).
+                </documentation>
+            </property>
+            <property name="backingValuePattern">
+                <default>{0}BackingValue</default>
+                <documentation>
+                    The pattern used for constructing a parameter's backing value name.  A backing value
+                    is used with an input table type (when you want to submit values from a table of
+                    complex objects).
+                </documentation>
+            </property>
+            <property name="labelListPattern">
+                <default>{0}LabelList</default>
+                <documentation>
+                    The pattern used for constructing the label list name (stores the list
+                    of possible parameter value labels).
+                </documentation>
+            </property>
+            <property name="valueListPattern">
+                <default>{0}ValueList</default>
+                <documentation>
+                    The pattern used for constructing the values list name (stores the list of
+                    possible parameter values when selecting from a list).
+                </documentation>
+            </property>
+            <property name="converterPattern">
+                <default>{0}JsfConverter</default>
+                <documentation>
+                    The pattern used for constructing converters (like the enumeration converter), where
+                    <em>{0}</em> is the name of the model element.
+                </documentation>
+            </property>
+            <property name="managedBeansPackage">
+                <default>org.andromda.presentation.jsf</default>
+                <documentation>
+                    Defines the the package in which any extra managed-beans will
+                    be generated (such as the layout options class, etc).
+                </documentation>
+            </property>
+            <property name="testPackage">
+                <default>org.andromda.presentation.jsf.test</default>
+                <documentation>
+                    Defines the the package in which any extra test classes will
+                    be generated.
+                </documentation>
+            </property>
+<!--             <property name="jsfComponentsPackage"> -->
+<!--                 <default>org.andromda.presentation.jsf.components</default> -->
+<!--                 <documentation> -->
+<!--                     Defines the the package to which any JSF components generated by -->
+<!--                     the cartridge reside. -->
+<!--                 </documentation> -->
+<!--             </property> -->
+            <property name="xmlEncoding">
+                <default>UTF-8</default>
+                <documentation>
+                    Encoding for generated XML files.
+                </documentation>
+            </property>
+            <property name="formPattern">
+                <default>{0}Form</default>
+                <documentation>
+                    The pattern to use for constructing the form name, where
+                    <em>{0}</em> is the name of the controller operation capitalized.
+                </documentation>
+            </property>
+            <property name="formImplementationPattern">
+                <default>{0}FormImpl</default>
+                <documentation>
+                    The pattern to use for constructing the form implementation name, where
+                    <em>{0}</em> is the name of the controller operation capitalized.
+                </documentation>
+            </property>
+            <property name="formMessagesProperty">
+                <default>jsfMessages</default>
+                <documentation>
+                    Defines the name of the property on a form that stores messages.
+                </documentation>
+            </property>
+            <property name="formBeanPattern">
+                <default>{0}{1}Form</default>
+                <documentation>
+                    The pattern for constructing the name of the bean under which the form is stored,
+                    where <em>{0}</em> is the name of the use case and <em>{1}</em> is the name of the trigger.
+                </documentation>
+            </property>
+            <property name="controllerImplementationPattern">
+                <default>{0}Impl</default>
+                <documentation>
+                    The pattern for constructing the name of the controller implementation class name (where <em>{0}</em>
+                    represents the modeled name of the controller).
+                </documentation>
+            </property>
+            <property name="actionFormKey">
+                <default>form</default>
+                <documentation>
+                    The name of the key under which each action for is stored.  This
+                    form is passed along from action to action in order to transfer
+                    all parameters.
+                </documentation>
+            </property>
+            <property name="messageResources">
+                <default>message-resources</default>
+                <documentation>
+                    The path of the localized message resources (the <em>.properties</em>
+                    suffix is appended to this value when creating the actual file.).
+                </documentation>
+            </property>
+            <property name="jspIncludes">
+                <default>includes.jspf</default>
+                <documentation>
+                    Defines the name of the default includes file (this contains any
+                    message resources as well as tag libs.
+                </documentation>
+            </property>
+            <property name="servicePackageNamePattern">
+                <default>{0}</default>
+                <documentation>
+                    The name of the package in which to create the service files, <code>{0}</code>
+                    can be used to denote the package in which the service has been modeled.
+                </documentation>
+            </property>
+            <property name="serviceAccessorPattern" required="false">
+                <documentation>
+                    The pattern to use when calling the backend code for <![CDATA[<<Service>>]]> lookups.
+                    For calling services you would use following patterns:
+                    <ul>
+                        <li><strong>Spring</strong>: <code>${application.package}.ServiceLocator.instance().get{1}()</code></li>
+                        <li><strong>EJB</strong>: <code>${myPackage}.{1}Util.getHome().create()</code></li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="exceptionHandlerPattern">
+                <default>(.*)(\\{\\s*([\\w|\\.+]*)\\s*\\})(.*)</default>
+                <documentation>
+                    Used to define the pattern used for retrieving message resource keys
+                    from exceptions.  This is useful when exceptions are thrown from the business
+                    tier and you want to map these to messages in your presentation.
+                    Normally you won't need to change this pattern, however you may want to
+                    if you want to enable it to handle exceptions you may have no control over
+                    (i.e. SQLExceptions).  Currently the default pattern supports an exception with
+                    an embedded <em>{some.resource.key}</em> type key.
+                </documentation>
+            </property>
+            <property name="axisVersion" required="false">
+                <default>1</default>
+                <documentation>
+                    The version of Axis to use when generating (if using axis).
+                    Allowable values are:
+                    <ul>
+                        <li>1 - Axis 1.x</li>
+                        <li>2 - Axis 2.x</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="webserviceStack">
+                <default>cxf</default>
+                <documentation>
+                    The webservice Stack to use for your webservices, valid values are:
+                    <ul>
+                        <li>axis</li>
+                        <li>xfire</li>
+                        <li>jaxws</li>
+                        <li>cxf</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="soapVersion">
+                <default>1.1</default>
+                <documentation>
+                    The soap version to use for your webservices, default=1.1, valid values are:
+                    <ul>
+                        <li>1.1</li>
+                        <li>1.2</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="cxfVersion">
+                <default>2.1</default>
+                <documentation>
+                    The cxf version to use for your webservices, default=2.0, determined by pom.xml property cxf.version
+                    used to determine if java2ws should be run instead of java2wsdl, and if custom adapter classes can
+                    be referenced by the jaxb bindings files. Valid values are:
+                    <ul>
+                        <li>2.0</li>
+                        <li>2.1</li>
+                        <li>3.0</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="javaVersion">
+                <default>1.7</default>
+                <documentation>
+                    Determines if some annotations or JDK-specific features are output such as @Override compareTo().
+                    If 1.4, templating and generics should be turned off. Should be set by property java.version in pom.xml
+                    which is also used by the maven-compiler-plugin. Allowed values=1.4,1.5,1.6,1.7,1.8. Default=1.7.
+                </documentation>
+            </property>
+            <property name="webserviceTypesPackage">
+                <default>org.andromda.webservice</default>
+                <documentation>
+                    The package to which extra types are generated (i.e. AttachmentHandler).
+                </documentation>
+            </property>
+            <property name="extensionInheritanceDisabled">
+                <default>false</default>
+                <documentation>
+                    Whether or not inheritance using XSD extensions is disabled.  If true - inheritance is "faked" in that
+                    an object inheriting from another will include its inherited properties (it will be flatted) in its WSDL schema definition.
+                </documentation>
+            </property>
+            <property name="attachmentsDirectory" required="false">
+                <documentation>
+                    The directory where attachments end up. This should be in the syntax appropriate for the target platform.
+                </documentation>
+            </property>
+            <property name="namespacePrefix">
+                <default>impl</default>
+                <documentation>
+                    Defines the prefix to give to the default namespace.
+                    Can be customized for individual
+                    services through WebService stereotype.
+                </documentation>
+            </property>
+            <property name="qualifiedNameLocalPartPattern">
+                <default>{0}</default>
+                <documentation>
+                    The pattern to use when a qualified name local part is created.
+                    <em>{0}</em> represents the name of the classifier (i.e.
+                    <em>WS{0}</em> would give all your types and services a prefix
+                    of <em>WS</em>).
+                </documentation>
+            </property>
+            <property name="namespacePattern">
+                <default>http://{0}/</default>
+                <documentation>
+                    The pattern to use when a namespace is created.
+                    <em>{0}</em> represents the reversed package name of the classifier (i.e.
+                    <em>ws.{0}</em> would prefix all your type and service
+                    namespaces with <em>ws.</em>).
+                </documentation>
+            </property>
+            <property name="reverseNamespace">
+                <default>true</default>
+                <documentation>
+                    Whether or not to reverse the ordering of the namespace.
+                    The namespace is typically determined by the package
+                    name of the service or type, this allows you to reverse the package
+                    name. (i.e. org.andromda.samples would become
+                    <em>samples.andromda.org</em> if this was set to <code>true</code>).
+                    Possible values are:
+                    <ul>
+                        <li>true</li>
+                        <li>false</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="seiSuffix">
+                <default>SEI</default>
+                <documentation>
+                    Specifies the suffix to append to the service name when identifying the
+                    portType name and service endpoint interface class. default=SEI
+                </documentation>
+            </property>
+            <property name="defaultProvider">
+                <default>RPC</default>
+                <documentation>
+                    The default use given all web services (if not defined separately
+                    on each web service).
+                    Possible choices are:
+                    <ul>
+                        <li>RPC</li>
+                        <li>EJB</li>
+                        <li>JAX-WS</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="defaultStyle">
+                <default>document</default>
+                <documentation>
+                    The default style given all web services (if not defined separately
+                    on each web service). Can be customized for individual
+                    services through WebService stereotype.
+                    Possible choices are:
+                    <ul>
+                        <li>wrapped</li>
+                        <li>document</li>
+                        <li>rpc</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="defaultUse">
+                <default>literal</default>
+                <documentation>
+                    The default use given all web services (if not defined separately
+                    on each web service). Can be customized for individual
+                    services through WebService stereotype.
+                    Possible choices are:
+                    <ul>
+                        <li>literal</li>
+                        <li>encoded</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="defaultParameterStyle">
+                <default>wrapped</default>
+                <documentation>
+                    The default parameter encoding style for a
+                    webservice operation. Can be customized for individual
+                    services through WebService stereotype.
+                    Possible choices are:
+                    <ul>
+                        <li>wrapped</li>
+                        <li>bare</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="rpcClassNamePattern">
+                <default>{0}.{1}Impl</default>
+                <documentation>
+                    The pattern to use for the class name for a web service using an RPC
+                    provider.  It's useful to set this when your RPC service
+                    has a non typical name (i.e. you want to use the web service delegator
+                    from the spring cartridge).
+                    <em>{0}</em> is the service package name and <em>{1}</em> is the service class name.
+                </documentation>
+            </property>
+            <property name="wsdlOperationSortMode">
+                <default>name</default>
+                <documentation>
+                    Specifies how operations should be sorted within the WSDL.
+                    Current options are <strong>none</strong> and <strong>name</strong>.
+                </documentation>
+            </property>
+            <property name="testPackageNamePattern">
+                <default>{0}.test</default>
+                <documentation>
+                    The pattern to use when constructing the package name to which tests are generated, where
+                    <em>{0}</em> is the current model element package name.
+                </documentation>
+            </property>
+            <property name="testNamePattern">
+                <default>{0}Test</default>
+                <documentation>
+                    The pattern to use when constructing the name's of the tests that should be generated,
+                    where <em>{0}</em> is the current model element name.
+                </documentation>
+            </property>
+            <property name="testImplementationNamePattern">
+                <default>{0}TestImpl</default>
+                <documentation>
+                    The pattern used to construct the test implementation name, where <em>{0}</em>
+                    is the current model element name.
+                </documentation>
+            </property>
+            <property name="arrayNamePrefix">
+                <default>ArrayOf</default>
+                <documentation>
+                    Specifies the prefix to give to names of WSDL array elements.
+                </documentation>
+            </property>
+            <property name="schemaTypeMappingsUri">
+                <documentation>
+                    URI specifying the specific mappings from UML model types to WSDL Schema types.
+                    (i.e. <code>file:${basedir}/XmlSchemaMappings.xml</code>)
+                </documentation>
+            </property>
+            <property name="ejbJndiNamePrefix" required="false">
+                <documentation>
+                    The prefix given to the JNDI name of the EJB provider.  This
+                    may be specified by another cartridge (i.e. the
+                    <a href="../andromda-hibernate-cartridge/namespace.html#ejbJndiNamePrefix">Hibernate</a>
+                    cartridge, <a href="../andromda-ejb-cartridge/namespace.html#jndiName">EJB</a>
+                    cartridge, etc.) so it must be specified here in order to give
+                    the correct JNDI name of an EJB provider.
+                </documentation>
+            </property>
+            <property name="ejbInterfacePattern">
+                <default>{0}.{1}</default>
+                <documentation>
+                    The pattern to use when determining the interface of an EJB
+                    provider: <em>{0}</em> represents the package name of the
+                    model element and <em>{1}</em> represents the name of the
+                    model element.
+                </documentation>
+            </property>
+            <property name="ejbHomeInterfacePattern">
+                <default>{0}.{1}Home</default>
+                <documentation>
+                    The pattern to use when determining the home interface of
+                    an EJB provider: <em>{0}</em> represents the package name
+                    of the model element and <em>{1}</em> represents the name
+                    of the model element.
+                </documentation>
+            </property>
+            <property name="testImplementationOperationNamePrefix">
+                <default>handle</default>
+                <documentation>
+                    The pattern used to construct the test implementation name, where <em>{0}</em>
+                    is the current model element name.
+                </documentation>
+            </property>
+            <!--property name="wsdlSoapAddress">
+                <documentation>
+                    The location of where the WSDL will reside (i.e. "http://localhost:8080/security-service/services")
+                </documentation>
+            </property>-->
+            <property name="securityRealm" required="false">
+                <documentation>
+                    The security realm to use for securing your web service(s).
+                    <strong>NOTE:</strong> this must be set in order to have
+                    <strong>ANY</strong> of your web services secured.  A web service
+                    will be secured if it has <strong>any</strong> roles (i.e. Actors)
+                    have dependencies to it.
+                </documentation>
+            </property>
+            <property name="testServiceLocatorName">
+                <default>TestServiceLocator</default>
+                <documentation>
+                    The name to give the test service locator.
+                </documentation>
+            </property>
+            <property name="testServiceLocatorPackage">
+                <default>org.andromda.webservice.test</default>
+                <documentation>
+                    The package to give the test service locator.
+                </documentation>
+            </property>
+            <property name="servicesPath">
+                <default>services</default>
+                <documentation>
+                    The path to the location of the services (relative to the web application context).
+                </documentation>
+            </property>
+            <property name="webContext">
+                <default>webservice</default>
+                <documentation>
+                    The web application context path http://$host:$port/$webContext/$servicesPath/ServiceName.
+                </documentation>
+            </property>
+            <property name="ejbJndiUrl" required="false">
+                <documentation>
+                    The JNDI url to use when using EJB as your web service provider.
+                </documentation>
+            </property>
+            <property name="ejbNamingContextFactory">
+                <default>org.jnp.interfaces.NamingContextFactory</default>
+                <documentation>
+                    The JNDI context factory to use when using EJB as your web service provider.
+                </documentation>
+            </property>
+            <property name="wsdlSoapNamespace">
+                <default>http://schemas.xmlsoap.org/wsdl/soap/</default>
+                <documentation>
+                    The soap namespace.
+                </documentation>
+            </property>
+            <property name="xmlSchemaNamespace">
+                <default>http://www.w3.org/2001/XMLSchema</default>
+                <documentation>
+                    The XMLSchema namespace
+                </documentation>
+            </property>
+            <property name="wsdlNamespace">
+                <default>http://schemas.xmlsoap.org/wsdl/</default>
+                <documentation>
+                    The WSDL namespace
+                </documentation>
+            </property>
+            <property name="wsSecurityNamespace">
+                <default>http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd</default>
+                <documentation>
+                    The XML WS-Security namespace
+                </documentation>
+            </property>
+            <property name="wsSecurityImportLocation">
+                <default>http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd</default>
+                <documentation>
+                    The XML WS-Security import location. Can override the default oasis security definitions with
+                    more defined datatype values.
+                </documentation>
+            </property>
+            <property name="documentStyleTransportNamespace">
+                <default>http://schemas.xmlsoap.org/soap/http</default>
+                <documentation>
+                    The doc style transport namespace
+                </documentation>
+            </property>
+            <property name="generateMethodImpl">
+                <default>true</default>
+                <documentation>
+                    Generate a class with service method implementation, with default/dummy values
+                    for the entire service complex hierarchy.
+                </documentation>
+            </property>
+            <property name="useArrayWrapper">
+                <default>false</default>
+                <documentation>
+                    For CXF web services, do not wrap arrays with ArrayOf class in wsdl.
+                </documentation>
+            </property>
+            <property name="useAttributes">
+                <default>true</default>
+                <documentation>
+                    Output WSDL simple types as attributes instead of elements.
+                    Can be customized for individual attributes through XmlAttribute stereotype.
+                </documentation>
+            </property>
+            <property name="addNamespaceBackslash">
+                <default>true</default>
+                <documentation>
+                    Add a trailing backslash to the namespace declaration in wsdl/xsd/annotations.
+                    Needed for backwards compatibility. Services created from URL ?wsdl will have trailing
+                    backslashes added automatically.
+                </documentation>
+            </property>
+            <property name="useEnumValueInXSD">
+                <default>false</default>
+                <documentation>
+                    Java Enumeration Literals are modelled with both a key and a value. The key should be unchanging, typically
+                    an uppercase-underscore version of the human-readable value for display. Enumeration literals should be modelled with
+                    both the key and value, and both will be output in the Java5 Enum. XSD enumerations allow only a single
+                    string value list. If useEnumValueInXSD=true, the enum literal value is output in the XSD string list of values instead
+                    of the enum literal key. The key in the client generated enum will be an upper-underscore version of the literal value,
+                    and may not match what has been modelled in UML.
+                    Set this to false if you want to model a different enum literal key than what gets converted by default from the value
+                    and have that key as part of the XSD service interface definition.
+                    Set this to true or leave unset (default=true) if you want to output a human-readable display value in the enum XSD interface definition.
+                </documentation>
+            </property>
+            <property name="outputGeneratedAnnotationJavadoc">
+                <default>false</default>
+                <documentation>
+                    In Java6 or later, output @javax.annotation.Generated and javadoc @generated tags to indicate that the code is  generated.
+                    Also output xmiID values as part of the generated tags. Currently, the tags are only output at the class and XML element
+                    level, but in the future they may be used to distinguish between generated and manual methods within a generated file.
+                    adding xmi:id (xmiId) to the generated annotation comments allows matching renamed and moved model elements to their
+                    original values, for bi-directional synchronization of model and code (future) or with alternate tools.
+                </documentation>
+            </property>
+            <property name="makeNillable">
+                <default>false</default>
+                <documentation>
+                    For associations of multiplicity 0, and non-required elements, output schema with nillable=true, otherwise use minOccurs=0
+                </documentation>
+            </property>
+            <property name="importedXSD">
+                <default>true</default>
+                <documentation>
+                    wsdl files import external xsd files instead of embedding schemas within wsdl. Requires 'XmlSchema' stereotype on package containing
+                    ValueObject classes, to generate xsd files containing elements from that package.
+                </documentation>
+            </property>
+            <property name="validateSchema">
+                <default>false</default>
+                <documentation>
+                    Validate the incoming XML against the wsdl/xsd schema globally. Can be turned on/off for an individual
+                    service through XmlSchema stereotype schemaValidation taggedValue. false by default because we may be using customized
+                    bindings or have an incomplete type test hierarchy.
+                </documentation>
+            </property>
+            <property name="customValidator">
+                <default></default>
+                <documentation>
+                    Your custom validator to insert into the validation/unmarshalling process. For example, to ignore unrecognized
+                    new elements (to allow backwards compatibility).
+                </documentation>
+            </property>
+            <property name="webserviceHost">
+                <default>localhost</default>
+                <documentation>
+                    Webservice hostname used for CXF client and wsdl configurations
+                </documentation>
+            </property>
+            <property name="webservicePort">
+                <default>9090</default>
+                <documentation>
+                    Webservice port used for CXF client and wsdl configurations. Use 9090 so that
+                    test server does not conflict with other servers that may be running on common port 8080.
+                </documentation>
+            </property>
+            <property name="persistenceContainerName">
+                <default>jboss</default>
+                <documentation>
+                    The default persistence container engine name.
+                    Used when specifying specific annotations
+                    for different persistence containers.
+                    Possible values are:
+                    <ul>
+                        <li>jboss</li>
+                        <li>weblogic</li>
+                        <li>ibm</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="generateIsBooleanGetters">
+                <default>false</default>
+                <documentation>
+                    When set to 'true' the cartridge will generate an IsAttribute(..) method for each Boolean/boolean
+                    attribute in addition to the normal getAttribute method. Jaxb/Jax-ws only generates IsAttribute() methods
+                    for webservice client objects, this is needed for ValueObject method compatibility. Set to true when
+                    cxf webservice option is selected for new application generation.
+                </documentation>
+            </property>
+            <property name="generateChainedSetters">
+                <default>true</default>
+                <documentation>
+                    When set to 'true' the setAttribute method returns 'this' instead of void, allowing setter methods to be
+                    chained together after the constructor for improved readability and reduced lines of code. For example:
+                    Type variable = new Type().setAttribute1(value1).setAttribute2(value2); etc
+                </documentation>
+            </property>
+            <property name="simpleBindingMode">
+                <default>true</default>
+                <documentation>
+                    Adds xjc:simple to Jaxb2.1 binding file options. Described in http://weblogs.java.net/blog/kohsuke/archive/2006/03/simple_and_bett.html
+                    and in https://jaxb.dev.java.net/2.1.2/docs/vendorCustomizations.html.
+                    Makes all elements @XMLRootElement, pluralizes attribute/association/parameter names of multiplicity *.
+                     Can be customized for individual attributes through XmlAdapter stereotype.
+                </documentation>
+            </property>
+            <property name="xjcArguments">
+                <default>-Xts,-Xts:style:simple,-Xdv</default>
+                <documentation>
+                    Add additional CXF xjc arguments to the wsdl2java command, to customize the Jaxb2 generated classes.
+                    XJC plugins are available under Jaxb2 Commons: https://jaxb2-commons.dev.java.net .
+                    The default XJC arguments value does not require downloading any Jaxb commons plugins.
+                    Plugins must be added to CXF_HOME\lib directory or JAXB_HOME\commons directory. Suggested value:
+                    -Xcommons-lang3,-Xcommons-lang3:ToStringStyle=DEFAULT_STYLE,-Xdefault-value,-Xvalue-constructor,-Xcollection-setter-injector,-simple-preserve"
+                     Can be customized for individual attributes through XmlAdapter stereotype. />
+                </documentation>
+            </property>
+            <property name="XMLDateAdapter">
+                <default></default>
+                <documentation>
+                    Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Date&lt;.
+                    Handles parse/print of customized String formats. Outputs java.util.Date or java.util.Calendar
+                    instead of XMLGregorianCalendar. Can be customized for individual attributes through
+                    XmlAdapter stereotype.
+                </documentation>
+            </property>
+            <property name="XMLDateTimeAdapter">
+                <default></default>
+                <documentation>
+                    Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Date&lt;.
+                    Handles parse/print of customized String formats. Outputs java.util.Date or java.util.Calendar
+                    instead of XMLGregorianCalendar. Can be customized for individual attributes through
+                    XmlAdapter stereotype.
+                </documentation>
+            </property>
+            <property name="XMLTimeAdapter">
+                <default></default>
+                <documentation>
+                    Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Date&lt;.
+                    Handles parse/print of customized String formats. Outputs java.util.Date or java.util.Calendar
+                    instead of XMLGregorianCalendar. Can be customized for individual attributes through
+                    XmlAdapter stereotype.
+                </documentation>
+            </property>
+            <property name="XMLBooleanAdapter">
+                <default></default>
+                <documentation>
+                    Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Boolean&lt;.
+                    Handles parse/print of customized String formats. Outputs Boolean instead of boolean.
+                    Primitive boolean can cause issues with XML return values.
+                    Can be customized for individual attributes through
+                    XmlAdapter stereotype.
+                </documentation>
+            </property>
+            <property name="XMLIntegerAdapter">
+                <default></default>
+                <documentation>
+                    Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Integer&lt;.
+                    Handles parse/print of customized String formats. Outputs Integer instead of BigInteger.
+                    Can be customized for individual attributes through
+                    XmlAdapter stereotype.
+                </documentation>
+            </property>
+            <property name="XMLDecimalAdapter">
+                <default></default>
+                <documentation>
+                    Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Decimal&lt;.
+                    Handles parse/print of customized String formats. Outputs Decimal instead of BigDecimal.
+                    Can be customized for individual attributes through
+                    XmlAdapter stereotype.
+                </documentation>
+            </property>
+        </propertyGroup>
+		<propertyGroup name="Views">
+            <documentation>
+                Properties that configure view information.
+            </documentation>
+            <property name="loginFileName">
+                <default>login</default>
+                <documentation>
+                    The path to the file that provides the login page (minus the extension).
+                </documentation>
+            </property>
+            <property name="logoutFileName">
+                <default>logout</default>
+                <documentation>
+                    The path to the file that provides application logout (minus the extension)
+                </documentation>
+            </property>
+            <property name="defaultMultiSelectSize">
+                <default>3</default>
+                <documentation>
+                    The default size to use for multi select boxes.
+                </documentation>
+            </property>
+            <property name="enableFaceletsDevelopmentSupport">
+                <default>false</default>
+                <documentation>
+                    Whether or not the Facelet development support should be enabled (in the generated web.xml), this is
+                    useful to enable when developing with Facelets, however should be disabled when going to production.
+                </documentation>
+            </property>
+            <property name="enableMyFacesDevelopmentSupport">
+                <default>false</default>
+                <documentation>
+                    Whether or not the MyFaces development support should be enabled (in the generated web.xml), this is
+                    useful to enable when developing with MyFaces, however should be disabled when going to production.
+                </documentation>
+            </property>
+            <property name="defaultDateFormat">
+                <default>MM/dd/yyyy</default>
+                <documentation>
+                    The default date format to use in case it has not been explicitly
+                    specified, for event parameters.
+                    Take a look
+                    <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html">here</a>
+                    to see how to properly construct date formats.
+                </documentation>
+            </property>
+            <property name="strictDateTimeFormat">
+                <default>false</default>
+                <documentation>
+                    Specifies whether or not date and time formats are to be strictly matched.
+                    This property takes either true or false as values. If set to true all dates and times
+                    entered by the end-user will fail validation if they do not strictly adhere to their given format.
+                    Note that this strictness can always be overriden locally
+                    using the andromda_struts_view_field_format tagged value.
+                </documentation>
+            </property>
+            <property name="defaultTimeFormat">
+                <default>HH:mm</default>
+                <documentation>
+                    The default time format to use when it has not been explicitly
+                    specified for event parameters. Take a look
+                    <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html">here</a>
+                    to see how to properly construct time formats.
+                </documentation>
+            </property>
+            <property name="defaultInputColumnCount" required="false">
+                <documentation>
+                    If specified denotes the default length of text input fields,
+                    the value specifies the <code>size</code> attribute of the corresponding
+                    <code>input</code> or <code>textarea</code> element.
+                    Not speciying any valid value will make the cartridge ignore it and resort
+                    to the default browser value by not rendering any <code>size</code> attribute.
+                </documentation>
+            </property>
+            <property name="defaultInputRowCount" required="false">
+                <documentation>
+                    If specified denotes the default number of rows of <code>textarea</code> elements.
+                    Not speciying any valid value will make the cartridge ignore it and resort
+                    to the default browser value by not rendering any <code>size</code> attribute.
+                </documentation>
+            </property>
+            <property name="defaultTableExportTypes">
+                <default>xml csv excel pdf</default>
+                <documentation>
+                    The types of files to which a table can be exported.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Axis2">
+            <documentation>
+                These properties are specific for Axis2 support.
+            </documentation>
+            <property name="axis2WrappedMessageReceiver" required="false">
+                <documentation>
+                    The message receiver used in the Axis2 service.xml for "wrapped" style services.  If
+                    this is not specified, the wrapped message receiver generated by this cartridge is used.
+                </documentation>
+            </property>
+            <property name="axis2DefaultMessageReceiver">
+                 <default>org.apache.axis2.rpc.receivers.RPCMessageReceiver</default>
+                 <documentation>
+                     The message receiver used for any services other than "wrapped" style.
+                 </documentation>
+            </property>
+            <property name="axis2GeneratedWrappedMessageReceiverRendersFaultsAsBeans" required="false">
+                <default>false</default>
+                <documentation>
+                    When the generated wrapped message receiver is being used it will render faults as strong-typed
+                    beans into the 'details' section of the SOAP body. Exceptions from the JDK will only have their
+                    'message' and 'stackTrace' properties rendered, while custom exceptions only include the
+                    properties which have been modelled on them.
+                    Setting this property to 'false' will have each exception rendered as a plain text Axis fault
+                    in which you will only find the stacktrace.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="XFire">
+            <documentation>
+                These properties are specific for XFire support.
+            </documentation>
+            <property name="springVersion">
+                 <default>2</default>
+                 <documentation>
+                     The version of Spring being used.  Valid values are:
+                    <ul>
+                        <li>1</li>
+                        <li>2</li>
+                    </ul>
+                 </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="WSS4J">
+            <documentation>
+                Defines the properties for configuring support for WSS4J generation.
+            </documentation>
+           <property name="signedRequest">
+                <default>false</default>
+                <documentation>
+                    True or false on whether or not the webservice will expect signed
+                    requests.  If true, a WSS4J Axis handler will be added to provide
+                    decryption of signed requests (if this is set to <code>true</code>
+                    the following properties below MUST be specified.
+                </documentation>
+            </property>
+            <property name="encryptedRequest">
+                <default>false</default>
+                <documentation>
+                    If true, causes generation of necessary code to that expects the request to be encrypted
+                </documentation>
+            </property>
+            <property name="encryptedResponse">
+                <default>false</default>
+                <documentation>
+                    If true, causes generation of necessary code that encrypts the response.
+                </documentation>
+            </property>
+            <property name="signedResponse">
+                <default>false</default>
+                <documentation>
+                    If true, causes generation of necessary code that signs the response.
+                </documentation>
+            </property>
+            <property name="cryptoKeyStore" required="false">
+                <documentation>
+                    The location of the key store file (i.e. <em>keys/authorization-service.jks</em>).
+                </documentation>
+            </property>
+            <property name="cryptoKeyStoreType" required="false">
+                <documentation>
+                    The key store's type (i.e. <em>jks</em>).
+                </documentation>
+            </property>
+            <property name="cryptoKeyStoreAlias" required="false">
+                <documentation>
+                    The key store alias name.
+                </documentation>
+            </property>
+            <property name="cryptoAliasPassword" required="false">
+                <documentation>
+                    The alias password.
+                </documentation>
+            </property>
+            <property name="cryptoKeyStorePassword" required="false">
+                <documentation>
+                    The key store password.
+                </documentation>
+            </property>
+        </propertyGroup>
+    </properties>
+</namespace>

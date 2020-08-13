@@ -158,6 +158,7 @@ public class AndroMDApp
     private List<File> chooseTypeAndRun(final boolean write)
         throws Exception
     {
+
         if (this.types.isEmpty())
         {
             throw new AndroMDAppException("No '" + DESCRIPTOR + "' descriptor files could be found");
@@ -203,6 +204,7 @@ public class AndroMDApp
         {
             throw new AndroMDAppException("AndromdaPP is null " + this.types.entrySet());
         }
+
         andromdapp.setConfigurations(this.configurations);
         andromdapp.initialize();
 

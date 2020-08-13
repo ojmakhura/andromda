@@ -16,9 +16,12 @@ public class $service.webServiceDelegatorName
      * Gets an instance of {@link $service.fullyQualifiedName}
      */
 #set ($serviceGetter = "get${service.name}()")
+	@org.springframework.beans.factory.annotation.Autowired
+	private ${service.fullyQualifiedName} $stringUtils.uncapitalize(${service.name});
+
     private ${service.fullyQualifiedName} $serviceGetter
     {
-        return ${springTypesPackage}.ServiceLocator.instance().${serviceGetter};
+        return $stringUtils.uncapitalize(${service.name});
     }
 
 #foreach ($operation in $service.webServiceOperations)
