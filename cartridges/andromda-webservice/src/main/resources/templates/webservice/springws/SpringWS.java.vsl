@@ -18,8 +18,6 @@ package ${service.packageName};
 public class ${service.name}WS {
 
     private static org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(${service.name}WS.class);
-
-    $service.attributes
 	
     @org.springframework.beans.factory.annotation.Autowired
     private ${service.fullyQualifiedName} $stringUtils.uncapitalize(${service.name});
