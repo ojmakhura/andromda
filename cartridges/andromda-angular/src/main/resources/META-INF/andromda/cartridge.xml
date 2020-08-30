@@ -511,7 +511,7 @@
             </modelElement>
         </modelElements>
     </template>
-    <template
+    <!--template
         path="templates/angular/app/forms/FormImpl.ts.vsl"
         outputPattern="$generatedFile"
         outlet="forms"
@@ -536,8 +536,8 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
-    <template
+    </template-->
+    <!--template
         path="templates/angular/app/flow/view.populator.ts.vsl"
         outputPattern="$stringUtils.replace($useCase.packageName, '.', '/')/${fileName}.view.populator.ts"
         outlet="controllers"
@@ -549,7 +549,7 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template-->
     <template
         path="templates/angular/app/utils/controller.base.ts.vsl"
         outputPattern="$generatedFile"

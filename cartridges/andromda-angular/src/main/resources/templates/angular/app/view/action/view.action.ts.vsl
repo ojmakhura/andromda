@@ -47,9 +47,6 @@ import { ${service.name}Impl } from 'src/app/impl/service/$path/$fname';
 #set ( $fname = $angularHelper.getComponentFileName("${action.controller.name}Impl") )
 import { ${action.controller.name}Impl } from 'src/app/impl/controller/$path/$fname';
 #end
-#if($action.parameters.size() > 0)
-import { $action.formImplementationName } from 'src/app/gen/form${action.path}-form-impl';
-#end
 
 @Component({
   selector: '${action.name}-base',
@@ -183,15 +180,6 @@ export abstract class ${className}Component implements OnInit {
     
     ${action.triggerName}() {
 		this.do$stringUtils.capitalize(${action.triggerName})();
-#if($action.parameters.size() > 0)
-#foreach ($parameter in $action.parameters)
-
-        let $parameter.name = this.getItemControl('${action.trigger.name}$stringUtils.capitalize($parameter.name)').value;
-        let form = this.getForm();
-        form = ${action.formImplementationName}.${parameter.setterName}(form, $parameter.name);
-        this.setForm(form);
-#end
-#end
         this.${action.controller.beanName}.${action.triggerName}();
 
         this.after$stringUtils.capitalize(${action.triggerName})();
@@ -201,24 +189,6 @@ export abstract class ${className}Component implements OnInit {
     get ${action.controller.beanName}(): ${action.controller.name}Impl {
         
         return this._injector.get(${action.controller.name}Impl);
-    }
-#end
-
-#if($action.parameters.size() > 0)
-    getForm(): $action.formImplementationName {
-        
-        let tmp = localStorage.getItem('$action.formBeanName');
-        let form: $action.formImplementationName = new ${action.formImplementationName}();
-        
-        if(tmp && tmp !== 'undefined' && tmp !== 'null') {
-            form = JSON.parse(tmp);
-        }
-
-        return form;
-    }
-
-    setForm(form: $action.formImplementationName) {
-        localStorage.setItem('$action.formBeanName', JSON.stringify(form));
     }
 #end
 }

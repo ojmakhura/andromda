@@ -38,9 +38,6 @@ import { ${viewName}ImplComponent } from 'src/app/impl/view/$componentPath/${vie
 #set ( $path = $stringUtils.replaceChars($table.view.useCase.controller.packageName, '\\.', '\\/') )
 #set ( $file =  ${angularHelper.getComponentFileName("${table.view.useCase.controller.name}Impl")})
 import { ${table.view.useCase.controller.name}Impl } from 'src/app/impl/controller/$path/${file}';
-#foreach ($action in $table.tableFormActions)
-import { $action.formImplementationName } from 'src/app/gen/form${action.path}-form-impl';
-#end
 
 @Component({
   selector: '${fileName}-base',
@@ -145,15 +142,6 @@ export abstract class ${className}Component implements OnInit {
 	${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes()) {
 
 		let params = this.do$stringUtils.capitalize(${action.triggerName})(#renderAngularTableCommandLinkParametersPlain());
-        let form = JSON.parse(localStorage.getItem('${action.formBeanName}'));
-
-        if(!form) {
-            form = new ${action.formImplementationName}();
-        }
-#foreach ($parameter in $action.parameters)
-        ${action.formImplementationName}.${parameter.setterName}(form, $parameter.name);
-#end
-        localStorage.setItem('${action.formBeanName}', JSON.stringify(form));
         this.${action.controller.beanName}.${action.triggerName}();
 	}
 #end	

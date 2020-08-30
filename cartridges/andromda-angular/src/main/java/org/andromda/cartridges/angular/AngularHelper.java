@@ -491,12 +491,12 @@ public class AngularHelper {
             signature.append("abstract ");
         }
         
-        signature.append(" " + operation.getName() + "(");
-        if (!operation.getFormFields().isEmpty())
+        signature.append(" " + operation.getName() + "(): ");
+        /*if (!operation.getFormFields().isEmpty())
         {
             signature.append("form");
         }
-        signature.append("): ");
+        signature.append("): ");*/
         final ModelElementFacade returnType = operation.getReturnType();
         signature.append(returnType != null ? getDatatype(returnType.getFullyQualifiedName()) : null);
         
@@ -569,5 +569,12 @@ public class AngularHelper {
 
         String[] splits = path.split("/");
         return splits[splits.length - 1];
+    }
+
+    public static String removeFormFromParams(String method) {
+
+
+        return method.replace("(form)", "()");
+
     }
 }

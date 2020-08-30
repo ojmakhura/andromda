@@ -22,9 +22,9 @@ this.closeDialog()
 #set ( $cls = $angularHelper.getComponentName($pt, "-") )
 '$stringUtils.lowerCase($cls)';
 #elseif ($transition.enteringDecisionPoint)
-this.__${transition.operationCall.name}(#if (!$action.formFields.empty)form#end);
+this.__${transition.operationCall.name}();
 #else
-this.${transition.target.actionMethodName}#if (!$action.formFields.empty)${action.formImplementationName}#end(#if (!$action.formFields.empty)form#end);
+this.${transition.target.actionMethodName}#if (!$action.formFields.empty)${action.formImplementationName}#end();
 #end
 #end
 ##
