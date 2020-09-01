@@ -14,7 +14,7 @@
         <macrolibrary name="templates/angular/app/controller/controller.ts.vm"/>
         <macrolibrary name="templates/angular/app/forms/angularFormMacros.vm"/>
         <macrolibrary name="templates/angular/app/forms/angularFormImplMacros.vm"/>
-        <macrolibrary name="templates/jsf2/configuration/securityMacros.vm"/>
+        <!--macrolibrary name="templates/jsf2/configuration/securityMacros.vm"/-->
         <macrolibrary name="templates/webservice/jaxws/RenderRestrictions.vm"/>
     </templateEngine>
 
@@ -216,7 +216,7 @@
                 <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
             </modelElement>
             <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularManageableEntity">
                     <property name="needsUserInterface"/>
                 </type>
             </modelElement>
@@ -234,7 +234,7 @@
                 <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
             </modelElement>
             <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularManageableEntity">
                     <property name="needsUserInterface"/>
                 </type>
             </modelElement>

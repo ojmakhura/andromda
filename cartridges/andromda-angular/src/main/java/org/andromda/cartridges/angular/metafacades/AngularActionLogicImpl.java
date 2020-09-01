@@ -17,7 +17,6 @@ import java.util.Objects;
 import org.andromda.cartridges.angular.AngularGlobals;
 import org.andromda.cartridges.angular.AngularHelper;
 import org.andromda.cartridges.angular.AngularProfile;
-import org.andromda.cartridges.jsf2.JSFProfile;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndControllerOperation;
 import org.andromda.metafacades.uml.FrontEndForward;
@@ -126,7 +125,7 @@ public class AngularActionLogicImpl
      */
     protected String handleGetFormScope()
     {
-        String scope = Objects.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_FORM_SCOPE));
+        String scope = Objects.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_FORM_SCOPE));
         if (StringUtils.isEmpty(scope))
         {
             scope = Objects.toString(this.getConfiguredProperty(AngularGlobals.FORM_SCOPE));
@@ -251,8 +250,22 @@ public class AngularActionLogicImpl
      */
     protected String handleGetTriggerName()
     {
-        // TODO put your implementation here.
-        return null;
+        String name = null;
+        if (this.isExitingInitialState())
+        {
+            final AngularUseCase useCase = (AngularUseCase)this.getUseCase();
+            if (useCase != null)
+            {
+                name = useCase.getName();
+            }
+        }
+        else
+        {
+            final EventFacade trigger = this.getTrigger();
+            final String suffix = trigger == null ? this.getTarget().getName() : trigger.getName();
+            name = this.getSource().getName() + ' ' + suffix;
+        }
+        return StringUtilsHelper.lowerCamelCaseName(name);
     }
 
     /**
@@ -287,7 +300,7 @@ public class AngularActionLogicImpl
     {
         String tableLink = null;
 
-        final Object value = findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_TABLELINK);
+        final Object value = findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_TABLELINK);
         if (value != null)
         {
             tableLink = StringUtils.trimToNull(value.toString());
@@ -311,7 +324,7 @@ public class AngularActionLogicImpl
     protected String handleGetTableLinkColumnName()
     {
         String tableLink = null;
-        final Object value = findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_TABLELINK);
+        final Object value = findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_TABLELINK);
         if (value != null)
         {
             tableLink = StringUtils.trimToNull(value.toString());
@@ -342,7 +355,7 @@ public class AngularActionLogicImpl
      */
     protected boolean handleIsHyperlink()
     {
-        final Object value = findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_TYPE);
+        final Object value = findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_TYPE);
         return AngularGlobals.ACTION_TYPE_HYPERLINK.equalsIgnoreCase(value == null ? null : value.toString());
     }
 
@@ -402,7 +415,7 @@ public class AngularActionLogicImpl
      */
     protected boolean handleIsResettable()
     {
-        final Object value = findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_RESETTABLE);
+        final Object value = findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_RESETTABLE);
         return this.isTrue(value == null ? null : value.toString());
     }
 
@@ -421,7 +434,7 @@ public class AngularActionLogicImpl
      */
     protected String handleGetFormKey()
     {
-        final Object formKeyValue = this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_FORM_KEY);
+        final Object formKeyValue = this.findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_FORM_KEY);
         return formKeyValue == null ? Objects.toString(this.getConfiguredProperty(AngularGlobals.ACTION_FORM_KEY))
                                     : String.valueOf(formKeyValue);
     }
@@ -432,7 +445,7 @@ public class AngularActionLogicImpl
      */
     protected boolean handleIsTableAction()
     {
-        return AngularGlobals.ACTION_TYPE_TABLE.equals(this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_TYPE));
+        return AngularGlobals.ACTION_TYPE_TABLE.equals(this.findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_TYPE));
     }
 
     /**
@@ -464,7 +477,7 @@ public class AngularActionLogicImpl
      */
     protected boolean handleIsPopup()
     {
-        boolean popup = Objects.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_TYPE)).equalsIgnoreCase(
+        boolean popup = Objects.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_TYPE)).equalsIgnoreCase(
             AngularGlobals.ACTION_TYPE_POPUP);
         return popup;
     }
@@ -501,7 +514,7 @@ public class AngularActionLogicImpl
     protected boolean handleIsFormReset()
     {
         return Boolean.valueOf(Objects.toString(this.findTaggedValue(
-            JSFProfile.TAGGEDVALUE_ACTION_FORM_RESET))).booleanValue();
+            AngularProfile.TAGGEDVALUE_ACTION_FORM_RESET))).booleanValue();
     }
 
     /**
@@ -616,7 +629,7 @@ public class AngularActionLogicImpl
      */
     protected Map handleGetWarningMessages()
     {
-        return this.getMessages(JSFProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
+        return this.getMessages(AngularProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
     }
 
     /**
@@ -634,7 +647,7 @@ public class AngularActionLogicImpl
      */
     protected Map<String, String> handleGetSuccessMessages()
     {
-        return this.getMessages(JSFProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
+        return this.getMessages(AngularProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
     }
 
     /**

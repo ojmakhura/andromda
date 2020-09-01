@@ -5,20 +5,20 @@
     <property reference="webserviceStack"/>
 	<property reference="normalizeMessages"/>
     
-    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFControllerOperationLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularControllerOperationLogicImpl">
         <mapping>
             <property name="ownerIsController"/>
         </mapping>
         <property reference="formPattern"/>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFViewLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularViewLogicImpl">
         <mapping>
             <property name="frontEndView"/>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
         <property reference="actionFormKey"/>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFActionLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularActionLogicImpl">
         <mapping>
             <property name="exitingInitialState"/>
             <property name="containedInFrontEndUseCase"/>
@@ -28,7 +28,7 @@
         <property reference="formScope"/>
         <property reference="actionFormKey"/>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFActionLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularActionLogicImpl">
         <mapping>
             <property name="exitingView"/>
         </mapping>
@@ -41,47 +41,47 @@
         <mapping class="org.eclipse.uml2.uml.internal.impl.EnumerationLiteralImpl"/>
         <property reference="enumerationLiteralNameMask"/>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFUseCaseLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularUseCaseLogicImpl">
         <mapping>
             <stereotype>FRONT_END_APPLICATION</stereotype>
         </mapping>
         <property reference="actionFormKey"/>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFUseCaseLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularUseCaseLogicImpl">
         <mapping>
             <stereotype>FRONT_END_USE_CASE</stereotype>
         </mapping>
     </metafacade>
-	<metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFFinalStateLogicImpl">
+	<metafacade class="org.andromda.cartridges.angular.metafacades.AngularFinalStateLogicImpl">
         <mapping>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
     <!-- mapping rule for uml14 support -->
-    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFEventLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularEventLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.SignalEvent$Impl">
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
     <!-- mapping rule for uml14 support -->
-    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFEventLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularEventLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl">
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
     <!-- mapping rule for uml2-emf support -->
-    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFEventLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularEventLogicImpl">
         <mapping class="org.eclipse.uml2.impl.ActivityImpl">
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
     <!-- mapping rule for emf-uml22 support -->
-    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFEventLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularEventLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.ActivityImpl">
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFParameterLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularParameterLogicImpl">
         <mapping>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
@@ -92,7 +92,7 @@
         <property reference="labelListPattern"/>
         <property reference="valueListPattern"/>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFActivityGraphLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularActivityGraphLogicImpl">
         <mapping>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
@@ -148,20 +148,20 @@
             <stereotype>ANGULAR_ACTION</stereotype>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFControllerOperationLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularControllerOperationLogicImpl">
         <mapping>
             <property name="ownerIsController"/>
         </mapping>
         <property reference="formPattern"/>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFControllerLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularControllerLogicImpl">
         <mapping>
             <property name="useCase"/>
         </mapping>
         <property reference="controllerImplementationPattern"/>
         <!--property reference="classifierNameMask"/-->
     </metafacade>
-    <metafacade class="org.andromda.cartridges.jsf2.metafacades.JSFAttributeLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularAttributeLogicImpl">
         <mapping/>
         <property reference="defaultDateFormat"/>
         <property reference="defaultTimeFormat"/>

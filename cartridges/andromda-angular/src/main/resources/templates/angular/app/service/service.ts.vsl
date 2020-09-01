@@ -37,12 +37,19 @@ export abstract class $service.name {
 #set ( $ret = $args.add($arg))
 #end
 #end
-#foreach ($arg in $angularHelper.getFacadeSet($args))
-     _$arg.name: $angularHelper.getDatatype($arg.type.name);
+#if(${service.attributes.size()} > 0)
+#foreach ($arg in $service.attributes)
+#if($angularHelper.isArray($arg.getterSetterTypeName))
+    $arg.name: Array<$angularHelper.getDatatype($arg.type.name)>;
+#else
+    $arg.name: $angularHelper.getDatatype($arg.type.name);
+#end
+#end
 
 #end
 #if ($service.restCount>0 && $stringUtils.isNotBlank($service.restPath))
     protected http: HttpClient;
+
     constructor(injector: Injector) {
         this.http = injector.get(HttpClient);
     }

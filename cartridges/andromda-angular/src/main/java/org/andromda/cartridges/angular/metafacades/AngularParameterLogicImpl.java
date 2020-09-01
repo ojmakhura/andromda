@@ -15,8 +15,8 @@ import java.util.Objects;
 import java.util.Set;
 
 import org.andromda.cartridges.angular.AngularGlobals;
+import org.andromda.cartridges.angular.AngularHelper;
 import org.andromda.cartridges.angular.AngularProfile;
-import org.andromda.cartridges.jsf2.JSFUtils;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -152,7 +152,7 @@ public class AngularParameterLogicImpl
      */
     protected String handleGetFormat()
     {
-        return JSFUtils.getFormat(
+        return AngularHelper.getFormat(
             (ModelElementFacade)this.THIS(),
             this.getType(),
             this.getDefaultDateFormat(),
@@ -166,7 +166,7 @@ public class AngularParameterLogicImpl
      */
     protected boolean handleIsStrictDateFormat()
     {
-        return JSFUtils.isStrictDateFormat((ModelElementFacade)this.THIS());
+        return AngularHelper.isStrictDateFormat((ModelElementFacade)this.THIS());
     }
 
     /**
@@ -458,7 +458,7 @@ public class AngularParameterLogicImpl
      */
     private String constructDummyArray()
     {
-        return JSFUtils.constructDummyArrayDeclaration(
+        return AngularHelper.constructDummyArrayDeclaration(
             this.getName(),
             AngularGlobals.DUMMY_ARRAY_COUNT);
     }
@@ -507,7 +507,7 @@ public class AngularParameterLogicImpl
      */
     protected boolean handleIsReadOnly()
     {
-        return JSFUtils.isReadOnly(this);
+        return AngularHelper.isReadOnly(this);
     }
 
     /**
@@ -557,7 +557,7 @@ public class AngularParameterLogicImpl
      */
     protected Collection handleGetValidatorTypes()
     {
-        return JSFUtils.getValidatorTypes(
+        return AngularHelper.getValidatorTypes(
             (ModelElementFacade)this.THIS(),
             this.getType());
     }
@@ -570,7 +570,7 @@ public class AngularParameterLogicImpl
      */
     protected String handleGetValidWhen()
     {
-        return JSFUtils.getValidWhen(this);
+        return AngularHelper.getValidWhen(this);
     }
 
     /**
@@ -594,7 +594,7 @@ public class AngularParameterLogicImpl
      */
     protected Collection handleGetValidatorVars()
     {
-        return JSFUtils.getValidatorVars(
+        return AngularHelper.getValidatorVars(
             (ModelElementFacade)this.THIS(),
             this.getType(),
             null);
@@ -697,7 +697,7 @@ public class AngularParameterLogicImpl
      */
     protected boolean handleIsEqualValidator()
     {
-        final String equal = JSFUtils.getEqual((ModelElementFacade)this.THIS());
+        final String equal = AngularHelper.getEqual((ModelElementFacade)this.THIS());
         return equal != null && equal.trim().length() > 0;
     }
 
@@ -875,27 +875,27 @@ public class AngularParameterLogicImpl
             {
                 result.add(vt);
             }
-            if(JSFUtils.VT_REQUIRED.equals(vt))
+            if(AngularHelper.VT_REQUIRED.equals(vt))
             {
                 requiredAdded=true;
                 result.add(AN_REQUIRED);
             }
-            else if(JSFUtils.VT_URL.equals(vt))
+            else if(AngularHelper.VT_URL.equals(vt))
             {
                 result.add(AN_URL);
             }
-            else if(JSFUtils.VT_INT_RANGE.equals(vt))
+            else if(AngularHelper.VT_INT_RANGE.equals(vt))
             {
                 final StringBuilder sb=new StringBuilder(AN_LONG_RANGE+"(");
-                final String format = JSFUtils.getInputFormat((ModelElementFacade)this.THIS());
-                final String rangeStart = JSFUtils.getRangeStart(format);
+                final String format = AngularHelper.getInputFormat((ModelElementFacade)this.THIS());
+                final String rangeStart = AngularHelper.getRangeStart(format);
                 boolean addComma=false;
                 if(StringUtils.isNotBlank(rangeStart) && !rangeStart.equals(UNDEFINED_BOUND))
                 {
                     sb.append("minimum="+rangeStart);
                     addComma=true;
                 }
-                final String rangeEnd = JSFUtils.getRangeEnd(format);
+                final String rangeEnd = AngularHelper.getRangeEnd(format);
                 if(StringUtils.isNotBlank(rangeEnd) && !rangeEnd.equals(UNDEFINED_BOUND))
                 {
                     if(addComma)
@@ -907,18 +907,18 @@ public class AngularParameterLogicImpl
                 sb.append(")");
                 result.add(sb.toString());
             }
-            else if(JSFUtils.VT_FLOAT_RANGE.equals(vt) || JSFUtils.VT_DOUBLE_RANGE.equals(vt))
+            else if(AngularHelper.VT_FLOAT_RANGE.equals(vt) || AngularHelper.VT_DOUBLE_RANGE.equals(vt))
             {
                 final StringBuilder sb=new StringBuilder(AN_DOUBLE_RANGE+"(");
-                final String format = JSFUtils.getInputFormat(((ModelElementFacade)this.THIS()));
-                final String rangeStart = JSFUtils.getRangeStart(format);
+                final String format = AngularHelper.getInputFormat(((ModelElementFacade)this.THIS()));
+                final String rangeStart = AngularHelper.getRangeStart(format);
                 boolean addComma=false;
                 if(StringUtils.isNotBlank(rangeStart) && !rangeStart.equals(UNDEFINED_BOUND))
                 {
                     sb.append("minimum="+rangeStart);
                     addComma=true;
                 }
-                final String rangeEnd = JSFUtils.getRangeEnd(format);
+                final String rangeEnd = AngularHelper.getRangeEnd(format);
                 if(StringUtils.isNotBlank(rangeEnd) && !rangeEnd.equals(UNDEFINED_BOUND))
                 {
                     if(addComma)
@@ -930,15 +930,15 @@ public class AngularParameterLogicImpl
                 sb.append(")");
                 result.add(sb.toString());
             }
-            else if(JSFUtils.VT_EMAIL.equals(vt))
+            else if(AngularHelper.VT_EMAIL.equals(vt))
             {
                 result.add(AN_EMAIL);
             }
-            else if(JSFUtils.VT_CREDIT_CARD.equals(vt))
+            else if(AngularHelper.VT_CREDIT_CARD.equals(vt))
             {
                 result.add(AN_CREDIT_CARD);
             }
-            else if(JSFUtils.VT_MIN_LENGTH.equals(vt) || JSFUtils.VT_MAX_LENGTH.equals(vt))
+            else if(AngularHelper.VT_MIN_LENGTH.equals(vt) || AngularHelper.VT_MAX_LENGTH.equals(vt))
             {
                 final StringBuilder sb=new StringBuilder(AN_LENGTH+"(");
                 final Collection formats = this.findTaggedValues(AngularProfile.TAGGEDVALUE_INPUT_FORMAT);
@@ -946,49 +946,49 @@ public class AngularParameterLogicImpl
                 for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
                 {
                     final String additionalFormat = String.valueOf(formatIterator.next());
-                    if (JSFUtils.isMinLengthFormat(additionalFormat))
+                    if (AngularHelper.isMinLengthFormat(additionalFormat))
                     {
                         if(addComma)
                         {
                             sb.append(",");
                         }
                         sb.append("min=");
-                        sb.append(JSFUtils.getMinLengthValue(additionalFormat));
+                        sb.append(AngularHelper.getMinLengthValue(additionalFormat));
                         addComma=true;
                     }
-                    else if (JSFUtils.isMaxLengthFormat(additionalFormat))
+                    else if (AngularHelper.isMaxLengthFormat(additionalFormat))
                     {
                         if(addComma)
                         {
                             sb.append(",");
                         }
                         sb.append("max=");
-                        sb.append(JSFUtils.getMinLengthValue(additionalFormat));
+                        sb.append(AngularHelper.getMinLengthValue(additionalFormat));
                         addComma=true;
                     }
                 }
                 sb.append(")");
                 result.add(sb.toString());
             }
-            else if(JSFUtils.VT_MASK.equals(vt))
+            else if(AngularHelper.VT_MASK.equals(vt))
             {
                 final Collection formats = this.findTaggedValues(AngularProfile.TAGGEDVALUE_INPUT_FORMAT);
                 for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
                 {
                     final String additionalFormat = String.valueOf(formatIterator.next());
-                    if (JSFUtils.isPatternFormat(additionalFormat))
+                    if (AngularHelper.isPatternFormat(additionalFormat))
                     {
-                        result.add(AN_PATTERN+"(\""+JSFUtils.getPatternValue(additionalFormat)+"\")");
+                        result.add(AN_PATTERN+"(\""+AngularHelper.getPatternValue(additionalFormat)+"\")");
                     }
                 }
             }
-            else if(JSFUtils.VT_VALID_WHEN.equals(vt))
+            else if(AngularHelper.VT_VALID_WHEN.equals(vt))
             {
                 result.add("");
             }
-            else if(JSFUtils.VT_EQUAL.equals(vt))
+            else if(AngularHelper.VT_EQUAL.equals(vt))
             {
-                result.add(AN_EQUALS+"(\""+JSFUtils.getEqual((ModelElementFacade)this.THIS())+"\")");
+                result.add(AN_EQUALS+"(\""+AngularHelper.getEqual((ModelElementFacade)this.THIS())+"\")");
             }
         }
         if(!requiredAdded && getLower() > 0)
@@ -1035,7 +1035,7 @@ public class AngularParameterLogicImpl
      */
     protected Collection handleGetValidatorArgs(String validatorType)
     {
-        return JSFUtils.getValidatorArgs(
+        return AngularHelper.getValidatorArgs(
             (ModelElementFacade)this.THIS(),
             validatorType);
     }

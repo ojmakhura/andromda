@@ -48,6 +48,10 @@ import { ${service.name}Impl } from 'src/app/impl/service/$path/$fname';
 import { ${action.controller.name}Impl } from 'src/app/impl/controller/$path/$fname';
 #end
 
+$action.tableAction
+$action.taggedValues
+$action.stereotypes
+
 @Component({
   selector: '${action.name}-base',
   template: ''

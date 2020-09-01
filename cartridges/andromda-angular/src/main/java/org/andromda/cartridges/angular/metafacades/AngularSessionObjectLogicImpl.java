@@ -29,7 +29,6 @@ public class AngularSessionObjectLogicImpl
      */
     protected String handleGetFullPath()
     {
-        // TODO put your implementation here.
-        return null;
+        return '/' + this.getFullyQualifiedName().replace('.', '/');
     }
 }

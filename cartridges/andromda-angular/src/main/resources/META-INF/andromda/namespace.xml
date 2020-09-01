@@ -343,7 +343,7 @@
                     possible parameter values when selecting from a list).
                 </documentation>
             </property>
-            <property name="converterPattern">
+            <!--property name="converterPattern">
                 <default>{0}JsfConverter</default>
                 <documentation>
                     The pattern used for constructing converters (like the enumeration converter), where
@@ -356,14 +356,14 @@
                     Defines the the package in which any extra managed-beans will
                     be generated (such as the layout options class, etc).
                 </documentation>
-            </property>
-            <property name="testPackage">
+            </property-->
+            <!--property name="testPackage">
                 <default>org.andromda.presentation.jsf.test</default>
                 <documentation>
                     Defines the the package in which any extra test classes will
                     be generated.
                 </documentation>
-            </property>
+            </property-->
 <!--             <property name="jsfComponentsPackage"> -->
 <!--                 <default>org.andromda.presentation.jsf.components</default> -->
 <!--                 <documentation> -->
@@ -391,12 +391,12 @@
                     <em>{0}</em> is the name of the controller operation capitalized.
                 </documentation>
             </property>
-            <property name="formMessagesProperty">
+            <!--property name="formMessagesProperty">
                 <default>jsfMessages</default>
                 <documentation>
                     Defines the name of the property on a form that stores messages.
                 </documentation>
-            </property>
+            </property-->
             <property name="formBeanPattern">
                 <default>{0}{1}Form</default>
                 <documentation>

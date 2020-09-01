@@ -11,7 +11,6 @@ import java.util.Objects;
 import org.andromda.cartridges.angular.AngularGlobals;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.utils.StringUtilsHelper;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.andromda.metafacades.uml.ModelElementFacade;
 

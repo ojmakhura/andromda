@@ -11,13 +11,11 @@ import java.util.Objects;
 import org.andromda.cartridges.angular.AngularGlobals;
 import org.andromda.cartridges.angular.AngularHelper;
 import org.andromda.cartridges.angular.AngularProfile;
-import org.andromda.cartridges.jsf2.JSFGlobals;
-import org.andromda.cartridges.jsf2.JSFProfile;
-import org.andromda.cartridges.jsf2.JSFUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndView;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.StringUtils;
@@ -139,7 +137,7 @@ public class AngularAttributeLogicImpl
      */
     protected String handleGetFormat()
     {
-        // return JSFUtils.getFormat(
+        // return AngularHelper.getFormat(
         //     (ModelElementFacade)this.THIS(),
         //     this.getType(),
         //     this.getDefaultDateFormat(),
@@ -248,7 +246,7 @@ public class AngularAttributeLogicImpl
      */
     private String getInputType()
     {
-        return Objects.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
+        return Objects.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
     }
     /**
      * Indicates whether or not this parameter is of the given input type.
@@ -277,9 +275,9 @@ public class AngularAttributeLogicImpl
      */
     private String constructDummyArray()
     {
-        return JSFUtils.constructDummyArrayDeclaration(
+        return AngularHelper.constructDummyArrayDeclaration(
             this.getName(),
-            JSFGlobals.DUMMY_ARRAY_COUNT);
+            AngularGlobals.DUMMY_ARRAY_COUNT);
     }
 
     /**
@@ -290,8 +288,7 @@ public class AngularAttributeLogicImpl
      */
     protected String handleGetValidWhen()
     {
-        //return JSFUtils.getValidWhen(this);
-        return null;
+        return AngularHelper.getValidWhen(this);
     }
 
     /**
@@ -300,11 +297,9 @@ public class AngularAttributeLogicImpl
      */
     protected Collection handleGetValidatorTypes()
     {
-        // return JSFUtils.getValidatorTypes(
-        //     (ModelElementFacade)this.THIS(),
-        //     this.getType());
-        // TODO put your implementation here.
-        return null;
+        return AngularHelper.getValidatorTypes(
+            (ModelElementFacade)this.THIS(),
+            this.getType());
     }
 
     /**
@@ -324,7 +319,7 @@ public class AngularAttributeLogicImpl
      */
     protected boolean handleIsStrictDateFormat()
     {
-        //return JSFUtils.isStrictDateFormat((ModelElementFacade)this.THIS());
+        //return AngularHelper.isStrictDateFormat((ModelElementFacade)this.THIS());
         // TODO put your implementation here.
         return false;
     }
@@ -335,7 +330,7 @@ public class AngularAttributeLogicImpl
      */
     protected boolean handleIsEqualValidator()
     {
-        //final String equal = JSFUtils.getEqual((ModelElementFacade)this.THIS());
+        //final String equal = AngularHelper.getEqual((ModelElementFacade)this.THIS());
         //return equal != null && equal.trim().length() > 0;
         return false;
     }
@@ -383,7 +378,7 @@ public class AngularAttributeLogicImpl
      */
     protected String handleGetInputTableIdentifierColumns()
     {
-        return Objects.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)).trim();
+        return Objects.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)).trim();
     }
 
     /**
@@ -558,7 +553,7 @@ public class AngularAttributeLogicImpl
      */
     protected Collection handleGetValidatorArgs(String validatorType)
     {
-        // return JSFUtils.getValidatorArgs(
+        // return AngularHelper.getValidatorArgs(
         //     (ModelElementFacade)this.THIS(),
         //     validatorType);
         // TODO put your implementation here.
@@ -681,7 +676,7 @@ public class AngularAttributeLogicImpl
      */
     protected Collection handleGetValidatorVars(AngularParameter ownerParameter)
     {
-        // return JSFUtils.getValidatorVars(
+        // return AngularHelper.getValidatorVars(
         //     (ModelElementFacade)this.THIS(),
         //     this.getType(),
         //     ownerParameter);

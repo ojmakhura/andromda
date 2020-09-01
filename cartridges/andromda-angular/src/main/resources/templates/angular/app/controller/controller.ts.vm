@@ -37,12 +37,12 @@ this.${transition.target.actionMethodName}#if (!$action.formFields.empty)${actio
 #end
 #if ($transition.successMessagesPresent)
 #foreach ($message in $transition.successMessages.entrySet())
-//${indent}${managedBeansPackage}.JsfUtils.addInfoMessage(${messagesFullyQualifiedName}.get('$message.key', (Object[])null));
+//${indent}${managedBeansPackage}.AngularHelper.addInfoMessage(${messagesFullyQualifiedName}.get('$message.key', (Object[])null));
 #end
 #end
 #if ($transition.warningMessagesPresent)
 #foreach ($message in $transition.warningMessages.entrySet())
-//${indent}${managedBeansPackage}.JsfUtils.addWarningMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
+//${indent}${managedBeansPackage}.AngularHelper.addWarningMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
 #end
 #end
 #end
@@ -56,12 +56,12 @@ this.${transition.target.actionMethodName}#if (!$action.formFields.empty)${actio
 #end
 #if ($transition.successMessagesPresent)
 #foreach ($message in $transition.successMessages.entrySet())
-//${indent}${managedBeansPackage}.JsfUtils.addInfoMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
+//${indent}${managedBeansPackage}.AngularHelper.addInfoMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
 #end
 #end
 #if ($transition.warningMessagesPresent)
 #foreach ($message in $transition.warningMessages.entrySet())
-//${indent}${managedBeansPackage}.JsfUtils.addWarningMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
+//${indent}${managedBeansPackage}.AngularHelper.addWarningMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
 #end
 #end
 #end
