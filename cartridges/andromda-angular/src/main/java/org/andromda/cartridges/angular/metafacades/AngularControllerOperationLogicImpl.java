@@ -23,64 +23,96 @@ public class AngularControllerOperationLogicImpl
     }
 
     /**
-     * The fully qualified path of the form file.
-     * @see org.andromda.cartridges.angular.metafacades.AngularControllerOperation#getFullyQualifiedFormPath()
-     */
-    protected String handleGetFullyQualifiedFormPath()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * The fully qualified form name.
-     * @see org.andromda.cartridges.angular.metafacades.AngularControllerOperation#getFullyQualifiedFormName()
-     */
-    protected String handleGetFullyQualifiedFormName()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * The form name the corresponds to this controller operation.
-     * @see org.andromda.cartridges.angular.metafacades.AngularControllerOperation#getFormName()
+     * @return formName
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFControllerOperation#getFormName()
      */
     protected String handleGetFormName()
     {
-        // TODO put your implementation here.
-        return null;
+        final String pattern = Objects.toString(this.getConfiguredProperty(JSFGlobals.FORM_PATTERN), "");
+        return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
     }
 
     /**
-     * The operation call that takes the appropriate form as an argument.
-     * @see org.andromda.cartridges.angular.metafacades.AngularControllerOperation#getFormCall()
+     * @return fullyQualifiedFormName
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFControllerOperation#getFullyQualifiedFormName()
+     */
+    protected String handleGetFullyQualifiedFormName()
+    {
+        final StringBuilder fullyQualifiedName = new StringBuilder();
+        final String packageName = this.getPackageName();
+        if (StringUtils.isNotBlank(packageName))
+        {
+            fullyQualifiedName.append(packageName + '.');
+        }
+        return fullyQualifiedName.append(StringUtils.capitalize(this.getFormName())).toString();
+    }
+
+    /**
+     * @return getFullyQualifiedFormName().replace('.', '/')
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFControllerOperation#getFullyQualifiedFormPath()
+     */
+    protected String handleGetFullyQualifiedFormPath()
+    {
+        return this.getFullyQualifiedFormName().replace('.', '/');
+    }
+
+    /**
+     * @return formCall
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFControllerOperation#getFormCall()
      */
     protected String handleGetFormCall()
     {
-        // TODO put your implementation here.
-        return null;
+        final StringBuilder call = new StringBuilder();
+        call.append(this.getName());
+        call.append("(");
+        if (!this.getFormFields().isEmpty())
+        {
+            call.append("form");
+        }
+        call.append(")");
+        return call.toString();
     }
 
     /**
-     * The controller operation signature that takes the appropriate form (if this operation has at
-     * least one form field) as an argument.
-     * @see org.andromda.cartridges.angular.metafacades.AngularControllerOperation#getFormSignature()
-     */
-    protected String handleGetFormSignature()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * The controller implementation operation signature that takes the appropriate form (if this
-     * operation has at least one form field) as an argument.
-     * @see org.andromda.cartridges.angular.metafacades.AngularControllerOperation#getImplementationFormSignature()
+     * @return getFormSignature(false)
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFControllerOperation#getImplementationFormSignature()
      */
     protected String handleGetImplementationFormSignature()
     {
-        // TODO put your implementation here.
-        return null;
+        return this.getFormSignature(false);
+    }
+
+    /**
+     * @return getFormSignature(true)
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFControllerOperation#getFormSignature()
+     */
+    protected String handleGetFormSignature()
+    {
+        return this.getFormSignature(true);
+    }
+
+    /**
+     * Constructs the signature that takes the form for this operation.
+     *
+     * @param isAbstract whether or not the signature is abstract.
+     * @return the appropriate signature.
+     */
+    private String getFormSignature(boolean isAbstract)
+    {
+        final StringBuilder signature = new StringBuilder();
+        signature.append(this.getVisibility() + ' ');
+        if (isAbstract)
+        {
+            signature.append("abstract ");
+        }
+        final ModelElementFacade returnType = this.getReturnType();
+        signature.append(returnType != null ? returnType.getFullyQualifiedName() : null);
+        signature.append(" " + this.getName() + "(");
+        if (!this.getFormFields().isEmpty())
+        {
+            signature.append(this.getFormName() + " form");
+        }
+        signature.append(")");
+        return signature.toString();
     }
 }

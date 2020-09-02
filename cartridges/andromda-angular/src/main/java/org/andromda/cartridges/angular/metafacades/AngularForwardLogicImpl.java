@@ -25,72 +25,121 @@ public class AngularForwardLogicImpl
     }
 
     /**
-     * The path to which this forward points.
-     * @see org.andromda.cartridges.angular.metafacades.AngularForward#getPath()
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
+     */
+    public String getName()
+    {
+        StringBuilder name = new StringBuilder(super.getName());
+        final Object target = this.getTarget();
+        if (target instanceof JSFFinalState)
+        {
+            name.append(JSFGlobals.USECASE_FORWARD_NAME_SUFFIX);
+        }
+        else
+        {
+            name.insert(0, this.getUseCase().getName() + "-");
+        }
+        return JSFUtils.toWebResourceName(name.toString());
+    }
+
+    /**
+     * @return forwardPath
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFForward#getPath()
      */
     protected String handleGetPath()
     {
-        // TODO put your implementation here.
-        return null;
+        String forwardPath = null;
+        final StateVertexFacade target = getTarget();
+        if (this.isEnteringView())
+        {
+            forwardPath = ((JSFView)target).getPath();
+        }
+        else if (this.isEnteringFinalState())
+        {
+            forwardPath = ((JSFFinalState)target).getPath();
+        }
+
+        return forwardPath;
     }
 
     /**
-     * Indicates whether or not a final state is the target of this forward.
-     * @see org.andromda.cartridges.angular.metafacades.AngularForward#isFinalStateTarget()
-     */
-    protected boolean handleIsFinalStateTarget()
-    {
-        // TODO put your implementation here.
-        return false;
-    }
-
-    /**
-     * The name that corresponds to the from-outcome in an navigational rule.
-     * @see org.andromda.cartridges.angular.metafacades.AngularForward#getFromOutcome()
-     */
-    protected String handleGetFromOutcome()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * Messages used to indicate successful execution.
-     * @see org.andromda.cartridges.angular.metafacades.AngularForward#getSuccessMessages()
-     */
-    protected Map handleGetSuccessMessages()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * Indicates whether or not any success messags are present.
-     * @see org.andromda.cartridges.angular.metafacades.AngularForward#isSuccessMessagesPresent()
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFForwardLogic#handleIsSuccessMessagesPresent()
      */
     protected boolean handleIsSuccessMessagesPresent()
     {
-        // TODO put your implementation here.
-        return false;
+        return !this.getSuccessMessages().isEmpty();
     }
 
     /**
-     * Any messages used to indicate a warning.
-     * @see org.andromda.cartridges.angular.metafacades.AngularForward#getWarningMessages()
-     */
-    protected Map handleGetWarningMessages()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * Whether or not any warning messages are present.
-     * @see org.andromda.cartridges.angular.metafacades.AngularForward#isWarningMessagesPresent()
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFForwardLogic#handleIsWarningMessagesPresent()
      */
     protected boolean handleIsWarningMessagesPresent()
     {
-        // TODO put your implementation here.
-        return false;
+        return !this.getWarningMessages().isEmpty();
+    }
+
+    /**
+     * Collects specific messages in a map.
+     *
+     * @param taggedValue the tagged value from which to read the message
+     * @return maps message keys to message values, but only those that match the arguments
+     *         will have been recorded
+     */
+    @SuppressWarnings("unchecked")
+    private Map<String, String> getMessages(String taggedValue)
+    {
+        Map<String, String> messages;
+
+        final Collection taggedValues = this.findTaggedValues(taggedValue);
+        if (taggedValues.isEmpty())
+        {
+            messages = Collections.EMPTY_MAP;
+        }
+        else
+        {
+            messages = new LinkedHashMap<String, String>(); // we want to keep the order
+
+            for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+            {
+                final String value = (String)iterator.next();
+                messages.put(StringUtilsHelper.toResourceMessageKey(value), value);
+            }
+        }
+
+        return messages;
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFForwardLogic#handleGetSuccessMessages()
+     */
+    protected Map handleGetSuccessMessages()
+    {
+        return this.getMessages(JSFProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFForwardLogic#handleGetWarningMessages()
+     */
+    protected Map handleGetWarningMessages()
+    {
+        return this.getMessages(JSFProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
+    }
+
+    /**
+     * @return getTarget() instanceof JSFFinalState
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFForward#isFinalStateTarget()
+     */
+    protected boolean handleIsFinalStateTarget()
+    {
+        return this.getTarget() instanceof JSFFinalState;
+    }
+
+    /**
+     * @return getName()
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFForward#getFromOutcome()
+     */
+    protected String handleGetFromOutcome()
+    {
+        return this.getName();
     }
 }

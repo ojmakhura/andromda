@@ -25,269 +25,435 @@ public class AngularViewLogicImpl
     }
 
     /**
-     * The full path of the view resources (i.e. the JSP page).
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#getPath()
-     */
-    protected String handleGetPath()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * A resource message key suited for the view's title.
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#getTitleKey()
-     */
-    protected String handleGetTitleKey()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * A default resource message value suited for the page's title.
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#getTitleValue()
-     */
-    protected String handleGetTitleValue()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * The default resource message key for this view.
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#getMessageKey()
-     */
-    protected String handleGetMessageKey()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * A resource message key suited for the page's documentation.
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#getDocumentationKey()
+     * @return getMessageKey() + '.' + JSFGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFView#getDocumentationKey()
      */
     protected String handleGetDocumentationKey()
     {
-        // TODO put your implementation here.
-        return null;
+        return getMessageKey() + '.' + JSFGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX;
     }
 
     /**
-     * A resource message value suited for the view's documentation.
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#getDocumentationValue()
+     * @return messageKey
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFView#getMessageKey()
      */
-    protected String handleGetDocumentationValue()
+    protected String handleGetMessageKey()
     {
-        // TODO put your implementation here.
-        return null;
+        final StringBuilder messageKey = new StringBuilder();
+
+        if (!this.isNormalizeMessages())
+        {
+            final UseCaseFacade useCase = this.getUseCase();
+            if (useCase != null)
+            {
+                messageKey.append(StringUtilsHelper.toResourceMessageKey(useCase.getName()));
+                messageKey.append('.');
+            }
+        }
+
+        messageKey.append(StringUtilsHelper.toResourceMessageKey(getName()));
+        return messageKey.toString();
     }
 
     /**
-     * A displayable version of this view's name.
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#getMessageValue()
+     * Indicates whether or not we should normalize messages.
+     *
+     * @return true/false
+     */
+    private boolean isNormalizeMessages()
+    {
+        final String normalizeMessages = (String)getConfiguredProperty(JSFGlobals.NORMALIZE_MESSAGES);
+        return Boolean.valueOf(normalizeMessages).booleanValue();
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFViewLogic#handleGetMessageValue()
      */
     protected String handleGetMessageValue()
     {
-        // TODO put your implementation here.
-        return null;
+        return StringUtilsHelper.toPhrase(getName());
     }
 
     /**
-     * The fully qualified name of this view's form populator.
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#getFullyQualifiedPopulator()
+     * @return documentationValue
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFView#getDocumentationValue()
+     */
+    protected String handleGetDocumentationValue()
+    {
+        final String value = StringUtilsHelper.toResourceMessage(getDocumentation(""));
+        return value == null ? "" : value;
+    }
+
+    /**
+     * @return getMessageKey() + '.' + JSFGlobals.TITLE_MESSAGE_KEY_SUFFIX
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFView#getTitleKey()
+     */
+    protected String handleGetTitleKey()
+    {
+        return this.getMessageKey() + '.' + JSFGlobals.TITLE_MESSAGE_KEY_SUFFIX;
+    }
+
+    /**
+     * @return toPhrase(getName())
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFView#getTitleValue()
+     */
+    protected String handleGetTitleValue()
+    {
+        return StringUtilsHelper.toPhrase(getName());
+    }
+
+    /**
+     * @return path
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFView#getPath()
+     */
+    protected String handleGetPath()
+    {
+        final StringBuilder path = new StringBuilder();
+        final String packageName = this.getPackageName();
+        if (StringUtils.isNotBlank(packageName))
+        {
+            path.append(packageName + '.');
+        }
+        path.append(JSFUtils.toWebResourceName(StringUtils.trimToEmpty(this.getName())).replace(
+                '.',
+                '/'));
+        return '/' + path.toString().replace(
+            '.',
+            '/');
+    }
+
+    /**
+     * @return forwards
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFView#getForwards()
+     */
+    protected List<ModelElementFacade> handleGetForwards()
+    {
+        final Map<String, ModelElementFacade> forwards = new LinkedHashMap<String, ModelElementFacade>();
+        for (final FrontEndAction action : this.getActions())
+        {
+            if (action != null && !action.isUseCaseStart())
+            {
+                for (final FrontEndForward forward : action.getActionForwards())
+                {
+                    if (forward instanceof JSFForward)
+                    {
+                        forwards.put(((JSFForward)forward).getName(), forward);
+                    }
+                    else if (forward instanceof JSFAction)
+                    {
+                        forwards.put(((JSFAction)forward).getName(), forward);
+                    }
+                }
+            }
+        }
+        return new ArrayList<ModelElementFacade>(forwards.values());
+    }
+
+    /**
+     * @return tables
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFAction#isTableLink()
+     */
+    protected List<JSFParameter> handleGetTables()
+    {
+        final List<JSFParameter> tables = new ArrayList<JSFParameter>();
+        final List<FrontEndParameter> variables = this.getVariables();
+        for (FrontEndParameter parameter : variables)
+        {
+            if (parameter instanceof JSFParameter)
+            {
+                final JSFParameter variable = (JSFParameter)parameter;
+                if (variable.isTable())
+                {
+                    tables.add(variable);
+                }
+            }
+        }
+        return tables;
+    }
+
+    /**
+     * @return actionForwards
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFViewLogic#getActionForwards()
+     */
+    protected List<JSFForward> handleGetActionForwards()
+    {
+        final List<JSFForward> actionForwards = new ArrayList<JSFForward>(this.getForwards());
+        for (final Iterator<JSFForward> iterator = actionForwards.iterator(); iterator.hasNext();)
+        {
+            if (!(iterator.next() instanceof JSFAction))
+            {
+                iterator.remove();
+            }
+        }
+        return actionForwards;
+    }
+
+    /**
+     * @return populatorName
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFViewLogic#getFullyQualifiedPopulator()
      */
     protected String handleGetFullyQualifiedPopulator()
     {
-        // TODO put your implementation here.
-        return null;
+        final StringBuilder name = new StringBuilder();
+        final String packageName = this.getPackageName();
+        if (StringUtils.isNotBlank(packageName))
+        {
+            name.append(packageName);
+            name.append('.');
+        }
+        name.append(this.getPopulator());
+        return name.toString();
     }
 
     /**
-     * The name of the form populator for this view.
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#getPopulator()
+     * @return populator
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFViewLogic#getPopulator()
      */
     protected String handleGetPopulator()
     {
-        // TODO put your implementation here.
-        return null;
+        return ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.VIEW_POPULATOR_PATTERN)).replaceAll(
+            "\\{0\\}",
+            StringUtilsHelper.upperCamelCaseName(this.getName()));
     }
 
     /**
-     * The path to the form populator.
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#getPopulatorPath()
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFViewLogic#handleGetFormActions()
      */
-    protected String handleGetPopulatorPath()
+    protected List<FrontEndAction> handleGetFormActions()
     {
-        // TODO put your implementation here.
-        return null;
+        final List<FrontEndAction> actions = new ArrayList<FrontEndAction>(this.getActions());
+        for (final Iterator<FrontEndAction> iterator = actions.iterator(); iterator.hasNext();)
+        {
+            final FrontEndAction action = iterator.next();
+            if (action.getFormFields().isEmpty())
+            {
+                iterator.remove();
+            }
+        }
+        return actions;
     }
 
     /**
-     * Indicates if a populator is required for this view.
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#isPopulatorRequired()
-     */
-    protected boolean handleIsPopulatorRequired()
-    {
-        // TODO put your implementation here.
-        return false;
-    }
-
-    /**
-     * Indicates whether or not at least one parameter of an outgoing action in this view requires
-     * validation.
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#isValidationRequired()
-     */
-    protected boolean handleIsValidationRequired()
-    {
-        // TODO put your implementation here.
-        return false;
-    }
-
-    /**
-     * Indicates if this view represents a popup.
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#isPopup()
-     */
-    protected boolean handleIsPopup()
-    {
-        // TODO put your implementation here.
-        return false;
-    }
-
-    /**
-     * Indicates whether or not any non-table view variables are present in this view.
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#isNonTableVariablesPresent()
-     */
-    protected boolean handleIsNonTableVariablesPresent()
-    {
-        // TODO put your implementation here.
-        return false;
-    }
-
-    /**
-     * Indicates whether or not this view has the same name as the use case in which it is
-     * contained.
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#isHasNameOfUseCase()
-     */
-    protected boolean handleIsHasNameOfUseCase()
-    {
-        // TODO put your implementation here.
-        return false;
-    }
-
-    /**
-     * The key that stores the form in which information is passed from one action to another.
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#getFormKey()
+     * @return formKey
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFView#getFormKey()
      */
     protected String handleGetFormKey()
     {
-        // TODO put your implementation here.
-        return null;
+        final Object formKeyValue = this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_FORM_KEY);
+        return formKeyValue == null ? ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.ACTION_FORM_KEY))
+                                    : String.valueOf(formKeyValue);
     }
 
     /**
-     * The name that corresponds to the from-outcome in an navigational rule.
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#getFromOutcome()
+     * @return getFullyQualifiedPopulator().replace('.', '/')
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFView#getPopulatorPath()
+     */
+    protected String handleGetPopulatorPath()
+    {
+        return this.getFullyQualifiedPopulator().replace(
+            '.',
+            '/');
+    }
+
+    /**
+     * @return !getFormActions().isEmpty() || !getVariables().isEmpty()
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFView#isPopulatorRequired()
+     */
+    protected boolean handleIsPopulatorRequired()
+    {
+        return !this.getFormActions().isEmpty() || !this.getVariables().isEmpty();
+    }
+
+    /**
+     * @return validationRequired
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFView#isPopulatorRequired()
+     */
+    protected boolean handleIsValidationRequired()
+    {
+        boolean required = false;
+        for (final FrontEndAction action : this.getActions())
+        {
+            if (((JSFAction)action).isValidationRequired())
+            {
+                required = true;
+                break;
+            }
+        }
+        return required;
+    }
+
+    /**
+     * @return isPopup
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFView#isPopup()
+     */
+    protected boolean handleIsPopup()
+    {
+        return ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_VIEW_TYPE)).equalsIgnoreCase(
+            JSFGlobals.ACTION_TYPE_POPUP);
+    }
+
+    /**
+     * @return nonTableVariablesPresent
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFView#isNonTableVariablesPresent()
+     */
+    protected boolean handleIsNonTableVariablesPresent()
+    {
+        boolean present = false;
+        for (final FrontEndParameter variable : this.getVariables())
+        {
+            if (!variable.isTable())
+            {
+                present = true;
+                break;
+            }
+        }
+        return present;
+    }
+
+    /**
+     * @return hasNameOfUseCase
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFView#isHasNameOfUseCase()
+     */
+    protected boolean handleIsHasNameOfUseCase()
+    {
+        boolean sameName = false;
+        final ModelElementFacade useCase = this.getUseCase();
+        final String useCaseName = useCase != null ? useCase.getName() : null;
+        if (useCaseName != null && useCaseName.equalsIgnoreCase(this.getName()))
+        {
+            sameName = true;
+        }
+        return sameName;
+    }
+
+    /**
+     * @return backingValueVariables
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFView#getBackingValueVariables()
+     */
+    protected List<JSFParameter> handleGetBackingValueVariables()
+    {
+        final Map<String, JSFParameter> variables = new LinkedHashMap<String, JSFParameter>();
+        for (final FrontEndParameter frontEndParameter : this.getAllActionParameters())
+        {
+            if (frontEndParameter instanceof JSFParameter)
+            {
+                final JSFParameter parameter = (JSFParameter)frontEndParameter;
+                final String parameterName = parameter.getName();
+                final Collection<AttributeFacade> attributes = parameter.getAttributes();
+                if (parameter.isBackingValueRequired() || parameter.isSelectable())
+                {
+                    if (parameter.isBackingValueRequired() || parameter.isSelectable())
+                    {
+                        variables.put(parameterName, parameter);
+                    }
+                }
+                else
+                {
+                    boolean hasBackingValue = false;
+                    for (final AttributeFacade attribute : attributes)
+                    {
+                        final JSFAttribute jsfAttribute = (JSFAttribute)attribute;
+                        if (jsfAttribute.isSelectable(parameter) || jsfAttribute.isBackingValueRequired(parameter))
+                        {
+                            hasBackingValue = true;
+                            break;
+                        }
+                    }
+                    if (hasBackingValue)
+                    {
+                        variables.put(parameterName, parameter);
+                    }
+                }
+            }
+        }
+        return new ArrayList<JSFParameter>(variables.values());
+    }
+
+    /**
+     * @return toWebResourceName(this.getUseCase().getName() + "-" + this.getName())
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFView#getFromOutcome()
      */
     protected String handleGetFromOutcome()
     {
-        // TODO put your implementation here.
-        return null;
+        return JSFUtils.toWebResourceName(this.getUseCase().getName() + "-" + this.getName());
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularView.needsFileUpload
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#isNeedsFileUpload()
+     * @return needsFileUpload
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFView#isNeedsFileUpload()
      */
     protected boolean handleIsNeedsFileUpload()
     {
-        // TODO put your implementation here.
+        if(this.getAllActionParameters().size() == 0)
+        {
+            return false;
+        }
+
+        for (final FrontEndParameter feParameter : this.getAllActionParameters())
+        {
+            if (feParameter instanceof JSFParameter)
+            {
+                final JSFParameter parameter = (JSFParameter)feParameter;
+                if(parameter.isInputFile())
+                {
+                    return true;
+                }
+                if(parameter.isComplex())
+                {
+                    for(final Iterator attributes = parameter.getAttributes().iterator(); attributes.hasNext();)
+                    {
+                        if(((JSFAttribute)attributes.next()).isInputFile())
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
         return false;
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularView.fullyQualifiedPageObjectClassPath
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#getFullyQualifiedPageObjectClassPath()
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFView#getFullyQualifiedPageObjectClassPath()
      */
-    protected String handleGetFullyQualifiedPageObjectClassPath()
+    @Override
+    protected String handleGetFullyQualifiedPageObjectClassPath() 
     {
-        // TODO put your implementation here.
-        return null;
+        return this.getFullyQualifiedPageObjectClassName().replace(
+                        '.',
+                        '/');
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularView.pageObjectClassName
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#getPageObjectClassName()
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFView#getFullyQualifiedPageObjectClassName()
      */
-    protected String handleGetPageObjectClassName()
+    @Override
+    protected String handleGetFullyQualifiedPageObjectClassName() 
     {
-        // TODO put your implementation here.
-        return null;
+        final StringBuilder fullyQualifiedName = new StringBuilder();
+        final String packageName = this.getPackageName();
+        if (StringUtils.isNotBlank(packageName))
+        {
+            fullyQualifiedName.append(packageName + '.');
+        }
+        return fullyQualifiedName.append(this.getPageObjectClassName()).toString();
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularView.pageObjectBeanName
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#getPageObjectBeanName()
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFView#getPageObjectClassName()
      */
-    protected String handleGetPageObjectBeanName()
+    @Override
+    protected String handleGetPageObjectClassName() 
     {
-        // TODO put your implementation here.
-        return null;
+        return StringUtilsHelper.upperCamelCaseName(this.getName());
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularView.fullyQualifiedPageObjectClassName
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#getFullyQualifiedPageObjectClassName()
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFView#getPageObjectBeanName()
      */
-    protected String handleGetFullyQualifiedPageObjectClassName()
+    @Override
+    protected String handleGetPageObjectBeanName() 
     {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * Represents a JSF view for a front-end application.
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#getForwards()
-     */
-    protected List<AngularForward> handleGetForwards()
-    {
-        // TODO add your implementation here!
-        return null;
-    }
-
-    /**
-     * Represents a JSF view for a front-end application.
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#getBackingValueVariables()
-     */
-    protected List<AngularParameter> handleGetBackingValueVariables()
-    {
-        // TODO add your implementation here!
-        return null;
-    }
-
-    /**
-     * Represents a JSF view for a front-end application.
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#getFormActions()
-     */
-    protected List<AngularAction> handleGetFormActions()
-    {
-        // TODO add your implementation here!
-        return null;
-    }
-
-    /**
-     * Represents a JSF view for a front-end application.
-     * @see org.andromda.cartridges.angular.metafacades.AngularView#getActionForwards()
-     */
-    protected List<AngularAction> handleGetActionForwards()
-    {
-        // TODO add your implementation here!
-        return null;
+        return StringUtilsHelper.lowerCamelCaseName(this.getName());
     }
 }

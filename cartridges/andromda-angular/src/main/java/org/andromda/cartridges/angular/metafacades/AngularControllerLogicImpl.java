@@ -27,82 +27,135 @@ public class AngularControllerLogicImpl
     }
 
     /**
-     * The implementation name of this controller.
-     * @see org.andromda.cartridges.angular.metafacades.AngularController#getImplementationName()
+     * @return implementationName
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFController#getImplementationName()
      */
     protected String handleGetImplementationName()
     {
-        // TODO put your implementation here.
-        return null;
+        final String pattern = Objects.toString(
+            this.getConfiguredProperty(JSFGlobals.CONTROLLER_IMPLEMENTATION_PATTERN), "");
+        return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
     }
 
     /**
-     * The fully qualified implementation name of this controller.
-     * @see org.andromda.cartridges.angular.metafacades.AngularController#getFullyQualifiedImplementationName()
+     * @return fullyQualifiedImplementationName
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFController#getFullyQualifiedImplementationName()
      */
     protected String handleGetFullyQualifiedImplementationName()
     {
-        // TODO put your implementation here.
-        return null;
+        final StringBuilder fullyQualifiedName = new StringBuilder();
+        final String packageName = this.getPackageName();
+        if (StringUtils.isNotBlank(packageName))
+        {
+            fullyQualifiedName.append(packageName + '.');
+        }
+        return fullyQualifiedName.append(this.getImplementationName()).toString();
     }
 
     /**
-     * The fully qualified path to the controller implemention file.
-     * @see org.andromda.cartridges.angular.metafacades.AngularController#getFullyQualifiedImplementationPath()
+     * @return getFullyQualifiedImplementationName().replace('.', '/')
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFController#getFullyQualifiedImplementationPath()
      */
     protected String handleGetFullyQualifiedImplementationPath()
     {
-        // TODO put your implementation here.
-        return null;
+        return this.getFullyQualifiedImplementationName().replace('.', '/');
     }
 
     /**
-     * The bean name of this controller (this is what is stored in the JSF configuration file).
-     * @see org.andromda.cartridges.angular.metafacades.AngularController#getBeanName()
+     * @return StringUtilsHelper.lowerCamelCaseName(this.getName())
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFController#getBeanName()
      */
     protected String handleGetBeanName()
     {
-        // TODO put your implementation here.
-        return null;
+        return StringUtilsHelper.lowerCamelCaseName(this.getName());
     }
 
     /**
-     * The calculated serial version UID for this controller.
-     * @see org.andromda.cartridges.angular.metafacades.AngularController#getControllerSerialVersionUID()
-     */
-    protected String handleGetControllerSerialVersionUID()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * All services the controller needs.
-     * @see org.andromda.cartridges.angular.metafacades.AngularController#getAllServices()
-     */
-    protected Collection handleGetAllServices()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * Represents a controller for a JSF application.
-     * @see org.andromda.cartridges.angular.metafacades.AngularController#getServicesPackagesReferences()
-     */
-    protected List<DependencyFacade> handleGetServicesPackagesReferences()
-    {
-        // TODO add your implementation here!
-        return null;
-    }
-
-    /**
-     * Represents a controller for a JSF application.
-     * @see org.andromda.cartridges.angular.metafacades.AngularController#getSessionObjectReferences()
+     * @return references
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFController#getSessionObjectReferences()
      */
     protected List<DependencyFacade> handleGetSessionObjectReferences()
     {
-        // TODO add your implementation here!
-        return null;
+        final List<DependencyFacade> references = new ArrayList<DependencyFacade>(this.getSourceDependencies());
+        for (final Iterator<DependencyFacade> iterator = references.iterator(); iterator.hasNext();)
+        {
+            final ModelElementFacade targetElement = (iterator.next()).getTargetElement();
+            if (!(targetElement instanceof JSFSessionObject))
+            {
+                iterator.remove();
+            }
+        }
+        return references;
+    }
+
+    /**
+     * @return controllerSerialVersionUID
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFController#getControllerSerialVersionUID()
+     */
+    protected String handleGetControllerSerialVersionUID()
+    {
+       final StringBuilder buffer = new StringBuilder();
+       buffer.append(this.getFullyQualifiedImplementationName());
+       addSerialUIDData(buffer);
+       return JSFUtils.calcSerialVersionUID(buffer);
+    }
+
+    private void addSerialUIDData(StringBuilder buffer)
+    {
+        for (final FrontEndAction action : this.getUseCase().getActions())
+        {
+            buffer.append(action.getName());
+        }
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFController#getAllServices()
+     */
+    @Override
+    protected Collection<Service> handleGetAllServices() {
+        final Set<Service> allServices=new HashSet<Service>();
+        for(final DependencyFacade dependency: this.getServiceReferences())
+        {
+            allServices.add((Service)dependency.getTargetElement());
+        }
+        for(final DependencyFacade dependency: this.getServicesPackagesReferences())
+        {
+            final PackageFacade pack=(PackageFacade)dependency.getTargetElement();
+            for(final ClassifierFacade clazz: pack.getClasses())
+            {
+                if(clazz instanceof Service)
+                {
+                    allServices.add((Service)clazz);
+                }
+            }
+        }
+        for(final FrontEndAction action: getUseCase().getActions())
+        {
+            for(final FrontEndActionState as: action.getActionStates())
+            {
+                for(final OperationFacade operation: as.getServiceCalls())
+                {
+                    allServices.add((Service)operation.getOwner());
+                }
+            }
+        }
+        return allServices;
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFController#getServicesPackagesReferences()
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    protected List<PackageFacade> handleGetServicesPackagesReferences() {
+        return (List<PackageFacade>)new FilteredCollection(this.getSourceDependencies())
+        {
+            private static final long serialVersionUID = 134L;
+            @Override
+            public boolean evaluate(final Object object)
+            {
+                return ((DependencyFacade)object).getTargetElement() instanceof PackageFacade;
+            }
+        };
     }
 }

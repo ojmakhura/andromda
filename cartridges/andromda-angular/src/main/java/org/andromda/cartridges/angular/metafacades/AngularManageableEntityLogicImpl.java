@@ -16,6 +16,12 @@ public class AngularManageableEntityLogicImpl
     extends AngularManageableEntityLogic
 {
     private static final long serialVersionUID = 34L;
+    
+    /**
+     * The logger instance.
+     */
+    private static final Logger LOGGER = Logger.getLogger(AngularManageableEntityLogicImpl.class);
+
     /**
      * Public constructor for AngularManageableEntityLogicImpl
      * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity
@@ -26,644 +32,848 @@ public class AngularManageableEntityLogicImpl
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.viewName
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getViewName()
+     * @return getName().toLowerCase() + "-crud"
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getViewName()
      */
     protected String handleGetViewName()
     {
-        // TODO put your implementation here.
-        return null;
+        return this.getName().toLowerCase() + "-crud";
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.viewTitleKey
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getViewTitleKey()
+     * @return toResourceMessageKey(this.getName()) + ".view.title"
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getViewTitleKey()
      */
     protected String handleGetViewTitleKey()
     {
-        // TODO put your implementation here.
-        return null;
+        return StringUtilsHelper.toResourceMessageKey(this.getName()) + ".view.title";
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.viewTitleValue
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getViewTitleValue()
+     * @return StringUtilsHelper.toPhrase(getName())
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getViewTitleValue()
      */
     protected String handleGetViewTitleValue()
     {
-        // TODO put your implementation here.
-        return null;
+        return StringUtilsHelper.toPhrase(getName());
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.listName
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getListName()
+     * @return "manageableList"
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getListName()
      */
     protected String handleGetListName()
     {
-        // TODO put your implementation here.
-        return null;
+        return "manageableList";
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.formBeanType
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getFormBeanType()
+     * @return getManageablePackageName() + getNamespaceProperty() + this.getFormBeanClassName()
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getFormBeanType()
      */
     protected String handleGetFormBeanType()
     {
-        // TODO put your implementation here.
-        return null;
+        return this.getManageablePackageName() + this.getNamespaceProperty() + this.getFormBeanClassName();
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.formBeanName
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getFormBeanName()
+     * @return formBeanName
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getFormBeanName()
      */
     protected String handleGetFormBeanName()
     {
-        // TODO put your implementation here.
-        return null;
+        final String pattern = ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.FORM_BEAN_PATTERN));
+        final String formBeanName = pattern.replaceFirst("\\{0\\}", "manage");
+        return formBeanName.replaceFirst("\\{1\\}", this.getName());
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.exceptionKey
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getExceptionKey()
+     * @return StringUtilsHelper.toResourceMessageKey(this.getName()) + ".exception"
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getExceptionKey()
      */
     protected String handleGetExceptionKey()
     {
-        // TODO put your implementation here.
-        return null;
+        return StringUtilsHelper.toResourceMessageKey(this.getName()) + ".exception";
     }
 
     /**
-     * The fully qualified name of the action class that execute the manageable actions.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getActionType()
+     * @return getManageablePackageName() + getNamespaceProperty() + getActionClassName()
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getActionType()
      */
     protected String handleGetActionType()
     {
-        // TODO put your implementation here.
-        return null;
+        return this.getManageablePackageName() + this.getNamespaceProperty() + this.getActionClassName();
     }
 
     /**
-     * The fully qualified path to the action class that execute the manageable actions.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getActionFullPath()
+     * @return '/' + StringUtils.replace(this.getActionType(), getNamespaceProperty(), "/")
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getActionFullPath()
      */
     protected String handleGetActionFullPath()
     {
-        // TODO put your implementation here.
-        return null;
+        return '/' + StringUtils.replace(this.getActionType(), this.getNamespaceProperty(), "/");
     }
 
     /**
-     * The path to the action class that execute the manageable actions.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getActionPath()
+     * @return '/' + getName() + "/Manage"
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getActionPath()
      */
     protected String handleGetActionPath()
     {
-        // TODO put your implementation here.
-        return null;
+        return super.getActionFullPath();
     }
 
     /**
-     * The name of the action class that executes the manageable actions.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getActionClassName()
+     * @return "Manage" + getName()
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getActionClassName()
      */
     protected String handleGetActionClassName()
     {
-        // TODO put your implementation here.
-        return null;
+        return getName();
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.exceptionPath
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getExceptionPath()
+     * @return getViewFullPath()
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getExceptionPath()
      */
     protected String handleGetExceptionPath()
     {
-        // TODO put your implementation here.
-        return null;
+        return this.getViewFullPath();
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.preload
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#isPreload()
+     * @return false
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#isPreload()
      */
     protected boolean handleIsPreload()
     {
-        // TODO put your implementation here.
-        return false;
+        return false; //TODO think about...
+//        return this.isCreate() || this.isRead() || this.isUpdate() || this.isDelete();
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.formBeanClassName
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getFormBeanClassName()
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityLogic#getManageableIdentifier()
+     */
+    @Override
+    public org.andromda.metafacades.uml.ManageableEntityAttribute getManageableIdentifier()
+    {
+        return super.getManageableIdentifier();
+    }
+
+    /**
+     * @return StringUtils.capitalize(this.getFormBeanName())
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getFormBeanClassName()
      */
     protected String handleGetFormBeanClassName()
     {
-        // TODO put your implementation here.
-        return null;
+        return StringUtils.capitalize(this.getFormBeanName());
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.formBeanFullPath
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getFormBeanFullPath()
+     * @return StringUtils.replace(getFormBeanType(), getNamespaceProperty(), "/")
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getFormBeanFullPath()
      */
     protected String handleGetFormBeanFullPath()
     {
-        // TODO put your implementation here.
-        return null;
+        return StringUtils.replace(this.getFormBeanType(), this.getNamespaceProperty(), "/");
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.listGetterName
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getListGetterName()
+     * @return "getManageableList"
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getListGetterName()
      */
     protected String handleGetListGetterName()
     {
-        // TODO put your implementation here.
-        return null;
+        return "getManageableList";
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.listSetterName
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getListSetterName()
+     * @return "setManageableList"
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getListSetterName()
      */
     protected String handleGetListSetterName()
     {
-        // TODO put your implementation here.
-        return null;
+        return "setManageableList";
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.messageKey
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getMessageKey()
+     * @return StringUtilsHelper.toResourceMessageKey(this.getName())
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getMessageKey()
      */
     protected String handleGetMessageKey()
     {
-        // TODO put your implementation here.
-        return null;
+        return StringUtilsHelper.toResourceMessageKey(this.getName());
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.messageValue
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getMessageValue()
+     * @return StringUtilsHelper.toPhrase(this.getName())
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getMessageValue()
      */
     protected String handleGetMessageValue()
     {
-        // TODO put your implementation here.
-        return null;
+        return StringUtilsHelper.toPhrase(this.getName());
     }
 
     /**
-     * The key to lookup the online help documentation.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getOnlineHelpKey()
+     * @return getMessageKey() + ".online.help"
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getOnlineHelpKey()
      */
     protected String handleGetOnlineHelpKey()
     {
-        // TODO put your implementation here.
-        return null;
+        return this.getMessageKey() + ".online.help";
     }
 
     /**
-     * The online help documentation. The format is HTML without any style.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getOnlineHelpValue()
+     * @return onlineHelpValue
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getOnlineHelpValue()
      */
     protected String handleGetOnlineHelpValue()
     {
-        // TODO put your implementation here.
-        return null;
+        final String value = StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
+        return (value == null) ? "No entity documentation has been specified" : value;
     }
 
     /**
-     * The full path to this entity's online help action. The returned String does not have a suffix
-     * such as '.do'.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getOnlineHelpActionPath()
+     * @return getActionPath() + "Help"
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getOnlineHelpActionPath()
      */
     protected String handleGetOnlineHelpActionPath()
     {
-        // TODO put your implementation here.
-        return null;
+        return this.getActionPath() + "Help";
     }
 
     /**
-     * The full path to this entitiy's online help page. The returned String does not have a suffix
-     * such as '.jsp'.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getOnlineHelpPagePath()
+     * @return '/' + getManageablePackagePath() + '/' + getName().toLowerCase() + "_help"
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getOnlineHelpPagePath()
      */
     protected String handleGetOnlineHelpPagePath()
     {
-        // TODO put your implementation here.
-        return null;
+        return '/' + this.getManageablePackagePath() + '/' + this.getName().toLowerCase() + "_help";
     }
 
     /**
-     * True if it is possible to export the table data to XML, CSV, PDF or Excel format.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#isTableExportable()
+     * @return getTableExportTypes().indexOf("none") == -1
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#isTableExportable()
      */
     protected boolean handleIsTableExportable()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.getTableExportTypes().indexOf("none") == -1;
     }
 
     /**
-     * Tthe available types of export in a single String instance.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getTableExportTypes()
+     * @return null
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getTableExportTypes()
      */
     protected String handleGetTableExportTypes()
     {
-        // TODO put your implementation here.
         return null;
+        //TODO a resolver
+//        return JSFUtils.getDisplayTagExportTypes(
+//            this.findTaggedValues(JSFProfile.TAGGEDVALUE_TABLE_EXPORT),
+//            (String)getConfiguredProperty(JSFGlobals.PROPERTY_DEFAULT_TABLE_EXPORT_TYPES) );
     }
 
     /**
-     * The maximum number of rows to be displayed in the table at the same time. This is also known
-     * as the page size. A value of zero or less will display all data in the same table (therefore
-     * also on the same page).
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getTableMaxRows()
+     * @return tableMaxRows
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getTableMaxRows()
      */
     protected int handleGetTableMaxRows()
     {
-        // TODO put your implementation here.
-        return 0;
+        final Object taggedValue = this.findTaggedValue(JSFProfile.TAGGEDVALUE_TABLE_MAXROWS);
+        int pageSize;
+
+        try
+        {
+            pageSize = Integer.parseInt(String.valueOf(taggedValue));
+        }
+        catch (Exception e)
+        {
+            pageSize = JSFProfile.TAGGEDVALUE_TABLE_MAXROWS_DEFAULT_COUNT;
+        }
+
+        return pageSize;
     }
 
     /**
-     * True if it is possible to sort the columns of the table.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#isTableSortable()
+     * @return tableSortable
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#isTableSortable()
      */
     protected boolean handleIsTableSortable()
     {
-        // TODO put your implementation here.
-        return false;
+        final Object taggedValue = this.findTaggedValue(JSFProfile.TAGGEDVALUE_TABLE_SORTABLE);
+        return (taggedValue == null)
+            ? JSFProfile.TAGGEDVALUE_TABLE_SORTABLE_DEFAULT_VALUE
+            : Boolean.valueOf(String.valueOf(taggedValue)).booleanValue();
     }
 
     /**
-     * Fully qualified name of this manageable controller.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getControllerType()
+     * @return controllerType
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getControllerType()
      */
-    protected String handleGetControllerType()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
+     protected String handleGetControllerType()
+     {
+         return this.getManageablePackageName() + this.getNamespaceProperty() + this.getControllerName();
+     }
 
     /**
-     * The bean name of this manageable controller (this is what is stored in the JSF configuration
-     * file).
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getControllerBeanName()
+     * @return StringUtils.uncapitalize(this.getName()) + "Controller"
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getControllerBeanName()
      */
     protected String handleGetControllerBeanName()
     {
-        // TODO put your implementation here.
-        return null;
+        return StringUtils.uncapitalize(this.getName()) + "Controller";
     }
 
     /**
-     * Full path of this manageable controller.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getControllerFullPath()
+     * @return '/' + StringUtils.replace(getControllerType(), getNamespaceProperty(), "/")
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getControllerFullPath()
      */
     protected String handleGetControllerFullPath()
     {
-        // TODO put your implementation here.
-        return null;
+        return '/' + StringUtils.replace(this.getControllerType(), this.getNamespaceProperty(), "/");
     }
 
     /**
-     * Manageable controller class name.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getControllerName()
+     * @return getName() + "Controller"
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getControllerName()
      */
     protected String handleGetControllerName()
     {
-        // TODO put your implementation here.
-        return null;
+        return this.getName() + "Controller";
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.valueObjectClassName
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getValueObjectClassName()
+     * @return getName() + this.getConfiguredProperty(JSFGlobals.CRUD_VALUE_OBJECT_SUFFIX)
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getValueObjectClassName()
      */
     protected String handleGetValueObjectClassName()
     {
-        // TODO put your implementation here.
-        return null;
+        return getName() + this.getConfiguredProperty(JSFGlobals.CRUD_VALUE_OBJECT_SUFFIX);
     }
 
     /**
-     * The calcuated serial version UID for this action's form.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getFormSerialVersionUID()
+     * @return formSerialVersionUID
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getFormSerialVersionUID()
      */
     protected String handleGetFormSerialVersionUID()
     {
-        // TODO put your implementation here.
-        return null;
+        final StringBuilder buffer = new StringBuilder();
+        buffer.append(this.getFormBeanType());
+        addSerialUIDData(buffer);
+        return JSFUtils.calcSerialVersionUID(buffer);
     }
 
     /**
-     * The calcuated serial version UID for this manageable actions.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getActionSerialVersionUID()
+     * @return actionSerialVersionUID
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getActionSerialVersionUID()
      */
     protected String handleGetActionSerialVersionUID()
     {
-        // TODO put your implementation here.
-        return null;
+        final StringBuilder buffer = new StringBuilder();
+        buffer.append(this.getActionFullPath());
+        addSerialUIDData(buffer);
+        return JSFUtils.calcSerialVersionUID(buffer);
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.populatorName
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getPopulatorName()
+     * @return populatorName
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getPopulatorName()
      */
     protected String handleGetPopulatorName()
     {
-        // TODO put your implementation here.
-        return null;
+        return ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.VIEW_POPULATOR_PATTERN)).replaceAll(
+            "\\{0\\}",
+            StringUtilsHelper.upperCamelCaseName(this.getFormBeanClassName()));
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.populatorFullPath
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getPopulatorFullPath()
+     * @return '/' + StringUtils.replace(getPopulatorType(), getNamespaceProperty(), "/")
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getPopulatorFullPath()
      */
     protected String handleGetPopulatorFullPath()
     {
-        // TODO put your implementation here.
-        return null;
+        return '/' + StringUtils.replace(this.getPopulatorType(), this.getNamespaceProperty(), "/");
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.populatorType
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getPopulatorType()
+     * @return getManageablePackageName() + getNamespaceProperty() + getPopulatorName()
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getPopulatorType()
      */
     protected String handleGetPopulatorType()
     {
-        // TODO put your implementation here.
-        return null;
+        return this.getManageablePackageName() + this.getNamespaceProperty() + this.getPopulatorName();
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.viewFullPath
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getViewFullPath()
+     * @return '/' + getManageablePackagePath() + '/' + getViewName()
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getViewFullPath()
      */
     protected String handleGetViewFullPath()
     {
-        // TODO put your implementation here.
-        return null;
+        return '/' + this.getManageablePackagePath() + '/' + this.getViewName();
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.validationRequired
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#isValidationRequired()
-     */
-    protected boolean handleIsValidationRequired()
-    {
-        // TODO put your implementation here.
-        return false;
-    }
-
-    /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.searchFormBeanName
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getSearchFormBeanName()
-     */
-    protected String handleGetSearchFormBeanName()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.searchFormBeanType
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getSearchFormBeanType()
-     */
-    protected String handleGetSearchFormBeanType()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.searchFormBeanFullPath
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getSearchFormBeanFullPath()
-     */
-    protected String handleGetSearchFormBeanFullPath()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.searchFormBeanClassName
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getSearchFormBeanClassName()
-     */
-    protected String handleGetSearchFormBeanClassName()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.manageableSearchAttributes
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getManageableSearchAttributes()
-     */
-    protected Collection handleGetManageableSearchAttributes()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.manageableSearchAssociationEnds
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getManageableSearchAssociationEnds()
-     */
-    protected Collection handleGetManageableSearchAssociationEnds()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.needsFileUpload
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#isNeedsFileUpload()
-     */
-    protected boolean handleIsNeedsFileUpload()
-    {
-        // TODO put your implementation here.
-        return false;
-    }
-
-    /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.converterFullPath
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getConverterFullPath()
-     */
-    protected String handleGetConverterFullPath()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.converterType
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getConverterType()
-     */
-    protected String handleGetConverterType()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.converterClassName
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getConverterClassName()
-     */
-    protected String handleGetConverterClassName()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.odsExportFullPath
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getOdsExportFullPath()
+     * @return '/' + getManageablePackagePath() + '/' + getName().toLowerCase() + "-ods-export"
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getViewFullPath()
      */
     protected String handleGetOdsExportFullPath()
     {
-        // TODO put your implementation here.
-        return null;
+        return '/' + this.getManageablePackagePath() + '/' + this.getName().toLowerCase()+".ods-export";
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.needsUserInterface
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#isNeedsUserInterface()
+     * @return isValidationRequired
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#isValidationRequired()
      */
-    protected boolean handleIsNeedsUserInterface()
+    protected boolean handleIsValidationRequired()
     {
-        // TODO put your implementation here.
+        for (final ManageableEntityAttribute attribute : this.getManageableAttributes())
+        {
+            if(attribute instanceof JSFManageableEntityAttribute)
+            {
+                final JSFManageableEntityAttribute jsfAttribute = (JSFManageableEntityAttribute)attribute;
+                if (jsfAttribute.isValidationRequired())
+                {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
     /**
-     * Returns true if the user needs to modify the standard behavior and a Impl.java file will be
-     * created in web/src/main/java.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#isNeedsImplementation()
+     * @return searchFormBeanName
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getSearchFormBeanName()
      */
-    protected boolean handleIsNeedsImplementation()
+    protected String handleGetSearchFormBeanName()
     {
-        // TODO put your implementation here.
-        return false;
+        final String pattern = ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.FORM_BEAN_PATTERN));
+        final String formBeanName = pattern.replaceFirst("\\{0\\}", "manage");
+        return formBeanName.replaceFirst("\\{1\\}",this.getName() + "Search");
     }
 
     /**
-     * Full path of this manageable search filter.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getSearchFilterFullPath()
+     * @return searchFormBeanType
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getSearchFormBeanType()
      */
-    protected String handleGetSearchFilterFullPath()
+    protected String handleGetSearchFormBeanType()
     {
-        // TODO put your implementation here.
-        return null;
+        return this.getManageablePackageName() + this.getNamespaceProperty() + this.getSearchFormBeanClassName();
     }
 
     /**
-     * Search filter class name.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getSearchFilterName()
+     * @return searchFormBeanFullPath
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getSearchFormBeanFullPath()
      */
-    protected String handleGetSearchFilterName()
+    protected String handleGetSearchFormBeanFullPath()
     {
-        // TODO put your implementation here.
-        return null;
+        return StringUtils.replace(this.getSearchFormBeanType(), this.getNamespaceProperty(), "/");
     }
 
     /**
-     * The calculated serial version UID for this controller.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getSearchFilterSerialVersionUID()
+     * @return StringUtils.capitalize(this.getSearchFormBeanName())
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getSearchFormBeanClassName()
      */
-    protected String handleGetSearchFilterSerialVersionUID()
+    protected String handleGetSearchFormBeanClassName()
     {
-        // TODO put your implementation here.
-        return null;
+        return StringUtils.capitalize(this.getSearchFormBeanName());
+    }
+
+    private Boolean usingManageableSearchable=null;
+    private boolean isUsingManageableSearchable()
+    {
+        if(usingManageableSearchable == null)
+        {
+            for(final ManageableEntityAttribute attr: getManageableAttributes())
+            {
+                if(BooleanUtils.toBoolean(ObjectUtils.toString(attr.findTaggedValue(JSFProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE))))
+                {
+                    usingManageableSearchable=true;
+                    break;
+                }
+            }
+            if(usingManageableSearchable == null)
+            {
+                for(final ManageableEntityAssociationEnd end: getManageableAssociationEnds())
+                {
+                    //TODO constant should go to JSFProfile of UMLPROFILE
+                    if(BooleanUtils.toBoolean(ObjectUtils.toString(end.findTaggedValue(JSFProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE))))
+                    {
+                        usingManageableSearchable=true;
+                        break;
+                    }
+                }
+            }
+            if(usingManageableSearchable == null)
+            {
+                usingManageableSearchable = false;
+            }
+        }
+        return usingManageableSearchable;
+    }
+    
+    
+    /**
+     * @return manageableSearchAttributes
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getManageableSearchAttributes()
+     */
+    protected Collection<JSFManageableEntityAttribute> handleGetManageableSearchAttributes()
+    {
+        final Collection<JSFManageableEntityAttribute> searchAttributes=new ArrayList<JSFManageableEntityAttribute>();
+        
+        if(isUsingManageableSearchable())
+        {
+            for(final ManageableEntityAttribute attr: getManageableAttributes())
+            {
+                if(BooleanUtils.toBoolean(ObjectUtils.toString(attr.findTaggedValue(JSFProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE))))
+                {
+                    searchAttributes.add((JSFManageableEntityAttribute)attr);
+                }
+            }
+        }
+        else
+        {
+            for(ManageableEntityAttribute attr: getManageableAttributes())
+            {
+                if(attr.isDisplay() && !attr.getType().isBlobType() && !attr.getType().isClobType())
+                {
+                    searchAttributes.add((JSFManageableEntityAttribute)attr);
+                }
+            }
+        }
+
+        return searchAttributes;
     }
 
     /**
-     * returns all editable attributes
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getManageableEditAttributes()
+     * @return getManageableAssociationEnds()
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getManageableSearchAssociationEnds()
      */
-    protected Collection handleGetManageableEditAttributes()
+    protected Collection<ManageableEntityAssociationEnd> handleGetManageableSearchAssociationEnds()
     {
-        // TODO put your implementation here.
-        return null;
+        final Collection<ManageableEntityAssociationEnd> searchAssociationEnds=new ArrayList<ManageableEntityAssociationEnd>();
+        
+        if(isUsingManageableSearchable())
+        {
+            for(final ManageableEntityAssociationEnd end: getManageableAssociationEnds())
+            {
+                if(BooleanUtils.toBoolean(ObjectUtils.toString(end.findTaggedValue(JSFProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE)))
+                   || end.isComposition())
+                {
+                    searchAssociationEnds.add(end);
+                }
+            }
+        }
+        else
+        {
+            for(final ManageableEntityAssociationEnd end: getManageableAssociationEnds())
+            {
+                if(end.isDisplay() || end.isComposition())
+                {
+                    searchAssociationEnds.add(end);
+                }
+            }
+        }
+
+        return searchAssociationEnds;
     }
 
     /**
-     * Master/details associations: composition with reverse visibility.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getManageableDetailsAssociationsEnds()
-     */
-    protected Collection handleGetManageableDetailsAssociationsEnds()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.isSearchable
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#isSearchable(Object)
+     * @param element
+     * @return isSearchable
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#isSearchable(Object)
      */
     protected boolean handleIsSearchable(Object element)
     {
-        // TODO put your implementation here.
-        return false;
+       return getManageableSearchAttributes().contains(element) || getManageableSearchAssociationEnds().contains(element);
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity.getActionRoles
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getActionRoles()
+     * @return the configured property denoting the character sequence to use for the separation of namespaces
      */
-    protected String handleGetActionRoles()
+    private String getNamespaceProperty()
     {
-        // TODO put your implementation here.
-        return null;
+        return (String)this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR);
+    }
+
+   private void addSerialUIDData(StringBuilder buffer)
+   {
+       for (final ManageableEntityAttribute attribute : this.getManageableAttributes())
+       {
+           buffer.append(attribute.getName());
+       }
+       for (final ManageableEntityAssociationEnd end : this.getManageableAssociationEnds())
+       {
+           buffer.append(end.getName());
+       }
+   }
+
+   /**
+    * @return allRoles
+    * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getRoles()
+    */
+   @SuppressWarnings("rawtypes")
+protected Collection handleGetRoles()
+   {
+       //copied form the Service <<Metafacade>>
+       final Collection<DependencyFacade> roles = new ArrayList<DependencyFacade>(this.getTargetDependencies());
+       CollectionUtils.filter(roles, new Predicate()
+       {
+           public boolean evaluate(final Object object)
+           {
+               DependencyFacade dependency = (DependencyFacade)object;
+               return dependency != null && dependency.getSourceElement() instanceof Role;
+           }
+       });
+       CollectionUtils.transform(roles, new Transformer()
+       {
+           public Object transform(final Object object)
+           {
+               return ((DependencyFacade)object).getSourceElement();
+           }
+       });
+       @SuppressWarnings({ "unchecked" })
+    final Collection allRoles = new LinkedHashSet(roles);
+       // add all roles which are generalizations of this one
+       CollectionUtils.forAllDo(roles, new Closure()
+       {
+           @SuppressWarnings("unchecked")
+        public void execute(final Object object)
+           {
+               allRoles.addAll(((Role)object).getAllSpecializations());
+           }
+       });
+       return allRoles;
+   }
+
+   /**
+    * @return actionRoles
+    * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getActionRoles()
+    */
+   protected String handleGetActionRoles()
+   {
+       //copied from JSFUseCaseLogicImpl
+       final StringBuilder rolesBuffer = new StringBuilder();
+       boolean first = true;
+       for (final Role role : this.getRoles())
+       {
+           if (first)
+           {
+               first = false;
+           }
+           else
+           {
+               rolesBuffer.append(',');
+           }
+           rolesBuffer.append(role.getName());
+       }
+       return rolesBuffer.toString();
+   }
+
+   /**
+    * @return needsFileUpload
+    * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#isNeedsFileUpload()
+    */
+   protected boolean handleIsNeedsFileUpload()
+   {
+       for (final ManageableEntityAttribute attribute : this.getManageableAttributes())
+       {
+           if(attribute instanceof JSFManageableEntityAttribute)
+           {
+               final JSFManageableEntityAttribute jsfAttribute = (JSFManageableEntityAttribute)attribute;
+               if(jsfAttribute.isNeedsFileUpload())
+               {
+                   return true;
+               }
+           }
+       }
+       return false;
+   }
+
+   /**
+    * @return needsUserInterface
+    * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#isNeedsUserInterface()
+    */
+   protected boolean handleIsNeedsUserInterface()
+   {
+       if(isAbstract())
+       {
+           return false;
+       }
+       for (final ManageableEntityAttribute attribute : this.getManageableAttributes())
+       {
+           if(attribute instanceof JSFManageableEntityAttribute)
+           {
+               final JSFManageableEntityAttribute jsfAttribute = (JSFManageableEntityAttribute)attribute;
+               if(!jsfAttribute.isHidden())
+               {
+                   return true;
+               }
+           }
+       }
+       for (final ManageableEntityAssociationEnd associationEnd : this.getManageableAssociationEnds())
+       {
+           if(associationEnd instanceof JSFManageableEntityAssociationEnd)
+           {
+               final JSFManageableEntityAssociationEnd jsfAssociationEnd = (JSFManageableEntityAssociationEnd)associationEnd;
+               if(!jsfAssociationEnd.isDisplay())
+               {
+                   return true;
+               }
+           }
+       }
+       return false;
+   }
+
+   /**
+    * @return converterClassName
+    * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getConverterClassName
+    */
+    public String handleGetConverterClassName()
+    {
+        return StringUtils.replace(
+            ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.CONVERTER_PATTERN)),
+            "{0}",
+            this.getName());
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntity
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntity#getRoles()
+     * @return converterType
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getConverterType
      */
-    protected Collection<Role> handleGetRoles()
+     public String handleGetConverterType()
+     {
+         return this.getManageablePackageName() + this.getNamespaceProperty() + this.getConverterClassName();
+     }
+
+    /**
+     * @return converterFullPath
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getConverterFullPath
+     */
+     public String handleGetConverterFullPath()
+     {
+         return StringUtils.replace(this.getConverterType(), this.getNamespaceProperty(), "/");
+     }
+
+    //TODO review
+    @Override
+    public ManageableEntityAttribute getDisplayAttribute() {
+        
+        for(final ManageableEntityAttribute attribute: getManageableAttributes())
+        {
+            if(BooleanUtils.toBoolean(ObjectUtils.toString(attribute.findTaggedValue(JSFProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_DISPLAY))))
+            {
+                return attribute;
+            }
+        }
+        
+        //associations ???
+//        for(final ManageableEntityAssociationEnd associationEnd: getManageableAssociationEnds())
+//        {
+//            if(BooleanUtils.toBoolean(ObjectUtils.toString(associationEnd.findTaggedValue("andromda_manageable_display"))))
+//            {
+//                return associationEnd;
+//            }
+//        }
+        
+        return super.getDisplayAttribute();
+    }
+
+    /**
+     * @return needsImplementation
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#isNeedsImplementation
+     */
+    @Override
+    protected boolean handleIsNeedsImplementation() {
+        final Object generateCrudImpls=this.getConfiguredProperty(JSFGlobals.GENERATE_CRUD_IMPLS);
+        if(generateCrudImpls != null && Boolean.parseBoolean(generateCrudImpls.toString()))
+        {
+            return true;
+        }
+        else
+        {
+            final Object taggedValue = this.findTaggedValue(JSFProfile.ANDROMDA_MANAGEABLE_IMPLEMENTATION);
+            return (taggedValue == null)
+                ? JSFProfile.TAGGEDVALUE_MANAGEABLE_IMPLEMENTATION_DEFAULT_VALUE
+                : Boolean.valueOf(String.valueOf(taggedValue)).booleanValue();
+        }
+    }
+
+    @Override
+    protected String handleGetSearchFilterFullPath() {
+        return '/' + StringUtils.replace(this.getManageablePackageName(), this.getNamespaceProperty(), "/") + '/' + getSearchFilterName();
+    }
+
+    @Override
+    protected String handleGetSearchFilterName() {
+        return this.getName() + "SearchFilter";
+    }
+
+    @Override
+    protected String handleGetSearchFilterSerialVersionUID() {
+        String serialVersionUID = String.valueOf(0L);
+        try
+        {
+            MessageDigest md = MessageDigest.getInstance("SHA");
+            byte[] hashBytes = md.digest(getSearchFilterFullPath().getBytes());
+
+            long hash = 0;
+            for (int ctr = Math.min(
+                        hashBytes.length,
+                        8) - 1; ctr >= 0; ctr--)
+            {
+                hash = (hash << 8) | (hashBytes[ctr] & 0xFF);
+            }
+            serialVersionUID = String.valueOf(hash);
+        }
+        catch (final NoSuchAlgorithmException exception)
+        {
+            final String message = "Error performing ManageableEntity.getSearchFilterSerialVersionUID";
+            LOGGER.error(
+                message,
+                exception);
+        }
+        return serialVersionUID;
+    }
+
+    /**
+     * @return manageableEditAttributes
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getManageableEditAttributes()
+     */
+    @Override
+    protected Collection<JSFManageableEntityAttribute> handleGetManageableEditAttributes() {
+        final Collection<JSFManageableEntityAttribute> editAttributes=new ArrayList<JSFManageableEntityAttribute>();
+        
+        for(final ManageableEntityAttribute attr: getManageableAttributes())
+        {
+            final JSFManageableEntityAttribute jsfAttr=(JSFManageableEntityAttribute)attr;
+            if(jsfAttr.isEditable())
+            {
+                editAttributes.add(jsfAttr);
+            }
+        }
+        return editAttributes;
+    }
+    
+    /**
+     * @return manageableDetailsAssociations
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity#getManageableDetailsAssociations()
+     */
+    @Override
+    protected Collection<ManageableEntityAssociationEnd> handleGetManageableDetailsAssociationsEnds()
     {
-        // TODO add your implementation here!
-        return null;
+        final Collection<ManageableEntityAssociationEnd> manageableDetailsAssociationsEnds = new ArrayList<ManageableEntityAssociationEnd>();
+        
+        for(ManageableEntityAssociationEnd associationEnd: (Collection<ManageableEntityAssociationEnd>)this.getManageableAssociationEnds())
+        {
+            if(associationEnd.isMany() && associationEnd.getType().hasStereotype(UMLProfile.STEREOTYPE_MANAGEABLE) && 
+               associationEnd.getOtherEnd().isNavigable() && associationEnd.getOtherEnd().isComposition())
+            {
+                manageableDetailsAssociationsEnds.add(associationEnd);
+            }
+        }
+
+        return manageableDetailsAssociationsEnds;
     }
 }

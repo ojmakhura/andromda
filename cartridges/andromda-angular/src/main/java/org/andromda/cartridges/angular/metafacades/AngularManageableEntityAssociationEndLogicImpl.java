@@ -24,79 +24,105 @@ public class AngularManageableEntityAssociationEndLogicImpl
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd.messageKey
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getMessageKey()
+     * @return messageKey
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAssociationEnd#getMessageKey()
      */
     protected String handleGetMessageKey()
     {
-        // TODO put your implementation here.
-        return null;
+        final StringBuilder messageKeyBuffer = new StringBuilder();
+
+        final ClassifierFacade ownerType = this.getOtherEnd().getType();
+        if (ownerType instanceof ManageableEntity)
+        {
+            messageKeyBuffer.append(ownerType.getName());
+        }
+        else
+        {
+            messageKeyBuffer.append(ownerType.getName());
+        }
+
+        messageKeyBuffer.append('.');
+        messageKeyBuffer.append(this.getName());
+
+        return StringUtilsHelper.toResourceMessageKey(messageKeyBuffer.toString());
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd.messageValue
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getMessageValue()
+     * @return messageValue
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAssociationEnd#getMessageValue()
      */
     protected String handleGetMessageValue()
     {
-        // TODO put your implementation here.
-        return null;
+        String messageValue = null;
+
+        final ClassifierFacade type = this.getType();
+        if (type instanceof Entity)
+        {
+            messageValue = this.getName();
+        }
+
+        return StringUtilsHelper.toPhrase(messageValue);
     }
 
     /**
-     * The key to lookup the online help documentation. This documentation is gathered from the
-     * documentation entered by the user, as well as analyzing the model.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getOnlineHelpKey()
+     * @return getMessageKey() + ".online.help"
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAssociationEnd#getOnlineHelpKey()
      */
     protected String handleGetOnlineHelpKey()
     {
-        // TODO put your implementation here.
-        return null;
+        return this.getMessageKey() + ".online.help";
     }
 
     /**
-     * The online help documentation. This documentation is gathered from the documentation entered
-     * by the user, as well as analyzing the model. The format is HTML without any style.
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getOnlineHelpValue()
+     * @return onlineHelpValue
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAssociationEnd#getOnlineHelpValue()
      */
     protected String handleGetOnlineHelpValue()
     {
-        // TODO put your implementation here.
-        return null;
+        final String value = StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
+        return (value == null) ? "No field documentation has been specified" : value;
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd.backingListName
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getBackingListName()
+     * @return backingListName
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAssociationEnd#getBackingListName()
      */
     protected String handleGetBackingListName()
     {
-        // TODO put your implementation here.
-        return null;
+        final String backingListName =
+            StringUtils.replace(
+                Objects.toString(this.getConfiguredProperty(JSFGlobals.BACKING_LIST_PATTERN), ""),
+                "{0}",
+                this.getName());
+        return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd.valueListName
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getValueListName()
+     * @return valueListName
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAssociationEnd#getValueListName()
      */
     protected String handleGetValueListName()
     {
-        // TODO put your implementation here.
-        return null;
+        return Objects.toString(this.getConfiguredProperty(JSFGlobals.VALUE_LIST_PATTERN), "").replaceAll(
+            "\\{0\\}",
+            this.getName());
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd.labelListName
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getLabelListName()
+     * @return labelListName
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAssociationEnd#getLabelListName()
      */
     protected String handleGetLabelListName()
     {
-        // TODO put your implementation here.
-        return null;
+        return Objects.toString(this.getConfiguredProperty(JSFGlobals.LABEL_LIST_PATTERN), "").replaceAll(
+            "\\{0\\}",
+            this.getName());
+    }
+    
+    //TODO should go to ancestor
+    @Override
+    public boolean isDisplay()
+    {
+        return super.isDisplay() && (getType() instanceof ManageableEntity);
     }
 }

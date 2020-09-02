@@ -24,43 +24,120 @@ public class AngularFinalStateLogicImpl
         super(metaObject, context);
     }
 
+    private JSFManageableEntity findManageableByName(String name)
+    {
+        for(ClassifierFacade clazz: getModel().getAllClasses())
+        {
+            if(clazz instanceof JSFManageableEntity && 
+               (clazz.getName().equals(name) || clazz.getFullyQualifiedName().equals(name)))
+            {
+                return (JSFManageableEntity)clazz;
+            }
+        }
+        return null;
+    }
+
     /**
-     * The path to which this final state points.
-     * @see org.andromda.cartridges.angular.metafacades.AngularFinalState#getPath()
+     * @return fullPath
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFFinalState#getPath()
      */
     protected String handleGetPath()
     {
-        // TODO put your implementation here.
-        return null;
+        String fullPath = null;
+
+        FrontEndUseCase useCase = this.getTargetUseCase();
+        if (useCase == null)
+        {
+            // - perhaps this final state links outside of the UML model
+            final Object taggedValue = this.findTaggedValue(UMLProfile.TAGGEDVALUE_EXTERNAL_HYPERLINK);
+            if (taggedValue == null)
+            {
+                String name = getName();
+                if (name != null && (name.startsWith("/") || name.startsWith("http://") || name.startsWith("file:")))
+                {
+                    fullPath = name;
+                }
+            }
+            else
+            {
+                fullPath = String.valueOf(taggedValue);
+            }
+            
+            if(fullPath == null && getName() != null)
+            {
+                fullPath = ((JSFManageableEntity)getTargetElement()).getActionFullPath();
+            }
+            
+        }
+        else if (useCase instanceof JSFUseCase)
+        {
+            fullPath = ((JSFUseCase)useCase).getPath();
+        }
+
+        return fullPath;
     }
 
     /**
-     * The target controller to which this final state points.
-     * @see org.andromda.cartridges.angular.metafacades.AngularFinalState#getTargetControllerFullyQualifiedName()
+     * @return the target controller
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFFinalState#getTargetControllerFullyQualifiedName()
      */
-    protected String handleGetTargetControllerFullyQualifiedName()
-    {
-        // TODO put your implementation here.
-        return null;
+    @Override
+    protected String handleGetTargetControllerFullyQualifiedName() {
+        String result=null;
+        
+        if(getTargetElement() instanceof JSFUseCase)
+        {
+            result=((JSFUseCase)getTargetElement()).getController().getFullyQualifiedName();
+        }
+        else if(getTargetElement() instanceof JSFManageableEntity)
+        {
+            result=((JSFManageableEntity)getTargetElement()).getControllerType();
+        }
+        
+        return result;
     }
 
     /**
-     * The controller bean name to which this final state points.
-     * @see org.andromda.cartridges.angular.metafacades.AngularFinalState#getTargetControllerBeanName()
+     * @return the target controller bean name
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFFinalState#getTargetControllerBeanName()
      */
-    protected String handleGetTargetControllerBeanName()
-    {
-        // TODO put your implementation here.
-        return null;
+    @Override
+    protected String handleGetTargetControllerBeanName() {
+        String result=null;
+        
+        if(getTargetElement() instanceof JSFUseCase)
+        {
+            result=((JSFController)((JSFUseCase)getTargetElement()).getController()).getBeanName();
+        }
+        else if(getTargetElement() instanceof JSFManageableEntity)
+        {
+            result=((JSFManageableEntity)getTargetElement()).getControllerBeanName();
+        }
+        
+        return result;
     }
 
     /**
-     * The element to which this final state points.
-     * @see org.andromda.cartridges.angular.metafacades.AngularFinalState#getTargetElement()
+     * @return the target element (use case or manageable class)
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFFinalState#getTargetElement()
      */
-    protected ModelElementFacade handleGetTargetElement()
-    {
-        // TODO put your implementation here.
-        return null;
+    @Override
+    protected ModelElementFacade handleGetTargetElement() {
+        ModelElementFacade targetElement=getTargetUseCase();
+        
+        if(targetElement == null)
+        {
+            String nameParts[] = getName().split(" ");
+            if(nameParts.length >= 2 && nameParts[0].equalsIgnoreCase("Manage"))
+            {
+                JSFManageableEntity manageable=findManageableByName(nameParts[1]);
+                if(manageable != null)
+                {
+                    return targetElement=manageable;
+                }
+            }
+        }
+        
+        return targetElement;
     }
 }

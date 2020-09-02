@@ -23,43 +23,41 @@ public class AngularEnumerationLogicImpl
     }
 
     /**
-     * The converter name used for this enumeration.
-     * @see org.andromda.cartridges.angular.metafacades.AngularEnumeration#getConverterName()
+     * @return converterName
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFEnumeration#getConverterName()
      */
     protected String handleGetConverterName()
     {
-        // TODO put your implementation here.
-        return null;
+        return StringUtils.replace(
+            Objects.toString(this.getConfiguredProperty(JSFGlobals.CONVERTER_PATTERN), ""),
+            "{0}",
+            this.getName());
     }
 
     /**
-     * The fully qualified converter name for this enumeration.
-     * @see org.andromda.cartridges.angular.metafacades.AngularEnumeration#getFullyQualifiedConverterName()
+     * @return getPackageName() + "." + getConverterName()
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFEnumeration#getFullyQualifiedConverterName()
      */
     protected String handleGetFullyQualifiedConverterName()
     {
-        // TODO put your implementation here.
-        return null;
+        return this.getPackageName() + "." + this.getConverterName();
     }
 
     /**
-     * The path to the converter file.
-     * @see org.andromda.cartridges.angular.metafacades.AngularEnumeration#getConverterPath()
+     * @return getFullyQualifiedConverterName().replace('.', '/')
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFEnumeration#getConverterPath()
      */
     protected String handleGetConverterPath()
     {
-        // TODO put your implementation here.
-        return null;
+        return this.getFullyQualifiedConverterName().replace('.', '/');
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularEnumeration.messageKey
-     * @see org.andromda.cartridges.angular.metafacades.AngularEnumeration#getMessageKey()
+     * @return StringUtilsHelper.toResourceMessageKey(getName())
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFEnumeration#getMessageKey()
      */
     protected String handleGetMessageKey()
     {
-        // TODO put your implementation here.
-        return null;
+        return StringUtilsHelper.toResourceMessageKey(getName());
     }
 }

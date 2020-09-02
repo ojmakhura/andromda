@@ -22,14 +22,27 @@ public class AngularPortletPreferencesLogicImpl
     {
         super(metaObject, context);
     }
-
+    
     /**
-     * Any portlet preferences associated to this use case.
-     * @see org.andromda.cartridges.angular.metafacades.AngularPortletPreferences#getUseCase()
+     * @return useCase
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFPortletPreferences#getUseCase()
      */
     protected Object handleGetUseCase()
     {
-        // TODO add your implementation here!
-        return null;
+        UseCaseFacade useCase = null;
+        final Collection<DependencyFacade> dependencies = this.getTargetDependencies();
+        if (dependencies != null && !dependencies.isEmpty())
+        {
+            for (final DependencyFacade dependency : dependencies)
+            {
+                final ModelElementFacade source = dependency.getSourceElement();
+                if (source instanceof UseCaseFacade)
+                {
+                    useCase = (UseCaseFacade)source;
+                    break;
+                }
+            }
+        }
+        return useCase;
     }
 }

@@ -23,43 +23,61 @@ public class AngularEventLogicImpl
     }
 
     /**
-     * The resource message key for this trigger.
-     * @see org.andromda.cartridges.angular.metafacades.AngularEvent#getMessageKey()
+     * @return triggerKey
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFEvent#getMessageKey()
      */
     protected String handleGetMessageKey()
     {
-        // TODO put your implementation here.
-        return null;
+        String triggerKey = StringUtilsHelper.toResourceMessageKey(getName());
+        if (!this.isNormalizeMessages())
+        {
+            final JSFAction action = (JSFAction)this.getAction();
+            if (action != null)
+            {
+                final JSFView view = (JSFView)action.getInput();
+                if (view != null)
+                {
+                    triggerKey = view.getMessageKey() + '.' + triggerKey;
+                }
+            }
+        }
+        return triggerKey;
     }
 
     /**
-     * The resource message value  for this trigger, this would be the button label or hyperlink
-     * name.
-     * @see org.andromda.cartridges.angular.metafacades.AngularEvent#getMessageValue()
+     * @return StringUtilsHelper.toPhrase(this.getName())
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFEvent#getMessageValue()
      */
     protected String handleGetMessageValue()
     {
-        // TODO put your implementation here.
-        return null;
+        return StringUtilsHelper.toPhrase(this.getName());
     }
 
     /**
-     * The resource message key for the reset button.
-     * @see org.andromda.cartridges.angular.metafacades.AngularEvent#getResetMessageKey()
-     */
-    protected String handleGetResetMessageKey()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * The default value for the reset button's message.
-     * @see org.andromda.cartridges.angular.metafacades.AngularEvent#getResetMessageValue()
+     * @return "Reset"
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFEvent#getResetMessageValue()
      */
     protected String handleGetResetMessageValue()
     {
-        // TODO put your implementation here.
-        return null;
+        return "Reset";
+    }
+
+    /**
+     * @return getMessageKey() + ".reset.message"
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFEvent#getResetMessageKey()
+     */
+    protected String handleGetResetMessageKey()
+    {
+        return this.getMessageKey() + ".reset.message";
+    }
+
+    /**
+     * Indicates whether or not we should normalize messages.
+     * @return normalizeMessages true/false
+     */
+    private boolean isNormalizeMessages()
+    {
+        final String normalizeMessages = (String)getConfiguredProperty(JSFGlobals.NORMALIZE_MESSAGES);
+        return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 }

@@ -23,45 +23,70 @@ public class AngularExceptionHandlerLogicImpl
     }
 
     /**
-     * The key to use with this handler's message resource bundle that will retrieve the error
-     * message template for this exception.
-     * @see org.andromda.cartridges.angular.metafacades.AngularExceptionHandler#getExceptionKey()
+     * <p>
+     * The key to use with this handler's message resource bundle that
+     * will retrieve the error message template for this exception.
+     * </p>
+     * @return exceptionKey
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFExceptionHandler#getExceptionKey()
      */
     protected String handleGetExceptionKey()
     {
-        // TODO put your implementation here.
-        return null;
+        final String type = getExceptionType();
+        final int dotIndex = type.lastIndexOf('.');
+
+        // the dot may not be the last character
+        return StringUtilsHelper.toResourceMessageKey((dotIndex < type.length() - 1)
+            ? type.substring(dotIndex + 1) : type);
     }
 
     /**
-     * The module-relative URI to the resource that will complete the request/response if this
-     * exception occurs.
-     * @see org.andromda.cartridges.angular.metafacades.AngularExceptionHandler#getExceptionPath()
+     * <p>
+     * The module-relative URI to the resource that will complete the
+     * request/response if this exception occurs.
+     * </p>
+     * @return exceptionPath
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFExceptionHandler#getExceptionPath()
      */
     protected String handleGetExceptionPath()
     {
-        // TODO put your implementation here.
-        return null;
+        final StateVertexFacade target = getTarget();
+        if (target instanceof JSFForward)
+        {
+            return (target).getFullyQualifiedNamePath() + ".jsf";
+        }
+        else if (target instanceof JSFFinalState)
+        {
+            return ((JSFFinalState)target).getFullyQualifiedNamePath();
+        }
+        else
+        {
+            return "";
+        }
     }
 
     /**
-     * Fully qualified Java class name of the exception type to register with this handler.
-     * @see org.andromda.cartridges.angular.metafacades.AngularExceptionHandler#getExceptionType()
+     * <p>
+     * Fully qualified Java class name of the exception type to
+     * register with this handler.
+     * </p>
+     * @return exceptionType
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFExceptionHandler#getExceptionType()
      */
     protected String handleGetExceptionType()
     {
-        // TODO put your implementation here.
-        return null;
+        final Object value = this.findTaggedValue(JSFProfile.TAGGEDVALUE_EXCEPTION_TYPE);
+        return value == null ? "" : value.toString();
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularExceptionHandler.messageKey
-     * @see org.andromda.cartridges.angular.metafacades.AngularExceptionHandler#getMessageKey()
+     *
+     * @return messageKey
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFExceptionHandler#getMessageKey()
      */
     protected String handleGetMessageKey()
     {
-        // TODO put your implementation here.
-        return null;
+        final UseCaseFacade useCase = this.getUseCase();
+        return useCase != null ? StringUtilsHelper.toResourceMessageKey(useCase.getName()) : null;
     }
 }
