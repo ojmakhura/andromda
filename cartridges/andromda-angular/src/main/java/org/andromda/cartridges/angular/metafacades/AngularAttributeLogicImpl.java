@@ -4,11 +4,25 @@
 package org.andromda.cartridges.angular.metafacades;
 
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
+
+import org.andromda.cartridges.angular.AngularGlobals;
+import org.andromda.cartridges.angular.AngularProfile;
+import org.andromda.cartridges.angular.AngularUtils;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndParameter;
+import org.andromda.metafacades.uml.FrontEndView;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.utils.StringUtilsHelper;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
- * Represents an attribute on a classifier used by a JSF application.
+ * Represents an attribute on a classifier used by a Angular application.
  * MetafacadeLogic implementation for org.andromda.cartridges.angular.metafacades.AngularAttribute.
  *
  * @see org.andromda.cartridges.angular.metafacades.AngularAttribute
@@ -28,7 +42,7 @@ public class AngularAttributeLogicImpl
 
     /**
      * @return messageKey
-     * @see JSFAttribute#getMessageKey()
+     * @see AngularAttribute#getMessageKey()
      */
     protected String handleGetMessageKey()
     {
@@ -58,13 +72,13 @@ public class AngularAttributeLogicImpl
     private boolean isNormalizeMessages()
     {
         final String normalizeMessages =
-            ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.NORMALIZE_MESSAGES));
+            ObjectUtils.toString(this.getConfiguredProperty(AngularGlobals.NORMALIZE_MESSAGES));
         return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 
     /**
      * @return StringUtilsHelper.toPhrase(super.getName())
-     * @see JSFAttribute#getMessageValue()
+     * @see AngularAttribute#getMessageValue()
      */
     protected String handleGetMessageValue()
     {
@@ -73,11 +87,11 @@ public class AngularAttributeLogicImpl
 
     /**
      * @return format
-     * @see JSFAttribute#getFormat()
+     * @see AngularAttribute#getFormat()
      */
     protected String handleGetFormat()
     {
-        return JSFUtils.getFormat(
+        return AngularUtils.getFormat(
             (ModelElementFacade)this.THIS(),
             this.getType(),
             this.getDefaultDateFormat(),
@@ -89,7 +103,7 @@ public class AngularAttributeLogicImpl
      */
     private String getDefaultTimeFormat()
     {
-        return (String)this.getConfiguredProperty(JSFGlobals.PROPERTY_DEFAULT_TIMEFORMAT);
+        return (String)this.getConfiguredProperty(AngularGlobals.PROPERTY_DEFAULT_TIMEFORMAT);
     }
 
     /**
@@ -97,12 +111,12 @@ public class AngularAttributeLogicImpl
      */
     private String getDefaultDateFormat()
     {
-        return (String)this.getConfiguredProperty(JSFGlobals.PROPERTY_DEFAULT_DATEFORMAT);
+        return (String)this.getConfiguredProperty(AngularGlobals.PROPERTY_DEFAULT_DATEFORMAT);
     }
 
     /**
      * @return dummyValue
-     * @see JSFAttribute#getDummyValue()
+     * @see AngularAttribute#getDummyValue()
      */
     protected String handleGetDummyValue()
     {
@@ -218,15 +232,15 @@ public class AngularAttributeLogicImpl
      */
     private String constructDummyArray()
     {
-        return JSFUtils.constructDummyArrayDeclaration(
+        return AngularUtils.constructDummyArrayDeclaration(
             this.getName(),
-            JSFGlobals.DUMMY_ARRAY_COUNT);
+            AngularGlobals.DUMMY_ARRAY_COUNT);
     }
 
     /**
      * @param ownerParameter
      * @return propertyName
-     * @see JSFAttribute#getFormPropertyName(org.andromda.metafacades.uml.ParameterFacade)
+     * @see AngularAttribute#getFormPropertyName(org.andromda.metafacades.uml.ParameterFacade)
      */
     protected String handleGetFormPropertyName(final ParameterFacade ownerParameter)
     {
@@ -247,13 +261,13 @@ public class AngularAttributeLogicImpl
     /**
      * @param ownerParameter
      * @return backingListName
-     * @see JSFAttribute#getBackingListName(org.andromda.metafacades.uml.ParameterFacade)
+     * @see AngularAttribute#getBackingListName(org.andromda.metafacades.uml.ParameterFacade)
      */
     protected String handleGetBackingListName(final ParameterFacade ownerParameter)
     {
         final String backingListName =
             StringUtils.replace(
-                ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.BACKING_LIST_PATTERN)),
+                ObjectUtils.toString(this.getConfiguredProperty(AngularGlobals.BACKING_LIST_PATTERN)),
                 "{0}",
                 this.getFormPropertyId(ownerParameter));
         return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
@@ -262,13 +276,13 @@ public class AngularAttributeLogicImpl
     /**
      * @param ownerParameter
      * @return backingValueName
-     * @see JSFAttribute#getBackingValueName(org.andromda.metafacades.uml.ParameterFacade)
+     * @see AngularAttribute#getBackingValueName(org.andromda.metafacades.uml.ParameterFacade)
      */
     protected String handleGetBackingValueName(final ParameterFacade ownerParameter)
     {
         final String backingListName =
             StringUtils.replace(
-                ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.BACKING_VALUE_PATTERN)),
+                ObjectUtils.toString(this.getConfiguredProperty(AngularGlobals.BACKING_VALUE_PATTERN)),
                 "{0}",
                 this.getFormPropertyId(ownerParameter));
         return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
@@ -277,12 +291,12 @@ public class AngularAttributeLogicImpl
     /**
      * @param ownerParameter
      * @return labelListName
-     * @see JSFAttribute#getLabelListName(org.andromda.metafacades.uml.ParameterFacade)
+     * @see AngularAttribute#getLabelListName(org.andromda.metafacades.uml.ParameterFacade)
      */
     protected String handleGetLabelListName(final ParameterFacade ownerParameter)
     {
         return StringUtils.replace(
-            ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.LABEL_LIST_PATTERN)),
+            ObjectUtils.toString(this.getConfiguredProperty(AngularGlobals.LABEL_LIST_PATTERN)),
             "{0}",
             this.getFormPropertyId(ownerParameter));
     }
@@ -290,12 +304,12 @@ public class AngularAttributeLogicImpl
     /**
      * @param ownerParameter
      * @return valueListName
-     * @see JSFAttribute#getValueListName(org.andromda.metafacades.uml.ParameterFacade)
+     * @see AngularAttribute#getValueListName(org.andromda.metafacades.uml.ParameterFacade)
      */
     protected String handleGetValueListName(final ParameterFacade ownerParameter)
     {
         return StringUtils.replace(
-            ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.VALUE_LIST_PATTERN)),
+            ObjectUtils.toString(this.getConfiguredProperty(AngularGlobals.VALUE_LIST_PATTERN)),
             "{0}",
             this.getFormPropertyId(ownerParameter));
     }
@@ -303,7 +317,7 @@ public class AngularAttributeLogicImpl
     /**
      * @param ownerParameter
      * @return formPropertyId
-     * @see JSFAttribute#getFormPropertyId(ParameterFacade)
+     * @see AngularAttribute#getFormPropertyId(ParameterFacade)
      */
     protected String handleGetFormPropertyId(final ParameterFacade ownerParameter)
     {
@@ -313,7 +327,7 @@ public class AngularAttributeLogicImpl
     /**
      * @param ownerParameter
      * @return isSelectable
-     * @see JSFAttribute#isSelectable(org.andromda.metafacades.uml.FrontEndParameter)
+     * @see AngularAttribute#isSelectable(org.andromda.metafacades.uml.FrontEndParameter)
      */
     protected boolean handleIsSelectable(final FrontEndParameter ownerParameter)
     {
@@ -340,9 +354,9 @@ public class AngularAttributeLogicImpl
                             parameterIterator.hasNext() && !selectable;)
                         {
                             final FrontEndParameter object = parameterIterator.next();
-                            if (object instanceof JSFParameter)
+                            if (object instanceof AngularParameter)
                             {
-                                final JSFParameter parameter = (JSFParameter)object;
+                                final AngularParameter parameter = (AngularParameter)object;
                                 final String parameterName = parameter.getName();
                                 final ClassifierFacade parameterType = parameter.getType();
                                 if (parameterType != null)
@@ -369,9 +383,9 @@ public class AngularAttributeLogicImpl
                     for (final Iterator<FrontEndParameter> fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !selectable;)
                     {
                         final FrontEndParameter object = fieldIterator.next();
-                        if (object instanceof JSFParameter)
+                        if (object instanceof AngularParameter)
                         {
-                            final JSFParameter parameter = (JSFParameter)object;
+                            final AngularParameter parameter = (AngularParameter)object;
                             if (name.equals(parameter.getName()))
                             {
                                 selectable = parameter.isSelectable();
@@ -386,7 +400,7 @@ public class AngularAttributeLogicImpl
 
     /**
      * @return !this.getValidatorTypes().isEmpty()
-     * @see JSFAttribute#isValidationRequired()
+     * @see AngularAttribute#isValidationRequired()
      */
     protected boolean handleIsValidationRequired()
     {
@@ -395,11 +409,11 @@ public class AngularAttributeLogicImpl
 
     /**
      * @return validatorTypes
-     * @see JSFAttribute#getValidatorTypes()
+     * @see AngularAttribute#getValidatorTypes()
      */
     protected Collection<String> handleGetValidatorTypes()
     {
-        return JSFUtils.getValidatorTypes(
+        return AngularUtils.getValidatorTypes(
             (ModelElementFacade)this.THIS(),
             this.getType());
     }
@@ -407,113 +421,113 @@ public class AngularAttributeLogicImpl
     /**
      * @param ownerParameter
      * @return validatorVars
-     * @see JSFAttribute#getValidatorVars(JSFParameter)
+     * @see AngularAttribute#getValidatorVars(AngularParameter)
      */
-    protected Collection<List<String>> handleGetValidatorVars(JSFParameter ownerParameter)
+    protected Collection<List<String>> handleGetValidatorVars(AngularParameter ownerParameter)
     {
-        return JSFUtils.getValidatorVars(
+        return AngularUtils.getValidatorVars(
             (ModelElementFacade)this.THIS(),
             this.getType(),
             ownerParameter);
     }
 
     /**
-     * @return JSFUtils.getValidWhen(this)
-     * @see JSFAttribute#getValidWhen()
+     * @return AngularUtils.getValidWhen(this)
+     * @see AngularAttribute#getValidWhen()
      */
     protected String handleGetValidWhen()
     {
-        return JSFUtils.getValidWhen(this);
+        return AngularUtils.getValidWhen(this);
     }
 
     /**
-     * @return isInputType(JSFGlobals.INPUT_TEXTAREA)
-     * @see JSFAttribute#isInputTextarea()
+     * @return isInputType(AngularGlobals.INPUT_TEXTAREA)
+     * @see AngularAttribute#isInputTextarea()
      */
     protected boolean handleIsInputTextarea()
     {
-        return this.isInputType(JSFGlobals.INPUT_TEXTAREA);
+        return this.isInputType(AngularGlobals.INPUT_TEXTAREA);
     }
 
     /**
-     * @return isInputType(JSFGlobals.INPUT_SELECT)
-     * @see JSFAttribute#isInputSelect()
+     * @return isInputType(AngularGlobals.INPUT_SELECT)
+     * @see AngularAttribute#isInputSelect()
      */
     protected boolean handleIsInputSelect()
     {
-        return this.isInputType(JSFGlobals.INPUT_SELECT);
+        return this.isInputType(AngularGlobals.INPUT_SELECT);
     }
 
     /**
-     * @return isInputType(JSFGlobals.INPUT_PASSWORD)
-     * @see JSFAttribute#isInputSecret()
+     * @return isInputType(AngularGlobals.INPUT_PASSWORD)
+     * @see AngularAttribute#isInputSecret()
      */
     protected boolean handleIsInputSecret()
     {
-        return this.isInputType(JSFGlobals.INPUT_PASSWORD);
+        return this.isInputType(AngularGlobals.INPUT_PASSWORD);
     }
 
     /**
-     * @return isInputType(JSFGlobals.INPUT_HIDDEN)
-     * @see JSFAttribute#isInputHidden()
+     * @return isInputType(AngularGlobals.INPUT_HIDDEN)
+     * @see AngularAttribute#isInputHidden()
      */
     protected boolean handleIsInputHidden()
     {
-        return this.isInputType(JSFGlobals.INPUT_HIDDEN);
+        return this.isInputType(AngularGlobals.INPUT_HIDDEN);
     }
 
     /**
-     * @return isInputType(JSFGlobals.PLAIN_TEXT)
-     * @see JSFAttribute#isPlaintext()
+     * @return isInputType(AngularGlobals.PLAIN_TEXT)
+     * @see AngularAttribute#isPlaintext()
      */
     protected boolean handleIsPlaintext()
     {
-        return this.isInputType(JSFGlobals.PLAIN_TEXT);
+        return this.isInputType(AngularGlobals.PLAIN_TEXT);
     }
 
     /**
-     * @return isInputType(JSFGlobals.INPUT_RADIO)
-     * @see JSFAttribute#isInputRadio()
+     * @return isInputType(AngularGlobals.INPUT_RADIO)
+     * @see AngularAttribute#isInputRadio()
      */
     protected boolean handleIsInputRadio()
     {
-        return this.isInputType(JSFGlobals.INPUT_RADIO);
+        return this.isInputType(AngularGlobals.INPUT_RADIO);
     }
 
     /**
-     * @return isInputType(JSFGlobals.INPUT_TEXT)
-     * @see JSFAttribute#isInputText()
+     * @return isInputType(AngularGlobals.INPUT_TEXT)
+     * @see AngularAttribute#isInputText()
      */
     protected boolean handleIsInputText()
     {
-        return this.isInputType(JSFGlobals.INPUT_TEXT);
+        return this.isInputType(AngularGlobals.INPUT_TEXT);
     }
 
     /**
-     * @return isInputType(JSFGlobals.INPUT_MULTIBOX)
-     * @see JSFAttribute#isInputMultibox()
+     * @return isInputType(AngularGlobals.INPUT_MULTIBOX)
+     * @see AngularAttribute#isInputMultibox()
      */
     protected boolean handleIsInputMultibox()
     {
-        return this.isInputType(JSFGlobals.INPUT_MULTIBOX);
+        return this.isInputType(AngularGlobals.INPUT_MULTIBOX);
     }
 
     /**
      * @return inputTable
-     * @see JSFAttribute#isInputTable()
+     * @see AngularAttribute#isInputTable()
      */
     protected boolean handleIsInputTable()
     {
-        return this.getInputTableIdentifierColumns().length() > 0 || this.isInputType(JSFGlobals.INPUT_TABLE);
+        return this.getInputTableIdentifierColumns().length() > 0 || this.isInputType(AngularGlobals.INPUT_TABLE);
     }
 
     /**
      * @return inputCheckbox
-     * @see JSFAttribute#isInputCheckbox()
+     * @see AngularAttribute#isInputCheckbox()
      */
     protected boolean handleIsInputCheckbox()
     {
-        boolean checkbox = this.isInputType(JSFGlobals.INPUT_CHECKBOX);
+        boolean checkbox = this.isInputType(AngularGlobals.INPUT_CHECKBOX);
         if (!checkbox && this.getInputType().length() == 0)
         {
             final ClassifierFacade type = this.getType();
@@ -530,7 +544,7 @@ public class AngularAttributeLogicImpl
      */
     private String getInputType()
     {
-        return ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
+        return ObjectUtils.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
     }
 
     /**
@@ -546,7 +560,7 @@ public class AngularAttributeLogicImpl
 
     /**
      * @return inputFile
-     * @see JSFAttribute#isInputFile()
+     * @see AngularAttribute#isInputFile()
      */
     protected boolean handleIsInputFile()
     {
@@ -560,18 +574,18 @@ public class AngularAttributeLogicImpl
     }
 
     /**
-     * Overridden to provide consistent behavior with {@link JSFParameter#isReadOnly()}.
+     * Overridden to provide consistent behavior with {@link AngularParameter#isReadOnly()}.
      *
      * @see org.andromda.metafacades.uml.AttributeFacade#isReadOnly()
      */
     public boolean isReadOnly()
     {
-        return JSFUtils.isReadOnly(this);
+        return AngularUtils.isReadOnly(this);
     }
 
     /**
      * @return constructDummyArray()
-     * @see JSFAttribute#getValueListDummyValue()
+     * @see AngularAttribute#getValueListDummyValue()
      */
     protected String handleGetValueListDummyValue()
     {
@@ -581,30 +595,30 @@ public class AngularAttributeLogicImpl
     /**
      * @param validatorType
      * @return getValidatorArgs
-     * @see JSFAttribute#getValidatorArgs(String)
+     * @see AngularAttribute#getValidatorArgs(String)
      */
     protected Collection handleGetValidatorArgs(final String validatorType)
     {
-        return JSFUtils.getValidatorArgs(
+        return AngularUtils.getValidatorArgs(
             (ModelElementFacade)this.THIS(),
             validatorType);
     }
 
     /**
      * @return isStrictDateFormat
-     * @see JSFAttribute#isStrictDateFormat()
+     * @see AngularAttribute#isStrictDateFormat()
      */
     protected boolean handleIsStrictDateFormat()
     {
-        return JSFUtils.isStrictDateFormat((ModelElementFacade)this.THIS());
+        return AngularUtils.isStrictDateFormat((ModelElementFacade)this.THIS());
     }
 
     /**
      * @param ownerParameter
      * @return dateFormatter
-     * @see JSFAttribute#getDateFormatter(org.andromda.cartridges.jsf2.metafacades.JSFParameter)
+     * @see AngularAttribute#getDateFormatter(org.andromda.cartridges.angular.metafacades.AngularParameter)
      */
-    protected String handleGetDateFormatter(final JSFParameter ownerParameter)
+    protected String handleGetDateFormatter(final AngularParameter ownerParameter)
     {
         final ClassifierFacade type = this.getType();
         return type != null && type.isDateType() ? this.getFormPropertyId(ownerParameter) + "DateFormatter" : null;
@@ -613,9 +627,9 @@ public class AngularAttributeLogicImpl
     /**
      * @param ownerParameter
      * @return timeFormatter
-     * @see JSFAttribute#getTimeFormatter(org.andromda.cartridges.jsf2.metafacades.JSFParameter)
+     * @see AngularAttribute#getTimeFormatter(org.andromda.cartridges.angular.metafacades.AngularParameter)
      */
-    protected String handleGetTimeFormatter(final JSFParameter ownerParameter)
+    protected String handleGetTimeFormatter(final AngularParameter ownerParameter)
     {
         final ClassifierFacade type = this.getType();
         return type != null && type.isTimeType() ? this.getFormPropertyId(ownerParameter) + "TimeFormatter" : null;
@@ -642,18 +656,18 @@ public class AngularAttributeLogicImpl
 
     /**
      * @return isEqualValidator
-     * @see JSFAttribute#isEqualValidator()
+     * @see AngularAttribute#isEqualValidator()
      */
     protected boolean handleIsEqualValidator()
     {
-        final String equal = JSFUtils.getEqual((ModelElementFacade)this.THIS());
+        final String equal = AngularUtils.getEqual((ModelElementFacade)this.THIS());
         return equal != null && equal.trim().length() > 0;
     }
 
     /**
      * @param ownerParameter
      * @return isBackingValueRequired
-     * @see JSFAttribute#isBackingValueRequired(org.andromda.metafacades.uml.FrontEndParameter)
+     * @see AngularAttribute#isBackingValueRequired(org.andromda.metafacades.uml.FrontEndParameter)
      */
     protected boolean handleIsBackingValueRequired(final FrontEndParameter ownerParameter)
     {
@@ -680,9 +694,9 @@ public class AngularAttributeLogicImpl
                             parameterIterator.hasNext() && !required;)
                         {
                             final FrontEndParameter object = parameterIterator.next();
-                            if (object instanceof JSFParameter)
+                            if (object instanceof AngularParameter)
                             {
-                                final JSFParameter parameter = (JSFParameter)object;
+                                final AngularParameter parameter = (AngularParameter)object;
                                 final String parameterName = parameter.getName();
                                 final ClassifierFacade parameterType = parameter.getType();
                                 if (parameterType != null)
@@ -704,15 +718,15 @@ public class AngularAttributeLogicImpl
                 final Collection<FrontEndAction> actions = ownerParameter.getControllerOperation().getDeferringActions();
                 for (final Iterator<FrontEndAction> actionIterator = actions.iterator(); actionIterator.hasNext();)
                 {
-                    final JSFAction action = (JSFAction)actionIterator.next();
+                    final AngularAction action = (AngularAction)actionIterator.next();
                     final Collection<FrontEndParameter> formFields = action.getFormFields();
                     for (final Iterator<FrontEndParameter> fieldIterator = formFields.iterator();
                         fieldIterator.hasNext() && !required;)
                     {
                         final FrontEndParameter object = fieldIterator.next();
-                        if (object instanceof JSFParameter)
+                        if (object instanceof AngularParameter)
                         {
-                            final JSFParameter parameter = (JSFParameter)object;
+                            final AngularParameter parameter = (AngularParameter)object;
                             if (name.equals(parameter.getName()))
                             {
                                 required = parameter.isBackingValueRequired();
@@ -727,7 +741,7 @@ public class AngularAttributeLogicImpl
 
     /**
      * @return present
-     * @see JSFAttribute#isInputTypePresent()
+     * @see AngularAttribute#isInputTypePresent()
      */
     protected boolean handleIsInputTypePresent()
     {
@@ -743,17 +757,17 @@ public class AngularAttributeLogicImpl
     }
 
     /**
-     * @return findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)
-     * @see JSFAttribute#getInputTableIdentifierColumns()
+     * @return findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)
+     * @see AngularAttribute#getInputTableIdentifierColumns()
      */
     protected String handleGetInputTableIdentifierColumns()
     {
-        return Objects.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS), "").trim();
+        return Objects.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS), "").trim();
     }
 
     /**
      * @return maxlength
-     * @see JSFAttribute#getMaxLength()
+     * @see AngularAttribute#getMaxLength()
      */
     protected String handleGetMaxLength()
     {

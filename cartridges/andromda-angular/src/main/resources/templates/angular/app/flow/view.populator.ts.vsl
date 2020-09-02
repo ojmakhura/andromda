@@ -4,7 +4,7 @@
 #if ($stringUtils.isNotEmpty($useCase.packageName))
 #set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${useCase.packageName}), '\\.', '\\/') )
 #end
-#set ( $fileName = $angularHelper.getComponentFileName("${useCase.actionClassName}"))
+#set ( $fileName = $angularUtils.getComponentFileName("${useCase.actionClassName}"))
 #set($commonFields = [])##holds the matching fields in fromForm -> toForm, this block should go to java code
 #set($forms = [])##holds the matching fields in fromForm -> toForm, this block should go to java code
 #foreach ($view in $useCase.views)
@@ -26,15 +26,15 @@
 #end
 #end
 #end
-##foreach ( $form in $angularHelper.getFacadeSet($forms) )
+##foreach ( $form in $angularUtils.getFacadeSet($forms) )
 ##set ( $formPath = $stringUtils.replaceChars($form.packageName, '\\.', '\\/') )
-##set ( $formFile =  ${angularHelper.getComponentFileName("${form.formImplementationName}")})
+##set ( $formFile =  ${angularUtils.getComponentFileName("${form.formImplementationName}")})
 ##import { $form.getFormImplementationName() } from 'src/app/gen/form/$formPath/${formFile}';
 ##end
 #foreach ( $action in $useCase.actions )
 #if(!$action.formFields.empty && !$action.equals($view.formActions))
 #set ( $formPath = $stringUtils.replaceChars($action.packageName, '\\.', '\\/') )
-#set ( $formFile =  ${angularHelper.getComponentFileName("${action.formImplementationName}")})
+#set ( $formFile =  ${angularUtils.getComponentFileName("${action.formImplementationName}")})
 import { $action.getFormImplementationName() } from 'src/app/gen/form/$formPath/${formFile}';
 #end
 #end
@@ -72,7 +72,7 @@ export class $className
      * @param fromForm origin form
      * @param toForm destiny form
      */
-    static populate$angularHelper.getComponentName("${t2}-with-${t1}", "-")(fromForm: $action.getFormImplementationName(), toForm: $viewAction.getFormImplementationName()): $viewAction.getFormImplementationName()
+    static populate$angularUtils.getComponentName("${t2}-with-${t1}", "-")(fromForm: $action.getFormImplementationName(), toForm: $viewAction.getFormImplementationName()): $viewAction.getFormImplementationName()
     {
 #foreach($field in $commonFields)
         if(fromForm.${field.formAttributeSetProperty})
@@ -150,7 +150,7 @@ export class $className
        #if($showElse) else#end if (fromForm instanceof $action.getFormImplementationName())
         {
             toForm = ${className}.
-                populate$angularHelper.getComponentName("${t2}-with-${t1}", "-")
+                populate$angularUtils.getComponentName("${t2}-with-${t1}", "-")
                     (fromForm, toForm);
         }
 #set($showElse = true)

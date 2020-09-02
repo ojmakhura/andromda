@@ -18,8 +18,8 @@ this.startUseCase()
 this.closeDialog()
 #end;
 #elseif ($transition.enteringView)
-#set ($pt = $angularHelper.getComponentFileName(${transition.target.name}))
-#set ( $cls = $angularHelper.getComponentName($pt, "-") )
+#set ($pt = $angularUtils.getComponentFileName(${transition.target.name}))
+#set ( $cls = $angularUtils.getComponentName($pt, "-") )
 '$stringUtils.lowerCase($cls)';
 #elseif ($transition.enteringDecisionPoint)
 this.__${transition.operationCall.name}();
@@ -37,12 +37,12 @@ this.${transition.target.actionMethodName}#if (!$action.formFields.empty)${actio
 #end
 #if ($transition.successMessagesPresent)
 #foreach ($message in $transition.successMessages.entrySet())
-//${indent}${managedBeansPackage}.AngularHelper.addInfoMessage(${messagesFullyQualifiedName}.get('$message.key', (Object[])null));
+//${indent}${managedBeansPackage}.angularUtils.addInfoMessage(${messagesFullyQualifiedName}.get('$message.key', (Object[])null));
 #end
 #end
 #if ($transition.warningMessagesPresent)
 #foreach ($message in $transition.warningMessages.entrySet())
-//${indent}${managedBeansPackage}.AngularHelper.addWarningMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
+//${indent}${managedBeansPackage}.angularUtils.addWarningMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
 #end
 #end
 #end
@@ -56,12 +56,12 @@ this.${transition.target.actionMethodName}#if (!$action.formFields.empty)${actio
 #end
 #if ($transition.successMessagesPresent)
 #foreach ($message in $transition.successMessages.entrySet())
-//${indent}${managedBeansPackage}.AngularHelper.addInfoMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
+//${indent}${managedBeansPackage}.angularUtils.addInfoMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
 #end
 #end
 #if ($transition.warningMessagesPresent)
 #foreach ($message in $transition.warningMessages.entrySet())
-//${indent}${managedBeansPackage}.AngularHelper.addWarningMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
+//${indent}${managedBeansPackage}.angularUtils.addWarningMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
 #end
 #end
 #end

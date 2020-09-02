@@ -1,4 +1,4 @@
 #set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
-#set ( $fileName = $angularHelper.getComponentFileName("${view.name}") )
+#set ( $fileName = $angularUtils.getComponentFileName("${view.name}") )
 /* TODO
  */

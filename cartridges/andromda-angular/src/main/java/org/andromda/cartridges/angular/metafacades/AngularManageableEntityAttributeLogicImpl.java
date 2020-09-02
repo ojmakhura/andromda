@@ -4,7 +4,18 @@
 package org.andromda.cartridges.angular.metafacades;
 
 import java.util.Collection;
+import java.util.Iterator;
+
+import org.andromda.cartridges.angular.AngularGlobals;
+import org.andromda.cartridges.angular.AngularProfile;
+import org.andromda.cartridges.angular.AngularUtils;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.utils.StringUtilsHelper;
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * TODO: Model Documentation for
@@ -28,7 +39,7 @@ public class AngularManageableEntityAttributeLogicImpl
 
     /**
      * @return messageKey
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#getMessageKey()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#getMessageKey()
      */
     protected String handleGetMessageKey()
     {
@@ -45,7 +56,7 @@ public class AngularManageableEntityAttributeLogicImpl
 
     /**
      * @return StringUtilsHelper.toPhrase(getName())
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#getMessageValue()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#getMessageValue()
      */
     protected String handleGetMessageValue()
     {
@@ -54,7 +65,7 @@ public class AngularManageableEntityAttributeLogicImpl
 
     /**
      * @return dateFormat
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#getDateFormat()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#getDateFormat()
      */
     protected String handleGetDateFormat()
     {
@@ -79,7 +90,7 @@ public class AngularManageableEntityAttributeLogicImpl
 
     /**
      * @return getType().isBlobType()
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#isNeedsFileUpload()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#isNeedsFileUpload()
      */
     protected boolean handleIsNeedsFileUpload()
     {
@@ -89,12 +100,12 @@ public class AngularManageableEntityAttributeLogicImpl
     @Override
     public boolean isDisplay()
     {
-        return super.isDisplay() && isEditable() && !JSFProfile.TAGGEDVALUE_INPUT_TYPE_HIDDEN.equals(this.getWidgetType());
+        return super.isDisplay() && isEditable() && !AngularProfile.TAGGEDVALUE_INPUT_TYPE_HIDDEN.equals(this.getWidgetType());
     }
     
     /**
      * @return isHidden
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#isHidden()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#isHidden()
      */
     protected boolean handleIsHidden()
     {
@@ -103,17 +114,17 @@ public class AngularManageableEntityAttributeLogicImpl
 
     /**
      * @return widgetType
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#getWidgetType()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#getWidgetType()
      */
     protected String handleGetWidgetType()
     {
-        final Object widgetTag = findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TYPE);
-        return (widgetTag == null) ? JSFProfile.TAGGEDVALUE_INPUT_TYPE_TEXT : widgetTag.toString();
+        final Object widgetTag = findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TYPE);
+        return (widgetTag == null) ? AngularProfile.TAGGEDVALUE_INPUT_TYPE_TEXT : widgetTag.toString();
     }
 
     /**
      * @return isStrictDateFormat
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#isStrictDateFormat()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#isStrictDateFormat()
      */
     protected boolean handleIsStrictDateFormat()
     {
@@ -123,7 +134,7 @@ public class AngularManageableEntityAttributeLogicImpl
 
     /**
      * @return getMessageKey() + ".online.help"
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#getOnlineHelpKey()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#getOnlineHelpKey()
      */
     protected String handleGetOnlineHelpKey()
     {
@@ -132,7 +143,7 @@ public class AngularManageableEntityAttributeLogicImpl
 
     /**
      * @return getDocumentation
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#getOnlineHelpValue()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#getOnlineHelpValue()
      */
     protected String handleGetOnlineHelpValue()
     {
@@ -142,11 +153,11 @@ public class AngularManageableEntityAttributeLogicImpl
 
     /**
      * @return format
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#getFormat()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#getFormat()
      */
     protected String handleGetFormat()
     {
-        return JSFUtils.getFormat(
+        return AngularUtils.getFormat(
             (ModelElementFacade)this.THIS(),
             this.getType(),
             this.getDefaultDateFormat(),
@@ -154,26 +165,26 @@ public class AngularManageableEntityAttributeLogicImpl
     }
 
     /**
-     * @return getConfiguredProperty(JSFGlobals.PROPERTY_DEFAULT_DATEFORMAT)
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#getDefaultDateFormat()
+     * @return getConfiguredProperty(AngularGlobals.PROPERTY_DEFAULT_DATEFORMAT)
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#getDefaultDateFormat()
      */
     protected String handleGetDefaultDateFormat()
     {
-        return (String)this.getConfiguredProperty(JSFGlobals.PROPERTY_DEFAULT_DATEFORMAT);
+        return (String)this.getConfiguredProperty(AngularGlobals.PROPERTY_DEFAULT_DATEFORMAT);
     }
 
     /**
-     * @return getConfiguredProperty(JSFGlobals.PROPERTY_DEFAULT_TIMEFORMAT)
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#getDefaultTimeFormat()
+     * @return getConfiguredProperty(AngularGlobals.PROPERTY_DEFAULT_TIMEFORMAT)
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#getDefaultTimeFormat()
      */
     protected String handleGetDefaultTimeFormat()
     {
-        return (String)this.getConfiguredProperty(JSFGlobals.PROPERTY_DEFAULT_TIMEFORMAT);
+        return (String)this.getConfiguredProperty(AngularGlobals.PROPERTY_DEFAULT_TIMEFORMAT);
     }
 
     /**
      * @return dateFormatter
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#getDateFormatter()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#getDateFormatter()
      */
     protected String handleGetDateFormatter()
     {
@@ -183,7 +194,7 @@ public class AngularManageableEntityAttributeLogicImpl
 
     /**
      * @return timeFormatter
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#getTimeFormatter()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#getTimeFormatter()
      */
     protected String handleGetTimeFormatter()
     {
@@ -193,13 +204,13 @@ public class AngularManageableEntityAttributeLogicImpl
 
     /**
      * @return backingListName
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#getBackingListName()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#getBackingListName()
      */
     protected String handleGetBackingListName()
     {
         final String backingListName =
             StringUtils.replace(
-                ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.BACKING_LIST_PATTERN)),
+                ObjectUtils.toString(this.getConfiguredProperty(AngularGlobals.BACKING_LIST_PATTERN)),
                 "{0}",
                 this.getName());
         return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
@@ -207,40 +218,40 @@ public class AngularManageableEntityAttributeLogicImpl
 
     /**
      * @return valueListName
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#getValueListName()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#getValueListName()
      */
     protected String handleGetValueListName()
     {
-        return ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.VALUE_LIST_PATTERN)).replaceAll(
+        return ObjectUtils.toString(this.getConfiguredProperty(AngularGlobals.VALUE_LIST_PATTERN)).replaceAll(
             "\\{0\\}",
             this.getName());
     }
 
     /**
      * @return labelListName
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#getLabelListName()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#getLabelListName()
      */
     protected String handleGetLabelListName()
     {
-        return ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.LABEL_LIST_PATTERN)).replaceAll(
+        return ObjectUtils.toString(this.getConfiguredProperty(AngularGlobals.LABEL_LIST_PATTERN)).replaceAll(
             "\\{0\\}",
             this.getName());
     }
 
     /**
      * @return validatorTypes
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#getValidatorTypes()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#getValidatorTypes()
      */
     protected Collection handleGetValidatorTypes()
     {
-        return JSFUtils.getValidatorTypes(
+        return AngularUtils.getValidatorTypes(
             (ModelElementFacade)this.THIS(),
             this.getType());
     }
 
     /**
      * @return !getValidatorTypes().isEmpty()
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#isValidationRequired()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#isValidationRequired()
      */
     protected boolean handleIsValidationRequired()
     {
@@ -249,32 +260,32 @@ public class AngularManageableEntityAttributeLogicImpl
 
     /**
      * @return validatorVars
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#getValidatorVars()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#getValidatorVars()
      */
     protected Collection handleGetValidatorVars()
     {
-        return JSFUtils.getValidatorVars(
+        return AngularUtils.getValidatorVars(
             (ModelElementFacade)this.THIS(),
             this.getType(),
             null);
     }
 
     /**
-     * @return JSFUtils.getValidWhen(this)
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#getValidWhen()
+     * @return AngularUtils.getValidWhen(this)
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#getValidWhen()
      */
     protected String handleGetValidWhen()
     {
-        return JSFUtils.getValidWhen(this);
+        return AngularUtils.getValidWhen(this);
     }
 
     /**
      * @return checkbox
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#isInputCheckbox()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#isInputCheckbox()
      */
     protected boolean handleIsInputCheckbox()
     {
-        boolean checkbox = this.isInputType(JSFGlobals.INPUT_CHECKBOX);
+        boolean checkbox = this.isInputType(AngularGlobals.INPUT_CHECKBOX);
         if (!checkbox && this.getInputType().length() == 0)
         {
             final ClassifierFacade type = this.getType();
@@ -285,7 +296,7 @@ public class AngularManageableEntityAttributeLogicImpl
 
     /**
      * @return file
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#isInputFile()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#isInputFile()
      */
     protected boolean handleIsInputFile()
     {
@@ -299,89 +310,89 @@ public class AngularManageableEntityAttributeLogicImpl
     }
 
     /**
-     * @return isInputType(JSFGlobals.INPUT_HIDDEN)
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#isInputHidden()
+     * @return isInputType(AngularGlobals.INPUT_HIDDEN)
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#isInputHidden()
      */
     protected boolean handleIsInputHidden()
     {
-        return this.isInputType(JSFGlobals.INPUT_HIDDEN);
+        return this.isInputType(AngularGlobals.INPUT_HIDDEN);
     }
 
     /**
-     * @return isInputType(JSFGlobals.INPUT_MULTIBOX)
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#isInputMultibox()
+     * @return isInputType(AngularGlobals.INPUT_MULTIBOX)
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#isInputMultibox()
      */
     protected boolean handleIsInputMultibox()
     {
-        return this.isInputType(JSFGlobals.INPUT_MULTIBOX);
+        return this.isInputType(AngularGlobals.INPUT_MULTIBOX);
     }
 
     /**
-     * @return isInputType(JSFGlobals.INPUT_RADIO)
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#isInputRadio()
+     * @return isInputType(AngularGlobals.INPUT_RADIO)
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#isInputRadio()
      */
     protected boolean handleIsInputRadio()
     {
-        return this.isInputType(JSFGlobals.INPUT_RADIO);
+        return this.isInputType(AngularGlobals.INPUT_RADIO);
     }
 
     /**
-     * @return isInputType(JSFGlobals.INPUT_PASSWORD)
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#isInputSecret()
+     * @return isInputType(AngularGlobals.INPUT_PASSWORD)
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#isInputSecret()
      */
     protected boolean handleIsInputSecret()
     {
-        return this.isInputType(JSFGlobals.INPUT_PASSWORD);
+        return this.isInputType(AngularGlobals.INPUT_PASSWORD);
     }
 
     /**
-     * @return isInputType(JSFGlobals.INPUT_SELECT)
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#isInputSelect()
+     * @return isInputType(AngularGlobals.INPUT_SELECT)
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#isInputSelect()
      */
     protected boolean handleIsInputSelect()
     {
-        return this.isInputType(JSFGlobals.INPUT_SELECT);
+        return this.isInputType(AngularGlobals.INPUT_SELECT);
     }
 
     /**
      * @return isInputTable
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#isInputTable()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#isInputTable()
      */
     protected boolean handleIsInputTable()
     {
-        return this.getInputTableIdentifierColumns().length() > 0 || this.isInputType(JSFGlobals.INPUT_TABLE);
+        return this.getInputTableIdentifierColumns().length() > 0 || this.isInputType(AngularGlobals.INPUT_TABLE);
     }
 
     /**
      * @return inputTableIdentifierColumns
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#getInputTableIdentifierColumns()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#getInputTableIdentifierColumns()
      */
     protected String handleGetInputTableIdentifierColumns()
     {
-        return ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)).trim();
+        return ObjectUtils.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)).trim();
     }
 
     /**
      * @return isInputText
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#isInputText()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#isInputText()
      */
     protected boolean handleIsInputText()
     {
-        return this.isInputType(JSFGlobals.INPUT_TEXT);
+        return this.isInputType(AngularGlobals.INPUT_TEXT);
     }
 
     /**
      * @return isInputTextarea
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#isInputTextarea()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#isInputTextarea()
      */
     protected boolean handleIsInputTextarea()
     {
-        return this.isInputType(JSFGlobals.INPUT_TEXTAREA);
+        return this.isInputType(AngularGlobals.INPUT_TEXTAREA);
     }
 
     /**
      * @return isInputTypePresent
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#isInputTypePresent()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#isInputTypePresent()
      */
     protected boolean handleIsInputTypePresent()
     {
@@ -398,7 +409,7 @@ public class AngularManageableEntityAttributeLogicImpl
 
     /**
      * @return dummyValue
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#getDummyValue()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#getDummyValue()
      */
     protected String handleGetDummyValue()
     {
@@ -509,26 +520,26 @@ public class AngularManageableEntityAttributeLogicImpl
 
     /**
      * @return isEqualValidator
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#isEqualValidator()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#isEqualValidator()
      */
     protected boolean handleIsEqualValidator()
     {
-        final String equal = JSFUtils.getEqual((ModelElementFacade)this.THIS());
+        final String equal = AngularUtils.getEqual((ModelElementFacade)this.THIS());
         return equal != null && equal.trim().length() > 0;
     }
 
     /**
-     * @return isInputType(JSFGlobals.PLAIN_TEXT)
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#isPlaintext()
+     * @return isInputType(AngularGlobals.PLAIN_TEXT)
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#isPlaintext()
      */
     protected boolean handleIsPlaintext()
     {
-        return this.isInputType(JSFGlobals.PLAIN_TEXT);
+        return this.isInputType(AngularGlobals.PLAIN_TEXT);
     }
 
     /**
      * @return constructDummyArray()
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#getValueListDummyValue()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#getValueListDummyValue()
      */
     protected String handleGetValueListDummyValue()
     {
@@ -538,11 +549,11 @@ public class AngularManageableEntityAttributeLogicImpl
     /**
      * @param validatorType
      * @return getValidatorArgs
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#getValidatorArgs(String)
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#getValidatorArgs(String)
      */
     protected Collection handleGetValidatorArgs(String validatorType)
     {
-        return JSFUtils.getValidatorArgs(
+        return AngularUtils.getValidatorArgs(
             (ModelElementFacade)this.THIS(),
             validatorType);
     }
@@ -555,7 +566,7 @@ public class AngularManageableEntityAttributeLogicImpl
      */
     private String getInputType()
     {
-        return ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
+        return ObjectUtils.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
     }
 
     /**
@@ -570,14 +581,14 @@ public class AngularManageableEntityAttributeLogicImpl
     }
 
     /**
-     * Overridden to provide consistent behavior with {@link JSFParameter#isReadOnly()}.
+     * Overridden to provide consistent behavior with {@link AngularParameter#isReadOnly()}.
      *
      * @see org.andromda.metafacades.uml.AttributeFacade#isReadOnly()
      */
     @Override
     public boolean isReadOnly()
     {
-        return JSFUtils.isReadOnly(this);
+        return AngularUtils.isReadOnly(this);
     }
 
     /**
@@ -591,7 +602,7 @@ public class AngularManageableEntityAttributeLogicImpl
         if("org.omg.uml.foundation.core".equals(metaObject.getClass().getPackage().getName()))
         {
             //if uml 1.4, keep the old behavior (like bpm4struts)
-            final Object value = this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_REQUIRED);
+            final Object value = this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_REQUIRED);
             return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
         }
         else
@@ -608,9 +619,9 @@ public class AngularManageableEntityAttributeLogicImpl
      */
     private String constructDummyArray()
     {
-        return JSFUtils.constructDummyArrayDeclaration(
+        return AngularUtils.constructDummyArrayDeclaration(
             this.getName(),
-            JSFGlobals.DUMMY_ARRAY_COUNT);
+            AngularGlobals.DUMMY_ARRAY_COUNT);
     }
 
     private String internalGetDateFormat()
@@ -619,10 +630,10 @@ public class AngularManageableEntityAttributeLogicImpl
 
         if (this.getType() != null && this.getType().isDateType())
         {
-            final Object taggedValueObject = this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_FORMAT);
+            final Object taggedValueObject = this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_FORMAT);
             if (taggedValueObject == null)
             {
-                dateFormat = (String)this.getConfiguredProperty(JSFGlobals.PROPERTY_DEFAULT_DATEFORMAT);
+                dateFormat = (String)this.getConfiguredProperty(AngularGlobals.PROPERTY_DEFAULT_DATEFORMAT);
             }
             else
             {
@@ -636,7 +647,7 @@ public class AngularManageableEntityAttributeLogicImpl
     /**
      * @param ownerParameter
      * @return propertyName
-     * @see JSFAttribute#getFormPropertyName(org.andromda.metafacades.uml.ParameterFacade)
+     * @see AngularAttribute#getFormPropertyName(org.andromda.metafacades.uml.ParameterFacade)
      */
     protected String handleGetFormPropertyName(final ParameterFacade ownerParameter)
     {
@@ -657,7 +668,7 @@ public class AngularManageableEntityAttributeLogicImpl
     /**
      * @param ownerParameter
      * @return StringUtilsHelper.lowerCamelCaseName(this.getFormPropertyName(ownerParameter))
-     * @see JSFAttribute#getFormPropertyId(ParameterFacade)
+     * @see AngularAttribute#getFormPropertyId(ParameterFacade)
      */
     protected String handleGetFormPropertyId(final ParameterFacade ownerParameter)
     {
@@ -696,7 +707,7 @@ public class AngularManageableEntityAttributeLogicImpl
 
     /**
      * @return getColumnLength()
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#getMaxLength()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#getMaxLength()
      */
     protected String handleGetMaxLength()
     {
@@ -718,11 +729,11 @@ public class AngularManageableEntityAttributeLogicImpl
 
     /**
      * @return isEditable
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFManageableEntityAttribute#isEditable()
+     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttribute#isEditable()
      */
     @Override
     protected boolean handleIsEditable() {
-        Object ignore=this.findTaggedValue(JSFProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_IGNORE);
+        Object ignore=this.findTaggedValue(AngularProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_IGNORE);
         return ignore==null || !BooleanUtils.toBoolean(ObjectUtils.toString(ignore));
     }
 }

@@ -42,11 +42,11 @@ import org.apache.commons.text.CaseUtils;
 import org.apache.commons.text.WordUtils;
 import org.apache.log4j.Logger;
 
-public class AngularHelper {
+public class AngularUtils {
     /**
      * The logger instance.
      */
-    private static final Logger logger = Logger.getLogger(AngularHelper.class);
+    private static final Logger logger = Logger.getLogger(AngularUtils.class);
 
     public static Collection<String> getArgumentsAsList(final String args) {
         StringTokenizer st = new StringTokenizer(args, ",");
@@ -769,7 +769,7 @@ public class AngularHelper {
      */
     public static boolean isEmailFormat(String format)
     {
-        return "email".equalsIgnoreCase(AngularHelper.getToken(
+        return "email".equalsIgnoreCase(AngularUtils.getToken(
                 format,
                 0,
                 2));
@@ -783,7 +783,7 @@ public class AngularHelper {
      */
     public static boolean isEqualFormat(String format)
     {
-        return "equal".equalsIgnoreCase(AngularHelper.getToken(format, 0, 2));
+        return "equal".equalsIgnoreCase(AngularUtils.getToken(format, 0, 2));
     }
 
     /**
@@ -793,7 +793,7 @@ public class AngularHelper {
      */
     public static boolean isCreditCardFormat(final String format)
     {
-        return "creditcard".equalsIgnoreCase(AngularHelper.getToken(format, 0, 2));
+        return "creditcard".equalsIgnoreCase(AngularUtils.getToken(format, 0, 2));
     }
 
     /**
@@ -803,7 +803,7 @@ public class AngularHelper {
      */
     public static boolean isPatternFormat(final String format)
     {
-        return "pattern".equalsIgnoreCase(AngularHelper.getToken(format, 0, 2));
+        return "pattern".equalsIgnoreCase(AngularUtils.getToken(format, 0, 2));
     }
 
     /**
@@ -814,7 +814,7 @@ public class AngularHelper {
      */
     public static boolean isMinLengthFormat(final String format)
     {
-        return "minlength".equalsIgnoreCase(AngularHelper.getToken(
+        return "minlength".equalsIgnoreCase(AngularUtils.getToken(
                 format,
                 0,
                 2));
@@ -828,7 +828,7 @@ public class AngularHelper {
      */
     public static boolean isMaxLengthFormat(String format)
     {
-        return "maxlength".equalsIgnoreCase(AngularHelper.getToken(
+        return "maxlength".equalsIgnoreCase(AngularUtils.getToken(
                 format,
                 0,
                 2));
@@ -876,7 +876,7 @@ public class AngularHelper {
      */
     public static boolean isRangeFormat(final String format)
     {
-        return "range".equalsIgnoreCase(AngularHelper.getToken(
+        return "range".equalsIgnoreCase(AngularUtils.getToken(
                 format,
                 0,
                 2));
@@ -1091,7 +1091,7 @@ public class AngularHelper {
      */
     public static String getRangeStart(final String format)
     {
-        return AngularHelper.getToken(
+        return AngularUtils.getToken(
             format,
             1,
             3);
@@ -1103,7 +1103,7 @@ public class AngularHelper {
      */
     public static String getRangeEnd(final String format)
     {
-        return AngularHelper.getToken(
+        return AngularUtils.getToken(
             format,
             2,
             3);
@@ -1115,7 +1115,7 @@ public class AngularHelper {
      */
     public static String getMinLengthValue(final String format)
     {
-        return AngularHelper.getToken(
+        return AngularUtils.getToken(
             format,
             1,
             2);
@@ -1127,7 +1127,7 @@ public class AngularHelper {
      */
     public static String getMaxLengthValue(final String format)
     {
-        return AngularHelper.getToken(
+        return AngularUtils.getToken(
             format,
             1,
             2);
@@ -1139,7 +1139,7 @@ public class AngularHelper {
      */
     public static String getPatternValue(final String format)
     {
-        return '^' + AngularHelper.getToken(
+        return '^' + AngularUtils.getToken(
             format,
             1,
             2) + '$';
@@ -1186,7 +1186,7 @@ public class AngularHelper {
         final Collection<String> validatorTypesList = new ArrayList<String>();
         if (element != null && type != null)
         {
-            final String format = AngularHelper.getInputFormat(element);
+            final String format = AngularUtils.getInputFormat(element);
             final boolean isRangeFormat = format != null && isRangeFormat(format);
             if (element instanceof AttributeFacade)
             {
@@ -1202,54 +1202,54 @@ public class AngularHelper {
                     validatorTypesList.add(VT_REQUIRED);
                 }
             }
-            if (AngularHelper.isByte(type))
+            if (AngularUtils.isByte(type))
             {
                 validatorTypesList.add("byte");
             }
-            else if (AngularHelper.isShort(type))
+            else if (AngularUtils.isShort(type))
             {
                 validatorTypesList.add("short");
             }
-            else if (AngularHelper.isInteger(type))
+            else if (AngularUtils.isInteger(type))
             {
                 validatorTypesList.add("integer");
             }
-            else if (AngularHelper.isLong(type))
+            else if (AngularUtils.isLong(type))
             {
                 validatorTypesList.add("long");
             }
-            else if (AngularHelper.isFloat(type))
+            else if (AngularUtils.isFloat(type))
             {
                 validatorTypesList.add("float");
             }
-            else if (AngularHelper.isDouble(type))
+            else if (AngularUtils.isDouble(type))
             {
                 validatorTypesList.add("double");
             }
-            else if (AngularHelper.isDate(type))
+            else if (AngularUtils.isDate(type))
             {
                 validatorTypesList.add("date");
             }
-            else if (AngularHelper.isTime(type))
+            else if (AngularUtils.isTime(type))
             {
                 validatorTypesList.add("time");
             }
-            else if (AngularHelper.isUrl(type))
+            else if (AngularUtils.isUrl(type))
             {
                 validatorTypesList.add(VT_URL);
             }
 
             if (isRangeFormat)
             {
-                if (AngularHelper.isInteger(type) || AngularHelper.isShort(type) || AngularHelper.isLong(type))
+                if (AngularUtils.isInteger(type) || AngularUtils.isShort(type) || AngularUtils.isLong(type))
                 {
                     validatorTypesList.add(VT_INT_RANGE);
                 }
-                if (AngularHelper.isFloat(type))
+                if (AngularUtils.isFloat(type))
                 {
                     validatorTypesList.add(VT_FLOAT_RANGE);
                 }
-                if (AngularHelper.isDouble(type))
+                if (AngularUtils.isDouble(type))
                 {
                     validatorTypesList.add(VT_DOUBLE_RANGE);
                 }
@@ -1257,11 +1257,11 @@ public class AngularHelper {
 
             if (format != null)
             {
-                if (AngularHelper.isString(type) && AngularHelper.isEmailFormat(format))
+                if (AngularUtils.isString(type) && AngularUtils.isEmailFormat(format))
                 {
                     validatorTypesList.add(VT_EMAIL);
                 }
-                else if (AngularHelper.isString(type) && AngularHelper.isCreditCardFormat(format))
+                else if (AngularUtils.isString(type) && AngularUtils.isCreditCardFormat(format))
                 {
                     validatorTypesList.add(VT_CREDIT_CARD);
                 }
@@ -1271,26 +1271,26 @@ public class AngularHelper {
                     for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
                     {
                         String additionalFormat = String.valueOf(formatIterator.next());
-                        if (AngularHelper.isMinLengthFormat(additionalFormat))
+                        if (AngularUtils.isMinLengthFormat(additionalFormat))
                         {
                             validatorTypesList.add(VT_MIN_LENGTH);
                         }
-                        else if (AngularHelper.isMaxLengthFormat(additionalFormat))
+                        else if (AngularUtils.isMaxLengthFormat(additionalFormat))
                         {
                             validatorTypesList.add(VT_MAX_LENGTH);
                         }
-                        else if (AngularHelper.isPatternFormat(additionalFormat))
+                        else if (AngularUtils.isPatternFormat(additionalFormat))
                         {
                             validatorTypesList.add(VT_MASK);
                         }
                     }
                 }
             }
-            if (AngularHelper.getValidWhen(element) != null)
+            if (AngularUtils.getValidWhen(element) != null)
             {
                 validatorTypesList.add(VT_VALID_WHEN);
             }
-            if (AngularHelper.getEqual(element) != null)
+            if (AngularUtils.getEqual(element) != null)
             {
                 validatorTypesList.add(VT_EQUAL);
             }
@@ -1300,7 +1300,7 @@ public class AngularHelper {
             for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
             {
                 String validator = String.valueOf(iterator.next());
-                validatorTypesList.add(AngularHelper.parseValidatorName(validator));
+                validatorTypesList.add(AngularUtils.parseValidatorName(validator));
             }
         }
         return validatorTypesList;
@@ -1323,10 +1323,10 @@ public class AngularHelper {
         final Map<String, List<String>> vars = new LinkedHashMap<String, List<String>>();
         if (element != null && type != null)
         {
-            final String format = AngularHelper.getInputFormat(element);
+            final String format = AngularUtils.getInputFormat(element);
             if (format != null)
             {
-                final boolean isRangeFormat = AngularHelper.isRangeFormat(format);
+                final boolean isRangeFormat = AngularUtils.isRangeFormat(format);
 
                 if (isRangeFormat)
                 {
@@ -1334,10 +1334,10 @@ public class AngularHelper {
                     final String max = "max";
                     vars.put(
                         min,
-                        Arrays.asList(min, AngularHelper.getRangeStart(format)));
+                        Arrays.asList(min, AngularUtils.getRangeStart(format)));
                     vars.put(
                         max,
-                        Arrays.asList(max, AngularHelper.getRangeEnd(format)));
+                        Arrays.asList(max, AngularUtils.getRangeEnd(format)));
                 }
                 else
                 {
@@ -1348,23 +1348,23 @@ public class AngularHelper {
                         final String minlength = "minlength";
                         final String maxlength = "maxlength";
                         final String mask = "mask";
-                        if (AngularHelper.isMinLengthFormat(additionalFormat))
+                        if (AngularUtils.isMinLengthFormat(additionalFormat))
                         {
                             vars.put(
                                 minlength,
-                                Arrays.asList(minlength, AngularHelper.getMinLengthValue(additionalFormat)));
+                                Arrays.asList(minlength, AngularUtils.getMinLengthValue(additionalFormat)));
                         }
-                        else if (AngularHelper.isMaxLengthFormat(additionalFormat))
+                        else if (AngularUtils.isMaxLengthFormat(additionalFormat))
                         {
                             vars.put(
                                 maxlength,
-                                Arrays.asList(maxlength, AngularHelper.getMaxLengthValue(additionalFormat)));
+                                Arrays.asList(maxlength, AngularUtils.getMaxLengthValue(additionalFormat)));
                         }
-                        else if (AngularHelper.isPatternFormat(additionalFormat))
+                        else if (AngularUtils.isPatternFormat(additionalFormat))
                         {
                             vars.put(
                                 mask,
-                                Arrays.asList(mask, AngularHelper.getPatternValue(additionalFormat)));
+                                Arrays.asList(mask, AngularUtils.getPatternValue(additionalFormat)));
                         }
                     }
                 }
@@ -1387,10 +1387,10 @@ public class AngularHelper {
                 throw new RuntimeException("'element' is an invalid type, it must be either an instance of '" +
                     AngularAttribute.class.getName() + "' or '" + AngularParameter.class.getName() + "'");
             }
-            if (AngularHelper.isDate(type))
+            if (AngularUtils.isDate(type))
             {
                 final String datePatternStrict = "datePatternStrict";
-                if (format != null && AngularHelper.isStrictDateFormat(format))
+                if (format != null && AngularUtils.isStrictDateFormat(format))
                 {
                     vars.put(
                         datePatternStrict,
@@ -1404,7 +1404,7 @@ public class AngularHelper {
                         Arrays.asList(datePattern, inputFormat));
                 }
             }
-            if (AngularHelper.isTime(type))
+            if (AngularUtils.isTime(type))
             {
                 final String timePattern = "timePattern";
                 vars.put(
@@ -1412,7 +1412,7 @@ public class AngularHelper {
                     Arrays.asList(timePattern, inputFormat));
             }
 
-            final String validWhen = AngularHelper.getValidWhen(element);
+            final String validWhen = AngularUtils.getValidWhen(element);
             if (validWhen != null)
             {
                 final String test = "test";
@@ -1421,7 +1421,7 @@ public class AngularHelper {
                     Arrays.asList(test, validWhen));
             }
 
-            final String equal = AngularHelper.getEqual(element, ownerParameter);
+            final String equal = AngularUtils.getEqual(element, ownerParameter);
             if (equal != null)
             {
                 final String fieldName = "fieldName";
@@ -1438,8 +1438,8 @@ public class AngularHelper {
                 final String validator = String.valueOf(value);
 
                 // - guaranteed to be of the same length
-                final List<String> validatorVars = AngularHelper.parseValidatorVars(validator);
-                final List<String> validatorArgs = AngularHelper.parseValidatorArgs(validator);
+                final List<String> validatorVars = AngularUtils.parseValidatorVars(validator);
+                final List<String> validatorArgs = AngularUtils.parseValidatorArgs(validator);
 
                 for (int ctr = 0; ctr < validatorVars.size(); ctr++)
                 {
@@ -1479,8 +1479,8 @@ public class AngularHelper {
         }
         else if ("date".equals(validatorType))
         {
-            final String validatorFormat = AngularHelper.getInputFormat(element);
-            if (AngularHelper.isStrictDateFormat(validatorFormat))
+            final String validatorFormat = AngularUtils.getInputFormat(element);
+            if (AngularUtils.isStrictDateFormat(validatorFormat))
             {
                 args.add("${var:datePatternStrict}");
             }
@@ -1496,7 +1496,7 @@ public class AngularHelper {
         else if ("equal".equals(validatorType))
         {
             ModelElementFacade equalParameter = null;
-            final String equal = AngularHelper.getEqual(element);
+            final String equal = AngularUtils.getEqual(element);
             if (element instanceof ParameterFacade)
             {
                 final FrontEndParameter parameter = (FrontEndParameter)element;
@@ -1532,9 +1532,9 @@ public class AngularHelper {
         for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
         {
             final String validator = String.valueOf(iterator.next());
-            if (validatorType.equals(AngularHelper.parseValidatorName(validator)))
+            if (validatorType.equals(AngularUtils.parseValidatorName(validator)))
             {
-                args.addAll(AngularHelper.parseValidatorArgs(validator));
+                args.addAll(AngularUtils.parseValidatorArgs(validator));
             }
         }
         return args;
@@ -1552,7 +1552,7 @@ public class AngularHelper {
      */
     public void setStrictDateTimeFormat(final boolean strictDateTimeFormat)
     {
-        AngularHelper.strictDateTimeFormat = strictDateTimeFormat;
+        AngularUtils.strictDateTimeFormat = strictDateTimeFormat;
     }
 
     /**
@@ -1563,8 +1563,8 @@ public class AngularHelper {
      */
     public static boolean isStrictDateFormat(final ModelElementFacade element)
     {
-        final String format = AngularHelper.getInputFormat(element);
-        return AngularHelper.isStrictDateFormat(format);
+        final String format = AngularUtils.getInputFormat(element);
+        return AngularUtils.isStrictDateFormat(format);
     }
 
     /**
@@ -1585,7 +1585,7 @@ public class AngularHelper {
         String format = null;
         if (element != null && type != null)
         {
-            format = AngularHelper.getInputFormat(element);
+            format = AngularUtils.getInputFormat(element);
             if (format == null)
             {
                 if(type.isDateType() && type.isTimeType())
@@ -1603,7 +1603,7 @@ public class AngularHelper {
             }
             else if (type.isDateType())
             {
-                format = AngularHelper.getDateFormat(format);
+                format = AngularUtils.getDateFormat(format);
             }
         }
         return format;

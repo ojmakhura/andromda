@@ -21,7 +21,7 @@
 #macro (renderAlternateGetterForPrimitiveBoolean $fieldName $fieldType $defaultGetter)
 #if($defaultGetter.startsWith("is"))
 #set($newGetter = $defaultGetter.replaceFirst("is","get"))
-    public $newGetter(): $angularHelper.getDatatype($fieldType.name)
+    public $newGetter(): $angularUtils.getDatatype($fieldType.name)
     {
         return this.$fieldName;
     }

@@ -16,138 +16,69 @@
     <templateObject name="wordUtils" className="org.apache.commons.lang3.text.WordUtils"/>
     <templateObject name="javaUtils" className="org.andromda.cartridges.java.JavaUtils"/>
     <templateObject name="umlUtils" className="org.andromda.metafacades.uml.UMLMetafacadeUtils"/>
-    <templateObject name="angularHelper" className="org.andromda.cartridges.angular.AngularUtils"/>
+    <templateObject name="angularUtils" className="org.andromda.cartridges.angular.AngularUtils"/>
     <templateObject name="webServiceUtils" className="org.andromda.cartridges.webservice.WebServiceUtils"/>
     <templateObject name="escTool" className="org.apache.velocity.tools.generic.EscapeTool"/>
+    
     
     <!-- cartridge-templateObject merge-point-->
 
     <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
+
     <property reference="generateCrudImpls"/>
-    <property reference="generateRefFiles"/>
+    <property reference="useAjax"/>
     <property reference="componentSet"/>
-    <property reference="overwriteAll"/>
-    <property reference="toDoTag"/>
-    <property reference="enableTemplating"/>
-    <property reference="applicationName"/>    
+    <property reference="xmlEncoding"/>
     <property reference="applicationId"/>
     <property reference="applicationPackage"/>
-    <!--property reference="wsdlSoapAddress"/-->
+    <!--property reference="facesConfig"/-->
+    <!--property reference="jspIncludes"/-->
+    <!--property reference="messageResources"/>
+    <property reference="facesServletExtension"/>
+    <property reference="managedBeansPackage"/>
+    <property reference="testPackage"/-->
+    <property reference="applicationName"/>
+    <property reference="exceptionHandlerPattern"/>
     <property reference="converterPattern"/>
-    <property reference="securityRealm"/>
-    <property reference="testServiceLocatorName"/>
-    <property reference="testServiceLocatorPackage"/>
-    <property reference="servicesPath"/>
-    <property reference="webContext"/>
-    <property reference="ejbJndiUrl"/>
-    <property reference="ejbNamingContextFactory"/>
-    <property reference="sessionTimeout"/>
-    <property reference="webserviceTypesPackage"/>
-    <property reference="wsdlSoapNamespace"/>
-    <property reference="xmlSchemaNamespace"/>
-    <property reference="wsdlNamespace"/>
-    <property reference="wsSecurityNamespace"/>
-    <property reference="wsSecurityImportLocation"/>
-    <property reference="documentStyleTransportNamespace"/>
-    <property reference="xmlEncoding"/>
-    <property reference="signedRequest"/>
-    <property reference="encryptedRequest"/>
-    <property reference="encryptedResponse"/>
-    <property reference="signedResponse"/>
-    <property reference="cryptoKeyStore"/>
-    <property reference="cryptoKeyStoreType"/>
-    <property reference="cryptoKeyStoreAlias"/>
-    <property reference="cryptoAliasPassword"/>
-    <property reference="cryptoKeyStorePassword"/>
-    <property reference="attachmentsDirectory"/>
-    <property reference="javaVersion"/>
-    <property reference="axisVersion"/>
-    <property reference="cxfVersion"/>
-    <property reference="webserviceStack"/>
-    <property reference="soapVersion"/>
-    <property reference="axis2WrappedMessageReceiver"/>
-    <property reference="axis2DefaultMessageReceiver"/>
-    <property reference="axis2GeneratedWrappedMessageReceiverRendersFaultsAsBeans"/>
-    <property reference="springVersion"/>
-    <property reference="extensionInheritanceDisabled"/>
-    <property reference="useArrayWrapper"/>
-    <property reference="useAttributes"/>
-    <property reference="addNamespaceBackslash"/>
-    <property reference="outputGeneratedAnnotationJavadoc"/>
-    <property reference="useEnumValueInXSD"/>
-    <property reference="makeNillable"/>
-    <property reference="webserviceHost"/>
-    <property reference="webservicePort"/>
-    <property reference="namespacePrefix"/>
-    <property reference="qualifiedNameLocalPartPattern"/>
-    <property reference="namespacePattern"/>
-    <property reference="reverseNamespace"/>
-    <property reference="seiSuffix"/>
-    <property reference="defaultStyle"/>
-    <property reference="defaultUse"/>
-    <property reference="defaultParameterStyle"/>
-    <property reference="importedXSD"/>
-    <property reference="validateSchema"/>
-    <property reference="customValidator"/>
-    <property reference="generateMethodImpl"/>
-    <property reference="enableAnnotations"/>
-    <property reference="generateIsBooleanGetters"/>
-    <property reference="generateChainedSetters"/>
-    <property reference="simpleBindingMode"/>
-    <property reference="xjcArguments"/>
-    <property reference="XMLDateAdapter"/>
-    <property reference="XMLDateTimeAdapter"/>
-    <property reference="XMLTimeAdapter"/>
-    <property reference="XMLBooleanAdapter"/>
-    <property reference="XMLIntegerAdapter"/>
-    <property reference="XMLDecimalAdapter"/>
-    <!--property reference="jaxb-gen"/-->
-    <property reference="pluralizeAssociationEndNames"/>
-    <property reference="pluralizeAttributeNames"/>
-    <property reference="pluralizeParameterNames"/>
+    <property reference="actionFormKey"/>
     <property reference="defaultDateFormat"/>
-    
-    <condition name="generateRefFiles">$generateRefFiles.equalsIgnoreCase("true")</condition>
-    <condition name="overwriteAll">$overwriteAll.equalsIgnoreCase("true")</condition>
-    <condition name="enableTemplating">$enableTemplating.equalsIgnoreCase("true")</condition>
-    
-    <condition name="generateRefFiles">$generateRefFiles.equalsIgnoreCase("true")</condition>
-    <condition name="overwriteAll">$overwriteAll.equalsIgnoreCase("true")</condition>
-    <condition name="xfire">$webserviceStack.equalsIgnoreCase("xfire")</condition>
-    <condition name="axis">$webserviceStack.equalsIgnoreCase("axis")</condition>
-    <condition name="axis1">#if ($webserviceStack.equalsIgnoreCase("axis") &amp;&amp; $axisVersion.equals("1"))true#end</condition>
-    <condition name="axis2">#if ($webserviceStack.equalsIgnoreCase("axis") &amp;&amp; $axisVersion.equals("2"))true#end</condition>
-    <condition name="jaxws">$webserviceStack.equalsIgnoreCase("jaxws")</condition>
-    <condition name="cxf">$webserviceStack.equalsIgnoreCase("cxf")</condition>
-    <condition name="xfireRef">#if ($webserviceStack.equalsIgnoreCase("xfire") &amp;&amp; $generateRefFiles.equals("true"))true#end</condition>
-    <condition name="axisRef">#if ($webserviceStack.equalsIgnoreCase("axis") &amp;&amp; $generateRefFiles.equals("true"))true#end</condition>
-    <condition name="axis1Ref">#if ($webserviceStack.equalsIgnoreCase("axis") &amp;&amp; $axisVersion.equals("1") &amp;&amp; $generateRefFiles.equals("true"))true#end</condition>
-    <condition name="axis2Ref">#if ($webserviceStack.equalsIgnoreCase("axis") &amp;&amp; $axisVersion.equals("2") &amp;&amp; $generateRefFiles.equals("true"))true#end</condition>
-    <condition name="jaxwsRef">#if ($webserviceStack.equalsIgnoreCase("jaxws") &amp;&amp; $generateRefFiles.equals("true"))true#end</condition>
-    <condition name="cxfRef">#if ($webserviceStack.equalsIgnoreCase("cxf") &amp;&amp; $generateRefFiles.equals("true"))true#end</condition>
-    <condition name="jbossWeb">$stringUtils.isNotBlank($securityRealm)</condition>
-    <condition name="securityEnabled">$stringUtils.isNotBlank($securityRealm)</condition>
-    <condition name="spring2">$springVersion.startsWith("2")</condition>
-    <condition name="extensionInheritanceDisabled">$extensionInheritanceDisabled.equalsIgnoreCase("true")</condition>
-    <condition name="axis2GeneratedWrappedMessageReceiverRendersFaultsAsBeans">$axis2GeneratedWrappedMessageReceiverRendersFaultsAsBeans.equalsIgnoreCase("true")</condition>
-    <condition name="useArrayWrapper">$useArrayWrapper.equalsIgnoreCase("true")</condition>
-    <condition name="useAttributes">$useAttributes.equalsIgnoreCase("true")</condition>
-    <condition name="addNamespaceBackslash">$addNamespaceBackslash.equalsIgnoreCase("true")</condition>
-    <condition name="useEnumValueInXSD">$useEnumValueInXSD.equalsIgnoreCase("true")</condition>
-    <condition name="outputGeneratedAnnotationJavadoc">$outputGeneratedAnnotationJavadoc.equalsIgnoreCase("true")</condition>
-    <condition name="makeNillable">$makeNillable.equalsIgnoreCase("true")</condition>
-    <condition name="reverseNamespace">$reverseNamespace.equalsIgnoreCase("true")</condition>
-    <condition name="importedXSD">$importedXSD.equalsIgnoreCase("true")</condition>
-    <condition name="validateSchema">$validateSchema.equalsIgnoreCase("true")</condition>
-    <condition name="generateMethodImpl">$generateMethodImpl.equalsIgnoreCase("true")</condition>
-    <condition name="enableAnnotations">$enableAnnotations.equalsIgnoreCase("true")</condition>
-    <condition name="generateIsBooleanGetters">$generateIsBooleanGetters.equalsIgnoreCase("true")</condition>
-    <condition name="generateChainedSetters">$generateChainedSetters.equalsIgnoreCase("true")</condition>
-    <condition name="simpleBindingMode">$simpleBindingMode.equalsIgnoreCase("true")</condition>
-    <condition name="pluralizeAssociationEndNames">$pluralizeAssociationEndNames.equalsIgnoreCase("true")</condition>
-    <condition name="pluralizeAttributeNames">$pluralizeAttributeNames.equalsIgnoreCase("true")</condition>
-    <condition name="pluralizeParameterNames">$pluralizeParameterNames.equalsIgnoreCase("true")</condition>
+    <property reference="defaultTimeFormat"/>
+    <property reference="dummyData"/>
+    <property reference="fileTypeName"/>
+    <property reference="securityRealm"/>
+    <property reference="authenticationType"/>
+    <property reference="loginFileName"/>
+    <property reference="logoutFileName"/>
+    <property reference="virtualHost"/>
+    <property reference="defaultMultiSelectSize"/>
+    <property reference="distributable"/>
+    <property reference="stateSavingMethod"/>
+    <property reference="sessionTimeout"/>
+    <property reference="toDoTag"/>
+    <property reference="strictDateTimeFormat"/>
+    <!--property reference="custom-resources"/-->
+    <!--property reference="formMessagesProperty"/-->
+    <property reference="maxTableRows"/>
+    <property reference="navigationStyle"/>
+    <property reference="fileUploadMaxMemoryPerRequest"/>
+    <property reference="fileUploadMaxDiskSpacePerRequest"/>
+    <property reference="navigationUsesRedirect"/>
+    <property reference="defaultTableExportTypes"/>
+    <property reference="crudValueObjectSuffix"/>
+    <property reference="crudConfirmationMessages"/>
+    <property reference="defaultRole"/>
+    <property reference="loginConfigAuthMethod"/>
+    <property reference="controllerScope"/>
+    <property reference="navigationBeanScope"/>
+    <property reference="trimInputStrings"/>
+    <property reference="crudDetailsSuffix"/>
+    <property reference="webserviceStack"/>
+
+    <!-- cartridge-property merge-point -->
+
     <condition name="angular">$componentSet.equalsIgnoreCase("angular")</condition>
+    <condition name="springws">$webserviceStack.equalsIgnoreCase("spring")</condition>
+    <condition name="securityEnabled">$stringUtils.isNotBlank($securityRealm)</condition>
 
     <template
         path="templates/angular/app/app.module.ts.vsl"

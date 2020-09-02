@@ -1,5 +1,5 @@
 #set ($componentPath = $stringUtils.replaceChars(${service.packageName}, "\\.", "\\/"))
-#set ($fileName = $angularHelper.getComponentFileName("${service.name}Impl"))
+#set ($fileName = $angularUtils.getComponentFileName("${service.name}Impl"))
 #set ($types = [])
 #set ($ret = false)
 #foreach ($operation in $service.operations)
@@ -18,11 +18,11 @@ import { Injectable, Injector } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 #end
 import { Observable } from 'rxjs';
-import { $service.name } from 'src/app/gen/service/$componentPath/$angularHelper.getComponentFileName(${service.name})';
+import { $service.name } from 'src/app/gen/service/$componentPath/$angularUtils.getComponentFileName(${service.name})';
 #set ($suffix = "")
-#foreach ($tmp in $angularHelper.getFacadeSet($types))
+#foreach ($tmp in $angularUtils.getFacadeSet($types))
 #set ($path = $stringUtils.replaceChars(${tmp.packageName}, "\\.", "\\/"))
-import { $tmp.name } from 'src/app/gen/model/$path/$angularHelper.getComponentFileName(${tmp.name})';
+import { $tmp.name } from 'src/app/gen/model/$path/$angularUtils.getComponentFileName(${tmp.name})';
 #end
 
 @Injectable()
@@ -33,17 +33,17 @@ export class ${service.name}Impl extends ${service.name} {
     }
 
 #foreach ($operation in $service.operations)
-#set ($arguments = $angularHelper.getMethodSignatureArguments($operation.arguments))
-#set ($restParams = $angularHelper.getMethodCallArguments($operation.arguments))
-#set ($returnType = $angularHelper.getDatatype($operation.returnType.name))
+#set ($arguments = $angularUtils.getMethodSignatureArguments($operation.arguments))
+#set ($restParams = $angularUtils.getMethodCallArguments($operation.arguments))
+#set ($returnType = $angularUtils.getDatatype($operation.returnType.name))
 #if (!$useArrayWrapper && ($operation.upper > 1 || $operation.upper == -1))
 #set ($returnType = "${returnType}[]")
 #end
 #set ($rType = $returnType)
 #set ($returnType = "Observable<$returnType>")
     public ${operation.name}($arguments): $returnType {
-#set ($methodName = $angularHelper.getWebServiceMethodName($operation))
-#set ($methodPath = $angularHelper.getWebServiceOperationPath($operation.restPath))
+#set ($methodName = $angularUtils.getWebServiceMethodName($operation))
+#set ($methodPath = $angularUtils.getWebServiceOperationPath($operation.restPath))
 #if ( $methodName.equals("get")) 
         return this.http.get<$rType>(this.path + '$methodPath'#foreach($arg in $operation.arguments) + $arg.name#end);
 #elseif ( $methodName.equals("post")) 

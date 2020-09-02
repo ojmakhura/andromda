@@ -7,6 +7,11 @@ package org.andromda.cartridges.angular;
  */
 public class AngularGlobals {
     /**
+     * Should generate Impl classes, always ?.
+     */
+    public static final String GENERATE_CRUD_IMPLS = "generateCrudImpls";
+
+    /**
      * The suffix to append to the class names of CRUD value objects.
      */
     public static final String CRUD_VALUE_OBJECT_SUFFIX = "crudValueObjectSuffix";

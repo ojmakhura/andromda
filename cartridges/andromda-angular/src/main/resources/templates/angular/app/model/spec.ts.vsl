@@ -1,5 +1,5 @@
 #set($destination = $stringUtils.replaceChars(${class.packageName}, "\\.", "\\/"))
-#set($fileName = $angularHelper.getComponentFileName(${class.name}))
+#set($fileName = $angularUtils.getComponentFileName(${class.name}))
 import { ${class.name} } from './$fileName';
 
 describe('${class.name}', () => {

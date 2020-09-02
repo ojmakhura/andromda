@@ -149,7 +149,7 @@ export abstract class ControllerBase
         if(ControllerBase.getUseCaseScope() === null)//can be null if executed from the url
         {
             useCaseParameters = {};
-            //final javax.servlet.http.HttpServletRequest request = AngularHelper.getRequest();
+            //final javax.servlet.http.HttpServletRequest request = angularUtils.getRequest();
             const parameterNames = JSON.parse(localStorage.getItem(ControllerBase.USE_CASE_PARAMETER_NAMES));
             
             for (let key in parameterNames) {

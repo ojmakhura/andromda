@@ -1,5 +1,5 @@
 #set ($componentPath = $stringUtils.replaceChars(${service.packageName}, "\\.", "\\/"))
-#set ($fileName = $angularHelper.getComponentFileName($service.name))
+#set ($fileName = $angularUtils.getComponentFileName($service.name))
 #set ($types = [])
 #set ($ret = false)
 import { BASE_URL } from 'src/app/${stringUtils.lowerCase($applicationId)}.constants';
@@ -18,9 +18,9 @@ import { HttpClient} from '@angular/common/http';
 import { Injector } from '@angular/core';
 #end
 import { Observable } from 'rxjs';
-#foreach ($tmp in $angularHelper.getFacadeSet($types))
+#foreach ($tmp in $angularUtils.getFacadeSet($types))
 #set ($path = $stringUtils.replaceChars(${tmp.packageName}, "\\.", "\\/"))
-import { $tmp.name } from 'src/app/gen/model/$path/$angularHelper.getComponentFileName(${tmp.name})';
+import { $tmp.name } from 'src/app/gen/model/$path/$angularUtils.getComponentFileName(${tmp.name})';
 #end
 
 export abstract class $service.name {
@@ -39,10 +39,10 @@ export abstract class $service.name {
 #end
 #if(${service.attributes.size()} > 0)
 #foreach ($arg in $service.attributes)
-#if($angularHelper.isArray($arg.getterSetterTypeName))
-    $arg.name: Array<$angularHelper.getDatatype($arg.type.name)>;
+#if($angularUtils.isArray($arg.getterSetterTypeName))
+    $arg.name: Array<$angularUtils.getDatatype($arg.type.name)>;
 #else
-    $arg.name: $angularHelper.getDatatype($arg.type.name);
+    $arg.name: $angularUtils.getDatatype($arg.type.name);
 #end
 #end
 
@@ -55,9 +55,9 @@ export abstract class $service.name {
     }
 #end
 #foreach ($operation in $service.operations)
-#set ($arguments = $angularHelper.getMethodSignatureArguments($operation.arguments))
-#set ($argNames = $angularHelper.getMethodCallArguments($operation.arguments))
-#set ($returnType = $angularHelper.getDatatype($operation.returnType.name))
+#set ($arguments = $angularUtils.getMethodSignatureArguments($operation.arguments))
+#set ($argNames = $angularUtils.getMethodCallArguments($operation.arguments))
+#set ($returnType = $angularUtils.getDatatype($operation.returnType.name))
 #if (!$useArrayWrapper && ($operation.upper>1 || $operation.upper==-1))
 #set ($returnType = "$returnType[]")
 #end

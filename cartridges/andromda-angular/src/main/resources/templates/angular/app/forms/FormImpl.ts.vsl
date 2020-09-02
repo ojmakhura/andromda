@@ -1,6 +1,6 @@
 ## Velocity Template.
 #set ( $componentPath = $stringUtils.replaceChars($action.packageName, '\\.', '\\/') )
-#set ( $fileName =  ${angularHelper.getComponentFileName("${action.formImplementationName}")})
+#set ( $fileName =  ${angularUtils.getComponentFileName("${action.formImplementationName}")})
 #set ($generatedFile = "$componentPath/${fileName}.ts")
 #set ($implList = $stringUtils.isNotBlank($action.formImplementationInterfaceList))
 // license-header java merge-point
@@ -9,15 +9,15 @@
 #foreach ($field in $action.formFields)
 #set ($rt = $fields.add($field))
 #end
-#foreach($field in $angularHelper.getFacadeSet($fields))
-#if ($angularHelper.isComplex($field))
+#foreach($field in $angularUtils.getFacadeSet($fields))
+#if ($angularUtils.isComplex($field))
 #set ( $path = $stringUtils.replaceChars($field.type.packageName, '\\.', '\\/') )
-#set ( $file =  ${angularHelper.getComponentFileName("${field.type.name}")})
+#set ( $file =  ${angularUtils.getComponentFileName("${field.type.name}")})
 import { $field.type.name } from 'src/app/gen/model/${path}/$file';
 #end
 #end
 #foreach($opr in $action.getDeferredOperations() )
-import { $opr.formName } from './${angularHelper.getComponentFileName("${opr.formName}")}';
+import { $opr.formName } from './${angularUtils.getComponentFileName("${opr.formName}")}';
 #end
 
 /**
@@ -44,7 +44,7 @@ export class $action.formImplementationName
 #end
 ## Impl uses $action.formFields, Form uses $operation.formFields
 #foreach ($field in $action.formFields)
-#set ($type = $angularHelper.getDatatype($field.type.name))
+#set ($type = $angularUtils.getDatatype($field.type.name))
 #if($field.many)
 #set ($type = "${type}[]")
 #end
