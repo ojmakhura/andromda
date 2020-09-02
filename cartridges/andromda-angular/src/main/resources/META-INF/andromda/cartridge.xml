@@ -5,20 +5,12 @@
 		<macrolibrary name="templates/angular/app/view/renderAngularActionFormInput.vm"/>
 		<macrolibrary name="templates/angular/app/view/renderAngularActionCommandLinkParameter.vm"/>
 		<macrolibrary name="templates/angular/app/view/renderAngularTableCommandLinkParameters.vm"/>
-<!--        <macrolibrary name="templates/jsf2/escapeMacros.vm"/>
-        <macrolibrary name="templates/jsf2/views/facelets/trinidad/renderActionFormInputTrinidad.vm"/>
-        <macrolibrary name="templates/jsf2/views/facelets/primefaces/renderActionFormInputPrimeFaces.vm"/>
-        <macrolibrary name="templates/jsf2/views/renderActionCommandLinkParameter.vm"/>
-        <macrolibrary name="templates/jsf2/views/renderTableCommandLinkParameters.vm"/>
-        -->
         <macrolibrary name="templates/angular/app/controller/controller.ts.vm"/>
         <macrolibrary name="templates/angular/app/forms/angularFormMacros.vm"/>
         <macrolibrary name="templates/angular/app/forms/angularFormImplMacros.vm"/>
-        <!--macrolibrary name="templates/jsf2/configuration/securityMacros.vm"/-->
         <macrolibrary name="templates/webservice/jaxws/RenderRestrictions.vm"/>
     </templateEngine>
 
-    <!-- define the template objects that are made available to the template -->
     <templateObject name="stringUtils" className="org.apache.commons.lang3.StringUtils"/>
     <templateObject name="stringUtilsHelper" className="org.andromda.utils.StringUtilsHelper"/>
     <templateObject name="wordUtils" className="org.apache.commons.lang3.text.WordUtils"/>
@@ -31,8 +23,9 @@
     <!-- cartridge-templateObject merge-point-->
 
     <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
-    
+    <property reference="generateCrudImpls"/>
     <property reference="generateRefFiles"/>
+    <property reference="componentSet"/>
     <property reference="overwriteAll"/>
     <property reference="toDoTag"/>
     <property reference="enableTemplating"/>
@@ -40,6 +33,7 @@
     <property reference="applicationId"/>
     <property reference="applicationPackage"/>
     <!--property reference="wsdlSoapAddress"/-->
+    <property reference="converterPattern"/>
     <property reference="securityRealm"/>
     <property reference="testServiceLocatorName"/>
     <property reference="testServiceLocatorPackage"/>
@@ -153,6 +147,7 @@
     <condition name="pluralizeAssociationEndNames">$pluralizeAssociationEndNames.equalsIgnoreCase("true")</condition>
     <condition name="pluralizeAttributeNames">$pluralizeAttributeNames.equalsIgnoreCase("true")</condition>
     <condition name="pluralizeParameterNames">$pluralizeParameterNames.equalsIgnoreCase("true")</condition>
+    <condition name="angular">$componentSet.equalsIgnoreCase("angular")</condition>
 
     <template
         path="templates/angular/app/app.module.ts.vsl"

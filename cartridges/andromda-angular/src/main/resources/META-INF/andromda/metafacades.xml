@@ -5,6 +5,47 @@
     <property reference="webserviceStack"/>
 	<property reference="normalizeMessages"/>
     
+    <metafacade class="org.andromda.metafacades.emf.uml22.EnumerationLiteralFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.EnumerationLiteralImpl"/>
+        <property reference="enumerationLiteralNameMask"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml22.EnumerationFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.EnumerationImpl"/>
+        <property reference="enumerationNameMask"/>
+        <property reference="typeSafeEnumsEnabled"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml22.EnumerationFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.ClassImpl">
+            <stereotype>ENUMERATION</stereotype>
+        </mapping>
+        <property reference="enumerationNameMask"/>
+        <property reference="typeSafeEnumsEnabled"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
+        <mapping>
+            <stereotype>WEBSERVICE</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
+        <mapping>
+            <stereotype>SERVICE</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl">
+        <mapping>
+            <stereotype>WEBSERVICE_OPERATION</stereotype>
+        </mapping>
+        <property reference="testImplementationOperationNamePrefix"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.java.metafacades.JavaClassLogicImpl"/>
+    <metafacade
+        contextRoot="true"
+        class="org.andromda.cartridges.angular.metafacades.AngularModelLogicImpl">
+        <mapping>
+            <stereotype>ANGULAR_MODEL</stereotype>
+        </mapping>
+    </metafacade>
+
     <metafacade class="org.andromda.cartridges.angular.metafacades.AngularControllerOperationLogicImpl">
         <mapping>
             <property name="ownerIsController"/>
@@ -17,6 +58,11 @@
             <property name="containedInFrontEndUseCase"/>
         </mapping>
         <property reference="actionFormKey"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularSessionObjectLogicImpl">
+        <mapping>
+            <stereotype>FRONT_END_SESSION_OBJECT</stereotype>
+        </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.angular.metafacades.AngularActionLogicImpl">
         <mapping>
@@ -37,9 +83,23 @@
         <property reference="formScope"/>
         <property reference="actionFormKey"/>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.emf.uml22.EnumerationLiteralFacadeLogicImpl">
-        <mapping class="org.eclipse.uml2.uml.internal.impl.EnumerationLiteralImpl"/>
-        <property reference="enumerationLiteralNameMask"/>
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularExceptionHandlerLogicImpl">
+        <mapping>
+            <property name="frontEndException"/>
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularForwardLogicImpl">
+        <mapping>
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularControllerLogicImpl">
+        <mapping>
+            <property name="useCase"/>
+        </mapping>
+        <property reference="controllerImplementationPattern"/>
+        <!--property reference="classifierNameMask"/-->
     </metafacade>
     <metafacade class="org.andromda.cartridges.angular.metafacades.AngularUseCaseLogicImpl">
         <mapping>
@@ -52,7 +112,7 @@
             <stereotype>FRONT_END_USE_CASE</stereotype>
         </mapping>
     </metafacade>
-	<metafacade class="org.andromda.cartridges.angular.metafacades.AngularFinalStateLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularFinalStateLogicImpl">
         <mapping>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
@@ -92,75 +152,57 @@
         <property reference="labelListPattern"/>
         <property reference="valueListPattern"/>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularBackendServiceLogicImpl">
+        <mapping>
+            <stereotype>SERVICE</stereotype>
+        </mapping>
+        <property reference="serviceAccessorPattern"/>
+        <property reference="servicePackageNamePattern"/>
+    </metafacade>
     <metafacade class="org.andromda.cartridges.angular.metafacades.AngularActivityGraphLogicImpl">
         <mapping>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.emf.uml22.EnumerationFacadeLogicImpl">
-        <mapping class="org.eclipse.uml2.uml.internal.impl.EnumerationImpl"/>
-        <property reference="enumerationNameMask"/>
-        <property reference="typeSafeEnumsEnabled"/>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.emf.uml22.EnumerationFacadeLogicImpl">
-        <mapping class="org.eclipse.uml2.uml.internal.impl.ClassImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularEnumerationLogicImpl">
+        <mapping>
             <stereotype>ENUMERATION</stereotype>
         </mapping>
-        <property reference="enumerationNameMask"/>
-        <property reference="typeSafeEnumsEnabled"/>
+        <property reference="converterPattern"/>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
+
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularManageableEntityLogicImpl" contextRoot="true">
         <mapping>
-            <stereotype>WEBSERVICE</stereotype>
+            <stereotype>ENTITY</stereotype>
+            <stereotype>MANAGEABLE</stereotype>
         </mapping>
+        <property reference="generateCrudImpls"/>
+        <property reference="crudValueObjectSuffix"/>
+        <property reference="defaultTableExportTypes"/>
+        <property reference="formBeanPattern"/>
+        <property reference="converterPattern"/>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
+
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularManageableEntityAttributeLogicImpl">
         <mapping>
-            <stereotype>SERVICE</stereotype>
+            <context>org.andromda.cartridges.angular.metafacades.AngularManageableEntity</context>
         </mapping>
+        <property reference="defaultDateFormat"/>
+        <property reference="defaultTimeFormat"/>
+        <property reference="backingListPattern"/>
+        <property reference="labelListPattern"/>
+        <property reference="valueListPattern"/>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl">
+
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEndLogicImpl">
         <mapping>
-            <stereotype>WEBSERVICE_OPERATION</stereotype>
+            <context>org.andromda.cartridges.angular.metafacades.AngularManageableEntity</context>
         </mapping>
-        <property reference="testImplementationOperationNamePrefix"/>
+        <property reference="backingListPattern"/>
+        <property reference="labelListPattern"/>
+        <property reference="valueListPattern"/>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.java.metafacades.JavaClassLogicImpl"/>
-    <metafacade
-        contextRoot="true"
-        class="org.andromda.cartridges.angular.metafacades.AngularModelLogicImpl">
-        <mapping>
-            <stereotype>ANGULAR_MODEL</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularViewLogicImpl">
-        <mapping>
-            <stereotype>ANGULAR_VIEW</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularControllerLogicImpl">
-        <mapping>
-            <stereotype>ANGULAR_CONTROLLER</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularActionLogicImpl">
-        <mapping>
-            <stereotype>ANGULAR_ACTION</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularControllerOperationLogicImpl">
-        <mapping>
-            <property name="ownerIsController"/>
-        </mapping>
-        <property reference="formPattern"/>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularControllerLogicImpl">
-        <mapping>
-            <property name="useCase"/>
-        </mapping>
-        <property reference="controllerImplementationPattern"/>
-        <!--property reference="classifierNameMask"/-->
-    </metafacade>
+
     <metafacade class="org.andromda.cartridges.angular.metafacades.AngularAttributeLogicImpl">
         <mapping/>
         <property reference="defaultDateFormat"/>

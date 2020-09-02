@@ -144,13 +144,6 @@
                     Normally common/src/main/java.
                 </documentation>
             </property>
-            <!--property name="jaxb-gen">
-                <documentation>
-                    The directory to which JAXB generated classes will be generated (i.e. package-info, ObjectFactory),
-                    and to which CXF client generated classes will be copied.
-                    Normally common/target/src/main/java.
-                </documentation>
-            </property-->
             <property name="controllers">
                 <documentation>
                     The location to which any controllers are generated (this outlet
@@ -171,21 +164,8 @@
         </propertyGroup>
         <propertyGroup name="Configuration">
             <documentation>
-               The properties that provide configuration of the JSF configuration files.
+               The properties that provide configuration of the angular configuration files.
             </documentation>
-            <property name="facesConfig">
-                <default>faces-config.xml</default>
-                <documentation>
-                    The name of the JSF configuration file (this file stores the JSF managed bean
-                    form information and navigation rules).
-                </documentation>
-            </property>
-            <property name="facesConfigFiles" required="false">
-                <documentation>
-                    Comma separated list of URIs of (additional) faces config files.
-                    (e.g. /WEB-INF/jsf-config.xml).  See JSF 1.0 PRD2, 10.3.2
-                </documentation>
-            </property>
             <property name="formScope">
                 <default>request</default>
                 <documentation>
@@ -202,12 +182,6 @@
                 <default>request</default>
                 <documentation>
                     The scope to given the navigation items.
-                </documentation>
-            </property>
-            <property name="facesServletExtension">
-                <default>jsf</default>
-                <documentation>
-                    The extension used for the application's handling of JSF pages.
                 </documentation>
             </property>
             <property name="fileUploadMaxMemoryPerRequest">
@@ -286,18 +260,18 @@
                     The number of minutes the session may be idle before timeout occurs.
                 </documentation>
             </property>
+            <property name="converterPattern">
+                <default>{0}JsfConverter</default>
+                <documentation>
+                    The pattern used for constructing converters (like the enumeration converter), where
+                    <em>{0}</em> is the name of the model element.
+                </documentation>
+            </property>
             <property name="distributable">
                 <default>false</default>
                 <documentation>
                     Whether or not the web application should be considered <em>distributable</em>;
                     this means that the session will be persisted and restored.
-                </documentation>
-            </property>
-            <property name="stateSavingMethod">
-                <default>client</default>
-                <documentation>
-                    The JSF state saving method to use within the application (can be
-                    either <em>client</em> or <em>server</em>).
                 </documentation>
             </property>
             <property name="fileTypeName">
@@ -343,34 +317,6 @@
                     possible parameter values when selecting from a list).
                 </documentation>
             </property>
-            <!--property name="converterPattern">
-                <default>{0}JsfConverter</default>
-                <documentation>
-                    The pattern used for constructing converters (like the enumeration converter), where
-                    <em>{0}</em> is the name of the model element.
-                </documentation>
-            </property>
-            <property name="managedBeansPackage">
-                <default>org.andromda.presentation.jsf</default>
-                <documentation>
-                    Defines the the package in which any extra managed-beans will
-                    be generated (such as the layout options class, etc).
-                </documentation>
-            </property-->
-            <!--property name="testPackage">
-                <default>org.andromda.presentation.jsf.test</default>
-                <documentation>
-                    Defines the the package in which any extra test classes will
-                    be generated.
-                </documentation>
-            </property-->
-<!--             <property name="jsfComponentsPackage"> -->
-<!--                 <default>org.andromda.presentation.jsf.components</default> -->
-<!--                 <documentation> -->
-<!--                     Defines the the package to which any JSF components generated by -->
-<!--                     the cartridge reside. -->
-<!--                 </documentation> -->
-<!--             </property> -->
             <property name="xmlEncoding">
                 <default>UTF-8</default>
                 <documentation>
@@ -391,12 +337,6 @@
                     <em>{0}</em> is the name of the controller operation capitalized.
                 </documentation>
             </property>
-            <!--property name="formMessagesProperty">
-                <default>jsfMessages</default>
-                <documentation>
-                    Defines the name of the property on a form that stores messages.
-                </documentation>
-            </property-->
             <property name="formBeanPattern">
                 <default>{0}{1}Form</default>
                 <documentation>
@@ -1193,6 +1133,68 @@
                     The key store password.
                 </documentation>
             </property>
+        </propertyGroup>
+        <propertyGroup name="Manageable Entities">
+            <documentation>
+                Properties related to the generation of the web-tier part of the manageable entities
+                (also known as the CRUD feature).
+            </documentation>
+            <property name="generateCrudImpls">
+                <default>false</default>
+                <documentation>
+                    Generate Impl classes to all manageable entities, despite the andromda_manageable_implementation.
+                </documentation>
+            </property>
+            <property name="crudValueObjectSuffix">
+                <default>ValueObject</default>
+                <documentation>
+                    The suffix to append to the names of generated value objects used in CRUD (manageable entities).
+                </documentation>
+            </property>
+            <property name="crudDetailsSuffix">
+                <default>Details</default>
+                <documentation>
+                    The suffix to append to the names of generated details (in compositions) elements used in CRUD (manageable entities).
+                </documentation>
+            </property>
+            <property name="crudConfirmationMessages">
+                <default>true</default>
+                <documentation>
+                    Show a confirmation message after each CRUD operation.
+                </documentation>
+            </property>
+            <property name="trimInputStrings">
+                <default>false</default>
+                <documentation>
+                    Trim form entered strings;
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="UI Layout">
+            <documentation>
+                Properties related to the configuration of the user interface layout.
+            </documentation>
+            <property name="useAjax">
+                <default>false</default>
+                <documentation>
+                    Generate the forms with Ajax support.
+                </documentation>
+            </property>
+            <property name="componentSet">
+                <default>angular</default>
+                <documentation>
+                    The component set to be used. Supported values are primefaces,trinidad.
+                </documentation>
+            </property>
+            <property name="maxTableRows">
+                <default>10</default>
+                <documentation>
+                    The default value to set for the maximum rows displayed in a table.
+                </documentation>
+            </property>
+            <property name="navigationStyle">
+            	<default>sidebar</default>
+            	<documentation>Controls the way navigation items are displayed</documentation></property>
         </propertyGroup>
     </properties>
 </namespace>
