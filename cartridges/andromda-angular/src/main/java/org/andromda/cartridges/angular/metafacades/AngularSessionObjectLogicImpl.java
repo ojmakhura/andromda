@@ -24,8 +24,8 @@ public class AngularSessionObjectLogicImpl
     }
 
     /**
-     * The full path to the session object file name.
-     * @see org.andromda.cartridges.angular.metafacades.AngularSessionObject#getFullPath()
+     * @return '/' + getFullyQualifiedName().replace('.', '/')
+     * @see org.andromda.cartridges.jsf2.metafacades.JSFSessionObject#getFullPath()
      */
     protected String handleGetFullPath()
     {
