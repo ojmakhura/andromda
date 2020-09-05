@@ -27,10 +27,8 @@ export class $class.name {
 #set ($default = $attribute.defaultValue)
 #elseif($returnType == "File")
 #set ($default = "null")
-#elseif($angularUtils.isArray($attribute.getterSetterTypeName))
-#set ($default = "[]")
-#elseif($attribute.many)
-#set ($returnType = "$returnType[]")
+#elseif($attribute.many || $angularUtils.isArray($attribute.getterSetterTypeName))
+#set ($returnType = "Array<$returnType>")
 #set ($default = "[]")
 #elseif ($attribute.type.name != ${class.name} && $angularUtils.isComplex($attribute) && !$attribute.type.enumeration) ## Avoid cyclic dependency and using new on enumerations
 #set ($default = "new ${attribute.type.name}()")

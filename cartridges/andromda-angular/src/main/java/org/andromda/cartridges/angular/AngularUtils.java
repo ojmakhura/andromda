@@ -527,7 +527,58 @@ public class AngularUtils {
 
         return false;
     }
-/**
+
+    /**
+     * 
+     * 
+     * @param action
+     * @return
+     */
+    public static Collection<AngularAttribute> getStandardAttributes(FrontEndParameter feParameter) {
+
+        List<AngularAttribute> attributes = new ArrayList<>();
+
+        if(feParameter instanceof AngularParameter) {
+            final AngularParameter parameter = (AngularParameter)feParameter;
+            for(Object tmp : parameter.getAttributes()) {
+                AngularAttribute attribute = (AngularAttribute)tmp;
+                if(!isTable(attribute)) {
+                    attributes.add(attribute);
+                }
+            }
+        }
+
+        return attributes;
+    }
+
+    public static Collection<AngularAttribute> getTableAttributes(FrontEndParameter feParameter) {
+
+        List<AngularAttribute> attributes = new ArrayList<>();
+            
+        if(feParameter instanceof AngularParameter) {
+            final AngularParameter parameter = (AngularParameter)feParameter;
+            for(Object tmp : parameter.getAttributes()) {
+                AngularAttribute attribute = (AngularAttribute)tmp;
+                if(isTable(attribute)) {
+                    attributes.add(attribute);
+                }
+            }
+        }
+
+        return attributes;
+    }
+
+    public static String getNameFromPath(final String path) {
+
+        if(StringUtils.isBlank(path)) {
+            return "";
+        }
+
+        String[] splits = path.split("/");
+        return splits[splits.length - 1];
+    }
+
+    /**
      * Converts the argument into a web resource name, this means: all lowercase
      * characters and words are separated with dashes.
      *
@@ -1718,5 +1769,9 @@ public class AngularUtils {
     public int calculateIcefacesTimeout(String string)
     {
         return string != null ? Integer.valueOf(string) * 6000 : 0;
+    }
+
+    public static String removeFormFromParams(String formCall) {
+        return formCall.replace("form", "");
     }
 }

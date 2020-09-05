@@ -31,12 +31,6 @@
     <property reference="xmlEncoding"/>
     <property reference="applicationId"/>
     <property reference="applicationPackage"/>
-    <!--property reference="facesConfig"/-->
-    <!--property reference="jspIncludes"/-->
-    <!--property reference="messageResources"/>
-    <property reference="facesServletExtension"/>
-    <property reference="managedBeansPackage"/>
-    <property reference="testPackage"/-->
     <property reference="applicationName"/>
     <property reference="exceptionHandlerPattern"/>
     <property reference="converterPattern"/>
@@ -56,8 +50,6 @@
     <property reference="sessionTimeout"/>
     <property reference="toDoTag"/>
     <property reference="strictDateTimeFormat"/>
-    <!--property reference="custom-resources"/-->
-    <!--property reference="formMessagesProperty"/-->
     <property reference="maxTableRows"/>
     <property reference="navigationStyle"/>
     <property reference="fileUploadMaxMemoryPerRequest"/>

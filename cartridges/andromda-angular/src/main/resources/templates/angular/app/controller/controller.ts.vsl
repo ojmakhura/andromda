@@ -198,7 +198,6 @@ $actionState.getDocumentation("     * ")
 ${ident}        this.get${serviceCall.owner.name}().${serviceCall.name}(#foreach($args in $serviceCall.arguments)form.${args.getterName}()#end);
 #end
 #foreach ($controllerCall in $actionState.controllerCalls)
-    
 #if (!$action.actionFormFields.empty)
 ${ident}        this.$angularUtils.removeFormFromParams($controllerCall.formCall);
 #else
