@@ -10,8 +10,9 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Represents an operation for a JSF controller. MetafacadeLogic implementation
- * for org.andromda.cartridges.angular.metafacades.AngularControllerOperation.
+ * Represents an operation for a Angular controller. MetafacadeLogic
+ * implementation for
+ * org.andromda.cartridges.angular.metafacades.AngularControllerOperation.
  *
  * @see org.andromda.cartridges.angular.metafacades.AngularControllerOperation
  */
@@ -29,16 +30,17 @@ public class AngularControllerOperationLogicImpl
     }
 
     /**
-     * The fully qualified path of the form file.
-     * @see org.andromda.cartridges.angular.metafacades.AngularControllerOperation#getFullyQualifiedFormPath()
+     * @return formName
+     * @see org.andromda.cartridges.angular.metafacades.AngularControllerOperation#getFormName()
      */
-    protected String handleGetFullyQualifiedFormPath()
+    protected String handleGetFormName()
     {
-        return this.getFullyQualifiedFormName().replace('.', '/');
+        final String pattern = Objects.toString(this.getConfiguredProperty(AngularGlobals.FORM_PATTERN), "");
+        return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
     }
 
     /**
-     * The fully qualified form name.
+     * @return fullyQualifiedFormName
      * @see org.andromda.cartridges.angular.metafacades.AngularControllerOperation#getFullyQualifiedFormName()
      */
     protected String handleGetFullyQualifiedFormName()
@@ -53,17 +55,16 @@ public class AngularControllerOperationLogicImpl
     }
 
     /**
-     * The form name the corresponds to this controller operation.
-     * @see org.andromda.cartridges.angular.metafacades.AngularControllerOperation#getFormName()
+     * @return getFullyQualifiedFormName().replace('.', '/')
+     * @see org.andromda.cartridges.angular.metafacades.AngularControllerOperation#getFullyQualifiedFormPath()
      */
-    protected String handleGetFormName()
+    protected String handleGetFullyQualifiedFormPath()
     {
-        final String pattern = Objects.toString(this.getConfiguredProperty(AngularGlobals.FORM_PATTERN), "");
-        return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
+        return this.getFullyQualifiedFormName().replace('.', '/');
     }
 
     /**
-     * The operation call that takes the appropriate form as an argument.
+     * @return formCall
      * @see org.andromda.cartridges.angular.metafacades.AngularControllerOperation#getFormCall()
      */
     protected String handleGetFormCall()
@@ -80,23 +81,21 @@ public class AngularControllerOperationLogicImpl
     }
 
     /**
-     * The controller operation signature that takes the appropriate form (if this operation has at
-     * least one form field) as an argument.
-     * @see org.andromda.cartridges.angular.metafacades.AngularControllerOperation#getFormSignature()
-     */
-    protected String handleGetFormSignature()
-    {
-        return this.getFormSignature(true);
-    }
-
-    /**
-     * The controller implementation operation signature that takes the appropriate form (if this
-     * operation has at least one form field) as an argument.
+     * @return getFormSignature(false)
      * @see org.andromda.cartridges.angular.metafacades.AngularControllerOperation#getImplementationFormSignature()
      */
     protected String handleGetImplementationFormSignature()
     {
         return this.getFormSignature(false);
+    }
+
+    /**
+     * @return getFormSignature(true)
+     * @see org.andromda.cartridges.angular.metafacades.AngularControllerOperation#getFormSignature()
+     */
+    protected String handleGetFormSignature()
+    {
+        return this.getFormSignature(true);
     }
 
     /**
@@ -108,20 +107,19 @@ public class AngularControllerOperationLogicImpl
     private String getFormSignature(boolean isAbstract)
     {
         final StringBuilder signature = new StringBuilder();
-        //signature.append(this.getVisibility() + ' ');
+        signature.append(this.getVisibility() + ' ');
         if (isAbstract)
         {
             signature.append("abstract ");
         }
+        final ModelElementFacade returnType = this.getReturnType();
+        signature.append(returnType != null ? returnType.getFullyQualifiedName() : null);
         signature.append(" " + this.getName() + "(");
         if (!this.getFormFields().isEmpty())
         {
-            signature.append("form: " + this.getFormName());
+            signature.append(this.getFormName() + " form");
         }
-        signature.append("): ");
-
-        final ModelElementFacade returnType = this.getReturnType();
-        signature.append(returnType != null ? returnType.getFullyQualifiedName() : null);
+        signature.append(")");
         return signature.toString();
     }
 }

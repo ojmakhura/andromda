@@ -1,5 +1,5 @@
 #set($destination = $stringUtils.replaceChars(${enumeration.packageName}, "\\.", "\\/"))
-#set($fileName = $angularHelper.getComponentFileName(${enumeration.name}))
+#set($fileName = $angularUtils.getComponentFileName(${enumeration.name}))
 #if ($umlUtils.shouldOutput($enumeration))
 // license-header angular merge-point
 //

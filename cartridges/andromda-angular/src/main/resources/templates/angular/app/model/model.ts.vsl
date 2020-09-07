@@ -1,18 +1,18 @@
 #set($destination = $stringUtils.replaceChars(${class.packageName}, "\\.", "\\/"))
-#set($fileName = $angularHelper.getComponentFileName(${class.name}))
+#set($fileName = $angularUtils.getComponentFileName(${class.name}))
 #set ($attributes = [])
 import { Injectable } from '@angular/core';
 import { prop, model, propArray, propObject } from '@rxweb/reactive-form-validators';
 
 #foreach ($tmp in $class.attributes)
-#if ($angularHelper.isComplex($tmp))
+#if ($angularUtils.isComplex($tmp))
 #if($tmp.type.name != ${class.name})
 #set ( $ret = $attributes.add($tmp.type) )
 #end
 #end
 #end
 #set ($suffix = "")
-#foreach ($tmp in $angularHelper.getImports($attributes, ${class.packageName}, $suffix))
+#foreach ($tmp in $angularUtils.getImports($attributes, ${class.packageName}, $suffix))
 $tmp
 #end
 
@@ -22,17 +22,15 @@ export class $class.name {
 #foreach ($attribute in $class.attributes)
 
 ### Find the return type and the default values
-#set ($returnType = $angularHelper.getDatatype($attribute.getterSetterTypeName))
+#set ($returnType = $angularUtils.getDatatype($attribute.getterSetterTypeName))
 #if($attribute.defaultValuePresent)
 #set ($default = $attribute.defaultValue)
 #elseif($returnType == "File")
 #set ($default = "null")
-#elseif($angularHelper.isArray($attribute.getterSetterTypeName))
+#elseif($attribute.many || $angularUtils.isArray($attribute.getterSetterTypeName))
+#set ($returnType = "Array<$returnType>")
 #set ($default = "[]")
-#elseif($attribute.many)
-#set ($returnType = "$returnType[]")
-#set ($default = "[]")
-#elseif ($attribute.type.name != ${class.name} && $angularHelper.isComplex($attribute) && !$attribute.type.enumeration) ## Avoid cyclic dependency and using new on enumerations
+#elseif ($attribute.type.name != ${class.name} && $angularUtils.isComplex($attribute) && !$attribute.type.enumeration) ## Avoid cyclic dependency and using new on enumerations
 #set ($default = "new ${attribute.type.name}()")
 #elseif ($returnType == "Date")
 #set ($default = "new Date()")
@@ -41,7 +39,7 @@ export class $class.name {
 #else
 #set ($default = "null")
 #end
-	@$angularHelper.getRxwebDecorator($attribute)
+	@$angularUtils.getRxwebDecorator($attribute)
     $attribute.name: $returnType = $default;
 #end
 

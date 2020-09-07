@@ -1,17 +1,17 @@
 #set ( $componentPath = $stringUtils.replaceChars($controller.packageName, '\\.', '\\/') )
-#set ( $fileName =  ${angularHelper.getComponentFileName("${controller.name}Impl")})
+#set ( $fileName =  ${angularUtils.getComponentFileName("${controller.name}Impl")})
 import { Injectable, Injector } from '@angular/core';
-import { ${controller.name} } from 'src/app/gen/controller/$componentPath/${angularHelper.getComponentFileName("${controller.name}")}';
+import { ${controller.name} } from 'src/app/gen/controller/$componentPath/${angularUtils.getComponentFileName("${controller.name}")}';
 
 #set ($types = [])
 #foreach ($operation in $controller.operations)
-#if($angularHelper.isComplex($operation.returnType))
+#if($angularUtils.isComplex($operation.returnType))
 #set ($rt = $types.add($operation.returnType))
 #end
 #end
-#foreach($type in $angularHelper.getFacadeSet($types))
+#foreach($type in $angularUtils.getFacadeSet($types))
 #set ( $path = $stringUtils.replaceChars($type.packageName, '\\.', '\\/') )
-#set ( $file =  ${angularHelper.getComponentFileName($type.name)})
+#set ( $file =  ${angularUtils.getComponentFileName($type.name)})
 import { $type.name } from 'src/app/gen/model/$path/$file';
 #end
 
@@ -23,7 +23,7 @@ export class ${controller.implementationName} extends ${controller.name} {
     }
 
 #foreach ($operation in $controller.operations)
-	$angularHelper.getFormOperationSignature($operation, false) {
+	$angularUtils.getFormOperationSignature($operation, false) {
 	}
 
 #end

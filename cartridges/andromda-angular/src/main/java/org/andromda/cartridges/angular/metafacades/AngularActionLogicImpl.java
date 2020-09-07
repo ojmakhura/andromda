@@ -6,25 +6,26 @@ package org.andromda.cartridges.angular.metafacades;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import org.andromda.cartridges.angular.AngularGlobals;
-import org.andromda.cartridges.angular.AngularHelper;
 import org.andromda.cartridges.angular.AngularProfile;
-import org.andromda.cartridges.jsf2.JSFProfile;
+import org.andromda.cartridges.angular.AngularUtils;
 import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.FrontEndAction;
+import org.andromda.metafacades.uml.FrontEndActionState;
 import org.andromda.metafacades.uml.FrontEndControllerOperation;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
-import org.andromda.metafacades.uml.FrontEndAction;
-import org.andromda.metafacades.uml.FrontEndActionState;
+import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Predicate;
@@ -32,7 +33,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
- * Represents an action taken during a "front-end" event execution on a JSF application.
+ * Represents an action taken during a "front-end" event execution on a Angular application.
  * MetafacadeLogic implementation for org.andromda.cartridges.angular.metafacades.AngularAction.
  *
  * @see org.andromda.cartridges.angular.metafacades.AngularAction
@@ -41,7 +42,6 @@ public class AngularActionLogicImpl
     extends AngularActionLogic
 {
     private static final long serialVersionUID = 34L;
-    private static final Logger LOGGER = Logger.getLogger(AngularActionLogicImpl.class);
     /**
      * Public constructor for AngularActionLogicImpl
      * @see org.andromda.cartridges.angular.metafacades.AngularAction
@@ -52,25 +52,16 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * The name of the form implementation.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAction#getFormImplementationName()
+     * The logger instance.
      */
-    protected String handleGetFormImplementationName()
-    {
-        final String pattern =
-        Objects.toString(this.getConfiguredProperty(AngularGlobals.FORM_IMPLEMENTATION_PATTERN));
-        return pattern.replaceFirst(
-            "\\{0\\}",
-            StringUtils.capitalize(this.getTriggerName()));
-    }
+    private static final Logger LOGGER = Logger.getLogger(AngularActionLogicImpl.class);
 
     /**
-     * The name of the bean under which the form is stored.
+     * @return getFormBeanName(true)
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#getFormBeanName()
      */
     protected String handleGetFormBeanName()
     {
-        
         return this.getFormBeanName(true);
     }
 
@@ -82,7 +73,7 @@ public class AngularActionLogicImpl
      */
     private String getFormBeanName(boolean withUseCaseName)
     {
-        final String pattern = Objects.toString(this.getConfiguredProperty(AngularGlobals.FORM_BEAN_PATTERN));
+        final String pattern = Objects.toString(this.getConfiguredProperty(AngularGlobals.FORM_BEAN_PATTERN), "");
         final ModelElementFacade useCase = this.getUseCase();
         final String useCaseName = withUseCaseName && useCase != null
             ? StringUtilsHelper.lowerCamelCaseName(useCase.getName()) : "";
@@ -95,7 +86,61 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * The fully qualified name of the form implementation.
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
+     */
+    public String getName()
+    {
+        return AngularUtils.toWebResourceName(this.getUseCase().getName() + "-" + super.getName());
+    }
+
+    /**
+     * @return useCase.getName()
+     * @see org.andromda.cartridges.angular.metafacades.AngularAction#getTriggerName()
+     */
+    protected String handleGetTriggerName()
+    {
+        String name = null;
+        if (this.isExitingInitialState())
+        {
+            final AngularUseCase useCase = (AngularUseCase)this.getUseCase();
+            if (useCase != null)
+            {
+                name = useCase.getName();
+            }
+        }
+        else
+        {
+            final EventFacade trigger = this.getTrigger();
+            final String suffix = trigger == null ? this.getTarget().getName() : trigger.getName();
+            name = this.getSource().getName() + ' ' + suffix;
+        }
+        return StringUtilsHelper.lowerCamelCaseName(name);
+    }
+
+    /**
+     * @return formImplementationName
+     * @see org.andromda.cartridges.angular.metafacades.AngularAction#getFormImplementationName()
+     */
+    protected String handleGetFormImplementationName()
+    {
+        final String pattern =
+            Objects.toString(this.getConfiguredProperty(AngularGlobals.FORM_IMPLEMENTATION_PATTERN), "");
+        return pattern.replaceFirst(
+            "\\{0\\}",
+            StringUtils.capitalize(this.getTriggerName()));
+    }
+
+    /**
+     * @return isTableAction
+     * @see org.andromda.cartridges.angular.metafacades.AngularAction#getFullyQualifiedFormImplementationName()
+     */
+    protected boolean handleIsTableAction()
+    {
+        return AngularGlobals.ACTION_TYPE_TABLE.equals(this.findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_TYPE));
+    }
+
+    /**
+     * @return fullyQualifiedFormImplementationName
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#getFullyQualifiedFormImplementationName()
      */
     protected String handleGetFullyQualifiedFormImplementationName()
@@ -110,7 +155,7 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * The fully qualified path of the form implementation.
+     * @return fullyQualifiedFormImplementationPath
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#getFullyQualifiedFormImplementationPath()
      */
     protected String handleGetFullyQualifiedFormImplementationPath()
@@ -121,21 +166,21 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * The scope of the JSF form (request, session,application,etc).
-     * @see org.andromda.cartridges.angular.metafacades.AngularAction#getFormScope()
+     * @return scope
+     * @see org.andromda.cartridges.angular.metafacades.AngularAction#getFullyQualifiedFormImplementationPath()
      */
     protected String handleGetFormScope()
     {
-        String scope = Objects.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_FORM_SCOPE));
+        String scope = Objects.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_FORM_SCOPE));
         if (StringUtils.isEmpty(scope))
         {
-            scope = Objects.toString(this.getConfiguredProperty(AngularGlobals.FORM_SCOPE));
+            scope = Objects.toString(this.getConfiguredProperty(AngularGlobals.FORM_SCOPE), "");
         }
         return scope;
     }
 
     /**
-     * A comma separated list of all the form interfaces which the form implementation implements.
+     * @return formImplementationInterfaceList
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#getFormImplementationInterfaceList()
      */
     protected String handleGetFormImplementationInterfaceList()
@@ -164,12 +209,11 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * The path to this action.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAction#getPath()
+     * @see org.andromda.cartridges.angular.metafacades.AngularActionLogic#handleGetPath()
      */
     protected String handleGetPath()
     {
-        String path = this.getPathRoot() + '/' + this.getFileName();
+        String path = this.getPathRoot() + '/' + AngularUtils.toWebResourceName(this.getTriggerName());
         if (this.isExitingInitialState())
         {
             final AngularUseCase useCase = (AngularUseCase)this.getUseCase();
@@ -185,7 +229,7 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * The path's root.
+     * @return pathRoot
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#getPathRoot()
      */
     protected String handleGetPathRoot()
@@ -200,7 +244,7 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * The default resource message key for this action.
+     * @return messageKey
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#getMessageKey()
      */
     protected String handleGetMessageKey()
@@ -217,7 +261,7 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * A resource message key suited for the action''s documentation.
+     * @return documentationKey
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#getDocumentationKey()
      */
     protected String handleGetDocumentationKey()
@@ -233,7 +277,7 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * The resource messsage value suited for the action''s documentation.
+     * @return documentationValue
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#getDocumentationValue()
      */
     protected String handleGetDocumentationValue()
@@ -246,48 +290,25 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * The name of the trigger that triggers that action.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAction#getTriggerName()
-     */
-    protected String handleGetTriggerName()
-    {
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * The path to the view fragment corresponding to this action
+     * @return viewFragmentPath
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#getViewFragmentPath()
      */
     protected String handleGetViewFragmentPath()
     {
-        String name = null;
-        if (this.isExitingInitialState())
-        {
-            final AngularUseCase useCase = (AngularUseCase)this.getUseCase();
-            if (useCase != null)
-            {
-                name = useCase.getName();
-            }
-        }
-        else
-        {
-            final EventFacade trigger = this.getTrigger();
-            final String suffix = trigger == null ? this.getTarget().getName() : trigger.getName();
-            name = this.getSource().getName() + ' ' + suffix;
-        }
-        return StringUtilsHelper.lowerCamelCaseName(name);
+        return '/' + this.getPackageName().replace(
+            '.',
+            '/') + '/' + AngularUtils.toWebResourceName(this.getTriggerName());
     }
 
     /**
-     * The name of the table link specified for this action.
+     * @return tableLink
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#getTableLinkName()
      */
     protected String handleGetTableLinkName()
     {
         String tableLink = null;
 
-        final Object value = findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_TABLELINK);
+        final Object value = findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_TABLELINK);
         if (value != null)
         {
             tableLink = StringUtils.trimToNull(value.toString());
@@ -305,13 +326,13 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * The name of the column targetted by this action.
+     * @return tableLink
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#getTableLinkColumnName()
      */
     protected String handleGetTableLinkColumnName()
     {
         String tableLink = null;
-        final Object value = findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_TABLELINK);
+        final Object value = findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_TABLELINK);
         if (value != null)
         {
             tableLink = StringUtils.trimToNull(value.toString());
@@ -327,8 +348,38 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * Indicates if a table link name has been specified and it properly targets a table
-     * page-variable from the input page.
+     * @return tableLinkParameter
+     * @see org.andromda.cartridges.angular.metafacades.AngularAction#isTableLink()
+     */
+    protected Object handleGetTableLinkParameter()
+    {
+        AngularParameter tableLinkParameter = null;
+        final String tableLinkName = this.getTableLinkName();
+        if (tableLinkName != null)
+        {
+            final AngularView view = (AngularView)this.getInput();
+            if (view != null)
+            {
+                final List<FrontEndParameter> tables = view.getTables();
+                for (int ctr = 0; ctr < tables.size() && tableLinkParameter == null; ctr++)
+                {
+                    final Object object = tables.get(ctr);
+                    if (object instanceof AngularParameter)
+                    {
+                        final AngularParameter table = (AngularParameter)object;
+                        if (tableLinkName.equals(table.getName()))
+                        {
+                            tableLinkParameter = table;
+                        }
+                    }
+                }
+            }
+        }
+        return tableLinkParameter;
+    }
+
+    /**
+     * @return getTableLinkParameter() != null
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#isTableLink()
      */
     protected boolean handleIsTableLink()
@@ -337,17 +388,17 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * Indicates whether or not this action is represented by clicking on a hyperlink.
+     * @return hyperlink
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#isHyperlink()
      */
     protected boolean handleIsHyperlink()
     {
-        final Object value = findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_TYPE);
+        final Object value = findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_TYPE);
         return AngularGlobals.ACTION_TYPE_HYPERLINK.equalsIgnoreCase(value == null ? null : value.toString());
     }
 
     /**
-     * The name of the action class that executes this action.
+     * @return StringUtilsHelper.upperCamelCaseName(this.getTriggerName())
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#getActionClassName()
      */
     protected String handleGetActionClassName()
@@ -356,18 +407,29 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * The fully qualified path to the action class that execute this action.
+     * @return fullyQualifiedActionClassPath
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#getFullyQualifiedActionClassPath()
      */
     protected String handleGetFullyQualifiedActionClassPath()
     {
         return this.getFullyQualifiedActionClassName().replace(
             '.',
-            '/') + ".ts";
+            '/') + ".java";
     }
 
     /**
-     * The name of the action on the controller that executions this action.
+     * Overridden to provide the owning use case's package name.
+     *
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getPackageName()
+     */
+    public String getPackageName()
+    {
+        final UseCaseFacade useCase = this.getUseCase();
+        return useCase != null ? useCase.getPackageName() : "";
+    }
+
+    /**
+     * @return getTriggerName()
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#getControllerAction()
      */
     protected String handleGetControllerAction()
@@ -376,7 +438,7 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * The fully qualified name of the action class that execute this action.
+     * @return fullyQualifiedActionClassName
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#getFullyQualifiedActionClassName()
      */
     protected String handleGetFullyQualifiedActionClassName()
@@ -397,12 +459,12 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * Indicates whether or not the values passed along with this action can be reset or not.
+     * @return findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_RESETTABLE) isTrue
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#isResettable()
      */
     protected boolean handleIsResettable()
     {
-        final Object value = findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_RESETTABLE);
+        final Object value = findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_RESETTABLE);
         return this.isTrue(value == null ? null : value.toString());
     }
 
@@ -416,28 +478,75 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * The key that stores the form in which information is passed from one action to another.
+     * @return otherActions
+     */
+    protected List<FrontEndAction> handleGetOtherUseCaseFormActions()
+    {
+        final List<FrontEndAction> otherActions = new ArrayList<FrontEndAction>(this.getUseCase().getActions());
+        for (final Iterator<FrontEndAction> iterator = otherActions.iterator(); iterator.hasNext();)
+        {
+            final FrontEndAction action = iterator.next();
+
+            // - remove this action and any forms that don't have form fields
+            if (action.equals(this.THIS()) || action.getFormFields().isEmpty())
+            {
+                iterator.remove();
+            }
+        }
+        return otherActions;
+    }
+
+    /**
+     * @return hiddenParameters
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#getFormKey()
      */
     protected String handleGetFormKey()
     {
-        final Object formKeyValue = this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_FORM_KEY);
-        return formKeyValue == null ? Objects.toString(this.getConfiguredProperty(AngularGlobals.ACTION_FORM_KEY))
+        final Object formKeyValue = this.findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_FORM_KEY);
+        return formKeyValue == null ? Objects.toString(this.getConfiguredProperty(AngularGlobals.ACTION_FORM_KEY), "")
                                     : String.valueOf(formKeyValue);
     }
 
     /**
-     * Indicates that this action works on all rows of the table from the table link relation.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAction#isTableAction()
+     * @return hiddenParameters
+     * @see org.andromda.cartridges.angular.metafacades.AngularAction#getHiddenParameters()
      */
-    protected boolean handleIsTableAction()
+    protected List<FrontEndParameter> handleGetHiddenParameters()
     {
-        return AngularGlobals.ACTION_TYPE_TABLE.equals(this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_TYPE));
+        final List<FrontEndParameter> hiddenParameters = new ArrayList<FrontEndParameter>(this.getParameters());
+        CollectionUtils.filter(
+            hiddenParameters,
+            new Predicate()
+            {
+                public boolean evaluate(final Object object)
+                {
+                    boolean valid = false;
+                    if (object instanceof AngularParameter)
+                    {
+                        final AngularParameter parameter = (AngularParameter)object;
+                        valid = parameter.isInputHidden();
+                        if (!valid)
+                        {
+                            for (final Iterator iterator = parameter.getAttributes().iterator(); iterator.hasNext();)
+                            {
+                                AngularAttribute attribute = (AngularAttribute)iterator.next();
+                                valid = attribute.isInputHidden();
+                                if (valid)
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    return valid;
+                }
+            });
+        return hiddenParameters;
     }
 
     /**
-     * Indicates whether or not at least one parameter on this action requires validation.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAction#isValidationRequired()
+     * @return required
+     * @see org.andromda.cartridges.angular.metafacades.AngularAction#getHiddenParameters()
      */
     protected boolean handleIsValidationRequired()
     {
@@ -458,19 +567,35 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * Indicates if this action forwards to a popup (this is determed when the targetted view is a
-     * popup).
+     * @return popup
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#isPopup()
      */
     protected boolean handleIsPopup()
     {
-        boolean popup = Objects.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_TYPE)).equalsIgnoreCase(
+        boolean popup = Objects.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_TYPE), "").equalsIgnoreCase(
             AngularGlobals.ACTION_TYPE_POPUP);
         return popup;
     }
 
     /**
-     * Indicates if at least one parameter on the form requires being reset.
+     * @return dialog
+     * @see org.andromda.cartridges.angular.metafacades.AngularAction#isDialog()
+     */
+    protected boolean handleIsDialog()
+    {
+        return this.isPopup();
+        //currently only popup dialogs are supported and all dialog = popup.
+        //It should change when Angular
+        //starts supporting some conversation scope, or the Angular cartridge supports
+        //some extension that adds this kind of feature
+        
+//        boolean dialog = ObjectUtils.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_TYPE)).equalsIgnoreCase(
+//            AngularGlobals.ACTION_TYPE_DIALOG);
+//        return dialog;
+    }
+
+    /**
+     * @return resetRequired
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#isFormResetRequired()
      */
     protected boolean handleIsFormResetRequired()
@@ -494,27 +619,24 @@ public class AngularActionLogicImpl
         return resetRequired;
     }
 
+    //TODO remove after 3.4 release
     /**
-     * Whether or not the entire form should be reset (all action parameters on the form).
-     * @see org.andromda.cartridges.angular.metafacades.AngularAction#isFormReset()
+     * Hack to keep the compatibility with Andromda 3.4-SNAPSHOT
+     * @return getSource() instanceof FrontEndView
      */
-    protected boolean handleIsFormReset()
+    public FrontEndView getInput()
     {
-        return Boolean.valueOf(Objects.toString(this.findTaggedValue(
-            JSFProfile.TAGGEDVALUE_ACTION_FORM_RESET))).booleanValue();
+        FrontEndView input = null;
+        final ModelElementFacade source = this.getSource();
+        if (source instanceof FrontEndView)
+        {
+            input = (FrontEndView)source;
+        }
+        return input;
     }
 
     /**
-     * The signature of the accessor method that returns the form implementation instance.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAction#getFormImplementationGetter()
-     */
-    protected String handleGetFormImplementationGetter()
-    {
-        return "get" + StringUtils.capitalize(this.getFormBeanName(false)) + "()";
-    }
-
-    /**
-     * The calcuated serial version UID for this action's form.
+     * @return formSerialVersionUID
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#getFormSerialVersionUID()
      */
     protected String handleGetFormSerialVersionUID()
@@ -584,7 +706,26 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * Indicates whether or not a final state is the target of this action.
+     * @return findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_FORM_RESET)
+     * @see org.andromda.cartridges.angular.metafacades.AngularAction#isFormResetRequired()
+     */
+    protected boolean handleIsFormReset()
+    {
+        return Boolean.valueOf(Objects.toString(this.findTaggedValue(
+            AngularProfile.TAGGEDVALUE_ACTION_FORM_RESET), "")).booleanValue();
+    }
+
+    /**
+     * @return "get" + StringUtils.capitalize(this.getFormBeanName(false)) + "()"
+     * @see org.andromda.cartridges.angular.metafacades.AngularAction#getFormImplementationGetter()
+     */
+    protected String handleGetFormImplementationGetter()
+    {
+        return "get" + StringUtils.capitalize(this.getFormBeanName(false)) + "()";
+    }
+
+    /**
+     * @return getTarget() instanceof AngularFinalState
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#isFinalStateTarget()
      */
     protected boolean handleIsFinalStateTarget()
@@ -593,7 +734,7 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * The name that corresponds to the from-outcome in an navigational rule.
+     * @return getName()
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#getFromOutcome()
      */
     protected String handleGetFromOutcome()
@@ -602,26 +743,7 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * Whether or not any warning messages are present.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAction#isWarningMessagesPresent()
-     */
-    protected boolean handleIsWarningMessagesPresent()
-    {
-        return !this.getWarningMessages().isEmpty();
-    }
-
-    /**
-     * Any messages used to indicate a warning.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAction#getWarningMessages()
-     */
-    protected Map handleGetWarningMessages()
-    {
-        return this.getMessages(JSFProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
-    }
-
-    /**
-     * Indicates whether or not any success messags are present.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAction#isSuccessMessagesPresent()
+     * @see org.andromda.cartridges.angular.metafacades.AngularActionLogic#handleIsSuccessMessagesPresent()
      */
     protected boolean handleIsSuccessMessagesPresent()
     {
@@ -629,69 +751,13 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * Messages used to indicate successful execution.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAction#getSuccessMessages()
+     * @see org.andromda.cartridges.angular.metafacades.AngularActionLogic#handleIsWarningMessagesPresent()
      */
-    protected Map<String, String> handleGetSuccessMessages()
+    protected boolean handleIsWarningMessagesPresent()
     {
-        return this.getMessages(JSFProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
+        return !this.getWarningMessages().isEmpty();
     }
 
-    /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularAction.needsFileUpload
-     * @see org.andromda.cartridges.angular.metafacades.AngularAction#isNeedsFileUpload()
-     */
-    protected boolean handleIsNeedsFileUpload()
-    {
-        if(this.getParameters().size() == 0)
-        {
-            return false;
-        }
-
-        for (final FrontEndParameter feParameter : this.getParameters())
-        {
-            if (feParameter instanceof AngularParameter)
-            {
-                final AngularParameter parameter = (AngularParameter)feParameter;
-                if(parameter.isInputFile())
-                {
-                    return true;
-                }
-                if(parameter.isComplex())
-                {
-                    for(final Iterator attributes = parameter.getAttributes().iterator(); attributes.hasNext();)
-                        if(((AngularAttribute)attributes.next()).isInputFile())
-                            return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
-     * The name of the method to be executed when this action is triggered.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAction#getTriggerMethodName()
-     */
-    protected String handleGetTriggerMethodName()
-    {
-        final StringBuilder methodName = new StringBuilder();
-        if (this.isExitingInitialState())
-        {
-            final AngularUseCase useCase = (AngularUseCase)this.getUseCase();
-            methodName.append(StringUtilsHelper.lowerCamelCaseName(useCase.getName())+"_started");
-        }
-        else
-        {
-            methodName.append(StringUtilsHelper.lowerCamelCaseName(this.getSource().getName()));
-            methodName.append('_');
-            final EventFacade trigger = this.getTrigger();
-            final String suffix = trigger == null ? this.getTarget().getName() : trigger.getName();
-            methodName.append(StringUtilsHelper.lowerCamelCaseName(suffix));
-        }
-        return "_"+methodName.toString();
-    }
-    
     /**
      * Collects specific messages in a map.
      *
@@ -722,76 +788,72 @@ public class AngularActionLogicImpl
     }
 
     /**
-     * Represents an action taken during a "front-end" event execution on a JSF application.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAction#getTableLinkParameter()
+     * @see org.andromda.cartridges.angular.metafacades.AngularActionLogic#handleGetSuccessMessages()
      */
-    protected Object handleGetTableLinkParameter()
+    protected Map<String, String> handleGetSuccessMessages()
     {
-        AngularParameter tableLinkParameter = null;
-        final String tableLinkName = this.getTableLinkName();
-        if (tableLinkName != null)
-        {
-            final AngularView view = (AngularView)this.getInput();
-            if (view != null)
-            {
-                final List<FrontEndParameter> tables = view.getTables();
-                for (int ctr = 0; ctr < tables.size() && tableLinkParameter == null; ctr++)
-                {
-                    final Object object = tables.get(ctr);
-                    if (object instanceof AngularParameter)
-                    {
-                        final AngularParameter table = (AngularParameter)object;
-                        if (tableLinkName.equals(table.getName()))
-                        {
-                            tableLinkParameter = table;
-                        }
-                    }
-                }
-            }
-        }
-        return tableLinkParameter;
+        return this.getMessages(AngularProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
     }
 
     /**
-     * Represents an action taken during a "front-end" event execution on a JSF application.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAction#getHiddenParameters()
+     * @see org.andromda.cartridges.angular.metafacades.AngularActionLogic#handleGetWarningMessages()
      */
-    protected List<FrontEndParameter> handleGetHiddenParameters()
+    protected Map<String, String> handleGetWarningMessages()
     {
-        final List<FrontEndParameter> hiddenParameters = new ArrayList<FrontEndParameter>(this.getParameters());
-        CollectionUtils.filter(
-            hiddenParameters,
-            new Predicate()
-            {
-                public boolean evaluate(final Object object)
-                {
-                    boolean valid = false;
-                    if (object instanceof AngularParameter)
-                    {
-                        final AngularParameter parameter = (AngularParameter)object;
-                        valid = parameter.isInputHidden();
-                        if (!valid)
-                        {
-                            for (final Iterator iterator = parameter.getAttributes().iterator(); iterator.hasNext();)
-                            {
-                                AngularAttribute attribute = (AngularAttribute)iterator.next();
-                                valid = attribute.isInputHidden();
-                                if (valid)
-                                {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    return valid;
-                }
-            });
-        return hiddenParameters;
+        return this.getMessages(AngularProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
     }
 
+    /**
+     * @return needsFileUpload
+     * @see org.andromda.cartridges.angular.metafacades.AngularAction#isNeedsFileUpload()
+     */
+    protected boolean handleIsNeedsFileUpload()
+    {
+        if(this.getParameters().size() == 0)
+        {
+            return false;
+        }
+
+        for (final FrontEndParameter feParameter : this.getParameters())
+        {
+            if (feParameter instanceof AngularParameter)
+            {
+                final AngularParameter parameter = (AngularParameter)feParameter;
+                if(parameter.isInputFile())
+                {
+                    return true;
+                }
+                if(parameter.isComplex())
+                {
+                    for(final Iterator attributes = parameter.getAttributes().iterator(); attributes.hasNext();)
+                        if(((AngularAttribute)attributes.next()).isInputFile())
+                            return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @see org.andromda.cartridges.angular.metafacades.AngularAction#getTriggerMethodName
+     */
     @Override
-    protected String handleGetFileName() {
-        
-        return AngularHelper.getComponentFileName(this.getName());
+    protected String handleGetTriggerMethodName()
+    {
+        final StringBuilder methodName = new StringBuilder();
+        if (this.isExitingInitialState())
+        {
+            final AngularUseCase useCase = (AngularUseCase)this.getUseCase();
+            methodName.append(StringUtilsHelper.lowerCamelCaseName(useCase.getName())+"_started");
+        }
+        else
+        {
+            methodName.append(StringUtilsHelper.lowerCamelCaseName(this.getSource().getName()));
+            methodName.append('_');
+            final EventFacade trigger = this.getTrigger();
+            final String suffix = trigger == null ? this.getTarget().getName() : trigger.getName();
+            methodName.append(StringUtilsHelper.lowerCamelCaseName(suffix));
+        }
+        return "_"+methodName.toString();
     }
 }

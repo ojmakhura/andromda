@@ -9,12 +9,14 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.andromda.cartridges.angular.AngularGlobals;
 import org.andromda.cartridges.angular.AngularProfile;
+import org.andromda.cartridges.angular.AngularUtils;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.utils.StringUtilsHelper;
 
 /**
- * Represents a forward within a JSF activity graph.
+ * Represents a forward within a Angular activity graph.
  * MetafacadeLogic implementation for org.andromda.cartridges.angular.metafacades.AngularForward.
  *
  * @see org.andromda.cartridges.angular.metafacades.AngularForward
@@ -33,7 +35,25 @@ public class AngularForwardLogicImpl
     }
 
     /**
-     * The path to which this forward points.
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
+     */
+    public String getName()
+    {
+        StringBuilder name = new StringBuilder(super.getName());
+        final Object target = this.getTarget();
+        if (target instanceof AngularFinalState)
+        {
+            name.append(AngularGlobals.USECASE_FORWARD_NAME_SUFFIX);
+        }
+        else
+        {
+            name.insert(0, this.getUseCase().getName() + "-");
+        }
+        return AngularUtils.toWebResourceName(name.toString());
+    }
+
+    /**
+     * @return forwardPath
      * @see org.andromda.cartridges.angular.metafacades.AngularForward#getPath()
      */
     protected String handleGetPath()
@@ -53,35 +73,7 @@ public class AngularForwardLogicImpl
     }
 
     /**
-     * Indicates whether or not a final state is the target of this forward.
-     * @see org.andromda.cartridges.angular.metafacades.AngularForward#isFinalStateTarget()
-     */
-    protected boolean handleIsFinalStateTarget()
-    {
-        return this.getTarget() instanceof AngularFinalState;
-    }
-
-    /**
-     * The name that corresponds to the from-outcome in an navigational rule.
-     * @see org.andromda.cartridges.angular.metafacades.AngularForward#getFromOutcome()
-     */
-    protected String handleGetFromOutcome()
-    {
-        return this.getName();
-    }
-
-    /**
-     * Messages used to indicate successful execution.
-     * @see org.andromda.cartridges.angular.metafacades.AngularForward#getSuccessMessages()
-     */
-    protected Map handleGetSuccessMessages()
-    {
-        return this.getMessages(AngularProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
-    }
-
-    /**
-     * Indicates whether or not any success messags are present.
-     * @see org.andromda.cartridges.angular.metafacades.AngularForward#isSuccessMessagesPresent()
+     * @see org.andromda.cartridges.angular.metafacades.AngularForwardLogic#handleIsSuccessMessagesPresent()
      */
     protected boolean handleIsSuccessMessagesPresent()
     {
@@ -89,17 +81,7 @@ public class AngularForwardLogicImpl
     }
 
     /**
-     * Any messages used to indicate a warning.
-     * @see org.andromda.cartridges.angular.metafacades.AngularForward#getWarningMessages()
-     */
-    protected Map handleGetWarningMessages()
-    {
-        return this.getMessages(AngularProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
-    }
-
-    /**
-     * Whether or not any warning messages are present.
-     * @see org.andromda.cartridges.angular.metafacades.AngularForward#isWarningMessagesPresent()
+     * @see org.andromda.cartridges.angular.metafacades.AngularForwardLogic#handleIsWarningMessagesPresent()
      */
     protected boolean handleIsWarningMessagesPresent()
     {
@@ -135,5 +117,39 @@ public class AngularForwardLogicImpl
         }
 
         return messages;
+    }
+
+    /**
+     * @see org.andromda.cartridges.angular.metafacades.AngularForwardLogic#handleGetSuccessMessages()
+     */
+    protected Map handleGetSuccessMessages()
+    {
+        return this.getMessages(AngularProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
+    }
+
+    /**
+     * @see org.andromda.cartridges.angular.metafacades.AngularForwardLogic#handleGetWarningMessages()
+     */
+    protected Map handleGetWarningMessages()
+    {
+        return this.getMessages(AngularProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
+    }
+
+    /**
+     * @return getTarget() instanceof AngularFinalState
+     * @see org.andromda.cartridges.angular.metafacades.AngularForward#isFinalStateTarget()
+     */
+    protected boolean handleIsFinalStateTarget()
+    {
+        return this.getTarget() instanceof AngularFinalState;
+    }
+
+    /**
+     * @return getName()
+     * @see org.andromda.cartridges.angular.metafacades.AngularForward#getFromOutcome()
+     */
+    protected String handleGetFromOutcome()
+    {
+        return this.getName();
     }
 }

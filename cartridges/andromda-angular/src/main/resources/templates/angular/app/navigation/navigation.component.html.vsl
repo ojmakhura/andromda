@@ -2,8 +2,8 @@
 ##     o  $pUseCase - the useCase to render
 ##     o  $ident - spaces to ident
 ##
-#set ( $moduleFileName = $angularHelper.getComponentFileName("${applicationId}") )
-#set ( $moduleName = $angularHelper.getComponentName($moduleFileName, "-"))
+#set ( $moduleFileName = $angularUtils.getComponentFileName("${applicationId}") )
+#set ( $moduleName = $angularUtils.getComponentName($moduleFileName, "-"))
 #macro(renderAngularMenuItem $pUseCase $ident)
 #set ($roles = $useCase.actionRoles)
 #addDefaultRole($roles)
@@ -13,16 +13,16 @@
 #foreach ($view in $pUseCase.views)
 ##${ident}<button value="#{messages['$pUseCase.titleKey']}" url="#{request.contextPath}${pUseCase.path}.${facesServletExtension}"#if ($securityEnabled) rendered="#{p:ifAnyGranted('$roles')}"#end/>     
 #set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
-#set ( $fileName = $angularHelper.getComponentFileName("${view.name}"))
-#set ( $className = $angularHelper.getComponentName($fileName, "-") )
+#set ( $fileName = $angularUtils.getComponentFileName("${view.name}"))
+#set ( $className = $angularUtils.getComponentName($fileName, "-") )
 ${ident}<button mat-menu-item routerLink="/$stringUtils.lowerCase($className)" (click)="onSidenavClose()">$view.name</button>
 #end
 #else
 #foreach ($view in $pUseCase.views)
 ##${ident}<p:submenu label="#{messages['$pUseCase.titleKey']}"#if ($securityEnabled) rendered="#{p:ifAnyGranted('$roles')}"#end
 #set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
-#set ( $fileName = $angularHelper.getComponentFileName("${view.name}"))
-#set ( $className = $angularHelper.getComponentName($fileName, "-") )
+#set ( $fileName = $angularUtils.getComponentFileName("${view.name}"))
+#set ( $className = $angularUtils.getComponentName($fileName, "-") )
 ${ident}<button mat-menu-item routerLink="/$stringUtils.lowerCase($className)" (click)="onSidenavClose()">$view.name</button>
 #end
 #foreach ($child in $children)

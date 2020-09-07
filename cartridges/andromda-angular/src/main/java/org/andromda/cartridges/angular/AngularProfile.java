@@ -186,6 +186,19 @@ public class AngularProfile
     public static final boolean TABLE_EXPORTABLE_DEFAULT_VALUE = true;
     /** 15 */
     public static final int TABLE_MAXROWS_DEFAULT_COUNT = 15;
+
+    /** hidden */
+    public static final String TAGGEDVALUE_INPUT_TYPE_HIDDEN = "hidden";
+    /** text */
+    public static final String TAGGEDVALUE_INPUT_TYPE_TEXT = "text";
+    /** false */
+    public static final boolean TAGGEDVALUE_MANAGEABLE_IMPLEMENTATION_DEFAULT_VALUE = false;
+    /** true */
+    public static final boolean TAGGEDVALUE_TABLE_SORTABLE_DEFAULT_VALUE = true;
+    /** true */
+    public static final boolean TAGGEDVALUE_TABLE_EXPORTABLE_DEFAULT_VALUE = true;
+    /** 15 */
+    public static final int TAGGEDVALUE_TABLE_MAXROWS_DEFAULT_COUNT = 15;
     
     
     /**

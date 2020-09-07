@@ -1,5 +1,5 @@
 #set ($componentPath = $stringUtils.replaceChars(${class.packageName}, "\\.", "\\/"))
-#set ($fileName = $angularHelper.getComponentFileName($service.name))
+#set ($fileName = $angularUtils.getComponentFileName($service.name))
 import { TestBed } from '@angular/core/testing';
 
 import { ${service.name}Impl } from 'src/app/impl/service/$componentPath/$fileName';

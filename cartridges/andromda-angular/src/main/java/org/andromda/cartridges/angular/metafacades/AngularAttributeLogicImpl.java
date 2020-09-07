@@ -9,21 +9,20 @@ import java.util.List;
 import java.util.Objects;
 
 import org.andromda.cartridges.angular.AngularGlobals;
-import org.andromda.cartridges.angular.AngularHelper;
 import org.andromda.cartridges.angular.AngularProfile;
-import org.andromda.cartridges.jsf2.JSFGlobals;
-import org.andromda.cartridges.jsf2.JSFProfile;
-import org.andromda.cartridges.jsf2.JSFUtils;
+import org.andromda.cartridges.angular.AngularUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndView;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.utils.StringUtilsHelper;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Represents an attribute on a classifier used by a JSF application.
+ * Represents an attribute on a classifier used by a Angular application.
  * MetafacadeLogic implementation for org.andromda.cartridges.angular.metafacades.AngularAttribute.
  *
  * @see org.andromda.cartridges.angular.metafacades.AngularAttribute
@@ -42,8 +41,8 @@ public class AngularAttributeLogicImpl
     }
 
     /**
-     * The message key for this attribute.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#getMessageKey()
+     * @return messageKey
+     * @see AngularAttribute#getMessageKey()
      */
     protected String handleGetMessageKey()
     {
@@ -66,15 +65,6 @@ public class AngularAttributeLogicImpl
     }
 
     /**
-     * The default value for the message key.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#getMessageValue()
-     */
-    protected String handleGetMessageValue()
-    {
-        return StringUtilsHelper.toPhrase(super.getName());
-    }
-
-    /**
      * Indicates whether or not we should normalize messages.
      *
      * @return true/false
@@ -82,192 +72,157 @@ public class AngularAttributeLogicImpl
     private boolean isNormalizeMessages()
     {
         final String normalizeMessages =
-            Objects.toString(this.getConfiguredProperty(AngularGlobals.NORMALIZE_MESSAGES));
+            ObjectUtils.toString(this.getConfiguredProperty(AngularGlobals.NORMALIZE_MESSAGES));
         return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 
     /**
-     * The dummy value to give the attribute when creating a dummy instance of this attribute's
-     * owner.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#getDummyValue()
+     * @return StringUtilsHelper.toPhrase(super.getName())
+     * @see AngularAttribute#getMessageValue()
+     */
+    protected String handleGetMessageValue()
+    {
+        return StringUtilsHelper.toPhrase(super.getName());
+    }
+
+    /**
+     * @return format
+     * @see AngularAttribute#getFormat()
+     */
+    protected String handleGetFormat()
+    {
+        return AngularUtils.getFormat(
+            (ModelElementFacade)this.THIS(),
+            this.getType(),
+            this.getDefaultDateFormat(),
+            this.getDefaultTimeFormat());
+    }
+
+    /**
+     * @return the default time format pattern as defined using the configured property
+     */
+    private String getDefaultTimeFormat()
+    {
+        return (String)this.getConfiguredProperty(AngularGlobals.PROPERTY_DEFAULT_TIMEFORMAT);
+    }
+
+    /**
+     * @return the default date format pattern as defined using the configured property
+     */
+    private String getDefaultDateFormat()
+    {
+        return (String)this.getConfiguredProperty(AngularGlobals.PROPERTY_DEFAULT_DATEFORMAT);
+    }
+
+    /**
+     * @return dummyValue
+     * @see AngularAttribute#getDummyValue()
      */
     protected String handleGetDummyValue()
     {
         final ClassifierFacade type = this.getType();
         if (type != null)
         {
-            final String typeName = AngularHelper.getDatatype(type.getFullyQualifiedName());
-            final String name = AngularHelper.getDatatype(this.getName());
-            if ("string".equals(typeName))
+            final String typeName = type.getFullyQualifiedName();
+            final String name = this.getName();
+            if ("String".equals(typeName))
             {
-                return "'" + name + "-test" + "'";
+                return "\"" + name + "-test" + "\"";
             }
-            if ("Date".equals(typeName))
+            if ("java.util.Date".equals(typeName))
             {
-                return "new Date()";
+                return "new java.util.Date()";
             }
-
-            if ("number".equals(typeName))
+            if ("java.sql.Date".equals(typeName))
             {
-                return "0";
+                return "new java.sql.Date(new java.util.Date().getTime())";
+            }
+            if ("java.sql.Timestamp".equals(typeName))
+            {
+                return "new java.sql.Timestamp(new Date().getTime())";
+            }
+            if ("java.util.Calendar".equals(typeName))
+            {
+                return "java.util.Calendar.getInstance()";
+            }
+            if ("int".equals(typeName))
+            {
+                return "(int)" + name.hashCode();
             }
             if ("boolean".equals(typeName))
             {
                 return "false";
             }
+            if ("long".equals(typeName))
+            {
+                return "(long)" + name.hashCode();
+            }
+            if ("char".equals(typeName))
+            {
+                return "(char)" + name.hashCode();
+            }
+            if ("float".equals(typeName))
+            {
+                return "(float)" + name.hashCode() / hashCode();
+            }
+            if ("double".equals(typeName))
+            {
+                return "(double)" + name.hashCode() / hashCode();
+            }
+            if ("short".equals(typeName))
+            {
+                return "(short)" + name.hashCode();
+            }
+            if ("byte".equals(typeName))
+            {
+                return "(byte)" + name.hashCode();
+            }
+            if ("java.lang.Integer".equals(typeName) || "Integer".equals(typeName))
+            {
+                return "new Integer((int)" + name.hashCode() + ")";
+            }
+            if ("java.lang.Boolean".equals(typeName) || "Boolean".equals(typeName))
+            {
+                return "Boolean.FALSE";
+            }
+            if ("java.lang.Long".equals(typeName) || "Long".equals(typeName))
+            {
+                return "new Long((long)" + name.hashCode() + ")";
+            }
+            if ("java.lang.Character".equals(typeName) || "Character".equals(typeName))
+            {
+                return "new Character(char)" + name.hashCode() + ")";
+            }
+            if ("java.lang.Float".equals(typeName) || "Float".equals(typeName))
+            {
+                return "new Float((float)" + name.hashCode() / hashCode() + ")";
+            }
+            if ("java.lang.Double".equals(typeName) || "Double".equals(typeName))
+            {
+                return "new Double((double)" + name.hashCode() / hashCode() + ")";
+            }
+            if ("java.lang.Short".equals(typeName) || "Short".equals(typeName))
+            {
+                return "new Short((short)" + name.hashCode() + ")";
+            }
+            if ("java.lang.Byte".equals(typeName) || "Byte".equals(typeName))
+            {
+                return "new Byte((byte)" + name.hashCode() + ")";
+            }
 
             //if (type.isArrayType()) return constructDummyArray();
             if (type.isSetType())
             {
-                return "[]";
+                return "new java.util.HashSet(java.util.Arrays.asList(" + constructDummyArray() + "))";
             }
             if (type.isCollectionType())
             {
-                return "[]";
+                return "java.util.Arrays.asList(" + constructDummyArray() + ")";
             }
 
             // maps and others types will simply not be treated
         }
         return "null";
-    }
-
-    /**
-     * If this attributes represents a date or time this method will return the format in which it
-     * must be represented. In the event this format has not been specified by the any tagged value
-     * the default will be used.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#getFormat()
-     */
-    protected String handleGetFormat()
-    {
-        // return JSFUtils.getFormat(
-        //     (ModelElementFacade)this.THIS(),
-        //     this.getType(),
-        //     this.getDefaultDateFormat(),
-        //     this.getDefaultTimeFormat());
-        return null;
-    }
-
-    /**
-     * Indicates if this parameter represents as an input text area widget.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#isInputTextarea()
-     */
-    protected boolean handleIsInputTextarea()
-    {
-        return this.isInputType(AngularGlobals.INPUT_TEXTAREA);
-    }
-
-    /**
-     * Indicates whether or not this parameter should be rendered as a text input widget.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#isInputText()
-     */
-    protected boolean handleIsInputText()
-    {
-        return this.isInputType(AngularGlobals.INPUT_TEXT);
-    }
-
-    /**
-     * Indicates whether or not this parameter represents an input "secret" widget (i.e. password).
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#isInputSecret()
-     */
-    protected boolean handleIsInputSecret()
-    {
-        return this.isInputType(AngularGlobals.INPUT_PASSWORD);
-    }
-
-    /**
-     * Indicates whether or not this parameter represents an input select widget.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#isInputSelect()
-     */
-    protected boolean handleIsInputSelect()
-    {
-        return this.isInputType(AngularGlobals.INPUT_SELECT);
-    }
-
-    /**
-     * Indicates whether or not this parameter should be rendered as an input radio widget.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#isInputRadio()
-     */
-    protected boolean handleIsInputRadio()
-    {
-        return this.isInputType(AngularGlobals.INPUT_RADIO);
-    }
-
-    /**
-     * Indicates whether or not this type represents an input multibox.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#isInputMultibox()
-     */
-    protected boolean handleIsInputMultibox()
-    {
-        return this.isInputType(AngularGlobals.INPUT_MULTIBOX);
-    }
-
-    /**
-     * Indicates whether or not this parameter represents a hidden input widget.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#isInputHidden()
-     */
-    protected boolean handleIsInputHidden()
-    {
-        return this.isInputType(AngularGlobals.INPUT_HIDDEN);
-    }
-
-    /**
-     * Indicates whether or not this is a file input type.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#isInputFile()
-     */
-    protected boolean handleIsInputFile()
-    {
-        boolean file = false;
-        ClassifierFacade type = getType();
-        if (type != null)
-        {
-            file = type.isFileType();
-        }
-        return file;
-    }
-
-    /**
-     * Indicates if this parameter represents a checkbox widget.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#isInputCheckbox()
-     */
-    protected boolean handleIsInputCheckbox()
-    {
-        boolean checkbox = this.isInputType(AngularGlobals.INPUT_CHECKBOX);
-        if (!checkbox && this.getInputType().length() == 0)
-        {
-            final ClassifierFacade type = this.getType();
-            checkbox = type != null ? type.isBooleanType() : false;
-        }
-        return checkbox;
-    }
-
-    /**
-     * Gets the current value of the specified input type (or an empty string
-     * if one isn't specified).
-     *
-     * @return the input type name.
-     */
-    private String getInputType()
-    {
-        return Objects.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
-    }
-    /**
-     * Indicates whether or not this parameter is of the given input type.
-     *
-     * @param inputType the name of the input type to check for.
-     * @return true/false
-     */
-    private boolean isInputType(final String inputType)
-    {
-        return inputType.equalsIgnoreCase(this.getInputType());
-    }
-
-    /**
-     * The dummy value for a value list.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#getValueListDummyValue()
-     */
-    protected String handleGetValueListDummyValue()
-    {
-        return this.constructDummyArray();
     }
 
     /**
@@ -277,142 +232,17 @@ public class AngularAttributeLogicImpl
      */
     private String constructDummyArray()
     {
-        return JSFUtils.constructDummyArrayDeclaration(
+        return AngularUtils.constructDummyArrayDeclaration(
             this.getName(),
-            JSFGlobals.DUMMY_ARRAY_COUNT);
+            AngularGlobals.DUMMY_ARRAY_COUNT);
     }
 
     /**
-     * The validator's 'validwhen' value, this is useful when the validation of a parameter depends
-     * on the validation of others. See the apache commons-validator documentation for more
-     * information.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#getValidWhen()
+     * @param ownerParameter
+     * @return propertyName
+     * @see AngularAttribute#getFormPropertyName(org.andromda.metafacades.uml.ParameterFacade)
      */
-    protected String handleGetValidWhen()
-    {
-        //return JSFUtils.getValidWhen(this);
-        return null;
-    }
-
-    /**
-     * All validator types for this attribute.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#getValidatorTypes()
-     */
-    protected Collection handleGetValidatorTypes()
-    {
-        // return JSFUtils.getValidatorTypes(
-        //     (ModelElementFacade)this.THIS(),
-        //     this.getType());
-        // TODO put your implementation here.
-        return null;
-    }
-
-    /**
-     * Indicates whether or not this attribute requires some kind of validation (the collection of
-     * validator types is not empty).
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#isValidationRequired()
-     */
-    protected boolean handleIsValidationRequired()
-    {
-        return !this.getValidatorTypes().isEmpty();
-    }
-
-    /**
-     * Indicates where or not the date format is to be strictly respected. Otherwise the date
-     * formatter used for the representation of this date is to be set to lenient.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#isStrictDateFormat()
-     */
-    protected boolean handleIsStrictDateFormat()
-    {
-        //return JSFUtils.isStrictDateFormat((ModelElementFacade)this.THIS());
-        // TODO put your implementation here.
-        return false;
-    }
-
-    /**
-     * Indicates whether or not this parameter uses the equal validator.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#isEqualValidator()
-     */
-    protected boolean handleIsEqualValidator()
-    {
-        //final String equal = JSFUtils.getEqual((ModelElementFacade)this.THIS());
-        //return equal != null && equal.trim().length() > 0;
-        return false;
-    }
-
-    /**
-     * Indicates whether or not this is an table input type.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#isInputTable()
-     */
-    protected boolean handleIsInputTable()
-    {
-        return this.getInputTableIdentifierColumns().length() > 0 || this.isInputType(AngularGlobals.INPUT_TABLE);
-    }
-
-    /**
-     * Indicates whether or not there is an input type defined for this attribute.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#isInputTypePresent()
-     */
-    protected boolean handleIsInputTypePresent()
-    {
-        boolean present = false;
-        final ClassifierFacade type = this.getType();
-        if (type != null)
-        {
-            present =
-                (StringUtils.isNotBlank(this.getInputType()) || type.isDateType() || type.isBooleanType()) &&
-                !this.isPlaintext();
-        }
-        return present;
-    }
-
-    /**
-     * Indicates whether or not this attribute's value should be rendered as plain text (not as a
-     * widget).
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#isPlaintext()
-     */
-    protected boolean handleIsPlaintext()
-    {
-        return this.isInputType(AngularGlobals.PLAIN_TEXT);
-    }
-
-    /**
-     * A comma separated list of the input table identifier columns (these are the columns that
-     * uniquely define a row in an input table).
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#getInputTableIdentifierColumns()
-     */
-    protected String handleGetInputTableIdentifierColumns()
-    {
-        return Objects.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)).trim();
-    }
-
-    /**
-     * The max length allowed in the input component
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#getMaxLength()
-     */
-    protected String handleGetMaxLength()
-    {
-        final Collection<List<String>> vars = this.getValidatorVars(null);
-        if(vars == null)
-        {
-            return null;
-        }
-        for(final List<String> values : vars)
-        {
-            if("maxlength".equals(values.get(0)))
-            {
-                return values.get(1);
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Retrieves the name of the form property for this attribute by taking the name of the owner
-     * property.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#getFormPropertyName(ParameterFacade)
-     */
-    protected String handleGetFormPropertyName(ParameterFacade ownerParameter)
+    protected String handleGetFormPropertyName(final ParameterFacade ownerParameter)
     {
         final StringBuilder propertyName = new StringBuilder();
         if (ownerParameter != null)
@@ -429,61 +259,77 @@ public class AngularAttributeLogicImpl
     }
 
     /**
-     * Gets the unique id of this attribute on the form.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#getFormPropertyId(ParameterFacade)
+     * @param ownerParameter
+     * @return backingListName
+     * @see AngularAttribute#getBackingListName(org.andromda.metafacades.uml.ParameterFacade)
      */
-    protected String handleGetFormPropertyId(ParameterFacade ownerParameter)
+    protected String handleGetBackingListName(final ParameterFacade ownerParameter)
+    {
+        final String backingListName =
+            StringUtils.replace(
+                ObjectUtils.toString(this.getConfiguredProperty(AngularGlobals.BACKING_LIST_PATTERN)),
+                "{0}",
+                this.getFormPropertyId(ownerParameter));
+        return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
+    }
+
+    /**
+     * @param ownerParameter
+     * @return backingValueName
+     * @see AngularAttribute#getBackingValueName(org.andromda.metafacades.uml.ParameterFacade)
+     */
+    protected String handleGetBackingValueName(final ParameterFacade ownerParameter)
+    {
+        final String backingListName =
+            StringUtils.replace(
+                ObjectUtils.toString(this.getConfiguredProperty(AngularGlobals.BACKING_VALUE_PATTERN)),
+                "{0}",
+                this.getFormPropertyId(ownerParameter));
+        return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
+    }
+
+    /**
+     * @param ownerParameter
+     * @return labelListName
+     * @see AngularAttribute#getLabelListName(org.andromda.metafacades.uml.ParameterFacade)
+     */
+    protected String handleGetLabelListName(final ParameterFacade ownerParameter)
+    {
+        return StringUtils.replace(
+            ObjectUtils.toString(this.getConfiguredProperty(AngularGlobals.LABEL_LIST_PATTERN)),
+            "{0}",
+            this.getFormPropertyId(ownerParameter));
+    }
+
+    /**
+     * @param ownerParameter
+     * @return valueListName
+     * @see AngularAttribute#getValueListName(org.andromda.metafacades.uml.ParameterFacade)
+     */
+    protected String handleGetValueListName(final ParameterFacade ownerParameter)
+    {
+        return StringUtils.replace(
+            ObjectUtils.toString(this.getConfiguredProperty(AngularGlobals.VALUE_LIST_PATTERN)),
+            "{0}",
+            this.getFormPropertyId(ownerParameter));
+    }
+
+    /**
+     * @param ownerParameter
+     * @return formPropertyId
+     * @see AngularAttribute#getFormPropertyId(ParameterFacade)
+     */
+    protected String handleGetFormPropertyId(final ParameterFacade ownerParameter)
     {
         return StringUtilsHelper.lowerCamelCaseName(this.getFormPropertyName(ownerParameter));
     }
 
     /**
-     * Gets backing list name for this attribute. This is useful if you want to be able to select
-     * the attribute value from a list (i.e. a drop-down select input type).
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#getBackingListName(ParameterFacade)
+     * @param ownerParameter
+     * @return isSelectable
+     * @see AngularAttribute#isSelectable(org.andromda.metafacades.uml.FrontEndParameter)
      */
-    protected String handleGetBackingListName(ParameterFacade ownerParameter)
-    {
-        final String backingListName =
-            StringUtils.replace(
-                Objects.toString(this.getConfiguredProperty(AngularGlobals.BACKING_LIST_PATTERN)),
-                "{0}",
-                this.getFormPropertyId(ownerParameter));
-        return StringUtilsHelper.lowerCamelCaseName(backingListName);
-    }
-
-    /**
-     * Gets the name of the label list for this parameter. The label list name is the name of the
-     * list storing the labels for the possible values of this attribute (typically used for the
-     * labels of a drop-down select lists).
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#getLabelListName(ParameterFacade)
-     */
-    protected String handleGetLabelListName(ParameterFacade ownerParameter)
-    {
-        return StringUtils.replace(
-            Objects.toString(this.getConfiguredProperty(AngularGlobals.LABEL_LIST_PATTERN)),
-            "{0}",
-            this.getFormPropertyId(ownerParameter));
-    }
-
-    /**
-     * Gets the name of the value list for this parameter; this list stores the possible values that
-     * this attribute may be (typically used for the values of a drop-down select list).
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#getValueListName(ParameterFacade)
-     */
-    protected String handleGetValueListName(ParameterFacade ownerParameter)
-    {
-        return StringUtils.replace(
-            Objects.toString(this.getConfiguredProperty(AngularGlobals.VALUE_LIST_PATTERN)),
-            "{0}",
-            this.getFormPropertyId(ownerParameter));
-    }
-
-    /**
-     * Indicates whether or not this attribute is selectable according to its 'ownerParameter'.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#isSelectable(FrontEndParameter)
-     */
-    protected boolean handleIsSelectable(FrontEndParameter ownerParameter)
+    protected boolean handleIsSelectable(final FrontEndParameter ownerParameter)
     {
         boolean selectable = false;
         if (ownerParameter != null)
@@ -553,59 +399,277 @@ public class AngularAttributeLogicImpl
     }
 
     /**
-     * Gets the arguments for this parameter's validators.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#getValidatorArgs(String)
+     * @return !this.getValidatorTypes().isEmpty()
+     * @see AngularAttribute#isValidationRequired()
      */
-    protected Collection handleGetValidatorArgs(String validatorType)
+    protected boolean handleIsValidationRequired()
     {
-        // return JSFUtils.getValidatorArgs(
-        //     (ModelElementFacade)this.THIS(),
-        //     validatorType);
-        // TODO put your implementation here.
-        return null;
+        return !this.getValidatorTypes().isEmpty();
     }
 
     /**
-     * Gets the name of the date formatter for this attribute by constructing the name from the
-     * 'ownerParameter' (if this attribute represents a date).
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#getDateFormatter(AngularParameter)
+     * @return validatorTypes
+     * @see AngularAttribute#getValidatorTypes()
      */
-    protected String handleGetDateFormatter(AngularParameter ownerParameter)
+    protected Collection<String> handleGetValidatorTypes()
+    {
+        return AngularUtils.getValidatorTypes(
+            (ModelElementFacade)this.THIS(),
+            this.getType());
+    }
+
+    /**
+     * @param ownerParameter
+     * @return validatorVars
+     * @see AngularAttribute#getValidatorVars(AngularParameter)
+     */
+    protected Collection<List<String>> handleGetValidatorVars(AngularParameter ownerParameter)
+    {
+        return AngularUtils.getValidatorVars(
+            (ModelElementFacade)this.THIS(),
+            this.getType(),
+            ownerParameter);
+    }
+
+    /**
+     * @return AngularUtils.getValidWhen(this)
+     * @see AngularAttribute#getValidWhen()
+     */
+    protected String handleGetValidWhen()
+    {
+        return AngularUtils.getValidWhen(this);
+    }
+
+    /**
+     * @return isInputType(AngularGlobals.INPUT_TEXTAREA)
+     * @see AngularAttribute#isInputTextarea()
+     */
+    protected boolean handleIsInputTextarea()
+    {
+        return this.isInputType(AngularGlobals.INPUT_TEXTAREA);
+    }
+
+    /**
+     * @return isInputType(AngularGlobals.INPUT_SELECT)
+     * @see AngularAttribute#isInputSelect()
+     */
+    protected boolean handleIsInputSelect()
+    {
+        return this.isInputType(AngularGlobals.INPUT_SELECT);
+    }
+
+    /**
+     * @return isInputType(AngularGlobals.INPUT_PASSWORD)
+     * @see AngularAttribute#isInputSecret()
+     */
+    protected boolean handleIsInputSecret()
+    {
+        return this.isInputType(AngularGlobals.INPUT_PASSWORD);
+    }
+
+    /**
+     * @return isInputType(AngularGlobals.INPUT_HIDDEN)
+     * @see AngularAttribute#isInputHidden()
+     */
+    protected boolean handleIsInputHidden()
+    {
+        return this.isInputType(AngularGlobals.INPUT_HIDDEN);
+    }
+
+    /**
+     * @return isInputType(AngularGlobals.PLAIN_TEXT)
+     * @see AngularAttribute#isPlaintext()
+     */
+    protected boolean handleIsPlaintext()
+    {
+        return this.isInputType(AngularGlobals.PLAIN_TEXT);
+    }
+
+    /**
+     * @return isInputType(AngularGlobals.INPUT_RADIO)
+     * @see AngularAttribute#isInputRadio()
+     */
+    protected boolean handleIsInputRadio()
+    {
+        return this.isInputType(AngularGlobals.INPUT_RADIO);
+    }
+
+    /**
+     * @return isInputType(AngularGlobals.INPUT_TEXT)
+     * @see AngularAttribute#isInputText()
+     */
+    protected boolean handleIsInputText()
+    {
+        return this.isInputType(AngularGlobals.INPUT_TEXT);
+    }
+
+    /**
+     * @return isInputType(AngularGlobals.INPUT_MULTIBOX)
+     * @see AngularAttribute#isInputMultibox()
+     */
+    protected boolean handleIsInputMultibox()
+    {
+        return this.isInputType(AngularGlobals.INPUT_MULTIBOX);
+    }
+
+    /**
+     * @return inputTable
+     * @see AngularAttribute#isInputTable()
+     */
+    protected boolean handleIsInputTable()
+    {
+        return this.getInputTableIdentifierColumns().length() > 0 || this.isInputType(AngularGlobals.INPUT_TABLE);
+    }
+
+    /**
+     * @return inputCheckbox
+     * @see AngularAttribute#isInputCheckbox()
+     */
+    protected boolean handleIsInputCheckbox()
+    {
+        boolean checkbox = this.isInputType(AngularGlobals.INPUT_CHECKBOX);
+        if (!checkbox && this.getInputType().length() == 0)
+        {
+            final ClassifierFacade type = this.getType();
+            checkbox = type != null ? type.isBooleanType() : false;
+        }
+        return checkbox;
+    }
+
+    /**
+     * Gets the current value of the specified input type (or an empty string
+     * if one isn't specified).
+     *
+     * @return the input type name.
+     */
+    private String getInputType()
+    {
+        return ObjectUtils.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
+    }
+
+    /**
+     * Indicates whether or not this parameter is of the given input type.
+     *
+     * @param inputType the name of the input type to check for.
+     * @return true/false
+     */
+    private boolean isInputType(final String inputType)
+    {
+        return inputType.equalsIgnoreCase(this.getInputType());
+    }
+
+    /**
+     * @return inputFile
+     * @see AngularAttribute#isInputFile()
+     */
+    protected boolean handleIsInputFile()
+    {
+        boolean file = false;
+        ClassifierFacade type = getType();
+        if (type != null)
+        {
+            file = type.isFileType();
+        }
+        return file;
+    }
+
+    /**
+     * Overridden to provide consistent behavior with {@link AngularParameter#isReadOnly()}.
+     *
+     * @see org.andromda.metafacades.uml.AttributeFacade#isReadOnly()
+     */
+    public boolean isReadOnly()
+    {
+        return AngularUtils.isReadOnly(this);
+    }
+
+    /**
+     * @return constructDummyArray()
+     * @see AngularAttribute#getValueListDummyValue()
+     */
+    protected String handleGetValueListDummyValue()
+    {
+        return this.constructDummyArray();
+    }
+
+    /**
+     * @param validatorType
+     * @return getValidatorArgs
+     * @see AngularAttribute#getValidatorArgs(String)
+     */
+    protected Collection handleGetValidatorArgs(final String validatorType)
+    {
+        return AngularUtils.getValidatorArgs(
+            (ModelElementFacade)this.THIS(),
+            validatorType);
+    }
+
+    /**
+     * @return isStrictDateFormat
+     * @see AngularAttribute#isStrictDateFormat()
+     */
+    protected boolean handleIsStrictDateFormat()
+    {
+        return AngularUtils.isStrictDateFormat((ModelElementFacade)this.THIS());
+    }
+
+    /**
+     * @param ownerParameter
+     * @return dateFormatter
+     * @see AngularAttribute#getDateFormatter(org.andromda.cartridges.angular.metafacades.AngularParameter)
+     */
+    protected String handleGetDateFormatter(final AngularParameter ownerParameter)
     {
         final ClassifierFacade type = this.getType();
         return type != null && type.isDateType() ? this.getFormPropertyId(ownerParameter) + "DateFormatter" : null;
     }
 
     /**
-     * Gets the name of the time formatter (if this parameter represents a time).
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#getTimeFormatter(AngularParameter)
+     * @param ownerParameter
+     * @return timeFormatter
+     * @see AngularAttribute#getTimeFormatter(org.andromda.cartridges.angular.metafacades.AngularParameter)
      */
-    protected String handleGetTimeFormatter(AngularParameter ownerParameter)
+    protected String handleGetTimeFormatter(final AngularParameter ownerParameter)
     {
         final ClassifierFacade type = this.getType();
         return type != null && type.isTimeType() ? this.getFormPropertyId(ownerParameter) + "TimeFormatter" : null;
     }
 
     /**
-     * Constructs and returns the backing value name given the 'ownerParameter'.
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#getBackingValueName(ParameterFacade)
+     * Overridden to provide quotes around string types.
+     *
+     * @see org.andromda.metafacades.uml.AttributeFacade#getDefaultValue()
      */
-    protected String handleGetBackingValueName(ParameterFacade ownerParameter)
+    public String getDefaultValue()
     {
-        final String backingListName =
-            StringUtils.replace(
-                Objects.toString(this.getConfiguredProperty(AngularGlobals.BACKING_VALUE_PATTERN)),
-                "{0}",
-                this.getFormPropertyId(ownerParameter));
-        return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
+        String defaultValue = super.getDefaultValue();
+        if (StringUtils.isNotBlank(defaultValue))
+        {
+            final ClassifierFacade type = this.getType();
+            if (type != null && type.isStringType())
+            {
+                defaultValue = "\"" + defaultValue + "\"";
+            }
+        }
+        return defaultValue;
     }
 
     /**
-     * Indicates whether or not the backing value is required for this attribute (depending on the
-     * 'ownerParameter').
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#isBackingValueRequired(FrontEndParameter)
+     * @return isEqualValidator
+     * @see AngularAttribute#isEqualValidator()
      */
-    protected boolean handleIsBackingValueRequired(FrontEndParameter ownerParameter)
+    protected boolean handleIsEqualValidator()
+    {
+        final String equal = AngularUtils.getEqual((ModelElementFacade)this.THIS());
+        return equal != null && equal.trim().length() > 0;
+    }
+
+    /**
+     * @param ownerParameter
+     * @return isBackingValueRequired
+     * @see AngularAttribute#isBackingValueRequired(org.andromda.metafacades.uml.FrontEndParameter)
+     */
+    protected boolean handleIsBackingValueRequired(final FrontEndParameter ownerParameter)
     {
         boolean required = false;
         if (ownerParameter != null)
@@ -676,15 +740,49 @@ public class AngularAttributeLogicImpl
     }
 
     /**
-     * Gets the validator args for this attribute
-     * @see org.andromda.cartridges.angular.metafacades.AngularAttribute#getValidatorVars(AngularParameter)
+     * @return present
+     * @see AngularAttribute#isInputTypePresent()
      */
-    protected Collection handleGetValidatorVars(AngularParameter ownerParameter)
+    protected boolean handleIsInputTypePresent()
     {
-        // return JSFUtils.getValidatorVars(
-        //     (ModelElementFacade)this.THIS(),
-        //     this.getType(),
-        //     ownerParameter);
+        boolean present = false;
+        final ClassifierFacade type = this.getType();
+        if (type != null)
+        {
+            present =
+                (StringUtils.isNotBlank(this.getInputType()) || type.isDateType() || type.isBooleanType()) &&
+                !this.isPlaintext();
+        }
+        return present;
+    }
+
+    /**
+     * @return findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)
+     * @see AngularAttribute#getInputTableIdentifierColumns()
+     */
+    protected String handleGetInputTableIdentifierColumns()
+    {
+        return Objects.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS), "").trim();
+    }
+
+    /**
+     * @return maxlength
+     * @see AngularAttribute#getMaxLength()
+     */
+    protected String handleGetMaxLength()
+    {
+        final Collection<List<String>> vars = this.getValidatorVars(null);
+        if(vars == null)
+        {
+            return null;
+        }
+        for(final List<String> values : vars)
+        {
+            if("maxlength".equals(values.get(0)))
+            {
+                return values.get(1);
+            }
+        }
         return null;
     }
 }

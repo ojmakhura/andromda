@@ -33,7 +33,7 @@
 #set ( $rt = $controllers.add($action.controller) )
 ## Form fields
 #foreach ( $field in $action.formFields )
-#set ($dt = $angularHelper.getDatatype($field.fullyQualifiedName))
+#set ($dt = $angularUtils.getDatatype($field.fullyQualifiedName))
 #if($field.complex)
 #set ( $rt = $fields.add($field.type))
 #end
@@ -60,19 +60,19 @@
 ##
 #macro (renderUseCaseDeclarations $puseCase)
 #foreach ($view in $puseCase.views)
-#set ( $fileName = $angularHelper.getComponentFileName("${view.useCase.name}-${view.name}") )
-#set ( $className = $angularHelper.getComponentName($fileName, "-") )
+#set ( $fileName = $angularUtils.getComponentFileName("${view.useCase.name}-${view.name}") )
+#set ( $className = $angularUtils.getComponentName($fileName, "-") )
 #set ( $rt = $items.add("${className}Impl"))
 ## Tables
 #foreach ($table in $view.tables)
-#set ( $fileName = $angularHelper.getComponentFileName("${table.view.useCase.name}-${table.view.name}-${table.name}") )
-#set ( $className = $angularHelper.getComponentName($fileName, "-"))
+#set ( $fileName = $angularUtils.getComponentFileName("${table.view.useCase.name}-${table.view.name}-${table.name}") )
+#set ( $className = $angularUtils.getComponentName($fileName, "-"))
 #set ( $rt = $items.add("${className}Impl"))
 #end
 ## Actions
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
-#set ( $actionName = $angularHelper.getComponentName($action.name, "-") )
+#set ( $actionName = $angularUtils.getComponentName($action.name, "-") )
 #set ( $rt = $items.add("${actionName}Impl"))
 #end
 #end

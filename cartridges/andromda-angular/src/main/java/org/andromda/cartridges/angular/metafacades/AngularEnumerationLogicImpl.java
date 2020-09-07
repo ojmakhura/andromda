@@ -10,7 +10,7 @@ import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Represents an enumeration used within a JSF application. MetafacadeLogic
+ * Represents an enumeration used within a Angular application. MetafacadeLogic
  * implementation for
  * org.andromda.cartridges.angular.metafacades.AngularEnumeration.
  *
@@ -30,7 +30,7 @@ public class AngularEnumerationLogicImpl
     }
 
     /**
-     * The converter name used for this enumeration.
+     * @return converterName
      * @see org.andromda.cartridges.angular.metafacades.AngularEnumeration#getConverterName()
      */
     protected String handleGetConverterName()
@@ -42,7 +42,7 @@ public class AngularEnumerationLogicImpl
     }
 
     /**
-     * The fully qualified converter name for this enumeration.
+     * @return getPackageName() + "." + getConverterName()
      * @see org.andromda.cartridges.angular.metafacades.AngularEnumeration#getFullyQualifiedConverterName()
      */
     protected String handleGetFullyQualifiedConverterName()
@@ -51,7 +51,7 @@ public class AngularEnumerationLogicImpl
     }
 
     /**
-     * The path to the converter file.
+     * @return getFullyQualifiedConverterName().replace('.', '/')
      * @see org.andromda.cartridges.angular.metafacades.AngularEnumeration#getConverterPath()
      */
     protected String handleGetConverterPath()
@@ -60,8 +60,7 @@ public class AngularEnumerationLogicImpl
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularEnumeration.messageKey
+     * @return StringUtilsHelper.toResourceMessageKey(getName())
      * @see org.andromda.cartridges.angular.metafacades.AngularEnumeration#getMessageKey()
      */
     protected String handleGetMessageKey()

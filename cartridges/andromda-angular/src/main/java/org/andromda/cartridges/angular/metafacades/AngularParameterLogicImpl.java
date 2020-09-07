@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -16,12 +17,14 @@ import java.util.Set;
 
 import org.andromda.cartridges.angular.AngularGlobals;
 import org.andromda.cartridges.angular.AngularProfile;
-import org.andromda.cartridges.jsf2.JSFUtils;
+import org.andromda.cartridges.angular.AngularUtils;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -33,7 +36,7 @@ import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Represents a parameter in a JSF front-end.
+ * Represents a parameter in a Angular front-end.
  * MetafacadeLogic implementation for org.andromda.cartridges.angular.metafacades.AngularParameter.
  *
  * @see org.andromda.cartridges.angular.metafacades.AngularParameter
@@ -52,7 +55,28 @@ public class AngularParameterLogicImpl
     }
 
     /**
-     * The default message key for this parameter.
+     * Overridden to make sure it's not an inputTable.
+     *
+     * @see org.andromda.metafacades.uml.FrontEndParameter#isTable()
+     */
+    public boolean isTable()
+    {
+        return (super.isTable() || this.isPageableTable()) && !this.isSelectable()
+            && !this.isInputTable() && !this.isInputHidden();
+    }
+
+    /**
+     * @return isPageableTable
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isPageableTable()
+     */
+    protected boolean handleIsPageableTable()
+    {
+        final Object value = this.findTaggedValue(AngularProfile.TAGGEDVALUE_TABLE_PAGEABLE);
+        return Boolean.valueOf(Objects.toString(value, "")).booleanValue();
+    }
+
+    /**
+     * @return messageKey
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getMessageKey()
      */
     protected String handleGetMessageKey()
@@ -87,27 +111,7 @@ public class AngularParameterLogicImpl
     }
 
     /**
-     * Indicates whether or not we should normalize messages.
-     *
-     * @return true/false
-     */
-    private boolean isNormalizeMessages()
-    {
-        final String normalizeMessages = (String)getConfiguredProperty(AngularGlobals.NORMALIZE_MESSAGES);
-        return Boolean.valueOf(normalizeMessages).booleanValue();
-    }
-
-    /**
-     * The default message value for this parameter.
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getMessageValue()
-     */
-    protected String handleGetMessageValue()
-    {
-        return StringUtilsHelper.toPhrase(super.getName()); // the actual name is used for displaying
-    }
-
-    /**
-     * A resource message key suited for the parameter's documentation.
+     * @return getMessageKey() + '.' + AngularGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getDocumentationKey()
      */
     protected String handleGetDocumentationKey()
@@ -116,7 +120,7 @@ public class AngularParameterLogicImpl
     }
 
     /**
-     * A resource message value suited for the parameter's documentation.
+     * @return documentationValue
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getDocumentationValue()
      */
     protected String handleGetDocumentationValue()
@@ -129,11 +133,228 @@ public class AngularParameterLogicImpl
     }
 
     /**
+     * Indicates whether or not we should normalize messages.
+     *
+     * @return true/false
+     */
+    private boolean isNormalizeMessages()
+    {
+        final String normalizeMessages = (String)getConfiguredProperty(AngularGlobals.NORMALIZE_MESSAGES);
+        return Boolean.valueOf(normalizeMessages).booleanValue();
+    }
+
+    /**
+     * @return messageValue
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getMessageValue()
+     */
+    protected String handleGetMessageValue()
+    {
+        return StringUtilsHelper.toPhrase(super.getName()); // the actual name is used for displaying
+    }
+
+    /**
+     * @param columnName
+     * @return tableColumnMessageKey
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTableColumnMessageKey(String)
+     */
+    protected String handleGetTableColumnMessageKey(final String columnName)
+    {
+        StringBuilder messageKey = new StringBuilder();
+        if (!this.isNormalizeMessages())
+        {
+            final AngularView view = (AngularView)this.getView();
+            if (view != null)
+            {
+                messageKey.append(this.getMessageKey());
+                messageKey.append('.');
+            }
+        }
+        messageKey.append(StringUtilsHelper.toResourceMessageKey(columnName));
+        return messageKey.toString();
+    }
+
+    /**
+     * @param columnName
+     * @return StringUtilsHelper.toPhrase(columnName)
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTableColumnMessageValue(String)
+     */
+    protected String handleGetTableColumnMessageValue(final String columnName)
+    {
+        return StringUtilsHelper.toPhrase(columnName);
+    }
+
+    /**
+     * @return getTableActions(true)
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTableHyperlinkActions()
+     */
+    protected List<AngularAction> handleGetTableHyperlinkActions()
+    {
+        return this.getTableActions(true);
+    }
+
+    private class ActionFilter implements Predicate
+    {
+        final private boolean hyperlink;
+        public ActionFilter(boolean hyperlink)
+        {
+            this.hyperlink = hyperlink;
+        }
+        
+        @Override
+        public boolean evaluate(Object action) 
+        {
+            return ((AngularAction)action).isHyperlink() == this.hyperlink;
+        }
+    }
+    
+    /**
+     * If this is a table this method returns all those actions that are declared to work
+     * on this table.
+     *
+     * @param hyperlink denotes on which type of actions to filter
+     */
+    private List<AngularAction> getTableActions(boolean hyperlink)
+    {
+        final List<AngularAction> actions = new ArrayList<AngularAction>(super.getTableActions());
+        CollectionUtils.filter(actions, new ActionFilter(hyperlink));
+        return actions;
+    }
+
+    /**
+     * @return getTableActions(false)
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTableFormActions()
+     */
+    protected List<AngularAction> handleGetTableFormActions()
+    {
+        return this.getTableActions(false);
+    }
+
+    /**
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTableActions()
+     */
+    protected List<AngularAction> handleGetTableActions() {
+        final Set<AngularAction> actions = new LinkedHashSet<AngularAction>();
+        final String name = StringUtils.trimToNull(getName());
+        if (name != null && isTable())
+        {
+            final AngularView view = (AngularView)this.getView();
+
+            final Collection<UseCaseFacade> allUseCases = getModel().getAllUseCases();
+            for (final UseCaseFacade useCase : allUseCases)
+            {
+                if (useCase instanceof AngularUseCase)
+                {
+                    final FrontEndActivityGraph graph = ((AngularUseCase)useCase).getActivityGraph();
+                    if (graph != null)
+                    {
+                        final Collection<TransitionFacade> transitions = graph.getTransitions();
+                        for (final TransitionFacade transition : transitions)
+                        {
+                            if (transition.getSource().equals(view) && transition instanceof AngularAction)
+                            {
+                                final AngularAction action = (AngularAction)transition;
+                                if (action.isTableLink() && name.equals(action.getTableLinkName()))
+                                {
+                                    actions.add(action);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return new ArrayList<AngularAction>(actions);
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndParameter#getTableColumns()
+     */
+    // TODO tableColumns can be either String or AngularParameter. Should use a single return type in Collection.
+    public Collection getTableColumns()
+    {
+        final Collection tableColumns = super.getTableColumns();
+        if (tableColumns.isEmpty())
+        {
+            // try to preserve the order of the elements encountered
+            //final Map<String, AngularParameter> tableColumnsMap = new LinkedHashMap<String, AngularParameter>();
+            final Map tableColumnsMap = new LinkedHashMap();
+
+            // order is important
+            final List<AngularAction> actions = new ArrayList<AngularAction>();
+
+            // all table actions need the exact same parameters, just not always all of them
+            actions.addAll(this.getTableFormActions());
+
+            // if there are any actions that are hyperlinks then their parameters get priority
+            // the user should not have modeled it that way (constraints will warn him/her)
+            actions.addAll(this.getTableHyperlinkActions());
+
+            for (final AngularAction action : actions)
+            {
+                for (final FrontEndParameter actionParameter : action.getParameters())
+                {
+                    if (actionParameter instanceof AngularParameter)
+                    {
+                        final AngularParameter parameter = (AngularParameter)actionParameter;
+                        final String parameterName = parameter.getName();
+                        if (parameterName != null)
+                        {
+                            // never overwrite column specific table links
+                            // the hyperlink table links working on a real column get priority
+                            final Object existingObject = tableColumnsMap.get(parameterName);
+                            if (existingObject instanceof AngularParameter)
+                            {
+                                if (action.isHyperlink() && parameterName.equals(action.getTableLinkColumnName()))
+                                {
+                                    tableColumnsMap.put(
+                                        parameterName,
+                                        parameter);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // for any missing parameters we just add the name of the column
+            for (final String columnName : this.getTableColumnNames())
+            {
+                if (!tableColumnsMap.containsKey(columnName))
+                {
+                    tableColumnsMap.put(
+                        columnName,
+                        columnName);
+                }
+            }
+
+            // return everything in the same order as it has been modeled (using the table tagged value)
+            for (final String columnObject : this.getTableColumnNames())
+            {
+                tableColumns.add(tableColumnsMap.get(columnObject));
+            }
+        }
+        return tableColumns;
+    }
+
+    /**
      * @return the default date format pattern as defined using the configured property
      */
     private String getDefaultDateFormat()
     {
         return (String)this.getConfiguredProperty(AngularGlobals.PROPERTY_DEFAULT_DATEFORMAT);
+    }
+
+    /**
+     * @return format
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getFormat()
+     */
+    protected String handleGetFormat()
+    {
+        return AngularUtils.getFormat(
+            (ModelElementFacade)this.THIS(),
+            this.getType(),
+            this.getDefaultDateFormat(),
+            this.getDefaultTimeFormat());
     }
 
     /**
@@ -145,32 +366,16 @@ public class AngularParameterLogicImpl
     }
 
     /**
-     * If this parameter represents a date or time this method will return the format in which it
-     * must be represented. In the event this format has not been specified by the any tagged value
-     * the default will be used.
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getFormat()
-     */
-    protected String handleGetFormat()
-    {
-        return JSFUtils.getFormat(
-            (ModelElementFacade)this.THIS(),
-            this.getType(),
-            this.getDefaultDateFormat(),
-            this.getDefaultTimeFormat());
-    }
-
-    /**
-     * Indicates where or not the date format is to be strictly respected. Otherwise the date
-     * formatter used for the representation of this date is to be set to lenient.
+     * @return AngularUtils.isStrictDateFormat((ModelElementFacade)this.THIS())
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isStrictDateFormat()
      */
     protected boolean handleIsStrictDateFormat()
     {
-        return JSFUtils.isStrictDateFormat((ModelElementFacade)this.THIS());
+        return AngularUtils.isStrictDateFormat((ModelElementFacade)this.THIS());
     }
 
     /**
-     * The name of the date formatter for this parameter (if this parameter represents a date).
+     * @return dateFormatter
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getDateFormatter()
      */
     protected String handleGetDateFormatter()
@@ -180,7 +385,7 @@ public class AngularParameterLogicImpl
     }
 
     /**
-     * The name of the time formatter (if this parameter represents a time).
+     * @return timeFormatter
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTimeFormatter()
      */
     protected String handleGetTimeFormatter()
@@ -188,7 +393,7 @@ public class AngularParameterLogicImpl
         final ClassifierFacade type = this.getType();
         return type != null && type.isTimeType() ? this.getName() + "TimeFormatter" : null;
     }
-    
+
     /**
      * Gets the current value of the specified input type (or an empty string
      * if one isn't specified).
@@ -212,7 +417,88 @@ public class AngularParameterLogicImpl
     }
 
     /**
-     * Indicates if this parameter represents a checkbox widget.
+     * @return isInputType(AngularGlobals.INPUT_TEXTAREA)
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputTextarea()
+     */
+    protected boolean handleIsInputTextarea()
+    {
+        return this.isInputType(AngularGlobals.INPUT_TEXTAREA);
+    }
+
+    /**
+     * @return isInputType(AngularGlobals.INPUT_SELECT)
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputSelect()
+     */
+    protected boolean handleIsInputSelect()
+    {
+        return this.isInputType(AngularGlobals.INPUT_SELECT);
+    }
+
+    /**
+     * @return isInputType(AngularGlobals.INPUT_PASSWORD)
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputSecret()
+     */
+    protected boolean handleIsInputSecret()
+    {
+        return this.isInputType(AngularGlobals.INPUT_PASSWORD);
+    }
+
+    /**
+     * @return isInputType(AngularGlobals.INPUT_HIDDEN)
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputHidden()
+     */
+    protected boolean handleIsInputHidden()
+    {
+        return this.isInputType(AngularGlobals.INPUT_HIDDEN);
+    }
+
+    /**
+     * @return isInputType(AngularGlobals.PLAIN_TEXT)
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isPlaintext()
+     */
+    protected boolean handleIsPlaintext()
+    {
+        return this.isInputType(AngularGlobals.PLAIN_TEXT);
+    }
+
+    /**
+     * @return isInputTable
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputTable()
+     */
+    protected boolean handleIsInputTable()
+    {
+        return this.getInputTableIdentifierColumns().length() > 0 || this.isInputType(AngularGlobals.INPUT_TABLE);
+    }
+
+    /**
+     * @return isInputType(AngularGlobals.INPUT_RADIO)
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputRadio()
+     */
+    protected boolean handleIsInputRadio()
+    {
+        return this.isInputType(AngularGlobals.INPUT_RADIO);
+    }
+
+    /**
+     * @return isInputType(AngularGlobals.INPUT_TEXT)
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputText()
+     */
+    protected boolean handleIsInputText()
+    {
+        return this.isInputType(AngularGlobals.INPUT_TEXT);
+    }
+
+    /**
+     * @return isInputType(AngularGlobals.INPUT_MULTIBOX)
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputMultibox()
+     */
+    protected boolean handleIsInputMultibox()
+    {
+        return this.isInputType(AngularGlobals.INPUT_MULTIBOX);
+    }
+
+    /**
+     * @return isInputCheckbox
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputCheckbox()
      */
     protected boolean handleIsInputCheckbox()
@@ -227,71 +513,22 @@ public class AngularParameterLogicImpl
     }
 
     /**
-     * Indicates if this parameter represents as an input text area widget.
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputTextarea()
+     * @return isInputFile
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputFile()
      */
-    protected boolean handleIsInputTextarea()
+    protected boolean handleIsInputFile()
     {
-        return this.isInputType(AngularGlobals.INPUT_TEXTAREA);
+        boolean file = false;
+        ClassifierFacade type = getType();
+        if (type != null)
+        {
+            file = type.isFileType();
+        }
+        return file;
     }
 
     /**
-     * Indicates whether or not this parameter represents an input select widget.
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputSelect()
-     */
-    protected boolean handleIsInputSelect()
-    {
-        return this.isInputType(AngularGlobals.INPUT_SELECT);
-    }
-
-    /**
-     * Indicates whether or not this parameter represents an input "secret" widget (i.e. password).
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputSecret()
-     */
-    protected boolean handleIsInputSecret()
-    {
-        return this.isInputType(AngularGlobals.INPUT_PASSWORD);
-    }
-
-    /**
-     * Indicates whether or not this parameter represents a hidden input widget.
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputHidden()
-     */
-    protected boolean handleIsInputHidden()
-    {
-        return this.isInputType(AngularGlobals.INPUT_HIDDEN);
-    }
-
-    /**
-     * Indicates whether or not this field should be rendered as plain text (not as a widget).
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isPlaintext()
-     */
-    protected boolean handleIsPlaintext()
-    {
-        return this.isInputType(AngularGlobals.PLAIN_TEXT);
-    }
-
-    /**
-     * Indicates whether or not this parameter should be rendered as an input radio widget.
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputRadio()
-     */
-    protected boolean handleIsInputRadio()
-    {
-        return this.isInputType(AngularGlobals.INPUT_RADIO);
-    }
-
-    /**
-     * Indicates whether or not this parameter should be rendered as a text input widget.
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputText()
-     */
-    protected boolean handleIsInputText()
-    {
-        return this.isInputType(AngularGlobals.INPUT_TEXT);
-    }
-
-    /**
-     * The backing list name for this parameter. This is useful if you want to be able to select the
-     * parameter value from a list (i.e. a drop-down select input type).
+     * @return backingListName
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getBackingListName()
      */
     protected String handleGetBackingListName()
@@ -302,21 +539,18 @@ public class AngularParameterLogicImpl
     }
 
     /**
-     * The name of the label list for this parameter. The label list name is the name of the list
-     * storing the labels for the possible values of this parameter (typically used for the labels
-     * of a drop-down select lists).
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getLabelListName()
+     * @return backingValueName
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getBackingValueName()
      */
-    protected String handleGetLabelListName()
+    protected String handleGetBackingValueName()
     {
-        return Objects.toString(this.getConfiguredProperty(AngularGlobals.LABEL_LIST_PATTERN), "").replaceAll(
+        return Objects.toString(this.getConfiguredProperty(AngularGlobals.BACKING_VALUE_PATTERN), "").replaceAll(
             "\\{0\\}",
             this.getName());
     }
 
     /**
-     * Stores the name of the value list for this parameter; this list stores the possible values
-     * that this parameter may be (typically used for the values of a drop-down select list).
+     * @return valueListName
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getValueListName()
      */
     protected String handleGetValueListName()
@@ -327,8 +561,18 @@ public class AngularParameterLogicImpl
     }
 
     /**
-     * Indicates whether or not this parameter is selectable or not (that is: it can be selected
-     * from a list of values).
+     * @return labelListName
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getLabelListName()
+     */
+    protected String handleGetLabelListName()
+    {
+        return Objects.toString(this.getConfiguredProperty(AngularGlobals.LABEL_LIST_PATTERN), "").replaceAll(
+            "\\{0\\}",
+            this.getName());
+    }
+
+    /**
+     * @return isSelectable
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isSelectable()
      */
     protected boolean handleIsSelectable()
@@ -402,15 +646,23 @@ public class AngularParameterLogicImpl
         }
         return selectable;
     }
-    
+
     /**
      * Stores the initial value of each type.
      */
     private final Map<String, String> initialValues = new HashMap<String, String>();
 
     /**
-     * The dummy value for this parameter. The dummy value is used for setting the dummy information
-     * when dummyData is enabled.
+     * @return constructDummyArray()
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getValueListDummyValue()
+     */
+    protected String handleGetValueListDummyValue()
+    {
+        return this.constructDummyArray();
+    }
+
+    /**
+     * @return dummyValue
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getDummyValue()
      */
     protected String handleGetDummyValue()
@@ -420,7 +672,16 @@ public class AngularParameterLogicImpl
         String initialValue = null;
         if (type != null)
         {
-            if (type.isSetType() || type.isCollectionType() || type.isArrayType())
+            if (type.isSetType())
+            {
+                initialValue =
+                    "new java.util.LinkedHashSet(java.util.Arrays.asList(" + this.constructDummyArray() + "))";
+            }
+            else if (type.isCollectionType())
+            {
+                initialValue = "java.util.Arrays.asList(" + this.constructDummyArray() + ")";
+            }
+            else if (type.isArrayType())
             {
                 initialValue = this.constructDummyArray();
             }
@@ -430,14 +691,65 @@ public class AngularParameterLogicImpl
                 initialValues.put(
                     boolean.class.getName(),
                     "false");
-                initialValues.put("number", "" + name.hashCode());
+                initialValues.put(
+                    int.class.getName(),
+                    "(int)" + name.hashCode());
+                initialValues.put(
+                    long.class.getName(),
+                    "(long)" + name.hashCode());
+                initialValues.put(
+                    short.class.getName(),
+                    "(short)" + name.hashCode());
+                initialValues.put(
+                    byte.class.getName(),
+                    "(byte)" + name.hashCode());
+                initialValues.put(
+                    float.class.getName(),
+                    "(float)" + name.hashCode());
+                initialValues.put(
+                    double.class.getName(),
+                    "(double)" + name.hashCode());
+                initialValues.put(
+                    char.class.getName(),
+                    "(char)" + name.hashCode());
 
                 initialValues.put(
-                    "string",
+                    String.class.getName(),
                     "\"" + name + "-test" + "\"");
                 initialValues.put(
-                    "Date",
-                    "new Date()");
+                    java.util.Date.class.getName(),
+                    "new java.util.Date()");
+                initialValues.put(
+                    java.sql.Date.class.getName(),
+                    "new java.util.Date()");
+                initialValues.put(
+                    java.sql.Timestamp.class.getName(),
+                    "new java.util.Date()");
+
+                initialValues.put(
+                    Integer.class.getName(),
+                    "new Integer((int)" + name.hashCode() + ")");
+                initialValues.put(
+                    Boolean.class.getName(),
+                    "Boolean.FALSE");
+                initialValues.put(
+                    Long.class.getName(),
+                    "new Long((long)" + name.hashCode() + ")");
+                initialValues.put(
+                    Character.class.getName(),
+                    "new Character(char)" + name.hashCode() + ")");
+                initialValues.put(
+                    Float.class.getName(),
+                    "new Float((float)" + name.hashCode() / hashCode() + ")");
+                initialValues.put(
+                    Double.class.getName(),
+                    "new Double((double)" + name.hashCode() / hashCode() + ")");
+                initialValues.put(
+                    Short.class.getName(),
+                    "new Short((short)" + name.hashCode() + ")");
+                initialValues.put(
+                    Byte.class.getName(),
+                    "new Byte((byte)" + name.hashCode() + ")");
             }
             if (initialValue == null)
             {
@@ -458,22 +770,13 @@ public class AngularParameterLogicImpl
      */
     private String constructDummyArray()
     {
-        return JSFUtils.constructDummyArrayDeclaration(
+        return AngularUtils.constructDummyArrayDeclaration(
             this.getName(),
             AngularGlobals.DUMMY_ARRAY_COUNT);
     }
 
     /**
-     * The dummy value for a value list.
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getValueListDummyValue()
-     */
-    protected String handleGetValueListDummyValue()
-    {
-        return this.constructDummyArray();
-    }
-
-    /**
-     * The name of the property storing the column to sort by if this parameter represents a table.
+     * @return getName() + "SortColumn"
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTableSortColumnProperty()
      */
     protected String handleGetTableSortColumnProperty()
@@ -482,8 +785,7 @@ public class AngularParameterLogicImpl
     }
 
     /**
-     * The name of the property that Indicates whether or not the table should be sorted ascending
-     * (if this parameter represents a table).
+     * @return getName() + "SortAscending"
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTableSortAscendingProperty()
      */
     protected String handleGetTableSortAscendingProperty()
@@ -492,8 +794,7 @@ public class AngularParameterLogicImpl
     }
 
     /**
-     * The name of the property used for indicating whether or not a form attribute has been set at
-     * least once.
+     * @return getName() + "Set"
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getFormAttributeSetProperty()
      */
     protected String handleGetFormAttributeSetProperty()
@@ -501,18 +802,39 @@ public class AngularParameterLogicImpl
         return this.getName() + "Set";
     }
 
+    //TODO remove after 3.4 release
     /**
-     * Indicates if this parameter can only be read and not modified.
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isReadOnly()
+     * Hack to keep the compatibility with Andromda 3.4-SNAPSHOT
      */
-    protected boolean handleIsReadOnly()
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndParameter#getView()
+     */
+    public FrontEndView getView()
     {
-        return JSFUtils.isReadOnly(this);
+        Object view = null;
+        final EventFacade event = this.getEvent();
+        if (event != null)
+        {
+            final TransitionFacade transition = event.getTransition();
+            if (transition instanceof AngularActionLogicImpl)
+            {
+                final AngularActionLogicImpl action = (AngularActionLogicImpl)transition;
+                view = action.getInput();
+            }
+            else if (transition instanceof FrontEndForward)
+            {
+                final FrontEndForward forward = (FrontEndForward)transition;
+                if (forward.isEnteringView())
+                {
+                    view = forward.getTarget();
+                }
+            }
+        }
+        return (FrontEndView)view;
     }
 
     /**
-     * Indicates whether or not this parameter requires some kind of validation (the collection of
-     * validator types is not empty).
+     * @return validationRequired
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isValidationRequired()
      */
     protected boolean handleIsValidationRequired()
@@ -552,66 +874,80 @@ public class AngularParameterLogicImpl
     }
 
     /**
-     * All the validator types for this parameter.
+     * @return validatorTypes
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getValidatorTypes()
      */
     protected Collection handleGetValidatorTypes()
     {
-        return JSFUtils.getValidatorTypes(
+        return AngularUtils.getValidatorTypes(
             (ModelElementFacade)this.THIS(),
             this.getType());
     }
 
     /**
-     * The validator's 'validwhen' value, this is useful when the validation of a parameter depends
-     * on the validation of others. See the apache commons-validator documentation for more
-     * information.
+     * @return AngularUtils.getValidWhen(this)
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getValidWhen()
      */
     protected String handleGetValidWhen()
     {
-        return JSFUtils.getValidWhen(this);
+        return AngularUtils.getValidWhen(this);
     }
 
     /**
-     * Indicates whether or not this is a file input type.
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputFile()
+     * Overridden to have the same behavior as bpm4struts.
+     *
+     * @see org.andromda.metafacades.uml.ParameterFacade#isRequired()
      */
-    protected boolean handleIsInputFile()
+    public boolean isRequired()
     {
-        boolean file = false;
-        ClassifierFacade type = getType();
-        if (type != null)
+        if("org.omg.uml.foundation.core".equals(metaObject.getClass().getPackage().getName()))
         {
-            file = type.isFileType();
+            //if uml 1.4, keep the old behavior (like bpm4struts)
+            final Object value = this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_REQUIRED);
+            return Boolean.valueOf(Objects.toString(value, "")).booleanValue();
         }
-        return file;
+        else
+        {
+            //if >= uml 2, default behavior
+            return super.isRequired();
+        }
     }
 
     /**
-     * The validator variables.
+     * @return AngularUtils.isReadOnly(this)
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isReadOnly()
+     */
+    protected boolean handleIsReadOnly()
+    {
+        return AngularUtils.isReadOnly(this);
+    }
+
+    /**
+     * @param validatorType
+     * @return validatorArgs
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getValidatorArgs(String)
+     */
+    protected Collection handleGetValidatorArgs(final String validatorType)
+    {
+        return AngularUtils.getValidatorArgs(
+            (ModelElementFacade)this.THIS(),
+            validatorType);
+    }
+
+    /**
+     * @return validatorVars
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getValidatorVars()
      */
     protected Collection handleGetValidatorVars()
     {
-        return JSFUtils.getValidatorVars(
+        return AngularUtils.getValidatorVars(
             (ModelElementFacade)this.THIS(),
             this.getType(),
             null);
     }
 
     /**
-     * Indicates whether or not this type represents an input multibox.
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputMultibox()
-     */
-    protected boolean handleIsInputMultibox()
-    {
-        return this.isInputType(AngularGlobals.INPUT_MULTIBOX);
-    }
-
-    /**
-     * Indicates if this parameter's value should be reset or not after an action has been performed
-     * with this parameter.
+     * @return reset
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isReset()
      */
     protected boolean handleIsReset()
@@ -628,8 +964,7 @@ public class AngularParameterLogicImpl
     }
 
     /**
-     * Indicates if this parameter is 'complex', that is: its of a complex type (has at least one
-     * attribute or association).
+     * @return complex
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isComplex()
      */
     protected boolean handleIsComplex()
@@ -648,10 +983,10 @@ public class AngularParameterLogicImpl
     }
 
     /**
-     * All attributes belonging to this parameter's type.
+     * @return attributes
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getAttributes()
      */
-    protected Collection handleGetAttributes()
+    protected Collection<AttributeFacade> handleGetAttributes()
     {
         Collection<AttributeFacade> attributes = null;
         ClassifierFacade type = this.getType();
@@ -670,10 +1005,11 @@ public class AngularParameterLogicImpl
     }
 
     /**
-     * All navigation association ends belonging to this parameter's type.
+     * @return navigableAssociationEnds
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getNavigableAssociationEnds()
      */
-    protected Collection handleGetNavigableAssociationEnds()
+    @Override
+    protected Collection<AssociationEndFacade> handleGetNavigableAssociationEnds()
     {
         Collection<AssociationEndFacade> associationEnds = null;
         ClassifierFacade type = this.getType();
@@ -692,39 +1028,18 @@ public class AngularParameterLogicImpl
     }
 
     /**
-     * Indicates whether or not this parameter uses the equal validator.
+     * @return isEqualValidator
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isEqualValidator()
      */
     protected boolean handleIsEqualValidator()
     {
-        final String equal = JSFUtils.getEqual((ModelElementFacade)this.THIS());
+        final String equal = AngularUtils.getEqual((ModelElementFacade)this.THIS());
         return equal != null && equal.trim().length() > 0;
     }
 
     /**
-     * The name of the backing value for this parameter (only used with collections and arrays that
-     * are input type table).
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getBackingValueName()
-     */
-    protected String handleGetBackingValueName()
-    {
-        return Objects.toString(this.getConfiguredProperty(AngularGlobals.BACKING_VALUE_PATTERN)).replaceAll(
-            "\\{0\\}",
-            this.getName());
-    }
-
-    /**
-     * Indicates whether or not this is an table input type.
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputTable()
-     */
-    protected boolean handleIsInputTable()
-    {
-        return this.getInputTableIdentifierColumns().length() > 0 || this.isInputType(AngularGlobals.INPUT_TABLE);
-    }
-
-    /**
-     * Indicates if a backing value is required for this parameter.
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isBackingValueRequired()
+     * @return isBackingValueRequired
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isEqualValidator()
      */
     protected boolean handleIsBackingValueRequired()
     {
@@ -797,8 +1112,7 @@ public class AngularParameterLogicImpl
     }
 
     /**
-     * A comma separated list of the input table identifier columns (these are the columns that
-     * uniquely define a row in an input table).
+     * @return findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getInputTableIdentifierColumns()
      */
     protected String handleGetInputTableIdentifierColumns()
@@ -807,18 +1121,32 @@ public class AngularParameterLogicImpl
     }
 
     /**
-     * Whether or not the parameter is a "pageable table", that is a table that supports paging
-     * (i.e. DB paging).
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isPageableTable()
+     * @param columnName
+     * @return tableColumnActions
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTableColumnActions(String)
      */
-    protected boolean handleIsPageableTable()
+    protected List<AngularAction> handleGetTableColumnActions(final String columnName)
     {
-        final Object value = this.findTaggedValue(AngularProfile.TAGGEDVALUE_TABLE_PAGEABLE);
-        return Boolean.valueOf(Objects.toString(value, "")).booleanValue();
+        final List<AngularAction> columnActions = new ArrayList<AngularAction>();
+
+        if (columnName != null)
+        {
+            final Set<AngularAction> actions = new LinkedHashSet<AngularAction>(this.getTableHyperlinkActions());
+            actions.addAll(this.getTableFormActions());
+            for (final AngularAction action : actions)
+            {
+                if (columnName.equals(action.getTableLinkColumnName()))
+                {
+                    columnActions.add(action);
+                }
+            }
+        }
+
+        return columnActions;
     }
 
     /**
-     * The max length allowed in the input component
+     * @return maxLength
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getMaxLength()
      */
     protected String handleGetMaxLength()
@@ -862,10 +1190,11 @@ public class AngularParameterLogicImpl
     static final String AN_EQUALS = "@org.apache.myfaces.extensions.validator.crossval.annotation.Equals";
 
     /**
-     * All the annotations for this parameter.
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getAnnotations()
+     * @return the annotations
+     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getMaxLength()
      */
-    protected Collection handleGetAnnotations()
+    @Override
+    protected Collection<String> handleGetAnnotations()
     {
         final Collection<String> result=new HashSet<String>();
         boolean requiredAdded=false;
@@ -875,27 +1204,27 @@ public class AngularParameterLogicImpl
             {
                 result.add(vt);
             }
-            if(JSFUtils.VT_REQUIRED.equals(vt))
+            if(AngularUtils.VT_REQUIRED.equals(vt))
             {
                 requiredAdded=true;
                 result.add(AN_REQUIRED);
             }
-            else if(JSFUtils.VT_URL.equals(vt))
+            else if(AngularUtils.VT_URL.equals(vt))
             {
                 result.add(AN_URL);
             }
-            else if(JSFUtils.VT_INT_RANGE.equals(vt))
+            else if(AngularUtils.VT_INT_RANGE.equals(vt))
             {
                 final StringBuilder sb=new StringBuilder(AN_LONG_RANGE+"(");
-                final String format = JSFUtils.getInputFormat((ModelElementFacade)this.THIS());
-                final String rangeStart = JSFUtils.getRangeStart(format);
+                final String format = AngularUtils.getInputFormat((ModelElementFacade)this.THIS());
+                final String rangeStart = AngularUtils.getRangeStart(format);
                 boolean addComma=false;
                 if(StringUtils.isNotBlank(rangeStart) && !rangeStart.equals(UNDEFINED_BOUND))
                 {
                     sb.append("minimum="+rangeStart);
                     addComma=true;
                 }
-                final String rangeEnd = JSFUtils.getRangeEnd(format);
+                final String rangeEnd = AngularUtils.getRangeEnd(format);
                 if(StringUtils.isNotBlank(rangeEnd) && !rangeEnd.equals(UNDEFINED_BOUND))
                 {
                     if(addComma)
@@ -907,18 +1236,18 @@ public class AngularParameterLogicImpl
                 sb.append(")");
                 result.add(sb.toString());
             }
-            else if(JSFUtils.VT_FLOAT_RANGE.equals(vt) || JSFUtils.VT_DOUBLE_RANGE.equals(vt))
+            else if(AngularUtils.VT_FLOAT_RANGE.equals(vt) || AngularUtils.VT_DOUBLE_RANGE.equals(vt))
             {
                 final StringBuilder sb=new StringBuilder(AN_DOUBLE_RANGE+"(");
-                final String format = JSFUtils.getInputFormat(((ModelElementFacade)this.THIS()));
-                final String rangeStart = JSFUtils.getRangeStart(format);
+                final String format = AngularUtils.getInputFormat(((ModelElementFacade)this.THIS()));
+                final String rangeStart = AngularUtils.getRangeStart(format);
                 boolean addComma=false;
                 if(StringUtils.isNotBlank(rangeStart) && !rangeStart.equals(UNDEFINED_BOUND))
                 {
                     sb.append("minimum="+rangeStart);
                     addComma=true;
                 }
-                final String rangeEnd = JSFUtils.getRangeEnd(format);
+                final String rangeEnd = AngularUtils.getRangeEnd(format);
                 if(StringUtils.isNotBlank(rangeEnd) && !rangeEnd.equals(UNDEFINED_BOUND))
                 {
                     if(addComma)
@@ -930,15 +1259,15 @@ public class AngularParameterLogicImpl
                 sb.append(")");
                 result.add(sb.toString());
             }
-            else if(JSFUtils.VT_EMAIL.equals(vt))
+            else if(AngularUtils.VT_EMAIL.equals(vt))
             {
                 result.add(AN_EMAIL);
             }
-            else if(JSFUtils.VT_CREDIT_CARD.equals(vt))
+            else if(AngularUtils.VT_CREDIT_CARD.equals(vt))
             {
                 result.add(AN_CREDIT_CARD);
             }
-            else if(JSFUtils.VT_MIN_LENGTH.equals(vt) || JSFUtils.VT_MAX_LENGTH.equals(vt))
+            else if(AngularUtils.VT_MIN_LENGTH.equals(vt) || AngularUtils.VT_MAX_LENGTH.equals(vt))
             {
                 final StringBuilder sb=new StringBuilder(AN_LENGTH+"(");
                 final Collection formats = this.findTaggedValues(AngularProfile.TAGGEDVALUE_INPUT_FORMAT);
@@ -946,49 +1275,49 @@ public class AngularParameterLogicImpl
                 for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
                 {
                     final String additionalFormat = String.valueOf(formatIterator.next());
-                    if (JSFUtils.isMinLengthFormat(additionalFormat))
+                    if (AngularUtils.isMinLengthFormat(additionalFormat))
                     {
                         if(addComma)
                         {
                             sb.append(",");
                         }
                         sb.append("min=");
-                        sb.append(JSFUtils.getMinLengthValue(additionalFormat));
+                        sb.append(AngularUtils.getMinLengthValue(additionalFormat));
                         addComma=true;
                     }
-                    else if (JSFUtils.isMaxLengthFormat(additionalFormat))
+                    else if (AngularUtils.isMaxLengthFormat(additionalFormat))
                     {
                         if(addComma)
                         {
                             sb.append(",");
                         }
                         sb.append("max=");
-                        sb.append(JSFUtils.getMinLengthValue(additionalFormat));
+                        sb.append(AngularUtils.getMinLengthValue(additionalFormat));
                         addComma=true;
                     }
                 }
                 sb.append(")");
                 result.add(sb.toString());
             }
-            else if(JSFUtils.VT_MASK.equals(vt))
+            else if(AngularUtils.VT_MASK.equals(vt))
             {
                 final Collection formats = this.findTaggedValues(AngularProfile.TAGGEDVALUE_INPUT_FORMAT);
                 for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
                 {
                     final String additionalFormat = String.valueOf(formatIterator.next());
-                    if (JSFUtils.isPatternFormat(additionalFormat))
+                    if (AngularUtils.isPatternFormat(additionalFormat))
                     {
-                        result.add(AN_PATTERN+"(\""+JSFUtils.getPatternValue(additionalFormat)+"\")");
+                        result.add(AN_PATTERN+"(\""+AngularUtils.getPatternValue(additionalFormat)+"\")");
                     }
                 }
             }
-            else if(JSFUtils.VT_VALID_WHEN.equals(vt))
+            else if(AngularUtils.VT_VALID_WHEN.equals(vt))
             {
                 result.add("");
             }
-            else if(JSFUtils.VT_EQUAL.equals(vt))
+            else if(AngularUtils.VT_EQUAL.equals(vt))
             {
-                result.add(AN_EQUALS+"(\""+JSFUtils.getEqual((ModelElementFacade)this.THIS())+"\")");
+                result.add(AN_EQUALS+"(\""+AngularUtils.getEqual((ModelElementFacade)this.THIS())+"\")");
             }
         }
         if(!requiredAdded && getLower() > 0)
@@ -996,153 +1325,5 @@ public class AngularParameterLogicImpl
             result.add(AN_REQUIRED);
         }
         return result;
-    }
-
-    /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularParameter.getTableColumnMessageKey
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTableColumnMessageKey(String)
-     */
-    protected String handleGetTableColumnMessageKey(String columnName)
-    {
-        StringBuilder messageKey = new StringBuilder();
-        if (!this.isNormalizeMessages())
-        {
-            final AngularView view = (AngularView)this.getView();
-            if (view != null)
-            {
-                messageKey.append(this.getMessageKey());
-                messageKey.append('.');
-            }
-        }
-        messageKey.append(StringUtilsHelper.toResourceMessageKey(columnName));
-        return messageKey.toString();
-    }
-
-    /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularParameter.getTableColumnMessageValue
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTableColumnMessageValue(String)
-     */
-    protected String handleGetTableColumnMessageValue(String columnName)
-    {
-        return StringUtilsHelper.toPhrase(columnName);
-    }
-
-    /**
-     * Gets the arguments for this parameter's validators.
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getValidatorArgs(String)
-     */
-    protected Collection handleGetValidatorArgs(String validatorType)
-    {
-        return JSFUtils.getValidatorArgs(
-            (ModelElementFacade)this.THIS(),
-            validatorType);
-    }
-
-    /**
-     * Those actions that are targetting the given column, only makes sense when this parameter
-     * represents a table view-variable.
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTableColumnActions(String)
-     */
-    protected List handleGetTableColumnActions(String columnName)
-    {
-        final List<AngularAction> columnActions = new ArrayList<AngularAction>();
-
-        if (columnName != null)
-        {
-            final Set<AngularAction> actions = new LinkedHashSet<AngularAction>(this.getTableHyperlinkActions());
-            actions.addAll(this.getTableFormActions());
-            for (final AngularAction action : actions)
-            {
-                if (columnName.equals(action.getTableLinkColumnName()))
-                {
-                    columnActions.add(action);
-                }
-            }
-        }
-
-        return columnActions;
-    }
-
-    /**
-     * Represents a parameter in a JSF front-end.
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTableHyperlinkActions()
-     */
-    protected List<AngularAction> handleGetTableHyperlinkActions()
-    {
-        return this.getTableActions(true);
-    }
-
-    private class ActionFilter implements Predicate
-    {
-        final private boolean hyperlink;
-        public ActionFilter(boolean hyperlink)
-        {
-            this.hyperlink = hyperlink;
-        }
-        
-        @Override
-        public boolean evaluate(Object action) 
-        {
-            return ((AngularAction)action).isHyperlink() == this.hyperlink;
-        }
-    }
-    
-    /**
-     * If this is a table this method returns all those actions that are declared to work
-     * on this table.
-     *
-     * @param hyperlink denotes on which type of actions to filter
-     */
-    private List<AngularAction> getTableActions(boolean hyperlink)
-    {
-        final List<AngularAction> actions = new ArrayList<AngularAction>(super.getTableActions());
-        CollectionUtils.filter(actions, new ActionFilter(hyperlink));
-        return actions;
-    }
-
-    /**
-     * Represents a parameter in a JSF front-end.
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTableFormActions()
-     */
-    protected List<AngularAction> handleGetTableFormActions()
-    {
-        return this.getTableActions(false);
-    }
-
-    @Override
-    protected List<AngularAction> handleGetTableActions() {
-        final Set<AngularAction> actions = new LinkedHashSet<AngularAction>();
-        final String name = StringUtils.trimToNull(getName());
-        if (name != null && isTable())
-        {
-            final AngularView view = (AngularView)this.getView();
-
-            final Collection<UseCaseFacade> allUseCases = getModel().getAllUseCases();
-            for (final UseCaseFacade useCase : allUseCases)
-            {
-                if (useCase instanceof AngularUseCase)
-                {
-                    final FrontEndActivityGraph graph = ((AngularUseCase)useCase).getActivityGraph();
-                    if (graph != null)
-                    {
-                        final Collection<TransitionFacade> transitions = graph.getTransitions();
-                        for (final TransitionFacade transition : transitions)
-                        {
-                            if (transition.getSource().equals(view) && transition instanceof AngularAction)
-                            {
-                                final AngularAction action = (AngularAction)transition;
-                                if (action.isTableLink() && name.equals(action.getTableLinkName()))
-                                {
-                                    actions.add(action);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return new ArrayList<AngularAction>(actions);
     }
 }

@@ -9,8 +9,8 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 
 /**
- * Represents a final state in a JSF use case. MetafacadeLogic implementation
- * for org.andromda.cartridges.angular.metafacades.AngularFinalState.
+ * Represents a final state in a Angular use case.
+ * MetafacadeLogic implementation for org.andromda.cartridges.angular.metafacades.AngularFinalState.
  *
  * @see org.andromda.cartridges.angular.metafacades.AngularFinalState
  */
@@ -26,7 +26,7 @@ public class AngularFinalStateLogicImpl
     {
         super(metaObject, context);
     }
-    
+
     private AngularManageableEntity findManageableByName(String name)
     {
         for(ClassifierFacade clazz: getModel().getAllClasses())
@@ -42,7 +42,7 @@ public class AngularFinalStateLogicImpl
 
     /**
      * @return fullPath
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFFinalState#getPath()
+     * @see org.andromda.cartridges.angular.metafacades.AngularFinalState#getPath()
      */
     protected String handleGetPath()
     {
@@ -82,7 +82,7 @@ public class AngularFinalStateLogicImpl
 
     /**
      * @return the target controller
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFFinalState#getTargetControllerFullyQualifiedName()
+     * @see org.andromda.cartridges.angular.metafacades.AngularFinalState#getTargetControllerFullyQualifiedName()
      */
     @Override
     protected String handleGetTargetControllerFullyQualifiedName() {
@@ -102,7 +102,7 @@ public class AngularFinalStateLogicImpl
 
     /**
      * @return the target controller bean name
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFFinalState#getTargetControllerBeanName()
+     * @see org.andromda.cartridges.angular.metafacades.AngularFinalState#getTargetControllerBeanName()
      */
     @Override
     protected String handleGetTargetControllerBeanName() {
@@ -122,7 +122,7 @@ public class AngularFinalStateLogicImpl
 
     /**
      * @return the target element (use case or manageable class)
-     * @see org.andromda.cartridges.jsf2.metafacades.JSFFinalState#getTargetElement()
+     * @see org.andromda.cartridges.angular.metafacades.AngularFinalState#getTargetElement()
      */
     @Override
     protected ModelElementFacade handleGetTargetElement() {

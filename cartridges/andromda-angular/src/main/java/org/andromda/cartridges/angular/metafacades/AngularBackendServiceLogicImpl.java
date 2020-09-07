@@ -6,8 +6,9 @@ package org.andromda.cartridges.angular.metafacades;
 import org.andromda.cartridges.angular.AngularGlobals;
 
 /**
- * Represents a back-end service that can be accessed by a JSF controller.
- * MetafacadeLogic implementation for org.andromda.cartridges.angular.metafacades.AngularBackendService.
+ * Represents a back-end service that can be accessed by a Angular controller.
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.angular.metafacades.AngularBackendService.
  *
  * @see org.andromda.cartridges.angular.metafacades.AngularBackendService
  */
@@ -23,9 +24,10 @@ public class AngularBackendServiceLogicImpl
     {
         super(metaObject, context);
     }
+   
 
     /**
-     * The implementation to use in a controller in order to get an instance of a back end service.
+     * @return accessorImplementation
      * @see org.andromda.cartridges.angular.metafacades.AngularBackendService#getAccessorImplementation()
      */
     protected String handleGetAccessorImplementation()
@@ -33,5 +35,16 @@ public class AngularBackendServiceLogicImpl
         String accessorImplementation = String.valueOf(getConfiguredProperty(AngularGlobals.SERVICE_ACCESSOR_PATTERN));
         return accessorImplementation.replaceAll("\\{0\\}",
             getPackageName()).replaceAll("\\{1\\}", getName());
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedName()
+     */
+    public String getFullyQualifiedName()
+    {
+        String packageName = String.valueOf(getConfiguredProperty(AngularGlobals.SERVICE_PACKAGE_NAME_PATTERN));
+        return packageName.replaceAll(
+            "\\{0\\}",
+            super.getPackageName()) + "." + this.getName();
     }
 }

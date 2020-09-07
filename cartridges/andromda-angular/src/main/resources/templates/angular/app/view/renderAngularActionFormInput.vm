@@ -23,11 +23,11 @@
 #set ($backingValueName = ${parameter.getBackingValueName($ownerParameter)})
 #end
 #set ($formValuePropertyName = "${valuePropertyName}")
-${ident}<div #if($angularHelper.isComplex($parameter) && !$parameter.type.enumeration && !$angularHelper.isTable($parameter))formGroupName="${parameter.name}"#end>
-#if($angularHelper.isTable($parameter))
+${ident}<div #if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter))formGroupName="${parameter.name}"#end>
+#if($angularUtils.isTable($parameter))
 ${ident}	<div class="mat-elevation-z8">
 ${ident}		<mat-table matSort [dataSource]="${parameter.name}.controls" #${parameter.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
-#foreach( $column in $angularHelper.getTableColumns($parameter) )
+#foreach( $column in $angularUtils.getTableColumns($parameter) )
 ${ident}			<ng-container matColumnDef="$column">
 ${ident}				<mat-header-cell *matHeaderCellDef>$stringUtils.capitalize(${column})</mat-header-cell>
 ${ident}                <mat-cell *matCellDef="let row"> {{ row.get('${column}').value }} </mat-cell>
@@ -46,12 +46,12 @@ ${ident}	  	<input matInput [matDatepicker]="$propertyId" formControlName="${par
 ${ident}	  	<mat-datepicker-toggle matSuffix [for]="$propertyId"></mat-datepicker-toggle>
 ${ident}	  	<mat-datepicker #$propertyId></mat-datepicker>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration)
-${ident}		<mat-select name="$propertyId" formControlName="#if($angularHelper.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" id="$propertyId">
+${ident}		<mat-select name="$propertyId" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" id="$propertyId">
 ${ident}			<mat-option value = "">Select one ...</mat-option>
 #if ($parameter.type.enumeration)
 ${ident}			<mat-option *ngFor="let key of ${parameter.name}Options" [value]="key">{{ ${parameter.name}[key] }}</mat-option>
 #else
-${ident}			<mat-option *ngFor="let item of ${backingListName}" [value]="item#if($angularHelper.isComplex($parameter) && !$parameter.type.enumeration).id#end">{{ item#if($angularHelper.isComplex($parameter) && !$parameter.type.enumeration).id#end }}</mat-option>
+${ident}			<mat-option *ngFor="let item of ${backingListName}" [value]="item#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration).id#end">{{ item#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration).id#end }}</mat-option>
 #end
 ${ident}		</mat-select>
 #elseif ($parameter.inputTextarea)

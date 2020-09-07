@@ -7,8 +7,9 @@ import org.andromda.cartridges.angular.AngularGlobals;
 import org.andromda.utils.StringUtilsHelper;
 
 /**
- * A front-end JSF even (like the pressing of a button, etc). MetafacadeLogic
- * implementation for org.andromda.cartridges.angular.metafacades.AngularEvent.
+ * A front-end Angular even (like the pressing of a button, etc).
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.angular.metafacades.AngularEvent.
  *
  * @see org.andromda.cartridges.angular.metafacades.AngularEvent
  */
@@ -26,7 +27,7 @@ public class AngularEventLogicImpl
     }
 
     /**
-     * The resource message key for this trigger.
+     * @return triggerKey
      * @see org.andromda.cartridges.angular.metafacades.AngularEvent#getMessageKey()
      */
     protected String handleGetMessageKey()
@@ -48,8 +49,7 @@ public class AngularEventLogicImpl
     }
 
     /**
-     * The resource message value  for this trigger, this would be the button label or hyperlink
-     * name.
+     * @return StringUtilsHelper.toPhrase(this.getName())
      * @see org.andromda.cartridges.angular.metafacades.AngularEvent#getMessageValue()
      */
     protected String handleGetMessageValue()
@@ -58,21 +58,21 @@ public class AngularEventLogicImpl
     }
 
     /**
-     * The resource message key for the reset button.
-     * @see org.andromda.cartridges.angular.metafacades.AngularEvent#getResetMessageKey()
-     */
-    protected String handleGetResetMessageKey()
-    {
-        return this.getMessageKey() + ".reset.message";
-    }
-
-    /**
-     * The default value for the reset button's message.
+     * @return "Reset"
      * @see org.andromda.cartridges.angular.metafacades.AngularEvent#getResetMessageValue()
      */
     protected String handleGetResetMessageValue()
     {
         return "Reset";
+    }
+
+    /**
+     * @return getMessageKey() + ".reset.message"
+     * @see org.andromda.cartridges.angular.metafacades.AngularEvent#getResetMessageKey()
+     */
+    protected String handleGetResetMessageKey()
+    {
+        return this.getMessageKey() + ".reset.message";
     }
 
     /**

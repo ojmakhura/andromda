@@ -1,7 +1,7 @@
 #set ( $classNames = [] )
 #set ( $imports = [] )
-#set ( $moduleFileName = $angularHelper.getComponentFileName("${applicationId}") )
-#set ( $moduleName = $angularHelper.getComponentName($moduleFileName, "-"))
+#set ( $moduleFileName = $angularUtils.getComponentFileName("${applicationId}") )
+#set ( $moduleName = $angularUtils.getComponentName($moduleFileName, "-"))
 // license-header angular merge-point
 //
 /**
@@ -27,16 +27,16 @@
 #foreach ($view in $pUseCase.views)
 #set ($rt = $menus.add($view))
 #set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
-#set ( $fileName = $angularHelper.getComponentFileName("${view.name}"))
-#set ( $className = $angularHelper.getComponentName($fileName, "-") )
+#set ( $fileName = $angularUtils.getComponentFileName("${view.name}"))
+#set ( $className = $angularUtils.getComponentName($fileName, "-") )
 #set ( $rt = $classNames.add("${className}ImplComponent"))
 #set ( $rt = $imports.add("import { ${className}ImplComponent } from ${escTool.s}./impl/view/${componentPath}/${fileName}.impl.component${escTool.s};"))
 ## Actions
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
 #set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/')" )
-#set ( $actionFileName = $angularHelper.getComponentFileName("$action.name") )
-#set ( $actionName = "${angularHelper.getComponentName($action.name, '-')}" )
+#set ( $actionFileName = $angularUtils.getComponentFileName("$action.name") )
+#set ( $actionName = "${angularUtils.getComponentName($action.name, '-')}" )
 #set ( $rt = $classNames.add("${actionName}ImplComponent"))
 #set ( $rt = $imports.add("import { ${actionName}ImplComponent } from ${escTool.s}./impl/view/${action.path}.impl.component${escTool.s};"))
 #end
@@ -44,8 +44,8 @@
 ## Tables
 #foreach ($table in $view.tables)
 #set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${table.packageName}), '\\.', '\\/') )
-#set ( $fileName = $angularHelper.getComponentFileName("${table.view.name}-${table.name}") )
-#set ( $className = $angularHelper.getComponentName($fileName, "-"))
+#set ( $fileName = $angularUtils.getComponentFileName("${table.view.name}-${table.name}") )
+#set ( $className = $angularUtils.getComponentName($fileName, "-"))
 #set ( $rt = $classNames.add("${className}ImplComponent"))
 #set ( $rt = $imports.add("import { ${className}ImplComponent } from ${escTool.s}./impl/view/${componentPath}/${fileName}.impl.component${escTool.s};"))
 #end
@@ -62,13 +62,13 @@ import { CommonModule } from '@angular/common';
 #foreach ($useCase in $useCases)
 #getMenuItem($useCase)
 #end
-#foreach ( $import in $angularHelper.getStringSet($imports) )
+#foreach ( $import in $angularUtils.getStringSet($imports) )
 $import
 #end
 
 const routes: Routes = [
 #set ( $i = 0 )
-#foreach ($menu in $angularHelper.getStringSet($classNames) )
+#foreach ($menu in $angularUtils.getStringSet($classNames) )
 #set ( $i = $i + 1 )
     { path: '$stringUtils.lowerCase($stringUtils.substringBefore($menu, "Impl"))', component: ${menu} }#if( $i < $classNames.size() ),
 #end

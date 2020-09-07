@@ -15,7 +15,8 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * TODO: Model Documentation for
  * org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd
- * MetafacadeLogic implementation for org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd.
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd.
  *
  * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd
  */
@@ -33,8 +34,7 @@ public class AngularManageableEntityAssociationEndLogicImpl
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd.messageKey
+     * @return messageKey
      * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getMessageKey()
      */
     protected String handleGetMessageKey()
@@ -58,8 +58,7 @@ public class AngularManageableEntityAssociationEndLogicImpl
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd.messageValue
+     * @return messageValue
      * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getMessageValue()
      */
     protected String handleGetMessageValue()
@@ -76,8 +75,7 @@ public class AngularManageableEntityAssociationEndLogicImpl
     }
 
     /**
-     * The key to lookup the online help documentation. This documentation is gathered from the
-     * documentation entered by the user, as well as analyzing the model.
+     * @return getMessageKey() + ".online.help"
      * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getOnlineHelpKey()
      */
     protected String handleGetOnlineHelpKey()
@@ -86,8 +84,7 @@ public class AngularManageableEntityAssociationEndLogicImpl
     }
 
     /**
-     * The online help documentation. This documentation is gathered from the documentation entered
-     * by the user, as well as analyzing the model. The format is HTML without any style.
+     * @return onlineHelpValue
      * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getOnlineHelpValue()
      */
     protected String handleGetOnlineHelpValue()
@@ -97,8 +94,7 @@ public class AngularManageableEntityAssociationEndLogicImpl
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd.backingListName
+     * @return backingListName
      * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getBackingListName()
      */
     protected String handleGetBackingListName()
@@ -112,8 +108,7 @@ public class AngularManageableEntityAssociationEndLogicImpl
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd.valueListName
+     * @return valueListName
      * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getValueListName()
      */
     protected String handleGetValueListName()
@@ -124,8 +119,7 @@ public class AngularManageableEntityAssociationEndLogicImpl
     }
 
     /**
-     * TODO: Model Documentation for
-     * org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd.labelListName
+     * @return labelListName
      * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getLabelListName()
      */
     protected String handleGetLabelListName()
@@ -133,5 +127,12 @@ public class AngularManageableEntityAssociationEndLogicImpl
         return Objects.toString(this.getConfiguredProperty(AngularGlobals.LABEL_LIST_PATTERN), "").replaceAll(
             "\\{0\\}",
             this.getName());
+    }
+    
+    //TODO should go to ancestor
+    @Override
+    public boolean isDisplay()
+    {
+        return super.isDisplay() && (getType() instanceof ManageableEntity);
     }
 }
