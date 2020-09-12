@@ -682,4 +682,5 @@ public class StrutsUseCaseLogicImpl
             ? Bpm4StrutsProfile.TAGGEDVALUE_ACTION_FORM_DEFAULT_KEY
             : String.valueOf(formKeyValue);
     }
+
 }

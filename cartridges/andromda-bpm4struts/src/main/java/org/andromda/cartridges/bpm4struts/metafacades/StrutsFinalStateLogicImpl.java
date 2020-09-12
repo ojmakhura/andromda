@@ -154,4 +154,5 @@ public class StrutsFinalStateLogicImpl
         }
         return new ArrayList<FrontEndAction>(actions);
     }
+
 }

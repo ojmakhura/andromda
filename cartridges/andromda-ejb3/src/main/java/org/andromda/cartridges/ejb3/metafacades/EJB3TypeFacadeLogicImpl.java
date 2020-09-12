@@ -1,40 +1,38 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
+import java.util.Collection;
+
 import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3TypeFacade.
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.ejb3.metafacades.EJB3TypeFacade.
  *
  * @see EJB3TypeFacade
  */
-public class EJB3TypeFacadeLogicImpl
-    extends EJB3TypeFacadeLogic
-{
+public class EJB3TypeFacadeLogicImpl extends EJB3TypeFacadeLogic {
     private static final long serialVersionUID = 34L;
+
     /**
      * @param metaObject
      * @param context
      */
-    public EJB3TypeFacadeLogicImpl(final Object metaObject, final String context)
-    {
-        super (metaObject, context);
+    public EJB3TypeFacadeLogicImpl(final Object metaObject, final String context) {
+        super(metaObject, context);
     }
 
     /**
      * @see EJB3TypeFacade#getFullyQualifiedEJB3Type()
      */
     @Override
-    protected String handleGetFullyQualifiedEJB3Type()
-    {
+    protected String handleGetFullyQualifiedEJB3Type() {
         String fullyQualifiedName = super.getFullyQualifiedName();
         final TypeMappings mappings = this.getEJB3TypeMappings();
-        if (mappings != null)
-        {
+        if (mappings != null) {
             final String fullyQualifiedModelName = super.getFullyQualifiedName(true);
-            if (mappings.getMappings().containsFrom(fullyQualifiedModelName))
-            {
+            if (mappings.getMappings().containsFrom(fullyQualifiedModelName)) {
                 fullyQualifiedName = mappings.getTo(fullyQualifiedModelName);
             }
         }
@@ -46,35 +44,26 @@ public class EJB3TypeFacadeLogicImpl
      *
      * @return the hibernate type TypeMappings.
      */
-    protected TypeMappings getEJB3TypeMappings()
-    {
+    protected TypeMappings getEJB3TypeMappings() {
         TypeMappings mappings = null;
         final String propertyName = "ejb3TypeMappingsUri";
-        if (this.isConfiguredProperty(propertyName))
-        {
+        if (this.isConfiguredProperty(propertyName)) {
             final Object property = this.getConfiguredProperty(propertyName);
-            if (property instanceof String)
-            {
-                String uri = (String)property;
-                if (StringUtils.isNotBlank(uri))
-                {
-                    try
-                    {
-                        mappings = TypeMappings.getInstance((String)property);
+            if (property instanceof String) {
+                String uri = (String) property;
+                if (StringUtils.isNotBlank(uri)) {
+                    try {
+                        mappings = TypeMappings.getInstance((String) property);
                         this.setProperty(propertyName, mappings);
-                    }
-                    catch (final Throwable throwable)
-                    {
+                    } catch (final Throwable throwable) {
                         final String message = "Error getting '" + propertyName + "' --> '" + uri + '\'';
 
                         // don't throw the exception
                         ExceptionRecorder.instance().record(message, throwable);
                     }
                 }
-            }
-            else
-            {
-                mappings = (TypeMappings)property;
+            } else {
+                mappings = (TypeMappings) property;
             }
         }
         return mappings;

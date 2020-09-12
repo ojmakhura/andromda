@@ -448,6 +448,7 @@
 #if($springws)
                 <property name="springVersion">5.2.4.RELEASE</property>
                 <property name="springwebservices">${springws.generated.java.dir}</property>
+                <property name="springwebservices-impl">${springws.manual.java.dir}</property>
 #else
                 <property name="configuration">${webservice.generated.dir}</property>
                 <property name="webservice-project">${webservice.project}</property>

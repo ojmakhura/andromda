@@ -1,19 +1,20 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
 import java.text.MessageFormat;
+import java.util.Collection;
+
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacade.
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacade.
  *
  * @see EJB3OperationFacade
  */
-public class EJB3OperationFacadeLogicImpl
-    extends EJB3OperationFacadeLogic
-{
+public class EJB3OperationFacadeLogicImpl extends EJB3OperationFacadeLogic {
     private static final long serialVersionUID = 34L;
 
     // ---------------- constructor -------------------------------
@@ -21,9 +22,8 @@ public class EJB3OperationFacadeLogicImpl
      * @param metaObject
      * @param context
      */
-    public EJB3OperationFacadeLogicImpl(final Object metaObject, final String context)
-    {
-        super (metaObject, context);
+    public EJB3OperationFacadeLogicImpl(final Object metaObject, final String context) {
+        super(metaObject, context);
     }
 
     // ---------------- methods -------------------------------
@@ -32,19 +32,15 @@ public class EJB3OperationFacadeLogicImpl
      * @see EJB3OperationFacade#isBusinessOperation()
      */
     @Override
-    protected boolean handleIsBusinessOperation()
-    {
-        return !this.isCreateMethod() &&
-                !this.isFinderMethod() &&
-                !this.isSelectMethod();
+    protected boolean handleIsBusinessOperation() {
+        return !this.isCreateMethod() && !this.isFinderMethod() && !this.isSelectMethod();
     }
 
     /**
      * @see EJB3OperationFacade#isSelectMethod()
      */
     @Override
-    protected boolean handleIsSelectMethod()
-    {
+    protected boolean handleIsSelectMethod() {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_SELECT_METHOD);
     }
 
@@ -52,8 +48,7 @@ public class EJB3OperationFacadeLogicImpl
      * @see EJB3OperationFacadeLogic#handleIsCreateMethod()
      */
     @Override
-    protected boolean handleIsCreateMethod()
-    {
+    protected boolean handleIsCreateMethod() {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_CREATE_METHOD);
     }
 
@@ -61,8 +56,7 @@ public class EJB3OperationFacadeLogicImpl
      * @see EJB3OperationFacadeLogic#handleIsFinderMethod()
      */
     @Override
-    protected boolean handleIsFinderMethod()
-    {
+    protected boolean handleIsFinderMethod() {
         return this.hasStereotype(UMLProfile.STEREOTYPE_FINDER_METHOD) || this.isQuery();
     }
 
@@ -70,8 +64,7 @@ public class EJB3OperationFacadeLogicImpl
      * @see EJB3OperationFacadeLogic#handleIsPrePersist()
      */
     @Override
-    protected boolean handleIsPrePersist()
-    {
+    protected boolean handleIsPrePersist() {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_PRE_PERSIST);
     }
 
@@ -79,8 +72,7 @@ public class EJB3OperationFacadeLogicImpl
      * @see EJB3OperationFacadeLogic#handleIsPostPersist()
      */
     @Override
-    protected boolean handleIsPostPersist()
-    {
+    protected boolean handleIsPostPersist() {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_POST_PERSIST);
     }
 
@@ -88,8 +80,7 @@ public class EJB3OperationFacadeLogicImpl
      * @see EJB3OperationFacadeLogic#handleIsPreRemove()
      */
     @Override
-    protected boolean handleIsPreRemove()
-    {
+    protected boolean handleIsPreRemove() {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_PRE_REMOVE);
     }
 
@@ -97,8 +88,7 @@ public class EJB3OperationFacadeLogicImpl
      * @see EJB3OperationFacadeLogic#handleIsPostRemove()
      */
     @Override
-    protected boolean handleIsPostRemove()
-    {
+    protected boolean handleIsPostRemove() {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_POST_REMOVE);
     }
 
@@ -106,8 +96,7 @@ public class EJB3OperationFacadeLogicImpl
      * @see EJB3OperationFacadeLogic#handleIsPreUpdate()
      */
     @Override
-    protected boolean handleIsPreUpdate()
-    {
+    protected boolean handleIsPreUpdate() {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_PRE_UPDATE);
     }
 
@@ -115,8 +104,7 @@ public class EJB3OperationFacadeLogicImpl
      * @see EJB3OperationFacadeLogic#handleIsPostUpdate()
      */
     @Override
-    protected boolean handleIsPostUpdate()
-    {
+    protected boolean handleIsPostUpdate() {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_POST_UPDATE);
     }
 
@@ -124,8 +112,7 @@ public class EJB3OperationFacadeLogicImpl
      * @see EJB3OperationFacadeLogic#handleIsPostLoad()
      */
     @Override
-    protected boolean handleIsPostLoad()
-    {
+    protected boolean handleIsPostLoad() {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_POST_LOAD);
     }
 
@@ -133,23 +120,16 @@ public class EJB3OperationFacadeLogicImpl
      * @see EJB3OperationFacadeLogic#handleIsLifecycleCallback()
      */
     @Override
-    protected boolean handleIsLifecycleCallback()
-    {
-        return this.isPostLoad() ||
-                this.isPostPersist() ||
-                this.isPostRemove() ||
-                this.isPostUpdate() ||
-                this.isPrePersist() ||
-                this.isPreRemove() ||
-                this.isPreUpdate();
+    protected boolean handleIsLifecycleCallback() {
+        return this.isPostLoad() || this.isPostPersist() || this.isPostRemove() || this.isPostUpdate()
+                || this.isPrePersist() || this.isPreRemove() || this.isPreUpdate();
     }
 
     /**
      * @see EJB3OperationFacadeLogic#handleGetImplementationName()
      */
     @Override
-    protected String handleGetImplementationName()
-    {
+    protected String handleGetImplementationName() {
         return this.getImplementationOperationName(StringUtils.capitalize(this.getName()));
     }
 
@@ -157,8 +137,7 @@ public class EJB3OperationFacadeLogicImpl
      * @see EJB3OperationFacadeLogic#handleGetImplementationCall()
      */
     @Override
-    protected String handleGetImplementationCall()
-    {
+    protected String handleGetImplementationCall() {
         return this.getImplementationOperationName(StringUtils.capitalize(this.getCall()));
     }
 
@@ -166,25 +145,22 @@ public class EJB3OperationFacadeLogicImpl
      * @see EJB3OperationFacadeLogic#handleGetImplementationSignature()
      */
     @Override
-    protected String handleGetImplementationSignature()
-    {
+    protected String handleGetImplementationSignature() {
         return this.getImplementationOperationName(StringUtils.capitalize(this.getSignature()));
     }
 
     /**
-     * Retrieves the implementationOperatName by replacing the <code>replacement</code> in the {@link
-     * EJB3Globals#IMPLEMENTATION_OPERATION_NAME_PATTERN}
+     * Retrieves the implementationOperatName by replacing the
+     * <code>replacement</code> in the
+     * {@link EJB3Globals#IMPLEMENTATION_OPERATION_NAME_PATTERN}
      *
      * @param replacement the replacement string for the pattern.
      * @return the operation name
      */
-    private String getImplementationOperationName(final String replacement)
-    {
-        String implementationNamePattern =
-            (String)this.getConfiguredProperty(EJB3Globals.IMPLEMENTATION_OPERATION_NAME_PATTERN);
+    private String getImplementationOperationName(final String replacement) {
+        String implementationNamePattern = (String) this
+                .getConfiguredProperty(EJB3Globals.IMPLEMENTATION_OPERATION_NAME_PATTERN);
 
-        return MessageFormat.format(
-                implementationNamePattern,
-                StringUtils.trimToEmpty(replacement));
+        return MessageFormat.format(implementationNamePattern, StringUtils.trimToEmpty(replacement));
     }
 }

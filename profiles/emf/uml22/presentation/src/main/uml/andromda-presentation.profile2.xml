@@ -1,0 +1,1256 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xmi:XMI xmlns:uml='http://www.omg.org/spec/UML/20131001' xmlns:xmi='http://www.omg.org/spec/XMI/20131001' xmlns:Validation_Profile='http://www.magicdraw.com/schemas/Validation_Profile.xmi' xmlns:MagicDraw_Profile='http://www.omg.org/spec/UML/20131001/MagicDrawProfile' xmlns:StandardProfile='http://www.omg.org/spec/UML/20131001/StandardProfile' xmlns:DSL_Customization='http://www.magicdraw.com/schemas/DSL_Customization.xmi'>
+	<xmi:Documentation>
+		<xmi:exporter>MagicDraw UML</xmi:exporter>
+		<xmi:exporterVersion>19.0 v9</xmi:exporterVersion>
+	</xmi:Documentation>
+	<uml:Model xmi:type='uml:Model' xmi:id='eee_1045467100313_135436_1' name='Model'>
+		<ownedComment xmi:type='uml:Comment' xmi:id='_18_1beta_8c90288_1415101994820_370998_4336' body='Author:junior.&#10;Created:9/12/20 12:33 AM.&#10;Title:.&#10;Comment:.&#10;'>
+			<annotatedElement xmi:idref='eee_1045467100313_135436_1'/>
+		</ownedComment>
+		<packagedElement xmi:type='uml:Profile' xmi:id='_9_0_2_12ab03bf_1120853223187_211304_0' name='andromda-presentation'>
+			<metamodelReference xmi:idref='_0metamodelReferenceandromda-presentation'/>
+			<packageImport xmi:type='uml:PackageImport' xmi:id='_0metamodelReferenceandromda-presentation'>
+				<importedPackage href='http://www.omg.org/spec/UML/20131001/UML.xmi#_0'>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel' referentType='Model' originalID='_9_0_be00301_1108053761194_467635_11463'/>
+					</xmi:Extension>
+				</importedPackage>
+			</packageImport>
+			<packagedElement xmi:type='uml:Enumeration' xmi:id='_9_0_1fe00f9_1119337248937_568959_38' name='WebActionFormScope'>
+				<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_999510_121' body='Denotes the scope given to the &quot;form&quot; attribute when executing an action.'>
+					<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_568959_38'/>
+				</ownedComment>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_5_1_2e90116_1229974985141_752987_1' name='default'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_1fe00f9_1119337248937_941904_35' name='none'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_799053_122' body='Denotes that the &quot;form&quot; attribute will not be set within any scope.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_941904_35'/>
+					</ownedComment>
+				</ownedLiteral>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_1fe00f9_1119337248937_183700_36' name='request'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_763340_123' body='Denotes that the &quot;form&quot; attribute will be set within a request scope.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_183700_36'/>
+					</ownedComment>
+				</ownedLiteral>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_1fe00f9_1119337248937_114826_37' name='session'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_228106_124' body='Denotes that the &quot;form&quot; attribute will be set within a session scope.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_114826_37'/>
+					</ownedComment>
+				</ownedLiteral>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Enumeration' xmi:id='_9_0_1fe00f9_1119337248937_274451_21' name='WebFieldType'>
+				<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_124122_76' body='Denotes the type of the form field to use for an action parameter.'>
+					<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_274451_21'/>
+				</ownedComment>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_5_1_2e90116_1229975004126_70315_4' name='default'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_1fe00f9_1119337248937_416969_11' name='select'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_667612_77' body='Use a combobox (also known as drop-down box) from which to select the value, only a single value can be selected unless the underlying type is a collection or array.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_416969_11'/>
+					</ownedComment>
+				</ownedLiteral>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_1fe00f9_1119337248937_572946_12' name='hidden'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_270556_78' body='Do not show the parameter on the screen.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_572946_12'/>
+					</ownedComment>
+				</ownedLiteral>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_1fe00f9_1119337248937_638510_13' name='password'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_604027_79' body='The field should be shown but it&#39;s content is to be masked using asterisks.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_638510_13'/>
+					</ownedComment>
+				</ownedLiteral>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_1fe00f9_1119337248937_778620_14' name='link'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_732557_80' body='This type can only be used when displaying the field in a table and you want to attach it to only of the possible page actions.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_778620_14'/>
+					</ownedComment>
+				</ownedLiteral>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_1fe00f9_1119337248937_558582_15' name='textarea'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_937103_81' body='Use a textarea with multiple rows.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_558582_15'/>
+					</ownedComment>
+				</ownedLiteral>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_1fe00f9_1119337248937_43090_16' name='text'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_969524_82' body='Use a simple text field.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_43090_16'/>
+					</ownedComment>
+				</ownedLiteral>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_1fe00f9_1119337248937_91479_17' name='checkbox'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_484910_83' body='Use a checkbox, ideal for boolean values.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_91479_17'/>
+					</ownedComment>
+				</ownedLiteral>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_1fe00f9_1119337248937_926770_18' name='multibox'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_414521_84' body='Use this field type when you want to render several checkboxes that need to be initialized based on the property of a single array.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_926770_18'/>
+					</ownedComment>
+				</ownedLiteral>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_1fe00f9_1119337248937_790419_19' name='radio'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_303086_85' body='Generates a few options from which the value can be selected, only a single option can be selected at a time.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_790419_19'/>
+					</ownedComment>
+				</ownedLiteral>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_1fe00f9_1119337248937_219748_20' name='plaintext'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_388402_86' body='Display this property as a plain text string.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_219748_20'/>
+					</ownedComment>
+				</ownedLiteral>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_5_1_12ab03bf_1127428788109_430313_0' name='table'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_5_1_12ab03bf_1127428960765_521717_1' body='Allows you to submit an entire table (only makes sense on an array or collection) type.  Arrays are preferrable as they allow us to know the type of element which makes up the collection.'>
+						<annotatedElement xmi:idref='_9_5_1_12ab03bf_1127428788109_430313_0'/>
+					</ownedComment>
+				</ownedLiteral>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Enumeration' xmi:id='_9_0_1fe00f9_1119337248937_121659_52' name='WebActionType'>
+				<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_360591_137' body='Denotes the type of the generated struts action, as displayed on screen.'>
+					<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_121659_52'/>
+				</ownedComment>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_5_1_2e90116_1229974990204_279620_2' name='default'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_1fe00f9_1119337248937_344864_49' name='hyperlink'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_390532_138' body='The action will be rendered as an hyperlink.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_344864_49'/>
+					</ownedComment>
+				</ownedLiteral>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_1fe00f9_1119337248937_180440_50' name='form'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_745703_139' body='The action will be rendered as a form.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_180440_50'/>
+					</ownedComment>
+				</ownedLiteral>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_1fe00f9_1119337248937_526064_51' name='image'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_115857_140' body='The action will be rendered as a clickable image.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_526064_51'/>
+					</ownedComment>
+				</ownedLiteral>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_2_1fe00f9_1122552631953_327936_0' name='table'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_2_1fe00f9_1122552645078_318201_1' body='Denotes the action will work on all rows of a table.'>
+						<annotatedElement xmi:idref='_9_0_2_1fe00f9_1122552631953_327936_0'/>
+					</ownedComment>
+				</ownedLiteral>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_2_12ab03bf_1125616954921_758307_0' name='popup'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_2_12ab03bf_1125616960718_872602_1' body='When this is selected the resulting view will be rendered as a popup.'>
+						<annotatedElement xmi:idref='_9_0_2_12ab03bf_1125616954921_758307_0'/>
+					</ownedComment>
+				</ownedLiteral>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Enumeration' xmi:id='_9_0_1fe00f9_1119337248937_819259_44' name='WebExportType'>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_5_1_2e90116_1229974996094_471006_3' name='default'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_1fe00f9_1119337248937_322449_39' name='xml'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_1fe00f9_1119337248937_219149_40' name='csv'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_1fe00f9_1119337248937_563091_41' name='excel'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_1fe00f9_1119337248937_805562_42' name='pdf'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_1fe00f9_1119337248937_670329_43' name='none'/>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Enumeration' xmi:id='_9_0_2_12ab03bf_1125759055984_835993_0' name='ViewType'>
+				<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_2_12ab03bf_1125759158093_52772_4' body='Represents the types of views.'>
+					<annotatedElement xmi:idref='_9_0_2_12ab03bf_1125759055984_835993_0'/>
+				</ownedComment>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_5_1_2e90116_1229974974078_658767_0' name='default'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_2_12ab03bf_1125759114125_637903_1' name='regular'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_2_12ab03bf_1125759158093_515718_5' body='A &quot;regular&quot; view.'>
+						<annotatedElement xmi:idref='_9_0_2_12ab03bf_1125759114125_637903_1'/>
+					</ownedComment>
+				</ownedLiteral>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_0_2_12ab03bf_1125759114125_324601_2' name='popup'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_2_12ab03bf_1125759158093_568254_6' body='A &quot;popup&quot; view.'>
+						<annotatedElement xmi:idref='_9_0_2_12ab03bf_1125759114125_324601_2'/>
+					</ownedComment>
+				</ownedLiteral>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Enumeration' xmi:id='_9_5_1_2e90116_1229440195750_526859_0' name='TernaryBoolean'>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_5_1_2e90116_1229440203406_932140_1' name='default'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_5_1_2e90116_1229440208250_170082_2' name='true'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_9_5_1_2e90116_1229440212437_637466_3' name='false'/>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Extension' xmi:id='_12_1_2e90116_1238689296109_319780_409'>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296109_354996_411'/>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296109_277905_410'/>
+				<navigableOwnedEnd xmi:idref='_12_1_2e90116_1238689296109_354996_411'/>
+				<ownedEnd xmi:type='uml:ExtensionEnd' xmi:id='_12_1_2e90116_1238689296109_354996_411' name='extension_FrontEndView' visibility='private' aggregation='composite' type='_9_0_1fe00f9_1119337248937_676970_30' association='_12_1_2e90116_1238689296109_319780_409'>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296109_465005_412'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296109_606241_413' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+				</ownedEnd>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Extension' xmi:id='_12_1_2e90116_1238689296109_149351_414'>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296109_166556_416'/>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296109_444963_415'/>
+				<navigableOwnedEnd xmi:idref='_12_1_2e90116_1238689296109_166556_416'/>
+				<ownedEnd xmi:type='uml:ExtensionEnd' xmi:id='_12_1_2e90116_1238689296109_166556_416' name='extension_FrontEndView' visibility='private' aggregation='composite' type='_9_0_1fe00f9_1119337248937_676970_30' association='_12_1_2e90116_1238689296109_149351_414'>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296109_525691_417'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296109_337663_418' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+				</ownedEnd>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Extension' xmi:id='_12_1_2e90116_1238689296109_71376_421'>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296109_478354_423'/>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296109_178501_422'/>
+				<navigableOwnedEnd xmi:idref='_12_1_2e90116_1238689296109_478354_423'/>
+				<ownedEnd xmi:type='uml:ExtensionEnd' xmi:id='_12_1_2e90116_1238689296109_478354_423' name='extension_FrontEndController' visibility='private' aggregation='composite' type='_9_5_1_2e90116_1229370142827_219069_1' association='_12_1_2e90116_1238689296109_71376_421'>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296109_761371_424'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296109_327379_425' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+				</ownedEnd>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Extension' xmi:id='_12_1_2e90116_1238689296109_85856_426'>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296109_22460_428'/>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296109_941916_427'/>
+				<navigableOwnedEnd xmi:idref='_12_1_2e90116_1238689296109_22460_428'/>
+				<ownedEnd xmi:type='uml:ExtensionEnd' xmi:id='_12_1_2e90116_1238689296109_22460_428' name='extension_FrontEndAction' visibility='private' aggregation='composite' type='_9_5_1_2e90116_1229370046779_978687_0' association='_12_1_2e90116_1238689296109_85856_426'>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296109_560610_429'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296109_876444_430' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+				</ownedEnd>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Extension' xmi:id='_12_1_2e90116_1238689296109_165767_432'>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296109_927264_434'/>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296109_188145_433'/>
+				<navigableOwnedEnd xmi:idref='_12_1_2e90116_1238689296109_927264_434'/>
+				<ownedEnd xmi:type='uml:ExtensionEnd' xmi:id='_12_1_2e90116_1238689296109_927264_434' name='extension_FrontEndException' visibility='private' aggregation='composite' type='_9_0_1fe00f9_1119337248937_447433_8' association='_12_1_2e90116_1238689296109_165767_432'>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296109_92073_435'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296109_198455_436' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+				</ownedEnd>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Extension' xmi:id='_12_1_2e90116_1238689296109_514534_440'>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296109_887906_442'/>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296109_185093_441'/>
+				<navigableOwnedEnd xmi:idref='_12_1_2e90116_1238689296109_887906_442'/>
+				<ownedEnd xmi:type='uml:ExtensionEnd' xmi:id='_12_1_2e90116_1238689296109_887906_442' name='extension_FrontEndRegistration' visibility='private' aggregation='composite' type='_9_0_2_12ab03bf_1126726268765_386289_0' association='_12_1_2e90116_1238689296109_514534_440'>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296109_637923_443'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296109_905691_444' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+				</ownedEnd>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Extension' xmi:id='_12_1_2e90116_1238689296109_82671_445'>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296109_822956_447'/>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296109_613726_446'/>
+				<navigableOwnedEnd xmi:idref='_12_1_2e90116_1238689296109_822956_447'/>
+				<ownedEnd xmi:type='uml:ExtensionEnd' xmi:id='_12_1_2e90116_1238689296109_822956_447' name='extension_FrontEndUseCase' visibility='private' aggregation='composite' type='_9_0_1fe00f9_1119337248937_839982_7' association='_12_1_2e90116_1238689296109_82671_445'>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296109_718854_448'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296109_577560_449' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+				</ownedEnd>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Extension' xmi:id='_12_1_2e90116_1238689296109_432870_455'>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296109_45055_457'/>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296109_157199_456'/>
+				<navigableOwnedEnd xmi:idref='_12_1_2e90116_1238689296109_45055_457'/>
+				<ownedEnd xmi:type='uml:ExtensionEnd' xmi:id='_12_1_2e90116_1238689296109_45055_457' name='extension_FrontEndField' visibility='private' aggregation='composite' type='_9_5_1_2e90116_1229370190218_794057_2' association='_12_1_2e90116_1238689296109_432870_455'>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296109_881941_458'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296109_784294_459' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+				</ownedEnd>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Extension' xmi:id='_12_1_2e90116_1238689296109_565468_460'>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296109_687492_462'/>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296109_141349_461'/>
+				<navigableOwnedEnd xmi:idref='_12_1_2e90116_1238689296109_687492_462'/>
+				<ownedEnd xmi:type='uml:ExtensionEnd' xmi:id='_12_1_2e90116_1238689296109_687492_462' name='extension_FrontEndField' visibility='private' aggregation='composite' type='_9_5_1_2e90116_1229370190218_794057_2' association='_12_1_2e90116_1238689296109_565468_460'>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296109_453700_463'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296109_572341_464' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+				</ownedEnd>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Extension' xmi:id='_12_1_2e90116_1238689296109_223584_465'>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296109_950482_467'/>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296109_77039_466'/>
+				<navigableOwnedEnd xmi:idref='_12_1_2e90116_1238689296109_950482_467'/>
+				<ownedEnd xmi:type='uml:ExtensionEnd' xmi:id='_12_1_2e90116_1238689296109_950482_467' name='extension_FrontEndSessionObject' visibility='private' aggregation='composite' type='_9_0_1fe00f9_1119337248937_233969_55' association='_12_1_2e90116_1238689296109_223584_465'>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296109_632304_468'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296109_581723_469' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+				</ownedEnd>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Extension' xmi:id='_12_1_2e90116_1238689296125_888536_474'>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296125_603700_476'/>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296125_697409_475'/>
+				<navigableOwnedEnd xmi:idref='_12_1_2e90116_1238689296125_603700_476'/>
+				<ownedEnd xmi:type='uml:ExtensionEnd' xmi:id='_12_1_2e90116_1238689296125_603700_476' name='extension_FrontEndTable' visibility='private' aggregation='composite' type='_9_5_1_2e90116_1229370369314_734673_4' association='_12_1_2e90116_1238689296125_888536_474'>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296125_989792_477'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296125_370283_478' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+				</ownedEnd>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Extension' xmi:id='_12_1_2e90116_1238689296125_534756_479'>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296125_628326_481'/>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296125_981746_480'/>
+				<navigableOwnedEnd xmi:idref='_12_1_2e90116_1238689296125_628326_481'/>
+				<ownedEnd xmi:type='uml:ExtensionEnd' xmi:id='_12_1_2e90116_1238689296125_628326_481' name='extension_FrontEndTable' visibility='private' aggregation='composite' type='_9_5_1_2e90116_1229370369314_734673_4' association='_12_1_2e90116_1238689296125_534756_479'>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296125_793694_482'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296125_218329_483' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+				</ownedEnd>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Extension' xmi:id='_12_1_2e90116_1238689296125_170344_484'>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296125_633876_486'/>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296125_680036_485'/>
+				<navigableOwnedEnd xmi:idref='_12_1_2e90116_1238689296125_633876_486'/>
+				<ownedEnd xmi:type='uml:ExtensionEnd' xmi:id='_12_1_2e90116_1238689296125_633876_486' name='extension_FrontEndTable' visibility='private' aggregation='composite' type='_9_5_1_2e90116_1229370369314_734673_4' association='_12_1_2e90116_1238689296125_170344_484'>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296125_370079_487'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296125_444912_488' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+				</ownedEnd>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Extension' xmi:id='_12_1_2e90116_1238689296125_590657_491'>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296125_579948_493'/>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296125_651637_492'/>
+				<navigableOwnedEnd xmi:idref='_12_1_2e90116_1238689296125_579948_493'/>
+				<ownedEnd xmi:type='uml:ExtensionEnd' xmi:id='_12_1_2e90116_1238689296125_579948_493' name='extension_FrontEndMessage' visibility='private' aggregation='composite' type='_9_5_1_2e90116_1229370322642_74448_3' association='_12_1_2e90116_1238689296125_590657_491'>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296125_740050_494'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296125_159500_495' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+				</ownedEnd>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Extension' xmi:id='_12_1_2e90116_1238689296125_64726_497'>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296125_883848_499'/>
+				<memberEnd xmi:idref='_12_1_2e90116_1238689296125_542833_498'/>
+				<navigableOwnedEnd xmi:idref='_12_1_2e90116_1238689296125_883848_499'/>
+				<ownedEnd xmi:type='uml:ExtensionEnd' xmi:id='_12_1_2e90116_1238689296125_883848_499' name='extension_FrontEndApplication' visibility='private' aggregation='composite' type='_9_0_1fe00f9_1119337248937_791195_9' association='_12_1_2e90116_1238689296125_64726_497'>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296125_497472_500'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296125_470010_501' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+				</ownedEnd>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Stereotype' xmi:id='_9_0_1fe00f9_1119337248937_447433_8' name='FrontEndException'>
+				<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_735717_155' body='Have this transition point to a &lt;&lt;FrontEndView&gt;&gt; action state or a final state, it will have any exception directed to that page or use-case respectively. Using tagged values you can have control on the type of exception for each of such transitions.'>
+					<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_447433_8'/>
+				</ownedComment>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_990004_22' name='andromda_presentation_exception_type' visibility='private'>
+					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_243682_89' body='The type of exception that is to be handled by this transition.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_990004_22'/>
+					</ownedComment>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296047_307349_340' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296047_475781_341' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_12_1_2e90116_1238689296109_188145_433' name='base_Transition' visibility='private' association='_12_1_2e90116_1238689296109_165767_432'>
+					<type href='http://www.omg.org/spec/UML/20131001/UML.xmi#Transition'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::Transition' referentType='Class'/>
+						</xmi:Extension>
+					</type>
+				</ownedAttribute>
+				<icon xmi:type='uml:Image' xmi:id='_12_1_2e90116_1238689296047_653551_339'/>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Stereotype' xmi:id='_9_0_1fe00f9_1119337248937_791195_9' name='FrontEndApplication'>
+				<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_658825_154' body='This stereotype means that the use-case will be consider the first one when entering the application.'>
+					<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_791195_9'/>
+				</ownedComment>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_12_1_2e90116_1238689296125_542833_498' name='base_UseCase' visibility='private' association='_12_1_2e90116_1238689296125_64726_497'>
+					<type href='http://www.omg.org/spec/UML/20131001/UML.xmi#UseCase'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::UseCase' referentType='Class'/>
+						</xmi:Extension>
+					</type>
+				</ownedAttribute>
+				<icon xmi:type='uml:Image' xmi:id='_12_1_2e90116_1238689296047_327608_342'/>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Stereotype' xmi:id='_9_0_1fe00f9_1119337248937_839982_7' name='FrontEndUseCase'>
+				<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_133439_153' body='A use-case to be processed by AndroMDA.'>
+					<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_839982_7'/>
+				</ownedComment>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_823379_28' name='andromda_presentation_usecase_activity' visibility='private'>
+					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_182500_105' body='This tagged value is used to reference activity graphs from a use-case. In doing so you will associate the graph with the usecase. Instead of using this tagged value you can simply assign a single graph in the namespace of the use-case.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_823379_28'/>
+					</ownedComment>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296047_308327_344' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296047_72980_345' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_1fe00f9_1123074520234_333609_0' name='andromda_presentation_web_action_form_key' visibility='private'>
+					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_2_1fe00f9_1123074523890_730226_3' body='Denotes the key used to store this action&#39;s form under. Depending on the setting of the andromda_presentation_web_action_form_scope tagged value this key is used for either request or session scope. Will only be used when the form is not empty, it is ignored otherwise.'>
+						<annotatedElement xmi:idref='_9_0_2_1fe00f9_1123074520234_333609_0'/>
+					</ownedComment>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296047_968434_346' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296047_227709_347' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<defaultValue xmi:type='uml:LiteralString' xmi:id='_12_1_2e90116_1238689296125_122015_496' value='form'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_12_1_2e90116_1238689296109_613726_446' name='base_UseCase' visibility='private' association='_12_1_2e90116_1238689296109_82671_445'>
+					<type href='http://www.omg.org/spec/UML/20131001/UML.xmi#UseCase'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::UseCase' referentType='Class'/>
+						</xmi:Extension>
+					</type>
+				</ownedAttribute>
+				<icon xmi:type='uml:Image' xmi:id='_12_1_2e90116_1238689296047_641436_343'/>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Stereotype' xmi:id='_9_0_1fe00f9_1119337248937_233969_55' name='FrontEndSessionObject'>
+				<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_642710_157' body='A session object needs to be associated with controllers, that way the controller will have some code to lookup the session object and can therefore expose it in your manual code.'>
+					<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_233969_55'/>
+				</ownedComment>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_12_1_2e90116_1238689296109_77039_466' name='base_Class' visibility='private' association='_12_1_2e90116_1238689296109_223584_465'>
+					<type href='http://www.omg.org/spec/UML/20131001/UML.xmi#Class'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::Class' referentType='Class'/>
+						</xmi:Extension>
+					</type>
+				</ownedAttribute>
+				<icon xmi:type='uml:Image' xmi:id='_12_1_2e90116_1238689296047_166095_348'/>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Stereotype' xmi:id='_9_0_1fe00f9_1119337248937_676970_30' name='FrontEndView'>
+				<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_390839_156' body='A presentation component interfacing with the end-user.'>
+					<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_676970_30'/>
+				</ownedComment>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_12ab03bf_1125759126875_377431_3' name='andromda_presentation_web_view_type' visibility='private' type='_9_0_2_12ab03bf_1125759055984_835993_0'>
+					<defaultValue xmi:type='uml:InstanceValue' xmi:id='_12_1_2e90116_1238689296109_574591_420' instance='_9_5_1_2e90116_1229974974078_658767_0'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_12_1_2e90116_1238689296109_277905_410' name='base_State' visibility='private' association='_12_1_2e90116_1238689296109_319780_409'>
+					<type href='http://www.omg.org/spec/UML/20131001/UML.xmi#State'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::State' referentType='Class'/>
+						</xmi:Extension>
+					</type>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_12_1_2e90116_1238689296109_444963_415' name='base_Action' visibility='private' association='_12_1_2e90116_1238689296109_149351_414'>
+					<type href='http://www.omg.org/spec/UML/20131001/UML.xmi#Action'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::Action' referentType='Class'/>
+						</xmi:Extension>
+					</type>
+				</ownedAttribute>
+				<icon xmi:type='uml:Image' xmi:id='_12_1_2e90116_1238689296047_521418_349'/>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Stereotype' xmi:id='_9_0_2_12ab03bf_1126726268765_386289_0' name='FrontEndRegistration'>
+				<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_2_12ab03bf_1126726336515_471546_88' body='Place this on a use case that represents a front-end registration process.'>
+					<annotatedElement xmi:idref='_9_0_2_12ab03bf_1126726268765_386289_0'/>
+				</ownedComment>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_12_1_2e90116_1238689296109_185093_441' name='base_UseCase' visibility='private' association='_12_1_2e90116_1238689296109_514534_440'>
+					<type href='http://www.omg.org/spec/UML/20131001/UML.xmi#UseCase'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::UseCase' referentType='Class'/>
+						</xmi:Extension>
+					</type>
+				</ownedAttribute>
+				<icon xmi:type='uml:Image' xmi:id='_12_1_2e90116_1238689296047_650730_350'/>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Stereotype' xmi:id='_9_5_1_2e90116_1229370046779_978687_0' name='FrontEndAction'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_12ab03bf_1125937922234_122922_0' name='andromda_presentation_web_action_form_reset' visibility='private' type='_9_5_1_2e90116_1229440195750_526859_0'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_2_12ab03bf_1125938044765_936335_1' body='Allows one to reset the values on the corresponding action&#39;s (a transition coming out a of a front end view) form.'>
+						<annotatedElement xmi:idref='_9_0_2_12ab03bf_1125937922234_122922_0'/>
+					</ownedComment>
+					<defaultValue xmi:type='uml:InstanceValue' xmi:id='_12_1_2e90116_1238689296125_241781_489' instance='_9_5_1_2e90116_1229440203406_932140_1'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_781907_26' name='andromda_presentation_web_action_form_scope' visibility='private' type='_9_0_1fe00f9_1119337248937_568959_38'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_572049_99' body='Denotes the scope in which the &quot;form&quot; attribute should be placed when executing the action.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_781907_26'/>
+					</ownedComment>
+					<defaultValue xmi:type='uml:InstanceValue' xmi:id='_12_1_2e90116_1238689296109_608537_471' instance='_9_5_1_2e90116_1229974985141_752987_1'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_867276_5' name='andromda_presentation_web_action_tablelink' visibility='private'>
+					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_882896_69' body='Use this tagged value when you have an incoming transition with a Collection parameter that is to be represented as a table. The value of this tagged value will then be used to determine which table use when calling this action.&#10;&#10;The value should the name of an table page-variable entering the page on which this action has been modeled.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_867276_5'/>
+					</ownedComment>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296047_686812_352'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296047_82998_353' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_701444_4' name='andromda_presentation_web_action_type' visibility='private' type='_9_0_1fe00f9_1119337248937_121659_52'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_80100_66' body='Denotes how the action is to be rendered.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_701444_4'/>
+					</ownedComment>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296047_536896_354' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296047_569080_355' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<defaultValue xmi:type='uml:InstanceValue' xmi:id='_12_1_2e90116_1238689296109_521087_419' instance='_9_5_1_2e90116_1229974990204_279620_2'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_55917_45' name='andromda_presentation_web_action_redirect' visibility='private' type='_9_5_1_2e90116_1229440195750_526859_0'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_254110_127' body='Defines whether or not the struts action should be redirected when forwarding to the next action.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_55917_45'/>
+					</ownedComment>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296047_152072_356' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296047_747469_357' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<defaultValue xmi:type='uml:InstanceValue' xmi:id='_12_1_2e90116_1238689296109_463373_431' instance='_9_5_1_2e90116_1229440203406_932140_1'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_980341_23' name='andromda_presentation_web_action_resettable' visibility='private' type='_9_5_1_2e90116_1229440195750_526859_0'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_883142_92' body='Denotes that the user should be able to reset the action form.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_980341_23'/>
+					</ownedComment>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296047_299283_358' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296047_184593_359' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<defaultValue xmi:type='uml:InstanceValue' xmi:id='_12_1_2e90116_1238689296109_199456_453' instance='_9_5_1_2e90116_1229440203406_932140_1'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_12_1_2e90116_1238689296109_941916_427' name='base_Transition' visibility='private' association='_12_1_2e90116_1238689296109_85856_426'>
+					<type href='http://www.omg.org/spec/UML/20131001/UML.xmi#Transition'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::Transition' referentType='Class'/>
+						</xmi:Extension>
+					</type>
+				</ownedAttribute>
+				<icon xmi:type='uml:Image' xmi:id='_12_1_2e90116_1238689296047_613054_351'/>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Stereotype' xmi:id='_9_5_1_2e90116_1229370142827_219069_1' name='FrontEndController'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_771725_32' name='andromda_presentation_controller_usecase' visibility='private'>
+					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_530124_114' body='For those CASE tools with marginal UML support this tagged value allows the controller to reference the use-case. You should give the name of the use-case, nothing more and nothing less.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_771725_32'/>
+					</ownedComment>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296047_706265_361'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296047_95820_362' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_12_1_2e90116_1238689296109_178501_422' name='base_Class' visibility='private' association='_12_1_2e90116_1238689296109_71376_421'>
+					<type href='http://www.omg.org/spec/UML/20131001/UML.xmi#Class'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::Class' referentType='Class'/>
+						</xmi:Extension>
+					</type>
+				</ownedAttribute>
+				<icon xmi:type='uml:Image' xmi:id='_12_1_2e90116_1238689296047_320326_360'/>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Stereotype' xmi:id='_9_5_1_2e90116_1229370190218_794057_2' name='FrontEndField'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_1fe00f9_1123180006655_412428_1' name='andromda_presentation_web_view_field_rows' visibility='private'>
+					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_2_1fe00f9_1123180010988_322402_7' body='Denotes the number of rows of a textarea field.'>
+						<annotatedElement xmi:idref='_9_0_2_1fe00f9_1123180006655_412428_1'/>
+					</ownedComment>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296047_923769_364' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296047_251484_365' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<defaultValue xmi:type='uml:LiteralString' xmi:id='_12_1_2e90116_1238689296125_899469_503' value='5'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_1fe00f9_1123180006655_508675_0' name='andromda_presentation_web_view_field_size' visibility='private'>
+					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_2_1fe00f9_1123180010988_942305_4' body='Denotes the number of columns of an input field.'>
+						<annotatedElement xmi:idref='_9_0_2_1fe00f9_1123180006655_508675_0'/>
+					</ownedComment>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296062_526961_366'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296062_892173_367' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<defaultValue xmi:type='uml:LiteralString' xmi:id='_12_1_2e90116_1238689296125_832499_504' value='15'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_494345_3' name='andromda_presentation_web_view_field_reset' visibility='private' type='_9_5_1_2e90116_1229440195750_526859_0'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_315123_63' body='Denotes whether this field should be reset to an empty value '>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_494345_3'/>
+					</ownedComment>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296062_402188_368'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296062_159107_369' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<defaultValue xmi:type='uml:InstanceValue' xmi:id='_12_1_2e90116_1238689296109_689049_454' instance='_9_5_1_2e90116_1229440203406_932140_1'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_175825_53' name='andromda_presentation_web_view_field_type' visibility='private' type='_9_0_1fe00f9_1119337248937_274451_21'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_713213_143' body='Use this tagged value if you wish to display input fields using a special widget.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_175825_53'/>
+					</ownedComment>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296062_108898_370'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296062_6701_371' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<defaultValue xmi:type='uml:InstanceValue' xmi:id='_12_1_2e90116_1238689296109_266257_452' instance='_9_5_1_2e90116_1229975004126_70315_4'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_697950_48' name='andromda_presentation_web_view_field_validwhen' visibility='private'>
+					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_483757_136' body='Makes the validity of this parameter dependent on another parameter. This is useful for example for confirming passwords.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_697950_48'/>
+					</ownedComment>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296062_772471_372'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296062_624368_373' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_5_1_12ab03bf_1126910812625_261156_0' name='andromda_presentation_web_view_field_equal' visibility='private'>
+					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_5_1_12ab03bf_1126910893453_422563_1' body='Allows you to specify the name for the field that this field must be equal to.'>
+						<annotatedElement xmi:idref='_9_5_1_12ab03bf_1126910812625_261156_0'/>
+					</ownedComment>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_514761_54' name='andromda_presentation_web_view_field_validators' visibility='private'>
+					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_951447_146' body='Allows users to specify custom validators for a field, when used the validation-rules.xml will need an update to include these validators.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_514761_54'/>
+					</ownedComment>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296062_220834_374'/>
+					<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296062_800997_375' value='*'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_27957_31' name='andromda_presentation_web_view_field_calendar' visibility='private' type='_9_5_1_2e90116_1229440195750_526859_0'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_722442_111' body='Put this tagged value on a parameter of type Date to denote that you want a calendar popup.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_27957_31'/>
+					</ownedComment>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296062_470974_376'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296062_857213_377' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<defaultValue xmi:type='uml:InstanceValue' xmi:id='_12_1_2e90116_1238689296109_897138_472' instance='_9_5_1_2e90116_1229440203406_932140_1'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_655967_27' name='andromda_presentation_view_field_required' visibility='private' type='_9_5_1_2e90116_1229440195750_526859_0'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_182286_102' body='The parameter is not allowed to represent a blank (null or whitespace).'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_655967_27'/>
+					</ownedComment>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296062_188216_378'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296062_608493_379' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<defaultValue xmi:type='uml:InstanceValue' xmi:id='_12_1_2e90116_1238689296125_693520_490' instance='_9_5_1_2e90116_1229440203406_932140_1'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_389614_24' name='andromda_presentation_view_field_format' visibility='private'>
+					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_911022_95' body='Denotes the format of the parameter value, this value will be check on the client as well as on the server. You may enter more than one value for this tag.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_389614_24'/>
+					</ownedComment>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296062_725659_380'/>
+					<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296062_517077_381' value='*'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_986459_10' name='andromda_presentation_view_field_multibox' visibility='private'>
+					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_935880_75' body='When using the andromda_struts_view_field_type=multibox tagged value (which is only allowed in tables) you must specify also this tagged value to specify the collection or array holding the actual values to match against.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_986459_10'/>
+					</ownedComment>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296062_149168_382'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296062_963174_383' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_756262_56' name='andromda_presentation_view_field_readonly' visibility='private' type='_9_5_1_2e90116_1229440195750_526859_0'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_127441_149' body='Will make the parameter read-only.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_756262_56'/>
+					</ownedComment>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296062_515898_384' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296062_268744_385' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<defaultValue xmi:type='uml:InstanceValue' xmi:id='_12_1_2e90116_1238689296109_229682_451' instance='_9_5_1_2e90116_1229440203406_932140_1'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_5_1_12ab03bf_1127450606265_565893_0' name='andromda_presentation_view_field_table_identifier_columns' visibility='private'>
+					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_5_1_12ab03bf_1127450714578_743824_1' body='A comma seperated list; used with the table input type. Defines the columns that make up the identifier of the row (these are necessary in order to allow the merging of the value with the backing value when submitting and loading an input table).'>
+						<annotatedElement xmi:idref='_9_5_1_12ab03bf_1127450606265_565893_0'/>
+					</ownedComment>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_938137_29' name='andromda_presentation_view_field_radio' visibility='private'>
+					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_516994_108' body='This tagged value only makes sense when used in combination with andromda_struts_field_type=radio, it denotes the number of options to render. Specify an integer value, or specify a comma-separated list of property values.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_938137_29'/>
+					</ownedComment>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296062_617983_386' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296062_983335_387' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<defaultValue xmi:type='uml:LiteralString' xmi:id='_12_1_2e90116_1238689296109_498639_450' value='3'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_12_1_2e90116_1238689296109_157199_456' name='base_Parameter' visibility='private' association='_12_1_2e90116_1238689296109_432870_455'>
+					<type href='http://www.omg.org/spec/UML/20131001/UML.xmi#Parameter'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::Parameter' referentType='Class'/>
+						</xmi:Extension>
+					</type>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_12_1_2e90116_1238689296109_141349_461' name='base_Property' visibility='private' association='_12_1_2e90116_1238689296109_565468_460'>
+					<type href='http://www.omg.org/spec/UML/20131001/UML.xmi#Property'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::Property' referentType='Class'/>
+						</xmi:Extension>
+					</type>
+				</ownedAttribute>
+				<icon xmi:type='uml:Image' xmi:id='_12_1_2e90116_1238689296047_586913_363'/>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Stereotype' xmi:id='_9_5_1_2e90116_1229370322642_74448_3' name='FrontEndMessage'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_768123_57' name='andromda_presentation_action_warning_message' visibility='private'>
+					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_568753_152' body='Place this tagged value on a transition if you want to have an automatic warning message rendered into the target jsp page, this message will indicate that the action has finished succesfully but the user&#39;s attention should go to a specific topic. The value assigned to this tagged value will be used as the warning message in case it contains more than 5 characters, otherwise the value needs to be &#39;true&#39; to be taken into account.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_768123_57'/>
+					</ownedComment>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296062_874857_389'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296062_207362_390' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<defaultValue xmi:type='uml:LiteralString' xmi:id='_12_1_2e90116_1238689296125_419295_473' value='Warning'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_826380_47' name='andromda_presentation_action_success_message' visibility='private'>
+					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_883649_133' body='Place this tagged value on a transition if you want to have an automatic confirmation message rendered into the target jsp page, this message will indicate that the action has finished succesfully. The value assigned to this tagged value will be used as the success message in case it contains more than 5 characters, otherwise the value needs to be &#39;true&#39; to be taken into account.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_826380_47'/>
+					</ownedComment>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296062_833126_391'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296062_34412_392' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<defaultValue xmi:type='uml:LiteralString' xmi:id='_12_1_2e90116_1238689296109_78456_437' value='Success'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_12_1_2e90116_1238689296125_651637_492' name='base_Transition' visibility='private' association='_12_1_2e90116_1238689296125_590657_491'>
+					<type href='http://www.omg.org/spec/UML/20131001/UML.xmi#Transition'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::Transition' referentType='Class'/>
+						</xmi:Extension>
+					</type>
+				</ownedAttribute>
+				<icon xmi:type='uml:Image' xmi:id='_12_1_2e90116_1238689296062_460047_388'/>
+			</packagedElement>
+			<packagedElement xmi:type='uml:Stereotype' xmi:id='_9_5_1_2e90116_1229370369314_734673_4' name='FrontEndTable'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_237101_6' name='andromda_presentation_view_table_maxrows' visibility='private'>
+					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_925797_72' body='Denotes the maximum number of rows per &#39;page&#39;. Defaults to 15.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_237101_6'/>
+					</ownedComment>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296062_800210_394' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296062_249242_395' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<defaultValue xmi:type='uml:LiteralString' xmi:id='_12_1_2e90116_1238689296109_139729_438' value='15'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_5_1_12ab03bf_1174398558296_293431_0' name='andromda_presentation_view_table_pageable' visibility='private' type='_9_5_1_2e90116_1229440195750_526859_0'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_5_1_12ab03bf_1174398674093_806600_91' body='Indicates whether or not a table is considered &quot;pageable&quot;.  Pageable tables have support for DB paging built into them.'>
+						<annotatedElement xmi:idref='_9_5_1_12ab03bf_1174398558296_293431_0'/>
+					</ownedComment>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296062_371899_396' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296062_342932_397' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<defaultValue xmi:type='uml:InstanceValue' xmi:id='_12_1_2e90116_1238689296109_397636_470' instance='_9_5_1_2e90116_1229440203406_932140_1'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_12ab03bf_1126298730968_419691_1' name='andromda_presentation_view_table' visibility='private' type='_9_5_1_2e90116_1229440195750_526859_0'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_2_12ab03bf_1126298846187_985551_2' body='A flag indicating whether or not a parameter should be considered a table.  This must be set to true when you wish to display a list of simple types (such as strings) within a table. If you specify the table&#39;s columns in andromda_presentation_view_table_columns, then this tagged value is not required to indicate that the parameter is table (as it will be assumed).'>
+						<annotatedElement xmi:idref='_9_0_2_12ab03bf_1126298730968_419691_1'/>
+					</ownedComment>
+					<defaultValue xmi:type='uml:InstanceValue' xmi:id='_12_1_2e90116_1238689296109_483551_439' instance='_9_5_1_2e90116_1229440203406_932140_1'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_371403_33' name='andromda_presentation_view_table_columns' visibility='private'>
+					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_448388_117' body='Determines which properties of the value objects in a Collection are to be called in order to render the columns of the table. The order directly specifies the order of the columns. Multiple values are separated by commas or whitespace.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_371403_33'/>
+					</ownedComment>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296062_572145_398'/>
+					<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296062_206982_399'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_389174_46' name='andromda_presentation_view_table_export' visibility='private' type='_9_0_1fe00f9_1119337248937_819259_44'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_707534_130' body='This tagged value specifies which types of export are supported. '>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_389174_46'/>
+					</ownedComment>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296062_514666_400'/>
+					<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296062_582296_401' value='*'/>
+					<defaultValue xmi:type='uml:InstanceValue' xmi:id='_12_1_2e90116_1238689296109_65490_408' instance='_9_5_1_2e90116_1229974996094_471006_3'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_402294_25' name='andromda_presentation_view_table_sortable' visibility='private' type='_9_5_1_2e90116_1229440195750_526859_0'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_775313_98' body='Denotes whether or not columns are supposed to be sortable, defaults to true in case of absence.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_402294_25'/>
+					</ownedComment>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296062_657468_402' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296062_418114_403' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<defaultValue xmi:type='uml:InstanceValue' xmi:id='_12_1_2e90116_1238689296125_299488_502' instance='_9_5_1_2e90116_1229440203406_932140_1'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_9656_34' name='andromda_struts_view_table_decorator' visibility='private' type='_9_5_1_2e90116_1229440195750_526859_0'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_658433_120' body='Denotes whether or not to render a displaytag table decorator, will be ignored if this parameter does not represent a table.'>
+						<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_9656_34'/>
+					</ownedComment>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_12_1_2e90116_1238689296062_402297_404' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_12_1_2e90116_1238689296062_597541_405' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<defaultValue xmi:type='uml:InstanceValue' xmi:id='_12_1_2e90116_1238689296125_528118_505' instance='_9_5_1_2e90116_1229440203406_932140_1'/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_12_1_2e90116_1238689296125_697409_475' name='base_Property' visibility='private' association='_12_1_2e90116_1238689296125_888536_474'>
+					<type href='http://www.omg.org/spec/UML/20131001/UML.xmi#Property'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::Property' referentType='Class'/>
+						</xmi:Extension>
+					</type>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_12_1_2e90116_1238689296125_981746_480' name='base_Parameter' visibility='private' association='_12_1_2e90116_1238689296125_534756_479'>
+					<type href='http://www.omg.org/spec/UML/20131001/UML.xmi#Parameter'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::Parameter' referentType='Class'/>
+						</xmi:Extension>
+					</type>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_12_1_2e90116_1238689296125_680036_485' name='base_Class' visibility='private' association='_12_1_2e90116_1238689296125_170344_484'>
+					<type href='http://www.omg.org/spec/UML/20131001/UML.xmi#Class'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::Class' referentType='Class'/>
+						</xmi:Extension>
+					</type>
+				</ownedAttribute>
+				<icon xmi:type='uml:Image' xmi:id='_12_1_2e90116_1238689296062_405673_393'/>
+			</packagedElement>
+		</packagedElement>
+	</uml:Model>
+	<xmi:Extension extender='MagicDraw UML 19.0'>
+		<stereotypesHREFS/>
+	</xmi:Extension>
+	<xmi:Extension extender='MagicDraw UML 19.0'>
+		<filePart name='proxy.local__PROJECT$h877558e9224f114d50dea1f39a1c119_resource_com$dnomagic$dci$dmetamodel$dproject$dsnapshot' type='XML' header='&lt;?xml version=&quot;1.0&quot; encoding=&quot;ASCII&quot;?&gt;'>
+<project:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:project="http://www.nomagic.com/ns/cameo/client/project/1.0" xmi:id="_VWTUgU_TEeCNOP_jel_PNg" description="" id="PROJECT-877558e9224f114d50dea1f39a1c119">
+  <ownedSections xmi:id="_VWY0EU_TEeCNOP_jel_PNg" name="model" featuredBy="_VWY0EE_TEeCNOP_jel_PNg"/>
+  <ownedSections xmi:id="_VabmkU_TEeCNOP_jel_PNg" name="commonprojectoptions" shared="true" featuredBy="_VabmkE_TEeCNOP_jel_PNg"/>
+  <ownedSections xmi:id="_VacNoU_TEeCNOP_jel_PNg" name="personalprojectoptions" shared="true" belongsTo="_VacNok_TEeCNOP_jel_PNg" featuredBy="_VabmkE_TEeCNOP_jel_PNg"/>
+  <ownedSections xmi:id="_VbQF8E_TEeCNOP_jel_PNg" name="shared_model" shared="true" featuredBy="_VWY0EE_TEeCNOP_jel_PNg">
+    <sharePoints xmi:id="_VbhywE_TEeCNOP_jel_PNg" ID="magicdraw_uml_standard_profile_v_0001">
+      <object href="PROJECT-877558e9224f114d50dea1f39a1c119?resource=com.nomagic.magicdraw.uml_umodel.shared_umodel#magicdraw_uml_standard_profile_v_0001"/>
+      <options xmi:id="_Bnb0gH02EeCAfIowCLYtPA" key="preferredPath" value=""/>
+    </sharePoints>
+  </ownedSections>
+  <ownedSections xmi:id="_VfpdwU_TEeCNOP_jel_PNg" name="commoncodeengineering" featuredBy="_VfpdwE_TEeCNOP_jel_PNg"/>
+  <userParts xmi:id="_VacNok_TEeCNOP_jel_PNg" user="_kpyFAVxdEeC_ZNJv4YLpoQ" sections="_VacNoU_TEeCNOP_jel_PNg"/>
+  <features xmi:id="_VWY0EE_TEeCNOP_jel_PNg" name="UML Model" namespace="com.nomagic.magicdraw.uml_model" version="17.0" sections="_VWY0EU_TEeCNOP_jel_PNg _VbQF8E_TEeCNOP_jel_PNg" internalVersion="1"/>
+  <features xmi:id="_VabmkE_TEeCNOP_jel_PNg" name="Project Options" namespace="com.nomagic.magicdraw.core.project.options" version="1.0" sections="_VabmkU_TEeCNOP_jel_PNg _VacNoU_TEeCNOP_jel_PNg" internalVersion="1"/>
+  <features xmi:id="_Vfo2sE_TEeCNOP_jel_PNg" name="Language Properties" namespace="com.nomagic.magicdraw.ce.languageproperties" version="1.0" internalVersion="1"/>
+  <features xmi:id="_VfpdwE_TEeCNOP_jel_PNg" name="Code Engineering" namespace="com.nomagic.magicdraw.ce" version="1.0" sections="_VfpdwU_TEeCNOP_jel_PNg" internalVersion="1"/>
+  <features xmi:id="_x_Z_IFUEEee8oPCPVi3wjg" name="DMN Code Engineering" namespace="com.nomagic.magicdraw.ce.dmn" version="1.0" internalVersion="1"/>
+  <properties xmi:id="_Vbhywk_TEeCNOP_jel_PNg" key="standardProfile" value="true"/>
+  <properties xmi:id="_VbiZ0E_TEeCNOP_jel_PNg" key="internalVersion" value="19.0 SP3"/>
+  <properties xmi:id="_srSgUFnLEeCNG86yLj6xYg" key="MODULES_DIRS" value="&lt;install.root>/templates&lt;>&lt;install.root>/profiles&lt;>&lt;project.dir>/&lt;>&lt;install.root>/modelLibraries&lt;>/&lt;install.root>/profiles"/>
+  <properties xmi:id="_94jvAH01EeCAfIowCLYtPA" key="exporterDescription" value="ac ed 0 5 73 72 0 2e 63 6f 6d 2e 6e 6f 6d 61 67 69 63 2e 70 65 72 73 69 73 74 65 6e 63 65 2e 58 6d 69 45 78 70 6f 72 74 65 72 44 65 73 63 72 69 70 74 69 6f 6e f5 3e fd c8 e7 3c 3b d7 2 0 5 4c 0 5 6d 4e 61 6d 65 74 0 12 4c 6a 61 76 61 2f 6c 61 6e 67 2f 53 74 72 69 6e 67 3b 4c 0 12 6d 52 65 71 75 69 72 65 64 50 6c 75 67 69 6e 4d 61 70 74 0 f 4c 6a 61 76 61 2f 75 74 69 6c 2f 4d 61 70 3b 4c 0 12 6d 52 65 71 75 69 72 65 64 52 65 73 6f 75 72 63 65 73 74 0 10 4c 6a 61 76 61 2f 75 74 69 6c 2f 4c 69 73 74 3b 4c 0 10 6d 55 4d 4c 4e 61 6d 65 73 70 61 63 65 55 52 49 71 0 7e 0 1 4c 0 8 6d 56 65 72 73 69 6f 6e 71 0 7e 0 1 78 70 74 0 d 4d 61 67 69 63 44 72 61 77 20 55 4d 4c 73 72 0 11 6a 61 76 61 2e 75 74 69 6c 2e 48 61 73 68 4d 61 70 5 7 da c1 c3 16 60 d1 3 0 2 46 0 a 6c 6f 61 64 46 61 63 74 6f 72 49 0 9 74 68 72 65 73 68 6f 6c 64 78 70 3f 40 0 0 0 0 0 0 77 8 0 0 0 10 0 0 0 0 78 73 72 0 13 6a 61 76 61 2e 75 74 69 6c 2e 41 72 72 61 79 4c 69 73 74 78 81 d2 1d 99 c7 61 9d 3 0 1 49 0 4 73 69 7a 65 78 70 0 0 0 0 77 4 0 0 0 0 78 70 74 0 7 31 39 2e 30 20 76 39 "/>
+  <properties xmi:id="_DnjcsMQEEeCVy5mnlxX55w" key="fileVersion" value="986"/>
+  <properties xmi:id="_Doc0kMQEEeCVy5mnlxX55w" key="MODEL_ROOT_HREF" value="local:/PROJECT-877558e9224f114d50dea1f39a1c119?resource=com.nomagic.magicdraw.uml_umodel.model#eee_1045467100313_135436_1"/>
+  <properties xmi:id="_BwA7QADBEeK92_v4nw3vUw" key="CI_VERSION" value="V1702_SP1"/>
+  <properties xmi:id="_z_AY0MGpEeS9Iojkvg0NZg" key="fileFormatVersion" value="18.1 beta.esi"/>
+  <properties xmi:id="_SDFrYW6cEeWDd-3OrajLsA" key="saveID" value="079fbe67-9005-402a-a91a-d1f81abae3f0"/>
+  <properties xmi:id="_dhIioFHEEeiUvMqDA7b6Sw" key="compatibleVersion" value="19.0"/>
+  <properties xmi:id="_6OTmYRgBEem5GakRwxW-Zg" key="requiredFeature" value=""/>
+  <projectUsers xmi:id="_kpyFAVxdEeC_ZNJv4YLpoQ" userId="default"/>
+</project:Project>
+</filePart>
+	</xmi:Extension>
+	<xmi:Extension extender='MagicDraw UML 19.0'>
+		<filePart name='proxy.local__PROJECT$h9cd9bd23$h85f0$h4712$haa68$hac3de12c2b48_resource_com$dnomagic$dmagicdraw$duml_umodel$dmodel$dsnapshot' type='XML' header='&lt;?xml version=&quot;1.0&quot; encoding=&quot;ASCII&quot;?&gt;'>
+<uml:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:uml="http://www.nomagic.com/magicdraw/UML/2.5.1" xmi:id="eee_1045467100313_135436_1" ID="eee_1045467100313_135436_1" name="Model" visibility="public"/>
+</filePart>
+	</xmi:Extension>
+	<xmi:Extension extender='MagicDraw UML 19.0'>
+		<filePart name='com.nomagic.ci.persistence.local.proxy.privatedependencylist' type='XML' header='&lt;?xml version=&quot;1.0&quot; encoding=&quot;ASCII&quot;?&gt;'>
+<snapshot:PrivateDependenciesContainer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:snapshot="http://www.nomagic.com/ns/cameo/client/snapshot/1.0" xmi:id="_XfkCsAJHEeKcqJgnVU4y2Q">
+  <referencedResources xmi:id="_8IaVcPR-Eeq7V79u4ac4hA" originalResourceURI="local:/PROJECT-877558e9224f114d50dea1f39a1c119?resource=com.nomagic.magicdraw.uml_umodel.shared_umodel">
+    <referencedObjects>_9_0_2_91a0295_1110274713995_297054_0</referencedObjects>
+    <referencedObjects>_9_0_62a020a_1105704884574_96724_7644</referencedObjects>
+    <referencedObjects>_9_0_62a020a_1105704885343_144138_7929</referencedObjects>
+    <referencedObjects>_9_0_62a020a_1105704884528_587873_7620</referencedObjects>
+    <referencedObjects>_9_0_62a020a_1105704932761_361072_9592</referencedObjects>
+    <referencedObjects>_9_0_62a020a_1105704932587_977586_9575</referencedObjects>
+    <referencedObjects>_9_0_62a020a_1105704887258_863804_8181</referencedObjects>
+    <referencedObjects>_9_0_62a020a_1105704919680_932732_9312</referencedObjects>
+    <referencedObjects>_9_0_be00301_1108053761194_467635_11463</referencedObjects>
+  </referencedResources>
+  <referencedResources xmi:id="_8IaVcfR-Eeq7V79u4ac4hA" originalResourceURI="local:/PROJECT-9cd9bd23-85f0-4712-aa68-ac3de12c2b48?resource=com.nomagic.magicdraw.uml_umodel.model">
+    <referencedObjects>eee_1045467100313_135436_1</referencedObjects>
+  </referencedResources>
+</snapshot:PrivateDependenciesContainer>
+</filePart>
+	</xmi:Extension>
+	<xmi:Extension extender='MagicDraw UML 19.0'>
+		<filePart name='com.nomagic.ci.proxy.snapshot.descriptor.descriptors' type='XML' header='&lt;?xml version=&quot;1.0&quot; encoding=&quot;ASCII&quot;?&gt;'>
+<snapshot:SnapshotInfoContainer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:snapshot="http://www.nomagic.com/ns/cameo/client/snapshot/1.0" xmi:id="_w_oCgJnOEeG5IL63JP9cFw">
+  <snaphotDescriptors xmi:id="_xwW74JnOEeG5IL63JP9cFw" originalResourceURI="local:/PROJECT-5d6756d4ab7fcc1b9be2b6b7ce3f4f23?resource=com.nomagic.magicdraw.uml_umodel.model"/>
+  <snaphotDescriptors xmi:id="_xwW74ZnOEeG5IL63JP9cFw" originalResourceURI="local:/PROJECT-877558e9224f114d50dea1f39a1c119?resource=com.nomagic.magicdraw.uml_umodel.shared_umodel">
+    <sharePointObjects>magicdraw_uml_standard_profile_v_0001</sharePointObjects>
+  </snaphotDescriptors>
+  <snaphotDescriptors xmi:id="_8Ia8gPR-Eeq7V79u4ac4hA" originalResourceURI="local:/PROJECT-9cd9bd23-85f0-4712-aa68-ac3de12c2b48?resource=com.nomagic.magicdraw.uml_umodel.model"/>
+</snapshot:SnapshotInfoContainer>
+</filePart>
+	</xmi:Extension>
+	<xmi:Extension extender='MagicDraw UML 19.0'>
+		<filePart name='com.nomagic.ci.metamodel.project' type='XML' header='&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;'>
+<project:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:project="http://www.nomagic.com/ns/cameo/client/project/1.0" xmi:id="_GLT9QFYDEeCyhsLctII43A" description="" id="PROJECT-9cd9bd23-85f0-4712-aa68-ac3de12c2b48">
+  <ownedSections xmi:id="_GOUN8FYDEeCyhsLctII43A" name="model" featuredBy="_GOS_0FYDEeCyhsLctII43A"/>
+  <ownedSections xmi:id="_HB1VkFYDEeCyhsLctII43A" name="commonprojectoptions" shared="true" featuredBy="_HB0ugFYDEeCyhsLctII43A"/>
+  <ownedSections xmi:id="_HB4_8FYDEeCyhsLctII43A" name="personalprojectoptions" shared="true" belongsTo="_HB4_8VYDEeCyhsLctII43A" featuredBy="_HB0ugFYDEeCyhsLctII43A"/>
+  <ownedSections xmi:id="_1OlPIJjZEeCrL4EC3xSIEw" name="commoncodeengineering" featuredBy="_1ObeIZjZEeCrL4EC3xSIEw"/>
+  <userParts xmi:id="_HB4_8VYDEeCyhsLctII43A" user="_zRtSwZjZEeCrL4EC3xSIEw" sections="_HB4_8FYDEeCyhsLctII43A"/>
+  <projectUsages xmi:id="_GPTscFYDEeCyhsLctII43A" usedProjectURI="file:/usr/local/MagicDraw/profiles/UML_Standard_Profile.mdzip" readonly="true" alternateLocation="file:/home/donce/md17/git-17-copy/md/core/profiles/UML_Standard_Profile.mdzip" preferredProjectRepositoryType="" loadedAutomatically="true" withPrivateDependencies="true">
+    <usedProject href="PROJECT-877558e9224f114d50dea1f39a1c119?resource=com.nomagic.ci.metamodel.project#_VWTUgU_TEeCNOP_jel_PNg"/>
+    <mountPoints xmi:id="_HBun4FYDEeCyhsLctII43A" sharePointID="magicdraw_uml_standard_profile_v_0001" containmentFeatureID="59" featureName="UML Model" containmentIndex="-1" containmentFeatureName="packagedElement">
+      <mountedPoint href="PROJECT-877558e9224f114d50dea1f39a1c119?resource=com.nomagic.magicdraw.uml_umodel.shared_umodel#magicdraw_uml_standard_profile_v_0001"/>
+      <mountedOn href="PROJECT-5d6756d4ab7fcc1b9be2b6b7ce3f4f23?resource=com.nomagic.magicdraw.uml_umodel.model#eee_1045467100313_135436_1"/>
+      <options xmi:id="_8IHagPR-Eeq7V79u4ac4hA" key="preferredPath" value="::"/>
+    </mountPoints>
+    <properties xmi:id="_HBzgYFYDEeCyhsLctII43A" key="usedVersion" value="19.0 SP3"/>
+    <properties xmi:id="_I2i0cFYDEeCyhsLctII43A" key="LOCAL_PROJECT_ID" value="PROJECT-877558e9224f114d50dea1f39a1c119"/>
+  </projectUsages>
+  <features xmi:id="_GOS_0FYDEeCyhsLctII43A" name="UML Model" namespace="com.nomagic.magicdraw.uml_model" version="17.0" sections="_GOUN8FYDEeCyhsLctII43A" internalVersion="1"/>
+  <features xmi:id="_HB0ugFYDEeCyhsLctII43A" name="Project Options" namespace="com.nomagic.magicdraw.core.project.options" version="1.0" sections="_HB1VkFYDEeCyhsLctII43A _HB4_8FYDEeCyhsLctII43A" internalVersion="1"/>
+  <features xmi:id="_1ObeIJjZEeCrL4EC3xSIEw" name="Language Properties" namespace="com.nomagic.magicdraw.ce.languageproperties" version="1.0" internalVersion="1"/>
+  <features xmi:id="_1ObeIZjZEeCrL4EC3xSIEw" name="Code Engineering" namespace="com.nomagic.magicdraw.ce" version="1.0" sections="_1OlPIJjZEeCrL4EC3xSIEw" internalVersion="1"/>
+  <properties xmi:id="_GPLwoFYDEeCyhsLctII43A" key="standardProfile" value="false"/>
+  <properties xmi:id="_GPLwoVYDEeCyhsLctII43A" key="internalVersion" value="19.0"/>
+  <properties xmi:id="_I3t5IFYDEeCyhsLctII43A" key="MODULES_DIRS" value="&lt;project.dir>&lt;>&lt;install.root>/profiles&lt;>&lt;install.root>/modelLibraries"/>
+  <properties xmi:id="_4iLt4JjZEeCrL4EC3xSIEw" key="fileVersion" value="68"/>
+  <properties xmi:id="_4ieo0JjZEeCrL4EC3xSIEw" key="exporterDescription" value="ac ed 0 5 73 72 0 2e 63 6f 6d 2e 6e 6f 6d 61 67 69 63 2e 70 65 72 73 69 73 74 65 6e 63 65 2e 58 6d 69 45 78 70 6f 72 74 65 72 44 65 73 63 72 69 70 74 69 6f 6e f5 3e fd c8 e7 3c 3b d7 2 0 5 4c 0 5 6d 4e 61 6d 65 74 0 12 4c 6a 61 76 61 2f 6c 61 6e 67 2f 53 74 72 69 6e 67 3b 4c 0 12 6d 52 65 71 75 69 72 65 64 50 6c 75 67 69 6e 4d 61 70 74 0 f 4c 6a 61 76 61 2f 75 74 69 6c 2f 4d 61 70 3b 4c 0 12 6d 52 65 71 75 69 72 65 64 52 65 73 6f 75 72 63 65 73 74 0 10 4c 6a 61 76 61 2f 75 74 69 6c 2f 4c 69 73 74 3b 4c 0 10 6d 55 4d 4c 4e 61 6d 65 73 70 61 63 65 55 52 49 71 0 7e 0 1 4c 0 8 6d 56 65 72 73 69 6f 6e 71 0 7e 0 1 78 70 74 0 d 4d 61 67 69 63 44 72 61 77 20 55 4d 4c 73 72 0 11 6a 61 76 61 2e 75 74 69 6c 2e 48 61 73 68 4d 61 70 5 7 da c1 c3 16 60 d1 3 0 2 46 0 a 6c 6f 61 64 46 61 63 74 6f 72 49 0 9 74 68 72 65 73 68 6f 6c 64 78 70 3f 40 0 0 0 0 0 0 77 8 0 0 0 10 0 0 0 0 78 73 72 0 13 6a 61 76 61 2e 75 74 69 6c 2e 41 72 72 61 79 4c 69 73 74 78 81 d2 1d 99 c7 61 9d 3 0 1 49 0 4 73 69 7a 65 78 70 0 0 0 0 77 4 0 0 0 0 78 70 74 0 7 31 39 2e 30 20 76 39 "/>
+  <properties xmi:id="_4ieo0ZjZEeCrL4EC3xSIEw" key="MODEL_ROOT_HREF" value="local:/PROJECT-9cd9bd23-85f0-4712-aa68-ac3de12c2b48?resource=com.nomagic.magicdraw.uml_umodel.model#eee_1045467100313_135436_1"/>
+  <properties xmi:id="_Xf1vgAJHEeKcqJgnVU4y2Q" key="CI_VERSION" value="V1702_SP1"/>
+  <properties xmi:id="_WHDv8NnXEeSt1dUa3K1eOA" key="fileFormatVersion" value="18.1 beta.esi"/>
+  <properties xmi:id="_oI378G6KEeWoxPthTK0iTA" key="saveID" value="53cdc2c8-df06-4a53-91c8-2f8ef679bc07"/>
+  <properties xmi:id="_QKbVQCaYEeijz6gJNBJu7Q" key="compatibleVersion" value=""/>
+  <projectUsers xmi:id="_zRtSwZjZEeCrL4EC3xSIEw" userId="default"/>
+</project:Project>
+</filePart>
+	</xmi:Extension>
+	<xmi:Extension extender='MagicDraw UML 19.0'>
+		<filePart name='com.nomagic.magicdraw.ce.commoncodeengineering' type='XML' header='&lt;?xml version=&quot;1.0&quot; encoding=&quot;ASCII&quot;?&gt;'>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:md.ce.corbaidl.rt.options="http://www.nomagic.com/magicdraw/ce/corbaidl/rt/options/1" xmlns:md.ce.cppAnsi.rt.options="http://www.nomagic.com/magicdraw/ce/cppAnsi/rt/options/1" xmlns:md.ce.csh.code.documentation="http://www.nomagic.com/magicdraw/ce/csh/code/documentation/1" xmlns:md.ce.csh.rt.options="http://www.nomagic.com/magicdraw/ce/csh/rt/options/1" xmlns:md.ce.java.code.documentation="http://www.nomagic.com/magicdraw/ce/java/code/documentation/1" xmlns:md.ce.java.rt.options="http://www.nomagic.com/magicdraw/ce/java/rt/options/1" xmlns:md.ce.msil.rt.options="http://www.nomagic.com/magicdraw/ce/msil/rt/options/1" xmlns:md.ce.rt.options="http://www.nomagic.com/magicdraw/ce/rt/options/1">
+  <md.ce.rt.options:Options xmi:id="_1OlPIZjZEeCrL4EC3xSIEw" tempDirectory="Active Directory" defaultWorkingDirectory="&lt;install.root>" spaces="8" defaultLanguage="Java" visualizationOption="1" codeGenerationReverseOption="2">
+    <defaultWorkingPackage href="PROJECT-9cd9bd23-85f0-4712-aa68-ac3de12c2b48?resource=com.nomagic.magicdraw.uml_umodel.model#eee_1045467100313_135436_1"/>
+  </md.ce.rt.options:Options>
+  <md.ce.java.rt.options:JavaLanguageOptions xmi:id="_6-fYUOlYEeKM1O5DqVzPvA" commentStyle="0" header="@(#) $FILE_NAME" documentationProcessorID="STANDARD_PROCESSOR" classpath="lib\xalan.jar;C:\Program Files\Java\jre1.8.0_144\lib\resources.jar;C:\Program Files\Java\jre1.8.0_144\lib\rt.jar;C:\Program Files\Java\jre1.8.0_144\lib\sunrsasign.jar;C:\Program Files\Java\jre1.8.0_144\lib\jsse.jar;C:\Program Files\Java\jre1.8.0_144\lib\jce.jar;C:\Program Files\Java\jre1.8.0_144\lib\charsets.jar;C:\Program Files\Java\jre1.8.0_144\lib\jfr.jar;C:\Program Files\Java\jre1.8.0_144\classes" javaSource="8.0">
+    <documentationTagProcessors xsi:type="md.ce.java.code.documentation:JavaDocumentationProcessor" xmi:id="_6-fYUelYEeKM1O5DqVzPvA" ID="JAVA_DOC_PROCESSOR">
+      <documentationTagManagers xmi:id="_6-fYUulYEeKM1O5DqVzPvA" ID="CLASSIFIER">
+        <documentationTags xmi:id="_6-fYU-lYEeKM1O5DqVzPvA" name="DESCRIPTION" valueEditable="false"/>
+        <documentationTags xmi:id="_6-fYVOlYEeKM1O5DqVzPvA" name="@param &lt;>" valueEditable="false"/>
+      </documentationTagManagers>
+      <documentationTagManagers xmi:id="_6-fYVelYEeKM1O5DqVzPvA" ID="OPERATION">
+        <documentationTags xmi:id="_6-fYVulYEeKM1O5DqVzPvA" name="DESCRIPTION" valueEditable="false"/>
+        <documentationTags xmi:id="_6-fYV-lYEeKM1O5DqVzPvA" name="@param" valueEditable="false"/>
+        <documentationTags xmi:id="_6-fYWOlYEeKM1O5DqVzPvA" name="@param &lt;>" valueEditable="false"/>
+        <documentationTags xmi:id="_6-fYWelYEeKM1O5DqVzPvA" name="@return" valueEditable="false"/>
+        <documentationTags xmi:id="_6-fYWulYEeKM1O5DqVzPvA" name="@throws" valueEditable="false"/>
+      </documentationTagManagers>
+      <documentationTagManagers xmi:id="_6-fYW-lYEeKM1O5DqVzPvA" ID="ATTRIBUTE">
+        <documentationTags xmi:id="_6-fYXOlYEeKM1O5DqVzPvA" name="DESCRIPTION" valueEditable="false"/>
+      </documentationTagManagers>
+    </documentationTagProcessors>
+    <userDefinedAttributeCreationRule xmi:id="_6-fYXelYEeKM1O5DqVzPvA">
+      <rules xmi:id="_6-fYXulYEeKM1O5DqVzPvA" pattern="*" classType="DataType"/>
+    </userDefinedAttributeCreationRule>
+  </md.ce.java.rt.options:JavaLanguageOptions>
+  <md.ce.cppAnsi.rt.options:CppLanguageOptions xmi:id="_6-y6UOlYEeKM1O5DqVzPvA" commentStyle="0" header="@(#) $FILE_NAME" documentationProcessorID="STANDARD_PROCESSOR" macros="//This file contains a list of explicit macros to be expanded before reverse engineering&#xA;#define ODBCXX_EXPORT&#xA;#define __EXPORT&#xA;&#xA;//Type Casting of MFC Class Objects&#xA;#define DYNAMIC_DOWNCAST( class, pointer )&#xA;#define STATIC_DOWNCAST( class_name, pobject )&#xA;&#xA;//Run-Time Object Model Services&#xA;#define DECLARE_DYNAMIC( class_name )&#xA;#define DECLARE_DYNCREATE( class_name )&#xA;#define DECLARE_SERIAL( class_name )&#xA;#define IMPLEMENT_DYNAMIC( class_name, base_class_name )&#xA;#define IMPLEMENT_DYNCREATE( class_name, base_class_name )&#xA;#define IMPLEMENT_SERIAL( class_name, base_class_name, wSchema )&#xA;#define RUNTIME_CLASS( class_name )&#xA;#define DECLARE_OLECREATE( class_name )&#xA;#define IMPLEMENT_OLECREATE( class_name, external_name, l, w1, w2, b1, b2, b3, b4, b5, b6, b7, b8 )&#xA;&#xA;//Diagnostic Services&#xA;#define ASSERT( booleanExpression )&#xA;#define ASSERT_KINDOF( classname, pobject )&#xA;#define ASSERT_VALID( pObject )&#xA;#define TRACE( exp )&#xA;#define TRACE0( exp )&#xA;#define TRACE1( exp, param1 )&#xA;#define TRACE2( exp, param1, param2 )&#xA;#define TRACE3( exp, param1, param2, param3 )&#xA;#define VERIFY( booleanExpression )&#xA;&#xA;//Exception processing&#xA;#define TRY&#xA;#define CATCH( exception_class, exception_object_pointer_name )&#xA;#define CATCH_ALL( exception_object_pointer_name )&#xA;#define AND_CATCH( exception_class, exception_object_pointer_name )&#xA;#define AND_CATCH_ALL( exception_object_pointer_name )&#xA;#define END_CATCH&#xA;#define END_CATCH_ALL&#xA;#define THROW( exception_object_pointer )&#xA;#define THROW_LAST( )&#xA;&#xA;//Message Map Macros&#xA;#define DECLARE_MESSAGE_MAP( )&#xA;#define BEGIN_MESSAGE_MAP( theClass, baseClass )&#xA;#define END_MESSAGE_MAP( )&#xA;#define ON_COMMAND( id, memberFxn )&#xA;#define ON_CONTROL( wNotifyCode, id, memberFxn )&#xA;#define ON_MESSAGE( message, memberFxn )&#xA;#define ON_OLECMD( pguid, olecmdid, id )&#xA;#define ON_REGISTERED_MESSAGE( nMessageVariable, memberFxn )&#xA;#define ON_REGISTERED_THREAD_MESSAGE( nMessageVariable, memberFxn )&#xA;#define ON_THREAD_MESSAGE( message, memberFxn )&#xA;#define ON_UPDATE_COMMAND_UI( id, memberFxn )&#xA;#define ON_COMMAND_RANGE( id1, id2, memberFxn )&#xA;#define ON_UPDATE_COMMAND_UI_RANGE( id1, id2, memberFxn )&#xA;#define ON_CONTROL_RANGE( wNotifyCode, id1, id2, memberFxn )&#xA;#define ON_WM_CREATE( )&#xA;#define ON_WM_DESTROY( )&#xA;#define ON_NOTIFY( wNotifyCode, id, memberFxn )&#xA;#define ON_WM_TIMER( )&#xA;#define ON_WM_SYSCOMMAND( )&#xA;#define ON_BN_CLICKED( id, memberFxn )&#xA;#define ON_WM_PAINT( )&#xA;#define ON_WM_QUERYDRAGICON( )&#xA;#define ON_WM_SIZE( )&#xA;&#xA;//Application information and management&#xA;BOOL AFXAPI AfxWinInit( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow )&#xA;&#xA;//Database Macros and Globals&#xA;#define AFX_ODBC_CALL( SQLFunc )&#xA;#define AFX_SQL_ASYNC( prs, SQLFunc )&#xA;#define AFX_SQL_SYNC( SQLFunc )&#xA;&#xA;//Internet Server API (ISAPI) Parse Maps&#xA;#define BEGIN_PARSE_MAP( theClass, baseClass )&#xA;#define ON_PARSE_COMMAND( FnName, mapClass, Args )&#xA;#define ON_PARSE_COMMAND_PARAMS( Params )&#xA;#define DEFAULT_PARSE_COMMAND( FnName, mapClass )&#xA;#define END_PARSE_MAP( theClass )&#xA;&#xA;//Internet Server API (ISAPI) Diagnostic Macros&#xA;#define ISAPIASSERT( booleanExpression )&#xA;#define ISAPITRACE( exp )&#xA;#define ISAPITRACE0( exp )&#xA;#define ISAPITRACE1( exp, param1 )&#xA;#define ISAPITRACE2( exp, param1, param2 )&#xA;#define ISAPITRACE3( exp, param1, param2, param3 )&#xA;#define ISAPIVERIFY( booleanExpression )&#xA;&#xA;&#xA;// OLE Dispatch Maps&#xA;#define DECLARE_DISPATCH_MAP( )&#xA;#define BEGIN_DISPATCH_MAP( theClass, baseClass )&#xA;#define END_DISPATCH_MAP( )&#xA;#define DISP_FUNCTION( theClass, pszName, pfnMember, vtRetVal, vtsParams )&#xA;#define DISP_PROPERTY( theClass, pszName, memberName, vtPropType )&#xA;#define DISP_PROPERTY_EX( theClass, pszName, memberGet, memberSet, vtPropType )&#xA;#define DISP_PROPERTY_NOTIFY( theClass, szExternalName, memberName, pfnAfterSet, vtPropType )&#xA;#define DISP_PROPERTY_NOTIFY( theClass, pszExternalName, pfnGet, pfnSet, vtPropType, vtsParams )&#xA;#define DISP_DEFVALUE( theClass, pszName )&#xA;&#xA;// OLE Type Library Access&#xA;#define DECLARE_OLETYPELIB( class_name )&#xA;#define IMPLEMENT_OLETYPELIB( class_name, tlid, wVerMajor, wVerMinor )&#xA;&#xA;// OLE Property Pages&#xA;#define BEGIN_PROPPAGEIDS( class_name, count )&#xA;#define END_PROPPAGEIDS( class_name )&#xA;#define PROPPAGEID( clsid )&#xA;&#xA;// OLE Event Maps&#xA;#define DECLARE_EVENT_MAP( )&#xA;#define BEGIN_EVENT_MAP( theClass, baseClass )&#xA;#define END_EVENT_MAP( )&#xA;#define EVENT_CUSTOM( pszName, pfnFire, vtsParams )&#xA;#define EVENT_CUSTOM_ID( pszName, dispid, pfnFire, vtsParams )&#xA;#define ON_OLEVERB( idsVerbName, memberFxn )&#xA;#define ON_STDOLEVERB( iVerb, memberFxn )&#xA;&#xA;// OLE Event Sink Maps&#xA;#define BEGIN_EVENTSINK_MAP( theClass, baseClass )&#xA;#define DECLARE_EVENTSINK_MAP( )&#xA;#define END_EVENTSINK_MAP( )&#xA;#define ON_EVENT( theClass, id, dispid, pfnHandler, vtsParams )&#xA;#define ON_EVENT_RANGE( theClass, idFirst, idLast, dispid, pfnHandler, vtsParams )&#xA;#define ON_EVENT_REFLECT( theClass, dispid, pfnHandler, vtsParams )&#xA;#define ON_PROPNOTIFY( theClass, id, dispid, pfnRequest, pfnChanged )&#xA;#define ON_PROPNOTIFY_RANGE( theClass, idFirst, idLast, dispid, pfnRequest, pfnChanged )&#xA;#define ON_PROPNOTIFY_REFLECT( theClass, dispid, pfnRequest, pfnChanged )&#xA;&#xA;// OLE Connection Maps&#xA;#define BEGIN_CONNECTION_PART( theClass, localClass )&#xA;#define END_CONNECTION_PART( localClass )&#xA;#define CONNECTION_IID( iid )&#xA;#define DECLARE_CONNECTION_MAP( )&#xA;#define BEGIN_CONNECTION_MAP( theClass, theBase )&#xA;#define END_CONNECTION_MAP( )&#xA;#define CONNECTION_PART( theClass, iid, localClass )&#xA;&#xA;// OLE Registering OLE Controls&#xA;BOOL AFXAPI AfxOleRegisterPropertyPageClass( HINSTANCE hInstance, REFCLSID clsid, UINT idTypeName, int nRegFlags )&#xA;&#xA;// OLE Class Factories and Licensing&#xA;#define DECLARE_OLECREATE_EX( class_name )&#xA;#define IMPLEMENT_OLECREATE_EX( class_name, external_name, l, w1, w2, b1, b2, b3, b4, b5, b6, b7, b8 )&#xA;#define BEGIN_OLEFACTORY( class_name )&#xA;#define END_OLEFACTORY( class_name )&#xA;&#xA;//ATL&#xA;#define DECLARE_AGGREGATABLE( x )&#xA;#define DECLARE_CLASSFACTORY( )&#xA;#define DECLARE_CLASSFACTORY_EX( cf )&#xA;#define DECLARE_CLASSFACTORY2( lic )&#xA;#define DECLARE_CLASSFACTORY_AUTO_THREAD( )&#xA;#define DECLARE_CLASSFACTORY_SINGLETON( obj )&#xA;#define DECLARE_GET_CONTROLLING_UNKNOWN( )&#xA;#define DECLARE_NOT_AGGREGATABLE( x )&#xA;#define DECLARE_ONLY_AGGREGATABLE( x )&#xA;#define DECLARE_POLY_AGGREGATABLE( x )&#xA;#define DECLARE_PROTECT_FINAL_CONSTRUCT( )&#xA;#define BEGIN_CATEGORY_MAP( theClass )&#xA;#define END_CATEGORY_MAP( )&#xA;#define IMPLEMENTED_CATEGORY( catID )&#xA;#define REQUIRED_CATEGORY( catID )&#xA;#define BEGIN_COM_MAP( x )&#xA;#define COM_INTERFACE_ENTRY( x )&#xA;#define COM_INTERFACE_ENTRY_IID( iid, x )&#xA;#define COM_INTERFACE_ENTRY2( x, x2 )&#xA;#define COM_INTERFACE_ENTRY2_IID( iid, x, x2 )&#xA;#define COM_INTERFACE_ENTRY_FUNC( iid, dw, func )&#xA;#define COM_INTERFACE_ENTRY_FUNC_BLIND( dw, func )&#xA;#define COM_INTERFACE_ENTRY_TEAR_OFF( iid, x )&#xA;#define COM_INTERFACE_ENTRY_CACHED_TEAR_OFF( iid, x, punk )&#xA;#define COM_INTERFACE_ENTRY_AGGREGATE( iid, punk )&#xA;#define COM_INTERFACE_ENTRY_AGGREGATE_BLIND( punk )&#xA;#define COM_INTERFACE_ENTRY_AUTOAGGREGATE( iid, punk, clsid )&#xA;#define COM_INTERFACE_ENTRY_AUTOAGGREGATE_BLIND( punk, clsid )&#xA;#define COM_INTERFACE_ENTRY_CHAIN( classname )&#xA;#define COM_INTERFACE_ENTRY_BREAK( x )&#xA;#define COM_INTERFACE_ENTRY_NOINTERFACE( x )&#xA;#define END_COM_MAP( )&#xA;&#xA;#define BEGIN_SINK_MAP( _class )&#xA;#define END_SINK_MAP( )&#xA;#define SINK_ENTRY( id, dispid, fn )&#xA;#define SINK_ENTRY_EX( id, iid, dispid, fn )&#xA;#define SINK_ENTRY_INFO( id, iid, dispid, fn, info)&#xA;#define BEGIN_CONNECTION_POINT_MAP( x )&#xA;#define CONNECTION_POINT_ENTRY( iid )&#xA;#define END_CONNECTION_POINT_MAP( )&#xA;#define BEGIN_EXTENSION_SNAPIN_NODEINFO_MAP( classname )&#xA;#define BEGIN_SNAPINTOOLBARID_MAP( _class )&#xA;#define END_EXTENSION_SNAPIN_NODEINFO_MAP( )&#xA;#define END_SNAPINTOOLBARID_MAP( _class )&#xA;#define EXTENSION_SNAPIN_DATACLASS( dataClass )&#xA;#define EXTENSION_SNAPIN_NODEINFO_ENTRY( dataClass )&#xA;#define SNAPINMENUID( id )&#xA;#define SNAPINTOOLBARID_ENTRY( id )&#xA;#define ATLTRACE( exp )&#xA;#define ATLTRACENOTIMPL( funcname )&#xA;#define ATLTRACE2( DWORD category, UINT level, LPCSTR lpszFormat, ... )&#xA;#define BEGIN_MSG_MAP( theClass )&#xA;#define MESSAGE_HANDLER( msg, func )&#xA;#define MESSAGE_RANGE_HANDLER( msgFirst, msgLast, func )&#xA;#define COMMAND_HANDLER( id, code, func )&#xA;#define COMMAND_ID_HANDLER( id, func )&#xA;#define COMMAND_RANGE_HANDLER( idFirst, idLast, func )&#xA;#define NOTIFY_HANDLER( id, cd, func )&#xA;#define NOTIFY_ID_HANDLER( id, func )&#xA;#define NOTIFY_CODE_HANDLER( cd, func )&#xA;#define NOTIFY_RANGE_HANDLER( idFirst, idLast, func )&#xA;#define CHAIN_MSG_MAP( theChainClass )&#xA;#define CHAIN_MSG_MAP_MEMBER( theChainMember )&#xA;#define CHAIN_MSG_MAP_ALT( theChainClass, msgMapID )&#xA;#define CHAIN_MSG_MAP_ALT_MEMBER( theChainMember, msgMapID )&#xA;#define CHAIN_MSG_MAP_DYNAMIC( dynaChainID )&#xA;#define END_MSG_MAP( )&#xA;#define ALT_MSG_MAP( msgMapID )&#xA;#define DECLARE_EMPTY_MSG_MAP( )&#xA;#define COMMAND_CODE_HANDLER( code, func )&#xA;#define REFLECT_NOTIFICATIONS( )&#xA;#define DEFAULT_REFLECTION_HANDLER( )&#xA;#define BEGIN_OBJECT_MAP( x )&#xA;#define OBJECT_ENTRY( clsid, class )&#xA;#define OBJECT_ENTRY_NON_CREATEABLE( class )&#xA;#define END_OBJECT_MAP( )&#xA;#define DECLARE_OBJECT_DESCRIPTION( x )&#xA;#define BEGIN_PROP_MAP( theClass )&#xA;#define PROP_DATA_ENTRY( szDesc, member, vt )&#xA;#define PROP_ENTRY( szDesc, dispid, clsid )&#xA;#define PROP_ENTRY_EX( szDesc, dispid, clsid, iidDispatch )&#xA;#define PROP_PAGE( clsid )&#xA;#define END_PROPERTY_MAP( )&#xA;#define DECLARE_NO_REGISTRY( )&#xA;#define DECLARE_REGISTRY( class, pid, vpid, nid, flags )&#xA;#define DECLARE_REGISTRY_RESOURCE( x )&#xA;#define DECLARE_REGISTRY_RESOURCEID( x )&#xA;#define BEGIN_SERVICE_MAP( theClass )&#xA;#define END_SERVICE_MAP( )&#xA;#define SERVICE_ENTRY( SID )&#xA;#define SERVICE_ENTRY_CHAIN( punk )&#xA;#define IMPLEMENT_BOOL_STOCKPROP( fname, pname, dispid )&#xA;#define IMPLEMENT_BSTR_STOCKPROP( fname, pname, dispid )&#xA;#define IMPLEMENT_STOCKPROP( type, fname, pname, dispid )&#xA;#define A2BSTR(lpa)&#xA;#define OLE2A(lpa)&#xA;#define T2A(lpa)&#xA;#define W2A(lpa)&#xA;#define A2COLE(lpa)&#xA;#define OLE2BSTR(lpa)&#xA;#define T2BSTR(lpa)&#xA;#define W2BSTR(lpa)&#xA;#define A2CT(lpa)&#xA;#define OLE2CA(lpa)&#xA;#define T2CA(lpa)&#xA;#define W2CA(lpa)&#xA;#define A2CW(lpa)&#xA;#define OLE2CT(lpa)&#xA;#define T2COLE(lpa)&#xA;#define W2COLE(lpa)&#xA;#define A2OLE(lpa)&#xA;#define OLE2CW(lpa)&#xA;#define T2CW(lpa)&#xA;#define W2CT(lpa)&#xA;#define A2T(lpa)&#xA;#define OLE2T(lpa)&#xA;#define T2OLE(lpa)&#xA;#define W2OLE(lpa)&#xA;#define A2W(lpa)&#xA;#define OLE2W(lpa)&#xA;#define T2W(lpa)&#xA;#define W2T(lpa)&#xA;#define DEVMODEA2W(lpa)&#xA;#define TEXTMETRICA2W(lpa)&#xA;#define DEVMODEOLE2T(lpa)&#xA;#define TEXTMETRICOLE2T(lpa)&#xA;#define DEVMODET2OLE(lpa)&#xA;#define TEXTMETRICT2OLE(lpa)&#xA;#define DEVMODEW2A(lpa)&#xA;#define TEXTMETRICW2A(lpa)&#xA;#define DECLARE_WND_CLASS( WndClassName )&#xA;#define DECLARE_WND_SUPERCLASS( WndClassName, OrigWndClassName )&#xA;#define DECLARE_WND_CLASS_EX( WndClassName, style, bkgnd )&#xA;&#xA;// OLE DB&#xA;#define BEGIN_ACCESSOR( num, bAuto )&#xA;#define BEGIN_ACCESSOR_MAP( x, num )&#xA;#define END_ACCESSOR( )&#xA;#define END_ACCESSOR_MAP( )&#xA;#define BEGIN_COLUMN_MAP( x )&#xA;#define BOOKMARK_ENTRY( variable )&#xA;#define COLUMN_ENTRY( nOrdinal, data )&#xA;#define COLUMN_ENTRY_TYPE ( nOrdinal, wType, data )&#xA;#define COLUMN_ENTRY_TYPE_SIZE( nOrdinal, wType, nLength, data )&#xA;#define BLOB _ENTRY( nOrdinal, IID, flags, data )&#xA;#define COLUMN_ENTRY_EX( nOrdinal, wType, nLength, nPrecision, nScale, data, length, status )&#xA;#define COLUMN_ENTRY_LENGTH( nOrdinal, data, length )&#xA;#define COLUMN_ENTRY_LENGTH_STATUS( nOrdinal, data, length, status )&#xA;#define COLUMN_ENTRY_PS( nOrdinal, nPrecision, nScale, data ) &#xA;#define COLUMN_ENTRY_PS_LENGTH( nOrdinal, nPrecision, nScale, data, length )&#xA;#define COLUMN_ENTRY_PS_STATUS( nOrdinal, nPrecision, nScale, data, status )&#xA;#define COLUMN_ENTRY_PS_LENGTH_STATUS( nOrdinal, nPrecision, nScale, data, length, status )&#xA;#define COLUMN_ENTRY_STATUS( nOrdinal, data, status )&#xA;#define END_COLUMN_MAP( )&#xA;#define DEFINE_COMMAND( x, szCommand )&#xA;#define BEGIN_PARAM_MAP( x )&#xA;#define END_PARAM_MAP( )&#xA;#define SET_PARAM_TYPE( type )&#xA;#define BEGIN_PROPERTY_SET( pguid )&#xA;#define BEGIN_PROPERTY_SET(pguid, flags)&#xA;#define BEGIN_PROPSET_MAP( Class )&#xA;#define CHAIN_PROPERTY_SET( ChainClass )&#xA;#define END_PROPERTY_SET( guid )&#xA;#define END_PROPSET_MAP( )&#xA;#define PROPERTY_INFO_ENTRY( dwPropID )&#xA;#define PROPERTY_INFO_ENTRY( dwPropID, vt, dwFlags, value, options)&#xA;#define PROPERTY_INFO_ENTRY( dwPropID, value )&#xA;#define BEGIN_PROVIDER_COLUMN_MAP( theClass ) &#xA;#define END_PROVIDER_COLUMN_MAP( )&#xA;#define PROVIDER_COLUMN_ENTRY_GN ( name, ordinal, flags, colSize, dbtype, precision, scale, guid )&#xA;#define PROVIDER_COLUMN_ENTRY_FIXED( name, ordinal, dbtype, member )&#xA;#define PROVIDER_COLUMN_ENTRY_LENGTH( name, ordinal, size, member )&#xA;#define PROVIDER_COLUMN_ENTRY_STR( name, ordinal, member )&#xA;#define PROVIDER_COLUMN_ENTRY_WSTR( name, ordinal, member )&#xA;&#xA;// PARSE&#xA;#define BEGIN_PARSE_MAP( theClass, baseClass )&#xA;#define ON_PARSE_COMMAND( FnName, mapClass, Args )&#xA;#define ON_PARSE_COMMAND_PARAMS( Params )&#xA;#define DEFAULT_PARSE_COMMAND( FnName, mapClass )&#xA;#define END_PARSE_MAP( theClass )&#xA;#define END_PROPERTY_SET( guid )&#xA;#define BEGIN_PROPSET_MAP( Class )&#xA;#define PROPERTY_INFO_ENTRY( dwPropID )&#xA;#define END_PROPSET_MAP( )&#xA;&#xA;#define MAKELPARAM(low, high)&#xA;#define MAKELRESULT(low, high)&#xA;#define MAKELP(sel, off) &#xA;#define SELECTOROF(lp) &#xA;#define OFFSETOF(lp) &#xA;#define FIELDOFFSET(type, field)&#xA;#define afx_msg&#xA;#define ACE_ALLOC_HOOK_DECLARE&#xA;&#xA;// xerces&#xA;#define XERCES_CPP_NAMESPACE_BEGIN namespace xerces {&#xA;#define XERCES_CPP_NAMESPACE_END }&#xA;#define XERCES_CPP_NAMESPACE_USE using namespace XERCES_CPP_NAMESPACE;&#xA;#define XERCES_CPP_NAMESPACE_QUALIFIER XERCES_CPP_NAMESPACE::&#xA;#define CDOM_EXPORT&#xA;#define ATL_NO_VTABLE&#xA;#define PLATFORM_IMPORT&#xA;#define PARSERS_EXPORT&#xA;&#xA;// QT&#xA;#define Q_AUTOTEST_EXPORT&#xA;#define Q_CLASSINFO(name, value)&#xA;#define Q_COMPAT_EXPORT&#xA;#define Q_CORE_EXPORT&#xA;#define Q_CORE_EXPORT_INLINE inline&#xA;#define Q_D(Class)&#xA;#define Q_DECL_IMPORT&#xA;#define Q_DECLARE_ASSOCIATIVE_ITERATOR(map)&#xA;#define Q_DECLARE_BUILTIN_METATYPE(TYPE, NAME)&#xA;#define Q_DECLARE_EXTENSION_INTERFACE(IFace, IId)&#xA;#define Q_DECLARE_FLAGS(Flags, enum)&#xA;#define Q_DECLARE_INTERFACE(IFace, IId)&#xA;#define Q_DECLARE_METATYPE(txt)&#xA;#define Q_DECLARE_MUTABLE_SEQUENTIAL_ITERATOR(c)&#xA;#define Q_DECLARE_MUTABLE_ASSOCIATIVE_ITERATOR(c)&#xA;#define Q_DECLARE_OPERATORS_FOR_FLAGS(Flags)&#xA;#define Q_DECLARE_PRIVATE(Class)&#xA;#define Q_DECLARE_PUBLIC(Class)&#xA;#define Q_DECLARE_SEQUENTIAL_ITERATOR(name)&#xA;#define Q_DECLARE_SHARED(name)&#xA;#define Q_DECLARE_TYPEINFO(TYPE, FLAGS)&#xA;#define Q_DECL_DEPRECATED&#xA;#define Q_DISABLE_COPY(Class)&#xA;#define Q_DUMMY_COMPARISON_OPERATOR(c)&#xA;#define Q_ENUMS(x)&#xA;#define Q_FLAGS(x)&#xA;#define Q_GADGET&#xA;#define Q_GUI_EXPORT&#xA;#define Q_GUI_EXPORT_INLINE inline&#xA;#define Q_INLINE_TEMPLATE&#xA;#define Q_INTERFACES(x)&#xA;#define Q_NETWORK_EXPORT&#xA;#define Q_NOREPLY&#xA;#define Q_OBJECT&#xA;#define Q_OPENGL_EXPORT&#xA;#define Q_OUTOFLINE_TEMPLATE inline&#xA;#define Q_OVERRIDE(text)&#xA;#define Q_PRIVATE_SLOT(d, signature)&#xA;#define Q_PROPERTY(text)&#xA;#define Q_Q(Class)&#xA;#define Q_REQUIRED_RESULT&#xA;#define Q_SCRIPTABLE&#xA;#define Q_SIGNALS protected&#xA;#define Q_SLOTS&#xA;#define Q_SQL_EXPORT&#xA;#define Q_SVG_EXPORT&#xA;#define Q_TESTLIB_EXPORT&#xA;#define Q_TYPENAME typename&#xA;#define Q_XML_EXPORT&#xA;&#xA;#define QDBUS_EXPORT&#xA;#define QDESIGNER_COMPONENTS_EXPORT&#xA;#define QDESIGNER_EXTENSION_EXPORT&#xA;#define QDESIGNER_SDK_EXPORT&#xA;#define QDESIGNER_SHARED_EXPORT&#xA;#define QDESIGNER_UILIB_EXPORT&#xA;#define QDESIGNER_WIDGET_EXPORT&#xA;#define QDOC_PROPERTY(text)&#xA;&#xA;#define QT_ASCII_CAST_WARN&#xA;#define QT_ASCII_CAST_WARN_CONSTRUCTOR&#xA;#define QT_ASSISTANT_CLIENT_EXPORT&#xA;#define QT_BEGIN_HEADER&#xA;#define QT_DEPRECATED&#xA;#define QT_DEPRECATED_VARIABLE&#xA;#define QT_DEPRECATED_CONSTRUCTOR&#xA;#define QT_END_HEADER&#xA;#define QT_FASTCALL&#xA;#define QT_FT_BEGIN_HEADER&#xA;#define QT_FT_END_HEADER&#xA;#define QT_MOC_COMPAT&#xA;#define QT_MODULE(name)&#xA;#define QT_STATIC_CONST static const&#xA;#define QT_STATIC_CONST_IMPL const&#xA;#define QT_TR_NOOP(x)&#xA;#define QT_TRANSLATE_NOOP(scope, x)&#xA;&#xA;#define slots&#xA;#define signals protected&#xA;&#xA;&#xA;// Microsoft extension&#xA;#define CALLBACK&#xA;#define LRESULT void&#xA;#define _ENTRY(p1, p2, p3, p4) p1&#xA;&#xA;#define CFX_EXPORT&#xA;&#xA;// GCC&#xA;#define __extension__&#xA;&#xA;// Symbian macro&#xA;#define _L(string) TPtrC((const TText*) string)&#xA;#define _LIT(name,s) const static TListC&lt;sizeof(s)> name = {sizeof(s) -1,s}&#xA;#define _LIT8(name,s) const static TListC&lt;sizeof(s)> name = {sizeof(s) -1,s}&#xA;&#xA;#define IMPORT_C /*__declspec(dllimport)*/&#xA;#define EXPORT_C /*__declspec(dllexport)*/&#xA;&#xA;#define NONSHARABLE_CLASS(x) class x&#xA;#define NONSHARABLE_STRUCT(x) struct x&#xA;&#xA;#define GLREF_D extern&#xA;#define GLDEF_D&#xA;#define LOCAL_D static&#xA;#define GLREF_C extern&#xA;#define GLDEF_C&#xA;#define LOCAL_C static&#xA;">
+    <userDefinedAttributeCreationRule xmi:id="_6-y6UelYEeKM1O5DqVzPvA">
+      <rules xmi:id="_6-y6UulYEeKM1O5DqVzPvA" pattern="*" classType="DataType"/>
+    </userDefinedAttributeCreationRule>
+  </md.ce.cppAnsi.rt.options:CppLanguageOptions>
+  <md.ce.csh.rt.options:CshLanguageOptions xmi:id="_6-y6U-lYEeKM1O5DqVzPvA" commentStyle="0" header="@(#) $FILE_NAME" documentationProcessorID="STANDARD_PROCESSOR">
+    <documentationTagProcessors xsi:type="md.ce.csh.code.documentation:CshDocumentationProcessor" xmi:id="_6-y6VOlYEeKM1O5DqVzPvA" ID="CSH_XML_PROCESSOR">
+      <documentationTagManagers xmi:id="_6-y6VelYEeKM1O5DqVzPvA" ID="CLASSIFIER">
+        <documentationTags xmi:id="_6-y6VulYEeKM1O5DqVzPvA" name="summary" valueEditable="false"/>
+        <documentationTags xmi:id="_6-y6V-lYEeKM1O5DqVzPvA" name="remarks" valueEditable="false"/>
+        <documentationTags xmi:id="_6-y6WOlYEeKM1O5DqVzPvA" name="permission" valueEditable="false"/>
+        <documentationTags xmi:id="_6-y6WelYEeKM1O5DqVzPvA" name="example" valueEditable="false"/>
+        <documentationTags xmi:id="_6-y6WulYEeKM1O5DqVzPvA" name="seealso" valueEditable="false"/>
+        <documentationTags xmi:id="_6-y6W-lYEeKM1O5DqVzPvA" name="include" valueEditable="false"/>
+      </documentationTagManagers>
+      <documentationTagManagers xmi:id="_6-y6XOlYEeKM1O5DqVzPvA" ID="OPERATION">
+        <documentationTags xmi:id="_6-y6XelYEeKM1O5DqVzPvA" name="summary" valueEditable="false"/>
+        <documentationTags xmi:id="_6-y6XulYEeKM1O5DqVzPvA" name="value" valueEditable="false"/>
+        <documentationTags xmi:id="_6-y6X-lYEeKM1O5DqVzPvA" name="param" valueEditable="false"/>
+        <documentationTags xmi:id="_6-y6YOlYEeKM1O5DqVzPvA" name="returns" valueEditable="false"/>
+        <documentationTags xmi:id="_6-y6YelYEeKM1O5DqVzPvA" name="exception" valueEditable="false"/>
+        <documentationTags xmi:id="_6-y6YulYEeKM1O5DqVzPvA" name="permission" valueEditable="false"/>
+        <documentationTags xmi:id="_6-y6Y-lYEeKM1O5DqVzPvA" name="example" valueEditable="false"/>
+        <documentationTags xmi:id="_6-y6ZOlYEeKM1O5DqVzPvA" name="seealso" valueEditable="false"/>
+        <documentationTags xmi:id="_6-y6ZelYEeKM1O5DqVzPvA" name="include" valueEditable="false"/>
+      </documentationTagManagers>
+      <documentationTagManagers xmi:id="_6-y6ZulYEeKM1O5DqVzPvA" ID="ATTRIBUTE">
+        <documentationTags xmi:id="_6-y6Z-lYEeKM1O5DqVzPvA" name="summary" valueEditable="false"/>
+        <documentationTags xmi:id="_6-y6aOlYEeKM1O5DqVzPvA" name="permission" valueEditable="false"/>
+        <documentationTags xmi:id="_6-y6aelYEeKM1O5DqVzPvA" name="example" valueEditable="false"/>
+        <documentationTags xmi:id="_6-y6aulYEeKM1O5DqVzPvA" name="seealso" valueEditable="false"/>
+        <documentationTags xmi:id="_6-y6a-lYEeKM1O5DqVzPvA" name="include" valueEditable="false"/>
+      </documentationTagManagers>
+    </documentationTagProcessors>
+    <userDefinedAttributeCreationRule xmi:id="_6-y6bOlYEeKM1O5DqVzPvA">
+      <rules xmi:id="_6-y6belYEeKM1O5DqVzPvA" pattern="*" classType="DataType"/>
+    </userDefinedAttributeCreationRule>
+  </md.ce.csh.rt.options:CshLanguageOptions>
+  <md.ce.msil.rt.options:MsilLanguageOptions xmi:id="_6-y6bulYEeKM1O5DqVzPvA" commentStyle="0" header="@(#) $FILE_NAME" documentationProcessorID="STANDARD_PROCESSOR">
+    <userDefinedAttributeCreationRule xmi:id="_6-y6b-lYEeKM1O5DqVzPvA">
+      <rules xmi:id="_6-y6cOlYEeKM1O5DqVzPvA" pattern="*" classType="DataType"/>
+    </userDefinedAttributeCreationRule>
+  </md.ce.msil.rt.options:MsilLanguageOptions>
+  <md.ce.corbaidl.rt.options:CORBAIDLLanguageOptions xmi:id="_6-y6celYEeKM1O5DqVzPvA" commentStyle="0" header="@(#) $FILE_NAME" documentationProcessorID="STANDARD_PROCESSOR">
+    <userDefinedAttributeCreationRule xmi:id="_6-y6culYEeKM1O5DqVzPvA">
+      <rules xmi:id="_6-y6c-lYEeKM1O5DqVzPvA" pattern="*" classType="DataType"/>
+    </userDefinedAttributeCreationRule>
+  </md.ce.corbaidl.rt.options:CORBAIDLLanguageOptions>
+</xmi:XMI>
+</filePart>
+	</xmi:Extension>
+	<xmi:Extension extender='MagicDraw UML 19.0'>
+		<filePart name='proxy.local__PROJECT$h877558e9224f114d50dea1f39a1c119_resource_com$dnomagic$dmagicdraw$duml_umodel$dshared_umodel$dsnapshot' type='XML' header='&lt;?xml version=&quot;1.0&quot; encoding=&quot;ASCII&quot;?&gt;'>
+<uml:Package xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uml="http://www.nomagic.com/magicdraw/UML/2.5.1" xmi:id="magicdraw_uml_standard_profile_v_0001" ID="magicdraw_uml_standard_profile_v_0001" name="UML Standard Profile">
+  <appliedStereotypeInstance xmi:id="_12_1_8f90291_1174411598625_504587_98" ID="_12_1_8f90291_1174411598625_504587_98" classifier="_12_1_8f90291_1173963323875_662612_98"/>
+  <packagedElement xsi:type="uml:Profile" xmi:id="_be00301_1073394351331_445580_2" ID="_be00301_1073394351331_445580_2" name="MagicDraw Profile">
+    <packagedElement xsi:type="uml:Stereotype" xmi:id="_12_1_8f90291_1173963323875_662612_98" ID="_12_1_8f90291_1173963323875_662612_98" name="auxiliaryResource" _extensionEndOfType="_12_1_8f90291_1173963939937_399630_100">
+      <generalization xmi:id="_15_0_8f90291_1196866634537_680603_98" ID="_15_0_8f90291_1196866634537_680603_98" general="_9_0_be00301_1108044721245_236588_411"/>
+      <ownedAttribute xmi:id="_12_1_8f90291_1173963939937_52316_99" ID="_12_1_8f90291_1173963939937_52316_99" name="base_Element" visibility="private" type="_9_0_62a020a_1105704884807_371561_7741" association="_12_1_8f90291_1173963939937_323574_98"/>
+      <ownedAttribute xmi:id="_19_0_8760276_1515156810551_352594_4505" ID="_19_0_8760276_1515156810551_352594_4505" name="treatAsAuxiliaryInOwningProject" visibility="private" type="_12_0EAPbeta_be00301_1157529792739_987548_11"/>
+    </packagedElement>
+    <packagedElement xsi:type="uml:Extension" xmi:id="_10_0EAPbeta_be00301_1123081772098_323897_274" ID="_10_0EAPbeta_be00301_1123081772098_323897_274" memberEnd="_10_0EAPbeta_be00301_1123081772108_624594_276 _10_0EAPbeta_be00301_1123081772098_411862_275">
+      <ownedEnd xsi:type="uml:ExtensionEnd" xmi:id="_10_0EAPbeta_be00301_1123081772108_624594_276" ID="_10_0EAPbeta_be00301_1123081772108_624594_276" name="extension_InvisibleStereotype" visibility="private" type="_9_0_be00301_1108044721245_236588_411" aggregation="composite" association="_10_0EAPbeta_be00301_1123081772098_323897_274"/>
+    </packagedElement>
+    <packagedElement xsi:type="uml:Extension" xmi:id="_12_1_8f90291_1173963939937_323574_98" ID="_12_1_8f90291_1173963939937_323574_98" memberEnd="_12_1_8f90291_1173963939937_399630_100 _12_1_8f90291_1173963939937_52316_99">
+      <ownedEnd xsi:type="uml:ExtensionEnd" xmi:id="_12_1_8f90291_1173963939937_399630_100" ID="_12_1_8f90291_1173963939937_399630_100" name="extension_auxiliaryResource" visibility="private" type="_12_1_8f90291_1173963323875_662612_98" aggregation="composite" association="_12_1_8f90291_1173963939937_323574_98"/>
+    </packagedElement>
+    <packagedElement xsi:type="uml:Stereotype" xmi:id="_9_0_be00301_1108044721245_236588_411" ID="_9_0_be00301_1108044721245_236588_411" name="InvisibleStereotype" _extensionEndOfType="_10_0EAPbeta_be00301_1123081772108_624594_276">
+      <ownedAttribute xmi:id="_10_0EAPbeta_be00301_1123081772098_411862_275" ID="_10_0EAPbeta_be00301_1123081772098_411862_275" name="base_Element" visibility="private" type="_9_0_62a020a_1105704884807_371561_7741" association="_10_0EAPbeta_be00301_1123081772098_323897_274"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xsi:type="uml:Model" xmi:id="_9_0_be00301_1108053761194_467635_11463" ID="_9_0_be00301_1108053761194_467635_11463" name="UML2 Metamodel">
+    <appliedStereotypeInstance xmi:id="_10_0EAPbeta_be00301_1123081771126_233373_95" ID="_10_0EAPbeta_be00301_1123081771126_233373_95" classifier="magicdraw_1046861421236_601240_36"/>
+    <packagedElement xsi:type="uml:Class" xmi:id="_9_0_62a020a_1105704884807_371561_7741" ID="_9_0_62a020a_1105704884807_371561_7741" name="Element"/>
+    <packagedElement xsi:type="uml:Class" xmi:id="_9_0_62a020a_1105704920340_825592_9329" ID="_9_0_62a020a_1105704920340_825592_9329" name="Model"/>
+    <packagedElement xsi:type="uml:Package" xmi:id="_12_0EAPbeta_be00301_1157529392394_202602_1" ID="_12_0EAPbeta_be00301_1157529392394_202602_1" name="PrimitiveTypes">
+      <packagedElement xsi:type="uml:PrimitiveType" xmi:id="_9_0_2_91a0295_1110274713995_297054_0" ID="_9_0_2_91a0295_1110274713995_297054_0" name="String"/>
+      <packagedElement xsi:type="uml:PrimitiveType" xmi:id="_12_0EAPbeta_be00301_1157529792739_987548_11" ID="_12_0EAPbeta_be00301_1157529792739_987548_11" name="Boolean"/>
+    </packagedElement>
+    <packagedElement xsi:type="uml:Class" xmi:id="_9_0_62a020a_1105704885343_144138_7929" ID="_9_0_62a020a_1105704885343_144138_7929" name="Class"/>
+    <packagedElement xsi:type="uml:Class" xmi:id="_9_0_62a020a_1105704884574_96724_7644" ID="_9_0_62a020a_1105704884574_96724_7644" name="Property"/>
+    <packagedElement xsi:type="uml:Class" xmi:id="_9_0_62a020a_1105704932761_361072_9592" ID="_9_0_62a020a_1105704932761_361072_9592" name="Transition"/>
+    <packagedElement xsi:type="uml:Class" xmi:id="_9_0_62a020a_1105704919680_932732_9312" ID="_9_0_62a020a_1105704919680_932732_9312" name="UseCase"/>
+    <packagedElement xsi:type="uml:Class" xmi:id="_9_0_62a020a_1105704887258_863804_8181" ID="_9_0_62a020a_1105704887258_863804_8181" name="Action"/>
+    <packagedElement xsi:type="uml:Class" xmi:id="_9_0_62a020a_1105704884528_587873_7620" ID="_9_0_62a020a_1105704884528_587873_7620" name="Parameter"/>
+    <packagedElement xsi:type="uml:Class" xmi:id="_9_0_62a020a_1105704932587_977586_9575" ID="_9_0_62a020a_1105704932587_977586_9575" name="State"/>
+  </packagedElement>
+  <packagedElement xsi:type="uml:Profile" xmi:id="_9_0_be00301_1108050582343_527400_10847" ID="_9_0_be00301_1108050582343_527400_10847" name="StandardProfile">
+    <packagedElement xsi:type="uml:Stereotype" xmi:id="magicdraw_1046861421236_601240_36" ID="magicdraw_1046861421236_601240_36" name="Metamodel" _extensionEndOfType="_10_0EAPbeta_be00301_1123081771136_580423_99">
+      <ownedAttribute xmi:id="_10_0EAPbeta_be00301_1123081771136_271406_98" ID="_10_0EAPbeta_be00301_1123081771136_271406_98" name="base_Model" visibility="private" type="_9_0_62a020a_1105704920340_825592_9329" association="_10_0EAPbeta_be00301_1123081771136_824883_97"/>
+    </packagedElement>
+    <packagedElement xsi:type="uml:Extension" xmi:id="_10_0EAPbeta_be00301_1123081771136_824883_97" ID="_10_0EAPbeta_be00301_1123081771136_824883_97" memberEnd="_10_0EAPbeta_be00301_1123081771136_580423_99 _10_0EAPbeta_be00301_1123081771136_271406_98">
+      <ownedEnd xsi:type="uml:ExtensionEnd" xmi:id="_10_0EAPbeta_be00301_1123081771136_580423_99" ID="_10_0EAPbeta_be00301_1123081771136_580423_99" name="extension_metamodel" visibility="private" type="magicdraw_1046861421236_601240_36" aggregation="composite" association="_10_0EAPbeta_be00301_1123081771136_824883_97"/>
+    </packagedElement>
+  </packagedElement>
+</uml:Package>
+</filePart>
+	</xmi:Extension>
+	<xmi:Extension extender='MagicDraw UML 19.0'>
+		<filePart name='Binaries.properties' type='BINARY'>H4sIAAAAAAAAAFPmUg5OLFEITi1QMDRSMDCwMjaxMjJScHYMUTAyMDLgAgBsF+GCIAAAAA==</filePart>
+	</xmi:Extension>
+	<xmi:Extension extender='MagicDraw UML 19.0'>
+		<filePart name='personal-Binaries.properties' type='BINARY'>H4sIAAAAAAAAAFPmUg5OLFEITi1QMDRSMDCwMjaxMjJScHYMUTAyMDLgAgBsF+GCIAAAAA==</filePart>
+	</xmi:Extension>
+	<xmi:Extension extender='MagicDraw UML 19.0'>
+		<filePart name='com.nomagic.magicdraw.core.project.options.commonprojectoptions' type='XML' header='&lt;?xml version=&quot;1.0&quot; encoding=&quot;ASCII&quot;?&gt;'>
+<project.options:CommonProjectOptions xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:project.options="http://www.nomagic.com/ns/magicdraw/core/project/options/1.0" xmi:id="_HB4Y4FYDEeCyhsLctII43A" optionsString="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" modelElementStyleString="UEsDBBQACAgIAAAAIQAAAAAAAAAAAAAAAAAAAAkAVVQFAAEAAAAA7ZZdj5pAFIav9Vd4x1VhxPK1QTeujokNihG2yV5NZuGsnWQY6ABW//0CuqXuxqTpmvSGGyaTec/He/LkBPf+kPDBHmTOUjFWhipSBiCiNGZiN1Yew8UXW7mf9PvuRqYZyOL4neWsSOU0iiCrzkm/5yYx5pCAKAZwOmec5vlYCViScQiKIwel0vVcQROYBOGTh8nKn2OPYA+v8Dokc7yYPnph4GqNpNbG8EJLXgwOCbvbU17CWHmhPAdFa56v1Xxrc0UF3YFs6p4LL0oRFZXLB/hB9yyVbbGem12GLecTMnQIeoaCEpuOkG5RMjSQhXTH0A3L0olh2ObIJl8t03S1j+FN1mtN+g/f8Cwk3jIIyWbrb/A2fDp12nZS5eBU7MoqX5v/nLhVzSGPJMtqW38EVPMMZtvlJlz66zb4UnvKE9UNresxRGmiijShOxapzTeW9Jd6jmWQq0EhKybe5utqbWjjVftt9iben9P4+Ne+a/H/9/z++g+I+hn9WcK0wfRzeJomGtlOjafV4dnheUs8b7M/dd1BCNWA2h2gHaC3BBQfMgl5/ukdqo+GhtHsUKdDtEP0A6IXN1e79of8ClBLBwgmzvayvQEAAGMLAABQSwECFAAUAAgICAAAACEAJs72sr0BAABjCwAAAAAJAAAAAAAAAAAAAAAAAAAAVVQFAAEAAAAAUEsFBgAAAAABAAEANwAAAPQBAAAAAA==" symbolStylesString="UEsDBBQACAgIAAAAIQAAAAAAAAAAAAAAAAAAAAkAVVQFAAEAAAAA7X1fd6O4su/znE8xb/vehzNjwDbmrt59F7ZJwjQBN+D0pB/M8qQ9M74nHfdJnN67z6e/EtgGbP5ISIAgtfZaezoGSaVCKlX9qlT17v/+++vjz983zy/b3dM//yH9MvjHz5unh92X7dNf//zH0r/6z8k//u/7//iPd4vn3bfN8/7H3fZlu9896w8Pm2/ov+//46d3X78Yj5uvm6f9z5vov7PH9cvLP//h7X88bm7XT+u/Ns//QC8WvLn9+u1xE74fvvjTu6f11837+ebP9evj/t2v4V/h71+in37+99ft//m+fnzd/PMf++fXzT9+jR7nDWD8e795+rL+I00PavC8+br7jn9P9vjn+vHl2OVP7zanttMf8+36r+f115zh0+96+83zZrf/8a2g73Bi+h8v++f1wx59gcRUf3r37cDyA8nm/H0gTYJRIA3+WA8UVQ2k4WQ4Vseqgv4rB2NZGSpSIEmTd79eNj10uX5GTFmknxZ0K0uBosjyWAsU1Glm46jjPMbPdo+752OTA9PjmSG6PN9wDce/XxjBzLEcN6b9SHT8+nzz8vC8/YYZldEymBvezDUXvunYcS/pNocOw2+R/Cr/KY1VVZWl8enL/HqaUckMr3YxT0omeOXYfqX54YYU0/sTkWSHK+t5u3589+vp78Pzl+3/pGYvScdpo2d4EyYfDuhZMt3tHjfrpyKufHL1RfDJceceOUPiNsS84Eqzd+N8Cmz91qD4hscmLIszJWGIJzT7e7d92JCtTMRQ01tY+n1w68xpppfTA+1sk2s91Y9v/O4Huj0PzBnuKXr50PIhnGCSUUS9rIreyn1Y2HLuBLbjn35LcCXeV9unL5t/M+6r8k8696wgh0ryr1rQCfWHLepLt6zST1rSflX03NI9v/AF27ENvl+IVIr4+vW1MQ/udGtpUEjAy7bNyxXSKRqWcWugY2vhOgvD9U3qeV520KLYx/vfC0wbqRq3C931MWW0E8rsg+IDbp/2z7svrw9I7f5xF2ns7yXtl8HP3+V3v2Y9bPfDh/uNjWNFXdXOOP6cmRuueYe2rmde25ScSDbt4MzRyr8z7hH9OuW844biSroTjdOqk5sKPTnPd3WTfvMmWtY1vYu/u2n/h1iK8R2Rq7OhAIoaaMpooGrBROIKAowHqipJgVwTCHBlWhat+R+3YTP8NVVBM6ygjJdNamHYtHM6NWGa0liVBtpw0mW7vXExt3BcGmjm2EREs35uusYsTVCpxXdsQm3fWcaVX2rEueb1jb/CrxZYW7lbsC9CnlWyqyNpPJaCyUAgyd5DiQGHVW8OKxElO7E0O9uIJ7F0FGpfoj99JHpC4fJ9u//x8+Gdd78mnxYIwVy5liED8wUmlRBM01kiDtVgEAz/2OzXgSaNBrImBZIyUhUN/W8iKUqgyoPBSAlk9AM/qTgcoIHVwUQOJGlQm1yMXAPL26nhYkivkmMh3VpEZeSI4BxIrQZIF3RCrbAU9TU1rhzXKFVnirrQp86dsSofpPAV2zn+XUVfYvlclml/CND/GYHn31sUn+isIfVnCfVP3F53y9XJ+N2VM7XMj0tjNTU+m4bbtLulAx40oR1n3o2Ogd1b/doIhynsKfEyX0+c3H/LAx+6izXqeoNa2bsvGxZDRFKGGjojVY5HLkBMoLWnFCNn+huS8sHM0j1a3DnZVFzA6WqJ1haWTJSzO7Vr0Rnq+bpPS3fYRtzPUdlLXcE73WSIDyZRR+rSnenfBwvdRWYCOhPRIYnVTGwzHOi/p5w2UZ/0SkzI0bjH0CQq010u26xOYVftRHecmBOypAIeW9SLkMvMQFreXHfvE7occxgSRafUCy2rR690qWW2WiX/ndY/q6y+3uicu2cWHXOoKdokUPmGMtesYramjUmDwXisjCtomCQSbblYuAZSpabGjX5nOm7hCXn9vHv99j7j1ehB8Ya/GElA9D+mrfRTs/DibBi25TGURiNVrRDbTnrgxdSa9o3hmj5BkBPTSikaVFwl89ZxjYjEK/RJ699PBWOKy6SYRDKdnOM6EiLSNCaHOEiYIwuqBRfXyQXCADSOPKgSuMZTm86iJIJiyxRoXifO5aj0fpbfw7McGywR1SW6dWg44jdXZy1X4ZOzH/n6RegXJRaour90a/saeeN1Qm4fjXEvYbV+MO15U2I8b/wadnPZ7b+YqrLLf3z2bv9uCp7vhJO13dTWS0AO4iEvZ+d1JaAlvw9qqY82WuimKxX3xxdX6VsdHACUnvtzs1ym4N8t9O8qDd3jS2OJVFhvbj/invcfl7plXpmI6lBBQ/uY5VJjSW+VT+6ewKnP++2f64c9C6Iqy8PRZByoapcg1Ta99oo00nrms9ekIZybcG7Wd24SeqRvDRz06NGukfOm1IuDJOMAzirg2NZ9sFhOLXO2wnxbuOad7rfkTT6h27TXzU+oeDsw3tGbEwXi6L7vmtOlT4JkZr1L4z86H1FAN9KJOFI3UkWenI3Tkh+pDCWJqSRDSZiZ0VOYJO3saWLLFY0qIl7i4as9F/KBDFevyqPcIanPL9sJvPA6UxmYHr23mt5H8VDT5JGP/7ozPXNqWqbfPMQShjZ5njMz9RCYNex53R8gd0j6dEYpPYpIl/hk+jfO0k8SQI5y5YamcwhSi9divBpq/gZZQ4qLcCTIpQ1r4MSlrgQ2JEhOgLmlV9q48up84E5wi8yPwYlD7fgwKnCFxsfDiTdtenkqcIgmNIYTh9oMdK+ys+iCZ3htsW7k5kuJTYrwGm6iut0Am0xSaCJsWO1PiLEpQLtMP9o/9S7HeBwxt2kay8KiNzQdCDZp1rv06Fnci5j8CW/6xTTSq51V2VQysIBY44laUqyxImvOxmHPxy7VgTXGVJJhjczM6CnWmNgDFNGQnHZdB+Ih06hoEwK8aFTBsdgEoWQaWFUe5Q7ZPyy2wkamAQI57eQuAIEJcmmBQE5c6goQmBTRFCAOr1OhAyBOglwaEIcTh7oA4iTIpQRxODGpIyBOygihAHG4GT7tgjiZpNCAOKyKPYA4fUtus/SMQJ/f6fYMbf/QhjXta/IpZDbvhPxguLHF62Bq8M4W3Kppw8yAqxKCX5VgmucxLBcn7Q5w+m7ySV00bTleFfKcQJ6TnI0MeU4gzwnkOeE9f8hzAnlOIM+JQOY75DmBPCeQ5+T0DPKc1G6NlJ8VyDg03FNB2FvdvTYpEupmNqeW9dm9kFwqzW25yn6Ca6XlPIqKqWU/851FzpOp4/vObcFoZf0W99BeJW0k94xF1RiwuDH9zikYuPXaUWIns3h52T1s15gPIbmVk1oM5WCoKGMZ12kax3zmkNVCUWR5rAXKu3qyWiRELWUmiPOW7DF2slRDjF2CzDJ1IHd+/TvhG6qEyF/GVilNJmg9sg5kKkklFxE2RUmljCK13CieexZ7sYGCTugvCRf0RaIslrRfFT23dM8vfKE9TY3F59WRkJyjVly5msxlBy2Kfbz/sdMhqd/STiizD4oPuH3aP+++vOJyEj/uNs8v6OF7Sftl8PN3+d2vWQ/b/fDhfmPjWFFXtTOOP2eQsWjeEbjJMjiRbNrBmaOVf2fcI/p1ynnHDcWVdCcap1UnNxV6ciSumOzZUbtUmr/9m0iFEgPHkbZJNdv8jt56vs4Y4mBBN0bjkTwYB5LEN2cnoBuAbgC6AegGoBuAbgC6AegGoBuAbgC6AegGoBuAbgC6USe6weHUmofx7ad1ZvrGLe2hldGFuJ8TUetcoZMCkXx7yKdjOZ/op5zRCRepKzUqdUPDk50fed00zpF+wH2z9ePjdPP3+vt296w/MKF+yjhQBoPBRA5UviFNbIV6xMF/mrsB12btIU1V0EfrWfWhgTac1AGRzHTE9GMgc6DPDid2FaCktCt6HCyMsnb8myBxLe2AOZaBX6EWEtEQpo5KRWwnf0Ldr/IHaqc0nqt/MALv/nbqWJSnU6KluHrJIsz9RTUv3ERI1NhAuuBcd+8TFaeYIUeKTqn3VFaPXul2ymy1Sv6bPU1Cf/QZB32E0IHJrtBMNHU0GAXqSCCFBk7/bpz+FVNskKfcLE+w0XYizR7q3h09ZHsi3RGdz+vH6euff26e7d2XDYtsH2myrCJjdQiyHWR7TVLAmf5mzA5peymlQbKpuGJOxHR5vQg2yQ/jEDbyRIzSv6P6Frvn6z7tQg/bgOkMprP4yhXTjWakUMkSVqkCVQGFikyhUhDDeqZOadKwntqr4p/YWccfnNWFZ3UFDJ+wTO8xMyflGjlvSr04SMJIcaioY1v3wWI5tczZCvNt4Zp3SFFoJwD0lJyRNjbhlNSx3bSn5xWqi6bBVn4tb8Q6rJgyMR+XhCdMc8pcer7NPKdlN1tiKsmyeDEzo3/XYDKSkTaxp4pGFdJwigsxJQittwx87pD9q/1EeMAnQxwNe173B8gdkv4SSkpRIlIWPpn+jbP0kwSQW61yI7V4acpvcSrF24XyWwlyadNuc+JSVxJvpwoM0ybD41bcue2CqFWqhTdZa17sAmUJQmlykHLiTRdKuCXIpUndzolDXSjhllzsdMndeW2xbtyozCwI3xyX2k4An0kKTQZ4VvsTcsAXwFmmH+2fepdjPI6Y2zQNVjVRxjlvxBZvnRXUu6+PDyUDC3hjJK75TggmMteW55QmR6oDTIypJAMTmZnRUzAxq+x9Y7uuAwU58kre18ujvFEFB1vPqt7Xx6PcIfsHtlbYyDRIH6ed3AWkL7fifWNc6grSl1n1vrlToQMoTWbV+8Y41AWUJq/kfWNM6ghKk130vkHDp12UpqTgff2KPaA0nbo5QED70jMCfX6n2zO0/UMb1rSvyaeQ2bwT8oOhZCCvg6nBooHlsuXsBKgUk5rfB7WIQKwIwzRLZcPxxVU6hR2HMHjOmSjTYf5UMiK3H3F32tnNXVy5jiEtZ0lv7YjOY2Atvrkb4Du85JO6aCpExCm+sEugTJ29Rg+khx2Iu3Qj8ujR9Qp8yR9OQEz9SCgRnk7PjET3gsbkRhSSQehV599T5DyN0dYnaHLGEhwKDjMlkFlwFXiSMU7/kN+qYbbR8qiN9yVjvuVo24gLNPA70wFbAXSva860gDrTvLsCo0fUkmHnTAwRGyuPaKRxJDAxowvug4hSGs8BE0u64C84rGQ6VwHbrumGg+BoRFD4BhjNtnY9ApdUUHgDqttoGcOBE+AYQnnQN8gCNiuuvvOBWsaPjkluCbZbxqs0CNKpuYAASUwbIUhSjRdnw7QElpBuiZhaWrW34kopGlTcgysNWtS/nwrGFJdJMYk02iCXdSREoayYHErVjwsLBHC5nFFEpedx4UHb+l4WJTQqH/uJA+EfJYuSIjKcy5LsQFx4QoxWj7rgI8YbjLkocyfFVJG5lFj3bk9dS4mdQIGa8dl6gqNnR6MpFBFWgNa7sSC8kJH1Lo2ddjGkgPbaiThSe60iU87GEfSSWEwlmThiZkZP5dHlyqfQCKpuu5KBxRRPlzZoExKqaFTB4wQShJKp+1V5lDtkE4EDh3Us5s2xy01G48Hmu72FcGkn6KEF+Fi4kTusuKIuKZjJQoG5sqkTYcMJemkgPk4s6oLrN0EuJQjIiUkd8QQnKKaCCTlxqW2gMIcUCqiQVb8HPzGZmKuOiPGSeg1iYlSohe8uZ2VmUx78cGwrokY/ddy54QaGZYTh/re6e20WqktniF5Wc+ptld0LSb733Jar7CeWceXnPHLN65u8Z76zyHkydXzfuS0Yrazf4h5sx24pcX1KdtJeP+F2cDVzEaUnRWZ2j4/rP3ZRfdblC0MBv1Ew0iYjOVClmMvil5tprTaLJKmSrKlQ6676BEW8sS5yfSNFkyrA7lC57MA/qFxW6VBhOlHGsqpNAlWGI6X1I6XrVk3vBPNbqSYFsdkQm52ztCE2G2KzITab9/whNhtisyE2WyBvC8RmQ2w2xGafnkFsNp+91xew6esf26fNl6vn9V+YZha8SZPHk8EkUAcC4U2EOVCrwBfpdq3oHFBHHurIkyaP/mQbbsVFctmWenl8jJzJ+bwpXROlPawyyPT8edbPjjV/y/6Fr6ySXtGk0VAJxppAkh62QBNbgOmkDVPd4qS3FB71uI2QRtSNf2sdzjTSGZ2avDEHuiorqjzsv2x9fdo+hL7bxXr/d2UpO5QCZTJRtWEgSSOuYlZRZHmsBUpNDtyEKkS5zs5bst+UlKt4BsvAgQSZZehA7vz6Z/A3JNv5gxRl4ZUZMENLGbr7YA6mLDhh7cBKZlstaYvnnsUeDVbQCX0K4oK+SMLHS9qvip5buucXvtBe7DZLeYuOXKk6xsmTOXgz5nnZQYtiH+9/HIOQjHinnVBmHxQfcPu0f959eX3Y755/3G2eX9DD95L2y+Dn78gGznrY7ocP9xsbx4q6qp1x/DkzN1zzjiBqJoMTyaYdnDla+XfGPaJfp5x33FBcSXeicVp1clOhJ0cSmZE9O+oIi8anlyy3EPuRI22Tarb5HVU+tXqDcXzbPTEiyMOhNhyowXgiEoIsbGz6WJUG2rBCaHovbEZwIYrhQowiUw+16yjXyHlT6sVBYlti+9GxrftgsZxa5myF+bZAapbut2QVNnd5oJXEgtENR933XXO69EmiXbPepa8gGPci4FWDE3GkVw0q8uRsHEGL5sVUkkXSMTOjf8h6xoWAJrZc0ahCgt9x1roEoWSx11V5lDskVNg7Vrur9wPkDvmWS+sl1iJNdkKmb5A1pJjKyxm5tFffOHGpK5ffEiTT56ThxKv2iyNX4BZZrDsnDombg/yMUJp7AJx4I3qW9jNyaa5PcuJQF/JeJhc73QVLXlusG07alNikuILJTVS3ewkzkxSaW5is9ifcwyyujkhYF5FlOcbjiLlN01gWFr06Yc77rHfp0bO4FzH5E6ZQi2mkVzursqlkYAGxxhO1pFhjRdacjSNoCZOYSjKskZkZPcUaE3uA4sY8p13XgTvzaVS0CQFeNKrgWGyCUDINrCqPcofsHxZbYSPTAIGcdnIXgMAEubRAICcudQUITIpoChCH16nQARAnQS4NiMOJQ10AcRLkUoI4nJjUERAnZYRQgDjcDJ92QZxMUmhAHFbFHkCcTmUNJ8zxos/vdHuGtn9ow5r2NfkUMpt3Qn4wZPXidTA1mNerXLacnQCVAl7z+6AWEYgVYQxoqWw4vrhKX5rhkDSd89030uJ2pffgOlGw7uNSt8wrE1EdimhcX4bhImBJb+2IzmPULr6nHeAb2+STumjaci7sCB5YIJudQJk6e40eZw87EHfpRuTRo+sV+JI/nICY+pFQIjydnhmJ7gUN2Y0oJIPQq86/p8h5GqOtT9DkjCU4FIxpJLTgKvAkY5z+Ib9Vo3Cj5VEb70vGfMvBuBEXaOB3pgNWiKLgESm0gDrTvLsCo0fUkmHnTAwRGyuPaKRxJDAxowvug4hSGs8BE0u64C84rGQ6VwHbrumGg+BoRFD4BhjNtnY9ApdUUHgDqttoUL88e/mFEZYHfYMsnrPi6jsfCGqpCQCQQC21jC0BtdSglhrUUuM9f6ilBrXUoJaaQJof1FKDWmpQS+30DGqpibD3TvXRsYiwArTejQXhhYysd2nstIshBbTXTsSR2msVmXI2jqCXxGIqycQRMzN6Ko8uVz6FRlB125UMLKZ4urRBm5BQRaMKHieQIJRM3a/Ko9whmwgcOKxjMW+OXW4yGg823+0thEs7QQ8twMfCjdxhxRV1ScFMFgrMlU2dCBtO0EsD8XFiURdcvwlyKUFATkzqiCc4QTEVTMiJS20DhTmkUECFrPo9+InJxFx1RIyX1GsQE6NCLXx3OSszm/Lgh2NbETX6qePODfdU8udWd69NiiIcmc2pt1V2LyTJ5HNbrrKfWMaVn/PINa9v8p75ziLnydTxfee2YLSyfot7aK9WWkp20l4/4XZwtX0RRZyamq2Atei4NNwrfUZ1Se6ysdiTdA3dMj+XZwfKmWayudgTRVvJRN+DqqTURVsxpxjebTiRSCOwsi5J5HYk7uRTq5Bx/oV91cWCvpTdevqyxVxYP9q7L5vqxbeGgYz+Ox4FYzXmcuvFt3p4HJZ65q5My6ItKBa3YXOwaaqCPlod92cFLZLWGynwtHnArFjstk97d/Mnavj0wCQOJtpY0YLxWCBpIPTWqeWoxSlmrszfw/wytn2AJxYOXZnOgk5ERAg6UHswv/qesBUImyoYKGbBWTDAhaxWz38OFawPMDII1Yvds/H0hUWlUMZRed+RQDoFsb3rWEZwu7R8c2GZs5KAhywb97y9uHJgblyZNk5lZxQ7YjJmmWwKe4poT1XeUEMpkNSxosiBJA257ijUpzzWAqUmLT2holDq6uct2aNJZamGaNIEmWXhpLnz61+AaENqU+91ip7bVilDqF/mVC2pneaeFeRQSf5VCzqhT9NU0BeJi72k/arouaV7fuEL7fm3m7euGlccj7EEZNGLGfO87KBFsY/3P3YqJz1StBPK7IPiA26f9s+7L69YT/xxt3l+QQ/fS9ovg5+/I3Mn62G7Hz7cb2wcK+qqdsbVYUu55h1BUHimLRU37eDM0cq/M+4R/To9vndoKK6kO9E4rTq5qdCTaxCabR7mpK9TIO4t1ygfEunVk8xkSt24QHJwXSGbH0NLFWRKsnVXpllBuiRbiztNcx5ePjxJQ7QAb2kXbkYXQk/YuUKbDZF8eygTaTmf6Kec0QkX3UBqVDcI4RF2fuR10zhHegNJv+yf12jWLJj0RFUGk0EgSYpAmHTvoL4+462661KLgrBNK5fNLNP+EKD/MwLPv7coVs9ZQ/oqQVPL/LgsvxMW3mrC4+ju6tBmNTU+m4Zb5f5Xb0TdHgk6TC6LrBtKqjaQkKyTBZJ1sGSrLtkzPp/W3nHlfon+9NH6ClcQ7uHwyrtfkw8LFnru2s1Y5/mbgmqhp8gsXezoBH/QBvIE/WsoTZTBWB2oo/Eg0CaaJI+CoaJxdDYP5UAbT8b4R0mr92ifm/q1q98GVy7RjbKc10kvlaWaVz6X+iNsEane3+tvDBHJSiApI1kdBmO+wQ61hw9F4bf0gcnpdrCGkC32ePW4+xfLga2OhyMNPZUkkQ5sCJiBgJk+GXCdsaIhYAYCZiBgBgJmIGCGx2wgYAYCZiBgBgJmCicHATNdCpgxvcB1lvbcoLgIFLcRckoQfwDxBxB/ICLGN1/v1x6a64Ytk42CHRfSWAnGfCMQepy74s2lfWEXIc70N2N2SBRPKTaSTcU9Ma6WaG1ViJU9tWvREvV83aelO2wjJARpIB1jrrv3gXmrXxshSMeMX1F0So1nZfVYnhgls9Uq+e80hFgFlOrPOYnDDFiOyKEywa5UvnErNZ+QbR4mmjSsAkaLfOgr0kirRV6FRWaM2ylOqk0plc6bUsseErwcY+KObd0Hi+XUMmcrLFQWrnmH5H87SPfpDkbluxvtJiuPNBnd911zuvRJyjFkvUtTYe18RAHTOJ6IIy2wVpEnZ+O0VBG7zMMfU0lWYI2ZGf0LB8go3tXElisaVUh1Oa7flSCUrOxHVR7lDtlEybBma4URnv+IF87MjCAxw57X/QFyh6R3xqeMDCJd4pPp3zhLP0kAua0i15ifPF6LNHXamL5B1pDiYhwJcmnrt3HiUleu3yZIpq/OwYlX3UmOnyCarCIzJw6JfU89QShNtWpOvBG9XvUZuTQVADlxqAsVAJOLna4CIK8t1o3IspTYpKgAyE1Ut1sBMJMUmgKArPZn9rhQ/y9ErUw/2j/1Lsd4HDG3aRrLwqK3vCRUNPesd+nRs7gXMfkTukpjGunVzqpsKhlYQKzxRC0p1liRNWfjsN8mkurAGmMqybBGZmb0FGtM7IGw/npZOVKuu+40orjCKY2KNiHAi0YVHItNEEqmgVXlUe6Q/cNiK2xkGiCQ007uAhCYIJcWCOTEpa4AgUkRTQHi8DoVOgDiJMilAXE4cagLIE6CXEoQhxOTOgLipIwQChCHm+HTLoiTSQoNiMOq2AOI07foYJxTRZ/f6fYsrIaIbFjTviafQmbzTsiPhY4TEfk4rm5uuocakB/M4gJPfA+mPApakS1nJ0ClGOr8PugTo9mBd6MvymXD8cVV+qYvh9hozhf207HfVDIitx9xd9rHpW6ZVyaiOhTR6OOwZC8o6a0d0XkMy8XJZQKcZoZ8UhdNW9nyHUjlEm7txI0MrHMIm9Eli1iSlxsqUduTux6bhy2+98l6JXI4GEvaOBjzzXvW3yuRMq6sOFChqPfbEb5Q1LtjiTC6mGwPinpXmEN38gkKe4VxMpZUpAH0XVn6hhptnh5+VM8ROwgkVR1McFHlAVddCXLEFs8QcsQKfGy9ZZneB90WcsTSfVLIEQs5YgVR4CFH7EVgN+SIrbgEIEcs5IgVV9JBjlhu0FiD2i8UE+smUvK4+4GpZUFKVFUZqBJ6qgFSAkgJICX1nByAlABSAkgJICWAlABSAkhJ0YcHpASQEkBKACmpESnpifl/6JS5JPNIVdRRMOYbKdHfqNIaL2SJHOfVC8MQYvObiDQtXyo48Jns5vllwHT16+MXzU392tVvSxfAWTP0zcJPkd1bO1c59enUNe5MHeceqHCj87x5iybTgY1VELNkU3FVo/gOJeX0kpcvW/s8h8Vf5fMkmwowgwrbJNlUgC1SYQbJpuJukSs3LMr3yTZoHDtnLQX4QM6d4d6ZxmHhUHlxirppZ2b60ne8mW4ZHKZX3pe4izOdu4vTpybrtMUlPXXcOfVujBqJ+ymPfL4xdPrJpRsDVkGAVZhPf+5YkIrxWBtLw2DEN1QBoAq6rRPdWqWfVLpdi4eY+ZlCbTq2gA1OsMGtzV+obfUtLgfyRFIGcjCawBZ/u1u8V3uienCeHGjjyRj/KPE98bSRoo4ngVTTdjhqRlN99uHadZb2nHYd5fUg6FZBtM5NrJ9j5R2vf7odc9FcSI05hDtv9Dm2shGdIeBMmeviormQEw21+2vXpK3kiZvUoNXYr1//2BTut3BgOq3m1ITlC6i/DGK0+3H3L3f99FfqBTn5wt/bv/6+eEMZ/FJPvFS0r9Ak8WJb6P4N5VJNtxVynabIrLIdzxoLOclDNWHPw14wexnmIKPFVtKthZxmKillRGj1pJan9kJONXI4zXxcq7ks036WqypuKe70jvqLaV85FWEl3FQECLsCCJ9qK8AcQqdA0RyiTKg5r5OmSU01F3dpJl29pI4kLvzJG1iABUJWiojT+hDbO93okhBkGZB55LnMuIIPv43YTSIXPxeGVAoKaI0ljewKQaIMCJ3wXKZcxW3f5CIgcRuwMoLa0cC11qa3MGZ+EOZ5r3WSiXGow/dSjZc2/ivMsF1e4D2n4Sr1QAqk9A/DQEn/oATDsybjQEv/oqHf0r/ow8DS7bk3wxnfz58sHBcHu/vpB0svsAwfnRJ5LeMXjh2QXEj76d3my3aPUWy8FBqza0P8Nsxx69o1n7EZw8EVWrhCC1doe3+FFmLOs1lZwekFyTfeYPINAgl3RPVc7KvU03MidegmGtNLtIw+7vAV75lOIM4KGq+yHt6gPz6jb6hbTQuqMJ3Sb8vbRYAE5owuGVOyITWDz9vHLChl73lTLOBX+f1dPDp+iuZvzyyRXo0UlIMLDBthgWvQOVPz++By51pq7M71YR6WPjWswzwOxzY9MzI6EYgbBDp68qOSrgtmMCRv0NpZd7IHcinwMESje8QaDHFPq/w3fXdpFDy+0i2vkh7ZkwCz1+c1/vaz3dPL/nm9ZUsEp2maOhmjp3xDLyERHOii/I8qSAQHKFby1AIUC1CsHqBY4iYKgURwTLOBRHCQCA4SwUE6MXGNyQPJ5tdvu2cmO1JRh+OBhp6qYEeCHQl2ZD0SEexIsCPBjgQ7EuxIsCPBjiz68GBHgh2ZsAYhoXj+5CCh+JtGAJ5ev24ijzJLBh9lMNHGUjDia/73OIOPIo20GqI0F4ZNO6NTE6YJjVVJk4a12BUdMBUhxbgYKcYPqR+ilA+Ua+S8Kf1NJQKTEpuNjm3dB4vl1DJnK8y3hYtzG7RkDJr2DdLufIM2782pXUt20XKxcA3PC2bI0PYC3fddc7r0i+28KBYv612iKL2cEVtA18pOgRNx5WcBE0/OxmE7EYfSaKSqNYDgMZVlGDgnZvQPMc9IV9zElisaVUhQ23H9S/lQdg6x8Sh3SOrzy3YC3FvpGXZ4bzW9D70L+L/xkY//ujM9c2papn/fNAQd5RzxPGdmRhc6DHte9wfIHZIer07pUUS6xCfTv3GWfpKAVbqbgk8g15hwJl6L8Wqo+RtkDSkutpEgN9alysA5rlxKD9sJTiUwWMJMJZx4dT5wJ7hFlriEE4fELi6SIJTsOjBX3lS/SdwKh8i8Zlw5VMHP1urOInWh8t1i3XC+psQmEYDPWVTTQ/9cs+pkkRKBerUqoiXjUmujxu8h3oFV2ojuMrMAH4v4zdVZy1X45OzHdirmmbbpR/un3uUYjyPmNk1jWVj0lqdljeae9S49ehb3IiZ/8DdM0EivdlZlU8nAAmKNJ2pJscaKrDkbhz3gVqoDa4ypJMMamZnRU6wxsQewcar7S7e5XXcaUVzhlEZFmxDgRaMKjsUmCCXTwKryKHfI/mGxFTYyDRDIaSd3AQhMkEsLBHLiUleAwKSIpgBxeJ0KHQBxEuTSgDicONQFECdBLiWIw4lJHQFxUkYIBYjDzfBpF8TJJIUGxGFV7AHEyc9RvrSsKmXQT+3aCVlKVesJbdjqxX6OzTshP5LlD0zXmIV26wfTLgw543sw5VHQimw5OwEqRbTm90EtIhArwiDPUtlwfHGVvgxDHm/Q1J22ZAQq0/22VNywqDvt41K3wsT2EUKIPg7LBb+S3toRncewXHz/OsA3scknddG05XhVw17eHrE7ZJeif1oEWlVxKxr8PaunFq82ZpJDD7ez84eYGAEh+Ay6ScF4Zsbljt1SMDDDwqMzdGpbck3cXWNRX8pIpjCSalp9GbSA4ZSz2ChBkPpWfUdwkSzSacDI+hjYJj5Z5hbNopfMQVqLiOiY05TQ2ZWpvjQkiIsJaMf91Y4lmskEWsdOjfpsV5w9aV9zW2YTGSWQYqAwxcC/HzYhF27WT18eN88seQaHg+FQGaCn45jPkGeQJuwJ8gw2diiLn7egf5ntKtxpg8x2kNkOMttBZjvIbAeZ7bo1c8hsVzg5yGzXwvRM71iMm3xicRuwpIst6W/rJyxQ7N2XDUu6vtEI/R2M+BrRbNn6CJYWrgJIV6Tz2EJAp22byQc1VUEfrGfpBwfacPJGzfh8S1lY416MJISj+k54wWo19OwAdDd/bdky1g6H0kgboJOwW2dgQ7VL4Bzs5TnYFymAG7G4kUbD8VBS0FO+ux/cSMUzBDeSwCK/9ypQz40AKFcFTj1w6oFTD5x6P4FTD5x64NQTUdKBU088p165qmSZ9ocA/Z+B1IN7i0I9OmtIfzd5apkfl+W3b8I73Xgc3V0d2qymxmfTcFu6afO7b9jhbZ+FY1IZshmtARIuBYNCSBh9muqAsBRo2kRWlGA07BYgHK4Y10Gbq4K5fWrXoroY0kCWGyxvBl1I8xUSeru0fHNhmbOKE022b/uTHWwNbMPTZTLJ7QIEHZGgYwG+JXk4GqOHfIUc4N6AewPuDbg34N6AewPuDbg34N6AewPuDbg34N6Ae4uLexPXs0oU94zTh0baJtVs8ztq89TyAtf4uETkUJcAj1sCclOE3Fxtn9aPP3v79Z4JoJYG6mgyDEaKQAC10OG9tYgEnIf5yvw9TMJs24c9HPppKIRfQSeAAryVKzCVIAGlL8d4F6HCxlWP5jGA3qOhPVIp2G4BS4EmTyaqFoxkgRSKjq4q0JBAQwINqe8aUh+O43a1vJ6cvo+7f812T08bjIuynMDyWBuM1WAkCXQCC31gVb2x+yaPrU6mVOmPhOClo49GUjAaCCQhQEcXW0cHdRXUVVBXQV09HUa75//6bbd9WrxsXr/sXlj9UMp4oo5HwVAT6EgCCQ4SHLKSiS5OwcfT01O6O5p+uWC9t2c3wVR3A8c1DdvX08SVzi2rObVIvUGNPzuodXn0c/zq6g6HwM50q6XCRz2J6XybeAVSEVmhitFEUQeDYDgRSS+E/Q4yH5RpgEN6omgBHMJ+1l1vnjbP68ft/6zxXL3NvvqhNwjGY2WITqmhKtChR+zsoodE0u1a3AgL5xPOHFBccjdjG5zaiWsQYm3XMvxQmv5WIX3MRfsaPlMvztQstEfY01QMaCr3eO7j0cCUaGM0kGRcqJTvbQ3ItFE8Q8i0ITC0+saOF0hMQfdJITEFJKYQRAWHxBSQmKLTTgxITMEVc4PEFJCYQrzpXRu24eqW+TlyOnkGLVJ02QFEdRfBA+ZXRJH39/obg590EGiToTZSg6FI1Vevto+FunkIJZGvrgimIl9LL4iaB/zT7e5Ltr3707sv25dvj+sfV6+Pj4v1/u+8L/vTu9eXTTSdzfft5l+b59yPeupTf3zELV7e2Gp+enh8ZXD5Y5RLk7UJ+nHA9woxoFyAcr0BlAsiLQC2A9gOYDuA7QC2A9gOYDuA7QC2A9ius7Ad1FHrKUzy5+75axgQhLM6VEf+tGAoT1QFBwXxzfcCcAnAJQCXAFwCcAnAJQCXAFwCcAnAJQCXAFzyFoxuYukwRyq6G8Mfpm/c0gqHjC7EnTDLTBuZYu/QAXO/+coUFzQYKoNRMBwJFBckdF4tRRppNSR7XBg27YxOTZgmNFYlTRrWYnWcaaSVjI78PujxSDu6olhqXBxfXKVVi1XanhPAQkhnZGCwFlIGu6iHy8elbplXJqI6RE7Qx2Exl0p6g/tlcH0Zri+TKSPb/ZY15/QgGErj0UALhkOBFJHegb9vMiN9L+QupGLqILjadcCkrwfWt9f9Yls90wY6rSaqqo2kYChSWdROVt6Aw/dSTtEnmKLKLcWf4qulZVUh+9SuHdp7qOqIjJxVLaMkNHY20IaT+kRBZSdpBeco6Nsd17fFQDtqrCMACjwo8JEC/7JfPz1svG+bh+2f2we2vHlIm5cHQ20SDDtWkrhrtSlEVk4UrUqMr9CayXAg1+iHcqa/IV03mFm6RyvIkk3FtcI6atOENHgLY2ZembMow0p45lHOIqOHluazXCxcAy2Uw6rRfd81p0ufSgHI7aPFbxTxNFwoS9uk1gbOmwup5ocryXIOgXpoIZlIhdHtGfVqzOqDXtU/ISWnKN9yXf6yzer8N/324re0c7npaG/PQLriXHfvE8YAc/Q3RafUXyarx3I7K7PVKvlv9oCNvijM6M11mOto+VLdSytrwWQoyxMtGHaqdnj38KFeQCgQKtKE97N8qTifbMOtuEgu21Ivj4+RtyWfN6VrorSHVQaZnj/P+tmx5u0E7rn6B0TU/e3UsSi1n0RLCIsuPeb+XD9s3A17OQVFC+TxaDKR0dMB3JyGm9Nwc7oewdgZ/30vlDK4OU33SeHmNNycFgSRhpvTcHMabk6nOPOmb05Dorn8yUGiuea1X0g012XMhMUrMJ6MpeEwGPLFSfp7iXyoKGOtX9fIpYE6mIyVWgDsDpjV4OsQw9cRnpO3xu3UcD3aNXLelHpxkJjf2MR2bOs+WCzRCTRbYb4tkCaq+y0ZzqZ9gzRh35jT2l7Hdi3HBUVhZGRhQdfPu9dv77PejZ4UzzpvRAEjKU/ElR8GTDw5G4ftBBlKo5Gq1uAwiKks8xdwYkb/vAuRcHRcI7KXcUqqJrZc0agimkCe4/qX8qHsHGLjUe6Q1OeX7QS4t9Iz7PDeanofBb9Nk0c+/uvO9MwpsrR8zklyCM9/xAtnZkahq4Y9r/sD5A5Jj+3TxUVgXeKT6d84Sz9JAHnYm1yfrEisxXg11PwNsoYUFwdKkBvrUmVAJlcupYftBKcSeHWp45grr84H7gS3yq4vcOUQ1Z2HNrkSn1WN8SZpOHeAQ2QeRq4cavPCcpWdRepu5rvFuuGoTolNImcHZ1HNflGWRQfNJCUC9WpVREvGpdZGjd9DvAOrtBHdZWYBPhbxm6uzlqvwydmPVVwuPNAu0y+/EMe+HONxxNymaSwLi97QdCDYpFnv0qNncS8thqAkiKDXK6vyoWRgAcHEE7WkYGJF1pyNwx59LNUBJsZUkoGJzMzoKZiY2APY+tT9pdvcrjuNKKZ0voQ9m5DQRaMKDrYmCCVTsaryKHfI/oGtFTYyDdLHaSd3AelLkEuL9HHiUleQvqSIpkBpeJ0KHUBpEuTSoDScONQFlCZBLiVKw4lJHUFpUkYIBUrDzfBpF6XJJIUGpWFV7AGl6VvuJZwKVp/f4eQ088iGNe1r8ilkNu+E/FjoLlo7Pg6cm5vuIQfuB9MujCnjezDlUdCKbIHCR1D4iOPUu174iGCex7hbfBk9wNfSySd10bTlgNSpcaPfmY5LoEplvEoDpZ+aCwgax7QRgsbVeHE2TEsBqKQbOaaWFgeouFKKBhVX3qVByPr3U8GY4jIpJpEGB+CyjoS4Px6TQ2nlc2GBAEfmGUVUNjwXHrRtwWdRQmPAs584YL6XLEoKzx6XJdkBv15CjFa3mvmI8QZt5jKvekwVmVedde/21Kme2AkU7hM+W09w58nRaApFhBWg9W4sCB3qWe/S2GkXQwpor52II7XXKjLlbBxBg3xiKsnEETMzeiqPLlc+hUZQdduVDCymeLq0QZuQUEWjCh7ykyCUTN2vyqPcIZsI+TmsYzEjfy43GU0AEN/tXSEOqIYczzE9tAAfCzdyhxVX1CUFM5krhyubOuH2SdBLA/FxYlEXQn0S5FKCgJyY1JFQnwTFVDAhJy61DRTmkEIBFbLq9zkDA1p4JnOqI2K8pJ5QcSRTx50b7ilp663uXpsUeU4zm1OvuexeSHJd5bZcZT+xjCs/55FrXt/kPfOdRc6TqeP7zm3BaGX9FvfQXrbrlGChvbnGTaq3fXONgFuGrU8tI1jeWoEcDHAUk56mr2wP5XQAhVhKk4o+vyJGoHb6w377fbv/4W7+2jLUY5G1YDQcjIfDQNFijreeZlScyhxvok6vpKkK+mh9ypxaUiSuHxLht932yd59YcgyPAlkVVXUSaBMBNr+Qu+VWhDYe3t2E0x1N3BcEx39lMdpZnNqlfQGNf7soNblOmj86uoOwxkz3WpHZYMyR8np1Z2POT8jsbBZmZtKoixuRZ2u11qoQWgscWw7Zmcl+ZFuLaIoOVrUB1KrSZOCTugRtoK+psaV45aDbkVd6FPnzliVD1L4iu0QXMXped0Ka/vn5nH7tPlf26efvc1/v26e0Ec4jPS/mbTMiTLRBoEyBi2TSMscDgZDbdCvWhayOlIUuUJcERRj7kYx5o5eMI5uvU5/M2aHkBRK8pNNRdQGPAOpXXPdvU8UJ2EuvknRKfV2yuqx3MLIbLVK/luEC7dI+zBdRObMx9VJ6Kz8zPYt7hkPqVMzn6oWdrIZoP0kqhiL1jWaaIoiBYoqktYFh3mrhzlovR3RekHrAq0LtK4+HehP//Wzvt8/b/943Vc/1hUN/ayMBqNA4+uyQ1JKHmuBUtexDoVsO7poWZbqSFbHmhZofINLGJdqmbKQkKiUOsN5S/aLeLJUw0W8BJllN/Fy59e/u3UNRRSBE5xoZQrrBE95rPvl966leODcs9gV34JO6OsBFvRFEoBd0n5V9BxZK37hC+1FPzcfmdD4jZ2j+5fs4lcW+nrRQYtiH+9/fDcxGTNOO6HMPig+4PZp/7z78vqw3z3/uNs8v6CH7yXtl8HP3+V3v2Y9bPfDh/uNjWNFXdXOOP6cmRuueUdwnzaDE8mmHZw5Wvl3xj2iX6cPYjo0FFfSnWicVp3cVOjJNRh/1ko+nQO6SVYNPCdBzkUfYk45vADlWAb1PowatZmYABNAu8GiRq1ai3fmtV6eTyLTaoybVp5BT4Cx3e4b69ULaSSrgTISyDkrDkoC966YJgX3rurc/Iik7Z+bl/16z3L3UtECWZ1IEznQ+AZoADwO8DjA4wCPAzwO8DjA4wCPAzwO8DjA4wCPAzwO8Hjb8HhPAIDN818bVvhvqEzGo2GgDAUCAEVGy2R1rCgDtZaNg6uEXpm/hyVCbfuQoXDh0O2hgk7AmISEI+0kHOlwso6uuRrENSXfMqgmrKtkMpbUsZR7260vmtLLC6KJc0IRNRhpkjZQA0UWSHki1jPoVah0u3b2vekFrrO050Zh4ug0FXEbkFVgm4NtnsiEjpcY7el/3lzciZrzsPDR6ZuYvnFLC75mdCH0hJ2rwLQRybdRYo4ry/lEP+WMTrigh1Kj6GEoP9n5kddN4xzplTLGFLMmjRR1GCgK6F2gwwDuBLhTn0GODmNnkbroGnNjZnheqgoxmaaZaNrmDEBfFlJf7ok+tPuyeWRBoYZjTZoMAkUSSBsS2oU3kcfqqMKpIy6Kq6GPpo4q5Cwri0KmCz2uO95YibUIHvHG5VriQp99wKmlbgwdFwlbOJ5Jly4zpwNqHdF3FqVKHy6Whmub6dN2ghOXrkl5WKAW4h6GhyAyL7BMjyb8/qJtm5cD9Q9G4N3fTh2L9oZg3LKV+ojHjWPadlydzwuLZ1PaaWU90VdNvD8YwiX78VDr27SvV4cmbzeFl/2f6+cfP+svL7uHLduFJaTwjIeDiTIOlIFACk+Pw3t6sgKRmm0+vezXTw8M2OM40CbScDgMZJFKlfUwjEVkA0LRqlz4E9d6GKvScCBX0AzftPXQ+/TCbyH3s7cwZuaVOYu8eiHWSzmLjB5amo8YaVvqmdPcWFgOxhOP+nuFOV30Ie6WuiSVphZ45j2gsg5BeyzTHllMFlnRxgM5kEWqby2yijVUlLFWBdAUV8uSBupgMlaq4M598GZ7Nzq+jHnK1I+dzML6sbOIJXm5dcc4wVLBx8GtgUtPerRr5Lwp9eIgubqPr+c7tnUfLJZTy5ytMN8WLi401dKle9O+MVzTp4k4TrdrWXeKzAcydfD6eff67X3Wu9ETMk3rfEQB4YMTceWHARNPzsZhO0GG0mikqjUkG4qpLDPZOTGjf5mJIuHouEZ01x4HQTSx5YpGFTLuDrtdLuRD2TnExqPcIanPr4NLh9T1c/T74P/GRz7+6870zCiFZdOpfsIVg3jhzMwIsjDsed0fIHdI+rxAdEXwsC7xyfRvnKWfJIC8HJRcn6xIrMV4NdT8DbKGFBcFSZAb61JlSVC4cik9bCc4RQMUceVVU4ASV26VwdZcOUSFdbfJlfisaow3ScO5Axwiy07GlUMV8pm1urNIQ+/5brFuJLlLiU2i8H7OorrOiwHlOmgmKRGoV6siWjIutTZq/B7iHViljeguMwvwsYjfXJ21XIVPzn6sEi3GA+0y/XJHKPtyjMcRc5umsSwsekPTgWCTZr1Lj57FvYjJnzA+IaaRXu2syqaSgQXEGk/UkmKNFVlzNg57YnOpDqwxppIMa2RmRk+xxsQewMap7i/d5nbdaURxhVMaFW1CgBeNKjgWmyCUTAOryqPcIfuHxVbYyDRAIKed3AUgMEEuLRDIiUtdAQKTIpoCxOF1KnQAxEmQSwPicOJQF0CcBLmUIA4nJnUExEkZIRQgDjfDp10QJ5MUGhCHVbEHEKdvIfn4cps+v9PtWXi/Ddmwpn1Ndzfuonkn5EciRcjcdA+3+j6YdmHIGd+DKY+CVmTL2QlQKaI1vw9qEYFYEQZ5lsqG44urdNER8niDpmoHpbNJUcmI3H7E3Wkfl7plXpmI6lBEh0kSqieGKumtHdF5DMvF1zUDfHGTfFIXTYWIV10gm51AmTp7jR5nDzsQd+lG5NGj6xX4kj+cgJj6kVAiPJ2eGYnuBQ3ZjSgkg9Crzr+nyHkao61P0OSMJTgUvCBJsVKZJxnj9A/5rRqFGy2P2nhfMuZbDsaNuEADvzMdsBVA97rmTAuoM827KzB6RC0Zds7EELGx8ohGGkcCEzO64D6IKKXxHDCxpAv+gsNKpnMVsO2abjgIjkYEhW+A0Wxr1yNwSQWFN6C6jZYxHDgBjhGWB32DLJ6z4uo7H6hl/Ghq3Oh3Zkm28WhuGa/SIEin5gICJDFthCBJNV6cDdMSWEK6JWJqadXeiiulaFBxD640aFH/fioYU1wmxSTSaINc1lEFrbDO+VOqflxYIIDL5YwiKj2PCw/a1veyKKFR+dhPHAj/KFmUFJHhXJZkB+LCE2K0etQFHzHeYMxFmTspporMpcS6d3vqWkrsBArUjM/WExw9OxpNoYiwArTejQXhhYysd2nstIshBbTXTsSR2msVmXI2jqCXxGIqycQRMzN6Ko8uVz6FRlB125UMLKZ4urRBm5BQRaMKHieQIJRM3a/Ko9whmwgcOKxjMW+OXW4yGg823+0thEs7QQ8twMfCjdxhxRV1ScFMFgrMlU2dCBtO0EsD8XFiURdcvwlyKUFATkzqiCc4QTEVTMiJS20DhTmkUECFrPo9+InJxFx1RIyX1GsQE6NCLXx3OSszm/Lgh2NbETX6qePO47qIwa3uXpsUBU4zm9OXVMzshSRbfG7LVfYTy7jycx655vVN3jNcWzX7ydTxfee2YLSyfot7sB27pbT3KdlJe/2E28HV9kWUHpbWg6ptUHQqa8ND0Snhik7tNz/rT+jQe65ce0rRgvFoMBhJgTaOOcyh9pSiyPJYC5R31WpPleollml/CND/GUh9urcolt5ZQ/rL3lPL/LgsV+1D5RSPo7urQ5vV1PhsGu4bLvOMVixLcd3JYDjRhoGscl2qUFyXfkqugc8vLKfnpn6NbDJsQEc1u0hnmNuFkBO+8W+tgG6Cpybt5MgIB66WGuO8KX2VN3y+o9Mcn+TlVdwSL68izcCZLfFf0QXA9myc8JiYGv4nw0gl7KBNCZHbj5BL/fA9iHDIjMnWiyZWSmdCOQNRgkdT24AhJUtuP+IuP8hG0+dsNCFlRySLzHeWMbXLDgSM22qxSK6iSRVCr8StkDtWpeFAriffAhTIfUsFcvthTTt//L/Nw/7qcfcvFvhnKEvDkRJoI5HgnzIZlFgmlKLovCV7gKtcRcqWgewJMunw9rOG/YpZbQhI4a/rVEDHW0qs1oejMnW6CXtGVjrSatF+5p4V5FBJ/lULOqHPHFXQF4nXv6T9qui5pXt+4QvtwVHNYxqNG79tGoU1pNiYRTG/LNhhZh8UH3D7tH/efXl92O+ef9xtnl/Qw/eS9svg5+/yu1+zHrb74cP9xsaxoq5qZ1wdfnfXvCOIU8/0sMdNOzhztPLvDBwgoNND0IeG4kq6E43TqpObCj25Br0HTU7P9ALXWdpzozDmNU1k3EbIKUXHzDy8XnZaXKZv3NKeVBldCD1h5wodD4jk20MhQMv5RD/ljE64iFqpUVEbWpvs/MjrpnGO9ATh+7b+79eN/oA5xBI3owylkTwIZL4hXhA30yFnkKSpCvpoPfMHDbThpA5ExFnoH5dGoEf3S6oBIvl9VAunmTrz8iTaURLvaMjwUvKp6duNOnRe999e94stkwiVJuOJogQyXzdJ7SJUX/qOZ36mWLbHFuJqbp0B04lxPfpKbO0VYet6Abkr8/ew/JttH24PLhw6M7WgE1A5QOVg21iVce9Wg6D64DTMd8cJ60EUI8pm1CeHV9eh0H5q8Iv1w38hmsyv33bPe6ZgJ0nSxnKgDSHYCYKdINipHonXGfusF3oLBDtBsBMEO0GwEwQ7/QTBThDsBMFOIko6CHZqK9ipVwDA7eb5r+oJRJD9P1LGsjwMNAXsf7D/wf6vRx6C/Q/2P9j/YP+D/Q/2P9j/RR8e7H+w/8H+B/sf7H8y+58lgFcbD8bqMJD5uv7ZAnhFjt6TEdPUUW4KnS5G72noo6kjDVKi033PUpNqoc8+4Bi0G0PHJQoWjmem51X6ebM7oDalfGdRai7hUg1hFrxpO3bN0jUpTwnUQtzD75S73TI9GuTuom2bZeH0D0bg3d9OHYtyBomWIsJXx31l2nZcOsQLixdSAh5lPdGXdLk/4IQl2/VQa9G0r1eHJm/3ItNizRD9KI+C4QSpQGog8/V+1KwCdS/dJKnYcaa/GbND7VJKuZNsKu7ZcLu0fHNhmbOSeqMZE0w2FXeCHb0GFUFtx0qktBDdqYKpALRXwYnaLsFKkLo/DV9Xy+Gf2wd9xRM7ujxSelYfX1ylcchV2vkjgDsBEor3MaH43LjS0bGBa0T6ETXUCPJ5BwLMJqKDudRWUWfiLt2OWmbiVg7lGhyB+exZzsH5hG9Bo1VF+Z0u2ldLjhH2cPJYk6XJSLdZnf92yp4R/5aWfU1HLnjGzLHnunufuPLJHMlA0Sn1l8nqsfw2bWarVfLfdeoTUBH3jVbEFQEiyn+ZAiPa//1SHSRKBbPyw4i0kaKOJ4FUDSMizuxB7yxLt2vlGG2tkmWiQmU91SzrMecaysDJ8xPHfv4o0JLuiM5qTf2xjd9DlRF71aLRy3B3bBfgN1dnLVfhk7Mfq2DyTKrQ0lsYWEMIk1rglFUBIocqz1VuF7XnqjwprrkUeJjFuncsjFmuzpL2tMp/E5kSRsHjK93ymtd4D+RY+tSwInIOSh/9d77so/EPnUFC1S9d3tWq4NXUt8543srHjuhwXPNYqZDiJDxv2tinvRz5Bv3x2UF/laviRY1Xlw/vcIjvLPMR/no43e6sq5ovB+coS2oYeRSMxuPBSAtkGZyjJJfBBupgMlYqhIf17hZRf7M8dtZ/S3jYVPWtZTSm1sez+nCWvmcS6OYFbVdZzw6OmtznOrJ/Cx5HjwLDnlmOZ9rXkXbYjhuvFx73TnqtBQ5VHirKWKsS19uLC6CQuBISV9Yxh3YTV3JJpXtnYsQP0WG4V/qsSk7d8x7ajFI2Pi5Nl2U+GT20AoeCBw08aOLiCM/br9v99vvGR++yAApjaaKMx4EsdQlQaDNdvCJV0uGExUjGqqRJw3qAcfHV0iwdDxTSQoW0ymVLsiitW+N2arge7Ro5b0q9OEiOU3xwOrZ1HyyWU8ucrTDfFq55p/stYQxdjYw/RgVGt0J033fN6dIv1hKvn3ev395nvRs9KZ513ogCwhMn4srPAiaenI3DdiIOpdFIVWvIuBZTWXZ1mRMz+peeLRKOjmtEgByufNrElisaVUSgPbwheiEfys4hNh7lDkl9fh1un5LeUj1eUcX/jY98/Ned6ZlT0zL9xsNVo4qAnufMzMhXbNjzuj9A7pD0ydFSehSRLvHJ9G+cpZ8kgDxiWK5PViTWYrwaav4GWUOK6yFNkEvuK+HKpba9LBU4RXMziCuvunOLKEF0meuQK4eo/I1tciU+qxrjTdJw7gCHyFI0cuVQmxX9quwsUpcX3y3WjUyfKbFJ5FbjLKrrdMiV66CZpJCFwvOxP7PH7XUQPTnaZRLclmZfjvE4Ym7TNJaFRW9oOhBs0qx36dGzuBcx+ROmnYlppFc7q7KpZGABscYTtaRYY0XWnI3DXt1BqgNrjKkkwxqZmdFTrDGxB7BxqpflDOC6604jiiuc0qhoEwK8aFTBsdgEoWQaWFUe5Q7ZPyy2wkamAQI57eQuAIEJcmmBQE5c6goQmBTRFCAOr1OhAyBOglwaEIcTh7oA4iTIpQRxODGpIyBOygihAHG4GT7tgjiZpNCAOKyKPYA4fbsWhbOv6PM73Z6h7R/asKZ9TT6FzOadkB8L3UVrx8dxdXMzzK2Cls8H0y4MOeN7MOVR0IpsgYynkPGU49TfQMbTY1guLvYZ4LKf5JO6aFp5Bn258bH7c/u40b99e9w+rPF8WUoMyyNNkeVA45tHAkoMs4HQUGIYSgxDieEStQdKDPP5pFBiGEoMC6IJQ4nhizgUKDFccQlAiWEoMSyupIMSw9xysbzNEsPPu/3uYff4s/+8fnrZYn74O2/z+Gd1MGASaBNlOFIDbQBgAIABAAbUIxwBDAAwAMAAAAMADAAwAMCAog8PYACAAQAGABhQIxjAND1cxoKuis+xRXvxa1fm72H0mW0fgqgWDt2XKeikzey5DnUpT9xEyGVV6fpUl+9DdSmusrfoIQtuqCoDZSwFGt/csYAbAm4IuCHghoAbAm4IuCHghoAbAm4IuCHghoAbAm7YadwQECtArACxokSsXjavX3Yv+/WeqcqRoqiTUSDzDXBjK3IkDmbRuMjoDqQhciGq2iScEL4igKU6Xj21qdpS4iIgXdeN+6lRuJv14/Z/GC/QowdDVVbGwUQD3xf4vsD3VY+8646i2AclA3xf4PsC3xf4vsD39RP4vsD3Bb4vESUd+L7E832Vq0qWaX8I0P8ZSD24tyjUo7OG9Dkyp5b5cVmeIjPMLYrH0d3Voc1qanw2DbdKqty+ICUP+/XTX6+P62fv7/U3JgfMeDJRh+gpX7iEzQPzVtF9+kml27WjGfbQGXbj31qhJUw+o1OTdhIg44EXjmemRy0jOtWMWoRbxlV5OZUZ0lINd4XfXbnm9Y3PN8M50QlX5XCreq7Nde/GmJdb9OFrK8+xzPlq7vi+MW/cBnedpT03CnOGpyd6aACBEYWHM+L7FH3B7dNfLG6M4VgbK3IwmYAbA9wY4MbgTjO4McCNAW4McGNwkCLgxiDHsMGNwYRJgxtDGDAf3BjgxgA3Bpj/GeZ/dTx+GKiTgYbxeL52f+03IsJF4jqWUcWmOrUTd+ccSLwzr/Xygsv5U4zbCz5VssrSeRPtQpHokNDbpeWbC8ucVZxosr3gUz1o3tiipbscl9sFHARFB4GHmnjbv57Wj/oDU0w7OhTGkjaStEBSBToUhHbSaqqCZljDvbKFYdPO6dSEaUpjVUKKwaTL+C1c6WbAAo9FdimQv1NdXlqcL/TTlkfm4LdCx24V2K0vQh6JzjWyuVmku6ZOhsowkMYg3SEEBwT4M4Tg9CwExzNwuXgf7Q7HNRExOh2LMptTs+oGNf7soNblfqr41dUddlbMdKtp31+vo5b6cvb/9+vm6WFj774wIX6aNFIUZNyNBDr+e3jmCK3RvDl7VQQRkP8yuQzA4fcv1Xd/ap/y2/zaSFHHk0CqbfNDpYXaKy0QqFVLD+3VeeDd6AsjwAwOXIPuq+R2wcUtLZVHMhRQ4GGHkI5j0fRrV78tDxgj7WmV/6bvLo2Cx1e65XEOMiL/zJY+NayInEPgE/13vuyj8Q+dQULVL13e1arg1dS3znjeyseO6KhkJl00bezTXo5MYWwVNV5dPjwaZBmP8Ne7Rf+ctRMGeGPoc8PFkU1Tx6K4VZHRWEQEOgQqjtyvCnRctKe2VH1nUbqk0DurA+gxRUaqc8t5F8M1iLd3DQIi8BuLwI/0LvNWvzbCYQp7SrwMIf0Q0s/pLBc6UJJlAX6MwuwqrbvLttTLLauL1OYsXXClPawy3kCa4uHqVtbTW8NFkuaT6d/kvqJPnbsoRLHx9djZy3UdvhZDoA0nCEwYLFX04pKeaoreoHEKynVwMBaUkUJBJ4uyWlNzyvh94Rqeh5kcjV7Cs1Au4DdXZy1X4ZOzH/l6WeGmFtzUIvrwcFPrnDNdvaklgo+Mg5s8jIFmcZAPRxNNUtCPAjnIhXa8atKwHl20S2V22OXG1dKyQhlIKTRO7drxCmISbo3bqeF6tPjTeVNqjYoEMsCwgGNb98FiObXM2QrbbgskZnW/JWPftG+QmPdpMiGl27WkIC0Xob4ZzCwd/b/u+645XfrFCt/18+712/usd6MnxbPOG1HAaJ4TceVSmIknZ+OwAfZDaTRS1RoA+5jKMryeEzM6hu6TiopbxzUiZfAKfesmtlzRqCICIx6+QHMhH8rOITYe5Q5JfX7ZTuCFl4bKkIDovdX0PoIMp0mvAv4rvgHbeLgIXjGIF87MjNzihj2v+wPkDknvj6BDg7EugYFbZ+knCVilu+ELbZHKisRaJLtNzeEbZA0proKdIDfWpcqsdK5cSg/bCU4lwJjSXAtceXU+cCe4VWa+ceUQlc3XJlfis6ox3iR9vB3gEBl8zpVDFQD3VncWqXuP7xbrRr68lNgkCiXgLKrZi0qy6KCZpJC5+fjYn9njgoMwRK1MP9o/9S7HeBwB0aE273op0kirOyShagRifh/0BV7sKDavdNMcX1ylPY3kNtxbjebMipOEoE4hylinC4ETr5jCfsTVdj4udcu8MhHV4TGH9jFL7FdJb+04W45eMRxUF+DwOvJJXTR943W+vf16vzGfvq+ft+unffXAACUYTlRtLAcS38uzzeTKbLdiPJyMcDISnow9EjosskZF/y9rgaR0S9Z0LUsHTdyD5+s+2jLhPXwaIZrZvg5RKnKMWG3JJKN0scY1Rjmq5IKOW7YYd9yjzJHOQv+4xFdgbvQ7E6+bSkd2US/00EBRZ1NnXu73Le1hVfhGKxd5wlWCIX49EjjY46j7S5d2h2R1IaSg7lK0aF+0nOOLTGbVeDDGCcmkbqk6XVpuPQ1O7p/CA/HWEG99bnd0KN4aAqohoBoCqiGgGgKqIaAaAqohoBoCqiGgGgKq+XMFAqrLOAQB1aU7CwKqIaC6zNyEgGoIqBZY4E91z4gsR+qwv2RTEe1wCK+GIDIIIoPw6uaFKoRXF02qX+HVtDWJUivvLAaArS6RLKnqKOCbc42kLpEIX4FHJMbz68P+9XnzBVf//r7d/2ArE6cEiiRpwzF62q2ojK4FoAp9dRDKxHVTGLz+8bLf7l8xMyqLAGUSaIqiTgbBROUqAhRFlsdaoFQTAVAM5Q0WQxFH7vPXtivErLfjvOmFkd2NijRQQCY/vgAKyGRJkQ4Xv4BKA1BpgOjDQ6WBc850tdIAl+vsd8Y9ol+nv81+aCiupDvROK06uanQkxO31FlP7P9/bb8+rp8Y4D85kNGfIznQAP0D9I+/JIhK29NPLd2uldAYrC8cCqVVMoay29MbuNHldRyPgiurIVP0KjB+Nz0sVcus2rOmq/y+okcxyWGsfBQ+4fg3jce/xISE1wqTJB81uwq3nGl6FRJ2MdDJONfd+4Q/ntlmp+iUeu1m9Vi+bDNbrZL/Zg8xEeH8p3XJZikAP77+sWOogZXynOYc/1080kb13BZp+DRrTvtozU0nyUO0DtUqF6jL5hRit5STitu05BOyX7/+sSmclmXauKbw3L8hn1bchmVa0i+DWNQ+7v7lrp/+yn/h7+1ff1++MRj8UgEcLfOU0bnH+ucTi5xFSxyvhEHeSq6mdOtWNO6jEnagpZo+U9AJfVR5QV+2Q3z3saibsAD4quiNqXHluMWvxLRUuUApgi7EjoX4m6/fHtf7zRRNfPv0F0s4hCyPJ/I4mIwhHALCIQQX/RAOIYBdDuEQEA6R8WUgHALCISAcIj0bCIeAcAgIh4BwiMLJQThEw+EQzKh4KFBmfjA17TlOb4rUOD1NJAlGntdLp2/e8YA2/r2f7v7NEuWhjVRVkYMJRHkIsFmEDIggoP3Gv7UOt9VJyT41eetbePt1M9s9veyf11uG2kTKJFAVdTIcBpMRgJMATgI4WY+yBuAkgJMATgI4CeAkgJMAThZ9eAAnAZzsOMQlciBrbnh9T8zi5/XTyxYzwd95m8c/WQxjZaCNcdQO30KaYBiDYQyGMRjGYBiDYQyGMRjGYBiDYQyGMRjGELVzGXwDUTuiQBoE09OXvuOZnykUo2OLds6hKADi97CGsm0bszAuaOHQfZmCTlo8XRdhIUOq1YWbiGhUOQv94xLfWbvR70yn6h2+ol7oC1oUdTZ15uX390p7WBW+gQ3gdvRsrDmGAXRelXQZuV0IKc+6VKW9b+AtC2w7HMmDoRpM+BYEANgWYFuAbQG2BdgWYFuAbQG2BdgWYFuAbQG2BdgWYNtOw7amF7jO0p4bc/KJxW2EnBJgoICBAgYKGGg3MdANU/Z9RdPk8TDgW3iv9nvZ4a64Nmy0LSzzc3RF3zNo5fdlB7DWitba8gVRVB1qV4OhhpZHMJEBaQekHZD2etQNQNoBaQekHZB2QNoBaQekvejDA9IOSDsg7YC0t3Pnu1RVskz7QxAWTvH8e4tCPTprSI/VTi3z49IoVX1cHL6Mx9Hd1aHNamp8Ng23Srm2vkAkm9n6hQmRk1QMaAR8az+wIXLlizW0YO6wFjTTrWDheCZd8s3s9tRLd4aL6bmlK9d3Fqvo1dXU8X3ntvH6gl1LLClwAa/BYDxWxvV8Jm+5wCUavZNTqfBzXT/vXr+9z3g1elB8Il2MJOBHjmkr/dQsvDgbhm15DKXRSFUr4KakCkhMrWnfIC3YJ1CgmVZK0aDi6mm3jmtEJF6hT1r/fioYU1wmxSSSoRIc15EQKEZMDjEAxZEF1YCrOrlAaNxw5EEVo4in1ZNFSYSPl2HEvE6cy1Hpy/b9Hp7lWIONqC7RR0MHDH5zddZyFT45+7FxZfVsiRBFsXBckmKHvJyLUd1FnwxZFtjh5B4u+H4w7cJoOZ5iPG/8GnZzmWc5pqrMscxn7/bPC32+E05+oqa2XsIxJereOynAtN6Ok+Lczkl/NPjQKWPYWLgTHPGndy8SD9CYmPGILSo551NJ+k5Kgxh4cIOICHGXvat/QLbN/e3UsSgXfqKlgBgDVrrCj0GKMTCtgrPRWoIayg7SmEqyg5QTS3p6nl5selrcpga50wyK0w8fyx1+sthWT/ogy8FIlbXBIOBbw6b2sOcGUiY1fo51Jl6ROHSqRD3PipiiUbD5U3y1tKwqZJ/avfGEXG8jEbymKkjI9cl1OFalgTac1HinsGpoYQUwHuKyySKehQ3S9m50HER4q18b4TCFPSVe5hv1PepTTHHXo81K9Pf0n6m/3v16nMrd9mW73z3rDw+bb+i/7/8/UEsHCKfxKws/VAAAEYcHAFBLAQIUABQACAgIAAAAIQCn8SsLP1QAABGHBwAAAAkAAAAAAAAAAAAAAAAAAABVVAUAAQAAAABQSwUGAAAAAAEAAQA3AAAAdlQAAAAA"/>
+</filePart>
+	</xmi:Extension>
+	<xmi:Extension extender='MagicDraw UML 19.0'>
+		<filePart name='PROJECT-9cd9bd23-85f0-4712-aa68-ac3de12c2b48' type='BINARY'>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</filePart>
+	</xmi:Extension>
+	<xmi:Extension extender='MagicDraw UML 19.0'>
+		<filePart name='personal-com.nomagic.magicdraw.core.project.options.personalprojectoptions' type='XML' header='&lt;?xml version=&quot;1.0&quot; encoding=&quot;ASCII&quot;?&gt;'>
+<project.options:UserProjectOptions xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:project.options="http://www.nomagic.com/ns/magicdraw/core/project/options/1.0" xmi:id="_HB5nAFYDEeCyhsLctII43A" optionsString="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" diagramViewStyleString="UEsDBBQACAgIAAAAIQAAAAAAAAAAAAAAAAAAAAkAVVQFAAEAAAAAdY5PC4IwHIbP+im87VTWLWJTpFYIReIs6CRDf8Zgf8RN0W+fFnTr9BzeB54Xx6OSwQCdFUYTtF1vUAC6MrXQL4LuxWm1Q3Hk+zjrTAudmx7CCme6pKqgnRn5HlY1laBAuwC+PEhuLUFMqFYCc5MENHse1lxBxIrnhZbHNDnnybXM8ltG8yKlDIefefFqaHgvXTAqsR+47IGghksLKFxy4a8X+Tj89+sNUEsHCHRwip+oAAAA2QAAAFBLAQIUABQACAgIAAAAIQB0cIqfqAAAANkAAAAAAAkAAAAAAAAAAAAAAAAAAABVVAUAAQAAAABQSwUGAAAAAAEAAQA3AAAA3wAAAAAA"/>
+</filePart>
+	</xmi:Extension>
+	<xmi:Extension extender='MagicDraw UML 19.0'>
+		<filePart name='Records.properties' type='BINARY'>H4sIAAAAAAAAAL1Uy27jIBTd+yssla2RIc4kruTFTDSb2XQ07d4i3JuYygYEpDP5+8GJ00Zp3DbqY4Px5dwn53C1MJ0VQS1Vq8I2RR3cNrm6FSG9RZsynub59aS45jxdfL9Lec7zxKLzRos2k6aj2nRirSTdreDEXyqNQ2qduUcZqLFBGe3pwWewD+bq40IlxxGkoh0G0RnA9uBfvQY4jRDN/7bUa2F9YwIF9NIpG4w72vrTqG9ySvao1kjR1vXvPze/fi7uSDOfzabTOZacFyvGCpjmgIKtJqVgkrGydujNxkmsY04CQ1ICUhF4bIbA0A2BQxHVl2Z7YscPpYVT6PuZRGOI2+qlw5GplBLKJfBJrHi6yklTzBgnjRDf5nGVE0DGJV8W87GCH9lEYNO19WYofPi8MqSvSZ6MsB+jALrOaBnhqNdKIzql19Vl8Ge8jnegfEAdHXb9DqS1Tj2IgIAWNcTTbRtRz/h9ifPH8nxklr4RDuHp91NYf1nusfs895rtr+zkWXynf3JOeucUdz5P3+H+ZdytI9WcoJJhxNlBMlmvmKwXTNbrJTuWS3UJOPkPunzalaMGAAA=</filePart>
+	</xmi:Extension>
+</xmi:XMI>

@@ -2079,4 +2079,5 @@ public class StrutsParameterLogicImpl
     {
         return Bpm4StrutsUtils.isSafeName(this.getName());
     }
+
 }

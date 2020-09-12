@@ -18,6 +18,7 @@ import org.andromda.cartridges.webservice.metafacades.WSDLTypeAssociationEnd;
 import org.andromda.cartridges.webservice.metafacades.WSDLTypeAssociationEndLogic;
 import org.andromda.cartridges.webservice.metafacades.WSDLTypeAttributeLogic;
 import org.andromda.cartridges.webservice.metafacades.WSDLTypeLogic;
+import org.andromda.cartridges.webservice.metafacades.WebServiceLogic;
 import org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl;
 import org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl.OperationNameComparator;
 import org.andromda.cartridges.webservice.metafacades.WebServiceOperation;
@@ -39,6 +40,7 @@ import org.andromda.metafacades.uml.PackageFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.Service;
+import org.andromda.metafacades.uml.StereotypeFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.Closure;
@@ -2797,8 +2799,14 @@ public class WebServiceUtils
                 }
                 builder.append("@org.springframework.web.bind.annotation.PathVariable(\"");
                 builder.append(param.getName() + "\")");
-
-            } 
+            }
+         
+            if(paramType.contains("RequestParam")) {
+                if(builder.length() > 0) {
+                    builder.append(" ");
+                }
+                builder.append("@org.springframework.web.bind.annotation.RequestParam");
+            }
 
             if(builder.length() > 0) {
                 builder.append(" ");
@@ -2810,6 +2818,16 @@ public class WebServiceUtils
         }
 
         return args;
+    }
 
+    public static boolean isService(WebServiceLogic webService) {
+
+        for(String stereotype : webService.getStereotypeNames()) {
+            if(stereotype.equals("Service")) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

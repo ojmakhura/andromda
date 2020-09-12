@@ -1,31 +1,31 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
+import java.util.Collection;
+
 import org.andromda.cartridges.ejb3.EJB3Profile;
 
 /**
- * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenOperationFacade.
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenOperationFacade.
  *
  * @see EJB3MessageDrivenOperationFacade
  */
-public class EJB3MessageDrivenOperationFacadeLogicImpl
-    extends EJB3MessageDrivenOperationFacadeLogic
-{
+public class EJB3MessageDrivenOperationFacadeLogicImpl extends EJB3MessageDrivenOperationFacadeLogic {
     private static final long serialVersionUID = 34L;
+
     /**
      * @param metaObject
      * @param context
      */
-    public EJB3MessageDrivenOperationFacadeLogicImpl(final Object metaObject, final String context)
-    {
-        super (metaObject, context);
+    public EJB3MessageDrivenOperationFacadeLogicImpl(final Object metaObject, final String context) {
+        super(metaObject, context);
     }
 
     /**
      * @see EJB3MessageDrivenOperationFacade#isPostConstruct()
      */
     @Override
-    protected boolean handleIsPostConstruct()
-    {
+    protected boolean handleIsPostConstruct() {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_POST_CONSTRUCT);
     }
 
@@ -33,8 +33,7 @@ public class EJB3MessageDrivenOperationFacadeLogicImpl
      * @see EJB3MessageDrivenOperationFacade#isPreDestroy()
      */
     @Override
-    protected boolean handleIsPreDestroy()
-    {
+    protected boolean handleIsPreDestroy() {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_PRE_DESTROY);
     }
 }

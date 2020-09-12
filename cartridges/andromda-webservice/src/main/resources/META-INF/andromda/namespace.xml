@@ -108,6 +108,13 @@
                     touched).
                 </documentation>
             </property>
+            <property name="springwebservices-impl" required="false">
+                <documentation>
+                    The location to which any services are generated (this outlet
+                    contains classes which are fully generated and should not be
+                    touched).
+                </documentation>
+            </property>
         </propertyGroup>
         <propertyGroup name="Other">
             <property name="generateRefFiles" required="false">

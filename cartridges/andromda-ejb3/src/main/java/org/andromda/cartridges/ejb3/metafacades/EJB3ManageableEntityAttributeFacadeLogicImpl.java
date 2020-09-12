@@ -1,20 +1,21 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
+import java.util.Collection;
+
 /**
- * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityAttributeFacade.
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityAttributeFacade.
  *
  * @see EJB3ManageableEntityAttributeFacade
  */
-public class EJB3ManageableEntityAttributeFacadeLogicImpl
-    extends EJB3ManageableEntityAttributeFacadeLogic
-{
+public class EJB3ManageableEntityAttributeFacadeLogicImpl extends EJB3ManageableEntityAttributeFacadeLogic {
     private static final long serialVersionUID = 34L;
+
     /**
      * @param metaObject
      * @param context
      */
-    public EJB3ManageableEntityAttributeFacadeLogicImpl(final Object metaObject, final String context)
-    {
-        super (metaObject, context);
+    public EJB3ManageableEntityAttributeFacadeLogicImpl(final Object metaObject, final String context) {
+        super(metaObject, context);
     }
 }

@@ -447,6 +447,8 @@ public class UMLProfile
      * Indicates if the annotation type is documented.
      */
     public static final String TAGGEDVALUE_ADDITIONAL_ANNOTATION = profile.get("ANDROMDA_ADDITIONAL_ANNOTATION");
+    public static final String TAGGEDVALUE_ADDITIONAL_EXTENDS = profile.get("ANDROMDA_ADDITIONAL_EXTENDS");
+    public static final String TAGGEDVALUE_ADDITIONAL_IMPLEMENTS = profile.get("ANDROMDA_ADDITIONAL_IMPLEMENTS");
 
     /* ----------------- Data Types -------------------- */
 
