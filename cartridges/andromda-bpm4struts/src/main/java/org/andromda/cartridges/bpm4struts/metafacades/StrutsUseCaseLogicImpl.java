@@ -3,6 +3,7 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -394,7 +395,14 @@ public class StrutsUseCaseLogicImpl
     {
         UseCaseNode useCaseNode = null;
 
-        final List<UseCaseNode> nodeList = Collections.list(root.breadthFirstEnumeration());
+        final List<UseCaseNode> nodeList = new ArrayList<>(); //Collections.list(root.breadthFirstEnumeration().);
+        Enumeration<TreeNode> nodes = root.breadthFirstEnumeration();
+        
+        while(nodes.hasMoreElements()) {
+            UseCaseNode node = (UseCaseNode) nodes.nextElement();
+            nodeList.add(node);
+        }
+
         for (final Iterator<UseCaseNode> nodeIterator = nodeList.iterator(); nodeIterator.hasNext() && useCaseNode == null;)
         {
             UseCaseNode node = nodeIterator.next();

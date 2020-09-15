@@ -207,9 +207,9 @@
                         </inclusions>
                     </assembly>
                     <maxMemory>1024m</maxMemory>
-                    <libs>
+                    <!--libs>
                         <lib>${java.home}/lib/rt.jar</lib>
-                    </libs>
+                    </libs-->
                     <outjar>webservice-client.jar</outjar>
                 </configuration>
             </plugin>

@@ -21,15 +21,9 @@ package ${service.packageName};
 public class ${serviceImplName} extends ${service.name}#if($isService)WS#end {
 
 #foreach ($operation in $service.allowedOperations)
-#set ($responseStatus = $operation.restResponseStatus)
-    $webServiceUtils.getRequestType(${operation.restRequestType})($webServiceUtils.getSpringOperationPath($operation))
-#if (!$stringUtils.isBlank($responseStatus))
-    $operation.restResponseStatus
-#end
-#if ($operation.returnTypePresent)
-    @org.springframework.web.bind.annotation.ResponseBody
-#end
-    $operation.visibility $operation.getterSetterReturnTypeName handle$stringUtils.capitalize(${operation.name})(#getOperationArgs($operation)) {
+
+    @Override
+    $operation.visibility $operation.getterSetterReturnTypeName handle$stringUtils.capitalize(${operation.signature}) {
 #if($isService)
         #if ($operation.getterSetterReturnTypeName != 'void')return #end$stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames);
 #end

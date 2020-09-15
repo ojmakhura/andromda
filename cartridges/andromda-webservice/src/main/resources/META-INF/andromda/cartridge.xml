@@ -1152,7 +1152,7 @@
         path="templates/webservice/springws/SpringWSImpl.java.vsl"
         outputPattern="$stringUtils.replace($service.packageName, '.', '/')/${serviceImplName}.java"
         outlet="springwebservices-impl"
-        overwrite="true"
+        overwrite="false"
         outputCondition="springws">
         <modelElements variable="service">
             <modelElement>

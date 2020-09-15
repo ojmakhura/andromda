@@ -33,7 +33,21 @@ public abstract class ${serviceName} {
 
 #foreach ($operation in $service.allowedOperations)
 #set ($handle = "handle")
-    $operation.visibility $operation.getterSetterReturnTypeName ${operation.signature} {
+#set ($responseStatus = $operation.restResponseStatus)
+    $webServiceUtils.getRequestType(${operation.restRequestType})($webServiceUtils.getSpringOperationPath($operation))
+#if (!$stringUtils.isBlank($responseStatus))
+    $operation.restResponseStatus
+#end
+#if ($operation.returnTypePresent)
+    @org.springframework.web.bind.annotation.ResponseBody
+#end
+#foreach($annotation in $operation.additionalAnnotations)
+    @$annotation
+#end
+#if(!$stringUtils.isBlank($operation.rolesAllowed))
+    @org.springframework.security.access.prepost.PreAuthorize("hasRole('$operation.rolesAllowed')")
+#end
+    $operation.visibility $operation.getterSetterReturnTypeName ${operation.name}(#getOperationArgs($operation)) {
         #if ($operation.getterSetterReturnTypeName != 'void')return #end${handle}$stringUtils.capitalize(${operation.name})($operation.argumentNames);
     }
 

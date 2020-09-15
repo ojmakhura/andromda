@@ -112,6 +112,15 @@ public class AngularUtils {
         if(typeName == null) {
             logger.error("typeName should not be null", new NullPointerException());
         }
+
+        if(typeName.contains("java.lang.Object")) {
+
+            if(typeName.contains("[]")) {
+                return "Array<any>";
+            } else {
+                return "any";
+            }
+        }
         
         if(typeName.equalsIgnoreCase("java.lang.Boolean") || typeName.equalsIgnoreCase("Boolean") || typeName.equalsIgnoreCase("boolean")) {
             return "boolean";
@@ -133,7 +142,7 @@ public class AngularUtils {
         String datatype = "";
         try {
             Class cls = Class.forName(typeName);
-                        
+            
             // Anything that inherits from number
             if(cls.getSuperclass().getName().equalsIgnoreCase("java.lang.Number"))
             {
