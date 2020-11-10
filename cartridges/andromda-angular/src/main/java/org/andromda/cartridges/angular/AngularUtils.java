@@ -18,6 +18,9 @@ import java.util.regex.Pattern;
 import org.andromda.cartridges.angular.metafacades.AngularAttribute;
 import org.andromda.cartridges.angular.metafacades.AngularControllerOperationLogic;
 import org.andromda.cartridges.angular.metafacades.AngularParameter;
+import org.andromda.cartridges.webservice.WebServiceUtils;
+import org.andromda.cartridges.webservice.metafacades.WebService;
+import org.andromda.cartridges.webservice.metafacades.WebServiceLogic;
 import org.andromda.cartridges.webservice.metafacades.WebServiceOperation;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -1782,5 +1785,14 @@ public class AngularUtils {
 
     public static String removeFormFromParams(String formCall) {
         return formCall.replace("form", "");
+    }
+    
+    public static boolean isServiceOnly(ModelElementFacade obj) {
+        if(obj instanceof Service && !(obj instanceof WebService)) {
+            return true;
+        } else  if(obj instanceof WebService){
+            return true;
+        }
+        return false;
     }
 }

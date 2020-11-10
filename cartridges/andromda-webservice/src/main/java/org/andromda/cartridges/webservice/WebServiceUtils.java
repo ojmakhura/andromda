@@ -2820,12 +2820,28 @@ public class WebServiceUtils
         return args;
     }
 
-    public static boolean isService(WebServiceLogic webService) {
+    public static boolean isService(ModelElementFacade element) {
 
-        for(String stereotype : webService.getStereotypeNames()) {
-            if(stereotype.equals("Service")) {
-                return true;
-            }
+        if(element.getClass().getName().equals("WebServiceLogicImpl")) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean isWebService(ModelElementFacade element) {
+
+        if(element instanceof WebServiceLogic) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean isServiceOnly(ModelElementFacade element) {
+
+        if(isService(element) && !(element instanceof WebServiceLogic)) {
+            return true;
         }
 
         return false;
