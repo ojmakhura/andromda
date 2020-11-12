@@ -1788,11 +1788,41 @@ public class AngularUtils {
     }
     
     public static boolean isServiceOnly(ModelElementFacade obj) {
-        if(obj instanceof Service && !(obj instanceof WebService)) {
-            return true;
-        } else  if(obj instanceof WebService){
+
+        boolean service = false;
+        boolean webservice = false;
+        for(String stereo : obj.getStereotypeNames()) {
+
+            if(stereo.equals("Service")) {
+                service = true;
+            }
+
+            if(stereo.equals("WebService")) {
+                webservice = true;
+            }
+        }
+
+        if(service && !webservice) {
             return true;
         }
+        
+        return false;
+    }
+    
+    public static boolean isWebService(ModelElementFacade obj) {
+
+        boolean webservice = false;
+        for(String stereo : obj.getStereotypeNames()) {
+
+            if(stereo.equals("WebService")) {
+                webservice = true;
+            }
+        }
+
+        if(webservice) {
+            return true;
+        }
+        
         return false;
     }
 }
