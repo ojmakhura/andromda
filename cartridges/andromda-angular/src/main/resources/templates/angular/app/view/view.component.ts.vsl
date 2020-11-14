@@ -119,35 +119,7 @@ export abstract class ${tmpName}Component implements OnInit {
 #set ($tables = $angularUtils.getTableAttributes($parameter))
 #*    *##if($parameter.complex)
 #*      *##set($name = $stringUtils.replaceChars(${action.trigger.name}, '\\ ', ''))
-            $stringUtils.uncapitalize($name)$stringUtils.capitalize($parameter.name): this.formBuilder.group({
-#*    *##set ($i = 1)
-#*    *##foreach($attribute in $normals)
-#*      *##if(!$angularUtils.isComplex($attribute) || $attribute.type.enumeration)
-                $attribute.name: [],
-#*      *##else
-                $attribute.name: this.formBuilder.group({
-#*       *##set($j = 1)
-#*       *##set ($columns = $attribute.type.attributes)
-#*       *##foreach( $column in $columns )
-#*         *##if(!$angularUtils.isComplex($column) || $column.type.enumeration)
-                    $column.name: [],
-#*         *##end
-#*         *##set($j = $j + 1)
-#*       *##end
-                }),
-#*      *##end
-#*      *##set($i = $i + 1)
-#*    *##end
-#*    *##foreach($table in $tables)
-                $table.name: this.formBuilder.array([this.formBuilder.group({
-#*      *##set ($i = 1)
-#*      *##set ($columns = $table.type.attributes)
-#*      *##foreach($column in $columns)
-                    $column.name: [],
-#*      *##end
-                })]),
-#*    *##end
-            }),
+            $stringUtils.uncapitalize($name)$stringUtils.capitalize($parameter.name): this.rxFormBuilder.group(new $parameter.type.name),
 #*  *##else
             ${action.trigger.name}$stringUtils.capitalize($parameter.name): [],
 #*  *##end

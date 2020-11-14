@@ -63,10 +63,12 @@ import { ${moduleName}Component } from './${moduleFileName}.$component';
 
 #set ( $finalServices = $angularUtils.getFacadeSet($services) )
 #foreach($service in $finalServices)
+#if($angularUtils.isWebService($service))
 #set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${service.packageName}), '\\.', '\\/') )
 #set ( $fileName = $angularUtils.getComponentFileName("${service.name}") )
 #set ( $className = $angularUtils.getComponentName($fileName, "-"))
 import { ${service.name}Impl } from ${escTool.s}./impl/service/$componentPath/${fileName}-impl${escTool.s};
+#end
 #end
 
 #set ( $controllerSet = $angularUtils.getFacadeSet($controllers) )
@@ -205,31 +207,28 @@ import { $field.name } from './gen/model/$destination/$fileName';
         $finalField.name,
 #end
 #end
-
 #set ( $finalServices = $angularUtils.getFacadeSet($services) )
 #foreach ( $finalService in $finalServices )
+#if($angularUtils.isWebService($finalService))
         ${finalService.name}Impl,
 #end
-
+#end
 #set ( $componentSet = $angularUtils.getFacadeSet($controllers) )
 #foreach ( $controller in $componentSet )
         ${controller.name}Impl,
 #end
-
 #set ( $componentSet = $angularUtils.getFacadeSet($views) )
 #foreach($view in $componentSet)
 #set ( $fileName = $angularUtils.getComponentFileName("${view.name}") )
 #set ( $className = $angularUtils.getComponentName($fileName, "-"))
         ${className}ImplComponent,
 #end
-
 #set ( $componentSet = $angularUtils.getFacadeSet($tables) )
 #foreach($table in $componentSet)
 #set ( $fileName = $angularUtils.getComponentFileName("${table.view.name}-${table.name}") )
 #set ( $className = $angularUtils.getComponentName($fileName, "-"))
         ${className}ImplComponent,
 #end
-
 #set ($i = 1)
 #set ( $componentSet = $angularUtils.getFacadeSet($actions) )
 #foreach($action in $componentSet)

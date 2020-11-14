@@ -28,9 +28,13 @@ public abstract class ${serviceName} {
 #foreach($annotation in $attribute.additionalAnnotations)
     @$annotation
 #end
-    $attribute.visibility $attribute.type.fullyQualifiedName $attribute.name;
+#if($attribute.many)
+    $attribute.visibility java.util.Collection<$attribute.type.fullyQualifiedName> $attribute.name; 
+#else
+    $attribute.visibility $attribute.type.fullyQualifiedName $attribute.name; 
 #end
 
+#end
 #foreach ($operation in $service.allowedOperations)
 #set ($handle = "handle")
 #set ($responseStatus = $operation.restResponseStatus)

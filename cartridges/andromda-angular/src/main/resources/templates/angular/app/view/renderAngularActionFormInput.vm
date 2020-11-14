@@ -29,7 +29,7 @@ ${ident}	<div class="mat-elevation-z8">
 ${ident}		<mat-table matSort [dataSource]="${parameter.name}.controls" #${parameter.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
 #foreach( $column in $angularUtils.getTableColumns($parameter) )
 ${ident}			<ng-container matColumnDef="$column">
-${ident}				<mat-header-cell *matHeaderCellDef>$stringUtils.capitalize(${column})</mat-header-cell>
+${ident}				<mat-header-cell *matHeaderCellDef>$stringUtils.toPhrase(${column})</mat-header-cell>
 ${ident}                <mat-cell *matCellDef="let row"> {{ row.get('${column}').value }} </mat-cell>
 ${ident}			</ng-container>
 #end
@@ -40,7 +40,7 @@ ${ident}		<mat-paginator #${parameter.name}Paginator="matPaginator" [pageSize]="
 ${ident}	</div>
 #else
 ${ident}	<mat-form-field>
-${ident}		<mat-label>$stringUtils.capitalize($parameter.name)</mat-label> 
+${ident}		<mat-label>$stringUtils.toPhrase($parameter.name)</mat-label> 
 #if ($parameter.type.dateType)
 ${ident}	  	<input matInput [matDatepicker]="$propertyId" formControlName="${parameter.name}" id="$propertyId"#if($parameter.required) required#end>
 ${ident}	  	<mat-datepicker-toggle matSuffix [for]="$propertyId"></mat-datepicker-toggle>

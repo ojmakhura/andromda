@@ -337,7 +337,7 @@ public class AngularUtils {
 	}
 	
 	public static String getComponentName(String cName, String remove) {
-		      
+        
 		String[] splits = WordUtils.capitalize(cName).trim().split(remove);
 		StringBuilder builder = new StringBuilder();
 		

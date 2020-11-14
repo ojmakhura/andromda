@@ -28,9 +28,11 @@ $tmp
 import { ActivatedRoute, Router } from '@angular/router';
 #set ($suffix = "Impl")
 #foreach ($service in $finalServices )
+#if($angularUtils.isWebService($service))
 #set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${service.packageName}), '\\.', '\\/')" )
 #set ( $fname = $angularUtils.getComponentFileName("${service.name}Impl") )
 import { ${service.name}Impl } from 'src/app/impl/service/$path/$fname';
+#end
 #end
 #set ( $viewFile = $angularUtils.getComponentFileName("${table.view.name}") )
 #set ($viewName = $angularUtils.getComponentName($viewFile, '-') )
@@ -69,7 +71,9 @@ export abstract class ${className}Component implements OnInit {
     protected route: ActivatedRoute;
     protected router: Router;
 #foreach($service in $finalServices)
+#if($angularUtils.isWebService($service))
     protected $stringUtils.uncapitalize($service.name): ${service.name}$suffix;
+#end
 #end
     protected $stringUtils.uncapitalize($viewName): ${viewName}ImplComponent;
     protected _injector: Injector;
@@ -78,7 +82,9 @@ export abstract class ${className}Component implements OnInit {
         this.route = injector.get(ActivatedRoute);
         this.router = injector.get(Router);
 #foreach($service in $finalServices)
+#if($angularUtils.isWebService($service))
         this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name}$suffix);
+#end
 #end
         this.$stringUtils.uncapitalize($viewName) = injector.get(${viewName}ImplComponent);
         this.formBuilder = injector.get(FormBuilder);

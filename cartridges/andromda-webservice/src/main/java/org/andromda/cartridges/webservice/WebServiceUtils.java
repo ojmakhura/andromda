@@ -2821,29 +2821,58 @@ public class WebServiceUtils
     }
 
     public static boolean isService(ModelElementFacade element) {
+        
+        boolean service = false;
+        for(String stereo : element.getStereotypeNames()) {
 
-        if(element.getClass().getName().equals("WebServiceLogicImpl")) {
-            return true;
+            if(stereo.equals("Service")) {
+                service = true;
+            }
         }
 
+        if(service) {
+            return true;
+        }
+        
         return false;
     }
 
-    public static boolean isWebService(ModelElementFacade element) {
+    public static boolean isServiceOnly(ModelElementFacade obj) {
 
-        if(element instanceof WebServiceLogic) {
-            return true;
+        boolean service = false;
+        boolean webservice = false;
+        for(String stereo : obj.getStereotypeNames()) {
+
+            if(stereo.equals("Service")) {
+                service = true;
+            }
+
+            if(stereo.equals("WebService")) {
+                webservice = true;
+            }
         }
 
+        if(service && !webservice) {
+            return true;
+        }
+        
         return false;
     }
+    
+    public static boolean isWebService(ModelElementFacade obj) {
 
-    public static boolean isServiceOnly(ModelElementFacade element) {
+        boolean webservice = false;
+        for(String stereo : obj.getStereotypeNames()) {
 
-        if(isService(element) && !(element instanceof WebServiceLogic)) {
-            return true;
+            if(stereo.equals("WebService")) {
+                webservice = true;
+            }
         }
 
+        if(webservice) {
+            return true;
+        }
+        
         return false;
     }
 }

@@ -37,7 +37,7 @@ import { ${param.name} } from 'src/app/gen/model/$path/$fname';
 import { ${enum.name} } from 'src/app/gen/model/$path/$fname';
 #end
 #set ($args = [])
-#foreach ($service in $action.controller.allServices)
+#foreach ($service in $action.controller.allRestControllers)
 #set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${service.packageName}), '\\.', '\\/')" )
 #set ( $fname = $angularUtils.getComponentFileName("${service.name}Impl") )
 import { ${service.name}Impl } from 'src/app/impl/service/$path/$fname';
@@ -70,6 +70,7 @@ export abstract class ${className}Component implements OnInit {
     ];
     @ViewChild('${attribute.name}Paginator', {static: true}) ${attribute.name}Paginator: MatPaginator;
     @ViewChild('${attribute.name}Sort', {static: true}) ${attribute.name}Sort: MatSort;
+    
 #end
 #end
 #end
@@ -86,7 +87,7 @@ export abstract class ${className}Component implements OnInit {
 #end
     protected route: ActivatedRoute;
     protected router: Router;
-#foreach ($service in $action.controller.allServices)
+#foreach ($service in $action.controller.allRestControllers)
     protected $stringUtils.uncapitalize($service.name): ${service.name}Impl;
 #end
     protected $stringUtils.uncapitalize($viewName): ${viewName}ImplComponent;
@@ -115,7 +116,7 @@ export abstract class ${className}Component implements OnInit {
 
         this.route = injector.get(ActivatedRoute);
         this.router = injector.get(Router);
-#foreach ($service in $action.controller.allServices)
+#foreach ($service in $action.controller.allRestControllers)
         this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name}Impl);
 #end
         this.$stringUtils.uncapitalize($viewName) = injector.get(${viewName}ImplComponent);
