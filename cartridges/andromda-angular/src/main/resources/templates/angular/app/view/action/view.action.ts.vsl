@@ -53,6 +53,7 @@ import { ${action.controller.name}Impl } from 'src/app/impl/controller/$path/$fn
   template: ''
 })
 export abstract class ${className}Component implements OnInit {
+
 #set ($cr = "
 ")
 #set ( $attr = [] )
@@ -68,13 +69,13 @@ export abstract class ${className}Component implements OnInit {
 #set($i = $i + 1)
 #end
     ];
+
     @ViewChild('${attribute.name}Paginator', {static: true}) ${attribute.name}Paginator: MatPaginator;
     @ViewChild('${attribute.name}Sort', {static: true}) ${attribute.name}Sort: MatSort;
     
 #end
 #end
 #end
-    
     @Input() $stringUtils.uncapitalize($viewName)Form: FormGroup;
 #foreach ( $table in $action.source.tables )
 	@Output() ${table.name}: EventEmitter<any> = new EventEmitter();
@@ -167,15 +168,14 @@ export abstract class ${className}Component implements OnInit {
 #set ($i = 1)
 #foreach($attribute in $parameter.attributes)
 #if($angularUtils.isTable($attribute))
-
     get ${attribute.name}(): FormArray {
         return <FormArray>this.getItemControl('${action.trigger.name}$stringUtils.capitalize($parameter.name)').get('$attribute.name');
     }
+
 #end
 #end
 #end
-#end
-	
+#end	
 	abstract do$stringUtils.capitalize(${action.triggerName})();
     abstract after$stringUtils.capitalize(${action.triggerName})();
     

@@ -54,6 +54,16 @@
             </roles>
             <timezone>-5</timezone>
         </developer>
+        <developer>
+            <id>ojmakhura</id>
+            <name>Onalenna J. Makhura</name>
+            <email>ojmakhura@roguesystems.co.bw</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+2</timezone>
+        </developer>
     </developers>
     <dependencies>
         <!-- We need an older maven API but can update the plexus dependencies to the latest -->
@@ -88,11 +98,6 @@
              <artifactId>commons-lang3</artifactId>
              <version>3.7</version>
         </dependency>
-        <!-- <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.6</version>
-        </dependency> -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -207,7 +212,7 @@
                     <artifactId>maven-pmd-plugin</artifactId>
                     <version>3.9.0</version>
                     <configuration>
-                        <targetJdk>1.6</targetJdk>
+                        <targetJdk>1.8</targetJdk>
                         <linkXRef>true</linkXRef>
                         <rulesets>
                             <ruleset>andromda/pmd_ruleset.xml</ruleset>
@@ -328,7 +333,7 @@
                         <configuration>
                             <show>package</show>
                             <version>true</version>
-                            <javadocVersion>1.6</javadocVersion>
+                            <javadocVersion>1.8</javadocVersion>
                             <failOnError>false</failOnError>
                             <linksource>true</linksource>
                             <detectLinks>true</detectLinks>
