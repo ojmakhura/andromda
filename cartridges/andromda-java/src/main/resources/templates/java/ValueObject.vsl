@@ -98,10 +98,10 @@ public#if($class.leaf) final#end#if($class.abstract) abstract#end class $umlUtil
 ## Class should only extend another ValueObject, which already declares Serializable and Comparable
     extends $class.generalization.fullyQualifiedName
 #elseif ($serializable)
-    implements Serializable, Comparable#if($enableTemplating)<$className>#end
+    implements Serializable, Comparable#if($enableTemplating)<$className>#end#foreach($impl in $class.additionalImplements), $impl#end
 
 #else
-    implements Comparable#if($enableTemplating)<$className>#end
+    implements Comparable#if($enableTemplating)<$className>#end#foreach($impl in $class.additionalImplements), $impl#end
 
 #end
 {

@@ -19,7 +19,9 @@
 #renderActionCommandLinkParameter($parameter "" "        ")
 #end
 #foreach ($attribute in $parameter.attributes)
+#if(!$attribute.inputHidden && !$parameter.inputHidden)
 #renderActionCommandLinkParameter($attribute $parameter "        ")
+#end
 #end
 #end
     </p:commandLink>
@@ -34,7 +36,9 @@
 #renderActionInputPrimeFaces($parameter "" "        ")
 #else
 #foreach ($attribute in $parameter.attributes)
+#if(!$attribute.inputHidden && !$parameter.inputHidden)
 #renderActionInputPrimeFaces($attribute $parameter "        ")
+#end
 #end
 #end
 #end

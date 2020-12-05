@@ -1201,4 +1201,25 @@ public class ModelElementFacadeLogicImpl
         }
         return annotations;
     }
+
+    @Override
+    public Collection<String> handleGetAdditionalExtends() {
+        
+        HashSet<String> extensions = new HashSet<String>();
+        for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_ADDITIONAL_EXTENDS))
+        {
+            extensions.add(o.toString());
+        }
+        return extensions;
+    }
+
+    @Override
+    public Collection<String> handleGetAdditionalImplements() {
+        HashSet<String> implementations = new HashSet<String>();
+        for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_ADDITIONAL_IMPLEMENTS))
+        {
+            implementations.add(o.toString());
+        }
+        return implementations;
+    }
 }

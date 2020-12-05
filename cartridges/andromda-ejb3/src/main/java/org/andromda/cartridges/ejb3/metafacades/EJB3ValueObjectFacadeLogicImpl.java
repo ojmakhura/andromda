@@ -1,20 +1,21 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
+import java.util.Collection;
+
 /**
- * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3ValueObjectFacade.
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.ejb3.metafacades.EJB3ValueObjectFacade.
  *
  * @see EJB3ValueObjectFacade
  */
-public class EJB3ValueObjectFacadeLogicImpl
-    extends EJB3ValueObjectFacadeLogic
-{
+public class EJB3ValueObjectFacadeLogicImpl extends EJB3ValueObjectFacadeLogic {
     private static final long serialVersionUID = 34L;
+
     /**
      * @param metaObject
      * @param context
      */
-    public EJB3ValueObjectFacadeLogicImpl(final Object metaObject, final String context)
-    {
+    public EJB3ValueObjectFacadeLogicImpl(final Object metaObject, final String context) {
         super(metaObject, context);
     }
 
@@ -22,8 +23,7 @@ public class EJB3ValueObjectFacadeLogicImpl
      * @see EJB3ValueObjectFacade#isSeamComponent()
      */
     @Override
-    protected boolean handleIsSeamComponent()
-    {
+    protected boolean handleIsSeamComponent() {
         return EJB3MetafacadeUtils.isSeamComponent(this);
     }
 
@@ -31,8 +31,7 @@ public class EJB3ValueObjectFacadeLogicImpl
      * @see EJB3ValueObjectFacade#getSeamComponentName()
      */
     @Override
-    protected String handleGetSeamComponentName()
-    {
+    protected String handleGetSeamComponentName() {
         return EJB3MetafacadeUtils.getSeamComponentName(this);
     }
 
@@ -40,8 +39,7 @@ public class EJB3ValueObjectFacadeLogicImpl
      * @see EJB3ValueObjectFacade#getSeamComponentScopeType()
      */
     @Override
-    protected String handleGetSeamComponentScopeType()
-    {
+    protected String handleGetSeamComponentScopeType() {
         return EJB3MetafacadeUtils.getSeamComponentScopeType(this, false);
     }
 }

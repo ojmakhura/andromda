@@ -102,7 +102,7 @@ export class $className
      * @param fromForm origin form
      * @param pageVariables the page variables
      */
-    static populate$stringUtilsHelper.upperCamelCaseName($view.name)PageVariables(fromForm: any, pageVariables: any): any
+    static populate$stringUtils.upperCamelCaseName($view.name)PageVariables(fromForm: any, pageVariables: any): any
     {
 #foreach ($action in $useCase.actions)
 #set($commonFields = [])##holds the matching fields/variables, this block should go to java code

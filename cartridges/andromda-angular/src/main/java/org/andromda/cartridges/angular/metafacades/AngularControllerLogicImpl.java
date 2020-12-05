@@ -13,6 +13,7 @@ import java.util.Set;
 
 import org.andromda.cartridges.angular.AngularGlobals;
 import org.andromda.cartridges.angular.AngularUtils;
+import org.andromda.cartridges.webservice.metafacades.WebService;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
@@ -154,6 +155,43 @@ public class AngularControllerLogicImpl
                 for(final OperationFacade operation: as.getServiceCalls())
                 {
                     allServices.add((Service)operation.getOwner());
+                }
+            }
+        }
+        return allServices;
+    }
+
+    @Override
+    protected Collection<WebService> handleGetAllRestControllers() {
+        final Set<WebService> allServices=new HashSet<WebService>();
+        for(final DependencyFacade dependency: this.getServiceReferences())
+        {
+            if(AngularUtils.isWebService(dependency.getTargetElement()))
+            {
+                allServices.add((WebService)dependency.getTargetElement());
+            }
+        }
+        for(final DependencyFacade dependency: this.getServicesPackagesReferences())
+        {
+            final PackageFacade pack=(PackageFacade)dependency.getTargetElement();
+            for(final ClassifierFacade clazz: pack.getClasses())
+            {
+                if(AngularUtils.isWebService(clazz))
+                {
+                    allServices.add((WebService)clazz);
+                }
+            }
+        }
+        for(final FrontEndAction action: getUseCase().getActions())
+        {
+            for(final FrontEndActionState as: action.getActionStates())
+            {
+                for(final OperationFacade operation: as.getServiceCalls())
+                {
+                    if(AngularUtils.isWebService(operation.getOwner()))
+                    {
+                        allServices.add((WebService)operation.getOwner());
+                    }
                 }
             }
         }

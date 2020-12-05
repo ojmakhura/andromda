@@ -119,35 +119,7 @@ export abstract class ${tmpName}Component implements OnInit {
 #set ($tables = $angularUtils.getTableAttributes($parameter))
 #*    *##if($parameter.complex)
 #*      *##set($name = $stringUtils.replaceChars(${action.trigger.name}, '\\ ', ''))
-            $stringUtils.uncapitalize($name)$stringUtils.capitalize($parameter.name): this.formBuilder.group({
-#*    *##set ($i = 1)
-#*    *##foreach($attribute in $normals)
-#*      *##if(!$angularUtils.isComplex($attribute) || $attribute.type.enumeration)
-                $attribute.name: [],
-#*      *##else
-                $attribute.name: this.formBuilder.group({
-#*       *##set($j = 1)
-#*       *##set ($columns = $attribute.type.attributes)
-#*       *##foreach( $column in $columns )
-#*         *##if(!$angularUtils.isComplex($column) || $column.type.enumeration)
-                    $column.name: [],
-#*         *##end
-#*         *##set($j = $j + 1)
-#*       *##end
-                }),
-#*      *##end
-#*      *##set($i = $i + 1)
-#*    *##end
-#*    *##foreach($table in $tables)
-                $table.name: this.formBuilder.array([this.formBuilder.group({
-#*      *##set ($i = 1)
-#*      *##set ($columns = $table.type.attributes)
-#*      *##foreach($column in $columns)
-                    $column.name: [],
-#*      *##end
-                })]),
-#*    *##end
-            }),
+            $stringUtils.uncapitalize($name)$stringUtils.capitalize($parameter.name): this.rxFormBuilder.group(new $parameter.type.name),
 #*  *##else
             ${action.trigger.name}$stringUtils.capitalize($parameter.name): [],
 #*  *##end
@@ -226,11 +198,9 @@ export abstract class ${tmpName}Component implements OnInit {
             return #if($parameter.complex) this.newForm()#else new FormControl()#end;
         }
 
-        const ${parameter.name}Form =#if($parameter.complex) this.rxFormBuilder.group#else new FormControl#end($parameter.name);
+        this.${stringUtils.uncapitalize(${tmpName})}Form.get('$stringUtils.uncapitalize(${name})$stringUtils.capitalize($parameter.name)').setValue($parameter.name);
 
-        this.${stringUtils.uncapitalize(${tmpName})}Form.setControl('$stringUtils.uncapitalize(${name})$stringUtils.capitalize($parameter.name)', ${parameter.name}Form);
-
-        return ${parameter.name}Form;
+        return this.${stringUtils.uncapitalize(${tmpName})}Form.get('$stringUtils.uncapitalize(${name})$stringUtils.capitalize($parameter.name)') as $returnType;
     }
 #* *##end
 #end

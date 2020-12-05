@@ -308,4 +308,5 @@ public class StrutsManageableEntityLogicImpl
 
         return pageSize;
     }
+
 }

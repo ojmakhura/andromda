@@ -1,27 +1,26 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import java.util.Collection;
+
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.utils.StringUtilsHelper;
 
 /**
- * MetafacadeLogic implementation for org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAssociationEnd.
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAssociationEnd.
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAssociationEnd
  */
-public class StrutsManageableEntityAssociationEndLogicImpl
-    extends StrutsManageableEntityAssociationEndLogic
-{
+public class StrutsManageableEntityAssociationEndLogicImpl extends StrutsManageableEntityAssociationEndLogic {
     private static final long serialVersionUID = 34L;
+
     /**
      * @param metaObject
      * @param context
      */
-    public StrutsManageableEntityAssociationEndLogicImpl(
-        Object metaObject,
-        String context)
-    {
+    public StrutsManageableEntityAssociationEndLogicImpl(Object metaObject, String context) {
         super(metaObject, context);
     }
 
@@ -29,8 +28,7 @@ public class StrutsManageableEntityAssociationEndLogicImpl
      * @return messageKey
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAssociationEnd#getMessageKey()
      */
-    protected String handleGetMessageKey()
-    {
+    protected String handleGetMessageKey() {
         final StringBuilder messageKeyBuffer = new StringBuilder();
 
         final ClassifierFacade ownerType = this.getOtherEnd().getType();
@@ -45,13 +43,11 @@ public class StrutsManageableEntityAssociationEndLogicImpl
      * @return messageValue
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAssociationEnd#getMessageValue()
      */
-    protected String handleGetMessageValue()
-    {
+    protected String handleGetMessageValue() {
         String messageValue = null;
 
         final ClassifierFacade type = this.getType();
-        if (type instanceof Entity)
-        {
+        if (type instanceof Entity) {
             messageValue = this.getName();
         }
 
@@ -61,25 +57,23 @@ public class StrutsManageableEntityAssociationEndLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAssociationEndLogic#handleIsSafeNamePresent()
      */
-    protected boolean handleIsSafeNamePresent()
-    {
+    protected boolean handleIsSafeNamePresent() {
         return Bpm4StrutsUtils.isSafeName(this.getName());
     }
 
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAssociationEndLogic#handleGetOnlineHelpKey()
      */
-    protected String handleGetOnlineHelpKey()
-    {
+    protected String handleGetOnlineHelpKey() {
         return this.getMessageKey() + ".online.help";
     }
 
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAssociationEndLogic#handleGetOnlineHelpValue()
      */
-    protected String handleGetOnlineHelpValue()
-    {
-        return (!this.isDocumentationPresent()) ? "No field documentation has been specified" :
-            StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
+    protected String handleGetOnlineHelpValue() {
+        return (!this.isDocumentationPresent()) ? "No field documentation has been specified"
+                : StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
     }
+
 }

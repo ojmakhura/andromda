@@ -478,6 +478,18 @@
                 </documentation>
                 <value>andromda_additionalAnnotations</value>
             </element>
+            <element name="ANDROMDA_ADDITIONAL_EXTENDS">
+                <documentation>
+                    Annotation type for external classes that must be extended
+                </documentation>
+                <value>andromda_additionalExtends</value>
+            </element>
+            <element name="ANDROMDA_ADDITIONAL_IMPLEMENTS">
+                <documentation>
+                    Annotation type for external interfaces that must be extended
+                </documentation>
+                <value>andromda_additionalImplements</value>
+            </element>
         </elementGroup>
         <elementGroup name="Data Types">
             <element name="OBJECT_TYPE">

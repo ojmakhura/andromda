@@ -3,3 +3,12 @@
 #if ($service.encodedUse)
 #set ($encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/")
 #end
+
+##
+## This macro prints out the operation arguments
+##
+#macro (getOperationArgs $operation)
+#set ( $i = 0 )
+#foreach ( $arg in $webServiceUtils.getSpringOperationArgs($operation) )
+#if ( $i == 1 ), #else#set ( $i = 1 )#end$arg#end
+#end

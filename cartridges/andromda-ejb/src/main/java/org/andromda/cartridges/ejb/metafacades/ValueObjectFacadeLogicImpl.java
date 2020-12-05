@@ -1,50 +1,43 @@
 package org.andromda.cartridges.ejb.metafacades;
 
 import java.text.MessageFormat;
+import java.util.Collection;
 import java.util.StringTokenizer;
 import org.andromda.cartridges.ejb.EJBProfile;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * MetafacadeLogic implementation for org.andromda.cartridges.ejb.metafacades.ValueObjectFacade.
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.ejb.metafacades.ValueObjectFacade.
  *
  * @see org.andromda.cartridges.ejb.metafacades.ValueObjectFacade
  */
-public class ValueObjectFacadeLogicImpl
-    extends ValueObjectFacadeLogic
-{
+public class ValueObjectFacadeLogicImpl extends ValueObjectFacadeLogic {
     private static final long serialVersionUID = 34L;
+
     // ---------------- constructor -------------------------------
     /**
      * @param metaObject
      * @param context
      */
-    public ValueObjectFacadeLogicImpl(
-        Object metaObject,
-        String context)
-    {
+    public ValueObjectFacadeLogicImpl(Object metaObject, String context) {
         super(metaObject, context);
     }
 
     /**
-     * Using <code>/</code> in the configuredProperty <code>valueObjectPackage</code> can remove the previous package
-     * name.
+     * Using <code>/</code> in the configuredProperty
+     * <code>valueObjectPackage</code> can remove the previous package name.
      *
      * @see org.andromda.cartridges.ejb.metafacades.ValueObjectFacade#getPackageName()
      */
-    public String getPackageName()
-    {
-        final String packageName =
-            MessageFormat.format(
-                this.getConfiguredProperty("valueObjectPackage").toString(),
+    public String getPackageName() {
+        final String packageName = MessageFormat.format(this.getConfiguredProperty("valueObjectPackage").toString(),
                 StringUtils.trimToEmpty(super.getPackageName()));
         StringBuilder buffer = new StringBuilder();
-        for (final StringTokenizer tokenizer = new StringTokenizer(packageName, "."); tokenizer.hasMoreTokens();)
-        {
+        for (final StringTokenizer tokenizer = new StringTokenizer(packageName, "."); tokenizer.hasMoreTokens();) {
             String token = tokenizer.nextToken();
-            if (token.indexOf('/') < 0)
-            {
+            if (token.indexOf('/') < 0) {
                 buffer.append(token).append('.');
             }
         }
@@ -55,31 +48,29 @@ public class ValueObjectFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb.metafacades.ValueObjectFacade#getName()
      */
-    public String getName()
-    {
-        return MessageFormat.format(
-            this.getConfiguredProperty("valueObjectName").toString(),
+    public String getName() {
+        return MessageFormat.format(this.getConfiguredProperty("valueObjectName").toString(),
                 StringUtils.trimToEmpty(super.getName()));
     }
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedName()
      */
-    public String getFullyQualifiedName()
-    {
+    public String getFullyQualifiedName() {
         final String name = this.getPackageName();
         return name == null || "".equalsIgnoreCase(name) ? getName() : name + '.' + getName();
     }
 
     /**
-     * If we're using inheritance to build up a value object with all model elements of an entity, we're returning no
-     * superclass.
-     * @return super.getGeneralization() if generalization.hasStereotype(EJBProfile.STEREOTYPE_ENTITY)
+     * If we're using inheritance to build up a value object with all model elements
+     * of an entity, we're returning no superclass.
+     * 
+     * @return super.getGeneralization() if
+     *         generalization.hasStereotype(EJBProfile.STEREOTYPE_ENTITY)
      */
-    public GeneralizableElementFacade getGeneralization()
-    {
+    public GeneralizableElementFacade getGeneralization() {
         GeneralizableElementFacade generalization = super.getGeneralization();
         return generalization == null || generalization.hasStereotype(EJBProfile.STEREOTYPE_ENTITY) ? null
-                                                                                                    : generalization;
+                : generalization;
     }
 }

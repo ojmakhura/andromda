@@ -1,5 +1,7 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import java.util.Collection;
+
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.utils.StringUtilsHelper;
@@ -9,18 +11,14 @@ import org.andromda.utils.StringUtilsHelper;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger
  */
-public class StrutsTriggerLogicImpl
-    extends StrutsTriggerLogic
-{
+public class StrutsTriggerLogicImpl extends StrutsTriggerLogic {
     private static final long serialVersionUID = 34L;
+
     /**
      * @param metaObject
      * @param context
      */
-    public StrutsTriggerLogicImpl(
-        Object metaObject,
-        String context)
-    {
+    public StrutsTriggerLogicImpl(Object metaObject, String context) {
         super(metaObject, context);
     }
 
@@ -28,8 +26,7 @@ public class StrutsTriggerLogicImpl
      * @return getTitleKey() + ".notallowed"
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getNotAllowedTitleKey()
      */
-    protected String handleGetNotAllowedTitleKey()
-    {
+    protected String handleGetNotAllowedTitleKey() {
         return getTitleKey() + ".notallowed";
     }
 
@@ -37,8 +34,7 @@ public class StrutsTriggerLogicImpl
      * @return getTriggerKey() + ".title"
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getTitleKey()
      */
-    protected String handleGetTitleKey()
-    {
+    protected String handleGetTitleKey() {
         return getTriggerKey() + ".title";
     }
 
@@ -46,16 +42,14 @@ public class StrutsTriggerLogicImpl
      * @return getTitleKey() + ".reset"
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getResetTitleKey()
      */
-    protected String handleGetResetTitleKey()
-    {
+    protected String handleGetResetTitleKey() {
         return getTitleKey() + ".reset";
     }
 
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogic#handleGetResetMessageKey()
      */
-    protected String handleGetResetMessageKey()
-    {
+    protected String handleGetResetMessageKey() {
         return getResetTitleKey() + ".message";
     }
 
@@ -63,8 +57,7 @@ public class StrutsTriggerLogicImpl
      * @return getResetTitleKey() + ".not.allowed"
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getResetNotAllowedTitleKey()
      */
-    protected String handleGetResetNotAllowedTitleKey()
-    {
+    protected String handleGetResetNotAllowedTitleKey() {
         return getResetTitleKey() + ".not.allowed";
     }
 
@@ -72,18 +65,14 @@ public class StrutsTriggerLogicImpl
      * @return triggerKey
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getTriggerKey()
      */
-    protected String handleGetTriggerKey()
-    {
+    protected String handleGetTriggerKey() {
         String triggerKey = StringUtilsHelper.toResourceMessageKey(getName());
 
-        if (!normalizeMessages())
-        {
+        if (!normalizeMessages()) {
             final StrutsAction action = getStrutsAction();
-            if (action != null)
-            {
+            if (action != null) {
                 final StrutsJsp page = action.getInput();
-                if (page != null)
-                {
+                if (page != null) {
                     triggerKey = page.getMessageKey() + '.' + triggerKey;
                 }
             }
@@ -95,77 +84,68 @@ public class StrutsTriggerLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogic#handleGetTriggerValue()
      */
-    protected String handleGetTriggerValue()
-    {
+    protected String handleGetTriggerValue() {
         return StringUtilsHelper.toPhrase(getName());
     }
 
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogic#handleGetTitleValue()
      */
-    protected String handleGetTitleValue()
-    {
+    protected String handleGetTitleValue() {
         return getTriggerValue();
     }
 
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogic#handleGetResetTitleValue()
      */
-    protected String handleGetResetTitleValue()
-    {
+    protected String handleGetResetTitleValue() {
         return "Reset";
     }
 
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogic#handleGetResetMessageValue()
      */
-    protected String handleGetResetMessageValue()
-    {
+    protected String handleGetResetMessageValue() {
         return "Reset";
     }
 
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogic#handleGetResetNotAllowedTitleValue()
      */
-    protected String handleGetResetNotAllowedTitleValue()
-    {
+    protected String handleGetResetNotAllowedTitleValue() {
         return "You are not allowed to reset";
     }
 
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogic#handleGetNotAllowedTitleValue()
      */
-    protected String handleGetNotAllowedTitleValue()
-    {
+    protected String handleGetNotAllowedTitleValue() {
         return "You are not allowed to call this action";
     }
 
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogic#handleIsActionTrigger()
      */
-    protected boolean handleIsActionTrigger()
-    {
+    protected boolean handleIsActionTrigger() {
         return this.getStrutsAction() != null;
     }
 
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogic#handleGetStrutsAction()
      */
-    protected Object handleGetStrutsAction()
-    {
+    protected Object handleGetStrutsAction() {
         StrutsAction triggerAction = null;
 
         TransitionFacade transition = getTransition();
-        if (transition instanceof StrutsAction)
-        {
-            triggerAction = (StrutsAction)transition;
+        if (transition instanceof StrutsAction) {
+            triggerAction = (StrutsAction) transition;
         }
         return triggerAction;
     }
 
-    private boolean normalizeMessages()
-    {
-        final String normalizeMessages = (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_NORMALIZE_MESSAGES);
+    private boolean normalizeMessages() {
+        final String normalizeMessages = (String) getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_NORMALIZE_MESSAGES);
         return Boolean.valueOf(normalizeMessages).booleanValue();
     }
+
 }

@@ -18,6 +18,9 @@ import java.util.regex.Pattern;
 import org.andromda.cartridges.angular.metafacades.AngularAttribute;
 import org.andromda.cartridges.angular.metafacades.AngularControllerOperationLogic;
 import org.andromda.cartridges.angular.metafacades.AngularParameter;
+import org.andromda.cartridges.webservice.WebServiceUtils;
+import org.andromda.cartridges.webservice.metafacades.WebService;
+import org.andromda.cartridges.webservice.metafacades.WebServiceLogic;
 import org.andromda.cartridges.webservice.metafacades.WebServiceOperation;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -112,6 +115,15 @@ public class AngularUtils {
         if(typeName == null) {
             logger.error("typeName should not be null", new NullPointerException());
         }
+
+        if(typeName.contains("java.lang.Object")) {
+
+            if(typeName.contains("[]")) {
+                return "Array<any>";
+            } else {
+                return "any";
+            }
+        }
         
         if(typeName.equalsIgnoreCase("java.lang.Boolean") || typeName.equalsIgnoreCase("Boolean") || typeName.equalsIgnoreCase("boolean")) {
             return "boolean";
@@ -133,7 +145,7 @@ public class AngularUtils {
         String datatype = "";
         try {
             Class cls = Class.forName(typeName);
-                        
+            
             // Anything that inherits from number
             if(cls.getSuperclass().getName().equalsIgnoreCase("java.lang.Number"))
             {
@@ -325,7 +337,7 @@ public class AngularUtils {
 	}
 	
 	public static String getComponentName(String cName, String remove) {
-		      
+        
 		String[] splits = WordUtils.capitalize(cName).trim().split(remove);
 		StringBuilder builder = new StringBuilder();
 		
@@ -1773,5 +1785,44 @@ public class AngularUtils {
 
     public static String removeFormFromParams(String formCall) {
         return formCall.replace("form", "");
+    }
+    
+    public static boolean isServiceOnly(ModelElementFacade obj) {
+
+        boolean service = false;
+        boolean webservice = false;
+        for(String stereo : obj.getStereotypeNames()) {
+
+            if(stereo.equals("Service")) {
+                service = true;
+            }
+
+            if(stereo.equals("WebService")) {
+                webservice = true;
+            }
+        }
+
+        if(service && !webservice) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public static boolean isWebService(ModelElementFacade obj) {
+
+        boolean webservice = false;
+        for(String stereo : obj.getStereotypeNames()) {
+
+            if(stereo.equals("WebService")) {
+                webservice = true;
+            }
+        }
+
+        if(webservice) {
+            return true;
+        }
+        
+        return false;
     }
 }

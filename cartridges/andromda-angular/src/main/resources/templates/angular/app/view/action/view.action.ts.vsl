@@ -37,7 +37,7 @@ import { ${param.name} } from 'src/app/gen/model/$path/$fname';
 import { ${enum.name} } from 'src/app/gen/model/$path/$fname';
 #end
 #set ($args = [])
-#foreach ($service in $action.controller.allServices)
+#foreach ($service in $action.controller.allRestControllers)
 #set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${service.packageName}), '\\.', '\\/')" )
 #set ( $fname = $angularUtils.getComponentFileName("${service.name}Impl") )
 import { ${service.name}Impl } from 'src/app/impl/service/$path/$fname';
@@ -53,6 +53,7 @@ import { ${action.controller.name}Impl } from 'src/app/impl/controller/$path/$fn
   template: ''
 })
 export abstract class ${className}Component implements OnInit {
+
 #set ($cr = "
 ")
 #set ( $attr = [] )
@@ -68,12 +69,13 @@ export abstract class ${className}Component implements OnInit {
 #set($i = $i + 1)
 #end
     ];
+
     @ViewChild('${attribute.name}Paginator', {static: true}) ${attribute.name}Paginator: MatPaginator;
     @ViewChild('${attribute.name}Sort', {static: true}) ${attribute.name}Sort: MatSort;
-#end
-#end
-#end
     
+#end
+#end
+#end
     @Input() $stringUtils.uncapitalize($viewName)Form: FormGroup;
 #foreach ( $table in $action.source.tables )
 	@Output() ${table.name}: EventEmitter<any> = new EventEmitter();
@@ -86,7 +88,7 @@ export abstract class ${className}Component implements OnInit {
 #end
     protected route: ActivatedRoute;
     protected router: Router;
-#foreach ($service in $action.controller.allServices)
+#foreach ($service in $action.controller.allRestControllers)
     protected $stringUtils.uncapitalize($service.name): ${service.name}Impl;
 #end
     protected $stringUtils.uncapitalize($viewName): ${viewName}ImplComponent;
@@ -115,7 +117,7 @@ export abstract class ${className}Component implements OnInit {
 
         this.route = injector.get(ActivatedRoute);
         this.router = injector.get(Router);
-#foreach ($service in $action.controller.allServices)
+#foreach ($service in $action.controller.allRestControllers)
         this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name}Impl);
 #end
         this.$stringUtils.uncapitalize($viewName) = injector.get(${viewName}ImplComponent);
@@ -166,15 +168,14 @@ export abstract class ${className}Component implements OnInit {
 #set ($i = 1)
 #foreach($attribute in $parameter.attributes)
 #if($angularUtils.isTable($attribute))
-
     get ${attribute.name}(): FormArray {
         return <FormArray>this.getItemControl('${action.trigger.name}$stringUtils.capitalize($parameter.name)').get('$attribute.name');
     }
+
 #end
 #end
 #end
-#end
-	
+#end	
 	abstract do$stringUtils.capitalize(${action.triggerName})();
     abstract after$stringUtils.capitalize(${action.triggerName})();
     

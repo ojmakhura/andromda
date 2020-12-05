@@ -1,6 +1,7 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,26 +15,21 @@ import org.andromda.utils.StringUtilsHelper;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsPseudostate
  */
-public class StrutsPseudostateLogicImpl
-    extends StrutsPseudostateLogic
-{
+public class StrutsPseudostateLogicImpl extends StrutsPseudostateLogic {
     private static final long serialVersionUID = 34L;
+
     /**
      * @param metaObject
      * @param context
      */
-    public StrutsPseudostateLogicImpl(
-        Object metaObject,
-        String context)
-    {
+    public StrutsPseudostateLogicImpl(Object metaObject, String context) {
         super(metaObject, context);
     }
 
     /**
      * @return getStateMachine() instanceof StrutsActivityGraph
      */
-    protected boolean handleIsContainedInFrontEndUseCase()
-    {
+    protected boolean handleIsContainedInFrontEndUseCase() {
         return this.getStateMachine() instanceof StrutsActivityGraph;
     }
 
@@ -41,11 +37,10 @@ public class StrutsPseudostateLogicImpl
      * @return actionMethodName
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsPseudostate#getActionMethodName()
      */
-    protected String handleGetActionMethodName()
-    {
+    protected String handleGetActionMethodName() {
         final String methodName = getName();
-        return (methodName == null) ?
-            "a" + System.currentTimeMillis() : StringUtilsHelper.lowerCamelCaseName(methodName);
+        return (methodName == null) ? "a" + System.currentTimeMillis()
+                : StringUtilsHelper.lowerCamelCaseName(methodName);
     }
 
     /**
@@ -53,31 +48,28 @@ public class StrutsPseudostateLogicImpl
      *
      * @see org.andromda.metafacades.uml.FrontEndPseudostate#getContainerActions()
      */
-    public List getContainerActions()
-    {
+    public List getContainerActions() {
         final Set<StrutsAction> actionSet = new LinkedHashSet<StrutsAction>();
         final StateMachineFacade graphContext = getStateMachine();
 
-        if (graphContext instanceof ActivityGraphFacade)
-        {
-            final UseCaseFacade useCase = ((ActivityGraphFacade)graphContext).getUseCase();
+        if (graphContext instanceof ActivityGraphFacade) {
+            final UseCaseFacade useCase = ((ActivityGraphFacade) graphContext).getUseCase();
 
-            if (useCase instanceof StrutsUseCase)
-            {
-                // StrutsUseCase.getActions returns StrutsAction which cannot be cast to FrontEndAction
-                for (final Object action : ((StrutsUseCaseLogicImpl)useCase).getActions())
-                {
-                    for (final StrutsForward transition : ((StrutsAction)action).getTransitions())
-                    {
-                        if (this.equals(transition.getTarget()))
-                        {
-                            actionSet.add((StrutsAction)action);
+            if (useCase instanceof StrutsUseCase) {
+                // StrutsUseCase.getActions returns StrutsAction which cannot be cast to
+                // FrontEndAction
+                for (final Object action : ((StrutsUseCaseLogicImpl) useCase).getActions()) {
+                    for (final StrutsForward transition : ((StrutsAction) action).getTransitions()) {
+                        if (this.equals(transition.getTarget())) {
+                            actionSet.add((StrutsAction) action);
                         }
                     }
                 }
             }
         }
-        // Cannot make return type List<StrutsAction> because StrutsAction does not extend FrontEndAction
+        // Cannot make return type List<StrutsAction> because StrutsAction does not
+        // extend FrontEndAction
         return new ArrayList<StrutsAction>(actionSet);
     }
+
 }
