@@ -182,19 +182,19 @@
         </mapping>
         <mapping>
             <from>angular/src/app/app.component.ts.vsl</from>
-            <to>angular/src/app/app.ts.vsl</to>
+            <to>angular/src/app/app.component.ts.vsl</to>
         </mapping>
         <mapping>
             <from>angular/src/app/app.component.spec.ts.vsl</from>
-            <to>angular/src/app/app.${component}.spec.ts.vsl</to>
+            <to>angular/src/app/app.component.spec.ts.vsl</to>
         </mapping>
         <mapping>
             <from>angular/src/app/app.component.css.vsl</from>
-            <to>angular/src/app/app.${component}.css.vsl</to>
+            <to>angular/src/app/app.component.css.vsl</to>
         </mapping>
         <mapping>
             <from>angular/src/app/app.component.html.vsl</from>
-            <to>angular/src/app/app.${component}.html.vsl</to>
+            <to>angular/src/app/app.component.html.vsl</to>
         </mapping>
         <mapping>
             <from>angular/src/app/app.constants.ts.vsl</from>
