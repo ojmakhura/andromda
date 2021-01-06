@@ -73,7 +73,7 @@
 
     <template
         path="templates/angular/app/app.module.ts.vsl"
-        outputPattern="${moduleFileName}.module.ts"
+        outputPattern="app.module.ts"
         outlet="angularAppDir"
         overwrite="true"
         outputToSingleFile="true">
