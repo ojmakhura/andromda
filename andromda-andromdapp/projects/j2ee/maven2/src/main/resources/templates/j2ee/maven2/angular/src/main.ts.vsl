@@ -2,13 +2,12 @@ import 'hammerjs';
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-#set( $module = "module" )
-import { $stringUtils.capitalize(${applicationId})Module } from './app/$stringUtils.lowerCase(${applicationId}).${module}';
+import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
 if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule($stringUtils.capitalize(${applicationId})Module)
+platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
