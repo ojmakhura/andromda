@@ -142,7 +142,7 @@
 
     <template
         path="templates/angular/app/app-routing.module.ts.vsl"
-        outputPattern="${moduleFileName}-routing.module.ts"
+        outputPattern="app-routing.module.ts"
         outlet="angularAppDir"
         overwrite="true"
         outputToSingleFile="true">

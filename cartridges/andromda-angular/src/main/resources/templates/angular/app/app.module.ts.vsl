@@ -55,8 +55,8 @@ import { ${moduleName}LayoutComponent } from './layout/${moduleFileName}-layout.
 import { ${moduleName}HeaderComponent } from './header/${moduleFileName}-header.component';
 import { ${moduleName}NavigationComponent } from './navigation/${moduleFileName}-navigation.component';
 #set ($component = "component")
-import { ${moduleName}RoutingModule } from './${moduleFileName}-routing.module';
-import { ${moduleName}Component } from './${moduleFileName}.$component';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 #foreach ($useCase in $useCases)
 #renderImports($useCase)
 #end
@@ -119,7 +119,7 @@ import { $field.name } from './gen/model/$destination/$fileName';
 
 @NgModule({
     declarations: [
-        ${moduleName}Component,
+        AppComponent,
         ${moduleName}LayoutComponent,
         ${moduleName}HeaderComponent,
         ${moduleName}NavigationComponent,
@@ -176,7 +176,7 @@ import { $field.name } from './gen/model/$destination/$fileName';
         NgIdleKeepaliveModule.forRoot(),
         MomentModule,
         ModalModule.forRoot(),
-        ${moduleName}RoutingModule
+        AppRoutingModule
     ],
     exports: [
         MatButtonModule,
@@ -238,6 +238,6 @@ import { $field.name } from './gen/model/$destination/$fileName';
 #end
 
     ],
-    bootstrap: [${moduleName}Component]
+    bootstrap: [AppComponent]
 })
-export class ${moduleName}Module { }
+export class AppModule { }

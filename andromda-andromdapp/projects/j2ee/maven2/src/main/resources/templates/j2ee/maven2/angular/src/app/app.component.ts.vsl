@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 #set ( $moduleFileName = $angularHelper.getComponentFileName("${applicationId}") )
 #set ( $moduleName = $angularHelper.getComponentName($moduleFileName, "-"))
-#set ($component = "component")
+
 @Component({
-  selector: '$stringUtils.lowerCase(${applicationId})-root',
-  templateUrl: './$stringUtils.lowerCase(${applicationId}).${component}.html',
-  styleUrls: ['./$stringUtils.lowerCase(${applicationId}).${component}.css']
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
-export class ${stringUtils.capitalize($applicationId)}Component {
+export class AppComponent {
   title = '$stringUtils.capitalize(${applicationId})';
 }

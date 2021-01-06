@@ -1,7 +1,5 @@
 #set ( $classNames = [] )
 #set ( $imports = [] )
-#set ( $moduleFileName = $angularUtils.getComponentFileName("${applicationId}") )
-#set ( $moduleName = $angularUtils.getComponentName($moduleFileName, "-"))
 // license-header angular merge-point
 //
 /**
@@ -85,4 +83,4 @@ const routes: Routes = [
     RouterModule
   ]
 })
-export class ${moduleName}RoutingModule { }
+export class AppRoutingModule { }
