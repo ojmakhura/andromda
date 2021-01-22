@@ -2,11 +2,11 @@
 import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
 
 @Component({
-  selector: '$stringUtils.lowerCase(${applicationId})-navigation',
-  templateUrl: './$stringUtils.lowerCase(${applicationId})-navigation.component.html',
-  styleUrls: ['./$stringUtils.lowerCase(${applicationId})-navigation.component.css']
+  selector: 'app-navigation',
+  templateUrl: './navigation.component.html',
+  styleUrls: ['./navigation.component.css']
 })
-export class $stringUtils.capitalize(${applicationId})NavigationComponent implements OnInit {
+export class NavigationComponent implements OnInit {
     @Output() public sidenavToggle = new EventEmitter();
     constructor() { }
 

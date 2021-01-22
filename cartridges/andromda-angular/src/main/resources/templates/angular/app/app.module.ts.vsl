@@ -30,6 +30,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -51,9 +52,11 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { RequestOptions } from '@angular/http';
 import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
-import { ${moduleName}LayoutComponent } from './layout/${moduleFileName}-layout.component';
-import { ${moduleName}HeaderComponent } from './header/${moduleFileName}-header.component';
-import { ${moduleName}NavigationComponent } from './navigation/${moduleFileName}-navigation.component';
+import { HeaderComponent } from './header/header.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import { FooterComponent } from './footer/footer.component';
+import { SideComponent } from './side/side.component';
+import { MainComponent } from './main/main.component';
 #set ($component = "component")
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -120,9 +123,12 @@ import { $field.name } from './gen/model/$destination/$fileName';
 @NgModule({
     declarations: [
         AppComponent,
-        ${moduleName}LayoutComponent,
-        ${moduleName}HeaderComponent,
-        ${moduleName}NavigationComponent,
+        MainComponent,
+        HeaderComponent,
+        NavigationComponent,
+        NavigationComponent,
+        FooterComponent,
+        AsideComponent,
 
 #set ( $componentSet = $angularUtils.getFacadeSet($views) )
 #foreach($view in $componentSet)
@@ -169,6 +175,7 @@ import { $field.name } from './gen/model/$destination/$fileName';
         MatTooltipModule,
         BrowserModule,
         BrowserAnimationsModule,
+        MatCardModule,
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
@@ -184,6 +191,7 @@ import { $field.name } from './gen/model/$destination/$fileName';
         MatDatepickerModule,
         MatDialogModule,
         MatIconModule,
+        MatCardModule,
         MatInputModule,
         MatListModule,
         MatMenuModule,
