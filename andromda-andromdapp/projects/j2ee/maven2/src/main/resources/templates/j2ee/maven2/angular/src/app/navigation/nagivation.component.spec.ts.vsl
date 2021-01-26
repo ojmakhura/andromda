@@ -1,20 +1,20 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { $stringUtils.capitalize(${applicationId})NavigationComponent } from './$stringUtils.lowerCase(${applicationId})-navigation.component';
+import { NavigationComponent } from './navigation.component';
 
-describe('$stringUtils.capitalize(${applicationId})NavigationComponent', () => {
-  let component: $stringUtils.capitalize(${applicationId})NavigationComponent;
-  let fixture: ComponentFixture<$stringUtils.capitalize(${applicationId})NavigationComponent>;
+describe('NavigationComponent', () => {
+  let component: NavigationComponent;
+  let fixture: ComponentFixture<NavigationComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ $stringUtils.capitalize(${applicationId})NavigationComponent ]
+      declarations: [ NavigationComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent($stringUtils.capitalize(${applicationId})NavigationComponent);
+    fixture = TestBed.createComponent(NavigationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
