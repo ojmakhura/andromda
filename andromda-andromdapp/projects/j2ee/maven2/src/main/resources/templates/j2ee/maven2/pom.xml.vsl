@@ -1436,9 +1436,9 @@
 #end
 #if ($spring)
         <!-- Set andromda.xml hibernateVersion=4, sessionFactory and localTransactionManager to hibernate4.-->
-        <hibernate.version>5.2.2.Final</hibernate.version>
+        <hibernate.version>5.4.0.Final</hibernate.version>
 #elseif ($hibernate || $ejb3)
-        <!-- Set andromda.xml hibernateVersion=5, sessionFactory and localTransactionManager to hibernate5->
+        <!-- Set andromda.xml hibernateVersion=5, sessionFactory and localTransactionManager to hibernate5-->
         <!-- new Hibername 5 inclusion -->
         <hibernate.version>5.4.0.Final</hibernate.version>
 #end
@@ -1453,11 +1453,11 @@
         <myfaces.version>2.3.2</myfaces.version>
 #end
 #if ($cxf)
-        <spring.version>5.2.3.RELEASE</spring.version>
+        <spring.version>5.3.2</spring.version>
 #elseif ($spring || $springws)
         <!-- v5 migration needed -->
-        <spring.version>5.2.3.RELEASE</spring.version>
-	<spring-boot.version>2.2.4.RELEASE</spring-boot.version>
+        <spring.version>5.3.2</spring.version>
+	    <spring-boot.version>2.4.2</spring-boot.version>
 #end
         <!-- To override parent default settings for compiler plugin and compliance checks-->
         <dependencyConvergence>true</dependencyConvergence>

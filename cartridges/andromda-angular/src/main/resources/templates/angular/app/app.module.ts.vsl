@@ -128,8 +128,7 @@ import { $field.name } from './gen/model/$destination/$fileName';
         NavigationComponent,
         NavigationComponent,
         FooterComponent,
-        AsideComponent,
-
+        SideComponent,
 #set ( $componentSet = $angularUtils.getFacadeSet($views) )
 #foreach($view in $componentSet)
 #set ( $fileName = $angularUtils.getComponentFileName("${view.name}") )

@@ -25,11 +25,11 @@
   .number-field {
     text-align-last: right;
   }
-  
+    
   app-header, 
   app-navigation, 
   app-main, 
-  app-aside, 
+  app-side, 
   app-footer {
     padding: 20px;
     margin:5px;
@@ -57,7 +57,7 @@
     background: rgb(211, 216, 215);
   }
   
-  app-aside {
+  app-side {
     order:4;
     flex:0 1 200px;
     background: rgb(149, 180, 216);
