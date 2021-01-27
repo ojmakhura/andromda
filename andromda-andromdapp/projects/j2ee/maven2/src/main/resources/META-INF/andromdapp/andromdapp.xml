@@ -374,6 +374,16 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>ear</response>
                     <response>war</response>
                 </responses>
+                <!-- <conditions>
+                    <condition equal="ear">
+                        <setProperty id="ear">false</setProperty>
+                        <setProperty id="war">true</setProperty>
+                    </condition>
+                    <condition equal="war">
+                        <setProperty id="ear">true</setProperty>
+                        <setProperty id="war">false</setProperty>
+                    </condition>
+                 </conditions> -->
             </prompt>
         </promptGroup>
         <promptGroup name="Component Types">
@@ -520,20 +530,12 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                         <setProperty id="angular">true</setProperty>
                         <setProperty id="web">false</setProperty>
                         <setProperty id="component">component</setProperty>
-						
-                        <!-- Spring Web Service -->
-                        <setProperty id="rest">true</setProperty>
-                        <setProperty id="springws">true</setProperty>
-                        <setProperty id="webserviceStack">spring</setProperty>
                     </condition>
                     <condition equal="both">
                         <setProperty id="angular">true</setProperty>
                         <setProperty id="jsf">true</setProperty>
+                        <setProperty id="web">true</setProperty>
                         <setProperty id="component">component</setProperty>
-                        <!-- Spring Web Service -->
-                        <setProperty id="rest">true</setProperty>
-                        <setProperty id="springws">true</setProperty>
-                        <setProperty id="webserviceStack">spring</setProperty>
                     </condition>
                 </conditions>
             </prompt>
@@ -541,11 +543,11 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 <text>Would you like to use NgRX in your angular frontend?</text>
                 <shortText>NgRX</shortText>
                 <preconditions>
-                    <condition id="jsf" equal="true"/>
+                    <condition id="angular" equal="true"/>
                 </preconditions>
                 <responses type="java.lang.Boolean">
-                    <response>Yes</response>
-                    <response>No</response>
+                    <response>yes</response>
+                    <response>no</response>
                 </responses>
             </prompt>
             <prompt id="jbossSeam" setResponseAsTrue="false">
@@ -584,10 +586,10 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                         <setProperty id="soap">false</setProperty>
                         <setProperty id="rest">false</setProperty>
                     </condition>
-                    <condition id="angular" equal="true">
+                    <!-- <condition id="angular" equal="true">
                         <setProperty id="rest">true</setProperty>
                         <setProperty id="webserviceStack">spring</setProperty>
-                    </condition>
+                    </condition> -->
                  </conditions>
             </prompt>
             <prompt id="jsr181Webservice" setResponseAsTrue="false">
@@ -608,7 +610,6 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 <preconditions type="and">
                     <condition id="webservice" notEqual="none"/>
                     <condition id="jsr181Webservice" notEqual="true"/>
-                    <condition id="springws" notEqual="true"/>
                 </preconditions>
                 <responses>
                     <response>cxf</response>

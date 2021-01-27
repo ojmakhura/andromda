@@ -490,7 +490,7 @@
                 <property name="service-impls">${core.manual.java.dir}</property>
             </properties>
         </namespace>
-#if ($jsf)
+#if ($webType.equals("jsf") || $webType.equals("both"))
 #if ($jbossSeam)
         <namespace name="seam">
             <properties>
@@ -559,7 +559,7 @@
         </namespace>
 #end
 #end
-#if($angular)
+#if($webType.equals("angular") || $webType.equals("both"))
         <namespace name="angular">
             <properties>
                 <property name="applicationPackage">${application.package}</property>
