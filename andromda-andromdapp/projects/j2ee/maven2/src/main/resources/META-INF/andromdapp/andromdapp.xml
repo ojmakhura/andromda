@@ -204,55 +204,91 @@
         <!-- Angular Header -->
         <mapping>
             <from>angular/src/app/header/header.component.ts.vsl</from>
-            <to>angular/src/app/header/$stringUtils.lowerCase(${applicationId})-header.component.ts.vsl</to>
+            <to>angular/src/app/header/header.component.ts.vsl</to>
         </mapping>
         <mapping>
             <from>angular/src/app/header/header.component.spec.ts.vsl</from>
-            <to>angular/src/app/header/$stringUtils.lowerCase(${applicationId})-header.component.spec.ts.vsl</to>
+            <to>angular/src/app/header/header.component.spec.ts.vsl</to>
         </mapping>
         <mapping>
             <from>angular/src/app/header/header.component.css.vsl</from>
-            <to>angular/src/app/header/$stringUtils.lowerCase(${applicationId})-header.component.css.vsl</to>
+            <to>angular/src/app/header/header.component.css.vsl</to>
         </mapping>
         <mapping>
             <from>angular/src/app/header/header.component.html.vsl</from>
-            <to>angular/src/app/header/$stringUtils.lowerCase(${applicationId})-header.component.html.vsl</to>
+            <to>angular/src/app/header/header.component.html.vsl</to>
         </mapping>
         
-        <!-- Angular Layout -->
+        <!-- Angular Main -->
         <mapping>
-            <from>angular/src/app/layout/layout.component.ts.vsl</from>
-            <to>angular/src/app/layout/$stringUtils.lowerCase(${applicationId})-layout.component.ts.vsl</to>
+            <from>angular/src/app/main/main.component.ts.vsl</from>
+            <to>angular/src/app/main/main.component.ts.vsl</to>
         </mapping>
         <mapping>
-            <from>angular/src/app/layout/layout.component.spec.ts.vsl</from>
-            <to>angular/src/app/layout/$stringUtils.lowerCase(${applicationId})-layout.component.spec.ts.vsl</to>
+            <from>angular/src/app/main/main.component.spec.ts.vsl</from>
+            <to>angular/src/app/main/main.component.spec.ts.vsl</to>
         </mapping>
         <mapping>
-            <from>angular/src/app/layout/layout.component.css.vsl</from>
-            <to>angular/src/app/layout/$stringUtils.lowerCase(${applicationId})-layout.component.css.vsl</to>
+            <from>angular/src/app/main/main.component.css.vsl</from>
+            <to>angular/src/app/main/main.component.css.vsl</to>
         </mapping>
         <mapping>
-            <from>angular/src/app/layout/layout.component.html.vsl</from>
-            <to>angular/src/app/layout/$stringUtils.lowerCase(${applicationId})-layout.component.html.vsl</to>
+            <from>angular/src/app/main/main.component.html.vsl</from>
+            <to>angular/src/app/main/main.component.html.vsl</to>
         </mapping>
         
         <!-- Angular Navigation -->
         <mapping>
             <from>angular/src/app/navigation/navigation.component.ts.vsl</from>
-            <to>angular/src/app/navigation/$stringUtils.lowerCase(${applicationId})-navigation.component.ts.vsl</to>
+            <to>angular/src/app/navigation/navigation.component.ts.vsl</to>
         </mapping>
         <mapping>
             <from>angular/src/app/navigation/navigation.component.spec.ts.vsl</from>
-            <to>angular/src/app/navigation/$stringUtils.lowerCase(${applicationId})-navigation.component.spec.ts.vsl</to>
+            <to>angular/src/app/navigation/navigation.component.spec.ts.vsl</to>
         </mapping>
         <mapping>
             <from>angular/src/app/navigation/navigation.component.css.vsl</from>
-            <to>angular/src/app/navigation/$stringUtils.lowerCase(${applicationId})-navigation.component.css.vsl</to>
+            <to>angular/src/app/navigation/navigation.component.css.vsl</to>
         </mapping>
         <mapping>
             <from>angular/src/app/navigation/navigation.component.html.vsl</from>
-            <to>angular/src/app/navigation/$stringUtils.lowerCase(${applicationId})-navigation.component.html.vsl</to>
+            <to>angular/src/app/navigation/navigation.component.html.vsl</to>
+        </mapping>
+        
+        <!-- Angular Footer -->
+        <mapping>
+            <from>angular/src/app/footer/footer.component.ts.vsl</from>
+            <to>angular/src/app/footer/footer.component.ts.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/footer/footer.component.spec.ts.vsl</from>
+            <to>angular/src/app/footer/footer.component.spec.ts.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/footer/footer.component.css.vsl</from>
+            <to>angular/src/app/footer/footer.component.css.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/footer/footer.component.html.vsl</from>
+            <to>angular/src/app/footer/footer.component.html.vsl</to>
+        </mapping>
+        
+        <!-- Angular Side -->
+        <mapping>
+            <from>angular/src/app/side/side.component.ts.vsl</from>
+            <to>angular/src/app/side/side.component.ts.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/side/side.component.spec.ts.vsl</from>
+            <to>angular/src/app/side/side.component.spec.ts.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/side/side.component.css.vsl</from>
+            <to>angular/src/app/side/side.component.css.vsl</to>
+        </mapping>
+        <mapping>
+            <from>angular/src/app/side/side.component.html.vsl</from>
+            <to>angular/src/app/side/side.component.html.vsl</to>
         </mapping>
 		
 		<!-- Spring REST Webservices -->
@@ -338,6 +374,16 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>ear</response>
                     <response>war</response>
                 </responses>
+                <!-- <conditions>
+                    <condition equal="ear">
+                        <setProperty id="ear">false</setProperty>
+                        <setProperty id="war">true</setProperty>
+                    </condition>
+                    <condition equal="war">
+                        <setProperty id="ear">true</setProperty>
+                        <setProperty id="war">false</setProperty>
+                    </condition>
+                 </conditions> -->
             </prompt>
         </promptGroup>
         <promptGroup name="Component Types">
@@ -484,32 +530,24 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                         <setProperty id="angular">true</setProperty>
                         <setProperty id="web">false</setProperty>
                         <setProperty id="component">component</setProperty>
-						
-                        <!-- Spring Web Service -->
-                        <setProperty id="rest">true</setProperty>
-                        <setProperty id="springws">true</setProperty>
-                        <setProperty id="webserviceStack">spring</setProperty>
                     </condition>
                     <condition equal="both">
                         <setProperty id="angular">true</setProperty>
                         <setProperty id="jsf">true</setProperty>
+                        <setProperty id="web">true</setProperty>
                         <setProperty id="component">component</setProperty>
-                        <!-- Spring Web Service -->
-                        <setProperty id="rest">true</setProperty>
-                        <setProperty id="springws">true</setProperty>
-                        <setProperty id="webserviceStack">spring</setProperty>
                     </condition>
                 </conditions>
             </prompt>
             <prompt id="ngrx">
-                <text>Woul you like to use NgRX in your angular frontend?</text>
+                <text>Would you like to use NgRX in your angular frontend?</text>
                 <shortText>NgRX</shortText>
                 <preconditions>
-                    <condition id="jsf" equal="true"/>
+                    <condition id="angular" equal="true"/>
                 </preconditions>
                 <responses type="java.lang.Boolean">
-                    <response>Yes</response>
-                    <response>No</response>
+                    <response>yes</response>
+                    <response>no</response>
                 </responses>
             </prompt>
             <prompt id="jbossSeam" setResponseAsTrue="false">
@@ -548,10 +586,10 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                         <setProperty id="soap">false</setProperty>
                         <setProperty id="rest">false</setProperty>
                     </condition>
-                    <condition id="angular" equal="true">
+                    <!-- <condition id="angular" equal="true">
                         <setProperty id="rest">true</setProperty>
                         <setProperty id="webserviceStack">spring</setProperty>
-                    </condition>
+                    </condition> -->
                  </conditions>
             </prompt>
             <prompt id="jsr181Webservice" setResponseAsTrue="false">
@@ -572,7 +610,6 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 <preconditions type="and">
                     <condition id="webservice" notEqual="none"/>
                     <condition id="jsr181Webservice" notEqual="true"/>
-                    <condition id="springws" notEqual="true"/>
                 </preconditions>
                 <responses>
                     <response>cxf</response>

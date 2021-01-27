@@ -2,11 +2,11 @@
 import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
 
 @Component({
-  selector: '$stringUtils.lowerCase(${applicationId})-header',
-  templateUrl: './$stringUtils.lowerCase(${applicationId})-header.component.html',
-  styleUrls: ['./$stringUtils.lowerCase(${applicationId})-header.component.css']
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
 })
-export class $stringUtils.capitalize(${applicationId})HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit {
     title = '$stringUtils.capitalize(${applicationName})';
     @Output() public sidenavToggle = new EventEmitter();
     constructor() { }

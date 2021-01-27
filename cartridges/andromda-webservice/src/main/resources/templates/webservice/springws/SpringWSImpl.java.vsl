@@ -18,10 +18,9 @@ package ${service.packageName};
 #foreach($annotation in $service.additionalAnnotations)
 @$annotation
 #end
-public class ${serviceImplName} extends ${service.name}#if($isService)WS#end {
+public class ${serviceImplName} extends #if($isService)${service.name}WSBase#else${service.name}Base#end {
 
 #foreach ($operation in $service.allowedOperations)
-
     @Override
     $operation.visibility $operation.getterSetterReturnTypeName handle$stringUtils.capitalize(${operation.signature}) {
 #if($isService)

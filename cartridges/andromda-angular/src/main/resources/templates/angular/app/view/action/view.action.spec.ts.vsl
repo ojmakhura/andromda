@@ -2,7 +2,7 @@
 #set ( $actionPath = $action.path )
 #set ( $fileName = $angularUtils.getComponentFileName("$action.name") )
 #set ( $className = $angularUtils.getComponentName($action.name, "-") )
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ${className}ImplComponent } from './${fileName}.impl.component';
 
@@ -10,7 +10,7 @@ describe('${className}ImplComponent', () => {
 	let component: ${className}ImplComponent;
 	let fixture: ComponentFixture<${className}ImplComponent>;
 
-	beforeEach(async(() => {
+	beforeEach(waitForAsync(() => {
 		TestBed.configureTestingModule({
 			declarations: [${className}ImplComponent]
 		})

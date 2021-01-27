@@ -23,33 +23,31 @@ ${ident}<button mat-menu-item routerLink="/$stringUtils.lowerCase($className)" (
 #set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
 #set ( $fileName = $angularUtils.getComponentFileName("${view.name}"))
 #set ( $className = $angularUtils.getComponentName($fileName, "-") )
-${ident}<button mat-menu-item routerLink="/$stringUtils.lowerCase($className)" (click)="onSidenavClose()">$view.name</button>
+${ident}<li><a mat-menu-item routerLink="/$stringUtils.lowerCase($className)"> $view.name </a></li>
 #end
 #foreach ($child in $children)
 #renderAngularMenuItem ($child "$ident    ")    
 #end    
 #end    
 #end
-<mat-nav-list class="card my-5">
-    <div>
+<mat-nav-list class="card-5">
 #if ($manageables.size() > 0)
-		<button mat-button [matMenuTriggerFor]="menu">Menu</button>
-		<mat-menu #menu="matMenu">
+	<button mat-button [matMenuTriggerFor]="menu">Menu</button>
+	<mat-menu #menu="matMenu">
 #foreach ($manageable in $manageables)
 #set ($roles = $manageable.actionRoles)
 #addDefaultRole($roles)
 #set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles))
-			${ident}<button mat-menu-item routerLink="/$stringUtils.deleteWhitespace($stringUtils.lowerCase($manageable.actionName))" (click)="onSidenavClose()">Edit Role</button>
+		${ident}<li><a mat-menu-item routerLink="/$stringUtils.deleteWhitespace($stringUtils.lowerCase($manageable.actionName))" > Edit Role </a></li>
 #end
-        </mat-menu>
+    </mat-menu>
 #end
 #if ( $useCases.size() > 0 )    
-		<button mat-button [matMenuTriggerFor]="appMenu">Application Menu</button>
-		<mat-menu ${escTool.hash}appMenu="matMenu">
+	<button mat-button [matMenuTriggerFor]="appMenu">Application Menu</button>
+	<mat-menu ${escTool.hash}appMenu="matMenu">
 #foreach ($useCase in $useCases)
 #renderAngularMenuItem($useCase "            ")  
-#end  
 #end
-        </mat-menu>
-    </div>
+    </mat-menu>
+#end
 </mat-nav-list>

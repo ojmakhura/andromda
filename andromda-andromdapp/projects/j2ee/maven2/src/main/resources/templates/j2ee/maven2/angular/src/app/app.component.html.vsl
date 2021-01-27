@@ -1,1 +1,11 @@
-<app-layout  class="col-md-12"></app-layout>
+<div class="container">
+    <app-header></app-header>
+
+    <app-navigation></app-navigation>
+
+    <app-main></app-main>
+
+    <app-aside></app-aside>
+
+    <app-footer></app-footer>
+</div>
