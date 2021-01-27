@@ -24,6 +24,12 @@
     "@angular/router": "~11.1.0",
     "@ng-idle/core": "^10.0.0-beta.1",
     "@ng-idle/keepalive": "^10.0.0-beta.1",
+#if($ngrx)
+    "@ngrx/effects": "^10.1.2",
+    "@ngrx/entity": "^10.1.2",
+    "@ngrx/store": "^10.1.2",
+    "@ngrx/store-devtools": "^10.1.2",
+#end
     "@rxweb/reactive-form-validators": "^2.1.2",
     "angular2-moment": "^1.9.0",
     "bootstrap": "^4.6.0",
@@ -42,6 +48,9 @@
     "@angular/cli": "~11.1.1",
     "@angular/compiler-cli": "~11.1.0",
     "@angular/language-service": "^11.1.0",
+#if($ngrx)
+    "@ngrx/schematics": "^10.1.2",
+#end
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",

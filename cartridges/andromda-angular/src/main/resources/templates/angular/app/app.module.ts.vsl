@@ -60,6 +60,12 @@ import { MainComponent } from './main/main.component';
 #set ($component = "component")
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+#if($ngrx)
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { ConnectFormDirective } from './connect-form.directive';
+#end
 #foreach ($useCase in $useCases)
 #renderImports($useCase)
 #end
@@ -129,6 +135,9 @@ import { $field.name } from './gen/model/$destination/$fileName';
         NavigationComponent,
         FooterComponent,
         SideComponent,
+#if($ngrx)
+        ConnectFormDirective,
+#end
 #set ( $componentSet = $angularUtils.getFacadeSet($views) )
 #foreach($view in $componentSet)
 #set ( $fileName = $angularUtils.getComponentFileName("${view.name}") )
@@ -150,7 +159,6 @@ import { $field.name } from './gen/model/$destination/$fileName';
 #set ( $className = $angularUtils.getComponentName($fileName, "-"))
         ${className}ImplComponent#if($i < $componentSet.size()),#end${escTool.n}#set ( $i = $i + 1 )
 #end
-
     ],
     imports: [
         CommonModule,
@@ -183,6 +191,12 @@ import { $field.name } from './gen/model/$destination/$fileName';
         MomentModule,
         ModalModule.forRoot(),
         AppRoutingModule
+#if($ngrx)
+        EffectsModule.forRoot([]),
+        StoreModule.forRoot(reducers, {
+            metaReducers
+        })
+#end
     ],
     exports: [
         MatButtonModule,
