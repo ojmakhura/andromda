@@ -125,7 +125,7 @@
             <scope>runtime</scope>
         </dependency>
 #end
-#if ($angular)
+#if ($webType.equals("angular") || $webType.equals("both"))
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-angular-cartridge</artifactId>
