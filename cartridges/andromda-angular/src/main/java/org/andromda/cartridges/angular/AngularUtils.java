@@ -12,9 +12,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
+import org.andromda.cartridges.angular.metafacades.AngularAction;
 import org.andromda.cartridges.angular.metafacades.AngularAttribute;
 import org.andromda.cartridges.angular.metafacades.AngularControllerOperationLogic;
 import org.andromda.cartridges.angular.metafacades.AngularParameter;
@@ -123,6 +125,16 @@ public class AngularUtils {
             } else {
                 return "any";
             }
+        }
+
+        if(typeName.equals("String") || typeName.equals("java.lang.String")) {
+
+            if(typeName.contains("[]")) {
+                return "Array<string>";
+            } else {
+                return "string";
+            }
+            
         }
         
         if(typeName.equalsIgnoreCase("java.lang.Boolean") || typeName.equalsIgnoreCase("Boolean") || typeName.equalsIgnoreCase("boolean")) {
@@ -1835,5 +1847,22 @@ public class AngularUtils {
         }
         
         return false;
+    }
+
+    public static List<FrontEndParameter> getFormFields(List<AngularAction> actions) {
+
+        List<FrontEndParameter> fields = new ArrayList<>();
+        Set<String> tmp = new HashSet<>();
+
+        for(AngularAction action : actions) {
+
+            for(FrontEndParameter parameter : action.getParameters()) {
+                if(tmp.add(parameter.getName())) {
+                    fields.add(parameter);
+                }
+            }
+        }
+
+        return fields;
     }
 }

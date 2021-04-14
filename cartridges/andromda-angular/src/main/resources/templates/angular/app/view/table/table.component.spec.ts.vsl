@@ -4,7 +4,7 @@
 #set ( $className = $angularUtils.getComponentName($fileName, "-"))
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ${className}ImplComponent } from './${fileName}.impl.component';
+import { ${className}ImplComponent } from 'src/app/impl/view/$componentPath/${fileName}.impl.component';
 
 describe('${className}ImplComponent', () => {
 	let component: ${className}ImplComponent;

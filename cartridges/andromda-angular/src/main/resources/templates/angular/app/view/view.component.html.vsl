@@ -6,9 +6,9 @@
 ## Render the form for each action
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
-#set ( $actionName = $angularUtils.getComponentFileName("$action.name") )
+#set ( $selectorName = $angularUtils.getSelectorName("${action.path}") )
 	<div class="card my-5">
-		<$actionName 
+		<$selectorName 
 			[${stringUtils.uncapitalize($tmpName)}Form] = "${stringUtils.uncapitalize($tmpName)}Form"
 #foreach ( $table in $view.tables )
 			(${table.name}) = "set$stringUtils.capitalize(${table.name})($event)"
@@ -16,11 +16,11 @@
 #foreach ($act in $view.actions)
 #foreach ($parameter in $act.parameters)
 #set($name = $stringUtils.replaceChars(${act.trigger.name}, '\\ ', ''))
-			($stringUtils.uncapitalize($name)$stringUtils.capitalize($parameter.name)) = "set$stringUtils.capitalize($name)$stringUtils.capitalize($parameter.name)($event)"
+			($stringUtils.uncapitalize($name)$stringUtils.capitalize($parameter.name)) = "set$stringUtils.capitalize($parameter.name)($event)"
 #end
 #end
 		>
-		</$actionName>
+		</$selectorName>
 	</div>
 #end
 #end
