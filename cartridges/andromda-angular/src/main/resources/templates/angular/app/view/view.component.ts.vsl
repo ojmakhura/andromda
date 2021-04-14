@@ -23,8 +23,8 @@ import { NgForm, FormGroup, FormControl, FormArray, FormBuilder, ReactiveFormsMo
 #foreach ( $action in $view.actions )
 #if (!$action.tableLink)
 #set ( $actionPath = ${action.path} )
-#set ( $actionName = $angularUtils.getComponentFileName("$action.name") )
-import { $angularUtils.getComponentName($action.name, "-")ImplComponent } from 'src/app/impl/view${actionPath}.impl.component';
+#set ( $actionName = $angularUtils.getActionName("$action.path") )
+import { ${actionName}ImplComponent } from 'src/app/impl/view${actionPath}.impl.component';
 #foreach ($field in $action.formFields)
 #if (!(${field.action} && $field.action.tableLinkName))
 #if ($field.complex)
@@ -166,7 +166,7 @@ export abstract class ${tmpName}Component implements OnInit {
 #set ($x = 1)
 #foreach($table in $view.tables)
 
-    set$stringUtils.capitalize(${table.name})(${table.name}: Array<${table.type.name}>): FormArray {
+    set$stringUtils.capitalize(${table.name})(${table.name}: $angularUtils.getDatatype(${table.type.name})): FormArray {
 
         const ${table.name}Array = new FormArray([]);
 

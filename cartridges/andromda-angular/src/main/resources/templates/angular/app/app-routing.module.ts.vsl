@@ -32,11 +32,11 @@
 ## Actions
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
-#set ( $actionPath = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/')" )
+#set ( $actionPath = "${action.path}" )
 #set ( $actionFileName = $angularUtils.getComponentFileName("$action.name") )
-#set ( $actionName = "${angularUtils.getComponentName($action.name, '-')}" )
+#set ( $actionName = $angularUtils.getActionName("$actionPath") )
 #set ( $rt = $classNames.add("${actionName}ImplComponent"))
-#set ( $rt = $imports.add("import { ${actionName}ImplComponent } from ${escTool.s}./impl/view/${action.path}.impl.component${escTool.s};"))
+#set ( $rt = $imports.add("import { ${actionName}ImplComponent } from ${escTool.s}./impl/view${action.path}.impl.component${escTool.s};"))
 #end
 #end
 ## Tables

@@ -335,6 +335,17 @@ public class AngularUtils {
 		String tmp = StringUtils.substringBetween(fullPath, "\"");
 		return StringUtils.substringBefore(tmp, "{");
 	}
+
+    public static String getSelectorName(String path) {
+
+        String[] splits = path.split("/");
+        return splits[splits.length - 1];
+    }
+
+    public static String getActionName(String path) {
+
+        return getComponentName(getSelectorName(path), "-");
+    }
 	
 	public static String getComponentName(String cName, String remove) {
         

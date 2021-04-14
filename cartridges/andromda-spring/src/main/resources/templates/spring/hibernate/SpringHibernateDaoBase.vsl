@@ -1289,7 +1289,7 @@ $h3tab        return results;
         try
         {
 #end
-$h3tab        ${springTypesPackage}.${criteriaSearchBaseName} criteriaSearch = new ${springTypesPackage}.${criteriaSearchBaseName}(super.getSession(), ${entity.fullyQualifiedEntityName}.class);
+$h3tab        ${springTypesPackage}.${criteriaSearchBaseName} criteriaSearch = new ${springTypesPackage}.${criteriaSearchBaseName}(this.getSession(), ${entity.fullyQualifiedEntityName}.class);
 $h3tab        criteriaSearch.getConfiguration().setFirstResult(${criteriaArgumentName}.getFirstResult());
 $h3tab        criteriaSearch.getConfiguration().setFetchSize(${criteriaArgumentName}.getFetchSize());
 $h3tab        criteriaSearch.getConfiguration().setMaximumResultSize(${criteriaArgumentName}.getMaximumResultSize());

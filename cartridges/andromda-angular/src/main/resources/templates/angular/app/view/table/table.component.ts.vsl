@@ -75,7 +75,7 @@ export abstract class ${className}Component implements OnInit {
     protected $stringUtils.uncapitalize($service.name): ${service.name}$suffix;
 #end
 #end
-    protected $stringUtils.uncapitalize($viewName): ${viewName}ImplComponent;
+    protected ${stringUtils.uncapitalize($viewName)}Component: ${viewName}ImplComponent;
     protected _injector: Injector;
 
     constructor(injector: Injector) {
@@ -86,7 +86,7 @@ export abstract class ${className}Component implements OnInit {
         this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name}$suffix);
 #end
 #end
-        this.$stringUtils.uncapitalize($viewName) = injector.get(${viewName}ImplComponent);
+        this.${stringUtils.uncapitalize($viewName)}Component = injector.get(${viewName}ImplComponent);
         this.formBuilder = injector.get(FormBuilder);
         this._injector = injector;
     }

@@ -2735,6 +2735,10 @@ public class WebServiceUtils
      * @return 
      */
     public static String getRequestType(String requestType) {
+
+        if(StringUtils.isBlank(requestType)) {
+            return "@org.springframework.web.bind.annotation.PostMapping";
+        }
         
         String[] splits = requestType.split("\\.");        
         String rt = splits[splits.length-1];
@@ -2806,6 +2810,13 @@ public class WebServiceUtils
                     builder.append(" ");
                 }
                 builder.append("@org.springframework.web.bind.annotation.RequestParam");
+            }
+         
+            if(paramType.contains("RequestAttribute")) {
+                if(builder.length() > 0) {
+                    builder.append(" ");
+                }
+                builder.append("@org.springframework.web.bind.annotation.RequestAttribute");
             }
 
             if(builder.length() > 0) {

@@ -23,9 +23,9 @@
             </ng-container>
 #end
 #foreach ($column in $table.tableColumns)
-            <ng-container matColumnDef="${column.name}">
-                <mat-header-cell *matHeaderCellDef>$stringUtils.toPhrase(${column.name})</mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{ row.get('${column.name}').value }} </mat-cell>
+            <ng-container matColumnDef="${column}">
+                <mat-header-cell *matHeaderCellDef>$stringUtils.toPhrase(${column})</mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row.get('${column}').value }} </mat-cell>
             </ng-container>
 #end
             <mat-header-row *matHeaderRowDef="${table.name}Columns"></mat-header-row>
