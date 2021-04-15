@@ -1215,6 +1215,9 @@
 #if ($webType.equals("both") || $webType.equals("jsf"))
         <module>web</module>
 #end
+#if ($webType.equals("both") || $webType.equals("angular"))
+        <module>angular</module>
+#end
 #if (!$webservice.equals("none") && !$jsr181Webservice && ($ear || $cxf))
         <module>webservice</module>
 #if ($cxf)
