@@ -172,14 +172,14 @@
         </mapping>
         
         <!-- Angular -->
-        <mapping>
+        <!-- <mapping>
             <from>angular/src/main/java/SpringApplication.java.vsl</from>
             <to>angular/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}AngularApplication.java.vsl</to>
         </mapping>
         <mapping>
             <from>angular/src/test/SpringApplicationTest.java.vsl</from>
             <to>angular/src/test/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}AngularApplicationTests.java.vsl</to>
-        </mapping>
+        </mapping> -->
         <mapping>
             <from>angular/src/app/app.component.ts.vsl</from>
             <to>angular/src/app/app.component.ts.vsl</to>
@@ -197,100 +197,42 @@
             <to>angular/src/app/app.component.html.vsl</to>
         </mapping>
         <mapping>
-            <from>angular/src/app/app.constants.ts.vsl</from>
-            <to>angular/src/app/app.constants.ts.vsl</to>
-        </mapping>
-        
-        <!-- Angular Header -->
-        <mapping>
-            <from>angular/src/app/header/header.component.ts.vsl</from>
-            <to>angular/src/app/header/header.component.ts.vsl</to>
+            <from>angular/src/app/app.module.ts.vsl</from>
+            <to>angular/target/src/app/app.module.ts.vsl</to>
         </mapping>
         <mapping>
-            <from>angular/src/app/header/header.component.spec.ts.vsl</from>
-            <to>angular/src/app/header/header.component.spec.ts.vsl</to>
+            <from>angular/README.md.vsl</from>
+            <to>angular/README.md.vsl</to>
         </mapping>
         <mapping>
-            <from>angular/src/app/header/header.component.css.vsl</from>
-            <to>angular/src/app/header/header.component.css.vsl</to>
+            <from>angular/.yo-rc.json.vsl</from>
+            <to>angular/.yo-rc.json.vsl</to>
         </mapping>
         <mapping>
-            <from>angular/src/app/header/header.component.html.vsl</from>
-            <to>angular/src/app/header/header.component.html.vsl</to>
-        </mapping>
-        
-        <!-- Angular Main -->
-        <mapping>
-            <from>angular/src/app/main/main.component.ts.vsl</from>
-            <to>angular/src/app/main/main.component.ts.vsl</to>
+            <from>angular/package.json.vsl</from>
+            <to>angular/package.json.vsl</to>
         </mapping>
         <mapping>
-            <from>angular/src/app/main/main.component.spec.ts.vsl</from>
-            <to>angular/src/app/main/main.component.spec.ts.vsl</to>
+            <from>angular/angular.json.vsl</from>
+            <to>angular/angular.json.vsl</to>
         </mapping>
         <mapping>
-            <from>angular/src/app/main/main.component.css.vsl</from>
-            <to>angular/src/app/main/main.component.css.vsl</to>
+            <from>angular/src/translations/en-US.json.vsl</from>
+            <to>angular/src/translations/en-US.json.vsl</to>
         </mapping>
         <mapping>
-            <from>angular/src/app/main/main.component.html.vsl</from>
-            <to>angular/src/app/main/main.component.html.vsl</to>
-        </mapping>
-        
-        <!-- Angular Navigation -->
-        <mapping>
-            <from>angular/src/app/navigation/navigation.component.ts.vsl</from>
-            <to>angular/src/app/navigation/navigation.component.ts.vsl</to>
+            <from>angular/src/index.html.vsl</from>
+            <to>angular/src/index.html.vsl</to>
         </mapping>
         <mapping>
-            <from>angular/src/app/navigation/navigation.component.spec.ts.vsl</from>
-            <to>angular/src/app/navigation/navigation.component.spec.ts.vsl</to>
+            <from>angular/src/manifest.webmanifest.vsl</from>
+            <to>angular/src/manifest.webmanifest.vsl</to>
         </mapping>
         <mapping>
-            <from>angular/src/app/navigation/navigation.component.css.vsl</from>
-            <to>angular/src/app/navigation/navigation.component.css.vsl</to>
+            <from>angular/docs/readme.md.vsl</from>
+            <to>angular/docs/readme.md.vsl</to>
         </mapping>
-        <mapping>
-            <from>angular/src/app/navigation/navigation.component.html.vsl</from>
-            <to>angular/src/app/navigation/navigation.component.html.vsl</to>
-        </mapping>
-        
-        <!-- Angular Footer -->
-        <mapping>
-            <from>angular/src/app/footer/footer.component.ts.vsl</from>
-            <to>angular/src/app/footer/footer.component.ts.vsl</to>
-        </mapping>
-        <mapping>
-            <from>angular/src/app/footer/footer.component.spec.ts.vsl</from>
-            <to>angular/src/app/footer/footer.component.spec.ts.vsl</to>
-        </mapping>
-        <mapping>
-            <from>angular/src/app/footer/footer.component.css.vsl</from>
-            <to>angular/src/app/footer/footer.component.css.vsl</to>
-        </mapping>
-        <mapping>
-            <from>angular/src/app/footer/footer.component.html.vsl</from>
-            <to>angular/src/app/footer/footer.component.html.vsl</to>
-        </mapping>
-        
-        <!-- Angular Side -->
-        <mapping>
-            <from>angular/src/app/side/side.component.ts.vsl</from>
-            <to>angular/src/app/side/side.component.ts.vsl</to>
-        </mapping>
-        <mapping>
-            <from>angular/src/app/side/side.component.spec.ts.vsl</from>
-            <to>angular/src/app/side/side.component.spec.ts.vsl</to>
-        </mapping>
-        <mapping>
-            <from>angular/src/app/side/side.component.css.vsl</from>
-            <to>angular/src/app/side/side.component.css.vsl</to>
-        </mapping>
-        <mapping>
-            <from>angular/src/app/side/side.component.html.vsl</from>
-            <to>angular/src/app/side/side.component.html.vsl</to>
-        </mapping>
-		
+        		
 		<!-- Spring REST Webservices -->
         <mapping>
             <from>springws/SpringWSApplication.java.vsl</from>

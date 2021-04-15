@@ -455,16 +455,16 @@
         <core.generated.test.dir>${project.basedir}/../core/target/src/test/java</core.generated.test.dir>
         <core.manual.test.dir>${project.basedir}/../core/src/test/java</core.manual.test.dir>
 #end
-#if ($angular)
+#if ($webType.equals("angular") || $webType.equals("both"))
         <angular.base.dir>${project.basedir}/../angular</angular.base.dir>
-        <angular.model.dir>${project.basedir}/../angular/src/app/gen/model</angular.model.dir>
-        <angular.service.dir>${project.basedir}/../angular/src/app/gen/service</angular.service.dir>
-        <angular.service.impl.dir>${project.basedir}/../angular/src/app/impl/service</angular.service.impl.dir>
-        <angular.controller.dir>${project.basedir}/../angular/src/app/gen/controller</angular.controller.dir>
-        <angular.controller.impl.dir>${project.basedir}/../angular/src/app/impl/controller</angular.controller.impl.dir>
-        <angular.view.dir>${project.basedir}/../angular/src/app/gen/view</angular.view.dir>
-        <angular.view.impl.dir>${project.basedir}/../angular/src/app/impl/view</angular.view.impl.dir>
-        <angular.form.dir>${project.basedir}/../angular/src/app/gen/form</angular.form.dir>
+        <angular.model.dir>${project.basedir}/../angular/target/src/app/model</angular.model.dir>
+        <angular.service.dir>${project.basedir}/../angular/target/src/app/service</angular.service.dir>
+        <angular.service.impl.dir>${project.basedir}/../angular/src/app/service</angular.service.impl.dir>
+        <angular.controller.dir>${project.basedir}/../angular/target/src/app/controller</angular.controller.dir>
+        <angular.controller.impl.dir>${project.basedir}/../angular/src/app/controller</angular.controller.impl.dir>
+        <angular.view.dir>${project.basedir}/../angular/target/src/app/view</angular.view.dir>
+        <angular.view.impl.dir>${project.basedir}/../angular/src/app/view</angular.view.impl.dir>
+        <angular.form.dir>${project.basedir}/../angular/target/src/app/form</angular.form.dir>
 #end
 #if ($springws)		
         <springws.generated.dir>${project.basedir}/../springws/target</springws.generated.dir>
@@ -472,7 +472,7 @@
         <springws.manual.dir>${project.basedir}/../springws/src/main</springws.manual.dir>
         <springws.manual.java.dir>${springws.manual.dir}/java</springws.manual.java.dir>
 #end
-#if ($war || $webType.equals("jsf") || $webType.equals("both"))
+#if ($webType.equals("jsf") || $webType.equals("both"))
         <web.generated.dir>${project.basedir}/../web/target</web.generated.dir>
         <web.generated.java.dir>${web.generated.dir}/src/main/java</web.generated.java.dir>
         <web.generated.web.dir>${web.generated.dir}/src/main/webapp</web.generated.web.dir>
