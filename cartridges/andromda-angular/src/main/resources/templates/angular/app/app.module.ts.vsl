@@ -21,42 +21,22 @@
  */
 ##
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ErrorHandler } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { MatTabsModule} from '@angular/material/tabs';
-import { MatTableModule } from '@angular/material/table';
-import { MatListModule } from '@angular/material/list';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { TranslateModule } from '@ngx-translate/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
-import { MatSortModule } from '@angular/material/sort';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { NgForm } from '@angular/forms';
-import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
-import { MomentModule } from 'angular2-moment';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { RequestOptions } from '@angular/http';
-import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
+import { MaterialModule } from './material.module';
 
-import { HeaderComponent } from './header/header.component';
-import { NavigationComponent } from './navigation/navigation.component';
-import { FooterComponent } from './footer/footer.component';
-import { SideComponent } from './side/side.component';
-import { MainComponent } from './main/main.component';
+import { environment } from '@env/environment';
+import { CoreModule } from '@core';
+import { SharedModule } from '@shared';
+import { HomeModule } from './home/home.module';
+import { ShellModule } from './shell/shell.module';
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+
 #set ($component = "component")
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
