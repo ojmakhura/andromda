@@ -84,8 +84,7 @@ import { ${className}ImplComponent } from ${escTool.s}./impl/view/${componentPat
 import { ${className}ImplComponent } from ${escTool.s}./impl/view/${componentPath}/${fileName}.impl.component${escTool.s};
 #end
 
-#set ( $componentSet = $angularUtils.getFacadeSet($actions) )
-#foreach($action in $componentSet)
+#foreach($action in $actions)
 #set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/') )
 #set ( $className = $angularUtils.getActionName("${action.path}"))
 import { ${className}ImplComponent } from ${escTool.s}./impl/view${action.path}.impl.component${escTool.s};
@@ -132,10 +131,9 @@ import { $field.name } from './gen/model/$destination/$fileName';
 #end
 
 #set ($i = 1)
-#set ( $componentSet = $angularUtils.getFacadeSet($actions) )
-#foreach($action in $componentSet)
+#foreach($action in $actions)
 #set ( $className = $angularUtils.getActionName("${action.path}"))
-        ${className}ImplComponent#if($i < $componentSet.size()),#end${escTool.n}#set ( $i = $i + 1 )
+        ${className}ImplComponent#if($i < $actions.size()),#end${escTool.n}#set ( $i = $i + 1 )
 #end
     ],
     imports: [
@@ -229,10 +227,9 @@ import { $field.name } from './gen/model/$destination/$fileName';
         ${className}ImplComponent,
 #end
 #set ($i = 1)
-#set ( $componentSet = $angularUtils.getFacadeSet($actions) )
-#foreach($action in $componentSet)
+#foreach($action in $actions)
 #set ( $className = $angularUtils.getActionName(${action.path}))
-        ${className}ImplComponent#if($i < $componentSet.size()),#end${escTool.n}#set ( $i = $i + 1 )
+        ${className}ImplComponent#if($i < $actions.size()),#end${escTool.n}#set ( $i = $i + 1 )
 #end
 
     ],

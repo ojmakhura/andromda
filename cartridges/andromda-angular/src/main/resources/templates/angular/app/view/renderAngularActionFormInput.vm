@@ -49,7 +49,7 @@ ${ident}	  	<mat-datepicker #$propertyId></mat-datepicker>
 ${ident}		<mat-select name="$propertyId" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" id="$propertyId">
 ${ident}			<mat-option value = "">Select one ...</mat-option>
 #if ($parameter.type.enumeration)
-${ident}			<mat-option *ngFor="let key of ${parameter.name}Options" [value]="key">{{ ${parameter.name}[key] }}</mat-option>
+${ident}			<mat-option *ngFor="let key of ${parameter.name}Options" [value]="key">{{ ${parameter.name}T[key] }}</mat-option>
 #else
 ${ident}			<mat-option *ngFor="let item of ${backingListName}" [value]="item#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration).id#end">{{ item#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration).id#end }}</mat-option>
 #end
