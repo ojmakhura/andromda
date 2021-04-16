@@ -2,7 +2,7 @@
 #set ( $componentPath = $stringUtils.replaceChars($controller.packageName, '\\.', '\\/') )
 #set ( $fileName =  ${angularUtils.getComponentFileName("${controller.name}Impl")})
 import { Injectable, Injector } from '@angular/core';
-import { ${controller.name} } from 'src/app/gen/controller/$componentPath/${angularUtils.getComponentFileName("${controller.name}")}';
+import { ${controller.name} } from '@app/controller/$componentPath/${angularUtils.getComponentFileName("${controller.name}")}';
 
 #set ($types = [])
 #foreach ($operation in $controller.operations)
@@ -13,7 +13,7 @@ import { ${controller.name} } from 'src/app/gen/controller/$componentPath/${angu
 #foreach($type in $angularUtils.getFacadeSet($types))
 #set ( $path = $stringUtils.replaceChars($type.packageName, '\\.', '\\/') )
 #set ( $file =  ${angularUtils.getComponentFileName($type.name)})
-import { $type.name } from 'src/app/gen/model/$path/$file';
+import { $type.name } from '@app/model/$path/$file';
 #end
 
 @Injectable()

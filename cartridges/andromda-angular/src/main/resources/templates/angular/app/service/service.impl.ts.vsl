@@ -18,11 +18,11 @@ import { Injectable, Injector } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 #end
 import { Observable } from 'rxjs';
-import { $service.name } from 'src/app/gen/service/$componentPath/$angularUtils.getComponentFileName(${service.name})';
+import { $service.name } from '@app/service/$componentPath/$angularUtils.getComponentFileName(${service.name})';
 #set ($suffix = "")
 #foreach ($tmp in $angularUtils.getFacadeSet($types))
 #set ($path = $stringUtils.replaceChars(${tmp.packageName}, "\\.", "\\/"))
-import { $tmp.name } from 'src/app/gen/model/$path/$angularUtils.getComponentFileName(${tmp.name})';
+import { $tmp.name } from '@app/model/$path/$angularUtils.getComponentFileName(${tmp.name})';
 #end
 
 @Injectable()

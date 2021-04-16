@@ -3,7 +3,7 @@
 #set ( $fileName = $angularUtils.getComponentFileName("${table.view.name}-${table.name}") )
 #set ( $className = $angularUtils.getComponentName($fileName, "-"))
 import { Component, Injector } from '@angular/core';
-import { ${className}Component } from 'src/app/gen/view/$componentPath/${fileName}.component';
+import { ${className}Component } from '@app/view/$componentPath/${fileName}.component';
 
 @Component({
   selector: '${fileName}',

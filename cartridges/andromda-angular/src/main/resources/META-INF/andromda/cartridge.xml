@@ -285,6 +285,34 @@
     </template>
 	
 	<template
+        path="templates/angular/app/view/view.module.ts.vsl"
+        outputPattern="$componentPath/${fileName}.module.ts"
+        outlet="views"
+        overwrite="false">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="popup">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+	
+	<template
+        path="templates/angular/app/view/view-routing.module.ts.vsl"
+        outputPattern="$componentPath/${fileName}-routing.module.ts"
+        outlet="views"
+        overwrite="false">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="popup">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+	
+	<template
         path="templates/angular/app/view/table/table.component.ts.vsl"
         outputPattern="$componentPath/${fileName}.component.ts"
         outlet="views"

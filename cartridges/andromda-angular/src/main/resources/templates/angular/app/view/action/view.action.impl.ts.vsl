@@ -5,7 +5,7 @@
 #set ( $className = $angularUtils.getActionName("$actionPath") )
 #set($formName = $action.formBeanName)
 import { Component, Injector } from '@angular/core';
-import { ${className}Component } from 'src/app/gen/view${actionPath}.component';
+import { ${className}Component } from '@app/view${actionPath}.component';
 
 @Component({
   selector: '${selectorName}',

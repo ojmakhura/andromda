@@ -25,7 +25,7 @@ import { NgForm, FormGroup, FormControl, FormArray, FormBuilder, ReactiveFormsMo
 #if (!$action.tableLink)
 #set ( $actionPath = ${action.path} )
 #set ( $actionName = $angularUtils.getActionName("$action.path") )
-import { ${actionName}ImplComponent } from 'src/app/impl/view${actionPath}.impl.component';
+import { ${actionName}ImplComponent } from '@app/view${actionPath}.impl.component';
 #foreach ($field in $action.formFields)
 #if (!(${field.action} && $field.action.tableLinkName))
 #if ($field.complex)
@@ -50,7 +50,7 @@ import { ${actionName}ImplComponent } from 'src/app/impl/view${actionPath}.impl.
 #set ( $tablePath = $stringUtils.replaceChars($stringUtils.lowerCase(${table.packageName}), '\\.', '\\/') )
 #set ( $tableFile = $angularUtils.getComponentFileName("${table.view.name}-${table.name}") )
 #set ( $className = $angularUtils.getComponentName($tableFile, "-"))
-import { ${className}ImplComponent } from ${escTool.s}src/app/impl/view/${tablePath}/${tableFile}.impl.component${escTool.s};
+import { ${className}ImplComponent } from ${escTool.s}@app/view/${tablePath}/${tableFile}.impl.component${escTool.s};
 #end
 #set ( $finalAttr = [] ) ## No repetisions
 #foreach ( $at in $angularUtils.getFacadeSet($types) )
@@ -60,12 +60,12 @@ import { ${className}ImplComponent } from ${escTool.s}src/app/impl/view/${tableP
 #foreach($a in $finalAttr)
 #set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${a.packageName}), '\\.', '\\/')" )
 #set ( $name = $angularUtils.getComponentFileName("$a.name") )
-import { $a.name } from 'src/app/gen/model/$path/$name';
+import { $a.name } from '@app/model/$path/$name';
 #end
 
 #set ( $path = $stringUtils.replaceChars($view.useCase.controller.packageName, '\\.', '\\/') )
 #set ( $file =  ${angularUtils.getComponentFileName("${view.useCase.controller.name}Impl")})
-import { ${view.useCase.controller.name}Impl } from 'src/app/impl/controller/$path/${file}';
+import { ${view.useCase.controller.name}Impl } from '@app/controller/$path/${file}';
 
 #set ($tmpName = ${angularUtils.getComponentName("$fileName", "-")})
 @Component({

@@ -14,7 +14,7 @@
 #set ( $rt = $finalFields.add($finalField) )
 #end
 import { Component, Injector } from '@angular/core';
-import { ${className}Component } from 'src/app/gen/view/$componentPath/${fileName}.component';
+import { ${className}Component } from '@app/view/$componentPath/${fileName}.component';
 
 @Component({
   selector: '${fileName}',

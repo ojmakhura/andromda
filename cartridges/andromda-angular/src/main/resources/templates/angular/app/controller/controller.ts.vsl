@@ -6,12 +6,12 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ControllerBase } from 'src/app/gen/controller/utils/controller.base';
+import { ControllerBase } from '@app/controller/utils/controller.base';
 
 #foreach ($service in $controller.allRestControllers)
 #set ($path = $stringUtils.replaceChars(${service.packageName}, "\\.", "\\/"))
 #set ($file = $angularUtils.getComponentFileName("${service.name}Impl"))
-import { ${service.name}Impl } from 'src/app/impl/service/$path/$file';
+import { ${service.name}Impl } from '@app/service/$path/$file';
 #end
 #set($controllers = [])
 #foreach ($action in $controller.useCase.actions)
@@ -29,7 +29,7 @@ import { ${service.name}Impl } from 'src/app/impl/service/$path/$file';
 #if($cnt.name != $controller.name)
 #set ( $path = $stringUtils.replaceChars($cnt.packageName, '\\.', '\\/') )
 #set ( $file =  ${angularUtils.getComponentFileName("${cnt.name}Impl")})
-import { ${cnt.name}Impl } from 'src/app/impl/controller/$path/${file}';
+import { ${cnt.name}Impl } from '@app/controller/$path/${file}';
 #end
 #end
 #set ($types = [])
@@ -41,7 +41,7 @@ import { ${cnt.name}Impl } from 'src/app/impl/controller/$path/${file}';
 #foreach($type in $angularUtils.getFacadeSet($types))
 #set ( $path = $stringUtils.replaceChars($type.packageName, '\\.', '\\/') )
 #set ( $file =  ${angularUtils.getComponentFileName($type.name)})
-import { $type.name } from 'src/app/gen/model/$path/$file';
+import { $type.name } from '@app/model/$path/$file';
 #end
 
 export abstract class $controller.name extends ControllerBase {

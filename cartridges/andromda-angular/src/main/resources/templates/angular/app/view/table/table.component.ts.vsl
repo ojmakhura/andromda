@@ -31,7 +31,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 #if($angularUtils.isWebService($service))
 #set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${service.packageName}), '\\.', '\\/')" )
 #set ( $fname = $angularUtils.getComponentFileName("${service.name}Impl") )
-import { ${service.name}Impl } from 'src/app/impl/service/$path/$fname';
+import { ${service.name}Impl } from '@app/service/$path/$fname';
 #end
 #end
 #set ( $viewFile = $angularUtils.getComponentFileName("${table.view.name}") )
@@ -39,7 +39,7 @@ import { ${service.name}Impl } from 'src/app/impl/service/$path/$fname';
 import { ${viewName}ImplComponent } from 'src/app/impl/view/$componentPath/${viewFile}.impl.component';
 #set ( $path = $stringUtils.replaceChars($table.view.useCase.controller.packageName, '\\.', '\\/') )
 #set ( $file =  ${angularUtils.getComponentFileName("${table.view.useCase.controller.name}Impl")})
-import { ${table.view.useCase.controller.name}Impl } from 'src/app/impl/controller/$path/${file}';
+import { ${table.view.useCase.controller.name}Impl } from '@app/controller/$path/${file}';
 
 @Component({
   selector: '${fileName}-base',

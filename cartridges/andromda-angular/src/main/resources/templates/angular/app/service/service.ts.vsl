@@ -20,7 +20,7 @@ import { Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 #foreach ($tmp in $angularUtils.getFacadeSet($types))
 #set ($path = $stringUtils.replaceChars(${tmp.packageName}, "\\.", "\\/"))
-import { $tmp.name } from 'src/app/gen/model/$path/$angularUtils.getComponentFileName(${tmp.name})';
+import { $tmp.name } from '@app/model/$path/$angularUtils.getComponentFileName(${tmp.name})';
 #end
 
 export abstract class $service.name {

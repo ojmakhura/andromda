@@ -32,29 +32,29 @@ import { ${viewName}ImplComponent } from 'src/app/impl/view${action.source.path}
 #foreach ($param in $angularUtils.getFacadeSet($parameters))
 #set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${param.packageName}), '\\.', '\\/')" )
 #set ( $fname = $angularUtils.getComponentFileName("${param.name}") )
-import { ${param.name} } from 'src/app/gen/model/$path/$fname';
+import { ${param.name} } from '@app/model/$path/$fname';
 #end
 #foreach ($enum in $angularUtils.getFacadeSet($enumerations))
 #set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${enum.packageName}), '\\.', '\\/')" )
 #set ( $fname = $angularUtils.getComponentFileName("${enum.name}") )
-import { ${enum.name} } from 'src/app/gen/model/$path/$fname';
+import { ${enum.name} } from '@app/model/$path/$fname';
 #end
 #set ($args = [])
 #foreach ($service in $action.controller.allRestControllers)
 #set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${service.packageName}), '\\.', '\\/')" )
 #set ( $fname = $angularUtils.getComponentFileName("${service.name}Impl") )
-import { ${service.name}Impl } from 'src/app/impl/service/$path/$fname';
+import { ${service.name}Impl } from '@app/service/$path/$fname';
 #end
 #if($action.controller)
 #set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.controller.packageName}), '\\.', '\\/')" )
 #set ( $fname = $angularUtils.getComponentFileName("${action.controller.name}Impl") )
-import { ${action.controller.name}Impl } from 'src/app/impl/controller/$path/$fname';
+import { ${action.controller.name}Impl } from '@app/controller/$path/$fname';
 #end
 #foreach( $parameter in $action.parameters )
 #if($parameter.type.enumeration)
 #set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${parameter.type.packageName}), '\\.', '\\/')" )
 #set ( $fname = $angularUtils.getComponentFileName("${parameter.type.name}") )
-import { ${parameter.type.name} } from 'src/app/gen/model/$path/$fname';
+import { ${parameter.type.name} } from '@app/model/$path/$fname';
 #end
 #end
 

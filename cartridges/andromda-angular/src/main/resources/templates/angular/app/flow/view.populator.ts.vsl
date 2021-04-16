@@ -29,13 +29,13 @@
 ##foreach ( $form in $angularUtils.getFacadeSet($forms) )
 ##set ( $formPath = $stringUtils.replaceChars($form.packageName, '\\.', '\\/') )
 ##set ( $formFile =  ${angularUtils.getComponentFileName("${form.formImplementationName}")})
-##import { $form.getFormImplementationName() } from 'src/app/gen/form/$formPath/${formFile}';
+##import { $form.getFormImplementationName() } from '@app/form/$formPath/${formFile}';
 ##end
 #foreach ( $action in $useCase.actions )
 #if(!$action.formFields.empty && !$action.equals($view.formActions))
 #set ( $formPath = $stringUtils.replaceChars($action.packageName, '\\.', '\\/') )
 #set ( $formFile =  ${angularUtils.getComponentFileName("${action.formImplementationName}")})
-import { $action.getFormImplementationName() } from 'src/app/gen/form/$formPath/${formFile}';
+import { $action.getFormImplementationName() } from '@app/form/$formPath/${formFile}';
 #end
 #end
 
