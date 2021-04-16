@@ -50,6 +50,13 @@ import { ${service.name}Impl } from 'src/app/impl/service/$path/$fname';
 #set ( $fname = $angularUtils.getComponentFileName("${action.controller.name}Impl") )
 import { ${action.controller.name}Impl } from 'src/app/impl/controller/$path/$fname';
 #end
+#foreach( $parameter in $action.parameters )
+#if($parameter.type.enumeration)
+#set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${parameter.type.packageName}), '\\.', '\\/')" )
+#set ( $fname = $angularUtils.getComponentFileName("${parameter.type.name}") )
+import { ${parameter.type.name} } from 'src/app/gen/model/$path/$fname';
+#end
+#end
 
 @Component({
   selector: '${selectorName}-base',
@@ -110,8 +117,8 @@ export abstract class ${className}Component implements OnInit {
 #end
 #else
 #if($parameter.type.enumeration)
-    $parameter.name = $parameter.type.name;
-    ${parameter.name}Options = [];
+    ${parameter.name}T = $parameter.type.name;
+    ${parameter.name}Options = Object.keys(this.${parameter.name}T);
 #elseif($parameter.inputSelect)
 #set($ret = $selections.add($parameter.type))
     ${parameter.name}BackingList: Array<$angularUtils.getDatatype($parameter.type.name)> = [];

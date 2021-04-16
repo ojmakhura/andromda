@@ -123,7 +123,7 @@
     
     <template
         path="templates/angular/app/navigation/navigation.component.html.vsl"
-        outputPattern="navigation/$stringUtils.lowerCase(${applicationId})-navigation.component.html"
+        outputPattern="navigation/navigation.component.html"
         outlet="angularAppDir"
         overwrite="true"
         outputToSingleFile="true"
