@@ -30,7 +30,7 @@
                 <mat-cell *matCellDef="let row">
                     <div class = "form-group">
 ##renderAngularTableCommandLinkParameters("                ")
-                        <a (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())">$stringUtils.toPhrase($action.trigger.messageKey)</a> 
+                        <a routerLink="" (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())">$stringUtils.toPhrase($action.trigger.messageKey)</a> 
                     </div>    
                 </mat-cell>
             </ng-container>

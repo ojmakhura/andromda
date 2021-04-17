@@ -50,7 +50,7 @@ export abstract class ${className}Component implements OnInit {
 ')
 
     ${table.name}Columns = [
-#if($table.tableFormActions.size() > 0)
+#if($table.tableFormActions.size() > 0 || $table.tableHyperlinkActions.size() > 0)
 		'actions',
 #end
 #set($i = 1)
@@ -153,6 +153,16 @@ export abstract class ${className}Component implements OnInit {
 #end	
 #end
 #end
+#end
+
+#foreach ($action in $table.tableHyperlinkActions)
+    abstract do$stringUtils.capitalize(${action.triggerName})(#renderAngularTableCommandLinkParametersWithTypes()): any;
+	
+	${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes()) {
+
+		let params = this.do$stringUtils.capitalize(${action.triggerName})(#renderAngularTableCommandLinkParametersPlain());
+        this.${action.controller.beanName}.${action.triggerName}();
+	}
 #end
 
     get ${table.view.useCase.controller.beanName}(): ${table.view.useCase.controller.name}Impl {
