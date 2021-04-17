@@ -64,7 +64,7 @@ export abstract class $controller.name extends ControllerBase {
 
 #end
 #foreach ($service in $controller.allRestControllers)
-    protected $stringUtils.uncapitalize($service.name): ${service.name}Impl;
+    $stringUtils.uncapitalize($service.name): ${service.name}Impl;
 #end
     protected _injector: Injector;
 
