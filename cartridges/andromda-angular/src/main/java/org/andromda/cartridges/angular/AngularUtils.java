@@ -1865,4 +1865,13 @@ public class AngularUtils {
 
         return fields;
     }
+
+    public static Object checkTableLink(AngularParameter parameter) {
+
+        System.out.println("=========================================== " + parameter.findTaggedValue(AngularProfile.ANGULAR_VIEW_VIEW_TYPE));
+
+        return parameter.findTaggedValue(AngularProfile.ANGULAR_VIEW_VIEW_TYPE);
+
+        //return false;
+    }
 }

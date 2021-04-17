@@ -32,7 +32,7 @@ export class ${className}ImplComponent extends ${className}Component {
   
 #end
 #foreach ($action in $table.tableHyperlinkActions)
-  abstract do$stringUtils.capitalize(${action.triggerName})(#renderAngularTableCommandLinkParametersWithTypes()): any {
+  do$stringUtils.capitalize(${action.triggerName})(#renderAngularTableCommandLinkParametersWithTypes()): any {
 
   }
 	

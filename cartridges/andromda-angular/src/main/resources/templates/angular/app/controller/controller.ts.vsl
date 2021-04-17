@@ -68,6 +68,40 @@ export abstract class $controller.name extends ControllerBase {
 #end
     protected _injector: Injector;
 
+$controller.useCase
+#foreach ($view in $controller.useCase.views)
+##    $view
+##    $view.forwards
+##    $view.backingValueVariables
+##    $view.formActions
+
+    1 $view.allActionParameters
+    2 $view.allFormFields
+    3 $view.variables
+
+#foreach ($action in $view.formActions)
+#if ($action.hyperlink || $action.tableLink)
+    $action
+    $action.tableLink
+    $action.hyperlink
+    $action.tableAction
+    $action.tableLinkParameter
+    $action.parameters
+    $action.attributes
+    $action.actionStates
+    $action.tableLinkName
+    
+#foreach ($param in $action.parameters)
+    $param
+    $angularUtils.checkTableLink($param)
+    $param.getTableColumnActions()
+    $param.taggedValues
+
+#end
+#end
+#end
+#end
+
     constructor(injector: Injector) {
         super(injector);
 #foreach ($service in $controller.allRestControllers)  
