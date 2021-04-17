@@ -9,5 +9,6 @@
 #set ($parameterValue = "$parameter.name")
 #end
 ${ident}<f:setPropertyActionListener target="#{${action.formBeanName}.${parameter.name}}" value="#{${parameterValue}}"/>
+${ident}<a (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())">$stringUtils.toPhrase($action.trigger.messageKey)</a> 
 #end
 #end

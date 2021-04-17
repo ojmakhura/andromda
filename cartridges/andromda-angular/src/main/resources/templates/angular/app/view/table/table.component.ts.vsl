@@ -20,7 +20,7 @@ $tmp
 #set ( $ret = $services.add($service) )
 #end
 #end
-#set ( $finalServices = [] ) ## No repetisions
+#set ( $finalServices = [] ) ## No repetitions
 #foreach ( $finalService in $angularUtils.getFacadeSet($services) )
 #set ($rt = $finalServices.add($finalService) )
 #end
@@ -169,7 +169,7 @@ export abstract class ${className}Component implements OnInit {
 #set($i = 1)
 #foreach ($column in $table.tableColumns)
 #if(!($column.upper>1 || $column.upper==-1))
-            $angularUtils.getColumnName($column): ['$column.name']#if($i < $table.tableColumns.size()),$cr#end
+            $angularUtils.getColumnName($column): ['$column']#if($i < $table.tableColumns.size()),$cr#end
 #end
 #set($i = $i + 1)
 #end
@@ -179,7 +179,7 @@ export abstract class ${className}Component implements OnInit {
 #set($i = 1)
 #foreach ($column in $table.tableColumns)
 #if(!($column.upper > 1 || $column.upper == -1))
-            $angularUtils.getColumnName($column): ['$column.name']#if($i < $table.tableColumns.size()),$cr#end
+            $angularUtils.getColumnName($column): ['$column']#if($i < $table.tableColumns.size()),$cr#end
 #end
 #set($i = $i + 1)
 #end
@@ -189,7 +189,7 @@ export abstract class ${className}Component implements OnInit {
 #set($i = 1)
 #foreach ($column in $table.tableColumns)
 #if(!($column.upper>1 || $column.upper==-1))
-            $angularUtils.getColumnName($column): ['$column.name']#if($i < $table.tableColumns.size()),$cr#end
+            $angularUtils.getColumnName($column): ['$column']#if($i < $table.tableColumns.size()),$cr#end
 #end
 #set($i = $i + 1)
 #end

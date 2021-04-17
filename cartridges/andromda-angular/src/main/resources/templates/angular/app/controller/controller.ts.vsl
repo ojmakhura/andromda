@@ -38,6 +38,13 @@ import { ${cnt.name}Impl } from '@app/controller/$path/${file}';
 #set ($rt = $types.add($operation.returnType))
 #end
 #end
+#if(${controller.attributes.size()} > 0)
+#foreach ($arg in $controller.attributes)
+#if($angularUtils.isComplex($arg.type))
+#set ($rt = $types.add($arg.type))
+#end
+#end
+#end
 #foreach($type in $angularUtils.getFacadeSet($types))
 #set ( $path = $stringUtils.replaceChars($type.packageName, '\\.', '\\/') )
 #set ( $file =  ${angularUtils.getComponentFileName($type.name)})
@@ -46,6 +53,16 @@ import { $type.name } from '@app/model/$path/$file';
 
 export abstract class $controller.name extends ControllerBase {
 
+#if(${controller.attributes.size()} > 0)
+#foreach ($arg in $controller.attributes)
+#if($angularUtils.isArray($arg.getterSetterTypeName))
+    $arg.name: Array<$angularUtils.getDatatype($arg.type.name)>;
+#else
+    $arg.name: $angularUtils.getDatatype($arg.type.name);
+#end
+#end
+
+#end
 #foreach ($service in $controller.allRestControllers)
     protected $stringUtils.uncapitalize($service.name): ${service.name}Impl;
 #end
