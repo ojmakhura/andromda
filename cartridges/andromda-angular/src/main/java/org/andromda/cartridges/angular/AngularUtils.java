@@ -1811,12 +1811,12 @@ public class AngularUtils {
         int i = formCall.indexOf('(');
         int j = formCall.indexOf(')');
 
-        String params = formCall.substring(i + 1, j).strip();
+        String params = formCall.substring(i + 1, j).trim();
 
         String[] prms = params.split(",");
 
         for(int k = 0; k < prms.length; k++) {
-            prms[k] = "form." + prms[k].strip();
+            prms[k] = "form." + prms[k].trim();
         }
 
         StringBuilder builder = new StringBuilder();
