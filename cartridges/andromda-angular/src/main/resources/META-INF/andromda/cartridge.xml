@@ -431,4 +431,18 @@
         outputPattern="$generatedFile"
         outlet="controllers"
         overwrite="true"/>
+
+    <!--template
+        path="templates/angular/app/flow/view.populator.ts.vsl"
+        outputPattern="$componentPath/${fileName}.populator.ts"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements>
+            <modelElement variable="useCase">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="views"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template-->
 </cartridge>

@@ -40,8 +40,6 @@ import { ${cnt.name}Impl } from 'src/app/impl/controller/$path/${file}';
 #end
 #foreach ($field in $operation.formFields)
 #set ($rt = $formFields.add($field))
-$field.type
-$field.type.enumeration
 #if($angularUtils.isComplex($field))
 #set ($rt = $types.add($field.type))
 #end
@@ -62,7 +60,6 @@ import { $type.name } from 'src/app/gen/model/$path/$file';
 
 export abstract class $controller.name extends ControllerBase {
 
-<<<<<<< HEAD
 #if(${controller.attributes.size()} > 0)
 #foreach ($arg in $controller.attributes)
 #if($angularUtils.isArray($arg.getterSetterTypeName))
@@ -70,51 +67,16 @@ export abstract class $controller.name extends ControllerBase {
 #else
     $arg.name: $angularUtils.getDatatype($arg.type.name);
 #end
-#end
 
-=======
+#end
+#end
 #foreach($field in $angularUtils.getFacadeSet($formFields))
     ${field.backingListName}: Array<$angularUtils.getDatatype($field.type.name)> = [];
->>>>>>> master
 #end
 #foreach ($service in $controller.allRestControllers)
     $stringUtils.uncapitalize($service.name): ${service.name}Impl;
 #end
     protected _injector: Injector;
-
-$controller.useCase
-#foreach ($view in $controller.useCase.views)
-##    $view
-##    $view.forwards
-##    $view.backingValueVariables
-##    $view.formActions
-
-    1 $view.allActionParameters
-    2 $view.allFormFields
-    3 $view.variables
-
-#foreach ($action in $view.formActions)
-#if ($action.hyperlink || $action.tableLink)
-    $action
-    $action.tableLink
-    $action.hyperlink
-    $action.tableAction
-    $action.tableLinkParameter
-    $action.parameters
-    $action.attributes
-    $action.actionStates
-    $action.tableLinkName
-    
-#foreach ($param in $action.parameters)
-    $param
-    $angularUtils.checkTableLink($param)
-    $param.getTableColumnActions()
-    $param.taggedValues
-
-#end
-#end
-#end
-#end
 
     constructor(injector: Injector) {
         super(injector);
@@ -122,6 +84,50 @@ $controller.useCase
         this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name}Impl);
 #end
         this._injector = injector;
+    }
+
+/**
+     * Populate action form and page variables
+     *
+     * @param currentView the current view
+     * @param forward the forward view
+     * @param sourceForm the source form
+     * @throws IllegalAccessException
+     * @throws java.lang.reflect.InvocationTargetException
+     * @throws NoSuchMethodException
+     */
+    private populateActionFormsAndPageVariables(currentView: string, forward: string, sourceForm: any): void
+    {
+        if(forward == null)
+        {
+            forward=currentView;
+        }
+        
+        const pageVariables: any = this.getPageVariables(forward);
+#set($showElse=false)
+#foreach ($view in $controller.useCase.views)
+#if ($view.populatorRequired)
+#if($showElse)
+        else
+#end
+        if("${view.path}.ts" == forward)
+        {
+#foreach ($viewAction in $view.formActions)
+#set ($t1 = $stringUtils.substringBefore(${action.getFormImplementationName()}, "Impl"))
+#set ($t2 = $stringUtils.substringBefore(${viewAction.getFormImplementationName()}, "Impl"))
+            // ${viewPopulator}.populateForm(sourceForm,this.${viewAction.formImplementationGetter});
+#end
+#if(!$view.variables.empty)
+            // ${viewPopulator}.populate$stringUtils.upperCamelCaseName($view.name)PageVariables(sourceForm,pageVariables);
+#end
+        }
+#set($showElse=true)
+#if($velocityCount < $controller.useCase.views.size() && $showElse)
+#set($showElse=true)
+#end
+#end
+#end
+        //${managedBeansPackage}.ControllerBase.getUseCaseScope()[CURRENT_PAGE_VARIABLES_KEY] = pageVariables;
     }
     
 #foreach ($operation in $controller.operations)
@@ -148,9 +154,8 @@ $action.trigger.getDocumentation("     * ")
      * @param form the associated form
 #end
      */
-    protected ${action.triggerMethodName}(): void
+    protected ${action.triggerMethodName}(#if(!$action.formFields.empty)form: any#end): void
     {
-        $action.formFields
         //this method can be overridden
     }
 
@@ -167,7 +172,7 @@ $action.trigger.getDocumentation("     * ")
 #if($action.exitingInitialState)     
     protected internalStartUseCase(useCaseParameters: any): string
 #else
-    public ${action.triggerName}()
+    public ${action.triggerName}(#if(!$action.formFields.empty)form: any#end)
 #end
     {
         this.setLastPostedFormClientId('${action.formBeanName}');
@@ -184,11 +189,24 @@ $action.trigger.getDocumentation("     * ")
 #else
 
         //trigger method execution
-        this.${action.triggerMethodName}();
+#if($action.exitingInitialState)  
+        this.${action.triggerMethodName}(
+#if(!$action.formFields.empty)
+            { 
+#foreach($field in $action.formFields)
+                $field.name: useCaseParameters.$field.name, 
+#end
+            }
+#end
+        );
+#else
+        this.${action.triggerMethodName}(#if(!$action.formFields.empty)form#end);
+#end
 
         forward = #processTransition($action)
 #saveMessages($action "        ")
 #if ($formPopulationOperationRequired)
+        //populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"${action.source.path}.${facesServletExtension}"#end,forward,form);
 #set ( $actionFile = $angularUtils.getComponentFileName("${action.source.name}"))
 #set ( $actionClass = $angularUtils.getComponentName($actionFile, "-") )
 #if(!$action.exitingInitialState && !$action.enteringFinalState)
@@ -223,7 +241,7 @@ $actionState.getDocumentation("     * ")
      * @return the forward view
      * @throws Throwable
      */
-    protected ${actionState.actionMethodName}#if (!$action.formFields.empty)${action.formImplementationName}#end(): string
+    protected ${actionState.actionMethodName}#if (!$action.formFields.empty)${action.formImplementationName}#end(#if(!$action.formFields.empty)form: any#end): string
     {
         let forward: string = null;
 #if ($actionState.controllerCalls.empty && $actionState.serviceCalls.empty)

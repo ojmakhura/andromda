@@ -22,9 +22,21 @@ this.closeDialog()
 #set ( $cls = $angularUtils.getComponentName($pt, "-") )
 '$stringUtils.lowerCase($cls)';
 #elseif ($transition.enteringDecisionPoint)
-this.__${transition.operationCall.name}();
+this.__${transition.operationCall.name}(#if(!$action.formFields.empty)form#end);
 #else
-this.${transition.target.actionMethodName}#if (!$action.formFields.empty)${action.formImplementationName}#end();
+#if($action.exitingInitialState)  
+this.${transition.target.actionMethodName}#if (!$transition.formFields.empty)${action.formImplementationName}#end(
+#if(!$action.formFields.empty)
+    {
+#foreach($field in $action.formFields)
+        $field.name: useCaseParameters.$field.name, 
+#end    
+    }
+#end
+);
+#else
+this.${transition.target.actionMethodName}#if (!$transition.formFields.empty)${action.formImplementationName}#end(#if(!$action.formFields.empty)form#end);
+#end
 #end
 #end
 ##

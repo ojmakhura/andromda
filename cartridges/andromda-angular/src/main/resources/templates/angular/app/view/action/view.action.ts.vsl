@@ -189,14 +189,23 @@ export abstract class ${className}Component implements OnInit {
 #end
 #end
 #end	
-	abstract do$stringUtils.capitalize(${action.triggerName})();
-    abstract after$stringUtils.capitalize(${action.triggerName})();
+	abstract do$stringUtils.capitalize(${action.triggerName})(#if(!$action.formFields.empty)form: any#end);
+
+    abstract after$stringUtils.capitalize(${action.triggerName})(#if(!$action.formFields.empty)form: any#end);
     
     ${action.triggerName}() {
-		this.do$stringUtils.capitalize(${action.triggerName})();
-        this.${action.controller.beanName}.${action.triggerName}();
 
-        this.after$stringUtils.capitalize(${action.triggerName})();
+#if(!$action.formFields.empty)
+        let form = {
+#foreach($field in $action.formFields)
+                $field.name: this.${stringUtils.uncapitalize($viewName)}Form.get('$field.name').value,
+#end
+            }
+#end
+		this.do$stringUtils.capitalize(${action.triggerName})(#if(!$action.formFields.empty)form#end);
+        this.${action.controller.beanName}.${action.triggerName}(#if(!$action.formFields.empty)form#end);
+
+        this.after$stringUtils.capitalize(${action.triggerName})(#if(!$action.formFields.empty)form#end);
     }
 
 #if($action.controller)

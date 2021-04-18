@@ -27,12 +27,12 @@ export class ${className}ImplComponent extends ${className}Component {
   }
 
 #foreach ($action in $table.tableFormActions)
-	do$stringUtils.capitalize(${action.triggerName})(#renderAngularTableCommandLinkParametersWithTypes()): any {
+	do$stringUtils.capitalize(${action.triggerName})(#if($action.parameters).size() > 0)form: any#end): any {
 	}
   
 #end
 #foreach ($action in $table.tableHyperlinkActions)
-  do$stringUtils.capitalize(${action.triggerName})(#renderAngularTableCommandLinkParametersWithTypes()): any {
+  do$stringUtils.capitalize(${action.triggerName})(#if($action.parameters).size() > 0)form: any#end): any {
 
   }
 	

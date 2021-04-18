@@ -1807,7 +1807,31 @@ public class AngularUtils {
     }
 
     public static String removeFormFromParams(String formCall) {
-        return formCall.replace("form", "");
+        
+        int i = formCall.indexOf('(');
+        int j = formCall.indexOf(')');
+
+        String params = formCall.substring(i + 1, j).strip();
+
+        String[] prms = params.split(",");
+
+        for(int k = 0; k < prms.length; k++) {
+            prms[k] = "form." + prms[k].strip();
+        }
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(formCall.substring(0, i+1));
+
+        for(int k = 0; k < prms.length; k++) {
+            
+            builder.append(prms[k]);
+            builder.append(", ");
+        }
+
+        builder.append(")");
+
+        return builder.toString();
     }
     
     public static boolean isServiceOnly(ModelElementFacade obj) {

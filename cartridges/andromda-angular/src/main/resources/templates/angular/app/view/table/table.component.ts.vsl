@@ -143,12 +143,13 @@ export abstract class ${className}Component implements OnInit {
 #set ($routeName = $stringUtils.deleteWhitespace($stringUtils.replace($viewName, '-', '')))
 	// this.router.navigate(['/$routeName'], {state: {params}});
 #end
-	abstract do$stringUtils.capitalize(${action.triggerName})(#renderAngularTableCommandLinkParametersWithTypes()): any;
+	abstract do$stringUtils.capitalize(${action.triggerName})(form: any): any;
 	
 	${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes()) {
 
-		let params = this.do$stringUtils.capitalize(${action.triggerName})(#renderAngularTableCommandLinkParametersPlain());
-        this.${action.controller.beanName}.${action.triggerName}();
+        let form = #renderAngularTableCommandLinkParametersForm()
+		let params = this.do$stringUtils.capitalize(${action.triggerName})(form);
+        this.${action.controller.beanName}.${action.triggerName}(form);
 	}
 #end	
 #end
@@ -156,12 +157,12 @@ export abstract class ${className}Component implements OnInit {
 #end
 
 #foreach ($action in $table.tableHyperlinkActions)
-    abstract do$stringUtils.capitalize(${action.triggerName})(#renderAngularTableCommandLinkParametersWithTypes()): any;
+    abstract do$stringUtils.capitalize(${action.triggerName})(form: any): any;
 	
 	${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes()) {
-
-		let params = this.do$stringUtils.capitalize(${action.triggerName})(#renderAngularTableCommandLinkParametersPlain());
-        this.${action.controller.beanName}.${action.triggerName}();
+        let form = #renderAngularTableCommandLinkParametersForm()
+		let params = this.do$stringUtils.capitalize(${action.triggerName})(form);
+        this.${action.controller.beanName}.${action.triggerName}(form);
 	}
 #end
 
