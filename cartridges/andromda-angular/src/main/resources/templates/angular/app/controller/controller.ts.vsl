@@ -33,9 +33,18 @@ import { ${cnt.name}Impl } from 'src/app/impl/controller/$path/${file}';
 #end
 #end
 #set ($types = [])
+#set ($formFields = [])
 #foreach ($operation in $controller.operations)
 #if($angularUtils.isComplex($operation.returnType))
 #set ($rt = $types.add($operation.returnType))
+#end
+#foreach ($field in $operation.formFields)
+#set ($rt = $formFields.add($field))
+$field.type
+$field.type.enumeration
+#if($angularUtils.isComplex($field))
+#set ($rt = $types.add($field.type))
+#end
 #end
 #end
 #if(${controller.attributes.size()} > 0)
@@ -53,6 +62,7 @@ import { $type.name } from 'src/app/gen/model/$path/$file';
 
 export abstract class $controller.name extends ControllerBase {
 
+<<<<<<< HEAD
 #if(${controller.attributes.size()} > 0)
 #foreach ($arg in $controller.attributes)
 #if($angularUtils.isArray($arg.getterSetterTypeName))
@@ -62,6 +72,10 @@ export abstract class $controller.name extends ControllerBase {
 #end
 #end
 
+=======
+#foreach($field in $angularUtils.getFacadeSet($formFields))
+    ${field.backingListName}: Array<$angularUtils.getDatatype($field.type.name)> = [];
+>>>>>>> master
 #end
 #foreach ($service in $controller.allRestControllers)
     $stringUtils.uncapitalize($service.name): ${service.name}Impl;
@@ -116,7 +130,7 @@ $operation.getDocumentation("     * ")
      *
      * @param form the associated form
      */
-    $angularUtils.getFormOperationSignature($operation, true);
+    $operation.formSignature
 #end
 
 #foreach ($action in $controller.useCase.actions)
@@ -136,6 +150,7 @@ $action.trigger.getDocumentation("     * ")
      */
     protected ${action.triggerMethodName}(): void
     {
+        $action.formFields
         //this method can be overridden
     }
 
