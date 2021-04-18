@@ -455,7 +455,7 @@ public class AngularUtils {
             type = ((ParameterFacade)element).getType();
         } else if(element instanceof FrontEndParameter) {
             type = ((FrontEndParameter)element).getType();
-        }
+        } 
 		
         if (type != null)
         {
