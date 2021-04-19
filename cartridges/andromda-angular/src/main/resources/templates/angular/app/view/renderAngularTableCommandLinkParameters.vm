@@ -22,7 +22,7 @@ $param#if($i < $params.size()),$cr#end
 ## This macro renders the parameters for a function
 ##
 #macro (renderAngularTableCommandLinkParametersWithTypes)
-#set ( $params = [])
+#set ( $params = [] )
 #set($cr = '
 ')
 #foreach ($parameter in $action.parameters)
@@ -51,4 +51,22 @@ $param#if($i < $params.size()),$cr#end
 #set($i = $i + 1)
 $param#if($i < $params.size()),$cr#end
 #end
+#end
+##
+## This macro renders the parameters for a function
+##
+#macro (renderAngularTableCommandLinkParametersForm)
+#set ( $params = [])
+#set($cr = '
+')
+#foreach ($parameter in $action.parameters)
+#set ( $type = $angularUtils.getDatatype(${parameter.type.fullyQualifiedName}))
+#set ( $ret = $params.add("$parameter.name") )
+#end
+#set($i = 0)
+{
+#foreach( $param in $params)
+            $param: $param,
+#end
+        };
 #end

@@ -34,8 +34,6 @@ import { CoreModule } from '@core';
 import { SharedModule } from '@shared';
 import { HomeModule } from './home/home.module';
 import { ShellModule } from './shell/shell.module';
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
 
 #set ($component = "component")
 import { AppRoutingModule } from './app-routing.module';
@@ -50,24 +48,6 @@ import { ConnectFormDirective } from './connect-form.directive';
 #renderImports($useCase)
 #end
 
-#set ( $finalServices = $angularUtils.getFacadeSet($services) )
-#foreach($service in $finalServices)
-#if($angularUtils.isWebService($service))
-#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${service.packageName}), '\\.', '\\/') )
-#set ( $fileName = $angularUtils.getComponentFileName("${service.name}") )
-#set ( $className = $angularUtils.getComponentName($fileName, "-"))
-import { ${service.name}Impl } from ${escTool.s}./service/$componentPath/${fileName}-impl${escTool.s};
-#end
-#end
-
-#set ( $controllerSet = $angularUtils.getFacadeSet($controllers) )
-#foreach($controller in $controllerSet)
-#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${controller.packageName}), '\\.', '\\/') )
-#set ( $fileName = $angularUtils.getComponentFileName("${controller.name}") )
-#set ( $className = $angularUtils.getComponentName($fileName, "-"))
-import { ${controller.name}Impl } from ${escTool.s}./controller/$componentPath/${fileName}-impl${escTool.s};
-#end
-
 #set ( $componentSet = $angularUtils.getFacadeSet($views) )
 #foreach($view in $componentSet)
 #set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
@@ -76,60 +56,11 @@ import { ${controller.name}Impl } from ${escTool.s}./controller/$componentPath/$
 import { ${className}Module } from ${escTool.s}./view/${componentPath}/${fileName}.module${escTool.s};
 #end
 
-#set ( $componentSet = $angularUtils.getFacadeSet($tables) )
-#foreach($table in $componentSet)
-#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${table.packageName}), '\\.', '\\/') )
-#set ( $fileName = $angularUtils.getComponentFileName("${table.view.name}-${table.name}") )
-#set ( $className = $angularUtils.getComponentName($fileName, "-"))
-import { ${className}ImplComponent } from ${escTool.s}./view/${componentPath}/${fileName}.impl.component${escTool.s};
-#end
-
-#set ( $componentSet = $angularUtils.getFacadeSet($actions) )
-#foreach($action in $componentSet)
-#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/') )
-#set ( $className = $angularUtils.getActionName("${action.path}"))
-import { ${className}ImplComponent } from ${escTool.s}./view${action.path}.impl.component${escTool.s};
-#end
-
-#set ( $finalFields = [] )
-#foreach ($finalField in $angularUtils.getFacadeSet($fields) )
-#set ($dt = $angularUtils.getDatatype($finalField.fullyQualifiedName))
-#if ($dt != "number" && $dt != "string" && $dt != "Date" && $dt != "Collection" && $dt != "any")
-#set ( $rt = $finalFields.add($finalField) )
-#end
-#end
-#set ( $suffix = "" )
-#foreach ( $field in $finalFields )
-#set($destination = $stringUtils.replaceChars(${field.packageName}, "\\.", "\\/"))
-#set($fileName = $angularUtils.getComponentFileName(${field.name}))
-import { $field.name } from './model/$destination/$fileName';
-#end
-
 @NgModule({
     declarations: [
         AppComponent,
 #if($ngrx)
         ConnectFormDirective,
-#end
-#set ( $componentSet = $angularUtils.getFacadeSet($views) )
-#foreach($view in $componentSet)
-#set ( $fileName = $angularUtils.getComponentFileName("${view.name}") )
-#set ( $className = $angularUtils.getComponentName($fileName, "-"))
-        ${className}Module,
-#end
-
-#set ( $componentSet = $angularUtils.getFacadeSet($tables) )
-#foreach($table in $componentSet)
-#set ( $fileName = $angularUtils.getComponentFileName("${table.view.name}-${table.name}") )
-#set ( $className = $angularUtils.getComponentName($fileName, "-"))
-        ${className}ImplComponent,
-#end
-
-#set ($i = 1)
-#set ( $componentSet = $angularUtils.getFacadeSet($actions) )
-#foreach($action in $componentSet)
-#set ( $className = $angularUtils.getActionName("${action.path}"))
-        ${className}ImplComponent#if($i < $componentSet.size()),#end${escTool.n}#set ( $i = $i + 1 )
 #end
     ],
     imports: [
@@ -151,9 +82,14 @@ import { $field.name } from './model/$destination/$fileName';
             metaReducers
         })
 #end
+#set ( $componentSet = $angularUtils.getFacadeSet($views) )
+#foreach($view in $componentSet)
+#set ( $fileName = $angularUtils.getComponentFileName("${view.name}") )
+#set ( $className = $angularUtils.getComponentName($fileName, "-"))
+        ${className}Module,
+#end
     ],
     exports: [
-        
     ],
     providers: [
 #set ($j = 0)
@@ -161,36 +97,36 @@ import { $field.name } from './model/$destination/$fileName';
 #set ($dt = $angularUtils.getDatatype($finalField.fullyQualifiedName))
 #if ($dt != "number" && $dt != "string" && $dt != "Date" && $dt != "Collection" && $dt != "any")
 #set ( $j = $j + 1 )
-        $finalField.name,
+//        $finalField.name,
 #end
 #end
 #set ( $finalServices = $angularUtils.getFacadeSet($services) )
 #foreach ( $finalService in $finalServices )
 #if($angularUtils.isWebService($finalService))
-        ${finalService.name}Impl,
+//        ${finalService.name}Impl,
 #end
 #end
 #set ( $componentSet = $angularUtils.getFacadeSet($controllers) )
 #foreach ( $controller in $componentSet )
-        ${controller.name}Impl,
+//        ${controller.name}Impl,
 #end
 #set ( $componentSet = $angularUtils.getFacadeSet($views) )
 #foreach($view in $componentSet)
 #set ( $fileName = $angularUtils.getComponentFileName("${view.name}") )
 #set ( $className = $angularUtils.getComponentName($fileName, "-"))
-        ${className}ImplComponent,
+//        ${className}ImplComponent,
 #end
 #set ( $componentSet = $angularUtils.getFacadeSet($tables) )
 #foreach($table in $componentSet)
 #set ( $fileName = $angularUtils.getComponentFileName("${table.view.name}-${table.name}") )
 #set ( $className = $angularUtils.getComponentName($fileName, "-"))
-        ${className}ImplComponent,
+//        ${className}ImplComponent,
 #end
 #set ($i = 1)
 #set ( $componentSet = $angularUtils.getFacadeSet($actions) )
 #foreach($action in $componentSet)
 #set ( $className = $angularUtils.getActionName(${action.path}))
-        ${className}ImplComponent#if($i < $componentSet.size()),#end${escTool.n}#set ( $i = $i + 1 )
+//        ${className}ImplComponent#if($i < $componentSet.size()),#end${escTool.n}#set ( $i = $i + 1 )
 #end
 
     ],

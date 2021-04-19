@@ -11,7 +11,6 @@ export abstract class ControllerBase
 {
     static USE_CASE_SCOPE_KEY = 'useCaseScope';
     static CURRENT_PAGE_VARIABLES_KEY = 'viewVariables';
-## *** should go to the namespace configuration
     static PAGE_VARIABLES_SUFFIX = '-pageVariables';
     
     static USE_CASE_PARAMETERS_KEY = 'useCaseParameters';
@@ -72,7 +71,7 @@ export abstract class ControllerBase
     /**
      * Removes all the forms and page variables from the current flash scope.
      */
-    protected resetUseCaseScope(): any
+    resetUseCaseScope(): any
     {
         let useCaseScope = {};
 
@@ -118,7 +117,7 @@ export abstract class ControllerBase
      *
      * @param clientId the client identifier of the last posted form
      */
-    protected setLastPostedFormClientId(clientId)
+    setLastPostedFormClientId(clientId: string)
     {
         localStorage.setItem(ControllerBase.LAST_POSTED_FORM_CLIENT_ID, clientId);
     }
@@ -128,7 +127,7 @@ export abstract class ControllerBase
      *
      * @return the client identifier of the last posted form
      */    
-    public getLastPostedFormClientId(): string
+    getLastPostedFormClientId(): string
     {
         return localStorage.getItem(ControllerBase.LAST_POSTED_FORM_CLIENT_ID);
     }

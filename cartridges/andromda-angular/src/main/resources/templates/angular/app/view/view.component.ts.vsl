@@ -91,7 +91,7 @@ export abstract class ${tmpName}Component implements OnInit {
         this._injector = injector;
     }
 
-    abstract beforeOnInit();
+    abstract beforeOnInit(): void;
 	
     ngOnInit() {
         this.beforeOnInit();
@@ -138,31 +138,31 @@ export abstract class ${tmpName}Component implements OnInit {
         });
     }
 
-    abstract handleFormChanges(change: any);
+    abstract handleFormChanges(change: any): void;
 
-    abstract afterOnInit();
+    abstract afterOnInit(): void;
     
-    abstract doNgAfterViewInit();
+    abstract doNgAfterViewInit(): void;
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         this.doNgAfterViewInit();
     }
 
-    getItemControl(name): FormControl {
+    getItemControl(name: string): FormControl {
         return this.${stringUtils.uncapitalize(${tmpName})}Form.get(name) as FormControl;
     }
 
-    getGroupControl(name): FormGroup {
+    getGroupControl(name: string): FormGroup {
         return this.${stringUtils.uncapitalize(${tmpName})}Form.get(name) as FormGroup;
     }
 
-    getArrayControl(name): FormArray {
+    getArrayControl(name: string): FormArray {
         return this.${stringUtils.uncapitalize(${tmpName})}Form.get(name) as FormArray;
     }
 #set ($x = 1)
 #foreach($table in $view.tables)
 
-    set$stringUtils.capitalize(${table.name})(${table.name}: $angularUtils.getDatatype(${table.type.name})): FormArray {
+    set$stringUtils.capitalize(${table.name})(${table.name}: Array<$angularUtils.getDatatype(${table.type.name})>): FormArray {
 
         const ${table.name}Array = new FormArray([]);
 

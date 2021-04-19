@@ -17,6 +17,13 @@ import { MaterialModule } from '@app/material.module';
 import { ${tmpName}ImplComponent } from './${fileName}.impl.component';
 import { ${tmpName}RoutingModule } from './${fileName}-routing.module';
 
+// $view.actions
+// $view.variables
+// $view.allFormFields
+// $view.allActionParameters
+// $view.tables
+// $view.containerActions
+
 @NgModule({
   imports: [
     CommonModule,

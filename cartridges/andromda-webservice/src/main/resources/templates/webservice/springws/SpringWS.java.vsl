@@ -15,7 +15,7 @@ package ${service.packageName};
 public interface ${serviceName} {
 
 #foreach ($operation in $service.allowedOperations)
-    $operation.visibility $operation.getterSetterReturnTypeName ${operation.name}(#getOperationArgs($operation));
+    $operation.visibility $operation.getterSetterReturnTypeName ${operation.name}($operation.typedArgumentList);
 
 #end
 }

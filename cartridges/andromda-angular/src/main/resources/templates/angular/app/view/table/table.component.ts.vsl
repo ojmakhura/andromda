@@ -36,7 +36,7 @@ import { ${service.name}Impl } from '@app/service/$path/$fname';
 #end
 #set ( $viewFile = $angularUtils.getComponentFileName("${table.view.name}") )
 #set ($viewName = $angularUtils.getComponentName($viewFile, '-') )
-import { ${viewName}ImplComponent } from 'src/app/impl/view/$componentPath/${viewFile}.impl.component';
+import { ${viewName}ImplComponent } from '@app/view/$componentPath/${viewFile}.impl.component';
 #set ( $path = $stringUtils.replaceChars($table.view.useCase.controller.packageName, '\\.', '\\/') )
 #set ( $file =  ${angularUtils.getComponentFileName("${table.view.useCase.controller.name}Impl")})
 import { ${table.view.useCase.controller.name}Impl } from '@app/controller/$path/${file}';
@@ -50,7 +50,7 @@ export abstract class ${className}Component implements OnInit {
 ')
 
     ${table.name}Columns = [
-#if($table.tableFormActions.size() > 0)
+#if($table.tableFormActions.size() > 0 || $table.tableHyperlinkActions.size() > 0)
 		'actions',
 #end
 #set($i = 1)
@@ -97,11 +97,11 @@ export abstract class ${className}Component implements OnInit {
         this.afterOnInit();
     }
 	
-    abstract beforeOnInit();
+    abstract beforeOnInit(): void;
 	
-    abstract afterOnInit();
+    abstract afterOnInit(): void;
     
-    abstract doNgAfterViewInit();
+    abstract doNgAfterViewInit(): void;
 
     ngAfterViewInit() {
         this.doNgAfterViewInit();
@@ -143,16 +143,27 @@ export abstract class ${className}Component implements OnInit {
 #set ($routeName = $stringUtils.deleteWhitespace($stringUtils.replace($viewName, '-', '')))
 	// this.router.navigate(['/$routeName'], {state: {params}});
 #end
-	abstract do$stringUtils.capitalize(${action.triggerName})(#renderAngularTableCommandLinkParametersWithTypes()): any;
+	abstract do$stringUtils.capitalize(${action.triggerName})(form: any): any;
 	
 	${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes()) {
 
-		let params = this.do$stringUtils.capitalize(${action.triggerName})(#renderAngularTableCommandLinkParametersPlain());
-        this.${action.controller.beanName}.${action.triggerName}();
+        let form = #renderAngularTableCommandLinkParametersForm()
+		let params = this.do$stringUtils.capitalize(${action.triggerName})(form);
+        this.${action.controller.beanName}.${action.triggerName}(form);
 	}
 #end	
 #end
 #end
+#end
+
+#foreach ($action in $table.tableHyperlinkActions)
+    abstract do$stringUtils.capitalize(${action.triggerName})(form: any): any;
+	
+	${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes()) {
+        let form = #renderAngularTableCommandLinkParametersForm()
+		let params = this.do$stringUtils.capitalize(${action.triggerName})(form);
+        this.${action.controller.beanName}.${action.triggerName}(form);
+	}
 #end
 
     get ${table.view.useCase.controller.beanName}(): ${table.view.useCase.controller.name}Impl {
@@ -168,8 +179,13 @@ export abstract class ${className}Component implements OnInit {
         this.${table.name}.push(this.formBuilder.group({
 #set($i = 1)
 #foreach ($column in $table.tableColumns)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
 #if(!($column.upper>1 || $column.upper==-1))
-            $angularUtils.getColumnName($column): ['$column']#if($i < $table.tableColumns.size()),$cr#end
+            $columnName: [$column.dummyValue]#if($i < $table.tableColumns.size()),$cr#end
 #end
 #set($i = $i + 1)
 #end
@@ -178,8 +194,13 @@ export abstract class ${className}Component implements OnInit {
         this.${table.name}.push(this.formBuilder.group({
 #set($i = 1)
 #foreach ($column in $table.tableColumns)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
 #if(!($column.upper > 1 || $column.upper == -1))
-            $angularUtils.getColumnName($column): ['$column']#if($i < $table.tableColumns.size()),$cr#end
+            $columnName: [$column.dummyValue]#if($i < $table.tableColumns.size()),$cr#end
 #end
 #set($i = $i + 1)
 #end
@@ -188,8 +209,13 @@ export abstract class ${className}Component implements OnInit {
         this.${table.name}.push(this.formBuilder.group({
 #set($i = 1)
 #foreach ($column in $table.tableColumns)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
 #if(!($column.upper>1 || $column.upper==-1))
-            $angularUtils.getColumnName($column): ['$column']#if($i < $table.tableColumns.size()),$cr#end
+            $columnName: [$column.dummyValue]#if($i < $table.tableColumns.size()),$cr#end
 #end
 #set($i = $i + 1)
 #end

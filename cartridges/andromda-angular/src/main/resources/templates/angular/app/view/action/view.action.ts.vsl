@@ -14,7 +14,7 @@ import { MatSort } from '@angular/material/sort';
 #set ($params = $angularUtils.getFormFields($${action.source.actions}))
 
 #set ( $viewName = $angularUtils.getComponentName($viewFile, '-') )
-import { ${viewName}ImplComponent } from 'src/app/impl/view${action.source.path}.impl.component';
+import { ${viewName}ImplComponent } from '@app/view${action.source.path}.impl.component';
 #set ( $parameters = [] )
 #set ( $enumerations = [] )
 #foreach( $parameter in $action.parameters )
@@ -108,7 +108,7 @@ export abstract class ${className}Component implements OnInit {
 #foreach( $attribute in $parameter.attributes )
 #if($attribute.type.enumeration)
     $attribute.name = $attribute.type.name;
-    ${attribute.name}Options = [];
+    ${attribute.name}Options: string[] = [];
 #elseif($attribute.inputSelect)
 #set ($backingListName = ${attribute.getBackingListName($parameter)})
 #set($ret = $selections.add($attribute.type))
@@ -154,25 +154,25 @@ export abstract class ${className}Component implements OnInit {
         this.afterOnInit();
     }
 
-    abstract beforeOnInit();
+    abstract beforeOnInit(): void;
 	
-    abstract afterOnInit();
+    abstract afterOnInit(): void;
     
-    abstract doNgAfterViewInit();
+    abstract doNgAfterViewInit(): void;
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         this.doNgAfterViewInit();
     }
 
-    getItemControl(name): FormControl {
+    getItemControl(name: string): FormControl {
         return <FormControl>this.${stringUtils.uncapitalize($viewName)}Form.get(name);
     }
 
-    getGroupControl(name): FormGroup {
+    getGroupControl(name: string): FormGroup {
         return <FormGroup>this.${stringUtils.uncapitalize($viewName)}Form.get(name);
     }
 
-    getArrayControl(name): FormArray {
+    getArrayControl(name: string): FormArray {
         return <FormArray>this.${stringUtils.uncapitalize($viewName)}Form.get(name);
     }
 
@@ -189,14 +189,18 @@ export abstract class ${className}Component implements OnInit {
 #end
 #end
 #end	
-	abstract do$stringUtils.capitalize(${action.triggerName})();
-    abstract after$stringUtils.capitalize(${action.triggerName})();
+    abstract do$stringUtils.capitalize(${action.triggerName})(#if(!$action.formFields.empty)form: any#end): void;
+    abstract after$stringUtils.capitalize(${action.triggerName})(#if(!$action.formFields.empty)form: any#end): void;
     
-    ${action.triggerName}() {
-		this.do$stringUtils.capitalize(${action.triggerName})();
-        this.${action.controller.beanName}.${action.triggerName}();
+    ${action.triggerName}(): void {
 
-        this.after$stringUtils.capitalize(${action.triggerName})();
+#if(!$action.formFields.empty)
+        let form = this.${stringUtils.uncapitalize($viewName)}Form?.value;
+#end
+		this.do$stringUtils.capitalize(${action.triggerName})(#if(!$action.formFields.empty)form#end);
+        this.${action.controller.beanName}.${action.triggerName}(#if(!$action.formFields.empty)form#end);
+
+        this.after$stringUtils.capitalize(${action.triggerName})(#if(!$action.formFields.empty)form#end);
     }
 
 #if($action.controller)
