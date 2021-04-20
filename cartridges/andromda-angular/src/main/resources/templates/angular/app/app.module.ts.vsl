@@ -55,6 +55,21 @@ import { ConnectFormDirective } from './connect-form.directive';
 #set ( $className = $angularUtils.getComponentName($fileName, "-"))
 import { ${className}Module } from ${escTool.s}./view/${componentPath}/${fileName}.module${escTool.s};
 #end
+#set ( $componentSet = $angularUtils.getFacadeSet($controllers) )
+#foreach ( $controller in $componentSet )
+#set ( $path = $stringUtils.replaceChars($controller.packageName, '\\.', '\\/') )
+#set ( $file =  ${angularUtils.getComponentFileName("${controller.name}Impl")})
+import { ${controller.name}Impl } from '@app/controller/$path/${file}';
+#end
+
+#set ( $finalServices = $angularUtils.getFacadeSet($services) )
+#foreach ( $service in $finalServices )
+#if($angularUtils.isWebService($service))
+#set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${service.packageName}), '\\.', '\\/')" )
+#set ( $fname = $angularUtils.getComponentFileName("${service.name}Impl") )
+import { ${service.name}Impl } from '@app/service/$path/$fname';
+#end
+#end
 
 @NgModule({
     declarations: [
@@ -103,12 +118,12 @@ import { ${className}Module } from ${escTool.s}./view/${componentPath}/${fileNam
 #set ( $finalServices = $angularUtils.getFacadeSet($services) )
 #foreach ( $finalService in $finalServices )
 #if($angularUtils.isWebService($finalService))
-//        ${finalService.name}Impl,
+        ${finalService.name}Impl,
 #end
 #end
 #set ( $componentSet = $angularUtils.getFacadeSet($controllers) )
 #foreach ( $controller in $componentSet )
-//        ${controller.name}Impl,
+        ${controller.name}Impl,
 #end
 #set ( $componentSet = $angularUtils.getFacadeSet($views) )
 #foreach($view in $componentSet)

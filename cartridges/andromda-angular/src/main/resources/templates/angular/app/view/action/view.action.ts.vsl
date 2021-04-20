@@ -107,7 +107,7 @@ export abstract class ${className}Component implements OnInit {
 #if($parameter.complex)
 #foreach( $attribute in $parameter.attributes )
 #if($attribute.type.enumeration)
-    $attribute.name = $attribute.type.name;
+    ${attribute.name}T = $attribute.type.name;
     ${attribute.name}Options: string[] = [];
 #elseif($attribute.inputSelect)
 #set ($backingListName = ${attribute.getBackingListName($parameter)})
@@ -140,7 +140,7 @@ export abstract class ${className}Component implements OnInit {
 #if($parameter.complex)
 #foreach( $attribute in $parameter.attributes )
 #if($attribute.type.enumeration)
-        this.${attribute.name}Options = Object.keys(this.$attribute.name);
+        this.${attribute.name}Options = Object.keys(this.${attribute.name}T);
 #end
 #end
 #end
@@ -182,7 +182,7 @@ export abstract class ${className}Component implements OnInit {
 #foreach($attribute in $parameter.attributes)
 #if($angularUtils.isTable($attribute))
     get ${attribute.name}(): FormArray {
-        return <FormArray>this.getItemControl('${action.trigger.name}$stringUtils.capitalize($parameter.name)').get('$attribute.name');
+        return <FormArray>this.getItemControl('$parameter.name').get('$attribute.name');
     }
 
 #end
