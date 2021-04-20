@@ -109,10 +109,10 @@ export abstract class ${className}Component implements OnInit {
 #if($attribute.type.enumeration)
     ${attribute.name}T = $attribute.type.name;
     ${attribute.name}Options: string[] = [];
-#elseif($attribute.inputSelect)
+#elseif($attribute.inputSelect || ($angularUtils.isComplex($attribute) && !$angularUtils.isTable($attribute)))
 #set ($backingListName = ${attribute.getBackingListName($parameter)})
 #set($ret = $selections.add($attribute.type))
-    $backingListName: Array<$angularUtils.getDatatype($parameter.type.name)> = [];
+    $backingListName: Array<$angularUtils.getDatatype($attribute.type.name)> = [];
 #end
 #end
 #else

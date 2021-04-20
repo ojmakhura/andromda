@@ -30,15 +30,20 @@ export class $class.name {
 #set ($default = "null")
 #end
 	@$angularUtils.getRxwebDecorator($attribute)
+#if($angularUtils.isComplex($attribute) && !$attribute.many && !$angularUtils.isArray($attribute.getterSetterTypeName) && !$attribute.type.enumeration)
+    $attribute.name: ${attribute.type.name} = <${attribute.type.name}> {
+#foreach($attr in ${attribute.type.attributes})
+#if($attr.many || $angularUtils.isArray($attr.getterSetterTypeName))
+#set ($def = "[]")
+#else
+#set ($def = "null")
+#end
+        $attr.name: $def,
+#end
+    };
+#else
     $attribute.name: $returnType = $default;
 #end
-
-    ${class.name}() {
-#foreach ($attribute in $class.attributes)
-#if($angularUtils.isComplex($attribute) && !$attribute.many && !$angularUtils.isArray($attribute.getterSetterTypeName) && !$attribute.type.enumeration)
-        this.$attribute.name = new ${attribute.type.name}();
 #end
-#end
-    }
-
+    ${class.name}() {}
 }

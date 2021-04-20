@@ -56,12 +56,9 @@ ${ident}			<mat-option *ngFor="let item of ${backingListName}" [value]="item#if(
 ${ident}		</mat-select>
 #elseif ($parameter.inputTextarea)
 ${ident}		<textarea matInput
-${ident}			formControlName="${parameter.name}" id="$propertyId"
-${ident}			#if($parameter.required) required#end></textarea>
+${ident}			formControlName="${parameter.name}" id="$propertyId" #if($parameter.required) required#end></textarea>
 #elseif ($parameter.inputText)
-${ident}		<input matInput
-${ident}			formControlName="${parameter.name}" id="$propertyId"
-${ident}			#if($parameter.required) required#end>
+${ident}		<input matInput formControlName="${parameter.name}" id="$propertyId" #if($parameter.required) required#end>
 #elseif ($parameter.inputSecret)
 ${ident}		<input matInput [type]="hide ? 'password' : 'text'">
 ${ident}			formControlName="${parameter.name}" id="$propertyId">
@@ -69,9 +66,14 @@ ${ident}		<button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-la
 ${ident}			<mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
 ${ident}		</button>
 #else
-${ident}		<input matInput
-${ident}			formControlName="${parameter.name}" id="$propertyId"
-${ident}			#if($parameter.required) required#end>
+#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter))
+${ident}		<mat-select name="$propertyId" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" id="$propertyId">
+${ident}			<mat-option value = "">Select one ...</mat-option>
+${ident}			<mat-option *ngFor="let item of ${backingListName}" [value]="item#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration).id#end">{{ item#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration).id#end }}</mat-option>
+${ident}		</mat-select>
+#else
+${ident}		<input matInput formControlName="${parameter.name}" id="$propertyId" #if($parameter.required) required#end>
+#end
 #end
 ${ident}	</mat-form-field>
 #end
