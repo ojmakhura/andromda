@@ -14,14 +14,14 @@
 #set ( $rt = $finalFields.add($finalField) )
 #end
 import { Component, Injector } from '@angular/core';
-import { ${className}Component } from '@app/view/$componentPath/${fileName}.component';
+import { ${className}VarsComponent } from '@app/view/$componentPath/${fileName}-vars.component';
 
 @Component({
-  selector: '${fileName}',
-  templateUrl: './${fileName}.component.html',
-  styleUrls: ['./${fileName}.component.scss']
+  selector: '${fileName}-vars',
+  templateUrl: './${fileName}-vars.component.html',
+  styleUrls: ['./${fileName}-vars.component.scss']
 })
-export class ${className}ImplComponent extends ${className}Component {
+export class ${className}VarsImplComponent extends ${className}VarsComponent {
 
     constructor(private injector: Injector) {
         super(injector);
@@ -35,8 +35,5 @@ export class ${className}ImplComponent extends ${className}Component {
 
     doNgAfterViewInit() {
       
-    }
-
-    handleFormChanges(change: any) {
     }
 }

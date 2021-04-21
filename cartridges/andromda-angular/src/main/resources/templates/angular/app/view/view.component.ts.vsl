@@ -2,6 +2,12 @@
 #set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
 #set ( $fileName = $angularUtils.getComponentFileName("${view.name}"))
 #set ($params = $angularUtils.getFormFields($view.actions))
+## Get the page variables
+#if ($view.nonTableVariablesPresent)
+#foreach ($variable in $view.variables)
+#set ( $rt = $params.add($variable))
+#end
+#end
 #set ($cr = "
 ")
 import { Component, OnInit, Injector, ViewChild, Input } from '@angular/core';

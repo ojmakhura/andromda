@@ -55,11 +55,6 @@
                                 <include name="**/*"/>
                             </fileset>
                         </copy>
-                        <copy todir="${project.basedir}/target/${applicationId}/node_modules" overwrite="true" failonerror="false">
-                            <fileset dir="${project.basedir}/node_modules">
-                                <include name="**/*"/>
-                            </fileset>
-                        </copy>
                         <copy todir="${project.basedir}/target/${applicationId}" overwrite="true" failonerror="false">
                             <fileset dir="${project.basedir}">
                                 <include name=".browserslistrc"/>

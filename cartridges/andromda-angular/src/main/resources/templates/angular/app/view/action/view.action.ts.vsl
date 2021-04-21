@@ -75,8 +75,7 @@ export abstract class ${className}Component implements OnInit {
 #set($i = 1)
 #set ($columns = $angularUtils.getTableColumns($attribute))
 #foreach ($column in $columns)
-        '$column'#if($i < $columns.size()),$cr#else$cr#end
-#set($i = $i + 1)
+        '$column',
 #end
     ];
 

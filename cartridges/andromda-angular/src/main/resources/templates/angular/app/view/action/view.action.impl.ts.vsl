@@ -10,7 +10,7 @@ import { ${className}Component } from '@app/view${actionPath}.component';
 @Component({
   selector: '${selectorName}',
   templateUrl: './${angularUtils.getNameFromPath($action.path)}.component.html',
-  styleUrls: ['./${angularUtils.getNameFromPath($action.path)}.component.css']
+  styleUrls: ['./${angularUtils.getNameFromPath($action.path)}.component.scss']
 })
 export class ${className}ImplComponent extends ${className}Component {
 

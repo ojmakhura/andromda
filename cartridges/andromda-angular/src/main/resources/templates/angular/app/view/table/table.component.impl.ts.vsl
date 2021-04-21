@@ -8,7 +8,7 @@ import { ${className}Component } from '@app/view/$componentPath/${fileName}.comp
 @Component({
   selector: '${fileName}',
   templateUrl: './${fileName}.component.html',
-  styleUrls: ['./${fileName}.component.css']
+  styleUrls: ['./${fileName}.component.scss']
 })
 export class ${className}ImplComponent extends ${className}Component {
 

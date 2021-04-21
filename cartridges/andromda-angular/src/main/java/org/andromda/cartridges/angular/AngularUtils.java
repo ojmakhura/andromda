@@ -560,6 +560,10 @@ public class AngularUtils {
             return true;
         }
 
+        // if(isTable(attribute) || (attribute.isMany() && !attribute.isInputSelect())) {
+        //     return true;
+        // }
+
         return false;
     }
 
@@ -577,7 +581,7 @@ public class AngularUtils {
             final AngularParameter parameter = (AngularParameter)feParameter;
             for(Object tmp : parameter.getAttributes()) {
                 AngularAttribute attribute = (AngularAttribute)tmp;
-                if(!isTable(attribute)) {
+                if(!isTable(attribute) && !(attribute.isMany() && !attribute.isInputSelect())) {
                     attributes.add(attribute);
                 }
             }
@@ -594,9 +598,10 @@ public class AngularUtils {
             final AngularParameter parameter = (AngularParameter)feParameter;
             for(Object tmp : parameter.getAttributes()) {
                 AngularAttribute attribute = (AngularAttribute)tmp;
-                if(isTable(attribute)) {
+                if(isTable(attribute)  || (attribute.isMany() && !attribute.isInputSelect())) {
                     attributes.add(attribute);
                 }
+                
             }
         }
 
@@ -1888,8 +1893,6 @@ public class AngularUtils {
     }
 
     public static Object checkTableLink(AngularParameter parameter) {
-
-        System.out.println("=========================================== " + parameter.findTaggedValue(AngularProfile.ANGULAR_VIEW_VIEW_TYPE));
 
         return parameter.findTaggedValue(AngularProfile.ANGULAR_VIEW_VIEW_TYPE);
 

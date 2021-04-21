@@ -3,6 +3,7 @@
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
         <macrolibrary name="templates/angular/app/appMacros.vm"/>
 		<macrolibrary name="templates/angular/app/view/renderAngularActionFormInput.vm"/>
+		<!-- <macrolibrary name="templates/angular/app/view/action/viewAction.vm"/> -->
 		<macrolibrary name="templates/angular/app/view/renderAngularActionCommandLinkParameter.vm"/>
 		<macrolibrary name="templates/angular/app/view/renderAngularTableCommandLinkParameters.vm"/>
         <macrolibrary name="templates/angular/app/controller/controller.ts.vm"/>
@@ -83,6 +84,7 @@
             </modelElement>
         </modelElements>
     </template>
+
     <template
         path="templates/angular/app/model/model.ts.vsl"
         outputPattern="$destination/${fileName}.ts"
@@ -139,24 +141,6 @@
             </modelElement>
         </modelElements>
     </template>
-
-    <!-- <template
-        path="templates/angular/app/app-routing.module.ts.vsl"
-        outputPattern="app-routing.module.ts"
-        outlet="angularAppDir"
-        overwrite="true"
-        outputToSingleFile="true">
-        <modelElements>
-            <modelElement variable="useCases">
-                <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
-            </modelElement>
-            <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.angular.metafacades.AngularManageableEntity">
-                    <property name="needsUserInterface"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
     
     <template
         path="templates/angular/app/service/service.ts.vsl"
@@ -217,8 +201,8 @@
     <template
         path="templates/angular/app/view/view.component.html.vsl"
         outputPattern="$componentPath/${fileName}.component.html"
-        outlet="view-impls"
-        overwrite="false">
+        outlet="views"
+        overwrite="true">
         <modelElements variable="view">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndView">
@@ -257,8 +241,8 @@
     </template>
 	
 	<template
-        path="templates/angular/app/view/view.component.css.vsl"
-        outputPattern="$componentPath/${fileName}.component.css"
+        path="templates/angular/app/view/view.component.scss.vsl"
+        outputPattern="$componentPath/${fileName}.component.scss"
         outlet="view-impls"
         overwrite="false">
         <modelElements variable="view">
@@ -273,7 +257,7 @@
 	<template
         path="templates/angular/app/view/view.component.spec.ts.vsl"
         outputPattern="$componentPath/${fileName}.component.spec.ts"
-        outlet="views"
+        outlet="view-impls"
         overwrite="false">
         <modelElements variable="view">
             <modelElement>
@@ -288,7 +272,7 @@
         path="templates/angular/app/view/view.module.ts.vsl"
         outputPattern="$componentPath/${fileName}.module.ts"
         outlet="views"
-        overwrite="false">
+        overwrite="true">
         <modelElements variable="view">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndView">
@@ -302,7 +286,7 @@
         path="templates/angular/app/view/view-routing.module.ts.vsl"
         outputPattern="$componentPath/${fileName}-routing.module.ts"
         outlet="views"
-        overwrite="false">
+        overwrite="true">
         <modelElements variable="view">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndView">
@@ -342,7 +326,7 @@
 	<template
         path="templates/angular/app/view/table/table.component.html.vsl"
         outputPattern="$componentPath/${fileName}.component.html"
-        outlet="view-impls"
+        outlet="views"
         overwrite="true">
         <modelElements>
             <modelElement>
@@ -355,7 +339,7 @@
 	<template
         path="templates/angular/app/view/table/table.component.spec.ts.vsl"
         outputPattern="$componentPath/${fileName}.component.spec.ts"
-        outlet="views"
+        outlet="view-impls"
         overwrite="false">
         <modelElements>
             <modelElement>
@@ -367,8 +351,8 @@
     </template>
 	
 	<template
-        path="templates/angular/app/view/table/table.component.css.vsl"
-        outputPattern="$componentPath/${fileName}.component.css"
+        path="templates/angular/app/view/table/table.component.scss.vsl"
+        outputPattern="$componentPath/${fileName}.component.scss"
         outlet="view-impls"
         overwrite="false">
         <modelElements>
@@ -383,7 +367,7 @@
 	<template
         path="templates/angular/app/view/action/view.action.html.vsl"
         outputPattern="${actionPath}.component.html"
-        outlet="view-impls"
+        outlet="views"
         overwrite="true">
         <modelElements variable="action">
             <modelElement>
@@ -426,8 +410,8 @@
     </template>
     
 	<template
-        path="templates/angular/app/view/action/view.action.css.vsl"
-        outputPattern="${actionPath}.component.css"
+        path="templates/angular/app/view/action/view.action.scss.vsl"
+        outputPattern="${actionPath}.component.scss"
         outlet="view-impls"
         overwrite="false">
         <modelElements variable="action">
@@ -443,7 +427,7 @@
 	<template
         path="templates/angular/app/view/action/view.action.spec.ts.vsl"
         outputPattern="${actionPath}.component.spec.ts"
-        outlet="views"
+        outlet="view-impls"
         overwrite="false">
         <modelElements variable="action">
             <modelElement>
@@ -454,6 +438,77 @@
             </modelElement>
         </modelElements>
     </template>
+
+    <template
+        path="templates/angular/app/view/view-variables.ts.vsl"
+        outputPattern="$componentPath/${fileName}-vars.component.ts"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="nonTableVariablesPresent"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/angular/app/view/view-variables.impl.ts.vsl"
+        outputPattern="$componentPath/${fileName}-vars.impl.component.ts"
+        outlet="view-impls"
+        overwrite="false">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="nonTableVariablesPresent"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/angular/app/view/view-variables.spec.ts.vsl"
+        outputPattern="$componentPath/${fileName}-vars.component.spec.ts"
+        outlet="view-impls"
+        overwrite="false">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="nonTableVariablesPresent"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/angular/app/view/view-variables.html.vsl"
+        outputPattern="$componentPath/${fileName}-vars.component.html"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="nonTableVariablesPresent"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/angular/app/view/view-variables.scss.vsl"
+        outputPattern="$componentPath/${fileName}-vars.component.scss"
+        outlet="view-impls"
+        overwrite="false">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="nonTableVariablesPresent"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
     <template
         path="templates/angular/app/utils/controller.base.ts.vsl"
         outputPattern="$generatedFile"

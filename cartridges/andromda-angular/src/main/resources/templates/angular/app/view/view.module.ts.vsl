@@ -16,6 +16,9 @@ import { SharedModule } from '@shared';
 import { MaterialModule } from '@app/material.module';
 import { ${tmpName}ImplComponent } from './${fileName}.impl.component';
 import { ${tmpName}RoutingModule } from './${fileName}-routing.module';
+#if ($view.nonTableVariablesPresent)
+import { ${tmpName}VarsImplComponent } from './${fileName}-vars.impl.component';
+#end
 
 #set ( $path = $stringUtils.replaceChars($view.useCase.controller.packageName, '\\.', '\\/') )
 #set ( $file =  ${angularUtils.getComponentFileName("${view.useCase.controller.name}Impl")})
@@ -87,6 +90,9 @@ import { $a.name } from '@app/model/$path/$name';
 #set ( $tableFile = $angularUtils.getComponentFileName("${table.view.name}-${table.name}") )
 #set ( $className = $angularUtils.getComponentName($tableFile, "-"))
     ${className}ImplComponent,
+#end
+#if ($view.nonTableVariablesPresent)
+    ${tmpName}VarsImplComponent
 #end
   ],
   entryComponents: [],
