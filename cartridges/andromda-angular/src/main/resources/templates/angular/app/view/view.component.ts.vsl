@@ -2,11 +2,8 @@
 #set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
 #set ( $fileName = $angularUtils.getComponentFileName("${view.name}"))
 #set ($params = $angularUtils.getFormFields($view.actions))
-## Get the page variables
-#if ($view.nonTableVariablesPresent)
-#foreach ($variable in $view.variables)
-#set ( $rt = $params.add($variable))
-#end
+#foreach( $variable in $view.variables )
+#set($rt = $params.add($variable))
 #end
 #set ($cr = "
 ")
@@ -31,7 +28,7 @@ import { NgForm, FormGroup, FormControl, FormArray, FormBuilder, ReactiveFormsMo
 #if (!$action.tableLink)
 #set ( $actionPath = ${action.path} )
 #set ( $actionName = $angularUtils.getActionName("$action.path") )
-import { ${actionName}ImplComponent } from '@app/view${actionPath}.impl.component';
+import { ${actionName}ImplComponent } from ${escTool.s}@app/view${actionPath}.impl.component${escTool.s};
 #foreach ($field in $action.formFields)
 #if (!(${field.action} && $field.action.tableLinkName))
 #if ($field.complex)
@@ -66,21 +63,21 @@ import { ${className}ImplComponent } from ${escTool.s}@app/view/${tablePath}/${t
 #foreach($a in $finalAttr)
 #set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${a.packageName}), '\\.', '\\/')" )
 #set ( $name = $angularUtils.getComponentFileName("$a.name") )
-import { $a.name } from '@app/model/$path/$name';
+import { $a.name } from ${escTool.s}@app/model/$path/$name${escTool.s};
 #end
 
 #set ( $path = $stringUtils.replaceChars($view.useCase.controller.packageName, '\\.', '\\/') )
 #set ( $file =  ${angularUtils.getComponentFileName("${view.useCase.controller.name}Impl")})
-import { ${view.useCase.controller.name}Impl } from '@app/controller/$path/${file}';
+import { ${view.useCase.controller.name}Impl } from ${escTool.s}@app/controller/$path/${file}${escTool.s};
 
-#set ($tmpName = ${angularUtils.getComponentName("$fileName", "-")})
+#set ($viewName = ${angularUtils.getComponentName("$fileName", "-")})
 @Component({
   selector: '${fileName}-base',
   template: ''
 })
-export abstract class ${tmpName}Component implements OnInit {
+export abstract class ${viewName}Component implements OnInit {
 
-	${stringUtils.uncapitalize($tmpName)}Form: FormGroup;
+	${stringUtils.uncapitalize($viewName)}Form: FormGroup;
 
     protected route: ActivatedRoute;
     protected router: Router;
@@ -101,13 +98,13 @@ export abstract class ${tmpName}Component implements OnInit {
 	
     ngOnInit() {
         this.beforeOnInit();
-        this.${stringUtils.uncapitalize($tmpName)}Form = this.newForm();
+        this.${stringUtils.uncapitalize($viewName)}Form = this.newForm();
 
 #if(${view.useCase.controller})
         this.${view.useCase.controller.beanName}.startUseCase();
 #end
-        this.${stringUtils.uncapitalize($tmpName)}Form.valueChanges.subscribe(
-            change => {
+        this.${stringUtils.uncapitalize($viewName)}Form.valueChanges.subscribe(
+            (change: any) => {
                 this.handleFormChanges(change);
             }
         );
@@ -117,58 +114,85 @@ export abstract class ${tmpName}Component implements OnInit {
 
     newForm(): FormGroup {
         return this.formBuilder.group({
-#set ($y = 0)
-#set ($x = 1)
-#foreach ($parameter in $params) 
+#foreach ($action in $view.actions)
+#if (!$action.tableLink)
+#set ( $className = $angularUtils.getActionName("$action.path") )
+            $stringUtils.uncapitalize($className)Form: this.formBuilder.group({
+#foreach($parameter in $action.parameters)
 #set ($normals = $angularUtils.getStandardAttributes($parameter))
 #set ($tables = $angularUtils.getTableAttributes($parameter))
-#*    *##if($parameter.complex)
-#*      *##set($name = $stringUtils.replaceChars(${action.trigger.name}, '\\ ', ''))
-            $parameter.name: this.rxFormBuilder.group(new $parameter.type.name),
+#*  *##if($parameter.complex)
+#*    *##set($name = $stringUtils.replaceChars(${action.trigger.name}, '\\ ', ''))
+                $parameter.name: this.rxFormBuilder.group(new $parameter.type.name),
 #*  *##else
-            $parameter.name: [],
+                $parameter.name: [],
 #*  *##end
 #end
+            }),
+#end
+#end
+#if ($view.nonTableVariablesPresent)
+            varsForm: this.formBuilder.group({
+#foreach( $variable in $view.variables )
+#*  *##if($variable.complex)
+                $variable.name: this.rxFormBuilder.group(new $variable.type.name),
+#*  *##else
+                $variable.name: [],
+#*  *##end
+#end
+            }),
+#end
 #foreach($table in $view.tables)#set ($i = 1)
-            ${table.name}: this.formBuilder.array([this.formBuilder.group({
-#* *##set($i = 1)
+            ${table.name}: this.formBuilder.array([
+                this.formBuilder.group({
 #* *##foreach ($column in $table.tableColumns)
 #*   *##if(!($column.upper>1 || $column.upper == -1))
-                $angularUtils.getColumnName($column): ['']#if($i < $table.tableColumns.size()),$cr#end
+                    $angularUtils.getColumnName($column): ['']#if($i < $table.tableColumns.size()),$cr#end
 #*   *##end
-#*   *##set($i = $i + 1)
-#* *##end$cr
-            })])#if($x < $view.tables.size()),#end$cr
-#* *##set ($x = $x + 1)
+#* *##end
+                })
+            ]),
 #end
         });
     }
 
+#foreach ($action in $view.actions)
+#set ( $className = $angularUtils.getActionName("$action.path") )
+    get $stringUtils.uncapitalize($className)Form(): FormGroup {
+        return this.getGroupControl('$stringUtils.uncapitalize($className)Form');
+    }
+     
+#end
+#if ($view.nonTableVariablesPresent)
+    get ${stringUtils.uncapitalize($viewName)}VarsForm(): FormGroup {
+        return this.getGroupControl('${stringUtils.uncapitalize($viewName)}VarsForm');
+    }
+
+#end
     abstract handleFormChanges(change: any): void;
 
     abstract afterOnInit(): void;
     
     abstract doNgAfterViewInit(): void;
 
-    ngAfterViewInit(): void {
+    ngAfterViewInit() {
         this.doNgAfterViewInit();
     }
 
     getItemControl(name: string): FormControl {
-        return this.${stringUtils.uncapitalize(${tmpName})}Form.get(name) as FormControl;
+        return this.${stringUtils.uncapitalize(${viewName})}Form.get(name) as FormControl;
     }
 
     getGroupControl(name: string): FormGroup {
-        return this.${stringUtils.uncapitalize(${tmpName})}Form.get(name) as FormGroup;
+        return this.${stringUtils.uncapitalize(${viewName})}Form.get(name) as FormGroup;
     }
 
     getArrayControl(name: string): FormArray {
-        return this.${stringUtils.uncapitalize(${tmpName})}Form.get(name) as FormArray;
+        return this.${stringUtils.uncapitalize(${viewName})}Form.get(name) as FormArray;
     }
-#set ($x = 1)
 #foreach($table in $view.tables)
 
-    set$stringUtils.capitalize(${table.name})(${table.name}: Array<$angularUtils.getDatatype(${table.type.name})>): FormArray {
+    set$stringUtils.capitalize(${table.name})(${table.name}: $angularUtils.getDatatype(${table.type.name})): FormArray {
 
         const ${table.name}Array = new FormArray([]);
 
@@ -180,29 +204,29 @@ export abstract class ${tmpName}Component implements OnInit {
             ${table.name}Array.push(this.rxFormBuilder.group(item))
         });
 
-        this.${stringUtils.uncapitalize(${tmpName})}Form.setControl('${table.name}', ${table.name}Array);
+        this.${stringUtils.uncapitalize(${viewName})}Form.setControl('${table.name}', ${table.name}Array);
 
         return ${table.name}Array;
     }
 #end
-#foreach ($parameter in $params) 
-
-#*   *##if($parameter.complex)
-#*     *##set($returnType = "FormGroup")
-#*   *##else
-#*     *##set($returnType = "FormControl")
-#*   *##end
-    set$stringUtils.capitalize($parameter.name)($parameter.name: $angularUtils.getDatatype($parameter.type.name)): $returnType {
-
-        if(!${parameter.name} || ${parameter.name} === undefined || ${parameter.name} === null) {
-            return #if($parameter.complex) this.newForm()#else new FormControl()#end;
-        }
-
-        this.${stringUtils.uncapitalize(${tmpName})}Form.get('$parameter.name').setValue($parameter.name);
-
-        return this.${stringUtils.uncapitalize(${tmpName})}Form.get('$parameter.name') as $returnType;
-    }
-#end
+##foreach ($parameter in $angularUtils.getFacadeSet($params) )
+##
+#####*   *##if($parameter.complex)
+###*     *##set($returnType = "FormGroup")
+###*   *##else
+###*     *##set($returnType = "FormControl")
+###*   *##end
+###    set$stringUtils.capitalize($parameter.name)($parameter.name: $angularUtils.getDatatype($parameter.type.name)): $returnType {
+##
+##        if(!${parameter.name} || ${parameter.name} === undefined || ${parameter.name} === null) {
+##            return #if($parameter.complex) this.newForm()#else new FormControl()#end;
+##        }
+##
+##        this.${stringUtils.uncapitalize(${viewName})}Form.get('$parameter.name').setValue($parameter.name);
+##
+##        return this.${stringUtils.uncapitalize(${viewName})}Form.get('$parameter.name') as $returnType;
+##    }
+###end
 #if(${view.useCase.controller})
 
     get ${view.useCase.controller.beanName}(): ${view.useCase.controller.name}Impl {

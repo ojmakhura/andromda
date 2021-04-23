@@ -7,24 +7,24 @@
 ## Render non table variables
 #if ($view.nonTableVariablesPresent)
     <div class="card my-5">
-		<${fileName}-vars [${stringUtils.uncapitalize($tmpName)}Form] = "${stringUtils.uncapitalize($tmpName)}Form">
-		</${fileName}-vars>
+		<${fileName}-vars varsForm] = "varsForm"></${fileName}-vars>
 	</div>
 #end
 ## Render the form for each action
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
+#set ( $className = $angularUtils.getActionName("$action.path") )
 #set ( $selectorName = $angularUtils.getSelectorName("${action.path}") )
 	<div class="card my-5">
 		<$selectorName 
-			[${stringUtils.uncapitalize($tmpName)}Form] = "${stringUtils.uncapitalize($tmpName)}Form"
+			[$stringUtils.uncapitalize($className)Form] = "${stringUtils.uncapitalize($className)}Form"
 #foreach ( $table in $view.tables )
 			(${table.name}) = "set$stringUtils.capitalize(${table.name})($event)"
 #end
-#foreach ($parameter in $params)
-#set($name = $stringUtils.replaceChars(${act.trigger.name}, '\\ ', ''))
-			($parameter.name) = "set$stringUtils.capitalize($parameter.name)($event)"
-#end
+##foreach ($parameter in $params)
+##set($name = $stringUtils.replaceChars(${act.trigger.name}, '\\ ', ''))
+##			($parameter.name) = "set$stringUtils.capitalize($parameter.name)($event)"
+###end
 		>
 		</$selectorName>
 	</div>

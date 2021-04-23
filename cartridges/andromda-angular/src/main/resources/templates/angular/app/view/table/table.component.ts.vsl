@@ -185,7 +185,7 @@ export abstract class ${className}Component implements OnInit {
 #set($columnName = $column)
 #end
 #if(!($column.upper>1 || $column.upper==-1))
-            $columnName: [$column.dummyValue]#if($i < $table.tableColumns.size()),$cr#end
+            $columnName: [null],
 #end
 #set($i = $i + 1)
 #end
@@ -200,7 +200,7 @@ export abstract class ${className}Component implements OnInit {
 #set($columnName = $column)
 #end
 #if(!($column.upper > 1 || $column.upper == -1))
-            $columnName: [$column.dummyValue]#if($i < $table.tableColumns.size()),$cr#end
+            $columnName: [null],
 #end
 #set($i = $i + 1)
 #end
@@ -215,7 +215,7 @@ export abstract class ${className}Component implements OnInit {
 #set($columnName = $column)
 #end
 #if(!($column.upper>1 || $column.upper==-1))
-            $columnName: [$column.dummyValue]#if($i < $table.tableColumns.size()),$cr#end
+            $columnName: [null],
 #end
 #set($i = $i + 1)
 #end

@@ -74,7 +74,7 @@ export abstract class ${viewName}VarsComponent implements OnInit {
 #end
 #end
 #end
-    @Input() $stringUtils.uncapitalize($viewName)Form: FormGroup;
+    @Input() $stringUtils.uncapitalize($viewName)VarsForm: FormGroup;
     protected route: ActivatedRoute;
     protected router: Router;
     protected formBuilder: FormBuilder;
@@ -130,15 +130,15 @@ export abstract class ${viewName}VarsComponent implements OnInit {
     }
 
     getItemControl(name: string): FormControl {
-        return <FormControl>this.${stringUtils.uncapitalize($viewName)}Form.get(name);
+        return <FormControl>this.${stringUtils.uncapitalize($viewName)}VarsForm.get(name);
     }
 
     getGroupControl(name: string): FormGroup {
-        return <FormGroup>this.${stringUtils.uncapitalize($viewName)}Form.get(name);
+        return <FormGroup>this.${stringUtils.uncapitalize($viewName)}VarsForm.get(name);
     }
 
     getArrayControl(name: string): FormArray {
-        return <FormArray>this.${stringUtils.uncapitalize($viewName)}Form.get(name);
+        return <FormArray>this.${stringUtils.uncapitalize($viewName)}VarsForm.get(name);
     }
 
 #foreach ( $variable in $view.variables )
@@ -147,6 +147,22 @@ export abstract class ${viewName}VarsComponent implements OnInit {
 #if($angularUtils.isTable($attribute))
     get ${attribute.name}(): FormArray {
         return <FormArray>this.getItemControl('$variable.name').get('$attribute.name');
+    }
+
+#*   *##if($variable.complex)
+#*     *##set($returnType = "FormGroup")
+#*   *##else
+#*     *##set($returnType = "FormControl")
+#*   *##end
+    set$stringUtils.capitalize($variable.name)($variable.name: $angularUtils.getDatatype($variable.type.name)): $returnType {
+
+        if(!${variable.name} || ${variable.name} === undefined || ${variable.name} === null) {
+            return #if($variable.complex) this.newForm()#else new FormControl()#end;
+        }
+
+        this.${stringUtils.uncapitalize(${viewName})}Form.get('$variable.name').setValue($variable.name);
+
+        return this.${stringUtils.uncapitalize(${viewName})}Form.get('$variable.name') as $returnType;
     }
 
 #end

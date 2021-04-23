@@ -85,14 +85,14 @@ export abstract class ${className}Component implements OnInit {
 #end
 #end
 #end
-    @Input() $stringUtils.uncapitalize($viewName)Form: FormGroup;
+    @Input() $stringUtils.uncapitalize($className)Form: FormGroup;
 #foreach ( $table in $action.source.tables )
 	@Output() ${table.name}: EventEmitter<any> = new EventEmitter();
 #end
-#foreach ($param in $params)
-#set($name = $stringUtils.replaceChars(${act.trigger.name}, '\\ ', ''))
-	@Output() $param.name: EventEmitter<any> = new EventEmitter();
-#end
+###foreach ($param in $params)
+##set($name = $stringUtils.replaceChars(${act.trigger.name}, '\\ ', ''))
+##	@Output() $param.name: EventEmitter<any> = new EventEmitter();
+###end
     protected route: ActivatedRoute;
     protected router: Router;
 #foreach ($service in $action.controller.allRestControllers)
@@ -164,15 +164,15 @@ export abstract class ${className}Component implements OnInit {
     }
 
     getItemControl(name: string): FormControl {
-        return <FormControl>this.${stringUtils.uncapitalize($viewName)}Form.get(name);
+        return <FormControl>this.${stringUtils.uncapitalize($className)}Form.get(name);
     }
 
     getGroupControl(name: string): FormGroup {
-        return <FormGroup>this.${stringUtils.uncapitalize($viewName)}Form.get(name);
+        return <FormGroup>this.${stringUtils.uncapitalize($className)}Form.get(name);
     }
 
     getArrayControl(name: string): FormArray {
-        return <FormArray>this.${stringUtils.uncapitalize($viewName)}Form.get(name);
+        return <FormArray>this.${stringUtils.uncapitalize($className)}Form.get(name);
     }
 
 #foreach ( $parameter in $action.parameters )
@@ -184,6 +184,21 @@ export abstract class ${className}Component implements OnInit {
         return <FormArray>this.getItemControl('$parameter.name').get('$attribute.name');
     }
 
+#*   *##if($parameter.complex)
+#*     *##set($returnType = "FormGroup")
+#*   *##else
+#*     *##set($returnType = "FormControl")
+#*   *##end
+    set$stringUtils.capitalize($parameter.name)($parameter.name: $angularUtils.getDatatype($parameter.type.name)): $returnType {
+
+        if(!${parameter.name} || ${parameter.name} === undefined || ${parameter.name} === null) {
+            return #if($parameter.complex) this.newForm()#else new FormControl()#end;
+        }
+
+        this.${stringUtils.uncapitalize(${viewName})}Form.get('$parameter.name').setValue($parameter.name);
+
+        return this.${stringUtils.uncapitalize(${viewName})}Form.get('$parameter.name') as $returnType;
+    }
 #end
 #end
 #end
@@ -194,7 +209,7 @@ export abstract class ${className}Component implements OnInit {
     ${action.triggerName}(): void {
 
 #if(!$action.formFields.empty)
-        let form = this.${stringUtils.uncapitalize($viewName)}Form?.value;
+        let form = this.${stringUtils.uncapitalize($className)}Form?.value;
 #end
 		this.do$stringUtils.capitalize(${action.triggerName})(#if(!$action.formFields.empty)form#end);
         this.${action.controller.beanName}.${action.triggerName}(#if(!$action.formFields.empty)form#end);
