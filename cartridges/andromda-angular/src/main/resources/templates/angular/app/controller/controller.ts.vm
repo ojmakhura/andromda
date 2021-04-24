@@ -12,11 +12,11 @@ null;
 #if(${targetController.name} != $controller.name)
 this.${stringUtils.uncapitalize(${targetController.name})}.startUseCase()
 #else
-this.startUseCase()
+this.startUseCase();
 #end
 #else 
-super.closeDialog()
-#end;
+super.closeDialog();
+#end
 #elseif ($transition.enteringView)
 #set ($pt = $angularUtils.getComponentFileName(${transition.target.name}))
 #set ( $cls = $angularUtils.getComponentName($pt, "-") )

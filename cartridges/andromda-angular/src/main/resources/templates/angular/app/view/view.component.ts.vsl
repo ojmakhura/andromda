@@ -132,7 +132,7 @@ export abstract class ${viewName}Component implements OnInit {
 #end
 #end
 #if ($view.nonTableVariablesPresent)
-            varsForm: this.formBuilder.group({
+            ${stringUtils.uncapitalize(${viewName})}VarsForm: this.formBuilder.group({
 #foreach( $variable in $view.variables )
 #*  *##if($variable.complex)
                 $variable.name: this.rxFormBuilder.group(new $variable.type.name),
