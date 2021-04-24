@@ -149,24 +149,22 @@ export abstract class ${viewName}VarsComponent implements OnInit {
         return <FormArray>this.getItemControl('$variable.name').get('$attribute.name');
     }
 
-#*   *##if($variable.complex)
+#end
+#end
+#end
+#*   *##if($variable.many)
+#*     *##set($returnType = "FormArray")
+#*   *##elseif($variable.complex)
 #*     *##set($returnType = "FormGroup")
 #*   *##else
 #*     *##set($returnType = "FormControl")
 #*   *##end
     set$stringUtils.capitalize($variable.name)($variable.name: $angularUtils.getDatatype($variable.type.name)): $returnType {
 
-        if(!${variable.name} || ${variable.name} === undefined || ${variable.name} === null) {
-            return #if($variable.complex) this.newForm()#else new FormControl()#end;
-        }
+        this.${stringUtils.uncapitalize(${viewName})}VarsForm.get('$variable.name').setValue($variable.name);
 
-        this.${stringUtils.uncapitalize(${viewName})}Form.get('$variable.name').setValue($variable.name);
-
-        return this.${stringUtils.uncapitalize(${viewName})}Form.get('$variable.name') as $returnType;
+        return this.${stringUtils.uncapitalize(${viewName})}VarsForm.get('$variable.name') as $returnType;
     }
-
-#end
-#end
-#end
+    
 #end
 }

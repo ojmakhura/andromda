@@ -15,14 +15,14 @@ this.${stringUtils.uncapitalize(${targetController.name})}.startUseCase()
 this.startUseCase();
 #end
 #else 
-super.closeDialog();
+this.closeDialog();
 #end
 #elseif ($transition.enteringView)
 #set ($pt = $angularUtils.getComponentFileName(${transition.target.name}))
 #set ( $cls = $angularUtils.getComponentName($pt, "-") )
 '$stringUtils.lowerCase($cls)';
 #elseif ($transition.enteringDecisionPoint)
-this.__${transition.operationCall.name}(#if(!$action.formFields.empty)form#end);
+this.__${transition.operationCall.name}(form);
 #else
 #if($action.exitingInitialState)  
 this.${transition.target.actionMethodName}#if (!$transition.formFields.empty)${action.formImplementationName}#end(
@@ -35,7 +35,7 @@ this.${transition.target.actionMethodName}#if (!$transition.formFields.empty)${a
 #end
 );
 #else
-this.${transition.target.actionMethodName}#if (!$transition.formFields.empty)${action.formImplementationName}#end(#if(!$action.formFields.empty)form#end);
+this.${transition.target.actionMethodName}#if (!$transition.formFields.empty)${action.formImplementationName}#end(form);
 #end
 #end
 #end

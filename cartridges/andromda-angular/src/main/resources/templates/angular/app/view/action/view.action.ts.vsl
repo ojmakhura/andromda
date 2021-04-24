@@ -95,9 +95,9 @@ export abstract class ${className}Component implements OnInit {
 ###end
     protected route: ActivatedRoute;
     protected router: Router;
-#foreach ($service in $action.controller.allRestControllers)
-    protected $stringUtils.uncapitalize($service.name): ${service.name}Impl;
-#end
+##foreach ($service in $action.controller.allRestControllers)
+##    protected $stringUtils.uncapitalize($service.name): ${service.name}Impl;
+###end
     protected ${stringUtils.uncapitalize($viewName)}Component: ${viewName}ImplComponent;
     protected formBuilder: FormBuilder;
     protected _injector: Injector;
@@ -129,9 +129,9 @@ export abstract class ${className}Component implements OnInit {
 
         this.route = injector.get(ActivatedRoute);
         this.router = injector.get(Router);
-#foreach ($service in $action.controller.allRestControllers)
-        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name}Impl);
-#end
+##foreach ($service in $action.controller.allRestControllers)
+##        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name}Impl);
+##end
         this.${stringUtils.uncapitalize($viewName)}Component = injector.get(${viewName}ImplComponent);
         this.formBuilder = injector.get(FormBuilder);
         this._injector = injector;
@@ -184,25 +184,24 @@ export abstract class ${className}Component implements OnInit {
         return <FormArray>this.getItemControl('$parameter.name').get('$attribute.name');
     }
 
-#*   *##if($parameter.complex)
+#end
+#end
+#end
+#*   *##if($parameter.many)
+#*     *##set($returnType = "FormArray")
+#*   *##elseif($parameter.complex)
 #*     *##set($returnType = "FormGroup")
 #*   *##else
 #*     *##set($returnType = "FormControl")
 #*   *##end
-    set$stringUtils.capitalize($parameter.name)($parameter.name: $angularUtils.getDatatype($parameter.type.name)): $returnType {
+    set$stringUtils.capitalize($parameter.name)($parameter.name: $angularUtils.getDatatype($parameter.type.name)#if($parameter.many)[]#end): $returnType {
 
-        if(!${parameter.name} || ${parameter.name} === undefined || ${parameter.name} === null) {
-            return #if($parameter.complex) this.newForm()#else new FormControl()#end;
-        }
+        this.${stringUtils.uncapitalize(${className})}Form.get('$parameter.name').setValue($parameter.name);
 
-        this.${stringUtils.uncapitalize(${viewName})}Form.get('$parameter.name').setValue($parameter.name);
-
-        return this.${stringUtils.uncapitalize(${viewName})}Form.get('$parameter.name') as $returnType;
+        return this.${stringUtils.uncapitalize(${className})}Form.get('$parameter.name') as $returnType;
     }
+
 #end
-#end
-#end
-#end	
     abstract do$stringUtils.capitalize(${action.triggerName})(#if(!$action.formFields.empty)form: any#end): void;
     abstract after$stringUtils.capitalize(${action.triggerName})(#if(!$action.formFields.empty)form: any#end): void;
     
@@ -211,8 +210,8 @@ export abstract class ${className}Component implements OnInit {
 #if(!$action.formFields.empty)
         let form = this.${stringUtils.uncapitalize($className)}Form?.value;
 #end
-		this.do$stringUtils.capitalize(${action.triggerName})(#if(!$action.formFields.empty)form#end);
-        this.${action.controller.beanName}.${action.triggerName}(#if(!$action.formFields.empty)form#end);
+        this.do$stringUtils.capitalize(${action.triggerName})(#if(!$action.formFields.empty)form#end);
+        this.${action.controller.beanName}.${action.triggerName}(#if(!$action.formFields.empty)form#else{}#end);
 
         this.after$stringUtils.capitalize(${action.triggerName})(#if(!$action.formFields.empty)form#end);
     }

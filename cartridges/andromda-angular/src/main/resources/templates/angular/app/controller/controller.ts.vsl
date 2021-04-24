@@ -103,7 +103,7 @@ export abstract class $controller.name extends ControllerBase {
             forward=currentView;
         }
         
-        const pageVariables: any = super.getPageVariables(forward);
+        const pageVariables: any = this.getPageVariables(forward);
 #set($showElse=false)
 #foreach ($view in $controller.useCase.views)
 #if ($view.populatorRequired)
@@ -135,6 +135,7 @@ export abstract class $controller.name extends ControllerBase {
 $operation.getDocumentation("     * ")
      *
      * @param form the associated form
+     * $operation.formFields
      */
     $operation.formSignature
 #end
@@ -154,7 +155,7 @@ $action.trigger.getDocumentation("     * ")
      * @param form the associated form
 #end
      */
-    protected ${action.triggerMethodName}(#if(!$action.formFields.empty)form: any#end): void
+    protected ${action.triggerMethodName}(form: any): void
     {
         //this method can be overridden
     }
@@ -172,19 +173,19 @@ $action.trigger.getDocumentation("     * ")
 #if($action.exitingInitialState)     
     protected internalStartUseCase(useCaseParameters: any): string
 #else
-    public ${action.triggerName}(#if(!$action.formFields.empty)form: any#end)
+    public ${action.triggerName}(form: any)
 #end
     {
-        super.setLastPostedFormClientId('${action.formBeanName}');
+        this.setLastPostedFormClientId('${action.formBeanName}');
         
         let forward: string = null;
 #if ($action.finalStateTarget)
 #set($targetController = $action.target.targetControllerFullyQualifiedName)
 #set($targetControllerBeanName = $action.target.targetControllerBeanName)
 #if(${targetControllerBeanName} == $controller.beanName)
-        forward = #if($targetController)super.startUseCase()#else super.closeDialog()#end;
+        forward =#if($targetController) this.startUseCase()#else this.closeDialog()#end; 
 #else
-        forward = #if($targetController)this.${targetControllerBeanName}.startUseCase()#else super.closeDialog()#end;
+        forward =#if($targetController) this.${targetControllerBeanName}.startUseCase()#else this.closeDialog()#end;
 #end
 #else
 
@@ -200,7 +201,7 @@ $action.trigger.getDocumentation("     * ")
 #end
         );
 #else
-        this.${action.triggerMethodName}(#if(!$action.formFields.empty)form#end);
+        this.${action.triggerMethodName}(form);
 #end
 
         forward = #processTransition($action)
@@ -225,10 +226,9 @@ $action.trigger.getDocumentation("     * ")
         return forward;
 #else
         if(forward !== null) {
-            super.router.navigate(['/' + forward]);
+            this.router.navigate(['/' + forward]);
         } 
 #end
-        
     }
 
 #foreach ($actionState in $action.actionStates)
@@ -241,7 +241,7 @@ $actionState.getDocumentation("     * ")
      * @return the forward view
      * @throws Throwable
      */
-    protected ${actionState.actionMethodName}#if (!$action.formFields.empty)${action.formImplementationName}#end(#if(!$action.formFields.empty)form: any#end): string
+    protected ${actionState.actionMethodName}#if (!$action.formFields.empty)${action.formImplementationName}#end(form: any): string
     {
         let forward: string = null;
 #if ($actionState.controllerCalls.empty && $actionState.serviceCalls.empty)

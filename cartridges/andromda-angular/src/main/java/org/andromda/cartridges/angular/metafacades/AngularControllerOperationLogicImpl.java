@@ -76,22 +76,9 @@ public class AngularControllerOperationLogicImpl
         final StringBuilder call = new StringBuilder();
         call.append(this.getName());
         call.append("(");
-        if (!this.getFormFields().isEmpty())
-        {
-            // StringBuilder b = new StringBuilder();
-
-            // for(FrontEndParameter param : this.getFormFields()) {
-                
-            //     if(b.length() > 0) {
-            //         b.append(", ");
-            //     }
-
-            //     b.append(param.getName());
-            // }
-
-            call.append("form");
-            // call.append(b.toString());
-        }
+        
+        call.append("form");
+        // call.append(b.toString());
         call.append(")");
         return call.toString();
     }
@@ -130,15 +117,12 @@ public class AngularControllerOperationLogicImpl
         }
         
         signature.append(this.getName() + "(");
-        if (!this.getFormFields().isEmpty())
-        {
-            signature.append("form: any");
-        }
+        signature.append("form: any");
 
         signature.append(")");
         
         final ModelElementFacade returnType = this.getReturnType();
-        signature.append(returnType != null ? ": " + AngularUtils.getDatatype(returnType.getFullyQualifiedName()) : null);
+        signature.append(returnType != null ? ": " + AngularUtils.getDatatype(returnType.getFullyQualifiedName()) : ": void");
         return signature.toString();
     }
 }

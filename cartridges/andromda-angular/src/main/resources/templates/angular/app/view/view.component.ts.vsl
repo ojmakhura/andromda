@@ -147,7 +147,7 @@ export abstract class ${viewName}Component implements OnInit {
                 this.formBuilder.group({
 #* *##foreach ($column in $table.tableColumns)
 #*   *##if(!($column.upper>1 || $column.upper == -1))
-                    $angularUtils.getColumnName($column): ['']#if($i < $table.tableColumns.size()),$cr#end
+                    $angularUtils.getColumnName($column): [''],
 #*   *##end
 #* *##end
                 })
@@ -190,9 +190,9 @@ export abstract class ${viewName}Component implements OnInit {
     getArrayControl(name: string): FormArray {
         return this.${stringUtils.uncapitalize(${viewName})}Form.get(name) as FormArray;
     }
-#foreach($table in $view.tables)
 
-    set$stringUtils.capitalize(${table.name})(${table.name}: $angularUtils.getDatatype(${table.type.name})): FormArray {
+#foreach($table in $view.tables)
+    set$stringUtils.capitalize(${table.name})(${table.name}: Array<$angularUtils.getDatatype(${table.type.name})>): FormArray {
 
         const ${table.name}Array = new FormArray([]);
 
@@ -200,7 +200,7 @@ export abstract class ${viewName}Component implements OnInit {
             return ${table.name}Array;
         }
 
-        ${table.name}.forEach(item => {
+        ${table.name}.forEach((item: $angularUtils.getDatatype(${table.type.name})) => {
             ${table.name}Array.push(this.rxFormBuilder.group(item))
         });
 
@@ -208,30 +208,13 @@ export abstract class ${viewName}Component implements OnInit {
 
         return ${table.name}Array;
     }
-#end
-##foreach ($parameter in $angularUtils.getFacadeSet($params) )
-##
-#####*   *##if($parameter.complex)
-###*     *##set($returnType = "FormGroup")
-###*   *##else
-###*     *##set($returnType = "FormControl")
-###*   *##end
-###    set$stringUtils.capitalize($parameter.name)($parameter.name: $angularUtils.getDatatype($parameter.type.name)): $returnType {
-##
-##        if(!${parameter.name} || ${parameter.name} === undefined || ${parameter.name} === null) {
-##            return #if($parameter.complex) this.newForm()#else new FormControl()#end;
-##        }
-##
-##        this.${stringUtils.uncapitalize(${viewName})}Form.get('$parameter.name').setValue($parameter.name);
-##
-##        return this.${stringUtils.uncapitalize(${viewName})}Form.get('$parameter.name') as $returnType;
-##    }
-###end
-#if(${view.useCase.controller})
 
+#end
+#if(${view.useCase.controller})
     get ${view.useCase.controller.beanName}(): ${view.useCase.controller.name}Impl {
         
         return this._injector.get(${view.useCase.controller.name}Impl);
     }
+
 #end
 }
