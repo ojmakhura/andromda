@@ -157,11 +157,23 @@ export abstract class ${viewName}Component implements OnInit {
     }
 
 #foreach ($action in $view.actions)
-#set ( $className = $angularUtils.getActionName("$action.path") )
-    get $stringUtils.uncapitalize($className)Form(): FormGroup {
-        return this.getGroupControl('$stringUtils.uncapitalize($className)Form');
+#set ( $actionClass = $angularUtils.getActionName("$action.path") )
+    get $stringUtils.uncapitalize($actionClass)Form(): FormGroup {
+        return this.getGroupControl('$stringUtils.uncapitalize($actionClass)Form');
     }
-     
+    
+    abstract afterSet${actionClass}(form: any): void;
+
+    set${actionClass}(form: any) {
+
+#foreach($parameter in $action.parameters)
+        this.${stringUtils.uncapitalize($actionClass)}Form.get('$parameter.name').setValue(form.$parameter.name);
+#end
+
+        this.afterSet${actionClass}(form);
+
+    }
+
 #end
 #if ($view.nonTableVariablesPresent)
     get ${stringUtils.uncapitalize($viewName)}VarsForm(): FormGroup {

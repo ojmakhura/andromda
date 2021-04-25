@@ -89,6 +89,7 @@ export abstract class ${className}Component implements OnInit {
 #foreach ( $table in $action.source.tables )
 	@Output() ${table.name}: EventEmitter<any> = new EventEmitter();
 #end
+    @Output() ${stringUtils.uncapitalize($className)}Event: EventEmitter<any> = new EventEmitter();
 ###foreach ($param in $params)
 ##set($name = $stringUtils.replaceChars(${act.trigger.name}, '\\ ', ''))
 ##	@Output() $param.name: EventEmitter<any> = new EventEmitter();

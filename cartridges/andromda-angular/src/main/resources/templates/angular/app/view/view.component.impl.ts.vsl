@@ -39,4 +39,12 @@ export class ${className}ImplComponent extends ${className}Component {
 
     handleFormChanges(change: any) {
     }
+
+#foreach ($action in $view.actions)
+#set ( $actionClass = $angularUtils.getActionName("$action.path") )
+    afterSet${actionClass}(form: any): void {
+
+    }
+
+#end
 }

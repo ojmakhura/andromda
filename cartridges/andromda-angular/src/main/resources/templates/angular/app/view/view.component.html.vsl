@@ -18,9 +18,14 @@
 	<div class="card my-5">
 		<$selectorName 
 			[$stringUtils.uncapitalize($className)Form] = "${stringUtils.uncapitalize($className)}Form"
+#foreach ($action in $view.actions)
+#set ( $actionClass = $angularUtils.getActionName("$action.path") )
+			(${stringUtils.uncapitalize($actionClass)}Event)="set${actionClass}($event)"
+#end
 #foreach ( $table in $view.tables )
 			(${table.name}) = "set$stringUtils.capitalize(${table.name})($event)"
-#end>
+#end
+		>
 		</$selectorName>
 	</div>
 #end
