@@ -31,9 +31,9 @@ export abstract class ControllerBase
      *
      * @param view the view
      */
-    static getPageVariables(view: string): any
+    static getPageVariables(): any
     {
-        const key=view + '-' + ControllerBase.PAGE_VARIABLES_SUFFIX;
+        const key = ControllerBase.PAGE_VARIABLES_SUFFIX;
         let useCaseScope = ControllerBase.getUseCaseScope();
         let pageVariables;
         if(useCaseScope[key])
@@ -53,20 +53,13 @@ export abstract class ControllerBase
      *
      * @param view the view
      */
-    static setPageVariables(view: string, pageVariables): void
+    static setPageVariables(pageVariables: any): void
     {
-        const key=view + '-' + ControllerBase.PAGE_VARIABLES_SUFFIX;
+        const key = ControllerBase.PAGE_VARIABLES_SUFFIX;
         let useCaseScope = ControllerBase.getUseCaseScope();
-        let pageVariables;
-        if(useCaseScope[key])
-        {
-            pageVariables = useCaseScope[key];
-        } 
-        else
-        {
-            pageVariables = {};
-            useCaseScope[key] = pageVariables;
-        }
+        useCaseScope.pageVariables = pageVariables;
+        localStorage.setItem(ControllerBase.USE_CASE_SCOPE_KEY, JSON.stringify(useCaseScope));
+
         return pageVariables;
     }
 
@@ -100,7 +93,7 @@ export abstract class ControllerBase
         useCaseScope[ControllerBase.USE_CASE_PARAMETERS_KEY] = {};
         useCaseScope[ControllerBase.USE_CASE_RETURN_VALUES_KEY] = {};
 
-        this.setUseCaseScope(useCaseScope);
+        ControllerBase.setUseCaseScope(useCaseScope);
         return useCaseScope;
     }
 
@@ -169,7 +162,7 @@ export abstract class ControllerBase
    
 
         //reset the useCaseScope and put the parameters available.
-        let useCaseScope = ControllerBase.resetUseCaseScope();
+        let useCaseScope = this.resetUseCaseScope();
 
         return this.internalStartUseCase(pageVariables);
     }

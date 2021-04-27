@@ -85,52 +85,6 @@ export abstract class $controller.name extends ControllerBase {
 #end
         this._injector = injector;
     }
-
-    /**
-     * Populate action form and page variables
-     *
-     * @param currentView the current view
-     * @param forward the forward view
-     * @param sourceForm the source form
-     * @throws IllegalAccessException
-     * @throws java.lang.reflect.InvocationTargetException
-     * @throws NoSuchMethodException
-     */
-    private populateActionFormsAndPageVariables(currentView: string, forward: string, sourceForm: any): void
-    {
-        if(forward == null)
-        {
-            forward=currentView;
-        }
-        
-        const pageVariables: any = ControllerBase.getPageVariables(forward);
-#set($showElse=false)
-#foreach ($view in $controller.useCase.views)
-#if ($view.populatorRequired)
-#if($showElse)
-        else
-#end
-#set ($pt = $angularUtils.getComponentFileName(${view.name}))
-#set ( $cls = $angularUtils.getComponentName($pt, "-") )
-        if('$stringUtils.lowerCase($cls)' == forward)
-        {
-#foreach ($viewAction in $view.formActions)
-#set ($t1 = $stringUtils.substringBefore(${action.getFormImplementationName()}, "Impl"))
-#set ($t2 = $stringUtils.substringBefore(${viewAction.getFormImplementationName()}, "Impl"))
-            // ${viewPopulator}.populateForm(sourceForm,this.${viewAction.formImplementationGetter});
-#end
-#if(!$view.variables.empty)
-            // ${viewPopulator}.populate$stringUtils.upperCamelCaseName($view.name)PageVariables(sourceForm,pageVariables);
-#end
-        }
-#set($showElse=true)
-#if($velocityCount < $controller.useCase.views.size() && $showElse)
-#set($showElse=true)
-#end
-#end
-#end
-        //${managedBeansPackage}.ControllerBase.getUseCaseScope()[ControllerBase.CURRENT_PAGE_VARIABLES_KEY] = pageVariables;
-    }
     
 #foreach ($operation in $controller.operations)
     /**
@@ -196,6 +150,7 @@ $action.trigger.getDocumentation("     * ")
 #if($action.exitingInitialState)  
         this.${action.triggerMethodName}(pageVariables);
 #else
+        ControllerBase.setPageVariables(form);
         this.${action.triggerMethodName}(form);
 #end
 
@@ -204,16 +159,7 @@ $action.trigger.getDocumentation("     * ")
 #if ($formPopulationOperationRequired)
 #set ( $actionFile = $angularUtils.getComponentFileName("${action.source.name}"))
 #set ( $actionClass = $angularUtils.getComponentName($actionFile, "-") )
-        //this.populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"$stringUtils.lowerCase($actionClass)"#end,forward,form);
-        //const pageVariables: any = this.getPageVariables(forward);
-#foreach($parameter in $action.forwardParameters)
-        //if(form.$parameter.name) {
-        //    pageVariables.$parameter.name = form.$parameter.name;
-        //}
-
-#end
-       // ControllerBase.getUseCaseScope()[ControllerBase.CURRENT_PAGE_VARIABLES_KEY] = pageVariables;
-
+        
 #if(!$action.exitingInitialState && !$action.enteringFinalState)
         if(forward !== null)
         {

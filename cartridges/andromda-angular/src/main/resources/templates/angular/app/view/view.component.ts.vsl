@@ -79,7 +79,7 @@ import { ${view.useCase.controller.name}Impl } from ${escTool.s}@app/controller/
 export abstract class ${viewName}Component implements OnInit {
 
 	${stringUtils.uncapitalize($viewName)}Form: FormGroup;
-    protected pageVariables: any;
+    pageVariables: any;
     protected route: ActivatedRoute;
     protected router: Router;
     protected formBuilder: FormBuilder;

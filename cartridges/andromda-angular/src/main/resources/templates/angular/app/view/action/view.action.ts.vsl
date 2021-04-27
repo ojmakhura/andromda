@@ -86,8 +86,8 @@ export abstract class ${className}Component implements OnInit {
 #end
 #end
 #end
-    @Input() protected $stringUtils.uncapitalize($className)Form: FormGroup;
-    @Input() protected pageVariables: any;
+    @Input() $stringUtils.uncapitalize($className)Form: FormGroup;
+    @Input() pageVariables: any;
 #foreach ( $table in $action.source.tables )
 	@Output() ${table.name}: EventEmitter<any> = new EventEmitter();
 #end
