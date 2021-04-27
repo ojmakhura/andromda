@@ -27,7 +27,7 @@ export abstract class $service.name {
 
 #if ($service.restCount>0)
 #if ($stringUtils.isNotBlank($service.restPath))
-    protected path = environment.baseApiUrl + #if($stringUtils.isNotBlank($service.restPath))"$service.restPath"#else"${service.name.toLowerCase()}sws"#end;
+    protected path = #if($stringUtils.isNotBlank($service.restPath))"$service.restPath"#else"/${service.name.toLowerCase()}sws"#end;
 
 #end
 #end
@@ -48,7 +48,6 @@ export abstract class $service.name {
 
 #end
 #end
-
 #end
 #if ($service.restCount>0 && $stringUtils.isNotBlank($service.restPath))
     protected http: HttpClient;
@@ -65,6 +64,7 @@ export abstract class $service.name {
 #set ($returnType = "$returnType[]")
 #end
 #set ($returnType2 = "Observable<$returnType>")
+
     /**
      * 
 ##if ($operation.rest)
@@ -81,7 +81,6 @@ export abstract class $service.name {
 ##end
      */
     public abstract ${operation.name}($arguments): $returnType2;
-
 #end
 }
 

@@ -9,8 +9,7 @@ import { env } from './.env';
 export const environment = {
   production: true,
   version: env.npm_package_version,
-  serverUrl: 'https://api.chucknorris.io',
+  serverUrl: 'http://localhost:8080',
   defaultLanguage: 'en-US',
   supportedLanguages: ['en-US'],
-  baseApiUrl: 'http://localhost:8080',
 };

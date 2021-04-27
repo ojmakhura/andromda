@@ -110,7 +110,9 @@ export abstract class $controller.name extends ControllerBase {
 #if($showElse)
         else
 #end
-        if("${view.path}.ts" == forward)
+#set ($pt = $angularUtils.getComponentFileName(${view.name}))
+#set ( $cls = $angularUtils.getComponentName($pt, "-") )
+        if('$stringUtils.lowerCase($cls)' == forward)
         {
 #foreach ($viewAction in $view.formActions)
 #set ($t1 = $stringUtils.substringBefore(${action.getFormImplementationName()}, "Impl"))
@@ -207,9 +209,9 @@ $action.trigger.getDocumentation("     * ")
         forward = #processTransition($action)
 #saveMessages($action "        ")
 #if ($formPopulationOperationRequired)
-        //populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"${action.source.path}.${facesServletExtension}"#end,forward,form);
 #set ( $actionFile = $angularUtils.getComponentFileName("${action.source.name}"))
 #set ( $actionClass = $angularUtils.getComponentName($actionFile, "-") )
+        this.populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"$stringUtils.lowerCase($actionClass)"#end,forward,form);
 #if(!$action.exitingInitialState && !$action.enteringFinalState)
         if(forward !== null)
         {
