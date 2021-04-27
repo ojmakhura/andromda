@@ -9,6 +9,7 @@ import { RxFormBuilder } from '@rxweb/reactive-form-validators';
 import { NgForm, FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { ControllerBase } from '@app/controller/utils/controller.base';
 
 #set ( $viewFile = $angularUtils.getComponentFileName("${action.source.name}") )
 #set ($params = $angularUtils.getFormFields($${action.source.actions}))
@@ -85,7 +86,8 @@ export abstract class ${className}Component implements OnInit {
 #end
 #end
 #end
-    @Input() $stringUtils.uncapitalize($className)Form: FormGroup;
+    @Input() protected $stringUtils.uncapitalize($className)Form: FormGroup;
+    @Input() protected pageVariables: any;
 #foreach ( $table in $action.source.tables )
 	@Output() ${table.name}: EventEmitter<any> = new EventEmitter();
 #end
@@ -102,6 +104,7 @@ export abstract class ${className}Component implements OnInit {
     protected ${stringUtils.uncapitalize($viewName)}Component: ${viewName}ImplComponent;
     protected formBuilder: FormBuilder;
     protected _injector: Injector;
+    
 #set ($selections = [])
 #foreach( $parameter in $action.parameters )
 #if($parameter.complex)

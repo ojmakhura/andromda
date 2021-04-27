@@ -11,6 +11,7 @@ import { Component, OnInit, Injector, ViewChild, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
 import { NgForm, FormGroup, FormControl, FormArray, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { ControllerBase } from '@app/controller/utils/controller.base';
 ## Find all the fields in the actions of the view
 #set ( $fields = [] )
 #foreach ( $action in $view.actions )
@@ -78,7 +79,7 @@ import { ${view.useCase.controller.name}Impl } from ${escTool.s}@app/controller/
 export abstract class ${viewName}Component implements OnInit {
 
 	${stringUtils.uncapitalize($viewName)}Form: FormGroup;
-
+    protected pageVariables: any;
     protected route: ActivatedRoute;
     protected router: Router;
     protected formBuilder: FormBuilder;
@@ -101,6 +102,7 @@ export abstract class ${viewName}Component implements OnInit {
         this.${stringUtils.uncapitalize($viewName)}Form = this.newForm();
 
 #if(${view.useCase.controller})
+        this.pageVariables = ControllerBase.getPageVariables();
         this.${view.useCase.controller.beanName}.startUseCase();
 #end
         this.${stringUtils.uncapitalize($viewName)}Form.valueChanges.subscribe(

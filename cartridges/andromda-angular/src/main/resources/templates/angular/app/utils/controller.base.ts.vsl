@@ -31,7 +31,29 @@ export abstract class ControllerBase
      *
      * @param view the view
      */
-    getPageVariables(view: string): any
+    static getPageVariables(view: string): any
+    {
+        const key=view + '-' + ControllerBase.PAGE_VARIABLES_SUFFIX;
+        let useCaseScope = ControllerBase.getUseCaseScope();
+        let pageVariables;
+        if(useCaseScope[key])
+        {
+            pageVariables = useCaseScope[key];
+        } 
+        else
+        {
+            pageVariables = {};
+            useCaseScope[key] = pageVariables;
+        }
+        return pageVariables;
+    }
+    
+    /**
+     * Returns the page variables associated with the view.
+     *
+     * @param view the view
+     */
+    static setPageVariables(view: string, pageVariables): void
     {
         const key=view + '-' + ControllerBase.PAGE_VARIABLES_SUFFIX;
         let useCaseScope = ControllerBase.getUseCaseScope();
@@ -102,7 +124,7 @@ export abstract class ControllerBase
      * 
      * @param useCaseScope the new value for useCaseScope
      */
-    setUseCaseScope(useCaseScope: any)
+    static setUseCaseScope(useCaseScope: any)
     {
         localStorage.setItem(ControllerBase.USE_CASE_SCOPE_KEY, JSON.stringify(useCaseScope));
         return useCaseScope;
@@ -134,7 +156,7 @@ export abstract class ControllerBase
  
     //start/finish use case
     
-    protected abstract internalStartUseCase(useCaseParameters: any): string;
+    protected abstract internalStartUseCase(pageVariables: any): string;
 
     /**
      * Starts a use case
@@ -143,33 +165,13 @@ export abstract class ControllerBase
      */
     startUseCase(): string
     {
-        let useCaseParameters: Object;
-        
-        if(ControllerBase.getUseCaseScope() === null)//can be null if executed from the url
-        {
-            useCaseParameters = {};
-            //final javax.servlet.http.HttpServletRequest request = angularUtils.getRequest();
-            const parameterNames = JSON.parse(localStorage.getItem(ControllerBase.USE_CASE_PARAMETER_NAMES));
-            
-            for (let key in parameterNames) {
-                const parameterName: string = parameterNames[key];
-                if(parameterName.startsWith(ControllerBase.USE_CASE_PARAMETER_PREFIX))
-                {
-                    useCaseParameters[parameterName.substring(ControllerBase.USE_CASE_PARAMETER_PREFIX.length)] = localStorage.getItem(parameterName);
-                }
-            }
-        }
-        else
-        {
-            useCaseParameters = this.getUseCaseParameters();
-        }
+        let pageVariables: Object = ControllerBase.getPageVariables();
+   
 
         //reset the useCaseScope and put the parameters available.
-        this.resetUseCaseScope()[ControllerBase.USE_CASE_PARAMETERS_KEY] = useCaseParameters;
-        
-        //setUseCaseInDialog(BooleanUtils.toBoolean(useCaseParameters[ControllerBase.USE_CASE_IN_DIALOG_KEY]));
+        let useCaseScope = ControllerBase.resetUseCaseScope();
 
-        return this.internalStartUseCase(useCaseParameters);
+        return this.internalStartUseCase(pageVariables);
     }
 
     /**

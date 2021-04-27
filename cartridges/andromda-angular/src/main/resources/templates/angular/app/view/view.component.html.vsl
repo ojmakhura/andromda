@@ -7,7 +7,10 @@
 ## Render non table variables
 #if ($view.nonTableVariablesPresent)
     <div class="card my-5">
-		<${fileName}-vars [${stringUtils.uncapitalize(${viewName})}VarsForm] = "${stringUtils.uncapitalize(${viewName})}VarsForm"></${fileName}-vars>
+		<${fileName}-vars 
+			[${stringUtils.uncapitalize(${viewName})}VarsForm] = "${stringUtils.uncapitalize(${viewName})}VarsForm"
+			[pageVariables] = "pageVariables">
+		</${fileName}-vars>
 	</div>
 #end
 ## Render the form for each action
@@ -18,6 +21,7 @@
 	<div class="card my-5">
 		<$selectorName 
 			[$stringUtils.uncapitalize($className)Form] = "${stringUtils.uncapitalize($className)}Form"
+			[pageVariables] = "pageVariables"
 #foreach ($action in $view.actions)
 #set ( $actionClass = $angularUtils.getActionName("$action.path") )
 			(${stringUtils.uncapitalize($actionClass)}Event)="set${actionClass}($event)"
@@ -41,7 +45,10 @@
 #foreach ( $table in $tables )
 #set ( $tableName = $angularUtils.getComponentFileName("${view.name}-${table.name}"))
 		<mat-tab label="$stringUtils.capitalize(${table.name})">
-			<$tableName [${stringUtils.uncapitalize($viewName)}Form] = "${stringUtils.uncapitalize($viewName)}Form"></$tableName>
+			<$tableName
+				[${stringUtils.uncapitalize($viewName)}Form] = "${stringUtils.uncapitalize($viewName)}Form"
+				[pageVariables] = "pageVariables">
+			</$tableName>
 		</mat-tab>
 #end
 	</mat-tab-group>

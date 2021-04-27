@@ -25,15 +25,7 @@ this.closeDialog();
 this.__${transition.operationCall.name}(form);
 #else
 #if($action.exitingInitialState)  
-this.${transition.target.actionMethodName}#if (!$transition.formFields.empty)${action.formImplementationName}#end(
-#if(!$action.formFields.empty)
-    {
-#foreach($field in $action.formFields)
-        $field.name: useCaseParameters.$field.name, 
-#end    
-    }
-#end
-);
+this.${transition.target.actionMethodName}#if (!$transition.formFields.empty)${action.formImplementationName}#end(pageVariables);
 #else
 this.${transition.target.actionMethodName}#if (!$transition.formFields.empty)${action.formImplementationName}#end(form);
 #end
