@@ -21,6 +21,7 @@ export abstract class ControllerBase
     static USE_CASE_PARAMETER_NAMES = 'parameterNames';
 
     protected router: Router;
+    pageVariables: any = {};
 
     constructor(injector: Injector) {
         this.router = injector.get(Router);
@@ -35,17 +36,8 @@ export abstract class ControllerBase
     {
         const key = ControllerBase.PAGE_VARIABLES_SUFFIX;
         let useCaseScope = ControllerBase.getUseCaseScope();
-        let pageVariables;
-        if(useCaseScope[key])
-        {
-            pageVariables = useCaseScope[key];
-        } 
-        else
-        {
-            pageVariables = {};
-            useCaseScope[key] = pageVariables;
-        }
-        return pageVariables;
+        
+        return useCaseScope.pageVariables;
     }
     
     /**

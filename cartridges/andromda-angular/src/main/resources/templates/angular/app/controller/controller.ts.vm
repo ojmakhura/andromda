@@ -10,6 +10,7 @@ null;
 ##if($targetControlle.name)(<$targetController.name>JSON.parse(localStorage.getItem('$targetControllerBeanName'))).startUseCase()#else this.closeDialog()#end;
 #if($targetController.name)
 #if(${targetController.name} != $controller.name)
+this.${stringUtils.uncapitalize(${targetController.name})}.pageVariables = form;
 this.${stringUtils.uncapitalize(${targetController.name})}.startUseCase()
 #else
 this.startUseCase();

@@ -79,7 +79,6 @@ import { ${view.useCase.controller.name}Impl } from ${escTool.s}@app/controller/
 export abstract class ${viewName}Component implements OnInit {
 
 	${stringUtils.uncapitalize($viewName)}Form: FormGroup;
-    pageVariables: any;
     protected route: ActivatedRoute;
     protected router: Router;
     protected formBuilder: FormBuilder;
@@ -102,8 +101,7 @@ export abstract class ${viewName}Component implements OnInit {
         this.${stringUtils.uncapitalize($viewName)}Form = this.newForm();
 
 #if(${view.useCase.controller})
-        this.pageVariables = ControllerBase.getPageVariables();
-        this.${view.useCase.controller.beanName}.startUseCase();
+        this.${view.useCase.controller.beanName}.resetUseCaseScope();
 #end
         this.${stringUtils.uncapitalize($viewName)}Form.valueChanges.subscribe(
             (change: any) => {

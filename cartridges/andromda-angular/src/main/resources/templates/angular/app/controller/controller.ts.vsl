@@ -150,7 +150,6 @@ $action.trigger.getDocumentation("     * ")
 #if($action.exitingInitialState)  
         this.${action.triggerMethodName}(pageVariables);
 #else
-        ControllerBase.setPageVariables(form);
         this.${action.triggerMethodName}(form);
 #end
 
