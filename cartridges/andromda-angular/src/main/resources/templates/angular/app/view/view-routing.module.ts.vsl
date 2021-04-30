@@ -21,7 +21,7 @@ const routes: Routes = [
     { 
         path: '$stringUtils.lowerCase($className)', 
         component: ${className}ImplComponent, 
-        data: { title: marker('$className') } 
+        data: { title: marker('${stringUtils.toPhrase(${className})}') } 
     },
     
   ]),

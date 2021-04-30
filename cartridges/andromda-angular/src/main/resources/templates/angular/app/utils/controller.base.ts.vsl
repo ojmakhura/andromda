@@ -22,6 +22,7 @@ export abstract class ControllerBase
 
     protected router: Router;
     pageVariables: any = {};
+    data: any = {};
 
     constructor(injector: Injector) {
         this.router = injector.get(Router);

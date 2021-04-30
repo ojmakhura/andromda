@@ -8,8 +8,7 @@
 #if ($view.nonTableVariablesPresent)
     <div class="card my-5">
 		<${fileName}-vars 
-			[${stringUtils.uncapitalize(${viewName})}VarsForm] = "${stringUtils.uncapitalize(${viewName})}VarsForm"
-			[pageVariables] = "pageVariables">
+			[${stringUtils.uncapitalize(${viewName})}VarsForm] = "${stringUtils.uncapitalize(${viewName})}VarsForm">
 		</${fileName}-vars>
 	</div>
 #end
@@ -21,7 +20,6 @@
 	<div class="card my-5">
 		<$selectorName 
 			[$stringUtils.uncapitalize($className)Form] = "${stringUtils.uncapitalize($className)}Form"
-			[pageVariables] = "pageVariables"
 #foreach ($action in $view.actions)
 #set ( $actionClass = $angularUtils.getActionName("$action.path") )
 			(${stringUtils.uncapitalize($actionClass)}Event)="set${actionClass}($event)"
@@ -46,8 +44,7 @@
 #set ( $tableName = $angularUtils.getComponentFileName("${view.name}-${table.name}"))
 		<mat-tab label="$stringUtils.capitalize(${table.name})">
 			<$tableName
-				[${stringUtils.uncapitalize($viewName)}Form] = "${stringUtils.uncapitalize($viewName)}Form"
-				[pageVariables] = "pageVariables">
+				[${stringUtils.uncapitalize($viewName)}Form] = "${stringUtils.uncapitalize($viewName)}Form">
 			</$tableName>
 		</mat-tab>
 #end

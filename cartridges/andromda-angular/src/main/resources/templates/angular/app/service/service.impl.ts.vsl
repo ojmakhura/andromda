@@ -45,11 +45,11 @@ export class ${service.name}Impl extends ${service.name} {
 #set ($methodName = $angularUtils.getWebServiceMethodName($operation))
 #set ($methodPath = $angularUtils.getWebServiceOperationPath($operation.restPath))
 #if ( $methodName.equals("get")) 
-        return this.http.get<$rType>(this.path + '$methodPath'#foreach($arg in $operation.arguments) + $arg.name#end);
+        return this.http.get<$rType>(this.path + '$methodPath/'#foreach($arg in $operation.arguments) + $arg.name#end);
 #elseif ( $methodName.equals("post")) 
         return this.http.post<$rType>(this.path + '$methodPath'#if (!$stringUtils.isBlank($restParams)), $restParams#end);
 #elseif ( $methodName.equals("delete")) 
-        return this.http.delete<$rType>(this.path + '$methodPath'#foreach ($arg in $operation.arguments) + $arg.name#end);
+        return this.http.delete<$rType>(this.path + '$methodPath/'#foreach ($arg in $operation.arguments) + $arg.name#end);
 #elseif ( $methodName.equals("put")) 
         return this.http.put<$rType>(this.path + '$methodPath'#if (!$stringUtils.isBlank($restParams)), $restParams#end);
 #else 

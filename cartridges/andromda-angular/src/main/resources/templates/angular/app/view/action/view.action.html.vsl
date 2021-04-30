@@ -28,9 +28,9 @@
 #set ($normals = $angularUtils.getStandardAttributes($parameter))
 #set ($tables = $angularUtils.getTableAttributes($parameter))
 #foreach ($attribute in $normals)
-#if (!$attribute.inputHidden && !$parameter.inputHidden)
+##if (!$attribute.inputHidden && !$parameter.inputHidden)
 #renderAngularActionInput($attribute $parameter "		    ")
-#end
+##end
 #end
 #if ($tables.size() > 0)
             <mat-tab-group animationDuration="0ms" class = "view-tabs">
