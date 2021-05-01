@@ -44,11 +44,6 @@ import { ${param.name} } from '@app/model/$path/$fname';
 #set ( $fname = $angularUtils.getComponentFileName("${enum.name}") )
 import { ${enum.name} } from '@app/model/$path/$fname';
 #end
-#foreach ($service in $view.useCase.controller.allRestControllers)
-#set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${service.packageName}), '\\.', '\\/')" )
-#set ( $fname = $angularUtils.getComponentFileName("${service.name}Impl") )
-import { ${service.name}Impl } from '@app/service/$path/$fname';
-#end
 #set ( $path = $stringUtils.replaceChars($view.useCase.controller.packageName, '\\.', '\\/') )
 #set ( $file =  ${angularUtils.getComponentFileName("${view.useCase.controller.name}Impl")})
 import { ${view.useCase.controller.name}Impl } from '@app/controller/$path/${file}';
