@@ -581,7 +581,7 @@ public class AngularUtils {
             final AngularParameter parameter = (AngularParameter)feParameter;
             for(Object tmp : parameter.getAttributes()) {
                 AngularAttribute attribute = (AngularAttribute)tmp;
-                if(!isTable(attribute) && !(attribute.isMany() && !attribute.isInputSelect())) {
+                if(!isTable(attribute)) {
                     attributes.add(attribute);
                 }
             }
@@ -598,7 +598,7 @@ public class AngularUtils {
             final AngularParameter parameter = (AngularParameter)feParameter;
             for(Object tmp : parameter.getAttributes()) {
                 AngularAttribute attribute = (AngularAttribute)tmp;
-                if(isTable(attribute)  || (attribute.isMany() && !attribute.isInputSelect())) {
+                if(isTable(attribute)) {
                     attributes.add(attribute);
                 }
                 

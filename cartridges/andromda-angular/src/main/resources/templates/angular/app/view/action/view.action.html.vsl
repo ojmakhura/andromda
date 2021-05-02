@@ -35,6 +35,10 @@
 #if ($tables.size() > 0)
             <mat-tab-group animationDuration="0ms" class = "view-tabs">
 #foreach($table in $tables)
+table: $table
+isTable: $angularUtils.isTable($table)
+inputSelect: $table.inputSelect
+enumeration: $table.type.enumeration
                 <mat-tab label="$stringUtils.toPhrase($table.label)">
 #renderAngularActionInput($table $parameter "		            ")
                 </mat-tab>

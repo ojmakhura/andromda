@@ -108,6 +108,7 @@ export abstract class ${viewName}VarsComponent implements OnInit {
 #end
 #end
 #if(${view.useCase.controller})
+    ${view.useCase.controller.beanName}: ${view.useCase.controller.name}Impl;
 #foreach ($service in $view.useCase.controller.allRestControllers)
     $stringUtils.uncapitalize($service.name): ${service.name}Impl;
 #end
@@ -119,6 +120,7 @@ export abstract class ${viewName}VarsComponent implements OnInit {
         this.formBuilder = injector.get(FormBuilder);
         this.rxFormBuilder = injector.get(RxFormBuilder);
 #if(${view.useCase.controller})
+        this.${view.useCase.controller.beanName} = injector.get(${view.useCase.controller.name}Impl);
 #foreach ($service in $view.useCase.controller.allRestControllers)
         this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name}Impl);
 #end

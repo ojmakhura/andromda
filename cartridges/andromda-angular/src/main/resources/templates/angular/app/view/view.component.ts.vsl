@@ -243,6 +243,5 @@ export abstract class ${viewName}Component implements OnInit {
         
         return this._injector.get(${view.useCase.controller.name}Impl);
     }
-
 #end
 }
