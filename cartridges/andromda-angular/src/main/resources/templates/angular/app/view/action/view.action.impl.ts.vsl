@@ -28,9 +28,9 @@ export class ${className}ImplComponent extends ${className}Component {
     
   }
 
-  after$stringUtils.capitalize(${action.triggerName})(form: any) {    
+  after$stringUtils.capitalize(${action.triggerName})(#if(!$action.formFields.empty)form: any#end) {    
   }
 
-  do$stringUtils.capitalize($action.triggerName)(form: any) {
+  do$stringUtils.capitalize($action.triggerName)(#if(!$action.formFields.empty)form: any#end) {
   }
 }

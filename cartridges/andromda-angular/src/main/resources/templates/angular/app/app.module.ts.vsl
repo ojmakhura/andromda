@@ -20,6 +20,7 @@
 #end
  */
 ##
+//hello there
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -95,7 +96,7 @@ import { ${service.name}Impl } from '@app/service/$path/$fname';
         EffectsModule.forRoot([]),
         StoreModule.forRoot(reducers, {
             metaReducers
-        })
+        }),
 #end
 #set ( $componentSet = $angularUtils.getFacadeSet($views) )
 #foreach($view in $componentSet)
