@@ -2,7 +2,7 @@
 #set ($fileName = $angularUtils.getComponentFileName($service.name))
 import { TestBed } from '@angular/core/testing';
 
-import { ${service.name}Impl } from 'src/app/impl/service/$componentPath/$fileName';
+import { ${service.name}Impl } from '@app/service/$componentPath/$fileName';
 
 describe('${service.name}Impl', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

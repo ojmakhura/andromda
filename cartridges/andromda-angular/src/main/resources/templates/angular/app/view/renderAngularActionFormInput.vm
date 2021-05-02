@@ -5,7 +5,7 @@
 ##     o  $parameter - the actual parameter to render
 ##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
 ##
-#macro(renderAngularActionInput $parameter $ownerParameter $ident)
+#macro(renderAngularActionInput $parameter $ownerParameter $ident $vrender)
 #if ($parameter.backingListName)
 #if ($ownerParameter.type.hasStereotype('Entity'))
 #set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
@@ -23,7 +23,7 @@
 #set ($backingValueName = ${parameter.getBackingValueName($ownerParameter)})
 #end
 #set ($formValuePropertyName = "${valuePropertyName}")
-${ident}<div #if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter))formGroupName="${parameter.name}"#end>
+${ident}<div #if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter))formGroupName="${parameter.name}"#end #if ($ownerParameter.inputHidden || $parameter.inputHidden)[hidden]="true"#end>
 #if($angularUtils.isTable($parameter))
 ${ident}	<div class="mat-elevation-z8">
 ${ident}		<mat-table matSort [dataSource]="${parameter.name}.controls" #${parameter.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
@@ -42,7 +42,7 @@ ${ident}	</div>
 ${ident}	<mat-form-field>
 ${ident}		<mat-label>$stringUtils.toPhrase($parameter.name)</mat-label> 
 #if ($parameter.type.dateType)
-${ident}	  	<input matInput [matDatepicker]="$propertyId" formControlName="${parameter.name}" id="$propertyId"#if($parameter.required) required#end>
+${ident}	  	<input matInput [matDatepicker]="$propertyId" formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
 ${ident}	  	<mat-datepicker-toggle matSuffix [for]="$propertyId"></mat-datepicker-toggle>
 ${ident}	  	<mat-datepicker #$propertyId></mat-datepicker>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration)
@@ -55,23 +55,24 @@ ${ident}			<mat-option *ngFor="let item of ${backingListName}" [value]="item#if(
 #end
 ${ident}		</mat-select>
 #elseif ($parameter.inputTextarea)
-${ident}		<textarea matInput
-${ident}			formControlName="${parameter.name}" id="$propertyId"
-${ident}			#if($parameter.required) required#end></textarea>
+${ident}		<textarea matInput formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end></textarea>
 #elseif ($parameter.inputText)
-${ident}		<input matInput
-${ident}			formControlName="${parameter.name}" id="$propertyId"
-${ident}			#if($parameter.required) required#end>
+${ident}		<input matInput formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
 #elseif ($parameter.inputSecret)
 ${ident}		<input matInput [type]="hide ? 'password' : 'text'">
-${ident}			formControlName="${parameter.name}" id="$propertyId">
+${ident}			formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
 ${ident}		<button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
 ${ident}			<mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
 ${ident}		</button>
 #else
-${ident}		<input matInput
-${ident}			formControlName="${parameter.name}" id="$propertyId"
-${ident}			#if($parameter.required) required#end>
+#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter))
+${ident}		<mat-select name="$propertyId" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" id="$propertyId">
+${ident}			<mat-option value = "">Select one ...</mat-option>
+${ident}			<mat-option *ngFor="let item of ${backingListName}" [value]="item#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration).id#end">{{ item#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration).id#end }}</mat-option>
+${ident}		</mat-select>
+#else
+${ident}		<input matInput formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
+#end
 #end
 ${ident}	</mat-form-field>
 #end

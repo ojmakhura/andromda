@@ -21,42 +21,20 @@
  */
 ##
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ErrorHandler } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { MatTabsModule} from '@angular/material/tabs';
-import { MatTableModule } from '@angular/material/table';
-import { MatListModule } from '@angular/material/list';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { TranslateModule } from '@ngx-translate/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
-import { MatSortModule } from '@angular/material/sort';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { NgForm } from '@angular/forms';
-import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
-import { MomentModule } from 'angular2-moment';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { RequestOptions } from '@angular/http';
-import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
+import { MaterialModule } from './material.module';
 
-import { HeaderComponent } from './header/header.component';
-import { NavigationComponent } from './navigation/navigation.component';
-import { FooterComponent } from './footer/footer.component';
-import { SideComponent } from './side/side.component';
-import { MainComponent } from './main/main.component';
+import { environment } from '@env/environment';
+import { CoreModule } from '@core';
+import { SharedModule } from '@shared';
+import { HomeModule } from './home/home.module';
+import { ShellModule } from './shell/shell.module';
+
 #set ($component = "component")
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -70,150 +48,63 @@ import { ConnectFormDirective } from './connect-form.directive';
 #renderImports($useCase)
 #end
 
-#set ( $finalServices = $angularUtils.getFacadeSet($services) )
-#foreach($service in $finalServices)
-#if($angularUtils.isWebService($service))
-#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${service.packageName}), '\\.', '\\/') )
-#set ( $fileName = $angularUtils.getComponentFileName("${service.name}") )
-#set ( $className = $angularUtils.getComponentName($fileName, "-"))
-import { ${service.name}Impl } from ${escTool.s}./impl/service/$componentPath/${fileName}-impl${escTool.s};
-#end
-#end
-
-#set ( $controllerSet = $angularUtils.getFacadeSet($controllers) )
-#foreach($controller in $controllerSet)
-#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${controller.packageName}), '\\.', '\\/') )
-#set ( $fileName = $angularUtils.getComponentFileName("${controller.name}") )
-#set ( $className = $angularUtils.getComponentName($fileName, "-"))
-import { ${controller.name}Impl } from ${escTool.s}./impl/controller/$componentPath/${fileName}-impl${escTool.s};
-#end
-
 #set ( $componentSet = $angularUtils.getFacadeSet($views) )
 #foreach($view in $componentSet)
 #set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
 #set ( $fileName = $angularUtils.getComponentFileName("${view.name}") )
 #set ( $className = $angularUtils.getComponentName($fileName, "-"))
-import { ${className}ImplComponent } from ${escTool.s}./impl/view/${componentPath}/${fileName}.impl.component${escTool.s};
+import { ${className}Module } from ${escTool.s}./view/${componentPath}/${fileName}.module${escTool.s};
+#end
+#set ( $componentSet = $angularUtils.getFacadeSet($controllers) )
+#foreach ( $controller in $componentSet )
+#set ( $path = $stringUtils.replaceChars($controller.packageName, '\\.', '\\/') )
+#set ( $file =  ${angularUtils.getComponentFileName("${controller.name}Impl")})
+import { ${controller.name}Impl } from '@app/controller/$path/${file}';
 #end
 
-#set ( $componentSet = $angularUtils.getFacadeSet($tables) )
-#foreach($table in $componentSet)
-#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${table.packageName}), '\\.', '\\/') )
-#set ( $fileName = $angularUtils.getComponentFileName("${table.view.name}-${table.name}") )
-#set ( $className = $angularUtils.getComponentName($fileName, "-"))
-import { ${className}ImplComponent } from ${escTool.s}./impl/view/${componentPath}/${fileName}.impl.component${escTool.s};
+#set ( $finalServices = $angularUtils.getFacadeSet($services) )
+#foreach ( $service in $finalServices )
+#if($angularUtils.isWebService($service))
+#set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${service.packageName}), '\\.', '\\/')" )
+#set ( $fname = $angularUtils.getComponentFileName("${service.name}Impl") )
+import { ${service.name}Impl } from '@app/service/$path/$fname';
 #end
-
-#foreach($action in $actions)
-#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${action.packageName}), '\\.', '\\/') )
-#set ( $className = $angularUtils.getActionName("${action.path}"))
-import { ${className}ImplComponent } from ${escTool.s}./impl/view${action.path}.impl.component${escTool.s};
-#end
-
-#set ( $finalFields = [] )
-#foreach ($finalField in $angularUtils.getFacadeSet($fields) )
-#set ($dt = $angularUtils.getDatatype($finalField.fullyQualifiedName))
-#if ($dt != "number" && $dt != "string" && $dt != "Date" && $dt != "Collection" && $dt != "any")
-#set ( $rt = $finalFields.add($finalField) )
-#end
-#end
-#set ( $suffix = "" )
-#foreach ( $field in $finalFields )
-#set($destination = $stringUtils.replaceChars(${field.packageName}, "\\.", "\\/"))
-#set($fileName = $angularUtils.getComponentFileName(${field.name}))
-import { $field.name } from './gen/model/$destination/$fileName';
 #end
 
 @NgModule({
     declarations: [
         AppComponent,
-        MainComponent,
-        HeaderComponent,
-        NavigationComponent,
-        NavigationComponent,
-        FooterComponent,
-        SideComponent,
 #if($ngrx)
         ConnectFormDirective,
 #end
-#set ( $componentSet = $angularUtils.getFacadeSet($views) )
-#foreach($view in $componentSet)
-#set ( $fileName = $angularUtils.getComponentFileName("${view.name}") )
-#set ( $className = $angularUtils.getComponentName($fileName, "-"))
-        ${className}ImplComponent,
-#end
-
-#set ( $componentSet = $angularUtils.getFacadeSet($tables) )
-#foreach($table in $componentSet)
-#set ( $fileName = $angularUtils.getComponentFileName("${table.view.name}-${table.name}") )
-#set ( $className = $angularUtils.getComponentName($fileName, "-"))
-        ${className}ImplComponent,
-#end
-
-#set ($i = 1)
-#foreach($action in $actions)
-#set ( $className = $angularUtils.getActionName("${action.path}"))
-        ${className}ImplComponent#if($i < $actions.size()),#end${escTool.n}#set ( $i = $i + 1 )
-#end
     ],
     imports: [
-        CommonModule,
-        MatButtonModule,
-        MatCheckboxModule,
-        MatDatepickerModule,
-        MatDialogModule,
-        MatIconModule,
-        MatInputModule,
-        MatListModule,
-        MatMenuModule,
-        MatNativeDateModule,
-        MatPaginatorModule,
-        MatRippleModule,
-        MatSelectModule,
-        MatSidenavModule,
-        MatSortModule,
-        MatTableModule,
-        MatTabsModule,
-        MatToolbarModule,
-        MatTooltipModule,
         BrowserModule,
-        BrowserAnimationsModule,
-        MatCardModule,
-        HttpClientModule,
+        ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
         FormsModule,
-        ReactiveFormsModule,
-        RxReactiveFormsModule,
-        NgIdleKeepaliveModule.forRoot(),
-        MomentModule,
-        ModalModule.forRoot(),
-        AppRoutingModule
+        HttpClientModule,
+        TranslateModule.forRoot(),
+        BrowserAnimationsModule,
+        MaterialModule,
+        CoreModule,
+        SharedModule,
+        ShellModule,
+        HomeModule,
+        AppRoutingModule, // must be imported as the last module as it contains the fallback route
 #if($ngrx)
         EffectsModule.forRoot([]),
         StoreModule.forRoot(reducers, {
             metaReducers
         })
 #end
+#set ( $componentSet = $angularUtils.getFacadeSet($views) )
+#foreach($view in $componentSet)
+#set ( $fileName = $angularUtils.getComponentFileName("${view.name}") )
+#set ( $className = $angularUtils.getComponentName($fileName, "-"))
+        ${className}Module,
+#end
     ],
     exports: [
-        MatButtonModule,
-        MatCheckboxModule,
-        MatDatepickerModule,
-        MatDialogModule,
-        MatIconModule,
-        MatCardModule,
-        MatInputModule,
-        MatListModule,
-        MatMenuModule,
-        MatNativeDateModule,
-        MatPaginatorModule,
-        MatRippleModule,
-        MatSelectModule,
-        MatSidenavModule,
-        MatSortModule,
-        MatTableModule,
-        MatTabsModule,
-        MatToolbarModule,
-        MatTooltipModule
     ],
     providers: [
 #set ($j = 0)
@@ -221,7 +112,7 @@ import { $field.name } from './gen/model/$destination/$fileName';
 #set ($dt = $angularUtils.getDatatype($finalField.fullyQualifiedName))
 #if ($dt != "number" && $dt != "string" && $dt != "Date" && $dt != "Collection" && $dt != "any")
 #set ( $j = $j + 1 )
-        $finalField.name,
+//        $finalField.name,
 #end
 #end
 #set ( $finalServices = $angularUtils.getFacadeSet($services) )
@@ -238,18 +129,19 @@ import { $field.name } from './gen/model/$destination/$fileName';
 #foreach($view in $componentSet)
 #set ( $fileName = $angularUtils.getComponentFileName("${view.name}") )
 #set ( $className = $angularUtils.getComponentName($fileName, "-"))
-        ${className}ImplComponent,
+//        ${className}ImplComponent,
 #end
 #set ( $componentSet = $angularUtils.getFacadeSet($tables) )
 #foreach($table in $componentSet)
 #set ( $fileName = $angularUtils.getComponentFileName("${table.view.name}-${table.name}") )
 #set ( $className = $angularUtils.getComponentName($fileName, "-"))
-        ${className}ImplComponent,
+//        ${className}ImplComponent,
 #end
 #set ($i = 1)
-#foreach($action in $actions)
+#set ( $componentSet = $angularUtils.getFacadeSet($actions) )
+#foreach($action in $componentSet)
 #set ( $className = $angularUtils.getActionName(${action.path}))
-        ${className}ImplComponent#if($i < $actions.size()),#end${escTool.n}#set ( $i = $i + 1 )
+//        ${className}ImplComponent#if($i < $componentSet.size()),#end${escTool.n}#set ( $i = $i + 1 )
 #end
 
     ],

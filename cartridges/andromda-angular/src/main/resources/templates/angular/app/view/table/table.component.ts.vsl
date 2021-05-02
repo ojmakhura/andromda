@@ -8,6 +8,7 @@ import { Component, OnInit, ViewChild, Injector, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
 import { NgForm, FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
+import { ControllerBase } from '@app/controller/utils/controller.base';
 #set ( $types = [] )
 #set ( $rt = $types.add($table.type) )
 #set ( $suffix = "" )
@@ -31,15 +32,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 #if($angularUtils.isWebService($service))
 #set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${service.packageName}), '\\.', '\\/')" )
 #set ( $fname = $angularUtils.getComponentFileName("${service.name}Impl") )
-import { ${service.name}Impl } from 'src/app/impl/service/$path/$fname';
+import { ${service.name}Impl } from '@app/service/$path/$fname';
 #end
 #end
 #set ( $viewFile = $angularUtils.getComponentFileName("${table.view.name}") )
 #set ($viewName = $angularUtils.getComponentName($viewFile, '-') )
-import { ${viewName}ImplComponent } from 'src/app/impl/view/$componentPath/${viewFile}.impl.component';
+import { ${viewName}ImplComponent } from '@app/view/$componentPath/${viewFile}.impl.component';
 #set ( $path = $stringUtils.replaceChars($table.view.useCase.controller.packageName, '\\.', '\\/') )
 #set ( $file =  ${angularUtils.getComponentFileName("${table.view.useCase.controller.name}Impl")})
-import { ${table.view.useCase.controller.name}Impl } from 'src/app/impl/controller/$path/${file}';
+import { ${table.view.useCase.controller.name}Impl } from '@app/controller/$path/${file}';
 
 @Component({
   selector: '${fileName}-base',
@@ -67,6 +68,7 @@ export abstract class ${className}Component implements OnInit {
     @ViewChild('${table.name}Paginator', {static: true}) ${table.name}Paginator: MatPaginator;
     @ViewChild('${table.name}Sort', {static: true}) ${table.name}Sort: MatSort;
 
+    @Input() protected pageVariables: any;
 	protected formBuilder: FormBuilder;
     protected route: ActivatedRoute;
     protected router: Router;
@@ -97,11 +99,11 @@ export abstract class ${className}Component implements OnInit {
         this.afterOnInit();
     }
 	
-    abstract beforeOnInit();
+    abstract beforeOnInit(): void;
 	
-    abstract afterOnInit();
+    abstract afterOnInit(): void;
     
-    abstract doNgAfterViewInit();
+    abstract doNgAfterViewInit(): void;
 
     ngAfterViewInit() {
         this.doNgAfterViewInit();
@@ -179,8 +181,13 @@ export abstract class ${className}Component implements OnInit {
         this.${table.name}.push(this.formBuilder.group({
 #set($i = 1)
 #foreach ($column in $table.tableColumns)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
 #if(!($column.upper>1 || $column.upper==-1))
-            $angularUtils.getColumnName($column): ['$column']#if($i < $table.tableColumns.size()),$cr#end
+            $columnName: [null],
 #end
 #set($i = $i + 1)
 #end
@@ -189,8 +196,13 @@ export abstract class ${className}Component implements OnInit {
         this.${table.name}.push(this.formBuilder.group({
 #set($i = 1)
 #foreach ($column in $table.tableColumns)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
 #if(!($column.upper > 1 || $column.upper == -1))
-            $angularUtils.getColumnName($column): ['$column']#if($i < $table.tableColumns.size()),$cr#end
+            $columnName: [null],
 #end
 #set($i = $i + 1)
 #end
@@ -199,8 +211,13 @@ export abstract class ${className}Component implements OnInit {
         this.${table.name}.push(this.formBuilder.group({
 #set($i = 1)
 #foreach ($column in $table.tableColumns)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
 #if(!($column.upper>1 || $column.upper==-1))
-            $angularUtils.getColumnName($column): ['$column']#if($i < $table.tableColumns.size()),$cr#end
+            $columnName: [null],
 #end
 #set($i = $i + 1)
 #end

@@ -26,6 +26,18 @@
 #end
 #end
 #end
+##foreach ( $form in $angularUtils.getFacadeSet($forms) )
+##set ( $formPath = $stringUtils.replaceChars($form.packageName, '\\.', '\\/') )
+##set ( $formFile =  ${angularUtils.getComponentFileName("${form.formImplementationName}")})
+##import { $form.getFormImplementationName() } from '@app/form/$formPath/${formFile}';
+##end
+#foreach ( $action in $useCase.actions )
+#if(!$action.formFields.empty && !$action.equals($view.formActions))
+#set ( $formPath = $stringUtils.replaceChars($action.packageName, '\\.', '\\/') )
+#set ( $formFile =  ${angularUtils.getComponentFileName("${action.formImplementationName}")})
+import { $action.getFormImplementationName() } from '@app/form/$formPath/${formFile}';
+#end
+#end
 
 ##WIM *** move combinations to java code
 ## holds the fromFrom -> toForm matches, where exists at least one equal field (name+type)

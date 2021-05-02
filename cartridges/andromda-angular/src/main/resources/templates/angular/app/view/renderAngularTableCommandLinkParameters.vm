@@ -22,7 +22,7 @@ $param#if($i < $params.size()),$cr#end
 ## This macro renders the parameters for a function
 ##
 #macro (renderAngularTableCommandLinkParametersWithTypes)
-#set ( $params = [])
+#set ( $params = [] )
 #set($cr = '
 ')
 #foreach ($parameter in $action.parameters)

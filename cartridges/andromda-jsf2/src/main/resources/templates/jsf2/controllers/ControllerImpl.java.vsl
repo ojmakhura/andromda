@@ -165,8 +165,8 @@ public class $controller.implementationName
 #end
     }
 #else
-    private static final $field.type.fullyQualifiedName $field.name =
-        new $field.type.fullyQualifiedName
+    private static final $field.type.fullyQualifiedName[] $field.name =
+        new $field.type.fullyQualifiedName[]
         {
 #set ($dummyItemType = $field.type.nonArray.fullyQualifiedName)
 #foreach ($itemSeparator in [",", ",", ",", ",", ""])

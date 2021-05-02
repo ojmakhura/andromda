@@ -1,73 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.4.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
-	</parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <!-- <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.4.RELEASE</version>
+        <relativePath /> lookup parent from repository
+    </parent> -->
+    <parent>
+        <groupId>$applicationPackage</groupId>
+        <artifactId>${applicationId}</artifactId>
+        <version>$applicationVersion</version>
+    </parent>
 
-	<groupId>$applicationPackage</groupId>
-	<artifactId>${applicationId}-angular</artifactId>
-	<version>$applicationVersion</version>
-	<packaging>jar</packaging>
+    <groupId>$applicationPackage</groupId>
+    <artifactId>${applicationId}-angular</artifactId>
+    <version>$applicationVersion</version>
+    <packaging>jar</packaging>
 
-	<name>${applicationName} Angular Frontend</name>
-	<description>${applicationName} angular front end</description>
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-	</dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>com.github.eirslett</groupId>
-				<artifactId>frontend-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>install node and npm</id>
-						<goals>
-							<goal>install-node-and-npm</goal>
-						</goals>
-						<configuration>
-							<nodeVersion>v12.16.1</nodeVersion>
-							<npmVersion>6.13.4</npmVersion>
-						</configuration>
-					</execution>
-					<execution>
-						<id>npm run build</id>
-						<goals>
-							<goal>npm</goal>
-						</goals>
-						<configuration>
-							<arguments>run build</arguments>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+    <name>${applicationName} Angular Frontend</name>
+    <description>${applicationName} angular front end</description>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>${maven-antrun-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <target>
+                        <copy todir="${project.basedir}/target/${applicationId}/src" overwrite="true" failonerror="false">
+                            <fileset dir="${project.basedir}/target/src">
+                                <include name="**/*"/>
+                            </fileset>
+                        </copy>
+                        <copy todir="${project.basedir}/target/${applicationId}/docs" overwrite="true" failonerror="false">
+                            <fileset dir="${project.basedir}/docs">
+                                <include name="**/*"/>
+                            </fileset>
+                        </copy>
+                        <copy todir="${project.basedir}/target/${applicationId}/e2e" overwrite="true" failonerror="false">
+                            <fileset dir="${project.basedir}/e2e">
+                                <include name="**/*"/>
+                            </fileset>
+                        </copy>
+                        <copy todir="${project.basedir}/target/${applicationId}/src" overwrite="true" failonerror="false">
+                            <fileset dir="${project.basedir}/src">
+                                <include name="**/*"/>
+                            </fileset>
+                        </copy>
+                        <copy todir="${project.basedir}/target/${applicationId}" overwrite="true" failonerror="false">
+                            <fileset dir="${project.basedir}">
+                                <include name=".browserslistrc"/>
+                                <include name=".editorconfig"/>
+                                <include name=".htmlhintrc"/>
+                                <include name=".stylelintrc"/>
+                                <include name="*.json"/>
+                                <include name="*.js"/>
+                                <include name="README.md"/>
+                            </fileset>
+                        </copy>
+                    </target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
-

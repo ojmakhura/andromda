@@ -76,22 +76,9 @@ public class AngularControllerOperationLogicImpl
         final StringBuilder call = new StringBuilder();
         call.append(this.getName());
         call.append("(");
-        if (!this.getFormFields().isEmpty())
-        {
-            StringBuilder b = new StringBuilder();
-
-            for(FrontEndParameter param : this.getFormFields()) {
-                
-                if(b.length() > 0) {
-                    b.append(", ");
-                }
-
-                b.append(param.getName());
-            }
-
-            // signature.append(this.getFormName() + " form");
-            call.append(b.toString());
-        }
+        
+        call.append("form");
+        // call.append(b.toString());
         call.append(")");
         return call.toString();
     }
@@ -128,28 +115,14 @@ public class AngularControllerOperationLogicImpl
         {
             signature.append("abstract ");
         }
-        final ModelElementFacade returnType = this.getReturnType();
         
-        signature.append(" " + this.getName() + "(");
-        
-        if (!this.getFormFields().isEmpty())
-        {
-            StringBuilder b = new StringBuilder();
+        signature.append(this.getName() + "(");
+        signature.append("form: any");
 
-            for(FrontEndParameter param : this.getFormFields()) {
-                
-                if(b.length() > 0) {
-                    b.append(", ");
-                }
-
-                b.append(param.getName() + ": " + AngularUtils.getDatatype(param.getType().getFullyQualifiedName()));
-            }
-
-            // signature.append(this.getFormName() + " form");
-            signature.append(b.toString());
-        }
         signature.append(")");
-        signature.append(returnType != null ? ": " + AngularUtils.getDatatype(returnType.getFullyQualifiedName()) : null);
+        
+        final ModelElementFacade returnType = this.getReturnType();
+        signature.append(returnType != null ? ": " + AngularUtils.getDatatype(returnType.getFullyQualifiedName()) : ": void");
         return signature.toString();
     }
 }
