@@ -457,14 +457,19 @@
 #end
 #if ($webType.equals("angular") || $webType.equals("both"))
         <angular.base.dir>${project.basedir}/../angular</angular.base.dir>
-        <angular.model.dir>${project.basedir}/../angular/target/src/app/model</angular.model.dir>
-        <angular.service.dir>${project.basedir}/../angular/target/src/app/service</angular.service.dir>
-        <angular.service.impl.dir>${project.basedir}/../angular/src/app/service</angular.service.impl.dir>
-        <angular.controller.dir>${project.basedir}/../angular/target/src/app/controller</angular.controller.dir>
-        <angular.controller.impl.dir>${project.basedir}/../angular/src/app/controller</angular.controller.impl.dir>
-        <angular.view.dir>${project.basedir}/../angular/target/src/app/view</angular.view.dir>
-        <angular.view.impl.dir>${project.basedir}/../angular/src/app/view</angular.view.impl.dir>
-        <angular.form.dir>${project.basedir}/../angular/target/src/app/form</angular.form.dir>
+        <angular.resources.dir>${project.basedir}/../angular/resources</angular.resources.dir>
+        <angular.css.dir>${project.basedir}/../angular/css</angular.css.dir>
+        <angular.test.dir>${project.basedir}/../angular/test</angular.test.dir>
+        <angular.manual.dir>${project.basedir}/../angular/src/app</angular.manual.dir>
+        <angular.generated.dir>${project.basedir}/../angular/target/src/app</angular.generated.dir>
+        <angular.model.dir>${angular.generated.dir}/model</angular.model.dir>
+        <angular.service.dir>${angular.generated.dir}/service</angular.service.dir>
+        <angular.service.impl.dir>${angular.manual.dir}/service</angular.service.impl.dir>
+        <angular.controller.dir>${angular.generated.dir}/controller</angular.controller.dir>
+        <angular.controller.impl.dir>${angular.manual.dir}/controller</angular.controller.impl.dir>
+        <angular.view.dir>${angular.generated.dir}/view</angular.view.dir>
+        <angular.view.impl.dir>${angular.manual.dir}/view</angular.view.impl.dir>
+        <angular.form.dir>${angular.generated.dir}/form</angular.form.dir>
 #end
 #if ($springws)		
         <springws.generated.dir>${project.basedir}/../springws/target</springws.generated.dir>

@@ -81,6 +81,31 @@
                     The location to which any services implementations that the must be edited
                 </documentation>
             </property>
+            <property name="app">
+                <documentation>
+                    target/src/app folder.
+                </documentation>
+            </property>
+            <property name="css">
+                <documentation>
+                    Angular CSS folder.
+                </documentation>
+            </property>
+            <property name="angular-test">
+                <documentation>
+                    Angular tests folder.
+                </documentation>
+            </property>
+            <property name="shell">
+                <documentation>
+                    Where the auto generated application menus are saved.
+                </documentation>
+            </property>
+            <property name="shell-impls">
+                <documentation>
+                    Where the application menus.
+                </documentation>
+            </property>
             <property name="views">
                 <documentation>
                     Where the application views (JSPs, Facelets, etc) are output.

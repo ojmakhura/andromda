@@ -567,6 +567,11 @@
                 <property name="applicationName">${application.name}</property>
                 <property name="angularBase">${angular.base.dir}</property>
                 <property name="angularAppDir">${angular.base.dir}/src/app</property>
+                <property name="shell">${angular.generated.dir}/shell</property>
+                <property name="resources">${angular.resources.dir}</property>
+                <property name="css">${angular.css.dir}</property>
+                <property name="test">${angular.test.dir}</property>
+                <property name="app">${angular.generated.dir}/src/app</property>
                 <property name="views">${angular.view.dir}</property>
                 <property name="view-impls">${angular.view.impl.dir}</property>
                 <property name="services">${angular.service.dir}</property>

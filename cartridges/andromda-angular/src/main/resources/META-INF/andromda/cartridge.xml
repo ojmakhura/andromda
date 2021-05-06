@@ -125,8 +125,8 @@
     
     <template
         path="templates/angular/app/shell/shell.component.html.vsl"
-        outputPattern="shell/shell.component.html"
-        outlet="angularAppDir"
+        outputPattern="shell.component.html"
+        outlet="shell"
         overwrite="true"
         outputToSingleFile="true"
         generateEmptyFiles="true">
