@@ -364,9 +364,9 @@
 	
 	<template
         path="templates/angular/app/view/table/table.component.scss.vsl"
-        outputPattern="$componentPath/${fileName}.component.scss"
-        outlet="view-impls"
-        overwrite="false">
+        outputPattern="${action.importFilePath}.component.scss"
+        outlet="views"
+        overwrite="true">
         <modelElements>
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndView">
@@ -378,7 +378,7 @@
 	
 	<template
         path="templates/angular/app/view/action/view.action.html.vsl"
-        outputPattern="${actionPath}.component.html"
+        outputPattern="${action.importFilePath}.html"
         outlet="views"
         overwrite="true">
         <modelElements variable="action">
@@ -393,7 +393,7 @@
     
 	<template
         path="templates/angular/app/view/action/view.action.ts.vsl"
-        outputPattern="${actionPath}.component.ts"
+        outputPattern="${action.importFilePath}.ts"
         outlet="views"
         overwrite="true">
         <modelElements variable="action">
@@ -408,9 +408,9 @@
 	
 	<template
         path="templates/angular/app/view/action/view.action.impl.ts.vsl"
-        outputPattern="${actionPath}.impl.component.ts"
-        outlet="view-impls"
-        overwrite="false">
+        outputPattern="${action.implementationImportFilePath}.ts"
+        outlet="views"
+        overwrite="true">
         <modelElements variable="action">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndAction">
@@ -423,9 +423,9 @@
     
 	<template
         path="templates/angular/app/view/action/view.action.scss.vsl"
-        outputPattern="${actionPath}.component.scss"
-        outlet="view-impls"
-        overwrite="false">
+        outputPattern="${action.importFilePath}.scss"
+        outlet="views"
+        overwrite="true">
         <modelElements variable="action">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndAction">
@@ -438,9 +438,9 @@
     
 	<template
         path="templates/angular/app/view/action/view.action.spec.ts.vsl"
-        outputPattern="${actionPath}.component.spec.ts"
-        outlet="view-impls"
-        overwrite="false">
+        outputPattern="${action.importFilePath}.spec.ts"
+        outlet="views"
+        overwrite="true">
         <modelElements variable="action">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndAction">

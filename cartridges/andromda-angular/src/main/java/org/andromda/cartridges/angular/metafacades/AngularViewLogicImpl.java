@@ -127,6 +127,7 @@ public class AngularViewLogicImpl
     protected String handleGetPath()
     {
         final StringBuilder path = new StringBuilder();
+        path.append("app/view");
         final String packageName = this.getPackageName();
         if (StringUtils.isNotBlank(packageName))
         {
@@ -469,9 +470,52 @@ public class AngularViewLogicImpl
     /**
      * @see org.andromda.cartridges.angular.metafacades.AngularView#getPageObjectBeanName()
      */
+    // @Override
+    // protected String handleGetPageObjectBeanName() 
+    // {
+    //     return StringUtilsHelper.lowerCamelCaseName(this.getName());
+    // }
+
     @Override
-    protected String handleGetPageObjectBeanName() 
-    {
-        return StringUtilsHelper.lowerCamelCaseName(this.getName());
+    protected Collection<ModelElementFacade> handleGetImports() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFileName() {
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-") + ".component";
+    }
+
+    @Override
+    protected String handleGetImportFilePath() {
+        return "app/view/" + this.getPackagePath() + "/" + this.getFileName();
+    }
+
+    @Override
+    protected String handleGetImplementationFileName() {
+        return this.getFileName() + ".impl";
+    }
+
+    @Override
+    protected String handleGetImplementationImportFilePath() {
+        return this.getImportFilePath() + ".impl";
+    }
+
+    @Override
+    protected String handleGetSelectorName() {
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-");
+    }
+
+    @Override
+    protected String handleGetRouterPath() {
+        return this.getSelectorName().replace("-", "");
+    }
+
+    @Override
+    protected String handleGetImplementationName() {
+        return this.getName() + "ComponentImpl";
     }
 }

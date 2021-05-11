@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 
@@ -137,32 +138,6 @@ public class AngularActionLogicImpl
     protected boolean handleIsTableAction()
     {
         return AngularGlobals.ACTION_TYPE_TABLE.equals(this.findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_TYPE));
-    }
-
-    /**
-     * @return fullyQualifiedFormImplementationName
-     * @see org.andromda.cartridges.angular.metafacades.AngularAction#getFullyQualifiedFormImplementationName()
-     */
-    protected String handleGetFullyQualifiedFormImplementationName()
-    {
-        final StringBuilder fullyQualifiedName = new StringBuilder();
-        final String packageName = this.getPackageName();
-        if (StringUtils.isNotBlank(packageName))
-        {
-            fullyQualifiedName.append(packageName + '.');
-        }
-        return fullyQualifiedName.append(this.getFormImplementationName()).toString();
-    }
-
-    /**
-     * @return fullyQualifiedFormImplementationPath
-     * @see org.andromda.cartridges.angular.metafacades.AngularAction#getFullyQualifiedFormImplementationPath()
-     */
-    protected String handleGetFullyQualifiedFormImplementationPath()
-    {
-        return this.getFullyQualifiedFormImplementationName().replace(
-            '.',
-            '/');
     }
 
     /**
@@ -856,4 +831,61 @@ public class AngularActionLogicImpl
         }
         return "_"+methodName.toString();
     }
+
+    @Override
+    protected Collection<ModelElementFacade> handleGetImports() {
+        Collection<ModelElementFacade> imports = new HashSet<>();
+        // TODO Auto-generated method stub
+        return imports;
+    }
+
+    @Override
+    protected String handleGetFileName() {
+        
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-") + ".component";
+    }
+
+    @Override
+    protected String handleGetImportFilePath() {
+        return "view/" + this.getPackagePath() + "/" + this.getFileName();
+    }
+
+    @Override
+    protected String handleGetImplementationFileName() {
+        return this.getFileName() + ".impl";
+    }
+
+    @Override
+    protected String handleGetImplementationImportFilePath() {
+        return this.getImportFilePath() + ".impl";
+    }
+
+    @Override
+    protected String handleGetSelectorName() {
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-");
+    }
+
+    @Override
+    protected String handleGetRouterPath() {
+        return this.getSelectorName().replace("-", "");
+    }
+
+    @Override
+    protected String handleGetImplementationName() {
+        
+        return this.getActionClassName() + "ComponentImpl";
+    }
+
+    @Override
+    protected String handleGetFormEventName() {
+        return StringUtilsHelper.uncapitalize(this.getActionClassName()) + "Event";
+    }
+
+    @Override
+    protected String handleGetFormName() {
+        return StringUtilsHelper.uncapitalize(this.getActionClassName()) + "Form";
+    }
+
 }

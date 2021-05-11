@@ -110,7 +110,7 @@ public class AngularFinalStateLogicImpl
         
         if(getTargetElement() instanceof AngularUseCase)
         {
-            result=((AngularController)((AngularUseCase)getTargetElement()).getController()).getBeanName();
+            result=((AngularController)((AngularUseCase)getTargetElement()).getController()).getName();
         }
         else if(getTargetElement() instanceof AngularManageableEntity)
         {

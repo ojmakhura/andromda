@@ -1326,4 +1326,28 @@ public class AngularParameterLogicImpl
         }
         return result;
     }
+
+    @Override
+    protected Collection<ModelElementFacade> handleGetImports() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetAngularTypeName() {
+        // TODO Auto-generated method stub
+        return AngularUtils.getDatatype(this.getType().getName());
+    }
+
+    @Override
+    protected String handleGetImportFilePath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFileName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

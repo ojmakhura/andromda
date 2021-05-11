@@ -951,4 +951,40 @@ public class AngularUseCaseLogicImpl
         }
         return allViews;
     }
+
+    @Override
+    protected Collection<ModelElementFacade> handleGetImports() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFileName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetImportFilePath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetImplementationFileName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetImplementationImportFilePath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetImplementationName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

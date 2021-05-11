@@ -77,6 +77,7 @@ public class AngularControllerLogicImpl
      */
     protected String handleGetFullyQualifiedImplementationPath()
     {
+        String packagePath = this.getPackagePath();
         return this.getFullyQualifiedImplementationName().replace('.', '/');
     }
 
@@ -213,5 +214,27 @@ public class AngularControllerLogicImpl
                 return ((DependencyFacade)object).getTargetElement() instanceof PackageFacade;
             }
         };
+    }
+
+    @Override
+    protected Collection<ModelElementFacade> handleGetImports() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFileName() {
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-");
+    }
+
+    @Override
+    protected String handleGetImportFilePath() {
+        return "controller/" + this.getPackagePath() + "/" + this.getFileName();
+    }
+
+    @Override
+    protected String handleGetImplementationFileName() {
+        return this.getFileName() + ".impl";
     }
 }

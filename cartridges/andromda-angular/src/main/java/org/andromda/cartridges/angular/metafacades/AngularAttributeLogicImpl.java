@@ -785,4 +785,22 @@ public class AngularAttributeLogicImpl
         }
         return null;
     }
+
+    @Override
+    protected Collection<ModelElementFacade> handleGetImports() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetAngularTypeName() {
+        // TODO Auto-generated method stub
+        return AngularUtils.getDatatype(this.getType().getName());
+    }
+
+    @Override
+    protected String handleGetImportFilePath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
