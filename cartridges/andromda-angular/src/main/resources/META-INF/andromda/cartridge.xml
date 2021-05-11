@@ -85,7 +85,7 @@
         </modelElements>
     </template>
 
-    <template
+    <!-- <template
         path="templates/angular/app/model/model.ts.vsl"
         outputPattern="$destination/${fileName}.ts"
         outlet="models"
@@ -93,6 +93,18 @@
         <modelElements variable="class">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.ValueObject"/>
+            </modelElement>
+        </modelElements>
+    </template> -->
+
+    <template
+        path="templates/angular/app/model/model.ts.vsl"
+        outputPattern="$destination/${fileName}.ts"
+        outlet="models"
+        overwrite="true">
+        <modelElements variable="class">
+            <modelElement>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularModel"/>
             </modelElement>
         </modelElements>
     </template>
