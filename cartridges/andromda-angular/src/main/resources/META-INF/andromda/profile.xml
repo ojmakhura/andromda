@@ -27,6 +27,13 @@
                 <value>ManageableAttribute</value>
                 <appliedOnElement>Attribute of Manageable class</appliedOnElement>
             </element>
+            <element name="VALUE_OBJECT">
+                <documentation>
+                     Produces Java value objects.
+                </documentation>
+                <value>ValueObject</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
             <element name="FRONT_END_EXCEPTION">
                 <documentation>
                     Modeled on a transition it designates an exception occuring while processing an action,

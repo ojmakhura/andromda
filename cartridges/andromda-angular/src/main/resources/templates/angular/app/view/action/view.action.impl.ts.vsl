@@ -10,7 +10,7 @@ import { ${className} } from './${action.fileName}';
   templateUrl: './${action.fileName}.html',
   styleUrls: ['./${action.fileName}.scss']
 })
-export class ${action.implementationName} extends ${className} {
+export class ${action.componentImplementationName} extends ${className} {
 
   constructor(private injector: Injector) {
       super(injector);

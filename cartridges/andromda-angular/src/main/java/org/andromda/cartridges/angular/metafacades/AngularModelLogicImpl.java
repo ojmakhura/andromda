@@ -4,8 +4,11 @@
 package org.andromda.cartridges.angular.metafacades;
 
 import java.util.Collection;
+import java.util.HashSet;
 
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.utils.StringUtilsHelper;
 
 /**
  * TODO: Model Documentation for org.andromda.cartridges.angular.metafacades.AngularModel
@@ -28,26 +31,32 @@ public class AngularModelLogicImpl
 
     @Override
     protected Collection<ModelElementFacade> handleGetImports() {
-        // TODO Auto-generated method stub
-        return null;
+        HashSet<ModelElementFacade> imports = new HashSet<>();
+
+        for(AttributeFacade attribute : this.getAttributes()) {
+            if(attribute.getType().isEnumeration() || !attribute.getType().getAttributes().isEmpty()) {
+                imports.add(attribute.getType());
+            }
+        }
+
+        return imports;
     }
 
     @Override
     protected String handleGetAngularTypeName() {
-        // TODO Auto-generated method stub
-        return "";
+        
+        return this.getName();
     }
 
     @Override
     protected String handleGetFileName() {
-        // TODO Auto-generated method stub
-        return null;
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-");
     }
 
     @Override
     protected String handleGetImportFilePath() {
-        // TODO Auto-generated method stub
-        return null;
+        return "model/" + this.getPackagePath() + '/' + this.getFileName();
     }
 
     

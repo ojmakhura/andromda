@@ -1329,25 +1329,70 @@ public class AngularParameterLogicImpl
 
     @Override
     protected Collection<ModelElementFacade> handleGetImports() {
-        // TODO Auto-generated method stub
-        return null;
+        HashSet<ModelElementFacade> imports = new HashSet<>();
+
+        for(AttributeFacade attribute : this.getType().getAttributes()) {
+            if(attribute.getType().isEnumeration() || !attribute.getType().getAttributes().isEmpty()) {
+                imports.add(attribute.getType());
+            }
+        }
+
+        return imports;
+    }
+
+    private String removeWhitespaceFromName(String name) {
+
+        String original = StringUtilsHelper.upperCamelCaseName(name);
+        original = original.replace(" ", "");
+
+        return original;
     }
 
     @Override
     protected String handleGetAngularTypeName() {
-        // TODO Auto-generated method stub
         return AngularUtils.getDatatype(this.getType().getName());
     }
 
     @Override
     protected String handleGetImportFilePath() {
-        // TODO Auto-generated method stub
-        return null;
+        AngularView view = (AngularView) this.getView();
+        return view.getViewPath() + '/' + this.getFileName() + ".component";
     }
 
     @Override
     protected String handleGetFileName() {
-        // TODO Auto-generated method stub
-        return null;
+        String viewPart = StringUtilsHelper.toPhrase(this.getView().getName()).toLowerCase();
+        String name = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return viewPart.replace(" ", "-") + "-" + name;
+    }
+
+    @Override
+    protected String handleGetImplementationFileName() {
+        return this.getFileName();
+    }
+
+    @Override
+    protected String handleGetImportImplementationFilePath() {
+        return this.getImportFilePath() + ".impl";
+    }
+
+    @Override
+    protected String handleGetTableComponentName() {
+        if(!this.isTable()) {
+            return null;
+        }
+        String viewName = this.removeWhitespaceFromName(this.getView().getName());
+        String tableName = StringUtilsHelper.capitalize(this.getName());
+        return viewName + tableName + "Component";
+    }
+
+    @Override
+    protected String handleGetTableComponentImplementationName() {
+
+        if(!this.isTable()) {
+            return null;
+        }
+
+        return this.getTableComponentName() + "Impl";
     }
 }

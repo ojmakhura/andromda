@@ -141,11 +141,12 @@ public class AngularUtils {
             return "boolean";
         }
         
-        if(typeName.equalsIgnoreCase("int") ||
-                typeName.equalsIgnoreCase("short") ||
-                typeName.equalsIgnoreCase("long") || 
-                typeName.equalsIgnoreCase("float") ||
-                typeName.equalsIgnoreCase("double")) {
+        if(typeName.equalsIgnoreCase("int") || typeName.contains("Integer") ||
+                typeName.equalsIgnoreCase("short") || typeName.contains("Short") ||
+                typeName.equalsIgnoreCase("long") || typeName.contains("Long") ||
+                typeName.equalsIgnoreCase("float") || typeName.contains("Float") ||
+                typeName.equalsIgnoreCase("double") || typeName.contains("Double") ||
+                typeName.equalsIgnoreCase("bute") || typeName.contains("Byte")) {
             return "number";
         }
         

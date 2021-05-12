@@ -4,6 +4,7 @@
 package org.andromda.cartridges.angular.metafacades;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -11,6 +12,7 @@ import java.util.Objects;
 import org.andromda.cartridges.angular.AngularGlobals;
 import org.andromda.cartridges.angular.AngularProfile;
 import org.andromda.cartridges.angular.AngularUtils;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndParameter;
@@ -651,6 +653,15 @@ public class AngularAttributeLogicImpl
                 defaultValue = "\"" + defaultValue + "\"";
             }
         }
+
+        if(defaultValue.trim().isEmpty()) {
+            if(this.isMany()) {
+                defaultValue = "[]";
+            } else {
+                defaultValue = "null";
+            }
+        }
+
         return defaultValue;
     }
 
@@ -788,19 +799,25 @@ public class AngularAttributeLogicImpl
 
     @Override
     protected Collection<ModelElementFacade> handleGetImports() {
-        // TODO Auto-generated method stub
-        return null;
+        HashSet<ModelElementFacade> imports = new HashSet<>();
+
+        for(AttributeFacade attribute : this.getType().getAttributes()) {
+            if(attribute.getType().isEnumeration() || !attribute.getType().getAttributes().isEmpty()) {
+                imports.add(attribute.getType());
+            }
+        }
+
+        return imports;
     }
 
     @Override
     protected String handleGetAngularTypeName() {
-        // TODO Auto-generated method stub
+        
         return AngularUtils.getDatatype(this.getType().getName());
     }
 
     @Override
     protected String handleGetImportFilePath() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.getPackagePath() + '/';
     }
 }

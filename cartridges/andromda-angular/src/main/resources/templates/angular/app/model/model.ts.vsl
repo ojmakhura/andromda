@@ -4,6 +4,10 @@
 import { Injectable } from '@angular/core';
 import { prop, model, propArray, propObject } from '@rxweb/reactive-form-validators';
 
+#foreach ($import in $class.imports)
+import {$import.name} from '@app/$import.importFilePath';
+#end
+
 #foreach ($tmp in $class.attributes)
 #if ($angularUtils.isComplex($tmp))
 #if($tmp.type.name != ${class.name})
@@ -11,24 +15,12 @@ import { prop, model, propArray, propObject } from '@rxweb/reactive-form-validat
 #end
 #end
 #end
-#set ($suffix = "")
-#foreach ($tmp in $angularUtils.getImports($attributes, ${class.packageName}, $suffix))
-$tmp
-#end
 
 @Injectable()
 @model([])
 export class $class.name {
 #foreach ($attribute in $class.attributes)
 
-### Find the return type and the default values
-#set ($returnType = $angularUtils.getDatatype($attribute.getterSetterTypeName))
-#if($attribute.many || $angularUtils.isArray($attribute.getterSetterTypeName))
-#set ($returnType = "Array<$returnType>")
-#set ($default = "[]")
-#else
-#set ($default = "null")
-#end
 	@$angularUtils.getRxwebDecorator($attribute)
 #if($angularUtils.isComplex($attribute) && !$attribute.many && !$angularUtils.isArray($attribute.getterSetterTypeName) && !$attribute.type.enumeration)
     $attribute.name: ${attribute.type.name} = <${attribute.type.name}> {
@@ -38,11 +30,11 @@ export class $class.name {
 #else
 #set ($def = "null")
 #end
-        $attr.name: $def,
+        $attr.name: $attr.defaultValue,
 #end
     };
 #else
-    $attribute.name: $returnType = $default;
+    $attribute.name: $attribute.angularTypeName = $attribute.defaultValue;
 #end
 #end
     ${class.name}() {}

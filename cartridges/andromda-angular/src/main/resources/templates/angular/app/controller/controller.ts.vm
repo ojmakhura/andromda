@@ -19,9 +19,7 @@
         forward = this.closeDialog();
 #end
 #elseif ($transition.enteringView)
-#set ($pt = $angularUtils.getComponentFileName(${transition.target.name}))
-#set ( $cls = $angularUtils.getComponentName($pt, "-") )
-        forward = '$stringUtils.lowerCase($cls)';
+        forward = '$stringUtils.lowerCase(${transition.target.name})';
 #elseif ($transition.enteringDecisionPoint)
         forward = this.__${transition.operationCall.name}(form);
 #else

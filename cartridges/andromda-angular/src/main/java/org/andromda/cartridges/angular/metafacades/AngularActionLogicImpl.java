@@ -873,7 +873,7 @@ public class AngularActionLogicImpl
     }
 
     @Override
-    protected String handleGetImplementationName() {
+    protected String handleGetComponentImplementationName() {
         
         return this.getActionClassName() + "ComponentImpl";
     }
@@ -886,6 +886,16 @@ public class AngularActionLogicImpl
     @Override
     protected String handleGetFormName() {
         return StringUtilsHelper.uncapitalize(this.getActionClassName()) + "Form";
+    }
+
+    @Override
+    protected String handleGetComponentName() {
+        return this.getActionClassName() + "Component";
+    }
+
+    @Override
+    protected String handleGetVariableName() {
+        return StringUtilsHelper.uncapitalize(this.getComponentName());
     }
 
 }

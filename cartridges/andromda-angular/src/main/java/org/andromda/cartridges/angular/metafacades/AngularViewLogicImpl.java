@@ -5,6 +5,7 @@ package org.andromda.cartridges.angular.metafacades;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -478,8 +479,48 @@ public class AngularViewLogicImpl
 
     @Override
     protected Collection<ModelElementFacade> handleGetImports() {
-        // TODO Auto-generated method stub
-        return null;
+        Collection<ModelElementFacade> imports = new HashSet<>();
+        HashSet<String> nameSet = new HashSet<String>();
+
+        for(FrontEndAction _action : this.getActions()) {
+            AngularAction action = (AngularAction) _action;
+            
+            for(FrontEndParameter _field : action.getFormFields()) {
+                AngularParameter field = (AngularParameter) _field;
+
+                if(field.isComplex()) {
+                    if(nameSet.add(field.getType().getName())) {
+                        imports.add(field.getType());
+                    }
+                }
+            }
+            
+
+            for(FrontEndParameter _parameter : action.getParameters()) {
+                AngularParameter parameter = (AngularParameter) _parameter;
+                if(parameter.isComplex()) {
+                    if(nameSet.add(parameter.getType().getName())) {
+                        imports.add(parameter.getType());
+                    }
+
+                    for(Object _attribute : parameter.getAttributes()) {
+                        AngularAttribute attribute = (AngularAttribute) _attribute;
+                        if(attribute.getType().getAttributes() != null && !attribute.getType().getAttributes().isEmpty()) {
+                            if(nameSet.add(attribute.getType().getName())) {
+                                imports.add(attribute.getType());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return imports;
+    }
+
+    @Override
+    protected String handleGetViewPath() {
+        return "view/" + this.getPackagePath();
     }
 
     @Override
@@ -490,7 +531,7 @@ public class AngularViewLogicImpl
 
     @Override
     protected String handleGetImportFilePath() {
-        return "app/view/" + this.getPackagePath() + "/" + this.getFileName();
+        return getViewPath() + "/" + this.getFileName();
     }
 
     @Override
@@ -515,7 +556,100 @@ public class AngularViewLogicImpl
     }
 
     @Override
-    protected String handleGetImplementationName() {
-        return this.getName() + "ComponentImpl";
+    protected String handleGetComponentImplementationName() {
+        return this.getComponentName() + "Impl";
+    }
+
+    private String removeWhitespaceFromName() {
+
+        String original = StringUtilsHelper.upperCamelCaseName(this.getName());
+        original = original.replace(" ", "");
+
+        return original;
+    }
+
+    @Override
+    protected String handleGetComponentName() {
+        
+        return removeWhitespaceFromName() + "Component";
+    }
+
+    @Override
+    protected String handleGetFormName() {
+        return StringUtilsHelper.lowerCamelCaseName(removeWhitespaceFromName()) + "Form";
+    }
+
+    @Override
+    protected String handleGetVarsFormName() {
+        return StringUtilsHelper.lowerCamelCaseName(removeWhitespaceFromName()) + "VarsForm";
+    }
+
+    @Override
+    protected String handleGetRoutingModuleName() {
+        return this.removeWhitespaceFromName() + "RoutingModule";
+    }
+
+    @Override
+    protected String handleGetModuleName() {
+        return this.removeWhitespaceFromName() + "Module";
+    }
+
+    @Override
+    protected String handleGetVarsComponentName() {
+        return this.removeWhitespaceFromName() + "VarsComponent";
+    }
+
+    @Override
+    protected String handleGetVarsComponentImplementationName() {
+        return this.getVarsComponentName() + "Impl";
+    }
+
+    @Override
+    protected String handleGetModuleFileName() {
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-") + ".module";
+    }
+
+    @Override
+    protected String handleGetModuleFilePath() {
+        return this.getViewPath() + "/" + this.getModuleFileName();
+    }
+
+    @Override
+    protected String handleGetRoutingModuleFileName() {
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-") + "-routing.module";
+    }
+
+    @Override
+    protected String handleGetRoutingModuleFilePath() {
+        return this.getViewPath() + "/" + this.getRoutingModuleFileName();
+    }
+
+    @Override
+    protected String handleGetVarsComponentFileName() {
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-") + "-vars.component";
+    }
+
+    @Override
+    protected String handleGetVarsComponentFilePath() {
+        return this.getViewPath() + "/" + this.getVarsComponentFileName();
+    }
+
+    @Override
+    protected String handleGetVarsComponentImplementationFileName() {
+        
+        return this.getVarsComponentFileName() + ".impl";
+    }
+
+    @Override
+    protected String handleGetVarsComponentImplementationFilePath() {
+        return this.getViewPath() + "/" + this.getVarsComponentImplementationFileName();
+    }
+
+    @Override
+    protected String handleGetVariableName() {
+        return StringUtilsHelper.uncapitalize(this.getComponentName());
     }
 }

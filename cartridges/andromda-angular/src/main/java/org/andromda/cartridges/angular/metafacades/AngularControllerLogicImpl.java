@@ -14,11 +14,13 @@ import java.util.Set;
 import org.andromda.cartridges.angular.AngularGlobals;
 import org.andromda.cartridges.angular.AngularUtils;
 import org.andromda.cartridges.webservice.metafacades.WebService;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActionState;
+import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.PackageFacade;
@@ -218,8 +220,40 @@ public class AngularControllerLogicImpl
 
     @Override
     protected Collection<ModelElementFacade> handleGetImports() {
-        // TODO Auto-generated method stub
-        return null;
+        
+        HashSet<ModelElementFacade> imports = new HashSet<>();
+        HashSet<String> nameSet = new HashSet<String>();
+
+        for(OperationFacade operation : this.getOperations()) {
+            
+            if(operation.getReturnType().isEnumeration() || !operation.getReturnType().getAttributes().isEmpty()) {
+
+                if(nameSet.add(operation.getReturnType().getName())) {
+                    imports.add(operation.getReturnType());
+                }
+            }
+
+            AngularControllerOperation op = (AngularControllerOperation) operation;
+
+            for(FrontEndParameter field : op.getFormFields()) {
+                if(field.getType().isEnumeration() || !field.getType().getAttributes().isEmpty()) {
+                    if(nameSet.add(field.getType().getName())) {
+                        imports.add(field.getType());
+                    }
+                }
+            }
+        }
+
+        for(AttributeFacade attribute : this.getAttributes()) {
+
+            if(attribute.getType().isEnumeration() || !attribute.getType().getAttributes().isEmpty()) {
+                if(nameSet.add(attribute.getType().getName())) {
+                    imports.add(attribute.getType());
+                }
+            }
+        }
+
+        return imports;
     }
 
     @Override
@@ -235,6 +269,17 @@ public class AngularControllerLogicImpl
 
     @Override
     protected String handleGetImplementationFileName() {
-        return this.getFileName() + ".impl";
+        return this.getFileName() + "Impl";
+    }
+
+    @Override
+    protected String handleGetVariableName() {
+        return StringUtilsHelper.lowerCamelCaseName(this.getName());
+    }
+
+    @Override
+    protected String handleGetImplementationFilePath() {
+        // TODO Auto-generated method stub
+        return this.getImportFilePath() + ".impl";
     }
 }

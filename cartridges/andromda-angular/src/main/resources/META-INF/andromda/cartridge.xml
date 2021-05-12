@@ -85,21 +85,9 @@
         </modelElements>
     </template>
 
-    <!-- <template
-        path="templates/angular/app/model/model.ts.vsl"
-        outputPattern="$destination/${fileName}.ts"
-        outlet="models"
-        overwrite="true">
-        <modelElements variable="class">
-            <modelElement>
-                <type name="org.andromda.metafacades.uml.ValueObject"/>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
     <template
         path="templates/angular/app/model/model.ts.vsl"
-        outputPattern="$destination/${fileName}.ts"
+        outputPattern="${class.importFilePath}.ts"
         outlet="models"
         overwrite="true">
         <modelElements variable="class">
@@ -111,12 +99,12 @@
     
     <template
         path="templates/angular/app/model/spec.ts.vsl"
-        outputPattern="$destination/${fileName}.spec.ts"
+        outputPattern="${class.importFilePath}.spec.ts"
         outlet="models"
         overwrite="false">
         <modelElements variable="class">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.ValueObject"/>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularModel"/>
             </modelElement>
         </modelElements>
     </template>
@@ -156,7 +144,7 @@
     
     <template
         path="templates/angular/app/service/service.ts.vsl"
-        outputPattern="$componentPath/${fileName}.ts"
+        outputPattern="service/$componentPath/${fileName}.ts"
         outlet="services"
         overwrite="true">
         <modelElements variable="service">
@@ -170,7 +158,7 @@
         
     <template
         path="templates/angular/app/service/service.impl.ts.vsl"
-        outputPattern="$componentPath/${fileName}.ts"
+        outputPattern="service/$componentPath/${fileName}.ts"
         outlet="service-impls"
         overwrite="false">
         <modelElements variable="service">
@@ -184,7 +172,7 @@
     
     <template
         path="templates/angular/app/controller/controller.ts.vsl"
-        outputPattern="$componentPath/${fileName}.ts"
+        outputPattern="${controller.importFilePath}.ts"
         outlet="controllers"
         overwrite="true">
         <modelElements variable="controller">
@@ -198,9 +186,9 @@
         
     <template
         path="templates/angular/app/controller/controller.impl.ts.vsl"
-        outputPattern="$componentPath/${fileName}.ts"
-        outlet="controller-impls"
-        overwrite="false">
+        outputPattern="${controller.implementationFilePath}.ts"
+        outlet="controllers"
+        overwrite="true">
         <modelElements variable="controller">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndController">
@@ -212,7 +200,7 @@
     
     <template
         path="templates/angular/app/view/view.component.html.vsl"
-        outputPattern="$componentPath/${fileName}.component.html"
+        outputPattern="${view.importFilePath}.html"
         outlet="views"
         overwrite="true">
         <modelElements variable="view">
@@ -226,7 +214,7 @@
 	
 	<template
         path="templates/angular/app/view/view.component.ts.vsl"
-        outputPattern="$componentPath/${fileName}.component.ts"
+        outputPattern="${view.importFilePath}.ts"
         outlet="views"
         overwrite="true">
         <modelElements variable="view">
@@ -240,7 +228,7 @@
 	
 	<template
         path="templates/angular/app/view/view.component.impl.ts.vsl"
-        outputPattern="$componentPath/${fileName}.impl.component.ts"
+        outputPattern="${view.implementationImportFilePath}.ts"
         outlet="view-impls"
         overwrite="false">
         <modelElements variable="view">
@@ -254,9 +242,9 @@
 	
 	<template
         path="templates/angular/app/view/view.component.scss.vsl"
-        outputPattern="$componentPath/${fileName}.component.scss"
-        outlet="view-impls"
-        overwrite="false">
+        outputPattern="${view.importFilePath}.scss"
+        outlet="views"
+        overwrite="true">
         <modelElements variable="view">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndView">
@@ -268,9 +256,9 @@
 	
 	<template
         path="templates/angular/app/view/view.component.spec.ts.vsl"
-        outputPattern="$componentPath/${fileName}.component.spec.ts"
-        outlet="view-impls"
-        overwrite="false">
+        outputPattern="${view.importFilePath}.spec.ts"
+        outlet="views"
+        overwrite="true">
         <modelElements variable="view">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndView">
@@ -282,7 +270,7 @@
 	
 	<template
         path="templates/angular/app/view/view.module.ts.vsl"
-        outputPattern="$componentPath/${fileName}.module.ts"
+        outputPattern="${view.moduleFilePath}.ts"
         outlet="views"
         overwrite="true">
         <modelElements variable="view">
@@ -296,7 +284,7 @@
 	
 	<template
         path="templates/angular/app/view/view-routing.module.ts.vsl"
-        outputPattern="$componentPath/${fileName}-routing.module.ts"
+        outputPattern="${view.routingModuleFilePath}.ts"
         outlet="views"
         overwrite="true">
         <modelElements variable="view">
@@ -310,7 +298,7 @@
 	
 	<template
         path="templates/angular/app/view/table/table.component.ts.vsl"
-        outputPattern="$componentPath/${fileName}.component.ts"
+        outputPattern="${table.importFilePath}.ts"
         outlet="views"
         overwrite="true">
         <modelElements>
@@ -324,9 +312,9 @@
 	
 	<template
         path="templates/angular/app/view/table/table.component.impl.ts.vsl"
-        outputPattern="$componentPath/${fileName}.impl.component.ts"
-        outlet="view-impls"
-        overwrite="false">
+        outputPattern="${table.importImplementationFilePath}.ts"
+        outlet="views"
+        overwrite="true">
         <modelElements>
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndView">
@@ -337,7 +325,7 @@
     </template>	
 	<template
         path="templates/angular/app/view/table/table.component.html.vsl"
-        outputPattern="$componentPath/${fileName}.component.html"
+        outputPattern="${table.importFilePath}.html"
         outlet="views"
         overwrite="true">
         <modelElements>
@@ -350,9 +338,9 @@
     </template>	
 	<template
         path="templates/angular/app/view/table/table.component.spec.ts.vsl"
-        outputPattern="$componentPath/${fileName}.component.spec.ts"
-        outlet="view-impls"
-        overwrite="false">
+        outputPattern="${table.importFilePath}.spec.ts"
+        outlet="views"
+        overwrite="true">
         <modelElements>
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndView">
@@ -364,7 +352,7 @@
 	
 	<template
         path="templates/angular/app/view/table/table.component.scss.vsl"
-        outputPattern="${action.importFilePath}.component.scss"
+        outputPattern="${table.importFilePath}.scss"
         outlet="views"
         overwrite="true">
         <modelElements>
@@ -453,7 +441,7 @@
 
     <template
         path="templates/angular/app/view/view-variables.ts.vsl"
-        outputPattern="$componentPath/${fileName}-vars.component.ts"
+        outputPattern="${view.varsComponentFilePath}.ts"
         outlet="views"
         overwrite="true">
         <modelElements variable="view">
@@ -467,7 +455,7 @@
 
     <template
         path="templates/angular/app/view/view-variables.impl.ts.vsl"
-        outputPattern="$componentPath/${fileName}-vars.impl.component.ts"
+        outputPattern="${view.varsComponentImplementationFilePath}.ts"
         outlet="view-impls"
         overwrite="false">
         <modelElements variable="view">
@@ -481,7 +469,7 @@
 
     <template
         path="templates/angular/app/view/view-variables.spec.ts.vsl"
-        outputPattern="$componentPath/${fileName}-vars.component.spec.ts"
+        outputPattern="${view.varsComponentFilePath}.spec.ts"
         outlet="view-impls"
         overwrite="false">
         <modelElements variable="view">
@@ -495,7 +483,7 @@
 
     <template
         path="templates/angular/app/view/view-variables.html.vsl"
-        outputPattern="$componentPath/${fileName}-vars.component.html"
+        outputPattern="${view.varsComponentFilePath}.html"
         outlet="views"
         overwrite="true">
         <modelElements variable="view">
@@ -509,7 +497,7 @@
 
     <template
         path="templates/angular/app/view/view-variables.scss.vsl"
-        outputPattern="$componentPath/${fileName}-vars.component.scss"
+        outputPattern="${view.varsComponentFilePath}.scss"
         outlet="view-impls"
         overwrite="false">
         <modelElements variable="view">

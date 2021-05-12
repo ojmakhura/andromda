@@ -462,13 +462,13 @@
         <angular.test.dir>${project.basedir}/../angular/test</angular.test.dir>
         <angular.manual.dir>${project.basedir}/../angular/src/app</angular.manual.dir>
         <angular.generated.dir>${project.basedir}/../angular/target/src/app</angular.generated.dir>
-        <angular.model.dir>${angular.generated.dir}/model</angular.model.dir>
-        <angular.service.dir>${angular.generated.dir}/service</angular.service.dir>
-        <angular.service.impl.dir>${angular.manual.dir}/service</angular.service.impl.dir>
-        <angular.controller.dir>${angular.generated.dir}/controller</angular.controller.dir>
-        <angular.controller.impl.dir>${angular.manual.dir}/controller</angular.controller.impl.dir>
-        <angular.view.dir>${angular.generated.dir}/view</angular.view.dir>
-        <angular.view.impl.dir>${angular.manual.dir}/view</angular.view.impl.dir>
+        <angular.model.dir>${angular.generated.dir}</angular.model.dir>
+        <angular.service.dir>${angular.generated.dir}</angular.service.dir>
+        <angular.service.impl.dir>${angular.manual.dir}</angular.service.impl.dir>
+        <angular.controller.dir>${angular.generated.dir}</angular.controller.dir>
+        <angular.controller.impl.dir>${angular.manual.dir}</angular.controller.impl.dir>
+        <angular.view.dir>${angular.generated.dir}</angular.view.dir>
+        <angular.view.impl.dir>${angular.manual.dir}</angular.view.impl.dir>
         <angular.form.dir>${angular.generated.dir}/form</angular.form.dir>
 #end
 #if ($springws)		
