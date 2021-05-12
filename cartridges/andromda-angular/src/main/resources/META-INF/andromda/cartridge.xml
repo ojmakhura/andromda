@@ -111,7 +111,7 @@
         
     <template
         path="templates/angular/app/model/enumeration.vsl"
-        outputPattern="$destination/${fileName}.ts"
+        outputPattern="model/$destination/${fileName}.ts"
         outlet="models"
         overwrite="true">
         <modelElements variable="enumeration">
@@ -456,8 +456,8 @@
     <template
         path="templates/angular/app/view/view-variables.impl.ts.vsl"
         outputPattern="${view.varsComponentImplementationFilePath}.ts"
-        outlet="view-impls"
-        overwrite="false">
+        outlet="views"
+        overwrite="true">
         <modelElements variable="view">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndView">
@@ -470,8 +470,8 @@
     <template
         path="templates/angular/app/view/view-variables.spec.ts.vsl"
         outputPattern="${view.varsComponentFilePath}.spec.ts"
-        outlet="view-impls"
-        overwrite="false">
+        outlet="views"
+        overwrite="true">
         <modelElements variable="view">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndView">
@@ -498,8 +498,8 @@
     <template
         path="templates/angular/app/view/view-variables.scss.vsl"
         outputPattern="${view.varsComponentFilePath}.scss"
-        outlet="view-impls"
-        overwrite="false">
+        outlet="views"
+        overwrite="true">
         <modelElements variable="view">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndView">

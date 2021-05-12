@@ -14,9 +14,7 @@ import { ${view.routingModuleName} } from './${view.routingModuleFileName}';
 import { ${view.varsComponentImplementationName} } from './${view.varsComponentImplementationFileName};
 #end
 
-#set ( $path = $stringUtils.replaceChars($view.useCase.controller.packageName, '\\.', '\\/') )
-#set ( $file =  ${angularUtils.getComponentFileName("${view.useCase.controller.name}Impl")})
-import { ${view.useCase.controller.name}Impl } from '@app/controller/$path/${file}';
+import { ${view.useCase.controller.implementationName}Impl } from '@app/${view.implementationFileName}';
 #set ( $attr = [] )
 #set ( $types = [] )
 #set ( $components = [] )
@@ -47,9 +45,6 @@ import { ${action.componentImplementationName} } from ${escTool.s}@app/${action.
 #end
 #end
 #foreach($table in $view.tables)
-#set ( $tablePath = $stringUtils.replaceChars($stringUtils.lowerCase(${table.packageName}), '\\.', '\\/') )
-#set ( $tableFile = $angularUtils.getComponentFileName("${table.view.name}-${table.name}") )
-#set ( $className = $angularUtils.getComponentName($tableFile, "-"))
 import { ${table.tableComponentImplementationName} } from ${escTool.s}@app/${table.importImplementationFilePath}${escTool.s};
 #end
 #set ( $finalAttr = [] ) ## No repetisions
@@ -57,9 +52,7 @@ import { ${table.tableComponentImplementationName} } from ${escTool.s}@app/${tab
 #set ($rt = $finalAttr.add($at) )
 #end
 #foreach($a in $finalAttr)
-#set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${a.packageName}), '\\.', '\\/')" )
-#set ( $name = $angularUtils.getComponentFileName("$a.name") )
-import { $a.name } from '@app/model/$path/$name';
+import { $a.name } from '@app/$a.importFilePath';
 #end
 
 @NgModule({
@@ -80,9 +73,7 @@ import { $a.name } from '@app/model/$path/$name';
     ${action.componentImplementationName},
 #end
 #foreach($table in $view.tables)
-#set ( $tableFile = $angularUtils.getComponentFileName("${table.view.name}-${table.name}") )
-#set ( $className = $angularUtils.getComponentName($tableFile, "-"))
-    ${className}ImplComponent,
+    ${table.tableComponentImplementationName},
 #end
 #if ($view.nonTableVariablesPresent)
     ${view.varsComponentImplementationName}

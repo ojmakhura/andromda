@@ -45,10 +45,6 @@ import { ${service.name}Impl } from '@app/service/$path/$file';
 #end
 #end
 
-@Component({
-  selector: '${view.selectorName}-vars-base',
-  template: ''
-})
 export abstract class ${view.varsComponentName} implements OnInit {
 
 #foreach ( $variable in $view.variables )
@@ -98,7 +94,7 @@ export abstract class ${view.varsComponentName} implements OnInit {
 #end
 #end
 #if(${view.useCase.controller})
-    ${view.useCase.controller.beanName}: ${view.useCase.controller.name}Impl;
+    ${view.useCase.controller.variableName}: ${view.useCase.controller.name}Impl;
 #foreach ($service in $view.useCase.controller.allRestControllers)
     $stringUtils.uncapitalize($service.name): ${service.name}Impl;
 #end
