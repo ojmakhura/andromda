@@ -25,16 +25,15 @@ export class ${table.tableComponentImplementationName} extends ${table.tableComp
   doNgAfterViewInit() {
     
   }
-
 #foreach ($action in $table.tableFormActions)
+
 	do$stringUtils.capitalize(${action.triggerName})(#if($action.parameters.size() > 0)form: any#end): any {
 	}
-  
 #end
 #foreach ($action in $table.tableHyperlinkActions)
+  
   do$stringUtils.capitalize(${action.triggerName})(#if($action.parameters.size() > 0)form: any#end): any {
 
   }
-	
 #end
 }

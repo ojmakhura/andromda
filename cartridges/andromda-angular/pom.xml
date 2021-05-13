@@ -27,7 +27,7 @@
             <version>${andromda.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-webservice-cartridge</artifactId>
             <version>${andromda.version}</version>
@@ -38,7 +38,7 @@
             <artifactId>andromda-java-cartridge</artifactId>
             <version>${andromda.version}</version>
             <scope>provided</scope>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-core</artifactId>
@@ -80,7 +80,7 @@
                         <artifactId>andromda-meta-cartridge</artifactId>
                         <version>${andromda.version}</version>
                     </dependency>
-                    <dependency>
+                    <!-- <dependency>
                         <groupId>org.andromda.cartridges</groupId>
                         <artifactId>andromda-webservice-cartridge</artifactId>
                         <version>${andromda.version}</version>
@@ -89,12 +89,13 @@
                         <groupId>org.andromda.cartridges</groupId>
                         <artifactId>andromda-java-cartridge</artifactId>
                         <version>${andromda.version}</version>
-                    </dependency>
+                    </dependency> -->
                 </dependencies>
             </plugin> 
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-cartridge-plugin</artifactId>
+                <version>${andromda.version}</version>
                 <!--<executions>
                     <execution>
                         <id>angular-uml2</id>

@@ -34,6 +34,44 @@
                 <value>ValueObject</value>
                 <appliedOnElement>class</appliedOnElement>
             </element>
+            <element name="SERVICE">
+                <documentation>
+                    (From Java profile) Creates a backend file for each model element with
+                    this stereotype.  Each method to be exposed, must be
+                    stereotyped with the <![CDATA[<<WebServiceOperation>>]]> stereotype.
+                </documentation>
+                <value>Service</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="WEBSERVICE">
+                <documentation>
+                    Creates a backend service fragment and exposes ALL methods of the element
+                    as a web service.
+                </documentation>
+                <value>WebService</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="WEB_SERVICE_OPERATION">
+                <documentation>
+                    This is used in conjunction with the <![CDATA[<<Service>>]]> stereotype.
+                    Adds the method to the list of allowed methods
+                    which will be exposed as a web service.  You <strong>MUST</strong>
+                    place this stereotype on an operation if you want it exposed
+                    as a web service (unless you add the <![CDATA[<<WebService>>]]> stereotype to your class).
+                </documentation>
+                <value>WebServiceOperation</value>
+                <appliedOnElement>Service operation</appliedOnElement>
+            </element>
+            <element name="XML_SCHEMA">
+                <documentation>
+                    (From XML profile) Defines a package which is mapped to a Schema Namespace, so that an .xsd
+                    file is created for this package and imported by the wsdl files that reference the schema.
+                    ValueObjects referenced in the service must be in a package with this Stereotype if
+                    importedXSD=true (the default).
+                </documentation>
+                <value>XmlSchema</value>
+                <appliedOnElement>Package</appliedOnElement>
+            </element>
             <element name="FRONT_END_EXCEPTION">
                 <documentation>
                     Modeled on a transition it designates an exception occuring while processing an action,

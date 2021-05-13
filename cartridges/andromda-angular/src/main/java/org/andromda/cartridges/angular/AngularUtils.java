@@ -19,11 +19,11 @@ import java.util.regex.Pattern;
 import org.andromda.cartridges.angular.metafacades.AngularAction;
 import org.andromda.cartridges.angular.metafacades.AngularAttribute;
 import org.andromda.cartridges.angular.metafacades.AngularControllerOperationLogic;
+import org.andromda.cartridges.angular.metafacades.AngularModel;
+import org.andromda.cartridges.angular.metafacades.AngularModelLogic;
 import org.andromda.cartridges.angular.metafacades.AngularParameter;
-import org.andromda.cartridges.webservice.WebServiceUtils;
-import org.andromda.cartridges.webservice.metafacades.WebService;
-import org.andromda.cartridges.webservice.metafacades.WebServiceLogic;
-import org.andromda.cartridges.webservice.metafacades.WebServiceOperation;
+import org.andromda.cartridges.angular.metafacades.AngularService;
+import org.andromda.cartridges.angular.metafacades.AngularServiceOperation;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EnumerationFacade;
@@ -35,7 +35,6 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.Service;
-import org.andromda.metafacades.uml.TaggedValueFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.metafacades.uml.ValueObject;
@@ -43,7 +42,6 @@ import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
-import org.apache.commons.text.CaseUtils;
 import org.apache.commons.text.WordUtils;
 import org.apache.log4j.Logger;
 
@@ -332,7 +330,7 @@ public class AngularUtils {
 		return elementSet;
 	}
 	
-	public String getWebServiceMethodName(WebServiceOperation operation) {
+	public String getWebServiceMethodName(AngularServiceOperation operation) {
         
         if(StringUtils.isBlank(operation.getRestRequestType())) {
             return "post";
@@ -390,17 +388,33 @@ public class AngularUtils {
     public static String getMethodSignatureArguments(List<ParameterFacade> arguments) {
         
         StringBuilder builder = new StringBuilder();
-        
-        for(int i = 0; i < arguments.size(); i++) {
-            if(i > 0) {
+
+        for(ParameterFacade arg$ : arguments) {
+            if(builder.length() > 0) {
+                
                 builder.append(", ");
             }
-            ParameterFacade arg = arguments.get(i);
-            builder.append(arg.getName());
+
+            //AngularParameter arg = (AngularParameter) arg$.getType();
+            
+            builder.append(arg$.getName());
             builder.append(": ");
-            builder.append(getDatatype(arg.getType().getFullyQualifiedName()));
+
+            if(arg$ instanceof AngularModel) {
+
+                AngularModel model = (AngularModel) arg$;
+                builder.append(model.getAngularTypeName());
+                
+            } else if(arg$.getType() instanceof AngularModel) {
+
+                AngularModel model = (AngularModel) arg$.getType();
+                builder.append(model.getAngularTypeName());
+
+            } else {
+                builder.append(getDatatype(arg$.getType().getName()));
+            }
         }
-        
+            
         return builder.toString();
     }
     

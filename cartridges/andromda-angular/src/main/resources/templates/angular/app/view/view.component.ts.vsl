@@ -19,9 +19,7 @@ import { ${table.tableComponentImplementationName} } from ${escTool.s}@app/${tab
 import { ${view.useCase.controller.implementationName} } from ${escTool.s}@app/${view.useCase.controller.implementationFilePath}${escTool.s};
 #if(${view.useCase.controller})
 #foreach($service in ${view.useCase.controller.allRestControllers})
-#set ($path = $stringUtils.replaceChars(${service.packageName}, "\\.", "\\/"))
-#set ($file = $angularUtils.getComponentFileName("${service.name}Impl"))
-import { ${service.name}Impl } from '@app/service/$path/$file';
+import { ${service.implementationName} } from '@app/${service.implementationImportFilePath}';
 #end
 #end
 
@@ -39,7 +37,7 @@ export abstract class $view.componentName implements OnInit {
     protected _injector: Injector;
 #if(${view.useCase.controller})
 #foreach ($service in $view.useCase.controller.allRestControllers)
-    $stringUtils.uncapitalize($service.name): ${service.name}Impl;
+    $stringUtils.uncapitalize($service.name): ${service.implementationName};
 #end
 #end
 
@@ -50,7 +48,7 @@ export abstract class $view.componentName implements OnInit {
         this.rxFormBuilder = injector.get(RxFormBuilder);
 #if(${view.useCase.controller})
 #foreach ($service in $view.useCase.controller.allRestControllers)
-        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name}Impl);
+        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.implementationName});
 #end
 #end
         this._injector = injector;

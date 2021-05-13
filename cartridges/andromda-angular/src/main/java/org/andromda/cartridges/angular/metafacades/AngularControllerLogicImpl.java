@@ -13,7 +13,6 @@ import java.util.Set;
 
 import org.andromda.cartridges.angular.AngularGlobals;
 import org.andromda.cartridges.angular.AngularUtils;
-import org.andromda.cartridges.webservice.metafacades.WebService;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
@@ -165,13 +164,13 @@ public class AngularControllerLogicImpl
     }
 
     @Override
-    protected Collection<WebService> handleGetAllRestControllers() {
-        final Set<WebService> allServices=new HashSet<WebService>();
+    protected Collection<AngularService> handleGetAllRestControllers() {
+        final Set<AngularService> allServices=new HashSet<AngularService>();
         for(final DependencyFacade dependency: this.getServiceReferences())
         {
             if(AngularUtils.isWebService(dependency.getTargetElement()))
             {
-                allServices.add((WebService)dependency.getTargetElement());
+                allServices.add((AngularService)dependency.getTargetElement());
             }
         }
         for(final DependencyFacade dependency: this.getServicesPackagesReferences())
@@ -181,7 +180,7 @@ public class AngularControllerLogicImpl
             {
                 if(AngularUtils.isWebService(clazz))
                 {
-                    allServices.add((WebService)clazz);
+                    allServices.add((AngularService)clazz);
                 }
             }
         }
@@ -193,7 +192,7 @@ public class AngularControllerLogicImpl
                 {
                     if(AngularUtils.isWebService(operation.getOwner()))
                     {
-                        allServices.add((WebService)operation.getOwner());
+                        allServices.add((AngularService)operation.getOwner());
                     }
                 }
             }

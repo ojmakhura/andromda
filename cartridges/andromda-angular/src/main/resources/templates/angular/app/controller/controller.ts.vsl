@@ -8,9 +8,7 @@ import { Observable } from 'rxjs';
 import { ControllerBase } from '@app/controller/utils/controller.base';
 
 #foreach ($service in $controller.allRestControllers)
-#set ($path = $stringUtils.replaceChars(${service.packageName}, "\\.", "\\/"))
-#set ($file = $angularUtils.getComponentFileName("${service.name}Impl"))
-import { ${service.name}Impl } from '@app/service/$path/$file';
+import { ${service.implementationName} } from '@app/${service.implementationImportFilePath}';
 #end
 #set($controllers = [])
 #foreach ($action in $controller.useCase.actions)
@@ -56,14 +54,14 @@ export abstract class $controller.name extends ControllerBase {
 //    ${field.backingListName}: Array<$angularUtils.getDatatype($field.type.name)> = [];
 #end
 #foreach ($service in $controller.allRestControllers)
-    $stringUtils.uncapitalize($service.name): ${service.name}Impl;
+    $stringUtils.uncapitalize($service.name): ${service.implementationName};
 #end
     protected _injector: Injector;
 
     constructor(injector: Injector) {
         super(injector);
 #foreach ($service in $controller.allRestControllers)  
-        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name}Impl);
+        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.implementationName});
 #end
         this._injector = injector;
     }
