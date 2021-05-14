@@ -223,25 +223,25 @@ public class AngularControllerLogicImpl
         HashSet<ModelElementFacade> imports = new HashSet<>();
         HashSet<String> nameSet = new HashSet<String>();
 
-        for(OperationFacade operation : this.getOperations()) {
+        // for(OperationFacade operation : this.getOperations()) {
             
-            if(operation.getReturnType().isEnumeration() || !operation.getReturnType().getAttributes().isEmpty()) {
+        //     if(operation.getReturnType().isEnumeration() || !operation.getReturnType().getAttributes().isEmpty()) {
 
-                if(nameSet.add(operation.getReturnType().getName())) {
-                    imports.add(operation.getReturnType());
-                }
-            }
+        //         if(nameSet.add(operation.getReturnType().getName())) {
+        //             imports.add(operation.getReturnType());
+        //         }
+        //     }
 
-            AngularControllerOperation op = (AngularControllerOperation) operation;
+        //     AngularControllerOperation op = (AngularControllerOperation) operation;
 
-            for(FrontEndParameter field : op.getFormFields()) {
-                if(field.getType().isEnumeration() || !field.getType().getAttributes().isEmpty()) {
-                    if(nameSet.add(field.getType().getName())) {
-                        imports.add(field.getType());
-                    }
-                }
-            }
-        }
+        //     for(FrontEndParameter field : op.getFormFields()) {
+        //         if(field.getType().isEnumeration() || !field.getType().getAttributes().isEmpty()) {
+        //             if(nameSet.add(field.getType().getName())) {
+        //                 imports.add(field.getType());
+        //             }
+        //         }
+        //     }
+        // }
 
         for(AttributeFacade attribute : this.getAttributes()) {
 

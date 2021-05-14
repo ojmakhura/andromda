@@ -141,7 +141,7 @@ export abstract class ${table.tableComponentName} implements OnInit {
 
         let form = #renderAngularTableCommandLinkParametersForm()
 		let params = this.do$stringUtils.capitalize(${action.triggerName})(form);
-        this.${action.controller.beanName}.${action.triggerName}(form);
+        this.${action.controller.variableName}.${action.triggerName}(form);
 	}
 #end	
 #end
@@ -154,11 +154,11 @@ export abstract class ${table.tableComponentName} implements OnInit {
 	${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes()) {
         let form = #renderAngularTableCommandLinkParametersForm()
 		let params = this.do$stringUtils.capitalize(${action.triggerName})(form);
-        this.${action.controller.beanName}.${action.triggerName}(form);
+        this.${action.controller.variableName}.${action.triggerName}(form);
 	}
 #end
 
-    get ${table.view.useCase.controller.beanName}(): ${table.view.useCase.controller.name}Impl {
+    get ${table.view.useCase.controller.variableName}(): ${table.view.useCase.controller.name}Impl {
         
         return this._injector.get(${table.view.useCase.controller.name}Impl);
     }

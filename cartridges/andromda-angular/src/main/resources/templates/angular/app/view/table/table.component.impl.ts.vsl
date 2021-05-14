@@ -6,9 +6,9 @@ import { Component, Injector } from '@angular/core';
 import { ${table.tableComponentName} } from '@app/${table.importImplementationFilePath}';
 
 @Component({
-  selector: '${fileName}',
-  templateUrl: './${fileName}.component.html',
-  styleUrls: ['./${fileName}.component.scss']
+  selector: '${table.selectorName}',
+  templateUrl: './${table.fileName}.component.html',
+  styleUrls: ['./${table.fileName}.component.scss']
 })
 export class ${table.tableComponentImplementationName} extends ${table.tableComponentName} {
 

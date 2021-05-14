@@ -106,7 +106,7 @@ export abstract class ${view.varsComponentName} implements OnInit {
         this.formBuilder = injector.get(FormBuilder);
         this.rxFormBuilder = injector.get(RxFormBuilder);
 #if(${view.useCase.controller})
-        this.${view.useCase.controller.beanName} = injector.get(${view.useCase.controller.name}Impl);
+        this.${view.useCase.controller.variableName} = injector.get(${view.useCase.controller.name}Impl);
 #foreach ($service in $view.useCase.controller.allRestControllers)
         this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name}Impl);
 #end

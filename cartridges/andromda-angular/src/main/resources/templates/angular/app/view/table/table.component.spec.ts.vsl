@@ -4,21 +4,21 @@
 #set ( $className = $angularUtils.getComponentName($fileName, "-"))
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ${className}ImplComponent } from '@app/view/$componentPath/${fileName}.impl.component';
+import { ${table.tableComponentImplementationName} } from '@app/${table.importImplementationFilePath}';
 
-describe('${className}ImplComponent', () => {
-	let component: ${className}ImplComponent;
-	let fixture: ComponentFixture<${className}ImplComponent>;
+describe('${table.tableComponentImplementationName}', () => {
+	let component: ${table.tableComponentImplementationName};
+	let fixture: ComponentFixture<${table.tableComponentImplementationName}>;
 
 	beforeEach(waitForAsync(() => {
 		TestBed.configureTestingModule({
-			declarations: [${className}ImplComponent]
+			declarations: [${table.tableComponentImplementationName}]
 		})
 			.compileComponents();
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(${className}ImplComponent);
+		fixture = TestBed.createComponent(${table.tableComponentImplementationName});
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

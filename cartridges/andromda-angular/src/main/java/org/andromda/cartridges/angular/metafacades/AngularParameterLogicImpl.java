@@ -1363,7 +1363,7 @@ public class AngularParameterLogicImpl
     protected String handleGetFileName() {
         String viewPart = StringUtilsHelper.toPhrase(this.getView().getName()).toLowerCase();
         String name = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
-        return viewPart.replace(" ", "-") + "-" + name;
+        return viewPart.replace(" ", "-") + "-" + name.replace(" ", "-");
     }
 
     @Override
@@ -1394,5 +1394,11 @@ public class AngularParameterLogicImpl
         }
 
         return this.getTableComponentName() + "Impl";
+    }
+
+    @Override
+    protected String handleGetTableSelectorName() {
+        String phrase = StringUtilsHelper.toPhrase(this.getView().getName() + '-' + this.getName()).toLowerCase();
+        return phrase.replace(" ", "-");
     }
 }

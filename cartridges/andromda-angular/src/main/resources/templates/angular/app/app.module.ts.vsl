@@ -51,25 +51,16 @@ import { ConnectFormDirective } from './connect-form.directive';
 
 #set ( $componentSet = $angularUtils.getFacadeSet($views) )
 #foreach($view in $componentSet)
-#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
-#set ( $fileName = $angularUtils.getComponentFileName("${view.name}") )
-#set ( $className = $angularUtils.getComponentName($fileName, "-"))
-import { ${className}Module } from ${escTool.s}./view/${componentPath}/${fileName}.module${escTool.s};
+import { ${view.moduleName} } from ${escTool.s}./${view.moduleFilePath}${escTool.s};
 #end
-#set ( $componentSet = $angularUtils.getFacadeSet($controllers) )
-#foreach ( $controller in $componentSet )
-#set ( $path = $stringUtils.replaceChars($controller.packageName, '\\.', '\\/') )
-#set ( $file =  ${angularUtils.getComponentFileName("${controller.name}Impl")})
-import { ${controller.name}Impl } from '@app/controller/$path/${file}';
+#set ( $controllerSet = $angularUtils.getFacadeSet($controllers) )
+#foreach ( $controller in $controllerSet )
+import { ${controller.implementationName} } from ${escTool.s}@app/${controller.implementationImportFilePath}${escTool.s};
 #end
 
 #set ( $finalServices = $angularUtils.getFacadeSet($services) )
 #foreach ( $service in $finalServices )
-#if($angularUtils.isWebService($service))
-#set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${service.packageName}), '\\.', '\\/')" )
-#set ( $fname = $angularUtils.getComponentFileName("${service.name}Impl") )
-import { ${service.name}Impl } from '@app/service/$path/$fname';
-#end
+import { ${service.implementationName} } from ${escTool.s}@app/${service.implementationImportFilePath}${escTool.s};
 #end
 
 @NgModule({
@@ -100,51 +91,20 @@ import { ${service.name}Impl } from '@app/service/$path/$fname';
 #end
 #set ( $componentSet = $angularUtils.getFacadeSet($views) )
 #foreach($view in $componentSet)
-#set ( $fileName = $angularUtils.getComponentFileName("${view.name}") )
-#set ( $className = $angularUtils.getComponentName($fileName, "-"))
-        ${className}Module,
+        ${view.moduleName},
 #end
     ],
     exports: [
     ],
     providers: [
-#set ($j = 0)
-#foreach ($finalField in $angularUtils.getFacadeSet($fields) )
-#set ($dt = $angularUtils.getDatatype($finalField.fullyQualifiedName))
-#if ($dt != "number" && $dt != "string" && $dt != "Date" && $dt != "Collection" && $dt != "any")
-#set ( $j = $j + 1 )
-//        $finalField.name,
-#end
-#end
 #set ( $finalServices = $angularUtils.getFacadeSet($services) )
 #foreach ( $finalService in $finalServices )
-#if($angularUtils.isWebService($finalService))
-        ${finalService.name}Impl,
-#end
+        ${service.implementationName},
 #end
 #set ( $componentSet = $angularUtils.getFacadeSet($controllers) )
 #foreach ( $controller in $componentSet )
-        ${controller.name}Impl,
+        ${controller.implementationName},
 #end
-#set ( $componentSet = $angularUtils.getFacadeSet($views) )
-#foreach($view in $componentSet)
-#set ( $fileName = $angularUtils.getComponentFileName("${view.name}") )
-#set ( $className = $angularUtils.getComponentName($fileName, "-"))
-//        ${className}ImplComponent,
-#end
-#set ( $componentSet = $angularUtils.getFacadeSet($tables) )
-#foreach($table in $componentSet)
-#set ( $fileName = $angularUtils.getComponentFileName("${table.view.name}-${table.name}") )
-#set ( $className = $angularUtils.getComponentName($fileName, "-"))
-//        ${className}ImplComponent,
-#end
-#set ($i = 1)
-#set ( $componentSet = $angularUtils.getFacadeSet($actions) )
-#foreach($action in $componentSet)
-#set ( $className = $angularUtils.getActionName(${action.path}))
-//        ${className}ImplComponent#if($i < $componentSet.size()),#end${escTool.n}#set ( $i = $i + 1 )
-#end
-
     ],
     bootstrap: [AppComponent]
 })
