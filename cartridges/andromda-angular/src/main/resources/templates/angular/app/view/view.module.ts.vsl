@@ -8,51 +8,22 @@ import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
 import { SharedModule } from '@shared';
 import { MaterialModule } from '@app/material.module';
-import { ${view.componentImplementationName} } from '@app/${view.implementationImportFilePath}';
+import { ${view.componentImplementationName} } from '@app/${view.implementationFilePath}';
 import { ${view.routingModuleName} } from './${view.routingModuleFileName}';
 #if ($view.nonTableVariablesPresent)
 import { ${view.varsComponentImplementationName} } from '@app/${view.varsComponentImplementationFilePath}';
 #end
 
-import { ${view.useCase.controller.implementationName} } from '@app/${view.useCase.controller.implementationFilePath}';
-#set ( $attr = [] )
-#set ( $types = [] )
-#set ( $components = [] )
-#foreach ( $action in $view.actions )
-#if (!$action.tableLink)
-#set ( $rt = $components.add($action))
-#set ( $actionPath = ${action.path} )
-#set ( $actionName = $angularUtils.getActionName("$action.path") )
-import { ${action.componentImplementationName} } from ${escTool.s}@app/${action.implementationImportFilePath}${escTool.s};
-#foreach ($field in $action.formFields)
-#if (!(${field.action} && $field.action.tableLinkName))
-#if ($field.complex)
-#set ( $rt = $attr.add($field ))
-#set ( $rt = $types.add($field.type))
+#foreach($import in $view.imports)
+#if($import.tableComponentImplementationName)
+import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
+#elseif($import.componentImplementationName)
+import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
+#elseif(${import.implementationFilePath})
+import { $import.implementationName } from '@app/${import.implementationFilePath}';
+#else
+import { $import.name } from '@app/${import.filePath}';
 #end
-#end
-#end
-#foreach ($tmp in $action.parameters)
-#if($angularUtils.isComplex($tmp))
-#set ( $rt = $types.add($tmp.type))
-#foreach($attribute in $tmp.attributes)
-#if($angularUtils.isComplex($attribute))
-#set ( $rt = $types.add($attribute.type))
-#end
-#end
-#end
-#end
-#end
-#end
-#foreach($table in $view.tables)
-import { ${table.tableComponentImplementationName} } from ${escTool.s}@app/${table.importImplementationFilePath}${escTool.s};
-#end
-#set ( $finalAttr = [] ) ## No repetisions
-#foreach ( $at in $angularUtils.getFacadeSet($types) )
-#set ($rt = $finalAttr.add($at) )
-#end
-#foreach($a in $finalAttr)
-import { $a.name } from '@app/$a.importFilePath';
 #end
 
 @NgModule({
@@ -69,14 +40,17 @@ import { $a.name } from '@app/$a.importFilePath';
   ],
   declarations: [
     ${view.componentImplementationName},
-#foreach($action in $components)
-    ${action.componentImplementationName},
+#foreach($import in $view.imports)
+$import.enumeration
+#if($import.tableComponentImplementationName)
+    $import.tableComponentImplementationName,
+#elseif($import.componentImplementationName)
+    $import.componentImplementationName,
+#elseif(${import.implementationName})
+    $import.implementationName,
+#else
+    $import.name,
 #end
-#foreach($table in $view.tables)
-    ${table.tableComponentImplementationName},
-#end
-#if ($view.nonTableVariablesPresent)
-    ${view.varsComponentImplementationName}
 #end
   ],
   entryComponents: [],

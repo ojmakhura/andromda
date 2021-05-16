@@ -834,8 +834,37 @@ public class AngularActionLogicImpl
 
     @Override
     protected Collection<ModelElementFacade> handleGetImports() {
-        Collection<ModelElementFacade> imports = new HashSet<>();
-        // TODO Auto-generated method stub
+        HashSet<ModelElementFacade> imports = new HashSet<>();
+        
+        for(FrontEndParameter _parameter : this.getParameters()) {
+            AngularParameter parameter = (AngularParameter) _parameter;
+            
+            if(parameter.isComplex()) {
+                imports.add(parameter.getType());
+
+                for (Object _attribute : parameter.getAttributes()) {
+                    AngularAttribute attribute = (AngularAttribute) _attribute;
+                    if (attribute.getType().getAttributes() != null
+                            && !attribute.getType().getAttributes().isEmpty()) {
+                        imports.add(attribute.getType());
+                    }
+                }
+            }
+        }
+
+        for (FrontEndParameter _field : this.getFormFields()) {
+            AngularParameter field = (AngularParameter) _field;
+
+            if (field.isComplex()) {
+                imports.add(field.getType());
+            }
+        }
+
+        if(this.getController() != null) {
+            imports.addAll(((AngularController)this.getController()).getAllRestControllers());
+            imports.add(this.getController());
+        }
+
         return imports;
     }
 
@@ -847,7 +876,7 @@ public class AngularActionLogicImpl
     }
 
     @Override
-    protected String handleGetImportFilePath() {
+    protected String handleGetFilePath() {
         return "view/" + this.getPackagePath() + "/" + this.getFileName();
     }
 
@@ -857,8 +886,8 @@ public class AngularActionLogicImpl
     }
 
     @Override
-    protected String handleGetImplementationImportFilePath() {
-        return this.getImportFilePath() + ".impl";
+    protected String handleGetImplementationFilePath() {
+        return this.getFilePath() + ".impl";
     }
 
     @Override

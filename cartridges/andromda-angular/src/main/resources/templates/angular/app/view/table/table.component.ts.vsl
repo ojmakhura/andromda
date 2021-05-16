@@ -6,53 +6,41 @@ import { MatTableDataSource } from '@angular/material/table';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
 import { NgForm, FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { ControllerBase } from '@app/controller/utils/controller.base';
-#set ( $types = [] )
-#set ( $rt = $types.add($table.type) )
-#set ( $suffix = "" )
-#foreach ( $tmp in $angularUtils.getImports($types, "", $suffix) )
-$tmp
-#end
-$table.type
-#set ($services = [${action.controller.allServices}])
-#foreach ($action in $table.tableFormActions)
-#foreach ($service in ${action.controller.allServices})
-#set ( $ret = $services.add($service) )
-#end
-#end
-#set ( $finalServices = [] ) ## No repetitions
-#foreach ( $finalService in $angularUtils.getFacadeSet($services) )
-#set ($rt = $finalServices.add($finalService) )
-#end
-
 import { ActivatedRoute, Router } from '@angular/router';
-#set ($suffix = "Impl")
-#foreach ($service in $finalServices )
-#if($angularUtils.isWebService($service))
-#set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${service.packageName}), '\\.', '\\/')" )
-#set ( $fname = $angularUtils.getComponentFileName("${service.name}Impl") )
-import { ${service.name}Impl } from '@app/service/$path/$fname';
-#end
-#end
-import { ${table.view.componentImplementationName} } from '@app/${table.view.implementationImportFilePath}';
-#set ( $path = $stringUtils.replaceChars($table.view.useCase.controller.packageName, '\\.', '\\/') )
-#set ( $file =  ${angularUtils.getComponentFileName("${table.view.useCase.controller.name}Impl")})
-import { ${table.view.useCase.controller.name}Impl } from '@app/controller/$path/${file}';
 
+#foreach ($import in $table.imports)
+#if($import.tableComponentImplementationName)
+import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
+#elseif($import.componentImplementationName)
+import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
+#elseif(${import.implementationFilePath})
+import { $import.implementationName } from '@app/${import.implementationFilePath}';
+#else
+import { $import.name } from '@app/${import.filePath}';
+#end
+#end
+
+import { ${table.view.componentImplementationName} } from '@app/${table.view.implementationFilePath}';
+import { ${table.view.useCase.controller.implementationName} } from '@app/${table.view.useCase.controller.implementationFilePath}';
+
+@Component({
+  selector: '${table.selectorName}-base',
+  template: ''
+})
 export abstract class ${table.tableComponentName} implements OnInit {
 #set($cr = '
 ')
 
     ${table.name}Columns = [
-#if($table.tableFormActions.size() > 0 || $table.tableHyperlinkActions.size() > 0)
+#if($table.tableActions.size() > 0)
 		'actions',
 #end
 #set($i = 1)
 #foreach ($column in $table.tableColumns)
 #if(!($column.upper>1 || $column.upper==-1))
-        '$angularUtils.getColumnName($column)'#if($i < $table.tableColumns.size()),$cr#end
+        '$angularUtils.getColumnName($column)',
 #end
-#set($i = $i + 1)
-#end$cr
+#end
     ];
 
     @Input() ${table.view.formName}: FormGroup;
@@ -64,10 +52,8 @@ export abstract class ${table.tableComponentName} implements OnInit {
 	protected formBuilder: FormBuilder;
     protected route: ActivatedRoute;
     protected router: Router;
-#foreach($service in $finalServices)
-#if($angularUtils.isWebService($service))
-    protected $stringUtils.uncapitalize($service.name): ${service.name}$suffix;
-#end
+#foreach($service in $restControllers)
+    protected $stringUtils.uncapitalize($service.name): ${service.implementationName};
 #end
     protected ${table.view.variableName}: ${table.view.componentImplementationName};
     protected _injector: Injector;
@@ -75,10 +61,8 @@ export abstract class ${table.tableComponentName} implements OnInit {
     constructor(injector: Injector) {
         this.route = injector.get(ActivatedRoute);
         this.router = injector.get(Router);
-#foreach($service in $finalServices)
-#if($angularUtils.isWebService($service))
-        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name}$suffix);
-#end
+#foreach($service in $restControllers)
+        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.implementationName});
 #end
         this.${table.view.variableName} = injector.get(${table.view.componentImplementationName});
         this.formBuilder = injector.get(FormBuilder);

@@ -221,36 +221,23 @@ public class AngularControllerLogicImpl
     protected Collection<ModelElementFacade> handleGetImports() {
         
         HashSet<ModelElementFacade> imports = new HashSet<>();
-        HashSet<String> nameSet = new HashSet<String>();
 
-        // for(OperationFacade operation : this.getOperations()) {
+        for(OperationFacade operation : this.getOperations()) {
             
-        //     if(operation.getReturnType().isEnumeration() || !operation.getReturnType().getAttributes().isEmpty()) {
-
-        //         //if(nameSet.add(operation.getReturnType().getName())) {
-        //             imports.add(operation.getReturnType());
-        //         //}
-        //     }
-
-        //     // AngularControllerOperation op = (AngularControllerOperation) operation;
-
-        //     // for(FrontEndParameter field : op.getFormFields()) {
-        //     //     if(field.getType().isEnumeration() || !field.getType().getAttributes().isEmpty()) {
-        //     //         if(nameSet.add(field.getType().getName())) {
-        //     //             imports.add(field.getType());
-        //     //         }
-        //     //     }
-        //     // }
-        // }
+            if(operation.getReturnType().isEnumeration() || !operation.getReturnType().getAttributes().isEmpty()) {
+                imports.add(operation.getReturnType());
+            }
+        }
 
         for(AttributeFacade attribute : this.getAttributes()) {
 
             if(attribute.getType().isEnumeration() || !attribute.getType().getAttributes().isEmpty()) {
-                if(nameSet.add(attribute.getType().getName())) {
-                    imports.add(attribute.getType());
-                }
+                imports.add(attribute.getType());
             }
         }
+
+        imports.addAll(this.getAllRestControllers());
+        imports.addAll(this.getOtherControllers());
 
         return imports;
     }
@@ -262,7 +249,7 @@ public class AngularControllerLogicImpl
     }
 
     @Override
-    protected String handleGetImportFilePath() {
+    protected String handleGetFilePath() {
         return "controller/" + this.getPackagePath() + "/" + this.getFileName();
     }
 
@@ -278,6 +265,32 @@ public class AngularControllerLogicImpl
 
     @Override
     protected String handleGetImplementationFilePath() {
-        return this.getImportFilePath() + ".impl";
+        return this.getFilePath() + ".impl";
+    }
+
+    @Override
+    protected Collection handleGetOtherControllers() {
+        
+        HashSet<AngularController> controllers = new HashSet<>();
+
+        for(FrontEndAction _action : this.getUseCase().getActions()) {
+            
+            for(FrontEndActionState actionState : _action.getActionStates()) {
+                AngularForward state = (AngularForward) actionState.getForward();
+                if(state.isEnteringFinalState() && state.getTarget() != null) {
+                    
+                    AngularFinalState finalState = (AngularFinalState) state.getTarget();
+                    AngularUseCase useCase = (AngularUseCase) finalState.getTargetElement();
+
+                    if(useCase != null && useCase.getController() != null) {
+                        if(!useCase.getController().getName().equals(this.getName())) {
+                            controllers.add((AngularController) useCase.getController());
+                        }
+                    }
+                }
+            }
+        }
+        
+        return controllers;
     }
 }

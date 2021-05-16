@@ -9,12 +9,12 @@
         <mapping class="org.eclipse.uml2.uml.internal.impl.EnumerationLiteralImpl"/>
         <property reference="enumerationLiteralNameMask"/>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.emf.uml22.EnumerationFacadeLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularEnumerationLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.EnumerationImpl"/>
         <property reference="enumerationNameMask"/>
         <property reference="typeSafeEnumsEnabled"/>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.emf.uml22.EnumerationFacadeLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularEnumerationLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.ClassImpl">
             <stereotype>ENUMERATION</stereotype>
         </mapping>
@@ -26,21 +26,6 @@
             <stereotype>WEBSERVICE</stereotype>
         </mapping>
     </metafacade>
-    <!-- <metafacade class="org.andromda.cartridges.angular.metafacades.AngularServiceLogicImpl">
-        <mapping>
-            <stereotype>SERVICE</stereotype>
-        </mapping>
-    </metafacade> -->
-    <!-- <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
-        <mapping>
-            <stereotype>WEBSERVICE</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
-        <mapping>
-            <stereotype>SERVICE</stereotype>
-        </mapping>
-    </metafacade> -->
     <metafacade class="org.andromda.cartridges.angular.metafacades.AngularServiceOperationLogicImpl">
         <mapping>
             <stereotype>WEBSERVICE_OPERATION</stereotype>

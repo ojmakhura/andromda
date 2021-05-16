@@ -60,7 +60,7 @@ import { ${controller.implementationName} } from ${escTool.s}@app/${controller.i
 
 #set ( $finalServices = $angularUtils.getFacadeSet($services) )
 #foreach ( $service in $finalServices )
-import { ${service.implementationName} } from ${escTool.s}@app/${service.implementationImportFilePath}${escTool.s};
+import { ${service.implementationName} } from ${escTool.s}@app/${service.implementationFilePath}${escTool.s};
 #end
 
 @NgModule({

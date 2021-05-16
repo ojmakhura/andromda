@@ -10,44 +10,15 @@ import { NgForm, FormGroup, FormControl, FormArray, FormBuilder } from '@angular
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
-#set ($params = $angularUtils.getFormFields(${action.source.actions}))
-
-#set ( $parameters = [] )
-#set ( $enumerations = [] )
-#foreach( $parameter in $action.parameters )
-#if($parameter.complex)
-#set ( $ret = $parameters.add($parameter.type) )
-#foreach( $attribute in $parameter.attributes )
-#if($attribute.type.enumeration)
-#set ( $ret = $enumerations.add($attribute.type) )
-#elseif($angularUtils.isComplex($attribute))
-#set ( $ret = $parameters.add($attribute.type) )
-#end
-#end
-#end
-#end
-#foreach ($param in $angularUtils.getFacadeSet($parameters))
-import { ${param.name} } from '@app/${param.importFilePath}';
-#end
-#foreach ($enum in $angularUtils.getFacadeSet($enumerations))
-#set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${enum.packageName}), '\\.', '\\/')" )
-#set ( $fname = $angularUtils.getComponentFileName("${enum.name}") )
-import { ${enum.name} } from '@app/model/$path/$fname';
-#end
-#set ($args = [])
-#foreach ($service in $action.controller.allRestControllers)
-import { ${service.implementationName} } from '@app/${service.implementationImportFilePath}';
-#end
-#if($action.controller)
-#set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.controller.packageName}), '\\.', '\\/')" )
-#set ( $fname = $angularUtils.getComponentFileName("${action.controller.name}Impl") )
-import { ${action.controller.implementationName} } from '@app/${action.controller.implementationFilePath}';
-#end
-#foreach( $parameter in $action.parameters )
-#if($parameter.type.enumeration)
-#set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${parameter.type.packageName}), '\\.', '\\/')" )
-#set ( $fname = $angularUtils.getComponentFileName("${parameter.type.name}") )
-import { ${parameter.type.name} } from '@app/${parameter.type.importFileName}';
+#foreach ($import in $action.imports)
+#if($import.tableComponentImplementationName)
+import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
+#elseif($import.componentImplementationName)
+import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
+#elseif(${import.implementationFilePath})
+import { $import.implementationName } from '@app/${import.implementationFilePath}';
+#else
+import { $import.name } from '@app/${import.filePath}';
 #end
 #end
 
@@ -91,7 +62,7 @@ export abstract class ${action.componentName} implements OnInit {
     protected route: ActivatedRoute;
     protected router: Router;
 #foreach ($service in $action.controller.allRestControllers)
-    protected $stringUtils.uncapitalize($service.name): ${service.name}Impl;
+    protected $stringUtils.uncapitalize($service.name): ${service.implementationName};
 #end
     protected formBuilder: FormBuilder;
     protected _injector: Injector;
@@ -125,7 +96,7 @@ export abstract class ${action.componentName} implements OnInit {
         this.route = injector.get(ActivatedRoute);
         this.router = injector.get(Router);
 #foreach ($service in $action.controller.allRestControllers)
-        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name}Impl);
+        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.implementationName});
 #end
         this.formBuilder = injector.get(FormBuilder);
         this._injector = injector;
@@ -169,51 +140,20 @@ export abstract class ${action.componentName} implements OnInit {
         return <FormArray>this.${action.formName}.get(name);
     }
 
-#foreach ( $parameter in $action.parameters )
-#if($angularUtils.isComplex($parameter))
-#set ($i = 1)
-#foreach($attribute in $parameter.attributes)
-#if($angularUtils.isTable($attribute))
-    get ${attribute.name}(): FormArray {
-        return <FormArray>this.getItemControl('$parameter.name').get('$attribute.name');
-    }
-
-#end
-#end
-#end
-#*   *##if($parameter.many)
-#*     *##set($returnType = "FormArray")
-#*   *##elseif($parameter.complex)
-#*     *##set($returnType = "FormGroup")
-#*   *##else
-#*     *##set($returnType = "FormControl")
-#*   *##end
-    set$stringUtils.capitalize($parameter.name)($parameter.name: $angularUtils.getDatatype($parameter.type.name)#if($parameter.many)[]#end): $returnType {
-
-        this.${action.formName}.get('$parameter.name').setValue($parameter.name);
-
-        return this.${action.formName}.get('$parameter.name') as $returnType;
-    }
-
-#end
-    abstract do$stringUtils.capitalize(${action.triggerName})(#if(!$action.formFields.empty)form: any#end): void;
-    abstract after$stringUtils.capitalize(${action.triggerName})(#if(!$action.formFields.empty)form: any#end): void;
+    abstract before$stringUtils.capitalize(${action.triggerName})(): void;
+    abstract after$stringUtils.capitalize(${action.triggerName})(): void;
     
-    ${action.triggerName}(): void {
+    do$stringUtils.capitalize(${action.triggerName})(): void {
 
-#if(!$action.formFields.empty)
-        let form = this.${action.formName}?.value;
-#end
-        this.do$stringUtils.capitalize(${action.triggerName})(#if(!$action.formFields.empty)form#end);
-        this.${action.controller.variableName}.${action.triggerName}(#if(!$action.formFields.empty)form#else{}#end);
-
-        this.after$stringUtils.capitalize(${action.triggerName})(#if(!$action.formFields.empty)form#end);
+        this.before$stringUtils.capitalize(${action.triggerName})();
+        this.${action.formEventName}.emit();
+        this.after$stringUtils.capitalize(${action.triggerName})();
     }
 
 #if($action.controller)
     get ${action.controller.variableName}(): ${action.controller.name}Impl {
         
-        return this._injector.get(${action.controller.name}Impl);
+        return this._injector.get(${action.controller.implementationName});
     }
 #end
 }

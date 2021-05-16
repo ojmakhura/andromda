@@ -1681,7 +1681,7 @@ public class AngularServiceLogicImpl
     }
 
     @Override
-    protected String handleGetImportFilePath() {
+    protected String handleGetFilePath() {
         return "service/" + this.getPackagePath() + '/' + this.getFileName();
     }
 
@@ -1691,8 +1691,8 @@ public class AngularServiceLogicImpl
     }
 
     @Override
-    protected String handleGetImplementationImportFilePath() {
-        return this.getImportFilePath() + ".impl";
+    protected String handleGetImplementationFilePath() {
+        return this.getFilePath() + ".impl";
     }
 
     @Override

@@ -87,7 +87,7 @@
 
     <template
         path="templates/angular/app/model/model.ts.vsl"
-        outputPattern="${class.importFilePath}.ts"
+        outputPattern="${class.filePath}.ts"
         outlet="models"
         overwrite="true">
         <modelElements variable="class">
@@ -99,7 +99,7 @@
     
     <template
         path="templates/angular/app/model/spec.ts.vsl"
-        outputPattern="${class.importFilePath}.spec.ts"
+        outputPattern="${class.filePath}.spec.ts"
         outlet="models"
         overwrite="false">
         <modelElements variable="class">
@@ -111,12 +111,12 @@
         
     <template
         path="templates/angular/app/model/enumeration.vsl"
-        outputPattern="model/$destination/${fileName}.ts"
+        outputPattern="${enumeration.filePath}.ts"
         outlet="models"
         overwrite="true">
         <modelElements variable="enumeration">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.EnumerationFacade">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularEnumeration">
                     <property name="typeSafe"/>
                 </type>
             </modelElement>
@@ -144,7 +144,7 @@
     
     <template
         path="templates/angular/app/service/service.ts.vsl"
-        outputPattern="${service.importFilePath}.ts"
+        outputPattern="${service.filePath}.ts"
         outlet="services"
         overwrite="true">
         <modelElements variable="service">
@@ -158,7 +158,7 @@
         
     <template
         path="templates/angular/app/service/service.impl.ts.vsl"
-        outputPattern="${service.implementationImportFilePath}.ts"
+        outputPattern="${service.implementationFilePath}.ts"
         outlet="service-impls"
         overwrite="true">
         <modelElements variable="service">
@@ -172,7 +172,7 @@
     
     <template
         path="templates/angular/app/controller/controller.ts.vsl"
-        outputPattern="${controller.importFilePath}.ts"
+        outputPattern="${controller.filePath}.ts"
         outlet="controllers"
         overwrite="true">
         <modelElements variable="controller">
@@ -200,7 +200,7 @@
     
     <template
         path="templates/angular/app/view/view.component.html.vsl"
-        outputPattern="${view.importFilePath}.html"
+        outputPattern="${view.filePath}.html"
         outlet="views"
         overwrite="true">
         <modelElements variable="view">
@@ -214,7 +214,7 @@
 	
 	<template
         path="templates/angular/app/view/view.component.ts.vsl"
-        outputPattern="${view.importFilePath}.ts"
+        outputPattern="${view.filePath}.ts"
         outlet="views"
         overwrite="true">
         <modelElements variable="view">
@@ -228,9 +228,9 @@
 	
 	<template
         path="templates/angular/app/view/view.component.impl.ts.vsl"
-        outputPattern="${view.implementationImportFilePath}.ts"
+        outputPattern="${view.implementationFilePath}.ts"
         outlet="view-impls"
-        overwrite="false">
+        overwrite="true">
         <modelElements variable="view">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndView">
@@ -242,7 +242,7 @@
 	
 	<template
         path="templates/angular/app/view/view.component.scss.vsl"
-        outputPattern="${view.importFilePath}.scss"
+        outputPattern="${view.filePath}.scss"
         outlet="views"
         overwrite="true">
         <modelElements variable="view">
@@ -256,7 +256,7 @@
 	
 	<template
         path="templates/angular/app/view/view.component.spec.ts.vsl"
-        outputPattern="${view.importFilePath}.spec.ts"
+        outputPattern="${view.filePath}.spec.ts"
         outlet="views"
         overwrite="true">
         <modelElements variable="view">
@@ -298,7 +298,7 @@
 	
 	<template
         path="templates/angular/app/view/table/table.component.ts.vsl"
-        outputPattern="${table.importFilePath}.ts"
+        outputPattern="${table.filePath}.ts"
         outlet="views"
         overwrite="true">
         <modelElements>
@@ -312,7 +312,7 @@
 	
 	<template
         path="templates/angular/app/view/table/table.component.impl.ts.vsl"
-        outputPattern="${table.importImplementationFilePath}.ts"
+        outputPattern="${table.implementationFilePath}.ts"
         outlet="views"
         overwrite="true">
         <modelElements>
@@ -325,7 +325,7 @@
     </template>	
 	<template
         path="templates/angular/app/view/table/table.component.html.vsl"
-        outputPattern="${table.importFilePath}.html"
+        outputPattern="${table.filePath}.html"
         outlet="views"
         overwrite="true">
         <modelElements>
@@ -338,7 +338,7 @@
     </template>	
 	<template
         path="templates/angular/app/view/table/table.component.spec.ts.vsl"
-        outputPattern="${table.importFilePath}.spec.ts"
+        outputPattern="${table.filePath}.spec.ts"
         outlet="views"
         overwrite="true">
         <modelElements>
@@ -352,7 +352,7 @@
 	
 	<template
         path="templates/angular/app/view/table/table.component.scss.vsl"
-        outputPattern="${table.importFilePath}.scss"
+        outputPattern="${table.filePath}.scss"
         outlet="views"
         overwrite="true">
         <modelElements>
@@ -366,7 +366,7 @@
 	
 	<template
         path="templates/angular/app/view/action/view.action.html.vsl"
-        outputPattern="${action.importFilePath}.html"
+        outputPattern="${action.filePath}.html"
         outlet="views"
         overwrite="true">
         <modelElements variable="action">
@@ -381,7 +381,7 @@
     
 	<template
         path="templates/angular/app/view/action/view.action.ts.vsl"
-        outputPattern="${action.importFilePath}.ts"
+        outputPattern="${action.filePath}.ts"
         outlet="views"
         overwrite="true">
         <modelElements variable="action">
@@ -396,7 +396,7 @@
 	
 	<template
         path="templates/angular/app/view/action/view.action.impl.ts.vsl"
-        outputPattern="${action.implementationImportFilePath}.ts"
+        outputPattern="${action.implementationFilePath}.ts"
         outlet="views"
         overwrite="true">
         <modelElements variable="action">
@@ -411,7 +411,7 @@
     
 	<template
         path="templates/angular/app/view/action/view.action.scss.vsl"
-        outputPattern="${action.importFilePath}.scss"
+        outputPattern="${action.filePath}.scss"
         outlet="views"
         overwrite="true">
         <modelElements variable="action">
@@ -426,7 +426,7 @@
     
 	<template
         path="templates/angular/app/view/action/view.action.spec.ts.vsl"
-        outputPattern="${action.importFilePath}.spec.ts"
+        outputPattern="${action.filePath}.spec.ts"
         outlet="views"
         overwrite="true">
         <modelElements variable="action">

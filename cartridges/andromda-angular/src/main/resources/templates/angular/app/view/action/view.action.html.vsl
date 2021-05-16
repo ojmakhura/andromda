@@ -48,7 +48,7 @@ enumeration: $table.type.enumeration
 #end
 #end
         <div>
-            <button type="button" (click)="${action.triggerName}()" class="btn btn-info">$stringUtils.toPhrase(${action.trigger.name})</button>
+            <button type="button" (click)="do$stringUtils.capitalize(${action.triggerName})()" class="btn btn-info">$stringUtils.toPhrase(${action.trigger.name})</button>
         </div>
 #end
     </form>

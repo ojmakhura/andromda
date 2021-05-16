@@ -18,10 +18,10 @@
 		<$action.selectorName 
 			[$action.formName] = "$action.formName"
 #foreach ($action in $view.actions)
-			($action.formEventName)="set${action.componentName}($event)"
+			($action.formEventName)="${action.formEventName}()"
 #end
 #foreach ( $table in $view.tables )
-			(${table.name}) = "set$stringUtils.capitalize(${table.name})($event)"
+			(${table.name}) = "set$stringUtils.capitalize(${table.name})()"
 #end
 		>
 		</$action.selectorName>

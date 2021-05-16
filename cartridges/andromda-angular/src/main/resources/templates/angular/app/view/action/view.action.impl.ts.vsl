@@ -25,10 +25,9 @@ export class ${action.componentImplementationName} extends ${action.componentNam
     
   }
 
-  after$stringUtils.capitalize(${action.triggerName})(#if(!$action.formFields.empty)form: any#end) {    
+  before$stringUtils.capitalize($action.triggerName)() {
   }
 
-  do$stringUtils.capitalize($action.triggerName)(#if(!$action.formFields.empty)form: any#end) {
-    this.${action.formEventName}.emit({});
+  after$stringUtils.capitalize(${action.triggerName})() {    
   }
 }

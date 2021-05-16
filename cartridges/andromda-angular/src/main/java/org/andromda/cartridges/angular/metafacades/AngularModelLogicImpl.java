@@ -55,7 +55,7 @@ public class AngularModelLogicImpl
     }
 
     @Override
-    protected String handleGetImportFilePath() {
+    protected String handleGetFilePath() {
         return "model/" + this.getPackagePath() + '/' + this.getFileName();
     }
 

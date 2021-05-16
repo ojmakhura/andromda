@@ -2,7 +2,7 @@
 #set ( $fileName =  $angularHelper.getComponentFileName("${controller.name}"))
 import { TestBed } from '@angular/core/testing';
 
-import { ${controller.implementationName} } from '@app/${controller.importImplementationFilePath}';
+import { ${controller.implementationName} } from '@app/${controller.implementationFilePath}';
 
 describe('${controller.implementationName}', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

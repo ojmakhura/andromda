@@ -965,7 +965,7 @@ public class AngularUseCaseLogicImpl
     }
 
     @Override
-    protected String handleGetImportFilePath() {
+    protected String handleGetFilePath() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -977,7 +977,7 @@ public class AngularUseCaseLogicImpl
     }
 
     @Override
-    protected String handleGetImplementationImportFilePath() {
+    protected String handleGetImplementationFilePath() {
         // TODO Auto-generated method stub
         return null;
     }

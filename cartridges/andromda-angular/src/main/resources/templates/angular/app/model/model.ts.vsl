@@ -5,13 +5,7 @@ import { Injectable } from '@angular/core';
 import { prop, model, propArray, propObject } from '@rxweb/reactive-form-validators';
 
 #foreach ($import in $class.imports)
-#if($import.enumeration) 
-#set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${import.packageName}), '\\.', '\\/')" )
-#set ( $fname = $angularUtils.getComponentFileName("${import.name}") )
-import { ${import.name} } from '@app/model/$path/$fname';
-#else
-import {$import.name} from '@app/$import.importFilePath';
-#end
+import {$import.name} from '@app/$import.filePath';
 #end
 
 #foreach ($tmp in $class.attributes)

@@ -13,35 +13,22 @@ import {
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 ## Find all the fields in the actions of the view
-#set ( $vars = [] )
-#set ( $enumerations = [] )
-#foreach( $variable in $view.variables )
-#if($variable.complex)
-#set ( $ret = $vars.add($variable.type) )
-#foreach( $attribute in $variable.attributes )
-#if($attribute.type.enumeration)
-#set ( $ret = $enumerations.add($attribute.type) )
-#elseif($angularUtils.isComplex($attribute))
-#set ( $ret = $vars.add($attribute.type) )
-#end
-#end
-#end
-#end
-#foreach ($param in $angularUtils.getFacadeSet($vars))
-import { ${param.name} } from '@app/${param.importFilePath}';
-#end
-#foreach ($enum in $angularUtils.getFacadeSet($enumerations))
-#set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${enum.packageName}), '\\.', '\\/')" )
-#set ( $fname = $angularUtils.getComponentFileName("${enum.name}") )
-import { ${enum.name} } from '@app/model/$path/$fname';
-#end
-import { ${view.useCase.controller.implementationName} } from '@app/${view.useCase.controller.implementationFileName}';
-#if(${view.useCase.controller})
-#foreach($service in ${view.useCase.controller.allRestControllers})
-import { ${service.implementationName} } from '@app/${service.implementationImportFilePath}';
+#foreach ($import in $view.imports)
+#if($import.tableComponentImplementationName)
+import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
+#elseif($import.componentImplementationName)
+import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
+#elseif(${import.implementationFilePath})
+import { $import.implementationName } from '@app/${import.implementationFilePath}';
+#else
+import { $import.name } from '@app/${import.filePath}';
 #end
 #end
 
+@Component({
+  selector: '${view.selectorName}-vars-base',
+  template: ''
+})
 export abstract class ${view.varsComponentName} implements OnInit {
 
 #foreach ( $variable in $view.variables )
@@ -91,7 +78,7 @@ export abstract class ${view.varsComponentName} implements OnInit {
 #end
 #end
 #if(${view.useCase.controller})
-    ${view.useCase.controller.variableName}: ${view.useCase.controller.name}Impl;
+    ${view.useCase.controller.variableName}: ${view.useCase.controller.implementationName};
 #foreach ($service in $view.useCase.controller.allRestControllers)
     $stringUtils.uncapitalize($service.name): ${service.name}Impl;
 #end
@@ -149,20 +136,6 @@ export abstract class ${view.varsComponentName} implements OnInit {
 
 #end
 #end
-#end
-#*   *##if($variable.many)
-#*     *##set($returnType = "FormArray")
-#*   *##elseif($variable.complex)
-#*     *##set($returnType = "FormGroup")
-#*   *##else
-#*     *##set($returnType = "FormControl")
-#*   *##end
-    set$stringUtils.capitalize($variable.name)($variable.name: $angularUtils.getDatatype($variable.type.name)): $returnType {
-
-        this.${view.varsFormName}.get('$variable.name').setValue($variable.name);
-
-        return this.${view.varsFormName}.get('$variable.name') as $returnType;
-    }
-    
+#end    
 #end
 }

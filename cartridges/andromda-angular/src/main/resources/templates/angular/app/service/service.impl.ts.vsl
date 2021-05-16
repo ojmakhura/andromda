@@ -4,9 +4,13 @@ import { Injectable, Injector } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 #end
 import { Observable } from 'rxjs';
-import { $service.name } from '@app/$service.importFilePath';
+import { $service.name } from '@app/$service.filePath';
 #foreach ($import in $service.imports)
-import { $import.name } from '@app/${import.importFilePath})';
+#if(${import.implementationFilePath})
+import { $import.implementationName } from '@app/${import.implementationFilePath}';
+#else
+import { $import.name } from '@app/${import.filePath}';
+#end
 #end
 
 @Injectable()
@@ -17,20 +21,29 @@ export class ${service.implementationName} extends ${service.name} {
     }
 
 #foreach ($operation in $service.operations)
+#set ($restParams = $angularUtils.getMethodCallArguments($operation.arguments))
     public $operation.signature {
+
 #set ($methodName = $angularUtils.getWebServiceMethodName($operation))
 #set ($methodPath = $angularUtils.getWebServiceOperationPath($operation.restPath))
 #if ( $methodName.equals("get")) 
         return this.http.get<$operation.returnTypeName>(this.path + '$methodPath/'#foreach($arg in $operation.arguments) + $arg.name#end);
-#elseif ( $methodName.equals("post")) 
-        return this.http.post<$operation.returnTypeName>(this.path + '$methodPath'#if (!$stringUtils.isBlank($restParams)), $restParams#end);
 #elseif ( $methodName.equals("delete")) 
         return this.http.delete<$operation.returnTypeName>(this.path + '$methodPath/'#foreach ($arg in $operation.arguments) + $arg.name#end);
-#elseif ( $methodName.equals("put")) 
-        return this.http.put<$operation.returnTypeName>(this.path + '$methodPath'#if (!$stringUtils.isBlank($restParams)), $restParams#end);
-#else 
-        return this.http.post<$operation.returnTypeName>(this.path + '$methodPath'#if (!$stringUtils.isBlank($restParams)), $restParams#end);
+#else
+#if(!$operation.arguments.empty)
+        let formData: any = new FormData();
+#foreach ($arg in $operation.arguments)
+#if($operation.arguments.size() > 1)
+        formData.append("$arg.name", $arg.name)
+#else
+        formData = $arg.name;
 #end
+#end
+#end
+        return this.http.post<$operation.returnTypeName>(this.path + '$methodPath'#if (!$operation.arguments.empty), formData#end);
+#end
+
     }
 
 #end

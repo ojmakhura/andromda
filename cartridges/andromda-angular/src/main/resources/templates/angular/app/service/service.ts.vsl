@@ -7,7 +7,11 @@ import { Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 
 #foreach ($import in $service.imports)
-import { $import.name } from '@app/${import.importFilePath}';
+#if(${import.implementationFilePath})
+import { $import.implementationName } from '@app/${import.implementationFilePath}';
+#else
+import { $import.name } from '@app/${import.filePath}';
+#end
 #end
 
 export abstract class $service.name {

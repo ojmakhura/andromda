@@ -24,6 +24,7 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndView;
@@ -1337,6 +1338,22 @@ public class AngularParameterLogicImpl
             }
         }
 
+        if(this.getAction() != null && this.getAction().getController() != null) {
+            imports.add(this.getAction().getController());
+        }
+
+        if(this.getView() != null) {
+            for(FrontEndParameter _var : this.getView().getVariables() ) {
+                AngularParameter var = (AngularParameter) _var;
+                if(var.isComplex()) {
+                    imports.add(var);
+                }
+            }
+        }
+        
+        imports.add(this.getType());
+        imports.addAll(this.getRestControllers());
+
         return imports;
     }
 
@@ -1354,7 +1371,7 @@ public class AngularParameterLogicImpl
     }
 
     @Override
-    protected String handleGetImportFilePath() {
+    protected String handleGetFilePath() {
         AngularView view = (AngularView) this.getView();
         return view.getViewPath() + '/' + this.getFileName() + ".component";
     }
@@ -1372,8 +1389,8 @@ public class AngularParameterLogicImpl
     }
 
     @Override
-    protected String handleGetImportImplementationFilePath() {
-        return this.getImportFilePath() + ".impl";
+    protected String handleGetImplementationFilePath() {
+        return this.getFilePath() + ".impl";
     }
 
     @Override
@@ -1400,5 +1417,25 @@ public class AngularParameterLogicImpl
     protected String handleGetTableSelectorName() {
         String phrase = StringUtilsHelper.toPhrase(this.getView().getName() + '-' + this.getName()).toLowerCase();
         return phrase.replace(" ", "-");
+    }
+
+    @Override
+    protected Collection handleGetRestControllers() {
+        HashSet<AngularService> services = new HashSet<>();
+
+        if(this.getAction() != null && this.getAction().getController() != null) {
+            services.addAll(((AngularController)this.getAction().getController()).getAllRestControllers());
+
+            if(this.getTableActions() != null) {
+                for(AngularAction action : this.getTableActions()) {
+
+                    if(action.getController() != null) {
+                        services.addAll(((AngularController)action.getController()).getAllRestControllers());
+                    }
+                }
+            }
+        }
+
+        return services;
     }
 }

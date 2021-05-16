@@ -3,40 +3,12 @@
 import { Injector } from '@angular/core';
 import { ControllerBase } from '@app/controller/utils/controller.base';
 
-#foreach ($service in $controller.allRestControllers)
-import { ${service.implementationName} } from '@app/${service.implementationImportFilePath}';
-#end
-#set($controllers = [])
-#foreach ($action in $controller.useCase.actions)
-#if ($action.finalStateTarget && $action.target.targetElement.controller.name != $controller.name)
-#set ($rt = $controllers.add($action.target.targetElement.controller))
-#end
-#foreach ($actionState in $action.actionStates)
-#if ($actionState.forward.enteringFinalState && $actionState.forward.target.targetElement.controller.name != $controller.name)
-#set ($rt = $controllers.add($actionState.forward.target.targetElement.controller))
-#end
-#end
-#end
-#set ($controllerSet = $angularUtils.getFacadeSet($controllers))
-#foreach($cnt in $controllerSet)
-#if($cnt.name != $controller.name)
-import { ${cnt.implementationName} } from '@app/${cnt.implementationFilePath}';
-#end
-#end
-#set ($types = [])
-#set ($formFields = [])
-#foreach ($operation in $controller.operations)
-#foreach ($field in $operation.formFields)
-#set ($rt = $formFields.add($field))
-#end
-#end
-#foreach($type in $controller.imports)
-import { $type.name } from '@app/${type.importFilePath}'; 
-#end
-#foreach ($operation in $controller.operations)
-#if(${operation.returnType.enumeration} || !${operation.returnType.attributes.empty})
-import { $operation.returnType.name } from '@app/${operation.returnType.importFilePath}'; 
-#end
+#foreach($import in $controller.imports)
+#if(${import.implementationFilePath})
+import { $import.implementationName } from '@app/${import.implementationFilePath}';
+#else
+import { $import.name } from '@app/${import.filePath}';
+#end 
 #end
 
 export abstract class $controller.name extends ControllerBase {
@@ -275,11 +247,12 @@ $decisionTransition.getDocumentation("     * ")
 
 #end
 #end
-#foreach($cnt in $controllerSet)
+#foreach($cnt in $controller.otherControllers)
 
     get ${cnt.variableName}(): ${cnt.implementationName} {
         
         return this._injector.get(${cnt.implementationName});
     }
-#end  
+#end 
+
 }
