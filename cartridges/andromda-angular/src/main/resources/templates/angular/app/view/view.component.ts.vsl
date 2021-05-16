@@ -5,7 +5,6 @@ import { Component, OnInit, Injector, ViewChild, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
 import { NgForm, FormGroup, FormControl, FormArray, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { ControllerBase } from '@app/controller/utils/controller.base';
 ## Find all the fields in the actions of the view
 #foreach ( $action in $view.actions )
 #if (!$action.tableLink)

@@ -9,7 +9,6 @@ import { RxFormBuilder } from '@rxweb/reactive-form-validators';
 import { NgForm, FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { ControllerBase } from '@app/controller/utils/controller.base';
 
 #set ($params = $angularUtils.getFormFields(${action.source.actions}))
 
@@ -28,7 +27,7 @@ import { ControllerBase } from '@app/controller/utils/controller.base';
 #end
 #end
 #foreach ($param in $angularUtils.getFacadeSet($parameters))
-import { ${param.name} } from '@app/${param.importFileName}';
+import { ${param.name} } from '@app/${param.importFilePath}';
 #end
 #foreach ($enum in $angularUtils.getFacadeSet($enumerations))
 #set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${enum.packageName}), '\\.', '\\/')" )
@@ -37,12 +36,12 @@ import { ${enum.name} } from '@app/model/$path/$fname';
 #end
 #set ($args = [])
 #foreach ($service in $action.controller.allRestControllers)
-import { ${service.implementationName} } from '@app/${service.importImplementationFilePath}';
+import { ${service.implementationName} } from '@app/${service.implementationImportFilePath}';
 #end
 #if($action.controller)
 #set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${action.controller.packageName}), '\\.', '\\/')" )
 #set ( $fname = $angularUtils.getComponentFileName("${action.controller.name}Impl") )
-import { ${action.controller.implementationName} } from '@app/${action.controller.importImplementationFilePath}';
+import { ${action.controller.implementationName} } from '@app/${action.controller.implementationFilePath}';
 #end
 #foreach( $parameter in $action.parameters )
 #if($parameter.type.enumeration)

@@ -8,13 +8,13 @@ import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
 import { SharedModule } from '@shared';
 import { MaterialModule } from '@app/material.module';
-import { ${view.componentImplementationName} } from './${view.implementationImportFileName}';
+import { ${view.componentImplementationName} } from '@app/${view.implementationImportFilePath}';
 import { ${view.routingModuleName} } from './${view.routingModuleFileName}';
 #if ($view.nonTableVariablesPresent)
-import { ${view.varsComponentImplementationName} } from './${view.varsComponentImplementationFileName}';
+import { ${view.varsComponentImplementationName} } from '@app/${view.varsComponentImplementationFilePath}';
 #end
 
-import { ${view.useCase.controller.implementationName}Impl } from '@app/${view.implementationFileName}';
+import { ${view.useCase.controller.implementationName} } from '@app/${view.useCase.controller.implementationFilePath}';
 #set ( $attr = [] )
 #set ( $types = [] )
 #set ( $components = [] )

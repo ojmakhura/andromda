@@ -5,7 +5,13 @@ import { Injectable } from '@angular/core';
 import { prop, model, propArray, propObject } from '@rxweb/reactive-form-validators';
 
 #foreach ($import in $class.imports)
+#if($import.enumeration) 
+#set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${import.packageName}), '\\.', '\\/')" )
+#set ( $fname = $angularUtils.getComponentFileName("${import.name}") )
+import { ${import.name} } from '@app/model/$path/$fname';
+#else
 import {$import.name} from '@app/$import.importFilePath';
+#end
 #end
 
 #foreach ($tmp in $class.attributes)
@@ -21,9 +27,10 @@ import {$import.name} from '@app/$import.importFilePath';
 export class $class.name {
 #foreach ($attribute in $class.attributes)
 
-	@$angularUtils.getRxwebDecorator($attribute)
+    @$angularUtils.getRxwebDecorator($attribute)
 #if($angularUtils.isComplex($attribute) && !$attribute.many && !$angularUtils.isArray($attribute.getterSetterTypeName) && !$attribute.type.enumeration)
-    $attribute.name: ${attribute.type.name} = <${attribute.type.name}> {
+
+    $attribute.name: ${attribute.type.name} = <${attribute.type.name}>{
 #foreach($attr in ${attribute.type.attributes})
 #if($attr.many || $angularUtils.isArray($attr.getterSetterTypeName))
 #set ($def = "[]")
@@ -34,8 +41,9 @@ export class $class.name {
 #end
     };
 #else
-    $attribute.name: $attribute.angularTypeName = $attribute.defaultValue;
+    $attribute.name: $attribute.angularTypeName#if($attribute.many)[]#end = $attribute.defaultValue;
 #end
 #end
+    
     ${class.name}() {}
 }

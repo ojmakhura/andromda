@@ -51,11 +51,11 @@ import { ConnectFormDirective } from './connect-form.directive';
 
 #set ( $componentSet = $angularUtils.getFacadeSet($views) )
 #foreach($view in $componentSet)
-import { ${view.moduleName} } from ${escTool.s}./${view.moduleFilePath}${escTool.s};
+import { ${view.moduleName} } from ${escTool.s}@app/${view.moduleFilePath}${escTool.s};
 #end
 #set ( $controllerSet = $angularUtils.getFacadeSet($controllers) )
 #foreach ( $controller in $controllerSet )
-import { ${controller.implementationName} } from ${escTool.s}@app/${controller.implementationImportFilePath}${escTool.s};
+import { ${controller.implementationName} } from ${escTool.s}@app/${controller.implementationFilePath}${escTool.s};
 #end
 
 #set ( $finalServices = $angularUtils.getFacadeSet($services) )
@@ -99,7 +99,7 @@ import { ${service.implementationName} } from ${escTool.s}@app/${service.impleme
     providers: [
 #set ( $finalServices = $angularUtils.getFacadeSet($services) )
 #foreach ( $finalService in $finalServices )
-        ${service.implementationName},
+        ${finalService.implementationName},
 #end
 #set ( $componentSet = $angularUtils.getFacadeSet($controllers) )
 #foreach ( $controller in $componentSet )
