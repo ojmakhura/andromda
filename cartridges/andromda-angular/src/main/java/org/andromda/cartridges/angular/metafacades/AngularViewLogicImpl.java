@@ -417,28 +417,6 @@ public class AngularViewLogicImpl extends AngularViewLogic {
             imports.add(action);
             imports.addAll(action.getImports());
 
-            // for (FrontEndParameter _field : action.getFormFields()) {
-            //     AngularParameter field = (AngularParameter) _field;
-
-            //     if (field.isComplex()) {
-            //         imports.add(field.getType());
-            //     }
-            // }
-
-            // for (FrontEndParameter _parameter : action.getParameters()) {
-            //     AngularParameter parameter = (AngularParameter) _parameter;
-            //     if (parameter.isComplex()) {
-            //         imports.add(parameter.getType());
-
-            //         for (Object _attribute : parameter.getAttributes()) {
-            //             AngularAttribute attribute = (AngularAttribute) _attribute;
-            //             if (attribute.getType().getAttributes() != null
-            //                     && !attribute.getType().getAttributes().isEmpty()) {
-            //                 imports.add(attribute.getType());
-            //             }
-            //         }
-            //     }
-            // }
         }
 
         for(FrontEndParameter _variable : this.getVariables()) {

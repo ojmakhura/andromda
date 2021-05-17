@@ -5,6 +5,7 @@ package org.andromda.cartridges.angular.metafacades;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -952,10 +953,20 @@ public class AngularUseCaseLogicImpl
         return allViews;
     }
 
+    private void getMenuItems(AngularUseCase useCase, HashSet<ModelElementFacade> imports) {
+
+        for(FrontEndView view : useCase.getViews()) {
+            imports.add(view);
+        }
+    }
+
     @Override
     protected Collection<ModelElementFacade> handleGetImports() {
-        // TODO Auto-generated method stub
-        return null;
+
+        HashSet<ModelElementFacade> imports = new HashSet<>();
+
+
+        return imports;
     }
 
     @Override

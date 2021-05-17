@@ -40,7 +40,7 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
 
 #end
 #if ($view.nonTableVariablesPresent)
-    afterSet$stringUtils.capitalize(${action.varsFormName})(form: any): void {
+    afterSet$stringUtils.capitalize(${view.varsFormName})(form: any): void {
 
     }
 #end

@@ -469,7 +469,7 @@
         <angular.controller.impl.dir>${angular.manual.dir}</angular.controller.impl.dir>
         <angular.view.dir>${angular.generated.dir}</angular.view.dir>
         <angular.view.impl.dir>${angular.manual.dir}</angular.view.impl.dir>
-        <angular.form.dir>${angular.generated.dir}/form</angular.form.dir>
+        <angular.form.dir>${angular.generated.dir}</angular.form.dir>
 #end
 #if ($springws)		
         <springws.generated.dir>${project.basedir}/../springws/target</springws.generated.dir>

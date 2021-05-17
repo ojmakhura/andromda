@@ -7,15 +7,11 @@ import { Shell } from '@app/shell/shell.service';
 import { ${view.componentImplementationName} } from '@app/${view.implementationFilePath}';
 
 const routes: Routes = [
-  Shell.childRoutes([
-    //{ path: '', redirectTo: '/home', pathMatch: 'full' },
-    { 
-        path: '$view.routerPath', 
-        component: ${view.componentImplementationName}, 
-        data: { title: marker('${stringUtils.toPhrase(${view.name})}') } 
-    },
-    
-  ]),
+  { 
+      path: '', 
+      component: ${view.componentImplementationName}, 
+      data: { title: marker('${stringUtils.toPhrase(${view.name})}') } 
+  },
 ];
 
 @NgModule({

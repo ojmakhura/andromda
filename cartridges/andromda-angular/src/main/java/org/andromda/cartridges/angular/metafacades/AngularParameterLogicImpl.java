@@ -1351,7 +1351,10 @@ public class AngularParameterLogicImpl
             }
         }
         
-        imports.add(this.getType());
+        if(this.getType() instanceof AngularModel) {
+            imports.add(this.getType());
+        }
+        
         imports.addAll(this.getRestControllers());
 
         return imports;

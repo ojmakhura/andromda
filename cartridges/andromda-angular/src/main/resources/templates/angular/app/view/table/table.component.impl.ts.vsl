@@ -17,6 +17,7 @@ export class ${table.tableComponentImplementationName} extends ${table.tableComp
 	}
 	
 	afterOnInit() {
+    this.addDummyData();
 	}
 
   doNgAfterViewInit() {

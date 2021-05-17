@@ -812,7 +812,7 @@ public class AngularAttributeLogicImpl
 
     @Override
     protected String handleGetAngularTypeName() {
-        
+
         return AngularUtils.getDatatype(this.getType().getName());
     }
 

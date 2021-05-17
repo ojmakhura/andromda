@@ -80,7 +80,25 @@
         outputToSingleFile="true">
         <modelElements>
             <modelElement variable="useCases">
-                <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularUseCase"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/angular/app/app-routing.module.ts.vsl"
+        outputPattern="app-routing.module.ts"
+        outlet="angularAppDir"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="useCases">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularUseCase"/>
+            </modelElement>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>

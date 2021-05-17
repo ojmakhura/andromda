@@ -9,6 +9,7 @@ import { ControllerBase } from '@app/controller/utils/controller.base';
 import { ActivatedRoute, Router } from '@angular/router';
 
 #foreach ($import in $table.imports)
+$import
 #if($import.tableComponentImplementationName)
 import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
 #elseif($import.componentImplementationName)
@@ -153,7 +154,6 @@ export abstract class ${table.tableComponentName} implements OnInit {
 
     addDummyData() {
         this.${table.name}.push(this.formBuilder.group({
-#set($i = 1)
 #foreach ($column in $table.tableColumns)
 #if($column.name)
 #set($columnName = $column.name)
@@ -161,14 +161,23 @@ export abstract class ${table.tableComponentName} implements OnInit {
 #set($columnName = $column)
 #end
 #if(!($column.upper>1 || $column.upper==-1))
-            $columnName: [null],
+#if($column.defaultValuePresent)
+#set ($defaultValue = $column.defaultValue)
+#else
 #end
-#set($i = $i + 1)
+#if($column.angularTypeName=="number")
+#set ($defaultValue = 1)
+#elseif($column.angularTypeName=="Date")
+#set ($defaultValue = "new Date()")
+#else
+#set ($defaultValue = "'${columnName}-1'")
+#end
+            $columnName: [$defaultValue],
+#end
 #end
         }));
 
         this.${table.name}.push(this.formBuilder.group({
-#set($i = 1)
 #foreach ($column in $table.tableColumns)
 #if($column.name)
 #set($columnName = $column.name)
@@ -176,14 +185,23 @@ export abstract class ${table.tableComponentName} implements OnInit {
 #set($columnName = $column)
 #end
 #if(!($column.upper > 1 || $column.upper == -1))
-            $columnName: [null],
+#if($column.defaultValuePresent)
+#set ($defaultValue = $column.defaultValue)
+#else
 #end
-#set($i = $i + 1)
+#if($column.angularTypeName=="number")
+#set ($defaultValue = 2)
+#elseif($column.angularTypeName=="Date")
+#set ($defaultValue = "new Date()")
+#else
+#set ($defaultValue = "'${columnName}-2'")
+#end
+            $columnName: [$defaultValue],
+#end
 #end
         }));
 
         this.${table.name}.push(this.formBuilder.group({
-#set($i = 1)
 #foreach ($column in $table.tableColumns)
 #if($column.name)
 #set($columnName = $column.name)
@@ -191,9 +209,20 @@ export abstract class ${table.tableComponentName} implements OnInit {
 #set($columnName = $column)
 #end
 #if(!($column.upper>1 || $column.upper==-1))
-            $columnName: [null],
+
+#if($column.defaultValuePresent)
+#set ($defaultValue = $column.defaultValue)
+#else
 #end
-#set($i = $i + 1)
+#if($column.angularTypeName=="number")
+#set ($defaultValue = 3)
+#elseif($column.angularTypeName=="Date")
+#set ($defaultValue = "new Date()")
+#else
+#set ($defaultValue = "'${columnName}-3'")
+#end
+            $columnName: [$defaultValue],
+#end
 #end
         }));
     }
