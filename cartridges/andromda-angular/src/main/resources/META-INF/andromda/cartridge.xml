@@ -230,7 +230,7 @@
         path="templates/angular/app/view/view.component.impl.ts.vsl"
         outputPattern="${view.implementationFilePath}.ts"
         outlet="view-impls"
-        overwrite="true">
+        overwrite="false">
         <modelElements variable="view">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndView">

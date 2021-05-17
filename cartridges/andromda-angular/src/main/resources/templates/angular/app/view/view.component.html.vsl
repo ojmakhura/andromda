@@ -6,9 +6,9 @@
 ## Render non table variables
 #if ($view.nonTableVariablesPresent)
     <div class="card my-5">
-		<${view.selectorName} 
+		<${view.selectorName}-vars 
 			[${stringUtils.uncapitalize(${view.varsFormName})}] = "${stringUtils.uncapitalize(${view.varsFormName})}">
-		</${view.selectorName}>
+		</${view.selectorName}-vars>
 	</div>
 #end
 ## Render the form for each action
@@ -20,9 +20,9 @@
 #foreach ($action in $view.actions)
 			($action.formEventName)="${action.formEventName}()"
 #end
-#foreach ( $table in $view.tables )
-			(${table.name}) = "set$stringUtils.capitalize(${table.name})()"
-#end
+##foreach ( $table in $view.tables )
+##			(${table.name}) = "set$stringUtils.capitalize(${table.name})()"
+##end
 		>
 		</$action.selectorName>
 	</div>

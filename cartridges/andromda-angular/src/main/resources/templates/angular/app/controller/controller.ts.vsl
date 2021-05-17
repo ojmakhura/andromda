@@ -102,13 +102,11 @@ $action.trigger.getDocumentation("     * ")
 #processTransition($action)
 #saveMessages($action "        ")
 #if ($formPopulationOperationRequired)
-#set ( $actionFile = $angularUtils.getComponentFileName("${action.source.name}"))
-#set ( $actionClass = $angularUtils.getComponentName($actionFile, "-") )
         
 #if(!$action.exitingInitialState && !$action.enteringFinalState)
         if(forward !== null)
         {
-            if('$stringUtils.lowerCase(${action.source.name})' === forward)
+            if('${action.source.routerPath}' === forward)
             {
                 forward = null; //the destination form is the same, stay on the current view
             }

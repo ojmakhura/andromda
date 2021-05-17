@@ -3,7 +3,7 @@ import { Component, Injector } from '@angular/core';
 import { ${table.tableComponentName} } from '@app/${table.filePath}';
 
 @Component({
-  selector: '${table.selectorName}',
+  selector: '${table.fileName}',
   templateUrl: './${table.fileName}.component.html',
   styleUrls: ['./${table.fileName}.component.scss']
 })

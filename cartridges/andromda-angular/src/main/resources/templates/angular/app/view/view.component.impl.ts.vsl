@@ -28,7 +28,7 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
     }
 
 #foreach ($action in $view.actions)
-    afterSet${action.actionClassName}(form: any): void {
+    afterSet$stringUtils.capitalize(${action.formName})(form: any): void {
 
     }
 
@@ -38,5 +38,10 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
     before$stringUtils.capitalize($action.formEventName)(#if(!$action.formFields.empty)form: any#end) {
     }
 
+#end
+#if ($view.nonTableVariablesPresent)
+    afterSet$stringUtils.capitalize(${action.varsFormName})(form: any): void {
+
+    }
 #end
 }

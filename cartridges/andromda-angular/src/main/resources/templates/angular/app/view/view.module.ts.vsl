@@ -19,10 +19,6 @@ import { ${view.varsComponentImplementationName} } from '@app/${view.varsCompone
 import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
 #elseif($import.componentImplementationName)
 import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
-#elseif(${import.implementationFilePath})
-import { $import.implementationName } from '@app/${import.implementationFilePath}';
-#else
-import { $import.name } from '@app/${import.filePath}';
 #end
 #end
 
@@ -41,16 +37,14 @@ import { $import.name } from '@app/${import.filePath}';
   declarations: [
     ${view.componentImplementationName},
 #foreach($import in $view.imports)
-$import.enumeration
 #if($import.tableComponentImplementationName)
     $import.tableComponentImplementationName,
 #elseif($import.componentImplementationName)
     $import.componentImplementationName,
-#elseif(${import.implementationName})
-    $import.implementationName,
-#else
-    $import.name,
 #end
+#end
+#if ($view.nonTableVariablesPresent)
+    ${view.varsComponentImplementationName}
 #end
   ],
   entryComponents: [],

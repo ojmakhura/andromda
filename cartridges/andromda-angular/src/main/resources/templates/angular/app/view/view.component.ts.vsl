@@ -117,15 +117,15 @@ export abstract class $view.componentName implements OnInit {
         return this.getGroupControl('${action.formName}');
     }
     
-    abstract afterSet${action.actionClassName}(form: any): void;
+    abstract afterSet$stringUtils.capitalize(${action.formName})(form: any): void;
 
-    set${action.actionClassName}(form: any) {
+    set$stringUtils.capitalize(${action.formName})(form: any) {
 
 #foreach($parameter in $action.parameters)
         this.${action.formName}.get('$parameter.name').setValue(form.$parameter.name);
 
 #end
-        this.afterSet${action.actionClassName}(form);
+        this.afterSet$stringUtils.capitalize(${action.formName})(form);
 
     }
 
@@ -147,6 +147,18 @@ export abstract class $view.componentName implements OnInit {
 #if ($view.nonTableVariablesPresent)
     get ${view.varsFormName}(): FormGroup {
         return this.getGroupControl('${view.varsFormName}');
+    }
+
+    abstract afterSet$stringUtils.capitalize(${view.varsFormName})(form: any): void;
+
+    set$stringUtils.capitalize(${view.varsFormName})(form: any) {
+
+#foreach($variable in $view.variables)
+        this.${view.varsFormName}.get('$variable.name').setValue(form.$variable.name);
+
+#end
+        this.afterSet$stringUtils.capitalize(${view.varsFormName})(form);
+
     }
 
 #end

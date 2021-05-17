@@ -12,7 +12,7 @@ const routes: Routes = [
     { 
         path: '$view.routerPath', 
         component: ${view.componentImplementationName}, 
-        data: { title: marker('${stringUtils.toPhrase(${view.componentName})}') } 
+        data: { title: marker('${stringUtils.toPhrase(${view.name})}') } 
     },
     
   ]),

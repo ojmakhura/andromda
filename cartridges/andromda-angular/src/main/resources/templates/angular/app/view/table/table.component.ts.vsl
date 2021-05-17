@@ -24,7 +24,7 @@ import { ${table.view.componentImplementationName} } from '@app/${table.view.imp
 import { ${table.view.useCase.controller.implementationName} } from '@app/${table.view.useCase.controller.implementationFilePath}';
 
 @Component({
-  selector: '${table.selectorName}-base',
+  selector: '${table.fileName}-base',
   template: ''
 })
 export abstract class ${table.tableComponentName} implements OnInit {
