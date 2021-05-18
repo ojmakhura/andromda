@@ -77,7 +77,7 @@ export abstract class ${action.componentName} implements OnInit {
     ${parameter.name}Options = Object.keys(this.${parameter.name}T);
 #elseif($parameter.inputSelect)
 #set($ret = $selections.add($parameter.type))
-    ${parameter.name}BackingList: Array<$angularUtils.getDatatype($parameter.type.name)> = [];
+    @Input() ${parameter.backingListName}: Array<$angularUtils.getDatatype($parameter.type.name)> = [];
 #end
 #end
 #end

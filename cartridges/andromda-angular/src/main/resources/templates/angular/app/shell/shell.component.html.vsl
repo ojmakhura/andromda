@@ -23,7 +23,7 @@
 #set ($view = $useCase.initialView)
           <mat-divider></mat-divider>
           <a mat-list-item routerLink="/$view.routerPath" routerLinkActive="active" (click)="isMobile && sidenav.close()">
-            <span translate>${stringUtils.toPhrase(${view.name})}</span>
+            <span translate>${stringUtils.toPhrase(${useCase.name})}</span>
           </a>
 #end
           <mat-divider></mat-divider>

@@ -18,6 +18,33 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
     }
 	
     afterOnInit() {
+#foreach($table in $view.tables)
+        this.add${stringUtils.capitalize($table.name)}DummyData();
+#end
+#foreach ($action in $view.actions)
+#if (!$action.tableLink)
+#foreach($parameter in $action.parameters)
+#if($parameter.inputSelect)
+#if($parameter.angularTypeName=="number")
+#set ($defaultValue = 1)
+#elseif($parameter.angularTypeName=="Date")
+#set ($defaultValue = "new Date()")
+#else
+#set ($defaultValue = "'${parameter.name}-1'")
+#end
+        this.${parameter.backingListName}.push($defaultValue);
+#if($parameter.angularTypeName=="number")
+#set ($defaultValue = 2)
+#elseif($parameter.angularTypeName=="Date")
+#set ($defaultValue = "new Date()")
+#else
+#set ($defaultValue = "'${parameter.name}-2'")
+#end
+        this.${parameter.backingListName}.push($defaultValue);
+#end
+#end
+#end
+#end
     }
 
     doNgAfterViewInit() {
@@ -29,7 +56,6 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
 
 #foreach ($action in $view.actions)
     afterSet$stringUtils.capitalize(${action.formName})(form: any): void {
-
     }
 
     after$stringUtils.capitalize(${action.formEventName})(#if(!$action.formFields.empty)form: any#end) {    
@@ -41,7 +67,6 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
 #end
 #if ($view.nonTableVariablesPresent)
     afterSet$stringUtils.capitalize(${view.varsFormName})(form: any): void {
-
     }
 #end
 }

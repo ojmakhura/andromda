@@ -36,6 +36,15 @@ export abstract class $view.componentName implements OnInit {
     $stringUtils.uncapitalize($service.name): ${service.implementationName};
 #end
 #end
+#foreach ($action in $view.actions)
+#if (!$action.tableLink)
+#foreach($parameter in $action.parameters)
+#if($parameter.inputSelect)
+    ${parameter.backingListName}: ${parameter.angularTypeName}[] = [];
+#end
+#end
+#end
+#end
 
     constructor(injector: Injector) {
         this.route = injector.get(ActivatedRoute);
@@ -185,7 +194,7 @@ export abstract class $view.componentName implements OnInit {
     }
 
 #foreach($table in $view.tables)
-    set$stringUtils.capitalize(${table.name})(${table.name}: Array<$angularUtils.getDatatype(${table.type.name})>): FormArray {
+    set$stringUtils.capitalize(${table.name})(${table.name}: $angularUtils.getDatatype(${table.type.name})[]): FormArray {
 
         const ${table.name}Array = new FormArray([]);
 
@@ -202,11 +211,67 @@ export abstract class $view.componentName implements OnInit {
         return ${table.name}Array;
     }
 
+    get ${table.name}(): FormArray {
+        return this.getArrayControl('$table.name');
+    }
+
 #end
 #if(${view.useCase.controller})
     get ${view.useCase.controller.variableName}(): ${view.useCase.controller.name}Impl {
         
         return this._injector.get(${view.useCase.controller.name}Impl);
+    }
+#end
+#foreach($table in $view.tables)
+
+    add${stringUtils.capitalize($table.name)}DummyData() {
+        this.${table.name}.push(this.formBuilder.group({
+#foreach ($column in $table.tableColumns)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
+#if(!($column.upper>1 || $column.upper==-1))
+#if($column.defaultValuePresent)
+#set ($defaultValue = $column.defaultValue)
+#else
+#end
+#if($column.angularTypeName=="number")
+#set ($defaultValue = 1)
+#elseif($column.angularTypeName=="Date")
+#set ($defaultValue = "new Date()")
+#else
+#set ($defaultValue = "'${columnName}-1'")
+#end
+            $columnName: [$defaultValue],
+#end
+#end
+        }));
+
+        this.${table.name}.push(this.formBuilder.group({
+#foreach ($column in $table.tableColumns)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
+#if(!($column.upper > 1 || $column.upper == -1))
+#if($column.defaultValuePresent)
+#set ($defaultValue = $column.defaultValue)
+#else
+#end
+#if($column.angularTypeName=="number")
+#set ($defaultValue = 2)
+#elseif($column.angularTypeName=="Date")
+#set ($defaultValue = "new Date()")
+#else
+#set ($defaultValue = "'${columnName}-2'")
+#end
+            $columnName: [$defaultValue],
+#end
+#end
+        }));
     }
 #end
 }

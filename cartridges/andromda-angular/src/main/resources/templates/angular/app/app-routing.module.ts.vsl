@@ -16,13 +16,13 @@ const routes: Routes = [
   Shell.childRoutes([
     {
       path: 'about',
-      loadChildren: () => import('./about/about.module').then((m) => m.AboutModule) 
+      loadChildren: async () => (await import('./about/about.module')).AboutModule
     },
 #foreach($useCase in $useCases)
 #foreach($view in $useCase.views)
     {
       path: '$view.routerPath', 
-      loadChildren: () => import('./$view.moduleFilePath').then((m) => m.$view.moduleName)
+      loadChildren: async () => (await import('./$view.moduleFilePath')).$view.moduleName
     },
 #end
 #end
