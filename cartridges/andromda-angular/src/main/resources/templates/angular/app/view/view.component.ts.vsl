@@ -121,7 +121,7 @@ export abstract class $view.componentName implements OnInit {
     }
 
 #foreach ($action in $view.actions)
-#set ( $actionClass = $angularUtils.getActionName("$action.path") )
+#if (!$action.tableLink)
     get ${action.formName}(): FormGroup {
         return this.getGroupControl('${action.formName}');
     }
@@ -152,6 +152,7 @@ export abstract class $view.componentName implements OnInit {
         this.after$stringUtils.capitalize(${action.formEventName})(#if(!$action.formFields.empty)form#end);
     }
 
+#end
 #end
 #if ($view.nonTableVariablesPresent)
     get ${view.varsFormName}(): FormGroup {
@@ -194,7 +195,7 @@ export abstract class $view.componentName implements OnInit {
     }
 
 #foreach($table in $view.tables)
-    set$stringUtils.capitalize(${table.name})(${table.name}: $angularUtils.getDatatype(${table.type.name})[]): FormArray {
+    set$stringUtils.capitalize(${table.name})(${table.name}: ${table.angularTypeName}[]): FormArray {
 
         const ${table.name}Array = new FormArray([]);
 
@@ -202,7 +203,7 @@ export abstract class $view.componentName implements OnInit {
             return ${table.name}Array;
         }
 
-        ${table.name}.forEach((item: $angularUtils.getDatatype(${table.type.name})) => {
+        ${table.name}.forEach((item: ${table.angularTypeName}) => {
             ${table.name}Array.push(this.rxFormBuilder.group(item))
         });
 

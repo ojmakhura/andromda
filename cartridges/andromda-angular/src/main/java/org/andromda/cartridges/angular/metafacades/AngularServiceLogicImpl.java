@@ -1706,7 +1706,7 @@ public class AngularServiceLogicImpl
         Collection<ModelElementFacade> imports = new HashSet<>();
         HashSet<String> nameSet = new HashSet<String>();
 
-        for(OperationFacade _operation : this.getOperations()) {
+        for(OperationFacade _operation : this.getAllowedOperations()) {
             AngularServiceOperation operation = (AngularServiceOperation) _operation;
 
             for(ParameterFacade arg : operation.getArguments()) {

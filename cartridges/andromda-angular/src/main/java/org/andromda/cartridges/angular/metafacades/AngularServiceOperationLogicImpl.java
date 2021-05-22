@@ -233,6 +233,8 @@ public class AngularServiceOperationLogicImpl
 
     private static final String SLASH = "/";
     private static final String QUOTE = "\"";
+    private static final String SQUOTE = "'";
+    private static final String PLUS = " + ";
     private static final String LBRACKET = "{";
     private static final String RBRACKET = "}";
     /**
@@ -246,28 +248,38 @@ public class AngularServiceOperationLogicImpl
         StringBuilder pathBuffer = new StringBuilder();
         if (!this.isRest() || StringUtils.isBlank(path) || path.equals(DEFAULT))
         {
-            pathBuffer.append(QUOTE).append(SLASH).append(this.getName().toLowerCase()).append(SLASH);
+            pathBuffer.append(QUOTE).append(SLASH).append(this.getName().toLowerCase()).append(QUOTE);
             //path = SLASH + this.getName().toLowerCase() + SLASH;
-            Iterator<ParameterFacade> parameters = this.getArguments().iterator();
-            while (parameters.hasNext())
-            {
-                ParameterFacade param = parameters.next();
-                //if (WebServiceUtils.isSimpleType(param))
-                //{
-                    String paramName = param.getName();
-                    pathBuffer.append(paramName).append(SLASH).append(LBRACKET).append(paramName).append(RBRACKET).append(SLASH);
-                /*} else {
-                    if (param instanceof WebServiceParameter) {
-                        WebServiceParameter p = (WebServiceParameter)param;
-                        String type = p.getRestParamType().toLowerCase();
-                        if(type.contains("get") || type.contains("delete")) {
-                            String paramName = p.getRestPathParam();
-                            pathBuffer.append(paramName).append(SLASH).append(LBRACKET).append(paramName).append(RBRACKET).append(SLASH);
-                        }
-                    }
-                }*/
-            }
-            pathBuffer.append(QUOTE);
+            // Iterator<ParameterFacade> parameters = this.getArguments().iterator();
+            // while (parameters.hasNext())
+            // {
+            //     ParameterFacade param = parameters.next();
+            //     String type = this.getRestRequestType().toLowerCase();
+
+            //     String paramName = param.getName();
+            //     if (!AngularUtils.isSimpleType(param)) {
+            //         if(param instanceof AngularServiceParameter) {
+                        
+            //             AngularServiceParameter p = (AngularServiceParameter)param;
+                            
+            //             if(type.contains("get") || type.contains("delete")) {
+            //                 paramName = p.getRestPathParam();
+            //             }
+            //         }
+            //     }
+
+            //     if(type.contains("get") || type.contains("delete")) {
+            //         pathBuffer.append(PLUS)
+            //             .append(QUOTE)
+            //             .append(SLASH)
+            //             .append(paramName)
+            //             .append(SLASH)
+            //             .append(QUOTE)
+            //             .append(PLUS)
+            //             .append(paramName);
+            //     }
+            // }
+            // pathBuffer.append(PLUS).append(QUOTE).append(SLASH).append(QUOTE);
         }
         else
         {
@@ -285,6 +297,36 @@ public class AngularServiceOperationLogicImpl
                 pathBuffer.append(QUOTE);
             }
         }
+        Iterator<ParameterFacade> parameters = this.getArguments().iterator();
+            while (parameters.hasNext())
+            {
+                ParameterFacade param = parameters.next();
+                String type = this.getRestRequestType().toLowerCase();
+
+                String paramName = param.getName();
+                if (!AngularUtils.isSimpleType(param)) {
+                    if(param instanceof AngularServiceParameter) {
+                        
+                        AngularServiceParameter p = (AngularServiceParameter)param;
+                            
+                        if(type.contains("get") || type.contains("delete")) {
+                            paramName = p.getRestPathParam();
+                        }
+                    }
+                }
+
+                if(type.contains("get") || type.contains("delete")) {
+                    pathBuffer.append(PLUS)
+                        .append(QUOTE)
+                        .append(SLASH)
+                        .append(paramName)
+                        .append(SLASH)
+                        .append(QUOTE)
+                        .append(PLUS)
+                        .append(paramName);
+                }
+            }
+            pathBuffer.append(PLUS).append(QUOTE).append(SLASH).append(QUOTE);
         return pathBuffer.toString();
     }
 
@@ -308,7 +350,6 @@ public class AngularServiceOperationLogicImpl
             while (parameters.hasNext())
             {
                 ParameterFacade param = parameters.next();
-                //System.out.println("handleGetRestTestPath param=" + param.getName() + " servicePath=" + servicePath + " value=" + wsutils.createConstructor(param));
                 if (AngularServiceUtils.isSimpleType(param))
                 {
                     String paramValue = wsutils.createConstructor(param);
@@ -449,8 +490,7 @@ public class AngularServiceOperationLogicImpl
         return provider;
     }
 
-    private static final String GET = "@javax.ws.rs.GET";
-    private static final String AT = "@javax.ws.rs.";
+    private static final String POST = "post";
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestRequestType()
      */
@@ -460,13 +500,10 @@ public class AngularServiceOperationLogicImpl
         String requestType = (String)this.findTaggedValue(AngularGlobals.REST_REQUEST_TYPE);
         if (!this.isRest() || StringUtils.isBlank(requestType) || requestType.equals(DEFAULT))
         {
-            requestType = GET;
+            requestType = POST;
         }
-        else if (!requestType.startsWith(AT))
-        {
-            requestType = AT + requestType;
-        }
-        return requestType;
+        
+        return requestType.toLowerCase();
     }
     
     @Override

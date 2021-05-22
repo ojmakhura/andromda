@@ -38,7 +38,7 @@ public abstract class ${serviceName}Base implements ${serviceName} {
 #foreach ($operation in $service.allowedOperations)
 #set ($handle = "handle")
 #set ($responseStatus = $operation.restResponseStatus)
-    $webServiceUtils.getRequestType(${operation.restRequestType})($webServiceUtils.getSpringOperationPath($operation))
+    $webServiceUtils.getRequestType(${operation.restRequestType})($operation.restPath)
 #if (!$stringUtils.isBlank($responseStatus))
     $operation.restResponseStatus
 #end

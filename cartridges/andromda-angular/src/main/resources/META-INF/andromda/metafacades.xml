@@ -26,9 +26,20 @@
             <stereotype>WEBSERVICE</stereotype>
         </mapping>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularServiceLogicImpl">
+        <mapping>
+            <stereotype>SERVICE</stereotype>
+        </mapping>
+    </metafacade>
     <metafacade class="org.andromda.cartridges.angular.metafacades.AngularServiceOperationLogicImpl">
         <mapping>
             <stereotype>WEBSERVICE_OPERATION</stereotype>
+        </mapping>
+        <property reference="testImplementationOperationNamePrefix"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularServiceOperationLogicImpl">
+        <mapping>
+            <stereotype>SERVICE_OPERATION</stereotype>
         </mapping>
         <property reference="testImplementationOperationNamePrefix"/>
     </metafacade>

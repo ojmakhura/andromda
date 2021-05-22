@@ -277,20 +277,23 @@ public class WebServiceOperationLogicImpl
             while (parameters.hasNext())
             {
                 ParameterFacade param = parameters.next();
-                //if (WebServiceUtils.isSimpleType(param))
-                //{
-                    String paramName = param.getName();
-                    pathBuffer.append(paramName).append(SLASH).append(LBRACKET).append(paramName).append(RBRACKET).append(SLASH);
-                /*} else {
-                    if (param instanceof WebServiceParameter) {
+                String type = this.getRestRequestType().toLowerCase();
+
+                String paramName = param.getName();
+                if (!WebServiceUtils.isSimpleType(param)) {
+                    if(param instanceof WebServiceParameter) {
+                        
                         WebServiceParameter p = (WebServiceParameter)param;
-                        String type = p.getRestParamType().toLowerCase();
+                            
                         if(type.contains("get") || type.contains("delete")) {
-                            String paramName = p.getRestPathParam();
-                            pathBuffer.append(paramName).append(SLASH).append(LBRACKET).append(paramName).append(RBRACKET).append(SLASH);
+                            paramName = p.getRestPathParam();
                         }
                     }
-                }*/
+                }
+
+                if(type.contains("get") || type.contains("delete")) {
+                    pathBuffer.append(paramName).append(SLASH).append(LBRACKET).append(paramName).append(RBRACKET).append(SLASH);
+                }
             }
             pathBuffer.append(QUOTE);
         }
@@ -474,7 +477,7 @@ public class WebServiceOperationLogicImpl
         return provider;
     }
 
-    private static final String GET = "@javax.ws.rs.GET";
+    private static final String POST = "@javax.ws.rs.POST";
     private static final String AT = "@javax.ws.rs.";
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestRequestType()
@@ -485,7 +488,7 @@ public class WebServiceOperationLogicImpl
         String requestType = (String)this.findTaggedValue(WebServiceGlobals.REST_REQUEST_TYPE);
         if (!this.isRest() || StringUtils.isBlank(requestType) || requestType.equals(DEFAULT))
         {
-            requestType = GET;
+            requestType = POST;
         }
         else if (!requestType.startsWith(AT))
         {

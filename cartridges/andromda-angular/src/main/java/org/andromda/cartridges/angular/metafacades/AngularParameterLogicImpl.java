@@ -1370,7 +1370,17 @@ public class AngularParameterLogicImpl
 
     @Override
     protected String handleGetAngularTypeName() {
-        return AngularUtils.getDatatype(this.getType().getName());
+        String type = AngularUtils.getDatatype(this.getType().getName());
+
+        if(type.equals("any[]")) {
+            type = "any";
+        } else if(type.equals("any[][]")) {
+            type = "any[]";
+        } else if(type.equals("any[][][]")) {
+            type = "any[][]";
+        }
+
+        return type;
     }
 
     @Override

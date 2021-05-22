@@ -29,21 +29,22 @@ export abstract class $service.name {
         this.http = injector.get(HttpClient);
     }
 #end
-#foreach ($operation in $service.operations)
-    /**
-     * 
+#foreach ($operation in $service.allowedOperations)
+
+     /**
+      * 
 #if ($stringUtils.isNotBlank($operation.restRequestType))
-     * $operation.restRequestType
+      * $operation.restRequestType
 #end
-     * @Path($operation.restPath)
+      * @Path($operation.restPath)
 #if ($stringUtils.isNotBlank($operation.restProduces))
-     * @Produces($operation.restProduces)
+      * @Produces($operation.restProduces)
 #end
 #if ($stringUtils.isNotBlank($operation.restConsumes))
-     * @javax.ws.rs.Consumes($operation.restConsumes)
+      * @javax.ws.rs.Consumes($operation.restConsumes)
 #end
-     */
-    public abstract $operation.signature;
+      */
+     public abstract $operation.signature;
 #end
 }
 

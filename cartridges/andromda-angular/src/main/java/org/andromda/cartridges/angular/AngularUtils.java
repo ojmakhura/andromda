@@ -24,6 +24,8 @@ import org.andromda.cartridges.angular.metafacades.AngularModelLogic;
 import org.andromda.cartridges.angular.metafacades.AngularParameter;
 import org.andromda.cartridges.angular.metafacades.AngularService;
 import org.andromda.cartridges.angular.metafacades.AngularServiceOperation;
+import org.andromda.cartridges.angular.metafacades.AngularServiceParameterLogic;
+import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EnumerationFacade;
@@ -1912,5 +1914,63 @@ public class AngularUtils {
         return parameter.findTaggedValue(AngularProfile.ANGULAR_VIEW_VIEW_TYPE);
 
         //return false;
+    }
+
+    /**
+     * <p> Returns true if java.lang.* or java.util.* datatype and not many*
+     * </p>
+     *
+     * @param element the ClassifierFacade instance
+     * @return if type is one of the PrimitiveTypes and not an array/list
+     */
+    public static boolean isSimpleType(ModelElementFacade element)
+    {
+        boolean simple = false;
+        String typeName = null;
+        ClassifierFacade type = null;
+        boolean many = false;
+        if (element instanceof AttributeFacade)
+        {
+            AttributeFacade attrib = (AttributeFacade)element;
+            type = attrib.getType();
+            many = attrib.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        else if (element instanceof AssociationEndFacade)
+        {
+            AssociationEndFacade association = (AssociationEndFacade)element;
+            type = association.getType();
+            many = association.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        else if (element instanceof ParameterFacade)
+        {
+            ParameterFacade param = (ParameterFacade)element;
+            type = param.getType();
+            many = param.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        else if (element instanceof AngularServiceParameterLogic)
+        {
+            AngularServiceParameterLogic param = (AngularServiceParameterLogic)element;
+            type = param.getType();
+            many = param.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        else if (element instanceof ClassifierFacade)
+        {
+            ClassifierFacade classifier = (ClassifierFacade)element;
+            type = classifier;
+        }
+        else
+        {
+            return simple;
+        }
+        typeName = type.getFullyQualifiedName();
+        if (type.isPrimitive() || typeName.startsWith("java.lang.") || typeName.startsWith("java.util.")
+            || !typeName.contains("."))
+        {
+            if (!many)
+            {
+                simple = true;
+            }
+        }
+        return simple;
     }
 }
