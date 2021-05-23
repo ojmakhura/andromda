@@ -15,7 +15,9 @@
 		<$action.selectorName 
 			[$action.formName] = "$action.formName"
 #foreach ($action in $view.actions)
+#if (!$action.tableLink)
 			($action.formEventName)="${action.formEventName}()"
+#end
 #if (!$action.tableLink)
 #foreach($parameter in $action.parameters)
 #if($parameter.inputSelect)
