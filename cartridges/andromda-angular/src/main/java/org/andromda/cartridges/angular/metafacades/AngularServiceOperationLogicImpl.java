@@ -249,37 +249,6 @@ public class AngularServiceOperationLogicImpl
         if (!this.isRest() || StringUtils.isBlank(path) || path.equals(DEFAULT))
         {
             pathBuffer.append(QUOTE).append(SLASH).append(this.getName().toLowerCase()).append(QUOTE);
-            //path = SLASH + this.getName().toLowerCase() + SLASH;
-            // Iterator<ParameterFacade> parameters = this.getArguments().iterator();
-            // while (parameters.hasNext())
-            // {
-            //     ParameterFacade param = parameters.next();
-            //     String type = this.getRestRequestType().toLowerCase();
-
-            //     String paramName = param.getName();
-            //     if (!AngularUtils.isSimpleType(param)) {
-            //         if(param instanceof AngularServiceParameter) {
-                        
-            //             AngularServiceParameter p = (AngularServiceParameter)param;
-                            
-            //             if(type.contains("get") || type.contains("delete")) {
-            //                 paramName = p.getRestPathParam();
-            //             }
-            //         }
-            //     }
-
-            //     if(type.contains("get") || type.contains("delete")) {
-            //         pathBuffer.append(PLUS)
-            //             .append(QUOTE)
-            //             .append(SLASH)
-            //             .append(paramName)
-            //             .append(SLASH)
-            //             .append(QUOTE)
-            //             .append(PLUS)
-            //             .append(paramName);
-            //     }
-            // }
-            // pathBuffer.append(PLUS).append(QUOTE).append(SLASH).append(QUOTE);
         }
         else
         {

@@ -2793,30 +2793,40 @@ public class WebServiceUtils
             StringBuilder builder = new StringBuilder();
             String paramType = param.getRestParamType();
 
-            if(param.getType().getAttributes().size() > 0) {
-                builder.append("@org.springframework.web.bind.annotation.RequestBody");
-            }
+            // if(param.getType().getAttributes().size() > 0) {
+            //     builder.append("@org.springframework.web.bind.annotation.RequestBody");
+            // }
 
             if(paramType.contains("PathParam")) {
+
                 if(builder.length() > 0) {
                     builder.append(" ");
                 }
                 builder.append("@org.springframework.web.bind.annotation.PathVariable(\"");
                 builder.append(param.getName() + "\")");
-            }
-         
-            if(paramType.contains("RequestParam")) {
+
+            } else if(paramType.contains("RequestParam")) {
+
                 if(builder.length() > 0) {
                     builder.append(" ");
                 }
                 builder.append("@org.springframework.web.bind.annotation.RequestParam");
-            }
-         
-            if(paramType.contains("RequestAttribute")) {
+
+            } else if(paramType.contains("RequestAttribute")) {
+
                 if(builder.length() > 0) {
                     builder.append(" ");
                 }
                 builder.append("@org.springframework.web.bind.annotation.RequestAttribute");
+
+            } else {
+                if(operation.getRestRequestType().toLowerCase().contains("get")) {
+                    if(builder.length() > 0) {
+                        builder.append(" ");
+                    }
+                    builder.append("@org.springframework.web.bind.annotation.PathVariable(\"");
+                    builder.append(param.getName() + "\")");
+                }
             }
 
             if(builder.length() > 0) {
