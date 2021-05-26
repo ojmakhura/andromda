@@ -5,10 +5,12 @@
 #set ($complex = [])
 #set ($simple = [])
 #foreach ($variable in $view.variables)
+#if(!$variable.table)
 #if ($variable.complex)
 #set($rt = $complex.add($variable))
 #else
 #set($rt = $simple.add($variable))
+#end
 #end
 #end
 <div class="card-body">

@@ -98,11 +98,13 @@ export abstract class $view.componentName implements OnInit {
 #if ($view.nonTableVariablesPresent)
             ${view.varsFormName}: this.formBuilder.group({
 #foreach( $variable in $view.variables )
+#if(!$variable.table)
 #*  *##if($variable.complex)
                 $variable.name: this.rxFormBuilder.group(new $variable.type.name),
 #*  *##else
                 $variable.name: [],
 #*  *##end
+#end
 #end
             }),
 #end
