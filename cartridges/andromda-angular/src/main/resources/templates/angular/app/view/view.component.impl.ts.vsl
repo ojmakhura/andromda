@@ -2,6 +2,14 @@
 ## Find all the fields in the actions of the view
 import { Component, Injector } from '@angular/core';
 import { $view.componentName } from '@app/${view.filePath}';
+#foreach ($action in $view.actions)
+#if (!$action.tableLink)
+import { $stringUtils.capitalize($action.formName) } from '@app/${view.filePath}';
+#end
+#end
+#if ($view.nonTableVariablesPresent)
+import { $stringUtils.capitalize($view.varsFormName) } from '@app/${view.filePath}';
+#end
 
 @Component({
   selector: '${view.selectorName}',
@@ -55,18 +63,20 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
     }
 
 #foreach ($action in $view.actions)
-    afterSet$stringUtils.capitalize(${action.formName})(form: any): void {
+#if (!$action.tableLink)
+    afterSet$stringUtils.capitalize(${action.formName})(form: $stringUtils.capitalize($action.formName)): void {
     }
 
-    after$stringUtils.capitalize(${action.formEventName})(#if(!$action.formFields.empty)form: any#end) {    
+    after$stringUtils.capitalize(${action.formEventName})(#if(!$action.formFields.empty)form: $stringUtils.capitalize($action.formName)#end) {    
     }
 
-    before$stringUtils.capitalize($action.formEventName)(#if(!$action.formFields.empty)form: any#end) {
+    before$stringUtils.capitalize($action.formEventName)(#if(!$action.formFields.empty)form: $stringUtils.capitalize($action.formName)#end) {
     }
 
 #end
+#end
 #if ($view.nonTableVariablesPresent)
-    afterSet$stringUtils.capitalize(${view.varsFormName})(form: any): void {
+    afterSet$stringUtils.capitalize(${view.varsFormName})(form: $stringUtils.capitalize(${view.varsFormName})): void {
     }
 #end
 }
