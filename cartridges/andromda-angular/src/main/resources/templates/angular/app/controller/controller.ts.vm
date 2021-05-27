@@ -6,12 +6,9 @@
         forward = null;
 #elseif ($transition.enteringFinalState)
 #set($targetController = $transition.target.targetElement.controller)
-#set($targetControllerBeanName = $transition.target.targetControllerBeanName)
-##if($targetControlle.name)(<$targetController.name>JSON.parse(localStorage.getItem('$targetControllerBeanName'))).startUseCase()#else this.closeDialog()#end;
 #if($targetController.name)
 #if(${targetController.name} != $controller.name)
-        this.${stringUtils.uncapitalize(${targetController.name})}.pageVariables = form;
-        forward = this.${stringUtils.uncapitalize(${targetController.name})}.startUseCase();
+        forward = this.${targetController.variableName}.startUseCase();
 #else
         forward = this.startUseCase();
 #end

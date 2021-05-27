@@ -99,6 +99,9 @@ $action.trigger.getDocumentation("     * ")
         this.${action.triggerMethodName}(form);
 #end
 
+#if(!$action.exitingInitialState) 
+        this.pageVariables = form;
+#end
 #processTransition($action)
 #saveMessages($action "        ")
 #if ($formPopulationOperationRequired)
