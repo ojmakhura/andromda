@@ -57,7 +57,6 @@ export abstract class ${action.componentName} implements OnInit {
 #end
     protected formBuilder: FormBuilder;
     protected _injector: Injector;
-
 #set ($selections = [])
 #foreach( $parameter in $action.parameters )
 #if($parameter.complex)
