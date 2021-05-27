@@ -14,18 +14,15 @@
 	<div class="card my-5">
 		<$action.selectorName 
 			[$action.formName] = "$action.formName"
-#foreach ($action in $view.actions)
-#if (!$action.tableLink)
+##foreach ($action in $view.actions)
+##if (!$action.tableLink)
 			($action.formEventName)="${action.formEventName}()"
 #foreach($parameter in $action.parameters)
 #if($parameter.inputSelect)
     		[${parameter.backingListName}] = "${parameter.backingListName}"
 #end
 #end
-#end
-#end
-##foreach ( $table in $view.tables )
-##			(${table.name}) = "set$stringUtils.capitalize(${table.name})()"
+##end
 ##end
 		>
 		</$action.selectorName>
