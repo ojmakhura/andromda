@@ -4,6 +4,7 @@
 package org.andromda.cartridges.angular.metafacades;
 
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -142,5 +143,22 @@ public class AngularFinalStateLogicImpl
         }
         
         return targetElement;
+    }
+
+    @Override
+    protected Object handleGetTargetController() {
+
+        FrontEndController controller = null;
+        
+        if(getTargetElement() instanceof AngularUseCase)
+        {
+            controller = ((AngularUseCase)getTargetElement()).getController();
+        }
+        // else if(getTargetElement() instanceof AngularManageableEntity)
+        // {
+        //     controller = ((AngularManageableEntity)getTargetElement()).getCo;
+        // }
+
+        return controller;
     }
 }

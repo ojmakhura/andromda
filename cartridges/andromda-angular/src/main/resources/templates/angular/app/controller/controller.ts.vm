@@ -21,7 +21,7 @@
         forward = this.__${transition.operationCall.name}(form);
 #else
 #if($action.exitingInitialState)  
-        forward = this.${transition.target.actionMethodName}#if (!$transition.formFields.empty)${action.formImplementationName}#end(pageVariables);
+        forward = this.${transition.target.actionMethodName}#if (!$transition.formFields.empty)${action.formImplementationName}#end(form);
 #else
         forward = this.${transition.target.actionMethodName}#if (!$transition.formFields.empty)${action.formImplementationName}#end(form);
 #end

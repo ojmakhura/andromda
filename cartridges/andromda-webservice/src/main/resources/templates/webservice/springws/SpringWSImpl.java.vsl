@@ -33,14 +33,14 @@ public class ${serviceImplName} extends #if($isService)${service.name}WSBase#els
     @Override
     $operation.visibility $return handle$stringUtils.capitalize(${operation.signature}) {
 #if($isService)
-#set ($call = "$stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames);")
-#set ($optional = "java.util.Optional.of($call);")
+#set ($call = "$stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames)")
+#set ($optional = "java.util.Optional.of($call)")
 #else
 #set ($call = "// TODO: Add custom code here")
 #set ($optional = "java.util.Optional.empty(); $call")
 #end
 #if ($operation.returnTypePresent)
-        java.util.Optional<$returnType> data = $optional
+        java.util.Optional<$returnType> data = $optional;
         org.springframework.http.ResponseEntity<$returnType> response;
 
         if(data.isPresent()) {
@@ -51,7 +51,7 @@ public class ${serviceImplName} extends #if($isService)${service.name}WSBase#els
 
         return response;
 #else
-        $call
+        $call;
 #end
     }
 #end

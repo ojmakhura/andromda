@@ -19,7 +19,6 @@ import { $import.implementationName } from '@app/${import.implementationFilePath
 import { $import.name } from '@app/${import.filePath}';
 #end
 #end
-
 import { ${table.view.componentImplementationName} } from '@app/${table.view.implementationFilePath}';
 import { ${table.view.useCase.controller.implementationName} } from '@app/${table.view.useCase.controller.implementationFilePath}';
 

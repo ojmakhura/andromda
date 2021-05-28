@@ -289,6 +289,12 @@ public class AngularControllerLogicImpl
                     }
                 }
             }
+            
+            if(_action.getTarget() instanceof AngularFinalStateLogicImpl) {
+                
+                AngularFinalStateLogicImpl state = (AngularFinalStateLogicImpl) _action.getTarget();
+                controllers.add(state.getTargetController());
+            }
         }
         
         return controllers;

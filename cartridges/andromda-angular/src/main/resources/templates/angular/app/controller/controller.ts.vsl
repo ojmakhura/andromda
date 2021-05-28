@@ -88,13 +88,14 @@ $action.trigger.getDocumentation("     * ")
 #if(${targetControllerBeanName} == $controller.beanName)
         forward =#if($targetController) this.startUseCase()#else this.closeDialog()#end; 
 #else
-        forward =#if($targetController) this.${targetControllerBeanName}.startUseCase()#else this.closeDialog()#end;
+        forward =#if($targetController) this.${action.target.targetController.variableName}.startUseCase()#else this.closeDialog()#end;
 #end
 #else
         
         //trigger method execution
 #if($action.exitingInitialState)  
-        this.${action.triggerMethodName}(pageVariables);
+        let form: any = pageVariables;
+        this.${action.triggerMethodName}(form);
 #else
         this.${action.triggerMethodName}(form);
 #end
@@ -219,26 +220,26 @@ ${ident}#processTransition($actionState.forward)
 #foreach ($decisionTransition in $action.decisionTransitions)
     /**
 $decisionTransition.getDocumentation("     * ")
-     *
+     * 
      * @return a transition
      */
-    protected __${decisionTransition.operationCall.name}(): string
+    protected __${decisionTransition.operationCall.name}(#if (!$action.formFields.empty)form: any#end): string
     {
-        const value: string = '$decisionTransition.operationCall.formCall';
-        forward: string = null;
+        const value: string = '' + this.$decisionTransition.operationCall.formCall;
+        let forward: string = null;
 #set($outgoings = $decisionTransition.target.outgoings)
 #foreach ($outcome in $outgoings)
 #set ($defaultOutcome = $outcome)
         if (value === "$outcome.guard.name")
         {
-            #processTransition($outcome)
+#processTransition($outcome)
 #saveMessages($outcome "            ")
         }
 #end
         if (forward === null)
         {
             // throw exception in case we have an invalid return value from the controller
-            //throw new RuntimeException("Runtime model error: no valid path selected. Selected path="+value);
+            throw new Error("Runtime model error: no valid path selected. Selected path=" + value);
         }
         else
         {

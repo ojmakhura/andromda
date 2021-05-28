@@ -1346,7 +1346,7 @@ public class AngularParameterLogicImpl
             for(FrontEndParameter _var : this.getView().getVariables() ) {
                 AngularParameter var = (AngularParameter) _var;
                 if(var.isComplex()) {
-                    imports.add(var);
+                    imports.add(var.getType());
                 }
             }
         }
