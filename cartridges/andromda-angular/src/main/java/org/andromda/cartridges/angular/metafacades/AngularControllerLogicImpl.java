@@ -277,7 +277,7 @@ public class AngularControllerLogicImpl
             
             for(FrontEndActionState actionState : _action.getActionStates()) {
                 AngularForward state = (AngularForward) actionState.getForward();
-                if(state.isEnteringFinalState() && state.getTarget() != null) {
+                if(state != null && state.isEnteringFinalState() && state.getTarget() != null) {
                     
                     AngularFinalState finalState = (AngularFinalState) state.getTarget();
                     AngularUseCase useCase = (AngularUseCase) finalState.getTargetElement();

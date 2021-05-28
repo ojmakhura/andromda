@@ -14,33 +14,29 @@ import org.andromda.cartridges.angular.AngularServiceUtils;
 import org.andromda.cartridges.angular.AngularUtils;
 import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.metafacade.ModelValidationMessage;
-import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
-import org.andromda.metafacades.uml.Service;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.translation.ocl.validation.OCLExpressions;
 import org.andromda.translation.ocl.validation.OCLIntrospector;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
- * Represents an operation on a web service.
- * MetafacadeLogic implementation for org.andromda.cartridges.angular.metafacades.AngularBackendServiceOperation.
+ * Represents an operation on a web service. MetafacadeLogic implementation for
+ * org.andromda.cartridges.angular.metafacades.AngularBackendServiceOperation.
  *
  * @see org.andromda.cartridges.angular.metafacades.AngularBackendServiceOperation
  */
-public class AngularServiceOperationLogicImpl
-    extends AngularServiceOperationLogic
-{
+public class AngularServiceOperationLogicImpl extends AngularServiceOperationLogic {
     private static final long serialVersionUID = 34L;
+
     /**
      * Public constructor for AngularBackendServiceOperationLogicImpl
+     * 
      * @see org.andromda.cartridges.angular.metafacades.AngularBackendServiceOperation
      */
-    public AngularServiceOperationLogicImpl (Object metaObject, String context)
-    {
+    public AngularServiceOperationLogicImpl(Object metaObject, String context) {
         super(metaObject, context);
     }
 
@@ -50,69 +46,63 @@ public class AngularServiceOperationLogicImpl
     private static final Logger logger = Logger.getLogger(AngularServiceOperationLogicImpl.class);
 
     /**
-     * @return getOwner().hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE) or hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION)
+     * @return getOwner().hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE) or
+     *         hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION)
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperation#isExposed()
      */
-    protected boolean handleIsExposed()
-    {
+    protected boolean handleIsExposed() {
         // Private methods are for doc and future use purposes, but are allowed.
         boolean visibility = this.getVisibility().equals("public") || this.getVisibility().equals("protected");
-        return visibility && (this.getOwner().hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE) ||
-        this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION));
+        return visibility && (this.getOwner().hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE)
+                || this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION));
     }
 
     /**
      * The prefix given to the test implementation operation names.
      */
-    private static final String TEST_IMPLEMENTATION_OPERATION_NAME_PREFIX =
-        "testImplementationOperationNamePrefix";
+    private static final String TEST_IMPLEMENTATION_OPERATION_NAME_PREFIX = "testImplementationOperationNamePrefix";
 
     /**
      * Gets the test implementation operation name prefix.
      */
-    private String getTestImplementationOperationNamePrefix()
-    {
-        return String.valueOf(
-            this.getConfiguredProperty(TEST_IMPLEMENTATION_OPERATION_NAME_PREFIX));
+    private String getTestImplementationOperationNamePrefix() {
+        return String.valueOf(this.getConfiguredProperty(TEST_IMPLEMENTATION_OPERATION_NAME_PREFIX));
     }
 
     /**
-     * @return getTestImplementationOperationNamePrefix() + StringUtils.capitalize(this.getTestName())
+     * @return getTestImplementationOperationNamePrefix() +
+     *         StringUtils.capitalize(this.getTestName())
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperation#getTestImplementationName()
      */
-    protected String handleGetTestImplementationName()
-    {
-        return this.getTestImplementationOperationNamePrefix() +
-        StringUtils.capitalize(this.getTestName());
+    protected String handleGetTestImplementationName() {
+        return this.getTestImplementationOperationNamePrefix() + StringUtils.capitalize(this.getTestName());
     }
 
     /**
      * @return "this." + this.getTestImplementationSignature()
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperation#getTestImplementationCall()
      */
-    protected String handleGetTestImplementationCall()
-    {
+    protected String handleGetTestImplementationCall() {
         return "this." + this.getTestImplementationSignature();
     }
 
     /**
-     * @return this.getTestImplementationOperationNamePrefix() + StringUtils.capitalize(this.getTestSignature())
+     * @return this.getTestImplementationOperationNamePrefix() +
+     *         StringUtils.capitalize(this.getTestSignature())
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperation#getTestImplementationSignature()
      */
-    protected String handleGetTestImplementationSignature()
-    {
-        return this.getTestImplementationOperationNamePrefix() +
-        StringUtils.capitalize(this.getTestSignature());
+    protected String handleGetTestImplementationSignature() {
+        return this.getTestImplementationOperationNamePrefix() + StringUtils.capitalize(this.getTestSignature());
     }
 
     /**
-     * @return Operation Signature, taking WSSecurity and WSCustomHeader annotations into account
+     * @return Operation Signature, taking WSSecurity and WSCustomHeader annotations
+     *         into account
      * @param withArgumentNames boolean Use argument names.
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperation#getSignature()
      */
     @Override
-    public String getSignature()
-    {
+    public String getSignature() {
 
         StringBuilder builder = new StringBuilder();
         builder.append(this.getName());
@@ -137,8 +127,7 @@ public class AngularServiceOperationLogicImpl
      * @return TEST_NAME_PREFIX + StringUtils.capitalize(this.getName())
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperation#getTestName()
      */
-    protected String handleGetTestName()
-    {
+    protected String handleGetTestName() {
         return TEST_NAME_PREFIX + StringUtils.capitalize(this.getName());
     }
 
@@ -146,8 +135,7 @@ public class AngularServiceOperationLogicImpl
      * @return "this." + this.getSignature()
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperation#getTestCall()
      */
-    protected String handleGetTestCall()
-    {
+    protected String handleGetTestCall() {
         return "this." + this.getSignature();
     }
 
@@ -155,8 +143,7 @@ public class AngularServiceOperationLogicImpl
      * @return this.getTestName() + "()"
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperation#getTestSignature()
      */
-    protected String handleGetTestSignature()
-    {
+    protected String handleGetTestSignature() {
         return this.getTestName() + "()";
     }
 
@@ -172,28 +159,24 @@ public class AngularServiceOperationLogicImpl
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#handleGetParameterStyle()
      */
     @Override
-    protected String handleGetParameterStyle()
-    {
-        String style = (String)this.findTaggedValue(AngularGlobals.WEB_SERVICE_PARAMETER_STYLE);
-        if (StringUtils.isEmpty(style) || style.equals(DEFAULT))
-        {
+    protected String handleGetParameterStyle() {
+        String style = (String) this.findTaggedValue(AngularGlobals.WEB_SERVICE_PARAMETER_STYLE);
+        if (StringUtils.isEmpty(style) || style.equals(DEFAULT)) {
             style = String.valueOf(this.getConfiguredProperty(PROPERTY_DEFAULT_PARAMETER_STYLE));
         }
-        if (StringUtils.isEmpty(style) || style.equals(DEFAULT))
-        {
+        if (StringUtils.isEmpty(style) || style.equals(DEFAULT)) {
             style = "wrapped";
         }
         return style;
     }
+
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestCacheType()
      */
     @Override
-    protected String handleGetRestCacheType()
-    {
-        String cacheType = (String)this.findTaggedValue(AngularGlobals.CACHE_TYPE);
-        if (!this.isRest() || StringUtils.isBlank(cacheType) || cacheType.equals(DEFAULT))
-        {
+    protected String handleGetRestCacheType() {
+        String cacheType = (String) this.findTaggedValue(AngularGlobals.CACHE_TYPE);
+        if (!this.isRest() || StringUtils.isBlank(cacheType) || cacheType.equals(DEFAULT)) {
             cacheType = EMPTY_STRING;
         }
         return cacheType;
@@ -203,15 +186,11 @@ public class AngularServiceOperationLogicImpl
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestConsumes()
      */
     @Override
-    protected String handleGetRestConsumes()
-    {
-        String consumes = (String)this.findTaggedValue(AngularGlobals.REST_CONSUMES);
-        if (!this.isRest() || StringUtils.isBlank(consumes) || consumes.equals(DEFAULT))
-        {
+    protected String handleGetRestConsumes() {
+        String consumes = (String) this.findTaggedValue(AngularGlobals.REST_CONSUMES);
+        if (!this.isRest() || StringUtils.isBlank(consumes) || consumes.equals(DEFAULT)) {
             consumes = EMPTY_STRING;
-        }
-        else
-        {
+        } else {
             consumes = translateMediaType(consumes);
         }
         return consumes;
@@ -221,11 +200,9 @@ public class AngularServiceOperationLogicImpl
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestPartType()
      */
     @Override
-    protected String handleGetRestPartType()
-    {
-        String partType = (String)this.findTaggedValue(AngularGlobals.REST_PART_TYPE);
-        if (!this.isRest() || StringUtils.isBlank(partType) || partType.equals(DEFAULT))
-        {
+    protected String handleGetRestPartType() {
+        String partType = (String) this.findTaggedValue(AngularGlobals.REST_PART_TYPE);
+        if (!this.isRest() || StringUtils.isBlank(partType) || partType.equals(DEFAULT)) {
             partType = EMPTY_STRING;
         }
         return partType;
@@ -237,123 +214,118 @@ public class AngularServiceOperationLogicImpl
     private static final String PLUS = " + ";
     private static final String LBRACKET = "{";
     private static final String RBRACKET = "}";
+
     /**
      * Create default REST URL of /methodname/parameter/{parameter}/
+     * 
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestPath()
      */
     @Override
-    protected String handleGetRestPath()
-    {
+    protected String handleGetRestPath() {
         String path = (String)this.findTaggedValue(AngularGlobals.REST_PATH);
         StringBuilder pathBuffer = new StringBuilder();
         if (!this.isRest() || StringUtils.isBlank(path) || path.equals(DEFAULT))
         {
-            pathBuffer.append(QUOTE).append(SLASH).append(this.getName().toLowerCase()).append(QUOTE);
+            path = this.getName().toLowerCase();
         }
-        else
-        {
-            if (StringUtils.isBlank(path))
-            {
-                path = EMPTY_STRING;
-            }
-            pathBuffer.append(path);
-            if (!path.startsWith(QUOTE))
-            {
-                pathBuffer.insert(0, QUOTE);
-            }
-            if (!path.endsWith(QUOTE) || path.length()<2)
-            {
-                pathBuffer.append(QUOTE);
-            }
+        
+        if(path.startsWith("/")) {
+            path = path.substring(1);
         }
-        Iterator<ParameterFacade> parameters = this.getArguments().iterator();
-            while (parameters.hasNext())
-            {
-                ParameterFacade param = parameters.next();
-                String type = this.getRestRequestType().toLowerCase();
+        
+        if(path.endsWith("/")) {
+            path = path.substring(0, path.length() - 1);
+        }
 
+        String type = this.getRestRequestType().toLowerCase();
+
+        if(type.contains("get") || type.contains("delete")) {
+            for(ParameterFacade param : this.getArguments()) {
+                    
                 String paramName = param.getName();
-                if (!AngularUtils.isSimpleType(param)) {
+                if (!AngularServiceUtils.isSimpleType(param)) {
                     if(param instanceof AngularServiceParameter) {
                         
-                        AngularServiceParameter p = (AngularServiceParameter)param;
-                            
-                        if(type.contains("get") || type.contains("delete")) {
-                            paramName = p.getRestPathParam();
-                        }
+                        AngularServiceParameter p = (AngularServiceParameter)param;                        
+                        paramName = p.getRestPathParam();
                     }
                 }
 
-                if(type.contains("get") || type.contains("delete")) {
-                    pathBuffer.append(PLUS)
-                        .append(QUOTE)
-                        .append(SLASH)
-                        .append(paramName)
-                        .append(SLASH)
-                        .append(QUOTE)
-                        .append(PLUS)
-                        .append(paramName);
+                if(pathBuffer.length() > 0) {
+                    pathBuffer.append(PLUS).append(SQUOTE).append(SLASH);
                 }
+
+                pathBuffer.append(paramName).append(SLASH);
+                pathBuffer.append(SQUOTE).append(PLUS);
+                pathBuffer.append(paramName);
             }
-            pathBuffer.append(PLUS).append(QUOTE).append(SLASH).append(QUOTE);
+        }
+
+        if(path.length() > 0) {
+            if(pathBuffer.length() > 0) {
+                pathBuffer.insert(0, "/");
+            } else {
+                pathBuffer.insert(0, SQUOTE);
+            }
+
+            pathBuffer.insert(0, path);
+        }
+
+        if(pathBuffer.length() > 0) {
+            pathBuffer.insert(0, SQUOTE);
+            pathBuffer.insert(1, SLASH);
+        }
+
         return pathBuffer.toString();
     }
 
     /**
-     * Create test REST URL of /methodname/parameter/{parameter}/
-     * Substitutes test values for parameters
+     * Create test REST URL of /methodname/parameter/{parameter}/ Substitutes test
+     * values for parameters
+     * 
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestPath()
      */
     @Override
-    protected String handleGetRestTestPath()
-    {
-        String path = (String)this.findTaggedValue(AngularGlobals.REST_PATH);
+    protected String handleGetRestTestPath() {
+        String path = (String) this.findTaggedValue(AngularGlobals.REST_PATH);
         StringBuilder pathBuffer = new StringBuilder();
-        AngularServiceLogic service = (AngularServiceLogic)this.getService();
+        AngularServiceLogic service = (AngularServiceLogic) this.getService();
         String servicePath = service.getRestPath();
         AngularServiceUtils wsutils = new AngularServiceUtils();
-        if (!this.isRest() || StringUtils.isBlank(path) || path.equals(DEFAULT))
-        {
+        if (!this.isRest() || StringUtils.isBlank(path) || path.equals(DEFAULT)) {
             pathBuffer.append(SLASH).append(this.getName().toLowerCase()).append(SLASH);
             Iterator<ParameterFacade> parameters = this.getArguments().iterator();
-            while (parameters.hasNext())
-            {
+            while (parameters.hasNext()) {
                 ParameterFacade param = parameters.next();
-                if (AngularServiceUtils.isSimpleType(param))
-                {
+                if (AngularServiceUtils.isSimpleType(param)) {
                     String paramValue = wsutils.createConstructor(param);
                     // Only use the value if constructor returns new Class()
-                    if (paramValue.indexOf('(') > 0)
-                    {
-                        paramValue = paramValue.substring(paramValue.indexOf('(')+1, paramValue.indexOf(')'));
+                    if (paramValue.indexOf('(') > 0) {
+                        paramValue = paramValue.substring(paramValue.indexOf('(') + 1, paramValue.indexOf(')'));
                     }
                     pathBuffer.append(param.getName()).append(SLASH).append(paramValue).append(SLASH);
                 }
             }
             path = pathBuffer.toString();
-        }
-        else
-        {
-            if (StringUtils.isBlank(path))
-            {
+        } else {
+            if (StringUtils.isBlank(path)) {
                 path = EMPTY_STRING;
             }
             // StringBuffer doesn't have replace(String, String) API
             path = pathBuffer.append(path).toString();
             Iterator<ParameterFacade> parameters = this.getArguments().iterator();
-            while (parameters.hasNext())
-            {
+            while (parameters.hasNext()) {
                 ParameterFacade param = parameters.next();
-                if (AngularServiceUtils.isSimpleType(param))
-                {
+                if (AngularServiceUtils.isSimpleType(param)) {
                     String paramValue = wsutils.createConstructor(param).replace("\"", "");
-                    if (paramValue.indexOf('(') > 0)
-                    {
-                        paramValue = paramValue.substring(paramValue.indexOf('(')+1, paramValue.indexOf(')'));
+                    if (paramValue.indexOf('(') > 0) {
+                        paramValue = paramValue.substring(paramValue.indexOf('(') + 1, paramValue.indexOf(')'));
                     }
                     path = StringUtils.replace(path, LBRACKET + param.getName() + RBRACKET, paramValue);
                 }
-                //System.out.println("handleGetRestTestPath param=" + param.getName() + " servicePath=" + servicePath + " value=" + wsutils.createConstructor(param) + " path=" + path);
+                // System.out.println("handleGetRestTestPath param=" + param.getName() + "
+                // servicePath=" + servicePath + " value=" + wsutils.createConstructor(param) +
+                // " path=" + path);
             }
         }
         path = servicePath + path;
@@ -366,29 +338,21 @@ public class AngularServiceOperationLogicImpl
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestProduces()
      */
     @Override
-    protected String handleGetRestProduces()
-    {
-        String produces = (String)this.findTaggedValue(AngularGlobals.REST_PRODUCES);
+    protected String handleGetRestProduces() {
+        String produces = (String) this.findTaggedValue(AngularGlobals.REST_PRODUCES);
         // default types: text for simple types, XML for complex types
-        if (!this.isRest() || produces == DEFAULT)
-        {
+        if (!this.isRest() || produces == DEFAULT) {
             // See if the service class has REST_produces attribute set...
-            produces = (String)this.getOwner().findTaggedValue(AngularGlobals.REST_PRODUCES);
-            if (produces == DEFAULT)
-            {
+            produces = (String) this.getOwner().findTaggedValue(AngularGlobals.REST_PRODUCES);
+            if (produces == DEFAULT) {
                 // Default produces type for simple or complex return types
-                if (AngularServiceUtils.isSimpleType(this.getReturnType()))
-                {
+                if (AngularServiceUtils.isSimpleType(this.getReturnType())) {
                     produces = "text/plain";
-                }
-                else
-                {
+                } else {
                     produces = "application/xml";
                 }
             }
-        }
-        else
-        {
+        } else {
             produces = translateMediaType(produces);
         }
         return produces;
@@ -397,8 +361,7 @@ public class AngularServiceOperationLogicImpl
     /**
      * Returns map of ProviderMediaType enumeration values to Provider/Consumer text
      */
-    private static Map<String, String> getMediaTranslation()
-    {
+    private static Map<String, String> getMediaTranslation() {
         final Map<String, String> mediaMap = new HashMap<String, String>();
         mediaMap.put("default", QUOTE + "application/xml" + QUOTE);
         mediaMap.put("ApplicationAtom", QUOTE + "application/atom+xml" + QUOTE);
@@ -427,19 +390,18 @@ public class AngularServiceOperationLogicImpl
     }
 
     /**
-     * Translates Media Enumeration Type into string for produces/consumes annotation
-     * @param input ProviderMediaType Enumeration value to be translated for Annotation
+     * Translates Media Enumeration Type into string for produces/consumes
+     * annotation
+     * 
+     * @param input ProviderMediaType Enumeration value to be translated for
+     *              Annotation
      * @return getMediaTranslation().get(input)
      */
-    public static String translateMediaType(String input)
-    {
+    public static String translateMediaType(String input) {
         String output = null;
-        if (StringUtils.isBlank(input) || input.equals(DEFAULT) || !getMediaTranslation().containsKey(input))
-        {
+        if (StringUtils.isBlank(input) || input.equals(DEFAULT) || !getMediaTranslation().containsKey(input)) {
             output = getMediaTranslation().get(DEFAULT);
-        }
-        else
-        {
+        } else {
             output = getMediaTranslation().get(input);
         }
         return output;
@@ -449,51 +411,48 @@ public class AngularServiceOperationLogicImpl
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestProvider()
      */
     @Override
-    protected String handleGetRestProvider()
-    {
-        String provider = (String)this.findTaggedValue(AngularGlobals.REST_PROVIDER);
-        if (!this.isRest() || StringUtils.isBlank(provider) || provider.equals(DEFAULT))
-        {
+    protected String handleGetRestProvider() {
+        String provider = (String) this.findTaggedValue(AngularGlobals.REST_PROVIDER);
+        if (!this.isRest() || StringUtils.isBlank(provider) || provider.equals(DEFAULT)) {
             provider = EMPTY_STRING;
         }
         return provider;
     }
 
     private static final String POST = "post";
+
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestRequestType()
      */
     @Override
-    protected String handleGetRestRequestType()
-    {
-        String requestType = (String)this.findTaggedValue(AngularGlobals.REST_REQUEST_TYPE);
-        if (!this.isRest() || StringUtils.isBlank(requestType) || requestType.equals(DEFAULT))
-        {
+    protected String handleGetRestRequestType() {
+        String requestType = (String) this.findTaggedValue(AngularGlobals.REST_REQUEST_TYPE);
+        if (!this.isRest() || StringUtils.isBlank(requestType) || requestType.equals(DEFAULT)) {
             requestType = POST;
         }
-        
+
         return requestType.toLowerCase();
     }
-    
+
     @Override
     protected String handleGetRestResponseStatus() {
         String responseStatus = (String) this.findTaggedValue(AngularGlobals.REST_RESPONSE_STATUS);
-        if(responseStatus == null) {
+        if (responseStatus == null) {
             return "";
         }
-        
-        return "@org.springframework.web.bind.annotation.ResponseStatus(code = org.springframework.http.HttpStatus." + responseStatus + ")";
+
+        return "@org.springframework.web.bind.annotation.ResponseStatus(code = org.springframework.http.HttpStatus."
+                + responseStatus + ")";
     }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestRequestType()
      */
     @Override
-    protected int handleGetRestSuspend()
-    {
-        String suspend = (String)this.findTaggedValue(AngularGlobals.REST_SUSPEND);
-        if (!this.isRest() || StringUtils.isBlank(suspend) || suspend.equals(DEFAULT) || !StringUtils.isNumeric(suspend))
-        {
+    protected int handleGetRestSuspend() {
+        String suspend = (String) this.findTaggedValue(AngularGlobals.REST_SUSPEND);
+        if (!this.isRest() || StringUtils.isBlank(suspend) || suspend.equals(DEFAULT)
+                || !StringUtils.isNumeric(suspend)) {
             return 0;
         }
         return Integer.parseInt(suspend);
@@ -503,11 +462,9 @@ public class AngularServiceOperationLogicImpl
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRolesAllowed()
      */
     @Override
-    protected String handleGetRolesAllowed()
-    {
-        String rolesAllowed = (String)this.findTaggedValue(AngularGlobals.REST_ROLES_ALLOWED);
-        if (!this.isRest() || StringUtils.isBlank(rolesAllowed) || rolesAllowed.equals(DEFAULT))
-        {
+    protected String handleGetRolesAllowed() {
+        String rolesAllowed = (String) this.findTaggedValue(AngularGlobals.REST_ROLES_ALLOWED);
+        if (!this.isRest() || StringUtils.isBlank(rolesAllowed) || rolesAllowed.equals(DEFAULT)) {
             rolesAllowed = EMPTY_STRING;
         }
         return rolesAllowed;
@@ -517,14 +474,11 @@ public class AngularServiceOperationLogicImpl
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#handleIsRest()
      */
     @Override
-    protected boolean handleIsRest()
-    {
-        String rest = (String)this.findTaggedValue(AngularGlobals.REST);
-        if (StringUtils.isBlank(rest) || rest.equals(DEFAULT))
-        {
-            rest = (String)this.getOwner().findTaggedValue(AngularGlobals.REST);
-            if (StringUtils.isBlank(rest) || rest.equals(DEFAULT))
-            {
+    protected boolean handleIsRest() {
+        String rest = (String) this.findTaggedValue(AngularGlobals.REST);
+        if (StringUtils.isBlank(rest) || rest.equals(DEFAULT)) {
+            rest = (String) this.getOwner().findTaggedValue(AngularGlobals.REST);
+            if (StringUtils.isBlank(rest) || rest.equals(DEFAULT)) {
                 rest = BOOLEAN_FALSE;
             }
         }
@@ -535,11 +489,9 @@ public class AngularServiceOperationLogicImpl
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRolesAllowed()
      */
     @Override
-    protected boolean handleIsRestEncoded()
-    {
-        String restEncoded = (String)this.findTaggedValue(AngularGlobals.REST_ENCODED);
-        if (!this.isRest() || StringUtils.isBlank(restEncoded) || restEncoded.equals(DEFAULT))
-        {
+    protected boolean handleIsRestEncoded() {
+        String restEncoded = (String) this.findTaggedValue(AngularGlobals.REST_ENCODED);
+        if (!this.isRest() || StringUtils.isBlank(restEncoded) || restEncoded.equals(DEFAULT)) {
             restEncoded = BOOLEAN_FALSE;
         }
         return Boolean.valueOf(restEncoded);
@@ -549,16 +501,13 @@ public class AngularServiceOperationLogicImpl
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#isRestAtom()
      */
     @Override
-    protected boolean handleIsRestAtom()
-    {
-        AngularServiceLogic service = (AngularServiceLogic)this.getService();
+    protected boolean handleIsRestAtom() {
+        AngularServiceLogic service = (AngularServiceLogic) this.getService();
         boolean rest = this.isRest();
         boolean restAtom = false;
-        if (rest)
-        {
+        if (rest) {
             restAtom = this.getRestProduces().contains("atom");
-            if (!restAtom)
-            {
+            if (!restAtom) {
                 restAtom = service.getRestProduces().indexOf("atom") > -1;
             }
         }
@@ -566,15 +515,15 @@ public class AngularServiceOperationLogicImpl
     }
 
     /**
-     * Return the value from WebServiceOperation andromda_webservice_operationName, or just the operation.name
+     * Return the value from WebServiceOperation andromda_webservice_operationName,
+     * or just the operation.name
+     * 
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#handleGetOperationName()
      */
     @Override
-    protected String handleGetOperationName()
-    {
-        String serviceName = (String)this.findTaggedValue(AngularGlobals.WEB_SERVICE_NAME);
-        if (StringUtils.isBlank(serviceName))
-        {
+    protected String handleGetOperationName() {
+        String serviceName = (String) this.findTaggedValue(AngularGlobals.WEB_SERVICE_NAME);
+        if (StringUtils.isBlank(serviceName)) {
             serviceName = this.getName();
         }
         return serviceName;
@@ -584,20 +533,19 @@ public class AngularServiceOperationLogicImpl
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#handleIsWebFaultOnAllExceptions()
      */
     @Override
-    protected boolean handleIsWebFaultOnAllExceptions()
-    {
+    protected boolean handleIsWebFaultOnAllExceptions() {
         boolean result = true;
         String webserviceStack = String.valueOf(this.getConfiguredProperty("webserviceStack"));
-        if (webserviceStack.equals("cxf") || webserviceStack.equals("jaxws") || webserviceStack.equals("spring"))
-        {
+        if (webserviceStack.equals("cxf") || webserviceStack.equals("jaxws") || webserviceStack.equals("spring")) {
             Collection<ModelElementFacade> exceptions = this.getExceptions();
-            for (ModelElementFacade exception : exceptions)
-            {
-                // Log the missing exception class, since validation message only shows the service operation name
-                if (!exception.hasStereotype(UMLProfile.STEREOTYPE_WEB_FAULT))
-                {
+            for (ModelElementFacade exception : exceptions) {
+                // Log the missing exception class, since validation message only shows the
+                // service operation name
+                if (!exception.hasStereotype(UMLProfile.STEREOTYPE_WEB_FAULT)) {
                     result = false;
-                    logger.warn(exception.getFullyQualifiedName() + " WebFault stereotype missing from operation exception thrown by " + this.getFullyQualifiedName());
+                    logger.warn(exception.getFullyQualifiedName()
+                            + " WebFault stereotype missing from operation exception thrown by "
+                            + this.getFullyQualifiedName());
                 }
             }
         }
@@ -608,48 +556,46 @@ public class AngularServiceOperationLogicImpl
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#handleGetWebServicePackage()
      */
     @Override
-    protected ModelElementFacade handleGetAngularServicePackage()
-    {
+    protected ModelElementFacade handleGetAngularServicePackage() {
         return this.getOwner().getPackage();
     }
 
     /**
-     * <p><b>Constraint:</b> org::andromda::cartridges::webservice::metafacades::WebServiceOperation::operation must start with a lowercase letter</p>
-     * <p><b>Error:</b> Operation name must start with a lowercase letter.</p>
+     * <p>
+     * <b>Constraint:</b>
+     * org::andromda::cartridges::webservice::metafacades::WebServiceOperation::operation
+     * must start with a lowercase letter
+     * </p>
+     * <p>
+     * <b>Error:</b> Operation name must start with a lowercase letter.
+     * </p>
+     * 
      * @param validationMessages Collection<ModelValidationMessage>
      * @see MetafacadeBase#validateInvariants(Collection validationMessages)
      */
     @Override
-    public void validateInvariants(Collection<ModelValidationMessage> validationMessages)
-    {
+    public void validateInvariants(Collection<ModelValidationMessage> validationMessages) {
         super.validateInvariants(validationMessages);
-        try
-        {
+        try {
             final Object contextElement = this.THIS();
-            final String name = (String)OCLIntrospector.invoke(contextElement,"name");
-            boolean constraintValid = OCLExpressions.equal(
-                name.substring(0,1).toLowerCase(),
-                name.substring(0,1));
-            if (!constraintValid)
-            {
-                validationMessages.add(
-                    new ModelValidationMessage(
-                        (MetafacadeBase)contextElement ,
+            final String name = (String) OCLIntrospector.invoke(contextElement, "name");
+            boolean constraintValid = OCLExpressions.equal(name.substring(0, 1).toLowerCase(), name.substring(0, 1));
+            if (!constraintValid) {
+                validationMessages.add(new ModelValidationMessage((MetafacadeBase) contextElement,
                         "org::andromda::cartridges::webservice::metafacades::WebServiceOperation::operation must start with a lowercase letter",
                         "Operation name must start with a lowercase letter."));
             }
-        }
-        catch (Throwable th)
-        {
+        } catch (Throwable th) {
             Throwable cause = th.getCause();
             int depth = 0; // Some throwables have infinite recursion
-            while (cause != null && depth < 7)
-            {
+            while (cause != null && depth < 7) {
                 th = cause;
                 depth++;
             }
-            logger.error("Error validating constraint 'org::andromda::cartridges::webservice::WebServicePackage::operation must start with a lowercase letter' ON "
-                + this.THIS().toString() + ": " + th.getMessage(), th);
+            logger.error(
+                    "Error validating constraint 'org::andromda::cartridges::webservice::WebServicePackage::operation must start with a lowercase letter' ON "
+                            + this.THIS().toString() + ": " + th.getMessage(),
+                    th);
         }
     }
 
@@ -658,21 +604,20 @@ public class AngularServiceOperationLogicImpl
 
         StringBuilder builder = new StringBuilder();
 
-        if(this.isReturnTypePresent()) {
-            if(this.getReturnType() instanceof AngularModel) {
+        if (this.isReturnTypePresent()) {
+            if (this.getReturnType() instanceof AngularModel) {
 
                 AngularModel model = (AngularModel) this.getReturnType();
                 builder.append(model.getAngularTypeName());
-                
+
             } else {
                 builder.append(AngularUtils.getDatatype(this.getReturnType().getName()));
             }
-            
-            if(this.isMany()) {
+
+            if (this.isMany()) {
                 builder.append("[]");
             }
-            
-            
+
         } else {
             builder.append("void");
         }

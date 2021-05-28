@@ -271,48 +271,51 @@ public class WebServiceOperationLogicImpl
         StringBuilder pathBuffer = new StringBuilder();
         if (!this.isRest() || StringUtils.isBlank(path) || path.equals(DEFAULT))
         {
-            pathBuffer.append(QUOTE).append(SLASH).append(this.getName().toLowerCase()).append(SLASH);
-            //path = SLASH + this.getName().toLowerCase() + SLASH;
-            Iterator<ParameterFacade> parameters = this.getArguments().iterator();
-            while (parameters.hasNext())
-            {
-                ParameterFacade param = parameters.next();
-                String type = this.getRestRequestType().toLowerCase();
+            path = this.getName().toLowerCase();
+        }
+        
+        if(path.startsWith("/")) {
+            path = path.substring(1);
+        }
+        
+        if(path.endsWith("/")) {
+            path = path.substring(0, path.length() - 1);
+        }
 
+        //pathBuffer.append(QUOTE);
+        //pathBuffer.append(SLASH);
+
+        if(path.length() > 0) {
+            pathBuffer.append(path); //.append(SLASH);
+        }
+
+        String type = this.getRestRequestType().toLowerCase();
+
+        if(type.contains("get") || type.contains("delete")) {
+            for(ParameterFacade param : this.getArguments()) {
+                    
                 String paramName = param.getName();
                 if (!WebServiceUtils.isSimpleType(param)) {
                     if(param instanceof WebServiceParameter) {
                         
-                        WebServiceParameter p = (WebServiceParameter)param;
-                            
-                        if(type.contains("get") || type.contains("delete")) {
-                            paramName = p.getRestPathParam();
-                        }
+                        WebServiceParameter p = (WebServiceParameter)param;                        
+                        paramName = p.getRestPathParam();
                     }
                 }
-
-                if(type.contains("get") || type.contains("delete")) {
-                    pathBuffer.append(paramName).append(SLASH).append(LBRACKET).append(paramName).append(RBRACKET).append(SLASH);
+                if(pathBuffer.length() > 0) {
+                    pathBuffer.append(SLASH);
                 }
+
+                pathBuffer.append(paramName).append(SLASH).append(LBRACKET).append(paramName).append(RBRACKET);
             }
+        }
+
+        if(pathBuffer.length() > 0) {
+            pathBuffer.insert(0, QUOTE);
+            pathBuffer.insert(1, SLASH);
             pathBuffer.append(QUOTE);
         }
-        else
-        {
-            if (StringUtils.isBlank(path))
-            {
-                path = EMPTY_STRING;
-            }
-            pathBuffer.append(path);
-            if (!path.startsWith(QUOTE))
-            {
-                pathBuffer.insert(0, QUOTE);
-            }
-            if (!path.endsWith(QUOTE) || path.length()<2)
-            {
-                pathBuffer.append(QUOTE);
-            }
-        }
+
         return pathBuffer.toString();
     }
 

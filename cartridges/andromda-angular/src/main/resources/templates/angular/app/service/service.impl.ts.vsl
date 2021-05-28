@@ -26,9 +26,9 @@ export class ${service.implementationName} extends ${service.name} {
 
 #set ($methodName = $operation.restRequestType)
 #if ( $methodName.equals("get")) 
-        return this.http.${methodName}<$operation.returnTypeName>(this.path + $operation.restPath);
+        return this.http.${methodName}<$operation.returnTypeName>(this.path#if($operation.restPath.length() > 0) + $operation.restPath#end);
 #elseif ( $methodName.equals("delete")) 
-        return this.http.${methodName}<$operation.returnTypeName>(this.path + $operation.restPath);
+        return this.http.${methodName}<$operation.returnTypeName>(this.path#if($operation.restPath.length() > 0) + $operation.restPath#end);
 #else
 #if(!$operation.arguments.empty)
         let formData: any = new FormData();
@@ -40,7 +40,7 @@ export class ${service.implementationName} extends ${service.name} {
 #end
 #end
 #end
-        return this.http.${methodName}<$operation.returnTypeName>(this.path + $operation.restPath#if (!$operation.arguments.empty), formData#end);
+        return this.http.${methodName}<$operation.returnTypeName>(this.path#if($operation.restPath.length() > 0) + $operation.restPath#end#if (!$operation.arguments.empty), formData#end);
 #end
 
     }

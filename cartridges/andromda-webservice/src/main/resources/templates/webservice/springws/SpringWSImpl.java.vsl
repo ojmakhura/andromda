@@ -24,8 +24,11 @@ public class ${serviceImplName} extends #if($isService)${service.name}WSBase#els
     @Override
     $operation.visibility $operation.getterSetterReturnTypeName handle$stringUtils.capitalize(${operation.signature}) {
 #if($isService)
-        #if ($operation.getterSetterReturnTypeName != 'void')return #end$stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames);
+        #if ($operation.getterSetterReturnTypeName != "void")return #end$stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames);
+#else
+        #if ($operation.getterSetterReturnTypeName != "void")return null;#end
 #end
+
     }
 
 #end
