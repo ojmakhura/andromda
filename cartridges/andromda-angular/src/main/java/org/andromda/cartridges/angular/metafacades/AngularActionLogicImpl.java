@@ -871,7 +871,7 @@ public class AngularActionLogicImpl
     @Override
     protected String handleGetFileName() {
         
-        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        String phrase = StringUtilsHelper.toPhrase(this.getActionClassName()).toLowerCase();
         return phrase.replace(" ", "-") + ".component";
     }
 
@@ -892,7 +892,7 @@ public class AngularActionLogicImpl
 
     @Override
     protected String handleGetSelectorName() {
-        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        String phrase = StringUtilsHelper.toPhrase(this.getActionClassName()).toLowerCase();
         return phrase.replace(" ", "-");
     }
 
@@ -904,7 +904,7 @@ public class AngularActionLogicImpl
     @Override
     protected String handleGetComponentImplementationName() {
         
-        return this.getActionClassName() + "ComponentImpl";
+        return this.getComponentName()+ "Impl";
     }
 
     @Override

@@ -255,7 +255,7 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
                     pathBuffer.append(PLUS).append(SQUOTE).append(SLASH);
                 }
 
-                pathBuffer.append(paramName).append(SLASH);
+                //pathBuffer.append(paramName).append(SLASH);
                 pathBuffer.append(SQUOTE).append(PLUS);
                 pathBuffer.append(paramName);
             }

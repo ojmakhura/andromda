@@ -282,11 +282,8 @@ public class WebServiceOperationLogicImpl
             path = path.substring(0, path.length() - 1);
         }
 
-        //pathBuffer.append(QUOTE);
-        //pathBuffer.append(SLASH);
-
         if(path.length() > 0) {
-            pathBuffer.append(path); //.append(SLASH);
+            pathBuffer.append(path);
         }
 
         String type = this.getRestRequestType().toLowerCase();
@@ -306,7 +303,8 @@ public class WebServiceOperationLogicImpl
                     pathBuffer.append(SLASH);
                 }
 
-                pathBuffer.append(paramName).append(SLASH).append(LBRACKET).append(paramName).append(RBRACKET);
+                //pathBuffer.append(paramName).append(SLASH).append(LBRACKET).append(paramName).append(RBRACKET);
+                pathBuffer.append(LBRACKET).append(paramName).append(RBRACKET);
             }
         }
 

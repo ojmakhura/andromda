@@ -2800,41 +2800,41 @@ public class WebServiceUtils
             StringBuilder builder = new StringBuilder();
             String paramType = param.getRestParamType();
 
-            // if(param.getType().getAttributes().size() > 0) {
-            //     builder.append("@org.springframework.web.bind.annotation.RequestBody");
-            // }
+            if(builder.length() > 0) {
+                builder.append(" ");
+            }
 
             if(paramType.contains("PathParam")) {
 
-                if(builder.length() > 0) {
-                    builder.append(" ");
-                }
                 builder.append("@org.springframework.web.bind.annotation.PathVariable(\"");
                 builder.append(param.getName() + "\")");
 
             } else if(paramType.contains("RequestParam")) {
 
-                if(builder.length() > 0) {
-                    builder.append(" ");
-                }
                 builder.append("@org.springframework.web.bind.annotation.RequestParam");
 
             } else if(paramType.contains("RequestAttribute")) {
 
-                if(builder.length() > 0) {
-                    builder.append(" ");
-                }
                 builder.append("@org.springframework.web.bind.annotation.RequestAttribute");
 
-            } else {
+            } else if(paramType.contains("RequestBody")) {
+
+                builder.append("@org.springframework.web.bind.annotation.RequestBody");
+
+            }  else {
                 if(operation.getRestRequestType().toLowerCase().contains("get")) {
-                    if(builder.length() > 0) {
-                        builder.append(" ");
-                    }
+                    
                     builder.append("@org.springframework.web.bind.annotation.PathVariable(\"");
                     builder.append(param.getName() + "\")");
+                }   else {
+
+                    if(param.getType().getAttributes().size() > 0) {
+                        builder.append("@org.springframework.web.bind.annotation.RequestBody");
+                    } else {
+                        builder.append("@org.springframework.web.bind.annotation.RequestParam");
+                    }
                 }
-            }
+            } 
 
             if(builder.length() > 0) {
                 builder.append(" ");

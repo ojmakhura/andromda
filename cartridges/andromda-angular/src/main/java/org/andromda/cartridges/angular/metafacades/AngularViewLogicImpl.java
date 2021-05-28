@@ -23,6 +23,7 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
  * Represents a Angular view for a front-end application. MetafacadeLogic
@@ -32,6 +33,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class AngularViewLogicImpl extends AngularViewLogic {
     private static final long serialVersionUID = 34L;
+
+    private static final Logger logger = Logger.getLogger(AngularViewLogicImpl.class);
 
     /**
      * Public constructor for AngularViewLogicImpl
@@ -496,33 +499,32 @@ public class AngularViewLogicImpl extends AngularViewLogic {
 
     @Override
     protected String handleGetComponentName() {
-
-        return removeWhitespaceFromName() + "Component";
+        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "Component";
     }
 
     @Override
     protected String handleGetFormName() {
-        return StringUtilsHelper.lowerCamelCaseName(removeWhitespaceFromName()) + "Form";
+        return StringUtilsHelper.lowerCamelCaseName(this.getName()) + "Form";
     }
 
     @Override
     protected String handleGetVarsFormName() {
-        return StringUtilsHelper.lowerCamelCaseName(removeWhitespaceFromName()) + "VarsForm";
+        return StringUtilsHelper.lowerCamelCaseName(this.getName()) + "VarsForm";
     }
 
     @Override
     protected String handleGetRoutingModuleName() {
-        return this.removeWhitespaceFromName() + "RoutingModule";
+        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "RoutingModule";
     }
 
     @Override
     protected String handleGetModuleName() {
-        return this.removeWhitespaceFromName() + "Module";
+        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "Module";
     }
 
     @Override
     protected String handleGetVarsComponentName() {
-        return this.removeWhitespaceFromName() + "VarsComponent";
+        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "VarsComponent";
     }
 
     @Override

@@ -18,7 +18,7 @@ export abstract class $service.name {
 
 #if ($service.restCount>0)
 #if ($stringUtils.isNotBlank($service.restPath))
-    protected path = #if($stringUtils.isNotBlank($service.restPath))"$service.restPath"#else"/${service.name.toLowerCase()}sws"#end;
+    protected path = '/${applicationId}$service.restPath';
 
 #end
 #end
