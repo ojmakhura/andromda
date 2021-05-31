@@ -73,7 +73,7 @@ public class AngularUseCaseLogicImpl
                 actionPath = action.getPath();
             }
         }
-        return actionPath;
+        return "/view" + actionPath;
     }
 
     /**
@@ -539,7 +539,7 @@ public class AngularUseCaseLogicImpl
      */
     protected String handleGetActionClassName()
     {
-        return StringUtilsHelper.upperCamelCaseName(this.getName());
+        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "SUC";
     }
 
     /**
@@ -970,32 +970,39 @@ public class AngularUseCaseLogicImpl
     }
 
     @Override
-    protected String handleGetFileName() {
-        // TODO Auto-generated method stub
-        return null;
+    protected String handleGetRouterPath() {
+        return this.getName().replaceAll(" ", "").toLowerCase() + "suc";
     }
 
     @Override
-    protected String handleGetFilePath() {
-        // TODO Auto-generated method stub
-        return null;
+    protected String handleGetModuleFilePath() {
+        return "/view" + this.getPathRoot() + "/" + this.getModuleFileName();
     }
 
     @Override
-    protected String handleGetImplementationFileName() {
-        // TODO Auto-generated method stub
-        return null;
+    protected String handleGetModuleFileName() {
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-") + ".module";
     }
 
     @Override
-    protected String handleGetImplementationFilePath() {
-        // TODO Auto-generated method stub
-        return null;
+    protected String handleGetRoutingModuleFileName() {
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-") + "-routing.module";
     }
 
     @Override
-    protected String handleGetImplementationName() {
-        // TODO Auto-generated method stub
-        return null;
+    protected String handleGetRoutingModuleFilePath() {
+        return "/view" + this.getPathRoot() + "/" + this.getRoutingModuleFileName();
+    }
+
+    @Override
+    protected String handleGetModuleName() {
+        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "Module";
+    }
+
+    @Override
+    protected String handleGetRoutingModuleName() {
+        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "RoutingModule";
     }
 }

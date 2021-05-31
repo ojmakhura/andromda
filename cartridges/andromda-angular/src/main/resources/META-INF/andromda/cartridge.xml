@@ -195,7 +195,7 @@
         overwrite="true">
         <modelElements variable="controller">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndController">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
                     <property name="useCase"/>
                 </type>
             </modelElement>
@@ -209,7 +209,7 @@
         overwrite="true">
         <modelElements variable="controller">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndController">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
                     <property name="useCase"/>
                 </type>
             </modelElement>
@@ -223,7 +223,7 @@
         overwrite="true">
         <modelElements variable="view">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndView">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
                     <property name="popup">false</property>
                 </type>
             </modelElement>
@@ -237,7 +237,7 @@
         overwrite="true">
         <modelElements variable="view">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndView">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
                     <property name="popup">false</property>
                 </type>
             </modelElement>
@@ -251,7 +251,7 @@
         overwrite="false">
         <modelElements variable="view">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndView">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
                     <property name="popup">false</property>
                 </type>
             </modelElement>
@@ -265,7 +265,7 @@
         overwrite="true">
         <modelElements variable="view">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndView">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
                     <property name="popup">false</property>
                 </type>
             </modelElement>
@@ -279,36 +279,50 @@
         overwrite="true">
         <modelElements variable="view">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndView">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
                     <property name="popup">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/angular/app/usecase/use-case.component.ts.vsl"
+        outputPattern="${useCase.path}.component.ts"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
+                    <property name="useCase"/>
                 </type>
             </modelElement>
         </modelElements>
     </template>
 	
 	<template
-        path="templates/angular/app/view/view.module.ts.vsl"
-        outputPattern="${view.moduleFilePath}.ts"
+        path="templates/angular/app/usecase/use-case.module.ts.vsl"
+        outputPattern="${useCase.moduleFilePath}.ts"
         outlet="views"
         overwrite="true">
-        <modelElements variable="view">
+        <modelElements variable="controller">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndView">
-                    <property name="popup">false</property>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
+                    <property name="useCase"/>
                 </type>
             </modelElement>
         </modelElements>
     </template>
 	
 	<template
-        path="templates/angular/app/view/view-routing.module.ts.vsl"
-        outputPattern="${view.routingModuleFilePath}.ts"
+        path="templates/angular/app/usecase/use-case-routing.module.ts.vsl"
+        outputPattern="${useCase.routingModuleFilePath}.ts"
         outlet="views"
         overwrite="true">
-        <modelElements variable="view">
+        <modelElements variable="controller">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndView">
-                    <property name="popup">false</property>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
+                    <property name="useCase"/>
                 </type>
             </modelElement>
         </modelElements>
@@ -321,7 +335,7 @@
         overwrite="true">
         <modelElements>
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndView">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
                     <property name="tables" variable="table"/>
                 </type>
             </modelElement>
@@ -335,7 +349,7 @@
         overwrite="true">
         <modelElements>
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndView">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
                     <property name="tables" variable="table"/>
                 </type>
             </modelElement>
@@ -348,7 +362,7 @@
         overwrite="true">
         <modelElements>
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndView">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
                     <property name="tables" variable="table"/>
                 </type>
             </modelElement>
@@ -361,7 +375,7 @@
         overwrite="true">
         <modelElements>
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndView">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
                     <property name="tables" variable="table"/>
                 </type>
             </modelElement>
@@ -375,7 +389,7 @@
         overwrite="true">
         <modelElements>
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndView">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
                     <property name="tables" variable="table"/>
                 </type>
             </modelElement>
@@ -389,7 +403,7 @@
         overwrite="true">
         <modelElements variable="action">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndAction">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularAction">
                     <property name="tableLink">false</property>
                     <property name="input"/>
                 </type>
@@ -404,7 +418,7 @@
         overwrite="true">
         <modelElements variable="action">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndAction">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularAction">
                     <property name="tableLink">false</property>
                     <property name="input"/>
                 </type>
@@ -419,7 +433,7 @@
         overwrite="true">
         <modelElements variable="action">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndAction">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularAction">
                     <property name="tableLink">false</property>
                     <property name="input"/>
                 </type>
@@ -434,7 +448,7 @@
         overwrite="true">
         <modelElements variable="action">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndAction">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularAction">
                     <property name="tableLink">false</property>
                     <property name="input"/>
                 </type>
@@ -449,7 +463,7 @@
         overwrite="true">
         <modelElements variable="action">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndAction">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularAction">
                     <property name="tableLink">false</property>
                     <property name="input"/>
                 </type>
@@ -464,7 +478,7 @@
         overwrite="true">
         <modelElements variable="view">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndView">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
                     <property name="nonTableVariablesPresent"/>
                 </type>
             </modelElement>
@@ -478,7 +492,7 @@
         overwrite="true">
         <modelElements variable="view">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndView">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
                     <property name="nonTableVariablesPresent"/>
                 </type>
             </modelElement>
@@ -492,7 +506,7 @@
         overwrite="true">
         <modelElements variable="view">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndView">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
                     <property name="nonTableVariablesPresent"/>
                 </type>
             </modelElement>
@@ -506,7 +520,7 @@
         overwrite="true">
         <modelElements variable="view">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndView">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
                     <property name="nonTableVariablesPresent"/>
                 </type>
             </modelElement>
@@ -520,7 +534,7 @@
         overwrite="true">
         <modelElements variable="view">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndView">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
                     <property name="nonTableVariablesPresent"/>
                 </type>
             </modelElement>

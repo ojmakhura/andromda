@@ -232,7 +232,7 @@ public class AngularGlobals {
     /**
      * The suffix to append to the forward name.
      */
-    public static final String USECASE_FORWARD_NAME_SUFFIX = "-usecase";
+    public static final String USECASE_FORWARD_NAME_SUFFIX = "-suc";
 
     /**
      * The namespace delimiter (separates namespaces).
