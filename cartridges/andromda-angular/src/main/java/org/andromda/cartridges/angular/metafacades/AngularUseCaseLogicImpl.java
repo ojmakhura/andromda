@@ -539,7 +539,8 @@ public class AngularUseCaseLogicImpl
      */
     protected String handleGetActionClassName()
     {
-        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "SUC";
+        
+        return StringUtilsHelper.upperCamelCaseName(this.getName());
     }
 
     /**
@@ -971,7 +972,7 @@ public class AngularUseCaseLogicImpl
 
     @Override
     protected String handleGetRouterPath() {
-        return this.getName().replaceAll(" ", "").toLowerCase() + "suc";
+        return this.getActionClassName().toLowerCase();
     }
 
     @Override
@@ -1004,5 +1005,16 @@ public class AngularUseCaseLogicImpl
     @Override
     protected String handleGetRoutingModuleName() {
         return StringUtilsHelper.upperCamelCaseName(this.getName()) + "RoutingModule";
+    }
+
+    @Override
+    protected String handleGetComponentName() {
+        
+        if(this.isViewHasNameOfUseCase()) {
+            return this.getActionClassName() + "UC";
+        } else {
+            return this.getActionClassName();
+        }
+
     }
 }

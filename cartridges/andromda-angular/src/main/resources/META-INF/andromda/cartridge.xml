@@ -150,7 +150,7 @@
         generateEmptyFiles="true">
         <modelElements>
             <modelElement variable="useCases">
-                <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularUseCase"/>
             </modelElement>
             <modelElement variable="manageables">
                 <type name="org.andromda.cartridges.angular.metafacades.AngularManageableEntity">

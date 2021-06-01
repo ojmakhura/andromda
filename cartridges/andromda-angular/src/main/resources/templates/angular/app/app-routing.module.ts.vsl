@@ -19,12 +19,12 @@ const routes: Routes = [
       loadChildren: async () => (await import('./about/about.module')).AboutModule
     },
 #foreach($useCase in $useCases)
-#foreach($view in $useCase.views)
+##foreach($view in $useCase.views)
     {
-      path: '$view.routerPath', 
-      loadChildren: async () => (await import('./$view.moduleFilePath')).$view.moduleName
+      path: '$useCase.routerPath', 
+      loadChildren: async () => (await import('@app$useCase.moduleFilePath')).$useCase.moduleName
     },
-#end
+##end
 #end
   ]),
   // Fallback when no prior route is matched

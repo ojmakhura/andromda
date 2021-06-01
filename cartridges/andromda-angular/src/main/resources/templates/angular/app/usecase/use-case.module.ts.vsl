@@ -11,11 +11,11 @@ import { SharedModule } from '@shared';
 import { MaterialModule } from '@app/material.module';
 import { ${useCase.routingModuleName} } from './${useCase.routingModuleFileName}';
 
-#foreach($view in $useCase.allViews)
+#foreach($view in $useCase.views)
 import { ${view.componentImplementationName} } from '@app/${view.implementationFilePath}';
-#if ($view.nonTableVariablesPresent)
-import { ${view.varsComponentImplementationName} } from '@app/${view.varsComponentImplementationFilePath}';
-#end
+##if ($view.nonTableVariablesPresent)
+##import { ${view.varsComponentImplementationName} } from '@app/${view.varsComponentImplementationFilePath}';
+##end
 #end
 
 #foreach($import in $view.imports)
@@ -46,11 +46,11 @@ import { $import.componentImplementationName } from '@app/${import.implementatio
     $import.componentImplementationName,
 #end
 #end
-#foreach($view in $useCase.allViews)
+#foreach($view in $useCase.views)
     ${view.componentImplementationName},
-#if ($view.nonTableVariablesPresent)
-    ${view.varsComponentImplementationName}
-#end
+##if ($view.nonTableVariablesPresent)
+##//    ${view.varsComponentImplementationName},
+##end
 #end
   ],
   entryComponents: [],

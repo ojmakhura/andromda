@@ -2,7 +2,6 @@
 #set ($useCase = $controller.useCase)
 import { OnInit, Injector, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Injector } from '@angular/core';
 import { $controller.implementationName } from '@app/$controller.implementationFilePath';
 
 ## Find all the fields in the actions of the view
@@ -10,7 +9,7 @@ import { $controller.implementationName } from '@app/$controller.implementationF
   selector: '${useCase.forwardName}',
   template: ''
 })
-export abstract class ${useCase.actionClassName} implements OnInit {
+export abstract class ${useCase.componentName} implements OnInit {
 
     protected route: ActivatedRoute;
     protected router: Router;
