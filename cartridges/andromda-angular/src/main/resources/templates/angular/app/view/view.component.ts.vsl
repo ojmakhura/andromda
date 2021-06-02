@@ -85,9 +85,6 @@ export abstract class $view.componentName implements OnInit {
         this.beforeOnInit();
         this.${view.formName} = this.newForm();
 
-#if(${view.useCase.controller})
-        this.${view.useCase.controller.variableName}.resetUseCaseScope();
-#end
         this.${view.formName}.valueChanges.subscribe(
             (change: any) => {
                 this.handleFormChanges(change);

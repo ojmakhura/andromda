@@ -73,7 +73,7 @@ public class AngularUseCaseLogicImpl
                 actionPath = action.getPath();
             }
         }
-        return "/view" + actionPath;
+        return "view" + actionPath;
     }
 
     /**
@@ -972,12 +972,12 @@ public class AngularUseCaseLogicImpl
 
     @Override
     protected String handleGetRouterPath() {
-        return this.getActionClassName().toLowerCase();
+        return this.getComponentName().toLowerCase();
     }
 
     @Override
     protected String handleGetModuleFilePath() {
-        return "/view" + this.getPathRoot() + "/" + this.getModuleFileName();
+        return "view" + this.getPathRoot() + "/" + this.getModuleFileName();
     }
 
     @Override
@@ -994,7 +994,7 @@ public class AngularUseCaseLogicImpl
 
     @Override
     protected String handleGetRoutingModuleFilePath() {
-        return "/view" + this.getPathRoot() + "/" + this.getRoutingModuleFileName();
+        return "view" + this.getPathRoot() + "/" + this.getRoutingModuleFileName();
     }
 
     @Override
@@ -1016,5 +1016,10 @@ public class AngularUseCaseLogicImpl
             return this.getActionClassName();
         }
 
+    }
+
+    @Override
+    protected String handleGetSelectorName() {
+        return AngularUtils.toWebResourceName(this.getComponentName());
     }
 }

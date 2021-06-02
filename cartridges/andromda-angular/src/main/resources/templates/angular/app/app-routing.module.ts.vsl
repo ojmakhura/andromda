@@ -22,7 +22,7 @@ const routes: Routes = [
 ##foreach($view in $useCase.views)
     {
       path: '$useCase.routerPath', 
-      loadChildren: async () => (await import('@app$useCase.moduleFilePath')).$useCase.moduleName
+      loadChildren: async () => (await import('@app/$useCase.moduleFilePath')).$useCase.moduleName
     },
 ##end
 #end

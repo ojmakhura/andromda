@@ -87,6 +87,7 @@ export abstract class ControllerBase
         useCaseScope[ControllerBase.USE_CASE_RETURN_VALUES_KEY] = {};
 
         ControllerBase.setUseCaseScope(useCaseScope);
+        this.pageVariables = {};
         return useCaseScope;
     }
 
@@ -149,9 +150,9 @@ export abstract class ControllerBase
      *
      * @return the start use case
      */
-    startUseCase(): string
+    async startUseCase(): Promise<string>
     {
-        let pageVariables: Object = ControllerBase.getPageVariables();
+        let pageVariables: Object = this.pageVariables;
    
 
         //reset the useCaseScope and put the parameters available.
@@ -200,7 +201,7 @@ export abstract class ControllerBase
             const returnValues = ControllerBase.getUseCaseReturnValues();
             const jsResult = {};
 
-            for(let i=0; i<names.length; i++)
+            for(let i=0; i < names.length; i++)
             {
                 returnValues[names[i]] =  values[i];
                 jsResult[names[i]] = values[i];

@@ -8,15 +8,16 @@
 #set($targetController = $transition.target.targetElement.controller)
 #if($targetController.name)
 #if(${targetController.name} != $controller.name)
-        forward = this.${targetController.variableName}.startUseCase();
+        this.${stringUtils.uncapitalize(${targetController.name})}.pageVariables = Object.assign({}, form);
+        forward = '${targetController.useCase.routerPath}';
 #else
-        forward = this.startUseCase();
+        forward = '$useCase.routerPath';
 #end
 #else 
         forward = this.closeDialog();
 #end
 #elseif ($transition.enteringView)
-        forward = '${transition.target.routerPath}';
+        forward = '${transition.target.useCase.routerPath}/${transition.target.routerPath}';
 #elseif ($transition.enteringDecisionPoint)
         forward = this.__${transition.operationCall.name}(form);
 #else

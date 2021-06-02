@@ -6,10 +6,10 @@ import { $controller.implementationName } from '@app/$controller.implementationF
 
 ## Find all the fields in the actions of the view
 @Component({
-  selector: '${useCase.forwardName}',
+  selector: '${useCase.selectorName}',
   template: ''
 })
-export abstract class ${useCase.componentName} implements OnInit {
+export class ${useCase.componentName} implements OnInit {
 
     protected route: ActivatedRoute;
     protected router: Router;
@@ -20,25 +20,18 @@ export abstract class ${useCase.componentName} implements OnInit {
         this.route = injector.get(ActivatedRoute);
         this.router = injector.get(Router);
         this.$controller.variableName = injector.get($controller.implementationName);
-
         this._injector = injector;
     }
-
-    abstract beforeOnInit(): void;
 	
     ngOnInit() {
-        this.beforeOnInit();
-        this.${controller.variableName}.startUseCase();
-        this.afterOnInit();
+        this.${controller.variableName}.startUseCase().then( forward => {
+            if(forward !== null) {
+                this.router.navigate(['/' + forward]);
+            }
+        });
     }
 
-    
-    abstract afterOnInit(): void;
-    
-    abstract doNgAfterViewInit(): void;
-
     ngAfterViewInit() {
-        this.doNgAfterViewInit();
     }
 
 }

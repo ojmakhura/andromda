@@ -12,8 +12,8 @@ import { $import.name } from '@app/${import.filePath}';
 #end
 
 export abstract class $controller.name extends ControllerBase {
-#if(!$controller.attributes.empty)
 
+#if(!$controller.attributes.empty)
 #foreach($attribute in $controller.attributes)
     $attribute.name: $attribute.angularTypeName;
 #end
@@ -77,31 +77,28 @@ $action.trigger.getDocumentation("     * ")
 #else
     public ${action.triggerName}(form: any)
 #end
-    {
-
-        this.setLastPostedFormClientId('${action.variableName}');
-        
+    {        
         let forward: string = null;
 #if ($action.finalStateTarget)
 #set($targetController = $action.target.targetControllerFullyQualifiedName)
 #set($targetControllerBeanName = $action.target.targetControllerBeanName)
 #if(${targetControllerBeanName} == $controller.beanName)
-        forward =#if($targetController) this.startUseCase()#else this.closeDialog()#end; 
+        forward =#if($targetController) '$controller.useCase.routerPath'#else this.closeDialog()#end; 
 #else
-        forward =#if($targetController) this.${action.target.targetController.variableName}.startUseCase()#else this.closeDialog()#end;
+        forward =#if($targetController) '${action.target.targetController.useCase.routerPath}'#else this.closeDialog()#end;
 #end
 #else
         
         //trigger method execution
 #if($action.exitingInitialState)  
-        let form: any = pageVariables;
+        let form: any = Object.assign({}, pageVariables);
         this.${action.triggerMethodName}(form);
 #else
         this.${action.triggerMethodName}(form);
 #end
 
 #if(!$action.exitingInitialState) 
-        this.pageVariables = form;
+        this.pageVariables = Object.assign({}, form);
 #end
 #processTransition($action)
 #saveMessages($action "        ")
@@ -110,7 +107,7 @@ $action.trigger.getDocumentation("     * ")
 #if(!$action.exitingInitialState && !$action.enteringFinalState)
         if(forward !== null)
         {
-            if('${action.source.routerPath}' === forward)
+            if(forward === '${action.useCase.routerPath}/${action.source.routerPath}')
             {
                 forward = null; //the destination form is the same, stay on the current view
             }

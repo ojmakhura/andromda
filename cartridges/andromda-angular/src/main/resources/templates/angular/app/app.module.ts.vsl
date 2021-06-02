@@ -35,7 +35,6 @@ import { CoreModule } from '@core';
 import { SharedModule } from '@shared';
 import { HomeModule } from './home/home.module';
 import { ShellModule } from './shell/shell.module';
-
 #set ($component = "component")
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -45,19 +44,25 @@ import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
 import { ConnectFormDirective } from './connect-form.directive';
 #end
-#foreach ($useCase in $useCases)
-#renderImports($useCase)
-#end
-
-#set ( $componentSet = $angularUtils.getFacadeSet($views) )
-#foreach($view in $componentSet)
-import { ${view.moduleName} } from ${escTool.s}@app/${view.moduleFilePath}${escTool.s};
-#end
-#set ( $controllerSet = $angularUtils.getFacadeSet($controllers) )
-#foreach ( $controller in $controllerSet )
+##foreach ($useCase in $useCases)
+##renderImports($useCase)
+##end
+##set ( $controllerSet = $angularUtils.getFacadeSet($controllers) )
+##foreach ( $controller in $controllerSet )
+##set ($useCase = $controller.useCase)
+##import { ${useCase.moduleName} } from ${escTool.s}@app/${useCase.moduleFilePath}${escTool.s};
+##import { ${controller.implementationName} } from ${escTool.s}@app/${controller.implementationFilePath}${escTool.s};
+##end
+#foreach ( $useCase in $useCases )
+import { ${useCase.moduleName} } from ${escTool.s}@app/${useCase.moduleFilePath}${escTool.s};
+#if($useCase.controller)
+#set ($controller = $useCase.controller)
 import { ${controller.implementationName} } from ${escTool.s}@app/${controller.implementationFilePath}${escTool.s};
+#foreach($service in $controller.allRestControllers)
+#set ( $rt = $services.add($service) )
 #end
-
+#end
+#end
 #set ( $finalServices = $angularUtils.getFacadeSet($services) )
 #foreach ( $service in $finalServices )
 import { ${service.implementationName} } from ${escTool.s}@app/${service.implementationFilePath}${escTool.s};
@@ -82,28 +87,36 @@ import { ${service.implementationName} } from ${escTool.s}@app/${service.impleme
         SharedModule,
         ShellModule,
         HomeModule,
-        AppRoutingModule, // must be imported as the last module as it contains the fallback route
 #if($ngrx)
         EffectsModule.forRoot([]),
         StoreModule.forRoot(reducers, {
             metaReducers
         }),
 #end
-#set ( $componentSet = $angularUtils.getFacadeSet($views) )
-#foreach($view in $componentSet)
-        ${view.moduleName},
+#foreach ( $useCase in $useCases )
+        ${useCase.moduleName},
 #end
+##set ( $componentSet = $angularUtils.getFacadeSet($controllers) )
+##foreach ( $controller in $componentSet )
+##set ($useCase = $controller.useCase)
+##        ${useCase.moduleName},
+##end
+        AppRoutingModule, // must be imported as the last module as it contains the fallback route
     ],
     exports: [
     ],
     providers: [
-#set ( $finalServices = $angularUtils.getFacadeSet($services) )
 #foreach ( $finalService in $finalServices )
         ${finalService.implementationName},
 #end
-#set ( $componentSet = $angularUtils.getFacadeSet($controllers) )
-#foreach ( $controller in $componentSet )
-        ${controller.implementationName},
+##set ( $componentSet = $angularUtils.getFacadeSet($controllers) )
+##foreach ( $controller in $componentSet )
+##        ${controller.implementationName},
+##end
+#foreach ( $useCase in $useCases )
+#if($useCase.controller)
+        ${useCase.controller.implementationName},
+#end
 #end
     ],
     bootstrap: [AppComponent]
