@@ -27,11 +27,9 @@ public class ${stringUtils.capitalize($applicationId)}WSConfiguration {
         config.setAllowCredentials(true);
         config.setAllowedOriginPatterns(Collections.singletonList("*"));
         config.addAllowedHeader("*");
-        config.addAllowedMethod("OPTIONS");
-        config.addAllowedMethod("GET");
-        config.addAllowedMethod("POST");
-        config.addAllowedMethod("PUT");
-        config.addAllowedMethod("DELETE");
+        for(HttpMethod method : HttpMethod.values()) {
+            config.addAllowedMethod(method);
+        }
 		confSource.registerCorsConfiguration("/**", config);
 		return new CorsFilter(confSource);
 	}
