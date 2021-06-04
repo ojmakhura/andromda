@@ -116,7 +116,8 @@ $action.trigger.getDocumentation("     * ")
 #end
 #end
 #end
-#if($action.exitingInitialState)     
+#if($action.exitingInitialState)
+        this.pageVariables = pageVariables;
         return forward;
 #else
         if(forward !== null) {

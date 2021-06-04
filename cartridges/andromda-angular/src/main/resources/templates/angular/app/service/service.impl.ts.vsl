@@ -33,11 +33,7 @@ export class ${service.implementationName} extends ${service.name} {
 #if(!$operation.arguments.empty)
         let formData: any = new FormData();
 #foreach ($arg in $operation.arguments)
-#if($operation.arguments.size() > 1)
         formData.append("$arg.name", $arg.name)
-#else
-        formData = $arg.name;
-#end
 #end
 #end
         return this.http.${methodName}<$operation.returnTypeName>(this.path#if($operation.restPath.length() > 0) + $operation.restPath#end#if (!$operation.arguments.empty), formData#end);

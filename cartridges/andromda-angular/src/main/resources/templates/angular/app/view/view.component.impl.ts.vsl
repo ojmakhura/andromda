@@ -67,10 +67,10 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
     afterSet$stringUtils.capitalize(${action.formName})(form: $stringUtils.capitalize($action.formName)): void {
     }
 
-    after$stringUtils.capitalize(${action.formEventName})(#if(!$action.formFields.empty)form: $stringUtils.capitalize($action.formName)#end) {    
+    after$stringUtils.capitalize(${action.triggerName})(#if(!$action.formFields.empty)form: $stringUtils.capitalize($action.formName)#end) {    
     }
 
-    before$stringUtils.capitalize($action.formEventName)(#if(!$action.formFields.empty)form: $stringUtils.capitalize($action.formName)#end) {
+    before$stringUtils.capitalize($action.triggerName)(#if(!$action.formFields.empty)form: $stringUtils.capitalize($action.formName)#end) {
     }
 
 #end

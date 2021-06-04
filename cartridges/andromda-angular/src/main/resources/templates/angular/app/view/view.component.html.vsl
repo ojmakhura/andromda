@@ -14,20 +14,27 @@
 	<div class="card my-5">
 		<$action.selectorName 
 			[$action.formName] = "$action.formName"
-##foreach ($action in $view.actions)
-##if (!$action.tableLink)
-			($action.formEventName)="${action.formEventName}()"
+			($action.formEventName)="${action.triggerName}()"
 #foreach($parameter in $action.parameters)
 #if($parameter.inputSelect)
     		[${parameter.backingListName}] = "${parameter.backingListName}"
 #end
 #end
-##end
-##end
 		>
 		</$action.selectorName>
 	</div>
 #end
+#end
+#if($view.actions.size() > 0)
+	<div class="card row my-5 view-buttons">
+#foreach ($action in $view.actions)
+#if (!$action.tableLink)
+		<div class="my-5 ${action.trigger.name}">
+			<button type="button" (click)="${action.triggerName}()" class="btn btn-info">$stringUtils.toPhrase(${action.trigger.name})</button>
+		</div>
+#end
+#end
+	</div>
 #end
 #if ( $view.tables.size() > 0 )
 	<mat-tab-group animationDuration="0ms" class = "tables">

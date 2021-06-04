@@ -156,18 +156,20 @@ export abstract class $view.componentName implements OnInit {
         this.afterSet$stringUtils.capitalize(${action.formName})(form);
     }
 
-    abstract before$stringUtils.capitalize(${action.formEventName})(#if(!$action.formFields.empty)form: $stringUtils.capitalize($action.formName)#end): void;
-    abstract after$stringUtils.capitalize(${action.formEventName})(#if(!$action.formFields.empty)form: $stringUtils.capitalize($action.formName)#end): void;
+#set ($afterAction = "after$stringUtils.capitalize(${action.triggerName})")
+#set ($beforeAction = "before$stringUtils.capitalize(${action.triggerName})")
+    abstract ${beforeAction}(#if(!$action.formFields.empty)form: $stringUtils.capitalize($action.formName)#end): void;
+    abstract ${afterAction}(#if(!$action.formFields.empty)form: $stringUtils.capitalize($action.formName)#end): void;
     
-    ${action.formEventName}(): void {
+    ${action.triggerName}(): void {
 
 #if(!$action.formFields.empty)
         let form: $stringUtils.capitalize($action.formName) = this.${action.formName}?.value as $stringUtils.capitalize($action.formName);
 #end
-        this.before$stringUtils.capitalize(${action.formEventName})(#if(!$action.formFields.empty)form#end);
+        this.${beforeAction}(#if(!$action.formFields.empty)form#end);
         this.${action.controller.variableName}.${action.triggerName}(#if(!$action.formFields.empty)form#else{}#end);
 
-        this.after$stringUtils.capitalize(${action.formEventName})(#if(!$action.formFields.empty)form#end);
+        this.${afterAction}(#if(!$action.formFields.empty)form#end);
     }
 
 

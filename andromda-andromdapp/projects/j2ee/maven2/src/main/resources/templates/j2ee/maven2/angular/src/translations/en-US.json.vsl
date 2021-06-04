@@ -1,5 +1,5 @@
 {
-  "APP_NAME": "$applicationId",
+  "APP_NAME": "${stringUtils.capitalize($applicationId)}",
   "About": "About",
   "Hello world !": "Hello world !",
   "Home": "Home",
