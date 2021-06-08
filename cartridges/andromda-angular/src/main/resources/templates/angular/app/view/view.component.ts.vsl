@@ -51,6 +51,9 @@ export abstract class $view.componentName implements OnInit {
     protected formBuilder: FormBuilder;
     protected rxFormBuilder: RxFormBuilder;
     protected _injector: Injector;
+#foreach($controller in $view.targetControllers)
+    $controller.variableName: ${controller.implementationName};
+#end
 #if(${view.useCase.controller})
 #foreach ($service in $view.useCase.controller.allRestControllers)
     $stringUtils.uncapitalize($service.name): ${service.implementationName};
@@ -75,6 +78,9 @@ export abstract class $view.componentName implements OnInit {
 #foreach ($service in $view.useCase.controller.allRestControllers)
         this.$stringUtils.uncapitalize($service.name) = injector.get(${service.implementationName});
 #end
+#end
+#foreach($controller in $view.targetControllers)
+        this.$controller.variableName = injector.get(${controller.implementationName});
 #end
         this._injector = injector;
     }
@@ -165,6 +171,14 @@ export abstract class $view.componentName implements OnInit {
 
 #if(!$action.formFields.empty)
         let form: $stringUtils.capitalize($action.formName) = this.${action.formName}?.value as $stringUtils.capitalize($action.formName);
+
+#if ($action.finalStateTarget)
+#set($targetController = $action.target.targetElement.controller)
+#set($controller = $action.useCase.controller)
+#if($targetController.name != $controller.name)
+        this.${stringUtils.uncapitalize(${targetController.name})}.pageVariables = Object.assign({}, form);
+#end
+#end
 #end
         this.${beforeAction}(#if(!$action.formFields.empty)form#end);
         this.${action.controller.variableName}.${action.triggerName}(#if(!$action.formFields.empty)form#else{}#end);

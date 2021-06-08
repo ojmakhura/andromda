@@ -17,6 +17,7 @@ import org.andromda.cartridges.angular.AngularProfile;
 import org.andromda.cartridges.angular.AngularUtils;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
+import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -420,6 +421,15 @@ public class AngularViewLogicImpl extends AngularViewLogic {
             imports.add(action);
             imports.addAll(action.getImports());
 
+            if(action.getTarget() != null && action.getTarget() instanceof AngularFinalStateLogicImpl) {
+                AngularFinalStateLogicImpl target = (AngularFinalStateLogicImpl) action.getTarget();
+                if(target.getTargetUseCase() != null && !StringUtilsHelper.isEmpty(target.getTargetUseCase().getName())) {
+                    if(target.getTargetUseCase().getController() != null)
+                    {
+                        imports.add(target.getTargetUseCase().getController());
+                    }
+                }
+            }
         }
 
         for(FrontEndParameter _variable : this.getVariables()) {
@@ -431,7 +441,6 @@ public class AngularViewLogicImpl extends AngularViewLogic {
                         imports.add(attr.getType());
                     }
                 }
-
                 imports.add(variable.getType());
             }
         }
@@ -579,5 +588,30 @@ public class AngularViewLogicImpl extends AngularViewLogic {
     @Override
     protected String handleGetVariableName() {
         return StringUtilsHelper.uncapitalize(this.getComponentName());
+    }
+
+    @Override
+    protected Collection<FrontEndController> handleGetTargetControllers() {
+        Collection<FrontEndController> targets = new HashSet<>();
+
+        for (FrontEndAction _action : this.getActions()) {
+            AngularAction action = (AngularAction) _action;
+
+            if(action.isTableAction() || action.isTableLink()) {
+                continue;
+            }
+
+            if(action.getTarget() != null && action.getTarget() instanceof AngularFinalStateLogicImpl) {
+                AngularFinalStateLogicImpl target = (AngularFinalStateLogicImpl) action.getTarget();
+                if(target.getTargetUseCase() != null && !StringUtilsHelper.isEmpty(target.getTargetUseCase().getName())) {
+                    if(target.getTargetUseCase().getController() != null)
+                    {
+                        targets.add(target.getTargetUseCase().getController());
+                    }
+                }
+            }
+        }
+
+        return targets;
     }
 }
