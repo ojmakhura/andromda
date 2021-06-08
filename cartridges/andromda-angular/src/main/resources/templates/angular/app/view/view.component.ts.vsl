@@ -172,6 +172,10 @@ export abstract class $view.componentName implements OnInit {
 #if(!$action.formFields.empty)
         let form: $stringUtils.capitalize($action.formName) = this.${action.formName}?.value as $stringUtils.capitalize($action.formName);
 
+        this.${beforeAction}(#if(!$action.formFields.empty)form#end);
+        this.${action.controller.variableName}.${action.triggerName}(#if(!$action.formFields.empty)form#else{}#end);
+
+        this.${afterAction}(#if(!$action.formFields.empty)form#end);
 #if ($action.finalStateTarget)
 #set($targetController = $action.target.targetElement.controller)
 #set($controller = $action.useCase.controller)
@@ -180,10 +184,6 @@ export abstract class $view.componentName implements OnInit {
 #end
 #end
 #end
-        this.${beforeAction}(#if(!$action.formFields.empty)form#end);
-        this.${action.controller.variableName}.${action.triggerName}(#if(!$action.formFields.empty)form#else{}#end);
-
-        this.${afterAction}(#if(!$action.formFields.empty)form#end);
     }
 
 
