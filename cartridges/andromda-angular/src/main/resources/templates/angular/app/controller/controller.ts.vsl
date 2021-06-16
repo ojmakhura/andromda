@@ -79,15 +79,12 @@ $action.trigger.getDocumentation("     * ")
 #end
     {        
         let forward: string = null;
+
 #if ($action.finalStateTarget)
-#set($targetController = $action.target.targetControllerFullyQualifiedName)
 #set($targetController = $action.target.targetElement.controller)
-#set($targetControllerBeanName = $action.target.targetControllerBeanName)
-#if(${targetControllerBeanName} == $controller.beanName)
+#if(${targetController.name} == $controller.name)
         forward =#if($targetController) '$controller.useCase.routerPath'#else this.closeDialog()#end; 
 #else
-##        let ${stringUtils.uncapitalize(${targetController.name})} = this._injector.get(${targetController.implementationName});
-##        ${stringUtils.uncapitalize(${targetController.name})}.pageVariables = Object.assign({}, form);
         forward =#if($targetController) '${action.target.targetController.useCase.routerPath}'#else this.closeDialog()#end;
 #end
 #else

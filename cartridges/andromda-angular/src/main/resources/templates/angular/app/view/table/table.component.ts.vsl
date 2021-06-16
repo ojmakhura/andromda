@@ -20,7 +20,12 @@ import { $import.name } from '@app/${import.filePath}';
 #end
 #end
 import { ${table.view.componentImplementationName} } from '@app/${table.view.implementationFilePath}';
+#if(${table.view.useCase.controller})
 import { ${table.view.useCase.controller.implementationName} } from '@app/${table.view.useCase.controller.implementationFilePath}';
+#foreach ($controller in ${table.view.useCase.controller.otherControllers})
+import { ${controller.implementationName} } from '@app/${controller.implementationFilePath}';
+#end
+#end
 
 @Component({
   selector: '${table.fileName}-base',
@@ -50,6 +55,12 @@ export abstract class ${table.tableComponentName} implements OnInit {
 #foreach($service in $restControllers)
     protected $stringUtils.uncapitalize($service.name): ${service.implementationName};
 #end
+#if(${table.view.useCase.controller})
+    protected ${table.view.useCase.controller.variableName}: ${table.view.useCase.controller.implementationName};
+#foreach ($controller in ${table.view.useCase.controller.otherControllers})
+    protected ${controller.variableName}: ${controller.implementationName};
+#end
+#end
     protected ${table.view.variableName}: ${table.view.componentImplementationName};
     protected _injector: Injector;
 
@@ -58,6 +69,12 @@ export abstract class ${table.tableComponentName} implements OnInit {
         this.router = injector.get(Router);
 #foreach($service in $restControllers)
         this.$stringUtils.uncapitalize($service.name) = injector.get(${service.implementationName});
+#end
+#if(${table.view.useCase.controller})
+        this.${table.view.useCase.controller.variableName} = injector.get(${table.view.useCase.controller.implementationName});
+#foreach ($controller in ${table.view.useCase.controller.otherControllers})
+        this.${controller.variableName} = injector.get(${controller.implementationName});
+#end
 #end
         this.${table.view.variableName} = injector.get(${table.view.componentImplementationName});
         this._injector = injector;
@@ -84,13 +101,26 @@ export abstract class ${table.tableComponentName} implements OnInit {
 	
 	${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes()) {
         let form = #renderAngularTableCommandLinkParametersForm()
-		let params = this.do$stringUtils.capitalize(${action.triggerName})(form);
+        let params = this.do$stringUtils.capitalize(${action.triggerName})(form);
+#if ($action.finalStateTarget)
+#set($targetController = $action.target.targetElement.controller)
+#if(${targetController.name} != ${action.controller.name})
+        this.${targetController.variableName}.pageVariables = Object.assign({}, params);
+#end
+#end
         this.${action.controller.variableName}.${action.triggerName}(form);
 	}
 #end
-
-    get ${table.view.useCase.controller.variableName}(): ${table.view.useCase.controller.name}Impl {
-        
-        return this._injector.get(${table.view.useCase.controller.name}Impl);
-    }
+##if(${table.view.useCase.controller})
+##
+##    get ${table.view.useCase.controller.variableName}(): ${table.view.useCase.controller.implementationName} {  
+##        return this._injector.get(${table.view.useCase.controller.implementationName});
+##    }
+##foreach ($controller in ${table.view.useCase.controller.otherControllers})
+##
+##    get ${controller.variableName}(): ${controller.implementationName} {
+##        return this._injector.get(${controller.implementationName});
+##    }
+##end
+##end
 }

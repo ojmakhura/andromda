@@ -51,6 +51,12 @@ export abstract class ${action.componentName} implements OnInit {
 #foreach ($service in $action.controller.allRestControllers)
     protected $stringUtils.uncapitalize($service.name): ${service.implementationName};
 #end
+#if($action.controller)
+    protected ${action.controller.variableName}: ${action.controller.implementationName};
+#foreach ($controller in ${action.controller.otherControllers})
+    protected ${controller.variableName}: ${controller.implementationName};
+#end
+#end
     protected formBuilder: FormBuilder;
     protected _injector: Injector;
 #set ($selections = [])
@@ -83,6 +89,12 @@ export abstract class ${action.componentName} implements OnInit {
         this.router = injector.get(Router);
 #foreach ($service in $action.controller.allRestControllers)
         this.$stringUtils.uncapitalize($service.name) = injector.get(${service.implementationName});
+#end
+#if($action.controller)
+        this.${action.controller.variableName} = injector.get(${action.controller.implementationName});
+#foreach ($controller in ${action.controller.otherControllers})
+        this.${controller.variableName} = injector.get(${controller.implementationName});
+#end
 #end
         this.formBuilder = injector.get(FormBuilder);
         this._injector = injector;
@@ -146,11 +158,17 @@ export abstract class ${action.componentName} implements OnInit {
         this.${action.formEventName}.emit();
         this.after$stringUtils.capitalize(${action.triggerName})();
     }
-
-#if($action.controller)
-    get ${action.controller.variableName}(): ${action.controller.name}Impl {
-        
-        return this._injector.get(${action.controller.implementationName});
-    }
-#end
+##if($action.controller)
+##
+##    get ${action.controller.variableName}(): ${action.controller.implementationName} {
+##        
+##        return this._injector.get(${action.controller.implementationName});
+##    }
+##foreach ($controller in ${action.controller.otherControllers})
+##
+##    get ${controller.variableName}(): ${controller.implementationName} {
+##        return this._injector.get(${controller.implementationName});
+##    }
+##end
+##end
 }

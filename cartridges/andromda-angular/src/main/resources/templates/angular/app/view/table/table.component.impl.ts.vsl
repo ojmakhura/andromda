@@ -5,7 +5,7 @@ import { ${table.tableComponentName} } from '@app/${table.filePath}';
 @Component({
   selector: '${table.fileName}',
   templateUrl: './${table.fileName}.component.html',
-  styleUrls: ['./${table.fileName}.component.scss']
+  styleUrls: [ './${table.fileName}.component.scss' ]
 })
 export class ${table.tableComponentImplementationName} extends ${table.tableComponentName} {
 
@@ -26,6 +26,7 @@ export class ${table.tableComponentImplementationName} extends ${table.tableComp
 #foreach ($action in $table.tableFormActions)
 
 	do$stringUtils.capitalize(${action.triggerName})(#if($action.parameters.size() > 0)form: any#end): any {
+    #if($action.parameters.size() > 0)return form;#end 
 	}
 #end
 }

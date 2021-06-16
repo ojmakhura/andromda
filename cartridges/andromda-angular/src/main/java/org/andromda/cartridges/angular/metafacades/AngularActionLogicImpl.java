@@ -861,8 +861,18 @@ public class AngularActionLogicImpl
         }
 
         if(this.getController() != null) {
-            imports.addAll(((AngularController)this.getController()).getAllRestControllers());
+            if(!CollectionUtils.isEmpty(((AngularController)this.getController()).getAllRestControllers()))
+            {
+                imports.addAll(((AngularController)this.getController()).getAllRestControllers());
+            }
+            
             imports.add(this.getController());
+
+            AngularController controller = (AngularController) this.getController();
+
+            if(!CollectionUtils.isEmpty(controller.getOtherControllers())) {
+                imports.addAll(controller.getOtherControllers());
+            }
         }
 
         return imports;
