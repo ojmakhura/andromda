@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { UseCaseScope } from '@app/utils/use-case-scope';
 ## Find all the fields in the actions of the view
 #foreach ($import in $view.imports)
 #if($import.tableComponentImplementationName)
@@ -53,6 +54,7 @@ export abstract class ${view.varsComponentName} implements OnInit {
     protected formBuilder: FormBuilder;
     protected rxFormBuilder: RxFormBuilder;
     protected _injector: Injector;
+    protected useCaseScope: UseCaseScope;
     @Input() protected pageVariables: any;
 #set ($selections = [])
 #foreach( $variable in $view.variables )
@@ -89,6 +91,7 @@ export abstract class ${view.varsComponentName} implements OnInit {
         this.router = injector.get(Router);
         this.formBuilder = injector.get(FormBuilder);
         this.rxFormBuilder = injector.get(RxFormBuilder);
+        this.useCaseScope = injector.get(UseCaseScope);
 #if(${view.useCase.controller})
         this.${view.useCase.controller.variableName} = injector.get(${view.useCase.controller.name}Impl);
 #foreach ($service in $view.useCase.controller.allRestControllers)

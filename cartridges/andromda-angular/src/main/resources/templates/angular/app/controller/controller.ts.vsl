@@ -79,7 +79,6 @@ $action.trigger.getDocumentation("     * ")
 #end
     {        
         let forward: string = null;
-
 #if ($action.finalStateTarget)
 #set($targetController = $action.target.targetElement.controller)
 #if(${targetController.name} == $controller.name)
@@ -92,18 +91,13 @@ $action.trigger.getDocumentation("     * ")
         //trigger method execution
 #if($action.exitingInitialState)  
         let form: any = Object.assign({}, pageVariables);
-        this.${action.triggerMethodName}(form);
-#else
-        this.${action.triggerMethodName}(form);
 #end
+        this.${action.triggerMethodName}(form);
 
-#if(!$action.exitingInitialState) 
-        this.pageVariables = Object.assign({}, form);
-#end
 #processTransition($action)
 #saveMessages($action "        ")
 #if ($formPopulationOperationRequired)
-        
+        this.useCaseScope.pageVariables = Object.assign({}, form);
 #if(!$action.exitingInitialState && !$action.enteringFinalState)
         if(forward !== null)
         {
@@ -117,7 +111,6 @@ $action.trigger.getDocumentation("     * ")
 #end
 #end
 #if($action.exitingInitialState)
-        this.pageVariables = pageVariables;
         return forward;
 #else
         if(forward !== null) {

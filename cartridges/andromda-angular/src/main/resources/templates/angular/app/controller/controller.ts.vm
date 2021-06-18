@@ -9,8 +9,6 @@
 #set($targetController = $transition.target.targetElement.controller)
 #if($targetController.name)
 #if(${targetController.name} != $controller.name)
-##        let ${stringUtils.uncapitalize(${targetController.name})} = this._injector.get(${targetController.implementationName});
-##        ${stringUtils.uncapitalize(${targetController.name})}.pageVariables = Object.assign({}, form);
         forward = '${targetController.useCase.routerPath}';
 #else
         forward = '$useCase.routerPath';

@@ -17,6 +17,7 @@ import { $import.implementationName } from '@app/${import.implementationFilePath
 import { $import.name } from '@app/${import.filePath}';
 #end
 #end
+import { UseCaseScope } from '@app/utils/use-case-scope';
 
 @Component({
   selector: '${action.selectorName}-base',
@@ -41,7 +42,6 @@ export abstract class ${action.componentName} implements OnInit {
 #end
 #end
     @Input() $action.formName: FormGroup;
-    @Input() pageVariables: any;
 #foreach ( $table in $action.source.tables )
 	@Output() ${table.name}: EventEmitter<any> = new EventEmitter();
 #end
@@ -59,6 +59,7 @@ export abstract class ${action.componentName} implements OnInit {
 #end
     protected formBuilder: FormBuilder;
     protected _injector: Injector;
+    protected useCaseScope: UseCaseScope;
 #set ($selections = [])
 #foreach( $parameter in $action.parameters )
 #if($parameter.complex)
@@ -87,6 +88,7 @@ export abstract class ${action.componentName} implements OnInit {
 
         this.route = injector.get(ActivatedRoute);
         this.router = injector.get(Router);
+        this.useCaseScope = injector.get(UseCaseScope);
 #foreach ($service in $action.controller.allRestControllers)
         this.$stringUtils.uncapitalize($service.name) = injector.get(${service.implementationName});
 #end
@@ -158,17 +160,4 @@ export abstract class ${action.componentName} implements OnInit {
         this.${action.formEventName}.emit();
         this.after$stringUtils.capitalize(${action.triggerName})();
     }
-##if($action.controller)
-##
-##    get ${action.controller.variableName}(): ${action.controller.implementationName} {
-##        
-##        return this._injector.get(${action.controller.implementationName});
-##    }
-##foreach ($controller in ${action.controller.otherControllers})
-##
-##    get ${controller.variableName}(): ${controller.implementationName} {
-##        return this._injector.get(${controller.implementationName});
-##    }
-##end
-##end
 }

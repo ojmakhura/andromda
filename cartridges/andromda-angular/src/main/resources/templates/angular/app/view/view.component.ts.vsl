@@ -5,6 +5,7 @@ import { OnInit, Injector, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
 import { FormGroup, FormControl, FormArray, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { UseCaseScope } from '@app/utils/use-case-scope';
 
 ## Find all the fields in the actions of the view
 #foreach($import in $view.imports)
@@ -51,6 +52,7 @@ export abstract class $view.componentName implements OnInit {
     protected formBuilder: FormBuilder;
     protected rxFormBuilder: RxFormBuilder;
     protected _injector: Injector;
+    protected useCaseScope: UseCaseScope;
 #foreach($controller in $view.targetControllers)
     $controller.variableName: ${controller.implementationName};
 #end
@@ -74,6 +76,7 @@ export abstract class $view.componentName implements OnInit {
         this.router = injector.get(Router);
         this.formBuilder = injector.get(FormBuilder);
         this.rxFormBuilder = injector.get(RxFormBuilder);
+        this.useCaseScope = injector.get(UseCaseScope);
 #if(${view.useCase.controller})
 #foreach ($service in $view.useCase.controller.allRestControllers)
         this.$stringUtils.uncapitalize($service.name) = injector.get(${service.implementationName});
@@ -176,13 +179,6 @@ export abstract class $view.componentName implements OnInit {
         this.${action.controller.variableName}.${action.triggerName}(#if(!$action.formFields.empty)form#else{}#end);
 
         this.${afterAction}(#if(!$action.formFields.empty)form#end);
-#if ($action.finalStateTarget)
-#set($targetController = $action.target.targetElement.controller)
-#set($controller = $action.useCase.controller)
-#if($targetController.name != $controller.name)
-        this.${stringUtils.uncapitalize(${targetController.name})}.pageVariables = Object.assign({}, form);
-#end
-#end
 #end
     }
 

@@ -7,6 +7,7 @@ import { RxFormBuilder } from '@rxweb/reactive-form-validators';
 import { FormArray } from '@angular/forms';
 import { ControllerBase } from '@app/controller/utils/controller.base';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UseCaseScope } from '@app/utils/use-case-scope';
 
 #foreach ($import in $table.imports)
 #if($import.tableComponentImplementationName)
@@ -52,6 +53,7 @@ export abstract class ${table.tableComponentName} implements OnInit {
     @Input() protected pageVariables: any;
     protected route: ActivatedRoute;
     protected router: Router;
+    protected useCaseScope: UseCaseScope;
 #foreach($service in $restControllers)
     protected $stringUtils.uncapitalize($service.name): ${service.implementationName};
 #end
@@ -67,6 +69,7 @@ export abstract class ${table.tableComponentName} implements OnInit {
     constructor(injector: Injector) {
         this.route = injector.get(ActivatedRoute);
         this.router = injector.get(Router);
+        this.useCaseScope = injector.get(UseCaseScope);
 #foreach($service in $restControllers)
         this.$stringUtils.uncapitalize($service.name) = injector.get(${service.implementationName});
 #end
@@ -102,25 +105,7 @@ export abstract class ${table.tableComponentName} implements OnInit {
 	${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes()) {
         let form = #renderAngularTableCommandLinkParametersForm()
         let params = this.do$stringUtils.capitalize(${action.triggerName})(form);
-#if ($action.finalStateTarget)
-#set($targetController = $action.target.targetElement.controller)
-#if(${targetController.name} != ${action.controller.name})
-        this.${targetController.variableName}.pageVariables = Object.assign({}, params);
-#end
-#end
-        this.${action.controller.variableName}.${action.triggerName}(form);
+        this.${action.controller.variableName}.${action.triggerName}(params);
 	}
 #end
-##if(${table.view.useCase.controller})
-##
-##    get ${table.view.useCase.controller.variableName}(): ${table.view.useCase.controller.implementationName} {  
-##        return this._injector.get(${table.view.useCase.controller.implementationName});
-##    }
-##foreach ($controller in ${table.view.useCase.controller.otherControllers})
-##
-##    get ${controller.variableName}(): ${controller.implementationName} {
-##        return this._injector.get(${controller.implementationName});
-##    }
-##end
-##end
 }
