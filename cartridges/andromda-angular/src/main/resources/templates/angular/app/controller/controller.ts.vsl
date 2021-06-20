@@ -97,7 +97,7 @@ $action.trigger.getDocumentation("     * ")
 #processTransition($action)
 #saveMessages($action "        ")
 #if ($formPopulationOperationRequired)
-        this.useCaseScope.pageVariables = Object.assign({}, form);
+        
 #if(!$action.exitingInitialState && !$action.enteringFinalState)
         if(forward !== null)
         {

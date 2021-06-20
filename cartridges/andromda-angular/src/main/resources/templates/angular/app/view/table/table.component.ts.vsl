@@ -23,9 +23,6 @@ import { $import.name } from '@app/${import.filePath}';
 import { ${table.view.componentImplementationName} } from '@app/${table.view.implementationFilePath}';
 #if(${table.view.useCase.controller})
 import { ${table.view.useCase.controller.implementationName} } from '@app/${table.view.useCase.controller.implementationFilePath}';
-#foreach ($controller in ${table.view.useCase.controller.otherControllers})
-import { ${controller.implementationName} } from '@app/${controller.implementationFilePath}';
-#end
 #end
 
 @Component({
@@ -75,9 +72,6 @@ export abstract class ${table.tableComponentName} implements OnInit {
 #end
 #if(${table.view.useCase.controller})
         this.${table.view.useCase.controller.variableName} = injector.get(${table.view.useCase.controller.implementationName});
-#foreach ($controller in ${table.view.useCase.controller.otherControllers})
-        this.${controller.variableName} = injector.get(${controller.implementationName});
-#end
 #end
         this.${table.view.variableName} = injector.get(${table.view.componentImplementationName});
         this._injector = injector;
@@ -105,6 +99,7 @@ export abstract class ${table.tableComponentName} implements OnInit {
 	${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes()) {
         let form = #renderAngularTableCommandLinkParametersForm()
         let params = this.do$stringUtils.capitalize(${action.triggerName})(form);
+        this.useCaseScope.pageVariables = Object.assign({}, params);
         this.${action.controller.variableName}.${action.triggerName}(params);
 	}
 #end

@@ -182,7 +182,6 @@ export abstract class $view.componentName implements OnInit {
 #end
     }
 
-
 #if(!$action.formFields.empty)
     get$stringUtils.capitalize($action.formName)(value: any): $stringUtils.capitalize($action.formName) {
         
