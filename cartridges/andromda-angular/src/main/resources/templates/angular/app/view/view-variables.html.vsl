@@ -20,8 +20,8 @@
         <thead>
 #foreach ($variable in $simple)
             <tr>
-		        <th>$stringUtils.toPhrase($variable.name): </th>
-			    <th><input formControlName="$variable.name" disabled/></th>
+		        <th>{{'${variable.messageKey}' | translate}}: </th>
+			    <td><input formControlName="$variable.name" disabled/></td>
             <tr>
 #end
         </thead>
@@ -38,8 +38,8 @@
 #foreach ($attribute in $normals)
 #if (!$attribute.inputHidden && !$variable.inputHidden)
                     <tr>
-                        <th>$stringUtils.toPhrase($attribute.name): </th>
-                        <th><input formControlName="$attribute.name" disabled/> </th>
+                        <th>{{'${attribute.messageKey}' | translate}}: </th>
+                        <td><input formControlName="$attribute.name" disabled/> </td>
                     <tr>
 #end
 #end
@@ -49,7 +49,7 @@
 #if ($tables.size() > 0)
                     <mat-tab-group animationDuration="0ms" class = "view-tabs">
 #foreach($table in $tables)
-                        <mat-tab label="$stringUtils.toPhrase($table.label)">
+                        <mat-tab label="{{'${table.messageKey}' | translate}}">
 #renderAngularActionInput($table $variable "		                    " true)
                         </mat-tab>
 #end

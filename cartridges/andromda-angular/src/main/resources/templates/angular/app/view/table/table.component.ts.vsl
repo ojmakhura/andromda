@@ -56,9 +56,6 @@ export abstract class ${table.tableComponentName} implements OnInit {
 #end
 #if(${table.view.useCase.controller})
     protected ${table.view.useCase.controller.variableName}: ${table.view.useCase.controller.implementationName};
-#foreach ($controller in ${table.view.useCase.controller.otherControllers})
-    protected ${controller.variableName}: ${controller.implementationName};
-#end
 #end
     protected ${table.view.variableName}: ${table.view.componentImplementationName};
     protected _injector: Injector;

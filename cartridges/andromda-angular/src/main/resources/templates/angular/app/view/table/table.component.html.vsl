@@ -15,18 +15,18 @@
 #set($columnName = $column)
 #end
             <ng-container matColumnDef="${columnName}">
-                <mat-header-cell *matHeaderCellDef>$stringUtils.toPhrase(${columnName})</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef translate>$table.getTableColumnMessageKey($columnName)</mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{ row.get('${columnName}').value }} </mat-cell>
             </ng-container>
 #end
 #if ($table.tableFormActions.size() > 0)
             <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
                 <mat-cell *matCellDef="let row">
                     <div class = "form-group">
 #foreach ($action in $table.tableFormActions)
-                        <button type = "button" class="btn btn-info" (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())">
-                            $stringUtils.capitalize($action.trigger.messageKey)
+                        <button type = "button" class="btn btn-info" (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())" translate>
+                            $action.trigger.messageKey
                         </button>
 #end
                     </div>    
@@ -37,11 +37,10 @@
 #foreach ($action in $table.tableHyperlinkActions)
 #if (!$action.tableLinkColumnName)
             <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
                 <mat-cell *matCellDef="let row">
                     <div class = "form-group">
-##renderAngularTableCommandLinkParameters("                ")
-                        <a routerLink="" (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())">$stringUtils.toPhrase($action.trigger.messageKey)</a> 
+                        <a routerLink="" (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())" translate>$action.trigger.messageKey</a> 
                     </div>    
                 </mat-cell>
             </ng-container>

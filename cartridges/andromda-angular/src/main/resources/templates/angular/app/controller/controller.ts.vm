@@ -11,7 +11,7 @@
 #if(${targetController.name} != $controller.name)
         forward = '${targetController.useCase.routerPath}';
 #else
-        forward = '$useCase.routerPath';
+        forward = '$controller.useCase.routerPath';
 #end
 #else 
         forward = this.closeDialog();

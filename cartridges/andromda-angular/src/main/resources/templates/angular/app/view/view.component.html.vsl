@@ -30,7 +30,7 @@
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
 		<div class="my-5 ${action.trigger.name}">
-			<button type="button" (click)="${action.triggerName}()" class="btn btn-info">$stringUtils.toPhrase(${action.trigger.name})</button>
+			<button type="button" (click)="${action.triggerName}()" class="btn btn-info" translate>$action.messageKey</button>
 		</div>
 #end
 #end
@@ -39,7 +39,8 @@
 #if ( $view.tables.size() > 0 )
 	<mat-tab-group animationDuration="0ms" class = "tables">
 #foreach ( $table in $view.tables )
-		<mat-tab label="$stringUtils.toPhrase(${table.name})">
+		<mat-tab class="${table.name}">
+			<ng-template mat-tab-label translate> $table.label </ng-template>
 			<$table.fileName 
 				[${table.name}] = "${table.name}">
 			</$table.fileName>

@@ -20,7 +20,6 @@ import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.utils.StringUtilsHelper;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -74,7 +73,7 @@ public class AngularAttributeLogicImpl
     private boolean isNormalizeMessages()
     {
         final String normalizeMessages =
-            ObjectUtils.toString(this.getConfiguredProperty(AngularGlobals.NORMALIZE_MESSAGES));
+            Objects.toString(this.getConfiguredProperty(AngularGlobals.NORMALIZE_MESSAGES));
         return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 
@@ -269,7 +268,7 @@ public class AngularAttributeLogicImpl
     {
         final String backingListName =
             StringUtils.replace(
-                ObjectUtils.toString(this.getConfiguredProperty(AngularGlobals.BACKING_LIST_PATTERN)),
+                Objects.toString(this.getConfiguredProperty(AngularGlobals.BACKING_LIST_PATTERN)),
                 "{0}",
                 this.getFormPropertyId(ownerParameter));
         return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
@@ -284,7 +283,7 @@ public class AngularAttributeLogicImpl
     {
         final String backingListName =
             StringUtils.replace(
-                ObjectUtils.toString(this.getConfiguredProperty(AngularGlobals.BACKING_VALUE_PATTERN)),
+                Objects.toString(this.getConfiguredProperty(AngularGlobals.BACKING_VALUE_PATTERN)),
                 "{0}",
                 this.getFormPropertyId(ownerParameter));
         return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
@@ -298,7 +297,7 @@ public class AngularAttributeLogicImpl
     protected String handleGetLabelListName(final ParameterFacade ownerParameter)
     {
         return StringUtils.replace(
-            ObjectUtils.toString(this.getConfiguredProperty(AngularGlobals.LABEL_LIST_PATTERN)),
+            Objects.toString(this.getConfiguredProperty(AngularGlobals.LABEL_LIST_PATTERN)),
             "{0}",
             this.getFormPropertyId(ownerParameter));
     }
@@ -311,7 +310,7 @@ public class AngularAttributeLogicImpl
     protected String handleGetValueListName(final ParameterFacade ownerParameter)
     {
         return StringUtils.replace(
-            ObjectUtils.toString(this.getConfiguredProperty(AngularGlobals.VALUE_LIST_PATTERN)),
+            Objects.toString(this.getConfiguredProperty(AngularGlobals.VALUE_LIST_PATTERN)),
             "{0}",
             this.getFormPropertyId(ownerParameter));
     }
@@ -546,7 +545,7 @@ public class AngularAttributeLogicImpl
      */
     private String getInputType()
     {
-        return ObjectUtils.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
+        return Objects.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
     }
 
     /**

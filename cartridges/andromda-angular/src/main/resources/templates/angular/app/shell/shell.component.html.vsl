@@ -8,7 +8,7 @@
       ngClass.gt-sm="has-border"
     >
       <mat-toolbar color="primary">
-        <span translate>APP_NAME</span>
+        <span translate>application.name</span>
         <div fxFlex></div>
         <div></div>
         <app-language-selector icon="true"></app-language-selector>
@@ -22,7 +22,7 @@
 #foreach ($useCase in $useCases)
           <mat-divider></mat-divider>
           <a mat-list-item routerLink="/$useCase.routerPath" routerLinkActive="active" (click)="isMobile && sidenav.close()">
-            <span translate>${stringUtils.toPhrase(${useCase.name})}</span>
+            <span translate>${useCase.titleKey}</span>
           </a>
 #end
           <mat-divider></mat-divider>

@@ -90,7 +90,7 @@ export abstract class ControllerBase
      */
     setUseCaseScope(useCaseScope: any)
     {
-        localStorage.setItem(ControllerBase.USE_CASE_SCOPE_KEY, JSON.stringify(useCaseScope));
+        this.useCaseScope = useCaseScope;
         return useCaseScope;
     }
     
@@ -110,6 +110,7 @@ export abstract class ControllerBase
 
         //reset the useCaseScope and put the parameters available.
         this.resetUseCaseScope();
+        this.useCaseScope.pageVariables = Object.assign({}, pageVariables);
 
         return this.internalStartUseCase(pageVariables);
     }

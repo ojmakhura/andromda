@@ -84,6 +84,7 @@ $action.trigger.getDocumentation("     * ")
 #if(${targetController.name} == $controller.name)
         forward =#if($targetController) '$controller.useCase.routerPath'#else this.closeDialog()#end; 
 #else
+        this.useCaseScope.pageVariables = Object.assign({}, form);
         forward =#if($targetController) '${action.target.targetController.useCase.routerPath}'#else this.closeDialog()#end;
 #end
 #else

@@ -86,6 +86,30 @@
     </template>
 
     <template
+        path="templates/angular/translations/en-US.json.vsl"
+        outputPattern="src/translations/en-US.json"
+        outlet="angularBase"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularUseCase">
+                    <property name="entryUseCase"/>
+                </type>
+            </modelElement>
+            <modelElement variable="enumerations">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularEnumeration"/>
+            </modelElement>
+            <!-- the crud entity messages are also generated in this bundle -->
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
         path="templates/angular/app/app-routing.module.ts.vsl"
         outputPattern="app-routing.module.ts"
         outlet="angularAppDir"

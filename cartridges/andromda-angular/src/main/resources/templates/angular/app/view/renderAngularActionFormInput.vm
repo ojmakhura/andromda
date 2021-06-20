@@ -27,10 +27,19 @@ ${ident}<div #if($angularUtils.isComplex($parameter) && !$parameter.type.enumera
 #if($angularUtils.isTable($parameter))
 ${ident}	<div class="mat-elevation-z8">
 ${ident}		<mat-table matSort [dataSource]="${parameter.name}.controls" #${parameter.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
-#foreach( $column in $angularUtils.getTableColumns($parameter) )
-${ident}			<ng-container matColumnDef="$column">
-${ident}				<mat-header-cell *matHeaderCellDef>$stringUtils.toPhrase(${column})</mat-header-cell>
-${ident}                <mat-cell *matCellDef="let row"> {{ row.get('${column}').value }} </mat-cell>
+#foreach( $column in $angularUtils.getTableColumns($parameter))
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
+${ident}			<ng-container matColumnDef="$columnName">
+#if($column.name)
+${ident}				<mat-header-cell *matHeaderCellDef translate>$column.messageKey</mat-header-cell>
+#else
+${ident}				<mat-header-cell *matHeaderCellDef translate>$stringUtils.toResourceMessageKey($columnName)</mat-header-cell>
+#end
+${ident}                <mat-cell *matCellDef="let row"> {{ row.get('${columnName}').value }} </mat-cell>
 ${ident}			</ng-container>
 #end
 ${ident}			<mat-header-row *matHeaderRowDef="${parameter.name}Columns"></mat-header-row>
@@ -40,7 +49,7 @@ ${ident}		<mat-paginator #${parameter.name}Paginator="matPaginator" [pageSize]="
 ${ident}	</div>
 #else
 ${ident}	<mat-form-field>
-${ident}		<mat-label>$stringUtils.toPhrase($parameter.name)</mat-label> 
+${ident}		<mat-label translate>$parameter.messageKey</mat-label> 
 #if ($parameter.type.dateType)
 ${ident}	  	<input matInput [matDatepicker]="$propertyId" formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
 ${ident}	  	<mat-datepicker-toggle matSuffix [for]="$propertyId"></mat-datepicker-toggle>

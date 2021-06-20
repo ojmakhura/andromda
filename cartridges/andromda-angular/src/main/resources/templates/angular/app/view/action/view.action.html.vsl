@@ -26,14 +26,12 @@
 #set ($normals = $angularUtils.getStandardAttributes($parameter))
 #set ($tables = $angularUtils.getTableAttributes($parameter))
 #foreach ($attribute in $normals)
-##if (!$attribute.inputHidden && !$parameter.inputHidden)
 #renderAngularActionInput($attribute $parameter "		    ")
-##end
 #end
 #if ($tables.size() > 0)
             <mat-tab-group animationDuration="0ms" class = "view-tabs">
 #foreach($table in $tables)
-                <mat-tab label="$stringUtils.toPhrase($table.label)">
+                <mat-tab label="{{'${table.messageKey}' | translate}}">
 #renderAngularActionInput($table $parameter "		            ")
                 </mat-tab>
 #end

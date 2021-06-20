@@ -25,6 +25,8 @@ import org.andromda.cartridges.angular.metafacades.AngularParameter;
 import org.andromda.cartridges.angular.metafacades.AngularService;
 import org.andromda.cartridges.angular.metafacades.AngularServiceOperation;
 import org.andromda.cartridges.angular.metafacades.AngularServiceParameterLogic;
+import org.andromda.cartridges.angular.metafacades.AngularView;
+import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -505,7 +507,7 @@ public class AngularUtils {
     }
 	
     public static Collection<?> getTableColumns(AngularAttribute attribute) {
-        Collection<String> columns = new ArrayList<>();
+        Collection columns = new ArrayList<>();
         String identifierColumns = Objects.toString(attribute.findTaggedValue("andromda_presentation_view_field_table_identifier_columns"), "").trim();
         String viewColumns = Objects.toString(attribute.findTaggedValue("andromda_presentation_view_table_columns"), "").trim();
 
@@ -519,7 +521,7 @@ public class AngularUtils {
             }
         } else {
             for(AttributeFacade attr : attribute.getType().getAttributes()) {
-                columns.add(attr.getName());
+                columns.add(attr);
             }
         }
 		
@@ -1972,5 +1974,47 @@ public class AngularUtils {
             }
         }
         return simple;
+    }
+
+    public static String handleGetTableColumnMessageKey(Object column, MetafacadeBase parent)
+    {
+
+        if(column instanceof AngularAttribute) {
+            AngularAttribute attribute = (AngularAttribute) column;
+            return attribute.getMessageKey();
+        } else if(column instanceof AngularParameter) {
+            AngularParameter parameter = (AngularParameter) column;
+            return parameter.getMessageKey();
+        } else if(column instanceof String) {
+
+            if(parent instanceof AngularAttribute) {
+
+                AngularAttribute attribute = (AngularAttribute) parent;
+                final StringBuilder messageKey = new StringBuilder();
+                // if (!attribute.isNormalizeMessages())
+                // {
+                //     final ClassifierFacade owner = attribute.getOwner();
+                //     if (owner != null)
+                //     {
+                //         messageKey.append(StringUtilsHelper.toResourceMessageKey(owner.getName()));
+                //         messageKey.append('.');
+                //     }
+                // }
+                final String name = attribute.getName();
+                if (name != null && name.trim().length() > 0)
+                {
+                    messageKey.append(StringUtilsHelper.toResourceMessageKey(name));
+                }
+                return messageKey.toString();
+
+            } else if(column instanceof AngularParameter) {
+                AngularParameter parameter = (AngularParameter) parent;
+                return parameter.getTableColumnMessageKey((String) column);
+            } else {
+                return StringUtilsHelper.toResourceMessageKey((String) column);
+            }
+        }
+
+        return null;
     }
 }
