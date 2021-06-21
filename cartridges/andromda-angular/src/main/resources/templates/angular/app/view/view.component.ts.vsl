@@ -57,6 +57,7 @@ export abstract class $view.componentName implements OnInit {
     $controller.variableName: ${controller.implementationName};
 #end
 #if(${view.useCase.controller})
+    ${view.useCase.controller.variableName}: ${view.useCase.controller.implementationName};
 #foreach ($service in $view.useCase.controller.allRestControllers)
     $stringUtils.uncapitalize($service.name): ${service.implementationName};
 #end
@@ -78,6 +79,7 @@ export abstract class $view.componentName implements OnInit {
         this.rxFormBuilder = injector.get(RxFormBuilder);
         this.useCaseScope = injector.get(UseCaseScope);
 #if(${view.useCase.controller})
+        this.${view.useCase.controller.variableName} = injector.get(${view.useCase.controller.implementationName});
 #foreach ($service in $view.useCase.controller.allRestControllers)
         this.$stringUtils.uncapitalize($service.name) = injector.get(${service.implementationName});
 #end
@@ -101,6 +103,19 @@ export abstract class $view.componentName implements OnInit {
         );
         
         this.afterOnInit();
+    }
+
+    abstract handleFormChanges(change: any): void;
+
+    abstract afterOnInit(): void;
+    
+    abstract doNgAfterViewInit(): void;
+
+    ngAfterViewInit() {
+#if(${view.useCase.controller})
+        this.${view.useCase.controller.variableName}.resetUseCaseScope();
+#end
+        this.doNgAfterViewInit();
     }
 
     newForm(): FormGroup {
@@ -233,15 +248,6 @@ export abstract class $view.componentName implements OnInit {
     }
 
 #end
-    abstract handleFormChanges(change: any): void;
-
-    abstract afterOnInit(): void;
-    
-    abstract doNgAfterViewInit(): void;
-
-    ngAfterViewInit() {
-        this.doNgAfterViewInit();
-    }
 
     getItemControl(name: string): FormControl {
         return this.${view.formName}.get(name) as FormControl;
@@ -277,12 +283,6 @@ export abstract class $view.componentName implements OnInit {
         return this.getArrayControl('$table.name');
     }
 
-#end
-#if(${view.useCase.controller})
-    get ${view.useCase.controller.variableName}(): ${view.useCase.controller.implementationName} {
-        
-        return this._injector.get(${view.useCase.controller.implementationName});
-    }
 #end
 #foreach($table in $view.tables)
 
