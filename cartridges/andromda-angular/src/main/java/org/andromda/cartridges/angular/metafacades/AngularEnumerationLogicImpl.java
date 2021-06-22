@@ -67,4 +67,15 @@ public class AngularEnumerationLogicImpl
     {
         return StringUtilsHelper.toResourceMessageKey(getName());
     }
+
+    @Override
+    protected String handleGetFilePath() {
+        return "model/" + this.getPackagePath() + '/' + this.getFileName();
+    }
+
+    @Override
+    protected String handleGetFileName() {
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-");
+    }
 }

@@ -24,6 +24,7 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndView;
@@ -1325,5 +1326,129 @@ public class AngularParameterLogicImpl
             result.add(AN_REQUIRED);
         }
         return result;
+    }
+
+    @Override
+    protected Collection<ModelElementFacade> handleGetImports() {
+        HashSet<ModelElementFacade> imports = new HashSet<>();
+
+        for(AttributeFacade attribute : this.getType().getAttributes()) {
+            if(attribute.getType().isEnumeration() || !attribute.getType().getAttributes().isEmpty()) {
+                imports.add(attribute.getType());
+            }
+        }
+
+        if(this.getAction() != null && this.getAction().getController() != null) {
+            imports.add(this.getAction().getController());
+        }
+
+        if(this.getView() != null) {
+            for(FrontEndParameter _var : this.getView().getVariables() ) {
+                AngularParameter var = (AngularParameter) _var;
+                if(var.isComplex()) {
+                    imports.add(var.getType());
+                }
+            }
+        }
+        
+        if(this.getType() instanceof AngularModel) {
+            imports.add(this.getType());
+        }
+        
+        imports.addAll(this.getRestControllers());
+
+        return imports;
+    }
+
+    private String removeWhitespaceFromName(String name) {
+
+        String original = StringUtilsHelper.upperCamelCaseName(name);
+        original = original.replace(" ", "");
+
+        return original;
+    }
+
+    @Override
+    protected String handleGetAngularTypeName() {
+        String type = AngularUtils.getDatatype(this.getType().getName());
+
+        if(type.equals("any[]")) {
+            type = "any";
+        } else if(type.equals("any[][]")) {
+            type = "any[]";
+        } else if(type.equals("any[][][]")) {
+            type = "any[][]";
+        }
+
+        return type;
+    }
+
+    @Override
+    protected String handleGetFilePath() {
+        AngularView view = (AngularView) this.getView();
+        return view.getViewPath() + '/' + this.getFileName() + ".component";
+    }
+
+    @Override
+    protected String handleGetFileName() {
+        String viewPart = StringUtilsHelper.toPhrase(this.getView().getName()).toLowerCase();
+        String name = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return viewPart.replace(" ", "-") + "-" + name.replace(" ", "-");
+    }
+
+    @Override
+    protected String handleGetImplementationFileName() {
+        return this.getFileName();
+    }
+
+    @Override
+    protected String handleGetImplementationFilePath() {
+        return this.getFilePath() + ".impl";
+    }
+
+    @Override
+    protected String handleGetTableComponentName() {
+        if(!this.isTable()) {
+            return null;
+        }
+        String viewName = this.removeWhitespaceFromName(this.getView().getName());
+        String tableName = StringUtilsHelper.capitalize(this.getName());
+        return viewName + tableName + "Component";
+    }
+
+    @Override
+    protected String handleGetTableComponentImplementationName() {
+
+        if(!this.isTable()) {
+            return null;
+        }
+
+        return this.getTableComponentName() + "Impl";
+    }
+
+    @Override
+    protected String handleGetTableSelectorName() {
+        String phrase = StringUtilsHelper.toPhrase(this.getView().getName() + '-' + this.getName()).toLowerCase();
+        return phrase.replace(" ", "-");
+    }
+
+    @Override
+    protected Collection handleGetRestControllers() {
+        HashSet<AngularService> services = new HashSet<>();
+
+        if(this.getAction() != null && this.getAction().getController() != null) {
+            services.addAll(((AngularController)this.getAction().getController()).getAllRestControllers());
+
+            if(this.getTableActions() != null) {
+                for(AngularAction action : this.getTableActions()) {
+
+                    if(action.getController() != null) {
+                        services.addAll(((AngularController)action.getController()).getAllRestControllers());
+                    }
+                }
+            }
+        }
+
+        return services;
     }
 }

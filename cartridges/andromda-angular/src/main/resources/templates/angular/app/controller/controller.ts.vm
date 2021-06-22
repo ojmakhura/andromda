@@ -5,28 +5,24 @@
 #if (!$transition)
         forward = null;
 #elseif ($transition.enteringFinalState)
+
 #set($targetController = $transition.target.targetElement.controller)
-#set($targetControllerBeanName = $transition.target.targetControllerBeanName)
-##if($targetControlle.name)(<$targetController.name>JSON.parse(localStorage.getItem('$targetControllerBeanName'))).startUseCase()#else this.closeDialog()#end;
 #if($targetController.name)
 #if(${targetController.name} != $controller.name)
-        this.${stringUtils.uncapitalize(${targetController.name})}.pageVariables = form;
-        forward = this.${stringUtils.uncapitalize(${targetController.name})}.startUseCase();
+        forward = '${targetController.useCase.routerPath}';
 #else
-        forward = this.startUseCase();
+        forward = '$controller.useCase.routerPath';
 #end
 #else 
         forward = this.closeDialog();
 #end
 #elseif ($transition.enteringView)
-#set ($pt = $angularUtils.getComponentFileName(${transition.target.name}))
-#set ( $cls = $angularUtils.getComponentName($pt, "-") )
-        forward = '$stringUtils.lowerCase($cls)';
+        forward = '${transition.target.useCase.routerPath}/${transition.target.routerPath}';
 #elseif ($transition.enteringDecisionPoint)
         forward = this.__${transition.operationCall.name}(form);
 #else
 #if($action.exitingInitialState)  
-        forward = this.${transition.target.actionMethodName}#if (!$transition.formFields.empty)${action.formImplementationName}#end(pageVariables);
+        forward = this.${transition.target.actionMethodName}#if (!$transition.formFields.empty)${action.formImplementationName}#end(form);
 #else
         forward = this.${transition.target.actionMethodName}#if (!$transition.formFields.empty)${action.formImplementationName}#end(form);
 #end

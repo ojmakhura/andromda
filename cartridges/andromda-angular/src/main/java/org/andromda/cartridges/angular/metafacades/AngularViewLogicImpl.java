@@ -5,6 +5,7 @@ package org.andromda.cartridges.angular.metafacades;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -16,38 +17,41 @@ import org.andromda.cartridges.angular.AngularProfile;
 import org.andromda.cartridges.angular.AngularUtils;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
+import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
- * Represents a Angular view for a front-end application.
- * MetafacadeLogic implementation for org.andromda.cartridges.angular.metafacades.AngularView.
+ * Represents a Angular view for a front-end application. MetafacadeLogic
+ * implementation for org.andromda.cartridges.angular.metafacades.AngularView.
  *
  * @see org.andromda.cartridges.angular.metafacades.AngularView
  */
-public class AngularViewLogicImpl
-    extends AngularViewLogic
-{
+public class AngularViewLogicImpl extends AngularViewLogic {
     private static final long serialVersionUID = 34L;
+
+    private static final Logger logger = Logger.getLogger(AngularViewLogicImpl.class);
+
     /**
      * Public constructor for AngularViewLogicImpl
+     * 
      * @see org.andromda.cartridges.angular.metafacades.AngularView
      */
-    public AngularViewLogicImpl (Object metaObject, String context)
-    {
+    public AngularViewLogicImpl(Object metaObject, String context) {
         super(metaObject, context);
     }
 
     /**
-     * @return getMessageKey() + '.' + AngularGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX
+     * @return getMessageKey() + '.' +
+     *         AngularGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX
      * @see org.andromda.cartridges.angular.metafacades.AngularView#getDocumentationKey()
      */
-    protected String handleGetDocumentationKey()
-    {
+    protected String handleGetDocumentationKey() {
         return getMessageKey() + '.' + AngularGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX;
     }
 
@@ -55,15 +59,12 @@ public class AngularViewLogicImpl
      * @return messageKey
      * @see org.andromda.cartridges.angular.metafacades.AngularView#getMessageKey()
      */
-    protected String handleGetMessageKey()
-    {
+    protected String handleGetMessageKey() {
         final StringBuilder messageKey = new StringBuilder();
 
-        if (!this.isNormalizeMessages())
-        {
+        if (!this.isNormalizeMessages()) {
             final UseCaseFacade useCase = this.getUseCase();
-            if (useCase != null)
-            {
+            if (useCase != null) {
                 messageKey.append(StringUtilsHelper.toResourceMessageKey(useCase.getName()));
                 messageKey.append('.');
             }
@@ -78,17 +79,15 @@ public class AngularViewLogicImpl
      *
      * @return true/false
      */
-    private boolean isNormalizeMessages()
-    {
-        final String normalizeMessages = (String)getConfiguredProperty(AngularGlobals.NORMALIZE_MESSAGES);
+    private boolean isNormalizeMessages() {
+        final String normalizeMessages = (String) getConfiguredProperty(AngularGlobals.NORMALIZE_MESSAGES);
         return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 
     /**
      * @see org.andromda.cartridges.angular.metafacades.AngularViewLogic#handleGetMessageValue()
      */
-    protected String handleGetMessageValue()
-    {
+    protected String handleGetMessageValue() {
         return StringUtilsHelper.toPhrase(getName());
     }
 
@@ -96,8 +95,7 @@ public class AngularViewLogicImpl
      * @return documentationValue
      * @see org.andromda.cartridges.angular.metafacades.AngularView#getDocumentationValue()
      */
-    protected String handleGetDocumentationValue()
-    {
+    protected String handleGetDocumentationValue() {
         final String value = StringUtilsHelper.toResourceMessage(getDocumentation(""));
         return value == null ? "" : value;
     }
@@ -106,8 +104,7 @@ public class AngularViewLogicImpl
      * @return getMessageKey() + '.' + AngularGlobals.TITLE_MESSAGE_KEY_SUFFIX
      * @see org.andromda.cartridges.angular.metafacades.AngularView#getTitleKey()
      */
-    protected String handleGetTitleKey()
-    {
+    protected String handleGetTitleKey() {
         return this.getMessageKey() + '.' + AngularGlobals.TITLE_MESSAGE_KEY_SUFFIX;
     }
 
@@ -115,8 +112,7 @@ public class AngularViewLogicImpl
      * @return toPhrase(getName())
      * @see org.andromda.cartridges.angular.metafacades.AngularView#getTitleValue()
      */
-    protected String handleGetTitleValue()
-    {
+    protected String handleGetTitleValue() {
         return StringUtilsHelper.toPhrase(getName());
     }
 
@@ -124,42 +120,30 @@ public class AngularViewLogicImpl
      * @return path
      * @see org.andromda.cartridges.angular.metafacades.AngularView#getPath()
      */
-    protected String handleGetPath()
-    {
+    protected String handleGetPath() {
         final StringBuilder path = new StringBuilder();
+        path.append("app/view");
         final String packageName = this.getPackageName();
-        if (StringUtils.isNotBlank(packageName))
-        {
+        if (StringUtils.isNotBlank(packageName)) {
             path.append(packageName + '.');
         }
-        path.append(AngularUtils.toWebResourceName(StringUtils.trimToEmpty(this.getName())).replace(
-                '.',
-                '/'));
-        return '/' + path.toString().replace(
-            '.',
-            '/');
+        path.append(AngularUtils.toWebResourceName(StringUtils.trimToEmpty(this.getName())).replace('.', '/'));
+        return '/' + path.toString().replace('.', '/');
     }
 
     /**
      * @return forwards
      * @see org.andromda.cartridges.angular.metafacades.AngularView#getForwards()
      */
-    protected List<ModelElementFacade> handleGetForwards()
-    {
+    protected List<ModelElementFacade> handleGetForwards() {
         final Map<String, ModelElementFacade> forwards = new LinkedHashMap<String, ModelElementFacade>();
-        for (final FrontEndAction action : this.getActions())
-        {
-            if (action != null && !action.isUseCaseStart())
-            {
-                for (final FrontEndForward forward : action.getActionForwards())
-                {
-                    if (forward instanceof AngularForward)
-                    {
-                        forwards.put(((AngularForward)forward).getName(), forward);
-                    }
-                    else if (forward instanceof AngularAction)
-                    {
-                        forwards.put(((AngularAction)forward).getName(), forward);
+        for (final FrontEndAction action : this.getActions()) {
+            if (action != null && !action.isUseCaseStart()) {
+                for (final FrontEndForward forward : action.getActionForwards()) {
+                    if (forward instanceof AngularForward) {
+                        forwards.put(((AngularForward) forward).getName(), forward);
+                    } else if (forward instanceof AngularAction) {
+                        forwards.put(((AngularAction) forward).getName(), forward);
                     }
                 }
             }
@@ -171,17 +155,13 @@ public class AngularViewLogicImpl
      * @return tables
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#isTableLink()
      */
-    protected List<AngularParameter> handleGetTables()
-    {
+    protected List<AngularParameter> handleGetTables() {
         final List<AngularParameter> tables = new ArrayList<AngularParameter>();
         final List<FrontEndParameter> variables = this.getVariables();
-        for (FrontEndParameter parameter : variables)
-        {
-            if (parameter instanceof AngularParameter)
-            {
-                final AngularParameter variable = (AngularParameter)parameter;
-                if (variable.isTable())
-                {
+        for (FrontEndParameter parameter : variables) {
+            if (parameter instanceof AngularParameter) {
+                final AngularParameter variable = (AngularParameter) parameter;
+                if (variable.isTable()) {
                     tables.add(variable);
                 }
             }
@@ -193,13 +173,10 @@ public class AngularViewLogicImpl
      * @return actionForwards
      * @see org.andromda.cartridges.angular.metafacades.AngularViewLogic#getActionForwards()
      */
-    protected List<AngularForward> handleGetActionForwards()
-    {
+    protected List<AngularForward> handleGetActionForwards() {
         final List<AngularForward> actionForwards = new ArrayList<AngularForward>(this.getForwards());
-        for (final Iterator<AngularForward> iterator = actionForwards.iterator(); iterator.hasNext();)
-        {
-            if (!(iterator.next() instanceof AngularAction))
-            {
+        for (final Iterator<AngularForward> iterator = actionForwards.iterator(); iterator.hasNext();) {
+            if (!(iterator.next() instanceof AngularAction)) {
                 iterator.remove();
             }
         }
@@ -210,12 +187,10 @@ public class AngularViewLogicImpl
      * @return populatorName
      * @see org.andromda.cartridges.angular.metafacades.AngularViewLogic#getFullyQualifiedPopulator()
      */
-    protected String handleGetFullyQualifiedPopulator()
-    {
+    protected String handleGetFullyQualifiedPopulator() {
         final StringBuilder name = new StringBuilder();
         final String packageName = this.getPackageName();
-        if (StringUtils.isNotBlank(packageName))
-        {
+        if (StringUtils.isNotBlank(packageName)) {
             name.append(packageName);
             name.append('.');
         }
@@ -227,24 +202,19 @@ public class AngularViewLogicImpl
      * @return populator
      * @see org.andromda.cartridges.angular.metafacades.AngularViewLogic#getPopulator()
      */
-    protected String handleGetPopulator()
-    {
-        return Objects.toString(this.getConfiguredProperty(AngularGlobals.VIEW_POPULATOR_PATTERN), "").replaceAll(
-            "\\{0\\}",
-            StringUtilsHelper.upperCamelCaseName(this.getName()));
+    protected String handleGetPopulator() {
+        return Objects.toString(this.getConfiguredProperty(AngularGlobals.VIEW_POPULATOR_PATTERN), "")
+                .replaceAll("\\{0\\}", StringUtilsHelper.upperCamelCaseName(this.getName()));
     }
 
     /**
      * @see org.andromda.cartridges.angular.metafacades.AngularViewLogic#handleGetFormActions()
      */
-    protected List<FrontEndAction> handleGetFormActions()
-    {
+    protected List<FrontEndAction> handleGetFormActions() {
         final List<FrontEndAction> actions = new ArrayList<FrontEndAction>(this.getActions());
-        for (final Iterator<FrontEndAction> iterator = actions.iterator(); iterator.hasNext();)
-        {
+        for (final Iterator<FrontEndAction> iterator = actions.iterator(); iterator.hasNext();) {
             final FrontEndAction action = iterator.next();
-            if (action.getFormFields().isEmpty())
-            {
+            if (action.getFormFields().isEmpty()) {
                 iterator.remove();
             }
         }
@@ -255,30 +225,25 @@ public class AngularViewLogicImpl
      * @return formKey
      * @see org.andromda.cartridges.angular.metafacades.AngularView#getFormKey()
      */
-    protected String handleGetFormKey()
-    {
+    protected String handleGetFormKey() {
         final Object formKeyValue = this.findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_FORM_KEY);
         return formKeyValue == null ? Objects.toString(this.getConfiguredProperty(AngularGlobals.ACTION_FORM_KEY), "")
-                                    : String.valueOf(formKeyValue);
+                : String.valueOf(formKeyValue);
     }
 
     /**
      * @return getFullyQualifiedPopulator().replace('.', '/')
      * @see org.andromda.cartridges.angular.metafacades.AngularView#getPopulatorPath()
      */
-    protected String handleGetPopulatorPath()
-    {
-        return this.getFullyQualifiedPopulator().replace(
-            '.',
-            '/');
+    protected String handleGetPopulatorPath() {
+        return this.getFullyQualifiedPopulator().replace('.', '/');
     }
 
     /**
      * @return !getFormActions().isEmpty() || !getVariables().isEmpty()
      * @see org.andromda.cartridges.angular.metafacades.AngularView#isPopulatorRequired()
      */
-    protected boolean handleIsPopulatorRequired()
-    {
+    protected boolean handleIsPopulatorRequired() {
         return !this.getFormActions().isEmpty() || !this.getVariables().isEmpty();
     }
 
@@ -286,13 +251,10 @@ public class AngularViewLogicImpl
      * @return validationRequired
      * @see org.andromda.cartridges.angular.metafacades.AngularView#isPopulatorRequired()
      */
-    protected boolean handleIsValidationRequired()
-    {
+    protected boolean handleIsValidationRequired() {
         boolean required = false;
-        for (final FrontEndAction action : this.getActions())
-        {
-            if (((AngularAction)action).isValidationRequired())
-            {
+        for (final FrontEndAction action : this.getActions()) {
+            if (((AngularAction) action).isValidationRequired()) {
                 required = true;
                 break;
             }
@@ -304,23 +266,19 @@ public class AngularViewLogicImpl
      * @return isPopup
      * @see org.andromda.cartridges.angular.metafacades.AngularView#isPopup()
      */
-    protected boolean handleIsPopup()
-    {
-        return Objects.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_VIEW_TYPE), "").equalsIgnoreCase(
-            AngularGlobals.ACTION_TYPE_POPUP);
+    protected boolean handleIsPopup() {
+        return Objects.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_VIEW_TYPE), "")
+                .equalsIgnoreCase(AngularGlobals.ACTION_TYPE_POPUP);
     }
 
     /**
      * @return nonTableVariablesPresent
      * @see org.andromda.cartridges.angular.metafacades.AngularView#isNonTableVariablesPresent()
      */
-    protected boolean handleIsNonTableVariablesPresent()
-    {
+    protected boolean handleIsNonTableVariablesPresent() {
         boolean present = false;
-        for (final FrontEndParameter variable : this.getVariables())
-        {
-            if (!variable.isTable())
-            {
+        for (final FrontEndParameter variable : this.getVariables()) {
+            if (!variable.isTable()) {
                 present = true;
                 break;
             }
@@ -332,13 +290,11 @@ public class AngularViewLogicImpl
      * @return hasNameOfUseCase
      * @see org.andromda.cartridges.angular.metafacades.AngularView#isHasNameOfUseCase()
      */
-    protected boolean handleIsHasNameOfUseCase()
-    {
+    protected boolean handleIsHasNameOfUseCase() {
         boolean sameName = false;
         final ModelElementFacade useCase = this.getUseCase();
         final String useCaseName = useCase != null ? useCase.getName() : null;
-        if (useCaseName != null && useCaseName.equalsIgnoreCase(this.getName()))
-        {
+        if (useCaseName != null && useCaseName.equalsIgnoreCase(this.getName())) {
             sameName = true;
         }
         return sameName;
@@ -348,37 +304,28 @@ public class AngularViewLogicImpl
      * @return backingValueVariables
      * @see org.andromda.cartridges.angular.metafacades.AngularView#getBackingValueVariables()
      */
-    protected List<AngularParameter> handleGetBackingValueVariables()
-    {
+    protected List<AngularParameter> handleGetBackingValueVariables() {
         final Map<String, AngularParameter> variables = new LinkedHashMap<String, AngularParameter>();
-        for (final FrontEndParameter frontEndParameter : this.getAllActionParameters())
-        {
-            if (frontEndParameter instanceof AngularParameter)
-            {
-                final AngularParameter parameter = (AngularParameter)frontEndParameter;
+        for (final FrontEndParameter frontEndParameter : this.getAllActionParameters()) {
+            if (frontEndParameter instanceof AngularParameter) {
+                final AngularParameter parameter = (AngularParameter) frontEndParameter;
                 final String parameterName = parameter.getName();
                 final Collection<AttributeFacade> attributes = parameter.getAttributes();
-                if (parameter.isBackingValueRequired() || parameter.isSelectable())
-                {
-                    if (parameter.isBackingValueRequired() || parameter.isSelectable())
-                    {
+                if (parameter.isBackingValueRequired() || parameter.isSelectable()) {
+                    if (parameter.isBackingValueRequired() || parameter.isSelectable()) {
                         variables.put(parameterName, parameter);
                     }
-                }
-                else
-                {
+                } else {
                     boolean hasBackingValue = false;
-                    for (final AttributeFacade attribute : attributes)
-                    {
-                        final AngularAttribute AngularAttribute = (AngularAttribute)attribute;
-                        if (AngularAttribute.isSelectable(parameter) || AngularAttribute.isBackingValueRequired(parameter))
-                        {
+                    for (final AttributeFacade attribute : attributes) {
+                        final AngularAttribute AngularAttribute = (AngularAttribute) attribute;
+                        if (AngularAttribute.isSelectable(parameter)
+                                || AngularAttribute.isBackingValueRequired(parameter)) {
                             hasBackingValue = true;
                             break;
                         }
                     }
-                    if (hasBackingValue)
-                    {
+                    if (hasBackingValue) {
                         variables.put(parameterName, parameter);
                     }
                 }
@@ -391,8 +338,7 @@ public class AngularViewLogicImpl
      * @return toWebResourceName(this.getUseCase().getName() + "-" + this.getName())
      * @see org.andromda.cartridges.angular.metafacades.AngularView#getFromOutcome()
      */
-    protected String handleGetFromOutcome()
-    {
+    protected String handleGetFromOutcome() {
         return AngularUtils.toWebResourceName(this.getUseCase().getName() + "-" + this.getName());
     }
 
@@ -400,28 +346,20 @@ public class AngularViewLogicImpl
      * @return needsFileUpload
      * @see org.andromda.cartridges.angular.metafacades.AngularView#isNeedsFileUpload()
      */
-    protected boolean handleIsNeedsFileUpload()
-    {
-        if(this.getAllActionParameters().size() == 0)
-        {
+    protected boolean handleIsNeedsFileUpload() {
+        if (this.getAllActionParameters().size() == 0) {
             return false;
         }
 
-        for (final FrontEndParameter feParameter : this.getAllActionParameters())
-        {
-            if (feParameter instanceof AngularParameter)
-            {
-                final AngularParameter parameter = (AngularParameter)feParameter;
-                if(parameter.isInputFile())
-                {
+        for (final FrontEndParameter feParameter : this.getAllActionParameters()) {
+            if (feParameter instanceof AngularParameter) {
+                final AngularParameter parameter = (AngularParameter) feParameter;
+                if (parameter.isInputFile()) {
                     return true;
                 }
-                if(parameter.isComplex())
-                {
-                    for(final Iterator attributes = parameter.getAttributes().iterator(); attributes.hasNext();)
-                    {
-                        if(((AngularAttribute)attributes.next()).isInputFile())
-                        {
+                if (parameter.isComplex()) {
+                    for (final Iterator attributes = parameter.getAttributes().iterator(); attributes.hasNext();) {
+                        if (((AngularAttribute) attributes.next()).isInputFile()) {
                             return true;
                         }
                     }
@@ -435,23 +373,18 @@ public class AngularViewLogicImpl
      * @see org.andromda.cartridges.angular.metafacades.AngularView#getFullyQualifiedPageObjectClassPath()
      */
     @Override
-    protected String handleGetFullyQualifiedPageObjectClassPath() 
-    {
-        return this.getFullyQualifiedPageObjectClassName().replace(
-                        '.',
-                        '/');
+    protected String handleGetFullyQualifiedPageObjectClassPath() {
+        return this.getFullyQualifiedPageObjectClassName().replace('.', '/');
     }
 
     /**
      * @see org.andromda.cartridges.angular.metafacades.AngularView#getFullyQualifiedPageObjectClassName()
      */
     @Override
-    protected String handleGetFullyQualifiedPageObjectClassName() 
-    {
+    protected String handleGetFullyQualifiedPageObjectClassName() {
         final StringBuilder fullyQualifiedName = new StringBuilder();
         final String packageName = this.getPackageName();
-        if (StringUtils.isNotBlank(packageName))
-        {
+        if (StringUtils.isNotBlank(packageName)) {
             fullyQualifiedName.append(packageName + '.');
         }
         return fullyQualifiedName.append(this.getPageObjectClassName()).toString();
@@ -461,17 +394,224 @@ public class AngularViewLogicImpl
      * @see org.andromda.cartridges.angular.metafacades.AngularView#getPageObjectClassName()
      */
     @Override
-    protected String handleGetPageObjectClassName() 
-    {
+    protected String handleGetPageObjectClassName() {
         return StringUtilsHelper.upperCamelCaseName(this.getName());
     }
 
     /**
      * @see org.andromda.cartridges.angular.metafacades.AngularView#getPageObjectBeanName()
      */
+    // @Override
+    // protected String handleGetPageObjectBeanName()
+    // {
+    // return StringUtilsHelper.lowerCamelCaseName(this.getName());
+    // }
+
     @Override
-    protected String handleGetPageObjectBeanName() 
-    {
-        return StringUtilsHelper.lowerCamelCaseName(this.getName());
+    protected Collection<ModelElementFacade> handleGetImports() {
+        Collection<ModelElementFacade> imports = new HashSet<>();
+
+        for (FrontEndAction _action : this.getActions()) {
+            AngularAction action = (AngularAction) _action;
+
+            if(action.isTableAction() || action.isTableLink()) {
+                continue;
+            }
+
+            imports.add(action);
+            imports.addAll(action.getImports());
+
+            if(action.getTarget() != null && action.getTarget() instanceof AngularFinalStateLogicImpl) {
+                AngularFinalStateLogicImpl target = (AngularFinalStateLogicImpl) action.getTarget();
+                if(target.getTargetUseCase() != null && !StringUtilsHelper.isEmpty(target.getTargetUseCase().getName())) {
+                    if(target.getTargetUseCase().getController() != null)
+                    {
+                        imports.add(target.getTargetUseCase().getController());
+                    }
+                }
+            }
+        }
+
+        for(FrontEndParameter _variable : this.getVariables()) {
+            AngularParameter variable = (AngularParameter) _variable;
+            if(variable.isComplex()) {
+                for(Object _attr : variable.getAttributes()){
+                    AngularAttribute attr = (AngularAttribute) _attr;
+                    if(attr.getType().isEnumeration() || !attr.getType().getAttributes().isEmpty()) {
+                        imports.add(attr.getType());
+                    }
+                }
+                imports.add(variable.getType());
+            }
+        }
+        
+        imports.addAll(this.getTables());
+
+        if(this.getUseCase() != null && this.getUseCase().getController() != null) {
+            AngularController controller = (AngularController) this.getUseCase().getController();
+            imports.add(controller);
+            imports.addAll(controller.getAllRestControllers());
+        }
+
+        return imports;
+    }
+
+    @Override
+    protected String handleGetViewPath() {
+        return "view/" + this.getPackagePath();
+    }
+
+    @Override
+    protected String handleGetFileName() {
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-") + ".component";
+    }
+
+    @Override
+    protected String handleGetFilePath() {
+        return getViewPath() + "/" + this.getFileName();
+    }
+
+    @Override
+    protected String handleGetImplementationFileName() {
+        return this.getFileName() + ".impl";
+    }
+
+    @Override
+    protected String handleGetImplementationFilePath() {
+        return this.getFilePath() + ".impl";
+    }
+
+    @Override
+    protected String handleGetSelectorName() {
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-");
+    }
+
+    @Override
+    protected String handleGetRouterPath() {
+        return this.getSelectorName().replace("-", "");
+    }
+
+    @Override
+    protected String handleGetComponentImplementationName() {
+        return this.getComponentName() + "Impl";
+    }
+
+    private String removeWhitespaceFromName() {
+
+        String original = StringUtilsHelper.upperCamelCaseName(this.getName());
+        original = original.replace(" ", "");
+
+        return original;
+    }
+
+    @Override
+    protected String handleGetComponentName() {
+        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "Component";
+    }
+
+    @Override
+    protected String handleGetFormName() {
+        return StringUtilsHelper.lowerCamelCaseName(this.getName()) + "Form";
+    }
+
+    @Override
+    protected String handleGetVarsFormName() {
+        return StringUtilsHelper.lowerCamelCaseName(this.getName()) + "VarsForm";
+    }
+
+    @Override
+    protected String handleGetRoutingModuleName() {
+        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "RoutingModule";
+    }
+
+    @Override
+    protected String handleGetModuleName() {
+        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "Module";
+    }
+
+    @Override
+    protected String handleGetVarsComponentName() {
+        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "VarsComponent";
+    }
+
+    @Override
+    protected String handleGetVarsComponentImplementationName() {
+        return this.getVarsComponentName() + "Impl";
+    }
+
+    @Override
+    protected String handleGetModuleFileName() {
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-") + ".module";
+    }
+
+    @Override
+    protected String handleGetModuleFilePath() {
+        return this.getViewPath() + "/" + this.getModuleFileName();
+    }
+
+    @Override
+    protected String handleGetRoutingModuleFileName() {
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-") + "-routing.module";
+    }
+
+    @Override
+    protected String handleGetRoutingModuleFilePath() {
+        return this.getViewPath() + "/" + this.getRoutingModuleFileName();
+    }
+
+    @Override
+    protected String handleGetVarsComponentFileName() {
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-") + "-vars.component";
+    }
+
+    @Override
+    protected String handleGetVarsComponentFilePath() {
+        return this.getViewPath() + "/" + this.getVarsComponentFileName();
+    }
+
+    @Override
+    protected String handleGetVarsComponentImplementationFileName() {
+
+        return this.getVarsComponentFileName() + ".impl";
+    }
+
+    @Override
+    protected String handleGetVarsComponentImplementationFilePath() {
+        return this.getViewPath() + "/" + this.getVarsComponentImplementationFileName();
+    }
+
+    @Override
+    protected String handleGetVariableName() {
+        return StringUtilsHelper.uncapitalize(this.getComponentName());
+    }
+
+    @Override
+    protected Collection<FrontEndController> handleGetTargetControllers() {
+        Collection<FrontEndController> targets = new HashSet<>();
+
+        for (FrontEndAction _action : this.getActions()) {
+            AngularAction action = (AngularAction) _action;
+
+            if(action.isTableAction() || action.isTableLink()) {
+                continue;
+            }
+
+            if(action.getTarget() != null && action.getTarget() instanceof AngularFinalStateLogicImpl) {
+                AngularFinalStateLogicImpl target = (AngularFinalStateLogicImpl) action.getTarget();
+                if(target.getTargetUseCase() != null && !StringUtilsHelper.isEmpty(target.getTargetUseCase().getName())) {
+                    if(target.getTargetUseCase().getController() != null)
+                    {
+                        targets.add(target.getTargetUseCase().getController());
+                    }
+                }
+            }
+        }
+
+        return targets;
     }
 }

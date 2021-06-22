@@ -1,5 +1,3 @@
-#set ( $classNames = [] )
-#set ( $imports = [] )
 // license-header angular merge-point
 //
 /**
@@ -10,77 +8,34 @@
  * STEREOTYPE:   $stereotype.name
 #end
  */
-#set ($menuItems = "")
-##
-## A macro that renders the appropriate menu item
-##
-## parameters:
-##     o  $pUseCase - the useCase to render
-##     o  $ident - spaces to ident
-##
-#set ($menus = [])
-#macro(getMenuItem $pUseCase $ident)
-#set ($roles = $useCase.actionRoles)
-#addDefaultRole($roles)
-#foreach ($view in $pUseCase.views)
-#set ($rt = $menus.add($view))
-#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
-#set ( $fileName = $angularUtils.getComponentFileName("${view.name}"))
-#set ( $className = $angularUtils.getComponentName($fileName, "-") )
-#set ( $rt = $classNames.add("${className}ImplComponent"))
-#set ( $rt = $imports.add("import { ${className}ImplComponent } from ${escTool.s}./view/${componentPath}/${fileName}.impl.component${escTool.s};"))
-## Actions
-#foreach ($action in $view.actions)
-#if (!$action.tableLink)
-#set ( $actionPath = "${action.path}" )
-#set ( $actionFileName = $angularUtils.getComponentFileName("$action.name") )
-#set ( $actionName = $angularUtils.getActionName("$actionPath") )
-#set ( $rt = $classNames.add("${actionName}ImplComponent"))
-#set ( $rt = $imports.add("import { ${actionName}ImplComponent } from ${escTool.s}./view${action.path}.impl.component${escTool.s};"))
-#end
-#end
-## Tables
-#foreach ($table in $view.tables)
-#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${table.packageName}), '\\.', '\\/') )
-#set ( $fileName = $angularUtils.getComponentFileName("${table.view.name}-${table.name}") )
-#set ( $className = $angularUtils.getComponentName($fileName, "-"))
-#set ( $rt = $classNames.add("${className}ImplComponent"))
-#set ( $rt = $imports.add("import { ${className}ImplComponent } from ${escTool.s}./view/${componentPath}/${fileName}.impl.component${escTool.s};"))
-#end
-#end
-#if (!$children.empty)
-#foreach ($child in $children)
-#getMenuItem ($child "$ident    ")    
-#end
-#end
-#end
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-#foreach ($useCase in $useCases)
-#getMenuItem($useCase)
-#end
-#foreach ( $import in $angularUtils.getStringSet($imports) )
-$import
-#end
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { Shell } from '@app/shell/shell.service';
 
 const routes: Routes = [
-#set ( $i = 0 )
-#foreach ($menu in $angularUtils.getStringSet($classNames) )
-#set ( $i = $i + 1 )
-    { path: '$stringUtils.lowerCase($stringUtils.substringBefore($menu, "Impl"))', component: ${menu} }#if( $i < $classNames.size() ),
+  Shell.childRoutes([
+    {
+      path: 'about',
+      loadChildren: async () => (await import('./about/about.module')).AboutModule
+    },
+#foreach($useCase in $useCases)
+##foreach($view in $useCase.views)
+    {
+      path: '$useCase.routerPath', 
+      loadChildren: async () => (await import('@app/$useCase.moduleFilePath')).$useCase.moduleName
+    },
+##end
 #end
-#end
-
+  ]),
+  // Fallback when no prior route is matched
+  { 
+    path: '**', redirectTo: '', pathMatch: 'full' 
+  },
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forRoot(routes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
+  exports: [RouterModule],
+  providers: [],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

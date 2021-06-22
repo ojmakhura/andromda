@@ -1,47 +1,3 @@
-## parameters:
-##     o  $pUseCase - the useCase to render
-##     o  $ident - spaces to ident
-##
-#set ( $moduleFileName = $angularUtils.getComponentFileName("${applicationId}") )
-#set ( $moduleName = $angularUtils.getComponentName($moduleFileName, "-"))
-#macro(renderAngularMenuItem $pUseCase $ident)
-#set ($roles = $useCase.actionRoles)
-#addDefaultRole($roles)
-#set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles) )
-#set ($children = $pUseCase.navigationChildren)
-##$pUseCase.forwardName
-##$pUseCase.titleKey
-##$pUseCase.titleValue
-##$pUseCase.navigationChildren
-${ident}<mat-divider></mat-divider>
-##${ident}<a mat-list-item [matMenuTriggerFor]="module" (click)="isMobile && sidenav.close()">
-##${ident}    <span translate>Module</span>
-##${ident}</a>
-#if ($children.empty)
-#foreach ($view in $pUseCase.views)
-##${ident}<button value="#{messages['$pUseCase.titleKey']}" url="#{request.contextPath}${pUseCase.path}.${facesServletExtension}"#if ($securityEnabled) rendered="#{p:ifAnyGranted('$roles')}"#end/>     
-#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
-#set ( $fileName = $angularUtils.getComponentFileName("${view.name}"))
-#set ( $className = $angularUtils.getComponentName($fileName, "-") )
-${ident}<a mat-list-item routerLink="/$stringUtils.lowerCase($className)" routerLinkActive="active" (click)="isMobile && sidenav.close()">
-${ident}    <span translate>$view.name</span>
-${ident}</a>
-#end
-#else
-#foreach ($view in $pUseCase.views)
-##${ident}<p:submenu label="#{messages['$pUseCase.titleKey']}"#if ($securityEnabled) rendered="#{p:ifAnyGranted('$roles')}"#end
-#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
-#set ( $fileName = $angularUtils.getComponentFileName("${view.name}"))
-#set ( $className = $angularUtils.getComponentName($fileName, "-") )
-${ident}<a mat-list-item routerLink="/$stringUtils.lowerCase($className)" routerLinkActive="active" (click)="isMobile && sidenav.close()">
-${ident}    <span translate>$view.name</span>
-${ident}</a>
-#end
-#foreach ($child in $children)
-#renderAngularMenuItem ($child "$ident    ")    
-#end    
-#end    
-#end
 <div fxFlex>
   <mat-sidenav-container fxFill>
     <mat-sidenav
@@ -52,7 +8,7 @@ ${ident}</a>
       ngClass.gt-sm="has-border"
     >
       <mat-toolbar color="primary">
-        <span translate>APP_NAME</span>
+        <span translate>application.name</span>
         <div fxFlex></div>
         <div></div>
         <app-language-selector icon="true"></app-language-selector>
@@ -64,7 +20,10 @@ ${ident}</a>
             <span translate>Home</span>
           </a>
 #foreach ($useCase in $useCases)
-#renderAngularMenuItem($useCase "            ")  
+          <mat-divider></mat-divider>
+          <a mat-list-item routerLink="/$useCase.routerPath" routerLinkActive="active" (click)="isMobile && sidenav.close()">
+            <span translate>${useCase.titleKey}</span>
+          </a>
 #end
           <mat-divider></mat-divider>
           <a mat-list-item routerLink="/about" routerLinkActive="active" (click)="isMobile && sidenav.close()">

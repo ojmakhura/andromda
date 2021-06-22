@@ -271,45 +271,49 @@ public class WebServiceOperationLogicImpl
         StringBuilder pathBuffer = new StringBuilder();
         if (!this.isRest() || StringUtils.isBlank(path) || path.equals(DEFAULT))
         {
-            pathBuffer.append(QUOTE).append(SLASH).append(this.getName().toLowerCase()).append(SLASH);
-            //path = SLASH + this.getName().toLowerCase() + SLASH;
-            Iterator<ParameterFacade> parameters = this.getArguments().iterator();
-            while (parameters.hasNext())
-            {
-                ParameterFacade param = parameters.next();
-                //if (WebServiceUtils.isSimpleType(param))
-                //{
-                    String paramName = param.getName();
-                    pathBuffer.append(paramName).append(SLASH).append(LBRACKET).append(paramName).append(RBRACKET).append(SLASH);
-                /*} else {
-                    if (param instanceof WebServiceParameter) {
-                        WebServiceParameter p = (WebServiceParameter)param;
-                        String type = p.getRestParamType().toLowerCase();
-                        if(type.contains("get") || type.contains("delete")) {
-                            String paramName = p.getRestPathParam();
-                            pathBuffer.append(paramName).append(SLASH).append(LBRACKET).append(paramName).append(RBRACKET).append(SLASH);
-                        }
+            path = this.getName().toLowerCase();
+        }
+        
+        if(path.startsWith("/")) {
+            path = path.substring(1);
+        }
+        
+        if(path.endsWith("/")) {
+            path = path.substring(0, path.length() - 1);
+        }
+
+        if(path.length() > 0) {
+            pathBuffer.append(path);
+        }
+
+        String type = this.getRestRequestType().toLowerCase();
+
+        if(type.contains("get") || type.contains("delete")) {
+            for(ParameterFacade param : this.getArguments()) {
+                    
+                String paramName = param.getName();
+                if (!WebServiceUtils.isSimpleType(param)) {
+                    if(param instanceof WebServiceParameter) {
+                        
+                        WebServiceParameter p = (WebServiceParameter)param;                        
+                        paramName = p.getRestPathParam();
                     }
-                }*/
+                }
+                if(pathBuffer.length() > 0) {
+                    pathBuffer.append(SLASH);
+                }
+
+                //pathBuffer.append(paramName).append(SLASH).append(LBRACKET).append(paramName).append(RBRACKET);
+                pathBuffer.append(LBRACKET).append(paramName).append(RBRACKET);
             }
+        }
+
+        if(pathBuffer.length() > 0) {
+            pathBuffer.insert(0, QUOTE);
+            pathBuffer.insert(1, SLASH);
             pathBuffer.append(QUOTE);
         }
-        else
-        {
-            if (StringUtils.isBlank(path))
-            {
-                path = EMPTY_STRING;
-            }
-            pathBuffer.append(path);
-            if (!path.startsWith(QUOTE))
-            {
-                pathBuffer.insert(0, QUOTE);
-            }
-            if (!path.endsWith(QUOTE) || path.length()<2)
-            {
-                pathBuffer.append(QUOTE);
-            }
-        }
+
         return pathBuffer.toString();
     }
 
@@ -474,7 +478,7 @@ public class WebServiceOperationLogicImpl
         return provider;
     }
 
-    private static final String GET = "@javax.ws.rs.GET";
+    private static final String POST = "@javax.ws.rs.POST";
     private static final String AT = "@javax.ws.rs.";
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestRequestType()
@@ -485,7 +489,7 @@ public class WebServiceOperationLogicImpl
         String requestType = (String)this.findTaggedValue(WebServiceGlobals.REST_REQUEST_TYPE);
         if (!this.isRest() || StringUtils.isBlank(requestType) || requestType.equals(DEFAULT))
         {
-            requestType = GET;
+            requestType = POST;
         }
         else if (!requestType.startsWith(AT))
         {

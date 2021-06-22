@@ -20,6 +20,7 @@
 #end
  */
 ##
+//hello there
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -34,7 +35,6 @@ import { CoreModule } from '@core';
 import { SharedModule } from '@shared';
 import { HomeModule } from './home/home.module';
 import { ShellModule } from './shell/shell.module';
-
 #set ($component = "component")
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -44,31 +44,29 @@ import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
 import { ConnectFormDirective } from './connect-form.directive';
 #end
-#foreach ($useCase in $useCases)
-#renderImports($useCase)
+##foreach ($useCase in $useCases)
+##renderImports($useCase)
+##end
+##set ( $controllerSet = $angularUtils.getFacadeSet($controllers) )
+##foreach ( $controller in $controllerSet )
+##set ($useCase = $controller.useCase)
+##import { ${useCase.moduleName} } from ${escTool.s}@app/${useCase.moduleFilePath}${escTool.s};
+##import { ${controller.implementationName} } from ${escTool.s}@app/${controller.implementationFilePath}${escTool.s};
+##end
+#foreach ( $useCase in $useCases )
+import { ${useCase.moduleName} } from ${escTool.s}@app/${useCase.moduleFilePath}${escTool.s};
+#if($useCase.controller)
+#set ($controller = $useCase.controller)
+import { ${controller.implementationName} } from ${escTool.s}@app/${controller.implementationFilePath}${escTool.s};
+#foreach($service in $controller.allRestControllers)
+#set ( $rt = $services.add($service) )
 #end
-
-#set ( $componentSet = $angularUtils.getFacadeSet($views) )
-#foreach($view in $componentSet)
-#set ( $componentPath = $stringUtils.replaceChars($stringUtils.lowerCase(${view.packageName}), '\\.', '\\/') )
-#set ( $fileName = $angularUtils.getComponentFileName("${view.name}") )
-#set ( $className = $angularUtils.getComponentName($fileName, "-"))
-import { ${className}Module } from ${escTool.s}./view/${componentPath}/${fileName}.module${escTool.s};
 #end
-#set ( $componentSet = $angularUtils.getFacadeSet($controllers) )
-#foreach ( $controller in $componentSet )
-#set ( $path = $stringUtils.replaceChars($controller.packageName, '\\.', '\\/') )
-#set ( $file =  ${angularUtils.getComponentFileName("${controller.name}Impl")})
-import { ${controller.name}Impl } from '@app/controller/$path/${file}';
 #end
-
+import { UseCaseScope } from '@app/utils/use-case-scope';
 #set ( $finalServices = $angularUtils.getFacadeSet($services) )
 #foreach ( $service in $finalServices )
-#if($angularUtils.isWebService($service))
-#set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${service.packageName}), '\\.', '\\/')" )
-#set ( $fname = $angularUtils.getComponentFileName("${service.name}Impl") )
-import { ${service.name}Impl } from '@app/service/$path/$fname';
-#end
+import { ${service.implementationName} } from ${escTool.s}@app/${service.implementationFilePath}${escTool.s};
 #end
 
 @NgModule({
@@ -90,60 +88,29 @@ import { ${service.name}Impl } from '@app/service/$path/$fname';
         SharedModule,
         ShellModule,
         HomeModule,
-        AppRoutingModule, // must be imported as the last module as it contains the fallback route
 #if($ngrx)
         EffectsModule.forRoot([]),
         StoreModule.forRoot(reducers, {
             metaReducers
-        })
+        }),
 #end
-#set ( $componentSet = $angularUtils.getFacadeSet($views) )
-#foreach($view in $componentSet)
-#set ( $fileName = $angularUtils.getComponentFileName("${view.name}") )
-#set ( $className = $angularUtils.getComponentName($fileName, "-"))
-        ${className}Module,
+#foreach ( $useCase in $useCases )
+        ${useCase.moduleName},
 #end
+        AppRoutingModule, // must be imported as the last module as it contains the fallback route
     ],
     exports: [
     ],
     providers: [
-#set ($j = 0)
-#foreach ($finalField in $angularUtils.getFacadeSet($fields) )
-#set ($dt = $angularUtils.getDatatype($finalField.fullyQualifiedName))
-#if ($dt != "number" && $dt != "string" && $dt != "Date" && $dt != "Collection" && $dt != "any")
-#set ( $j = $j + 1 )
-//        $finalField.name,
-#end
-#end
-#set ( $finalServices = $angularUtils.getFacadeSet($services) )
+        UseCaseScope,
 #foreach ( $finalService in $finalServices )
-#if($angularUtils.isWebService($finalService))
-        ${finalService.name}Impl,
+        ${finalService.implementationName},
+#end
+#foreach ( $useCase in $useCases )
+#if($useCase.controller)
+        ${useCase.controller.implementationName},
 #end
 #end
-#set ( $componentSet = $angularUtils.getFacadeSet($controllers) )
-#foreach ( $controller in $componentSet )
-        ${controller.name}Impl,
-#end
-#set ( $componentSet = $angularUtils.getFacadeSet($views) )
-#foreach($view in $componentSet)
-#set ( $fileName = $angularUtils.getComponentFileName("${view.name}") )
-#set ( $className = $angularUtils.getComponentName($fileName, "-"))
-//        ${className}ImplComponent,
-#end
-#set ( $componentSet = $angularUtils.getFacadeSet($tables) )
-#foreach($table in $componentSet)
-#set ( $fileName = $angularUtils.getComponentFileName("${table.view.name}-${table.name}") )
-#set ( $className = $angularUtils.getComponentName($fileName, "-"))
-//        ${className}ImplComponent,
-#end
-#set ($i = 1)
-#set ( $componentSet = $angularUtils.getFacadeSet($actions) )
-#foreach($action in $componentSet)
-#set ( $className = $angularUtils.getActionName(${action.path}))
-//        ${className}ImplComponent#if($i < $componentSet.size()),#end${escTool.n}#set ( $i = $i + 1 )
-#end
-
     ],
     bootstrap: [AppComponent]
 })

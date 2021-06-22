@@ -9,35 +9,70 @@
         <mapping class="org.eclipse.uml2.uml.internal.impl.EnumerationLiteralImpl"/>
         <property reference="enumerationLiteralNameMask"/>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.emf.uml22.EnumerationFacadeLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularEnumerationLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.EnumerationImpl"/>
         <property reference="enumerationNameMask"/>
         <property reference="typeSafeEnumsEnabled"/>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.emf.uml22.EnumerationFacadeLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularEnumerationLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.ClassImpl">
             <stereotype>ENUMERATION</stereotype>
         </mapping>
         <property reference="enumerationNameMask"/>
         <property reference="typeSafeEnumsEnabled"/>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularServiceLogicImpl">
         <mapping>
             <stereotype>WEBSERVICE</stereotype>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularServiceLogicImpl">
         <mapping>
             <stereotype>SERVICE</stereotype>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl">
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularServiceOperationLogicImpl">
         <mapping>
             <stereotype>WEBSERVICE_OPERATION</stereotype>
         </mapping>
         <property reference="testImplementationOperationNamePrefix"/>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.java.metafacades.JavaClassLogicImpl"/>
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularServiceOperationLogicImpl">
+        <mapping>
+            <stereotype>SERVICE_OPERATION</stereotype>
+        </mapping>
+        <property reference="testImplementationOperationNamePrefix"/>
+    </metafacade>
+    
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularServicePackageLogicImpl">
+        <mapping class="org.omg.uml.modelmanagement.UmlPackage$Impl"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularServicePackageLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.PackageImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularServiceOperationLogicImpl">
+        <mapping>
+            <property name="owner.webServiceMetaType"/>
+        </mapping>
+        <property reference="testImplementationOperationNamePrefix"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularServiceOperationLogicImpl">
+        <mapping>
+            <property name="owner.interface"/>
+        </mapping>
+        <property reference="testImplementationOperationNamePrefix"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularServiceParameterLogicImpl">
+        <mapping>
+            <property name="operation.webServiceOperationMetaType"/>
+        </mapping>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularModelLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.ClassImpl">
+            <stereotype>VALUE_OBJECT</stereotype>
+        </mapping>
+    </metafacade>
     <metafacade class="org.andromda.cartridges.angular.metafacades.AngularControllerOperationLogicImpl">
         <mapping>
             <property name="ownerIsController"/>
@@ -144,13 +179,6 @@
         <property reference="labelListPattern"/>
         <property reference="valueListPattern"/>
     </metafacade>
-    <!--metafacade class="org.andromda.cartridges.angular.metafacades.AngularBackendServiceLogicImpl">
-        <mapping>
-            <stereotype>SERVICE</stereotype>
-        </mapping>
-        <property reference="serviceAccessorPattern"/>
-        <property reference="servicePackageNamePattern"/>
-    </metafacade-->
     <metafacade class="org.andromda.cartridges.angular.metafacades.AngularActivityGraphLogicImpl">
         <mapping>
             <property name="containedInFrontEndUseCase"/>

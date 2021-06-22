@@ -13,9 +13,14 @@ package ${service.packageName};
 #end
 
 public interface ${serviceName} {
-
 #foreach ($operation in $service.allowedOperations)
-    $operation.visibility $operation.getterSetterReturnTypeName ${operation.name}($operation.typedArgumentList);
 
+#if($operation.returnTypePresent)
+#set ($returnType = "#if($operation.returnType.primitive)$operation.returnType.wrapperName#else$operation.getterSetterReturnTypeName#end")
+#set ($return = "org.springframework.http.ResponseEntity<$returnType>")
+#else
+#set ($return = "void")
+#end
+    $operation.visibility $return ${operation.name}($operation.typedArgumentList);
 #end
 }

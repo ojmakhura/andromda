@@ -5,6 +5,7 @@ package org.andromda.cartridges.angular.metafacades;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -72,7 +73,7 @@ public class AngularUseCaseLogicImpl
                 actionPath = action.getPath();
             }
         }
-        return actionPath;
+        return "view" + actionPath;
     }
 
     /**
@@ -538,6 +539,7 @@ public class AngularUseCaseLogicImpl
      */
     protected String handleGetActionClassName()
     {
+        
         return StringUtilsHelper.upperCamelCaseName(this.getName());
     }
 
@@ -950,5 +952,74 @@ public class AngularUseCaseLogicImpl
             allViews.addAll(useCase.getViews());
         }
         return allViews;
+    }
+
+    private void getMenuItems(AngularUseCase useCase, HashSet<ModelElementFacade> imports) {
+
+        for(FrontEndView view : useCase.getViews()) {
+            imports.add(view);
+        }
+    }
+
+    @Override
+    protected Collection<ModelElementFacade> handleGetImports() {
+
+        HashSet<ModelElementFacade> imports = new HashSet<>();
+
+
+        return imports;
+    }
+
+    @Override
+    protected String handleGetRouterPath() {
+        return this.getComponentName().toLowerCase();
+    }
+
+    @Override
+    protected String handleGetModuleFilePath() {
+        return "view" + this.getPathRoot() + "/" + this.getModuleFileName();
+    }
+
+    @Override
+    protected String handleGetModuleFileName() {
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-") + ".module";
+    }
+
+    @Override
+    protected String handleGetRoutingModuleFileName() {
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-") + "-routing.module";
+    }
+
+    @Override
+    protected String handleGetRoutingModuleFilePath() {
+        return "view" + this.getPathRoot() + "/" + this.getRoutingModuleFileName();
+    }
+
+    @Override
+    protected String handleGetModuleName() {
+        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "Module";
+    }
+
+    @Override
+    protected String handleGetRoutingModuleName() {
+        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "RoutingModule";
+    }
+
+    @Override
+    protected String handleGetComponentName() {
+        
+        if(this.isViewHasNameOfUseCase()) {
+            return this.getActionClassName() + "UC";
+        } else {
+            return this.getActionClassName();
+        }
+
+    }
+
+    @Override
+    protected String handleGetSelectorName() {
+        return AngularUtils.toWebResourceName(this.getComponentName());
     }
 }

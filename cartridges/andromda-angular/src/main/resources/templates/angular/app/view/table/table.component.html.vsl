@@ -6,16 +6,27 @@
 <div class="card-body">
 #set ($targetColumns = $table.targettedTableColumnNames)
 #if (!$table.tableColumns.empty)
-    <div class="mat-elevation-z8" [formGroup]="$stringUtils.uncapitalize($viewName)Form">
+    <div class="mat-elevation-z8">
         <mat-table matSort [dataSource]="${table.name}.controls" #${table.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
+#foreach ($column in $table.tableColumns)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
+            <ng-container matColumnDef="${columnName}">
+                <mat-header-cell *matHeaderCellDef translate>$table.getTableColumnMessageKey($columnName)</mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row.get('${columnName}').value }} </mat-cell>
+            </ng-container>
+#end
 #if ($table.tableFormActions.size() > 0)
-			<ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
                 <mat-cell *matCellDef="let row">
                     <div class = "form-group">
 #foreach ($action in $table.tableFormActions)
-                        <button type = "button" class="btn btn-info" (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())">
-                            $stringUtils.capitalize($action.trigger.messageKey)
+                        <button type = "button" class="btn btn-info" (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())" translate>
+                            $action.trigger.messageKey
                         </button>
 #end
                     </div>    
@@ -26,26 +37,14 @@
 #foreach ($action in $table.tableHyperlinkActions)
 #if (!$action.tableLinkColumnName)
             <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
                 <mat-cell *matCellDef="let row">
                     <div class = "form-group">
-##renderAngularTableCommandLinkParameters("                ")
-                        <a routerLink="" (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())">$stringUtils.toPhrase($action.trigger.messageKey)</a> 
+                        <a routerLink="" (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())" translate>$action.trigger.messageKey</a> 
                     </div>    
                 </mat-cell>
             </ng-container>
 #end
-#end
-#foreach ($column in $table.tableColumns)
-#if($column.name)
-#set($columnName = $column.name)
-#else
-#set($columnName = $column)
-#end
-            <ng-container matColumnDef="${columnName}">
-                <mat-header-cell *matHeaderCellDef>$stringUtils.toPhrase(${columnName})</mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{ row.get('${columnName}').value }} </mat-cell>
-            </ng-container>
 #end
             <mat-header-row *matHeaderRowDef="${table.name}Columns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: ${table.name}Columns;"></mat-row>

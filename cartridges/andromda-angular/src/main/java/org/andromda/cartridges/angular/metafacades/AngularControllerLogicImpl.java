@@ -13,12 +13,13 @@ import java.util.Set;
 
 import org.andromda.cartridges.angular.AngularGlobals;
 import org.andromda.cartridges.angular.AngularUtils;
-import org.andromda.cartridges.webservice.metafacades.WebService;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActionState;
+import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.PackageFacade;
@@ -77,6 +78,7 @@ public class AngularControllerLogicImpl
      */
     protected String handleGetFullyQualifiedImplementationPath()
     {
+        String packagePath = this.getPackagePath();
         return this.getFullyQualifiedImplementationName().replace('.', '/');
     }
 
@@ -162,13 +164,13 @@ public class AngularControllerLogicImpl
     }
 
     @Override
-    protected Collection<WebService> handleGetAllRestControllers() {
-        final Set<WebService> allServices=new HashSet<WebService>();
+    protected Collection<AngularService> handleGetAllRestControllers() {
+        final Set<AngularService> allServices=new HashSet<AngularService>();
         for(final DependencyFacade dependency: this.getServiceReferences())
         {
             if(AngularUtils.isWebService(dependency.getTargetElement()))
             {
-                allServices.add((WebService)dependency.getTargetElement());
+                allServices.add((AngularService)dependency.getTargetElement());
             }
         }
         for(final DependencyFacade dependency: this.getServicesPackagesReferences())
@@ -178,7 +180,7 @@ public class AngularControllerLogicImpl
             {
                 if(AngularUtils.isWebService(clazz))
                 {
-                    allServices.add((WebService)clazz);
+                    allServices.add((AngularService)clazz);
                 }
             }
         }
@@ -190,7 +192,7 @@ public class AngularControllerLogicImpl
                 {
                     if(AngularUtils.isWebService(operation.getOwner()))
                     {
-                        allServices.add((WebService)operation.getOwner());
+                        allServices.add((AngularService)operation.getOwner());
                     }
                 }
             }
@@ -213,5 +215,88 @@ public class AngularControllerLogicImpl
                 return ((DependencyFacade)object).getTargetElement() instanceof PackageFacade;
             }
         };
+    }
+
+    @Override
+    protected Collection<ModelElementFacade> handleGetImports() {
+        
+        HashSet<ModelElementFacade> imports = new HashSet<>();
+
+        for(OperationFacade operation : this.getOperations()) {
+            
+            if(operation.getReturnType().isEnumeration() || !operation.getReturnType().getAttributes().isEmpty()) {
+                imports.add(operation.getReturnType());
+            }
+        }
+
+        for(AttributeFacade attribute : this.getAttributes()) {
+
+            if(attribute.getType().isEnumeration() || !attribute.getType().getAttributes().isEmpty()) {
+                imports.add(attribute.getType());
+            }
+        }
+
+        imports.addAll(this.getAllRestControllers());
+        imports.addAll(this.getOtherControllers());
+
+        return imports;
+    }
+
+    @Override
+    protected String handleGetFileName() {
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-");
+    }
+
+    @Override
+    protected String handleGetFilePath() {
+        return "controller/" + this.getPackagePath() + "/" + this.getFileName();
+    }
+
+    @Override
+    protected String handleGetImplementationFileName() {
+        return this.getFileName() + "Impl";
+    }
+
+    @Override
+    protected String handleGetVariableName() {
+        return StringUtilsHelper.lowerCamelCaseName(this.getName());
+    }
+
+    @Override
+    protected String handleGetImplementationFilePath() {
+        return this.getFilePath() + ".impl";
+    }
+
+    @Override
+    protected Collection handleGetOtherControllers() {
+        
+        HashSet<AngularController> controllers = new HashSet<>();
+
+        for(FrontEndAction _action : this.getUseCase().getActions()) {
+            
+            for(FrontEndActionState actionState : _action.getActionStates()) {
+                AngularForward state = (AngularForward) actionState.getForward();
+                if(state != null && state.isEnteringFinalState() && state.getTarget() != null) {
+                    
+                    AngularFinalState finalState = (AngularFinalState) state.getTarget();
+                    AngularUseCase useCase = (AngularUseCase) finalState.getTargetElement();
+
+                    if(useCase != null && useCase.getController() != null) {
+                        if(!useCase.getController().getName().equals(this.getName())) {
+                            controllers.add((AngularController) useCase.getController());
+                        }
+                    }
+                }
+            }
+            
+            if(_action.getTarget() instanceof AngularFinalStateLogicImpl) {
+                
+                AngularFinalStateLogicImpl state = (AngularFinalStateLogicImpl) _action.getTarget();
+                controllers.add(state.getTargetController());
+            }
+        }
+        
+        return controllers;
     }
 }

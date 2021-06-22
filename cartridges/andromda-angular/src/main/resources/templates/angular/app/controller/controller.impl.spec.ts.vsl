@@ -2,13 +2,13 @@
 #set ( $fileName =  $angularHelper.getComponentFileName("${controller.name}"))
 import { TestBed } from '@angular/core/testing';
 
-import { ${controller.name}Impl } from '@app/$componentPath/${fileName}-impl';
+import { ${controller.implementationName} } from '@app/${controller.implementationFilePath}';
 
-describe('${controller.name}Impl', () => {
+describe('${controller.implementationName}', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ${controller.name}Impl = TestBed.get(${controller.name}Impl);
+    const service: ${controller.implementationName} = TestBed.get(${controller.implementationName});
     expect(service).toBeTruthy();
   });
 });
