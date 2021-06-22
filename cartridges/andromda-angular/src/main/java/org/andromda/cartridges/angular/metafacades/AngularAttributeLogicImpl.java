@@ -131,23 +131,23 @@ public class AngularAttributeLogicImpl
             }
             if ("java.util.Date".equals(typeName))
             {
-                return "new java.util.Date()";
+                return "new Date()";
             }
             if ("java.sql.Date".equals(typeName))
             {
-                return "new java.sql.Date(new java.util.Date().getTime())";
+                return "new Date()";
             }
             if ("java.sql.Timestamp".equals(typeName))
             {
-                return "new java.sql.Timestamp(new Date().getTime())";
+                return "new Date()";
             }
             if ("java.util.Calendar".equals(typeName))
             {
-                return "java.util.Calendar.getInstance()";
+                return "new Date()";
             }
             if ("int".equals(typeName))
             {
-                return "(int)" + name.hashCode();
+                return "" + name.hashCode();
             }
             if ("boolean".equals(typeName))
             {
@@ -155,69 +155,69 @@ public class AngularAttributeLogicImpl
             }
             if ("long".equals(typeName))
             {
-                return "(long)" + name.hashCode();
+                return "" + name.hashCode();
             }
             if ("char".equals(typeName))
             {
-                return "(char)" + name.hashCode();
+                return "" + name.hashCode();
             }
             if ("float".equals(typeName))
             {
-                return "(float)" + name.hashCode() / hashCode();
+                return "" + name.hashCode() / hashCode();
             }
             if ("double".equals(typeName))
             {
-                return "(double)" + name.hashCode() / hashCode();
+                return "" + name.hashCode() / hashCode();
             }
             if ("short".equals(typeName))
             {
-                return "(short)" + name.hashCode();
+                return "" + name.hashCode();
             }
             if ("byte".equals(typeName))
             {
-                return "(byte)" + name.hashCode();
+                return "" + name.hashCode();
             }
             if ("java.lang.Integer".equals(typeName) || "Integer".equals(typeName))
             {
-                return "new Integer((int)" + name.hashCode() + ")";
+                return name.hashCode() + "";
             }
             if ("java.lang.Boolean".equals(typeName) || "Boolean".equals(typeName))
             {
-                return "Boolean.FALSE";
+                return "false";
             }
             if ("java.lang.Long".equals(typeName) || "Long".equals(typeName))
             {
-                return "new Long((long)" + name.hashCode() + ")";
+                return name.hashCode() + "";
             }
             if ("java.lang.Character".equals(typeName) || "Character".equals(typeName))
             {
-                return "new Character(char)" + name.hashCode() + ")";
+                return name.hashCode() + "";
             }
             if ("java.lang.Float".equals(typeName) || "Float".equals(typeName))
             {
-                return "new Float((float)" + name.hashCode() / hashCode() + ")";
+                return name.hashCode() / hashCode() + "";
             }
             if ("java.lang.Double".equals(typeName) || "Double".equals(typeName))
             {
-                return "new Double((double)" + name.hashCode() / hashCode() + ")";
+                return name.hashCode() / hashCode() + "";
             }
             if ("java.lang.Short".equals(typeName) || "Short".equals(typeName))
             {
-                return "new Short((short)" + name.hashCode() + ")";
+                return name.hashCode() + "";
             }
             if ("java.lang.Byte".equals(typeName) || "Byte".equals(typeName))
             {
-                return "new Byte((byte)" + name.hashCode() + ")";
+                return name.hashCode() + "";
             }
 
             //if (type.isArrayType()) return constructDummyArray();
             if (type.isSetType())
             {
-                return "new java.util.HashSet(java.util.Arrays.asList(" + constructDummyArray() + "))";
+                return "[" + constructDummyArray() + "]";
             }
             if (type.isCollectionType())
             {
-                return "java.util.Arrays.asList(" + constructDummyArray() + ")";
+                return "[" + constructDummyArray() + "]";
             }
 
             // maps and others types will simply not be treated

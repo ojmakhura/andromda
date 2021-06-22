@@ -252,16 +252,16 @@ public class AngularUtils {
                 String angPath = "";
                 boolean addImport = false;
                 if(facade instanceof ValueObject || facade instanceof EnumerationFacade) {
-                    angPath = "src/app/gen/model/";
+                    angPath = "@app/model/";
                     addImport = true;
                 } else if(facade instanceof Service) {
-                    angPath = "src/app/gen/service/";
+                    angPath = "@app/service/";
                     addImport = true;
                 } else if(facade instanceof FrontEndController) {
-                    angPath = "src/app/gen/controller/";
+                    angPath = "@app/controller/";
                     addImport = true;
                 } else if(facade instanceof FrontEndView) {
-                    angPath = "src/app/gen/view/";
+                    angPath = "@app/view/";
                     addImport = true;
                 } 
 
@@ -560,6 +560,10 @@ public class AngularUtils {
             return true;
         }
 
+        // if(isTable(attribute) || (attribute.isMany() && !attribute.isInputSelect())) {
+        //     return true;
+        // }
+
         return false;
     }
 
@@ -577,7 +581,7 @@ public class AngularUtils {
             final AngularParameter parameter = (AngularParameter)feParameter;
             for(Object tmp : parameter.getAttributes()) {
                 AngularAttribute attribute = (AngularAttribute)tmp;
-                if(!isTable(attribute)) {
+                if(!isTable(attribute) && !(attribute.isMany() && !attribute.isInputSelect())) {
                     attributes.add(attribute);
                 }
             }
@@ -594,9 +598,10 @@ public class AngularUtils {
             final AngularParameter parameter = (AngularParameter)feParameter;
             for(Object tmp : parameter.getAttributes()) {
                 AngularAttribute attribute = (AngularAttribute)tmp;
-                if(isTable(attribute)) {
+                if(isTable(attribute)  || (attribute.isMany() && !attribute.isInputSelect())) {
                     attributes.add(attribute);
                 }
+                
             }
         }
 
@@ -1807,7 +1812,28 @@ public class AngularUtils {
     }
 
     public static String removeFormFromParams(String formCall) {
-        return formCall.replace("form", "");
+        
+        int i = formCall.indexOf('(');
+        int j = formCall.indexOf(')');
+
+        String params = formCall.substring(i + 1, j).trim();
+
+        String[] prms = params.split(",");
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(formCall.substring(0, i+1));
+
+        if(prms.length >= 1) {
+            for(int k = 0; k < prms.length; k++) {
+                
+                builder.append("form." + prms[k].trim());
+                builder.append(", ");
+            }
+        }
+
+        builder.append(")");
+
+        return builder.toString();
     }
     
     public static boolean isServiceOnly(ModelElementFacade obj) {
@@ -1864,5 +1890,12 @@ public class AngularUtils {
         }
 
         return fields;
+    }
+
+    public static Object checkTableLink(AngularParameter parameter) {
+
+        return parameter.findTaggedValue(AngularProfile.ANGULAR_VIEW_VIEW_TYPE);
+
+        //return false;
     }
 }

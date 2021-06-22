@@ -6,12 +6,12 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ControllerBase } from 'src/app/gen/controller/utils/controller.base';
+import { ControllerBase } from '@app/controller/utils/controller.base';
 
 #foreach ($service in $controller.allRestControllers)
 #set ($path = $stringUtils.replaceChars(${service.packageName}, "\\.", "\\/"))
 #set ($file = $angularUtils.getComponentFileName("${service.name}Impl"))
-import { ${service.name}Impl } from 'src/app/impl/service/$path/$file';
+import { ${service.name}Impl } from '@app/service/$path/$file';
 #end
 #set($controllers = [])
 #foreach ($action in $controller.useCase.actions)
@@ -29,7 +29,7 @@ import { ${service.name}Impl } from 'src/app/impl/service/$path/$file';
 #if($cnt.name != $controller.name)
 #set ( $path = $stringUtils.replaceChars($cnt.packageName, '\\.', '\\/') )
 #set ( $file =  ${angularUtils.getComponentFileName("${cnt.name}Impl")})
-import { ${cnt.name}Impl } from 'src/app/impl/controller/$path/${file}';
+import { ${cnt.name}Impl } from '@app/controller/$path/${file}';
 #end
 #end
 #set ($types = [])
@@ -40,26 +40,41 @@ import { ${cnt.name}Impl } from 'src/app/impl/controller/$path/${file}';
 #end
 #foreach ($field in $operation.formFields)
 #set ($rt = $formFields.add($field))
-$field.type
-$field.type.enumeration
 #if($angularUtils.isComplex($field))
 #set ($rt = $types.add($field.type))
+#end
+#end
+#end
+#if(${controller.attributes.size()} > 0)
+#foreach ($arg in $controller.attributes)
+#if($angularUtils.isComplex($arg.type))
+#set ($rt = $types.add($arg.type))
 #end
 #end
 #end
 #foreach($type in $angularUtils.getFacadeSet($types))
 #set ( $path = $stringUtils.replaceChars($type.packageName, '\\.', '\\/') )
 #set ( $file =  ${angularUtils.getComponentFileName($type.name)})
-import { $type.name } from 'src/app/gen/model/$path/$file';
+import { $type.name } from '@app/model/$path/$file';
 #end
 
 export abstract class $controller.name extends ControllerBase {
 
+#if(${controller.attributes.size()} > 0)
+#foreach ($arg in $controller.attributes)
+#if($angularUtils.isArray($arg.getterSetterTypeName))
+    $arg.name: Array<$angularUtils.getDatatype($arg.type.name)>;
+#else
+    $arg.name: $angularUtils.getDatatype($arg.type.name);
+#end
+
+#end
+#end
 #foreach($field in $angularUtils.getFacadeSet($formFields))
     ${field.backingListName}: Array<$angularUtils.getDatatype($field.type.name)> = [];
 #end
 #foreach ($service in $controller.allRestControllers)
-    protected $stringUtils.uncapitalize($service.name): ${service.name}Impl;
+    $stringUtils.uncapitalize($service.name): ${service.name}Impl;
 #end
     protected _injector: Injector;
 
@@ -76,6 +91,7 @@ export abstract class $controller.name extends ControllerBase {
 $operation.getDocumentation("     * ")
      *
      * @param form the associated form
+     * $operation.formFields
      */
     $operation.formSignature
 #end
@@ -95,9 +111,8 @@ $action.trigger.getDocumentation("     * ")
      * @param form the associated form
 #end
      */
-    protected ${action.triggerMethodName}(): void
+    protected ${action.triggerMethodName}(form: any): void
     {
-        $action.formFields
         //this method can be overridden
     }
 
@@ -112,11 +127,12 @@ $action.trigger.getDocumentation("     * ")
      * @throws Throwable
      */
 #if($action.exitingInitialState)     
-    protected internalStartUseCase(useCaseParameters: any): string
+    protected internalStartUseCase(pageVariables: any): string
 #else
-    public ${action.triggerName}()
+    public ${action.triggerName}(form: any)
 #end
     {
+
         this.setLastPostedFormClientId('${action.formBeanName}');
         
         let forward: string = null;
@@ -124,20 +140,25 @@ $action.trigger.getDocumentation("     * ")
 #set($targetController = $action.target.targetControllerFullyQualifiedName)
 #set($targetControllerBeanName = $action.target.targetControllerBeanName)
 #if(${targetControllerBeanName} == $controller.beanName)
-        forward = #if($targetController)this.startUseCase()#else this.closeDialog()#end;
+        forward =#if($targetController) this.startUseCase()#else this.closeDialog()#end; 
 #else
-        forward = #if($targetController)this.${targetControllerBeanName}.startUseCase()#else this.closeDialog()#end;
+        forward =#if($targetController) this.${targetControllerBeanName}.startUseCase()#else this.closeDialog()#end;
 #end
 #else
-
+        
         //trigger method execution
-        this.${action.triggerMethodName}();
+#if($action.exitingInitialState)  
+        this.${action.triggerMethodName}(pageVariables);
+#else
+        this.${action.triggerMethodName}(form);
+#end
 
-        forward = #processTransition($action)
+#processTransition($action)
 #saveMessages($action "        ")
 #if ($formPopulationOperationRequired)
 #set ( $actionFile = $angularUtils.getComponentFileName("${action.source.name}"))
 #set ( $actionClass = $angularUtils.getComponentName($actionFile, "-") )
+        
 #if(!$action.exitingInitialState && !$action.enteringFinalState)
         if(forward !== null)
         {
@@ -157,7 +178,6 @@ $action.trigger.getDocumentation("     * ")
             this.router.navigate(['/' + forward]);
         } 
 #end
-        
     }
 
 #foreach ($actionState in $action.actionStates)
@@ -170,7 +190,7 @@ $actionState.getDocumentation("     * ")
      * @return the forward view
      * @throws Throwable
      */
-    protected ${actionState.actionMethodName}#if (!$action.formFields.empty)${action.formImplementationName}#end(): string
+    protected ${actionState.actionMethodName}#if (!$action.formFields.empty)${action.formImplementationName}#end(form: any): string
     {
         let forward: string = null;
 #if ($actionState.controllerCalls.empty && $actionState.serviceCalls.empty)
@@ -180,7 +200,7 @@ $actionState.getDocumentation("     * ")
 ##        // outgoing=$outgoing target=$outgoing.target
 ##end
 ##        // forward=$actionState.forward name=$actionState.name
-        forward = #processTransition($actionState.forward)
+#processTransition($actionState.forward);
 #saveMessages($actionState.forward "        ")
 #else
 #set($exceptions = $actionState.exceptions)
@@ -197,14 +217,14 @@ ${ident}        this.get${serviceCall.owner.name}().${serviceCall.name}(#foreach
 #end
 #foreach ($controllerCall in $actionState.controllerCalls)
 #if (!$action.actionFormFields.empty)
-${ident}        this.$angularUtils.removeFormFromParams($controllerCall.formCall);
+${ident}        this.$controllerCall.formCall
 #else
 ${ident}        // we pass an empty form implementation to the controller, we know there are no parameters on this operation because the
 ${ident}        // cartridge would have issued a model validation error
-${ident}        this.${controllerCall.name}(new ${controllerCall.interfaceName}());
+${ident}        this.${controllerCall.name}(new ${controllerCall.interfaceName}())
 #end
 #end
-${ident}        forward = #processTransition($actionState.forward)
+${ident}#processTransition($actionState.forward)
 #saveMessages($actionState.forward "${ident}        ")
 #if(!$exceptions.empty)
         }
@@ -264,7 +284,7 @@ $decisionTransition.getDocumentation("     * ")
 #set ($defaultOutcome = $outcome)
         if (value === "$outcome.guard.name")
         {
-            forward = #processTransition($outcome)
+            #processTransition($outcome)
 #saveMessages($outcome "            ")
         }
 #end

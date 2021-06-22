@@ -501,11 +501,11 @@
                 <artifactId>spring-boot-starter-web</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
-            <dependency>
+            <!-- <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-security</artifactId>
                 <version>${spring-boot.version}</version>
-            </dependency>	
+            </dependency> -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-test</artifactId>
@@ -1214,6 +1214,9 @@
 #end
 #if ($webType.equals("both") || $webType.equals("jsf"))
         <module>web</module>
+#end
+#if ($webType.equals("both") || $webType.equals("angular"))
+        <module>angular</module>
 #end
 #if (!$webservice.equals("none") && !$jsr181Webservice && ($ear || $cxf))
         <module>webservice</module>

@@ -13,7 +13,7 @@
 #if ($angularUtils.isComplex($field))
 #set ( $path = $stringUtils.replaceChars($field.type.packageName, '\\.', '\\/') )
 #set ( $file =  ${angularUtils.getComponentFileName("${field.type.name}")})
-import { $field.type.name } from 'src/app/gen/model/${path}/$file';
+import { $field.type.name } from '@app/model/${path}/$file';
 #end
 #end
 

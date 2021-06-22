@@ -2,7 +2,7 @@
 #set ($fileName = $angularUtils.getComponentFileName($service.name))
 #set ($types = [])
 #set ($ret = false)
-import { BASE_URL } from 'src/app/app.constants';
+import { environment } from 'src/environments/environment'
 #foreach ($operation in $service.operations)
 #foreach ( $argument in $operation.arguments)
 #if($argument.type.attributes.size() > 0)
@@ -20,14 +20,14 @@ import { Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 #foreach ($tmp in $angularUtils.getFacadeSet($types))
 #set ($path = $stringUtils.replaceChars(${tmp.packageName}, "\\.", "\\/"))
-import { $tmp.name } from 'src/app/gen/model/$path/$angularUtils.getComponentFileName(${tmp.name})';
+import { $tmp.name } from '@app/model/$path/$angularUtils.getComponentFileName(${tmp.name})';
 #end
 
 export abstract class $service.name {
 
 #if ($service.restCount>0)
 #if ($stringUtils.isNotBlank($service.restPath))
-    protected path = BASE_URL + #if($stringUtils.isNotBlank($service.restPath))"$service.restPath"#else"${service.name.toLowerCase()}sws"#end;
+    protected path = #if($stringUtils.isNotBlank($service.restPath))"$service.restPath"#else"/${service.name.toLowerCase()}sws"#end;
 
 #end
 #end
@@ -48,7 +48,6 @@ export abstract class $service.name {
 
 #end
 #end
-
 #end
 #if ($service.restCount>0 && $stringUtils.isNotBlank($service.restPath))
     protected http: HttpClient;
@@ -65,6 +64,7 @@ export abstract class $service.name {
 #set ($returnType = "$returnType[]")
 #end
 #set ($returnType2 = "Observable<$returnType>")
+
     /**
      * 
 ##if ($operation.rest)
@@ -81,7 +81,6 @@ export abstract class $service.name {
 ##end
      */
     public abstract ${operation.name}($arguments): $returnType2;
-
 #end
 }
 

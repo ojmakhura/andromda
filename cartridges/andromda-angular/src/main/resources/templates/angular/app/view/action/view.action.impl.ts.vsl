@@ -5,12 +5,12 @@
 #set ( $className = $angularUtils.getActionName("$actionPath") )
 #set($formName = $action.formBeanName)
 import { Component, Injector } from '@angular/core';
-import { ${className}Component } from 'src/app/gen/view${actionPath}.component';
+import { ${className}Component } from '@app/view${actionPath}.component';
 
 @Component({
   selector: '${selectorName}',
   templateUrl: './${angularUtils.getNameFromPath($action.path)}.component.html',
-  styleUrls: ['./${angularUtils.getNameFromPath($action.path)}.component.css']
+  styleUrls: ['./${angularUtils.getNameFromPath($action.path)}.component.scss']
 })
 export class ${className}ImplComponent extends ${className}Component {
 
@@ -28,9 +28,9 @@ export class ${className}ImplComponent extends ${className}Component {
     
   }
 
-  after$stringUtils.capitalize(${action.triggerName})() {    
+  after$stringUtils.capitalize(${action.triggerName})(form: any) {    
   }
 
-  do$stringUtils.capitalize($action.triggerName)() {
+  do$stringUtils.capitalize($action.triggerName)(form: any) {
   }
 }

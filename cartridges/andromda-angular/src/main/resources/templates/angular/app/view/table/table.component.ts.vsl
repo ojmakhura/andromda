@@ -8,6 +8,7 @@ import { Component, OnInit, ViewChild, Injector, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
 import { NgForm, FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
+import { ControllerBase } from '@app/controller/utils/controller.base';
 #set ( $types = [] )
 #set ( $rt = $types.add($table.type) )
 #set ( $suffix = "" )
@@ -20,7 +21,7 @@ $tmp
 #set ( $ret = $services.add($service) )
 #end
 #end
-#set ( $finalServices = [] ) ## No repetisions
+#set ( $finalServices = [] ) ## No repetitions
 #foreach ( $finalService in $angularUtils.getFacadeSet($services) )
 #set ($rt = $finalServices.add($finalService) )
 #end
@@ -31,15 +32,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 #if($angularUtils.isWebService($service))
 #set ( $path = "$stringUtils.replaceChars($stringUtils.lowerCase(${service.packageName}), '\\.', '\\/')" )
 #set ( $fname = $angularUtils.getComponentFileName("${service.name}Impl") )
-import { ${service.name}Impl } from 'src/app/impl/service/$path/$fname';
+import { ${service.name}Impl } from '@app/service/$path/$fname';
 #end
 #end
 #set ( $viewFile = $angularUtils.getComponentFileName("${table.view.name}") )
 #set ($viewName = $angularUtils.getComponentName($viewFile, '-') )
-import { ${viewName}ImplComponent } from 'src/app/impl/view/$componentPath/${viewFile}.impl.component';
+import { ${viewName}ImplComponent } from '@app/view/$componentPath/${viewFile}.impl.component';
 #set ( $path = $stringUtils.replaceChars($table.view.useCase.controller.packageName, '\\.', '\\/') )
 #set ( $file =  ${angularUtils.getComponentFileName("${table.view.useCase.controller.name}Impl")})
-import { ${table.view.useCase.controller.name}Impl } from 'src/app/impl/controller/$path/${file}';
+import { ${table.view.useCase.controller.name}Impl } from '@app/controller/$path/${file}';
 
 @Component({
   selector: '${fileName}-base',
@@ -50,7 +51,7 @@ export abstract class ${className}Component implements OnInit {
 ')
 
     ${table.name}Columns = [
-#if($table.tableFormActions.size() > 0)
+#if($table.tableFormActions.size() > 0 || $table.tableHyperlinkActions.size() > 0)
 		'actions',
 #end
 #set($i = 1)
@@ -67,6 +68,7 @@ export abstract class ${className}Component implements OnInit {
     @ViewChild('${table.name}Paginator', {static: true}) ${table.name}Paginator: MatPaginator;
     @ViewChild('${table.name}Sort', {static: true}) ${table.name}Sort: MatSort;
 
+    @Input() protected pageVariables: any;
 	protected formBuilder: FormBuilder;
     protected route: ActivatedRoute;
     protected router: Router;
@@ -97,11 +99,11 @@ export abstract class ${className}Component implements OnInit {
         this.afterOnInit();
     }
 	
-    abstract beforeOnInit();
+    abstract beforeOnInit(): void;
 	
-    abstract afterOnInit();
+    abstract afterOnInit(): void;
     
-    abstract doNgAfterViewInit();
+    abstract doNgAfterViewInit(): void;
 
     ngAfterViewInit() {
         this.doNgAfterViewInit();
@@ -143,16 +145,27 @@ export abstract class ${className}Component implements OnInit {
 #set ($routeName = $stringUtils.deleteWhitespace($stringUtils.replace($viewName, '-', '')))
 	// this.router.navigate(['/$routeName'], {state: {params}});
 #end
-	abstract do$stringUtils.capitalize(${action.triggerName})(#renderAngularTableCommandLinkParametersWithTypes()): any;
+	abstract do$stringUtils.capitalize(${action.triggerName})(form: any): any;
 	
 	${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes()) {
 
-		let params = this.do$stringUtils.capitalize(${action.triggerName})(#renderAngularTableCommandLinkParametersPlain());
-        this.${action.controller.beanName}.${action.triggerName}();
+        let form = #renderAngularTableCommandLinkParametersForm()
+		let params = this.do$stringUtils.capitalize(${action.triggerName})(form);
+        this.${action.controller.beanName}.${action.triggerName}(form);
 	}
 #end	
 #end
 #end
+#end
+
+#foreach ($action in $table.tableHyperlinkActions)
+    abstract do$stringUtils.capitalize(${action.triggerName})(form: any): any;
+	
+	${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes()) {
+        let form = #renderAngularTableCommandLinkParametersForm()
+		let params = this.do$stringUtils.capitalize(${action.triggerName})(form);
+        this.${action.controller.beanName}.${action.triggerName}(form);
+	}
 #end
 
     get ${table.view.useCase.controller.beanName}(): ${table.view.useCase.controller.name}Impl {
@@ -168,8 +181,13 @@ export abstract class ${className}Component implements OnInit {
         this.${table.name}.push(this.formBuilder.group({
 #set($i = 1)
 #foreach ($column in $table.tableColumns)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
 #if(!($column.upper>1 || $column.upper==-1))
-            $angularUtils.getColumnName($column): ['$column.name']#if($i < $table.tableColumns.size()),$cr#end
+            $columnName: [null],
 #end
 #set($i = $i + 1)
 #end
@@ -178,8 +196,13 @@ export abstract class ${className}Component implements OnInit {
         this.${table.name}.push(this.formBuilder.group({
 #set($i = 1)
 #foreach ($column in $table.tableColumns)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
 #if(!($column.upper > 1 || $column.upper == -1))
-            $angularUtils.getColumnName($column): ['$column.name']#if($i < $table.tableColumns.size()),$cr#end
+            $columnName: [null],
 #end
 #set($i = $i + 1)
 #end
@@ -188,8 +211,13 @@ export abstract class ${className}Component implements OnInit {
         this.${table.name}.push(this.formBuilder.group({
 #set($i = 1)
 #foreach ($column in $table.tableColumns)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
 #if(!($column.upper>1 || $column.upper==-1))
-            $angularUtils.getColumnName($column): ['$column.name']#if($i < $table.tableColumns.size()),$cr#end
+            $columnName: [null],
 #end
 #set($i = $i + 1)
 #end

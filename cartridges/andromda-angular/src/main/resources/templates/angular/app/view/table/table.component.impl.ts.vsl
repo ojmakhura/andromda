@@ -3,12 +3,12 @@
 #set ( $fileName = $angularUtils.getComponentFileName("${table.view.name}-${table.name}") )
 #set ( $className = $angularUtils.getComponentName($fileName, "-"))
 import { Component, Injector } from '@angular/core';
-import { ${className}Component } from 'src/app/gen/view/$componentPath/${fileName}.component';
+import { ${className}Component } from '@app/view/$componentPath/${fileName}.component';
 
 @Component({
   selector: '${fileName}',
   templateUrl: './${fileName}.component.html',
-  styleUrls: ['./${fileName}.component.css']
+  styleUrls: ['./${fileName}.component.scss']
 })
 export class ${className}ImplComponent extends ${className}Component {
 
@@ -27,8 +27,14 @@ export class ${className}ImplComponent extends ${className}Component {
   }
 
 #foreach ($action in $table.tableFormActions)
-
-	do$stringUtils.capitalize(${action.triggerName})(#renderAngularTableCommandLinkParametersWithTypes()): any {
+	do$stringUtils.capitalize(${action.triggerName})(#if($action.parameters.size() > 0)form: any#end): any {
 	}
+  
+#end
+#foreach ($action in $table.tableHyperlinkActions)
+  do$stringUtils.capitalize(${action.triggerName})(#if($action.parameters.size() > 0)form: any#end): any {
+
+  }
+	
 #end
 }

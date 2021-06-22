@@ -3,28 +3,33 @@
 ##
 #macro (processTransition $transition)
 #if (!$transition)
-null;
+        forward = null;
 #elseif ($transition.enteringFinalState)
 #set($targetController = $transition.target.targetElement.controller)
 #set($targetControllerBeanName = $transition.target.targetControllerBeanName)
 ##if($targetControlle.name)(<$targetController.name>JSON.parse(localStorage.getItem('$targetControllerBeanName'))).startUseCase()#else this.closeDialog()#end;
 #if($targetController.name)
 #if(${targetController.name} != $controller.name)
-this.${stringUtils.uncapitalize(${targetController.name})}.startUseCase()
+        this.${stringUtils.uncapitalize(${targetController.name})}.pageVariables = form;
+        forward = this.${stringUtils.uncapitalize(${targetController.name})}.startUseCase();
 #else
-this.startUseCase()
+        forward = this.startUseCase();
 #end
 #else 
-this.closeDialog()
-#end;
+        forward = this.closeDialog();
+#end
 #elseif ($transition.enteringView)
 #set ($pt = $angularUtils.getComponentFileName(${transition.target.name}))
 #set ( $cls = $angularUtils.getComponentName($pt, "-") )
-'$stringUtils.lowerCase($cls)';
+        forward = '$stringUtils.lowerCase($cls)';
 #elseif ($transition.enteringDecisionPoint)
-this.__${transition.operationCall.name}();
+        forward = this.__${transition.operationCall.name}(form);
 #else
-this.${transition.target.actionMethodName}#if (!$action.formFields.empty)${action.formImplementationName}#end();
+#if($action.exitingInitialState)  
+        forward = this.${transition.target.actionMethodName}#if (!$transition.formFields.empty)${action.formImplementationName}#end(pageVariables);
+#else
+        forward = this.${transition.target.actionMethodName}#if (!$transition.formFields.empty)${action.formImplementationName}#end(form);
+#end
 #end
 #end
 ##

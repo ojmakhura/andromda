@@ -27,7 +27,7 @@
 #end
 ## Services
 ## DO not add services to class names
-#foreach ($service in $action.controller.allServices)
+#foreach ($service in $action.controller.allRestControllers)
 #set ( $rt = $services.add($service) )
 #end
 #set ( $rt = $controllers.add($action.controller) )
