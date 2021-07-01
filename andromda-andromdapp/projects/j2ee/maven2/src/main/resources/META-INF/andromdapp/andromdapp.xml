@@ -28,12 +28,20 @@
             <output patterns="**/*">core</output>
         </conditions>
         <conditions>
-            <condition id="jsf" equal="true"/>
+            <condition id="web" equal="true"/>
             <output patterns="**/*">web/</output>
             <output>mda/src/main/config/mappings/WebMergeMappings.xml.vsl</output>
             <output>web/src/main/resources/META-INF/context.xml.vsl</output>
             <output>web/target/${applicationId}-${applicationVersion}/target/src/WEB-INF/web.xml</output>
             <output>web/target/${applicationId}-web-${applicationVersion}/target/src/WEB-INF/web.xml</output>
+        </conditions>
+        <conditions type="or">
+            <condition id="web" equal="true"/>
+            <output patterns="**/*">web/</output>
+        </conditions>
+        <conditions>
+            <condition id="web" equal="true"/>
+            <output>mda/src/main/config/mappings/WebMergeMappings.xml.vsl</output>
         </conditions>
         <conditions type="and">
             <condition id="webservice" notEqual="none"/>
@@ -459,6 +467,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 <responses type="java.lang.String">
                     <response>jsf</response>
                     <response>angular</response>
+                    <response>struts</response>
                     <response>both</response>
                 </responses>
                 <conditions>
@@ -472,6 +481,12 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                         <setProperty id="angular">true</setProperty>
                         <setProperty id="web">false</setProperty>
                         <setProperty id="component">component</setProperty>
+                    </condition>
+                    <condition equal="struts">
+                        <setProperty id="jsf">false</setProperty>
+                        <setProperty id="angular">false</setProperty>
+                        <setProperty id="struts">true</setProperty>
+                        <setProperty id="web">true</setProperty>
                     </condition>
                     <condition equal="both">
                         <setProperty id="angular">true</setProperty>

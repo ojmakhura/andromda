@@ -117,7 +117,15 @@
             <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
-#if ($webType.equals("jsf") || $webType.equals("both"))
+#if ($struts)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-bpm4struts-cartridge</artifactId>
+            <version>${andromda.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+#end
+#if ($jsf)
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-jsf2-cartridge</artifactId>
@@ -125,7 +133,7 @@
             <scope>runtime</scope>
         </dependency>
 #end
-#if ($webType.equals("angular") || $webType.equals("both"))
+#if ($angular)
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-angular-cartridge</artifactId>

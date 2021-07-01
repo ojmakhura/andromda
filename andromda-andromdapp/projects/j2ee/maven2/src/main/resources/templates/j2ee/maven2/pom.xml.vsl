@@ -162,7 +162,7 @@
             </dependency>
 #end
 #end
-#if ($webType.equals("jsf") || $webType.equals("both"))
+#if ($jsf)
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-jsf2-cartridge</artifactId>
@@ -559,14 +559,14 @@
                 <scope>runtime</scope>
             </dependency>
 #end
-#if ($webType.equals("jsf") || $webType.equals("both") || $hibernate)
+#if ($web || $hibernate)
             <dependency>
                 <groupId>antlr</groupId>
                 <artifactId>antlr</artifactId>
                 <version>2.7.7</version>
             </dependency>
 #end
-#if ($webType.equals("jsf") || $webType.equals("both"))
+#if ($web)
             <dependency>
                 <groupId>commons-digester</groupId>
                 <artifactId>commons-digester</artifactId>
@@ -596,6 +596,53 @@
                 <artifactId>oro</artifactId>
                 <version>2.0.8</version>
                 <scope>runtime</scope>
+            </dependency>
+#end
+#if ($struts)
+            <dependency>
+                <groupId>commons-validator</groupId>
+                <artifactId>commons-validator</artifactId>
+                <version>1.7</version>
+            </dependency>
+            <dependency>
+                <groupId>struts</groupId>
+                <artifactId>struts</artifactId>
+                <version>1.2.9</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-chain</groupId>
+                        <artifactId>commons-chain</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>commons-digester</groupId>
+                        <artifactId>commons-digester</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>xalan</groupId>
+                        <artifactId>xalan</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>struts-menu</groupId>
+                <artifactId>struts-menu</artifactId>
+                <version>2.3</version>
+            </dependency>
+            <dependency>
+                <groupId>displaytag</groupId>
+                <artifactId>displaytag</artifactId>
+                <version>1.2</version>
+                <scope>runtime</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>taglibs</groupId>
+                        <artifactId>standard</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 #end
 #if ($axis)
@@ -788,7 +835,7 @@
                 <version>1.2.17</version>
                 <!--scope>test</scope-->
             </dependency>
-#if (!($webType.equals("jsf") || $webType.equals("both")) && !$spring && !$hibernate)
+#if (!$web && !$spring && !$hibernate)
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
@@ -1197,6 +1244,8 @@
         spring=$spring
         webType=$webType
         jsf=$jsf
+        angular=$angular
+        struts=$struts
         webservice=$webservice
         cxf=$cxf
         rest=$rest
@@ -1212,10 +1261,10 @@
 #if (!$transactionPersistenceType.equals("none") || $cxf)
         <module>core</module>
 #end
-#if ($webType.equals("both") || $webType.equals("jsf"))
+#if ($jsf || $struts)
         <module>web</module>
 #end
-#if ($webType.equals("both") || $webType.equals("angular"))
+#if ($angular)
         <module>angular</module>
 #end
 #if (!$webservice.equals("none") && !$jsr181Webservice && ($ear || $cxf))
@@ -1453,7 +1502,7 @@
 #if ($tomcat)
         <tomcat.version>2.2</tomcat.version>
 #end
-#if ($webType.equals("jsf") || $webType.equals("both"))
+#if ($jsf)
         <myfaces.version>2.3.2</myfaces.version>
 #end
 #if ($cxf)
