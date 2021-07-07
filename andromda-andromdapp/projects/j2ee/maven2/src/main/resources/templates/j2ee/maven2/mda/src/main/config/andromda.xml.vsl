@@ -490,7 +490,30 @@
                 <property name="service-impls">${core.manual.java.dir}</property>
             </properties>
         </namespace>
-#if ($webType.equals("jsf") || $webType.equals("both"))
+#if ($struts)
+        <namespace name="bpm4struts">
+            <properties>
+                <property name="forms">${web.generated.dir}</property>
+                <property name="pages">${web.generated.dir}</property>
+                <property name="actions">${web.generated.dir}</property>
+                <property name="controllers">${web.generated.dir}</property>
+                <property name="controller-impls">${web.manual.java.dir}</property>
+                <property name="decorators">${web.manual.java.dir}</property>
+                <property name="messages">${web.generated.dir}/WEB-INF/classes</property>
+                <property name="configuration">${web.generated.dir}/WEB-INF</property>
+                <!-- uncomment to enable web tier security
+                <property name="securityRealm">${application.id}</property>
+                 -->
+#if ($ejb)
+                <property name="serviceAccessorPattern">{0}.{1}Util.getHome().create()</property>
+#else
+                <property name="serviceAccessorPattern">${application.package}.ServiceLocator.instance().get{1}()</property>
+#end
+                <property name="mergeMappingsUri">file:${conf.dir}/mappings/WebMergeMappings.xml</property>
+                <property name="manageableServiceAccessorPattern">${application.package}.ManageableServiceLocator.instance().get{1}()</property>
+            </properties>
+        </namespace>
+#elseif ($jsf)
 #if ($jbossSeam)
         <namespace name="seam">
             <properties>
@@ -559,7 +582,7 @@
         </namespace>
 #end
 #end
-#if($webType.equals("angular") || $webType.equals("both"))
+#if($webType.equals("angular"))
         <namespace name="angular">
             <properties>
                 <property name="applicationPackage">${application.package}</property>

@@ -452,11 +452,6 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>yes</response>
                     <response>no</response>
                 </responses>
-                <!--<conditions>
-                    <condition equal="yes">
-                        <setProperty id="jsf">true</setProperty>
-                    </condition>
-                </conditions>-->
             </prompt>
             <prompt id="webType">
                 <text>Would you like your web user interface to use JSF or Angular?</text>
@@ -562,7 +557,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 </responses>
             </prompt>
             <prompt id="webserviceStack"  setResponseAsTrue="true">
-                <text>Would you like to use Axis, XFire, CXF, or Sun's Jax-WS as your Webservice Stack?</text>
+                <text>Would you like to use Axis, XFire, CXF, Sun's Jax-WS or Spring Boot as your Webservice Stack?</text>
                 <shortText>SOAP stack</shortText>
                 <preconditions type="and">
                     <condition id="webservice" notEqual="none"/>

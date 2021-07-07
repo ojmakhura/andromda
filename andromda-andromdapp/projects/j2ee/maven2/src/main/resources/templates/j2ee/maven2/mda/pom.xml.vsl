@@ -124,8 +124,7 @@
             <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
-#end
-#if ($jsf)
+#elseif ($jsf)
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-jsf2-cartridge</artifactId>
