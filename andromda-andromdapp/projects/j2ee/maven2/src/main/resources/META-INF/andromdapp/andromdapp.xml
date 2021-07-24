@@ -45,12 +45,14 @@
         </conditions>
         <conditions type="and">
             <condition id="webservice" notEqual="none"/>
+            <condition id="webservice" notEqual="spring"/>
             <condition id="jsr181Webservice" notEqual="true"/>
             <output patterns="**/*">webservice/</output>
             <output>webservice/src/main/webapp/WEB-INF/web.xml</output>
         </conditions>
         <conditions type="and">
             <condition id="webservice" notEqual="none"/>
+            <condition id="webservice" notEqual="spring"/>
             <condition id="tomcat" equal="true"/>
             <condition id="jsr181Webservice" notEqual="true"/>
             <output>webservice/src/test/resources/META-INF/context.xml.vsl</output>
@@ -62,6 +64,7 @@
         <conditions type="and">
             <condition id="war" equal="true"/>
             <condition id="webservice" notEqual="none"/>
+            <condition id="webservice" notEqual="spring"/>
             <output>mda/src/main/config/mappings/WebMergeMappings.xml.vsl</output>
         </conditions>
         <conditions>
@@ -463,7 +466,6 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>jsf</response>
                     <response>angular</response>
                     <response>struts</response>
-                    <response>both</response>
                 </responses>
                 <conditions>
                     <condition equal="jsf">
@@ -475,19 +477,12 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                         <setProperty id="jsf">false</setProperty>
                         <setProperty id="angular">true</setProperty>
                         <setProperty id="web">false</setProperty>
-                        <setProperty id="component">component</setProperty>
                     </condition>
                     <condition equal="struts">
                         <setProperty id="jsf">false</setProperty>
                         <setProperty id="angular">false</setProperty>
                         <setProperty id="struts">true</setProperty>
                         <setProperty id="web">true</setProperty>
-                    </condition>
-                    <condition equal="both">
-                        <setProperty id="angular">true</setProperty>
-                        <setProperty id="jsf">true</setProperty>
-                        <setProperty id="web">true</setProperty>
-                        <setProperty id="component">component</setProperty>
                     </condition>
                 </conditions>
             </prompt>

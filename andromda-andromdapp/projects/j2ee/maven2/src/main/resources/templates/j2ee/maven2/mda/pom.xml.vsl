@@ -484,7 +484,7 @@
         <springws.manual.dir>${project.basedir}/../springws/src/main</springws.manual.dir>
         <springws.manual.java.dir>${springws.manual.dir}/java</springws.manual.java.dir>
 #end
-#if ($webType.equals("jsf") || $webType.equals("both"))
+#if ($webType.equals("jsf") || $webType.equals("struts"))
         <web.generated.dir>${project.basedir}/../web/target</web.generated.dir>
         <web.generated.java.dir>${web.generated.dir}/src/main/java</web.generated.java.dir>
         <web.generated.web.dir>${web.generated.dir}/src/main/webapp</web.generated.web.dir>

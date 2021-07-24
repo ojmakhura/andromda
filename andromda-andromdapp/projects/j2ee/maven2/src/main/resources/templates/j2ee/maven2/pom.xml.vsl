@@ -470,24 +470,6 @@
                 <scope>test</scope>
 #end
             </dependency>
-#if (!($webType.equals("jsf") || $webType.equals("both")))
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>1.7.7</version>
-#if($ear && !$cxf)
-                <scope>provided</scope>
-#end
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-log4j12</artifactId>
-                <version>1.7.7</version>
-#if($ear && !$cxf)
-                <scope>provided</scope>
-#end
-            </dependency>
-#end
 #end
 #end
 #if ($spring)

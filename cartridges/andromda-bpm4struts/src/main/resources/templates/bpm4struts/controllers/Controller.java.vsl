@@ -249,13 +249,10 @@ $operation.getDocumentation("     * ")
 #foreach ($serviceRef in $controller.serviceReferences)
 #if ($stringUtils.isNotBlank($serviceRef.targetElement.accessorImplementation))
     /**
-     * Returns a reference to the $serviceRef.name back-end service.
+     * Returns a reference to the $serviceRef.targetElement.name back-end service.
      */
-    protected final $serviceRef.targetElement.fullyQualifiedName ${serviceRef.getterName}()
-        throws Exception
-    {
-        return $serviceRef.targetElement.accessorImplementation;
-    }
+    @org.springframework.beans.factory.annotation.Autowired
+    protected $serviceRef.targetElement.fullyQualifiedName ${serviceRef.name};
 
 #end
 #end
