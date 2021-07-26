@@ -358,9 +358,9 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 </responses>
                 <conditions>
                     <condition equal="ejb3">
-                        <setProperty id="hibernate">false</setProperty>
-                        <setProperty id="spring">false</setProperty>
-                        <setProperty id="ejb">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="hibernate">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="spring">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="ejb">false</setProperty>
                     </condition>
                  </conditions>
             </prompt>
@@ -462,27 +462,29 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 <preconditions>
                     <condition id="web" equal="true"/>
                 </preconditions>
-                <responses type="java.lang.String">
+                <responses>
                     <response>jsf</response>
                     <response>angular</response>
                     <response>struts</response>
                 </responses>
                 <conditions>
                     <condition equal="jsf">
-                        <setProperty id="jsf">true</setProperty>
-                        <setProperty id="angular">false</setProperty>
-                        <setProperty id="web">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="jsf">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="angular">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="struts">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="web">true</setProperty>
                     </condition>
                     <condition equal="angular">
-                        <setProperty id="jsf">false</setProperty>
-                        <setProperty id="angular">true</setProperty>
-                        <setProperty id="web">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="jsf">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="angular">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="struts">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="web">false</setProperty>
                     </condition>
                     <condition equal="struts">
-                        <setProperty id="jsf">false</setProperty>
-                        <setProperty id="angular">false</setProperty>
-                        <setProperty id="struts">true</setProperty>
-                        <setProperty id="web">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="jsf">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="angular">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="struts">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="web">true</setProperty>
                     </condition>
                 </conditions>
             </prompt>
@@ -520,23 +522,19 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 </responses>
                 <conditions>
                     <condition equal="soap">
-                        <setProperty id="soap">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="soap">true</setProperty>
                     </condition>
                     <condition equal="rest">
-                        <setProperty id="rest">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="rest">true</setProperty>
                     </condition>
                     <condition equal="both">
-                        <setProperty id="soap">true</setProperty>
-                        <setProperty id="rest">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="soap">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="rest">true</setProperty>
                     </condition>
                     <condition equal="none">
-                        <setProperty id="soap">false</setProperty>
-                        <setProperty id="rest">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="soap">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="rest">false</setProperty>
                     </condition>
-                    <!-- <condition id="angular" equal="true">
-                        <setProperty id="rest">true</setProperty>
-                        <setProperty id="webserviceStack">spring</setProperty>
-                    </condition> -->
                  </conditions>
             </prompt>
             <prompt id="jsr181Webservice" setResponseAsTrue="false">
@@ -567,10 +565,10 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 </responses>
                 <conditions>
                     <condition id="webserviceStack" equal="cxf">
-                        <setProperty id="cxf">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="cxf">true</setProperty>
                     </condition>
                     <condition equal="spring">
-                        <setProperty id="springws">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="springws">true</setProperty>
                     </condition>
                 </conditions>
             </prompt>
@@ -619,10 +617,10 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 </responses>
                 <conditions>
                     <condition equal="tomcat">
-                        <setProperty id="tomcat">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="tomcat">true</setProperty>
                     </condition>
                     <condition equal="jetty">
-                        <setProperty id="jetty">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="jetty">true</setProperty>
                     </condition>
                  </conditions>
             </prompt>

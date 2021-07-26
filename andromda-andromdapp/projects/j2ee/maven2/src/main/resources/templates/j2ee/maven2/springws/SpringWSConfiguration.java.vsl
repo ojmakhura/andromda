@@ -15,7 +15,6 @@ import org.springframework.web.filter.CorsFilter;
 import org.springframework.http.HttpMethod;
 
 @Configuration
-
 @ComponentScan(basePackages = "${applicationPackage}")
 @EnableAutoConfiguration(exclude = { //
         DataSourceAutoConfiguration.class, //
