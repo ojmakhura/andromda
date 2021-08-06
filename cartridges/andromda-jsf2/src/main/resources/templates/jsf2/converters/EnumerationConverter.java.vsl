@@ -9,30 +9,30 @@ package $enumeration.packageName;
  * to a String and back.
  */
 public class $enumeration.converterName
-    implements javax.faces.convert.Converter
+    implements jakarta.faces.convert.Converter
 {
     /**
-     * @see javax.faces.convert.Converter#hash()getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, Object)
+     * @see jakarta.faces.convert.Converter#hash()getAsString(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent, Object)
      */
     @Override
     public String getAsString(
-        javax.faces.context.FacesContext context,
-        javax.faces.component.UIComponent component,
+        jakarta.faces.context.FacesContext context,
+        jakarta.faces.component.UIComponent component,
         Object value)
-        throws javax.faces.convert.ConverterException
+        throws jakarta.faces.convert.ConverterException
     {
         return (value == null || value.toString().trim().length() == 0) ? "":  ((${enumeration.fullyQualifiedName})value).toString();
     }
 
     /**
-     * @see javax.faces.convert.Converter#hash()getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, String)
+     * @see jakarta.faces.convert.Converter#hash()getAsObject(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent, String)
      */
     @Override
     public Object getAsObject(
-        javax.faces.context.FacesContext context,
-        javax.faces.component.UIComponent component,
+        jakarta.faces.context.FacesContext context,
+        jakarta.faces.component.UIComponent component,
         String value)
-        throws javax.faces.convert.ConverterException
+        throws jakarta.faces.convert.ConverterException
     {
         return value != null && value.trim().length() > 0 ? ${enumeration.fullyQualifiedName}.fromString(value) : null;
     }

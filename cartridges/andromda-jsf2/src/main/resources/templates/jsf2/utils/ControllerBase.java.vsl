@@ -138,7 +138,7 @@ public abstract class ControllerBase
         if(ControllerBase.getUseCaseScope() == null)//can be null if executed from the url
         {
             useCaseParameters=new java.util.HashMap<String,Object>();
-            final javax.servlet.http.HttpServletRequest request=JsfUtils.getRequest();
+            final jakarta.servlet.http.HttpServletRequest request=JsfUtils.getRequest();
             final java.util.Enumeration<String> parameterNames=request.getParameterNames();
             while(parameterNames.hasMoreElements())
             {

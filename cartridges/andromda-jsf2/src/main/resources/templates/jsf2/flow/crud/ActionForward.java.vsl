@@ -9,9 +9,9 @@ package $manageable.manageablePackageName;
  * This servlet is used to allow controller operation execution through
  * a URL call.
  */
-@javax.servlet.annotation.WebServlet("${manageable.actionPath}.${facesServletExtension}")
+@jakarta.servlet.annotation.WebServlet("${manageable.actionPath}.${facesServletExtension}")
 public class $manageable.actionClassName
-    extends javax.servlet.http.HttpServlet
+    extends jakarta.servlet.http.HttpServlet
 {
     /**
      * The serial version UID of this class. Needed for serialization.
@@ -19,13 +19,13 @@ public class $manageable.actionClassName
     private static final long serialVersionUID = 1L;
 
     /**
-     * @see javax.servlet.http.HttpServlet#hash()doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see jakarta.servlet.http.HttpServlet#hash()doGet(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse)
      */
     @Override
     public void doGet(
-        final javax.servlet.http.HttpServletRequest request,
-        final javax.servlet.http.HttpServletResponse response)
-        throws javax.servlet.ServletException, java.io.IOException
+        final jakarta.servlet.http.HttpServletRequest request,
+        final jakarta.servlet.http.HttpServletResponse response)
+        throws jakarta.servlet.ServletException, java.io.IOException
     {
         // - we need to resolve the controller differently since we're outside of the faces servlet
 #set ($facesContextUtilsFullyQualifiedName = "FacesContextUtils")
@@ -43,19 +43,19 @@ public class $manageable.actionClassName
         }
         catch(Throwable t)
         {
-            throw new javax.servlet.ServletException(t);
+            throw new jakarta.servlet.ServletException(t);
         }
         request.getRequestDispatcher(forwardPath).forward(request, response);
     }
 
     /**
-     * @see javax.servlet.http.HttpServlet#hash()doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see jakarta.servlet.http.HttpServlet#hash()doPost(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse)
      */
     @Override
     public void doPost(
-        final javax.servlet.http.HttpServletRequest request,
-        final javax.servlet.http.HttpServletResponse response)
-        throws javax.servlet.ServletException, java.io.IOException
+        final jakarta.servlet.http.HttpServletRequest request,
+        final jakarta.servlet.http.HttpServletResponse response)
+        throws jakarta.servlet.ServletException, java.io.IOException
     {
         this.doGet(request, response);
     }

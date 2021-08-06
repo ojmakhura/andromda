@@ -59,10 +59,10 @@ public class $controller.implementationName
 #set ($labelList = $valueList)
 #end
 #set($backingListName=$field.backingListName)
-        final java.util.Collection<javax.faces.model.SelectItem> ${backingListName}=new java.util.ArrayList<javax.faces.model.SelectItem>();
+        final java.util.Collection<jakarta.faces.model.SelectItem> ${backingListName}=new java.util.ArrayList<jakarta.faces.model.SelectItem>();
         for(int i=0; i<${valueList}.length; i++)
         {
-            ${field.backingListName}.add(new javax.faces.model.SelectItem(${valueList}[i],${labelList}[i]));
+            ${field.backingListName}.add(new jakarta.faces.model.SelectItem(${valueList}[i],${labelList}[i]));
         }
         form.set${stringUtils.capitalize($backingListName)}($backingListName);
 
@@ -78,10 +78,10 @@ public class $controller.implementationName
 #set ($labelList = $valueList)
 #end
 #set($backingListName=${attribute.getBackingListName($field)})
-        final java.util.Collection<javax.faces.model.SelectItem> ${backingListName}=new java.util.ArrayList<javax.faces.model.SelectItem>();
+        final java.util.Collection<jakarta.faces.model.SelectItem> ${backingListName}=new java.util.ArrayList<jakarta.faces.model.SelectItem>();
         for(int i=0; i<${valueList}.length; i++)
         {
-            ${field.backingListName}.add(new javax.faces.model.SelectItem(${valueList}[i],${labelList}[i]));
+            ${field.backingListName}.add(new jakarta.faces.model.SelectItem(${valueList}[i],${labelList}[i]));
         }
         form.set${stringUtils.capitalize($backingListName)}($backingListName);
         

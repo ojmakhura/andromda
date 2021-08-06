@@ -14,16 +14,16 @@ import java.io.StringReader;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponseWrapper;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -35,11 +35,11 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author Walter Mourao
  */
-@javax.servlet.annotation.WebFilter("*.${facesServletExtension}")
+@jakarta.servlet.annotation.WebFilter("*.${facesServletExtension}")
 public class ODSFilter implements Filter
 {
     /**
-     * @see javax.servlet.Filter#hash()init(javax.servlet.FilterConfig)
+     * @see jakarta.servlet.Filter#hash()init(jakarta.servlet.FilterConfig)
      */
     @Override
     public void init(FilterConfig config) throws ServletException
@@ -121,7 +121,7 @@ public class ODSFilter implements Filter
         }
 
         /**
-         * @see javax.servlet.ServletResponseWrapper#hash()getOutputStream()
+         * @see jakarta.servlet.ServletResponseWrapper#hash()getOutputStream()
          */
         @Override
         public ServletOutputStream getOutputStream() throws IOException
@@ -130,7 +130,7 @@ public class ODSFilter implements Filter
         }
 
         /**
-         * @see javax.servlet.ServletResponseWrapper#hash()getWriter()
+         * @see jakarta.servlet.ServletResponseWrapper#hash()getWriter()
          */
         @Override
         public PrintWriter getWriter() throws IOException
@@ -139,7 +139,7 @@ public class ODSFilter implements Filter
         }
 
         /**
-         * @see javax.servlet.http.HttpServletResponseWrapper#hash()setStatus(int)
+         * @see jakarta.servlet.http.HttpServletResponseWrapper#hash()setStatus(int)
          */
         @Override
         public void setStatus(int statusIn)
@@ -159,7 +159,7 @@ public class ODSFilter implements Filter
         }
 
         /**
-         * @see javax.servlet.http.HttpServletResponseWrapper#hash()sendError(int, java.lang.String)
+         * @see jakarta.servlet.http.HttpServletResponseWrapper#hash()sendError(int, java.lang.String)
          */
         @Override
         public void sendError(int sc, String msg) throws IOException
@@ -169,7 +169,7 @@ public class ODSFilter implements Filter
         }
 
         /**
-         * @see javax.servlet.http.HttpServletResponseWrapper#hash()sendError(int)
+         * @see jakarta.servlet.http.HttpServletResponseWrapper#hash()sendError(int)
          */
         @Override
         public void sendError(int sc) throws IOException
@@ -241,7 +241,7 @@ public class ODSFilter implements Filter
      * @param chain the filter chain
      * @throws IOException
      * @throws ServletException
-     * @see javax.servlet.Filter#hash()doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     * @see jakarta.servlet.Filter#hash()doFilter(jakarta.servlet.ServletRequest, jakarta.servlet.ServletResponse, jakarta.servlet.FilterChain)
      */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
@@ -294,7 +294,7 @@ public class ODSFilter implements Filter
     }
 
     /**
-     * @see javax.servlet.Filter#hash()destroy()
+     * @see jakarta.servlet.Filter#hash()destroy()
      */
     @Override
     public void destroy()

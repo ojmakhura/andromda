@@ -26,16 +26,16 @@ package $manageable.manageablePackageName;
  * Handles conversion of the entity id to a String.
  */
 public class $manageable.converterClassName
-    implements javax.faces.convert.Converter
+    implements jakarta.faces.convert.Converter
 {
     /**
-     * @see javax.faces.convert.Converter#hash()getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, Object)
+     * @see jakarta.faces.convert.Converter#hash()getAsString(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent, Object)
      */
     public String getAsString(
-        javax.faces.context.FacesContext context,
-        javax.faces.component.UIComponent component,
+        jakarta.faces.context.FacesContext context,
+        jakarta.faces.component.UIComponent component,
         Object value)
-        throws javax.faces.convert.ConverterException
+        throws jakarta.faces.convert.ConverterException
     {
         if(value == null)
             return "";
@@ -66,13 +66,13 @@ public class $manageable.converterClassName
     }
 
     /**
-     * @see javax.faces.convert.Converter#hash()getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, String)
+     * @see jakarta.faces.convert.Converter#hash()getAsObject(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent, String)
      */
     public Object getAsObject(
-        javax.faces.context.FacesContext context,
-        javax.faces.component.UIComponent component,
+        jakarta.faces.context.FacesContext context,
+        jakarta.faces.component.UIComponent component,
         String value)
-        throws javax.faces.convert.ConverterException
+        throws jakarta.faces.convert.ConverterException
     {
 #if($identifierIsStringType)
         return value;

@@ -180,58 +180,31 @@
                 <version>${myfaces.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.myfaces.tomahawk</groupId>
-                <artifactId>tomahawk21</artifactId>
-                <version>1.1.14</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>xml-apis</groupId>
-                        <artifactId>xmlParserAPIs</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <!-- validation dependencies -->
-            <dependency>
-                <groupId>javax.validation</groupId>
-                <artifactId>validation-api</artifactId>
-                <version>2.0.0.Final</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.myfaces.extensions.validator</groupId>
-                <artifactId>myfaces-extval-core</artifactId>
-                <version>2.0.8</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
-                <artifactId>myfaces-extval-property-validation</artifactId>
-                <version>2.0.8</version>
-                <exclusions>
-                	<exclusion>
-                        <groupId>javax.persistence</groupId>
-                        <artifactId>persistence-api</artifactId>                	
-                	</exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
-                <artifactId>myfaces-extval-bean-validation</artifactId>
-                <version>2.0.8</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.myfaces.extensions.validator.component-support-modules</groupId>
-                <artifactId>myfaces-extval-generic-support</artifactId>
-                <version>2.0.8</version>
+                <groupId>jakarta.faces</groupId>
+                <artifactId>jakarta.faces-api</artifactId>
+                <version>3.0.0</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.primefaces</groupId>
                 <artifactId>primefaces</artifactId>
-                <version>7.0</version>
+                <version>10.0.0</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.glassfish</groupId>
+                        <artifactId>javax.servlet</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax</groupId>
+                        <artifactId>javaee-api</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 #if (!$spring && !$hibernate && !$ejb3)
             <dependency>
                 <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>6.0.13.Final</version>
+                <version>7.0.1.Final</version>
             </dependency>
 #end
             <dependency>
@@ -385,14 +358,20 @@
             <dependency>
                 <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>6.0.9.Final</version>
+                <version>7.0.1.Final</version>
             </dependency>
             <!-- JBoss Dependencies -->
-            <dependency>
+            <!-- <dependency>
               <groupId>org.jboss.spec</groupId>
               <artifactId>jboss-javaee-all-7.0</artifactId>
               <version>1.1.1.Final</version>
               <scope>provided</scope>
+            </dependency>-->
+            <dependency>
+                <groupId>jakarta.platform</groupId>
+                <artifactId>jakarta.jakartaee-api</artifactId>
+                <version>9.1.0</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>net.sf.ehcache.internal</groupId>
@@ -449,19 +428,15 @@
             <dependency>
                 <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>6.0.9.Final</version>
-                <exclusions>
-                	<exclusion>
-                		<groupId>javax.validation</groupId>
-                		<artifactId>validation-api</artifactId>
-                   	</exclusion>
-                </exclusions>
+                <version>7.0.1.Final</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/org.ehcache/ehcache -->
             <dependency>
-                <groupId>net.sf.ehcache.internal</groupId>
-                <artifactId>ehcache-core</artifactId>
-                <version>2.9.0</version>
+                <groupId>org.ehcache</groupId>
+                <artifactId>ehcache</artifactId>
+                <version>3.9.4</version>
             </dependency>
+
             <dependency>
                 <groupId>org.javassist</groupId>
                 <artifactId>javassist</artifactId>
@@ -556,6 +531,12 @@
                 <scope>runtime</scope>
             </dependency>
             <dependency>
+                <groupId>jakarta.platform</groupId>
+                <artifactId>jakarta.jakartaee-api</artifactId>
+                <version>9.1.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <!--<dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>3.1.0</version>
@@ -572,7 +553,7 @@
                 <artifactId>jstl</artifactId>
                 <version>1.2</version>
                 <scope>runtime</scope>
-            </dependency>
+            </dependency> -->
             <dependency>
                 <groupId>oro</groupId>
                 <artifactId>oro</artifactId>
@@ -1485,7 +1466,7 @@
         <tomcat.version>2.2</tomcat.version>
 #end
 #if ($jsf)
-        <myfaces.version>2.3.2</myfaces.version>
+        <myfaces.version>3.0.1</myfaces.version>
 #end
 #if ($cxf)
         <spring.version>5.3.2</spring.version>

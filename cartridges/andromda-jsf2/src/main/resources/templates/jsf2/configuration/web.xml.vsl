@@ -55,7 +55,7 @@
         <param-value>true</param-value>
     </context-param>
     <context-param>
-        <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+        <param-name>jakarta.faces.DEFAULT_SUFFIX</param-name>
         <param-value>.xhtml</param-value>
     </context-param>
     <context-param>
@@ -80,23 +80,23 @@
     </context-param>
 #if ($faceletsDevelopmentSupportEnabled)
     <context-param>
-        <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
+        <param-name>jakarta.faces.FACELETS_REFRESH_PERIOD</param-name>
         <param-value>2</param-value>
     </context-param>
 
     <context-param>
-        <param-name>javax.faces.FACELETS_DEVELOPMENT</param-name>
+        <param-name>jakarta.faces.FACELETS_DEVELOPMENT</param-name>
         <param-value>true</param-value>
     </context-param>
 
 #else
     <context-param>
-        <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
+        <param-name>jakarta.faces.FACELETS_REFRESH_PERIOD</param-name>
         <param-value>-1</param-value>
     </context-param>
 
     <context-param>
-        <param-name>javax.faces.FACELETS_DEVELOPMENT</param-name>
+        <param-name>jakarta.faces.FACELETS_DEVELOPMENT</param-name>
         <param-value>false</param-value>
     </context-param>
 
@@ -108,7 +108,7 @@
             (e.g. /WEB-INF/jsf-config.xml)
             See JSF 1.0 PRD2, 10.3.2
         </description>
-        <param-name>javax.faces.CONFIG_FILES</param-name>
+        <param-name>jakarta.faces.CONFIG_FILES</param-name>
         <param-value>
             $facesConfigFiles
         </param-value>
@@ -212,7 +212,7 @@
     <!-- servlet merge-point -->
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
-        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 #if($trinidad)    

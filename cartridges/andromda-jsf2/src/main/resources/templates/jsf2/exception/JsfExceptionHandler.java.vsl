@@ -3,25 +3,25 @@
 package $managedBeansPackage;
 
 class JsfExceptionHandler
-    extends javax.faces.context.ExceptionHandlerWrapper 
+    extends jakarta.faces.context.ExceptionHandlerWrapper 
 {
     /**
-     * Parent javax.faces.context.ExceptionHandler
+     * Parent jakarta.faces.context.ExceptionHandler
      */
-    private javax.faces.context.ExceptionHandler parent;
+    private jakarta.faces.context.ExceptionHandler parent;
 
     /**
      * Constructor
      *
-     * @param parent the parent javax.faces.context.ExceptionHandler
+     * @param parent the parent jakarta.faces.context.ExceptionHandler
      */
-    public JsfExceptionHandler(javax.faces.context.ExceptionHandler parent) 
+    public JsfExceptionHandler(jakarta.faces.context.ExceptionHandler parent) 
     {
         this.parent = parent;
     }
 
     @Override
-    public javax.faces.context.ExceptionHandler getWrapped() 
+    public jakarta.faces.context.ExceptionHandler getWrapped() 
     {
         return this.parent;
     }
@@ -37,19 +37,19 @@ class JsfExceptionHandler
      */
     private void addFacesMessage(final String clientId, 
                                  final String message,
-                                 final javax.faces.application.FacesMessage.Severity severity)
+                                 final jakarta.faces.application.FacesMessage.Severity severity)
     {
-        javax.faces.context.FacesContext.getCurrentInstance().addMessage(clientId, 
-                        new javax.faces.application.FacesMessage(severity,message,null));
+        jakarta.faces.context.FacesContext.getCurrentInstance().addMessage(clientId, 
+                        new jakarta.faces.application.FacesMessage(severity,message,null));
     }
 
     /**
-     * Append a message to the current instance of javax.faces.context.FacesContext
+     * Append a message to the current instance of jakarta.faces.context.FacesContext
      *
      * @param message the message to be appended
      * @param severity the severity of the message
      */    
-    private void addFacesMessage(final String message, final javax.faces.application.FacesMessage.Severity severity)
+    private void addFacesMessage(final String message, final jakarta.faces.application.FacesMessage.Severity severity)
     {
         addFacesMessage(null,message,severity);
     }
@@ -65,7 +65,7 @@ class JsfExceptionHandler
      */
     private void addErrorMessage(String clientId, String message)
     {
-        addFacesMessage(clientId, message, javax.faces.application.FacesMessage.SEVERITY_ERROR);
+        addFacesMessage(clientId, message, jakarta.faces.application.FacesMessage.SEVERITY_ERROR);
     }
     
     /**
@@ -86,7 +86,7 @@ class JsfExceptionHandler
      * @return true if some clientId has any attached message
      */    
     private boolean showValidationMessages(final java.util.Collection<ValidationException.ValidationExceptionInfo> validationMessages, 
-                                           final javax.faces.application.FacesMessage.Severity severity)
+                                           final jakarta.faces.application.FacesMessage.Severity severity)
     {
         boolean existsFieldMessage=false;
         
@@ -97,8 +97,8 @@ class JsfExceptionHandler
             } 
             else 
             {
-                final javax.faces.context.FacesContext facesContext = javax.faces.context.FacesContext.getCurrentInstance();
-                final char namingSeparator=javax.faces.component.UINamingContainer.getSeparatorChar(facesContext); 
+                final jakarta.faces.context.FacesContext facesContext = jakarta.faces.context.FacesContext.getCurrentInstance();
+                final char namingSeparator=jakarta.faces.component.UINamingContainer.getSeparatorChar(facesContext); 
                 if(fieldName.indexOf(namingSeparator) > -1)
                 {
                     //is clientId
@@ -205,8 +205,8 @@ class JsfExceptionHandler
             }
             else
             {
-                javax.faces.context.FacesContext.getCurrentInstance().addMessage(null, 
-                    new javax.faces.application.FacesMessage(javax.faces.application.FacesMessage.SEVERITY_ERROR,
+                jakarta.faces.context.FacesContext.getCurrentInstance().addMessage(null, 
+                    new jakarta.faces.application.FacesMessage(jakarta.faces.application.FacesMessage.SEVERITY_ERROR,
                         Messages.get(matched, getMessageArguments(cause)),null));
                 return true;
             }
@@ -224,25 +224,25 @@ class JsfExceptionHandler
      */
     private String lastPostedForm()
     {
-        final Object value=javax.faces.context.FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(ControllerBase.LAST_POSTED_FORM_CLIENT_ID);
+        final Object value=jakarta.faces.context.FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(ControllerBase.LAST_POSTED_FORM_CLIENT_ID);
         return value==null?org.apache.commons.lang3.StringUtils.EMPTY:value.toString();
     }
 
     @Override
-    public void handle() throws javax.faces.FacesException 
+    public void handle() throws jakarta.faces.FacesException 
     {
         boolean existsMessage=false;
         boolean existsFieldMessage=false;
         
-        for (java.util.Iterator<javax.faces.event.ExceptionQueuedEvent> i = getUnhandledExceptionQueuedEvents().iterator(); i.hasNext();) 
+        for (java.util.Iterator<jakarta.faces.event.ExceptionQueuedEvent> i = getUnhandledExceptionQueuedEvents().iterator(); i.hasNext();) 
         {
-            final javax.faces.event.ExceptionQueuedEvent event = i.next();
-            final javax.faces.event.ExceptionQueuedEventContext context = (javax.faces.event.ExceptionQueuedEventContext) event.getSource();
+            final jakarta.faces.event.ExceptionQueuedEvent event = i.next();
+            final jakarta.faces.event.ExceptionQueuedEventContext context = (jakarta.faces.event.ExceptionQueuedEventContext) event.getSource();
             final Throwable t = context.getException();
-            if (t instanceof javax.faces.application.ViewExpiredException) 
+            if (t instanceof jakarta.faces.application.ViewExpiredException) 
             {
-                final javax.faces.context.FacesContext fc = javax.faces.context.FacesContext.getCurrentInstance();
-                final javax.faces.application.NavigationHandler nav = fc.getApplication().getNavigationHandler();
+                final jakarta.faces.context.FacesContext fc = jakarta.faces.context.FacesContext.getCurrentInstance();
+                final jakarta.faces.application.NavigationHandler nav = fc.getApplication().getNavigationHandler();
                 try {
                     nav.handleNavigation(fc, null, "/login.jsf?faces-redirect=true");
                     fc.renderResponse();
@@ -257,8 +257,8 @@ class JsfExceptionHandler
                 {
                     final ValidationException vd = (ValidationException)cause;
                     existsFieldMessage=
-                        showValidationMessages(vd.getErrors(),javax.faces.application.FacesMessage.SEVERITY_ERROR) ||
-                        showValidationMessages(vd.getWarnings(),javax.faces.application.FacesMessage.SEVERITY_WARN);
+                        showValidationMessages(vd.getErrors(),jakarta.faces.application.FacesMessage.SEVERITY_ERROR) ||
+                        showValidationMessages(vd.getWarnings(),jakarta.faces.application.FacesMessage.SEVERITY_WARN);
                     i.remove();
                     existsMessage=true;
                 }
@@ -298,7 +298,7 @@ class JsfExceptionHandler
 
         if(existsMessage)
         {
-            javax.faces.context.FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("jsfMessagesTitle", Messages.get("errors.header"));
+            jakarta.faces.context.FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("jsfMessagesTitle", Messages.get("errors.header"));
             if(existsFieldMessage)
             {
                 addErrorMessage(Messages.get("there.are.field.validation.errors"));

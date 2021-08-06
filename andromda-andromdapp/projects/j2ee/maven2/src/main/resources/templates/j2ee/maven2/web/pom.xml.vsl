@@ -151,7 +151,7 @@
             <systemPath>${project.basedir}/target/src/WEB-INF/lib/ajax4jsf.jar</systemPath>
         </dependency>
 #else
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-api</artifactId>
         </dependency>
@@ -166,8 +166,8 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-        </dependency>
-        <dependency>
+        </dependency> -->
+        <!-- <dependency>
             <groupId>org.apache.myfaces.extensions.validator</groupId>
             <artifactId>myfaces-extval-core</artifactId>
         </dependency>
@@ -182,7 +182,7 @@
         <dependency>
             <groupId>org.apache.myfaces.extensions.validator.component-support-modules</groupId>
             <artifactId>myfaces-extval-generic-support</artifactId>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
@@ -211,7 +211,7 @@
             <artifactId>andromda-utils</artifactId>
         </dependency>
 #end
-        <dependency>
+        <!-- <dependency>
           <groupId>javax.servlet</groupId>
           <artifactId>javax.servlet-api</artifactId>
         </dependency>
@@ -222,16 +222,20 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-        </dependency>
+        </dependency> -->
 #end
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-script-wrappers</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-all-7.0</artifactId>
+        </dependency> -->
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
         </dependency>
 #if ($ejb3)
         <dependency>
