@@ -420,7 +420,7 @@
         </modelElements>
     </template>
 	
-	<template
+	<!-- <template
         path="templates/angular/app/view/action/view.action.html.vsl"
         outputPattern="${action.filePath}.html"
         outlet="views"
@@ -433,9 +433,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
     
-	<template
+	<!-- <template
         path="templates/angular/app/view/action/view.action.ts.vsl"
         outputPattern="${action.filePath}.ts"
         outlet="views"
@@ -448,9 +448,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 	
-	<template
+	<!-- <template
         path="templates/angular/app/view/action/view.action.impl.ts.vsl"
         outputPattern="${action.implementationFilePath}.ts"
         outlet="views"
@@ -463,9 +463,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
     
-	<template
+	<!-- <template
         path="templates/angular/app/view/action/view.action.scss.vsl"
         outputPattern="${action.filePath}.scss"
         outlet="views"
@@ -478,9 +478,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
     
-	<template
+	<!-- <template
         path="templates/angular/app/view/action/view.action.spec.ts.vsl"
         outputPattern="${action.filePath}.spec.ts"
         outlet="views"
@@ -493,9 +493,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/angular/app/view/view-variables.ts.vsl"
         outputPattern="${view.varsComponentFilePath}.ts"
         outlet="views"
@@ -507,9 +507,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/angular/app/view/view-variables.impl.ts.vsl"
         outputPattern="${view.varsComponentImplementationFilePath}.ts"
         outlet="views"
@@ -521,9 +521,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/angular/app/view/view-variables.spec.ts.vsl"
         outputPattern="${view.varsComponentFilePath}.spec.ts"
         outlet="views"
@@ -535,9 +535,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/angular/app/view/view-variables.html.vsl"
         outputPattern="${view.varsComponentFilePath}.html"
         outlet="views"
@@ -549,9 +549,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/angular/app/view/view-variables.scss.vsl"
         outputPattern="${view.varsComponentFilePath}.scss"
         outlet="views"
@@ -563,7 +563,7 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <template
         path="templates/angular/app/utils/controller.base.ts.vsl"
