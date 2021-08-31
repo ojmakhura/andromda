@@ -343,6 +343,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>ejb</response>
                     <response>ejb3</response>
                     <response>spring</response>
+                    <response>jakarta</response>
                     <response>none</response>
                 </responses>
                 <conditions>
@@ -363,6 +364,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>hibernate</response>
                     <response>ejb3</response>
                     <response>spring</response>
+                    <response>jakarta</response>
                     <response>none</response>
                 </responses>
             </prompt>
@@ -451,7 +453,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 </conditions>-->
             </prompt>
             <prompt id="webType">
-                <text>Would you like your web user interface to use JSF or Angular?</text>
+                <text>Would you like your web user interface to use JSF, struts, JakartaMVC or Angular?</text>
                 <shortText>Web interface technology</shortText>
                 <preconditions>
                     <condition id="web" equal="true"/>
@@ -459,25 +461,37 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 <responses type="java.lang.String">
                     <response>jsf</response>
                     <response>angular</response>
-                    <response>both</response>
+                    <response>struts</response>
+                    <response>jakartamvc</response>
                 </responses>
                 <conditions>
                     <condition equal="jsf">
                         <setProperty id="jsf">true</setProperty>
                         <setProperty id="angular">false</setProperty>
                         <setProperty id="web">true</setProperty>
+                        <setProperty id="struts">false</setProperty>
+                        <setProperty id="jakartamvc">false</setProperty>
                     </condition>
                     <condition equal="angular">
                         <setProperty id="jsf">false</setProperty>
                         <setProperty id="angular">true</setProperty>
                         <setProperty id="web">false</setProperty>
-                        <setProperty id="component">component</setProperty>
+                        <setProperty id="struts">false</setProperty>
+                        <setProperty id="jakartamvc">false</setProperty>
                     </condition>
-                    <condition equal="both">
+                    <condition equal="struts">
                         <setProperty id="angular">true</setProperty>
-                        <setProperty id="jsf">true</setProperty>
+                        <setProperty id="jsf">false</setProperty>
                         <setProperty id="web">true</setProperty>
-                        <setProperty id="component">component</setProperty>
+                        <setProperty id="struts">true</setProperty>
+                        <setProperty id="jakartamvc">false</setProperty>
+                    </condition>
+                    <condition equal="jakartamvc">
+                        <setProperty id="angular">true</setProperty>
+                        <setProperty id="jsf">false</setProperty>
+                        <setProperty id="web">true</setProperty>
+                        <setProperty id="struts">false</setProperty>
+                        <setProperty id="jakartamvc">true</setProperty>
                     </condition>
                 </conditions>
             </prompt>
