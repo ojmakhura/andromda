@@ -19,9 +19,9 @@ import { $import.tableComponentImplementationName } from '@app/${import.implemen
 import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
 #end
 #end
-#if ($view.nonTableVariablesPresent)
-import { ${view.varsComponentImplementationName} } from '@app/${view.varsComponentImplementationFilePath}';
-#end
+##if ($view.nonTableVariablesPresent)
+##import { ${view.varsComponentImplementationName} } from '@app/${view.varsComponentImplementationFilePath}';
+##end
 #end
 
 @NgModule({
@@ -46,9 +46,9 @@ import { ${view.varsComponentImplementationName} } from '@app/${view.varsCompone
     $import.componentImplementationName,
 #end
 #end
-#if ($view.nonTableVariablesPresent)
-    ${view.varsComponentImplementationName},
-#end
+##if ($view.nonTableVariablesPresent)
+##    ${view.varsComponentImplementationName},
+##end
 #end
   ],
   entryComponents: [],

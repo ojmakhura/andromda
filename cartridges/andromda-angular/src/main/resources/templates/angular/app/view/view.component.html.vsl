@@ -2,28 +2,106 @@
 <div class="card my-5">
 ## Render non table variables
 #if ($view.nonTableVariablesPresent)
-    <div class="card my-5">
-		<${view.selectorName}-vars 
-			[${stringUtils.uncapitalize(${view.varsFormName})}] = "${stringUtils.uncapitalize(${view.varsFormName})}">
-		</${view.selectorName}-vars>
+
+#set ($complex = [])
+#set ($simple = [])
+#foreach ($variable in $view.variables)
+#if(!$variable.table)
+#if ($variable.complex)
+#set($rt = $complex.add($variable))
+#else
+#set($rt = $simple.add($variable))
+#end
+#end
+#end
+	<div class="card-body">
+    	<form [formGroup]="${view.varsFormName}">
+#if($simple.size() > 0)
+      		<table class="tg">
+        		<thead>
+#foreach ($variable in $simple)
+					<tr>
+						<th>{{'${variable.messageKey}' | translate}}: </th>
+						<td><input formControlName="$variable.name" disabled/></td>
+					<tr>
+#end
+        		</thead>
+      		</table>
+#end
+#if($complex.size() > 0)
+#foreach ($variable in $complex)
+#set ($normals = $angularUtils.getStandardAttributes($variable))
+#set ($tables = $angularUtils.getTableAttributes($variable))
+#if($normals.size() > 0)
+			<div formGroupName="$variable.name">
+				<table class="tg">
+					<thead>
+#foreach ($attribute in $normals)
+#if (!$attribute.inputHidden && !$variable.inputHidden)
+						<tr>
+							<th>{{'${attribute.messageKey}' | translate}}: </th>
+							<td><input formControlName="$attribute.name" disabled/> </td>
+						<tr>
+#end
+#end
+					</thead>
+				</table>
+#end
+#if ($tables.size() > 0)
+                <mat-tab-group animationDuration="0ms" class = "view-tabs">
+#foreach($table in $tables)
+                    <mat-tab label="{{'${table.messageKey}' | translate}}">
+#renderAngularActionInput($table $variable "		                    " true)
+                    </mat-tab>
+#end
+                </mat-tab-group>
+#end
+        	</div>
+#end
+#end
+    	</form>
 	</div>
 #end
-## Render the form for each action
-#foreach ($action in $view.actions)
-#if (!$action.tableLink)
-	<div class="card my-5">
-		<$action.selectorName 
-			[$action.formName] = "$action.formName"
-			($action.formEventName)="${action.triggerName}()"
-#foreach($parameter in $action.parameters)
-#if($parameter.inputSelect)
-    		[${parameter.backingListName}] = "${parameter.backingListName}"
+#set($fieldSet =  $angularUtils.getFacadeSet($view.allFormFields))
+#if($fieldSet.size() > 0)
+	<form [formGroup]="${view.formName}">
+#foreach ($field in $fieldSet)
+#if($field.action.hyperlink)
+#if (!$field.action.tableLink && ( !$field.complex || $field.type.enumeration ))
+#renderAngularActionCommandLinkParameter($parameter "" "        ")
+#else
+#foreach ($attribute in $field.attributes)
+#if (!$attribute.inputHidden)
+#renderAngularActionCommandLinkParameter($attribute $field "        ")
 #end
 #end
-		>
-		</$action.selectorName>
-	</div>
 #end
+#else
+#if(!$field.action.tableLink)
+#if (!$field.complex || $field.type.enumeration)
+#renderAngularActionInput($field "" "		")
+#else
+		<div formGroupName="$field.name">
+#set ($normals = $angularUtils.getStandardAttributes($field))
+#set ($tables = $angularUtils.getTableAttributes($field))
+#foreach ($attribute in $normals)
+#renderAngularActionInput($attribute $field "		    ")
+#end
+#if ($tables.size() > 0)
+            <mat-tab-group animationDuration="0ms" class = "view-tabs">
+#foreach($table in $tables)
+                <mat-tab label="{{'${table.messageKey}' | translate}}">
+#renderAngularActionInput($table $field "		            ")
+                </mat-tab>
+#end
+            </mat-tab-group>
+#end
+		</div>
+#end
+#end
+#end
+#end
+	</form>
 #end
 #if($view.actions.size() > 0)
 	<div class="card row my-5 view-buttons">

@@ -418,7 +418,7 @@ public class AngularViewLogicImpl extends AngularViewLogic {
                 continue;
             }
 
-            imports.add(action);
+            //imports.add(action);
             imports.addAll(action.getImports());
 
             if(action.getTarget() != null && action.getTarget() instanceof AngularFinalStateLogicImpl) {

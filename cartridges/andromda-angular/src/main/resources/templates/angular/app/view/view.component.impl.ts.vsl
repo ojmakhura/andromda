@@ -61,22 +61,4 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
 
     handleFormChanges(change: any) {
     }
-
-#foreach ($action in $view.actions)
-#if (!$action.tableLink)
-    afterSet$stringUtils.capitalize(${action.formName})(form: $stringUtils.capitalize($action.formName)): void {
-    }
-
-    after$stringUtils.capitalize(${action.triggerName})(#if(!$action.formFields.empty)form: $stringUtils.capitalize($action.formName)#end) {    
-    }
-
-    before$stringUtils.capitalize($action.triggerName)(#if(!$action.formFields.empty)form: $stringUtils.capitalize($action.formName)#end) {
-    }
-
-#end
-#end
-#if ($view.nonTableVariablesPresent)
-    afterSet$stringUtils.capitalize(${view.varsFormName})(form: $stringUtils.capitalize(${view.varsFormName})): void {
-    }
-#end
 }
