@@ -283,6 +283,10 @@
                 <property name="session-impls">${core.manual.java.dir}</property>
                 <property name="configuration">${core.generated.dir}</property>
                 <property name="cache">${core.generated.dir}</property>
+                <property name="daos">${core.generated.dir}</property>
+                <property name="dao-impls">${core.manual.java.dir}</property>
+                <property name="commons">${common.generated.dir}</property>
+                <property name="user-types">${common.generated.dir}</property>
                 <!-- uncomment to enable EJB security
                 <property name="securityRealm">${application.id}</property>
                 -->

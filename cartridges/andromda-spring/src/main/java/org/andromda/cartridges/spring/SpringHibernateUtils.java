@@ -38,7 +38,7 @@ public class SpringHibernateUtils
      */
     public String getBasePackage()
     {
-        return this.isVersion3() || this.isVersion4() || this.isVersion5() ? "org.hibernate" : "net.sf.hibernate";
+        return this.isVersion3() || this.isVersion4() || this.isVersion5() || this.isVersion6() ? "org.hibernate" : "net.sf.hibernate";
     }
 
     /**
@@ -48,7 +48,7 @@ public class SpringHibernateUtils
      */
     public String getCriterionPackage()
     {
-        return this.getBasePackage() + (this.isVersion3() || this.isVersion4() || this.isVersion5() ? ".criterion" : ".expression");
+        return this.getBasePackage() + (this.isVersion3() || this.isVersion4() || this.isVersion5() || this.isVersion6() ? ".criterion" : ".expression");
     }
 
     /**
@@ -178,6 +178,16 @@ public class SpringHibernateUtils
     }
 
     /**
+     * Indicates whether or not version 5 is the one that is currently being used.
+     *
+     * @return true/false
+     */
+    public boolean isVersion6()
+    {
+        return isVersion6(hibernateVersion);
+    }
+
+    /**
      * @param hibernateVersionPropertyValue
      * @return hibernateVersionPropertyValue.startsWith(SpringGlobals.HIBERNATE_VERSION_2)
      */
@@ -211,6 +221,15 @@ public class SpringHibernateUtils
     public static boolean isVersion5(String hibernateVersionPropertyValue)
     {
         return hibernateVersionPropertyValue.startsWith(SpringGlobals.HIBERNATE_VERSION_5);
+    }
+
+    /**
+     * @param hibernateVersionPropertyValue
+     * @return hibernateVersionPropertyValue.startsWith(SpringGlobals.HIBERNATE_VERSION_5)
+     */
+    public static boolean isVersion6(String hibernateVersionPropertyValue)
+    {
+        return hibernateVersionPropertyValue.startsWith(SpringGlobals.HIBERNATE_VERSION_6);
     }
 
     /**

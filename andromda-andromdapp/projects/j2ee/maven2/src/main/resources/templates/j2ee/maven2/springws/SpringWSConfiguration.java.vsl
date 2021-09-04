@@ -18,16 +18,16 @@ import org.springframework.web.filter.CorsFilter;
         DataSourceAutoConfiguration.class, //
         DataSourceTransactionManagerAutoConfiguration.class, //
         HibernateJpaAutoConfiguration.class })
-public class ${stringUtils.capitalize($applicationId)}WSConfiguration {
+public class ${stringUtils.capitalize($stringUtils.replace(${applicationId}, '-', ''))}WSConfiguration {
 	
 	@Bean
 	public CorsFilter corsFilter() {
 		UrlBasedCorsConfigurationSource confSource = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.setAllowedOriginPatterns(Collections.singletonList("*"));
+        config.setAllowedOriginPatterns(java.util.Collections.singletonList("*"));
         config.addAllowedHeader("*");
-        for(HttpMethod method : HttpMethod.values()) {
+        for(org.springframework.http.HttpMethod method : org.springframework.http.HttpMethod.values()) {
             config.addAllowedMethod(method);
         }
 		confSource.registerCorsConfiguration("/**", config);

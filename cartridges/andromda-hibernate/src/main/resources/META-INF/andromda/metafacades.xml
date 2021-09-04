@@ -35,6 +35,20 @@
     <property reference="versionProperty"/>
     <property reference="enumTypesPackage" />
     <property reference="enableAnnotations"/>
+    <property reference="daoType"/>
+    <property reference="daoNamePattern"/>
+    <property reference="daoBaseNamePattern"/>
+    <property reference="daoImplementationNamePattern"/>
+    <property reference="daoDefaultExceptionNamePattern"/>
+    <property reference="persistenceContainerName"/>
+    <property reference="persistenceProviderExtensions"/>
+    <property reference="hibernateEnableCache"/>
+    <property reference="entityInheritanceStrategy"/>
+    <property reference="entityDiscriminatorType"/>
+    <property reference="entityDiscriminatorColumnName"/>
+    <property reference="entityDefaultEnumLiteralColumnLength"/>
+    <property reference="entityDefaultTemporalType"/>
+    
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl" contextRoot="true">
         <mapping>
             <stereotype>ENTITY</stereotype>
@@ -113,6 +127,7 @@
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
         </mapping>
         <property reference="hibernateTypeMappingsUri"/>
+        <property reference="entityDefaultGeneratorType"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEmbeddedValueLogicImpl" contextRoot="true">
         <mapping>
@@ -127,4 +142,13 @@
         <property reference="sqlMappingsUri"/>
         <property reference="jdbcMappingsUri"/>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateOperationLogicImpl">
+        <mapping>
+            <context>
+                org.andromda.cartridges.hibernate.metafacades.HibernateEntity
+            </context>
+        </mapping>
+        <property reference="implementationOperationNamePattern"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateDependencyLogicImpl"/>
 </metafacades>

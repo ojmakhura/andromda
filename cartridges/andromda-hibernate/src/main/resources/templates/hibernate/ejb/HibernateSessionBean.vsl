@@ -8,7 +8,7 @@
 package $service.packageName;
 #end
 
-import javax.ejb.EJBException;
+import jakarta.ejb.EJBException;
 import javax.naming.NamingException;
 
 import ${hibernateUtils.hibernatePackage}.HibernateException;
@@ -28,7 +28,7 @@ public abstract class ${service.name}Bean
 #if ($service.generalization)
     extends ${service.generalization.fullyQualifiedName}BeanImpl
 #end
-    implements javax.ejb.SessionBean
+    implements jakarta.ejb.SessionBean
 {
 
 #if ($service.ejbStateful)
@@ -66,10 +66,10 @@ $attribute.getDocumentation("     * ")
 #set ($parameters = "${hibernateUtils.hibernatePackage}.Session session, ${parameterList}")
 #end
 #if ($operation.exceptionsPresent)
-    protected abstract $operation.getterSetterReturnTypeName handle${stringUtils.capitalize(${operation.name})} ($parameters)
+    protected abstract $operation.getterSetterReturnTypeName handle${stringUtils.capitalize(${operation.name})} (#if (!$stringUtils.isBlank($parameterList))$parameterList#end)
         throws $operation.exceptionList;
 #else
-    protected abstract $operation.getterSetterReturnTypeName handle${stringUtils.capitalize(${operation.name})} ($parameters);
+    protected abstract $operation.getterSetterReturnTypeName handle${stringUtils.capitalize(${operation.name})} (#if (!$stringUtils.isBlank($parameterList))$parameterList#end);
 #end
 
     /**
@@ -96,9 +96,9 @@ $operation.getDocumentation("     * ")
 #end
 ##
 #if ($operation.returnTypePresent)
-            return handle${stringUtils.capitalize($operation.name)}($parameters);
+            return handle${stringUtils.capitalize($operation.name)}(#if (!$stringUtils.isBlank($parameterList))$parameterList#end);
 #else
-            handle${stringUtils.capitalize($operation.name)}($parameters);
+            handle${stringUtils.capitalize($operation.name)}(#if (!$stringUtils.isBlank($parameterList))$parameterList#end);
 #end
         }
 #foreach ( $exception in $operation.exceptions )
@@ -136,12 +136,12 @@ $operation.getDocumentation("     * ")
    // ---------------- create methods -------------------------
 
     public void ejbCreate ()
-           throws javax.ejb.CreateException
+           throws jakarta.ejb.CreateException
     {
     }
 
     public void ejbPostCreate ()
-           throws javax.ejb.CreateException
+           throws jakarta.ejb.CreateException
     {
     }
 
@@ -149,7 +149,7 @@ $operation.getDocumentation("     * ")
    // ---------------- create methods with separate attributes --------------------
 
     public void ejbCreate $service.operationCallFromAttributes
-           throws javax.ejb.CreateException
+           throws jakarta.ejb.CreateException
     {
 #foreach ($attribute in $service.attributes)
         ${attribute.setterName} (${attribute.name});
@@ -157,18 +157,18 @@ $operation.getDocumentation("     * ")
     }
 
     public void ejbPostCreate $service.operationCallFromAttributes
-           throws javax.ejb.CreateException
+           throws jakarta.ejb.CreateException
     {
     }
 
 #end
    // ---------------- Hibernate helpers -------------------------
 
-    protected javax.ejb.SessionContext ctx = null;
+    protected jakarta.ejb.SessionContext ctx = null;
 
     private static SessionFactory sessionFactory = null;
 
-    public void setSessionContext( javax.ejb.SessionContext ctx )
+    public void setSessionContext( jakarta.ejb.SessionContext ctx )
     {
         this.ctx = ctx;
     }
@@ -182,9 +182,12 @@ $operation.getDocumentation("     * ")
         return sessionFactory;
     }
 
+    @jakarta.persistence.PersistenceContext
+    protected jakarta.persistence.EntityManager entityManager;
+
     private Session getSession() throws HibernateException, NamingException
     {
-        return this.getSessionFactory().openSession();
+        return this.entityManager.unwrap(org.hibernate.Session.class);
     }
 
     // ---------------- accessor methods for (session!) bean references ---------------
@@ -223,4 +226,30 @@ $operation.getDocumentation("     * ")
     public void ejbActivate()
     {
     }
+
+    // ---------------- Daos ---------------
+#foreach($entityRef in $service.entityReferences)
+
+    @jakarta.inject.Inject
+    protected $entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName; 
+
+    /**
+     * Sets the reference to <code>$entityRef.name</code>'s DAO.
+     * @param ${entityRef.daoName}In
+     */
+    public void ${entityRef.daoSetterName}($entityRef.targetElement.fullyQualifiedDaoName ${entityRef.daoName}In)
+    {
+        this.$entityRef.daoName = ${entityRef.daoName}In;
+    }
+
+    /**
+     * Gets the reference to <code>$entityRef.name</code>'s DAO.
+     * @return $entityRef.daoName
+     */
+    protected $entityRef.targetElement.fullyQualifiedDaoName ${entityRef.daoGetterName}()
+    {
+        return this.$entityRef.daoName;
+    }
+
+#end
 }

@@ -215,7 +215,7 @@ $attribute.getDocumentation("     * ")
 #end
 #elseif ($operation.outgoingMessageOperation)
             this.${operation.outgoingDestination.templateBeanName}.send(new org.springframework.jms.core.MessageCreator() {
-                public javax.jms.Message createMessage(javax.jms.Session session) throws javax.jms.JMSException
+                public jakarta.jms.Message createMessage(jakarta.jms.Session session) throws jakarta.jms.JMSException
                 {
                     try
                     {

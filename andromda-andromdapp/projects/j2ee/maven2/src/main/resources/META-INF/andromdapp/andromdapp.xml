@@ -236,15 +236,15 @@
 		<!-- Spring REST Webservices -->
         <mapping>
             <from>springws/SpringWSApplication.java.vsl</from>
-            <to>springws/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WSApplication.java.vsl</to>
+            <to>springws/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($stringUtils.replace(${applicationId}, '-', ''))}WSApplication.java.vsl</to>
         </mapping>
         <mapping>
             <from>springws/SpringWSApplicationTests.java.vsl</from>
-            <to>springws/src/test/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WSApplicationTests.java.vsl</to>
+            <to>springws/src/test/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($stringUtils.replace(${applicationId}, '-', ''))}WSApplicationTests.java.vsl</to>
         </mapping>
         <mapping>
             <from>springws/SpringWSConfiguration.java.vsl</from>
-            <to>springws/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WSConfiguration.java.vsl</to>
+            <to>springws/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($stringUtils.replace(${applicationId}, '-', ''))}WSConfiguration.java.vsl</to>
         </mapping>
         <mapping>
             <from>springws/application.properties.vsl</from>

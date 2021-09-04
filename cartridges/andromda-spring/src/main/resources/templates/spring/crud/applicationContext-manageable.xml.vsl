@@ -89,7 +89,7 @@
 #if (!$ejbsEnabled)
                  <value>manageableServiceTransactionInterceptor</value>
 #end
-#if (!$hibernateUtils.version4 && $hibernateUtils.version5)
+#if (!$hibernateUtils.version4 && $hibernateUtils.version5 || $hibernateUtils.version6)
                  <value>hibernateInterceptor</value>
 #end                 
              </list>

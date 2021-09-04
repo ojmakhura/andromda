@@ -162,7 +162,7 @@
             </dependency>
 #end
 #end
-#if ($webType.equals("jsf") || $webType.equals("both"))
+#if ($webType.equals("jsf"))
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-jsf2-cartridge</artifactId>
@@ -190,18 +190,24 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <!-- validation dependencies -->
             <dependency>
+                <groupId>jakarta.platform</groupId>
+                <artifactId>jakarta.jakartaee-api</artifactId>
+                <version>9.1.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- validation dependencies -->
+             <!-- <dependency>
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
                 <version>2.0.0.Final</version>
-            </dependency>
-            <dependency>
+            </dependency> -->
+            <!-- <dependency>
                 <groupId>org.apache.myfaces.extensions.validator</groupId>
                 <artifactId>myfaces-extval-core</artifactId>
                 <version>2.0.8</version>
-            </dependency>
-            <dependency>
+            </dependency> -->
+            <!-- <dependency>
                 <groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
                 <artifactId>myfaces-extval-property-validation</artifactId>
                 <version>2.0.8</version>
@@ -211,8 +217,8 @@
                         <artifactId>persistence-api</artifactId>                	
                 	</exclusion>
                 </exclusions>
-            </dependency>
-            <dependency>
+            </dependency> -->
+            <!-- <dependency>
                 <groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
                 <artifactId>myfaces-extval-bean-validation</artifactId>
                 <version>2.0.8</version>
@@ -221,17 +227,17 @@
                 <groupId>org.apache.myfaces.extensions.validator.component-support-modules</groupId>
                 <artifactId>myfaces-extval-generic-support</artifactId>
                 <version>2.0.8</version>
-            </dependency>
-            <dependency>
+            </dependency> -->
+            <!-- <dependency>
                 <groupId>org.primefaces</groupId>
                 <artifactId>primefaces</artifactId>
                 <version>7.0</version>
-            </dependency>
+            </dependency> -->
 #if (!$spring && !$hibernate && !$ejb3)
             <dependency>
                 <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>6.0.13.Final</version>
+                <version>7.0.1.Final</version>
             </dependency>
 #end
             <dependency>
@@ -385,7 +391,7 @@
             <dependency>
                 <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>6.0.9.Final</version>
+                <version>7.0.1.Final</version>
             </dependency>
             <!-- JBoss Dependencies -->
             <dependency>
@@ -433,6 +439,48 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+#if ($spring)
+            <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
+            <dependency>
+                <groupId>org.hibernate.orm</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${hibernate.core.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/jakarta.persistence/jakarta.persistence-api -->
+            <dependency>
+                <groupId>javax.persistence</groupId>
+                <artifactId>javax.persistence-api</artifactId>
+                <version>2.2</version>
+            </dependency>
+#else
+            <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core-jakarta</artifactId>
+                <version>${hibernate.core.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/jakarta.persistence/jakarta.persistence-api -->
+            <dependency>
+                <groupId>jakarta.persistence</groupId>
+                <artifactId>jakarta.persistence-api</artifactId>
+                <version>3.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.ejb</groupId>
+                <artifactId>jakarta.ejb-api</artifactId>
+                <version>4.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.annotation</groupId>
+                <artifactId>jakarta.annotation-api</artifactId>
+                <version>2.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.inject</groupId>
+                <artifactId>jakarta.inject-api</artifactId>
+                <version>2.0.0</version>
+            </dependency>
+#end
             <!-- Hibernate Jcache -->
 		    <dependency>
 		      <groupId>org.hibernate</groupId>
@@ -446,7 +494,7 @@
 			    <version>${hibernate.version}</version>
 			    <scope>provided</scope>
 			</dependency>
-            <dependency>
+            <!-- <dependency>
                 <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
                 <version>6.0.9.Final</version>
@@ -456,7 +504,7 @@
                 		<artifactId>validation-api</artifactId>
                    	</exclusion>
                 </exclusions>
-            </dependency>
+            </dependency>-->
             <dependency>
                 <groupId>net.sf.ehcache.internal</groupId>
                 <artifactId>ehcache-core</artifactId>
@@ -470,7 +518,7 @@
                 <scope>test</scope>
 #end
             </dependency>
-#if (!($webType.equals("jsf") || $webType.equals("both")))
+#if (!($webType.equals("jsf")))
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
@@ -559,38 +607,38 @@
                 <scope>runtime</scope>
             </dependency>
 #end
-#if ($webType.equals("jsf") || $webType.equals("both") || $hibernate)
+#if ($webType.equals("jsf") || $hibernate)
             <dependency>
                 <groupId>antlr</groupId>
                 <artifactId>antlr</artifactId>
                 <version>2.7.7</version>
             </dependency>
 #end
-#if ($webType.equals("jsf") || $webType.equals("both"))
+#if ($webType.equals("jsf"))
             <dependency>
                 <groupId>commons-digester</groupId>
                 <artifactId>commons-digester</artifactId>
                 <version>2.1</version>
                 <scope>runtime</scope>
             </dependency>
-            <dependency>
+            <!--<dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>3.1.0</version>
                 <scope>provided</scope>
-            </dependency>
-            <dependency>
+            </dependency>-->
+            <!--<dependency>
                 <groupId>javax.el</groupId>
                 <artifactId>el-api</artifactId>
                 <version>2.2.1-b04</version>
                 <scope>provided</scope>
-            </dependency>
-            <dependency>
+            </dependency> -->
+            <!-- <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>jstl</artifactId>
                 <version>1.2</version>
                 <scope>runtime</scope>
-            </dependency>
+            </dependency> -->
             <dependency>
                 <groupId>oro</groupId>
                 <artifactId>oro</artifactId>
@@ -950,7 +998,7 @@
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>8.0.16</version>
+                <version>8.0.26</version>
 #if (!$jetty && !$tomcat)
                 <scope>test</scope>
 #end
@@ -1438,13 +1486,19 @@
         <cxf.version>3.0.2</cxf.version>
         <cxf.xjc.version>3.0.2</cxf.xjc.version>
 #end
-#if ($spring)
+#if ($spring ||$hibernate || $ejb3)
+#set ($hbVersion = "6.0.0.Alpha7")
+#if($spring)
         <!-- Set andromda.xml hibernateVersion=4, sessionFactory and localTransactionManager to hibernate4.-->
-        <hibernate.version>5.4.0.Final</hibernate.version>
+#set ($hbCoreVersion = "6.0.0.Alpha9")
 #elseif ($hibernate || $ejb3)
         <!-- Set andromda.xml hibernateVersion=5, sessionFactory and localTransactionManager to hibernate5-->
         <!-- new Hibername 5 inclusion -->
-        <hibernate.version>5.4.0.Final</hibernate.version>
+        <!-- new Hibername 6 inclusion -->
+#set ($hbCoreVersion = "5.6.0.Beta1")
+#end
+        <hibernate.version>$hbVersion</hibernate.version>
+        <hibernate.core.version>$hbCoreVersion</hibernate.core.version>
 #end
 #if ($jetty || !$webservice.equals("none"))
         <!-- v 9.x only supports JDK7 and you cannot configure jetty.port from maven.-->
@@ -1453,15 +1507,15 @@
 #if ($tomcat)
         <tomcat.version>2.2</tomcat.version>
 #end
-#if ($webType.equals("jsf") || $webType.equals("both"))
+#if ($webType.equals("jsf"))
         <myfaces.version>2.3.2</myfaces.version>
 #end
 #if ($cxf)
-        <spring.version>5.3.2</spring.version>
+        <spring.version>5.3.9</spring.version>
 #elseif ($spring || $springws)
         <!-- v5 migration needed -->
-        <spring.version>5.3.2</spring.version>
-	    <spring-boot.version>2.4.2</spring-boot.version>
+        <spring.version>5.3.9</spring.version>
+	    <spring-boot.version>2.5.2</spring-boot.version>
 #end
         <!-- To override parent default settings for compiler plugin and compliance checks-->
         <dependencyConvergence>true</dependencyConvergence>

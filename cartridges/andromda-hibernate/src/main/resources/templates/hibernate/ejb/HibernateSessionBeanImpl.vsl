@@ -10,7 +10,7 @@ package $service.packageName;
  */
 public class ${service.name}BeanImpl
     extends ${service.name}Bean
-    implements javax.ejb.SessionBean
+    implements jakarta.ejb.SessionBean
 {
 #foreach ($operation in $service.operations)
 ##
@@ -25,11 +25,11 @@ public class ${service.name}BeanImpl
 #end
 #set ($returnType = $operation.getterSetterReturnTypeName)
 #if ($operation.exceptionsPresent)
-    protected $returnType handle${stringUtils.capitalize(${operation.name})} ($parameters)
+    protected $returnType handle${stringUtils.capitalize(${operation.name})} (#if (!$stringUtils.isBlank($parameterList))$parameterList#end)
         throws $operation.exceptionList
     {
 #else
-    protected $returnType handle${stringUtils.capitalize(${operation.name})} ($parameters)
+    protected $returnType handle${stringUtils.capitalize(${operation.name})} (#if (!$stringUtils.isBlank($parameterList))$parameterList#end)
     {
 #end
         // ${toDoTag} implement $operation.visibility $operation.getterSetterReturnTypeName $operation.signature

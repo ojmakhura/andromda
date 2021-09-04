@@ -5,15 +5,15 @@
 //
 #set ($className = "HibernateStringClobType")
 #set ($generatedFile = "$stringUtils.replace($userTypesPackage, '.', '/')/${className}.java")
-#if($hibernateUtils.version5)
+#if($hibernateUtils.version5 || $hibernateUtils.version6)
 #set ($sessionClass = "SharedSessionContractImplementor")
 #else
 #set ($sessionClass = "SessionImplementor")
 #end
-#if($hibernateUtils.version4 || $hibernateUtils.version5)
-#set ($isVersion4or5 = true)
+#if($hibernateUtils.version4 || $hibernateUtils.version5 || $hibernateUtils.version6)
+#set ($isVersionGT3 = true)
 #else
-#set ($isVersion4or5 = false)
+#set ($isVersionGT3 = false)
 #end
 
 package $userTypesPackage;
@@ -103,7 +103,7 @@ public class $className
      * @return Clob
      * @throws HibernateException
      * @throws SQLException
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeGet(java.sql.ResultSet, String[]#if($isVersion4or5), $sessionClass#end, Object)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeGet(java.sql.ResultSet, String[]#if($isVersionGT3), $sessionClass#end, Object)
      */
 #if ($enableAnnotations && $hibernateUtils.version3)
     @Override
@@ -148,7 +148,7 @@ public class $className
      * @param index
      * @throws HibernateException
      * @throws SQLException
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeSet(java.sql.PreparedStatement, Object, int#if($isVersion4or5), $sessionClass#end)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeSet(java.sql.PreparedStatement, Object, int#if($isVersionGT3), $sessionClass#end)
      */
 #if ($enableAnnotations && $hibernateUtils.version3)
     @Override
@@ -178,26 +178,26 @@ public class $className
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeGet(java.sql.ResultSet, String[], $sessionClass, Object)
      */
-#if ($enableAnnotations && $isVersion4or5)
+#if ($enableAnnotations && $isVersionGT3)
     @Override
 #end
     public Object nullSafeGet(ResultSet resultSet, String[] names,
-        org.hibernate.engine#if($isVersion4or5).spi#end.$sessionClass session, Object owner) throws HibernateException, SQLException
+        org.hibernate.engine#if($isVersionGT3).spi#end.$sessionClass session, Object owner) throws HibernateException, SQLException
     {
         return this.nullSafeGet(resultSet, names, owner);
     }
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeSet(java.sql.PreparedStatement, Object, int#if($isVersion4or5), $sessionClass#end)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeSet(java.sql.PreparedStatement, Object, int#if($isVersionGT3), $sessionClass#end)
      */
-#if ($enableAnnotations && $isVersion4or5)
+#if ($enableAnnotations && $isVersionGT3)
     @Override
 #end
     public void nullSafeSet(
         PreparedStatement preparedStatement,
         Object data,
         int index,
-        org.hibernate.engine#if($isVersion4or5).spi#end.$sessionClass session)
+        org.hibernate.engine#if($isVersionGT3).spi#end.$sessionClass session)
         throws HibernateException, SQLException
     {
         this.nullSafeSet(preparedStatement, data, index);
@@ -225,7 +225,7 @@ public class $className
     {
         return false;
     }
-#if ($hibernateUtils.version3 || $hibernateUtils.version4 || $hibernateUtils.version5)
+#if ($hibernateUtils.version3 || $hibernateUtils.version4 || $hibernateUtils.version5 || $hibernateUtils.version6)
 
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}replace(Object original, Object target, Object owner)

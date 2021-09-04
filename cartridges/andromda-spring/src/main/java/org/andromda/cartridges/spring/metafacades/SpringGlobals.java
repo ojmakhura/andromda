@@ -243,6 +243,11 @@ public class SpringGlobals
      * The version for Hibernate 5.
      */
     public static final String HIBERNATE_VERSION_5 = "5";
+    
+    /**
+     * The version for Hibernate 5.
+     */
+    public static final String HIBERNATE_VERSION_6 = "6";
 
 
     /**

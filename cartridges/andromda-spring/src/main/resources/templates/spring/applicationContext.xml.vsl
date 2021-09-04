@@ -128,7 +128,7 @@
     <bean id="${beanNamePrefix}sessionFactory" class="$sessionFactory">
         <property name="dataSource" ref="${beanNamePrefix}dataSource"/>
 #if ($hibernateEntityAnnotations)
-#if (!($hibernateUtils.version4 || $hibernateUtils.version5))
+#if (!($hibernateUtils.version4 || $hibernateUtils.version5 || $hibernateUtils.version6))
         <property name="configurationClass">
             <value>org.hibernate.cfg.AnnotationConfiguration</value>
         </property>
@@ -141,7 +141,7 @@
         <!-- applicationContext sessionFactory merge-point -->
     </bean>
 
-#if (!($hibernateUtils.version4 || $hibernateUtils.version5))
+#if (!($hibernateUtils.version4 || $hibernateUtils.version5 || $hibernateUtils.version6))
     <!-- The Hibernate interceptor -->
     <bean id="${beanNamePrefix}hibernateInterceptor" class="${hibernateUtils.springHibernatePackage}.HibernateTransactionManager">
         <property name="sessionFactory" ref="${beanNamePrefix}sessionFactory"/>
@@ -158,7 +158,7 @@
  
     <!-- Translates Hibernate exceptions to Spring Data Access Exceptions -->
     <bean class="org.springframework.orm.hibernate4.HibernateExceptionTranslator"/>
-#elseif ($hibernateUtils.version5)
+#elseif ($hibernateUtils.version5 || $hibernateUtils.version6)
     <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
@@ -201,7 +201,7 @@
 #if ($daosEnabled)
         <property name="proxyInterfaces" value="$entity.fullyQualifiedDaoName"/>
 #end
-#if (!($hibernateUtils.version4 || $hibernateUtils.version5))
+#if (!($hibernateUtils.version4 || $hibernateUtils.version5 || $hibernateUtils.version6))
         <property name="interceptorNames">
             <list>
                 <value>${beanNamePrefix}hibernateInterceptor</value>
@@ -286,7 +286,7 @@
 #if ($enableSpringTransactions)
                 <value>${beanNamePrefix}serviceTransactionInterceptor</value>
 #end
-#if ((!$entities.empty || !$service.allEntityReferences.empty) && $service.hibernateInterceptorEnabled && !$hibernateUtils.version4 && !$hibernateUtils.version5)
+#if ((!$entities.empty || !$service.allEntityReferences.empty) && $service.hibernateInterceptorEnabled && !$hibernateUtils.version4 && !$hibernateUtils.version5 || !$hibernateUtils.version6)
                 <value>${beanNamePrefix}hibernateInterceptor</value>
 #end
 #foreach($interceptor in $service.interceptors)

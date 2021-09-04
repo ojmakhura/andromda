@@ -3,17 +3,28 @@ package org.andromda.cartridges.hibernate.metafacades;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.cartridges.hibernate.HibernateUtils;
 import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.AttributeFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.Entity;
+import org.andromda.metafacades.uml.EntityAssociationEnd;
 import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
+import org.andromda.metafacades.uml.EnumerationFacade;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.ValueObject;
+import org.apache.commons.collections.Closure;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -146,6 +157,21 @@ public class HibernateEntityLogicImpl
      * The "union-subclass" mapping name.
      */
     private static final String UNION_SUBCLASS_MAPPING_NAME = "union-subclass";
+
+    /**
+     * The pattern used to construct the DAO implementation name.
+     */
+    private static final String DAO_IMPLEMENTATION_PATTERN = "daoImplementationNamePattern";
+
+    /**
+     * The pattern used to construct the DAO base name.
+     */
+    private static final String DAO_BASE_PATTERN = "daoBaseNamePattern";
+
+    /**
+     * The property which stores the pattern defining the DAO default exception name.
+     */
+    private static final String DAO_DEFAULT_EXCEPTION_NAME_PATTERN = "daoDefaultExceptionNamePattern";
 
     /**
      * Return all the business operations (ones that are inherited as well as
@@ -876,5 +902,506 @@ public class HibernateEntityLogicImpl
     protected String nextIndexSuffix(){
         lastIndexCounter++;
         return String.valueOf(lastIndexCounter);
+    }
+ 
+    /**
+     * @see EJB3EntityFacadeLogic#handleGetDaoBaseName()
+     */
+    @Override
+    protected String handleGetDaoBaseName()
+    {
+        return MessageFormat.format(
+                getDaoBaseNamePattern(),
+                StringUtils.trimToEmpty(this.getName()));
+    }
+
+    /**
+     * Gets the value of the {@link #DAO_BASE_PATTERN}
+     *
+     * @return the DAO base name pattern.
+     */
+    private String getDaoBaseNamePattern()
+    {
+        return String.valueOf(this.getConfiguredProperty(DAO_BASE_PATTERN));
+    }
+
+    @Override
+    protected boolean handleIsDaoBusinessOperationsPresent() {
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsDaoImplementationRequired() {
+        
+        return !this.getValueObjectReferences().isEmpty() || !this.getDaoBusinessOperations().isEmpty() ||
+                !this.getQueryOperations(true).isEmpty();
+    }
+
+    @Override
+    protected String handleGetDaoNoTransformationConstantName() {
+        
+        return HibernateGlobals.TRANSFORMATION_CONSTANT_PREFIX + HibernateGlobals.NO_TRANSFORMATION_CONSTANT_SUFFIX;
+    }
+
+    @Override
+    protected String handleGetDaoImplementationName() {
+        
+        return MessageFormat.format(
+                getDaoImplementationNamePattern(),
+                StringUtils.trimToEmpty(this.getName()));
+    }
+
+    /**
+     * Gets the value of the {@link #DAO_IMPLEMENTATION_PATTERN}
+     *
+     * @return the DAO implementation name pattern.
+     */
+    private String getDaoImplementationNamePattern()
+    {
+        return String.valueOf(this.getConfiguredProperty(DAO_IMPLEMENTATION_PATTERN));
+    }
+
+    @Override
+    protected String handleGetDaoName() {
+        
+        return MessageFormat.format(
+            getDaoNamePattern(),
+                StringUtils.trimToEmpty(this.getName()));
+    }
+
+    /**
+     * Gets the value of the {@link EJB3Globals#DAO_PATTERN}
+     *
+     * @return the DAO name pattern.
+     */
+    private String getDaoNamePattern()
+    {
+        return String.valueOf(this.getConfiguredProperty(HibernateGlobals.DAO_PATTERN));
+    }
+
+    @Override
+    protected String handleGetFullyQualifiedDaoBaseName() {
+        
+        return HibernateMetafacadeUtils.getFullyQualifiedName(
+            this.getPackageName(),
+            this.getDaoBaseName(),
+            null);
+    }
+
+    @Override
+    protected Collection<DependencyFacade> handleGetValueObjectReferences() {
+        
+        return this.getValueObjectReferences(false);
+    }
+
+    @Override
+    protected Collection<DependencyFacade> handleGetAllValueObjectReferences() {
+        
+        return this.getValueObjectReferences(true);
+    }
+
+    @Override
+    protected Collection<HibernateOperation> handleGetDaoBusinessOperations() {
+        
+        // operations that are not finders and static
+        Collection finders = this.getQueryOperations();
+        Collection<OperationFacade> operations = this.getOperations();
+
+        Collection<HibernateOperation> nonFinders = CollectionUtils.subtract(operations, finders);
+        CollectionUtils.filter(
+            nonFinders,
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    return ((HibernateOperation)object).isStatic();
+                }
+            }
+        );
+        return nonFinders;
+    }
+
+    @Override
+    protected Collection handleGetValueObjectReferences(boolean follow) {
+        
+        final Collection<DependencyFacade> sourceDependencies = new ArrayList<DependencyFacade>(this.getSourceDependencies());
+        if (follow)
+        {
+            for (GeneralizableElementFacade entity = this.getGeneralization(); entity != null;
+                entity = entity.getGeneralization())
+            {
+                sourceDependencies.addAll(entity.getSourceDependencies());
+            }
+        }
+        Collection<DependencyFacade> valueDependencies = new ArrayList<DependencyFacade>();
+        for (DependencyFacade dependency : sourceDependencies)
+        {
+            Object targetElement = dependency.getTargetElement();
+            if (targetElement instanceof ClassifierFacade)
+            {
+                ClassifierFacade element = (ClassifierFacade)targetElement;
+                if (element.isDataType() || element instanceof ValueObject ||
+                            element instanceof EnumerationFacade)
+                {
+                    valueDependencies.add(dependency);
+                }
+            }
+        }
+        return valueDependencies;
+    }
+
+    @Override
+    protected boolean handleIsOperationPresent(String op) {
+        
+        Collection collOps = this.getOperations();
+        for (final Iterator it = collOps.iterator(); it.hasNext();)
+        {
+            final OperationFacade operation = (OperationFacade)it.next();
+            if (operation.getName().equalsIgnoreCase(op))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Gets the value of the {@link #DAO_DEFAULT_EXCEPTION_NAME_PATTERN}
+     *
+     * @return the DAO default exception name pattern.
+     */
+    private String getDaoDefaultExceptionNamePattern()
+    {
+        return String.valueOf(this.getConfiguredProperty(DAO_DEFAULT_EXCEPTION_NAME_PATTERN));
+    }
+
+    @Override
+    protected String handleGetFullyQualifiedDaoDefaultExceptionName() {
+        
+        return HibernateMetafacadeUtils.getFullyQualifiedName(
+            this.getPackageName(),
+            this.getDaoDefaultExceptionName(),
+            null);
+    }
+
+    @Override
+    protected String handleGetDaoDefaultExceptionName() {
+        return MessageFormat.format(
+                getDaoDefaultExceptionNamePattern(),
+                StringUtils.trimToEmpty(this.getName()));
+    }
+
+    @Override
+    protected HibernateEntity handleGetRoot() {
+        HibernateEntity generalization = this;
+        for (
+            ; generalization.getGeneralization() != null && generalization instanceof HibernateEntity;
+            generalization = (HibernateEntity) generalization.getGeneralization())
+            ;
+        return generalization;
+    }
+
+    @Override
+    protected Collection handleGetInstanceAttributes(boolean follow, boolean withIdentifiers) {
+        final Collection<AttributeFacade> attributes = this.getAttributes(follow, withIdentifiers);
+        CollectionUtils.filter(
+            attributes,
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    boolean valid = true;
+                    if (object instanceof EntityAttribute)
+                    {
+                        valid = !((EntityAttribute)object).isStatic();
+                    }
+                    return valid;
+                }
+            });
+        // If a 1:1 owned identifier relationship, the dependent identifier attributes should be included in addition to the association
+        // and the generator="foreign" and @PrimaryKeyJoinColumn annotations are used.
+        final List<AssociationEndFacade> associationEnds = this.getAssociationEnds();
+        /*MetafacadeUtils.filterByStereotype(
+            associationEnds,
+            UMLProfile.STEREOTYPE_IDENTIFIER);*/
+        //System.out.println("GetInstanceAttributes " + this.getFullyQualifiedName() + " associationEnds=" + this.getAssociationEnds().size() + " identifiers=" + associationEnds.size());
+        for(AssociationEndFacade associationEnd : associationEnds)
+        {
+            //System.out.println("GetInstanceAttributes " + this.getFullyQualifiedName() + " " + associationEnd.getOtherEnd().getFullyQualifiedName() + " Identifier=" + associationEnd.getOtherEnd().hasStereotype("Identifier") + " associationEnd=" + associationEnd + " One2One=" + associationEnd.getOtherEnd().isOne2One() + " Type=" + associationEnd.getOtherEnd().getType());
+            if (associationEnd.getOtherEnd().hasStereotype("Identifier") && associationEnd.getOtherEnd().isOne2One() && !associationEnd.getOtherEnd().hasStereotype(UMLProfile.STEREOTYPE_TRANSIENT) && associationEnd.getOtherEnd() instanceof HibernateAssociationEnd)
+            {
+                HibernateAssociationEnd ejb3AssociationEnd = (HibernateAssociationEnd) associationEnd;
+                //System.out.println("GetInstanceAttributes " + this.getFullyQualifiedName() + " " + ejb3AssociationEnd + " Owning=" + ejb3AssociationEnd.isOwning() + " Aggregation=" + ejb3AssociationEnd.isAggregation() + " Composition=" + ejb3AssociationEnd.isComposition() + " OAggregation=" + ejb3AssociationEnd.getOtherEnd().isAggregation() + " OComposition=" + ejb3AssociationEnd.getOtherEnd().isComposition());
+                if (ejb3AssociationEnd.isOwning())
+                {
+                    Entity entity = (Entity)ejb3AssociationEnd.getType();
+                    Collection<ModelElementFacade> identifierAttributes = EntityMetafacadeUtils.getIdentifierAttributes(entity, follow);
+                    //System.out.println("GetInstanceAttributes "  + this.getFullyQualifiedName() + " entity=" + entity + " Attributes=" + identifierAttributes);
+                    for(ModelElementFacade identifier : identifierAttributes)
+                    {
+                        //System.out.println(identifier);
+                        if (identifier instanceof AttributeFacade)
+                        {
+                            attributes.add((AttributeFacade)identifier);
+                            //System.out.println("Added "  + identifier + " to entity=" + entity);
+                        }
+                    }
+                }
+            }
+        }
+        return attributes;
+    }
+
+    @Override
+    protected String handleGetAttributesAsList(Collection attributes, boolean includeTypes, boolean includeNames,
+            boolean includeAutoIdentifiers) {
+                if ((!includeNames && !includeTypes) || attributes == null)
+                {
+                    return "";
+                }
+        
+                StringBuilder sb = new StringBuilder();
+                String separator = "";
+        
+                boolean isCompositePKPresent = this.isCompositePrimaryKeyPresent();
+                if (isCompositePKPresent)
+                {
+                    if (includeTypes)
+                    {
+                        sb.append(this.getFullyQualifiedName()).append("PK");
+                    }
+                    sb.append(" pk");
+                    separator = ", ";
+                }
+                for (final Object obj : attributes)
+                {
+                    if (obj instanceof HibernateEntityAttribute)
+                    {
+                        HibernateEntityAttribute attr = (HibernateEntityAttribute)obj;
+                        // Do not include attributes that are assigned for optimistic lock value as a version
+                        if (!attr.isVersion())
+                        {
+                            /* Do not include identifier attributes for entities with a composite primary key
+                             or if includeAutoIdentifiers is false, do not include identifiers with auto generated values. */
+                            if (!attr.isIdentifier() ||
+                               (!isCompositePKPresent && (includeAutoIdentifiers || attr.isGeneratorTypeNone())))
+                            {
+                                sb.append(separator);
+                                separator = ", ";
+                                if (includeTypes)
+                                {
+                                    /*
+                                     * If attribute is a LOB and lob type is overridden, then use
+                                     * overriding lob type.
+                                     */
+                                    if (attr.isLob() && StringUtils.isNotBlank(attr.getLobType()))
+                                    {
+                                        sb.append(attr.getLobType());
+                                    }
+                                    else
+                                    {
+                                        sb.append(attr.getGetterSetterTypeName());
+                                    }
+                                    sb.append(" ");
+                                }
+                                if (includeNames)
+                                {
+                                    sb.append(attr.getName());
+                                }
+                            }
+                        }
+                    }
+                    if (obj instanceof HibernateAssociationEnd)
+                    {
+                        HibernateAssociationEnd assoc = (HibernateAssociationEnd)obj;
+                        /* Do not include identifier attributes for entities with a composite primary key
+                         or if includeAutoIdentifiers is false, do not include identifiers with auto generated values.*/
+                        //System.out.println(this.getName() + "." + assoc.getName() + " Identifier:" + assoc.isIdentifier() + " isCompositePKPresent:" + isCompositePKPresent + " includeAutoIdentifiers:" + includeAutoIdentifiers);
+                        if (!assoc.isIdentifier() || !isCompositePKPresent)
+                        {
+                            sb.append(separator);
+                            separator = ", ";
+                            if (includeTypes)
+                            {
+                                sb.append(assoc.getGetterSetterTypeName()).append(" ");
+                            }
+                            if (includeNames)
+                            {
+                                sb.append(assoc.getName());
+                            }
+                        }
+                    }
+                }
+                return sb.toString();
+    }
+
+    @Override
+    protected String handleGetInstanceAttributeNameList(boolean follow, boolean withIdentifiers) {
+        return this.getNameList(this.getInstanceAttributes(follow, withIdentifiers));
+    }
+
+    @Override
+    protected String handleGetInstanceAttributeTypeList(boolean follow, boolean withIdentifiers) {
+        return this.getTypeList(this.getInstanceAttributes(follow, withIdentifiers));
+    }
+
+    @Override
+    protected boolean handleIsCompositePrimaryKeyPresent() {
+        boolean isCompositePK = false;
+        if (this.getIdentifiers().size() > 1)
+        {
+            isCompositePK = true;
+        }
+        return isCompositePK;
+    }
+
+    /**
+     * Constructs a comma separated list of attribute type names from the passed in collection of
+     * <code>attributes</code>.
+     *
+     * @param attributes the attributes to construct the list from.
+     * @return the comma separated list of attribute types.
+     */
+    private String getTypeList(final Collection attributes)
+    {
+        final StringBuilder list = new StringBuilder();
+        final String comma = ", ";
+        CollectionUtils.forAllDo(
+            attributes,
+            new Closure()
+            {
+                public void execute(final Object object)
+                {
+                    if (object instanceof AttributeFacade)
+                    {
+                        final AttributeFacade attribute = (AttributeFacade)object;
+                        if (attribute.getType() != null)
+                        {
+                            list.append(attribute.getGetterSetterTypeName());
+                            list.append(comma);
+                        }
+                    }
+                    if (object instanceof AssociationEndFacade)
+                    {
+                        final AssociationEndFacade associationEnd = (AssociationEndFacade)object;
+                        if (associationEnd.getType() != null)
+                        {
+                            list.append(associationEnd.getGetterSetterTypeName());
+                            list.append(comma);
+                        }
+                    }
+                }
+            });
+        if (list.toString().endsWith(comma))
+        {
+            list.delete(list.lastIndexOf(comma), list.length());
+        }
+        return list.toString();
+    }
+
+    /**
+     * Constructs a comma separated list of attribute names from the passed in collection of <code>attributes</code>.
+     *
+     * @param properties the properties to construct the list from.
+     * @return the comma separated list of attribute names.
+     */
+    private String getNameList(final Collection properties)
+    {
+        final StringBuilder list = new StringBuilder();
+        final String comma = ", ";
+        CollectionUtils.forAllDo(
+            properties,
+            new Closure()
+            {
+                public void execute(Object object)
+                {
+                    if (object instanceof EntityAttribute)
+                    {
+                        list.append(((AttributeFacade)object).getName());
+                        list.append(comma);
+                    }
+                    if (object instanceof EntityAssociationEnd)
+                    {
+                        list.append(((AssociationEndFacade)object).getName());
+                        list.append(comma);
+                    }
+                }
+            });
+        if (list.toString().endsWith(comma))
+        {
+            list.delete(list.lastIndexOf(comma), list.length());
+        }
+        return list.toString();
+    }
+
+    @Override
+    protected AttributeFacade handleGetManageableDisplayAttribute() {
+        AttributeFacade displayAttribute = null;
+
+        final Object taggedValueObject = this.findTaggedValue(UMLProfile.TAGGEDVALUE_MANAGEABLE_DISPLAY_NAME);
+        if (taggedValueObject != null)
+        {
+            displayAttribute = this.findAttribute(StringUtils.trimToEmpty(taggedValueObject.toString()));
+        }
+
+        final Collection<AttributeFacade> attributes = this.getAttributes(true);
+        for (final Iterator<AttributeFacade> attributeIterator = attributes.iterator();
+            attributeIterator.hasNext() && displayAttribute == null;)
+        {
+            final AttributeFacade attribute = attributeIterator.next();
+            if (attribute.isUnique())
+            {
+                displayAttribute = attribute;
+            }
+        }
+
+        if (displayAttribute == null)
+        {
+            if (!this.getIdentifiers().isEmpty())
+            {
+                ModelElementFacade facade = this.getIdentifiers().iterator().next();
+                if (facade instanceof AttributeFacade)
+                {
+                    displayAttribute = (AttributeFacade)facade;
+                }
+                else if (!attributes.isEmpty())
+                {
+                    displayAttribute = (EntityAttribute)attributes.iterator().next();
+                }
+            }
+            else if (!attributes.isEmpty())
+            {
+                displayAttribute = (EntityAttribute)attributes.iterator().next();
+            }
+        }
+
+        return displayAttribute;
+    }
+
+    @Override
+    protected Object handleGetIdentifier() {
+        ModelElementFacade identifier = null;
+        final Collection<ModelElementFacade> identifiers = this.getIdentifiers();
+        if (identifiers != null && !identifiers.isEmpty())
+        {
+            identifier = this.getIdentifiers().iterator().next();
+        }
+        return identifier;
+    }
+
+    @Override
+    protected String handleGetFullyQualifiedDaoName() {
+        return HibernateMetafacadeUtils.getFullyQualifiedName(
+                this.getPackageName(),
+                this.getDaoName(),
+                null);
+    }
+
+    @Override
+    protected String handleGetFullyQualifiedDaoImplementationName() {
+        return HibernateMetafacadeUtils.getFullyQualifiedName(
+                this.getPackageName(),
+                this.getDaoImplementationName(),
+                null);
     }
 }

@@ -1,0 +1,3 @@
+#set ($requiredCheckEnabled = $parameterRequiredCheck.equalsIgnoreCase('true'))
+#set ($ejbSecurityEnabled = $stringUtils.isNotBlank($securityRealm))
+#set ($hibernateExtensionEnabled = $persistenceProviderExtensions.equalsIgnoreCase('hibernate'))

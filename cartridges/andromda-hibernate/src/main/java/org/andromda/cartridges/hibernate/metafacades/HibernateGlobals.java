@@ -24,6 +24,11 @@ public class HibernateGlobals
     static public final String HIBERNATE_MAPPING_STRATEGY_HIERARCHY = "hierarchy";
 
     /**
+     * The pattern used to construct the DAO name.
+     */
+    public static final String DAO_PATTERN = "daoNamePattern";
+
+    /**
      * A mapping file per hierarchy.
      */
     static public final String HIBERNATE_MAPPING_STRATEGY_CONCRETE = "concrete";
@@ -60,9 +65,14 @@ public class HibernateGlobals
     public static final String HIBERNATE_VERSION_4 = "4";
 
     /**
-     * The version for Hibernate 4.
+     * The version for Hibernate 5.
      */
     public static final String HIBERNATE_VERSION_5 = "5";
+
+    /**
+     * The version for Hibernate 6.
+     */
+    public static final String HIBERNATE_VERSION_6 = "6";
 
     /**
      * EJB implementation class suffix.
@@ -226,4 +236,102 @@ public class HibernateGlobals
      * enumeration class itself will still be placed.
      */
     static final String ENUM_TYPES_PACKAGE = "enumTypesPackage";
+
+    /**
+     * Defines the prefix given to the transformation constants.
+     */
+    public static final String TRANSFORMATION_CONSTANT_PREFIX = "TRANSFORM_";
+
+    /**
+     * The suffix given to the no transformation constant.
+     */
+    public static final String NO_TRANSFORMATION_CONSTANT_SUFFIX = "NONE";
+
+    /**
+     * The prefix given to transformation method names.
+     */
+    public static final String TRANSFORMATION_METHOD_PREFIX = "to";
+
+    /**
+     * The suffix given to transformation method names.
+     */
+    public static final String TRANSFORMATION_TO_COLLECTION_METHOD_SUFFIX = "Collection";
+
+    /**
+     * The property used to specify the implementation operation name pattern
+     * on service and entity beans.
+     */
+    public static final String IMPLEMENTATION_OPERATION_NAME_PATTERN =
+        "implementationOperationNamePattern";
+
+
+    /**
+     * Represents the eager fetch type
+     */
+    public static final String FETCH_TYPE_EAGER = "EAGER";
+
+    /**
+     * Represents the lazy fetch type
+     */
+    public static final String FETCH_TYPE_LAZY = "LAZY";
+
+    /**
+     * Represents the clob lob type
+     */
+    public static final String LOB_TYPE_CLOB = "CLOB";
+
+    /**
+     * Represents the blob lob type
+     */
+    public static final String LOB_TYPE_BLOB = "BLOB";
+
+    /**
+     * Represents the table generator type
+     */
+    public static final String GENERATOR_TYPE_TABLE = "TABLE";
+
+    /**
+     * Represents the sequence generator type
+     */
+    public static final String GENERATOR_TYPE_SEQUENCE = "SEQUENCE";
+
+    /**
+     * Represents the identity generator type
+     */
+    public static final String GENERATOR_TYPE_IDENTITY = "IDENTITY";
+
+    /**
+     * Represents the auto generator type
+     */
+    public static final String GENERATOR_TYPE_AUTO = "AUTO";
+
+    /**
+     * Represents the generic generator type
+     */
+    public static final String GENERATOR_TYPE_GENERIC = "GENERIC";
+
+    /**
+     * Represents the none generator type
+     */
+    public static final String GENERATOR_TYPE_NONE = "NONE";
+
+    /**
+     * Represents the date temporal type
+     */
+    public static final String TEMPORAL_TYPE_DATE = "DATE";
+
+    /**
+     * Represents the time temporal type
+     */
+    public static final String TEMPORAL_TYPE_TIME = "TIME";
+
+    /**
+     * Represents the timestamp temporal type
+     */
+    public static final String TEMPORAL_TYPE_TIMESTAMP = "TIMESTAMP";
+
+    /**
+     * Represents the none temporal type
+     */
+    public static final String TEMPORAL_TYPE_NONE = "NONE";
 }

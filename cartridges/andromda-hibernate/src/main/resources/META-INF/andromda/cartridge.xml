@@ -2,6 +2,7 @@
 
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
         <macrolibrary name="templates/hibernate/GlobalMacros.vm"/>
+        <macrolibrary name="templates/hibernate/Globals.vm"/>
         <macrolibrary name="templates/hibernate/hibernate.java.vm"/>
         <macrolibrary name="templates/hibernate2/hibernate.hbm.xml.vm"/>
         <macrolibrary name="templates/hibernate3/hibernate.hbm.xml.vm"/>
@@ -89,16 +90,28 @@
     <property reference="persistenceContextUnitName"/>
     <property reference="entityManagerName"/>
     <property reference="entityManagerJTADataSource"/>
+    <property reference="dao-impls"/>
+    <property reference="daos"/>
+    <property reference="daoType"/>
+    <property reference="daoInheritanceEnabled"/>
+    <property reference="daoNamedQueries"/>
+    <property reference="enableDaoPropertiesCreateMethod"/>
 
     <!-- cartridge-property merge-point-->
 
     <condition name="mapSubclassesInSeparateFile">$hibernateUtils.mapSubclassesInSeparateFile</condition>
     <condition name="typeSafeEnumsEnabled">$typeSafeEnumsEnabled.equalsIgnoreCase("true")</condition>
     <condition name="generateDatabaseDependentCode">$generateDatabaseDependentCode.equalsIgnoreCase("true")</condition>
-    <condition name="enableTemplating">$enableTemplating.equalsIgnoreCase("true")</condition>
     <condition name="hibernateEntityAnnotations">$hibernateEntityAnnotations.equalsIgnoreCase("true")</condition>
     <condition name="dateTimeGeneratedText">$dateTimeGeneratedText.equalsIgnoreCase("true")</condition>
     <condition name="generateAttributeNameConstant">$generateAttributeNameConstant.equalsIgnoreCase("true")</condition>
+    <condition name="enableTemplating">$enableTemplating.equalsIgnoreCase("true")</condition>
+    <condition name="daoInheritanceEnabled">$daoInheritanceEnabled.equalsIgnoreCase("true")</condition>
+    <condition name="daoNamedQueries">$daoNamedQueries.equalsIgnoreCase("true")</condition>
+    <condition name="entityHibernateValidations">$entityHibernateValidations.equalsIgnoreCase("true")</condition>
+    <condition name="entityVOTransformations">$entityVOTransformations.equalsIgnoreCase("true")</condition>
+    <condition name="entityCmpEqHash">$entityCmpEqHash.equalsIgnoreCase("true")</condition>
+    <condition name="entityFindersOnUniqueProperties">$entityFindersOnUniqueProperties.equalsIgnoreCase("true")</condition>
     <!-- condition merge-point-->
 
     <!-- cartridge-resource merge-point -->
@@ -222,7 +235,7 @@
         </modelElements>
     </template>
 
-    <template
+    <!--<template
         path="templates/hibernate/ejb/HibernateSessionEJBLocator.vsl"
         outputPattern="$generatedFile"
         outlet="session-beans"
@@ -234,7 +247,7 @@
                 <type name="org.andromda.metafacades.uml.Service"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <template
         path="templates/hibernate/ejb/HibernateSessionBean.vsl"
@@ -300,6 +313,95 @@
         <modelElements variable="entities">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.Entity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- DAO Templates -->
+
+    <template
+        path="templates/hibernate/ejb/DaoLocal.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
+                        <!-- <property name="embeddableSuperclass">false</property> -->
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/ejb/DaoBase.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
+                    <!-- <property name="embeddableSuperclass">false</property> -->
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- <template
+        path="templates/hibernate/ejb/DaoImpl.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
+                    <property name="daoImplementationRequired">false</property>
+                    <property name="embeddableSuperclass">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template> -->
+
+    <template
+        path="templates/hibernate/ejb/DaoImpl.vsl"
+        outputPattern="$generatedFile"
+        outlet="dao-impls"
+        overwrite="false">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
+                    <!-- <property name="daoImplementationRequired"/>
+                    <property name="embeddableSuperclass">false</property> -->
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/ejb/DaoImpl.vsl"
+        outputPattern="$generatedFile"
+        outlet="java-refs"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
+                    <property name="daoImplementationRequired"/>
+                    <property name="embeddableSuperclass">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/ejb/DaoDefaultException.vsl"
+        outputPattern="$generatedFile"
+        outlet="commons"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
+                    <!-- <property name="embeddableSuperclass">false</property> -->
+                </type>
             </modelElement>
         </modelElements>
     </template>

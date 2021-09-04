@@ -8,10 +8,10 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 		exclude = SecurityAutoConfiguration.class, 
 		scanBasePackages = {"${applicationPackage}"}
 )
-public class ${stringUtils.capitalize($applicationId)}WSApplication {
+public class ${stringUtils.capitalize($stringUtils.replace(${applicationId}, '-', ''))}WSApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(${stringUtils.capitalize($applicationId)}WSApplication.class, args);
+		SpringApplication.run(${stringUtils.capitalize($stringUtils.replace(${applicationId}, '-', ''))}WSApplication.class, args);
 	}
 
 }

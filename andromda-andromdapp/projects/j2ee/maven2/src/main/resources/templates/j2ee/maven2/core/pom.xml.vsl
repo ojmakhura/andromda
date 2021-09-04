@@ -89,8 +89,8 @@
 #end
 #end
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core-jakarta</artifactId>
 #if ($ear)
             <scope>provided</scope>
             <exclusions>
@@ -105,12 +105,12 @@
             </exclusions>
 #end
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-        </dependency>
+        </dependency> -->
         <!-- For JBoss AS6 and earlier: Avoid NoSuchMethodException: org.hibernate.validator.ClassValidator.<init> -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator-legacy</artifactId>
             <version>4.0.2.GA</version>
@@ -124,12 +124,12 @@
                     <artifactId>hibernate-commons-annotations</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency> -->
         <!-- validator-legacy forces an earlier version of annotations. Change scope if < JBoss6 -->
         <dependency>
             <groupId>org.hibernate.common</groupId>
             <artifactId>hibernate-commons-annotations</artifactId>
-            <version>5.0.3.Final</version>
+            <version>5.1.2.Final</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -143,10 +143,10 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>net.sf.ehcache.internal</groupId>
             <artifactId>ehcache-core</artifactId>
-        </dependency>
+        </dependency>-->
 #if ($cxf)
         <!-- See (http://www.lumidant.com/blog/hibernate-asm-incompatibilities/, http://forum.andromda.org/viewtopic.php?t=5747)
         for purpose of this fix, so that we can be compatible with the cxf webservices -->
@@ -207,6 +207,21 @@
             <artifactId>commons-beanutils</artifactId>
         </dependency>
 #if ($spring || $hibernate)
+#if ($spring)
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+        </dependency>
+#else
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.ejb</groupId>
+            <artifactId>jakarta.ejb-api</artifactId>
+        </dependency>
+#end
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
@@ -239,16 +254,16 @@
 #if ($ejb3)
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
+            <artifactId>hibernate-core-jakarta</artifactId>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-        </dependency>
-        <dependency>
+        </dependency> -->
+        <!--<dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-all-7.0</artifactId>
-        </dependency>
+        </dependency> -->
 #if ($hibernate)
 #if ($cxf)
         <!-- See (http://www.lumidant.com/blog/hibernate-asm-incompatibilities/, http://forum.andromda.org/viewtopic.php?t=5747)
@@ -260,8 +275,16 @@
         </dependency>
 #end
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.inject</groupId>
+            <artifactId>jakarta.inject-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core-jakarta</artifactId>
 #if ($cxf)
             <exclusions>
                 <exclusion>
@@ -279,10 +302,10 @@
             </exclusions>
 #end
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>net.sf.ehcache.internal</groupId>
             <artifactId>ehcache-core</artifactId>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
@@ -554,11 +577,17 @@
                     </scripts>
                     -->
                 </configuration>
+#if($spring)
+#end
                 <dependencies>
                     <dependency>
-                        <groupId>org.hibernate</groupId>
+                        <groupId>org.hibernate#if($spring).orm#end</groupId>
+#if($hibernate)
+                        <artifactId>hibernate-core-jakarta</artifactId>
+#else
                         <artifactId>hibernate-core</artifactId>
-                        <version>${hibernate.version}</version>
+#end
+                        <version>${hibernate.core.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>

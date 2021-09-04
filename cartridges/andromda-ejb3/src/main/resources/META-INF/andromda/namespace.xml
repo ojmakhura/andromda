@@ -1341,6 +1341,9 @@
                       <li>was7</li>
                       <li>was61</li>
                       <li>wasce2</li>
+                      <li>glassfish6</li>
+                      <li>glassfish5</li>
+                      <li>glassfish4</li>
                       <li>glassfish3</li>
                       <li>glassfish2</li>
                       <li>weblogic11</li>
@@ -1361,6 +1364,20 @@
                     Specifies the default persistence context
                     unit name associated with the default Entity
                     Manager.
+                </documentation>
+            </property>
+            <property name="hibernateVersion">
+                <default>5</default>
+                <documentation>
+                    The version of Hibernate to use when generating.
+                    Allowable values are:
+                    <ul>
+                        <li>2 - Hibernate 2.x</li>
+                        <li>3 - Hibernate 3.x</li>
+                        <li>4 - Hibernate 4.x</li>
+                        <li>5 - Hibernate 5.x</li>
+                        <li>6 - Hibernate 6.x</li>
+                    </ul>
                 </documentation>
             </property>
             <property name="listTypeImplementation">

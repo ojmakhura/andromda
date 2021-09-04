@@ -72,6 +72,362 @@
                     The directory to which the ehcache.xml file is generated.
                 </documentation>
             </property>
+            <property name="daos">
+                <documentation>
+                    The location to which Hibernate DAOs, and any support classes
+                    are generated.
+                    <p>
+                        Please <strong>NOTE</strong>
+                        that the dao implementation classes will also be generated to this location when
+                        <strong>no operations</strong> are present on the entity with <em>classifier scope</em>.
+                    </p>
+                </documentation>
+            </property>
+            <property name="dao-impls">
+                <documentation>
+                    The location to which Hibernate DAO implementation
+                    classes will be generated (if there are any classifier scoped business
+                    operations modeled on any entity).
+                    <p>
+                        Please <strong>NOTE</strong>
+                        that the dao implementation classes will be generated to the <em>daos</em> outlet when
+                        <strong>no operations</strong> are present on the entity with <em>classifier scope</em>.
+                    </p>
+                </documentation>
+            </property>
+            <property name="java-refs">
+                <documentation>
+                    The location containing java Impl classes that would have been
+                    generated but are not overwritten. Use these to compare and merge with the
+                    existing Impl classes when reconciling model changes. These will be regenerated
+                    every time.
+                </documentation>
+            </property>
+            <property name="commons">
+                <documentation>
+                    The directory to which common classes
+                    for session beans, entity POJOs or MDB
+                    are generated
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Entity Properties">
+            <property name="entityViewType">
+                <default>local</default>
+                <documentation>
+                    The default view type accessibility for an entity POJO bean.
+                    <ul>
+                        Permitted values are:
+                        <li>local</li>
+                        <li>remote</li>
+                        <li>both</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="entityDefaultCascade">
+                <default>NONE</default>
+                <documentation>
+                    The value of the
+                    <code>CascadeType</code>
+                    annotation of the entity association. Possible
+                    values are:
+                    <ul>
+                        <li>ALL</li>
+                        <li>PERSIST</li>
+                        <li>MERGE</li>
+                        <li>REMOVE</li>
+                        <li>REFRESH</li>
+                        <li>NONE if one does not exist</li>
+                    </ul>
+                    It is possible to comma separate multiple
+                    cascade properties.
+                </documentation>
+            </property>
+            <property name="entityCompositeCascade" required="false">
+                <documentation>
+                    Indicates how a UML composition should be
+                    interpreted to determine cascadable operations that
+                    are propagated to the associated entity.
+                    <ul>
+                        <li>
+                            If undefined, the cascade attribute is
+                            computed by AndroMDA. If default cascade is
+                            <em>all</em>
+                            , then cascade is
+                            <em>all</em>
+                            otherwise cascade is
+                            <em>REMOVE</em>
+                            .
+                        </li>
+                        <li>
+                            If this property is defined, its value is
+                            generated at each occurrence of a UML
+                            composition as the inverse side is not
+                            marked with a cascade annotation element
+                            which indicates no cascade propagation.
+                        </li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="entityAggregationCascade" required="false">
+                <documentation>
+                    Indicates how a UML aggregation should be interpreted
+                    to determine cascadable operations that are
+                    propagated to the associated entity.
+                    <ul>
+                        <li>
+                            If undefined, aggregation is not
+                            interpreted as a cascade value.
+                        </li>
+                        <li>
+                            If the property is defined, its value is
+                            generated at each occurrence of a UML
+                            aggregation ad the inverse side is not
+                            marked with a cascade annotation element
+                            which indicates no cascade propogation.
+                        </li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="entityDefaultGeneratorType">
+                <default>AUTO</default>
+                <documentation>
+                    Default entity identifier primary key generator type
+                    set to AUTO unless specified using
+                    andromda_persistence_column_generatorType tagged
+                    value.
+                </documentation>
+            </property>
+            <property name="entityDefaultGeneratorInitialValue">
+                <default>1</default>
+                <documentation>
+                    Default generator initial value used when allocating
+                    id numbers from the generator.
+                </documentation>
+            </property>
+            <property name="entityDefaultGeneratorAllocationSize">
+                <default>1</default>
+                <documentation>
+                    Default generator amount to increment by when
+                    allocating id number from the generator.
+                </documentation>
+            </property>
+            <property name="entityInheritanceStrategy">
+                <default>SINGLE_TABLE</default>
+                <documentation>
+                    Defines the entity inheritance strategy used for the
+                    entity class hierarchy (unless overridden on an
+                    entity level by the
+                    <a
+                        href="profile.html#andromda._persistence_inheritance">
+                        andromda_persistence_inheritance
+                    </a>
+                    tagged value, can be the following possible values:
+                    <ul>
+                        <li>
+                            SINGLE_TABLE - A single table per class hierarchy. One table will have all
+                            properties of every class in the hierarchy.
+                        </li>
+                        <li>
+                            TABLE_PER_CLASS - A table per concrete class in the
+                            hierarchy. Each class will have a table dedicated to it, with all of its
+                            properties and the properties of its superclass mapped to this table.
+                        </li>
+                        <li>
+                            JOINED - A table per subclass. Each class will have its own table. Each
+                            table will have only the properties that are defined in that particular class.
+                            These tables will not have properties of any superclass or subclass.
+                        </li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="entityDiscriminatorType">
+                <default>STRING</default>
+                <documentation>
+                    The value of the
+                    <code>discriminatorType</code>
+                    element for the Inheritance annotation of the
+                    entity. Possible values are:
+                    <ul>
+                        <li>STRING</li>
+                        <li>CHAR</li>
+                        <li>INTEGER</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="entityDiscriminatorColumnName">
+                <default>TYPE</default>
+                <documentation>
+                    The DiscriminatorColumn annotation defines the
+                    discriminator column for the SINGLE_TABLE and JOINED
+                    mapping inheritance strategies. The name element
+                    defines the name of the column to be used for the
+                    discriminator. It will default to
+                    <code>TYPE</code>
+                    if it is required and not specified..
+                </documentation>
+            </property>
+            <property name="entityGenericFinders">
+                <default>true</default>
+                <documentation>
+                    Specifies whether to include the generic finder
+                    property.  Generic finders in the entity bean include
+                    findByPrimaryKey and findAll.
+                    Permitted values are:
+                    <ul>
+                        <li>true</li>
+                        <li>false</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="entityDefaultEnumLiteralColumnLength">
+                <default>20</default>
+                <documentation>
+                    The default column length specified for the
+                    storage of a string based enumeration literal.
+                </documentation>
+            </property>
+            <property name="entityDefaultTemporalType">
+                <default>TIMESTAMP</default>
+                <documentation>
+                    Specifies that the persistence property should
+                    be persisted as a temporal type.
+                    This is only specified on fields of type
+                    <code>java.util.Date</code> or
+                    <code>java.util.Calendar</code>.
+                    Possible values are:
+                    <ul>
+                        <li>DATE</li>
+                        <li>TIME</li>
+                        <li>TIMESTAMP</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="entityHibernateValidations">
+                <default>true</default>
+                <documentation>
+                    Generate hibernate bean validations on the Entity, for
+                    NotNull, Size, Pattern according to JSR303 and JEE6.
+                    See http://docs.jboss.org/hibernate/validator/4.2/reference/en-US/html_single/#table-spec-constraints
+                    default = true.
+                </documentation>
+            </property>
+            <property name="entityVOTransformations">
+                <default>false</default>
+                <documentation>
+                    Generate Entity Domain to VO transformations and mappings automatically.
+                    No longer needed for JPA since the domain Entity acts as a ValueObject.
+                    This allows strongly-typed queries and results. Domain classes can be used as
+                    VOs in the service and UI layers, especially if the DAO handles all database operations.
+                    Default = false.
+                </documentation>
+            </property>
+            <property name="entityCmpEqHash">
+                <default>true</default>
+                <documentation>
+                    Generate Entity compareTo, equals, and hashCode methods. The only reason to turn this off
+                    is if the Entity inherits from a custom framework class that has the same methods as final
+                    and uses its own ancestor implementation for these methods.
+                    default = true.
+                </documentation>
+            </property>
+            <property name="entityFindersOnUniqueProperties">
+                <default>true</default>
+                <documentation>
+                    Generate Entity findByX methods, returning a single Domain instance, for all unique properties automatically.
+                    UML2 only, since UML14 cannot mark attributes or associations as Unique,
+                    they all become unique when migrated to UML2.
+                    default = true.
+                </documentation>
+            </property>
+            <property name="daoNamedQueries">
+                <default>true</default>
+                <documentation>
+                    Generate DAO named queries, where a strongly-typed result domain object is returned methods.
+                    Only JPA2 supports this, avoiding compiler warnings from class cast.
+                    default = true.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="DAO Properties">
+            <property name="daoType">
+                <default>ejb3</default>
+                <documentation>
+                    The output type for classes which use EntityManager. Default is ejb3.
+                    Spring will create JpaTemplate DAO classes. Use 'none' if you have your
+                    own framework which creates and uses and tests EntityManager, and you only want to
+                    generate the Entity and Embeddable classes with andromda (no unit tests).
+                    Possible choices are:
+                    <ul>
+                        <li>ejb3</li>
+                        <li>spring</li>
+                        <li>custom</li>
+                        <li>none</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="daoInheritanceEnabled">
+                <default>false</default>
+                <documentation>
+                    Whether or not the DAOs should make up an inheritance tree in
+                    the same way as their respective entities. This is disabled
+                    by default but you might want to enable it if you prefer to have
+                    top-level DAO operations visible in child DAO classes. The EJB3
+                    cartridge uses JDK5 generics, further enahanced by enabling the
+                    <code>enableTemplating</code> namespace property.
+                </documentation>
+            </property>
+            <property name="enableDaoPropertiesCreateMethod">
+                <default>true</default>
+                <documentation>
+                    Whether or not the create methods on the DAOs taking properties
+                    from the entity shall be generated.
+                </documentation>
+            </property>
+            <property name="daoPackageNamePattern">
+                <default>{0}</default>
+                <documentation>
+                    The pattern to use when constructing the package for
+                    the dao class. By default, the same package as the entities.
+                    <em>{0}</em> is used to represent the entity name in the model.
+                </documentation>
+            </property>
+            <property name="daoNamePattern">
+                <default>{0}Dao</default>
+                <documentation>
+                    The pattern to use when constructing the DAO name. <em>{0}</em>
+                    is used to represent the entity name in the model, so if you
+                    specified a value of <code>{0}Dao</code> all
+                    the entities generated would have a suffix of "Dao".
+                </documentation>
+            </property>
+            <property name="daoBaseNamePattern">
+                <default>{0}DaoBase</default>
+                <documentation>
+                    The pattern to use when constructing the base DAO's name.
+                    <em>{0}</em> is used to represent the entity name
+                    in the model, so if you specified a value of
+                    <code>{0}DaoBase</code> all the entities generated
+                    would have a suffix of "DaoBase".
+                </documentation>
+            </property>
+            <property name="daoImplementationNamePattern">
+                <default>{0}DaoImpl</default>
+                <documentation>
+                    The pattern to use when constructing the DAO's
+                    implementation name. <em>{0}</em> is used to represent
+                    the entity name in the model, so if you specified a value of
+                    <code>{0}DaoImpl</code> all the entities generated
+                    would have a suffix of "DaoImpl".
+                </documentation>
+            </property>
+            <property name="daoDefaultExceptionNamePattern">
+                <default>{0}DaoException</default>
+                <documentation>
+                    The pattern to use when constructing the DAO
+                    default exception name.
+                </documentation>
+            </property>
         </propertyGroup>
         <propertyGroup name="Caching">
             <property name="hibernateEnableCache">
@@ -440,6 +796,15 @@
                     would have a suffix of "Entity".
                 </documentation>
             </property>
+            <property name="implementationOperationNamePattern">
+                <default>handle{0}</default>
+                <documentation>
+                    The pattern used to the create the implementation operation name
+                    for both session and entity bean operations.
+                    (i.e. the operations that actually perform the handling of the logic),
+                    where <em>{0}</em> represents the operation name.
+                </documentation>
+            </property>
             <property name="entityImplementationNamePattern">
                 <default>{0}Impl</default>
                 <documentation>
@@ -508,6 +873,28 @@
             </property>
         </propertyGroup>
         <propertyGroup name="Other">
+            <property name="persistenceProviderExtensions">
+                <default>none</default>
+                <documentation>
+                    Determines whether the default persistence provider
+                    extensions such as annotations should also be rendered.
+                    By default, this is disabled.
+                    To enable caching:
+                    this must be set to <b>hibernate</b> such that
+                    the Hibernate caching annotations are rendered.
+                    To enable JBoss Seam:
+                    this must be set to <b>hibernate</b> such that
+                    the hibernate validator annotations are
+                    rendered.
+                    To enable Hibernate Criteria Query, this must
+                    be set to <b>hibernate</b>.
+                    Possible values are:
+                    <ul>
+                        <li>none</li>
+                        <li>hibernate</li>
+                    </ul>
+                </documentation>
+            </property>
             <property name="deploymentPlatform" required="false">
                 <default>jboss7</default>
                 <documentation>
@@ -527,6 +914,46 @@
                       <li>was7</li>
                       <li>was61</li>
                       <li>wasce2</li>
+                      <li>glassfish6</li>
+                      <li>glassfish5</li>
+                      <li>glassfish4</li>
+                      <li>glassfish3</li>
+                      <li>glassfish2</li>
+                      <li>weblogic11</li>
+                      <li>weblogic10</li>
+                      <li>weblogic9</li>
+                      <li>weblogic8</li>
+                      <li>geronimo</li>
+                      <li>jonas5</li>
+                      <li>oracleas</li>
+                      <li>resin3</li>
+                      <li>resin4</li>
+                      <li>sun8</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="persistenceContainerName">
+                <default>jboss</default>
+                <documentation>
+                    The default container deployment platform name and version.
+                    Used when specifying specific annotations and dependencies and tests
+                    for different persistence containers.
+                    Possible values are:
+                    <ul>
+                      <li>jboss7</li>
+                      <li>jboss6</li>
+                      <li>jboss51</li>
+                      <li>jboss5</li>
+                      <li>jboss42</li>
+                      <li>jboss4</li>
+                      <li>jboss3</li>
+                      <li>was8</li>
+                      <li>was7</li>
+                      <li>was61</li>
+                      <li>wasce2</li>
+                      <li>glassfish6</li>
+                      <li>glassfish5</li>
+                      <li>glassfish4</li>
                       <li>glassfish3</li>
                       <li>glassfish2</li>
                       <li>weblogic11</li>
