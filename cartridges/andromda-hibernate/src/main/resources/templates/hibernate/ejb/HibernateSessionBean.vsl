@@ -8,15 +8,6 @@
 package $service.packageName;
 #end
 
-import jakarta.ejb.EJBException;
-import javax.naming.NamingException;
-
-import ${hibernateUtils.hibernatePackage}.HibernateException;
-import ${hibernateUtils.hibernatePackage}.Session;
-import ${hibernateUtils.hibernatePackage}.SessionFactory;
-
-import ${customTypesPackage}.HibernateUtils;
-
 #foreach ($serviceRef in $service.serviceReferences)
 import ${serviceRef.targetElement.fullyQualifiedName}Home;
 #end
@@ -28,7 +19,7 @@ public abstract class ${service.name}Bean
 #if ($service.generalization)
     extends ${service.generalization.fullyQualifiedName}BeanImpl
 #end
-    implements jakarta.ejb.SessionBean
+    implements ${service.name}, java.io.Serializable
 {
 
 #if ($service.ejbStateful)
@@ -80,71 +71,26 @@ $operation.getDocumentation("     * ")
         throws $operation.exceptionList
 #end
     {
-        Session session = null;
-        try
-        {
-            session = getSession();
 ##
 ##  Add one additional parameter to the list of parameters:
 ##  a reference to the open Hibernate session.
 ##
 #set ($parameterList = $operation.argumentNames)
 #if ($stringUtils.isBlank($parameterList))
-#set ($parameters = "session")
+#set ($parameters = "")
 #else
-#set ($parameters = "session, ${parameterList}")
+#set ($parameters = "${parameterList}")
 #end
 ##
 #if ($operation.returnTypePresent)
-            return handle${stringUtils.capitalize($operation.name)}(#if (!$stringUtils.isBlank($parameterList))$parameterList#end);
+        return handle${stringUtils.capitalize($operation.name)}(#if (!$stringUtils.isBlank($parameterList))$parameterList#end);
 #else
-            handle${stringUtils.capitalize($operation.name)}(#if (!$stringUtils.isBlank($parameterList))$parameterList#end);
+        handle${stringUtils.capitalize($operation.name)}(#if (!$stringUtils.isBlank($parameterList))$parameterList#end);
 #end
-        }
-#foreach ( $exception in $operation.exceptions )
-        catch ($exception.fullyQualifiedName e)
-        {
-           this.ctx.setRollbackOnly();
-           throw e;
-        }
-#end
-        catch (Throwable th)
-        {
-            throw new EJBException("${service.name}Bean.${operation.name} ", new Exception(th.toString(), th));
-        }
-        finally
-        {
-            if (session != null)
-            {
-                try
-                {
-                    if (!this.ctx.getRollbackOnly())
-                    {
-                        session.flush();
-                    }
-                    session.close();
-                }
-                catch (HibernateException he)
-                {
-                    he.printStackTrace();
-                }
-            }
-        }
     }
 
 #end
-   // ---------------- create methods -------------------------
-
-    public void ejbCreate ()
-           throws jakarta.ejb.CreateException
-    {
-    }
-
-    public void ejbPostCreate ()
-           throws jakarta.ejb.CreateException
-    {
-    }
-
+   
 #if ($service.ejbStateful)
    // ---------------- create methods with separate attributes --------------------
 
@@ -161,36 +107,7 @@ $operation.getDocumentation("     * ")
     {
     }
 
-#end
-   // ---------------- Hibernate helpers -------------------------
-
-    protected jakarta.ejb.SessionContext ctx = null;
-
-    private static SessionFactory sessionFactory = null;
-
-    public void setSessionContext( jakarta.ejb.SessionContext ctx )
-    {
-        this.ctx = ctx;
-    }
-
-    private SessionFactory getSessionFactory() throws NamingException
-    {
-        if(sessionFactory == null)
-        {
-            sessionFactory = HibernateUtils.getSessionFactory();
-        }
-        return sessionFactory;
-    }
-
-    @jakarta.persistence.PersistenceContext
-    protected jakarta.persistence.EntityManager entityManager;
-
-    private Session getSession() throws HibernateException, NamingException
-    {
-        return this.entityManager.unwrap(org.hibernate.Session.class);
-    }
-
-    // ---------------- accessor methods for (session!) bean references ---------------
+#end 
 #foreach ( $serviceRef in $service.serviceReferences )
    #set ($service = $serviceRef.targetElement)
    #set ($homeInterfaceName = "${service.name}Home")
@@ -215,29 +132,17 @@ $operation.getDocumentation("     * ")
     }
 
 #end
-    public void ejbRemove()
-    {
-    }
-
-    public void ejbPassivate()
-    {
-    }
-
-    public void ejbActivate()
-    {
-    }
-
     // ---------------- Daos ---------------
 #foreach($entityRef in $service.entityReferences)
 
     @jakarta.inject.Inject
-    protected $entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName; 
+    protected $entityRef.targetElement.fullyQualifiedDaoImplementationName $entityRef.daoName; 
 
     /**
      * Sets the reference to <code>$entityRef.name</code>'s DAO.
      * @param ${entityRef.daoName}In
      */
-    public void ${entityRef.daoSetterName}($entityRef.targetElement.fullyQualifiedDaoName ${entityRef.daoName}In)
+    public void ${entityRef.daoSetterName}($entityRef.targetElement.fullyQualifiedDaoImplementationName ${entityRef.daoName}In)
     {
         this.$entityRef.daoName = ${entityRef.daoName}In;
     }
@@ -246,7 +151,7 @@ $operation.getDocumentation("     * ")
      * Gets the reference to <code>$entityRef.name</code>'s DAO.
      * @return $entityRef.daoName
      */
-    protected $entityRef.targetElement.fullyQualifiedDaoName ${entityRef.daoGetterName}()
+    protected $entityRef.targetElement.fullyQualifiedDaoImplementationName ${entityRef.daoGetterName}()
     {
         return this.$entityRef.daoName;
     }

@@ -327,7 +327,7 @@
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
-                        <!-- <property name="embeddableSuperclass">false</property> -->
+                    <!-- <property name="embeddableSuperclass">false</property> -->
                 </type>
             </modelElement>
         </modelElements>
@@ -370,8 +370,8 @@
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
-                    <!-- <property name="daoImplementationRequired"/>
-                    <property name="embeddableSuperclass">false</property> -->
+                    <!-- <property name="daoImplementationRequired"/> -->
+                    <!-- <property name="embeddableSuperclass">false</property> -->
                 </type>
             </modelElement>
         </modelElements>
@@ -385,8 +385,8 @@
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
-                    <property name="daoImplementationRequired"/>
-                    <property name="embeddableSuperclass">false</property>
+                    <!-- <property name="daoImplementationRequired"/> -->
+                    <!-- <property name="embeddableSuperclass">false</property> -->
                 </type>
             </modelElement>
         </modelElements>

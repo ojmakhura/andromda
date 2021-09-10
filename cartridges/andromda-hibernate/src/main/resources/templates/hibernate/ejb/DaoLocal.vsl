@@ -170,6 +170,15 @@ public interface $entity.daoName
 
 ## Only add these methods if the entity isn't abstract
 #if (!$entity.abstract)
+
+     /**
+      * Create or Update the <code>$argumentName</code> instance in the persistent store.
+      * @param $argumentName
+      * @return $rootEntityType
+      */
+     public $rootEntityType createOrUpdate($entity.fullyQualifiedEntityName $argumentName)
+               throws ${entity.fullyQualifiedDaoDefaultExceptionName};
+
     /**
      * Creates an instance of $entity.fullyQualifiedEntityName and adds it to the persistent store.
      * @param $argumentName

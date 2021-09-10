@@ -133,8 +133,8 @@
                 <property name="hibernateVersion">${hibernate.version}</property>
                 <property name="hibernateEntityAnnotations">true</property>
 #end
-                <property name="persistenceContainerName">jboss</property>
-                <property name="appServer">jboss</property>
+                <property name="persistenceContainerName">glassfish</property>
+                <property name="appServer">glassfish</property>
                 <!-- Override default @todo to set to Eclipse default>
                 <property name="toDoTag">TODO</property -->
                 <!-- Automatically makes English names plural (generally adds s if missing).

@@ -30,8 +30,8 @@ package ${entity.packageName};
  *
  * @see $rootDaoType
  */
-//@jakarta.ejb.TransactionAttribute(jakarta.ejb.TransactionAttributeType.REQUIRED)
-//@jakarta.ejb.Local({${rootDaoType}.class})
+@jakarta.ejb.TransactionAttribute(jakarta.ejb.TransactionAttributeType.REQUIRED)
+@jakarta.ejb.Local({${rootDaoType}.class})
 #if ($entity.securityEnabled)
 #**##if ($stringUtils.isBlank(${entity.rolesAllowed}))
 @jakarta.annotation.security.PermitAll
@@ -1065,6 +1065,7 @@ public abstract class $entity.daoBaseName
     @Override
 #end
     public $entity.fullyQualifiedEntityName createOrUpdate($entity.fullyQualifiedEntityName $argumentName)
+                throws ${entity.fullyQualifiedDaoDefaultExceptionName}
     {
         if(${argumentName}.${entity.identifiers.get(0).getterName}() == null)
         {

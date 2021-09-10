@@ -8,7 +8,7 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
-    <persistence-unit#if($entityManagerName) name="$entityManagerName"#end>
+    <persistence-unit#if($entityManagerName) name="$entityManagerName"#end#if ($stringUtils.isNotBlank(${dataSource})) transaction-type="JTA"#end>
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 #if ($stringUtils.isNotBlank(${dataSource}))
         <jta-data-source>${dataSource}</jta-data-source>
@@ -90,6 +90,7 @@
 #if ($stringUtils.isNotBlank($hibernateTransactionAutoCloseSession))
             <property name="hibernate.transaction.auto_close_session" value="${hibernateTransactionAutoCloseSession}"/>
 #end
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
             <!-- Must add hibernate3 module: http://planet.jboss.org/post/using_a_different_persistence_provider_with_as_7_0_1
             <property name="hibernate.ejb.resource_scanner" value="org.jboss.as.jpa.hibernate3.HibernateAnnotationScanner"/>-->
             <property name="jboss.as.jpa.providerModule" value="org.hibernate:3"/>
