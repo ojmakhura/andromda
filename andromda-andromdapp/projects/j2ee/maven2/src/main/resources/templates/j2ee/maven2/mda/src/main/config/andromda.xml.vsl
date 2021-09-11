@@ -494,7 +494,7 @@
                 <property name="service-impls">${core.manual.java.dir}</property>
             </properties>
         </namespace>
-#if ($webType.equals("jsf") || $webType.equals("both"))
+#if ($web)
 #if ($jbossSeam)
         <namespace name="seam">
             <properties>
@@ -520,7 +520,7 @@
         </namespace>
 #else
         <!-- See http://docs.andromda.org/andromda-cartridges/andromda-jsf2-cartridge/namespace.html -->
-        <namespace name="jsf2">
+        <namespace name=#if($jsf)"jsf2"#elseif($jakarta)"jakarta"#else"struts"#end>
             <properties>
                 <property name="componentSet">primefaces</property>
                 <property name="useAutocompleteLookup">true</property>

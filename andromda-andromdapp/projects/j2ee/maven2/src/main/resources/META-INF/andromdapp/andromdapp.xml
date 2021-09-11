@@ -28,12 +28,17 @@
             <output patterns="**/*">core</output>
         </conditions>
         <conditions>
-            <condition id="jsf" equal="true"/>
+            <condition id="web" equal="true"/>
             <output patterns="**/*">web/</output>
             <output>mda/src/main/config/mappings/WebMergeMappings.xml.vsl</output>
             <output>web/src/main/resources/META-INF/context.xml.vsl</output>
             <output>web/target/${applicationId}-${applicationVersion}/target/src/WEB-INF/web.xml</output>
             <output>web/target/${applicationId}-web-${applicationVersion}/target/src/WEB-INF/web.xml</output>
+        </conditions>
+        <conditions>
+            <condition id="jakarta" equal="true"/>
+            <output>web/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/WebApplication.java.vsl</output>
+            <output>web/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/Messages.java.vsl</output>
         </conditions>
         <conditions type="and">
             <condition id="webservice" notEqual="none"/>
@@ -147,6 +152,15 @@
             <to>web/target/${applicationId}-${applicationVersion}/WEB-INF/web.xml</to>
         </mapping>
         <mapping>
+            <from><web/>
+            <Application class="java vsl"></Application></from>
+            <to>web/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/WebApplication.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>web/Messages.java.vsl</from>
+            <to>web/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/Messages.java.vsl</to>
+        </mapping>
+        <mapping>
             <from>web/web.xml</from>
             <to>web/target/${applicationId}-web-${applicationVersion}/WEB-INF/web.xml</to>
         </mapping>
@@ -174,7 +188,7 @@
         <!-- Angular -->
         <!-- <mapping>
             <from>angular/src/main/java/SpringApplication.java.vsl</from>
-            <to>angular/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}AngularApplication.java.vsl</to>
+            <to>angular/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize(v)}AngularApplication.java.vsl</to>
         </mapping>
         <mapping>
             <from>angular/src/test/SpringApplicationTest.java.vsl</from>
@@ -343,7 +357,6 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>ejb</response>
                     <response>ejb3</response>
                     <response>spring</response>
-                    <response>jakarta</response>
                     <response>none</response>
                 </responses>
                 <conditions>
@@ -364,7 +377,6 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>hibernate</response>
                     <response>ejb3</response>
                     <response>spring</response>
-                    <response>jakarta</response>
                     <response>none</response>
                 </responses>
             </prompt>
@@ -462,7 +474,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>jsf</response>
                     <response>angular</response>
                     <response>struts</response>
-                    <response>jakartamvc</response>
+                    <response>jakarta</response>
                 </responses>
                 <conditions>
                     <condition equal="jsf">
@@ -470,28 +482,28 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                         <setProperty type="java.lang.Boolean" id="angular">false</setProperty>
                         <setProperty type="java.lang.Boolean" id="web">true</setProperty>
                         <setProperty type="java.lang.Boolean" id="struts">false</setProperty>
-                        <setProperty type="java.lang.Boolean" id="jakartamvc">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="jakarta">false</setProperty>
                     </condition>
                     <condition equal="angular">
                         <setProperty type="java.lang.Boolean" id="jsf">false</setProperty>
                         <setProperty type="java.lang.Boolean" id="angular">true</setProperty>
                         <setProperty type="java.lang.Boolean" id="web">false</setProperty>
                         <setProperty type="java.lang.Boolean" id="struts">false</setProperty>
-                        <setProperty type="java.lang.Boolean" id="jakartamvc">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="jakarta">false</setProperty>
                     </condition>
                     <condition equal="struts">
-                        <setProperty type="java.lang.Boolean" id="angular">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="angular">false</setProperty>
                         <setProperty type="java.lang.Boolean" id="jsf">false</setProperty>
                         <setProperty type="java.lang.Boolean" id="web">true</setProperty>
                         <setProperty type="java.lang.Boolean" id="struts">true</setProperty>
-                        <setProperty type="java.lang.Boolean" id="jakartamvc">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="jakarta">false</setProperty>
                     </condition>
-                    <condition equal="jakartamvc">
-                        <setProperty type="java.lang.Boolean" id="angular">true</setProperty>
+                    <condition equal="jakarta">
+                        <setProperty type="java.lang.Boolean" id="angular">false</setProperty>
                         <setProperty type="java.lang.Boolean" id="jsf">false</setProperty>
                         <setProperty type="java.lang.Boolean" id="web">true</setProperty>
                         <setProperty type="java.lang.Boolean" id="struts">false</setProperty>
-                        <setProperty type="java.lang.Boolean" id="jakartamvc">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="jakarta">true</setProperty>
                     </condition>
                 </conditions>
             </prompt>

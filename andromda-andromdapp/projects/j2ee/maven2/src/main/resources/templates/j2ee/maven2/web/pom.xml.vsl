@@ -70,7 +70,7 @@
             <scope>provided</scope>
 #end
         </dependency>
-#if ($webType.equals("jsf") || $webType.equals("both"))
+#if ($web)
         <dependency>
             <groupId>commons-digester</groupId>
             <artifactId>commons-digester</artifactId>
@@ -79,7 +79,7 @@
             <groupId>oro</groupId>
             <artifactId>oro</artifactId>
         </dependency>
-#if ($webType.equals("jsf") || $webType.equals("both"))
+#if ($web)
 #if ($jbossSeam)
         <dependency>
             <groupId>org.jboss</groupId>
@@ -132,41 +132,34 @@
         </dependency>
 #else
         <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-api</artifactId>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-impl</artifactId>
+            <groupId>org.eclipse.krazo</groupId>
+            <artifactId>krazo-jersey</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.myfaces.tomahawk</groupId>
-            <artifactId>tomahawk21</artifactId>
+            <groupId>org.eclipse.krazo</groupId>
+            <artifactId>krazo-resteasy</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-server -->
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-server</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
+            <groupId>jakarta.ejb</groupId>
+            <artifactId>jakarta.ejb-api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.myfaces.extensions.validator</groupId>
-            <artifactId>myfaces-extval-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
-            <artifactId>myfaces-extval-property-validation</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
-            <artifactId>myfaces-extval-bean-validation</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.myfaces.extensions.validator.component-support-modules</groupId>
-            <artifactId>myfaces-extval-generic-support</artifactId>
-        </dependency>
+#if($jsf)
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
+            <classifier>jakarta</classifier>
         </dependency>
+#end
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
@@ -191,27 +184,11 @@
             <artifactId>andromda-utils</artifactId>
         </dependency>
 #end
-        <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>javax.servlet-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-        </dependency>
 #end
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-script-wrappers</artifactId>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-all-7.0</artifactId>
         </dependency>
 #if ($ejb3)
         <dependency>

@@ -162,38 +162,11 @@
             </dependency>
 #end
 #end
-#if ($webType.equals("jsf"))
+#if ($web)
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-jsf2-cartridge</artifactId>
                 <version>${andromda.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.myfaces.core</groupId>
-                <artifactId>myfaces-api</artifactId>
-                <version>${myfaces.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.myfaces.core</groupId>
-                <artifactId>myfaces-impl</artifactId>
-                <version>${myfaces.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.myfaces.tomahawk</groupId>
-                <artifactId>tomahawk21</artifactId>
-                <version>1.1.14</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>xml-apis</groupId>
-                        <artifactId>xmlParserAPIs</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>jakarta.platform</groupId>
-                <artifactId>jakarta.jakartaee-api</artifactId>
-                <version>9.1.0</version>
                 <scope>provided</scope>
             </dependency>
             <!-- validation dependencies -->
@@ -228,11 +201,12 @@
                 <artifactId>myfaces-extval-generic-support</artifactId>
                 <version>2.0.8</version>
             </dependency> -->
-            <!-- <dependency>
+            <dependency>
                 <groupId>org.primefaces</groupId>
                 <artifactId>primefaces</artifactId>
-                <version>7.0</version>
-            </dependency> -->
+                <version>10.0.0</version>
+                <classifier>jakarta</classifier>
+            </dependency>
 #if (!$spring && !$hibernate && !$ejb3)
             <dependency>
                 <groupId>org.hibernate.validator</groupId>
@@ -459,26 +433,37 @@
                 <artifactId>hibernate-core-jakarta</artifactId>
                 <version>${hibernate.core.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/jakarta.persistence/jakarta.persistence-api -->
-            <dependency>
-                <groupId>jakarta.persistence</groupId>
-                <artifactId>jakarta.persistence-api</artifactId>
-                <version>3.0.0</version>
-            </dependency>
             <dependency>
                 <groupId>jakarta.ejb</groupId>
                 <artifactId>jakarta.ejb-api</artifactId>
                 <version>4.0.0</version>
             </dependency>
             <dependency>
-                <groupId>jakarta.annotation</groupId>
-                <artifactId>jakarta.annotation-api</artifactId>
-                <version>2.0.0</version>
+                <groupId>jakarta.platform</groupId>
+                <artifactId>jakarta.jakartaee-api</artifactId>
+                <version>9.1.0</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>jakarta.inject</groupId>
-                <artifactId>jakarta.inject-api</artifactId>
-                <version>2.0.0</version>
+                <groupId>org.eclipse.krazo</groupId>
+                <artifactId>krazo-jersey</artifactId>
+                <version>2.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.krazo</groupId>
+                <artifactId>krazo-resteasy</artifactId>
+                <version>2.0.1</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-server -->
+            <dependency>
+                <groupId>org.glassfish.jersey.core</groupId>
+                <artifactId>jersey-server</artifactId>
+                <version>3.0.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate.validator</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>7.0.1.Final</version>
             </dependency>
 #end
             <!-- Hibernate Jcache -->
@@ -505,10 +490,23 @@
                    	</exclusion>
                 </exclusions>
             </dependency>-->
-            <dependency>
+            <!--<dependency>
                 <groupId>net.sf.ehcache.internal</groupId>
                 <artifactId>ehcache-core</artifactId>
                 <version>2.9.0</version>
+            </dependency>-->
+            <!-- Hibernate Jcache -->
+            <dependency>
+                <groupId>org.hibernate.orm</groupId>
+                <artifactId>hibernate-jcache</artifactId>
+                <version>${hibernate.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate.orm</groupId>
+                <artifactId>hibernate-ehcache</artifactId>
+                <version>${hibernate.version}</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.javassist</groupId>
@@ -518,7 +516,7 @@
                 <scope>test</scope>
 #end
             </dependency>
-#if (!($webType.equals("jsf")))
+#if (!$web))
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
@@ -607,14 +605,14 @@
                 <scope>runtime</scope>
             </dependency>
 #end
-#if ($webType.equals("jsf") || $hibernate)
+#if ($web || $hibernate)
             <dependency>
                 <groupId>antlr</groupId>
                 <artifactId>antlr</artifactId>
                 <version>2.7.7</version>
             </dependency>
 #end
-#if ($webType.equals("jsf"))
+#if ($web)
             <dependency>
                 <groupId>commons-digester</groupId>
                 <artifactId>commons-digester</artifactId>
@@ -836,7 +834,7 @@
                 <version>1.2.17</version>
                 <!--scope>test</scope-->
             </dependency>
-#if (!($webType.equals("jsf") || $webType.equals("both")) && !$spring && !$hibernate)
+#if (!$web && !$spring && !$hibernate)
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
@@ -1245,6 +1243,9 @@
         spring=$spring
         webType=$webType
         jsf=$jsf
+        jakarta=$jakarta
+        web=$web
+        angular=$angular
         webservice=$webservice
         cxf=$cxf
         rest=$rest
@@ -1260,10 +1261,10 @@
 #if (!$transactionPersistenceType.equals("none") || $cxf)
         <module>core</module>
 #end
-#if ($webType.equals("both") || $webType.equals("jsf"))
+#if ($web)
         <module>web</module>
 #end
-#if ($webType.equals("both") || $webType.equals("angular"))
+#if ($angular)
         <module>angular</module>
 #end
 #if (!$webservice.equals("none") && !$jsr181Webservice && ($ear || $cxf))
@@ -1371,6 +1372,7 @@
         For Informix use: org.hibernate.dialect.InformixDialect
         For MySql4 use: org.hibernate.dialect.MySQLDialect
         For MySql5+ use: org.hibernate.dialect.MySQL5Dialect
+        For MySql8+ use: org.hibernate.dialect.MySQL8Dialect
         For MySql InnoDB use: org.hibernate.dialect.MySQL5InnoDBDialect
         For MySql MyISAM use: org.hibernate.dialect.MySQLMyISAMDialect
         For MSSQL use: org.hibernate.dialect.SQLServerDialect
@@ -1489,7 +1491,7 @@
 #if ($spring ||$hibernate || $ejb3)
 #set ($hbVersion = "6.0.0.Alpha7")
 #if($spring)
-        <!-- Set andromda.xml hibernateVersion=4, sessionFactory and localTransactionManager to hibernate4.-->
+        <!-- Set andromda.xml hibernateVersion=6, sessionFactory and localTransactionManager to hibernate6.-->
 #set ($hbCoreVersion = "6.0.0.Alpha9")
 #elseif ($hibernate || $ejb3)
         <!-- Set andromda.xml hibernateVersion=5, sessionFactory and localTransactionManager to hibernate5-->
@@ -1507,7 +1509,7 @@
 #if ($tomcat)
         <tomcat.version>2.2</tomcat.version>
 #end
-#if ($webType.equals("jsf"))
+#if ($web)
         <myfaces.version>2.3.2</myfaces.version>
 #end
 #if ($cxf)
@@ -1515,7 +1517,7 @@
 #elseif ($spring || $springws)
         <!-- v5 migration needed -->
         <spring.version>5.3.9</spring.version>
-	    <spring-boot.version>2.5.2</spring-boot.version>
+	    <spring-boot.version>2.5.4</spring-boot.version>
 #end
         <!-- To override parent default settings for compiler plugin and compliance checks-->
         <dependencyConvergence>true</dependencyConvergence>

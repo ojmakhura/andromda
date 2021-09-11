@@ -27,18 +27,6 @@
             <version>${andromda.version}</version>
             <scope>provided</scope>
         </dependency>
-        <!-- <dependency>
-            <groupId>org.andromda.cartridges</groupId>
-            <artifactId>andromda-webservice-cartridge</artifactId>
-            <version>${andromda.version}</version>
-            <scope>provided</scope>
-        </dependency>-->
-        <!-- <dependency>
-            <groupId>org.andromda.cartridges</groupId>
-            <artifactId>andromda-java-cartridge</artifactId>
-            <version>${andromda.version}</version>
-            <scope>provided</scope>
-        </dependency> -->
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-core</artifactId>
@@ -80,16 +68,6 @@
                         <artifactId>andromda-meta-cartridge</artifactId>
                         <version>${andromda.version}</version>
                     </dependency>
-                    <!-- <dependency>
-                        <groupId>org.andromda.cartridges</groupId>
-                        <artifactId>andromda-webservice-cartridge</artifactId>
-                        <version>${andromda.version}</version>
-                    </dependency>-->
-                    <!-- <dependency>
-                        <groupId>org.andromda.cartridges</groupId>
-                        <artifactId>andromda-java-cartridge</artifactId>
-                        <version>${andromda.version}</version>
-                    </dependency> -->
                 </dependencies>
             </plugin> 
             <plugin>

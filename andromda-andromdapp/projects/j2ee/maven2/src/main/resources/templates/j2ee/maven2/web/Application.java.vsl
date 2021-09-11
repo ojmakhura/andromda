@@ -1,0 +1,8 @@
+package ${applicationPackage};
+
+import jakarta.ws.rs.ApplicationPath;
+import jakarta.ws.rs.core.Application;
+
+@ApplicationPath("/${applicationId}")
+public class WebApplication extends Application {
+}
