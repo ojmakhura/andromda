@@ -259,7 +259,7 @@ public abstract class CrudControllerBase extends ControllerBase {
      */
     protected void saveMaxResultsWarning()
     {
-        JsfUtils.addWarningMessage(Messages.get("maximum.results.fetched.warning", new Object[]{String.valueOf("250")}));
+        JakartaUtils.addWarningMessage(Messages.get("maximum.results.fetched.warning", new Object[]{String.valueOf("250")}));
     }
 
     /**

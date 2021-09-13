@@ -3,8 +3,8 @@
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
         <macrolibrary name="templates/jakarta/escapeMacros.vm"/>
         <macrolibrary name="templates/jakarta/controllers/Controller.java.vm"/>
-        <macrolibrary name="templates/jakarta/views/facelets/trinidad/renderActionFormInputTrinidad.vm"/>
-        <macrolibrary name="templates/jakarta/views/facelets/primefaces/renderActionFormInputPrimeFaces.vm"/>
+        <!-- <macrolibrary name="templates/jakarta/views/facelets/trinidad/renderActionFormInputTrinidad.vm"/> -->
+        <macrolibrary name="templates/jakarta/views/facelets/renderActionFormInputPrimeFaces.vm"/>
         <macrolibrary name="templates/jakarta/views/renderActionCommandLinkParameter.vm"/>
         <macrolibrary name="templates/jakarta/views/renderTableCommandLinkParameters.vm"/>
         <macrolibrary name="templates/jakarta/forms/formMacros.vm"/>
@@ -428,8 +428,8 @@
         overwrite="true"/>
 
     <template
-        path="templates/jakarta/utils/JsfUtils.java.vsl"
-        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/JsfUtils.java"
+        path="templates/jakarta/utils/JakartaUtils.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/JakartaUtils.java"
         outlet="managed-beans"
         overwrite="true"/>
 
@@ -440,14 +440,14 @@
         overwrite="true"/>
 
     <template
-        path="templates/jakarta/exception/JsfExceptionHandlerFactory.java.vsl"
-        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/JsfExceptionHandlerFactory.java"
+        path="templates/jakarta/exception/JakartaExceptionHandlerFactory.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/JakartaExceptionHandlerFactory.java"
         outlet="managed-beans"
         overwrite="true"/>
 
     <template
-        path="templates/jakarta/exception/JsfExceptionHandler.java.vsl"
-        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/JsfExceptionHandler.java"
+        path="templates/jakarta/exception/JakartaExceptionHandler.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/JakartaExceptionHandler.java"
         outlet="managed-beans"
         overwrite="true"/>
 
@@ -855,14 +855,14 @@
 
     <!-- Trinidad specific -->
 
-    <template
+    <!-- <template
         path="templates/jakarta/utils/ODSFilter.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/ODSFilter.java"
         outlet="managed-beans"
         overwrite="true"
-        outputCondition="trinidad"/>
+        outputCondition="trinidad"/> -->
 
-    <template
+    <!-- <template
         path="templates/jakarta/views/facelets/trinidad/view.xhtml.vsl"
         outputPattern="${view.path}.xhtml"
         outlet="views"
@@ -875,45 +875,45 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/jakarta/utils/trinidad/NavigationItem.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/NavigationItem.java"
         outlet="managed-beans"
         overwrite="true"
-        outputCondition="trinidad"/>
+        outputCondition="trinidad"/> -->
 
-    <template
+    <!-- <template
         path="templates/jakarta/utils/trinidad/MenuModelAdapter.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/MenuModelAdapter.java"
         outlet="managed-beans"
         overwrite="true"
-        outputCondition="trinidad"/>
+        outputCondition="trinidad"/> -->
 
-    <template
+    <!-- <template
         path="templates/jakarta/utils/trinidad/AutocompleteHelper.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/AutocompleteHelper.java"
         outlet="managed-beans"
         overwrite="true"
-        outputCondition="trinidad"/>
+        outputCondition="trinidad"/> -->
 
-    <template
+    <!-- <template
         path="templates/jakarta/utils/trinidad/AndromdaJsfFilter.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/AndromdaJsfFilter.java"
         outlet="managed-beans"
         overwrite="true"
-        outputCondition="trinidad"/>
+        outputCondition="trinidad"/> -->
 
-    <template
+    <!-- <template
         path="templates/jakarta/views/facelets/trinidad/layout/layout.xhtml.vsl"
         outputPattern="layout/layout.xhtml"
         outlet="views"
         overwrite="true"
         generateEmptyFiles="true"
-        outputCondition="trinidad"/>
+        outputCondition="trinidad"/> -->
 
-    <template
+    <!-- <template
         path="templates/jakarta/views/facelets/trinidad/layout/registration-layout.xhtml.vsl"
         outputPattern="layout/registration-layout.xhtml"
         outlet="views"
@@ -928,40 +928,40 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/jakarta/views/facelets/trinidad/layout/header.xhtml.vsl"
         outputPattern="layout/header.xhtml"
         outlet="views"
         overwrite="true"
         generateEmptyFiles="true"
-        outputCondition="trinidad"/>
+        outputCondition="trinidad"/> -->
 
-    <template
+    <!-- <template
         path="templates/jakarta/views/facelets/trinidad/layout/messages.xhtml.vsl"
         outputPattern="layout/messages.xhtml"
         outlet="views"
         overwrite="true"
         generateEmptyFiles="true"
-        outputCondition="trinidad"/>
+        outputCondition="trinidad"/> -->
 
-    <template
+    <!-- <template
         path="templates/jakarta/views/facelets/trinidad/layout/head.xhtml.vsl"
         outputPattern="layout/head.xhtml"
         outlet="views"
         overwrite="true"
-        outputCondition="trinidad"/>
+        outputCondition="trinidad"/> -->
 
-    <template
+    <!-- <template
         path="templates/jakarta/views/facelets/trinidad/layout/footer.xhtml.vsl"
         outputPattern="layout/footer.xhtml"
         outlet="views"
         overwrite="true"
         generateEmptyFiles="true"
-        outputCondition="trinidad"/>
+        outputCondition="trinidad"/> -->
 
-    <template
+    <!-- <template
         path="templates/jakarta/views/facelets/trinidad/crud/view.xhtml.vsl"
         outputPattern="$generatedFile"
         outlet="views"
@@ -974,9 +974,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/jakarta/views/facelets/trinidad/crud/export-ods.xhtml.vsl"
         outputPattern="$generatedFile"
         outlet="views"
@@ -989,9 +989,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/jakarta/views/facelets/trinidad/login.xhtml.vsl"
         outputPattern="${loginFileName}.xhtml"
         outlet="views"
@@ -1005,9 +1005,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/jakarta/views/facelets/trinidad/view-action.xhtml.vsl"
         outputPattern="${action.viewFragmentPath}.xhtml"
         outlet="views"
@@ -1021,9 +1021,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/jakarta/views/facelets/trinidad/view-table.xhtml.vsl"
         outputPattern="${table.view.path}-${table.name}.xhtml"
         outlet="views"
@@ -1036,9 +1036,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/jakarta/views/facelets/trinidad/view-variables.xhtml.vsl"
         outputPattern="${view.path}-vars.xhtml"
         outlet="views"
@@ -1051,16 +1051,15 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <!-- PrimeFaces specific -->
 
     <template
-        path="templates/jakarta/views/facelets/primefaces/view.xhtml.vsl"
+        path="templates/jakarta/views/facelets/view.xhtml.vsl"
         outputPattern="${view.path}.xhtml"
         outlet="views"
-        overwrite="true"
-        outputCondition="primefaces">
+        overwrite="true">
         <modelElements variable="view">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndView">
@@ -1071,29 +1070,26 @@
     </template>
 
     <template
-        path="templates/jakarta/views/facelets/primefaces/layout/layout.xhtml.vsl"
+        path="templates/jakarta/views/facelets/layout/layout.xhtml.vsl"
         outputPattern="layout/layout.xhtml"
         outlet="views"
         overwrite="true"
-        generateEmptyFiles="true"
-        outputCondition="primefaces"/>
+        generateEmptyFiles="true"/>
 
     <template
-        path="templates/jakarta/views/facelets/primefaces/layout/layout-crud.xhtml.vsl"
+        path="templates/jakarta/views/facelets/layout/layout-crud.xhtml.vsl"
         outputPattern="layout/layout-crud.xhtml"
         outlet="views"
         overwrite="true"
-        generateEmptyFiles="true"
-        outputCondition="primefaces"/>
+        generateEmptyFiles="true"/>
 
     <template
-        path="templates/jakarta/views/facelets/primefaces/layout/navigation.xhtml.vsl"
+        path="templates/jakarta/views/facelets/layout/navigation.xhtml.vsl"
         outputPattern="layout/navigation.xhtml"
         outlet="views"
         overwrite="true"
         outputToSingleFile="true"
-        generateEmptyFiles="true"
-        outputCondition="primefaces">
+        generateEmptyFiles="true">
         <modelElements>
             <modelElement variable="useCases">
                 <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
@@ -1107,13 +1103,12 @@
     </template>
 
     <template
-        path="templates/jakarta/views/facelets/primefaces/layout/registration-layout.xhtml.vsl"
+        path="templates/jakarta/views/facelets/layout/registration-layout.xhtml.vsl"
         outputPattern="layout/registration-layout.xhtml"
         outlet="views"
         overwrite="true"
         outputToSingleFile="true"
-        outputOnEmptyElements="false"
-        outputCondition="primefaces">
+        outputOnEmptyElements="false">
         <modelElements>
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndUseCase">
@@ -1124,34 +1119,30 @@
     </template>
 
     <template
-        path="templates/jakarta/views/facelets/primefaces/layout/header.xhtml.vsl"
+        path="templates/jakarta/views/facelets/layout/header.xhtml.vsl"
         outputPattern="layout/header.xhtml"
         outlet="views"
         overwrite="true"
-        generateEmptyFiles="true"
-        outputCondition="primefaces"/>
+        generateEmptyFiles="true"/>
 
     <template
-        path="templates/jakarta/views/facelets/primefaces/layout/head.xhtml.vsl"
+        path="templates/jakarta/views/facelets/layout/head.xhtml.vsl"
         outputPattern="layout/head.xhtml"
         outlet="views"
-        overwrite="true"
-        outputCondition="primefaces"/>
+        overwrite="true"/>
 
     <template
-        path="templates/jakarta/views/facelets/primefaces/layout/footer.xhtml.vsl"
+        path="templates/jakarta/views/facelets/layout/footer.xhtml.vsl"
         outputPattern="layout/footer.xhtml"
         outlet="views"
         overwrite="true"
-        generateEmptyFiles="true"
-        outputCondition="primefaces"/>
+        generateEmptyFiles="true"/>
 
     <template
-        path="templates/jakarta/views/facelets/primefaces/crud/view.xhtml.vsl"
+        path="templates/jakarta/views/facelets/crud/view.xhtml.vsl"
         outputPattern="$generatedFile"
         outlet="views"
-        overwrite="true"
-        outputCondition="primefaces">
+        overwrite="true">
         <modelElements variable="manageable">
             <modelElement>
                 <type name="org.andromda.cartridges.jakarta.metafacades.JakartaManageableEntity">
@@ -1162,12 +1153,11 @@
     </template>
 
     <template
-        path="templates/jakarta/views/facelets/primefaces/login.xhtml.vsl"
+        path="templates/jakarta/views/facelets/login.xhtml.vsl"
         outputPattern="${loginFileName}.xhtml"
         outlet="views"
         overwrite="true"
-        outputToSingleFile="true"
-        outputCondition="primefaces">
+        outputToSingleFile="true">
         <modelElements>
             <modelElement variable="registrationUseCases">
                 <type name="org.andromda.metafacades.uml.FrontEndUseCase">
@@ -1178,11 +1168,10 @@
     </template>
 
     <template
-        path="templates/jakarta/views/facelets/primefaces/view-action.xhtml.vsl"
+        path="templates/jakarta/views/facelets/view-action.xhtml.vsl"
         outputPattern="${action.viewFragmentPath}.xhtml"
         outlet="views"
-        overwrite="true"
-        outputCondition="primefaces">
+        overwrite="true">
         <modelElements variable="action">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndAction">
@@ -1194,11 +1183,10 @@
     </template>
 
     <template
-        path="templates/jakarta/views/facelets/primefaces/view-table.xhtml.vsl"
+        path="templates/jakarta/views/facelets/view-table.xhtml.vsl"
         outputPattern="${table.view.path}-${table.name}.xhtml"
         outlet="views"
-        overwrite="true"
-        outputCondition="primefaces">
+        overwrite="true">
         <modelElements>
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndView">
@@ -1209,11 +1197,10 @@
     </template>
 
     <template
-        path="templates/jakarta/views/facelets/primefaces/view-variables.xhtml.vsl"
+        path="templates/jakarta/views/facelets/view-variables.xhtml.vsl"
         outputPattern="${view.path}-vars.xhtml"
         outlet="views"
-        overwrite="true"
-        outputCondition="primefaces">
+        overwrite="true">
         <modelElements variable="view">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndView">

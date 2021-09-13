@@ -414,24 +414,31 @@
                 </exclusions>
             </dependency>
 #if ($spring)
-            <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
             <dependency>
                 <groupId>org.hibernate.orm</groupId>
                 <artifactId>hibernate-core</artifactId>
                 <version>${hibernate.core.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/jakarta.persistence/jakarta.persistence-api -->
             <dependency>
                 <groupId>javax.persistence</groupId>
                 <artifactId>javax.persistence-api</artifactId>
                 <version>2.2</version>
             </dependency>
 #else
-            <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-core-jakarta</artifactId>
                 <version>${hibernate.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.persistence</groupId>
+                <artifactId>jakarta.persistence-api</artifactId>
+                <version>3.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.inject</groupId>
+                <artifactId>jakarta.inject-api</artifactId>
+                <version>2.0.0</version>
             </dependency>
             <dependency>
                 <groupId>jakarta.ejb</groupId>
@@ -443,6 +450,16 @@
                 <artifactId>jakarta.jakartaee-api</artifactId>
                 <version>9.1.0</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.annotation</groupId>
+                <artifactId>jakarta.annotation-api</artifactId>
+                <version>2.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.mvc</groupId>
+                <artifactId>jakarta.mvc-api</artifactId>
+                <version>2.0.0</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.krazo</groupId>

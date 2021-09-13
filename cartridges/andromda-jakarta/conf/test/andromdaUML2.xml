@@ -1,6 +1,6 @@
 <andromda xmlns="http://andromda.org/core/configuration">
   <properties>
-    <property name="cartridgeFilter">jsf</property>
+    <property name="cartridgeFilter">jakarta</property>
     <property name="failOnValidationErrors">false</property>
     <!-- Comma separated list of cartridges to be processed by namespace name, such as java,webservice. Empty = true = process all>
     <property name="cartridgeFilter">${filter}</property -->
@@ -11,7 +11,7 @@
     <repository name="emf-uml22">
       <models>
         <model type="emf-uml22">
-          <uri>file:${project.basedir}/src/test/uml2/JSFCartridgeTestModel.uml</uri>
+          <uri>file:${project.basedir}/src/test/uml2/JakartaCartridgeTestModel.uml</uri>
           <moduleSearchLocations>
             <location patterns="*.uml,*.epx,*.emx">${project.basedir}/src/test/uml2</location>
           </moduleSearchLocations>
@@ -37,7 +37,7 @@
         <property name="toDoTag">@todo</property>
       </properties>
     </namespace>
-    <namespace name="jsf2">
+    <namespace name="jakarta">
       <properties>
         <property name="applicationName">test-application</property>
         <property name="forms">${uml2.output.dir}</property>

@@ -7,7 +7,7 @@ null;
 #elseif ($transition.enteringFinalState)
 #set($targetController = $transition.target.targetControllerFullyQualifiedName)
 #set($targetControllerBeanName = $transition.target.targetControllerBeanName)
-#if($targetController)(($targetController)${managedBeansPackage}.JsfUtils.resolveVariable("$targetControllerBeanName")).startUseCase()#else closeDialog()#end;
+#if($targetController)(($targetController)${managedBeansPackage}.JakartaUtils.resolveVariable("$targetControllerBeanName")).startUseCase()#else closeDialog()#end;
 #elseif ($transition.enteringView)
 "${transition.target.path}.${facesServletExtension}";
 #elseif ($transition.enteringDecisionPoint)
@@ -26,12 +26,12 @@ ${transition.target.actionMethodName}(#if (!$action.formFields.empty)form#end);
 #end
 #if ($transition.successMessagesPresent)
 #foreach ($message in $transition.successMessages.entrySet())
-${indent}${managedBeansPackage}.JsfUtils.addInfoMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
+${indent}${managedBeansPackage}.JakartaUtils.addInfoMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
 #end
 #end
 #if ($transition.warningMessagesPresent)
 #foreach ($message in $transition.warningMessages.entrySet())
-${indent}${managedBeansPackage}.JsfUtils.addWarningMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
+${indent}${managedBeansPackage}.JakartaUtils.addWarningMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
 #end
 #end
 #end
@@ -45,12 +45,12 @@ ${indent}${managedBeansPackage}.JsfUtils.addWarningMessage(${messagesFullyQualif
 #end
 #if ($transition.successMessagesPresent)
 #foreach ($message in $transition.successMessages.entrySet())
-${indent}${managedBeansPackage}.JsfUtils.addInfoMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
+${indent}${managedBeansPackage}.JakartaUtils.addInfoMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
 #end
 #end
 #if ($transition.warningMessagesPresent)
 #foreach ($message in $transition.warningMessages.entrySet())
-${indent}${managedBeansPackage}.JsfUtils.addWarningMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
+${indent}${managedBeansPackage}.JakartaUtils.addWarningMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
 #end
 #end
 #end

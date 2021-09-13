@@ -237,4 +237,105 @@ public class JakartaGlobals
      * The suffix to append to the forward name.
      */
     public static final String USECASE_FORWARD_NAME_SUFFIX = "-usecase";
+    
+    /**
+     * REST: Is this a REST implementation?
+     */
+    public static final String REST = "andromda_REST";
+
+    /**
+     * REST: andromda_cache_type
+     */
+    public static final String CACHE_TYPE = "andromda_cache_type";
+
+    /**
+     * REST: andromda_REST_consumes
+     */
+    public static final String REST_CONSUMES = "andromda_REST_consumes";
+
+    /**
+     * REST: andromda_REST_context
+     */
+    public static final String REST_CONTEXT = "andromda_REST_context";
+
+    /**
+     * REST: andromda_REST_http_method
+     */
+    public static final String REST_HTTP_METHOD = "andromda_REST_http_method";
+
+    /**
+     * REST: andromda_REST_path
+     */
+    public static final String REST_PATH = "andromda_REST_path";
+    
+    /**
+     * REST: andromda_REST_response_status
+     */
+    public static final String REST_RESPONSE_STATUS = "andromda_REST_response_status";
+
+    /**
+     * REST: andromda_REST_produces
+     */
+    public static final String REST_PRODUCES = "andromda_REST_produces";
+
+    /**
+     * REST: andromda_REST_provider
+     */
+    public static final String REST_PROVIDER = "andromda_REST_provider";
+
+    /**
+     * REST: andromda_REST_request_type
+     */
+    public static final String REST_REQUEST_TYPE = "andromda_REST_request_type";
+
+    /**
+     * REST: andromda_REST_retention
+     */
+    public static final String REST_RETENTION = "andromda_REST_retention";
+
+    /**
+     * REST: andromda_REST_target
+     */
+    public static final String REST_TARGET = "andromda_REST_target";
+
+    /**
+     * REST: andromda_REST_encoded
+     */
+    public static final String REST_ENCODED = "andromda_REST_encoded";
+
+    /**
+     * REST: andromda_REST_part_type
+     */
+    public static final String REST_PART_TYPE = "andromda_REST_part_type";
+
+    /**
+     * REST: andromda_REST_roles_allowed
+     */
+    public static final String REST_ROLES_ALLOWED = "andromda_REST_roles_allowed";
+
+    /**
+     * REST: andromda_REST_suspend
+     */
+    public static final String REST_SUSPEND = "andromda_REST_suspend";
+
+    /**
+     * REST: andromda_REST_parameter_URL
+     */
+    public static final String REST_PARAMETER_URL = "andromda_REST_parameter_URL";
+
+    /**
+     * REST: andromda_REST_param_type
+     */
+    public static final String REST_PARAM_TYPE = "andromda_REST_param_type";
+
+    /**
+     * REST: andromda_REST_path_param
+     */
+    public static final String REST_PATH_PARAM = "andromda_REST_path_param";
+
+    /**
+     * REST: andromda_REST_path_segment
+     */
+    public static final String REST_PATH_SEGMENT = "andromda_REST_path_segment";
+
 }

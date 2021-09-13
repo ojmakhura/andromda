@@ -152,8 +152,7 @@
             <to>web/target/${applicationId}-${applicationVersion}/WEB-INF/web.xml</to>
         </mapping>
         <mapping>
-            <from><web/>
-            <Application class="java vsl"></Application></from>
+            <from>web/Application.java.vsl</from>
             <to>web/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/WebApplication.java.vsl</to>
         </mapping>
         <mapping>

@@ -174,4 +174,151 @@ public class JakartaControllerLogicImpl
             }
         };
     }
+
+    @Override
+    protected boolean handleIsRestAtom() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected int handleGetJaxwsCount() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    private static final String EMPTY_STRING = "";
+    private static final String DEFAULT = "default";
+
+    @Override
+    protected String handleGetRestMethod() {
+        
+        String method = (String)this.findTaggedValue(JakartaGlobals.REST_HTTP_METHOD);
+        if (!(this.getRestCount()>0) || StringUtils.isBlank(method) || method.equals(DEFAULT))
+        {
+            method = EMPTY_STRING;
+        }
+        return method;
+    }
+
+    @Override
+    protected String handleGetRestRetention() {
+        String retention = (String)this.findTaggedValue(JakartaGlobals.REST_RETENTION);
+        if (!(this.getRestCount()>0) || StringUtils.isBlank(retention) || retention.equals(DEFAULT))
+        {
+            retention = EMPTY_STRING;
+        }
+        return retention;
+    }
+
+    @Override
+    protected String handleGetRestTarget() {
+        String target = (String)this.findTaggedValue(JakartaGlobals.REST_TARGET);
+        if (!(this.getRestCount()>0) || StringUtils.isBlank(target) || target.equals(DEFAULT))
+        {
+            target = EMPTY_STRING;
+        }
+        return target;
+    }
+
+    @Override
+    protected String handleGetRestProvider() {
+        String provider = (String)this.findTaggedValue(JakartaGlobals.REST_PROVIDER);
+        if (!(this.getRestCount()>0) || StringUtils.isBlank(provider) || provider.equals(DEFAULT))
+        {
+            provider = EMPTY_STRING;
+        }
+        return provider;
+    }
+
+    @Override
+    protected String handleGetRestProduces() {
+        return JakartaControllerOperationLogicImpl.translateMediaType((String)this.findTaggedValue(JakartaGlobals.REST_PRODUCES));
+    }
+
+    @Override
+    protected String handleGetRestConsumes() {
+        String consumes = (String)this.findTaggedValue(JakartaGlobals.REST_CONSUMES);
+        if (!(this.getRestCount()>0) || StringUtils.isBlank(consumes) || consumes.equals(DEFAULT))
+        {
+            consumes = EMPTY_STRING;
+        }
+        else
+        {
+            consumes = JakartaControllerOperationLogicImpl.translateMediaType(consumes);
+        }
+        return consumes;
+    }
+
+    @Override
+    protected String handleGetRestCacheType() {
+        String cacheType = (String)this.findTaggedValue(JakartaGlobals.CACHE_TYPE);
+        if (!(this.getRestCount()>0) || StringUtils.isBlank(cacheType) || cacheType.equals(DEFAULT))
+        {
+            cacheType = EMPTY_STRING;
+        }
+        return cacheType;
+    }
+
+    @Override
+    protected int handleGetRestCount() {
+        int restCount = 0;
+        // String rest = (String)this.findTaggedValue(JakartaGlobals.REST);
+        // for (JakartaControllerOperation operation : this.getAllowedOperations())
+        // {
+        //     if (StringUtils.isNotBlank(rest) && (operation.isRest() || rest.equals(BOOLEAN_TRUE)))
+        //     {
+        //         restCount++;
+        //     }
+        // }
+        return restCount;
+    }
+
+    @Override
+    protected Collection<String> handleGetRestContexts() {
+        List<String> contexts = new ArrayList<String>();
+        String context = (String)this.findTaggedValue(JakartaGlobals.REST_CONTEXT);
+        if (!(this.getRestCount()>0) || StringUtils.isBlank(context) || context.equals(DEFAULT))
+        {
+            context = EMPTY_STRING;
+        }
+        else
+        {
+            // Parse comma/pipe/semicolon delimited elements into ArrayList
+            String[] parsed = StringUtils.split(context, ",;|");
+            for (int i=0; i<parsed.length; i++)
+            {
+                contexts.add(parsed[i]);
+            }
+        }
+        return contexts;
+    }
+
+    private static final String SLASH = "/";
+    private static final String QUOTE = "\"";
+
+    @Override
+    protected String handleGetRestPath() {
+        String path = (String)this.findTaggedValue(JakartaGlobals.REST_PATH);
+        if (StringUtils.isBlank(path))
+        {
+            path = EMPTY_STRING;
+        }
+        if (!(this.getRestCount()>0) || StringUtils.isBlank(path) || path.equals(DEFAULT))
+        {
+            path = SLASH + this.getName().toLowerCase() + SLASH;
+        }
+        else
+        {
+            if (!path.startsWith(QUOTE))
+            {
+                path = path;
+            }
+            if (!path.endsWith(QUOTE) || path.length()<2)
+            {
+                path = path;
+            }
+        }
+        return path;
+    }
 }

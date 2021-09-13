@@ -267,9 +267,5 @@ public class AngularProfile
 	
 	public static final String  ANGULAR_FACTORY_SHOW_PARAMS = PROFILE.get("ANGULAR_FACTORY_SHOW_PARAMS");
 	public static final String  ANGULAR_FACTORY_DELETE_PARAMS = PROFILE.get("ANGULAR_FACTORY_DELETE_PARAMS");
-	 
-	
-	
-	
-	
+
 }

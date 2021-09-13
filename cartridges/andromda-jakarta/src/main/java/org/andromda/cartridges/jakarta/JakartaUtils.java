@@ -12,8 +12,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 import org.andromda.cartridges.jakarta.metafacades.JakartaAttribute;
+import org.andromda.cartridges.jakarta.metafacades.JakartaAttributeLogic;
 import org.andromda.cartridges.jakarta.metafacades.JakartaManageableEntityAttribute;
 import org.andromda.cartridges.jakarta.metafacades.JakartaParameter;
+import org.andromda.cartridges.jakarta.metafacades.JakartaParameterLogic;
+import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
@@ -1145,11 +1148,11 @@ public class JakartaUtils
         final String className;
         if (this.isPortlet())
         {
-            className = "javax.portlet.PortletRequest";
+            className = "jakarta.portlet.PortletRequest";
         }
         else
         {
-            className = "javax.servlet.http.HttpServletRequest";
+            className = "jakarta.servlet.http.HttpServletRequest";
         }
         return className;
     }
@@ -1162,11 +1165,11 @@ public class JakartaUtils
         final String className;
         if (this.isPortlet())
         {
-            className = "javax.portlet.PortletResponse";
+            className = "jakarta.portlet.PortletResponse";
         }
         else
         {
-            className = "javax.servlet.http.HttpServletResponse";
+            className = "jakarta.servlet.http.HttpServletResponse";
         }
         return className;
     }
@@ -1179,11 +1182,11 @@ public class JakartaUtils
         final String className;
         if (this.isPortlet())
         {
-            className = "javax.portlet.PortletSession";
+            className = "jakarta.portlet.PortletSession";
         }
         else
         {
-            className = "javax.servlet.http.HttpSession";
+            className = "jakarta.servlet.http.HttpSession";
         }
         return className;
     }
@@ -1225,5 +1228,76 @@ public class JakartaUtils
     public int calculateIcefacesTimeout(String string)
     {
         return string != null ? Integer.valueOf(string) * 6000 : 0;
+    }
+
+    
+    /**
+     * <p> Returns true if java.lang.* or java.util.* datatype and not many*
+     * </p>
+     *
+     * @param element the ClassifierFacade instance
+     * @return if type is one of the PrimitiveTypes and not an array/list
+     */
+    public static boolean isSimpleType(ModelElementFacade element)
+    {
+        boolean simple = false;
+        String typeName = null;
+        ClassifierFacade type = null;
+        boolean many = false;
+        if (element instanceof AttributeFacade)
+        {
+            AttributeFacade attrib = (AttributeFacade)element;
+            type = attrib.getType();
+            many = attrib.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        else if (element instanceof AssociationEndFacade)
+        {
+            AssociationEndFacade association = (AssociationEndFacade)element;
+            type = association.getType();
+            many = association.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        else if (element instanceof ParameterFacade)
+        {
+            ParameterFacade param = (ParameterFacade)element;
+            type = param.getType();
+            many = param.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        else if (element instanceof JakartaAttributeLogic)
+        {
+            JakartaAttributeLogic attrib = (JakartaAttributeLogic)element;
+            type = attrib.getType();
+            many = attrib.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        // else if (element instanceof WSDLTypeAssociationEndLogic)
+        // {
+        //     WSDLTypeAssociationEndLogic association = (WSDLTypeAssociationEndLogic)element;
+        //     type = association.getType();
+        //     many = association.isMany() && !type.isArrayType() && !type.isCollectionType();
+        // }
+        else if (element instanceof JakartaParameterLogic)
+        {
+            JakartaParameterLogic param = (JakartaParameterLogic)element;
+            type = param.getType();
+            many = param.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        else if (element instanceof ClassifierFacade)
+        {
+            ClassifierFacade classifier = (ClassifierFacade)element;
+            type = classifier;
+        }
+        else
+        {
+            return simple;
+        }
+        typeName = type.getFullyQualifiedName();
+        if (type.isPrimitive() || typeName.startsWith("java.lang.") || typeName.startsWith("java.util.")
+            || !typeName.contains("."))
+        {
+            if (!many)
+            {
+                simple = true;
+            }
+        }
+        return simple;
     }
 }

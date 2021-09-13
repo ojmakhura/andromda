@@ -1168,8 +1168,8 @@ public class JakartaParameterLogicImpl
     //to be used in the range validator: "range - 1000" or "range 20 -".
     /** - */
     static final String UNDEFINED_BOUND="-";
-    /** javax.validation.constraints.NotNull */
-    static final String AN_REQUIRED = "@javax.validation.constraints.NotNull";
+    /** jakarta.validation.constraints.NotNull */
+    static final String AN_REQUIRED = "@jakarta.validation.constraints.NotNull";
     /** org.hibernate.validator.constraints.URL */
     static final String AN_URL = "@org.hibernate.validator.constraints.URL";
     /** org.apache.myfaces.extensions.validator.baseval.annotation.LongRange */
@@ -1180,8 +1180,8 @@ public class JakartaParameterLogicImpl
     static final String AN_EMAIL = "@org.hibernate.validator.constraints.Email";
     /** org.hibernate.validator.constraints.CreditCardNumber */
     static final String AN_CREDIT_CARD = "@org.hibernate.validator.constraints.CreditCardNumber";
-    /** javax.validation.constraints.Size */
-    static final String AN_LENGTH = "@javax.validation.constraints.Size";
+    /** jakarta.validation.constraints.Size */
+    static final String AN_LENGTH = "@jakarta.validation.constraints.Size";
     /** org.apache.myfaces.extensions.validator.baseval.annotation.Pattern */
     static final String AN_PATTERN = "@org.apache.myfaces.extensions.validator.baseval.annotation.Pattern";
     /** org.apache.myfaces.extensions.validator.crossval.annotation.Equals */
@@ -1323,5 +1323,67 @@ public class JakartaParameterLogicImpl
             result.add(AN_REQUIRED);
         }
         return result;
+    }
+    private static final String DEFAULT = "default";
+    private static final String EMPTY_STRING = "";
+    private static final String BOOLEAN_FALSE = "false";
+    //private static final String DEFAULT_TYPE = "PathParam";
+
+    private static final String QUOTE = "\"";
+    private static final String RPARENS = "(";
+    private static final String LPARENS = ")";
+    private static final String AT = "@";
+
+    @Override
+    protected String handleGetRestPathParam() {
+        String pathParam = (String)this.findTaggedValue(JakartaGlobals.REST_PATH_PARAM);
+        if (StringUtils.isBlank(pathParam) || pathParam.equals(DEFAULT))
+        {
+            pathParam = this.getName();
+        }
+        pathParam = AT + handleGetRestParamType() + "(\"" + pathParam + "\")";
+        return pathParam;
+    }
+
+    @Override
+    protected String handleGetRestParamType() {
+        String paramType = (String)this.findTaggedValue(JakartaGlobals.REST_PARAM_TYPE);
+        if (StringUtils.isBlank(paramType) || paramType.equals(DEFAULT))
+        {
+            paramType = EMPTY_STRING;
+        }
+        else
+        {
+            String pathSegment = handleGetRestPathSegment();
+            if (StringUtils.isBlank(pathSegment))
+            {
+                // paramType always needed with annotation
+                pathSegment = this.getName();
+            }
+            paramType = "@jakarta.ws.rs." + paramType + RPARENS + QUOTE + pathSegment + QUOTE + LPARENS;
+        }
+
+        return paramType;
+    }
+
+    @Override
+    protected boolean handleIsRestEncoded() {
+        String restEncoded = (String)this.findTaggedValue(JakartaGlobals.REST_ENCODED);
+        if (StringUtils.isBlank(restEncoded) || restEncoded.equals(DEFAULT))
+        {
+            restEncoded = BOOLEAN_FALSE;
+        }
+
+        return Boolean.valueOf(restEncoded);
+    }
+
+    @Override
+    protected String handleGetRestPathSegment() {
+        String pathSegment = (String)this.findTaggedValue(JakartaGlobals.REST_PATH_SEGMENT);
+        if (StringUtils.isBlank(pathSegment) || pathSegment.equals(DEFAULT))
+        {
+            pathSegment = EMPTY_STRING;
+        }
+        return pathSegment;
     }
 }

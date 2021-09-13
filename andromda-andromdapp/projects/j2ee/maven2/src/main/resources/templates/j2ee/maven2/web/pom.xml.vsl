@@ -137,6 +137,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>jakarta.inject</groupId>
+            <artifactId>jakarta.inject-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.eclipse.krazo</groupId>
             <artifactId>krazo-jersey</artifactId>
         </dependency>
@@ -152,6 +156,10 @@
         <dependency>
             <groupId>jakarta.ejb</groupId>
             <artifactId>jakarta.ejb-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.mvc</groupId>
+            <artifactId>jakarta.mvc-api</artifactId>
         </dependency>
 #if($jsf)
         <dependency>

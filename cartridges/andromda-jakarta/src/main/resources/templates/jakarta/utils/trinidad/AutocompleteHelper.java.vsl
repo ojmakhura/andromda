@@ -20,13 +20,13 @@ public class AutocompleteHelper {
     public String setValueFromDialog(String clientId, String converterId, boolean multi){
         final Object value=ControllerBase.getUseCaseReturnValues().get("savedId");
         if(value != null){
-            JsfUtils.addPPRScript("document.getElementById('"+clientId+":hiddenValue').value='"+value+"';");
+            JakartaUtils.addPPRScript("document.getElementById('"+clientId+":hiddenValue').value='"+value+"';");
             if(StringUtils.isNotBlank(converterId)){
-                String displayValue=JsfUtils.valueFromConverter(value, converterId);
-                JsfUtils.addPPRScript("document.getElementById('"+clientId+":subform:edit').value='"+displayValue+"';");
+                String displayValue=JakartaUtils.valueFromConverter(value, converterId);
+                JakartaUtils.addPPRScript("document.getElementById('"+clientId+":subform:edit').value='"+displayValue+"';");
             }
             if(multi){
-                JsfUtils.addPPRScript(clientId.replace(':', '_')+"_addItem();");
+                JakartaUtils.addPPRScript(clientId.replace(':', '_')+"_addItem();");
             }
             ControllerBase.getUseCaseReturnValues().remove("savedId");
         }
@@ -40,13 +40,13 @@ public class AutocompleteHelper {
      * @param converterId the converter identifier
      * @return collection of SelectItems
      */
-    public java.util.Collection<javax.faces.model.SelectItem> itemsToSelectItems(Object[] items, String converterId){
+    public java.util.Collection<jakarta.faces.model.SelectItem> itemsToSelectItems(Object[] items, String converterId){
         if(org.apache.commons.lang3.ArrayUtils.isEmpty(items)){
             return null;
         } 
         else 
         {
-            final java.util.Collection<javax.faces.model.SelectItem> result=new java.util.ArrayList<javax.faces.model.SelectItem>(items.length);
+            final java.util.Collection<jakarta.faces.model.SelectItem> result=new java.util.ArrayList<jakarta.faces.model.SelectItem>(items.length);
             if(org.apache.commons.lang3.StringUtils.isBlank(converterId)){
                 for(final Object obj: items){
                     result.add(new SelectItem(obj,obj.toString()));
@@ -55,7 +55,7 @@ public class AutocompleteHelper {
             else
             {
                 for(final Object obj: items){
-                    result.add(new SelectItem(obj,JsfUtils.valueFromConverter(obj, converterId)));
+                    result.add(new SelectItem(obj,JakartaUtils.valueFromConverter(obj, converterId)));
                 }
             }
             return result;
@@ -69,7 +69,7 @@ public class AutocompleteHelper {
      * @param converterId the converter identification
      * @return collection of SelectItems
      */    
-    public java.util.Collection<javax.faces.model.SelectItem> itemsToSelectItems(java.util.Collection<?> items, String converterId){
+    public java.util.Collection<jakarta.faces.model.SelectItem> itemsToSelectItems(java.util.Collection<?> items, String converterId){
         return items==null?null:itemsToSelectItems(items.toArray(),converterId);
     }
 
@@ -82,8 +82,8 @@ public class AutocompleteHelper {
      * @param filter additional filter to be used in the form attribute1=value1; attribute2=value2
      * @return null
      */
-    public String callComplete(javax.el.MethodExpression completeMethod, String queryParamName, String searchField, String filter){
-        final javax.faces.context.FacesContext facesContext=javax.faces.context.FacesContext.getCurrentInstance();
+    public String callComplete(jakarta.el.MethodExpression completeMethod, String queryParamName, String searchField, String filter){
+        final jakarta.faces.context.FacesContext facesContext=jakarta.faces.context.FacesContext.getCurrentInstance();
         final java.util.Map<String,String> parameters = facesContext.getExternalContext().getRequestParameterMap();
         final Object fieldValue = parameters.get(queryParamName);
         final java.util.Map<String,String> searchFilter=new java.util.HashMap<String, String>();
@@ -104,7 +104,7 @@ public class AutocompleteHelper {
             }
         }
 
-        ((javax.servlet.http.HttpServletRequest)facesContext.getExternalContext().getRequest()).setAttribute("autocompleteResult", completeMethod.invoke(FacesContext.getCurrentInstance().getELContext(), new Object[]{searchFilter}));
+        ((jakarta.servlet.http.HttpServletRequest)facesContext.getExternalContext().getRequest()).setAttribute("autocompleteResult", completeMethod.invoke(FacesContext.getCurrentInstance().getELContext(), new Object[]{searchFilter}));
         return null;
     }
 }
