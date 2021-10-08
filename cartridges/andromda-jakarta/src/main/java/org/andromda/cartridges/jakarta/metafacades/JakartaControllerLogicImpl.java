@@ -21,6 +21,8 @@ import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.PackageFacade;
 import org.andromda.metafacades.uml.Service;
 import org.andromda.utils.StringUtilsHelper;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -250,6 +252,13 @@ public class JakartaControllerLogicImpl
         return consumes;
     }
 
+    /**
+     * The property defining if the web service XML should be validated against the wsdl/xsd schema.
+     */
+    private static final String PROPERTY_SCHEMA_VALIDATION = "schemaValidation";
+    private static final String BOOLEAN_FALSE = "false";
+    private static final String BOOLEAN_TRUE = "true";
+
     @Override
     protected String handleGetRestCacheType() {
         String cacheType = (String)this.findTaggedValue(JakartaGlobals.CACHE_TYPE);
@@ -263,14 +272,14 @@ public class JakartaControllerLogicImpl
     @Override
     protected int handleGetRestCount() {
         int restCount = 0;
-        // String rest = (String)this.findTaggedValue(JakartaGlobals.REST);
-        // for (JakartaControllerOperation operation : this.getAllowedOperations())
-        // {
-        //     if (StringUtils.isNotBlank(rest) && (operation.isRest() || rest.equals(BOOLEAN_TRUE)))
-        //     {
-        //         restCount++;
-        //     }
-        // }
+        String rest = (String)this.findTaggedValue(JakartaGlobals.REST);
+        for (JakartaControllerOperation operation : this.getAllowedOperations())
+        {
+            if (StringUtils.isNotBlank(rest) && (operation.isRest() || rest.equals(BOOLEAN_TRUE)))
+            {
+                restCount++;
+            }
+        }
         return restCount;
     }
 
@@ -304,6 +313,7 @@ public class JakartaControllerLogicImpl
         {
             path = EMPTY_STRING;
         }
+
         if (!(this.getRestCount()>0) || StringUtils.isBlank(path) || path.equals(DEFAULT))
         {
             path = SLASH + this.getName().toLowerCase() + SLASH;
@@ -320,5 +330,31 @@ public class JakartaControllerLogicImpl
             }
         }
         return path;
+    }
+
+    @Override
+    protected Collection handleGetAllowedOperations() {
+        List<OperationFacade> operations = new ArrayList<OperationFacade>(this.getOperations());
+        CollectionUtils.filter(
+            operations,
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    boolean valid = JakartaControllerOperation.class.isAssignableFrom(object.getClass());
+                    if (valid)
+                    {
+                        valid = ((JakartaControllerOperation)object).isExposed();
+                    }
+                    return valid;
+                }
+            });
+        // if (this.getWSDLOperationSortMode().equals(OPERATION_SORT_MODE_NAME))
+        // {
+        //     Collections.sort(
+        //         operations,
+        //         new OperationNameComparator());
+        // }
+        return operations;
     }
 }

@@ -126,7 +126,7 @@
                 </documentation>
             </property>
             <property name="facesServletExtension">
-                <default>jakarta</default>
+                <default>xhtml</default>
                 <documentation>
                     The extension used for the application's handling of Jakarta pages.
                 </documentation>
@@ -413,6 +413,16 @@
                 <documentation>
                     Defines the the package in which any extra test classes will
                     be generated.
+                </documentation>
+            </property>
+            <property name="implementationPackageNamePattern">
+                <default>{0}</default>
+                <documentation>
+                    This specifies the pattern to be used for the package name of
+                    the spring service implementation class. You can use this to place the
+                    implementation class in a different package than the interface
+                    (e.g. in a OSGi runtime). The default <em>{0}</em> character
+                    represents the service package name.
                 </documentation>
             </property>
 <!--             <property name="jakartaComponentsPackage"> -->

@@ -1496,7 +1496,7 @@
 #if ($ear)
         <dataSource>java:/${dataSource.name}</dataSource>
 #else
-        <dataSource>java:comp/env/${dataSource.name}</dataSource>
+        <dataSource>java:/comp/env/${dataSource.name}</dataSource>
 #end
 #if ($jetty || $tomcat)
         -->

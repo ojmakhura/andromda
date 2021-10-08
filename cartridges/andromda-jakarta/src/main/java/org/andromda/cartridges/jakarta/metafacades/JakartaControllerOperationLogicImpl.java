@@ -9,6 +9,7 @@ import org.andromda.cartridges.jakarta.JakartaGlobals;
 import org.andromda.cartridges.jakarta.JakartaUtils;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -404,18 +405,17 @@ public class JakartaControllerOperationLogicImpl
             for(ParameterFacade param : this.getArguments()) {
                     
                 String paramName = param.getName();
-                if (!JakartaUtils.isSimpleType(param)) {
-                    if(param instanceof JakartaParameter) {
+                // if (!JakartaUtils.isSimpleType(param)) {
+                //     if(param instanceof JakartaParameter) {
                         
-                        JakartaParameter p = (JakartaParameter)param;                        
-                        paramName = p.getRestPathParam();
-                    }
-                }
+                //         JakartaParameter p = (JakartaParameter)param;                        
+                //         paramName = p.getRestPathParam();
+                //     }
+                // }
                 if(pathBuffer.length() > 0) {
                     pathBuffer.append(SLASH);
                 }
 
-                //pathBuffer.append(paramName).append(SLASH).append(LBRACKET).append(paramName).append(RBRACKET);
                 pathBuffer.append(LBRACKET).append(paramName).append(RBRACKET);
             }
         }
@@ -427,5 +427,50 @@ public class JakartaControllerOperationLogicImpl
         }
 
         return pathBuffer.toString();
+    }
+
+    @Override
+    protected boolean handleIsExposed() {
+        // Private methods are for doc and future use purposes, but are allowed.
+        boolean visibility = this.getVisibility().equals("public") || this.getVisibility().equals("protected");
+        return visibility && (this.getOwner().hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE) ||
+        this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION));
+    }
+
+    @Override
+    protected String handleGetHandleFormSignature() {
+        
+        return this.getHandleFormSignature(true);
+    }
+
+    @Override
+    protected String handleGetHandleFormSignatureImplementation() {
+        
+        return this.getHandleFormSignature(false);
+    }
+
+    /**
+     * Constructs the signature that takes the form for this operation.
+     *
+     * @param isAbstract whether or not the signature is abstract.
+     * @return the appropriate signature.
+     */
+    private String getHandleFormSignature(boolean isAbstract)
+    {
+        final StringBuilder signature = new StringBuilder();
+        signature.append(this.getVisibility() + ' ');
+        if (isAbstract)
+        {
+            signature.append("abstract ");
+        }
+        final ModelElementFacade returnType = this.getReturnType();
+        signature.append(returnType != null ? returnType.getFullyQualifiedName() : null);
+        signature.append(" handle" + StringUtils.capitalize(this.getName()) + "(");
+        if (!this.getFormFields().isEmpty())
+        {
+            signature.append(this.getFormName() + " form");
+        }
+        signature.append(")");
+        return signature.toString();
     }
 }

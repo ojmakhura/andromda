@@ -11,6 +11,11 @@ package $controller.packageName;
 #foreach($annotation in $controller.additionalAnnotations)
 @$annotation
 #end
+#if(!$stringUtils.isBlank($controller.restPath))
+@jakarta.ws.rs.Path("$controller.restPath")
+#else
+@jakarta.ws.rs.Path("/")
+#end
 public class $controller.implementationName
     extends $controller.name
 {
@@ -24,7 +29,7 @@ public class $controller.implementationName
      * @see $controller.fullyQualifiedName#hash()$operation.signature
      */
     @Override
-    $operation.implementationFormSignature
+    $operation.handleFormSignatureImplementation
     {
 #set($allowDummyData = $dummyData.equalsIgnoreCase("true"))
 #if ($allowDummyData)

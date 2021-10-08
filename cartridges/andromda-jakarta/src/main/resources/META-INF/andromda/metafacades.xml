@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <metafacades>
+    <property reference="implementationPackageNamePattern"/>
     <property reference="normalizeMessages"/>
     <metafacade class="org.andromda.cartridges.jakarta.metafacades.JakartaControllerOperationLogicImpl">
         <mapping>

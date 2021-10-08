@@ -7,6 +7,8 @@ package $action.packageName;
 /**
 $action.getDocumentation(" * ")
  */
+@jakarta.inject.Named(value = "$action.formBeanName")
+@jakarta.enterprise.context.RequestScoped
 public class $action.formImplementationName
     implements java.io.Serializable#if ($stringUtils.isNotBlank($action.formImplementationInterfaceList)), $action.formImplementationInterfaceList#end
 

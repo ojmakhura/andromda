@@ -1337,10 +1337,7 @@ public class JakartaParameterLogicImpl
     @Override
     protected String handleGetRestPathParam() {
         String pathParam = (String)this.findTaggedValue(JakartaGlobals.REST_PATH_PARAM);
-        if (StringUtils.isBlank(pathParam) || pathParam.equals(DEFAULT))
-        {
-            pathParam = this.getName();
-        }
+        
         pathParam = AT + handleGetRestParamType() + "(\"" + pathParam + "\")";
         return pathParam;
     }

@@ -1300,4 +1300,27 @@ public class JakartaUtils
         }
         return simple;
     }
+    /**
+     * Creates a fully qualified name from the given <code>packageName</code>, <code>name</code>, and
+     * <code>suffix</code>.
+     *
+     * @param packageName the name of the model element package.
+     * @param name        the name of the model element.
+     * @param suffix      the suffix to append.
+     * @return the new fully qualified name.
+     */
+    public static String getFullyQualifiedName(String packageName, String name, String suffix)
+    {
+        StringBuilder fullyQualifiedName = new StringBuilder(StringUtils.trimToEmpty(packageName));
+        if (StringUtils.isNotBlank(packageName))
+        {
+            fullyQualifiedName.append('.');
+        }
+        fullyQualifiedName.append(StringUtils.trimToEmpty(name));
+        if (StringUtils.isNotBlank(suffix))
+        {
+            fullyQualifiedName.append(StringUtils.trimToEmpty(suffix));
+        }
+        return fullyQualifiedName.toString();
+    }
 }

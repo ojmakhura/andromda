@@ -380,6 +380,9 @@
                 <property name="customTypesPackage">${application.package}</property>
                 <property name="compositionDefinesEagerLoading">true</property>
                 <property name="cache">${core.generated.dir}</property>
+                <property name="hibernateHbm2DDLAuto">update</property>
+                <property name="hibernateQueryUseNamedParameters">true</property>
+                <property name="hibernateEnableCache">false</property>
             </properties>
         </namespace>
 #end

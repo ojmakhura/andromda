@@ -239,6 +239,16 @@ public class JakartaGlobals
     public static final String USECASE_FORWARD_NAME_SUFFIX = "-usecase";
     
     /**
+     * The name pattern for service implementation class packages
+     */
+    public static final String IMPLEMENTATION_PACKAGE_NAME_PATTERN = "implementationPackageNamePattern";
+
+    /**
+     * POJO implementation class suffix.
+     */
+    public static final String IMPLEMENTATION_SUFFIX = "BeanImpl";
+
+    /**
      * REST: Is this a REST implementation?
      */
     public static final String REST = "andromda_REST";
@@ -338,4 +348,14 @@ public class JakartaGlobals
      */
     public static final String REST_PATH_SEGMENT = "andromda_REST_path_segment";
 
+
+    /**
+     * The name prefix for all spring bean ids.
+     */
+    public static final String BEAN_NAME_PREFIX = "beanNamePrefix";
+
+    /**
+     * The bean name target suffix
+     */
+    public static final String BEAN_NAME_TARGET_SUFFIX = "Target";
 }
