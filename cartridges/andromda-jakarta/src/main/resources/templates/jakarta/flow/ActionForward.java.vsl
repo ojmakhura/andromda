@@ -17,6 +17,9 @@ public class $action.actionClassName
      */
     private static final long serialVersionUID = 1L;
 
+    @jakarta.inject.Inject
+    private $action.controlle.fullyQualifiedImplementationName $action.controlle.beanName;
+
     /**
      * @see jakarta.servlet.http.HttpServlet#hash()doGet(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse)
      */
@@ -40,14 +43,11 @@ public class $action.actionClassName
 ##end
 ## Returns null in UML2 model
 ##        // controller=$action.activityGraph.controller
-        $controller.fullyQualifiedName controller =
-            ($controller.fullyQualifiedName)${facesContextUtilsFullyQualifiedName}.resolveVariable(
-                request, response,
-                "$controller.beanName");
+        
         final String forwardPath;
         try
         {
-            forwardPath = controller.startUseCase();
+            forwardPath = ${controller.beanName}.startUseCase();
         }
         catch(Throwable t)
         {

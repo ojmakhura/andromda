@@ -235,7 +235,7 @@
         </modelElements>
     </template>
     
-    <template
+    <!-- <template
         path="templates/jakarta/configuration/faces-config.xml.vsl"
         outputPattern="WEB-INF/$facesConfig"
         outlet="configuration"
@@ -267,7 +267,7 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <template
         path="templates/jakarta/configuration/log4j.xml.vsl"
@@ -502,12 +502,12 @@
 
     <!-- Facelets specific view rendering -->
 
-    <template
+    <!-- <template
         path="templates/jakarta/configuration/ajsf.taglib.xml.vsl"
         outputPattern="WEB-INF/ajsf.taglib.xml"
         outlet="views"
         overwrite="true"
-        generateEmptyFiles="true"/>
+        generateEmptyFiles="true"/> -->
 
     <!-- Test classes -->
 

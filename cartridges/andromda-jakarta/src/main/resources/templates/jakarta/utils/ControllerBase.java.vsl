@@ -131,6 +131,8 @@ public abstract class ControllerBase
      *
      * @return the start use case
      */
+    //@jakarta.ws.rs.GET
+    //@jakarta.ws.rs.Path("start")
     public String startUseCase() throws Throwable
     {
         final java.util.Map<String,Object> useCaseParameters;
