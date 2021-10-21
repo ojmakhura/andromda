@@ -7,7 +7,15 @@ null;
 #elseif ($transition.enteringFinalState)
 #set($targetController = $transition.target.targetControllerFullyQualifiedName)
 #set($targetControllerBeanName = $transition.target.targetControllerBeanName)
-#if($targetController)(($targetController)${managedBeansPackage}.JakartaUtils.resolveVariable("$targetControllerBeanName")).startUseCase()#else closeDialog()#end;
+#if($targetController)
+#set($tmp = $controllers.add($transition.target.targetElement.controller))
+#if($targetControllerBeanName.equals($controller.beanName))
+#set($targetControllerBeanName = "this")
+#end
+${targetControllerBeanName}.startUseCase();
+#else 
+closeDialog();
+#end
 #elseif ($transition.enteringView)
 "${transition.target.path}.${facesServletExtension}";
 #elseif ($transition.enteringDecisionPoint)

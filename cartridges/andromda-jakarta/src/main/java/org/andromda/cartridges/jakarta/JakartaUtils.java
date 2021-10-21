@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -1323,4 +1324,19 @@ public class JakartaUtils
         }
         return fullyQualifiedName.toString();
     }
+
+
+	public static HashSet<ModelElementFacade> getFacadeSet(List<ModelElementFacade> facades) {
+		HashSet<String> nameSet = new HashSet<String>();
+		HashSet<ModelElementFacade> elementSet =  new HashSet<ModelElementFacade>();
+		
+		for(ModelElementFacade facade : facades) {
+            
+			if(facade != null && nameSet.add(facade.getName())) {
+				elementSet.add(facade);
+			}
+		}
+		
+		return elementSet;
+	}
 }
