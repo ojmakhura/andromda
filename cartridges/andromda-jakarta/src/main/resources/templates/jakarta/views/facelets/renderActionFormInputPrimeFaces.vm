@@ -23,21 +23,22 @@
 #set ($backingValueName = ${parameter.getBackingValueName($ownerParameter)})
 #end
 #set ($formValuePropertyName = "${formName}.${valuePropertyName}")
-${ident}<!-- ${propertyId} -->
-${ident}<p:outputLabel id="${propertyId}_label" for="${propertyId}" value="#{messages['$parameter.messageKey']}:"/>
+${ident}<td>
+${ident}    <label id="${propertyId}_label" for="${propertyId}" value="#{messages['$parameter.messageKey']}">#{messages['$parameter.messageKey']}:</label>
+${ident}</td>
 #if ($parameter.type.dateType)
 ${ident}<p:calendar id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" readonly="${parameter.readOnly}" navigator="true" pattern="$parameter.format" showOn="button">
 ${ident}    <f:convertDateTime pattern="$parameter.format"/>
 ${ident}</p:calendar>
 #elseif ($parameter.inputCheckbox)
-${ident}<p:selectBooleanButton id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" onLabel="#{messages['yes']}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close" readOnly="$parameter.readOnly"/>
+${ident}<p:selectBooleanButton id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" onLabel="#{messages['yes']}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"#if($parameter.readOnly) readonly#end/>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration)
 #set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
 #set ($selectBoxType = "selectOneMenu")
 #if ($multiSelect)
 #set ($selectBoxType = "selectManyMenu")
 #end
-${ident}<p:$selectBoxType id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" readonly="$parameter.readOnly">
+${ident}<p:$selectBoxType id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required"#if($parameter.readOnly) readonly#end>
 #if ($parameter.type.enumeration)
 ${ident}    <f:converter converterId="${parameter.type.fullyQualifiedName}"/>
 ${ident}    <f:selectItem itemLabel=""/>
@@ -50,25 +51,27 @@ ${ident}    <f:selectItems value="#{${formName}.${backingListName}}" />
 #end
 ${ident}</p:$selectBoxType>
 #elseif ($parameter.inputFile)
-${ident}<p:fileUpload id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" readonly="$parameter.readOnly"/>
+${ident}<p:fileUpload id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required"#if($parameter.readOnly) readonly#end/>
 #elseif ($parameter.inputMultibox)
-${ident}<p:selectManyCheckbox id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" readonly="$parameter.readOnly">
+${ident}<p:selectManyCheckbox id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required"#if($parameter.readOnly) readonly#end>
 ${ident}    <f:selectItems value="#{${formName}.${backingListName}}" />
 ${ident}</p:selectManyCheckbox>
 #elseif ($parameter.inputRadio)
-${ident}<p:selectOneRadio id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" readonly="$parameter.readOnly">
+${ident}<p:selectOneRadio id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required"#if($parameter.readOnly) readonly#end>
 ${ident}    <f:selectItems value="#{${formName}.${backingListName}}" />
 ${ident}</p:selectOneRadio>
 #elseif ($parameter.plainText)
-${ident}<p:inputText id="$propertyId" value="#{${formValuePropertyName}}" disabled="true" required="$parameter.required" readonly="true"/>
+${ident}<td>
+${ident}    <input id="$propertyId" type="text" name="$parameter.name" value="#{${formValuePropertyName}}"  required="$parameter.required"#if($parameter.readOnly) readonly#end/>
+${ident}</td>
 #elseif ($parameter.inputSecret)
-${ident}<p:password id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" feedback="true"#if($parameter.maxLength) maxlength="$parameter.maxLength"#end readonly="$parameter.readOnly"/>
+${ident}<td>
+${ident}    <input id="$propertyId" type="password" name="$parameter.name" value="#{${formValuePropertyName}}"  required="$parameter.required"#if($parameter.readOnly) readonly#end/>
+${ident}</td>
 #else
-${ident}<p:inputText id="$propertyId" value="#{${formValuePropertyName}}" required="$parameter.required" readonly="$parameter.readOnly">
-#if ($parameter.type.timeType)
-${ident}    <f:convertDateTime pattern="$parameter.format"/>
+${ident}<td>
+${ident}    <input id="$propertyId" type="text" name="$parameter.name" value="#{${formValuePropertyName}}"  required="$parameter.required"#if($parameter.readOnly) readonly#end/>
+${ident}</td>
 #end
-${ident}</p:inputText>
-#end
-${ident}<p:message id="${propertyId}_message" for="$propertyId"/>
+${ident}<td><span id="${propertyId}_message" for="${propertyId}"></span></td>
 #end

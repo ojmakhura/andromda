@@ -855,4 +855,37 @@ public class JakartaActionLogicImpl
         }
         return "_"+methodName.toString();
     }
+
+    @Override
+    protected String handleGetRestFormParams() {
+        // TODO Auto-generated method stub
+
+        if(getFormFields() == null || getFormFields().size() == 0)
+            return "";
+
+        StringBuilder builder = new StringBuilder();
+
+        for(FrontEndParameter p : getFormFields()) {
+            JakartaParameter param = (JakartaParameter)p;
+            if(param.isActionParameter()) {
+                if(builder.length() > 0) {
+                    builder.append(", ");
+                }
+
+                if(param.isComplex()) {
+                    builder.append("@jakarta.ws.rs.BeanParam ");
+                } else {
+                    builder.append("@jakarta.ws.rs.FormParam(\"");
+                    builder.append(param.getName());
+                    builder.append("\")");
+                }
+                builder.append(param.getType().getFullyQualifiedName());
+                builder.append(" ");
+                builder.append(param.getName());
+            }
+        }
+
+        return builder.toString();
+
+    }
 }

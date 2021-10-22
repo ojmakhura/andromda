@@ -135,7 +135,7 @@ public abstract class ControllerBase
     //@jakarta.ws.rs.Path("start")
     public String startUseCase() throws Throwable
     {
-        final java.util.Map<String,Object> useCaseParameters;
+        /*final java.util.Map<String,Object> useCaseParameters;
         
         if(ControllerBase.getUseCaseScope() == null)//can be null if executed from the url
         {
@@ -161,7 +161,8 @@ public abstract class ControllerBase
         
         setUseCaseInDialog(org.apache.commons.lang3.BooleanUtils.toBoolean(org.apache.commons.lang3.ObjectUtils.toString(useCaseParameters.get(USE_CASE_IN_DIALOG_KEY))));
 
-        return internalStartUseCase(useCaseParameters);
+        return internalStartUseCase(useCaseParameters);*/
+        return internalStartUseCase(new java.util.HashMap<String, Object>());
     }
 
     /**

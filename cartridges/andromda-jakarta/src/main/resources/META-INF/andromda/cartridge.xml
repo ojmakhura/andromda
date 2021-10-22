@@ -235,7 +235,7 @@
         </modelElements>
     </template>
     
-    <!-- <template
+    <template
         path="templates/jakarta/configuration/faces-config.xml.vsl"
         outputPattern="WEB-INF/$facesConfig"
         outlet="configuration"
@@ -267,7 +267,7 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template> -->
+    </template>
 
     <template
         path="templates/jakarta/configuration/log4j.xml.vsl"

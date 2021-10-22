@@ -145,13 +145,20 @@ $action.trigger.getDocumentation("     * ")
 #if($action.exitingInitialState)     
     protected String internalStartUseCase(java.util.Map<String,Object> useCaseParameters)
 #else
-    @jakarta.ws.rs.GET
+    @jakarta.ws.rs.POST
     @jakarta.ws.rs.Path("${action.triggerName}")
-    public String ${action.triggerName}()
+    public String ${action.triggerName}(#if (!$action.formFields.empty)@jakarta.ws.rs.BeanParam $action.fullyQualifiedFormImplementationName ${action.triggerName}Form#end)
 #end
         throws Throwable
     {
         //this.setLastPostedFormClientId("${action.formBeanName}");
+#if(!$action.exitingInitialState)
+#foreach($field in $action.formFields)
+#if($field.actionParameter)
+        this.${action.formImplementationGetter}.set${stringUtils.capitalize($field.name)}(${action.triggerName}Form.get${stringUtils.capitalize($field.name)}());
+#end
+#end
+#end
         
         String forward=null;
 #if ($action.finalStateTarget)
@@ -173,11 +180,16 @@ $action.trigger.getDocumentation("     * ")
 #if ($formPopulationOperationRequired)
         final $action.fullyQualifiedFormImplementationName form =
             this.$action.formImplementationGetter;
-            
+
 #if($action.exitingInitialState)
         //copy parameters form caller use case
         //form.copyFrom(useCaseParameters);
-        
+#else
+## #foreach($field in $action.formFields)
+## #if($field.actionParameter)
+##         form.set${stringUtils.capitalize($field.name)}($field.name);
+## #end
+## #end
 #end
 #end
         //trigger method execution

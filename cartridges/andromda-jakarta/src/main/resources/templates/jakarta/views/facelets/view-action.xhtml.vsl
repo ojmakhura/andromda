@@ -10,7 +10,9 @@
     xmlns:ajsf="http://www.andromda.org/cartridges/jsf/facelets"
     xmlns:ajsfc="http://java.sun.com/jsf/composite/components">
 #set($formName = $action.formBeanName)
-<h:form id="${formName}">
+    <form id="${formName}" name="${formName}" 
+        role="form" method="POST" 
+        action="#{request.contextPath}/api${action.controller.restPath}/${action.triggerName}">
 #if ($action.hyperlink)
     <p:commandLink id="${action.triggerName}Action" action="#{${action.controller.beanName}.${action.triggerName}}" immediate="true" ajax="false">
         <h:outputText id="${action.triggerName}ActionMessage" value="#{messages['$action.messageKey']}"/>
@@ -29,23 +31,35 @@
 #if (!$action.hiddenParameters.empty)
     <ui:include src="${action.viewFragmentPath}-hidden-params.xhtml"/>
 #end
-    <p:panelGrid columns="3">
+        <table>
+            <tbody>
 #set($triggerId = "${action.triggerName}Action")   
 #foreach ($parameter in $action.parameters)
 #if (!$parameter.complex || $parameter.type.enumeration)
-#renderActionInputPrimeFaces($parameter "" "        ")
+                <tr>
+#renderActionInputPrimeFaces($parameter "" "                    ")
+                </tr>
 #else
 #foreach ($attribute in $parameter.attributes)
 #if(!$attribute.inputHidden && !$parameter.inputHidden)
-#renderActionInputPrimeFaces($attribute $parameter "        ")
+                <tr>
+#renderActionInputPrimeFaces($attribute $parameter "                    ")
+                </tr>
 #end
 #end
 #end
 #end
-        <f:facet name="footer">
-            <p:commandButton id="$triggerId" value="#{messages['$action.messageKey']}" action="#{${action.controller.beanName}.${action.triggerName}}"#if($action.parameters.size() == 0) immediate="true"#end ajax="false"/>
-        </f:facet>
-    </p:panelGrid>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">
+                        <button type="submit" id="$triggerId" class="btn btn-lg btn-primary" value="#{messages['$action.messageKey']}">
+                                #{messages['$action.messageKey']}
+                        </button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
 #end
-</h:form>
+    </form>
 </ui:composition>
