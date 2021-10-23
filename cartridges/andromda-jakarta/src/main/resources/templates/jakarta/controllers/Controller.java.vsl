@@ -78,19 +78,6 @@ $operation.getDocumentation("     * ")
      * @param form the associated form
      * @throws Throwable
      */
-#if($operation.rest)
-//    $operation.restRequestType
-//    @jakarta.ws.rs.Path($operation.restPath)
-#if($stringUtils.isNotBlank($operation.restProduces))
-//    @jakarta.ws.rs.Produces("$operation.restProduces")
-#end
-#if($stringUtils.isNotBlank($operation.restConsumes))
-//    @jakarta.ws.rs.Consumes("$operation.restConsumes")
-#end
-#if($stringUtils.isNotBlank($operation.rolesAllowed))
-//    @jakarta.annotation.security.RolesAllowed({"$operation.restConsumes"})
-#end
-#end
 #set ($formCall = "handle$stringUtils.capitalize($operation.formCall)")
     $operation.implementationFormSignature throws Throwable {
         #if($operation.returnType.name != "void")return #end$formCall;

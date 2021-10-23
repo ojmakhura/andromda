@@ -29,7 +29,7 @@
     </p:commandLink>
 #else
 #if (!$action.hiddenParameters.empty)
-    <ui:include src="${action.viewFragmentPath}-hidden-params.xhtml"/>
+## <ui:include src="${action.viewFragmentPath}-hidden-params.xhtml"/>
 #end
         <table>
             <tbody>
