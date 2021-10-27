@@ -21,13 +21,6 @@
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
               version="2.2">
 
-#if($trinidad)
-    <application>
-        <default-render-kit-id>
-            org.apache.myfaces.trinidad.core
-        </default-render-kit-id>
-    </application>
-#end
     <factory>
         <exception-handler-factory>
             ${managedBeansPackage}.JakartaExceptionHandlerFactory
@@ -46,223 +39,223 @@
         <managed-bean-class>java.util.HashMap</managed-bean-class>
         <managed-bean-scope>${formsScopeValue}</managed-bean-scope>
     </managed-bean>
-#foreach ($useCase in $useCases)
-#foreach ($action in $useCase.actions)
-#if (!$action.formFields.empty)
-    <managed-bean>
-        <managed-bean-name>$action.formBeanName</managed-bean-name>
-        <managed-bean-class>$action.fullyQualifiedFormImplementationName</managed-bean-class>
-        <managed-bean-scope>${formsScopeValue}</managed-bean-scope>
-    </managed-bean>
-#end
-#end
-#end
+## #foreach ($useCase in $useCases)
+## #foreach ($action in $useCase.actions)
+## #if (!$action.formFields.empty)
+##     <managed-bean>
+##         <managed-bean-name>$action.formBeanName</managed-bean-name>
+##         <managed-bean-class>$action.fullyQualifiedFormImplementationName</managed-bean-class>
+##         <managed-bean-scope>${formsScopeValue}</managed-bean-scope>
+##     </managed-bean>
+## #end
+## #end
+## #end
 <!-- crud forms -->
-#foreach ($manageable in $manageables)
-    <managed-bean>
-        <managed-bean-name>${manageable.formBeanName}</managed-bean-name>
-        <managed-bean-class>${manageable.formBeanType}</managed-bean-class>
-        <managed-bean-scope>${formsScopeValue}</managed-bean-scope>
-    </managed-bean>
-#end
+## #foreach ($manageable in $manageables)
+##     <managed-bean>
+##         <managed-bean-name>${manageable.formBeanName}</managed-bean-name>
+##         <managed-bean-class>${manageable.formBeanType}</managed-bean-class>
+##         <managed-bean-scope>${formsScopeValue}</managed-bean-scope>
+##     </managed-bean>
+## #end
     <!-- controllers -->
-#foreach ($controller in $controllers)
-    <managed-bean>
-        <managed-bean-name>$controller.beanName</managed-bean-name>
-        <managed-bean-class>$controller.fullyQualifiedImplementationName</managed-bean-class>
-        <managed-bean-scope>${controllerScope}</managed-bean-scope>
-    </managed-bean>
-#end
+## #foreach ($controller in $controllers)
+##     <managed-bean>
+##         <managed-bean-name>$controller.beanName</managed-bean-name>
+##         <managed-bean-class>$controller.fullyQualifiedImplementationName</managed-bean-class>
+##         <managed-bean-scope>${controllerScope}</managed-bean-scope>
+##     </managed-bean>
+## #end
 
     <!-- crud controllers -->
 
-#foreach ($manageable in $manageables)
-    <managed-bean>
-        <managed-bean-name>${manageable.controllerBeanName}</managed-bean-name>
-        <managed-bean-class>${manageable.controllerType}Impl</managed-bean-class>
-        <managed-bean-scope>${controllerScope}</managed-bean-scope>
-    </managed-bean>
-#end
+## #foreach ($manageable in $manageables)
+##     <managed-bean>
+##         <managed-bean-name>${manageable.controllerBeanName}</managed-bean-name>
+##         <managed-bean-class>${manageable.controllerType}Impl</managed-bean-class>
+##         <managed-bean-scope>${controllerScope}</managed-bean-scope>
+##     </managed-bean>
+## #end
 ##Helpers
-    <managed-bean>
-        <managed-bean-name>autocompleteHelper</managed-bean-name>
-        <managed-bean-class>${managedBeansPackage}.AutocompleteHelper</managed-bean-class>
-        <managed-bean-scope>${controllerScope}</managed-bean-scope>
-    </managed-bean>
+    ## <managed-bean>
+    ##     <managed-bean-name>autocompleteHelper</managed-bean-name>
+    ##     <managed-bean-class>${managedBeansPackage}.AutocompleteHelper</managed-bean-class>
+    ##     <managed-bean-scope>${controllerScope}</managed-bean-scope>
+    ## </managed-bean>
 
-#if($trinidad)    
-    <!-- menuModel nodes -->
+## #if($trinidad)    
+##     <!-- menuModel nodes -->
 
-#foreach ($useCase in $useCases)
-    <managed-bean>
-       <managed-bean-name>navItem_$stringUtils.replace($useCase.forwardName, '-', '_')</managed-bean-name>
-       <managed-bean-class>${managedBeansPackage}.NavigationItem</managed-bean-class>
-       <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
-       <managed-property>
-          <property-name>label</property-name>
-          <value>$useCase.titleKey</value>
-       </managed-property>
-       <managed-property>
-          <property-name>viewId</property-name>
-          <value>${useCase.path}.${jakartaUtils.viewExtension}</value>
-       </managed-property>
-       <managed-property>
-          <property-name>controllerBean</property-name>
-          <value>#{${useCase.controller.beanName}}</value>
-       </managed-property>
-       <managed-property>
-         <property-name>controllerAction</property-name>
-         <value>startUseCase</value>
-       </managed-property>
-#set ($roles = $useCase.actionRoles)
-#addDefaultRole($roles)
-#set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles) )
-#if ($securityEnabled)
-       <managed-property>
-          <property-name>roles</property-name>
-          <value>$roles</value>
-       </managed-property>
-#end
-       <managed-property>
-          <property-name>outcome</property-name>
-          <value>$useCase.forwardName</value>
-       </managed-property>
-#set ($children = $useCase.navigationChildren)
-#if (!$children.empty)
-       <managed-property>
-          <property-name>children</property-name>
-          <list-entries>
-            <value-class>${managedBeansPackage}.NavigationItem</value-class>
-#foreach ($childUseCase in $children)
-            <value>#{navItem_$stringUtils.replace($childUseCase.forwardName, '-', '_')}</value>
-#end
-          </list-entries>
-       </managed-property>
-#end
-    </managed-bean>
-#end
+## #foreach ($useCase in $useCases)
+##     <managed-bean>
+##        <managed-bean-name>navItem_$stringUtils.replace($useCase.forwardName, '-', '_')</managed-bean-name>
+##        <managed-bean-class>${managedBeansPackage}.NavigationItem</managed-bean-class>
+##        <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
+##        <managed-property>
+##           <property-name>label</property-name>
+##           <value>$useCase.titleKey</value>
+##        </managed-property>
+##        <managed-property>
+##           <property-name>viewId</property-name>
+##           <value>${useCase.path}.${jakartaUtils.viewExtension}</value>
+##        </managed-property>
+##        <managed-property>
+##           <property-name>controllerBean</property-name>
+##           <value>#{${useCase.controller.beanName}}</value>
+##        </managed-property>
+##        <managed-property>
+##          <property-name>controllerAction</property-name>
+##          <value>startUseCase</value>
+##        </managed-property>
+## #set ($roles = $useCase.actionRoles)
+## #addDefaultRole($roles)
+## #set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles) )
+## #if ($securityEnabled)
+##        <managed-property>
+##           <property-name>roles</property-name>
+##           <value>$roles</value>
+##        </managed-property>
+## #end
+##        <managed-property>
+##           <property-name>outcome</property-name>
+##           <value>$useCase.forwardName</value>
+##        </managed-property>
+## #set ($children = $useCase.navigationChildren)
+## #if (!$children.empty)
+##        <managed-property>
+##           <property-name>children</property-name>
+##           <list-entries>
+##             <value-class>${managedBeansPackage}.NavigationItem</value-class>
+## #foreach ($childUseCase in $children)
+##             <value>#{navItem_$stringUtils.replace($childUseCase.forwardName, '-', '_')}</value>
+## #end
+##           </list-entries>
+##        </managed-property>
+## #end
+##     </managed-bean>
+## #end
 
-#foreach ($manageable in $manageables)
-    <managed-bean>
-       <managed-bean-name>navItem_$manageable.actionClassName</managed-bean-name>
-       <managed-bean-class>${managedBeansPackage}.NavigationItem</managed-bean-class>
-       <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
-       <managed-property>
-          <property-name>label</property-name>
-          <value>$manageable.viewTitleKey</value>
-       </managed-property>
-       <managed-property>
-          <property-name>viewId</property-name>
-          <value>${manageable.viewFullPath}.${jakartaUtils.viewExtension}</value>
-       </managed-property>
-       <managed-property>
-          <property-name>controllerBean</property-name>
-          <value>#{${manageable.controllerBeanName}}</value>
-       </managed-property>
-       <managed-property>
-         <property-name>controllerAction</property-name>
-         <value>startUseCase</value>
-       </managed-property>
-#set ($roles = $manageable.actionRoles)
-#addDefaultRole($roles)
-#set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles))
-#if ($securityEnabled)
-       <managed-property>
-          <property-name>roles</property-name>
-          <value>${roles}</value>
-       </managed-property>
-#end
-       <managed-property>
-          <property-name>outcome</property-name>
-          <value>${manageable.viewFullPath}</value>
-       </managed-property>
-    </managed-bean>
+## #foreach ($manageable in $manageables)
+##     <managed-bean>
+##        <managed-bean-name>navItem_$manageable.actionClassName</managed-bean-name>
+##        <managed-bean-class>${managedBeansPackage}.NavigationItem</managed-bean-class>
+##        <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
+##        <managed-property>
+##           <property-name>label</property-name>
+##           <value>$manageable.viewTitleKey</value>
+##        </managed-property>
+##        <managed-property>
+##           <property-name>viewId</property-name>
+##           <value>${manageable.viewFullPath}.${jakartaUtils.viewExtension}</value>
+##        </managed-property>
+##        <managed-property>
+##           <property-name>controllerBean</property-name>
+##           <value>#{${manageable.controllerBeanName}}</value>
+##        </managed-property>
+##        <managed-property>
+##          <property-name>controllerAction</property-name>
+##          <value>startUseCase</value>
+##        </managed-property>
+## #set ($roles = $manageable.actionRoles)
+## #addDefaultRole($roles)
+## #set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles))
+## #if ($securityEnabled)
+##        <managed-property>
+##           <property-name>roles</property-name>
+##           <value>${roles}</value>
+##        </managed-property>
+## #end
+##        <managed-property>
+##           <property-name>outcome</property-name>
+##           <value>${manageable.viewFullPath}</value>
+##        </managed-property>
+##     </managed-bean>
 
-#end
-    <!-- setup the (root of the) treemodel -->
+## #end
+##     <!-- setup the (root of the) treemodel -->
 
-    <managed-bean>
-       <managed-bean-name>navTreeList</managed-bean-name>
-       <managed-bean-class>
-          java.util.ArrayList
-       </managed-bean-class>
-       <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
-       <list-entries>
-          <value-class>${managedBeansPackage}.NavigationItem</value-class>
-#foreach ($useCase in $applicationUseCases)
-          <value>#{navItem_$stringUtils.replace($useCase.forwardName, '-', '_')}</value>
-#end
-#foreach ($useCase in $useCases)
-#if(!$useCase.registrationUseCase && !$useCase.entryUseCase)
-#set ($parents = $useCase.navigationParents)
-#if ($parents.empty)
-          <value>#{navItem_$stringUtils.replace($useCase.forwardName, '-', '_')}</value>
-#end
-#end
-#end
-#foreach ($manageable in $manageables)
-        <value>#{navItem_$manageable.actionClassName}</value>
-#end
-       </list-entries>
-    </managed-bean>
+##     <managed-bean>
+##        <managed-bean-name>navTreeList</managed-bean-name>
+##        <managed-bean-class>
+##           java.util.ArrayList
+##        </managed-bean-class>
+##        <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
+##        <list-entries>
+##           <value-class>${managedBeansPackage}.NavigationItem</value-class>
+## #foreach ($useCase in $applicationUseCases)
+##           <value>#{navItem_$stringUtils.replace($useCase.forwardName, '-', '_')}</value>
+## #end
+## #foreach ($useCase in $useCases)
+## #if(!$useCase.registrationUseCase && !$useCase.entryUseCase)
+## #set ($parents = $useCase.navigationParents)
+## #if ($parents.empty)
+##           <value>#{navItem_$stringUtils.replace($useCase.forwardName, '-', '_')}</value>
+## #end
+## #end
+## #end
+## #foreach ($manageable in $manageables)
+##         <value>#{navItem_$manageable.actionClassName}</value>
+## #end
+##        </list-entries>
+##     </managed-bean>
 
-    <managed-bean>
-       <managed-bean-name>navTreeModel</managed-bean-name>
-       <managed-bean-class>org.apache.myfaces.trinidad.model.ChildPropertyTreeModel</managed-bean-class>
-       <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
-       <managed-property>
-         <property-name>childProperty</property-name>
-         <value>children</value>
-       </managed-property>
-       <managed-property>
-         <property-name>wrappedData</property-name>
-         <value>#{navTreeList}</value>
-       </managed-property>
-    </managed-bean>
+##     <managed-bean>
+##        <managed-bean-name>navTreeModel</managed-bean-name>
+##        <managed-bean-class>org.apache.myfaces.trinidad.model.ChildPropertyTreeModel</managed-bean-class>
+##        <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
+##        <managed-property>
+##          <property-name>childProperty</property-name>
+##          <value>children</value>
+##        </managed-property>
+##        <managed-property>
+##          <property-name>wrappedData</property-name>
+##          <value>#{navTreeList}</value>
+##        </managed-property>
+##     </managed-bean>
 
-    <!-- setup the menuModel -->
+##     <!-- setup the menuModel -->
 
-    <managed-bean>
-       <managed-bean-name>viewIdMenuModel</managed-bean-name>
-       <managed-bean-class>org.apache.myfaces.trinidad.model.ViewIdPropertyMenuModel</managed-bean-class>
-       <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
-       <managed-property>
-         <property-name>viewIdProperty</property-name>
-         <value>viewId</value>
-       </managed-property>
-       <managed-property>
-          <property-name>wrappedData</property-name>
-          <value>#{navTreeModel}</value>
-       </managed-property>
-    </managed-bean>
+##     <managed-bean>
+##        <managed-bean-name>viewIdMenuModel</managed-bean-name>
+##        <managed-bean-class>org.apache.myfaces.trinidad.model.ViewIdPropertyMenuModel</managed-bean-class>
+##        <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
+##        <managed-property>
+##          <property-name>viewIdProperty</property-name>
+##          <value>viewId</value>
+##        </managed-property>
+##        <managed-property>
+##           <property-name>wrappedData</property-name>
+##           <value>#{navTreeModel}</value>
+##        </managed-property>
+##     </managed-bean>
 
-    <managed-bean>
-      <managed-bean-name>menuModel</managed-bean-name>
-      <managed-bean-class>${managedBeansPackage}.MenuModelAdapter</managed-bean-class>
-      <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
-      <managed-property>
-        <property-name>model</property-name>
-        <value>#{viewIdMenuModel}</value>
-      </managed-property>
-      <managed-property>
-        <property-name>aliasList</property-name>
-        <list-entries>
-          <value-class>java.lang.String</value-class>
-#foreach ($useCase in $useCases)
-          <!-- $useCase.titleValue views -->
-#foreach ($view in $useCase.views)
-          <value>${view.path}.${jakartaUtils.viewExtension}</value>
-          <value>${useCase.path}.${jakartaUtils.viewExtension}</value>
-#end
-#end
-#foreach($manageable in $manageables)
-          <value>${manageable.viewFullPath}.${jakartaUtils.viewExtension}</value>
-          <value>${manageable.actionFullPath}.${jakartaUtils.viewExtension}</value>
-#end
-        </list-entries>
-      </managed-property>
-    </managed-bean>
-#end
+##     <managed-bean>
+##       <managed-bean-name>menuModel</managed-bean-name>
+##       <managed-bean-class>${managedBeansPackage}.MenuModelAdapter</managed-bean-class>
+##       <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
+##       <managed-property>
+##         <property-name>model</property-name>
+##         <value>#{viewIdMenuModel}</value>
+##       </managed-property>
+##       <managed-property>
+##         <property-name>aliasList</property-name>
+##         <list-entries>
+##           <value-class>java.lang.String</value-class>
+## #foreach ($useCase in $useCases)
+##           <!-- $useCase.titleValue views -->
+## #foreach ($view in $useCase.views)
+##           <value>${view.path}.${jakartaUtils.viewExtension}</value>
+##           <value>${useCase.path}.${jakartaUtils.viewExtension}</value>
+## #end
+## #end
+## #foreach($manageable in $manageables)
+##           <value>${manageable.viewFullPath}.${jakartaUtils.viewExtension}</value>
+##           <value>${manageable.actionFullPath}.${jakartaUtils.viewExtension}</value>
+## #end
+##         </list-entries>
+##       </managed-property>
+##     </managed-bean>
+## #end
 
     <!-- global navigational-rules -->
 #if ($stringUtils.isNotBlank($securityRealm))

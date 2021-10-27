@@ -8,6 +8,6 @@
 #else
 #set ($parameterValue = "$parameter.name")
 #end
-${ident}<f:setPropertyActionListener target="#{${action.formBeanName}.${parameter.name}}" value="#{${parameterValue}}"/>
+## ${ident}<f:setPropertyActionListener target="#{${action.formBeanName}.${parameter.name}}" value="#{${parameterValue}}"/>
 #end
 #end
