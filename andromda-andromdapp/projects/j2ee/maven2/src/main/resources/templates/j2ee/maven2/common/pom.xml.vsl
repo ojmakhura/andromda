@@ -69,7 +69,7 @@
                 <artifactId>jjwt</artifactId>
             </dependency>
 #end
-#if($spring || $hibernate || $ejb)
+#if($jakarta)
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>

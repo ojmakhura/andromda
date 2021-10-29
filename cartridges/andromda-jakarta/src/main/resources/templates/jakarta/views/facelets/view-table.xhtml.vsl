@@ -121,8 +121,9 @@
                 return response.text();
             }).then(view => {
                 // Work with JSON data here
-                console.log(context + view + urlParams);
-                window.location.href = context + view + urlParams;
+                if(view){
+                    window.location.href = context + view + urlParams;
+                }
             }).catch(err => {
                 // Do something for an error here
                 console.log(err);

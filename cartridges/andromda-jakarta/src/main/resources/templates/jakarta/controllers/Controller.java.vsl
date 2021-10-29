@@ -161,7 +161,7 @@ $action.trigger.getDocumentation("     * ")
 #if($targetControllerBeanName.equals($controller.beanName))
 #set($targetControllerBeanName = "this")
 #end
-        forward =#if($targetController) ${targetControllerBeanName}.startUseCase()#else closeDialog()#end;
+        forward =#if($targetController) ${targetControllerBeanName}.startUseCase()#else closeDialog()#end; ;;lflfkkd
         
 #else
 #if ($formPopulationOperationRequired)
