@@ -10,7 +10,9 @@ import org.apache.commons.lang3.StringUtils;
  * @author Chad Brandon
  * @author Walter Mourao
  */
-public class JakartaUtils
+@Named("jakartaUtils")
+@SessionScoped
+public class JakartaUtils implements java.io.Serializable
 {
 
     /**
@@ -130,7 +132,7 @@ public class JakartaUtils
      *
      * @param script the script
      */
-    public static void addPPRScript(String script){
+    public void addPPRScript(String script){
         jakarta.faces.context.FacesContext facesContext = getFacesContext();
         final org.apache.myfaces.trinidad.render.ExtendedRenderKitService service = (org.apache.myfaces.trinidad.render.ExtendedRenderKitService)org.apache.myfaces.trinidad.util.Service.getRenderKitService(facesContext, org.apache.myfaces.trinidad.render.ExtendedRenderKitService.class);
         service.addScript(facesContext, script);

@@ -18,8 +18,8 @@
 
 <faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
-              version="2.2">
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
+              version="2.3">
 
     <factory>
         <exception-handler-factory>
@@ -34,11 +34,11 @@
     <!-- forms -->
 ## *** should go to the configuration
 #set($formsScopeValue="#{useCaseScope}")
-    <managed-bean>
-        <managed-bean-name>viewVariables</managed-bean-name>
-        <managed-bean-class>java.util.HashMap</managed-bean-class>
-        <managed-bean-scope>${formsScopeValue}</managed-bean-scope>
-    </managed-bean>
+    ## <managed-bean>
+    ##     <managed-bean-name>viewVariables</managed-bean-name>
+    ##     <managed-bean-class>java.util.HashMap</managed-bean-class>
+    ##     <managed-bean-scope>${formsScopeValue}</managed-bean-scope>
+    ## </managed-bean>
 ## #foreach ($useCase in $useCases)
 ## #foreach ($action in $useCase.actions)
 ## #if (!$action.formFields.empty)

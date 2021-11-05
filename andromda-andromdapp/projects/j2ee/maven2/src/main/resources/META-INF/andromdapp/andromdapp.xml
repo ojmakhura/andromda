@@ -37,7 +37,9 @@
         </conditions>
         <conditions>
             <condition id="jakarta" equal="true"/>
-            <output>web/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/WebApplication.java.vsl</output>
+            <output>web/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WebApplication.java.vsl</output>
+            <output>web/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}Application.java.vsl</output>
+            <output>web/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/UseCaseScope.java.vsl</output>
             <output>web/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/Messages.java.vsl</output>
         </conditions>
         <conditions type="and">
@@ -152,8 +154,16 @@
             <to>web/target/${applicationId}-${applicationVersion}/WEB-INF/web.xml</to>
         </mapping>
         <mapping>
-            <from>web/Application.java.vsl</from>
-            <to>web/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/WebApplication.java.vsl</to>
+            <from>web/RestApplication.java.vsl</from>
+            <to>web/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WebApplication.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>web/WebApplication.java.vsl</from>
+            <to>web/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}Application.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>web/UseCaseScope.java.vsl</from>
+            <to>web/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/UseCaseScope.java.vsl</to>
         </mapping>
         <mapping>
             <from>web/Messages.java.vsl</from>

@@ -1,0 +1,24 @@
+package ${applicationPackage};
+
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+
+@Named("useCaseScope")
+@SessionScoped
+public class UseCaseScope implements Serializable {
+    
+    private Map<String, Object> useCaseVariables;
+
+    public UseCaseScope() {
+
+        useCaseVariables = new HashMap<>();
+    }
+
+    public void resetUseCaseScope() {
+        useCaseVariables = new HashMap<>();
+    }
+}
