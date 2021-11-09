@@ -358,6 +358,12 @@
                     for file uploads).
                 </documentation>
             </property>
+            <property name="beanNamePrefix">
+                <default></default>
+                <documentation>
+                    The name prefix for all spring bean ids.
+                </documentation>
+            </property>
             <property name="dummyData">
                 <default>true</default>
                 <documentation>

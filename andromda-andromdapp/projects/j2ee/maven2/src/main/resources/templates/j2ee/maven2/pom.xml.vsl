@@ -431,14 +431,24 @@
                 <version>${hibernate.core.version}</version>
             </dependency>
             <dependency>
-                <groupId>jakarta.persistence</groupId>
-                <artifactId>jakarta.persistence-api</artifactId>
-                <version>3.0.0</version>
+                <groupId>jakarta.mvc</groupId>
+                <artifactId>jakarta.mvc-api</artifactId>
+                <version>${jakartaee.version}</version>
             </dependency>
             <dependency>
                 <groupId>jakarta.inject</groupId>
                 <artifactId>jakarta.inject-api</artifactId>
-                <version>2.0.0</version>
+                <version>${jakartaee.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.annotation</groupId>
+                <artifactId>jakarta.annotation-api</artifactId>
+                <version>${jakartaee.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.persistence</groupId>
+                <artifactId>jakarta.persistence-api</artifactId>
+                <version>3.0.0</version>
             </dependency>
             <dependency>
                 <groupId>jakarta.ejb</groupId>
@@ -448,35 +458,50 @@
             <dependency>
                 <groupId>jakarta.platform</groupId>
                 <artifactId>jakarta.jakartaee-api</artifactId>
-                <version>9.1.0</version>
+                <version>${jakarta.version}</version>
+#if($glassfish6 || $payara5)
                 <scope>provided</scope>
+#end
             </dependency>
-            <dependency>
-                <groupId>jakarta.annotation</groupId>
-                <artifactId>jakarta.annotation-api</artifactId>
-                <version>2.0.0</version>
-            </dependency>
-            <dependency>
-                <groupId>jakarta.mvc</groupId>
-                <artifactId>jakarta.mvc-api</artifactId>
-                <version>2.0.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.krazo</groupId>
-                <artifactId>krazo-jersey</artifactId>
-                <version>2.0.1</version>
-            </dependency>
+#if($wildfly25 || $tomee9 || $tomcat9)
             <dependency>
                 <groupId>org.eclipse.krazo</groupId>
                 <artifactId>krazo-resteasy</artifactId>
-                <version>2.0.1</version>
+                <version>${krazo.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-server -->
+#end
+#if($glassfish6 || $payara5)
             <dependency>
-                <groupId>org.glassfish.jersey.core</groupId>
-                <artifactId>jersey-server</artifactId>
-                <version>3.0.2</version>
+                <groupId>org.eclipse.krazo</groupId>
+                <artifactId>krazo-jersey</artifactId>
+                <version>${krazo.version}</version>
             </dependency>
+#end
+#if($tomee9 || $tomcat9)
+            <dependency>
+                <groupId>org.jboss.resteasy</groupId>
+                <artifactId>resteasy-cdi</artifactId>
+                <version>${resteasy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.resteasy</groupId>
+                <artifactId>resteasy-servlet-initializer</artifactId>
+                <version>${resteasy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.resteasy</groupId>
+                <artifactId>resteasy-validator-provider-11</artifactId>
+                <version>${resteasy.version}</version>
+            </dependency>
+#end
+#if($tomcat9)
+            <!-- Weld  -->
+            <dependency>
+                <groupId>org.jboss.weld.servlet</groupId>
+                <artifactId>weld-servlet-core</artifactId>
+                <version>4.0.2.Final</version>
+            </dependency>
+#end
             <dependency>
                 <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
@@ -1272,6 +1297,9 @@
         embeddedWebServer=$embeddedWebServer
         jetty=$jetty
         tomcat=$tomcat
+        glassfish=$glassfish6
+        wildfly25=$wildfly25
+        deploymentPlatform=$deploymentPlatform
         -->
         <module>mda</module>
         <module>common</module>
@@ -1535,6 +1563,14 @@
         <!-- v5 migration needed -->
         <spring.version>5.3.9</spring.version>
 	    <spring-boot.version>2.5.4</spring-boot.version>
+#end
+#if($jakarta)
+        <jakarta.version>9.1.0</jakarta.version>
+        <krazo.version>2.0.1</krazo.version>
+        <jakartaee.version>2.0.0</jakartaee.version>
+#end
+#if($tomcat9 || $tomee9)
+        <resteasy.version>4.7.3.Final</resteasy.version>
 #end
         <!-- To override parent default settings for compiler plugin and compliance checks-->
         <dependencyConvergence>true</dependencyConvergence>

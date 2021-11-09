@@ -3,7 +3,7 @@
 ##
 #macro (processTransition $transition)
 #if (!$transition)
-null; 1111
+null;
 #elseif ($transition.enteringFinalState)
 #set($targetController = $transition.target.targetControllerFullyQualifiedName)
 #set($targetControllerBeanName = $transition.target.targetControllerBeanName)
@@ -11,10 +11,10 @@ null; 1111
 #set($tmp = $controllers.add($transition.target.targetElement.controller))
 #if($targetControllerBeanName.equals($controller.beanName))
 #set($targetControllerBeanName = "this")
-"${controller.path}.${facesServletExtension}";
+"${transition.target.targetElement.path}"; /// trial
 #else
 #if(${transition.target.targetElement})
-"${transition.target.targetElement.path}.${facesServletExtension}";
+"${transition.target.targetElement.path}";
 #else
 "";
 #end

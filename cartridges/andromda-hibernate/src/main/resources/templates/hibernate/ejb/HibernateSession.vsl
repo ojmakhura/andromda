@@ -15,8 +15,6 @@ package $service.packageName;
 public interface $service.name
 #if ($service.generalization)
     extends $service.generalization.fullyQualifiedName
-#else
-    extends $ejbInterface
 #end
 {
     // ---------------- business methods  ----------------------

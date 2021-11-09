@@ -246,7 +246,7 @@ public class JakartaGlobals
     /**
      * POJO implementation class suffix.
      */
-    public static final String IMPLEMENTATION_SUFFIX = "BeanImpl";
+    public static final String IMPLEMENTATION_SUFFIX = "Impl";
 
     /**
      * REST: Is this a REST implementation?

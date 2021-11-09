@@ -10,8 +10,8 @@ import org.apache.commons.lang3.StringUtils;
  * @author Chad Brandon
  * @author Walter Mourao
  */
-@Named("jakartaUtils")
-@SessionScoped
+@jakarta.inject.Named("jakartaUtils")
+@jakarta.enterprise.context.SessionScoped
 public class JakartaUtils implements java.io.Serializable
 {
 

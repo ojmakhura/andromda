@@ -211,7 +211,11 @@
                 <property name="ejb3TypesPackage">${application.package}</property>
                 <property name="persistenceContextUnitName">${application.id}</property>
                 <property name="entityManagerName">${application.id}</property>
+#if($glassfish6)
+                <property name="entityManagerJTADataSource">${dataSource.name}</property>
+#else
                 <property name="entityManagerJTADataSource">${dataSource}</property>
+#end
                 <property name="hibernateDialect">${hibernate.dialect}</property>
                 <property name="hibernateHbm2DDLAuto">update</property>
                 <!-- Comment to disable $persistenceProviderExtensions specific extensions such as Cache, Types, Validations -->
@@ -259,7 +263,6 @@
         <namespace name="hibernate">
             <properties>
                 <property name="hibernateTypeMappingsUri">Hibernate</property>
-                <property name="dataSource">${dataSource}</property>
                 <property name="hibernateDialect">${hibernate.dialect}</property>
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="hibernateTransactionManagerLookup">${hibernate.transaction.manager.lookup}</property>
@@ -274,7 +277,13 @@
                 <property name="hibernateTransactionFactoryClass">org.hibernate.transaction.JTATransactionFactory</property>
                 <property name="persistenceContextUnitName">${application.id}</property>
                 <property name="entityManagerName">${application.id}</property>
+#if($glassfish6)
+                <property name="entityManagerJTADataSource">${dataSource.name}</property>
+                <property name="dataSource">${dataSource.name}</property>
+#else
                 <property name="entityManagerJTADataSource">${dataSource}</property>
+                <property name="dataSource">${dataSource}</property>
+#end
                 <property name="entities">${core.generated.dir}</property>
                 <property name="entity-impls">${core.manual.java.dir}</property>
                 <property name="entity-mappings">${core.generated.dir}</property>

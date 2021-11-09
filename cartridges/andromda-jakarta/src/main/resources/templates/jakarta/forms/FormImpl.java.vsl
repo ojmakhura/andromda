@@ -38,7 +38,7 @@ public class $action.formImplementationName
 #if($field.complex)
     @jakarta.ws.rs.BeanParam
 #else
-    @jakarta.ws.rs.FormParam("$field.name")
+//    @jakarta.ws.rs.FormParam("$field.name")
 #end
 #end
     private $fieldTypeName $field.name;

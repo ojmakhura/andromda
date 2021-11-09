@@ -50,7 +50,7 @@
 
     <!-- cartridge-resource merge-point -->
 
-    <template
+    <!-- <template
         path="templates/java/Service.vsl"
         outputPattern="{0}/{1}.java"
         outlet="services"
@@ -85,7 +85,7 @@
                 <type name="org.andromda.metafacades.uml.Service"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <template
         path="templates/java/ValueObject.vsl"

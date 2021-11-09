@@ -17,7 +17,7 @@ $service.getDocumentation(" * ")
  */
 public abstract class ${service.name}Bean
 #if ($service.generalization)
-    extends ${service.generalization.fullyQualifiedName}BeanImpl
+    extends ${service.generalization.fullyQualifiedName}Impl
 #end
     implements ${service.name}, java.io.Serializable
 {

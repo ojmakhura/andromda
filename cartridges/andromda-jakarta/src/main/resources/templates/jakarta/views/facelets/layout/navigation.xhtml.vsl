@@ -23,7 +23,12 @@
 #set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles) )
 #set ($children = $pUseCase.navigationChildren)
 #if ($children.empty)
-            <li><a href="#{request.contextPath}${pUseCase.path}.${facesServletExtension}">#{messages['$pUseCase.titleKey']}</a></li>
+#set($initialAction = $pUseCase.activityGraph.initialAction)
+#set ($restPath = "/$jakartaUtils.toWebResourceName(${initialAction.triggerName})")
+#if($initialAction.useCase && $initialAction.useCase.viewHasNameOfUseCase)
+#set ($restPath = $restPath + "uc")
+#end
+            <li><a href="#{request.contextPath}/app${pUseCase.path}">#{messages['$pUseCase.titleKey']}</a></li>
 ## ${ident}<p:menuitem value="#{messages['$pUseCase.titleKey']}" url="#{request.contextPath}${pUseCase.path}.${facesServletExtension}"#if ($securityEnabled) rendered="#{p:ifAnyGranted('$roles')}"#end/>     
 #else
 ## ${ident}<p:submenu label="#{messages['$pUseCase.titleKey']}"#if ($securityEnabled) rendered="#{p:ifAnyGranted('$roles')}"#end>

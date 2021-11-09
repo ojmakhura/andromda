@@ -8,9 +8,10 @@ package $service.packageName;
 /**
  * @see $service.fullyQualifiedName
  */
-public class ${service.name}BeanImpl
+@jakarta.inject.Named("$stringUtils.uncapitalize($service.name)")
+@jakarta.ejb.Stateless
+public class ${service.name}Impl
     extends ${service.name}Bean
-    implements jakarta.ejb.SessionBean
 {
 #foreach ($operation in $service.operations)
 ##
@@ -25,10 +26,12 @@ public class ${service.name}BeanImpl
 #end
 #set ($returnType = $operation.getterSetterReturnTypeName)
 #if ($operation.exceptionsPresent)
+    @Override
     protected $returnType handle${stringUtils.capitalize(${operation.name})} (#if (!$stringUtils.isBlank($parameterList))$parameterList#end)
         throws $operation.exceptionList
     {
 #else
+    @Override
     protected $returnType handle${stringUtils.capitalize(${operation.name})} (#if (!$stringUtils.isBlank($parameterList))$parameterList#end)
     {
 #end

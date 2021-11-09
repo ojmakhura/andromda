@@ -324,8 +324,8 @@ $decisionTransition.getDocumentation("     * ")
 #end
 #foreach ($service in $controller.allServices)
 	@jakarta.inject.Inject
-	protected $service.fullyQualifiedImplementationName $stringUtils.uncapitalize($service.name);
-
+	protected $service.fullyQualifiedImplementationName $service.beanName;
+    
 #end
 #foreach($cnt in $jakartaUtils.getFacadeSet($controllers))
 #if(!$controller.beanName.equals($cnt.beanName))

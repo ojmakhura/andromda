@@ -109,7 +109,7 @@
 #if (!$action.tableLinkColumnName)
         function ${action.triggerName}(_data, context, urlParams) {
 
-            var apiUrl = context + '/api${action.controller.restPath}/${action.triggerName}';
+            var apiUrl = context + '/app${action.controller.restPath}/${action.triggerName}';
             fetch(
                 apiUrl,
                 {
@@ -122,7 +122,7 @@
             }).then(view => {
                 // Work with JSON data here
                 if(view){
-                    window.location.href = context + view + urlParams;
+                    window.location.href = context + '/app' + view + urlParams;
                 }
             }).catch(err => {
                 // Do something for an error here

@@ -100,6 +100,10 @@
             <output>mda/src/main/config/andromda.xml</output>
         </conditions>
         <conditions>
+            <condition id="jakarta" equal="true"/>
+            <output patterns="**/*">web/</output>
+        </conditions>
+        <conditions>
             <condition id="springws" equal="true"/>
             <output patterns="**/*">springws/</output>
         </conditions>
@@ -656,48 +660,24 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     </condition>
                  </conditions>
             </prompt>
-            <!-- This determines dependency versions, which dependencies are bundled or provided, jee version, and which configuration files are created >
+            <!-- This determines dependency versions, which dependencies are bundled or provided, jee version, and which configuration files are created >-->
             <prompt id="deploymentPlatform" setResponseAsTrue="true">
                 <text>What application deployment platform runtime/version do you want to use?</text>
                 <shortText>Application deployment runtime</shortText>
-                <preconditions type="and">
-                    <condition id="applicationType" notEqual="war"/>
-                    <condition id="webservice" notEqual="none"/>
+                <preconditions type="or">
+                    <condition id="webType" equal="jsf"/>
+                    <condition id="webType" equal="struts"/>
+                    <condition id="webType" equal="jakarta"/>
+                    <!-- <condition id="webservice" notEqual="none"/> -->
                 </preconditions>
                 <responses>
-                    <response>wildfly8</response>
-                    <response>jboss7</response>
-                    <response>jboss6</response>
-                    <response>jboss51</response>
-                    <response>jboss5</response>
-                    <response>jboss42</response>
-                    <response>jboss4</response>
-                    <response>jboss3</response>
-                    <response>tomcat8</response>
-                    <response>tomcat7</response>
-                    <response>tomcat6</response>
-                    <response>was85</response>
-                    <response>was8</response>
-                    <response>was7</response>
-                    <response>was61</response>
-                    <response>liberty</response>
-                    <response>wasce2</response>
-                    <response>glassfish4</response>
-                    <response>glassfish3</response>
-                    <response>glassfish2</response>
-                    <response>weblogic12</response>
-                    <response>weblogic11</response>
-                    <response>weblogic10</response>
-                    <response>weblogic9</response>
-                    <response>weblogic8</response>
-                    <response>geronimo</response>
-                    <response>jonas5</response>
-                    <response>oracleas</response>
-                    <response>resin4</response>
-                    <response>resin3</response>
-                    <response>sun8</response>
+                    <response>wildfly25</response>
+                    <response>glassfish6</response>
+                    <!-- <response>payara5</response>
+                    <response>tomcat9</response>
+                    <response>tomee9</response> -->
                 </responses>
-            </prompt-->
+            </prompt>
         </promptGroup>
     </prompts>
 </andromdapp>

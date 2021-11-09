@@ -282,11 +282,11 @@
         outlet="managed-beans"
         overwrite="true"/>
         
-    <template
+    <!-- <template
         path="templates/jakarta/utils/CrudControllerBase.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
         outlet="managed-beans"
-        overwrite="true"/>
+        overwrite="true"/> -->
         
     <template
         path="templates/jakarta/forms/Form.java.vsl"
@@ -421,11 +421,11 @@
         </modelElements>
     </template>
 
-    <template
+    <!-- <template
         path="templates/jakarta/utils/Messages.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/Messages.java"
         outlet="managed-beans"
-        overwrite="true"/>
+        overwrite="true"/> -->
 
     <template
         path="templates/jakarta/utils/JakartaUtils.java.vsl"
@@ -1076,12 +1076,12 @@
         overwrite="true"
         generateEmptyFiles="true"/>
 
-    <template
+    <!-- <template
         path="templates/jakarta/views/facelets/layout/layout-crud.xhtml.vsl"
         outputPattern="layout/layout-crud.xhtml"
         outlet="views"
         overwrite="true"
-        generateEmptyFiles="true"/>
+        generateEmptyFiles="true"/> -->
 
     <template
         path="templates/jakarta/views/facelets/layout/navigation.xhtml.vsl"

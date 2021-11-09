@@ -3,15 +3,23 @@
 #if ($stringUtils.isNotBlank($action.packageName))
 package $action.packageName;
 #end
-
+#set($initialAction = $action.activityGraph.initialAction)
+#set ($restPath = $jakartaUtils.toWebResourceName(${initialAction.triggerName}))
+#if($initialAction.useCase && $initialAction.useCase.viewHasNameOfUseCase)
+#set ($restPath = $restPath + "uc")
+#end
 /**
  * This servlet is used to allow controller operation execution through
  * a URL call.
  */
-@jakarta.servlet.annotation.WebServlet("${action.path}.${facesServletExtension}")
-public class $action.actionClassName
-    extends jakarta.servlet.http.HttpServlet
+## @jakarta.servlet.annotation.WebServlet("${action.path}.${facesServletExtension}")
+@jakarta.mvc.Controller
+@jakarta.enterprise.context.RequestScoped
+@jakarta.ws.rs.Path("${action.path}")
+public class $action.actionClassName implements java.io.Serializable
+##      extends jakarta.servlet.http.HttpServlet
 {
+// 
     /**
      * The serial version UID of this class. Needed for serialization.
      */
@@ -20,21 +28,27 @@ public class $action.actionClassName
     @jakarta.inject.Inject
     private $action.controller.fullyQualifiedImplementationName $action.controller.beanName;
 
-    /**
-     * @see jakarta.servlet.http.HttpServlet#hash()doGet(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse)
-     */
-    @Override
-    public void doGet(
-        final jakarta.servlet.http.HttpServletRequest request,
-        final jakarta.servlet.http.HttpServletResponse response)
-        throws jakarta.servlet.ServletException, java.io.IOException
-    {
-        // - we need to resolve the controller differently since we're outside of the faces servlet
-#set ($facesContextUtilsFullyQualifiedName = "FacesContextUtils")
-#if ($stringUtils.isNotBlank($managedBeansPackage))
-#set($facesContextUtilsFullyQualifiedName = "${managedBeansPackage}.${facesContextUtilsFullyQualifiedName}")
-#end
-#set ($controller = $action.controller)
+    @jakarta.ws.rs.GET
+    public String start() throws Throwable {
+
+        return ${action.controller.beanName}.startUseCase();
+    }
+##
+##    /**
+##     * @see jakarta.servlet.http.HttpServlet#hash()doGet(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse)
+##     */
+##    @Override
+##    public void doGet(
+##        final jakarta.servlet.http.HttpServletRequest request,
+##        final jakarta.servlet.http.HttpServletResponse response)
+##        throws jakarta.servlet.ServletException, java.io.IOException
+##    {
+##        // - we need to resolve the controller differently since we're outside of the faces servlet
+## #set ($facesContextUtilsFullyQualifiedName = "FacesContextUtils")
+## #if ($stringUtils.isNotBlank($managedBeansPackage))
+## #set($facesContextUtilsFullyQualifiedName = "${managedBeansPackage}.${facesContextUtilsFullyQualifiedName}")
+## #end
+## #set ($controller = $action.controller)
 ## TODO UMLMETA-106 uml22 StateVertex outgoing FinalState target returns null/unknown for Exception transition.
 ##        // action=$action
 ##        // activityGraph=$action.activityGraph
@@ -43,31 +57,31 @@ public class $action.actionClassName
 ##end
 ## Returns null in UML2 model
 ##        // controller=$action.activityGraph.controller
-        
-        final String forwardPath;
-        try
-        {
-            forwardPath = ${controller.beanName}.startUseCase();
-        }
-        catch(Throwable t)
-        {
-            throw new jakarta.servlet.ServletException(t);
-        }
-        
-        if(forwardPath != null){
-            request.getRequestDispatcher(forwardPath).forward(request, response);
-        }
-    }
-
-    /**
-     * @see jakarta.servlet.http.HttpServlet#hash()doPost(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse)
-     */
-    @Override
-    public void doPost(
-        final jakarta.servlet.http.HttpServletRequest request,
-        final jakarta.servlet.http.HttpServletResponse response)
-        throws jakarta.servlet.ServletException, java.io.IOException
-    {
-        this.doGet(request, response);
-    }
+##        
+##        final String forwardPath;
+##        try
+##        {
+##            forwardPath = ${controller.beanName}.startUseCase();
+##        }
+##        catch(Throwable t)
+##        {
+##            throw new jakarta.servlet.ServletException(t);
+##        }
+##        
+##        if(forwardPath != null){
+##            request.getRequestDispatcher(forwardPath).forward(request, response);
+##        }
+##    }
+##
+##    /**
+##     * @see jakarta.servlet.http.HttpServlet#hash()doPost(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse)
+##     */
+##    @Override
+##    public void doPost(
+##        final jakarta.servlet.http.HttpServletRequest request,
+##        final jakarta.servlet.http.HttpServletResponse response)
+##        throws jakarta.servlet.ServletException, java.io.IOException
+##    {
+##        this.doGet(request, response);
+##    }
 }

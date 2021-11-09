@@ -263,7 +263,7 @@
 
     <template
         path="templates/hibernate/ejb/HibernateSessionBeanImpl.vsl"
-        outputPattern="{0}/{1}BeanImpl.java"
+        outputPattern="{0}/{1}Impl.java"
         outlet="session-impls"
         overwrite="false">
         <modelElements variable="service">

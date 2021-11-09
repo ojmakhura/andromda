@@ -137,30 +137,35 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>jakarta.inject</groupId>
-            <artifactId>jakarta.inject-api</artifactId>
+            <groupId>jakarta.mvc</groupId>
+            <artifactId>jakarta.mvc-api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.eclipse.krazo</groupId>
-            <artifactId>krazo-jersey</artifactId>
-        </dependency>
+#if($wildfly25 || $tomee9)
         <dependency>
             <groupId>org.eclipse.krazo</groupId>
             <artifactId>krazo-resteasy</artifactId>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-server -->
+#end
+#if($glassfish6 || $payara5)
         <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-server</artifactId>
+            <groupId>org.eclipse.krazo</groupId>
+            <artifactId>krazo-jersey</artifactId>
+        </dependency>
+#end
+#if($tomee9)
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-cdi</artifactId>
         </dependency>
         <dependency>
-            <groupId>jakarta.ejb</groupId>
-            <artifactId>jakarta.ejb-api</artifactId>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-servlet-initializer</artifactId>
         </dependency>
         <dependency>
-            <groupId>jakarta.mvc</groupId>
-            <artifactId>jakarta.mvc-api</artifactId>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-validator-provider-11</artifactId>
         </dependency>
+#end
 #if($jsf)
         <dependency>
             <groupId>org.primefaces</groupId>

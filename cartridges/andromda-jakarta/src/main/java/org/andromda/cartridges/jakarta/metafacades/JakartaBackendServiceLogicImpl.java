@@ -95,7 +95,7 @@ public class JakartaBackendServiceLogicImpl
 
     @Override
     protected String handleGetBeanName() {
-        return this.getBeanName(false);
+        return StringUtils.uncapitalize(this.getName());
     }
 
     @Override
