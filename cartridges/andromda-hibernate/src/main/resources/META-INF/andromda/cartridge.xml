@@ -25,6 +25,7 @@
     <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
 
     <property reference="hibernateVersion"/>
+    <property reference="hibernateNamespace"/>
     <property reference="javaVersion"/>
     <property reference="securityRealm"/>
     <property reference="customTypesPackage"/>

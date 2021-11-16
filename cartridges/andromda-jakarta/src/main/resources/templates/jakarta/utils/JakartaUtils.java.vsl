@@ -10,8 +10,8 @@ import org.apache.commons.lang3.StringUtils;
  * @author Chad Brandon
  * @author Walter Mourao
  */
-@jakarta.inject.Named("jakartaUtils")
-@jakarta.enterprise.context.SessionScoped
+@${hibernateNamespace}.inject.Named("jakartaUtils")
+@${hibernateNamespace}.enterprise.context.SessionScoped
 public class JakartaUtils implements java.io.Serializable
 {
 
@@ -20,9 +20,9 @@ public class JakartaUtils implements java.io.Serializable
      *
      * @return the current FacesContext
      */
-    public static jakarta.faces.context.FacesContext getFacesContext()
+    public static ${hibernateNamespace}.faces.context.FacesContext getFacesContext()
     {
-        return jakarta.faces.context.FacesContext.getCurrentInstance();
+        return ${hibernateNamespace}.faces.context.FacesContext.getCurrentInstance();
     }
     
     /**
@@ -50,7 +50,7 @@ public class JakartaUtils implements java.io.Serializable
      *
      * @return Map<String,Object>
      */
-    public static jakarta.faces.context.Flash getFlash()
+    public static ${hibernateNamespace}.faces.context.Flash getFlash()
     {
         return getFacesContext().getExternalContext().getFlash();
     }
@@ -61,9 +61,9 @@ public class JakartaUtils implements java.io.Serializable
      *
      * @return the current request instance.
      */
-    public static jakarta.servlet.http.HttpServletRequest getRequest()
+    public static ${hibernateNamespace}.servlet.http.HttpServletRequest getRequest()
     {
-        return (jakarta.servlet.http.HttpServletRequest)getFacesContext().getExternalContext().getRequest();
+        return (${hibernateNamespace}.servlet.http.HttpServletRequest)getFacesContext().getExternalContext().getRequest();
     }
 
     /**
@@ -72,9 +72,9 @@ public class JakartaUtils implements java.io.Serializable
      *
      * @return the current response instance.
      */
-    public static jakarta.servlet.http.HttpServletResponse getResponse()
+    public static ${hibernateNamespace}.servlet.http.HttpServletResponse getResponse()
     {
-        return (jakarta.servlet.http.HttpServletResponse)getFacesContext().getExternalContext().getResponse();
+        return (${hibernateNamespace}.servlet.http.HttpServletResponse)getFacesContext().getExternalContext().getResponse();
     }
 
 #if($trinidad)    
@@ -98,9 +98,9 @@ public class JakartaUtils implements java.io.Serializable
      *        current request, or return null if there is no such session.
      * @return the current session instance.
      */
-    public static jakarta.servlet.http.HttpSession getSession(final boolean create)
+    public static ${hibernateNamespace}.servlet.http.HttpSession getSession(final boolean create)
     {
-        return (jakarta.servlet.http.HttpSession)getFacesContext().getExternalContext().getSession(create);
+        return (${hibernateNamespace}.servlet.http.HttpSession)getFacesContext().getExternalContext().getSession(create);
     }
 
     /**
@@ -109,9 +109,9 @@ public class JakartaUtils implements java.io.Serializable
      *
      * @return the current session instance.
      */
-    public static jakarta.servlet.http.HttpSession getSession()
+    public static ${hibernateNamespace}.servlet.http.HttpSession getSession()
     {
-        return (jakarta.servlet.http.HttpSession)getFacesContext().getExternalContext().getSession(false);
+        return (${hibernateNamespace}.servlet.http.HttpSession)getFacesContext().getExternalContext().getSession(false);
     }
     
     /**
@@ -133,7 +133,7 @@ public class JakartaUtils implements java.io.Serializable
      * @param script the script
      */
     public void addPPRScript(String script){
-        jakarta.faces.context.FacesContext facesContext = getFacesContext();
+        ${hibernateNamespace}.faces.context.FacesContext facesContext = getFacesContext();
         final org.apache.myfaces.trinidad.render.ExtendedRenderKitService service = (org.apache.myfaces.trinidad.render.ExtendedRenderKitService)org.apache.myfaces.trinidad.util.Service.getRenderKitService(facesContext, org.apache.myfaces.trinidad.render.ExtendedRenderKitService.class);
         service.addScript(facesContext, script);
     }
@@ -202,7 +202,7 @@ public class JakartaUtils implements java.io.Serializable
      */
     public static void addErrorMessage(final String clientId, final String message)
     {
-        addMessage(clientId,jakarta.faces.application.FacesMessage.SEVERITY_ERROR, message);
+        addMessage(clientId,${hibernateNamespace}.faces.application.FacesMessage.SEVERITY_ERROR, message);
     }
 
     /**
@@ -212,7 +212,7 @@ public class JakartaUtils implements java.io.Serializable
      */
     public static void addErrorMessage(final String message)
     {
-        addMessage(jakarta.faces.application.FacesMessage.SEVERITY_ERROR, message);
+        addMessage(${hibernateNamespace}.faces.application.FacesMessage.SEVERITY_ERROR, message);
     }
 
     /**
@@ -222,7 +222,7 @@ public class JakartaUtils implements java.io.Serializable
      */
     public static void addWarningMessage(final String message)
     {
-        addMessage(jakarta.faces.application.FacesMessage.SEVERITY_WARN, message);
+        addMessage(${hibernateNamespace}.faces.application.FacesMessage.SEVERITY_WARN, message);
     }
 
     /**
@@ -233,7 +233,7 @@ public class JakartaUtils implements java.io.Serializable
      */
     public static void addWarningMessage(final String clientId, final String message)
     {
-        addMessage(clientId,jakarta.faces.application.FacesMessage.SEVERITY_WARN, message);
+        addMessage(clientId,${hibernateNamespace}.faces.application.FacesMessage.SEVERITY_WARN, message);
     }
 
     /**
@@ -243,7 +243,7 @@ public class JakartaUtils implements java.io.Serializable
      */
     public static void addInfoMessage(final String message)
     {
-        addMessage(jakarta.faces.application.FacesMessage.SEVERITY_INFO, message);
+        addMessage(${hibernateNamespace}.faces.application.FacesMessage.SEVERITY_INFO, message);
     }
 
     /**
@@ -253,7 +253,7 @@ public class JakartaUtils implements java.io.Serializable
      */
     public static void addFatalMessage(final String message)
     {
-        addMessage(jakarta.faces.application.FacesMessage.SEVERITY_FATAL, message);
+        addMessage(${hibernateNamespace}.faces.application.FacesMessage.SEVERITY_FATAL, message);
     }
 
     /**
@@ -264,7 +264,7 @@ public class JakartaUtils implements java.io.Serializable
      * @param severity the severity of the message
      * @param message the message to add.
      */
-    public static void addMessage(final String clientId, final jakarta.faces.application.FacesMessage.Severity severity, final String message)
+    public static void addMessage(final String clientId, final ${hibernateNamespace}.faces.application.FacesMessage.Severity severity, final String message)
     {
         getFacesContext().addMessage(clientId, new FacesMessage(severity, message, null));
     }
@@ -276,7 +276,7 @@ public class JakartaUtils implements java.io.Serializable
      * @param severity the severity of the message
      * @param message the message to add.
      */
-    public static void addMessage(final jakarta.faces.application.FacesMessage.Severity severity, final String message)
+    public static void addMessage(final ${hibernateNamespace}.faces.application.FacesMessage.Severity severity, final String message)
     {
         addMessage(null, severity, message);
     }
@@ -299,11 +299,11 @@ public class JakartaUtils implements java.io.Serializable
      * @param event the FacesEvent holding the parameter.
      * @return ParameterValue
      */
-    public static Object getParameterValue(String parameterName, jakarta.faces.event.FacesEvent event)
+    public static Object getParameterValue(String parameterName, ${hibernateNamespace}.faces.event.FacesEvent event)
     {
         for(Object uiObject : event.getComponent().getChildren()){
-            if(uiObject instanceof jakarta.faces.component.UIParameter){
-                final jakarta.faces.component.UIParameter param = (jakarta.faces.component.UIParameter)uiObject;
+            if(uiObject instanceof ${hibernateNamespace}.faces.component.UIParameter){
+                final ${hibernateNamespace}.faces.component.UIParameter param = (${hibernateNamespace}.faces.component.UIParameter)uiObject;
                 if(param.getName().equals(parameterName)) {
                     return param.getValue();
                 }
@@ -318,8 +318,8 @@ public class JakartaUtils implements java.io.Serializable
      * @param id the id of the component.
      * @return ParameterValue
      */
-    public static jakarta.faces.component.UIComponent getComponent(String id) { 
-        return jakarta.faces.context.FacesContext.getCurrentInstance().getViewRoot().findComponent(id) ; 
+    public static ${hibernateNamespace}.faces.component.UIComponent getComponent(String id) { 
+        return ${hibernateNamespace}.faces.context.FacesContext.getCurrentInstance().getViewRoot().findComponent(id) ; 
     }
     
     /**
@@ -327,11 +327,11 @@ public class JakartaUtils implements java.io.Serializable
      *
      * @param uic the parent UIComponent.
      */
-    public static void resetEditableComponentsValues(jakarta.faces.component.UIComponent uic)
+    public static void resetEditableComponentsValues(${hibernateNamespace}.faces.component.UIComponent uic)
     {
-        if(uic instanceof jakarta.faces.component.EditableValueHolder)
+        if(uic instanceof ${hibernateNamespace}.faces.component.EditableValueHolder)
         {
-            final jakarta.faces.component.EditableValueHolder evh=(jakarta.faces.component.EditableValueHolder)uic;
+            final ${hibernateNamespace}.faces.component.EditableValueHolder evh=(${hibernateNamespace}.faces.component.EditableValueHolder)uic;
             evh.setValue(null);
             evh.setSubmittedValue(null);
             evh.setLocalValueSet(false);
@@ -339,7 +339,7 @@ public class JakartaUtils implements java.io.Serializable
         }
         for(Object component: uic.getChildren())
         {
-            resetEditableComponentsValues((jakarta.faces.component.UIComponent)component);
+            resetEditableComponentsValues((${hibernateNamespace}.faces.component.UIComponent)component);
         }
     }
 
@@ -348,7 +348,7 @@ public class JakartaUtils implements java.io.Serializable
      */
     public static void resetAllEditableComponentsValues()
     {
-        final jakarta.faces.component.UIComponent viewRoot=getFacesContext().getViewRoot();
+        final ${hibernateNamespace}.faces.component.UIComponent viewRoot=getFacesContext().getViewRoot();
         if(viewRoot != null)
         {
             resetEditableComponentsValues(getFacesContext().getViewRoot());
@@ -361,14 +361,14 @@ public class JakartaUtils implements java.io.Serializable
      * @param converterId the id of the converter to be used
      * @return the Converter instance
      */
-    public static jakarta.faces.convert.Converter getConverter(
+    public static ${hibernateNamespace}.faces.convert.Converter getConverter(
             final String converterId)
     {
         if(org.apache.commons.lang3.StringUtils.isEmpty(converterId))
         {
             return null;
         }
-        final jakarta.faces.context.FacesContext facesContext=jakarta.faces.context.FacesContext.getCurrentInstance();
+        final ${hibernateNamespace}.faces.context.FacesContext facesContext=${hibernateNamespace}.faces.context.FacesContext.getCurrentInstance();
         return facesContext.getApplication().createConverter(converterId);
     }
 
@@ -385,8 +385,8 @@ public class JakartaUtils implements java.io.Serializable
             final String converterId,
             final String componentId)
     {
-        final jakarta.faces.context.FacesContext facesContext=jakarta.faces.context.FacesContext.getCurrentInstance();
-        final jakarta.faces.convert.Converter converter = facesContext.getApplication().createConverter(converterId);
+        final ${hibernateNamespace}.faces.context.FacesContext facesContext=${hibernateNamespace}.faces.context.FacesContext.getCurrentInstance();
+        final ${hibernateNamespace}.faces.convert.Converter converter = facesContext.getApplication().createConverter(converterId);
         return converter.getAsString(facesContext,
                 org.apache.commons.lang3.StringUtils.isEmpty(componentId)?null:facesContext.getViewRoot().findComponent(componentId),
                 value);
@@ -422,8 +422,8 @@ public class JakartaUtils implements java.io.Serializable
             final Object value,
             final String converterId)
     {
-        final jakarta.faces.context.FacesContext facesContext=jakarta.faces.context.FacesContext.getCurrentInstance();
-        final jakarta.faces.convert.Converter converter = facesContext.getApplication().createConverter(converterId);
+        final ${hibernateNamespace}.faces.context.FacesContext facesContext=${hibernateNamespace}.faces.context.FacesContext.getCurrentInstance();
+        final ${hibernateNamespace}.faces.convert.Converter converter = facesContext.getApplication().createConverter(converterId);
         return converter.getAsString(facesContext,null,value);
     }
 
@@ -445,19 +445,19 @@ public class JakartaUtils implements java.io.Serializable
     }    
 
     /**
-     * Returns an jakarta.faces.event.ActionEvent parameter value, from its name
+     * Returns an ${hibernateNamespace}.faces.event.ActionEvent parameter value, from its name
      *
      * @param parameterName the parameter name
      * @param event ActionEvent containing the parameter
      * @return the parameter value.
      */
-    public static Object getParameterValue(String parameterName, jakarta.faces.event.ActionEvent event)
+    public static Object getParameterValue(String parameterName, ${hibernateNamespace}.faces.event.ActionEvent event)
     {
         for(Object uiObject : event.getComponent().getChildren())
         {
-            if(uiObject instanceof jakarta.faces.component.UIParameter)
+            if(uiObject instanceof ${hibernateNamespace}.faces.component.UIParameter)
             {
-                final jakarta.faces.component.UIParameter param = (jakarta.faces.component.UIParameter)uiObject;
+                final ${hibernateNamespace}.faces.component.UIParameter param = (${hibernateNamespace}.faces.component.UIParameter)uiObject;
                 if(param.getName().equals(parameterName))
                 {
                     return param.getValue();
@@ -475,20 +475,20 @@ public class JakartaUtils implements java.io.Serializable
      * @return the array of SelectItem
      */
     @SuppressWarnings("rawtypes")
-    public static jakarta.faces.model.SelectItem[] getEnumSelectItems(final String prefix, final String enumClassName)
+    public static ${hibernateNamespace}.faces.model.SelectItem[] getEnumSelectItems(final String prefix, final String enumClassName)
     {
         try
         {
-            final jakarta.faces.model.SelectItem[] result;
+            final ${hibernateNamespace}.faces.model.SelectItem[] result;
             final Class<?> enumClass=JakartaUtils.class.getClassLoader().loadClass(enumClassName);
             if(enumClass.isEnum())
             {
                 final Enum[] values=(Enum[])enumClass.getMethod("values", (Class<?>[])null).invoke(null, (Object[])null);
-                result=new jakarta.faces.model.SelectItem[values.length];
+                result=new ${hibernateNamespace}.faces.model.SelectItem[values.length];
                 int i=0;
                 for(final Enum value:values)
                 {
-                    result[i]=new jakarta.faces.model.SelectItem(value,Messages.get(prefix+value.name()));
+                    result[i]=new ${hibernateNamespace}.faces.model.SelectItem(value,Messages.get(prefix+value.name()));
                     i++;
                 }
             }
@@ -497,10 +497,10 @@ public class JakartaUtils implements java.io.Serializable
                 final java.util.List values=(java.util.List)enumClass.getMethod("values", (Class<?>[])null).invoke(null, (Object[])null);
                 final int sz=values.size();
                 final java.util.List names=(java.util.List)enumClass.getMethod("names", (Class<?>[])null).invoke(null, (Object[])null);
-                result=new jakarta.faces.model.SelectItem[sz];
+                result=new ${hibernateNamespace}.faces.model.SelectItem[sz];
                 for(int i=0; i<sz; i++)
                 {
-                    result[i]=new jakarta.faces.model.SelectItem(values.get(i),Messages.get(prefix+names.get(i)));
+                    result[i]=new ${hibernateNamespace}.faces.model.SelectItem(values.get(i),Messages.get(prefix+names.get(i)));
                 }
             }
 
@@ -603,8 +603,8 @@ public class JakartaUtils implements java.io.Serializable
      * Returns the current ViewRoot
      * @return the current Faces ViewRoot
      */
-    public static jakarta.faces.component.UIViewRoot getViewRoot() {
-        return jakarta.faces.context.FacesContext.getCurrentInstance().getViewRoot();
+    public static ${hibernateNamespace}.faces.component.UIViewRoot getViewRoot() {
+        return ${hibernateNamespace}.faces.context.FacesContext.getCurrentInstance().getViewRoot();
     }
     
     /**
@@ -612,7 +612,7 @@ public class JakartaUtils implements java.io.Serializable
      * @param id
      * @return
      */
-    public static jakarta.faces.component.UIComponent findComponentInRoot(String scopedId) {
+    public static ${hibernateNamespace}.faces.component.UIComponent findComponentInRoot(String scopedId) {
         return getViewRoot().findComponent(scopedId);
     }
     
@@ -644,7 +644,7 @@ public class JakartaUtils implements java.io.Serializable
      * Inclui o componente no PPR
      */
     static public void addComponentToPPR(String id){
-        final jakarta.faces.component.UIComponent component=findComponentInRoot(id);
+        final ${hibernateNamespace}.faces.component.UIComponent component=findComponentInRoot(id);
         addComponentToPPR(component);
     }
 
@@ -652,7 +652,7 @@ public class JakartaUtils implements java.io.Serializable
      * Inclui o componente no PPR
      */
     static public void addComponentToPPR(String id, boolean resetValue){
-        final jakarta.faces.component.UIComponent component=findComponentInRoot(id);
+        final ${hibernateNamespace}.faces.component.UIComponent component=findComponentInRoot(id);
         addComponentToPPR(component, resetValue);
     }
 
@@ -662,7 +662,7 @@ public class JakartaUtils implements java.io.Serializable
     /*
      * Inclui todos os componentes do viewRoot no PPR
      */
-    static public void addComponentToPPR(jakarta.faces.component.UIComponent component, boolean recursive, boolean resetValue){
+    static public void addComponentToPPR(${hibernateNamespace}.faces.component.UIComponent component, boolean recursive, boolean resetValue){
         if(component instanceof org.apache.myfaces.trinidad.component.UIXComponent){
             getRequestContext().addPartialTarget(component);
             if(resetValue && component instanceof org.apache.myfaces.trinidad.component.UIXEditableValue){
@@ -671,7 +671,7 @@ public class JakartaUtils implements java.io.Serializable
         }
         if(recursive){
             for(Object uic: component.getChildren()){
-                addComponentToPPR((jakarta.faces.component.UIComponent)uic,true,resetValue);
+                addComponentToPPR((${hibernateNamespace}.faces.component.UIComponent)uic,true,resetValue);
             }
         }
     }
@@ -679,29 +679,29 @@ public class JakartaUtils implements java.io.Serializable
     /*
      * Inclui o componente no PPR
      */
-    static public void addComponentToPPR(jakarta.faces.component.UIComponent component, boolean resetValue){
+    static public void addComponentToPPR(${hibernateNamespace}.faces.component.UIComponent component, boolean resetValue){
         addComponentToPPR(component,false,resetValue);
     }
 
     /*
      * Inclui o componente no PPR
      */
-    static public void addComponentToPPR(jakarta.faces.component.UIComponent component){
+    static public void addComponentToPPR(${hibernateNamespace}.faces.component.UIComponent component){
         addComponentToPPR(component,false,false);
     }
 
-    private static void addChildrenToPPR(org.apache.myfaces.trinidad.context.RequestContext rc, jakarta.faces.component.UIComponent component, boolean resetValue){
+    private static void addChildrenToPPR(org.apache.myfaces.trinidad.context.RequestContext rc, ${hibernateNamespace}.faces.component.UIComponent component, boolean resetValue){
         rc.addPartialTarget(component);
         if(resetValue && component instanceof UIXEditableValue){
             ((org.apache.myfaces.trinidad.component.UIXEditableValue)component).resetValue();
         }
         for(Object obj: component.getChildren()){
-            addChildrenToPPR(rc,(jakarta.faces.component.UIComponent)obj, resetValue);
+            addChildrenToPPR(rc,(${hibernateNamespace}.faces.component.UIComponent)obj, resetValue);
         }
     }
 
     public static void addComponentAndChildrenToPPR(String clientId, boolean resetValue){
-        jakarta.faces.component.UIComponent component=getFacesContext().getViewRoot().findComponent(clientId);
+        ${hibernateNamespace}.faces.component.UIComponent component=getFacesContext().getViewRoot().findComponent(clientId);
         if(component != null){
             org.apache.myfaces.trinidad.context.RequestContext rc = RequestContext.getCurrentInstance();
             addChildrenToPPR(rc,component, resetValue);

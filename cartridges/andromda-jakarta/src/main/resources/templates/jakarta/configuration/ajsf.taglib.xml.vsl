@@ -9,7 +9,7 @@
     <function>
         <function-name>getConverter</function-name>
         <function-class>${managedBeansPackage}.JakartaUtils</function-class>
-        <function-signature>jakarta.faces.convert.Converter getConverter(java.lang.String)</function-signature>
+        <function-signature>${hibernateNamespace}.faces.convert.Converter getConverter(java.lang.String)</function-signature>
     </function>
     <function>
         <function-name>valueFromConverter</function-name>

@@ -19,7 +19,7 @@ package $service.ejbPackageName;
  * @see $service.fullyQualifiedName
  */
 public interface ${service.name}${localSuffix}Home
-    extends jakarta.ejb.EJBLocalHome
+    extends ${hibernateNamespace}.ejb.EJBLocalHome
 {
     /**
      * The logical JNDI name.
@@ -36,5 +36,5 @@ public interface ${service.name}${localSuffix}Home
      * @throws CreateException
      */
     public $service.fullyQualifiedLocalEjbName create()
-        throws jakarta.ejb.CreateException;
+        throws ${hibernateNamespace}.ejb.CreateException;
 }

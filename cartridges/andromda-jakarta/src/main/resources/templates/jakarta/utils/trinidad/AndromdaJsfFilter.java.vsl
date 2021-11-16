@@ -6,26 +6,26 @@ package $managedBeansPackage;
 
 import java.io.IOException;
 
-import jakarta.servlet.Filter;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.FilterConfig;
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import ${hibernateNamespace}.servlet.Filter;
+import ${hibernateNamespace}.servlet.FilterChain;
+import ${hibernateNamespace}.servlet.FilterConfig;
+import ${hibernateNamespace}.servlet.RequestDispatcher;
+import ${hibernateNamespace}.servlet.ServletException;
+import ${hibernateNamespace}.servlet.ServletRequest;
+import ${hibernateNamespace}.servlet.ServletResponse;
+import ${hibernateNamespace}.servlet.http.HttpServletRequest;
+import ${hibernateNamespace}.servlet.http.HttpServletResponse;
 
 /**
  * Solution to the Trinidad bug https://issues.apache.org/jira/browse/TRINIDAD-119
  *
  * @author Walter Mourao
  */
-@jakarta.servlet.annotation.WebFilter("*.xhtml")
+@${hibernateNamespace}.servlet.annotation.WebFilter("*.xhtml")
 public class AndromdaJakartaFilter implements Filter
 {
     /**
-     * @see jakarta.servlet.Filter#hash()init(jakarta.servlet.FilterConfig)
+     * @see ${hibernateNamespace}.servlet.Filter#hash()init(${hibernateNamespace}.servlet.FilterConfig)
      */
     @Override
     public void init(FilterConfig config) throws ServletException
@@ -34,7 +34,7 @@ public class AndromdaJakartaFilter implements Filter
     }
 
     /**
-     * @see jakarta.servlet.Filter#destroy()
+     * @see ${hibernateNamespace}.servlet.Filter#destroy()
      */
     @Override
     public void destroy()
@@ -43,7 +43,7 @@ public class AndromdaJakartaFilter implements Filter
     }
 
     /**
-     * @see jakarta.servlet.Filter#hash()doFilter(jakarta.servlet.ServletRequest, jakarta.servlet.ServletResponse, jakarta.servlet.FilterChain)
+     * @see ${hibernateNamespace}.servlet.Filter#hash()doFilter(${hibernateNamespace}.servlet.ServletRequest, ${hibernateNamespace}.servlet.ServletResponse, ${hibernateNamespace}.servlet.FilterChain)
      */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
@@ -62,7 +62,7 @@ public class AndromdaJakartaFilter implements Filter
             }
             else
             {
-                ((jakarta.servlet.http.HttpServletResponse)response).sendError(404);
+                ((${hibernateNamespace}.servlet.http.HttpServletResponse)response).sendError(404);
             }
         }
     }

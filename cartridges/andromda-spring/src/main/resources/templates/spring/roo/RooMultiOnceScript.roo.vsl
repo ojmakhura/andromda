@@ -29,7 +29,7 @@ logging setup --level INFO
 module focus --moduleName ~
 module create --moduleName web --topLevelPackage ${projectGroupId} --packaging WAR --parent ${projectGroupId}:${projectId}:0.1.0.BUILD-SNAPSHOT
 dependency add --groupId ${projectGroupId} --artifactId ${projectId}-core --version 0.1.0.BUILD-SNAPSHOT
-dependency add --groupId org.hibernate.jakarta.persistence --artifactId hibernate-jpa-2.0-api --version 1.0.1.Final
+dependency add --groupId org.hibernate.${hibernateNamespace}.persistence --artifactId hibernate-jpa-2.0-api --version 1.0.1.Final
 web mvc setup
 security setup
 logging setup --level INFO

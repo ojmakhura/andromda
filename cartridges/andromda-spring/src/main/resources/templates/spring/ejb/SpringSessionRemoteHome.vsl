@@ -15,7 +15,7 @@ package $service.ejbPackageName;
  * @see $service.fullyQualifiedName
  */
 public interface ${service.name}Home
-    extends jakarta.ejb.EJBHome
+    extends ${hibernateNamespace}.ejb.EJBHome
 {
     /**
      * The logical JNDI name.
@@ -30,9 +30,9 @@ public interface ${service.name}Home
     /**
      * The fullyQualified Ejb name.
      * @return fullyQualifiedEjbName
-     * @throws jakarta.ejb.CreateException
+     * @throws ${hibernateNamespace}.ejb.CreateException
      * @throws java.rmi.RemoteException
      */
     public $service.fullyQualifiedEjbName create()
-        throws jakarta.ejb.CreateException, java.rmi.RemoteException;
+        throws ${hibernateNamespace}.ejb.CreateException, java.rmi.RemoteException;
 }

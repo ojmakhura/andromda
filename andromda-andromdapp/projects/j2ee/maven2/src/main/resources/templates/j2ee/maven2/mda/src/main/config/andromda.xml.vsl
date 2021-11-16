@@ -131,6 +131,7 @@
             	<property name="applicationId">${application.id}</property>
 #if ($spring || $hibernate)
                 <property name="hibernateVersion">${hibernate.version}</property>
+                <property name="hibernateNamespace">${hibernate.namespace}</property>
                 <property name="hibernateEntityAnnotations">true</property>
 #end
                 <property name="persistenceContainerName">glassfish</property>
@@ -299,6 +300,7 @@
                 <!-- uncomment to enable EJB security
                 <property name="securityRealm">${application.id}</property>
                 -->
+                <property name="hibernateHbm2DDLAuto">update</property>
             </properties>
         </namespace>
 #elseif ($spring)

@@ -13,12 +13,12 @@ package $operation.owner.packageName;
  * {@link $operation.owner.name}.
  */
 public class $operation.messageListenerName
-    implements jakarta.jms.MessageListener
+    implements ${hibernateNamespace}.jms.MessageListener
 {
     /**
-     * @see jakarta.jms.MessageListener${esc.hash}onMessage(jakarta.jms.Message)
+     * @see ${hibernateNamespace}.jms.MessageListener${esc.hash}onMessage(${hibernateNamespace}.jms.Message)
      */
-    public void onMessage(jakarta.jms.Message message)
+    public void onMessage(${hibernateNamespace}.jms.Message message)
     {
         try
         {

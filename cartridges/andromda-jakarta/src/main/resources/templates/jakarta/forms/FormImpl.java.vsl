@@ -7,8 +7,8 @@ package $action.packageName;
 /**
 $action.getDocumentation(" * ")
  */
-@jakarta.inject.Named(value = "$action.formBeanName")
-@jakarta.enterprise.context.RequestScoped
+@${hibernateNamespace}.inject.Named(value = "$action.formBeanName")
+@${hibernateNamespace}.enterprise.context.RequestScoped
 public class $action.formImplementationName
     implements java.io.Serializable#if ($stringUtils.isNotBlank($action.formImplementationInterfaceList)), $action.formImplementationInterfaceList#end
 
@@ -36,9 +36,9 @@ public class $action.formImplementationName
 #end
 #if($field.actionParameter)
 #if($field.complex)
-    @jakarta.ws.rs.BeanParam
+    @${hibernateNamespace}.ws.rs.BeanParam
 #else
-//    @jakarta.ws.rs.FormParam("$field.name")
+    @${hibernateNamespace}.ws.rs.FormParam("$field.name")
 #end
 #end
     private $fieldTypeName $field.name;

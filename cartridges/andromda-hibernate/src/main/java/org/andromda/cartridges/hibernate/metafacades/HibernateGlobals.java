@@ -48,6 +48,10 @@ public class HibernateGlobals
      * Hibernate version to use.
      */
     static public final String HIBERNATE_VERSION = "hibernateVersion";
+    /**
+     * Hibernate version to use.
+     */
+    static public final String HIBERNATE_NAMESPACE = "hibernateNamespace";
 
     /**
      * The version for Hibernate 2.

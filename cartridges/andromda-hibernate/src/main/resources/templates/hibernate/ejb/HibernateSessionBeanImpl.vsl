@@ -8,8 +8,8 @@ package $service.packageName;
 /**
  * @see $service.fullyQualifiedName
  */
-@jakarta.inject.Named("$stringUtils.uncapitalize($service.name)")
-@jakarta.ejb.Stateless
+@${hibernateNamespace}.inject.Named("$stringUtils.uncapitalize($service.name)")
+@${hibernateNamespace}.ejb.Stateless
 public class ${service.name}Impl
     extends ${service.name}Bean
 {

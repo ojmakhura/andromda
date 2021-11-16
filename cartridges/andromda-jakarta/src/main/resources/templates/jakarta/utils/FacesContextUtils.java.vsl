@@ -5,16 +5,16 @@
 package $managedBeansPackage;
 #end
 
-import jakarta.el.ELResolver;
-import jakarta.faces.FactoryFinder;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.FacesContextFactory;
-import jakarta.faces.lifecycle.Lifecycle;
-import jakarta.faces.lifecycle.LifecycleFactory;
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
-import jakarta.servlet.http.HttpServletRequest;
+import ${hibernateNamespace}.el.ELResolver;
+import ${hibernateNamespace}.faces.FactoryFinder;
+import ${hibernateNamespace}.faces.context.FacesContext;
+import ${hibernateNamespace}.faces.context.FacesContextFactory;
+import ${hibernateNamespace}.faces.lifecycle.Lifecycle;
+import ${hibernateNamespace}.faces.lifecycle.LifecycleFactory;
+import ${hibernateNamespace}.servlet.ServletContext;
+import ${hibernateNamespace}.servlet.ServletRequest;
+import ${hibernateNamespace}.servlet.ServletResponse;
+import ${hibernateNamespace}.servlet.http.HttpServletRequest;
 
 /**
  * Contains utilities for dealing with the FacesContext.

@@ -8,7 +8,7 @@
 #set($formName = $action.formBeanName)
     <form id="${formName}" name="${formName}" 
         role="form" method="POST" 
-        action="#{request.contextPath}/app${action.controller.restPath}/${action.triggerName}">
+        action="#{request.contextPath}/app${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.trigger.name})">
 #if ($action.hyperlink)
     <h:commandLink id="${action.triggerName}Action" action="#{${action.controller.beanName}.${action.triggerName}}" immediate="true" ajax="false">
         <h:outputText id="${action.triggerName}ActionMessage" value="#{messages['$action.messageKey']}"/>

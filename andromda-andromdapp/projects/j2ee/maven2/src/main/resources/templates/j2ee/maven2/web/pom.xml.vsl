@@ -130,7 +130,7 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/target/src/WEB-INF/lib/ajax4jsf.jar</systemPath>
         </dependency>
-#else
+#elseif($jakarta)
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
@@ -168,9 +168,40 @@
 #end
 #if($jsf)
         <dependency>
+			<groupId>org.apache.myfaces.core</groupId>
+			<artifactId>myfaces-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.myfaces.core</groupId>
+			<artifactId>myfaces-impl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.myfaces.tomahawk</groupId>
+			<artifactId>tomahawk21</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.myfaces.extensions.validator</groupId>
+			<artifactId>myfaces-extval-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
+			<artifactId>myfaces-extval-property-validation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
+			<artifactId>myfaces-extval-bean-validation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.myfaces.extensions.validator.component-support-modules</groupId>
+			<artifactId>myfaces-extval-generic-support</artifactId>
+		</dependency>
+        <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <classifier>jakarta</classifier>
         </dependency>
 #end
         <dependency>

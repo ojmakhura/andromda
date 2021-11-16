@@ -11,7 +11,7 @@ null;
 #set($tmp = $controllers.add($transition.target.targetElement.controller))
 #if($targetControllerBeanName.equals($controller.beanName))
 #set($targetControllerBeanName = "this")
-"${transition.target.targetElement.path}"; /// trial
+"${transition.target.targetElement.path}"; 
 #else
 #if(${transition.target.targetElement})
 "${transition.target.targetElement.path}";
@@ -23,7 +23,7 @@ null;
 closeDialog();
 #end
 #elseif ($transition.enteringView)
-"${transition.target.path}.${facesServletExtension}";
+"${transition.target.path}.${facesServletExtension}"; 
 #elseif ($transition.enteringDecisionPoint)
 __${transition.operationCall.name}(#if (!$action.formFields.empty)form#end);
 #else

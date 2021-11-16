@@ -95,7 +95,7 @@ $operation.getDocumentation("     * ")
    // ---------------- create methods with separate attributes --------------------
 
     public void ejbCreate $service.operationCallFromAttributes
-           throws jakarta.ejb.CreateException
+           throws ${hibernateNamespace}.ejb.CreateException
     {
 #foreach ($attribute in $service.attributes)
         ${attribute.setterName} (${attribute.name});
@@ -103,7 +103,7 @@ $operation.getDocumentation("     * ")
     }
 
     public void ejbPostCreate $service.operationCallFromAttributes
-           throws jakarta.ejb.CreateException
+           throws ${hibernateNamespace}.ejb.CreateException
     {
     }
 
@@ -135,7 +135,7 @@ $operation.getDocumentation("     * ")
     // ---------------- Daos ---------------
 #foreach($entityRef in $service.entityReferences)
 
-    @jakarta.inject.Inject
+    @${hibernateNamespace}.inject.Inject
     protected $entityRef.targetElement.fullyQualifiedDaoImplementationName $entityRef.daoName; 
 
     /**

@@ -83,7 +83,7 @@ public class $service.defaultExceptionName
                 else
                 {
                     exceptionProperty = "causedByException";
-                    //jakarta.ejb.EJBException
+                    //${hibernateNamespace}.ejb.EJBException
                     if (PropertyUtils.isReadable(th, exceptionProperty))
                     {
                         targetException = (Throwable)PropertyUtils.getProperty(th, exceptionProperty);

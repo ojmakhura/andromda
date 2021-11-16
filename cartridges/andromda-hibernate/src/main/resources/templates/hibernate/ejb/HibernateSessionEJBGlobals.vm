@@ -1,7 +1,7 @@
-#set ($ejbInterface = "jakarta.ejb.EJBLocalObject")
-#set ($ejbHomeInterface = "jakarta.ejb.EJBLocalHome")
+#set ($ejbInterface = "${hibernateNamespace}.ejb.EJBLocalObject")
+#set ($ejbHomeInterface = "${hibernateNamespace}.ejb.EJBLocalHome")
 #if ($service.ejbRemoteView)
-#set ($ejbInterface = "jakarta.ejb.EJBObject")
-#set ($ejbHomeInterface = "jakarta.ejb.EJBHome")
+#set ($ejbInterface = "${hibernateNamespace}.ejb.EJBObject")
+#set ($ejbHomeInterface = "${hibernateNamespace}.ejb.EJBHome")
 #end
 #set ($ejbSecurityEnabled = $stringUtils.isNotBlank($securityRealm))

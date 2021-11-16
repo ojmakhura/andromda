@@ -163,24 +163,46 @@
 #end
 #end
 #if ($web)
+#if($jsf)
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-jsf2-cartridge</artifactId>
                 <version>${andromda.version}</version>
                 <scope>provided</scope>
             </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.core</groupId>
+                <artifactId>myfaces-api</artifactId>
+                <version>${myfaces.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.core</groupId>
+                <artifactId>myfaces-impl</artifactId>
+                <version>${myfaces.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.tomahawk</groupId>
+                <artifactId>tomahawk21</artifactId>
+                <version>1.1.14</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>xml-apis</groupId>
+                        <artifactId>xmlParserAPIs</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
             <!-- validation dependencies -->
-             <!-- <dependency>
+            <dependency>
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
                 <version>2.0.0.Final</version>
-            </dependency> -->
-            <!-- <dependency>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.myfaces.extensions.validator</groupId>
                 <artifactId>myfaces-extval-core</artifactId>
                 <version>2.0.8</version>
-            </dependency> -->
-            <!-- <dependency>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
                 <artifactId>myfaces-extval-property-validation</artifactId>
                 <version>2.0.8</version>
@@ -190,8 +212,8 @@
                         <artifactId>persistence-api</artifactId>                	
                 	</exclusion>
                 </exclusions>
-            </dependency> -->
-            <!-- <dependency>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
                 <artifactId>myfaces-extval-bean-validation</artifactId>
                 <version>2.0.8</version>
@@ -200,13 +222,21 @@
                 <groupId>org.apache.myfaces.extensions.validator.component-support-modules</groupId>
                 <artifactId>myfaces-extval-generic-support</artifactId>
                 <version>2.0.8</version>
-            </dependency> -->
+            </dependency>
             <dependency>
                 <groupId>org.primefaces</groupId>
                 <artifactId>primefaces</artifactId>
                 <version>10.0.0</version>
-                <classifier>jakarta</classifier>
             </dependency>
+#end
+#if($jakarta)
+            <dependency>
+                <groupId>org.andromda.cartridges</groupId>
+                <artifactId>andromda-jakarta-cartridge</artifactId>
+                <version>${andromda.version}</version>
+                <scope>provided</scope>
+            </dependency>
+#end
 #if (!$spring && !$hibernate && !$ejb3)
             <dependency>
                 <groupId>org.hibernate.validator</groupId>
@@ -415,7 +445,7 @@
             </dependency>
 #if ($spring)
             <dependency>
-                <groupId>org.hibernate.orm</groupId>
+                <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-core</artifactId>
                 <version>${hibernate.core.version}</version>
             </dependency>
@@ -558,7 +588,7 @@
                 <scope>test</scope>
 #end
             </dependency>
-#if (!$web))
+#if (!$web)
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
@@ -583,6 +613,12 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-jpa</artifactId>
                 <version>${spring-boot.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.hibernate</groupId>
+                        <artifactId>hibernate-core</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -899,13 +935,19 @@
 #if (!$spring)
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-test</artifactId>
-		<version>${spring-boot.version}</version>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-data-jpa</artifactId>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
                 <version>${spring-boot.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.hibernate</groupId>
+                        <artifactId>hibernate-core</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -1038,7 +1080,7 @@
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>8.0.26</version>
+                <version>8.0.27</version>
 #if (!$jetty && !$tomcat)
                 <scope>test</scope>
 #end
@@ -1047,7 +1089,7 @@
             <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
-                <version>42.2.6</version>
+                <version>42.3.1</version>
 #if (!$jetty && !$tomcat)
                 <scope>test</scope>
 #end
@@ -1537,15 +1579,18 @@
 #set ($hbVersion = "6.0.0.Alpha7")
 #if($spring)
         <!-- Set andromda.xml hibernateVersion=6, sessionFactory and localTransactionManager to hibernate6.-->
-#set ($hbCoreVersion = "6.0.0.Alpha9")
+#set ($hbCoreVersion = "5.6.1.Final")
+#set ($hibernateNamespace = "javax")
 #elseif ($hibernate || $ejb3)
         <!-- Set andromda.xml hibernateVersion=5, sessionFactory and localTransactionManager to hibernate5-->
         <!-- new Hibername 5 inclusion -->
         <!-- new Hibername 6 inclusion -->
-#set ($hbCoreVersion = "5.6.0.Beta1")
+#set ($hbCoreVersion = "5.6.1.Final")
+#set ($hibernateNamespace = "jakarta")
 #end
         <hibernate.version>$hbVersion</hibernate.version>
         <hibernate.core.version>$hbCoreVersion</hibernate.core.version>
+        <hibernate.namespace>${hibernateNamespace}</hibernate.namespace>
 #end
 #if ($jetty || !$webservice.equals("none"))
         <!-- v 9.x only supports JDK7 and you cannot configure jetty.port from maven.-->
@@ -1561,8 +1606,8 @@
         <spring.version>5.3.9</spring.version>
 #elseif ($spring || $springws)
         <!-- v5 migration needed -->
-        <spring.version>5.3.9</spring.version>
-	    <spring-boot.version>2.5.4</spring-boot.version>
+        <spring.version>5.3.13</spring.version>
+	    <spring-boot.version>2.5.6</spring-boot.version>
 #end
 #if($jakarta)
         <jakarta.version>9.1.0</jakarta.version>

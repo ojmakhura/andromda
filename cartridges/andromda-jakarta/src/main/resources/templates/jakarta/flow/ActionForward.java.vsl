@@ -12,12 +12,12 @@ package $action.packageName;
  * This servlet is used to allow controller operation execution through
  * a URL call.
  */
-## @jakarta.servlet.annotation.WebServlet("${action.path}.${facesServletExtension}")
-@jakarta.mvc.Controller
-@jakarta.enterprise.context.RequestScoped
-@jakarta.ws.rs.Path("${action.path}")
+## @${hibernateNamespace}.servlet.annotation.WebServlet("${action.path}.${facesServletExtension}")
+@${hibernateNamespace}.mvc.Controller
+@${hibernateNamespace}.enterprise.context.RequestScoped
+@${hibernateNamespace}.ws.rs.Path("${action.path}")
 public class $action.actionClassName implements java.io.Serializable
-##      extends jakarta.servlet.http.HttpServlet
+##      extends ${hibernateNamespace}.servlet.http.HttpServlet
 {
 // 
     /**
@@ -25,23 +25,23 @@ public class $action.actionClassName implements java.io.Serializable
      */
     private static final long serialVersionUID = 1L;
 
-    @jakarta.inject.Inject
+    @${hibernateNamespace}.inject.Inject
     private $action.controller.fullyQualifiedImplementationName $action.controller.beanName;
 
-    @jakarta.ws.rs.GET
+    @${hibernateNamespace}.ws.rs.GET
     public String start() throws Throwable {
 
         return ${action.controller.beanName}.startUseCase();
     }
 ##
 ##    /**
-##     * @see jakarta.servlet.http.HttpServlet#hash()doGet(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse)
+##     * @see ${hibernateNamespace}.servlet.http.HttpServlet#hash()doGet(${hibernateNamespace}.servlet.http.HttpServletRequest, ${hibernateNamespace}.servlet.http.HttpServletResponse)
 ##     */
 ##    @Override
 ##    public void doGet(
-##        final jakarta.servlet.http.HttpServletRequest request,
-##        final jakarta.servlet.http.HttpServletResponse response)
-##        throws jakarta.servlet.ServletException, java.io.IOException
+##        final ${hibernateNamespace}.servlet.http.HttpServletRequest request,
+##        final ${hibernateNamespace}.servlet.http.HttpServletResponse response)
+##        throws ${hibernateNamespace}.servlet.ServletException, java.io.IOException
 ##    {
 ##        // - we need to resolve the controller differently since we're outside of the faces servlet
 ## #set ($facesContextUtilsFullyQualifiedName = "FacesContextUtils")
@@ -65,7 +65,7 @@ public class $action.actionClassName implements java.io.Serializable
 ##        }
 ##        catch(Throwable t)
 ##        {
-##            throw new jakarta.servlet.ServletException(t);
+##            throw new ${hibernateNamespace}.servlet.ServletException(t);
 ##        }
 ##        
 ##        if(forwardPath != null){
@@ -74,13 +74,13 @@ public class $action.actionClassName implements java.io.Serializable
 ##    }
 ##
 ##    /**
-##     * @see jakarta.servlet.http.HttpServlet#hash()doPost(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse)
+##     * @see ${hibernateNamespace}.servlet.http.HttpServlet#hash()doPost(${hibernateNamespace}.servlet.http.HttpServletRequest, ${hibernateNamespace}.servlet.http.HttpServletResponse)
 ##     */
 ##    @Override
 ##    public void doPost(
-##        final jakarta.servlet.http.HttpServletRequest request,
-##        final jakarta.servlet.http.HttpServletResponse response)
-##        throws jakarta.servlet.ServletException, java.io.IOException
+##        final ${hibernateNamespace}.servlet.http.HttpServletRequest request,
+##        final ${hibernateNamespace}.servlet.http.HttpServletResponse response)
+##        throws ${hibernateNamespace}.servlet.ServletException, java.io.IOException
 ##    {
 ##        this.doGet(request, response);
 ##    }

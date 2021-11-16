@@ -349,8 +349,7 @@
             <element name="HIBERNATE_VERSION_PROPERTY">
                 <documentation>
                     Specifies wheter or not the entity will have a version property. If a value is present, then the
-                    entity will have
-                    a version property with the name specified within the tagged value.
+                    entity will have a version property with the name specified within the tagged value.
                 </documentation>
                 <value>andromda_hibernate_version</value>
                 <appliedOnElement><![CDATA[<<Entity>>]]></appliedOnElement>

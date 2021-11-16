@@ -998,6 +998,17 @@
                     </ul>
                 </documentation>
             </property>
+            <property name="hibernateNamespace">
+                <default>javax</default>
+                <documentation>
+                    The namespace of Hibernate to use when generating.
+                    Allowable values are:
+                    <ul>
+                        <li>javax - Hibernate javax.* Namespace</li>
+                        <li>jakarta - Hibernate jakarta.* Namespace</li>
+                    </ul>
+                </documentation>
+            </property>
             <property name="hibernateEntityAnnotations" required="false">
                 <default>true</default>
                 <documentation>

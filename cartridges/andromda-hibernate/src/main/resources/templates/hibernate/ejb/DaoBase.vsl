@@ -30,13 +30,13 @@ package ${entity.packageName};
  *
  * @see $rootDaoType
  */
-@jakarta.ejb.TransactionAttribute(jakarta.ejb.TransactionAttributeType.REQUIRED)
-@jakarta.ejb.Local({${rootDaoType}.class})
+@${hibernateNamespace}.ejb.TransactionAttribute(${hibernateNamespace}.ejb.TransactionAttributeType.REQUIRED)
+@${hibernateNamespace}.ejb.Local({${rootDaoType}.class})
 #if ($entity.securityEnabled)
 #**##if ($stringUtils.isBlank(${entity.rolesAllowed}))
-@jakarta.annotation.security.PermitAll
+@${hibernateNamespace}.annotation.security.PermitAll
 #**##else
-@jakarta.annotation.security.RolesAllowed({${entity.rolesAllowed}})
+@${hibernateNamespace}.annotation.security.RolesAllowed({${entity.rolesAllowed}})
 #**##end
 #end
 public abstract class $entity.daoBaseName
@@ -46,16 +46,16 @@ public abstract class $entity.daoBaseName
     implements $rootDaoType
 {
     /** Session Context Injection */
-    @jakarta.annotation.Resource
-    protected jakarta.ejb.SessionContext context;
+    @${hibernateNamespace}.annotation.Resource
+    protected ${hibernateNamespace}.ejb.SessionContext context;
 
     /**
      * Inject persistence context #if ($entity.defaultPersistenceContextUnitName)${entity.defaultPersistenceContextUnitName}#end
 
      */
-    @jakarta.persistence.PersistenceContext#if ($entity.defaultPersistenceContextUnitName)(unitName = "${entity.defaultPersistenceContextUnitName}")#end
+    @${hibernateNamespace}.persistence.PersistenceContext#if ($entity.defaultPersistenceContextUnitName)(unitName = "${entity.defaultPersistenceContextUnitName}")#end
 
-    protected jakarta.persistence.EntityManager entityManager;
+    protected ${hibernateNamespace}.persistence.EntityManager entityManager;
 
 #set ($entityReferences = $entity.entityReferences)
 #if (!$entityReferences.empty)
@@ -65,7 +65,7 @@ public abstract class $entity.daoBaseName
     /**
      * Inject DAO $entityRef.targetElement.fullyQualifiedDaoName
      */
-    @jakarta.ejb.EJB
+    @${hibernateNamespace}.ejb.EJB
     protected $entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName;
 
 #**##end
@@ -159,9 +159,9 @@ public abstract class $entity.daoBaseName
         try
         {
 #if ($entity.genericFinders)
-            jakarta.persistence.TypedQuery<${entity.fullyQualifiedEntityName}> query = this.entityManager.createNamedQuery("${entity.name}.findAll", ${entity.fullyQualifiedEntityName}.class);
+            ${hibernateNamespace}.persistence.TypedQuery<${entity.fullyQualifiedEntityName}> query = this.entityManager.createNamedQuery("${entity.name}.findAll", ${entity.fullyQualifiedEntityName}.class);
 #else
-            jakarta.persistence.TypedQuery<${entity.fullyQualifiedEntityName}> query = this.entityManager.createQuery("from ${entity.entityName} as entity", ${entity.fullyQualifiedEntityName}.class);
+            ${hibernateNamespace}.persistence.TypedQuery<${entity.fullyQualifiedEntityName}> query = this.entityManager.createQuery("from ${entity.entityName} as entity", ${entity.fullyQualifiedEntityName}.class);
 #end
 #if ($entity.useQueryCache && !$entity.useDefaultCacheRegion)
             query.setHint("org.hibernate.cacheRegion", "/${entity.fullyQualifiedNamePath}_findAll");
@@ -548,13 +548,24 @@ public abstract class $entity.daoBaseName
 ##
 #foreach ($finder in $queryOperations)
 #set ($returnType = $finder.returnType.fullyQualifiedName)
+#**##if ($finder.returnTypePresent)
+#*  *##if ($finder.returnType.setType)
+#set ($transformReturn = "java.util.Set")
+#*  *##elseif ($finder.returnType.collectionType)
+#set ($transformReturn = "java.util.List")
+#*  *##elseif ($finder.many)
+#set ($transformReturn = "java.util.List<$returnType>")
+#*  *##else
+#set ($transformReturn = "Object")
+#*  *##end
+#**##end
     /**
      * @see ${rootDaoType}${esc.hash}$finder.getSignature(false)
      */
 #if ($javaVersion.compareTo("1.6")>-1)
     @Override
 #end
-    $finder.visibility $returnType $finder.signature
+    $finder.visibility $transformReturn $finder.signature
 #if ($finder.exceptionsPresent)
         throws $finder.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
 #else
@@ -563,8 +574,8 @@ public abstract class $entity.daoBaseName
     {
 #set ($finderCall = "this.${finder.name}($entity.daoNoTransformationConstantName#if(!$finder.arguments.empty), ${finder.argumentNames}#end);")
 #if ($finder.returnTypePresent)
-#*  *##if (!$finder.returnType.collectionType)
-#*    *##set ($finderCall = "($returnType)$finderCall")
+#*  *##if (!$finder.returnType.collectionType || $finder.many)
+#*    *##set ($finderCall = "($transformReturn)$finderCall")
 #*  *##end
         return $finderCall
 #else
@@ -578,7 +589,7 @@ public abstract class $entity.daoBaseName
 #if ($javaVersion.compareTo("1.6")>-1)
     @Override
 #end
-    $finder.visibility $returnType ${finder.name}(final String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+    $finder.visibility $transformReturn ${finder.name}(final String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #**##if ($finder.exceptionsPresent)
         throws $finder.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
 #**##else
@@ -588,7 +599,7 @@ public abstract class $entity.daoBaseName
 #**##set ($finderCall = "this.${finder.name}($entity.daoNoTransformationConstantName, queryString#if(!$finder.arguments.empty), ${finder.argumentNames}#end);")
 #**##if ($finder.returnTypePresent)
 #*  *##if (!$finder.returnType.collectionType)
-#*    *##set ($finderCall = "($returnType)$finderCall")
+#*    *##set ($finderCall = "($transformReturn)$finderCall")
 #*  *##end
         return $finderCall
 #**##else
@@ -596,15 +607,6 @@ public abstract class $entity.daoBaseName
 #**##end
     }
 
-#**##if ($finder.returnTypePresent)
-#*  *##if ($finder.returnType.setType)
-#set ($transformReturn = "java.util.Set")
-#*  *##elseif ($finder.returnType.collectionType)
-#set ($transformReturn = "java.util.List")
-#*  *##else
-#set ($transformReturn = "Object")
-#*  *##end
-#**##end
     /**
      * @see ${rootDaoType}${esc.hash}${finder.name}(int#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
      */
@@ -620,7 +622,7 @@ public abstract class $entity.daoBaseName
     {
         try
         {
-            jakarta.persistence.TypedQuery<${rootEntityType}> queryObject = this.entityManager.createNamedQuery("${entity.name}.${finder.name}", ${rootEntityType}.class);
+            ${hibernateNamespace}.persistence.TypedQuery<${rootEntityType}> queryObject = this.entityManager.createNamedQuery("${entity.name}.${finder.name}", ${rootEntityType}.class);
 #**##foreach($argument in $finder.arguments)
 #*  *##set ($count = $velocityCount - 1)
 #*  *##set ($argumentValue = $argument.name)
@@ -629,13 +631,14 @@ public abstract class $entity.daoBaseName
 #*  *##elseif ($argument.maxResults)
             queryObject.setMaxResults(${argument.name});
 #*  *##else
+#if($collectionUtils.isEmpty($argument.type.attributes))
 #*    *##if($argument.type.primitive)
 #*      *##set ($argumentValue = "new ${argument.type.wrapperName}($argument.name)")
 #*    *##else
 #*      *##set ($argumentValue = "${argument.name}")
 #*    *##end
 #*    *##if ($argument.temporalType)
-#*      *##set ($argumentValue = "${argumentValue}, jakarta.persistence.TemporalType.${argument.temporalType}")
+#*      *##set ($argumentValue = "${argumentValue}, ${hibernateNamespace}.persistence.TemporalType.${argument.temporalType}")
 #*    *##end
 #*    *##set ($setParameterOperation = "setParameter")
 #*    *###if ($argument.type.collectionType || $argument.type.arrayType)
@@ -646,6 +649,27 @@ public abstract class $entity.daoBaseName
 #*    *##else
             queryObject.${setParameterOperation}($count, $argumentValue);
 #*    *##end
+#else
+#foreach($attribute in $argument.type.attributes)
+#*    *##if($attribute.type.primitive)
+#*      *##set ($argumentValue = "new ${attribute.type.wrapperName}(${argument.name}.${attribute.getterName}())")
+#*    *##else
+#*      *##set ($argumentValue = "${argument.name}.${attribute.getterName}()")
+#*    *##end
+#*    *##if ($attribute.temporalType)
+#*      *##set ($argumentValue = "${argumentValue}, ${hibernateNamespace}.persistence.TemporalType.${attribute.temporalType}")
+#*    *##end
+#*    *##set ($setParameterOperation = "setParameter")
+#*    *###if ($attribute.type.collectionType || $attribute.type.arrayType)
+#*      *###set ($setParameterOperation = "${setParameterOperation}List")
+#*    *###end
+#*    *##if ($finder.useNamedParameters)
+            queryObject.${setParameterOperation}("$attribute.name", $argumentValue);
+#*    *##else
+            queryObject.${setParameterOperation}($count, $argumentValue);
+#*    *##end
+#end
+#end
 #*  *##end
 #**##end
 #**##if ($finder.useQueryCache && !$entity.useDefaultCacheRegion)
@@ -653,15 +677,15 @@ public abstract class $entity.daoBaseName
 #**##end
 #**##if ($finder.returnTypePresent)
 #*  *##if ($finder.returnType.setType)
-            java.util.Set results = new java.util.LinkedHashSet(queryObject.getResultList());
+            $transformReturn results = new java.util.LinkedHashSet(queryObject.getResultList());
             transformEntities(transform, results);
             return results;
-#*  *##elseif ($finder.returnType.collectionType)
-            java.util.List results = queryObject.getResultList();
+#*  *##elseif ($finder.returnType.collectionType || $finder.many)
+            $transformReturn results = queryObject.getResultList();
             transformEntities(transform, results);
             return results;
 #*  *##else
-            Object result = queryObject.getSingleResult();
+            $transformReturn result = queryObject.getSingleResult();
             result = transformEntity(transform, (${rootEntityType})result);
             return result;
 #*  *##end
@@ -690,7 +714,7 @@ public abstract class $entity.daoBaseName
     {
         try
         {
-            jakarta.persistence.TypedQuery<${entity.fullyQualifiedEntityName}> queryObject = this.entityManager.createQuery(queryString, ${entity.fullyQualifiedEntityName}.class);
+            ${hibernateNamespace}.persistence.TypedQuery<${entity.fullyQualifiedEntityName}> queryObject = this.entityManager.createQuery(queryString, ${entity.fullyQualifiedEntityName}.class);
 #**##foreach($argument in $finder.arguments)
 #*  *##set ($count = $velocityCount - 1)
 #*  *##set ($argumentValue = $argument.name)
@@ -705,7 +729,7 @@ public abstract class $entity.daoBaseName
 #*      *##set ($argumentValue = "${argument.name}")
 #*    *##end
 #*    *##if ($argument.temporalType)
-#*      *##set ($argumentValue = "${argumentValue}, jakarta.persistence.TemporalType.${argument.temporalType}")
+#*      *##set ($argumentValue = "${argumentValue}, ${hibernateNamespace}.persistence.TemporalType.${argument.temporalType}")
 #*    *##end
 #*    *##set ($setParameterOperation = "setParameter")
 #*    *###if ($argument.type.collectionType || $argument.type.arrayType)
@@ -723,15 +747,15 @@ public abstract class $entity.daoBaseName
 #**##end
 #**##if ($finder.returnTypePresent)
 #*  *##if ($finder.returnType.setType)
-            java.util.Set results = new java.util.LinkedHashSet(queryObject.getResultList());
+            $transformReturn results = new java.util.LinkedHashSet(queryObject.getResultList());
             transformEntities(transform, results);
             return results;
-#*  *##elseif ($finder.returnType.collectionType)
-            java.util.List results = queryObject.getResultList();
+#*  *##elseif ($finder.returnType.collectionType || $finder.many)
+            $transformReturn results = queryObject.getResultList();
             transformEntities(transform, results);
             return results;
 #*  *##else
-            Object result = queryObject.getSingleResult();
+            $transformReturn result = queryObject.getSingleResult();
             result = transformEntity(transform, (${rootEntityType})result);
             return result;
 #*  *##end

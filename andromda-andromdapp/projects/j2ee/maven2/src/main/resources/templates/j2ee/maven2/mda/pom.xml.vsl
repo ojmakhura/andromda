@@ -463,7 +463,7 @@
         <core.generated.test.dir>${project.basedir}/../core/target/src/test/java</core.generated.test.dir>
         <core.manual.test.dir>${project.basedir}/../core/src/test/java</core.manual.test.dir>
 #end
-#if ($angular))
+#if ($angular)
         <angular.base.dir>${project.basedir}/../angular</angular.base.dir>
         <angular.resources.dir>${project.basedir}/../angular/resources</angular.resources.dir>
         <angular.css.dir>${project.basedir}/../angular/css</angular.css.dir>

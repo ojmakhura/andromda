@@ -3,7 +3,9 @@ package org.andromda.cartridges.hibernate.metafacades;
 import java.util.Collection;
 import java.util.Iterator;
 import org.andromda.cartridges.hibernate.HibernateProfile;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -63,15 +65,34 @@ public class HibernateFinderMethodLogicImpl
                 for (; argumentIt.hasNext();)
                 {
                     ParameterFacade argument = (ParameterFacade)argumentIt.next();
-                    String parameter = "?";
-                    if (this.isUseNamedParameters())
-                    {
-                        parameter = ':' + argument.getName();
-                    }
-                    queryString = queryString + ' ' + variableName + '.' + argument.getName() + " = " + parameter;
-                    if (argumentIt.hasNext())
-                    {
-                        queryString = queryString + " AND";
+
+                    if(CollectionUtils.isEmpty(argument.getType().getAttributes())) {
+
+                        String parameter = "?";
+                        if (this.isUseNamedParameters())
+                        {
+                            parameter = ':' + argument.getName();
+                        }
+                        queryString = queryString + ' ' + variableName + '.' + argument.getName() + " = " + parameter;
+                        if (argumentIt.hasNext())
+                        {
+                            queryString = queryString + " AND";
+                        }
+                    } else {
+                        Iterator<AttributeFacade> paramIt = argument.getType().getAttributes().iterator();
+                        for (; paramIt.hasNext();) {
+                            AttributeFacade attribute = paramIt.next();
+                            String parameter = "?";
+                            if (this.isUseNamedParameters())
+                            {
+                                parameter = ':' + attribute.getName();
+                            }
+                            queryString = queryString + ' ' + variableName + '.' + attribute.getName() + " = " + parameter;
+                            if (argumentIt.hasNext())
+                            {
+                                queryString = queryString + " AND";
+                            }
+                        }
                     }
                 }
             }

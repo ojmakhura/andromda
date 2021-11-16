@@ -21,8 +21,8 @@ package ${entity.packageName};
 /**
  * @see $entity.fullyQualifiedEntityName
  */
-@jakarta.inject.Named(value = "$stringUtils.uncapitalize($entity.daoName)")
-@jakarta.ejb.Stateless
+@${hibernateNamespace}.inject.Named(value = "$stringUtils.uncapitalize($entity.daoName)")
+@${hibernateNamespace}.ejb.Stateless
 public class $entity.daoImplementationName
     extends $entity.fullyQualifiedDaoBaseName
 {

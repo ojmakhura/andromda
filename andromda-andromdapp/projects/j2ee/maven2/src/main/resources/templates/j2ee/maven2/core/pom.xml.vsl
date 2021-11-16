@@ -90,7 +90,7 @@
 #end
 #if ($spring)
         <dependency>
-            <groupId>org.hibernate.orm</groupId>
+            <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
         </dependency>
 #else
@@ -597,7 +597,7 @@
 #end
                 <dependencies>
                     <dependency>
-                        <groupId>org.hibernate#if($spring).orm#end</groupId>
+                        <groupId>org.hibernate</groupId>
 #if($hibernate)
                         <artifactId>hibernate-core-jakarta</artifactId>
 #else

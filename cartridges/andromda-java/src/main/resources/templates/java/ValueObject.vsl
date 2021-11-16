@@ -128,7 +128,7 @@ public#if($class.leaf) final#end#if($class.abstract) abstract#end class $umlUtil
     /**
 $parameter.getDocumentation("     * ")
      */
-    @jakarta.ws.rs.FormParam("$parameter.name")
+//    @jakarta.ws.rs.FormParam("$parameter.name")
     protected $returnType $parameter.name#if (!$parameter.many && $parameter.defaultValuePresent) = ${parameter.defaultValue}#end;
 
     /**
@@ -217,7 +217,7 @@ $attribute.getDocumentation("     * ")
 #foreach($annotation in $attribute.additionalAnnotations)
     @$annotation
 #end
-    @jakarta.ws.rs.FormParam("$attribute.name")
+//    @jakarta.ws.rs.FormParam("$attribute.name")
     protected $returnType $attribute.name#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#end;
 #if ($attribute.type.primitive)
     /**

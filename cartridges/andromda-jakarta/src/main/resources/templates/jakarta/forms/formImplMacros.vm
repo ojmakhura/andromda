@@ -11,14 +11,14 @@
     /**
      * Stores the label/value pairs.
      */
-    private java.util.Collection<jakarta.faces.model.SelectItem> $backingListName;
+    private java.util.Collection<${hibernateNamespace}.faces.model.SelectItem> $backingListName;
 
 #set ($backingListMethod = $stringUtils.capitalize($backingListName))
 
     /**
-     * @return backingList java.util.Collection<jakarta.faces.model.SelectItem>
+     * @return backingList java.util.Collection<${hibernateNamespace}.faces.model.SelectItem>
      */
-    public java.util.Collection<jakarta.faces.model.SelectItem> get${backingListMethod}()
+    public java.util.Collection<${hibernateNamespace}.faces.model.SelectItem> get${backingListMethod}()
     {
         return $backingListName;
     }
@@ -26,7 +26,7 @@
     /**
      * @param ${backingListName}In
      */
-    public void set${backingListMethod}(java.util.Collection<jakarta.faces.model.SelectItem> ${backingListName}In)
+    public void set${backingListMethod}(java.util.Collection<${hibernateNamespace}.faces.model.SelectItem> ${backingListName}In)
     {
         this.$backingListName = ${backingListName}In;
     }

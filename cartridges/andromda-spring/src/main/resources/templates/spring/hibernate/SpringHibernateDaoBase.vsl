@@ -88,13 +88,13 @@ public abstract class $entity.daoBaseName
     protected org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(${entity.daoBaseName}.class);
 
     @Autowired
-    protected javax.persistence.EntityManager entityManager;
+    protected ${hibernateNamespace}.persistence.EntityManager entityManager;
 
-    public void setEntityManager(javax.persistence.EntityManager entityManager) {
+    public void setEntityManager(${hibernateNamespace}.persistence.EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
-    public javax.persistence.EntityManager getEntityManager() {
+    public ${hibernateNamespace}.persistence.EntityManager getEntityManager() {
         return this.entityManager;
     }
 
@@ -321,11 +321,11 @@ $oldXmlIndent        }
     public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int transform, final int pageNumber, final int pageSize)
     {
 #if($hibernateGT3)       
-        final javax.persistence.criteria.CriteriaBuilder builder = this.sessionFactory.getCurrentSession().getCriteriaBuilder();
-		javax.persistence.criteria.CriteriaQuery<${entity.fullyQualifiedEntityName}> query = builder.createQuery(${entity.fullyQualifiedEntityName}.class);		
-		javax.persistence.criteria.Root<${entity.fullyQualifiedEntityName}> root = query.from(${entity.fullyQualifiedEntityName}.class);
+        final ${hibernateNamespace}.persistence.criteria.CriteriaBuilder builder = this.sessionFactory.getCurrentSession().getCriteriaBuilder();
+		${hibernateNamespace}.persistence.criteria.CriteriaQuery<${entity.fullyQualifiedEntityName}> query = builder.createQuery(${entity.fullyQualifiedEntityName}.class);		
+		${hibernateNamespace}.persistence.criteria.Root<${entity.fullyQualifiedEntityName}> root = query.from(${entity.fullyQualifiedEntityName}.class);
 		query.orderBy(builder.asc(root.get("id")));
-		javax.persistence.TypedQuery<${entity.fullyQualifiedEntityName}> typedQuery = this.sessionFactory.getCurrentSession().createQuery(query);
+		${hibernateNamespace}.persistence.TypedQuery<${entity.fullyQualifiedEntityName}> typedQuery = this.sessionFactory.getCurrentSession().createQuery(query);
         if (pageNumber > 0 && pageSize > 0)
         {
             typedQuery.setFirstResult(this.calculateFirstResult(pageNumber, pageSize));

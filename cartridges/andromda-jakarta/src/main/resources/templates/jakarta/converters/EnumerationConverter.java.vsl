@@ -9,30 +9,30 @@ package $enumeration.packageName;
  * to a String and back.
  */
 public class $enumeration.converterName
-    implements jakarta.faces.convert.Converter
+    implements ${hibernateNamespace}.faces.convert.Converter
 {
     /**
-     * @see jakarta.faces.convert.Converter#hash()getAsString(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent, Object)
+     * @see ${hibernateNamespace}.faces.convert.Converter#hash()getAsString(${hibernateNamespace}.faces.context.FacesContext, ${hibernateNamespace}.faces.component.UIComponent, Object)
      */
     @Override
     public String getAsString(
-        jakarta.faces.context.FacesContext context,
-        jakarta.faces.component.UIComponent component,
+        ${hibernateNamespace}.faces.context.FacesContext context,
+        ${hibernateNamespace}.faces.component.UIComponent component,
         Object value)
-        throws jakarta.faces.convert.ConverterException
+        throws ${hibernateNamespace}.faces.convert.ConverterException
     {
         return (value == null || value.toString().trim().length() == 0) ? "":  ((${enumeration.fullyQualifiedName})value).toString();
     }
 
     /**
-     * @see jakarta.faces.convert.Converter#hash()getAsObject(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent, String)
+     * @see ${hibernateNamespace}.faces.convert.Converter#hash()getAsObject(${hibernateNamespace}.faces.context.FacesContext, ${hibernateNamespace}.faces.component.UIComponent, String)
      */
     @Override
     public Object getAsObject(
-        jakarta.faces.context.FacesContext context,
-        jakarta.faces.component.UIComponent component,
+        ${hibernateNamespace}.faces.context.FacesContext context,
+        ${hibernateNamespace}.faces.component.UIComponent component,
         String value)
-        throws jakarta.faces.convert.ConverterException
+        throws ${hibernateNamespace}.faces.convert.ConverterException
     {
         return value != null && value.trim().length() > 0 ? ${enumeration.fullyQualifiedName}.fromString(value) : null;
     }

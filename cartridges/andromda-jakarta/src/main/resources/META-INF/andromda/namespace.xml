@@ -400,6 +400,17 @@
                     possible parameter values when selecting from a list).
                 </documentation>
             </property>
+            <property name="hibernateNamespace">
+                <default>javax</default>
+                <documentation>
+                    The namespace of Hibernate to use when generating.
+                    <ul>
+                        Allowable values are:
+                        <li>javax - Hibernate javax Namespace</li>
+                        <li>jakarta - Hibernate jakarta Namespace</li>
+                    </ul>
+                </documentation>
+            </property>
             <property name="converterPattern">
                 <default>{0}JakartaConverter</default>
                 <documentation>

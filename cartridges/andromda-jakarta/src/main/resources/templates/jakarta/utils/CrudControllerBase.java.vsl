@@ -65,7 +65,7 @@ public abstract class CrudControllerBase extends ControllerBase {
      * @return a collection with the filtered list.
      * @throws Throwable
      */
-    public abstract java.util.Collection<jakarta.faces.model.SelectItem> getAsSelectItems() throws Throwable;
+    public abstract java.util.Collection<${hibernateNamespace}.faces.model.SelectItem> getAsSelectItems() throws Throwable;
     /**
      * Save and keep editing.
      *

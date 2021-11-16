@@ -37,6 +37,7 @@
         </conditions>
         <conditions>
             <condition id="jakarta" equal="true"/>
+            <output patterns="**/*">web/</output>
             <output>web/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WebApplication.java.vsl</output>
             <output>web/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}Application.java.vsl</output>
             <output>web/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/UseCaseScope.java.vsl</output>
@@ -98,10 +99,6 @@
         <conditions>
             <condition id="configurationUri" present="false"/>
             <output>mda/src/main/config/andromda.xml</output>
-        </conditions>
-        <conditions>
-            <condition id="jakarta" equal="true"/>
-            <output patterns="**/*">web/</output>
         </conditions>
         <conditions>
             <condition id="springws" equal="true"/>
@@ -673,9 +670,11 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 <responses>
                     <response>wildfly25</response>
                     <response>glassfish6</response>
-                    <!-- <response>payara5</response>
+                    <response>payara5</response>
                     <response>tomcat9</response>
-                    <response>tomee9</response> -->
+                    <response>tomcat</response>
+                    <response>tomee9</response>
+                    <response>tomee</response>
                 </responses>
             </prompt>
         </promptGroup>

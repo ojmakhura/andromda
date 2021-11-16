@@ -15,7 +15,7 @@ package $service.packageName;
 public interface ${service.name}Home
     extends $ejbHomeInterface
 {
-#set ($throwsList = "throws jakarta.ejb.CreateException")
+#set ($throwsList = "throws ${hibernateNamespace}.ejb.CreateException")
 #if ($service.ejbRemoteView)
 #set ($throwsList = "${throwsList},java.rmi.RemoteException")
 #end

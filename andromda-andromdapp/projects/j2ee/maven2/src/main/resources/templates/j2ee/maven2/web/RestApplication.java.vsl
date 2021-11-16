@@ -1,8 +1,9 @@
 package ${applicationPackage};
-
+#if($jakarta)
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 
 @ApplicationPath("/app")
-public class ${stringUtils.capitalize($applicationId)}WebApplication extends Application {
+#end
+public class ${stringUtils.capitalize($applicationId)}WebApplication #if($jakarta)extends Application#end {
 }

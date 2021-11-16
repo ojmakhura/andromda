@@ -83,7 +83,7 @@ public class $service.webServiceDelegatorName
                 else
                 {
                     exceptionProperty = "causedByException";
-                    //jakarta.ejb.EJBException
+                    //${hibernateNamespace}.ejb.EJBException
                     if (org.apache.commons.beanutils.PropertyUtils.isReadable(throwable, exceptionProperty))
                     {
                         targetException = (Throwable)org.apache.commons.beanutils.PropertyUtils.getProperty(throwable, exceptionProperty);

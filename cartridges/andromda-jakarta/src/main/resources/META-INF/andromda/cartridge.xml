@@ -72,6 +72,7 @@
     <property reference="navigationBeanScope"/>
     <property reference="trimInputStrings"/>
     <property reference="crudDetailsSuffix"/>
+    <property reference="hibernateNamespace"/>
 
     <!-- cartridge-property merge-point -->
 
@@ -421,11 +422,11 @@
         </modelElements>
     </template>
 
-    <!-- <template
+    <template
         path="templates/jakarta/utils/Messages.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/Messages.java"
         outlet="managed-beans"
-        overwrite="true"/> -->
+        overwrite="true"/>
 
     <template
         path="templates/jakarta/utils/JakartaUtils.java.vsl"

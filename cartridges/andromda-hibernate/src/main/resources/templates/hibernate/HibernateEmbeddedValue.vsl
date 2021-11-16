@@ -12,7 +12,7 @@ package $embeddedValue.packageName;
 $embeddedValue.getDocumentation(" * ")
  */
 #if ($hibernateEntityAnnotations)
-    @jakarta.persistence.Embeddable
+    @${hibernateNamespace}.persistence.Embeddable
 #end
 public abstract class $embeddedValue.name
 #if($embeddedValue.generalization)

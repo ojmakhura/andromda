@@ -9,7 +9,7 @@
     <function>
         <function-name>getConverter</function-name>
         <function-class>${managedBeansPackage}.JsfUtils</function-class>
-        <function-signature>javax.faces.convert.Converter getConverter(java.lang.String)</function-signature>
+        <function-signature>${hibernateNamespace}.faces.convert.Converter getConverter(java.lang.String)</function-signature>
     </function>
     <function>
         <function-name>valueFromConverter</function-name>
@@ -34,7 +34,7 @@
     <function>
         <function-name>getEnumSelectItems</function-name>
         <function-class>${managedBeansPackage}.JsfUtils</function-class>
-        <function-signature>javax.faces.model.SelectItem[] getEnumSelectItems(java.lang.String, java.lang.String)</function-signature>
+        <function-signature>${hibernateNamespace}.faces.model.SelectItem[] getEnumSelectItems(java.lang.String, java.lang.String)</function-signature>
     </function>
     <function>
         <function-name>getEnumMessage</function-name>
