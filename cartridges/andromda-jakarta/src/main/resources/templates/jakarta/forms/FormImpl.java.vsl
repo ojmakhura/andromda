@@ -35,6 +35,13 @@ public class $action.formImplementationName
     $annotation
 #end
 #if($field.actionParameter)
+// $field
+// $field.inParameter
+// $field.outParameter
+// $field.inoutParameter
+// $field.actionParameter
+// $field.controllerOperationArgument
+// $field.effect
 #if($field.complex)
     @${hibernateNamespace}.ws.rs.BeanParam
 #else
