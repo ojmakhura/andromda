@@ -7,7 +7,7 @@
         <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>
 
-    <templateObject name="collectionUtils" className="org.apache.commons.collections4.CollectionUtils"/>
+    <!-- <templateObject name="collectionUtils" className="org.apache.commons.collections4.CollectionUtils"/> -->
     <templateObject name="stringUtils" className="org.andromda.utils.StringUtilsHelper"/>
     <templateObject name="springUtils" className="org.andromda.cartridges.spring.SpringUtils">
         <property reference="richClient"/>
@@ -16,7 +16,6 @@
     <templateObject name="escapeUtils" className="org.apache.commons.text.StringEscapeUtils"/>
     <templateObject name="hibernateUtils" className="org.andromda.cartridges.spring.SpringHibernateUtils">
         <property reference="hibernateVersion"/>
-        <property reference="hibernateNamespace"/>
         <property reference="hibernateXMLPersistence"/>
         <property reference="hibernateMappingStrategy"/>
     </templateObject>

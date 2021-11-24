@@ -9,30 +9,30 @@ package $enumeration.packageName;
  * to a String and back.
  */
 public class $enumeration.converterName
-    implements ${hibernateNamespace}.faces.convert.Converter
+    implements ${jakartaNamespace}.faces.convert.Converter
 {
     /**
-     * @see ${hibernateNamespace}.faces.convert.Converter#hash()getAsString(${hibernateNamespace}.faces.context.FacesContext, ${hibernateNamespace}.faces.component.UIComponent, Object)
+     * @see ${jakartaNamespace}.faces.convert.Converter#hash()getAsString(${jakartaNamespace}.faces.context.FacesContext, ${jakartaNamespace}.faces.component.UIComponent, Object)
      */
     @Override
     public String getAsString(
-        ${hibernateNamespace}.faces.context.FacesContext context,
-        ${hibernateNamespace}.faces.component.UIComponent component,
+        ${jakartaNamespace}.faces.context.FacesContext context,
+        ${jakartaNamespace}.faces.component.UIComponent component,
         Object value)
-        throws ${hibernateNamespace}.faces.convert.ConverterException
+        throws ${jakartaNamespace}.faces.convert.ConverterException
     {
         return (value == null || value.toString().trim().length() == 0) ? "":  ((${enumeration.fullyQualifiedName})value).toString();
     }
 
     /**
-     * @see ${hibernateNamespace}.faces.convert.Converter#hash()getAsObject(${hibernateNamespace}.faces.context.FacesContext, ${hibernateNamespace}.faces.component.UIComponent, String)
+     * @see ${jakartaNamespace}.faces.convert.Converter#hash()getAsObject(${jakartaNamespace}.faces.context.FacesContext, ${jakartaNamespace}.faces.component.UIComponent, String)
      */
     @Override
     public Object getAsObject(
-        ${hibernateNamespace}.faces.context.FacesContext context,
-        ${hibernateNamespace}.faces.component.UIComponent component,
+        ${jakartaNamespace}.faces.context.FacesContext context,
+        ${jakartaNamespace}.faces.component.UIComponent component,
         String value)
-        throws ${hibernateNamespace}.faces.convert.ConverterException
+        throws ${jakartaNamespace}.faces.convert.ConverterException
     {
         return value != null && value.trim().length() > 0 ? ${enumeration.fullyQualifiedName}.fromString(value) : null;
     }

@@ -400,14 +400,14 @@
                     possible parameter values when selecting from a list).
                 </documentation>
             </property>
-            <property name="hibernateNamespace">
+            <property name="jakartaNamespace">
                 <default>javax</default>
                 <documentation>
                     The namespace of Hibernate to use when generating.
                     <ul>
                         Allowable values are:
-                        <li>javax - Hibernate javax Namespace</li>
-                        <li>jakarta - Hibernate jakarta Namespace</li>
+                        <li>javax - Jakarta javax Namespace</li>
+                        <li>jakarta - Jakarta jakarta Namespace</li>
                     </ul>
                 </documentation>
             </property>

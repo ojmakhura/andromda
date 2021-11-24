@@ -88,7 +88,7 @@ public class HibernateFinderMethodLogicImpl
                                 parameter = ':' + attribute.getName();
                             }
                             queryString = queryString + ' ' + variableName + '.' + attribute.getName() + " = " + parameter;
-                            if (argumentIt.hasNext())
+                            if (paramIt.hasNext())
                             {
                                 queryString = queryString + " AND";
                             }

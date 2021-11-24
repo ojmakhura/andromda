@@ -94,7 +94,7 @@ $operation.getDocumentation("     * ")
 #end
 #foreach ($action in $controller.useCase.actions)
 #if (!$action.formFields.empty)
-    @${hibernateNamespace}.inject.Inject
+    @${jakartaNamespace}.inject.Inject
     private $action.fullyQualifiedFormImplementationName $action.formBeanName;
 
     /**
@@ -147,9 +147,9 @@ $action.trigger.getDocumentation("     * ")
 #if($action.exitingInitialState)
     protected String internalStartUseCase(java.util.Map<String,Object> useCaseParameters)
 #else
-    @${hibernateNamespace}.ws.rs.POST
-    @${hibernateNamespace}.ws.rs.Path("$jakartaUtils.toWebResourceName(${action.trigger.name})")
-    public ${hibernateNamespace}.ws.rs.core.Response ${action.triggerName}(#if (!$action.formFields.empty)@${hibernateNamespace}.ws.rs.BeanParam $action.fullyQualifiedFormImplementationName ${action.triggerName}Form#end)
+    @${jakartaNamespace}.ws.rs.POST
+    @${jakartaNamespace}.ws.rs.Path("$jakartaUtils.toWebResourceName(${action.trigger.name})")
+    public ${jakartaNamespace}.ws.rs.core.Response ${action.triggerName}(#if (!$action.formFields.empty)@${jakartaNamespace}.ws.rs.BeanParam $action.fullyQualifiedFormImplementationName ${action.triggerName}Form#end)
 #end
         throws Throwable
     {
@@ -216,7 +216,7 @@ $action.trigger.getDocumentation("     * ")
 #if($action.exitingInitialState)
         return forward;
 #else
-        return ${hibernateNamespace}.ws.rs.core.Response.seeOther(java.net.URI.create(forward)).build();
+        return ${jakartaNamespace}.ws.rs.core.Response.seeOther(java.net.URI.create(forward)).build();
 #end
     }
 
@@ -342,8 +342,8 @@ $decisionTransition.getDocumentation("     * ")
 #end
 #end
 #foreach ($view in $controller.useCase.views)
-    @${hibernateNamespace}.ws.rs.GET
-    @${hibernateNamespace}.ws.rs.Path("$jakartaUtils.toWebResourceName(${view.name})")
+    @${jakartaNamespace}.ws.rs.GET
+    @${jakartaNamespace}.ws.rs.Path("$jakartaUtils.toWebResourceName(${view.name})")
     public String get$stringUtils.capitalize($stringUtils.deleteWhitespace(${view.name}))() {
 
         return "${view.path}.${facesServletExtension}";
@@ -351,13 +351,13 @@ $decisionTransition.getDocumentation("     * ")
 
 #end
 #foreach ($service in $controller.allServices)
-	@${hibernateNamespace}.inject.Inject
+	@${jakartaNamespace}.inject.Inject
 	protected $service.fullyQualifiedImplementationName $service.beanName;
     
 #end
 #foreach($cnt in $jakartaUtils.getFacadeSet($controllers))
 #if(!$controller.beanName.equals($cnt.beanName))
-    @${hibernateNamespace}.inject.Inject
+    @${jakartaNamespace}.inject.Inject
     protected $cnt.fullyQualifiedImplementationName $cnt.beanName;
 
 #end

@@ -21,14 +21,14 @@ public abstract class ControllerBase
     public static final String USE_CASE_PARAMETER_PREFIX="_useCaseParameter.";
     public static final String USE_CASE_JS_RETURN_VALUE_KEY="jsReturnValue";
 
-    @${hibernateNamespace}.ws.rs.core.Context
-    protected ${hibernateNamespace}.servlet.http.HttpServletRequest request;
+    @${jakartaNamespace}.ws.rs.core.Context
+    protected ${jakartaNamespace}.servlet.http.HttpServletRequest request;
 
-    @${hibernateNamespace}.inject.Inject
-    protected ${hibernateNamespace}.faces.context.ExternalContext context;
+    @${jakartaNamespace}.inject.Inject
+    protected ${jakartaNamespace}.faces.context.ExternalContext context;
 
-    @${hibernateNamespace}.inject.Inject
-    @${hibernateNamespace}.faces.annotation.RequestMap
+    @${jakartaNamespace}.inject.Inject
+    @${jakartaNamespace}.faces.annotation.RequestMap
     protected java.util.Map<String, Object> requestMap;
 
     /**
@@ -141,8 +141,8 @@ public abstract class ControllerBase
      *
      * @return the start use case
      */
-    @${hibernateNamespace}.ws.rs.GET
-    @${hibernateNamespace}.ws.rs.Path("start")
+    @${jakartaNamespace}.ws.rs.GET
+    @${jakartaNamespace}.ws.rs.Path("start")
     public String startUseCase() throws Throwable
     {
         /*final java.util.Map<String,Object> useCaseParameters;

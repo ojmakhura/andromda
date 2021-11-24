@@ -504,14 +504,14 @@ public abstract class ${manageable.controllerName}
      * @throws Throwable
      */
     @Override
-    public java.util.Collection<${hibernateNamespace}.faces.model.SelectItem> getAsSelectItems()
+    public java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> getAsSelectItems()
         throws Throwable
     {
         final java.util.Collection<${manageable.valueObjectClassName}> vos;
         vos = ${manageable.manageableServiceAccessorCall}.searchByExample(null);
-        final java.util.Collection<${hibernateNamespace}.faces.model.SelectItem> result=new java.util.ArrayList<${hibernateNamespace}.faces.model.SelectItem>(vos.size());
+        final java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> result=new java.util.ArrayList<${jakartaNamespace}.faces.model.SelectItem>(vos.size());
         for(${manageable.valueObjectClassName} vo: vos){
-            result.add(new ${hibernateNamespace}.faces.model.SelectItem(vo.${manageable.identifierGetterName}(),org.apache.commons.lang3.ObjectUtils.toString(vo.get$stringUtils.upperCamelCaseName($manageable.displayAttribute.name)())));
+            result.add(new ${jakartaNamespace}.faces.model.SelectItem(vo.${manageable.identifierGetterName}(),org.apache.commons.lang3.ObjectUtils.toString(vo.get$stringUtils.upperCamelCaseName($manageable.displayAttribute.name)())));
         }
         return result;
     }

@@ -166,7 +166,7 @@ $field.getDocumentation("     * ")
 #end
     }
 
-    private java.util.Collection<${hibernateNamespace}.faces.model.SelectItem> $field.backingListName;
+    private java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> $field.backingListName;
 
 #set ($backingListMethod = $stringUtils.capitalize($field.backingListName))
     /**
@@ -174,7 +174,7 @@ $field.getDocumentation("     * ")
      *
      * @return $field.backingListName
      */
-    public java.util.Collection<${hibernateNamespace}.faces.model.SelectItem> get${backingListMethod}(){
+    public java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> get${backingListMethod}(){
         return this.${field.backingListName};
     }
 
@@ -183,7 +183,7 @@ $field.getDocumentation("     * ")
      *
      * @param ${field.backingListName}In the new value of $field.backingListName
      */
-    public void set${backingListMethod}(java.util.Collection<${hibernateNamespace}.faces.model.SelectItem> ${field.backingListName}In){
+    public void set${backingListMethod}(java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> ${field.backingListName}In){
         this.${field.backingListName} = ${field.backingListName}In;
     }
 
@@ -236,7 +236,7 @@ $member.getDocumentation("     * ")
 #end
     }
 
-    private java.util.Collection<${hibernateNamespace}.faces.model.SelectItem> $member.backingListName;
+    private java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> $member.backingListName;
 
 #set ($backingListMethod = $stringUtils.capitalize($member.backingListName))
     /**
@@ -244,7 +244,7 @@ $member.getDocumentation("     * ")
      *
      * @return ${member.backingListName}
      */
-    public java.util.Collection<${hibernateNamespace}.faces.model.SelectItem> get${backingListMethod}(){
+    public java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> get${backingListMethod}(){
         return this.${member.backingListName};
     }
 
@@ -253,7 +253,7 @@ $member.getDocumentation("     * ")
      *
      * @param ${member.backingListName}In
      */
-    public void set${backingListMethod}(java.util.Collection<${hibernateNamespace}.faces.model.SelectItem> ${member.backingListName}In){
+    public void set${backingListMethod}(java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> ${member.backingListName}In){
         this.${member.backingListName} = ${member.backingListName}In;
     }
 

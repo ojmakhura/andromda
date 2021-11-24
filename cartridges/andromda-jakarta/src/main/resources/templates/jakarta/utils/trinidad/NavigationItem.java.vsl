@@ -5,8 +5,8 @@ package $managedBeansPackage;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
-import ${hibernateNamespace}.faces.context.ExternalContext;
-import ${hibernateNamespace}.faces.context.FacesContext;
+import ${jakartaNamespace}.faces.context.ExternalContext;
+import ${jakartaNamespace}.faces.context.FacesContext;
 import org.apache.commons.beanutils.MethodUtils;
 
 /**

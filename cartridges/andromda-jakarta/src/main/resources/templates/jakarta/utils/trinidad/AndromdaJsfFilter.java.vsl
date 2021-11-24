@@ -6,26 +6,26 @@ package $managedBeansPackage;
 
 import java.io.IOException;
 
-import ${hibernateNamespace}.servlet.Filter;
-import ${hibernateNamespace}.servlet.FilterChain;
-import ${hibernateNamespace}.servlet.FilterConfig;
-import ${hibernateNamespace}.servlet.RequestDispatcher;
-import ${hibernateNamespace}.servlet.ServletException;
-import ${hibernateNamespace}.servlet.ServletRequest;
-import ${hibernateNamespace}.servlet.ServletResponse;
-import ${hibernateNamespace}.servlet.http.HttpServletRequest;
-import ${hibernateNamespace}.servlet.http.HttpServletResponse;
+import ${jakartaNamespace}.servlet.Filter;
+import ${jakartaNamespace}.servlet.FilterChain;
+import ${jakartaNamespace}.servlet.FilterConfig;
+import ${jakartaNamespace}.servlet.RequestDispatcher;
+import ${jakartaNamespace}.servlet.ServletException;
+import ${jakartaNamespace}.servlet.ServletRequest;
+import ${jakartaNamespace}.servlet.ServletResponse;
+import ${jakartaNamespace}.servlet.http.HttpServletRequest;
+import ${jakartaNamespace}.servlet.http.HttpServletResponse;
 
 /**
  * Solution to the Trinidad bug https://issues.apache.org/jira/browse/TRINIDAD-119
  *
  * @author Walter Mourao
  */
-@${hibernateNamespace}.servlet.annotation.WebFilter("*.xhtml")
+@${jakartaNamespace}.servlet.annotation.WebFilter("*.xhtml")
 public class AndromdaJakartaFilter implements Filter
 {
     /**
-     * @see ${hibernateNamespace}.servlet.Filter#hash()init(${hibernateNamespace}.servlet.FilterConfig)
+     * @see ${jakartaNamespace}.servlet.Filter#hash()init(${jakartaNamespace}.servlet.FilterConfig)
      */
     @Override
     public void init(FilterConfig config) throws ServletException
@@ -34,7 +34,7 @@ public class AndromdaJakartaFilter implements Filter
     }
 
     /**
-     * @see ${hibernateNamespace}.servlet.Filter#destroy()
+     * @see ${jakartaNamespace}.servlet.Filter#destroy()
      */
     @Override
     public void destroy()
@@ -43,7 +43,7 @@ public class AndromdaJakartaFilter implements Filter
     }
 
     /**
-     * @see ${hibernateNamespace}.servlet.Filter#hash()doFilter(${hibernateNamespace}.servlet.ServletRequest, ${hibernateNamespace}.servlet.ServletResponse, ${hibernateNamespace}.servlet.FilterChain)
+     * @see ${jakartaNamespace}.servlet.Filter#hash()doFilter(${jakartaNamespace}.servlet.ServletRequest, ${jakartaNamespace}.servlet.ServletResponse, ${jakartaNamespace}.servlet.FilterChain)
      */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
@@ -62,7 +62,7 @@ public class AndromdaJakartaFilter implements Filter
             }
             else
             {
-                ((${hibernateNamespace}.servlet.http.HttpServletResponse)response).sendError(404);
+                ((${jakartaNamespace}.servlet.http.HttpServletResponse)response).sendError(404);
             }
         }
     }

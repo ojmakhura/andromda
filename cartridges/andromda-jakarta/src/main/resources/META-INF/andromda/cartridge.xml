@@ -72,7 +72,7 @@
     <property reference="navigationBeanScope"/>
     <property reference="trimInputStrings"/>
     <property reference="crudDetailsSuffix"/>
-    <property reference="hibernateNamespace"/>
+    <property reference="jakartaNamespace"/>
 
     <!-- cartridge-property merge-point -->
 
@@ -478,7 +478,7 @@
                 </type>
             </modelElement>
             <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.jsf.metafacades.JakartaManageableEntity">
+                <type name="org.andromda.cartridges.jakarta.metafacades.JakartaManageableEntity">
                     <property name="needsUserInterface"/>
                 </type>
             </modelElement>
@@ -900,7 +900,7 @@
         outputCondition="trinidad"/> -->
 
     <!-- <template
-        path="templates/jakarta/utils/trinidad/AndromdaJsfFilter.java.vsl"
+        path="templates/jakarta/utils/trinidad/AndromdaJFilter.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/AndromdaJsfFilter.java"
         outlet="managed-beans"
         overwrite="true"

@@ -3,25 +3,25 @@
 package $managedBeansPackage;
 
 class JakartaExceptionHandler
-    extends ${hibernateNamespace}.faces.context.ExceptionHandlerWrapper 
+    extends ${jakartaNamespace}.faces.context.ExceptionHandlerWrapper 
 {
     /**
-     * Parent ${hibernateNamespace}.faces.context.ExceptionHandler
+     * Parent ${jakartaNamespace}.faces.context.ExceptionHandler
      */
-    private ${hibernateNamespace}.faces.context.ExceptionHandler parent;
+    private ${jakartaNamespace}.faces.context.ExceptionHandler parent;
 
     /**
      * Constructor
      *
-     * @param parent the parent ${hibernateNamespace}.faces.context.ExceptionHandler
+     * @param parent the parent ${jakartaNamespace}.faces.context.ExceptionHandler
      */
-    public JakartaExceptionHandler(${hibernateNamespace}.faces.context.ExceptionHandler parent) 
+    public JakartaExceptionHandler(${jakartaNamespace}.faces.context.ExceptionHandler parent) 
     {
         this.parent = parent;
     }
 
     @Override
-    public ${hibernateNamespace}.faces.context.ExceptionHandler getWrapped() 
+    public ${jakartaNamespace}.faces.context.ExceptionHandler getWrapped() 
     {
         return this.parent;
     }
@@ -37,19 +37,19 @@ class JakartaExceptionHandler
      */
     private void addFacesMessage(final String clientId, 
                                  final String message,
-                                 final ${hibernateNamespace}.faces.application.FacesMessage.Severity severity)
+                                 final ${jakartaNamespace}.faces.application.FacesMessage.Severity severity)
     {
-        ${hibernateNamespace}.faces.context.FacesContext.getCurrentInstance().addMessage(clientId, 
-                        new ${hibernateNamespace}.faces.application.FacesMessage(severity,message,null));
+        ${jakartaNamespace}.faces.context.FacesContext.getCurrentInstance().addMessage(clientId, 
+                        new ${jakartaNamespace}.faces.application.FacesMessage(severity,message,null));
     }
 
     /**
-     * Append a message to the current instance of ${hibernateNamespace}.faces.context.FacesContext
+     * Append a message to the current instance of ${jakartaNamespace}.faces.context.FacesContext
      *
      * @param message the message to be appended
      * @param severity the severity of the message
      */    
-    private void addFacesMessage(final String message, final ${hibernateNamespace}.faces.application.FacesMessage.Severity severity)
+    private void addFacesMessage(final String message, final ${jakartaNamespace}.faces.application.FacesMessage.Severity severity)
     {
         addFacesMessage(null,message,severity);
     }
@@ -65,7 +65,7 @@ class JakartaExceptionHandler
      */
     private void addErrorMessage(String clientId, String message)
     {
-        addFacesMessage(clientId, message, ${hibernateNamespace}.faces.application.FacesMessage.SEVERITY_ERROR);
+        addFacesMessage(clientId, message, ${jakartaNamespace}.faces.application.FacesMessage.SEVERITY_ERROR);
     }
     
     /**
@@ -86,7 +86,7 @@ class JakartaExceptionHandler
      * @return true if some clientId has any attached message
      */    
     private boolean showValidationMessages(final java.util.Collection<ValidationException.ValidationExceptionInfo> validationMessages, 
-                                           final ${hibernateNamespace}.faces.application.FacesMessage.Severity severity)
+                                           final ${jakartaNamespace}.faces.application.FacesMessage.Severity severity)
     {
         boolean existsFieldMessage=false;
         
@@ -97,8 +97,8 @@ class JakartaExceptionHandler
             } 
             else 
             {
-                final ${hibernateNamespace}.faces.context.FacesContext facesContext = ${hibernateNamespace}.faces.context.FacesContext.getCurrentInstance();
-                final char namingSeparator=${hibernateNamespace}.faces.component.UINamingContainer.getSeparatorChar(facesContext); 
+                final ${jakartaNamespace}.faces.context.FacesContext facesContext = ${jakartaNamespace}.faces.context.FacesContext.getCurrentInstance();
+                final char namingSeparator=${jakartaNamespace}.faces.component.UINamingContainer.getSeparatorChar(facesContext); 
                 if(fieldName.indexOf(namingSeparator) > -1)
                 {
                     //is clientId
@@ -205,8 +205,8 @@ class JakartaExceptionHandler
             }
             else
             {
-                ${hibernateNamespace}.faces.context.FacesContext.getCurrentInstance().addMessage(null, 
-                    new ${hibernateNamespace}.faces.application.FacesMessage(${hibernateNamespace}.faces.application.FacesMessage.SEVERITY_ERROR,
+                ${jakartaNamespace}.faces.context.FacesContext.getCurrentInstance().addMessage(null, 
+                    new ${jakartaNamespace}.faces.application.FacesMessage(${jakartaNamespace}.faces.application.FacesMessage.SEVERITY_ERROR,
                         Messages.get(matched, getMessageArguments(cause)),null));
                 return true;
             }
@@ -224,25 +224,25 @@ class JakartaExceptionHandler
      */
     private String lastPostedForm()
     {
-        final Object value=${hibernateNamespace}.faces.context.FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(ControllerBase.LAST_POSTED_FORM_CLIENT_ID);
+        final Object value=${jakartaNamespace}.faces.context.FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(ControllerBase.LAST_POSTED_FORM_CLIENT_ID);
         return value==null?org.apache.commons.lang3.StringUtils.EMPTY:value.toString();
     }
 
     @Override
-    public void handle() throws ${hibernateNamespace}.faces.FacesException 
+    public void handle() throws ${jakartaNamespace}.faces.FacesException 
     {
         boolean existsMessage=false;
         boolean existsFieldMessage=false;
         
-        for (java.util.Iterator<${hibernateNamespace}.faces.event.ExceptionQueuedEvent> i = getUnhandledExceptionQueuedEvents().iterator(); i.hasNext();) 
+        for (java.util.Iterator<${jakartaNamespace}.faces.event.ExceptionQueuedEvent> i = getUnhandledExceptionQueuedEvents().iterator(); i.hasNext();) 
         {
-            final ${hibernateNamespace}.faces.event.ExceptionQueuedEvent event = i.next();
-            final ${hibernateNamespace}.faces.event.ExceptionQueuedEventContext context = (${hibernateNamespace}.faces.event.ExceptionQueuedEventContext) event.getSource();
+            final ${jakartaNamespace}.faces.event.ExceptionQueuedEvent event = i.next();
+            final ${jakartaNamespace}.faces.event.ExceptionQueuedEventContext context = (${jakartaNamespace}.faces.event.ExceptionQueuedEventContext) event.getSource();
             final Throwable t = context.getException();
-            if (t instanceof ${hibernateNamespace}.faces.application.ViewExpiredException) 
+            if (t instanceof ${jakartaNamespace}.faces.application.ViewExpiredException) 
             {
-                final ${hibernateNamespace}.faces.context.FacesContext fc = ${hibernateNamespace}.faces.context.FacesContext.getCurrentInstance();
-                final ${hibernateNamespace}.faces.application.NavigationHandler nav = fc.getApplication().getNavigationHandler();
+                final ${jakartaNamespace}.faces.context.FacesContext fc = ${jakartaNamespace}.faces.context.FacesContext.getCurrentInstance();
+                final ${jakartaNamespace}.faces.application.NavigationHandler nav = fc.getApplication().getNavigationHandler();
                 try {
                     nav.handleNavigation(fc, null, "/login.xhtml?faces-redirect=true");
                     fc.renderResponse();
@@ -257,8 +257,8 @@ class JakartaExceptionHandler
                 {
                     final ValidationException vd = (ValidationException)cause;
                     existsFieldMessage=
-                        showValidationMessages(vd.getErrors(),${hibernateNamespace}.faces.application.FacesMessage.SEVERITY_ERROR) ||
-                        showValidationMessages(vd.getWarnings(),${hibernateNamespace}.faces.application.FacesMessage.SEVERITY_WARN);
+                        showValidationMessages(vd.getErrors(),${jakartaNamespace}.faces.application.FacesMessage.SEVERITY_ERROR) ||
+                        showValidationMessages(vd.getWarnings(),${jakartaNamespace}.faces.application.FacesMessage.SEVERITY_WARN);
                     i.remove();
                     existsMessage=true;
                 }
@@ -298,7 +298,7 @@ class JakartaExceptionHandler
 
         if(existsMessage)
         {
-            ${hibernateNamespace}.faces.context.FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("jakartaMessagesTitle", Messages.get("errors.header"));
+            ${jakartaNamespace}.faces.context.FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("jakartaMessagesTitle", Messages.get("errors.header"));
             if(existsFieldMessage)
             {
                 addErrorMessage(Messages.get("there.are.field.validation.errors"));

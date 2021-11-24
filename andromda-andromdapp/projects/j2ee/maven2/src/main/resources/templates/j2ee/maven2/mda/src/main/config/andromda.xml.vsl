@@ -573,6 +573,9 @@
                 <property name="dummyData">true</property>
                 <property name="enableFaceletsDevelopmentSupport">true</property>
                 <property name="enableMyFacesDevelopmentSupport">true</property>
+#if($jakarta)
+                <property name="jakartaNamespace">${jakarta.namespace}</property>
+#end
             </properties>
         </namespace>
 #end

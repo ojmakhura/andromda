@@ -3,7 +3,7 @@
 ##
 #macro (setFieldTypeName $field $fieldTypeName)
 #if ($field.pageableTable)
-#set ($fieldTypeName = "${hibernateNamespace}.faces.model.DataModel")
+#set ($fieldTypeName = "${jakartaNamespace}.faces.model.DataModel")
 #elseif ($field.type.collectionType)
 #set ($fieldTypeName = "java.util.Collection")
 #elseif ($field.type.fileType || $field.needsFileUpload)
@@ -33,7 +33,7 @@
 ##
 #macro (setFieldWrapperTypeName $field $fieldWrapperTypeName)
 #if ($field.pageableTable)
-#set ($fieldWrapperTypeName = "${hibernateNamespace}.faces.model.DataModel")
+#set ($fieldWrapperTypeName = "${jakartaNamespace}.faces.model.DataModel")
 #elseif ($field.type.collectionType)
 #set ($fieldWrapperTypeName = "java.util.Collection")
 #elseif ($field.type.fileType || $field.needsFileUpload)
@@ -98,13 +98,13 @@
 #set ($backingListMethod = $stringUtils.capitalize($backingListName))
 
     /**
-     * @return backingList java.util.Collection<${hibernateNamespace}.faces.model.SelectItem>
+     * @return backingList java.util.Collection<${jakartaNamespace}.faces.model.SelectItem>
      */
-    public java.util.Collection<${hibernateNamespace}.faces.model.SelectItem> get${backingListMethod}();
+    public java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> get${backingListMethod}();
 
     /**
      * @param ${backingListName}In
      */
-    public void set${backingListMethod}(java.util.Collection<${hibernateNamespace}.faces.model.SelectItem> ${backingListName}In);
+    public void set${backingListMethod}(java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> ${backingListName}In);
     
 #end

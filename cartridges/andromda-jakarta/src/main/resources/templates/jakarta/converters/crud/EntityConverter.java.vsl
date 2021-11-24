@@ -26,16 +26,16 @@ package $manageable.manageablePackageName;
  * Handles conversion of the entity id to a String.
  */
 public class $manageable.converterClassName
-    implements ${hibernateNamespace}.faces.convert.Converter
+    implements ${jakartaNamespace}.faces.convert.Converter
 {
     /**
-     * @see ${hibernateNamespace}.faces.convert.Converter#hash()getAsString(${hibernateNamespace}.faces.context.FacesContext, ${hibernateNamespace}.faces.component.UIComponent, Object)
+     * @see ${jakartaNamespace}.faces.convert.Converter#hash()getAsString(${jakartaNamespace}.faces.context.FacesContext, ${jakartaNamespace}.faces.component.UIComponent, Object)
      */
     public String getAsString(
-        ${hibernateNamespace}.faces.context.FacesContext context,
-        ${hibernateNamespace}.faces.component.UIComponent component,
+        ${jakartaNamespace}.faces.context.FacesContext context,
+        ${jakartaNamespace}.faces.component.UIComponent component,
         Object value)
-        throws ${hibernateNamespace}.faces.convert.ConverterException
+        throws ${jakartaNamespace}.faces.convert.ConverterException
     {
         if(value == null)
             return "";
@@ -66,13 +66,13 @@ public class $manageable.converterClassName
     }
 
     /**
-     * @see ${hibernateNamespace}.faces.convert.Converter#hash()getAsObject(${hibernateNamespace}.faces.context.FacesContext, ${hibernateNamespace}.faces.component.UIComponent, String)
+     * @see ${jakartaNamespace}.faces.convert.Converter#hash()getAsObject(${jakartaNamespace}.faces.context.FacesContext, ${jakartaNamespace}.faces.component.UIComponent, String)
      */
     public Object getAsObject(
-        ${hibernateNamespace}.faces.context.FacesContext context,
-        ${hibernateNamespace}.faces.component.UIComponent component,
+        ${jakartaNamespace}.faces.context.FacesContext context,
+        ${jakartaNamespace}.faces.component.UIComponent component,
         String value)
-        throws ${hibernateNamespace}.faces.convert.ConverterException
+        throws ${jakartaNamespace}.faces.convert.ConverterException
     {
 #if($identifierIsStringType)
         return value;

@@ -1579,7 +1579,7 @@
 #set ($hbVersion = "6.0.0.Alpha7")
 #if($spring)
         <!-- Set andromda.xml hibernateVersion=6, sessionFactory and localTransactionManager to hibernate6.-->
-#set ($hbCoreVersion = "5.6.1.Final")
+#set ($hbCoreVersion = "6.0.0.Beta1")
 #set ($hibernateNamespace = "javax")
 #elseif ($hibernate || $ejb3)
         <!-- Set andromda.xml hibernateVersion=5, sessionFactory and localTransactionManager to hibernate5-->
@@ -1591,6 +1591,9 @@
         <hibernate.version>$hbVersion</hibernate.version>
         <hibernate.core.version>$hbCoreVersion</hibernate.core.version>
         <hibernate.namespace>${hibernateNamespace}</hibernate.namespace>
+#end
+#if($jakarta)
+        <jakarta.namespace>jakarta</jakarta.namespace>
 #end
 #if ($jetty || !$webservice.equals("none"))
         <!-- v 9.x only supports JDK7 and you cannot configure jetty.port from maven.-->

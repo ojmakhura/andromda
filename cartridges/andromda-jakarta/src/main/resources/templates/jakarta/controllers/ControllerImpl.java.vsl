@@ -6,15 +6,15 @@ package $controller.packageName;
 /**
  * @see $controller.fullyQualifiedName
  */
-@${hibernateNamespace}.mvc.Controller
-@${hibernateNamespace}.enterprise.context.RequestScoped
+@${jakartaNamespace}.mvc.Controller
+@${jakartaNamespace}.enterprise.context.RequestScoped
 #foreach($annotation in $controller.additionalAnnotations)
 @$annotation
 #end
 #if(!$stringUtils.isBlank($controller.restPath))
-@${hibernateNamespace}.ws.rs.Path("$controller.restPath")
+@${jakartaNamespace}.ws.rs.Path("$controller.restPath")
 #else
-@${hibernateNamespace}.ws.rs.Path("/")
+@${jakartaNamespace}.ws.rs.Path("/")
 #end
 public class $controller.implementationName
     extends $controller.name
@@ -69,10 +69,10 @@ public class $controller.implementationName
 #set ($labelList = $valueList)
 #end
 #set($backingListName=$field.backingListName)
-        final java.util.Collection<${hibernateNamespace}.faces.model.SelectItem> ${backingListName}=new java.util.ArrayList<${hibernateNamespace}.faces.model.SelectItem>();
+        final java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> ${backingListName}=new java.util.ArrayList<${jakartaNamespace}.faces.model.SelectItem>();
         for(int i=0; i<${valueList}.length; i++)
         {
-            ${field.backingListName}.add(new ${hibernateNamespace}.faces.model.SelectItem(${valueList}[i],${labelList}[i]));
+            ${field.backingListName}.add(new ${jakartaNamespace}.faces.model.SelectItem(${valueList}[i],${labelList}[i]));
         }
         form.set${stringUtils.capitalize($backingListName)}($backingListName);
 
@@ -88,10 +88,10 @@ public class $controller.implementationName
 #set ($labelList = $valueList)
 #end
 #set($backingListName=${attribute.getBackingListName($field)})
-        final java.util.Collection<${hibernateNamespace}.faces.model.SelectItem> ${backingListName}=new java.util.ArrayList<${hibernateNamespace}.faces.model.SelectItem>();
+        final java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> ${backingListName}=new java.util.ArrayList<${jakartaNamespace}.faces.model.SelectItem>();
         for(int i=0; i<${valueList}.length; i++)
         {
-            ${field.backingListName}.add(new ${hibernateNamespace}.faces.model.SelectItem(${valueList}[i],${labelList}[i]));
+            ${field.backingListName}.add(new ${jakartaNamespace}.faces.model.SelectItem(${valueList}[i],${labelList}[i]));
         }
         form.set${stringUtils.capitalize($backingListName)}($backingListName);
         
