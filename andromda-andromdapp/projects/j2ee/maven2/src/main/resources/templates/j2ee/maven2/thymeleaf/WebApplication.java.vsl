@@ -1,0 +1,8 @@
+package ${applicationPackage};
+
+@org.springframework.boot.autoconfigure.SpringBootApplication
+public class ${stringUtils.capitalize($applicationId)}WebApplication {
+    public static void main(String[] args) {
+        org.springframework.boot.SpringApplication.run(${stringUtils.capitalize($applicationId)}WebApplication.class, args);
+    }
+}

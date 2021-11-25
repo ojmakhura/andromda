@@ -453,6 +453,17 @@
     </template>
 
     <!-- Daos and Persistence -->
+    <template
+        path="templates/spring/SpringRepository.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
 
     <template
         path="templates/spring/SpringDao.vsl"
