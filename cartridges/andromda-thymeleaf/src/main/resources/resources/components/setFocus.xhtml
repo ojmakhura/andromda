@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:cc="http://java.sun.com/jsf/composite">
+    
+<cc:interface>
+     <cc:attribute name="to" required="true"/>  
+     <cc:attribute name="rendered" default="true"/> 
+</cc:interface>
+<cc:implementation>
+<c:set var="clientRef" value="#{fn:replace(cc.clientId,':','_')}"/>
+<c:set var="oldOnLoad" value="__#{clientRef}__oldOnLoad"/>
+<c:set var="setFocusFunctionName" value="__#{clientRef}__setFocus" />
+<c:set var="onLoadFunctionName" value="__#{clientRef}__onLoad" />
+<trh:script type="text/javascript" rendered="#{cc.attrs.rendered}">
+
+function #{setFocusFunctionName}(){
+
+    var destId='#{cc.attrs.to}';
+    var element;
+    
+    if(destId.indexOf(':') == 0){ //starts with ':'- do not add the prefix
+        element=document.getElementById(destId);
+    }else{
+        var clientId='#{cc.clientId}';
+        var prefixEnd=clientId.lastIndexOf(':');
+        if(prefixEnd &lt; 0){ // do not have a parent
+            element=document.getElementById(destId);
+        } else {
+            var prefix=clientId.substring(0,prefixEnd);
+            element=document.getElementById(prefix+':'+destId);
+        }
+    }
+    
+    if(element != null){
+        element.focus();
+    }
+}
+
+var #{oldOnLoad}=window.onload;
+
+function #{onLoadFunctionName}(){
+    if (typeof #{oldOnLoad} == 'function') {
+        #{oldOnLoad}();
+    }
+    #{setFocusFunctionName}();
+}
+
+if(window.onload == #{onLoadFunctionName}){ //occurs during ajax
+    #{setFocusFunctionName}();
+} else { //page load
+    window.onload=#{onLoadFunctionName};
+}
+
+</trh:script>
+</cc:implementation>
+</html>

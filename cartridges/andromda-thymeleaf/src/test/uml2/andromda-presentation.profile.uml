@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:UMLStandardProfile="http:///schemas/UMLStandardProfile/_iMSlMJqJEd-df-Hu2EsiuA/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/2.0.0/UML" xsi:schemaLocation="http:///schemas/UMLStandardProfile/_iMSlMJqJEd-df-Hu2EsiuA/0 UML_Standard_Profile.UML_Standard_Profile.profile.uml#_iUe5gpqJEd-df-Hu2EsiuA">
+  <uml:Profile xmi:id="_iUe7KpqJEd-df-Hu2EsiuA" name="andromda-presentation" metamodelReference="_iUe7opqJEd-df-Hu2EsiuA">
+    <eAnnotations xmi:id="_iUe7K5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <contents xmi:type="ecore:EPackage" xmi:id="_iUe7LJqJEd-df-Hu2EsiuA" name="andromdapresentation" nsURI="http:///schemas/andromdapresentation/_iUVt8ZqJEd-df-Hu2EsiuA/0" nsPrefix="andromdapresentation">
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUe7LZqJEd-df-Hu2EsiuA" name="WebActionFormScope">
+          <eAnnotations xmi:id="_iUe7LpqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe7pZqJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUe7L5qJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUe7MJqJEd-df-Hu2EsiuA" name="none" value="1"/>
+          <eLiterals xmi:id="_iUe7MZqJEd-df-Hu2EsiuA" name="request" value="2"/>
+          <eLiterals xmi:id="_iUe7MpqJEd-df-Hu2EsiuA" name="session" value="3"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUe7M5qJEd-df-Hu2EsiuA" name="WebFieldType">
+          <eAnnotations xmi:id="_iUe7NJqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe7rpqJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUe7NZqJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUe7NpqJEd-df-Hu2EsiuA" name="select" value="1"/>
+          <eLiterals xmi:id="_iUe7N5qJEd-df-Hu2EsiuA" name="hidden" value="2"/>
+          <eLiterals xmi:id="_iUe7OJqJEd-df-Hu2EsiuA" name="password" value="3"/>
+          <eLiterals xmi:id="_iUe7OZqJEd-df-Hu2EsiuA" name="link" value="4"/>
+          <eLiterals xmi:id="_iUe7OpqJEd-df-Hu2EsiuA" name="textarea" value="5"/>
+          <eLiterals xmi:id="_iUe7O5qJEd-df-Hu2EsiuA" name="text" value="6"/>
+          <eLiterals xmi:id="_iUe7PJqJEd-df-Hu2EsiuA" name="checkbox" value="7"/>
+          <eLiterals xmi:id="_iUe7PZqJEd-df-Hu2EsiuA" name="multibox" value="8"/>
+          <eLiterals xmi:id="_iUe7PpqJEd-df-Hu2EsiuA" name="radio" value="9"/>
+          <eLiterals xmi:id="_iUe7P5qJEd-df-Hu2EsiuA" name="plaintext" value="10"/>
+          <eLiterals xmi:id="_iUe7QJqJEd-df-Hu2EsiuA" name="table" value="11"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUe7QZqJEd-df-Hu2EsiuA" name="WebActionType">
+          <eAnnotations xmi:id="_iUe7QpqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe7x5qJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUe7Q5qJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUe7RJqJEd-df-Hu2EsiuA" name="hyperlink" value="1"/>
+          <eLiterals xmi:id="_iUe7RZqJEd-df-Hu2EsiuA" name="form" value="2"/>
+          <eLiterals xmi:id="_iUe7RpqJEd-df-Hu2EsiuA" name="image" value="3"/>
+          <eLiterals xmi:id="_iUe7R5qJEd-df-Hu2EsiuA" name="table" value="4"/>
+          <eLiterals xmi:id="_iUe7SJqJEd-df-Hu2EsiuA" name="popup" value="5"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUe7SZqJEd-df-Hu2EsiuA" name="WebExportType">
+          <eAnnotations xmi:id="_iUe7SpqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe71JqJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUe7S5qJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUe7TJqJEd-df-Hu2EsiuA" name="xml" value="1"/>
+          <eLiterals xmi:id="_iUe7TZqJEd-df-Hu2EsiuA" name="csv" value="2"/>
+          <eLiterals xmi:id="_iUe7TpqJEd-df-Hu2EsiuA" name="excel" value="3"/>
+          <eLiterals xmi:id="_iUe7T5qJEd-df-Hu2EsiuA" name="pdf" value="4"/>
+          <eLiterals xmi:id="_iUe7UJqJEd-df-Hu2EsiuA" name="none" value="5"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUe7UZqJEd-df-Hu2EsiuA" name="ViewType">
+          <eAnnotations xmi:id="_iUe7UpqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe725qJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUe7U5qJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUe7VJqJEd-df-Hu2EsiuA" name="regular" value="1"/>
+          <eLiterals xmi:id="_iUe7VZqJEd-df-Hu2EsiuA" name="popup" value="2"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUe7VpqJEd-df-Hu2EsiuA" name="TernaryBoolean">
+          <eAnnotations xmi:id="_iUe7V5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe74pqJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUe7WJqJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUe7WZqJEd-df-Hu2EsiuA" name="true" value="1"/>
+          <eLiterals xmi:id="_iUe7WpqJEd-df-Hu2EsiuA" name="false" value="2"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe7W5qJEd-df-Hu2EsiuA" name="FrontEndException">
+          <eAnnotations xmi:id="_iUe7XJqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe8IpqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7XZqJEd-df-Hu2EsiuA" name="andromda_presentation_exception_type" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe7XpqJEd-df-Hu2EsiuA" name="base_Transition" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Transition"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe7X5qJEd-df-Hu2EsiuA" name="FrontEndApplication">
+          <eAnnotations xmi:id="_iUe7YJqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe8KpqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe7YZqJEd-df-Hu2EsiuA" name="base_UseCase" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//UseCase"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe7YpqJEd-df-Hu2EsiuA" name="FrontEndUseCase">
+          <eAnnotations xmi:id="_iUe7Y5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe8LpqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7ZJqJEd-df-Hu2EsiuA" name="andromda_presentation_usecase_activity" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7ZZqJEd-df-Hu2EsiuA" name="andromda_presentation_web_action_form_key" ordered="false" lowerBound="1" defaultValueLiteral="form">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe7ZpqJEd-df-Hu2EsiuA" name="base_UseCase" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//UseCase"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe7Z5qJEd-df-Hu2EsiuA" name="FrontEndSessionObject">
+          <eAnnotations xmi:id="_iUe7aJqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe8O5qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe7aZqJEd-df-Hu2EsiuA" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe7apqJEd-df-Hu2EsiuA" name="FrontEndView">
+          <eAnnotations xmi:id="_iUe7a5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe8P5qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7bJqJEd-df-Hu2EsiuA" name="andromda_presentation_web_view_type" ordered="false" lowerBound="1" eType="_iUe7UZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe7bZqJEd-df-Hu2EsiuA" name="base_State" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//State"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe7bpqJEd-df-Hu2EsiuA" name="base_Action" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Action"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe7b5qJEd-df-Hu2EsiuA" name="FrontEndRegistration">
+          <eAnnotations xmi:id="_iUe7cJqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe8RpqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe7cZqJEd-df-Hu2EsiuA" name="base_UseCase" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//UseCase"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe7cpqJEd-df-Hu2EsiuA" name="FrontEndAction">
+          <eAnnotations xmi:id="_iUe7c5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe8SpqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7dJqJEd-df-Hu2EsiuA" name="andromda_presentation_web_action_form_reset" ordered="false" lowerBound="1" eType="_iUe7VpqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7dZqJEd-df-Hu2EsiuA" name="andromda_presentation_web_action_form_scope" ordered="false" lowerBound="1" eType="_iUe7LZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7dpqJEd-df-Hu2EsiuA" name="andromda_presentation_web_action_tablelink" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7d5qJEd-df-Hu2EsiuA" name="andromda_presentation_web_action_type" ordered="false" lowerBound="1" eType="_iUe7QZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7eJqJEd-df-Hu2EsiuA" name="andromda_presentation_web_action_redirect" ordered="false" lowerBound="1" eType="_iUe7VpqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7eZqJEd-df-Hu2EsiuA" name="andromda_presentation_web_action_resettable" ordered="false" lowerBound="1" eType="_iUe7VpqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe7epqJEd-df-Hu2EsiuA" name="base_Transition" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Transition"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe7e5qJEd-df-Hu2EsiuA" name="FrontEndController">
+          <eAnnotations xmi:id="_iUe7fJqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe8ZpqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7fZqJEd-df-Hu2EsiuA" name="andromda_presentation_controller_usecase" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe7fpqJEd-df-Hu2EsiuA" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe7f5qJEd-df-Hu2EsiuA" name="FrontEndField">
+          <eAnnotations xmi:id="_iUe7gJqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe8bZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7gZqJEd-df-Hu2EsiuA" name="andromda_presentation_web_view_field_rows" ordered="false" lowerBound="1" defaultValueLiteral="5">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7gpqJEd-df-Hu2EsiuA" name="andromda_presentation_web_view_field_size" ordered="false" lowerBound="1" defaultValueLiteral="15">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7g5qJEd-df-Hu2EsiuA" name="andromda_presentation_web_view_field_reset" ordered="false" lowerBound="1" eType="_iUe7VpqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7hJqJEd-df-Hu2EsiuA" name="andromda_presentation_web_view_field_type" ordered="false" lowerBound="1" eType="_iUe7M5qJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7hZqJEd-df-Hu2EsiuA" name="andromda_presentation_web_view_field_validwhen" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7hpqJEd-df-Hu2EsiuA" name="andromda_presentation_web_view_field_equal" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7h5qJEd-df-Hu2EsiuA" name="andromda_presentation_web_view_field_validators" ordered="false" lowerBound="1" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7iJqJEd-df-Hu2EsiuA" name="andromda_presentation_web_view_field_calendar" ordered="false" lowerBound="1" eType="_iUe7VpqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7iZqJEd-df-Hu2EsiuA" name="andromda_presentation_view_field_required" ordered="false" lowerBound="1" eType="_iUe7VpqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7ipqJEd-df-Hu2EsiuA" name="andromda_presentation_view_field_format" ordered="false" lowerBound="1" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7i5qJEd-df-Hu2EsiuA" name="andromda_presentation_view_field_multibox" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7jJqJEd-df-Hu2EsiuA" name="andromda_presentation_view_field_readonly" ordered="false" lowerBound="1" eType="_iUe7VpqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7jZqJEd-df-Hu2EsiuA" name="andromda_presentation_view_field_table_identifier_columns" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7jpqJEd-df-Hu2EsiuA" name="andromda_presentation_view_field_radio" ordered="false" lowerBound="1" defaultValueLiteral="3">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe7j5qJEd-df-Hu2EsiuA" name="base_Parameter" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Parameter"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe7kJqJEd-df-Hu2EsiuA" name="base_Property" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe7kZqJEd-df-Hu2EsiuA" name="FrontEndMessage">
+          <eAnnotations xmi:id="_iUe7kpqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe8rZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7k5qJEd-df-Hu2EsiuA" name="andromda_presentation_action_warning_message" ordered="false" lowerBound="1" upperBound="-1" defaultValueLiteral="Warning">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7lJqJEd-df-Hu2EsiuA" name="andromda_presentation_action_success_message" ordered="false" lowerBound="1" upperBound="-1" defaultValueLiteral="Success">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe7lZqJEd-df-Hu2EsiuA" name="base_Transition" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Transition"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe7lpqJEd-df-Hu2EsiuA" name="FrontEndTable">
+          <eAnnotations xmi:id="_iUe7l5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe8upqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7mJqJEd-df-Hu2EsiuA" name="andromda_presentation_view_table_maxrows" ordered="false" lowerBound="1" defaultValueLiteral="15">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7mZqJEd-df-Hu2EsiuA" name="andromda_presentation_view_table_pageable" ordered="false" lowerBound="1" eType="_iUe7VpqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7mpqJEd-df-Hu2EsiuA" name="andromda_presentation_view_table" ordered="false" lowerBound="1" eType="_iUe7VpqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7m5qJEd-df-Hu2EsiuA" name="andromda_presentation_view_table_columns" ordered="false" lowerBound="1" upperBound="-1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7nJqJEd-df-Hu2EsiuA" name="andromda_presentation_view_table_export" ordered="false" upperBound="-1" eType="_iUe7SZqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7nZqJEd-df-Hu2EsiuA" name="andromda_presentation_view_table_sortable" ordered="false" lowerBound="1" eType="_iUe7VpqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe7npqJEd-df-Hu2EsiuA" name="andromda_struts_view_table_decorator" ordered="false" lowerBound="1" eType="_iUe7VpqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe7n5qJEd-df-Hu2EsiuA" name="base_Property" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe7oJqJEd-df-Hu2EsiuA" name="base_Parameter" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Parameter"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe7oZqJEd-df-Hu2EsiuA" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+      </contents>
+    </eAnnotations>
+    <packageImport xmi:id="_iUe7opqJEd-df-Hu2EsiuA">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:id="_iUe7o5qJEd-df-Hu2EsiuA">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:id="_iUe7pJqJEd-df-Hu2EsiuA">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUe7pZqJEd-df-Hu2EsiuA" name="WebActionFormScope">
+      <ownedComment xmi:id="_iUe7ppqJEd-df-Hu2EsiuA" body="Denotes the scope given to the &quot;form&quot; attribute when executing an action." annotatedElement="_iUe7pZqJEd-df-Hu2EsiuA"/>
+      <ownedLiteral xmi:id="_iUe7p5qJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUe7qJqJEd-df-Hu2EsiuA" name="none">
+        <ownedComment xmi:id="_iUe7qZqJEd-df-Hu2EsiuA" body="Denotes that the &quot;form&quot; attribute will not be set within any scope." annotatedElement="_iUe7qJqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUe7qpqJEd-df-Hu2EsiuA" name="request">
+        <ownedComment xmi:id="_iUe7q5qJEd-df-Hu2EsiuA" body="Denotes that the &quot;form&quot; attribute will be set within a request scope." annotatedElement="_iUe7qpqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUe7rJqJEd-df-Hu2EsiuA" name="session">
+        <ownedComment xmi:id="_iUe7rZqJEd-df-Hu2EsiuA" body="Denotes that the &quot;form&quot; attribute will be set within a session scope." annotatedElement="_iUe7rJqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUe7rpqJEd-df-Hu2EsiuA" name="WebFieldType">
+      <ownedComment xmi:id="_iUe7r5qJEd-df-Hu2EsiuA" body="Denotes the type of the form field to use for an action parameter." annotatedElement="_iUe7rpqJEd-df-Hu2EsiuA"/>
+      <ownedLiteral xmi:id="_iUe7sJqJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUe7sZqJEd-df-Hu2EsiuA" name="select">
+        <ownedComment xmi:id="_iUe7spqJEd-df-Hu2EsiuA" body="Use a combobox (also known as drop-down box) from which to select the value, only a single value can be selected unless the underlying type is a collection or array." annotatedElement="_iUe7sZqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUe7s5qJEd-df-Hu2EsiuA" name="hidden">
+        <ownedComment xmi:id="_iUe7tJqJEd-df-Hu2EsiuA" body="Do not show the parameter on the screen." annotatedElement="_iUe7s5qJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUe7tZqJEd-df-Hu2EsiuA" name="password">
+        <ownedComment xmi:id="_iUe7tpqJEd-df-Hu2EsiuA" body="The field should be shown but it's content is to be masked using asterisks." annotatedElement="_iUe7tZqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUe7t5qJEd-df-Hu2EsiuA" name="link">
+        <ownedComment xmi:id="_iUe7uJqJEd-df-Hu2EsiuA" body="This type can only be used when displaying the field in a table and you want to attach it to only of the possible page actions." annotatedElement="_iUe7t5qJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUe7uZqJEd-df-Hu2EsiuA" name="textarea">
+        <ownedComment xmi:id="_iUe7upqJEd-df-Hu2EsiuA" body="Use a textarea with multiple rows." annotatedElement="_iUe7uZqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUe7u5qJEd-df-Hu2EsiuA" name="text">
+        <ownedComment xmi:id="_iUe7vJqJEd-df-Hu2EsiuA" body="Use a simple text field." annotatedElement="_iUe7u5qJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUe7vZqJEd-df-Hu2EsiuA" name="checkbox">
+        <ownedComment xmi:id="_iUe7vpqJEd-df-Hu2EsiuA" body="Use a checkbox, ideal for boolean values." annotatedElement="_iUe7vZqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUe7v5qJEd-df-Hu2EsiuA" name="multibox">
+        <ownedComment xmi:id="_iUe7wJqJEd-df-Hu2EsiuA" body="Use this field type when you want to render several checkboxes that need to be initialized based on the property of a single array." annotatedElement="_iUe7v5qJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUe7wZqJEd-df-Hu2EsiuA" name="radio">
+        <ownedComment xmi:id="_iUe7wpqJEd-df-Hu2EsiuA" body="Generates a few options from which the value can be selected, only a single option can be selected at a time." annotatedElement="_iUe7wZqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUe7w5qJEd-df-Hu2EsiuA" name="plaintext">
+        <ownedComment xmi:id="_iUe7xJqJEd-df-Hu2EsiuA" body="Display this property as a plain text string." annotatedElement="_iUe7w5qJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUe7xZqJEd-df-Hu2EsiuA" name="table">
+        <ownedComment xmi:id="_iUe7xpqJEd-df-Hu2EsiuA" body="Allows you to submit an entire table (only makes sense on an array or collection) type.  Arrays are preferrable as they allow us to know the type of element which makes up the collection." annotatedElement="_iUe7xZqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUe7x5qJEd-df-Hu2EsiuA" name="WebActionType">
+      <ownedComment xmi:id="_iUe7yJqJEd-df-Hu2EsiuA" body="Denotes the type of the generated struts action, as displayed on screen." annotatedElement="_iUe7x5qJEd-df-Hu2EsiuA"/>
+      <ownedLiteral xmi:id="_iUe7yZqJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUe7ypqJEd-df-Hu2EsiuA" name="hyperlink">
+        <ownedComment xmi:id="_iUe7y5qJEd-df-Hu2EsiuA" body="The action will be rendered as an hyperlink." annotatedElement="_iUe7ypqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUe7zJqJEd-df-Hu2EsiuA" name="form">
+        <ownedComment xmi:id="_iUe7zZqJEd-df-Hu2EsiuA" body="The action will be rendered as a form." annotatedElement="_iUe7zJqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUe7zpqJEd-df-Hu2EsiuA" name="image">
+        <ownedComment xmi:id="_iUe7z5qJEd-df-Hu2EsiuA" body="The action will be rendered as a clickable image." annotatedElement="_iUe7zpqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUe70JqJEd-df-Hu2EsiuA" name="table">
+        <ownedComment xmi:id="_iUe70ZqJEd-df-Hu2EsiuA" body="Denotes the action will work on all rows of a table." annotatedElement="_iUe70JqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUe70pqJEd-df-Hu2EsiuA" name="popup">
+        <ownedComment xmi:id="_iUe705qJEd-df-Hu2EsiuA" body="When this is selected the resulting view will be rendered as a popup." annotatedElement="_iUe70pqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUe71JqJEd-df-Hu2EsiuA" name="WebExportType">
+      <ownedLiteral xmi:id="_iUe71ZqJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUe71pqJEd-df-Hu2EsiuA" name="xml"/>
+      <ownedLiteral xmi:id="_iUe715qJEd-df-Hu2EsiuA" name="csv"/>
+      <ownedLiteral xmi:id="_iUe72JqJEd-df-Hu2EsiuA" name="excel"/>
+      <ownedLiteral xmi:id="_iUe72ZqJEd-df-Hu2EsiuA" name="pdf"/>
+      <ownedLiteral xmi:id="_iUe72pqJEd-df-Hu2EsiuA" name="none"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUe725qJEd-df-Hu2EsiuA" name="ViewType">
+      <ownedComment xmi:id="_iUe73JqJEd-df-Hu2EsiuA" body="Represents the types of views." annotatedElement="_iUe725qJEd-df-Hu2EsiuA"/>
+      <ownedLiteral xmi:id="_iUe73ZqJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUe73pqJEd-df-Hu2EsiuA" name="regular">
+        <ownedComment xmi:id="_iUe735qJEd-df-Hu2EsiuA" body="A &quot;regular&quot; view." annotatedElement="_iUe73pqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+      <ownedLiteral xmi:id="_iUe74JqJEd-df-Hu2EsiuA" name="popup">
+        <ownedComment xmi:id="_iUe74ZqJEd-df-Hu2EsiuA" body="A &quot;popup&quot; view." annotatedElement="_iUe74JqJEd-df-Hu2EsiuA"/>
+      </ownedLiteral>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUe74pqJEd-df-Hu2EsiuA" name="TernaryBoolean">
+      <ownedLiteral xmi:id="_iUe745qJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUe75JqJEd-df-Hu2EsiuA" name="true"/>
+      <ownedLiteral xmi:id="_iUe75ZqJEd-df-Hu2EsiuA" name="false"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe75pqJEd-df-Hu2EsiuA" name="" memberEnd="_iUe8Q5qJEd-df-Hu2EsiuA _iUe755qJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe755qJEd-df-Hu2EsiuA" name="extension_FrontEndView" visibility="private" type="_iUe8P5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe75pqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe76JqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe76ZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe76pqJEd-df-Hu2EsiuA" name="" memberEnd="_iUe8RJqJEd-df-Hu2EsiuA _iUe765qJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe765qJEd-df-Hu2EsiuA" name="extension_FrontEndView" visibility="private" type="_iUe8P5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe76pqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe77JqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe77ZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe77pqJEd-df-Hu2EsiuA" name="" memberEnd="_iUe8a5qJEd-df-Hu2EsiuA _iUe775qJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe775qJEd-df-Hu2EsiuA" name="extension_FrontEndController" visibility="private" type="_iUe8ZpqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe77pqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe78JqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe78ZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe78pqJEd-df-Hu2EsiuA" name="" memberEnd="_iUe785qJEd-df-Hu2EsiuA _iUe8ZJqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe785qJEd-df-Hu2EsiuA" name="extension_FrontEndAction" visibility="private" type="_iUe8SpqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe78pqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe79JqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe79ZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe79pqJEd-df-Hu2EsiuA" name="" memberEnd="_iUe8KJqJEd-df-Hu2EsiuA _iUe795qJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe795qJEd-df-Hu2EsiuA" name="extension_FrontEndException" visibility="private" type="_iUe8IpqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe79pqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe7-JqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe7-ZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe7-pqJEd-df-Hu2EsiuA" name="" memberEnd="_iUe7-5qJEd-df-Hu2EsiuA _iUe8SJqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe7-5qJEd-df-Hu2EsiuA" name="extension_FrontEndRegistration" visibility="private" type="_iUe8RpqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe7-pqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe7_JqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe7_ZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe7_pqJEd-df-Hu2EsiuA" name="" memberEnd="_iUe7_5qJEd-df-Hu2EsiuA _iUe8OZqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe7_5qJEd-df-Hu2EsiuA" name="extension_FrontEndUseCase" visibility="private" type="_iUe8LpqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe7_pqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8AJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8AZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe8ApqJEd-df-Hu2EsiuA" name="" memberEnd="_iUe8qpqJEd-df-Hu2EsiuA _iUe8A5qJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe8A5qJEd-df-Hu2EsiuA" name="extension_FrontEndField" visibility="private" type="_iUe8bZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe8ApqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8BJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8BZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe8BpqJEd-df-Hu2EsiuA" name="" memberEnd="_iUe8B5qJEd-df-Hu2EsiuA _iUe8q5qJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe8B5qJEd-df-Hu2EsiuA" name="extension_FrontEndField" visibility="private" type="_iUe8bZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe8BpqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8CJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8CZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe8CpqJEd-df-Hu2EsiuA" name="" memberEnd="_iUe8C5qJEd-df-Hu2EsiuA _iUe8PZqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe8C5qJEd-df-Hu2EsiuA" name="extension_FrontEndSessionObject" visibility="private" type="_iUe8O5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe8CpqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8DJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8DZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe8DpqJEd-df-Hu2EsiuA" name="" memberEnd="_iUe8D5qJEd-df-Hu2EsiuA _iUe825qJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe8D5qJEd-df-Hu2EsiuA" name="extension_FrontEndTable" visibility="private" type="_iUe8upqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe8DpqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8EJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8EZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe8EpqJEd-df-Hu2EsiuA" name="" memberEnd="_iUe8E5qJEd-df-Hu2EsiuA _iUe83JqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe8E5qJEd-df-Hu2EsiuA" name="extension_FrontEndTable" visibility="private" type="_iUe8upqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe8EpqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8FJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8FZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe8FpqJEd-df-Hu2EsiuA" name="" memberEnd="_iUe8F5qJEd-df-Hu2EsiuA _iUe83ZqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe8F5qJEd-df-Hu2EsiuA" name="extension_FrontEndTable" visibility="private" type="_iUe8upqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe8FpqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8GJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8GZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe8GpqJEd-df-Hu2EsiuA" name="" memberEnd="_iUe8uJqJEd-df-Hu2EsiuA _iUe8G5qJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe8G5qJEd-df-Hu2EsiuA" name="extension_FrontEndMessage" visibility="private" type="_iUe8rZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe8GpqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8HJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8HZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe8HpqJEd-df-Hu2EsiuA" name="" memberEnd="_iUe8H5qJEd-df-Hu2EsiuA _iUe8LJqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe8H5qJEd-df-Hu2EsiuA" name="extension_FrontEndApplication" visibility="private" type="_iUe8KpqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe8HpqJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8IJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8IZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe8IpqJEd-df-Hu2EsiuA" name="FrontEndException">
+      <ownedComment xmi:id="_iUe8I5qJEd-df-Hu2EsiuA" body="Have this transition point to a &lt;&lt;FrontEndView>> action state or a final state, it will have any exception directed to that page or use-case respectively. Using tagged values you can have control on the type of exception for each of such transitions." annotatedElement="_iUe8IpqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe8JJqJEd-df-Hu2EsiuA" name="andromda_presentation_exception_type" visibility="private">
+        <ownedComment xmi:id="_iUe8JZqJEd-df-Hu2EsiuA" body="The type of exception that is to be handled by this transition." annotatedElement="_iUe8JJqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8JpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8J5qJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8KJqJEd-df-Hu2EsiuA" name="base_Transition" visibility="private" association="_iUe79pqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Transition"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe8KZqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe8KpqJEd-df-Hu2EsiuA" name="FrontEndApplication">
+      <ownedComment xmi:id="_iUe8K5qJEd-df-Hu2EsiuA" body="This stereotype means that the use-case will be consider the first one when entering the application." annotatedElement="_iUe8KpqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe8LJqJEd-df-Hu2EsiuA" name="base_UseCase" visibility="private" association="_iUe8HpqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#UseCase"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe8LZqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe8LpqJEd-df-Hu2EsiuA" name="FrontEndUseCase">
+      <ownedComment xmi:id="_iUe8L5qJEd-df-Hu2EsiuA" body="A use-case to be processed by AndroMDA." annotatedElement="_iUe8LpqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe8MJqJEd-df-Hu2EsiuA" name="andromda_presentation_usecase_activity" visibility="private">
+        <ownedComment xmi:id="_iUe8MZqJEd-df-Hu2EsiuA" body="This tagged value is used to reference activity graphs from a use-case. In doing so you will associate the graph with the usecase. Instead of using this tagged value you can simply assign a single graph in the namespace of the use-case." annotatedElement="_iUe8MJqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8MpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8M5qJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8NJqJEd-df-Hu2EsiuA" name="andromda_presentation_web_action_form_key" visibility="private">
+        <ownedComment xmi:id="_iUe8NZqJEd-df-Hu2EsiuA" body="Denotes the key used to store this action's form under. Depending on the setting of the andromda_presentation_web_action_form_scope tagged value this key is used for either request or session scope. Will only be used when the form is not empty, it is ignored otherwise." annotatedElement="_iUe8NJqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8NpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8N5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_iUe8OJqJEd-df-Hu2EsiuA" name="" value="form"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8OZqJEd-df-Hu2EsiuA" name="base_UseCase" visibility="private" association="_iUe7_pqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#UseCase"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe8OpqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe8O5qJEd-df-Hu2EsiuA" name="FrontEndSessionObject">
+      <ownedComment xmi:id="_iUe8PJqJEd-df-Hu2EsiuA" body="A session object needs to be associated with controllers, that way the controller will have some code to lookup the session object and can therefore expose it in your manual code." annotatedElement="_iUe8O5qJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe8PZqJEd-df-Hu2EsiuA" name="base_Class" visibility="private" association="_iUe8CpqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe8PpqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe8P5qJEd-df-Hu2EsiuA" name="FrontEndView">
+      <ownedComment xmi:id="_iUe8QJqJEd-df-Hu2EsiuA" body="A presentation component interfacing with the end-user." annotatedElement="_iUe8P5qJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe8QZqJEd-df-Hu2EsiuA" name="andromda_presentation_web_view_type" visibility="private" type="_iUe725qJEd-df-Hu2EsiuA">
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUe8QpqJEd-df-Hu2EsiuA" name="" instance="_iUe73ZqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8Q5qJEd-df-Hu2EsiuA" name="base_State" visibility="private" association="_iUe75pqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#State"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8RJqJEd-df-Hu2EsiuA" name="base_Action" visibility="private" association="_iUe76pqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Action"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe8RZqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe8RpqJEd-df-Hu2EsiuA" name="FrontEndRegistration">
+      <ownedComment xmi:id="_iUe8R5qJEd-df-Hu2EsiuA" body="Place this on a use case that represents a front-end registration process." annotatedElement="_iUe8RpqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe8SJqJEd-df-Hu2EsiuA" name="base_UseCase" visibility="private" association="_iUe7-pqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#UseCase"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe8SZqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe8SpqJEd-df-Hu2EsiuA" name="FrontEndAction">
+      <ownedAttribute xmi:id="_iUe8S5qJEd-df-Hu2EsiuA" name="andromda_presentation_web_action_form_reset" visibility="private" type="_iUe74pqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUe8TJqJEd-df-Hu2EsiuA" body="Allows one to reset the values on the corresponding action's (a transition coming out a of a front end view) form." annotatedElement="_iUe8S5qJEd-df-Hu2EsiuA"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUe8TZqJEd-df-Hu2EsiuA" name="" instance="_iUe745qJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8TpqJEd-df-Hu2EsiuA" name="andromda_presentation_web_action_form_scope" visibility="private" type="_iUe7pZqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUe8T5qJEd-df-Hu2EsiuA" body="Denotes the scope in which the &quot;form&quot; attribute should be placed when executing the action." annotatedElement="_iUe8TpqJEd-df-Hu2EsiuA"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUe8UJqJEd-df-Hu2EsiuA" name="" instance="_iUe7p5qJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8UZqJEd-df-Hu2EsiuA" name="andromda_presentation_web_action_tablelink" visibility="private">
+        <ownedComment xmi:id="_iUe8UpqJEd-df-Hu2EsiuA" body="Use this tagged value when you have an incoming transition with a Collection parameter that is to be represented as a table. The value of this tagged value will then be used to determine which table use when calling this action.&#xA;&#xA;The value should the name of an table page-variable entering the page on which this action has been modeled." annotatedElement="_iUe8UZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8U5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8VJqJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8VZqJEd-df-Hu2EsiuA" name="andromda_presentation_web_action_type" visibility="private" type="_iUe7x5qJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUe8VpqJEd-df-Hu2EsiuA" body="Denotes how the action is to be rendered." annotatedElement="_iUe8VZqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8V5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8WJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUe8WZqJEd-df-Hu2EsiuA" name="" instance="_iUe7yZqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8WpqJEd-df-Hu2EsiuA" name="andromda_presentation_web_action_redirect" visibility="private" type="_iUe74pqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUe8W5qJEd-df-Hu2EsiuA" body="Defines whether or not the struts action should be redirected when forwarding to the next action." annotatedElement="_iUe8WpqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8XJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8XZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUe8XpqJEd-df-Hu2EsiuA" name="" instance="_iUe745qJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8X5qJEd-df-Hu2EsiuA" name="andromda_presentation_web_action_resettable" visibility="private" type="_iUe74pqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUe8YJqJEd-df-Hu2EsiuA" body="Denotes that the user should be able to reset the action form." annotatedElement="_iUe8X5qJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8YZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8YpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUe8Y5qJEd-df-Hu2EsiuA" name="" instance="_iUe745qJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8ZJqJEd-df-Hu2EsiuA" name="base_Transition" visibility="private" association="_iUe78pqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Transition"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe8ZZqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe8ZpqJEd-df-Hu2EsiuA" name="FrontEndController">
+      <ownedAttribute xmi:id="_iUe8Z5qJEd-df-Hu2EsiuA" name="andromda_presentation_controller_usecase" visibility="private">
+        <ownedComment xmi:id="_iUe8aJqJEd-df-Hu2EsiuA" body="For those CASE tools with marginal UML support this tagged value allows the controller to reference the use-case. You should give the name of the use-case, nothing more and nothing less." annotatedElement="_iUe8Z5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8aZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8apqJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8a5qJEd-df-Hu2EsiuA" name="base_Class" visibility="private" association="_iUe77pqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe8bJqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe8bZqJEd-df-Hu2EsiuA" name="FrontEndField">
+      <ownedAttribute xmi:id="_iUe8bpqJEd-df-Hu2EsiuA" name="andromda_presentation_web_view_field_rows" visibility="private">
+        <ownedComment xmi:id="_iUe8b5qJEd-df-Hu2EsiuA" body="Denotes the number of rows of a textarea field." annotatedElement="_iUe8bpqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8cJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8cZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_iUe8cpqJEd-df-Hu2EsiuA" name="" value="5"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8c5qJEd-df-Hu2EsiuA" name="andromda_presentation_web_view_field_size" visibility="private">
+        <ownedComment xmi:id="_iUe8dJqJEd-df-Hu2EsiuA" body="Denotes the number of columns of an input field." annotatedElement="_iUe8c5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8dZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8dpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_iUe8d5qJEd-df-Hu2EsiuA" name="" value="15"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8eJqJEd-df-Hu2EsiuA" name="andromda_presentation_web_view_field_reset" visibility="private" type="_iUe74pqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUe8eZqJEd-df-Hu2EsiuA" body="Denotes whether this field should be reset to an empty value " annotatedElement="_iUe8eJqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8epqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8e5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUe8fJqJEd-df-Hu2EsiuA" name="" instance="_iUe745qJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8fZqJEd-df-Hu2EsiuA" name="andromda_presentation_web_view_field_type" visibility="private" type="_iUe7rpqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUe8fpqJEd-df-Hu2EsiuA" body="Use this tagged value if you wish to display input fields using a special widget." annotatedElement="_iUe8fZqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8f5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8gJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUe8gZqJEd-df-Hu2EsiuA" name="" instance="_iUe7sJqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8gpqJEd-df-Hu2EsiuA" name="andromda_presentation_web_view_field_validwhen" visibility="private">
+        <ownedComment xmi:id="_iUe8g5qJEd-df-Hu2EsiuA" body="Makes the validity of this parameter dependent on another parameter. This is useful for example for confirming passwords." annotatedElement="_iUe8gpqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8hJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8hZqJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8hpqJEd-df-Hu2EsiuA" name="andromda_presentation_web_view_field_equal" visibility="private">
+        <ownedComment xmi:id="_iUe8h5qJEd-df-Hu2EsiuA" body="Allows you to specify the name for the field that this field must be equal to." annotatedElement="_iUe8hpqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8iJqJEd-df-Hu2EsiuA" name="andromda_presentation_web_view_field_validators" visibility="private">
+        <ownedComment xmi:id="_iUe8iZqJEd-df-Hu2EsiuA" body="Allows users to specify custom validators for a field, when used the validation-rules.xml will need an update to include these validators." annotatedElement="_iUe8iJqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8ipqJEd-df-Hu2EsiuA" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8i5qJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8jJqJEd-df-Hu2EsiuA" name="andromda_presentation_web_view_field_calendar" visibility="private" type="_iUe74pqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUe8jZqJEd-df-Hu2EsiuA" body="Put this tagged value on a parameter of type Date to denote that you want a calendar popup." annotatedElement="_iUe8jJqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8jpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8j5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUe8kJqJEd-df-Hu2EsiuA" name="" instance="_iUe745qJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8kZqJEd-df-Hu2EsiuA" name="andromda_presentation_view_field_required" visibility="private" type="_iUe74pqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUe8kpqJEd-df-Hu2EsiuA" body="The parameter is not allowed to represent a blank (null or whitespace)." annotatedElement="_iUe8kZqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8k5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8lJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUe8lZqJEd-df-Hu2EsiuA" name="" instance="_iUe745qJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8lpqJEd-df-Hu2EsiuA" name="andromda_presentation_view_field_format" visibility="private">
+        <ownedComment xmi:id="_iUe8l5qJEd-df-Hu2EsiuA" body="Denotes the format of the parameter value, this value will be check on the client as well as on the server. You may enter more than one value for this tag." annotatedElement="_iUe8lpqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8mJqJEd-df-Hu2EsiuA" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8mZqJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8mpqJEd-df-Hu2EsiuA" name="andromda_presentation_view_field_multibox" visibility="private">
+        <ownedComment xmi:id="_iUe8m5qJEd-df-Hu2EsiuA" body="When using the andromda_struts_view_field_type=multibox tagged value (which is only allowed in tables) you must specify also this tagged value to specify the collection or array holding the actual values to match against." annotatedElement="_iUe8mpqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8nJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8nZqJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8npqJEd-df-Hu2EsiuA" name="andromda_presentation_view_field_readonly" visibility="private" type="_iUe74pqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUe8n5qJEd-df-Hu2EsiuA" body="Will make the parameter read-only." annotatedElement="_iUe8npqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8oJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8oZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUe8opqJEd-df-Hu2EsiuA" name="" instance="_iUe745qJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8o5qJEd-df-Hu2EsiuA" name="andromda_presentation_view_field_table_identifier_columns" visibility="private">
+        <ownedComment xmi:id="_iUe8pJqJEd-df-Hu2EsiuA" body="A comma seperated list; used with the table input type. Defines the columns that make up the identifier of the row (these are necessary in order to allow the merging of the value with the backing value when submitting and loading an input table)." annotatedElement="_iUe8o5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8pZqJEd-df-Hu2EsiuA" name="andromda_presentation_view_field_radio" visibility="private">
+        <ownedComment xmi:id="_iUe8ppqJEd-df-Hu2EsiuA" body="This tagged value only makes sense when used in combination with andromda_struts_field_type=radio, it denotes the number of options to render. Specify an integer value, or specify a comma-separated list of property values." annotatedElement="_iUe8pZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8p5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8qJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_iUe8qZqJEd-df-Hu2EsiuA" name="" value="3"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8qpqJEd-df-Hu2EsiuA" name="base_Parameter" visibility="private" association="_iUe8ApqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Parameter"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8q5qJEd-df-Hu2EsiuA" name="base_Property" visibility="private" association="_iUe8BpqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe8rJqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe8rZqJEd-df-Hu2EsiuA" name="FrontEndMessage">
+      <ownedAttribute xmi:id="_iUe8rpqJEd-df-Hu2EsiuA" name="andromda_presentation_action_warning_message" visibility="private">
+        <ownedComment xmi:id="_iUe8r5qJEd-df-Hu2EsiuA" body="Place this tagged value on a transition if you want to have an automatic warning message rendered into the target jsp page, this message will indicate that the action has finished succesfully but the user's attention should go to a specific topic. The value assigned to this tagged value will be used as the warning message in case it contains more than 5 characters, otherwise the value needs to be 'true' to be taken into account." annotatedElement="_iUe8rpqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8sJqJEd-df-Hu2EsiuA" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8sZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_iUe8spqJEd-df-Hu2EsiuA" name="" value="Warning"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8s5qJEd-df-Hu2EsiuA" name="andromda_presentation_action_success_message" visibility="private">
+        <ownedComment xmi:id="_iUe8tJqJEd-df-Hu2EsiuA" body="Place this tagged value on a transition if you want to have an automatic confirmation message rendered into the target jsp page, this message will indicate that the action has finished succesfully. The value assigned to this tagged value will be used as the success message in case it contains more than 5 characters, otherwise the value needs to be 'true' to be taken into account." annotatedElement="_iUe8s5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8tZqJEd-df-Hu2EsiuA" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8tpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_iUe8t5qJEd-df-Hu2EsiuA" name="" value="Success"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8uJqJEd-df-Hu2EsiuA" name="base_Transition" visibility="private" association="_iUe8GpqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Transition"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe8uZqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe8upqJEd-df-Hu2EsiuA" name="FrontEndTable">
+      <ownedAttribute xmi:id="_iUe8u5qJEd-df-Hu2EsiuA" name="andromda_presentation_view_table_maxrows" visibility="private">
+        <ownedComment xmi:id="_iUe8vJqJEd-df-Hu2EsiuA" body="Denotes the maximum number of rows per 'page'. Defaults to 15." annotatedElement="_iUe8u5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8vZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8vpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_iUe8v5qJEd-df-Hu2EsiuA" name="" value="15"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8wJqJEd-df-Hu2EsiuA" name="andromda_presentation_view_table_pageable" visibility="private" type="_iUe74pqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUe8wZqJEd-df-Hu2EsiuA" body="Indicates whether or not a table is considered &quot;pageable&quot;.  Pageable tables have support for DB paging built into them." annotatedElement="_iUe8wJqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8wpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8w5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUe8xJqJEd-df-Hu2EsiuA" name="" instance="_iUe745qJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8xZqJEd-df-Hu2EsiuA" name="andromda_presentation_view_table" visibility="private" type="_iUe74pqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUe8xpqJEd-df-Hu2EsiuA" body="A flag indicating whether or not a parameter should be considered a table.  This must be set to true when you wish to display a list of simple types (such as strings) within a table. If you specify the table's columns in andromda_presentation_view_table_columns, then this tagged value is not required to indicate that the parameter is table (as it will be assumed)." annotatedElement="_iUe8xZqJEd-df-Hu2EsiuA"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUe8x5qJEd-df-Hu2EsiuA" name="" instance="_iUe745qJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8yJqJEd-df-Hu2EsiuA" name="andromda_presentation_view_table_columns" visibility="private">
+        <ownedComment xmi:id="_iUe8yZqJEd-df-Hu2EsiuA" body="Determines which properties of the value objects in a Collection are to be called in order to render the columns of the table. The order directly specifies the order of the columns. Multiple values are separated by commas or whitespace." annotatedElement="_iUe8yJqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8ypqJEd-df-Hu2EsiuA" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8y5qJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe8zJqJEd-df-Hu2EsiuA" name="andromda_presentation_view_table_export" visibility="private" type="_iUe71JqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUe8zZqJEd-df-Hu2EsiuA" body="This tagged value specifies which types of export are supported. " annotatedElement="_iUe8zJqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe8zpqJEd-df-Hu2EsiuA" name="" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe8z5qJEd-df-Hu2EsiuA" name=""/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUe80JqJEd-df-Hu2EsiuA" name="" instance="_iUe71ZqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe80ZqJEd-df-Hu2EsiuA" name="andromda_presentation_view_table_sortable" visibility="private" type="_iUe74pqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUe80pqJEd-df-Hu2EsiuA" body="Denotes whether or not columns are supposed to be sortable, defaults to true in case of absence." annotatedElement="_iUe80ZqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe805qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe81JqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUe81ZqJEd-df-Hu2EsiuA" name="" instance="_iUe745qJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe81pqJEd-df-Hu2EsiuA" name="andromda_struts_view_table_decorator" visibility="private" type="_iUe74pqJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUe815qJEd-df-Hu2EsiuA" body="Denotes whether or not to render a displaytag table decorator, will be ignored if this parameter does not represent a table." annotatedElement="_iUe81pqJEd-df-Hu2EsiuA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe82JqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe82ZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUe82pqJEd-df-Hu2EsiuA" name="" instance="_iUe745qJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe825qJEd-df-Hu2EsiuA" name="base_Property" visibility="private" association="_iUe8DpqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe83JqJEd-df-Hu2EsiuA" name="base_Parameter" visibility="private" association="_iUe8EpqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Parameter"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe83ZqJEd-df-Hu2EsiuA" name="base_Class" visibility="private" association="_iUe8FpqJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe83pqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <profileApplication xmi:id="_iUxy0ZqJEd-df-Hu2EsiuA">
+      <eAnnotations xmi:id="_iUxy0pqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.UML_Standard_Profile.profile.uml#_iUe5gpqJEd-df-Hu2EsiuA"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.UML_Standard_Profile.profile.uml#_iUe5gJqJEd-df-Hu2EsiuA"/>
+    </profileApplication>
+  </uml:Profile>
+  <UMLStandardProfile:modelLibrary xmi:id="_iUxy05qJEd-df-Hu2EsiuA" base_Package="_iUe7KpqJEd-df-Hu2EsiuA"/>
+</xmi:XMI>
