@@ -7,9 +7,22 @@
         <artifactId>$applicationId</artifactId>
         <version>$applicationVersion</version>
     </parent>
-    <artifactId>${applicationId}-web</artifactId>
+    <artifactId>${applicationId}-thymeleaf</artifactId>
     <packaging>jar</packaging>
-    <name>${applicationName} Web</name>
+    <name>${applicationName} Thymeleaf Web</name>
+    <dependencyManagement>
+        <dependencies>
+            <!-- Import Spring Boot Dependency Management -->
+            <!-- http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using-boot-maven-without-a-parent -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
