@@ -27,9 +27,8 @@ public abstract class ControllerBase
     @${jakartaNamespace}.inject.Inject
     protected ${jakartaNamespace}.faces.context.ExternalContext context;
 
-    @${jakartaNamespace}.inject.Inject
-    @${jakartaNamespace}.faces.annotation.RequestMap
-    protected java.util.Map<String, Object> requestMap;
+    @Inject
+    protected UseCaseObject useCaseObject;
 
     /**
      * Returns the page variables associated with the view.
@@ -39,7 +38,7 @@ public abstract class ControllerBase
     @SuppressWarnings("unchecked")
     public java.util.Map<String,Object> getPageVariables(String view)
     {
-        final String key=view+"-"+PAGE_VARIABLES_SUFFIX;
+        final String key=view + "-" + ControllerBase.PAGE_VARIABLES_SUFFIX;
         final java.util.Map<String,Object> useCaseScope=getUseCaseScope();
         final java.util.Map<String,Object> pageVariables;
         if(useCaseScope.containsKey(key))
@@ -62,7 +61,7 @@ public abstract class ControllerBase
     @SuppressWarnings("unchecked")
     public java.util.Map<String,Object> getUseCaseParameters()
     {
-        return (java.util.Map<String,Object>)getUseCaseScope().get(USE_CASE_PARAMETERS_KEY);
+        return (java.util.Map<String,Object>)getUseCaseScope().get(ControllerBase.USE_CASE_PARAMETERS_KEY);
     }
     
     /**
@@ -73,7 +72,7 @@ public abstract class ControllerBase
     @SuppressWarnings("unchecked")
     public java.util.Map<String,Object> getUseCaseReturnValues()
     {
-        return (java.util.Map<String,Object>)getUseCaseScope().get(USE_CASE_RETURN_VALUES_KEY);
+        return (java.util.Map<String,Object>)getUseCaseScope().get(ControllerBase.USE_CASE_RETURN_VALUES_KEY);
     }
     
     /**
@@ -82,8 +81,8 @@ public abstract class ControllerBase
     protected java.util.Map<String,Object> resetUseCaseScope()
     {
         final java.util.Map<String,Object> useCaseScope=setUseCaseScope(java.util.Collections.synchronizedMap(new java.util.HashMap<String,Object>()));
-        useCaseScope.put(USE_CASE_PARAMETERS_KEY,new HashMap<String,Object>());
-        useCaseScope.put(USE_CASE_RETURN_VALUES_KEY,new HashMap<String,Object>());
+        useCaseScope.put(ControllerBase.USE_CASE_PARAMETERS_KEY,new HashMap<String,Object>());
+        useCaseScope.put(ControllerBase.USE_CASE_RETURN_VALUES_KEY,new HashMap<String,Object>());
         return useCaseScope;
     }
 
@@ -95,7 +94,7 @@ public abstract class ControllerBase
     @SuppressWarnings("unchecked")
     public java.util.Map<String,Object> getUseCaseScope()
     {
-        return (java.util.Map<String,Object>)requestMap.get(USE_CASE_SCOPE_KEY);
+        return useCaseObject.getUseCaseScope();
     }
     
     /**
@@ -105,7 +104,7 @@ public abstract class ControllerBase
      */
     protected java.util.Map<String,Object> setUseCaseScope(final java.util.Map<String,Object> useCaseScope)
     {
-        requestMap.put(USE_CASE_SCOPE_KEY, useCaseScope);
+        useCaseObject.setUseCaseScope(useCaseScope);
         return useCaseScope;
     }
     
@@ -145,7 +144,7 @@ public abstract class ControllerBase
     @${jakartaNamespace}.ws.rs.Path("start")
     public String startUseCase() throws Throwable
     {
-        /*final java.util.Map<String,Object> useCaseParameters;
+        final java.util.Map<String,Object> useCaseParameters;
         
         if(this.getUseCaseScope() == null)//can be null if executed from the url
         {
@@ -154,9 +153,9 @@ public abstract class ControllerBase
             while(parameterNames.hasMoreElements())
             {
                 final String parameterName=parameterNames.nextElement();
-                if(parameterName.startsWith(USE_CASE_PARAMETER_PREFIX))
+                if(parameterName.startsWith(ControllerBase.USE_CASE_PARAMETER_PREFIX))
                 {
-                    useCaseParameters.put(org.apache.commons.lang3.StringUtils.substringAfter(parameterName, USE_CASE_PARAMETER_PREFIX), request.getParameter(parameterName));
+                    useCaseParameters.put(org.apache.commons.lang3.StringUtils.substringAfter(parameterName, ControllerBase.USE_CASE_PARAMETER_PREFIX), request.getParameter(parameterName));
                 }
             }
         }
@@ -166,12 +165,12 @@ public abstract class ControllerBase
         }
 
         //reset the useCaseScope and put the parameters available.
-        this.resetUseCaseScope().put(USE_CASE_PARAMETERS_KEY,useCaseParameters);
+        this.resetUseCaseScope().put(ControllerBase.USE_CASE_PARAMETERS_KEY,useCaseParameters);
         
-        setUseCaseInDialog(org.apache.commons.lang3.BooleanUtils.toBoolean(java.util.Objects.toString(useCaseParameters.get(USE_CASE_IN_DIALOG_KEY))));
+        setUseCaseInDialog(org.apache.commons.lang3.BooleanUtils.toBoolean(java.util.Objects.toString(useCaseParameters.get(ControllerBase.USE_CASE_IN_DIALOG_KEY))));
 
-        return internalStartUseCase(useCaseParameters);*/
-        return internalStartUseCase(new java.util.HashMap<String, Object>());
+        return internalStartUseCase(useCaseParameters);
+        //return internalStartUseCase(new java.util.HashMap<String, Object>());
     }
 
     /**
@@ -181,7 +180,7 @@ public abstract class ControllerBase
      */    
     public boolean isUseCaseInDialog()
     {
-        return Boolean.TRUE.equals(getUseCaseScope().get(USE_CASE_IN_DIALOG_KEY));
+        return Boolean.TRUE.equals(getUseCaseScope().get(ControllerBase.USE_CASE_IN_DIALOG_KEY));
     }
     
     /**
@@ -191,7 +190,7 @@ public abstract class ControllerBase
      */    
     protected void setUseCaseInDialog(boolean value)
     {
-        getUseCaseScope().put(USE_CASE_IN_DIALOG_KEY, value);
+        getUseCaseScope().put(ControllerBase.USE_CASE_IN_DIALOG_KEY, value);
     }
 
     /**
@@ -224,7 +223,7 @@ public abstract class ControllerBase
                 }
             }
             jsResult.append('}');
-            returnValues.put(USE_CASE_JS_RETURN_VALUE_KEY,jsResult.toString());
+            returnValues.put(ControllerBase.USE_CASE_JS_RETURN_VALUE_KEY,jsResult.toString());
         }
         
         return closeDialog();

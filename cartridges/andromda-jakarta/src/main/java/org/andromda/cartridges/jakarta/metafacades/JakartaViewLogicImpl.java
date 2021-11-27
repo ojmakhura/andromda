@@ -471,4 +471,10 @@ public class JakartaViewLogicImpl
     {
         return StringUtilsHelper.lowerCamelCaseName(this.getName());
     }
+
+    @Override
+    protected String handleGetRestPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

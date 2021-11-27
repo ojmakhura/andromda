@@ -23,7 +23,8 @@ null;
 closeDialog();
 #end
 #elseif ($transition.enteringView)
-"${transition.target.path}.${facesServletExtension}"; 
+#set ($restPath = "${transition.target.useCase.controller.restPath}/${jakartaUtils.toWebResourceName(${transition.target.name})}")
+"${restPath}"; 
 #elseif ($transition.enteringDecisionPoint)
 __${transition.operationCall.name}(#if (!$action.formFields.empty)form#end);
 #else

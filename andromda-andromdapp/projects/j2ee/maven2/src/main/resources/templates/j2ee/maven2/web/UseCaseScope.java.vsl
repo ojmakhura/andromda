@@ -4,22 +4,42 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 #if($jakarta)
-import jakarta.enterprise.context.SessionScoped;
-import jakarta.inject.Named;
+import ${jakartaNamespace}.enterprise.context.SessionScoped;
+import ${jakartaNamespace}.inject.Named;
 
 @Named("useCaseScope")
 @SessionScoped
 #end
 public class UseCaseScope implements Serializable {
     
-    private Map<String, Object> useCaseVariables;
+    private Map<String, Object> useCaseScope;
+    private Map<String, Object> viewVariables;
 
-    public UseCaseScope() {
+    public UseCaseObject() {
 
-        useCaseVariables = new HashMap<>();
+        this.resetUseCaseScope();
+        viewVariables = new HashMap<>();
     }
 
     public void resetUseCaseScope() {
-        useCaseVariables = new HashMap<>();
+        useCaseScope = new HashMap<>();
+        useCaseScope.put(ControllerBase.USE_CASE_PARAMETERS_KEY,new HashMap<String,Object>());
+        useCaseScope.put(ControllerBase.USE_CASE_RETURN_VALUES_KEY,new HashMap<String,Object>());
+    }
+
+    public Map<String, Object> getUseCaseScope() {
+        return useCaseScope;
+    }
+
+    public void setUseCaseScope(Map<String, Object> useCaseScope) {
+        this.useCaseScope = useCaseScope;
+    }
+
+    public Map<String, Object> getViewVariables() {
+        return viewVariables;
+    }
+
+    public void setViewVariables(Map<String, Object> viewVariables) {
+        this.viewVariables = viewVariables;
     }
 }

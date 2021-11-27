@@ -153,7 +153,7 @@ $action.trigger.getDocumentation("     * ")
 #end
         throws Throwable
     {
-        //this.setLastPostedFormClientId("${action.formBeanName}");
+        this.setLastPostedFormClientId("${action.formBeanName}");
 #if(!$action.exitingInitialState)
 #foreach($field in $action.formFields)
 #if($field.actionParameter)
@@ -182,7 +182,7 @@ $action.trigger.getDocumentation("     * ")
 
 #if($action.exitingInitialState)
         //copy parameters form caller use case
-        //form.copyFrom(useCaseParameters);
+        form.copyFrom(useCaseParameters);
 #else
 ## #foreach($field in $action.formFields)
 ## #if($field.actionParameter)
@@ -194,7 +194,12 @@ $action.trigger.getDocumentation("     * ")
         //trigger method execution
         ${action.triggerMethodName}(#if($formPopulationOperationRequired)form#end);
 
+#if($action.exitingInitialState)
+#set($forward = "#processTransition($action)")
+         forward = $forward
+#else
         forward = #processTransition($action)
+#end
 #saveMessages($action "        ")
 #if ($formPopulationOperationRequired)
 #set ($viewPath = "${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.source.name})")
@@ -214,6 +219,17 @@ $action.trigger.getDocumentation("     * ")
 #end
 #end
 #if($action.exitingInitialState)
+#set ($forward = "$forward.substring(0, ${forward.length()})")
+#set ($last = ${forward.length()})
+#set ($last = $last - 2)
+#set ($forward = ${forward.substring(0, $last)})
+#foreach ($view in $controller.useCase.views)
+#set ($viewPath = "${action.controller.restPath}/$jakartaUtils.toWebResourceName(${view.name})")
+        if("${viewPath}".equals($forward)) {
+            return "${view.path}.${facesServletExtension}";
+        }
+       
+#end
         return forward;
 #else
         return ${jakartaNamespace}.ws.rs.core.Response.seeOther(java.net.URI.create(forward)).build();

@@ -316,7 +316,7 @@ public class JakartaControllerLogicImpl
 
         if (!(this.getRestCount()>0) || StringUtils.isBlank(path) || path.equals(DEFAULT))
         {
-            path = SLASH + this.getName().toLowerCase() + SLASH;
+            path = SLASH + this.getName().toLowerCase();
         }
         else
         {
@@ -329,6 +329,11 @@ public class JakartaControllerLogicImpl
                 path = path;
             }
         }
+
+        if(!path.startsWith(SLASH)) {
+            path = SLASH + path;
+        }
+        
         return path;
     }
 
