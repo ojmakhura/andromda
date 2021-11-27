@@ -477,8 +477,9 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
             <prompt id="webType">
                 <text>Would you like your web user interface to use JSF, struts, JakartaMVC or Angular?</text>
                 <shortText>Web interface technology</shortText>
-                <preconditions>
+                <preconditions type="and">
                     <condition id="web" equal="true"/>
+                    <condition id="transactionPersistenceType" equal="hibernate"/>
                 </preconditions>
                 <responses type="java.lang.String">
                     <response>jsf</response>
@@ -514,6 +515,39 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                         <setProperty type="java.lang.Boolean" id="web">true</setProperty>
                         <setProperty type="java.lang.Boolean" id="struts">false</setProperty>
                         <setProperty type="java.lang.Boolean" id="jakarta">true</setProperty>
+                    </condition>
+                </conditions>
+            </prompt>
+            <prompt id="webType">
+                <text>Would you like your web user interface to use JSF, struts, JakartaMVC or Angular?</text>
+                <shortText>Web interface technology</shortText>
+                <preconditions type="and">
+                    <condition id="web" equal="true"/>
+                    <condition id="transactionPersistenceType" notEqual="hibernate"/>
+                </preconditions>
+                <responses type="java.lang.String">
+                    <response>jsf</response>
+                    <response>angular</response>
+                    <response>struts</response>
+                </responses>
+                <conditions>
+                    <condition equal="jsf">
+                        <setProperty type="java.lang.Boolean" id="jsf">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="angular">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="web">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="struts">false</setProperty>
+                    </condition>
+                    <condition equal="angular">
+                        <setProperty type="java.lang.Boolean" id="jsf">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="angular">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="web">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="struts">false</setProperty>
+                    </condition>
+                    <condition equal="struts">
+                        <setProperty type="java.lang.Boolean" id="angular">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="jsf">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="web">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="struts">true</setProperty>
                     </condition>
                 </conditions>
             </prompt>
