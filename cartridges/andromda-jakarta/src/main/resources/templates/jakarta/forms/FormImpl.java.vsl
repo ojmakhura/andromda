@@ -5,6 +5,7 @@
 package $action.packageName;
 
 /**
+$action
 $action.getDocumentation(" * ")
  */
 @${jakartaNamespace}.inject.Named(value = "$action.formBeanName")
@@ -35,13 +36,6 @@ public class $action.formImplementationName
     $annotation
 #end
 #if($field.actionParameter)
-// $field
-// $field.inParameter
-// $field.outParameter
-// $field.inoutParameter
-// $field.actionParameter
-// $field.controllerOperationArgument
-// $field.effect
 #if($field.complex)
     @${jakartaNamespace}.ws.rs.BeanParam
 #else

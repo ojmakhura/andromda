@@ -1383,4 +1383,19 @@ public class JakartaParameterLogicImpl
         }
         return pathSegment;
     }
+
+    @Override
+    protected String handleGetTableFormName() {
+        JakartaView view = (JakartaView) this.getView();
+        JakartaUseCase useCase = (JakartaUseCase) view.getUseCase();
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(StringUtils.uncapitalize(useCase.getActionClassName()));        
+        builder.append(useCase.getActionClassName());
+        //builder.append(view.getPageObjectClassName());
+        builder.append("Form");
+
+        return builder.toString();
+    }
 }
