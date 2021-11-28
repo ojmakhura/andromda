@@ -117,7 +117,7 @@
             <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
-#if ($webType.equals("jsf") || $webType.equals("both"))
+#if ($webType.equals("jsf"))
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-jsf2-cartridge</artifactId>
@@ -125,10 +125,18 @@
             <scope>runtime</scope>
         </dependency>
 #end
-#if ($webType.equals("angular") || $webType.equals("both"))
+#if ($webType.equals("angular"))
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-angular-cartridge</artifactId>
+            <version>${andromda.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+#end
+#if ($webType.equals("thymeleaf"))
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-thymeleaf-cartridge</artifactId>
             <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
@@ -484,6 +492,14 @@
         <web.manual.dir>${project.basedir}/../web/src/main</web.manual.dir>
         <web.manual.web.dir>${web.manual.dir}/webapp</web.manual.web.dir>
         <web.manual.java.dir>${web.manual.dir}/java</web.manual.java.dir>
+#end
+#if ($webType.equals("thymeleaf"))
+        <thymeleaf.generated.dir>${project.basedir}/../thymeleaf/target</thymeleaf.generated.dir>
+        <thymeleaf.generated.java.dir>${thymeleaf.generated.dir}/src/main/java</thymeleaf.generated.java.dir>
+        <thymeleaf.generated.web.dir>${thymeleaf.generated.dir}/src/main/resources</thymeleaf.generated.web.dir>
+        <thymeleaf.manual.dir>${project.basedir}/../thymeleaf/src/main</thymeleaf.manual.dir>
+        <thymeleaf.manual.web.dir>${thymeleaf.manual.dir}/resources</thymeleaf.manual.web.dir>
+        <thymeleaf.manual.java.dir>${thymeleaf.manual.dir}/java</thymeleaf.manual.java.dir>
 #end
 #if (!$webservice.equals("none") && !$jsr181Webservice)
         <webservice.project>${project.basedir}/../webservice</webservice.project>

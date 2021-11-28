@@ -1,15 +1,15 @@
 <cartridge>
 
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
-        <macrolibrary name="templates/thymeleaf/escapeMacros.vm"/>
-        <macrolibrary name="templates/thymeleaf/controllers/Controller.java.vm"/>
-        <!-- <macrolibrary name="templates/thymeleaf/views/facelets/trinidad/renderActionFormInputTrinidad.vm"/> -->
-        <macrolibrary name="templates/thymeleaf/views/facelets/renderActionFormInputPrimeFaces.vm"/>
-        <macrolibrary name="templates/thymeleaf/views/renderActionCommandLinkParameter.vm"/>
-        <macrolibrary name="templates/thymeleaf/views/renderTableCommandLinkParameters.vm"/>
-        <macrolibrary name="templates/thymeleaf/forms/formMacros.vm"/>
-        <macrolibrary name="templates/thymeleaf/forms/formImplMacros.vm"/>
-        <macrolibrary name="templates/thymeleaf/configuration/securityMacros.vm"/>
+        <macrolibrary name="templates/escapeMacros.vm"/>
+        <macrolibrary name="templates/controllers/Controller.java.vm"/>
+        <!-- <macrolibrary name="templates/views/facelets/trinidad/renderActionFormInputTrinidad.vm"/> -->
+        <macrolibrary name="templates/views/facelets/renderActionFormInputPrimeFaces.vm"/>
+        <macrolibrary name="templates/views/renderActionCommandLinkParameter.vm"/>
+        <macrolibrary name="templates/views/renderTableCommandLinkParameters.vm"/>
+        <macrolibrary name="templates/forms/formMacros.vm"/>
+        <macrolibrary name="templates/forms/formImplMacros.vm"/>
+        <macrolibrary name="templates/configuration/securityMacros.vm"/>
         <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>
 
@@ -91,206 +91,34 @@
     <!-- condition merge-point-->
 
     <!-- cartridge-resource merge-point -->
-
     <resource
-        path="resources/views/js/*"
-        outputPattern="resources/js/{0}"
-        outlet="views"
-        overwrite="true"/>
-
-    <resource
-        path="resources/components/setFocus.xhtml"
-        outputPattern="resources/components/setFocus.xhtml"
+        path="resources/components/setFocus.html"
+        outputPattern="resources/components/setFocus.html"
         outlet="views"
         overwrite="true"/>
         
     <resource
-        path="resources/components/closeDialog.xhtml"
-        outputPattern="closeDialog.xhtml"
+        path="resources/components/closeDialog.html"
+        outputPattern="closeDialog.html"
         outlet="views"
         overwrite="true"/>
-
-    <!-- Trinidad specific -->
-
-    <resource
-        path="resources/views/images/trinidad/*"
-        outputPattern="images/{0}"
-        outlet="views"
-        overwrite="true"
-        outputCondition="trinidad"/>
-
-    <resource
-        path="resources/views/css/trinidad/*"
-        outputPattern="css/{0}"
-        outlet="views"
-        overwrite="true"
-        outputCondition="trinidad"/>
-
-    <resource
-        path="resources/views/css/trinidad/autocomplete/*"
-        outputPattern="css/autocomplete/{0}"
-        outlet="views"
-        overwrite="true"
-        outputCondition="trinidad"/>
-
-    <resource
-        path="resources/components/trinidad/autocomplete-body.xhtml"
-        outputPattern="resources/components/autocomplete-body.xhtml"
-        outlet="views"
-        overwrite="true"
-        outputCondition="trinidad"/>
-
-    <resource
-        path="resources/components/trinidad/autocomplete.xhtml"
-        outputPattern="resources/components/autocomplete.xhtml"
-        outlet="views"
-        overwrite="true"
-        outputCondition="trinidad"/>
-
-    <resource
-        path="resources/components/trinidad/autocompleteMulti.xhtml"
-        outputPattern="resources/components/autocompleteMulti.xhtml"
-        outlet="views"
-        overwrite="true"
-        outputCondition="trinidad"/>
-        
-    <resource
-        path="resources/components/trinidad/useCaseDialog.xhtml"
-        outputPattern="resources/components/useCaseDialog.xhtml"
-        outlet="views"
-        overwrite="true"
-        outputCondition="trinidad"/>
-
-    <!-- PrimeFaces specific -->
-
-    <resource
-        path="resources/views/css/primefaces/*"
-        outputPattern="resources/css/{0}"
-        outlet="views"
-        overwrite="true"
-        outputCondition="primefaces"/>
-
-    <resource
-        path="resources/views/images/primefaces/*"
-        outputPattern="resources/images/{0}"
-        outlet="views"
-        overwrite="true"
-        outputCondition="primefaces"/>
-        
-    <resource
-        path="resources/components/primefaces/useCaseDialog.xhtml"
-        outputPattern="resources/components/useCaseDialog.xhtml"
-        outlet="views"
-        overwrite="true"
-        outputCondition="primefaces"/>
-
-    <resource
-        path="resources/components/primefaces/autoCompleteNew.xhtml"
-        outputPattern="resources/components/autoCompleteNew.xhtml"
-        outlet="views"
-        overwrite="true"
-        outputCondition="primefaces"/>
 
     <!-- process templates on model elements -->
     
     <template
-        path="templates/thymeleaf/configuration/web.xml.vsl"
-        outputPattern="WEB-INF/web.xml"
-        outlet="configuration"
-        overwrite="true"
-        outputToSingleFile="true">
-        <modelElements>
-            <modelElement variable="useCases">
-                <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
-            </modelElement>
-            <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
-                    <property name="needsUserInterface"/>
-                </type>
-            </modelElement>
-            <modelElement variable="roles">
-                <type name="org.andromda.metafacades.uml.Role"/>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/thymeleaf/configuration/securityfilter-config.xml.vsl"
-        outputPattern="WEB-INF/securityfilter-config.xml"
-        outlet="configuration"
-        overwrite="true"
-        outputToSingleFile="true"
-        outputCondition="authTypeSecurityFilter">
-        <modelElements>
-            <modelElement variable="useCases">
-                <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
-            </modelElement>
-            <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
-                    <property name="needsUserInterface"/>
-                </type>
-            </modelElement>
-            <modelElement variable="roles">
-                <type name="org.andromda.metafacades.uml.Role"/>
-            </modelElement>
-        </modelElements>
-    </template>
-    
-    <template
-        path="templates/thymeleaf/configuration/faces-config.xml.vsl"
-        outputPattern="WEB-INF/$facesConfig"
-        outlet="configuration"
-        overwrite="true"
-        outputToSingleFile="true">
-        <modelElements>
-            <modelElement variable="controllers">
-                <type name="org.andromda.metafacades.uml.FrontEndController">
-                    <property name="useCase"/>
-                </type>
-            </modelElement>
-            <modelElement variable="useCases">
-                <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
-            </modelElement>
-            <modelElement variable="enumerations">
-                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafEnumeration"/>
-            </modelElement>
-            <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
-                    <property name="needsUserInterface"/>
-                </type>
-            </modelElement>
-            <modelElement variable="allManageables">
-                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity"/>
-            </modelElement>
-            <modelElement variable="applicationUseCases">
-                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
-                    <property name="entryUseCase"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/thymeleaf/configuration/log4j.xml.vsl"
-        outputPattern="WEB-INF/classes/log4j.xml"
-        outlet="configuration"
-        overwrite="false"
-        outputToSingleFile="true"/>
-
-    <template
-        path="templates/thymeleaf/utils/ControllerBase.java.vsl"
+        path="templates/utils/ControllerBase.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
         outlet="managed-beans"
         overwrite="true"/>
         
     <!-- <template
-        path="templates/thymeleaf/utils/CrudControllerBase.java.vsl"
+        path="templates/utils/CrudControllerBase.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
         outlet="managed-beans"
         overwrite="true"/> -->
         
     <template
-        path="templates/thymeleaf/forms/Form.java.vsl"
+        path="templates/forms/Form.java.vsl"
         outputPattern="$generatedFile"
         outlet="forms"
         overwrite="true">
@@ -304,7 +132,7 @@
     </template>
 
     <template
-        path="templates/thymeleaf/forms/FormImpl.java.vsl"
+        path="templates/forms/FormImpl.java.vsl"
         outputPattern="$generatedFile"
         outlet="forms"
         overwrite="true">
@@ -318,7 +146,7 @@
     </template>
 
     <template
-        path="templates/thymeleaf/controllers/ControllerImpl.java.vsl"
+        path="templates/controllers/ControllerImpl.java.vsl"
         outputPattern="$generatedFile"
         outlet="controller-impls"
         overwrite="false">
@@ -332,7 +160,7 @@
     </template>
 
     <template
-        path="templates/thymeleaf/controllers/Controller.java.vsl"
+        path="templates/controllers/Controller.java.vsl"
         outputPattern="$generatedFile"
         outlet="controllers"
         overwrite="true">
@@ -346,7 +174,7 @@
     </template>
 
     <template
-        path="templates/thymeleaf/controllers/SessionObject.java.vsl"
+        path="templates/controllers/SessionObject.java.vsl"
         outputPattern="${sessionObject.fullPath}.java"
         outlet="controllers"
         overwrite="true">
@@ -358,7 +186,7 @@
     </template>
 
     <template
-        path="templates/thymeleaf/messages/messages.properties.vsl"
+        path="templates/messages/messages.properties.vsl"
         outputPattern="WEB-INF/classes/${messageResources}.properties"
         outlet="messages"
         overwrite="true"
@@ -382,7 +210,7 @@
     </template>
 
     <template
-        path="templates/thymeleaf/flow/ActionForward.java.vsl"
+        path="templates/flow/ActionForward.java.vsl"
         outputPattern="$action.fullyQualifiedActionClassPath"
         outlet="controllers"
         overwrite="true">
@@ -394,7 +222,7 @@
     </template>
 
     <template
-        path="templates/thymeleaf/converters/EnumerationConverter.java.vsl"
+        path="templates/converters/EnumerationConverter.java.vsl"
         outputPattern="${enumeration.converterPath}.java"
         outlet="controllers"
         overwrite="true">
@@ -406,7 +234,7 @@
     </template>
 
     <template
-        path="templates/thymeleaf/flow/LogOutServlet.java.vsl"
+        path="templates/flow/LogOutServlet.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/LogOutServlet.java"
         outlet="controllers"
         overwrite="true"
@@ -423,49 +251,49 @@
     </template>
 
     <template
-        path="templates/thymeleaf/utils/Messages.java.vsl"
+        path="templates/utils/Messages.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/Messages.java"
         outlet="managed-beans"
         overwrite="true"/>
 
     <template
-        path="templates/thymeleaf/utils/ThymeleafUtils.java.vsl"
+        path="templates/utils/ThymeleafUtils.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/ThymeleafUtils.java"
         outlet="managed-beans"
         overwrite="true"/>
 
     <template
-        path="templates/thymeleaf/utils/UseCasePhaseListener.java.vsl"
+        path="templates/utils/UseCasePhaseListener.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/UseCasePhaseListener.java"
         outlet="managed-beans"
         overwrite="true"/>
 
     <template
-        path="templates/thymeleaf/exception/ThymeleafExceptionHandlerFactory.java.vsl"
+        path="templates/exception/ThymeleafExceptionHandlerFactory.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/ThymeleafExceptionHandlerFactory.java"
         outlet="managed-beans"
         overwrite="true"/>
 
     <template
-        path="templates/thymeleaf/exception/ThymeleafExceptionHandler.java.vsl"
+        path="templates/exception/ThymeleafExceptionHandler.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/ThymeleafExceptionHandler.java"
         outlet="managed-beans"
         overwrite="true"/>
 
     <template
-        path="templates/thymeleaf/exception/ValidationException.java.vsl"
+        path="templates/exception/ValidationException.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/ValidationException.java"
         outlet="exceptions"
         overwrite="true"/>
 
     <template
-        path="templates/thymeleaf/utils/FacesContextUtils.java.vsl"
+        path="templates/utils/FacesContextUtils.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
         outlet="managed-beans"
         overwrite="true"/>
 
     <template
-        path="templates/thymeleaf/views/jsp/index.jsp.vsl"
+        path="templates/views/jsp/index.jsp.vsl"
         outputPattern="index.jsp"
         outlet="views"
         overwrite="true"
@@ -486,7 +314,7 @@
     </template>
 
     <template
-        path="templates/thymeleaf/views/jsp/403.jsp.vsl"
+        path="templates/views/jsp/403.jsp.vsl"
         outputPattern="403.jsp"
         outlet="views"
         overwrite="true"
@@ -504,7 +332,7 @@
     <!-- Facelets specific view rendering -->
 
     <!-- <template
-        path="templates/thymeleaf/configuration/ajsf.taglib.xml.vsl"
+        path="templates/configuration/ajsf.taglib.xml.vsl"
         outputPattern="WEB-INF/ajsf.taglib.xml"
         outlet="views"
         overwrite="true"
@@ -513,25 +341,25 @@
     <!-- Test classes -->
 
     <template
-        path="templates/thymeleaf/test/SeleniumCommand.java.vsl"
+        path="templates/test/SeleniumCommand.java.vsl"
         outputPattern="$stringUtils.replace($testPackage, '.', '/')/SeleniumCommand.java"
         outlet="test"
         overwrite="true"/>
     
     <template
-        path="templates/thymeleaf/test/WebCommand.java.vsl"
+        path="templates/test/WebCommand.java.vsl"
         outputPattern="$stringUtils.replace($testPackage, '.', '/')/WebCommand.java"
         outlet="test"
         overwrite="true"/>
     
     <template
-        path="templates/thymeleaf/test/SeleniumFactory.java.vsl"
+        path="templates/test/SeleniumFactory.java.vsl"
         outputPattern="$stringUtils.replace($testPackage, '.', '/')/SeleniumFactory.java"
         outlet="test"
         overwrite="true"/>
     
     <template
-        path="templates/thymeleaf/test/crud/CrudEditForm.java.vsl"
+        path="templates/test/crud/CrudEditForm.java.vsl"
         outputPattern="$generatedFile"
         outlet="test"
         overwrite="true">
@@ -545,7 +373,7 @@
     </template>
 <!--     
     <template
-        path="templates/thymeleaf/test/FormAccess.java.vsl"
+        path="templates/test/FormAccess.java.vsl"
         outputPattern="$generatedFile"
         outlet="test"
         overwrite="true">
@@ -559,7 +387,7 @@
     </template>
 
     <template
-        path="templates/thymeleaf/test/TestSuiteBase.java.vsl"
+        path="templates/test/TestSuiteBase.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
         outlet="test"
         overwrite="true"
@@ -574,43 +402,43 @@
     </template>
         
     <template
-        path="templates/thymeleaf/test/DBUtil.java.vsl"
+        path="templates/test/DBUtil.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
         outlet="test"
         overwrite="true"/>
 
     <template
-        path="templates/thymeleaf/test/FieldValue.java.vsl"
+        path="templates/test/FieldValue.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
         outlet="test"
         overwrite="true"/>
 
     <template
-        path="templates/thymeleaf/test/SelectFieldValue.java.vsl"
+        path="templates/test/SelectFieldValue.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
         outlet="test"
         overwrite="true"/>
 
     <template
-        path="templates/thymeleaf/test/SelectMultipleFieldValue.java.vsl"
+        path="templates/test/SelectMultipleFieldValue.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
         outlet="test"
         overwrite="true"/>                        
 
     <template
-        path="templates/thymeleaf/test/PageBase.java.vsl"
+        path="templates/test/PageBase.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
         outlet="test"
         overwrite="true"/>
         
     <template
-        path="templates/thymeleaf/test/PropertiesUtil.java.vsl"
+        path="templates/test/PropertiesUtil.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
         outlet="test"
         overwrite="true"/>        
 
     <template
-        path="templates/thymeleaf/test/PageObject.java.vsl"
+        path="templates/test/PageObject.java.vsl"
         outputPattern="$generatedFile"
         outlet="test"
         overwrite="true">
@@ -623,7 +451,7 @@
     </template>
 
     <template
-        path="templates/thymeleaf/test/PageImplObject.java.vsl"
+        path="templates/test/PageImplObject.java.vsl"
         outputPattern="$generatedFile"
         outlet="test-impls"
         overwrite="false">
@@ -636,7 +464,7 @@
     </template>    
 
     <template
-        path="templates/thymeleaf/test/TestInfoBaseObject.java.vsl"
+        path="templates/test/TestInfoBaseObject.java.vsl"
         outputPattern="$stringUtils.replace($useCase.packageName, '.', '/')/${className}.java"
         outlet="test"
         overwrite="true">
@@ -650,7 +478,7 @@
     </template>
     
     <template
-        path="templates/thymeleaf/test/TestInfoImplObject.java.vsl"
+        path="templates/test/TestInfoImplObject.java.vsl"
         outputPattern="$stringUtils.replace($useCase.packageName, '.', '/')/${className}.java"
         outlet="test-impls"
         overwrite="false">
@@ -664,7 +492,7 @@
     </template>    
     
     <template
-        path="templates/thymeleaf/test/TestCaseBaseObject.java.vsl"
+        path="templates/test/TestCaseBaseObject.java.vsl"
         outputPattern="$stringUtils.replace($useCase.packageName, '.', '/')/${className}.java"
         outlet="test"
         overwrite="true">
@@ -678,7 +506,7 @@
     </template>
     
     <template
-        path="templates/thymeleaf/test/TestCaseImplObject.java.vsl"
+        path="templates/test/TestCaseImplObject.java.vsl"
         outputPattern="$stringUtils.replace($useCase.packageName, '.', '/')/${className}.java"
         outlet="test-impls"
         overwrite="false">
@@ -695,8 +523,8 @@
     <!--  -->
 
     <template
-        path="templates/thymeleaf/views/facelets/view-hidden-parameters.xhtml.vsl"
-        outputPattern="${action.viewFragmentPath}-hidden-params.xhtml"
+        path="templates/views/facelets/view-hidden-parameters.html.vsl"
+        outputPattern="${action.viewFragmentPath}-hidden-params.html"
         outlet="views"
         overwrite="true">
         <modelElements variable="action">
@@ -712,7 +540,7 @@
     <!-- manageable -->
 
     <template
-        path="templates/thymeleaf/flow/crud/ActionForward.java.vsl"
+        path="templates/flow/crud/ActionForward.java.vsl"
         outputPattern="$generatedFile"
         outlet="controllers"
         overwrite="true">
@@ -726,7 +554,7 @@
     </template>
 
     <template
-        path="templates/thymeleaf/converters/crud/EntityConverter.java.vsl"
+        path="templates/converters/crud/EntityConverter.java.vsl"
         outputPattern="$generatedFile"
         outlet="controllers"
         overwrite="true">
@@ -739,21 +567,7 @@
     </template>
 
     <template
-        path="templates/thymeleaf/controllers/crud/Controller.java.vsl"
-        outputPattern="$generatedFile"
-        outlet="controllers"
-        overwrite="true">
-        <modelElements variable="manageable">
-            <modelElement>
-                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
-                    <property name="needsUserInterface"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/thymeleaf/controllers/crud/SearchFilter.java.vsl"
+        path="templates/controllers/crud/Controller.java.vsl"
         outputPattern="$generatedFile"
         outlet="controllers"
         overwrite="true">
@@ -767,7 +581,21 @@
     </template>
 
     <template
-        path="templates/thymeleaf/controllers/crud/ControllerImpl.java.vsl"
+        path="templates/controllers/crud/SearchFilter.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/controllers/crud/ControllerImpl.java.vsl"
         outputPattern="$generatedFile"
         outlet="controllers"
         overwrite="true">
@@ -782,7 +610,7 @@
     </template>
     
     <template
-        path="templates/thymeleaf/controllers/crud/ControllerImpl.java.vsl"
+        path="templates/controllers/crud/ControllerImpl.java.vsl"
         outputPattern="$generatedFile"
         outlet="controller-impls"
         overwrite="false">
@@ -797,7 +625,7 @@
     </template>
 
     <template
-        path="templates/thymeleaf/forms/crud/Form.java.vsl"
+        path="templates/forms/crud/Form.java.vsl"
         outputPattern="$generatedFile"
         outlet="forms"
         overwrite="true">
@@ -811,7 +639,7 @@
     </template>
 
     <template
-        path="templates/thymeleaf/forms/crud/SearchForm.java.vsl"
+        path="templates/forms/crud/SearchForm.java.vsl"
         outputPattern="$generatedFile"
         outlet="forms"
         overwrite="true">
@@ -825,8 +653,8 @@
     </template>
 
     <template
-        path="templates/thymeleaf/views/facelets/crud-index.xhtml.vsl"
-        outputPattern="crud-index.xhtml"
+        path="templates/views/facelets/crud-index.html.vsl"
+        outputPattern="crud-index.html"
         outlet="views"
         overwrite="true"
         outputToSingleFile="true"
@@ -841,7 +669,7 @@
     </template>
 
     <template
-        path="templates/thymeleaf/flow/UseCaseViewPopulator.java.vsl"
+        path="templates/flow/UseCaseViewPopulator.java.vsl"
         outputPattern="$stringUtils.replace($useCase.packageName, '.', '/')/${className}.java"
         outlet="controllers"
         overwrite="true">
@@ -857,15 +685,15 @@
     <!-- Trinidad specific -->
 
     <!-- <template
-        path="templates/thymeleaf/utils/ODSFilter.java.vsl"
+        path="templates/utils/ODSFilter.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/ODSFilter.java"
         outlet="managed-beans"
         overwrite="true"
         outputCondition="trinidad"/> -->
 
     <!-- <template
-        path="templates/thymeleaf/views/facelets/trinidad/view.xhtml.vsl"
-        outputPattern="${view.path}.xhtml"
+        path="templates/views/facelets/trinidad/view.html.vsl"
+        outputPattern="${view.path}.html"
         outlet="views"
         overwrite="true"
         outputCondition="trinidad">
@@ -879,44 +707,44 @@
     </template> -->
 
     <!-- <template
-        path="templates/thymeleaf/utils/trinidad/NavigationItem.java.vsl"
+        path="templates/utils/trinidad/NavigationItem.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/NavigationItem.java"
         outlet="managed-beans"
         overwrite="true"
         outputCondition="trinidad"/> -->
 
     <!-- <template
-        path="templates/thymeleaf/utils/trinidad/MenuModelAdapter.java.vsl"
+        path="templates/utils/trinidad/MenuModelAdapter.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/MenuModelAdapter.java"
         outlet="managed-beans"
         overwrite="true"
         outputCondition="trinidad"/> -->
 
     <!-- <template
-        path="templates/thymeleaf/utils/trinidad/AutocompleteHelper.java.vsl"
+        path="templates/utils/trinidad/AutocompleteHelper.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/AutocompleteHelper.java"
         outlet="managed-beans"
         overwrite="true"
         outputCondition="trinidad"/> -->
 
     <!-- <template
-        path="templates/thymeleaf/utils/trinidad/AndromdaJFilter.java.vsl"
+        path="templates/utils/trinidad/AndromdaJFilter.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/AndromdaJsfFilter.java"
         outlet="managed-beans"
         overwrite="true"
         outputCondition="trinidad"/> -->
 
     <!-- <template
-        path="templates/thymeleaf/views/facelets/trinidad/layout/layout.xhtml.vsl"
-        outputPattern="layout/layout.xhtml"
+        path="templates/views/facelets/trinidad/layout/layout.html.vsl"
+        outputPattern="layout/layout.html"
         outlet="views"
         overwrite="true"
         generateEmptyFiles="true"
         outputCondition="trinidad"/> -->
 
     <!-- <template
-        path="templates/thymeleaf/views/facelets/trinidad/layout/registration-layout.xhtml.vsl"
-        outputPattern="layout/registration-layout.xhtml"
+        path="templates/views/facelets/trinidad/layout/registration-layout.html.vsl"
+        outputPattern="layout/registration-layout.html"
         outlet="views"
         overwrite="true"
         outputToSingleFile="true"
@@ -932,38 +760,38 @@
     </template> -->
 
     <!-- <template
-        path="templates/thymeleaf/views/facelets/trinidad/layout/header.xhtml.vsl"
-        outputPattern="layout/header.xhtml"
+        path="templates/views/facelets/trinidad/layout/header.html.vsl"
+        outputPattern="layout/header.html"
         outlet="views"
         overwrite="true"
         generateEmptyFiles="true"
         outputCondition="trinidad"/> -->
 
     <!-- <template
-        path="templates/thymeleaf/views/facelets/trinidad/layout/messages.xhtml.vsl"
-        outputPattern="layout/messages.xhtml"
+        path="templates/views/facelets/trinidad/layout/messages.html.vsl"
+        outputPattern="layout/messages.html"
         outlet="views"
         overwrite="true"
         generateEmptyFiles="true"
         outputCondition="trinidad"/> -->
 
     <!-- <template
-        path="templates/thymeleaf/views/facelets/trinidad/layout/head.xhtml.vsl"
-        outputPattern="layout/head.xhtml"
+        path="templates/views/facelets/trinidad/layout/head.html.vsl"
+        outputPattern="layout/head.html"
         outlet="views"
         overwrite="true"
         outputCondition="trinidad"/> -->
 
     <!-- <template
-        path="templates/thymeleaf/views/facelets/trinidad/layout/footer.xhtml.vsl"
-        outputPattern="layout/footer.xhtml"
+        path="templates/views/facelets/trinidad/layout/footer.html.vsl"
+        outputPattern="layout/footer.html"
         outlet="views"
         overwrite="true"
         generateEmptyFiles="true"
         outputCondition="trinidad"/> -->
 
     <!-- <template
-        path="templates/thymeleaf/views/facelets/trinidad/crud/view.xhtml.vsl"
+        path="templates/views/facelets/trinidad/crud/view.html.vsl"
         outputPattern="$generatedFile"
         outlet="views"
         overwrite="true"
@@ -978,7 +806,7 @@
     </template> -->
 
     <!-- <template
-        path="templates/thymeleaf/views/facelets/trinidad/crud/export-ods.xhtml.vsl"
+        path="templates/views/facelets/trinidad/crud/export-ods.html.vsl"
         outputPattern="$generatedFile"
         outlet="views"
         overwrite="true"
@@ -993,8 +821,8 @@
     </template> -->
 
     <!-- <template
-        path="templates/thymeleaf/views/facelets/trinidad/login.xhtml.vsl"
-        outputPattern="${loginFileName}.xhtml"
+        path="templates/views/facelets/trinidad/login.html.vsl"
+        outputPattern="${loginFileName}.html"
         outlet="views"
         overwrite="true"
         outputToSingleFile="true"
@@ -1009,8 +837,8 @@
     </template> -->
 
     <!-- <template
-        path="templates/thymeleaf/views/facelets/trinidad/view-action.xhtml.vsl"
-        outputPattern="${action.viewFragmentPath}.xhtml"
+        path="templates/views/facelets/trinidad/view-action.html.vsl"
+        outputPattern="${action.viewFragmentPath}.html"
         outlet="views"
         overwrite="true"
         outputCondition="trinidad">
@@ -1025,8 +853,8 @@
     </template> -->
 
     <!-- <template
-        path="templates/thymeleaf/views/facelets/trinidad/view-table.xhtml.vsl"
-        outputPattern="${table.view.path}-${table.name}.xhtml"
+        path="templates/views/facelets/trinidad/view-table.html.vsl"
+        outputPattern="${table.view.path}-${table.name}.html"
         outlet="views"
         overwrite="true"
         outputCondition="trinidad">
@@ -1040,8 +868,8 @@
     </template> -->
 
     <!-- <template
-        path="templates/thymeleaf/views/facelets/trinidad/view-variables.xhtml.vsl"
-        outputPattern="${view.path}-vars.xhtml"
+        path="templates/views/facelets/trinidad/view-variables.html.vsl"
+        outputPattern="${view.path}-vars.html"
         outlet="views"
         overwrite="true"
         outputCondition="trinidad">
@@ -1057,8 +885,8 @@
     <!-- PrimeFaces specific -->
 
     <template
-        path="templates/thymeleaf/views/facelets/view.xhtml.vsl"
-        outputPattern="${view.path}.xhtml"
+        path="templates/views/facelets/view.html.vsl"
+        outputPattern="${view.path}.html"
         outlet="views"
         overwrite="true">
         <modelElements variable="view">
@@ -1071,22 +899,22 @@
     </template>
 
     <template
-        path="templates/thymeleaf/views/facelets/layout/layout.xhtml.vsl"
-        outputPattern="layout/layout.xhtml"
+        path="templates/views/facelets/layout/layout.html.vsl"
+        outputPattern="layout/layout.html"
         outlet="views"
         overwrite="true"
         generateEmptyFiles="true"/>
 
     <!-- <template
-        path="templates/thymeleaf/views/facelets/layout/layout-crud.xhtml.vsl"
-        outputPattern="layout/layout-crud.xhtml"
+        path="templates/views/facelets/layout/layout-crud.html.vsl"
+        outputPattern="layout/layout-crud.html"
         outlet="views"
         overwrite="true"
         generateEmptyFiles="true"/> -->
 
     <template
-        path="templates/thymeleaf/views/facelets/layout/navigation.xhtml.vsl"
-        outputPattern="layout/navigation.xhtml"
+        path="templates/views/facelets/layout/navigation.html.vsl"
+        outputPattern="layout/navigation.html"
         outlet="views"
         overwrite="true"
         outputToSingleFile="true"
@@ -1104,8 +932,8 @@
     </template>
 
     <template
-        path="templates/thymeleaf/views/facelets/layout/registration-layout.xhtml.vsl"
-        outputPattern="layout/registration-layout.xhtml"
+        path="templates/views/facelets/layout/registration-layout.html.vsl"
+        outputPattern="layout/registration-layout.html"
         outlet="views"
         overwrite="true"
         outputToSingleFile="true"
@@ -1120,27 +948,27 @@
     </template>
 
     <template
-        path="templates/thymeleaf/views/facelets/layout/header.xhtml.vsl"
-        outputPattern="layout/header.xhtml"
+        path="templates/views/facelets/layout/header.html.vsl"
+        outputPattern="layout/header.html"
         outlet="views"
         overwrite="true"
         generateEmptyFiles="true"/>
 
     <template
-        path="templates/thymeleaf/views/facelets/layout/head.xhtml.vsl"
-        outputPattern="layout/head.xhtml"
+        path="templates/views/facelets/layout/head.html.vsl"
+        outputPattern="layout/head.html"
         outlet="views"
         overwrite="true"/>
 
     <template
-        path="templates/thymeleaf/views/facelets/layout/footer.xhtml.vsl"
-        outputPattern="layout/footer.xhtml"
+        path="templates/views/facelets/layout/footer.html.vsl"
+        outputPattern="layout/footer.html"
         outlet="views"
         overwrite="true"
         generateEmptyFiles="true"/>
 
     <template
-        path="templates/thymeleaf/views/facelets/crud/view.xhtml.vsl"
+        path="templates/views/facelets/crud/view.html.vsl"
         outputPattern="$generatedFile"
         outlet="views"
         overwrite="true">
@@ -1154,8 +982,8 @@
     </template>
 
     <template
-        path="templates/thymeleaf/views/facelets/login.xhtml.vsl"
-        outputPattern="${loginFileName}.xhtml"
+        path="templates/views/facelets/login.html.vsl"
+        outputPattern="${loginFileName}.html"
         outlet="views"
         overwrite="true"
         outputToSingleFile="true">
@@ -1169,8 +997,8 @@
     </template>
 
     <template
-        path="templates/thymeleaf/views/facelets/view-action.xhtml.vsl"
-        outputPattern="${action.viewFragmentPath}.xhtml"
+        path="templates/views/facelets/view-action.html.vsl"
+        outputPattern="${action.viewFragmentPath}.html"
         outlet="views"
         overwrite="true">
         <modelElements variable="action">
@@ -1184,8 +1012,8 @@
     </template>
 
     <template
-        path="templates/thymeleaf/views/facelets/view-table.xhtml.vsl"
-        outputPattern="${table.view.path}-${table.name}.xhtml"
+        path="templates/views/facelets/view-table.html.vsl"
+        outputPattern="${table.view.path}-${table.name}.html"
         outlet="views"
         overwrite="true">
         <modelElements>
@@ -1198,8 +1026,8 @@
     </template>
 
     <template
-        path="templates/thymeleaf/views/facelets/view-variables.xhtml.vsl"
-        outputPattern="${view.path}-vars.xhtml"
+        path="templates/views/facelets/view-variables.html.vsl"
+        outputPattern="${view.path}-vars.html"
         outlet="views"
         overwrite="true">
         <modelElements variable="view">
