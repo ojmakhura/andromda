@@ -23,7 +23,7 @@
 #if (!$tableColumnActions.empty)
 #set ($action = $tableColumnActions.iterator().next())
             <h:commandLink id="${action.triggerName}Action" action="#{${action.controller.beanName}.${action.triggerName}}" immediate="true">
-                <h:outputText id="${action.triggerName}ActionMessage" value="#{row.${columnName}}">
+                <h:outputText id="${action.triggerName}ActionMessage"#if ($column.type.dateType) type="date"#end value="#{row.${columnName}}">
 #if ($column.type.dateType)
                     <f:convertDateTime pattern="$column.format"/>
 #end
@@ -34,20 +34,14 @@
 #end
             </h:commandLink>
 #else
-            <h:outputText id="${columnId}" value="#{row.${columnName}}">
-#if ($column.type.dateType)
-                <f:convertDateTime pattern="$column.format"/>
-#end
+            <h:outputText id="${columnId}"#if ($column.type.dateType) type="date"#end value="#{row.${columnName}}">
             </h:outputText>
 #end
         </h:column>
 #end
 #else
         <h:column>
-            <h:outputText id="${columnId}" value="#{row}">
-#if ($column.type.dateType)
-                <f:convertDateTime pattern="$column.format"/>
-#end
+            <h:outputText id="${columnId}"#if ($column.type.dateType) type="date"#end value="#{row}">
             </h:outputText>
         </h:column>
 #end

@@ -4,7 +4,7 @@
         <macrolibrary name="templates/jakarta/escapeMacros.vm"/>
         <macrolibrary name="templates/jakarta/controllers/Controller.java.vm"/>
         <!-- <macrolibrary name="templates/jakarta/views/facelets/trinidad/renderActionFormInputTrinidad.vm"/> -->
-        <macrolibrary name="templates/jakarta/views/facelets/renderActionFormInputPrimeFaces.vm"/>
+        <macrolibrary name="templates/jakarta/views/facelets/renderActionFormInput.vm"/>
         <macrolibrary name="templates/jakarta/views/renderActionCommandLinkParameter.vm"/>
         <macrolibrary name="templates/jakarta/views/renderTableCommandLinkParameters.vm"/>
         <macrolibrary name="templates/jakarta/forms/formMacros.vm"/>
@@ -163,7 +163,7 @@
 
     <!-- PrimeFaces specific -->
 
-    <resource
+    <!-- <resource
         path="resources/views/css/primefaces/*"
         outputPattern="resources/css/{0}"
         outlet="views"
@@ -189,7 +189,7 @@
         outputPattern="resources/components/autoCompleteNew.xhtml"
         outlet="views"
         overwrite="true"
-        outputCondition="primefaces"/>
+        outputCondition="primefaces"/> -->
 
     <!-- process templates on model elements -->
     

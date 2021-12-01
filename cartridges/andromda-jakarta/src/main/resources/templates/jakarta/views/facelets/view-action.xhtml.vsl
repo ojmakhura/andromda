@@ -10,8 +10,8 @@
         role="form" method="POST" 
         action="#{request.contextPath}/app${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.trigger.name})">
 #if ($action.hyperlink)
-    <h:commandLink id="${action.triggerName}Action" action="#{${action.controller.beanName}.${action.triggerName}}" immediate="true" ajax="false">
-        <h:outputText id="${action.triggerName}ActionMessage" value="#{messages['$action.messageKey']}"/>
+    <a href="#" id="${action.triggerName}Action" action="#{${action.controller.beanName}.${action.triggerName}}" immediate="true" ajax="false">
+        <label id="${action.triggerName}ActionMessage" value="#{messages['$action.messageKey']}"/>
 #foreach ($parameter in $action.parameters)
 #if (!$parameter.complex || $parameter.type.enumeration)
 #renderActionCommandLinkParameter($parameter "" "        ")
@@ -22,7 +22,7 @@
 #end
 #end
 #end
-    </h:commandLink>
+    </a>
 #else
 #if (!$action.hiddenParameters.empty)
 ## <ui:include src="${action.viewFragmentPath}-hidden-params.xhtml"/>
