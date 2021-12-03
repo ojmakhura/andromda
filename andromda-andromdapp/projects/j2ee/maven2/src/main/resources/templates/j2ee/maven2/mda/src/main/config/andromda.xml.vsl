@@ -606,7 +606,7 @@
                 <property name="applicationName">${application.name}</property>
                 <property name="exceptions">${common.generated.dir}</property>
                 <property name="forms">${thymeleaf.generated.java.dir}</property>
-                <property name="views">${thymeleaf.generated.web.dir}</property>
+                <property name="views">${thymeleaf.generated.web.dir}/templates</property>
                 <property name="managed-beans">${thymeleaf.generated.java.dir}</property>
                 <property name="controllers">${thymeleaf.generated.java.dir}</property>
                 <property name="controller-impls">${thymeleaf.manual.java.dir}</property>

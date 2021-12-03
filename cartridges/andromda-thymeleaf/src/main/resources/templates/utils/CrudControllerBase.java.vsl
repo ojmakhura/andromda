@@ -8,6 +8,7 @@ package $managedBeansPackage;
 /**
  * Base class for all crud controllers
  */
+@org.springframework.stereotype.Repository
 public abstract class CrudControllerBase extends ControllerBase {
 
     /**
@@ -65,7 +66,7 @@ public abstract class CrudControllerBase extends ControllerBase {
      * @return a collection with the filtered list.
      * @throws Throwable
      */
-    public abstract java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> getAsSelectItems() throws Throwable;
+    //public abstract java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> getAsSelectItems() throws Throwable;
     /**
      * Save and keep editing.
      *
@@ -95,7 +96,7 @@ public abstract class CrudControllerBase extends ControllerBase {
     {
         final String forward=init();
 
-        Object operation=useCaseParameters.get(CRUD_OPERATION_KEY);
+        /*Object operation=useCaseParameters.get(CRUD_OPERATION_KEY);
         
         if(useCaseParameters.containsKey(CRUD_FILTER_ATTRIBUTE_KEY) && useCaseParameters.containsKey(CRUD_FILTER_VALUE_KEY)){
             ControllerBase.getUseCaseScope().put(CRUD_FILTER_ATTRIBUTE_KEY, useCaseParameters.get(CRUD_FILTER_ATTRIBUTE_KEY));
@@ -131,24 +132,25 @@ public abstract class CrudControllerBase extends ControllerBase {
             this.fillFormFromParameters(useCaseParameters);
             
             this.search();
-        }
+        }*/
         
         return forward;
     }
 
     protected void clearSaved()
     {
-        ControllerBase.getUseCaseScope().remove(CRUD_SAVED_KEY);
+        //ControllerBase.getUseCaseScope().remove(CRUD_SAVED_KEY);
     }
     
     protected void setAsSaved()
     {
-        ControllerBase.getUseCaseScope().put(CRUD_SAVED_KEY,Boolean.TRUE);
+        //ControllerBase.getUseCaseScope().put(CRUD_SAVED_KEY,Boolean.TRUE);
     }
     
     public boolean isSaved()
     {
-        return ControllerBase.getUseCaseScope().containsKey(CRUD_SAVED_KEY);
+        //return ControllerBase.getUseCaseScope().containsKey(CRUD_SAVED_KEY);
+        return false;
     }
     
     /**
@@ -158,7 +160,8 @@ public abstract class CrudControllerBase extends ControllerBase {
      */
     public boolean isFiltered()
     {
-        return CRUD_FILTERED_KEY.equals(ControllerBase.getUseCaseScope().get(CRUD_OPERATION_KEY));
+        //return CRUD_FILTERED_KEY.equals(ControllerBase.getUseCaseScope().get(CRUD_OPERATION_KEY));
+        return false;
     }
     
     /**
@@ -168,7 +171,8 @@ public abstract class CrudControllerBase extends ControllerBase {
      */
     public String getFilterAttribute()
     {
-        return org.apache.commons.lang3.ObjectUtils.toString(ControllerBase.getUseCaseScope().get(CRUD_FILTER_ATTRIBUTE_KEY));
+        //return org.apache.commons.lang3.ObjectUtils.toString(ControllerBase.getUseCaseScope().get(CRUD_FILTER_ATTRIBUTE_KEY));
+        return "";
     }
     
     /**
@@ -178,7 +182,8 @@ public abstract class CrudControllerBase extends ControllerBase {
      */
     public Object getFilterValue()
     {
-        return ControllerBase.getUseCaseScope().get(CRUD_FILTER_VALUE_KEY);
+        //return ControllerBase.getUseCaseScope().get(CRUD_FILTER_VALUE_KEY);
+        return null;
     }
     
     /**
@@ -188,7 +193,8 @@ public abstract class CrudControllerBase extends ControllerBase {
      */
     public boolean isShowSelectAction()
     {
-        return this.isUseCaseInDialog() && CRUD_SELECT_ONE_KEY.equals(ControllerBase.getUseCaseScope().get(CRUD_OPERATION_KEY));
+        //return this.isUseCaseInDialog() && CRUD_SELECT_ONE_KEY.equals(ControllerBase.getUseCaseScope().get(CRUD_OPERATION_KEY));
+        return false;
     }
     
     /**
@@ -218,10 +224,11 @@ public abstract class CrudControllerBase extends ControllerBase {
      */    
     public boolean isShowSaveAndSelectAction()
     {
-        return this.isUseCaseInDialog() &&
-               (CRUD_SELECT_ONE_KEY.equals(ControllerBase.getUseCaseScope().get(CRUD_OPERATION_KEY)) ||
-               CRUD_CREATE_KEY.equals(ControllerBase.getUseCaseScope().get(CRUD_OPERATION_KEY)) ||
-               CRUD_EDIT_KEY.equals(ControllerBase.getUseCaseScope().get(CRUD_OPERATION_KEY)));
+        //return this.isUseCaseInDialog() &&
+        //       (CRUD_SELECT_ONE_KEY.equals(ControllerBase.getUseCaseScope().get(CRUD_OPERATION_KEY)) ||
+        //       CRUD_CREATE_KEY.equals(ControllerBase.getUseCaseScope().get(CRUD_OPERATION_KEY)) ||
+        //       CRUD_EDIT_KEY.equals(ControllerBase.getUseCaseScope().get(CRUD_OPERATION_KEY)));
+        return false;
     }
     
     /**
@@ -231,7 +238,8 @@ public abstract class CrudControllerBase extends ControllerBase {
      */    
     public boolean isShowSaveAction()
     {
-        return !this.isUseCaseInDialog() || this.isFiltered() || CRUD_SELECT_ONE_KEY.equals(ControllerBase.getUseCaseScope().get(CRUD_OPERATION_KEY));
+        //return !this.isUseCaseInDialog() || this.isFiltered() || CRUD_SELECT_ONE_KEY.equals(ControllerBase.getUseCaseScope().get(CRUD_OPERATION_KEY));
+        return false;
     }
 
     /**
@@ -241,7 +249,8 @@ public abstract class CrudControllerBase extends ControllerBase {
      */    
     public boolean isShowCancelAction()
     {
-        return !this.isSaved();
+        //return !this.isSaved();
+        return false;
     }
 
     /**
@@ -251,7 +260,8 @@ public abstract class CrudControllerBase extends ControllerBase {
      */    
     public boolean isShowDeleteAction()
     {
-        return this.isIdSet() && (this.isFiltered() || !this.isUseCaseInDialog());
+        //return this.isIdSet() && (this.isFiltered() || !this.isUseCaseInDialog());
+        return false;
     }
 
     /**
@@ -259,7 +269,7 @@ public abstract class CrudControllerBase extends ControllerBase {
      */
     protected void saveMaxResultsWarning()
     {
-        JakartaUtils.addWarningMessage(Messages.get("maximum.results.fetched.warning", new Object[]{String.valueOf("250")}));
+        //ThymeleafUtils.addWarningMessage(Messages.get("maximum.results.fetched.warning", new Object[]{String.valueOf("250")}));
     }
 
     /**
@@ -271,9 +281,10 @@ public abstract class CrudControllerBase extends ControllerBase {
     public String select(final Object value, final Object label)
         throws Throwable
     {
-        return setReturnValues(
-            new String[]{CRUD_SELECTED_ID_KEY,CRUD_SELECTED_LABEL_KEY},
-            new Object[]{value,label});
+        //return setReturnValues(
+        //    new String[]{CRUD_SELECTED_ID_KEY,CRUD_SELECTED_LABEL_KEY},
+        //    new Object[]{value,label});
+        return "";
     }
 
     public String nullAction()

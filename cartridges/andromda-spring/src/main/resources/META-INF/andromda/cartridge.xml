@@ -1483,7 +1483,7 @@
         </modelElements>
     </template>
 
-    <template
+    <!-- <template
         path="templates/spring/crud/SpringCrudServiceLocator.vsl"
         outputPattern="$generatedFile"
         outlet="services"
@@ -1495,7 +1495,7 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <template
         path="templates/spring/crud/SpringCrudService.vsl"

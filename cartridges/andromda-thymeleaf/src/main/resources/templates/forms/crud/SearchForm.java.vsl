@@ -80,7 +80,7 @@ $member.getDocumentation("     * ")
 #else
         //the code below avoids the "0 when null" issue of EL
 #if ($member.many)
-        this.$member.name = ${managedBeansPackage}.JakartaUtils.removeZeros(${member.name}In);
+        this.$member.name = ${managedBeansPackage}.ThymeleafUtils.removeZeros(${member.name}In);
 #else
         this.$member.name = (${member.name}In == null || ${member.name}In == 0#if($fieldType.longType)L#end)? null: ${member.name}In;
 #end

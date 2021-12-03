@@ -6,6 +6,7 @@ package $manageable.manageablePackageName;
 /**
 $manageable.getDocumentation(" *")
  */
+@org.springframework.stereotype.Service("$stringUtils.uncapitalize($manageable.manageableServiceName)")
 public final class ${manageable.manageableServiceName}Impl
     extends $manageable.manageableServiceBaseName
 {

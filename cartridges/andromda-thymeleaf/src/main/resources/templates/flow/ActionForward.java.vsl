@@ -12,10 +12,8 @@ package $action.packageName;
  * This servlet is used to allow controller operation execution through
  * a URL call.
  */
-## @${jakartaNamespace}.servlet.annotation.WebServlet("${action.path}.${facesServletExtension}")
-@${jakartaNamespace}.mvc.Controller
-@${jakartaNamespace}.enterprise.context.RequestScoped
-@${jakartaNamespace}.ws.rs.Path("${action.path}")
+@org.springframework.stereotype.Controller
+@org.springframework.web.bind.annotation.RequestMapping("${restPath}")
 public class $action.actionClassName implements java.io.Serializable
 ##      extends ${jakartaNamespace}.servlet.http.HttpServlet
 {
@@ -25,63 +23,12 @@ public class $action.actionClassName implements java.io.Serializable
      */
     private static final long serialVersionUID = 1L;
 
-    @${jakartaNamespace}.inject.Inject
-    private $action.controller.fullyQualifiedImplementationName $action.controller.beanName;
+    @org.springframework.beans.factory.annotation.Autowired
+    private ${action.controller.fullyQualifiedName} $manageable.controllerBeanName;
 
-    @${jakartaNamespace}.ws.rs.GET
+    @org.springframework.web.bind.annotation.GetMapping
     public String start() throws Throwable {
 
         return ${action.controller.beanName}.startUseCase();
     }
-##
-##    /**
-##     * @see ${jakartaNamespace}.servlet.http.HttpServlet#hash()doGet(${jakartaNamespace}.servlet.http.HttpServletRequest, ${jakartaNamespace}.servlet.http.HttpServletResponse)
-##     */
-##    @Override
-##    public void doGet(
-##        final ${jakartaNamespace}.servlet.http.HttpServletRequest request,
-##        final ${jakartaNamespace}.servlet.http.HttpServletResponse response)
-##        throws ${jakartaNamespace}.servlet.ServletException, java.io.IOException
-##    {
-##        // - we need to resolve the controller differently since we're outside of the faces servlet
-## #set ($facesContextUtilsFullyQualifiedName = "FacesContextUtils")
-## #if ($stringUtils.isNotBlank($managedBeansPackage))
-## #set($facesContextUtilsFullyQualifiedName = "${managedBeansPackage}.${facesContextUtilsFullyQualifiedName}")
-## #end
-## #set ($controller = $action.controller)
-## TODO UMLMETA-106 uml22 StateVertex outgoing FinalState target returns null/unknown for Exception transition.
-##        // action=$action
-##        // activityGraph=$action.activityGraph
-##foreach ($state in $action.activityGraph.states)
-##        // state=$state transition=$state.transition
-##end
-## Returns null in UML2 model
-##        // controller=$action.activityGraph.controller
-##        
-##        final String forwardPath;
-##        try
-##        {
-##            forwardPath = ${controller.beanName}.startUseCase();
-##        }
-##        catch(Throwable t)
-##        {
-##            throw new ${jakartaNamespace}.servlet.ServletException(t);
-##        }
-##        
-##        if(forwardPath != null){
-##            request.getRequestDispatcher(forwardPath).forward(request, response);
-##        }
-##    }
-##
-##    /**
-##     * @see ${jakartaNamespace}.servlet.http.HttpServlet#hash()doPost(${jakartaNamespace}.servlet.http.HttpServletRequest, ${jakartaNamespace}.servlet.http.HttpServletResponse)
-##     */
-##    @Override
-##    public void doPost(
-##        final ${jakartaNamespace}.servlet.http.HttpServletRequest request,
-##        final ${jakartaNamespace}.servlet.http.HttpServletResponse response)
-##        throws ${jakartaNamespace}.servlet.ServletException, java.io.IOException
-##    {
-##        this.doGet(request, response);
-##    }
 }

@@ -6,6 +6,8 @@ package $manageable.manageablePackageName;
 /**
  * @see ${manageable.manageablePackageName}.${manageable.controllerName}
  */
+@org.springframework.web.bind.annotation.RestController
+@org.springframework.web.bind.annotation.RequestMapping("$controller.beanName")
 public class ${manageable.controllerName}Impl
     extends ${manageable.controllerName}
     implements java.io.Serializable

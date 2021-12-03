@@ -21,24 +21,19 @@ package $manageable.manageablePackageName;
 #set($identifierType = $manageable.fullyQualifiedIdentifierTypeName)
 #end
 #end
-import org.primefaces.component.datatable.DataTable;
 
 /**
  * Java Server Faces Controller of the ${manageable.name} CRUD management.
  */
+@org.springframework.web.bind.annotation.RestController
+@org.springframework.web.bind.annotation.RequestMapping("$manageable.controllerBeanName")
 public abstract class ${manageable.controllerName}
     extends ${managedBeansPackage}.CrudControllerBase
 {
 
-    /**
-     * Returns an instance from the Jakarta context
-     *
-     */
-    public static ${manageable.controllerName} instance()
-    {
-        return (${manageable.controllerName})${managedBeansPackage}.JakartaUtils.resolveVariable("${manageable.controllerBeanName}");
-    }
-    
+    @org.springframework.beans.factory.annotation.Autowired
+    protected ${manageable.fullyQualifiedManageableServiceName} $stringUtils.uncapitalize($manageable.manageableServiceName);
+        
     @Override
     protected void internalLoad(final Object idParam) throws Throwable
     {
@@ -93,7 +88,7 @@ public abstract class ${manageable.controllerName}
         throws Throwable
     {
 #if ($manageable.preload)
-        final java.util.Collection<${manageable.valueObjectClassName}> list = ${manageable.manageableServiceAccessorCall}.searchByExample(null);
+        final java.util.Collection<${manageable.valueObjectClassName}> list = ${stringUtils.uncapitalize($manageable.manageableServiceName)}.searchByExample(null);
 
         form.${manageable.listSetterName}(list);
 
@@ -135,7 +130,7 @@ public abstract class ${manageable.controllerName}
         throws Throwable
     {
         final ${manageable.valueObjectClassName} vo=
-            ${manageable.manageableServiceAccessorCall}.readById(${manageable.identifierName});
+            ${stringUtils.uncapitalize($manageable.manageableServiceName)}.readById(${manageable.identifierName});
 
 #foreach ($member in $manageable.manageableAttributes)
 #if(!${member.inputFile})
@@ -332,17 +327,17 @@ public abstract class ${manageable.controllerName}
 #if(!$manageable.compositeIdentifier && ($identifierIsIntegerType || $identifierIsLongType))
             vo.${manageable.identifierSetterName}(null);
 #end
-            form.${manageable.identifierSetterName}(${manageable.manageableServiceAccessorCall}.create(vo).${manageable.identifierGetterName}());
+            form.${manageable.identifierSetterName}(${stringUtils.uncapitalize($manageable.manageableServiceName)}.create(vo).${manageable.identifierGetterName}());
 #if($crudConfirmationMessages)
-            ${managedBeansPackage}.JakartaUtils.addInfoMessage(${managedBeansPackage}.Messages.get("manageable.entity.created", new Object[]{${managedBeansPackage}.Messages.get("${manageable.messageKey}")}));
+            //${managedBeansPackage}.ThymeleafUtils.addInfoMessage(${managedBeansPackage}.Messages.get("manageable.entity.created", new Object[]{${managedBeansPackage}.Messages.get("${manageable.messageKey}")}));
 #end
         }
         else
         {
 #end
-            ${manageable.manageableServiceAccessorCall}.update(vo);
+            ${stringUtils.uncapitalize($manageable.manageableServiceName)}.update(vo);
 #if($crudConfirmationMessages)
-            ${managedBeansPackage}.JakartaUtils.addInfoMessage(${managedBeansPackage}.Messages.get("manageable.entity.changed", new Object[]{${managedBeansPackage}.Messages.get("${manageable.messageKey}")}));
+            //${managedBeansPackage}.ThymeleafUtils.addInfoMessage(${managedBeansPackage}.Messages.get("manageable.entity.changed", new Object[]{${managedBeansPackage}.Messages.get("${manageable.messageKey}")}));
 #end
 #if ($manageable.create)
         }
@@ -410,8 +405,8 @@ public abstract class ${manageable.controllerName}
     */
     protected void setResultToFirstPage(){
         //Set page to 0 after call search
-        DataTable dataTable = (DataTable) JakartaUtils.findComponentInRoot(":"+FORM_BEAN_NAME+":"+DATA_TABLE_SEARCH_NAME);
-        dataTable.setFirst(0);
+        //DataTable dataTable = (DataTable) ThymeleafUtils.findComponentInRoot(":"+FORM_BEAN_NAME+":"+DATA_TABLE_SEARCH_NAME);
+        //dataTable.setFirst(0);
     }
 
     /**
@@ -430,7 +425,7 @@ public abstract class ${manageable.controllerName}
             org.apache.commons.beanutils.BeanUtils.setProperty(form.getSearchForm(), filterAttribute, this.getFilterValue());
         }
 
-## Jakarta does not know the searchExample yet...
+## Thymeleaf does not know the searchExample yet...
 #set($searchExampleClassName = $stringUtils.replace($manageable.valueObjectClassName,'ValueObject','SearchExample'))
         final $searchExampleClassName searchExample = new ${searchExampleClassName}();
 #foreach ($member in $manageable.manageableSearchAttributes)
@@ -440,7 +435,7 @@ public abstract class ${manageable.controllerName}
         searchExample.${member.setterName}(form.getSearchForm().${member.getterName}());
 #end
         
-        final java.util.Collection<${manageable.valueObjectClassName}> list=${manageable.manageableServiceAccessorCall}.searchByExample(searchExample);
+        final java.util.Collection<${manageable.valueObjectClassName}> list=${stringUtils.uncapitalize($manageable.manageableServiceName)}.searchByExample(searchExample);
 
         form.${manageable.listSetterName}(list);
 #if ($manageable.maximumListSize > 0)
@@ -476,9 +471,9 @@ public abstract class ${manageable.controllerName}
     public void doDelete(${identifierType} ${manageable.identifierName}, ${manageable.formBeanType} form)
         throws Throwable
     {
-        ${manageable.manageableServiceAccessorCall}.delete(new ${identifierType}[]{${manageable.identifierName}});
+        ${stringUtils.uncapitalize($manageable.manageableServiceName)}.delete(new ${identifierType}[]{${manageable.identifierName}});
 #if($crudConfirmationMessages)
-        ${managedBeansPackage}.JakartaUtils.addInfoMessage(${managedBeansPackage}.Messages.get("manageable.entity.deleted", new Object[]{${managedBeansPackage}.Messages.get("${manageable.messageKey}")}));
+        //${managedBeansPackage}.ThymeleafUtils.addInfoMessage(${managedBeansPackage}.Messages.get("manageable.entity.deleted", new Object[]{${managedBeansPackage}.Messages.get("${manageable.messageKey}")}));
 #end
 
         this.doSearch(form);
@@ -494,7 +489,7 @@ public abstract class ${manageable.controllerName}
     public String odsExport()
         throws Throwable
     {
-        return "${manageable.odsExportFullPath}.xhtml?faces-redirect=true";
+        return "${manageable.odsExportFullPath}?faces-redirect=true";
     }
 
     /**
@@ -503,18 +498,18 @@ public abstract class ${manageable.controllerName}
      * @return a collection with the filtered list.
      * @throws Throwable
      */
-    @Override
-    public java.util.Collection<${thymeleafNamespace}.faces.model.SelectItem> getAsSelectItems()
+    //@Override
+    /*public java.util.Collection<${thymeleafNamespace}.faces.model.SelectItem> getAsSelectItems()
         throws Throwable
     {
         final java.util.Collection<${manageable.valueObjectClassName}> vos;
-        vos = ${manageable.manageableServiceAccessorCall}.searchByExample(null);
+        vos = ${stringUtils.uncapitalize($manageable.manageableServiceName)}.searchByExample(null);
         final java.util.Collection<${thymeleafNamespace}.faces.model.SelectItem> result=new java.util.ArrayList<${thymeleafNamespace}.faces.model.SelectItem>(vos.size());
         for(${manageable.valueObjectClassName} vo: vos){
             result.add(new ${thymeleafNamespace}.faces.model.SelectItem(vo.${manageable.identifierGetterName}(),org.apache.commons.lang3.ObjectUtils.toString(vo.get$stringUtils.upperCamelCaseName($manageable.displayAttribute.name)())));
         }
         return result;
-    }
+    }*/
 
     /** manageTaskForm */
     public static final String FORM_BEAN_NAME="${manageable.formBeanName}";
@@ -526,17 +521,16 @@ public abstract class ${manageable.controllerName}
      */
     public ${manageable.formBeanType} getForm()
     {
-        return (${manageable.formBeanType})${managedBeansPackage}.JakartaUtils.resolveVariable(FORM_BEAN_NAME);
+        return (${manageable.formBeanType})${managedBeansPackage}.ThymeleafUtils.resolveVariable(FORM_BEAN_NAME);
     }
 
     public ${manageable.valueObjectClassName} readById(${identifierType} id) throws Exception
     {
-        return ${manageable.manageableServiceAccessorCall}.readById(id);
+        return ${stringUtils.uncapitalize($manageable.manageableServiceName)}.readById(id);
     }
 
     public java.util.Collection<${manageable.valueObjectClassName}> readByIds(${identifierType}[] ids) throws Exception
     {
-        final ${manageable.fullyQualifiedManageableServiceName} service=${manageable.manageableServiceAccessorCall};
         if(ids == null){
             return null;
         }
@@ -544,7 +538,7 @@ public abstract class ${manageable.controllerName}
         {
             final java.util.Collection<${manageable.valueObjectClassName}> result=new java.util.ArrayList<${manageable.valueObjectClassName}>(ids.length);
             for(final Long id: ids){
-                result.add(service.readById(id));
+                result.add(${stringUtils.uncapitalize($manageable.manageableServiceName)}.readById(id));
             }
             return result;
         }
@@ -589,7 +583,7 @@ public abstract class ${manageable.controllerName}
 #end                    
 #end
 
-        final java.util.Collection<${manageable.valueObjectClassName}> result = ${manageable.manageableServiceAccessorCall}.searchByExample(searchExample);
+        final java.util.Collection<${manageable.valueObjectClassName}> result = ${stringUtils.uncapitalize($manageable.manageableServiceName)}.searchByExample(searchExample);
         return result;
     }
     
@@ -603,7 +597,7 @@ public abstract class ${manageable.controllerName}
             searchExample.${member.setterName}(filter.${member.getterName}());
 #end
 
-        final java.util.Collection<${manageable.valueObjectClassName}> result = ${manageable.manageableServiceAccessorCall}.searchByExample(searchExample);
+        final java.util.Collection<${manageable.valueObjectClassName}> result = ${stringUtils.uncapitalize($manageable.manageableServiceName)}.searchByExample(searchExample);
         return result;
     }
 

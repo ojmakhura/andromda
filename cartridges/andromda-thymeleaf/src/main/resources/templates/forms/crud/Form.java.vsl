@@ -166,7 +166,7 @@ $field.getDocumentation("     * ")
 #end
     }
 
-    private java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> $field.backingListName;
+//    private java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> $field.backingListName;
 
 #set ($backingListMethod = $stringUtils.capitalize($field.backingListName))
     /**
@@ -174,18 +174,18 @@ $field.getDocumentation("     * ")
      *
      * @return $field.backingListName
      */
-    public java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> get${backingListMethod}(){
+    /*public java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> get${backingListMethod}(){
         return this.${field.backingListName};
-    }
+    }*/
 
     /**
      * Setter of the attribute $field.backingListName
      *
      * @param ${field.backingListName}In the new value of $field.backingListName
      */
-    public void set${backingListMethod}(java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> ${field.backingListName}In){
+    /*public void set${backingListMethod}(java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> ${field.backingListName}In){
         this.${field.backingListName} = ${field.backingListName}In;
-    }
+    }*/
 
 #end
 #if (!$manageable.manageableAssociationEnds.empty)
@@ -229,14 +229,14 @@ $member.getDocumentation("     * ")
 #else
         //the code below avoids the "0 when null" issue of EL
 #if ($member.many)
-        this.$member.name = ${managedBeansPackage}.JakartaUtils.removeZeros(${member.name}In);
+        this.$member.name = ${managedBeansPackage}.ThymeleafUtils.removeZeros(${member.name}In);
 #else
         this.$member.name = (${member.name}In == null || ${member.name}In == 0#if($fieldType.longType)L#end)? null: ${member.name}In;
 #end
 #end
     }
 
-    private java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> $member.backingListName;
+    //private java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> $member.backingListName;
 
 #set ($backingListMethod = $stringUtils.capitalize($member.backingListName))
     /**
@@ -244,18 +244,18 @@ $member.getDocumentation("     * ")
      *
      * @return ${member.backingListName}
      */
-    public java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> get${backingListMethod}(){
+    /*public java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> get${backingListMethod}(){
         return this.${member.backingListName};
-    }
+    }*/
 
     /**
      * The current collection of possible values of ${member.name}.
      *
      * @param ${member.backingListName}In
      */
-    public void set${backingListMethod}(java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> ${member.backingListName}In){
+    /*public void set${backingListMethod}(java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> ${member.backingListName}In){
         this.${member.backingListName} = ${member.backingListName}In;
-    }
+    }*/
 
 #end
     // Master/detail view helpers

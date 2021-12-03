@@ -1199,6 +1199,7 @@
         jsf=$jsf
         webservice=$webservice
         cxf=$cxf
+        thymeleaf=$thymeleaf
         rest=$rest
 		springws=$springws
         jbossSeam=$jbossSeam
@@ -1229,6 +1230,9 @@
 #end
 #if ($springws)
 		<module>springws</module>
+#end
+#if ($thymeleaf)
+		<module>thymeleaf</module>
 #end
     </modules>
     <properties>

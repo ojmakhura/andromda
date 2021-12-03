@@ -3,8 +3,8 @@
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
         <macrolibrary name="templates/escapeMacros.vm"/>
         <macrolibrary name="templates/controllers/Controller.java.vm"/>
-        <!-- <macrolibrary name="templates/views/facelets/trinidad/renderActionFormInputTrinidad.vm"/> -->
-        <macrolibrary name="templates/views/facelets/renderActionFormInputPrimeFaces.vm"/>
+        <!-- <macrolibrary name="templates/views/trinidad/renderActionFormInputTrinidad.vm"/> -->
+        <macrolibrary name="templates/views/renderActionFormInput.vm"/>
         <macrolibrary name="templates/views/renderActionCommandLinkParameter.vm"/>
         <macrolibrary name="templates/views/renderTableCommandLinkParameters.vm"/>
         <macrolibrary name="templates/forms/formMacros.vm"/>
@@ -111,11 +111,11 @@
         outlet="managed-beans"
         overwrite="true"/>
         
-    <!-- <template
+    <template
         path="templates/utils/CrudControllerBase.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
         outlet="managed-beans"
-        overwrite="true"/> -->
+        overwrite="true"/>
         
     <template
         path="templates/forms/Form.java.vsl"
@@ -262,23 +262,23 @@
         outlet="managed-beans"
         overwrite="true"/>
 
-    <template
+    <!-- <template
         path="templates/utils/UseCasePhaseListener.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/UseCasePhaseListener.java"
         outlet="managed-beans"
-        overwrite="true"/>
+        overwrite="true"/> -->
 
-    <template
+    <!-- <template
         path="templates/exception/ThymeleafExceptionHandlerFactory.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/ThymeleafExceptionHandlerFactory.java"
         outlet="managed-beans"
-        overwrite="true"/>
+        overwrite="true"/> -->
 
-    <template
+    <!-- <template
         path="templates/exception/ThymeleafExceptionHandler.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/ThymeleafExceptionHandler.java"
         outlet="managed-beans"
-        overwrite="true"/>
+        overwrite="true"/> -->
 
     <template
         path="templates/exception/ValidationException.java.vsl"
@@ -286,11 +286,11 @@
         outlet="exceptions"
         overwrite="true"/>
 
-    <template
+    <!-- <template
         path="templates/utils/FacesContextUtils.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
         outlet="managed-beans"
-        overwrite="true"/>
+        overwrite="true"/> -->
 
     <template
         path="templates/views/jsp/index.jsp.vsl"
@@ -523,7 +523,7 @@
     <!--  -->
 
     <template
-        path="templates/views/facelets/view-hidden-parameters.html.vsl"
+        path="templates/views/view-hidden-parameters.html.vsl"
         outputPattern="${action.viewFragmentPath}-hidden-params.html"
         outlet="views"
         overwrite="true">
@@ -553,7 +553,7 @@
         </modelElements>
     </template>
 
-    <template
+    <!-- <template
         path="templates/converters/crud/EntityConverter.java.vsl"
         outputPattern="$generatedFile"
         outlet="controllers"
@@ -564,7 +564,7 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <template
         path="templates/controllers/crud/Controller.java.vsl"
@@ -653,7 +653,7 @@
     </template>
 
     <template
-        path="templates/views/facelets/crud-index.html.vsl"
+        path="templates/views/crud-index.html.vsl"
         outputPattern="crud-index.html"
         outlet="views"
         overwrite="true"
@@ -692,7 +692,7 @@
         outputCondition="trinidad"/> -->
 
     <!-- <template
-        path="templates/views/facelets/trinidad/view.html.vsl"
+        path="templates/views/trinidad/view.html.vsl"
         outputPattern="${view.path}.html"
         outlet="views"
         overwrite="true"
@@ -735,7 +735,7 @@
         outputCondition="trinidad"/> -->
 
     <!-- <template
-        path="templates/views/facelets/trinidad/layout/layout.html.vsl"
+        path="templates/views/trinidad/layout/layout.html.vsl"
         outputPattern="layout/layout.html"
         outlet="views"
         overwrite="true"
@@ -743,7 +743,7 @@
         outputCondition="trinidad"/> -->
 
     <!-- <template
-        path="templates/views/facelets/trinidad/layout/registration-layout.html.vsl"
+        path="templates/views/trinidad/layout/registration-layout.html.vsl"
         outputPattern="layout/registration-layout.html"
         outlet="views"
         overwrite="true"
@@ -760,7 +760,7 @@
     </template> -->
 
     <!-- <template
-        path="templates/views/facelets/trinidad/layout/header.html.vsl"
+        path="templates/views/trinidad/layout/header.html.vsl"
         outputPattern="layout/header.html"
         outlet="views"
         overwrite="true"
@@ -768,7 +768,7 @@
         outputCondition="trinidad"/> -->
 
     <!-- <template
-        path="templates/views/facelets/trinidad/layout/messages.html.vsl"
+        path="templates/views/trinidad/layout/messages.html.vsl"
         outputPattern="layout/messages.html"
         outlet="views"
         overwrite="true"
@@ -776,14 +776,14 @@
         outputCondition="trinidad"/> -->
 
     <!-- <template
-        path="templates/views/facelets/trinidad/layout/head.html.vsl"
+        path="templates/views/trinidad/layout/head.html.vsl"
         outputPattern="layout/head.html"
         outlet="views"
         overwrite="true"
         outputCondition="trinidad"/> -->
 
     <!-- <template
-        path="templates/views/facelets/trinidad/layout/footer.html.vsl"
+        path="templates/views/trinidad/layout/footer.html.vsl"
         outputPattern="layout/footer.html"
         outlet="views"
         overwrite="true"
@@ -791,7 +791,7 @@
         outputCondition="trinidad"/> -->
 
     <!-- <template
-        path="templates/views/facelets/trinidad/crud/view.html.vsl"
+        path="templates/views/trinidad/crud/view.html.vsl"
         outputPattern="$generatedFile"
         outlet="views"
         overwrite="true"
@@ -806,7 +806,7 @@
     </template> -->
 
     <!-- <template
-        path="templates/views/facelets/trinidad/crud/export-ods.html.vsl"
+        path="templates/views/trinidad/crud/export-ods.html.vsl"
         outputPattern="$generatedFile"
         outlet="views"
         overwrite="true"
@@ -821,7 +821,7 @@
     </template> -->
 
     <!-- <template
-        path="templates/views/facelets/trinidad/login.html.vsl"
+        path="templates/views/trinidad/login.html.vsl"
         outputPattern="${loginFileName}.html"
         outlet="views"
         overwrite="true"
@@ -837,7 +837,7 @@
     </template> -->
 
     <!-- <template
-        path="templates/views/facelets/trinidad/view-action.html.vsl"
+        path="templates/views/trinidad/view-action.html.vsl"
         outputPattern="${action.viewFragmentPath}.html"
         outlet="views"
         overwrite="true"
@@ -853,7 +853,7 @@
     </template> -->
 
     <!-- <template
-        path="templates/views/facelets/trinidad/view-table.html.vsl"
+        path="templates/views/trinidad/view-table.html.vsl"
         outputPattern="${table.view.path}-${table.name}.html"
         outlet="views"
         overwrite="true"
@@ -868,7 +868,7 @@
     </template> -->
 
     <!-- <template
-        path="templates/views/facelets/trinidad/view-variables.html.vsl"
+        path="templates/views/trinidad/view-variables.html.vsl"
         outputPattern="${view.path}-vars.html"
         outlet="views"
         overwrite="true"
@@ -885,7 +885,7 @@
     <!-- PrimeFaces specific -->
 
     <template
-        path="templates/views/facelets/view.html.vsl"
+        path="templates/views/view.html.vsl"
         outputPattern="${view.path}.html"
         outlet="views"
         overwrite="true">
@@ -898,22 +898,22 @@
         </modelElements>
     </template>
 
-    <template
-        path="templates/views/facelets/layout/layout.html.vsl"
+    <!-- <template
+        path="templates/views/layout/layout.html.vsl"
         outputPattern="layout/layout.html"
         outlet="views"
         overwrite="true"
-        generateEmptyFiles="true"/>
+        generateEmptyFiles="true"/> -->
 
     <!-- <template
-        path="templates/views/facelets/layout/layout-crud.html.vsl"
+        path="templates/views/layout/layout-crud.html.vsl"
         outputPattern="layout/layout-crud.html"
         outlet="views"
         overwrite="true"
         generateEmptyFiles="true"/> -->
 
     <template
-        path="templates/views/facelets/layout/navigation.html.vsl"
+        path="templates/views/layout/navigation.html.vsl"
         outputPattern="layout/navigation.html"
         outlet="views"
         overwrite="true"
@@ -932,7 +932,7 @@
     </template>
 
     <template
-        path="templates/views/facelets/layout/registration-layout.html.vsl"
+        path="templates/views/layout/registration-layout.html.vsl"
         outputPattern="layout/registration-layout.html"
         outlet="views"
         overwrite="true"
@@ -947,28 +947,28 @@
         </modelElements>
     </template>
 
-    <template
-        path="templates/views/facelets/layout/header.html.vsl"
+    <!-- <template
+        path="templates/views/layout/header.html.vsl"
         outputPattern="layout/header.html"
         outlet="views"
         overwrite="true"
-        generateEmptyFiles="true"/>
+        generateEmptyFiles="true"/> -->
 
-    <template
-        path="templates/views/facelets/layout/head.html.vsl"
+    <!-- <template
+        path="templates/views/layout/head.html.vsl"
         outputPattern="layout/head.html"
         outlet="views"
-        overwrite="true"/>
+        overwrite="true"/> -->
 
-    <template
-        path="templates/views/facelets/layout/footer.html.vsl"
+    <!-- <template
+        path="templates/views/layout/footer.html.vsl"
         outputPattern="layout/footer.html"
         outlet="views"
         overwrite="true"
-        generateEmptyFiles="true"/>
+        generateEmptyFiles="true"/> -->
 
     <template
-        path="templates/views/facelets/crud/view.html.vsl"
+        path="templates/views/crud/view.html.vsl"
         outputPattern="$generatedFile"
         outlet="views"
         overwrite="true">
@@ -982,7 +982,7 @@
     </template>
 
     <template
-        path="templates/views/facelets/login.html.vsl"
+        path="templates/views/login.html.vsl"
         outputPattern="${loginFileName}.html"
         outlet="views"
         overwrite="true"
@@ -997,7 +997,7 @@
     </template>
 
     <template
-        path="templates/views/facelets/view-action.html.vsl"
+        path="templates/views/view-action.html.vsl"
         outputPattern="${action.viewFragmentPath}.html"
         outlet="views"
         overwrite="true">
@@ -1012,7 +1012,7 @@
     </template>
 
     <template
-        path="templates/views/facelets/view-table.html.vsl"
+        path="templates/views/view-table.html.vsl"
         outputPattern="${table.view.path}-${table.name}.html"
         outlet="views"
         overwrite="true">
@@ -1026,7 +1026,7 @@
     </template>
 
     <template
-        path="templates/views/facelets/view-variables.html.vsl"
+        path="templates/views/view-variables.html.vsl"
         outputPattern="${view.path}-vars.html"
         outlet="views"
         overwrite="true">
