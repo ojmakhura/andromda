@@ -316,7 +316,7 @@ public class JakartaControllerLogicImpl
 
         if (!(this.getRestCount()>0) || StringUtils.isBlank(path) || path.equals(DEFAULT))
         {
-            path = SLASH + this.getName().toLowerCase();
+            path = SLASH + JakartaUtils.toWebResourceName(this.getName().toLowerCase());
         }
         else
         {

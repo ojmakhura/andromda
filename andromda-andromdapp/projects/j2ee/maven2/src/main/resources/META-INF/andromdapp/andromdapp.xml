@@ -163,8 +163,8 @@
             <to>web/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}Application.java.vsl</to>
         </mapping>
         <mapping>
-            <from>web/UseCaseScope.java.vsl</from>
-            <to>web/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/UseCaseScope.java.vsl</to>
+            <from>web/UseCaseObject.java.vsl</from>
+            <to>web/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/UseCaseObject.java.vsl</to>
         </mapping>
         <mapping>
             <from>web/Messages.java.vsl</from>

@@ -645,7 +645,7 @@ public class JakartaAttributeLogicImpl
         if (StringUtils.isNotBlank(defaultValue))
         {
             final ClassifierFacade type = this.getType();
-            if (type != null && type.isStringType() && defaultValue.startsWith("\""))
+            if (type != null && type.isStringType() && !defaultValue.startsWith("\""))
             {
                 defaultValue = "\"" + defaultValue + "\"";
             }

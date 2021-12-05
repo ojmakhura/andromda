@@ -8,7 +8,7 @@
 #set($formName = $action.formBeanName)
     <form id="${formName}" name="${formName}" 
         role="form" method="POST" 
-        action="#{request.contextPath}/app${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.trigger.name})">
+        action="#{request.contextPath}/app${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.triggerName})">
 #if ($action.hyperlink)
     <a href="#" id="${action.triggerName}Action" action="#{${action.controller.beanName}.${action.triggerName}}" immediate="true" ajax="false">
         <label id="${action.triggerName}ActionMessage" value="#{messages['$action.messageKey']}"/>

@@ -27,18 +27,23 @@ ${ident}<td>
 ${ident}    <label id="${propertyId}_label" for="${propertyId}" value="#{messages['$parameter.messageKey']}">#{messages['$parameter.messageKey']}:</label>
 ${ident}</td>
 #if ($parameter.type.dateType)
-${ident}<input type="date" id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" readonly="${parameter.readOnly}" navigator="true" pattern="$parameter.format" showOn="button">
+${ident}<td>
+${ident}    <input type="date" id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" readonly="${parameter.readOnly}" navigator="true" pattern="$parameter.format" showOn="button">
 ## ${ident}    <f:convertDateTime pattern="$parameter.format"/>
-${ident}</input>
+${ident}    </input>
+${ident}</td>
 #elseif ($parameter.inputCheckbox)
-${ident}<input type="checkbox" id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" onLabel="#{messages['yes']}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"#if($parameter.readOnly) readonly#end/>
+${ident}<td>
+${ident}    <input id="$propertyId" type="checkbox" value="#{${formValuePropertyName}}" required="$parameter.required" onLabel="#{messages['yes']}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"#if($parameter.readOnly) readonly#end/>
+${ident}</td>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration)
 #set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
 #set ($selectBoxType = "selectOneMenu")
 #if ($multiSelect)
 #set ($selectBoxType = "selectManyMenu")
 #end
-${ident}<select #if ($multiSelect)multiple size="5"#end id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required"#if($parameter.readOnly) readonly#end>
+${ident}<td>
+${ident}    <select #if ($multiSelect)multiple size="5"#end id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required"#if($parameter.readOnly) readonly#end>
 #if ($parameter.type.enumeration)
                     <option value=""></option>
 #foreach($literal in $parameter.type.literals)
@@ -46,15 +51,16 @@ ${ident}<select #if ($multiSelect)multiple size="5"#end id="$propertyId" value="
 #end
 #else
 #if(!$parameter.required)
-${ident}    <option value=""></option>
+${ident}        <option value=""></option>
 #end
-${ident}    <f:selectItems value="#{${formName}.${backingListName}}" />
+${ident}        <f:selectItems value="#{${formName}.${backingListName}}" />
 #end
-${ident}</select>
+${ident}    </select>
+${ident}</td>
 #elseif ($parameter.inputFile)
 ${ident}<input type="file" id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required"#if($parameter.readOnly) readonly#end/>
 #elseif ($parameter.inputMultibox)
-${ident}<input type="checkbox" id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required"#if($parameter.readOnly) readonly#end>
+${ident}<input id="$propertyId" type="checkbox" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required"#if($parameter.readOnly) readonly#end>
 ${ident}    <f:selectItems value="#{${formName}.${backingListName}}" />
 ${ident}</input>
 #elseif ($parameter.inputRadio)

@@ -7,10 +7,10 @@ import java.util.Map;
 import ${jakartaNamespace}.enterprise.context.SessionScoped;
 import ${jakartaNamespace}.inject.Named;
 
-@Named("useCaseScope")
+@Named("useCaseObject")
 @SessionScoped
 #end
-public class UseCaseScope implements Serializable {
+public class UseCaseObject implements Serializable {
     
     private Map<String, Object> useCaseScope;
     private Map<String, Object> viewVariables;

@@ -95,7 +95,7 @@
 #set ($urlParams = "$urlParams$parameter.name=#{$parameterValue}")
 #end
             <form method="POST" 
-                    action="#{request.contextPath}/app${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.trigger.name})/$urlParams">
+                    action="#{request.contextPath}/app${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.triggerName})/$urlParams">
                 <button type="submit" id="${action.triggerName}Action" value="#{messages['$action.trigger.messageKey']}">
                     #{messages['$action.trigger.messageKey']}
                 </button>
@@ -110,7 +110,7 @@
 #if (!$action.tableLinkColumnName)
         function ${action.triggerName}(_data, context, urlParams) {
 
-            var apiUrl = context + '/app${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.trigger.name})';
+            var apiUrl = context + '/app${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.triggerName})';
             fetch(
                 apiUrl,
                 {
