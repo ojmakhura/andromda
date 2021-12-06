@@ -41,6 +41,12 @@
   <script type="text/javascript" th:src="@{/js/breakpoints.min.js}"></script>
   <script type="text/javascript" th:src="@{/js/util.js}"></script>
   <script type="text/javascript" th:src="@{/js/main.js}"></script>
+  <script>
+    $('.input-group.date').datepicker({
+      autoclose: true,
+      todayHighlight: true
+    });
+  </script>
 </body>
 
 </html>

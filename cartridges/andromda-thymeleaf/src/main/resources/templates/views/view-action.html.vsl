@@ -4,10 +4,10 @@
 #set($formName = $action.formBeanName)
     <form id="${formName}" name="${formName}" 
         role="form" method="POST" 
-        action="#{request.contextPath}/app${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.trigger.name})">
+        action="#{request.contextPath}/app${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.triggerName})">
 #if ($action.hyperlink)
-    <h:commandLink id="${action.triggerName}Action" action="#{${action.controller.beanName}.${action.triggerName}}" immediate="true" ajax="false">
-        <h:outputText id="${action.triggerName}ActionMessage" value="#{messages['$action.messageKey']}"/>
+    <a href="#" id="${action.triggerName}Action" action="#{${action.controller.beanName}.${action.triggerName}}" immediate="true" ajax="false">
+        <label id="${action.triggerName}ActionMessage" value="#{messages['$action.messageKey']}"/>
 #foreach ($parameter in $action.parameters)
 #if (!$parameter.complex || $parameter.type.enumeration)
 #renderActionCommandLinkParameter($parameter "" "        ")
@@ -18,40 +18,30 @@
 #end
 #end
 #end
-    </h:commandLink>
+    </a>
 #else
 #if (!$action.hiddenParameters.empty)
 ## <ui:include src="${action.viewFragmentPath}-hidden-params.xhtml"/>
 #end
-        <table>
-            <tbody>
 #set($triggerId = "${action.triggerName}Action")   
 #foreach ($parameter in $action.parameters)
 #if (!$parameter.complex || $parameter.type.enumeration)
-                <tr>
-#renderActionInputPrimeFaces($parameter "" "                    ")
-                </tr>
+        <div class="form-group">
+#renderActionInput($parameter "" "          ")
+        </div>
 #else
 #foreach ($attribute in $parameter.attributes)
 #if(!$attribute.inputHidden && !$parameter.inputHidden)
-                <tr>
-#renderActionInputPrimeFaces($attribute $parameter "                    ")
-                </tr>
+        <div class="form-group">
+#renderActionInput($attribute $parameter "          ")
+        </div>
 #end
 #end
 #end
 #end
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="3">
-                        <button type="submit" id="$triggerId" class="btn btn-lg btn-primary" value="#{messages['$action.messageKey']}">
-                                #{messages['$action.messageKey']}
-                        </button>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
+        <button type="submit" id="$triggerId" class="btn btn-lg btn-primary" value="#{messages['$action.messageKey']}">
+            #{messages['$action.messageKey']}
+        </button>
 #end
     </form>
 </html>

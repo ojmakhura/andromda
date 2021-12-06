@@ -84,8 +84,8 @@ public abstract class $entity.daoBaseName
     implements $entity.fullyQualifiedDaoName
 {
 
-    @org.springframework.beans.factory.annotation.Autowired
-    protected ${entity.packageName}.${entity.name}Repository ${stringUtils.uncapitalize(${entity.entityName})}Repository;
+    //@org.springframework.beans.factory.annotation.Autowired
+    //protected ${entity.packageName}.${entity.name}Repository ${stringUtils.uncapitalize(${entity.entityName})}Repository;
 #if($hibernate4or5)
     
     protected org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(${entity.daoBaseName}.class);
@@ -187,9 +187,10 @@ public abstract class $entity.daoBaseName
 #else
 #set ($xmlIndent = "")
 #end
-$xmlIndent        java.util.Optional<($entity.fullyQualifiedName)> entity = ${stringUtils.uncapitalize(${entity.entityName})}Repository.findById($argument);
-##$xmlIndent        final Object entity =#if($hibernate4or5) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.get(${entity.fullyQualifiedEntityName}.class, $argument);
-$xmlIndent        return transformEntity(transform, entity.get());
+##$xmlIndent        java.util.Optional<$entity.fullyQualifiedName> entity = ${stringUtils.uncapitalize(${entity.entityName})}Repository.findById($argument);
+##$xmlIndent        return transformEntity(transform, entity.get())
+$xmlIndent        final Object entity =#if($hibernate4or5) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.get(${entity.fullyQualifiedEntityName}.class, $argument);
+$xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)entity);
 #if ($hibernateUtils.xmlPersistenceActive)
         }
 #end
@@ -251,9 +252,10 @@ $xmlIndent        return transformEntity(transform, entity.get());
 $oldXmlIndent        try{
 #set ($xmlIndent = "    $xmlIndent")
 #end
-$xmlIndent        java.util.Optional<($entity.fullyQualifiedName)> entity = ${stringUtils.uncapitalize(${entity.entityName})}Repository.findById($argument);
-##$xmlIndent        final Object entity =#if($hibernate4or5) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.get(${entity.fullyQualifiedEntityName}.class, $argument);
-$xmlIndent        return transformEntity(transform, entity.get());
+##$xmlIndent        java.util.Optional<$entity.fullyQualifiedName> entity = ${stringUtils.uncapitalize(${entity.entityName})}Repository.findById($argument);
+##$xmlIndent        return transformEntity(transform, entity.get())
+$xmlIndent        final Object entity =#if($hibernate4or5) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.get(${entity.fullyQualifiedEntityName}.class, $argument);
+$xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)entity);
 #if($enableCaching)
 $oldXmlIndent        }catch(org.hibernate.WrongClassException exc){
 $oldXmlIndent            //No display error message caused by the cache L2 hibernate as stated in https://hibernate.atlassian.net/browse/HHH-4953 and https://hibernate.atlassian.net/browse/HHH-9028

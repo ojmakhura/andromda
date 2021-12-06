@@ -4,28 +4,27 @@
 ## parameters:
 ##     o  $parameter - the actual parameter to render
 ##
-#macro(renderSearchInputPrimeFaces $parameter)
+#macro(renderSearchInput $parameter)
 #set ($valuePropertyName = "searchForm.${parameter.name}")
 #set ($propertyId = "searchForm_${parameter.name}")
 #set ($backingListName = $parameter.backingListName)
 #set ($formValuePropertyName = "${formName}.${valuePropertyName}")
-                <tr>
-                    <!-- ${propertyId} -->
-                    <td><p:outputLabel id="${propertyId}_label" for="${propertyId}" value="#{messages['$parameter.messageKey']}:"/></td>
+                <!-- ${propertyId} -->
+                <div class="form-group">
+                    <label id="${propertyId}_label" for="${propertyId}" th:value="#{messages['$parameter.messageKey']}:"/>
 #if ($parameter.type.dateType)
-                    <td>
-                        <p:calendar id="${propertyId}" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" navigator="true" pattern="${parameter.format}" showOn="button">
+                        <input type="text" id="${propertyId}" th:field="*{${formValuePropertyName}}" class="form-control" label="#{messages['$parameter.messageKey']}:" navigator="true" pattern="${parameter.format}" showOn="button">
                             <f:convertDateTime pattern="${parameter.format}"/>
-                        </p:calendar>
-                    </td>
+                        </input>
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                        </div>
 #elseif ($parameter.inputCheckbox)
-                    <td>
-                        <p:selectOneMenu id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:">
-                            <f:selectItem itemLabel=""/>
-                            <f:selectItem itemLabel="#{messages['yes']}" itemValue="true"/>
-                            <f:selectItem itemLabel="#{messages['no']}" itemValue="false"/>
-                        </p:selectOneMenu>
-                    </td>
+                        <select id="$propertyId" th:field="*{${formValuePropertyName}}" class="form-control" label="#{messages['$parameter.messageKey']}:">
+                            <option value=""/>
+                            <option value="#{messages['yes']}" th:value="true"/>
+                            <option value="#{messages['no']}" th:value="false"/>
+                        </select>
 #elseif ($parameter.inputSelect)
 #set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
 #if ($multiSelect)
@@ -33,26 +32,20 @@
 #else
 #set ($selectBoxType = "selectOneMenu")
 #end
-                    <td>
-                        <p:$selectBoxType id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="false">
-                            <f:selectItem itemLabel=""/>
-                            <f:selectItems value="#{${backingListName}}" />
-                        </p:$selectBoxType>
-                    </td>
+                        <select#if ($multiSelect)multiple size="5"#end id="$propertyId" class="form-control" th:field="*{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="false">
+                            <option value=""></option>
+                            <option th:each="${formValuePropertyName} : ${${backingListName}}" th:value="${${formValuePropertyName}}" th:text="${${formValuePropertyName}}"></option>
+                        </select>
 #elseif ($parameter.inputMultibox)
-                    <td>
-                        <p:selectManyCheckbox id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="false">
-                            <f:selectItems value="#{${backingListName}}" />
-                        </p:selectManyCheckbox>
-                    </td>   
+                        <input id="$propertyId" type="checkbox" th:field="*{${formValuePropertyName}}" class="form-control" label="#{messages['$parameter.messageKey']}:" required="false">
+                            <!--f:selectItems value="#{${backingListName}}" / -->
+                        </input>
 #elseif ($parameter.inputRadio)
-                    <td>
-                        <p:selectOneRadio id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="false">
-                            <f:selectItems value="#{${backingListName}}" />
-                        </p:selectOneRadio>
-                    </td>
+                        <input type="radio" id="$propertyId" th:field="*{${formValuePropertyName}}" class="form-control" label="#{messages['$parameter.messageKey']}:" required="false">
+                            <!--f:selectItems value="#{${backingListName}}" / -->
+                        </input>
 #elseif ($parameter.plainText)
-                    <td><input type="text" id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" disabled="true" readonly="true"/><td>
+                    <input type="text" id="$propertyId" th:field="*{${formValuePropertyName}}" class="form-control" label="#{messages['$parameter.messageKey']}:" disabled="true" readonly="true"/>
 #else
 ##if the widget type is not defined explicitly ...
 #if($parameter.type.enumeration)
@@ -62,28 +55,24 @@
 #else
 #set ($selectBoxType = "selectOneMenu")
 #end
-                    <td>
-                        <p:$selectBoxType id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="false">
-                            <f:converter converterId="${parameter.type.fullyQualifiedName}"/>
-                            <f:selectItem itemLabel=""/>
-                            <f:selectItems value="#{ajsf:getEnumSelectItems('${parameter.type.messageKey}.','${parameter.type.fullyQualifiedName}')}"/>
-                        </p:$selectBoxType>
-                    </td>
+                        <select#if ($multiSelect)multiple size="5"#end id="$propertyId" name="${formValuePropertyName}" class="form-control" th:field="*{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="false">
+                            <option value=""></option>
+                            <option th:each="${formValuePropertyName} : ${${parameter.fullyQualifiedName}.values()}" 
+                                th:value="${${formValuePropertyName}}" th:text="${${formValuePropertyName}.enumValue}"></option>
+                        </select>
 #elseif(!$parameter.inputFile && !$parameter.inputHidden)
-                    <td>
-                        <input type="text" id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="false" #if($parameter.maxLength) maxlength="$parameter.maxLength"#end>
+                        <input type="text" id="$propertyId" th:field="*{${formValuePropertyName}}" class="form-control" label="#{messages['$parameter.messageKey']}:" required="false" #if($parameter.maxLength) maxlength="$parameter.maxLength"#end>
 #if ($parameter.type.timeType)
-                            <f:convertDateTime pattern="${parameter.format}"/>
+                            <!-- f:convertDateTime pattern="${parameter.format}"/ -->
 #end
                         </input>
-                    </td>
 #end
 #end
-                    <td><p:message id="${propertyId}_message" for="${propertyId}"/></td>
-                </tr>
+                    <span id="${propertyId}_message" for="${propertyId}">
+                </div>
 #end
 ## ===============
-#macro(renderTableColumnsPrimeFaces $theManageable $ident)
+#macro(renderTableColumns $theManageable $ident)
 #foreach ($member in $theManageable.manageableSearchAttributes)
 #if(!$member.hidden && !$member.inputFile)
 #set($noOfColumns=$noOfColumns+1)   
@@ -92,20 +81,9 @@
 #else
 #set($theValue="#{row.${member.name}}")
 #end
-${ident}<p:column id="column_${member.name}"#if($theManageable.tableSortable) sortBy="$theValue"#end #if($rendered != "")#end>
-${ident}    <f:facet name="header">
-${ident}        <h:outputText id="columnHeader_${member.name}" value="#{messages['$member.messageKey']}"/>
-${ident}    </f:facet>
-#if($member.type.enumeration)
-${ident}    <h:outputText id="${member.name}" value="$theValue">
-#else
-${ident}    <h:outputText id="${member.name}" value="$theValue">
-#end
-#if ($member.type.dateType)
-${ident}            <f:convertDateTime pattern="$member.format"/>
-#end
-${ident}    </h:outputText>
-${ident}</p:column>
+${ident}<th id="column_${member.name}" th:text=#if ($member.type.dateType)"${#dates.format($theValue, '$member.format')}"#else"${$theValue}"#end  #if($rendered != "")#end>
+${ident}    ${member.type.messageKey}
+${ident}</th>
 #end
 #end
 #foreach ($field in $theManageable.manageableSearchAssociationEnds)
@@ -131,6 +109,27 @@ ${ident}</p:column>
 #end
 #end
 #end
+#macro(renderTableColumnNames $theManageable $ident)
+#foreach ($member in $theManageable.manageableSearchAttributes)
+#if(!$member.hidden && !$member.inputFile)
+#set($noOfColumns=$noOfColumns+1)   
+#if($member.type.enumeration)
+#set($theValue="#{ajsf:getEnumMessage('${member.type.messageKey}.',row.${member.name})}")
+#else
+#set($theValue="#{row.${member.name}}")
+#end
+${ident}<th>#{messages['$member.messageKey']}</th>
+#end
+#foreach ($field in $theManageable.manageableSearchAssociationEnds)
+#if($field.type.manageable && (($theManageable == $manageable) || ($field.type.fullyQualifiedName != $manageable.fullyQualifiedName)))
+##the if avoids showing the columns if the column is the master
+${ident}<th style="width:0px;"#if($field.composition) rendered="#{${theManageable.controllerBeanName}.filterAttribute != '${field.name}'}"#end>
+${ident}    #{messages['$field.messageKey']}
+${ident}</th>
+#end
+#end
+#end
+#end
 ##================
 #set ($generatedFile = "${manageable.viewFullPath}.html")
 <!DOCTYPE html>
@@ -139,15 +138,13 @@ ${ident}</p:column>
       >
     <section layout:fragment="content">
 #set($formName = $manageable.formBeanName)
-        <form id="searchForm" action="#" th:action="@{/${manageable.controllerBeanName}/search}" th:object="${${formName}.searchForm}" method="post">
+        <form id="searchForm" th:action="@{/${manageable.controllerBeanName}/search}" th:object="${${formName}.searchForm}" method="post">
             <section name="searchFields">
-                <table>
-                    <tbody>
+                <div class="form-group row">
 #foreach ($field in $manageable.manageableSearchAttributes)
-#renderSearchInputPrimeFaces($field)
+#renderSearchInput($field)
 #end
 #foreach ($field in $manageable.manageableSearchAssociationEnds)
-                        <tr>
             <!-- ${field.name} -->
 #if($field.composition) 
 #set($rendered="#{${manageable.controllerBeanName}.filterAttribute != '${field.name}'}")
@@ -161,43 +158,53 @@ ${ident}</p:column>
                                             converter="${field.type.ConverterType}"
                                             dropdown="true"#if($field.many) multiple="true"#end#if($rendered != "") rendered="$rendered"#end/>  
                             <p:message id="searchForm_${field.name}_message" for="searchForm_${field.name}"#if($rendered != "") rendered="$rendered"#end/>
-                        </tr>
 #end
-                    </tbody>
-                </table>
+                </div>
             </section>
             <section name="searchResult">
-                <p:dataTable id="searchResult" var="row" value="#{${formName}.${manageable.listName}}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" style="display:#{${formName}.${manageable.listName} == null? 'none': ''}" emptyMessage="#{messages['empty.result.set']}">
-                    <p:column style="width:0px;" exportable="false">
-                        <p:panelGrid columns="#{${manageable.controllerBeanName}.showSelectAction?3:2}">
-                            <p:commandButton id="selectAction" icon="ui-icon-circle-check" title="#{messages['action.select']}" action="#{${manageable.controllerBeanName}.select(row.${manageable.identifierName})}" immediate="true" process="@this" rendered="#{${manageable.controllerBeanName}.showSelectAction}"/>
-                            <p:commandButton id="editAction" icon="ui-icon-pencil" title="#{messages['action.edit']}" action="#{${manageable.controllerBeanName}.load(row.${manageable.identifierName})}" immediate="true" process="@this" update="@form"/>
-#if ($manageable.delete)
-                            <p:commandButton id="deleteAction" icon="ui-icon-trash" title="#{messages['action.delete']}" action="#{${manageable.controllerBeanName}.delete(row.${manageable.identifierName})}" immediate="true" process="@this" update="searchResult"
-                                onclick="return confirm('#{messages['confirm.delete.this']} #{messages['${manageable.viewTitleKey}']}');" />
-#end
-                        </p:panelGrid>
-                    </p:column>
-                    <f:facet name="footer">
-                        <p:menuButton value="#{messages['export.action']}" rendered="#{not empty ${formName}.${manageable.listName}}">
-                            <p:menuitem value="#{messages['export.spreadsheet']}" ajax="false">
-                                <p:dataExporter type="xls" target="searchResult" fileName="export" excludeColumns="0" encoding="${xmlEncoding}"/>
-                            </p:menuitem>
-                            <p:menuitem value="#{messages['export.pdf']}" ajax="false">
-                                <p:dataExporter type="pdf" target="searchResult" fileName="export" excludeColumns="0" encoding="${xmlEncoding}"/>
-                            </p:menuitem>
-                            <p:menuitem value="#{messages['export.csv']}" ajax="false">
-                                <p:dataExporter type="csv" target="searchResult" fileName="export" excludeColumns="0" encoding="${xmlEncoding}"/>
-                            </p:menuitem>
-                        </p:menuButton>
-                        <p:spacer width="10"/>
-                        <h:outputText value="#{fn:length(${formName}.${manageable.listName})} #{messages['records.found']}" rendered="#{not empty ${formName}.${manageable.listName}}"/>
-                    </f:facet>
-#renderTableColumnsPrimeFaces($manageable "                 ")            
-                </p:dataTable>
+                <table id="searchResult" class="table table-bordered" style="width: 100%">
+                    <thead>
+                        <tr>
+#renderTableColumnNames($manageable "                           ")
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="row : ${${formName}.${manageable.listName}}">
+#renderTableColumns($manageable "                           ")
+                        </tr>
+                    </tbody>
+                </table>
+##                 <p:dataTable id="searchResult" var="row" value="#{${formName}.${manageable.listName}}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" style="display:#{${formName}.${manageable.listName} == null? 'none': ''}" emptyMessage="#{messages['empty.result.set']}">
+##                     <p:column style="width:0px;" exportable="false">
+##                         <p:panelGrid columns="#{${manageable.controllerBeanName}.showSelectAction?3:2}">
+##                             <p:commandButton id="selectAction" icon="ui-icon-circle-check" title="#{messages['action.select']}" action="#{${manageable.controllerBeanName}.select(row.${manageable.identifierName})}" immediate="true" process="@this" rendered="#{${manageable.controllerBeanName}.showSelectAction}"/>
+##                             <p:commandButton id="editAction" icon="ui-icon-pencil" title="#{messages['action.edit']}" action="#{${manageable.controllerBeanName}.load(row.${manageable.identifierName})}" immediate="true" process="@this" update="@form"/>
+## #if ($manageable.delete)
+##                             <p:commandButton id="deleteAction" icon="ui-icon-trash" title="#{messages['action.delete']}" action="#{${manageable.controllerBeanName}.delete(row.${manageable.identifierName})}" immediate="true" process="@this" update="searchResult"
+##                                 onclick="return confirm('#{messages['confirm.delete.this']} #{messages['${manageable.viewTitleKey}']}');" />
+## #end
+##                         </p:panelGrid>
+##                     </p:column>
+##                     <f:facet name="footer">
+##                         <p:menuButton value="#{messages['export.action']}" rendered="#{not empty ${formName}.${manageable.listName}}">
+##                             <p:menuitem value="#{messages['export.spreadsheet']}" ajax="false">
+##                                 <p:dataExporter type="xls" target="searchResult" fileName="export" excludeColumns="0" encoding="${xmlEncoding}"/>
+##                             </p:menuitem>
+##                             <p:menuitem value="#{messages['export.pdf']}" ajax="false">
+##                                 <p:dataExporter type="pdf" target="searchResult" fileName="export" excludeColumns="0" encoding="${xmlEncoding}"/>
+##                             </p:menuitem>
+##                             <p:menuitem value="#{messages['export.csv']}" ajax="false">
+##                                 <p:dataExporter type="csv" target="searchResult" fileName="export" excludeColumns="0" encoding="${xmlEncoding}"/>
+##                             </p:menuitem>
+##                         </p:menuButton>
+##                         <p:spacer width="10"/>
+##                         <h:outputText value="#{fn:length(${formName}.${manageable.listName})} #{messages['records.found']}" rendered="#{not empty ${formName}.${manageable.listName}}"/>
+##                     </f:facet>
+## #renderTableColumns($manageable "                 ")            
+##                 </p:dataTable>
             </section>
         </form>
-        <form>
+        <form id="searchForm" th:action="@{/${manageable.controllerBeanName}/save}" th:object="${${formName}.searchForm}" method="post">
             <section name="editFields">
 ##only hidden fieldshere            
 #foreach ($field in $manageable.manageableEditAttributes)
@@ -205,12 +212,13 @@ ${ident}</p:column>
                 <input type="hidden" id="${field.name}" value="#{${formName}.${field.name}}"/>
 #end
 #end
-                <table>
-                    <tbody>
+                
 ##non-hidden fields                
 #foreach ($field in $manageable.manageableEditAttributes)
 #if(!$field.hidden)
-#renderActionInputPrimeFaces($field "" "            ")
+                <div class="form-group row">
+#renderActionInput($field "" "            ")
+                </div>
 #end
 #end
 #foreach ($field in $manageable.manageableAssociationEnds)
@@ -221,7 +229,7 @@ ${ident}</p:column>
 #if($field.otherEnd.navigable && $field.otherEnd.composition && $field.many)
 #set($detailManageable = $field.type)
 #set($loadDetailMethodName = "load${stringUtils.upperCamelCaseName($field.name)}${crudDetailsSuffix}")
-                    <p:outputLabel id="${field.name}_table_label" for="${field.name}_table" value="#{messages['$field.messageKey']}:"/>
+                    <label id="${field.name}_table_label" for="${field.name}_table" value="#{messages['$field.messageKey']}:"/>
                     <p:dataTable id="${field.name}_table" var="row" value="#{${formName}.${field.name}${crudDetailsSuffix}}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" emptyMessage="#{messages['empty.result.set']}">
                         <p:column style="width:0px;">
                             <p:panelGrid columns="2">
@@ -231,7 +239,7 @@ ${ident}</p:column>
                                     action="#{${manageable.controllerBeanName}.${loadDetailMethodName}(${formName}.${manageable.identifierName})}" onclick="return confirm('#{messages['confirm.delete.this']} #{messages['${detailManageable.viewTitleKey}']}');" />
                             </p:panelGrid>
                         </p:column>
-#renderTableColumnsPrimeFaces($detailManageable "                       ")            
+#renderTableColumns($detailManageable "                       ")            
                     </p:dataTable>
                     <div class="row">
                         <ajsfc:useCaseDialog id="${field.name}_dialog"/>
@@ -256,8 +264,7 @@ ${ident}</p:column>
 #end
 #end
 #end
-                    </tbody>
-                </table>
+                </div>
             </section>
         </form>
     </section>
