@@ -279,6 +279,7 @@
                 <property name="persistenceContextUnitName">${application.id}</property>
                 <property name="entityManagerName">${application.id}</property>
 #if($glassfish6)
+                <property name="hibernateTransactionManager">${hibernate.transaction.manager}</property>
                 <property name="entityManagerJTADataSource">${dataSource.name}</property>
                 <property name="dataSource">${dataSource.name}</property>
 #else
@@ -575,6 +576,8 @@
                 <property name="enableMyFacesDevelopmentSupport">true</property>
 #if($jakarta)
                 <property name="jakartaNamespace">${jakarta.namespace}</property>
+                <!-- Uncomment to set  -->
+                <!-- <property name="servletPath">${servlet.path}</property> -->
 #end
             </properties>
         </namespace>

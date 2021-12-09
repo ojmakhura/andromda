@@ -850,7 +850,7 @@
                 </documentation>
             </property>
             <property name="hibernateTransactionFactoryClass">
-                <default>net.sf.hibernate.transaction.JTATransactionFactory</default>
+                <default>org.hibernate.transaction.JTATransactionFactory</default>
                 <documentation>
                     The name of the hibernate transaction factory class to use.
                 </documentation>

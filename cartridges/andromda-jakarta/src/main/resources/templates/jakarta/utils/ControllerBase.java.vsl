@@ -8,6 +8,7 @@ package $managedBeansPackage;
 /**
  * Base class for all controllers
  */
+@jakarta.mvc.Controller
 public abstract class ControllerBase
 {
     public static final String USE_CASE_SCOPE_KEY="useCaseScope";
@@ -141,7 +142,6 @@ public abstract class ControllerBase
      * @return the start use case
      */
     @${jakartaNamespace}.ws.rs.GET
-    @${jakartaNamespace}.ws.rs.Path("start")
     public String startUseCase() throws Throwable
     {
         final java.util.Map<String,Object> useCaseParameters;

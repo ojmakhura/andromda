@@ -1,0 +1,11 @@
+package ${managedBeansPackage};
+#set( $className = $stringUtils.capitalize($applicationId))
+#set( $generatedFile = "$stringUtils.replace($managedBeansPackage, '.', '/')/${className}Config.java")
+
+import ${jakartaNamespace}.ws.rs.ApplicationPath;
+import ${jakartaNamespace}.ws.rs.core.Application;
+//$applicationName
+
+@ApplicationPath("${servletPath}")
+public class ${className}Config extends Application {
+}

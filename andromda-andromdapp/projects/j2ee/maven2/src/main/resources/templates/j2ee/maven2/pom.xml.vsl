@@ -1594,6 +1594,8 @@
 #end
 #if($jakarta)
         <jakarta.namespace>jakarta</jakarta.namespace>
+        <!-- Uncomment to set servlet path -->
+        <!-- <servlet.path>/api</servlet.path> -->
 #end
 #if ($jetty || !$webservice.equals("none"))
         <!-- v 9.x only supports JDK7 and you cannot configure jetty.port from maven.-->

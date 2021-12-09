@@ -34,8 +34,8 @@
 #end
 #end
         <properties>
-#if($stringUtils.isNotBlank($entityManagerJTADataSource))
-            <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform"/>
+#if($stringUtils.isNotBlank($hibernateTransactionManager))
+            <property name="hibernate.transaction.jta.platform" value="${hibernateTransactionManager}"/>
 #end
 #if ($stringUtils.isNotBlank($hibernateHbm2DDLAuto))
             <property name="hibernate.hbm2ddl.auto" value="${hibernateHbm2DDLAuto}"/>

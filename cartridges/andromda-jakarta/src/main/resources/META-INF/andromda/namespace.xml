@@ -364,6 +364,12 @@
                     The name prefix for all spring bean ids.
                 </documentation>
             </property>
+            <property name="applicationId">
+                <default></default>
+                <documentation>
+                    The application ID.
+                </documentation>
+            </property>
             <property name="dummyData">
                 <default>true</default>
                 <documentation>
@@ -409,6 +415,12 @@
                         <li>javax - Jakarta javax Namespace</li>
                         <li>jakarta - Jakarta jakarta Namespace</li>
                     </ul>
+                </documentation>
+            </property>
+            <property name="servletPath">
+                <default></default>
+                <documentation>
+                    The servelet path for application configuration.
                 </documentation>
             </property>
             <property name="converterPattern">

@@ -73,6 +73,8 @@
     <property reference="trimInputStrings"/>
     <property reference="crudDetailsSuffix"/>
     <property reference="jakartaNamespace"/>
+    <property reference="servletPath"/>
+    <property reference="applicationId"/>
 
     <!-- cartridge-property merge-point -->
 
@@ -346,6 +348,20 @@
     </template>
 
     <template
+        path="templates/jakarta/controllers/ControllerBase.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndController">
+                    <property name="useCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
         path="templates/jakarta/controllers/SessionObject.java.vsl"
         outputPattern="${sessionObject.fullPath}.java"
         outlet="controllers"
@@ -356,6 +372,12 @@
             </modelElement>
         </modelElements>
     </template>
+
+    <template
+        path="templates/jakarta/configuration/RestApplication.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="managed-beans"
+        overwrite="true"/>
 
     <template
         path="templates/jakarta/messages/messages.properties.vsl"
@@ -381,7 +403,7 @@
         </modelElements>
     </template>
 
-    <template
+    <!-- <template
         path="templates/jakarta/flow/ActionForward.java.vsl"
         outputPattern="$action.fullyQualifiedActionClassPath"
         outlet="controllers"
@@ -391,7 +413,7 @@
                 <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <template
         path="templates/jakarta/converters/EnumerationConverter.java.vsl"
