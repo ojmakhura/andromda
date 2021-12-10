@@ -221,8 +221,6 @@ $action.trigger.getDocumentation("     * ")
             {
                 forward = null; //the destination form is the same, stay on the current view
                 return ${jakartaNamespace}.ws.rs.core.Response.noContent().build();
-            } else {
-                forward = request.getContextPath() + request.getServletPath() + forward;
             }
         }
         
