@@ -3,6 +3,6 @@
 <ui:composition
     xmlns:ui="http://java.sun.com/jsf/facelets">
     <header id="header">
-        <a href="index.jsp" class="logo"><strong>${applicationName}</strong></a>
+        <a href="#{request.contextPath}/index.jsp" class="logo"><strong>${applicationName}</strong></a>
     </header>       
 </ui:composition>

@@ -577,7 +577,7 @@
 #if($jakarta)
                 <property name="jakartaNamespace">${jakarta.namespace}</property>
                 <!-- Uncomment to set  -->
-                <!-- <property name="servletPath">${servlet.path}</property> -->
+                <property name="servletPath">/app</property>
 #end
             </properties>
         </namespace>

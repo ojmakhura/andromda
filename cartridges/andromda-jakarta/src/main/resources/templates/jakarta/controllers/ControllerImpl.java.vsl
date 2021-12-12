@@ -17,7 +17,7 @@ package $controller.packageName;
 ## @${jakartaNamespace}.ws.rs.Path("/")
 ## #end
 public class $controller.implementationName
-    extends $controller.name
+    extends ${controller.name}Base
 {
     /**
      * The serial version UID of this class. Needed for serialization.
