@@ -501,6 +501,9 @@
                      with the ejb3 cartridge. Use outlet for JDK5.
                 -->
 #end
+#if($jakarta)
+                <property name="useJakartaFormParam">true</property>
+#end
                 <property name="enumerations">${common.generated.dir}</property>
                 <property name="exceptions">${common.generated.dir}</property>
                 <property name="value-objects">${common.generated.dir}</property>

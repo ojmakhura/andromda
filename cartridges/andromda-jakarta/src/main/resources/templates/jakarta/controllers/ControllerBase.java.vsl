@@ -147,12 +147,6 @@ $action.trigger.getDocumentation("     * ")
      * @return ${action.triggerName}
      * @throws Throwable
      * 
-     * action.exitingInitialState = $action.exitingInitialState
-     * action.finalStateTarget = $action.finalStateTarget
-     * action.enteringView = $action.enteringView
-     * action.exitingView = $action.exitingView
-     * action.enteringFinalState = $action.enteringFinalState
-     * action.enteringFinalState = $action.enteringFinalState
      */
 #if($action.exitingInitialState)
     protected String internalStartUseCase(java.util.Map<String,Object> useCaseParameters)

@@ -167,6 +167,12 @@
                     Type variable = new Type().setAttribute1(value1).setAttribute2(value2); etc
                 </documentation>
             </property>
+            <property name="useJakartaFormParam">
+                <default>false</default>
+                <documentation>
+                    When set to true, value objects attributes will be annotated with @jakarta.ws.rs.FormParam
+                </documentation>
+            </property>
             <property name="addNamespaceBackslash">
                 <default>true</default>
                 <documentation>
