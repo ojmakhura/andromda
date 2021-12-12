@@ -84,47 +84,52 @@ public abstract class $entity.daoBaseName
     implements $entity.fullyQualifiedDaoName
 {
 
-    //@org.springframework.beans.factory.annotation.Autowired
-    //protected ${entity.packageName}.${entity.name}Repository ${stringUtils.uncapitalize(${entity.entityName})}Repository;
 #if($hibernate4or5)
     
     protected org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(${entity.daoBaseName}.class);
 
-    @Autowired
+    @javax.persistence.PersistenceContext
     protected javax.persistence.EntityManager entityManager;
 
-    public void setEntityManager(javax.persistence.EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
+    ## public void setEntityManager(javax.persistence.EntityManager entityManager) {
+    ##     this.entityManager = entityManager;
+    ## }
 
-    public javax.persistence.EntityManager getEntityManager() {
-        return this.entityManager;
-    }
+    ## public javax.persistence.EntityManager getEntityManager() {
+    ##     return this.entityManager;
+    ## }
 
-    @org.springframework.beans.factory.annotation.Autowired
-    private org.hibernate.SessionFactory sessionFactory;
-    /**
-     * @param sessionFactoryIn
-     */
-    public void setSessionFactory(org.hibernate.SessionFactory sessionFactoryIn) {
-        this.sessionFactory = sessionFactoryIn;
-    }
-    /**
-     * @return SessionFactory
-     */
-    protected org.hibernate.SessionFactory getSessionFactory() {
-        return this.sessionFactory;
-    }
-    /**
-     * @return currentSession
-     */
-    protected org.hibernate.Session getSession() {
-        return this.sessionFactory.getCurrentSession();
-    }
+    ## @org.springframework.beans.factory.annotation.Autowired
+    ## private org.hibernate.SessionFactory sessionFactory;
+    ## /**
+    ##  * @param sessionFactoryIn
+    ##  */
+    ## public void setSessionFactory(org.hibernate.SessionFactory sessionFactoryIn) {
+    ##     this.sessionFactory = sessionFactoryIn;
+    ## }
+    ## /**
+    ##  * @return SessionFactory
+    ##  */
+    ## protected org.hibernate.SessionFactory getSessionFactory() {
+    ##     return this.sessionFactory;
+    ## }
+    ## /**
+    ##  * @return currentSession
+    ##  */
+    ## protected org.hibernate.Session getSession() {
+    ##     return this.sessionFactory.getCurrentSession();
+    ## }
 
 #end
-#foreach($entityRef in $entity.entityReferences)    
-    private $entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName;
+#set($repositoryName = "${stringUtils.uncapitalize(${entity.entityName})}Repository")
+#set($repositoryType = "${entity.fullyQualifiedName}Repository")
+    @org.springframework.beans.factory.annotation.Autowired
+    protected ${repositoryType} ${repositoryName};
+
+#foreach($entityRef in $entity.entityReferences)  
+#set($refRepositoryName = "${stringUtils.uncapitalize(${entityRef.targetElement.entityName})}Repository")
+#set($refRepositoryType = "${entityRef.targetElement.fullyQualifiedName}Repository")  
+    protected $entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName;
 
     /**
      * Sets the reference to <code>$entityRef.daoName</code>.
@@ -143,6 +148,27 @@ public abstract class $entity.daoBaseName
     protected $entityRef.targetElement.fullyQualifiedDaoName ${entityRef.daoGetterName}()
     {
         return this.$entityRef.daoName;
+    }
+
+    protected ${refRepositoryType} ${refRepositoryName};
+
+    /**
+     * Sets the reference to <code>${refRepositoryName}</code>.
+     * @param ${refRepositoryName}In
+     */
+    @org.springframework.beans.factory.annotation.Autowired
+    public void set${entityRef.targetElement.name}Repository(@org.springframework.context.annotation.Lazy ${refRepositoryType} ${refRepositoryName}In)
+    {
+        this.${refRepositoryName} = ${refRepositoryName}In;
+    }
+
+    /**
+     * Gets the reference to <code>${refRepositoryName}</code>.
+     * @return ${refRepositoryName}
+     */
+    protected ${refRepositoryType} get${entityRef.targetElement.name}Repository()
+    {
+        return this.${refRepositoryName};
     }
 
 #end
@@ -187,10 +213,9 @@ public abstract class $entity.daoBaseName
 #else
 #set ($xmlIndent = "")
 #end
-##$xmlIndent        java.util.Optional<$entity.fullyQualifiedName> entity = ${stringUtils.uncapitalize(${entity.entityName})}Repository.findById($argument);
-##$xmlIndent        return transformEntity(transform, entity.get())
-$xmlIndent        final Object entity =#if($hibernate4or5) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.get(${entity.fullyQualifiedEntityName}.class, $argument);
-$xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)entity);
+$xmlIndent        java.util.Optional<$entity.fullyQualifiedName> entity = ${stringUtils.uncapitalize(${entity.entityName})}Repository.findById($argument);
+$xmlIndent        return transformEntity(transform, entity.get());
+##$xmlIndent        final Object entity =#if($hibernate4or5) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.get(${entity.fullyQualifiedEntityName}.class, $argument);
 #if ($hibernateUtils.xmlPersistenceActive)
         }
 #end
@@ -252,10 +277,9 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 $oldXmlIndent        try{
 #set ($xmlIndent = "    $xmlIndent")
 #end
-##$xmlIndent        java.util.Optional<$entity.fullyQualifiedName> entity = ${stringUtils.uncapitalize(${entity.entityName})}Repository.findById($argument);
-##$xmlIndent        return transformEntity(transform, entity.get())
-$xmlIndent        final Object entity =#if($hibernate4or5) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.get(${entity.fullyQualifiedEntityName}.class, $argument);
-$xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)entity);
+$xmlIndent        java.util.Optional<$entity.fullyQualifiedName> entity = ${stringUtils.uncapitalize(${entity.entityName})}Repository.findById($argument);
+$xmlIndent        return transformEntity(transform, entity.get());
+##$xmlIndent        final Object entity =#if($hibernate4or5) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.get(${entity.fullyQualifiedEntityName}.class, $argument);
 #if($enableCaching)
 $oldXmlIndent        }catch(org.hibernate.WrongClassException exc){
 $oldXmlIndent            //No display error message caused by the cache L2 hibernate as stated in https://hibernate.atlassian.net/browse/HHH-4953 and https://hibernate.atlassian.net/browse/HHH-9028
@@ -328,20 +352,21 @@ $oldXmlIndent        }
     public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int transform, final int pageNumber, final int pageSize)
     {
 #if($hibernate4or5)       
-        final javax.persistence.criteria.CriteriaBuilder builder = this.sessionFactory.getCurrentSession().getCriteriaBuilder();
-		javax.persistence.criteria.CriteriaQuery<${entity.fullyQualifiedEntityName}> query = builder.createQuery(${entity.fullyQualifiedEntityName}.class);		
-		javax.persistence.criteria.Root<${entity.fullyQualifiedEntityName}> root = query.from(${entity.fullyQualifiedEntityName}.class);
-		query.orderBy(builder.asc(root.get("id")));
-		javax.persistence.TypedQuery<${entity.fullyQualifiedEntityName}> typedQuery = this.sessionFactory.getCurrentSession().createQuery(query);
-        if (pageNumber > 0 && pageSize > 0)
-        {
-            typedQuery.setFirstResult(this.calculateFirstResult(pageNumber, pageSize));
-            typedQuery.setMaxResults(pageSize);
-        }
+//        final javax.persistence.criteria.CriteriaBuilder builder = this.sessionFactory.getCurrentSession().getCriteriaBuilder();
+//		javax.persistence.criteria.CriteriaQuery<${entity.fullyQualifiedEntityName}> query = builder.createQuery(${entity.fullyQualifiedEntityName}.class);		
+//		javax.persistence.criteria.Root<${entity.fullyQualifiedEntityName}> root = query.from(${entity.fullyQualifiedEntityName}.class);
+////		query.orderBy(builder.asc(root.get("id")));
+//		javax.persistence.TypedQuery<${entity.fullyQualifiedEntityName}> typedQuery = this.sessionFactory.getCurrentSession().createQuery(query);
+//        if (pageNumber > 0 && pageSize > 0)
+////        {
+//typedQuery.setFirstResult(this.calculateFirstResult(pageNumber, pageSize));
+//            typedQuery.setMaxResults(pageSize);
+//        }
 		
-        final java.util.Collection#if($enableTemplating)<?>#end results = typedQuery.getResultList();
-        this.transformEntities(transform, results);
-        return results;
+////        final java.util.Collection#if($enableTemplating)<?>#end results = typedQuery.getResultList();
+//        this.transformEntities(transform, results);
+//        return results;
+        return new java.util.ArrayList<>();
 #else
         try
         {
@@ -571,7 +596,7 @@ $oldXmlIndent        }
     @Override
 #end
 	@org.springframework.transaction.annotation.Transactional
-    public Object create(final int transform, final $entity.fullyQualifiedName $argumentName)
+    public Object create(final int transform, $entity.fullyQualifiedName $argumentName)
     {
         if ($argumentName == null)
         {
@@ -605,7 +630,8 @@ $oldXmlIndent        }
         else
           return this.transformEntity(transform, $argumentName);
 #else
-       #if($hibernate4or5) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.save($argumentName);
+##       #if($hibernate4or5) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.save($argumentName);
+        $argumentName = this.${repositoryName}.save($argumentName);
 
         //postPersist event
         _postPersist($argumentName);
@@ -794,7 +820,8 @@ $oldXmlIndent        }
         evictAllReferencingCollections();
         
 #end
-       #if($hibernate4or5) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.update($argumentName);
+//       #if($hibernate4or5) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.update($argumentName);
+        $argumentName = this.${repositoryName}.save($argumentName);
 
         //postUpdate event
         _postUpdate($argumentName);
@@ -902,7 +929,8 @@ $oldXmlIndent        }
         evictAllReferencingCollections();
         
 #end
-        #if($hibernate4or5) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.delete($argumentName);
+//        #if($hibernate4or5) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.delete($argumentName);
+        this.${repositoryName}.delete($argumentName);
 
         //postRemove event
         _postRemove($argumentName);
@@ -995,7 +1023,8 @@ $oldXmlIndent        }
             evictAllReferencingCollections();
         
 #end
-           #if($hibernate4or5) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.delete(entity);
+//           #if($hibernate4or5) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.delete(entity);
+            this.${repositoryName}.delete(entity);
 
             //postRemove event
             _postRemove(entity);
@@ -1193,7 +1222,7 @@ $oldXmlIndent        }
         {
             ${hibernateUtils.basePackage}.Query queryObject = super.getSession().createQuery(queryString);
 #else
-        ${hibernateUtils.basePackage}.Query queryObject = this.sessionFactory.getCurrentSession().createQuery(queryString);
+//        ${hibernateUtils.basePackage}.Query queryObject = this.sessionFactory.getCurrentSession().createQuery(queryString);
 #end
 #foreach($argument in $finder.arguments)
 #set ($count = $velocityCount - 1)
@@ -1203,70 +1232,71 @@ $oldXmlIndent        }
 #end
 #if ($useNamedParametersInQueries || $finder.useNamedParameters || $argument.type.collectionType || $argument.type.arrayType)
 #if (!$argument.type.embeddedValue)
-$h3tab        queryObject.${setParameterOperation}("$argument.name", $springUtils.formatHibernateQueryParameterValue($argument.type, $argument.name));
+//$h3tab        queryObject.${setParameterOperation}("$argument.name", $springUtils.formatHibernateQueryParameterValue($argument.type, $argument.name));
 #else
 #foreach ($attribute in $argument.type.getAttributes(true))
 #set ($parameterValue = "${argument.name}.${attribute.getterName}()")
-$h3tab        queryObject.${setParameterOperation}("$springUtils.concatNamesCamelCase([$argument.name, $attribute.name])", $springUtils.formatHibernateQueryParameterValue($attribute.type, $parameterValue));
+//$h3tab        queryObject.${setParameterOperation}("$springUtils.concatNamesCamelCase([$argument.name, $attribute.name])", $springUtils.formatHibernateQueryParameterValue($attribute.type, $parameterValue));
 #end
 #end
 #else
 #if (!$argument.type.embeddedValue)
-$h3tab        queryObject.${setParameterOperation}($count, $springUtils.formatHibernateQueryParameterValue($argument.type, $argument.name));
+//$h3tab        queryObject.${setParameterOperation}($count, $springUtils.formatHibernateQueryParameterValue($argument.type, $argument.name));
 #else
 #foreach ($attribute in $argument.type.getAttributes(true))
 #set ($parameterValue = "${argument.name}.${attribute.getterName}()")
 #set ($count = $count + $velocityCount - 1)
-$h3tab        queryObject.${setParameterOperation}($count, $springUtils.formatHibernateQueryParameterValue($attribute, $parameterValue));
+//$h3tab        queryObject.${setParameterOperation}($count, $springUtils.formatHibernateQueryParameterValue($attribute, $parameterValue));
 #end
 #end
 #end
 #end
 #if ($finder.returnType.collectionType || $finder.many)
-$h3tab        if (pageNumber > 0 && pageSize > 0)
-$h3tab        {
-$h3tab            queryObject.setFirstResult(this.calculateFirstResult(pageNumber, pageSize));
-$h3tab            queryObject.setMaxResults(pageSize);
-$h3tab        }
+//$h3tab        if (pageNumber > 0 && pageSize > 0)
+//$h3tab        {
+//$h3tab            queryObject.setFirstResult(this.calculateFirstResult(pageNumber, pageSize));
+//$h3tab            queryObject.setMaxResults(pageSize);
+//$h3tab        }
 #end
 #if ($finder.returnType.setType || !($finder.returnType.collectionType || $finder.many))
 #if ($enableTemplating)
-$h3tab        @SuppressWarnings({ "unchecked", "rawtypes" })
+//$h3tab        @SuppressWarnings({ "unchecked", "rawtypes" })
 #end
-$h3tab        java.util.Set results = new java.util.LinkedHashSet(queryObject.setCacheable(true).list());
+//$h3tab        java.util.Set results = new java.util.LinkedHashSet(queryObject.setCacheable(true).list());
 #else
-$h3tab        java.util.List results = queryObject.setCacheable(true).list();
+//$h3tab        java.util.List results = queryObject.setCacheable(true).list();
 #end
 #if (!($finder.returnType.collectionType || $finder.many))
-$h3tab        Object result = null;
-$h3tab        if (results.size() > 1)
-$h3tab        {
-$h3tab            throw new org.springframework.dao.InvalidDataAccessResourceUsageException(
-$h3tab                "More than one instance of '${finder.getterSetterReturnTypeName}"
-$h3tab                    + "' was found when executing query --> '" + queryString + "'");
-$h3tab        }
-$h3tab        else if (results.size() == 1)
-$h3tab        {
-$h3tab            result = results.iterator().next();
-$h3tab        }
+//$h3tab        Object result = null;
+//$h3tab        if (results.size() > 1)
+////$h3tab        {
+//$h3tab            throw new org.springframework.dao.InvalidDataAccessResourceUsageException(
+//$h3tab                "More than one instance of '${finder.getterSetterReturnTypeName}"
+////$h3tab                    + "' was found when executing query --> '" + queryString + "'");
+//$h3tab        }
+//$h3tab        else if (results.size() == 1)
+//$h3tab        {
+//$h3tab            result = results.iterator().next();
+//$h3tab        }
 ##with this test we can use queries returning other types than collections or the entity
-$h3tab        if(transform != $entity.daoNoTransformationConstantName){
-$h3tab            result = transformEntity(transform, ($entity.fullyQualifiedName)result);
-$h3tab        }
-$h3tab        return result;
+//$h3tab        if(transform != $entity.daoNoTransformationConstantName){
+//$h3tab            result = transformEntity(transform, ($entity.fullyQualifiedName)result);
+//$h3tab        }
+//$h3tab        return result;
 #else
-$h3tab        transformEntities(transform, results);
+//$h3tab        transformEntities(transform, results);
 #if ($finder.returnTypePresent)
-$h3tab        return results;
+//$h3tab        return results;
 #end
 #end
 #if (!$hibernate4or5)
-        }
-        catch (${hibernateUtils.basePackage}.HibernateException ex)
-        {
-            throw super.convertHibernateAccessException(ex);
-        }
+//        }
+//        catch (${hibernateUtils.basePackage}.HibernateException ex)
+//        {
+//            throw super.convertHibernateAccessException(ex);
+//        }
 #end
+        return null;
     }
 #else
 #if ($finder.returnType.collectionType)
@@ -1821,29 +1851,30 @@ $h3tab        }
     public $fullyQualifiedPagingResultName search(final int transform, final int pageNumber, final int pageSize, final $fullyQualifiedSearchClassName search)
     {
 #if ($hibernate4or5)
-        search.setPageNumber(pageNumber);
-        search.setPageSize(pageSize);
-        final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
-            this.sessionFactory.getCurrentSession(), ${entity.fullyQualifiedEntityName}.class, search);
-        final java.util.List#if($enableTemplating)<?>#end results = propertySearch.executeAsList();
-        this.transformEntities(transform, results);
-        return new $fullyQualifiedPagingResultName(results.toArray(new Object[results.size()]), propertySearch.getTotalCount());
+//        search.setPageNumber(pageNumber);
+//        search.setPageSize(pageSize);
+//        final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
+//            this.sessionFactory.getCurrentSession(), ${entity.fullyQualifiedEntityName}.class, search);
+//        final java.util.List#if($enableTemplating)<?>#end results = propertySearch.executeAsList();
+//        this.transformEntities(transform, results);
+//        return new $fullyQualifiedPagingResultName(results.toArray(new Object[results.size()]), propertySearch.getTotalCount());
 #else
-        try
-        {
-            search.setPageNumber(pageNumber);
-            search.setPageSize(pageSize);
-            final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
-                this.getSession(), ${entity.fullyQualifiedEntityName}.class, search);
-            final java.util.List#if($enableTemplating)<?>#end results = propertySearch.executeAsList();
-            this.transformEntities(transform, results);
-            return new $fullyQualifiedPagingResultName(results.toArray(new Object[results.size()]), propertySearch.getTotalCount());
-        }
-        catch (${hibernateUtils.basePackage}.HibernateException ex)
-        {
-            throw super.convertHibernateAccessException(ex);
-        }
+//        try
+//        {
+//            search.setPageNumber(pageNumber);
+//            search.setPageSize(pageSize);
+ //           final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
+ //               this.getSession(), ${entity.fullyQualifiedEntityName}.class, search);
+ //           final java.util.List#if($enableTemplating)<?>#end results = propertySearch.executeAsList();
+ //           this.transformEntities(transform, results);
+//            return new $fullyQualifiedPagingResultName(results.toArray(new Object[results.size()]), propertySearch.getTotalCount());
+//        }
+///        catch (${hibernateUtils.basePackage}.HibernateException ex)
+//        {
+//            throw super.convertHibernateAccessException(ex);
+//        }
 #end
+        return null;
     }
 
     /**
@@ -1866,24 +1897,25 @@ $h3tab        }
     public java.util.Collection#if($enableTemplating)<?>#end search(final int transform, final $fullyQualifiedSearchClassName search)
     {
 #if ($hibernate4or5)
-        final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
-            this.sessionFactory.getCurrentSession(), ${entity.fullyQualifiedEntityName}.class, search);
-        final#if($enableTemplating) java.util.Collection<?>#else java.util.Collection#end results = propertySearch.executeAsList();
-        this.transformEntities(transform, results);
-        return results;
+//        final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
+//            this.sessionFactory.getCurrentSession(), ${entity.fullyQualifiedEntityName}.class, search);
+///        final#if($enableTemplating) java.util.Collection<?>#else java.util.Collection#end results = propertySearch.executeAsList();
+//        this.transformEntities(transform, results);
+//        return results;
+        return null;
 #else
-        try
-        {
-            final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
-                this.getSession(), ${entity.fullyQualifiedEntityName}.class, search);
-            final#if($enableTemplating) java.util.Collection<?>#else java.util.Collection#end results = propertySearch.executeAsList();
-            this.transformEntities(transform, results);
-            return results;
-        }
-        catch (${hibernateUtils.basePackage}.HibernateException ex)
-        {
-            throw super.convertHibernateAccessException(ex);
-        }
+//        try
+//        {
+//            final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
+//                this.getSession(), ${entity.fullyQualifiedEntityName}.class, search);
+///            final#if($enableTemplating) java.util.Collection<?>#else java.util.Collection#end results = propertySearch.executeAsList();
+//            this.transformEntities(transform, results);
+//            return results;
+//        }
+//        catch (${hibernateUtils.basePackage}.HibernateException ex)
+//        {
+//            throw super.convertHibernateAccessException(ex);
+//        }
 #end
     }
 

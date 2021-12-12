@@ -459,6 +459,7 @@
         <core.manual.groovy.dir>${project.basedir}/../core/src/main/groovy</core.manual.groovy.dir>
 #end
 #if ($ejb3 || $cxf || $hibernate || $spring)
+        <core.generated.java.resources>${project.basedir}/../core/target/src/main/resources</core.generated.java.resources>
         <core.manual.test.resources>${project.basedir}/../core/src/test/resources</core.manual.test.resources>
         <core.generated.test.dir>${project.basedir}/../core/target/src/test/java</core.generated.test.dir>
         <core.manual.test.dir>${project.basedir}/../core/src/test/java</core.manual.test.dir>

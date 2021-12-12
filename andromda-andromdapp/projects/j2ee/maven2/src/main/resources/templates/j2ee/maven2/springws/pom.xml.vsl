@@ -6,6 +6,7 @@
         <groupId>$applicationPackage</groupId>
         <artifactId>$applicationId</artifactId>
         <version>$applicationVersion</version>
+		<relativePath/>
     </parent>
     <groupId>$applicationPackage</groupId>
 	<artifactId>${applicationId}-springws</artifactId>

@@ -217,6 +217,8 @@
     <property reference="xmlConfiguration"/>
     <property reference="rooScripts"/>
     <property reference="dateTimeGeneratedText"/>
+    <property reference="spring-resources"/>
+    <property reference="spring-target-resources"/>
 
     <!-- cartridge-property merge-point -->
 
@@ -297,7 +299,7 @@
         outputOnEmptyElements="true">
     </template>
 
-    <template
+    <!-- <template
         path="templates/spring/applicationContext.xml.vsl"
         outputPattern="$applicationContext"
         outlet="spring-configuration"
@@ -317,9 +319,9 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/spring/applicationContext-dataSource.xml.vsl"
         outputPattern="$applicationContextDataSource"
         outlet="spring-configuration"
@@ -334,9 +336,9 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/spring/applicationContext-localDataSource.xml.vsl"
         outputPattern="$applicationContextLocalDataSource"
         outlet="spring-configuration"
@@ -352,9 +354,9 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/spring/applicationContext-testDataSource.xml.vsl"
         outputPattern="applicationContext-testDataSource.xml"
         outlet="server-test-config"
@@ -369,10 +371,10 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <!-- this configuration is supposed to be used by web components, typically Hessian or Burlap -->
-    <template
+    <!-- <template
         path="templates/spring/applicationContext-server.xml.vsl"
         outputPattern="${serviceRemoteContext}-servlet.xml"
         outlet="spring-configuration"
@@ -392,10 +394,10 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <!-- this configuration is supposed to be used by non-web components -->
-    <template
+    <!-- <template
         path="templates/spring/applicationContext-server.xml.vsl"
         outputPattern="$applicationContextServer"
         outlet="spring-configuration"
@@ -414,9 +416,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/spring/remoting/client/applicationContext-client.xml.vsl"
         outputPattern="$applicationContextClient"
         outlet="client-config"
@@ -433,9 +435,9 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/spring/richclient/applicationContext-server-authentication.xml.vsl"
         outputPattern="WEB-INF/$applicationContextServerAuthentication"
         outlet="server-config"
@@ -450,7 +452,7 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <!-- Daos and Persistence -->
     <template
@@ -644,7 +646,7 @@
         </modelElements>
     </template>
 
-    <template
+    <!-- <template
         path="templates/spring/richclient/web.xml.vsl"
         outputPattern="WEB-INF/web.xml"
         outlet="server-config"
@@ -670,7 +672,7 @@
                 <type name="org.andromda.metafacades.uml.Queue"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <template
         path="templates/spring/ejb/applicationContext-remoteEjb.xml.vsl"
@@ -776,7 +778,7 @@
         </modelElements>
     </template>
 
-    <template
+    <!-- <template
         path="templates/spring/beanRefFactory.xml.vsl"
         outputPattern="$beanRefFactory"
         outlet="spring-configuration"
@@ -797,7 +799,7 @@
                 <type name="org.andromda.metafacades.uml.Destination"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <template
         path="templates/spring/richclient/serverTestBeanRefFactory.xml.vsl"
@@ -963,6 +965,13 @@
             </modelElement>
         </modelElements>
     </template>
+    <template
+        path="templates/spring/application.properties.vsl"
+        outputPattern="application.properties"
+        outlet="spring-target-resources"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="true"/>
 
      <!-- <template
         path="templates/spring/ApplicationContextProvider.java.vsl"
@@ -972,7 +981,7 @@
         outputToSingleFile="true"
         outputOnEmptyElements="true"/> -->
         
-     <template
+     <!-- <template
         path="templates/spring/BeanFactory.java.vsl"
         outputPattern="$generatedFile"
         outlet="services"
@@ -992,7 +1001,7 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
             </modelElement>
         </modelElements>
-     </template>
+     </template> -->
         
      <!-- <template
         path="templates/spring/SpringBeanLocator.java.vsl"

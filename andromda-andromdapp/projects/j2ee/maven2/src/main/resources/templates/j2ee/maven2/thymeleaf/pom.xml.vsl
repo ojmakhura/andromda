@@ -3,9 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>$applicationPackage</groupId>
-        <artifactId>$applicationId</artifactId>
-        <version>$applicationVersion</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+		<relativePath/>
     </parent>
     <artifactId>${applicationId}-thymeleaf</artifactId>
     <packaging>jar</packaging>
@@ -13,9 +14,9 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
+                <groupId>$applicationPackage</groupId>
+                <artifactId>$applicationId</artifactId>
+                <version>$applicationVersion</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -23,18 +24,18 @@
     </dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>$applicationPackage</groupId>
             <artifactId>${applicationId}-common</artifactId>
-            <version>${project.version}</version>
+            <version>$applicationVersion</version>
 #if ($ear)
             <scope>provided</scope>
 #end
         </dependency>
 #if (!$transactionPersistenceType.equals("none"))
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>$applicationPackage</groupId>
             <artifactId>${applicationId}-core</artifactId>
-            <version>${project.version}</version>
+            <version>$applicationVersion</version>
 #if ($ear)
             <type>ejb</type>
             <scope>provided</scope>
@@ -74,78 +75,41 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
     <build>
-#if ($war)
-        <finalName>${application.id}</finalName>
-#end
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <targetPath>${project.basedir}/target/src/main/resources</targetPath>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
         <plugins>
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>${maven-antrun-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <target>
-                        <copy todir="${project.basedir}/target/src/main/resources" overwrite="true" failonerror="false">
-                            <fileset dir="${project.basedir}/src/main/resources">
-                                <include name="**/*"/>
-                            </fileset>
-                        </copy>
-                    </target>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromdapp-maven-plugin</artifactId>
-#if (!$ear)
                 <executions>
                     <execution>
+                        <phase>generate-sources</phase>
                         <goals>
-                            <goal>deploy</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <deployLocation>${tomcat.home}/webapps</deployLocation>
-                </configuration>
-#end
-            </plugin>
-            <plugin>
-                <artifactId>maven-source-plugin</artifactId>
-            </plugin>
+                            <goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>target/src/main/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>${start-class}</mainClass>
-                </configuration>
             </plugin>
-        </plugins>
+	    </plugins>
     </build>
 </project>

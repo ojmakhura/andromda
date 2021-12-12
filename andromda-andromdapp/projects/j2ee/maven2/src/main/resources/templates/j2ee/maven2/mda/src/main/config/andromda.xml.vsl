@@ -339,6 +339,8 @@
                 <property name="dao-impls">#if($groovy)${core.manual.groovy.dir}#else${core.manual.java.dir}#end</property>
                 <property name="spring-configuration">${core.generated.dir}</property>
                 <property name="server-test-config">${core.manual.test.resources}</property>
+                <property name="spring-resources">${core.manual.java.resources}</property>
+                <property name="spring-target-resources">${core.generated.java.resources}</property>
                 <property name="server-test">${core.generated.test.dir}</property>
                 <property name="services">${core.generated.dir}</property>
                 <property name="service-impls">#if($groovy)${core.manual.groovy.dir}#else${core.manual.java.dir}#end</property>
