@@ -129,6 +129,10 @@ public#if($class.leaf) final#end#if($class.abstract) abstract#end class $umlUtil
 $parameter.getDocumentation("     * ")
      */
 #if($useJakartaFormParam)
+$parameter
+$parameter.complex
+$parameter.attributes
+$parameter.many
     @jakarta.ws.rs.FormParam("$parameter.name")
 #end
     protected $returnType $parameter.name#if (!$parameter.many && $parameter.defaultValuePresent) = ${parameter.defaultValue}#end;
@@ -220,7 +224,11 @@ $attribute.getDocumentation("     * ")
     @$annotation
 #end
 #if($useJakartaFormParam)
+#if(!$attribute.many && $attribute.type.attributes.size() > 0 && !$attribute.type.enumeration)
+    @jakarta.ws.rs.BeanParam
+#else
     @jakarta.ws.rs.FormParam("$attribute.name")
+#end
 #end
     protected $returnType $attribute.name#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#end;
 #if ($attribute.type.primitive)
