@@ -26,12 +26,6 @@ public interface $controller.name {
      * @return ${action.triggerName}
      * @throws Throwable
      * 
-     * action.exitingInitialState = $action.exitingInitialState
-     * action.finalStateTarget = $action.finalStateTarget
-     * action.enteringView = $action.enteringView
-     * action.exitingView = $action.exitingView
-     * action.enteringFinalState = $action.enteringFinalState
-     * action.enteringFinalState = $action.enteringFinalState
      */
     @${jakartaNamespace}.ws.rs.POST
     @${jakartaNamespace}.ws.rs.Path("$jakartaUtils.toWebResourceName(${action.triggerName})")

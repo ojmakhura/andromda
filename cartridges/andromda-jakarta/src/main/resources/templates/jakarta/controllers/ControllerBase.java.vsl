@@ -44,6 +44,57 @@ public abstract class ${controller.name}Base
 ## #end
 ##     }
 ##  
+    @jakarta.inject.Inject
+    protected jakarta.mvc.Models models;
+
+    @jakarta.annotation.PostConstruct
+    public void init() {
+#foreach ($view in $controller.useCase.views)
+#foreach($var in $view.variables)
+#set($init = "null")
+#if($var.many || $var.table)
+#set($init = "new java.util.ArrayList<$var.type.fullyQualifiedName>()")
+#else
+#if($var.type.listType || $var.type.collectionType || $var.type.collectionType)
+#set($init = "new java.util.ArrayList<$var.type.fullyQualifiedName>()")
+#elseif($var.type.stringType)
+#set($init = "new String()")
+#elseif($var.type.arrayType)
+#set($init = "new $var.type.fullyQualifiedName[10]")
+#elseif($var.type.booleanType)
+#set($init = "false")
+#elseif($var.type.mapType)
+#set($init = "new java.util.HashMap()")
+#elseif($field.type.attributes.size() > 0)
+#set($var = "new ${var.type.fullyQualifiedName}()")
+#end
+#end
+        this.models.put("$var.name", $init);
+#end
+#foreach($field in $view.allFormFields)
+#set($init = "null")
+#if($field.many || $field.table)
+#set($init = "new java.util.ArrayList<$field.type.fullyQualifiedName>()")
+#else
+#if($field.type.listType || $field.type.collectionType || $field.type.collectionType)
+#set($init = "new java.util.ArrayList<$field.type.fullyQualifiedName>()")
+#elseif($field.type.stringType)
+#set($init = "new String()")
+#elseif($field.type.arrayType)
+#set($init = "new $field.type.fullyQualifiedName[10]")
+#elseif($field.type.booleanType)
+#set($init = "false")
+#elseif($field.type.mapType)
+#set($init = "new java.util.HashMap()")
+#elseif($field.type.attributes.size() > 0)
+#set($init = "new ${field.type.fullyQualifiedName}()")
+#end
+#end
+        this.models.put("$field.name", $init);
+#end
+#end
+    }
+
     /**
      * Populate action form and page variables
      *
@@ -68,7 +119,8 @@ public abstract class ${controller.name}Base
 #if($showElse)
         //else
 #end
-        //if("${view.path}.${facesServletExtension}".equals(forward))
+#set ($viewPath = "${controller.restPath}/$jakartaUtils.toWebResourceName(${view.name})")
+        //if("${viewPath}".equals(forward))
         //{
 #foreach ($viewAction in $view.formActions)
         //    ${viewPopulator}.populateForm(sourceForm,this.${viewAction.formImplementationGetter});
@@ -83,7 +135,7 @@ public abstract class ${controller.name}Base
 #end
 #end
 #end
-        //${managedBeansPackage}.ControllerBase.getUseCaseScope().put(CURRENT_PAGE_VARIABLES_KEY, pageVariables);
+        //this.getUseCaseScope().put(CURRENT_PAGE_VARIABLES_KEY, pageVariables);
     }
     
 #foreach ($operation in $controller.operations)

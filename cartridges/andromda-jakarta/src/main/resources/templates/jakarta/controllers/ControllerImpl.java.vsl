@@ -6,16 +6,16 @@ package $controller.packageName;
 /**
  * @see $controller.fullyQualifiedName
  */
-## @${jakartaNamespace}.mvc.Controller
-## @${jakartaNamespace}.enterprise.context.RequestScoped
-## #foreach($annotation in $controller.additionalAnnotations)
-## @$annotation
-## #end
-## #if(!$stringUtils.isBlank($controller.restPath))
-## @${jakartaNamespace}.ws.rs.Path("$controller.restPath")
-## #else
-## @${jakartaNamespace}.ws.rs.Path("/")
-## #end
+@${jakartaNamespace}.mvc.Controller
+@${jakartaNamespace}.enterprise.context.RequestScoped
+#foreach($annotation in $controller.additionalAnnotations)
+@$annotation
+#end
+#if(!$stringUtils.isBlank($controller.restPath))
+@${jakartaNamespace}.ws.rs.Path("$controller.restPath")
+#else
+@${jakartaNamespace}.ws.rs.Path("/")
+#end
 public class $controller.implementationName
     extends ${controller.name}Base
 {

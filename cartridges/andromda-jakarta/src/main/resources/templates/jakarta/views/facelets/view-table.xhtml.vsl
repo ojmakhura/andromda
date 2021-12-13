@@ -6,7 +6,7 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 #set ($targetColumns = $table.targettedTableColumnNames)
-    <h:dataTable id="$table.name" var="row" value="#{${table.tableFormName}.${table.name}}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" emptyMessage="#{messages['empty.result.set']}">
+    <h:dataTable id="$table.name" var="row" value="#{${table.name}}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" emptyMessage="#{messages['empty.result.set']}">
 #if (!$table.tableColumns.empty)
 #foreach ($column in $table.tableColumns)
 #if($column.name)
