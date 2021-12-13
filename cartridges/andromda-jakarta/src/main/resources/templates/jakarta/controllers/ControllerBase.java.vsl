@@ -270,6 +270,9 @@ $action.trigger.getDocumentation("     * ")
             }
         }
         
+        if(org.apache.commons.lang3.StringUtils.isNotBlank(this.request.getQueryString())) {
+            forward = forward + "?" + this.request.getQueryString();
+        }
 #end
 #end
 #end
