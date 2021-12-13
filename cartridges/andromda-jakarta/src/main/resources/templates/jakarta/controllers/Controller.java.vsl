@@ -13,6 +13,21 @@ $controller.getDocumentation(" * ")
  */
 public interface $controller.name {
     
+    /**
+#if($action.exitingInitialState)     
+     * Retrieves the internal start use case
+#else
+     * Retrieves ${action.triggerName}()
+#end
+     *    
+     * @return ${action.triggerName}
+     * @throws Throwable
+     * 
+     */
+    @${jakartaNamespace}.ws.rs.GET
+    @${jakartaNamespace}.ws.rs.Consumes(${jakartaNamespace}.ws.rs.core.MediaType.APPLICATION_JSON)
+    public String startUseCase() throws Throwable;
+    
 ## #foreach ($operation in $controller.operations)
 ##     $operation.handleFormSignature
 ##         throws Throwable;
