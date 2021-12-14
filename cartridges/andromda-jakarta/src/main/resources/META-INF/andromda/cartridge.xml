@@ -380,6 +380,12 @@
         overwrite="true"/>
 
     <template
+        path="templates/jakarta/utils/UseCaseObject.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="managed-beans"
+        overwrite="true"/>
+
+    <template
         path="templates/jakarta/messages/messages.properties.vsl"
         outputPattern="WEB-INF/classes/${messageResources}.properties"
         outlet="messages"

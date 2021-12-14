@@ -9,7 +9,7 @@
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
     <persistence-unit#if($entityManagerName) name="$entityManagerName"#end#if ($stringUtils.isNotBlank(${dataSource})) transaction-type="JTA"#end>
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <provider>${hibernatePersistenceProvider}</provider>
 #if ($stringUtils.isNotBlank(${dataSource}))
         <jta-data-source>${dataSource}</jta-data-source>
 #end
@@ -140,6 +140,9 @@
 #end
 #if ($stringUtils.isNotBlank($hibernateTransactionManagerLookupClass))
             <property name="hibernate.transaction.manager_lookup_class" value="${hibernateTransactionManagerLookupClass}"/>
+#end
+#if($stringUtils.isNotBlank($hibernateTransactionManager))
+            <property name="hibernate.transaction.jta.platform" value="${hibernateTransactionManager}"/>
 #end
 #if ($stringUtils.isNotBlank($hibernateTransactionFlushBeforeCompletion))
             <property name="hibernate.transaction.flush_before_completion" value="${hibernateTransactionFlushBeforeCompletion}"/>

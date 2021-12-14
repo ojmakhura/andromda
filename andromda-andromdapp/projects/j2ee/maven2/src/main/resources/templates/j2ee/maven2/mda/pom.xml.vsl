@@ -523,12 +523,13 @@
         <!-- hibernate configuration -->
 #if ($hibernate)
 #if($glassfish)
+        <hibernate.persistence.provider>org.eclipse.persistence.jpa.PersistenceProvider</hibernate.persistence.provider>
         <hibernate.transaction.manager>org.hibernate.service.jta.platform.internal.SunOneJtaPlatform</hibernate.transaction.manager>
-        <hibernate.transaction.manager.lookup>org.hibernate.transaction.JBossTransactionManagerLookup</hibernate.transaction.manager.lookup>
 #else
+        <hibernate.persistence.provider>org.hibernate.jpa.HibernatePersistenceProvider</hibernate.persistence.provider>
         <hibernate.transaction.manager>org.hibernate.service.jta.platform.internal.JBossStandAloneJtaPlatform</hibernate.transaction.manager>
-        <hibernate.transaction.manager.lookup>org.hibernate.transaction.JBossTransactionManagerLookup</hibernate.transaction.manager.lookup>
 #end
+        <hibernate.transaction.manager.lookup>org.hibernate.transaction.JBossTransactionManagerLookup</hibernate.transaction.manager.lookup>
 #end
         <!-- default strategy to use when using inheritance -->
         <hibernate.inheritance.strategy>subclass</hibernate.inheritance.strategy>

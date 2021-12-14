@@ -226,6 +226,12 @@
                     Handles parse/print of customized String formats. Outputs Boolean instead of boolean.
                 </documentation>
             </property>
+            <property name="jakartaNamespace">
+                <default>javax</default>
+                <documentation>
+                    Jakarta namespace to use
+                </documentation>
+            </property>
         </propertyGroup>
     </properties>
 </namespace>

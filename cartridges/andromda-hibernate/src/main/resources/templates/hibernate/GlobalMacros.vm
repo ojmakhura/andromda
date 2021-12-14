@@ -360,7 +360,7 @@ $attribute.getDocumentation("     * ")
 ## Also sepcify Fetch type in Basic annotation if set to EAGER since
 ## default fetch type for LOB annotation is LAZY.
 ##
-    @${hibernateNamespace}.persistence.Lob
+##    @${hibernateNamespace}.persistence.Lob
 #*      *##if ($attribute.eager)
     @${hibernateNamespace}.persistence.Basic(fetch = ${hibernateNamespace}.persistence.FetchType.EAGER)
 #*      *##end

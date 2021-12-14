@@ -33,6 +33,7 @@
     <property reference="cxfVersion"/>
     <property reference="javaVersion"/>
     <property reference="dateTimeGeneratedText"/>
+    <property reference="jakartaNamespace"/>
     <!-- cartridge-property merge-point-->
 
     <condition name="generateRefFiles">$generateRefFiles.equalsIgnoreCase("true")</condition>

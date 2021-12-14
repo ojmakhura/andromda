@@ -871,6 +871,17 @@
                     The fully qualified class name of the Hibernate TransactionFactory implementation.
                 </documentation>
             </property>
+            <property name="hibernateTransactionManager" required="false">
+                <documentation>
+                    The fully qualified class name of the Hibernate Transaction Manager implementation.
+                </documentation>
+            </property>
+            <property name="hibernatePersistenceProvider" required="false">
+                <default>org.hibernate.jpa.HibernatePersistenceProvider</default>
+                <documentation>
+                    The fully qualified class name of the Hibernate Transaction Manager implementation.
+                </documentation>
+            </property>
         </propertyGroup>
         <propertyGroup name="Other">
             <property name="persistenceProviderExtensions">

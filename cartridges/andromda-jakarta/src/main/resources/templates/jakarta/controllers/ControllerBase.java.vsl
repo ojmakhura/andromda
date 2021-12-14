@@ -17,9 +17,9 @@ $controller.getDocumentation(" * ")
 @$annotation
 #end
 #if(!$stringUtils.isBlank($controller.restPath))
-@${jakartaNamespace}.ws.rs.Path("$controller.restPath")
+//@${jakartaNamespace}.ws.rs.Path("$controller.restPath")
 #else
-@${jakartaNamespace}.ws.rs.Path("/")
+//@${jakartaNamespace}.ws.rs.Path("/")
 #end
 public abstract class ${controller.name}Base
     extends ${managedBeansPackage}.ControllerBase
@@ -207,9 +207,11 @@ $action.trigger.getDocumentation("     * ")
 #set ($useCaseParams = "$useCaseParams, ")
 #end
 #if(!$field.complex)
-#set ($useCaseParams = "$useCaseParams @jakarta.ws.rs.QueryParam(\"$field.name\") $field.type.fullyQualifiedName $field.name")
-#end
+#set ( $d = '"')
+#set ($useCaseParams = "$useCaseParams @jakarta.ws.rs.QueryParam($d$field.name$d) $field.type.fullyQualifiedName $field.name")
+#else
 #set ($useCaseParams = "$useCaseParams $field.type.fullyQualifiedName $field.name")
+#end
 #end
     @${jakartaNamespace}.ws.rs.GET
     @${jakartaNamespace}.ws.rs.Consumes(${jakartaNamespace}.ws.rs.core.MediaType.APPLICATION_JSON)
@@ -446,7 +448,7 @@ $decisionTransition.getDocumentation("     * ")
 #foreach($cnt in $jakartaUtils.getFacadeSet($controllers))
 #if(!$controller.beanName.equals($cnt.beanName))
     @${jakartaNamespace}.inject.Inject
-    protected $cnt.fullyQualifiedImplementationName $cnt.beanName;
+    protected ${cnt.fullyQualifiedName} $cnt.beanName;
 
 #end
 #end

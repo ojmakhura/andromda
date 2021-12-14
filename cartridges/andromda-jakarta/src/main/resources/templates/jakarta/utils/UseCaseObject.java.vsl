@@ -1,15 +1,14 @@
-package ${applicationPackage};
+#set( $generatedFile = "$stringUtils.replace($managedBeansPackage, '.', '/')/UseCaseObject.java")
+package ${managedBeansPackage};
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-#if($jakarta)
 import ${jakartaNamespace}.enterprise.context.SessionScoped;
 import ${jakartaNamespace}.inject.Named;
 
 @Named("useCaseObject")
 @SessionScoped
-#end
 public class UseCaseObject implements Serializable {
     
     private Map<String, Object> useCaseScope;

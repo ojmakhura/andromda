@@ -7,10 +7,9 @@
 #if ($stringUtils.isNotBlank($service.packageName))
 package $service.packageName;
 #end
-
-#foreach ($serviceRef in $service.serviceReferences)
-import ${serviceRef.targetElement.fullyQualifiedName}Home;
-#end
+## #foreach ($serviceRef in $service.serviceReferences)
+## import ${serviceRef.targetElement.fullyQualifiedName}Home;
+## #end
 
 /**
 $service.getDocumentation(" * ")
@@ -66,6 +65,7 @@ $attribute.getDocumentation("     * ")
     /**
 $operation.getDocumentation("     * ")
      */
+    @Override
     $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
 #if ($operation.exceptionsPresent)
         throws $operation.exceptionList
@@ -111,25 +111,27 @@ $operation.getDocumentation("     * ")
 #foreach ( $serviceRef in $service.serviceReferences )
    #set ($service = $serviceRef.targetElement)
    #set ($homeInterfaceName = "${service.name}Home")
-   /**
-    * This is to get the reference to the ${service.name} bean.
-    * Obtains local home interface from default initial context
-    * @return Local home interface for ${service.name}. Lookup using bean ref name.
-    */
-    protected static $homeInterfaceName get${homeInterfaceName}() throws NamingException
-    {
-        javax.naming.InitialContext initialContext = new javax.naming.InitialContext();
-        try
-        {
-            // Local homes shouldn't be narrowed, as there is no RMI involved.
-            $homeInterfaceName home = (${homeInterfaceName}) initialContext.lookup("java:comp/env/ejb/${service.name}BeanRef");
-            return home;
-        }
-        finally
-        {
-            initialContext.close();
-        }
-    }
+##    /**
+##     * This is to get the reference to the ${service.name} bean.
+##     * Obtains local home interface from default initial context
+##     * @return Local home interface for ${service.name}. Lookup using bean ref name.
+##     */
+##     protected static $homeInterfaceName get${homeInterfaceName}() throws javax.naming.NamingException
+##     {
+##         javax.naming.InitialContext initialContext = new javax.naming.InitialContext();
+##         try
+##         {
+##             // Local homes shouldn't be narrowed, as there is no RMI involved.
+##             $homeInterfaceName home = (${homeInterfaceName}) initialContext.lookup("java:comp/env/ejb/${service.name}BeanRef");
+##             return home;
+##         }
+##         finally
+##         {
+##             initialContext.close();
+##         }
+##    }
+    @${hibernateNamespace}.inject.Inject
+    protected ${service.fullyQualifiedName}Impl $stringUtils.uncapitalize($service.name);
 
 #end
     // ---------------- Daos ---------------
