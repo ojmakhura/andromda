@@ -26,7 +26,7 @@ package $manageable.manageablePackageName;
  * Java Server Faces Controller of the ${manageable.name} CRUD management.
  */
 @org.springframework.web.bind.annotation.RestController
-@org.springframework.web.bind.annotation.RequestMapping("$manageable.controllerBeanName")
+//@org.springframework.web.bind.annotation.RequestMapping("$manageable.controllerBeanName")
 public abstract class ${manageable.controllerName}
     extends ${managedBeansPackage}.CrudControllerBase
 {
