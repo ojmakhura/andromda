@@ -23,7 +23,6 @@ import org.andromda.metafacades.uml.Service;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Predicate;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**

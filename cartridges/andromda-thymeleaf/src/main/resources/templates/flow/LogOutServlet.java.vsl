@@ -26,7 +26,7 @@ public class LogOutServlet
         throws ${jakartaNamespace}.servlet.ServletException, java.io.IOException
     {
         request.getSession().invalidate();
-        response.sendRedirect(request.getContextPath() + "${useCase.path}.${facesServletExtension}");
+        response.sendRedirect(request.getContextPath() + "${useCase.path}.${htmlFileExtension}");
     }
 
     /**

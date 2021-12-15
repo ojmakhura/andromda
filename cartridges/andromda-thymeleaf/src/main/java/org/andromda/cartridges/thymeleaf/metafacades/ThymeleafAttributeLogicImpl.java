@@ -15,7 +15,6 @@ import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.utils.StringUtilsHelper;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import java.util.Objects;
 
@@ -71,7 +70,7 @@ public class ThymeleafAttributeLogicImpl
     private boolean isNormalizeMessages()
     {
         final String normalizeMessages =
-            ObjectUtils.toString(this.getConfiguredProperty(ThymeleafGlobals.NORMALIZE_MESSAGES));
+            Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.NORMALIZE_MESSAGES));
         return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 
@@ -266,7 +265,7 @@ public class ThymeleafAttributeLogicImpl
     {
         final String backingListName =
             StringUtils.replace(
-                ObjectUtils.toString(this.getConfiguredProperty(ThymeleafGlobals.BACKING_LIST_PATTERN)),
+                Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.BACKING_LIST_PATTERN)),
                 "{0}",
                 this.getFormPropertyId(ownerParameter));
         return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
@@ -281,7 +280,7 @@ public class ThymeleafAttributeLogicImpl
     {
         final String backingListName =
             StringUtils.replace(
-                ObjectUtils.toString(this.getConfiguredProperty(ThymeleafGlobals.BACKING_VALUE_PATTERN)),
+                Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.BACKING_VALUE_PATTERN)),
                 "{0}",
                 this.getFormPropertyId(ownerParameter));
         return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
@@ -295,7 +294,7 @@ public class ThymeleafAttributeLogicImpl
     protected String handleGetLabelListName(final ParameterFacade ownerParameter)
     {
         return StringUtils.replace(
-            ObjectUtils.toString(this.getConfiguredProperty(ThymeleafGlobals.LABEL_LIST_PATTERN)),
+            Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.LABEL_LIST_PATTERN)),
             "{0}",
             this.getFormPropertyId(ownerParameter));
     }
@@ -308,7 +307,7 @@ public class ThymeleafAttributeLogicImpl
     protected String handleGetValueListName(final ParameterFacade ownerParameter)
     {
         return StringUtils.replace(
-            ObjectUtils.toString(this.getConfiguredProperty(ThymeleafGlobals.VALUE_LIST_PATTERN)),
+            Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.VALUE_LIST_PATTERN)),
             "{0}",
             this.getFormPropertyId(ownerParameter));
     }
@@ -543,7 +542,7 @@ public class ThymeleafAttributeLogicImpl
      */
     private String getInputType()
     {
-        return ObjectUtils.toString(this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
+        return Objects.toString(this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
     }
 
     /**

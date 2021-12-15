@@ -5,6 +5,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
+import java.util.Objects;
+
 import org.andromda.cartridges.thymeleaf.ThymeleafGlobals;
 import org.andromda.cartridges.thymeleaf.ThymeleafProfile;
 import org.andromda.cartridges.thymeleaf.ThymeleafUtils;
@@ -20,7 +22,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang3.BooleanUtils;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -99,7 +100,7 @@ public class ThymeleafManageableEntityLogicImpl
      */
     protected String handleGetFormBeanName()
     {
-        final String pattern = ObjectUtils.toString(this.getConfiguredProperty(ThymeleafGlobals.FORM_BEAN_PATTERN));
+        final String pattern = Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.FORM_BEAN_PATTERN));
         final String formBeanName = pattern.replaceFirst("\\{0\\}", "manage");
         return formBeanName.replaceFirst("\\{1\\}", this.getName());
     }
@@ -333,12 +334,12 @@ public class ThymeleafManageableEntityLogicImpl
      }
 
     /**
-     * @return StringUtils.uncapitalize(this.getName()) + "Controller"
+     * @return StringUtils.uncapitalize(this.getName()) + "ManageableController"
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getControllerBeanName()
      */
     protected String handleGetControllerBeanName()
     {
-        return StringUtils.uncapitalize(this.getName()) + "Controller";
+        return StringUtils.uncapitalize(this.getName()) + "ManageableController";
     }
 
     /**
@@ -351,12 +352,12 @@ public class ThymeleafManageableEntityLogicImpl
     }
 
     /**
-     * @return getName() + "Controller"
+     * @return getName() + "ManageableController"
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getControllerName()
      */
     protected String handleGetControllerName()
     {
-        return this.getName() + "Controller";
+        return this.getName() + "ManageableController";
     }
 
     /**
@@ -398,7 +399,7 @@ public class ThymeleafManageableEntityLogicImpl
      */
     protected String handleGetPopulatorName()
     {
-        return ObjectUtils.toString(this.getConfiguredProperty(ThymeleafGlobals.VIEW_POPULATOR_PATTERN)).replaceAll(
+        return Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.VIEW_POPULATOR_PATTERN)).replaceAll(
             "\\{0\\}",
             StringUtilsHelper.upperCamelCaseName(this.getFormBeanClassName()));
     }
@@ -465,7 +466,7 @@ public class ThymeleafManageableEntityLogicImpl
      */
     protected String handleGetSearchFormBeanName()
     {
-        final String pattern = ObjectUtils.toString(this.getConfiguredProperty(ThymeleafGlobals.FORM_BEAN_PATTERN));
+        final String pattern = Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.FORM_BEAN_PATTERN));
         final String formBeanName = pattern.replaceFirst("\\{0\\}", "manage");
         return formBeanName.replaceFirst("\\{1\\}",this.getName() + "Search");
     }
@@ -504,7 +505,7 @@ public class ThymeleafManageableEntityLogicImpl
         {
             for(final ManageableEntityAttribute attr: getManageableAttributes())
             {
-                if(BooleanUtils.toBoolean(ObjectUtils.toString(attr.findTaggedValue(ThymeleafProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE))))
+                if(BooleanUtils.toBoolean(Objects.toString(attr.findTaggedValue(ThymeleafProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE))))
                 {
                     usingManageableSearchable=true;
                     break;
@@ -515,7 +516,7 @@ public class ThymeleafManageableEntityLogicImpl
                 for(final ManageableEntityAssociationEnd end: getManageableAssociationEnds())
                 {
                     //TODO constant should go to ThymeleafProfile of UMLPROFILE
-                    if(BooleanUtils.toBoolean(ObjectUtils.toString(end.findTaggedValue(ThymeleafProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE))))
+                    if(BooleanUtils.toBoolean(Objects.toString(end.findTaggedValue(ThymeleafProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE))))
                     {
                         usingManageableSearchable=true;
                         break;
@@ -543,7 +544,7 @@ public class ThymeleafManageableEntityLogicImpl
         {
             for(final ManageableEntityAttribute attr: getManageableAttributes())
             {
-                if(BooleanUtils.toBoolean(ObjectUtils.toString(attr.findTaggedValue(ThymeleafProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE))))
+                if(BooleanUtils.toBoolean(Objects.toString(attr.findTaggedValue(ThymeleafProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE))))
                 {
                     searchAttributes.add((ThymeleafManageableEntityAttribute)attr);
                 }
@@ -575,7 +576,7 @@ public class ThymeleafManageableEntityLogicImpl
         {
             for(final ManageableEntityAssociationEnd end: getManageableAssociationEnds())
             {
-                if(BooleanUtils.toBoolean(ObjectUtils.toString(end.findTaggedValue(ThymeleafProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE)))
+                if(BooleanUtils.toBoolean(Objects.toString(end.findTaggedValue(ThymeleafProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE)))
                    || end.isComposition())
                 {
                     searchAssociationEnds.add(end);
@@ -750,7 +751,7 @@ protected Collection handleGetRoles()
     public String handleGetConverterClassName()
     {
         return StringUtils.replace(
-            ObjectUtils.toString(this.getConfiguredProperty(ThymeleafGlobals.CONVERTER_PATTERN)),
+            Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.CONVERTER_PATTERN)),
             "{0}",
             this.getName());
     }
@@ -779,7 +780,7 @@ protected Collection handleGetRoles()
         
         for(final ManageableEntityAttribute attribute: getManageableAttributes())
         {
-            if(BooleanUtils.toBoolean(ObjectUtils.toString(attribute.findTaggedValue(ThymeleafProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_DISPLAY))))
+            if(BooleanUtils.toBoolean(Objects.toString(attribute.findTaggedValue(ThymeleafProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_DISPLAY))))
             {
                 return attribute;
             }
@@ -788,7 +789,7 @@ protected Collection handleGetRoles()
         //associations ???
 //        for(final ManageableEntityAssociationEnd associationEnd: getManageableAssociationEnds())
 //        {
-//            if(BooleanUtils.toBoolean(ObjectUtils.toString(associationEnd.findTaggedValue("andromda_manageable_display"))))
+//            if(BooleanUtils.toBoolean(Objects.toString(associationEnd.findTaggedValue("andromda_manageable_display"))))
 //            {
 //                return associationEnd;
 //            }

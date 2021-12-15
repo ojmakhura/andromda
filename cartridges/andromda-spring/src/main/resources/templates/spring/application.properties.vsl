@@ -2,7 +2,7 @@
 spring.datasource.url=$connectionUrl
 spring.datasource.username=$username
 spring.datasource.password=$password
-logging.level.root=WARN
+logging.level.root=INFO
 
 #if ($stringUtils.isNotBlank($hibernatePoolSize))
 #hibernate.pool.size = $hibernatePoolSize

@@ -23,7 +23,7 @@ null;
 closeDialog();
 #end
 #elseif ($transition.enteringView)
-"${transition.target.path}.${facesServletExtension}"; 
+"${transition.target.path}.${htmlFileExtension}"; 
 #elseif ($transition.enteringDecisionPoint)
 __${transition.operationCall.name}(#if (!$action.formFields.empty)form#end);
 #else

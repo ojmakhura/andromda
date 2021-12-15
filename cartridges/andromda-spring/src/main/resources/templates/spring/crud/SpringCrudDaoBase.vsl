@@ -24,42 +24,43 @@ $manageable.getDocumentation(" * ")
  */
 @org.springframework.stereotype.Repository("$stringUtils.uncapitalize($manageable.manageableDaoName)")
 public class $manageable.manageableDaoBaseName
-    extends $manageable.fullyQualifiedDaoBaseName
+    extends $manageable.fullyQualifiedDaoImplementationName
     implements $manageable.manageableDaoName
 {
 #set ($repositoryBeanName = "$stringUtils.uncapitalize(${manageable.entityName})Repository")
 
-    ## @org.springframework.beans.factory.annotation.Autowired
-    ## protected ${manageable.packageName}.${manageable.name}Repository $repositoryBeanName;
+    @org.springframework.beans.factory.annotation.Autowired
+    protected ${manageable.packageName}.${manageable.name}Repository $repositoryBeanName;
 
-## #foreach ($member in $manageable.manageableAssociationEnds)
-## #set ($repositoryBeanName_ = "$stringUtils.uncapitalize(${member.type.entityName})Repository")
-##     @org.springframework.beans.factory.annotation.Autowired
-##     protected ${member.packageName}.${member.type.name}Repository $repositoryBeanName_;
+#foreach ($member in $manageable.manageableAssociationEnds)
+#set ($repositoryBeanName_ = "$stringUtils.uncapitalize(${member.type.entityName})Repository")
+    @org.springframework.beans.factory.annotation.Autowired
+    protected ${member.type.packageName}.${member.type.name}Repository $repositoryBeanName_;
 
-## #set ($entity = $member.type)
-## #set ($entityBeanName = $stringUtils.uncapitalize(${entity.entityName}))
+#set ($entity = $member.type)
+#set ($entityBeanName = $stringUtils.uncapitalize(${entity.entityName}))
+#set ($entityDaoName = $stringUtils.uncapitalize(${entity.manageableDaoName}))
 
-##     @org.springframework.beans.factory.annotation.Autowired
-##     private $entity.fullyQualifiedDaoName $member.daoName;
+    private $entity.fullyQualifiedManageableDaoName $entityDaoName;
 
-##     /**
-##      * @param ${member.daoName}In
-##      */
-##     public void ${member.daoSetterName}($entity.fullyQualifiedDaoName ${member.daoName}In)
-##     {
-##         this.$member.daoName = ${member.daoName}In;
-##     }
+    /**
+     * @param ${entityDaoName}In
+     */
+    @org.springframework.beans.factory.annotation.Autowired
+    public void set${entity.manageableDaoName}(@org.springframework.context.annotation.Lazy $entity.fullyQualifiedManageableDaoName ${entityDaoName}In)
+    {
+        this.$entityDaoName = ${entityDaoName}In;
+    }
 
-##     /**
-##      * @return dao $entity.fullyQualifiedDaoName
-##      */
-##     public $entity.fullyQualifiedDaoName ${member.daoGetterName}()
-##     {
-##         return this.$member.daoName;
-##     }
+    /**
+     * @return dao $entity.fullyQualifiedManageableDaoName
+     */
+    public $entity.fullyQualifiedManageableDaoName get${entity.manageableDaoName}()
+    {
+        return this.$entityDaoName;
+    }
 
-## #end
+#end
 #if ($enableAnnotations)
     @Override
 #end

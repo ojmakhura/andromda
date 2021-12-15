@@ -2,6 +2,8 @@ package org.andromda.cartridges.thymeleaf.metafacades;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Objects;
+
 import org.andromda.cartridges.thymeleaf.ThymeleafGlobals;
 import org.andromda.cartridges.thymeleaf.ThymeleafProfile;
 import org.andromda.cartridges.thymeleaf.ThymeleafUtils;
@@ -10,7 +12,6 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.BooleanUtils;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -204,7 +205,7 @@ public class ThymeleafManageableEntityAttributeLogicImpl
     {
         final String backingListName =
             StringUtils.replace(
-                ObjectUtils.toString(this.getConfiguredProperty(ThymeleafGlobals.BACKING_LIST_PATTERN)),
+                Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.BACKING_LIST_PATTERN)),
                 "{0}",
                 this.getName());
         return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
@@ -216,7 +217,7 @@ public class ThymeleafManageableEntityAttributeLogicImpl
      */
     protected String handleGetValueListName()
     {
-        return ObjectUtils.toString(this.getConfiguredProperty(ThymeleafGlobals.VALUE_LIST_PATTERN)).replaceAll(
+        return Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.VALUE_LIST_PATTERN)).replaceAll(
             "\\{0\\}",
             this.getName());
     }
@@ -227,7 +228,7 @@ public class ThymeleafManageableEntityAttributeLogicImpl
      */
     protected String handleGetLabelListName()
     {
-        return ObjectUtils.toString(this.getConfiguredProperty(ThymeleafGlobals.LABEL_LIST_PATTERN)).replaceAll(
+        return Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.LABEL_LIST_PATTERN)).replaceAll(
             "\\{0\\}",
             this.getName());
     }
@@ -363,7 +364,7 @@ public class ThymeleafManageableEntityAttributeLogicImpl
      */
     protected String handleGetInputTableIdentifierColumns()
     {
-        return ObjectUtils.toString(this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)).trim();
+        return Objects.toString(this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)).trim();
     }
 
     /**
@@ -560,7 +561,7 @@ public class ThymeleafManageableEntityAttributeLogicImpl
      */
     private String getInputType()
     {
-        return ObjectUtils.toString(this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
+        return Objects.toString(this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
     }
 
     /**
@@ -597,7 +598,7 @@ public class ThymeleafManageableEntityAttributeLogicImpl
         {
             //if uml 1.4, keep the old behavior (like bpm4struts)
             final Object value = this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_INPUT_REQUIRED);
-            return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
+            return Boolean.valueOf(Objects.toString(value)).booleanValue();
         }
         else
         {
@@ -728,6 +729,6 @@ public class ThymeleafManageableEntityAttributeLogicImpl
     @Override
     protected boolean handleIsEditable() {
         Object ignore=this.findTaggedValue(ThymeleafProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_IGNORE);
-        return ignore==null || !BooleanUtils.toBoolean(ObjectUtils.toString(ignore));
+        return ignore==null || !BooleanUtils.toBoolean(Objects.toString(ignore));
     }
 }

@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
 import org.andromda.cartridges.thymeleaf.ThymeleafGlobals;
 import org.andromda.cartridges.thymeleaf.ThymeleafProfile;
 import org.andromda.cartridges.thymeleaf.ThymeleafUtils;
@@ -16,7 +18,6 @@ import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -226,7 +227,7 @@ public class ThymeleafViewLogicImpl
      */
     protected String handleGetPopulator()
     {
-        return ObjectUtils.toString(this.getConfiguredProperty(ThymeleafGlobals.VIEW_POPULATOR_PATTERN)).replaceAll(
+        return Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.VIEW_POPULATOR_PATTERN)).replaceAll(
             "\\{0\\}",
             StringUtilsHelper.upperCamelCaseName(this.getName()));
     }
@@ -255,7 +256,7 @@ public class ThymeleafViewLogicImpl
     protected String handleGetFormKey()
     {
         final Object formKeyValue = this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_ACTION_FORM_KEY);
-        return formKeyValue == null ? ObjectUtils.toString(this.getConfiguredProperty(ThymeleafGlobals.ACTION_FORM_KEY))
+        return formKeyValue == null ? Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.ACTION_FORM_KEY))
                                     : String.valueOf(formKeyValue);
     }
 
@@ -303,7 +304,7 @@ public class ThymeleafViewLogicImpl
      */
     protected boolean handleIsPopup()
     {
-        return ObjectUtils.toString(this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_VIEW_TYPE)).equalsIgnoreCase(
+        return Objects.toString(this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_VIEW_TYPE)).equalsIgnoreCase(
             ThymeleafGlobals.ACTION_TYPE_POPUP);
     }
 

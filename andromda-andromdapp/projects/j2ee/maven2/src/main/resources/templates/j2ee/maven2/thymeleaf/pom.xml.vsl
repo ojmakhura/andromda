@@ -8,7 +8,9 @@
         <version>${spring-boot.version}</version>
 		<relativePath/>
     </parent>
+    <groupId>$applicationPackage</groupId>
     <artifactId>${applicationId}-thymeleaf</artifactId>
+    <version>$applicationVersion</version>
     <packaging>jar</packaging>
     <name>${applicationName} Thymeleaf Web</name>
     <dependencyManagement>
@@ -75,6 +77,43 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
+#if($secure)
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-security</artifactId>
+			<version>1.5.9</version>
+		</dependency>
+#end
+#if ($mysql)
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.16</version>
+        </dependency>
+#elseif ($postgres)
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.6</version>
+        </dependency>
+#elseif ($derby)
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+        </dependency>
+#elseif ($hypersonic)
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+        </dependency>
+#elseif ($h2)
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+#else
+        <!-- add the database jdbc dependency -->
+#end
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -101,6 +140,7 @@
 						<configuration>
 							<sources>
 								<source>target/src/main/java</source>
+								<source>target/src/main/resources</source>
 							</sources>
 						</configuration>
 					</execution>
@@ -109,6 +149,16 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>${applicationPackage}.${stringUtils.capitalize($applicationId)}WebApplication</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 	    </plugins>
     </build>

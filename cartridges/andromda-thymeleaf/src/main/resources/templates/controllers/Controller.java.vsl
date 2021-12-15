@@ -58,7 +58,7 @@ public abstract class $controller.name
 #if($showElse)
         //else
 #end
-        //if("${view.path}.${facesServletExtension}".equals(forward))
+        //if("${view.path}.${htmlFileExtension}".equals(forward))
         //{
 #foreach ($viewAction in $view.formActions)
         //    ${viewPopulator}.populateForm(sourceForm,this.${viewAction.formImplementationGetter});
@@ -272,7 +272,7 @@ ${ident}        forward = #processTransition($actionState.forward)
         catch(Throwable t)
         {
 #* *##if($exceptions.size() == 1 && $stringUtils.isBlank($exceptions.iterator().next().exceptionType))
-            forward = "${actionState.exceptions.iterator().next().target.path}.${facesServletExtension}";
+            forward = "${actionState.exceptions.iterator().next().target.path}.${htmlFileExtension}";
 #* *##else
             forward = null;
 #*  *##set($exceptionCount=0)
@@ -280,7 +280,7 @@ ${ident}        forward = #processTransition($actionState.forward)
 #*   *##if($stringUtils.isNotBlank($exception.exceptionType))
             if(#if($exceptionCount > 0)forward == null && #end t instanceof ${exception.exceptionType})
             {
-                forward = "${exception.target.path}.${facesServletExtension}";
+                forward = "${exception.target.path}.${htmlFileExtension}";
             }
 #*    *##set($exceptionCount=$exceptionCount+1)
 #*   *##end
@@ -288,7 +288,7 @@ ${ident}        forward = #processTransition($actionState.forward)
 #*    *##if($stringUtils.isBlank($exception.exceptionType))
             if(forward == null)
             {
-                forward = "${exception.target.path}.${facesServletExtension}";
+                forward = "${exception.target.path}.${htmlFileExtension}";
             }
 #*    *##end
 #*   *##end
@@ -344,7 +344,7 @@ $decisionTransition.getDocumentation("     * ")
     @org.springframework.web.bind.annotation.GetMapping("$thymeleafUtils.toWebResourceName(${view.name})")
     public String get$stringUtils.capitalize($stringUtils.deleteWhitespace(${view.name}))() {
 
-        return "${view.path}.${facesServletExtension}";
+        return "${view.path}.${htmlFileExtension}";
     }
 
 #end

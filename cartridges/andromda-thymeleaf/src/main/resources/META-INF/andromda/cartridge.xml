@@ -30,7 +30,7 @@
     <property reference="facesConfig"/>
     <property reference="jspIncludes"/>
     <property reference="messageResources"/>
-    <property reference="facesServletExtension"/>
+    <property reference="htmlFileExtension"/>
     <property reference="managedBeansPackage"/>
     <property reference="testPackage"/>
     <property reference="applicationName"/>
@@ -209,7 +209,7 @@
         </modelElements>
     </template>
 
-    <template
+    <!-- <template
         path="templates/flow/ActionForward.java.vsl"
         outputPattern="$action.fullyQualifiedActionClassPath"
         outlet="controllers"
@@ -219,9 +219,9 @@
                 <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/converters/EnumerationConverter.java.vsl"
         outputPattern="${enumeration.converterPath}.java"
         outlet="controllers"
@@ -231,7 +231,7 @@
                 <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafEnumeration"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <template
         path="templates/flow/LogOutServlet.java.vsl"

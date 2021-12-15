@@ -125,8 +125,8 @@
                     The scope to given the navigation items.
                 </documentation>
             </property>
-            <property name="facesServletExtension">
-                <default>xhtml</default>
+            <property name="htmlFileExtension">
+                <default>html</default>
                 <documentation>
                     The extension used for the application's handling of Thymeleaf pages.
                 </documentation>

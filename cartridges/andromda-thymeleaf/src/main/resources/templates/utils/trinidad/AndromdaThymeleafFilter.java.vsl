@@ -22,7 +22,7 @@ import ${jakartaNamespace}.servlet.http.HttpServletResponse;
  * @author Walter Mourao
  */
 @${jakartaNamespace}.servlet.annotation.WebFilter("*.xhtml")
-public class AndromdaJakartaFilter implements Filter
+public class AndromdaThymeleafFilter implements Filter
 {
     /**
      * @see ${jakartaNamespace}.servlet.Filter#hash()init(${jakartaNamespace}.servlet.FilterConfig)

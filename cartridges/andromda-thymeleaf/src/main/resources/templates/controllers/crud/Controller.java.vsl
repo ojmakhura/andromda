@@ -68,6 +68,7 @@ public abstract class ${manageable.controllerName}
      * @return the controller view path.
      * @throws Throwable
      */
+    @org.springframework.web.bind.annotation.GetMapping
     @Override
     public String init()
         throws Throwable
@@ -75,7 +76,7 @@ public abstract class ${manageable.controllerName}
         final ${manageable.formBeanType} form = this.getForm();
 
         this.doInit(form);
-        return "${manageable.viewFullPath}.${facesServletExtension}";
+        return "${manageable.viewFullPath}.${htmlFileExtension}";
     }
 
     /**

@@ -112,6 +112,7 @@
 						<configuration>
 							<sources>
 								<source>target/src/main/java</source>
+								<source>target/src/main/resources</source>
 							</sources>
 						</configuration>
 					</execution>
@@ -120,6 +121,16 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>${applicationPackage}.${stringUtils.capitalize($applicationId)}WSApplication</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 	    </plugins>
     </build>

@@ -234,7 +234,7 @@ ${ident}</th>
                         <p:column style="width:0px;">
                             <p:panelGrid columns="2">
                                 <p:commandButton id="loadAction" icon="ui-icon-pencil" title="#{messages['action.edit']}" immediate="true" process="@this" update="@form"
-                                    onclick="${formName}_${field.name}_dialog_show('${detailManageable.actionFullPath}.${facesServletExtension}?_useCaseParameter._dialog=true&amp;_useCaseParameter._crudAction=edit&amp;_useCaseParameter.editId=#{row.${detailManageable.identifierName}}&amp;_useCaseParameter.filterAttribute=${field.otherEnd.name}&amp;_useCaseParameter.filterValue=#{${formName}.${manageable.identifierName}}',${field.name}_tableUpdate); return false;"/>
+                                    onclick="${formName}_${field.name}_dialog_show('${detailManageable.actionFullPath}.${htmlFileExtension}?_useCaseParameter._dialog=true&amp;_useCaseParameter._crudAction=edit&amp;_useCaseParameter.editId=#{row.${detailManageable.identifierName}}&amp;_useCaseParameter.filterAttribute=${field.otherEnd.name}&amp;_useCaseParameter.filterValue=#{${formName}.${manageable.identifierName}}',${field.name}_tableUpdate); return false;"/>
                                 <p:commandButton id="deleteAction" icon="ui-icon-trash" title="#{messages['action.delete']}" actionListener="#{${detailManageable.controllerBeanName}.delete(row.${detailManageable.identifierName})}" immediate="true" process="@this" update="${field.name}_table"
                                     action="#{${manageable.controllerBeanName}.${loadDetailMethodName}(${formName}.${manageable.identifierName})}" onclick="return confirm('#{messages['confirm.delete.this']} #{messages['${detailManageable.viewTitleKey}']}');" />
                             </p:panelGrid>
@@ -245,7 +245,7 @@ ${ident}</th>
                         <ajsfc:useCaseDialog id="${field.name}_dialog"/>
                         <p:remoteCommand name="${field.name}_tableUpdate" update="${field.name}_table" immediate="true" global="false" actionListener="#{${manageable.controllerBeanName}.${loadDetailMethodName}(${formName}.${manageable.identifierName})}"/>  
                         <p:commandButton id="${field.name}_newAction" icon="ui-icon-plus" title="#{messages['action.new']}" immediate="true" process="@this" update="@form"
-                            onclick="if(_crudCheckCurrentSaved(#{${formName}.${manageable.identifierName}})) ${formName}_${field.name}_dialog_show('${detailManageable.actionFullPath}.${facesServletExtension}?_useCaseParameter._dialog=true&amp;_useCaseParameter._crudAction=create&amp;_useCaseParameter.filterAttribute=${field.otherEnd.name}&amp;_useCaseParameter.filterValue=#{${formName}.${manageable.identifierName}}',${field.name}_tableUpdate); return false;"/>
+                            onclick="if(_crudCheckCurrentSaved(#{${formName}.${manageable.identifierName}})) ${formName}_${field.name}_dialog_show('${detailManageable.actionFullPath}.${htmlFileExtension}?_useCaseParameter._dialog=true&amp;_useCaseParameter._crudAction=create&amp;_useCaseParameter.filterAttribute=${field.otherEnd.name}&amp;_useCaseParameter.filterValue=#{${formName}.${manageable.identifierName}}',${field.name}_tableUpdate); return false;"/>
                     </div>
 #else
 #if($field.composition) 
@@ -257,7 +257,7 @@ ${ident}</th>
                     <ajsfc:autoCompleteNew id="${field.name}" value="#{${valuePropertyName}}" label="#{messages['$field.messageKey']}:" 
                         completeMethod="#{${field.type.controllerBeanName}.fillAutocomplete}"
                         var="bean" itemValue="#{bean.${field.type.identifiers.get(0).name}}" itemLabel="#{bean.${field.type.displayAttribute.name}}"
-                        url="${field.type.actionFullPath}.${facesServletExtension}?_useCaseParameter._dialog=true&amp;_useCaseParameter._crudAction=create"
+                        url="${field.type.actionFullPath}.${htmlFileExtension}?_useCaseParameter._dialog=true&amp;_useCaseParameter._crudAction=create"
                         converter="${field.type.ConverterType}"
                         required="${field.required}" #if($field.many) multiple="true"#end#if($rendered != "") rendered="$rendered"#end/>
                     <p:message id="${field.name}_message" for="${field.name}:autoComplete"#if($rendered!="") rendered="${rendered}"#end/>

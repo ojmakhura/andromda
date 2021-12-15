@@ -29,7 +29,6 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -902,7 +901,7 @@ public class ThymeleafParameterLogicImpl
         {
             //if uml 1.4, keep the old behavior (like bpm4struts)
             final Object value = this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_INPUT_REQUIRED);
-            return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
+            return Boolean.valueOf(Objects.toString(value)).booleanValue();
         }
         else
         {
@@ -951,7 +950,7 @@ public class ThymeleafParameterLogicImpl
     protected boolean handleIsReset()
     {
         boolean reset =
-            Boolean.valueOf(ObjectUtils.toString(this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_INPUT_RESET)))
+            Boolean.valueOf(Objects.toString(this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_INPUT_RESET)))
                    .booleanValue();
         if (!reset)
         {
