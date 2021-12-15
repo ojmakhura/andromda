@@ -706,6 +706,29 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>tomee9</response>
                     <response>tomee</response>
                 </responses>
+                <conditions>
+                    <condition id="deploymentPlatform" equal="glassfish6">
+                        <setProperty type="java.lang.Boolean"  id="glassfish">true</setProperty>
+                    </condition>
+                    <condition equal="wildfly25">
+                        <setProperty type="java.lang.Boolean"  id="wildfly">true</setProperty>
+                    </condition>
+                    <condition equal="payara5">
+                        <setProperty type="java.lang.Boolean"  id="payara">true</setProperty>
+                    </condition>
+                    <condition equal="tomcat9">
+                        <setProperty type="java.lang.Boolean"  id="tomcat9">true</setProperty>
+                    </condition>
+                    <condition equal="tomcat">
+                        <setProperty type="java.lang.Boolean"  id="tomcat">true</setProperty>
+                    </condition>
+                    <condition equal="tomee9">
+                        <setProperty type="java.lang.Boolean"  id="tomee9">true</setProperty>
+                    </condition>
+                    <condition equal="tomee">
+                        <setProperty type="java.lang.Boolean"  id="tomee">true</setProperty>
+                    </condition>
+                </conditions>
             </prompt>
         </promptGroup>
     </prompts>
