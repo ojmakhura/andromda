@@ -858,34 +858,122 @@ public class JakartaActionLogicImpl
 
     @Override
     protected String handleGetRestFormParams() {
-        // TODO Auto-generated method stub
 
         if(getFormFields() == null || getFormFields().size() == 0)
             return "";
 
         StringBuilder builder = new StringBuilder();
 
-        for(FrontEndParameter p : getFormFields()) {
-            JakartaParameter param = (JakartaParameter)p;
+        Iterator<FrontEndParameter> iter = getFormFields().iterator();
+
+        while(iter.hasNext()) {
+            JakartaParameter param = (JakartaParameter)iter.next();
+
             if(param.isActionParameter()) {
-                if(builder.length() > 0) {
-                    builder.append(", ");
-                }
 
                 if(param.isComplex()) {
-                    builder.append("@jakarta.ws.rs.BeanParam ");
-                } else {
+                    //builder.append("@jakarta.ws.rs.BeanParam ");
+
+                    Iterator it = param.getAttributes().iterator();
+                    while(it.hasNext()) {
+
+                        JakartaAttribute attr = (JakartaAttribute)it.next();
+
+                        if(attr.getType().getAttributes() != null && attr.getType().getAttributes().size() > 0) {
+
+                            builder.append("@jakarta.ws.rs.BeanParam ");
+                        } else if(!attr.isMany()) {
+                            builder.append("@jakarta.ws.rs.FormParam(\"");
+                            builder.append(attr.getName());
+                            builder.append("\")");
+                        }
+
+                        builder.append(attr.getType().getFullyQualifiedName());
+                        builder.append(" ");
+                        builder.append(attr.getName());
+
+                        if(it.hasNext()) {
+                            builder.append(", ");
+                        }
+                    }
+
+                } else if(!param.isMany()) {
                     builder.append("@jakarta.ws.rs.FormParam(\"");
                     builder.append(param.getName());
-                    builder.append("\")");
+                    builder.append("\") ");
                 }
                 builder.append(param.getType().getFullyQualifiedName());
                 builder.append(" ");
                 builder.append(param.getName());
+
+                if(iter.hasNext()) {
+                    builder.append(", ");
+                }
             }
         }
 
         return builder.toString();
 
+    }
+
+    @Override
+    protected String handleGetRestQueryParams() {
+        if(getFormFields() == null || getFormFields().size() == 0)
+            return "";
+
+        StringBuilder builder = new StringBuilder();
+
+        Iterator<FrontEndParameter> iter = getFormFields().iterator();
+
+        while(iter.hasNext()) {
+            JakartaParameter param = (JakartaParameter)iter.next();
+
+            if(param.isActionParameter()) {
+
+                if(param.isComplex()) {
+                    //builder.append("@jakarta.ws.rs.BeanParam ");
+
+                    Iterator it = param.getAttributes().iterator();
+                    while(it.hasNext()) {
+
+                        JakartaAttribute attr = (JakartaAttribute)it.next();
+
+                        if(!attr.isMany()) {
+                            builder.append("@jakarta.ws.rs.QueryParam(\"");
+                            builder.append(attr.getName());
+                            builder.append("\") ");
+                        }
+
+                        builder.append(attr.getType().getFullyQualifiedName());
+                        builder.append(" ");
+                        builder.append(attr.getName());
+
+                        if(it.hasNext()) {
+                            builder.append(", ");
+                        }
+                    }
+
+                } else if(!param.isMany()) {
+                    builder.append("@jakarta.ws.rs.QueryParam(\"");
+                    builder.append(param.getName());
+                    builder.append("\") ");
+                }
+                builder.append(param.getType().getFullyQualifiedName());
+                builder.append(" ");
+                builder.append(param.getName());
+
+                if(iter.hasNext()) {
+                    builder.append(", ");
+                }
+            }
+        }
+
+        return builder.toString();
+    }
+
+    @Override
+    protected String handleGetRestPostParams() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

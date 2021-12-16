@@ -26,11 +26,12 @@ public interface $controller.name {
      *    
      * @return ${action.triggerName}
      * @throws Throwable
-     * 
+     * $action.restFormParams
+     * $action.restQueryParams
      */
     @${jakartaNamespace}.ws.rs.POST
     @${jakartaNamespace}.ws.rs.Path("$jakartaUtils.toWebResourceName(${action.triggerName})")
-    public ${jakartaNamespace}.ws.rs.core.Response ${action.triggerName}(#if (!$action.formFields.empty)@${jakartaNamespace}.ws.rs.BeanParam $action.fullyQualifiedFormImplementationName ${action.triggerName}Form#end)
+    public ${jakartaNamespace}.ws.rs.core.Response ${action.triggerName}(#if (!$action.formFields.empty)$action.restFormParams#end)
             throws Throwable;
 #else
     /**

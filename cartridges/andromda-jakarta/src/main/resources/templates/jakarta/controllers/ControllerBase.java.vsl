@@ -25,25 +25,6 @@ public abstract class ${controller.name}Base
     extends ${managedBeansPackage}.ControllerBase
     implements java.io.Serializable, ${controller.name}
 {
-    /**
-     * The serial version UID of this class. Needed for serialization.
-     */
-    private static final long serialVersionUID = 1L;
-
-##     public static Map<String, Integer> viewsMap;
-##     public static Map<Integer, String> reverseViewsMap;
-##
-##     static {
-##         viewsMap = new HashMap<>();
-##         reverseViewsMap = new HashMap<>();
-## #set ($count = 1)
-## #foreach ($view in $controller.useCase.views)
-##         viewsMap.put("$view.path", $count);
-##         reverseViewsMap.put($count, "$view.path");
-## #set ($count = $count + 1)
-## #end
-##     }
-##  
     @jakarta.inject.Inject
     protected jakarta.mvc.Models models;
 
@@ -306,7 +287,7 @@ $action.trigger.getDocumentation("     * ")
 #end
         return forward;
 #else
-        return ${jakartaNamespace}.ws.rs.core.Response.seeOther(java.net.URI.create(forward)).build();
+        return ${jakartaNamespace}.ws.rs.core.Response.seeOther(java.net.URI.create(this.request.getContextPath() + "${servletPath}" + forward)).build();
 #end
     }
 

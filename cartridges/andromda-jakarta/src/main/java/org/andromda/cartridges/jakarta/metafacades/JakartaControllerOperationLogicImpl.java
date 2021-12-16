@@ -473,4 +473,25 @@ public class JakartaControllerOperationLogicImpl
         signature.append(")");
         return signature.toString();
     }
+
+    @Override
+    protected String handleGetRestFormParams() {
+        
+        // for (iterable_type iterable_element : this.get) {
+            
+        // }
+        return null;
+    }
+
+    @Override
+    protected String handleGetRestPostParams() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetRestQueryParams() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
