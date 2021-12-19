@@ -26,8 +26,7 @@ public interface $controller.name {
      *    
      * @return ${action.triggerName}
      * @throws Throwable
-     * $action.restFormParams
-     * $action.restQueryParams
+     * 
      */
     @${jakartaNamespace}.ws.rs.POST
     @${jakartaNamespace}.ws.rs.Path("$jakartaUtils.toWebResourceName(${action.triggerName})")

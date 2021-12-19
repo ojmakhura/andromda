@@ -864,35 +864,35 @@ public class JakartaActionLogicImpl
 
         StringBuilder builder = new StringBuilder();
 
-        Iterator<FrontEndParameter> iter = getFormFields().iterator();
+        Iterator<FrontEndParameter> iter = getParameters().iterator();
 
         while(iter.hasNext()) {
             JakartaParameter param = (JakartaParameter)iter.next();
 
             if(param.isActionParameter()) {
 
-                if(param.isComplex()) {
-                    //builder.append("@jakarta.ws.rs.BeanParam ");
+                if(param.isComplex() && !param.getType().isEnumeration()) {
 
                     Iterator it = param.getAttributes().iterator();
                     while(it.hasNext()) {
 
                         JakartaAttribute attr = (JakartaAttribute)it.next();
+                        
 
                         if(attr.getType().getAttributes() != null && attr.getType().getAttributes().size() > 0) {
 
                             builder.append("@jakarta.ws.rs.BeanParam ");
                         } else if(!attr.isMany()) {
                             builder.append("@jakarta.ws.rs.FormParam(\"");
-                            builder.append(attr.getName());
-                            builder.append("\")");
+                            builder.append(attr.getFormPropertyId(param));
+                            builder.append("\") ");
                         }
 
                         builder.append(attr.getType().getFullyQualifiedName());
                         builder.append(" ");
-                        builder.append(attr.getName());
+                        builder.append(attr.getFormPropertyId(param));
 
-                        if(it.hasNext()) {
+                        if(it.hasNext() || iter.hasNext()) {
                             builder.append(", ");
                         }
                     }
@@ -901,10 +901,10 @@ public class JakartaActionLogicImpl
                     builder.append("@jakarta.ws.rs.FormParam(\"");
                     builder.append(param.getName());
                     builder.append("\") ");
+                    builder.append(param.getType().getFullyQualifiedName());
+                    builder.append(" ");
+                    builder.append(param.getName());
                 }
-                builder.append(param.getType().getFullyQualifiedName());
-                builder.append(" ");
-                builder.append(param.getName());
 
                 if(iter.hasNext()) {
                     builder.append(", ");
@@ -923,7 +923,7 @@ public class JakartaActionLogicImpl
 
         StringBuilder builder = new StringBuilder();
 
-        Iterator<FrontEndParameter> iter = getFormFields().iterator();
+        Iterator<FrontEndParameter> iter = getParameters().iterator();
 
         while(iter.hasNext()) {
             JakartaParameter param = (JakartaParameter)iter.next();
@@ -940,13 +940,13 @@ public class JakartaActionLogicImpl
 
                         if(!attr.isMany()) {
                             builder.append("@jakarta.ws.rs.QueryParam(\"");
-                            builder.append(attr.getName());
+                            builder.append(attr.getFormPropertyId(param));
                             builder.append("\") ");
                         }
 
                         builder.append(attr.getType().getFullyQualifiedName());
                         builder.append(" ");
-                        builder.append(attr.getName());
+                        builder.append(attr.getFormPropertyId(param));
 
                         if(it.hasNext()) {
                             builder.append(", ");
@@ -957,10 +957,10 @@ public class JakartaActionLogicImpl
                     builder.append("@jakarta.ws.rs.QueryParam(\"");
                     builder.append(param.getName());
                     builder.append("\") ");
+                    builder.append(param.getType().getFullyQualifiedName());
+                    builder.append(" ");
+                    builder.append(param.getName());
                 }
-                builder.append(param.getType().getFullyQualifiedName());
-                builder.append(" ");
-                builder.append(param.getName());
 
                 if(iter.hasNext()) {
                     builder.append(", ");

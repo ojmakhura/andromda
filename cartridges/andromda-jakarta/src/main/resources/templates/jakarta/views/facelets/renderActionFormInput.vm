@@ -28,13 +28,13 @@ ${ident}    <label id="${propertyId}_label" for="${propertyId}" value="#{message
 ${ident}</td>
 #if ($parameter.type.dateType)
 ${ident}<td>
-${ident}    <input id="$propertyId" type="date" name="$parameter.name" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" readonly="${parameter.readOnly}" navigator="true" pattern="$parameter.format" showOn="button">
+${ident}    <input id="$propertyId" type="date" name="${propertyId}" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" readonly="${parameter.readOnly}" navigator="true" pattern="$parameter.format" showOn="button">
 ## ${ident}    <f:convertDateTime pattern="$parameter.format"/>
 ${ident}    </input>
 ${ident}</td>
 #elseif ($parameter.inputCheckbox)
 ${ident}<td>
-${ident}    <input id="$propertyId" type="checkbox" name="$parameter.name" value="#{${formValuePropertyName}}"  onLabel="#{messages['yes']}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"#if($parameter.readOnly) readonly#end/>
+${ident}    <input id="$propertyId" type="checkbox" name="${propertyId}" value="#{${formValuePropertyName}}"  onLabel="#{messages['yes']}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"#if($parameter.readOnly) readonly#end/>
 ${ident}</td>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration)
 #set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
@@ -43,7 +43,7 @@ ${ident}</td>
 #set ($selectBoxType = "selectManyMenu")
 #end
 ${ident}<td>
-${ident}    <select #if ($multiSelect)multiple size="5"#end id="$propertyId" name="$parameter.name" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" #if($parameter.readOnly) readonly#end>
+${ident}    <select #if ($multiSelect)multiple size="5"#end id="$propertyId" name="${propertyId}" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" #if($parameter.readOnly) readonly#end>
 #if ($parameter.type.enumeration)
 ${ident}        <option value=""></option>
 #foreach($literal in $parameter.type.literals)
@@ -60,24 +60,24 @@ ${ident}</td>
 #elseif ($parameter.inputFile)
 ${ident}<input id="$propertyId" type="file" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" #if($parameter.readOnly) readonly#end/>
 #elseif ($parameter.inputMultibox)
-${ident}<input id="$propertyId" type="checkbox" name="$parameter.name" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" #if($parameter.readOnly) readonly#end>
+${ident}<input id="$propertyId" type="checkbox" name="${propertyId}" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" #if($parameter.readOnly) readonly#end>
 ${ident}    <f:selectItems value="#{${formName}.${backingListName}}" />
 ${ident}</input>
 #elseif ($parameter.inputRadio)
-${ident}<input id="$propertyId" type="radio" name="$parameter.name" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" #if($parameter.readOnly) readonly#end>
+${ident}<input id="$propertyId" type="radio" name="${propertyId}" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" #if($parameter.readOnly) readonly#end>
 ${ident}    <f:selectItems value="#{${formName}.${backingListName}}" />
 ${ident}</input>
 #elseif ($parameter.plainText)
 ${ident}<td>
-${ident}    <input id="$propertyId" type="text" name="$parameter.name" value="#{${formValuePropertyName}}"  #if($parameter.readOnly) readonly#end/>
+${ident}    <input id="$propertyId" type="text" name="${propertyId}" value="#{${formValuePropertyName}}"  #if($parameter.readOnly) readonly#end/>
 ${ident}</td>
 #elseif ($parameter.inputSecret)
 ${ident}<td>
-${ident}    <input id="$propertyId" type="password" name="$parameter.name" value="#{${formValuePropertyName}}"  #if($parameter.readOnly) readonly#end/>
+${ident}    <input id="$propertyId" type="password" name="${propertyId}" value="#{${formValuePropertyName}}"  #if($parameter.readOnly) readonly#end/>
 ${ident}</td>
 #else
 ${ident}<td>
-${ident}    <input id="$propertyId" type="text" name="$parameter.name" value="#{${formValuePropertyName}}"  #if($parameter.readOnly) readonly#end/>
+${ident}    <input id="$propertyId" type="text" name="${propertyId}" value="#{${formValuePropertyName}}"  #if($parameter.readOnly) readonly#end/>
 ${ident}</td>
 #end
 ${ident}<td><span id="${propertyId}_message" for="${propertyId}"></span></td>
