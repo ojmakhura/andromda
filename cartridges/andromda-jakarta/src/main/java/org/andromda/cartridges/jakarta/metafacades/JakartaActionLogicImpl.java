@@ -31,22 +31,22 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
- * MetafacadeLogic implementation for org.andromda.cartridges.jakarta.metafacades.JakartaAction.
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.jakarta.metafacades.JakartaAction.
  *
  * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction
  */
 public class JakartaActionLogicImpl
-    extends JakartaActionLogic
-{
+        extends JakartaActionLogic {
     private static final long serialVersionUID = 34L;
+
     /**
      * @param metaObject
      * @param context
      */
     public JakartaActionLogicImpl(
-        Object metaObject,
-        String context)
-    {
+            Object metaObject,
+            String context) {
         super(metaObject, context);
     }
 
@@ -59,8 +59,7 @@ public class JakartaActionLogicImpl
      * @return getFormBeanName(true)
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getFormBeanName()
      */
-    protected String handleGetFormBeanName()
-    {
+    protected String handleGetFormBeanName() {
         return this.getFormBeanName(true);
     }
 
@@ -70,25 +69,25 @@ public class JakartaActionLogicImpl
      * @param withUseCaseName whether or not to prefix the use case name.
      * @return the constructed form bean name.
      */
-    private String getFormBeanName(boolean withUseCaseName)
-    {
+    private String getFormBeanName(boolean withUseCaseName) {
         final String pattern = ObjectUtils.toString(this.getConfiguredProperty(JakartaGlobals.FORM_BEAN_PATTERN));
         final ModelElementFacade useCase = this.getUseCase();
         final String useCaseName = withUseCaseName && useCase != null
-            ? StringUtilsHelper.lowerCamelCaseName(useCase.getName()) : "";
+                ? StringUtilsHelper.lowerCamelCaseName(useCase.getName())
+                : "";
         final String formBeanName = pattern.replaceFirst("\\{0\\}", useCaseName);
         final String triggerName = !pattern.equals(formBeanName)
-            ? StringUtils.capitalize(this.getTriggerName()) : this.getTriggerName();
+                ? StringUtils.capitalize(this.getTriggerName())
+                : this.getTriggerName();
         return formBeanName.replaceFirst(
-            "\\{1\\}",
-            triggerName);
+                "\\{1\\}",
+                triggerName);
     }
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
-    public String getName()
-    {
+    public String getName() {
         return JakartaUtils.toWebResourceName(this.getUseCase().getName() + "-" + super.getName());
     }
 
@@ -96,19 +95,14 @@ public class JakartaActionLogicImpl
      * @return useCase.getName()
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getTriggerName()
      */
-    protected String handleGetTriggerName()
-    {
+    protected String handleGetTriggerName() {
         String name = null;
-        if (this.isExitingInitialState())
-        {
-            final JakartaUseCase useCase = (JakartaUseCase)this.getUseCase();
-            if (useCase != null)
-            {
+        if (this.isExitingInitialState()) {
+            final JakartaUseCase useCase = (JakartaUseCase) this.getUseCase();
+            if (useCase != null) {
                 name = useCase.getName();
             }
-        }
-        else
-        {
+        } else {
             final EventFacade trigger = this.getTrigger();
             final String suffix = trigger == null ? this.getTarget().getName() : trigger.getName();
             name = this.getSource().getName() + ' ' + suffix;
@@ -120,21 +114,19 @@ public class JakartaActionLogicImpl
      * @return formImplementationName
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getFormImplementationName()
      */
-    protected String handleGetFormImplementationName()
-    {
-        final String pattern =
-            ObjectUtils.toString(this.getConfiguredProperty(JakartaGlobals.FORM_IMPLEMENTATION_PATTERN));
+    protected String handleGetFormImplementationName() {
+        final String pattern = ObjectUtils
+                .toString(this.getConfiguredProperty(JakartaGlobals.FORM_IMPLEMENTATION_PATTERN));
         return pattern.replaceFirst(
-            "\\{0\\}",
-            StringUtils.capitalize(this.getTriggerName()));
+                "\\{0\\}",
+                StringUtils.capitalize(this.getTriggerName()));
     }
 
     /**
      * @return isTableAction
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getFullyQualifiedFormImplementationName()
      */
-    protected boolean handleIsTableAction()
-    {
+    protected boolean handleIsTableAction() {
         return JakartaGlobals.ACTION_TYPE_TABLE.equals(this.findTaggedValue(JakartaProfile.TAGGEDVALUE_ACTION_TYPE));
     }
 
@@ -142,12 +134,10 @@ public class JakartaActionLogicImpl
      * @return fullyQualifiedFormImplementationName
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getFullyQualifiedFormImplementationName()
      */
-    protected String handleGetFullyQualifiedFormImplementationName()
-    {
+    protected String handleGetFullyQualifiedFormImplementationName() {
         final StringBuilder fullyQualifiedName = new StringBuilder();
         final String packageName = this.getPackageName();
-        if (StringUtils.isNotBlank(packageName))
-        {
+        if (StringUtils.isNotBlank(packageName)) {
             fullyQualifiedName.append(packageName + '.');
         }
         return fullyQualifiedName.append(this.getFormImplementationName()).toString();
@@ -157,22 +147,19 @@ public class JakartaActionLogicImpl
      * @return fullyQualifiedFormImplementationPath
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getFullyQualifiedFormImplementationPath()
      */
-    protected String handleGetFullyQualifiedFormImplementationPath()
-    {
+    protected String handleGetFullyQualifiedFormImplementationPath() {
         return this.getFullyQualifiedFormImplementationName().replace(
-            '.',
-            '/');
+                '.',
+                '/');
     }
 
     /**
      * @return scope
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getFullyQualifiedFormImplementationPath()
      */
-    protected String handleGetFormScope()
-    {
+    protected String handleGetFormScope() {
         String scope = ObjectUtils.toString(this.findTaggedValue(JakartaProfile.TAGGEDVALUE_ACTION_FORM_SCOPE));
-        if (StringUtils.isEmpty(scope))
-        {
+        if (StringUtils.isEmpty(scope)) {
             scope = ObjectUtils.toString(this.getConfiguredProperty(JakartaGlobals.FORM_SCOPE));
         }
         return scope;
@@ -182,25 +169,22 @@ public class JakartaActionLogicImpl
      * @return formImplementationInterfaceList
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getFormImplementationInterfaceList()
      */
-    protected String handleGetFormImplementationInterfaceList()
-    {
+    protected String handleGetFormImplementationInterfaceList() {
         final List<FrontEndControllerOperation> deferredOperations = this.getDeferredOperations();
-        for (final Iterator<FrontEndControllerOperation> iterator = deferredOperations.iterator(); iterator.hasNext();)
-        {
+        for (final Iterator<FrontEndControllerOperation> iterator = deferredOperations.iterator(); iterator
+                .hasNext();) {
             // - remove any forms that don't have arguments
-            final JakartaControllerOperation operation = (JakartaControllerOperation)iterator.next();
-            if (operation.getArguments().isEmpty())
-            {
+            final JakartaControllerOperation operation = (JakartaControllerOperation) iterator.next();
+            if (operation.getArguments().isEmpty()) {
                 iterator.remove();
             }
         }
         final StringBuilder list = new StringBuilder();
-        for (final Iterator<FrontEndControllerOperation> iterator = deferredOperations.iterator(); iterator.hasNext();)
-        {
-            final JakartaControllerOperation operation = (JakartaControllerOperation)iterator.next();
+        for (final Iterator<FrontEndControllerOperation> iterator = deferredOperations.iterator(); iterator
+                .hasNext();) {
+            final JakartaControllerOperation operation = (JakartaControllerOperation) iterator.next();
             list.append(operation.getFormName());
-            if (iterator.hasNext())
-            {
+            if (iterator.hasNext()) {
                 list.append(", ");
             }
         }
@@ -210,17 +194,14 @@ public class JakartaActionLogicImpl
     /**
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaActionLogic#handleGetPath()
      */
-    protected String handleGetPath()
-    {
+    protected String handleGetPath() {
         String path = this.getPathRoot() + '/' + JakartaUtils.toWebResourceName(this.getTriggerName());
-        if (this.isExitingInitialState())
-        {
-            final JakartaUseCase useCase = (JakartaUseCase)this.getUseCase();
-            if (useCase != null && useCase.isViewHasNameOfUseCase())
-            {
+        if (this.isExitingInitialState()) {
+            final JakartaUseCase useCase = (JakartaUseCase) this.getUseCase();
+            if (useCase != null && useCase.isViewHasNameOfUseCase()) {
                 // - add the uc prefix to make the trigger name unique
-                //   when a view contained within the use case has the same name
-                //   as the use case
+                // when a view contained within the use case has the same name
+                // as the use case
                 path = path + "uc";
             }
         }
@@ -231,12 +212,10 @@ public class JakartaActionLogicImpl
      * @return pathRoot
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getPathRoot()
      */
-    protected String handleGetPathRoot()
-    {
+    protected String handleGetPathRoot() {
         final StringBuilder pathRoot = new StringBuilder();
-        final JakartaUseCase useCase = (JakartaUseCase)this.getUseCase();
-        if (useCase != null)
-        {
+        final JakartaUseCase useCase = (JakartaUseCase) this.getUseCase();
+        if (useCase != null) {
             pathRoot.append(useCase.getPathRoot());
         }
         return pathRoot.toString();
@@ -246,14 +225,12 @@ public class JakartaActionLogicImpl
      * @return messageKey
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getMessageKey()
      */
-    protected String handleGetMessageKey()
-    {
+    protected String handleGetMessageKey() {
         String messageKey = null;
 
         final Object trigger = this.getTrigger();
-        if (trigger instanceof JakartaEvent)
-        {
-            final JakartaEvent actionTrigger = (JakartaEvent)trigger;
+        if (trigger instanceof JakartaEvent) {
+            final JakartaEvent actionTrigger = (JakartaEvent) trigger;
             messageKey = actionTrigger.getMessageKey();
         }
         return messageKey;
@@ -263,28 +240,25 @@ public class JakartaActionLogicImpl
      * @return documentationKey
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getDocumentationKey()
      */
-    protected String handleGetDocumentationKey()
-    {
+    protected String handleGetDocumentationKey() {
         final Object trigger = this.getTrigger();
         JakartaEvent event = null;
-        if (trigger instanceof JakartaEvent)
-        {
-            event = (JakartaEvent)trigger;
+        if (trigger instanceof JakartaEvent) {
+            event = (JakartaEvent) trigger;
         }
         return (event == null ? this.getMessageKey() + ".is.an.action.without.trigger" : event.getMessageKey()) +
-            '.' + JakartaGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX;
+                '.' + JakartaGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX;
     }
 
     /**
      * @return documentationValue
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getDocumentationValue()
      */
-    protected String handleGetDocumentationValue()
-    {
+    protected String handleGetDocumentationValue() {
         final String value = StringUtilsHelper.toResourceMessage(getDocumentation(
-                    "",
-                    64,
-                    false));
+                "",
+                64,
+                false));
         return value == null ? "" : value;
     }
 
@@ -292,32 +266,29 @@ public class JakartaActionLogicImpl
      * @return viewFragmentPath
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getViewFragmentPath()
      */
-    protected String handleGetViewFragmentPath()
-    {
+    protected String handleGetViewFragmentPath() {
         return '/' + this.getPackageName().replace(
-            '.',
-            '/') + '/' + JakartaUtils.toWebResourceName(this.getTriggerName());
+                '.',
+                '/') + '/' + JakartaUtils.toWebResourceName(this.getTriggerName());
     }
 
     /**
      * @return tableLink
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getTableLinkName()
      */
-    protected String handleGetTableLinkName()
-    {
+    protected String handleGetTableLinkName() {
         String tableLink = null;
 
         final Object value = findTaggedValue(JakartaProfile.TAGGEDVALUE_ACTION_TABLELINK);
-        if (value != null)
-        {
+        if (value != null) {
             tableLink = StringUtils.trimToNull(value.toString());
 
-            if (tableLink != null)
-            {
+            if (tableLink != null) {
                 final int columnOffset = tableLink.indexOf('.');
-                tableLink = columnOffset == -1 ? tableLink : tableLink.substring(
-                        0,
-                        columnOffset);
+                tableLink = columnOffset == -1 ? tableLink
+                        : tableLink.substring(
+                                0,
+                                columnOffset);
             }
         }
 
@@ -328,19 +299,17 @@ public class JakartaActionLogicImpl
      * @return tableLink
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getTableLinkColumnName()
      */
-    protected String handleGetTableLinkColumnName()
-    {
+    protected String handleGetTableLinkColumnName() {
         String tableLink = null;
         final Object value = findTaggedValue(JakartaProfile.TAGGEDVALUE_ACTION_TABLELINK);
-        if (value != null)
-        {
+        if (value != null) {
             tableLink = StringUtils.trimToNull(value.toString());
 
-            if (tableLink != null)
-            {
+            if (tableLink != null) {
                 final int columnOffset = tableLink.indexOf('.');
                 tableLink = (columnOffset == -1 || columnOffset == tableLink.length() - 1)
-                    ? null : tableLink.substring(columnOffset + 1);
+                        ? null
+                        : tableLink.substring(columnOffset + 1);
             }
         }
         return tableLink;
@@ -350,24 +319,18 @@ public class JakartaActionLogicImpl
      * @return tableLinkParameter
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#isTableLink()
      */
-    protected Object handleGetTableLinkParameter()
-    {
+    protected Object handleGetTableLinkParameter() {
         JakartaParameter tableLinkParameter = null;
         final String tableLinkName = this.getTableLinkName();
-        if (tableLinkName != null)
-        {
-            final JakartaView view = (JakartaView)this.getInput();
-            if (view != null)
-            {
+        if (tableLinkName != null) {
+            final JakartaView view = (JakartaView) this.getInput();
+            if (view != null) {
                 final List<FrontEndParameter> tables = view.getTables();
-                for (int ctr = 0; ctr < tables.size() && tableLinkParameter == null; ctr++)
-                {
+                for (int ctr = 0; ctr < tables.size() && tableLinkParameter == null; ctr++) {
                     final Object object = tables.get(ctr);
-                    if (object instanceof JakartaParameter)
-                    {
-                        final JakartaParameter table = (JakartaParameter)object;
-                        if (tableLinkName.equals(table.getName()))
-                        {
+                    if (object instanceof JakartaParameter) {
+                        final JakartaParameter table = (JakartaParameter) object;
+                        if (tableLinkName.equals(table.getName())) {
                             tableLinkParameter = table;
                         }
                     }
@@ -381,8 +344,7 @@ public class JakartaActionLogicImpl
      * @return getTableLinkParameter() != null
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#isTableLink()
      */
-    protected boolean handleIsTableLink()
-    {
+    protected boolean handleIsTableLink() {
         return this.getTableLinkParameter() != null;
     }
 
@@ -390,8 +352,7 @@ public class JakartaActionLogicImpl
      * @return hyperlink
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#isHyperlink()
      */
-    protected boolean handleIsHyperlink()
-    {
+    protected boolean handleIsHyperlink() {
         final Object value = findTaggedValue(JakartaProfile.TAGGEDVALUE_ACTION_TYPE);
         return JakartaGlobals.ACTION_TYPE_HYPERLINK.equalsIgnoreCase(value == null ? null : value.toString());
     }
@@ -400,8 +361,7 @@ public class JakartaActionLogicImpl
      * @return StringUtilsHelper.upperCamelCaseName(this.getTriggerName())
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getActionClassName()
      */
-    protected String handleGetActionClassName()
-    {
+    protected String handleGetActionClassName() {
         return StringUtilsHelper.upperCamelCaseName(this.getTriggerName());
     }
 
@@ -409,11 +369,10 @@ public class JakartaActionLogicImpl
      * @return fullyQualifiedActionClassPath
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getFullyQualifiedActionClassPath()
      */
-    protected String handleGetFullyQualifiedActionClassPath()
-    {
+    protected String handleGetFullyQualifiedActionClassPath() {
         return this.getFullyQualifiedActionClassName().replace(
-            '.',
-            '/') + ".java";
+                '.',
+                '/') + ".java";
     }
 
     /**
@@ -421,8 +380,7 @@ public class JakartaActionLogicImpl
      *
      * @see org.andromda.metafacades.uml.ModelElementFacade#getPackageName()
      */
-    public String getPackageName()
-    {
+    public String getPackageName() {
         final UseCaseFacade useCase = this.getUseCase();
         return useCase != null ? useCase.getPackageName() : "";
     }
@@ -431,8 +389,7 @@ public class JakartaActionLogicImpl
      * @return getTriggerName()
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getControllerAction()
      */
-    protected String handleGetControllerAction()
-    {
+    protected String handleGetControllerAction() {
         return this.getTriggerName();
     }
 
@@ -440,15 +397,12 @@ public class JakartaActionLogicImpl
      * @return fullyQualifiedActionClassName
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getFullyQualifiedActionClassName()
      */
-    protected String handleGetFullyQualifiedActionClassName()
-    {
+    protected String handleGetFullyQualifiedActionClassName() {
         final StringBuilder path = new StringBuilder();
-        final JakartaUseCase useCase = (JakartaUseCase)this.getUseCase();
-        if (useCase != null)
-        {
+        final JakartaUseCase useCase = (JakartaUseCase) this.getUseCase();
+        if (useCase != null) {
             final String packageName = useCase.getPackageName();
-            if (StringUtils.isNotBlank(packageName))
-            {
+            if (StringUtils.isNotBlank(packageName)) {
                 path.append(packageName);
                 path.append('.');
             }
@@ -461,34 +415,30 @@ public class JakartaActionLogicImpl
      * @return findTaggedValue(JakartaProfile.TAGGEDVALUE_ACTION_RESETTABLE) isTrue
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#isResettable()
      */
-    protected boolean handleIsResettable()
-    {
+    protected boolean handleIsResettable() {
         final Object value = findTaggedValue(JakartaProfile.TAGGEDVALUE_ACTION_RESETTABLE);
         return this.isTrue(value == null ? null : value.toString());
     }
 
     /**
-     * Convenient method to detect whether or not a String instance represents a boolean <code>true</code> value.
+     * Convenient method to detect whether or not a String instance represents a
+     * boolean <code>true</code> value.
      */
-    private boolean isTrue(String string)
-    {
+    private boolean isTrue(String string) {
         return "yes".equalsIgnoreCase(string) || "true".equalsIgnoreCase(string) || "on".equalsIgnoreCase(string) ||
-        "1".equalsIgnoreCase(string);
+                "1".equalsIgnoreCase(string);
     }
 
     /**
      * @return otherActions
      */
-    protected List<FrontEndAction> handleGetOtherUseCaseFormActions()
-    {
+    protected List<FrontEndAction> handleGetOtherUseCaseFormActions() {
         final List<FrontEndAction> otherActions = new ArrayList<FrontEndAction>(this.getUseCase().getActions());
-        for (final Iterator<FrontEndAction> iterator = otherActions.iterator(); iterator.hasNext();)
-        {
+        for (final Iterator<FrontEndAction> iterator = otherActions.iterator(); iterator.hasNext();) {
             final FrontEndAction action = iterator.next();
 
             // - remove this action and any forms that don't have form fields
-            if (action.equals(this.THIS()) || action.getFormFields().isEmpty())
-            {
+            if (action.equals(this.THIS()) || action.getFormFields().isEmpty()) {
                 iterator.remove();
             }
         }
@@ -499,47 +449,40 @@ public class JakartaActionLogicImpl
      * @return hiddenParameters
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getFormKey()
      */
-    protected String handleGetFormKey()
-    {
+    protected String handleGetFormKey() {
         final Object formKeyValue = this.findTaggedValue(JakartaProfile.TAGGEDVALUE_ACTION_FORM_KEY);
         return formKeyValue == null ? ObjectUtils.toString(this.getConfiguredProperty(JakartaGlobals.ACTION_FORM_KEY))
-                                    : String.valueOf(formKeyValue);
+                : String.valueOf(formKeyValue);
     }
 
     /**
      * @return hiddenParameters
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getHiddenParameters()
      */
-    protected List<FrontEndParameter> handleGetHiddenParameters()
-    {
+    protected List<FrontEndParameter> handleGetHiddenParameters() {
         final List<FrontEndParameter> hiddenParameters = new ArrayList<FrontEndParameter>(this.getParameters());
         CollectionUtils.filter(
-            hiddenParameters,
-            new Predicate()
-            {
-                public boolean evaluate(final Object object)
-                {
-                    boolean valid = false;
-                    if (object instanceof JakartaParameter)
-                    {
-                        final JakartaParameter parameter = (JakartaParameter)object;
-                        valid = parameter.isInputHidden();
-                        if (!valid)
-                        {
-                            for (final Iterator iterator = parameter.getAttributes().iterator(); iterator.hasNext();)
-                            {
-                                JakartaAttribute attribute = (JakartaAttribute)iterator.next();
-                                valid = attribute.isInputHidden();
-                                if (valid)
-                                {
-                                    break;
+                hiddenParameters,
+                new Predicate() {
+                    public boolean evaluate(final Object object) {
+                        boolean valid = false;
+                        if (object instanceof JakartaParameter) {
+                            final JakartaParameter parameter = (JakartaParameter) object;
+                            valid = parameter.isInputHidden();
+                            if (!valid) {
+                                for (final Iterator iterator = parameter.getAttributes().iterator(); iterator
+                                        .hasNext();) {
+                                    JakartaAttribute attribute = (JakartaAttribute) iterator.next();
+                                    valid = attribute.isInputHidden();
+                                    if (valid) {
+                                        break;
+                                    }
                                 }
                             }
                         }
+                        return valid;
                     }
-                    return valid;
-                }
-            });
+                });
         return hiddenParameters;
     }
 
@@ -547,16 +490,12 @@ public class JakartaActionLogicImpl
      * @return required
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getHiddenParameters()
      */
-    protected boolean handleIsValidationRequired()
-    {
+    protected boolean handleIsValidationRequired() {
         boolean required = false;
-        for (final FrontEndParameter frontEndParam : this.getParameters())
-        {
-            if (frontEndParam instanceof JakartaParameter)
-            {
-                final JakartaParameter parameter = (JakartaParameter)frontEndParam;
-                if (parameter.isValidationRequired())
-                {
+        for (final FrontEndParameter frontEndParam : this.getParameters()) {
+            if (frontEndParam instanceof JakartaParameter) {
+                final JakartaParameter parameter = (JakartaParameter) frontEndParam;
+                if (parameter.isValidationRequired()) {
                     required = true;
                     break;
                 }
@@ -569,10 +508,10 @@ public class JakartaActionLogicImpl
      * @return popup
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#isPopup()
      */
-    protected boolean handleIsPopup()
-    {
-        boolean popup = ObjectUtils.toString(this.findTaggedValue(JakartaProfile.TAGGEDVALUE_ACTION_TYPE)).equalsIgnoreCase(
-            JakartaGlobals.ACTION_TYPE_POPUP);
+    protected boolean handleIsPopup() {
+        boolean popup = ObjectUtils.toString(this.findTaggedValue(JakartaProfile.TAGGEDVALUE_ACTION_TYPE))
+                .equalsIgnoreCase(
+                        JakartaGlobals.ACTION_TYPE_POPUP);
         return popup;
     }
 
@@ -580,36 +519,31 @@ public class JakartaActionLogicImpl
      * @return dialog
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#isDialog()
      */
-    protected boolean handleIsDialog()
-    {
+    protected boolean handleIsDialog() {
         return this.isPopup();
-        //currently only popup dialogs are supported and all dialog = popup.
-        //It should change when Jakarta
-        //starts supporting some conversation scope, or the jakarta cartridge supports
-        //some extension that adds this kind of feature
-        
-//        boolean dialog = ObjectUtils.toString(this.findTaggedValue(JakartaProfile.TAGGEDVALUE_ACTION_TYPE)).equalsIgnoreCase(
-//            JakartaGlobals.ACTION_TYPE_DIALOG);
-//        return dialog;
+        // currently only popup dialogs are supported and all dialog = popup.
+        // It should change when Jakarta
+        // starts supporting some conversation scope, or the jakarta cartridge supports
+        // some extension that adds this kind of feature
+
+        // boolean dialog =
+        // ObjectUtils.toString(this.findTaggedValue(JakartaProfile.TAGGEDVALUE_ACTION_TYPE)).equalsIgnoreCase(
+        // JakartaGlobals.ACTION_TYPE_DIALOG);
+        // return dialog;
     }
 
     /**
      * @return resetRequired
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#isFormResetRequired()
      */
-    protected boolean handleIsFormResetRequired()
-    {
+    protected boolean handleIsFormResetRequired() {
         boolean resetRequired = this.isFormReset();
-        if (!resetRequired)
-        {
-            for (final FrontEndParameter feParameter : this.getParameters())
-            {
-                if (feParameter instanceof JakartaParameter)
-                {
-                    final JakartaParameter parameter = (JakartaParameter)feParameter;
+        if (!resetRequired) {
+            for (final FrontEndParameter feParameter : this.getParameters()) {
+                if (feParameter instanceof JakartaParameter) {
+                    final JakartaParameter parameter = (JakartaParameter) feParameter;
                     resetRequired = parameter.isReset();
-                    if (resetRequired)
-                    {
+                    if (resetRequired) {
                         break;
                     }
                 }
@@ -618,18 +552,17 @@ public class JakartaActionLogicImpl
         return resetRequired;
     }
 
-    //TODO remove after 3.4 release
+    // TODO remove after 3.4 release
     /**
      * Hack to keep the compatibility with Andromda 3.4-SNAPSHOT
+     * 
      * @return getSource() instanceof FrontEndView
      */
-    public FrontEndView getInput()
-    {
+    public FrontEndView getInput() {
         FrontEndView input = null;
         final ModelElementFacade source = this.getSource();
-        if (source instanceof FrontEndView)
-        {
-            input = (FrontEndView)source;
+        if (source instanceof FrontEndView) {
+            input = (FrontEndView) source;
         }
         return input;
     }
@@ -638,13 +571,12 @@ public class JakartaActionLogicImpl
      * @return formSerialVersionUID
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getFormSerialVersionUID()
      */
-    protected String handleGetFormSerialVersionUID()
-    {
+    protected String handleGetFormSerialVersionUID() {
         final StringBuilder buffer = new StringBuilder();
 
         buffer.append(this.getName());
 
-        final ModelElementFacade input = (ModelElementFacade)this.getInput();
+        final ModelElementFacade input = (ModelElementFacade) this.getInput();
         buffer.append(input != null ? input.getName() : "");
 
         final ModelElementFacade guard = this.getGuard();
@@ -658,48 +590,40 @@ public class JakartaActionLogicImpl
 
         buffer.append(StringUtils.trimToEmpty(this.getActionClassName()));
 
-        for (final FrontEndParameter parameter : this.getParameters())
-        {
+        for (final FrontEndParameter parameter : this.getParameters()) {
             buffer.append(parameter.getName());
         }
 
-        for (final FrontEndForward forward : this.getActionForwards())
-        {
+        for (final FrontEndForward forward : this.getActionForwards()) {
             buffer.append(forward.getName());
         }
 
-        for (final FrontEndAction action : this.getActions())
-        {
+        for (final FrontEndAction action : this.getActions()) {
             buffer.append(action.getName());
         }
 
-        for (final FrontEndActionState state : this.getActionStates())
-        {
+        for (final FrontEndActionState state : this.getActionStates()) {
             buffer.append(state.getName());
         }
         final String signature = buffer.toString();
 
         String serialVersionUID = String.valueOf(0L);
-        try
-        {
+        try {
             MessageDigest md = MessageDigest.getInstance("SHA");
             byte[] hashBytes = md.digest(signature.getBytes());
 
             long hash = 0;
             for (int ctr = Math.min(
-                        hashBytes.length,
-                        8) - 1; ctr >= 0; ctr--)
-            {
+                    hashBytes.length,
+                    8) - 1; ctr >= 0; ctr--) {
                 hash = (hash << 8) | (hashBytes[ctr] & 0xFF);
             }
             serialVersionUID = String.valueOf(hash);
-        }
-        catch (final NoSuchAlgorithmException exception)
-        {
+        } catch (final NoSuchAlgorithmException exception) {
             final String message = "Error performing JakartaAction.getFormSerialVersionUID";
             LOGGER.error(
-                message,
-                exception);
+                    message,
+                    exception);
         }
         return serialVersionUID;
     }
@@ -708,18 +632,16 @@ public class JakartaActionLogicImpl
      * @return findTaggedValue(JakartaProfile.TAGGEDVALUE_ACTION_FORM_RESET)
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#isFormResetRequired()
      */
-    protected boolean handleIsFormReset()
-    {
+    protected boolean handleIsFormReset() {
         return Boolean.valueOf(Objects.toString(this.findTaggedValue(
-            JakartaProfile.TAGGEDVALUE_ACTION_FORM_RESET), "")).booleanValue();
+                JakartaProfile.TAGGEDVALUE_ACTION_FORM_RESET), "")).booleanValue();
     }
 
     /**
      * @return "get" + StringUtils.capitalize(this.getFormBeanName(false)) + "()"
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getFormImplementationGetter()
      */
-    protected String handleGetFormImplementationGetter()
-    {
+    protected String handleGetFormImplementationGetter() {
         return "get" + StringUtils.capitalize(this.getFormBeanName(false)) + "()";
     }
 
@@ -727,8 +649,7 @@ public class JakartaActionLogicImpl
      * @return getTarget() instanceof JakartaFinalState
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#isFinalStateTarget()
      */
-    protected boolean handleIsFinalStateTarget()
-    {
+    protected boolean handleIsFinalStateTarget() {
         return this.getTarget() instanceof JakartaFinalState;
     }
 
@@ -736,24 +657,21 @@ public class JakartaActionLogicImpl
      * @return getName()
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getFromOutcome()
      */
-    protected String handleGetFromOutcome()
-    {
+    protected String handleGetFromOutcome() {
         return this.getName();
     }
 
     /**
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaActionLogic#handleIsSuccessMessagesPresent()
      */
-    protected boolean handleIsSuccessMessagesPresent()
-    {
+    protected boolean handleIsSuccessMessagesPresent() {
         return !this.getSuccessMessages().isEmpty();
     }
 
     /**
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaActionLogic#handleIsWarningMessagesPresent()
      */
-    protected boolean handleIsWarningMessagesPresent()
-    {
+    protected boolean handleIsWarningMessagesPresent() {
         return !this.getWarningMessages().isEmpty();
     }
 
@@ -761,24 +679,20 @@ public class JakartaActionLogicImpl
      * Collects specific messages in a map.
      *
      * @param taggedValue the tagged value from which to read the message
-     * @return maps message keys to message values, but only those that match the arguments
+     * @return maps message keys to message values, but only those that match the
+     *         arguments
      *         will have been recorded
      */
-    private Map<String, String> getMessages(String taggedValue)
-    {
+    private Map<String, String> getMessages(String taggedValue) {
         Map<String, String> messages;
 
         final Collection taggedValues = this.findTaggedValues(taggedValue);
-        if (taggedValues.isEmpty())
-        {
+        if (taggedValues.isEmpty()) {
             messages = Collections.EMPTY_MAP;
-        }
-        else
-        {
+        } else {
             messages = new LinkedHashMap<String, String>(); // we want to keep the order
-            for (final Object tag : taggedValues)
-            {
-                final String value = (String)tag;
+            for (final Object tag : taggedValues) {
+                final String value = (String) tag;
                 messages.put(StringUtilsHelper.toResourceMessageKey(value), value);
             }
         }
@@ -789,16 +703,14 @@ public class JakartaActionLogicImpl
     /**
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaActionLogic#handleGetSuccessMessages()
      */
-    protected Map<String, String> handleGetSuccessMessages()
-    {
+    protected Map<String, String> handleGetSuccessMessages() {
         return this.getMessages(JakartaProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
     }
 
     /**
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaActionLogic#handleGetWarningMessages()
      */
-    protected Map<String, String> handleGetWarningMessages()
-    {
+    protected Map<String, String> handleGetWarningMessages() {
         return this.getMessages(JakartaProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
     }
 
@@ -806,26 +718,20 @@ public class JakartaActionLogicImpl
      * @return needsFileUpload
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#isNeedsFileUpload()
      */
-    protected boolean handleIsNeedsFileUpload()
-    {
-        if(this.getParameters().size() == 0)
-        {
+    protected boolean handleIsNeedsFileUpload() {
+        if (this.getParameters().size() == 0) {
             return false;
         }
 
-        for (final FrontEndParameter feParameter : this.getParameters())
-        {
-            if (feParameter instanceof JakartaParameter)
-            {
-                final JakartaParameter parameter = (JakartaParameter)feParameter;
-                if(parameter.isInputFile())
-                {
+        for (final FrontEndParameter feParameter : this.getParameters()) {
+            if (feParameter instanceof JakartaParameter) {
+                final JakartaParameter parameter = (JakartaParameter) feParameter;
+                if (parameter.isInputFile()) {
                     return true;
                 }
-                if(parameter.isComplex())
-                {
-                    for(final Iterator attributes = parameter.getAttributes().iterator(); attributes.hasNext();)
-                        if(((JakartaAttribute)attributes.next()).isInputFile())
+                if (parameter.isComplex()) {
+                    for (final Iterator attributes = parameter.getAttributes().iterator(); attributes.hasNext();)
+                        if (((JakartaAttribute) attributes.next()).isInputFile())
                             return true;
                 }
             }
@@ -837,77 +743,105 @@ public class JakartaActionLogicImpl
      * @see org.andromda.cartridges.jakarta.metafacades.JakartaAction#getTriggerMethodName
      */
     @Override
-    protected String handleGetTriggerMethodName()
-    {
+    protected String handleGetTriggerMethodName() {
         final StringBuilder methodName = new StringBuilder();
-        if (this.isExitingInitialState())
-        {
-            final JakartaUseCase useCase = (JakartaUseCase)this.getUseCase();
-            methodName.append(StringUtilsHelper.lowerCamelCaseName(useCase.getName())+"_started");
-        }
-        else
-        {
+        if (this.isExitingInitialState()) {
+            final JakartaUseCase useCase = (JakartaUseCase) this.getUseCase();
+            methodName.append(StringUtilsHelper.lowerCamelCaseName(useCase.getName()) + "_started");
+        } else {
             methodName.append(StringUtilsHelper.lowerCamelCaseName(this.getSource().getName()));
             methodName.append('_');
             final EventFacade trigger = this.getTrigger();
             final String suffix = trigger == null ? this.getTarget().getName() : trigger.getName();
             methodName.append(StringUtilsHelper.lowerCamelCaseName(suffix));
         }
-        return "_"+methodName.toString();
+        return "_" + methodName.toString();
     }
 
     @Override
     protected String handleGetRestFormParams() {
 
-        if(getFormFields() == null || getFormFields().size() == 0)
+        if (getFormFields() == null || getFormFields().size() == 0)
             return "";
 
         StringBuilder builder = new StringBuilder();
 
         Iterator<FrontEndParameter> iter = getParameters().iterator();
 
-        while(iter.hasNext()) {
-            JakartaParameter param = (JakartaParameter)iter.next();
+        while (iter.hasNext()) {
+            JakartaParameter param = (JakartaParameter) iter.next();
 
-            if(param.isActionParameter()) {
+            if (param.isActionParameter()) {
 
-                if(param.isComplex() && !param.getType().isEnumeration()) {
+                if (param.isComplex() && !param.getType().isEnumeration()) {
 
                     Iterator it = param.getAttributes().iterator();
-                    while(it.hasNext()) {
+                    while (it.hasNext()) {
 
-                        JakartaAttribute attr = (JakartaAttribute)it.next();
-                        
+                        JakartaAttribute attr = (JakartaAttribute) it.next();
 
-                        if(attr.getType().getAttributes() != null && attr.getType().getAttributes().size() > 0) {
+                        if (!attr.isMany()) {
 
-                            builder.append("@jakarta.ws.rs.BeanParam ");
-                        } else if(!attr.isMany()) {
-                            builder.append("@jakarta.ws.rs.FormParam(\"");
-                            builder.append(attr.getFormPropertyId(param));
-                            builder.append("\") ");
+                            if (attr.getType().getAttributes() != null && attr.getType().getAttributes().size() > 0
+                                    && !attr.getType().isEnumeration()) {
+
+                                builder.append("@jakarta.ws.rs.BeanParam ");
+                            } else {
+                                builder.append("@jakarta.ws.rs.FormParam(\"");
+                                builder.append(attr.getFormPropertyId(param));
+                                builder.append("\") ");
+                            }
                         }
 
-                        builder.append(attr.getType().getFullyQualifiedName());
+                        if (attr.isMany()) {
+                            builder.append("java.util.Collection<");
+                        }
+
+                        if (attr.getType().isDateType()) {
+                            builder.append("String");
+                        } else {
+                            builder.append(attr.getType().getFullyQualifiedName());
+                        }
+
+                        if (attr.isMany()) {
+                            builder.append(">");
+                        }
+
                         builder.append(" ");
                         builder.append(attr.getFormPropertyId(param));
 
-                        if(it.hasNext() || iter.hasNext()) {
-                            builder.append(", ");
+                        if (it.hasNext() || iter.hasNext()) {
+                            builder.append(", \n\t\t\t");
                         }
                     }
 
-                } else if(!param.isMany()) {
-                    builder.append("@jakarta.ws.rs.FormParam(\"");
-                    builder.append(param.getName());
-                    builder.append("\") ");
-                    builder.append(param.getType().getFullyQualifiedName());
+                } else {
+                    if (!param.isMany()) {
+                        builder.append("@jakarta.ws.rs.FormParam(\"");
+                        builder.append(param.getName());
+                        builder.append("\") ");
+                    }
+
+                    if (param.isMany()) {
+                        builder.append("java.util.Collection<");
+                    }
+
+                    if (param.getType().isDateType()) {
+                        builder.append("String");
+                    } else {
+                        builder.append(param.getType().getFullyQualifiedName());
+                    }
+
+                    if (param.isMany()) {
+                        builder.append(">");
+                    }
+
                     builder.append(" ");
                     builder.append(param.getName());
                 }
 
-                if(iter.hasNext()) {
-                    builder.append(", ");
+                if (iter.hasNext()) {
+                    builder.append(", \n\t\t\t");
                 }
             }
         }
@@ -918,51 +852,59 @@ public class JakartaActionLogicImpl
 
     @Override
     protected String handleGetRestQueryParams() {
-        if(getFormFields() == null || getFormFields().size() == 0)
+        if (getFormFields() == null || getFormFields().size() == 0)
             return "";
 
         StringBuilder builder = new StringBuilder();
 
         Iterator<FrontEndParameter> iter = getParameters().iterator();
 
-        while(iter.hasNext()) {
-            JakartaParameter param = (JakartaParameter)iter.next();
+        while (iter.hasNext()) {
+            JakartaParameter param = (JakartaParameter) iter.next();
 
-            if(param.isActionParameter()) {
+            if (param.isActionParameter()) {
 
-                if(param.isComplex()) {
-                    //builder.append("@jakarta.ws.rs.BeanParam ");
+                if (param.isComplex() && !param.getType().isEnumeration()) {
+                    // builder.append("@jakarta.ws.rs.BeanParam ");
 
                     Iterator it = param.getAttributes().iterator();
-                    while(it.hasNext()) {
+                    while (it.hasNext()) {
 
-                        JakartaAttribute attr = (JakartaAttribute)it.next();
+                        JakartaAttribute attr = (JakartaAttribute) it.next();
 
-                        if(!attr.isMany()) {
+                        if (!attr.isMany()) {
                             builder.append("@jakarta.ws.rs.QueryParam(\"");
                             builder.append(attr.getFormPropertyId(param));
                             builder.append("\") ");
                         }
 
-                        builder.append(attr.getType().getFullyQualifiedName());
+                        if (attr.getType().isDateType()) {
+                            builder.append("String");
+                        } else {
+                            builder.append(attr.getType().getFullyQualifiedName());
+                        }
                         builder.append(" ");
                         builder.append(attr.getFormPropertyId(param));
 
-                        if(it.hasNext()) {
+                        if (it.hasNext()) {
                             builder.append(", ");
                         }
                     }
 
-                } else if(!param.isMany()) {
+                } else if (!param.isMany()) {
                     builder.append("@jakarta.ws.rs.QueryParam(\"");
                     builder.append(param.getName());
                     builder.append("\") ");
-                    builder.append(param.getType().getFullyQualifiedName());
+                    if (param.getType().isDateType()) {
+                        builder.append("String");
+                    } else {
+                        builder.append(param.getType().getFullyQualifiedName());
+                    }
                     builder.append(" ");
                     builder.append(param.getName());
                 }
 
-                if(iter.hasNext()) {
+                if (iter.hasNext()) {
                     builder.append(", ");
                 }
             }

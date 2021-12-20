@@ -37,6 +37,9 @@
 #if($stringUtils.isNotBlank($hibernateTransactionManager))
             <property name="hibernate.transaction.jta.platform" value="${hibernateTransactionManager}"/>
 #end
+#if(${hibernatePersistenceProvider.equals("org.eclipse.persistence.jpa.PersistenceProvider")})
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+#end
 #if ($stringUtils.isNotBlank($hibernateHbm2DDLAuto))
             <property name="hibernate.hbm2ddl.auto" value="${hibernateHbm2DDLAuto}"/>
 #end

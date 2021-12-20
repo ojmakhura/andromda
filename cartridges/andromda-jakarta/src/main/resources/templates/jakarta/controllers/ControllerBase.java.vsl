@@ -222,7 +222,14 @@ $action.trigger.getDocumentation("     * ")
 #else
 #set ($propertyId = $attribute.getFormPropertyId($field))
 #end
+#if($attribute.type.dateType)
+        if(org.apache.commons.lang3.StringUtils.isNotBlank(${propertyId})){
+            java.text.DateFormat ${propertyId}Format = new java.text.SimpleDateFormat("$attribute.format");
+            ${field.name}.set${stringUtils.capitalize($attribute.name)}(${propertyId}Format.parse(${propertyId}));
+        }
+#else
         ${field.name}.set${stringUtils.capitalize($attribute.name)}($propertyId);
+#end
 #end
 #end
         this.${action.formImplementationGetter}.set${stringUtils.capitalize($field.name)}($field.name);
@@ -250,7 +257,9 @@ $action.trigger.getDocumentation("     * ")
 
 #if($action.exitingInitialState)
         //copy parameters form caller use case
-//        form.copyFrom(useCaseParameters);
+#foreach($param in $action.parameters)
+        form.set$stringUtils.capitalize($param.name)($param.name);
+#end
 #else
 ## #foreach($field in $action.formFields)
 ## #if($field.actionParameter)
@@ -264,7 +273,7 @@ $action.trigger.getDocumentation("     * ")
 
 #if($action.exitingInitialState)
 #set($forward = "#processTransition($action)")
-         forward = $forward
+        forward = $forward
 #else
         forward = #processTransition($action)
 #end
@@ -281,10 +290,6 @@ $action.trigger.getDocumentation("     * ")
                 return ${jakartaNamespace}.ws.rs.core.Response.noContent().build();
             }
         }
-        
-        if(org.apache.commons.lang3.StringUtils.isNotBlank(this.request.getQueryString())) {
-            forward = forward + "?" + this.request.getQueryString();
-        }
 #end
 #end
 #end
@@ -296,12 +301,13 @@ $action.trigger.getDocumentation("     * ")
 #foreach ($view in $controller.useCase.views)
 #set ($viewPath = "${action.controller.restPath}/$jakartaUtils.toWebResourceName(${view.name})")
         if("${viewPath}".equals($forward)) {
-            return "${view.path}.${facesServletExtension}";
+            return "${view.path}";
         }
        
 #end
         return forward;
 #else
+
         return ${jakartaNamespace}.ws.rs.core.Response.seeOther(java.net.URI.create(this.request.getContextPath() + "${servletPath}" + forward)).build();
 #end
     }
@@ -328,6 +334,7 @@ $actionState.getDocumentation("     * ")
 ##end
 ##        // forward=$actionState.forward name=$actionState.name
         forward = #processTransition($actionState.forward)
+
 #saveMessages($actionState.forward "        ")
 #else
 #set($exceptions = $actionState.exceptions)
@@ -353,13 +360,14 @@ ${ident}        ${controllerCall.name}(new ${controllerCall.interfaceName}());
 #end
 #end
 ${ident}        forward = #processTransition($actionState.forward)
+
 #saveMessages($actionState.forward "${ident}        ")
 #if(!$exceptions.empty)
         }
         catch(Throwable t)
         {
 #* *##if($exceptions.size() == 1 && $stringUtils.isBlank($exceptions.iterator().next().exceptionType))
-            forward = "${actionState.exceptions.iterator().next().target.path}.${facesServletExtension}";
+            forward = "${actionState.exceptions.iterator().next().target.path}";
 #* *##else
             forward = null;
 #*  *##set($exceptionCount=0)
@@ -367,7 +375,7 @@ ${ident}        forward = #processTransition($actionState.forward)
 #*   *##if($stringUtils.isNotBlank($exception.exceptionType))
             if(#if($exceptionCount > 0)forward == null && #end t instanceof ${exception.exceptionType})
             {
-                forward = "${exception.target.path}.${facesServletExtension}";
+                forward = "${exception.target.path}";
             }
 #*    *##set($exceptionCount=$exceptionCount+1)
 #*   *##end
@@ -375,7 +383,7 @@ ${ident}        forward = #processTransition($actionState.forward)
 #*    *##if($stringUtils.isBlank($exception.exceptionType))
             if(forward == null)
             {
-                forward = "${exception.target.path}.${facesServletExtension}";
+                forward = "${exception.target.path}";
             }
 #*    *##end
 #*   *##end
