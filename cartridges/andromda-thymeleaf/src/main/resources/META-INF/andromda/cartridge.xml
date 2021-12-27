@@ -539,7 +539,7 @@
 
     <!-- manageable -->
 
-    <template
+    <!-- <template
         path="templates/flow/crud/ActionForward.java.vsl"
         outputPattern="$generatedFile"
         outlet="controllers"
@@ -551,7 +551,7 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <!-- <template
         path="templates/converters/crud/EntityConverter.java.vsl"
@@ -568,6 +568,20 @@
 
     <template
         path="templates/controllers/crud/Controller.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/controllers/crud/ControllerBase.java.vsl"
         outputPattern="$generatedFile"
         outlet="controllers"
         overwrite="true">

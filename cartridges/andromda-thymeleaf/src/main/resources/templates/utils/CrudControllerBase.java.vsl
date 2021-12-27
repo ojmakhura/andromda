@@ -17,49 +17,50 @@ public abstract class CrudControllerBase extends ControllerBase {
      * @return the controller view path.
      * @throws Throwable
      */
-    public abstract String init() throws Throwable;
+    public abstract String init(org.springframework.ui.Model model) throws Throwable;
+    
     /**
      * The cancel edit action
      *
      * @return null
      * @throws Throwable
      */
-    public abstract String cancel() throws Throwable;
+    //public abstract String cancel() throws Throwable;
     /**
      * The new instance action.
      *
      * @return null
      * @throws Throwable
      */
-    public abstract String startNew() throws Throwable;
+    //public abstract String startNew() throws Throwable;
     /**
      * The save and select instance action.
      *
      * @return null
      * @throws Throwable
      */
-    public abstract String saveAndSelect() throws Throwable;    
+    //public abstract String saveAndSelect() throws Throwable;    
     /**
      * The save instance action.
      *
      * @return null
      * @throws Throwable
      */
-    public abstract String save() throws Throwable;    
+    //public abstract String save() throws Throwable;    
     /**
      * The save and new instance action.
      *
      * @return null
      * @throws Throwable
      */
-    public abstract String saveAndNew() throws Throwable;
+    //public abstract String saveAndNew() throws Throwable;
     /**
      * The search action.
      *
      * @return null
      * @throws Throwable
      */
-    public abstract String search() throws Throwable;
+    //public abstract String search() throws Throwable;
     /**
      * Helper method to fill the select component list.
      *
@@ -73,7 +74,7 @@ public abstract class CrudControllerBase extends ControllerBase {
      * @return null
      * @throws Throwable
      */
-    public abstract String saveAndKeepEditing() throws Throwable;
+    //public abstract String saveAndKeepEditing() throws Throwable;
     
     protected abstract void fillFormFromParameters(final java.util.Map<String,Object> useCaseParameters);
     protected abstract boolean isIdSet();
@@ -92,9 +93,9 @@ public abstract class CrudControllerBase extends ControllerBase {
     final static String CRUD_SAVED_KEY = "_saved";
 
     @Override
-    protected String internalStartUseCase(final java.util.Map<String,Object> useCaseParameters) throws Throwable
+    protected String internalStartUseCase(org.springframework.ui.Model model, final java.util.Map<String,Object> useCaseParameters) throws Throwable
     {
-        final String forward=init();
+        final String forward=init(model);
 
         /*Object operation=useCaseParameters.get(CRUD_OPERATION_KEY);
         

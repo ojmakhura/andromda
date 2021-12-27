@@ -9,7 +9,7 @@ package $manageable.manageablePackageName;
 @org.springframework.web.bind.annotation.RestController
 @org.springframework.web.bind.annotation.RequestMapping("$manageable.controllerBeanName")
 public class ${manageable.controllerName}Impl
-    extends ${manageable.controllerName}
+    extends ${manageable.controllerName}Base
     implements java.io.Serializable
 {
     /**

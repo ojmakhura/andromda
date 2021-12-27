@@ -132,7 +132,7 @@ public abstract class ControllerBase
  
     //start/finish use case
     
-    protected abstract String internalStartUseCase(java.util.Map<String,Object> useCaseParameters) throws Throwable;
+    protected abstract String internalStartUseCase(org.springframework.ui.Model model, java.util.Map<String,Object> useCaseParameters) throws Throwable;
 
     /**
      * Starts a use case
@@ -140,7 +140,7 @@ public abstract class ControllerBase
      * @return the start use case
      */
     @org.springframework.web.bind.annotation.GetMapping("start")
-    public String startUseCase() throws Throwable
+    public String startUseCase(org.springframework.ui.Model model) throws Throwable
     {
         /*final java.util.Map<String,Object> useCaseParameters;
         
@@ -167,8 +167,8 @@ public abstract class ControllerBase
         
         setUseCaseInDialog(org.apache.commons.lang3.BooleanUtils.toBoolean(java.util.Objects.toString(useCaseParameters.get(USE_CASE_IN_DIALOG_KEY))));
 
-        return internalStartUseCase(useCaseParameters);*/
-        return internalStartUseCase(new java.util.HashMap<String, Object>());
+        return internalStartUseCase(model, useCaseParameters);*/
+        return internalStartUseCase(model, new java.util.HashMap<String, Object>());
     }
 
     /**
