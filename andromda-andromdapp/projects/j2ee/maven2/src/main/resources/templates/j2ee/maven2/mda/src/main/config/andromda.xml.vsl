@@ -583,6 +583,11 @@
                 <property name="jakartaNamespace">${jakarta.namespace}</property>
                 <!-- Uncomment to set  -->
                 <property name="servletPath">/app</property>
+#if($glassfish6)
+                <property name="deploymentServer">glassfish6</property>
+#elseif($wildfly)
+                <property name="deploymentServer">wildfly</property>
+#end
 #end
             </properties>
         </namespace>

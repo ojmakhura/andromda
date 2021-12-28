@@ -30,7 +30,10 @@ public interface $controller.name {
      */
     @${jakartaNamespace}.ws.rs.POST
     @${jakartaNamespace}.ws.rs.Path("$jakartaUtils.toWebResourceName(${action.triggerName})")
-    public ${jakartaNamespace}.ws.rs.core.Response ${action.triggerName}(#if (!$action.formFields.empty)$action.restFormParams#end)
+#if (!$action.formFields.empty)
+    @${jakartaNamespace}.ws.rs.Consumes(${jakartaNamespace}.ws.rs.core.MediaType.APPLICATION_JSON)
+#end
+    public ${jakartaNamespace}.ws.rs.core.Response ${action.triggerName}(#if (!$action.formFields.empty)$action.fullyQualifiedFormImplementationName form#end)
             throws Throwable;
 #else
     /**
@@ -58,6 +61,10 @@ public interface $controller.name {
 #end
     @${jakartaNamespace}.ws.rs.GET
     @${jakartaNamespace}.ws.rs.Consumes(${jakartaNamespace}.ws.rs.core.MediaType.APPLICATION_JSON)
+// $deploymentServer
+#if($deploymentServer == "wildfly")
+    @${jakartaNamespace}.ws.rs.Path("start")
+#end
     public String startUseCase($useCaseParams) throws Throwable;
     
 #end

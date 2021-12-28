@@ -418,9 +418,13 @@
                 </documentation>
             </property>
             <property name="servletPath">
-                <default></default>
                 <documentation>
                     The servelet path for application configuration.
+                </documentation>
+            </property>
+            <property name="deploymentServer">
+                <documentation>
+                    The application server used for deployment
                 </documentation>
             </property>
             <property name="converterPattern">

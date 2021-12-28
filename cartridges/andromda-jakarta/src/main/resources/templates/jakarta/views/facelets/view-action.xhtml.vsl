@@ -6,9 +6,7 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 #set($formName = $action.formBeanName)
-    <form id="${formName}" name="${formName}" 
-        role="form" method="POST" 
-        action="#{request.contextPath}${servletPath}${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.triggerName})">
+    <form id="${formName}" name="${formName}" role="form" method="POST" action="#">
 #if ($action.hyperlink)
     <a href="#" id="${action.triggerName}Action" action="#{${action.controller.beanName}.${action.triggerName}}" immediate="true" ajax="false">
         <label id="${action.triggerName}ActionMessage" value="#{messages['$action.messageKey']}"/>
@@ -58,4 +56,43 @@
         </table>
 #end
     </form>
+    <script>
+        const ${formName} = document.getElementById('${formName}');
+        editMotsheloSaveForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // prevent page refresh
+            const formData = new FormData(${formName});
+            var data = {};
+#foreach($parameter in $action.parameters)
+#if (!$parameter.complex || $parameter.type.enumeration)
+            data.$parameter.name = formData.get('$parameter.name');
+            
+#else
+            data.$parameter.name = {};
+#foreach ($attribute in $parameter.attributes)
+#if(!$attribute.inputHidden && !$parameter.inputHidden)
+#if ($attribute.backingListName)
+#if ($attribute.type.hasStereotype('Entity'))
+#set ($propertyId = $attribute.getFormPropertyId($parameter))
+#else
+#set ($propertyId = $attribute.name)
+#end
+#else
+#set ($propertyId = $attribute.getFormPropertyId($parameter))
+#end
+            data.${parameter.name}.${attribute.name} = formData.get('$propertyId');
+#end
+#end
+#end
+#end
+
+            fetch("#{request.contextPath}${servletPath}${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.triggerName})", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then();
+
+        });
+    </script>
 </ui:composition>
