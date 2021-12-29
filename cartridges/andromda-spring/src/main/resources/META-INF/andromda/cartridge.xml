@@ -299,7 +299,7 @@
         outputOnEmptyElements="true">
     </template>
 
-    <template
+    <!-- <template
         path="templates/spring/applicationContext.xml.vsl"
         outputPattern="$applicationContext"
         outlet="spring-configuration"
@@ -319,9 +319,9 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/spring/applicationContext-dataSource.xml.vsl"
         outputPattern="$applicationContextDataSource"
         outlet="spring-configuration"
@@ -336,9 +336,9 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/spring/applicationContext-localDataSource.xml.vsl"
         outputPattern="$applicationContextLocalDataSource"
         outlet="spring-configuration"
@@ -354,9 +354,9 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/spring/applicationContext-testDataSource.xml.vsl"
         outputPattern="applicationContext-testDataSource.xml"
         outlet="server-test-config"
@@ -371,7 +371,7 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <!-- this configuration is supposed to be used by web components, typically Hessian or Burlap -->
     <!-- <template
@@ -674,7 +674,7 @@
         </modelElements>
     </template> -->
 
-    <template
+    <!-- <template
         path="templates/spring/ejb/applicationContext-remoteEjb.xml.vsl"
         outputPattern="$applicationContextRemoteEjb"
         outlet="spring-configuration"
@@ -688,9 +688,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/spring/ejb/applicationContext-localEjb.xml.vsl"
         outputPattern="$applicationContextLocalEjb"
         outlet="spring-configuration"
@@ -704,9 +704,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/spring/ejb/ejb-jar.xml.vsl"
         outputPattern="META-INF/ejb-jar.xml"
         outlet="session-ejbs"
@@ -722,9 +722,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/spring/ejb/ejb-jar.xml.vsl"
         outputPattern="META-INF/ejb-jar.xml"
         outlet="server-config"
@@ -740,9 +740,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/spring/ejb/jboss.xml.vsl"
         outputPattern="META-INF/jboss.xml"
         outlet="session-ejbs"
@@ -758,9 +758,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/spring/ejb/jboss.xml.vsl"
         outputPattern="META-INF/jboss.xml"
         outlet="server-config"
@@ -776,7 +776,7 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <!-- <template
         path="templates/spring/beanRefFactory.xml.vsl"
@@ -801,7 +801,7 @@
         </modelElements>
     </template> -->
 
-    <template
+    <!-- <template
         path="templates/spring/richclient/serverTestBeanRefFactory.xml.vsl"
         outputPattern="$serverTestBeanRefFactory"
         outlet="server-test-config"
@@ -825,7 +825,7 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <template
         path="templates/spring/richclient/serverTestBeanRefFactory.properties.vsl"
@@ -1478,7 +1478,7 @@
             C R U D
     -->
 
-    <template
+    <!-- <template
         path="templates/spring/crud/applicationContext-manageable.xml.vsl"
         outputPattern="$applicationContextManageable"
         outlet="spring-configuration"
@@ -1490,7 +1490,7 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <!-- <template
         path="templates/spring/crud/SpringCrudServiceLocator.vsl"

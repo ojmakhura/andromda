@@ -13,17 +13,6 @@
     <version>$applicationVersion</version>
     <packaging>jar</packaging>
     <name>${applicationName} Thymeleaf Web</name>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>$applicationPackage</groupId>
-                <artifactId>$applicationId</artifactId>
-                <version>$applicationVersion</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>$applicationPackage</groupId>
@@ -63,16 +52,6 @@
 			<artifactId>thymeleaf-layout-dialect</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-       
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>2.0.1.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
@@ -83,36 +62,6 @@
 			<artifactId>springdoc-openapi-security</artifactId>
 			<version>1.5.9</version>
 		</dependency>
-#end
-#if ($mysql)
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.16</version>
-        </dependency>
-#elseif ($postgres)
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.2.6</version>
-        </dependency>
-#elseif ($derby)
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derby</artifactId>
-        </dependency>
-#elseif ($hypersonic)
-        <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-        </dependency>
-#elseif ($h2)
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>
-#else
-        <!-- add the database jdbc dependency -->
 #end
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -131,35 +80,28 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>target/src/main/java</source>
-								<source>target/src/main/resources</source>
-							</sources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>${applicationPackage}.${stringUtils.capitalize($applicationId)}WebApplication</mainClass>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
-	    </plugins>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>target/src/main/java</directory>
+            </resource>
+            <resource>
+                <directory>target/src/main/resources</directory>
+            </resource>
+        </resources>
     </build>
 </project>

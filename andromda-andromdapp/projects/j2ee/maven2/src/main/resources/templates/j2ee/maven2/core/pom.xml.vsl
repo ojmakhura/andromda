@@ -88,6 +88,7 @@
         </dependency>
 #end
 #end
+#if(!£spring)
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
@@ -193,6 +194,7 @@
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
         </dependency>
+#end
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -465,34 +467,51 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+#if($spring)
+			<scope>runtime</scope>
+#end
         </dependency>
 #elseif ($postgres)
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
+#if($spring)
+			<scope>runtime</scope>
+#end
         </dependency>
 #elseif ($derby)
         <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
+#if($spring)
+			<scope>runtime</scope>
+#end
         </dependency>
 #elseif ($h2)
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
+#if($spring)
+			<scope>runtime</scope>
+#end
         </dependency>
 #elseif ($hypersonic)
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
+#if($spring)
+			<scope>runtime</scope>
+#end
         </dependency>
 #else
         <!-- add the database jdbc dependency -->
 #end
+#if(!$spring)
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-dbcp</artifactId>
 		</dependency>
+#end
     </dependencies>
     <build>
         <plugins>

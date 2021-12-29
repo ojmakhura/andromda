@@ -17,7 +17,7 @@ public abstract class CrudControllerBase extends ControllerBase {
      * @return the controller view path.
      * @throws Throwable
      */
-    public abstract String init(org.springframework.ui.Model model) throws Throwable;
+    //public abstract String init(org.springframework.ui.Model model) throws Throwable;
     
     /**
      * The cancel edit action
@@ -91,52 +91,6 @@ public abstract class CrudControllerBase extends ControllerBase {
     final static String CRUD_SELECTED_ID_KEY = "selectedId";
     final static String CRUD_SELECTED_LABEL_KEY = "selectedLabel";
     final static String CRUD_SAVED_KEY = "_saved";
-
-    @Override
-    protected String internalStartUseCase(org.springframework.ui.Model model, final java.util.Map<String,Object> useCaseParameters) throws Throwable
-    {
-        final String forward=init(model);
-
-        /*Object operation=useCaseParameters.get(CRUD_OPERATION_KEY);
-        
-        if(useCaseParameters.containsKey(CRUD_FILTER_ATTRIBUTE_KEY) && useCaseParameters.containsKey(CRUD_FILTER_VALUE_KEY)){
-            ControllerBase.getUseCaseScope().put(CRUD_FILTER_ATTRIBUTE_KEY, useCaseParameters.get(CRUD_FILTER_ATTRIBUTE_KEY));
-            ControllerBase.getUseCaseScope().put(CRUD_FILTER_VALUE_KEY, useCaseParameters.get(CRUD_FILTER_VALUE_KEY));
-            useCaseParameters.remove(CRUD_FILTER_ATTRIBUTE_KEY);
-            useCaseParameters.remove(CRUD_FILTER_VALUE_KEY);
-        }
-
-        if(CRUD_EDIT_KEY.equals(operation))
-        {
-            ControllerBase.getUseCaseScope().put(CRUD_OPERATION_KEY,CRUD_EDIT_KEY);
-            this.internalLoad(useCaseParameters.get(CRUD_EDIT_ID_KEY));
-        }
-        else if(CRUD_CREATE_KEY.equals(operation))
-        {
-            ControllerBase.getUseCaseScope().put(CRUD_OPERATION_KEY,CRUD_CREATE_KEY);
-            //copy parameters form caller use case
-            this.fillFormFromParameters(useCaseParameters);
-            
-            startNew();
-        }
-        else if(CRUD_SELECT_ONE_KEY.equals(operation))
-        {
-            ControllerBase.getUseCaseScope().put(CRUD_OPERATION_KEY,CRUD_SELECT_ONE_KEY);
-            //copy parameters form caller use case
-            this.fillFormFromParameters(useCaseParameters);
-        }
-        else if(CRUD_FILTERED_KEY.equals(operation))
-        {
-            ControllerBase.getUseCaseScope().put(CRUD_OPERATION_KEY,CRUD_FILTERED_KEY);
-
-            //copy parameters form caller use case
-            this.fillFormFromParameters(useCaseParameters);
-            
-            this.search();
-        }*/
-        
-        return forward;
-    }
 
     protected void clearSaved()
     {

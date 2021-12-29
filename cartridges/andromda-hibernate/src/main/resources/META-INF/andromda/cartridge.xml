@@ -290,7 +290,7 @@
         outlet="session-beans"
         overwrite="true"/>
 
-    <template
+    <!-- <template
         path="templates/hibernate/ehcache.xml.vsl"
         outputPattern="ehcache.xml"
         outlet="cache"
@@ -302,7 +302,7 @@
                 <type name="org.andromda.metafacades.uml.Entity"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <!-- hibernate 3 templates -->
     <template

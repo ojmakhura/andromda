@@ -336,7 +336,7 @@ public class $manageable.manageableDaoBaseName
 #end
     public java.util.Collection<${manageable.fullyQualifiedEntityName}> searchByExample($manageable.fullyQualifiedManageableSearchExampleName example)
     {
-        javax.persistence.criteria.CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        /*javax.persistence.criteria.CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         javax.persistence.criteria.CriteriaQuery<${manageable.fullyQualifiedEntityName}> criteria = builder.createQuery(${manageable.fullyQualifiedEntityName}.class);
         javax.persistence.criteria.Root<${manageable.fullyQualifiedEntityName}> root = criteria.from(${manageable.fullyQualifiedEntityName}.class);
 		java.util.List<javax.persistence.criteria.Predicate> predicates = new java.util.ArrayList<javax.persistence.criteria.Predicate>();
@@ -422,6 +422,9 @@ public class $manageable.manageableDaoBaseName
 
 #end
 		return typedQuery.getResultList();
+        */
+
+        return new java.util.ArrayList<>();
     }
 
     /**

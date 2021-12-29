@@ -25,8 +25,6 @@ package $manageable.manageablePackageName;
 /**
  * Java Server Faces Controller of the ${manageable.name} CRUD management.
  */
-@org.springframework.web.bind.annotation.RestController
-//@org.springframework.web.bind.annotation.RequestMapping("$manageable.controllerBeanName")
 public abstract class ${manageable.controllerName}Base
     extends ${managedBeansPackage}.CrudControllerBase
     implements ${manageable.controllerName}
@@ -69,15 +67,17 @@ public abstract class ${manageable.controllerName}Base
      * @return the controller view path.
      * @throws Throwable
      */
-    @org.springframework.web.bind.annotation.GetMapping
+    @org.springframework.web.bind.annotation.GetMapping()
     @Override
-    public String init(org.springframework.ui.Model model)
+    public org.springframework.web.servlet.ModelAndView startUseCase(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName)
         throws Throwable
     {
-        final ${manageable.formBeanType} form = this.getForm();
+        org.springframework.web.servlet.ModelAndView modelAndView = new org.springframework.web.servlet.ModelAndView();
 
-        this.doInit(form);
-        return "${manageable.viewFullPath}.${htmlFileExtension}";
+        this.doInit($manageable.formBeanName);
+        modelAndView.addObject("$manageable.formBeanName", $manageable.formBeanName);
+        modelAndView.setViewName("${manageable.viewFullPath}.${htmlFileExtension}");
+        return modelAndView;
     }
 
     /**
@@ -526,7 +526,7 @@ public abstract class ${manageable.controllerName}Base
      */
     public ${manageable.formBeanType} getForm()
     {
-        return (${manageable.formBeanType})${managedBeansPackage}.ThymeleafUtils.resolveVariable(FORM_BEAN_NAME);
+        return new ${manageable.formBeanType}();
     }
 
     public ${manageable.valueObjectClassName} readById(${identifierType} id) throws Exception

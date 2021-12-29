@@ -37,9 +37,9 @@ public interface ${manageable.controllerName}
      * @return the controller view path.
      * @throws Throwable
      */
-    //@org.springframework.web.bind.annotation.GetMapping
-    //public String init(org.springframework.ui.Model model)
-    //    throws Throwable;
+    @org.springframework.web.bind.annotation.GetMapping()
+    public org.springframework.web.servlet.ModelAndView startUseCase(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName)
+        throws Throwable;
 
 
     /**

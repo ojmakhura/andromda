@@ -187,7 +187,7 @@
 
     <template
         path="templates/messages/messages.properties.vsl"
-        outputPattern="WEB-INF/classes/${messageResources}.properties"
+        outputPattern="messages.properties"
         outlet="messages"
         overwrite="true"
         outputToSingleFile="true">
@@ -925,6 +925,24 @@
         outlet="views"
         overwrite="true"
         generateEmptyFiles="true"/> -->
+    <template
+        path="templates/configuration/Configuration.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/ThymeleafConfiguration.java"
+        outlet="managed-beans"
+        overwrite="true"
+        outputToSingleFile="true"
+        generateEmptyFiles="true">
+        <modelElements>
+            <modelElement variable="useCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
+            </modelElement>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
 
     <template
         path="templates/views/layout/navigation.html.vsl"

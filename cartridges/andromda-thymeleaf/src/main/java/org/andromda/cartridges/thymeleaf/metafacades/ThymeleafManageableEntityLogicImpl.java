@@ -428,7 +428,7 @@ public class ThymeleafManageableEntityLogicImpl
      */
     protected String handleGetViewFullPath()
     {
-        return '/' + this.getManageablePackagePath() + '/' + this.getViewName();
+        return this.getManageablePackagePath() + '/' + this.getViewName();
     }
 
     /**

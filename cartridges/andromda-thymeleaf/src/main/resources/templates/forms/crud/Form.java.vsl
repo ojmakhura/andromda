@@ -35,6 +35,7 @@ public class $manageable.formBeanClassName
     public ${manageable.formBeanClassName}(){
         this.editState=false;
         this.searchForm = new ${manageable.searchFormBeanClassName}();
+        this.valueObject = new ${manageable.valueObjectClassName}();
     }
 
     /**
@@ -122,6 +123,16 @@ public class $manageable.formBeanClassName
     public void setSelectedRows(${manageable.fullyQualifiedIdentifierTypeName}[] selectedRowsIn)
     {
         this.selectedRows = selectedRowsIn;
+    }
+
+    private $manageable.valueObjectClassName valueObject;
+
+    public $manageable.valueObjectClassName getValueObject() {
+        return valueObject;
+    }
+
+    public void setValueObject($manageable.valueObjectClassName valueObject) {
+        this.valueObject = valueObject;
     }
 
 #foreach ($field in $manageable.manageableAttributes)
