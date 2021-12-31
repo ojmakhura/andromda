@@ -1,8 +1,8 @@
 ## Contains the imports used by the methods in ExceptionUtils.vm
 import org.apache.commons.beanutils.PropertyUtils;
-#if ($XMLBindingAnnotations)
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+#if ($XMLBindingAnnotations || $useJakartaFormParam)
+import ${jakartaNamespace}.xml.bind.annotation.XmlAccessType;
+import ${jakartaNamespace}.xml.bind.annotation.XmlAccessorType;
+import ${jakartaNamespace}.xml.bind.annotation.XmlRootElement;
+import ${jakartaNamespace}.xml.bind.annotation.XmlType;
 #end

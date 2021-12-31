@@ -780,7 +780,7 @@ public class JakartaActionLogicImpl
 
                         JakartaAttribute attr = (JakartaAttribute) it.next();
 
-                        if (!attr.isMany()) {
+                        //if (!attr.isMany()) {
 
                             if (attr.getType().getAttributes() != null && attr.getType().getAttributes().size() > 0
                                     && !attr.getType().isEnumeration()) {
@@ -791,10 +791,14 @@ public class JakartaActionLogicImpl
                                 builder.append(attr.getFormPropertyId(param));
                                 builder.append("\") ");
                             }
-                        }
+                        //}
 
                         if (attr.isMany()) {
-                            builder.append("java.util.Collection<");
+                            if(attr.isUnique()) {
+                                builder.append("java.util.HashSet<");
+                            } else {
+                                builder.append("java.util.ArrayList<");
+                            }
                         }
 
                         if (attr.getType().isDateType()) {
@@ -823,7 +827,13 @@ public class JakartaActionLogicImpl
                     }
 
                     if (param.isMany()) {
-                        builder.append("java.util.Collection<");
+                        if(param.isUnique()) {
+                            builder.append("java.util.HashSet<");
+
+                        } else {
+                            builder.append("java.util.ArrayList<");
+
+                        }
                     }
 
                     if (param.getType().isDateType()) {

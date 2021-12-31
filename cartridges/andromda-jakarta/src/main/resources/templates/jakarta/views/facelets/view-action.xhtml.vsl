@@ -6,7 +6,8 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 #set($formName = $action.formBeanName)
-    <form id="${formName}" name="${formName}" role="form" method="POST" action="#">
+    <form id="${formName}" name="${formName}" role="form" method="POST" 
+            action="#{request.contextPath}${servletPath}${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.triggerName})">
 #if ($action.hyperlink)
     <a href="#" id="${action.triggerName}Action" action="#{${action.controller.beanName}.${action.triggerName}}" immediate="true" ajax="false">
         <label id="${action.triggerName}ActionMessage" value="#{messages['$action.messageKey']}"/>
@@ -23,7 +24,7 @@
     </a>
 #else
 #if (!$action.hiddenParameters.empty)
-## <ui:include src="${action.viewFragmentPath}-hidden-params.xhtml"/>
+        <ui:include src="${action.viewFragmentPath}-hidden-params.xhtml"/>
 #end
         <table>
             <tbody>
@@ -56,43 +57,43 @@
         </table>
 #end
     </form>
-    <script>
-        const ${formName} = document.getElementById('${formName}');
-        editMotsheloSaveForm.addEventListener('submit', (event) => {
-            event.preventDefault(); // prevent page refresh
-            const formData = new FormData(${formName});
-            var data = {};
-#foreach($parameter in $action.parameters)
-#if (!$parameter.complex || $parameter.type.enumeration)
-            data.$parameter.name = formData.get('$parameter.name');
+##     <script>
+##         const ${formName} = document.getElementById('${formName}');
+##         ${formName}.addEventListener('submit', (event) => {
+##             event.preventDefault(); // prevent page refresh
+##             const formData = new FormData(${formName});
+##             var data = {};
+## #foreach($parameter in $action.parameters)
+## #if (!$parameter.complex || $parameter.type.enumeration)
+##             data.$parameter.name = formData.get('$parameter.name');
             
-#else
-            data.$parameter.name = {};
-#foreach ($attribute in $parameter.attributes)
-#if(!$attribute.inputHidden && !$parameter.inputHidden)
-#if ($attribute.backingListName)
-#if ($attribute.type.hasStereotype('Entity'))
-#set ($propertyId = $attribute.getFormPropertyId($parameter))
-#else
-#set ($propertyId = $attribute.name)
-#end
-#else
-#set ($propertyId = $attribute.getFormPropertyId($parameter))
-#end
-            data.${parameter.name}.${attribute.name} = formData.get('$propertyId');
-#end
-#end
-#end
-#end
+## #else
+##             data.$parameter.name = {};
+## #foreach ($attribute in $parameter.attributes)
+## #if(!$attribute.inputHidden && !$parameter.inputHidden)
+## #if ($attribute.backingListName)
+## #if ($attribute.type.hasStereotype('Entity'))
+## #set ($propertyId = $attribute.getFormPropertyId($parameter))
+## #else
+## #set ($propertyId = $attribute.name)
+## #end
+## #else
+## #set ($propertyId = $attribute.getFormPropertyId($parameter))
+## #end
+##             data.${parameter.name}.${attribute.name} = formData.get('$propertyId');
+## #end
+## #end
+## #end
+## #end
 
-            fetch("#{request.contextPath}${servletPath}${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.triggerName})", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            }).then();
+##             fetch("#{request.contextPath}${servletPath}${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.triggerName})", {
+##                 method: 'POST',
+##                 headers: {
+##                     'Content-Type': 'application/json'
+##                 },
+##                 body: JSON.stringify(data)
+##             }).then();
 
-        });
-    </script>
+##         });
+##     </script>
 </ui:composition>

@@ -45,10 +45,10 @@
 package $enumeration.packageName;
 #end
 
-#if ($XMLBindingAnnotations)
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlType;
+#if ($XMLBindingAnnotations || $useJakartaFormParam)
+import ${jakartaNamespace}.xml.bind.annotation.XmlEnum;
+import ${jakartaNamespace}.xml.bind.annotation.XmlEnumValue;
+import ${jakartaNamespace}.xml.bind.annotation.XmlType;
 #end
 import java.util.ArrayList;
 import java.util.Collections;

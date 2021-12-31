@@ -31,9 +31,15 @@ public interface $controller.name {
     @${jakartaNamespace}.ws.rs.POST
     @${jakartaNamespace}.ws.rs.Path("$jakartaUtils.toWebResourceName(${action.triggerName})")
 #if (!$action.formFields.empty)
-    @${jakartaNamespace}.ws.rs.Consumes(${jakartaNamespace}.ws.rs.core.MediaType.APPLICATION_JSON)
+    @${jakartaNamespace}.ws.rs.Consumes(
+        {
+            ${jakartaNamespace}.ws.rs.core.MediaType.APPLICATION_JSON, 
+            ${jakartaNamespace}.ws.rs.core.MediaType.APPLICATION_XML,
+            ${jakartaNamespace}.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED
+        }
+    )
 #end
-    public ${jakartaNamespace}.ws.rs.core.Response ${action.triggerName}(#if (!$action.formFields.empty)$action.fullyQualifiedFormImplementationName form#end)
+    public ${jakartaNamespace}.ws.rs.core.Response ${action.triggerName}(#if (!$action.formFields.empty)$action.restFormParams#end)
             throws Throwable;
 #else
     /**
@@ -54,14 +60,19 @@ public interface $controller.name {
 #end
 #if(!$field.complex)
 #set ( $d = '"')
-#set ($useCaseParams = "$useCaseParams @jakarta.ws.rs.QueryParam($d$field.name$d) $field.type.fullyQualifiedName $field.name")
+#set ($useCaseParams = "$useCaseParams @${jakartaNamespace}.ws.rs.QueryParam($d$field.name$d) $field.type.fullyQualifiedName $field.name")
 #else
 #set ($useCaseParams = "$useCaseParams $field.type.fullyQualifiedName $field.name")
 #end
 #end
     @${jakartaNamespace}.ws.rs.GET
-    @${jakartaNamespace}.ws.rs.Consumes(${jakartaNamespace}.ws.rs.core.MediaType.APPLICATION_JSON)
-// $deploymentServer
+    @${jakartaNamespace}.ws.rs.Consumes(
+        {
+            ${jakartaNamespace}.ws.rs.core.MediaType.APPLICATION_JSON, 
+            ${jakartaNamespace}.ws.rs.core.MediaType.APPLICATION_XML,
+            ${jakartaNamespace}.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED
+        }
+    )
 #if($deploymentServer == "wildfly")
     @${jakartaNamespace}.ws.rs.Path("start")
 #end
