@@ -424,7 +424,14 @@ public class $manageable.manageableDaoBaseName
 		return typedQuery.getResultList();
         */
 
-        return new java.util.ArrayList<>();
+        return this.${stringUtils.uncapitalize(${manageable.entityName})}Repository.searchByExample(
+#set ($i = 1)
+#foreach ($member in $manageable.manageableAttributes)
+            #if($i > 1),#end example.get${stringUtils.capitalize($member.name)}()
+#set ($i = $i + 1)
+#end
+
+        );
     }
 
     /**

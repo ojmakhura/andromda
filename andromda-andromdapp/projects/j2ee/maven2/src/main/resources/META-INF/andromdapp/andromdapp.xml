@@ -60,6 +60,10 @@
             <condition id="spring" equal="true"/>
             <output>mda/src/main/config/mappings/SpringMergeMappings.xml.vsl</output>
         </conditions>
+        <conditions>
+            <condition id="spring" equal="true"/>
+            <output>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SharedAutoConfiguration.java.vls</output>
+        </conditions>
         <conditions type="and">
             <condition id="model" present="false"/>
             <condition id="modelType" equal="uml1.4"/>
@@ -137,6 +141,10 @@
         <mapping>
             <from>core/log4j.xml.vsl</from>
             <to>core/src/main/resources/log4j.xml.vsl</to>
+        </mapping>
+        <mapping>
+            <from>core/SharedAutoConfiguration.java.vsl</from>
+            <to>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SharedAutoConfiguration.java.vsl</to>
         </mapping>
         <mapping>
             <from>app/src/main/config/jboss-datasource.xml.vsl</from>
@@ -252,7 +260,7 @@
         </mapping>
         <mapping>
             <from>springws/application.properties.vsl</from>
-            <to>springws/src/main/resources/application.properties.vsl</to>
+            <to>springws/target/src/main/resources/application.properties.vsl</to>
         </mapping>
 
         <!-- Spring Thymeleaf Frontend -->
@@ -262,7 +270,7 @@
         </mapping>
         <mapping>
             <from>thymeleaf/application.properties.vsl</from>
-            <to>thymeleaf/src/main/resources/application.properties.vsl</to>
+            <to>thymeleaf/target/src/main/resources/application.properties.vsl</to>
         </mapping>
     </mappings>
     <instructions>readme.txt</instructions>

@@ -210,6 +210,14 @@
     </template>
 
     <!-- <template
+        path="templates/configuration/application.properties.vsl"
+        outputPattern="application.properties"
+        outlet="messages"
+        overwrite="true"
+        outputToSingleFile="true">
+    </template> -->
+
+    <!-- <template
         path="templates/flow/ActionForward.java.vsl"
         outputPattern="$action.fullyQualifiedActionClassPath"
         outlet="controllers"
@@ -896,8 +904,6 @@
         </modelElements>
     </template> -->
 
-    <!-- PrimeFaces specific -->
-
     <template
         path="templates/views/view.html.vsl"
         outputPattern="${view.path}.html"
@@ -1000,7 +1006,21 @@
         generateEmptyFiles="true"/> -->
 
     <template
-        path="templates/views/crud/view.html.vsl"
+        path="templates/views/crud/view-search.html.vsl"
+        outputPattern="$generatedFile"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/views/crud/view-edit.html.vsl"
         outputPattern="$generatedFile"
         outlet="views"
         overwrite="true">

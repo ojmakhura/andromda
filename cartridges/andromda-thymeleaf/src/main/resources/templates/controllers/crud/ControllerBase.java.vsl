@@ -67,16 +67,41 @@ public abstract class ${manageable.controllerName}Base
      * @return the controller view path.
      * @throws Throwable
      */
-    @org.springframework.web.bind.annotation.GetMapping()
+    @org.springframework.web.bind.annotation.GetMapping("/search-view")
     @Override
-    public org.springframework.web.servlet.ModelAndView startUseCase(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName)
+    public org.springframework.web.servlet.ModelAndView search()
         throws Throwable
     {
+        ${manageable.formBeanType} $manageable.formBeanName = new ${manageable.formBeanType}();
         org.springframework.web.servlet.ModelAndView modelAndView = new org.springframework.web.servlet.ModelAndView();
 
         this.doInit($manageable.formBeanName);
         modelAndView.addObject("$manageable.formBeanName", $manageable.formBeanName);
-        modelAndView.setViewName("${manageable.viewFullPath}.${htmlFileExtension}");
+        modelAndView.setViewName("${manageable.viewFullPath}-search.${htmlFileExtension}");
+        return modelAndView;
+    }
+
+    /**
+     * Retrieves the edit view
+     *
+     * @return the controller view path.
+     * @throws Throwable
+     */
+    @org.springframework.web.bind.annotation.GetMapping({"", "/{${manageable.identifierName}}"})
+    public org.springframework.web.servlet.ModelAndView edit(@org.springframework.web.bind.annotation.PathVariable(value = "${manageable.identifierName}", required = false) ${identifierType} ${manageable.identifierName})
+        throws Throwable {
+
+
+        return this.cleanForm("${manageable.viewFullPath}-edit.${htmlFileExtension}");
+    }
+
+    private org.springframework.web.servlet.ModelAndView cleanForm(String view) {
+        
+        ${manageable.formBeanType} $manageable.formBeanName = new ${manageable.formBeanType}();
+        org.springframework.web.servlet.ModelAndView modelAndView = new org.springframework.web.servlet.ModelAndView();
+
+        modelAndView.addObject("$manageable.formBeanName", $manageable.formBeanName);
+        modelAndView.setViewName(view);
         return modelAndView;
     }
 
@@ -112,8 +137,8 @@ public abstract class ${manageable.controllerName}Base
      * @param ${manageable.identifierName} the identifier
      * @throws Throwable
      */
-    @org.springframework.web.bind.annotation.GetMapping("/{${manageable.identifierName}}")
-    public String load(${identifierType} ${manageable.identifierName})
+    @org.springframework.web.bind.annotation.GetMapping({"load", "load/{${manageable.identifierName}}"})
+    public org.springframework.web.servlet.ModelAndView load(@org.springframework.web.bind.annotation.PathVariable(value = "${manageable.identifierName}", required = false) ${identifierType} ${manageable.identifierName})
         throws Throwable
     {
         final ${manageable.formBeanType} form = this.getForm();
@@ -166,15 +191,16 @@ public abstract class ${manageable.controllerName}Base
      * @return null
      * @throws Throwable
      */
+    @org.springframework.web.bind.annotation.GetMapping("cancel")
     @Override
-    public String cancel(org.springframework.ui.Model model)
+    public org.springframework.web.servlet.ModelAndView cancel()
         throws Throwable
     {
         final ${manageable.formBeanType} form = this.getForm();
         this.doCancel(form);
         if(this.isUseCaseInDialog() && !this.isFiltered())
         {
-            return super.closeDialog();
+            return this.cleanForm(super.closeDialog());
         }
         else
         {
@@ -184,7 +210,7 @@ public abstract class ${manageable.controllerName}Base
 
     /**
      * Executes the edit cancel.
-     *
+     D
      * @param form the associated form
      * @throws Throwable
      */
@@ -201,8 +227,9 @@ public abstract class ${manageable.controllerName}Base
      * @return null
      * @throws Throwable
      */
+    @org.springframework.web.bind.annotation.PostMapping("new")
     @Override
-    public String startNew(org.springframework.ui.Model model)
+    public org.springframework.web.servlet.ModelAndView startNew()
         throws Throwable
     {
         final ${manageable.formBeanType} form = this.getForm();
@@ -272,13 +299,18 @@ public abstract class ${manageable.controllerName}Base
      * @return null
      * @throws Throwable
      */
+    @org.springframework.web.bind.annotation.PostMapping("save-and-select")
     @Override
-    public String saveAndSelect(org.springframework.ui.Model model)
+    public org.springframework.web.servlet.ModelAndView saveAndSelect(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName)
         throws Throwable
     {
-        this.save(model);
+        this.save($manageable.formBeanName);
+        ModelAndView modelAndView = new ModelAndView();
 
-        return super.select(this.getForm().${manageable.identifierGetterName}(), this.getForm().${manageable.displayAttribute.getterName}());
+        modelAndView.addObject("$manageable.formBeanName", $manageable.formBeanName);
+        modelAndView.setViewName(super.select(this.getForm().${manageable.identifierGetterName}(), this.getForm().${manageable.displayAttribute.getterName}()));
+
+        return modelAndView;
     }
 
     /**
@@ -287,13 +319,14 @@ public abstract class ${manageable.controllerName}Base
      * @return null
      * @throws Throwable
      */
+    @org.springframework.web.bind.annotation.PostMapping()
     @Override
-    public String save(org.springframework.ui.Model model)
+    public org.springframework.web.servlet.ModelAndView save(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName)
         throws Throwable
     {
         this.setLastPostedFormClientId(FORM_BEAN_NAME);
-        final ${manageable.formBeanType} form = this.getForm();
-        this.doSave(form);
+        //final ${manageable.formBeanType} form = this.getForm();
+        this.doSave($manageable.formBeanName);
 
         return null;
     }
@@ -304,12 +337,13 @@ public abstract class ${manageable.controllerName}Base
      * @return null
      * @throws Throwable
      */
+    @org.springframework.web.bind.annotation.PostMapping("save-and-edit")
     @Override
-    public String saveAndKeepEditing(org.springframework.ui.Model model)
+    public org.springframework.web.servlet.ModelAndView saveAndKeepEditing(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName)
         throws Throwable
     {
         this.setLastPostedFormClientId(FORM_BEAN_NAME);
-        this.internalSave(this.getForm());
+        this.internalSave($manageable.formBeanName);
 
         return null;
     }
@@ -373,14 +407,15 @@ public abstract class ${manageable.controllerName}Base
      * @return null
      * @throws Throwable
      */
+    @org.springframework.web.bind.annotation.PostMapping("save-and-new")
     @Override 
-    public String saveAndNew(org.springframework.ui.Model model)
+    public org.springframework.web.servlet.ModelAndView saveAndNew(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName)
         throws Throwable
     {
         this.setLastPostedFormClientId(FORM_BEAN_NAME);
-        final ${manageable.formBeanType} form = this.getForm();
-        this.doSave(form);
-        this.doStartNew(form);
+        //final ${manageable.formBeanType} form = this.getForm();
+        this.doSave($manageable.formBeanName);
+        this.doStartNew($manageable.formBeanName);
         return null;
     }
 #end
@@ -391,13 +426,14 @@ public abstract class ${manageable.controllerName}Base
      * @return null
      * @throws Throwable
      */
+    @org.springframework.web.bind.annotation.PostMapping("search")
     @Override
-    public String search(org.springframework.ui.Model model)
+    public org.springframework.web.servlet.ModelAndView search(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName)
         throws Throwable
     {
         this.setLastPostedFormClientId(FORM_BEAN_NAME);
-        final ${manageable.formBeanType} form = this.getForm();
-        this.doSearch(form);
+        //final ${manageable.formBeanType} form = this.getForm();
+        this.doSearch($manageable.formBeanName);
 		setResultToFirstPage();
         return null;
     }
@@ -458,7 +494,7 @@ public abstract class ${manageable.controllerName}Base
      * @throws Throwable
      */
     @org.springframework.web.bind.annotation.DeleteMapping("/{${manageable.identifierName}}")
-    public String delete(${identifierType} ${manageable.identifierName})
+    public org.springframework.web.servlet.ModelAndView delete(${identifierType} ${manageable.identifierName})
         throws Throwable
     {
         final ${manageable.formBeanType} form = this.getForm();

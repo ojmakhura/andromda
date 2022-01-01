@@ -3,7 +3,36 @@
 package $entity.packageName;
 #end
 
-//@org.springframework.stereotype.Repository
 public interface ${entity.name}Repository extends org.springframework.data.jpa.repository.JpaRepository<${entity.name}, Long> {
-    
+
+#if($entity.manageableDaoName && $entity.manageableAttributes.size() > 0)
+#set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
+    @org.springframework.data.jpa.repository.Query(
+        value = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable \n" +
+        "WHERE \n" +
+#set ($i = 1)
+#foreach ($member in $entity.manageableAttributes)
+#if (!$member.inputFile && !$member.needsFileUpload)
+#if ($member.type.stringType)
+        "#if($i > 1)AND #end(:$member.name is null OR ${entityIdVariable}.$member.name LIKE CONCAT('%', :$member.name#if($manageableSearchMatchMode == 'anywhere'), '%'#end)) \n"#if($i < $entity.manageableAttributes.size()) +
+#end
+#else
+        "#if($i > 1)AND #end(:$member.name is null OR ${entityIdVariable}.$member.name = :$member.name) \n"#if($i < $entity.manageableAttributes.size()) +
+#end
+#end
+#end
+#set ($i = $i + 1)
+#end
+
+    )
+    java.util.Collection<${entity.fullyQualifiedName}> searchByExample(
+#set ($i = 1)
+#foreach ($member in $entity.manageableAttributes)
+        @org.springframework.data.repository.query.Param("$member.name") $member.type.fullyQualifiedName $member.name#if($i < $entity.manageableAttributes.size()),
+#end
+#set ($i = $i + 1)
+#end
+
+    );
+#end
 }

@@ -30,15 +30,24 @@ package $manageable.manageablePackageName;
 public interface ${manageable.controllerName}
 {
 
-
     /**
      * Initializes the controller, calling the doInit method
      *
      * @return the controller view path.
      * @throws Throwable
      */
-    @org.springframework.web.bind.annotation.GetMapping()
-    public org.springframework.web.servlet.ModelAndView startUseCase(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName)
+    @org.springframework.web.bind.annotation.GetMapping("search-view")
+    public org.springframework.web.servlet.ModelAndView search()
+        throws Throwable;
+
+    /**
+     * Retrieves the edit view
+     *
+     * @return the controller view path.
+     * @throws Throwable
+     */
+    @org.springframework.web.bind.annotation.GetMapping({"", "/{${manageable.identifierName}}"})
+    public org.springframework.web.servlet.ModelAndView edit(@org.springframework.web.bind.annotation.PathVariable(value = "${manageable.identifierName}", required = false) ${identifierType} ${manageable.identifierName})
         throws Throwable;
 
 
@@ -48,8 +57,8 @@ public interface ${manageable.controllerName}
      * @param ${manageable.identifierName} the identifier
      * @throws Throwable
      */
-    @org.springframework.web.bind.annotation.GetMapping("/${manageable.identifierName}")
-    public String load(@org.springframework.web.bind.annotation.PathVariable("${manageable.identifierName}") ${identifierType} ${manageable.identifierName})
+    @org.springframework.web.bind.annotation.GetMapping({"load", "load/${manageable.identifierName}"})
+    public org.springframework.web.servlet.ModelAndView load(@org.springframework.web.bind.annotation.PathVariable(value = "${manageable.identifierName}", required = false) ${identifierType} ${manageable.identifierName})
         throws Throwable;
 
     /**
@@ -58,7 +67,8 @@ public interface ${manageable.controllerName}
      * @return null
      * @throws Throwable
      */
-    public String cancel(org.springframework.ui.Model model)
+    @org.springframework.web.bind.annotation.GetMapping("cancel")
+    public org.springframework.web.servlet.ModelAndView cancel()
         throws Throwable;
 
 #if ($manageable.create)
@@ -68,7 +78,8 @@ public interface ${manageable.controllerName}
      * @return null
      * @throws Throwable
      */
-    public String startNew(org.springframework.ui.Model model)
+    @org.springframework.web.bind.annotation.PostMapping("new")
+    public org.springframework.web.servlet.ModelAndView startNew()
         throws Throwable;
 
 #end
@@ -81,7 +92,8 @@ public interface ${manageable.controllerName}
      * @return null
      * @throws Throwable
      */
-    public String saveAndSelect(org.springframework.ui.Model model)
+    @org.springframework.web.bind.annotation.PostMapping("save-and-select")
+    public org.springframework.web.servlet.ModelAndView saveAndSelect(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName)
         throws Throwable;
 
     /**
@@ -90,7 +102,8 @@ public interface ${manageable.controllerName}
      * @return null
      * @throws Throwable
      */
-    public String save(org.springframework.ui.Model model)
+    @org.springframework.web.bind.annotation.PostMapping()
+    public org.springframework.web.servlet.ModelAndView save(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName)
         throws Throwable;
 
     /**
@@ -99,7 +112,8 @@ public interface ${manageable.controllerName}
      * @return null
      * @throws Throwable
      */
-    public String saveAndKeepEditing(org.springframework.ui.Model model)
+    @org.springframework.web.bind.annotation.PostMapping("save-and-edit")
+    public org.springframework.web.servlet.ModelAndView saveAndKeepEditing(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName)
         throws Throwable;
     
 #end
@@ -110,7 +124,8 @@ public interface ${manageable.controllerName}
      * @return null
      * @throws Throwable
      */
-    public String saveAndNew(org.springframework.ui.Model model)
+    @org.springframework.web.bind.annotation.PostMapping("save-and-new")
+    public org.springframework.web.servlet.ModelAndView saveAndNew(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName)
         throws Throwable;
 #end
 
@@ -120,7 +135,8 @@ public interface ${manageable.controllerName}
      * @return null
      * @throws Throwable
      */
-    public String search(org.springframework.ui.Model model)
+    @org.springframework.web.bind.annotation.PostMapping("search")
+    public org.springframework.web.servlet.ModelAndView search(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName)
         throws Throwable;
 
 
@@ -132,8 +148,8 @@ public interface ${manageable.controllerName}
      * @param ${manageable.identifierName} the identifier
      * @throws Throwable
      */
-    @org.springframework.web.bind.annotation.DeleteMapping("/${${manageable.identifierName}}")
-    public String delete(@org.springframework.web.bind.annotation.PathVariable("${manageable.identifierName}") ${identifierType} ${manageable.identifierName})
+    @org.springframework.web.bind.annotation.DeleteMapping({"", "/${${manageable.identifierName}}"})
+    public org.springframework.web.servlet.ModelAndView delete(@org.springframework.web.bind.annotation.PathVariable("${manageable.identifierName}") ${identifierType} ${manageable.identifierName})
         throws Throwable;
 
 

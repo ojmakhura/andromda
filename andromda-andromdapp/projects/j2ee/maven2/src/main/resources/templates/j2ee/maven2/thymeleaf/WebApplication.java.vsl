@@ -1,6 +1,9 @@
 package ${applicationPackage};
 
+import org.springframework.context.annotation.Import;
+
 @org.springframework.boot.autoconfigure.SpringBootApplication
+@Import(SharedAutoConfiguration.class)
 public class ${stringUtils.capitalize($applicationId)}WebApplication {
     public static void main(String[] args) {
         org.springframework.boot.SpringApplication.run(${stringUtils.capitalize($applicationId)}WebApplication.class, args);

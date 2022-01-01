@@ -967,7 +967,7 @@
     </template>
     <template
         path="templates/spring/application.properties.vsl"
-        outputPattern="application.properties"
+        outputPattern="core-application.properties"
         outlet="spring-target-resources"
         overwrite="true"
         outputToSingleFile="true"

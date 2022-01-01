@@ -237,7 +237,7 @@
                 </documentation>
             </property>
             <property name="defaultDateFormat">
-                <default>MM/dd/yyyy</default>
+                <default>dd-MM-yyyy</default>
                 <documentation>
                     The default date format to use in case it has not been explicitly
                     specified, for event parameters.
@@ -257,7 +257,7 @@
                 </documentation>
             </property>
             <property name="defaultTimeFormat">
-                <default>HH:mm</default>
+                <default>HH:mm:ss</default>
                 <documentation>
                     The default time format to use when it has not been explicitly
                     specified for event parameters. Take a look

@@ -29,7 +29,7 @@
 #set ($restPath = $restPath + "uc")
 #end
             <li>
-                <a href="@{${pUseCase.controller.restPath}}">
+                <a href="@{/${pUseCase.controller.restPath}}">
                     <span th:text="#{$pUseCase.titleKey}"></span>
                 </a>
             </li>
@@ -55,7 +55,7 @@
 #addDefaultRole($roles)
 #set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles))
             <li>
-                <a th:href="@{${manageable.controllerBeanName}}">
+                <a th:href="@{/${manageable.controllerBeanName}/search-view}">
                     <span th:text="#{$manageable.viewTitleKey}"></span>
                 </a>
             </li>

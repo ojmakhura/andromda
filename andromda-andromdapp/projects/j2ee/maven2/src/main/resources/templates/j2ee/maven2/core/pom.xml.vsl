@@ -668,6 +668,9 @@
                     <exclude>**/*.java</exclude>
                 </excludes>
             </resource>
+            <resource>
+                <directory>target/src/main/resources</directory>
+            </resource>
         </resources>
 #if ($ejb3 || $ejb || $cxf)
         <testSourceDirectory>src/test/java</testSourceDirectory>
