@@ -39,7 +39,7 @@ public interface $controller.name {
         }
     )
 #end
-    public ${jakartaNamespace}.ws.rs.core.Response ${action.triggerName}(#if (!$action.formFields.empty)$action.restFormParams#end)
+    public String ${action.triggerName}(#if (!$action.formFields.empty)$action.restFormParams#end)
             throws Throwable;
 #else
     /**

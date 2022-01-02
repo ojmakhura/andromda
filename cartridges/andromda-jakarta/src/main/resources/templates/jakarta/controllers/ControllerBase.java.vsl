@@ -25,56 +25,56 @@ public abstract class ${controller.name}Base
     extends ${managedBeansPackage}.ControllerBase
     implements java.io.Serializable, ${controller.name}
 {
-    @jakarta.inject.Inject
-    protected jakarta.mvc.Models models;
+    ## @jakarta.inject.Inject
+    ## protected jakarta.mvc.Models models;
 
-    @jakarta.annotation.PostConstruct
-    public void init() {
-#foreach ($view in $controller.useCase.views)
-#foreach($var in $view.variables)
-#set($init = "null")
-#if($var.many || $var.table)
-#set($init = "new java.util.ArrayList<$var.type.fullyQualifiedName>()")
-#else
-#if($var.type.listType || $var.type.collectionType || $var.type.collectionType)
-#set($init = "new java.util.ArrayList<$var.type.fullyQualifiedName>()")
-#elseif($var.type.stringType)
-#set($init = "new String()")
-#elseif($var.type.arrayType)
-#set($init = "new $var.type.fullyQualifiedName[10]")
-#elseif($var.type.booleanType)
-#set($init = "false")
-#elseif($var.type.mapType)
-#set($init = "new java.util.HashMap()")
-#elseif($field.type.attributes.size() > 0)
-#set($var = "new ${var.type.fullyQualifiedName}()")
-#end
-#end
-        this.models.put("$var.name", $init);
-#end
-#foreach($field in $view.allFormFields)
-#set($init = "null")
-#if($field.many || $field.table)
-#set($init = "new java.util.ArrayList<$field.type.fullyQualifiedName>()")
-#else
-#if($field.type.listType || $field.type.collectionType || $field.type.collectionType)
-#set($init = "new java.util.ArrayList<$field.type.fullyQualifiedName>()")
-#elseif($field.type.stringType)
-#set($init = "new String()")
-#elseif($field.type.arrayType)
-#set($init = "new $field.type.fullyQualifiedName[10]")
-#elseif($field.type.booleanType)
-#set($init = "false")
-#elseif($field.type.mapType)
-#set($init = "new java.util.HashMap()")
-#elseif($field.type.attributes.size() > 0)
-#set($init = "new ${field.type.fullyQualifiedName}()")
-#end
-#end
-        this.models.put("$field.name", $init);
-#end
-#end
-    }
+##     @jakarta.annotation.PostConstruct
+##     public void init() {
+## #foreach ($view in $controller.useCase.views)
+## #foreach($var in $view.variables)
+## #set($init = "null")
+## #if($var.many || $var.table)
+## #set($init = "new java.util.ArrayList<$var.type.fullyQualifiedName>()")
+## #else
+## #if($var.type.listType || $var.type.collectionType || $var.type.collectionType)
+## #set($init = "new java.util.ArrayList<$var.type.fullyQualifiedName>()")
+## #elseif($var.type.stringType)
+## #set($init = "new String()")
+## #elseif($var.type.arrayType)
+## #set($init = "new $var.type.fullyQualifiedName[10]")
+## #elseif($var.type.booleanType)
+## #set($init = "false")
+## #elseif($var.type.mapType)
+## #set($init = "new java.util.HashMap()")
+## #elseif($field.type.attributes.size() > 0)
+## #set($var = "new ${var.type.fullyQualifiedName}()")
+## #end
+## #end
+##         this.models.put("$var.name", $init);
+## #end
+## #foreach($field in $view.allFormFields)
+## #set($init = "null")
+## #if($field.many || $field.table)
+## #set($init = "new java.util.ArrayList<$field.type.fullyQualifiedName>()")
+## #else
+## #if($field.type.listType || $field.type.collectionType || $field.type.collectionType)
+## #set($init = "new java.util.ArrayList<$field.type.fullyQualifiedName>()")
+## #elseif($field.type.stringType)
+## #set($init = "new String()")
+## #elseif($field.type.arrayType)
+## #set($init = "new $field.type.fullyQualifiedName[10]")
+## #elseif($field.type.booleanType)
+## #set($init = "false")
+## #elseif($field.type.mapType)
+## #set($init = "new java.util.HashMap()")
+## #elseif($field.type.attributes.size() > 0)
+## #set($init = "new ${field.type.fullyQualifiedName}()")
+## #end
+## #end
+##         this.models.put("$field.name", $init);
+## #end
+## #end
+##     }
 
     /**
      * Populate action form and page variables
@@ -104,7 +104,7 @@ public abstract class ${controller.name}Base
         if("${viewPath}".equals(forward))
         {
 #foreach ($viewAction in $view.formActions)
-            ${viewPopulator}.populateForm(sourceForm,this.${viewAction.formImplementationGetter});
+            ${viewPopulator}.populateForm(sourceForm,this.${viewAction.formBeanName});
 #end
 #if(!$view.variables.empty)
             ${viewPopulator}.populate$stringUtils.upperCamelCaseName($view.name)PageVariables(sourceForm,pageVariables);
@@ -145,7 +145,7 @@ $operation.getDocumentation("     * ")
      *
      * @return $action.fullyQualifiedFormImplementationName
      */
-    protected $action.fullyQualifiedFormImplementationName $action.formImplementationGetter
+    protected $action.fullyQualifiedFormImplementationName get${stringUtils.capitalize($action.formBeanName)}()
     {
         return $action.formBeanName;
     }
@@ -220,7 +220,7 @@ $action.trigger.getDocumentation("     * ")
     )
 #end
     @Override
-    public ${jakartaNamespace}.ws.rs.core.Response ${action.triggerName}(#if (!$action.formFields.empty)$action.restFormParams#end)
+    public String ${action.triggerName}(#if (!$action.formFields.empty)$action.restFormParams#end)
 #end
         throws Throwable
     {
@@ -250,7 +250,7 @@ $action.trigger.getDocumentation("     * ")
 #end
 #end
 #end
-        this.${action.formImplementationGetter}.set${stringUtils.capitalize($field.name)}($field.name);
+        this.${action.formBeanName}.set${stringUtils.capitalize($field.name)}($field.name);
 #end
 #end
 #end
@@ -259,7 +259,7 @@ $action.trigger.getDocumentation("     * ")
 #if ($action.finalStateTarget)
 // action.finalStateTarget
 #if ($formPopulationOperationRequired)
-        //this.${action.formImplementationGetter}.copyTo(getUseCaseParameters());
+        //this.${action.formBeanName}.copyTo(getUseCaseParameters());
     
 #end
 #set($targetController = $action.target.targetControllerFullyQualifiedName)
@@ -272,7 +272,7 @@ $action.trigger.getDocumentation("     * ")
 #else
 #if ($formPopulationOperationRequired)
         final $action.fullyQualifiedFormImplementationName form =
-            this.$action.formImplementationGetter;
+            this.$action.formBeanName;
 
 #if($action.exitingInitialState)
         //copy parameters form caller use case
@@ -306,7 +306,7 @@ $action.trigger.getDocumentation("     * ")
             if(forward.startsWith("${viewPath}"))
             {
                 forward = null; //the destination form is the same, stay on the current view
-                return ${jakartaNamespace}.ws.rs.core.Response.noContent().build();
+                return forward;
             }
         }
 #end
@@ -327,7 +327,7 @@ $action.trigger.getDocumentation("     * ")
         return forward;
 #else
 
-        return ${jakartaNamespace}.ws.rs.core.Response.seeOther(java.net.URI.create(forward)).build();
+        return "redirect:" + forward;
 #end
     }
 

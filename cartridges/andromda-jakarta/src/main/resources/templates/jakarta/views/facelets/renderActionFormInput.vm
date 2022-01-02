@@ -36,26 +36,30 @@ ${ident}</td>
 ${ident}<td>
 ${ident}    <input id="$propertyId" type="checkbox" name="${propertyId}" value="#{${formValuePropertyName}}"  onLabel="#{messages['yes']}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"#if($parameter.readOnly) readonly#end#if(${parameter.required}) required="true"#end/>
 ${ident}</td>
-#elseif ($parameter.inputSelect || $parameter.type.enumeration)
+#elseif ($parameter.type.enumeration)
+${ident}<td>
+${ident}    <select #if ($multiSelect)multiple size="5"#end id="$propertyId" name="${propertyId}" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" #if($parameter.readOnly) readonly#end#if(${parameter.required}) required="true"#end>
+#if(!$parameter.required)
+${ident}        <option value=""></option>
+#end
+#foreach($literal in $parameter.type.literals)
+${ident}        <option value=#if($literal.value)"${literal.value}"#elseif(${literal.defaultValue})${literal.defaultValue}#else"${literal.name}"#end>$literal.name</option>
+#end
+${ident}    </select>
+${ident}</td>
+#elseif ($parameter.inputSelect)
+${ident}<td>
 #set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
 #set ($selectBoxType = "selectOneMenu")
 #if ($multiSelect)
 #set ($selectBoxType = "selectManyMenu")
 #end
-${ident}<td>
-${ident}    <select #if ($multiSelect)multiple size="5"#end id="$propertyId" name="${propertyId}" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" #if($parameter.readOnly) readonly#end#if(${parameter.required}) required="true"#end>
-#if ($parameter.type.enumeration)
-${ident}        <option value=""></option>
-#foreach($literal in $parameter.type.literals)
-${ident}        <option value=#if($literal.value)"${literal.value}"#elseif(${literal.defaultValue})${literal.defaultValue}#else"${literal.name}"#end>$literal.name</option>
-#end
-#else
+${ident}    <h:$selectBoxType id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" readonly="$parameter.readOnly">
 #if(!$parameter.required)
-${ident}        <option value=""></option>
+${ident}        <f:selectItem itemLabel=""/>
 #end
-##${ident}        <f:selectItems value="#{${formName}.${backingListName}}" />
-#end
-${ident}    </select>
+${ident}        <f:selectItems value="#{${formName}.${backingListName}}" />
+${ident}    </h:$selectBoxType>
 ${ident}</td>
 #elseif ($parameter.inputFile)
 ${ident}<input id="$propertyId" type="file" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" #if($parameter.readOnly) readonly#end#if(${parameter.required}) required="true"#end/>
