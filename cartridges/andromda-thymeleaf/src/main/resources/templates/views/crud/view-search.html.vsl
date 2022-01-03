@@ -5,7 +5,7 @@
 ##     o  $parameter - the actual parameter to render
 ##
 #macro(renderSearchInput $parameter)
-#set ($valuePropertyName = "searchForm.${parameter.name}")
+#set ($valuePropertyName = "${parameter.name}")
 #set ($propertyId = "searchForm_${parameter.name}")
 #set ($backingListName = $parameter.backingListName)
 #set ($formValuePropertyName = "${valuePropertyName}")
@@ -112,8 +112,9 @@ ${ident}</th>
   layout:decorate="~{layout/layout}">
     <section layout:fragment="content">
 #set($formName = $manageable.formBeanName)
-        <a th:href="@{/${manageable.controllerBeanName}}" class="button">Edit</a>
-        <form id="searchForm" th:action="@{/${manageable.controllerBeanName}/search}" th:object="${${formName}}" method="post">
+#set ($controllerPath = $thymeleafUtils.toWebResourceName($manageable.controllerBeanName))
+        <a th:href="@{/${controllerPath}}" class="button">Edit</a>
+        <form id="searchForm" th:action="@{/${controllerPath}/search}" th:object="${${formName}}" method="post">
             <section name="searchFields" class="container">
 #foreach ($field in $manageable.manageableSearchAttributes)
 #renderSearchInput($field)

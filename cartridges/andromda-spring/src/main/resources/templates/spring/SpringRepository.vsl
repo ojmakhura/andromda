@@ -2,8 +2,138 @@
 #if ($stringUtils.isNotBlank($entity.packageName))
 package $entity.packageName;
 #end
+#set ($daoInheritance = $entity.generalization && $daoInheritanceEnabled)
 
-public interface ${entity.name}Repository extends org.springframework.data.jpa.repository.JpaRepository<${entity.name}, Long> {
+public interface ${entity.name}Repository extends 
+        org.springframework.data.jpa.repository.JpaRepository<${entity.name}, Long>,
+        org.springframework.data.jpa.repository.JpaSpecificationExecutor<${entity.name}> {
+
+#foreach($attribute in $entity.attributes)
+#if($attribute.unique)
+    $entity.name findByUnique${stringUtils.capitalize($attribute.name)}($attribute.type.fullyQualifiedName $attribute.name);
+
+#elseif($attribute.required)
+    @org.springframework.data.jpa.repository.Query(
+        value = "SELECT $entityIdVariable FROM $entity.name as $entityIdVariable \n" +   
+#if($attribute.type.stringType)
+            "WHERE (:$attribute.name is null OR ${entityIdVariable}.$attribute.name LIKE '%' + $attribute.name + '%')"
+#else
+            "WHERE (:$attribute.name is null OR ${entityIdVariable}.$attribute.name = $attribute.name)"
+#end
+    )
+    java.util.Collection<$entity.name> findBy${stringUtils.capitalize($attribute.name)}($attribute.type.fullyQualifiedName $attribute.name);
+
+#end
+#end
+## Deal with query operations
+#if ($daoInheritance)
+#set ($queryOperations = $entity.getQueryOperations(true))
+#else
+#set ($queryOperations = $entity.queryOperations)
+#end
+#foreach ($finder in $queryOperations)
+// $finder
+// $finder.arguments
+// $finder.query
+// $finder.criteriaFinder
+// $finder.useNamedParameters
+#set($criteriaArgument = $finder.criteriaArgument)
+#set($criteriaArgumentName = $criteriaArgument.name)
+#if ($finder.returnTypePresent)
+#if ($finder.returnType.collectionType)
+#set ($returnType = "${finder.getterSetterReturnTypeName}#if($enableTemplating)<$finder.returnType.name>#end")
+#elseif ($finder.many)
+#set ($returnType = "$finder.getterSetterReturnTypeName.substring(0,$finder.getterSetterReturnTypeName.indexOf('<'))<$finder.returnType.name>")
+#else
+#set ($returnType = "Object")
+#end
+#else
+#set ($returnType = "void")
+#end
+#set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
+#set ($typedAttributes = "")
+    @org.springframework.data.jpa.repository.Query(
+        value = 
+#if($finder.criteriaFinder)
+                 "SELECT $entityIdVariable FROM $entity.name as $entityIdVariable where \n" + 
+#set($criteriaArgument = $finder.criteriaArgument)
+#set($criteriaArgumentName = $criteriaArgument.name)
+#set($criteriaClass = $criteriaArgument.type)
+#set ($i = 1)
+#foreach($criteriaAttribute in $criteriaClass.getAttributes(true))
+## Checking the comparator
+#if($criteriaAttribute.comparatorPresent)
+#if(${criteriaAttribute.comparatorConstant} == "LIKE_COMPARATOR")
+#set($comparatorArgument = "LIKE")
+#elseif(${criteriaAttribute.comparatorConstant} == "EQUAL_COMPARATOR")
+#set($comparatorArgument = "=")
+#elseif(${criteriaAttribute.comparatorConstant} == "GREATER_THAN_OR_EQUAL_COMPARATOR")
+#set($comparatorArgument = ">=")
+#elseif(${criteriaAttribute.comparatorConstant} == "GREATER_THAN_COMPARATOR")
+#set($comparatorArgument = ">")
+#elseif(${criteriaAttribute.comparatorConstant} == "LESS_THAN_OR_EQUAL_COMPARATOR")
+#set($comparatorArgument = "<=")
+#elseif(${criteriaAttribute.comparatorConstant} == "LESS_THAN_COMPARATOR")
+#set($comparatorArgument = "<")
+#elseif(${criteriaAttribute.comparatorConstant} == "IN_COMPARATOR")
+#set($comparatorArgument = "IN")
+#elseif(${criteriaAttribute.comparatorConstant} == "NOT_EQUAL_COMPARATOR")
+#set($comparatorArgument = "!=")
+#else
+#set($comparatorArgument = "=")
+#end
+#else
+#if($criteriaAttribute.type.stringType)
+#set($comparatorArgument = "LIKE")
+#else
+#set($comparatorArgument = "=")
+#end
+#end
+## Check the match mode 
+#if($criteriaAttribute.matchModePresent)
+#if(${criteriaAttribute.matchModeConstant} == "EXACT")
+#set($matchModeArgument = ":$criteriaAttribute.name")
+#elseif(${criteriaAttribute.matchModeConstant} == "START")
+#set($matchModeArgument = ":$criteriaAttribute.name + '%'")
+#elseif(${criteriaAttribute.matchModeConstant} == "END")
+#set($matchModeArgument = "'%' + :$criteriaAttribute.name")
+#else
+#set($matchModeArgument = "'%' + :$criteriaAttribute.name + '%'")
+#end
+#else
+#if(!$criteriaAttribute.type.stringType)
+#set($matchModeArgument = ":$criteriaAttribute.name")
+#else
+#set($matchModeArgument = "'%' + :$criteriaAttribute.name + '%'")
+#end
+#end
+            #if($i > 1)+ "AND #else"#end(:$criteriaAttribute.name is null OR ${entityIdVariable}.$criteriaAttribute.attributeName $comparatorArgument $matchModeArgument)"
+#set ($i = $i + 1)
+#end
+#else
+            "$finder.query"
+#end
+    )
+    $returnType ${finder.name}(
+#if($finder.criteriaFinder)
+#set($criteriaArgument = $finder.criteriaArgument)
+#set($criteriaArgumentName = $criteriaArgument.name)
+#set($criteriaClass = $criteriaArgument.type)
+#set ($i = 1)
+#foreach($criteriaAttribute in $criteriaClass.getAttributes(true))
+        @org.springframework.data.repository.query.Param("$criteriaAttribute.name") $criteriaAttribute.type.fullyQualifiedName $criteriaAttribute.name#if($i < $entity.manageableAttributes.size()),
+#end
+#set ($i = $i + 1)
+#end
+#else
+#set ($i = 1)
+#foreach($arg in $finder.arguments)
+        #if($i > 1), #end@org.springframework.data.repository.query.Param("$arg.name") $arg.type.fullyQualifiedName $arg.name
+#set ($i = $i + 1)
+#end
+#end
+    );
+#end
 
 #if($entity.manageableDaoName && $entity.manageableAttributes.size() > 0)
 #set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))

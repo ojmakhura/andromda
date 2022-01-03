@@ -29,9 +29,6 @@ public class $manageable.manageableDaoBaseName
 {
 #set ($repositoryBeanName = "$stringUtils.uncapitalize(${manageable.entityName})Repository")
 
-    @org.springframework.beans.factory.annotation.Autowired
-    protected ${manageable.packageName}.${manageable.name}Repository $repositoryBeanName;
-
 #foreach ($member in $manageable.manageableAssociationEnds)
 #set ($repositoryBeanName_ = "$stringUtils.uncapitalize(${member.type.entityName})Repository")
     @org.springframework.beans.factory.annotation.Autowired
@@ -336,94 +333,6 @@ public class $manageable.manageableDaoBaseName
 #end
     public java.util.Collection<${manageable.fullyQualifiedEntityName}> searchByExample($manageable.fullyQualifiedManageableSearchExampleName example)
     {
-        /*javax.persistence.criteria.CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        javax.persistence.criteria.CriteriaQuery<${manageable.fullyQualifiedEntityName}> criteria = builder.createQuery(${manageable.fullyQualifiedEntityName}.class);
-        javax.persistence.criteria.Root<${manageable.fullyQualifiedEntityName}> root = criteria.from(${manageable.fullyQualifiedEntityName}.class);
-		java.util.List<javax.persistence.criteria.Predicate> predicates = new java.util.ArrayList<javax.persistence.criteria.Predicate>();
-
-        if(example != null)
-        {
-#foreach ($member in $manageable.manageableAttributes)
-#if (!$member.inputFile && !$member.needsFileUpload)
-            if (#if($member.type.stringType) org.apache.commons.lang3.StringUtils.isNotEmpty(example.${member.getterName}())#else example.${member.getterName}() != null#end)
-#if ($member.type.stringType)
-            {
-                predicates.add(builder.like(root.<String>get("$member.name"), ${matchMode}.toMatchString(example.${member.getterName}())));
-            }
-#elseif ($member.type.dateType && $member.type.timeType)
-            {
-                // we check whether or not the user supplied time information within this particular date argument
-                // if he/she didn't we assume he/she wishes to search in the scope of the entire day
-                final java.util.Calendar calendar = new java.util.GregorianCalendar();
-                calendar.setTime(example.${member.getterName}());
-                if ( calendar.get(java.util.Calendar.HOUR) != 0
-                     || calendar.get(java.util.Calendar.MINUTE) != 0
-                    || calendar.get(java.util.Calendar.SECOND) != 0
-                    || calendar.get(java.util.Calendar.MILLISECOND) != 0 )
-                {
-                    predicates.add(builder.equal(root.<java.util.Date>get("$member.name"), example.${member.getterName}()));
-                }
-                else
-                {
-                    calendar.add(java.util.Calendar.DATE, 1);
-                    calendar.add(java.util.Calendar.MILLISECOND, -1);
-                    predicates.add(builder.equal(root.<java.util.Date>get("$member.name"), example.${member.getterName}(), calendar.getTime()));
-                }
-            }
-#elseif ($member.type.booleanType)
-            {
-##                criteria.add(Restrictions.eq("$member.name", example.${member.getterName}().booleanValue()));
-                predicates.add(builder.equal(root.<java.util.Date>get("$member.name"), example.${member.getterName}()));
-            }
-#else
-            {
-##                criteria.add(Restrictions.eq("$member.name", example.${member.getterName}()));
-                predicates.add(builder.equal(root.<java.util.Date>get("$member.name"), example.${member.getterName}()));
-            }
-#end
-#end
-#end
-#foreach ($member in $manageable.manageableAssociationEnds)
-#if ($member.many)
-            if (example.${member.getterName}() != null && example.${member.getterName}().length > 0)
-            {
-##                criteria.createCriteria("$member.name").add(Restrictions.in("$member.type.identifierName", example.${member.getterName}()));
-##                predicates.add(builder.in(root.<$member.type.fullyQualifiedName>get("$member.name"), example.${member.getterName}()));
-#if($member.type.attributes.size() > 0)
-//                predicates.add(root.join(${member.type.fullyQualifiedName}_.$member.name).in(example.${member.getterName}()));
-#else
-                predicates.add(builder.in(root.<$member.type.fullyQualifiedName>get("$member.name"), example.${member.getterName}()));
-#end
-            }
-#else
-            if (example.${member.getterName}() != null)
-            {
-##                criteria.createCriteria("$member.name").add(Restrictions.eq("$member.type.identifierName", example.${member.getterName}()));
-                predicates.add(builder.equal(root.<$member.type.fullyQualifiedName>get("$member.name"), example.${member.getterName}()));
-            }
-#end
-#end
-        }
-		
-		if(!predicates.isEmpty()) {
-			criteria.where();
-	        javax.persistence.criteria.Predicate[] pr = new javax.persistence.criteria.Predicate[predicates.size()];
-	        predicates.toArray(pr);
-	        criteria.where(pr); 
-		}
-
-##        criteria.setResultTransformer(org.hibernate.criterion.CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-##        criteria.setCacheable(true);
-        
-        criteria.orderBy(builder.asc(root.get("${manageable.displayAttribute.name}")));
-		javax.persistence.TypedQuery<${manageable.fullyQualifiedEntityName}> typedQuery = entityManager.createQuery(criteria);
-#if ($manageable.maximumListSize > 0)
-        typedQuery = typedQuery.setMaxResults($manageable.maximumListSize);
-
-#end
-		return typedQuery.getResultList();
-        */
-
         return this.${stringUtils.uncapitalize(${manageable.entityName})}Repository.searchByExample(
 #set ($i = 1)
 #foreach ($member in $manageable.manageableAttributes)

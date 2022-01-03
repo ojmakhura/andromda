@@ -5,12 +5,13 @@
   layout:decorate="~{layout/layout}">
     <section class=container layout:fragment="content">
 #set($formName = $manageable.formBeanName)
-        <a th:href="@{/${manageable.controllerBeanName}/search-view}" class="button">Search</a>
-        <form id="editForm" th:action="@{/${manageable.controllerBeanName}/save}" th:object="${${formName}}" method="post">
+#set ($controllerPath = $thymeleafUtils.toWebResourceName($manageable.controllerBeanName))
+        <a th:href="@{/${controllerPath}/search-view}" class="button">Search</a>
+        <form id="editForm" th:action="@{/${controllerPath}}" th:object="${${formName}}" method="post">
 ##only hidden fieldshere            
 #foreach ($field in $manageable.manageableEditAttributes)
 #if($field.hidden)
-            <input type="hidden" id="${field.name}" value="#{valueObject.${field.name}}"/>
+            <input type="hidden" id="${field.name}" value="#{${field.name}}"/>
 #end
 #end
                 

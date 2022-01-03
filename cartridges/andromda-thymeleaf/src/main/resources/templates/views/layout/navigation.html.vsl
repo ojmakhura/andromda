@@ -54,8 +54,9 @@
 #set ($roles = $manageable.actionRoles)
 #addDefaultRole($roles)
 #set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles))
+#set ($controllerPath = $thymeleafUtils.toWebResourceName($manageable.controllerBeanName))
             <li>
-                <a th:href="@{/${manageable.controllerBeanName}/search-view}">
+                <a th:href="@{/${controllerPath}/search-view}">
                     <span th:text="#{$manageable.viewTitleKey}"></span>
                 </a>
             </li>

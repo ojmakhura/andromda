@@ -13,6 +13,7 @@ $manageable.getDocumentation(" *")
 public abstract class $manageable.manageableServiceBaseName
     implements $manageable.manageableServiceName
 {
+    @org.springframework.beans.factory.annotation.Autowired
     private $manageable.fullyQualifiedManageableDaoName dao;
 
     /**

@@ -26,7 +26,7 @@ package $manageable.manageablePackageName;
  * Java Server Faces Controller of the ${manageable.name} CRUD management.
  */
 //@org.springframework.web.bind.annotation.RestController
-//@org.springframework.web.bind.annotation.RequestMapping("$manageable.controllerBeanName")
+//@org.springframework.web.bind.annotation.RequestMapping("$thymeleafUtils.toWebResourceName($manageable.controllerBeanName)")
 public interface ${manageable.controllerName}
 {
 
@@ -37,7 +37,7 @@ public interface ${manageable.controllerName}
      * @throws Throwable
      */
     @org.springframework.web.bind.annotation.GetMapping("search-view")
-    public org.springframework.web.servlet.ModelAndView search()
+    public String search(org.springframework.ui.Model model)
         throws Throwable;
 
     /**
@@ -47,7 +47,7 @@ public interface ${manageable.controllerName}
      * @throws Throwable
      */
     @org.springframework.web.bind.annotation.GetMapping({"", "/{${manageable.identifierName}}"})
-    public org.springframework.web.servlet.ModelAndView edit(@org.springframework.web.bind.annotation.PathVariable(value = "${manageable.identifierName}", required = false) ${identifierType} ${manageable.identifierName})
+    public String edit(@org.springframework.web.bind.annotation.PathVariable(value = "${manageable.identifierName}", required = false) ${identifierType} ${manageable.identifierName}, org.springframework.ui.Model model)
         throws Throwable;
 
 
@@ -58,7 +58,7 @@ public interface ${manageable.controllerName}
      * @throws Throwable
      */
     @org.springframework.web.bind.annotation.GetMapping({"load", "load/${manageable.identifierName}"})
-    public org.springframework.web.servlet.ModelAndView load(@org.springframework.web.bind.annotation.PathVariable(value = "${manageable.identifierName}", required = false) ${identifierType} ${manageable.identifierName})
+    public String load(@org.springframework.web.bind.annotation.PathVariable(value = "${manageable.identifierName}", required = false) ${identifierType} ${manageable.identifierName}, org.springframework.ui.Model model)
         throws Throwable;
 
     /**
@@ -68,7 +68,7 @@ public interface ${manageable.controllerName}
      * @throws Throwable
      */
     @org.springframework.web.bind.annotation.GetMapping("cancel")
-    public org.springframework.web.servlet.ModelAndView cancel()
+    public String cancel(org.springframework.ui.Model model)
         throws Throwable;
 
 #if ($manageable.create)
@@ -79,7 +79,7 @@ public interface ${manageable.controllerName}
      * @throws Throwable
      */
     @org.springframework.web.bind.annotation.PostMapping("new")
-    public org.springframework.web.servlet.ModelAndView startNew()
+    public String startNew(org.springframework.ui.Model model)
         throws Throwable;
 
 #end
@@ -93,7 +93,7 @@ public interface ${manageable.controllerName}
      * @throws Throwable
      */
     @org.springframework.web.bind.annotation.PostMapping("save-and-select")
-    public org.springframework.web.servlet.ModelAndView saveAndSelect(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName)
+    public String saveAndSelect(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName, org.springframework.ui.Model model)
         throws Throwable;
 
     /**
@@ -103,7 +103,7 @@ public interface ${manageable.controllerName}
      * @throws Throwable
      */
     @org.springframework.web.bind.annotation.PostMapping()
-    public org.springframework.web.servlet.ModelAndView save(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName)
+    public String save(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName, org.springframework.ui.Model model)
         throws Throwable;
 
     /**
@@ -113,7 +113,7 @@ public interface ${manageable.controllerName}
      * @throws Throwable
      */
     @org.springframework.web.bind.annotation.PostMapping("save-and-edit")
-    public org.springframework.web.servlet.ModelAndView saveAndKeepEditing(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName)
+    public String saveAndKeepEditing(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName, org.springframework.ui.Model model)
         throws Throwable;
     
 #end
@@ -125,7 +125,7 @@ public interface ${manageable.controllerName}
      * @throws Throwable
      */
     @org.springframework.web.bind.annotation.PostMapping("save-and-new")
-    public org.springframework.web.servlet.ModelAndView saveAndNew(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName)
+    public String saveAndNew(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName, org.springframework.ui.Model model)
         throws Throwable;
 #end
 
@@ -136,7 +136,7 @@ public interface ${manageable.controllerName}
      * @throws Throwable
      */
     @org.springframework.web.bind.annotation.PostMapping("search")
-    public org.springframework.web.servlet.ModelAndView search(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName)
+    public String search(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName, org.springframework.ui.Model model)
         throws Throwable;
 
 
@@ -149,7 +149,7 @@ public interface ${manageable.controllerName}
      * @throws Throwable
      */
     @org.springframework.web.bind.annotation.DeleteMapping({"", "/${${manageable.identifierName}}"})
-    public org.springframework.web.servlet.ModelAndView delete(@org.springframework.web.bind.annotation.PathVariable("${manageable.identifierName}") ${identifierType} ${manageable.identifierName})
+    public String delete(@org.springframework.web.bind.annotation.PathVariable("${manageable.identifierName}") ${identifierType} ${manageable.identifierName}, org.springframework.ui.Model model)
         throws Throwable;
 
 

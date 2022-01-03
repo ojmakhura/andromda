@@ -66,6 +66,7 @@ $entity.getDocumentation(" * ")
 #set ($finders = $entity.getQueryOperations(false))
 #set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
 #if (!$finders.empty)
+//$finders
 @javax.persistence.NamedQueries
 ({
 ##if ($entity.genericFinders && !$entity.finderFindAllExists)
@@ -74,7 +75,11 @@ $entity.getDocumentation(" * ")
 
 #end
 #foreach ($finder in $finders)
-    @javax.persistence.NamedQuery(name = "${entity.name}.${finder.name}", query = "${finder.query}")#if($velocityCount != $finders.size()), #end
+    @javax.persistence.NamedQuery(
+        name = "${entity.name}.${finder.name}", 
+        query = "${finder.query}"
+    )#if($velocityCount != $finders.size()), 
+#end
 
 #end
 })
