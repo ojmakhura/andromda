@@ -31,9 +31,7 @@ public class $manageable.manageableDaoBaseName
 
 #foreach ($member in $manageable.manageableAssociationEnds)
 #set ($repositoryBeanName_ = "$stringUtils.uncapitalize(${member.type.entityName})Repository")
-    @org.springframework.beans.factory.annotation.Autowired
-    protected ${member.type.packageName}.${member.type.name}Repository $repositoryBeanName_;
-
+#if($entity.fullyQualifiedManageableDaoName)
 #set ($entity = $member.type)
 #set ($entityBeanName = $stringUtils.uncapitalize(${entity.entityName}))
 #set ($entityDaoName = $stringUtils.uncapitalize(${entity.manageableDaoName}))
@@ -57,6 +55,7 @@ public class $manageable.manageableDaoBaseName
         return this.$entityDaoName;
     }
 
+#end
 #end
 #if ($enableAnnotations)
     @Override
@@ -333,14 +332,17 @@ public class $manageable.manageableDaoBaseName
 #end
     public java.util.Collection<${manageable.fullyQualifiedEntityName}> searchByExample($manageable.fullyQualifiedManageableSearchExampleName example)
     {
-        return this.${stringUtils.uncapitalize(${manageable.entityName})}Repository.searchByExample(
-#set ($i = 1)
+#set ($beanName = $stringUtils.uncapitalize(${manageable.entityName}))
+        ${manageable.entityName} $beanName = ${manageable.entityName}.Factory.newInstance();
+
 #foreach ($member in $manageable.manageableAttributes)
-            #if($i > 1),#end example.get${stringUtils.capitalize($member.name)}()
-#set ($i = $i + 1)
+#set ($setter = "set$stringUtils.capitalize(${member.name})")
+        ${beanName}.${setter}(example.get${stringUtils.capitalize($member.name)}());
 #end
 
-        );
+        org.springframework.data.domain.Example<${manageable.entityName}> ${beanName}Example = Example.of($beanName);
+
+        return this.${stringUtils.uncapitalize(${manageable.entityName})}Repository.findAll(${beanName}Example);
     }
 
     /**

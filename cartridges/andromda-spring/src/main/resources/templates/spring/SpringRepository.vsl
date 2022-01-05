@@ -8,22 +8,73 @@ public interface ${entity.name}Repository extends
         org.springframework.data.jpa.repository.JpaRepository<${entity.name}, Long>,
         org.springframework.data.jpa.repository.JpaSpecificationExecutor<${entity.name}> {
 
+#set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
 #foreach($attribute in $entity.attributes)
-#if($attribute.unique)
-    $entity.name findByUnique${stringUtils.capitalize($attribute.name)}($attribute.type.fullyQualifiedName $attribute.name);
+#if(!$attribute.many)
+    // Generating pageable query method for $attribute.name
+#if($attribute.unique && $attribute.name != "id" && $attribute.type.clobType && $attribute.type.blobType && $attribute.type.fileType)
+    $entity.name findBy${stringUtils.capitalize($attribute.name)}($attribute.type.fullyQualifiedName $attribute.name);
 
-#elseif($attribute.required)
-    @org.springframework.data.jpa.repository.Query(
-        value = "SELECT $entityIdVariable FROM $entity.name as $entityIdVariable \n" +   
-#if($attribute.type.stringType)
-            "WHERE (:$attribute.name is null OR ${entityIdVariable}.$attribute.name LIKE '%' + $attribute.name + '%')"
+#elseif(!$attribute.required)
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}Null(org.springframework.data.domain.Pageable pageable);
+
+#elseif(!$attribute.booleanType)
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+
 #else
-            "WHERE (:$attribute.name is null OR ${entityIdVariable}.$attribute.name = $attribute.name)"
-#end
-    )
-    java.util.Collection<$entity.name> findBy${stringUtils.capitalize($attribute.name)}($attribute.type.fullyQualifiedName $attribute.name);
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}False();
+
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}True();
 
 #end
+## Other derived queries
+#if($attribute.type.stringType)
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}StartingWithIgnoreCase($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}EndingWithIgnoreCase($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}ContainingIgnoreCase($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}LikeIgnoreCase($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}NotLikeIgnoreCase($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}Containing($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+#elseif($attribute.type.dateType)
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}After($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}Before($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}Between($attribute.type.fullyQualifiedName ${attribute.name}Start, $attribute.type.fullyQualifiedName ${attribute.name}End, org.springframework.data.domain.Pageable pageable);
+    
+#elseif($attribute.type.integerType || 
+        $attribute.type.floatType || 
+        $attribute.type.doubleType || 
+        $attribute.type.longType)
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}LessThanEqual($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}GreaterThanEqual($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}LessThan($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}GreaterThan($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}Between($attribute.type.fullyQualifiedName ${attribute.name}Start, $attribute.type.fullyQualifiedName ${attribute.name}End, org.springframework.data.domain.Pageable pageable);
+    
+#end
+#end
+## list as search parameter
+    // Search by a list of parameters
+    java.util.List<$entity.name> findBy${stringUtils.capitalize($attribute.name)}Not($attribute.type.fullyQualifiedName $attribute.name);
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}Not($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    java.util.List<$entity.name> findBy${stringUtils.capitalize($attribute.name)}In(java.util.List<$attribute.type.fullyQualifiedName> $attribute.name);
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}In(java.util.List<$attribute.type.fullyQualifiedName> $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    java.util.List<$entity.name> findBy${stringUtils.capitalize($attribute.name)}NotIn(java.util.List<$attribute.type.fullyQualifiedName> $attribute.name);
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}NotIn(java.util.List<$attribute.type.fullyQualifiedName> $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
 #end
 ## Deal with query operations
 #if ($daoInheritance)
@@ -32,11 +83,6 @@ public interface ${entity.name}Repository extends
 #set ($queryOperations = $entity.queryOperations)
 #end
 #foreach ($finder in $queryOperations)
-// $finder
-// $finder.arguments
-// $finder.query
-// $finder.criteriaFinder
-// $finder.useNamedParameters
 #set($criteriaArgument = $finder.criteriaArgument)
 #set($criteriaArgumentName = $criteriaArgument.name)
 #if ($finder.returnTypePresent)
