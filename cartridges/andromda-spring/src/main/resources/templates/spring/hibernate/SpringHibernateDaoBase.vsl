@@ -1172,35 +1172,12 @@ $oldXmlIndent        }
         try
         {
             ${hibernateUtils.basePackage}.Query queryObject = super.getSession().createQuery(queryString);
-#else
-//        ${hibernateUtils.basePackage}.Query queryObject = this.sessionFactory.getCurrentSession().createQuery(queryString);
 #end
+#set ($count = 1)
+#set ($args = "")
 #foreach($argument in $finder.arguments)
-#set ($count = $velocityCount - 1)
-#set ($setParameterOperation = "setParameter")
-#if ($argument.type.collectionType || $argument.type.arrayType)
-#set ($setParameterOperation = "${setParameterOperation}List")
-#end
-#if ($useNamedParametersInQueries || $finder.useNamedParameters || $argument.type.collectionType || $argument.type.arrayType)
-#if (!$argument.type.embeddedValue)
-//$h3tab        queryObject.${setParameterOperation}("$argument.name", $springUtils.formatHibernateQueryParameterValue($argument.type, $argument.name));
-#else
-#foreach ($attribute in $argument.type.getAttributes(true))
-#set ($parameterValue = "${argument.name}.${attribute.getterName}()")
-//$h3tab        queryObject.${setParameterOperation}("$springUtils.concatNamesCamelCase([$argument.name, $attribute.name])", $springUtils.formatHibernateQueryParameterValue($attribute.type, $parameterValue));
-#end
-#end
-#else
-#if (!$argument.type.embeddedValue)
-//$h3tab        queryObject.${setParameterOperation}($count, $springUtils.formatHibernateQueryParameterValue($argument.type, $argument.name));
-#else
-#foreach ($attribute in $argument.type.getAttributes(true))
-#set ($parameterValue = "${argument.name}.${attribute.getterName}()")
-#set ($count = $count + $velocityCount - 1)
-//$h3tab        queryObject.${setParameterOperation}($count, $springUtils.formatHibernateQueryParameterValue($attribute, $parameterValue));
-#end
-#end
-#end
+#set ($args = "$args#if($count > 1), #end$argument.name")
+#set ($count = $count + 1)
 #end
 #if ($finder.returnType.collectionType || $finder.many)
 //$h3tab        if (pageNumber > 0 && pageSize > 0)
@@ -1209,45 +1186,39 @@ $oldXmlIndent        }
 //$h3tab            queryObject.setMaxResults(pageSize);
 //$h3tab        }
 #end
-#if ($finder.returnType.setType || !($finder.returnType.collectionType || $finder.many))
-#if ($enableTemplating)
-//$h3tab        @SuppressWarnings({ "unchecked", "rawtypes" })
-#end
-//$h3tab        java.util.Set results = new java.util.LinkedHashSet(queryObject.setCacheable(true).list());
-#else
-//$h3tab        java.util.List results = queryObject.setCacheable(true).list();
+#if ($finder.returnType.collectionType || $finder.many)
+            java.util.Collection<$finder.returnType.fullyQualifiedName> results = ${stringUtils.uncapitalize(${entity.entityName})}Repository.${finder.name}($args);
 #end
 #if (!($finder.returnType.collectionType || $finder.many))
-//$h3tab        Object result = null;
-//$h3tab        if (results.size() > 1)
-////$h3tab        {
-//$h3tab            throw new org.springframework.dao.InvalidDataAccessResourceUsageException(
-//$h3tab                "More than one instance of '${finder.getterSetterReturnTypeName}"
-////$h3tab                    + "' was found when executing query --> '" + queryString + "'");
-//$h3tab        }
-//$h3tab        else if (results.size() == 1)
-//$h3tab        {
-//$h3tab            result = results.iterator().next();
-//$h3tab        }
+$h3tab        Object result = null;
+$h3tab        if (results.size() > 1)
+$h3tab        {
+$h3tab            throw new org.springframework.dao.InvalidDataAccessResourceUsageException(
+$h3tab                "More than one instance of '${finder.getterSetterReturnTypeName}"
+$h3tab                    + "' was found when executing query --> '" + queryString + "'");
+$h3tab        }
+$h3tab        else if (results.size() == 1)
+$h3tab        {
+$h3tab            result = results.iterator().next();
+$h3tab        }
 ##with this test we can use queries returning other types than collections or the entity
-//$h3tab        if(transform != $entity.daoNoTransformationConstantName){
-//$h3tab            result = transformEntity(transform, ($entity.fullyQualifiedName)result);
-//$h3tab        }
-//$h3tab        return result;
+$h3tab        if(transform != $entity.daoNoTransformationConstantName){
+$h3tab            result = transformEntity(transform, ($entity.fullyQualifiedName)result);
+$h3tab        }
+$h3tab        return result;
 #else
-//$h3tab        transformEntities(transform, results);
+$h3tab        transformEntities(transform, results);
 #if ($finder.returnTypePresent)
-//$h3tab        return results;
+$h3tab        return results;
 #end
 #end
 #if (!$hibernate4or5)
-//        }
-//        catch (${hibernateUtils.basePackage}.HibernateException ex)
-//        {
-//            throw super.convertHibernateAccessException(ex);
-//        }
+        }
+        catch (${hibernateUtils.basePackage}.HibernateException ex)
+        {
+            throw super.convertHibernateAccessException(ex);
+        }
 #end
-        return null;
     }
 #else
 #if ($finder.returnType.collectionType)

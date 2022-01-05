@@ -32,11 +32,11 @@
                         <option th:each="${formValuePropertyName} : ${${backingListName}}" th:value="${${formValuePropertyName}}" th:text="${${formValuePropertyName}}"></option>
                     </select>
 #elseif ($parameter.inputMultibox || $parameter.type.booleanType)
-                    <input id="$propertyId" class="form-check-input" type="checkbox" th:field="*{${formValuePropertyName}}" onLabel="#{yes}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"/>
+                    <input id="$propertyId" type="checkbox" class="form-check-input" th:field="*{${formValuePropertyName}}" onLabel="#{yes}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"/>
 #elseif ($parameter.inputRadio)
-                    <input type="radio" id="$propertyId" th:field="*{${formValuePropertyName}}" class="form-control"/>
+                    <input id="$propertyId" type="radio" th:field="*{${formValuePropertyName}}" class="form-control"/>
 #elseif ($parameter.plainText)
-                    <input type="text" id="$propertyId" th:field="*{${formValuePropertyName}}" class="form-control"/>
+                    <input id="$propertyId" type="text" th:field="*{${formValuePropertyName}}" class="form-control"/>
 #else
 ##if the widget type is not defined explicitly ...
 #if($parameter.type.enumeration)
@@ -65,9 +65,9 @@
 #if(!$member.hidden && !$member.inputFile)
 #set($noOfColumns=$noOfColumns+1)   
 #if($member.type.enumeration)
-#set($theValue="#{ajsf:getEnumMessage('${member.type.messageKey}.',row.${member.name})}")
+#set($theValue="row.${member.name}.getValue()")
 #else
-#set($theValue="#{row.${member.name}}")
+#set($theValue="row.${member.name}")
 #end
 ${ident}<td id="column_${member.name}" th:text=#if ($member.type.dateType)"${#dates.format($theValue, '$member.format')}"#else"${${theValue}}"#end  #if($rendered != "")#end>
 ${ident}</td>

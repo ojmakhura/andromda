@@ -435,15 +435,17 @@ public class ${manageable.controllerName}Base
      */
     @org.springframework.web.bind.annotation.PostMapping("search")
     @Override
-    public String search(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName, org.springframework.ui.Model model)
+    public String search(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.searchFormBeanClassName} searchForm, org.springframework.ui.Model model)
         throws Throwable
     {
         this.setLastPostedFormClientId(FORM_BEAN_NAME);
-        //final ${manageable.formBeanType} form = this.getForm();
-        this.doSearch($manageable.formBeanName);
+        final ${manageable.formBeanType} form = this.getForm();
+        form.setSearchForm(searchForm);
+        this.doSearch(form);
 		setResultToFirstPage();
 
-        model.addAttribute("${manageable.formBeanName}", $manageable.formBeanName);
+        model.addAttribute("${manageable.formBeanName}", form);
+        model.addAttribute("manageableList", form.getManageableList());
         return "${manageable.viewFullPath}-search.${htmlFileExtension}";
     }
 
@@ -478,7 +480,11 @@ public class ${manageable.controllerName}Base
 #set($searchExampleClassName = $stringUtils.replace($manageable.valueObjectClassName,'ValueObject','SearchExample'))
         final $searchExampleClassName searchExample = new ${searchExampleClassName}();
 #foreach ($member in $manageable.manageableSearchAttributes)
+#if($member.type.stringType)
+        searchExample.${member.setterName}(org.apache.commons.lang3.StringUtils.isBlank(form.getSearchForm().${member.getterName}()) ? null : form.getSearchForm().${member.getterName}());
+#else
         searchExample.${member.setterName}(form.getSearchForm().${member.getterName}());
+#end
 #end
 #foreach ($member in $manageable.manageableSearchAssociationEnds)
         searchExample.${member.setterName}(form.getSearchForm().${member.getterName}());

@@ -60,10 +60,11 @@ public class HibernateFinderMethodLogicImpl
             {
                 queryString = queryString + " WHERE";
                 Iterator argumentIt = arguments.iterator();
+                int i = 0;
                 for (; argumentIt.hasNext();)
                 {
                     ParameterFacade argument = (ParameterFacade)argumentIt.next();
-                    String parameter = "?";
+                    String parameter = "?" + i;
                     if (this.isUseNamedParameters())
                     {
                         parameter = ':' + argument.getName();
@@ -73,6 +74,8 @@ public class HibernateFinderMethodLogicImpl
                     {
                         queryString = queryString + " AND";
                     }
+
+                    i++;
                 }
             }
         }

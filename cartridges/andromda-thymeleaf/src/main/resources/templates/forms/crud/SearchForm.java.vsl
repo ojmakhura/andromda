@@ -115,4 +115,18 @@ $member.getDocumentation("     * ")
      * The serial version UID of this class. Needed for serialization.
      */
     private static final long serialVersionUID = ${manageable.formSerialVersionUID}L;
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("{\n");
+#foreach ($field in $manageable.manageableSearchAttributes)
+        builder.append("\t$field.name=");
+        builder.append($field.name);
+        builder.append(",");
+#end
+        builder.append("}");
+        return builder.toString();
+    }
 }

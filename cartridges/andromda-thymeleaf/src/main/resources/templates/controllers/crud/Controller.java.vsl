@@ -136,7 +136,7 @@ public interface ${manageable.controllerName}
      * @throws Throwable
      */
     @org.springframework.web.bind.annotation.PostMapping("search")
-    public String search(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName, org.springframework.ui.Model model)
+    public String search(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.searchFormBeanClassName} searchForm, org.springframework.ui.Model model)
         throws Throwable;
 
 

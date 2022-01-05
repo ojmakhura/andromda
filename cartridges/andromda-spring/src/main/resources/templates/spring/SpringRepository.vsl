@@ -201,7 +201,12 @@ public interface ${entity.name}Repository extends
 #end
 
     )
-    java.util.Collection<${entity.fullyQualifiedName}> searchByExample(
+#if ($finder.returnType.setType || !($finder.returnType.collectionType || $finder.many))
+#set ($rtype = "java.util.Set")
+#else
+#set ($rtype = "java.util.List") 
+#end
+    $rtype<${entity.fullyQualifiedName}> searchByExample(
 #set ($i = 1)
 #foreach ($member in $entity.manageableAttributes)
         @org.springframework.data.repository.query.Param("$member.name") $member.type.fullyQualifiedName $member.name#if($i < $entity.manageableAttributes.size()),
