@@ -305,7 +305,7 @@ $action.trigger.getDocumentation("     * ")
         {
             if(forward.startsWith("${viewPath}"))
             {
-                forward = null; //the destination form is the same, stay on the current view
+                forward = get$stringUtils.capitalize($stringUtils.deleteWhitespace(${action.source.name}))(); //the destination form is the same, stay on the current view
                 return forward;
             }
         }
@@ -424,6 +424,10 @@ ${ident}        forward = #processTransition($actionState.forward)
 #set ($i = 1)
 #foreach($param in $actionState.forward.forwardParameters)
 #set ($isSet = "is${stringUtils.capitalize($param.name)}Set()")
+        if(builder.length() == 0) {
+            builder.append("?");
+        }
+
         if(form.$isSet) {
 #if($i > 1)
             builder.append("&");

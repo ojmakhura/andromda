@@ -207,6 +207,7 @@
 #foreach ($action in $table.tableFormActions)
 #if (!$action.tableLinkColumnName)
         <h:column>
+#set ($urlParams = "")
 #foreach ($parameter in $action.parameters)
 #if ($table.tableColumnNames.contains($parameter.name) || $table.tableAttributeNames.contains($parameter.name))
 #set ($parameterValue = "row.${parameter.name}")
@@ -220,13 +221,11 @@
 #end
 #set ($urlParams = "$urlParams$parameter.name=#{$parameterValue}")
 #end
-            <form method="POST">
-                <h:commandButton id="${action.triggerName}Action" value="#{messages['$action.trigger.messageKey']}" action="#{${action.controller.beanName}.${action.triggerName}}" immediate="true">
-#renderTableCommandLinkParameters("                 ")
-#if($ajax)
-                    <f:ajax execute="@this" render="@all"/>
-#end
-                </h:commandButton>
+            <form method="POST" 
+                    action="#{request.contextPath}${servletPath}${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.triggerName})/$urlParams">
+                <button type="submit" id="${action.triggerName}Action" value="#{messages['$action.trigger.messageKey']}">
+                    #{messages['$action.trigger.messageKey']}
+                </button>
             </form>
         </h:column>
 #end

@@ -66,6 +66,12 @@ $entity.getDocumentation(" * ")
 #set ($finders = $entity.getQueryOperations(false))
 #set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
 #if (!$finders.empty)
+
+#foreach ($finder in $finders)
+// $finder
+// $finder.typedArgumentList
+#end
+
 @${hibernateNamespace}.persistence.NamedQueries
 ({
 ##if ($entity.genericFinders && !$entity.finderFindAllExists)

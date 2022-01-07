@@ -84,6 +84,7 @@ public abstract class ControllerBase
         final java.util.Map<String,Object> useCaseScope=setUseCaseScope(java.util.Collections.synchronizedMap(new java.util.HashMap<String,Object>()));
         useCaseScope.put(ControllerBase.USE_CASE_PARAMETERS_KEY,new HashMap<String,Object>());
         useCaseScope.put(ControllerBase.USE_CASE_RETURN_VALUES_KEY,new HashMap<String,Object>());
+        useCaseObject.setUseCaseScope(useCaseScope);
         return useCaseScope;
     }
 
