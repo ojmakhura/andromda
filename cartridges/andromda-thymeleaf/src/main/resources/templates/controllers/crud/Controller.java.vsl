@@ -57,7 +57,7 @@ public interface ${manageable.controllerName}
      * @param ${manageable.identifierName} the identifier
      * @throws Throwable
      */
-    @org.springframework.web.bind.annotation.GetMapping({"load", "load/${manageable.identifierName}"})
+    @org.springframework.web.bind.annotation.GetMapping({"load", "load/{${manageable.identifierName}}"})
     public String load(@org.springframework.web.bind.annotation.PathVariable(value = "${manageable.identifierName}", required = false) ${identifierType} ${manageable.identifierName}, org.springframework.ui.Model model)
         throws Throwable;
 
@@ -148,7 +148,7 @@ public interface ${manageable.controllerName}
      * @param ${manageable.identifierName} the identifier
      * @throws Throwable
      */
-    @org.springframework.web.bind.annotation.DeleteMapping({"", "/${${manageable.identifierName}}"})
+    @org.springframework.web.bind.annotation.GetMapping("delete/{${manageable.identifierName}}")
     public String delete(@org.springframework.web.bind.annotation.PathVariable("${manageable.identifierName}") ${identifierType} ${manageable.identifierName}, org.springframework.ui.Model model)
         throws Throwable;
 

@@ -508,7 +508,7 @@ public class ${manageable.controllerName}Base
      * @param ${manageable.identifierName} the identifier
      * @throws Throwable
      */
-    @org.springframework.web.bind.annotation.DeleteMapping("/{${manageable.identifierName}}")
+    @org.springframework.web.bind.annotation.GetMapping("delete/{${manageable.identifierName}}")
     public String delete(@org.springframework.web.bind.annotation.PathVariable(value = "${manageable.identifierName}", required = false) ${identifierType} ${manageable.identifierName}, org.springframework.ui.Model model)
         throws Throwable
     {

@@ -11,7 +11,7 @@
 ##only hidden fieldshere            
 #foreach ($field in $manageable.manageableEditAttributes)
 #if($field.hidden)
-            <input type="hidden" id="${field.name}" value="#{${field.name}}"/>
+            <input type="hidden" id="${field.name}" th:field="*{${field.name}}"/>
 #end
 #end
                 
