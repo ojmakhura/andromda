@@ -31,6 +31,9 @@ public abstract class ControllerBase
     @Inject
     protected UseCaseObject useCaseObject;
 
+    @Inject
+    protected jakarta.mvc.Models models;
+
     /**
      * Returns the page variables associated with the view.
      *

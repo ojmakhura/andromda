@@ -300,6 +300,11 @@ $action.trigger.getDocumentation("     * ")
 #if ($formPopulationOperationRequired)
 #set ($viewPath = "${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.source.name})")
         populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"${viewPath}"#end,forward,form);
+#foreach($field in $action.formFields)
+#if($field.actionParameter)
+        models.put("$field.name", form.get${stringUtils.capitalize($field.name)}());
+#end
+#end
 #if(!$action.exitingInitialState && !$action.enteringFinalState)
         if(forward != null)
         {
