@@ -60,6 +60,10 @@
             <condition id="spring" equal="true"/>
             <output>mda/src/main/config/mappings/SpringMergeMappings.xml.vsl</output>
         </conditions>
+        <conditions>
+            <condition id="spring" equal="true"/>
+            <output>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SharedAutoConfiguration.java.vls</output>
+        </conditions>
         <conditions type="and">
             <condition id="model" present="false"/>
             <condition id="modelType" equal="uml1.4"/>
@@ -100,6 +104,10 @@
             <condition id="angular" equal="true"/>
             <output patterns="**/*">angular/</output>
         </conditions>
+        <conditions>
+            <condition id="thymeleaf" equal="true"/>
+            <output patterns="**/*">thymeleaf/</output>
+        </conditions>
     </conditionalOutput>
     <mappings>
         <mapping>
@@ -133,6 +141,10 @@
         <mapping>
             <from>core/log4j.xml.vsl</from>
             <to>core/src/main/resources/log4j.xml.vsl</to>
+        </mapping>
+        <mapping>
+            <from>core/SharedAutoConfiguration.java.vsl</from>
+            <to>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SharedAutoConfiguration.java.vsl</to>
         </mapping>
         <mapping>
             <from>app/src/main/config/jboss-datasource.xml.vsl</from>
@@ -248,7 +260,17 @@
         </mapping>
         <mapping>
             <from>springws/application.properties.vsl</from>
-            <to>springws/src/main/resources/application.properties.vsl</to>
+            <to>springws/target/src/main/resources/application.properties.vsl</to>
+        </mapping>
+
+        <!-- Spring Thymeleaf Frontend -->
+        <mapping>
+            <from>thymeleaf/WebApplication.java.vsl</from>
+            <to>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WebApplication.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>thymeleaf/application.properties.vsl</from>
+            <to>thymeleaf/target/src/main/resources/application.properties.vsl</to>
         </mapping>
     </mappings>
     <instructions>readme.txt</instructions>
@@ -451,7 +473,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 </conditions>-->
             </prompt>
             <prompt id="webType">
-                <text>Would you like your web user interface to use JSF or Angular?</text>
+                <text>Which web user interface would you like to use?</text>
                 <shortText>Web interface technology</shortText>
                 <preconditions>
                     <condition id="web" equal="true"/>
@@ -459,25 +481,26 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 <responses type="java.lang.String">
                     <response>jsf</response>
                     <response>angular</response>
-                    <response>both</response>
+                    <response>thymeleaf</response>
                 </responses>
                 <conditions>
                     <condition equal="jsf">
-                        <setProperty id="jsf">true</setProperty>
-                        <setProperty id="angular">false</setProperty>
-                        <setProperty id="web">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="jsf">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="angular">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="thymeleaf">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="web">true</setProperty>
                     </condition>
                     <condition equal="angular">
-                        <setProperty id="jsf">false</setProperty>
-                        <setProperty id="angular">true</setProperty>
-                        <setProperty id="web">false</setProperty>
-                        <setProperty id="component">component</setProperty>
+                        <setProperty type="java.lang.Boolean" id="jsf">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="angular">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="thymeleaf">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="web">false</setProperty>
                     </condition>
-                    <condition equal="both">
-                        <setProperty id="angular">true</setProperty>
-                        <setProperty id="jsf">true</setProperty>
-                        <setProperty id="web">true</setProperty>
-                        <setProperty id="component">component</setProperty>
+                    <condition equal="thymeleaf">
+                        <setProperty type="java.lang.Boolean" id="angular">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="jsf">false</setProperty>
+                        <setProperty type="java.lang.Boolean" id="thymeleaf">true</setProperty>
+                        <setProperty type="java.lang.Boolean" id="web">true</setProperty>
                     </condition>
                 </conditions>
             </prompt>

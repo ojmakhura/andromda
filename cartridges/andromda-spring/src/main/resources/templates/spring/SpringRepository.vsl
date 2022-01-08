@@ -1,0 +1,219 @@
+#set ($generatedFile = "${entity.packagePath}/${entity.name}Repository.java")
+#if ($stringUtils.isNotBlank($entity.packageName))
+package $entity.packageName;
+#end
+#set ($daoInheritance = $entity.generalization && $daoInheritanceEnabled)
+
+public interface ${entity.name}Repository extends 
+        org.springframework.data.jpa.repository.JpaRepository<${entity.name}, Long>,
+        org.springframework.data.jpa.repository.JpaSpecificationExecutor<${entity.name}> {
+
+#set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
+#foreach($attribute in $entity.attributes)
+#if(!$attribute.many)
+    // Generating pageable query method for $attribute.name
+#if($attribute.unique && $attribute.name != "id" && $attribute.type.clobType && $attribute.type.blobType && $attribute.type.fileType)
+    $entity.name findBy${stringUtils.capitalize($attribute.name)}($attribute.type.fullyQualifiedName $attribute.name);
+
+#elseif(!$attribute.required)
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}Null(org.springframework.data.domain.Pageable pageable);
+
+#elseif(!$attribute.booleanType)
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+
+#else
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}False();
+
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}True();
+
+#end
+## Other derived queries
+#if($attribute.type.stringType)
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}StartingWithIgnoreCase($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}EndingWithIgnoreCase($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}ContainingIgnoreCase($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}LikeIgnoreCase($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}NotLikeIgnoreCase($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}Containing($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+#elseif($attribute.type.dateType)
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}After($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}Before($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}Between($attribute.type.fullyQualifiedName ${attribute.name}Start, $attribute.type.fullyQualifiedName ${attribute.name}End, org.springframework.data.domain.Pageable pageable);
+    
+#elseif($attribute.type.integerType || 
+        $attribute.type.floatType || 
+        $attribute.type.doubleType || 
+        $attribute.type.longType)
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}LessThanEqual($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}GreaterThanEqual($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}LessThan($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}GreaterThan($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}Between($attribute.type.fullyQualifiedName ${attribute.name}Start, $attribute.type.fullyQualifiedName ${attribute.name}End, org.springframework.data.domain.Pageable pageable);
+    
+#end
+#end
+## list as search parameter
+    // Search by a list of parameters
+    java.util.List<$entity.name> findBy${stringUtils.capitalize($attribute.name)}Not($attribute.type.fullyQualifiedName $attribute.name);
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}Not($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    java.util.List<$entity.name> findBy${stringUtils.capitalize($attribute.name)}In(java.util.List<$attribute.type.fullyQualifiedName> $attribute.name);
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}In(java.util.List<$attribute.type.fullyQualifiedName> $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+    java.util.List<$entity.name> findBy${stringUtils.capitalize($attribute.name)}NotIn(java.util.List<$attribute.type.fullyQualifiedName> $attribute.name);
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}NotIn(java.util.List<$attribute.type.fullyQualifiedName> $attribute.name, org.springframework.data.domain.Pageable pageable);
+    
+#end
+## Deal with query operations
+#if ($daoInheritance)
+#set ($queryOperations = $entity.getQueryOperations(true))
+#else
+#set ($queryOperations = $entity.queryOperations)
+#end
+#foreach ($finder in $queryOperations)
+#set($criteriaArgument = $finder.criteriaArgument)
+#set($criteriaArgumentName = $criteriaArgument.name)
+#if ($finder.returnTypePresent)
+#if ($finder.returnType.collectionType)
+#set ($returnType = "${finder.getterSetterReturnTypeName}#if($enableTemplating)<$finder.returnType.name>#end")
+#elseif ($finder.many)
+#set ($returnType = "$finder.getterSetterReturnTypeName.substring(0,$finder.getterSetterReturnTypeName.indexOf('<'))<$finder.returnType.name>")
+#else
+#set ($returnType = "Object")
+#end
+#else
+#set ($returnType = "void")
+#end
+#set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
+#set ($typedAttributes = "")
+    @org.springframework.data.jpa.repository.Query(
+        value = 
+#if($finder.criteriaFinder)
+                 "SELECT $entityIdVariable FROM $entity.name as $entityIdVariable where \n" + 
+#set($criteriaArgument = $finder.criteriaArgument)
+#set($criteriaArgumentName = $criteriaArgument.name)
+#set($criteriaClass = $criteriaArgument.type)
+#set ($i = 1)
+#foreach($criteriaAttribute in $criteriaClass.getAttributes(true))
+## Checking the comparator
+#if($criteriaAttribute.comparatorPresent)
+#if(${criteriaAttribute.comparatorConstant} == "LIKE_COMPARATOR")
+#set($comparatorArgument = "LIKE")
+#elseif(${criteriaAttribute.comparatorConstant} == "EQUAL_COMPARATOR")
+#set($comparatorArgument = "=")
+#elseif(${criteriaAttribute.comparatorConstant} == "GREATER_THAN_OR_EQUAL_COMPARATOR")
+#set($comparatorArgument = ">=")
+#elseif(${criteriaAttribute.comparatorConstant} == "GREATER_THAN_COMPARATOR")
+#set($comparatorArgument = ">")
+#elseif(${criteriaAttribute.comparatorConstant} == "LESS_THAN_OR_EQUAL_COMPARATOR")
+#set($comparatorArgument = "<=")
+#elseif(${criteriaAttribute.comparatorConstant} == "LESS_THAN_COMPARATOR")
+#set($comparatorArgument = "<")
+#elseif(${criteriaAttribute.comparatorConstant} == "IN_COMPARATOR")
+#set($comparatorArgument = "IN")
+#elseif(${criteriaAttribute.comparatorConstant} == "NOT_EQUAL_COMPARATOR")
+#set($comparatorArgument = "!=")
+#else
+#set($comparatorArgument = "=")
+#end
+#else
+#if($criteriaAttribute.type.stringType)
+#set($comparatorArgument = "LIKE")
+#else
+#set($comparatorArgument = "=")
+#end
+#end
+## Check the match mode 
+#if($criteriaAttribute.matchModePresent)
+#if(${criteriaAttribute.matchModeConstant} == "EXACT")
+#set($matchModeArgument = ":$criteriaAttribute.name")
+#elseif(${criteriaAttribute.matchModeConstant} == "START")
+#set($matchModeArgument = ":$criteriaAttribute.name + '%'")
+#elseif(${criteriaAttribute.matchModeConstant} == "END")
+#set($matchModeArgument = "'%' + :$criteriaAttribute.name")
+#else
+#set($matchModeArgument = "'%' + :$criteriaAttribute.name + '%'")
+#end
+#else
+#if(!$criteriaAttribute.type.stringType)
+#set($matchModeArgument = ":$criteriaAttribute.name")
+#else
+#set($matchModeArgument = "'%' + :$criteriaAttribute.name + '%'")
+#end
+#end
+            #if($i > 1)+ "AND #else"#end(:$criteriaAttribute.name is null OR ${entityIdVariable}.$criteriaAttribute.attributeName $comparatorArgument $matchModeArgument)"
+#set ($i = $i + 1)
+#end
+#else
+            "$finder.query"
+#end
+    )
+    $returnType ${finder.name}(
+#if($finder.criteriaFinder)
+#set($criteriaArgument = $finder.criteriaArgument)
+#set($criteriaArgumentName = $criteriaArgument.name)
+#set($criteriaClass = $criteriaArgument.type)
+#set ($i = 1)
+#foreach($criteriaAttribute in $criteriaClass.getAttributes(true))
+        @org.springframework.data.repository.query.Param("$criteriaAttribute.name") $criteriaAttribute.type.fullyQualifiedName $criteriaAttribute.name#if($i < $entity.manageableAttributes.size()),
+#end
+#set ($i = $i + 1)
+#end
+#else
+#set ($i = 1)
+#foreach($arg in $finder.arguments)
+        #if($i > 1), #end@org.springframework.data.repository.query.Param("$arg.name") $arg.type.fullyQualifiedName $arg.name
+#set ($i = $i + 1)
+#end
+#end
+    );
+#end
+
+#if($entity.manageableDaoName && $entity.manageableAttributes.size() > 0)
+#set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
+    @org.springframework.data.jpa.repository.Query(
+        value = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable \n" +
+        "WHERE \n" +
+#set ($i = 1)
+#foreach ($member in $entity.manageableAttributes)
+#if (!$member.inputFile && !$member.needsFileUpload)
+#if ($member.type.stringType)
+        "#if($i > 1)AND #end(:$member.name is null OR ${entityIdVariable}.$member.name LIKE CONCAT('%', :$member.name#if($manageableSearchMatchMode == 'anywhere'), '%'#end)) \n"#if($i < $entity.manageableAttributes.size()) +
+#end
+#else
+        "#if($i > 1)AND #end(:$member.name is null OR ${entityIdVariable}.$member.name = :$member.name) \n"#if($i < $entity.manageableAttributes.size()) +
+#end
+#end
+#end
+#set ($i = $i + 1)
+#end
+
+    )
+#if ($finder.returnType.setType || !($finder.returnType.collectionType || $finder.many))
+#set ($rtype = "java.util.Set")
+#else
+#set ($rtype = "java.util.List") 
+#end
+    $rtype<${entity.fullyQualifiedName}> searchByExample(
+#set ($i = 1)
+#foreach ($member in $entity.manageableAttributes)
+        @org.springframework.data.repository.query.Param("$member.name") $member.type.fullyQualifiedName $member.name#if($i < $entity.manageableAttributes.size()),
+#end
+#set ($i = $i + 1)
+#end
+
+    );
+#end
+}

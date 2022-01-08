@@ -1,0 +1,6 @@
+server.port=8090
+spring.thymeleaf.cache=false
+server.servlet.context-path=/$applicationId
+spring.mvc.format.date=dd-MM-yyyy
+spring.mvc.format.date-time=dd-MM-yyyy HH:mm:ss
+spring.mvc.format.time=HH:mm:ss

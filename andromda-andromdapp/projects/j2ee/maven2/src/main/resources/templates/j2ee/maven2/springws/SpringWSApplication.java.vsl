@@ -3,11 +3,13 @@ package ${applicationPackage};
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.context.annotation.Import;
 
 @SpringBootApplication(
 		exclude = SecurityAutoConfiguration.class, 
 		scanBasePackages = {"${applicationPackage}"}
 )
+@Import(SharedAutoConfiguration.class)
 public class ${stringUtils.capitalize($applicationId)}WSApplication {
 
 	public static void main(String[] args) {

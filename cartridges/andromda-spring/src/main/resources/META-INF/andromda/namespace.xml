@@ -74,6 +74,16 @@
                     will be generated.
                 </documentation>
             </property>
+            <property name="spring-resources">
+                <documentation>
+                    The location of the resources in the core/src directory.
+                </documentation>
+            </property>
+            <property name="spring-target-resources">
+                <documentation>
+                    The location of the resources in the core/target/src directory.
+                </documentation>
+            </property>
             <property name="open-session-in-view" required="false">
                 <documentation>
                     The location to which the AndroMDA OpenSessionInViewFilter will be generated

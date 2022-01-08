@@ -4,10 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
+#if($pring)
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.2</version>
+        <relativePath/>
+#else
         <groupId>org.andromda.maven</groupId>
         <artifactId>maven-parent</artifactId>
         <version>4.0-SNAPSHOT</version>
         <relativePath></relativePath>
+#end
     </parent>
     <groupId>$applicationPackage</groupId>
     <artifactId>$applicationId</artifactId>
@@ -400,7 +407,7 @@
                 <version>2.9.0</version>
                 <scope>provided</scope>
             </dependency>
-#if ($spring || $hibernate)
+#if ($hibernate)
             <!-- Hibernate Dependencies -->
             <dependency>
                 <groupId>org.javassist</groupId>
@@ -417,7 +424,7 @@
             </dependency>
 #end
 #if (!$ejb && !$ejb3)
-#if ($spring || $hibernate)
+#if ($hibernate)
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
@@ -491,7 +498,7 @@
 #end
 #end
 #if ($spring)
-            <dependency>
+            <!--<dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-jpa</artifactId>
                 <version>${spring-boot.version}</version>
@@ -500,33 +507,33 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
                 <version>${spring-boot.version}</version>
-            </dependency>
+            </dependency> -->
             <!-- <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-security</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency> -->
-            <dependency>
+            <!-- <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-test</artifactId>
                 <version>${spring-boot.version}</version>
-            </dependency>
-            <dependency>
+            </dependency> -->
+            <!-- <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
                 <version>${spring.version}</version>
-            </dependency>
+            </dependency> -->
 #if ($jetty || $tomcat)
-            <dependency>
+            <!-- <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jdbc</artifactId>
                 <version>${spring.version}</version>
-            </dependency>
-            <dependency>
+            </dependency> -->
+            <!-- <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-aop</artifactId>
                 <version>${spring.version}</version>
-            </dependency>
+            </dependency> -->
             <!-- Uncomment out below if using spring test>
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -552,12 +559,12 @@
             </dependency -->
 #end
             <!-- http://www.springsource.org/node/3654 cglib no longer required as spring 3.2 dependency -->
-            <dependency>
+            <!-- <dependency>
                 <groupId>cglib</groupId>
                 <artifactId>cglib-nodep</artifactId>
                 <version>3.2.6</version>
                 <scope>runtime</scope>
-            </dependency>
+            </dependency> -->
 #end
 #if ($webType.equals("jsf") || $webType.equals("both") || $hibernate)
             <dependency>
@@ -809,21 +816,21 @@
 #if ($cxf)
             <!-- Explicit Spring dependencies to avoid compile/run version mismatch, shown by: Error creating bean Caused by: java.lang.NoSuchFieldError: NULL -->
 #if (!$spring)
-            <dependency>
+            <!--<dependency>
                 <groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-test</artifactId>
-		<version>${spring-boot.version}</version>
-            </dependency>
-            <dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-data-jpa</artifactId>
+                <artifactId>spring-boot-starter-test</artifactId>
                 <version>${spring-boot.version}</version>
-            </dependency>
-            <dependency>
+            </dependency> -->
+            <!--<dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency> -->
+            <!--<dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web-services</artifactId>
                 <version>${spring-boot.version}</version>
-            </dependency>
+            </dependency> -->
             <!--dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-beans</artifactId>
@@ -845,17 +852,17 @@
                 <version>${spring.version}</version>
             </dependency-->
 #if (!$jetty && !$tomcat)
-            <dependency>
+            <!-- <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-aop</artifactId>
                 <version>${spring.version}</version>
-            </dependency>
+            </dependency> -->
 #end
-            <dependency>
+            <!-- <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-expression</artifactId>
                 <version>${spring.version}</version>
-            </dependency>
+            </dependency> -->
 #end
             <!-- Uncomment out four below if using JMS>
             <dependency>
@@ -946,6 +953,7 @@
                 <scope>provided</scope>
             </dependency>
 #end
+#if(!$spring)
 #if ($mysql)
             <dependency>
                 <groupId>mysql</groupId>
@@ -1012,12 +1020,13 @@
                 </exclusions>
 #end
             </dependency>
+#end
 #if ($springws)
-            <dependency>
+            <!-- <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web-services</artifactId>
                 <version>${spring-boot.version}</version>
-            </dependency>
+            </dependency> -->
             <!-- For Working with Json Web Tokens (JWT) -->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
@@ -1025,11 +1034,13 @@
                 <version>0.9.0</version>
             </dependency>
 #end
+#if(!$spring)
             <dependency>
                 <groupId>org.apache.tomcat</groupId>
                 <artifactId>tomcat-dbcp</artifactId>
-		<version>9.0.30</version>
+		        <version>9.0.30</version>
             </dependency>
+#end
         </dependencies>
     </dependencyManagement>
     <build>
@@ -1199,6 +1210,7 @@
         jsf=$jsf
         webservice=$webservice
         cxf=$cxf
+        thymeleaf=$thymeleaf
         rest=$rest
 		springws=$springws
         jbossSeam=$jbossSeam
@@ -1229,6 +1241,9 @@
 #end
 #if ($springws)
 		<module>springws</module>
+#end
+#if ($thymeleaf)
+		<module>thymeleaf</module>
 #end
     </modules>
     <properties>
@@ -1440,11 +1455,11 @@
 #end
 #if ($spring)
         <!-- Set andromda.xml hibernateVersion=4, sessionFactory and localTransactionManager to hibernate4.-->
-        <hibernate.version>5.4.0.Final</hibernate.version>
+        <hibernate.version>5.6.3.Final</hibernate.version>
 #elseif ($hibernate || $ejb3)
         <!-- Set andromda.xml hibernateVersion=5, sessionFactory and localTransactionManager to hibernate5-->
         <!-- new Hibername 5 inclusion -->
-        <hibernate.version>5.4.0.Final</hibernate.version>
+        <hibernate.version>5.6.3.Final</hibernate.version>
 #end
 #if ($jetty || !$webservice.equals("none"))
         <!-- v 9.x only supports JDK7 and you cannot configure jetty.port from maven.-->
@@ -1460,8 +1475,8 @@
         <spring.version>5.3.2</spring.version>
 #elseif ($spring || $springws)
         <!-- v5 migration needed -->
-        <spring.version>5.3.2</spring.version>
-	    <spring-boot.version>2.4.2</spring-boot.version>
+        <!-- <spring.version>5.3.2</spring.version> -->
+	    <spring-boot.version>2.6.2</spring-boot.version>
 #end
         <!-- To override parent default settings for compiler plugin and compliance checks-->
         <dependencyConvergence>true</dependencyConvergence>

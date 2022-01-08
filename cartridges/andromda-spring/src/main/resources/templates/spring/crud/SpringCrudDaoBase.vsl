@@ -22,31 +22,40 @@ import ${hibernateUtils.criterionPackage}.Restrictions;
 /**
 $manageable.getDocumentation(" * ")
  */
-public final class $manageable.manageableDaoBaseName
+@org.springframework.stereotype.Repository("$stringUtils.uncapitalize($manageable.manageableDaoName)")
+public class $manageable.manageableDaoBaseName
     extends $manageable.fullyQualifiedDaoImplementationName
     implements $manageable.manageableDaoName
 {
+#set ($repositoryBeanName = "$stringUtils.uncapitalize(${manageable.entityName})Repository")
 
 #foreach ($member in $manageable.manageableAssociationEnds)
+#set ($repositoryBeanName_ = "$stringUtils.uncapitalize(${member.type.entityName})Repository")
+#if($entity.fullyQualifiedManageableDaoName)
 #set ($entity = $member.type)
-    private $entity.fullyQualifiedDaoName $member.daoName = null;
+#set ($entityBeanName = $stringUtils.uncapitalize(${entity.entityName}))
+#set ($entityDaoName = $stringUtils.uncapitalize(${entity.manageableDaoName}))
+
+    private $entity.fullyQualifiedManageableDaoName $entityDaoName;
 
     /**
-     * @param ${member.daoName}In
+     * @param ${entityDaoName}In
      */
-    public void ${member.daoSetterName}($entity.fullyQualifiedDaoName ${member.daoName}In)
+    @org.springframework.beans.factory.annotation.Autowired
+    public void set${entity.manageableDaoName}(@org.springframework.context.annotation.Lazy $entity.fullyQualifiedManageableDaoName ${entityDaoName}In)
     {
-        this.$member.daoName = ${member.daoName}In;
+        this.$entityDaoName = ${entityDaoName}In;
     }
 
     /**
-     * @return dao $entity.fullyQualifiedDaoName
+     * @return dao $entity.fullyQualifiedManageableDaoName
      */
-    public $entity.fullyQualifiedDaoName ${member.daoGetterName}()
+    public $entity.fullyQualifiedManageableDaoName get${entity.manageableDaoName}()
     {
-        return this.$member.daoName;
+        return this.$entityDaoName;
     }
 
+#end
 #end
 #if ($enableAnnotations)
     @Override
@@ -251,6 +260,7 @@ public final class $manageable.manageableDaoBaseName
 #end
 
 #foreach ($member in $manageable.manageableAssociationEnds)
+#set ($repositoryBeanName_ = "$stringUtils.uncapitalize(${member.type.entityName})Repository")
 #if ($member.many)
         final ${member.type.fullyQualifiedIdentifierTypeName}[] ${member.name} = source.${member.getterName}();
         if (${member.name} == null || ${member.name}.length == 0)
@@ -262,13 +272,24 @@ public final class $manageable.manageableDaoBaseName
             final java.util.Collection<$member.type.fullyQualifiedName> values = new java.util.ArrayList<$member.type.fullyQualifiedName>();
             for (final ${member.type.fullyQualifiedIdentifierTypeName} element: ${member.name})
             {
-                values.add((${member.type.fullyQualifiedName})#if($hibernate4or5) this.getSessionFactory().getCurrentSession()#else this.getHibernateTemplate()#end.load(${member.type.fullyQualifiedEntityImplementationName}.class, element));
+                java.util.Optional<$member.type.fullyQualifiedName> entity = ${repositoryBeanName_}.findById(element);
+                if(entity.isPresent())
+                {
+                    values.add(entity.get());
+                }
             }
             target.${member.setterName}(values);
         }
 #else
-        target.${member.setterName}(source.${member.getterName}() == null? null:
-            ($member.type.fullyQualifiedName)#if($hibernate4or5) this.getSessionFactory().getCurrentSession()#else this.getHibernateTemplate()#end.load(${member.type.fullyQualifiedEntityImplementationName}.class, source.${member.getterName}()));
+        if(source.${member.getterName}() == null) {
+            target.${member.setterName}(null);
+        } else {
+            java.util.Optional<$member.type.fullyQualifiedName> entity = ${repositoryBeanName_}.findById(source.${member.getterName}());
+            if(entity.isPresent())
+            {
+                target.${member.setterName}(entity.get());
+            }
+        }
 #end
 #end
     }
@@ -311,72 +332,17 @@ public final class $manageable.manageableDaoBaseName
 #end
     public java.util.Collection<${manageable.fullyQualifiedEntityName}> searchByExample($manageable.fullyQualifiedManageableSearchExampleName example)
     {
-        final Session session =#if($hibernate4or5) this.getSessionFactory().getCurrentSession();#else this.getSession(false);#end
+#set ($beanName = $stringUtils.uncapitalize(${manageable.entityName}))
+        ${manageable.entityName} $beanName = ${manageable.entityName}.Factory.newInstance();
 
-        final Criteria criteria = session.createCriteria(${manageable.fullyQualifiedEntityImplementationName}.class);
-
-        if(example != null)
-        {
 #foreach ($member in $manageable.manageableAttributes)
-#if (!$member.inputFile && !$member.needsFileUpload)
-            if (#if($member.type.stringType) org.apache.commons.lang3.StringUtils.isNotEmpty(example.${member.getterName}())#else example.${member.getterName}() != null#end)
-#if ($member.type.stringType)
-            {
-                criteria.add(Restrictions.ilike("$member.name", example.${member.getterName}(), $matchMode));
-            }
-#elseif ($member.type.dateType && $member.type.timeType)
-            {
-                // we check whether or not the user supplied time information within this particular date argument
-                // if he/she didn't we assume he/she wishes to search in the scope of the entire day
-                final java.util.Calendar calendar = new java.util.GregorianCalendar();
-                calendar.setTime(example.${member.getterName}());
-                if ( calendar.get(java.util.Calendar.HOUR) != 0
-                     || calendar.get(java.util.Calendar.MINUTE) != 0
-                    || calendar.get(java.util.Calendar.SECOND) != 0
-                    || calendar.get(java.util.Calendar.MILLISECOND) != 0 )
-                {
-                    criteria.add(Restrictions.eq("$member.name", example.${member.getterName}()));
-                }
-                else
-                {
-                    calendar.add(java.util.Calendar.DATE, 1);
-                    calendar.add(java.util.Calendar.MILLISECOND, -1);
-                    criteria.add(Restrictions.between("$member.name", example.${member.getterName}(), calendar.getTime()));
-                }
-            }
-#elseif ($member.type.booleanType)
-            {
-                criteria.add(Restrictions.eq("$member.name", example.${member.getterName}().booleanValue()));
-            }
-#else
-            {
-                criteria.add(Restrictions.eq("$member.name", example.${member.getterName}()));
-            }
+#set ($setter = "set$stringUtils.capitalize(${member.name})")
+        ${beanName}.${setter}(example.get${stringUtils.capitalize($member.name)}());
 #end
-#end
-#end
-#foreach ($member in $manageable.manageableAssociationEnds)
-#if ($member.many)
-            if (example.${member.getterName}() != null && example.${member.getterName}().length > 0)
-            {
-                criteria.createCriteria("$member.name").add(Restrictions.in("$member.type.identifierName", example.${member.getterName}()));
-            }
-#else
-            if (example.${member.getterName}() != null)
-            {
-                criteria.createCriteria("$member.name").add(Restrictions.eq("$member.type.identifierName", example.${member.getterName}()));
-            }
-#end
-#end
-        }
-        criteria.setResultTransformer(org.hibernate.criterion.CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-#if ($manageable.maximumListSize > 0)
-        criteria.setMaxResults($manageable.maximumListSize);
 
-#end
-        criteria.addOrder(org.hibernate.criterion.Order.asc("${manageable.displayAttribute.name}"));
-        criteria.setCacheable(true);
-        return criteria.list();
+        org.springframework.data.domain.Example<${manageable.entityName}> ${beanName}Example = Example.of($beanName);
+
+        return this.${stringUtils.uncapitalize(${manageable.entityName})}Repository.findAll(${beanName}Example);
     }
 
     /**

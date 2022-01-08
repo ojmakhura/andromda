@@ -6,6 +6,8 @@ package $manageable.manageablePackageName;
 /**
 $manageable.getDocumentation(" *")
  */
+@org.springframework.transaction.annotation.Transactional(propagation = org.springframework.transaction.annotation.Propagation.REQUIRED, readOnly=false)
+@org.springframework.stereotype.Service("$stringUtils.uncapitalize($manageable.manageableServiceName)")
 public final class ${manageable.manageableServiceName}Impl
     extends $manageable.manageableServiceBaseName
 {

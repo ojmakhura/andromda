@@ -1,0 +1,69 @@
+##
+## A macro that renders the appropriate action form input field
+##
+## parameters:
+##     o  $parameter - the actual parameter to render
+##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
+##
+#macro(renderActionInput $parameter $ownerParameter $ident)
+#if ($parameter.backingListName)
+#if ($ownerParameter.type.hasStereotype('Entity'))
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
+#else
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#end
+#set ($backingListName = $parameter.backingListName)
+#set ($backingValueName = $parameter.backingValueName)
+#else
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
+#set ($backingListName = ${parameter.getBackingListName($ownerParameter)})
+#set ($backingValueName = ${parameter.getBackingValueName($ownerParameter)})
+#end
+#set ($formValuePropertyName = "${valuePropertyName}")
+${ident}<label id="${propertyId}_label" class=#if ($parameter.inputMultibox || $parameter.type.booleanType)"form-check-label"#else"form-label"#end for="${propertyId}" th:text="#{$parameter.messageKey}"></label>
+#if ($parameter.type.dateType)
+${ident}<input type="date" id="$propertyId" class="form-control" th:field="*{${formValuePropertyName}}" label="#{$parameter.messageKey}:"#if($parameter.required) required#end #if($parameter.readOnly) readonly#end navigator="true" pattern="$parameter.format" showOn="button">
+${ident}</input>
+#elseif ($parameter.inputCheckbox || $parameter.type.booleanType)
+${ident}<input id="$propertyId" class="form-check-input" type="checkbox" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end onLabel="#{yes}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"#if($parameter.readOnly) readonly#end/>
+#elseif ($parameter.inputSelect || $parameter.type.enumeration)
+#set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
+#set ($selectBoxType = "selectOneMenu")
+#if ($multiSelect)
+#set ($selectBoxType = "selectManyMenu")
+#end
+${ident}<select #if ($multiSelect)multiple size="5"#end id="$propertyId" class="form-control" th:field="*{${formValuePropertyName}}" label="#{$parameter.messageKey}:"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end>
+#if ($parameter.type.enumeration)
+#set ($enum = "T(${parameter.type.fullyQualifiedName})")
+${ident}    <option value=""></option>
+${ident}    <option th:each="${formValuePropertyName} : ${${enum}.values()}" 
+                th:value="${${formValuePropertyName}}" th:text="${${formValuePropertyName}.value()}">
+            </option>
+#else
+#if(!$parameter.required)
+${ident}    <option value=""></option>
+#end
+${ident}    <option th:each="${formValuePropertyName} : ${${backingListName}}" th:value="${${formValuePropertyName}}" th:text="${${formValuePropertyName}}"></option>
+#end
+${ident}    </select>
+#elseif ($parameter.inputFile)
+${ident}<input type="file" id="$propertyId" class="form-control" th:field="*{${formValuePropertyName}}" label="#{$parameter.messageKey}:"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
+#elseif ($parameter.inputMultibox)
+${ident}<input id="$propertyId"  class="form-control" type="checkbox" th:field="*{${formValuePropertyName}}" label="#{$parameter.messageKey}:"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end>
+${ident}    <option th:each="${formValuePropertyName} : ${${backingListName}}" th:value="${${formValuePropertyName}}" th:text="${${formValuePropertyName}}"></option>
+${ident}</input>
+#elseif ($parameter.inputRadio)
+${ident}<input type="radio" id="$propertyId" class="form-control" th:field="*{${formValuePropertyName}}" label="#{$parameter.messageKey}:"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end>
+${ident}    <option th:each="${formValuePropertyName} : ${${backingListName}}" th:value="${${formValuePropertyName}}" th:text="${${formValuePropertyName}}"></option>
+${ident}</input>
+#elseif ($parameter.plainText)
+${ident}<input id="$propertyId" class="form-control" type="text" name="$parameter.name" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
+#elseif ($parameter.inputSecret)
+${ident}<input id="$propertyId" class="form-control" type="password" name="$parameter.name" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
+#else
+${ident}<input id="$propertyId" class="form-control" type="text" name="$parameter.name" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
+#end
+#end

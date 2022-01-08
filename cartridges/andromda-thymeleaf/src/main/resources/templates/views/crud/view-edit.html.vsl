@@ -1,0 +1,72 @@
+##================
+#set ($generatedFile = "${manageable.viewFullPath}-edit.html")
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}">
+    <section class=container layout:fragment="content">
+#set($formName = $manageable.formBeanName)
+#set ($controllerPath = $thymeleafUtils.toWebResourceName($manageable.controllerBeanName))
+        <a th:href="@{/${controllerPath}/search-view}" class="button">Search</a>
+        <form id="editForm" th:action="@{/${controllerPath}}" th:object="${${formName}}" method="post">
+##only hidden fieldshere            
+#foreach ($field in $manageable.manageableEditAttributes)
+#if($field.hidden)
+            <input type="hidden" id="${field.name}" th:field="*{${field.name}}"/>
+#end
+#end
+                
+##non-hidden fields                
+#foreach ($field in $manageable.manageableEditAttributes)
+#if(!$field.hidden)
+            <div class="#if ($field.inputMultibox || $field.type.booleanType)form-check#else mb-3#end mt-3">
+#renderActionInput($field "" "              ")
+            </div>
+#end
+#end
+#foreach ($field in $manageable.manageableAssociationEnds)
+            <!-- ${field.name} -->     
+#if($field.type.manageable)
+#set ($valuePropertyName = "valueObject.${field.name}")
+## master/detail 
+#if($field.otherEnd.navigable && $field.otherEnd.composition && $field.many)
+#set($detailManageable = $field.type)
+#set($loadDetailMethodName = "load${stringUtils.upperCamelCaseName($field.name)}${crudDetailsSuffix}")
+            <label id="${field.name}_table_label" for="${field.name}_table" value="#{messages['$field.messageKey']}:"/>
+            <p:dataTable id="${field.name}_table" var="row" value="#{${field.name}${crudDetailsSuffix}}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" emptyMessage="#{messages['empty.result.set']}">
+                <p:column style="width:0px;">
+                    <p:panelGrid columns="2">
+                        <p:commandButton id="loadAction" icon="ui-icon-pencil" title="#{messages['action.edit']}" immediate="true" process="@this" update="@form"
+                                    onclick="${formName}_${field.name}_dialog_show('${detailManageable.actionFullPath}.${htmlFileExtension}?_useCaseParameter._dialog=true&amp;_useCaseParameter._crudAction=edit&amp;_useCaseParameter.editId=#{row.${detailManageable.identifierName}}&amp;_useCaseParameter.filterAttribute=${field.otherEnd.name}&amp;_useCaseParameter.filterValue=#{${formName}.${manageable.identifierName}}',${field.name}_tableUpdate); return false;"/>
+                        <p:commandButton id="deleteAction" icon="ui-icon-trash" title="#{messages['action.delete']}" actionListener="#{${detailManageable.controllerBeanName}.delete(row.${detailManageable.identifierName})}" immediate="true" process="@this" update="${field.name}_table"
+                                    action="#{${manageable.controllerBeanName}.${loadDetailMethodName}(${manageable.identifierName})}" onclick="return confirm('#{messages['confirm.delete.this']} #{messages['${detailManageable.viewTitleKey}']}');" />
+                    </p:panelGrid>
+                </p:column>
+#renderTableColumns($detailManageable "                       ")            
+            </p:dataTable>
+            <div class="row">
+                <ajsfc:useCaseDialog id="${field.name}_dialog"/>
+                <p:remoteCommand name="${field.name}_tableUpdate" update="${field.name}_table" immediate="true" global="false" actionListener="#{${manageable.controllerBeanName}.${loadDetailMethodName}(${formName}.${manageable.identifierName})}"/>  
+                <p:commandButton id="${field.name}_newAction" icon="ui-icon-plus" title="#{messages['action.new']}" immediate="true" process="@this" update="@form"
+                            onclick="if(_crudCheckCurrentSaved(#{${manageable.identifierName}})) ${formName}_${field.name}_dialog_show('${detailManageable.actionFullPath}.${htmlFileExtension}?_useCaseParameter._dialog=true&amp;_useCaseParameter._crudAction=create&amp;_useCaseParameter.filterAttribute=${field.otherEnd.name}&amp;_useCaseParameter.filterValue=#{${formName}.${manageable.identifierName}}',${field.name}_tableUpdate); return false;"/>
+            </div>
+#else
+#if($field.composition) 
+#set($rendered="#{${manageable.controllerBeanName}.filterAttribute != '${field.name}'}")
+#else
+#set($rendered="")
+#end            
+            <!-- <p:outputLabel id="${field.name}_label" for="${field.name}:autoComplete" value="#{messages['$field.messageKey']}:"#if($rendered!="") rendered="${rendered}"#end/>
+            <ajsfc:autoCompleteNew id="${field.name}" value="#{${valuePropertyName}}" label="#{messages['$field.messageKey']}:" 
+                    completeMethod="#{${field.type.controllerBeanName}.fillAutocomplete}"
+                    var="bean" itemValue="#{bean.${field.type.identifiers.get(0).name}}" itemLabel="#{bean.${field.type.displayAttribute.name}}"
+                    url="${field.type.actionFullPath}.${htmlFileExtension}?_useCaseParameter._dialog=true&amp;_useCaseParameter._crudAction=create"
+                    converter="${field.type.ConverterType}"
+                    required="${field.required}" #if($field.many) multiple="true"#end#if($rendered != "") rendered="$rendered"#end/>
+            <p:message id="${field.name}_message" for="${field.name}:autoComplete"#if($rendered!="") rendered="${rendered}"#end/> -->
+#end
+#end
+#end
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </section>
+</html>

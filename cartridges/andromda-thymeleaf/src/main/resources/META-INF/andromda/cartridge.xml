@@ -1,0 +1,1096 @@
+<cartridge>
+
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
+        <macrolibrary name="templates/escapeMacros.vm"/>
+        <macrolibrary name="templates/controllers/Controller.java.vm"/>
+        <!-- <macrolibrary name="templates/views/trinidad/renderActionFormInputTrinidad.vm"/> -->
+        <macrolibrary name="templates/views/renderActionFormInput.vm"/>
+        <macrolibrary name="templates/views/renderActionCommandLinkParameter.vm"/>
+        <macrolibrary name="templates/views/renderTableCommandLinkParameters.vm"/>
+        <macrolibrary name="templates/forms/formMacros.vm"/>
+        <macrolibrary name="templates/forms/formImplMacros.vm"/>
+        <macrolibrary name="templates/configuration/securityMacros.vm"/>
+        <!-- cartridge-macrolibrary merge-point-->
+    </templateEngine>
+
+    <!-- define the template objects that are made available to the template -->
+    <templateObject name="stringUtils" className="org.andromda.utils.StringUtilsHelper"/>
+    <templateObject name="thymeleafUtils" className="org.andromda.cartridges.thymeleaf.ThymeleafUtils">
+        <property reference="strictDateTimeFormat"/>
+    </templateObject>
+    
+    <!-- cartridge-templateObject merge-point-->
+
+    <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
+
+    <property reference="generateCrudImpls"/>
+    <property reference="useAjax"/>
+    <property reference="componentSet"/>
+    <property reference="xmlEncoding"/>
+    <property reference="facesConfig"/>
+    <property reference="jspIncludes"/>
+    <property reference="messageResources"/>
+    <property reference="htmlFileExtension"/>
+    <property reference="managedBeansPackage"/>
+    <property reference="testPackage"/>
+    <property reference="applicationName"/>
+    <property reference="exceptionHandlerPattern"/>
+    <property reference="converterPattern"/>
+    <property reference="actionFormKey"/>
+    <property reference="defaultDateFormat"/>
+    <property reference="defaultTimeFormat"/>
+    <property reference="dummyData"/>
+    <property reference="fileTypeName"/>
+    <property reference="securityRealm"/>
+    <property reference="authenticationType"/>
+    <property reference="loginFileName"/>
+    <property reference="logoutFileName"/>
+    <property reference="virtualHost"/>
+    <property reference="defaultMultiSelectSize"/>
+    <property reference="distributable"/>
+    <property reference="stateSavingMethod"/>
+    <property reference="sessionTimeout"/>
+    <property reference="toDoTag"/>
+    <property reference="enableFaceletsDevelopmentSupport"/>
+    <property reference="enableMyFacesDevelopmentSupport"/>
+    <property reference="strictDateTimeFormat"/>
+    <property reference="libraries"/>
+    <property reference="custom-resources"/>
+    <property reference="formMessagesProperty"/>
+    <property reference="maxTableRows"/>
+    <property reference="navigationStyle"/>
+    <property reference="fileUploadMaxMemoryPerRequest"/>
+    <property reference="fileUploadMaxDiskSpacePerRequest"/>
+    <property reference="navigationUsesRedirect"/>
+    <property reference="defaultTableExportTypes"/>
+    <property reference="crudValueObjectSuffix"/>
+    <property reference="crudConfirmationMessages"/>
+    <property reference="defaultRole"/>
+    <property reference="loginConfigAuthMethod"/>
+    <property reference="facesConfigFiles"/>
+    <property reference="controllerScope"/>
+    <property reference="navigationBeanScope"/>
+    <property reference="trimInputStrings"/>
+    <property reference="crudDetailsSuffix"/>
+    <property reference="thymeleafNamespace"/>
+
+    <!-- cartridge-property merge-point -->
+
+    <condition name="authTypeSecurityFilter">$authenticationType.equalsIgnoreCase("securityFilter")</condition>
+    <condition name="ajax">$useAjax.equalsIgnoreCase("true")</condition>
+    <condition name="trinidad">$componentSet.equalsIgnoreCase("trinidad")</condition>
+    <condition name="primefaces">$componentSet.equalsIgnoreCase("primefaces")</condition>
+    <condition name="outputCustomResources">$stringUtils.isNotBlank($custom-resources)</condition>
+    <condition name="faceletsDevelopmentSupportEnabled">$enableFaceletsDevelopmentSupport.equalsIgnoreCase("true")</condition>
+    <condition name="enableMyFacesDevelopmentSupport">$enableMyFacesDevelopmentSupport.equalsIgnoreCase("true")</condition>
+    <condition name="outputLibraries">$stringUtils.isNotBlank($libraries)</condition>
+    <condition name="securityEnabled">$stringUtils.isNotBlank($securityRealm)</condition>
+    <condition name="navigationUsesRedirect">$navigationUsesRedirect.equalsIgnoreCase("true")</condition>
+    <condition name="trimInputStrings">$trimInputStrings.equalsIgnoreCase("true")</condition>
+
+    <!-- condition merge-point-->
+
+    <!-- cartridge-resource merge-point -->
+    <resource
+        path="resources/components/setFocus.html"
+        outputPattern="resources/components/setFocus.html"
+        outlet="views"
+        overwrite="true"/>
+        
+    <resource
+        path="resources/components/closeDialog.html"
+        outputPattern="closeDialog.html"
+        outlet="views"
+        overwrite="true"/>
+
+    <!-- process templates on model elements -->
+    
+    <template
+        path="templates/utils/ControllerBase.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="managed-beans"
+        overwrite="true"/>
+        
+    <template
+        path="templates/utils/CrudControllerBase.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="managed-beans"
+        overwrite="true"/>
+        
+    <template
+        path="templates/forms/Form.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="forms"
+        overwrite="true">
+        <modelElements variable="operation">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndControllerOperation">
+                    <property name="formFields"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/forms/FormImpl.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="forms"
+        overwrite="true">
+        <modelElements variable="action">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndAction">
+                    <property name="formFields"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/controllers/ControllerImpl.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="controller-impls"
+        overwrite="false">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndController">
+                    <property name="useCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/controllers/Controller.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndController">
+                    <property name="useCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/controllers/SessionObject.java.vsl"
+        outputPattern="${sessionObject.fullPath}.java"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="sessionObject">
+            <modelElement>
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafSessionObject"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/messages/messages.properties.vsl"
+        outputPattern="messages.properties"
+        outlet="messages"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="entryUseCase"/>
+                </type>
+            </modelElement>
+            <modelElement variable="enumerations">
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafEnumeration"/>
+            </modelElement>
+            <!-- the crud entity messages are also generated in this bundle -->
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- <template
+        path="templates/configuration/application.properties.vsl"
+        outputPattern="application.properties"
+        outlet="messages"
+        overwrite="true"
+        outputToSingleFile="true">
+    </template> -->
+
+    <!-- <template
+        path="templates/flow/ActionForward.java.vsl"
+        outputPattern="$action.fullyQualifiedActionClassPath"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements>
+            <modelElement variable="action">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
+            </modelElement>
+        </modelElements>
+    </template> -->
+
+    <!-- <template
+        path="templates/converters/EnumerationConverter.java.vsl"
+        outputPattern="${enumeration.converterPath}.java"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="enumeration">
+            <modelElement>
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafEnumeration"/>
+            </modelElement>
+        </modelElements>
+    </template> -->
+
+    <template
+        path="templates/flow/LogOutServlet.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/LogOutServlet.java"
+        outlet="controllers"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false"
+        outputCondition="securityEnabled">
+        <modelElements>
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="entryUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/utils/Messages.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/Messages.java"
+        outlet="managed-beans"
+        overwrite="true"/>
+
+    <template
+        path="templates/utils/ThymeleafUtils.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/ThymeleafUtils.java"
+        outlet="managed-beans"
+        overwrite="true"/>
+
+    <!-- <template
+        path="templates/utils/UseCasePhaseListener.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/UseCasePhaseListener.java"
+        outlet="managed-beans"
+        overwrite="true"/> -->
+
+    <!-- <template
+        path="templates/exception/ThymeleafExceptionHandlerFactory.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/ThymeleafExceptionHandlerFactory.java"
+        outlet="managed-beans"
+        overwrite="true"/> -->
+
+    <!-- <template
+        path="templates/exception/ThymeleafExceptionHandler.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/ThymeleafExceptionHandler.java"
+        outlet="managed-beans"
+        overwrite="true"/> -->
+
+    <template
+        path="templates/exception/ValidationException.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/ValidationException.java"
+        outlet="exceptions"
+        overwrite="true"/>
+
+    <!-- <template
+        path="templates/utils/FacesContextUtils.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="managed-beans"
+        overwrite="true"/> -->
+
+    <template
+        path="templates/views/jsp/index.jsp.vsl"
+        outputPattern="index.jsp"
+        outlet="views"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="entryUseCase"/>
+                </type>
+            </modelElement>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/views/jsp/403.jsp.vsl"
+        outputPattern="403.jsp"
+        outlet="views"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="entryUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- Facelets specific view rendering -->
+
+    <!-- <template
+        path="templates/configuration/ajsf.taglib.xml.vsl"
+        outputPattern="WEB-INF/ajsf.taglib.xml"
+        outlet="views"
+        overwrite="true"
+        generateEmptyFiles="true"/> -->
+
+    <!-- Test classes -->
+
+    <template
+        path="templates/test/SeleniumCommand.java.vsl"
+        outputPattern="$stringUtils.replace($testPackage, '.', '/')/SeleniumCommand.java"
+        outlet="test"
+        overwrite="true"/>
+    
+    <template
+        path="templates/test/WebCommand.java.vsl"
+        outputPattern="$stringUtils.replace($testPackage, '.', '/')/WebCommand.java"
+        outlet="test"
+        overwrite="true"/>
+    
+    <template
+        path="templates/test/SeleniumFactory.java.vsl"
+        outputPattern="$stringUtils.replace($testPackage, '.', '/')/SeleniumFactory.java"
+        outlet="test"
+        overwrite="true"/>
+    
+    <template
+        path="templates/test/crud/CrudEditForm.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="test"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+<!--     
+    <template
+        path="templates/test/FormAccess.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="test"
+        overwrite="true">
+        <modelElements variable="action">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndAction">
+                    <property name="formFields"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/test/TestSuiteBase.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="test"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="useCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="views"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+        
+    <template
+        path="templates/test/DBUtil.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="test"
+        overwrite="true"/>
+
+    <template
+        path="templates/test/FieldValue.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="test"
+        overwrite="true"/>
+
+    <template
+        path="templates/test/SelectFieldValue.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="test"
+        overwrite="true"/>
+
+    <template
+        path="templates/test/SelectMultipleFieldValue.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="test"
+        overwrite="true"/>                        
+
+    <template
+        path="templates/test/PageBase.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="test"
+        overwrite="true"/>
+        
+    <template
+        path="templates/test/PropertiesUtil.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="test"
+        overwrite="true"/>        
+
+    <template
+        path="templates/test/PageObject.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="test"
+        overwrite="true">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/test/PageImplObject.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="test-impls"
+        overwrite="false">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>    
+
+    <template
+        path="templates/test/TestInfoBaseObject.java.vsl"
+        outputPattern="$stringUtils.replace($useCase.packageName, '.', '/')/${className}.java"
+        outlet="test"
+        overwrite="true">
+        <modelElements>
+            <modelElement variable="useCase">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="views"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/test/TestInfoImplObject.java.vsl"
+        outputPattern="$stringUtils.replace($useCase.packageName, '.', '/')/${className}.java"
+        outlet="test-impls"
+        overwrite="false">
+        <modelElements>
+            <modelElement variable="useCase">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="views"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>    
+    
+    <template
+        path="templates/test/TestCaseBaseObject.java.vsl"
+        outputPattern="$stringUtils.replace($useCase.packageName, '.', '/')/${className}.java"
+        outlet="test"
+        overwrite="true">
+        <modelElements>
+            <modelElement variable="useCase">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="views"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/test/TestCaseImplObject.java.vsl"
+        outputPattern="$stringUtils.replace($useCase.packageName, '.', '/')/${className}.java"
+        outlet="test-impls"
+        overwrite="false">
+        <modelElements>
+            <modelElement variable="useCase">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="views"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>         
+-->
+
+    <!--  -->
+
+    <template
+        path="templates/views/view-hidden-parameters.html.vsl"
+        outputPattern="${action.viewFragmentPath}-hidden-params.html"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="action">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndAction">
+                    <property name="tableLink">false</property>
+                    <property name="hiddenParameters"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- manageable -->
+
+    <!-- <template
+        path="templates/flow/crud/ActionForward.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template> -->
+
+    <!-- <template
+        path="templates/converters/crud/EntityConverter.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                </type>
+            </modelElement>
+        </modelElements>
+    </template> -->
+
+    <template
+        path="templates/controllers/crud/Controller.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/controllers/crud/ControllerBase.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/controllers/crud/SearchFilter.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/controllers/crud/ControllerImpl.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                    <property name="needsUserInterface"/>
+                    <property name="needsImplementation">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/controllers/crud/ControllerImpl.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="controller-impls"
+        overwrite="false">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                    <property name="needsUserInterface"/>
+                    <property name="needsImplementation">true</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/forms/crud/Form.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="forms"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/forms/crud/SearchForm.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="forms"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/views/crud-index.html.vsl"
+        outputPattern="crud-index.html"
+        outlet="views"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/flow/UseCaseViewPopulator.java.vsl"
+        outputPattern="$stringUtils.replace($useCase.packageName, '.', '/')/${className}.java"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements>
+            <modelElement variable="useCase">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="views"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- Trinidad specific -->
+
+    <!-- <template
+        path="templates/utils/ODSFilter.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/ODSFilter.java"
+        outlet="managed-beans"
+        overwrite="true"
+        outputCondition="trinidad"/> -->
+
+    <!-- <template
+        path="templates/views/trinidad/view.html.vsl"
+        outputPattern="${view.path}.html"
+        outlet="views"
+        overwrite="true"
+        outputCondition="trinidad">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="popup">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template> -->
+
+    <!-- <template
+        path="templates/utils/trinidad/NavigationItem.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/NavigationItem.java"
+        outlet="managed-beans"
+        overwrite="true"
+        outputCondition="trinidad"/> -->
+
+    <!-- <template
+        path="templates/utils/trinidad/MenuModelAdapter.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/MenuModelAdapter.java"
+        outlet="managed-beans"
+        overwrite="true"
+        outputCondition="trinidad"/> -->
+
+    <!-- <template
+        path="templates/utils/trinidad/AutocompleteHelper.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/AutocompleteHelper.java"
+        outlet="managed-beans"
+        overwrite="true"
+        outputCondition="trinidad"/> -->
+
+    <!-- <template
+        path="templates/utils/trinidad/AndromdaJFilter.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/AndromdaJsfFilter.java"
+        outlet="managed-beans"
+        overwrite="true"
+        outputCondition="trinidad"/> -->
+
+    <!-- <template
+        path="templates/views/trinidad/layout/layout.html.vsl"
+        outputPattern="layout/layout.html"
+        outlet="views"
+        overwrite="true"
+        generateEmptyFiles="true"
+        outputCondition="trinidad"/> -->
+
+    <!-- <template
+        path="templates/views/trinidad/layout/registration-layout.html.vsl"
+        outputPattern="layout/registration-layout.html"
+        outlet="views"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false"
+        outputCondition="trinidad">
+        <modelElements>
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="registrationUseCase">true</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template> -->
+
+    <!-- <template
+        path="templates/views/trinidad/layout/header.html.vsl"
+        outputPattern="layout/header.html"
+        outlet="views"
+        overwrite="true"
+        generateEmptyFiles="true"
+        outputCondition="trinidad"/> -->
+
+    <!-- <template
+        path="templates/views/trinidad/layout/messages.html.vsl"
+        outputPattern="layout/messages.html"
+        outlet="views"
+        overwrite="true"
+        generateEmptyFiles="true"
+        outputCondition="trinidad"/> -->
+
+    <!-- <template
+        path="templates/views/trinidad/layout/head.html.vsl"
+        outputPattern="layout/head.html"
+        outlet="views"
+        overwrite="true"
+        outputCondition="trinidad"/> -->
+
+    <!-- <template
+        path="templates/views/trinidad/layout/footer.html.vsl"
+        outputPattern="layout/footer.html"
+        outlet="views"
+        overwrite="true"
+        generateEmptyFiles="true"
+        outputCondition="trinidad"/> -->
+
+    <!-- <template
+        path="templates/views/trinidad/crud/view.html.vsl"
+        outputPattern="$generatedFile"
+        outlet="views"
+        overwrite="true"
+        outputCondition="trinidad">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template> -->
+
+    <!-- <template
+        path="templates/views/trinidad/crud/export-ods.html.vsl"
+        outputPattern="$generatedFile"
+        outlet="views"
+        overwrite="true"
+        outputCondition="trinidad">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template> -->
+
+    <!-- <template
+        path="templates/views/trinidad/login.html.vsl"
+        outputPattern="${loginFileName}.html"
+        outlet="views"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputCondition="trinidad">
+        <modelElements>
+            <modelElement variable="registrationUseCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="registrationUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template> -->
+
+    <!-- <template
+        path="templates/views/trinidad/view-action.html.vsl"
+        outputPattern="${action.viewFragmentPath}.html"
+        outlet="views"
+        overwrite="true"
+        outputCondition="trinidad">
+        <modelElements variable="action">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndAction">
+                    <property name="tableLink">false</property>
+                    <property name="input"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template> -->
+
+    <!-- <template
+        path="templates/views/trinidad/view-table.html.vsl"
+        outputPattern="${table.view.path}-${table.name}.html"
+        outlet="views"
+        overwrite="true"
+        outputCondition="trinidad">
+        <modelElements>
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="tables" variable="table"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template> -->
+
+    <!-- <template
+        path="templates/views/trinidad/view-variables.html.vsl"
+        outputPattern="${view.path}-vars.html"
+        outlet="views"
+        overwrite="true"
+        outputCondition="trinidad">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="nonTableVariablesPresent"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template> -->
+
+    <template
+        path="templates/views/view.html.vsl"
+        outputPattern="${view.path}.html"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="popup">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- <template
+        path="templates/views/layout/layout.html.vsl"
+        outputPattern="layout/layout.html"
+        outlet="views"
+        overwrite="true"
+        generateEmptyFiles="true"/> -->
+
+    <!-- <template
+        path="templates/views/layout/layout-crud.html.vsl"
+        outputPattern="layout/layout-crud.html"
+        outlet="views"
+        overwrite="true"
+        generateEmptyFiles="true"/> -->
+    <template
+        path="templates/configuration/Configuration.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/ThymeleafConfiguration.java"
+        outlet="managed-beans"
+        overwrite="true"
+        outputToSingleFile="true"
+        generateEmptyFiles="true">
+        <modelElements>
+            <modelElement variable="useCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
+            </modelElement>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/views/layout/navigation.html.vsl"
+        outputPattern="layout/navigation.html"
+        outlet="views"
+        overwrite="true"
+        outputToSingleFile="true"
+        generateEmptyFiles="true">
+        <modelElements>
+            <modelElement variable="useCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
+            </modelElement>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/views/layout/registration-layout.html.vsl"
+        outputPattern="layout/registration-layout.html"
+        outlet="views"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="registrationUseCase">true</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- <template
+        path="templates/views/layout/header.html.vsl"
+        outputPattern="layout/header.html"
+        outlet="views"
+        overwrite="true"
+        generateEmptyFiles="true"/> -->
+
+    <!-- <template
+        path="templates/views/layout/head.html.vsl"
+        outputPattern="layout/head.html"
+        outlet="views"
+        overwrite="true"/> -->
+
+    <!-- <template
+        path="templates/views/layout/footer.html.vsl"
+        outputPattern="layout/footer.html"
+        outlet="views"
+        overwrite="true"
+        generateEmptyFiles="true"/> -->
+
+    <template
+        path="templates/views/crud/view-search.html.vsl"
+        outputPattern="$generatedFile"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/views/crud/view-edit.html.vsl"
+        outputPattern="$generatedFile"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/views/login.html.vsl"
+        outputPattern="${loginFileName}.html"
+        outlet="views"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="registrationUseCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="registrationUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/views/view-action.html.vsl"
+        outputPattern="${action.viewFragmentPath}.html"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="action">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndAction">
+                    <property name="tableLink">false</property>
+                    <property name="input"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/views/view-table.html.vsl"
+        outputPattern="${table.view.path}-${table.name}.html"
+        outlet="views"
+        overwrite="true">
+        <modelElements>
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="tables" variable="table"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/views/view-variables.html.vsl"
+        outputPattern="${view.path}-vars.html"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="nonTableVariablesPresent"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- cartridge-template merge-point -->
+
+</cartridge>

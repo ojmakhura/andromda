@@ -1,0 +1,75 @@
+# 
+spring.datasource.url=$connectionUrl
+spring.datasource.username=$username
+spring.datasource.password=$password
+logging.level.root=INFO
+
+#if ($stringUtils.isNotBlank($hibernatePoolSize))
+#hibernate.pool.size = $hibernatePoolSize
+#end
+#if ($stringUtils.isNotBlank($hibernateTransactionManagerStrategy))
+#hibernate.transaction.manager.strategy = $hibernateTransactionManagerStrategy
+#end
+#if ($stringUtils.isNotBlank($hibernateUserTransactionName))
+#hibernate.jta.UserTransaction = $hibernateUserTransactionName
+#end
+#if ($stringUtils.isNotBlank($hibernateTransactionManagerLookup))
+#hibernate.transaction.manager_lookup_class = $hibernateTransactionManagerLookup
+#end
+#if ($stringUtils.isNotBlank($hibernateUseOuterJoin))
+#hibernate.use_outer_join = $hibernateUseOuterJoin
+#end
+#if ($stringUtils.isNotBlank($hibernateShowSql))
+#hibernate.show_sql = $hibernateShowSql
+#end
+#if ($stringUtils.isNotBlank($hibernateJndiName))
+#hibernate.session_factory_name = $hibernateJndiName
+#end
+#if ($stringUtils.isNotBlank($hibernateDialect))
+#hibernate.dialect = $hibernateDialect
+#end
+#if ($stringUtils.isNotBlank($hibernateDefaultSchema))
+#hibernate.default_schema = $hibernateDefaultSchema
+#end
+#if ($stringUtils.isNotBlank($hibernateMaxFetchDepth))
+#hibernate.max_fetch_depth = $hibernateMaxFetchDepth
+#end
+#if ($stringUtils.isNotBlank($hibernateJdbcFetchSize))
+#hibernate.jdbc.fetch_size = $hibernateJdbcFetchSize
+#end
+#if ($stringUtils.isNotBlank($hibernateDefaultBatchFetchSize))
+#hibernate.default_batch_fetch_size = $hibernateDefaultBatchFetchSize
+#end
+#if ($stringUtils.isNotBlank($hibernateJdbcBatchSize))
+#hibernate.jdbc.batch_size = $hibernateJdbcBatchSize
+#end
+#if ($stringUtils.isNotBlank($hibernateJdbcUseScrollableResultSet))
+#hibernate.jdbc.use_scrollable_resultset = $hibernateJdbcUseScrollableResultSet
+#end
+#if ($stringUtils.isNotBlank($hibernateJdbcUseStreamsForBinary))
+#hibernate.use_streams_for_binary = $hibernateJdbcUseStreamsForBinary
+#end
+#if ($stringUtils.isNotBlank($hibernateHbm2DDLAuto))
+spring.jpa.hibernate.ddl-auto = $hibernateHbm2DDLAuto
+#end
+#if ($stringUtils.isNotBlank($hibernateQuerySubstitutions))
+#hibernate.query.substitutions = $hibernateQuerySubstitutions
+#end
+#if ($enableCaching)
+# hibernate.cache.use_query_cache = $enableCaching
+#hibernate.cache.use_second_level_cache = true
+#else
+#hibernate.cache.use_second_level_cache = false
+#end
+#if ($stringUtils.isNotBlank($hibernateCacheProvider))
+# hibernate.cache.provider_class = $hibernateCacheProvider
+#end
+#if ($stringUtils.isNotBlank($hibernateQueryCacheFactory))
+# hibernate.cache.query_cache_factory = $hibernateQueryCacheFactory
+#end
+#if ($stringUtils.isNotBlank($hibernateConnectionReleaseMode))
+#hibernate.connection.release_mode = $hibernateConnectionReleaseMode
+#end
+#if ($stringUtils.isNotBlank($hibernateTransactionFactoryClass))
+#transaction.factory_class = $hibernateTransactionFactoryClass
+#end

@@ -1,0 +1,168 @@
+##
+## A macro that renders the appropriate search input field
+##
+## parameters:
+##     o  $parameter - the actual parameter to render
+##
+#macro(renderSearchInput $parameter)
+#set ($valuePropertyName = "${parameter.name}")
+#set ($propertyId = "searchForm_${parameter.name}")
+#set ($backingListName = $parameter.backingListName)
+#set ($formValuePropertyName = "${valuePropertyName}")
+                <!-- ${propertyId} -->
+                <div class="#if ($parameter.inputMultibox || $parameter.type.booleanType)form-check#else mb-3#end mt-3">
+                    <label id="${propertyId}_label" class=#if ($parameter.inputMultibox || $parameter.type.booleanType)"form-check-label"#else"form-label"#end for="${propertyId}" th:text="#{$parameter.messageKey}"></label>
+#if ($parameter.type.dateType)
+                    <input type="date" id="${propertyId}" th:field="*{${formValuePropertyName}}" class="form-control"  navigator="true" pattern="${parameter.format}" showOn="button"/>
+#elseif ($parameter.inputCheckbox)
+                    <select id="$propertyId" th:field="*{${formValuePropertyName}}" class="form-control" >
+                        <option value=""/>
+                        <option value="#{yes}" th:value="true"/>
+                        <option value="#{no}" th:value="false"/>
+                    </select>
+#elseif ($parameter.inputSelect)
+#set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
+#if ($multiSelect)
+#set ($selectBoxType = "selectManyMenu")
+#else
+#set ($selectBoxType = "selectOneMenu")
+#end
+                    <select#if ($multiSelect)multiple size="5"#end id="$propertyId" class="form-control" th:field="*{${formValuePropertyName}}">
+                        <option value=""></option>
+                        <option th:each="${formValuePropertyName} : ${${backingListName}}" th:value="${${formValuePropertyName}}" th:text="${${formValuePropertyName}}"></option>
+                    </select>
+#elseif ($parameter.inputMultibox || $parameter.type.booleanType)
+                    <input id="$propertyId" type="checkbox" class="form-check-input" th:field="*{${formValuePropertyName}}" onLabel="#{yes}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"/>
+#elseif ($parameter.inputRadio)
+                    <input id="$propertyId" type="radio" th:field="*{${formValuePropertyName}}" class="form-control"/>
+#elseif ($parameter.plainText)
+                    <input id="$propertyId" type="text" th:field="*{${formValuePropertyName}}" class="form-control"/>
+#else
+##if the widget type is not defined explicitly ...
+#if($parameter.type.enumeration)
+#set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
+#if ($multiSelect)
+#set ($selectBoxType = "selectManyMenu")
+#else
+#set ($selectBoxType = "selectOneMenu")
+#end
+#set ($enumPropertyId = "searchForm$stringUtils.capitalize(${parameter.name})")
+#set ($enum = "T(${parameter.type.fullyQualifiedName})")
+                    <select#if ($multiSelect)multiple size="5"#end id="$propertyId" name="${formValuePropertyName}" class="form-control" th:field="*{${formValuePropertyName}}">
+                        <option value=""></option>
+                        <option th:each="${enumPropertyId} : ${${enum}.values()}" 
+                                th:value="${${enumPropertyId}}" th:text="${${enumPropertyId}.value()}"></option>
+                    </select>
+#elseif(!$parameter.inputFile && !$parameter.inputHidden)
+                    <input type=#if ($parameter.type.timeType)"date"#else"text"#end id="$propertyId" th:field="*{${formValuePropertyName}}" class="form-control" #if($parameter.maxLength) maxlength="$parameter.maxLength"#end/>
+#end
+#end
+                </div>
+#end
+## ===============
+#macro(renderTableColumns $theManageable $ident)
+${ident}<td id="column_actions">
+${ident}    <div class="col">
+${ident}        <a th:href="@{/${controllerPath}/load/{id}(id=${row.id})}" class="btn btn-primary">
+${ident}            <i class="fas fa-edit ml-2"></i>
+${ident}        </a>
+${ident}        <a th:href="@{/${controllerPath}/delete/{id}(id=${row.id})}" class="btn btn-primary">
+${ident}            <i class="fas fa-trash ml-2"></i>
+${ident}        </a>
+${ident}    </div>
+${ident}</td>
+#foreach ($member in $theManageable.manageableSearchAttributes)
+#if(!$member.hidden && !$member.inputFile)
+#set($noOfColumns=$noOfColumns+1)   
+#if($member.type.enumeration)
+#set($theValue="row.${member.name}.getValue()")
+#else
+#set($theValue="row.${member.name}")
+#end
+${ident}<td id="column_${member.name}" th:text=#if ($member.type.dateType)"${#dates.format($theValue, '$member.format')}"#else"${${theValue}}"#end  #if($rendered != "")#end>
+${ident}</td>
+#end
+#end
+#foreach ($field in $theManageable.manageableSearchAssociationEnds)
+#if($field.type.manageable && (($theManageable == $manageable) || ($field.type.fullyQualifiedName != $manageable.fullyQualifiedName)))
+##the if avoids showing the columns if the column is the master
+#if(!$field.many)
+${ident}<td id="column_${field.name}" th:text=#if ($field.type.dateType)"${#dates.format(#{row.${member.name}}, '$field.format')}"#else"${#{row.${member.name}}}"#end  #if($rendered != "")#end>
+${ident}</td>
+#end
+#end
+#end
+#end
+#macro(renderTableColumnNames $theManageable $ident)
+${ident}<th th:text="#{actions}"></th>
+#foreach ($member in $theManageable.manageableSearchAttributes)
+#if(!$member.hidden && !$member.inputFile)
+#set($noOfColumns=$noOfColumns+1)   
+#if($member.type.enumeration)
+#set($theValue="#{ajsf:getEnumMessage('${member.type.messageKey}.',row.${member.name})}")
+#else
+#set($theValue="#{row.${member.name}}")
+#end
+${ident}<th th:text="#{$member.messageKey}"></th>
+#end
+#foreach ($field in $theManageable.manageableSearchAssociationEnds)
+#if($field.type.manageable && (($theManageable == $manageable) || ($field.type.fullyQualifiedName != $manageable.fullyQualifiedName)))
+#if(!$field.many)
+##the if avoids showing the columns if the column is the master
+${ident}<th style="width:0px;"#if($field.composition) rendered="#{${theManageable.controllerBeanName}.filterAttribute != '${field.name}'}"#end th:text="#{$field.messageKey}">
+${ident}</th>
+#end
+#end
+#end
+#end
+#end
+##================
+#set ($generatedFile = "${manageable.viewFullPath}-search.html")
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}">
+    <section layout:fragment="content">
+#set($formName = $manageable.formBeanName)
+#set ($controllerPath = $thymeleafUtils.toWebResourceName($manageable.controllerBeanName))
+        <a th:href="@{/${controllerPath}}" class="button">Edit</a>
+        <form id="searchForm" th:action="@{/${controllerPath}/search}" th:object="${${formName}}" method="post">
+            <section name="searchFields" class="container">
+#foreach ($field in $manageable.manageableSearchAttributes)
+#renderSearchInput($field)
+#end
+#foreach ($field in $manageable.manageableSearchAssociationEnds)
+                <!-- ${field.name} -->
+#if($field.composition) 
+#set($rendered="#{${manageable.controllerBeanName}.filterAttribute != '${field.name}'}")
+#else
+#set($rendered="")
+#end
+#if(!$field.many && $field.type.attributes.size() > 0)
+                <p:outputLabel  id="searchForm_${field.name}_label" for="searchForm_${field.name}" value="#{messages['$field.messageKey']}:"#if($rendered != "") rendered="$rendered"#end/>
+                <p:autoComplete id="searchForm_${field.name}" value="#{searchForm.${field.name}}" label="#{messages['$field.messageKey']}:" 
+                    completeMethod="#{${field.type.controllerBeanName}.fillAutocomplete}" queryDelay="500"  
+                    var="bean" itemValue="#{bean.${field.type.identifiers.get(0).name}}" itemLabel="#{bean.${field.type.displayAttribute.name}}"
+                    converter="${field.type.ConverterType}"
+                    dropdown="true"#if($field.many) multiple="true"#end#if($rendered != "") rendered="$rendered"#end/>  
+                <p:message id="searchForm_${field.name}_message" for="searchForm_${field.name}"#if($rendered != "") rendered="$rendered"#end/>
+#end
+#end
+                <button type="submit" class="btn btn-primary">Search</button>
+            </section>
+        </form>
+        <section class=container name="searchResult">
+            <table id="searchResult" class="table table-bordered" style="width: 100%">
+                <thead>
+                    <tr>
+#renderTableColumnNames($manageable "                       ")
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="row : ${${manageable.listName}}">
+#renderTableColumns($manageable "                       ")
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </section>
+</html>

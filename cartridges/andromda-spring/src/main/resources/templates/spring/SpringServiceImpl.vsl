@@ -19,7 +19,7 @@ package $service.implementationPackageName;
 /**
  * @see $service.fullyQualifiedName
  */
- @org.springframework.transaction.annotation.Transactional(propagation = org.springframework.transaction.annotation.Propagation.REQUIRED, readOnly=false)
+@org.springframework.transaction.annotation.Transactional(propagation = org.springframework.transaction.annotation.Propagation.REQUIRED, readOnly=false)
 @org.springframework.stereotype.Service("$stringUtils.uncapitalize($service.name)")
 public#if($service.abstract) abstract#end class $service.implementationName
     extends $service.fullyQualifiedBaseName
