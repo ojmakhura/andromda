@@ -78,9 +78,10 @@ ${ident}<textarea id="$propertyId" name="${propertyId}" value="#{${formValueProp
 ${ident}<h:dataTable id="$propertyId" var="row" value="#{${formValuePropertyName}}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" emptyMessage="#{messages['empty.result.set']}">
 #if($parameter.inputTableIdentifierColumns)
 #foreach($column in $parameter.inputTableIdentifierColumns.split(","))
+#set($messageKey = "$stringUtils.toResourceMessageKey($column)")
 ${ident}    <h:column sortBy="$column">
 ${ident}        <f:facet name="header">
-${ident}            <h:outputText id="columnHeader_$column" value="#{messages['$column']}"/>
+${ident}            <h:outputText id="columnHeader_$column" value="#{messages['$messageKey']}"/>
 ${ident}        </f:facet>
 ${ident}        <h:outputText id="$column" value="#{row.$column}">
 ${ident}        </h:outputText>
@@ -88,9 +89,10 @@ ${ident}    </h:column>
 #end
 #else
 #foreach($attr in $parameter.type.attributes)
+#set($messageKey = "$stringUtils.toResourceMessageKey($attr.name)")
 ${ident}    <h:column sortBy="$attr.name">
 ${ident}        <f:facet name="header">
-${ident}            <h:outputText id="columnHeader_$attr.name" value="#{messages['$column']}"/>
+${ident}            <h:outputText id="columnHeader_$attr.name" value="#{messages['$messageKey']}"/>
 ${ident}        </f:facet>
 ${ident}        <h:outputText id="$attr.name" value="#{row.$attr.name}">
 ${ident}        </h:outputText>
