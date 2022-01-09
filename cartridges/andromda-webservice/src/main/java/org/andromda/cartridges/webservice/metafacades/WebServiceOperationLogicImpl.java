@@ -268,8 +268,13 @@ public class WebServiceOperationLogicImpl
     protected String handleGetRestPath()
     {
         String path = (String)this.findTaggedValue(WebServiceGlobals.REST_PATH);
+
+        if(StringUtils.isBlank(path)) {
+            return null;
+        }
+
         StringBuilder pathBuffer = new StringBuilder();
-        if (!this.isRest() || StringUtils.isBlank(path) || path.equals(DEFAULT))
+        if (!this.isRest() || path.equals(DEFAULT))
         {
             path = this.getName().toLowerCase();
         }

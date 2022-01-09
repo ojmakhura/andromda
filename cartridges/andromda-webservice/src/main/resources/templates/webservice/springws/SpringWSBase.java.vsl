@@ -28,10 +28,15 @@ public abstract class ${serviceName}Base implements ${serviceName} {
     @$annotation
 #end
 #if($attribute.many)
-    $attribute.visibility java.util.Collection<$attribute.type.fullyQualifiedName> $attribute.name; 
+    private java.util.Collection<$attribute.type.fullyQualifiedName> $attribute.name; 
 #else
-    $attribute.visibility $attribute.type.fullyQualifiedName $attribute.name; 
+    private $attribute.type.fullyQualifiedName $attribute.name; 
 #end
+
+    $attribute.visibility #if($attribute.many)java.util.Collection<$attribute.type.fullyQualifiedName>#else$attribute.type.fullyQualifiedName#end ${attribute.getterName}() {
+        return $attribute.name; 
+    }
+
 #end
 #foreach ($operation in $service.allowedOperations)
 
