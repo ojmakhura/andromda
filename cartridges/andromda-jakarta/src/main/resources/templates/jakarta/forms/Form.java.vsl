@@ -15,6 +15,7 @@ $operation.getDocumentation(" * ")
 public interface $operation.formName
 {
 #foreach ($field in $operation.formFields)
+// $field
 #setFieldTypeName($field $fieldTypeName)
     /**
 $field.getDocumentation("     * ")
@@ -33,6 +34,7 @@ $field.getDocumentation("     * ")
 #renderBackingListSupport($field "")
 #end
 #foreach ($attribute in $field.attributes)
+// $attribute
 #if ($attribute.isSelectable($field) || $attribute.type.enumeration || $attribute.isBackingValueRequired($field))
 #renderBackingListSupport($attribute $field)
 #end

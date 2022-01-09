@@ -9,91 +9,42 @@
     <form id="${formName}" name="${formName}" role="form" method="POST" 
             action="#{request.contextPath}${servletPath}${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.triggerName})">
 #if ($action.hyperlink)
-    <a href="#" id="${action.triggerName}Action" action="#{${action.controller.beanName}.${action.triggerName}}" immediate="true" ajax="false">
-        <label id="${action.triggerName}ActionMessage" value="#{messages['$action.messageKey']}"/>
+        <a href="#" id="${action.triggerName}Action" action="#{${action.controller.beanName}.${action.triggerName}}" immediate="true" ajax="false">
+            <label id="${action.triggerName}ActionMessage" value="#{messages['$action.messageKey']}"/>
 #foreach ($parameter in $action.parameters)
 #if (!$parameter.complex || $parameter.type.enumeration)
-#renderActionCommandLinkParameter($parameter "" "        ")
+#renderActionCommandLinkParameter($parameter "" "           ")
 #end
 #foreach ($attribute in $parameter.attributes)
 #if(!$attribute.inputHidden && !$parameter.inputHidden)
-#renderActionCommandLinkParameter($attribute $parameter "        ")
+#renderActionCommandLinkParameter($attribute $parameter "           ")
 #end
 #end
 #end
-    </a>
+        </a>
 #else
 #if (!$action.hiddenParameters.empty)
         <ui:include src="${action.viewFragmentPath}-hidden-params.xhtml"/>
 #end
-        <table>
-            <tbody>
 #set($triggerId = "${action.triggerName}Action")   
 #foreach ($parameter in $action.parameters)
 #if (!$parameter.complex || $parameter.type.enumeration)
-                <tr>
-#renderActionInputPrimeFaces($parameter "" "                    ")
-                </tr>
+        <div class=" mb-3 mt-3">
+#renderActionInputPrimeFaces($parameter "" "            ")
+        </div>
 #else
 #foreach ($attribute in $parameter.attributes)
 #if(!$attribute.inputHidden && !$parameter.inputHidden)
-                <tr>
-#renderActionInputPrimeFaces($attribute $parameter "                    ")
-                </tr>
+        <div class=" mb-3 mt-3">
+#renderActionInputPrimeFaces($attribute $parameter "            ")
+        </div>
 #end
 #end
 #end
 #end
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="3">
-                        <button type="submit" id="$triggerId" class="btn btn-lg btn-primary" value="#{messages['$action.messageKey']}">
-                                #{messages['$action.messageKey']}
-                        </button>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
+        <button type="submit" id="$triggerId" class="btn btn-lg btn-primary" value="#{messages['$action.messageKey']}">
+            #{messages['$action.messageKey']}
+        </button>
 #end
     </form>
-##     <script>
-##         const ${formName} = document.getElementById('${formName}');
-##         ${formName}.addEventListener('submit', (event) => {
-##             event.preventDefault(); // prevent page refresh
-##             const formData = new FormData(${formName});
-##             var data = {};
-## #foreach($parameter in $action.parameters)
-## #if (!$parameter.complex || $parameter.type.enumeration)
-##             data.$parameter.name = formData.get('$parameter.name');
-            
-## #else
-##             data.$parameter.name = {};
-## #foreach ($attribute in $parameter.attributes)
-## #if(!$attribute.inputHidden && !$parameter.inputHidden)
-## #if ($attribute.backingListName)
-## #if ($attribute.type.hasStereotype('Entity'))
-## #set ($propertyId = $attribute.getFormPropertyId($parameter))
-## #else
-## #set ($propertyId = $attribute.name)
-## #end
-## #else
-## #set ($propertyId = $attribute.getFormPropertyId($parameter))
-## #end
-##             data.${parameter.name}.${attribute.name} = formData.get('$propertyId');
-## #end
-## #end
-## #end
-## #end
-
-##             fetch("#{request.contextPath}${servletPath}${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.triggerName})", {
-##                 method: 'POST',
-##                 headers: {
-##                     'Content-Type': 'application/json'
-##                 },
-##                 body: JSON.stringify(data)
-##             }).then();
-
-##         });
-##     </script>
 </ui:composition>

@@ -257,7 +257,6 @@ $action.trigger.getDocumentation("     * ")
         
         String forward=null;
 #if ($action.finalStateTarget)
-// action.finalStateTarget
 #if ($formPopulationOperationRequired)
         //this.${action.formBeanName}.copyTo(getUseCaseParameters());
     
@@ -301,10 +300,13 @@ $action.trigger.getDocumentation("     * ")
 #set ($viewPath = "${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.source.name})")
         populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"${viewPath}"#end,forward,form);
 #foreach($field in $action.formFields)
-#if($field.actionParameter)
+#if(!$field.actionParameter)
         models.put("$field.name", form.get${stringUtils.capitalize($field.name)}());
 #end
 #end
+## #foreach($param in $action.parameters)
+## // $param
+## #end
 #if(!$action.exitingInitialState && !$action.enteringFinalState)
         if(forward != null)
         {
