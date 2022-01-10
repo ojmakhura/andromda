@@ -4,7 +4,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.metafacades.uml.AttributeFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -157,5 +159,32 @@ public class HibernateFinderMethodLogicImpl
                        .booleanValue();
         }
         return useQueryCache;
+    }
+
+    @Override
+    protected ParameterFacade handleGetCriteriaArgument() {
+        
+        ParameterFacade foundParameter = null;
+        for (final ParameterFacade parameter : this.getParameters())
+        {
+            final ClassifierFacade type = parameter.getType();
+            if (type != null && type.hasStereotype(UMLProfile.STEREOTYPE_CRITERIA))
+            {
+                foundParameter = parameter;
+                break;
+            }
+        }
+        return foundParameter;
+    }
+
+    @Override
+    protected boolean handleIsCriteriaFinder() {
+        return this.getCriteriaArgument() != null;
+    }
+
+    @Override
+    protected String handleGetQuery(HibernateEntity entity) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

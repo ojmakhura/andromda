@@ -547,6 +547,7 @@ public abstract class $entity.daoBaseName
 #end
 ##
 #foreach ($finder in $queryOperations)
+// $finder
 #set ($returnType = $finder.returnType.fullyQualifiedName)
 #**##if ($finder.returnTypePresent)
 #*  *##if ($finder.returnType.setType)
@@ -624,6 +625,7 @@ public abstract class $entity.daoBaseName
         {
             ${hibernateNamespace}.persistence.TypedQuery<${rootEntityType}> queryObject = this.entityManager.createNamedQuery("${entity.name}.${finder.name}", ${rootEntityType}.class);
 #**##foreach($argument in $finder.arguments)
+// $argument
 #*  *##set ($count = $velocityCount - 1)
 #*  *##set ($argumentValue = $argument.name)
 #*  *##if ($argument.firstResult)
@@ -716,6 +718,7 @@ public abstract class $entity.daoBaseName
         {
             ${hibernateNamespace}.persistence.TypedQuery<${entity.fullyQualifiedEntityName}> queryObject = this.entityManager.createQuery(queryString, ${entity.fullyQualifiedEntityName}.class);
 #**##foreach($argument in $finder.arguments)
+// $argument
 #*  *##set ($count = $velocityCount - 1)
 #*  *##set ($argumentValue = $argument.name)
 #*  *##if ($argument.firstResult)

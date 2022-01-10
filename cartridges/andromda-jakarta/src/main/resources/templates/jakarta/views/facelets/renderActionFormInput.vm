@@ -5,7 +5,7 @@
 ##     o  $parameter - the actual parameter to render
 ##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
 ##
-#macro(renderActionInputPrimeFaces $parameter $ownerParameter $ident)
+#macro(renderActionInput $parameter $ownerParameter $ident)
 #if ($parameter.backingListName)
 #if ($ownerParameter.type.hasStereotype('Entity'))
 #set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
@@ -52,12 +52,12 @@ ${ident}</select>
 #if ($multiSelect)
 #set ($selectBoxType = "selectManyMenu")
 #end
-${ident}    <h:$selectBoxType id="$propertyId" class="form-control" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" readonly="$parameter.readOnly">
+${ident}<h:$selectBoxType id="$propertyId" class="form-control" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" readonly="$parameter.readOnly">
 #if(!$parameter.required)
-${ident}        <f:selectItem itemLabel=""/>
+${ident}   <f:selectItem itemLabel=""/>
 #end
-${ident}        <f:selectItems value="#{${formName}.${backingListName}}" />
-${ident}    </h:$selectBoxType>
+${ident}   <f:selectItems value="#{${formName}.${backingListName}}" />
+${ident}</h:$selectBoxType>
 #elseif ($parameter.inputFile)
 ${ident}<input id="$propertyId" class="form-control" type="file" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" #if($parameter.readOnly) readonly#end#if(${parameter.required}) required="true"#end/>
 #elseif ($parameter.inputMultibox)

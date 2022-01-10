@@ -92,6 +92,18 @@
             <property name="query"/>
         </mapping>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateQueryOperationLogicImpl" contextRoot="true">
+        <mapping>
+            <stereotype>FINDER_METHOD</stereotype>
+            <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateQueryOperationLogicImpl">
+        <mapping>
+            <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
+            <property name="query"/>
+        </mapping>
+    </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateServiceOperationLogicImpl">
         <mapping>
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateService</context>
@@ -149,6 +161,17 @@
             </context>
         </mapping>
         <property reference="implementationOperationNamePattern"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateCriteriaSearchLogicImpl"
+        contextRoot="true">
+        <mapping>
+            <stereotype>CRITERIA</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateCriteriaAttributeLogicImpl">
+        <mapping>
+            <context>org.andromda.cartridges.hibernate.metafacades.HibernateCriteriaSearch</context>
+        </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateDependencyLogicImpl"/>
 </metafacades>

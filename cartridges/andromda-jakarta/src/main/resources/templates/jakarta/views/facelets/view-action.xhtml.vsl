@@ -28,15 +28,15 @@
 #end
 #set($triggerId = "${action.triggerName}Action")   
 #foreach ($parameter in $action.parameters)
-#if (!$parameter.complex || $parameter.type.enumeration)
+#if (!$parameter.complex && !$parameter.inputHidden)
         <div class=" mb-3 mt-3">
-#renderActionInputPrimeFaces($parameter "" "            ")
+#renderActionInput($parameter "" "            ")
         </div>
 #else
 #foreach ($attribute in $parameter.attributes)
 #if(!$attribute.inputHidden && !$parameter.inputHidden)
         <div class=" mb-3 mt-3">
-#renderActionInputPrimeFaces($attribute $parameter "            ")
+#renderActionInput($attribute $parameter "            ")
         </div>
 #end
 #end
