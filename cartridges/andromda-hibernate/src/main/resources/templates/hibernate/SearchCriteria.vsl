@@ -182,4 +182,36 @@ $target.getDocumentation("     * ")
     }
 #end
 #end
+
+    /**
+     * @return String representation of object
+     * @see Object${esc.hash}toString()
+     */
+#if ($enableAnnotations)
+    @Override
+#end
+    public String toString()
+    {
+
+        StringBuilder builder = new StringBuilder();
+#set ($i = 0)
+        builder.append("{\n");
+#foreach($attr in $class.properties)
+        builder.append("\t#if($i == 1),#end\"${attr.name}\" : \"" + this.${attr.getterName}() + "\"");
+#if($i == 0)#set($i = 1)#end
+#end
+#foreach($associationEnd in $class.navigableConnectingEnds)
+## Do not append one of the two ends if bidirectional navigation. Comment out 1 end of 1:*, or end with lower alphabetical name.
+#if (!$umlUtils.isOwningEnd($associationEnd) && $associationEnd.otherEnd.navigable)
+            // Prevent recursive bidirectional relationship infinite loop
+        builder.append("\t#if($i == 1),#end\"${associationEnd.name}\" : \"" + this.${associationEnd.getterName}() + "\"");
+#else
+        builder.append("\t#if($i == 1),#end\"$${associationEnd.name}\" : \"" + this.${associationEnd.getterName}() + "\"");
+#end
+#if($i == 0)#set($i = 1)#end
+#end        
+        builder.append("}");
+        return builder.toString();
+
+    }
 }

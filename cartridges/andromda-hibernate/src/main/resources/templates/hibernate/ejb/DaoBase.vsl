@@ -22,6 +22,18 @@ package ${entity.packageName};
 #**##set ($rootEntityType = $entity.fullyQualifiedEntityName)
 #**##set ($rootDaoType = $entity.fullyQualifiedDaoName)
 #end
+
+import ${hibernateNamespace}.persistence.TypedQuery;
+#if(!$finder.arguments.empty)
+import ${hibernateNamespace}.persistence.criteria.CriteriaBuilder;
+import ${hibernateNamespace}.persistence.criteria.CriteriaQuery;
+import ${hibernateNamespace}.persistence.criteria.Root;
+import ${hibernateNamespace}.persistence.criteria.Predicate;
+import ${hibernateNamespace}.persistence.criteria.Join;
+import ${hibernateNamespace}.persistence.criteria.JoinType;
+import java.util.ArrayList;
+import java.util.List;
+#end
 /**
  * <p>
  * Base EJB3 DAO Class: is able to create, update, remove, load, and find
@@ -623,9 +635,12 @@ public abstract class $entity.daoBaseName
     {
         try
         {
-            ${hibernateNamespace}.persistence.TypedQuery<${rootEntityType}> queryObject = this.entityManager.createNamedQuery("${entity.name}.${finder.name}", ${rootEntityType}.class);
+            CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+            CriteriaQuery<${rootEntityType}> query = builder.createQuery(${rootEntityType}.class);
+            Root<${rootEntityType}> root = query.from(${rootEntityType}.class);   
+            List<Predicate> predicates = new java.util.ArrayList<>();
+
 #**##foreach($argument in $finder.arguments)
-// $argument
 #*  *##set ($count = $velocityCount - 1)
 #*  *##set ($argumentValue = $argument.name)
 #*  *##if ($argument.firstResult)
@@ -639,37 +654,143 @@ public abstract class $entity.daoBaseName
 #*    *##else
 #*      *##set ($argumentValue = "${argument.name}")
 #*    *##end
-#*    *##if ($argument.temporalType)
-#*      *##set ($argumentValue = "${argumentValue}, ${hibernateNamespace}.persistence.TemporalType.${argument.temporalType}")
-#*    *##end
-#*    *##set ($setParameterOperation = "setParameter")
-#*    *###if ($argument.type.collectionType || $argument.type.arrayType)
-#*      *###set ($setParameterOperation = "${setParameterOperation}List")
-#*    *###end
-#*    *##if ($finder.useNamedParameters)
-            queryObject.${setParameterOperation}("$argument.name", $argumentValue);
-#*    *##else
-            queryObject.${setParameterOperation}($count, $argumentValue);
-#*    *##end
+            if($argumentValue != null) {
+## #*    *##if ($argument.temporalType)
+## #*      *##set ($argumentValue = "${argumentValue}, ${hibernateNamespace}.persistence.TemporalType.${argument.temporalType}")
+## #*    *##end
+## #*    *##set ($setParameterOperation = "setParameter")
+## #*    *###if ($argument.type.collectionType || $argument.type.arrayType)
+## #*      *###set ($setParameterOperation = "${setParameterOperation}List")
+## #*    *###end
+#set($split = $hibernateUtils.getAttributeNameList($attribute.attributeName))
+#if($split.size() == 2)
+#set($targetEntity = $attribute.type.fullyQualifiedName)
+#set($jointName = $attribute.name)
+                Join<${rootEntityType}, $targetEntity> join = root.join("$jointName", JoinType.INNER);
+                predicates.add(builder.equal(join.<Long>get("id"), ${argumentValue}.getId()));
 #else
+
+#if(${argument.type.stringType})
+                predicates.add(builder.like(root.<String>get("$argument.name"), "%" + $argumentValue + "%"));
+#elseif(${argument.type.enumeration})
+                predicates.add(builder.equal(root.<String>get("$argument.name"), ${argumentValue}.getValue()));
+#elseif ($argument.temporalType)
+                predicates.add(builder.equal(root.<$argument.type.fullyQualifiedName>get("$argument.name"), ${argumentValue}));
+#elseif(!$collectionUtils.isEmpty($argument.type.attributes))
+                // Do an inner join for $argument.name
+                if(${argumentValue}.getId() != null) {
+#set($targetEntity = $stringUtils.capitalize($argument.name))
+#if($argument.attributeName)
+#set($split = $argument.attributeName.split(" "))
+#set($targetEntity = $split.get(0))
+#if($split.lenght == 2)
+#set($jointName = $split.get(1))
+#else
+#set($jointName = $argument.name)
+#end
+#else
+#set($targetEntity = $argument.type.fullyQualifiedName)
+#set($jointName = $argument.name)
+#end
+                    Join<${rootEntityType}, $targetEntity> join = root.join("$jointName", JoinType.INNER);
+                    predicates.add(builder.equal(join.<Long>get("id"), ${argumentValue}.getId()));
+
+                }
+
+#else
+                predicates.add(builder.equal(root.<$argument.type.name>get("$argument.name"), "%" + $argumentValue + "%"));
+#end
+#end
+            }
+#else
+#if($argument.getType().getStereotypeNames().toString().contains("Criteria"))
 #foreach($attribute in $argument.type.attributes)
 #*    *##if($attribute.type.primitive)
 #*      *##set ($argumentValue = "new ${attribute.type.wrapperName}(${argument.name}.${attribute.getterName}())")
 #*    *##else
 #*      *##set ($argumentValue = "${argument.name}.${attribute.getterName}()")
 #*    *##end
-#*    *##if ($attribute.temporalType)
-#*      *##set ($argumentValue = "${argumentValue}, ${hibernateNamespace}.persistence.TemporalType.${attribute.temporalType}")
-#*    *##end
+## #*    *##if ($attribute.temporalType)
+## #*      *##set ($argumentValue = "${argumentValue}, ${hibernateNamespace}.persistence.TemporalType.${attribute.temporalType}")
+## #*    *##elseif ($attribute.type.enumeration)
+## #*      *##set ($argumentValue = "${argumentValue}.getValue()")
+## #*    *##end
+            if($argumentValue != null) {
 #*    *##set ($setParameterOperation = "setParameter")
 #*    *###if ($attribute.type.collectionType || $attribute.type.arrayType)
 #*      *###set ($setParameterOperation = "${setParameterOperation}List")
 #*    *###end
-#*    *##if ($finder.useNamedParameters)
-            queryObject.${setParameterOperation}("$attribute.name", $argumentValue);
-#*    *##else
-            queryObject.${setParameterOperation}($count, $argumentValue);
-#*    *##end
+#set($any = "'%'")
+#if(${attribute.matchModeConstant} == "END")
+#set($argumentValue = "$any + $argumentValue")
+#elseif(${attribute.matchModeConstant} == "ANYWHERE")
+#set($argumentValue = "$any + $argumentValue + $any")
+#elseif(${attribute.matchModeConstant} == "END")
+#set($argumentValue = "$argumentValue + $any")
+#else
+#set($argumentValue = "$argumentValue")
+#end
+#if($attribute.nullable)
+#set($nullableArgument = ", true")
+#else
+#set($nullableArgument = "")
+#end
+#if(${attribute.comparatorConstant} == "NOT_EQUAL_COMPARATOR")
+#set($comparatorArgument = "notEqual")
+#elseif(${attribute.comparatorConstant} == "GREATER_THAN_OR_EQUAL_COMPARATOR")
+#set($comparatorArgument = "ge")
+#elseif(${attribute.comparatorConstant} == "GREATER_THAN_COMPARATOR")
+#set($comparatorArgument = "gt")
+#elseif(${attribute.comparatorConstant} == "LIKE_COMPARATOR")
+#set($comparatorArgument = "like")
+#elseif(${attribute.comparatorConstant} == "LESS_THAN_OR_EQUAL_COMPARATOR")
+#set($comparatorArgument = "le")
+#elseif(${attribute.comparatorConstant} == "LESS_THAN_COMPARATOR")
+#set($comparatorArgument = "lt")
+#elseif(${attribute.comparatorConstant} == "IN_COMPARATOR")
+#set($comparatorArgument = "in")
+#else
+#set($comparatorArgument = "equal")
+#end
+#set($split = $hibernateUtils.getAttributeNameList($attribute.attributeName))
+#if($split.size() == 2)
+#set($targetEntity = $attribute.type.fullyQualifiedName)
+#set($jointName = $attribute.name)
+                Join<${rootEntityType}, $targetEntity> join = root.join("$jointName", JoinType.INNER);
+                predicates.add(builder.equal(join.<Long>get("id"), ${argumentValue}.getId()));
+#else
+#if(${attribute.type.stringType} || ${attribute.type.enumeration})
+                predicates.add(builder.${comparatorArgument}(root.<String>get("$attribute.name"), $argumentValue));
+#elseif ($attribute.temporalType)
+                predicates.add(builder.${comparatorArgument}(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), ${argumentValue}));
+#elseif(!$collectionUtils.isEmpty($attribute.type.attributes))
+                // Do an inner join for $attribute.name
+#if($attribute.attributeName)
+#set($split = $attribute.attributeName.split(" "))
+#set($targetEntity = $split.get(0))
+#if($split.lenght == 2)
+#set($jointName = $split.get(1))
+#else
+#set($jointName = $attribute.name)
+#end
+#else
+#set($targetEntity = $attribute.type.fullyQualifiedName)
+#set($jointName = $attribute.name)
+#end
+                Join<${rootEntityType}, $targetEntity> join = root.join("$jointName", JoinType.INNER);
+                predicates.add(builder.equal(join.<Long>get("id"), ${argumentValue}.getId()));
+#else
+                predicates.add(builder.${comparatorArgument}(root.<$attribute.type.name>get("$attribute.name"), "%" + $argumentValue + "%"));
+#end
+#end
+            }
+#end
+#else
+            if($argument.name != null) {
+
+                Join<${rootEntityType}, $argument.type.fullyQualifiedName> join = root.join("$argument.name", JoinType.INNER);
+                predicates.add(builder.equal(join.<Long>get("id"), ${argument.name}.getId()));
+            }
 #end
 #end
 #*  *##end
@@ -677,22 +798,30 @@ public abstract class $entity.daoBaseName
 #**##if ($finder.useQueryCache && !$entity.useDefaultCacheRegion)
             queryObject.setHint("org.hibernate.cacheRegion", "/${entity.fullyQualifiedNamePath}_${finder.name}");
 #**##end
+            if(!predicates.isEmpty()) {
+                query.where();
+                Predicate[] pr = new Predicate[predicates.size()];
+                predicates.toArray(pr);
+                query.where(pr); 
+            }
+
 #**##if ($finder.returnTypePresent)
+            TypedQuery<${rootEntityType}> typedQuery = this.entityManager.createQuery(query);
 #*  *##if ($finder.returnType.setType)
-            $transformReturn results = new java.util.LinkedHashSet(queryObject.getResultList());
+            $transformReturn results = new java.util.LinkedHashSet(typedQuery.getResultList());
             transformEntities(transform, results);
             return results;
 #*  *##elseif ($finder.returnType.collectionType || $finder.many)
-            $transformReturn results = queryObject.getResultList();
+            $transformReturn results = typedQuery.getResultList();
             transformEntities(transform, results);
             return results;
 #*  *##else
-            $transformReturn result = queryObject.getSingleResult();
+            $transformReturn result = typedQuery.getSingleResult();
             result = transformEntity(transform, (${rootEntityType})result);
             return result;
 #*  *##end
 #**##else
-            queryObject.executeUpdate();
+            typedQuery.executeUpdate();
 #**##end
         }
         catch (Exception ex)
@@ -718,7 +847,6 @@ public abstract class $entity.daoBaseName
         {
             ${hibernateNamespace}.persistence.TypedQuery<${entity.fullyQualifiedEntityName}> queryObject = this.entityManager.createQuery(queryString, ${entity.fullyQualifiedEntityName}.class);
 #**##foreach($argument in $finder.arguments)
-// $argument
 #*  *##set ($count = $velocityCount - 1)
 #*  *##set ($argumentValue = $argument.name)
 #*  *##if ($argument.firstResult)
@@ -1112,7 +1240,7 @@ public abstract class $entity.daoBaseName
     /**
      * @return the context
      */
-    public SessionContext getContext()
+    public jakarta.ejb.SessionContext getContext()
     {
         return this.context;
     }
@@ -1120,7 +1248,7 @@ public abstract class $entity.daoBaseName
     /**
      * @param contextIn the context to set
      */
-    public void setContext(SessionContext contextIn)
+    public void setContext(jakarta.ejb.SessionContext contextIn)
     {
         this.context = contextIn;
     }
@@ -1128,7 +1256,7 @@ public abstract class $entity.daoBaseName
     /**
      * @return the entityManager
      */
-    public EntityManager getEntityManager()
+    public jakarta.persistence.EntityManager getEntityManager()
     {
         return this.entityManager;
     }
@@ -1136,7 +1264,7 @@ public abstract class $entity.daoBaseName
     /**
      * @param entityManagerIn the entityManager to set
      */
-    public void setEntityManager(EntityManager entityManagerIn)
+    public void setEntityManager(jakarta.persistence.EntityManager entityManagerIn)
     {
         this.entityManager = entityManagerIn;
     }

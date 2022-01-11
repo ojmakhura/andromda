@@ -775,26 +775,28 @@ public class JakartaActionLogicImpl
 
                 if (param.isComplex() && !param.getType().isEnumeration()) {
 
+                    // builder.append("@jakarta.ws.rs.BeanParam ");
+                    // builder.append(param.getType().getFullyQualifiedName());
+                    // builder.append(" ");
+                    // builder.append(param.getName());
+
                     Iterator it = param.getAttributes().iterator();
                     while (it.hasNext()) {
 
                         JakartaAttribute attr = (JakartaAttribute) it.next();
 
-                        //if (!attr.isMany()) {
+                        if (attr.getType().getAttributes() != null && attr.getType().getAttributes().size() > 0
+                                && !attr.getType().isEnumeration()) {
 
-                            if (attr.getType().getAttributes() != null && attr.getType().getAttributes().size() > 0
-                                    && !attr.getType().isEnumeration()) {
-
-                                builder.append("@jakarta.ws.rs.BeanParam ");
-                            } else {
-                                builder.append("@jakarta.ws.rs.FormParam(\"");
-                                builder.append(attr.getFormPropertyId(param));
-                                builder.append("\") ");
-                            }
-                        //}
+                            builder.append("@jakarta.ws.rs.BeanParam ");
+                        } else {
+                            builder.append("@jakarta.ws.rs.FormParam(\"");
+                            builder.append(attr.getFormPropertyId(param));
+                            builder.append("\") ");
+                        }
 
                         if (attr.isMany()) {
-                            if(attr.isUnique()) {
+                            if (attr.isUnique()) {
                                 builder.append("java.util.HashSet<");
                             } else {
                                 builder.append("java.util.ArrayList<");
@@ -827,7 +829,7 @@ public class JakartaActionLogicImpl
                     }
 
                     if (param.isMany()) {
-                        if(param.isUnique()) {
+                        if (param.isUnique()) {
                             builder.append("java.util.HashSet<");
 
                         } else {

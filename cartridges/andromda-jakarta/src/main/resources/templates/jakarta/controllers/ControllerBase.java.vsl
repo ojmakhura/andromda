@@ -208,7 +208,13 @@ $action.trigger.getDocumentation("     * ")
     @Override
     public String startUseCase($useCaseParams)
 #else
+#if($action.tableLink)
+    @${jakartaNamespace}.ws.rs.GET
+#set($params = $action.restQueryParams)
+#else
     @${jakartaNamespace}.ws.rs.POST
+#set($params = $action.restFormParams)
+#end
     @${jakartaNamespace}.ws.rs.Path("$jakartaUtils.toWebResourceName(${action.triggerName})")
 #if (!$action.formFields.empty)
     @${jakartaNamespace}.ws.rs.Consumes(
@@ -220,7 +226,7 @@ $action.trigger.getDocumentation("     * ")
     )
 #end
     @Override
-    public String ${action.triggerName}(#if (!$action.formFields.empty)$action.restFormParams#end)
+    public String ${action.triggerName}(#if (!$action.formFields.empty)$params#end)
 #end
         throws Throwable
     {
@@ -245,12 +251,27 @@ $action.trigger.getDocumentation("     * ")
             java.text.DateFormat ${propertyId}Format = new java.text.SimpleDateFormat("$attribute.format");
             ${field.name}.set${stringUtils.capitalize($attribute.name)}(${propertyId}Format.parse(${propertyId}));
         }
+#elseif($attribute.type.stringType)
+        if(org.apache.commons.lang3.StringUtils.isNotBlank(${propertyId})){
+            ${field.name}.set${stringUtils.capitalize($attribute.name)}(${propertyId});
+        }
 #else
         ${field.name}.set${stringUtils.capitalize($attribute.name)}($propertyId);
 #end
 #end
 #end
+#if($field.type.dateType)
+        if(org.apache.commons.lang3.StringUtils.isNotBlank(${field.name})){
+            java.text.DateFormat ${field.name}Format = new java.text.SimpleDateFormat("$field.format");
+            this.${action.formBeanName}.set${stringUtils.capitalize($field.name)}(${field.name}Format.parse(${field.name}));
+        }
+#elseif($field.type.stringType)
+        if(org.apache.commons.lang3.StringUtils.isNotBlank(${field.name})){
+            this.${action.formBeanName}.set${stringUtils.capitalize($field.name)}($field.name);
+        }
+#else
         this.${action.formBeanName}.set${stringUtils.capitalize($field.name)}($field.name);
+#end
 #end
 #end
 #end
@@ -278,12 +299,6 @@ $action.trigger.getDocumentation("     * ")
 #foreach($param in $action.parameters)
         form.set$stringUtils.capitalize($param.name)($param.name);
 #end
-## #else
-## #foreach($field in $action.formFields)
-## #if($field.actionParameter)
-##         form.set${stringUtils.capitalize($field.name)}($field.name);
-## #end
-## #end
 #end
 #end
         //trigger method execution
@@ -301,7 +316,9 @@ $action.trigger.getDocumentation("     * ")
         populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"${viewPath}"#end,forward,form);
 #foreach($field in $action.formFields)
 #if(!$field.actionParameter)
-        models.put("$field.name", form.get${stringUtils.capitalize($field.name)}());
+        if(form.is${stringUtils.capitalize($field.name)}Set()) {
+            models.put("$field.name", form.get${stringUtils.capitalize($field.name)}());
+        }
 #end
 #end
 ## #foreach($param in $action.parameters)
@@ -320,10 +337,6 @@ $action.trigger.getDocumentation("     * ")
 #end
 #end
 #if($action.exitingInitialState)
-## #set ($forward = "$forward.substring(0, ${forward.length()})")
-## #set ($last = ${forward.length()})
-## #set ($last = $last - 2)
-## #set ($forward = ${forward.substring(0, $last)})
 #foreach ($view in $controller.useCase.views)
 #set ($viewPath = "${action.controller.restPath}/$jakartaUtils.toWebResourceName(${view.name})")
         if(forward.startsWith("${viewPath}")) {
@@ -331,10 +344,18 @@ $action.trigger.getDocumentation("     * ")
         }
        
 #end
-        return forward;
+        if(!forward.endsWith(".${facesServletExtension}")) {
+            forward = "redirect:" + forward;
+        }
+
+        return forward; // 2
 #else
 
-        return "redirect:" + forward;
+        if(!forward.endsWith(".${facesServletExtension}")) {
+            forward = "redirect:" + forward;
+        }
+
+        return forward; // 3
 #end
     }
 

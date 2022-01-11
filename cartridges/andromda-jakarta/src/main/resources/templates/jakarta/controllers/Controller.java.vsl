@@ -28,7 +28,13 @@ public interface $controller.name {
      * @throws Throwable
      * 
      */
+#if($action.tableLink)
+    @${jakartaNamespace}.ws.rs.GET
+#set($params = "$action.restQueryParams")
+#else
     @${jakartaNamespace}.ws.rs.POST
+#set($params = "$action.restFormParams")
+#end
     @${jakartaNamespace}.ws.rs.Path("$jakartaUtils.toWebResourceName(${action.triggerName})")
 #if (!$action.formFields.empty)
     @${jakartaNamespace}.ws.rs.Consumes(
@@ -39,7 +45,7 @@ public interface $controller.name {
         }
     )
 #end
-    public String ${action.triggerName}(#if (!$action.formFields.empty)$action.restFormParams#end)
+    public String ${action.triggerName}(#if (!$action.formFields.empty)$params#end)
             throws Throwable;
 #else
     /**

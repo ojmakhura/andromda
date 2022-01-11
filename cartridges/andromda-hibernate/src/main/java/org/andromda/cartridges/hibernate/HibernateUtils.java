@@ -1,14 +1,19 @@
 package org.andromda.cartridges.hibernate;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashSet;
+import java.util.List;
+
 import org.andromda.cartridges.hibernate.metafacades.HibernateGlobals;
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.Service;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Contains utilities used within the Hibernate cartridge.
@@ -323,5 +328,38 @@ public class HibernateUtils
     public static String getDate()
     {
         return DF.format(new Date());
+    }
+
+    /**
+     * This is a hack for using Criteria in hibernate. We want to split
+     * the attribute name from 
+     * @param attributeName
+     * @return
+     */
+    public static List<String> getAttributeNameList(String attributeName) {
+
+        List<String> strs = new ArrayList<>();
+
+        if(StringUtils.isNotBlank(attributeName))
+        {
+            String[] splits = attributeName.split(" ");
+            for (String str : splits) {
+                strs.add(str);
+            }
+        }
+        return strs;
+    }
+
+    public static boolean isNumber(ClassifierFacade obj) {
+
+        if(obj.isIntegerType() ||
+            obj.isDoubleType() ||
+            obj.isLongType() ||
+            obj.isFloatType()) {
+
+            return true;
+        }
+
+        return false;
     }
 }

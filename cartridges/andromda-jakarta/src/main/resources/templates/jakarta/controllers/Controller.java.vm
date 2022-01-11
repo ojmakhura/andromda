@@ -31,6 +31,22 @@ __${transition.operationCall.name}(#if (!$action.formFields.empty)form#end);
 ${transition.target.actionMethodName}(#if (!$action.formFields.empty)form#end);
 #end
 #end
+
+#macro (processTransition $transition)
+#if (!$transition)
+null;
+#elseif ($transition.enteringFinalState)
+#set($targetController = $transition.target.targetControllerFullyQualifiedName)
+#set($targetControllerBeanName = $transition.target.targetControllerBeanName)
+#if($targetController)"${transition.target.targetElement.controller.restPath}#if($deploymentServer == "wildfly")/start#end"#else closeDialog()#end;
+#elseif ($transition.enteringView)
+"${transition.target.path}.${facesServletExtension}";
+#elseif ($transition.enteringDecisionPoint)
+__${transition.operationCall.name}(#if (!$action.formFields.empty)form#end);
+#else
+${transition.target.actionMethodName}(#if (!$action.formFields.empty)form#end);
+#end
+#end
 ##
 ##   This macro generates code to save any success messages and warning messages
 ##

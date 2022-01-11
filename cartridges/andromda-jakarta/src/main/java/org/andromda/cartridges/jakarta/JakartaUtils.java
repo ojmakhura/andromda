@@ -1339,4 +1339,17 @@ public class JakartaUtils
 		
 		return elementSet;
 	}
+
+    public static boolean isNumber(ClassifierFacade obj) {
+
+        if(obj.isIntegerType() ||
+            obj.isDoubleType() ||
+            obj.isLongType() ||
+            obj.isFloatType()) {
+
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -52,7 +52,7 @@ ${ident}</select>
 #if ($multiSelect)
 #set ($selectBoxType = "selectManyMenu")
 #end
-${ident}<h:$selectBoxType id="$propertyId" class="form-control" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" readonly="$parameter.readOnly">
+${ident}<h:$selectBoxType id="$propertyId" name="${propertyId}" class="form-control" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" readonly="$parameter.readOnly">
 #if(!$parameter.required)
 ${ident}   <f:selectItem itemLabel=""/>
 #end
@@ -75,7 +75,7 @@ ${ident}<input id="$propertyId" class="form-control" type="password" name="${pro
 #elseif ($parameter.inputTextarea)
 ${ident}<textarea id="$propertyId" name="${propertyId}" value="#{${formValuePropertyName}}"#if($parameter.readOnly) readonly#end#if(${parameter.required}) required="true"#end/>
 #elseif ($parameter.inputTable)
-${ident}<h:dataTable id="$propertyId" var="row" value="#{${formValuePropertyName}}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" emptyMessage="#{messages['empty.result.set']}">
+${ident}<h:dataTable id="$propertyId" name="${propertyId}" var="row" value="#{${formValuePropertyName}}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" emptyMessage="#{messages['empty.result.set']}">
 #if($parameter.inputTableIdentifierColumns)
 #foreach($column in $parameter.inputTableIdentifierColumns.split(","))
 #set($messageKey = "$stringUtils.toResourceMessageKey($column)")
