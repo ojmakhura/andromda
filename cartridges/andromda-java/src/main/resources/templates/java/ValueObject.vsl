@@ -92,9 +92,9 @@ $class.getDocumentation(" * ")
 #foreach($annotation in $class.additionalAnnotations)
 @$annotation
 #end
-## #if($useJakartaFormParam)
-## @${jakartaNamespace}.enterprise.context.RequestScoped
-## #end
+#if($useJakartaFormParam)
+@${jakartaNamespace}.inject.Named("$stringUtils.uncapitalize($class.name)")
+#end
 public#if($class.leaf) final#end#if($class.abstract) abstract#end class $umlUtils.getClassDeclaration($class, $className, $enableTemplating)
 #if($class.generalization)
 ## Class should only extend another ValueObject, which already declares Serializable and Comparable
@@ -133,7 +133,7 @@ $parameter.getDocumentation("     * ")
      */
 #if($useJakartaFormParam)
     @${jakartaNamespace}.ws.rs.FormParam("$parameter.name")
-    @${jakartaNamespace}.ws.rs.QueryParam("$attribute.name")
+    //@${jakartaNamespace}.ws.rs.QueryParam("$attribute.name")
 #end
     protected $returnType $parameter.name#if (!$parameter.many && $parameter.defaultValuePresent) = ${parameter.defaultValue}#end;
 
@@ -229,7 +229,7 @@ $attribute.getDocumentation("     * ")
 #else
 #if(!$attribute.many && !$attribute.type.collectionType)
     @${jakartaNamespace}.ws.rs.FormParam("$attribute.name")
-    @${jakartaNamespace}.ws.rs.QueryParam("$attribute.name")
+    //@${jakartaNamespace}.ws.rs.QueryParam("$attribute.name")
 #end
 #end
 #end

@@ -69,7 +69,7 @@ ${ident}<input id="$propertyId" class="form-control" type="radio" name="${proper
 ##${ident}<f:selectItems value="#{${formName}.${backingListName}}" />
 ${ident}</input>
 #elseif ($parameter.plainText)
-${ident}<input id="$propertyId" class="form-control" type="text" name="${propertyId}" value="#{${formValuePropertyName}}"#if($parameter.readOnly) readonly#end#if(${parameter.required}) required="true"#end/>
+${ident}<input id="$propertyId" class="form-control" #if($jakartaUtils.isNumber($parameter.type))"number"#else"text"#end name="${propertyId}" value="#{${formValuePropertyName}}"#if($parameter.readOnly) readonly#end#if(${parameter.required}) required="true"#end/>
 #elseif ($parameter.inputSecret)
 ${ident}<input id="$propertyId" class="form-control" type="password" name="${propertyId}" value="#{${formValuePropertyName}}"#if($parameter.readOnly) readonly#end#if(${parameter.required}) required="true"#end/>
 #elseif ($parameter.inputTextarea)
@@ -101,6 +101,6 @@ ${ident}    </h:column>
 #end
 ${ident}</h:dataTable>
 #else
-${ident}<input id="$propertyId" class="form-control" type="text" name="${propertyId}" value="#{${formValuePropertyName}}"#if($parameter.readOnly) readonly#end#if(${parameter.required}) required="true"#end/>
+${ident}<input id="$propertyId" class="form-control" type=#if($jakartaUtils.isNumber($parameter.type))"number"#else"text"#end name="${propertyId}" value="#{${formValuePropertyName}}"#if($parameter.readOnly) readonly#end#if(${parameter.required}) required="true"#end/>
 #end
 #end

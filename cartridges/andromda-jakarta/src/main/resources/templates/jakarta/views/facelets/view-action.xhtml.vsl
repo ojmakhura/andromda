@@ -6,8 +6,8 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 #set($formName = $action.formBeanName)
-    <form id="${formName}" name="${formName}" role="form" method="POST" 
-            action="#{request.contextPath}${servletPath}${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.triggerName})">
+    <form id="${formName}" name="${formName}" role="form" method="post"
+                action="#{request.contextPath}${servletPath}${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.triggerName})">
 #if ($action.hyperlink)
         <a href="#" id="${action.triggerName}Action" action="#{${action.controller.beanName}.${action.triggerName}}" immediate="true" ajax="false">
             <label id="${action.triggerName}ActionMessage" value="#{messages['$action.messageKey']}"/>
@@ -47,4 +47,50 @@
         </button>
 #end
     </form>
+    <script>
+        function ${formName}Submit(event) {
+        // Prevent the form from submitting.
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = {};
+
+#foreach ($parameter in $action.parameters)
+#if (!$parameter.complex && !$parameter.inputHidden)
+            data["$parameter.name"] = formData.get("$parameter.name");
+#else
+            data["${parameter.name}"] = {};
+#foreach ($attribute in $parameter.attributes)
+#if(!$attribute.inputHidden && !$attribute.inputHidden)
+#if ($attribute.backingListName)
+#if ($parameter.type.hasStereotype('Entity'))
+#set ($propertyId = $attribute.getFormPropertyId($parameter))
+#set ($valuePropertyName = ${attribute.getFormPropertyName($parameter)})
+#else
+#set ($propertyId = $attribute.name)
+#set ($valuePropertyName = $attribute.name)
+#end
+#set ($backingListName = $attribute.backingListName)
+#set ($backingValueName = $attribute.backingValueName)
+#else
+#set ($propertyId = $attribute.getFormPropertyId($parameter))
+#set ($valuePropertyName = ${attribute.getFormPropertyName($parameter)})
+#set ($backingListName = ${attribute.getBackingListName($parameter)})
+#set ($backingValueName = ${attribute.getBackingValueName($parameter)})
+#end
+            data["${parameter.name}"]["$attribute.name"] = formData.get("$attribute.name")
+#end
+#end
+#end
+#end
+            var xmlhttp = new XMLHttpRequest();
+            // open request
+            xhr.open('POST', '#{request.contextPath}${servletPath}${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.triggerName})');
+
+            // set `Content-Type` header
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+             // send rquest with JSON payload
+            xhr.send(JSON.stringify(data));
+        }
+    </script>
 </ui:composition>

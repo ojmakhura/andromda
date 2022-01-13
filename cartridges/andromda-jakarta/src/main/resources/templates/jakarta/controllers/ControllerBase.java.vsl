@@ -248,8 +248,10 @@ $action.trigger.getDocumentation("     * ")
 #end
 #if($attribute.type.dateType)
         if(org.apache.commons.lang3.StringUtils.isNotBlank(${propertyId})){
+            java.text.DateFormat defaultFormat = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+            java.util.Date tmpDate = defaultFormat.parse(motsheloVOLastUpdate);
             java.text.DateFormat ${propertyId}Format = new java.text.SimpleDateFormat("$attribute.format");
-            ${field.name}.set${stringUtils.capitalize($attribute.name)}(${propertyId}Format.parse(${propertyId}));
+            ${field.name}.set${stringUtils.capitalize($attribute.name)}(${propertyId}Format.parse(${propertyId}Format.format(tmpDate)));
         }
 #elseif($attribute.type.stringType)
         if(org.apache.commons.lang3.StringUtils.isNotBlank(${propertyId})){
