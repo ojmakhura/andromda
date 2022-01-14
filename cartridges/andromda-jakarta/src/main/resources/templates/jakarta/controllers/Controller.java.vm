@@ -1,36 +1,36 @@
 ##
 ##  This macro determines what to do when processing a transition
 ##
-#macro (processTransition $transition)
-#if (!$transition)
-null;
-#elseif ($transition.enteringFinalState)
-#set($targetController = $transition.target.targetControllerFullyQualifiedName)
-#set($targetControllerBeanName = $transition.target.targetControllerBeanName)
-#if($targetController)
-#set($tmp = $controllers.add($transition.target.targetElement.controller))
-#if($targetControllerBeanName.equals($controller.beanName))
-#set($targetControllerBeanName = "this")
-"${transition.target.targetElement.controller.restPath}#if($deploymentServer == "wildfly")/start#end";
-#else
-#if(${transition.target.targetElement})
-"${transition.target.targetElement.controller.restPath}#if($deploymentServer == "wildfly")/start#end";
-#else
-"";
-#end
-#end
-#else 
-closeDialog();
-#end
-#elseif ($transition.enteringView)
-#set ($restPath = "${transition.target.useCase.controller.restPath}/${jakartaUtils.toWebResourceName(${transition.target.name})}")
-"${restPath}"; 
-#elseif ($transition.enteringDecisionPoint)
-__${transition.operationCall.name}(#if (!$action.formFields.empty)form#end);
-#else
-${transition.target.actionMethodName}(#if (!$action.formFields.empty)form#end);
-#end
-#end
+## #macro (processTransition $transition)
+## #if (!$transition)
+## null;
+## #elseif ($transition.enteringFinalState)
+## #set($targetController = $transition.target.targetControllerFullyQualifiedName)
+## #set($targetControllerBeanName = $transition.target.targetControllerBeanName)
+## #if($targetController)
+## #set($tmp = $controllers.add($transition.target.targetElement.controller))
+## #if($targetControllerBeanName.equals($controller.beanName))
+## #set($targetControllerBeanName = "this")
+## "${transition.target.targetElement.controller.restPath}#if($deploymentServer == "wildfly")/start#end";
+## #else
+## #if(${transition.target.targetElement})
+## "${transition.target.targetElement.controller.restPath}#if($deploymentServer == "wildfly")/start#end";
+## #else
+## "";
+## #end
+## #end
+## #else 
+## closeDialog();
+## #end
+## #elseif ($transition.enteringView)
+## #set ($restPath = "${transition.target.useCase.controller.restPath}/${jakartaUtils.toWebResourceName(${transition.target.name})}")
+## "${restPath}"; 
+## #elseif ($transition.enteringDecisionPoint)
+## __${transition.operationCall.name}(#if (!$action.formFields.empty)form#end);
+## #else
+## ${transition.target.actionMethodName}(#if (!$action.formFields.empty)form#end);
+## #end
+## #end
 
 #macro (processTransition $transition)
 #if (!$transition)
