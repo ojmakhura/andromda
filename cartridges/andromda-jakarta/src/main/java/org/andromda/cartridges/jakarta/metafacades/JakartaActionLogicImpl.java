@@ -803,7 +803,7 @@ public class JakartaActionLogicImpl
                             }
                         }
 
-                        if (attr.getType().isDateType()) {
+                        if (attr.getType().isDateType() || JakartaUtils.isNumber(attr.getType())) {
                             builder.append("String");
                         } else {
                             builder.append(attr.getType().getFullyQualifiedName());
@@ -838,7 +838,7 @@ public class JakartaActionLogicImpl
                         }
                     }
 
-                    if (param.getType().isDateType()) {
+                    if (param.getType().isDateType() || JakartaUtils.isNumber(param.getType())) {
                         builder.append("String");
                     } else {
                         builder.append(param.getType().getFullyQualifiedName());
@@ -890,7 +890,7 @@ public class JakartaActionLogicImpl
                             builder.append("\") ");
                         }
 
-                        if (attr.getType().isDateType()) {
+                        if (attr.getType().isDateType() || JakartaUtils.isNumber(attr.getType())) {
                             builder.append("String");
                         } else {
                             builder.append(attr.getType().getFullyQualifiedName());
@@ -907,7 +907,7 @@ public class JakartaActionLogicImpl
                     builder.append("@jakarta.ws.rs.QueryParam(\"");
                     builder.append(param.getName());
                     builder.append("\") ");
-                    if (param.getType().isDateType()) {
+                    if (param.getType().isDateType() || JakartaUtils.isNumber(param.getType())) {
                         builder.append("String");
                     } else {
                         builder.append(param.getType().getFullyQualifiedName());

@@ -257,10 +257,27 @@ $action.trigger.getDocumentation("     * ")
         if(org.apache.commons.lang3.StringUtils.isNotBlank(${propertyId})){
             ${field.name}.set${stringUtils.capitalize($attribute.name)}(${propertyId});
         }
+#elseif($jakartaUtils.isNumber($attribute.type))
+        if(org.apache.commons.lang3.StringUtils.isNotBlank(${propertyId})){
+            $attribute.type.name ${propertyId}Value = ${attribute.type.name}.parse#if($attribute.type.integerType)Int#else${attribute.type.name}#end(${propertyId});
+            ${field.name}.set${stringUtils.capitalize($attribute.name)}(${propertyId}Value);
+        }
 #else
         ${field.name}.set${stringUtils.capitalize($attribute.name)}($propertyId);
 #end
+        
 #end
+        this.${action.formBeanName}.set${stringUtils.capitalize($field.name)}($field.name);
+        
+#else
+#if ($field.backingListName)
+#if ($field.type.hasStereotype('Entity'))
+#set ($propertyId = $attribute.getFormPropertyId($field))
+#else
+#set ($propertyId = $field.name)
+#end
+#else
+#set ($propertyId = $attribute.getFormPropertyId($field))
 #end
 #if($field.type.dateType)
         if(org.apache.commons.lang3.StringUtils.isNotBlank(${field.name})){
@@ -271,8 +288,15 @@ $action.trigger.getDocumentation("     * ")
         if(org.apache.commons.lang3.StringUtils.isNotBlank(${field.name})){
             this.${action.formBeanName}.set${stringUtils.capitalize($field.name)}($field.name);
         }
+#elseif($jakartaUtils.isNumber($field.type))
+        if(org.apache.commons.lang3.StringUtils.isNotBlank(${propertyId})){
+            $field.type.name ${propertyId}Value = ${field.type.name}.parse#if($field.type.integerType)Int#else${field.type.name}#end(${propertyId});
+            this.${action.formBeanName}.set${stringUtils.capitalize($field.name)}(${propertyId}Value);
+        }
 #else
         this.${action.formBeanName}.set${stringUtils.capitalize($field.name)}($field.name);
+#end
+// ggr
 #end
 #end
 #end
