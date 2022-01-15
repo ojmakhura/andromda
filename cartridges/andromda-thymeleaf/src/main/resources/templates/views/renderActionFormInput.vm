@@ -60,10 +60,10 @@ ${ident}<input type="radio" id="$propertyId" class="form-control" th:field="*{${
 ${ident}    <option th:each="${formValuePropertyName} : ${${backingListName}}" th:value="${${formValuePropertyName}}" th:text="${${formValuePropertyName}}"></option>
 ${ident}</input>
 #elseif ($parameter.plainText)
-${ident}<input id="$propertyId" class="form-control" type="text" name="$parameter.name" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
+${ident}<input id="$propertyId" class="form-control" type=#if($jakartaUtils.isNumber($parameter.type))"number"#else"text"#end name="$parameter.name" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
 #elseif ($parameter.inputSecret)
 ${ident}<input id="$propertyId" class="form-control" type="password" name="$parameter.name" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
 #else
-${ident}<input id="$propertyId" class="form-control" type="text" name="$parameter.name" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
+${ident}<input id="$propertyId" class="form-control" type=#if($jakartaUtils.isNumber($parameter.type))"number"#else"text"#end name="$parameter.name" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
 #end
 #end

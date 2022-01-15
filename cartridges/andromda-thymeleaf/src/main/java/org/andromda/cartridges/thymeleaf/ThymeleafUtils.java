@@ -1301,6 +1301,7 @@ public class ThymeleafUtils
         }
         return simple;
     }
+    
     /**
      * Creates a fully qualified name from the given <code>packageName</code>, <code>name</code>, and
      * <code>suffix</code>.
@@ -1339,4 +1340,17 @@ public class ThymeleafUtils
 		
 		return elementSet;
 	}
+
+    public static boolean isNumber(ClassifierFacade obj) {
+
+        if(obj.isIntegerType() ||
+            obj.isDoubleType() ||
+            obj.isLongType() ||
+            obj.isFloatType()) {
+
+            return true;
+        }
+
+        return false;
+    }
 }
