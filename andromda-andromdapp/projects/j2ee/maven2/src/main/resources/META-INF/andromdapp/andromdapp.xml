@@ -248,19 +248,19 @@
 		<!-- Spring REST Webservices -->
         <mapping>
             <from>springws/SpringWSApplication.java.vsl</from>
-            <to>springws/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WSApplication.java.vsl</to>
+            <to>springws/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringWebApplication.java.vsl</to>
         </mapping>
         <mapping>
             <from>springws/SpringWSApplicationTests.java.vsl</from>
-            <to>springws/src/test/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WSApplicationTests.java.vsl</to>
+            <to>springws/src/test/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringWebApplicationTests.java.vsl</to>
         </mapping>
         <mapping>
             <from>springws/SpringWSConfiguration.java.vsl</from>
-            <to>springws/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WSConfiguration.java.vsl</to>
+            <to>springws/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringWebConfiguration.java.vsl</to>
         </mapping>
         <mapping>
             <from>springws/application.properties.vsl</from>
-            <to>springws/target/src/main/resources/application.properties.vsl</to>
+            <to>springws/src/main/resources/application.properties.vsl</to>
         </mapping>
 
         <!-- Spring Thymeleaf Frontend -->
