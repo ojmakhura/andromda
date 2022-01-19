@@ -270,7 +270,7 @@ public class WebServiceOperationLogicImpl
         String path = (String)this.findTaggedValue(WebServiceGlobals.REST_PATH);
 
         if(StringUtils.isBlank(path)) {
-            return null;
+            return "";
         }
 
         StringBuilder pathBuffer = new StringBuilder();
