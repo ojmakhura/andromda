@@ -225,10 +225,10 @@ $attribute.getDocumentation("     * ")
 #end
 #if($useJakartaFormParam)
 #if(!$attribute.many && $attribute.type.attributes.size() > 0 && !$attribute.type.enumeration)
-    @${jakartaNamespace}.ws.rs.BeanParam
+    //@${jakartaNamespace}.ws.rs.BeanParam
 #else
 #if(!$attribute.many && !$attribute.type.collectionType)
-    @${jakartaNamespace}.ws.rs.FormParam("$attribute.name")
+    //@${jakartaNamespace}.ws.rs.FormParam("$attribute.name")
     //@${jakartaNamespace}.ws.rs.QueryParam("$attribute.name")
 #end
 #end

@@ -37,10 +37,10 @@ public class $action.formImplementationName
 #end
 #if($field.actionParameter)
 #if($field.complex)
-    @${jakartaNamespace}.ws.rs.BeanParam
+    //@${jakartaNamespace}.ws.rs.BeanParam
 #else
-    @${jakartaNamespace}.ws.rs.FormParam("$field.name")
-    @${jakartaNamespace}.ws.rs.QueryParam("$field.name")
+    //@${jakartaNamespace}.ws.rs.FormParam("$field.name")
+    //@${jakartaNamespace}.ws.rs.QueryParam("$field.name")
 #end
 #end
     private $fieldTypeName $field.name;
