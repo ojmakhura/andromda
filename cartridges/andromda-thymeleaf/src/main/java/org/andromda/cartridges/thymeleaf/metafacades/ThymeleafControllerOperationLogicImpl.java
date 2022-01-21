@@ -378,11 +378,13 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestPath() {
-        String path = (String)this.findTaggedValue(ThymeleafGlobals.REST_PATH);
+        String path = ((String)this.findTaggedValue(ThymeleafGlobals.REST_PATH)).strip();
         StringBuilder pathBuffer = new StringBuilder();
-        if (!this.isRest() || StringUtils.isBlank(path) || path.equals(DEFAULT))
-        {
-            path = this.getName().toLowerCase();
+
+        if(path != null && path.equals("")) {
+            path = "";
+        } else if (!this.isRest() || StringUtils.isBlank(path) || path.equals(DEFAULT)) {
+            this.getName().toLowerCase();
         }
         
         if(path.startsWith("/")) {
@@ -418,11 +420,11 @@ public class ThymeleafControllerOperationLogicImpl
             }
         }
 
-        if(pathBuffer.length() > 0) {
-            pathBuffer.insert(0, QUOTE);
-            pathBuffer.insert(1, SLASH);
-            pathBuffer.append(QUOTE);
-        }
+        // if(pathBuffer.length() > 0) {
+        //     pathBuffer.insert(0, QUOTE);
+        //     pathBuffer.insert(1, SLASH);
+        //     pathBuffer.append(QUOTE);
+        // }
 
         return pathBuffer.toString();
     }

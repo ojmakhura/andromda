@@ -132,20 +132,23 @@ $action.trigger.getDocumentation("     * ")
      */
 #if($action.exitingInitialState)
 #set ($useCaseParams = "")
+#set ($fieldPath = "")
 #foreach($field in $action.parameters)
 #if($useCaseParams.length() > 0)
 #set ($useCaseParams = "$useCaseParams, ")
 #end
 #if(!$field.complex)
 #set ( $d = '"')
-#set ($useCaseParams = "$useCaseParams @org.springframework.web.bind.annotation.PathVariable($d$field.name$d) $field.type.fullyQualifiedName $field.name")
+#set ($useCaseParams = "$useCaseParams @org.springframework.web.bind.annotation.PathVariable(name = $d$field.name$d, required = false) $field.type.fullyQualifiedName $field.name")
+#set ($fieldPath = "$fieldPath/{$field.name}")
 #else
 #set ($useCaseParams = "$useCaseParams $field.type.fullyQualifiedName $field.name")
+#set ($fieldPath = "$fieldPath/{$field.name}")
 #end
 #end
-    @org.springframework.web.bind.annotation.GetMapping() 
+    @org.springframework.web.bind.annotation.GetMapping({$d$d, $d$fieldPath$d}) 
     @Override
-    public String startUseCase($useCaseParams)
+    public String startUseCase($useCaseParams, org.springframework.ui.Model model)
 #else
 #if($action.tableLink)
     @org.springframework.web.bind.annotation.GetMapping({"$thymeleafUtils.toWebResourceName(${action.triggerName})"})
@@ -188,6 +191,9 @@ $action.trigger.getDocumentation("     * ")
 #end
         //trigger method execution
         ${action.triggerMethodName}(#if($formPopulationOperationRequired)form#end);
+#if ($formPopulationOperationRequired)
+        model.addAttribute("$action.formBeanName", form);
+#end
 
 #if($action.exitingInitialState)
 #set($forward = "#processTransition($action)")
@@ -202,7 +208,7 @@ $action.trigger.getDocumentation("     * ")
 #foreach($field in $action.formFields)
 #if(!$field.actionParameter)
         if(form.is${stringUtils.capitalize($field.name)}Set()) {
-            models.put("$field.name", form.get${stringUtils.capitalize($field.name)}());
+            model.addAttribute("$field.name", form.get${stringUtils.capitalize($field.name)}());
         }
 #end
 #end
@@ -214,7 +220,7 @@ $action.trigger.getDocumentation("     * ")
         {
             if(forward.startsWith("${viewPath}"))
             {
-                forward = get$stringUtils.capitalize($stringUtils.deleteWhitespace(${action.source.name}))(); //the destination form is the same, stay on the current view
+                forward = get$stringUtils.capitalize($stringUtils.deleteWhitespace(${action.source.name}))(model); //the destination form is the same, stay on the current view
                 return forward;
             }
         }
@@ -225,22 +231,22 @@ $action.trigger.getDocumentation("     * ")
 #foreach ($view in $controller.useCase.views)
 #set ($viewPath = "${action.controller.restPath}/$thymeleafUtils.toWebResourceName(${view.name})")
         if(forward.startsWith("${viewPath}")) {
-            return "${view.path}.${facesServletExtension}";
+            return "${view.path}.html";
         }
        
 #end
-        if(!forward.endsWith(".${facesServletExtension}")) {
+        if(!forward.endsWith(".html")) {
             forward = "redirect:" + forward;
         }
 
-        return forward; // 2
+        return forward;
 #else
 
-        if(!forward.endsWith(".${facesServletExtension}")) {
+        if(!forward.endsWith(".html")) {
             forward = "redirect:" + forward;
         }
 
-        return forward; // 3
+        return forward;
 #end
     }
 
@@ -392,9 +398,9 @@ $decisionTransition.getDocumentation("     * ")
 #end
 #foreach ($view in $controller.useCase.views)
     @org.springframework.web.bind.annotation.GetMapping("$thymeleafUtils.toWebResourceName(${view.name})")
-    public String get$stringUtils.capitalize($stringUtils.deleteWhitespace(${view.name}))() {
+    public String get$stringUtils.capitalize($stringUtils.deleteWhitespace(${view.name}))(org.springframework.ui.Model model) {
 
-        return "${view.path}.${facesServletExtension}";
+        return "${view.path}.html";
     }
 
 #end
@@ -427,7 +433,7 @@ $decisionTransition.getDocumentation("     * ")
     protected $targetElement.fullyQualifiedName ${sessionObjectRef.getterName}()
     {
         $targetElement.fullyQualifiedName object = null;
-        final $thymeleafUtils.sessionClassName session = ${managedBeansPackage}.JakartaUtils.getSession(true);
+        final $thymeleafUtils.sessionClassName session = ${managedBeansPackage}.ThymeleafUtils.getSession(true);
 
         Object attribute = session.getAttribute("$sessionObjectRef.name");
         if (attribute instanceof $targetElement.fullyQualifiedName)
@@ -463,7 +469,7 @@ $decisionTransition.getDocumentation("     * ")
      */
     protected void ${sessionObjectRef.setterName}($targetElement.fullyQualifiedName object, boolean createSession)
     {
-        final $thymeleafUtils.sessionClassName session = ${managedBeansPackage}.JakartaUtils.getSession(createSession);
+        final $thymeleafUtils.sessionClassName session = ${managedBeansPackage}.ThymeleafUtils.getSession(createSession);
         if (session != null)
         {
             session.setAttribute("$sessionObjectRef.name", object);
@@ -481,7 +487,7 @@ $decisionTransition.getDocumentation("     * ")
      */
     protected void remove${stringUtils.capitalize($sessionObjectRef.name)}()
     {
-        final $thymeleafUtils.sessionClassName session = ${managedBeansPackage}.JakartaUtils.getSession(false);
+        final $thymeleafUtils.sessionClassName session = ${managedBeansPackage}.ThymeleafUtils.getSession(false);
         if (session != null)
         {
             Object attribute = session.getAttribute("$sessionObjectRef.name");

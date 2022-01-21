@@ -315,7 +315,7 @@ public class ThymeleafControllerLogicImpl
 
         if (!(this.getRestCount()>0) || StringUtils.isBlank(path) || path.equals(DEFAULT))
         {
-            path = SLASH + this.getName().toLowerCase() + SLASH;
+            path = ThymeleafUtils.toWebResourceName(this.getName());
         }
         else
         {
@@ -326,6 +326,14 @@ public class ThymeleafControllerLogicImpl
             if (!path.endsWith(QUOTE) || path.length()<2)
             {
                 path = path;
+            }
+        
+            if(path.startsWith(SLASH)) {
+                path = path.substring(1);
+            }
+            
+            if(path.endsWith(SLASH)) {
+                path = path.substring(0, path.length() - 1);
             }
         }
         return path;

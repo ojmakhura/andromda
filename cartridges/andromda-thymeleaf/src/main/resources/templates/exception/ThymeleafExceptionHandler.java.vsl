@@ -15,7 +15,7 @@ class ThymeleafExceptionHandler
      *
      * @param parent the parent ${jakartaNamespace}.faces.context.ExceptionHandler
      */
-    public JhymeleafExceptionHandler(${jakartaNamespace}.faces.context.ExceptionHandler parent) 
+    public ThymeleafExceptionHandler(${jakartaNamespace}.faces.context.ExceptionHandler parent) 
     {
         this.parent = parent;
     }

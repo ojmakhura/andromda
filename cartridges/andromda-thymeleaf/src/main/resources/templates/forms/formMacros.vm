@@ -98,13 +98,13 @@
 #set ($backingListMethod = $stringUtils.capitalize($backingListName))
 
     /**
-     * @return backingList java.util.Collection<${jakartaNamespace}.faces.model.SelectItem>
+     * @return backingList java.util.Collection<${managedBeansPackage}.SelectItem>
      */
-    public java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> get${backingListMethod}();
+    public java.util.Collection<${managedBeansPackage}.SelectItem> get${backingListMethod}();
 
     /**
      * @param ${backingListName}In
      */
-    public void set${backingListMethod}(java.util.Collection<${jakartaNamespace}.faces.model.SelectItem> ${backingListName}In);
+    public void set${backingListMethod}(java.util.Collection<${managedBeansPackage}.SelectItem> ${backingListName}In);
     
 #end

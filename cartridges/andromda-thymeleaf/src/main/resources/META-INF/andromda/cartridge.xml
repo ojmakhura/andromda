@@ -160,6 +160,20 @@
     </template>
 
     <template
+        path="templates/controllers/ControllerBase.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndController">
+                    <property name="useCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
         path="templates/controllers/Controller.java.vsl"
         outputPattern="$generatedFile"
         outlet="controllers"
