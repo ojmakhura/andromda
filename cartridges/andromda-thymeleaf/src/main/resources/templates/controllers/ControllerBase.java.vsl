@@ -114,7 +114,7 @@ $action.trigger.getDocumentation("     * ")
      * @param form the associated form
 #end
      */
-    protected void ${action.triggerMethodName}(#if($formPopulationOperationRequired)$action.fullyQualifiedFormImplementationName form#end)
+    protected void ${action.triggerMethodName}(#if($formPopulationOperationRequired)$action.fullyQualifiedFormImplementationName form, #{end}org.springframework.ui.Model model)
     {
         //this method can be overridden
     }
@@ -158,7 +158,7 @@ $action.trigger.getDocumentation("     * ")
 #set($params = $action.restFormParams)
 #end
     @Override
-    public String ${action.triggerName}(#if (!$action.formFields.empty)@org.springframework.web.bind.annotation.ModelAttribute $action.fullyQualifiedFormImplementationName $action.formBeanName#end, org.springframework.ui.Model model)
+    public String ${action.triggerName}(#if (!$action.formFields.empty)@org.springframework.web.bind.annotation.ModelAttribute $action.fullyQualifiedFormImplementationName $action.formBeanName, #end org.springframework.ui.Model model)
 #end
         throws Throwable
     {
@@ -190,7 +190,7 @@ $action.trigger.getDocumentation("     * ")
 #end
 #end
         //trigger method execution
-        ${action.triggerMethodName}(#if($formPopulationOperationRequired)form#end);
+        ${action.triggerMethodName}(#if($formPopulationOperationRequired)form#end, model);
 #if ($formPopulationOperationRequired)
         model.addAttribute("$action.formBeanName", form);
 #end
@@ -260,10 +260,10 @@ $actionState.getDocumentation("     * ")
      * @return the forward view
      * @throws Throwable
      */
-    protected String ${actionState.actionMethodName}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form#end)
+    protected String ${actionState.actionMethodName}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form, #end org.springframework.ui.Model model)
         throws Throwable
     {
-        String forward = null;
+        String forward = null; //22 
 #if ($actionState.controllerCalls.empty && $actionState.serviceCalls.empty)
 ## TODO UMLMETA-106 uml22 StateVertex outgoing FinalState target returns null/unknown for Exception transition.
 ##        // actionState=$actionState controllerCalls=$actionState.controllerCalls.size()
@@ -295,6 +295,13 @@ ${ident}        $controllerCall.formCall;
 ${ident}        // we pass an empty form implementation to the controller, we know there are no parameters on this operation because the
 ${ident}        // cartridge would have issued a model validation error
 ${ident}        ${controllerCall.name}(new ${controllerCall.interfaceName}());
+#end
+#end
+#if($actionState.forward.enteringView)
+#foreach($act in $actionState.forward.target.formActions)
+#if(!$act.actionFormFields.empty)
+${ident}        model.addAttribute("$act.formBeanName", this.$act.formBeanName);
+#end
 #end
 #end
 ${ident}        forward = #processTransition($actionState.forward)

@@ -21,6 +21,29 @@ public class $action.formImplementationName
 #foreach ($field in $action.formFields)
 #if ($field.defaultValuePresent)
         ${field.setterName}($field.defaultValue);
+#else
+#if($field.complex)
+#if($field.many)
+#if($field.unique)
+#set($call = "java.util.HashSet<>()")
+#else
+#set($call = "java.util.ArrayList<>()")
+#end
+#elseif($field.type.collectionType)
+#set($call = "java.util.ArrayList<>()")
+#elseif($field.type.listType)
+#set($call = "java.util.ArrayList<>()")
+#elseif($field.type.setType)
+#set($call = "java.util.HashSet<>()")
+#elseif($field.type.mapType)
+#set($call = "java.util.HashMap<>()")
+#elseif($field.type.arrayType)
+#set($call = "${field.type.fullyQualifiedName}[20]")
+#else
+#set($call = "${field.type.fullyQualifiedName}()")
+#end
+        ${field.setterName}(new $call);
+#end
 #end
 #end
     }

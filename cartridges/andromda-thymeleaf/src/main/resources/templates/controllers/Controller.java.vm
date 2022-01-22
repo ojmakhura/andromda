@@ -25,9 +25,9 @@ closeDialog();
 #elseif ($transition.enteringView)
 "${transition.target.path}.${htmlFileExtension}"; 
 #elseif ($transition.enteringDecisionPoint)
-__${transition.operationCall.name}(#if (!$action.formFields.empty)form#end);
+__${transition.operationCall.name}(#if (!$action.formFields.empty)form#end, model);
 #else
-${transition.target.actionMethodName}(#if (!$action.formFields.empty)form#end);
+${transition.target.actionMethodName}(#if (!$action.formFields.empty)form#end, model);
 #end
 #end
 ##

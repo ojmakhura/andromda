@@ -3,8 +3,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 #set($formName = $action.formBeanName)
     <form id="${formName}" name="${formName}" 
-        role="form" method="POST" th:object="${formName}"
-        th:action="#{request.contextPath}/app/${action.controller.restPath}/$thymeleafUtils.toWebResourceName(${action.triggerName})">
+        role="form" method="POST" th:object="${${formName}}"
+        th:action="@{${action.controller.restPath}/$thymeleafUtils.toWebResourceName(${action.triggerName})}">
 #if ($action.hyperlink)
     <a href="#" id="${action.triggerName}Action" action="#{${action.controller.beanName}.${action.triggerName}}" immediate="true" ajax="false">
         <label id="${action.triggerName}ActionMessage" value="#{messages['$action.messageKey']}"/>
@@ -39,8 +39,7 @@
 #end
 #end
 #end
-        <button type="submit" id="$triggerId" class="btn btn-lg btn-primary" value="#{messages['$action.messageKey']}">
-            #{messages['$action.messageKey']}
+        <button type="submit" id="$triggerId" class="btn btn-lg btn-primary" th:text="#{$action.messageKey}">
         </button>
 #end
     </form>

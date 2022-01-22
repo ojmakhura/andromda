@@ -74,9 +74,9 @@ public class ThymeleafControllerOperationLogicImpl
         call.append("(");
         if (!this.getFormFields().isEmpty())
         {
-            call.append("form");
+            call.append("form, ");
         }
-        call.append(")");
+        call.append("model)");
         return call.toString();
     }
 
@@ -117,9 +117,9 @@ public class ThymeleafControllerOperationLogicImpl
         signature.append(" " + this.getName() + "(");
         if (!this.getFormFields().isEmpty())
         {
-            signature.append(this.getFormName() + " form");
+            signature.append(this.getFormName() + " form, ");
         }
-        signature.append(")");
+        signature.append("org.springframework.ui.Model model)");
         return signature.toString();
     }
 
@@ -468,9 +468,9 @@ public class ThymeleafControllerOperationLogicImpl
         signature.append(" handle" + StringUtils.capitalize(this.getName()) + "(");
         if (!this.getFormFields().isEmpty())
         {
-            signature.append(this.getFormName() + " form");
+            signature.append(this.getFormName() + " form, ");
         }
-        signature.append(")");
+        signature.append("org.springframework.ui.Model model)");
         return signature.toString();
     }
 }
