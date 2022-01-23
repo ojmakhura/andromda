@@ -114,7 +114,7 @@ public interface ${entity.name}Repository extends
 #foreach($criteriaAttribute in $criteriaClass.getAttributes(true))
 ## Checking the comparator
 #if($criteriaAttribute.comparatorPresent)
-#if(${criteriaAttribute.comparatorConstant} == "LIKE_COMPARATOR")
+#if(${criteriaAttribute.comparatorConstant} == "LIKE_COMPARATOR" || ${criteriaAttribute.comparatorConstant} == "INSENTITIVE_LIKE_COMPARATOR")
 #set($comparatorArgument = "LIKE")
 #elseif(${criteriaAttribute.comparatorConstant} == "EQUAL_COMPARATOR")
 #set($comparatorArgument = "=")
@@ -145,20 +145,27 @@ public interface ${entity.name}Repository extends
 #if(${criteriaAttribute.matchModeConstant} == "EXACT")
 #set($matchModeArgument = ":$criteriaAttribute.name")
 #elseif(${criteriaAttribute.matchModeConstant} == "START")
-#set($matchModeArgument = ":$criteriaAttribute.name + '%'")
+#set($matchModeArgument = "CONCAT(:$criteriaAttribute.name, '%')")
 #elseif(${criteriaAttribute.matchModeConstant} == "END")
-#set($matchModeArgument = "'%' + :$criteriaAttribute.name")
+#set($matchModeArgument = "CONCAT('%' + :$criteriaAttribute.name)")
 #else
-#set($matchModeArgument = "'%' + :$criteriaAttribute.name + '%'")
+#set($matchModeArgument = "CONCAT('%', :$criteriaAttribute.name, '%')")
 #end
 #else
 #if(!$criteriaAttribute.type.stringType)
 #set($matchModeArgument = ":$criteriaAttribute.name")
+#set ($attrName = "${entityIdVariable}.$criteriaAttribute.attributeName")
 #else
-#set($matchModeArgument = "'%' + :$criteriaAttribute.name + '%'")
+#set($matchModeArgument = "CONCAT('%', :$criteriaAttribute.name, '%')")
 #end
 #end
-            #if($i > 1)+ "AND #else"#end(:$criteriaAttribute.name is null OR ${entityIdVariable}.$criteriaAttribute.attributeName $comparatorArgument $matchModeArgument)"
+#if($criteriaAttribute.type.stringType && $comparatorArgument == "LIKE")
+#set($matchModeArgument = "lower($matchModeArgument)")
+#set ($attrName = "lower(${entityIdVariable}.$criteriaAttribute.attributeName)")
+#else
+#set ($attrName = "${entityIdVariable}.$criteriaAttribute.attributeName")
+#end
+            #if($i > 1)+ "AND #else"#end(:$criteriaAttribute.name is null OR ${attrName} $comparatorArgument $matchModeArgument)"
 #set ($i = $i + 1)
 #end
 #else

@@ -94,6 +94,7 @@ ${ident}<th th:text="#{$column.messageKey}"></th>
 #end
 #set ($data = "$data }")
 #set ($urlParams = "")
+#set ($paramValues = "")
 #foreach ($parameter in $action.parameters)
 #if ($table.tableColumnNames.contains($parameter.name) || $table.tableAttributeNames.contains($parameter.name))
 #set ($parameterValue = "row.${parameter.name}")
@@ -104,11 +105,17 @@ ${ident}<th th:text="#{$column.messageKey}"></th>
 #set ($urlParams = "?")
 #else
 #set ($urlParams = "$urlParams&")
+#set ($paramValues = "$paramValues, ")
 #end
-#set ($urlParams = "$urlParams$parameter.name=#{$parameterValue}")
+#set ($urlParams = "$urlParams$parameter.name={$parameter.name}")
+#set ($dollar = '$')
+#set ($left = '{')
+#set ($right = '}')
+#set ($paramValues = "$paramValues${parameter.name}=$dollar$left$parameterValue$right")
+$parameterValue
 #end
                             <form method="POST" 
-                                    th:action="@{${action.controller.restPath}/$thymeleafUtils.toWebResourceName(${action.trigger.name})$urlParams}">
+                                    th:action="@{${action.controller.restPath}/$thymeleafUtils.toWebResourceName(${action.triggerName})$urlParams($paramValues)}">
                                 <button type="submit" id="${action.triggerName}Action"  th:text="#{$action.trigger.messageKey}">
                                 </button>
                             </form>

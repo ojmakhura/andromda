@@ -151,7 +151,8 @@ $action.trigger.getDocumentation("     * ")
     public String startUseCase($useCaseParams, org.springframework.ui.Model model)
 #else
 #if($action.tableLink)
-    @org.springframework.web.bind.annotation.GetMapping({"$thymeleafUtils.toWebResourceName(${action.triggerName})"})
+// $action.parameters
+    @org.springframework.web.bind.annotation.PostMapping({"$thymeleafUtils.toWebResourceName(${action.triggerName})"})
 #set($params = $action.restQueryParams)
 #else
     @org.springframework.web.bind.annotation.PostMapping("$thymeleafUtils.toWebResourceName(${action.triggerName})")

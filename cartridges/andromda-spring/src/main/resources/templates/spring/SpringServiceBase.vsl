@@ -33,6 +33,7 @@ public abstract class $service.baseName
     implements $service.fullyQualifiedName
 {
     protected org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(${service.baseName}.class);
+
 #foreach ($attribute in $service.attributes)
 #set ($typeName = $attribute.getterSetterTypeName)
     /**
@@ -83,7 +84,7 @@ $attribute.getDocumentation("     * ")
 #end
 #foreach($entityRef in $service.entityReferences)
 	@org.springframework.beans.factory.annotation.Autowired
-    private $entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName;
+    protected $entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName;
 
     /**
      * Sets the reference to <code>$entityRef.name</code>'s DAO.
@@ -102,6 +103,10 @@ $attribute.getDocumentation("     * ")
     {
         return this.$entityRef.daoName;
     }
+
+#set ($ent = $entityRef.targetElement)
+	@org.springframework.beans.factory.annotation.Autowired
+    protected ${ent.fullyQualifiedName}Repository ${stringUtils.uncapitalize($ent.name)}Repository;
 
 #end
 #foreach($destination in $service.messagingDestinations)
@@ -157,7 +162,7 @@ $attribute.getDocumentation("     * ")
 #if ($enableAnnotations && $operation.visibility != "private" && $operation.visibility != "protected")
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional(propagation = org.springframework.transaction.annotation.Propagation.REQUIRED)
+	//@org.springframework.transaction.annotation.Transactional(propagation = org.springframework.transaction.annotation.Propagation.REQUIRED)
     $operation.visibility $operation.getterSetterReturnTypeName $operation.getSignature("final")
 #if ($operation.exceptionsPresent)
         $operation.throwsClause
