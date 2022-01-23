@@ -1,3 +1,43 @@
+
+#macro(renderTableColumnNames $parameter $ident)
+${ident}<thead>
+${ident}   <tr>
+#if($parameter.inputTableIdentifierColumns)
+#foreach ($column in $parameter.inputTableIdentifierColumns.split(","))
+${ident}        <th th:text="#{$stringUtils.toResourceMessageKey(${column})}"></th>
+#end
+#else
+#foreach ($column in $parameter.type.attributes)
+${ident}        <th th:text="#{$stringUtils.toResourceMessageKey(${column.name})}"></th>
+#end
+#end
+${ident}    </tr>
+${ident}</thead>
+#end
+##==========================
+#macro(renderTableColumns $parameter $ident)
+#if($parameter.inputTableIdentifierColumns)
+#foreach ($column in $parameter.inputTableIdentifierColumns.split(","))
+#if(!$column.hidden && !$column.inputFile)
+#set ($value = "row.${column}")
+${ident}    <td id="column_${column}" th:text="${${value}}"></td>
+#end
+#end
+#else
+#foreach ($column in $parameter.type.attributes)
+#if(!$column.hidden && !$column.inputFile)
+#set($noOfColumns=$noOfColumns+1)   
+#if($column.type.enumeration)
+#set($theValue="row.${column.name}.getValue()")
+#else
+#set($theValue="row.${column.name}")
+#end
+${ident}    <td id="column_${column.name}" th:text=#if ($column.type.dateType)"${#dates.format($theValue, '$column.format')}"#else"${${theValue}}"#end  #if($rendered != "")#end></td>
+#end
+#end
+#end
+#end
+##==========================
 ##
 ## A macro that renders the appropriate action form input field
 ##
@@ -39,31 +79,79 @@ ${ident}<select #if ($multiSelect)multiple size="5"#end id="$propertyId" class="
 #if ($parameter.type.enumeration)
 #set ($enum = "T(${parameter.type.fullyQualifiedName})")
 ${ident}    <option value=""></option>
-${ident}    <option th:each="${formValuePropertyName} : ${${enum}.values()}" 
-                th:value="${${formValuePropertyName}}" th:text="${${formValuePropertyName}.value()}">
-            </option>
+${ident}    <option th:each="${parameter.name} : ${${enum}.values()}" 
+${ident}        th:value="${${parameter.name}}" th:text="${${parameter.name}.value()}">
+${ident}    </option>
 #else
 #if(!$parameter.required)
 ${ident}    <option value=""></option>
 #end
-${ident}    <option th:each="${formValuePropertyName} : ${${backingListName}}" th:value="${${formValuePropertyName}}" th:text="${${formValuePropertyName}}"></option>
+${ident}    <option th:each="${formValuePropertyName} : *{${backingListName}}" th:value="${${formValuePropertyName}.value}" th:text="${${formValuePropertyName}.label}"></option>
 #end
-${ident}    </select>
+${ident}</select>
 #elseif ($parameter.inputFile)
 ${ident}<input type="file" id="$propertyId" class="form-control" th:field="*{${formValuePropertyName}}" label="#{$parameter.messageKey}:"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
 #elseif ($parameter.inputMultibox)
 ${ident}<input id="$propertyId"  class="form-control" type="checkbox" th:field="*{${formValuePropertyName}}" label="#{$parameter.messageKey}:"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end>
-${ident}    <option th:each="${formValuePropertyName} : ${${backingListName}}" th:value="${${formValuePropertyName}}" th:text="${${formValuePropertyName}}"></option>
+${ident}    <option th:each="${formValuePropertyName} : *{${backingListName}}" th:value="${${formValuePropertyName}.value}" th:text="${${formValuePropertyName}.label}"></option>
 ${ident}</input>
 #elseif ($parameter.inputRadio)
 ${ident}<input type="radio" id="$propertyId" class="form-control" th:field="*{${formValuePropertyName}}" label="#{$parameter.messageKey}:"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end>
-${ident}    <option th:each="${formValuePropertyName} : ${${backingListName}}" th:value="${${formValuePropertyName}}" th:text="${${formValuePropertyName}}"></option>
+${ident}    <option th:each="${formValuePropertyName} : *{${backingListName}}" th:value="${${formValuePropertyName}.value}" th:text="${${formValuePropertyName}.label}"></option>
 ${ident}</input>
 #elseif ($parameter.plainText)
-${ident}<input id="$propertyId" class="form-control" type=#if($jakartaUtils.isNumber($parameter.type))"number"#else"text"#end name="$parameter.name" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
+${ident}<input id="$propertyId" class="form-control" type=#if($thymeleafUtils.isNumber($parameter.type))"number"#else"text"#end name="$parameter.name" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
 #elseif ($parameter.inputSecret)
 ${ident}<input id="$propertyId" class="form-control" type="password" name="$parameter.name" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
+#elseif($parameter.inputTable)
+${ident}<table id="searchResult" class="table table-bordered" style="width: 100%">
+#renderTableColumnNames($parameter "${ident}    ")
+${ident}    <tbody>
+${ident}        <tr th:each="row : ${${parameter.name}}">
+#renderTableColumns($parameter "${ident}        ")
+#if(!$parameter.tableFormActions.empty || !$parameter.tableHyperlinkActions.empty)
+#foreach ($action in $parameter.tableFormActions)
+#if (!$action.tableLinkColumnName)
+${ident}                <td id="column_actions">
+${ident}                    <div class="col">
+#set ($data = "{")
+#foreach ($parameter in $action.parameters)
+#if ($parameter.tableColumnNames.contains($parameter.name) || $parameter.tableAttributeNames.contains($parameter.name))
+#set ($parameterValue = "row.${parameter.name}")
 #else
-${ident}<input id="$propertyId" class="form-control" type=#if($jakartaUtils.isNumber($parameter.type))"number"#else"text"#end name="$parameter.name" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
+#set ($parameterValue = "$parameter.name")
+#end
+#set ($data = "$data '$parameter.name': $parameterValue,")
+#end
+#set ($data = "$data }")
+#set ($urlParams = "")
+#foreach ($parameter in $action.parameters)
+#if ($parameter.tableColumnNames.contains($parameter.name) || $parameter.tableAttributeNames.contains($parameter.name))
+#set ($parameterValue = "row.${parameter.name}")
+#else
+#set ($parameterValue = "$parameter.name")
+#end
+#if($urlParams.length() == 0)
+#set ($urlParams = "?")
+#else
+#set ($urlParams = "$urlParams&")
+#end
+#set ($urlParams = "$urlParams$parameter.name=#{$parameterValue}")
+#end
+${ident}                    <form method="POST" 
+${ident}                           th:action="@{${action.controller.restPath}/$thymeleafUtils.toWebResourceName(${action.trigger.name})$urlParams}">
+${ident}                        <button type="submit" id="${action.triggerName}Action"  th:text="#{$action.trigger.messageKey}">
+${ident}                        </button>
+${ident}                    </form>
+${ident}                <div class="col">
+${ident}            </td>
+#end
+#end
+#end
+${ident}        </tr>
+${ident}    </tbody>
+${ident}</table>
+#else
+${ident}<input id="$propertyId" class="form-control" type=#if($thymeleafUtils.isNumber($parameter.type))"number"#else"text"#end name="$parameter.name" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
 #end
 #end

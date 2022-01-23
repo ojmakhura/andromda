@@ -328,8 +328,8 @@ public class ThymeleafControllerLogicImpl
                 path = path;
             }
         
-            if(path.startsWith(SLASH)) {
-                path = path.substring(1);
+            if(!path.startsWith(SLASH)) {
+                path = SLASH + path;
             }
             
             if(path.endsWith(SLASH)) {

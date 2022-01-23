@@ -21,7 +21,7 @@
     </a>
 #else
 #if (!$action.hiddenParameters.empty)
-## <ui:include src="${action.viewFragmentPath}-hidden-params.xhtml"/>
+        <th:block th:replace="${action.viewFragmentPath}-hidden-params.html"></th:block>
 #end
 #set($triggerId = "${action.triggerName}Action")   
 #foreach ($parameter in $action.parameters)

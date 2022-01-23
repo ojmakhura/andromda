@@ -159,6 +159,7 @@ $action.trigger.getDocumentation("     * ")
 #if ($formPopulationOperationRequired)
         populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"${action.source.path}.${facesServletExtension}"#end,forward,form);
 #if(!$action.exitingInitialState && !$action.enteringFinalState)
+
         if(forward != null)
         {
             if("${action.source.path}.${facesServletExtension}".equals(forward))
@@ -166,7 +167,6 @@ $action.trigger.getDocumentation("     * ")
                 forward = null; //the destination form is the same, stay on the current view
             }
         }
-        
 #end
 #end
 #end

@@ -9,7 +9,7 @@
 #set ($propertyId = $field.getFormPropertyId($ownerParameter))
 #set ($valuePropertyName = ${field.getFormPropertyName($ownerParameter)})
 #end
-<input type="hidden"#if ($field.type.dateType) type="date"#end id="${propertyId}" value="#{${action.formBeanName}.${valuePropertyName}}">
+<input type="hidden" id="${propertyId}" th:field="*{${valuePropertyName}}">
 ## #if ($field.type.dateType)
 ##     <f:convertDateTime pattern="$field.format"/>
 ## #end
@@ -32,4 +32,4 @@
 #end
 #end
 #end
-</ui:composition>
+</html>

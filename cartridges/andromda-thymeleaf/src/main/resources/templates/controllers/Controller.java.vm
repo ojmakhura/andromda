@@ -10,11 +10,10 @@ null;
 #if($targetController)
 #set($tmp = $controllers.add($transition.target.targetElement.controller))
 #if($targetControllerBeanName.equals($controller.beanName))
-#set($targetControllerBeanName = "this")
-"${transition.target.targetElement.path}"; 
+"/${controller.restPath}";
 #else
 #if(${transition.target.targetElement})
-"${transition.target.targetElement.path}";
+"/${transition.target.targetElement.controller.restPath}";
 #else
 "";
 #end

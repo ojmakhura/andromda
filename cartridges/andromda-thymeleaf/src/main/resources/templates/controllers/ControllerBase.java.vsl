@@ -140,10 +140,10 @@ $action.trigger.getDocumentation("     * ")
 #if(!$field.complex)
 #set ( $d = '"')
 #set ($useCaseParams = "$useCaseParams @org.springframework.web.bind.annotation.PathVariable(name = $d$field.name$d, required = false) $field.type.fullyQualifiedName $field.name")
-#set ($fieldPath = "$fieldPath/{$field.name}")
+#set ($fieldPath = "$fieldPath/$field.name/{$field.name}")
 #else
 #set ($useCaseParams = "$useCaseParams $field.type.fullyQualifiedName $field.name")
-#set ($fieldPath = "$fieldPath/{$field.name}")
+#set ($fieldPath = "$fieldPath/$field.name/{$field.name}")
 #end
 #end
     @org.springframework.web.bind.annotation.GetMapping({$d$d, $d$fieldPath$d}) 
@@ -181,6 +181,11 @@ $action.trigger.getDocumentation("     * ")
 #if ($formPopulationOperationRequired)
         final $action.fullyQualifiedFormImplementationName form =
             this.$action.formBeanName;
+#foreach($field in $action.formFields)
+#if($field.actionParameter)
+        form.set${stringUtils.capitalize($field.name)}(${action.formBeanName}.get${stringUtils.capitalize($field.name)}());
+#end
+#end
 
 #if($action.exitingInitialState)
         //copy parameters form caller use case
@@ -203,22 +208,24 @@ $action.trigger.getDocumentation("     * ")
 #end
 #saveMessages($action "        ")
 #if ($formPopulationOperationRequired)
-#set ($viewPath = "${action.controller.restPath}/$thymeleafUtils.toWebResourceName(${action.source.name})")
-        populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"${viewPath}"#end,forward,form);
+#set ($viewPath = "/${action.controller.restPath}/$thymeleafUtils.toWebResourceName(${action.source.name})")
+        populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"${action.source.path}.html"#end, forward, form);
 #foreach($field in $action.formFields)
 #if(!$field.actionParameter)
+
         if(form.is${stringUtils.capitalize($field.name)}Set()) {
             model.addAttribute("$field.name", form.get${stringUtils.capitalize($field.name)}());
         }
 #end
 #end
+
 ## #foreach($param in $action.parameters)
 ## // $param
 ## #end
 #if(!$action.exitingInitialState && !$action.enteringFinalState)
         if(forward != null)
         {
-            if(forward.startsWith("${viewPath}"))
+            if(forward.startsWith("${action.source.path}.html"))
             {
                 forward = get$stringUtils.capitalize($stringUtils.deleteWhitespace(${action.source.name}))(model); //the destination form is the same, stay on the current view
                 return forward;
@@ -263,7 +270,7 @@ $actionState.getDocumentation("     * ")
     protected String ${actionState.actionMethodName}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form, #end org.springframework.ui.Model model)
         throws Throwable
     {
-        String forward = null; //22 
+        String forward = null;
 #if ($actionState.controllerCalls.empty && $actionState.serviceCalls.empty)
 ## TODO UMLMETA-106 uml22 StateVertex outgoing FinalState target returns null/unknown for Exception transition.
 ##        // actionState=$actionState controllerCalls=$actionState.controllerCalls.size()
@@ -346,21 +353,22 @@ ${ident}        forward = #processTransition($actionState.forward)
 #if($actionState.forward.finalStateTarget && $actionState.forward.enteringFinalState)
 #if($actionState.forward.forwardParameters.size() > 0)
         StringBuilder builder = new StringBuilder();
-        builder.append("?");
+
 #set ($i = 1)
 #foreach($param in $actionState.forward.forwardParameters)
 #set ($isSet = "is${stringUtils.capitalize($param.name)}Set()")
-        if(builder.length() == 0) {
-            builder.append("?");
-        }
 
         if(form.$isSet) {
+            if(builder.length() == 0) {
+                builder.append("/");
+            }
 #if($i > 1)
-            builder.append("&");
+            builder.append("/");
 #end
-            builder.append("$param.name=" + form.get${stringUtils.capitalize($param.name)}());
+            builder.append("$param.name/" + form.get${stringUtils.capitalize($param.name)}());
         }
 #set ($i = $i + 1)
+
 #end
         forward = forward + builder.toString();
 
