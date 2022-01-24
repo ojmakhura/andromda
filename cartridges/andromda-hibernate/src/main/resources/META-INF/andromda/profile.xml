@@ -65,6 +65,13 @@
                 <value>Service</value>
                 <appliedOnElement>class</appliedOnElement>
             </element>
+            <element name="CRITERIA">
+                <documentation>
+                    Denotes a class is representing an criteria.
+                </documentation>
+                <value>Criteria</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
             <element name="ENUMERATION">
                 <documentation>
                     This class will instruct the generation of a type-safe enumeration class. The class implements the

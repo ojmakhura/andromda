@@ -70,13 +70,19 @@ $entity.getDocumentation(" * ")
 ({
 ##if ($entity.genericFinders && !$entity.finderFindAllExists)
 #if (!$entity.finderFindAllExists)
-    @${hibernateNamespace}.persistence.NamedQuery(name = "${entity.name}.findAll", query = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable")#if (!$finders.empty),#end
-
+    @${hibernateNamespace}.persistence.NamedQuery(
+        name = "${entity.name}.findAll", 
+        query = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable"
+    )#if (!$finders.empty),
 #end
-## #foreach ($finder in $finders)
-##     @${hibernateNamespace}.persistence.NamedQuery(name = "${entity.name}.${finder.name}", query = "${finder.query}")#if($velocityCount != $finders.size()), #end
-
-## #end
+#end
+#foreach ($finder in $finders)
+    @${hibernateNamespace}.persistence.NamedQuery(
+        name = "${entity.name}.${finder.name}",
+        query = "${finder.query}"
+    )#if($velocityCount != $finders.size()), 
+#end
+#end
 })
 #else
 ##if ($entity.genericFinders)

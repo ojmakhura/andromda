@@ -241,7 +241,7 @@
     <template
         path="templates/hibernate/SearchCriteria.vsl"
         outputPattern="{0}/{1}.java"
-        outlet="$outlet"
+        outlet="commons"
         overwrite="true">
         <modelElements variable="class">
             <modelElement>

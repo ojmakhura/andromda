@@ -5,6 +5,7 @@ import java.util.Iterator;
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections4.CollectionUtils;
@@ -108,12 +109,8 @@ public class HibernateFinderMethodLogicImpl
                             parameter = ':' + argument.getName();
                         }
                         builder.append(' ' + variableName + '.' + argument.getName() + " = " + parameter);
-                        if (argumentIt.hasNext()) {
-                            builder.append(" AND");
-                        }
-                    } else if (argument.getType().getStereotypeNames().toString().contains("Criteria")) { // Only expand
-                                                                                                          // if this is
-                                                                                                          // a criteria
+                    } else if (argument.getType().getStereotypeNames().toString().contains("Criteria")) { 
+                        
                         Iterator<AttributeFacade> paramIt = argument.getType().getAttributes().iterator();
                         for (; paramIt.hasNext();) {
                             AttributeFacade attribute = paramIt.next();
@@ -122,6 +119,7 @@ public class HibernateFinderMethodLogicImpl
                             // if(!CollectionUtils.isEmpty(attribute.getType().getAttributes())) {
                             // continue;
                             // }
+                            boolean insentive = false;
 
                             if (attribute instanceof HibernateCriteriaAttribute) {
                                 HibernateCriteriaAttribute criteriaAttribute = (HibernateCriteriaAttribute) attribute;
@@ -132,83 +130,120 @@ public class HibernateFinderMethodLogicImpl
                                 } else {
                                     columnName = columnName + '.' + criteriaAttribute.getAttributeName();
                                 }
+
+                                if (criteriaAttribute.isComparatorPresent() && criteriaAttribute.getComparator()
+                                    .equals(HibernateProfile.TAGGEDVALUEVALUE_INSENSITIVE_LIKE_COMPARATOR)) {
+
+                                    insentive = true;
+                                }
+                                
                                 builder.append(" (:");
                                 builder.append(criteriaAttribute.getName());
                                 builder.append(" IS NULL OR ");
-                                builder.append(columnName);
+                                builder.append(insentive ? "lower(" + columnName + ")" : columnName);
 
+                                String comparator = " = ";
                                 if (criteriaAttribute.isComparatorPresent()) {
-                                    if (criteriaAttribute.getComparatorConstant()
-                                            .equals(HibernateProfile.TAGGEDVALUEVALUE_COMPARATOR_EQUAL)) {
-                                        builder.append(" = ");
-                                    } else if (criteriaAttribute.getComparatorConstant()
-                                            .equals(HibernateProfile.TAGGEDVALUEVALUE_COMPARATOR_GREATER)) {
-                                        builder.append(" > ");
-                                    } else if (criteriaAttribute.getComparatorConstant()
-                                            .equals(HibernateProfile.TAGGEDVALUEVALUE_COMPARATOR_GREATER_OR_EQUAL)) {
-                                        builder.append(" >= ");
-                                    } else if (criteriaAttribute.getComparatorConstant()
-                                            .equals(HibernateProfile.TAGGEDVALUEVALUE_COMPARATOR_IN)) {
-                                        builder.append(" IN ");
-                                    } else if (criteriaAttribute.getComparatorConstant()
+
+                                    String tmp = criteriaAttribute.getComparator();
+
+                                    if (tmp.equals(HibernateProfile.TAGGEDVALUEVALUE_COMPARATOR_GREATER)) {
+                                        comparator = " > ";
+                                    } else if (tmp.equals(HibernateProfile.TAGGEDVALUEVALUE_COMPARATOR_GREATER_OR_EQUAL)) {
+                                        comparator = " >= ";
+                                    } else if (tmp.equals(HibernateProfile.TAGGEDVALUEVALUE_COMPARATOR_IN)) {
+                                        comparator = " IN ";
+                                    } else if (tmp
                                             .equals(HibernateProfile.TAGGEDVALUEVALUE_COMPARATOR_LESS)) {
-                                        builder.append(" < ");
-                                    } else if (criteriaAttribute.getComparatorConstant()
-                                            .equals(HibernateProfile.TAGGEDVALUEVALUE_COMPARATOR_LESS_OR_EQUAL)) {
-                                        builder.append(" <= ");
-                                    } else if (criteriaAttribute.getComparatorConstant()
-                                            .equals(HibernateProfile.TAGGEDVALUEVALUE_COMPARATOR_LIKE)) {
-                                        builder.append(" LIKE ");
-                                    } else {
-                                        builder.append(" != ");
+                                        comparator = " < ";
+                                    } else if (tmp.equals(HibernateProfile.TAGGEDVALUEVALUE_COMPARATOR_LESS_OR_EQUAL)) {
+                                        comparator = " <= ";
+                                    } else if (tmp.equals(HibernateProfile.TAGGEDVALUEVALUE_COMPARATOR_LIKE) || 
+                                            tmp.equals(HibernateProfile.TAGGEDVALUEVALUE_INSENSITIVE_LIKE_COMPARATOR)) {
+                                        comparator = " LIKE ";
                                     }
-                                } else {
-                                    builder.append(" = ");
                                 }
+                                builder.append(comparator);
+                                String q = ":" + criteriaAttribute.getName();
 
                                 if (criteriaAttribute.isMatchModePresent()) {
-                                    if (criteriaAttribute.getMatchModeConstant()
-                                            .equals(HibernateProfile.TAGGEDVALUEVALUE_MATCHMODE_END)) {
-                                        builder.append("% + :");
-                                        builder.append(criteriaAttribute.getName());
+                                    
+                                    String mode = criteriaAttribute.getMatchMode();
 
-                                    } else if (criteriaAttribute.getMatchModeConstant()
-                                            .equals(HibernateProfile.TAGGEDVALUEVALUE_MATCHMODE_ANYWHERE)) {
-                                        builder.append("% + :");
-                                        builder.append(criteriaAttribute.getName());
-                                        builder.append(" + %");
-                                    } else if (criteriaAttribute.getMatchModeConstant()
-                                            .equals(HibernateProfile.TAGGEDVALUEVALUE_MATCHMODE_EXACT)) {
-                                        builder.append(":");
-                                        builder.append(criteriaAttribute.getName());
-                                    } else {
-                                        builder.append(":");
-                                        builder.append(criteriaAttribute.getName());
-                                        builder.append(" + %");
+                                    if (mode.equals(HibernateProfile.TAGGEDVALUEVALUE_MATCHMODE_END)) {
+                                                
+                                        q = "CONCAT('%', " + q + ')';
+
+                                    } else if (mode.equals(HibernateProfile.TAGGEDVALUEVALUE_MATCHMODE_ANYWHERE)) {
+                                                
+                                        q = "CONCAT('%', " + q + ", '%')";
+                                    // } else if (criteriaAttribute.getMatchModeConstant()
+                                    //         .equals(HibernateProfile.TAGGEDVALUEVALUE_MATCHMODE_EXACT)) {
+                                    //     builder.append(":");
+                                    //     builder.append(criteriaAttribute.getName());
+                                    } else if(mode.equals(HibernateProfile.TAGGEDVALUEVALUE_MATCHMODE_START)){
+                                                
+                                        q = "CONCAT(" + q + ", '%')";
                                     }
-                                } else {
-                                    builder.append(":");
-                                    builder.append(criteriaAttribute.getName());
+
+                                    if(insentive) {
+                                        q = "lower(" + q + ")";
+                                    }
                                 }
+
+                                if(insentive) {
+                                    q = "lower(" + q + ")";
+                                }
+
+                                builder.append(q);
 
                                 builder.append(")");
 
                             } else {
-
+                                System.out.println(" =============================> " + attribute.getName());
                                 String parameter = "?";
                                 if (this.isUseNamedParameters()) {
                                     parameter = ':' + attribute.getName();
                                 }
-                                builder.append(' ' + variableName + '.' + attribute.getName() + " = " + parameter);
+
+                                if(attribute.getType().isStringType()) {
+                                    builder.append(" lower(" + variableName + '.' + attribute.getName() + ") = lower(" + parameter + ") ");
+                                } else {
+                                    builder.append(' ' + variableName + '.' + attribute.getName() + " = " + parameter);
+                                }
                             }
 
                             if (paramIt.hasNext()) {
                                 builder.append(" AND");
                             }
                         }
+                    } else if (argument.getType().getStereotypeNames().toString().contains("Entity")) { // We are dealing with an entity
+
+                        HibernateEntity entity = (HibernateEntity) argument.getType();
+                        Iterator<ModelElementFacade> it = entity.getIdentifiers().iterator();
+
+                        while(it.hasNext()) {
+                            ModelElementFacade element = it.next();
+                            builder.append(' ' + variableName + '.' + element.getName() + " = :" + argument.getName() + StringUtils.capitalize(element.getName()));
+
+                            if (it.hasNext()) {
+                                builder.append(" AND");
+                            }
+
+                        }
+                    }
+
+                    if (argumentIt.hasNext()) {
+                        builder.append(" AND");
                     }
                 }
             }
+        }
+
+        String query = builder.toString();
+
+        if(query.endsWith("AND")) {
+            query = query.substring(0, query.length()-4);
         }
 
         return builder.toString();

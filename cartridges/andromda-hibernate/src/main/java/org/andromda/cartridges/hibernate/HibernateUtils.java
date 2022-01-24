@@ -362,4 +362,14 @@ public class HibernateUtils
 
         return false;
     }
+
+    public static boolean isCriteriaAttribute(ClassifierFacade type) {
+
+        return type.getStereotypeNames().toString().contains("Criteria");
+    }
+
+    public static boolean isEntity(ClassifierFacade type) {
+
+        return type.getStereotypeNames().toString().contains("Entity");
+    }
 }
