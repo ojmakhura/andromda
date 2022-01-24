@@ -112,7 +112,6 @@ ${ident}<th th:text="#{$column.messageKey}"></th>
 #set ($left = '{')
 #set ($right = '}')
 #set ($paramValues = "$paramValues${parameter.name}=$dollar$left$parameterValue$right")
-$parameterValue
 #end
                             <form method="POST" 
                                     th:action="@{${action.controller.restPath}/$thymeleafUtils.toWebResourceName(${action.triggerName})$urlParams($paramValues)}">
