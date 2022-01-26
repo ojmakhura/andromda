@@ -97,6 +97,7 @@
     <condition name="xfire">$webserviceStack.equalsIgnoreCase("xfire")</condition>
     <condition name="axis">$webserviceStack.equalsIgnoreCase("axis")</condition>
     <condition name="springws">$webserviceStack.equalsIgnoreCase("spring")</condition>
+    <condition name="notSpringws">!$webserviceStack.equalsIgnoreCase("spring")</condition>
     <condition name="axis1">#if ($webserviceStack.equalsIgnoreCase("axis") &amp;&amp; $axisVersion.equals("1"))true#end</condition>
     <condition name="axis2">#if ($webserviceStack.equalsIgnoreCase("axis") &amp;&amp; $axisVersion.equals("2"))true#end</condition>
     <condition name="jaxws">$webserviceStack.equalsIgnoreCase("jaxws")</condition>
@@ -137,7 +138,8 @@
         outputPattern="WEB-INF/{0}"
         outlet="configuration"
         overwrite="false"
-        lastModifiedCheck="true"/>
+        lastModifiedCheck="true"
+        outputCondition="notSpringws"/>
 
     <resource
         path="resources/webservice/axis2/modules/*.mar"
@@ -217,7 +219,8 @@
         outputPattern="WEB-INF/web.xml"
         outlet="configuration"
         overwrite="false"
-        outputToSingleFile="true">
+        outputToSingleFile="true"
+        outputCondition="notSpringws">
         <modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.cartridges.webservice.metafacades.WebService">
@@ -1137,7 +1140,7 @@
     <template
         path="templates/webservice/springws/SpringWS.java.vsl"
         outputPattern="$stringUtils.replace($service.packageName, '.', '/')/${serviceName}.java"
-        outlet="springwebservices"
+        outlet="webservice-types"
         overwrite="true"
         outputCondition="springws">
         <modelElements variable="service">
@@ -1151,7 +1154,7 @@
     <template
         path="templates/webservice/springws/SpringWSBase.java.vsl"
         outputPattern="$stringUtils.replace($service.packageName, '.', '/')/${serviceName}Base.java"
-        outlet="springwebservices"
+        outlet="webservice-types"
         overwrite="true"
         outputCondition="springws">
         <modelElements variable="service">
@@ -1165,7 +1168,7 @@
     <template
         path="templates/webservice/springws/SpringWSImpl.java.vsl"
         outputPattern="$stringUtils.replace($service.packageName, '.', '/')/${serviceImplName}.java"
-        outlet="springwebservices-impl"
+        outlet="webservice-impl"
         overwrite="false"
         outputCondition="springws">
         <modelElements variable="service">

@@ -37,12 +37,26 @@
         </conditions>
         <conditions type="and">
             <condition id="webservice" notEqual="none"/>
+            <condition id="springws" notEqual="true"/>
             <condition id="jsr181Webservice" notEqual="true"/>
-            <output patterns="**/*">webservice/</output>
             <output>webservice/src/main/webapp/WEB-INF/web.xml</output>
         </conditions>
         <conditions type="and">
             <condition id="webservice" notEqual="none"/>
+            <condition id="springws" notEqual="true"/>
+            <output>webservice/src/main/resources/META-INF/context.xml.vsl</output>
+            <output>webservice/target/${applicationId}-webservice-${applicationVersion}/WEB-INF/web.xml</output>
+        </conditions>
+        <conditions>
+            <condition id="springws" equal="true"/>
+            <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestApplication.java.vsl</output>
+            <output>webservice/src/test/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestApplicationTests.java.vsl</output>
+            <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestConfiguration.java.vsl</output>
+            <output>webservice/src/main/resources/application.properties.vsl</output>
+        </conditions>
+        <conditions type="and">
+            <condition id="webservice" notEqual="none"/>
+            <condition id="springws" notEqual="true"/>
             <condition id="tomcat" equal="true"/>
             <condition id="jsr181Webservice" notEqual="true"/>
             <output>webservice/src/test/resources/META-INF/context.xml.vsl</output>
@@ -54,6 +68,7 @@
         <conditions type="and">
             <condition id="war" equal="true"/>
             <condition id="webservice" notEqual="none"/>
+            <condition id="springws" notEqual="true"/>
             <output>mda/src/main/config/mappings/WebMergeMappings.xml.vsl</output>
         </conditions>
         <conditions>
@@ -95,10 +110,6 @@
         <conditions>
             <condition id="configurationUri" present="false"/>
             <output>mda/src/main/config/andromda.xml</output>
-        </conditions>
-        <conditions>
-            <condition id="springws" equal="true"/>
-            <output patterns="**/*">springws/</output>
         </conditions>
         <conditions>
             <condition id="angular" equal="true"/>
@@ -247,20 +258,20 @@
         		
 		<!-- Spring REST Webservices -->
         <mapping>
-            <from>springws/SpringWSApplication.java.vsl</from>
-            <to>springws/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringWebApplication.java.vsl</to>
+            <from>webservice/SpringRestApplication.java.vsl</from>
+            <to>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestApplication.java.vsl</to>
         </mapping>
         <mapping>
-            <from>springws/SpringWSApplicationTests.java.vsl</from>
-            <to>springws/src/test/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringWebApplicationTests.java.vsl</to>
+            <from>webservice/SpringRestApplicationTests.java.vsl</from>
+            <to>webservice/src/test/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestApplicationTests.java.vsl</to>
         </mapping>
         <mapping>
-            <from>springws/SpringWSConfiguration.java.vsl</from>
-            <to>springws/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringWebConfiguration.java.vsl</to>
+            <from>webservice/SpringRestConfiguration.java.vsl</from>
+            <to>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestConfiguration.java.vsl</to>
         </mapping>
         <mapping>
-            <from>springws/application.properties.vsl</from>
-            <to>springws/src/main/resources/application.properties.vsl</to>
+            <from>webservice/application.properties.vsl</from>
+            <to>webservice/src/main/resources/application.properties.vsl</to>
         </mapping>
 
         <!-- Spring Thymeleaf Frontend -->

@@ -8,7 +8,9 @@
         <version>$applicationVersion</version>
     </parent>
     <artifactId>${applicationId}-webservice</artifactId>
+#if(!$springws)
     <packaging>war</packaging>
+#end
     <name>${applicationName} Web Services</name>
     <dependencies>
 #if (!$transactionPersistenceType.equals("none") || $cxf)
@@ -137,6 +139,33 @@
             <artifactId>jaxp-api</artifactId>
             <version>1.4.2</version>
         </dependency> -->
+#elseif($springws)
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+	    </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.5.9</version>
+		</dependency>
+#if($secure)
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-security</artifactId>
+			<version>1.5.9</version>
+		</dependency>
+#end
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 #end
     </dependencies>
     <build>
@@ -148,7 +177,35 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
+#if($springws)
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>target/src/main/java</source>
+                            </sources>
+                            <sources>
+                                <source>target/src/main/resources</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+#end
             </plugin>
+#if($springws)
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+#end
+#if(!$springws)
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${maven-war-plugin.version}</version>
@@ -174,6 +231,7 @@
                     </archive>
                 </configuration>
             </plugin>
+#end
 #if ($jetty)
             <!-- See http://wiki.eclipse.org/Jetty/Reference and http://www.eclipse.org/jetty/documentation/current/jetty-maven-plugin.html -->
             <!-- If you see ClassNotFoundException: org.springframework.web.context.ContextLoaderListener
@@ -238,6 +296,19 @@
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>
         </plugins>
+#if ($springws)
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>target/src/main/java</directory>
+            </resource>
+            <resource>
+                <directory>target/src/main/resources</directory>
+            </resource>
+        </resources>
+#end
     </build>
 #if ($cxf)
     <properties>

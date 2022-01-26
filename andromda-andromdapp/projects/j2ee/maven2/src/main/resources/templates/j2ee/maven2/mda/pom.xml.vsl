@@ -480,12 +480,12 @@
         <angular.view.impl.dir>${angular.manual.dir}</angular.view.impl.dir>
         <angular.form.dir>${angular.generated.dir}</angular.form.dir>
 #end
-#if ($springws)		
-        <springws.generated.dir>${project.basedir}/../springws/target</springws.generated.dir>
-        <springws.generated.java.dir>${springws.generated.dir}/src/main/java</springws.generated.java.dir>
-        <springws.manual.dir>${project.basedir}/../springws/src/main</springws.manual.dir>
-        <springws.manual.java.dir>${springws.manual.dir}/java</springws.manual.java.dir>
-#end
+## #if ($springws)		
+##         <springws.generated.dir>${project.basedir}/../springws/target</springws.generated.dir>
+##         <springws.generated.java.dir>${springws.generated.dir}/src/main/java</springws.generated.java.dir>
+##         <springws.manual.dir>${project.basedir}/../springws/src/main</springws.manual.dir>
+##         <springws.manual.java.dir>${springws.manual.dir}/java</springws.manual.java.dir>
+## #end
 #if ($webType.equals("jsf") || $webType.equals("both"))
         <web.generated.dir>${project.basedir}/../web/target</web.generated.dir>
         <web.generated.java.dir>${web.generated.dir}/src/main/java</web.generated.java.dir>
@@ -506,6 +506,8 @@
         <webservice.project>${project.basedir}/../webservice</webservice.project>
 #if ($cxf || $axis)
         <webservice.generated.dir>${project.basedir}/../webservice/src/main/webapp</webservice.generated.dir>
+#elseif ($springws)
+        <webservice.generated.dir>${project.basedir}/../webservice/target/src/main</webservice.generated.dir>
 #else
         <webservice.generated.dir>${web.generated.dir}</webservice.generated.dir>
 #end
@@ -517,10 +519,10 @@
         <webservice.test.dir>${project.basedir}/../webservice/src/test/java</webservice.test.dir>
 #end
 #end
-#if ($springws)
-        <springws.generated.java.dir>${project.basedir}/../springws/target/src/main/java</springws.generated.java.dir>
-        <springws.manual.java.dir>${project.basedir}/../springws/src/main/java</springws.manual.java.dir>
-#end
+## #if ($springws)
+##         <springws.generated.java.dir>${project.basedir}/../springws/target/src/main/java</springws.generated.java.dir>
+##         <springws.manual.java.dir>${project.basedir}/../springws/src/main/java</springws.manual.java.dir>
+## #end
 #if ($ejb3)
         <application.config.dir>${project.basedir}/../app/src/main/config</application.config.dir>
         <application.metainf.dir>${project.basedir}/../app/src/main/application/META-INF</application.metainf.dir>

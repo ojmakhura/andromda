@@ -449,19 +449,20 @@
 #end
 #if($springws)
                 <property name="springVersion">5.2.4.RELEASE</property>
-                <property name="springwebservices">${springws.generated.java.dir}</property>
-                <property name="springwebservices-impl">${springws.manual.java.dir}</property>
+                ## <property name="springwebservices">${springws.generated.java.dir}</property>
+                ## <property name="springwebservices-impl">${springws.manual.java.dir}</property>
+                <property name="webservice-types">${webservice.generated.dir}</property>
 #else
+                <property name="webservice-types">${core.generated.dir}</property>
+#end
                 <property name="configuration">${webservice.generated.dir}</property>
                 <property name="webservice-project">${webservice.project}</property>
-                <property name="webservice-types">${core.generated.dir}</property>
                 <property name="webservice-impl">${webservice.manual.java.dir}</property>
                 <property name="webservice-tests">${webservice.test.dir}</property>
                 <property name="core-tests">${core.manual.test.dir}</property>
                 <property name="service-impls">${core.manual.java.dir}</property>
                 <property name="jaxb-impl">${common.manual.dir}</property>
                 <property name="jaxb-gen">${common.generated.dir}</property>
-#end
             </properties>
         </namespace>
 #end
