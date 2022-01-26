@@ -561,7 +561,6 @@ public abstract class $entity.daoBaseName
 #end
 ##
 #foreach ($finder in $queryOperations)
-// $finder
 #set ($returnType = $finder.returnType.fullyQualifiedName)
 #**##if ($finder.returnTypePresent)
 #*  *##if ($finder.returnType.setType)
@@ -811,10 +810,8 @@ public abstract class $entity.daoBaseName
             TypedQuery<${rootEntityType}> typedQuery = this.entityManager.createNamedQuery("${rootEntity.name}.${finder.name}", ${rootEntity.name}.class);
 
 #foreach($argument in $finder.arguments)
-// $argument
-// $argument.type.attributes.empty
-// $argument.complex
 #if($argument.type.attributes.empty)
+            // ${argument.name}
             if(${argument.name} != null) {
                 typedQuery.setParameter("${argument.name}", ${argument.name});
             }
@@ -825,7 +822,6 @@ public abstract class $entity.daoBaseName
             if(${argument.name}.get${stringUtils.capitalize(${attribute.name})}() != null) {
                 typedQuery.setParameter("${attribute.name}", ${argument.name}.get${stringUtils.capitalize(${attribute.name})}());
             }
-            
 #end
 #elseif($hibernateUtils.isEntity($argument.type))
 #foreach($id in $argument.type.identifiers)
@@ -833,7 +829,6 @@ public abstract class $entity.daoBaseName
             if(${argument.name}.get${stringUtils.capitalize($id.name)}() != null) {
                 typedQuery.setParameter("${argument.name}${stringUtils.capitalize($id.name)}", ${argument.name}.get${stringUtils.capitalize($id.name)}());
             }
-
 #end
 #end
 #end
@@ -899,9 +894,19 @@ public abstract class $entity.daoBaseName
 #*      *###set ($setParameterOperation = "${setParameterOperation}List")
 #*    *###end
 #*    *##if ($finder.useNamedParameters)
+#if($argument.type.identifier)
+#set($id = "$argument.type.identifier.name")
+            queryObject.${setParameterOperation}("$argument.name$stringUtils.capitalize($id)", ${argumentValue}.get$stringUtils.capitalize($id)());
+#else
             queryObject.${setParameterOperation}("$argument.name", $argumentValue);
+#end
 #*    *##else
+#if($argument.type.identifier)
+#set($id = "$argument.type.identifier.name")
+            queryObject.${setParameterOperation}($count, ${argumentValue}.get$stringUtils.capitalize($id)());
+#else
             queryObject.${setParameterOperation}($count, $argumentValue);
+#end
 #*    *##end
 #*  *##end
 #**##end
