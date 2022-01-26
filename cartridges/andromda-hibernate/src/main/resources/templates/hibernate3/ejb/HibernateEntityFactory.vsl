@@ -95,7 +95,7 @@ $finder.getDocumentation("     * ")
     $finder.visibility static $returnType ${finder.name}($parameters)
         throws org.hibernate.HibernateException
     {
-        org.hibernate.Query query = session.createQuery("$finder.query");
+        org.hibernate.Query query = session.createQuery($finder.query);
 ##
 #foreach($argument in $finder.arguments)
 #set ($index = $velocityCount - 1)

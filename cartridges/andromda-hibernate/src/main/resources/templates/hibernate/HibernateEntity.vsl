@@ -79,9 +79,9 @@ $entity.getDocumentation(" * ")
 #foreach ($finder in $finders)
     @${hibernateNamespace}.persistence.NamedQuery(
         name = "${entity.name}.${finder.name}",
-        query = "${finder.query}"
-    )#if($velocityCount != $finders.size()), 
-#end
+        query = ${finder.query}
+    )#if($velocityCount != $finders.size()),#end
+
 #end
 })
 #else

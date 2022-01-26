@@ -47,17 +47,17 @@ public class HibernateFinderMethodLogicImpl
             Object value = this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_QUERY);
             if (value != null) {
                 // remove any excess whitespace
-                builder.append(((String) value).replaceAll("[$\\s]+", " "));
+                builder.append('\"' + ((String) value).replaceAll("[$\\s]+", " ") + '\"');
             }
         } else {
-            builder.append(this.getTranslatedQuery());
+            builder.append('\"' + this.getTranslatedQuery() + '\"');
         }
 
         // if there wasn't any stored query, create one by default.
         if (builder.length() == 0) {
 
             String variableName = StringUtils.uncapitalize(this.getOwner().getName()).substring(0, 1);
-            builder.append("SELECT " + variableName + " FROM " + this.getOwner().getName() + " AS " + variableName);
+            builder.append("\"SELECT " + variableName + " FROM " + this.getOwner().getName() + " AS " + variableName);
 
             Collection arguments = this.getArguments();
 
@@ -81,23 +81,23 @@ public class HibernateFinderMethodLogicImpl
                                     if (attribute instanceof HibernateCriteriaAttribute) {
                                         HibernateCriteriaAttribute criteriaAttribute = (HibernateCriteriaAttribute) attribute;
                                         if (StringUtils.isBlank(criteriaAttribute.getAttributeName())) {
-                                            builder.append(variableName + '.' + criteriaAttribute.getName());
+                                            builder.append(variableName + '.' + criteriaAttribute.getName() + " ");
                                         } else {
-                                            builder.append(variableName + '.' + criteriaAttribute.getAttributeName());
+                                            builder.append(variableName + '.' + criteriaAttribute.getAttributeName() + " ");
                                         }
                                     } else {
-                                        builder.append(variableName + '.' + attribute.getName());
+                                        builder.append(variableName + '.' + attribute.getName() + " ");
                                     }
                                 }
                             }
                         } else {
                             builder.append(" INNER JOIN ");
-                            builder.append(variableName + '.' + argument.getName());
+                            builder.append(variableName + '.' + argument.getName() + " ");
                         }
                     }
                 }
 
-                builder.append(" WHERE");
+                builder.append(" \" +\n\t\t\t\t\"WHERE");
                 argumentIt = arguments.iterator();
                 for (; argumentIt.hasNext();) {
                     HibernateFinderMethodArgument argument = (HibernateFinderMethodArgument) argumentIt.next();
@@ -108,7 +108,7 @@ public class HibernateFinderMethodLogicImpl
                         if (this.isUseNamedParameters()) {
                             parameter = ':' + argument.getName();
                         }
-                        builder.append(' ' + variableName + '.' + argument.getName() + " = " + parameter);
+                        builder.append(' ' + variableName + '.' + argument.getName() + " = " + parameter + " \" ");
                     } else if (argument.getType().getStereotypeNames().toString().contains("Criteria")) { 
                         
                         Iterator<AttributeFacade> paramIt = argument.getType().getAttributes().iterator();
@@ -197,24 +197,23 @@ public class HibernateFinderMethodLogicImpl
 
                                 builder.append(q);
 
-                                builder.append(")");
+                                builder.append(") \"");
 
                             } else {
-                                System.out.println(" =============================> " + attribute.getName());
                                 String parameter = "?";
                                 if (this.isUseNamedParameters()) {
                                     parameter = ':' + attribute.getName();
                                 }
 
                                 if(attribute.getType().isStringType()) {
-                                    builder.append(" lower(" + variableName + '.' + attribute.getName() + ") = lower(" + parameter + ") ");
+                                    builder.append(" lower(" + variableName + '.' + attribute.getName() + ") = lower(" + parameter + ") \"");
                                 } else {
-                                    builder.append(' ' + variableName + '.' + attribute.getName() + " = " + parameter);
+                                    builder.append(' ' + variableName + '.' + attribute.getName() + " = " + parameter + " \"");
                                 }
                             }
 
                             if (paramIt.hasNext()) {
-                                builder.append(" AND");
+                                builder.append(" +\n\t\t\t\t\"AND");
                             }
                         }
                     } else if (argument.getType().getStereotypeNames().toString().contains("Entity")) { // We are dealing with an entity
@@ -224,26 +223,20 @@ public class HibernateFinderMethodLogicImpl
 
                         while(it.hasNext()) {
                             ModelElementFacade element = it.next();
-                            builder.append(' ' + variableName + '.' + element.getName() + " = :" + argument.getName() + StringUtils.capitalize(element.getName()));
+                            builder.append(' ' + variableName + '.' + element.getName() + " = :" + argument.getName() + StringUtils.capitalize(element.getName()) + " \"");
 
                             if (it.hasNext()) {
-                                builder.append(" AND");
+                                builder.append("+\n\t\t\t\t\"AND");
                             }
 
                         }
                     }
 
                     if (argumentIt.hasNext()) {
-                        builder.append(" AND");
+                        builder.append("+\n\t\t\t\t\"AND");
                     }
                 }
             }
-        }
-
-        String query = builder.toString();
-
-        if(query.endsWith("AND")) {
-            query = query.substring(0, query.length()-4);
         }
 
         return builder.toString();
