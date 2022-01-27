@@ -11,9 +11,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import org.andromda.cartridges.thymeleaf.ThymeleafGlobals;
-import org.andromda.cartridges.thymeleaf.ThymeleafProfile;
+
 import org.andromda.cartridges.thymeleaf.ThymeleafUtils;
+import org.andromda.cartridges.web.CartridgeWebGlobals;
+import org.andromda.cartridges.web.CartridgeWebProfile;
+import org.andromda.cartridges.web.CartridgeWebUtils;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -68,7 +70,7 @@ public class ThymeleafParameterLogicImpl
      */
     protected boolean handleIsPageableTable()
     {
-        final Object value = this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_TABLE_PAGEABLE);
+        final Object value = this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_TABLE_PAGEABLE);
         return Boolean.valueOf(Objects.toString(value, "")).booleanValue();
     }
 
@@ -108,12 +110,12 @@ public class ThymeleafParameterLogicImpl
     }
 
     /**
-     * @return getMessageKey() + '.' + ThymeleafGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX
+     * @return getMessageKey() + '.' + CartridgeWebGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafParameter#getDocumentationKey()
      */
     protected String handleGetDocumentationKey()
     {
-        return getMessageKey() + '.' + ThymeleafGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX;
+        return getMessageKey() + '.' + CartridgeWebGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX;
     }
 
     /**
@@ -136,7 +138,7 @@ public class ThymeleafParameterLogicImpl
      */
     private boolean isNormalizeMessages()
     {
-        final String normalizeMessages = (String)getConfiguredProperty(ThymeleafGlobals.NORMALIZE_MESSAGES);
+        final String normalizeMessages = (String)getConfiguredProperty(CartridgeWebGlobals.NORMALIZE_MESSAGES);
         return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 
@@ -338,7 +340,7 @@ public class ThymeleafParameterLogicImpl
      */
     private String getDefaultDateFormat()
     {
-        return (String)this.getConfiguredProperty(ThymeleafGlobals.PROPERTY_DEFAULT_DATEFORMAT);
+        return (String)this.getConfiguredProperty(CartridgeWebGlobals.PROPERTY_DEFAULT_DATEFORMAT);
     }
 
     /**
@@ -347,7 +349,7 @@ public class ThymeleafParameterLogicImpl
      */
     protected String handleGetFormat()
     {
-        return ThymeleafUtils.getFormat(
+        return CartridgeWebUtils.getFormat(
             (ModelElementFacade)this.THIS(),
             this.getType(),
             this.getDefaultDateFormat(),
@@ -359,16 +361,16 @@ public class ThymeleafParameterLogicImpl
      */
     private String getDefaultTimeFormat()
     {
-        return (String)this.getConfiguredProperty(ThymeleafGlobals.PROPERTY_DEFAULT_TIMEFORMAT);
+        return (String)this.getConfiguredProperty(CartridgeWebGlobals.PROPERTY_DEFAULT_TIMEFORMAT);
     }
 
     /**
-     * @return ThymeleafUtils.isStrictDateFormat((ModelElementFacade)this.THIS())
+     * @return CartridgeWebUtils.isStrictDateFormat((ModelElementFacade)this.THIS())
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafParameter#isStrictDateFormat()
      */
     protected boolean handleIsStrictDateFormat()
     {
-        return ThymeleafUtils.isStrictDateFormat((ModelElementFacade)this.THIS());
+        return CartridgeWebUtils.isStrictDateFormat((ModelElementFacade)this.THIS());
     }
 
     /**
@@ -399,7 +401,7 @@ public class ThymeleafParameterLogicImpl
      */
     private String getInputType()
     {
-        return Objects.toString(this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
+        return Objects.toString(this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
     }
 
     /**
@@ -414,48 +416,48 @@ public class ThymeleafParameterLogicImpl
     }
 
     /**
-     * @return isInputType(ThymeleafGlobals.INPUT_TEXTAREA)
+     * @return isInputType(CartridgeWebGlobals.INPUT_TEXTAREA)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafParameter#isInputTextarea()
      */
     protected boolean handleIsInputTextarea()
     {
-        return this.isInputType(ThymeleafGlobals.INPUT_TEXTAREA);
+        return this.isInputType(CartridgeWebGlobals.INPUT_TEXTAREA);
     }
 
     /**
-     * @return isInputType(ThymeleafGlobals.INPUT_SELECT)
+     * @return isInputType(CartridgeWebGlobals.INPUT_SELECT)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafParameter#isInputSelect()
      */
     protected boolean handleIsInputSelect()
     {
-        return this.isInputType(ThymeleafGlobals.INPUT_SELECT);
+        return this.isInputType(CartridgeWebGlobals.INPUT_SELECT);
     }
 
     /**
-     * @return isInputType(ThymeleafGlobals.INPUT_PASSWORD)
+     * @return isInputType(CartridgeWebGlobals.INPUT_PASSWORD)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafParameter#isInputSecret()
      */
     protected boolean handleIsInputSecret()
     {
-        return this.isInputType(ThymeleafGlobals.INPUT_PASSWORD);
+        return this.isInputType(CartridgeWebGlobals.INPUT_PASSWORD);
     }
 
     /**
-     * @return isInputType(ThymeleafGlobals.INPUT_HIDDEN)
+     * @return isInputType(CartridgeWebGlobals.INPUT_HIDDEN)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafParameter#isInputHidden()
      */
     protected boolean handleIsInputHidden()
     {
-        return this.isInputType(ThymeleafGlobals.INPUT_HIDDEN);
+        return this.isInputType(CartridgeWebGlobals.INPUT_HIDDEN);
     }
 
     /**
-     * @return isInputType(ThymeleafGlobals.PLAIN_TEXT)
+     * @return isInputType(CartridgeWebGlobals.PLAIN_TEXT)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafParameter#isPlaintext()
      */
     protected boolean handleIsPlaintext()
     {
-        return this.isInputType(ThymeleafGlobals.PLAIN_TEXT);
+        return this.isInputType(CartridgeWebGlobals.PLAIN_TEXT);
     }
 
     /**
@@ -464,34 +466,34 @@ public class ThymeleafParameterLogicImpl
      */
     protected boolean handleIsInputTable()
     {
-        return this.getInputTableIdentifierColumns().length() > 0 || this.isInputType(ThymeleafGlobals.INPUT_TABLE);
+        return this.getInputTableIdentifierColumns().length() > 0 || this.isInputType(CartridgeWebGlobals.INPUT_TABLE);
     }
 
     /**
-     * @return isInputType(ThymeleafGlobals.INPUT_RADIO)
+     * @return isInputType(CartridgeWebGlobals.INPUT_RADIO)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafParameter#isInputRadio()
      */
     protected boolean handleIsInputRadio()
     {
-        return this.isInputType(ThymeleafGlobals.INPUT_RADIO);
+        return this.isInputType(CartridgeWebGlobals.INPUT_RADIO);
     }
 
     /**
-     * @return isInputType(ThymeleafGlobals.INPUT_TEXT)
+     * @return isInputType(CartridgeWebGlobals.INPUT_TEXT)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafParameter#isInputText()
      */
     protected boolean handleIsInputText()
     {
-        return this.isInputType(ThymeleafGlobals.INPUT_TEXT);
+        return this.isInputType(CartridgeWebGlobals.INPUT_TEXT);
     }
 
     /**
-     * @return isInputType(ThymeleafGlobals.INPUT_MULTIBOX)
+     * @return isInputType(CartridgeWebGlobals.INPUT_MULTIBOX)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafParameter#isInputMultibox()
      */
     protected boolean handleIsInputMultibox()
     {
-        return this.isInputType(ThymeleafGlobals.INPUT_MULTIBOX);
+        return this.isInputType(CartridgeWebGlobals.INPUT_MULTIBOX);
     }
 
     /**
@@ -500,7 +502,7 @@ public class ThymeleafParameterLogicImpl
      */
     protected boolean handleIsInputCheckbox()
     {
-        boolean checkbox = this.isInputType(ThymeleafGlobals.INPUT_CHECKBOX);
+        boolean checkbox = this.isInputType(CartridgeWebGlobals.INPUT_CHECKBOX);
         if (!checkbox && this.getInputType().length() == 0)
         {
             final ClassifierFacade type = this.getType();
@@ -530,7 +532,7 @@ public class ThymeleafParameterLogicImpl
      */
     protected String handleGetBackingListName()
     {
-        return Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.BACKING_LIST_PATTERN), "").replaceAll(
+        return Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.BACKING_LIST_PATTERN), "").replaceAll(
             "\\{0\\}",
             this.getName());
     }
@@ -541,7 +543,7 @@ public class ThymeleafParameterLogicImpl
      */
     protected String handleGetBackingValueName()
     {
-        return Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.BACKING_VALUE_PATTERN), "").replaceAll(
+        return Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.BACKING_VALUE_PATTERN), "").replaceAll(
             "\\{0\\}",
             this.getName());
     }
@@ -552,7 +554,7 @@ public class ThymeleafParameterLogicImpl
      */
     protected String handleGetValueListName()
     {
-        return Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.VALUE_LIST_PATTERN), "").replaceAll(
+        return Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.VALUE_LIST_PATTERN), "").replaceAll(
             "\\{0\\}",
             this.getName());
     }
@@ -563,7 +565,7 @@ public class ThymeleafParameterLogicImpl
      */
     protected String handleGetLabelListName()
     {
-        return Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.LABEL_LIST_PATTERN), "").replaceAll(
+        return Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.LABEL_LIST_PATTERN), "").replaceAll(
             "\\{0\\}",
             this.getName());
     }
@@ -767,9 +769,9 @@ public class ThymeleafParameterLogicImpl
      */
     private String constructDummyArray()
     {
-        return ThymeleafUtils.constructDummyArrayDeclaration(
+        return CartridgeWebUtils.constructDummyArrayDeclaration(
             this.getName(),
-            ThymeleafGlobals.DUMMY_ARRAY_COUNT);
+            CartridgeWebGlobals.DUMMY_ARRAY_COUNT);
     }
 
     /**
@@ -876,18 +878,18 @@ public class ThymeleafParameterLogicImpl
      */
     protected Collection handleGetValidatorTypes()
     {
-        return ThymeleafUtils.getValidatorTypes(
+        return CartridgeWebUtils.getValidatorTypes(
             (ModelElementFacade)this.THIS(),
             this.getType());
     }
 
     /**
-     * @return ThymeleafUtils.getValidWhen(this)
+     * @return CartridgeWebUtils.getValidWhen(this)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafParameter#getValidWhen()
      */
     protected String handleGetValidWhen()
     {
-        return ThymeleafUtils.getValidWhen(this);
+        return CartridgeWebUtils.getValidWhen(this);
     }
 
     /**
@@ -900,7 +902,7 @@ public class ThymeleafParameterLogicImpl
         if("org.omg.uml.foundation.core".equals(metaObject.getClass().getPackage().getName()))
         {
             //if uml 1.4, keep the old behavior (like bpm4struts)
-            final Object value = this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_INPUT_REQUIRED);
+            final Object value = this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_INPUT_REQUIRED);
             return Boolean.valueOf(Objects.toString(value)).booleanValue();
         }
         else
@@ -911,12 +913,12 @@ public class ThymeleafParameterLogicImpl
     }
 
     /**
-     * @return ThymeleafUtils.isReadOnly(this)
+     * @return CartridgeWebUtils.isReadOnly(this)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafParameter#isReadOnly()
      */
     protected boolean handleIsReadOnly()
     {
-        return ThymeleafUtils.isReadOnly(this);
+        return CartridgeWebUtils.isReadOnly(this);
     }
 
     /**
@@ -926,7 +928,7 @@ public class ThymeleafParameterLogicImpl
      */
     protected Collection handleGetValidatorArgs(final String validatorType)
     {
-        return ThymeleafUtils.getValidatorArgs(
+        return CartridgeWebUtils.getValidatorArgs(
             (ModelElementFacade)this.THIS(),
             validatorType);
     }
@@ -950,7 +952,7 @@ public class ThymeleafParameterLogicImpl
     protected boolean handleIsReset()
     {
         boolean reset =
-            Boolean.valueOf(Objects.toString(this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_INPUT_RESET)))
+            Boolean.valueOf(Objects.toString(this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_INPUT_RESET)))
                    .booleanValue();
         if (!reset)
         {
@@ -1030,7 +1032,7 @@ public class ThymeleafParameterLogicImpl
      */
     protected boolean handleIsEqualValidator()
     {
-        final String equal = ThymeleafUtils.getEqual((ModelElementFacade)this.THIS());
+        final String equal = CartridgeWebUtils.getEqual((ModelElementFacade)this.THIS());
         return equal != null && equal.trim().length() > 0;
     }
 
@@ -1109,12 +1111,12 @@ public class ThymeleafParameterLogicImpl
     }
 
     /**
-     * @return findTaggedValue(ThymeleafProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)
+     * @return findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafParameter#getInputTableIdentifierColumns()
      */
     protected String handleGetInputTableIdentifierColumns()
     {
-        return Objects.toString(this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS), "").trim();
+        return Objects.toString(this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS), "").trim();
     }
 
     /**
@@ -1201,27 +1203,27 @@ public class ThymeleafParameterLogicImpl
             {
                 result.add(vt);
             }
-            if(ThymeleafUtils.VT_REQUIRED.equals(vt))
+            if(CartridgeWebUtils.VT_REQUIRED.equals(vt))
             {
                 requiredAdded=true;
                 result.add(AN_REQUIRED);
             }
-            else if(ThymeleafUtils.VT_URL.equals(vt))
+            else if(CartridgeWebUtils.VT_URL.equals(vt))
             {
                 result.add(AN_URL);
             }
-            else if(ThymeleafUtils.VT_INT_RANGE.equals(vt))
+            else if(CartridgeWebUtils.VT_INT_RANGE.equals(vt))
             {
                 final StringBuilder sb=new StringBuilder(AN_LONG_RANGE+"(");
-                final String format = ThymeleafUtils.getInputFormat((ModelElementFacade)this.THIS());
-                final String rangeStart = ThymeleafUtils.getRangeStart(format);
+                final String format = CartridgeWebUtils.getInputFormat((ModelElementFacade)this.THIS());
+                final String rangeStart = CartridgeWebUtils.getRangeStart(format);
                 boolean addComma=false;
                 if(StringUtils.isNotBlank(rangeStart) && !rangeStart.equals(UNDEFINED_BOUND))
                 {
                     sb.append("minimum="+rangeStart);
                     addComma=true;
                 }
-                final String rangeEnd = ThymeleafUtils.getRangeEnd(format);
+                final String rangeEnd = CartridgeWebUtils.getRangeEnd(format);
                 if(StringUtils.isNotBlank(rangeEnd) && !rangeEnd.equals(UNDEFINED_BOUND))
                 {
                     if(addComma)
@@ -1233,18 +1235,18 @@ public class ThymeleafParameterLogicImpl
                 sb.append(")");
                 result.add(sb.toString());
             }
-            else if(ThymeleafUtils.VT_FLOAT_RANGE.equals(vt) || ThymeleafUtils.VT_DOUBLE_RANGE.equals(vt))
+            else if(CartridgeWebUtils.VT_FLOAT_RANGE.equals(vt) || CartridgeWebUtils.VT_DOUBLE_RANGE.equals(vt))
             {
                 final StringBuilder sb=new StringBuilder(AN_DOUBLE_RANGE+"(");
-                final String format = ThymeleafUtils.getInputFormat(((ModelElementFacade)this.THIS()));
-                final String rangeStart = ThymeleafUtils.getRangeStart(format);
+                final String format = CartridgeWebUtils.getInputFormat(((ModelElementFacade)this.THIS()));
+                final String rangeStart = CartridgeWebUtils.getRangeStart(format);
                 boolean addComma=false;
                 if(StringUtils.isNotBlank(rangeStart) && !rangeStart.equals(UNDEFINED_BOUND))
                 {
                     sb.append("minimum="+rangeStart);
                     addComma=true;
                 }
-                final String rangeEnd = ThymeleafUtils.getRangeEnd(format);
+                final String rangeEnd = CartridgeWebUtils.getRangeEnd(format);
                 if(StringUtils.isNotBlank(rangeEnd) && !rangeEnd.equals(UNDEFINED_BOUND))
                 {
                     if(addComma)
@@ -1256,65 +1258,65 @@ public class ThymeleafParameterLogicImpl
                 sb.append(")");
                 result.add(sb.toString());
             }
-            else if(ThymeleafUtils.VT_EMAIL.equals(vt))
+            else if(CartridgeWebUtils.VT_EMAIL.equals(vt))
             {
                 result.add(AN_EMAIL);
             }
-            else if(ThymeleafUtils.VT_CREDIT_CARD.equals(vt))
+            else if(CartridgeWebUtils.VT_CREDIT_CARD.equals(vt))
             {
                 result.add(AN_CREDIT_CARD);
             }
-            else if(ThymeleafUtils.VT_MIN_LENGTH.equals(vt) || ThymeleafUtils.VT_MAX_LENGTH.equals(vt))
+            else if(CartridgeWebUtils.VT_MIN_LENGTH.equals(vt) || CartridgeWebUtils.VT_MAX_LENGTH.equals(vt))
             {
                 final StringBuilder sb=new StringBuilder(AN_LENGTH+"(");
-                final Collection formats = this.findTaggedValues(ThymeleafProfile.TAGGEDVALUE_INPUT_FORMAT);
+                final Collection formats = this.findTaggedValues(CartridgeWebProfile.TAGGEDVALUE_INPUT_FORMAT);
                 boolean addComma=false;
                 for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
                 {
                     final String additionalFormat = String.valueOf(formatIterator.next());
-                    if (ThymeleafUtils.isMinLengthFormat(additionalFormat))
+                    if (CartridgeWebUtils.isMinLengthFormat(additionalFormat))
                     {
                         if(addComma)
                         {
                             sb.append(",");
                         }
                         sb.append("min=");
-                        sb.append(ThymeleafUtils.getMinLengthValue(additionalFormat));
+                        sb.append(CartridgeWebUtils.getMinLengthValue(additionalFormat));
                         addComma=true;
                     }
-                    else if (ThymeleafUtils.isMaxLengthFormat(additionalFormat))
+                    else if (CartridgeWebUtils.isMaxLengthFormat(additionalFormat))
                     {
                         if(addComma)
                         {
                             sb.append(",");
                         }
                         sb.append("max=");
-                        sb.append(ThymeleafUtils.getMinLengthValue(additionalFormat));
+                        sb.append(CartridgeWebUtils.getMinLengthValue(additionalFormat));
                         addComma=true;
                     }
                 }
                 sb.append(")");
                 result.add(sb.toString());
             }
-            else if(ThymeleafUtils.VT_MASK.equals(vt))
+            else if(CartridgeWebUtils.VT_MASK.equals(vt))
             {
-                final Collection formats = this.findTaggedValues(ThymeleafProfile.TAGGEDVALUE_INPUT_FORMAT);
+                final Collection formats = this.findTaggedValues(CartridgeWebProfile.TAGGEDVALUE_INPUT_FORMAT);
                 for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
                 {
                     final String additionalFormat = String.valueOf(formatIterator.next());
-                    if (ThymeleafUtils.isPatternFormat(additionalFormat))
+                    if (CartridgeWebUtils.isPatternFormat(additionalFormat))
                     {
-                        result.add(AN_PATTERN+"(\""+ThymeleafUtils.getPatternValue(additionalFormat)+"\")");
+                        result.add(AN_PATTERN+"(\""+CartridgeWebUtils.getPatternValue(additionalFormat)+"\")");
                     }
                 }
             }
-            else if(ThymeleafUtils.VT_VALID_WHEN.equals(vt))
+            else if(CartridgeWebUtils.VT_VALID_WHEN.equals(vt))
             {
                 result.add("");
             }
-            else if(ThymeleafUtils.VT_EQUAL.equals(vt))
+            else if(CartridgeWebUtils.VT_EQUAL.equals(vt))
             {
-                result.add(AN_EQUALS+"(\""+ThymeleafUtils.getEqual((ModelElementFacade)this.THIS())+"\")");
+                result.add(AN_EQUALS+"(\""+CartridgeWebUtils.getEqual((ModelElementFacade)this.THIS())+"\")");
             }
         }
         if(!requiredAdded && getLower() > 0)
@@ -1335,7 +1337,7 @@ public class ThymeleafParameterLogicImpl
 
     @Override
     protected String handleGetRestPathParam() {
-        String pathParam = (String)this.findTaggedValue(ThymeleafGlobals.REST_PATH_PARAM);
+        String pathParam = (String)this.findTaggedValue(CartridgeWebGlobals.REST_PATH_PARAM);
         
         pathParam = AT + handleGetRestParamType() + "(\"" + pathParam + "\")";
         return pathParam;
@@ -1343,7 +1345,7 @@ public class ThymeleafParameterLogicImpl
 
     @Override
     protected String handleGetRestParamType() {
-        String paramType = (String)this.findTaggedValue(ThymeleafGlobals.REST_PARAM_TYPE);
+        String paramType = (String)this.findTaggedValue(CartridgeWebGlobals.REST_PARAM_TYPE);
         if (StringUtils.isBlank(paramType) || paramType.equals(DEFAULT))
         {
             paramType = EMPTY_STRING;
@@ -1364,7 +1366,7 @@ public class ThymeleafParameterLogicImpl
 
     @Override
     protected boolean handleIsRestEncoded() {
-        String restEncoded = (String)this.findTaggedValue(ThymeleafGlobals.REST_ENCODED);
+        String restEncoded = (String)this.findTaggedValue(CartridgeWebGlobals.REST_ENCODED);
         if (StringUtils.isBlank(restEncoded) || restEncoded.equals(DEFAULT))
         {
             restEncoded = BOOLEAN_FALSE;
@@ -1375,7 +1377,7 @@ public class ThymeleafParameterLogicImpl
 
     @Override
     protected String handleGetRestPathSegment() {
-        String pathSegment = (String)this.findTaggedValue(ThymeleafGlobals.REST_PATH_SEGMENT);
+        String pathSegment = (String)this.findTaggedValue(CartridgeWebGlobals.REST_PATH_SEGMENT);
         if (StringUtils.isBlank(pathSegment) || pathSegment.equals(DEFAULT))
         {
             pathSegment = EMPTY_STRING;

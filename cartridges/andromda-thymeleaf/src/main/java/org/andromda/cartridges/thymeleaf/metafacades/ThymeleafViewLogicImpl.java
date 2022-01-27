@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import org.andromda.cartridges.thymeleaf.ThymeleafGlobals;
-import org.andromda.cartridges.thymeleaf.ThymeleafProfile;
-import org.andromda.cartridges.thymeleaf.ThymeleafUtils;
+import org.andromda.cartridges.web.CartridgeWebGlobals;
+import org.andromda.cartridges.web.CartridgeWebProfile;
+import org.andromda.cartridges.web.CartridgeWebUtils;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndForward;
@@ -41,12 +41,12 @@ public class ThymeleafViewLogicImpl
     }
 
     /**
-     * @return getMessageKey() + '.' + ThymeleafGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX
+     * @return getMessageKey() + '.' + CartridgeWebGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafView#getDocumentationKey()
      */
     protected String handleGetDocumentationKey()
     {
-        return getMessageKey() + '.' + ThymeleafGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX;
+        return getMessageKey() + '.' + CartridgeWebGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX;
     }
 
     /**
@@ -78,7 +78,7 @@ public class ThymeleafViewLogicImpl
      */
     private boolean isNormalizeMessages()
     {
-        final String normalizeMessages = (String)getConfiguredProperty(ThymeleafGlobals.NORMALIZE_MESSAGES);
+        final String normalizeMessages = (String)getConfiguredProperty(CartridgeWebGlobals.NORMALIZE_MESSAGES);
         return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 
@@ -101,12 +101,12 @@ public class ThymeleafViewLogicImpl
     }
 
     /**
-     * @return getMessageKey() + '.' + ThymeleafGlobals.TITLE_MESSAGE_KEY_SUFFIX
+     * @return getMessageKey() + '.' + CartridgeWebGlobals.TITLE_MESSAGE_KEY_SUFFIX
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafView#getTitleKey()
      */
     protected String handleGetTitleKey()
     {
-        return this.getMessageKey() + '.' + ThymeleafGlobals.TITLE_MESSAGE_KEY_SUFFIX;
+        return this.getMessageKey() + '.' + CartridgeWebGlobals.TITLE_MESSAGE_KEY_SUFFIX;
     }
 
     /**
@@ -130,7 +130,7 @@ public class ThymeleafViewLogicImpl
         {
             path.append(packageName + '.');
         }
-        path.append(ThymeleafUtils.toWebResourceName(StringUtils.trimToEmpty(this.getName())).replace(
+        path.append(CartridgeWebUtils.toWebResourceName(StringUtils.trimToEmpty(this.getName())).replace(
                 '.',
                 '/'));
         return '/' + path.toString().replace(
@@ -227,7 +227,7 @@ public class ThymeleafViewLogicImpl
      */
     protected String handleGetPopulator()
     {
-        return Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.VIEW_POPULATOR_PATTERN)).replaceAll(
+        return Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.VIEW_POPULATOR_PATTERN)).replaceAll(
             "\\{0\\}",
             StringUtilsHelper.upperCamelCaseName(this.getName()));
     }
@@ -255,8 +255,8 @@ public class ThymeleafViewLogicImpl
      */
     protected String handleGetFormKey()
     {
-        final Object formKeyValue = this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_ACTION_FORM_KEY);
-        return formKeyValue == null ? Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.ACTION_FORM_KEY))
+        final Object formKeyValue = this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_ACTION_FORM_KEY);
+        return formKeyValue == null ? Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.ACTION_FORM_KEY))
                                     : String.valueOf(formKeyValue);
     }
 
@@ -304,8 +304,8 @@ public class ThymeleafViewLogicImpl
      */
     protected boolean handleIsPopup()
     {
-        return Objects.toString(this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_VIEW_TYPE)).equalsIgnoreCase(
-            ThymeleafGlobals.ACTION_TYPE_POPUP);
+        return Objects.toString(this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_VIEW_TYPE)).equalsIgnoreCase(
+            CartridgeWebGlobals.ACTION_TYPE_POPUP);
     }
 
     /**
@@ -391,7 +391,7 @@ public class ThymeleafViewLogicImpl
      */
     protected String handleGetFromOutcome()
     {
-        return ThymeleafUtils.toWebResourceName(this.getUseCase().getName() + "-" + this.getName());
+        return CartridgeWebUtils.toWebResourceName(this.getUseCase().getName() + "-" + this.getName());
     }
 
     /**

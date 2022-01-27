@@ -15,7 +15,7 @@
 
     <!-- define the template objects that are made available to the template -->
     <templateObject name="stringUtils" className="org.andromda.utils.StringUtilsHelper"/>
-    <templateObject name="thymeleafUtils" className="org.andromda.cartridges.thymeleaf.ThymeleafUtils">
+    <templateObject name="thymeleafUtils" className="org.andromda.cartridges.web.AndromdaWebUtils">
         <property reference="strictDateTimeFormat"/>
     </templateObject>
     

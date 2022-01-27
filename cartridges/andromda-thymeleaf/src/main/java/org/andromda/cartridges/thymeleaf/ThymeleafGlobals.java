@@ -229,6 +229,81 @@ public class ThymeleafGlobals
     public static final String INPUT_CHECKBOX = "checkbox";
 
     /**
+     * The "button" form input type.
+     */
+    public static final String INPUT_BUTTON = "button";
+
+    /**
+     * The "color" form input type.
+     */
+    public static final String INPUT_COLOR = "color";
+
+    /**
+     * The "date" form input type.
+     */
+    public static final String INPUT_DATE = "date";
+
+    /**
+     * The "datetime-local" form input type.
+     */
+    public static final String INPUT_DATETIME_LOCAL = "datetime-local";
+
+    /**
+     * The "email" form input type.
+     */
+    public static final String INPUT_EMAIL = "email";
+
+    /**
+     * The "file" form input type.
+     */
+    public static final String INPUT_FILE = "file";
+
+    /**
+     * The "image" form input type.
+     */
+    public static final String INPUT_IMAGE = "image";
+
+    /**
+     * The "month" form input type.
+     */
+    public static final String INPUT_MONTH = "month";
+
+    /**
+     * The "number" form input type.
+     */
+    public static final String INPUT_NUMBER = "number";
+
+    /**
+     * The "range" form input type.
+     */
+    public static final String INPUT_RANGE = "range";
+
+    /**
+     * The "submit" form input type.
+     */
+    public static final String INPUT_SUBMIT = "submit";
+
+    /**
+     * The "tel" form input type.
+     */
+    public static final String INPUT_TEL = "tel";
+
+    /**
+     * The "time" form input type.
+     */
+    public static final String INPUT_TIME = "time";
+
+    /**
+     * The "url" form input type.
+     */
+    public static final String INPUT_URL = "url";
+
+    /**
+     * The "week" form input type.
+     */
+    public static final String INPUT_WEEK = "week";
+
+    /**
      * The "plain text" type.
      */
     public static final String PLAIN_TEXT = "plaintext";

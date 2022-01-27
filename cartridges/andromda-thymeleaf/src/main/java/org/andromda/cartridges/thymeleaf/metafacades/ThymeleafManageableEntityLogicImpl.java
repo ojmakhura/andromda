@@ -7,10 +7,10 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 
-import org.andromda.cartridges.thymeleaf.ThymeleafGlobals;
-import org.andromda.cartridges.thymeleaf.ThymeleafProfile;
-import org.andromda.cartridges.thymeleaf.ThymeleafUtils;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.cartridges.web.CartridgeWebGlobals;
+import org.andromda.cartridges.web.CartridgeWebProfile;
+import org.andromda.cartridges.web.CartridgeWebUtils;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ManageableEntityAssociationEnd;
 import org.andromda.metafacades.uml.ManageableEntityAttribute;
@@ -100,7 +100,7 @@ public class ThymeleafManageableEntityLogicImpl
      */
     protected String handleGetFormBeanName()
     {
-        final String pattern = Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.FORM_BEAN_PATTERN));
+        final String pattern = Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.FORM_BEAN_PATTERN));
         final String formBeanName = pattern.replaceFirst("\\{0\\}", "manage");
         return formBeanName.replaceFirst("\\{1\\}", this.getName());
     }
@@ -286,9 +286,9 @@ public class ThymeleafManageableEntityLogicImpl
     {
         return null;
         //TODO a resolver
-//        return ThymeleafUtils.getDisplayTagExportTypes(
-//            this.findTaggedValues(ThymeleafProfile.TAGGEDVALUE_TABLE_EXPORT),
-//            (String)getConfiguredProperty(ThymeleafGlobals.PROPERTY_DEFAULT_TABLE_EXPORT_TYPES) );
+//        return CartridgeWebUtils.getDisplayTagExportTypes(
+//            this.findTaggedValues(CartridgeWebProfile.TAGGEDVALUE_TABLE_EXPORT),
+//            (String)getConfiguredProperty(CartridgeWebGlobals.PROPERTY_DEFAULT_TABLE_EXPORT_TYPES) );
     }
 
     /**
@@ -297,7 +297,7 @@ public class ThymeleafManageableEntityLogicImpl
      */
     protected int handleGetTableMaxRows()
     {
-        final Object taggedValue = this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_TABLE_MAXROWS);
+        final Object taggedValue = this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_TABLE_MAXROWS);
         int pageSize;
 
         try
@@ -306,7 +306,7 @@ public class ThymeleafManageableEntityLogicImpl
         }
         catch (Exception e)
         {
-            pageSize = ThymeleafProfile.TAGGEDVALUE_TABLE_MAXROWS_DEFAULT_COUNT;
+            pageSize = CartridgeWebProfile.TAGGEDVALUE_TABLE_MAXROWS_DEFAULT_COUNT;
         }
 
         return pageSize;
@@ -318,9 +318,9 @@ public class ThymeleafManageableEntityLogicImpl
      */
     protected boolean handleIsTableSortable()
     {
-        final Object taggedValue = this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_TABLE_SORTABLE);
+        final Object taggedValue = this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_TABLE_SORTABLE);
         return (taggedValue == null)
-            ? ThymeleafProfile.TAGGEDVALUE_TABLE_SORTABLE_DEFAULT_VALUE
+            ? CartridgeWebProfile.TAGGEDVALUE_TABLE_SORTABLE_DEFAULT_VALUE
             : Boolean.valueOf(String.valueOf(taggedValue)).booleanValue();
     }
 
@@ -361,12 +361,12 @@ public class ThymeleafManageableEntityLogicImpl
     }
 
     /**
-     * @return getName() + this.getConfiguredProperty(ThymeleafGlobals.CRUD_VALUE_OBJECT_SUFFIX)
+     * @return getName() + this.getConfiguredProperty(CartridgeWebGlobals.CRUD_VALUE_OBJECT_SUFFIX)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getValueObjectClassName()
      */
     protected String handleGetValueObjectClassName()
     {
-        return getName() + this.getConfiguredProperty(ThymeleafGlobals.CRUD_VALUE_OBJECT_SUFFIX);
+        return getName() + this.getConfiguredProperty(CartridgeWebGlobals.CRUD_VALUE_OBJECT_SUFFIX);
     }
 
     /**
@@ -378,7 +378,7 @@ public class ThymeleafManageableEntityLogicImpl
         final StringBuilder buffer = new StringBuilder();
         buffer.append(this.getFormBeanType());
         addSerialUIDData(buffer);
-        return ThymeleafUtils.calcSerialVersionUID(buffer);
+        return CartridgeWebUtils.calcSerialVersionUID(buffer);
     }
 
     /**
@@ -390,7 +390,7 @@ public class ThymeleafManageableEntityLogicImpl
         final StringBuilder buffer = new StringBuilder();
         buffer.append(this.getActionFullPath());
         addSerialUIDData(buffer);
-        return ThymeleafUtils.calcSerialVersionUID(buffer);
+        return CartridgeWebUtils.calcSerialVersionUID(buffer);
     }
 
     /**
@@ -399,7 +399,7 @@ public class ThymeleafManageableEntityLogicImpl
      */
     protected String handleGetPopulatorName()
     {
-        return Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.VIEW_POPULATOR_PATTERN)).replaceAll(
+        return Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.VIEW_POPULATOR_PATTERN)).replaceAll(
             "\\{0\\}",
             StringUtilsHelper.upperCamelCaseName(this.getFormBeanClassName()));
     }
@@ -466,7 +466,7 @@ public class ThymeleafManageableEntityLogicImpl
      */
     protected String handleGetSearchFormBeanName()
     {
-        final String pattern = Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.FORM_BEAN_PATTERN));
+        final String pattern = Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.FORM_BEAN_PATTERN));
         final String formBeanName = pattern.replaceFirst("\\{0\\}", "manage");
         return formBeanName.replaceFirst("\\{1\\}",this.getName() + "Search");
     }
@@ -505,7 +505,7 @@ public class ThymeleafManageableEntityLogicImpl
         {
             for(final ManageableEntityAttribute attr: getManageableAttributes())
             {
-                if(BooleanUtils.toBoolean(Objects.toString(attr.findTaggedValue(ThymeleafProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE))))
+                if(BooleanUtils.toBoolean(Objects.toString(attr.findTaggedValue(CartridgeWebProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE))))
                 {
                     usingManageableSearchable=true;
                     break;
@@ -515,8 +515,8 @@ public class ThymeleafManageableEntityLogicImpl
             {
                 for(final ManageableEntityAssociationEnd end: getManageableAssociationEnds())
                 {
-                    //TODO constant should go to ThymeleafProfile of UMLPROFILE
-                    if(BooleanUtils.toBoolean(Objects.toString(end.findTaggedValue(ThymeleafProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE))))
+                    //TODO constant should go to CartridgeWebProfile of UMLPROFILE
+                    if(BooleanUtils.toBoolean(Objects.toString(end.findTaggedValue(CartridgeWebProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE))))
                     {
                         usingManageableSearchable=true;
                         break;
@@ -544,7 +544,7 @@ public class ThymeleafManageableEntityLogicImpl
         {
             for(final ManageableEntityAttribute attr: getManageableAttributes())
             {
-                if(BooleanUtils.toBoolean(Objects.toString(attr.findTaggedValue(ThymeleafProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE))))
+                if(BooleanUtils.toBoolean(Objects.toString(attr.findTaggedValue(CartridgeWebProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE))))
                 {
                     searchAttributes.add((ThymeleafManageableEntityAttribute)attr);
                 }
@@ -576,7 +576,7 @@ public class ThymeleafManageableEntityLogicImpl
         {
             for(final ManageableEntityAssociationEnd end: getManageableAssociationEnds())
             {
-                if(BooleanUtils.toBoolean(Objects.toString(end.findTaggedValue(ThymeleafProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE)))
+                if(BooleanUtils.toBoolean(Objects.toString(end.findTaggedValue(CartridgeWebProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE)))
                    || end.isComposition())
                 {
                     searchAssociationEnds.add(end);
@@ -751,7 +751,7 @@ protected Collection handleGetRoles()
     public String handleGetConverterClassName()
     {
         return StringUtils.replace(
-            Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.CONVERTER_PATTERN)),
+            Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.CONVERTER_PATTERN)),
             "{0}",
             this.getName());
     }
@@ -780,7 +780,7 @@ protected Collection handleGetRoles()
         
         for(final ManageableEntityAttribute attribute: getManageableAttributes())
         {
-            if(BooleanUtils.toBoolean(Objects.toString(attribute.findTaggedValue(ThymeleafProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_DISPLAY))))
+            if(BooleanUtils.toBoolean(Objects.toString(attribute.findTaggedValue(CartridgeWebProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_DISPLAY))))
             {
                 return attribute;
             }
@@ -804,16 +804,16 @@ protected Collection handleGetRoles()
      */
     @Override
     protected boolean handleIsNeedsImplementation() {
-        final Object generateCrudImpls=this.getConfiguredProperty(ThymeleafGlobals.GENERATE_CRUD_IMPLS);
+        final Object generateCrudImpls=this.getConfiguredProperty(CartridgeWebGlobals.GENERATE_CRUD_IMPLS);
         if(generateCrudImpls != null && Boolean.parseBoolean(generateCrudImpls.toString()))
         {
             return true;
         }
         else
         {
-            final Object taggedValue = this.findTaggedValue(ThymeleafProfile.ANDROMDA_MANAGEABLE_IMPLEMENTATION);
+            final Object taggedValue = this.findTaggedValue(CartridgeWebProfile.ANDROMDA_MANAGEABLE_IMPLEMENTATION);
             return (taggedValue == null)
-                ? ThymeleafProfile.TAGGEDVALUE_MANAGEABLE_IMPLEMENTATION_DEFAULT_VALUE
+                ? CartridgeWebProfile.TAGGEDVALUE_MANAGEABLE_IMPLEMENTATION_DEFAULT_VALUE
                 : Boolean.valueOf(String.valueOf(taggedValue)).booleanValue();
         }
     }

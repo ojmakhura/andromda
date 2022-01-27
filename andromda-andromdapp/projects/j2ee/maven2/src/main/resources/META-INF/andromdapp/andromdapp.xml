@@ -54,6 +54,12 @@
             <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestConfiguration.java.vsl</output>
             <output>webservice/src/main/resources/application.properties.vsl</output>
         </conditions>
+        <conditions>
+            <condition id="thymeleaf" equal="true"/>
+            <output>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WebApplication.java.vsl</output>
+            <output>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SelectItem.java.vsl</output>
+            <output>thymeleaf/target/src/main/resources/application.properties.vsl</output>
+        </conditions>
         <conditions type="and">
             <condition id="webservice" notEqual="none"/>
             <condition id="springws" notEqual="true"/>

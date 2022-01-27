@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import org.andromda.cartridges.thymeleaf.ThymeleafGlobals;
-import org.andromda.cartridges.thymeleaf.ThymeleafProfile;
-import org.andromda.cartridges.thymeleaf.ThymeleafUtils;
+import org.andromda.cartridges.web.CartridgeWebGlobals;
+import org.andromda.cartridges.web.CartridgeWebProfile;
+import org.andromda.cartridges.web.CartridgeWebUtils;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActionState;
@@ -71,7 +71,7 @@ public class ThymeleafActionLogicImpl
      */
     private String getFormBeanName(boolean withUseCaseName)
     {
-        final String pattern = Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.FORM_BEAN_PATTERN));
+        final String pattern = Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.FORM_BEAN_PATTERN));
         final ModelElementFacade useCase = this.getUseCase();
         final String useCaseName = withUseCaseName && useCase != null
             ? StringUtilsHelper.lowerCamelCaseName(useCase.getName()) : "";
@@ -88,7 +88,7 @@ public class ThymeleafActionLogicImpl
      */
     public String getName()
     {
-        return ThymeleafUtils.toWebResourceName(this.getUseCase().getName() + "-" + super.getName());
+        return CartridgeWebUtils.toWebResourceName(this.getUseCase().getName() + "-" + super.getName());
     }
 
     /**
@@ -122,7 +122,7 @@ public class ThymeleafActionLogicImpl
     protected String handleGetFormImplementationName()
     {
         final String pattern =
-            Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.FORM_IMPLEMENTATION_PATTERN));
+            Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.FORM_IMPLEMENTATION_PATTERN));
         return pattern.replaceFirst(
             "\\{0\\}",
             StringUtils.capitalize(this.getTriggerName()));
@@ -134,7 +134,7 @@ public class ThymeleafActionLogicImpl
      */
     protected boolean handleIsTableAction()
     {
-        return ThymeleafGlobals.ACTION_TYPE_TABLE.equals(this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_ACTION_TYPE));
+        return CartridgeWebGlobals.ACTION_TYPE_TABLE.equals(this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_ACTION_TYPE));
     }
 
     /**
@@ -169,10 +169,10 @@ public class ThymeleafActionLogicImpl
      */
     protected String handleGetFormScope()
     {
-        String scope = Objects.toString(this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_ACTION_FORM_SCOPE));
+        String scope = Objects.toString(this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_ACTION_FORM_SCOPE));
         if (StringUtils.isEmpty(scope))
         {
-            scope = Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.FORM_SCOPE));
+            scope = Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.FORM_SCOPE));
         }
         return scope;
     }
@@ -211,7 +211,7 @@ public class ThymeleafActionLogicImpl
      */
     protected String handleGetPath()
     {
-        String path = this.getPathRoot() + '/' + ThymeleafUtils.toWebResourceName(this.getTriggerName());
+        String path = this.getPathRoot() + '/' + CartridgeWebUtils.toWebResourceName(this.getTriggerName());
         if (this.isExitingInitialState())
         {
             final ThymeleafUseCase useCase = (ThymeleafUseCase)this.getUseCase();
@@ -271,7 +271,7 @@ public class ThymeleafActionLogicImpl
             event = (ThymeleafEvent)trigger;
         }
         return (event == null ? this.getMessageKey() + ".is.an.action.without.trigger" : event.getMessageKey()) +
-            '.' + ThymeleafGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX;
+            '.' + CartridgeWebGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX;
     }
 
     /**
@@ -295,7 +295,7 @@ public class ThymeleafActionLogicImpl
     {
         return '/' + this.getPackageName().replace(
             '.',
-            '/') + '/' + ThymeleafUtils.toWebResourceName(this.getTriggerName());
+            '/') + '/' + CartridgeWebUtils.toWebResourceName(this.getTriggerName());
     }
 
     /**
@@ -306,7 +306,7 @@ public class ThymeleafActionLogicImpl
     {
         String tableLink = null;
 
-        final Object value = findTaggedValue(ThymeleafProfile.TAGGEDVALUE_ACTION_TABLELINK);
+        final Object value = findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_ACTION_TABLELINK);
         if (value != null)
         {
             tableLink = StringUtils.trimToNull(value.toString());
@@ -330,7 +330,7 @@ public class ThymeleafActionLogicImpl
     protected String handleGetTableLinkColumnName()
     {
         String tableLink = null;
-        final Object value = findTaggedValue(ThymeleafProfile.TAGGEDVALUE_ACTION_TABLELINK);
+        final Object value = findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_ACTION_TABLELINK);
         if (value != null)
         {
             tableLink = StringUtils.trimToNull(value.toString());
@@ -391,8 +391,8 @@ public class ThymeleafActionLogicImpl
      */
     protected boolean handleIsHyperlink()
     {
-        final Object value = findTaggedValue(ThymeleafProfile.TAGGEDVALUE_ACTION_TYPE);
-        return ThymeleafGlobals.ACTION_TYPE_HYPERLINK.equalsIgnoreCase(value == null ? null : value.toString());
+        final Object value = findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_ACTION_TYPE);
+        return CartridgeWebGlobals.ACTION_TYPE_HYPERLINK.equalsIgnoreCase(value == null ? null : value.toString());
     }
 
     /**
@@ -457,12 +457,12 @@ public class ThymeleafActionLogicImpl
     }
 
     /**
-     * @return findTaggedValue(ThymeleafProfile.TAGGEDVALUE_ACTION_RESETTABLE) isTrue
+     * @return findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_ACTION_RESETTABLE) isTrue
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafAction#isResettable()
      */
     protected boolean handleIsResettable()
     {
-        final Object value = findTaggedValue(ThymeleafProfile.TAGGEDVALUE_ACTION_RESETTABLE);
+        final Object value = findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_ACTION_RESETTABLE);
         return this.isTrue(value == null ? null : value.toString());
     }
 
@@ -500,8 +500,8 @@ public class ThymeleafActionLogicImpl
      */
     protected String handleGetFormKey()
     {
-        final Object formKeyValue = this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_ACTION_FORM_KEY);
-        return formKeyValue == null ? Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.ACTION_FORM_KEY))
+        final Object formKeyValue = this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_ACTION_FORM_KEY);
+        return formKeyValue == null ? Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.ACTION_FORM_KEY))
                                     : String.valueOf(formKeyValue);
     }
 
@@ -570,8 +570,8 @@ public class ThymeleafActionLogicImpl
      */
     protected boolean handleIsPopup()
     {
-        boolean popup = Objects.toString(this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_ACTION_TYPE)).equalsIgnoreCase(
-            ThymeleafGlobals.ACTION_TYPE_POPUP);
+        boolean popup = Objects.toString(this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_ACTION_TYPE)).equalsIgnoreCase(
+            CartridgeWebGlobals.ACTION_TYPE_POPUP);
         return popup;
     }
 
@@ -587,8 +587,8 @@ public class ThymeleafActionLogicImpl
         //starts supporting some conversation scope, or the thymeleaf cartridge supports
         //some extension that adds this kind of feature
         
-//        boolean dialog = Objects.toString(this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_ACTION_TYPE)).equalsIgnoreCase(
-//            ThymeleafGlobals.ACTION_TYPE_DIALOG);
+//        boolean dialog = Objects.toString(this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_ACTION_TYPE)).equalsIgnoreCase(
+//            CartridgeWebGlobals.ACTION_TYPE_DIALOG);
 //        return dialog;
     }
 
@@ -704,13 +704,13 @@ public class ThymeleafActionLogicImpl
     }
 
     /**
-     * @return findTaggedValue(ThymeleafProfile.TAGGEDVALUE_ACTION_FORM_RESET)
+     * @return findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_ACTION_FORM_RESET)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafAction#isFormResetRequired()
      */
     protected boolean handleIsFormReset()
     {
         return Boolean.valueOf(Objects.toString(this.findTaggedValue(
-            ThymeleafProfile.TAGGEDVALUE_ACTION_FORM_RESET), "")).booleanValue();
+            CartridgeWebProfile.TAGGEDVALUE_ACTION_FORM_RESET), "")).booleanValue();
     }
 
     /**
@@ -790,7 +790,7 @@ public class ThymeleafActionLogicImpl
      */
     protected Map<String, String> handleGetSuccessMessages()
     {
-        return this.getMessages(ThymeleafProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
+        return this.getMessages(CartridgeWebProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
     }
 
     /**
@@ -798,7 +798,7 @@ public class ThymeleafActionLogicImpl
      */
     protected Map<String, String> handleGetWarningMessages()
     {
-        return this.getMessages(ThymeleafProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
+        return this.getMessages(CartridgeWebProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
     }
 
     /**

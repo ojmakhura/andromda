@@ -1251,9 +1251,9 @@
 #if ($ear)
         <module>app</module>
 #end
-#if ($springws)
-		<module>springws</module>
-#end
+## #if ($springws)
+## 		<module>springws</module>
+## #end
 #if ($thymeleaf)
 		<module>thymeleaf</module>
 #end

@@ -1,6 +1,6 @@
 package org.andromda.cartridges.thymeleaf.metafacades;
 
-import org.andromda.cartridges.thymeleaf.ThymeleafGlobals;
+import org.andromda.cartridges.web.CartridgeWebGlobals;
 import org.andromda.utils.StringUtilsHelper;
 
 /**
@@ -76,7 +76,7 @@ public class ThymeleafEventLogicImpl
      */
     private boolean isNormalizeMessages()
     {
-        final String normalizeMessages = (String)getConfiguredProperty(ThymeleafGlobals.NORMALIZE_MESSAGES);
+        final String normalizeMessages = (String)getConfiguredProperty(CartridgeWebGlobals.NORMALIZE_MESSAGES);
         return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 }

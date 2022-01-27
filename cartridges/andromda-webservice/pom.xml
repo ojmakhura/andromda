@@ -47,6 +47,11 @@
             <version>${andromda.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>andromda-cartridge-utils</artifactId>
+            <version>${andromda.version}</version>
+        </dependency>
         <!-- Axis2 Dependencies -->
         <!-- Update version causes dependency convergence error, since webservice-client project requires migration -->
         <dependency>

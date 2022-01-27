@@ -17,6 +17,8 @@ import org.andromda.cartridges.thymeleaf.metafacades.ThymeleafAttributeLogic;
 import org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntityAttribute;
 import org.andromda.cartridges.thymeleaf.metafacades.ThymeleafParameter;
 import org.andromda.cartridges.thymeleaf.metafacades.ThymeleafParameterLogic;
+import org.andromda.cartridges.web.CartridgeWebProfile;
+import org.andromda.cartridges.web.CartridgeWebUtils;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -114,6 +116,151 @@ public class ThymeleafUtils
             }
         }
         return validatorArgs;
+    }
+
+    /**
+     * Gets the validator variables for the given <code>element</code> (if they can
+     * be retrieved).
+     *
+     * @param element the element from which to retrieve the variables
+     * @param type the type of the element.
+     * @param ownerParameter the optional owner parameter (if the element is an attribute for example).
+     * @return the collection of validator variables.
+     */
+    public static Collection<List<String>> getValidatorVars(
+        final ModelElementFacade element,
+        final ClassifierFacade type,
+        final ParameterFacade ownerParameter)
+    {
+        final Map<String, List<String>> vars = new LinkedHashMap<String, List<String>>();
+        if (element != null && type != null)
+        {
+            final String format = CartridgeWebUtils.getInputFormat(element);
+            if (format != null)
+            {
+                final boolean isRangeFormat = CartridgeWebUtils.isRangeFormat(format);
+
+                if (isRangeFormat)
+                {
+                    final String min = "min";
+                    final String max = "max";
+                    vars.put(
+                        min,
+                        Arrays.asList(min, CartridgeWebUtils.getRangeStart(format)));
+                    vars.put(
+                        max,
+                        Arrays.asList(max, CartridgeWebUtils.getRangeEnd(format)));
+                }
+                else
+                {
+                    final Collection formats = element.findTaggedValues(CartridgeWebProfile.TAGGEDVALUE_INPUT_FORMAT);
+                    for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
+                    {
+                        final String additionalFormat = String.valueOf(formatIterator.next());
+                        final String minlength = "minlength";
+                        final String maxlength = "maxlength";
+                        final String mask = "mask";
+                        if (CartridgeWebUtils.isMinLengthFormat(additionalFormat))
+                        {
+                            vars.put(
+                                minlength,
+                                Arrays.asList(minlength, CartridgeWebUtils.getMinLengthValue(additionalFormat)));
+                        }
+                        else if (CartridgeWebUtils.isMaxLengthFormat(additionalFormat))
+                        {
+                            vars.put(
+                                maxlength,
+                                Arrays.asList(maxlength, CartridgeWebUtils.getMaxLengthValue(additionalFormat)));
+                        }
+                        else if (CartridgeWebUtils.isPatternFormat(additionalFormat))
+                        {
+                            vars.put(
+                                mask,
+                                Arrays.asList(mask, CartridgeWebUtils.getPatternValue(additionalFormat)));
+                        }
+                    }
+                }
+            }
+            String inputFormat;
+            if (element instanceof ThymeleafAttribute)
+            {
+                inputFormat = ((ThymeleafAttribute)element).getFormat();
+            }
+            else if (element instanceof ThymeleafParameter)
+            {
+                inputFormat = ((ThymeleafParameter)element).getFormat();
+            }
+            else if (element instanceof ThymeleafManageableEntityAttribute)
+            {
+                inputFormat = ((ThymeleafManageableEntityAttribute)element).getFormat();
+            }
+            else
+            {
+                throw new RuntimeException("'element' is an invalid type, it must be either an instance of '" +
+                    ThymeleafAttribute.class.getName() + "' or '" + ThymeleafParameter.class.getName() + "'");
+            }
+            if (CartridgeWebUtils.isDate(type))
+            {
+                final String datePatternStrict = "datePatternStrict";
+                if (format != null && CartridgeWebUtils.isStrictDateFormat(format))
+                {
+                    vars.put(
+                        datePatternStrict,
+                        Arrays.asList(datePatternStrict, inputFormat));
+                }
+                else
+                {
+                    final String datePattern = "datePattern";
+                    vars.put(
+                        datePattern,
+                        Arrays.asList(datePattern, inputFormat));
+                }
+            }
+            if (CartridgeWebUtils.isTime(type))
+            {
+                final String timePattern = "timePattern";
+                vars.put(
+                    timePattern,
+                    Arrays.asList(timePattern, inputFormat));
+            }
+
+            final String validWhen = CartridgeWebUtils.getValidWhen(element);
+            if (validWhen != null)
+            {
+                final String test = "test";
+                vars.put(
+                    test,
+                    Arrays.asList(test, validWhen));
+            }
+
+            final String equal = CartridgeWebUtils.getEqual(element, ownerParameter);
+            if (equal != null)
+            {
+                final String fieldName = "fieldName";
+                vars.put(
+                    fieldName,
+                    Arrays.asList(fieldName, equal));
+            }
+
+            // - custom (parameterized) validators are allowed here
+            //   in this case we will reuse the validator arg values
+            final Collection taggedValues = element.findTaggedValues(CartridgeWebProfile.TAGGEDVALUE_INPUT_VALIDATORS);
+            for (final Object value : taggedValues)
+            {
+                final String validator = String.valueOf(value);
+
+                // - guaranteed to be of the same length
+                final List<String> validatorVars = CartridgeWebUtils.parseValidatorVars(validator);
+                final List<String> validatorArgs = CartridgeWebUtils.parseValidatorArgs(validator);
+
+                for (int ctr = 0; ctr < validatorVars.size(); ctr++)
+                {
+                    vars.put(validatorVars.get(ctr),
+                        Arrays.asList(validatorVars.get(ctr), validatorArgs.get(ctr)));
+                }
+            }
+        }
+        return vars.values();
     }
 
     /**
@@ -706,9 +853,9 @@ public class ThymeleafUtils
                     validatorTypesList.add(VT_REQUIRED);
                 }
             }
-            else if (element instanceof ThymeleafParameter)
+            else if (element instanceof ParameterFacade)
             {
-                if (((ThymeleafParameter)element).isRequired())
+                if (((ParameterFacade)element).isRequired())
                 {
                     validatorTypesList.add(VT_REQUIRED);
                 }
@@ -815,151 +962,6 @@ public class ThymeleafUtils
             }
         }
         return validatorTypesList;
-    }
-
-    /**
-     * Gets the validator variables for the given <code>element</code> (if they can
-     * be retrieved).
-     *
-     * @param element the element from which to retrieve the variables
-     * @param type the type of the element.
-     * @param ownerParameter the optional owner parameter (if the element is an attribute for example).
-     * @return the collection of validator variables.
-     */
-    public static Collection<List<String>> getValidatorVars(
-        final ModelElementFacade element,
-        final ClassifierFacade type,
-        final ParameterFacade ownerParameter)
-    {
-        final Map<String, List<String>> vars = new LinkedHashMap<String, List<String>>();
-        if (element != null && type != null)
-        {
-            final String format = ThymeleafUtils.getInputFormat(element);
-            if (format != null)
-            {
-                final boolean isRangeFormat = ThymeleafUtils.isRangeFormat(format);
-
-                if (isRangeFormat)
-                {
-                    final String min = "min";
-                    final String max = "max";
-                    vars.put(
-                        min,
-                        Arrays.asList(min, ThymeleafUtils.getRangeStart(format)));
-                    vars.put(
-                        max,
-                        Arrays.asList(max, ThymeleafUtils.getRangeEnd(format)));
-                }
-                else
-                {
-                    final Collection formats = element.findTaggedValues(ThymeleafProfile.TAGGEDVALUE_INPUT_FORMAT);
-                    for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
-                    {
-                        final String additionalFormat = String.valueOf(formatIterator.next());
-                        final String minlength = "minlength";
-                        final String maxlength = "maxlength";
-                        final String mask = "mask";
-                        if (ThymeleafUtils.isMinLengthFormat(additionalFormat))
-                        {
-                            vars.put(
-                                minlength,
-                                Arrays.asList(minlength, ThymeleafUtils.getMinLengthValue(additionalFormat)));
-                        }
-                        else if (ThymeleafUtils.isMaxLengthFormat(additionalFormat))
-                        {
-                            vars.put(
-                                maxlength,
-                                Arrays.asList(maxlength, ThymeleafUtils.getMaxLengthValue(additionalFormat)));
-                        }
-                        else if (ThymeleafUtils.isPatternFormat(additionalFormat))
-                        {
-                            vars.put(
-                                mask,
-                                Arrays.asList(mask, ThymeleafUtils.getPatternValue(additionalFormat)));
-                        }
-                    }
-                }
-            }
-            String inputFormat;
-            if (element instanceof ThymeleafAttribute)
-            {
-                inputFormat = ((ThymeleafAttribute)element).getFormat();
-            }
-            else if (element instanceof ThymeleafParameter)
-            {
-                inputFormat = ((ThymeleafParameter)element).getFormat();
-            }
-            else if (element instanceof ThymeleafManageableEntityAttribute)
-            {
-                inputFormat = ((ThymeleafManageableEntityAttribute)element).getFormat();
-            }
-            else
-            {
-                throw new RuntimeException("'element' is an invalid type, it must be either an instance of '" +
-                    ThymeleafAttribute.class.getName() + "' or '" + ThymeleafParameter.class.getName() + "'");
-            }
-            if (ThymeleafUtils.isDate(type))
-            {
-                final String datePatternStrict = "datePatternStrict";
-                if (format != null && ThymeleafUtils.isStrictDateFormat(format))
-                {
-                    vars.put(
-                        datePatternStrict,
-                        Arrays.asList(datePatternStrict, inputFormat));
-                }
-                else
-                {
-                    final String datePattern = "datePattern";
-                    vars.put(
-                        datePattern,
-                        Arrays.asList(datePattern, inputFormat));
-                }
-            }
-            if (ThymeleafUtils.isTime(type))
-            {
-                final String timePattern = "timePattern";
-                vars.put(
-                    timePattern,
-                    Arrays.asList(timePattern, inputFormat));
-            }
-
-            final String validWhen = ThymeleafUtils.getValidWhen(element);
-            if (validWhen != null)
-            {
-                final String test = "test";
-                vars.put(
-                    test,
-                    Arrays.asList(test, validWhen));
-            }
-
-            final String equal = ThymeleafUtils.getEqual(element, ownerParameter);
-            if (equal != null)
-            {
-                final String fieldName = "fieldName";
-                vars.put(
-                    fieldName,
-                    Arrays.asList(fieldName, equal));
-            }
-
-            // - custom (parameterized) validators are allowed here
-            //   in this case we will reuse the validator arg values
-            final Collection taggedValues = element.findTaggedValues(ThymeleafProfile.TAGGEDVALUE_INPUT_VALIDATORS);
-            for (final Object value : taggedValues)
-            {
-                final String validator = String.valueOf(value);
-
-                // - guaranteed to be of the same length
-                final List<String> validatorVars = ThymeleafUtils.parseValidatorVars(validator);
-                final List<String> validatorArgs = ThymeleafUtils.parseValidatorArgs(validator);
-
-                for (int ctr = 0; ctr < validatorVars.size(); ctr++)
-                {
-                    vars.put(validatorVars.get(ctr),
-                        Arrays.asList(validatorVars.get(ctr), validatorArgs.get(ctr)));
-                }
-            }
-        }
-        return vars.values();
     }
 
     /**
@@ -1263,9 +1265,9 @@ public class ThymeleafUtils
             type = param.getType();
             many = param.isMany() && !type.isArrayType() && !type.isCollectionType();
         }
-        else if (element instanceof ThymeleafAttributeLogic)
+        else if (element instanceof AttributeFacade)
         {
-            ThymeleafAttributeLogic attrib = (ThymeleafAttributeLogic)element;
+            AttributeFacade attrib = (AttributeFacade)element;
             type = attrib.getType();
             many = attrib.isMany() && !type.isArrayType() && !type.isCollectionType();
         }
@@ -1275,9 +1277,9 @@ public class ThymeleafUtils
         //     type = association.getType();
         //     many = association.isMany() && !type.isArrayType() && !type.isCollectionType();
         // }
-        else if (element instanceof ThymeleafParameterLogic)
+        else if (element instanceof ParameterFacade)
         {
-            ThymeleafParameterLogic param = (ThymeleafParameterLogic)element;
+            ParameterFacade param = (ParameterFacade)element;
             type = param.getType();
             many = param.isMany() && !type.isArrayType() && !type.isCollectionType();
         }

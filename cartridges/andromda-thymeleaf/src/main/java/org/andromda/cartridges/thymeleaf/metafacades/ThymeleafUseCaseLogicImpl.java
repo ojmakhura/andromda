@@ -9,9 +9,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import org.andromda.cartridges.thymeleaf.ThymeleafGlobals;
-import org.andromda.cartridges.thymeleaf.ThymeleafProfile;
-import org.andromda.cartridges.thymeleaf.ThymeleafUtils;
+
+import org.andromda.cartridges.web.CartridgeWebGlobals;
+import org.andromda.cartridges.web.CartridgeWebProfile;
+import org.andromda.cartridges.web.CartridgeWebUtils;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -92,7 +93,7 @@ public class ThymeleafUseCaseLogicImpl
      */
     protected String handleGetForwardName()
     {
-        return ThymeleafUtils.toWebResourceName(this.getName()) + ThymeleafGlobals.USECASE_FORWARD_NAME_SUFFIX;
+        return CartridgeWebUtils.toWebResourceName(this.getName()) + CartridgeWebGlobals.USECASE_FORWARD_NAME_SUFFIX;
     }
 
     /**
@@ -103,7 +104,7 @@ public class ThymeleafUseCaseLogicImpl
     {
         return StringUtilsHelper.toResourceMessageKey(
             this.isNormalizeMessages() ? this.getTitleValue() : this.getName()) + '.' +
-            ThymeleafGlobals.TITLE_MESSAGE_KEY_SUFFIX;
+            CartridgeWebGlobals.TITLE_MESSAGE_KEY_SUFFIX;
     }
 
     /**
@@ -122,7 +123,7 @@ public class ThymeleafUseCaseLogicImpl
      */
     private boolean isNormalizeMessages()
     {
-        final String normalizeMessages = (String)getConfiguredProperty(ThymeleafGlobals.NORMALIZE_MESSAGES);
+        final String normalizeMessages = (String)getConfiguredProperty(CartridgeWebGlobals.NORMALIZE_MESSAGES);
         return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 
@@ -582,8 +583,8 @@ public class ThymeleafUseCaseLogicImpl
      */
     protected String handleGetFormKey()
     {
-        final Object formKeyValue = this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_ACTION_FORM_KEY);
-        return formKeyValue == null ? ObjectUtils.toString(this.getConfiguredProperty(ThymeleafGlobals.ACTION_FORM_KEY))
+        final Object formKeyValue = this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_ACTION_FORM_KEY);
+        return formKeyValue == null ? ObjectUtils.toString(this.getConfiguredProperty(CartridgeWebGlobals.ACTION_FORM_KEY))
                                     : String.valueOf(formKeyValue);
     }
 
@@ -703,12 +704,12 @@ public class ThymeleafUseCaseLogicImpl
     }
 
     /**
-     * @return hasStereotype(ThymeleafProfile.STEREOTYPE_FRONT_END_REGISTRATION)
+     * @return hasStereotype(CartridgeWebProfile.STEREOTYPE_FRONT_END_REGISTRATION)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#isRegistrationUseCase()
      */
     protected boolean handleIsRegistrationUseCase()
     {
-        return this.hasStereotype(ThymeleafProfile.STEREOTYPE_FRONT_END_REGISTRATION);
+        return this.hasStereotype(CartridgeWebProfile.STEREOTYPE_FRONT_END_REGISTRATION);
     }
 
     /**
@@ -923,7 +924,7 @@ public class ThymeleafUseCaseLogicImpl
 
     private String getWebResourceName()
     {
-        return ThymeleafUtils.toWebResourceName(this.getName());
+        return CartridgeWebUtils.toWebResourceName(this.getName());
     }
 
     /**

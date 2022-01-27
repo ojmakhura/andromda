@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 
-import org.andromda.cartridges.thymeleaf.ThymeleafGlobals;
+import org.andromda.cartridges.web.CartridgeWebGlobals;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -35,7 +35,7 @@ public class ThymeleafControllerOperationLogicImpl
      */
     protected String handleGetFormName()
     {
-        final String pattern = Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.FORM_PATTERN), "");
+        final String pattern = Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.FORM_PATTERN), "");
         return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
     }
 
@@ -189,7 +189,7 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestTestPath() {
-        // String path = (String)this.findTaggedValue(ThymeleafGlobals.REST_PATH);
+        // String path = (String)this.findTaggedValue(CartridgeWebGlobals.REST_PATH);
         // StringBuilder pathBuffer = new StringBuilder();
         // ThymeleafControllerLogic service = (ThymeleafControllerLogic)this.getService();
         // String servicePath = service.getRestPath();
@@ -246,7 +246,7 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestResponseStatus() {
-        String responseStatus = (String) this.findTaggedValue(ThymeleafGlobals.REST_RESPONSE_STATUS);
+        String responseStatus = (String) this.findTaggedValue(CartridgeWebGlobals.REST_RESPONSE_STATUS);
         if(responseStatus == null) {
             return "";
         }
@@ -261,10 +261,10 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected boolean handleIsRest() {
-        String rest = (String)this.findTaggedValue(ThymeleafGlobals.REST);
+        String rest = (String)this.findTaggedValue(CartridgeWebGlobals.REST);
         if (StringUtils.isBlank(rest) || rest.equals(DEFAULT))
         {
-            rest = (String)this.getOwner().findTaggedValue(ThymeleafGlobals.REST);
+            rest = (String)this.getOwner().findTaggedValue(CartridgeWebGlobals.REST);
             if (StringUtils.isBlank(rest) || rest.equals(DEFAULT))
             {
                 rest = BOOLEAN_FALSE;
@@ -275,7 +275,7 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRolesAllowed() {
-        String rolesAllowed = (String)this.findTaggedValue(ThymeleafGlobals.REST_ROLES_ALLOWED);
+        String rolesAllowed = (String)this.findTaggedValue(CartridgeWebGlobals.REST_ROLES_ALLOWED);
         if (!this.isRest() || StringUtils.isBlank(rolesAllowed) || rolesAllowed.equals(DEFAULT))
         {
             rolesAllowed = EMPTY_STRING;
@@ -285,7 +285,7 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected int handleGetRestSuspend() {
-        String suspend = (String)this.findTaggedValue(ThymeleafGlobals.REST_SUSPEND);
+        String suspend = (String)this.findTaggedValue(CartridgeWebGlobals.REST_SUSPEND);
         if (!this.isRest() || StringUtils.isBlank(suspend) || suspend.equals(DEFAULT) || !StringUtils.isNumeric(suspend))
         {
             return 0;
@@ -296,7 +296,7 @@ public class ThymeleafControllerOperationLogicImpl
     @Override
     protected String handleGetRestPartType() {
         
-        String partType = (String)this.findTaggedValue(ThymeleafGlobals.REST_PART_TYPE);
+        String partType = (String)this.findTaggedValue(CartridgeWebGlobals.REST_PART_TYPE);
         if (!this.isRest() || StringUtils.isBlank(partType) || partType.equals(DEFAULT))
         {
             partType = EMPTY_STRING;
@@ -306,7 +306,7 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestProvider() {
-        String provider = (String)this.findTaggedValue(ThymeleafGlobals.REST_PROVIDER);
+        String provider = (String)this.findTaggedValue(CartridgeWebGlobals.REST_PROVIDER);
         if (!this.isRest() || StringUtils.isBlank(provider) || provider.equals(DEFAULT))
         {
             provider = EMPTY_STRING;
@@ -316,7 +316,7 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestProduces() {
-        String provider = (String)this.findTaggedValue(ThymeleafGlobals.REST_PROVIDER);
+        String provider = (String)this.findTaggedValue(CartridgeWebGlobals.REST_PROVIDER);
         if (!this.isRest() || StringUtils.isBlank(provider) || provider.equals(DEFAULT))
         {
             provider = EMPTY_STRING;
@@ -330,7 +330,7 @@ public class ThymeleafControllerOperationLogicImpl
     @Override
     protected String handleGetRestConsumes() {
 
-        String consumes = (String)this.findTaggedValue(ThymeleafGlobals.REST_CONSUMES);
+        String consumes = (String)this.findTaggedValue(CartridgeWebGlobals.REST_CONSUMES);
         if (!this.isRest() || StringUtils.isBlank(consumes) || consumes.equals(DEFAULT))
         {
             consumes = EMPTY_STRING;
@@ -344,7 +344,7 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected boolean handleIsRestEncoded() {
-        String restEncoded = (String)this.findTaggedValue(ThymeleafGlobals.REST_ENCODED);
+        String restEncoded = (String)this.findTaggedValue(CartridgeWebGlobals.REST_ENCODED);
         if (!this.isRest() || StringUtils.isBlank(restEncoded) || restEncoded.equals(DEFAULT))
         {
             restEncoded = BOOLEAN_FALSE;
@@ -354,7 +354,7 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestCacheType() {
-        String cacheType = (String)this.findTaggedValue(ThymeleafGlobals.CACHE_TYPE);
+        String cacheType = (String)this.findTaggedValue(CartridgeWebGlobals.CACHE_TYPE);
         if (!this.isRest() || StringUtils.isBlank(cacheType) || cacheType.equals(DEFAULT))
         {
             cacheType = EMPTY_STRING;
@@ -364,7 +364,7 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestRequestType() {
-        String requestType = (String)this.findTaggedValue(ThymeleafGlobals.REST_REQUEST_TYPE);
+        String requestType = (String)this.findTaggedValue(CartridgeWebGlobals.REST_REQUEST_TYPE);
         if (!this.isRest() || StringUtils.isBlank(requestType) || requestType.equals(DEFAULT))
         {
             requestType = POST;
@@ -378,7 +378,7 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestPath() {
-        String path = ((String)this.findTaggedValue(ThymeleafGlobals.REST_PATH)).strip();
+        String path = ((String)this.findTaggedValue(CartridgeWebGlobals.REST_PATH)).strip();
         StringBuilder pathBuffer = new StringBuilder();
 
         if(path != null && path.equals("")) {

@@ -7,10 +7,10 @@ import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
 @Import(SharedAutoConfiguration.class)
-public class SpringWebApplication {
+public class SpringRestApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringWebApplication.class, args);
+		SpringApplication.run(SpringRestApplication.class, args);
 	}
 
 }

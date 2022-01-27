@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+
+import org.andromda.cartridges.OperationNameComparator;
 import org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType;
 import org.andromda.cartridges.webservice.metafacades.WSDLEnumerationTypeLogic;
 import org.andromda.cartridges.webservice.metafacades.WSDLType;
@@ -20,7 +22,6 @@ import org.andromda.cartridges.webservice.metafacades.WSDLTypeAttributeLogic;
 import org.andromda.cartridges.webservice.metafacades.WSDLTypeLogic;
 import org.andromda.cartridges.webservice.metafacades.WebServiceLogic;
 import org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl;
-import org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl.OperationNameComparator;
 import org.andromda.cartridges.webservice.metafacades.WebServiceOperation;
 import org.andromda.cartridges.webservice.metafacades.WebServiceParameter;
 import org.andromda.cartridges.webservice.metafacades.WebServiceParameterLogic;

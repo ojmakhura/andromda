@@ -2,7 +2,7 @@ package org.andromda.cartridges.thymeleaf.metafacades;
 
 import java.util.Objects;
 
-import org.andromda.cartridges.thymeleaf.ThymeleafGlobals;
+import org.andromda.cartridges.web.CartridgeWebGlobals;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.ManageableEntity;
@@ -95,7 +95,7 @@ public class ThymeleafManageableEntityAssociationEndLogicImpl
     {
         final String backingListName =
             StringUtils.replace(
-                Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.BACKING_LIST_PATTERN), ""),
+                Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.BACKING_LIST_PATTERN), ""),
                 "{0}",
                 this.getName());
         return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
@@ -107,7 +107,7 @@ public class ThymeleafManageableEntityAssociationEndLogicImpl
      */
     protected String handleGetValueListName()
     {
-        return Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.VALUE_LIST_PATTERN), "").replaceAll(
+        return Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.VALUE_LIST_PATTERN), "").replaceAll(
             "\\{0\\}",
             this.getName());
     }
@@ -118,7 +118,7 @@ public class ThymeleafManageableEntityAssociationEndLogicImpl
      */
     protected String handleGetLabelListName()
     {
-        return Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.LABEL_LIST_PATTERN), "").replaceAll(
+        return Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.LABEL_LIST_PATTERN), "").replaceAll(
             "\\{0\\}",
             this.getName());
     }

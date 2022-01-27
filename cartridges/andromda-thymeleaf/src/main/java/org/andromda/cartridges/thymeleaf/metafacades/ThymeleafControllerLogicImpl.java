@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import org.andromda.cartridges.thymeleaf.ThymeleafGlobals;
-import org.andromda.cartridges.thymeleaf.ThymeleafUtils;
+import org.andromda.cartridges.web.CartridgeWebGlobals;
+import org.andromda.cartridges.web.CartridgeWebUtils;
 import org.andromda.metafacades.uml.ActionStateFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
@@ -50,7 +50,7 @@ public class ThymeleafControllerLogicImpl
     protected String handleGetImplementationName()
     {
         final String pattern = Objects.toString(
-            this.getConfiguredProperty(ThymeleafGlobals.CONTROLLER_IMPLEMENTATION_PATTERN), "");
+            this.getConfiguredProperty(CartridgeWebGlobals.CONTROLLER_IMPLEMENTATION_PATTERN), "");
         return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
     }
 
@@ -114,7 +114,7 @@ public class ThymeleafControllerLogicImpl
        final StringBuilder buffer = new StringBuilder();
        buffer.append(this.getFullyQualifiedImplementationName());
        addSerialUIDData(buffer);
-       return ThymeleafUtils.calcSerialVersionUID(buffer);
+       return CartridgeWebUtils.calcSerialVersionUID(buffer);
     }
 
     private void addSerialUIDData(StringBuilder buffer)
@@ -194,7 +194,7 @@ public class ThymeleafControllerLogicImpl
     @Override
     protected String handleGetRestMethod() {
         
-        String method = (String)this.findTaggedValue(ThymeleafGlobals.REST_HTTP_METHOD);
+        String method = (String)this.findTaggedValue(CartridgeWebGlobals.REST_HTTP_METHOD);
         if (!(this.getRestCount()>0) || StringUtils.isBlank(method) || method.equals(DEFAULT))
         {
             method = EMPTY_STRING;
@@ -204,7 +204,7 @@ public class ThymeleafControllerLogicImpl
 
     @Override
     protected String handleGetRestRetention() {
-        String retention = (String)this.findTaggedValue(ThymeleafGlobals.REST_RETENTION);
+        String retention = (String)this.findTaggedValue(CartridgeWebGlobals.REST_RETENTION);
         if (!(this.getRestCount()>0) || StringUtils.isBlank(retention) || retention.equals(DEFAULT))
         {
             retention = EMPTY_STRING;
@@ -214,7 +214,7 @@ public class ThymeleafControllerLogicImpl
 
     @Override
     protected String handleGetRestTarget() {
-        String target = (String)this.findTaggedValue(ThymeleafGlobals.REST_TARGET);
+        String target = (String)this.findTaggedValue(CartridgeWebGlobals.REST_TARGET);
         if (!(this.getRestCount()>0) || StringUtils.isBlank(target) || target.equals(DEFAULT))
         {
             target = EMPTY_STRING;
@@ -224,7 +224,7 @@ public class ThymeleafControllerLogicImpl
 
     @Override
     protected String handleGetRestProvider() {
-        String provider = (String)this.findTaggedValue(ThymeleafGlobals.REST_PROVIDER);
+        String provider = (String)this.findTaggedValue(CartridgeWebGlobals.REST_PROVIDER);
         if (!(this.getRestCount()>0) || StringUtils.isBlank(provider) || provider.equals(DEFAULT))
         {
             provider = EMPTY_STRING;
@@ -234,12 +234,12 @@ public class ThymeleafControllerLogicImpl
 
     @Override
     protected String handleGetRestProduces() {
-        return ThymeleafControllerOperationLogicImpl.translateMediaType((String)this.findTaggedValue(ThymeleafGlobals.REST_PRODUCES));
+        return ThymeleafControllerOperationLogicImpl.translateMediaType((String)this.findTaggedValue(CartridgeWebGlobals.REST_PRODUCES));
     }
 
     @Override
     protected String handleGetRestConsumes() {
-        String consumes = (String)this.findTaggedValue(ThymeleafGlobals.REST_CONSUMES);
+        String consumes = (String)this.findTaggedValue(CartridgeWebGlobals.REST_CONSUMES);
         if (!(this.getRestCount()>0) || StringUtils.isBlank(consumes) || consumes.equals(DEFAULT))
         {
             consumes = EMPTY_STRING;
@@ -260,7 +260,7 @@ public class ThymeleafControllerLogicImpl
 
     @Override
     protected String handleGetRestCacheType() {
-        String cacheType = (String)this.findTaggedValue(ThymeleafGlobals.CACHE_TYPE);
+        String cacheType = (String)this.findTaggedValue(CartridgeWebGlobals.CACHE_TYPE);
         if (!(this.getRestCount()>0) || StringUtils.isBlank(cacheType) || cacheType.equals(DEFAULT))
         {
             cacheType = EMPTY_STRING;
@@ -271,7 +271,7 @@ public class ThymeleafControllerLogicImpl
     @Override
     protected int handleGetRestCount() {
         int restCount = 0;
-        String rest = (String)this.findTaggedValue(ThymeleafGlobals.REST);
+        String rest = (String)this.findTaggedValue(CartridgeWebGlobals.REST);
         for (ThymeleafControllerOperation operation : this.getAllowedOperations())
         {
             if (StringUtils.isNotBlank(rest) && (operation.isRest() || rest.equals(BOOLEAN_TRUE)))
@@ -285,7 +285,7 @@ public class ThymeleafControllerLogicImpl
     @Override
     protected Collection<String> handleGetRestContexts() {
         List<String> contexts = new ArrayList<String>();
-        String context = (String)this.findTaggedValue(ThymeleafGlobals.REST_CONTEXT);
+        String context = (String)this.findTaggedValue(CartridgeWebGlobals.REST_CONTEXT);
         if (!(this.getRestCount()>0) || StringUtils.isBlank(context) || context.equals(DEFAULT))
         {
             context = EMPTY_STRING;
@@ -307,7 +307,7 @@ public class ThymeleafControllerLogicImpl
 
     @Override
     protected String handleGetRestPath() {
-        String path = (String)this.findTaggedValue(ThymeleafGlobals.REST_PATH);
+        String path = (String)this.findTaggedValue(CartridgeWebGlobals.REST_PATH);
         if (StringUtils.isBlank(path))
         {
             path = EMPTY_STRING;
@@ -315,7 +315,7 @@ public class ThymeleafControllerLogicImpl
 
         if (!(this.getRestCount()>0) || StringUtils.isBlank(path) || path.equals(DEFAULT))
         {
-            path = ThymeleafUtils.toWebResourceName(this.getName());
+            path = CartridgeWebUtils.toWebResourceName(this.getName());
         }
         else
         {

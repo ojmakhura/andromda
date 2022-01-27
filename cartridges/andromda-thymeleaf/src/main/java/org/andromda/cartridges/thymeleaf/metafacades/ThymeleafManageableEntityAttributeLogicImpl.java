@@ -4,9 +4,10 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Objects;
 
-import org.andromda.cartridges.thymeleaf.ThymeleafGlobals;
-import org.andromda.cartridges.thymeleaf.ThymeleafProfile;
 import org.andromda.cartridges.thymeleaf.ThymeleafUtils;
+import org.andromda.cartridges.web.CartridgeWebGlobals;
+import org.andromda.cartridges.web.CartridgeWebProfile;
+import org.andromda.cartridges.web.CartridgeWebUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
@@ -95,7 +96,7 @@ public class ThymeleafManageableEntityAttributeLogicImpl
     @Override
     public boolean isDisplay()
     {
-        return super.isDisplay() && isEditable() && !ThymeleafProfile.TAGGEDVALUE_INPUT_TYPE_HIDDEN.equals(this.getWidgetType());
+        return super.isDisplay() && isEditable() && !CartridgeWebProfile.TAGGEDVALUE_INPUT_TYPE_HIDDEN.equals(this.getWidgetType());
     }
     
     /**
@@ -113,8 +114,8 @@ public class ThymeleafManageableEntityAttributeLogicImpl
      */
     protected String handleGetWidgetType()
     {
-        final Object widgetTag = findTaggedValue(ThymeleafProfile.TAGGEDVALUE_INPUT_TYPE);
-        return (widgetTag == null) ? ThymeleafProfile.TAGGEDVALUE_INPUT_TYPE_TEXT : widgetTag.toString();
+        final Object widgetTag = findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_INPUT_TYPE);
+        return (widgetTag == null) ? CartridgeWebProfile.TAGGEDVALUE_INPUT_TYPE_TEXT : widgetTag.toString();
     }
 
     /**
@@ -152,7 +153,7 @@ public class ThymeleafManageableEntityAttributeLogicImpl
      */
     protected String handleGetFormat()
     {
-        return ThymeleafUtils.getFormat(
+        return CartridgeWebUtils.getFormat(
             (ModelElementFacade)this.THIS(),
             this.getType(),
             this.getDefaultDateFormat(),
@@ -160,21 +161,21 @@ public class ThymeleafManageableEntityAttributeLogicImpl
     }
 
     /**
-     * @return getConfiguredProperty(ThymeleafGlobals.PROPERTY_DEFAULT_DATEFORMAT)
+     * @return getConfiguredProperty(CartridgeWebGlobals.PROPERTY_DEFAULT_DATEFORMAT)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntityAttribute#getDefaultDateFormat()
      */
     protected String handleGetDefaultDateFormat()
     {
-        return (String)this.getConfiguredProperty(ThymeleafGlobals.PROPERTY_DEFAULT_DATEFORMAT);
+        return (String)this.getConfiguredProperty(CartridgeWebGlobals.PROPERTY_DEFAULT_DATEFORMAT);
     }
 
     /**
-     * @return getConfiguredProperty(ThymeleafGlobals.PROPERTY_DEFAULT_TIMEFORMAT)
+     * @return getConfiguredProperty(CartridgeWebGlobals.PROPERTY_DEFAULT_TIMEFORMAT)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntityAttribute#getDefaultTimeFormat()
      */
     protected String handleGetDefaultTimeFormat()
     {
-        return (String)this.getConfiguredProperty(ThymeleafGlobals.PROPERTY_DEFAULT_TIMEFORMAT);
+        return (String)this.getConfiguredProperty(CartridgeWebGlobals.PROPERTY_DEFAULT_TIMEFORMAT);
     }
 
     /**
@@ -205,7 +206,7 @@ public class ThymeleafManageableEntityAttributeLogicImpl
     {
         final String backingListName =
             StringUtils.replace(
-                Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.BACKING_LIST_PATTERN)),
+                Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.BACKING_LIST_PATTERN)),
                 "{0}",
                 this.getName());
         return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
@@ -217,7 +218,7 @@ public class ThymeleafManageableEntityAttributeLogicImpl
      */
     protected String handleGetValueListName()
     {
-        return Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.VALUE_LIST_PATTERN)).replaceAll(
+        return Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.VALUE_LIST_PATTERN)).replaceAll(
             "\\{0\\}",
             this.getName());
     }
@@ -228,7 +229,7 @@ public class ThymeleafManageableEntityAttributeLogicImpl
      */
     protected String handleGetLabelListName()
     {
-        return Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.LABEL_LIST_PATTERN)).replaceAll(
+        return Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.LABEL_LIST_PATTERN)).replaceAll(
             "\\{0\\}",
             this.getName());
     }
@@ -239,7 +240,7 @@ public class ThymeleafManageableEntityAttributeLogicImpl
      */
     protected Collection handleGetValidatorTypes()
     {
-        return ThymeleafUtils.getValidatorTypes(
+        return CartridgeWebUtils.getValidatorTypes(
             (ModelElementFacade)this.THIS(),
             this.getType());
     }
@@ -266,12 +267,12 @@ public class ThymeleafManageableEntityAttributeLogicImpl
     }
 
     /**
-     * @return ThymeleafUtils.getValidWhen(this)
+     * @return CartridgeWebUtils.getValidWhen(this)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntityAttribute#getValidWhen()
      */
     protected String handleGetValidWhen()
     {
-        return ThymeleafUtils.getValidWhen(this);
+        return CartridgeWebUtils.getValidWhen(this);
     }
 
     /**
@@ -280,7 +281,7 @@ public class ThymeleafManageableEntityAttributeLogicImpl
      */
     protected boolean handleIsInputCheckbox()
     {
-        boolean checkbox = this.isInputType(ThymeleafGlobals.INPUT_CHECKBOX);
+        boolean checkbox = this.isInputType(CartridgeWebGlobals.INPUT_CHECKBOX);
         if (!checkbox && this.getInputType().length() == 0)
         {
             final ClassifierFacade type = this.getType();
@@ -305,48 +306,48 @@ public class ThymeleafManageableEntityAttributeLogicImpl
     }
 
     /**
-     * @return isInputType(ThymeleafGlobals.INPUT_HIDDEN)
+     * @return isInputType(CartridgeWebGlobals.INPUT_HIDDEN)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntityAttribute#isInputHidden()
      */
     protected boolean handleIsInputHidden()
     {
-        return this.isInputType(ThymeleafGlobals.INPUT_HIDDEN);
+        return this.isInputType(CartridgeWebGlobals.INPUT_HIDDEN);
     }
 
     /**
-     * @return isInputType(ThymeleafGlobals.INPUT_MULTIBOX)
+     * @return isInputType(CartridgeWebGlobals.INPUT_MULTIBOX)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntityAttribute#isInputMultibox()
      */
     protected boolean handleIsInputMultibox()
     {
-        return this.isInputType(ThymeleafGlobals.INPUT_MULTIBOX);
+        return this.isInputType(CartridgeWebGlobals.INPUT_MULTIBOX);
     }
 
     /**
-     * @return isInputType(ThymeleafGlobals.INPUT_RADIO)
+     * @return isInputType(CartridgeWebGlobals.INPUT_RADIO)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntityAttribute#isInputRadio()
      */
     protected boolean handleIsInputRadio()
     {
-        return this.isInputType(ThymeleafGlobals.INPUT_RADIO);
+        return this.isInputType(CartridgeWebGlobals.INPUT_RADIO);
     }
 
     /**
-     * @return isInputType(ThymeleafGlobals.INPUT_PASSWORD)
+     * @return isInputType(CartridgeWebGlobals.INPUT_PASSWORD)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntityAttribute#isInputSecret()
      */
     protected boolean handleIsInputSecret()
     {
-        return this.isInputType(ThymeleafGlobals.INPUT_PASSWORD);
+        return this.isInputType(CartridgeWebGlobals.INPUT_PASSWORD);
     }
 
     /**
-     * @return isInputType(ThymeleafGlobals.INPUT_SELECT)
+     * @return isInputType(CartridgeWebGlobals.INPUT_SELECT)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntityAttribute#isInputSelect()
      */
     protected boolean handleIsInputSelect()
     {
-        return this.isInputType(ThymeleafGlobals.INPUT_SELECT);
+        return this.isInputType(CartridgeWebGlobals.INPUT_SELECT);
     }
 
     /**
@@ -355,7 +356,7 @@ public class ThymeleafManageableEntityAttributeLogicImpl
      */
     protected boolean handleIsInputTable()
     {
-        return this.getInputTableIdentifierColumns().length() > 0 || this.isInputType(ThymeleafGlobals.INPUT_TABLE);
+        return this.getInputTableIdentifierColumns().length() > 0 || this.isInputType(CartridgeWebGlobals.INPUT_TABLE);
     }
 
     /**
@@ -364,7 +365,7 @@ public class ThymeleafManageableEntityAttributeLogicImpl
      */
     protected String handleGetInputTableIdentifierColumns()
     {
-        return Objects.toString(this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)).trim();
+        return Objects.toString(this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)).trim();
     }
 
     /**
@@ -373,7 +374,7 @@ public class ThymeleafManageableEntityAttributeLogicImpl
      */
     protected boolean handleIsInputText()
     {
-        return this.isInputType(ThymeleafGlobals.INPUT_TEXT);
+        return this.isInputType(CartridgeWebGlobals.INPUT_TEXT);
     }
 
     /**
@@ -382,7 +383,7 @@ public class ThymeleafManageableEntityAttributeLogicImpl
      */
     protected boolean handleIsInputTextarea()
     {
-        return this.isInputType(ThymeleafGlobals.INPUT_TEXTAREA);
+        return this.isInputType(CartridgeWebGlobals.INPUT_TEXTAREA);
     }
 
     /**
@@ -519,17 +520,17 @@ public class ThymeleafManageableEntityAttributeLogicImpl
      */
     protected boolean handleIsEqualValidator()
     {
-        final String equal = ThymeleafUtils.getEqual((ModelElementFacade)this.THIS());
+        final String equal = CartridgeWebUtils.getEqual((ModelElementFacade)this.THIS());
         return equal != null && equal.trim().length() > 0;
     }
 
     /**
-     * @return isInputType(ThymeleafGlobals.PLAIN_TEXT)
+     * @return isInputType(CartridgeWebGlobals.PLAIN_TEXT)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntityAttribute#isPlaintext()
      */
     protected boolean handleIsPlaintext()
     {
-        return this.isInputType(ThymeleafGlobals.PLAIN_TEXT);
+        return this.isInputType(CartridgeWebGlobals.PLAIN_TEXT);
     }
 
     /**
@@ -548,7 +549,7 @@ public class ThymeleafManageableEntityAttributeLogicImpl
      */
     protected Collection handleGetValidatorArgs(String validatorType)
     {
-        return ThymeleafUtils.getValidatorArgs(
+        return CartridgeWebUtils.getValidatorArgs(
             (ModelElementFacade)this.THIS(),
             validatorType);
     }
@@ -561,7 +562,7 @@ public class ThymeleafManageableEntityAttributeLogicImpl
      */
     private String getInputType()
     {
-        return Objects.toString(this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
+        return Objects.toString(this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
     }
 
     /**
@@ -583,7 +584,7 @@ public class ThymeleafManageableEntityAttributeLogicImpl
     @Override
     public boolean isReadOnly()
     {
-        return ThymeleafUtils.isReadOnly(this);
+        return CartridgeWebUtils.isReadOnly(this);
     }
 
     /**
@@ -597,7 +598,7 @@ public class ThymeleafManageableEntityAttributeLogicImpl
         if("org.omg.uml.foundation.core".equals(metaObject.getClass().getPackage().getName()))
         {
             //if uml 1.4, keep the old behavior (like bpm4struts)
-            final Object value = this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_INPUT_REQUIRED);
+            final Object value = this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_INPUT_REQUIRED);
             return Boolean.valueOf(Objects.toString(value)).booleanValue();
         }
         else
@@ -614,9 +615,9 @@ public class ThymeleafManageableEntityAttributeLogicImpl
      */
     private String constructDummyArray()
     {
-        return ThymeleafUtils.constructDummyArrayDeclaration(
+        return CartridgeWebUtils.constructDummyArrayDeclaration(
             this.getName(),
-            ThymeleafGlobals.DUMMY_ARRAY_COUNT);
+            CartridgeWebGlobals.DUMMY_ARRAY_COUNT);
     }
 
     private String internalGetDateFormat()
@@ -625,10 +626,10 @@ public class ThymeleafManageableEntityAttributeLogicImpl
 
         if (this.getType() != null && this.getType().isDateType())
         {
-            final Object taggedValueObject = this.findTaggedValue(ThymeleafProfile.TAGGEDVALUE_INPUT_FORMAT);
+            final Object taggedValueObject = this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_INPUT_FORMAT);
             if (taggedValueObject == null)
             {
-                dateFormat = (String)this.getConfiguredProperty(ThymeleafGlobals.PROPERTY_DEFAULT_DATEFORMAT);
+                dateFormat = (String)this.getConfiguredProperty(CartridgeWebGlobals.PROPERTY_DEFAULT_DATEFORMAT);
             }
             else
             {
@@ -728,7 +729,7 @@ public class ThymeleafManageableEntityAttributeLogicImpl
      */
     @Override
     protected boolean handleIsEditable() {
-        Object ignore=this.findTaggedValue(ThymeleafProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_IGNORE);
+        Object ignore=this.findTaggedValue(CartridgeWebProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_IGNORE);
         return ignore==null || !BooleanUtils.toBoolean(Objects.toString(ignore));
     }
 }

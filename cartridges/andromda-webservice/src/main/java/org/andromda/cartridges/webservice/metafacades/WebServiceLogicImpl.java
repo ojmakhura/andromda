@@ -15,6 +15,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+
+import org.andromda.cartridges.OperationNameComparator;
 import org.andromda.cartridges.webservice.WebServiceGlobals;
 import org.andromda.cartridges.webservice.WebServiceUtils;
 import org.andromda.core.common.ExceptionUtils;
@@ -1033,38 +1035,6 @@ public class WebServiceLogicImpl
     }
 
     private static final String WSDL_OPERATION_SORT_MODE = "wsdlOperationSortMode";
-
-    /**
-     * Used to sort operations by <code>name</code>.
-     */
-    public static final class OperationNameComparator
-        implements Comparator
-    {
-        private final Collator collator = Collator.getInstance();
-
-        /**
-         *
-         */
-        public OperationNameComparator()
-        {
-            collator.setStrength(Collator.PRIMARY);
-        }
-
-        /**
-         * @see java.util.Comparator#compare(Object, Object)
-         */
-        public int compare(
-            Object objectA,
-            Object objectB)
-        {
-            ModelElementFacade a = (ModelElementFacade)objectA;
-            ModelElementFacade b = (ModelElementFacade)objectB;
-
-            return collator.compare(
-                a.getName(),
-                b.getName());
-        }
-    }
 
     /**
      * The model specifying operations should be sorted by name.

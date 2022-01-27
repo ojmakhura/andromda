@@ -1139,7 +1139,7 @@
         
     <template
         path="templates/webservice/springws/SpringWS.java.vsl"
-        outputPattern="$stringUtils.replace($service.packageName, '.', '/')/${serviceName}.java"
+        outputPattern="java/$stringUtils.replace($service.packageName, '.', '/')/${serviceName}.java"
         outlet="webservice-types"
         overwrite="true"
         outputCondition="springws">
@@ -1153,7 +1153,7 @@
     </template>
     <template
         path="templates/webservice/springws/SpringWSBase.java.vsl"
-        outputPattern="$stringUtils.replace($service.packageName, '.', '/')/${serviceName}Base.java"
+        outputPattern="java/$stringUtils.replace($service.packageName, '.', '/')/${serviceName}Base.java"
         outlet="webservice-types"
         overwrite="true"
         outputCondition="springws">

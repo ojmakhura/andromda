@@ -30,4 +30,17 @@ public class SelectItem implements Serializable {
         this.value = value;
     }
 
+    @Override
+    public String toString() {
+        
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("{\n");
+        builder.append("\t\"label\" : \"" + this.getLabel() + "\",\n");
+        builder.append("\t\"value\" : \"" + this.getValue() + "\"\n");
+        builder.append("}\n");
+
+        return builder.toString();
+    }
+
 }

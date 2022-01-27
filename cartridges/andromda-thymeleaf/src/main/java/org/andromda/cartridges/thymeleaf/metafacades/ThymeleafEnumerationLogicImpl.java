@@ -2,7 +2,7 @@ package org.andromda.cartridges.thymeleaf.metafacades;
 
 import java.util.Objects;
 
-import org.andromda.cartridges.thymeleaf.ThymeleafGlobals;
+import org.andromda.cartridges.web.CartridgeWebGlobals;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.StringUtils;
 
@@ -31,7 +31,7 @@ public class ThymeleafEnumerationLogicImpl
     protected String handleGetConverterName()
     {
         return StringUtils.replace(
-            Objects.toString(this.getConfiguredProperty(ThymeleafGlobals.CONVERTER_PATTERN), ""),
+            Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.CONVERTER_PATTERN), ""),
             "{0}",
             this.getName());
     }

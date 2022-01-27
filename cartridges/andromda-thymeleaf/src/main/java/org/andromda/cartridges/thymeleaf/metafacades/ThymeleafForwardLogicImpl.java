@@ -5,9 +5,10 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import org.andromda.cartridges.thymeleaf.ThymeleafGlobals;
-import org.andromda.cartridges.thymeleaf.ThymeleafProfile;
-import org.andromda.cartridges.thymeleaf.ThymeleafUtils;
+
+import org.andromda.cartridges.web.CartridgeWebGlobals;
+import org.andromda.cartridges.web.CartridgeWebProfile;
+import org.andromda.cartridges.web.CartridgeWebUtils;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.utils.StringUtilsHelper;
 
@@ -38,13 +39,13 @@ public class ThymeleafForwardLogicImpl
         final Object target = this.getTarget();
         if (target instanceof ThymeleafFinalState)
         {
-            name.append(ThymeleafGlobals.USECASE_FORWARD_NAME_SUFFIX);
+            name.append(CartridgeWebGlobals.USECASE_FORWARD_NAME_SUFFIX);
         }
         else
         {
             name.insert(0, this.getUseCase().getName() + "-");
         }
-        return ThymeleafUtils.toWebResourceName(name.toString());
+        return CartridgeWebUtils.toWebResourceName(name.toString());
     }
 
     /**
@@ -119,7 +120,7 @@ public class ThymeleafForwardLogicImpl
      */
     protected Map handleGetSuccessMessages()
     {
-        return this.getMessages(ThymeleafProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
+        return this.getMessages(CartridgeWebProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
     }
 
     /**
@@ -127,7 +128,7 @@ public class ThymeleafForwardLogicImpl
      */
     protected Map handleGetWarningMessages()
     {
-        return this.getMessages(ThymeleafProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
+        return this.getMessages(CartridgeWebProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
     }
 
     /**

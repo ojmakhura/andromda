@@ -51,12 +51,12 @@ public interface $controller.name {
      */
 #set ($useCaseParams = "")
 #set ($fieldPath = "")
+#set ( $d = '"')
 #foreach($field in $action.parameters)
 #if($useCaseParams.length() > 0)
 #set ($useCaseParams = "$useCaseParams, ")
 #end
 #if(!$field.complex)
-#set ( $d = '"')
 #set ($useCaseParams = "$useCaseParams @org.springframework.web.bind.annotation.PathVariable($d$field.name$d) $field.type.fullyQualifiedName $field.name")
 #set ($fieldPath = "$fieldPath/{$field.name}")
 #else
@@ -64,8 +64,8 @@ public interface $controller.name {
 #set ($fieldPath = "$fieldPath/{$field.name}")
 #end
 #end
-    @org.springframework.web.bind.annotation.GetMapping({$d$d, $d$fieldPath$d})
-    public String startUseCase($useCaseParams, org.springframework.ui.Model model) throws Throwable;
+    @org.springframework.web.bind.annotation.GetMapping(#if($action.parameters.size() > 0){$d$d, $d$fieldPath$d}#else$d$d#end)
+    public String startUseCase(#if($action.parameters.size() > 0)$useCaseParams, #{end}org.springframework.ui.Model model) throws Throwable;
     
 #end
 #end

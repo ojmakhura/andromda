@@ -2,8 +2,8 @@ package org.andromda.cartridges.thymeleaf.metafacades;
 
 import java.text.MessageFormat;
 
-import org.andromda.cartridges.thymeleaf.ThymeleafGlobals;
-import org.andromda.cartridges.thymeleaf.ThymeleafUtils;
+import org.andromda.cartridges.web.CartridgeWebGlobals;
+import org.andromda.cartridges.web.CartridgeWebUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -32,7 +32,7 @@ public class ThymeleafBackendServiceLogicImpl
      */
     protected String handleGetAccessorImplementation()
     {
-        String accessorImplementation = String.valueOf(getConfiguredProperty(ThymeleafGlobals.SERVICE_ACCESSOR_PATTERN));
+        String accessorImplementation = String.valueOf(getConfiguredProperty(CartridgeWebGlobals.SERVICE_ACCESSOR_PATTERN));
         return accessorImplementation.replaceAll("\\{0\\}",
             getPackageName()).replaceAll("\\{1\\}", getName());
     }
@@ -42,7 +42,7 @@ public class ThymeleafBackendServiceLogicImpl
      */
     public String getFullyQualifiedName()
     {
-        String packageName = String.valueOf(getConfiguredProperty(ThymeleafGlobals.SERVICE_PACKAGE_NAME_PATTERN));
+        String packageName = String.valueOf(getConfiguredProperty(CartridgeWebGlobals.SERVICE_PACKAGE_NAME_PATTERN));
         return packageName.replaceAll(
             "\\{0\\}",
             super.getPackageName()) + "." + this.getName();
@@ -70,20 +70,20 @@ public class ThymeleafBackendServiceLogicImpl
      */
     protected String getImplemenationPackageNamePattern()
     {
-        return (String)this.getConfiguredProperty(ThymeleafGlobals.IMPLEMENTATION_PACKAGE_NAME_PATTERN);
+        return (String)this.getConfiguredProperty(CartridgeWebGlobals.IMPLEMENTATION_PACKAGE_NAME_PATTERN);
     }
 
     @Override
     protected String handleGetFullyQualifiedImplementationName() {
-        return ThymeleafUtils.getFullyQualifiedName(
+        return CartridgeWebUtils.getFullyQualifiedName(
             this.getImplementationPackageName(),
             this.getName(),
-            ThymeleafGlobals.IMPLEMENTATION_SUFFIX);
+            CartridgeWebGlobals.IMPLEMENTATION_SUFFIX);
     }
 
     @Override
     protected String handleGetImplementationName() {
-        return this.getName() + ThymeleafGlobals.IMPLEMENTATION_SUFFIX;
+        return this.getName() + CartridgeWebGlobals.IMPLEMENTATION_SUFFIX;
     }
 
     @Override
@@ -100,11 +100,11 @@ public class ThymeleafBackendServiceLogicImpl
 
     @Override
     protected String handleGetBeanName(boolean targetSuffix) {
-        StringBuilder beanName = new StringBuilder(String.valueOf(this.getConfiguredProperty(ThymeleafGlobals.BEAN_NAME_PREFIX)));
+        StringBuilder beanName = new StringBuilder(String.valueOf(this.getConfiguredProperty(CartridgeWebGlobals.BEAN_NAME_PREFIX)));
         beanName.append(StringUtils.uncapitalize(StringUtils.trimToEmpty(this.getName())));
         if (targetSuffix)
         {
-            beanName.append(ThymeleafGlobals.BEAN_NAME_TARGET_SUFFIX);
+            beanName.append(CartridgeWebGlobals.BEAN_NAME_TARGET_SUFFIX);
         }
         return beanName.toString();
     }
