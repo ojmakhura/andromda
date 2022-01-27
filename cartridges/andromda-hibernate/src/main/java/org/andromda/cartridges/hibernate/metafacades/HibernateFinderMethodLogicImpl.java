@@ -63,42 +63,9 @@ public class HibernateFinderMethodLogicImpl
 
             if (arguments != null && !arguments.isEmpty()) {
                 // Check if there is need for inner and add them
-                Iterator argumentIt; // = arguments.iterator();
-                // for (; argumentIt.hasNext();) {
-                //     HibernateFinderMethodArgument argument = (HibernateFinderMethodArgument) argumentIt.next();
-
-                //     if (!CollectionUtils.isEmpty(argument.getType().getAttributes())) {
-
-                //         // Some arguments may be complex, but NOT a Criteria object
-                //         if (argument.getType().getStereotypeNames().toString().contains("Criteria")) {
-
-                //             Iterator<AttributeFacade> paramIt = argument.getType().getAttributes().iterator();
-                //             for (; paramIt.hasNext();) {
-                //                 AttributeFacade attribute = paramIt.next();
-
-                //                 if (!CollectionUtils.isEmpty(attribute.getType().getAttributes())) {
-                //                     builder.append(" INNER JOIN ");
-                //                     if (attribute instanceof HibernateCriteriaAttribute) {
-                //                         HibernateCriteriaAttribute criteriaAttribute = (HibernateCriteriaAttribute) attribute;
-                //                         if (StringUtils.isBlank(criteriaAttribute.getAttributeName())) {
-                //                             builder.append(variableName + '.' + criteriaAttribute.getName() + " ");
-                //                         } else {
-                //                             builder.append(variableName + '.' + criteriaAttribute.getAttributeName() + " ");
-                //                         }
-                //                     } else {
-                //                         builder.append(variableName + '.' + attribute.getName() + " ");
-                //                     }
-                //                 }
-                //             }
-                //         } else {
-                //             builder.append(" INNER JOIN ");
-                //             builder.append(argument.getType().getName() + " ");
-                //         }
-                //     }
-                // }
+                Iterator argumentIt = arguments.iterator();
 
                 builder.append(" \" +\n\t\t\t\t\"WHERE");
-                argumentIt = arguments.iterator();
                 for (; argumentIt.hasNext();) {
                     HibernateFinderMethodArgument argument = (HibernateFinderMethodArgument) argumentIt.next();
 

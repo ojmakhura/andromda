@@ -129,10 +129,11 @@
                 <property name="applicationName">${application.name}</property>
                 <property name="applicationPackage">${application.package}</property>
             	<property name="applicationId">${application.id}</property>
-#if ($spring || $hibernate)
+#if ($spring || $hibernate || $ejb3)
                 <property name="hibernateVersion">${hibernate.version}</property>
                 <property name="hibernateNamespace">${hibernate.namespace}</property>
                 <property name="hibernateEntityAnnotations">true</property>
+                <property name="jakartaNamespace">${jakarta.namespace}</property>
 #end
                 <property name="persistenceContainerName">glassfish</property>
                 <property name="appServer">glassfish</property>
@@ -257,6 +258,7 @@
                 <property name="seamEnabled">true</property>
                 <property name="persistenceProviderExtensions">hibernate</property>
 #end
+                <property name="hibernateHbm2DDLAuto">update</property>
             </properties>
         </namespace>
 #elseif ($hibernate)
@@ -303,6 +305,7 @@
                 <property name="securityRealm">${application.id}</property>
                 -->
                 <property name="hibernateHbm2DDLAuto">update</property>
+                <property name="jakartaNamespace">${jakarta.namespace}</property>
             </properties>
         </namespace>
 #elseif ($spring)
