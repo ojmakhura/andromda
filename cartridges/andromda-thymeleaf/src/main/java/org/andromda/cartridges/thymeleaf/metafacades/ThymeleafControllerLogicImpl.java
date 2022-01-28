@@ -327,15 +327,16 @@ public class ThymeleafControllerLogicImpl
             {
                 path = path;
             }
-        
-            if(!path.startsWith(SLASH)) {
-                path = SLASH + path;
-            }
             
             if(path.endsWith(SLASH)) {
                 path = path.substring(0, path.length() - 1);
             }
         }
+        
+        if(!path.startsWith(SLASH)) {
+            path = SLASH + path;
+        }
+        
         return path;
     }
 

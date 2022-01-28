@@ -53,7 +53,7 @@ public abstract class ${controller.name}Base
         if("${viewPath}".equals(forward))
         {
 #foreach ($viewAction in $view.formActions)
-            ${viewPopulator}.populateForm(sourceForm,this.${viewAction.formBeanName});
+            ${viewPopulator}.populateForm(sourceForm, this.get${stringUtils.capitalize($viewAction.formBeanName)}());
 #end
 #if(!$view.variables.empty)
             ${viewPopulator}.populate$stringUtils.upperCamelCaseName($view.name)PageVariables(sourceForm,pageVariables);
@@ -86,7 +86,7 @@ $operation.getDocumentation("     * ")
 #end
 #foreach ($action in $controller.useCase.actions)
 #if (!$action.formFields.empty)
-    @org.springframework.beans.factory.annotation.Autowired
+
     private $action.fullyQualifiedFormImplementationName $action.formBeanName;
 
     /**
@@ -96,6 +96,10 @@ $operation.getDocumentation("     * ")
      */
     protected $action.fullyQualifiedFormImplementationName get${stringUtils.capitalize($action.formBeanName)}()
     {
+        if($action.formBeanName == null) {
+            $action.formBeanName = new ${action.fullyQualifiedFormImplementationName}();
+        }
+
         return $action.formBeanName;
     }
 
@@ -180,10 +184,10 @@ $action.trigger.getDocumentation("     * ")
 #else
 #if ($formPopulationOperationRequired)
         final $action.fullyQualifiedFormImplementationName form =
-            this.$action.formBeanName;
+            this.get${stringUtils.capitalize($action.formBeanName)}();
 #foreach($field in $action.formFields)
 #if($field.actionParameter)
-        form.set${stringUtils.capitalize($field.name)}(${action.formBeanName}.get${stringUtils.capitalize($field.name)}());
+        form.set${stringUtils.capitalize($field.name)}(get${stringUtils.capitalize($action.formBeanName)}().get${stringUtils.capitalize($field.name)}());
 #end
 #end
 
@@ -307,7 +311,7 @@ ${ident}        ${controllerCall.name}(new ${controllerCall.interfaceName}());
 #if($actionState.forward.enteringView)
 #foreach($act in $actionState.forward.target.formActions)
 #if(!$act.actionFormFields.empty)
-${ident}        model.addAttribute("$act.formBeanName", this.$act.formBeanName);
+${ident}        model.addAttribute("$act.formBeanName", this.get${stringUtils.capitalize($act.formBeanName)}());
 #end
 #end
 #end

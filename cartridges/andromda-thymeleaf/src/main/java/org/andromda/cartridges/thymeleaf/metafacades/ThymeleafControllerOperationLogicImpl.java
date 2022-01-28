@@ -12,20 +12,20 @@ import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * MetafacadeLogic implementation for org.andromda.cartridges.thymeleaf.metafacades.ThymeleafControllerOperation.
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.thymeleaf.metafacades.ThymeleafControllerOperation.
  *
  * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafControllerOperation
  */
 public class ThymeleafControllerOperationLogicImpl
-    extends ThymeleafControllerOperationLogic
-{
+        extends ThymeleafControllerOperationLogic {
     private static final long serialVersionUID = 34L;
+
     /**
      * @param metaObject
      * @param context
      */
-    public ThymeleafControllerOperationLogicImpl(Object metaObject, String context)
-    {
+    public ThymeleafControllerOperationLogicImpl(Object metaObject, String context) {
         super(metaObject, context);
     }
 
@@ -33,8 +33,7 @@ public class ThymeleafControllerOperationLogicImpl
      * @return formName
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafControllerOperation#getFormName()
      */
-    protected String handleGetFormName()
-    {
+    protected String handleGetFormName() {
         final String pattern = Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.FORM_PATTERN), "");
         return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
     }
@@ -43,12 +42,10 @@ public class ThymeleafControllerOperationLogicImpl
      * @return fullyQualifiedFormName
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafControllerOperation#getFullyQualifiedFormName()
      */
-    protected String handleGetFullyQualifiedFormName()
-    {
+    protected String handleGetFullyQualifiedFormName() {
         final StringBuilder fullyQualifiedName = new StringBuilder();
         final String packageName = this.getPackageName();
-        if (StringUtils.isNotBlank(packageName))
-        {
+        if (StringUtils.isNotBlank(packageName)) {
             fullyQualifiedName.append(packageName + '.');
         }
         return fullyQualifiedName.append(StringUtils.capitalize(this.getFormName())).toString();
@@ -58,8 +55,7 @@ public class ThymeleafControllerOperationLogicImpl
      * @return getFullyQualifiedFormName().replace('.', '/')
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafControllerOperation#getFullyQualifiedFormPath()
      */
-    protected String handleGetFullyQualifiedFormPath()
-    {
+    protected String handleGetFullyQualifiedFormPath() {
         return this.getFullyQualifiedFormName().replace('.', '/');
     }
 
@@ -67,13 +63,11 @@ public class ThymeleafControllerOperationLogicImpl
      * @return formCall
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafControllerOperation#getFormCall()
      */
-    protected String handleGetFormCall()
-    {
+    protected String handleGetFormCall() {
         final StringBuilder call = new StringBuilder();
         call.append(this.getName());
         call.append("(");
-        if (!this.getFormFields().isEmpty())
-        {
+        if (!this.getFormFields().isEmpty()) {
             call.append("form, ");
         }
         call.append("model)");
@@ -84,8 +78,7 @@ public class ThymeleafControllerOperationLogicImpl
      * @return getFormSignature(false)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafControllerOperation#getImplementationFormSignature()
      */
-    protected String handleGetImplementationFormSignature()
-    {
+    protected String handleGetImplementationFormSignature() {
         return this.getFormSignature(false);
     }
 
@@ -93,8 +86,7 @@ public class ThymeleafControllerOperationLogicImpl
      * @return getFormSignature(true)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafControllerOperation#getFormSignature()
      */
-    protected String handleGetFormSignature()
-    {
+    protected String handleGetFormSignature() {
         return this.getFormSignature(true);
     }
 
@@ -104,19 +96,16 @@ public class ThymeleafControllerOperationLogicImpl
      * @param isAbstract whether or not the signature is abstract.
      * @return the appropriate signature.
      */
-    private String getFormSignature(boolean isAbstract)
-    {
+    private String getFormSignature(boolean isAbstract) {
         final StringBuilder signature = new StringBuilder();
         signature.append(this.getVisibility() + ' ');
-        if (isAbstract)
-        {
+        if (isAbstract) {
             signature.append("abstract ");
         }
         final ModelElementFacade returnType = this.getReturnType();
         signature.append(returnType != null ? returnType.getFullyQualifiedName() : null);
         signature.append(" " + this.getName() + "(");
-        if (!this.getFormFields().isEmpty())
-        {
+        if (!this.getFormFields().isEmpty()) {
             signature.append(this.getFormName() + " form, ");
         }
         signature.append("org.springframework.ui.Model model)");
@@ -130,7 +119,7 @@ public class ThymeleafControllerOperationLogicImpl
     private static final String DEFAULT = "default";
     private static final String EMPTY_STRING = "";
     private static final String BOOLEAN_FALSE = "false";
-    
+
     private static final String SLASH = "/";
     private static final String QUOTE = "\"";
     private static final String LBRACKET = "{";
@@ -139,8 +128,7 @@ public class ThymeleafControllerOperationLogicImpl
     /**
      * Returns map of ProviderMediaType enumeration values to Provider/Consumer text
      */
-    private static Map<String, String> getMediaTranslation()
-    {
+    private static Map<String, String> getMediaTranslation() {
         final Map<String, String> mediaMap = new HashMap<String, String>();
         mediaMap.put("default", QUOTE + "application/xml" + QUOTE);
         mediaMap.put("ApplicationAtom", QUOTE + "application/atom+xml" + QUOTE);
@@ -169,19 +157,18 @@ public class ThymeleafControllerOperationLogicImpl
     }
 
     /**
-     * Translates Media Enumeration Type into string for produces/consumes annotation
-     * @param input ProviderMediaType Enumeration value to be translated for Annotation
+     * Translates Media Enumeration Type into string for produces/consumes
+     * annotation
+     * 
+     * @param input ProviderMediaType Enumeration value to be translated for
+     *              Annotation
      * @return getMediaTranslation().get(input)
      */
-    public static String translateMediaType(String input)
-    {
+    public static String translateMediaType(String input) {
         String output = null;
-        if (StringUtils.isBlank(input) || input.equals(DEFAULT) || !getMediaTranslation().containsKey(input))
-        {
+        if (StringUtils.isBlank(input) || input.equals(DEFAULT) || !getMediaTranslation().containsKey(input)) {
             output = getMediaTranslation().get(DEFAULT);
-        }
-        else
-        {
+        } else {
             output = getMediaTranslation().get(input);
         }
         return output;
@@ -191,51 +178,55 @@ public class ThymeleafControllerOperationLogicImpl
     protected String handleGetRestTestPath() {
         // String path = (String)this.findTaggedValue(CartridgeWebGlobals.REST_PATH);
         // StringBuilder pathBuffer = new StringBuilder();
-        // ThymeleafControllerLogic service = (ThymeleafControllerLogic)this.getService();
+        // ThymeleafControllerLogic service =
+        // (ThymeleafControllerLogic)this.getService();
         // String servicePath = service.getRestPath();
         // ThymeleafUtils wsutils = new ThymeleafUtils();
         // if (!this.isRest() || StringUtils.isBlank(path) || path.equals(DEFAULT))
         // {
-        //     pathBuffer.append(SLASH).append(this.getName().toLowerCase()).append(SLASH);
-        //     Iterator<ParameterFacade> parameters = this.getArguments().iterator();
-        //     while (parameters.hasNext())
-        //     {
-        //         ParameterFacade param = parameters.next();
-        //         if (ThymeleafUtils.isSimpleType(param))
-        //         {
-        //             String paramValue = wsutils.createConstructor(param);
-        //             // Only use the value if constructor returns new Class()
-        //             if (paramValue.indexOf('(') > 0)
-        //             {
-        //                 paramValue = paramValue.substring(paramValue.indexOf('(')+1, paramValue.indexOf(')'));
-        //             }
-        //             pathBuffer.append(param.getName()).append(SLASH).append(paramValue).append(SLASH);
-        //         }
-        //     }
-        //     path = pathBuffer.toString();
+        // pathBuffer.append(SLASH).append(this.getName().toLowerCase()).append(SLASH);
+        // Iterator<ParameterFacade> parameters = this.getArguments().iterator();
+        // while (parameters.hasNext())
+        // {
+        // ParameterFacade param = parameters.next();
+        // if (ThymeleafUtils.isSimpleType(param))
+        // {
+        // String paramValue = wsutils.createConstructor(param);
+        // // Only use the value if constructor returns new Class()
+        // if (paramValue.indexOf('(') > 0)
+        // {
+        // paramValue = paramValue.substring(paramValue.indexOf('(')+1,
+        // paramValue.indexOf(')'));
+        // }
+        // pathBuffer.append(param.getName()).append(SLASH).append(paramValue).append(SLASH);
+        // }
+        // }
+        // path = pathBuffer.toString();
         // }
         // else
         // {
-        //     if (StringUtils.isBlank(path))
-        //     {
-        //         path = EMPTY_STRING;
-        //     }
-        //     // StringBuffer doesn't have replace(String, String) API
-        //     path = pathBuffer.append(path).toString();
-        //     Iterator<ParameterFacade> parameters = this.getArguments().iterator();
-        //     while (parameters.hasNext())
-        //     {
-        //         ParameterFacade param = parameters.next();
-        //         if (WebServiceUtils.isSimpleType(param))
-        //         {
-        //             String paramValue = wsutils.createConstructor(param).replace("\"", "");
-        //             if (paramValue.indexOf('(') > 0)
-        //             {
-        //                 paramValue = paramValue.substring(paramValue.indexOf('(')+1, paramValue.indexOf(')'));
-        //             }
-        //             path = StringUtils.replace(path, LBRACKET + param.getName() + RBRACKET, paramValue);
-        //         }
-        //     }
+        // if (StringUtils.isBlank(path))
+        // {
+        // path = EMPTY_STRING;
+        // }
+        // // StringBuffer doesn't have replace(String, String) API
+        // path = pathBuffer.append(path).toString();
+        // Iterator<ParameterFacade> parameters = this.getArguments().iterator();
+        // while (parameters.hasNext())
+        // {
+        // ParameterFacade param = parameters.next();
+        // if (WebServiceUtils.isSimpleType(param))
+        // {
+        // String paramValue = wsutils.createConstructor(param).replace("\"", "");
+        // if (paramValue.indexOf('(') > 0)
+        // {
+        // paramValue = paramValue.substring(paramValue.indexOf('(')+1,
+        // paramValue.indexOf(')'));
+        // }
+        // path = StringUtils.replace(path, LBRACKET + param.getName() + RBRACKET,
+        // paramValue);
+        // }
+        // }
         // }
         // path = servicePath + path;
         // path = path.replaceAll("\"", "");
@@ -247,10 +238,11 @@ public class ThymeleafControllerOperationLogicImpl
     @Override
     protected String handleGetRestResponseStatus() {
         String responseStatus = (String) this.findTaggedValue(CartridgeWebGlobals.REST_RESPONSE_STATUS);
-        if(responseStatus == null) {
+        if (responseStatus == null) {
             return "";
         }
-        return "@thymeleaf.ws.rs.core.Response.Status(code = thymeleaf.ws.rs.core.Response.Status." + responseStatus + ")";
+        return "@thymeleaf.ws.rs.core.Response.Status(code = thymeleaf.ws.rs.core.Response.Status." + responseStatus
+                + ")";
     }
 
     @Override
@@ -261,12 +253,10 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected boolean handleIsRest() {
-        String rest = (String)this.findTaggedValue(CartridgeWebGlobals.REST);
-        if (StringUtils.isBlank(rest) || rest.equals(DEFAULT))
-        {
-            rest = (String)this.getOwner().findTaggedValue(CartridgeWebGlobals.REST);
-            if (StringUtils.isBlank(rest) || rest.equals(DEFAULT))
-            {
+        String rest = (String) this.findTaggedValue(CartridgeWebGlobals.REST);
+        if (StringUtils.isBlank(rest) || rest.equals(DEFAULT)) {
+            rest = (String) this.getOwner().findTaggedValue(CartridgeWebGlobals.REST);
+            if (StringUtils.isBlank(rest) || rest.equals(DEFAULT)) {
                 rest = BOOLEAN_FALSE;
             }
         }
@@ -275,9 +265,8 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRolesAllowed() {
-        String rolesAllowed = (String)this.findTaggedValue(CartridgeWebGlobals.REST_ROLES_ALLOWED);
-        if (!this.isRest() || StringUtils.isBlank(rolesAllowed) || rolesAllowed.equals(DEFAULT))
-        {
+        String rolesAllowed = (String) this.findTaggedValue(CartridgeWebGlobals.REST_ROLES_ALLOWED);
+        if (!this.isRest() || StringUtils.isBlank(rolesAllowed) || rolesAllowed.equals(DEFAULT)) {
             rolesAllowed = EMPTY_STRING;
         }
         return rolesAllowed;
@@ -285,9 +274,9 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected int handleGetRestSuspend() {
-        String suspend = (String)this.findTaggedValue(CartridgeWebGlobals.REST_SUSPEND);
-        if (!this.isRest() || StringUtils.isBlank(suspend) || suspend.equals(DEFAULT) || !StringUtils.isNumeric(suspend))
-        {
+        String suspend = (String) this.findTaggedValue(CartridgeWebGlobals.REST_SUSPEND);
+        if (!this.isRest() || StringUtils.isBlank(suspend) || suspend.equals(DEFAULT)
+                || !StringUtils.isNumeric(suspend)) {
             return 0;
         }
         return Integer.parseInt(suspend);
@@ -295,10 +284,9 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestPartType() {
-        
-        String partType = (String)this.findTaggedValue(CartridgeWebGlobals.REST_PART_TYPE);
-        if (!this.isRest() || StringUtils.isBlank(partType) || partType.equals(DEFAULT))
-        {
+
+        String partType = (String) this.findTaggedValue(CartridgeWebGlobals.REST_PART_TYPE);
+        if (!this.isRest() || StringUtils.isBlank(partType) || partType.equals(DEFAULT)) {
             partType = EMPTY_STRING;
         }
         return partType;
@@ -306,9 +294,8 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestProvider() {
-        String provider = (String)this.findTaggedValue(CartridgeWebGlobals.REST_PROVIDER);
-        if (!this.isRest() || StringUtils.isBlank(provider) || provider.equals(DEFAULT))
-        {
+        String provider = (String) this.findTaggedValue(CartridgeWebGlobals.REST_PROVIDER);
+        if (!this.isRest() || StringUtils.isBlank(provider) || provider.equals(DEFAULT)) {
             provider = EMPTY_STRING;
         }
         return provider;
@@ -316,9 +303,8 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestProduces() {
-        String provider = (String)this.findTaggedValue(CartridgeWebGlobals.REST_PROVIDER);
-        if (!this.isRest() || StringUtils.isBlank(provider) || provider.equals(DEFAULT))
-        {
+        String provider = (String) this.findTaggedValue(CartridgeWebGlobals.REST_PROVIDER);
+        if (!this.isRest() || StringUtils.isBlank(provider) || provider.equals(DEFAULT)) {
             provider = EMPTY_STRING;
         }
         return provider;
@@ -330,13 +316,10 @@ public class ThymeleafControllerOperationLogicImpl
     @Override
     protected String handleGetRestConsumes() {
 
-        String consumes = (String)this.findTaggedValue(CartridgeWebGlobals.REST_CONSUMES);
-        if (!this.isRest() || StringUtils.isBlank(consumes) || consumes.equals(DEFAULT))
-        {
+        String consumes = (String) this.findTaggedValue(CartridgeWebGlobals.REST_CONSUMES);
+        if (!this.isRest() || StringUtils.isBlank(consumes) || consumes.equals(DEFAULT)) {
             consumes = EMPTY_STRING;
-        }
-        else
-        {
+        } else {
             consumes = translateMediaType(consumes);
         }
         return consumes;
@@ -344,9 +327,8 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected boolean handleIsRestEncoded() {
-        String restEncoded = (String)this.findTaggedValue(CartridgeWebGlobals.REST_ENCODED);
-        if (!this.isRest() || StringUtils.isBlank(restEncoded) || restEncoded.equals(DEFAULT))
-        {
+        String restEncoded = (String) this.findTaggedValue(CartridgeWebGlobals.REST_ENCODED);
+        if (!this.isRest() || StringUtils.isBlank(restEncoded) || restEncoded.equals(DEFAULT)) {
             restEncoded = BOOLEAN_FALSE;
         }
         return Boolean.valueOf(restEncoded);
@@ -354,9 +336,8 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestCacheType() {
-        String cacheType = (String)this.findTaggedValue(CartridgeWebGlobals.CACHE_TYPE);
-        if (!this.isRest() || StringUtils.isBlank(cacheType) || cacheType.equals(DEFAULT))
-        {
+        String cacheType = (String) this.findTaggedValue(CartridgeWebGlobals.CACHE_TYPE);
+        if (!this.isRest() || StringUtils.isBlank(cacheType) || cacheType.equals(DEFAULT)) {
             cacheType = EMPTY_STRING;
         }
         return cacheType;
@@ -364,13 +345,10 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestRequestType() {
-        String requestType = (String)this.findTaggedValue(CartridgeWebGlobals.REST_REQUEST_TYPE);
-        if (!this.isRest() || StringUtils.isBlank(requestType) || requestType.equals(DEFAULT))
-        {
+        String requestType = (String) this.findTaggedValue(CartridgeWebGlobals.REST_REQUEST_TYPE);
+        if (!this.isRest() || StringUtils.isBlank(requestType) || requestType.equals(DEFAULT)) {
             requestType = POST;
-        }
-        else if (!requestType.startsWith(AT))
-        {
+        } else if (!requestType.startsWith(AT)) {
             requestType = AT + requestType;
         }
         return requestType;
@@ -378,41 +356,41 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestPath() {
-        String path = StringUtils.strip(((String)this.findTaggedValue(CartridgeWebGlobals.REST_PATH)));
+        String path = StringUtils.strip(((String) this.findTaggedValue(CartridgeWebGlobals.REST_PATH)));
         StringBuilder pathBuffer = new StringBuilder();
 
-        if(path != null && path.equals("")) {
+        if (path != null && path.equals("")) {
             path = "";
         } else if (!this.isRest() || StringUtils.isBlank(path) || path.equals(DEFAULT)) {
             this.getName().toLowerCase();
         }
-        
-        if(path.startsWith("/")) {
-            path = path.substring(1);
-        }
-        
-        if(path.endsWith("/")) {
+
+        // if(path.startsWith("/")) {
+        // path = path.substring(1);
+        // }
+
+        if (path.endsWith("/")) {
             path = path.substring(0, path.length() - 1);
         }
 
-        if(path.length() > 0) {
+        if (path.length() > 0) {
             pathBuffer.append(path);
         }
 
         String type = this.getRestRequestType().toLowerCase();
 
-        if(type.contains("get") || type.contains("delete")) {
-            for(ParameterFacade param : this.getArguments()) {
-                    
+        if (type.contains("get") || type.contains("delete")) {
+            for (ParameterFacade param : this.getArguments()) {
+
                 String paramName = param.getName();
                 // if (!ThymeleafUtils.isSimpleType(param)) {
-                //     if(param instanceof ThymeleafParameter) {
-                        
-                //         ThymeleafParameter p = (ThymeleafParameter)param;                        
-                //         paramName = p.getRestPathParam();
-                //     }
+                // if(param instanceof ThymeleafParameter) {
+
+                // ThymeleafParameter p = (ThymeleafParameter)param;
+                // paramName = p.getRestPathParam();
                 // }
-                if(pathBuffer.length() > 0) {
+                // }
+                if (pathBuffer.length() > 0) {
                     pathBuffer.append(SLASH);
                 }
 
@@ -421,9 +399,9 @@ public class ThymeleafControllerOperationLogicImpl
         }
 
         // if(pathBuffer.length() > 0) {
-        //     pathBuffer.insert(0, QUOTE);
-        //     pathBuffer.insert(1, SLASH);
-        //     pathBuffer.append(QUOTE);
+        // pathBuffer.insert(0, QUOTE);
+        // pathBuffer.insert(1, SLASH);
+        // pathBuffer.append(QUOTE);
         // }
 
         return pathBuffer.toString();
@@ -434,18 +412,18 @@ public class ThymeleafControllerOperationLogicImpl
         // Private methods are for doc and future use purposes, but are allowed.
         boolean visibility = this.getVisibility().equals("public") || this.getVisibility().equals("protected");
         return visibility && (this.getOwner().hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE) ||
-        this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION));
+                this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION));
     }
 
     @Override
     protected String handleGetHandleFormSignature() {
-        
+
         return this.getHandleFormSignature(true);
     }
 
     @Override
     protected String handleGetHandleFormSignatureImplementation() {
-        
+
         return this.getHandleFormSignature(false);
     }
 
@@ -455,19 +433,16 @@ public class ThymeleafControllerOperationLogicImpl
      * @param isAbstract whether or not the signature is abstract.
      * @return the appropriate signature.
      */
-    private String getHandleFormSignature(boolean isAbstract)
-    {
+    private String getHandleFormSignature(boolean isAbstract) {
         final StringBuilder signature = new StringBuilder();
         signature.append(this.getVisibility() + ' ');
-        if (isAbstract)
-        {
+        if (isAbstract) {
             signature.append("abstract ");
         }
         final ModelElementFacade returnType = this.getReturnType();
         signature.append(returnType != null ? returnType.getFullyQualifiedName() : null);
         signature.append(" handle" + StringUtils.capitalize(this.getName()) + "(");
-        if (!this.getFormFields().isEmpty())
-        {
+        if (!this.getFormFields().isEmpty()) {
             signature.append(this.getFormName() + " form, ");
         }
         signature.append("org.springframework.ui.Model model)");
