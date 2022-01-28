@@ -58,6 +58,7 @@
             <condition id="thymeleaf" equal="true"/>
             <output>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WebApplication.java.vsl</output>
             <output>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SelectItem.java.vsl</output>
+            <output>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringFoxConfig.java.vsl</output>
             <output>thymeleaf/target/src/main/resources/application.properties.vsl</output>
         </conditions>
         <conditions type="and">
@@ -288,6 +289,10 @@
         <mapping>
             <from>thymeleaf/SelectItem.java.vsl</from>
             <to>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SelectItem.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>thymeleaf/SpringFoxConfig.java.vsl</from>
+            <to>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringFoxConfig.java.vsl</to>
         </mapping>
         <mapping>
             <from>thymeleaf/application.properties.vsl</from>

@@ -378,7 +378,7 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestPath() {
-        String path = ((String)this.findTaggedValue(CartridgeWebGlobals.REST_PATH)).strip();
+        String path = StringUtils.strip(((String)this.findTaggedValue(CartridgeWebGlobals.REST_PATH)));
         StringBuilder pathBuffer = new StringBuilder();
 
         if(path != null && path.equals("")) {

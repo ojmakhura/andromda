@@ -1,2 +1,6 @@
 server.servlet.context-path=/$applicationId/api/
 server.port = 8085
+spring.mvc.format.date=dd-MM-yyyy
+spring.mvc.format.date-time=dd-MM-yyyy HH:mm:ss
+spring.mvc.format.time=HH:mm:ss
+spring.mvc.pathmatch.matching-strategy = ANT_PATH_MATCHER

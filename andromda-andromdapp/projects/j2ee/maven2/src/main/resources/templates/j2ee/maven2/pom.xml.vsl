@@ -1033,6 +1033,13 @@
                 <version>3.0.0</version>
             </dependency>
 #end
+#if ($thymeleaf)
+            <dependency>
+                <groupId>nz.net.ultraq.thymeleaf</groupId>
+                <artifactId>thymeleaf-layout-dialect</artifactId>
+                <version>3.0.0</version>
+            </dependency>
+#end
 #if ($springws)
             <!-- <dependency>
                 <groupId>org.springframework.boot</groupId>

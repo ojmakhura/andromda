@@ -151,12 +151,10 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
-            <version>3.0.0</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>3.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -166,11 +164,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>nz.net.ultraq.thymeleaf</groupId>
-            <artifactId>thymeleaf-layout-dialect</artifactId>
-            <version>3.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -217,7 +210,7 @@
                                 <source>target/src/main/java</source>
                             </sources>
                             <sources>
-                                <source>target/src/main/resources</source>
+                                <source>src/main/resources</source>
                             </sources>
                         </configuration>
                     </execution>
@@ -331,9 +324,6 @@
             </resource>
             <resource>
                 <directory>target/src/main/java</directory>
-            </resource>
-            <resource>
-                <directory>target/src/main/resources</directory>
             </resource>
         </resources>
 #end
