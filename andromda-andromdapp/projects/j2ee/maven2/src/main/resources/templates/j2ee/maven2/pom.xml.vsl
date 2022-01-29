@@ -1243,12 +1243,6 @@
 #if (!$transactionPersistenceType.equals("none") || $cxf)
         <module>core</module>
 #end
-#if ($webType.equals("both") || $webType.equals("jsf"))
-        <module>web</module>
-#end
-#if ($webType.equals("both") || $webType.equals("angular"))
-        <module>angular</module>
-#end
 #if (!$webservice.equals("none"))
         <module>webservice</module>
 #if ($cxf)
@@ -1258,11 +1252,14 @@
 #if ($ear)
         <module>app</module>
 #end
-## #if ($springws)
-## 		<module>springws</module>
-## #end
+#if ($webType.equals("both") || $webType.equals("jsf"))
+        <module>web</module>
+#end
 #if ($thymeleaf)
 		<module>thymeleaf</module>
+#end
+#if ($webType.equals("both") || $webType.equals("angular"))
+        <module>angular</module>
 #end
     </modules>
     <properties>

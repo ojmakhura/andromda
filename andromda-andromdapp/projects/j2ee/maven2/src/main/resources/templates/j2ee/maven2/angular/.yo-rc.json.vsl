@@ -1,23 +1,24 @@
 {
   "generator-ngx-rocket": {
-    "version": "9.2.0",
+    "version": "10.1.2",
     "props": {
       "location": "path",
-      "strict": false,
+      "strict": true,
       "skipInstall": false,
       "skipQuickstart": false,
       "initGit": true,
       "usePrefix": true,
-      "appName": "$applicationId",
       "target": [
         "web"
       ],
-      "pwa": true,
       "ui": "material",
       "layout": "side-menu",
-      "auth": false,
-      "lazy": true,
-      "angulartics": false,
+      "features": [
+        "pwa",
+        "auth",
+        "lazy",
+        "cypress"
+      ],
       "languages": [
         "en-US"
       ],
@@ -25,12 +26,21 @@
         "prettier",
         "hads"
       ],
-      "utility": [],
+      "utility": [
+        "lodash"
+      ],
       "deploy": "none",
+      "appName": "$applicationId",
       "projectName": "$applicationId",
       "packageManager": "npm",
       "mobile": [],
-      "desktop": []
+      "desktop": [],
+      "pwa": true,
+      "auth": true,
+      "lazy": true,
+      "e2e": false,
+      "cypress": true,
+      "angulartics": false
     }
   }
 }
