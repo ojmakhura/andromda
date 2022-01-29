@@ -3,11 +3,14 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "$applicationId": {
+    "star": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
         }
       },
       "root": "",
@@ -76,10 +79,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "test:build:production"
+              "browserTarget": "$applicationId:build:production"
             },
             "development": {
-              "browserTarget": "test:build:development"
+              "browserTarget": "$applicationId:build:development"
             },
             "ci": {
               "progress": false
@@ -90,7 +93,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "test:build"
+            "browserTarget": "$applicationId:build"
           }
         },
         "test": {
@@ -131,11 +134,11 @@
         "cypress-run": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "test:serve"
+            "devServerTarget": "$applicationId:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "test:serve:production"
+              "devServerTarget": "$applicationId:serve:production"
             }
           }
         },
@@ -149,11 +152,11 @@
         "e2e": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "test:serve"
+            "devServerTarget": "$applicationId:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "test:serve:production"
+              "devServerTarget": "$applicationId:serve:production"
             }
           }
         }

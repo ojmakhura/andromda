@@ -10,7 +10,21 @@
       <mat-toolbar color="primary">
         <span translate>application.name</span>
         <div fxFlex></div>
-        <div></div>
+        <div>
+          <!-- Uncomment if you are using authentication -->
+          <!-- <button mat-icon-button [matMenuTriggerFor]="userMenu">
+            <mat-icon>person</mat-icon>
+          </button>
+          <mat-menu #userMenu="matMenu">
+            <mat-list>
+              <mat-list-item>
+                <span translate>Logged in as</span>&nbsp;<b>{{username}}</b>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+            </mat-list>
+            <button mat-menu-item (click)="logout()" translate>Logout</button>
+          </mat-menu> -->
+        </div>
         <app-language-selector icon="true"></app-language-selector>
       </mat-toolbar>
       <nav>

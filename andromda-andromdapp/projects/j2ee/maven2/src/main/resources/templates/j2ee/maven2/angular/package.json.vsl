@@ -2,7 +2,7 @@
   "name": "$applicationId",
   "version": "1.0.0",
   "private": true,
-  "scripts": {
+    "scripts": {
     "ng": "ng",
     "build": "npm run write:env -s && ng build",
     "start": "npm run write:env -s && ng serve --proxy-config proxy.conf.js",
@@ -11,8 +11,8 @@
     "test": "npm run write:env -s && ng test",
     "test:ci": "npm run write:env -s && npm run lint -s && ng test --configuration=ci",
     "e2e": "npm run write:env -s && ng e2e",
-    "cypress:open": "npm run write:env -s && ng run test:cypress-open",
-    "cypress:run": "npm run write:env -s && ng run test:cypress-run",
+    "cypress:open": "npm run write:env -s && ng run $applicationId:cypress-open",
+    "cypress:run": "npm run write:env -s && ng run $applicationId:cypress-run",
     "translations:extract": "ngx-translate-extract --input ./src --output ./src/translations/template.json --format=json --clean --sort",
     "docs": "hads ./docs -o",
     "write:env": "ngx-scripts env npm_package_version",
@@ -37,7 +37,6 @@
     "@angular/material": "~13.1.0",
     "@angular/flex-layout": "^13.0.0-beta.36",
     "material-design-icons-iconfont": "^6.1.0",
-    "lodash": "^4.17.20",
     "rxjs": "^7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -63,7 +62,6 @@
     "@types/jasmine": "^3.6.2",
     "@types/jasminewd2": "^2.0.8",
     "@types/node": "^12.20.37",
-    "@types/lodash": "^4.14.165",
     "eslint": "^8.3.0",
     "eslint-plugin-import": "latest",
     "eslint-plugin-jsdoc": "latest",

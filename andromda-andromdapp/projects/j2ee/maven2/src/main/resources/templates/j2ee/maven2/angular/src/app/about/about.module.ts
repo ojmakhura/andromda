@@ -8,7 +8,15 @@ import { AboutRoutingModule } from './about-routing.module';
 import { AboutComponent } from './about.component';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, FlexLayoutModule, MaterialModule, AboutRoutingModule],
-  declarations: [AboutComponent],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    FlexLayoutModule,
+    MaterialModule,
+    AboutRoutingModule
+  ],
+  declarations: [
+    AboutComponent
+  ]
 })
-export class AboutModule {}
+export class AboutModule { }
