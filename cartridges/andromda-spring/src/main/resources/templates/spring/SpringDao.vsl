@@ -740,8 +740,8 @@ $operation.getDocumentation("     * ")
 #end
 
 #end
-#set ($fullyQualifiedPagingResultName = $springUtils.getFullyQualifiedClassName($springCommonTypesPackage, "PaginationResult"))
-#set ($fullyQualifiedSearchClassName = $springUtils.getFullyQualifiedClassName($springTypesPackage, "Search"))
+#set ($fullyQualifiedPagingResultName = $cartridgeSpringUtils.getFullyQualifiedClassName($springCommonTypesPackage, "PaginationResult"))
+#set ($fullyQualifiedSearchClassName = $cartridgeSpringUtils.getFullyQualifiedClassName($springTypesPackage, "Search"))
 
     /**
      * Does the same thing as {@link ${esc.hash}search(int, ${fullyQualifiedSearchClassName})} but with an

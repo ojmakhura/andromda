@@ -2,7 +2,7 @@ package org.andromda.cartridges.spring.metafacades;
 
 import java.util.Arrays;
 import java.util.Collection;
-import org.andromda.cartridges.spring.SpringProfile;
+import org.andromda.cartridges.spring.CartridgeSpringProfile;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -71,7 +71,7 @@ class SpringMetafacadeUtils
         if (classifier.hasStereotype(UMLProfile.STEREOTYPE_SERVICE))
         {
             String remotingTypeValue = (String)classifier.findTaggedValue(
-                    SpringProfile.TAGGEDVALUE_SPRING_SERVICE_REMOTING_TYPE);
+                    CartridgeSpringProfile.TAGGEDVALUE_SPRING_SERVICE_REMOTING_TYPE);
             // if the remoting type wasn't found, search all super classes
             if (StringUtils.isBlank(remotingTypeValue))
             {
@@ -80,7 +80,7 @@ class SpringMetafacadeUtils
                     public boolean evaluate(Object object)
                     {
                         return ((ModelElementFacade)object).findTaggedValue(
-                                SpringProfile.TAGGEDVALUE_SPRING_SERVICE_REMOTING_TYPE) != null;
+                                CartridgeSpringProfile.TAGGEDVALUE_SPRING_SERVICE_REMOTING_TYPE) != null;
                     }
                 });
             }
@@ -114,7 +114,7 @@ class SpringMetafacadeUtils
         if (classifier.hasStereotype(UMLProfile.STEREOTYPE_SERVICE))
         {
             String interceptorsValue = (String)classifier.findTaggedValue(
-                    SpringProfile.TAGGEDVALUE_SPRING_SERVICE_INTERCEPTORS);
+                    CartridgeSpringProfile.TAGGEDVALUE_SPRING_SERVICE_INTERCEPTORS);
             // if the interceptors weren't found, search all super classes
             if (StringUtils.isBlank(interceptorsValue))
             {
@@ -123,7 +123,7 @@ class SpringMetafacadeUtils
                     public boolean evaluate(Object object)
                     {
                         return ((ModelElementFacade)object).findTaggedValue(
-                                SpringProfile.TAGGEDVALUE_SPRING_SERVICE_INTERCEPTORS) != null;
+                                CartridgeSpringProfile.TAGGEDVALUE_SPRING_SERVICE_INTERCEPTORS) != null;
                     }
                 });
             }
@@ -155,7 +155,7 @@ class SpringMetafacadeUtils
         if (classifier.hasStereotype(UMLProfile.STEREOTYPE_SERVICE))
         {
             String remoteServicePortValue = (String)classifier.findTaggedValue(
-                    SpringProfile.TAGGEDVALUE_SPRING_SERVICE_REMOTE_PORT);
+                    CartridgeSpringProfile.TAGGEDVALUE_SPRING_SERVICE_REMOTE_PORT);
             // if the remote service port wasn't found, search all super classes
             if (StringUtils.isBlank(remoteServicePortValue))
             {
@@ -164,7 +164,7 @@ class SpringMetafacadeUtils
                     public boolean evaluate(Object object)
                     {
                         return ((ModelElementFacade)object).findTaggedValue(
-                                SpringProfile.TAGGEDVALUE_SPRING_SERVICE_REMOTE_PORT) != null;
+                                CartridgeSpringProfile.TAGGEDVALUE_SPRING_SERVICE_REMOTE_PORT) != null;
                     }
                 });
             }
@@ -195,7 +195,7 @@ class SpringMetafacadeUtils
         if (operation.isQuery())
         {
             String useNamedParametersValue = StringUtils.trimToEmpty((String)operation
-                    .findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_USE_NAMED_PARAMETERS));
+                    .findTaggedValue(CartridgeSpringProfile.TAGGEDVALUE_HIBERNATE_USE_NAMED_PARAMETERS));
             if (StringUtils.isNotBlank(useNamedParametersValue))
             {
                 useNamedParameters = Boolean.valueOf(useNamedParametersValue).booleanValue();

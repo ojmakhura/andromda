@@ -1727,9 +1727,9 @@ $h3tab        }
         return $principalStoreCall
     }
 
-#set ($fullyQualifiedPagingResultName = $springUtils.getFullyQualifiedClassName($springCommonTypesPackage, "PaginationResult"))
-#set ($fullyQualifiedSearchClassName = $springUtils.getFullyQualifiedClassName($springTypesPackage, "Search"))
-#set ($fullyQualifiedPropertySearchClassName = $springUtils.getFullyQualifiedClassName($springTypesPackage, "PropertySearch"))
+#set ($fullyQualifiedPagingResultName = $cartridgeSpringUtils.getFullyQualifiedClassName($springCommonTypesPackage, "PaginationResult"))
+#set ($fullyQualifiedSearchClassName = $cartridgeSpringUtils.getFullyQualifiedClassName($springTypesPackage, "Search"))
+#set ($fullyQualifiedPropertySearchClassName = $cartridgeSpringUtils.getFullyQualifiedClassName($springTypesPackage, "PropertySearch"))
     /**
      * {@inheritDoc}
      */

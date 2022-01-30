@@ -11,6 +11,9 @@
     <templateObject name="springUtils" className="org.andromda.cartridges.spring.SpringUtils">
         <property reference="richClient"/>
     </templateObject>
+    <templateObject name="cartridgeSpringUtils" className="org.andromda.cartridges.spring.CartridgeSpringUtils">
+        <property reference="richClient"/>
+    </templateObject>
     <templateObject name="entityUtils" className="org.andromda.metafacades.uml.EntityMetafacadeUtils"/>
     <templateObject name="escapeUtils" className="org.apache.commons.text.StringEscapeUtils"/>
     <templateObject name="hibernateUtils" className="org.andromda.cartridges.spring.SpringHibernateUtils">

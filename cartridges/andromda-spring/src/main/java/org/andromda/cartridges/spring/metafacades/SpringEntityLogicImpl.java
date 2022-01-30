@@ -4,8 +4,8 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import org.andromda.cartridges.spring.SpringHibernateUtils;
-import org.andromda.cartridges.spring.SpringProfile;
+import org.andromda.cartridges.spring.CartridgeSpringHibernateUtils;
+import org.andromda.cartridges.spring.CartridgeSpringProfile;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
@@ -446,7 +446,7 @@ public class SpringEntityLogicImpl
         String inheritance = null;
         if (entity != null)
         {
-            Object value = entity.findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE);
+            Object value = entity.findTaggedValue(CartridgeSpringProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE);
             if (value != null)
             {
                 inheritance = String.valueOf(value);
@@ -463,7 +463,7 @@ public class SpringEntityLogicImpl
     {
         final SpringEntity superEntity = this.getSpringSuperEntity();
         return
-            SpringHibernateUtils.mapSubclassesInSeparateFile(
+            CartridgeSpringHibernateUtils.mapSubclassesInSeparateFile(
                 (String)this.getConfiguredProperty(SpringGlobals.HIBERNATE_MAPPING_STRATEGY)) ||
             this.isRoot() &&
             (
