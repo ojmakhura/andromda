@@ -35,7 +35,12 @@ export class $class.name {
 #end
     };
 #else
-    $attribute.name: $attribute.angularTypeName#if($attribute.many)[]#end = $attribute.defaultValue;
+#if($attribute.defaultValue == "null")
+#set ($default = "")
+#else
+#set ($default = " = $attribute.defaultValue")
+#end
+    $attribute.name: $attribute.angularTypeName#if($attribute.many)[]#end$default;
 #end
 #end
     
