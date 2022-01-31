@@ -78,7 +78,7 @@ $action.trigger.getDocumentation("     * ")
     public ${action.triggerName}(form: any)
 #end
     {        
-        let forward: string = null;
+        let forward: string;
 #if ($action.finalStateTarget)
 #set($targetController = $action.target.targetElement.controller)
 #if(${targetController.name} == $controller.name)
