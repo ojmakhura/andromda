@@ -71,6 +71,7 @@
     <metafacade class="org.andromda.cartridges.angular.metafacades.AngularModelLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.ClassImpl">
             <stereotype>VALUE_OBJECT</stereotype>
+            <!-- <stereotype>CRITERIA</stereotype> -->
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.angular.metafacades.AngularControllerOperationLogicImpl">
@@ -236,11 +237,6 @@
         contextRoot="true">
         <mapping>
             <stereotype>CRITERIA</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.angular.metafacades.SpringCriteriaAttributeLogicImpl">
-        <mapping>
-            <context>org.andromda.cartridges.angular.metafacades.SpringCriteriaSearch</context>
         </mapping>
     </metafacade>
 </metafacades>

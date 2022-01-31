@@ -24,23 +24,14 @@ export class $class.name {
     @$angularUtils.getRxwebDecorator($attribute)
 #if($angularUtils.isComplex($attribute) && !$attribute.many && !$angularUtils.isArray($attribute.getterSetterTypeName) && !$attribute.type.enumeration)
 
-    $attribute.name: ${attribute.type.name} = <${attribute.type.name}>{
-#foreach($attr in ${attribute.type.attributes})
-#if($attr.many || $angularUtils.isArray($attr.getterSetterTypeName))
-#set ($def = "[]")
-#else
-#set ($def = "null")
-#end
-        $attr.name: $attr.defaultValue,
-#end
-    };
+    $attribute.name: ${attribute.type.name} =  new ${attribute.type.name};
 #else
 #if($attribute.defaultValue == "null")
 #set ($default = "")
 #else
 #set ($default = " = $attribute.defaultValue")
 #end
-    $attribute.name: $attribute.angularTypeName#if($attribute.many)[]#end$default;
+    $attribute.name!: $attribute.angularTypeName#if($attribute.many)[]#end$default;
 #end
 #end
     
