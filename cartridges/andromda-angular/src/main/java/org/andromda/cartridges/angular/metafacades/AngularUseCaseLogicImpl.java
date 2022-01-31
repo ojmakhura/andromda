@@ -972,7 +972,7 @@ public class AngularUseCaseLogicImpl
 
     @Override
     protected String handleGetRouterPath() {
-        return this.getComponentName().toLowerCase();
+        return '/' + this.getComponentName().toLowerCase();
     }
 
     @Override

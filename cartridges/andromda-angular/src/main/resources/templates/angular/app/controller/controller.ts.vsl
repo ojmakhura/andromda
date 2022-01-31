@@ -78,7 +78,7 @@ $action.trigger.getDocumentation("     * ")
     public ${action.triggerName}(form: any)
 #end
     {        
-        let forward: string = null;
+        let forward: string;
 #if ($action.finalStateTarget)
 #set($targetController = $action.target.targetElement.controller)
 #if(${targetController.name} == $controller.name)
@@ -104,7 +104,7 @@ $action.trigger.getDocumentation("     * ")
         {
             if(forward === '${action.useCase.routerPath}/${action.source.routerPath}')
             {
-                forward = null; //the destination form is the same, stay on the current view
+                //forward = null; //the destination form is the same, stay on the current view
             }
         }
         
@@ -115,7 +115,7 @@ $action.trigger.getDocumentation("     * ")
         return forward;
 #else
         if(forward !== null) {
-            this.router.navigate(['/' + forward]);
+            this.router.navigate([forward]);
         } 
 #end
     }
@@ -132,7 +132,7 @@ $actionState.getDocumentation("     * ")
      */
     protected ${actionState.actionMethodName}#if (!$action.formFields.empty)${action.formImplementationName}#end(form: any): string
     {
-        let forward: string = null;
+        let forward: string = '';
 #if ($actionState.controllerCalls.empty && $actionState.serviceCalls.empty)
 ## TODO UMLMETA-106 uml22 StateVertex outgoing FinalState target returns null/unknown for Exception transition.
 ##        // actionState=$actionState controllerCalls=$actionState.controllerCalls.size()
@@ -174,7 +174,7 @@ ${ident}#processTransition($actionState.forward)
 #set ($pt = ${actionState.exceptions.iterator().next().target.name})
             forward = "$angularUtils.getComponentFileName($pt)";
 #* *##else
-            forward = null;
+            forward = '';
 #*  *##set($exceptionCount=0)
 #*  *##foreach($exception in $exceptions)
 #*   *##if($stringUtils.isNotBlank($exception.exceptionType))
@@ -218,7 +218,7 @@ $decisionTransition.getDocumentation("     * ")
     protected __${decisionTransition.operationCall.name}(#if (!$action.formFields.empty)form: any#end): string
     {
         const value: string = '' + this.$decisionTransition.operationCall.formCall;
-        let forward: string = null;
+        let forward: string = '';
 #set($outgoings = $decisionTransition.target.outgoings)
 #foreach ($outcome in $outgoings)
 #set ($defaultOutcome = $outcome)

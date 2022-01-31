@@ -128,6 +128,18 @@
     </template>
 
     <template
+        path="templates/angular/app/model/criteria.ts.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="$outlet"
+        overwrite="true">
+        <modelElements variable="class">
+            <modelElement>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularCriteriaSearch"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
         path="templates/angular/app/model/model.ts.vsl"
         outputPattern="${class.filePath}.ts"
         outlet="models"
