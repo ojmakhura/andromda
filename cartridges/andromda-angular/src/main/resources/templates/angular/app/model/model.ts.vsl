@@ -27,22 +27,21 @@ export class $class.name {
     $attribute.name: ${attribute.type.name} = <${attribute.type.name}>{
 #foreach($attr in ${attribute.type.attributes})
 #if($attr.many || $angularUtils.isArray($attr.getterSetterTypeName))
-#set ($def = "[]")
+#set ($def = "new Array<$attr.angularTypeName>()")
 #else
 #set ($def = "null")
 #end
-        $attr.name: $attr.defaultValue,
+        $attr.name: $def,
 #end
     };
 #else
-#if($attribute.defaultValue == "null")
-#set ($default = "")
-#else
-#set ($default = " = $attribute.defaultValue")
+#set ($default = "$attribute.defaultValue")
+#if($attribute.many)
+#set ($default = "new Array<$attribute.angularTypeName>()")
 #end
-    $attribute.name: $attribute.angularTypeName#if($attribute.many)[]#end$default;
+    $attribute.name: $attribute.angularTypeName#if($attribute.many)[]#end = $default;
 #end
 #end
     
-    ${class.name}() {}
+    constructor() {}
 }

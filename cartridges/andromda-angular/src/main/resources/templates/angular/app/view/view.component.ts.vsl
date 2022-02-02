@@ -8,6 +8,7 @@ import { FormGroup, FormControl, FormArray, FormBuilder, ReactiveFormsModule } f
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { UseCaseScope } from '@app/utils/use-case-scope';
+import { SelectItem } from '@app/utils/select-item';
 
 ## Find all the fields in the actions of the view
 #set($fieldSet =  $angularUtils.getFacadeSet($view.allFormFields))
@@ -102,7 +103,7 @@ export abstract class $view.componentName implements OnInit {
 #elseif($attribute.inputSelect || ($angularUtils.isComplex($attribute) && !$angularUtils.isTable($attribute)))
 #set ($backingListName = ${attribute.getBackingListName($field)})
 #set($ret = $selections.add($attribute.type))
-    $backingListName: Array<$angularUtils.getDatatype($attribute.type.name)> = [];
+    $backingListName: Array<SelectItem> = [];
 #end
 #end
 #else
