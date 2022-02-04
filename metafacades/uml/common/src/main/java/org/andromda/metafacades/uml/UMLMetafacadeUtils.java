@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -1152,5 +1153,108 @@ public class UMLMetafacadeUtils
     public static String getDate()
     {
         return df.format(new Date());
+    }
+
+    /**
+     * Check if the object is a number datatype
+     * 
+     * @param obj
+     * @return
+     */
+    public static boolean isNumber(ClassifierFacade obj) {
+
+        if(obj.isIntegerType() ||
+            obj.isDoubleType() ||
+            obj.isLongType() ||
+            obj.isFloatType()) {
+
+            return true;
+        }
+
+        return false;
+    }
+    
+    /**
+     * Given a list of facades, we want to get a set to remove duplicates.
+     * 
+     * @param facades
+     * @return
+     */
+	public static HashSet<ModelElementFacade> getFacadeSet(List<ModelElementFacade> facades) {
+		HashSet<String> nameSet = new HashSet<String>();
+		HashSet<ModelElementFacade> elementSet =  new HashSet<ModelElementFacade>();
+		
+		for(ModelElementFacade facade : facades) {
+            
+			if(facade != null && nameSet.add(facade.getName())) {
+				elementSet.add(facade);
+			}
+		}
+		
+		return elementSet;
+	}
+    
+    /**
+     * <p> Returns true if java.lang.* or java.util.* datatype and not many*
+     * </p>
+     *
+     * @param element the ClassifierFacade instance
+     * @return if type is one of the PrimitiveTypes and not an array/list
+     */
+    public static boolean isSimpleType(ModelElementFacade element)
+    {
+        boolean simple = false;
+        String typeName = null;
+        ClassifierFacade type = null;
+        boolean many = false;
+        if (element instanceof AttributeFacade)
+        {
+            AttributeFacade attrib = (AttributeFacade)element;
+            type = attrib.getType();
+            many = attrib.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        else if (element instanceof AssociationEndFacade)
+        {
+            AssociationEndFacade association = (AssociationEndFacade)element;
+            type = association.getType();
+            many = association.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        else if (element instanceof ParameterFacade)
+        {
+            ParameterFacade param = (ParameterFacade)element;
+            type = param.getType();
+            many = param.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        else if (element instanceof AttributeFacade)
+        {
+            AttributeFacade attrib = (AttributeFacade)element;
+            type = attrib.getType();
+            many = attrib.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        else if (element instanceof ParameterFacade)
+        {
+            ParameterFacade param = (ParameterFacade)element;
+            type = param.getType();
+            many = param.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        else if (element instanceof ClassifierFacade)
+        {
+            ClassifierFacade classifier = (ClassifierFacade)element;
+            type = classifier;
+        }
+        else
+        {
+            return simple;
+        }
+        typeName = type.getFullyQualifiedName();
+        if (type.isPrimitive() || typeName.startsWith("java.lang.") || typeName.startsWith("java.util.")
+            || !typeName.contains("."))
+        {
+            if (!many)
+            {
+                simple = true;
+            }
+        }
+        return simple;
     }
 }

@@ -396,17 +396,6 @@ public class AngularParameterLogicImpl
     }
 
     /**
-     * Gets the current value of the specified input type (or an empty string
-     * if one isn't specified).
-     *
-     * @return the input type name.
-     */
-    private String getInputType()
-    {
-        return Objects.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
-    }
-
-    /**
      * Indicates whether or not this parameter is of the given input type.
      *
      * @param inputType the name of the input type to check for.
@@ -1450,5 +1439,101 @@ public class AngularParameterLogicImpl
         }
 
         return services;
+    }
+
+    @Override
+    public boolean isInputButton() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isInputColor() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isInputDate() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isInputDatetimeLocal() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isInputEmail() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isInputImage() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isInputMonth() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isInputNumber() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isInputRange() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isInputReset() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isInputSearch() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isInputSubmit() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isInputTel() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isInputTime() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isInputUrl() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isInputWeek() {
+        // TODO Auto-generated method stub
+        return false;
     }
 }
