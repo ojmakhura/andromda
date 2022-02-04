@@ -226,7 +226,9 @@ public class StrutsActionLogicImpl
      */
     protected boolean handleIsTableLink()
     {
-        return this.getTableLinkParameter() != null;
+        //return this.getTableLinkParameter() != null;
+
+        return false;
     }
 
     /**
@@ -262,29 +264,29 @@ public class StrutsActionLogicImpl
     {
         List<StrutsParameter> tableNonColumnActionParameters = null;
 
-        final StrutsParameter table = (StrutsParameter) getTableLinkParameter();
-        if (table != null)
-        {
-            final Map<String, StrutsParameter> tableNonColumnActionParametersMap = new LinkedHashMap<String, StrutsParameter>(4);
-            final Collection<String> columnNames = table.getTableColumnNames();
-            final List<FrontEndAction> formActions = table.getTableFormActions();
-            int formSize = formActions.size();
-            for (int i = 0; i < formSize; i++)
-            {
-                final StrutsAction action = (StrutsAction) formActions.get(i);
-                int size = action.getActionParameters().size();
-                for (int j = 0; j < size; j++)
-                {
-                    final StrutsParameter parameter = ((List<StrutsParameter>)action.getActionParameters()).get(j);
-                    if (!columnNames.contains(parameter.getName()))
-                    {
-                        tableNonColumnActionParametersMap.put(parameter.getName(), parameter);
-                    }
-                }
-            }
+        // final StrutsParameter table = (StrutsParameter) getTableLinkParameter();
+        // if (table != null)
+        // {
+        //     final Map<String, StrutsParameter> tableNonColumnActionParametersMap = new LinkedHashMap<String, StrutsParameter>(4);
+        //     final Collection<String> columnNames = table.getTableColumnNames();
+        //     final List<FrontEndAction> formActions = table.getTableFormActions();
+        //     int formSize = formActions.size();
+        //     for (int i = 0; i < formSize; i++)
+        //     {
+        //         final StrutsAction action = (StrutsAction) formActions.get(i);
+        //         int size = action.getActionParameters().size();
+        //         for (int j = 0; j < size; j++)
+        //         {
+        //             final StrutsParameter parameter = ((List<StrutsParameter>)action.getActionParameters()).get(j);
+        //             if (!columnNames.contains(parameter.getName()))
+        //             {
+        //                 tableNonColumnActionParametersMap.put(parameter.getName(), parameter);
+        //             }
+        //         }
+        //     }
 
-            tableNonColumnActionParameters = new ArrayList<StrutsParameter>(tableNonColumnActionParametersMap.values());
-        }
+        //     tableNonColumnActionParameters = new ArrayList<StrutsParameter>(tableNonColumnActionParametersMap.values());
+        // }
 
         return tableNonColumnActionParameters;
     }
@@ -629,13 +631,13 @@ public class StrutsActionLogicImpl
      */
     protected boolean handleIsValidationRequired()
     {
-        for (final StrutsParameter parameter : getActionParameters())
-        {
-            if (parameter.isValidationRequired())
-            {
-                return true;
-            }
-        }
+        // for (final StrutsParameter parameter : getActionParameters())
+        // {
+        //     if (parameter.isValidationRequired())
+        //     {
+        //         return true;
+        //     }
+        // }
         return false;
     }
 
@@ -644,13 +646,13 @@ public class StrutsActionLogicImpl
      */
     protected boolean handleIsDateFieldPresent()
     {
-        for (final StrutsParameter parameter : getActionParameters())
-        {
-            if (parameter.isDate())
-            {
-                return true;
-            }
-        }
+        // for (final StrutsParameter parameter : getActionParameters())
+        // {
+        //     if (parameter.isDate())
+        //     {
+        //         return true;
+        //     }
+        // }
         return false;
     }
 
@@ -659,13 +661,14 @@ public class StrutsActionLogicImpl
      */
     protected boolean handleIsCalendarRequired()
     {
-        for (final StrutsParameter parameter : getActionParameters())
-        {
-            if (parameter.isCalendarRequired())
-            {
-                return true;
-            }
-        }
+        //getparame
+        // for (final StrutsParameter parameter : getActionParameters())
+        // {
+        //     if (parameter.isCalendarRequired())
+        //     {
+        //         return true;
+        //     }
+        // }
         return false;
     }
 
@@ -762,12 +765,12 @@ public class StrutsActionLogicImpl
     protected List<FrontEndExceptionHandler> handleGetActionExceptions()
     {
         final Collection<FrontEndExceptionHandler> exceptions = new LinkedHashSet<FrontEndExceptionHandler>();
-        final Collection<FrontEndActionState> actionStates = getActionStates();
-        for (final Iterator<FrontEndActionState> iterator = actionStates.iterator(); iterator.hasNext();)
-        {
-            StrutsActionState actionState = (StrutsActionState) iterator.next();
-            exceptions.addAll(actionState.getExceptions());
-        }
+        // final Collection<FrontEndActionState> actionStates = getActionStates();
+        // for (final Iterator<FrontEndActionState> iterator = actionStates.iterator(); iterator.hasNext();)
+        // {
+        //     StrutsActionState actionState = (StrutsActionState) iterator.next();
+        //     exceptions.addAll(actionState.getExceptions());
+        // }
 
         return new ArrayList<FrontEndExceptionHandler>(exceptions);
     }
@@ -895,10 +898,10 @@ public class StrutsActionLogicImpl
         }
 
         // we do the action parameters in the end because they are allowed to overwrite existing properties
-        for (final StrutsParameter facade : getActionParameters())
-        {
-            formFieldMap.put(facade.getName(), facade);
-        }
+        // for (final StrutsParameter facade : getActionParameters())
+        // {
+        //     formFieldMap.put(facade.getName(), facade);
+        // }
 
         return new ArrayList<FrontEndParameter>(formFieldMap.values());
     }
@@ -914,13 +917,13 @@ public class StrutsActionLogicImpl
         final FrontEndController controller = getController();
         if (controller != null)
         {
-            final List<FrontEndActionState> actionStates = getActionStates();
-            int size = actionStates.size();
-            for (int i = 0; i < size; i++)
-            {
-                final StrutsActionState actionState = (StrutsActionState) actionStates.get(i);
-                deferredOperations.addAll(actionState.getControllerCalls());
-            }
+            // final List<FrontEndActionState> actionStates = getActionStates();
+            // int size = actionStates.size();
+            // for (int i = 0; i < size; i++)
+            // {
+            //     final StrutsActionState actionState = (StrutsActionState) actionStates.get(i);
+            //     deferredOperations.addAll(actionState.getControllerCalls());
+            // }
 
             for (FrontEndForward forward : this.getDecisionTransitions())
             {
@@ -1046,14 +1049,16 @@ public class StrutsActionLogicImpl
      */
     protected List<StrutsParameter> handleGetResettableActionParameters()
     {
-        return new ArrayList<StrutsParameter>(new FilteredCollection(this.getActionParameters())
-        {
-            private static final long serialVersionUID = 34L;
-            public boolean evaluate(Object object)
-            {
-                return object != null && ((StrutsParameter)object).isShouldReset();
-            }
-        });
+        // return new ArrayList<StrutsParameter>(new FilteredCollection(this.getActionParameters())
+        // {
+        //     private static final long serialVersionUID = 34L;
+        //     public boolean evaluate(Object object)
+        //     {
+        //         return object != null && ((StrutsParameter)object).isShouldReset();
+        //     }
+        // });
+
+        return null;
     }
 
     /**
@@ -1119,14 +1124,22 @@ public class StrutsActionLogicImpl
      */
     protected List<StrutsParameter> handleGetHiddenActionParameters()
     {
-        final List<StrutsParameter> hiddenActionParameters = new ArrayList<StrutsParameter>(this.getActionParameters());
-        CollectionUtils.filter(hiddenActionParameters, new Predicate()
-        {
-            public boolean evaluate(final Object object)
-            {
-                return StrutsParameterLogicImpl.HIDDEN_INPUT_TYPE.equals(((StrutsParameter) object).getWidgetType());
-            }
-        });
-        return hiddenActionParameters;
+        // final List<StrutsParameter> hiddenActionParameters = new ArrayList<StrutsParameter>(this.getActionParameters());
+        // CollectionUtils.filter(hiddenActionParameters, new Predicate()
+        // {
+        //     public boolean evaluate(final Object object)
+        //     {
+        //         return StrutsParameterLogicImpl.HIDDEN_INPUT_TYPE.equals(((StrutsParameter) object).getWidgetType());
+        //     }
+        // });
+        // return hiddenActionParameters;
+
+        return null;
+    }
+
+    @Override
+    protected Object handleGetController() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

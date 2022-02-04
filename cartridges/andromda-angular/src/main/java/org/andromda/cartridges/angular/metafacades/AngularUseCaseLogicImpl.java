@@ -484,14 +484,14 @@ public class AngularUseCaseLogicImpl
      * @return actionForwards
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getActionForwards()
      */
-    protected List<AngularAction> handleGetActionForwards()
+    protected List<FrontEndForward> handleGetActionForwards()
     {
-        final Set<AngularAction> actionForwards = new LinkedHashSet<AngularAction>();
+        final Set<FrontEndForward> actionForwards = new LinkedHashSet<FrontEndForward>();
         for (final FrontEndView view : this.getViews())
         {
-            actionForwards.addAll(((AngularView)view).getActionForwards());
+            actionForwards.addAll(view.getActionForwards());
         }
-        return new ArrayList<AngularAction>(actionForwards);
+        return new ArrayList<FrontEndForward>(actionForwards);
     }
 
     /**
@@ -518,20 +518,20 @@ public class AngularUseCaseLogicImpl
      * @return allForwards
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getAllForwards()
      */
-    @SuppressWarnings("unchecked")
-    protected List<ModelElementFacade> handleGetAllForwards()
-    {
-        final Map<String, ModelElementFacade> forwards = new LinkedHashMap<String, ModelElementFacade>();
-        for (final AngularAction forward : this.getActionForwards())
-        {
-            forwards.put(forward.getName(), forward);
-        }
-        for (final AngularForward forward : this.getForwards())
-        {
-            forwards.put(forward.getName(), forward);
-        }
-        return new ArrayList<ModelElementFacade>(forwards.values());
-    }
+    // @SuppressWarnings("unchecked")
+    // protected List<ModelElementFacade> handleGetAllForwards()
+    // {
+    //     final Map<String, ModelElementFacade> forwards = new LinkedHashMap<String, ModelElementFacade>();
+    //     for (final AngularAction forward : this.getActionForwards())
+    //     {
+    //         forwards.put(forward.getName(), forward);
+    //     }
+    //     for (final AngularForward forward : this.getForwards())
+    //     {
+    //         forwards.put(forward.getName(), forward);
+    //     }
+    //     return new ArrayList<ModelElementFacade>(forwards.values());
+    // }
 
     /**
      * @return upperCamelCaseName(this.getName())
@@ -817,6 +817,7 @@ public class AngularUseCaseLogicImpl
      * @return navigationParents
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getNavigationParents()
      */
+    @Override
     protected Collection<FrontEndUseCase> handleGetNavigationParents()
     {
         final AngularUseCase theUseCase = this;
@@ -838,6 +839,7 @@ public class AngularUseCaseLogicImpl
      * @return actionRoles
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getActionRoles()
      */
+    @Override
     protected String handleGetActionRoles()
     {
         final StringBuilder rolesBuffer = new StringBuilder();
@@ -942,17 +944,17 @@ public class AngularUseCaseLogicImpl
     /**
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCaseLogic#handleGetAllViews()
      */
-    @SuppressWarnings("unchecked")
-    @Override
-    protected Collection<FrontEndView> handleGetAllViews()
-    {
-        final Set<FrontEndView> allViews = new LinkedHashSet<FrontEndView>();
-        for (final FrontEndUseCase useCase : this.getAllUseCases())
-        {
-            allViews.addAll(useCase.getViews());
-        }
-        return allViews;
-    }
+    // @SuppressWarnings("unchecked")
+    // @Override
+    // protected Collection<FrontEndView> handleGetAllViews()
+    // {
+    //     final Set<FrontEndView> allViews = new LinkedHashSet<FrontEndView>();
+    //     for (final FrontEndUseCase useCase : this.getAllUseCases())
+    //     {
+    //         allViews.addAll(useCase.getViews());
+    //     }
+    //     return allViews;
+    // }
 
     private void getMenuItems(AngularUseCase useCase, HashSet<ModelElementFacade> imports) {
 

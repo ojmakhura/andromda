@@ -7,9 +7,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndUseCase;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
@@ -123,5 +125,35 @@ public class FrontEndFinalStateLogicImpl
         }
 
         return new ArrayList<FrontEndParameter>(parameterMap.values());
+    }
+
+    @Override
+    protected String handleGetPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetTargetControllerFullyQualifiedName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetTargetControllerBeanName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected ModelElementFacade handleGetTargetElement() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected FrontEndController handleGetTargetController() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

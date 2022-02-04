@@ -250,12 +250,12 @@ public class StrutsJspLogicImpl
     public List getAllActionParameters()
     {
         final List actionParameters = new ArrayList();
-        final Collection actions = getActions();
-        for (final Iterator iterator = actions.iterator(); iterator.hasNext();)
-        {
-            final StrutsAction action = (StrutsAction)iterator.next();
-            actionParameters.addAll(action.getActionParameters());
-        }
+        // final Collection actions = getActions();
+        // for (final Iterator iterator = actions.iterator(); iterator.hasNext();)
+        // {
+        //     final StrutsAction action = (StrutsAction)iterator.next();
+        //     actionParameters.addAll(action.getActionParameters());
+        // }
         return actionParameters;
     }
 

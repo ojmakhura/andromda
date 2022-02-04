@@ -173,15 +173,15 @@ public class AngularViewLogicImpl extends AngularViewLogic {
      * @return actionForwards
      * @see org.andromda.cartridges.angular.metafacades.AngularViewLogic#getActionForwards()
      */
-    protected List<AngularForward> handleGetActionForwards() {
-        final List<AngularForward> actionForwards = new ArrayList<AngularForward>(this.getForwards());
-        for (final Iterator<AngularForward> iterator = actionForwards.iterator(); iterator.hasNext();) {
-            if (!(iterator.next() instanceof AngularAction)) {
-                iterator.remove();
-            }
-        }
-        return actionForwards;
-    }
+    // protected List<FrontEndForward> handleGetActionForwards() {
+    //     final List<FrontEndForward> actionForwards = new ArrayList<FrontEndForward>(this.getForwards());
+    //     for (final Iterator<FrontEndForward> iterator = actionForwards.iterator(); iterator.hasNext();) {
+    //         if (!(iterator.next() instanceof AngularAction)) {
+    //             iterator.remove();
+    //         }
+    //     }
+    //     return actionForwards;
+    // }
 
     /**
      * @return populatorName
@@ -372,31 +372,31 @@ public class AngularViewLogicImpl extends AngularViewLogic {
     /**
      * @see org.andromda.cartridges.angular.metafacades.AngularView#getFullyQualifiedPageObjectClassPath()
      */
-    @Override
-    protected String handleGetFullyQualifiedPageObjectClassPath() {
-        return this.getFullyQualifiedPageObjectClassName().replace('.', '/');
-    }
+    // @Override
+    // protected String handleGetFullyQualifiedPageObjectClassPath() {
+    //     return this.getFullyQualifiedPageObjectClassName().replace('.', '/');
+    // }
 
     /**
      * @see org.andromda.cartridges.angular.metafacades.AngularView#getFullyQualifiedPageObjectClassName()
      */
-    @Override
-    protected String handleGetFullyQualifiedPageObjectClassName() {
-        final StringBuilder fullyQualifiedName = new StringBuilder();
-        final String packageName = this.getPackageName();
-        if (StringUtils.isNotBlank(packageName)) {
-            fullyQualifiedName.append(packageName + '.');
-        }
-        return fullyQualifiedName.append(this.getPageObjectClassName()).toString();
-    }
+    // @Override
+    // protected String handleGetFullyQualifiedPageObjectClassName() {
+    //     final StringBuilder fullyQualifiedName = new StringBuilder();
+    //     final String packageName = this.getPackageName();
+    //     if (StringUtils.isNotBlank(packageName)) {
+    //         fullyQualifiedName.append(packageName + '.');
+    //     }
+    //     return fullyQualifiedName.append(this.getPageObjectClassName()).toString();
+    // }
 
     /**
      * @see org.andromda.cartridges.angular.metafacades.AngularView#getPageObjectClassName()
      */
-    @Override
-    protected String handleGetPageObjectClassName() {
-        return StringUtilsHelper.upperCamelCaseName(this.getName());
-    }
+    // @Override
+    // protected String handleGetPageObjectClassName() {
+    //     return StringUtilsHelper.upperCamelCaseName(this.getName());
+    // }
 
     /**
      * @see org.andromda.cartridges.angular.metafacades.AngularView#getPageObjectBeanName()

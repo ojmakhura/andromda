@@ -328,4 +328,142 @@ public class FrontEndUseCaseLogicImpl
         }
         return new ArrayList<FrontEndParameter>(pageVariableMap.values());
     }
+
+    @Override
+    protected String handleGetPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetPathRoot() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetForwardName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected Map handleGetAllMessages() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetTitleKey() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetTitleValue() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetActionClassName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFullyQualifiedActionClassPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetControllerAction() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFullyQualifiedActionClassName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFormKey() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetInitialTargetPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsInitialTargetView() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsApplicationValidationRequired() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsValidationRequired() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsViewHasNameOfUseCase() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsRegistrationUseCase() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected String handleGetForwardsClassName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected List handleGetAllForwards() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected List<FrontEndForward> handleGetForwards() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected List<FrontEndAction> handleGetActionForwards() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected Collection<FrontEndView> handleGetAllViews() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected List<FrontEndUseCase> handleGetRegistrationUseCases() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

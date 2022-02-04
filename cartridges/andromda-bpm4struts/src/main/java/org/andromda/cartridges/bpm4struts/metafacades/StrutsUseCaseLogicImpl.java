@@ -600,40 +600,40 @@ public class StrutsUseCaseLogicImpl
                         final StrutsAction action = (StrutsAction)actions.get(k);
 
                         // ACTION PARAMETERS
-                        final List parameters = (List)action.getActionParameters();
-                        for (int l = 0; l < parameters.size(); l++)
-                        {
-                            final StrutsParameter parameter = (StrutsParameter)parameters.get(l);
-                            messages.put(parameter.getMessageKey(), parameter.getMessageValue());
-                            messages.put(parameter.getOnlineHelpKey(), parameter.getOnlineHelpValue());
-                            messages.put(parameter.getDocumentationKey(), parameter.getDocumentationValue());
-                            messages.put(parameter.getTitleKey(), parameter.getTitleValue());
+                        // final List parameters = (List)action.getActionParameters();
+                        // for (int l = 0; l < parameters.size(); l++)
+                        // {
+                        //     final StrutsParameter parameter = (StrutsParameter)parameters.get(l);
+                        //     messages.put(parameter.getMessageKey(), parameter.getMessageValue());
+                        //     messages.put(parameter.getOnlineHelpKey(), parameter.getOnlineHelpValue());
+                        //     messages.put(parameter.getDocumentationKey(), parameter.getDocumentationValue());
+                        //     messages.put(parameter.getTitleKey(), parameter.getTitleValue());
 
-                            if (parameter.getValidWhen() != null)
-                            {
-                                // this key needs to be fully qualified since the valid when value can be different
-                                final String completeKeyPrefix = (normalize)
-                                    ? parameter.getMessageKey()
-                                    : useCase.getTitleKey() + '.' +
-                                    page.getMessageKey() + '.' +
-                                    action.getMessageKey() + '.' +
-                                    parameter.getMessageKey();
-                                messages.put(completeKeyPrefix + "_validwhen",
-                                    "{0} is only valid when " + parameter.getValidWhen());
-                            }
+                        //     if (parameter.getValidWhen() != null)
+                        //     {
+                        //         // this key needs to be fully qualified since the valid when value can be different
+                        //         final String completeKeyPrefix = (normalize)
+                        //             ? parameter.getMessageKey()
+                        //             : useCase.getTitleKey() + '.' +
+                        //             page.getMessageKey() + '.' +
+                        //             action.getMessageKey() + '.' +
+                        //             parameter.getMessageKey();
+                        //         messages.put(completeKeyPrefix + "_validwhen",
+                        //             "{0} is only valid when " + parameter.getValidWhen());
+                        //     }
 
-                            if (parameter.getOptionCount() > 0)
-                            {
-                                final List optionKeys = parameter.getOptionKeys();
-                                final List optionValues = parameter.getOptionValues();
+                        //     if (parameter.getOptionCount() > 0)
+                        //     {
+                        //         final List optionKeys = parameter.getOptionKeys();
+                        //         final List optionValues = parameter.getOptionValues();
 
-                                for (int m = 0; m < optionKeys.size(); m++)
-                                {
-                                    messages.put((String)optionKeys.get(m), (String)optionValues.get(m));
-                                    messages.put((String)optionKeys.get(m) + ".title", (String)optionValues.get(m));
-                                }
-                            }
-                        }
+                        //         for (int m = 0; m < optionKeys.size(); m++)
+                        //         {
+                        //             messages.put((String)optionKeys.get(m), (String)optionValues.get(m));
+                        //             messages.put((String)optionKeys.get(m) + ".title", (String)optionValues.get(m));
+                        //         }
+                        //     }
+                        // }
                     }
                 }
             }

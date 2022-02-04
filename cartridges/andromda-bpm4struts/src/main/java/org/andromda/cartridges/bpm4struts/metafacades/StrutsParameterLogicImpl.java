@@ -502,8 +502,9 @@ public class StrutsParameterLogicImpl
      */
     public boolean isActionParameter()
     {
-        final StrutsAction action = getStrutsAction();
-        return (action != null) && action.getActionParameters().contains(this);
+        // final StrutsAction action = getStrutsAction();
+        // return (action != null) && action.getActionParameters().contains(this);
+        return false;
     }
 
     /**
@@ -582,21 +583,21 @@ public class StrutsParameterLogicImpl
         for (final Iterator<StrutsAction> actionIterator = actions.iterator(); actionIterator.hasNext() && sameParameter;)
         {
             final StrutsAction action = actionIterator.next();
-            final Collection<StrutsParameter> parameters = action.getActionParameters();
-            if (!parameters.isEmpty())
-            {
-                final StrutsParameter parameter = parameters.iterator().next();
-                if (name == null || type == null)
-                {
-                    name = parameter.getName();
-                    type = parameter.getType().getFullyQualifiedName();
-                }
-                else
-                {
-                    sameParameter = name.equals(parameter.getName()) &&
-                        type.equals(parameter.getType().getFullyQualifiedName());
-                }
-            }
+            // final Collection<StrutsParameter> parameters = action.getActionParameters();
+            // if (!parameters.isEmpty())
+            // {
+            //     final StrutsParameter parameter = parameters.iterator().next();
+            //     if (name == null || type == null)
+            //     {
+            //         name = parameter.getName();
+            //         type = parameter.getType().getFullyQualifiedName();
+            //     }
+            //     else
+            //     {
+            //         sameParameter = name.equals(parameter.getName()) &&
+            //             type.equals(parameter.getType().getFullyQualifiedName());
+            //     }
+            // }
         }
 
         return sameParameter;
@@ -634,14 +635,14 @@ public class StrutsParameterLogicImpl
         Object parameter = null;
 
         final Collection<StrutsAction> actions = this.getTableGlobalActions();
-        if (!actions.isEmpty())
-        {
-            final Collection<StrutsParameter> actionParameters = (actions.iterator().next()).getActionParameters();
-            if (!actionParameters.isEmpty())
-            {
-                parameter = actionParameters.iterator().next();
-            }
-        }
+        // if (!actions.isEmpty())
+        // {
+        //     final Collection<StrutsParameter> actionParameters = (actions.iterator().next()).getActionParameters();
+        //     if (!actionParameters.isEmpty())
+        //     {
+        //         parameter = actionParameters.iterator().next();
+        //     }
+        // }
 
         return parameter;
     }
@@ -794,13 +795,13 @@ public class StrutsParameterLogicImpl
             if (action.isHyperlink() && action.isTableLink())
             {
                 // get the table and check whether this parameter is part of that table's columns
-                final FrontEndParameter table = action.getTableLinkParameter();
-                if (table != null)
-                {
-                    final Collection tableColumns = table.getTableColumns();
-                    // if this parameter's name matches that targetted column name then we have found our column
-                    tableHyperlinkColumn = tableColumns.contains(this) && name.equals(action.getTableLinkColumnName());
-                }
+                // final FrontEndParameter table = action.getTableLinkParameter();
+                // if (table != null)
+                // {
+                //     final Collection tableColumns = table.getTableColumns();
+                //     // if this parameter's name matches that targetted column name then we have found our column
+                //     tableHyperlinkColumn = tableColumns.contains(this) && name.equals(action.getTableLinkColumnName());
+                // }
             }
         }
 
@@ -868,23 +869,23 @@ public class StrutsParameterLogicImpl
         for (final Iterator<FrontEndAction> actionIterator = actions.iterator(); actionIterator.hasNext();)
         {
             final StrutsAction action = (StrutsAction) actionIterator.next();
-            final Collection<StrutsParameter>  actionParameters = action.getActionParameters();
-            for (final Iterator<StrutsParameter>  parameterIterator = actionParameters.iterator(); parameterIterator.hasNext();)
-            {
-                final StrutsParameter parameter = parameterIterator.next();
-                final String parameterName = parameter.getName();
-                if (parameterName != null)
-                {
-                    // never overwrite column specific table links
-                    // the hyperlink table links working on a real column get priority
-                    final StrutsParameter existingParameter = (StrutsParameter)tableColumnsMap.get(parameterName);
-                    if (existingParameter == null ||
-                        (action.isHyperlink() && parameterName.equals(action.getTableLinkColumnName())))
-                    {
-                        tableColumnsMap.put(parameterName, parameter);
-                    }
-                }
-            }
+            // final Collection<StrutsParameter>  actionParameters = action.getActionParameters();
+            // for (final Iterator<StrutsParameter>  parameterIterator = actionParameters.iterator(); parameterIterator.hasNext();)
+            // {
+            //     final StrutsParameter parameter = parameterIterator.next();
+            //     final String parameterName = parameter.getName();
+            //     if (parameterName != null)
+            //     {
+            //         // never overwrite column specific table links
+            //         // the hyperlink table links working on a real column get priority
+            //         final StrutsParameter existingParameter = (StrutsParameter)tableColumnsMap.get(parameterName);
+            //         if (existingParameter == null ||
+            //             (action.isHyperlink() && parameterName.equals(action.getTableLinkColumnName())))
+            //         {
+            //             tableColumnsMap.put(parameterName, parameter);
+            //         }
+            //     }
+            // }
         }
 
         final Collection<String>  columnNames = this.getTableColumnNames();

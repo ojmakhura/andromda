@@ -812,25 +812,25 @@ public class AngularActionLogicImpl
     /**
      * @see org.andromda.cartridges.angular.metafacades.AngularAction#getTriggerMethodName
      */
-    @Override
-    protected String handleGetTriggerMethodName()
-    {
-        final StringBuilder methodName = new StringBuilder();
-        if (this.isExitingInitialState())
-        {
-            final AngularUseCase useCase = (AngularUseCase)this.getUseCase();
-            methodName.append(StringUtilsHelper.lowerCamelCaseName(useCase.getName())+"_started");
-        }
-        else
-        {
-            methodName.append(StringUtilsHelper.lowerCamelCaseName(this.getSource().getName()));
-            methodName.append('_');
-            final EventFacade trigger = this.getTrigger();
-            final String suffix = trigger == null ? this.getTarget().getName() : trigger.getName();
-            methodName.append(StringUtilsHelper.lowerCamelCaseName(suffix));
-        }
-        return "_"+methodName.toString();
-    }
+    // @Override
+    // protected String handleGetTriggerMethodName()
+    // {
+    //     final StringBuilder methodName = new StringBuilder();
+    //     if (this.isExitingInitialState())
+    //     {
+    //         final AngularUseCase useCase = (AngularUseCase)this.getUseCase();
+    //         methodName.append(StringUtilsHelper.lowerCamelCaseName(useCase.getName())+"_started");
+    //     }
+    //     else
+    //     {
+    //         methodName.append(StringUtilsHelper.lowerCamelCaseName(this.getSource().getName()));
+    //         methodName.append('_');
+    //         final EventFacade trigger = this.getTrigger();
+    //         final String suffix = trigger == null ? this.getTarget().getName() : trigger.getName();
+    //         methodName.append(StringUtilsHelper.lowerCamelCaseName(suffix));
+    //     }
+    //     return "_"+methodName.toString();
+    // }
 
     @Override
     protected Collection<ModelElementFacade> handleGetImports() {

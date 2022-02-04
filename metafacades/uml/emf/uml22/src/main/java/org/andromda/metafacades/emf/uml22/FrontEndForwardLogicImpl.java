@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.metafacades.uml.EventFacade;
@@ -13,6 +14,7 @@ import org.andromda.metafacades.uml.FrontEndActionState;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndControllerOperation;
 import org.andromda.metafacades.uml.FrontEndEvent;
+import org.andromda.metafacades.uml.FrontEndFinalState;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.FrontEndView;
@@ -347,5 +349,57 @@ public class FrontEndForwardLogicImpl
             LOGGER.info("FrontEndForward has no FrontEndEvent trigger defined. forward=" + this.getFullyQualifiedName(false) + " trigger=" + trigger);
         }
         return operation;
+    }
+
+    @Override
+    protected String handleGetPath() {
+        String forwardPath = null;
+        final StateVertexFacade target = getTarget();
+        if (this.isEnteringView())
+        {
+            forwardPath = ((FrontEndView)target).getPath();
+        }
+        else if (this.isEnteringFinalState())
+        {
+            forwardPath = ((FrontEndFinalState)target).getPath();
+        }
+
+        return forwardPath;
+    }
+
+    @Override
+    protected boolean handleIsFinalStateTarget() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected String handleGetFromOutcome() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected Map handleGetSuccessMessages() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsSuccessMessagesPresent() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected Map handleGetWarningMessages() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsWarningMessagesPresent() {
+        // TODO Auto-generated method stub
+        return false;
     }
 }
