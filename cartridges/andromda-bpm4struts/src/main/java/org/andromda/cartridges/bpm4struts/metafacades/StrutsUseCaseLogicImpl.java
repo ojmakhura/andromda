@@ -19,6 +19,7 @@ import org.andromda.metafacades.uml.ActionStateFacade;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.FinalStateFacade;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.FrontEndView;
@@ -472,10 +473,10 @@ public class StrutsUseCaseLogicImpl
                     final StrutsAction action = (StrutsAction)actions.get(j);
 
                     // FORWARDS
-                    for (StrutsForward forward : action.getTransitions())
+                    for (FrontEndForward forward : action.getTransitions())
                     {
-                        messages.putAll(forward.getSuccessMessages());
-                        messages.putAll(forward.getWarningMessages());
+                        messages.putAll(((StrutsForward)forward).getSuccessMessages());
+                        messages.putAll(((StrutsForward)forward).getWarningMessages());
                     }
 
                     // EXCEPTION FORWARDS
@@ -599,7 +600,7 @@ public class StrutsUseCaseLogicImpl
                         final StrutsAction action = (StrutsAction)actions.get(k);
 
                         // ACTION PARAMETERS
-                        final List parameters = action.getActionParameters();
+                        final List parameters = (List)action.getActionParameters();
                         for (int l = 0; l < parameters.size(); l++)
                         {
                             final StrutsParameter parameter = (StrutsParameter)parameters.get(l);

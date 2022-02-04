@@ -6,6 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
+import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
@@ -59,7 +60,7 @@ public class StrutsPseudostateLogicImpl extends StrutsPseudostateLogic {
                 // StrutsUseCase.getActions returns StrutsAction which cannot be cast to
                 // FrontEndAction
                 for (final Object action : ((StrutsUseCaseLogicImpl) useCase).getActions()) {
-                    for (final StrutsForward transition : ((StrutsAction) action).getTransitions()) {
+                    for (final FrontEndForward transition : ((StrutsAction) action).getTransitions()) {
                         if (this.equals(transition.getTarget())) {
                             actionSet.add((StrutsAction) action);
                         }

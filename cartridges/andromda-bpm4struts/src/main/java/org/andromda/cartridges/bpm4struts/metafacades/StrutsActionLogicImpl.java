@@ -14,6 +14,9 @@ import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
+import org.andromda.metafacades.uml.FrontEndAction;
+import org.andromda.metafacades.uml.FrontEndActionState;
+import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndEvent;
 import org.andromda.metafacades.uml.FrontEndExceptionHandler;
 import org.andromda.metafacades.uml.FrontEndFinalState;
@@ -236,7 +239,7 @@ public class StrutsActionLogicImpl
         final String tableLinkName = getTableLinkName();
         if (tableLinkName != null)
         {
-            final StrutsJsp page = this.getInput();
+            final StrutsJsp page = (StrutsJsp) this.getInput();
             if (page != null)
             {
                 for (FrontEndParameter table : page.getTables())
@@ -259,20 +262,20 @@ public class StrutsActionLogicImpl
     {
         List<StrutsParameter> tableNonColumnActionParameters = null;
 
-        final StrutsParameter table = getTableLinkParameter();
+        final StrutsParameter table = (StrutsParameter) getTableLinkParameter();
         if (table != null)
         {
             final Map<String, StrutsParameter> tableNonColumnActionParametersMap = new LinkedHashMap<String, StrutsParameter>(4);
             final Collection<String> columnNames = table.getTableColumnNames();
-            final List<StrutsAction> formActions = table.getTableFormActions();
+            final List<FrontEndAction> formActions = table.getTableFormActions();
             int formSize = formActions.size();
             for (int i = 0; i < formSize; i++)
             {
-                final StrutsAction action = formActions.get(i);
+                final StrutsAction action = (StrutsAction) formActions.get(i);
                 int size = action.getActionParameters().size();
                 for (int j = 0; j < size; j++)
                 {
-                    final StrutsParameter parameter = action.getActionParameters().get(j);
+                    final StrutsParameter parameter = ((List<StrutsParameter>)action.getActionParameters()).get(j);
                     if (!columnNames.contains(parameter.getName()))
                     {
                         tableNonColumnActionParametersMap.put(parameter.getName(), parameter);
@@ -426,7 +429,7 @@ public class StrutsActionLogicImpl
         }
         else
         {
-            for (final StrutsForward forward : getActionForwards())
+            for (final FrontEndForward forward : getActionForwards())
             {
                 if (forward.getTarget() instanceof StrutsFinalState)
                 {
@@ -759,10 +762,10 @@ public class StrutsActionLogicImpl
     protected List<FrontEndExceptionHandler> handleGetActionExceptions()
     {
         final Collection<FrontEndExceptionHandler> exceptions = new LinkedHashSet<FrontEndExceptionHandler>();
-        final Collection<StrutsActionState> actionStates = getActionStates();
-        for (final Iterator<StrutsActionState> iterator = actionStates.iterator(); iterator.hasNext();)
+        final Collection<FrontEndActionState> actionStates = getActionStates();
+        for (final Iterator<FrontEndActionState> iterator = actionStates.iterator(); iterator.hasNext();)
         {
-            StrutsActionState actionState = iterator.next();
+            StrutsActionState actionState = (StrutsActionState) iterator.next();
             exceptions.addAll(actionState.getExceptions());
         }
 
@@ -798,11 +801,11 @@ public class StrutsActionLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetController()
      */
-    protected Object handleGetController()
-    {
-        final StrutsActivityGraph graph = this.getStrutsActivityGraph();
-        return graph == null ? null : graph.getController();
-    }
+    // protected Object handleGetController()
+    // {
+    //     final StrutsActivityGraph graph = this.getStrutsActivityGraph();
+    //     return graph == null ? null : graph.getController();
+    // }
 
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetActionTrigger()
@@ -849,7 +852,7 @@ public class StrutsActionLogicImpl
 
         // if any action encountered by the execution of the complete action-graph path emits a forward
         // containing one or more parameters they need to be included as a form field too
-        for (final StrutsActionState actionState : getActionStates())
+        for (final FrontEndActionState actionState : getActionStates())
         {
             final StrutsForward forward = (StrutsForward) actionState.getForward();
             if (forward != null)
@@ -863,7 +866,7 @@ public class StrutsActionLogicImpl
 
         // add page variables for all pages/final-states targeted
         // also add the fields of the target page's actions (for preloading)
-        for (final StrutsForward forward : getActionForwards())
+        for (final FrontEndForward forward : getActionForwards())
         {
             final StateVertexFacade target = forward.getTarget();
             if (target instanceof StrutsJsp)
@@ -908,18 +911,18 @@ public class StrutsActionLogicImpl
     {
         final Collection deferredOperations = new LinkedHashSet();
 
-        final StrutsController controller = getController();
+        final FrontEndController controller = getController();
         if (controller != null)
         {
-            final List<StrutsActionState> actionStates = getActionStates();
+            final List<FrontEndActionState> actionStates = getActionStates();
             int size = actionStates.size();
             for (int i = 0; i < size; i++)
             {
-                final StrutsActionState actionState = actionStates.get(i);
+                final StrutsActionState actionState = (StrutsActionState) actionStates.get(i);
                 deferredOperations.addAll(actionState.getControllerCalls());
             }
 
-            for (StrutsForward forward : this.getDecisionTransitions())
+            for (FrontEndForward forward : this.getDecisionTransitions())
             {
                 final FrontEndEvent trigger = forward.getDecisionTrigger();
                 if (trigger != null)
@@ -934,7 +937,7 @@ public class StrutsActionLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetActionParameters()
      */
-    protected List<ParameterFacade> handleGetActionParameters()
+    protected Collection<StrutsParameter> handleGetActionParameters()
     {
         final StrutsTrigger trigger = getActionTrigger();
         return (trigger == null) ? Collections.emptyList() : new ArrayList(trigger.getParameters());
@@ -956,7 +959,7 @@ public class StrutsActionLogicImpl
             // we don't want to list parameters with the same name to we use a hash map
             final Map<String, FrontEndParameter> parameterMap = new HashMap<String, FrontEndParameter>();
 
-            for (final StrutsForward forward : this.getActionForwards())
+            for (final FrontEndForward forward : this.getActionForwards())
             {
                 // only return those parameters that belong to both this action and the argument final state
                 if (finalState.equals(forward.getTarget()))
@@ -981,9 +984,9 @@ public class StrutsActionLogicImpl
     {
         Collection<StateVertexFacade> targetPages = new LinkedHashSet<StateVertexFacade>();
 
-        for (final StrutsForward forward : getActionForwards())
+        for (final FrontEndForward forward : getActionForwards())
         {
-            if (forward.isEnteringPage())
+            if (((StrutsForward)forward).isEnteringPage())
             {
                 targetPages.add(forward.getTarget());
             }

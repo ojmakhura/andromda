@@ -79,4 +79,28 @@ public class FrontEndEventLogicImpl
         return controllerCall == null ? Collections.emptyList() : Collections.singletonList(controllerCall);
     }
 
+    @Override
+    protected String handleGetMessageValue() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetResetMessageKey() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetResetMessageValue() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetMessageKey() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

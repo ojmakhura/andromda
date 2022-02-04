@@ -582,7 +582,7 @@ public class StrutsParameterLogicImpl
         for (final Iterator<StrutsAction> actionIterator = actions.iterator(); actionIterator.hasNext() && sameParameter;)
         {
             final StrutsAction action = actionIterator.next();
-            final List<StrutsParameter> parameters = action.getActionParameters();
+            final Collection<StrutsParameter> parameters = action.getActionParameters();
             if (!parameters.isEmpty())
             {
                 final StrutsParameter parameter = parameters.iterator().next();
@@ -636,7 +636,7 @@ public class StrutsParameterLogicImpl
         final Collection<StrutsAction> actions = this.getTableGlobalActions();
         if (!actions.isEmpty())
         {
-            final List<StrutsParameter> actionParameters = (actions.iterator().next()).getActionParameters();
+            final Collection<StrutsParameter> actionParameters = (actions.iterator().next()).getActionParameters();
             if (!actionParameters.isEmpty())
             {
                 parameter = actionParameters.iterator().next();
@@ -794,7 +794,7 @@ public class StrutsParameterLogicImpl
             if (action.isHyperlink() && action.isTableLink())
             {
                 // get the table and check whether this parameter is part of that table's columns
-                final StrutsParameter table = action.getTableLinkParameter();
+                final FrontEndParameter table = action.getTableLinkParameter();
                 if (table != null)
                 {
                     final Collection tableColumns = table.getTableColumns();
@@ -817,10 +817,10 @@ public class StrutsParameterLogicImpl
         if (columnName != null)
         {
             // only hyperlinks can target table columns
-            final List<StrutsAction> hyperlinkActions = this.getTableHyperlinkActions();
+            final List<FrontEndAction> hyperlinkActions = this.getTableHyperlinkActions();
             for (int i = 0; i < hyperlinkActions.size(); i++)
             {
-                final StrutsAction action = hyperlinkActions.get(i);
+                final StrutsAction action = (StrutsAction) hyperlinkActions.get(i);
                 if (columnName.equals(action.getTableLinkColumnName()))
                 {
                     columnActions.add(action);
@@ -857,7 +857,7 @@ public class StrutsParameterLogicImpl
         final Map tableColumnsMap = new LinkedHashMap();
 
         // order is important
-        final List<StrutsAction> actions = new ArrayList<StrutsAction>();
+        final List<FrontEndAction> actions = new ArrayList<FrontEndAction>();
 
         // all table actions need the exact same parameters, just not always all of them
         actions.addAll(this.getTableFormActions());
@@ -865,9 +865,9 @@ public class StrutsParameterLogicImpl
         // the user should not have modeled it that way (constraints will warn him/her)
         actions.addAll(this.getTableHyperlinkActions());
 
-        for (final Iterator<StrutsAction> actionIterator = actions.iterator(); actionIterator.hasNext();)
+        for (final Iterator<FrontEndAction> actionIterator = actions.iterator(); actionIterator.hasNext();)
         {
-            final StrutsAction action = actionIterator.next();
+            final StrutsAction action = (StrutsAction) actionIterator.next();
             final Collection<StrutsParameter>  actionParameters = action.getActionParameters();
             for (final Iterator<StrutsParameter>  parameterIterator = actionParameters.iterator(); parameterIterator.hasNext();)
             {
