@@ -254,7 +254,7 @@ public class JSFParameterLogicImpl
             final Map tableColumnsMap = new LinkedHashMap();
 
             // order is important
-            final List<JSFAction> actions = new ArrayList<JSFAction>();
+            final List<FrontEndAction> actions = new ArrayList<FrontEndAction>();
 
             // all table actions need the exact same parameters, just not always all of them
             actions.addAll(this.getTableFormActions());
@@ -263,20 +263,20 @@ public class JSFParameterLogicImpl
             // the user should not have modeled it that way (constraints will warn him/her)
             actions.addAll(this.getTableHyperlinkActions());
 
-            for (final JSFAction action : actions)
+            for (final FrontEndAction action : actions)
             {
                 for (final FrontEndParameter actionParameter : action.getParameters())
                 {
                     if (actionParameter instanceof JSFParameter)
                     {
-                        final JSFParameter parameter = (JSFParameter)actionParameter;
+                        final FrontEndParameter parameter = (FrontEndParameter)actionParameter;
                         final String parameterName = parameter.getName();
                         if (parameterName != null)
                         {
                             // never overwrite column specific table links
                             // the hyperlink table links working on a real column get priority
                             final Object existingObject = tableColumnsMap.get(parameterName);
-                            if (existingObject instanceof JSFParameter)
+                            if (existingObject instanceof FrontEndParameter)
                             {
                                 if (action.isHyperlink() && parameterName.equals(action.getTableLinkColumnName()))
                                 {
@@ -374,10 +374,10 @@ public class JSFParameterLogicImpl
      *
      * @return the input type name.
      */
-    private String getInputType()
-    {
-        return ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
-    }
+    // private String getInputType()
+    // {
+    //     return ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
+    // }
 
     /**
      * Indicates whether or not this parameter is of the given input type.
@@ -1098,15 +1098,15 @@ public class JSFParameterLogicImpl
      * @return tableColumnActions
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getTableColumnActions(String)
      */
-    protected List<JSFAction> handleGetTableColumnActions(final String columnName)
+    protected List<FrontEndAction> handleGetTableColumnActions(final String columnName)
     {
-        final List<JSFAction> columnActions = new ArrayList<JSFAction>();
+        final List<FrontEndAction> columnActions = new ArrayList<FrontEndAction>();
 
         if (columnName != null)
         {
-            final Set<JSFAction> actions = new LinkedHashSet<JSFAction>(this.getTableHyperlinkActions());
+            final Set<FrontEndAction> actions = new LinkedHashSet<FrontEndAction>(this.getTableHyperlinkActions());
             actions.addAll(this.getTableFormActions());
-            for (final JSFAction action : actions)
+            for (final FrontEndAction action : actions)
             {
                 if (columnName.equals(action.getTableLinkColumnName()))
                 {
@@ -1166,7 +1166,7 @@ public class JSFParameterLogicImpl
      * @return the annotations
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getMaxLength()
      */
-    @Override
+    //@Override
     protected Collection<String> handleGetAnnotations()
     {
         final Collection<String> result=new HashSet<String>();

@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import org.andromda.metafacades.uml.ActivityGraphFacade;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndAttribute;
@@ -411,5 +412,49 @@ public class FrontEndViewLogicImpl
             }
         }
         return new ArrayList<FrontEndForward>(forwards.values());
+    }
+
+    @Override
+    public Collection<FrontEndParameter> handleGetBackingValueVariables() {
+        final Map<String, FrontEndParameter> variables = new LinkedHashMap<String, FrontEndParameter>();
+        for (final FrontEndParameter frontEndParameter : this.getAllActionParameters())
+        {
+            if (frontEndParameter instanceof FrontEndParameter)
+            {
+                final FrontEndParameter parameter = (FrontEndParameter)frontEndParameter;
+                final String parameterName = parameter.getName();
+                final Collection<AttributeFacade> attributes = parameter.getAttributes();
+                if (parameter.isBackingValueRequired() || parameter.isSelectable())
+                {
+                    if (parameter.isBackingValueRequired() || parameter.isSelectable())
+                    {
+                        variables.put(parameterName, parameter);
+                    }
+                }
+                else
+                {
+                    boolean hasBackingValue = false;
+                    for (final AttributeFacade attribute : attributes)
+                    {
+                        final FrontEndAttribute thymeleafAttribute = (FrontEndAttribute)attribute;
+                        if (thymeleafAttribute.isSelectable(parameter) || thymeleafAttribute.isBackingValueRequired(parameter))
+                        {
+                            hasBackingValue = true;
+                            break;
+                        }
+                    }
+                    if (hasBackingValue)
+                    {
+                        variables.put(parameterName, parameter);
+                    }
+                }
+            }
+        }
+        return new ArrayList<FrontEndParameter>(variables.values());
+    }
+
+    @Override
+    public String handleGetPageObjectBeanName() {
+        return StringUtilsHelper.lowerCamelCaseName(this.getName());
     }
 }

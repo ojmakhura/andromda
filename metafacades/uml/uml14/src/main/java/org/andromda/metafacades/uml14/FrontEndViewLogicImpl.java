@@ -357,4 +357,16 @@ public class FrontEndViewLogicImpl
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    protected String handleGetPageObjectBeanName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected Collection handleGetBackingValueVariables() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

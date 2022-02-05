@@ -190,10 +190,10 @@ public class JSFViewLogicImpl
      * @return actionForwards
      * @see org.andromda.cartridges.jsf.metafacades.JSFViewLogic#getActionForwards()
      */
-    protected List<JSFForward> handleGetActionForwards()
+    protected List<FrontEndForward> handleGetActionForwards()
     {
-        final List<JSFForward> actionForwards = new ArrayList<JSFForward>(this.getForwards());
-        for (final Iterator<JSFForward> iterator = actionForwards.iterator(); iterator.hasNext();)
+        final List<FrontEndForward> actionForwards = new ArrayList<FrontEndForward>(this.getForwards());
+        for (final Iterator<FrontEndForward> iterator = actionForwards.iterator(); iterator.hasNext();)
         {
             if (!(iterator.next() instanceof JSFAction))
             {

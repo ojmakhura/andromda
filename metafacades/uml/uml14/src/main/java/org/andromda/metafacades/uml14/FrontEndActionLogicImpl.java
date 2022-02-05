@@ -694,4 +694,34 @@ public class FrontEndActionLogicImpl
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    protected String handleGetFormImplementationName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFormBeanName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFullyQualifiedFormImplementationName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFullyQualifiedFormImplementationPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFormScope() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

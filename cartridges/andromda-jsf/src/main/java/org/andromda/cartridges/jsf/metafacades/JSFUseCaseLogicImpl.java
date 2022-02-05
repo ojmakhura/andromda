@@ -481,15 +481,15 @@ public class JSFUseCaseLogicImpl
      * @return actionForwards
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getActionForwards()
      */
-    protected List<JSFAction> handleGetActionForwards()
-    {
-        final Set<JSFAction> actionForwards = new LinkedHashSet<JSFAction>();
-        for (final FrontEndView view : this.getViews())
-        {
-            actionForwards.addAll(((JSFView)view).getActionForwards());
-        }
-        return new ArrayList<JSFAction>(actionForwards);
-    }
+    // protected List<FrontEndAction> handleGetActionForwards()
+    // {
+    //     final Set<FrontEndAction> actionForwards = new LinkedHashSet<FrontEndAction>();
+    //     for (final FrontEndView view : this.getViews())
+    //     {
+    //         actionForwards.addAll((Collection<? extends FrontEndAction>) ((FrontEndView)view).getActionForwards());
+    //     }
+    //     return new ArrayList<FrontEndAction>(actionForwards);
+    // }
 
     /**
      * @return forwards
@@ -519,11 +519,11 @@ public class JSFUseCaseLogicImpl
     protected List<ModelElementFacade> handleGetAllForwards()
     {
         final Map<String, ModelElementFacade> forwards = new LinkedHashMap<String, ModelElementFacade>();
-        for (final JSFAction forward : this.getActionForwards())
+        for (final FrontEndAction forward : this.getActionForwards())
         {
             forwards.put(forward.getName(), forward);
         }
-        for (final JSFForward forward : this.getForwards())
+        for (final FrontEndForward forward : this.getForwards())
         {
             forwards.put(forward.getName(), forward);
         }
@@ -939,7 +939,7 @@ public class JSFUseCaseLogicImpl
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCaseLogic#handleGetAllViews()
      */
     @SuppressWarnings("unchecked")
-    @Override
+    //@Override
     protected Collection<FrontEndView> handleGetAllViews()
     {
         final Set<FrontEndView> allViews = new LinkedHashSet<FrontEndView>();

@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import org.andromda.metafacades.uml.ActionStateFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -26,6 +27,9 @@ import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.web.MetafacadeWebGlobals;
+import org.andromda.utils.StringUtilsHelper;
 
 /**
  * MetafacadeLogic implementation for
@@ -286,5 +290,110 @@ public class FrontEndControllerOperationLogicImpl
             allArgumentsHaveFormFields = !actionMissingField;
         }
         return allArgumentsHaveFormFields;
+    }
+
+    @Override
+    public boolean handleIsExposed() {
+        // Private methods are for doc and future use purposes, but are allowed.
+        boolean visibility = this.getVisibility().equals("public") || this.getVisibility().equals("protected");
+        return visibility && (this.getOwner().hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE) ||
+                this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION));
+    }
+
+    @Override
+    protected String handleGetFullyQualifiedFormPath() {
+        return this.getFullyQualifiedFormName().replace('.', '/');
+    }
+
+    @Override
+    protected String handleGetFullyQualifiedFormName() {
+        final StringBuilder fullyQualifiedName = new StringBuilder();
+        final String packageName = this.getPackageName();
+        if (StringUtilsHelper.isNotBlank(packageName)) {
+            fullyQualifiedName.append(packageName + '.');
+        }
+        return fullyQualifiedName.append(StringUtilsHelper.capitalize(this.getFormName())).toString();
+    }
+
+    @Override
+    protected String handleGetFormName() {
+        final String pattern = Objects.toString(this.getConfiguredProperty(MetafacadeWebGlobals.FORM_PATTERN), "");
+        return pattern.replaceFirst("\\{0\\}", StringUtilsHelper.capitalize(this.getName()));
+    }
+
+    @Override
+    protected String handleGetFormCall() {
+        final StringBuilder call = new StringBuilder();
+        call.append(this.getName());
+        call.append("(");
+        if (!this.getFormFields().isEmpty()) {
+            call.append("form");
+        }
+        call.append(")");
+        return call.toString();
+    }
+
+    @Override
+    protected String handleGetFormSignature() {
+        return this.getFormSignature(true);
+    }
+
+    @Override
+    protected String handleGetImplementationFormSignature() {
+        return this.getFormSignature(false);
+    }
+
+    /**
+     * Constructs the signature that takes the form for this operation.
+     *
+     * @param isAbstract whether or not the signature is abstract.
+     * @return the appropriate signature.
+     */
+    private String getFormSignature(boolean isAbstract) {
+        final StringBuilder signature = new StringBuilder();
+        signature.append(this.getVisibility() + ' ');
+        if (isAbstract) {
+            signature.append("abstract ");
+        }
+        final ModelElementFacade returnType = this.getReturnType();
+        signature.append(returnType != null ? returnType.getFullyQualifiedName() : null);
+        signature.append(" " + this.getName() + "(");
+        if (!this.getFormFields().isEmpty()) {
+            signature.append(this.getFormName() + " form");
+        }
+        signature.append(")");
+        return signature.toString();
+    }
+
+    @Override
+    protected String handleGetHandleFormSignature() {
+        return this.getHandleFormSignature(true);
+    }
+
+    @Override
+    protected String handleGetHandleFormSignatureImplementation() {
+        return this.getHandleFormSignature(false);
+    }
+
+    /**
+     * Constructs the signature that takes the form for this operation.
+     *
+     * @param isAbstract whether or not the signature is abstract.
+     * @return the appropriate signature.
+     */
+    private String getHandleFormSignature(boolean isAbstract) {
+        final StringBuilder signature = new StringBuilder();
+        signature.append(this.getVisibility() + ' ');
+        if (isAbstract) {
+            signature.append("abstract ");
+        }
+        final ModelElementFacade returnType = this.getReturnType();
+        signature.append(returnType != null ? returnType.getFullyQualifiedName() : null);
+        signature.append(" handle" + StringUtilsHelper.capitalize(this.getName()) + "(");
+        if (!this.getFormFields().isEmpty()) {
+            signature.append(this.getFormName() + " form");
+        }
+        signature.append(")");
+        return signature.toString();
     }
 }

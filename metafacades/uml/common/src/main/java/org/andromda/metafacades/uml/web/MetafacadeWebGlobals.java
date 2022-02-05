@@ -274,6 +274,16 @@ public class MetafacadeWebGlobals {
     public static final String INPUT_RANGE = "range";
 
     /**
+     * The "range" form input type.
+     */
+    public static final String INPUT_RESET = "reset";
+
+    /**
+     * The "range" form input type.
+     */
+    public static final String INPUT_SEARCH = "search";
+
+    /**
      * The "submit" form input type.
      */
     public static final String INPUT_SUBMIT = "submit";

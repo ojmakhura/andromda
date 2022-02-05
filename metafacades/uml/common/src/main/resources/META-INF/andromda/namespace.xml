@@ -104,6 +104,13 @@
                     (i.e. file:${basedir}/JavaWrapperMappings.xml)
                 </documentation>
             </property>
+            <property name="controllerImplementationPattern">
+                <default>{0}Impl</default>
+                <documentation>
+                    The pattern for constructing the name of the controller implementation class name (where <em>{0}</em>
+                    represents the modeled name of the controller).
+                </documentation>
+            </property>
             <property name="pluralizeAssociationEndNames">
                 <default>true</default>
                 <documentation>

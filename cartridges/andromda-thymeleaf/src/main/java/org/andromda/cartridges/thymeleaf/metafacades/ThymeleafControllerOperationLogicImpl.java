@@ -5,10 +5,10 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 
-import org.andromda.cartridges.web.CartridgeWebGlobals;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.web.MetafacadeWebGlobals;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -34,7 +34,7 @@ public class ThymeleafControllerOperationLogicImpl
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafControllerOperation#getFormName()
      */
     protected String handleGetFormName() {
-        final String pattern = Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.FORM_PATTERN), "");
+        final String pattern = Objects.toString(this.getConfiguredProperty(MetafacadeWebGlobals.FORM_PATTERN), "");
         return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
     }
 
@@ -176,7 +176,7 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestTestPath() {
-        // String path = (String)this.findTaggedValue(CartridgeWebGlobals.REST_PATH);
+        // String path = (String)this.findTaggedValue(MetafacadeWebGlobals.REST_PATH);
         // StringBuilder pathBuffer = new StringBuilder();
         // ThymeleafControllerLogic service =
         // (ThymeleafControllerLogic)this.getService();
@@ -237,7 +237,7 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestResponseStatus() {
-        String responseStatus = (String) this.findTaggedValue(CartridgeWebGlobals.REST_RESPONSE_STATUS);
+        String responseStatus = (String) this.findTaggedValue(MetafacadeWebGlobals.REST_RESPONSE_STATUS);
         if (responseStatus == null) {
             return "";
         }
@@ -253,9 +253,9 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected boolean handleIsRest() {
-        String rest = (String) this.findTaggedValue(CartridgeWebGlobals.REST);
+        String rest = (String) this.findTaggedValue(MetafacadeWebGlobals.REST);
         if (StringUtils.isBlank(rest) || rest.equals(DEFAULT)) {
-            rest = (String) this.getOwner().findTaggedValue(CartridgeWebGlobals.REST);
+            rest = (String) this.getOwner().findTaggedValue(MetafacadeWebGlobals.REST);
             if (StringUtils.isBlank(rest) || rest.equals(DEFAULT)) {
                 rest = BOOLEAN_FALSE;
             }
@@ -265,7 +265,7 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRolesAllowed() {
-        String rolesAllowed = (String) this.findTaggedValue(CartridgeWebGlobals.REST_ROLES_ALLOWED);
+        String rolesAllowed = (String) this.findTaggedValue(MetafacadeWebGlobals.REST_ROLES_ALLOWED);
         if (!this.isRest() || StringUtils.isBlank(rolesAllowed) || rolesAllowed.equals(DEFAULT)) {
             rolesAllowed = EMPTY_STRING;
         }
@@ -274,7 +274,7 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected int handleGetRestSuspend() {
-        String suspend = (String) this.findTaggedValue(CartridgeWebGlobals.REST_SUSPEND);
+        String suspend = (String) this.findTaggedValue(MetafacadeWebGlobals.REST_SUSPEND);
         if (!this.isRest() || StringUtils.isBlank(suspend) || suspend.equals(DEFAULT)
                 || !StringUtils.isNumeric(suspend)) {
             return 0;
@@ -285,7 +285,7 @@ public class ThymeleafControllerOperationLogicImpl
     @Override
     protected String handleGetRestPartType() {
 
-        String partType = (String) this.findTaggedValue(CartridgeWebGlobals.REST_PART_TYPE);
+        String partType = (String) this.findTaggedValue(MetafacadeWebGlobals.REST_PART_TYPE);
         if (!this.isRest() || StringUtils.isBlank(partType) || partType.equals(DEFAULT)) {
             partType = EMPTY_STRING;
         }
@@ -294,7 +294,7 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestProvider() {
-        String provider = (String) this.findTaggedValue(CartridgeWebGlobals.REST_PROVIDER);
+        String provider = (String) this.findTaggedValue(MetafacadeWebGlobals.REST_PROVIDER);
         if (!this.isRest() || StringUtils.isBlank(provider) || provider.equals(DEFAULT)) {
             provider = EMPTY_STRING;
         }
@@ -303,7 +303,7 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestProduces() {
-        String provider = (String) this.findTaggedValue(CartridgeWebGlobals.REST_PROVIDER);
+        String provider = (String) this.findTaggedValue(MetafacadeWebGlobals.REST_PROVIDER);
         if (!this.isRest() || StringUtils.isBlank(provider) || provider.equals(DEFAULT)) {
             provider = EMPTY_STRING;
         }
@@ -316,7 +316,7 @@ public class ThymeleafControllerOperationLogicImpl
     @Override
     protected String handleGetRestConsumes() {
 
-        String consumes = (String) this.findTaggedValue(CartridgeWebGlobals.REST_CONSUMES);
+        String consumes = (String) this.findTaggedValue(MetafacadeWebGlobals.REST_CONSUMES);
         if (!this.isRest() || StringUtils.isBlank(consumes) || consumes.equals(DEFAULT)) {
             consumes = EMPTY_STRING;
         } else {
@@ -327,7 +327,7 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected boolean handleIsRestEncoded() {
-        String restEncoded = (String) this.findTaggedValue(CartridgeWebGlobals.REST_ENCODED);
+        String restEncoded = (String) this.findTaggedValue(MetafacadeWebGlobals.REST_ENCODED);
         if (!this.isRest() || StringUtils.isBlank(restEncoded) || restEncoded.equals(DEFAULT)) {
             restEncoded = BOOLEAN_FALSE;
         }
@@ -336,7 +336,7 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestCacheType() {
-        String cacheType = (String) this.findTaggedValue(CartridgeWebGlobals.CACHE_TYPE);
+        String cacheType = (String) this.findTaggedValue(MetafacadeWebGlobals.CACHE_TYPE);
         if (!this.isRest() || StringUtils.isBlank(cacheType) || cacheType.equals(DEFAULT)) {
             cacheType = EMPTY_STRING;
         }
@@ -345,7 +345,7 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestRequestType() {
-        String requestType = (String) this.findTaggedValue(CartridgeWebGlobals.REST_REQUEST_TYPE);
+        String requestType = (String) this.findTaggedValue(MetafacadeWebGlobals.REST_REQUEST_TYPE);
         if (!this.isRest() || StringUtils.isBlank(requestType) || requestType.equals(DEFAULT)) {
             requestType = POST;
         } else if (!requestType.startsWith(AT)) {
@@ -356,7 +356,7 @@ public class ThymeleafControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestPath() {
-        String path = StringUtils.strip(((String) this.findTaggedValue(CartridgeWebGlobals.REST_PATH)));
+        String path = StringUtils.strip(((String) this.findTaggedValue(MetafacadeWebGlobals.REST_PATH)));
         StringBuilder pathBuffer = new StringBuilder();
 
         if (path != null && path.equals("")) {
@@ -407,45 +407,45 @@ public class ThymeleafControllerOperationLogicImpl
         return pathBuffer.toString();
     }
 
-    @Override
-    protected boolean handleIsExposed() {
-        // Private methods are for doc and future use purposes, but are allowed.
-        boolean visibility = this.getVisibility().equals("public") || this.getVisibility().equals("protected");
-        return visibility && (this.getOwner().hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE) ||
-                this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION));
-    }
+    // @Override
+    // protected boolean handleIsExposed() {
+    //     // Private methods are for doc and future use purposes, but are allowed.
+    //     boolean visibility = this.getVisibility().equals("public") || this.getVisibility().equals("protected");
+    //     return visibility && (this.getOwner().hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE) ||
+    //             this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION));
+    // }
 
-    @Override
-    protected String handleGetHandleFormSignature() {
+    // @Override
+    // protected String handleGetHandleFormSignature() {
 
-        return this.getHandleFormSignature(true);
-    }
+    //     return this.getHandleFormSignature(true);
+    // }
 
-    @Override
-    protected String handleGetHandleFormSignatureImplementation() {
+    // @Override
+    // protected String handleGetHandleFormSignatureImplementation() {
 
-        return this.getHandleFormSignature(false);
-    }
+    //     return this.getHandleFormSignature(false);
+    // }
 
-    /**
-     * Constructs the signature that takes the form for this operation.
-     *
-     * @param isAbstract whether or not the signature is abstract.
-     * @return the appropriate signature.
-     */
-    private String getHandleFormSignature(boolean isAbstract) {
-        final StringBuilder signature = new StringBuilder();
-        signature.append(this.getVisibility() + ' ');
-        if (isAbstract) {
-            signature.append("abstract ");
-        }
-        final ModelElementFacade returnType = this.getReturnType();
-        signature.append(returnType != null ? returnType.getFullyQualifiedName() : null);
-        signature.append(" handle" + StringUtils.capitalize(this.getName()) + "(");
-        if (!this.getFormFields().isEmpty()) {
-            signature.append(this.getFormName() + " form, ");
-        }
-        signature.append("org.springframework.ui.Model model)");
-        return signature.toString();
-    }
+    // /**
+    //  * Constructs the signature that takes the form for this operation.
+    //  *
+    //  * @param isAbstract whether or not the signature is abstract.
+    //  * @return the appropriate signature.
+    //  */
+    // private String getHandleFormSignature(boolean isAbstract) {
+    //     final StringBuilder signature = new StringBuilder();
+    //     signature.append(this.getVisibility() + ' ');
+    //     if (isAbstract) {
+    //         signature.append("abstract ");
+    //     }
+    //     final ModelElementFacade returnType = this.getReturnType();
+    //     signature.append(returnType != null ? returnType.getFullyQualifiedName() : null);
+    //     signature.append(" handle" + StringUtils.capitalize(this.getName()) + "(");
+    //     if (!this.getFormFields().isEmpty()) {
+    //         signature.append(this.getFormName() + " form, ");
+    //     }
+    //     signature.append("org.springframework.ui.Model model)");
+    //     return signature.toString();
+    // }
 }
