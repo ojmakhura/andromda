@@ -11,6 +11,7 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndForward;
+import org.andromda.metafacades.uml.FrontEndManageableEntity;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.ManageableEntity;
@@ -179,9 +180,9 @@ public class FrontEndFinalStateLogicImpl
         {
             result=((FrontEndUseCase)getTargetElement()).getController().getFullyQualifiedName();
         }
-        else if(getTargetElement() instanceof ManageableEntity)
+        else if(getTargetElement() instanceof FrontEndManageableEntity)
         {
-            //result=((ManageableEntity)getTargetElement()).getControllerType();
+            result=((FrontEndManageableEntity)getTargetElement()).getControllerType();
         }
         
         return result;
@@ -195,9 +196,9 @@ public class FrontEndFinalStateLogicImpl
         {
             result=((FrontEndController)((FrontEndUseCase)getTargetElement()).getController()).getName();
         }
-        else if(getTargetElement() instanceof ManageableEntity)
+        else if(getTargetElement() instanceof FrontEndManageableEntity)
         {
-            //result=((AngularManageableEntity)getTargetElement()).getControllerBeanName();
+            result=((FrontEndManageableEntity)getTargetElement()).getControllerBeanName();
         }
         
         return result;
@@ -244,10 +245,10 @@ public class FrontEndFinalStateLogicImpl
         {
             controller = ((FrontEndUseCase)getTargetElement()).getController();
         }
-        // else if(getTargetElement() instanceof AngularManageableEntity)
-        // {
-        //     controller = ((AngularManageableEntity)getTargetElement()).getCo;
-        // }
+        else if(getTargetElement() instanceof FrontEndManageableEntity)
+        {
+            //controller = ((FrontEndManageableEntity)getTargetElement()).get;
+        }
 
         return controller;
     }

@@ -5,15 +5,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.andromda.cartridges.jsf2.JSFGlobals;
-import org.andromda.cartridges.jsf2.JSFProfile;
-import org.andromda.cartridges.jsf2.JSFUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.metafacades.uml.web.MetafacadeWebGlobals;
+import org.andromda.metafacades.uml.web.MetafacadeWebProfile;
+import org.andromda.metafacades.uml.web.MetafacadeWebUtils;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -71,7 +71,7 @@ public class JSFAttributeLogicImpl
     private boolean isNormalizeMessages()
     {
         final String normalizeMessages =
-            ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.NORMALIZE_MESSAGES));
+            ObjectUtils.toString(this.getConfiguredProperty(MetafacadeWebGlobals.NORMALIZE_MESSAGES));
         return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 
@@ -90,7 +90,7 @@ public class JSFAttributeLogicImpl
      */
     protected String handleGetFormat()
     {
-        return JSFUtils.getFormat(
+        return MetafacadeWebUtils.getFormat(
             (ModelElementFacade)this.THIS(),
             this.getType(),
             this.getDefaultDateFormat(),
@@ -102,7 +102,7 @@ public class JSFAttributeLogicImpl
      */
     private String getDefaultTimeFormat()
     {
-        return (String)this.getConfiguredProperty(JSFGlobals.PROPERTY_DEFAULT_TIMEFORMAT);
+        return (String)this.getConfiguredProperty(MetafacadeWebGlobals.PROPERTY_DEFAULT_TIMEFORMAT);
     }
 
     /**
@@ -110,7 +110,7 @@ public class JSFAttributeLogicImpl
      */
     private String getDefaultDateFormat()
     {
-        return (String)this.getConfiguredProperty(JSFGlobals.PROPERTY_DEFAULT_DATEFORMAT);
+        return (String)this.getConfiguredProperty(MetafacadeWebGlobals.PROPERTY_DEFAULT_DATEFORMAT);
     }
 
     /**
@@ -231,9 +231,9 @@ public class JSFAttributeLogicImpl
      */
     private String constructDummyArray()
     {
-        return JSFUtils.constructDummyArrayDeclaration(
+        return MetafacadeWebUtils.constructDummyArrayDeclaration(
             this.getName(),
-            JSFGlobals.DUMMY_ARRAY_COUNT);
+            MetafacadeWebGlobals.DUMMY_ARRAY_COUNT);
     }
 
     /**
@@ -266,7 +266,7 @@ public class JSFAttributeLogicImpl
     {
         final String backingListName =
             StringUtils.replace(
-                ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.BACKING_LIST_PATTERN)),
+                ObjectUtils.toString(this.getConfiguredProperty(MetafacadeWebGlobals.BACKING_LIST_PATTERN)),
                 "{0}",
                 this.getFormPropertyId(ownerParameter));
         return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
@@ -281,7 +281,7 @@ public class JSFAttributeLogicImpl
     {
         final String backingListName =
             StringUtils.replace(
-                ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.BACKING_VALUE_PATTERN)),
+                ObjectUtils.toString(this.getConfiguredProperty(MetafacadeWebGlobals.BACKING_VALUE_PATTERN)),
                 "{0}",
                 this.getFormPropertyId(ownerParameter));
         return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
@@ -295,7 +295,7 @@ public class JSFAttributeLogicImpl
     protected String handleGetLabelListName(final ParameterFacade ownerParameter)
     {
         return StringUtils.replace(
-            ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.LABEL_LIST_PATTERN)),
+            ObjectUtils.toString(this.getConfiguredProperty(MetafacadeWebGlobals.LABEL_LIST_PATTERN)),
             "{0}",
             this.getFormPropertyId(ownerParameter));
     }
@@ -308,7 +308,7 @@ public class JSFAttributeLogicImpl
     protected String handleGetValueListName(final ParameterFacade ownerParameter)
     {
         return StringUtils.replace(
-            ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.VALUE_LIST_PATTERN)),
+            ObjectUtils.toString(this.getConfiguredProperty(MetafacadeWebGlobals.VALUE_LIST_PATTERN)),
             "{0}",
             this.getFormPropertyId(ownerParameter));
     }
@@ -412,7 +412,7 @@ public class JSFAttributeLogicImpl
      */
     protected Collection<String> handleGetValidatorTypes()
     {
-        return JSFUtils.getValidatorTypes(
+        return MetafacadeWebUtils.getValidatorTypes(
             (ModelElementFacade)this.THIS(),
             this.getType());
     }
@@ -424,91 +424,91 @@ public class JSFAttributeLogicImpl
      */
     protected Collection<List<String>> handleGetValidatorVars(JSFParameter ownerParameter)
     {
-        return JSFUtils.getValidatorVars(
+        return MetafacadeWebUtils.getValidatorVars(
             (ModelElementFacade)this.THIS(),
             this.getType(),
             ownerParameter);
     }
 
     /**
-     * @return JSFUtils.getValidWhen(this)
+     * @return MetafacadeWebUtils.getValidWhen(this)
      * @see JSFAttribute#getValidWhen()
      */
     protected String handleGetValidWhen()
     {
-        return JSFUtils.getValidWhen(this);
+        return MetafacadeWebUtils.getValidWhen(this);
     }
 
     /**
-     * @return isInputType(JSFGlobals.INPUT_TEXTAREA)
+     * @return isInputType(MetafacadeWebGlobals.INPUT_TEXTAREA)
      * @see JSFAttribute#isInputTextarea()
      */
     protected boolean handleIsInputTextarea()
     {
-        return this.isInputType(JSFGlobals.INPUT_TEXTAREA);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_TEXTAREA);
     }
 
     /**
-     * @return isInputType(JSFGlobals.INPUT_SELECT)
+     * @return isInputType(MetafacadeWebGlobals.INPUT_SELECT)
      * @see JSFAttribute#isInputSelect()
      */
     protected boolean handleIsInputSelect()
     {
-        return this.isInputType(JSFGlobals.INPUT_SELECT);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_SELECT);
     }
 
     /**
-     * @return isInputType(JSFGlobals.INPUT_PASSWORD)
+     * @return isInputType(MetafacadeWebGlobals.INPUT_PASSWORD)
      * @see JSFAttribute#isInputSecret()
      */
     protected boolean handleIsInputSecret()
     {
-        return this.isInputType(JSFGlobals.INPUT_PASSWORD);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_PASSWORD);
     }
 
     /**
-     * @return isInputType(JSFGlobals.INPUT_HIDDEN)
+     * @return isInputType(MetafacadeWebGlobals.INPUT_HIDDEN)
      * @see JSFAttribute#isInputHidden()
      */
     protected boolean handleIsInputHidden()
     {
-        return this.isInputType(JSFGlobals.INPUT_HIDDEN);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_HIDDEN);
     }
 
     /**
-     * @return isInputType(JSFGlobals.PLAIN_TEXT)
+     * @return isInputType(MetafacadeWebGlobals.PLAIN_TEXT)
      * @see JSFAttribute#isPlaintext()
      */
     protected boolean handleIsPlaintext()
     {
-        return this.isInputType(JSFGlobals.PLAIN_TEXT);
+        return this.isInputType(MetafacadeWebGlobals.PLAIN_TEXT);
     }
 
     /**
-     * @return isInputType(JSFGlobals.INPUT_RADIO)
+     * @return isInputType(MetafacadeWebGlobals.INPUT_RADIO)
      * @see JSFAttribute#isInputRadio()
      */
     protected boolean handleIsInputRadio()
     {
-        return this.isInputType(JSFGlobals.INPUT_RADIO);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_RADIO);
     }
 
     /**
-     * @return isInputType(JSFGlobals.INPUT_TEXT)
+     * @return isInputType(MetafacadeWebGlobals.INPUT_TEXT)
      * @see JSFAttribute#isInputText()
      */
     protected boolean handleIsInputText()
     {
-        return this.isInputType(JSFGlobals.INPUT_TEXT);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_TEXT);
     }
 
     /**
-     * @return isInputType(JSFGlobals.INPUT_MULTIBOX)
+     * @return isInputType(MetafacadeWebGlobals.INPUT_MULTIBOX)
      * @see JSFAttribute#isInputMultibox()
      */
     protected boolean handleIsInputMultibox()
     {
-        return this.isInputType(JSFGlobals.INPUT_MULTIBOX);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_MULTIBOX);
     }
 
     /**
@@ -517,7 +517,7 @@ public class JSFAttributeLogicImpl
      */
     protected boolean handleIsInputTable()
     {
-        return this.getInputTableIdentifierColumns().length() > 0 || this.isInputType(JSFGlobals.INPUT_TABLE);
+        return this.getInputTableIdentifierColumns().length() > 0 || this.isInputType(MetafacadeWebGlobals.INPUT_TABLE);
     }
 
     /**
@@ -526,7 +526,7 @@ public class JSFAttributeLogicImpl
      */
     protected boolean handleIsInputCheckbox()
     {
-        boolean checkbox = this.isInputType(JSFGlobals.INPUT_CHECKBOX);
+        boolean checkbox = this.isInputType(MetafacadeWebGlobals.INPUT_CHECKBOX);
         if (!checkbox && this.getInputType().length() == 0)
         {
             final ClassifierFacade type = this.getType();
@@ -543,7 +543,7 @@ public class JSFAttributeLogicImpl
      */
     private String getInputType()
     {
-        return ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
+        return ObjectUtils.toString(this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
     }
 
     /**
@@ -579,7 +579,7 @@ public class JSFAttributeLogicImpl
      */
     public boolean isReadOnly()
     {
-        return JSFUtils.isReadOnly(this);
+        return MetafacadeWebUtils.isReadOnly(this);
     }
 
     /**
@@ -598,7 +598,7 @@ public class JSFAttributeLogicImpl
      */
     protected Collection handleGetValidatorArgs(final String validatorType)
     {
-        return JSFUtils.getValidatorArgs(
+        return MetafacadeWebUtils.getValidatorArgs(
             (ModelElementFacade)this.THIS(),
             validatorType);
     }
@@ -609,7 +609,7 @@ public class JSFAttributeLogicImpl
      */
     protected boolean handleIsStrictDateFormat()
     {
-        return JSFUtils.isStrictDateFormat((ModelElementFacade)this.THIS());
+        return MetafacadeWebUtils.isStrictDateFormat((ModelElementFacade)this.THIS());
     }
 
     /**
@@ -659,7 +659,7 @@ public class JSFAttributeLogicImpl
      */
     protected boolean handleIsEqualValidator()
     {
-        final String equal = JSFUtils.getEqual((ModelElementFacade)this.THIS());
+        final String equal = MetafacadeWebUtils.getEqual((ModelElementFacade)this.THIS());
         return equal != null && equal.trim().length() > 0;
     }
 
@@ -756,12 +756,12 @@ public class JSFAttributeLogicImpl
     }
 
     /**
-     * @return findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)
+     * @return findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)
      * @see JSFAttribute#getInputTableIdentifierColumns()
      */
     protected String handleGetInputTableIdentifierColumns()
     {
-        return Objects.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS), "").trim();
+        return Objects.toString(this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS), "").trim();
     }
 
     /**

@@ -16,6 +16,7 @@ import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.web.MetafacadeWebGlobals;
 import org.andromda.metafacades.uml.web.MetafacadeWebProfile;
 import org.andromda.metafacades.uml.web.MetafacadeWebUtils;
@@ -47,8 +48,15 @@ public class FrontEndAttributeLogicImpl
      */
     protected boolean handleIsReset()
     {
-        // TODO put your implementation here.
-        return false;
+        boolean reset =
+            Boolean.valueOf(Objects.toString(this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_INPUT_RESET), ""))
+                   .booleanValue();
+        if (!reset)
+        {
+            //final FrontEndAction action = (FrontEndAction)this.getAction();
+            //reset = action != null && action.isFormReset();
+        }
+        return reset;
     }
 
     /**
@@ -57,8 +65,10 @@ public class FrontEndAttributeLogicImpl
      */
     protected Collection handleGetValidatorVars()
     {
-        // TODO put your implementation here.
-        return null;
+        return MetafacadeWebUtils.getValidatorVars(
+            (ModelElementFacade)this.THIS(),
+            this.getType(),
+            null);
     }
 
     /**
@@ -67,8 +77,7 @@ public class FrontEndAttributeLogicImpl
      */
     protected boolean handleIsInputButton()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(MetafacadeWebGlobals.INPUT_BUTTON);
     }
 
     /**
@@ -77,8 +86,7 @@ public class FrontEndAttributeLogicImpl
      */
     protected boolean handleIsInputColor()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(MetafacadeWebGlobals.INPUT_COLOR);
     }
 
     /**
@@ -87,8 +95,7 @@ public class FrontEndAttributeLogicImpl
      */
     protected boolean handleIsInputDate()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(MetafacadeWebGlobals.INPUT_DATE) || this.getType().isDateType();
     }
 
     /**
@@ -97,8 +104,7 @@ public class FrontEndAttributeLogicImpl
      */
     protected boolean handleIsInputDatetimeLocal()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(MetafacadeWebGlobals.INPUT_DATETIME_LOCAL);
     }
 
     /**
@@ -107,8 +113,7 @@ public class FrontEndAttributeLogicImpl
      */
     protected boolean handleIsInputEmail()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(MetafacadeWebGlobals.INPUT_EMAIL);
     }
 
     /**
@@ -117,8 +122,7 @@ public class FrontEndAttributeLogicImpl
      */
     protected boolean handleIsInputImage()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(MetafacadeWebGlobals.INPUT_IMAGE);
     }
 
     /**
@@ -127,8 +131,7 @@ public class FrontEndAttributeLogicImpl
      */
     protected boolean handleIsInputMonth()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(MetafacadeWebGlobals.INPUT_MONTH);
     }
 
     /**
@@ -137,8 +140,7 @@ public class FrontEndAttributeLogicImpl
      */
     protected boolean handleIsInputNumber()
     {
-        // TODO put your implementation here.
-        return false;
+        return UMLMetafacadeUtils.isNumber(this.getType()) || this.isInputType(MetafacadeWebGlobals.INPUT_BUTTON);
     }
 
     /**
@@ -147,8 +149,7 @@ public class FrontEndAttributeLogicImpl
      */
     protected boolean handleIsInputRange()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(MetafacadeWebGlobals.INPUT_RANGE);
     }
 
     /**
@@ -157,8 +158,7 @@ public class FrontEndAttributeLogicImpl
      */
     protected boolean handleIsInputReset()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(MetafacadeWebGlobals.INPUT_RESET);
     }
 
     /**
@@ -167,8 +167,7 @@ public class FrontEndAttributeLogicImpl
      */
     protected boolean handleIsInputSearch()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(MetafacadeWebGlobals.INPUT_SEARCH);
     }
 
     /**
@@ -177,8 +176,7 @@ public class FrontEndAttributeLogicImpl
      */
     protected boolean handleIsInputSubmit()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(MetafacadeWebGlobals.INPUT_SUBMIT);
     }
 
     /**
@@ -187,8 +185,7 @@ public class FrontEndAttributeLogicImpl
      */
     protected boolean handleIsInputTel()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(MetafacadeWebGlobals.INPUT_TEL);
     }
 
     /**
@@ -197,8 +194,7 @@ public class FrontEndAttributeLogicImpl
      */
     protected boolean handleIsInputTime()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(MetafacadeWebGlobals.INPUT_TIME);
     }
 
     /**
@@ -207,8 +203,7 @@ public class FrontEndAttributeLogicImpl
      */
     protected boolean handleIsInputUrl()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(MetafacadeWebGlobals.INPUT_URL);
     }
 
     /**
@@ -217,8 +212,7 @@ public class FrontEndAttributeLogicImpl
      */
     protected boolean handleIsInputWeek()
     {
-        // TODO put your implementation here.
-        return false;
+        return this.isInputType(MetafacadeWebGlobals.INPUT_WEEK );
     }
 
 
@@ -228,8 +222,10 @@ public class FrontEndAttributeLogicImpl
      */
     protected Collection handleGetValidatorVars(FrontEndParameter ownerParameter)
     {
-        // TODO put your implementation here.
-        return null;
+        return MetafacadeWebUtils.getValidatorVars(
+            (ModelElementFacade)this.THIS(),
+            this.getType(),
+            ownerParameter);
     }
 
 

@@ -16,16 +16,19 @@ import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
+import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndAttribute;
 import org.andromda.metafacades.uml.FrontEndControllerOperation;
 import org.andromda.metafacades.uml.FrontEndEvent;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
+import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.metafacades.uml.web.MetafacadeWebGlobals;
 import org.andromda.metafacades.uml.web.MetafacadeWebProfile;
 import org.andromda.metafacades.uml.web.MetafacadeWebUtils;
@@ -975,14 +978,42 @@ public class FrontEndParameterLogicImpl
 
     @Override
     protected List<FrontEndAction> handleGetTableFormActions() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.getTableActions(false);
     }
 
     @Override
     protected List<FrontEndAction> handleGetTableActions() {
-        // TODO Auto-generated method stub
-        return null;
+        final Set<FrontEndAction> actions = new LinkedHashSet<FrontEndAction>();
+        final String name = StringUtils.trimToNull(getName());
+        if (name != null && isTable())
+        {
+            final FrontEndView view = this.getView();
+
+            final Collection<UseCaseFacade> allUseCases = getModel().getAllUseCases();
+            for (final UseCaseFacade useCase : allUseCases)
+            {
+                if (useCase instanceof FrontEndUseCase)
+                {
+                    final FrontEndActivityGraph graph = ((FrontEndUseCase)useCase).getActivityGraph();
+                    if (graph != null)
+                    {
+                        final Collection<TransitionFacade> transitions = graph.getTransitions();
+                        for (final TransitionFacade transition : transitions)
+                        {
+                            if (transition.getSource().equals(view) && transition instanceof FrontEndAction)
+                            {
+                                final FrontEndAction action = (FrontEndAction)transition;
+                                if (action.isTableLink() && name.equals(action.getTableLinkName()))
+                                {
+                                    actions.add(action);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return new ArrayList<FrontEndAction>(actions);
     }
 
     @Override
@@ -1014,82 +1045,82 @@ public class FrontEndParameterLogicImpl
 
     @Override
     protected boolean handleIsInputButton() {
-        return this.isInputType(MetafacadeWebGlobals.INPUT_MULTIBOX);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_BUTTON);
     }
 
     @Override
     protected boolean handleIsInputColor() {
-        return this.isInputType(MetafacadeWebGlobals.INPUT_MULTIBOX);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_COLOR);
     }
 
     @Override
     protected boolean handleIsInputDate() {
-        return this.isInputType(MetafacadeWebGlobals.INPUT_MULTIBOX);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_DATE);
     }
 
     @Override
     protected boolean handleIsInputDatetimeLocal() {
-        return this.isInputType(MetafacadeWebGlobals.INPUT_MULTIBOX);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_DATETIME_LOCAL);
     }
 
     @Override
     protected boolean handleIsInputEmail() {
-        return this.isInputType(MetafacadeWebGlobals.INPUT_MULTIBOX);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_EMAIL);
     }
 
     @Override
     protected boolean handleIsInputImage() {
-        return this.isInputType(MetafacadeWebGlobals.INPUT_MULTIBOX);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_IMAGE);
     }
 
     @Override
     protected boolean handleIsInputMonth() {
-        return this.isInputType(MetafacadeWebGlobals.INPUT_MULTIBOX);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_MONTH);
     }
 
     @Override
     protected boolean handleIsInputNumber() {
-        return this.isInputType(MetafacadeWebGlobals.INPUT_MULTIBOX);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_NUMBER);
     }
 
     @Override
     protected boolean handleIsInputRange() {
-        return this.isInputType(MetafacadeWebGlobals.INPUT_MULTIBOX);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_RANGE);
     }
 
     @Override
     protected boolean handleIsInputReset() {
-        return this.isInputType(MetafacadeWebGlobals.INPUT_MULTIBOX);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_RESET);
     }
 
     @Override
     protected boolean handleIsInputSearch() {
-        return this.isInputType(MetafacadeWebGlobals.INPUT_MULTIBOX);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_SEARCH);
     }
 
     @Override
     protected boolean handleIsInputSubmit() {
-        return this.isInputType(MetafacadeWebGlobals.INPUT_MULTIBOX);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_SUBMIT);
     }
 
     @Override
     protected boolean handleIsInputTel() {
-        return this.isInputType(MetafacadeWebGlobals.INPUT_MULTIBOX);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_TEL);
     }
 
     @Override
     protected boolean handleIsInputTime() {
-        return this.isInputType(MetafacadeWebGlobals.INPUT_MULTIBOX);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_TIME);
     }
 
     @Override
     protected boolean handleIsInputUrl() {
-        return this.isInputType(MetafacadeWebGlobals.INPUT_MULTIBOX);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_URL);
     }
 
     @Override
     protected boolean handleIsInputWeek() {
-        return this.isInputType(MetafacadeWebGlobals.INPUT_MULTIBOX);
+        return this.isInputType(MetafacadeWebGlobals.INPUT_WEEK);
     }
 
     /**
@@ -1153,25 +1184,51 @@ public class FrontEndParameterLogicImpl
 
     @Override
     protected String handleGetMessageValue() {
-        // TODO Auto-generated method stub
-        return null;
+        return StringUtilsHelper.toPhrase(super.getName()); // the actual name is used for displaying
     }
 
     @Override
     protected String handleGetDocumentationKey() {
-        // TODO Auto-generated method stub
-        return null;
+        return getMessageKey() + '.' + MetafacadeWebGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX;
     }
 
     @Override
     protected String handleGetMessageKey() {
-        // TODO Auto-generated method stub
-        return null;
+        final StringBuilder messageKey = new StringBuilder();
+
+        if (!this.isNormalizeMessages())
+        {
+            if (this.isActionParameter())
+            {
+                final FrontEndAction action = this.getAction();
+                if (action != null)
+                {
+                    messageKey.append(action.getMessageKey());
+                    messageKey.append('.');
+                }
+            }
+            else
+            {
+                final FrontEndView view = this.getView();
+                if (view != null)
+                {
+                    messageKey.append(view.getMessageKey());
+                    messageKey.append('.');
+                }
+            }
+            messageKey.append("param.");
+        }
+
+        messageKey.append(StringUtilsHelper.toResourceMessageKey(super.getName()));
+        return messageKey.toString();
     }
 
     @Override
     protected String handleGetDocumentationValue() {
-        // TODO Auto-generated method stub
-        return null;
+        final String value = StringUtilsHelper.toResourceMessage(this.getDocumentation(
+                    "",
+                    64,
+                    false));
+        return value == null ? "" : value;
     }
 }

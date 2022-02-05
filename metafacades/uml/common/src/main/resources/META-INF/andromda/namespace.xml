@@ -104,13 +104,6 @@
                     (i.e. file:${basedir}/JavaWrapperMappings.xml)
                 </documentation>
             </property>
-            <property name="controllerImplementationPattern">
-                <default>{0}Impl</default>
-                <documentation>
-                    The pattern for constructing the name of the controller implementation class name (where <em>{0}</em>
-                    represents the modeled name of the controller).
-                </documentation>
-            </property>
             <property name="pluralizeAssociationEndNames">
                 <default>true</default>
                 <documentation>
@@ -429,6 +422,157 @@
                 <documentation>
                    If a model element documentation is missing, insert the text:
                    TODO: Missing Model Documentation for Name
+                </documentation>
+            </property>
+            <property name="dummyData">
+                <default>true</default>
+                <documentation>
+                    Indicates whether or not dummy data should be rendered (in places like controllers).
+                </documentation>
+            </property>
+            <property name="backingListPattern">
+                <default>{0}BackingList</default>
+                <documentation>
+                    The pattern used for constructing a parameter's backing list name.  A backing list
+                    is used when you want to select the value of the parameter from a list (typically
+                    used for drop-down select input types).
+                </documentation>
+            </property>
+            <property name="backingValuePattern">
+                <default>{0}BackingValue</default>
+                <documentation>
+                    The pattern used for constructing a parameter's backing value name.  A backing value
+                    is used with an input table type (when you want to submit values from a table of
+                    complex objects).
+                </documentation>
+            </property>
+            <property name="labelListPattern">
+                <default>{0}LabelList</default>
+                <documentation>
+                    The pattern used for constructing the label list name (stores the list
+                    of possible parameter value labels).
+                </documentation>
+            </property>
+            <property name="valueListPattern">
+                <default>{0}ValueList</default>
+                <documentation>
+                    The pattern used for constructing the values list name (stores the list of
+                    possible parameter values when selecting from a list).
+                </documentation>
+            </property>
+            <property name="formPattern">
+                <default>{0}Form</default>
+                <documentation>
+                    The pattern to use for constructing the form name, where
+                    <em>{0}</em> is the name of the controller operation capitalized.
+                </documentation>
+            </property>
+            <property name="formImplementationPattern">
+                <default>{0}FormImpl</default>
+                <documentation>
+                    The pattern to use for constructing the form implementation name, where
+                    <em>{0}</em> is the name of the controller operation capitalized.
+                </documentation>
+            </property>
+            <property name="formMessagesProperty">
+                <default>jsfMessages</default>
+                <documentation>
+                    Defines the name of the property on a form that stores messages.
+                </documentation>
+            </property>
+            <property name="formBeanPattern">
+                <default>{0}{1}Form</default>
+                <documentation>
+                    The pattern for constructing the name of the bean under which the form is stored,
+                    where <em>{0}</em> is the name of the use case and <em>{1}</em> is the name of the trigger.
+                </documentation>
+            </property>
+            <property name="controllerImplementationPattern">
+                <default>{0}Impl</default>
+                <documentation>
+                    The pattern for constructing the name of the controller implementation class name (where <em>{0}</em>
+                    represents the modeled name of the controller).
+                </documentation>
+            </property>
+            <property name="actionFormKey">
+                <default>form</default>
+                <documentation>
+                    The name of the key under which each action for is stored.  This
+                    form is passed along from action to action in order to transfer
+                    all parameters.
+                </documentation>
+            </property>
+            <property name="messageResources">
+                <default>message-resources</default>
+                <documentation>
+                    The path of the localized message resources (the <em>.properties</em>
+                    suffix is appended to this value when creating the actual file.).
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Views">
+            <property name="defaultDateFormat">
+                <default>MM/dd/yyyy</default>
+                <documentation>
+                    The default date format to use in case it has not been explicitly
+                    specified, for event parameters.
+                    Take a look
+                    <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html">here</a>
+                    to see how to properly construct date formats.
+                </documentation>
+            </property>
+            <property name="strictDateTimeFormat">
+                <default>false</default>
+                <documentation>
+                    Specifies whether or not date and time formats are to be strictly matched.
+                    This property takes either true or false as values. If set to true all dates and times
+                    entered by the end-user will fail validation if they do not strictly adhere to their given format.
+                    Note that this strictness can always be overriden locally
+                    using the andromda_struts_view_field_format tagged value.
+                </documentation>
+            </property>
+            <property name="defaultTimeFormat">
+                <default>HH:mm</default>
+                <documentation>
+                    The default time format to use when it has not been explicitly
+                    specified for event parameters. Take a look
+                    <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html">here</a>
+                    to see how to properly construct time formats.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Configuration">
+            <documentation>
+               The properties that provide configuration 
+            </documentation>
+            <property name="formScope">
+                <default>request</default>
+                <documentation>
+                    The scope to given the forms.  This value can be overriddem by a tagged value.
+                </documentation>
+            </property>
+            <property name="controllerScope">
+                <default>request</default>
+                <documentation>
+                    The scope to given the controllers.
+                </documentation>
+            </property>
+            <property name="navigationBeanScope">
+                <default>request</default>
+                <documentation>
+                    The scope to given the navigation items.
+                </documentation>
+            </property>
+            <property name="fileUploadMaxMemoryPerRequest">
+                <default>512000</default>
+                <documentation>
+                    Maximum memory per request (in bytes) for file uploads.
+                </documentation>
+            </property>
+            <property name="fileUploadMaxDiskSpacePerRequest">
+                <default>10240000</default>
+                <documentation>
+                    Maximum memory per request (in bytes) for file uploads.
                 </documentation>
             </property>
         </propertyGroup>

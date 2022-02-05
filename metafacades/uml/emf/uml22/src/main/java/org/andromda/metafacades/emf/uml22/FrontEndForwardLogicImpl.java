@@ -3,6 +3,8 @@ package org.andromda.metafacades.emf.uml22;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +25,7 @@ import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
+import org.andromda.metafacades.uml.web.MetafacadeWebProfile;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -369,37 +372,62 @@ public class FrontEndForwardLogicImpl
 
     @Override
     protected boolean handleIsFinalStateTarget() {
-        // TODO Auto-generated method stub
-        return false;
+        return this.getTarget() instanceof FrontEndFinalState;
     }
 
     @Override
     protected String handleGetFromOutcome() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.getName();
+    }
+
+    /**
+     * Collects specific messages in a map.
+     *
+     * @param taggedValue the tagged value from which to read the message
+     * @return maps message keys to message values, but only those that match the arguments
+     *         will have been recorded
+     */
+    @SuppressWarnings("unchecked")
+    private Map<String, String> getMessages(String taggedValue)
+    {
+        Map<String, String> messages;
+
+        final Collection taggedValues = this.findTaggedValues(taggedValue);
+        if (taggedValues.isEmpty())
+        {
+            messages = Collections.EMPTY_MAP;
+        }
+        else
+        {
+            messages = new LinkedHashMap<String, String>(); // we want to keep the order
+
+            for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+            {
+                final String value = (String)iterator.next();
+                messages.put(StringUtilsHelper.toResourceMessageKey(value), value);
+            }
+        }
+
+        return messages;
     }
 
     @Override
     protected Map handleGetSuccessMessages() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.getMessages(MetafacadeWebProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
     }
 
     @Override
     protected boolean handleIsSuccessMessagesPresent() {
-        // TODO Auto-generated method stub
-        return false;
+        return !this.getSuccessMessages().isEmpty();
     }
 
     @Override
     protected Map handleGetWarningMessages() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.getMessages(MetafacadeWebProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
     }
 
     @Override
     protected boolean handleIsWarningMessagesPresent() {
-        // TODO Auto-generated method stub
-        return false;
+        return !this.getWarningMessages().isEmpty();
     }
 }
