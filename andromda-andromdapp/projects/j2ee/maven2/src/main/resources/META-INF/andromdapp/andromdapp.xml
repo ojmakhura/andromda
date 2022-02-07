@@ -701,9 +701,8 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>wildfly25</response>
                     <response>glassfish6</response>
                     <response>payara5</response>
-                    <response>tomcat9</response>
                     <response>tomcat</response>
-                    <response>tomee9</response>
+                    <response>tomee</response>
                     <response>tomee</response>
                 </responses>
                 <conditions>
@@ -716,14 +715,11 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <condition equal="payara5">
                         <setProperty type="java.lang.Boolean"  id="payara">true</setProperty>
                     </condition>
-                    <condition equal="tomcat9">
-                        <setProperty type="java.lang.Boolean"  id="tomcat9">true</setProperty>
-                    </condition>
                     <condition equal="tomcat">
                         <setProperty type="java.lang.Boolean"  id="tomcat">true</setProperty>
                     </condition>
-                    <condition equal="tomee9">
-                        <setProperty type="java.lang.Boolean"  id="tomee9">true</setProperty>
+                    <condition equal="tomee">
+                        <setProperty type="java.lang.Boolean"  id="tomee">true</setProperty>
                     </condition>
                     <condition equal="tomee">
                         <setProperty type="java.lang.Boolean"  id="tomee">true</setProperty>

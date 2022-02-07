@@ -140,7 +140,7 @@
             <groupId>jakarta.mvc</groupId>
             <artifactId>jakarta.mvc-api</artifactId>
         </dependency>
-#if($wildfly25 || $tomee9)
+#if($wildfly25 || $tomee || $tomcat)
         <dependency>
             <groupId>org.eclipse.krazo</groupId>
             <artifactId>krazo-resteasy</artifactId>
@@ -152,7 +152,7 @@
             <artifactId>krazo-jersey</artifactId>
         </dependency>
 #end
-#if($tomee9)
+#if($tomee || $tomcat)
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-cdi</artifactId>
@@ -163,7 +163,18 @@
         </dependency>
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-validator-provider-11</artifactId>
+            <artifactId>resteasy-validator-provider</artifactId>
+        </dependency>
+#end
+#if($tomcat)
+        <!-- Weld  -->
+        <dependency>
+            <groupId>org.jboss.weld.servlet</groupId>
+            <artifactId>weld-servlet-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.faces</artifactId>
         </dependency>
 #end
 #if($jsf)

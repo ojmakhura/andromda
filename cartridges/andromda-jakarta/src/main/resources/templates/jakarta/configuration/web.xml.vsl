@@ -6,6 +6,24 @@
     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd" 
     version="5.0">
 
+#if($deploymentServer.equals("tomcat"))
+    
+  <listener>
+    <listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
+  </listener>
+
+  <resource-env-ref>
+    <resource-env-ref-name>BeanManager</resource-env-ref-name>
+    <resource-env-ref-type>jakarta.enterprise.inject.spi.BeanManager</resource-env-ref-type>
+  </resource-env-ref>
+
+  <!-- http://docs.jboss.org/resteasy/docs/3.6.1.Final/userguide/html_single/index.html#d4e143 -->
+  <context-param>
+    <param-name>resteasy.injector.factory</param-name>
+    <param-value>org.jboss.resteasy.cdi.CdiInjectorFactory</param-value>
+  </context-param>
+
+#end
         
 #if ($distributable.equalsIgnoreCase("true"))
     <distributable/>

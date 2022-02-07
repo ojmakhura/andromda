@@ -493,7 +493,7 @@
                 <scope>provided</scope>
 #end
             </dependency>
-#if($wildfly25 || $tomee9 || $tomcat9)
+#if($wildfly25 || $tomee || $tomcat)
             <dependency>
                 <groupId>org.eclipse.krazo</groupId>
                 <artifactId>krazo-resteasy</artifactId>
@@ -507,7 +507,7 @@
                 <version>${krazo.version}</version>
             </dependency>
 #end
-#if($tomee9 || $tomcat9)
+#if($tomee || $tomcat9)
             <dependency>
                 <groupId>org.jboss.resteasy</groupId>
                 <artifactId>resteasy-cdi</artifactId>
@@ -520,16 +520,21 @@
             </dependency>
             <dependency>
                 <groupId>org.jboss.resteasy</groupId>
-                <artifactId>resteasy-validator-provider-11</artifactId>
+                <artifactId>resteasy-validator-provider</artifactId>
                 <version>${resteasy.version}</version>
             </dependency>
 #end
-#if($tomcat9)
+#if($tomcat)
             <!-- Weld  -->
             <dependency>
                 <groupId>org.jboss.weld.servlet</groupId>
                 <artifactId>weld-servlet-core</artifactId>
-                <version>4.0.2.Final</version>
+                <version>5.0.0.Beta1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish</groupId>
+                <artifactId>jakarta.faces</artifactId>
+                <version>3.0.2</version>
             </dependency>
 #end
             <dependency>
@@ -1158,7 +1163,7 @@
             <dependency>
                 <groupId>org.apache.tomcat</groupId>
                 <artifactId>tomcat-dbcp</artifactId>
-		<version>9.0.30</version>
+		        <version>9.0.30</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -1619,8 +1624,8 @@
         <krazo.version>2.0.1</krazo.version>
         <jakartaee.version>2.0.0</jakartaee.version>
 #end
-#if($tomcat9 || $tomee9)
-        <resteasy.version>4.7.3.Final</resteasy.version>
+#if($tomcat || $tomee)
+        <resteasy.version>6.0.0.Final</resteasy.version>
 #end
         <!-- To override parent default settings for compiler plugin and compliance checks-->
         <dependencyConvergence>true</dependencyConvergence>
