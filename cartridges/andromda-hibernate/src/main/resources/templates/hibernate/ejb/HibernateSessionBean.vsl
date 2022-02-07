@@ -130,14 +130,14 @@ $operation.getDocumentation("     * ")
 ##             initialContext.close();
 ##         }
 ##    }
-    @${hibernateNamespace}.inject.Inject
+    @${hibernateNamespace}.ejb.EJB
     protected ${service.fullyQualifiedName}Impl $stringUtils.uncapitalize($service.name);
 
 #end
     // ---------------- Daos ---------------
 #foreach($entityRef in $service.entityReferences)
 
-    @${hibernateNamespace}.inject.Inject
+    @${hibernateNamespace}.ejb.EJB
     protected $entityRef.targetElement.fullyQualifiedDaoImplementationName $entityRef.daoName; 
 
     /**

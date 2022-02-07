@@ -44,8 +44,8 @@ import java.util.List;
  *
  * @see $rootDaoType
  */
-@${hibernateNamespace}.ejb.TransactionAttribute(${hibernateNamespace}.ejb.TransactionAttributeType.REQUIRED)
-@${hibernateNamespace}.ejb.Local({${rootDaoType}.class})
+//@${hibernateNamespace}.ejb.TransactionAttribute(${hibernateNamespace}.ejb.TransactionAttributeType.REQUIRED)
+//@${hibernateNamespace}.ejb.Local({${rootDaoType}.class})
 #if ($entity.securityEnabled)
 #**##if ($stringUtils.isBlank(${entity.rolesAllowed}))
 @${hibernateNamespace}.annotation.security.PermitAll
@@ -53,6 +53,7 @@ import java.util.List;
 @${hibernateNamespace}.annotation.security.RolesAllowed({${entity.rolesAllowed}})
 #**##end
 #end
+@jakarta.ejb.Stateless
 public abstract class $entity.daoBaseName
 #if ($daoInheritance)
     extends $entity.generalization.fullyQualifiedDaoImplementationName
@@ -80,7 +81,7 @@ public abstract class $entity.daoBaseName
      * Inject DAO $entityRef.targetElement.fullyQualifiedDaoName
      */
     @${hibernateNamespace}.ejb.EJB
-    protected ${entityRef.targetElement.fullyQualifiedDaoName}Impl $entityRef.daoName;
+    protected ${entityRef.targetElement.fullyQualifiedDaoName} $entityRef.daoName;
 
 #**##end
 #end
@@ -812,23 +813,17 @@ public abstract class $entity.daoBaseName
 #foreach($argument in $finder.arguments)
 #if($argument.type.attributes.empty)
             // ${argument.name}
-            if(${argument.name} != null) {
-                typedQuery.setParameter("${argument.name}", ${argument.name});
-            }
+            typedQuery.setParameter("${argument.name}", ${argument.name});
 #else
 #if($hibernateUtils.isCriteriaAttribute($argument.type))
 #foreach($attribute in $argument.type.attributes)
             // ${attribute.name}
-            if(${argument.name}.get${stringUtils.capitalize(${attribute.name})}() != null) {
-                typedQuery.setParameter("${attribute.name}", ${argument.name}.get${stringUtils.capitalize(${attribute.name})}());
-            }
+            typedQuery.setParameter("${attribute.name}", ${argument.name}.get${stringUtils.capitalize(${attribute.name})}());
 #end
 #elseif($hibernateUtils.isEntity($argument.type))
 #foreach($id in $argument.type.identifiers)
             // $id.name
-            if(${argument.name}.get${stringUtils.capitalize($id.name)}() != null) {
-                typedQuery.setParameter("${argument.name}${stringUtils.capitalize($id.name)}", ${argument.name}.get${stringUtils.capitalize($id.name)}());
-            }
+            typedQuery.setParameter("${argument.name}${stringUtils.capitalize($id.name)}", ${argument.name}.get${stringUtils.capitalize($id.name)}());
 #end
 #end
 #end
