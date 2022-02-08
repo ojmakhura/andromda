@@ -1080,6 +1080,12 @@
                     The value of the <code>default-cascade</code> attribute of the hibernate entity XML mapping.
                 </documentation>
             </property>
+            <property name="criteriaSearchBaseName">
+                <default>CriteriaSearch</default>
+                <documentation>
+                    The base name for the hibernate criteria search utility classes.
+                </documentation>
+            </property>
             <property name="hibernateCompositionCascade" required="false">
                 <documentation>
                     Indicates how a UML composition should be interpreted as cascade.

@@ -99,6 +99,8 @@
     <property reference="daoInheritanceEnabled"/>
     <property reference="daoNamedQueries"/>
     <property reference="enableDaoPropertiesCreateMethod"/>
+    <property reference="criteriaSearchBaseName"/>
+    <!-- <property reference="recordType"/> -->
 
     <!-- cartridge-property merge-point-->
 
@@ -168,7 +170,7 @@
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
-                <property name="compositeIdentifier">true</property>
+                    <property name="compositeIdentifier">true</property>
                 </type>
             </modelElement>
         </modelElements>
@@ -251,31 +253,40 @@
     </template>
 
     <template
-        path="templates/hibernate/HibernateSearch.vsl"
+        path="templates/hibernate/search/SearchParameter.java.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
         overwrite="true"
         outputToSingleFile="true">
         <modelElements variable="entities">
             <modelElement>
-                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
-                    <property name="compositeIdentifier">true</property>
-                </type>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
         </modelElements>
     </template>
 
     <template
-        path="templates/hibernate/HibernateSearchProperties.vsl"
+        path="templates/hibernate/search/Search.java.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
         overwrite="true"
         outputToSingleFile="true">
         <modelElements variable="entities">
             <modelElement>
-                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
-                    <property name="compositeIdentifier">true</property>
-                </type>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/search/PropertySearch.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="entities">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
         </modelElements>
     </template>
@@ -288,9 +299,46 @@
         outputToSingleFile="true">
         <modelElements variable="entities">
             <modelElement>
-                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
-                    <property name="compositeIdentifier">true</property>
-                </type>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/HibernateSearch.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="entities">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/HibernateSearchProperties.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="entities">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/HibernateSearchConfiguration.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="entities">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
         </modelElements>
     </template>
@@ -303,9 +351,7 @@
         outputToSingleFile="true">
         <modelElements variable="entities">
             <modelElement>
-                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
-                    <property name="compositeIdentifier">true</property>
-                </type>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
         </modelElements>
     </template>

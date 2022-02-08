@@ -14,6 +14,8 @@ import org.andromda.metafacades.uml.Service;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.andromda.utils.StringUtilsHelper;
+
 
 /**
  * Contains utilities used within the Hibernate cartridge.
@@ -71,6 +73,47 @@ public class HibernateUtils
     public String getHibernatePackage()
     {
         return this.isVersion3() || this.isVersion4() || this.isVersion5() || this.isVersion6() ? "org.hibernate" : "net.sf.hibernate";
+    }
+
+    /**
+     * Gets the appropriate hibernate criterion package name for the given <code>version</code>.
+     *
+     * @return the Hibernate criterion package name.
+     */
+    public String getCriterionPackage()
+    {
+        return this.getHibernatePackage() + (this.isVersion3() || this.isVersion4() || this.isVersion5() || this.isVersion6() ? ".criterion" : ".expression");
+    }
+
+    /**
+     * Retrieves the fully qualified name of the class that retrieves the Hibernate
+     * disjunction instance.
+     * @return the fully qualified class name.
+     */
+    public String getDisjunctionClassName()
+    {
+        return this.getCriterionPackage() + (this.isVersion3() || this.isVersion4() || this.isVersion5() || this.isVersion6() ? ".Restrictions" : ".Expression");
+    }
+
+    /**
+     * Retrieves the appropriate package for Hibernate user types given
+     * the version defined within this class.
+     *
+     * @return the hibernate user type package.
+     */
+    public String getEagerFetchMode()
+    {
+        return this.isVersion3() || this.isVersion4() || this.isVersion5() || this.isVersion6() ? "JOIN" : "EAGER";
+    }
+
+    /**
+     * Gets the appropriate hibernate Restrictions/Expression fully qualified class name for the given <code>version</code>.
+     *
+     * @return the fully qualified Hibernate Restriction/Expression class name.
+     */
+    public String getRestrictionClass()
+    {
+        return getCriterionPackage() + (this.isVersion3() || this.isVersion4() || this.isVersion5() || this.isVersion6() ? ".Restrictions" : ".Expression");
     }
 
     /**
@@ -164,6 +207,42 @@ public class HibernateUtils
             version3 = hibernateVersionPropertyValue.startsWith(HibernateGlobals.HIBERNATE_VERSION_3);
         }
         return version3;
+    }
+
+    /**
+     * Takes the given <code>names</code> and concatenates them in camel case
+     * form.
+     *
+     * @param names the names to concatenate.
+     * @return the result of the concatenation
+     */
+    public static String concatNamesCamelCase(final Collection<String> names)
+    {
+        String result = null;
+        if (names != null)
+        {
+            result = StringUtilsHelper.lowerCamelCaseName(StringUtils.join(names.iterator(), " "));
+        }
+        return result;
+    }
+
+    /**
+     * Formats the given type to the appropriate Hibernate query parameter value.
+     *
+     * @param type the type of the Hibernate query parameter.
+     * @param value the current value to format.
+     * @return the formatted value.
+     */
+    public String formatHibernateQueryParameterValue(final ClassifierFacade type, String value)
+    {
+        if (type != null)
+        {
+            if (type.isPrimitive())
+            {
+                value = "new " + type.getWrapperName() + '(' + value + ')';
+            }
+        }
+        return value;
     }
 
     /**

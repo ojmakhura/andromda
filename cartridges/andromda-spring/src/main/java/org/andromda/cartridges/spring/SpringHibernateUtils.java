@@ -94,7 +94,7 @@ public class SpringHibernateUtils
      */
     public String getRestrictionClass()
     {
-        return getCriterionPackage() + (this.isVersion3() || this.isVersion4() || this.isVersion5() ? ".Restrictions" : ".Expression");
+        return getCriterionPackage() + (this.isVersion3() || this.isVersion4() || this.isVersion5() || this.isVersion6() ? ".Restrictions" : ".Expression");
     }
 
     /**
@@ -124,7 +124,7 @@ public class SpringHibernateUtils
      */
     public String getEagerFetchMode()
     {
-        return this.isVersion3() || this.isVersion4() || this.isVersion5() ? "JOIN" : "EAGER";
+        return this.isVersion3() || this.isVersion4() || this.isVersion5() || this.isVersion6() ? "JOIN" : "EAGER";
     }
 
     /**
@@ -134,7 +134,7 @@ public class SpringHibernateUtils
      */
     public String getDisjunctionClassName()
     {
-        return this.getCriterionPackage() + (this.isVersion3() || this.isVersion4() || this.isVersion5() ? ".Restrictions" : ".Expression");
+        return this.getCriterionPackage() + (this.isVersion3() || this.isVersion4() || this.isVersion5() || this.isVersion6() ? ".Restrictions" : ".Expression");
     }
 
     /**

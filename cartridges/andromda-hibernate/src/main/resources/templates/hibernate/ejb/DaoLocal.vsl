@@ -369,114 +369,386 @@ public interface $entity.daoName
     public void remove($entityCollectionType entities)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
 
+## #foreach ($operation in $entity.queryOperations)
+## #**##set ($returnType = $operation.getterSetterReturnTypeName)
+##     /**
+## $operation.getDocumentation("     * ")
+## #foreach($argument in $operation.arguments)
+##      * @param $argument.name
+## #end
+## #if ($operation.returnTypePresent)
+##      * @return $operation.getterSetterReturnTypeName
+## #end
+## #if ($operation.exceptionsPresent)
+##      * @throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
+## #else
+##      * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
+## #end
+##      */
+##     $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
+## #**##if ($operation.exceptionsPresent)
+##         throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName};
+## #**##else
+##         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
+## #end
+
+##     /**
+##      * Does the same thing as {@link ${esc.hash}${operation.getSignature(false)}} with an
+##      * additional argument called <code>queryString</code>.
+##      * @param queryString String allows you to override the query string defined in {@link ${esc.hash}${operation.getSignature(false)}}
+## #foreach($argument in $operation.arguments)
+##      * @param $argument.name
+## #end
+## #if ($operation.returnTypePresent)
+##      * @return $returnType
+## #end
+## #if ($operation.exceptionsPresent)
+##      * @throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
+## #else
+##      * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
+## #end
+##      */
+##     $operation.visibility $returnType ${operation.name}(String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+## #if ($operation.exceptionsPresent)
+##         throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName};
+## #else
+##         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
+## #end
+
+## #**##if ($operation.returnTypePresent)
+## #*  *##if ($operation.returnType.setType)
+## #set ($transformReturn = "java.util.Set")
+## #*  *##elseif ($operation.returnType.collectionType)
+## #set ($transformReturn = "java.util.List")
+## #*  *##else
+## #set ($transformReturn = "Object")
+## #*  *##end
+## #**##end
+##     /**
+##      * Does the same thing as {@link ${esc.hash}${operation.getSignature(false)}} with an
+##      * additional flag called <code>transform</code>.  If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
+##      * finder results will <strong>NOT</strong> be transformed during retrieval.
+##      * If this flag is any of the other constants defined here
+##      * then finder results <strong>WILL BE</strong> passed through an operation which can optionally
+##      * transform the entities (into value objects for example).  By default, transformation does
+##      * not occur.
+##      * @param transform int Transform finder results during retrieval
+## #foreach($argument in $operation.arguments)
+##      * @param $argument.name
+## #end
+## #if ($operation.returnTypePresent)
+##      * @return $transformReturn
+## #end
+## #if ($operation.exceptionsPresent)
+##      * @throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
+## #else
+##      * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
+## #end
+##      */
+##     $operation.visibility#if ($operation.returnTypePresent) $transformReturn#else void#end ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+## #**##if ($operation.exceptionsPresent)
+##         throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName};
+## #**##else
+##         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
+## #**##end
+
+##     /**
+##      * Does the same thing as {@link ${esc.hash}${operation.name}(int#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
+##      * additional argument called <code>queryString</code>.  This <code>queryString</code>
+##      * argument allows you to override the query string defined in {@link ${esc.hash}${operation.name}(int#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)}.
+##      * @param transform int Transform finder results during retrieval
+##      * @param queryString String allows you to override the query string defined in {@link ${esc.hash}${operation.getSignature(false)}}
+## #foreach($argument in $operation.arguments)
+##      * @param $argument.name
+## #end
+## #if ($operation.returnTypePresent)
+##      * @return $transformReturn
+## #end
+## #if ($operation.exceptionsPresent)
+##      * @throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
+## #else
+##      * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
+## #end
+##      */
+##     $operation.visibility#if ($operation.returnTypePresent) $transformReturn#else void#end ${operation.name}(int transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+## #**##if ($operation.exceptionsPresent)
+##         throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName};
+## #**##else
+##         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
+## #**##end
+
+## #end
 #foreach ($operation in $entity.queryOperations)
-#**##set ($returnType = $operation.getterSetterReturnTypeName)
+#set ($returnType = "${operation.getterSetterReturnTypeName}#if($enableTemplating && $operation.returnType.collectionType)<${entity.fullyQualifiedEntityName}>#end")
     /**
 $operation.getDocumentation("     * ")
-#foreach($argument in $operation.arguments)
-     * @param $argument.name
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name $argument.getDocumentation("")
 #end
-#if ($operation.returnTypePresent)
-     * @return $operation.getterSetterReturnTypeName
-#end
-#if ($operation.exceptionsPresent)
-     * @throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
-#else
-     * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
-#end
-     */
-    $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
-#**##if ($operation.exceptionsPresent)
-        throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName};
-#**##else
-        throws ${entity.fullyQualifiedDaoDefaultExceptionName};
-#end
-
-    /**
-     * Does the same thing as {@link ${esc.hash}${operation.getSignature(false)}} with an
-     * additional argument called <code>queryString</code>.
-     * @param queryString String allows you to override the query string defined in {@link ${esc.hash}${operation.getSignature(false)}}
-#foreach($argument in $operation.arguments)
-     * @param $argument.name
-#end
-#if ($operation.returnTypePresent)
      * @return $returnType
-#end
-#if ($operation.exceptionsPresent)
-     * @throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
-#else
-     * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
 #end
      */
-    $operation.visibility $returnType ${operation.name}(String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
 #if ($operation.exceptionsPresent)
-        throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName};
+    $operation.visibility $returnType $operation.signature
+        throws $operation.exceptionList;
 #else
-        throws ${entity.fullyQualifiedDaoDefaultExceptionName};
+    $operation.visibility $returnType $operation.signature;
 #end
 
-#**##if ($operation.returnTypePresent)
-#*  *##if ($operation.returnType.setType)
-#set ($transformReturn = "java.util.Set")
-#*  *##elseif ($operation.returnType.collectionType)
-#set ($transformReturn = "java.util.List")
-#*  *##else
-#set ($transformReturn = "Object")
-#*  *##end
-#**##end
+#if(!$operation.criteriaFinder)
     /**
+     * <p>
      * Does the same thing as {@link ${esc.hash}${operation.getSignature(false)}} with an
-     * additional flag called <code>transform</code>.  If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
+     * additional argument called <code>queryString</code>. This <code>queryString</code>
+     * argument allows you to override the query string defined in {@link ${esc.hash}${operation.getSignature(false)}}.
+     * </p>
+     * @param queryString
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name $argument.getDocumentation("")
+#end
+     * @return $returnType
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
+#end
+     */
+#if ($operation.exceptionsPresent)
+    $operation.visibility $returnType ${operation.name}(String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+        throws $operation.exceptionList;
+#else
+    $operation.visibility $returnType ${operation.name}(String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
+#end
+
+#if ($operation.returnType.collectionType || $operation.many)
+#if($enableTemplating)
+#set ($returnType = "${operation.getterSetterReturnTypeName}#if($operation.returnType.collectionType)<${entity.fullyQualifiedEntityName}>#end")
+#end
+    /**
+     * <p>
+     * Does the same thing as {@link ${esc.hash}${operation.getSignature(false)}} with an
+     * additional two arguments called <code>pageNumber</code> and <code>pageSize</code>. The <code>pageNumber</code>
+     * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
+     * page retrieved.
+     * </p>
+     * @param pageNumber
+     * @param pageSize
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name $argument.getDocumentation("")
+#end
+     * @return $returnType
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
+#end
+     */
+#if ($operation.exceptionsPresent)
+    $operation.visibility $returnType ${operation.name}(int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+        throws $operation.exceptionList;
+#else
+    $operation.visibility $returnType ${operation.name}(int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
+#end
+
+    /**
+     * <p>
+     * Does the same thing as {@link ${esc.hash}${operation.name}(String#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
+     * additional two arguments called <code>pageNumber</code> and <code>pageSize</code>. The <code>pageNumber</code>
+     * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
+     * page retrieved.
+     * </p>
+     * @param queryString
+     * @param pageNumber
+     * @param pageSize
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name $argument.getDocumentation("")
+#end
+     * @return $returnType
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
+#end
+     */
+#if ($operation.exceptionsPresent)
+    $operation.visibility $returnType ${operation.name}(String queryString, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+        throws $operation.exceptionList;
+#else
+    $operation.visibility $returnType ${operation.name}(String queryString, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
+#end
+#if ($operation.returnType.collectionType)
+#if($enableTemplating)
+#set ($returnType = "${operation.getterSetterReturnTypeName}<?>")
+#end
+#elseif ($operation.many)
+#set ($returnType = "$operation.getterSetterReturnTypeName.substring(0,$operation.getterSetterReturnTypeName.indexOf('<'))<?>")
+#end
+
+#else
+#set ($returnType = "Object")
+#end
+    /**
+     * <p>
+     * Does the same thing as {@link ${esc.hash}${operation.getSignature(false)}} with an
+     * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      * finder results will <strong>NOT</strong> be transformed during retrieval.
      * If this flag is any of the other constants defined here
      * then finder results <strong>WILL BE</strong> passed through an operation which can optionally
-     * transform the entities (into value objects for example).  By default, transformation does
+     * transform the entities (into value objects for example). By default, transformation does
      * not occur.
-     * @param transform int Transform finder results during retrieval
-#foreach($argument in $operation.arguments)
-     * @param $argument.name
+     * @param transform
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name $argument.getDocumentation("")
 #end
-#if ($operation.returnTypePresent)
-     * @return $transformReturn
+     * @return $returnType
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
 #end
-#if ($operation.exceptionsPresent)
-     * @throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
-#else
-     * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
-#end
+     * </p>
      */
-    $operation.visibility#if ($operation.returnTypePresent) $transformReturn#else void#end ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
-#**##if ($operation.exceptionsPresent)
-        throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName};
-#**##else
-        throws ${entity.fullyQualifiedDaoDefaultExceptionName};
-#**##end
+#if ($operation.exceptionsPresent)
+    $operation.visibility $returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+        throws $operation.exceptionList;
+#else
+    $operation.visibility $returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
+#end
 
+#if ($operation.returnType.collectionType || $operation.many)
     /**
+     * <p>
      * Does the same thing as {@link ${esc.hash}${operation.name}(int#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
-     * additional argument called <code>queryString</code>.  This <code>queryString</code>
-     * argument allows you to override the query string defined in {@link ${esc.hash}${operation.name}(int#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)}.
-     * @param transform int Transform finder results during retrieval
-     * @param queryString String allows you to override the query string defined in {@link ${esc.hash}${operation.getSignature(false)}}
-#foreach($argument in $operation.arguments)
-     * @param $argument.name
+     * additional two arguments called <code>pageNumber</code> and <code>pageSize</code>. The <code>pageNumber</code>
+     * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
+     * page retrieved.
+     * </p>
+     * @param transform
+     * @param pageNumber
+     * @param pageSize
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name $argument.getDocumentation("")
 #end
-#if ($operation.returnTypePresent)
-     * @return $transformReturn
-#end
-#if ($operation.exceptionsPresent)
-     * @throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
-#else
-     * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
+     * @return $returnType
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
 #end
      */
-    $operation.visibility#if ($operation.returnTypePresent) $transformReturn#else void#end ${operation.name}(int transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
-#**##if ($operation.exceptionsPresent)
-        throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName};
-#**##else
-        throws ${entity.fullyQualifiedDaoDefaultExceptionName};
-#**##end
+#if ($operation.exceptionsPresent)
+    $operation.visibility $returnType ${operation.name}(int transform, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+        throws $operation.exceptionList;
+#else
+    $operation.visibility $returnType ${operation.name}(int transform, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
+#end
 
+#end
+    /**
+     * <p>
+     * Does the same thing as {@link ${esc.hash}${operation.name}(int#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
+     * additional argument called <code>queryString</code>. This <code>queryString</code>
+     * argument allows you to override the query string defined in {@link ${esc.hash}${operation.name}(int#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)}.
+     * </p>
+     * @param transform
+     * @param queryString
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name $argument.getDocumentation("")
+#end
+     * @return $returnType
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
+#end
+     */
+#if ($operation.exceptionsPresent)
+    $operation.visibility $returnType ${operation.name}(int transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+        throws $operation.exceptionList;
+#else
+    $operation.visibility $returnType ${operation.name}(int transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
+#end
+
+#if ($operation.returnType.collectionType || $operation.many)
+    /**
+     * <p>
+     * Does the same thing as {@link ${esc.hash}${operation.name}(int, String#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
+     * additional two arguments called <code>pageNumber</code> and <code>pageSize</code>. The <code>pageNumber</code>
+     * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
+     * page retrieved.
+     * </p>
+     * @param transform
+     * @param queryString
+     * @param pageNumber
+     * @param pageSize
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name $argument.getDocumentation("")
+#end
+     * @return $returnType
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
+#end
+     */
+#if ($operation.exceptionsPresent)
+    $operation.visibility $returnType ${operation.name}(int transform, String queryString, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+        throws $operation.exceptionList;
+#else
+    $operation.visibility $returnType ${operation.name}(int transform, String queryString, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
+#end
+
+#end
+#else
+#if ($operation.returnType.collectionType)
+#set ($returnType = "${operation.getterSetterReturnTypeName}#if($enableTemplating)<?>#end")
+#elseif ($operation.many)
+#set ($returnType = "$operation.getterSetterReturnTypeName.substring(0,$operation.getterSetterReturnTypeName.indexOf('<'))<?>")
+#else
+#set ($returnType = "Object")
+#end
+    /**
+     * <p>
+     * Does the same thing as {@link ${esc.hash}${operation.getSignature(false)}} with an
+     * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
+     * finder results will <strong>NOT</strong> be transformed during retrieval.
+     * If this flag is any of the other constants defined here
+     * then finder results <strong>WILL BE</strong> passed through an operation which can optionally
+     * transform the entities (into value objects for example). By default, transformation does
+     * not occur.
+     * </p>
+     * @param transform
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name $argument.getDocumentation("")
+#end
+     * @return $returnType
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
+#end
+     */
+#if ($operation.exceptionsPresent)
+    $operation.visibility $returnType ${operation.name}(final int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end)
+        throws $operation.exceptionList;
+#else
+    $operation.visibility $returnType ${operation.name}(final int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end);
+
+#end
+#if ($operation.returnType.collectionType || $operation.many)
+    /**
+     * <p>
+     * Does the same thing as {@link ${esc.hash}${operation.name}(int, String#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
+     * additional two arguments called <code>pageNumber</code> and <code>pageSize</code>. The <code>pageNumber</code>
+     * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
+     * page retrieved.
+     * </p>
+     * @param transform
+     * @param pageNumber
+     * @param pageSize
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name $argument.getDocumentation("")
+#end
+     * @return $returnType
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
+#end
+     */
+#if ($operation.exceptionsPresent)
+    $operation.visibility $returnType ${operation.name}(final int transform, final int pageNumber, final int pageSize#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end)
+        throws $operation.exceptionList;
+#else
+    $operation.visibility $returnType ${operation.name}(final int transform, final int pageNumber, final int pageSize#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end);
+#end
+
+#end
+#end
 #end
 #foreach ($operation in $entity.daoBusinessOperations)
 #**##set ($returnType = $operation.getterSetterReturnTypeName)

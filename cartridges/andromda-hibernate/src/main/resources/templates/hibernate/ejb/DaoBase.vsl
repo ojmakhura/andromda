@@ -24,7 +24,13 @@ package ${entity.packageName};
 #**##set ($rootEntity = $entity)
 #**##set ($rootDaoType = $entity.fullyQualifiedDaoName)
 #end
-
+#if ($hibernateVersion.startsWith("4") || $hibernateVersion.startsWith("5") || $hibernateVersion.startsWith("6"))
+#set ($hibernateGT3=true)
+#set ($h3tab="    ")
+#else
+#set ($hibernateGT3=false)
+#set ($h3tab="")
+#end
 import ${hibernateNamespace}.persistence.TypedQuery;
 #if(!$finder.arguments.empty)
 import ${hibernateNamespace}.persistence.criteria.CriteriaBuilder;
@@ -560,88 +566,665 @@ public abstract class $entity.daoBaseName
 #else
 #set ($queryOperations = $entity.queryOperations)
 #end
-##
 #foreach ($finder in $queryOperations)
-#set ($returnType = $finder.returnType.fullyQualifiedName)
-#**##if ($finder.returnTypePresent)
-#*  *##if ($finder.returnType.setType)
-#set ($transformReturn = "java.util.Set")
-#*  *##elseif ($finder.returnType.collectionType)
-#set ($transformReturn = "java.util.List")
-#*  *##elseif ($finder.many)
-#set ($transformReturn = "java.util.List<$returnType>")
-#*  *##else
-#set ($transformReturn = "Object")
-#*  *##end
-#**##end
+#set ($returnType = "${finder.getterSetterReturnTypeName}#if($enableTemplating && $finder.returnType.collectionType)<${entity.fullyQualifiedEntityName}>#end")
+##    // ${finder.getterSetterReturnTypeName} $finder.returnTypePresent $returnType
     /**
-     * @see ${rootDaoType}${esc.hash}$finder.getSignature(false)
+#if (!$finder.returnTypePresent)
+     * **** MODEL ERROR: Entity finder method must return a type other than 'void' *****
+#end
+     * {@inheritDoc}
      */
-#if ($javaVersion.compareTo("1.6")>-1)
+#if ($enableAnnotations)
     @Override
 #end
-    $finder.visibility $transformReturn $finder.signature
+#if ($enableTemplating && ($finder.returnType.collectionType || $finder.many))
+    @SuppressWarnings({"unchecked"})
+#end
+    $finder.visibility $returnType $finder.signature
 #if ($finder.exceptionsPresent)
-        throws $finder.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
-#else
-        throws ${entity.fullyQualifiedDaoDefaultExceptionName}
+        throws $finder.exceptionList
 #end
     {
-#set ($finderCall = "this.${finder.name}($entity.daoNoTransformationConstantName#if(!$finder.arguments.empty), ${finder.argumentNames}#end);")
-#if ($finder.returnTypePresent)
-#*  *##if (!$finder.returnType.collectionType || $finder.many)
-#*    *##set ($finderCall = "($transformReturn)$finderCall")
-#*  *##end
-        return $finderCall
-#else
-        $finderCall
+#set ($finderCall = "this.${finder.name}(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName#if(!$finder.arguments.empty), ${finder.argumentNames}#end);")
+#if ((!$finder.returnType.collectionType || ($enableTemplating && $finder.returnType.collectionType)) && $finder.returnTypePresent)
+#set ($finderCall = "($returnType)$finderCall")
 #end
+        #if ($finder.returnTypePresent)return#end $finderCall
+    }
+
+#if ($finder.returnType.collectionType|| $finder.many || !$finder.criteriaFinder)
+    /**
+#if (!$finder.returnTypePresent)
+     * **** MODEL ERROR: Entity finder method must return a type other than 'void' *****
+#end
+     * {@inheritDoc}
+     */
+#if ($enableAnnotations)
+    @Override
+#end
+#if ($finder.returnType.collectionType)
+#if($enableTemplating)
+#set ($returnType = "${finder.getterSetterReturnTypeName}<?>")
+#end
+#elseif ($finder.many)
+#set ($returnType = "$finder.getterSetterReturnTypeName.substring(0,$finder.getterSetterReturnTypeName.indexOf('<'))<?>")
+#elseif ($finder.returnTypePresent)
+#set ($returnType = "Object")
+#else
+#set ($returnType = "void")
+#end
+    $finder.visibility $returnType ${finder.name}(final int transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+#if ($finder.exceptionsPresent)
+        throws $finder.exceptionList
+#end
+    {
+#if ($finder.returnType.collectionType|| $finder.many)
+        #if ($finder.returnTypePresent)return#end this.${finder.name}(transform, -1, -1#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
+#else
+        #if ($finder.returnTypePresent)return#end this.${finder.name}(transform, "$finder.getQuery($entity)"#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
+#end
+    }
+#end
+
+#set ($returnType = "${finder.getterSetterReturnTypeName}#if($enableTemplating && $finder.returnType.collectionType)<${entity.fullyQualifiedEntityName}>#end")
+#if(!$finder.criteriaFinder)
+    /**
+     * {@inheritDoc}
+     */
+#if ($enableAnnotations)
+    @Override
+#end
+#if ($enableTemplating && ($finder.returnType.collectionType || $finder.many))
+    @SuppressWarnings({"unchecked"})
+#end
+    $finder.visibility $returnType ${finder.name}(final String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+#if ($finder.exceptionsPresent)
+        throws $finder.exceptionList
+#end
+    {
+#set ($finderCall = "this.${finder.name}(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName, queryString#if(!$finder.arguments.empty), ${finder.argumentNames}#end);")
+#if ((!$finder.returnType.collectionType || ($enableTemplating && $finder.returnType.collectionType)))
+#set ($finderCall = "($returnType)$finderCall")
+#end
+        #if ($finder.returnTypePresent)return#end $finderCall
+    }
+
+#if ($finder.returnType.collectionType || $finder.many)
+    /**
+     * {@inheritDoc}
+     */
+#if ($enableAnnotations)
+    @Override
+#end
+#if ($enableTemplating && ($finder.returnType.collectionType || $finder.many))
+    @SuppressWarnings({"unchecked"})
+#end
+    $finder.visibility $returnType ${finder.name}(final int pageNumber, final int pageSize#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+#if ($finder.exceptionsPresent)
+        throws $finder.exceptionList
+#end
+    {
+        #if ($finder.returnTypePresent)return#end#if($enableTemplating) ($returnType)#end this.${finder.name}(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName, pageNumber, pageSize#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
     }
 
     /**
-     * @see ${rootDaoType}${esc.hash}${finder.name}(String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * {@inheritDoc}
      */
-#if ($javaVersion.compareTo("1.6")>-1)
+#if ($enableAnnotations)
     @Override
 #end
-    $finder.visibility $transformReturn ${finder.name}(final String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
-#**##if ($finder.exceptionsPresent)
-        throws $finder.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
-#**##else
-        throws ${entity.fullyQualifiedDaoDefaultExceptionName}
-#**##end
+#if ($enableTemplating && ($finder.returnType.collectionType || $finder.many))
+    @SuppressWarnings({"unchecked"})
+#end
+    $finder.visibility $returnType ${finder.name}(final String queryString, final int pageNumber, final int pageSize#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+#if ($finder.exceptionsPresent)
+        throws $finder.exceptionList
+#end
     {
-#**##set ($finderCall = "this.${finder.name}($entity.daoNoTransformationConstantName, queryString#if(!$finder.arguments.empty), ${finder.argumentNames}#end);")
-#**##if ($finder.returnTypePresent)
-#*  *##if (!$finder.returnType.collectionType)
-#*    *##set ($finderCall = "($transformReturn)$finderCall")
-#*  *##end
-        return $finderCall
-#**##else
-        $finderCall
-#**##end
+        #if ($finder.returnTypePresent)return#end#if($enableTemplating) ($returnType)#end this.${finder.name}(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName, queryString, pageNumber, pageSize#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
+    }
+
+#if ($finder.returnType.collectionType)
+#if($enableTemplating)
+#set ($returnType = "${finder.getterSetterReturnTypeName}<?>")
+#end
+#elseif ($finder.many)
+#set ($returnType = "$finder.getterSetterReturnTypeName.substring(0,$finder.getterSetterReturnTypeName.indexOf('<'))<?>")
+#end
+    /**
+     * {@inheritDoc}
+     */
+#if ($enableAnnotations)
+    @Override
+#end
+    $finder.visibility $returnType ${finder.name}(final int transform, final String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+#if ($finder.exceptionsPresent)
+        throws $finder.exceptionList
+#end
+    {
+        #if ($finder.returnTypePresent)return#end this.${finder.name}(transform, queryString, -1, -1#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
     }
 
     /**
-     * @see ${rootDaoType}${esc.hash}${finder.name}(int#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * {@inheritDoc}
      */
-#if ($javaVersion.compareTo("1.6")>-1)
+#if ($enableAnnotations)
     @Override
 #end
-    $finder.visibility#if ($finder.returnTypePresent) $transformReturn#else void#end ${finder.name}(final int transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
-#**##if ($finder.exceptionsPresent)
-        throws $finder.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
-#**##else
-        throws ${entity.fullyQualifiedDaoDefaultExceptionName}
-#**##end
+    $finder.visibility $returnType ${finder.name}(final int transform, final int pageNumber, final int pageSize#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+#if ($finder.exceptionsPresent)
+        throws $finder.exceptionList
+#end
     {
+        #if ($finder.returnTypePresent)return#end this.${finder.name}(transform, "$finder.getQuery($entity)", pageNumber, pageSize#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
+    }
+
+#elseif ($finder.returnTypePresent)
+#set ($returnType = "Object")
+#else
+#set ($returnType = "void")
+#end
+    /**
+#if (!$finder.returnTypePresent)
+     * **** MODEL ERROR: Entity finder method must return a type other than 'void' *****
+#end
+     * {@inheritDoc}
+     */
+#if ($enableAnnotations)
+    @Override
+#end
+#if ($enableTemplating && ($finder.returnType.collectionType || $finder.many))
+    @SuppressWarnings("unchecked")
+#end
+    $finder.visibility $returnType ${finder.name}(final int transform, final String queryString#if ($finder.returnType.collectionType || $finder.many), int pageNumber, int pageSize#end#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+#if ($finder.exceptionsPresent)
+## TODO: Exception is not actually thrown by this method
+        throws $finder.exceptionList
+#end
+    {
+#if (!$hibernateGT3)
         try
         {
-##             CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
-##             CriteriaQuery<${rootEntityType}> query = builder.createQuery(${rootEntityType}.class);
-##             Root<${rootEntityType}> root = query.from(${rootEntityType}.class);   
-##             List<Predicate> predicates = new java.util.ArrayList<>();
+            ${hibernateNamespace}.persistence.Query queryObject = super.getSession().createQuery(queryString);
+#else
+        ${hibernateNamespace}.persistence.Query queryObject = this.entityManager.createQuery(queryString);
+#end
+#foreach($argument in $finder.arguments)
+#set ($count = $velocityCount - 1)
+#set ($setParameterOperation = "setParameter")
+#if ($argument.type.collectionType || $argument.type.arrayType)
+#set ($setParameterOperation = "${setParameterOperation}List")
+#end
+#if ($useNamedParametersInQueries || $finder.useNamedParameters || $argument.type.collectionType || $argument.type.arrayType)
+#if (!$argument.type.embeddedValue)
+$h3tab        queryObject.${setParameterOperation}("$argument.name", $hibernateUtils.formatHibernateQueryParameterValue($argument.type, $argument.name));
+#else
+#foreach ($attribute in $argument.type.getAttributes(true))
+#set ($parameterValue = "${argument.name}.${attribute.getterName}()")
+$h3tab        queryObject.${setParameterOperation}("$hibernateUtils.concatNamesCamelCase([$argument.name, $attribute.name])", $hibernateUtils.formatHibernateQueryParameterValue($attribute.type, $parameterValue));
+#end
+#end
+#else
+#if (!$argument.type.embeddedValue)
+$h3tab        queryObject.${setParameterOperation}($count, $hibernateUtils.formatHibernateQueryParameterValue($argument.type, $argument.name));
+#else
+#foreach ($attribute in $argument.type.getAttributes(true))
+#set ($parameterValue = "${argument.name}.${attribute.getterName}()")
+#set ($count = $count + $velocityCount - 1)
+$h3tab        queryObject.${setParameterOperation}($count, $hibernateUtils.formatHibernateQueryParameterValue($attribute, $parameterValue));
+#end
+#end
+#end
+#end
+#if ($finder.returnType.collectionType || $finder.many)
+$h3tab        if (pageNumber > 0 && pageSize > 0)
+$h3tab        {
+$h3tab            queryObject.setFirstResult(this.calculateFirstResult(pageNumber, pageSize));
+$h3tab            queryObject.setMaxResults(pageSize);
+$h3tab        }
+#end
+#if ($finder.returnType.setType || !($finder.returnType.collectionType || $finder.many))
+#if ($enableTemplating)
+$h3tab        @SuppressWarnings({ "unchecked", "rawtypes" })
+#end
+$h3tab        java.util.Set<$entity.name> results = new java.util.LinkedHashSet(queryObject.getResultList());
+#else
+$h3tab        java.util.List<$entity.name> results = queryObject.getResultList();
+#end
+#if (!($finder.returnType.collectionType || $finder.many))
+$h3tab        Object result = null;
+$h3tab        if (results.size() > 1)
+$h3tab        {
+$h3tab            throw new org.springframework.dao.InvalidDataAccessResourceUsageException(
+$h3tab                "More than one instance of '${finder.getterSetterReturnTypeName}"
+$h3tab                    + "' was found when executing query --> '" + queryString + "'");
+$h3tab        }
+$h3tab        else if (results.size() == 1)
+$h3tab        {
+$h3tab            result = results.iterator().next();
+$h3tab        }
+##with this test we can use queries returning other types than collections or the entity
+$h3tab        if(transform != $entity.daoNoTransformationConstantName){
+$h3tab            result = transformEntity(transform, ($entity.fullyQualifiedName)result);
+$h3tab        }
+$h3tab        return result;
+#else
+$h3tab        transformEntities(transform, results);
+#if ($finder.returnTypePresent)
+$h3tab        return results;
+#end
+#end
+#if (!$hibernateGT3)
+        }
+        catch (${hibernateUtils.hibernatePackage}.HibernateException ex)
+        {
+            throw super.convertHibernateAccessException(ex);
+        }
+#end
+    }
+#else
+#if ($finder.returnType.collectionType)
+#set ($returnType = "${finder.getterSetterReturnTypeName}#if($enableTemplating)<?>#end")
+#elseif ($finder.many)
+#set ($returnType = "$finder.getterSetterReturnTypeName.substring(0,$finder.getterSetterReturnTypeName.indexOf('<'))<?>")
+#else
+#set ($returnType = "Object")
+#end
+    /**
+     * {@inheritDoc}
+     */
+#if ($enableAnnotations)
+    @Override
+#end
+#if ($enableTemplating && ($finder.returnType.collectionType || $finder.many))
+    @SuppressWarnings("unchecked")
+#end
+    $finder.visibility $returnType ${finder.name}(final int transform#if ($finder.returnType.collectionType || $finder.many), final int pageNumber, final int pageSize#end#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+#if ($finder.exceptionsPresent)
+        throws $finder.exceptionList
+#end
+    {
+#set($criteriaArgument = $finder.criteriaArgument)
+#set($criteriaArgumentName = $criteriaArgument.name)
+#if (!$hibernateGT3)
+        try
+        {
+#end
+$h3tab      ${hibernateNamespace}.persistence.TypedQuery cr = entityManager.createQuery(entityManager.getCriteriaBuilder().createQuery(${entity.fullyQualifiedEntityName}.class));
+$h3tab      ${customTypesPackage}.${criteriaSearchBaseName} criteriaSearch = new ${customTypesPackage}.${criteriaSearchBaseName}(this.getSession(), ${entity.fullyQualifiedEntityName}.class);
+$h3tab      criteriaSearch.getConfiguration().setFirstResult(${criteriaArgumentName}.getFirstResult());
+$h3tab      criteriaSearch.getConfiguration().setFetchSize(${criteriaArgumentName}.getFetchSize());
+$h3tab      criteriaSearch.getConfiguration().setMaximumResultSize(${criteriaArgumentName}.getMaximumResultSize());
+#if ($finder.returnType.collectionType || $finder.many)
+$h3tab      if (pageNumber > 0 && pageSize > 0)
+$h3tab      {
+$h3tab          criteriaSearch.getConfiguration().setFirstResult(new Integer(calculateFirstResult(pageNumber, pageSize)));
+$h3tab          criteriaSearch.getConfiguration().setMaximumResultSize(new Integer(pageSize));
+$h3tab      }
+#end
+#set($criteriaClass = $criteriaArgument.type)
+#foreach($criteriaAttribute in $criteriaClass.getAttributes(true))
+#if($criteriaAttribute.matchModePresent)
+#set($matchModeArgument = ", ${hibernateUtils.criterionPackage}.MatchMode.${criteriaAttribute.matchModeConstant}")
+#else
+#set($matchModeArgument = "")
+#end
+#if($criteriaAttribute.nullable)
+#set($nullableArgument = ", true")
+#else
+#set($nullableArgument = "")
+#end
+#if($criteriaAttribute.comparatorPresent)
+#set($comparatorArgument = ", ${customTypesPackage}.${criteriaSearchBaseName}Parameter.${criteriaAttribute.comparatorConstant}")
+#else
+#set($comparatorArgument = "")
+#end
+#set ($parameterName = "parameter${velocityCount}")
+$h3tab        ${customTypesPackage}.${criteriaSearchBaseName}Parameter $parameterName =
+$h3tab            new ${customTypesPackage}.${criteriaSearchBaseName}Parameter(
+$h3tab                ${criteriaArgumentName}.${criteriaAttribute.getterName}(),
+$h3tab                "${criteriaAttribute.attributeName}"${nullableArgument}${comparatorArgument}${matchModeArgument});
+#if($criteriaAttribute.orderable)
+$h3tab        ${parameterName}.setOrderDirection(${customTypesPackage}.${criteriaSearchBaseName}Parameter.$criteriaAttribute.orderDirection);
+$h3tab        ${parameterName}.setOrderRelevance($criteriaAttribute.orderRelevance);
+#end
+$h3tab        criteriaSearch.addParameter($parameterName);
+#end
+#if ($finder.returnType.setType)
+$h3tab        java.util.Set results = criteriaSearch.executeAsSet();
+#else
+$h3tab        java.util.List results = criteriaSearch.executeAsList();
+#end
+#if($finder.returnType.collectionType || $finder.many)
+$h3tab        transformEntities(transform, results);
+$h3tab        #if ($finder.returnTypePresent)return#end results;
+#else
+$h3tab        switch(results.size()){
+$h3tab            case 0: return null;
+$h3tab            case 1: return transformEntity(transform, ($entity.fullyQualifiedName)results.iterator().next());
+$h3tab            default: throw new org.hibernate.NonUniqueResultException(results.size());
+$h3tab        }
+#end
+#if (!$hibernateGT3)
+        }
+        catch (${hibernateUtils.hibernatePackage}.HibernateException ex)
+        {
+            throw super.convertHibernateAccessException(ex);
+        }
+#end
+    }
+#end
+
+#end
+## ##
+## #foreach ($finder in $queryOperations)
+## #set ($returnType = $finder.returnType.fullyQualifiedName)
+## #**##if ($finder.returnTypePresent)
+## #*  *##if ($finder.returnType.setType)
+## #set ($transformReturn = "java.util.Set")
+## #*  *##elseif ($finder.returnType.collectionType)
+## #set ($transformReturn = "java.util.List")
+## #*  *##elseif ($finder.many)
+## #set ($transformReturn = "java.util.List<$returnType>")
+## #*  *##else
+## #set ($transformReturn = "Object")
+## #*  *##end
+## #**##end
+##     /**
+##      * @see ${rootDaoType}${esc.hash}$finder.getSignature(false)
+##      */
+## #if ($javaVersion.compareTo("1.6")>-1)
+##     @Override
+## #end
+##     $finder.visibility $transformReturn $finder.signature
+## #if ($finder.exceptionsPresent)
+##         throws $finder.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
+## #else
+##         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
+## #end
+##     {
+## #set ($finderCall = "this.${finder.name}($entity.daoNoTransformationConstantName#if(!$finder.arguments.empty), ${finder.argumentNames}#end);")
+## #if ($finder.returnTypePresent)
+## #*  *##if (!$finder.returnType.collectionType || $finder.many)
+## #*    *##set ($finderCall = "($transformReturn)$finderCall")
+## #*  *##end
+##         return $finderCall
+## #else
+##         $finderCall
+## #end
+##     }
 ##
+##     /**
+##      * @see ${rootDaoType}${esc.hash}${finder.name}(String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+##      */
+## #if ($javaVersion.compareTo("1.6")>-1)
+##     @Override
+## #end
+##     $finder.visibility $transformReturn ${finder.name}(final String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+## #**##if ($finder.exceptionsPresent)
+##         throws $finder.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
+## #**##else
+##         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
+## #**##end
+##     {
+## #**##set ($finderCall = "this.${finder.name}($entity.daoNoTransformationConstantName, queryString#if(!$finder.arguments.empty), ${finder.argumentNames}#end);")
+## #**##if ($finder.returnTypePresent)
+## #*  *##if (!$finder.returnType.collectionType)
+## #*    *##set ($finderCall = "($transformReturn)$finderCall")
+## #*  *##end
+##         return $finderCall
+## #**##else
+##         $finderCall
+## #**##end
+##     }
+##
+##     /**
+##      * @see ${rootDaoType}${esc.hash}${finder.name}(int#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+##      */
+## #if ($javaVersion.compareTo("1.6")>-1)
+##     @Override
+## #end
+##     $finder.visibility#if ($finder.returnTypePresent) $transformReturn#else void#end ${finder.name}(final int transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+## #**##if ($finder.exceptionsPresent)
+##         throws $finder.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
+## #**##else
+##         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
+## #**##end
+##     {
+##         try
+##         {
+## ##             CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+## ##             CriteriaQuery<${rootEntityType}> query = builder.createQuery(${rootEntityType}.class);
+## ##             Root<${rootEntityType}> root = query.from(${rootEntityType}.class);   
+## ##             List<Predicate> predicates = new java.util.ArrayList<>();
+## ##
+## ## #**##foreach($argument in $finder.arguments)
+## ## #*  *##set ($count = $velocityCount - 1)
+## ## #*  *##set ($argumentValue = $argument.name)
+## ## #*  *##if ($argument.firstResult)
+## ##             queryObject.setFirstResult(${argument.name});
+## ## #*  *##elseif ($argument.maxResults)
+## ##             queryObject.setMaxResults(${argument.name});
+## ## #*  *##else
+## ## #if($collectionUtils.isEmpty($argument.type.attributes))
+## ## #*    *##if($argument.type.primitive)
+## ## #*      *##set ($argumentValue = "new ${argument.type.wrapperName}($argument.name)")
+## ## #*    *##else
+## ## #*      *##set ($argumentValue = "${argument.name}")
+## ## #*    *##end
+## ##             if($argumentValue != null) {
+## ## ## #*    *##if ($argument.temporalType)
+## ## ## #*      *##set ($argumentValue = "${argumentValue}, ${hibernateNamespace}.persistence.TemporalType.${argument.temporalType}")
+## ## ## #*    *##end
+## ## ## #*    *##set ($setParameterOperation = "setParameter")
+## ## ## #*    *###if ($argument.type.collectionType || $argument.type.arrayType)
+## ## ## #*      *###set ($setParameterOperation = "${setParameterOperation}List")
+## ## ## #*    *###end
+## ## #set($split = $hibernateUtils.getAttributeNameList($attribute.attributeName))
+## ## #if($split.size() == 2)
+## ## #set($targetEntity = $attribute.type.fullyQualifiedName)
+## ## #set($jointName = $attribute.name)
+## ##                 Join<${rootEntityType}, $targetEntity> join = root.join("$jointName", JoinType.INNER);
+## ##                 predicates.add(builder.equal(join.<Long>get("id"), ${argumentValue}.getId()));
+## ## #else
+## ##
+## ## #if(${argument.type.stringType})
+## ##                 predicates.add(builder.like(root.<String>get("$argument.name"), "%" + $argumentValue + "%"));
+## ## #elseif(${argument.type.enumeration})
+## ##                 predicates.add(builder.equal(root.<String>get("$argument.name"), ${argumentValue}.getValue()));
+## ## #elseif ($argument.temporalType)
+## ##                 predicates.add(builder.equal(root.<$argument.type.fullyQualifiedName>get("$argument.name"), ${argumentValue}));
+## ## #elseif(!$collectionUtils.isEmpty($argument.type.attributes))
+## ##                 // Do an inner join for $argument.name
+## ##                 if(${argumentValue}.getId() != null) {
+## ## #set($targetEntity = $stringUtils.capitalize($argument.name))
+## ## #if($argument.attributeName)
+## ## #set($split = $argument.attributeName.split(" "))
+## ## #set($targetEntity = $split.get(0))
+## ## #if($split.lenght == 2)
+## ## #set($jointName = $split.get(1))
+## ## #else
+## ## #set($jointName = $argument.name)
+## ## #end
+## ## #else
+## ## #set($targetEntity = $argument.type.fullyQualifiedName)
+## ## #set($jointName = $argument.name)
+## ## #end
+## ##                     Join<${rootEntityType}, $targetEntity> join = root.join("$jointName", JoinType.INNER);
+## ##                     predicates.add(builder.equal(join.<Long>get("id"), ${argumentValue}.getId()));
+## ##
+## ##                 }
+## ##
+## ## #else
+## ##                 predicates.add(builder.equal(root.<$argument.type.name>get("$argument.name"), "%" + $argumentValue + "%"));
+## ## #end
+## ## #end
+## ##             }
+## ## #else
+## ## #if($argument.getType().getStereotypeNames().toString().contains("Criteria"))
+## ## #foreach($attribute in $argument.type.attributes)
+## ## #*    *##if($attribute.type.primitive)
+## ## #*      *##set ($argumentValue = "new ${attribute.type.wrapperName}(${argument.name}.${attribute.getterName}())")
+## ## #*    *##else
+## ## #*      *##set ($argumentValue = "${argument.name}.${attribute.getterName}()")
+## ## #*    *##end
+## ## ## #*    *##if ($attribute.temporalType)
+## ## ## #*      *##set ($argumentValue = "${argumentValue}, ${hibernateNamespace}.persistence.TemporalType.${attribute.temporalType}")
+## ## ## #*    *##elseif ($attribute.type.enumeration)
+## ## ## #*      *##set ($argumentValue = "${argumentValue}.getValue()")
+## ## ## #*    *##end
+## ##             if($argumentValue != null) {
+## ## #*    *##set ($setParameterOperation = "setParameter")
+## ## #*    *###if ($attribute.type.collectionType || $attribute.type.arrayType)
+## ## #*      *###set ($setParameterOperation = "${setParameterOperation}List")
+## ## #*    *###end
+## ## #set($any = "'%'")
+## ## #if(${attribute.matchModeConstant} == "END")
+## ## #set($argumentValue = "$any + $argumentValue")
+## ## #elseif(${attribute.matchModeConstant} == "ANYWHERE")
+## ## #set($argumentValue = "$any + $argumentValue + $any")
+## ## #elseif(${attribute.matchModeConstant} == "END")
+## ## #set($argumentValue = "$argumentValue + $any")
+## ## #else
+## ## #set($argumentValue = "$argumentValue")
+## ## #end
+## ## #if($attribute.nullable)
+## ## #set($nullableArgument = ", true")
+## ## #else
+## ## #set($nullableArgument = "")
+## ## #end
+## ## #if(${attribute.comparatorConstant} == "NOT_EQUAL_COMPARATOR")
+## ## #set($comparatorArgument = "notEqual")
+## ## #elseif(${attribute.comparatorConstant} == "GREATER_THAN_OR_EQUAL_COMPARATOR")
+## ## #set($comparatorArgument = "ge")
+## ## #elseif(${attribute.comparatorConstant} == "GREATER_THAN_COMPARATOR")
+## ## #set($comparatorArgument = "gt")
+## ## #elseif(${attribute.comparatorConstant} == "LIKE_COMPARATOR")
+## ## #set($comparatorArgument = "like")
+## ## #elseif(${attribute.comparatorConstant} == "LESS_THAN_OR_EQUAL_COMPARATOR")
+## ## #set($comparatorArgument = "le")
+## ## #elseif(${attribute.comparatorConstant} == "LESS_THAN_COMPARATOR")
+## ## #set($comparatorArgument = "lt")
+## ## #elseif(${attribute.comparatorConstant} == "IN_COMPARATOR")
+## ## #set($comparatorArgument = "in")
+## ## #else
+## ## #set($comparatorArgument = "equal")
+## ## #end
+## ## #set($split = $hibernateUtils.getAttributeNameList($attribute.attributeName))
+## ## #if($split.size() == 2)
+## ## #set($targetEntity = $attribute.type.fullyQualifiedName)
+## ## #set($jointName = $attribute.name)
+## ##                 Join<${rootEntityType}, $targetEntity> join = root.join("$jointName", JoinType.INNER);
+## ##                 predicates.add(builder.equal(join.<Long>get("id"), ${argumentValue}.getId()));
+## ## #else
+## ## #if(${attribute.type.stringType} || ${attribute.type.enumeration})
+## ##                 predicates.add(builder.${comparatorArgument}(root.<String>get("$attribute.name"), $argumentValue));
+## ## #elseif ($attribute.temporalType)
+## ##                 predicates.add(builder.${comparatorArgument}(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), ${argumentValue}));
+## ## #elseif(!$collectionUtils.isEmpty($attribute.type.attributes))
+## ##                 // Do an inner join for $attribute.name
+## ## #if($attribute.attributeName)
+## ## #set($split = $attribute.attributeName.split(" "))
+## ## #set($targetEntity = $split.get(0))
+## ## #if($split.lenght == 2)
+## ## #set($jointName = $split.get(1))
+## ## #else
+## ## #set($jointName = $attribute.name)
+## ## #end
+## ## #else
+## ## #set($targetEntity = $attribute.type.fullyQualifiedName)
+## ## #set($jointName = $attribute.name)
+## ## #end
+## ##                 Join<${rootEntityType}, $targetEntity> join = root.join("$jointName", JoinType.INNER);
+## ##                 predicates.add(builder.equal(join.<Long>get("id"), ${argumentValue}.getId()));
+## ## #else
+## ##                 predicates.add(builder.${comparatorArgument}(root.<$attribute.type.name>get("$attribute.name"), "%" + $argumentValue + "%"));
+## ## #end
+## ## #end
+## ##             }
+## ## #end
+## ## #else
+## ##             if($argument.name != null) {
+## ##
+## ##                 Join<${rootEntityType}, $argument.type.fullyQualifiedName> join = root.join("$argument.name", JoinType.INNER);
+## ##                 predicates.add(builder.equal(join.<Long>get("id"), ${argument.name}.getId()));
+## ##             }
+## ## #end
+## ## #end
+## ## #*  *##end
+## ## #**##end
+## ## #**##if ($finder.useQueryCache && !$entity.useDefaultCacheRegion)
+## ##             queryObject.setHint("org.hibernate.cacheRegion", "/${entity.fullyQualifiedNamePath}_${finder.name}");
+## ## #**##end
+## ##             if(!predicates.isEmpty()) {
+## ##                 query.where();
+## ##                 Predicate[] pr = new Predicate[predicates.size()];
+## ##                 predicates.toArray(pr);
+## ##                 query.where(pr); 
+## ##             }
+## ##
+## #**##if ($finder.returnTypePresent)
+##             TypedQuery<${rootEntityType}> typedQuery = this.entityManager.createNamedQuery("${rootEntity.name}.${finder.name}", ${rootEntity.name}.class);
+##
+## #foreach($argument in $finder.arguments)
+## #if($argument.type.attributes.empty)
+##             // ${argument.name}
+##             typedQuery.setParameter("${argument.name}", ${argument.name});
+## #else
+## #if($hibernateUtils.isCriteriaAttribute($argument.type))
+## #foreach($attribute in $argument.type.attributes)
+##             // ${attribute.name}
+##             typedQuery.setParameter("${attribute.name}", ${argument.name}.get${stringUtils.capitalize(${attribute.name})}());
+## #end
+## #elseif($hibernateUtils.isEntity($argument.type))
+## #foreach($id in $argument.type.identifiers)
+##             // $id.name
+##             typedQuery.setParameter("${argument.name}${stringUtils.capitalize($id.name)}", ${argument.name}.get${stringUtils.capitalize($id.name)}());
+## #end
+## #end
+## #end
+##
+## #end
+## #*  *##if ($finder.returnType.setType)
+##             $transformReturn results = new java.util.LinkedHashSet(typedQuery.getResultList());
+##             transformEntities(transform, results);
+##             return results;
+## #*  *##elseif ($finder.returnType.collectionType || $finder.many)
+##             $transformReturn results = typedQuery.getResultList();
+##             transformEntities(transform, results);
+##             return results;
+## #*  *##else
+##             $transformReturn result = typedQuery.getSingleResult();
+##             result = transformEntity(transform, (${rootEntityType})result);
+##             return result;
+## #*  *##end
+## #**##else
+##             typedQuery.executeUpdate();
+## #**##end
+##         }
+##         catch (Exception ex)
+##         {
+##             throw new ${entity.fullyQualifiedDaoDefaultExceptionName}(ex);
+##         }
+##     }
+##
+##     /**
+##      * @see ${rootDaoType}${esc.hash}${finder.name}(int, String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+##      */
+## #if ($javaVersion.compareTo("1.6")>-1)
+##     @Override
+## #end
+##     $finder.visibility#if ($finder.returnTypePresent) $transformReturn#else void#end ${finder.name}(final int transform, final String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+## #**##if ($finder.exceptionsPresent)
+##         throws ${finder.exceptionList}, ${entity.fullyQualifiedDaoDefaultExceptionName}
+## #**##else
+##         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
+## #**##end
+##     {
+##         try
+##         {
+##             ${hibernateNamespace}.persistence.TypedQuery<${entity.fullyQualifiedEntityName}> queryObject = this.entityManager.createQuery(queryString, ${entity.fullyQualifiedEntityName}.class);
 ## #**##foreach($argument in $finder.arguments)
 ## #*  *##set ($count = $velocityCount - 1)
 ## #*  *##set ($argumentValue = $argument.name)
@@ -650,289 +1233,63 @@ public abstract class $entity.daoBaseName
 ## #*  *##elseif ($argument.maxResults)
 ##             queryObject.setMaxResults(${argument.name});
 ## #*  *##else
-## #if($collectionUtils.isEmpty($argument.type.attributes))
 ## #*    *##if($argument.type.primitive)
 ## #*      *##set ($argumentValue = "new ${argument.type.wrapperName}($argument.name)")
 ## #*    *##else
 ## #*      *##set ($argumentValue = "${argument.name}")
 ## #*    *##end
-##             if($argumentValue != null) {
-## ## #*    *##if ($argument.temporalType)
-## ## #*      *##set ($argumentValue = "${argumentValue}, ${hibernateNamespace}.persistence.TemporalType.${argument.temporalType}")
-## ## #*    *##end
-## ## #*    *##set ($setParameterOperation = "setParameter")
-## ## #*    *###if ($argument.type.collectionType || $argument.type.arrayType)
-## ## #*      *###set ($setParameterOperation = "${setParameterOperation}List")
-## ## #*    *###end
-## #set($split = $hibernateUtils.getAttributeNameList($attribute.attributeName))
-## #if($split.size() == 2)
-## #set($targetEntity = $attribute.type.fullyQualifiedName)
-## #set($jointName = $attribute.name)
-##                 Join<${rootEntityType}, $targetEntity> join = root.join("$jointName", JoinType.INNER);
-##                 predicates.add(builder.equal(join.<Long>get("id"), ${argumentValue}.getId()));
-## #else
-##
-## #if(${argument.type.stringType})
-##                 predicates.add(builder.like(root.<String>get("$argument.name"), "%" + $argumentValue + "%"));
-## #elseif(${argument.type.enumeration})
-##                 predicates.add(builder.equal(root.<String>get("$argument.name"), ${argumentValue}.getValue()));
-## #elseif ($argument.temporalType)
-##                 predicates.add(builder.equal(root.<$argument.type.fullyQualifiedName>get("$argument.name"), ${argumentValue}));
-## #elseif(!$collectionUtils.isEmpty($argument.type.attributes))
-##                 // Do an inner join for $argument.name
-##                 if(${argumentValue}.getId() != null) {
-## #set($targetEntity = $stringUtils.capitalize($argument.name))
-## #if($argument.attributeName)
-## #set($split = $argument.attributeName.split(" "))
-## #set($targetEntity = $split.get(0))
-## #if($split.lenght == 2)
-## #set($jointName = $split.get(1))
-## #else
-## #set($jointName = $argument.name)
-## #end
-## #else
-## #set($targetEntity = $argument.type.fullyQualifiedName)
-## #set($jointName = $argument.name)
-## #end
-##                     Join<${rootEntityType}, $targetEntity> join = root.join("$jointName", JoinType.INNER);
-##                     predicates.add(builder.equal(join.<Long>get("id"), ${argumentValue}.getId()));
-##
-##                 }
-##
-## #else
-##                 predicates.add(builder.equal(root.<$argument.type.name>get("$argument.name"), "%" + $argumentValue + "%"));
-## #end
-## #end
-##             }
-## #else
-## #if($argument.getType().getStereotypeNames().toString().contains("Criteria"))
-## #foreach($attribute in $argument.type.attributes)
-## #*    *##if($attribute.type.primitive)
-## #*      *##set ($argumentValue = "new ${attribute.type.wrapperName}(${argument.name}.${attribute.getterName}())")
-## #*    *##else
-## #*      *##set ($argumentValue = "${argument.name}.${attribute.getterName}()")
+## #*    *##if ($argument.temporalType)
+## #*      *##set ($argumentValue = "${argumentValue}, ${hibernateNamespace}.persistence.TemporalType.${argument.temporalType}")
 ## #*    *##end
-## ## #*    *##if ($attribute.temporalType)
-## ## #*      *##set ($argumentValue = "${argumentValue}, ${hibernateNamespace}.persistence.TemporalType.${attribute.temporalType}")
-## ## #*    *##elseif ($attribute.type.enumeration)
-## ## #*      *##set ($argumentValue = "${argumentValue}.getValue()")
-## ## #*    *##end
-##             if($argumentValue != null) {
 ## #*    *##set ($setParameterOperation = "setParameter")
-## #*    *###if ($attribute.type.collectionType || $attribute.type.arrayType)
+## #*    *###if ($argument.type.collectionType || $argument.type.arrayType)
 ## #*      *###set ($setParameterOperation = "${setParameterOperation}List")
 ## #*    *###end
-## #set($any = "'%'")
-## #if(${attribute.matchModeConstant} == "END")
-## #set($argumentValue = "$any + $argumentValue")
-## #elseif(${attribute.matchModeConstant} == "ANYWHERE")
-## #set($argumentValue = "$any + $argumentValue + $any")
-## #elseif(${attribute.matchModeConstant} == "END")
-## #set($argumentValue = "$argumentValue + $any")
+## #*    *##if ($finder.useNamedParameters)
+## #if($argument.type.identifier)
+## #set($id = "$argument.type.identifier.name")
+##             queryObject.${setParameterOperation}("$argument.name$stringUtils.capitalize($id)", ${argumentValue}.get$stringUtils.capitalize($id)());
 ## #else
-## #set($argumentValue = "$argumentValue")
+##             queryObject.${setParameterOperation}("$argument.name", $argumentValue);
 ## #end
-## #if($attribute.nullable)
-## #set($nullableArgument = ", true")
+## #*    *##else
+## #if($argument.type.identifier)
+## #set($id = "$argument.type.identifier.name")
+##             queryObject.${setParameterOperation}($count, ${argumentValue}.get$stringUtils.capitalize($id)());
 ## #else
-## #set($nullableArgument = "")
+##             queryObject.${setParameterOperation}($count, $argumentValue);
 ## #end
-## #if(${attribute.comparatorConstant} == "NOT_EQUAL_COMPARATOR")
-## #set($comparatorArgument = "notEqual")
-## #elseif(${attribute.comparatorConstant} == "GREATER_THAN_OR_EQUAL_COMPARATOR")
-## #set($comparatorArgument = "ge")
-## #elseif(${attribute.comparatorConstant} == "GREATER_THAN_COMPARATOR")
-## #set($comparatorArgument = "gt")
-## #elseif(${attribute.comparatorConstant} == "LIKE_COMPARATOR")
-## #set($comparatorArgument = "like")
-## #elseif(${attribute.comparatorConstant} == "LESS_THAN_OR_EQUAL_COMPARATOR")
-## #set($comparatorArgument = "le")
-## #elseif(${attribute.comparatorConstant} == "LESS_THAN_COMPARATOR")
-## #set($comparatorArgument = "lt")
-## #elseif(${attribute.comparatorConstant} == "IN_COMPARATOR")
-## #set($comparatorArgument = "in")
-## #else
-## #set($comparatorArgument = "equal")
-## #end
-## #set($split = $hibernateUtils.getAttributeNameList($attribute.attributeName))
-## #if($split.size() == 2)
-## #set($targetEntity = $attribute.type.fullyQualifiedName)
-## #set($jointName = $attribute.name)
-##                 Join<${rootEntityType}, $targetEntity> join = root.join("$jointName", JoinType.INNER);
-##                 predicates.add(builder.equal(join.<Long>get("id"), ${argumentValue}.getId()));
-## #else
-## #if(${attribute.type.stringType} || ${attribute.type.enumeration})
-##                 predicates.add(builder.${comparatorArgument}(root.<String>get("$attribute.name"), $argumentValue));
-## #elseif ($attribute.temporalType)
-##                 predicates.add(builder.${comparatorArgument}(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), ${argumentValue}));
-## #elseif(!$collectionUtils.isEmpty($attribute.type.attributes))
-##                 // Do an inner join for $attribute.name
-## #if($attribute.attributeName)
-## #set($split = $attribute.attributeName.split(" "))
-## #set($targetEntity = $split.get(0))
-## #if($split.lenght == 2)
-## #set($jointName = $split.get(1))
-## #else
-## #set($jointName = $attribute.name)
-## #end
-## #else
-## #set($targetEntity = $attribute.type.fullyQualifiedName)
-## #set($jointName = $attribute.name)
-## #end
-##                 Join<${rootEntityType}, $targetEntity> join = root.join("$jointName", JoinType.INNER);
-##                 predicates.add(builder.equal(join.<Long>get("id"), ${argumentValue}.getId()));
-## #else
-##                 predicates.add(builder.${comparatorArgument}(root.<$attribute.type.name>get("$attribute.name"), "%" + $argumentValue + "%"));
-## #end
-## #end
-##             }
-## #end
-## #else
-##             if($argument.name != null) {
-##
-##                 Join<${rootEntityType}, $argument.type.fullyQualifiedName> join = root.join("$argument.name", JoinType.INNER);
-##                 predicates.add(builder.equal(join.<Long>get("id"), ${argument.name}.getId()));
-##             }
-## #end
-## #end
+## #*    *##end
 ## #*  *##end
 ## #**##end
 ## #**##if ($finder.useQueryCache && !$entity.useDefaultCacheRegion)
 ##             queryObject.setHint("org.hibernate.cacheRegion", "/${entity.fullyQualifiedNamePath}_${finder.name}");
 ## #**##end
-##             if(!predicates.isEmpty()) {
-##                 query.where();
-##                 Predicate[] pr = new Predicate[predicates.size()];
-##                 predicates.toArray(pr);
-##                 query.where(pr); 
-##             }
+## #**##if ($finder.returnTypePresent)
+## #*  *##if ($finder.returnType.setType)
+##             $transformReturn results = new java.util.LinkedHashSet(queryObject.getResultList());
+##             transformEntities(transform, results);
+##             return results;
+## #*  *##elseif ($finder.returnType.collectionType || $finder.many)
+##             $transformReturn results = queryObject.getResultList();
+##             transformEntities(transform, results);
+##             return results;
+## #*  *##else
+##             $transformReturn result = queryObject.getSingleResult();
+##             result = transformEntity(transform, (${rootEntityType})result);
+##             return result;
+## #*  *##end
+## #**##else
+##             queryObject.executeUpdate();
+## #**##end
+##         }
+##         catch (Exception ex)
+##         {
+##             throw new ${entity.fullyQualifiedDaoDefaultExceptionName}(ex);
+##         }
+##     }
 ##
-#**##if ($finder.returnTypePresent)
-            TypedQuery<${rootEntityType}> typedQuery = this.entityManager.createNamedQuery("${rootEntity.name}.${finder.name}", ${rootEntity.name}.class);
-
-#foreach($argument in $finder.arguments)
-#if($argument.type.attributes.empty)
-            // ${argument.name}
-            typedQuery.setParameter("${argument.name}", ${argument.name});
-#else
-#if($hibernateUtils.isCriteriaAttribute($argument.type))
-#foreach($attribute in $argument.type.attributes)
-            // ${attribute.name}
-            typedQuery.setParameter("${attribute.name}", ${argument.name}.get${stringUtils.capitalize(${attribute.name})}());
-#end
-#elseif($hibernateUtils.isEntity($argument.type))
-#foreach($id in $argument.type.identifiers)
-            // $id.name
-            typedQuery.setParameter("${argument.name}${stringUtils.capitalize($id.name)}", ${argument.name}.get${stringUtils.capitalize($id.name)}());
-#end
-#end
-#end
-
-#end
-#*  *##if ($finder.returnType.setType)
-            $transformReturn results = new java.util.LinkedHashSet(typedQuery.getResultList());
-            transformEntities(transform, results);
-            return results;
-#*  *##elseif ($finder.returnType.collectionType || $finder.many)
-            $transformReturn results = typedQuery.getResultList();
-            transformEntities(transform, results);
-            return results;
-#*  *##else
-            $transformReturn result = typedQuery.getSingleResult();
-            result = transformEntity(transform, (${rootEntityType})result);
-            return result;
-#*  *##end
-#**##else
-            typedQuery.executeUpdate();
-#**##end
-        }
-        catch (Exception ex)
-        {
-            throw new ${entity.fullyQualifiedDaoDefaultExceptionName}(ex);
-        }
-    }
-
-    /**
-     * @see ${rootDaoType}${esc.hash}${finder.name}(int, String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
-     */
-#if ($javaVersion.compareTo("1.6")>-1)
-    @Override
-#end
-    $finder.visibility#if ($finder.returnTypePresent) $transformReturn#else void#end ${finder.name}(final int transform, final String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
-#**##if ($finder.exceptionsPresent)
-        throws ${finder.exceptionList}, ${entity.fullyQualifiedDaoDefaultExceptionName}
-#**##else
-        throws ${entity.fullyQualifiedDaoDefaultExceptionName}
-#**##end
-    {
-        try
-        {
-            ${hibernateNamespace}.persistence.TypedQuery<${entity.fullyQualifiedEntityName}> queryObject = this.entityManager.createQuery(queryString, ${entity.fullyQualifiedEntityName}.class);
-#**##foreach($argument in $finder.arguments)
-#*  *##set ($count = $velocityCount - 1)
-#*  *##set ($argumentValue = $argument.name)
-#*  *##if ($argument.firstResult)
-            queryObject.setFirstResult(${argument.name});
-#*  *##elseif ($argument.maxResults)
-            queryObject.setMaxResults(${argument.name});
-#*  *##else
-#*    *##if($argument.type.primitive)
-#*      *##set ($argumentValue = "new ${argument.type.wrapperName}($argument.name)")
-#*    *##else
-#*      *##set ($argumentValue = "${argument.name}")
-#*    *##end
-#*    *##if ($argument.temporalType)
-#*      *##set ($argumentValue = "${argumentValue}, ${hibernateNamespace}.persistence.TemporalType.${argument.temporalType}")
-#*    *##end
-#*    *##set ($setParameterOperation = "setParameter")
-#*    *###if ($argument.type.collectionType || $argument.type.arrayType)
-#*      *###set ($setParameterOperation = "${setParameterOperation}List")
-#*    *###end
-#*    *##if ($finder.useNamedParameters)
-#if($argument.type.identifier)
-#set($id = "$argument.type.identifier.name")
-            queryObject.${setParameterOperation}("$argument.name$stringUtils.capitalize($id)", ${argumentValue}.get$stringUtils.capitalize($id)());
-#else
-            queryObject.${setParameterOperation}("$argument.name", $argumentValue);
-#end
-#*    *##else
-#if($argument.type.identifier)
-#set($id = "$argument.type.identifier.name")
-            queryObject.${setParameterOperation}($count, ${argumentValue}.get$stringUtils.capitalize($id)());
-#else
-            queryObject.${setParameterOperation}($count, $argumentValue);
-#end
-#*    *##end
-#*  *##end
-#**##end
-#**##if ($finder.useQueryCache && !$entity.useDefaultCacheRegion)
-            queryObject.setHint("org.hibernate.cacheRegion", "/${entity.fullyQualifiedNamePath}_${finder.name}");
-#**##end
-#**##if ($finder.returnTypePresent)
-#*  *##if ($finder.returnType.setType)
-            $transformReturn results = new java.util.LinkedHashSet(queryObject.getResultList());
-            transformEntities(transform, results);
-            return results;
-#*  *##elseif ($finder.returnType.collectionType || $finder.many)
-            $transformReturn results = queryObject.getResultList();
-            transformEntities(transform, results);
-            return results;
-#*  *##else
-            $transformReturn result = queryObject.getSingleResult();
-            result = transformEntity(transform, (${rootEntityType})result);
-            return result;
-#*  *##end
-#**##else
-            queryObject.executeUpdate();
-#**##end
-        }
-        catch (Exception ex)
-        {
-            throw new ${entity.fullyQualifiedDaoDefaultExceptionName}(ex);
-        }
-    }
-
-#end
+## #end
 #foreach ($operation in $entity.daoBusinessOperations)
 #**##set ($returnType = $operation.returnType)
 #**##set ($signature = $operation.signature)
@@ -1272,7 +1629,7 @@ public abstract class $entity.daoBaseName
     /**
      * @return the context
      */
-    public jakarta.ejb.SessionContext getContext()
+    public ${hibernateNamespace}.ejb.SessionContext getContext()
     {
         return this.context;
     }
@@ -1280,7 +1637,7 @@ public abstract class $entity.daoBaseName
     /**
      * @param contextIn the context to set
      */
-    public void setContext(jakarta.ejb.SessionContext contextIn)
+    public void setContext(${hibernateNamespace}.ejb.SessionContext contextIn)
     {
         this.context = contextIn;
     }
@@ -1288,7 +1645,7 @@ public abstract class $entity.daoBaseName
     /**
      * @return the entityManager
      */
-    public jakarta.persistence.EntityManager getEntityManager()
+    public ${hibernateNamespace}.persistence.EntityManager getEntityManager()
     {
         return this.entityManager;
     }
@@ -1296,13 +1653,28 @@ public abstract class $entity.daoBaseName
     /**
      * @param entityManagerIn the entityManager to set
      */
-    public void setEntityManager(jakarta.persistence.EntityManager entityManagerIn)
+    public void setEntityManager(${hibernateNamespace}.persistence.EntityManager entityManagerIn)
     {
         this.entityManager = entityManagerIn;
     }
 
     public org.hibernate.Session getSession() {
-        return this.entityManager.unwrap(org.hibernate.Session.class);
+        return this.entityManager.getEntityManagerFactory().unwrap(org.hibernate.Session.class);
+    }
+    /**
+     * firstResult = (pageNumber - 1) * pageSize
+     * @param pageNumber
+     * @param pageSize
+     * @return firstResult
+     */
+    protected int calculateFirstResult(int pageNumber, int pageSize)
+    {
+        int firstResult = 0;
+        if (pageNumber > 0)
+        {
+            firstResult = (pageNumber - 1) * pageSize;
+        }
+        return firstResult;
     }
 }
 #end
