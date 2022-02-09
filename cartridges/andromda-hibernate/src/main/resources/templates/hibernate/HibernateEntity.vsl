@@ -66,24 +66,24 @@ $entity.getDocumentation(" * ")
 #set ($finders = $entity.getQueryOperations(false))
 #set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
 #if (!$finders.empty)
-@${hibernateNamespace}.persistence.NamedQueries
-({
-##if ($entity.genericFinders && !$entity.finderFindAllExists)
-#if (!$entity.finderFindAllExists)
-    @${hibernateNamespace}.persistence.NamedQuery(
-        name = "${entity.name}.findAll", 
-        query = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable"
-    )#if (!$finders.empty),
-#end
-#end
-#foreach ($finder in $finders)
-    @${hibernateNamespace}.persistence.NamedQuery(
-        name = "${entity.name}.${finder.name}",
-        query = ${finder.query}
-    )#if($velocityCount != $finders.size()),#end
+## @${hibernateNamespace}.persistence.NamedQueries
+## ({
+## ##if ($entity.genericFinders && !$entity.finderFindAllExists)
+## #if (!$entity.finderFindAllExists)
+##     @${hibernateNamespace}.persistence.NamedQuery(
+##         name = "${entity.name}.findAll", 
+##         query = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable"
+##     )#if (!$finders.empty),
+## #end
+## #end
+## #foreach ($finder in $finders)
+##     @${hibernateNamespace}.persistence.NamedQuery(
+##         name = "${entity.name}.${finder.name}",
+##         query = ${finder.query}
+##     )#if($velocityCount != $finders.size()),#end
 
-#end
-})
+## #end
+## })
 #else
 ##if ($entity.genericFinders)
 @${hibernateNamespace}.persistence.NamedQuery(name = "${entity.name}.findAll", query = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable")#if (!$finders.empty),#end

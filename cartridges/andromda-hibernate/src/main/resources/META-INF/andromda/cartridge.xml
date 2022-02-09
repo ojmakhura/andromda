@@ -133,6 +133,18 @@
             </modelElement>
         </modelElements>
     </template>
+
+    <!-- <template
+        path="templates/hibernate/HibernateEntityMetamodel.vsl"
+        outputPattern="$generatedFile"
+        outlet="entities"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
+            </modelElement>
+        </modelElements>
+    </template> -->
 	
     <template
         path="templates/hibernate/HibernateEntityImpl.vsl"
@@ -252,7 +264,7 @@
         </modelElements>
     </template>
 
-    <template
+    <!-- <template
         path="templates/hibernate/search/SearchParameter.java.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
@@ -263,9 +275,9 @@
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/hibernate/search/Search.java.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
@@ -276,9 +288,9 @@
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/hibernate/search/PropertySearch.java.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
@@ -289,9 +301,9 @@
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/hibernate/HibernateSearchConfiguration.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
@@ -302,9 +314,9 @@
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/hibernate/HibernateSearch.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
@@ -315,9 +327,9 @@
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/hibernate/HibernateSearchProperties.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
@@ -328,9 +340,9 @@
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/hibernate/HibernateSearchConfiguration.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
@@ -341,9 +353,9 @@
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/hibernate/HibernateSearchParameter.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
@@ -354,7 +366,7 @@
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <!--<template
         path="templates/hibernate/ejb/HibernateSessionEJBLocator.vsl"

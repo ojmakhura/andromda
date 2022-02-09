@@ -4,10 +4,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
+import org.andromda.cartridges.hibernate.metafacades.HibernateCriteriaAttribute;
+import org.andromda.cartridges.hibernate.metafacades.HibernateCriteriaSearch;
+import org.andromda.cartridges.hibernate.metafacades.HibernateEntity;
+import org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodArgument;
 
 import org.andromda.cartridges.hibernate.metafacades.HibernateGlobals;
+import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.Service;
@@ -450,5 +458,35 @@ public class HibernateUtils
     public static boolean isEntity(ClassifierFacade type) {
 
         return type.getStereotypeNames().toString().contains("Entity");
+    }
+    
+    public static Set<String> getJoinAttributes(HibernateFinderMethodArgument argument, HibernateEntity entity) {
+        
+        Set<String> entities = new HashSet<>();
+        
+        for(AttributeFacade _criteriaAttribute : argument.getType().getAttributes(true)) {
+            if(_criteriaAttribute instanceof HibernateCriteriaAttribute) {
+                HibernateCriteriaAttribute attr = (HibernateCriteriaAttribute)_criteriaAttribute;
+                if(attr.isJoinAttribute(entity)) {
+                    entities.add(attr.getJoinAttribute(entity));
+                }
+            }
+        }
+        
+        return entities;
+    }
+    
+    public static HibernateEntity getJoinAttributeType(String attributeName, HibernateEntity entity) {
+        HibernateEntity joinEntity = null;
+        
+        for(AssociationEndFacade end : entity.getAssociationEnds()) {
+            AssociationEndFacade target = end.getOtherEnd();
+            if(attributeName.equals(target.getName())) {
+               joinEntity = (HibernateEntity) target.getType();
+               break;
+            }
+        }
+        
+        return joinEntity;
     }
 }

@@ -91,11 +91,11 @@ public class $criteriaSearchBaseName
      * @param query The Hibernate TypedQuery.
      * @param resultTypeIn The <code>Class</code> of the result.
      */
-    public ${criteriaSearchBaseName}(${hibernateNamespace}.persistence.TypedQuery query,#if ($enableTemplating)@SuppressWarnings("rawtypes")#end Class resultTypeIn)
+    public ${criteriaSearchBaseName}(org.hibernate.Session session,#if ($enableTemplating)@SuppressWarnings("rawtypes")#end Class resultTypeIn)
     {
         this.configuration = new ${criteriaSearchBaseName}Configuration();
         this.resultType = resultTypeIn;
-        this.rootCriteria = query;
+        this.rootCriteria = session.createCriteria(resultTypeIn);
         this.rootCriteria.setCacheable(true);
         this.childCriteriaMap = new HashMap<String, ${hibernateUtils.hibernatePackage}.Criteria>();
         this.orderList = new ArrayList<CriteriaSearchParameter>();
@@ -166,7 +166,7 @@ public class $criteriaSearchBaseName
 #if ($enableCaching)
         this.rootCriteria.setCacheable(true);
 #end
-        return this.rootCriteria.getResultList();
+        return this.rootCriteria.list();
     }
 
     /**

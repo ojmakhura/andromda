@@ -37,11 +37,11 @@ public class $className
      * @param searchIn the object that specifies the search criteria.
      */
     public $className(
-        final ${hibernateNamespace}.persistence.TypedQuery query,
+        final org.hibernate.Session session,
         final Class<?> entityType,
         final Search searchIn)
     {
-        super(query, entityType);
+        super(session, entityType);
         this.search = searchIn;
         try
         {

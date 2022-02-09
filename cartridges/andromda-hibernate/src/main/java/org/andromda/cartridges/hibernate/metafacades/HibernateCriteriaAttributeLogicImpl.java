@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.cartridges.hibernate.HibernateUtils;
+import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -262,10 +264,9 @@ public class HibernateCriteriaAttributeLogicImpl
     }
 
     @Override
-    protected Collection<String> handleGetPredicates(HibernateEntity entity) {
+    protected Collection<String> handleGetPredicates(HibernateEntity entity, String owner) {
         
         List<String> predicates = new ArrayList<>();
-
         List<String> list = HibernateUtils.getAttributeNameList(this.getAttributeName());
 
         StringBuilder predicateBuilder = new StringBuilder();
@@ -282,17 +283,17 @@ public class HibernateCriteriaAttributeLogicImpl
         }
 
         String type = this.getType().getFullyQualifiedName();
-        String root = "root.<" + type + ">get(\"" + this.getAttributeName() + "\")";
-
-        if(list.size() > 1) {
-            
+        String root = "root.get(";
+        
+        if(this.getAttributeName().contains(".")) {
+            String[] components = this.getAttributeName().split("\\.");
+            root = components[0] + "Join.get(\"" + components[1] + "\"), ";
+        } else {
+            root = root + "\"" + this.getAttributeName() + "\"), ";
         }
         
         String comparator = "builder.equal(";
-        System.out.println("=============================> " + this.getName());
         if (this.isComparatorPresent()) {
-            System.out.println("=============================> " + this.getComparatorConstant());
-            System.out.println("Comparator =============================> " + this.getComparator());
 
             String tmp = this.getComparator();
 
@@ -336,12 +337,17 @@ public class HibernateCriteriaAttributeLogicImpl
         }
         builder.append(comparator);
         builder.append(root);
-        String q = this.getName();
+        
+        
+        String q = this.getGetterName() + "()";
+                
+        if(!StringUtils.isBlank(owner)) {
+            q = owner + "." + q;
+        }
 
         if (this.isMatchModePresent()) {
             
             String mode = this.getMatchMode();
-            System.out.println("Mode =============================> " + this.getMatchMode());
 
             if (mode.equals(HibernateProfile.TAGGEDVALUEVALUE_MATCHMODE_END)) {
                         
@@ -361,17 +367,60 @@ public class HibernateCriteriaAttributeLogicImpl
         }
 
         if(insentive) {
-            q = q.toLowerCase();
+            //q = "builder.lower(" + q + ".toLowerCase())" ;
         }
 
         builder.append(q);
 
         builder.append(")");
         predicateBuilder.append("predicate.add(");
+        System.out.println("==============> " + builder.toString());
         predicateBuilder.append(builder.toString()).append(")");
 
         predicates.add(builder.toString());
 
         return predicates;
     }
+
+    @Override
+    protected boolean handleIsJoinAttribute(HibernateEntity entity) {
+        String name = this.getAttributeName();
+        
+        if(!name.contains(".")) {
+            return false;
+        }
+        
+        String joinAttribute = name.substring(0, name.indexOf("."));
+                
+        for (AssociationEndFacade associationEnd : entity.getAssociationEnds()) {
+            AssociationEndFacade target = associationEnd.getOtherEnd();
+            if(target.getName().equals(joinAttribute)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    @Override
+    protected String handleGetJoinAttribute(HibernateEntity entity) {
+        String name = this.getAttributeName();
+        
+        if(!name.contains(".")) {
+            return null;
+        }
+        
+        String joinAttributeName = "";
+        
+        String joinAttribute = name.substring(0, name.indexOf("."));
+        for (AssociationEndFacade associationEnd : entity.getAssociationEnds()) {
+            AssociationEndFacade target = associationEnd.getOtherEnd();
+            if(target.getName().equals(joinAttribute)) {
+                return joinAttribute;
+            }
+        }
+        
+        return null;
+    }
+
 }

@@ -87,7 +87,7 @@ public abstract class $entity.daoBaseName
      * Inject DAO $entityRef.targetElement.fullyQualifiedDaoName
      */
     @${hibernateNamespace}.ejb.EJB
-    protected ${entityRef.targetElement.fullyQualifiedDaoName} $entityRef.daoName;
+    protected ${entityRef.targetElement.fullyQualifiedDaoName}Impl $entityRef.daoName;
 
 #**##end
 #end
@@ -847,72 +847,40 @@ $h3tab        return results;
     {
 #set($criteriaArgument = $finder.criteriaArgument)
 #set($criteriaArgumentName = $criteriaArgument.name)
-#if (!$hibernateGT3)
-        try
-        {
-#end
-$h3tab      ${hibernateNamespace}.persistence.TypedQuery cr = entityManager.createQuery(entityManager.getCriteriaBuilder().createQuery(${entity.fullyQualifiedEntityName}.class));
-$h3tab      ${customTypesPackage}.${criteriaSearchBaseName} criteriaSearch = new ${customTypesPackage}.${criteriaSearchBaseName}(this.getSession(), ${entity.fullyQualifiedEntityName}.class);
-$h3tab      criteriaSearch.getConfiguration().setFirstResult(${criteriaArgumentName}.getFirstResult());
-$h3tab      criteriaSearch.getConfiguration().setFetchSize(${criteriaArgumentName}.getFetchSize());
-$h3tab      criteriaSearch.getConfiguration().setMaximumResultSize(${criteriaArgumentName}.getMaximumResultSize());
-#if ($finder.returnType.collectionType || $finder.many)
-$h3tab      if (pageNumber > 0 && pageSize > 0)
-$h3tab      {
-$h3tab          criteriaSearch.getConfiguration().setFirstResult(new Integer(calculateFirstResult(pageNumber, pageSize)));
-$h3tab          criteriaSearch.getConfiguration().setMaximumResultSize(new Integer(pageSize));
-$h3tab      }
-#end
+        ${hibernateNamespace}.persistence.criteria.CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
+    	${hibernateNamespace}.persistence.criteria.CriteriaQuery<${entity.fullyQualifiedEntityName}> query = builder.createQuery(${entity.fullyQualifiedEntityName}.class);
+    	${hibernateNamespace}.persistence.criteria.Root<${entity.fullyQualifiedEntityName}> root = query.from(${entity.fullyQualifiedEntityName}.class); 
+
 #set($criteriaClass = $criteriaArgument.type)
+#foreach($joinAttribute in $hibernateUtils.getJoinAttributes($finder.criteriaArgument, $entity))
+#set ($joinType = $hibernateUtils.getJoinAttributeType($joinAttribute, $entity))
+#set($metamodel = "${entity.packageName}.${entity.name}_")
+        ${hibernateNamespace}.persistence.criteria.Join<$entity.fullyQualifiedEntityName, $joinType.fullyQualifiedEntityName> ${joinAttribute}Join = root.join("$joinAttribute");
+#end
+
+        java.util.List<${hibernateNamespace}.persistence.criteria.Predicate> predicates = new java.util.ArrayList<>();
 #foreach($criteriaAttribute in $criteriaClass.getAttributes(true))
-#if($criteriaAttribute.matchModePresent)
-#set($matchModeArgument = ", ${hibernateUtils.criterionPackage}.MatchMode.${criteriaAttribute.matchModeConstant}")
-#else
-#set($matchModeArgument = "")
+#set($getter = "get$stringUtils.capitalize($criteriaAttribute.name)()")
+        if(${criteriaArgument.name}.$getter != null) {
+#foreach($predicate in $criteriaAttribute.getPredicates($entity, "$finder.criteriaArgument.name"))
+            predicates.add($predicate);
 #end
-#if($criteriaAttribute.nullable)
-#set($nullableArgument = ", true")
-#else
-#set($nullableArgument = "")
-#end
-#if($criteriaAttribute.comparatorPresent)
-#set($comparatorArgument = ", ${customTypesPackage}.${criteriaSearchBaseName}Parameter.${criteriaAttribute.comparatorConstant}")
-#else
-#set($comparatorArgument = "")
-#end
-#set ($parameterName = "parameter${velocityCount}")
-$h3tab        ${customTypesPackage}.${criteriaSearchBaseName}Parameter $parameterName =
-$h3tab            new ${customTypesPackage}.${criteriaSearchBaseName}Parameter(
-$h3tab                ${criteriaArgumentName}.${criteriaAttribute.getterName}(),
-$h3tab                "${criteriaAttribute.attributeName}"${nullableArgument}${comparatorArgument}${matchModeArgument});
-#if($criteriaAttribute.orderable)
-$h3tab        ${parameterName}.setOrderDirection(${customTypesPackage}.${criteriaSearchBaseName}Parameter.$criteriaAttribute.orderDirection);
-$h3tab        ${parameterName}.setOrderRelevance($criteriaAttribute.orderRelevance);
-#end
-$h3tab        criteriaSearch.addParameter($parameterName);
-#end
-#if ($finder.returnType.setType)
-$h3tab        java.util.Set results = criteriaSearch.executeAsSet();
-#else
-$h3tab        java.util.List results = criteriaSearch.executeAsList();
-#end
-#if($finder.returnType.collectionType || $finder.many)
-$h3tab        transformEntities(transform, results);
-$h3tab        #if ($finder.returnTypePresent)return#end results;
-#else
-$h3tab        switch(results.size()){
-$h3tab            case 0: return null;
-$h3tab            case 1: return transformEntity(transform, ($entity.fullyQualifiedName)results.iterator().next());
-$h3tab            default: throw new org.hibernate.NonUniqueResultException(results.size());
-$h3tab        }
-#end
-#if (!$hibernateGT3)
         }
-        catch (${hibernateUtils.hibernatePackage}.HibernateException ex)
-        {
-            throw super.convertHibernateAccessException(ex);
-        }
+
 #end
+        if (!predicates.isEmpty()) {
+            query.where();
+            Predicate[] pr = new Predicate[predicates.size()];
+            pr = predicates.toArray(pr);
+            query.where(pr);
+        }
+
+        //query.orderBy(builder.asc(root.get("name")));
+        ${hibernateNamespace}.persistence.TypedQuery<${entity.fullyQualifiedEntityName}> typedQuery = this.getEntityManager().createQuery(query);
+        List<${entity.fullyQualifiedEntityName}> list = typedQuery.getResultList();
+        //this.getEntityManager().getTransaction().commit();
+
+        return list;
     }
 #end
 
