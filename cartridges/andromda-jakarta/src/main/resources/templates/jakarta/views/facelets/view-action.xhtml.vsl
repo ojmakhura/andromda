@@ -7,7 +7,7 @@
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 #set($formName = $action.formBeanName)
     <form id="${formName}" name="${formName}" role="form" method="post"
-                action="#{request.contextPath}${servletPath}${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.triggerName})">
+                action="#{request.contextPath}${servletPath}${action.controller.restPath}${action.restPath}">
 #if ($action.hyperlink)
         <a href="#" id="${action.triggerName}Action" action="#{${action.controller.beanName}.${action.triggerName}}" immediate="true" ajax="false">
             <label id="${action.triggerName}ActionMessage" value="#{messages['$action.messageKey']}"/>
@@ -84,7 +84,7 @@
 #end
             var xmlhttp = new XMLHttpRequest();
             // open request
-            xhr.open('POST', '#{request.contextPath}${servletPath}${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.triggerName})');
+            xhr.open('POST', '#{request.contextPath}${servletPath}${action.controller.restPath}${action.restPath}');
 
             // set `Content-Type` header
             xhr.setRequestHeader('Content-Type', 'application/json');

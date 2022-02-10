@@ -1336,7 +1336,7 @@ public class JakartaParameterLogicImpl
 
     @Override
     protected String handleGetRestPathParam() {
-        String pathParam = (String)this.findTaggedValue(JakartaGlobals.REST_PATH_PARAM);
+        String pathParam = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_PATH_PARAM);
         
         pathParam = AT + handleGetRestParamType() + "(\"" + pathParam + "\")";
         return pathParam;
@@ -1344,7 +1344,7 @@ public class JakartaParameterLogicImpl
 
     @Override
     protected String handleGetRestParamType() {
-        String paramType = (String)this.findTaggedValue(JakartaGlobals.REST_PARAM_TYPE);
+        String paramType = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_PARAM_TYPE);
         if (StringUtils.isBlank(paramType) || paramType.equals(DEFAULT))
         {
             paramType = EMPTY_STRING;
@@ -1365,7 +1365,7 @@ public class JakartaParameterLogicImpl
 
     @Override
     protected boolean handleIsRestEncoded() {
-        String restEncoded = (String)this.findTaggedValue(JakartaGlobals.REST_ENCODED);
+        String restEncoded = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_ENCODED);
         if (StringUtils.isBlank(restEncoded) || restEncoded.equals(DEFAULT))
         {
             restEncoded = BOOLEAN_FALSE;
@@ -1376,7 +1376,7 @@ public class JakartaParameterLogicImpl
 
     @Override
     protected String handleGetRestPathSegment() {
-        String pathSegment = (String)this.findTaggedValue(JakartaGlobals.REST_PATH_SEGMENT);
+        String pathSegment = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_PATH_SEGMENT);
         if (StringUtils.isBlank(pathSegment) || pathSegment.equals(DEFAULT))
         {
             pathSegment = EMPTY_STRING;

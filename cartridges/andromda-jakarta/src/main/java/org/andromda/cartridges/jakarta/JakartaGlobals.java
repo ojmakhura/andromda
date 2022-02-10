@@ -249,104 +249,104 @@ public class JakartaGlobals
     public static final String IMPLEMENTATION_SUFFIX = "Impl";
 
     /**
-     * REST: Is this a REST implementation?
+     * WEBSERVICE: Is this a WEBSERVICE implementation?
      */
-    public static final String REST = "andromda_REST";
+    public static final String WEBSERVICE = "andromda_webservice";
 
     /**
-     * REST: andromda_cache_type
+     * WEBSERVICE: andromda_cache_type
      */
     public static final String CACHE_TYPE = "andromda_cache_type";
 
     /**
-     * REST: andromda_REST_consumes
+     * WEBSERVICE: andromda_WEBSERVICE_consumes
      */
-    public static final String REST_CONSUMES = "andromda_REST_consumes";
+    public static final String WEBSERVICE_CONSUMES = "andromda_webservice_consumes";
 
     /**
-     * REST: andromda_REST_context
+     * WEBSERVICE: andromda_WEBSERVICE_context
      */
-    public static final String REST_CONTEXT = "andromda_REST_context";
+    public static final String WEBSERVICE_CONTEXT = "andromda_webservice_context";
 
     /**
-     * REST: andromda_REST_http_method
+     * WEBSERVICE: andromda_WEBSERVICE_http_method
      */
-    public static final String REST_HTTP_METHOD = "andromda_REST_http_method";
+    public static final String WEBSERVICE_HTTP_METHOD = "andromda_webservice_http_method";
 
     /**
-     * REST: andromda_REST_path
+     * WEBSERVICE: andromda_WEBSERVICE_path
      */
     public static final String WEBSERVICE_PATH = "andromda_webservice_path";
     
     /**
-     * REST: andromda_REST_response_status
+     * WEBSERVICE: andromda_WEBSERVICE_response_status
      */
-    public static final String REST_RESPONSE_STATUS = "andromda_REST_response_status";
+    public static final String WEBSERVICE_RESPONSE_STATUS = "andromda_webservice_response_status";
 
     /**
-     * REST: andromda_REST_produces
+     * WEBSERVICE: andromda_WEBSERVICE_produces
      */
-    public static final String REST_PRODUCES = "andromda_REST_produces";
+    public static final String WEBSERVICE_PRODUCES = "andromda_webservice_produces";
 
     /**
-     * REST: andromda_REST_provider
+     * WEBSERVICE: andromda_WEBSERVICE_provider
      */
-    public static final String REST_PROVIDER = "andromda_REST_provider";
+    public static final String WEBSERVICE_PROVIDER = "andromda_webservice_provider";
 
     /**
-     * REST: andromda_REST_request_type
+     * WEBSERVICE: andromda_WEBSERVICE_request_type
      */
-    public static final String REST_REQUEST_TYPE = "andromda_REST_request_type";
+    public static final String WEBSERVICE_REQUEST_TYPE = "andromda_webservice_request_type";
 
     /**
-     * REST: andromda_REST_retention
+     * WEBSERVICE: andromda_WEBSERVICE_retention
      */
-    public static final String REST_RETENTION = "andromda_REST_retention";
+    public static final String WEBSERVICE_RETENTION = "andromda_webservice_retention";
 
     /**
-     * REST: andromda_REST_target
+     * WEBSERVICE: andromda_WEBSERVICE_target
      */
-    public static final String REST_TARGET = "andromda_REST_target";
+    public static final String WEBSERVICE_TARGET = "andromda_webservice_target";
 
     /**
-     * REST: andromda_REST_encoded
+     * WEBSERVICE: andromda_WEBSERVICE_encoded
      */
-    public static final String REST_ENCODED = "andromda_REST_encoded";
+    public static final String WEBSERVICE_ENCODED = "andromda_webservice_encoded";
 
     /**
-     * REST: andromda_REST_part_type
+     * WEBSERVICE: andromda_WEBSERVICE_part_type
      */
-    public static final String REST_PART_TYPE = "andromda_REST_part_type";
+    public static final String WEBSERVICE_PART_TYPE = "andromda_webservice_part_type";
 
     /**
-     * REST: andromda_REST_roles_allowed
+     * WEBSERVICE: andromda_WEBSERVICE_roles_allowed
      */
-    public static final String REST_ROLES_ALLOWED = "andromda_REST_roles_allowed";
+    public static final String WEBSERVICE_ROLES_ALLOWED = "andromda_webservice_roles_allowed";
 
     /**
-     * REST: andromda_REST_suspend
+     * WEBSERVICE: andromda_WEBSERVICE_suspend
      */
-    public static final String REST_SUSPEND = "andromda_REST_suspend";
+    public static final String WEBSERVICE_SUSPEND = "andromda_webservice_suspend";
 
     /**
-     * REST: andromda_REST_parameter_URL
+     * WEBSERVICE: andromda_WEBSERVICE_parameter_URL
      */
-    public static final String REST_PARAMETER_URL = "andromda_REST_parameter_URL";
+    public static final String WEBSERVICE_PARAMETER_URL = "andromda_webservice_parameter_URL";
 
     /**
-     * REST: andromda_REST_param_type
+     * WEBSERVICE: andromda_WEBSERVICE_param_type
      */
-    public static final String REST_PARAM_TYPE = "andromda_REST_param_type";
+    public static final String WEBSERVICE_PARAM_TYPE = "andromda_webservice_param_type";
 
     /**
-     * REST: andromda_REST_path_param
+     * WEBSERVICE: andromda_WEBSERVICE_path_param
      */
-    public static final String REST_PATH_PARAM = "andromda_REST_path_param";
+    public static final String WEBSERVICE_PATH_PARAM = "andromda_webservice_path_param";
 
     /**
-     * REST: andromda_REST_path_segment
+     * WEBSERVICE: andromda_WEBSERVICE_path_segment
      */
-    public static final String REST_PATH_SEGMENT = "andromda_REST_path_segment";
+    public static final String WEBSERVICE_PATH_SEGMENT = "andromda_webservice_path_segment";
 
 
     /**

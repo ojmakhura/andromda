@@ -215,7 +215,7 @@ $action.trigger.getDocumentation("     * ")
     @${jakartaNamespace}.ws.rs.POST
 #set($params = $action.restFormParams)
 #end
-    @${jakartaNamespace}.ws.rs.Path("$jakartaUtils.toWebResourceName(${action.triggerName})")
+    @${jakartaNamespace}.ws.rs.Path("${action.restPath}")
 #if (!$action.formFields.empty)
     @${jakartaNamespace}.ws.rs.Consumes(
         {

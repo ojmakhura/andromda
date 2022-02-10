@@ -930,4 +930,20 @@ public class JakartaActionLogicImpl
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    protected String handleGetRestPath() {
+        String path = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_PATH);
+        
+        if(path != null) {
+
+            if(path.trim().length() > 0 && !path.startsWith("/")) {
+                path = "/" + path;
+            }
+
+            return path;
+        }
+
+        return "/" + JakartaUtils.toWebResourceName(this.getTriggerName());
+    }
 }

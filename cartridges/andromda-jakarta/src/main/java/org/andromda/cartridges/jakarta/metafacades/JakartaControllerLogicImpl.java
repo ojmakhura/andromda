@@ -195,7 +195,7 @@ public class JakartaControllerLogicImpl
     @Override
     protected String handleGetRestMethod() {
         
-        String method = (String)this.findTaggedValue(JakartaGlobals.REST_HTTP_METHOD);
+        String method = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_HTTP_METHOD);
         if (!(this.getRestCount()>0) || StringUtils.isBlank(method) || method.equals(DEFAULT))
         {
             method = EMPTY_STRING;
@@ -205,7 +205,7 @@ public class JakartaControllerLogicImpl
 
     @Override
     protected String handleGetRestRetention() {
-        String retention = (String)this.findTaggedValue(JakartaGlobals.REST_RETENTION);
+        String retention = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_RETENTION);
         if (!(this.getRestCount()>0) || StringUtils.isBlank(retention) || retention.equals(DEFAULT))
         {
             retention = EMPTY_STRING;
@@ -215,7 +215,7 @@ public class JakartaControllerLogicImpl
 
     @Override
     protected String handleGetRestTarget() {
-        String target = (String)this.findTaggedValue(JakartaGlobals.REST_TARGET);
+        String target = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_TARGET);
         if (!(this.getRestCount()>0) || StringUtils.isBlank(target) || target.equals(DEFAULT))
         {
             target = EMPTY_STRING;
@@ -225,7 +225,7 @@ public class JakartaControllerLogicImpl
 
     @Override
     protected String handleGetRestProvider() {
-        String provider = (String)this.findTaggedValue(JakartaGlobals.REST_PROVIDER);
+        String provider = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_PROVIDER);
         if (!(this.getRestCount()>0) || StringUtils.isBlank(provider) || provider.equals(DEFAULT))
         {
             provider = EMPTY_STRING;
@@ -235,12 +235,12 @@ public class JakartaControllerLogicImpl
 
     @Override
     protected String handleGetRestProduces() {
-        return JakartaControllerOperationLogicImpl.translateMediaType((String)this.findTaggedValue(JakartaGlobals.REST_PRODUCES));
+        return JakartaControllerOperationLogicImpl.translateMediaType((String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_PRODUCES));
     }
 
     @Override
     protected String handleGetRestConsumes() {
-        String consumes = (String)this.findTaggedValue(JakartaGlobals.REST_CONSUMES);
+        String consumes = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_CONSUMES);
         if (!(this.getRestCount()>0) || StringUtils.isBlank(consumes) || consumes.equals(DEFAULT))
         {
             consumes = EMPTY_STRING;
@@ -272,7 +272,7 @@ public class JakartaControllerLogicImpl
     @Override
     protected int handleGetRestCount() {
         int restCount = 0;
-        String rest = (String)this.findTaggedValue(JakartaGlobals.REST);
+        String rest = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE);
         for (JakartaControllerOperation operation : this.getAllowedOperations())
         {
             if (StringUtils.isNotBlank(rest) && (operation.isRest() || rest.equals(BOOLEAN_TRUE)))
@@ -286,7 +286,7 @@ public class JakartaControllerLogicImpl
     @Override
     protected Collection<String> handleGetRestContexts() {
         List<String> contexts = new ArrayList<String>();
-        String context = (String)this.findTaggedValue(JakartaGlobals.REST_CONTEXT);
+        String context = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_CONTEXT);
         if (!(this.getRestCount()>0) || StringUtils.isBlank(context) || context.equals(DEFAULT))
         {
             context = EMPTY_STRING;
@@ -308,33 +308,18 @@ public class JakartaControllerLogicImpl
 
     @Override
     protected String handleGetRestPath() {
-        String path = (String)this.findTaggedValue(JakartaGlobals.REST_PATH);
-        if (StringUtils.isBlank(path))
-        {
-            path = EMPTY_STRING;
-        }
-
-        if (!(this.getRestCount()>0) || StringUtils.isBlank(path) || path.equals(DEFAULT))
-        {
-            path = SLASH + JakartaUtils.toWebResourceName(this.getName().toLowerCase());
-        }
-        else
-        {
-            if (!path.startsWith(QUOTE))
-            {
-                path = path;
-            }
-            if (!path.endsWith(QUOTE) || path.length()<2)
-            {
-                path = path;
-            }
-        }
-
-        if(!path.startsWith(SLASH)) {
-            path = SLASH + path;
-        }
+        String path = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_PATH);
         
-        return path;
+        if(path != null) {
+
+            if(path.trim().length() > 0 && !path.startsWith("/")) {
+                path = SLASH + path;
+            }
+
+            return path;
+        }
+
+        return SLASH + JakartaUtils.toWebResourceName(this.getName());
     }
 
     @Override

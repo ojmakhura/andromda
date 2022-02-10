@@ -248,7 +248,7 @@ public class JakartaControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestResponseStatus() {
-        String responseStatus = (String) this.findTaggedValue(JakartaGlobals.REST_RESPONSE_STATUS);
+        String responseStatus = (String) this.findTaggedValue(JakartaGlobals.WEBSERVICE_RESPONSE_STATUS);
         if(responseStatus == null) {
             return "";
         }
@@ -263,10 +263,10 @@ public class JakartaControllerOperationLogicImpl
 
     @Override
     protected boolean handleIsRest() {
-        String rest = (String)this.findTaggedValue(JakartaGlobals.REST);
+        String rest = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE);
         if (StringUtils.isBlank(rest) || rest.equals(DEFAULT))
         {
-            rest = (String)this.getOwner().findTaggedValue(JakartaGlobals.REST);
+            rest = (String)this.getOwner().findTaggedValue(JakartaGlobals.WEBSERVICE);
             if (StringUtils.isBlank(rest) || rest.equals(DEFAULT))
             {
                 rest = BOOLEAN_FALSE;
@@ -277,7 +277,7 @@ public class JakartaControllerOperationLogicImpl
 
     @Override
     protected String handleGetRolesAllowed() {
-        String rolesAllowed = (String)this.findTaggedValue(JakartaGlobals.REST_ROLES_ALLOWED);
+        String rolesAllowed = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_ROLES_ALLOWED);
         if (!this.isRest() || StringUtils.isBlank(rolesAllowed) || rolesAllowed.equals(DEFAULT))
         {
             rolesAllowed = EMPTY_STRING;
@@ -287,7 +287,7 @@ public class JakartaControllerOperationLogicImpl
 
     @Override
     protected int handleGetRestSuspend() {
-        String suspend = (String)this.findTaggedValue(JakartaGlobals.REST_SUSPEND);
+        String suspend = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_SUSPEND);
         if (!this.isRest() || StringUtils.isBlank(suspend) || suspend.equals(DEFAULT) || !StringUtils.isNumeric(suspend))
         {
             return 0;
@@ -298,7 +298,7 @@ public class JakartaControllerOperationLogicImpl
     @Override
     protected String handleGetRestPartType() {
         
-        String partType = (String)this.findTaggedValue(JakartaGlobals.REST_PART_TYPE);
+        String partType = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_PART_TYPE);
         if (!this.isRest() || StringUtils.isBlank(partType) || partType.equals(DEFAULT))
         {
             partType = EMPTY_STRING;
@@ -308,7 +308,7 @@ public class JakartaControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestProvider() {
-        String provider = (String)this.findTaggedValue(JakartaGlobals.REST_PROVIDER);
+        String provider = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_PROVIDER);
         if (!this.isRest() || StringUtils.isBlank(provider) || provider.equals(DEFAULT))
         {
             provider = EMPTY_STRING;
@@ -318,7 +318,7 @@ public class JakartaControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestProduces() {
-        String provider = (String)this.findTaggedValue(JakartaGlobals.REST_PROVIDER);
+        String provider = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_PROVIDER);
         if (!this.isRest() || StringUtils.isBlank(provider) || provider.equals(DEFAULT))
         {
             provider = EMPTY_STRING;
@@ -332,7 +332,7 @@ public class JakartaControllerOperationLogicImpl
     @Override
     protected String handleGetRestConsumes() {
 
-        String consumes = (String)this.findTaggedValue(JakartaGlobals.REST_CONSUMES);
+        String consumes = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_CONSUMES);
         if (!this.isRest() || StringUtils.isBlank(consumes) || consumes.equals(DEFAULT))
         {
             consumes = EMPTY_STRING;
@@ -346,7 +346,7 @@ public class JakartaControllerOperationLogicImpl
 
     @Override
     protected boolean handleIsRestEncoded() {
-        String restEncoded = (String)this.findTaggedValue(JakartaGlobals.REST_ENCODED);
+        String restEncoded = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_ENCODED);
         if (!this.isRest() || StringUtils.isBlank(restEncoded) || restEncoded.equals(DEFAULT))
         {
             restEncoded = BOOLEAN_FALSE;
@@ -366,7 +366,7 @@ public class JakartaControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestRequestType() {
-        String requestType = (String)this.findTaggedValue(JakartaGlobals.REST_REQUEST_TYPE);
+        String requestType = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_REQUEST_TYPE);
         if (!this.isRest() || StringUtils.isBlank(requestType) || requestType.equals(DEFAULT))
         {
             requestType = POST;
@@ -380,7 +380,7 @@ public class JakartaControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestPath() {
-        String path = (String)this.findTaggedValue(JakartaGlobals.REST_PATH);
+        String path = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_PATH);
         StringBuilder pathBuffer = new StringBuilder();
         if (!this.isRest() || StringUtils.isBlank(path) || path.equals(DEFAULT))
         {
