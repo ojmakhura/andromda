@@ -57,6 +57,10 @@ public class MetafacadeWebProfile {
     public static final String TAGGEDVALUE_TABLE_PAGEABLE = PROFILE.get("TABLE_PAGEABLE");
     /** VIEW_TYPE */
     public static final String TAGGEDVALUE_VIEW_TYPE = PROFILE.get("VIEW_TYPE");
+    /** VIEW_TYPE */
+    public static final String TAGGEDVALUE_VIEW_PATH = PROFILE.get("VIEW_PATH");
+    /** VIEW_TYPE */
+    public static final String TAGGEDVALUE_VIEW_FILENAME = PROFILE.get("VIEW_FILENAME");
     /** ACTION_FORM_RESET */
     public static final String TAGGEDVALUE_ACTION_FORM_RESET = PROFILE.get("ACTION_FORM_RESET");
     /** ACTION_SUCCESS_MESSAGE */

@@ -183,11 +183,14 @@ $action.trigger.getDocumentation("     * ")
         
 #else
 #if ($formPopulationOperationRequired)
-        final $action.fullyQualifiedFormImplementationName form =
-            this.get${stringUtils.capitalize($action.formBeanName)}();
+## #if (!$action.formFields.empty)
+##         final $action.fullyQualifiedFormImplementationName form = $action.formBeanName;
+## #else
+        final $action.fullyQualifiedFormImplementationName form = this.get${stringUtils.capitalize($action.formBeanName)}();
+## #end
 #foreach($field in $action.formFields)
 #if($field.actionParameter)
-        form.set${stringUtils.capitalize($field.name)}(get${stringUtils.capitalize($action.formBeanName)}().get${stringUtils.capitalize($field.name)}());
+        form.set${stringUtils.capitalize($field.name)}(${action.formBeanName}.get${stringUtils.capitalize($field.name)}());
 #end
 #end
 

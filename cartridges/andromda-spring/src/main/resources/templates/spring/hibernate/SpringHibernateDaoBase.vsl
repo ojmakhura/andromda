@@ -1047,7 +1047,7 @@ $oldXmlIndent        }
 #if ($finder.returnType.collectionType|| $finder.many)
         #if ($finder.returnTypePresent)return#end this.${finder.name}(transform, -1, -1#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
 #else
-        #if ($finder.returnTypePresent)return#end this.${finder.name}(transform, "$finder.getQuery($entity)"#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
+        #if ($finder.returnTypePresent)return#end this.${finder.name}(transform, $finder.getQuery($entity)#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
 #end
     }
 #end
@@ -1142,7 +1142,7 @@ $oldXmlIndent        }
         throws $finder.exceptionList
 #end
     {
-        #if ($finder.returnTypePresent)return#end this.${finder.name}(transform, "$finder.getQuery($entity)", pageNumber, pageSize#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
+        #if ($finder.returnTypePresent)return#end this.${finder.name}(transform, $finder.getQuery($entity), pageNumber, pageSize#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
     }
 
 #elseif ($finder.returnTypePresent)

@@ -319,6 +319,20 @@ public class UMLProfile
      */
     public static final String TAGGEDVALUE_PRESENTATION_CONTROLLER_USECASE = profile.get(
         "PRESENTATION_CONTROLLER_USECASE");
+        
+    /**
+     * 'andromda_presentation_controller_path'
+     * Used to assign the controller to the activity (when it can not be assigned explicitly).
+     */
+    public static final String TAGGEDVALUE_PRESENTATION_CONTROLLER_PATH = profile.get(
+        "PRESENTATION_CONTROLLER_PATH");
+        
+    /**
+     * 'andromda_presentation_controller_filename'
+     * Used to assign the controller to the activity (when it can not be assigned explicitly).
+     */
+    public static final String TAGGEDVALUE_PRESENTATION_CONTROLLER_FILENAME = profile.get(
+        "PRESENTATION_CONTROLLER_FILENAME");
 
     /**
      * 'andromda_presentation_view_table_columns'
@@ -341,6 +355,20 @@ public class UMLProfile
      */
     public static final String TAGGEDVALUE_PRESENTATION_USECASE_ACTIVITY = profile.get(
         "PRESENTATION_USECASE_ACTIVITY");
+        
+    /**
+     * 'andromda_presentation_usecase_path'
+     * Used to associate an activity to a use case (when it can not be assigned explicitly).
+     */
+    public static final String TAGGEDVALUE_PRESENTATION_USECASE_PATH = profile.get(
+        "PRESENTATION_USECASE_PATH");
+
+    /**
+     * 'andromda_presentation_usecase_filename'
+     * Used to associate an activity to a use case (when it can not be assigned explicitly).
+     */
+    public static final String TAGGEDVALUE_PRESENTATION_USECASE_FILENAME = profile.get(
+        "PRESENTATION_USECASE_FILENAME");
 
     /**
      * 'andromda_webservice_style'

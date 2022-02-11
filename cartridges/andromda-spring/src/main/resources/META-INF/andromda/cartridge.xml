@@ -15,6 +15,7 @@
         <property reference="richClient"/>
     </templateObject>
     <templateObject name="entityUtils" className="org.andromda.metafacades.uml.EntityMetafacadeUtils"/>
+    <templateObject name="umlMetafacadeUtils" className="org.andromda.metafacades.uml.UMLMetafacadeUtils"/>
     <templateObject name="escapeUtils" className="org.apache.commons.text.StringEscapeUtils"/>
     <templateObject name="hibernateUtils" className="org.andromda.cartridges.spring.SpringHibernateUtils">
         <property reference="hibernateVersion"/>
