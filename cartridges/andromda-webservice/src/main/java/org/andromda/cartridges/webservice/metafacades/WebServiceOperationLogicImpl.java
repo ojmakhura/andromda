@@ -274,7 +274,7 @@ public class WebServiceOperationLogicImpl
         }
 
         StringBuilder pathBuffer = new StringBuilder();
-        if (!this.isRest() || path.equals(DEFAULT))
+        if (path.equals(DEFAULT))
         {
             path = this.getName().toLowerCase();
         }
@@ -492,7 +492,7 @@ public class WebServiceOperationLogicImpl
     protected String handleGetRestRequestType()
     {
         String requestType = (String)this.findTaggedValue(WebServiceGlobals.REST_REQUEST_TYPE);
-        if (!this.isRest() || StringUtils.isBlank(requestType) || requestType.equals(DEFAULT))
+        if (StringUtils.isBlank(requestType) || requestType.equals(DEFAULT))
         {
             requestType = POST;
         }
