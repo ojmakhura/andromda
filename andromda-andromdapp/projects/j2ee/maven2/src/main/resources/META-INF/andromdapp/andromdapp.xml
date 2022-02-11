@@ -475,7 +475,6 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 <shortText>Web interface technology</shortText>
                 <preconditions type="and">
                     <condition id="web" equal="true"/>
-                    <condition id="transactionPersistenceType" equal="hibernate"/>
                 </preconditions>
                 <responses type="java.lang.String">
                     <response>jsf</response>
@@ -514,7 +513,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     </condition>
                 </conditions>
             </prompt>
-            <prompt id="webType">
+            <!-- <prompt id="webType">
                 <text>Would you like your web user interface to use JSF, struts, JakartaMVC or Angular?</text>
                 <shortText>Web interface technology</shortText>
                 <preconditions type="and">
@@ -546,7 +545,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                         <setProperty type="java.lang.Boolean" id="struts">true</setProperty>
                     </condition>
                 </conditions>
-            </prompt>
+            </prompt> -->
             <prompt id="ngrx">
                 <text>Would you like to use NgRX in your angular frontend?</text>
                 <shortText>NgRX</shortText>

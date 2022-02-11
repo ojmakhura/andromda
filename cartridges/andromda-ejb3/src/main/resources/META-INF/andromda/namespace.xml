@@ -1307,6 +1307,9 @@
                       <li>was7</li>
                       <li>was61</li>
                       <li>wasce2</li>
+                      <li>glassfish6</li>
+                      <li>glassfish5</li>
+                      <li>glassfish4</li>
                       <li>glassfish3</li>
                       <li>glassfish2</li>
                       <li>weblogic11</li>
@@ -1364,6 +1367,17 @@
                     Specifies the default persistence context
                     unit name associated with the default Entity
                     Manager.
+                </documentation>
+            </property>
+            <property name="hibernateNamespace">
+                <default>javax</default>
+                <documentation>
+                    The namespace of Hibernate to use when generating.
+                    <ul>
+                        Allowable values are:
+                        <li>javax - Jakarta javax Namespace</li>
+                        <li>jakarta - Jakarta jakarta Namespace</li>
+                    </ul>
                 </documentation>
             </property>
             <property name="hibernateVersion">
