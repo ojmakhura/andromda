@@ -852,12 +852,11 @@ $h3tab        return results;
     	${hibernateNamespace}.persistence.criteria.Root<${entity.fullyQualifiedEntityName}> root = query.from(${entity.fullyQualifiedEntityName}.class); 
 
 #set($criteriaClass = $criteriaArgument.type)
-#foreach($joinAttribute in $hibernateUtils.getJoinAttributes($finder.criteriaArgument, $entity))
-#set ($joinType = $hibernateUtils.getJoinAttributeType($joinAttribute, $entity))
-#set($metamodel = "${entity.packageName}.${entity.name}_")
-        ${hibernateNamespace}.persistence.criteria.Join<$entity.fullyQualifiedEntityName, $joinType.fullyQualifiedEntityName> ${joinAttribute}Join = root.join("$joinAttribute");
-#end
-
+## #foreach($joinAttribute in $hibernateUtils.getJoinAttributes($finder.criteriaArgument, $entity))
+## #set ($joinType = $hibernateUtils.getJoinAttributeType($joinAttribute, $entity))
+## #set($metamodel = "${entity.packageName}.${entity.name}_")
+##         ${hibernateNamespace}.persistence.criteria.Join<$entity.fullyQualifiedEntityName, $joinType.fullyQualifiedEntityName> ${joinAttribute}Join = root.join("$joinAttribute");
+## #end
         java.util.List<${hibernateNamespace}.persistence.criteria.Predicate> predicates = new java.util.ArrayList<>();
 #foreach($criteriaAttribute in $criteriaClass.getAttributes(true))
 #set($getter = "get$stringUtils.capitalize($criteriaAttribute.name)()")

@@ -287,7 +287,16 @@ public class HibernateCriteriaAttributeLogicImpl
         
         if(this.getAttributeName().contains(".")) {
             String[] components = this.getAttributeName().split("\\.");
-            root = components[0] + "Join.get(\"" + components[1] + "\"), ";
+            //root = components[0] + "Join.get(\"" + components[1] + "\"), ";
+            for (int i = 0; i < components.length; i++) {
+                root = root + "\"" + components[i] + "\")";
+
+                if(i < components.length - 1) {
+                    root = root + ".get(";
+                } else {
+                    root = root + ", ";
+                }
+            }
         } else {
             root = root + "\"" + this.getAttributeName() + "\"), ";
         }
