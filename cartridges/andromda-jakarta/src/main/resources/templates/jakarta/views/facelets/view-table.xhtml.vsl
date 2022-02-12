@@ -22,17 +22,9 @@
 #set ($tableColumnActions = $table.getTableColumnActions($columnName))
 #if (!$tableColumnActions.empty)
 #set ($action = $tableColumnActions.iterator().next())
-            <h:commandLink id="${action.triggerName}Action" action="#{${action.controller.beanName}.${action.triggerName}}" immediate="true">
-                <h:outputText id="${action.triggerName}ActionMessage" value="#{row.${columnName}}">
-#if ($column.type.dateType)
-                    <f:convertDateTime pattern="$column.format"/>
-#end
-                </h:outputText>
-#renderTableCommandLinkParameters("                ")
-#if($ajax)
-                <f:ajax execute="@this" render="@all"/>
-#end
-            </h:commandLink>
+            <a href="#{request.contextPath}${servletPath}${action.controller.restPath}${action.restPath}?${columnName}=#{row.${columnName}}">
+                #{row.${columnName}}
+            </a>
 #else
             <h:outputText id="${columnId}" value="#{row.${columnName}}">
 #if ($column.type.dateType)
@@ -69,7 +61,7 @@
 #end
 #set ($urlParams = "$urlParams$parameter.name=#{$parameterValue}")
 #end
-            <h:commandLink id="${action.triggerName}Action" value="#{messages['$action.trigger.messageKey']}" action="#{request.contextPath}${servletPath}${action.controller.restPath}/$jakartaUtils.toWebResourceName(${action.triggerName})/$urlParams" immediate="true">
+            <h:commandLink id="${action.triggerName}Action" value="#{messages['$action.trigger.messageKey']}" action="#{request.contextPath}${servletPath}${action.controller.restPath}/${action.restPath}/$urlParams" immediate="true">
 #renderTableCommandLinkParameters("             ")
 #if($ajax)
                 <f:ajax execute="@this" render="@all"/>
