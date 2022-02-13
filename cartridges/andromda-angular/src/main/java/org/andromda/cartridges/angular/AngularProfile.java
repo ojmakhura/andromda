@@ -96,6 +96,8 @@ public class AngularProfile
     public static final String ANDROMDA_MANAGEABLE_ATTRIBUTE_IGNORE = PROFILE.get("ATTRIBUTE_IGNORE");
     /** DISPLAY */
     public static final String ANDROMDA_MANAGEABLE_ATTRIBUTE_DISPLAY = PROFILE.get("ATTRIBUTE_DISPLAY");
+    /** TARGET_URL */
+    public static final String ANDROMDA_MANAGEABLE_TARGET_URL = PROFILE.get("TARGET_URL");
     
     /** ACTION_FORM_SCOPE */
     public static final String ACTION_FORM_SCOPE = PROFILE.get("ACTION_FORM_SCOPE");

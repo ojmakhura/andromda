@@ -299,4 +299,10 @@ public class AngularControllerLogicImpl
         
         return controllers;
     }
+
+    @Override
+    protected String handleGetTargetUrl() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
