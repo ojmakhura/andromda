@@ -112,6 +112,12 @@
                     is in a language other than english.
                 </documentation>
             </property>
+            <property name="secure">
+                <default>false</default>
+                <documentation>
+                    This turns on/off the use of security features in the application
+                </documentation>
+            </property>
             <property name="pluralizeAttributeNames">
                 <default>true</default>
                 <documentation>

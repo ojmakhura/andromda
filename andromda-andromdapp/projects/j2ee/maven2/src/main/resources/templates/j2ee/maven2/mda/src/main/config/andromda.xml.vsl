@@ -133,6 +133,9 @@
                 <property name="hibernateVersion">${hibernate.version}</property>
                 <property name="hibernateEntityAnnotations">true</property>
 #end
+#if($secure)
+                <property name="secure">true</property>
+#end
                 <property name="persistenceContainerName">jboss</property>
                 <property name="appServer">jboss</property>
                 <!-- Override default @todo to set to Eclipse default>

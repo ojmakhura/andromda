@@ -670,6 +670,14 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     </condition>
                  </conditions>
             </prompt>
+            <prompt id="secure" setResponseAsTrue="true">
+                <text>Would you like to to secure your applications?</text>
+                <shortText>Application Security</shortText>
+                <responses type="java.lang.Boolean">
+                    <response>yes</response>
+                    <response>no</response>
+                </responses>
+            </prompt>
             <!-- This determines dependency versions, which dependencies are bundled or provided, jee version, and which configuration files are created >
             <prompt id="deploymentPlatform" setResponseAsTrue="true">
                 <text>What application deployment platform runtime/version do you want to use?</text>
