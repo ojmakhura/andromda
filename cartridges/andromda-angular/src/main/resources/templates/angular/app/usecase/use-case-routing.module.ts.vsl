@@ -8,7 +8,7 @@ import { Shell } from '@app/shell/shell.service';
 import { ${useCase.componentName} } from '@app/${useCase.path}.component';
 
 #if($secure)
-import { AuthGuard } from '@app/auth/auth.guard';
+import { AuthenticationGuard } from '@app/auth';
 #end
 
 #foreach($view in $useCase.views)
@@ -20,7 +20,7 @@ const routes: Routes = [
       path: '', 
       component: ${useCase.componentName}, 
 #if($secure)
-      canActivate: [AuthGuard],
+      canActivate: [AuthenticationGuard],
 #end
       data: { title: marker('${useCase.titleValue}') } 
   },
@@ -29,7 +29,7 @@ const routes: Routes = [
       path: '${view.routerPath}', 
       component: ${view.componentImplementationName}, 
 #if($secure)
-      canActivate: [AuthGuard],
+      canActivate: [AuthenticationGuard],
 #end
       data: { title: marker('${stringUtils.toPhrase(${view.name})}') } 
   },
