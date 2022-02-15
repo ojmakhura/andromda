@@ -413,6 +413,12 @@
                     this means that the session will be persisted and restored.
                 </documentation>
             </property>
+            <property name="ngrx">
+                <default>false</default>
+                <documentation>
+                    Whether or not to use NgRX
+                </documentation>
+            </property>
             <property name="stateSavingMethod">
                 <default>client</default>
                 <documentation>

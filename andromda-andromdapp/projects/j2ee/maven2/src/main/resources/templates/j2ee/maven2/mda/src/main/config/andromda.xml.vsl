@@ -590,6 +590,9 @@
                 <property name="wsdlSoapAddress">http://${service.host}:${service.port}/${application.id}-ws/services</property>
                 <property name="jaxb-gen">${common.generated.dir}</property>
 #end
+#if($ngrx)
+                <property name="ngrx">true</property>
+#end
             </properties>
         </namespace>
 #end

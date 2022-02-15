@@ -10,9 +10,10 @@
       <mat-toolbar color="primary">
         <span translate>application.name</span>
         <div fxFlex></div>
+#if($secure)
         <div>
           <!-- Uncomment if you are using authentication -->
-          <!-- <button mat-icon-button [matMenuTriggerFor]="userMenu">
+          <button mat-icon-button [matMenuTriggerFor]="userMenu">
             <mat-icon>person</mat-icon>
           </button>
           <mat-menu #userMenu="matMenu">
@@ -23,8 +24,9 @@
               <mat-divider></mat-divider>
             </mat-list>
             <button mat-menu-item (click)="logout()" translate>Logout</button>
-          </mat-menu> -->
+          </mat-menu>
         </div>
+#end
         <app-language-selector [icon]="true"></app-language-selector>
       </mat-toolbar>
       <nav>

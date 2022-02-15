@@ -56,9 +56,56 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
     }
 
     doNgAfterViewInit() {
-      
     }
 
     handleFormChanges(change: any) {
     }
+
+#if ($view.nonTableVariablesPresent)
+#set ($complex = [])
+#set ($simple = [])
+#foreach ($variable in $view.variables)
+#if(!$variable.table)
+#if ($variable.complex)
+#set($rt = $complex.add($variable))
+#else
+#set($rt = $simple.add($variable))
+#end
+#end
+#end
+    /**
+     * This method may be overwritten
+     */
+    afterSet$stringUtils.capitalize(${view.varsFormName})(form: $stringUtils.capitalize($view.varsFormName)): void {
+
+    }
+
+#end
+#foreach ($action in $view.actions)
+#if (!$action.tableLink)
+    /**
+     * This method may be overwritten
+     */
+    afterSet$stringUtils.capitalize(${action.formName})(form: $stringUtils.capitalize($action.formName)): void {
+
+    }
+#set ($afterAction = "after$stringUtils.capitalize(${action.triggerName})")
+#set ($beforeAction = "before$stringUtils.capitalize(${action.triggerName})")
+
+    /**
+     * This method may be overwritten
+     */
+    ${beforeAction}(#if(!$action.formFields.empty)form: $stringUtils.capitalize($action.formName)#end): void {
+
+    }
+
+    /**
+     * This method may be overwritten
+     */
+    ${afterAction}(#if(!$action.formFields.empty)form: $stringUtils.capitalize($action.formName)#end): void {
+
+    }
+    
+#end
+#end
 }

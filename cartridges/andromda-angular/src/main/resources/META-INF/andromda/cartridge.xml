@@ -18,6 +18,7 @@
     <templateObject name="umlUtils" className="org.andromda.metafacades.uml.UMLMetafacadeUtils"/>
     <templateObject name="angularUtils" className="org.andromda.cartridges.angular.AngularUtils"/>
     <templateObject name="webServiceUtils" className="org.andromda.cartridges.webservice.WebServiceUtils"/>
+    <templateObject name="metafacadeWebUtils" className="org.andromda.metafacades.uml.web.MetafacadeWebUtils"/>
     <templateObject name="escTool" className="org.apache.velocity.tools.generic.EscapeTool"/>
     
     
@@ -66,6 +67,7 @@
     <property reference="crudDetailsSuffix"/>
     <property reference="webserviceStack"/>
 	<property reference="secure"/>
+	<property reference="ngrx"/>
 
     <!-- cartridge-property merge-point -->
 
@@ -318,6 +320,62 @@
             <modelElement>
                 <type name="org.andromda.cartridges.angular.metafacades.AngularView">
                     <property name="popup">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/angular/app/usecase/store/action.store.ts.vsl"
+        outputPattern="${path}/${fileName}.ts"
+        outlet="view-impls"
+        overwrite="false">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
+                    <property name="useCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/angular/app/usecase/store/reducer.store.ts.vsl"
+        outputPattern="${path}/${fileName}.ts"
+        outlet="view-impls"
+        overwrite="false">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
+                    <property name="useCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/angular/app/usecase/store/selector.store.ts.vsl"
+        outputPattern="${path}/${fileName}.ts"
+        outlet="view-impls"
+        overwrite="false">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
+                    <property name="useCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/angular/app/usecase/store/effect.store.ts.vsl"
+        outputPattern="${path}/${fileName}.ts"
+        outlet="view-impls"
+        overwrite="false">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
+                    <property name="useCase"/>
                 </type>
             </modelElement>
         </modelElements>

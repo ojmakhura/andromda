@@ -27,7 +27,7 @@ export class $class.name {
     $attribute.name: ${attribute.type.name} = <${attribute.type.name}>{
 #foreach($attr in ${attribute.type.attributes})
 #if($attr.many || $angularUtils.isArray($attr.getterSetterTypeName))
-#set ($def = "new Array<$attr.angularTypeName>()")
+#set ($def = "new Array()")
 #else
 #set ($def = "null")
 #end
@@ -37,7 +37,7 @@ export class $class.name {
 #else
 #set ($default = "$attribute.defaultValue")
 #if($attribute.many)
-#set ($default = "new Array<$attribute.angularTypeName>()")
+#set ($default = "new Array()")
 #end
     $attribute.name: $attribute.angularTypeName#if($attribute.many)[]#end = $default;
 #end

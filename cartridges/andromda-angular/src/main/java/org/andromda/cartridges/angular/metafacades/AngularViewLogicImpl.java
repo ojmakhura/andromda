@@ -485,12 +485,13 @@ public class AngularViewLogicImpl extends AngularViewLogic {
     @Override
     protected String handleGetSelectorName() {
         String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
-        return phrase.replace(" ", "-");
+        return "app-" + phrase.replace(" ", "-");
     }
 
     @Override
     protected String handleGetRouterPath() {
-        return this.getSelectorName().replace("-", "");
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace("-", "");
     }
 
     @Override
