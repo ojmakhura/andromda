@@ -244,7 +244,7 @@
     <template
         path="templates/angular/app/controller/controller.impl.ts.vsl"
         outputPattern="${controller.implementationFilePath}.ts"
-        outlet="controllers"
+        outlet="controller-impls"
         overwrite="true">
         <modelElements variable="controller">
             <modelElement>
