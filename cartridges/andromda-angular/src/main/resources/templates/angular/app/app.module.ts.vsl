@@ -41,7 +41,7 @@ import { AppComponent } from './app.component';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
-import { ConnectFormDirective } from './connect-form.directive';
+//import { ConnectFormDirective } from './connect-form.directive';
 #end
 ##foreach ($useCase in $useCases)
 ##renderImports($useCase)
@@ -75,9 +75,6 @@ $secure
 @NgModule({
     declarations: [
         AppComponent,
-#if($ngrx)
-        ConnectFormDirective,
-#end
     ],
     imports: [
         BrowserModule,
