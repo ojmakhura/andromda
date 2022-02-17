@@ -25,6 +25,7 @@ import { $import.componentImplementationName } from '@app/${import.implementatio
 #end
 #if($ngrx)
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 import { ${stringUtils.uncapitalize(${useCase.actionClassName})}Feature } from './store/${stringUtils.uncapitalize(${useCase.actionClassName})}.reducer';
 #end
 
@@ -41,6 +42,7 @@ import { ${stringUtils.uncapitalize(${useCase.actionClassName})}Feature } from '
     ${useCase.routingModuleName},
 #if($ngrx)
     StoreModule.forFeature(${stringUtils.uncapitalize(${useCase.actionClassName})}Feature)
+    EffectsModule.forFeature(${stringUtils.uncapitalize(${useCase.actionClassName})}Effects)
 #end
   ],
   declarations: [
