@@ -269,12 +269,9 @@ public class HibernateCriteriaAttributeLogicImpl
         List<String> predicates = new ArrayList<>();
         List<String> list = HibernateUtils.getAttributeNameList(this.getAttributeName());
 
-        StringBuilder predicateBuilder = new StringBuilder();
-        predicateBuilder.append("predicate.add(");
-        
         StringBuilder builder = new StringBuilder();
 
-        boolean insentive = false;
+        boolean insentive = false, in = false;
 
         if (this.isComparatorPresent() && this.getComparator()
             .equals(HibernateProfile.TAGGEDVALUEVALUE_INSENSITIVE_LIKE_COMPARATOR)) {
@@ -283,24 +280,8 @@ public class HibernateCriteriaAttributeLogicImpl
         }
 
         String type = this.getType().getFullyQualifiedName();
-        String root = "root.get(";
-        
-        if(this.getAttributeName().contains(".")) {
-            String[] components = this.getAttributeName().split("\\.");
-            //root = components[0] + "Join.get(\"" + components[1] + "\"), ";
-            for (int i = 0; i < components.length; i++) {
-                root = root + "\"" + components[i] + "\")";
-
-                if(i < components.length - 1) {
-                    root = root + ".get(";
-                } else {
-                    root = root + ", ";
-                }
-            }
-        } else {
-            root = root + "\"" + this.getAttributeName() + "\"), ";
-        }
-        
+        String root = HibernateUtils.getRoot(this.getAttributeName());
+                
         String comparator = "builder.equal(";
         if (this.isComparatorPresent()) {
 
@@ -321,7 +302,8 @@ public class HibernateCriteriaAttributeLogicImpl
                     comparator = "builder.greaterThanOrEqualTo(";
                 }
             } else if (tmp.equals(HibernateProfile.TAGGEDVALUEVALUE_COMPARATOR_IN)) {
-                //comparator = " IN ";
+                in = true;
+                comparator = "root.in(";
             } else if (tmp.equals(HibernateProfile.TAGGEDVALUEVALUE_COMPARATOR_LESS)) {
 
                 if(HibernateUtils.isNumber(this.getType())) {
@@ -344,10 +326,7 @@ public class HibernateCriteriaAttributeLogicImpl
                 comparator = "builder.like(";
             }
         }
-        builder.append(comparator);
-        builder.append(root);
-        
-        
+                
         String q = this.getGetterName() + "()";
                 
         if(!StringUtils.isBlank(owner)) {
@@ -365,10 +344,6 @@ public class HibernateCriteriaAttributeLogicImpl
             } else if (mode.equals(HibernateProfile.TAGGEDVALUEVALUE_MATCHMODE_ANYWHERE)) {
                         
                 q = "'%' + " + q + " + '%'";
-            // } else if (criteriaAttribute.getMatchModeConstant()
-            //         .equals(HibernateProfile.TAGGEDVALUEVALUE_MATCHMODE_EXACT)) {
-            //     builder.append(":");
-            //     builder.append(criteriaAttribute.getName());
             } else if(mode.equals(HibernateProfile.TAGGEDVALUEVALUE_MATCHMODE_START)){
                         
                 q = q + " + '%'";
@@ -379,12 +354,17 @@ public class HibernateCriteriaAttributeLogicImpl
             //q = "builder.lower(" + q + ".toLowerCase())" ;
         }
 
-        builder.append(q);
+        if(in) {
 
+            //return root + ".in";
+            builder.append(root + ".in(");
+
+        } else {
+            builder.append(comparator);
+            builder.append(root + ", ");
+        }
+        builder.append(q);
         builder.append(")");
-        predicateBuilder.append("predicate.add(");
-        System.out.println("==============> " + builder.toString());
-        predicateBuilder.append(builder.toString()).append(")");
 
         predicates.add(builder.toString());
 

@@ -852,11 +852,6 @@ $h3tab        return results;
     	${hibernateNamespace}.persistence.criteria.Root<${entity.fullyQualifiedEntityName}> root = query.from(${entity.fullyQualifiedEntityName}.class); 
 
 #set($criteriaClass = $criteriaArgument.type)
-## #foreach($joinAttribute in $hibernateUtils.getJoinAttributes($finder.criteriaArgument, $entity))
-## #set ($joinType = $hibernateUtils.getJoinAttributeType($joinAttribute, $entity))
-## #set($metamodel = "${entity.packageName}.${entity.name}_")
-##         ${hibernateNamespace}.persistence.criteria.Join<$entity.fullyQualifiedEntityName, $joinType.fullyQualifiedEntityName> ${joinAttribute}Join = root.join("$joinAttribute");
-## #end
         java.util.List<${hibernateNamespace}.persistence.criteria.Predicate> predicates = new java.util.ArrayList<>();
 #foreach($criteriaAttribute in $criteriaClass.getAttributes(true))
 #set($getter = "get$stringUtils.capitalize($criteriaAttribute.name)()")
@@ -874,10 +869,17 @@ $h3tab        return results;
             query.where(pr);
         }
 
-        //query.orderBy(builder.asc(root.get("name")));
+        query.distinct(true);
+#foreach($criteriaAttribute in $criteriaClass.getAttributes(true))
+#if($criteriaAttribute.orderDirection == "ORDER_ASC")
+        query.orderBy(builder.asc($hibernateUtils.getRoot($criteriaAttribute.attributeName)));
+#end
+#if($criteriaAttribute.orderDirection == "ORDER_DESC")
+        query.orderBy(builder.desc($hibernateUtils.getRoot($criteriaAttribute.attributeName)));
+#end
+#end
         ${hibernateNamespace}.persistence.TypedQuery<${entity.fullyQualifiedEntityName}> typedQuery = this.getEntityManager().createQuery(query);
         List<${entity.fullyQualifiedEntityName}> list = typedQuery.getResultList();
-        //this.getEntityManager().getTransaction().commit();
 
         return list;
     }

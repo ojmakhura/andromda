@@ -489,4 +489,24 @@ public class HibernateUtils
         
         return joinEntity;
     }
+
+    public static String getRoot(String attributeName) {
+        String root = "root.get(";
+        
+        if(attributeName.contains(".")) {
+            String[] components = attributeName.split("\\.");
+            //root = components[0] + "Join.get(\"" + components[1] + "\"), ";
+            for (int i = 0; i < components.length; i++) {
+                root = root + "\"" + components[i] + "\")";
+
+                if(i < components.length - 1) {
+                    root = root + ".get(";
+                }
+            }
+        } else {
+            root = root + "\"" + attributeName + "\")";
+        }
+
+        return root;
+    }
 }

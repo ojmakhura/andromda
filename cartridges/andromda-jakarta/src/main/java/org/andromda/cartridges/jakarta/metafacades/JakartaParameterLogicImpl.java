@@ -896,20 +896,20 @@ public class JakartaParameterLogicImpl
      *
      * @see org.andromda.metafacades.uml.ParameterFacade#isRequired()
      */
-    public boolean isRequired()
-    {
-        if("org.omg.uml.foundation.core".equals(metaObject.getClass().getPackage().getName()))
-        {
-            //if uml 1.4, keep the old behavior (like bpm4struts)
-            final Object value = this.findTaggedValue(JakartaProfile.TAGGEDVALUE_INPUT_REQUIRED);
-            return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
-        }
-        else
-        {
-            //if >= uml 2, default behavior
-            return super.isRequired();
-        }
-    }
+    // public boolean isRequired()
+    // {
+    //     if("org.omg.uml.foundation.core".equals(metaObject.getClass().getPackage().getName()))
+    //     {
+    //         //if uml 1.4, keep the old behavior (like bpm4struts)
+    //         final Object value = this.findTaggedValue(JakartaProfile.TAGGEDVALUE_INPUT_REQUIRED);
+    //         return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
+    //     }
+    //     else
+    //     {
+    //         //if >= uml 2, default behavior
+    //         return super.isRequired();
+    //     }
+    // }
 
     /**
      * @return JakartaUtils.isReadOnly(this)
