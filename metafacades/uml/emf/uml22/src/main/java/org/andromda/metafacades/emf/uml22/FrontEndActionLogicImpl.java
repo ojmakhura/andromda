@@ -510,4 +510,20 @@ public class FrontEndActionLogicImpl
         }
         return new ArrayList<ParameterFacade>(formFieldMap.values());
     }
+
+    // @Override
+    // protected String handleGetRestPath() {
+    //     String path = (String)this.findTaggedValue(JakartaGlobals.WEBSERVICE_PATH);
+        
+    //     if(path != null) {
+
+    //         if(path.trim().length() > 0 && !path.startsWith("/")) {
+    //             path = "/" + path;
+    //         }
+
+    //         return path;
+    //     }
+
+    //     return "/" + Metafacade.toWebResourceName(this.getTriggerName());
+    // }
 }

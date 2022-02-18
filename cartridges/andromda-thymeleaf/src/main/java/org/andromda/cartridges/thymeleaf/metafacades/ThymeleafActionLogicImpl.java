@@ -60,7 +60,7 @@ public class ThymeleafActionLogicImpl
      */
     protected String handleGetFormBeanName()
     {
-        return this.getFormBeanName(true);
+        return this.getFormBeanName(false);
     }
 
     /**
