@@ -505,7 +505,7 @@
                      with the ejb3 cartridge. Use outlet for JDK5.
                 -->
 #end
-#if($jakarta)
+#if($jakarta && !$spring)
                 <property name="useJakartaFormParam">true</property>
                 <property name="jakartaNamespace">${jakarta.namespace}</property>
 #end
