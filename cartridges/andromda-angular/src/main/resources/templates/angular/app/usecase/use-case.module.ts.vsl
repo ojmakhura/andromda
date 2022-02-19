@@ -27,6 +27,7 @@ import { $import.componentImplementationName } from '@app/${import.implementatio
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ${stringUtils.uncapitalize(${useCase.actionClassName})}Feature } from './store/${stringUtils.uncapitalize(${useCase.actionClassName})}.reducer';
+import { ${useCase.actionClassName}Effects } from './store/${stringUtils.uncapitalize(${useCase.actionClassName})}.effect';
 #end
 
 @NgModule({
@@ -41,8 +42,8 @@ import { ${stringUtils.uncapitalize(${useCase.actionClassName})}Feature } from '
     MaterialModule,
     ${useCase.routingModuleName},
 #if($ngrx)
-    StoreModule.forFeature(${stringUtils.uncapitalize(${useCase.actionClassName})}Feature)
-    EffectsModule.forFeature(${stringUtils.uncapitalize(${useCase.actionClassName})}Effects)
+    StoreModule.forFeature(${stringUtils.uncapitalize(${useCase.actionClassName})}Feature),
+    EffectsModule.forFeature([ ${useCase.actionClassName}Effects ])
 #end
   ],
   declarations: [

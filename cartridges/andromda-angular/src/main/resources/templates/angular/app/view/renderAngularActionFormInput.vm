@@ -6,6 +6,8 @@
 ##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
 ##
 #macro(renderAngularActionInput $parameter $ownerParameter $ident $vrender)
+$parameter
+$ownerParameter
 #if ($parameter.backingListName)
 #if ($ownerParameter.type.hasStereotype('Entity'))
 #set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
@@ -68,7 +70,7 @@ ${ident}		<textarea matInput formControlName="${parameter.name}" id="$propertyId
 #elseif ($parameter.inputText)
 ${ident}		<input matInput formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
 #elseif ($parameter.inputSecret)
-${ident}		<input matInput [type]="hide ? 'password' : 'text'">
+${ident}		<input matInput [type]="hide ? 'password' : 'text'"
 ${ident}			formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
 ${ident}		<button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
 ${ident}			<mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>

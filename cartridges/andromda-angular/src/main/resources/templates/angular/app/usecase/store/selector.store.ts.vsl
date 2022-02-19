@@ -3,9 +3,10 @@
 #set ($fileName = "${metafacadeWebUtils.toWebResourceName($useCase.name)}.selector")
 #set ($path = "view/$useCase.pathRoot/store")
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { ${useCase.actionClassName}State } from {useCase.actionClassName}State '${stringUtils.uncapitalize(${useCase.actionClassName})}.reducer';
 
-export const ${stringUtils.uncapitalize(${useCase.actionClassName})}Key = "$stringUtils.uncapitalize(${useCase.actionClassName})";
+export const ${stringUtils.uncapitalize(${useCase.actionClassName})}Key = '$stringUtils.uncapitalize(${useCase.actionClassName})'';
 
-export const select${useCase.actionClassName}State = createFeatureSelector<${useCase.actionClassName}Reducer.${useCase.actionClassName}State> (
-    ${useCase.actionClassName}Reducer.${stringUtils.uncapitalize(${useCase.actionClassName})}Key
+export const select${useCase.actionClassName}State = createFeatureSelector<${useCase.actionClassName}State> (
+    ${stringUtils.uncapitalize(${useCase.actionClassName})}Key
 );
