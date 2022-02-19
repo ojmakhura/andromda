@@ -6,8 +6,6 @@
 ##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
 ##
 #macro(renderAngularActionInput $parameter $ownerParameter $ident $vrender)
-$parameter
-$ownerParameter
 #if ($parameter.backingListName)
 #if ($ownerParameter.type.hasStereotype('Entity'))
 #set ($propertyId = $parameter.getFormPropertyId($ownerParameter))

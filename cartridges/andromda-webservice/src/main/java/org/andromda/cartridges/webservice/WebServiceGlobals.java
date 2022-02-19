@@ -208,6 +208,16 @@ public class WebServiceGlobals
     public static final String REST_ROLES_ALLOWED = "andromda_REST_roles_allowed";
 
     /**
+     * REST: andromda_REST_roles_allowed
+     */
+    public static final String REST_PRE_AUTHORIZE = "andromda_REST_pre_authorize";
+
+    /**
+     * REST: andromda_REST_roles_allowed
+     */
+    public static final String REST_POST_AUTHORIZE = "andromda_REST_post_authorize";
+
+    /**
      * REST: andromda_REST_suspend
      */
     public static final String REST_SUSPEND = "andromda_REST_suspend";

@@ -680,4 +680,25 @@ public class WebServiceOperationLogicImpl
                 + this.THIS().toString() + ": " + th.getMessage(), th);
         }
     }
+
+    @Override
+    protected String handleGetPreAuthorize() {
+
+        String preAuth = (String)this.findTaggedValue(WebServiceGlobals.REST_PRE_AUTHORIZE);
+        if (!this.isRest() || StringUtils.isBlank(preAuth) || preAuth.equals(DEFAULT))
+        {
+            preAuth = null;
+        }
+        return preAuth;
+    }
+
+    @Override
+    protected String handleGetPostAuthorize() {
+        String postAuth = (String)this.findTaggedValue(WebServiceGlobals.REST_PRE_AUTHORIZE);
+        if (!this.isRest() || StringUtils.isBlank(postAuth) || postAuth.equals(DEFAULT))
+        {
+            postAuth = null;
+        }
+        return postAuth;
+    }
 }

@@ -180,9 +180,28 @@
         </modelElements>
     </template>
     
-    <template
+    <!-- <template
         path="templates/angular/app/shell/shell.component.html.vsl"
         outputPattern="shell.component.html"
+        outlet="shell"
+        overwrite="true"
+        outputToSingleFile="true"
+        generateEmptyFiles="true">
+        <modelElements>
+            <modelElement variable="useCases">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularUseCase"/>
+            </modelElement>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.angular.metafacades.AngularManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template> -->
+
+    <template
+        path="templates/angular/app/shell/navigation.ts.vsl"
+        outputPattern="navigation.ts"
         outlet="shell"
         overwrite="true"
         outputToSingleFile="true"

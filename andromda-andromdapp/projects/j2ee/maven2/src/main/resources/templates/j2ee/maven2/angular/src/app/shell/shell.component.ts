@@ -2,6 +2,7 @@ import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { menuItems } from './navigation';
 
 import { AuthenticationService, CredentialsService } from '@app/auth';
 
@@ -12,13 +13,16 @@ import { AuthenticationService, CredentialsService } from '@app/auth';
 })
 export class ShellComponent implements OnInit {
 
+  menus: any[] = [];
   constructor(private router: Router,
               private titleService: Title,
               private authenticationService: AuthenticationService,
               private credentialsService: CredentialsService,
               private breakpoint: BreakpointObserver) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.menus = menuItems;
+  }
 
   logout() {
     this.authenticationService.logout()
