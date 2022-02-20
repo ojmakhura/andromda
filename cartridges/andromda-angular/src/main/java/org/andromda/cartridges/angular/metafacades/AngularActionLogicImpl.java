@@ -844,8 +844,10 @@ public class AngularActionLogicImpl
 
                 for (Object _attribute : parameter.getAttributes()) {
                     AngularAttribute attribute = (AngularAttribute) _attribute;
-                    if (attribute.getType().getAttributes() != null
-                            && !attribute.getType().getAttributes().isEmpty()) {
+                    attribute.getType().isEnumeration();
+                    if ((attribute.getType().getAttributes() != null
+                            && !attribute.getType().getAttributes().isEmpty())
+                            || attribute.getType().isEnumeration()) {
                         imports.add(attribute.getType());
                     }
                 }

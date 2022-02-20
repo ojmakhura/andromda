@@ -9,6 +9,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { UseCaseScope } from '@app/utils/use-case-scope';
 import { SelectItem } from '@app/utils/select-item';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { ${view.useCase.actionClassName}State } from './store/${metafacadeWebUtils.toWebResourceName($view.useCase.name)}.reducer';
 
 ## Find all the fields in the actions of the view
 #set($fieldSet =  $angularUtils.getFacadeSet($view.allFormFields))
@@ -27,12 +30,12 @@ import { $import.name } from '@app/${import.filePath}';
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
 export class $stringUtils.capitalize($action.formName) {
-#foreach($parameter in $action.parameters)
+#foreach($parameter in $action.formFields)
     $parameter.name: $parameter.angularTypeName;
 #end
 }
-
 #end
+
 #end
 #if ($view.nonTableVariablesPresent)
 export class $stringUtils.capitalize(${view.varsFormName}) {
@@ -73,6 +76,7 @@ export abstract class $view.componentName implements OnInit {
     protected rxFormBuilder: RxFormBuilder;
     protected _injector: Injector;
     protected useCaseScope: UseCaseScope;
+    protected store: Store<${view.useCase.actionClassName}State>;
 #foreach($controller in $view.targetControllers)
     $controller.variableName: ${controller.implementationName};
 #end
@@ -99,7 +103,7 @@ export abstract class $view.componentName implements OnInit {
 #foreach( $attribute in $field.attributes )
 #if($attribute.type.enumeration)
     ${attribute.name}T = $attribute.type.name;
-    ${attribute.name}Options: string[] = [];
+    ${attribute.name}Options: string[] = Object.keys(this.${attribute.name}T);
 #elseif($attribute.inputSelect || ($angularUtils.isComplex($attribute) && !$angularUtils.isTable($attribute)))
 #set ($backingListName = ${attribute.getBackingListName($field)})
 #set($ret = $selections.add($attribute.type))
@@ -116,6 +120,18 @@ export abstract class $view.componentName implements OnInit {
 #end
 #end
 #end
+## #foreach ($action in $view.actions)
+## #if (!$action.tableLink)
+## #foreach($parameter in $action.formFields)
+## #if($parameter.many)
+## #set($tag = "[]")
+## #else
+## #set($tag = "")
+## #end
+##     ${action.formName}$stringUtils.capitalize(${parameter.name})$: Observable<$parameter.angularTypeName$tag>;
+## #end
+## #end
+## #end
 
     constructor(injector: Injector) {
         this.route = injector.get(ActivatedRoute);
@@ -123,6 +139,7 @@ export abstract class $view.componentName implements OnInit {
         this.formBuilder = injector.get(FormBuilder);
         this.rxFormBuilder = injector.get(RxFormBuilder);
         this.useCaseScope = injector.get(UseCaseScope);
+        this.store = injector.get(Store);
 #if(${view.useCase.controller})
         this.${view.useCase.controller.variableName} = injector.get(${view.useCase.controller.implementationName});
 #foreach ($service in $view.useCase.controller.allRestControllers)
