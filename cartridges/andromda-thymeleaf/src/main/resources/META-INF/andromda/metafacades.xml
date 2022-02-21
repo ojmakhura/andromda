@@ -3,6 +3,8 @@
 <metafacades>
     <property reference="implementationPackageNamePattern"/>
     <property reference="normalizeMessages"/>
+    <property reference="secure"/>
+
     <metafacade class="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafControllerOperationLogicImpl">
         <mapping>
             <property name="ownerIsController"/>

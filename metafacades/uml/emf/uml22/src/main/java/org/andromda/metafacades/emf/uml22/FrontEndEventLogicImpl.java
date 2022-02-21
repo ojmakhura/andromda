@@ -7,7 +7,10 @@ import java.util.List;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndControllerOperation;
 import org.andromda.metafacades.uml.FrontEndUseCase;
+import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.web.MetafacadeWebGlobals;
+import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.ActivityNode;
@@ -138,5 +141,48 @@ public class FrontEndEventLogicImpl
             packageName = this.getPackage().getFullyQualifiedName();
         }
         return packageName;
+    }
+
+    @Override
+    protected String handleGetMessageValue() {
+        return StringUtilsHelper.toPhrase(this.getName());
+    }
+
+    @Override
+    protected String handleGetResetMessageKey() {
+        return this.getMessageKey() + ".reset.message";
+    }
+
+    @Override
+    protected String handleGetResetMessageValue() {
+        return "Reset";
+    }
+
+    @Override
+    protected String handleGetMessageKey() {
+        String triggerKey = StringUtilsHelper.toResourceMessageKey(getName());
+        if (!this.isNormalizeMessages())
+        {
+            final FrontEndAction action = (FrontEndAction)this.getAction();
+            if (action != null)
+            {
+                final FrontEndView view = (FrontEndView)action.getInput();
+                if (view != null)
+                {
+                    triggerKey = view.getMessageKey() + '.' + triggerKey;
+                }
+            }
+        }
+        return triggerKey;
+    }
+
+    /**
+     * Indicates whether or not we should normalize messages.
+     * @return normalizeMessages true/false
+     */
+    private boolean isNormalizeMessages()
+    {
+        final String normalizeMessages = (String)getConfiguredProperty(MetafacadeWebGlobals.NORMALIZE_MESSAGES);
+        return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 }

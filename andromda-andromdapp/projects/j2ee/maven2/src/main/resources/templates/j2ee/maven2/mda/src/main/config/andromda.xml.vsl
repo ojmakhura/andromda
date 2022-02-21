@@ -133,6 +133,9 @@
                 <property name="hibernateVersion">${hibernate.version}</property>
                 <property name="hibernateEntityAnnotations">true</property>
 #end
+#if($secure)
+                <property name="secure">true</property>
+#end
                 <property name="persistenceContainerName">jboss</property>
                 <property name="appServer">jboss</property>
                 <!-- Override default @todo to set to Eclipse default>
@@ -586,6 +589,9 @@
 #if (!$webservice.equals("none") && !$jsr181Webservice)
                 <property name="wsdlSoapAddress">http://${service.host}:${service.port}/${application.id}-ws/services</property>
                 <property name="jaxb-gen">${common.generated.dir}</property>
+#end
+#if($ngrx)
+                <property name="ngrx">true</property>
 #end
             </properties>
         </namespace>

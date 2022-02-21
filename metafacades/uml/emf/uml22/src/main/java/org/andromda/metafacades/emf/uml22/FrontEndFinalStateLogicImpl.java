@@ -6,10 +6,16 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndForward;
+import org.andromda.metafacades.uml.FrontEndManageableEntity;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndUseCase;
+import org.andromda.metafacades.uml.ManageableEntity;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
@@ -128,5 +134,122 @@ public class FrontEndFinalStateLogicImpl
         }
 
         return new ArrayList<FrontEndParameter>(parameterMap.values());
+    }
+
+    @Override
+    protected String handleGetPath() {
+        String fullPath = null;
+
+        FrontEndUseCase useCase = this.getTargetUseCase();
+        if (useCase == null)
+        {
+            // - perhaps this final state links outside of the UML model
+            final Object taggedValue = this.findTaggedValue(UMLProfile.TAGGEDVALUE_EXTERNAL_HYPERLINK);
+            if (taggedValue == null)
+            {
+                String name = getName();
+                if (name != null && (name.startsWith("/") || name.startsWith("http://") || name.startsWith("file:")))
+                {
+                    fullPath = name;
+                }
+            }
+            else
+            {
+                fullPath = String.valueOf(taggedValue);
+            }
+            
+            if(fullPath == null && getName() != null)
+            {
+                //fullPath = ((ManageableEntity)getTargetElement()).getActionFullPath();
+            }
+            
+        }
+        else if (useCase instanceof FrontEndUseCase)
+        {
+            fullPath = useCase.getPath();
+        }
+
+        return fullPath;
+    }
+
+    @Override
+    protected String handleGetTargetControllerFullyQualifiedName() {
+        String result=null;
+        
+        if(getTargetElement() instanceof FrontEndUseCase)
+        {
+            result=((FrontEndUseCase)getTargetElement()).getController().getFullyQualifiedName();
+        }
+        else if(getTargetElement() instanceof FrontEndManageableEntity)
+        {
+            result=((FrontEndManageableEntity)getTargetElement()).getControllerType();
+        }
+        
+        return result;
+    }
+
+    @Override
+    protected String handleGetTargetControllerBeanName() {
+        String result=null;
+        
+        if(getTargetElement() instanceof FrontEndUseCase)
+        {
+            result=((FrontEndController)((FrontEndUseCase)getTargetElement()).getController()).getName();
+        }
+        else if(getTargetElement() instanceof FrontEndManageableEntity)
+        {
+            result=((FrontEndManageableEntity)getTargetElement()).getControllerBeanName();
+        }
+        
+        return result;
+    }
+
+    private ManageableEntity findManageableByName(String name)
+    {
+        for(ClassifierFacade clazz: getModel().getAllClasses())
+        {
+            if(clazz instanceof ManageableEntity && 
+               (clazz.getName().equals(name) || clazz.getFullyQualifiedName().equals(name)))
+            {
+                return (ManageableEntity)clazz;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    protected ModelElementFacade handleGetTargetElement() {
+        ModelElementFacade targetElement=getTargetUseCase();
+        
+        if(targetElement == null)
+        {
+            String nameParts[] = getName().split(" ");
+            if(nameParts.length >= 2 && nameParts[0].equalsIgnoreCase("Manage"))
+            {
+                ManageableEntity manageable=findManageableByName(nameParts[1]);
+                if(manageable != null)
+                {
+                    return targetElement=manageable;
+                }
+            }
+        }
+        
+        return targetElement;
+    }
+
+    @Override
+    protected FrontEndController handleGetTargetController() {
+        FrontEndController controller = null;
+        
+        if(getTargetElement() instanceof FrontEndUseCase)
+        {
+            controller = ((FrontEndUseCase)getTargetElement()).getController();
+        }
+        else if(getTargetElement() instanceof FrontEndManageableEntity)
+        {
+            //controller = ((FrontEndManageableEntity)getTargetElement()).get;
+        }
+
+        return controller;
     }
 }

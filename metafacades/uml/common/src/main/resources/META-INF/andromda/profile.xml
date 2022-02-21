@@ -380,6 +380,36 @@
                 </documentation>
                 <value>andromda_presentation_controller_usecase</value>
             </element>
+            <element name="PRESENTATION_REST_PATH">
+                <documentation>
+                    Some presentation layers have built in rest controllers.
+                </documentation>
+                <value>andromda_presentation_rest_path</value>
+            </element>
+            <element name="PRESENTATION_PATH">
+                <documentation>
+                    File path for this presentation.
+                </documentation>
+                <value>andromda_presentation_path</value>
+            </element>
+            <element name="PRESENTATION_FILENAME">
+                <documentation>
+                    Presentation file name.
+                </documentation>
+                <value>andromda_presentation_filename</value>
+            </element>
+            <element name="PRESENTATION_TARGETURL">
+                <documentation>
+                    Target URL for this presentation item
+                </documentation>
+                <value>andromda_presentation_targetUrl</value>
+            </element>
+            <element name="PRESENTATION_ACCESS_ROLES">
+                <documentation>
+                    Roles allowed to access this presentation item.
+                </documentation>
+                <value>andromda_presentation_access_roles</value>
+            </element>
             <element name="PRESENTATION_USECASE_ACTIVITY">
                 <documentation>
                     For tools that do not allow the placement of activity graphs inside of a use-case

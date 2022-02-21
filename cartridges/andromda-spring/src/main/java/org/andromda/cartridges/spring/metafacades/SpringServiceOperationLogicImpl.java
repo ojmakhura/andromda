@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import org.andromda.cartridges.spring.SpringProfile;
+import org.andromda.cartridges.spring.CartridgeSpringProfile;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -175,10 +175,10 @@ public class SpringServiceOperationLogicImpl
      */
     public String handleGetTransactionType()
     {
-        String transactionType = (String)this.findTaggedValue(SpringProfile.TAGGEDVALUE_TRANSACTION_TYPE);
+        String transactionType = (String)this.findTaggedValue(CartridgeSpringProfile.TAGGEDVALUE_TRANSACTION_TYPE);
         if (StringUtils.isBlank(transactionType))
         {
-            transactionType = (String)this.getOwner().findTaggedValue(SpringProfile.TAGGEDVALUE_TRANSACTION_TYPE);
+            transactionType = (String)this.getOwner().findTaggedValue(CartridgeSpringProfile.TAGGEDVALUE_TRANSACTION_TYPE);
         }
         if (StringUtils.isBlank(transactionType))
         {
@@ -198,10 +198,10 @@ public class SpringServiceOperationLogicImpl
      */
     protected String handleGetEjbTransactionType()
     {
-        String transactionType = (String)this.findTaggedValue(SpringProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
+        String transactionType = (String)this.findTaggedValue(CartridgeSpringProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
         if (StringUtils.isBlank(transactionType))
         {
-            transactionType = (String)this.getOwner().findTaggedValue(SpringProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
+            transactionType = (String)this.getOwner().findTaggedValue(CartridgeSpringProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
         }
         if (StringUtils.isBlank(transactionType))
         {
@@ -447,7 +447,7 @@ public class SpringServiceOperationLogicImpl
         String mode = null;
 
         // if there is a tagged value, use it instead
-        Object value = findTaggedValue(SpringProfile.TAGGEDVALUEVALUE_MESSAGING_SESSION_ACKNOWLEDGE_MODE);
+        Object value = findTaggedValue(CartridgeSpringProfile.TAGGEDVALUEVALUE_MESSAGING_SESSION_ACKNOWLEDGE_MODE);
         if (value != null)
         {
             mode = ObjectUtils.toString(value);
@@ -462,7 +462,7 @@ public class SpringServiceOperationLogicImpl
      */
     protected boolean handleIsOptimizeAcknowledge()
     {
-        return BooleanUtils.toBoolean(ObjectUtils.toString(this.findTaggedValue(SpringProfile.TAGGEDVALUEVALUE_ACTIVEMQ_OPTIMIZE_ACKNOWLEDGE)));
+        return BooleanUtils.toBoolean(ObjectUtils.toString(this.findTaggedValue(CartridgeSpringProfile.TAGGEDVALUEVALUE_ACTIVEMQ_OPTIMIZE_ACKNOWLEDGE)));
     }
 
     /**
@@ -493,7 +493,7 @@ public class SpringServiceOperationLogicImpl
      */
     protected boolean handleIsInitMethod()
     {
-        return hasStereotype(SpringProfile.STEREOTYPE_POST_CONSTRUCT_METHOD);
+        return hasStereotype(CartridgeSpringProfile.STEREOTYPE_POST_CONSTRUCT_METHOD);
     }
 
     /**
@@ -501,6 +501,6 @@ public class SpringServiceOperationLogicImpl
      */
     protected boolean handleIsDestroyMethod()
     {
-        return hasStereotype(SpringProfile.STEREOTYPE_PRE_DESTROY_METHOD);
+        return hasStereotype(CartridgeSpringProfile.STEREOTYPE_PRE_DESTROY_METHOD);
     }
 }

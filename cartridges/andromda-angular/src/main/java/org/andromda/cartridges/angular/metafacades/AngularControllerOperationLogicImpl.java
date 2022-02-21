@@ -37,41 +37,41 @@ public class AngularControllerOperationLogicImpl
      * @return formName
      * @see org.andromda.cartridges.angular.metafacades.AngularControllerOperation#getFormName()
      */
-    protected String handleGetFormName()
-    {
-        final String pattern = Objects.toString(this.getConfiguredProperty(AngularGlobals.FORM_PATTERN), "");
-        return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
-    }
+    // protected String handleGetFormName()
+    // {
+    //     final String pattern = Objects.toString(this.getConfiguredProperty(AngularGlobals.FORM_PATTERN), "");
+    //     return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
+    // }
 
     /**
      * @return fullyQualifiedFormName
      * @see org.andromda.cartridges.angular.metafacades.AngularControllerOperation#getFullyQualifiedFormName()
      */
-    protected String handleGetFullyQualifiedFormName()
-    {
-        final StringBuilder fullyQualifiedName = new StringBuilder();
-        final String packageName = this.getPackageName();
-        if (StringUtils.isNotBlank(packageName))
-        {
-            fullyQualifiedName.append(packageName + '.');
-        }
-        return fullyQualifiedName.append(StringUtils.capitalize(this.getFormName())).toString();
-    }
+    // protected String handleGetFullyQualifiedFormName()
+    // {
+    //     final StringBuilder fullyQualifiedName = new StringBuilder();
+    //     final String packageName = this.getPackageName();
+    //     if (StringUtils.isNotBlank(packageName))
+    //     {
+    //         fullyQualifiedName.append(packageName + '.');
+    //     }
+    //     return fullyQualifiedName.append(StringUtils.capitalize(this.getFormName())).toString();
+    // }
 
     /**
      * @return getFullyQualifiedFormName().replace('.', '/')
      * @see org.andromda.cartridges.angular.metafacades.AngularControllerOperation#getFullyQualifiedFormPath()
      */
-    protected String handleGetFullyQualifiedFormPath()
-    {
-        return this.getFullyQualifiedFormName().replace('.', '/');
-    }
+    // protected String handleGetFullyQualifiedFormPath()
+    // {
+    //     return this.getFullyQualifiedFormName().replace('.', '/');
+    // }
 
     /**
      * @return formCall
      * @see org.andromda.cartridges.angular.metafacades.AngularControllerOperation#getFormCall()
      */
-    protected String handleGetFormCall()
+    public String getFormCall()
     {
         final StringBuilder call = new StringBuilder();
         call.append(this.getName());
@@ -87,7 +87,8 @@ public class AngularControllerOperationLogicImpl
      * @return getFormSignature(false)
      * @see org.andromda.cartridges.angular.metafacades.AngularControllerOperation#getImplementationFormSignature()
      */
-    protected String handleGetImplementationFormSignature()
+    @Override
+    public String getImplementationFormSignature()
     {
         return this.getFormSignature(false);
     }
@@ -96,7 +97,8 @@ public class AngularControllerOperationLogicImpl
      * @return getFormSignature(true)
      * @see org.andromda.cartridges.angular.metafacades.AngularControllerOperation#getFormSignature()
      */
-    protected String handleGetFormSignature()
+    @Override
+    public String getFormSignature()
     {
         return this.getFormSignature(true);
     }

@@ -8,18 +8,20 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import org.andromda.cartridges.web.CartridgeWebGlobals;
-import org.andromda.cartridges.web.CartridgeWebUtils;
 import org.andromda.metafacades.uml.ActionStateFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActionState;
+import org.andromda.metafacades.uml.FrontEndControllerOperation;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.PackageFacade;
 import org.andromda.metafacades.uml.Service;
+import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.web.MetafacadeWebGlobals;
+import org.andromda.metafacades.uml.web.MetafacadeWebUtils;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Predicate;
@@ -47,134 +49,134 @@ public class ThymeleafControllerLogicImpl
      * @return implementationName
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafController#getImplementationName()
      */
-    protected String handleGetImplementationName()
-    {
-        final String pattern = Objects.toString(
-            this.getConfiguredProperty(CartridgeWebGlobals.CONTROLLER_IMPLEMENTATION_PATTERN), "");
-        return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
-    }
+    // protected String handleGetImplementationName()
+    // {
+    //     final String pattern = Objects.toString(
+    //         this.getConfiguredProperty(org.andromda.metafacades.uml.web.MetafacadeWebGlobals.CONTROLLER_IMPLEMENTATION_PATTERN), "");
+    //     return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
+    // }
 
-    /**
-     * @return fullyQualifiedImplementationName
-     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafController#getFullyQualifiedImplementationName()
-     */
-    protected String handleGetFullyQualifiedImplementationName()
-    {
-        final StringBuilder fullyQualifiedName = new StringBuilder();
-        final String packageName = this.getPackageName();
-        if (StringUtils.isNotBlank(packageName))
-        {
-            fullyQualifiedName.append(packageName + '.');
-        }
-        return fullyQualifiedName.append(this.getImplementationName()).toString();
-    }
+    // /**
+    //  * @return fullyQualifiedImplementationName
+    //  * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafController#getFullyQualifiedImplementationName()
+    //  */
+    // protected String handleGetFullyQualifiedImplementationName()
+    // {
+    //     final StringBuilder fullyQualifiedName = new StringBuilder();
+    //     final String packageName = this.getPackageName();
+    //     if (StringUtils.isNotBlank(packageName))
+    //     {
+    //         fullyQualifiedName.append(packageName + '.');
+    //     }
+    //     return fullyQualifiedName.append(this.getImplementationName()).toString();
+    // }
 
-    /**
-     * @return getFullyQualifiedImplementationName().replace('.', '/')
-     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafController#getFullyQualifiedImplementationPath()
-     */
-    protected String handleGetFullyQualifiedImplementationPath()
-    {
-        return this.getFullyQualifiedImplementationName().replace('.', '/');
-    }
+    // /**
+    //  * @return getFullyQualifiedImplementationName().replace('.', '/')
+    //  * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafController#getFullyQualifiedImplementationPath()
+    //  */
+    // protected String handleGetFullyQualifiedImplementationPath()
+    // {
+    //     return this.getFullyQualifiedImplementationName().replace('.', '/');
+    // }
 
-    /**
-     * @return StringUtilsHelper.lowerCamelCaseName(this.getName())
-     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafController#getBeanName()
-     */
-    protected String handleGetBeanName()
-    {
-        return StringUtilsHelper.lowerCamelCaseName(this.getName());
-    }
+    // /**
+    //  * @return StringUtilsHelper.lowerCamelCaseName(this.getName())
+    //  * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafController#getBeanName()
+    //  */
+    // protected String handleGetBeanName()
+    // {
+    //     return StringUtilsHelper.lowerCamelCaseName(this.getName());
+    // }
 
-    /**
-     * @return references
-     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafController#getSessionObjectReferences()
-     */
-    protected List<DependencyFacade> handleGetSessionObjectReferences()
-    {
-        final List<DependencyFacade> references = new ArrayList<DependencyFacade>(this.getSourceDependencies());
-        for (final Iterator<DependencyFacade> iterator = references.iterator(); iterator.hasNext();)
-        {
-            final ModelElementFacade targetElement = (iterator.next()).getTargetElement();
-            if (!(targetElement instanceof ThymeleafSessionObject))
-            {
-                iterator.remove();
-            }
-        }
-        return references;
-    }
+    // /**
+    //  * @return references
+    //  * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafController#getSessionObjectReferences()
+    //  */
+    // protected List<DependencyFacade> handleGetSessionObjectReferences()
+    // {
+    //     final List<DependencyFacade> references = new ArrayList<DependencyFacade>(this.getSourceDependencies());
+    //     for (final Iterator<DependencyFacade> iterator = references.iterator(); iterator.hasNext();)
+    //     {
+    //         final ModelElementFacade targetElement = (iterator.next()).getTargetElement();
+    //         if (!(targetElement instanceof ThymeleafSessionObject))
+    //         {
+    //             iterator.remove();
+    //         }
+    //     }
+    //     return references;
+    // }
 
-    /**
-     * @return controllerSerialVersionUID
-     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafController#getControllerSerialVersionUID()
-     */
-    protected String handleGetControllerSerialVersionUID()
-    {
-       final StringBuilder buffer = new StringBuilder();
-       buffer.append(this.getFullyQualifiedImplementationName());
-       addSerialUIDData(buffer);
-       return CartridgeWebUtils.calcSerialVersionUID(buffer);
-    }
+    // /**
+    //  * @return controllerSerialVersionUID
+    //  * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafController#getControllerSerialVersionUID()
+    //  */
+    // protected String handleGetControllerSerialVersionUID()
+    // {
+    //    final StringBuilder buffer = new StringBuilder();
+    //    buffer.append(this.getFullyQualifiedImplementationName());
+    //    addSerialUIDData(buffer);
+    //    return MetafacadeWebUtils.calcSerialVersionUID(buffer);
+    // }
 
-    private void addSerialUIDData(StringBuilder buffer)
-    {
-        for (final FrontEndAction action : this.getUseCase().getActions())
-        {
-            buffer.append(action.getName());
-        }
-    }
+    // private void addSerialUIDData(StringBuilder buffer)
+    // {
+    //     for (final FrontEndAction action : this.getUseCase().getActions())
+    //     {
+    //         buffer.append(action.getName());
+    //     }
+    // }
 
     /**
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafController#getAllServices()
      */
-    @Override
-    protected Collection<Service> handleGetAllServices() {
-        final Set<Service> allServices=new HashSet<Service>();
-        for(final DependencyFacade dependency: this.getServiceReferences())
-        {
-            allServices.add((Service)dependency.getTargetElement());
-        }
-        for(final DependencyFacade dependency: this.getServicesPackagesReferences())
-        {
-            final PackageFacade pack=(PackageFacade)dependency.getTargetElement();
-            for(final ClassifierFacade clazz: pack.getClasses())
-            {
-                if(clazz instanceof Service)
-                {
-                    allServices.add((Service)clazz);
-                }
-            }
-        }
-        for(final FrontEndAction action: getUseCase().getActions())
-        {
-            for(final FrontEndActionState as: action.getActionStates())
-            {
-                for(final OperationFacade operation: as.getServiceCalls())
-                {
-                    allServices.add((Service)operation.getOwner());
-                }
-            }
-        }
-        return allServices;
-    }
+    // @Override
+    // protected Collection<Service> handleGetAllServices() {
+    //     final Set<Service> allServices=new HashSet<Service>();
+    //     for(final DependencyFacade dependency: this.getServiceReferences())
+    //     {
+    //         allServices.add((Service)dependency.getTargetElement());
+    //     }
+    //     for(final DependencyFacade dependency: this.getServicesPackagesReferences())
+    //     {
+    //         final PackageFacade pack=(PackageFacade)dependency.getTargetElement();
+    //         for(final ClassifierFacade clazz: pack.getClasses())
+    //         {
+    //             if(clazz instanceof Service)
+    //             {
+    //                 allServices.add((Service)clazz);
+    //             }
+    //         }
+    //     }
+    //     for(final FrontEndAction action: getUseCase().getActions())
+    //     {
+    //         for(final FrontEndActionState as: action.getActionStates())
+    //         {
+    //             for(final OperationFacade operation: as.getServiceCalls())
+    //             {
+    //                 allServices.add((Service)operation.getOwner());
+    //             }
+    //         }
+    //     }
+    //     return allServices;
+    // }
 
     /**
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafController#getServicesPackagesReferences()
      */
-    @SuppressWarnings("unchecked")
-    @Override
-    protected List<PackageFacade> handleGetServicesPackagesReferences() {
-        return (List<PackageFacade>)new FilteredCollection(this.getSourceDependencies())
-        {
-            private static final long serialVersionUID = 134L;
-            @Override
-            public boolean evaluate(final Object object)
-            {
-                return ((DependencyFacade)object).getTargetElement() instanceof PackageFacade;
-            }
-        };
-    }
+    // @SuppressWarnings("unchecked")
+    // @Override
+    // protected List<PackageFacade> handleGetServicesPackagesReferences() {
+    //     return (List<PackageFacade>)new FilteredCollection(this.getSourceDependencies())
+    //     {
+    //         private static final long serialVersionUID = 134L;
+    //         @Override
+    //         public boolean evaluate(final Object object)
+    //         {
+    //             return ((DependencyFacade)object).getTargetElement() instanceof PackageFacade;
+    //         }
+    //     };
+    // }
 
     @Override
     protected boolean handleIsRestAtom() {
@@ -194,7 +196,7 @@ public class ThymeleafControllerLogicImpl
     @Override
     protected String handleGetRestMethod() {
         
-        String method = (String)this.findTaggedValue(CartridgeWebGlobals.REST_HTTP_METHOD);
+        String method = (String)this.findTaggedValue(MetafacadeWebGlobals.REST_HTTP_METHOD);
         if (!(this.getRestCount()>0) || StringUtils.isBlank(method) || method.equals(DEFAULT))
         {
             method = EMPTY_STRING;
@@ -204,7 +206,7 @@ public class ThymeleafControllerLogicImpl
 
     @Override
     protected String handleGetRestRetention() {
-        String retention = (String)this.findTaggedValue(CartridgeWebGlobals.REST_RETENTION);
+        String retention = (String)this.findTaggedValue(MetafacadeWebGlobals.REST_RETENTION);
         if (!(this.getRestCount()>0) || StringUtils.isBlank(retention) || retention.equals(DEFAULT))
         {
             retention = EMPTY_STRING;
@@ -214,7 +216,7 @@ public class ThymeleafControllerLogicImpl
 
     @Override
     protected String handleGetRestTarget() {
-        String target = (String)this.findTaggedValue(CartridgeWebGlobals.REST_TARGET);
+        String target = (String)this.findTaggedValue(MetafacadeWebGlobals.REST_TARGET);
         if (!(this.getRestCount()>0) || StringUtils.isBlank(target) || target.equals(DEFAULT))
         {
             target = EMPTY_STRING;
@@ -224,7 +226,7 @@ public class ThymeleafControllerLogicImpl
 
     @Override
     protected String handleGetRestProvider() {
-        String provider = (String)this.findTaggedValue(CartridgeWebGlobals.REST_PROVIDER);
+        String provider = (String)this.findTaggedValue(MetafacadeWebGlobals.REST_PROVIDER);
         if (!(this.getRestCount()>0) || StringUtils.isBlank(provider) || provider.equals(DEFAULT))
         {
             provider = EMPTY_STRING;
@@ -234,12 +236,12 @@ public class ThymeleafControllerLogicImpl
 
     @Override
     protected String handleGetRestProduces() {
-        return ThymeleafControllerOperationLogicImpl.translateMediaType((String)this.findTaggedValue(CartridgeWebGlobals.REST_PRODUCES));
+        return ThymeleafControllerOperationLogicImpl.translateMediaType((String)this.findTaggedValue(MetafacadeWebGlobals.REST_PRODUCES));
     }
 
     @Override
     protected String handleGetRestConsumes() {
-        String consumes = (String)this.findTaggedValue(CartridgeWebGlobals.REST_CONSUMES);
+        String consumes = (String)this.findTaggedValue(MetafacadeWebGlobals.REST_CONSUMES);
         if (!(this.getRestCount()>0) || StringUtils.isBlank(consumes) || consumes.equals(DEFAULT))
         {
             consumes = EMPTY_STRING;
@@ -260,7 +262,7 @@ public class ThymeleafControllerLogicImpl
 
     @Override
     protected String handleGetRestCacheType() {
-        String cacheType = (String)this.findTaggedValue(CartridgeWebGlobals.CACHE_TYPE);
+        String cacheType = (String)this.findTaggedValue(MetafacadeWebGlobals.CACHE_TYPE);
         if (!(this.getRestCount()>0) || StringUtils.isBlank(cacheType) || cacheType.equals(DEFAULT))
         {
             cacheType = EMPTY_STRING;
@@ -271,10 +273,10 @@ public class ThymeleafControllerLogicImpl
     @Override
     protected int handleGetRestCount() {
         int restCount = 0;
-        String rest = (String)this.findTaggedValue(CartridgeWebGlobals.REST);
-        for (ThymeleafControllerOperation operation : this.getAllowedOperations())
+        String rest = (String)this.findTaggedValue(MetafacadeWebGlobals.REST);
+        for (FrontEndControllerOperation operation : this.getAllowedOperations())
         {
-            if (StringUtils.isNotBlank(rest) && (operation.isRest() || rest.equals(BOOLEAN_TRUE)))
+            if (StringUtils.isNotBlank(rest) && (((ThymeleafControllerOperation)operation).isRest() || rest.equals(BOOLEAN_TRUE)))
             {
                 restCount++;
             }
@@ -285,7 +287,7 @@ public class ThymeleafControllerLogicImpl
     @Override
     protected Collection<String> handleGetRestContexts() {
         List<String> contexts = new ArrayList<String>();
-        String context = (String)this.findTaggedValue(CartridgeWebGlobals.REST_CONTEXT);
+        String context = (String)this.findTaggedValue(MetafacadeWebGlobals.REST_CONTEXT);
         if (!(this.getRestCount()>0) || StringUtils.isBlank(context) || context.equals(DEFAULT))
         {
             context = EMPTY_STRING;
@@ -305,64 +307,65 @@ public class ThymeleafControllerLogicImpl
     private static final String SLASH = "/";
     private static final String QUOTE = "\"";
 
-    @Override
-    protected String handleGetRestPath() {
-        String path = (String)this.findTaggedValue(CartridgeWebGlobals.REST_PATH);
-        if (StringUtils.isBlank(path))
-        {
-            path = EMPTY_STRING;
-        }
+    // @Override
+    // protected String handleGetRestPath() {
+    //     //String path = (String)this.findTaggedValue(MetafacadeWebGlobals.REST_PATH);
+    //     String path = StringUtils.strip(((String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_REST_PATH)));
+    //     if (StringUtils.isBlank(path))
+    //     {
+    //         path = EMPTY_STRING;
+    //     }
 
-        if (!(this.getRestCount()>0) || StringUtils.isBlank(path) || path.equals(DEFAULT))
-        {
-            path = CartridgeWebUtils.toWebResourceName(this.getName());
-        }
-        else
-        {
-            if (!path.startsWith(QUOTE))
-            {
-                path = path;
-            }
-            if (!path.endsWith(QUOTE) || path.length()<2)
-            {
-                path = path;
-            }
+    //     if (StringUtils.isBlank(path) || path.equals(DEFAULT))
+    //     {
+    //         path = MetafacadeWebUtils.toWebResourceName(this.getName());
+    //     }
+    //     else
+    //     {
+    //         if (!path.startsWith(QUOTE))
+    //         {
+    //             path = path;
+    //         }
+    //         if (!path.endsWith(QUOTE) || path.length()<2)
+    //         {
+    //             path = path;
+    //         }
             
-            if(path.endsWith(SLASH)) {
-                path = path.substring(0, path.length() - 1);
-            }
-        }
+    //         if(path.endsWith(SLASH)) {
+    //             path = path.substring(0, path.length() - 1);
+    //         }
+    //     }
         
-        if(!path.startsWith(SLASH)) {
-            path = SLASH + path;
-        }
+    //     if(!path.startsWith(SLASH)) {
+    //         path = SLASH + path;
+    //     }
         
-        return path;
-    }
+    //     return path;
+    // }
 
-    @Override
-    protected Collection handleGetAllowedOperations() {
-        List<OperationFacade> operations = new ArrayList<OperationFacade>(this.getOperations());
-        CollectionUtils.filter(
-            operations,
-            new Predicate()
-            {
-                public boolean evaluate(Object object)
-                {
-                    boolean valid = ThymeleafControllerOperation.class.isAssignableFrom(object.getClass());
-                    if (valid)
-                    {
-                        valid = ((ThymeleafControllerOperation)object).isExposed();
-                    }
-                    return valid;
-                }
-            });
-        // if (this.getWSDLOperationSortMode().equals(OPERATION_SORT_MODE_NAME))
-        // {
-        //     Collections.sort(
-        //         operations,
-        //         new OperationNameComparator());
-        // }
-        return operations;
-    }
+    // @Override
+    // protected Collection handleGetAllowedOperations() {
+    //     List<OperationFacade> operations = new ArrayList<OperationFacade>(this.getOperations());
+    //     CollectionUtils.filter(
+    //         operations,
+    //         new Predicate()
+    //         {
+    //             public boolean evaluate(Object object)
+    //             {
+    //                 boolean valid = ThymeleafControllerOperation.class.isAssignableFrom(object.getClass());
+    //                 if (valid)
+    //                 {
+    //                     valid = ((ThymeleafControllerOperation)object).isExposed();
+    //                 }
+    //                 return valid;
+    //             }
+    //         });
+    //     // if (this.getWSDLOperationSortMode().equals(OPERATION_SORT_MODE_NAME))
+    //     // {
+    //     //     Collections.sort(
+    //     //         operations,
+    //     //         new OperationNameComparator());
+    //     // }
+    //     return operations;
+    // }
 }

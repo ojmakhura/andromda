@@ -13,7 +13,7 @@ import {
   MatNativeDateModule,
   MatOptionModule,
   MatPseudoCheckboxModule,
-  MatRippleModule,
+  MatRippleModule
 } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -89,7 +89,7 @@ import { MatTreeModule } from '@angular/material/tree';
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatTreeModule,
-  ],
+    MatTreeModule
+  ]
 })
-export class MaterialModule {}
+export class MaterialModule { }

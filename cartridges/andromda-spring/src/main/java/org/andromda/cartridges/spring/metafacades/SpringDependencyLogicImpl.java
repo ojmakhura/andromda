@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import org.andromda.cartridges.spring.SpringHibernateUtils;
+import org.andromda.cartridges.spring.CartridgeSpringHibernateUtils;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.collections.CollectionUtils;
@@ -95,7 +95,7 @@ public class SpringDependencyLogicImpl
 
     private boolean isXmlPersistenceActive()
     {
-        return SpringHibernateUtils.isXmlPersistenceActive(
+        return CartridgeSpringHibernateUtils.isXmlPersistenceActive(
             (String)this.getConfiguredProperty(SpringGlobals.HIBERNATE_VERSION),
             (String)this.getConfiguredProperty(SpringGlobals.HIBERNATE_XML_PERSISTENCE));
     }

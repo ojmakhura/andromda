@@ -20,7 +20,6 @@
 #end
  */
 ##
-//hello there
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -42,7 +41,8 @@ import { AppComponent } from './app.component';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
-import { ConnectFormDirective } from './connect-form.directive';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+//import { ConnectFormDirective } from './connect-form.directive';
 #end
 ##foreach ($useCase in $useCases)
 ##renderImports($useCase)
@@ -68,13 +68,14 @@ import { UseCaseScope } from '@app/utils/use-case-scope';
 #foreach ( $service in $finalServices )
 import { ${service.implementationName} } from ${escTool.s}@app/${service.implementationFilePath}${escTool.s};
 #end
+#if($secure)
+import { AuthModule } from './auth';
+#end
+$secure
 
 @NgModule({
     declarations: [
         AppComponent,
-#if($ngrx)
-        ConnectFormDirective,
-#end
     ],
     imports: [
         BrowserModule,
@@ -90,12 +91,14 @@ import { ${service.implementationName} } from ${escTool.s}@app/${service.impleme
         HomeModule,
 #if($ngrx)
         EffectsModule.forRoot([]),
-        StoreModule.forRoot(reducers, {
-            metaReducers
-        }),
+        StoreModule.forRoot({}),
+        StoreDevtoolsModule.instrument({}),
 #end
 #foreach ( $useCase in $useCases )
         ${useCase.moduleName},
+#end
+#if($secure)
+        AuthModule,
 #end
         AppRoutingModule, // must be imported as the last module as it contains the fallback route
     ],

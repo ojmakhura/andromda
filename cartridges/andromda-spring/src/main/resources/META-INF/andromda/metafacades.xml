@@ -30,6 +30,8 @@
     <property reference="configPropertyPrefix"/>
     <property reference="jmsDestinationTemplatePattern"/>
     <property reference="beanNamePrefix"/>
+    <property reference="secure"/>
+
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl">
         <mapping>
             <stereotype>FINDER_METHOD</stereotype>

@@ -15,6 +15,7 @@
 
     <!-- define the template objects that are made available to the template -->
     <templateObject name="stringUtils" className="org.andromda.utils.StringUtilsHelper"/>
+    <templateObject name="umlProfiles" className="org.andromda.metafacades.uml.UMLProfile"/>
     <templateObject name="thymeleafUtils" className="org.andromda.cartridges.web.CartridgeWebUtils">
         <property reference="strictDateTimeFormat"/>
     </templateObject>

@@ -33,6 +33,7 @@
     <property reference="pluralizeAssociationEndNames"/>
     <property reference="pluralizeAttributeNames"/>
     <property reference="pluralizeParameterNames"/>
+    <property reference="secure"/>
     <property reference="toDoTag"/>
     <property reference="toDoForMissingDocumentation"/>
 
@@ -256,6 +257,9 @@
         <mapping class="org.andromda.metafacades.emf.uml22.AssociationEndImpl">
             <property name="type.manageableEntityMetaType"/>
         </mapping>
+        <property reference="backingListPattern"/>
+        <property reference="labelListPattern"/>
+        <property reference="valueListPattern"/>
     </metafacade>
 
     <!-- Entity metafacades -->
@@ -346,15 +350,17 @@
             <property name="frontEndUseCases"/>
         </mapping>
     </metafacade>
-    <!-- metafacade class="org.andromda.metafacades.emf.uml22.FrontEndControllerLogicImpl">
+    <metafacade class="org.andromda.metafacades.emf.uml22.FrontEndControllerLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.ClassImpl">
             <property name="useCase"/>
         </mapping>
-    </metafacade-->
+        <property reference="controllerImplementationPattern"/>
+    </metafacade>
     <metafacade class="org.andromda.metafacades.emf.uml22.FrontEndControllerOperationLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.OperationImpl">
             <property name="ownerIsController"/>
         </mapping>
+        <property reference="formPattern"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.emf.uml22.FrontEndUseCaseLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.UseCaseImpl">
@@ -397,17 +403,41 @@
         <mapping class="org.eclipse.uml2.uml.internal.impl.ParameterImpl">
             <property name="containedInFrontEndUseCase"/>
         </mapping>
+        <property reference="defaultDateFormat"/>
+        <property reference="defaultTimeFormat"/>
+        <property reference="backingListPattern"/>
+        <property reference="backingValuePattern"/>
+        <property reference="labelListPattern"/>
+        <property reference="valueListPattern"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml22.FrontEndAttributeLogicImpl">
+        <mapping class="org.andromda.metafacades.emf.uml22.AttributeImpl"/>
+        <property reference="enumerationLiteralNameMask"/>
+        <property reference="defaultMultiplicity"/>
+        <property reference="pluralizeAttributeNames"/>
+        <property reference="backingListPattern"/>
+        <property reference="labelListPattern"/>
+        <property reference="valueListPattern"/>
+        <property reference="backingValuePattern"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.emf.uml22.FrontEndActionLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.TransitionImpl">
             <property name="exitingInitialState"/>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
+        <property reference="formImplementationPattern"/>
+        <property reference="formBeanPattern"/>
+        <property reference="formScope"/>
+        <property reference="actionFormKey"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.emf.uml22.FrontEndActionLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.TransitionImpl">
             <property name="exitingView"/>
         </mapping>
+        <property reference="formImplementationPattern"/>
+        <property reference="formBeanPattern"/>
+        <property reference="formScope"/>
+        <property reference="actionFormKey"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.emf.uml22.FrontEndForwardLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.TransitionImpl">

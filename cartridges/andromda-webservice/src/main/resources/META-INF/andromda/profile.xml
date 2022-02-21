@@ -452,6 +452,20 @@
                 <value>andromda_REST_roles_allowed</value>
                 <appliedOnElement>WebServiceOperation</appliedOnElement>
             </element>
+            <element name="WEBSERVICE_REST_PRE_AUTHORIZE">
+                <documentation>
+                    Method to use to check access authorization.
+                </documentation>
+                <value>andromda_REST_pre_authorize</value>
+                <appliedOnElement>WebServiceOperation</appliedOnElement>
+            </element>
+            <element name="WEBSERVICE_REST_POST_AUTHORIZE">
+                <documentation>
+                    Method to use to check access authorization.
+                </documentation>
+                <value>andromda_REST_post_authorize</value>
+                <appliedOnElement>WebServiceOperation</appliedOnElement>
+            </element>
         </elementGroup>
     </elements>
 </profile>

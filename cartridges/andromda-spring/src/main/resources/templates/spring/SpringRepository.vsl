@@ -104,73 +104,7 @@ public interface ${entity.name}Repository extends
 #set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
 #set ($typedAttributes = "")
     @org.springframework.data.jpa.repository.Query(
-        value = 
-#if($finder.criteriaFinder)
-            "SELECT $entityIdVariable FROM $entity.name as $entityIdVariable where \n" + 
-#set($criteriaArgument = $finder.criteriaArgument)
-#set($criteriaArgumentName = $criteriaArgument.name)
-#set($criteriaClass = $criteriaArgument.type)
-#set ($i = 1)
-#foreach($criteriaAttribute in $criteriaClass.getAttributes(true))
-## Checking the comparator
-#if($criteriaAttribute.comparatorPresent)
-#if(${criteriaAttribute.comparatorConstant} == "LIKE_COMPARATOR" || ${criteriaAttribute.comparatorConstant} == "INSENTITIVE_LIKE_COMPARATOR")
-#set($comparatorArgument = "LIKE")
-#elseif(${criteriaAttribute.comparatorConstant} == "EQUAL_COMPARATOR")
-#set($comparatorArgument = "=")
-#elseif(${criteriaAttribute.comparatorConstant} == "GREATER_THAN_OR_EQUAL_COMPARATOR")
-#set($comparatorArgument = ">=")
-#elseif(${criteriaAttribute.comparatorConstant} == "GREATER_THAN_COMPARATOR")
-#set($comparatorArgument = ">")
-#elseif(${criteriaAttribute.comparatorConstant} == "LESS_THAN_OR_EQUAL_COMPARATOR")
-#set($comparatorArgument = "<=")
-#elseif(${criteriaAttribute.comparatorConstant} == "LESS_THAN_COMPARATOR")
-#set($comparatorArgument = "<")
-#elseif(${criteriaAttribute.comparatorConstant} == "IN_COMPARATOR")
-#set($comparatorArgument = "IN")
-#elseif(${criteriaAttribute.comparatorConstant} == "NOT_EQUAL_COMPARATOR")
-#set($comparatorArgument = "!=")
-#else
-#set($comparatorArgument = "=")
-#end
-#else
-#if($criteriaAttribute.type.stringType)
-#set($comparatorArgument = "LIKE")
-#else
-#set($comparatorArgument = "=")
-#end
-#end
-## Check the match mode 
-#if($criteriaAttribute.matchModePresent)
-#if(${criteriaAttribute.matchModeConstant} == "EXACT")
-#set($matchModeArgument = ":$criteriaAttribute.name")
-#elseif(${criteriaAttribute.matchModeConstant} == "START")
-#set($matchModeArgument = "CONCAT(:$criteriaAttribute.name, '%')")
-#elseif(${criteriaAttribute.matchModeConstant} == "END")
-#set($matchModeArgument = "CONCAT('%' + :$criteriaAttribute.name)")
-#else
-#set($matchModeArgument = "CONCAT('%', :$criteriaAttribute.name, '%')")
-#end
-#else
-#if(!$criteriaAttribute.type.stringType)
-#set($matchModeArgument = ":$criteriaAttribute.name")
-#set ($attrName = "${entityIdVariable}.$criteriaAttribute.attributeName")
-#else
-#set($matchModeArgument = "CONCAT('%', :$criteriaAttribute.name, '%')")
-#end
-#end
-#if($criteriaAttribute.type.stringType && $comparatorArgument == "LIKE")
-#set($matchModeArgument = "lower($matchModeArgument)")
-#set ($attrName = "lower(${entityIdVariable}.$criteriaAttribute.attributeName)")
-#else
-#set ($attrName = "${entityIdVariable}.$criteriaAttribute.attributeName")
-#end
-            #if($i > 1)+ "AND #else"#end(:$criteriaAttribute.name is null OR ${attrName} $comparatorArgument $matchModeArgument)"
-#set ($i = $i + 1)
-#end
-#else
-            "$finder.query"
-#end
+        value = $finder.getQuery($entity)
     )
     $returnType ${finder.name}(
 #if($finder.criteriaFinder)

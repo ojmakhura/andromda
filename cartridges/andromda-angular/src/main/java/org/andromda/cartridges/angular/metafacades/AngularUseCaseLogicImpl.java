@@ -61,7 +61,8 @@ public class AngularUseCaseLogicImpl
      * @return actionPath
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getPath()
      */
-    protected String handleGetPath()
+    @Override
+    public String getPath()
     {
         String actionPath = null;
         final FrontEndActivityGraph graph = this.getActivityGraph();
@@ -80,338 +81,339 @@ public class AngularUseCaseLogicImpl
      * @return pathRoot
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getPathRoot()
      */
-    protected String handleGetPathRoot()
-    {
-        final StringBuilder pathRoot = new StringBuilder("/");
-        final String packagePath = this.getPackagePath();
-        final String prefix = packagePath != null ? packagePath.trim() : "";
-        pathRoot.append(prefix);
-        return pathRoot.toString();
-    }
+    // @Override
+    // protected String handleGetPathRoot()
+    // {
+    //     final StringBuilder pathRoot = new StringBuilder("/");
+    //     final String packagePath = this.getPackagePath();
+    //     final String prefix = packagePath != null ? packagePath.trim() : "";
+    //     pathRoot.append(prefix);
+    //     return pathRoot.toString();
+    // }
 
     /**
      * @return forwardName
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getPathRoot()
      */
-    protected String handleGetForwardName()
-    {
-        return AngularUtils.toWebResourceName(this.getName()) + AngularGlobals.USECASE_FORWARD_NAME_SUFFIX;
-    }
+    // protected String handleGetForwardName()
+    // {
+    //     return AngularUtils.toWebResourceName(this.getName()) + AngularGlobals.USECASE_FORWARD_NAME_SUFFIX;
+    // }
 
     /**
      * @return titleKey
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getTitleKey()
      */
-    protected String handleGetTitleKey()
-    {
-        return StringUtilsHelper.toResourceMessageKey(
-            this.isNormalizeMessages() ? this.getTitleValue() : this.getName()) + '.' +
-            AngularGlobals.TITLE_MESSAGE_KEY_SUFFIX;
-    }
+    // protected String handleGetTitleKey()
+    // {
+    //     return StringUtilsHelper.toResourceMessageKey(
+    //         this.isNormalizeMessages() ? this.getTitleValue() : this.getName()) + '.' +
+    //         AngularGlobals.TITLE_MESSAGE_KEY_SUFFIX;
+    // }
 
     /**
      * @return toPhrase(getName())
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getTitleValue()
      */
-    protected String handleGetTitleValue()
-    {
-        return StringUtilsHelper.toPhrase(getName());
-    }
+    // protected String handleGetTitleValue()
+    // {
+    //     return StringUtilsHelper.toPhrase(getName());
+    // }
 
     /**
      * Indicates whether or not we should normalize messages.
      *
      * @return true/false
      */
-    private boolean isNormalizeMessages()
-    {
-        final String normalizeMessages = (String)getConfiguredProperty(AngularGlobals.NORMALIZE_MESSAGES);
-        return Boolean.valueOf(normalizeMessages).booleanValue();
-    }
+    // private boolean isNormalizeMessages()
+    // {
+    //     final String normalizeMessages = (String)getConfiguredProperty(AngularGlobals.NORMALIZE_MESSAGES);
+    //     return Boolean.valueOf(normalizeMessages).booleanValue();
+    // }
 
     /**
      * @return allMessages
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getAllMessages()
      */
-    protected Map handleGetAllMessages()
-    {
-        final boolean normalize = this.isNormalizeMessages();
-        final Map<String, String> messages = normalize ?
-            new TreeMap<String, String>() : new LinkedHashMap<String, String>();
+    // protected Map handleGetAllMessages()
+    // {
+    //     final boolean normalize = this.isNormalizeMessages();
+    //     final Map<String, String> messages = normalize ?
+    //         new TreeMap<String, String>() : new LinkedHashMap<String, String>();
 
-        // - only retrieve the messages for the entry use case (i.e. the use case
-        //   where the application begins)
-        if (this.isEntryUseCase())
-        {
-            final List<FrontEndUseCase> useCases = this.getAllUseCases();
-            for (int ctr = 0; ctr < useCases.size(); ctr++)
-            {
-                // - usecase
-                final AngularUseCase useCase = (AngularUseCase)useCases.get(ctr);
-                messages.put(
-                    useCase.getTitleKey(),
-                    useCase.getTitleValue());
+    //     // - only retrieve the messages for the entry use case (i.e. the use case
+    //     //   where the application begins)
+    //     if (this.isEntryUseCase())
+    //     {
+    //         final List<FrontEndUseCase> useCases = this.getAllUseCases();
+    //         for (int ctr = 0; ctr < useCases.size(); ctr++)
+    //         {
+    //             // - usecase
+    //             final AngularUseCase useCase = (AngularUseCase)useCases.get(ctr);
+    //             messages.put(
+    //                 useCase.getTitleKey(),
+    //                 useCase.getTitleValue());
 
-                final List<FrontEndView> views = useCase.getViews();
-                for (int ctr2 = 0; ctr2 < views.size(); ctr2++)
-                {
-                    // - view
-                    final AngularView view = (AngularView)views.get(ctr2);
-                    messages.put(
-                        view.getTitleKey(),
-                        view.getTitleValue());
-                    messages.put(
-                        view.getMessageKey(),
-                        view.getMessageValue());
-                    messages.put(
-                        view.getDocumentationKey(),
-                        view.getDocumentationValue());
+    //             final List<FrontEndView> views = useCase.getViews();
+    //             for (int ctr2 = 0; ctr2 < views.size(); ctr2++)
+    //             {
+    //                 // - view
+    //                 final AngularView view = (AngularView)views.get(ctr2);
+    //                 messages.put(
+    //                     view.getTitleKey(),
+    //                     view.getTitleValue());
+    //                 messages.put(
+    //                     view.getMessageKey(),
+    //                     view.getMessageValue());
+    //                 messages.put(
+    //                     view.getDocumentationKey(),
+    //                     view.getDocumentationValue());
 
-                    final List<FrontEndParameter> viewVariables = view.getVariables();
-                    for (int ctr3 = 0; ctr3 < viewVariables.size(); ctr3++)
-                    {
-                        // - page variables
-                        final Object object = viewVariables.get(ctr3);
-                        if (object instanceof AngularParameter)
-                        {
-                            final AngularParameter parameter = (AngularParameter)object;
+    //                 final List<FrontEndParameter> viewVariables = view.getVariables();
+    //                 for (int ctr3 = 0; ctr3 < viewVariables.size(); ctr3++)
+    //                 {
+    //                     // - page variables
+    //                     final Object object = viewVariables.get(ctr3);
+    //                     if (object instanceof AngularParameter)
+    //                     {
+    //                         final AngularParameter parameter = (AngularParameter)object;
 
-                            final Collection<ClassifierFacade> resolvingTypes = new ArrayList<ClassifierFacade>();
-                            this.collectAttributeMessages(messages, parameter.getAttributes(), resolvingTypes);
-                            this.collectAssociationEndMessages(messages,
-                                parameter.getNavigableAssociationEnds(), resolvingTypes);
-                            messages.put(
-                                parameter.getMessageKey(),
-                                parameter.getMessageValue());
+    //                         final Collection<ClassifierFacade> resolvingTypes = new ArrayList<ClassifierFacade>();
+    //                         this.collectAttributeMessages(messages, parameter.getAttributes(), resolvingTypes);
+    //                         this.collectAssociationEndMessages(messages,
+    //                             parameter.getNavigableAssociationEnds(), resolvingTypes);
+    //                         messages.put(
+    //                             parameter.getMessageKey(),
+    //                             parameter.getMessageValue());
 
-                            // - table
-                            if (parameter.isTable())
-                            {
-                                for (String columnName : parameter.getTableColumnNames())
-                                {
-                                     messages.put(
-                                        parameter.getTableColumnMessageKey(columnName),
-                                        parameter.getTableColumnMessageValue(columnName));
-                                }
-                            }
-                        }
-                    }
+    //                         // - table
+    //                         if (parameter.isTable())
+    //                         {
+    //                             for (String columnName : parameter.getTableColumnNames())
+    //                             {
+    //                                  messages.put(
+    //                                     parameter.getTableColumnMessageKey(columnName),
+    //                                     parameter.getTableColumnMessageValue(columnName));
+    //                             }
+    //                         }
+    //                     }
+    //                 }
 
-                    final List<FrontEndAction> actions = useCase.getActions();
-                    for (int ctr3 = 0; ctr3 < actions.size(); ctr3++)
-                    {
-                        // - action
-                        final AngularAction action = (AngularAction)actions.get(ctr3);
+    //                 final List<FrontEndAction> actions = useCase.getActions();
+    //                 for (int ctr3 = 0; ctr3 < actions.size(); ctr3++)
+    //                 {
+    //                     // - action
+    //                     final AngularAction action = (AngularAction)actions.get(ctr3);
 
-                        // - event/trigger
-                        final Object trigger = action.getTrigger();
-                        if (trigger != null && trigger instanceof AngularEvent)
-                        {
-                            final AngularEvent event = (AngularEvent)trigger;
-                            // only add these when a trigger is present, otherwise it's no use having them
-                            messages.put(
-                                action.getDocumentationKey(),
-                                action.getDocumentationValue());
+    //                     // - event/trigger
+    //                     final Object trigger = action.getTrigger();
+    //                     if (trigger != null && trigger instanceof AngularEvent)
+    //                     {
+    //                         final AngularEvent event = (AngularEvent)trigger;
+    //                         // only add these when a trigger is present, otherwise it's no use having them
+    //                         messages.put(
+    //                             action.getDocumentationKey(),
+    //                             action.getDocumentationValue());
 
-                            // the regular trigger messages
-                            messages.put(
-                                event.getResetMessageKey(),
-                                event.getResetMessageValue());
+    //                         // the regular trigger messages
+    //                         messages.put(
+    //                             event.getResetMessageKey(),
+    //                             event.getResetMessageValue());
 
-                            // this one is the same as doing: action.getMessageKey()
-                            messages.put(
-                                event.getMessageKey(),
-                                event.getMessageValue());
+    //                         // this one is the same as doing: action.getMessageKey()
+    //                         messages.put(
+    //                             event.getMessageKey(),
+    //                             event.getMessageValue());
 
-                            // - IMAGE LINK
+    //                         // - IMAGE LINK
 
-                            /*if (action.isImageLink())
-                            {
-                                messages.put(
-                                    action.getImageMessageKey(),
-                                    action.getImagePath());
-                            }*/
-                        }
+    //                         /*if (action.isImageLink())
+    //                         {
+    //                             messages.put(
+    //                                 action.getImageMessageKey(),
+    //                                 action.getImagePath());
+    //                         }*/
+    //                     }
 
-                        // - forwards
-                        for (final FrontEndForward forward : action.getTransitions())
-                        {
-                            if (forward instanceof AngularForward)
-                            {
-                                final AngularForward forwardTransition = (AngularForward)forward;
-                                messages.putAll(forwardTransition.getSuccessMessages());
-                                messages.putAll(forwardTransition.getWarningMessages());
-                            }
-                            else
-                            {
-                                final AngularAction actionTransition = (AngularAction)forward;
-                                messages.putAll(actionTransition.getSuccessMessages());
-                                messages.putAll(actionTransition.getWarningMessages());
-                            }
+    //                     // - forwards
+    //                     for (final FrontEndForward forward : action.getTransitions())
+    //                     {
+    //                         if (forward instanceof AngularForward)
+    //                         {
+    //                             final AngularForward forwardTransition = (AngularForward)forward;
+    //                             messages.putAll(forwardTransition.getSuccessMessages());
+    //                             messages.putAll(forwardTransition.getWarningMessages());
+    //                         }
+    //                         else
+    //                         {
+    //                             final AngularAction actionTransition = (AngularAction)forward;
+    //                             messages.putAll(actionTransition.getSuccessMessages());
+    //                             messages.putAll(actionTransition.getWarningMessages());
+    //                         }
 
-                        }
+    //                     }
 
-                        // - action parameters
-                        final List<FrontEndParameter> parameters = action.getParameters();
-                        for (int l = 0; l < parameters.size(); l++)
-                        {
-                            final Object object = parameters.get(l);
-                            if (object instanceof AngularParameter)
-                            {
-                                final AngularParameter parameter = (AngularParameter)object;
-                                final Collection attributes = parameter.getAttributes();
-                                if (!attributes.isEmpty())
-                                {
-                                    for (final Iterator iterator = attributes.iterator(); iterator.hasNext();)
-                                    {
-                                        final AngularAttribute attribute = (AngularAttribute)iterator.next();
-                                        messages.put(
-                                            attribute.getMessageKey(),
-                                            attribute.getMessageValue());
-                                    }
-                                }
-                                final Collection associationEnds = parameter.getNavigableAssociationEnds();
-                                if (!associationEnds.isEmpty())
-                                {
-                                    for (final Iterator iterator = associationEnds.iterator(); iterator.hasNext();)
-                                    {
-                                        final AssociationEndFacade end = (AssociationEndFacade)iterator.next();
-                                        final ClassifierFacade type = end.getType();
-                                        if (type != null)
-                                        {
-                                            final Collection<AttributeFacade> typeAttributes = type.getAttributes();
-                                            if (!attributes.isEmpty())
-                                            {
-                                                for (final Iterator<AttributeFacade> attributeIterator
-                                                    = typeAttributes.iterator(); attributeIterator.hasNext(); )
-                                                {
-                                                    final AngularAttribute attribute = (AngularAttribute)attributeIterator.next();
-                                                    messages.put(
-                                                        attribute.getMessageKey(),
-                                                        attribute.getMessageValue());
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                                messages.put(
-                                    parameter.getMessageKey(),
-                                    parameter.getMessageValue());
-                                messages.put(
-                                    parameter.getDocumentationKey(),
-                                    parameter.getDocumentationValue());
+    //                     // - action parameters
+    //                     final List<FrontEndParameter> parameters = action.getParameters();
+    //                     for (int l = 0; l < parameters.size(); l++)
+    //                     {
+    //                         final Object object = parameters.get(l);
+    //                         if (object instanceof AngularParameter)
+    //                         {
+    //                             final AngularParameter parameter = (AngularParameter)object;
+    //                             final Collection attributes = parameter.getAttributes();
+    //                             if (!attributes.isEmpty())
+    //                             {
+    //                                 for (final Iterator iterator = attributes.iterator(); iterator.hasNext();)
+    //                                 {
+    //                                     final AngularAttribute attribute = (AngularAttribute)iterator.next();
+    //                                     messages.put(
+    //                                         attribute.getMessageKey(),
+    //                                         attribute.getMessageValue());
+    //                                 }
+    //                             }
+    //                             final Collection associationEnds = parameter.getNavigableAssociationEnds();
+    //                             if (!associationEnds.isEmpty())
+    //                             {
+    //                                 for (final Iterator iterator = associationEnds.iterator(); iterator.hasNext();)
+    //                                 {
+    //                                     final AssociationEndFacade end = (AssociationEndFacade)iterator.next();
+    //                                     final ClassifierFacade type = end.getType();
+    //                                     if (type != null)
+    //                                     {
+    //                                         final Collection<AttributeFacade> typeAttributes = type.getAttributes();
+    //                                         if (!attributes.isEmpty())
+    //                                         {
+    //                                             for (final Iterator<AttributeFacade> attributeIterator
+    //                                                 = typeAttributes.iterator(); attributeIterator.hasNext(); )
+    //                                             {
+    //                                                 final AngularAttribute attribute = (AngularAttribute)attributeIterator.next();
+    //                                                 messages.put(
+    //                                                     attribute.getMessageKey(),
+    //                                                     attribute.getMessageValue());
+    //                                             }
+    //                                         }
+    //                                     }
+    //                                 }
+    //                             }
+    //                             messages.put(
+    //                                 parameter.getMessageKey(),
+    //                                 parameter.getMessageValue());
+    //                             messages.put(
+    //                                 parameter.getDocumentationKey(),
+    //                                 parameter.getDocumentationValue());
 
-                                // - submittable input table
-                                if (parameter.isInputTable())
-                                {
-                                    final Collection<String> columnNames = parameter.getTableColumnNames();
-                                    for (final Iterator<String> columnNameIterator = columnNames.iterator();
-                                        columnNameIterator.hasNext();)
-                                    {
-                                        final String columnName = columnNameIterator.next();
-                                        messages.put(
-                                            parameter.getTableColumnMessageKey(columnName),
-                                            parameter.getTableColumnMessageValue(columnName));
-                                    }
-                                }
-                                /*if (parameter.getValidWhen() != null)
-                                {
-                                    // this key needs to be fully qualified since the valid when value can be different
-                                    final String completeKeyPrefix =
-                                        (normalize)
-                                        ? useCase.getTitleKey() + '.' + view.getMessageKey() + '.' +
-                                        action.getMessageKey() + '.' + parameter.getMessageKey() : parameter.getMessageKey();
-                                    messages.put(
-                                        completeKeyPrefix + "_validwhen",
-                                        "{0} is only valid when " + parameter.getValidWhen());
-                                }*/
-                                /*if (parameter.getOptionCount() > 0)
-                                {
-                                    final List optionKeys = parameter.getOptionKeys();
-                                    final List optionValues = parameter.getOptionValues();
+    //                             // - submittable input table
+    //                             if (parameter.isInputTable())
+    //                             {
+    //                                 final Collection<String> columnNames = parameter.getTableColumnNames();
+    //                                 for (final Iterator<String> columnNameIterator = columnNames.iterator();
+    //                                     columnNameIterator.hasNext();)
+    //                                 {
+    //                                     final String columnName = columnNameIterator.next();
+    //                                     messages.put(
+    //                                         parameter.getTableColumnMessageKey(columnName),
+    //                                         parameter.getTableColumnMessageValue(columnName));
+    //                                 }
+    //                             }
+    //                             /*if (parameter.getValidWhen() != null)
+    //                             {
+    //                                 // this key needs to be fully qualified since the valid when value can be different
+    //                                 final String completeKeyPrefix =
+    //                                     (normalize)
+    //                                     ? useCase.getTitleKey() + '.' + view.getMessageKey() + '.' +
+    //                                     action.getMessageKey() + '.' + parameter.getMessageKey() : parameter.getMessageKey();
+    //                                 messages.put(
+    //                                     completeKeyPrefix + "_validwhen",
+    //                                     "{0} is only valid when " + parameter.getValidWhen());
+    //                             }*/
+    //                             /*if (parameter.getOptionCount() > 0)
+    //                             {
+    //                                 final List optionKeys = parameter.getOptionKeys();
+    //                                 final List optionValues = parameter.getOptionValues();
 
-                                    for (int m = 0; m < optionKeys.size(); m++)
-                                    {
-                                        messages.put(
-                                            optionKeys.get(m),
-                                            optionValues.get(m));
-                                        messages.put(
-                                            optionKeys.get(m) + ".title",
-                                            optionValues.get(m));
-                                    }
-                                }*/
-                            }
-                        }
+    //                                 for (int m = 0; m < optionKeys.size(); m++)
+    //                                 {
+    //                                     messages.put(
+    //                                         optionKeys.get(m),
+    //                                         optionValues.get(m));
+    //                                     messages.put(
+    //                                         optionKeys.get(m) + ".title",
+    //                                         optionValues.get(m));
+    //                                 }
+    //                             }*/
+    //                         }
+    //                     }
 
-                        // - portlet preferences
-                        final AngularPortletPreferences preferences = useCase.getPreferences();
-                        if (preferences != null)
-                        {
-                            final Collection<AttributeFacade> attributes = preferences.getAttributes(true);
-                            if (!attributes.isEmpty())
-                            {
-                                for (final Iterator iterator = attributes.iterator(); iterator.hasNext();)
-                                {
-                                    final AngularAttribute attribute = (AngularAttribute)iterator.next();
-                                    messages.put(
-                                        attribute.getMessageKey(),
-                                        attribute.getMessageValue());
-                                }
-                            }
-                        }
+    //                     // - portlet preferences
+    //                     final AngularPortletPreferences preferences = useCase.getPreferences();
+    //                     if (preferences != null)
+    //                     {
+    //                         final Collection<AttributeFacade> attributes = preferences.getAttributes(true);
+    //                         if (!attributes.isEmpty())
+    //                         {
+    //                             for (final Iterator iterator = attributes.iterator(); iterator.hasNext();)
+    //                             {
+    //                                 final AngularAttribute attribute = (AngularAttribute)iterator.next();
+    //                                 messages.put(
+    //                                     attribute.getMessageKey(),
+    //                                     attribute.getMessageValue());
+    //                             }
+    //                         }
+    //                     }
 
-                        // - exception forwards
+    //                     // - exception forwards
 
-                        /*
-                        final List exceptions = action.getActionExceptions();
+    //                     /*
+    //                     final List exceptions = action.getActionExceptions();
 
-                        if (normalize)
-                        {
-                            if (exceptions.isEmpty())
-                            {
-                                messages.put("exception.occurred", "{0}");
-                            }
-                            else
-                            {
-                                for (int l = 0; l < exceptions.size(); l++)
-                                {
-                                    final FrontEndExceptionHandler exception =
-                                        (FrontEndExceptionHandler)exceptions.get(l);
-                                    messages.put(action.getMessageKey() + '.' + exception.getExceptionKey(), "{0}");
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (exceptions.isEmpty())
-                            {
-                                if (!action.isUseCaseStart())
-                                {
-                                    messages.put(action.getMessageKey() + ".exception", "{0} (java.lang.Exception)");
-                                }
-                            }
-                            else
-                            {
-                                for (int l = 0; l < exceptions.size(); l++)
-                                {
-                                    final FrontEndExceptionHandler exception =
-                                        (FrontEndExceptionHandler)exceptions.get(l);
+    //                     if (normalize)
+    //                     {
+    //                         if (exceptions.isEmpty())
+    //                         {
+    //                             messages.put("exception.occurred", "{0}");
+    //                         }
+    //                         else
+    //                         {
+    //                             for (int l = 0; l < exceptions.size(); l++)
+    //                             {
+    //                                 final FrontEndExceptionHandler exception =
+    //                                     (FrontEndExceptionHandler)exceptions.get(l);
+    //                                 messages.put(action.getMessageKey() + '.' + exception.getExceptionKey(), "{0}");
+    //                             }
+    //                         }
+    //                     }
+    //                     else
+    //                     {
+    //                         if (exceptions.isEmpty())
+    //                         {
+    //                             if (!action.isUseCaseStart())
+    //                             {
+    //                                 messages.put(action.getMessageKey() + ".exception", "{0} (java.lang.Exception)");
+    //                             }
+    //                         }
+    //                         else
+    //                         {
+    //                             for (int l = 0; l < exceptions.size(); l++)
+    //                             {
+    //                                 final FrontEndExceptionHandler exception =
+    //                                     (FrontEndExceptionHandler)exceptions.get(l);
 
-                                    // we construct the key using the action message too because the exception can
-                                    // belong to more than one action (therefore it cannot return the correct value
-                                    // in .getExceptionKey())
-                                    messages.put(
-                                        action.getMessageKey() + '.' + exception.getExceptionKey(),
-                                        "{0} (" + exception.getExceptionType() + ")");
-                                }
-                            }
-                        }*/
-                    }
-                }
-            }
-        }
-        return messages;
-    }
+    //                                 // we construct the key using the action message too because the exception can
+    //                                 // belong to more than one action (therefore it cannot return the correct value
+    //                                 // in .getExceptionKey())
+    //                                 messages.put(
+    //                                     action.getMessageKey() + '.' + exception.getExceptionKey(),
+    //                                     "{0} (" + exception.getExceptionType() + ")");
+    //                             }
+    //                         }
+    //                     }*/
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return messages;
+    // }
 
     /**
      * Collects all attribute messages into the given Map.
@@ -484,282 +486,283 @@ public class AngularUseCaseLogicImpl
      * @return actionForwards
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getActionForwards()
      */
-    protected List<AngularAction> handleGetActionForwards()
-    {
-        final Set<AngularAction> actionForwards = new LinkedHashSet<AngularAction>();
-        for (final FrontEndView view : this.getViews())
-        {
-            actionForwards.addAll(((AngularView)view).getActionForwards());
-        }
-        return new ArrayList<AngularAction>(actionForwards);
-    }
+    // protected List<FrontEndForward> handleGetActionForwards()
+    // {
+    //     final Set<FrontEndForward> actionForwards = new LinkedHashSet<FrontEndForward>();
+    //     for (final FrontEndView view : this.getViews())
+    //     {
+    //         actionForwards.addAll(view.getActionForwards());
+    //     }
+    //     return new ArrayList<FrontEndForward>(actionForwards);
+    // }
 
     /**
      * @return forwards
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getForwards()
      */
-    protected List<AngularForward> handleGetForwards()
-    {
-        final Map<String, AngularForward> forwards = new LinkedHashMap<String, AngularForward>();
-        for (final FrontEndAction action : this.getActions())
-        {
-            for (final FrontEndForward forward : action.getActionForwards())
-            {
-                if (forward instanceof AngularForward)
-                {
-                    forwards.put(forward.getName(), (AngularForward) forward);
-                }
-            }
-        }
-        return new ArrayList(forwards.values());
-    }
+    // protected List<AngularForward> handleGetForwards()
+    // {
+    //     final Map<String, AngularForward> forwards = new LinkedHashMap<String, AngularForward>();
+    //     for (final FrontEndAction action : this.getActions())
+    //     {
+    //         for (final FrontEndForward forward : action.getActionForwards())
+    //         {
+    //             if (forward instanceof AngularForward)
+    //             {
+    //                 forwards.put(forward.getName(), (AngularForward) forward);
+    //             }
+    //         }
+    //     }
+    //     return new ArrayList(forwards.values());
+    // }
 
     /**
      * @return allForwards
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getAllForwards()
      */
-    @SuppressWarnings("unchecked")
-    protected List<ModelElementFacade> handleGetAllForwards()
-    {
-        final Map<String, ModelElementFacade> forwards = new LinkedHashMap<String, ModelElementFacade>();
-        for (final AngularAction forward : this.getActionForwards())
-        {
-            forwards.put(forward.getName(), forward);
-        }
-        for (final AngularForward forward : this.getForwards())
-        {
-            forwards.put(forward.getName(), forward);
-        }
-        return new ArrayList<ModelElementFacade>(forwards.values());
-    }
+    // @SuppressWarnings("unchecked")
+    // protected List<ModelElementFacade> handleGetAllForwards()
+    // {
+    //     final Map<String, ModelElementFacade> forwards = new LinkedHashMap<String, ModelElementFacade>();
+    //     for (final AngularAction forward : this.getActionForwards())
+    //     {
+    //         forwards.put(forward.getName(), forward);
+    //     }
+    //     for (final AngularForward forward : this.getForwards())
+    //     {
+    //         forwards.put(forward.getName(), forward);
+    //     }
+    //     return new ArrayList<ModelElementFacade>(forwards.values());
+    // }
 
     /**
      * @return upperCamelCaseName(this.getName())
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getActionClassName()
      */
-    protected String handleGetActionClassName()
-    {
+    // protected String handleGetActionClassName()
+    // {
         
-        return StringUtilsHelper.upperCamelCaseName(this.getName());
-    }
+    //     return StringUtilsHelper.upperCamelCaseName(this.getName());
+    // }
 
     /**
      * @return getFullyQualifiedActionClassName().replace('.', '/') + ".java"
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getFullyQualifiedActionClassPath()
      */
-    protected String handleGetFullyQualifiedActionClassPath()
-    {
-        return this.getFullyQualifiedActionClassName().replace(
-            '.',
-            '/') + ".java";
-    }
+    // protected String handleGetFullyQualifiedActionClassPath()
+    // {
+    //     return this.getFullyQualifiedActionClassName().replace(
+    //         '.',
+    //         '/') + ".java";
+    // }
 
     /**
      * @return lowerCamelCaseName(this.getName())
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getControllerAction()
      */
-    protected String handleGetControllerAction()
-    {
-        return StringUtilsHelper.lowerCamelCaseName(this.getName());
-    }
+    // protected String handleGetControllerAction()
+    // {
+    //     return StringUtilsHelper.lowerCamelCaseName(this.getName());
+    // }
 
     /**
      * @return fullyQualifiedActionClassName
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getFullyQualifiedActionClassName()
      */
-    protected String handleGetFullyQualifiedActionClassName()
-    {
-        final StringBuilder path = new StringBuilder();
-        final String packageName = this.getPackageName();
-        if (StringUtils.isNotBlank(packageName))
-        {
-            path.append(packageName);
-            path.append('.');
-        }
-        path.append(this.getActionClassName());
-        return path.toString();
-    }
+    // protected String handleGetFullyQualifiedActionClassName()
+    // {
+    //     final StringBuilder path = new StringBuilder();
+    //     final String packageName = this.getPackageName();
+    //     if (StringUtils.isNotBlank(packageName))
+    //     {
+    //         path.append(packageName);
+    //         path.append('.');
+    //     }
+    //     path.append(this.getActionClassName());
+    //     return path.toString();
+    // }
 
     /**
      * @return formKeyValue
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getFormKey()
      */
-    protected String handleGetFormKey()
-    {
-        final Object formKeyValue = this.findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_FORM_KEY);
-        return formKeyValue == null ? Objects.toString(this.getConfiguredProperty(AngularGlobals.ACTION_FORM_KEY))
-                                    : String.valueOf(formKeyValue);
-    }
+    // protected String handleGetFormKey()
+    // {
+    //     final Object formKeyValue = this.findTaggedValue(AngularProfile.TAGGEDVALUE_ACTION_FORM_KEY);
+    //     return formKeyValue == null ? Objects.toString(this.getConfiguredProperty(AngularGlobals.ACTION_FORM_KEY))
+    //                                 : String.valueOf(formKeyValue);
+    // }
 
     /**
      * @return initialTargetPath
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getInitialTargetPath()
      */
-    protected String handleGetInitialTargetPath()
-    {
-        String path = null;
-        final Object target = this.getInitialTarget();
-        if (target instanceof AngularView)
-        {
-            path = ((AngularView)target).getPath();
-        }
-        else if (target instanceof AngularUseCase)
-        {
-            path = ((AngularUseCase)target).getPath();
-        }
-        return path;
-    }
+    // protected String handleGetInitialTargetPath()
+    // {
+    //     String path = null;
+    //     final Object target = this.getInitialTarget();
+    //     if (target instanceof AngularView)
+    //     {
+    //         path = ((AngularView)target).getPath();
+    //     }
+    //     else if (target instanceof AngularUseCase)
+    //     {
+    //         path = ((AngularUseCase)target).getPath();
+    //     }
+    //     return path;
+    // }
 
     /**
      * Gets the initial target when this use case is entered.
      *
      * @return the initial target.
      */
-    private Object getInitialTarget()
-    {
-        Object initialTarget = null;
-        final FrontEndActivityGraph graph = this.getActivityGraph();
-        final FrontEndAction action = graph != null ? this.getActivityGraph().getInitialAction() : null;
-        final Collection<FrontEndForward> forwards = action != null ? action.getActionForwards() : null;
-        if (forwards != null && !forwards.isEmpty())
-        {
-            final Object target = forwards.iterator().next().getTarget();
-            if (target instanceof FrontEndView)
-            {
-                initialTarget = target;
-            }
-            else if (target instanceof FrontEndFinalState)
-            {
-                final FrontEndFinalState finalState = (FrontEndFinalState)target;
-                final FrontEndUseCase targetUseCase = finalState.getTargetUseCase();
-                if (targetUseCase != null && !targetUseCase.equals(this.THIS()))
-                {
-                    initialTarget = targetUseCase;
-                }
-            }
-        }
-        return initialTarget;
-    }
+    // private Object getInitialTarget()
+    // {
+    //     Object initialTarget = null;
+    //     final FrontEndActivityGraph graph = this.getActivityGraph();
+    //     final FrontEndAction action = graph != null ? this.getActivityGraph().getInitialAction() : null;
+    //     final Collection<FrontEndForward> forwards = action != null ? action.getActionForwards() : null;
+    //     if (forwards != null && !forwards.isEmpty())
+    //     {
+    //         final Object target = forwards.iterator().next().getTarget();
+    //         if (target instanceof FrontEndView)
+    //         {
+    //             initialTarget = target;
+    //         }
+    //         else if (target instanceof FrontEndFinalState)
+    //         {
+    //             final FrontEndFinalState finalState = (FrontEndFinalState)target;
+    //             final FrontEndUseCase targetUseCase = finalState.getTargetUseCase();
+    //             if (targetUseCase != null && !targetUseCase.equals(this.THIS()))
+    //             {
+    //                 initialTarget = targetUseCase;
+    //             }
+    //         }
+    //     }
+    //     return initialTarget;
+    // }
 
     /**
      * @return required
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#isValidationRequired()
      */
-    protected boolean handleIsValidationRequired()
-    {
-        boolean required = false;
-        for (final FrontEndView feView : this.getViews())
-        {
-            final AngularView view = (AngularView)feView;
-            if (view.isValidationRequired())
-            {
-                required = true;
-                break;
-            }
-        }
-        return required;
-    }
+    // protected boolean handleIsValidationRequired()
+    // {
+    //     boolean required = false;
+    //     for (final FrontEndView feView : this.getViews())
+    //     {
+    //         final AngularView view = (AngularView)feView;
+    //         if (view.isValidationRequired())
+    //         {
+    //             required = true;
+    //             break;
+    //         }
+    //     }
+    //     return required;
+    // }
 
     /**
      * @return getInitialTarget() instanceof AngularView
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#isInitialTargetView()
      */
-    protected boolean handleIsInitialTargetView()
-    {
-        return this.getInitialTarget() instanceof AngularView;
-    }
+    // protected boolean handleIsInitialTargetView()
+    // {
+    //     return this.getInitialTarget() instanceof AngularView;
+    // }
 
     /**
      * @return required
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#isInitialTargetView()
      */
-    protected boolean handleIsApplicationValidationRequired()
-    {
-        boolean required = false;
-        for (final FrontEndUseCase feUseCase : this.getAllUseCases())
-        {
-            final AngularUseCase useCase = (AngularUseCase)feUseCase;
-            if (useCase.isValidationRequired())
-            {
-                required = true;
-                break;
-            }
-        }
-        return required;
-    }
+    // protected boolean handleIsApplicationValidationRequired()
+    // {
+    //     boolean required = false;
+    //     for (final FrontEndUseCase feUseCase : this.getAllUseCases())
+    //     {
+    //         final AngularUseCase useCase = (AngularUseCase)feUseCase;
+    //         if (useCase.isValidationRequired())
+    //         {
+    //             required = true;
+    //             break;
+    //         }
+    //     }
+    //     return required;
+    // }
 
     /**
      * @return sameName
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#isViewHasNameOfUseCase()
      */
-    protected boolean handleIsViewHasNameOfUseCase()
-    {
-        boolean sameName = false;
-        for (final FrontEndView view : this.getViews())
-        {
-            sameName = ((AngularView)view).isHasNameOfUseCase();
-            if (sameName)
-            {
-                break;
-            }
-        }
-        return sameName;
-    }
+    // protected boolean handleIsViewHasNameOfUseCase()
+    // {
+    //     boolean sameName = false;
+    //     for (final FrontEndView view : this.getViews())
+    //     {
+    //         sameName = ((AngularView)view).isHasNameOfUseCase();
+    //         if (sameName)
+    //         {
+    //             break;
+    //         }
+    //     }
+    //     return sameName;
+    // }
 
     /**
      * @return hasStereotype(AngularProfile.STEREOTYPE_FRONT_END_REGISTRATION)
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#isRegistrationUseCase()
      */
-    protected boolean handleIsRegistrationUseCase()
-    {
-        return this.hasStereotype(AngularProfile.STEREOTYPE_FRONT_END_REGISTRATION);
-    }
+    // protected boolean handleIsRegistrationUseCase()
+    // {
+    //     return this.hasStereotype(AngularProfile.STEREOTYPE_FRONT_END_REGISTRATION);
+    // }
 
     /**
      * @return useCases
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getRegistrationUseCases()
      */
-    @SuppressWarnings("unchecked")
-    protected List<FrontEndUseCase> handleGetRegistrationUseCases()
-    {
-        final List<FrontEndUseCase> useCases = new ArrayList<FrontEndUseCase>(this.getAllUseCases());
-        for (final Iterator<FrontEndUseCase> iterator = useCases.iterator(); iterator.hasNext();)
-        {
-            final FrontEndUseCase useCase = iterator.next();
-            if (useCase instanceof AngularUseCase)
-            {
-                if (!((AngularUseCase)useCase).isRegistrationUseCase())
-                {
-                    iterator.remove();
-                }
-            }
-            else
-            {
-                iterator.remove();
-            }
-        }
-        return useCases;
-    }
+    // @SuppressWarnings("unchecked")
+    // protected List<FrontEndUseCase> handleGetRegistrationUseCases()
+    // {
+    //     final List<FrontEndUseCase> useCases = new ArrayList<FrontEndUseCase>(this.getAllUseCases());
+    //     for (final Iterator<FrontEndUseCase> iterator = useCases.iterator(); iterator.hasNext();)
+    //     {
+    //         final FrontEndUseCase useCase = iterator.next();
+    //         if (useCase instanceof AngularUseCase)
+    //         {
+    //             if (!((AngularUseCase)useCase).isRegistrationUseCase())
+    //             {
+    //                 iterator.remove();
+    //             }
+    //         }
+    //         else
+    //         {
+    //             iterator.remove();
+    //         }
+    //     }
+    //     return useCases;
+    // }
 
     /**
      * The suffix for the forwards class name.
      */
-    private static final String FORWARDS_CLASS_NAME_SUFFIX = "Forwards";
+    //private static final String FORWARDS_CLASS_NAME_SUFFIX = "Forwards";
 
     /**
      * @return getName() + FORWARDS_CLASS_NAME_SUFFIX
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getForwardsClassName()
      */
-    protected String handleGetForwardsClassName()
-    {
-        return StringUtilsHelper.upperCamelCaseName(this.getName()) + FORWARDS_CLASS_NAME_SUFFIX;
-    }
+    // protected String handleGetForwardsClassName()
+    // {
+    //     return StringUtilsHelper.upperCamelCaseName(this.getName()) + FORWARDS_CLASS_NAME_SUFFIX;
+    // }
 
     /**
      * @return navigationRules
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getNavigationRules()
      */
     @SuppressWarnings("unchecked")
+    @Override
     protected Collection<Object> handleGetNavigationRules()
     {
         final Map<String, Object> rules = new LinkedHashMap<String, Object>();
@@ -789,6 +792,7 @@ public class AngularUseCaseLogicImpl
      * @return navigationChildren
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getNavigationChildren()
      */
+    @Override
     protected Collection<UseCaseFacade> handleGetNavigationChildren()
     {
         return CollectionUtils.collect(getIncludes(), new Transformer()
@@ -817,6 +821,7 @@ public class AngularUseCaseLogicImpl
      * @return navigationParents
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getNavigationParents()
      */
+    @Override
     protected Collection<FrontEndUseCase> handleGetNavigationParents()
     {
         final AngularUseCase theUseCase = this;
@@ -838,6 +843,7 @@ public class AngularUseCaseLogicImpl
      * @return actionRoles
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCase#getActionRoles()
      */
+    @Override
     protected String handleGetActionRoles()
     {
         final StringBuilder rolesBuffer = new StringBuilder();
@@ -942,17 +948,17 @@ public class AngularUseCaseLogicImpl
     /**
      * @see org.andromda.cartridges.angular.metafacades.AngularUseCaseLogic#handleGetAllViews()
      */
-    @SuppressWarnings("unchecked")
-    @Override
-    protected Collection<FrontEndView> handleGetAllViews()
-    {
-        final Set<FrontEndView> allViews = new LinkedHashSet<FrontEndView>();
-        for (final FrontEndUseCase useCase : this.getAllUseCases())
-        {
-            allViews.addAll(useCase.getViews());
-        }
-        return allViews;
-    }
+    // @SuppressWarnings("unchecked")
+    // @Override
+    // protected Collection<FrontEndView> handleGetAllViews()
+    // {
+    //     final Set<FrontEndView> allViews = new LinkedHashSet<FrontEndView>();
+    //     for (final FrontEndUseCase useCase : this.getAllUseCases())
+    //     {
+    //         allViews.addAll(useCase.getViews());
+    //     }
+    //     return allViews;
+    // }
 
     private void getMenuItems(AngularUseCase useCase, HashSet<ModelElementFacade> imports) {
 

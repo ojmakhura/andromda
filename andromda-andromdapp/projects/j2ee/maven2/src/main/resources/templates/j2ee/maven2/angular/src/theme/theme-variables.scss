@@ -4,7 +4,7 @@
 
 // Angular Material custom theme
 // See https://material.angular.io/guide/theming for more details.
-//
+
 // You can also read https://medium.com/@tomastrajan/the-complete-guide-to-angular-material-themes-4d165a9d24d1
 // for more insight about Angular Material theming.
 
@@ -15,10 +15,10 @@
 // hue.
 $app-primary: mat-palette($mat-blue);
 // stylelint-disable-next-line value-keyword-case
-$app-accent: mat-palette($mat-pink, A200, A100, A400);
+$app-accent:  mat-palette($mat-pink, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$app-warn: mat-palette($mat-red);
+$app-warn:    mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);

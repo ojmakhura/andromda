@@ -6,6 +6,11 @@ package $controller.packageName;
 
 import java.util.Map;
 import java.util.HashMap;
+// $controller.taggedValues
+// $umlProfiles
+// $umlProfiles.TAGGEDVALUE_PRESENTATION_CONTROLLER_PATH
+// $controller.findTaggedValue("andromda_presentation_controller_rest_path")
+// $controller.restPath
 
 #set($viewPopulator = "${controller.useCase.actionClassName}ViewPopulator")##should go to the controller metafacade
 /**

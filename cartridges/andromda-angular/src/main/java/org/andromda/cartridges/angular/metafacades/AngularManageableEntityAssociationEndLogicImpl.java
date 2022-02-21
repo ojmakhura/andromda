@@ -33,106 +33,106 @@ public class AngularManageableEntityAssociationEndLogicImpl
         super(metaObject, context);
     }
 
-    /**
-     * @return messageKey
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getMessageKey()
-     */
-    protected String handleGetMessageKey()
-    {
-        final StringBuilder messageKeyBuffer = new StringBuilder();
+    // /**
+    //  * @return messageKey
+    //  * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getMessageKey()
+    //  */
+    // protected String handleGetMessageKey()
+    // {
+    //     final StringBuilder messageKeyBuffer = new StringBuilder();
 
-        final ClassifierFacade ownerType = this.getOtherEnd().getType();
-        if (ownerType instanceof ManageableEntity)
-        {
-            messageKeyBuffer.append(ownerType.getName());
-        }
-        else
-        {
-            messageKeyBuffer.append(ownerType.getName());
-        }
+    //     final ClassifierFacade ownerType = this.getOtherEnd().getType();
+    //     if (ownerType instanceof ManageableEntity)
+    //     {
+    //         messageKeyBuffer.append(ownerType.getName());
+    //     }
+    //     else
+    //     {
+    //         messageKeyBuffer.append(ownerType.getName());
+    //     }
 
-        messageKeyBuffer.append('.');
-        messageKeyBuffer.append(this.getName());
+    //     messageKeyBuffer.append('.');
+    //     messageKeyBuffer.append(this.getName());
 
-        return StringUtilsHelper.toResourceMessageKey(messageKeyBuffer.toString());
-    }
+    //     return StringUtilsHelper.toResourceMessageKey(messageKeyBuffer.toString());
+    // }
 
-    /**
-     * @return messageValue
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getMessageValue()
-     */
-    protected String handleGetMessageValue()
-    {
-        String messageValue = null;
+    // /**
+    //  * @return messageValue
+    //  * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getMessageValue()
+    //  */
+    // protected String handleGetMessageValue()
+    // {
+    //     String messageValue = null;
 
-        final ClassifierFacade type = this.getType();
-        if (type instanceof Entity)
-        {
-            messageValue = this.getName();
-        }
+    //     final ClassifierFacade type = this.getType();
+    //     if (type instanceof Entity)
+    //     {
+    //         messageValue = this.getName();
+    //     }
 
-        return StringUtilsHelper.toPhrase(messageValue);
-    }
+    //     return StringUtilsHelper.toPhrase(messageValue);
+    // }
 
-    /**
-     * @return getMessageKey() + ".online.help"
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getOnlineHelpKey()
-     */
-    protected String handleGetOnlineHelpKey()
-    {
-        return this.getMessageKey() + ".online.help";
-    }
+    // /**
+    //  * @return getMessageKey() + ".online.help"
+    //  * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getOnlineHelpKey()
+    //  */
+    // protected String handleGetOnlineHelpKey()
+    // {
+    //     return this.getMessageKey() + ".online.help";
+    // }
 
-    /**
-     * @return onlineHelpValue
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getOnlineHelpValue()
-     */
-    protected String handleGetOnlineHelpValue()
-    {
-        final String value = StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
-        return (value == null) ? "No field documentation has been specified" : value;
-    }
+    // /**
+    //  * @return onlineHelpValue
+    //  * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getOnlineHelpValue()
+    //  */
+    // protected String handleGetOnlineHelpValue()
+    // {
+    //     final String value = StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
+    //     return (value == null) ? "No field documentation has been specified" : value;
+    // }
 
-    /**
-     * @return backingListName
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getBackingListName()
-     */
-    protected String handleGetBackingListName()
-    {
-        final String backingListName =
-            StringUtils.replace(
-                Objects.toString(this.getConfiguredProperty(AngularGlobals.BACKING_LIST_PATTERN), ""),
-                "{0}",
-                this.getName());
-        return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
-    }
+    // /**
+    //  * @return backingListName
+    //  * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getBackingListName()
+    //  */
+    // protected String handleGetBackingListName()
+    // {
+    //     final String backingListName =
+    //         StringUtils.replace(
+    //             Objects.toString(this.getConfiguredProperty(AngularGlobals.BACKING_LIST_PATTERN), ""),
+    //             "{0}",
+    //             this.getName());
+    //     return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
+    // }
 
-    /**
-     * @return valueListName
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getValueListName()
-     */
-    protected String handleGetValueListName()
-    {
-        return Objects.toString(this.getConfiguredProperty(AngularGlobals.VALUE_LIST_PATTERN), "").replaceAll(
-            "\\{0\\}",
-            this.getName());
-    }
+    // /**
+    //  * @return valueListName
+    //  * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getValueListName()
+    //  */
+    // protected String handleGetValueListName()
+    // {
+    //     return Objects.toString(this.getConfiguredProperty(AngularGlobals.VALUE_LIST_PATTERN), "").replaceAll(
+    //         "\\{0\\}",
+    //         this.getName());
+    // }
 
-    /**
-     * @return labelListName
-     * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getLabelListName()
-     */
-    protected String handleGetLabelListName()
-    {
-        return Objects.toString(this.getConfiguredProperty(AngularGlobals.LABEL_LIST_PATTERN), "").replaceAll(
-            "\\{0\\}",
-            this.getName());
-    }
+    // /**
+    //  * @return labelListName
+    //  * @see org.andromda.cartridges.angular.metafacades.AngularManageableEntityAssociationEnd#getLabelListName()
+    //  */
+    // protected String handleGetLabelListName()
+    // {
+    //     return Objects.toString(this.getConfiguredProperty(AngularGlobals.LABEL_LIST_PATTERN), "").replaceAll(
+    //         "\\{0\\}",
+    //         this.getName());
+    // }
     
-    //TODO should go to ancestor
-    @Override
-    public boolean isDisplay()
-    {
-        return super.isDisplay() && (getType() instanceof ManageableEntity);
-    }
+    // //TODO should go to ancestor
+    // @Override
+    // public boolean isDisplay()
+    // {
+    //     return super.isDisplay() && (getType() instanceof ManageableEntity);
+    // }
 }

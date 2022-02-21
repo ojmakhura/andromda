@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
@@ -323,5 +324,47 @@ public class FrontEndForwardLogicImpl
             operation = trigger.getControllerCall();
         }
         return operation;
+    }
+
+    @Override
+    protected String handleGetPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsFinalStateTarget() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected String handleGetFromOutcome() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected Map handleGetSuccessMessages() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsSuccessMessagesPresent() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected Map handleGetWarningMessages() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsWarningMessagesPresent() {
+        // TODO Auto-generated method stub
+        return false;
     }
 }

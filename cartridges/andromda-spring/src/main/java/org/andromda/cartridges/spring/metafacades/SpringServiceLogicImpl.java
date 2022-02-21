@@ -4,7 +4,7 @@ import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import org.andromda.cartridges.spring.SpringProfile;
+import org.andromda.cartridges.spring.CartridgeSpringProfile;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.OperationFacade;
@@ -633,7 +633,7 @@ public class SpringServiceLogicImpl
      */
     private String getEjbViewType()
     {
-        Object value = this.findTaggedValue(SpringProfile.TAGGEDVALUE_EJB_VIEW_TYPE);
+        Object value = this.findTaggedValue(CartridgeSpringProfile.TAGGEDVALUE_EJB_VIEW_TYPE);
         if (value == null)
         {
             value = this.getConfiguredProperty(EJB_VIEW_TYPE);
@@ -694,7 +694,7 @@ public class SpringServiceLogicImpl
      */
     protected boolean handleIsConfigonly()
     {
-        String value = (String)this.findTaggedValue(SpringProfile.TAGGEDVALUE_SERVICE_CONFIG_ONLY);
+        String value = (String)this.findTaggedValue(CartridgeSpringProfile.TAGGEDVALUE_SERVICE_CONFIG_ONLY);
         return BooleanUtils.toBoolean(StringUtils.trimToEmpty(value));
     }
 
@@ -703,7 +703,7 @@ public class SpringServiceLogicImpl
      */
     protected boolean handleIsPrivate()
     {
-        String value = (String)this.findTaggedValue(SpringProfile.TAGGEDVALUE_SERVICE_PRIVATE);
+        String value = (String)this.findTaggedValue(CartridgeSpringProfile.TAGGEDVALUE_SERVICE_PRIVATE);
         return BooleanUtils.toBoolean(StringUtils.trimToEmpty(value));
     }
 

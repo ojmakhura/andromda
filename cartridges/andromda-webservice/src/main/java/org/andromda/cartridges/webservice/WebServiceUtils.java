@@ -2812,7 +2812,8 @@ public class WebServiceUtils
 
             } else if(paramType.contains("RequestParam")) {
 
-                builder.append("@org.springframework.web.bind.annotation.RequestParam");
+                builder.append("@org.springframework.web.bind.annotation.RequestParam(\"");
+                builder.append(param.getName() + "\")");
 
             } else if(paramType.contains("RequestAttribute")) {
 
@@ -2832,7 +2833,8 @@ public class WebServiceUtils
                     if(param.getType().getAttributes().size() > 0) {
                         builder.append("@org.springframework.web.bind.annotation.RequestBody");
                     } else {
-                        builder.append("@org.springframework.web.bind.annotation.RequestParam");
+                        builder.append("@org.springframework.web.bind.annotation.RequestParam(\"");
+                        builder.append(param.getName() + "\")");
                     }
                 }
             } 

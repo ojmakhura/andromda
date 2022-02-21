@@ -4,6 +4,7 @@
     <property reference="wsdlOperationSortMode"/>
     <property reference="webserviceStack"/>
 	<property reference="normalizeMessages"/>
+	<property reference="secure"/>
     
     <metafacade class="org.andromda.metafacades.emf.uml22.EnumerationLiteralFacadeLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.EnumerationLiteralImpl"/>
@@ -231,5 +232,11 @@
         <property reference="backingValuePattern"/>
         <property reference="labelListPattern"/>
         <property reference="valueListPattern"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularCriteriaSearchLogicImpl"
+        contextRoot="true">
+        <mapping>
+            <stereotype>CRITERIA</stereotype>
+        </mapping>
     </metafacade>
 </metafacades>
