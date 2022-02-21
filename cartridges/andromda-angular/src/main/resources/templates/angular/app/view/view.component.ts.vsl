@@ -120,18 +120,6 @@ export abstract class $view.componentName implements OnInit {
 #end
 #end
 #end
-## #foreach ($action in $view.actions)
-## #if (!$action.tableLink)
-## #foreach($parameter in $action.formFields)
-## #if($parameter.many)
-## #set($tag = "[]")
-## #else
-## #set($tag = "")
-## #end
-##     ${action.formName}$stringUtils.capitalize(${parameter.name})$: Observable<$parameter.angularTypeName$tag>;
-## #end
-## #end
-## #end
 
     constructor(injector: Injector) {
         this.route = injector.get(ActivatedRoute);
