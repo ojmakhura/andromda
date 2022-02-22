@@ -100,7 +100,7 @@ public final class ${entity.name}Specifications {
 #foreach ($associationEnd in $entity.associationEnds)
 #if($associationEnd.navigable)
 #set ($target = $associationEnd.otherEnd)
-#set ($capitalised = ${stringUtils.capitalize($associationEnd.name)})
+#set ($capitalised = ${stringUtils.capitalize($target.name)})
 #set ($joinEntity = $target.type)
 #if($joinEntity.identifiersPresent)
 #foreach($identifier in $joinEntity.identifiers)
@@ -118,8 +118,8 @@ public final class ${entity.name}Specifications {
 #elseif ($associationEnd.many2Many)
             // Many to Many
 #end
-            javax.persistence.criteria.Join<$entity.name, $target.type.fullyQualifiedEntityName> ${associationEnd.name}Join = root.join("$associationEnd.name");
-            return criteriaBuilder.in(${associationEnd.name}Join.get("$identifier.name").in(${identifier.name}s));
+            javax.persistence.criteria.Join<$entity.name, $target.type.fullyQualifiedEntityName> ${target.name}Join = root.join("$target.name");
+            return criteriaBuilder.in(${target.name}Join.get("$identifier.name").in(${identifier.name}s));
         };
     }
 
