@@ -235,12 +235,6 @@ public class FrontEndControllerLogicImpl
     }
 
     @Override
-    protected Collection<String> handleGetRolesAlloweds() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     protected String handleGetPath() {
                 
         return UMLMetafacadeUtils.getPath(this);
@@ -259,8 +253,12 @@ public class FrontEndControllerLogicImpl
 
     @Override
     protected String handleGetTargetUrl() {
-        // TODO Auto-generated method stub
-        return null;
+        return UMLMetafacadeUtils.getTargetUrl(this);
+    }
+
+    @Override
+    protected Collection handleGetAllowedRoles() {
+        return UMLMetafacadeUtils.getAllowedRoles(this);
     }
 
     // TODO: We may want to override getPackageName here, since in uml2

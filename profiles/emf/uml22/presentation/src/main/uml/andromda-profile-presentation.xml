@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 
-<xmi:XMI xmlns:uml='http://www.omg.org/spec/UML/20131001' xmlns:xmi='http://www.omg.org/spec/XMI/20131001' xmlns:MagicDraw_Profile='http://www.omg.org/spec/UML/20131001/MagicDrawProfile' xmlns:Validation_Profile='http://www.magicdraw.com/schemas/Validation_Profile.xmi' xmlns:StandardProfile='http://www.omg.org/spec/UML/20131001/StandardProfile' xmlns:DSL_Customization='http://www.magicdraw.com/schemas/DSL_Customization.xmi'>
+<xmi:XMI xmlns:uml='http://www.omg.org/spec/UML/20131001' xmlns:xmi='http://www.omg.org/spec/XMI/20131001' xmlns:MagicDraw_Profile='http://www.omg.org/spec/UML/20131001/MagicDrawProfile' xmlns:StandardProfile='http://www.omg.org/spec/UML/20131001/StandardProfile' xmlns:DSL_Customization='http://www.magicdraw.com/schemas/DSL_Customization.xmi' xmlns:Validation_Profile='http://www.magicdraw.com/schemas/Validation_Profile.xmi'>
 	<xmi:Extension extender='MagicDraw UML 19.0'>
 		<modelPart name='com.nomagic.magicdraw.uml_model.shared_model'/>
 	</xmi:Extension>
@@ -12,13 +12,13 @@
 		<xmi:exporter>MagicDraw UML</xmi:exporter>
 		<xmi:exporterVersion>19.0 v9</xmi:exporterVersion>
 	</xmi:Documentation>
-	<uml:Model xmi:type='uml:Model' xmi:id='eee_1045467100313_135436_1' name='AndroMDAPresentation'>
-		<ownedComment xmi:type='uml:Comment' xmi:id='_18_1beta_8c90288_1415101994820_370998_4336' body='Author:junior.&#10;Created:1/19/21 10:07 PM.&#10;Title:.&#10;Comment:.&#10;'>
+	<uml:Model xmi:type='uml:Model' xmi:id='eee_1045467100313_135436_1' name='Model'>
+		<ownedComment xmi:type='uml:Comment' xmi:id='_18_1beta_8c90288_1415101994820_370998_4336' body='Author:junior.&#10;Created:1/20/21 9:33 AM.&#10;Title:.&#10;Comment:.&#10;'>
 			<annotatedElement xmi:idref='eee_1045467100313_135436_1'/>
 		</ownedComment>
 		<xmi:Extension extender='MagicDraw UML 19.0'>
 			<modelPart name='com.nomagic.magicdraw.uml_model.shared_model'>
-				<packagedElement href='local:/PROJECT-877a3c98-5a76-453e-9cbc-5e3dc72fb8c0?resource=com.nomagic.magicdraw.uml_umodel.shared_umodel#_9_0_2_12ab03bf_1120853223187_211304_0'>
+				<packagedElement href='local:/PROJECT-3234fbcd-00a1-426b-9f3d-03fe2e846832?resource=com.nomagic.magicdraw.uml_umodel.shared_umodel#_9_0_2_12ab03bf_1120853223187_211304_0'>
 					<xmi:Extension extender='MagicDraw UML 19.0'>
 						<referenceExtension referentPath='andromda-presentation' referentType='Profile'/>
 					</xmi:Extension>
@@ -26,6 +26,14 @@
 			</modelPart>
 		</xmi:Extension>
 		<packagedElement xmi:type='uml:Profile' xmi:id='_9_0_2_12ab03bf_1120853223187_211304_0' name='andromda-presentation'>
+			<metamodelReference xmi:idref='_0metamodelReferenceandromda-presentation'/>
+			<packageImport xmi:type='uml:PackageImport' xmi:id='_0metamodelReferenceandromda-presentation'>
+				<importedPackage href='http://www.omg.org/spec/UML/20131001/UML.xmi#_0'>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel' referentType='Model' originalID='_9_0_be00301_1108053761194_467635_11463'/>
+					</xmi:Extension>
+				</importedPackage>
+			</packageImport>
 			<packagedElement xmi:type='uml:Enumeration' xmi:id='_9_0_1fe00f9_1119337248937_568959_38' name='WebActionFormScope'>
 				<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_999510_121' body='Denotes the scope given to the &quot;form&quot; attribute when executing an action.'>
 					<annotatedElement xmi:idref='_9_0_1fe00f9_1119337248937_568959_38'/>
@@ -107,34 +115,34 @@
 						<annotatedElement xmi:idref='_9_5_1_12ab03bf_1127428788109_430313_0'/>
 					</ownedComment>
 				</ownedLiteral>
-				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643304935292_677326_4795' name='button'>
-					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1643304935296_545544_4810' body='Allows you to submit an entire table (only makes sense on an array or collection) type.  Arrays are preferrable as they allow us to know the type of element which makes up the collection.'>
-						<annotatedElement xmi:idref='_19_0_3_90e0298_1643304935292_677326_4795'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643303584713_12825_4822' name='button'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1643303584714_888592_4823' body='Allows you to submit an entire table (only makes sense on an array or collection) type.  Arrays are preferrable as they allow us to know the type of element which makes up the collection.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1643303584713_12825_4822'/>
 					</ownedComment>
 				</ownedLiteral>
-				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643304935292_287023_4796' name='color'>
-					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1643304935296_387778_4811' body='Allows you to submit an entire table (only makes sense on an array or collection) type.  Arrays are preferrable as they allow us to know the type of element which makes up the collection.'>
-						<annotatedElement xmi:idref='_19_0_3_90e0298_1643304935292_287023_4796'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643303606930_942327_4824' name='color'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1643303606930_223608_4825' body='Allows you to submit an entire table (only makes sense on an array or collection) type.  Arrays are preferrable as they allow us to know the type of element which makes up the collection.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1643303606930_942327_4824'/>
 					</ownedComment>
 				</ownedLiteral>
-				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643304935293_583114_4797' name='date'>
-					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1643304935296_497343_4812' body='Allows you to submit an entire table (only makes sense on an array or collection) type.  Arrays are preferrable as they allow us to know the type of element which makes up the collection.'>
-						<annotatedElement xmi:idref='_19_0_3_90e0298_1643304935293_583114_4797'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643303630311_140376_4826' name='date'>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1643303630312_688148_4827' body='Allows you to submit an entire table (only makes sense on an array or collection) type.  Arrays are preferrable as they allow us to know the type of element which makes up the collection.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1643303630311_140376_4826'/>
 					</ownedComment>
 				</ownedLiteral>
-				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643304935293_327470_4798' name='datetime-local'/>
-				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643304935293_332172_4799' name='email'/>
-				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643304935293_986253_4800' name='file'/>
-				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643304935294_142897_4801' name='image'/>
-				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643304935294_250714_4802' name='month'/>
-				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643304935294_790352_4803' name='number'/>
-				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643304935294_792633_4804' name='range'/>
-				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643304935294_403959_4805' name='submit'/>
-				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643304935295_375829_4806' name='tel'/>
-				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643304935295_934782_4807' name='time'/>
-				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643304935295_911135_4808' name='url'/>
-				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643304935295_855934_4809' name='week'/>
-				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1644582546617_881338_4795' name='reset'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643303647841_537769_4828' name='datetime-local'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643303667280_627064_4829' name='email'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643303672818_103641_4830' name='file'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643303857317_723234_4831' name='image'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643303868929_387034_4832' name='month'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643303884758_813563_4833' name='number'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643304119102_726994_4834' name='range'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643304186609_626497_4835' name='submit'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643304193675_994500_4836' name='tel'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643304226829_735144_4837' name='time'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643304288187_864777_4838' name='url'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1643304307186_260607_4839' name='week'/>
+				<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='_19_0_3_90e0298_1644581921957_830775_4795' name='reset'/>
 			</packagedElement>
 			<packagedElement xmi:type='uml:Enumeration' xmi:id='_9_0_1fe00f9_1119337248937_121659_52' name='WebActionType'>
 				<ownedComment xmi:type='uml:Comment' xmi:id='_9_0_1fe00f9_1119337319421_360591_137' body='Denotes the type of the generated struts action, as displayed on screen.'>
@@ -489,49 +497,49 @@
 						</xmi:Extension>
 					</type>
 				</ownedAttribute>
-				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1644580887591_563466_4795' name='andromda_presentation_path' visibility='private'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1644580716822_85541_4795' name='andromda_presentation_path' visibility='private'>
 					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
 						</xmi:Extension>
 					</type>
-					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1644580887592_915125_4797' body='This tagged value is used to reference activity graphs from a use-case. In doing so you will associate the graph with the usecase. Instead of using this tagged value you can simply assign a single graph in the namespace of the use-case.'>
-						<annotatedElement xmi:idref='_19_0_3_90e0298_1644580887591_563466_4795'/>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1644580716828_703781_4797' body='This tagged value is used to reference activity graphs from a use-case. In doing so you will associate the graph with the usecase. Instead of using this tagged value you can simply assign a single graph in the namespace of the use-case.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1644580716822_85541_4795'/>
 					</ownedComment>
-					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1644580887592_774760_4798'/>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1644580716828_339431_4798'/>
 					<xmi:Extension extender='MagicDraw UML 19.0'>
 						<modelExtension>
-							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1644580887592_95267_4796' value='1'/>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1644580716828_540742_4796' value='1'/>
 						</modelExtension>
 					</xmi:Extension>
 				</ownedAttribute>
-				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1644581110129_32737_4815' name='andromda_presentation_filename' visibility='private'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1644581056897_291864_4811' name='andromda_presentation_filename' visibility='private'>
 					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
 						</xmi:Extension>
 					</type>
-					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1644581110130_636797_4817' body='This tagged value is used to reference activity graphs from a use-case. In doing so you will associate the graph with the usecase. Instead of using this tagged value you can simply assign a single graph in the namespace of the use-case.'>
-						<annotatedElement xmi:idref='_19_0_3_90e0298_1644581110129_32737_4815'/>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1644581056898_742548_4813' body='This tagged value is used to reference activity graphs from a use-case. In doing so you will associate the graph with the usecase. Instead of using this tagged value you can simply assign a single graph in the namespace of the use-case.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1644581056897_291864_4811'/>
 					</ownedComment>
-					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1644581110130_511705_4818'/>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1644581056899_774800_4814'/>
 					<xmi:Extension extender='MagicDraw UML 19.0'>
 						<modelExtension>
-							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1644581110130_201398_4816' value='1'/>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1644581056898_360623_4812' value='1'/>
 						</modelExtension>
 					</xmi:Extension>
 				</ownedAttribute>
-				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1645279593242_135784_4809' name='andromda_presentation_access_roles' visibility='private'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1645278921996_105533_4799' name='andromda_presentation_access_roles' visibility='private'>
 					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
 						</xmi:Extension>
 					</type>
-					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1645279593243_989661_4811' body='This tagged value is used to reference activity graphs from a use-case. In doing so you will associate the graph with the usecase. Instead of using this tagged value you can simply assign a single graph in the namespace of the use-case.'>
-						<annotatedElement xmi:idref='_19_0_3_90e0298_1645279593242_135784_4809'/>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1645278921997_517318_4801' body='This tagged value is used to reference activity graphs from a use-case. In doing so you will associate the graph with the usecase. Instead of using this tagged value you can simply assign a single graph in the namespace of the use-case.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1645278921996_105533_4799'/>
 					</ownedComment>
-					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1645279593243_400072_4812'/>
-					<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1645279593242_780489_4810' value='*'/>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1645278921997_389354_4802'/>
+					<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1645278921996_919388_4800' value='*'/>
 				</ownedAttribute>
 				<icon xmi:type='uml:Image' xmi:id='_12_1_2e90116_1238689296047_641436_343'/>
 			</packagedElement>
@@ -569,49 +577,49 @@
 						</xmi:Extension>
 					</type>
 				</ownedAttribute>
-				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1644580905304_845549_4799' name='andromda_presentation_path' visibility='private'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1644580969899_533335_4803' name='andromda_presentation_path' visibility='private'>
 					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
 						</xmi:Extension>
 					</type>
-					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1644580905305_161998_4801' body='This tagged value is used to reference activity graphs from a use-case. In doing so you will associate the graph with the usecase. Instead of using this tagged value you can simply assign a single graph in the namespace of the use-case.'>
-						<annotatedElement xmi:idref='_19_0_3_90e0298_1644580905304_845549_4799'/>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1644580969899_579632_4805' body='This tagged value is used to reference activity graphs from a use-case. In doing so you will associate the graph with the usecase. Instead of using this tagged value you can simply assign a single graph in the namespace of the use-case.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1644580969899_533335_4803'/>
 					</ownedComment>
-					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1644580905306_230533_4802'/>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1644580969900_676327_4806'/>
 					<xmi:Extension extender='MagicDraw UML 19.0'>
 						<modelExtension>
-							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1644580905305_929615_4800' value='1'/>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1644580969899_854538_4804' value='1'/>
 						</modelExtension>
 					</xmi:Extension>
 				</ownedAttribute>
-				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1644581107289_177389_4811' name='andromda_presentation_filename' visibility='private'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1644581082840_400393_4815' name='andromda_presentation_filename' visibility='private'>
 					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
 						</xmi:Extension>
 					</type>
-					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1644581107289_334517_4813' body='This tagged value is used to reference activity graphs from a use-case. In doing so you will associate the graph with the usecase. Instead of using this tagged value you can simply assign a single graph in the namespace of the use-case.'>
-						<annotatedElement xmi:idref='_19_0_3_90e0298_1644581107289_177389_4811'/>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1644581082840_898436_4817' body='This tagged value is used to reference activity graphs from a use-case. In doing so you will associate the graph with the usecase. Instead of using this tagged value you can simply assign a single graph in the namespace of the use-case.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1644581082840_400393_4815'/>
 					</ownedComment>
-					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1644581107290_357416_4814'/>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1644581082840_72385_4818'/>
 					<xmi:Extension extender='MagicDraw UML 19.0'>
 						<modelExtension>
-							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1644581107289_518101_4812' value='1'/>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1644581082840_869980_4816' value='1'/>
 						</modelExtension>
 					</xmi:Extension>
 				</ownedAttribute>
-				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1645279557887_430224_4795' name='andromda_presentation_access_roles' visibility='private'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1645278948706_710917_4803' name='andromda_presentation_access_roles' visibility='private'>
 					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
 						</xmi:Extension>
 					</type>
-					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1645279557889_187633_4800' body='This tagged value is used to reference activity graphs from a use-case. In doing so you will associate the graph with the usecase. Instead of using this tagged value you can simply assign a single graph in the namespace of the use-case.'>
-						<annotatedElement xmi:idref='_19_0_3_90e0298_1645279557887_430224_4795'/>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1645278948707_170290_4805' body='This tagged value is used to reference activity graphs from a use-case. In doing so you will associate the graph with the usecase. Instead of using this tagged value you can simply assign a single graph in the namespace of the use-case.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1645278948706_710917_4803'/>
 					</ownedComment>
-					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1645279557890_607271_4801'/>
-					<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1645279557889_121223_4799' value='*'/>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1645278948707_732131_4806'/>
+					<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1645278948706_820584_4804' value='*'/>
 				</ownedAttribute>
 				<icon xmi:type='uml:Image' xmi:id='_12_1_2e90116_1238689296047_521418_349'/>
 			</packagedElement>
@@ -712,17 +720,17 @@
 						</xmi:Extension>
 					</type>
 				</ownedAttribute>
-				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1645279628676_300996_4813' name='andromda_presentation_access_roles' visibility='private'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1645278779103_637829_4795' name='andromda_presentation_access_roles' visibility='private'>
 					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
 						</xmi:Extension>
 					</type>
-					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1645279628677_633585_4815' body='Use this tagged value when you have an incoming transition with a Collection parameter that is to be represented as a table. The value of this tagged value will then be used to determine which table use when calling this action.&#10;&#10;The value should the name of an table page-variable entering the page on which this action has been modeled.'>
-						<annotatedElement xmi:idref='_19_0_3_90e0298_1645279628676_300996_4813'/>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1645278779106_547867_4797' body='Use this tagged value when you have an incoming transition with a Collection parameter that is to be represented as a table. The value of this tagged value will then be used to determine which table use when calling this action.&#10;&#10;The value should the name of an table page-variable entering the page on which this action has been modeled.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1645278779103_637829_4795'/>
 					</ownedComment>
-					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1645279628677_687124_4816'/>
-					<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1645279628677_66255_4814' value='*'/>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1645278779107_893855_4798'/>
+					<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1645278779105_364696_4796' value='*'/>
 				</ownedAttribute>
 				<icon xmi:type='uml:Image' xmi:id='_12_1_2e90116_1238689296047_613054_351'/>
 			</packagedElement>
@@ -786,85 +794,81 @@
 					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1599863839433_950120_4806'/>
 					<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1599863839433_323121_4804' value='*'/>
 				</ownedAttribute>
-				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1643315626751_164705_4795' name='andromda_presentation_rest_path' visibility='private'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1643303197535_888371_4795' name='andromda_presentation_rest_path' visibility='private'>
 					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
 						</xmi:Extension>
 					</type>
-					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1643315626752_148510_4797' body='For those CASE tools with marginal UML support this tagged value allows the controller to reference the use-case. You should give the name of the use-case, nothing more and nothing less.'>
-						<annotatedElement xmi:idref='_19_0_3_90e0298_1643315626751_164705_4795'/>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1643303197538_974005_4797' body='For those CASE tools with marginal UML support this tagged value allows the controller to reference the use-case. You should give the name of the use-case, nothing more and nothing less.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1643303197535_888371_4795'/>
 					</ownedComment>
-					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1643315626752_951307_4798'/>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1643303197539_349310_4798'/>
 					<xmi:Extension extender='MagicDraw UML 19.0'>
 						<modelExtension>
-							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1643315626752_507288_4796' value='1'/>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1643303197538_443782_4796' value='1'/>
 						</modelExtension>
 					</xmi:Extension>
 				</ownedAttribute>
-				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1644580944225_556241_4803' name='andromda_presentation_path' visibility='private'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1644580964835_277146_4799' name='andromda_presentation_path' visibility='private'>
 					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
 						</xmi:Extension>
 					</type>
-					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1644580944225_605663_4805' body='This tagged value is used to reference activity graphs from a use-case. In doing so you will associate the graph with the usecase. Instead of using this tagged value you can simply assign a single graph in the namespace of the use-case.'>
-						<annotatedElement xmi:idref='_19_0_3_90e0298_1644580944225_556241_4803'/>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1644580964837_406834_4801' body='This tagged value is used to reference activity graphs from a use-case. In doing so you will associate the graph with the usecase. Instead of using this tagged value you can simply assign a single graph in the namespace of the use-case.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1644580964835_277146_4799'/>
 					</ownedComment>
-					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1644580944225_43890_4806'/>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1644580964838_954140_4802'/>
 					<xmi:Extension extender='MagicDraw UML 19.0'>
 						<modelExtension>
-							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1644580944225_101645_4804' value='1'/>
-						</modelExtension>
-					</xmi:Extension>
-					<qualifier xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1644580957466_266260_4807' name='andromda_presentation_web_view_path' visibility='private'>
-						<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
-							<xmi:Extension extender='MagicDraw UML 19.0'>
-								<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
-							</xmi:Extension>
-						</type>
-						<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1644580957467_926094_4809' body='This tagged value is used to reference activity graphs from a use-case. In doing so you will associate the graph with the usecase. Instead of using this tagged value you can simply assign a single graph in the namespace of the use-case.'>
-							<annotatedElement xmi:idref='_19_0_3_90e0298_1644580957466_266260_4807'/>
-						</ownedComment>
-						<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1644580957468_911945_4810'/>
-						<xmi:Extension extender='MagicDraw UML 19.0'>
-							<modelExtension>
-								<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1644580957467_669893_4808' value='1'/>
-							</modelExtension>
-						</xmi:Extension>
-					</qualifier>
-				</ownedAttribute>
-				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1644581131522_828491_4819' name='andromda_presentation_filename' visibility='private'>
-					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
-						<xmi:Extension extender='MagicDraw UML 19.0'>
-							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
-						</xmi:Extension>
-					</type>
-					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1644581131523_640015_4821' body='This tagged value is used to reference activity graphs from a use-case. In doing so you will associate the graph with the usecase. Instead of using this tagged value you can simply assign a single graph in the namespace of the use-case.'>
-						<annotatedElement xmi:idref='_19_0_3_90e0298_1644581131522_828491_4819'/>
-					</ownedComment>
-					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1644581131524_269247_4822'/>
-					<xmi:Extension extender='MagicDraw UML 19.0'>
-						<modelExtension>
-							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1644581131523_671409_4820' value='1'/>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1644580964837_337466_4800' value='1'/>
 						</modelExtension>
 					</xmi:Extension>
 				</ownedAttribute>
-				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1644773555580_31715_4795' name='andromda_presentation_targetUrl' visibility='private'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1644581043943_71227_4807' name='andromda_presentation_filename' visibility='private'>
 					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
 						</xmi:Extension>
 					</type>
-					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1644773555581_210782_4797' body='This tagged value is used to reference activity graphs from a use-case. In doing so you will associate the graph with the usecase. Instead of using this tagged value you can simply assign a single graph in the namespace of the use-case.'>
-						<annotatedElement xmi:idref='_19_0_3_90e0298_1644773555580_31715_4795'/>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1644581043943_86886_4809' body='This tagged value is used to reference activity graphs from a use-case. In doing so you will associate the graph with the usecase. Instead of using this tagged value you can simply assign a single graph in the namespace of the use-case.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1644581043943_71227_4807'/>
 					</ownedComment>
-					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1644773555582_575581_4798'/>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1644581043944_619033_4810'/>
 					<xmi:Extension extender='MagicDraw UML 19.0'>
 						<modelExtension>
-							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1644773555581_789419_4796' value='1'/>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1644581043943_421029_4808' value='1'/>
 						</modelExtension>
 					</xmi:Extension>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1644773439255_584020_4799' name='andromda_presentation_controller_targetUrl' visibility='private'>
+					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1644773439257_17604_4801' body='This tagged value is used to reference activity graphs from a use-case. In doing so you will associate the graph with the usecase. Instead of using this tagged value you can simply assign a single graph in the namespace of the use-case.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1644773439255_584020_4799'/>
+					</ownedComment>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1644773439258_977212_4802'/>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1644773439257_219665_4800' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1645474909272_58888_4799' name='andromda_presentation_access_roles' visibility='private'>
+					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1645474909274_154639_4801' body='Use this tagged value when you have an incoming transition with a Collection parameter that is to be represented as a table. The value of this tagged value will then be used to determine which table use when calling this action.&#10;&#10;The value should the name of an table page-variable entering the page on which this action has been modeled.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1645474909272_58888_4799'/>
+					</ownedComment>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1645474909274_645137_4802'/>
+					<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1645474909273_340809_4800' value='*'/>
 				</ownedAttribute>
 				<icon xmi:type='uml:Image' xmi:id='_12_1_2e90116_1238689296047_320326_360'/>
 			</packagedElement>
@@ -1047,47 +1051,47 @@
 						<annotatedElement xmi:idref='_9_5_1_12ab03bf_1127450606265_565893_0'/>
 					</ownedComment>
 				</ownedAttribute>
-				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1643314378872_789709_4795' name='andromda_presentation_view_field_min' visibility='private'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1643315582998_237447_4795' name='andromda_presentation_view_field_max' visibility='private'>
 					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
 						</xmi:Extension>
 					</type>
-					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1643314378876_520255_4797' body='This tagged value only makes sense when used in combination with andromda_struts_field_type=radio, it denotes the number of options to render. Specify an integer value, or specify a comma-separated list of property values.'>
-						<annotatedElement xmi:idref='_19_0_3_90e0298_1643314378872_789709_4795'/>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1643315583000_741591_4798' body='This tagged value only makes sense when used in combination with andromda_struts_field_type=radio, it denotes the number of options to render. Specify an integer value, or specify a comma-separated list of property values.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1643315582998_237447_4795'/>
 					</ownedComment>
 					<xmi:Extension extender='MagicDraw UML 19.0'>
 						<modelExtension>
-							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1643314378877_430091_4798' value='1'/>
+							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1643315583001_653333_4799' value='1'/>
 						</modelExtension>
 					</xmi:Extension>
 					<xmi:Extension extender='MagicDraw UML 19.0'>
 						<modelExtension>
-							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1643314378875_448373_4796' value='1'/>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1643315583000_673038_4797' value='1'/>
 						</modelExtension>
 					</xmi:Extension>
-					<defaultValue xmi:type='uml:LiteralString' xmi:id='_19_0_3_90e0298_1643314378878_306759_4799' value='0'/>
+					<defaultValue xmi:type='uml:LiteralString' xmi:id='_19_0_3_90e0298_1643315583001_604465_4800' value='100'/>
 				</ownedAttribute>
-				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1643314404577_94925_4800' name='andromda_presentation_view_field_max' visibility='private'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1643315582999_553096_4796' name='andromda_presentation_view_field_min' visibility='private'>
 					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
 						</xmi:Extension>
 					</type>
-					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1643314404578_783784_4802' body='This tagged value only makes sense when used in combination with andromda_struts_field_type=radio, it denotes the number of options to render. Specify an integer value, or specify a comma-separated list of property values.'>
-						<annotatedElement xmi:idref='_19_0_3_90e0298_1643314404577_94925_4800'/>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1643315583002_296597_4802' body='This tagged value only makes sense when used in combination with andromda_struts_field_type=radio, it denotes the number of options to render. Specify an integer value, or specify a comma-separated list of property values.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1643315582999_553096_4796'/>
 					</ownedComment>
 					<xmi:Extension extender='MagicDraw UML 19.0'>
 						<modelExtension>
-							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1643314404578_492369_4803' value='1'/>
+							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1643315583002_751565_4803' value='1'/>
 						</modelExtension>
 					</xmi:Extension>
 					<xmi:Extension extender='MagicDraw UML 19.0'>
 						<modelExtension>
-							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1643314404578_465975_4801' value='1'/>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1643315583002_368496_4801' value='1'/>
 						</modelExtension>
 					</xmi:Extension>
-					<defaultValue xmi:type='uml:LiteralString' xmi:id='_19_0_3_90e0298_1643314404579_131778_4804' value='100'/>
+					<defaultValue xmi:type='uml:LiteralString' xmi:id='_19_0_3_90e0298_1643315583002_240083_4804' value='0'/>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_1fe00f9_1119337248937_938137_29' name='andromda_presentation_view_field_radio' visibility='private'>
 					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
@@ -1123,6 +1127,27 @@
 							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::Property' referentType='Class'/>
 						</xmi:Extension>
 					</type>
+				</ownedAttribute>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1645551395035_92733_4795' name='andromda_presentation_view_field_action' visibility='private'>
+					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
+						<xmi:Extension extender='MagicDraw UML 19.0'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1645551395039_292511_4797' body='This tagged value only makes sense when used in combination with andromda_struts_field_type=radio, it denotes the number of options to render. Specify an integer value, or specify a comma-separated list of property values.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1645551395035_92733_4795'/>
+					</ownedComment>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1645551395039_917001_4798' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<xmi:Extension extender='MagicDraw UML 19.0'>
+						<modelExtension>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1645551395038_895601_4796' value='1'/>
+						</modelExtension>
+					</xmi:Extension>
+					<defaultValue xmi:type='uml:LiteralString' xmi:id='_19_0_3_90e0298_1645551395040_858432_4799'/>
 				</ownedAttribute>
 				<icon xmi:type='uml:Image' xmi:id='_12_1_2e90116_1238689296047_586913_363'/>
 			</packagedElement>
@@ -1289,89 +1314,89 @@
 				</ownedAttribute>
 				<icon xmi:type='uml:Image' xmi:id='_12_1_2e90116_1238689296062_405673_393'/>
 			</packagedElement>
-			<packagedElement xmi:type='uml:Stereotype' xmi:id='_19_0_3_90e0298_1645474926301_945676_4795' name='FrontEndControllerOperation'>
-				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1645474926305_193328_4797' name='base_Class' visibility='private' association='_19_0_3_90e0298_1645474926308_709638_4803'>
+			<packagedElement xmi:type='uml:Stereotype' xmi:id='_19_0_3_90e0298_1643303377235_507883_4795' name='FrontEndControllerOperation'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1643303377238_814536_4798' name='base_Class' visibility='private' association='_19_0_3_90e0298_1643303377241_558393_4803'>
 					<type href='http://www.omg.org/spec/UML/20131001/UML.xmi#Class'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::Class' referentType='Class'/>
 						</xmi:Extension>
 					</type>
 				</ownedAttribute>
-				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1645474926305_18477_4798' name='andromda_additionalAnnotations' visibility='private'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1643303377239_388944_4799' name='andromda_additionalAnnotations' visibility='private'>
 					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
 						</xmi:Extension>
 					</type>
-					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1645474926311_549637_4805' body='Additional annotations not in the core andromda functionality. Thy should be fully qualified.'>
-						<annotatedElement xmi:idref='_19_0_3_90e0298_1645474926305_18477_4798'/>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1643303377245_356724_4808' body='Additional annotations not in the core andromda functionality. Thy should be fully qualified.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1643303377239_388944_4799'/>
 					</ownedComment>
-					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1645474926311_28010_4806'/>
-					<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1645474926310_637829_4804' value='*'/>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1643303377245_520807_4809'/>
+					<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1643303377244_164945_4807' value='*'/>
 				</ownedAttribute>
-				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1645474926306_473403_4799' name='andromda_additionalExtends' visibility='private'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1643303377239_491367_4800' name='andromda_additionalExtends' visibility='private'>
 					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
 						</xmi:Extension>
 					</type>
-					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1645474926311_476495_4808' body='Additional annotations not in the core andromda functionality. Thy should be fully qualified.'>
-						<annotatedElement xmi:idref='_19_0_3_90e0298_1645474926306_473403_4799'/>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1643303377245_300882_4811' body='Additional annotations not in the core andromda functionality. Thy should be fully qualified.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1643303377239_491367_4800'/>
 					</ownedComment>
-					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1645474926311_911707_4809'/>
-					<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1645474926311_302855_4807' value='*'/>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1643303377245_954683_4812'/>
+					<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1643303377245_892812_4810' value='*'/>
 				</ownedAttribute>
-				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1645474926306_183211_4800' name='andromda_additionalImplements' visibility='private'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1643303377240_644938_4801' name='andromda_additionalImplements' visibility='private'>
 					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
 						</xmi:Extension>
 					</type>
-					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1645474926312_42235_4811' body='Additional annotations not in the core andromda functionality. Thy should be fully qualified.'>
-						<annotatedElement xmi:idref='_19_0_3_90e0298_1645474926306_183211_4800'/>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1643303377246_976266_4814' body='Additional annotations not in the core andromda functionality. Thy should be fully qualified.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1643303377240_644938_4801'/>
 					</ownedComment>
-					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1645474926312_475501_4812'/>
-					<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1645474926312_597540_4810' value='*'/>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1643303377246_243356_4815'/>
+					<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1643303377246_383504_4813' value='*'/>
 				</ownedAttribute>
-				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1645474926307_583482_4801' name='andromda_presentation_rest_path' visibility='private'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1643303377240_903792_4802' name='andromda_presentation_rest_path' visibility='private'>
 					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
 						</xmi:Extension>
 					</type>
-					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1645474926312_988698_4814' body='For those CASE tools with marginal UML support this tagged value allows the controller to reference the use-case. You should give the name of the use-case, nothing more and nothing less.'>
-						<annotatedElement xmi:idref='_19_0_3_90e0298_1645474926307_583482_4801'/>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1643303377246_166271_4817' body='For those CASE tools with marginal UML support this tagged value allows the controller to reference the use-case. You should give the name of the use-case, nothing more and nothing less.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1643303377240_903792_4802'/>
 					</ownedComment>
-					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1645474926312_166_4815'/>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1643303377247_397460_4818'/>
 					<xmi:Extension extender='MagicDraw UML 19.0'>
 						<modelExtension>
-							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1645474926312_561853_4813' value='1'/>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1643303377246_605113_4816' value='1'/>
 						</modelExtension>
 					</xmi:Extension>
 				</ownedAttribute>
-				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1645474926308_88562_4802' name='andromda_presentation_access_roles' visibility='private'>
+				<ownedAttribute xmi:type='uml:Property' xmi:id='_19_0_3_90e0298_1645474906120_268466_4795' name='andromda_presentation_access_roles' visibility='private'>
 					<type href='http://www.omg.org/spec/UML/20131001/PrimitiveTypes.xmi#String'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String' referentType='PrimitiveType'/>
 						</xmi:Extension>
 					</type>
-					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1645474926313_344999_4817' body='Use this tagged value when you have an incoming transition with a Collection parameter that is to be represented as a table. The value of this tagged value will then be used to determine which table use when calling this action.&#10;&#10;The value should the name of an table page-variable entering the page on which this action has been modeled.'>
-						<annotatedElement xmi:idref='_19_0_3_90e0298_1645474926308_88562_4802'/>
+					<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_90e0298_1645474906125_326083_4797' body='Use this tagged value when you have an incoming transition with a Collection parameter that is to be represented as a table. The value of this tagged value will then be used to determine which table use when calling this action.&#10;&#10;The value should the name of an table page-variable entering the page on which this action has been modeled.'>
+						<annotatedElement xmi:idref='_19_0_3_90e0298_1645474906120_268466_4795'/>
 					</ownedComment>
-					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1645474926313_585447_4818'/>
-					<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1645474926313_896777_4816' value='*'/>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1645474906126_30091_4798'/>
+					<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1645474906125_515603_4796' value='*'/>
 				</ownedAttribute>
-				<icon xmi:type='uml:Image' xmi:id='_19_0_3_90e0298_1645474926303_869570_4796'/>
+				<icon xmi:type='uml:Image' xmi:id='_19_0_3_90e0298_1643303377236_979007_4796'/>
 			</packagedElement>
-			<packagedElement xmi:type='uml:Extension' xmi:id='_19_0_3_90e0298_1645474926308_709638_4803'>
-				<memberEnd xmi:idref='_19_0_3_90e0298_1645474926314_851461_4819'/>
-				<memberEnd xmi:idref='_19_0_3_90e0298_1645474926305_193328_4797'/>
-				<navigableOwnedEnd xmi:idref='_19_0_3_90e0298_1645474926314_851461_4819'/>
-				<ownedEnd xmi:type='uml:ExtensionEnd' xmi:id='_19_0_3_90e0298_1645474926314_851461_4819' name='extension_FrontEndController' visibility='private' aggregation='composite' type='_19_0_3_90e0298_1645474926301_945676_4795' association='_19_0_3_90e0298_1645474926308_709638_4803'>
-					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1645474926315_539051_4821'/>
+			<packagedElement xmi:type='uml:Extension' xmi:id='_19_0_3_90e0298_1643303377241_558393_4803'>
+				<memberEnd xmi:idref='_19_0_3_90e0298_1643303377247_274851_4819'/>
+				<memberEnd xmi:idref='_19_0_3_90e0298_1643303377238_814536_4798'/>
+				<navigableOwnedEnd xmi:idref='_19_0_3_90e0298_1643303377247_274851_4819'/>
+				<ownedEnd xmi:type='uml:ExtensionEnd' xmi:id='_19_0_3_90e0298_1643303377247_274851_4819' name='extension_FrontEndController' visibility='private' aggregation='composite' type='_19_0_3_90e0298_1643303377235_507883_4795' association='_19_0_3_90e0298_1643303377241_558393_4803'>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_19_0_3_90e0298_1643303377248_230585_4821'/>
 					<xmi:Extension extender='MagicDraw UML 19.0'>
 						<modelExtension>
-							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1645474926315_400760_4820' value='1'/>
+							<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_19_0_3_90e0298_1643303377247_81469_4820' value='1'/>
 						</modelExtension>
 					</xmi:Extension>
 				</ownedEnd>
@@ -1392,7 +1417,7 @@
 	<xmi:Extension extender='MagicDraw UML 19.0'>
 		<modelPart name='com.nomagic.magicdraw.uml_model.shared_model'/>
 	</xmi:Extension>
-	<StandardProfile:ModelLibrary xmi:id='_19_0_3_90e0298_1611086899251_599866_5123' base_Package='_9_0_2_12ab03bf_1120853223187_211304_0'/>
+	<StandardProfile:ModelLibrary xmi:id='_19_0_3_90e0298_1611128034629_5352_5123' base_Package='_9_0_2_12ab03bf_1120853223187_211304_0'/>
 	<xmi:Extension extender='MagicDraw UML 19.0'>
 		<filePart name='proxy.local__PROJECT$h877558e9224f114d50dea1f39a1c119_resource_com$dnomagic$dci$dmetamodel$dproject$dsnapshot' type='XML' header='&lt;?xml version=&quot;1.0&quot; encoding=&quot;ASCII&quot;?&gt;'>
 <project:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:project="http://www.nomagic.com/ns/cameo/client/project/1.0" xmi:id="_VWTUgU_TEeCNOP_jel_PNg" description="" id="PROJECT-877558e9224f114d50dea1f39a1c119">
@@ -1428,110 +1453,17 @@
 </filePart>
 	</xmi:Extension>
 	<xmi:Extension extender='MagicDraw UML 19.0'>
-		<filePart name='proxy.local__PROJECT$h877a3c98$h5a76$h453e$h9cbc$h5e3dc72fb8c0_resource_com$dnomagic$dmagicdraw$duml_umodel$dshared_umodel$dsnapshot' type='XML' header='&lt;?xml version=&quot;1.0&quot; encoding=&quot;ASCII&quot;?&gt;'>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uml="http://www.nomagic.com/magicdraw/UML/2.5.1">
-  <uml:Package xmi:id="magicdraw_uml_standard_profile_v_0001" ID="magicdraw_uml_standard_profile_v_0001" name="UML Standard Profile">
-    <appliedStereotypeInstance xmi:id="_12_1_8f90291_1174411598625_504587_98" ID="_12_1_8f90291_1174411598625_504587_98">
-      <classifier xsi:type="uml:Stereotype" href="#_12_1_8f90291_1173963323875_662612_98"/>
-    </appliedStereotypeInstance>
-    <packagedElement xsi:type="uml:Profile" xmi:id="_be00301_1073394351331_445580_2" ID="_be00301_1073394351331_445580_2" name="MagicDraw Profile">
-      <packagedElement xsi:type="uml:Stereotype" xmi:id="_12_1_8f90291_1173963323875_662612_98" ID="_12_1_8f90291_1173963323875_662612_98" name="auxiliaryResource">
-        <generalization xmi:id="_15_0_8f90291_1196866634537_680603_98" ID="_15_0_8f90291_1196866634537_680603_98">
-          <general xsi:type="uml:Stereotype" href="#_9_0_be00301_1108044721245_236588_411"/>
-        </generalization>
-        <ownedAttribute xmi:id="_12_1_8f90291_1173963939937_52316_99" ID="_12_1_8f90291_1173963939937_52316_99" name="base_Element" visibility="private">
-          <type xsi:type="uml:Class" href="#_9_0_62a020a_1105704884807_371561_7741"/>
-          <association href="#_12_1_8f90291_1173963939937_323574_98"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="_19_0_8760276_1515156810551_352594_4505" ID="_19_0_8760276_1515156810551_352594_4505" name="treatAsAuxiliaryInOwningProject" visibility="private">
-          <type xsi:type="uml:PrimitiveType" href="#_12_0EAPbeta_be00301_1157529792739_987548_11"/>
-        </ownedAttribute>
-        <_extensionEndOfType href="#_12_1_8f90291_1173963939937_399630_100"/>
-      </packagedElement>
-      <packagedElement xsi:type="uml:Extension" xmi:id="_10_0EAPbeta_be00301_1123081772098_323897_274" ID="_10_0EAPbeta_be00301_1123081772098_323897_274">
-        <memberEnd href="#_10_0EAPbeta_be00301_1123081772108_624594_276"/>
-        <memberEnd href="#_10_0EAPbeta_be00301_1123081772098_411862_275"/>
-        <ownedEnd xsi:type="uml:ExtensionEnd" xmi:id="_10_0EAPbeta_be00301_1123081772108_624594_276" ID="_10_0EAPbeta_be00301_1123081772108_624594_276" name="extension_InvisibleStereotype" visibility="private" aggregation="composite">
-          <type xsi:type="uml:Stereotype" href="#_9_0_be00301_1108044721245_236588_411"/>
-          <association href="#_10_0EAPbeta_be00301_1123081772098_323897_274"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xsi:type="uml:Extension" xmi:id="_12_1_8f90291_1173963939937_323574_98" ID="_12_1_8f90291_1173963939937_323574_98">
-        <memberEnd href="#_12_1_8f90291_1173963939937_399630_100"/>
-        <memberEnd href="#_12_1_8f90291_1173963939937_52316_99"/>
-        <ownedEnd xsi:type="uml:ExtensionEnd" xmi:id="_12_1_8f90291_1173963939937_399630_100" ID="_12_1_8f90291_1173963939937_399630_100" name="extension_auxiliaryResource" visibility="private" aggregation="composite">
-          <type xsi:type="uml:Stereotype" href="#_12_1_8f90291_1173963323875_662612_98"/>
-          <association href="#_12_1_8f90291_1173963939937_323574_98"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xsi:type="uml:Stereotype" xmi:id="_9_0_be00301_1108044721245_236588_411" ID="_9_0_be00301_1108044721245_236588_411" name="InvisibleStereotype">
-        <ownedAttribute xmi:id="_10_0EAPbeta_be00301_1123081772098_411862_275" ID="_10_0EAPbeta_be00301_1123081772098_411862_275" name="base_Element" visibility="private">
-          <type xsi:type="uml:Class" href="#_9_0_62a020a_1105704884807_371561_7741"/>
-          <association href="#_10_0EAPbeta_be00301_1123081772098_323897_274"/>
-        </ownedAttribute>
-        <_extensionEndOfType href="#_10_0EAPbeta_be00301_1123081772108_624594_276"/>
-      </packagedElement>
-    </packagedElement>
-    <packagedElement xsi:type="uml:Model" xmi:id="_9_0_be00301_1108053761194_467635_11463" ID="_9_0_be00301_1108053761194_467635_11463" name="UML2 Metamodel">
-      <appliedStereotypeInstance xmi:id="_10_0EAPbeta_be00301_1123081771126_233373_95" ID="_10_0EAPbeta_be00301_1123081771126_233373_95">
-        <classifier xsi:type="uml:Stereotype" href="#magicdraw_1046861421236_601240_36"/>
-      </appliedStereotypeInstance>
-      <packagedElement xsi:type="uml:Class" xmi:id="_9_0_62a020a_1105704885298_713292_7913" ID="_9_0_62a020a_1105704885298_713292_7913" name="Package"/>
-      <packagedElement xsi:type="uml:Class" xmi:id="_9_0_62a020a_1105704884807_371561_7741" ID="_9_0_62a020a_1105704884807_371561_7741" name="Element"/>
-      <packagedElement xsi:type="uml:Class" xmi:id="_9_0_62a020a_1105704920340_825592_9329" ID="_9_0_62a020a_1105704920340_825592_9329" name="Model"/>
-      <packagedElement xsi:type="uml:Package" xmi:id="_12_0EAPbeta_be00301_1157529392394_202602_1" ID="_12_0EAPbeta_be00301_1157529392394_202602_1" name="PrimitiveTypes">
-        <packagedElement xsi:type="uml:PrimitiveType" xmi:id="_12_0EAPbeta_be00301_1157529792739_987548_11" ID="_12_0EAPbeta_be00301_1157529792739_987548_11" name="Boolean"/>
-      </packagedElement>
-    </packagedElement>
-    <packagedElement xsi:type="uml:Profile" xmi:id="_9_0_be00301_1108050582343_527400_10847" ID="_9_0_be00301_1108050582343_527400_10847" name="StandardProfile">
-      <packagedElement xsi:type="uml:Extension" xmi:id="_10_0EAPbeta_be00301_1123081772478_425419_349" ID="_10_0EAPbeta_be00301_1123081772478_425419_349">
-        <memberEnd href="#_10_0EAPbeta_be00301_1123081772478_585204_351"/>
-        <memberEnd href="#_10_0EAPbeta_be00301_1123081772478_490431_350"/>
-        <ownedEnd xsi:type="uml:ExtensionEnd" xmi:id="_10_0EAPbeta_be00301_1123081772478_585204_351" ID="_10_0EAPbeta_be00301_1123081772478_585204_351" name="extension_modelLibrary" visibility="private" aggregation="composite">
-          <type xsi:type="uml:Stereotype" href="#magicdraw_1046861421236_39100_29"/>
-          <association href="#_10_0EAPbeta_be00301_1123081772478_425419_349"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xsi:type="uml:Stereotype" xmi:id="magicdraw_1046861421236_39100_29" ID="magicdraw_1046861421236_39100_29" name="ModelLibrary">
-        <ownedAttribute xmi:id="_10_0EAPbeta_be00301_1123081772478_490431_350" ID="_10_0EAPbeta_be00301_1123081772478_490431_350" name="base_Package" visibility="private">
-          <type xsi:type="uml:Class" href="#_9_0_62a020a_1105704885298_713292_7913"/>
-          <association href="#_10_0EAPbeta_be00301_1123081772478_425419_349"/>
-        </ownedAttribute>
-        <_extensionEndOfType href="#_10_0EAPbeta_be00301_1123081772478_585204_351"/>
-      </packagedElement>
-      <packagedElement xsi:type="uml:Stereotype" xmi:id="magicdraw_1046861421236_601240_36" ID="magicdraw_1046861421236_601240_36" name="Metamodel">
-        <ownedAttribute xmi:id="_10_0EAPbeta_be00301_1123081771136_271406_98" ID="_10_0EAPbeta_be00301_1123081771136_271406_98" name="base_Model" visibility="private">
-          <type xsi:type="uml:Class" href="#_9_0_62a020a_1105704920340_825592_9329"/>
-          <association href="#_10_0EAPbeta_be00301_1123081771136_824883_97"/>
-        </ownedAttribute>
-        <_extensionEndOfType href="#_10_0EAPbeta_be00301_1123081771136_580423_99"/>
-      </packagedElement>
-      <packagedElement xsi:type="uml:Extension" xmi:id="_10_0EAPbeta_be00301_1123081771136_824883_97" ID="_10_0EAPbeta_be00301_1123081771136_824883_97">
-        <memberEnd href="#_10_0EAPbeta_be00301_1123081771136_580423_99"/>
-        <memberEnd href="#_10_0EAPbeta_be00301_1123081771136_271406_98"/>
-        <ownedEnd xsi:type="uml:ExtensionEnd" xmi:id="_10_0EAPbeta_be00301_1123081771136_580423_99" ID="_10_0EAPbeta_be00301_1123081771136_580423_99" name="extension_metamodel" visibility="private" aggregation="composite">
-          <type xsi:type="uml:Stereotype" href="#magicdraw_1046861421236_601240_36"/>
-          <association href="#_10_0EAPbeta_be00301_1123081771136_824883_97"/>
-        </ownedEnd>
-      </packagedElement>
-    </packagedElement>
-  </uml:Package>
-  <uml:Profile xmi:id="_9_0_2_12ab03bf_1120853223187_211304_0" ID="_9_0_2_12ab03bf_1120853223187_211304_0" name="andromda-presentation">
-    <owningPackage href="PROJECT-877a3c98-5a76-453e-9cbc-5e3dc72fb8c0?resource=com.nomagic.magicdraw.uml_umodel.model#eee_1045467100313_135436_1"/>
-    <appliedStereotypeInstance xmi:id="_19_0_3_90e0298_1611086899251_599866_5123" ID="_19_0_3_90e0298_1611086899251_599866_5123">
-      <classifier xsi:type="uml:Stereotype" href="#magicdraw_1046861421236_39100_29"/>
-    </appliedStereotypeInstance>
-  </uml:Profile>
-</xmi:XMI>
-</filePart>
-	</xmi:Extension>
-	<xmi:Extension extender='MagicDraw UML 19.0'>
 		<filePart name='com.nomagic.ci.persistence.local.proxy.privatedependencylist' type='XML' header='&lt;?xml version=&quot;1.0&quot; encoding=&quot;ASCII&quot;?&gt;'>
 <snapshot:PrivateDependenciesContainer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:snapshot="http://www.nomagic.com/ns/cameo/client/snapshot/1.0" xmi:id="_XfkCsAJHEeKcqJgnVU4y2Q">
-  <referencedResources xmi:id="_DW6WkJNUEeyQpNZA-ZR0Bw" originalResourceURI="local:/PROJECT-877a3c98-5a76-453e-9cbc-5e3dc72fb8c0?resource=com.nomagic.magicdraw.uml_umodel.model">
+  <referencedResources xmi:id="_c1BNwJQGEeyB2tk3aRT7mA" originalResourceURI="local:/PROJECT-3234fbcd-00a1-426b-9f3d-03fe2e846832?resource=com.nomagic.magicdraw.uml_umodel.model">
     <referencedObjects>eee_1045467100313_135436_1</referencedObjects>
   </referencedResources>
 </snapshot:PrivateDependenciesContainer>
+</filePart>
+	</xmi:Extension>
+	<xmi:Extension extender='MagicDraw UML 19.0'>
+		<filePart name='proxy.local__PROJECT$h3234fbcd$h00a1$h426b$h9f3d$h03fe2e846832_resource_com$dnomagic$dmagicdraw$duml_umodel$dmodel$dsnapshot' type='XML' header='&lt;?xml version=&quot;1.0&quot; encoding=&quot;ASCII&quot;?&gt;'>
+<uml:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:uml="http://www.nomagic.com/magicdraw/UML/2.5.1" xmi:id="eee_1045467100313_135436_1" ID="eee_1045467100313_135436_1" name="Model" visibility="public"/>
 </filePart>
 	</xmi:Extension>
 	<xmi:Extension extender='MagicDraw UML 19.0'>
@@ -1541,36 +1473,28 @@
   <snaphotDescriptors xmi:id="_xwW74ZnOEeG5IL63JP9cFw" originalResourceURI="local:/PROJECT-877558e9224f114d50dea1f39a1c119?resource=com.nomagic.magicdraw.uml_umodel.shared_umodel">
     <sharePointObjects>magicdraw_uml_standard_profile_v_0001</sharePointObjects>
   </snaphotDescriptors>
-  <snaphotDescriptors xmi:id="_LdLZEFqSEeuA4r3vCVXerw" originalResourceURI="local:/PROJECT-877a3c98-5a76-453e-9cbc-5e3dc72fb8c0?resource=com.nomagic.magicdraw.uml_umodel.shared_umodel">
-    <sharePointObjects>_9_0_2_12ab03bf_1120853223187_211304_0</sharePointObjects>
-  </snaphotDescriptors>
-  <snaphotDescriptors xmi:id="_LdQRkFqSEeuA4r3vCVXerw" originalResourceURI="local:/PROJECT-877a3c98-5a76-453e-9cbc-5e3dc72fb8c0?resource=com.nomagic.magicdraw.uml_umodel.model">
-    <sharePointContainers xmi:id="_DW6WkZNUEeyQpNZA-ZR0Bw" fragment="eee_1045467100313_135436_1">
-      <containedSharePoints>local:/PROJECT-877a3c98-5a76-453e-9cbc-5e3dc72fb8c0?resource=com.nomagic.magicdraw.uml_umodel.shared_umodel#_9_0_2_12ab03bf_1120853223187_211304_0</containedSharePoints>
+  <snaphotDescriptors xmi:id="_8eGJAFrxEeuW87tbnl8NyQ" originalResourceURI="local:/PROJECT-3234fbcd-00a1-426b-9f3d-03fe2e846832?resource=com.nomagic.magicdraw.uml_umodel.model">
+    <sharePointContainers xmi:id="_c1JwoJQGEeyB2tk3aRT7mA" fragment="eee_1045467100313_135436_1">
+      <containedSharePoints>local:/PROJECT-3234fbcd-00a1-426b-9f3d-03fe2e846832?resource=com.nomagic.magicdraw.uml_umodel.shared_umodel#_9_0_2_12ab03bf_1120853223187_211304_0</containedSharePoints>
     </sharePointContainers>
+  </snaphotDescriptors>
+  <snaphotDescriptors xmi:id="_FYI2YFrzEeuW87tbnl8NyQ" originalResourceURI="local:/PROJECT-3234fbcd-00a1-426b-9f3d-03fe2e846832?resource=com.nomagic.magicdraw.uml_umodel.shared_umodel">
+    <sharePointObjects>_9_0_2_12ab03bf_1120853223187_211304_0</sharePointObjects>
   </snaphotDescriptors>
 </snapshot:SnapshotInfoContainer>
 </filePart>
 	</xmi:Extension>
 	<xmi:Extension extender='MagicDraw UML 19.0'>
-		<filePart name='proxy.local__PROJECT$h877a3c98$h5a76$h453e$h9cbc$h5e3dc72fb8c0_resource_com$dnomagic$dmagicdraw$duml_umodel$dmodel$dsnapshot' type='XML' header='&lt;?xml version=&quot;1.0&quot; encoding=&quot;ASCII&quot;?&gt;'>
-<uml:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:uml="http://www.nomagic.com/magicdraw/UML/2.5.1" xmi:id="eee_1045467100313_135436_1" ID="eee_1045467100313_135436_1" name="AndroMDAPresentation" visibility="public"/>
-</filePart>
-	</xmi:Extension>
-	<xmi:Extension extender='MagicDraw UML 19.0'>
-		<filePart name='PROJECT-877a3c98-5a76-453e-9cbc-5e3dc72fb8c0' type='BINARY'>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</filePart>
-	</xmi:Extension>
-	<xmi:Extension extender='MagicDraw UML 19.0'>
 		<filePart name='com.nomagic.ci.metamodel.project' type='XML' header='&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;'>
-<project:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:project="http://www.nomagic.com/ns/cameo/client/project/1.0" xmi:id="_GLT9QFYDEeCyhsLctII43A" description="" id="PROJECT-877a3c98-5a76-453e-9cbc-5e3dc72fb8c0">
+<project:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:project="http://www.nomagic.com/ns/cameo/client/project/1.0" xmi:id="_GLT9QFYDEeCyhsLctII43A" description="" id="PROJECT-3234fbcd-00a1-426b-9f3d-03fe2e846832">
   <ownedSections xmi:id="_GOUN8FYDEeCyhsLctII43A" name="model" featuredBy="_GOS_0FYDEeCyhsLctII43A"/>
   <ownedSections xmi:id="_HB1VkFYDEeCyhsLctII43A" name="commonprojectoptions" shared="true" featuredBy="_HB0ugFYDEeCyhsLctII43A"/>
   <ownedSections xmi:id="_HB4_8FYDEeCyhsLctII43A" name="personalprojectoptions" shared="true" belongsTo="_HB4_8VYDEeCyhsLctII43A" featuredBy="_HB0ugFYDEeCyhsLctII43A"/>
   <ownedSections xmi:id="_1OlPIJjZEeCrL4EC3xSIEw" name="commoncodeengineering" featuredBy="_1ObeIZjZEeCrL4EC3xSIEw"/>
-  <ownedSections xmi:id="_FU3-EFqSEeuA4r3vCVXerw" name="shared_model" shared="true" featuredBy="_GOS_0FYDEeCyhsLctII43A">
-    <sharePoints xmi:id="_FU5zQFqSEeuA4r3vCVXerw" ID="629f0e20-2438-4f56-b186-bcdaa43f334b">
-      <object href="PROJECT-877a3c98-5a76-453e-9cbc-5e3dc72fb8c0?resource=com.nomagic.magicdraw.uml_umodel.shared_umodel#_9_0_2_12ab03bf_1120853223187_211304_0"/>
-      <options xmi:id="_FU5zQVqSEeuA4r3vCVXerw" key="preferredPath" value=""/>
+  <ownedSections xmi:id="_CVu1UFrzEeuW87tbnl8NyQ" name="shared_model" shared="true" featuredBy="_GOS_0FYDEeCyhsLctII43A">
+    <sharePoints xmi:id="_CVyfsFrzEeuW87tbnl8NyQ" ID="92ece711-09ca-40df-948b-5aff4f6934bd">
+      <object href="PROJECT-3234fbcd-00a1-426b-9f3d-03fe2e846832?resource=com.nomagic.magicdraw.uml_umodel.shared_umodel#_9_0_2_12ab03bf_1120853223187_211304_0"/>
+      <options xmi:id="_CVyfsVrzEeuW87tbnl8NyQ" key="preferredPath" value=""/>
     </sharePoints>
   </ownedSections>
   <userParts xmi:id="_HB4_8VYDEeCyhsLctII43A" user="_zRtSwZjZEeCrL4EC3xSIEw" sections="_HB4_8FYDEeCyhsLctII43A"/>
@@ -1578,25 +1502,25 @@
     <usedProject href="PROJECT-877558e9224f114d50dea1f39a1c119?resource=com.nomagic.ci.metamodel.project#_VWTUgU_TEeCNOP_jel_PNg"/>
     <mountPoints xmi:id="_HBun4FYDEeCyhsLctII43A" sharePointID="magicdraw_uml_standard_profile_v_0001" containmentFeatureID="61" featureName="UML Model" containmentIndex="-1" containmentFeatureName="packagedElement">
       <mountedPoint href="PROJECT-877558e9224f114d50dea1f39a1c119?resource=com.nomagic.magicdraw.uml_umodel.shared_umodel#magicdraw_uml_standard_profile_v_0001"/>
-      <mountedOn href="PROJECT-877a3c98-5a76-453e-9cbc-5e3dc72fb8c0?resource=com.nomagic.magicdraw.uml_umodel.model#eee_1045467100313_135436_1"/>
-      <options xmi:id="_DWff0JNUEeyQpNZA-ZR0Bw" key="preferredPath" value="::"/>
+      <mountedOn href="PROJECT-3234fbcd-00a1-426b-9f3d-03fe2e846832?resource=com.nomagic.magicdraw.uml_umodel.model#eee_1045467100313_135436_1"/>
+      <options xmi:id="_c0ozQJQGEeyB2tk3aRT7mA" key="preferredPath" value="::"/>
     </mountPoints>
     <properties xmi:id="_HBzgYFYDEeCyhsLctII43A" key="usedVersion" value="19.0 SP3"/>
     <properties xmi:id="_I2i0cFYDEeCyhsLctII43A" key="LOCAL_PROJECT_ID" value="PROJECT-877558e9224f114d50dea1f39a1c119"/>
   </projectUsages>
-  <features xmi:id="_GOS_0FYDEeCyhsLctII43A" name="UML Model" namespace="com.nomagic.magicdraw.uml_model" version="17.0" sections="_GOUN8FYDEeCyhsLctII43A _FU3-EFqSEeuA4r3vCVXerw" internalVersion="1"/>
+  <features xmi:id="_GOS_0FYDEeCyhsLctII43A" name="UML Model" namespace="com.nomagic.magicdraw.uml_model" version="17.0" sections="_GOUN8FYDEeCyhsLctII43A _CVu1UFrzEeuW87tbnl8NyQ" internalVersion="1"/>
   <features xmi:id="_HB0ugFYDEeCyhsLctII43A" name="Project Options" namespace="com.nomagic.magicdraw.core.project.options" version="1.0" sections="_HB1VkFYDEeCyhsLctII43A _HB4_8FYDEeCyhsLctII43A" internalVersion="1"/>
   <features xmi:id="_1ObeIJjZEeCrL4EC3xSIEw" name="Language Properties" namespace="com.nomagic.magicdraw.ce.languageproperties" version="1.0" internalVersion="1"/>
   <features xmi:id="_1ObeIZjZEeCrL4EC3xSIEw" name="Code Engineering" namespace="com.nomagic.magicdraw.ce" version="1.0" sections="_1OlPIJjZEeCrL4EC3xSIEw" internalVersion="1"/>
   <properties xmi:id="_GPLwoFYDEeCyhsLctII43A" key="standardProfile" value="false"/>
   <properties xmi:id="_GPLwoVYDEeCyhsLctII43A" key="internalVersion" value="19.0"/>
   <properties xmi:id="_I3t5IFYDEeCyhsLctII43A" key="MODULES_DIRS" value="&lt;project.dir>&lt;>&lt;install.root>/profiles&lt;>&lt;install.root>/modelLibraries"/>
-  <properties xmi:id="_4iLt4JjZEeCrL4EC3xSIEw" key="fileVersion" value="84"/>
+  <properties xmi:id="_4iLt4JjZEeCrL4EC3xSIEw" key="fileVersion" value="85"/>
   <properties xmi:id="_4ieo0JjZEeCrL4EC3xSIEw" key="exporterDescription" value="ac ed 0 5 73 72 0 2e 63 6f 6d 2e 6e 6f 6d 61 67 69 63 2e 70 65 72 73 69 73 74 65 6e 63 65 2e 58 6d 69 45 78 70 6f 72 74 65 72 44 65 73 63 72 69 70 74 69 6f 6e f5 3e fd c8 e7 3c 3b d7 2 0 5 4c 0 5 6d 4e 61 6d 65 74 0 12 4c 6a 61 76 61 2f 6c 61 6e 67 2f 53 74 72 69 6e 67 3b 4c 0 12 6d 52 65 71 75 69 72 65 64 50 6c 75 67 69 6e 4d 61 70 74 0 f 4c 6a 61 76 61 2f 75 74 69 6c 2f 4d 61 70 3b 4c 0 12 6d 52 65 71 75 69 72 65 64 52 65 73 6f 75 72 63 65 73 74 0 10 4c 6a 61 76 61 2f 75 74 69 6c 2f 4c 69 73 74 3b 4c 0 10 6d 55 4d 4c 4e 61 6d 65 73 70 61 63 65 55 52 49 71 0 7e 0 1 4c 0 8 6d 56 65 72 73 69 6f 6e 71 0 7e 0 1 78 70 74 0 d 4d 61 67 69 63 44 72 61 77 20 55 4d 4c 73 72 0 11 6a 61 76 61 2e 75 74 69 6c 2e 48 61 73 68 4d 61 70 5 7 da c1 c3 16 60 d1 3 0 2 46 0 a 6c 6f 61 64 46 61 63 74 6f 72 49 0 9 74 68 72 65 73 68 6f 6c 64 78 70 3f 40 0 0 0 0 0 0 77 8 0 0 0 10 0 0 0 0 78 73 72 0 13 6a 61 76 61 2e 75 74 69 6c 2e 41 72 72 61 79 4c 69 73 74 78 81 d2 1d 99 c7 61 9d 3 0 1 49 0 4 73 69 7a 65 78 70 0 0 0 0 77 4 0 0 0 0 78 70 74 0 7 31 39 2e 30 20 76 39 "/>
-  <properties xmi:id="_4ieo0ZjZEeCrL4EC3xSIEw" key="MODEL_ROOT_HREF" value="local:/PROJECT-877a3c98-5a76-453e-9cbc-5e3dc72fb8c0?resource=com.nomagic.magicdraw.uml_umodel.model#eee_1045467100313_135436_1"/>
+  <properties xmi:id="_4ieo0ZjZEeCrL4EC3xSIEw" key="MODEL_ROOT_HREF" value="local:/PROJECT-3234fbcd-00a1-426b-9f3d-03fe2e846832?resource=com.nomagic.magicdraw.uml_umodel.model#eee_1045467100313_135436_1"/>
   <properties xmi:id="_Xf1vgAJHEeKcqJgnVU4y2Q" key="CI_VERSION" value="V1702_SP1"/>
   <properties xmi:id="_WHDv8NnXEeSt1dUa3K1eOA" key="fileFormatVersion" value="18.1 beta.esi"/>
-  <properties xmi:id="_oI378G6KEeWoxPthTK0iTA" key="saveID" value="9d5cea01-9c5c-4b88-86d1-2e32c237732b"/>
+  <properties xmi:id="_oI378G6KEeWoxPthTK0iTA" key="saveID" value="7b7cd9f4-42de-4983-a712-b2766b608582"/>
   <properties xmi:id="_QKbVQCaYEeijz6gJNBJu7Q" key="compatibleVersion" value=""/>
   <projectUsers xmi:id="_zRtSwZjZEeCrL4EC3xSIEw" userId="default"/>
 </project:Project>
@@ -1605,7 +1529,7 @@
 	<xmi:Extension extender='MagicDraw UML 19.0'>
 		<filePart name='com.nomagic.magicdraw.uml_model____sharepoints.shared_model' type='XML' header='&lt;?xml version=&quot;1.0&quot; encoding=&quot;ASCII&quot;?&gt;'>
 <uml:Profile xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:uml="http://www.nomagic.com/magicdraw/UML/2.5.1" xmi:id="_9_0_2_12ab03bf_1120853223187_211304_0" ID="_9_0_2_12ab03bf_1120853223187_211304_0" name="andromda-presentation">
-  <owningPackage href="PROJECT-877a3c98-5a76-453e-9cbc-5e3dc72fb8c0?resource=com.nomagic.magicdraw.uml_umodel.model#eee_1045467100313_135436_1"/>
+  <owningPackage href="PROJECT-3234fbcd-00a1-426b-9f3d-03fe2e846832?resource=com.nomagic.magicdraw.uml_umodel.model#eee_1045467100313_135436_1"/>
 </uml:Profile>
 </filePart>
 	</xmi:Extension>
@@ -1613,7 +1537,7 @@
 		<filePart name='com.nomagic.magicdraw.ce.commoncodeengineering' type='XML' header='&lt;?xml version=&quot;1.0&quot; encoding=&quot;ASCII&quot;?&gt;'>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:md.ce.corbaidl.rt.options="http://www.nomagic.com/magicdraw/ce/corbaidl/rt/options/1" xmlns:md.ce.cppAnsi.rt.options="http://www.nomagic.com/magicdraw/ce/cppAnsi/rt/options/1" xmlns:md.ce.csh.code.documentation="http://www.nomagic.com/magicdraw/ce/csh/code/documentation/1" xmlns:md.ce.csh.rt.options="http://www.nomagic.com/magicdraw/ce/csh/rt/options/1" xmlns:md.ce.java.code.documentation="http://www.nomagic.com/magicdraw/ce/java/code/documentation/1" xmlns:md.ce.java.rt.options="http://www.nomagic.com/magicdraw/ce/java/rt/options/1" xmlns:md.ce.msil.rt.options="http://www.nomagic.com/magicdraw/ce/msil/rt/options/1" xmlns:md.ce.rt.options="http://www.nomagic.com/magicdraw/ce/rt/options/1">
   <md.ce.rt.options:Options xmi:id="_1OlPIZjZEeCrL4EC3xSIEw" tempDirectory="Active Directory" defaultWorkingDirectory="&lt;install.root>" spaces="8" defaultLanguage="Java" visualizationOption="1" codeGenerationReverseOption="2">
-    <defaultWorkingPackage href="PROJECT-877a3c98-5a76-453e-9cbc-5e3dc72fb8c0?resource=com.nomagic.magicdraw.uml_umodel.model#eee_1045467100313_135436_1"/>
+    <defaultWorkingPackage href="PROJECT-3234fbcd-00a1-426b-9f3d-03fe2e846832?resource=com.nomagic.magicdraw.uml_umodel.model#eee_1045467100313_135436_1"/>
   </md.ce.rt.options:Options>
   <md.ce.java.rt.options:JavaLanguageOptions xmi:id="_6-fYUOlYEeKM1O5DqVzPvA" commentStyle="0" header="@(#) $FILE_NAME" documentationProcessorID="STANDARD_PROCESSOR" classpath="lib\xalan.jar;C:\Program Files\Java\jre1.8.0_144\lib\resources.jar;C:\Program Files\Java\jre1.8.0_144\lib\rt.jar;C:\Program Files\Java\jre1.8.0_144\lib\sunrsasign.jar;C:\Program Files\Java\jre1.8.0_144\lib\jsse.jar;C:\Program Files\Java\jre1.8.0_144\lib\jce.jar;C:\Program Files\Java\jre1.8.0_144\lib\charsets.jar;C:\Program Files\Java\jre1.8.0_144\lib\jfr.jar;C:\Program Files\Java\jre1.8.0_144\classes" javaSource="8.0">
     <documentationTagProcessors xsi:type="md.ce.java.code.documentation:JavaDocumentationProcessor" xmi:id="_6-fYUelYEeKM1O5DqVzPvA" ID="JAVA_DOC_PROCESSOR">
@@ -1742,10 +1666,13 @@
 </filePart>
 	</xmi:Extension>
 	<xmi:Extension extender='MagicDraw UML 19.0'>
-		<filePart name='Binaries.properties' type='BINARY'>H4sIAAAAAAAAAFPmUvbNz1NwS01SMDJUMDKyAiJTUwVnxxAFIwMjIy4AKrBfsyAAAAA=</filePart>
+		<filePart name='Binaries.properties' type='BINARY'>H4sIAAAAAAAAAFPmUg4pTVVwS01SMDJSMLS0Mra0MjVTcHYMUTAyMDLiAgBUG0UDIAAAAA==</filePart>
 	</xmi:Extension>
 	<xmi:Extension extender='MagicDraw UML 19.0'>
-		<filePart name='personal-Binaries.properties' type='BINARY'>H4sIAAAAAAAAAFPmUvbNz1NwS01SMDJUMDKyAiJTUwVnxxAFIwMjIy4AKrBfsyAAAAA=</filePart>
+		<filePart name='PROJECT-3234fbcd-00a1-426b-9f3d-03fe2e846832' type='BINARY'>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</filePart>
+	</xmi:Extension>
+	<xmi:Extension extender='MagicDraw UML 19.0'>
+		<filePart name='personal-Binaries.properties' type='BINARY'>H4sIAAAAAAAAAFPmUg4pTVVwS01SMDJSMLS0Mra0MjVTcHYMUTAyMDLiAgBUG0UDIAAAAA==</filePart>
 	</xmi:Extension>
 	<xmi:Extension extender='MagicDraw UML 19.0'>
 		<filePart name='com.nomagic.magicdraw.core.project.options.commonprojectoptions' type='XML' header='&lt;?xml version=&quot;1.0&quot; encoding=&quot;ASCII&quot;?&gt;'>
@@ -1753,11 +1680,109 @@
 </filePart>
 	</xmi:Extension>
 	<xmi:Extension extender='MagicDraw UML 19.0'>
-		<filePart name='personal-com.nomagic.magicdraw.core.project.options.personalprojectoptions' type='XML' header='&lt;?xml version=&quot;1.0&quot; encoding=&quot;ASCII&quot;?&gt;'>
-<project.options:UserProjectOptions xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:project.options="http://www.nomagic.com/ns/magicdraw/core/project/options/1.0" xmi:id="_HB5nAFYDEeCyhsLctII43A" optionsString="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" diagramViewStyleString="UEsDBBQACAgIAAAAIQAAAAAAAAAAAAAAAAAAAAkAVVQFAAEAAAAAdY5PC4IwHIbP+im87VTWLWJTpFYIReIs6CRDf8Zgf8RN0W+fFnTr9BzeB54Xx6OSwQCdFUYTtF1vUAC6MrXQL4LuxWm1Q3Hk+zjrTAudmx7CCme6pKqgnRn5HlY1laBAuwC+PEhuLUFMqFYCc5MENHse1lxBxIrnhZbHNDnnybXM8ltG8yKlDIefefFqaHgvXTAqsR+47IGghksLKFxy4a8X+Tj89+sNUEsHCHRwip+oAAAA2QAAAFBLAQIUABQACAgIAAAAIQB0cIqfqAAAANkAAAAAAAkAAAAAAAAAAAAAAAAAAABVVAUAAQAAAABQSwUGAAAAAAEAAQA3AAAA3wAAAAAA"/>
+		<filePart name='proxy.local__PROJECT$h3234fbcd$h00a1$h426b$h9f3d$h03fe2e846832_resource_com$dnomagic$dmagicdraw$duml_umodel$dshared_umodel$dsnapshot' type='XML' header='&lt;?xml version=&quot;1.0&quot; encoding=&quot;ASCII&quot;?&gt;'>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uml="http://www.nomagic.com/magicdraw/UML/2.5.1">
+  <uml:Package xmi:id="magicdraw_uml_standard_profile_v_0001" ID="magicdraw_uml_standard_profile_v_0001" name="UML Standard Profile">
+    <appliedStereotypeInstance xmi:id="_12_1_8f90291_1174411598625_504587_98" ID="_12_1_8f90291_1174411598625_504587_98">
+      <classifier xsi:type="uml:Stereotype" href="#_12_1_8f90291_1173963323875_662612_98"/>
+    </appliedStereotypeInstance>
+    <packagedElement xsi:type="uml:Profile" xmi:id="_be00301_1073394351331_445580_2" ID="_be00301_1073394351331_445580_2" name="MagicDraw Profile">
+      <packagedElement xsi:type="uml:Stereotype" xmi:id="_12_1_8f90291_1173963323875_662612_98" ID="_12_1_8f90291_1173963323875_662612_98" name="auxiliaryResource">
+        <generalization xmi:id="_15_0_8f90291_1196866634537_680603_98" ID="_15_0_8f90291_1196866634537_680603_98">
+          <general xsi:type="uml:Stereotype" href="#_9_0_be00301_1108044721245_236588_411"/>
+        </generalization>
+        <ownedAttribute xmi:id="_12_1_8f90291_1173963939937_52316_99" ID="_12_1_8f90291_1173963939937_52316_99" name="base_Element" visibility="private">
+          <type xsi:type="uml:Class" href="#_9_0_62a020a_1105704884807_371561_7741"/>
+          <association href="#_12_1_8f90291_1173963939937_323574_98"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_19_0_8760276_1515156810551_352594_4505" ID="_19_0_8760276_1515156810551_352594_4505" name="treatAsAuxiliaryInOwningProject" visibility="private">
+          <type xsi:type="uml:PrimitiveType" href="#_12_0EAPbeta_be00301_1157529792739_987548_11"/>
+        </ownedAttribute>
+        <_extensionEndOfType href="#_12_1_8f90291_1173963939937_399630_100"/>
+      </packagedElement>
+      <packagedElement xsi:type="uml:Extension" xmi:id="_10_0EAPbeta_be00301_1123081772098_323897_274" ID="_10_0EAPbeta_be00301_1123081772098_323897_274">
+        <memberEnd href="#_10_0EAPbeta_be00301_1123081772108_624594_276"/>
+        <memberEnd href="#_10_0EAPbeta_be00301_1123081772098_411862_275"/>
+        <ownedEnd xsi:type="uml:ExtensionEnd" xmi:id="_10_0EAPbeta_be00301_1123081772108_624594_276" ID="_10_0EAPbeta_be00301_1123081772108_624594_276" name="extension_InvisibleStereotype" visibility="private" aggregation="composite">
+          <type xsi:type="uml:Stereotype" href="#_9_0_be00301_1108044721245_236588_411"/>
+          <association href="#_10_0EAPbeta_be00301_1123081772098_323897_274"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xsi:type="uml:Extension" xmi:id="_12_1_8f90291_1173963939937_323574_98" ID="_12_1_8f90291_1173963939937_323574_98">
+        <memberEnd href="#_12_1_8f90291_1173963939937_399630_100"/>
+        <memberEnd href="#_12_1_8f90291_1173963939937_52316_99"/>
+        <ownedEnd xsi:type="uml:ExtensionEnd" xmi:id="_12_1_8f90291_1173963939937_399630_100" ID="_12_1_8f90291_1173963939937_399630_100" name="extension_auxiliaryResource" visibility="private" aggregation="composite">
+          <type xsi:type="uml:Stereotype" href="#_12_1_8f90291_1173963323875_662612_98"/>
+          <association href="#_12_1_8f90291_1173963939937_323574_98"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xsi:type="uml:Stereotype" xmi:id="_9_0_be00301_1108044721245_236588_411" ID="_9_0_be00301_1108044721245_236588_411" name="InvisibleStereotype">
+        <ownedAttribute xmi:id="_10_0EAPbeta_be00301_1123081772098_411862_275" ID="_10_0EAPbeta_be00301_1123081772098_411862_275" name="base_Element" visibility="private">
+          <type xsi:type="uml:Class" href="#_9_0_62a020a_1105704884807_371561_7741"/>
+          <association href="#_10_0EAPbeta_be00301_1123081772098_323897_274"/>
+        </ownedAttribute>
+        <_extensionEndOfType href="#_10_0EAPbeta_be00301_1123081772108_624594_276"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xsi:type="uml:Model" xmi:id="_9_0_be00301_1108053761194_467635_11463" ID="_9_0_be00301_1108053761194_467635_11463" name="UML2 Metamodel">
+      <appliedStereotypeInstance xmi:id="_10_0EAPbeta_be00301_1123081771126_233373_95" ID="_10_0EAPbeta_be00301_1123081771126_233373_95">
+        <classifier xsi:type="uml:Stereotype" href="#magicdraw_1046861421236_601240_36"/>
+      </appliedStereotypeInstance>
+      <packagedElement xsi:type="uml:Class" xmi:id="_9_0_62a020a_1105704885298_713292_7913" ID="_9_0_62a020a_1105704885298_713292_7913" name="Package"/>
+      <packagedElement xsi:type="uml:Class" xmi:id="_9_0_62a020a_1105704884807_371561_7741" ID="_9_0_62a020a_1105704884807_371561_7741" name="Element"/>
+      <packagedElement xsi:type="uml:Class" xmi:id="_9_0_62a020a_1105704920340_825592_9329" ID="_9_0_62a020a_1105704920340_825592_9329" name="Model"/>
+      <packagedElement xsi:type="uml:Package" xmi:id="_12_0EAPbeta_be00301_1157529392394_202602_1" ID="_12_0EAPbeta_be00301_1157529392394_202602_1" name="PrimitiveTypes">
+        <packagedElement xsi:type="uml:PrimitiveType" xmi:id="_12_0EAPbeta_be00301_1157529792739_987548_11" ID="_12_0EAPbeta_be00301_1157529792739_987548_11" name="Boolean"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xsi:type="uml:Profile" xmi:id="_9_0_be00301_1108050582343_527400_10847" ID="_9_0_be00301_1108050582343_527400_10847" name="StandardProfile">
+      <packagedElement xsi:type="uml:Extension" xmi:id="_10_0EAPbeta_be00301_1123081772478_425419_349" ID="_10_0EAPbeta_be00301_1123081772478_425419_349">
+        <memberEnd href="#_10_0EAPbeta_be00301_1123081772478_585204_351"/>
+        <memberEnd href="#_10_0EAPbeta_be00301_1123081772478_490431_350"/>
+        <ownedEnd xsi:type="uml:ExtensionEnd" xmi:id="_10_0EAPbeta_be00301_1123081772478_585204_351" ID="_10_0EAPbeta_be00301_1123081772478_585204_351" name="extension_modelLibrary" visibility="private" aggregation="composite">
+          <type xsi:type="uml:Stereotype" href="#magicdraw_1046861421236_39100_29"/>
+          <association href="#_10_0EAPbeta_be00301_1123081772478_425419_349"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xsi:type="uml:Stereotype" xmi:id="magicdraw_1046861421236_39100_29" ID="magicdraw_1046861421236_39100_29" name="ModelLibrary">
+        <ownedAttribute xmi:id="_10_0EAPbeta_be00301_1123081772478_490431_350" ID="_10_0EAPbeta_be00301_1123081772478_490431_350" name="base_Package" visibility="private">
+          <type xsi:type="uml:Class" href="#_9_0_62a020a_1105704885298_713292_7913"/>
+          <association href="#_10_0EAPbeta_be00301_1123081772478_425419_349"/>
+        </ownedAttribute>
+        <_extensionEndOfType href="#_10_0EAPbeta_be00301_1123081772478_585204_351"/>
+      </packagedElement>
+      <packagedElement xsi:type="uml:Stereotype" xmi:id="magicdraw_1046861421236_601240_36" ID="magicdraw_1046861421236_601240_36" name="Metamodel">
+        <ownedAttribute xmi:id="_10_0EAPbeta_be00301_1123081771136_271406_98" ID="_10_0EAPbeta_be00301_1123081771136_271406_98" name="base_Model" visibility="private">
+          <type xsi:type="uml:Class" href="#_9_0_62a020a_1105704920340_825592_9329"/>
+          <association href="#_10_0EAPbeta_be00301_1123081771136_824883_97"/>
+        </ownedAttribute>
+        <_extensionEndOfType href="#_10_0EAPbeta_be00301_1123081771136_580423_99"/>
+      </packagedElement>
+      <packagedElement xsi:type="uml:Extension" xmi:id="_10_0EAPbeta_be00301_1123081771136_824883_97" ID="_10_0EAPbeta_be00301_1123081771136_824883_97">
+        <memberEnd href="#_10_0EAPbeta_be00301_1123081771136_580423_99"/>
+        <memberEnd href="#_10_0EAPbeta_be00301_1123081771136_271406_98"/>
+        <ownedEnd xsi:type="uml:ExtensionEnd" xmi:id="_10_0EAPbeta_be00301_1123081771136_580423_99" ID="_10_0EAPbeta_be00301_1123081771136_580423_99" name="extension_metamodel" visibility="private" aggregation="composite">
+          <type xsi:type="uml:Stereotype" href="#magicdraw_1046861421236_601240_36"/>
+          <association href="#_10_0EAPbeta_be00301_1123081771136_824883_97"/>
+        </ownedEnd>
+      </packagedElement>
+    </packagedElement>
+  </uml:Package>
+  <uml:Profile xmi:id="_9_0_2_12ab03bf_1120853223187_211304_0" ID="_9_0_2_12ab03bf_1120853223187_211304_0" name="andromda-presentation">
+    <owningPackage href="PROJECT-3234fbcd-00a1-426b-9f3d-03fe2e846832?resource=com.nomagic.magicdraw.uml_umodel.model#eee_1045467100313_135436_1"/>
+    <appliedStereotypeInstance xmi:id="_19_0_3_90e0298_1611128034629_5352_5123" ID="_19_0_3_90e0298_1611128034629_5352_5123">
+      <classifier xsi:type="uml:Stereotype" href="#magicdraw_1046861421236_39100_29"/>
+    </appliedStereotypeInstance>
+  </uml:Profile>
+</xmi:XMI>
 </filePart>
 	</xmi:Extension>
 	<xmi:Extension extender='MagicDraw UML 19.0'>
-		<filePart name='Records.properties' type='BINARY'>H4sIAAAAAAAAAL1VUW/jIAx+z6+INF6DGtpcm5PycKu2h0nTTqe9RxTchikBBHRb//2RhnZb22yNbtcoisDY/ow/27maq0ZTJxaiFm4Tg3RmE13dKxnfwiImaUzIT/9mWTz/9RiTESGRBmOVpHXCVIOlauhKMLz9ckNfMFMGsDbqCZjDSjuhpMU7myAP4uL7XEWnPaybumwUhxrbihrg3aYYovzBMxO4AUc7rRBB8ZXCoQcvft1gK6m2lXKYg2VGaKfMu6U99HqWUdRp1YrRuix//3m4u5k/omo2nWbZDHJCJss0nfBsxIGmy3FOU5ameWnAqrVhUHpMxAMo4kwgvr8M4uE2iO+CKC6K9lZ310JSI8C2OfFC55fFZ4c9tcHAF1jTKMk8IsiVkABGyFVPdfSpH7HrIxHWgfQG29QE6rQRz9QBBw2S+9NN7bWOWB5i/L1s72+KeNsI68BDaIX99r9wPwy7j89T06Kj7GDs/KN9dKoAz6+7tzFz3jDqplBvvumY5TNUZXT6A1WTbAyoytmCeQmMOZuS5WLGRgMTfzbZFwCPAl6yg0tatKQFS1qs5D1UMUT5sjkd3EgXDOKrSi39szXVSkhnB/1MP7ON/gLSZBMDfwgAAA==</filePart>
+		<filePart name='personal-com.nomagic.magicdraw.core.project.options.personalprojectoptions' type='XML' header='&lt;?xml version=&quot;1.0&quot; encoding=&quot;ASCII&quot;?&gt;'>
+<project.options:UserProjectOptions xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:project.options="http://www.nomagic.com/ns/magicdraw/core/project/options/1.0" xmi:id="_HB5nAFYDEeCyhsLctII43A" optionsString="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" diagramViewStyleString="UEsDBBQACAgIAAAAIQAAAAAAAAAAAAAAAAAAAAkAVVQFAAEAAAAAdY5PC4IwHIbP+im87VTWLWJTpFYIReIs6CRDf8Zgf8RN0W+fFnTr9BzeB54Xx6OSwQCdFUYTtF1vUAC6MrXQL4LuxWm1Q3Hk+zjrTAudmx7CCme6pKqgnRn5HlY1laBAuwC+PEhuLUFMqFYCc5MENHse1lxBxIrnhZbHNDnnybXM8ltG8yKlDIefefFqaHgvXTAqsR+47IGghksLKFxy4a8X+Tj89+sNUEsHCHRwip+oAAAA2QAAAFBLAQIUABQACAgIAAAAIQB0cIqfqAAAANkAAAAAAAkAAAAAAAAAAAAAAAAAAABVVAUAAQAAAABQSwUGAAAAAAEAAQA3AAAA3wAAAAAA"/>
+</filePart>
+	</xmi:Extension>
+	<xmi:Extension extender='MagicDraw UML 19.0'>
+		<filePart name='Records.properties' type='BINARY'>H4sIAAAAAAAAAMVVTY/bIBC9+1dYWq5GMXay8Uo+tFF76KVVlbtFYBxT2YCAtM2/L45JdpuNd2N1N/XBgmE+mJn3hruV6jR1YiNa4fYxSGf20d16B/Fn2MSExGnxkBUP80W8+rCOyYyQSIOxStI2YarDUnV0Kxg+/LmhvzBTBrA26gcwh5V2QkmLjzZBHsTl27mKLnvYdW3VKQ4ttg01wIdNOUX5L89M4A4cHbTCDcrXFM49ePHvPbaSatsohzlYZoR2yjxZ2nOvVxlF375//fJptU4ykuX1hvFkNqNpkpPFJinqzG+zGggs88UyI+UU5WiI3ypG26oKlqhZ3t/P50soCMnrNM35fMaBpnVW0JSlaVEZsGpnGFQ+G8RDOogzgfipTIiHOiF+TK+8abRHRH8UkhoBtq+2Fzq/LF86HEEdAw/drlOS+Yggt0ICGCG3I7gbU3+GG38TYR1Ib3AoTQCFNuIndcBBg+T+dN96rWf4mWL8tt0+ZYp4T7Fd6EMg2Wn7Lr2fFnsk7yNBUNMzBDU9RVDTc8RLnpDkXQtw20uMIfvSRB7Aezba/9E+ukTF6xn4OMqvG/jDpL9p4f9r16/r9qk+lf8OQNFKSGcnPaYv2UZ/AORZTkx/CAAA</filePart>
 	</xmi:Extension>
 </xmi:XMI>

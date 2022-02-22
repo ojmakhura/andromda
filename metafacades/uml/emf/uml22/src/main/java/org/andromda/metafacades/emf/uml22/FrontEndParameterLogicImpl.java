@@ -1231,4 +1231,9 @@ public class FrontEndParameterLogicImpl
                     false));
         return value == null ? "" : value;
     }
+
+    @Override
+    protected String handleGetInputAction() {
+        return MetafacadeWebUtils.getInputAction(this);
+    }
 }

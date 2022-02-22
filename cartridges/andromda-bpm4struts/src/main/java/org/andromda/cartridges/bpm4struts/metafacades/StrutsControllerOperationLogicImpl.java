@@ -326,4 +326,16 @@ public class StrutsControllerOperationLogicImpl
     {
         return getBackEndServiceOperation() != null;
     }
+
+    @Override
+    public Collection getAllowedRoles() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getRestPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

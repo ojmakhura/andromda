@@ -913,14 +913,14 @@ public class FrontEndActionLogicImpl
     }
 
     @Override
-    protected Collection<String> handleGetRolesAlloweds() {
-        //Collection<String> roles = (Collection<String>) this.findTaggedValues(UMLProfile.TAGGEDVALUE_PRESENTATION_ACCESS_ROLES);
-        return null;
-    }
-
-    @Override
     protected String handleGetRestPath() {
         
         return UMLMetafacadeUtils.getRestPath(this);
+    }
+
+    @Override
+    protected Collection handleGetAllowedRoles() {
+        // TODO Auto-generated method stub
+        return UMLMetafacadeUtils.getAllowedRoles(this);
     }
 }

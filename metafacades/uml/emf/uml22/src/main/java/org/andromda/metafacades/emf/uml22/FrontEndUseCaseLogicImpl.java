@@ -30,6 +30,7 @@ import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.Role;
+import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.metafacades.uml.web.MetafacadeWebGlobals;
@@ -923,8 +924,7 @@ public class FrontEndUseCaseLogicImpl
     }
 
     @Override
-    protected Collection<String> handleGetRolesAlloweds() {
-        // TODO Auto-generated method stub
-        return null;
+    protected Collection handleGetAllowedRoles() {
+        return UMLMetafacadeUtils.getAllowedRoles(this);
     }
 }

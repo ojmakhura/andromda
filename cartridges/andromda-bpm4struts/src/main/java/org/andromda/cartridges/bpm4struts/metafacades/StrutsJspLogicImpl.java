@@ -407,4 +407,16 @@ public class StrutsJspLogicImpl
         return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 
+    @Override
+    public Collection getAllowedRoles() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getFilename() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

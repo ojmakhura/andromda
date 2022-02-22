@@ -653,4 +653,10 @@ public class FrontEndParameterLogicImpl
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    protected String handleGetInputAction() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

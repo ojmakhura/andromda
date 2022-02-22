@@ -474,8 +474,7 @@ public class FrontEndViewLogicImpl
     }
 
     @Override
-    protected Collection<String> handleGetRolesAlloweds() {
-        // TODO Auto-generated method stub
-        return null;
+    protected Collection handleGetAllowedRoles() {
+        return UMLMetafacadeUtils.getAllowedRoles(this);
     }
 }

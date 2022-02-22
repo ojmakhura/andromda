@@ -311,6 +311,11 @@ public class MetafacadeWebGlobals {
     /**
      * The "plain text" type.
      */
+    public static final String INPUT_ACTION = "input_action";
+
+    /**
+     * The "plain text" type.
+     */
     public static final String PLAIN_TEXT = "plaintext";
 
     /**

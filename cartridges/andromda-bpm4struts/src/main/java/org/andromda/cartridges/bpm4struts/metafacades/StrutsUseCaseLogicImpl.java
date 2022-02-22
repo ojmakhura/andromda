@@ -692,4 +692,22 @@ public class StrutsUseCaseLogicImpl
             : String.valueOf(formKeyValue);
     }
 
+    @Override
+    public Collection getAllowedRoles() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getFilename() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getRestPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

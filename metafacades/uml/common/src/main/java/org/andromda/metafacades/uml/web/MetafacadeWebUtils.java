@@ -1183,6 +1183,10 @@ public class MetafacadeWebUtils {
         return fullyQualifiedName.toString();
     }
 
+    public static String getInputAction(ModelElementFacade modelElement) {
 
+        return StringUtils.trimToNull((String) modelElement.findTaggedValue(MetafacadeWebGlobals.INPUT_ACTION));
+
+    }
 }
 

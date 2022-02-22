@@ -1353,4 +1353,20 @@ public class UMLMetafacadeUtils
         
         return path;
     }
+
+    public static Collection getAllowedRoles(ModelElementFacade modelElement) {
+        Collection roles = modelElement.findTaggedValues(UMLProfile.TAGGEDVALUE_PRESENTATION_ACCESS_ROLES);
+        
+        if(CollectionUtils.isEmpty(roles)) {
+            return null;
+        }
+        
+        return roles;
+    }
+
+    public static String getTargetUrl(ModelElementFacade modelElement) {
+        String url = StringUtils.stripToNull(((String) modelElement.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_TARGETURL)));
+                
+        return url;
+    }
 }

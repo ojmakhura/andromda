@@ -968,4 +968,9 @@ public class FrontEndAttributeLogicImpl
         }
         return null;
     }
+
+    @Override
+    protected String handleGetInputAction() {
+        return MetafacadeWebUtils.getInputAction(this);
+    }
 }

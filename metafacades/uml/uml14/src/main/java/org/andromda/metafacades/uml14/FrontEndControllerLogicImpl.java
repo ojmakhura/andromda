@@ -154,4 +154,34 @@ public class FrontEndControllerLogicImpl
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    protected String handleGetPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetRestPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFilename() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetTargetUrl() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected Collection handleGetAllowedRoles() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

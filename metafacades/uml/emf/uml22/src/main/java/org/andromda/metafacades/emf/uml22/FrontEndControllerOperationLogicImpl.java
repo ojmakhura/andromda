@@ -27,6 +27,7 @@ import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.web.MetafacadeWebGlobals;
 import org.andromda.metafacades.uml.web.MetafacadeWebUtils;
@@ -400,9 +401,8 @@ public class FrontEndControllerOperationLogicImpl
     }
 
     @Override
-    protected Collection<String> handleGetRolesAlloweds() {
-        // TODO Auto-generated method stub
-        return null;
+    protected Collection handleGetAllowedRoles() {
+        return UMLMetafacadeUtils.getAllowedRoles(this);
     }
     
     private static final String EMPTY_STRING = "";
