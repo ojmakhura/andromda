@@ -1080,7 +1080,7 @@
 
     <template
         path="templates/views/view-table.html.vsl"
-        outputPattern="${table.view.path}-${table.name}.html"
+        outputPattern="${table.view.filename}-${table.name}.html"
         outlet="views"
         overwrite="true">
         <modelElements>

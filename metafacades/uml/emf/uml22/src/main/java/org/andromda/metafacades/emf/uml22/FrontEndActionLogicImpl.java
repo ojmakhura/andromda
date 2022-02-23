@@ -912,15 +912,19 @@ public class FrontEndActionLogicImpl
         return scope;
     }
 
+    private static final String EMPTY_STRING = "";
+    private static final String DEFAULT = "default";
+    private static final String SLASH = "/";
+    private static final String QUOTE = "\"";
+
     @Override
     protected String handleGetRestPath() {
-        
-        return UMLMetafacadeUtils.getRestPath(this);
+                
+        return UMLMetafacadeUtils.getRestPath(this, this.getTriggerName());
     }
 
     @Override
     protected Collection handleGetAllowedRoles() {
-        // TODO Auto-generated method stub
         return UMLMetafacadeUtils.getAllowedRoles(this);
     }
 }

@@ -4,7 +4,7 @@
 #set($formName = $action.formBeanName)
     <form id="${formName}" name="${formName}" 
         role="form" method="POST" th:object="${${formName}}"
-        th:action="@{${action.controller.restPath}/$thymeleafUtils.toWebResourceName(${action.triggerName})}">
+        th:action="@{/${action.controller.restPath}/${action.restPath}}">
 #if ($action.hyperlink)
     <a href="#" id="${action.triggerName}Action" action="#{${action.controller.beanName}.${action.triggerName}}" immediate="true" ajax="false">
         <label id="${action.triggerName}ActionMessage" value="#{messages['$action.messageKey']}"/>

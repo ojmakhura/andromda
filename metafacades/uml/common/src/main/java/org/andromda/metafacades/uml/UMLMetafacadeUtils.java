@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.metafacades.uml.web.MetafacadeWebUtils;
+import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang3.BooleanUtils;
@@ -1265,36 +1266,24 @@ public class UMLMetafacadeUtils
     private static final String QUOTE = "\"";
 
     public static String getPath(ModelElementFacade modelElement) {
-        String path = StringUtils.strip(((String) modelElement.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_PATH)));
-        if (StringUtils.isBlank(path))
+        
+        String _path = StringUtils.strip(((String) modelElement.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_PATH)));
+        if (!StringUtils.isBlank(_path))
         {
-            path = EMPTY_STRING;
+            return null;
         }
 
-        if (StringUtils.isBlank(path) || path.equals(DEFAULT))
-        {
-            path = MetafacadeWebUtils.toWebResourceName(modelElement.getName());
+        final StringBuilder path = new StringBuilder();
+        final String packageName = modelElement.getPackageName();
+        if (StringUtilsHelper.isNotBlank(packageName)) {
+            path.append(packageName + '.');
         }
-        else
-        {
-            if (!path.startsWith(QUOTE))
-            {
-                path = path;
-            }
-            if (!path.endsWith(QUOTE) || path.length()<2)
-            {
-                path = path;
-            }
-            
-            if(path.endsWith(SLASH)) {
-                path = path.substring(0, path.length() - 1);
-            }
-        }
-        
-        return path;
+        path.append(MetafacadeWebUtils.toWebResourceName(StringUtilsHelper.trimToEmpty(modelElement.getName())).replace('.', '/'));
+        return '/' + path.toString().replace('.', '/');
+
     }
 
-    public static String getRestPath(ModelElementFacade modelElement) {
+    public static String getRestPath(ModelElementFacade modelElement, String replacementName) {
         String path = StringUtils.strip(((String) modelElement.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_REST_PATH)));
         if (StringUtils.isBlank(path))
         {
@@ -1303,7 +1292,7 @@ public class UMLMetafacadeUtils
 
         if (StringUtils.isBlank(path) || path.equals(DEFAULT))
         {
-            path = MetafacadeWebUtils.toWebResourceName(modelElement.getName());
+            path = MetafacadeWebUtils.toWebResourceName(replacementName);
         }
         else
         {

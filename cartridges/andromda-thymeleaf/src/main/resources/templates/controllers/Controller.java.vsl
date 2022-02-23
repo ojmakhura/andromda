@@ -29,10 +29,10 @@ public interface $controller.name {
      * 
      */
 #if($action.tableLink)
-    @org.springframework.web.bind.annotation.GetMapping("$thymeleafUtils.toWebResourceName(${action.triggerName})")
+    @org.springframework.web.bind.annotation.GetMapping("${action.restPath}")
 #set($params = "$action.restQueryParams")
 #else
-    @org.springframework.web.bind.annotation.GetMapping("$thymeleafUtils.toWebResourceName(${action.triggerName})")
+    @org.springframework.web.bind.annotation.GetMapping("${action.restPath}")
 #set($params = "$action.restFormParams")
 #end
     public String ${action.triggerName}(#if (!$action.formFields.empty)@org.springframework.web.bind.annotation.ModelAttribute $action.fullyQualifiedFormImplementationName $action.formBeanName#end, org.springframework.ui.Model model)
@@ -70,7 +70,7 @@ public interface $controller.name {
 #end
 #end
 #foreach ($view in $controller.useCase.views)
-    @org.springframework.web.bind.annotation.GetMapping("$thymeleafUtils.toWebResourceName(${view.name})")
+    @org.springframework.web.bind.annotation.GetMapping("${view.restPath}")
     public String get$stringUtils.capitalize($stringUtils.deleteWhitespace(${view.name}))(org.springframework.ui.Model model);
 
 #end

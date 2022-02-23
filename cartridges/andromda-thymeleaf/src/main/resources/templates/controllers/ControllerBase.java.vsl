@@ -160,10 +160,10 @@ $action.trigger.getDocumentation("     * ")
     public String startUseCase(#if($action.parameters.size() > 0)$useCaseParams, #{end}org.springframework.ui.Model model)
 #else
 #if($action.tableLink)
-    @org.springframework.web.bind.annotation.PostMapping({"$thymeleafUtils.toWebResourceName(${action.triggerName})"})
+    @org.springframework.web.bind.annotation.PostMapping({"${action.restPath}"})
 #set($params = $action.restQueryParams)
 #else
-    @org.springframework.web.bind.annotation.PostMapping("$thymeleafUtils.toWebResourceName(${action.triggerName})")
+    @org.springframework.web.bind.annotation.PostMapping("${action.restPath}")
 #set($params = $action.restFormParams)
 #end
     @Override
@@ -424,7 +424,7 @@ $decisionTransition.getDocumentation("     * ")
 #end
 #end
 #foreach ($view in $controller.useCase.views)
-    @org.springframework.web.bind.annotation.GetMapping("$thymeleafUtils.toWebResourceName(${view.name})")
+    @org.springframework.web.bind.annotation.GetMapping("${view.restName}")
     public String get$stringUtils.capitalize($stringUtils.deleteWhitespace(${view.name}))(org.springframework.ui.Model model) {
 
         return "${view.path}.html";
