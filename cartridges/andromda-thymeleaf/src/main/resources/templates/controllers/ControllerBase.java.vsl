@@ -6,11 +6,6 @@ package $controller.packageName;
 
 import java.util.Map;
 import java.util.HashMap;
-// $controller.taggedValues
-// $umlProfiles
-// $umlProfiles.TAGGEDVALUE_PRESENTATION_CONTROLLER_PATH
-// $controller.findTaggedValue("andromda_presentation_controller_rest_path")
-// $controller.restPath
 
 #set($viewPopulator = "${controller.useCase.actionClassName}ViewPopulator")##should go to the controller metafacade
 /**
@@ -19,11 +14,6 @@ $controller.getDocumentation(" * ")
 @org.springframework.stereotype.Controller
 #foreach($annotation in $controller.additionalAnnotations)
 @$annotation
-#end
-#if(!$stringUtils.isBlank($controller.restPath))
-//@org.springframework.web.bind.annotation.RequestMapping("$controller.restPath")
-#else
-//@org.springframework.web.bind.annotation.RequestMapping("/")
 #end
 public abstract class ${controller.name}Base
     extends ${managedBeansPackage}.ControllerBase
@@ -424,7 +414,7 @@ $decisionTransition.getDocumentation("     * ")
 #end
 #end
 #foreach ($view in $controller.useCase.views)
-    @org.springframework.web.bind.annotation.GetMapping("${view.restName}")
+    @org.springframework.web.bind.annotation.GetMapping("${view.restPath}")
     public String get$stringUtils.capitalize($stringUtils.deleteWhitespace(${view.name}))(org.springframework.ui.Model model) {
 
         return "${view.path}.html";

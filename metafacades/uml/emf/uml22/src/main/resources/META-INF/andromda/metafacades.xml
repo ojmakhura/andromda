@@ -419,6 +419,8 @@
         <property reference="labelListPattern"/>
         <property reference="valueListPattern"/>
         <property reference="backingValuePattern"/>
+        <property reference="defaultDateFormat"/>
+        <property reference="defaultTimeFormat"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.emf.uml22.FrontEndActionLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.TransitionImpl">

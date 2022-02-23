@@ -12,18 +12,22 @@ public final class ${entity.name}Specifications {
     // Generating specifications for $attribute.name
 #set ($capitalised = ${stringUtils.capitalize($attribute.name)})
 #if(!$attribute.many)
-#if($attribute.unique && $attribute.name != "id" && $attribute.type.clobType && $attribute.type.blobType && $attribute.type.fileType)
-
-#elseif(!$attribute.required)
+// $attribute
+// $attribute.unique
+// $attribute.required
+#if($attribute.name != "id" && !$attribute.type.clobType && !$attribute.type.blobType && !$attribute.type.fileType)
+// here
+#if(!$attribute.required)
     public static Specification<$entity.name> findBy${capitalised}Null($attribute.type.fullyQualifiedName $attribute.name) {
         return (root, cq, cb) -> cb.isNull(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"));
     }
-    
-#elseif(!$attribute.booleanType)
+
+#end   
+#if(!$attribute.booleanType)
     public static Specification<$entity.name> findBy${capitalised}($attribute.type.fullyQualifiedName $attribute.name) {
         return (root, cq, cb) -> cb.equal(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), $attribute.name);
     }
-   
+
 #else
     public static Specification<$entity.name> findBy${capitalised}False(){
         return (root, cq, cb) -> cb.isFalse(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"));
@@ -33,6 +37,7 @@ public final class ${entity.name}Specifications {
         return (root, cq, cb) -> cb.isTrue(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"));
     }
 
+#end
 #end
 ## Other derived queries
 #if($attribute.type.stringType)
@@ -123,6 +128,23 @@ public final class ${entity.name}Specifications {
         };
     }
 
+    public static Specification<$entity.name> findBy${capitalised}${capitalisedIdentifier}($identifier.type.fullyQualifiedName ${identifier.name}) {
+        return (root, query, criteriaBuilder) -> {
+            
+#if ($associationEnd.many2One)
+            // Many to One
+#elseif ($associationEnd.one2Many)
+            // One to Many
+#elseif ($associationEnd.one2One)
+            // One to One
+#elseif ($associationEnd.many2Many)
+            // Many to Many
+#end
+            javax.persistence.criteria.Join<$entity.name, $target.type.fullyQualifiedEntityName> ${target.name}Join = root.join("$target.name");
+            return criteriaBuilder.equal(${target.name}Join.get("$identifier.name"), ${identifier.name});
+        };
+    }
+
 #end
 #end
 #end
@@ -134,27 +156,52 @@ public final class ${entity.name}Specifications {
 #set($criteriaArgument = $finder.criteriaArgument)
 #set($criteriaArgumentName = $criteriaArgument.name)
 #set($criteriaClass = $criteriaArgument.type)
-    public static Specification<$entity.name> ${finder.name}(#if(!$finder.arguments.empty)${finder.getTypedArgumentList('final')}#end) {
-        Specification<$entity.name> criteriaSpecs =  null;
 #foreach($criteriaAttribute in $criteriaClass.getAttributes(true))
-// $$criteriaAttribute.name
-#set($attributeName = $criteriaAttribute.attributeName)
+#if($hibernateUtils.isJoin($criteriaAttribute.attributeName) && $hibernateUtils.joinLength($criteriaAttribute.attributeName) > 2)
+#set ($capitalised = $stringUtils.capitalize($hibernateUtils.getAttributeName($criteriaAttribute.attributeName)))
+#set ($specName = "findBy${capitalised}")
+#set ($attributeName = $criteriaAttribute.attributeName)
 #set ($getter = "get$stringUtils.capitalize($criteriaAttribute.name)()")
-#set ($comparator = "")
+#set ($comparator = "equal")
 #if($criteriaAttribute.comparatorPresent)
 #set ($comparator = "$criteriaAttribute.comparatorConstant $criteriaAttribute.comparator")
+#if($criteriaAttribute.comparatorConstant == "LIKE_COMPARATOR")
+#set ($comparator = "like")
+#elseif($criteriaAttribute.comparatorConstant == "INSENSITIVE_LIKE_COMPARATOR")
+#set ($comparator = "like")
+#elseif($criteriaAttribute.comparatorConstant == "EQUAL_COMPARATOR")
+#set ($comparator = "equal")
+#elseif($criteriaAttribute.comparatorConstant == "GREATER_THAN_OR_EQUAL_COMPARATOR")
+#set ($comparator = "greaterThanOrEqualTo")
+#elseif($criteriaAttribute.comparatorConstant == "GREATER_THAN_COMPARATOR")
+#set ($comparator = "greaterThan")
+#elseif($criteriaAttribute.comparatorConstant == "LESS_THAN_OR_EQUAL_COMPARATOR")
+#set ($comparator = "lessThanOrEqualTo")
+#elseif($criteriaAttribute.comparatorConstant == "LESS_THAN_COMPARATOR")
+#set ($comparator = "lessThanOrEqualTo")
+#elseif($criteriaAttribute.comparatorConstant == "IN_COMPARATOR")
+#set ($comparator = "in")
+#elseif($criteriaAttribute.comparatorConstant == "NOT_EQUAL_COMPARATOR")
+#set ($comparator = "notEqual")
 #end
-// comparator = $comparator
-#set ($matchMode = "")
+#end
+#set ($matchMode = "${criteriaArgumentName}.${criteriaAttribute.getterName}()")
 #if($criteriaAttribute.matchModePresent)
 #set ($matchMode = "$criteriaAttribute.matchModeConstant $criteriaAttribute.matchMode")
+#if($criteriaAttribute.matchModeConstant == "ANYWHERE")
+#set ($matchMode = "'%' + ${criteriaArgumentName}.${criteriaAttribute.getterName}() + '%'")
+#elseif($criteriaAttribute.matchModeConstant == "START")
+#set ($matchMode = "${criteriaArgumentName}.${criteriaAttribute.getterName}() + '%'")
+#elseif($criteriaAttribute.matchModeConstant == "END")
+#set ($matchMode = "'%' + ${criteriaArgumentName}.${criteriaAttribute.getterName}()")
 #end
-// comparator = $matchMode
+#end
 
-#end
-        return criteriaSpecs;
+    public static Specification<$entity.name> ${specName}($criteriaAttribute.getterSetterTypeName $criteriaAttribute.name) {
+        return (root, cq, cb) -> cb.${comparator}(root.get("$criteriaAttribute.attributeName"), $matchMode);
     }
 #end
-
+#end
+#end
 #end
 }

@@ -2,31 +2,31 @@ package ${applicationPackage};
 
 import java.io.Serializable;
 
-public class SelectItem implements Serializable {
-    private String label;
-    private Object value;
+public class SelectItem<E, T> implements Serializable {
+    private E label;
+    private T value;
 
     public SelectItem() {
     }
 
-    public SelectItem(String label, Object value) {
+    public SelectItem(E label, T value) {
         this.label = label;
         this.value = value;
     }
 
-    public String getLabel() {
+    public E getLabel() {
         return label;
     }
 
-    public void setLabel(String label) {
+    public void setLabel(E label) {
         this.label = label;
     }
 
-    public Object getValue() {
+    public T getValue() {
         return value;
     }
 
-    public void setValue(Object value) {
+    public void setValue(T value) {
         this.value = value;
     }
 

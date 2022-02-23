@@ -477,4 +477,10 @@ public class FrontEndViewLogicImpl
     protected Collection handleGetAllowedRoles() {
         return UMLMetafacadeUtils.getAllowedRoles(this);
     }
+
+    @Override
+    protected String handleGetRestPath() {
+                
+        return UMLMetafacadeUtils.getRestPath(this, this.getName());
+    }
 }

@@ -15,6 +15,7 @@ import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 
@@ -380,5 +381,11 @@ public class FrontEndViewLogicImpl
     protected Collection handleGetAllowedRoles() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    protected String handleGetRestPath() {
+                
+        return UMLMetafacadeUtils.getRestPath(this, this.getName());
     }
 }
