@@ -724,7 +724,8 @@ public class FrontEndAttributeLogicImpl
      *
      * @return the input type name.
      */
-    private String getInputType()
+    @Override
+    public String handleGetInputType()
     {
         return Objects.toString(this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
     }

@@ -54,9 +54,11 @@ ${ident}		<mat-label translate>$parameter.messageKey</mat-label>
 ${ident}	  	<input matInput [matDatepicker]="$propertyId" formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
 ${ident}	  	<mat-datepicker-toggle matSuffix [for]="$propertyId"></mat-datepicker-toggle>
 ${ident}	  	<mat-datepicker #$propertyId></mat-datepicker>
-#elseif ($parameter.inputSelect || $parameter.type.enumeration)
-${ident}		<mat-select name="$propertyId" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" id="$propertyId">
+#elseif ($parameter.inputSelect || $parameter.type.enumeration || $parameter.inputMultibox)
+${ident}		<mat-select name="$propertyId" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" id="$propertyId"#if($parameter.inputMultibox) multiple#end>
+#if(!$parameter.inputMultibox)
 ${ident}			<mat-option value = "">Select one ...</mat-option>
+#end
 #if ($parameter.type.enumeration)
 ${ident}			<mat-option *ngFor="let key of ${parameter.name}Options" [value]="key">{{ ${parameter.name}T[key] }}</mat-option>
 #else
