@@ -74,11 +74,11 @@ public interface ${entity.name}Repository extends
     java.util.List<$entity.name> findBy${stringUtils.capitalize($attribute.name)}Not($attribute.type.fullyQualifiedName $attribute.name);
     org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}Not($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
     
-    java.util.List<$entity.name> findBy${stringUtils.capitalize($attribute.name)}In(java.util.List<$attribute.type.fullyQualifiedName> $attribute.name);
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}In(java.util.List<$attribute.type.fullyQualifiedName> $attribute.name, org.springframework.data.domain.Pageable pageable);
+    java.util.List<$entity.name> findBy${stringUtils.capitalize($attribute.name)}In(java.util.List<$attribute.type.fullyQualifiedName> ${attribute.name}s);
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}In(java.util.List<$attribute.type.fullyQualifiedName> ${attribute.name}s, org.springframework.data.domain.Pageable pageable);
     
-    java.util.List<$entity.name> findBy${stringUtils.capitalize($attribute.name)}NotIn(java.util.List<$attribute.type.fullyQualifiedName> $attribute.name);
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}NotIn(java.util.List<$attribute.type.fullyQualifiedName> $attribute.name, org.springframework.data.domain.Pageable pageable);
+    java.util.List<$entity.name> findBy${stringUtils.capitalize($attribute.name)}NotIn(java.util.List<$attribute.type.fullyQualifiedName> ${attribute.name}s);
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}NotIn(java.util.List<$attribute.type.fullyQualifiedName> ${attribute.name}s, org.springframework.data.domain.Pageable pageable);
     
 #end
 ## Deal with query operations

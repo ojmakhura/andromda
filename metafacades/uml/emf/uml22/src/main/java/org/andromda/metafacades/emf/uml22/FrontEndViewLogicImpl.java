@@ -198,20 +198,20 @@ public class FrontEndViewLogicImpl
     @Override
     protected String handleGetPath() {
 
-        String p = UMLMetafacadeUtils.getPath(this);
+        return UMLMetafacadeUtils.getPath(this);
 
-        if(StringUtils.isNotBlank(p)) {
-            return p;
-        }
+        // if(StringUtils.isNotBlank(p)) {
+        //     return p;
+        // }
 
 
-        final StringBuilder path = new StringBuilder();
-        final String packageName = this.getPackageName();
-        if (StringUtilsHelper.isNotBlank(packageName)) {
-            path.append(packageName + '.');
-        }
-        path.append(MetafacadeWebUtils.toWebResourceName(StringUtilsHelper.trimToEmpty(this.getName())).replace('.', '/'));
-        return '/' + path.toString().replace('.', '/');
+        // final StringBuilder path = new StringBuilder();
+        // final String packageName = this.getPackageName();
+        // if (StringUtilsHelper.isNotBlank(packageName)) {
+        //     path.append(packageName + '.');
+        // }
+        // path.append(MetafacadeWebUtils.toWebResourceName(StringUtilsHelper.trimToEmpty(this.getName())).replace('.', '/'));
+        // return '/' + path.toString().replace('.', '/');
     }
 
     @Override
@@ -476,5 +476,11 @@ public class FrontEndViewLogicImpl
     @Override
     protected Collection handleGetAllowedRoles() {
         return UMLMetafacadeUtils.getAllowedRoles(this);
+    }
+
+    @Override
+    protected String handleGetRestPath() {
+                
+        return UMLMetafacadeUtils.getRestPath(this, this.getName());
     }
 }

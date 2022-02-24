@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import org.andromda.cartridges.spring.metafacades.SpringGlobals;
 import org.andromda.metafacades.uml.Entity;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Contains utilities used within the Spring cartridge
@@ -277,5 +278,40 @@ public class SpringHibernateUtils
     {
         // subclass or hierarchy
         return SpringGlobals.HIBERNATE_MAPPING_STRATEGY_SUBCLASS.equalsIgnoreCase(hibernateMappingStrategyIn);
+    }
+
+    public String getAttributeName(String name) {
+
+        String[] splits = name.split("\\.");
+        String attributeName = splits[0];
+
+        for (int i = 1; i < splits.length; i++) {
+            attributeName = attributeName + StringUtils.capitalize(splits[i]);
+        }
+
+        return attributeName;
+    }
+
+    public boolean isJoin(String attributeName) {
+        return attributeName.contains(".");
+    }
+
+    public int joinLength(String attributeName) {
+        return attributeName.split("\\.").length;
+    }
+    
+    public Collection<String> getJoins(String attributeName) {
+
+        String[] splits = attributeName.split("\\.");
+        Collection<String> joins = new ArrayList<>();
+        joins.add("javax.persistence.criteria.Join " + splits[0] + "Join = root.join(\"" + splits[0] + "\")");
+
+        for (int i = 1; i < splits.length-1; i++) {
+            String join = "javax.persistence.criteria.Join " + splits[i] + "Join = ";
+            join = join + splits[i-1] + "Join.join(\"" + splits[i] + "\")";
+            joins.add(join);
+        }
+
+        return joins;
     }
 }

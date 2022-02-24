@@ -243,7 +243,7 @@ public class FrontEndControllerLogicImpl
     @Override
     protected String handleGetRestPath() {
                 
-        return UMLMetafacadeUtils.getRestPath(this);
+        return UMLMetafacadeUtils.getRestPath(this, this.getName());
     }
 
     @Override
