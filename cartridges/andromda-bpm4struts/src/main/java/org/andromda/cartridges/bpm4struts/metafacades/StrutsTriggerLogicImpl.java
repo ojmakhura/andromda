@@ -3,6 +3,8 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 import java.util.Collection;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
+import org.andromda.metafacades.uml.FrontEndAction;
+import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.utils.StringUtilsHelper;
 
@@ -71,7 +73,7 @@ public class StrutsTriggerLogicImpl extends StrutsTriggerLogic {
         if (!normalizeMessages()) {
             final StrutsAction action = getStrutsAction();
             if (action != null) {
-                final StrutsJsp page = action.getInput();
+                final FrontEndAction page = (FrontEndAction) action.getInput();
                 if (page != null) {
                     triggerKey = page.getMessageKey() + '.' + triggerKey;
                 }

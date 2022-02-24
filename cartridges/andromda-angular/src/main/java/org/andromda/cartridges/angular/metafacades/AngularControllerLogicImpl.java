@@ -50,118 +50,118 @@ public class AngularControllerLogicImpl
      * @return implementationName
      * @see org.andromda.cartridges.angular.metafacades.AngularController#getImplementationName()
      */
-    protected String handleGetImplementationName()
-    {
-        final String pattern = Objects.toString(
-            this.getConfiguredProperty(AngularGlobals.CONTROLLER_IMPLEMENTATION_PATTERN), "");
-        return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
-    }
+    // protected String handleGetImplementationName()
+    // {
+    //     final String pattern = Objects.toString(
+    //         this.getConfiguredProperty(AngularGlobals.CONTROLLER_IMPLEMENTATION_PATTERN), "");
+    //     return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
+    // }
 
     /**
      * @return fullyQualifiedImplementationName
      * @see org.andromda.cartridges.angular.metafacades.AngularController#getFullyQualifiedImplementationName()
      */
-    protected String handleGetFullyQualifiedImplementationName()
-    {
-        final StringBuilder fullyQualifiedName = new StringBuilder();
-        final String packageName = this.getPackageName();
-        if (StringUtils.isNotBlank(packageName))
-        {
-            fullyQualifiedName.append(packageName + '.');
-        }
-        return fullyQualifiedName.append(this.getImplementationName()).toString();
-    }
+    // protected String handleGetFullyQualifiedImplementationName()
+    // {
+    //     final StringBuilder fullyQualifiedName = new StringBuilder();
+    //     final String packageName = this.getPackageName();
+    //     if (StringUtils.isNotBlank(packageName))
+    //     {
+    //         fullyQualifiedName.append(packageName + '.');
+    //     }
+    //     return fullyQualifiedName.append(this.getImplementationName()).toString();
+    // }
 
     /**
      * @return getFullyQualifiedImplementationName().replace('.', '/')
      * @see org.andromda.cartridges.angular.metafacades.AngularController#getFullyQualifiedImplementationPath()
      */
-    protected String handleGetFullyQualifiedImplementationPath()
-    {
-        String packagePath = this.getPackagePath();
-        return this.getFullyQualifiedImplementationName().replace('.', '/');
-    }
+    // protected String handleGetFullyQualifiedImplementationPath()
+    // {
+    //     String packagePath = this.getPackagePath();
+    //     return this.getFullyQualifiedImplementationName().replace('.', '/');
+    // }
 
     /**
      * @return StringUtilsHelper.lowerCamelCaseName(this.getName())
      * @see org.andromda.cartridges.angular.metafacades.AngularController#getBeanName()
      */
-    protected String handleGetBeanName()
-    {
-        return StringUtilsHelper.lowerCamelCaseName(this.getName());
-    }
+    // protected String handleGetBeanName()
+    // {
+    //     return StringUtilsHelper.lowerCamelCaseName(this.getName());
+    // }
 
     /**
      * @return references
      * @see org.andromda.cartridges.angular.metafacades.AngularController#getSessionObjectReferences()
      */
-    protected List<DependencyFacade> handleGetSessionObjectReferences()
-    {
-        final List<DependencyFacade> references = new ArrayList<DependencyFacade>(this.getSourceDependencies());
-        for (final Iterator<DependencyFacade> iterator = references.iterator(); iterator.hasNext();)
-        {
-            final ModelElementFacade targetElement = (iterator.next()).getTargetElement();
-            if (!(targetElement instanceof AngularSessionObject))
-            {
-                iterator.remove();
-            }
-        }
-        return references;
-    }
+    // protected List<DependencyFacade> handleGetSessionObjectReferences()
+    // {
+    //     final List<DependencyFacade> references = new ArrayList<DependencyFacade>(this.getSourceDependencies());
+    //     for (final Iterator<DependencyFacade> iterator = references.iterator(); iterator.hasNext();)
+    //     {
+    //         final ModelElementFacade targetElement = (iterator.next()).getTargetElement();
+    //         if (!(targetElement instanceof AngularSessionObject))
+    //         {
+    //             iterator.remove();
+    //         }
+    //     }
+    //     return references;
+    // }
 
     /**
      * @return controllerSerialVersionUID
      * @see org.andromda.cartridges.angular.metafacades.AngularController#getControllerSerialVersionUID()
      */
-    protected String handleGetControllerSerialVersionUID()
-    {
-       final StringBuilder buffer = new StringBuilder();
-       buffer.append(this.getFullyQualifiedImplementationName());
-       addSerialUIDData(buffer);
-       return AngularUtils.calcSerialVersionUID(buffer);
-    }
+    // protected String handleGetControllerSerialVersionUID()
+    // {
+    //    final StringBuilder buffer = new StringBuilder();
+    //    buffer.append(this.getFullyQualifiedImplementationName());
+    //    addSerialUIDData(buffer);
+    //    return AngularUtils.calcSerialVersionUID(buffer);
+    // }
 
-    private void addSerialUIDData(StringBuilder buffer)
-    {
-        for (final FrontEndAction action : this.getUseCase().getActions())
-        {
-            buffer.append(action.getName());
-        }
-    }
+    // private void addSerialUIDData(StringBuilder buffer)
+    // {
+    //     for (final FrontEndAction action : this.getUseCase().getActions())
+    //     {
+    //         buffer.append(action.getName());
+    //     }
+    // }
 
     /**
      * @see org.andromda.cartridges.angular.metafacades.AngularController#getAllServices()
      */
-    @Override
-    protected Collection<Service> handleGetAllServices() {
-        final Set<Service> allServices=new HashSet<Service>();
-        for(final DependencyFacade dependency: this.getServiceReferences())
-        {
-            allServices.add((Service)dependency.getTargetElement());
-        }
-        for(final DependencyFacade dependency: this.getServicesPackagesReferences())
-        {
-            final PackageFacade pack=(PackageFacade)dependency.getTargetElement();
-            for(final ClassifierFacade clazz: pack.getClasses())
-            {
-                if(clazz instanceof Service)
-                {
-                    allServices.add((Service)clazz);
-                }
-            }
-        }
-        for(final FrontEndAction action: getUseCase().getActions())
-        {
-            for(final FrontEndActionState as: action.getActionStates())
-            {
-                for(final OperationFacade operation: as.getServiceCalls())
-                {
-                    allServices.add((Service)operation.getOwner());
-                }
-            }
-        }
-        return allServices;
-    }
+    // @Override
+    // protected Collection<Service> handleGetAllServices() {
+    //     final Set<Service> allServices=new HashSet<Service>();
+    //     for(final DependencyFacade dependency: this.getServiceReferences())
+    //     {
+    //         allServices.add((Service)dependency.getTargetElement());
+    //     }
+    //     for(final DependencyFacade dependency: this.getServicesPackagesReferences())
+    //     {
+    //         final PackageFacade pack=(PackageFacade)dependency.getTargetElement();
+    //         for(final ClassifierFacade clazz: pack.getClasses())
+    //         {
+    //             if(clazz instanceof Service)
+    //             {
+    //                 allServices.add((Service)clazz);
+    //             }
+    //         }
+    //     }
+    //     for(final FrontEndAction action: getUseCase().getActions())
+    //     {
+    //         for(final FrontEndActionState as: action.getActionStates())
+    //         {
+    //             for(final OperationFacade operation: as.getServiceCalls())
+    //             {
+    //                 allServices.add((Service)operation.getOwner());
+    //             }
+    //         }
+    //     }
+    //     return allServices;
+    // }
 
     @Override
     protected Collection<AngularService> handleGetAllRestControllers() {
@@ -203,19 +203,19 @@ public class AngularControllerLogicImpl
     /**
      * @see org.andromda.cartridges.angular.metafacades.AngularController#getServicesPackagesReferences()
      */
-    @SuppressWarnings("unchecked")
-    @Override
-    protected List<PackageFacade> handleGetServicesPackagesReferences() {
-        return (List<PackageFacade>)new FilteredCollection(this.getSourceDependencies())
-        {
-            private static final long serialVersionUID = 134L;
-            @Override
-            public boolean evaluate(final Object object)
-            {
-                return ((DependencyFacade)object).getTargetElement() instanceof PackageFacade;
-            }
-        };
-    }
+    // @SuppressWarnings("unchecked")
+    // @Override
+    // protected List<PackageFacade> handleGetServicesPackagesReferences() {
+    //     return (List<PackageFacade>)new FilteredCollection(this.getSourceDependencies())
+    //     {
+    //         private static final long serialVersionUID = 134L;
+    //         @Override
+    //         public boolean evaluate(final Object object)
+    //         {
+    //             return ((DependencyFacade)object).getTargetElement() instanceof PackageFacade;
+    //         }
+    //     };
+    // }
 
     @Override
     protected Collection<ModelElementFacade> handleGetImports() {
@@ -293,7 +293,7 @@ public class AngularControllerLogicImpl
             if(_action.getTarget() instanceof AngularFinalStateLogicImpl) {
                 
                 AngularFinalStateLogicImpl state = (AngularFinalStateLogicImpl) _action.getTarget();
-                controllers.add(state.getTargetController());
+                controllers.add((AngularController) state.getTargetController());
             }
         }
         

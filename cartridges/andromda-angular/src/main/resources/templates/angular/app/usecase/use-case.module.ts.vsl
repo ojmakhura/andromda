@@ -23,6 +23,12 @@ import { $import.componentImplementationName } from '@app/${import.implementatio
 ##import { ${view.varsComponentImplementationName} } from '@app/${view.varsComponentImplementationFilePath}';
 ##end
 #end
+#if($ngrx)
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { ${stringUtils.uncapitalize(${useCase.actionClassName})}Feature } from './store/${stringUtils.uncapitalize(${useCase.actionClassName})}.reducer';
+import { ${useCase.actionClassName}Effects } from './store/${stringUtils.uncapitalize(${useCase.actionClassName})}.effect';
+#end
 
 @NgModule({
   imports: [
@@ -35,6 +41,10 @@ import { $import.componentImplementationName } from '@app/${import.implementatio
     FlexLayoutModule,
     MaterialModule,
     ${useCase.routingModuleName},
+#if($ngrx)
+    StoreModule.forFeature(${stringUtils.uncapitalize(${useCase.actionClassName})}Feature),
+    EffectsModule.forFeature([ ${useCase.actionClassName}Effects ])
+#end
   ],
   declarations: [
 #foreach($view in $useCase.views)

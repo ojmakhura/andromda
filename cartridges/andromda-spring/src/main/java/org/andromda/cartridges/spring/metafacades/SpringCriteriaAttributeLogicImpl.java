@@ -1,6 +1,6 @@
 package org.andromda.cartridges.spring.metafacades;
 
-import org.andromda.cartridges.spring.SpringProfile;
+import org.andromda.cartridges.spring.CartridgeSpringProfile;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -37,7 +37,7 @@ public class SpringCriteriaAttributeLogicImpl
         String attributeName = getName();
 
         // if there is a tagged value, use it instead
-        Object value = findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_ATTRIBUTE);
+        Object value = findTaggedValue(CartridgeSpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_ATTRIBUTE);
         if (value != null)
         {
             attributeName = String.valueOf(value);
@@ -53,7 +53,7 @@ public class SpringCriteriaAttributeLogicImpl
     protected String handleGetComparator()
     {
         String comparator = null;
-        Object value = findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_COMPARATOR);
+        Object value = findTaggedValue(CartridgeSpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_COMPARATOR);
         if (value != null)
         {
             comparator = String.valueOf(value);
@@ -81,39 +81,39 @@ public class SpringCriteriaAttributeLogicImpl
 
         if (comparator != null)
         {
-            if (SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_LIKE.equalsIgnoreCase(comparator))
+            if (CartridgeSpringProfile.TAGGEDVALUEVALUE_COMPARATOR_LIKE.equalsIgnoreCase(comparator))
             {
                 comparatorConstant = "LIKE_COMPARATOR";
             }
-            else if (SpringProfile.TAGGEDVALUEVALUE_INSENSITIVE_LIKE_COMPARATOR.equalsIgnoreCase(comparator))
+            else if (CartridgeSpringProfile.TAGGEDVALUEVALUE_INSENSITIVE_LIKE_COMPARATOR.equalsIgnoreCase(comparator))
             {
                 comparatorConstant = "INSENSITIVE_LIKE_COMPARATOR";
             }
-            else if (SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_EQUAL.equalsIgnoreCase(comparator))
+            else if (CartridgeSpringProfile.TAGGEDVALUEVALUE_COMPARATOR_EQUAL.equalsIgnoreCase(comparator))
             {
                 comparatorConstant = "EQUAL_COMPARATOR";
             }
-            else if (SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_GREATER_OR_EQUAL.equalsIgnoreCase(comparator))
+            else if (CartridgeSpringProfile.TAGGEDVALUEVALUE_COMPARATOR_GREATER_OR_EQUAL.equalsIgnoreCase(comparator))
             {
                 comparatorConstant = "GREATER_THAN_OR_EQUAL_COMPARATOR";
             }
-            else if (SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_GREATER.equalsIgnoreCase(comparator))
+            else if (CartridgeSpringProfile.TAGGEDVALUEVALUE_COMPARATOR_GREATER.equalsIgnoreCase(comparator))
             {
                 comparatorConstant = "GREATER_THAN_COMPARATOR";
             }
-            else if (SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_LESS_OR_EQUAL.equalsIgnoreCase(comparator))
+            else if (CartridgeSpringProfile.TAGGEDVALUEVALUE_COMPARATOR_LESS_OR_EQUAL.equalsIgnoreCase(comparator))
             {
                 comparatorConstant = "LESS_THAN_OR_EQUAL_COMPARATOR";
             }
-            else if (SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_LESS.equalsIgnoreCase(comparator))
+            else if (CartridgeSpringProfile.TAGGEDVALUEVALUE_COMPARATOR_LESS.equalsIgnoreCase(comparator))
             {
                 comparatorConstant = "LESS_THAN_COMPARATOR";
             }
-            else if (SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_IN.equalsIgnoreCase(comparator))
+            else if (CartridgeSpringProfile.TAGGEDVALUEVALUE_COMPARATOR_IN.equalsIgnoreCase(comparator))
             {
                 comparatorConstant = "IN_COMPARATOR";
             }
-            else if (SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_NOT_EQUAL.equalsIgnoreCase(comparator))
+            else if (CartridgeSpringProfile.TAGGEDVALUEVALUE_COMPARATOR_NOT_EQUAL.equalsIgnoreCase(comparator))
             {
                 comparatorConstant = "NOT_EQUAL_COMPARATOR";
             }
@@ -128,7 +128,7 @@ public class SpringCriteriaAttributeLogicImpl
     {
         boolean result = false;
         String value =
-            StringUtils.trimToEmpty((String)findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_NULLABLE));
+            StringUtils.trimToEmpty((String)findTaggedValue(CartridgeSpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_NULLABLE));
         if (!StringUtils.isBlank(value))
         {
             result = BooleanUtils.toBoolean(value);
@@ -142,7 +142,7 @@ public class SpringCriteriaAttributeLogicImpl
     protected String handleGetMatchMode()
     {
         String matchMode = null;
-        Object value = findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_MATCHMODE);
+        Object value = findTaggedValue(CartridgeSpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_MATCHMODE);
         if (value != null)
         {
             matchMode = String.valueOf(value);
@@ -160,19 +160,19 @@ public class SpringCriteriaAttributeLogicImpl
 
         if (matchMode != null)
         {
-            if (matchMode.equalsIgnoreCase(SpringProfile.TAGGEDVALUEVALUE_MATCHMODE_ANYWHERE))
+            if (matchMode.equalsIgnoreCase(CartridgeSpringProfile.TAGGEDVALUEVALUE_MATCHMODE_ANYWHERE))
             {
                 matchModeConstant = "ANYWHERE";
             }
-            else if (matchMode.equalsIgnoreCase(SpringProfile.TAGGEDVALUEVALUE_MATCHMODE_END))
+            else if (matchMode.equalsIgnoreCase(CartridgeSpringProfile.TAGGEDVALUEVALUE_MATCHMODE_END))
             {
                 matchModeConstant = "END";
             }
-            else if (matchMode.equalsIgnoreCase(SpringProfile.TAGGEDVALUEVALUE_MATCHMODE_EXACT))
+            else if (matchMode.equalsIgnoreCase(CartridgeSpringProfile.TAGGEDVALUEVALUE_MATCHMODE_EXACT))
             {
                 matchModeConstant = "EXACT";
             }
-            else if (matchMode.equalsIgnoreCase(SpringProfile.TAGGEDVALUEVALUE_MATCHMODE_START))
+            else if (matchMode.equalsIgnoreCase(CartridgeSpringProfile.TAGGEDVALUEVALUE_MATCHMODE_START))
             {
                 matchModeConstant = "START";
             }
@@ -206,14 +206,14 @@ public class SpringCriteriaAttributeLogicImpl
         String result = ORDER_UNSET;
         String value =
             StringUtils.trimToEmpty(
-                (String)findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_ORDER_DIRECTION));
+                (String)findTaggedValue(CartridgeSpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_ORDER_DIRECTION));
         if (!StringUtils.isBlank(value))
         {
-            if (value.equals(SpringProfile.TAGGEDVALUEVALUE_ORDER_ASCENDING))
+            if (value.equals(CartridgeSpringProfile.TAGGEDVALUEVALUE_ORDER_ASCENDING))
             {
                 result = "ORDER_ASC";
             }
-            else if (value.equals(SpringProfile.TAGGEDVALUEVALUE_ORDER_DESCENDING))
+            else if (value.equals(CartridgeSpringProfile.TAGGEDVALUEVALUE_ORDER_DESCENDING))
             {
                 result = "ORDER_DESC";
             }
@@ -234,7 +234,7 @@ public class SpringCriteriaAttributeLogicImpl
         int result = UNSET;
         String value =
             StringUtils.trimToEmpty(
-                (String)findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_ORDER_RELEVANCE));
+                (String)findTaggedValue(CartridgeSpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_ORDER_RELEVANCE));
         if (!StringUtils.isBlank(value))
         {
             try
@@ -259,7 +259,7 @@ public class SpringCriteriaAttributeLogicImpl
      */
     protected boolean handleIsIgnoreCase()
     {
-        Object value = this.findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_COMPARATOR_IGNORE_CASE);
+        Object value = this.findTaggedValue(CartridgeSpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_COMPARATOR_IGNORE_CASE);
         if (value == null)
         {
             value = this.getConfiguredProperty(HIBERNATE_CRITERIA_QUERY_IGNORE_CASE);

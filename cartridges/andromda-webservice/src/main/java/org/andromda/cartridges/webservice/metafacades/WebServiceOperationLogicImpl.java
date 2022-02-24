@@ -274,7 +274,7 @@ public class WebServiceOperationLogicImpl
         }
 
         StringBuilder pathBuffer = new StringBuilder();
-        if (!this.isRest() || path.equals(DEFAULT))
+        if (path.equals(DEFAULT))
         {
             path = this.getName().toLowerCase();
         }
@@ -492,7 +492,7 @@ public class WebServiceOperationLogicImpl
     protected String handleGetRestRequestType()
     {
         String requestType = (String)this.findTaggedValue(WebServiceGlobals.REST_REQUEST_TYPE);
-        if (!this.isRest() || StringUtils.isBlank(requestType) || requestType.equals(DEFAULT))
+        if (StringUtils.isBlank(requestType) || requestType.equals(DEFAULT))
         {
             requestType = POST;
         }
@@ -679,5 +679,26 @@ public class WebServiceOperationLogicImpl
             logger.error("Error validating constraint 'org::andromda::cartridges::webservice::WebServicePackage::operation must start with a lowercase letter' ON "
                 + this.THIS().toString() + ": " + th.getMessage(), th);
         }
+    }
+
+    @Override
+    protected String handleGetPreAuthorize() {
+
+        String preAuth = (String)this.findTaggedValue(WebServiceGlobals.REST_PRE_AUTHORIZE);
+        if (!this.isRest() || StringUtils.isBlank(preAuth) || preAuth.equals(DEFAULT))
+        {
+            preAuth = null;
+        }
+        return preAuth;
+    }
+
+    @Override
+    protected String handleGetPostAuthorize() {
+        String postAuth = (String)this.findTaggedValue(WebServiceGlobals.REST_PRE_AUTHORIZE);
+        if (!this.isRest() || StringUtils.isBlank(postAuth) || postAuth.equals(DEFAULT))
+        {
+            postAuth = null;
+        }
+        return postAuth;
     }
 }

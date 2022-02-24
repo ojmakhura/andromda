@@ -10,10 +10,10 @@ null;
 #if($targetController)
 #set($tmp = $controllers.add($transition.target.targetElement.controller))
 #if($targetControllerBeanName.equals($controller.beanName))
-"${controller.restPath}";
+"${controller.restPath}"; // ${controller}
 #else
 #if(${transition.target.targetElement})
-"${transition.target.targetElement.controller.restPath}";
+"${transition.target.targetElement.controller.restPath}"; // ${transition.target.targetElement}
 #else
 "";
 #end
@@ -22,7 +22,7 @@ null;
 closeDialog();
 #end
 #elseif ($transition.enteringView)
-"${transition.target.path}.${htmlFileExtension}"; 
+"${transition.target.path}.${htmlFileExtension}"; // ${transition.target.pageObjectClassName} 3
 #elseif ($transition.enteringDecisionPoint)
 __${transition.operationCall.name}(#if (!$action.formFields.empty)form#end, model);
 #else

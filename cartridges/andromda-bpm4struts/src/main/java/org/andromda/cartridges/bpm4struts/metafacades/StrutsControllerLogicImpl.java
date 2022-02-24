@@ -93,4 +93,34 @@ public class StrutsControllerLogicImpl
 
         return allArguments;
     }
+
+    @Override
+    public Collection getAllowedRoles() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getFilename() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getRestPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getTargetUrl() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

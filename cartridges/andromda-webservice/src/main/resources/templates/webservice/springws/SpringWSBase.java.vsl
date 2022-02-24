@@ -23,6 +23,7 @@ public abstract class ${serviceName}Base implements ${serviceName} {
     @org.springframework.beans.factory.annotation.Autowired
     protected ${service.fullyQualifiedName} $stringUtils.uncapitalize(${service.name});
 #end
+
 #foreach($attribute in $service.attributes)
 #foreach($annotation in $attribute.additionalAnnotations)
     @$annotation
@@ -66,5 +67,29 @@ public abstract class ${serviceName}Base implements ${serviceName} {
     }
 
     $operation.visibility abstract $return ${handle}$stringUtils.capitalize(${operation.signature});
+#end
+#foreach($serviceRef in $service.serviceReferences)
+
+    @org.springframework.beans.factory.annotation.Autowired
+    protected ${serviceRef.targetElement.fullyQualifiedName} $serviceRef.name;
+    
+    /**
+     * Sets the reference to <code>$serviceRef.daoName</code>.
+     * @param ${serviceRef.daoName}In
+     */
+    @org.springframework.beans.factory.annotation.Autowired
+    public void ${serviceRef.setterName}(@org.springframework.context.annotation.Lazy $serviceRef.targetElement.fullyQualifiedName ${serviceRef.name}In)
+    {
+        this.$serviceRef.name = ${serviceRef.name}In;
+    }
+
+    /**
+     * Gets the reference to <code>$serviceRef.daoName</code>.
+     * @return ${serviceRef.name}
+     */
+    protected $serviceRef.targetElement.fullyQualifiedName ${serviceRef.getterName}()
+    {
+        return this.$serviceRef.name;
+    }
 #end
 }

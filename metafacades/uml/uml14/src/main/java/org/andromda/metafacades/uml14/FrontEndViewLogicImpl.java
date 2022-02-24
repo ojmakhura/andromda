@@ -9,11 +9,13 @@ import java.util.Map;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
+import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 
@@ -211,5 +213,179 @@ public class FrontEndViewLogicImpl
             }
         }*/
         return actions;
+    }
+
+    @Override
+    protected String handleGetPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetTitleKey() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetTitleValue() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetMessageKey() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetDocumentationKey() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetDocumentationValue() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetMessageValue() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFullyQualifiedPopulator() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetPopulatorPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetPopulator() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsPopulatorRequired() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsValidationRequired() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsPopup() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsNonTableVariablesPresent() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsHasNameOfUseCase() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected String handleGetFormKey() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFromOutcome() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsNeedsFileUpload() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected String handleGetFullyQualifiedPageObjectClassPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFullyQualifiedPageObjectClassName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetPageObjectClassName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected List<FrontEndAction> handleGetFormActions() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected List<FrontEndForward> handleGetActionForwards() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected List<FrontEndForward> handleGetForwards() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetPageObjectBeanName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected Collection handleGetBackingValueVariables() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFilename() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected Collection handleGetAllowedRoles() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetRestPath() {
+                
+        return UMLMetafacadeUtils.getRestPath(this, this.getName());
     }
 }

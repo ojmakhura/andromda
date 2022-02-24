@@ -6,10 +6,22 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { I18nModule } from '@app/i18n';
 import { MaterialModule } from '@app/material.module';
+import { AuthModule } from '@app/auth';
 import { ShellComponent } from './shell.component';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, FlexLayoutModule, MaterialModule, I18nModule, RouterModule],
-  declarations: [ShellComponent],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    FlexLayoutModule,
+    MaterialModule,
+    AuthModule,
+    I18nModule,
+    RouterModule
+  ],
+  declarations: [
+    ShellComponent
+  ]
 })
-export class ShellModule {}
+export class ShellModule {
+}

@@ -496,4 +496,244 @@ public class FrontEndActionLogicImpl
         }
         return new ArrayList<ParameterFacade>(formFieldMap.values());
     }
+
+    @Override
+    protected boolean handleIsFinalStateTarget() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected String handleGetMessageKey() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsSuccessMessagesPresent() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected String handleGetTriggerName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsResettable() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsTableLink() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected String handleGetViewFragmentPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected Map handleGetSuccessMessages() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected List<FrontEndParameter> handleGetHiddenParameters() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsHyperlink() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsTableAction() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected String handleGetFullyQualifiedActionClassName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetTriggerMethodName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsNeedsFileUpload() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected FrontEndParameter handleGetTableLinkParameter() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsFormReset() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected Map handleGetWarningMessages() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFormKey() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFromOutcome() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsWarningMessagesPresent() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected String handleGetPathRoot() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetTableLinkColumnName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsPopup() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsFormResetRequired() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected String handleGetTableLinkName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsDialog() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsValidationRequired() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected String handleGetFullyQualifiedActionClassPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetControllerAction() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetActionClassName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetDocumentationValue() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetDocumentationKey() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFormImplementationName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFormBeanName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFullyQualifiedFormImplementationName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFullyQualifiedFormImplementationPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFormScope() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetRestPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected Collection handleGetAllowedRoles() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

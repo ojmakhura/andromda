@@ -250,12 +250,12 @@ public class StrutsJspLogicImpl
     public List getAllActionParameters()
     {
         final List actionParameters = new ArrayList();
-        final Collection actions = getActions();
-        for (final Iterator iterator = actions.iterator(); iterator.hasNext();)
-        {
-            final StrutsAction action = (StrutsAction)iterator.next();
-            actionParameters.addAll(action.getActionParameters());
-        }
+        // final Collection actions = getActions();
+        // for (final Iterator iterator = actions.iterator(); iterator.hasNext();)
+        // {
+        //     final StrutsAction action = (StrutsAction)iterator.next();
+        //     actionParameters.addAll(action.getActionParameters());
+        // }
         return actionParameters;
     }
 
@@ -405,6 +405,18 @@ public class StrutsJspLogicImpl
     {
         final String normalizeMessages = (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_NORMALIZE_MESSAGES);
         return Boolean.valueOf(normalizeMessages).booleanValue();
+    }
+
+    @Override
+    public Collection getAllowedRoles() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getFilename() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

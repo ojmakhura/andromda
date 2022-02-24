@@ -85,80 +85,80 @@ public class AngularFinalStateLogicImpl
      * @return the target controller
      * @see org.andromda.cartridges.angular.metafacades.AngularFinalState#getTargetControllerFullyQualifiedName()
      */
-    @Override
-    protected String handleGetTargetControllerFullyQualifiedName() {
-        String result=null;
+    // @Override
+    // protected String handleGetTargetControllerFullyQualifiedName() {
+    //     String result=null;
         
-        if(getTargetElement() instanceof AngularUseCase)
-        {
-            result=((AngularUseCase)getTargetElement()).getController().getFullyQualifiedName();
-        }
-        else if(getTargetElement() instanceof AngularManageableEntity)
-        {
-            result=((AngularManageableEntity)getTargetElement()).getControllerType();
-        }
+    //     if(getTargetElement() instanceof AngularUseCase)
+    //     {
+    //         result=((AngularUseCase)getTargetElement()).getController().getFullyQualifiedName();
+    //     }
+    //     else if(getTargetElement() instanceof AngularManageableEntity)
+    //     {
+    //         result=((AngularManageableEntity)getTargetElement()).getControllerType();
+    //     }
         
-        return result;
-    }
+    //     return result;
+    // }
 
     /**
      * @return the target controller bean name
      * @see org.andromda.cartridges.angular.metafacades.AngularFinalState#getTargetControllerBeanName()
      */
-    @Override
-    protected String handleGetTargetControllerBeanName() {
-        String result=null;
+    // @Override
+    // protected String handleGetTargetControllerBeanName() {
+    //     String result=null;
         
-        if(getTargetElement() instanceof AngularUseCase)
-        {
-            result=((AngularController)((AngularUseCase)getTargetElement()).getController()).getName();
-        }
-        else if(getTargetElement() instanceof AngularManageableEntity)
-        {
-            result=((AngularManageableEntity)getTargetElement()).getControllerBeanName();
-        }
+    //     if(getTargetElement() instanceof AngularUseCase)
+    //     {
+    //         result=((AngularController)((AngularUseCase)getTargetElement()).getController()).getName();
+    //     }
+    //     else if(getTargetElement() instanceof AngularManageableEntity)
+    //     {
+    //         result=((AngularManageableEntity)getTargetElement()).getControllerBeanName();
+    //     }
         
-        return result;
-    }
+    //     return result;
+    // }
 
     /**
      * @return the target element (use case or manageable class)
      * @see org.andromda.cartridges.angular.metafacades.AngularFinalState#getTargetElement()
      */
-    @Override
-    protected ModelElementFacade handleGetTargetElement() {
-        ModelElementFacade targetElement=getTargetUseCase();
+    // @Override
+    // protected ModelElementFacade handleGetTargetElement() {
+    //     ModelElementFacade targetElement=getTargetUseCase();
         
-        if(targetElement == null)
-        {
-            String nameParts[] = getName().split(" ");
-            if(nameParts.length >= 2 && nameParts[0].equalsIgnoreCase("Manage"))
-            {
-                AngularManageableEntity manageable=findManageableByName(nameParts[1]);
-                if(manageable != null)
-                {
-                    return targetElement=manageable;
-                }
-            }
-        }
+    //     if(targetElement == null)
+    //     {
+    //         String nameParts[] = getName().split(" ");
+    //         if(nameParts.length >= 2 && nameParts[0].equalsIgnoreCase("Manage"))
+    //         {
+    //             AngularManageableEntity manageable=findManageableByName(nameParts[1]);
+    //             if(manageable != null)
+    //             {
+    //                 return targetElement=manageable;
+    //             }
+    //         }
+    //     }
         
-        return targetElement;
-    }
+    //     return targetElement;
+    // }
 
-    @Override
-    protected Object handleGetTargetController() {
+    // @Override
+    // protected Object handleGetTargetController() {
 
-        FrontEndController controller = null;
+    //     FrontEndController controller = null;
         
-        if(getTargetElement() instanceof AngularUseCase)
-        {
-            controller = ((AngularUseCase)getTargetElement()).getController();
-        }
-        // else if(getTargetElement() instanceof AngularManageableEntity)
-        // {
-        //     controller = ((AngularManageableEntity)getTargetElement()).getCo;
-        // }
+    //     if(getTargetElement() instanceof AngularUseCase)
+    //     {
+    //         controller = ((AngularUseCase)getTargetElement()).getController();
+    //     }
+    //     // else if(getTargetElement() instanceof AngularManageableEntity)
+    //     // {
+    //     //     controller = ((AngularManageableEntity)getTargetElement()).getCo;
+    //     // }
 
-        return controller;
-    }
+    //     return controller;
+    // }
 }

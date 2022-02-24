@@ -1,0 +1,16 @@
+export const menuItems: any[] = [
+    {
+        routerLink: "/home",
+        titleKey: "Home"
+    },
+#foreach ($useCase in $useCases)
+    {
+        routerLink: "/$useCase.routerPath",
+        titleKey: "${useCase.titleKey}"
+    },
+#end
+    {
+        routerLink: "/about",
+        titleKey: "About"
+    }
+];

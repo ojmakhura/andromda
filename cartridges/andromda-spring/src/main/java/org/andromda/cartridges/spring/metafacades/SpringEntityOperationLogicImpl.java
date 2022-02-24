@@ -6,7 +6,7 @@ import java.util.Collection;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.apache.commons.lang3.StringUtils;
 
-import org.andromda.cartridges.spring.SpringProfile;
+import org.andromda.cartridges.spring.CartridgeSpringProfile;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.spring.metafacades.SpringEntityOperation.
@@ -88,7 +88,7 @@ public class SpringEntityOperationLogicImpl
     @Override
     protected boolean handleIsPrePersist()
     {
-        return this.hasStereotype(SpringProfile.STEREOTYPE_PRE_PERSIST);
+        return this.hasStereotype(CartridgeSpringProfile.STEREOTYPE_PRE_PERSIST);
     }
 
     /**
@@ -97,7 +97,7 @@ public class SpringEntityOperationLogicImpl
     @Override
     protected boolean handleIsPostPersist()
     {
-        return this.hasStereotype(SpringProfile.STEREOTYPE_POST_PERSIST);
+        return this.hasStereotype(CartridgeSpringProfile.STEREOTYPE_POST_PERSIST);
     }
 
     /**
@@ -106,7 +106,7 @@ public class SpringEntityOperationLogicImpl
     @Override
     protected boolean handleIsPreRemove()
     {
-        return this.hasStereotype(SpringProfile.STEREOTYPE_PRE_REMOVE);
+        return this.hasStereotype(CartridgeSpringProfile.STEREOTYPE_PRE_REMOVE);
     }
 
     /**
@@ -115,7 +115,7 @@ public class SpringEntityOperationLogicImpl
     @Override
     protected boolean handleIsPostRemove()
     {
-        return this.hasStereotype(SpringProfile.STEREOTYPE_POST_REMOVE);
+        return this.hasStereotype(CartridgeSpringProfile.STEREOTYPE_POST_REMOVE);
     }
 
     /**
@@ -124,7 +124,7 @@ public class SpringEntityOperationLogicImpl
     @Override
     protected boolean handleIsPreUpdate()
     {
-        return this.hasStereotype(SpringProfile.STEREOTYPE_PRE_UPDATE);
+        return this.hasStereotype(CartridgeSpringProfile.STEREOTYPE_PRE_UPDATE);
     }
 
     /**
@@ -133,6 +133,6 @@ public class SpringEntityOperationLogicImpl
     @Override
     protected boolean handleIsPostUpdate()
     {
-        return this.hasStereotype(SpringProfile.STEREOTYPE_POST_UPDATE);
+        return this.hasStereotype(CartridgeSpringProfile.STEREOTYPE_POST_UPDATE);
     }
 }

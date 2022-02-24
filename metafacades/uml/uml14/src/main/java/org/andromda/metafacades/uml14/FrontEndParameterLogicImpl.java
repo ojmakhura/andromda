@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
+
+import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
@@ -241,5 +244,419 @@ public class FrontEndParameterLogicImpl
                 }
             });
         return tableAttributeNames;
+    }
+
+    @Override
+    protected String handleGetDateFormatter() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsStrictDateFormat() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected String handleGetFormat() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetTimeFormatter() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsInputCheckbox() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsInputTextarea() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsInputSelect() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsInputSecret() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsInputHidden() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsInputFile() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsPlaintext() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsInputRadio() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsInputText() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected String handleGetBackingListName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetLabelListName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetValueListName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsSelectable() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected String handleGetDummyValue() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetValueListDummyValue() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetTableSortColumnProperty() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetTableSortAscendingProperty() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetFormAttributeSetProperty() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsReadOnly() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsValidationRequired() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected Collection handleGetValidatorTypes() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetValidWhen() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsInputMultibox() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsComplex() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected Collection handleGetAttributes() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected Collection<AssociationEndFacade> handleGetNavigableAssociationEnds() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetBackingValueName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsInputTable() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsBackingValueRequired() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected String handleGetInputTableIdentifierColumns() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsPageableTable() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected String handleGetMaxLength() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected Collection handleGetAnnotations() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected List<FrontEndAction> handleGetTableHyperlinkActions() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected List<FrontEndAction> handleGetTableFormActions() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected List<FrontEndAction> handleGetTableActions() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsEqualValidator() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsReset() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected Collection handleGetValidatorVars() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected boolean handleIsInputButton() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsInputColor() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsInputDate() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsInputDatetimeLocal() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsInputEmail() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsInputImage() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsInputMonth() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsInputNumber() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsInputRange() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsInputReset() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsInputSearch() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsInputSubmit() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsInputTel() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsInputTime() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsInputUrl() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected boolean handleIsInputWeek() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected String handleGetInputType() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetMessageValue() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetDocumentationKey() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetMessageKey() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetDocumentationValue() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetTableColumnMessageKey(String columnName) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetTableColumnMessageValue(String columnName) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected Collection handleGetValidatorArgs(String validatorType) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected List handleGetTableColumnActions(String columnName) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetInputAction() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

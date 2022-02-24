@@ -482,281 +482,282 @@ public class ThymeleafUseCaseLogicImpl
      * @return actionForwards
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getActionForwards()
      */
-    protected List<ThymeleafAction> handleGetActionForwards()
-    {
-        final Set<ThymeleafAction> actionForwards = new LinkedHashSet<ThymeleafAction>();
-        for (final FrontEndView view : this.getViews())
-        {
-            actionForwards.addAll(((ThymeleafView)view).getActionForwards());
-        }
-        return new ArrayList<ThymeleafAction>(actionForwards);
-    }
+    // protected List<ThymeleafAction> handleGetActionForwards()
+    // {
+    //     final Set<ThymeleafAction> actionForwards = new LinkedHashSet<ThymeleafAction>();
+    //     for (final FrontEndView view : this.getViews())
+    //     {
+    //         actionForwards.addAll(((ThymeleafView)view).getActionForwards());
+    //     }
+    //     return new ArrayList<ThymeleafAction>(actionForwards);
+    // }
 
     /**
      * @return forwards
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getForwards()
      */
-    protected List<ThymeleafForward> handleGetForwards()
-    {
-        final Map<String, ThymeleafForward> forwards = new LinkedHashMap<String, ThymeleafForward>();
-        for (final FrontEndAction action : this.getActions())
-        {
-            for (final FrontEndForward forward : action.getActionForwards())
-            {
-                if (forward instanceof ThymeleafForward)
-                {
-                    forwards.put(forward.getName(), (ThymeleafForward) forward);
-                }
-            }
-        }
-        return new ArrayList(forwards.values());
-    }
+    // protected List<ThymeleafForward> handleGetForwards()
+    // {
+    //     final Map<String, ThymeleafForward> forwards = new LinkedHashMap<String, ThymeleafForward>();
+    //     for (final FrontEndAction action : this.getActions())
+    //     {
+    //         for (final FrontEndForward forward : action.getActionForwards())
+    //         {
+    //             if (forward instanceof ThymeleafForward)
+    //             {
+    //                 forwards.put(forward.getName(), (ThymeleafForward) forward);
+    //             }
+    //         }
+    //     }
+    //     return new ArrayList(forwards.values());
+    // }
 
-    /**
-     * @return allForwards
-     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getAllForwards()
-     */
-    @SuppressWarnings("unchecked")
-    protected List<ModelElementFacade> handleGetAllForwards()
-    {
-        final Map<String, ModelElementFacade> forwards = new LinkedHashMap<String, ModelElementFacade>();
-        for (final ThymeleafAction forward : this.getActionForwards())
-        {
-            forwards.put(forward.getName(), forward);
-        }
-        for (final ThymeleafForward forward : this.getForwards())
-        {
-            forwards.put(forward.getName(), forward);
-        }
-        return new ArrayList<ModelElementFacade>(forwards.values());
-    }
+    // /**
+    //  * @return allForwards
+    //  * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getAllForwards()
+    //  */
+    // @SuppressWarnings("unchecked")
+    // protected List<ModelElementFacade> handleGetAllForwards()
+    // {
+    //     final Map<String, ModelElementFacade> forwards = new LinkedHashMap<String, ModelElementFacade>();
+    //     for (final ThymeleafAction forward : this.getActionForwards())
+    //     {
+    //         forwards.put(forward.getName(), forward);
+    //     }
+    //     for (final ThymeleafForward forward : this.getForwards())
+    //     {
+    //         forwards.put(forward.getName(), forward);
+    //     }
+    //     return new ArrayList<ModelElementFacade>(forwards.values());
+    // }
 
-    /**
-     * @return upperCamelCaseName(this.getName())
-     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getActionClassName()
-     */
-    protected String handleGetActionClassName()
-    {
-        return StringUtilsHelper.upperCamelCaseName(this.getName());
-    }
+    // /**
+    //  * @return upperCamelCaseName(this.getName())
+    //  * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getActionClassName()
+    //  */
+    // protected String handleGetActionClassName()
+    // {
+    //     return StringUtilsHelper.upperCamelCaseName(this.getName());
+    // }
 
-    /**
-     * @return getFullyQualifiedActionClassName().replace('.', '/') + ".java"
-     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getFullyQualifiedActionClassPath()
-     */
-    protected String handleGetFullyQualifiedActionClassPath()
-    {
-        return this.getFullyQualifiedActionClassName().replace(
-            '.',
-            '/') + ".java";
-    }
+    // /**
+    //  * @return getFullyQualifiedActionClassName().replace('.', '/') + ".java"
+    //  * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getFullyQualifiedActionClassPath()
+    //  */
+    // protected String handleGetFullyQualifiedActionClassPath()
+    // {
+    //     return this.getFullyQualifiedActionClassName().replace(
+    //         '.',
+    //         '/') + ".java";
+    // }
 
-    /**
-     * @return lowerCamelCaseName(this.getName())
-     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getControllerAction()
-     */
-    protected String handleGetControllerAction()
-    {
-        return StringUtilsHelper.lowerCamelCaseName(this.getName());
-    }
+    // /**
+    //  * @return lowerCamelCaseName(this.getName())
+    //  * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getControllerAction()
+    //  */
+    // protected String handleGetControllerAction()
+    // {
+    //     return StringUtilsHelper.lowerCamelCaseName(this.getName());
+    // }
 
-    /**
-     * @return fullyQualifiedActionClassName
-     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getFullyQualifiedActionClassName()
-     */
-    protected String handleGetFullyQualifiedActionClassName()
-    {
-        final StringBuilder path = new StringBuilder();
-        final String packageName = this.getPackageName();
-        if (StringUtils.isNotBlank(packageName))
-        {
-            path.append(packageName);
-            path.append('.');
-        }
-        path.append(this.getActionClassName());
-        return path.toString();
-    }
+    // /**
+    //  * @return fullyQualifiedActionClassName
+    //  * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getFullyQualifiedActionClassName()
+    //  */
+    // protected String handleGetFullyQualifiedActionClassName()
+    // {
+    //     final StringBuilder path = new StringBuilder();
+    //     final String packageName = this.getPackageName();
+    //     if (StringUtils.isNotBlank(packageName))
+    //     {
+    //         path.append(packageName);
+    //         path.append('.');
+    //     }
+    //     path.append(this.getActionClassName());
+    //     return path.toString();
+    // }
 
-    /**
-     * @return formKeyValue
-     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getFormKey()
-     */
-    protected String handleGetFormKey()
-    {
-        final Object formKeyValue = this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_ACTION_FORM_KEY);
-        return formKeyValue == null ? ObjectUtils.toString(this.getConfiguredProperty(CartridgeWebGlobals.ACTION_FORM_KEY))
-                                    : String.valueOf(formKeyValue);
-    }
+    // /**
+    //  * @return formKeyValue
+    //  * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getFormKey()
+    //  */
+    // protected String handleGetFormKey()
+    // {
+    //     final Object formKeyValue = this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_ACTION_FORM_KEY);
+    //     return formKeyValue == null ? ObjectUtils.toString(this.getConfiguredProperty(CartridgeWebGlobals.ACTION_FORM_KEY))
+    //                                 : String.valueOf(formKeyValue);
+    // }
 
-    /**
-     * @return initialTargetPath
-     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getInitialTargetPath()
-     */
-    protected String handleGetInitialTargetPath()
-    {
-        String path = null;
-        final Object target = this.getInitialTarget();
-        if (target instanceof ThymeleafView)
-        {
-            path = ((ThymeleafView)target).getPath();
-        }
-        else if (target instanceof ThymeleafUseCase)
-        {
-            path = ((ThymeleafUseCase)target).getPath();
-        }
-        return path;
-    }
+    // /**
+    //  * @return initialTargetPath
+    //  * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getInitialTargetPath()
+    //  */
+    // protected String handleGetInitialTargetPath()
+    // {
+    //     String path = null;
+    //     final Object target = this.getInitialTarget();
+    //     if (target instanceof ThymeleafView)
+    //     {
+    //         path = ((ThymeleafView)target).getPath();
+    //     }
+    //     else if (target instanceof ThymeleafUseCase)
+    //     {
+    //         path = ((ThymeleafUseCase)target).getPath();
+    //     }
+    //     return path;
+    // }
 
-    /**
-     * Gets the initial target when this use case is entered.
-     *
-     * @return the initial target.
-     */
-    private Object getInitialTarget()
-    {
-        Object initialTarget = null;
-        final FrontEndActivityGraph graph = this.getActivityGraph();
-        final FrontEndAction action = graph != null ? this.getActivityGraph().getInitialAction() : null;
-        final Collection<FrontEndForward> forwards = action != null ? action.getActionForwards() : null;
-        if (forwards != null && !forwards.isEmpty())
-        {
-            final Object target = forwards.iterator().next().getTarget();
-            if (target instanceof FrontEndView)
-            {
-                initialTarget = target;
-            }
-            else if (target instanceof FrontEndFinalState)
-            {
-                final FrontEndFinalState finalState = (FrontEndFinalState)target;
-                final FrontEndUseCase targetUseCase = finalState.getTargetUseCase();
-                if (targetUseCase != null && !targetUseCase.equals(this.THIS()))
-                {
-                    initialTarget = targetUseCase;
-                }
-            }
-        }
-        return initialTarget;
-    }
+    // /**
+    //  * Gets the initial target when this use case is entered.
+    //  *
+    //  * @return the initial target.
+    //  */
+    // private Object getInitialTarget()
+    // {
+    //     Object initialTarget = null;
+    //     final FrontEndActivityGraph graph = this.getActivityGraph();
+    //     final FrontEndAction action = graph != null ? this.getActivityGraph().getInitialAction() : null;
+    //     final Collection<FrontEndForward> forwards = action != null ? action.getActionForwards() : null;
+    //     if (forwards != null && !forwards.isEmpty())
+    //     {
+    //         final Object target = forwards.iterator().next().getTarget();
+    //         if (target instanceof FrontEndView)
+    //         {
+    //             initialTarget = target;
+    //         }
+    //         else if (target instanceof FrontEndFinalState)
+    //         {
+    //             final FrontEndFinalState finalState = (FrontEndFinalState)target;
+    //             final FrontEndUseCase targetUseCase = finalState.getTargetUseCase();
+    //             if (targetUseCase != null && !targetUseCase.equals(this.THIS()))
+    //             {
+    //                 initialTarget = targetUseCase;
+    //             }
+    //         }
+    //     }
+    //     return initialTarget;
+    // }
 
-    /**
-     * @return required
-     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#isValidationRequired()
-     */
-    protected boolean handleIsValidationRequired()
-    {
-        boolean required = false;
-        for (final FrontEndView feView : this.getViews())
-        {
-            final ThymeleafView view = (ThymeleafView)feView;
-            if (view.isValidationRequired())
-            {
-                required = true;
-                break;
-            }
-        }
-        return required;
-    }
+    // /**
+    //  * @return required
+    //  * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#isValidationRequired()
+    //  */
+    // protected boolean handleIsValidationRequired()
+    // {
+    //     boolean required = false;
+    //     for (final FrontEndView feView : this.getViews())
+    //     {
+    //         final ThymeleafView view = (ThymeleafView)feView;
+    //         if (view.isValidationRequired())
+    //         {
+    //             required = true;
+    //             break;
+    //         }
+    //     }
+    //     return required;
+    // }
 
-    /**
-     * @return getInitialTarget() instanceof ThymeleafView
-     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#isInitialTargetView()
-     */
-    protected boolean handleIsInitialTargetView()
-    {
-        return this.getInitialTarget() instanceof ThymeleafView;
-    }
+    // /**
+    //  * @return getInitialTarget() instanceof ThymeleafView
+    //  * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#isInitialTargetView()
+    //  */
+    // protected boolean handleIsInitialTargetView()
+    // {
+    //     return this.getInitialTarget() instanceof ThymeleafView;
+    // }
 
-    /**
-     * @return required
-     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#isInitialTargetView()
-     */
-    protected boolean handleIsApplicationValidationRequired()
-    {
-        boolean required = false;
-        for (final FrontEndUseCase feUseCase : this.getAllUseCases())
-        {
-            final ThymeleafUseCase useCase = (ThymeleafUseCase)feUseCase;
-            if (useCase.isValidationRequired())
-            {
-                required = true;
-                break;
-            }
-        }
-        return required;
-    }
+    // /**
+    //  * @return required
+    //  * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#isInitialTargetView()
+    //  */
+    // protected boolean handleIsApplicationValidationRequired()
+    // {
+    //     boolean required = false;
+    //     for (final FrontEndUseCase feUseCase : this.getAllUseCases())
+    //     {
+    //         final ThymeleafUseCase useCase = (ThymeleafUseCase)feUseCase;
+    //         if (useCase.isValidationRequired())
+    //         {
+    //             required = true;
+    //             break;
+    //         }
+    //     }
+    //     return required;
+    // }
 
-    /**
-     * @return sameName
-     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#isViewHasNameOfUseCase()
-     */
-    protected boolean handleIsViewHasNameOfUseCase()
-    {
-        boolean sameName = false;
-        for (final FrontEndView view : this.getViews())
-        {
-            sameName = ((ThymeleafView)view).isHasNameOfUseCase();
-            if (sameName)
-            {
-                break;
-            }
-        }
-        return sameName;
-    }
+    // /**
+    //  * @return sameName
+    //  * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#isViewHasNameOfUseCase()
+    //  */
+    // protected boolean handleIsViewHasNameOfUseCase()
+    // {
+    //     boolean sameName = false;
+    //     for (final FrontEndView view : this.getViews())
+    //     {
+    //         sameName = ((ThymeleafView)view).isHasNameOfUseCase();
+    //         if (sameName)
+    //         {
+    //             break;
+    //         }
+    //     }
+    //     return sameName;
+    // }
 
-    /**
-     * @return hasStereotype(CartridgeWebProfile.STEREOTYPE_FRONT_END_REGISTRATION)
-     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#isRegistrationUseCase()
-     */
-    protected boolean handleIsRegistrationUseCase()
-    {
-        return this.hasStereotype(CartridgeWebProfile.STEREOTYPE_FRONT_END_REGISTRATION);
-    }
+    // /**
+    //  * @return hasStereotype(CartridgeWebProfile.STEREOTYPE_FRONT_END_REGISTRATION)
+    //  * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#isRegistrationUseCase()
+    //  */
+    // protected boolean handleIsRegistrationUseCase()
+    // {
+    //     return this.hasStereotype(CartridgeWebProfile.STEREOTYPE_FRONT_END_REGISTRATION);
+    // }
 
-    /**
-     * @return useCases
-     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getRegistrationUseCases()
-     */
-    @SuppressWarnings("unchecked")
-    protected List<FrontEndUseCase> handleGetRegistrationUseCases()
-    {
-        final List<FrontEndUseCase> useCases = new ArrayList<FrontEndUseCase>(this.getAllUseCases());
-        for (final Iterator<FrontEndUseCase> iterator = useCases.iterator(); iterator.hasNext();)
-        {
-            final FrontEndUseCase useCase = iterator.next();
-            if (useCase instanceof ThymeleafUseCase)
-            {
-                if (!((ThymeleafUseCase)useCase).isRegistrationUseCase())
-                {
-                    iterator.remove();
-                }
-            }
-            else
-            {
-                iterator.remove();
-            }
-        }
-        return useCases;
-    }
+    // /**
+    //  * @return useCases
+    //  * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getRegistrationUseCases()
+    //  */
+    // @SuppressWarnings("unchecked")
+    // protected List<FrontEndUseCase> handleGetRegistrationUseCases()
+    // {
+    //     final List<FrontEndUseCase> useCases = new ArrayList<FrontEndUseCase>(this.getAllUseCases());
+    //     for (final Iterator<FrontEndUseCase> iterator = useCases.iterator(); iterator.hasNext();)
+    //     {
+    //         final FrontEndUseCase useCase = iterator.next();
+    //         if (useCase instanceof ThymeleafUseCase)
+    //         {
+    //             if (!((ThymeleafUseCase)useCase).isRegistrationUseCase())
+    //             {
+    //                 iterator.remove();
+    //             }
+    //         }
+    //         else
+    //         {
+    //             iterator.remove();
+    //         }
+    //     }
+    //     return useCases;
+    // }
 
-    /**
-     * The suffix for the forwards class name.
-     */
-    private static final String FORWARDS_CLASS_NAME_SUFFIX = "Forwards";
+    // /**
+    //  * The suffix for the forwards class name.
+    //  */
+    // private static final String FORWARDS_CLASS_NAME_SUFFIX = "Forwards";
 
-    /**
-     * @return getName() + FORWARDS_CLASS_NAME_SUFFIX
-     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getForwardsClassName()
-     */
-    protected String handleGetForwardsClassName()
-    {
-        return StringUtilsHelper.upperCamelCaseName(this.getName()) + FORWARDS_CLASS_NAME_SUFFIX;
-    }
+    // /**
+    //  * @return getName() + FORWARDS_CLASS_NAME_SUFFIX
+    //  * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getForwardsClassName()
+    //  */
+    // protected String handleGetForwardsClassName()
+    // {
+    //     return StringUtilsHelper.upperCamelCaseName(this.getName()) + FORWARDS_CLASS_NAME_SUFFIX;
+    // }
 
     /**
      * @return navigationRules
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getNavigationRules()
      */
     @SuppressWarnings("unchecked")
+    @Override
     protected Collection<Object> handleGetNavigationRules()
     {
         final Map<String, Object> rules = new LinkedHashMap<String, Object>();
@@ -786,6 +787,7 @@ public class ThymeleafUseCaseLogicImpl
      * @return navigationChildren
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getNavigationChildren()
      */
+    @Override
     protected Collection<UseCaseFacade> handleGetNavigationChildren()
     {
         return CollectionUtils.collect(getIncludes(), new Transformer()
@@ -835,24 +837,25 @@ public class ThymeleafUseCaseLogicImpl
      * @return actionRoles
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCase#getActionRoles()
      */
-    protected String handleGetActionRoles()
-    {
-        final StringBuilder rolesBuffer = new StringBuilder();
-        boolean first = true;
-        for (final Role role : this.getRoles())
-        {
-            if (first)
-            {
-                first = false;
-            }
-            else
-            {
-                rolesBuffer.append(',');
-            }
-            rolesBuffer.append(role.getName());
-        }
-        return rolesBuffer.toString();
-    }
+    // @Override
+    // protected String handleGetActionRoles()
+    // {
+    //     final StringBuilder rolesBuffer = new StringBuilder();
+    //     boolean first = true;
+    //     for (final Role role : this.getRoles())
+    //     {
+    //         if (first)
+    //         {
+    //             first = false;
+    //         }
+    //         else
+    //         {
+    //             rolesBuffer.append(',');
+    //         }
+    //         rolesBuffer.append(role.getName());
+    //     }
+    //     return rolesBuffer.toString();
+    // }
 
     /**
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCaseLogic#handleGetPreferences()
@@ -939,15 +942,15 @@ public class ThymeleafUseCaseLogicImpl
     /**
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCaseLogic#handleGetAllViews()
      */
-    @SuppressWarnings("unchecked")
-    @Override
-    protected Collection<FrontEndView> handleGetAllViews()
-    {
-        final Set<FrontEndView> allViews = new LinkedHashSet<FrontEndView>();
-        for (final FrontEndUseCase useCase : this.getAllUseCases())
-        {
-            allViews.addAll(useCase.getViews());
-        }
-        return allViews;
-    }
+    // @SuppressWarnings("unchecked")
+    // @Override
+    // protected Collection<FrontEndView> handleGetAllViews()
+    // {
+    //     final Set<FrontEndView> allViews = new LinkedHashSet<FrontEndView>();
+    //     for (final FrontEndUseCase useCase : this.getAllUseCases())
+    //     {
+    //         allViews.addAll(useCase.getViews());
+    //     }
+    //     return allViews;
+    // }
 }

@@ -1047,7 +1047,7 @@ $oldXmlIndent        }
 #if ($finder.returnType.collectionType|| $finder.many)
         #if ($finder.returnTypePresent)return#end this.${finder.name}(transform, -1, -1#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
 #else
-        #if ($finder.returnTypePresent)return#end this.${finder.name}(transform, "$finder.getQuery($entity)"#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
+        #if ($finder.returnTypePresent)return#end this.${finder.name}(transform, $finder.getQuery($entity)#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
 #end
     }
 #end
@@ -1142,7 +1142,7 @@ $oldXmlIndent        }
         throws $finder.exceptionList
 #end
     {
-        #if ($finder.returnTypePresent)return#end this.${finder.name}(transform, "$finder.getQuery($entity)", pageNumber, pageSize#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
+        #if ($finder.returnTypePresent)return#end this.${finder.name}(transform, $finder.getQuery($entity), pageNumber, pageSize#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
     }
 
 #elseif ($finder.returnTypePresent)
@@ -1248,33 +1248,37 @@ $h3tab        return results;
 #set($criteriaArgumentName = $criteriaArgument.name)
 #set($criteriaClass = $criteriaArgument.type)
 #set ($i = 1)
+        org.springframework.data.jpa.domain.Specification<$entity.name> specifications = null;
+
 #foreach($criteriaAttribute in $criteriaClass.getAttributes(true))
+#set ($capitalised = $stringUtils.capitalize($hibernateUtils.getAttributeName($criteriaAttribute.attributeName)))
+#set ($specName = "findBy${capitalised}")
+#set ($attributeName = $criteriaAttribute.attributeName)
 #set ($getter = "get$stringUtils.capitalize($criteriaAttribute.name)()")
-#set ($args = "$args ${criteriaArgument.name}.${getter}#if($i < $criteriaClass.getAttributes(true).size()),#end")
-#set ($i = $i + 1)
-#end
+#if($criteriaAttribute.type.stringType)
+#set($nullCheck = "org.apache.commons.lang3.StringUtils.isNotBlank(${criteriaArgumentName}.${criteriaAttribute.getterName}())")
 #else
-#set ($i = 1)
-#foreach($arg in $finder.arguments)
-#set ($args = "$args ${arg.name}.${getter}#if($i < $finder.arguments.size()),#end")
-#set ($i = $i + 1)
+#set($nullCheck = "${criteriaArgumentName}.${criteriaAttribute.getterName}() != null")
+#end
+        if($nullCheck) {
+            if(specifications == null) {
+                specifications = ${entity.name}Specifications.${specName}(${criteriaArgumentName}.$getter);
+            } else {
+                specifications = specifications.and(${entity.name}Specifications.${specName}(${criteriaArgumentName}.$getter));
+            }
+        }
+
 #end
 #end
-#if ($finder.returnType.setType)
-$h3tab        java.util.Set<?> results = (java.util.Set<?> results)${stringUtils.uncapitalize(${entity.entityName})}Repository.${finder.name}($args);
-#else
-$h3tab        java.util.List<?> results = (java.util.List<?>)${stringUtils.uncapitalize(${entity.entityName})}Repository.${finder.name}($args);
-#end
-#if($finder.returnType.collectionType || $finder.many)
-$h3tab        transformEntities(transform, results);
-$h3tab        #if ($finder.returnTypePresent)return#end results;
-#else
-$h3tab        switch(results.size()){
-$h3tab            case 0: return null;
-$h3tab            case 1: return transformEntity(transform, ($entity.fullyQualifiedName)results.iterator().next());
-$h3tab            default: throw new org.hibernate.NonUniqueResultException(results.size());
-$h3tab        }
-#end
+        if(specifications == null) {
+            java.util.Collection<?> results = ${stringUtils.uncapitalize(${entity.name})}Repository.findAll();
+            transformEntities(transform, results);
+            #if ($finder.returnTypePresent)return#end results;
+        } else {
+            java.util.Collection<?> results = ${stringUtils.uncapitalize(${entity.name})}Repository.findAll(specifications);
+            transformEntities(transform, results);
+            #if ($finder.returnTypePresent)return#end results;
+        }
     }
 #end
 
@@ -1727,9 +1731,9 @@ $h3tab        }
         return $principalStoreCall
     }
 
-#set ($fullyQualifiedPagingResultName = $springUtils.getFullyQualifiedClassName($springCommonTypesPackage, "PaginationResult"))
-#set ($fullyQualifiedSearchClassName = $springUtils.getFullyQualifiedClassName($springTypesPackage, "Search"))
-#set ($fullyQualifiedPropertySearchClassName = $springUtils.getFullyQualifiedClassName($springTypesPackage, "PropertySearch"))
+#set ($fullyQualifiedPagingResultName = $cartridgeSpringUtils.getFullyQualifiedClassName($springCommonTypesPackage, "PaginationResult"))
+#set ($fullyQualifiedSearchClassName = $cartridgeSpringUtils.getFullyQualifiedClassName($springTypesPackage, "Search"))
+#set ($fullyQualifiedPropertySearchClassName = $cartridgeSpringUtils.getFullyQualifiedClassName($springTypesPackage, "PropertySearch"))
     /**
      * {@inheritDoc}
      */

@@ -34,6 +34,8 @@
     <property reference="XMLIntegerAdapter"/>
     <property reference="XMLDecimalAdapter"/>
     <property reference="webserviceStack"/>
+    <property reference="secure"/>
+
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl"/>
     </metafacade>

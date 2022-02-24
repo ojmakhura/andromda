@@ -170,6 +170,10 @@
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
 #if($secure)
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-security</artifactId>

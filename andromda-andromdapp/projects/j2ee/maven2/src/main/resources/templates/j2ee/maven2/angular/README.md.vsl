@@ -1,7 +1,7 @@
-# $applicationId
+# $applicationName
 
 This project was generated with [ngX-Rocket](https://github.com/ngx-rocket/generator-ngx-rocket/)
-version 9.2.0
+version 10.1.2
 
 # Getting started
 
@@ -20,7 +20,7 @@ version 9.2.0
 ```
 dist/                        web app production build
 docs/                        project docs and coding guides
-e2e/                         end-to-end tests
+cypress/                     end-to-end tests (Cypress)
 src/                         project source code
 |- app/                      app components
 |  |- core/                  core module (singleton services and single-use components)
@@ -53,7 +53,7 @@ Task                            | Description
 `npm run build [-- --configuration=production]` | Lint code and build web app for production (with [AOT](https://angular.io/guide/aot-compiler)) in `dist/` folder
 `npm test`                      | Run unit tests via [Karma](https://karma-runner.github.io) in watch mode
 `npm run test:ci`               | Lint code and run unit tests once for continuous integration
-`npm run e2e`                   | Run e2e tests using [Protractor](http://www.protractortest.org)
+`npm run e2e`                   | Run e2e tests using [Cypress](https://www.cypress.io/)
 `npm run lint`                  | Lint code
 `npm run translations:extract`  | Extract strings from code and templates to `src/app/translations/template.json`
 `npm run docs`                  | Display project documentation and coding guides
@@ -109,7 +109,7 @@ Development, build and quality processes are based on [angular-cli](https://gith
   [browserslist](https://github.com/ai/browserslist)
 - Asset revisioning for [better cache management](https://webpack.github.io/docs/long-term-caching.html)
 - Unit tests using [Jasmine](http://jasmine.github.io) and [Karma](https://karma-runner.github.io)
-- End-to-end tests using [Protractor](https://github.com/angular/protractor)
+- End-to-end tests using [Cypress](https://www.cypress.io/)
 - Static code analysis: [TSLint](https://github.com/palantir/tslint), [Codelyzer](https://github.com/mgechev/codelyzer),
   [Stylelint](http://stylelint.io) and [HTMLHint](http://htmlhint.com/)
 - Local knowledgebase server using [Hads](https://github.com/sinedied/hads)

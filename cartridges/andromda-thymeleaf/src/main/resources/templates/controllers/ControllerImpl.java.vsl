@@ -51,7 +51,7 @@ public class $controller.implementationName
         // populating value with dummy instance
         $field.type.fullyQualifiedName $field.name = new ${field.type.fullyQualifiedName}();
 #foreach ($attribute in $field.attributes)
-        ${field.name}.${attribute.setterName}($attribute.dummyValue);
+        ${field.name}.${attribute.setterName}($attribute.dummyValue#if($attribute.type.longType)l#end);
 #end
 #end
         form.${field.setterName}($field.name);

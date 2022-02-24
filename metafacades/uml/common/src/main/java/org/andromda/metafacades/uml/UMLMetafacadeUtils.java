@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.andromda.core.metafacade.MetafacadeConstants;
+import org.andromda.metafacades.uml.web.MetafacadeWebUtils;
+import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang3.BooleanUtils;
@@ -1152,5 +1155,207 @@ public class UMLMetafacadeUtils
     public static String getDate()
     {
         return df.format(new Date());
+    }
+
+    /**
+     * Check if the object is a number datatype
+     * 
+     * @param obj
+     * @return
+     */
+    public static boolean isNumber(ClassifierFacade obj) {
+
+        if(obj.isIntegerType() ||
+            obj.isDoubleType() ||
+            obj.isLongType() ||
+            obj.isFloatType()) {
+
+            return true;
+        }
+
+        return false;
+    }
+    
+    /**
+     * Given a list of facades, we want to get a set to remove duplicates.
+     * 
+     * @param facades
+     * @return
+     */
+	public static HashSet<ModelElementFacade> getFacadeSet(List<ModelElementFacade> facades) {
+		HashSet<String> nameSet = new HashSet<String>();
+		HashSet<ModelElementFacade> elementSet =  new HashSet<ModelElementFacade>();
+		
+		for(ModelElementFacade facade : facades) {
+            
+			if(facade != null && nameSet.add(facade.getName())) {
+				elementSet.add(facade);
+			}
+		}
+		
+		return elementSet;
+	}
+    
+    /**
+     * <p> Returns true if java.lang.* or java.util.* datatype and not many*
+     * </p>
+     *
+     * @param element the ClassifierFacade instance
+     * @return if type is one of the PrimitiveTypes and not an array/list
+     */
+    public static boolean isSimpleType(ModelElementFacade element)
+    {
+        boolean simple = false;
+        String typeName = null;
+        ClassifierFacade type = null;
+        boolean many = false;
+        if (element instanceof AttributeFacade)
+        {
+            AttributeFacade attrib = (AttributeFacade)element;
+            type = attrib.getType();
+            many = attrib.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        else if (element instanceof AssociationEndFacade)
+        {
+            AssociationEndFacade association = (AssociationEndFacade)element;
+            type = association.getType();
+            many = association.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        else if (element instanceof ParameterFacade)
+        {
+            ParameterFacade param = (ParameterFacade)element;
+            type = param.getType();
+            many = param.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        else if (element instanceof AttributeFacade)
+        {
+            AttributeFacade attrib = (AttributeFacade)element;
+            type = attrib.getType();
+            many = attrib.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        else if (element instanceof ParameterFacade)
+        {
+            ParameterFacade param = (ParameterFacade)element;
+            type = param.getType();
+            many = param.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        else if (element instanceof ClassifierFacade)
+        {
+            ClassifierFacade classifier = (ClassifierFacade)element;
+            type = classifier;
+        }
+        else
+        {
+            return simple;
+        }
+        typeName = type.getFullyQualifiedName();
+        if (type.isPrimitive() || typeName.startsWith("java.lang.") || typeName.startsWith("java.util.")
+            || !typeName.contains("."))
+        {
+            if (!many)
+            {
+                simple = true;
+            }
+        }
+        return simple;
+    }
+
+    private static final String EMPTY_STRING = "";
+    private static final String DEFAULT = "default";
+    private static final String SLASH = "/";
+    private static final String QUOTE = "\"";
+
+    public static String getPath(ModelElementFacade modelElement) {
+        
+        String _path = StringUtils.strip(((String) modelElement.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_PATH)));
+        if (!StringUtils.isBlank(_path))
+        {
+            return null;
+        }
+
+        final StringBuilder path = new StringBuilder();
+        final String packageName = modelElement.getPackageName();
+        if (StringUtilsHelper.isNotBlank(packageName)) {
+            path.append(packageName + '.');
+        }
+        path.append(MetafacadeWebUtils.toWebResourceName(StringUtilsHelper.trimToEmpty(modelElement.getName())).replace('.', '/'));
+        return '/' + path.toString().replace('.', '/');
+
+    }
+
+    public static String getRestPath(ModelElementFacade modelElement, String replacementName) {
+        String path = StringUtils.strip(((String) modelElement.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_REST_PATH)));
+        if (StringUtils.isBlank(path))
+        {
+            path = EMPTY_STRING;
+        }
+
+        if (StringUtils.isBlank(path) || path.equals(DEFAULT))
+        {
+            path = MetafacadeWebUtils.toWebResourceName(replacementName);
+        }
+        else
+        {
+            if (!path.startsWith(QUOTE))
+            {
+                path = path;
+            }
+            if (!path.endsWith(QUOTE) || path.length()<2)
+            {
+                path = path;
+            }
+            
+            if(path.endsWith(SLASH)) {
+                path = path.substring(0, path.length() - 1);
+            }
+        }
+        
+        return path;
+    }
+
+    public static String getFilename(ModelElementFacade modelElement) {
+        String path = StringUtils.strip(((String) modelElement.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_FILENAME)));
+        if (StringUtils.isBlank(path))
+        {
+            path = EMPTY_STRING;
+        }
+
+        if (StringUtils.isBlank(path) || path.equals(DEFAULT))
+        {
+            path = MetafacadeWebUtils.toWebResourceName(modelElement.getName());
+        }
+        else
+        {
+            if (!path.startsWith(QUOTE))
+            {
+                path = path;
+            }
+            if (!path.endsWith(QUOTE) || path.length()<2)
+            {
+                path = path;
+            }
+            
+            if(path.endsWith(SLASH)) {
+                path = path.substring(0, path.length() - 1);
+            }
+        }
+        
+        return path;
+    }
+
+    public static Collection getAllowedRoles(ModelElementFacade modelElement) {
+        Collection roles = modelElement.findTaggedValues(UMLProfile.TAGGEDVALUE_PRESENTATION_ACCESS_ROLES);
+        
+        if(CollectionUtils.isEmpty(roles)) {
+            return null;
+        }
+        
+        return roles;
+    }
+
+    public static String getTargetUrl(ModelElementFacade modelElement) {
+        String url = StringUtils.stripToNull(((String) modelElement.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_TARGETURL)));
+                
+        return url;
     }
 }
