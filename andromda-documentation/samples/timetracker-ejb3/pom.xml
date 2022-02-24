@@ -368,7 +368,7 @@
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
-                <version>1.4.181</version>
+                <version>2.1.210</version>
                 <!--scope>test</scope-->
             </dependency>
             <dependency>
@@ -488,7 +488,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <testdb.groupId>com.h2database</testdb.groupId>
         <testdb.artifactId>h2</testdb.artifactId>
-        <testdb.version>1.4.181</testdb.version>
+        <testdb.version>2.1.210</testdb.version>
         <testdb.driver>org.h2.Driver</testdb.driver>
         <testdb.dialect>org.hibernate.dialect.H2Dialect</testdb.dialect>
         <!-- See http://www.h2database.com/html/features.html#database_url (mixed mode) -->
