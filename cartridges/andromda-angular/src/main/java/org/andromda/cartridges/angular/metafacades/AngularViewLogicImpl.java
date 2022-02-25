@@ -22,6 +22,7 @@ import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
+import org.andromda.metafacades.uml.web.MetafacadeWebUtils;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -491,7 +492,8 @@ public class AngularViewLogicImpl extends AngularViewLogic {
     @Override
     protected String handleGetRouterPath() {
         String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
-        return phrase.replace("-", "");
+        
+        return MetafacadeWebUtils.toWebResourceName(this.getName());
     }
 
     @Override

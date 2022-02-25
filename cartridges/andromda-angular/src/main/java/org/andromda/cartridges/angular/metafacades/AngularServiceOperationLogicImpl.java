@@ -228,7 +228,6 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
         if(StringUtils.isBlank(path)) {
             path = "";
         }
-
         StringBuilder builder = new StringBuilder();
         builder.append(path);
 
@@ -246,68 +245,13 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
             }
         }
 
-        return builder.toString();
+        path = builder.toString();
 
-        // String path = (String)this.findTaggedValue(AngularGlobals.REST_PATH);
+        if(path.length() > 0 && path.charAt(0) != '/') {
+            path = '/' + path;
+        }
 
-        // if(StringUtils.isBlank(path)) {
-        //     return "";
-        // }
-        
-        // StringBuilder pathBuffer = new StringBuilder();
-        // if (!this.isRest() || StringUtils.isBlank(path) || path.equals(DEFAULT))
-        // {
-        //     path = this.getName().toLowerCase();
-        // }
-        
-        // if(path.startsWith("/")) {
-        //     path = path.substring(1);
-        // }
-        
-        // if(path.endsWith("/")) {
-        //     path = path.substring(0, path.length() - 1);
-        // }
-
-        // String type = this.getRestRequestType().toLowerCase();
-
-        // if(type.contains("get") || type.contains("delete")) {
-        //     for(ParameterFacade param : this.getArguments()) {
-                    
-        //         String paramName = param.getName();
-        //         if (!AngularServiceUtils.isSimpleType(param)) {
-        //             if(param instanceof AngularServiceParameter) {
-                        
-        //                 AngularServiceParameter p = (AngularServiceParameter)param;                        
-        //                 paramName = p.getRestPathParam();
-        //             }
-        //         }
-
-        //         if(pathBuffer.length() > 0) {
-        //             pathBuffer.append(PLUS).append(SQUOTE).append(SLASH);
-        //         }
-
-        //         //pathBuffer.append(paramName).append(SLASH);
-        //         pathBuffer.append(SQUOTE).append(PLUS);
-        //         pathBuffer.append(paramName);
-        //     }
-        // }
-
-        // if(path.length() > 0) {
-        //     if(pathBuffer.length() > 0) {
-        //         pathBuffer.insert(0, "/");
-        //     } else {
-        //         pathBuffer.insert(0, SQUOTE);
-        //     }
-
-        //     pathBuffer.insert(0, path);
-        // }
-
-        // if(pathBuffer.length() > 0) {
-        //     pathBuffer.insert(0, SQUOTE);
-        //     pathBuffer.insert(1, SLASH);
-        // }
-
-        // return pathBuffer.toString();
+        return path;
     }
 
     /**
