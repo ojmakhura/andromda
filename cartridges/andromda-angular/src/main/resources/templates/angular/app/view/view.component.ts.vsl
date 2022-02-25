@@ -51,7 +51,7 @@ export class $stringUtils.capitalize(${view.varsFormName}) {
   selector: '${view.selectorName}-base',
   template: ''
 })
-export abstract class $view.componentName implements OnInit {
+export abstract class $view.componentName implements OnInit, AfterViewInit {
 
 #foreach ( $variable in $view.variables )
 #if($angularUtils.isComplex($variable))
@@ -104,7 +104,7 @@ export abstract class $view.componentName implements OnInit {
 #if($attribute.type.enumeration)
     ${attribute.name}T = $attribute.type.name;
     ${attribute.name}Options: string[] = Object.keys(this.${attribute.name}T);
-#elseif($attribute.inputSelect || ($angularUtils.isComplex($attribute) && !$angularUtils.isTable($attribute)))
+#elseif($attribute.inputSelect || $attribute.inputMultibox || ($angularUtils.isComplex($attribute) && !$angularUtils.isTable($attribute)))
 #set ($backingListName = ${attribute.getBackingListName($field)})
 #set($ret = $selections.add($attribute.type))
     $backingListName: Array<SelectItem> = [];
@@ -114,7 +114,7 @@ export abstract class $view.componentName implements OnInit {
 #if($field.type.enumeration)
     ${field.name}T = $field.type.name;
     ${field.name}Options = Object.keys(this.${field.name}T);
-#elseif($field.inputSelect)
+#elseif($field.inputSelect || $field.inputMultibox)
 #set($ret = $selections.add($field.type))
     ${field.backingListName}: Array<$angularUtils.getDatatype($field.type.name)> = [];
 #end

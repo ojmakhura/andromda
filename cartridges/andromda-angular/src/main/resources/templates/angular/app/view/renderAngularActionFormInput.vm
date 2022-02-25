@@ -51,7 +51,7 @@ ${ident}	</div>
 ${ident}	<mat-form-field>
 ${ident}		<mat-label translate>$parameter.messageKey</mat-label> 
 #if ($parameter.type.dateType)
-${ident}	  	<input matInput [matDatepicker]="$propertyId" formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
+${ident}	  	<input matInput type="$parameter.inputType" [matDatepicker]="$propertyId" formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
 ${ident}	  	<mat-datepicker-toggle matSuffix [for]="$propertyId"></mat-datepicker-toggle>
 ${ident}	  	<mat-datepicker #$propertyId></mat-datepicker>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration || $parameter.inputMultibox)
@@ -68,9 +68,9 @@ ${ident}		</mat-select>
 #elseif ($parameter.inputTextarea)
 ${ident}		<textarea matInput formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end></textarea>
 #elseif ($parameter.inputText)
-${ident}		<input matInput formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
+${ident}		<input matInput type="$parameter.inputType" formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
 #elseif ($parameter.inputSecret)
-${ident}		<input matInput [type]="hide ? 'password' : 'text'"
+${ident}		<input matInput type="hide ? 'password' : 'text'"
 ${ident}			formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
 ${ident}		<button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
 ${ident}			<mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -82,8 +82,23 @@ ${ident}			<mat-option value = "">Select one ...</mat-option>
 ${ident}			<mat-option *ngFor="let item of ${backingListName}" [value]="item.value">{{ item.label }}</mat-option>
 ${ident}		</mat-select>
 #else
-${ident}		<input matInput formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
+#if($parameter.inputNumber)
+#set ($type = "number")
+#else
+#set ($type = "$parameter.inputType")
 #end
+${ident}		<input matInput type="$type" formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
+#end
+#end
+#if($parameter.inputEmail)
+## ${ident}        <mat-error *ngIf="getItemControl('${parameter.name}').hasError('email') && !getItemControl('${parameter.name}').hasError('required')">
+## ${ident}            Please enter a valid email address
+## ${ident}        </mat-error>
+#end
+#if($parameter.required)
+## ${ident}        <mat-error *ngIf="getItemControl('${parameter.name}').hasError('required')">
+## ${ident}            $stringUtils.capitalize(${parameter.name}) is required.
+## ${ident}        </mat-error>
 #end
 ${ident}	</mat-form-field>
 #end

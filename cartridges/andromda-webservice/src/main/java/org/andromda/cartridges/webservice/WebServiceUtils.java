@@ -2765,29 +2765,23 @@ public class WebServiceUtils
     public static String getSpringOperationPath(WebServiceOperation operation) {
 
         StringBuilder builder = new StringBuilder();
-
         String path = operation.getRestPath();
-        path = path.substring(0, path.length() - 1);
+        if(StringUtils.isNotBlank(path))
+            path = path.substring(0, path.length() - 1);
+            
         builder.append(path);
 
         for(ParameterFacade parameter : operation.getArguments()) {
             WebServiceParameter param = (WebServiceParameter)parameter;
             String paramType = param.getRestParamType();
             if(paramType.contains("PathParam")) {
+                builder.append("/");
                 builder.append(parameter.getName());
                 builder.append("/{");
                 builder.append(parameter.getName());
                 builder.append("}/");
             }
         }
-
-        String finalPath = builder.toString();
-
-        if(!finalPath.endsWith("/")) {
-            builder.append("/");
-        }
-
-        builder.append("\"");
 
         return builder.toString();
     }

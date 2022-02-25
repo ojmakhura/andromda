@@ -63,7 +63,7 @@ export abstract class ${view.varsComponentName} implements OnInit {
 #if($attribute.type.enumeration)
     ${attribute.name}T = $attribute.type.name;
     ${attribute.name}Options: string[] = [];
-#elseif($attribute.inputSelect || ($angularUtils.isComplex($attribute) && !$angularUtils.isTable($attribute)))
+#elseif($attribute.inputSelect || $attribute.inputMultibox || ($angularUtils.isComplex($attribute) && !$angularUtils.isTable($attribute)))
 #set ($backingListName = ${attribute.getBackingListName($variable)})
 #set($ret = $selections.add($attribute.type))
     $backingListName: Array<$angularUtils.getDatatype($attribute.type.name)> = [];
@@ -73,7 +73,7 @@ export abstract class ${view.varsComponentName} implements OnInit {
 #if($variable.type.enumeration)
     ${variable.name}T = $variable.type.name;
     ${variable.name}Options = Object.keys(this.${variable.name}T);
-#elseif($variable.inputSelect)
+#elseif($variable.inputSelect || $variable.inputMultibox)
 #set($ret = $selections.add($variable.type))
     ${variable.name}BackingList: Array<$angularUtils.getDatatype($variable.type.name)> = [];
 #end

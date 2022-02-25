@@ -9,7 +9,6 @@
 
     <templateObject name="stringUtils" className="org.andromda.utils.StringUtilsHelper"/>
     <templateObject name="springUtils" className="org.andromda.cartridges.spring.SpringUtils">
-        <property reference="richClient"/>
     </templateObject>
     <templateObject name="cartridgeSpringUtils" className="org.andromda.cartridges.spring.CartridgeSpringUtils">
         <property reference="richClient"/>

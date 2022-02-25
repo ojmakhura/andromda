@@ -536,17 +536,6 @@ public class ThymeleafAttributeLogicImpl
     }
 
     /**
-     * Gets the current value of the specified input type (or an empty string
-     * if one isn't specified).
-     *
-     * @return the input type name.
-     */
-    private String getInputType()
-    {
-        return Objects.toString(this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
-    }
-
-    /**
      * Indicates whether or not this parameter is of the given input type.
      *
      * @param inputType the name of the input type to check for.
