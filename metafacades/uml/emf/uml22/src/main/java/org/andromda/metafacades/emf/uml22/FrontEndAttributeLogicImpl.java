@@ -140,7 +140,7 @@ public class FrontEndAttributeLogicImpl
      */
     protected boolean handleIsInputNumber()
     {
-        return UMLMetafacadeUtils.isNumber(this.getType()) || this.isInputType(MetafacadeWebGlobals.INPUT_BUTTON);
+        return UMLMetafacadeUtils.isNumber(this.getType());
     }
 
     /**
@@ -724,9 +724,10 @@ public class FrontEndAttributeLogicImpl
      *
      * @return the input type name.
      */
-    private String getInputType()
+    @Override
+    public String handleGetInputType()
     {
-        return Objects.toString(this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
+        return Objects.toString(this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_INPUT_TYPE), "text").trim();
     }
 
     /**

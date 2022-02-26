@@ -45,379 +45,379 @@ public class AngularAttributeLogicImpl
      * @return messageKey
      * @see AngularAttribute#getMessageKey()
      */
-    protected String handleGetMessageKey()
-    {
-        final StringBuilder messageKey = new StringBuilder();
-        if (!this.isNormalizeMessages())
-        {
-            final ClassifierFacade owner = this.getOwner();
-            if (owner != null)
-            {
-                messageKey.append(StringUtilsHelper.toResourceMessageKey(owner.getName()));
-                messageKey.append('.');
-            }
-        }
-        final String name = this.getName();
-        if (name != null && name.trim().length() > 0)
-        {
-            messageKey.append(StringUtilsHelper.toResourceMessageKey(name));
-        }
-        return messageKey.toString();
-    }
+    // protected String handleGetMessageKey()
+    // {
+    //     final StringBuilder messageKey = new StringBuilder();
+    //     if (!this.isNormalizeMessages())
+    //     {
+    //         final ClassifierFacade owner = this.getOwner();
+    //         if (owner != null)
+    //         {
+    //             messageKey.append(StringUtilsHelper.toResourceMessageKey(owner.getName()));
+    //             messageKey.append('.');
+    //         }
+    //     }
+    //     final String name = this.getName();
+    //     if (name != null && name.trim().length() > 0)
+    //     {
+    //         messageKey.append(StringUtilsHelper.toResourceMessageKey(name));
+    //     }
+    //     return messageKey.toString();
+    // }
 
     /**
      * Indicates whether or not we should normalize messages.
      *
      * @return true/false
      */
-    private boolean isNormalizeMessages()
-    {
-        final String normalizeMessages =
-            Objects.toString(this.getConfiguredProperty(AngularGlobals.NORMALIZE_MESSAGES));
-        return Boolean.valueOf(normalizeMessages).booleanValue();
-    }
+    // private boolean isNormalizeMessages()
+    // {
+    //     final String normalizeMessages =
+    //         Objects.toString(this.getConfiguredProperty(AngularGlobals.NORMALIZE_MESSAGES));
+    //     return Boolean.valueOf(normalizeMessages).booleanValue();
+    // }
 
     /**
      * @return StringUtilsHelper.toPhrase(super.getName())
      * @see AngularAttribute#getMessageValue()
      */
-    protected String handleGetMessageValue()
-    {
-        return StringUtilsHelper.toPhrase(super.getName());
-    }
+    // protected String handleGetMessageValue()
+    // {
+    //     return StringUtilsHelper.toPhrase(super.getName());
+    // }
 
     /**
      * @return format
      * @see AngularAttribute#getFormat()
      */
-    protected String handleGetFormat()
-    {
-        return AngularUtils.getFormat(
-            (ModelElementFacade)this.THIS(),
-            this.getType(),
-            this.getDefaultDateFormat(),
-            this.getDefaultTimeFormat());
-    }
+    // protected String handleGetFormat()
+    // {
+    //     return AngularUtils.getFormat(
+    //         (ModelElementFacade)this.THIS(),
+    //         this.getType(),
+    //         this.getDefaultDateFormat(),
+    //         this.getDefaultTimeFormat());
+    // }
 
     /**
      * @return the default time format pattern as defined using the configured property
      */
-    private String getDefaultTimeFormat()
-    {
-        return (String)this.getConfiguredProperty(AngularGlobals.PROPERTY_DEFAULT_TIMEFORMAT);
-    }
+    // private String getDefaultTimeFormat()
+    // {
+    //     return (String)this.getConfiguredProperty(AngularGlobals.PROPERTY_DEFAULT_TIMEFORMAT);
+    // }
 
     /**
      * @return the default date format pattern as defined using the configured property
      */
-    private String getDefaultDateFormat()
-    {
-        return (String)this.getConfiguredProperty(AngularGlobals.PROPERTY_DEFAULT_DATEFORMAT);
-    }
+    // private String getDefaultDateFormat()
+    // {
+    //     return (String)this.getConfiguredProperty(AngularGlobals.PROPERTY_DEFAULT_DATEFORMAT);
+    // }
 
     /**
      * @return dummyValue
      * @see AngularAttribute#getDummyValue()
      */
-    protected String handleGetDummyValue()
-    {
-        final ClassifierFacade type = this.getType();
-        if (type != null)
-        {
-            final String typeName = type.getFullyQualifiedName();
-            final String name = this.getName();
-            if ("String".equals(typeName))
-            {
-                return "\"" + name + "-test" + "\"";
-            }
-            if ("java.util.Date".equals(typeName))
-            {
-                return "new Date()";
-            }
-            if ("java.sql.Date".equals(typeName))
-            {
-                return "new Date()";
-            }
-            if ("java.sql.Timestamp".equals(typeName))
-            {
-                return "new Date()";
-            }
-            if ("java.util.Calendar".equals(typeName))
-            {
-                return "new Date()";
-            }
-            if ("int".equals(typeName))
-            {
-                return "" + name.hashCode();
-            }
-            if ("boolean".equals(typeName))
-            {
-                return "false";
-            }
-            if ("long".equals(typeName))
-            {
-                return "" + name.hashCode();
-            }
-            if ("char".equals(typeName))
-            {
-                return "" + name.hashCode();
-            }
-            if ("float".equals(typeName))
-            {
-                return "" + name.hashCode() / hashCode();
-            }
-            if ("double".equals(typeName))
-            {
-                return "" + name.hashCode() / hashCode();
-            }
-            if ("short".equals(typeName))
-            {
-                return "" + name.hashCode();
-            }
-            if ("byte".equals(typeName))
-            {
-                return "" + name.hashCode();
-            }
-            if ("java.lang.Integer".equals(typeName) || "Integer".equals(typeName))
-            {
-                return name.hashCode() + "";
-            }
-            if ("java.lang.Boolean".equals(typeName) || "Boolean".equals(typeName))
-            {
-                return "false";
-            }
-            if ("java.lang.Long".equals(typeName) || "Long".equals(typeName))
-            {
-                return name.hashCode() + "";
-            }
-            if ("java.lang.Character".equals(typeName) || "Character".equals(typeName))
-            {
-                return name.hashCode() + "";
-            }
-            if ("java.lang.Float".equals(typeName) || "Float".equals(typeName))
-            {
-                return name.hashCode() / hashCode() + "";
-            }
-            if ("java.lang.Double".equals(typeName) || "Double".equals(typeName))
-            {
-                return name.hashCode() / hashCode() + "";
-            }
-            if ("java.lang.Short".equals(typeName) || "Short".equals(typeName))
-            {
-                return name.hashCode() + "";
-            }
-            if ("java.lang.Byte".equals(typeName) || "Byte".equals(typeName))
-            {
-                return name.hashCode() + "";
-            }
+    // protected String handleGetDummyValue()
+    // {
+    //     final ClassifierFacade type = this.getType();
+    //     if (type != null)
+    //     {
+    //         final String typeName = type.getFullyQualifiedName();
+    //         final String name = this.getName();
+    //         if ("String".equals(typeName))
+    //         {
+    //             return "\"" + name + "-test" + "\"";
+    //         }
+    //         if ("java.util.Date".equals(typeName))
+    //         {
+    //             return "new Date()";
+    //         }
+    //         if ("java.sql.Date".equals(typeName))
+    //         {
+    //             return "new Date()";
+    //         }
+    //         if ("java.sql.Timestamp".equals(typeName))
+    //         {
+    //             return "new Date()";
+    //         }
+    //         if ("java.util.Calendar".equals(typeName))
+    //         {
+    //             return "new Date()";
+    //         }
+    //         if ("int".equals(typeName))
+    //         {
+    //             return "" + name.hashCode();
+    //         }
+    //         if ("boolean".equals(typeName))
+    //         {
+    //             return "false";
+    //         }
+    //         if ("long".equals(typeName))
+    //         {
+    //             return "" + name.hashCode();
+    //         }
+    //         if ("char".equals(typeName))
+    //         {
+    //             return "" + name.hashCode();
+    //         }
+    //         if ("float".equals(typeName))
+    //         {
+    //             return "" + name.hashCode() / hashCode();
+    //         }
+    //         if ("double".equals(typeName))
+    //         {
+    //             return "" + name.hashCode() / hashCode();
+    //         }
+    //         if ("short".equals(typeName))
+    //         {
+    //             return "" + name.hashCode();
+    //         }
+    //         if ("byte".equals(typeName))
+    //         {
+    //             return "" + name.hashCode();
+    //         }
+    //         if ("java.lang.Integer".equals(typeName) || "Integer".equals(typeName))
+    //         {
+    //             return name.hashCode() + "";
+    //         }
+    //         if ("java.lang.Boolean".equals(typeName) || "Boolean".equals(typeName))
+    //         {
+    //             return "false";
+    //         }
+    //         if ("java.lang.Long".equals(typeName) || "Long".equals(typeName))
+    //         {
+    //             return name.hashCode() + "";
+    //         }
+    //         if ("java.lang.Character".equals(typeName) || "Character".equals(typeName))
+    //         {
+    //             return name.hashCode() + "";
+    //         }
+    //         if ("java.lang.Float".equals(typeName) || "Float".equals(typeName))
+    //         {
+    //             return name.hashCode() / hashCode() + "";
+    //         }
+    //         if ("java.lang.Double".equals(typeName) || "Double".equals(typeName))
+    //         {
+    //             return name.hashCode() / hashCode() + "";
+    //         }
+    //         if ("java.lang.Short".equals(typeName) || "Short".equals(typeName))
+    //         {
+    //             return name.hashCode() + "";
+    //         }
+    //         if ("java.lang.Byte".equals(typeName) || "Byte".equals(typeName))
+    //         {
+    //             return name.hashCode() + "";
+    //         }
 
-            //if (type.isArrayType()) return constructDummyArray();
-            if (type.isSetType())
-            {
-                return "[" + constructDummyArray() + "]";
-            }
-            if (type.isCollectionType())
-            {
-                return "[" + constructDummyArray() + "]";
-            }
+    //         //if (type.isArrayType()) return constructDummyArray();
+    //         if (type.isSetType())
+    //         {
+    //             return "[" + constructDummyArray() + "]";
+    //         }
+    //         if (type.isCollectionType())
+    //         {
+    //             return "[" + constructDummyArray() + "]";
+    //         }
 
-            // maps and others types will simply not be treated
-        }
-        return "null";
-    }
+    //         // maps and others types will simply not be treated
+    //     }
+    //     return "null";
+    // }
 
     /**
      * Constructs a string representing an array initialization in Java.
      *
      * @return A String representing Java code for the initialization of an array.
      */
-    private String constructDummyArray()
-    {
-        return AngularUtils.constructDummyArrayDeclaration(
-            this.getName(),
-            AngularGlobals.DUMMY_ARRAY_COUNT);
-    }
+    // private String constructDummyArray()
+    // {
+    //     return AngularUtils.constructDummyArrayDeclaration(
+    //         this.getName(),
+    //         AngularGlobals.DUMMY_ARRAY_COUNT);
+    // }
 
     /**
      * @param ownerParameter
      * @return propertyName
      * @see AngularAttribute#getFormPropertyName(org.andromda.metafacades.uml.ParameterFacade)
      */
-    protected String handleGetFormPropertyName(final ParameterFacade ownerParameter)
-    {
-        final StringBuilder propertyName = new StringBuilder();
-        if (ownerParameter != null)
-        {
-            propertyName.append(ownerParameter.getName());
-            propertyName.append('.');
-        }
-        final String name = this.getName();
-        if (name != null && name.trim().length() > 0)
-        {
-            propertyName.append(name);
-        }
-        return propertyName.toString();
-    }
+    // protected String handleGetFormPropertyName(final ParameterFacade ownerParameter)
+    // {
+    //     final StringBuilder propertyName = new StringBuilder();
+    //     if (ownerParameter != null)
+    //     {
+    //         propertyName.append(ownerParameter.getName());
+    //         propertyName.append('.');
+    //     }
+    //     final String name = this.getName();
+    //     if (name != null && name.trim().length() > 0)
+    //     {
+    //         propertyName.append(name);
+    //     }
+    //     return propertyName.toString();
+    // }
 
     /**
      * @param ownerParameter
      * @return backingListName
      * @see AngularAttribute#getBackingListName(org.andromda.metafacades.uml.ParameterFacade)
      */
-    protected String handleGetBackingListName(final ParameterFacade ownerParameter)
-    {
-        final String backingListName =
-            StringUtils.replace(
-                Objects.toString(this.getConfiguredProperty(AngularGlobals.BACKING_LIST_PATTERN)),
-                "{0}",
-                this.getFormPropertyId(ownerParameter));
-        return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
-    }
+    // protected String handleGetBackingListName(final ParameterFacade ownerParameter)
+    // {
+    //     final String backingListName =
+    //         StringUtils.replace(
+    //             Objects.toString(this.getConfiguredProperty(AngularGlobals.BACKING_LIST_PATTERN)),
+    //             "{0}",
+    //             this.getFormPropertyId(ownerParameter));
+    //     return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
+    // }
 
     /**
      * @param ownerParameter
      * @return backingValueName
      * @see AngularAttribute#getBackingValueName(org.andromda.metafacades.uml.ParameterFacade)
      */
-    protected String handleGetBackingValueName(final ParameterFacade ownerParameter)
-    {
-        final String backingListName =
-            StringUtils.replace(
-                Objects.toString(this.getConfiguredProperty(AngularGlobals.BACKING_VALUE_PATTERN)),
-                "{0}",
-                this.getFormPropertyId(ownerParameter));
-        return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
-    }
+    // protected String handleGetBackingValueName(final ParameterFacade ownerParameter)
+    // {
+    //     final String backingListName =
+    //         StringUtils.replace(
+    //             Objects.toString(this.getConfiguredProperty(AngularGlobals.BACKING_VALUE_PATTERN)),
+    //             "{0}",
+    //             this.getFormPropertyId(ownerParameter));
+    //     return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
+    // }
 
     /**
      * @param ownerParameter
      * @return labelListName
      * @see AngularAttribute#getLabelListName(org.andromda.metafacades.uml.ParameterFacade)
      */
-    protected String handleGetLabelListName(final ParameterFacade ownerParameter)
-    {
-        return StringUtils.replace(
-            Objects.toString(this.getConfiguredProperty(AngularGlobals.LABEL_LIST_PATTERN)),
-            "{0}",
-            this.getFormPropertyId(ownerParameter));
-    }
+    // protected String handleGetLabelListName(final ParameterFacade ownerParameter)
+    // {
+    //     return StringUtils.replace(
+    //         Objects.toString(this.getConfiguredProperty(AngularGlobals.LABEL_LIST_PATTERN)),
+    //         "{0}",
+    //         this.getFormPropertyId(ownerParameter));
+    // }
 
     /**
      * @param ownerParameter
      * @return valueListName
      * @see AngularAttribute#getValueListName(org.andromda.metafacades.uml.ParameterFacade)
      */
-    protected String handleGetValueListName(final ParameterFacade ownerParameter)
-    {
-        return StringUtils.replace(
-            Objects.toString(this.getConfiguredProperty(AngularGlobals.VALUE_LIST_PATTERN)),
-            "{0}",
-            this.getFormPropertyId(ownerParameter));
-    }
+    // protected String handleGetValueListName(final ParameterFacade ownerParameter)
+    // {
+    //     return StringUtils.replace(
+    //         Objects.toString(this.getConfiguredProperty(AngularGlobals.VALUE_LIST_PATTERN)),
+    //         "{0}",
+    //         this.getFormPropertyId(ownerParameter));
+    // }
 
     /**
      * @param ownerParameter
      * @return formPropertyId
      * @see AngularAttribute#getFormPropertyId(ParameterFacade)
      */
-    protected String handleGetFormPropertyId(final ParameterFacade ownerParameter)
-    {
-        return StringUtilsHelper.lowerCamelCaseName(this.getFormPropertyName(ownerParameter));
-    }
+    // protected String handleGetFormPropertyId(final ParameterFacade ownerParameter)
+    // {
+    //     return StringUtilsHelper.lowerCamelCaseName(this.getFormPropertyName(ownerParameter));
+    // }
 
     /**
      * @param ownerParameter
      * @return isSelectable
      * @see AngularAttribute#isSelectable(org.andromda.metafacades.uml.FrontEndParameter)
      */
-    protected boolean handleIsSelectable(final FrontEndParameter ownerParameter)
-    {
-        boolean selectable = false;
-        if (ownerParameter != null)
-        {
-            if (ownerParameter.isActionParameter())
-            {
-                selectable = this.isInputMultibox() || this.isInputSelect() || this.isInputRadio();
-                final ClassifierFacade type = this.getType();
+    // protected boolean handleIsSelectable(final FrontEndParameter ownerParameter)
+    // {
+    //     boolean selectable = false;
+    //     if (ownerParameter != null)
+    //     {
+    //         if (ownerParameter.isActionParameter())
+    //         {
+    //             selectable = this.isInputMultibox() || this.isInputSelect() || this.isInputRadio();
+    //             final ClassifierFacade type = this.getType();
 
-                if (!selectable && type != null)
-                {
-                    final String name = this.getName();
-                    final String typeName = type.getFullyQualifiedName();
+    //             if (!selectable && type != null)
+    //             {
+    //                 final String name = this.getName();
+    //                 final String typeName = type.getFullyQualifiedName();
 
-                    // - if the parameter is not selectable but on a targeting page it IS selectable we must
-                    //   allow the user to set the backing list too
-                    final Collection<FrontEndView> views = ownerParameter.getAction().getTargetViews();
-                    for (final Iterator<FrontEndView> iterator = views.iterator(); iterator.hasNext() && !selectable;)
-                    {
-                        final Collection<FrontEndParameter> parameters = iterator.next().getAllActionParameters();
-                        for (final Iterator<FrontEndParameter> parameterIterator = parameters.iterator();
-                            parameterIterator.hasNext() && !selectable;)
-                        {
-                            final FrontEndParameter object = parameterIterator.next();
-                            if (object instanceof AngularParameter)
-                            {
-                                final AngularParameter parameter = (AngularParameter)object;
-                                final String parameterName = parameter.getName();
-                                final ClassifierFacade parameterType = parameter.getType();
-                                if (parameterType != null)
-                                {
-                                    final String parameterTypeName = parameterType.getFullyQualifiedName();
-                                    if (name.equals(parameterName) && typeName.equals(parameterTypeName))
-                                    {
-                                        selectable =
-                                            parameter.isInputMultibox() || parameter.isInputSelect() ||
-                                            parameter.isInputRadio();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            else if (ownerParameter.isControllerOperationArgument())
-            {
-                final String name = this.getName();
-                for (final FrontEndAction action : ownerParameter.getControllerOperation().getDeferringActions())
-                {
-                    final Collection<FrontEndParameter> formFields = action.getFormFields();
-                    for (final Iterator<FrontEndParameter> fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !selectable;)
-                    {
-                        final FrontEndParameter object = fieldIterator.next();
-                        if (object instanceof AngularParameter)
-                        {
-                            final AngularParameter parameter = (AngularParameter)object;
-                            if (name.equals(parameter.getName()))
-                            {
-                                selectable = parameter.isSelectable();
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return selectable;
-    }
+    //                 // - if the parameter is not selectable but on a targeting page it IS selectable we must
+    //                 //   allow the user to set the backing list too
+    //                 final Collection<FrontEndView> views = ownerParameter.getAction().getTargetViews();
+    //                 for (final Iterator<FrontEndView> iterator = views.iterator(); iterator.hasNext() && !selectable;)
+    //                 {
+    //                     final Collection<FrontEndParameter> parameters = iterator.next().getAllActionParameters();
+    //                     for (final Iterator<FrontEndParameter> parameterIterator = parameters.iterator();
+    //                         parameterIterator.hasNext() && !selectable;)
+    //                     {
+    //                         final FrontEndParameter object = parameterIterator.next();
+    //                         if (object instanceof AngularParameter)
+    //                         {
+    //                             final AngularParameter parameter = (AngularParameter)object;
+    //                             final String parameterName = parameter.getName();
+    //                             final ClassifierFacade parameterType = parameter.getType();
+    //                             if (parameterType != null)
+    //                             {
+    //                                 final String parameterTypeName = parameterType.getFullyQualifiedName();
+    //                                 if (name.equals(parameterName) && typeName.equals(parameterTypeName))
+    //                                 {
+    //                                     selectable =
+    //                                         parameter.isInputMultibox() || parameter.isInputSelect() ||
+    //                                         parameter.isInputRadio();
+    //                                 }
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //         else if (ownerParameter.isControllerOperationArgument())
+    //         {
+    //             final String name = this.getName();
+    //             for (final FrontEndAction action : ownerParameter.getControllerOperation().getDeferringActions())
+    //             {
+    //                 final Collection<FrontEndParameter> formFields = action.getFormFields();
+    //                 for (final Iterator<FrontEndParameter> fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !selectable;)
+    //                 {
+    //                     final FrontEndParameter object = fieldIterator.next();
+    //                     if (object instanceof AngularParameter)
+    //                     {
+    //                         final AngularParameter parameter = (AngularParameter)object;
+    //                         if (name.equals(parameter.getName()))
+    //                         {
+    //                             selectable = parameter.isSelectable();
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return selectable;
+    // }
 
     /**
      * @return !this.getValidatorTypes().isEmpty()
      * @see AngularAttribute#isValidationRequired()
      */
-    protected boolean handleIsValidationRequired()
-    {
-        return !this.getValidatorTypes().isEmpty();
-    }
+    // protected boolean handleIsValidationRequired()
+    // {
+    //     return !this.getValidatorTypes().isEmpty();
+    // }
 
     /**
      * @return validatorTypes
      * @see AngularAttribute#getValidatorTypes()
      */
-    protected Collection<String> handleGetValidatorTypes()
-    {
-        return AngularUtils.getValidatorTypes(
-            (ModelElementFacade)this.THIS(),
-            this.getType());
-    }
+    // protected Collection<String> handleGetValidatorTypes()
+    // {
+    //     return AngularUtils.getValidatorTypes(
+    //         (ModelElementFacade)this.THIS(),
+    //         this.getType());
+    // }
 
     /**
      * @param ownerParameter
@@ -436,183 +436,183 @@ public class AngularAttributeLogicImpl
      * @return AngularUtils.getValidWhen(this)
      * @see AngularAttribute#getValidWhen()
      */
-    protected String handleGetValidWhen()
-    {
-        return AngularUtils.getValidWhen(this);
-    }
+    // protected String handleGetValidWhen()
+    // {
+    //     return AngularUtils.getValidWhen(this);
+    // }
 
-    /**
-     * @return isInputType(AngularGlobals.INPUT_TEXTAREA)
-     * @see AngularAttribute#isInputTextarea()
-     */
-    protected boolean handleIsInputTextarea()
-    {
-        return this.isInputType(AngularGlobals.INPUT_TEXTAREA);
-    }
+    // /**
+    //  * @return isInputType(AngularGlobals.INPUT_TEXTAREA)
+    //  * @see AngularAttribute#isInputTextarea()
+    //  */
+    // protected boolean handleIsInputTextarea()
+    // {
+    //     return this.isInputType(AngularGlobals.INPUT_TEXTAREA);
+    // }
 
-    /**
-     * @return isInputType(AngularGlobals.INPUT_SELECT)
-     * @see AngularAttribute#isInputSelect()
-     */
-    protected boolean handleIsInputSelect()
-    {
-        return this.isInputType(AngularGlobals.INPUT_SELECT);
-    }
+    // /**
+    //  * @return isInputType(AngularGlobals.INPUT_SELECT)
+    //  * @see AngularAttribute#isInputSelect()
+    //  */
+    // protected boolean handleIsInputSelect()
+    // {
+    //     return this.isInputType(AngularGlobals.INPUT_SELECT);
+    // }
 
-    /**
-     * @return isInputType(AngularGlobals.INPUT_PASSWORD)
-     * @see AngularAttribute#isInputSecret()
-     */
-    protected boolean handleIsInputSecret()
-    {
-        return this.isInputType(AngularGlobals.INPUT_PASSWORD);
-    }
+    // /**
+    //  * @return isInputType(AngularGlobals.INPUT_PASSWORD)
+    //  * @see AngularAttribute#isInputSecret()
+    //  */
+    // protected boolean handleIsInputSecret()
+    // {
+    //     return this.isInputType(AngularGlobals.INPUT_PASSWORD);
+    // }
 
-    /**
-     * @return isInputType(AngularGlobals.INPUT_HIDDEN)
-     * @see AngularAttribute#isInputHidden()
-     */
-    protected boolean handleIsInputHidden()
-    {
-        return this.isInputType(AngularGlobals.INPUT_HIDDEN);
-    }
+    // /**
+    //  * @return isInputType(AngularGlobals.INPUT_HIDDEN)
+    //  * @see AngularAttribute#isInputHidden()
+    //  */
+    // protected boolean handleIsInputHidden()
+    // {
+    //     return this.isInputType(AngularGlobals.INPUT_HIDDEN);
+    // }
 
-    /**
-     * @return isInputType(AngularGlobals.PLAIN_TEXT)
-     * @see AngularAttribute#isPlaintext()
-     */
-    protected boolean handleIsPlaintext()
-    {
-        return this.isInputType(AngularGlobals.PLAIN_TEXT);
-    }
+    // /**
+    //  * @return isInputType(AngularGlobals.PLAIN_TEXT)
+    //  * @see AngularAttribute#isPlaintext()
+    //  */
+    // protected boolean handleIsPlaintext()
+    // {
+    //     return this.isInputType(AngularGlobals.PLAIN_TEXT);
+    // }
 
-    /**
-     * @return isInputType(AngularGlobals.INPUT_RADIO)
-     * @see AngularAttribute#isInputRadio()
-     */
-    protected boolean handleIsInputRadio()
-    {
-        return this.isInputType(AngularGlobals.INPUT_RADIO);
-    }
+    // /**
+    //  * @return isInputType(AngularGlobals.INPUT_RADIO)
+    //  * @see AngularAttribute#isInputRadio()
+    //  */
+    // protected boolean handleIsInputRadio()
+    // {
+    //     return this.isInputType(AngularGlobals.INPUT_RADIO);
+    // }
 
-    /**
-     * @return isInputType(AngularGlobals.INPUT_TEXT)
-     * @see AngularAttribute#isInputText()
-     */
-    protected boolean handleIsInputText()
-    {
-        return this.isInputType(AngularGlobals.INPUT_TEXT);
-    }
+    // /**
+    //  * @return isInputType(AngularGlobals.INPUT_TEXT)
+    //  * @see AngularAttribute#isInputText()
+    //  */
+    // protected boolean handleIsInputText()
+    // {
+    //     return this.isInputType(AngularGlobals.INPUT_TEXT);
+    // }
 
-    /**
-     * @return isInputType(AngularGlobals.INPUT_MULTIBOX)
-     * @see AngularAttribute#isInputMultibox()
-     */
-    protected boolean handleIsInputMultibox()
-    {
-        return this.isInputType(AngularGlobals.INPUT_MULTIBOX);
-    }
+    // /**
+    //  * @return isInputType(AngularGlobals.INPUT_MULTIBOX)
+    //  * @see AngularAttribute#isInputMultibox()
+    //  */
+    // protected boolean handleIsInputMultibox()
+    // {
+    //     return this.isInputType(AngularGlobals.INPUT_MULTIBOX);
+    // }
 
-    /**
-     * @return inputTable
-     * @see AngularAttribute#isInputTable()
-     */
-    protected boolean handleIsInputTable()
-    {
-        return this.getInputTableIdentifierColumns().length() > 0 || this.isInputType(AngularGlobals.INPUT_TABLE);
-    }
+    // /**
+    //  * @return inputTable
+    //  * @see AngularAttribute#isInputTable()
+    //  */
+    // protected boolean handleIsInputTable()
+    // {
+    //     return this.getInputTableIdentifierColumns().length() > 0 || this.isInputType(AngularGlobals.INPUT_TABLE);
+    // }
 
-    /**
-     * @return inputCheckbox
-     * @see AngularAttribute#isInputCheckbox()
-     */
-    protected boolean handleIsInputCheckbox()
-    {
-        boolean checkbox = this.isInputType(AngularGlobals.INPUT_CHECKBOX);
-        if (!checkbox && this.getInputType().length() == 0)
-        {
-            final ClassifierFacade type = this.getType();
-            checkbox = type != null ? type.isBooleanType() : false;
-        }
-        return checkbox;
-    }
+    // /**
+    //  * @return inputCheckbox
+    //  * @see AngularAttribute#isInputCheckbox()
+    //  */
+    // protected boolean handleIsInputCheckbox()
+    // {
+    //     boolean checkbox = this.isInputType(AngularGlobals.INPUT_CHECKBOX);
+    //     if (!checkbox && this.getInputType().length() == 0)
+    //     {
+    //         final ClassifierFacade type = this.getType();
+    //         checkbox = type != null ? type.isBooleanType() : false;
+    //     }
+    //     return checkbox;
+    // }
 
-    /**
-     * Gets the current value of the specified input type (or an empty string
-     * if one isn't specified).
-     *
-     * @return the input type name.
-     */
-    private String getInputType()
-    {
-        return Objects.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
-    }
+    // /**
+    //  * Gets the current value of the specified input type (or an empty string
+    //  * if one isn't specified).
+    //  *
+    //  * @return the input type name.
+    //  */
+    // private String getInputType()
+    // {
+    //     return Objects.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
+    // }
 
-    /**
-     * Indicates whether or not this parameter is of the given input type.
-     *
-     * @param inputType the name of the input type to check for.
-     * @return true/false
-     */
-    private boolean isInputType(final String inputType)
-    {
-        return inputType.equalsIgnoreCase(this.getInputType());
-    }
+    // /**
+    //  * Indicates whether or not this parameter is of the given input type.
+    //  *
+    //  * @param inputType the name of the input type to check for.
+    //  * @return true/false
+    //  */
+    // private boolean isInputType(final String inputType)
+    // {
+    //     return inputType.equalsIgnoreCase(this.getInputType());
+    // }
 
-    /**
-     * @return inputFile
-     * @see AngularAttribute#isInputFile()
-     */
-    protected boolean handleIsInputFile()
-    {
-        boolean file = false;
-        ClassifierFacade type = getType();
-        if (type != null)
-        {
-            file = type.isFileType();
-        }
-        return file;
-    }
+    // /**
+    //  * @return inputFile
+    //  * @see AngularAttribute#isInputFile()
+    //  */
+    // protected boolean handleIsInputFile()
+    // {
+    //     boolean file = false;
+    //     ClassifierFacade type = getType();
+    //     if (type != null)
+    //     {
+    //         file = type.isFileType();
+    //     }
+    //     return file;
+    // }
 
-    /**
-     * Overridden to provide consistent behavior with {@link AngularParameter#isReadOnly()}.
-     *
-     * @see org.andromda.metafacades.uml.AttributeFacade#isReadOnly()
-     */
-    public boolean isReadOnly()
-    {
-        return AngularUtils.isReadOnly(this);
-    }
+    // /**
+    //  * Overridden to provide consistent behavior with {@link AngularParameter#isReadOnly()}.
+    //  *
+    //  * @see org.andromda.metafacades.uml.AttributeFacade#isReadOnly()
+    //  */
+    // public boolean isReadOnly()
+    // {
+    //     return AngularUtils.isReadOnly(this);
+    // }
 
-    /**
-     * @return constructDummyArray()
-     * @see AngularAttribute#getValueListDummyValue()
-     */
-    protected String handleGetValueListDummyValue()
-    {
-        return this.constructDummyArray();
-    }
+    // /**
+    //  * @return constructDummyArray()
+    //  * @see AngularAttribute#getValueListDummyValue()
+    //  */
+    // protected String handleGetValueListDummyValue()
+    // {
+    //     return this.constructDummyArray();
+    // }
 
-    /**
-     * @param validatorType
-     * @return getValidatorArgs
-     * @see AngularAttribute#getValidatorArgs(String)
-     */
-    protected Collection handleGetValidatorArgs(final String validatorType)
-    {
-        return AngularUtils.getValidatorArgs(
-            (ModelElementFacade)this.THIS(),
-            validatorType);
-    }
+    // /**
+    //  * @param validatorType
+    //  * @return getValidatorArgs
+    //  * @see AngularAttribute#getValidatorArgs(String)
+    //  */
+    // protected Collection handleGetValidatorArgs(final String validatorType)
+    // {
+    //     return AngularUtils.getValidatorArgs(
+    //         (ModelElementFacade)this.THIS(),
+    //         validatorType);
+    // }
 
-    /**
-     * @return isStrictDateFormat
-     * @see AngularAttribute#isStrictDateFormat()
-     */
-    protected boolean handleIsStrictDateFormat()
-    {
-        return AngularUtils.isStrictDateFormat((ModelElementFacade)this.THIS());
-    }
+    // /**
+    //  * @return isStrictDateFormat
+    //  * @see AngularAttribute#isStrictDateFormat()
+    //  */
+    // protected boolean handleIsStrictDateFormat()
+    // {
+    //     return AngularUtils.isStrictDateFormat((ModelElementFacade)this.THIS());
+    // }
 
     /**
      * @param ownerParameter
@@ -641,160 +641,160 @@ public class AngularAttributeLogicImpl
      *
      * @see org.andromda.metafacades.uml.AttributeFacade#getDefaultValue()
      */
-    public String getDefaultValue()
-    {
-        String defaultValue = super.getDefaultValue();
-        if (StringUtils.isNotBlank(defaultValue))
-        {
-            final ClassifierFacade type = this.getType();
-            if (type != null && type.isStringType())
-            {
-                defaultValue = "\"" + defaultValue + "\"";
-            }
-        }
+    // public String getDefaultValue()
+    // {
+    //     String defaultValue = super.getDefaultValue();
+    //     if (StringUtils.isNotBlank(defaultValue))
+    //     {
+    //         final ClassifierFacade type = this.getType();
+    //         if (type != null && type.isStringType())
+    //         {
+    //             defaultValue = "\"" + defaultValue + "\"";
+    //         }
+    //     }
 
-        if(defaultValue.trim().isEmpty()) {
-            if(this.isMany()) {
-                defaultValue = "[]";
-            } else {
-                defaultValue = "null";
-            }
-        }
+    //     if(defaultValue.trim().isEmpty()) {
+    //         if(this.isMany()) {
+    //             defaultValue = "[]";
+    //         } else {
+    //             defaultValue = "null";
+    //         }
+    //     }
 
-        return defaultValue;
-    }
+    //     return defaultValue;
+    // }
 
     /**
      * @return isEqualValidator
      * @see AngularAttribute#isEqualValidator()
      */
-    protected boolean handleIsEqualValidator()
-    {
-        final String equal = AngularUtils.getEqual((ModelElementFacade)this.THIS());
-        return equal != null && equal.trim().length() > 0;
-    }
+    // protected boolean handleIsEqualValidator()
+    // {
+    //     final String equal = AngularUtils.getEqual((ModelElementFacade)this.THIS());
+    //     return equal != null && equal.trim().length() > 0;
+    // }
 
     /**
      * @param ownerParameter
      * @return isBackingValueRequired
      * @see AngularAttribute#isBackingValueRequired(org.andromda.metafacades.uml.FrontEndParameter)
      */
-    protected boolean handleIsBackingValueRequired(final FrontEndParameter ownerParameter)
-    {
-        boolean required = false;
-        if (ownerParameter != null)
-        {
-            if (ownerParameter.isActionParameter())
-            {
-                required = this.isInputTable();
-                final ClassifierFacade type = this.getType();
+    // protected boolean handleIsBackingValueRequired(final FrontEndParameter ownerParameter)
+    // {
+    //     boolean required = false;
+    //     if (ownerParameter != null)
+    //     {
+    //         if (ownerParameter.isActionParameter())
+    //         {
+    //             required = this.isInputTable();
+    //             final ClassifierFacade type = this.getType();
 
-                if (!required && type != null)
-                {
-                    final String name = this.getName();
-                    final String typeName = type.getFullyQualifiedName();
+    //             if (!required && type != null)
+    //             {
+    //                 final String name = this.getName();
+    //                 final String typeName = type.getFullyQualifiedName();
 
-                    // - if the parameter is not selectable but on a targetting page it IS selectable we must
-                    //   allow the user to set the backing list too
-                    final Collection<FrontEndView> views = ownerParameter.getAction().getTargetViews();
-                    for (final Iterator<FrontEndView> iterator = views.iterator(); iterator.hasNext() && !required;)
-                    {
-                        final Collection<FrontEndParameter> parameters = iterator.next().getAllActionParameters();
-                        for (final Iterator<FrontEndParameter> parameterIterator = parameters.iterator();
-                            parameterIterator.hasNext() && !required;)
-                        {
-                            final FrontEndParameter object = parameterIterator.next();
-                            if (object instanceof AngularParameter)
-                            {
-                                final AngularParameter parameter = (AngularParameter)object;
-                                final String parameterName = parameter.getName();
-                                final ClassifierFacade parameterType = parameter.getType();
-                                if (parameterType != null)
-                                {
-                                    final String parameterTypeName = parameterType.getFullyQualifiedName();
-                                    if (name.equals(parameterName) && typeName.equals(parameterTypeName))
-                                    {
-                                        required = parameter.isInputTable();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            else if (ownerParameter.isControllerOperationArgument())
-            {
-                final String name = this.getName();
-                final Collection<FrontEndAction> actions = ownerParameter.getControllerOperation().getDeferringActions();
-                for (final Iterator<FrontEndAction> actionIterator = actions.iterator(); actionIterator.hasNext();)
-                {
-                    final AngularAction action = (AngularAction)actionIterator.next();
-                    final Collection<FrontEndParameter> formFields = action.getFormFields();
-                    for (final Iterator<FrontEndParameter> fieldIterator = formFields.iterator();
-                        fieldIterator.hasNext() && !required;)
-                    {
-                        final FrontEndParameter object = fieldIterator.next();
-                        if (object instanceof AngularParameter)
-                        {
-                            final AngularParameter parameter = (AngularParameter)object;
-                            if (name.equals(parameter.getName()))
-                            {
-                                required = parameter.isBackingValueRequired();
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return required;
-    }
+    //                 // - if the parameter is not selectable but on a targetting page it IS selectable we must
+    //                 //   allow the user to set the backing list too
+    //                 final Collection<FrontEndView> views = ownerParameter.getAction().getTargetViews();
+    //                 for (final Iterator<FrontEndView> iterator = views.iterator(); iterator.hasNext() && !required;)
+    //                 {
+    //                     final Collection<FrontEndParameter> parameters = iterator.next().getAllActionParameters();
+    //                     for (final Iterator<FrontEndParameter> parameterIterator = parameters.iterator();
+    //                         parameterIterator.hasNext() && !required;)
+    //                     {
+    //                         final FrontEndParameter object = parameterIterator.next();
+    //                         if (object instanceof AngularParameter)
+    //                         {
+    //                             final AngularParameter parameter = (AngularParameter)object;
+    //                             final String parameterName = parameter.getName();
+    //                             final ClassifierFacade parameterType = parameter.getType();
+    //                             if (parameterType != null)
+    //                             {
+    //                                 final String parameterTypeName = parameterType.getFullyQualifiedName();
+    //                                 if (name.equals(parameterName) && typeName.equals(parameterTypeName))
+    //                                 {
+    //                                     required = parameter.isInputTable();
+    //                                 }
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //         else if (ownerParameter.isControllerOperationArgument())
+    //         {
+    //             final String name = this.getName();
+    //             final Collection<FrontEndAction> actions = ownerParameter.getControllerOperation().getDeferringActions();
+    //             for (final Iterator<FrontEndAction> actionIterator = actions.iterator(); actionIterator.hasNext();)
+    //             {
+    //                 final AngularAction action = (AngularAction)actionIterator.next();
+    //                 final Collection<FrontEndParameter> formFields = action.getFormFields();
+    //                 for (final Iterator<FrontEndParameter> fieldIterator = formFields.iterator();
+    //                     fieldIterator.hasNext() && !required;)
+    //                 {
+    //                     final FrontEndParameter object = fieldIterator.next();
+    //                     if (object instanceof AngularParameter)
+    //                     {
+    //                         final AngularParameter parameter = (AngularParameter)object;
+    //                         if (name.equals(parameter.getName()))
+    //                         {
+    //                             required = parameter.isBackingValueRequired();
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return required;
+    // }
 
     /**
      * @return present
      * @see AngularAttribute#isInputTypePresent()
      */
-    protected boolean handleIsInputTypePresent()
-    {
-        boolean present = false;
-        final ClassifierFacade type = this.getType();
-        if (type != null)
-        {
-            present =
-                (StringUtils.isNotBlank(this.getInputType()) || type.isDateType() || type.isBooleanType()) &&
-                !this.isPlaintext();
-        }
-        return present;
-    }
+    // protected boolean handleIsInputTypePresent()
+    // {
+    //     boolean present = false;
+    //     final ClassifierFacade type = this.getType();
+    //     if (type != null)
+    //     {
+    //         present =
+    //             (StringUtils.isNotBlank(this.getInputType()) || type.isDateType() || type.isBooleanType()) &&
+    //             !this.isPlaintext();
+    //     }
+    //     return present;
+    // }
 
     /**
      * @return findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)
      * @see AngularAttribute#getInputTableIdentifierColumns()
      */
-    protected String handleGetInputTableIdentifierColumns()
-    {
-        return Objects.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS), "").trim();
-    }
+    // protected String handleGetInputTableIdentifierColumns()
+    // {
+    //     return Objects.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS), "").trim();
+    // }
 
     /**
      * @return maxlength
      * @see AngularAttribute#getMaxLength()
      */
-    protected String handleGetMaxLength()
-    {
-        final Collection<List<String>> vars = this.getValidatorVars(null);
-        if(vars == null)
-        {
-            return null;
-        }
-        for(final List<String> values : vars)
-        {
-            if("maxlength".equals(values.get(0)))
-            {
-                return values.get(1);
-            }
-        }
-        return null;
-    }
+    // protected String handleGetMaxLength()
+    // {
+    //     final Collection<List<String>> vars = this.getValidatorVars(null);
+    //     if(vars == null)
+    //     {
+    //         return null;
+    //     }
+    //     for(final List<String> values : vars)
+    //     {
+    //         if("maxlength".equals(values.get(0)))
+    //         {
+    //             return values.get(1);
+    //         }
+    //     }
+    //     return null;
+    // }
 
     @Override
     protected Collection<ModelElementFacade> handleGetImports() {

@@ -64,9 +64,6 @@
         <property reference="testImplementationOperationNamePrefix"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.angular.metafacades.AngularServiceParameterLogicImpl">
-        <mapping>
-            <property name="operation.webServiceOperationMetaType"/>
-        </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.angular.metafacades.AngularModelLogicImpl">

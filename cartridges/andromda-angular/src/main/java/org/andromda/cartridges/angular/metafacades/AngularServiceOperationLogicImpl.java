@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.andromda.cartridges.angular.AngularGlobals;
 import org.andromda.cartridges.angular.AngularServiceUtils;
@@ -222,66 +223,35 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
      */
     @Override
     protected String handleGetRestPath() {
-        String path = (String)this.findTaggedValue(AngularGlobals.REST_PATH);
 
+        String path = Objects.toString(this.findTaggedValue(AngularGlobals.REST_PATH), "");
         if(StringUtils.isBlank(path)) {
-            return "";
+            path = "";
         }
-        
-        StringBuilder pathBuffer = new StringBuilder();
-        if (!this.isRest() || StringUtils.isBlank(path) || path.equals(DEFAULT))
-        {
-            path = this.getName().toLowerCase();
-        }
-        
-        if(path.startsWith("/")) {
-            path = path.substring(1);
-        }
-        
-        if(path.endsWith("/")) {
-            path = path.substring(0, path.length() - 1);
-        }
+        StringBuilder builder = new StringBuilder();
+        builder.append(path);
 
-        String type = this.getRestRequestType().toLowerCase();
-
-        if(type.contains("get") || type.contains("delete")) {
-            for(ParameterFacade param : this.getArguments()) {
-                    
-                String paramName = param.getName();
-                if (!AngularServiceUtils.isSimpleType(param)) {
-                    if(param instanceof AngularServiceParameter) {
-                        
-                        AngularServiceParameter p = (AngularServiceParameter)param;                        
-                        paramName = p.getRestPathParam();
-                    }
+        for(ParameterFacade parameter : this.getArguments()) {
+            if(parameter instanceof AngularServiceParameter) {
+                AngularServiceParameter param = (AngularServiceParameter)parameter;
+                String paramType = param.getRestParamType();
+                if(paramType.contains("PathParam")) {
+                    builder.append("/");
+                    builder.append(parameter.getName());
+                    builder.append("/${");
+                    builder.append(parameter.getName());
+                    builder.append("}");
                 }
-
-                if(pathBuffer.length() > 0) {
-                    pathBuffer.append(PLUS).append(SQUOTE).append(SLASH);
-                }
-
-                //pathBuffer.append(paramName).append(SLASH);
-                pathBuffer.append(SQUOTE).append(PLUS);
-                pathBuffer.append(paramName);
             }
         }
 
-        if(path.length() > 0) {
-            if(pathBuffer.length() > 0) {
-                pathBuffer.insert(0, "/");
-            } else {
-                pathBuffer.insert(0, SQUOTE);
-            }
+        path = builder.toString();
 
-            pathBuffer.insert(0, path);
+        if(path.length() > 0 && path.charAt(0) != '/') {
+            path = '/' + path;
         }
 
-        if(pathBuffer.length() > 0) {
-            pathBuffer.insert(0, SQUOTE);
-            pathBuffer.insert(1, SLASH);
-        }
-
-        return pathBuffer.toString();
+        return path;
     }
 
     /**

@@ -11,12 +11,7 @@ public final class ${entity.name}Specifications {
 #foreach($attribute in $entity.attributes)
     // Generating specifications for $attribute.name
 #set ($capitalised = ${stringUtils.capitalize($attribute.name)})
-#if(!$attribute.many)
-// $attribute
-// $attribute.unique
-// $attribute.required
 #if($attribute.name != "id" && !$attribute.type.clobType && !$attribute.type.blobType && !$attribute.type.fileType)
-// here
 #if(!$attribute.required)
     public static Specification<$entity.name> findBy${capitalised}Null($attribute.type.fullyQualifiedName $attribute.name) {
         return (root, cq, cb) -> cb.isNull(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"));
@@ -100,7 +95,11 @@ public final class ${entity.name}Specifications {
     }
 
 #end
-#end 
+    public static Specification<$entity.name> findBy${capitalised}In(java.util.Collection<$attribute.type.fullyQualifiedName> ${attribute.name}In){
+
+        return (root, cq, cb) -> root.<$attribute.type.fullyQualifiedName>get("${attribute.name}").in(${attribute.name}In));
+    }
+
 #end
 #foreach ($associationEnd in $entity.associationEnds)
 #if($associationEnd.navigable)
@@ -111,8 +110,8 @@ public final class ${entity.name}Specifications {
 #foreach($identifier in $joinEntity.identifiers)
 #set ($capitalisedIdentifier = ${stringUtils.capitalize($identifier.name)})
     // Specifications for $target.getterSetterTypeName $target.name
-    public static Specification<$entity.name> findBy${capitalised}${capitalisedIdentifier}In(java.util.List<$identifier.type.fullyQualifiedName> ${identifier.name}s) {
-        return (root, query, criteriaBuilder) -> {
+    public static Specification<$entity.name> findBy${capitalised}${capitalisedIdentifier}In(java.util.Collection<$identifier.type.fullyQualifiedName> ${identifier.name}s) {
+        return (root, query, cb) -> {
             
 #if ($associationEnd.many2One)
             // Many to One
@@ -124,12 +123,12 @@ public final class ${entity.name}Specifications {
             // Many to Many
 #end
             javax.persistence.criteria.Join<$entity.name, $target.type.fullyQualifiedEntityName> ${target.name}Join = root.join("$target.name");
-            return criteriaBuilder.in(${target.name}Join.get("$identifier.name").in(${identifier.name}s));
+            return cb.in(${target.name}Join.get("$identifier.name").in(${identifier.name}s));
         };
     }
 
     public static Specification<$entity.name> findBy${capitalised}${capitalisedIdentifier}($identifier.type.fullyQualifiedName ${identifier.name}) {
-        return (root, query, criteriaBuilder) -> {
+        return (root, query, cb) -> {
             
 #if ($associationEnd.many2One)
             // Many to One
@@ -141,7 +140,7 @@ public final class ${entity.name}Specifications {
             // Many to Many
 #end
             javax.persistence.criteria.Join<$entity.name, $target.type.fullyQualifiedEntityName> ${target.name}Join = root.join("$target.name");
-            return criteriaBuilder.equal(${target.name}Join.get("$identifier.name"), ${identifier.name});
+            return cb.equal(${target.name}Join.get("$identifier.name"), ${identifier.name});
         };
     }
 

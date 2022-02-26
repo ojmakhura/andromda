@@ -43,7 +43,8 @@ public abstract class ${serviceName}Base implements ${serviceName} {
 
 #set ($handle = "handle")
 #set ($responseStatus = $operation.restResponseStatus)
-    $webServiceUtils.getRequestType(${operation.restRequestType})(${operation.restPath})
+#set ($restPath = ${operation.restPath})
+    $webServiceUtils.getRequestType(${operation.restRequestType})(#if($restPath.length() > 0)"${operation.restPath}"#end)
 #if (!$stringUtils.isBlank($responseStatus))
     $operation.restResponseStatus
 #end

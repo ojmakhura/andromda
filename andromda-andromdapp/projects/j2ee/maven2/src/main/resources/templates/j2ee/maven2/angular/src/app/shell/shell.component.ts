@@ -5,6 +5,7 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { menuItems } from './navigation';
 
 import { AuthenticationService, CredentialsService } from '@app/auth';
+import * as nav from './navigation';
 
 @Component({
   selector: 'app-shell',
@@ -21,7 +22,7 @@ export class ShellComponent implements OnInit {
               private breakpoint: BreakpointObserver) { }
 
   ngOnInit() {
-    this.menus = menuItems;
+    this.menus = nav.menuItems;
   }
 
   logout() {
