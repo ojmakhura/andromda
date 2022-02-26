@@ -24,9 +24,9 @@ closeDialog();
 #elseif ($transition.enteringView)
 "${transition.target.path}.${htmlFileExtension}"; // ${transition.target.pageObjectClassName} 3
 #elseif ($transition.enteringDecisionPoint)
-__${transition.operationCall.name}(#if (!$action.formFields.empty)form#end, model);
+__${transition.operationCall.name}(#if (!$action.formFields.empty)form#end#if($springController), model#end);
 #else
-${transition.target.actionMethodName}(#if (!$action.formFields.empty)form#end, model);
+${transition.target.actionMethodName}(#if (!$action.formFields.empty)form#end#if($springController), model#end);
 #end
 #end
 ##

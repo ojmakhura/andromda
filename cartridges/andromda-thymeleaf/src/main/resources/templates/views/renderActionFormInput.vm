@@ -139,7 +139,7 @@ ${ident}                    <div class="col">
 #set ($urlParams = "$urlParams$parameter.name=#{$parameterValue}")
 #end
 ${ident}                    <form method="POST" 
-${ident}                           th:action="@{${action.controller.restPath}/$thymeleafUtils.toWebResourceName(${action.trigger.name})$urlParams}">
+${ident}                           th:action="@{${action.controller.restPath}/${action.trigger.restPath}$urlParams}">
 ${ident}                        <button type="submit" id="${action.triggerName}Action"  th:text="#{$action.trigger.messageKey}">
 ${ident}                        </button>
 ${ident}                    </form>

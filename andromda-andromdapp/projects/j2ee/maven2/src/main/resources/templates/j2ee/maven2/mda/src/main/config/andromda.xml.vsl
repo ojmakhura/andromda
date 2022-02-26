@@ -637,6 +637,7 @@
                 <property name="dummyData">true</property>
                 <property name="enableFaceletsDevelopmentSupport">true</property>
                 <property name="enableMyFacesDevelopmentSupport">true</property>
+                <property name="transactionPersistenceType">$transactionPersistenceType</property>
             </properties>
         </namespace>
 #end

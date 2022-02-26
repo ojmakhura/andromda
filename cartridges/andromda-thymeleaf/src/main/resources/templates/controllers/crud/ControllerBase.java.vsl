@@ -26,14 +26,32 @@ package $manageable.manageablePackageName;
 /**
  * Thymeleaf Controller of the ${manageable.name} CRUD management.
  */
+#if($springController)
 @org.springframework.stereotype.Controller
+#if(!$stringUtils.isBlank($controllerPath))
 @org.springframework.web.bind.annotation.RequestMapping("$controllerPath")
+#else
+@org.springframework.web.bind.annotation.RequestMapping("/")
+#end
+#end
+#if($jaxrsController)
+@javax.mvc.annotation.Controller
+@javax.ws.rs.Path("$controllerPath")
+#end
 public class ${manageable.controllerName}Base
     extends ${managedBeansPackage}.CrudControllerBase
     implements ${manageable.controllerName}
 {
 
+#if($springController)
     @org.springframework.beans.factory.annotation.Autowired
+#end
+#if($jaxrsController)
+    @javax.inject.Inject
+    private javax.mvc.Models models;
+    
+    @javax.inject.Inject
+#end
     protected ${manageable.fullyQualifiedManageableServiceName} $stringUtils.uncapitalize($manageable.manageableServiceName);
         
     @Override
@@ -70,9 +88,15 @@ public class ${manageable.controllerName}Base
      * @return the controller view path.
      * @throws Throwable
      */
+#if($springController)
     @org.springframework.web.bind.annotation.GetMapping("/search-view")
+#end
+#if($jaxrsController)
+    @javax.ws.rs.GET
+    @javax.ws.rs.Path("/search-view")
+#end
     @Override
-    public String search(org.springframework.ui.Model model)
+    public String search(#if($springController)org.springframework.ui.Model model#end)
         throws Throwable
     {
         ${manageable.formBeanType} $manageable.formBeanName = new ${manageable.formBeanType}();
@@ -88,19 +112,31 @@ public class ${manageable.controllerName}Base
      * @return the controller view path.
      * @throws Throwable
      */
+#if($springController)
     @org.springframework.web.bind.annotation.GetMapping({"", "/{${manageable.identifierName}}"})
-    public String edit(@org.springframework.web.bind.annotation.PathVariable(value = "${manageable.identifierName}", required = false) ${identifierType} ${manageable.identifierName}, org.springframework.ui.Model model)
+#end
+#if($jaxrsController)
+    @javax.ws.rs.GET
+    @javax.ws.rs.Path("/{${manageable.identifierName}}")
+#end
+    public String edit(@org.springframework.web.bind.annotation.PathVariable(value = "${manageable.identifierName}", required = false) ${identifierType} ${manageable.identifierName}#if($springController), org.springframework.ui.Model model#end)
         throws Throwable {
 
         this.cleanForm(model);
         return "${manageable.viewFullPath}-edit.${htmlFileExtension}";
     }
 
-    private org.springframework.ui.Model cleanForm(org.springframework.ui.Model model) {
+    private #if($springController)org.springframework.ui.Model#end#if($jaxrsController)javax.mvc.Models#end cleanForm(#if($springController)org.springframework.ui.Model model#end) {
         
         ${manageable.formBeanType} $manageable.formBeanName = new ${manageable.formBeanType}();
 
         model.addAttribute("$manageable.formBeanName", $manageable.formBeanName);
+#if($springController)
+        model.addAttribute("$manageable.formBeanName", $manageable.formBeanName);
+#end
+#if($jaxrsController)
+        models.put("$manageable.formBeanName", $manageable.formBeanName);
+#end
         return model;
     }
 
@@ -136,8 +172,17 @@ public class ${manageable.controllerName}Base
      * @param ${manageable.identifierName} the identifier
      * @throws Throwable
      */
-    @org.springframework.web.bind.annotation.GetMapping({"load", "load/{${manageable.identifierName}}"})
-    public String load(@org.springframework.web.bind.annotation.PathVariable(value = "${manageable.identifierName}", required = false) ${identifierType} ${manageable.identifierName}, org.springframework.ui.Model model)
+#if($springController)
+    @org.springframework.web.bind.annotation.GetMapping({"", "/{${manageable.identifierName}}"})
+#set ($b = "\"")
+#set ($params = "@org.springframework.web.bind.annotation.PathVariable(value = $b${manageable.identifierName}$b, required = false) ${identifierType} ${manageable.identifierName}, org.springframework.ui.Model model")
+#end
+#if($jaxrsController)
+    @javax.ws.rs.GET
+    @javax.ws.rs.Path("/{${manageable.identifierName}}")
+#set ($params = "@javax.ws.rs.PathParam($b${manageable.identifierName}$b) ${identifierType} ${manageable.identifierName}")
+#end
+    public String load($params)
         throws Throwable
     {
         final ${manageable.formBeanType} form = this.getForm();
@@ -191,9 +236,15 @@ public class ${manageable.controllerName}Base
      * @return null
      * @throws Throwable
      */
+#if($springController)
     @org.springframework.web.bind.annotation.GetMapping("cancel")
+#end
+#if($jaxrsController)
+    @javax.ws.rs.GET
+    @javax.ws.rs.Path("cancel")
+#end
     @Override
-    public String cancel(org.springframework.ui.Model model)
+    public String cancel(#if($jaxrsController)org.springframework.ui.Model model#end)
         throws Throwable
     {
         final ${manageable.formBeanType} form = new ${manageable.formBeanType}();
@@ -208,7 +259,12 @@ public class ${manageable.controllerName}Base
             return null;
         }*/
         
+#if($springController)
         model.addAttribute("${manageable.formBeanName}", form);
+#end
+#if($jaxrsController)
+        models.put("${manageable.formBeanName}", form);
+#end
         return "${manageable.viewFullPath}-edit.${htmlFileExtension}";
     }
 
@@ -231,15 +287,26 @@ public class ${manageable.controllerName}Base
      * @return null
      * @throws Throwable
      */
+#if($springController)
     @org.springframework.web.bind.annotation.PostMapping("new")
+#end
+#if($jaxrsController)
+    @javax.ws.rs.POST
+    @javax.ws.rs.Path("new")
+#end
     @Override
-    public String startNew(org.springframework.ui.Model model)
+    public String startNew(#if($springController)org.springframework.ui.Model model#end)
         throws Throwable
     {
         final ${manageable.formBeanType} form = this.getForm();
         this.doStartNew(form);
         
+#if($springController)
         model.addAttribute("${manageable.formBeanName}", form);
+#end
+#if($jaxrsController)
+        models.put("${manageable.formBeanName}", form);
+#end
         return "${manageable.viewFullPath}-edit.${htmlFileExtension}";
     }
 
@@ -305,14 +372,25 @@ public class ${manageable.controllerName}Base
      * @return null
      * @throws Throwable
      */
+#if($springController)
     @org.springframework.web.bind.annotation.PostMapping("save-and-select")
+#end
+#if($jaxrsController)
+    @javax.ws.rs.POST
+    @javax.ws.rs.Path("save-and-select")
+#end
     @Override
-    public String saveAndSelect(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName, org.springframework.ui.Model model)
+    public String saveAndSelect(#if($springController)@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName, org.springframework.ui.Model model#end)
         throws Throwable
     {
         this.save($manageable.formBeanName, model);
 
-        model.addAttribute("${manageable.formBeanName}", $manageable.formBeanName);
+#if($springController)
+        model.addAttribute("${manageable.formBeanName}", $manageable.formBeanName); 
+#end
+#if($jaxrsController)
+        models.put("${manageable.formBeanName}", $manageable.formBeanName); 
+#end
         return "${manageable.viewFullPath}-edit.${htmlFileExtension}";
     }
 
@@ -322,16 +400,27 @@ public class ${manageable.controllerName}Base
      * @return null
      * @throws Throwable
      */
+#if($springController)
     @org.springframework.web.bind.annotation.PostMapping()
+#end
+#if($jaxrsController)
+    @javax.ws.rs.POST
+//    @javax.ws.rs.Path("save-and-select")
+#end
     @Override
-    public String save(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName, org.springframework.ui.Model model)
+    public String save(#if($springController)@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName, org.springframework.ui.Model model#end)
         throws Throwable
     {
         this.setLastPostedFormClientId(FORM_BEAN_NAME);
         //final ${manageable.formBeanType} form = this.getForm();
         this.doSave($manageable.formBeanName);
 
-        model.addAttribute("${manageable.formBeanName}", $manageable.formBeanName);
+#if($springController)
+        model.addAttribute("${manageable.formBeanName}", $manageable.formBeanName); 
+#end
+#if($jaxrsController)
+        models.put("${manageable.formBeanName}", form);
+#end
         return "${manageable.viewFullPath}-edit.${htmlFileExtension}";
     }
 
@@ -341,15 +430,26 @@ public class ${manageable.controllerName}Base
      * @return null
      * @throws Throwable
      */
+#if($springController)
     @org.springframework.web.bind.annotation.PostMapping("save-and-edit")
+#end
+#if($jaxrsController)
+    @javax.ws.rs.POST
+    @javax.ws.rs.Path("save-and-edit")
+#end
     @Override
-    public String saveAndKeepEditing(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName, org.springframework.ui.Model model)
+    public String saveAndKeepEditing(#if($springController)@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName, org.springframework.ui.Model model#end)
         throws Throwable
     {
         this.setLastPostedFormClientId(FORM_BEAN_NAME);
         this.internalSave($manageable.formBeanName);
 
+#if($springController)
         model.addAttribute("${manageable.formBeanName}", $manageable.formBeanName);
+#end
+#if($jaxrsController)
+        models.put("${manageable.formBeanName}", $manageable.formBeanName);
+#end
         return "${manageable.viewFullPath}-edit.${htmlFileExtension}";
     }
     
@@ -412,9 +512,15 @@ public class ${manageable.controllerName}Base
      * @return null
      * @throws Throwable
      */
+#if($springController)
     @org.springframework.web.bind.annotation.PostMapping("save-and-new")
+#end
+#if($jaxrsController)
+    @javax.ws.rs.POST
+    @javax.ws.rs.Path("save-and-new")
+#end
     @Override 
-    public String saveAndNew(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName, org.springframework.ui.Model model)
+    public String saveAndNew(#if($springController)@org.springframework.web.bind.annotation.ModelAttribute ${manageable.formBeanType} $manageable.formBeanName, org.springframework.ui.Model model#end)
         throws Throwable
     {
         this.setLastPostedFormClientId(FORM_BEAN_NAME);
@@ -422,7 +528,12 @@ public class ${manageable.controllerName}Base
         this.doSave($manageable.formBeanName);
         this.doStartNew($manageable.formBeanName);
         
+#if($springController)
         model.addAttribute("${manageable.formBeanName}", $manageable.formBeanName);
+#end
+#if($jaxrsController)
+        models.put("${manageable.formBeanName}", $manageable.formBeanName);
+#end
         return "${manageable.viewFullPath}-edit.${htmlFileExtension}";
     }
 #end
@@ -433,9 +544,15 @@ public class ${manageable.controllerName}Base
      * @return null
      * @throws Throwable
      */
+#if($springController)
     @org.springframework.web.bind.annotation.PostMapping("search")
+#end
+#if($jaxrsController)
+    @javax.ws.rs.POST
+    @javax.ws.rs.Path("search")
+#end
     @Override
-    public String search(@org.springframework.web.bind.annotation.ModelAttribute ${manageable.searchFormBeanClassName} searchForm, org.springframework.ui.Model model)
+    public String search(#if($springController)@org.springframework.web.bind.annotation.ModelAttribute ${manageable.searchFormBeanClassName} searchForm, org.springframework.ui.Model model#end)
         throws Throwable
     {
         this.setLastPostedFormClientId(FORM_BEAN_NAME);
@@ -444,8 +561,14 @@ public class ${manageable.controllerName}Base
         this.doSearch(form);
 		setResultToFirstPage();
 
+#if($springController)
         model.addAttribute("${manageable.formBeanName}", form);
         model.addAttribute("manageableList", form.getManageableList());
+#end
+#if($jaxrsController)
+        models.put("${manageable.formBeanName}", form);
+        models.put("manageableList", form.getManageableList());
+#end
         return "${manageable.viewFullPath}-search.${htmlFileExtension}";
     }
 
@@ -508,14 +631,25 @@ public class ${manageable.controllerName}Base
      * @param ${manageable.identifierName} the identifier
      * @throws Throwable
      */
+#if($springController)
     @org.springframework.web.bind.annotation.GetMapping("delete/{${manageable.identifierName}}")
-    public String delete(@org.springframework.web.bind.annotation.PathVariable(value = "${manageable.identifierName}", required = false) ${identifierType} ${manageable.identifierName}, org.springframework.ui.Model model)
+#end
+#if($jaxrsController)
+    @javax.ws.rs.GET
+    @javax.ws.rs.Path("delete/{${manageable.identifierName}}")
+#end
+    public String delete(#if($springController)@org.springframework.web.bind.annotation.PathVariable(value = "${manageable.identifierName}", required = false) ${identifierType} ${manageable.identifierName}, org.springframework.ui.Model model#end)
         throws Throwable
     {
         final ${manageable.formBeanType} form = this.getForm();
         this.doDelete(${manageable.identifierName},form);
         
+#if($springController)
         model.addAttribute("${manageable.formBeanName}", new ${manageable.formBeanType}());
+#end
+#if($jaxrsController)
+        models.put("${manageable.formBeanName}", new ${manageable.formBeanType}());
+#end
         return "${manageable.viewFullPath}-edit.${htmlFileExtension}";
     }
 

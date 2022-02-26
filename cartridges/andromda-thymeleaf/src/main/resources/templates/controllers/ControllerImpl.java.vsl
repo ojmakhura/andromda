@@ -6,14 +6,21 @@ package $controller.packageName;
 /**
  * @see $controller.fullyQualifiedName
  */
-@org.springframework.stereotype.Controller
 #foreach($annotation in $controller.additionalAnnotations)
 @$annotation
 #end
+
+#if($springController)
+@org.springframework.stereotype.Controller
 #if(!$stringUtils.isBlank($controller.restPath))
 @org.springframework.web.bind.annotation.RequestMapping("$controller.restPath")
 #else
 @org.springframework.web.bind.annotation.RequestMapping("/")
+#end
+#end
+#if($jaxrsController)
+@javax.mvc.annotation.Controller
+@javax.ws.rs.Path("$controller.restPath")
 #end
 public class $controller.implementationName
     extends ${controller.name}Base

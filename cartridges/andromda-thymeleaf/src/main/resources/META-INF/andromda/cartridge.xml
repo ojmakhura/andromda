@@ -16,7 +16,10 @@
     <!-- define the template objects that are made available to the template -->
     <templateObject name="stringUtils" className="org.andromda.utils.StringUtilsHelper"/>
     <templateObject name="umlProfiles" className="org.andromda.metafacades.uml.UMLProfile"/>
-    <templateObject name="thymeleafUtils" className="org.andromda.cartridges.web.CartridgeWebUtils">
+    <templateObject name="cartridgeWebUtils" className="org.andromda.cartridges.web.CartridgeWebUtils">
+        <property reference="strictDateTimeFormat"/>
+    </templateObject>
+    <templateObject name="thymeleafUtils" className="org.andromda.cartridges.thymeleaf.ThymeleafUtils">
         <property reference="strictDateTimeFormat"/>
     </templateObject>
     
@@ -74,6 +77,7 @@
     <property reference="trimInputStrings"/>
     <property reference="crudDetailsSuffix"/>
     <property reference="thymeleafNamespace"/>
+    <property reference="transactionPersistenceType"/>
 
     <!-- cartridge-property merge-point -->
 
@@ -88,6 +92,8 @@
     <condition name="securityEnabled">$stringUtils.isNotBlank($securityRealm)</condition>
     <condition name="navigationUsesRedirect">$navigationUsesRedirect.equalsIgnoreCase("true")</condition>
     <condition name="trimInputStrings">$trimInputStrings.equalsIgnoreCase("true")</condition>
+    <condition name="springController">$transactionPersistenceType.equalsIgnoreCase("spring")</condition>
+    <condition name="jaxrsController">$transactionPersistenceType.equalsIgnoreCase("ejb3")</condition>
 
     <!-- condition merge-point-->
 

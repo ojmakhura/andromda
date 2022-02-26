@@ -12,6 +12,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
+
+import org.andromda.cartridges.thymeleaf.metafacades.ThymeleafAction;
 import org.andromda.cartridges.thymeleaf.metafacades.ThymeleafAttribute;
 import org.andromda.cartridges.thymeleaf.metafacades.ThymeleafAttributeLogic;
 import org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntityAttribute;
@@ -1354,5 +1356,108 @@ public class ThymeleafUtils
         }
 
         return false;
+    }
+
+    public static String getRestFormParams(ThymeleafAction action) {
+
+        if (action.getFormFields() == null || action.getFormFields().size() == 0)
+            return "";
+
+        StringBuilder builder = new StringBuilder();
+
+        Iterator<FrontEndParameter> iter = action.getParameters().iterator();
+
+        while (iter.hasNext()) {
+            ThymeleafParameter param = (ThymeleafParameter) iter.next();
+
+            if (param.isActionParameter()) {
+
+                if (param.isComplex() && !param.getType().isEnumeration()) {
+
+                    // builder.append("@jakarta.ws.rs.BeanParam ");
+                    // builder.append(param.getType().getFullyQualifiedName());
+                    // builder.append(" ");
+                    // builder.append(param.getName());
+
+                    Iterator it = param.getAttributes().iterator();
+                    while (it.hasNext()) {
+
+                        ThymeleafAttribute attr = (ThymeleafAttribute) it.next();
+
+                        if (attr.getType().getAttributes() != null && attr.getType().getAttributes().size() > 0
+                                && !attr.getType().isEnumeration()) {
+
+                            builder.append("@javax.ws.rs.BeanParam ");
+                        } else {
+                            builder.append("@javax.ws.rs.FormParam(\"");
+                            builder.append(attr.getFormPropertyId(param));
+                            builder.append("\") ");
+                        }
+
+                        if (attr.isMany()) {
+                            if (attr.isUnique()) {
+                                builder.append("java.util.HashSet<");
+                            } else {
+                                builder.append("java.util.ArrayList<");
+                            }
+                        }
+
+                        if (attr.getType().isDateType() || UMLMetafacadeUtils.isNumber(attr.getType())) {
+                            builder.append("String");
+                        } else {
+                            builder.append(attr.getType().getFullyQualifiedName());
+                        }
+
+                        if (attr.isMany()) {
+                            builder.append(">");
+                        }
+
+                        builder.append(" ");
+                        builder.append(attr.getFormPropertyId(param));
+
+                        if (it.hasNext() || iter.hasNext()) {
+                            builder.append(", \n\t\t\t");
+                        }
+                    }
+
+                } else {
+                    if (!param.isMany()) {
+                        builder.append("@javax.ws.rs.FormParam(\"");
+                        builder.append(param.getName());
+                        builder.append("\") ");
+                    }
+
+                    if (param.isMany()) {
+                        if (param.isUnique()) {
+                            builder.append("java.util.HashSet<");
+
+                        } else {
+                            builder.append("java.util.ArrayList<");
+
+                        }
+                    }
+
+                    if (param.getType().isDateType() || UMLMetafacadeUtils.isNumber(param.getType())) {
+                        builder.append("String");
+                    } else {
+                        builder.append(param.getType().getFullyQualifiedName());
+                    }
+
+                    if (param.isMany()) {
+                        builder.append(">");
+                    }
+
+                    builder.append(" ");
+                    builder.append(param.getName());
+                }
+
+                if (iter.hasNext()) {
+                    builder.append(", \n\t\t\t");
+                }
+            }
+        }
+
+        return builder.toString();
+
     }
 }

@@ -386,6 +386,12 @@
                     complex objects).
                 </documentation>
             </property>
+            <property name="transactionPersistenceType">
+                <default>spring</default>
+                <documentation>
+                    The type of webservice the controller uses.
+                </documentation>
+            </property>
             <property name="labelListPattern">
                 <default>{0}LabelList</default>
                 <documentation>

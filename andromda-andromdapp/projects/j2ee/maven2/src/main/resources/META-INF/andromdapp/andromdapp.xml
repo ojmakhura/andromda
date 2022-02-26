@@ -54,10 +54,14 @@
             <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestConfiguration.java.vsl</output>
             <output>webservice/src/main/resources/application.properties.vsl</output>
         </conditions>
-        <conditions>
+        <conditions type="and">
             <condition id="thymeleaf" equal="true"/>
+            <output>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringFoxConfig.java.vsl</output>
+        </conditions>
+        <conditions type="and">
+            <condition id="thymeleaf" equal="true"/>
+            <condition id="transactionPersistenceType" equal="spring"/>
             <output>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WebApplication.java.vsl</output>
-            <output>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SelectItem.java.vsl</output>
             <output>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringFoxConfig.java.vsl</output>
             <output>thymeleaf/target/src/main/resources/application.properties.vsl</output>
         </conditions>
@@ -185,7 +189,7 @@
             <to>web/src/main/resources/META-INF/context.xml.vsl</to>
         </mapping>
         <mapping>
-            <from>web/context.xml.vsl</from>
+            <from>webservice/context.xml.vsl</from>
             <to>webservice/src/main/resources/META-INF/context.xml.vsl</to>
         </mapping>
         <mapping>
@@ -530,7 +534,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     </condition>
                 </conditions>
             </prompt>
-            <prompt id="ngrx">
+            <!-- <prompt id="ngrx">
                 <text>Would you like to use NgRX in your angular frontend?</text>
                 <shortText>NgRX</shortText>
                 <preconditions>
@@ -540,7 +544,18 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>yes</response>
                     <response>no</response>
                 </responses>
-            </prompt>
+            </prompt> -->
+            <!-- <prompt id="thymeleafControllerType">
+                <text>Which REST technology do you want to use for Thymeleaf?</text>
+                <shortText>thymeleafControllerType</shortText>
+                <preconditions>
+                    <condition id="thymeleaf" equal="true"/>
+                </preconditions>
+                <responses>
+                    <response>jaxrs</response>
+                    <response>springREST</response>
+                </responses>
+            </prompt> -->
             <prompt id="jbossSeam" setResponseAsTrue="false">
                 <text>Would you like to use the JBoss Seam application framework?</text>
                 <shortText>Enable JBoss Seam</shortText>

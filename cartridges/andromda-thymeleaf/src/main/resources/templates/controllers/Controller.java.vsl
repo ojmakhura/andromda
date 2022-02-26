@@ -13,7 +13,6 @@ $controller.getDocumentation(" * ")
  */
 public interface $controller.name {
     
-
 ## #foreach ($operation in $controller.operations)
 ##     $operation.handleFormSignature
 ##         throws Throwable;
@@ -28,14 +27,21 @@ public interface $controller.name {
      * @throws Throwable
      * 
      */
-#if($action.tableLink)
-    @org.springframework.web.bind.annotation.GetMapping("${action.restPath}")
-#set($params = "$action.restQueryParams")
-#else
-    @org.springframework.web.bind.annotation.GetMapping("${action.restPath}")
 #set($params = "$action.restFormParams")
+#if($springController)
+    @org.springframework.web.bind.annotation.PostMapping({"${action.restPath}"})
+#set($params = "@org.springframework.web.bind.annotation.ModelAttribute $action.fullyQualifiedFormImplementationName $action.formBeanName, org.springframework.ui.Model model")
 #end
-    public String ${action.triggerName}(#if (!$action.formFields.empty)@org.springframework.web.bind.annotation.ModelAttribute $action.fullyQualifiedFormImplementationName $action.formBeanName#end, org.springframework.ui.Model model)
+#if($jaxrsController)
+#set($params = $thymeleafUtils.getRestFormParams($action))
+#if($action.tableLink)
+    @javax.ws.rs.GET
+#else
+    @javax.ws.rs.POST
+#end
+    @javax.ws.rs.Path("${action.restPath}")
+#end
+    public String ${action.triggerName}(#if (!$action.formFields.empty)$params#end)
             throws Throwable;
 #else
     /**
@@ -52,26 +58,33 @@ public interface $controller.name {
 #set ($useCaseParams = "")
 #set ($fieldPath = "")
 #set ( $d = '"')
-#foreach($field in $action.parameters)
-#if($useCaseParams.length() > 0)
-#set ($useCaseParams = "$useCaseParams, ")
+#if($springController)
+    @org.springframework.web.bind.annotation.PostMapping({"${action.restPath}"})
+#set($params = "@org.springframework.web.bind.annotation.ModelAttribute $action.fullyQualifiedFormImplementationName $action.formBeanName, org.springframework.ui.Model model")
 #end
-#if(!$field.complex)
-#set ($useCaseParams = "$useCaseParams @org.springframework.web.bind.annotation.PathVariable($d$field.name$d) $field.type.fullyQualifiedName $field.name")
-#set ($fieldPath = "$fieldPath/{$field.name}")
+#if($jaxrsController)
+#set($params = $thymeleafUtils.getRestFormParams($action))
+#if($action.tableLink)
+    @javax.ws.rs.GET
 #else
-#set ($useCaseParams = "$useCaseParams $field.type.fullyQualifiedName $field.name")
-#set ($fieldPath = "$fieldPath/{$field.name}")
+    @javax.ws.rs.POST
 #end
+    @javax.ws.rs.Path("${action.restPath}")
+// $thymeleafUtils.getRestFormParams($action)
 #end
-    @org.springframework.web.bind.annotation.GetMapping(#if($action.parameters.size() > 0){$d$d, $d$fieldPath$d}#else$d$d#end)
-    public String startUseCase(#if($action.parameters.size() > 0)$useCaseParams, #{end}org.springframework.ui.Model model) throws Throwable;
+    public String startUseCase(#if($action.parameters.size() > 0)$params#{end}) throws Throwable;
     
 #end
 #end
 #foreach ($view in $controller.useCase.views)
+#if($springController)
     @org.springframework.web.bind.annotation.GetMapping("${view.restPath}")
-    public String get$stringUtils.capitalize($stringUtils.deleteWhitespace(${view.name}))(org.springframework.ui.Model model);
+#end
+#if($jaxrsController)
+    @javax.ws.rs.GET
+    @javax.ws.rs.Path(#if($action.parameters.size() > 0){"", "${view.restPath}"}#else""#end)
+#end
+    public String get$stringUtils.capitalize($stringUtils.deleteWhitespace(${view.name}))(#if($springController)org.springframework.ui.Model model#end);
 
 #end
 }
