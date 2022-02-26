@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
+
 import org.andromda.cartridges.webservice.WebServiceGlobals;
 import org.andromda.cartridges.webservice.WebServiceUtils;
 import org.andromda.core.metafacade.MetafacadeBase;
@@ -267,59 +269,27 @@ public class WebServiceOperationLogicImpl
     @Override
     protected String handleGetRestPath()
     {
-        String path = (String)this.findTaggedValue(WebServiceGlobals.REST_PATH);
-
+        String path = Objects.toString(this.findTaggedValue(WebServiceGlobals.REST_PATH), "");
         if(StringUtils.isBlank(path)) {
-            return "";
+            path = "";
         }
 
-        StringBuilder pathBuffer = new StringBuilder();
-        if (path.equals(DEFAULT))
-        {
-            path = this.getName().toLowerCase();
-        }
-        
-        if(path.startsWith("/")) {
-            path = path.substring(1);
-        }
-        
-        if(path.endsWith("/")) {
-            path = path.substring(0, path.length() - 1);
-        }
+        StringBuilder builder = new StringBuilder();
+        builder.append(path);
 
-        if(path.length() > 0) {
-            pathBuffer.append(path);
-        }
-
-        String type = this.getRestRequestType().toLowerCase();
-
-        if(type.contains("get") || type.contains("delete")) {
-            for(ParameterFacade param : this.getArguments()) {
-                    
-                String paramName = param.getName();
-                if (!WebServiceUtils.isSimpleType(param)) {
-                    if(param instanceof WebServiceParameter) {
-                        
-                        WebServiceParameter p = (WebServiceParameter)param;                        
-                        paramName = p.getRestPathParam();
-                    }
-                }
-                if(pathBuffer.length() > 0) {
-                    pathBuffer.append(SLASH);
-                }
-
-                //pathBuffer.append(paramName).append(SLASH).append(LBRACKET).append(paramName).append(RBRACKET);
-                pathBuffer.append(LBRACKET).append(paramName).append(RBRACKET);
+        for(ParameterFacade parameter : this.getArguments()) {
+            WebServiceParameter param = (WebServiceParameter)parameter;
+            String paramType = param.getRestParamType();
+            if(paramType.contains("PathParam")) {
+                builder.append("/");
+                builder.append(parameter.getName());
+                builder.append("/{");
+                builder.append(parameter.getName());
+                builder.append("}");
             }
         }
 
-        if(pathBuffer.length() > 0) {
-            pathBuffer.insert(0, QUOTE);
-            pathBuffer.insert(1, SLASH);
-            pathBuffer.append(QUOTE);
-        }
-
-        return pathBuffer.toString();
+        return builder.toString();
     }
 
     /**

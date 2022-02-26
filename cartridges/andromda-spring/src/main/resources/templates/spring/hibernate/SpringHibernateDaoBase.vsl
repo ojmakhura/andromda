@@ -1252,10 +1252,10 @@ $h3tab        return results;
 
 #foreach($criteriaAttribute in $criteriaClass.getAttributes(true))
 #set ($capitalised = $stringUtils.capitalize($hibernateUtils.getAttributeName($criteriaAttribute.attributeName)))
-#set ($specName = "findBy${capitalised}")
+#set ($specName = "findBy${capitalised}#if($criteriaAttribute.many)In#end")
 #set ($attributeName = $criteriaAttribute.attributeName)
 #set ($getter = "get$stringUtils.capitalize($criteriaAttribute.name)()")
-#if($criteriaAttribute.type.stringType)
+#if($criteriaAttribute.type.stringType && !$criteriaAttribute.many)
 #set($nullCheck = "org.apache.commons.lang3.StringUtils.isNotBlank(${criteriaArgumentName}.${criteriaAttribute.getterName}())")
 #else
 #set($nullCheck = "${criteriaArgumentName}.${criteriaAttribute.getterName}() != null")

@@ -28,13 +28,13 @@
         <app-language-selector [icon]="true"></app-language-selector>
       </mat-toolbar>
       <nav>
-        <mat-list *ngFor="let item of menus">
+        <mat-nav-list *ngFor="let item of menus">
           <mat-divider></mat-divider>
           <a mat-list-item routerLink="{{ item.routerLink }}" routerLinkActive="active" (click)="isMobile && sidenav.close()">
             <span translate>{{ item.titleKey }}</span>
           </a>
           <mat-divider></mat-divider>
-        </mat-list>
+        </mat-nav-list>
       </nav>
     </mat-sidenav>
     <mat-sidenav-content>

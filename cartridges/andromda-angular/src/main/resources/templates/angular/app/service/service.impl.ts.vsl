@@ -21,22 +21,25 @@ export class ${service.implementationName} extends ${service.name} {
     }
 
 #foreach ($operation in $service.allowedOperations)
-#set ($restParams = $angularUtils.getMethodCallArguments($operation.arguments))
     public $operation.signature {
 
 #set ($methodName = $operation.restRequestType)
-#if ( $methodName.equals("get")) 
-        return this.http.${methodName}<$operation.returnTypeName>(this.path#if($operation.restPath.length() > 0) + $operation.restPath#end);
-#elseif ( $methodName.equals("delete")) 
-        return this.http.${methodName}<$operation.returnTypeName>(this.path#if($operation.restPath.length() > 0) + $operation.restPath#end);
-#else
 #if(!$operation.arguments.empty)
-        let formData: any = new FormData();
+#set($pathVars = "")
+#set($count = 0)
 #foreach ($arg in $operation.arguments)
-        formData.append("$arg.name", $arg.name)
+#set ($begin = "{")
+#set ($end = "}")
+#set ($dollar = "$")
+#set($pathVars = "$pathVars/$arg.name/$dollar${begin}${arg.name}$end")
 #end
 #end
-        return this.http.${methodName}<$operation.returnTypeName>(this.path#if($operation.restPath.length() > 0) + $operation.restPath#end#if (!$operation.arguments.empty), formData#end);
+#if ( $methodName.equals("get")) 
+        return this.http.${methodName}<$operation.returnTypeName>(this.path#if($operation.restPath.length() > 0) + `$operation.restPath`#end);
+#elseif ( $methodName.equals("delete")) 
+        return this.http.${methodName}<$operation.returnTypeName>(this.path#if($operation.restPath.length() > 0) + `$operation.restPath`#end);
+#else
+        return this.http.${methodName}<$operation.returnTypeName>(this.path#if($operation.restPath.length() > 0) + `$operation.restPath`#end#if (!$operation.arguments.empty), $angularUtils.getMethodCallArguments($operation.arguments)#end);
 #end
 
     }
