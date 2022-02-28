@@ -7,8 +7,10 @@ package $action.packageName;
 /**
 $action.getDocumentation(" * ")
  */
+#if($springController)
 @org.springframework.stereotype.Component(value = "$action.formBeanName")
 @org.springframework.web.context.annotation.RequestScope
+#end
 public class $action.formImplementationName
     implements java.io.Serializable#if ($stringUtils.isNotBlank($action.formImplementationInterfaceList)), $action.formImplementationInterfaceList#end
 

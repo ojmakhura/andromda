@@ -33,7 +33,7 @@ public interface $controller.name {
 #set($params = "@org.springframework.web.bind.annotation.ModelAttribute $action.fullyQualifiedFormImplementationName $action.formBeanName, org.springframework.ui.Model model")
 #end
 #if($jaxrsController)
-#set($params = $thymeleafUtils.getRestFormParams($action))
+#set($params = $thymeleafUtils.getRestFormParams($action, true))
 #if($action.tableLink)
     @javax.ws.rs.GET
 #else
@@ -63,14 +63,13 @@ public interface $controller.name {
 #set($params = "@org.springframework.web.bind.annotation.ModelAttribute $action.fullyQualifiedFormImplementationName $action.formBeanName, org.springframework.ui.Model model")
 #end
 #if($jaxrsController)
-#set($params = $thymeleafUtils.getRestFormParams($action))
+#set($params = $thymeleafUtils.getRestFormParams($action, false))
 #if($action.tableLink)
     @javax.ws.rs.GET
 #else
     @javax.ws.rs.POST
 #end
     @javax.ws.rs.Path("${action.restPath}")
-// $thymeleafUtils.getRestFormParams($action)
 #end
     public String startUseCase(#if($action.parameters.size() > 0)$params#{end}) throws Throwable;
     

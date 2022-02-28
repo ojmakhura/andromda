@@ -1358,7 +1358,7 @@ public class ThymeleafUtils
         return false;
     }
 
-    public static String getRestFormParams(ThymeleafAction action) {
+    public static String getRestFormParams(ThymeleafAction action, boolean stringifyNumber) {
 
         if (action.getFormFields() == null || action.getFormFields().size() == 0)
             return "";
@@ -1402,7 +1402,7 @@ public class ThymeleafUtils
                             }
                         }
 
-                        if (attr.getType().isDateType() || UMLMetafacadeUtils.isNumber(attr.getType())) {
+                        if (attr.getType().isDateType() || (stringifyNumber && UMLMetafacadeUtils.isNumber(attr.getType()))) {
                             builder.append("String");
                         } else {
                             builder.append(attr.getType().getFullyQualifiedName());
@@ -1437,7 +1437,7 @@ public class ThymeleafUtils
                         }
                     }
 
-                    if (param.getType().isDateType() || UMLMetafacadeUtils.isNumber(param.getType())) {
+                    if (param.getType().isDateType() || (stringifyNumber && UMLMetafacadeUtils.isNumber(param.getType()))) {
                         builder.append("String");
                     } else {
                         builder.append(param.getType().getFullyQualifiedName());

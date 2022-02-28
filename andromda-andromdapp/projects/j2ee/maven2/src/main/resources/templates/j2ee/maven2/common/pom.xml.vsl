@@ -31,10 +31,12 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
         </dependency>
+#if (!$spring && $cxf)
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
         </dependency>
+#end
 #if ($cxf && ($webservice.equals("soap") || $webservice.equals("both")))
         <!-- XMLBindingAnnotations dependencies -->
         <dependency>

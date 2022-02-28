@@ -8,7 +8,9 @@ package $managedBeansPackage;
 /**
  * Base class for all crud controllers
  */
+#if($springController)
 @org.springframework.stereotype.Repository
+#end
 public abstract class CrudControllerBase extends ControllerBase {
 
     /**

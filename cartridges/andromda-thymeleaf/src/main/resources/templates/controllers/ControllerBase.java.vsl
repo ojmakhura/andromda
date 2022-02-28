@@ -155,7 +155,7 @@ $action.trigger.getDocumentation("     * ")
 #set ($useCaseParams = "$useCaseParams @org.springframework.web.bind.annotation.PathVariable(name = $d$field.name$d, required = false) $field.type.fullyQualifiedName $field.name")
 #end
 #if($jaxrsController)
-#set ($useCaseParams = "$useCaseParams @javax.ws.rs.PathParam(name = $d$field.name$d) $field.type.fullyQualifiedName $field.name")
+#set ($useCaseParams = "$useCaseParams @javax.ws.rs.PathParam(value = $d$field.name$d) $field.type.fullyQualifiedName $field.name")
 #end
 #set ($fieldPath = "$fieldPath/$field.name/{$field.name}")
 #else
@@ -165,20 +165,22 @@ $action.trigger.getDocumentation("     * ")
 #end
 #if($springController)
     @org.springframework.web.bind.annotation.GetMapping(#if($action.parameters.size() > 0){$d$d, $d$fieldPath$d}#else$d$d#end)
+#set($params = "@org.springframework.web.bind.annotation.ModelAttribute $action.fullyQualifiedFormImplementationName $action.formBeanName, org.springframework.ui.Model model")
 #end
 #if($jaxrsController)
     @javax.ws.rs.GET
-    @javax.ws.rs.Path(#if($action.parameters.size() > 0){$d$d, $d$fieldPath$d}#else$d$d#end)
+    @javax.ws.rs.Path(#if($action.parameters.size() > 0)$d$fieldPath$d#else$d$d#end)
+#set($params = $thymeleafUtils.getRestFormParams($action, false))
 #end
     @Override
-    public String startUseCase(#if($action.parameters.size() > 0)$useCaseParams#{end}#if($springController), org.springframework.ui.Model model#end)
+    public String startUseCase(#if($action.parameters.size() > 0)$params#{end})
 #else
 #if($springController)
     @org.springframework.web.bind.annotation.PostMapping({"${action.restPath}"})
 #set($params = "@org.springframework.web.bind.annotation.ModelAttribute $action.fullyQualifiedFormImplementationName $action.formBeanName, org.springframework.ui.Model model")
 #end
 #if($jaxrsController)
-#set($params = $thymeleafUtils.getRestFormParams($action))
+#set($params = $thymeleafUtils.getRestFormParams($action, true))
 #if($action.tableLink)
     @javax.ws.rs.GET
 #else
@@ -246,7 +248,7 @@ $action.trigger.getDocumentation("     * ")
 #saveMessages($action "        ")
 #if ($formPopulationOperationRequired)
 #set ($viewPath = "/${action.controller.restPath}/${action.source.restPath}")
-        populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"${action.source.path}.html"#end, forward, form);
+        populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"${action.source.path.substring(1)}.${htmlFileExtension}"#end, forward, form);
 #foreach($field in $action.formFields)
 #if(!$field.actionParameter)
 
@@ -267,7 +269,7 @@ $action.trigger.getDocumentation("     * ")
 #if(!$action.exitingInitialState && !$action.enteringFinalState)
         if(forward != null)
         {
-            if(forward.startsWith("${action.source.path}.html"))
+            if(forward.startsWith("${action.source.path.substring(1)}.${htmlFileExtension}"))
             {
                 forward = get$stringUtils.capitalize($stringUtils.deleteWhitespace(${action.source.name}))(#if($springController)model#end); //the destination form is the same, stay on the current view
                 return forward;
@@ -280,18 +282,18 @@ $action.trigger.getDocumentation("     * ")
 #foreach ($view in $controller.useCase.views)
 #set ($viewPath = "${action.controller.restPath}/${view.restPath}")
         if(forward.startsWith("${viewPath}")) {
-            return "${view.path}.html";
+            return "${view.path.substring(1)}.${htmlFileExtension}";
         }
        
 #end
-        if(!forward.endsWith(".html")) {
+        if(!forward.endsWith(".${htmlFileExtension}")) {
             forward = "redirect:" + forward;
         }
 
         return forward;
 #else
 
-        if(!forward.endsWith(".html")) {
+        if(!forward.endsWith(".${htmlFileExtension}")) {
             forward = "redirect:" + forward;
         }
 
@@ -468,7 +470,7 @@ $decisionTransition.getDocumentation("     * ")
 #end
     public String get$stringUtils.capitalize($stringUtils.deleteWhitespace(${view.name}))(#if($springController)org.springframework.ui.Model model#end) {
 
-        return "${view.path}.html";
+        return "${view.path.substring(1)}.${htmlFileExtension}";
     }
 
 #end
