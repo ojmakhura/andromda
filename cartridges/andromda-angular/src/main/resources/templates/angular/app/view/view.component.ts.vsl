@@ -11,7 +11,8 @@ import { UseCaseScope } from '@app/utils/use-case-scope';
 import { SelectItem } from '@app/utils/select-item';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { ${view.useCase.actionClassName}State } from './store/${metafacadeWebUtils.toWebResourceName($view.useCase.name)}.reducer';
+#set ($base = "${metafacadeWebUtils.toWebResourceName($view.useCase.name)}")
+import { ${view.useCase.actionClassName}State } from '@app/store/$view.useCase.pathRoot/${base}.reducer';
 
 ## Find all the fields in the actions of the view
 #set($fieldSet =  $angularUtils.getFacadeSet($view.allFormFields))

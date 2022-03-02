@@ -470,6 +470,7 @@
         <angular.css.dir>${project.basedir}/../angular/css</angular.css.dir>
         <angular.test.dir>${project.basedir}/../angular/test</angular.test.dir>
         <angular.manual.dir>${project.basedir}/../angular/src/app</angular.manual.dir>
+        <angular.ngrx.dir>${angular.manual.dir}/store</angular.ngrx.dir>
         <angular.generated.dir>${project.basedir}/../angular/target/src/app</angular.generated.dir>
         <angular.model.dir>${angular.generated.dir}</angular.model.dir>
         <angular.service.dir>${angular.generated.dir}</angular.service.dir>
@@ -480,12 +481,6 @@
         <angular.view.impl.dir>${angular.manual.dir}</angular.view.impl.dir>
         <angular.form.dir>${angular.generated.dir}</angular.form.dir>
 #end
-## #if ($springws)		
-##         <springws.generated.dir>${project.basedir}/../springws/target</springws.generated.dir>
-##         <springws.generated.java.dir>${springws.generated.dir}/src/main/java</springws.generated.java.dir>
-##         <springws.manual.dir>${project.basedir}/../springws/src/main</springws.manual.dir>
-##         <springws.manual.java.dir>${springws.manual.dir}/java</springws.manual.java.dir>
-## #end
 #if ($webType.equals("jsf") || $webType.equals("both"))
         <web.generated.dir>${project.basedir}/../web/target</web.generated.dir>
         <web.generated.java.dir>${web.generated.dir}/src/main/java</web.generated.java.dir>
