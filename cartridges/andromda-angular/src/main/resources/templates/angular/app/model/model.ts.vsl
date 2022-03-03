@@ -39,7 +39,7 @@ export class $class.name {
 #if($attribute.many)
 #set ($default = "new Array()")
 #end
-    $attribute.name: $attribute.angularTypeName#if($attribute.many)[]#end = null; //$default;
+    $attribute.name: $attribute.angularTypeName#if($attribute.many)[]#end | any#if($attribute.many)[]#end = null;
 #end
 #end
     

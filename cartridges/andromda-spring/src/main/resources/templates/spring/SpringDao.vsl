@@ -711,10 +711,10 @@ $operation.getDocumentation("     * ")
 #end
      */
 #if ($operation.exceptionsPresent)
-    $operation.visibility $returnType ${operation.name}(final int transform, final int pageNumber, final int pageSize#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end)
+    $operation.visibility org.springframework.data.domain.Page<$entity.name> ${operation.name}(final org.springframework.data.domain.Pageable pageable#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end)
         throws $operation.exceptionList;
 #else
-    $operation.visibility $returnType ${operation.name}(final int transform, final int pageNumber, final int pageSize#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end);
+    $operation.visibility org.springframework.data.domain.Page<$entity.name> ${operation.name}(final org.springframework.data.domain.Pageable pageable#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end);
 #end
 
 #end

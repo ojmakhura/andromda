@@ -82,56 +82,56 @@ public interface ${entity.name}Repository extends
     
 #end
 ## Deal with query operations
-#if ($daoInheritance)
-#set ($queryOperations = $entity.getQueryOperations(true))
-#else
-#set ($queryOperations = $entity.queryOperations)
-#end
-#foreach ($finder in $queryOperations)
-#set($criteriaArgument = $finder.criteriaArgument)
-#set($criteriaArgumentName = $criteriaArgument.name)
-#if ($finder.returnTypePresent)
-#if ($finder.returnType.collectionType)
-#set ($returnType = "${finder.getterSetterReturnTypeName}#if($enableTemplating)<$finder.returnType.name>#end")
-#elseif ($finder.many)
-#set ($returnType = "$finder.getterSetterReturnTypeName.substring(0,$finder.getterSetterReturnTypeName.indexOf('<'))<$finder.returnType.name>")
-#else
-#set ($returnType = "Object")
-#end
-#else
-#set ($returnType = "void")
-#end
-#set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
-#set ($typedAttributes = "")
-    @org.springframework.data.jpa.repository.Query(
-        value = $finder.getQuery($entity)
-    )
-    $returnType ${finder.name}(
-#if($finder.criteriaFinder)
-#set($criteriaArgument = $finder.criteriaArgument)
-#set($criteriaArgumentName = $criteriaArgument.name)
-#set($criteriaClass = $criteriaArgument.type)
-#set ($i = 1)
-#set ($attributes = $criteriaClass.getAttributes(true))
-#foreach($criteriaAttribute in $attributes)
-#if($criteriaAttribute.many)
-#set ($type = "java.util.Collection<$criteriaAttribute.type.fullyQualifiedName>")
-#else
-#set ($type = "$criteriaAttribute.type.fullyQualifiedName")
-#end
-        @org.springframework.data.repository.query.Param("$criteriaAttribute.name") $type $criteriaAttribute.name#if($i < $attributes.size()),
-#end
-#set ($i = $i + 1)
-#end
-#else
-#set ($i = 1)
-#foreach($arg in $finder.arguments)
-        #if($i > 1), #end@org.springframework.data.repository.query.Param("$arg.name") $arg.type.fullyQualifiedName $arg.name
-#set ($i = $i + 1)
-#end
-#end
-    );
-#end
+## #if ($daoInheritance)
+## #set ($queryOperations = $entity.getQueryOperations(true))
+## #else
+## #set ($queryOperations = $entity.queryOperations)
+## #end
+## #foreach ($finder in $queryOperations)
+## #set($criteriaArgument = $finder.criteriaArgument)
+## #set($criteriaArgumentName = $criteriaArgument.name)
+## #if ($finder.returnTypePresent)
+## #if ($finder.returnType.collectionType)
+## #set ($returnType = "${finder.getterSetterReturnTypeName}#if($enableTemplating)<$finder.returnType.name>#end")
+## #elseif ($finder.many)
+## #set ($returnType = "$finder.getterSetterReturnTypeName.substring(0,$finder.getterSetterReturnTypeName.indexOf('<'))<$finder.returnType.name>")
+## #else
+## #set ($returnType = "Object")
+## #end
+## #else
+## #set ($returnType = "void")
+## #end
+## #set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
+## #set ($typedAttributes = "")
+##     @org.springframework.data.jpa.repository.Query(
+##         value = $finder.getQuery($entity)
+##     )
+##     $returnType ${finder.name}(
+## #if($finder.criteriaFinder)
+## #set($criteriaArgument = $finder.criteriaArgument)
+## #set($criteriaArgumentName = $criteriaArgument.name)
+## #set($criteriaClass = $criteriaArgument.type)
+## #set ($i = 1)
+## #set ($attributes = $criteriaClass.getAttributes(true))
+## #foreach($criteriaAttribute in $attributes)
+## #if($criteriaAttribute.many)
+## #set ($type = "java.util.Collection<$criteriaAttribute.type.fullyQualifiedName>")
+## #else
+## #set ($type = "$criteriaAttribute.type.fullyQualifiedName")
+## #end
+##         @org.springframework.data.repository.query.Param("$criteriaAttribute.name") $type $criteriaAttribute.name#if($i < $attributes.size()),
+## #end
+## #set ($i = $i + 1)
+## #end
+## #else
+## #set ($i = 1)
+## #foreach($arg in $finder.arguments)
+##         #if($i > 1), #end@org.springframework.data.repository.query.Param("$arg.name") $arg.type.fullyQualifiedName $arg.name
+## #set ($i = $i + 1)
+## #end
+## #end
+##     );
+## #end
 
 #if($entity.manageableDaoName && $entity.manageableAttributes.size() > 0)
 #set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
