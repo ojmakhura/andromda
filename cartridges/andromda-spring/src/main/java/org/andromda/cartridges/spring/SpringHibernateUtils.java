@@ -314,4 +314,5 @@ public class SpringHibernateUtils
 
         return joins;
     }
+
 }
