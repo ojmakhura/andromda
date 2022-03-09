@@ -22,7 +22,7 @@ null;
 closeDialog();
 #end
 #elseif ($transition.enteringView)
-"${transition.target.path.substring(1)}.${htmlFileExtension}";
+"/${transition.target.path.substring(1)}.${htmlFileExtension}";
 #elseif ($transition.enteringDecisionPoint)
 __${transition.operationCall.name}(#if (!$action.formFields.empty)form#end#if($springController), model#end);
 #else

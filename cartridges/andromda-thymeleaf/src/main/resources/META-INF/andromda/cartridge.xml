@@ -553,7 +553,7 @@
 
     <template
         path="templates/views/view-hidden-parameters.html.vsl"
-        outputPattern="views/${action.viewFragmentPath}-hidden-params.html"
+        outputPattern="${action.viewFragmentPath}-hidden-params.html"
         outlet="views"
         overwrite="true">
         <modelElements variable="action">
@@ -927,7 +927,7 @@
 
     <template
         path="templates/views/view.html.vsl"
-        outputPattern="views/${view.path}.html"
+        outputPattern="${view.path}.html"
         outlet="views"
         overwrite="true">
         <modelElements variable="view">
@@ -973,7 +973,7 @@
 
     <template
         path="templates/views/layout/navigation.html.vsl"
-        outputPattern="views/layout/navigation.html"
+        outputPattern="layout/navigation.html"
         outlet="views"
         overwrite="true"
         outputToSingleFile="true"
@@ -992,7 +992,7 @@
 
     <template
         path="templates/views/layout/registration-layout.html.vsl"
-        outputPattern="views/layout/registration-layout.html"
+        outputPattern="layout/registration-layout.html"
         outlet="views"
         overwrite="true"
         outputToSingleFile="true"
@@ -1028,7 +1028,7 @@
 
     <template
         path="templates/views/crud/view-search.html.vsl"
-        outputPattern="views/$generatedFile"
+        outputPattern="$generatedFile"
         outlet="views"
         overwrite="true">
         <modelElements variable="manageable">
@@ -1042,7 +1042,7 @@
 
     <template
         path="templates/views/crud/view-edit.html.vsl"
-        outputPattern="views/$generatedFile"
+        outputPattern="$generatedFile"
         outlet="views"
         overwrite="true">
         <modelElements variable="manageable">
@@ -1056,7 +1056,7 @@
 
     <template
         path="templates/views/login.html.vsl"
-        outputPattern="views/${loginFileName}.html"
+        outputPattern="${loginFileName}.html"
         outlet="views"
         overwrite="true"
         outputToSingleFile="true">
@@ -1071,7 +1071,7 @@
 
     <template
         path="templates/views/view-action.html.vsl"
-        outputPattern="views/${action.viewFragmentPath}.html"
+        outputPattern="${action.viewFragmentPath}.html"
         outlet="views"
         overwrite="true">
         <modelElements variable="action">
@@ -1086,7 +1086,7 @@
 
     <template
         path="templates/views/view-table.html.vsl"
-        outputPattern="views/${table.view.path}-${table.name}.html"
+        outputPattern="${table.view.path}-${table.name}.html"
         outlet="views"
         overwrite="true">
         <modelElements>
@@ -1100,7 +1100,7 @@
 
     <template
         path="templates/views/view-variables.html.vsl"
-        outputPattern="views/${view.path}-vars.html"
+        outputPattern="${view.path}-vars.html"
         outlet="views"
         overwrite="true">
         <modelElements variable="view">

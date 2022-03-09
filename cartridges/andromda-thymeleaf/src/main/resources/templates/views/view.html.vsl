@@ -2,7 +2,7 @@
 #if ($view.useCase.registrationUseCase)
 #set ($layout = "/layout/registration-layout")
 #else
-#set ($layout = "/layout/layout")
+#set ($layout = "layout/layout")
 #end
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"

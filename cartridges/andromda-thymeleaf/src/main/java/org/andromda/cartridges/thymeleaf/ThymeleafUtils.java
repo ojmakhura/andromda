@@ -1460,4 +1460,91 @@ public class ThymeleafUtils
         return builder.toString();
 
     }
+
+    public static String getCallArgs(ThymeleafAction action) {
+
+        if (action.getFormFields() == null || action.getFormFields().size() == 0)
+            return "";
+
+        StringBuilder builder = new StringBuilder();
+
+        Iterator<FrontEndParameter> iter = action.getParameters().iterator();
+
+        while (iter.hasNext()) {
+            ThymeleafParameter param = (ThymeleafParameter) iter.next();
+
+            if (param.isActionParameter()) {
+
+                if (param.isComplex() && !param.getType().isEnumeration()) {
+
+                    Iterator it = param.getAttributes().iterator();
+                    while (it.hasNext()) {
+
+                        ThymeleafAttribute attr = (ThymeleafAttribute) it.next();
+
+                        builder.append(attr.getFormPropertyId(param));
+
+                        if (it.hasNext() || iter.hasNext()) {
+                            builder.append(", \n\t\t\t");
+                        }
+                    }
+
+                } else {
+                    
+                    builder.append(" ");
+                    builder.append(param.getName());
+                }
+
+                if (iter.hasNext()) {
+                    builder.append(", \n\t\t\t");
+                }
+            }
+        }
+
+        return builder.toString();
+
+    }
+
+    public static String getNullCallArgs(ThymeleafAction action) {
+
+        if (action.getFormFields() == null || action.getFormFields().size() == 0)
+            return "";
+
+        StringBuilder builder = new StringBuilder();
+
+        Iterator<FrontEndParameter> iter = action.getParameters().iterator();
+
+        while (iter.hasNext()) {
+            ThymeleafParameter param = (ThymeleafParameter) iter.next();
+
+            if (param.isActionParameter()) {
+
+                if (param.isComplex() && !param.getType().isEnumeration()) {
+
+                    Iterator it = param.getAttributes().iterator();
+                    while (it.hasNext()) {
+
+                        ThymeleafAttribute attr = (ThymeleafAttribute) it.next();
+
+                        builder.append("null");
+
+                        if (it.hasNext() || iter.hasNext()) {
+                            builder.append(", \n\t\t\t");
+                        }
+                    }
+
+                } else {
+                    
+                    builder.append("null");
+                }
+
+                if (iter.hasNext()) {
+                    builder.append(", \n\t\t\t");
+                }
+            }
+        }
+
+        return builder.toString();
+
+    }
 }
