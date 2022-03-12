@@ -1353,6 +1353,16 @@ public class UMLMetafacadeUtils
         return roles;
     }
 
+    public static Collection getPresentationClass(ModelElementFacade modelElement) {
+        Collection roles = modelElement.findTaggedValues(UMLProfile.TAGGEDVALUE_PRESENTATION_CLASS);
+        
+        if(CollectionUtils.isEmpty(roles)) {
+            return null;
+        }
+        
+        return roles;
+    }
+
     public static String getTargetUrl(ModelElementFacade modelElement) {
         String url = StringUtils.stripToNull(((String) modelElement.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_TARGETURL)));
                 

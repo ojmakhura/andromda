@@ -483,4 +483,10 @@ public class FrontEndViewLogicImpl
                 
         return UMLMetafacadeUtils.getRestPath(this, this.getName());
     }
+
+    @Override
+    protected Collection<String> handleGetFrontEndClasses() {
+        
+        return UMLMetafacadeUtils.getPresentationClass(this);
+    }
 }

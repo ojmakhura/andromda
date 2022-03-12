@@ -736,4 +736,10 @@ public class FrontEndActionLogicImpl
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    protected Collection<String> handleGetFrontEndClasses() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

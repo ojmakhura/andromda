@@ -974,4 +974,10 @@ public class FrontEndAttributeLogicImpl
     protected String handleGetInputAction() {
         return MetafacadeWebUtils.getInputAction(this);
     }
+
+    @Override
+    protected Collection<String> handleGetFrontEndClasses() {
+        
+        return UMLMetafacadeUtils.getPresentationClass(this);
+    }
 }
