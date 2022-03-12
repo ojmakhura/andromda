@@ -927,4 +927,10 @@ public class FrontEndActionLogicImpl
     protected Collection handleGetAllowedRoles() {
         return UMLMetafacadeUtils.getAllowedRoles(this);
     }
+
+    @Override
+    protected Collection<String> handleGetFrontEndClasses() {
+        
+        return UMLMetafacadeUtils.getPresentationClass(this);
+    }
 }

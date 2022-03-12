@@ -392,6 +392,14 @@ public class UMLProfile {
                         "PRESENTATION_ACCESS_ROLES");
 
         /**
+         * 'andromda_presentation_access_roles'
+         * Used to assign the controller to the activity (when it can not be assigned
+         * explicitly).
+         */
+        public static final String TAGGEDVALUE_PRESENTATION_CLASS = profile.get(
+                        "PRESENTATION_CLASS");
+
+        /**
          * 'andromda_presentation_view_table_columns'
          * Used to assign the table columns to a collection/array type parameter
          * representing a table.

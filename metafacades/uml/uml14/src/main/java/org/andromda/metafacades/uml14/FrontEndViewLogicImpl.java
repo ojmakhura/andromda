@@ -388,4 +388,10 @@ public class FrontEndViewLogicImpl
                 
         return UMLMetafacadeUtils.getRestPath(this, this.getName());
     }
+
+    @Override
+    protected Collection<String> handleGetFrontEndClasses() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

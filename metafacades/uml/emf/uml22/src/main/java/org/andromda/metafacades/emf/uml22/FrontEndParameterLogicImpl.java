@@ -27,6 +27,7 @@ import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.metafacades.uml.web.MetafacadeWebGlobals;
@@ -1235,5 +1236,11 @@ public class FrontEndParameterLogicImpl
     @Override
     protected String handleGetInputAction() {
         return MetafacadeWebUtils.getInputAction(this);
+    }
+
+    @Override
+    protected Collection<String> handleGetFrontEndClasses() {
+        
+        return UMLMetafacadeUtils.getPresentationClass(this);
     }
 }
