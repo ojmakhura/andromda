@@ -101,6 +101,11 @@
                     Where the auto generated application menus are saved.
                 </documentation>
             </property>
+            <property name="ngrx-store">
+                <documentation>
+                    Top level directory for generating ngrx store files.
+                </documentation>
+            </property>
             <property name="shell-impls">
                 <documentation>
                     Where the application menus.

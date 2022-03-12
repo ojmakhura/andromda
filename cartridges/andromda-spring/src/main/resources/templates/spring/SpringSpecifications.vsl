@@ -14,22 +14,34 @@ public final class ${entity.name}Specifications {
 #if($attribute.name != "id" && !$attribute.type.clobType && !$attribute.type.blobType && !$attribute.type.fileType)
 #if(!$attribute.required)
     public static Specification<$entity.name> findBy${capitalised}Null($attribute.type.fullyQualifiedName $attribute.name) {
-        return (root, cq, cb) -> cb.isNull(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"));
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.isNull(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"));
+        };
     }
 
 #end   
 #if(!$attribute.booleanType)
     public static Specification<$entity.name> findBy${capitalised}($attribute.type.fullyQualifiedName $attribute.name) {
-        return (root, cq, cb) -> cb.equal(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), $attribute.name);
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.equal(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), $attribute.name);
+        };
     }
 
 #else
     public static Specification<$entity.name> findBy${capitalised}False(){
-        return (root, cq, cb) -> cb.isFalse(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"));
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.isFalse(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"));
+        };
     }
 
-    Specification<$entity.name> findBy${capitalised}True(){
-        return (root, cq, cb) -> cb.isTrue(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"));
+    public static Specification<$entity.name> findBy${capitalised}True(){
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.isTrue(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"));
+        };
     }
 
 #end
@@ -37,68 +49,125 @@ public final class ${entity.name}Specifications {
 ## Other derived queries
 #if($attribute.type.stringType)
     public static Specification<$entity.name> findBy${capitalised}StartingWithIgnoreCase($attribute.type.fullyQualifiedName $attribute.name){
-        return (root, cq, cb) -> cb.equal(cb.upper(root.<$attribute.type.fullyQualifiedName>get("$attribute.name")), ${attribute.name}.toUpperCase() + "%");
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.equal(cb.upper(root.<$attribute.type.fullyQualifiedName>get("$attribute.name")), ${attribute.name}.toUpperCase() + "%");
+        };
     }
     
     public static Specification<$entity.name> findBy${capitalised}EndingWithIgnoreCase($attribute.type.fullyQualifiedName $attribute.name){
-        return (root, cq, cb) -> cb.equal(cb.upper(root.<$attribute.type.fullyQualifiedName>get("$attribute.name")), "%" + ${attribute.name}.toUpperCase());
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.equal(cb.upper(root.<$attribute.type.fullyQualifiedName>get("$attribute.name")), "%" + ${attribute.name}.toUpperCase());
+        };
     }
     
     public static Specification<$entity.name> findBy${capitalised}ContainingIgnoreCase($attribute.type.fullyQualifiedName $attribute.name){
-        return (root, cq, cb) -> cb.equal(cb.upper(root.<$attribute.type.fullyQualifiedName>get("$attribute.name")), "%" + ${attribute.name}.toUpperCase() + "%");
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.equal(cb.upper(root.<$attribute.type.fullyQualifiedName>get("$attribute.name")), "%" + ${attribute.name}.toUpperCase() + "%");
+        };
     }
     
     public static Specification<$entity.name> findBy${capitalised}LikeIgnoreCase($attribute.type.fullyQualifiedName $attribute.name){
-        return (root, cq, cb) -> cb.like(cb.upper(root.<$attribute.type.fullyQualifiedName>get("$attribute.name")), "%" + ${attribute.name}.toUpperCase() + "%");
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.like(cb.upper(root.<$attribute.type.fullyQualifiedName>get("$attribute.name")), "%" + ${attribute.name}.toUpperCase() + "%");
+        };
     }
     
     public static Specification<$entity.name> findBy${capitalised}NotLikeIgnoreCase($attribute.type.fullyQualifiedName $attribute.name){
-        return (root, cq, cb) -> cb.notLike(cb.upper(root.<$attribute.type.fullyQualifiedName>get("$attribute.name")), "%" + ${attribute.name}.toUpperCase() + "%");
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.notLike(cb.upper(root.<$attribute.type.fullyQualifiedName>get("$attribute.name")), "%" + ${attribute.name}.toUpperCase() + "%");
+        };
     }
     
     public static Specification<$entity.name> findBy${capitalised}Containing($attribute.type.fullyQualifiedName $attribute.name){
-        return (root, cq, cb) -> cb.like(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), "%" + ${attribute.name}.toUpperCase() + "%");
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.like(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), "%" + ${attribute.name}.toUpperCase() + "%");
+        };
     }
     
 #elseif($attribute.type.dateType)
     public static Specification<$entity.name> findBy${capitalised}After($attribute.type.fullyQualifiedName $attribute.name){
-        return (root, cq, cb) -> cb.greaterThanOrEqualTo(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), $attribute.name);
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.greaterThanOrEqualTo(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), $attribute.name);
+        };
     }
     
     public static Specification<$entity.name> findBy${capitalised}Before($attribute.type.fullyQualifiedName $attribute.name){
-        return (root, cq, cb) -> cb.lessThanOrEqualTo(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), $attribute.name);
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.lessThanOrEqualTo(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), $attribute.name);
+        };
     }
     
     public static Specification<$entity.name> findBy${capitalised}Between($attribute.type.fullyQualifiedName ${attribute.name}Start, $attribute.type.fullyQualifiedName ${attribute.name}End){
-        return (root, cq, cb) -> cb.between(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), ${attribute.name}Start, ${attribute.name}End);
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.between(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), ${attribute.name}Start, ${attribute.name}End);
+        };
     }
     
 #elseif($umlMetafacadeUtils.isNumber( $attribute.type))
     public static Specification<$entity.name> findBy${capitalised}LessThan($attribute.type.fullyQualifiedName $attribute.name){
-        return (root, cq, cb) -> cb.lessThan(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), $attribute.name);
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.lessThan(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), $attribute.name);
+        };
     }
     
     public static Specification<$entity.name> findBy${capitalised}LessThanEqual($attribute.type.fullyQualifiedName $attribute.name){
-        return (root, cq, cb) -> cb.lessThanOrEqualTo(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), $attribute.name);
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.lessThanOrEqualTo(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), $attribute.name);
+        };
     }
     
     public static Specification<$entity.name> findBy${capitalised}GreaterThan($attribute.type.fullyQualifiedName $attribute.name){
-        return (root, cq, cb) -> cb.greaterThan(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), $attribute.name);
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.greaterThan(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), $attribute.name);
+        };
     }
     
     public static Specification<$entity.name> findBy${capitalised}GreaterThanEqual($attribute.type.fullyQualifiedName $attribute.name){
-        return (root, cq, cb) -> cb.greaterThanOrEqualTo(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), $attribute.name);
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.greaterThanOrEqualTo(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), $attribute.name);
+        };
     }
     
     public static Specification<$entity.name> findBy${capitalised}Between($attribute.type.fullyQualifiedName ${attribute.name}Start, $attribute.type.fullyQualifiedName ${attribute.name}End){
-        return (root, cq, cb) -> cb.between(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), ${attribute.name}Start, ${attribute.name}End);
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.between(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), ${attribute.name}Start, ${attribute.name}End);
+        };
     }
 
 #end
+#if($attribute.many)
     public static Specification<$entity.name> findBy${capitalised}In(java.util.Collection<$attribute.type.fullyQualifiedName> ${attribute.name}In){
 
-        return (root, cq, cb) -> root.<$attribute.type.fullyQualifiedName>get("${attribute.name}").in(${attribute.name}In));
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return root.join("${attribute.name}").in(${attribute.name}In);
+        };
     }
+
+#else
+    public static Specification<$entity.name> findBy${capitalised}In(java.util.Collection<$attribute.type.fullyQualifiedName> ${attribute.name}In){
+
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return root.<$attribute.type.fullyQualifiedName>get("${attribute.name}").in(${attribute.name}In);
+        };
+    }
+
+#end
 
 #end
 #foreach ($associationEnd in $entity.associationEnds)
@@ -111,7 +180,7 @@ public final class ${entity.name}Specifications {
 #set ($capitalisedIdentifier = ${stringUtils.capitalize($identifier.name)})
     // Specifications for $target.getterSetterTypeName $target.name
     public static Specification<$entity.name> findBy${capitalised}${capitalisedIdentifier}In(java.util.Collection<$identifier.type.fullyQualifiedName> ${identifier.name}s) {
-        return (root, query, cb) -> {
+        return (root, cq, cb) -> {
             
 #if ($associationEnd.many2One)
             // Many to One
@@ -122,13 +191,14 @@ public final class ${entity.name}Specifications {
 #elseif ($associationEnd.many2Many)
             // Many to Many
 #end
+            cq.distinct(true);
             javax.persistence.criteria.Join<$entity.name, $target.type.fullyQualifiedEntityName> ${target.name}Join = root.join("$target.name");
             return cb.in(${target.name}Join.get("$identifier.name").in(${identifier.name}s));
         };
     }
 
     public static Specification<$entity.name> findBy${capitalised}${capitalisedIdentifier}($identifier.type.fullyQualifiedName ${identifier.name}) {
-        return (root, query, cb) -> {
+        return (root, cq, cb) -> {
             
 #if ($associationEnd.many2One)
             // Many to One
@@ -139,6 +209,7 @@ public final class ${entity.name}Specifications {
 #elseif ($associationEnd.many2Many)
             // Many to Many
 #end
+            cq.distinct(true);
             javax.persistence.criteria.Join<$entity.name, $target.type.fullyQualifiedEntityName> ${target.name}Join = root.join("$target.name");
             return cb.equal(${target.name}Join.get("$identifier.name"), ${identifier.name});
         };
@@ -156,7 +227,9 @@ public final class ${entity.name}Specifications {
 #set($criteriaArgumentName = $criteriaArgument.name)
 #set($criteriaClass = $criteriaArgument.type)
 #foreach($criteriaAttribute in $criteriaClass.getAttributes(true))
-#if($hibernateUtils.isJoin($criteriaAttribute.attributeName) && $hibernateUtils.joinLength($criteriaAttribute.attributeName) > 2)
+#set($isJoin = $hibernateUtils.isJoin($criteriaAttribute.attributeName))
+#set($joinLength = $hibernateUtils.joinLength($criteriaAttribute.attributeName))
+#if($isJoin && $joinLength > 2)
 #set ($capitalised = $stringUtils.capitalize($hibernateUtils.getAttributeName($criteriaAttribute.attributeName)))
 #set ($specName = "findBy${capitalised}")
 #set ($attributeName = $criteriaAttribute.attributeName)
@@ -197,7 +270,10 @@ public final class ${entity.name}Specifications {
 #end
 
     public static Specification<$entity.name> ${specName}($criteriaAttribute.getterSetterTypeName $criteriaAttribute.name) {
-        return (root, cq, cb) -> cb.${comparator}(root.get("$criteriaAttribute.attributeName"), $matchMode);
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.${comparator}(root.get("$criteriaAttribute.attributeName"), $matchMode);
+        };
     }
 #end
 #end

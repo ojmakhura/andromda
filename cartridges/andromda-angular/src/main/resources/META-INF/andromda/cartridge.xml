@@ -180,25 +180,6 @@
         </modelElements>
     </template>
     
-    <!-- <template
-        path="templates/angular/app/shell/shell.component.html.vsl"
-        outputPattern="shell.component.html"
-        outlet="shell"
-        overwrite="true"
-        outputToSingleFile="true"
-        generateEmptyFiles="true">
-        <modelElements>
-            <modelElement variable="useCases">
-                <type name="org.andromda.cartridges.angular.metafacades.AngularUseCase"/>
-            </modelElement>
-            <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.angular.metafacades.AngularManageableEntity">
-                    <property name="needsUserInterface"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
     <template
         path="templates/angular/app/shell/navigation.ts.vsl"
         outputPattern="navigation.ts"
@@ -347,7 +328,7 @@
     <template
         path="templates/angular/app/usecase/store/action.store.ts.vsl"
         outputPattern="${path}/${fileName}.ts"
-        outlet="view-impls"
+        outlet="ngrx-store"
         overwrite="false">
         <modelElements variable="controller">
             <modelElement>
@@ -361,7 +342,7 @@
     <template
         path="templates/angular/app/usecase/store/reducer.store.ts.vsl"
         outputPattern="${path}/${fileName}.ts"
-        outlet="view-impls"
+        outlet="ngrx-store"
         overwrite="false">
         <modelElements variable="controller">
             <modelElement>
@@ -375,7 +356,7 @@
     <template
         path="templates/angular/app/usecase/store/selector.store.ts.vsl"
         outputPattern="${path}/${fileName}.ts"
-        outlet="view-impls"
+        outlet="ngrx-store"
         overwrite="false">
         <modelElements variable="controller">
             <modelElement>
@@ -389,7 +370,7 @@
     <template
         path="templates/angular/app/usecase/store/effect.store.ts.vsl"
         outputPattern="${path}/${fileName}.ts"
-        outlet="view-impls"
+        outlet="ngrx-store"
         overwrite="false">
         <modelElements variable="controller">
             <modelElement>

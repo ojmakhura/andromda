@@ -591,6 +591,7 @@
                 <property name="jaxb-gen">${common.generated.dir}</property>
 #end
 #if($ngrx)
+                <property name="ngrx-store">${aangular.ngrx.dir}</property>
                 <property name="ngrx">true</property>
 #end
             </properties>

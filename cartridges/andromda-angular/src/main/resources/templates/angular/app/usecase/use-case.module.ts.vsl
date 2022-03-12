@@ -19,15 +19,13 @@ import { $import.tableComponentImplementationName } from '@app/${import.implemen
 import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
 #end
 #end
-##if ($view.nonTableVariablesPresent)
-##import { ${view.varsComponentImplementationName} } from '@app/${view.varsComponentImplementationFilePath}';
-##end
 #end
 #if($ngrx)
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { ${stringUtils.uncapitalize(${useCase.actionClassName})}Feature } from './store/${stringUtils.uncapitalize(${useCase.actionClassName})}.reducer';
-import { ${useCase.actionClassName}Effects } from './store/${stringUtils.uncapitalize(${useCase.actionClassName})}.effect';
+#set ($base = "${metafacadeWebUtils.toWebResourceName($useCase.name)}")
+import { ${stringUtils.uncapitalize(${useCase.actionClassName})}Feature } from '@app/store/$useCase.pathRoot/${base}.reducer';
+import { ${useCase.actionClassName}Effects } from '@app/store/$useCase.pathRoot/${base}.effect';
 #end
 
 @NgModule({
