@@ -122,6 +122,7 @@ public class FrontEndAttributeLogicImpl
      */
     protected boolean handleIsInputImage()
     {
+        
         return this.isInputType(MetafacadeWebGlobals.INPUT_IMAGE);
     }
 

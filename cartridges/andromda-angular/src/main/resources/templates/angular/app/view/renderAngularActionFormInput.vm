@@ -47,6 +47,8 @@ ${ident}			<mat-row *matRowDef="let row; columns: ${parameter.name}Columns;"></m
 ${ident}		</mat-table>
 ${ident}		<mat-paginator #${parameter.name}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
 ${ident}	</div>
+#elseif($parameter.inputCheckbox)
+${ident}    <mat-checkbox class="$propertyId" translate>$parameter.messageKey</mat-checkbox>
 #else
 ${ident}	<mat-form-field>
 ${ident}		<mat-label translate>$parameter.messageKey</mat-label> 
