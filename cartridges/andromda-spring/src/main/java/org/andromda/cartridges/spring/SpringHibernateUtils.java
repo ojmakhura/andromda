@@ -292,6 +292,31 @@ public class SpringHibernateUtils
         return attributeName;
     }
 
+    public String getFirstJoinName(String name) {
+
+        if(name == null || name.length() == 0) {
+            return null;
+        }
+
+        String[] splits = name.split("\\.");
+        return splits[0];
+    }
+
+    public String getSecondJoinName(String name) {
+
+        if(name == null || name.length() == 0) {
+            return null;
+        }
+        
+        String[] splits = name.split("\\.");
+
+        if(splits.length > 2) {
+            return null;
+        }
+
+        return splits[0];
+    }
+
     public boolean isJoin(String attributeName) {
         return attributeName.contains(".");
     }
