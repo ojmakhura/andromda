@@ -139,6 +139,31 @@ $class.getDocumentation("     * ")
         this.maximumResultSize = maximumResultSize;
     }
 
+    /**
+     * The page number of the result set.
+     */
+    private Integer pageNumber;
+
+    /**
+     * Gets the page number of the search result.
+     *
+     * @return the page number of the search result.
+     */
+    public Integer getPageNumber()
+    {
+        return this.pageNumber;
+    }
+
+    /**
+     * Sets the page number of the result.
+     *
+     * @param pageNumber A number indicating how many results will be returned.
+     */
+    public void setPageNumber(Integer pageNumber)
+    {
+        this.pageNumber = pageNumber;
+    }
+
 #foreach ( $attribute in $class.attributes )
     private $attribute.getterSetterTypeName $attribute.name;
 
