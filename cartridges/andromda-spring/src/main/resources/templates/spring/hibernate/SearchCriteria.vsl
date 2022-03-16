@@ -92,7 +92,7 @@ $class.getDocumentation("     * ")
     /**
      * The fetch size.
      */
-    private Integer fetchSize;
+    private Integer fetchSize = 0;
 
     /**
      * Gets the fetch size.
@@ -142,7 +142,7 @@ $class.getDocumentation("     * ")
     /**
      * The page number of the result set.
      */
-    private Integer pageNumber;
+    private Integer pageNumber = -1;
 
     /**
      * Gets the page number of the search result.

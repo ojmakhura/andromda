@@ -858,7 +858,7 @@
         </modelElements>
     </template>
 
-    <template
+    <!-- <template
         path="templates/spring/hibernate/search/SearchParameter.java.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
@@ -869,9 +869,9 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/spring/hibernate/search/Search.java.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
@@ -882,9 +882,9 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/spring/hibernate/search/PropertySearch.java.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
@@ -895,16 +895,16 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/spring/paging/PaginationResult.java.vsl"
         outputPattern="$generatedFile"
         outlet="service-interfaces"
         overwrite="true"
-        outputToSingleFile="true"/>
+        outputToSingleFile="true"/> -->
 
-    <template
+    <!-- <template
         path="templates/spring/hibernate/HibernateSearch.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
@@ -915,9 +915,9 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/spring/hibernate/HibernateSearchProperties.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
@@ -928,9 +928,9 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/spring/hibernate/HibernateSearchConfiguration.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
@@ -941,9 +941,9 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/spring/hibernate/HibernateSearchParameter.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
@@ -954,7 +954,7 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <template
         path="templates/spring/hibernate/SearchCriteria.vsl"
