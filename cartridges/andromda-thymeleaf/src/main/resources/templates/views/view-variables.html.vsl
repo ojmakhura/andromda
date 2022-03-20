@@ -3,49 +3,63 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <table>
     <tbody>
+#set($d = "$")
 #foreach ($variable in $view.variables)
 #if (!$variable.table)
 #if ($variable.attributes.empty || $variable.type.enumeration)
     <tr>
-        <label id="${variable.name}_label" value="#{messages['$variable.messageKey']}:"/>
+        <td>
+            <label id="${variable.name}_label" th:text="#{$variable.messageKey}"></label>
+        </td>
+        <td>
 #if ($variable.many || $variable.type.collectionType || $variable.type.arrayType)
-        <div>
-            <c:forEach var="item" items="#{viewVariables.${variable.name}}" varStatus="status">
-                ${item} <c:if test="${!status.last}">,</c:if>
-            </c:forEach>
-        </div>
+            <div th:each="item : $d{${variable.name}}">
+                <span #if ($variable.type.dateType) type="date"#end th:text="$d{item}}">
+                </span>
+            </div>
 #else
-        <span id="${variable.name}"#if ($variable.type.dateType) type="date"#end value="#{viewVariables.${variable.name}}">
-        </span>
+            <span id="${variable.name}"#if ($variable.type.dateType) type="date"#end th:text="$d{variable.name}}">
+            </span>
 #end
+        </td>
     </tr>
 #else
 #foreach ($attribute in $variable.attributes)
     <tr>
-        <label id="${attribute.getFormPropertyId($variable)}_label" value="#{messages['$attribute.messageKey']}:"/>
-        <span id="$attribute.getFormPropertyId($variable)"#if ($variable.type.dateType) type="date"#end value="#{viewVariables.${variable.name}.${attribute.name}}">
-            #{viewVariables.${variable.name}.${attribute.name}}
-        </span>
+        <td>
+            <label id="${attribute.getFormPropertyId($variable)}_label" th:text="#{$attribute.messageKey}"></label>
+        </td>
+        <td>
+            <span id="$attribute.getFormPropertyId($variable)"#if ($variable.type.dateType) type="date"#end th:text="$d{${variable.name}.${attribute.name}}">
+            </span>
+        </td>
     </tr>
 #end
 #foreach ($associationEnd in $variable.navigableAssociationEnds)
 #if ($associationEnd.many)
-    <c:forEach var="item" items="#{viewVariables.${variable.name}.${associationEnd.name}}">
-        <c:set var="item" value="${item}" scope="request"/>
+    <div th:each="item : $d{${variable.name}.${associationEnd.name}}">
 #foreach ($itemAttribute in $associationEnd.type.getAttributes(true))
         <tr>
-            <label id="${itemAttribute.getFormPropertyId($variable)}_label" value="#{messages['$itemAttribute.messageKey']}:"/>
-            <span id="$itemAttribute.getFormPropertyId($variable)"#if ($variable.type.dateType) type="date"#end value="#{item.${itemAttribute.name}}">
-            <span>
+            <td>
+                <label id="${itemAttribute.getFormPropertyId($variable)}_label" th:text="#{$itemAttribute.messageKey}"></label>
+            </td>
+            <td>
+                <span id="$itemAttribute.getFormPropertyId($variable)"#if ($variable.type.dateType) type="date"#end th:text="#{item.${itemAttribute.name}}">
+                <span>
+            </td>
         </tr>
 #end
-    </c:forEach>
+    </div>
 #else
 #foreach ($itemAttribute in $associationEnd.type.getAttributes(true))
     <tr>
-        <label id="${itemAttribute.getFormPropertyId($variable)}_label" value="#{messages['$itemAttribute.messageKey']}:"/>
-        <span  id="$itemAttribute.getFormPropertyId($variable)"#if ($variable.type.dateType) type="date"#end value="#{item.${itemAttribute.name}}">
-        </span>
+        <td>
+            <label id="${itemAttribute.getFormPropertyId($variable)}_label" th:text="#{$itemAttribute.messageKey}"></label>
+        </td>
+        <td>
+            <span id="$itemAttribute.getFormPropertyId($variable)"#if ($variable.type.dateType) type="date"#end th:text="#{item.${itemAttribute.name}}">
+            </span>
+        </td>
     </tr>
 #end
 #end
