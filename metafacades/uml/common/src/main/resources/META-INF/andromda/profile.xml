@@ -410,18 +410,6 @@
                 </documentation>
                 <value>andromda_presentation_access_roles</value>
             </element>
-            <element name="PRESENTATION_CLASS">
-                <documentation>
-                    CSS class name for web frontend.
-                </documentation>
-                <value>andromda_presentation_class</value>
-            </element>
-            <element name="PRESENTATION_FORM_ENCTYPE">
-                <documentation>
-                    Enc type for forms
-                </documentation>
-                <value>andromda_presentation_form_enctype</value>
-            </element>
             <element name="PRESENTATION_USECASE_ACTIVITY">
                 <documentation>
                     For tools that do not allow the placement of activity graphs inside of a use-case
@@ -641,6 +629,32 @@
             <element name="VOID_TYPE">
                 <documentation></documentation>
                 <value>datatype::void</value>
+            </element>
+        </elementGroup>
+        <elementGroup name="Presentation">
+            <element name="PRESENTATION_CLASS">
+                <documentation>
+                    CSS class name for web frontend.
+                </documentation>
+                <value>andromda_presentation_class</value>
+            </element>
+            <element name="PRESENTATION_FORM_ENCTYPE">
+                <documentation>
+                    Enc type for forms
+                </documentation>
+                <value>andromda_presentation_form_enctype</value>
+            </element>
+            <element name="WEB_VIEW_MIN">
+                <documentation>
+                    Minimum value of a front end field
+                </documentation>
+                <value>andromda_presentation_web_field_min</value>
+            </element>
+            <element name="WEB_VIEW_MAX">
+                <documentation>
+                    Maximum field of a front end field
+                </documentation>
+                <value>andromda_presentation_web_field_max</value>
             </element>
         </elementGroup>
     </elements>

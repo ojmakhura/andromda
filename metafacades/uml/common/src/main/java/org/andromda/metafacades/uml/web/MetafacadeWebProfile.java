@@ -79,6 +79,12 @@ public class MetafacadeWebProfile {
     public static final String TAGGEDVALUE_TABLE_EXPORT = PROFILE.get("TABLE_EXPORT");
     /** TABLE_SORTABLE */
     public static final String TAGGEDVALUE_TABLE_SORTABLE = PROFILE.get("TABLE_SORTABLE");
+
+    /** WEB_VIEW_MIN */
+    public static final String TAGGEDVALUE_WEB_FIELD_MIN = PROFILE.get("WEB_VIEW_MIN");
+    /** WEB_VIEW_MAX */
+    public static final String TAGGEDVALUE_WEB_FIELD_MAX = PROFILE.get("WEB_VIEW_MAX");
+
     
     /** Implementation */
     public static final String ANDROMDA_MANAGEABLE_IMPLEMENTATION = PROFILE.get("MANAGEABLE_IMPLEMENTATION");

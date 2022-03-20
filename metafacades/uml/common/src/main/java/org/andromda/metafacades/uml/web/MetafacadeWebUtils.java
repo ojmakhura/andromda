@@ -1192,9 +1192,6 @@ public class MetafacadeWebUtils {
 
     public static String getEnctype(ModelElementFacade modelElement) {
 
-        System.out.println("=====================================" + modelElement);
-        System.out.println(modelElement.getTaggedValues());
-
         String enctype = StringUtils.stripToNull(((String) modelElement.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_FORM_ENCTYPE)));
 
         if(enctype == null) {
@@ -1210,6 +1207,17 @@ public class MetafacadeWebUtils {
         }
 
         return enctype;
+    }
+
+    public static String getInputMin(ModelElementFacade modelElement) {
+        String min = StringUtils.stripToNull(((String) modelElement.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_WEB_FIELD_MIN)));
+
+        return min;
+    }
+    public static String getInputMax(ModelElementFacade modelElement) {
+        String max = StringUtils.stripToNull(((String) modelElement.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_WEB_FIELD_MAX)));
+
+        return max;
     }
 }
 

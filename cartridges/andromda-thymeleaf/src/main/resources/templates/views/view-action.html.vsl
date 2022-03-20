@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 #set ($enctype = $action.enctype)
 #set($formName = $action.formBeanName)
-    <form id="${formName}" name="${formName}" 
+    <form id="${formName}" name="${formName}"
         role="form" method="POST" th:object="${${formName}}"
         th:action="@{${action.controller.restPath}${action.restPath}}"
         #if($enctype)enctype="$enctype"#end>
@@ -28,13 +28,13 @@
 #set($triggerId = "${action.triggerName}Action")   
 #foreach ($parameter in $action.parameters)
 #if (!$parameter.complex || $parameter.type.enumeration)
-        <div class="form-group">
+        <div class="row mb-3">
 #renderActionInput($parameter "" "          ")
         </div>
 #else
 #foreach ($attribute in $parameter.attributes)
 #if(!$attribute.inputHidden && !$parameter.inputHidden)
-        <div class="form-group">
+        <div class="row mb-3">
 #renderActionInput($attribute $parameter "          ")
         </div>
 #end

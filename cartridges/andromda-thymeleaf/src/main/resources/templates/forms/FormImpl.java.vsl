@@ -57,6 +57,16 @@ public class $action.formImplementationName
 #foreach($annotation in $field.annotations)
     $annotation
 #end
+#if($field.type.dateType && $field.type.timeType)
+#set($format = "iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME")
+#elseif($field.type.dateType)
+#set($format = "iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE")
+#elseif($field.type.timeType)
+#set($format = "iso = org.springframework.format.annotation.DateTimeFormat.ISO.TIME")
+#end
+#if($field.type.dateType || $field.type.timeType)
+    @org.springframework.format.annotation.DateTimeFormat($format)
+#end
     private $fieldTypeName $field.name;
 
     /**
