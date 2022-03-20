@@ -74,7 +74,7 @@ ${ident}<th th:text="#{$column.messageKey}"></th>
 #else
 #set($theValue="row.${column.name}")
 #end
-                    <td id="column_${column.name}" th:text=#if ($column.type.dateType)"${#dates.format($theValue, '$column.format')}"#else"${${theValue}}"#end  #if($rendered != "")#end>
+                    <td id="column_${column.name}" th:text=#if ($column.type.dateType)"${#temporals.format($theValue, '$column.format')}"#else"${${theValue}}"#end  #if($rendered != "")#end>
                     </td>
 #end
 #end
@@ -114,7 +114,7 @@ ${ident}<th th:text="#{$column.messageKey}"></th>
 #set ($paramValues = "$paramValues${parameter.name}=$dollar$left$parameterValue$right")
 #end
                             <form method="POST" 
-                                    th:action="@{/${action.controller.restPath}/${action.restPath}$urlParams($paramValues)}">
+                                    th:action="@{${action.controller.restPath}${action.restPath}$urlParams($paramValues)}">
                                 <button type="submit" id="${action.triggerName}Action"  th:text="#{$action.trigger.messageKey}">
                                 </button>
                             </form>

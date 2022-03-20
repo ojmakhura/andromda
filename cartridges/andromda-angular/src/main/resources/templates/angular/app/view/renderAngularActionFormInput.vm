@@ -47,10 +47,12 @@ ${ident}			<mat-row *matRowDef="let row; columns: ${parameter.name}Columns;"></m
 ${ident}		</mat-table>
 ${ident}		<mat-paginator #${parameter.name}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
 ${ident}	</div>
+#elseif($parameter.inputCheckbox)
+${ident}    <mat-checkbox class="$propertyId" translate>$parameter.messageKey</mat-checkbox>
 #else
 ${ident}	<mat-form-field>
 ${ident}		<mat-label translate>$parameter.messageKey</mat-label> 
-#if ($parameter.type.dateType)
+#if ($parameter.type.dateType || $parameter.inputDate)
 ${ident}	  	<input matInput type="$parameter.inputType" [matDatepicker]="$propertyId" formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
 ${ident}	  	<mat-datepicker-toggle matSuffix [for]="$propertyId"></mat-datepicker-toggle>
 ${ident}	  	<mat-datepicker #$propertyId></mat-datepicker>

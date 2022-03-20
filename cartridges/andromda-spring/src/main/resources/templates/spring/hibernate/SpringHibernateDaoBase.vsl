@@ -146,7 +146,7 @@ public abstract class $entity.daoBaseName
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public Object get(final int transform, final ${identifierTypeName} ${identifierName})
     {
 #set ($argument = ${identifierName})
@@ -192,7 +192,7 @@ $xmlIndent        return transformEntity(transform, entity.get());
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public $rootEntityType get(${identifierTypeName} ${identifierName})
     {
         return ($entity.fullyQualifiedEntityName)this.get($entity.daoNoTransformationConstantName, ${identifierName});
@@ -204,7 +204,7 @@ $xmlIndent        return transformEntity(transform, entity.get());
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public Object load(final int transform, final ${identifierTypeName} ${identifierName})
     {
 #set ($argument = ${identifierName})
@@ -262,7 +262,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public $rootEntityType load(${identifierTypeName} ${identifierName})
     {
         return ($entity.fullyQualifiedEntityName)this.load($entity.daoNoTransformationConstantName, ${identifierName});
@@ -277,7 +277,7 @@ $oldXmlIndent        }
 #if ($enableTemplating)
     @SuppressWarnings({"unchecked"})
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public $entityCollectionType loadAll()
     {
         return#if($enableTemplating) ($entityCollectionType)#end this.loadAll(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName);
@@ -289,7 +289,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int transform)
     {
         return this.loadAll(transform, -1, -1);
@@ -301,7 +301,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+##  @org.springframework.transaction.annotation.Transactional
     public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int pageNumber, final int pageSize)
     {
         return this.loadAll(${entity.fullyQualifiedDaoName}.${entity.daoNoTransformationConstantName}, pageNumber, pageSize);
@@ -313,7 +313,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int transform, final int pageNumber, final int pageSize)
     {
 #if($hibernate4or5)       
@@ -489,7 +489,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public $rootEntityType create($entity.fullyQualifiedEntityName $argumentName)
     {
         return ($entity.fullyQualifiedEntityName)this.create(${entity.fullyQualifiedDaoName}.${entity.daoNoTransformationConstantName}, $argumentName);
@@ -502,7 +502,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public $rootEntityType create(org.dom4j.Element $argumentName)
     {
        return ($entity.fullyQualifiedEntityName)this.create(${entity.fullyQualifiedDaoName}.${entity.daoNoTransformationConstantName}, $argumentName);
@@ -517,7 +517,7 @@ $oldXmlIndent        }
 #if ($enableTemplating)
     @SuppressWarnings({"unchecked"})
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public Object create(int transform, final org.dom4j.Element $argumentName)
     {
         if ($argumentName == null)
@@ -550,7 +550,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public Object create(final int transform, $entity.fullyQualifiedName $argumentName)
     {
         if ($argumentName == null)
@@ -603,7 +603,7 @@ $oldXmlIndent        }
 #if ($enableTemplating)
     @SuppressWarnings({"unchecked"})
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public $entityCollectionType create(final $entityCollectionType entities)
     {
         return#if($enableTemplating) ($entityCollectionType)#end create(${entity.fullyQualifiedDaoName}.${entity.daoNoTransformationConstantName}, entities);
@@ -615,7 +615,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public java.util.Collection#if($enableTemplating)<?>#end create(final int transform, final $entityCollectionType entities)
     {
         if (entities == null)
@@ -664,7 +664,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public $rootEntityType create(
 #foreach($attribute in $attributes)
         $attribute.getterSetterTypeName $attribute.name#if($velocityHasNext),#else)#end
@@ -680,7 +680,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public Object create(
         final int transform,
 #foreach($attribute in $attributes)
@@ -716,7 +716,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public $rootEntityType create(
 #foreach($property in $requiredProperties)
         $property.getterSetterTypeName $property.name#if($velocityHasNext),#else)#end
@@ -732,7 +732,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public Object create(
         final int transform,
 #foreach($property in $requiredProperties)
@@ -756,7 +756,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public void update($entity.fullyQualifiedEntityName $argumentName)
     {
         if ($argumentName == null)
@@ -787,7 +787,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public void update(final org.dom4j.Element $argumentName)
     {
         if ($argumentName == null)
@@ -822,7 +822,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public void update(final $entityCollectionType entities)
     {
         if (entities == null)
@@ -865,7 +865,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public void remove($entity.fullyQualifiedEntityName $argumentName)
     {
         if ($argumentName == null)
@@ -895,7 +895,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public void remove(final org.dom4j.Element $argumentName)
     {
         if ($argumentName == null)
@@ -926,7 +926,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public void remove($identifierTypeName $identifierName)
     {
 #set ($argument = $identifierName)
@@ -956,7 +956,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+##	@org.springframework.transaction.annotation.Transactional
     public void remove($entityCollectionType entities)
     {
         if (entities == null)
@@ -1192,7 +1192,7 @@ $h3tab        return results;
 #elseif ($finder.many)
 #set ($returnType = "$finder.getterSetterReturnTypeName.substring(0,$finder.getterSetterReturnTypeName.indexOf('<'))<?>")
 #else
-#set ($returnType = "Object")
+#set ($returnType = "$finder.returnType.fullyQualifiedName")
 #end
     /**
      * {@inheritDoc}
@@ -1209,13 +1209,55 @@ $h3tab        return results;
 #end
     {
         org.springframework.data.jpa.domain.Specification<$entity.name> specifications = get${stringUtils.capitalize(${finder.name})}Specifications(#if(!$finder.arguments.empty)${finder.argumentNames}#end);
+        org.springframework.data.domain.Sort sort = get${stringUtils.capitalize(${finder.name})}Sort(#if(!$finder.arguments.empty)${finder.argumentNames}#end);
 
+## #if($finder.criteriaFinder)
+## #set($criteriaArgument = $finder.criteriaArgument)
+## #set($criteriaArgumentName = $criteriaArgument.name)
+## #set($criteriaClass = $criteriaArgument.type)
+## #foreach($criteriaAttribute in $criteriaClass.getAttributes(true))
+## #set ($i = 1)
+## #if($criteriaAttribute.orderable)
+## #if($criteriaAttribute.type.stringType && !$criteriaAttribute.many)
+## #set($nullCheck = "org.apache.commons.lang3.StringUtils.isNotBlank(${criteriaArgumentName}.${criteriaAttribute.getterName}())")
+## #else
+## #set($nullCheck = "${criteriaArgumentName}.${criteriaAttribute.getterName}() != null")
+## #end
+## #if($i == 1)
+##         if($nullCheck) {
+## #if($criteriaAttribute.orderDirection == "ORDER_DESC")
+##             sort = Sort.by("$criteriaAttribute.name").descending();
+## #else
+##             sort = Sort.by("$criteriaAttribute.name").ascending();
+## #end
+##         }
+        
+## #set ($i = $i + 1)
+## #else
+##         if($nullCheck) {
+## #if($criteriaAttribute.orderDirection == "ORDER_DESC")
+##             sort = Sort.by("$criteriaAttribute.name").descending();
+## #else
+##             sort = Sort.by("$criteriaAttribute.name").ascending();
+## #end
+##             } else {
+## #if($criteriaAttribute.orderDirection == "ORDER_DESC")
+##             sort = sort.by("$criteriaAttribute.name").descending();
+## #else
+##             sort = sort.by("$criteriaAttribute.name").ascending();
+## #end
+##         }
+
+## #end
+## #end
+## #end
+## #end
         java.util.Collection<?> results = null;
 
-        if(specifications == null) {
-            results = ${repositoryName}.findAll();
-        } else {
+        if(sort == null) {
             results = ${repositoryName}.findAll(specifications);
+        } else {
+            results = ${repositoryName}.findAll(specifications, sort);
         }
 
         if(results == null)  {
@@ -1223,7 +1265,9 @@ $h3tab        return results;
         }
         
         transformEntities(transform, results);
-        #if ($finder.returnTypePresent)return results;#end
+#if ($finder.returnTypePresent)
+        return results;
+#end
     }
 
 ## If this criteria method returns a collection, provide methods for returnin a Page object
@@ -1240,7 +1284,49 @@ $h3tab        return results;
     $finder.visibility org.springframework.data.domain.Page<$entity.name> ${finder.name}(final org.springframework.data.domain.Pageable pageable#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end) {
         
         org.springframework.data.jpa.domain.Specification<$entity.name> specifications = get${stringUtils.capitalize(${finder.name})}Specifications(#if(!$finder.arguments.empty)${finder.argumentNames}#end);
+        org.springframework.data.domain.Sort sort = get${stringUtils.capitalize(${finder.name})}Sort(#if(!$finder.arguments.empty)${finder.argumentNames}#end);
 
+## #if($finder.criteriaFinder)
+## #set($criteriaArgument = $finder.criteriaArgument)
+## #set($criteriaArgumentName = $criteriaArgument.name)
+## #set($criteriaClass = $criteriaArgument.type)
+## #foreach($criteriaAttribute in $criteriaClass.getAttributes(true))
+## #set ($i = 1)
+## #if($criteriaAttribute.orderable)
+## #if($criteriaAttribute.type.stringType && !$criteriaAttribute.many)
+## #set($nullCheck = "org.apache.commons.lang3.StringUtils.isNotBlank(${criteriaArgumentName}.${criteriaAttribute.getterName}())")
+## #else
+## #set($nullCheck = "${criteriaArgumentName}.${criteriaAttribute.getterName}() != null")
+## #end
+## #if($i == 1)
+##         if($nullCheck) {
+## #if($criteriaAttribute.orderDirection == "ORDER_DESC")
+##             sort = Sort.by("$criteriaAttribute.name").descending();
+## #else
+##             sort = Sort.by("$criteriaAttribute.name").ascending();
+## #end
+##         }
+
+## #set ($i = $i + 1)
+## #else
+##         if($nullCheck) {
+## #if($criteriaAttribute.orderDirection == "ORDER_DESC")
+##             sort = Sort.by("$criteriaAttribute.name").descending();
+## #else
+##             sort = Sort.by("$criteriaAttribute.name").ascending();
+## #end
+##             } else {
+## #if($criteriaAttribute.orderDirection == "ORDER_DESC")
+##             sort = sort.by("$criteriaAttribute.name").descending();
+## #else
+##             sort = sort.by("$criteriaAttribute.name").ascending();
+## #end
+##         }
+
+## #end
+## #end
+## #end
+## #end
         if(specifications == null) {
             return ${repositoryName}.findAll(pageable);
         } else {
@@ -1249,9 +1335,57 @@ $h3tab        return results;
     }
 
 #end
+    private org.springframework.data.domain.Sort get${stringUtils.capitalize(${finder.name})}Sort(#if(!$finder.arguments.empty)${finder.getTypedArgumentList('final')}#end) {
+
+        org.springframework.data.domain.Sort sort = null;
+#if($finder.criteriaFinder)
+#set($criteriaArgument = $finder.criteriaArgument)
+#set($criteriaArgumentName = $criteriaArgument.name)
+#set($criteriaClass = $criteriaArgument.type)
+#foreach($criteriaAttribute in $criteriaClass.getAttributes(true))
+#set ($i = 1)
+#if($criteriaAttribute.orderable)
+#if($criteriaAttribute.type.stringType && !$criteriaAttribute.many)
+#set($nullCheck = "org.apache.commons.lang3.StringUtils.isNotBlank(${criteriaArgumentName}.${criteriaAttribute.getterName}())")
+#else
+#set($nullCheck = "${criteriaArgumentName}.${criteriaAttribute.getterName}() != null")
+#end
+#if($i == 1)
+        if($nullCheck) {
+#if($criteriaAttribute.orderDirection == "ORDER_DESC")
+            sort = Sort.by("$criteriaAttribute.name").descending();
+#else
+            sort = Sort.by("$criteriaAttribute.name").ascending();
+#end
+        }
+
+#set ($i = $i + 1)
+#else
+        if($nullCheck) {
+#if($criteriaAttribute.orderDirection == "ORDER_DESC")
+            sort = Sort.by("$criteriaAttribute.name").descending();
+#else
+            sort = Sort.by("$criteriaAttribute.name").ascending();
+#end
+            } else {
+#if($criteriaAttribute.orderDirection == "ORDER_DESC")
+            sort = sort.by("$criteriaAttribute.name").descending();
+#else
+            sort = sort.by("$criteriaAttribute.name").ascending();
+#end
+        }
+
+#end
+#end
+#end
+#end
+        return sort;
+    }
+
     private org.springframework.data.jpa.domain.Specification<$entity.name> get${stringUtils.capitalize(${finder.name})}Specifications(#if(!$finder.arguments.empty)${finder.getTypedArgumentList('final')}#end) {
         
         org.springframework.data.jpa.domain.Specification<$entity.name> specifications = null;
+        org.springframework.data.jpa.domain.Specification<$entity.name> tmpSpec = null;
         
 #set ($args = "")
 #if($finder.criteriaFinder)
@@ -1269,18 +1403,25 @@ $h3tab        return results;
 #else
 #set($nullCheck = "${criteriaArgumentName}.${criteriaAttribute.getterName}() != null")
 #end
+        tmpSpec = ${entity.name}Specifications.${specName}(${criteriaArgumentName}.$getter);
+#if($criteriaAttribute.nullable)
+#set ($capitalised_ = $stringUtils.capitalize($hibernateUtils.getFirstJoinName($criteriaAttribute.attributeName)))
+#set ($specName_ = "findBy${capitalised_}Null")
+        tmpSpec = tmpSpec.or(${entity.name}Specifications.${specName_}());
+
+#end
 #if($i == 1)
         if($nullCheck) {
-            specifications = ${entity.name}Specifications.${specName}(${criteriaArgumentName}.$getter);
+            specifications = tmpSpec;
         }
 
 #set ($i = $i + 1)
 #else
         if($nullCheck) {
             if(specifications == null) {
-                specifications = ${entity.name}Specifications.${specName}(${criteriaArgumentName}.$getter);
+                specifications = tmpSpec;
             } else {
-                specifications = specifications.and(${entity.name}Specifications.${specName}(${criteriaArgumentName}.$getter));
+                specifications = specifications.and(tmpSpec);
             }
         }
 
@@ -1743,153 +1884,153 @@ $h3tab        return results;
 #set ($fullyQualifiedPagingResultName = $cartridgeSpringUtils.getFullyQualifiedClassName($springCommonTypesPackage, "PaginationResult"))
 #set ($fullyQualifiedSearchClassName = $cartridgeSpringUtils.getFullyQualifiedClassName($springTypesPackage, "Search"))
 #set ($fullyQualifiedPropertySearchClassName = $cartridgeSpringUtils.getFullyQualifiedClassName($springTypesPackage, "PropertySearch"))
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-    public $fullyQualifiedPagingResultName search(final int transform, final int pageNumber, final int pageSize, final $fullyQualifiedSearchClassName search)
-    {
-#if ($hibernate4or5)
-//        search.setPageNumber(pageNumber);
-//        search.setPageSize(pageSize);
-//        final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
-//            this.sessionFactory.getCurrentSession(), ${entity.fullyQualifiedEntityName}.class, search);
-//        final java.util.List#if($enableTemplating)<?>#end results = propertySearch.executeAsList();
-//        this.transformEntities(transform, results);
-//        return new $fullyQualifiedPagingResultName(results.toArray(new Object[results.size()]), propertySearch.getTotalCount());
-#else
-//        try
-//        {
-//            search.setPageNumber(pageNumber);
-//            search.setPageSize(pageSize);
- //           final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
- //               this.getSession(), ${entity.fullyQualifiedEntityName}.class, search);
- //           final java.util.List#if($enableTemplating)<?>#end results = propertySearch.executeAsList();
- //           this.transformEntities(transform, results);
-//            return new $fullyQualifiedPagingResultName(results.toArray(new Object[results.size()]), propertySearch.getTotalCount());
-//        }
-///        catch (${hibernateUtils.basePackage}.HibernateException ex)
-//        {
-//            throw super.convertHibernateAccessException(ex);
-//        }
-#end
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-    public $fullyQualifiedPagingResultName search(final int pageNumber, final int pageSize, final $fullyQualifiedSearchClassName search)
-    {
-        return this.search(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName, pageNumber, pageSize, search);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-    public java.util.Collection#if($enableTemplating)<?>#end search(final int transform, final $fullyQualifiedSearchClassName search)
-    {
-#if ($hibernate4or5)
-//        final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
-//            this.sessionFactory.getCurrentSession(), ${entity.fullyQualifiedEntityName}.class, search);
-///        final#if($enableTemplating) java.util.Collection<?>#else java.util.Collection#end results = propertySearch.executeAsList();
-//        this.transformEntities(transform, results);
-//        return results;
-        return null;
-#else
-//        try
-//        {
-//            final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
-//                this.getSession(), ${entity.fullyQualifiedEntityName}.class, search);
-///            final#if($enableTemplating) java.util.Collection<?>#else java.util.Collection#end results = propertySearch.executeAsList();
-//            this.transformEntities(transform, results);
-//            return results;
-//        }
-//        catch (${hibernateUtils.basePackage}.HibernateException ex)
-//        {
-//            throw super.convertHibernateAccessException(ex);
-//        }
-#end
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-#if ($enableTemplating)
-    @SuppressWarnings("unchecked")
-#end
-    public java.util.Collection#if($enableTemplating)<#if($daoInheritance)? extends #end${rootEntityType}>#end search(final $fullyQualifiedSearchClassName search)
-    {
-        return#if($enableTemplating) (java.util.Collection<#if($daoInheritance)? extends #end${rootEntityType}>)#end this.search(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName, search);
-    }
-
-    /**
-     * Executes and returns the given Hibernate queryObject as a {@link $fullyQualifiedPagingResultName} instance.
-     * @param queryObject
-     * @param transform
-     * @param pageNumber
-     * @param pageSize
-     * @return $fullyQualifiedPagingResultName
-     */
-#if ($enableTemplating)
-    @SuppressWarnings({ "unchecked" })
-#end
-    protected $fullyQualifiedPagingResultName getPaginationResult(
-        final ${hibernateUtils.basePackage}.query.Query queryObject,
-        final int transform, int pageNumber, int pageSize)
-    {
-#if ($hibernate4or5)
-        final ${hibernateUtils.basePackage}.ScrollableResults scrollableResults = queryObject.setCacheable(true).scroll();
-        scrollableResults.last();
-        int totalCount = scrollableResults.getRowNumber();
-        totalCount = totalCount >= 0 ? totalCount + 1 : 0;
-        if (pageNumber > 0 && pageSize > 0)
-        {
-            queryObject.setFirstResult(this.calculateFirstResult(pageNumber, pageSize));
-            queryObject.setMaxResults(pageSize);
-        }
-        // Unchecked transformation because Set object is reused, cannot be strongly typed.
-#if ($enableTemplating)
-        @SuppressWarnings("rawtypes")
-#end
-        java.util.Collection results = new java.util.ArrayList(queryObject.setCacheable(true).list());
-        transformEntities(transform, results);
-        return new ${fullyQualifiedPagingResultName}(results.toArray(new Object[results.size()]), totalCount);
-#else
-        try
-        {
-            final ${hibernateUtils.basePackage}.ScrollableResults scrollableResults = queryObject.scroll();
-            scrollableResults.last();
-            int totalCount = scrollableResults.getRowNumber();
-            totalCount = totalCount >= 0 ? totalCount + 1 : 0;
-            if (pageNumber > 0 && pageSize > 0)
-            {
-                queryObject.setFirstResult(this.calculateFirstResult(pageNumber, pageSize));
-                queryObject.setMaxResults(pageSize);
-            }
-            // Unchecked transformation because Set object is reused, cannot be strongly typed.
-            java.util.Collection results = new java.util.ArrayList(queryObject.setCacheable(true).list());
-            transformEntities(transform, results);
-            return new ${fullyQualifiedPagingResultName}(results.toArray(new Object[results.size()]), totalCount);
-        }
-        catch (${hibernateUtils.basePackage}.HibernateException ex)
-        {
-            throw super.convertHibernateAccessException(ex);
-        }
-#end
-    }
-
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+##     public $fullyQualifiedPagingResultName search(final int transform, final int pageNumber, final int pageSize, final $fullyQualifiedSearchClassName search)
+##     {
+## #if ($hibernate4or5)
+## //        search.setPageNumber(pageNumber);
+## //        search.setPageSize(pageSize);
+## //        final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
+## //            this.sessionFactory.getCurrentSession(), ${entity.fullyQualifiedEntityName}.class, search);
+## //        final java.util.List#if($enableTemplating)<?>#end results = propertySearch.executeAsList();
+## //        this.transformEntities(transform, results);
+## //        return new $fullyQualifiedPagingResultName(results.toArray(new Object[results.size()]), propertySearch.getTotalCount());
+## #else
+## //        try
+## //        {
+## //            search.setPageNumber(pageNumber);
+## //            search.setPageSize(pageSize);
+##  //           final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
+##  //               this.getSession(), ${entity.fullyQualifiedEntityName}.class, search);
+##  //           final java.util.List#if($enableTemplating)<?>#end results = propertySearch.executeAsList();
+##  //           this.transformEntities(transform, results);
+## //            return new $fullyQualifiedPagingResultName(results.toArray(new Object[results.size()]), propertySearch.getTotalCount());
+## //        }
+## ///        catch (${hibernateUtils.basePackage}.HibernateException ex)
+## //        {
+## //            throw super.convertHibernateAccessException(ex);
+## //        }
+## #end
+##         return null;
+##     }
+##
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+##     public $fullyQualifiedPagingResultName search(final int pageNumber, final int pageSize, final $fullyQualifiedSearchClassName search)
+##     {
+##         return this.search(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName, pageNumber, pageSize, search);
+##     }
+##
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+##     public java.util.Collection#if($enableTemplating)<?>#end search(final int transform, final $fullyQualifiedSearchClassName search)
+##     {
+## #if ($hibernate4or5)
+## //        final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
+## //            this.sessionFactory.getCurrentSession(), ${entity.fullyQualifiedEntityName}.class, search);
+## ///        final#if($enableTemplating) java.util.Collection<?>#else java.util.Collection#end results = propertySearch.executeAsList();
+## //        this.transformEntities(transform, results);
+## //        return results;
+##         return null;
+## #else
+## //        try
+## //        {
+## //            final $fullyQualifiedPropertySearchClassName propertySearch = new $fullyQualifiedPropertySearchClassName(
+## //                this.getSession(), ${entity.fullyQualifiedEntityName}.class, search);
+## ///            final#if($enableTemplating) java.util.Collection<?>#else java.util.Collection#end results = propertySearch.executeAsList();
+## //            this.transformEntities(transform, results);
+## //            return results;
+## //        }
+## //        catch (${hibernateUtils.basePackage}.HibernateException ex)
+## //        {
+## //            throw super.convertHibernateAccessException(ex);
+## //        }
+## #end
+##     }
+##
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## #if ($enableTemplating)
+##     @SuppressWarnings("unchecked")
+## #end
+##     public java.util.Collection#if($enableTemplating)<#if($daoInheritance)? extends #end${rootEntityType}>#end search(final $fullyQualifiedSearchClassName search)
+##     {
+##         return#if($enableTemplating) (java.util.Collection<#if($daoInheritance)? extends #end${rootEntityType}>)#end this.search(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName, search);
+##     }
+##
+##     /**
+##      * Executes and returns the given Hibernate queryObject as a {@link $fullyQualifiedPagingResultName} instance.
+##      * @param queryObject
+##      * @param transform
+##      * @param pageNumber
+##      * @param pageSize
+##      * @return $fullyQualifiedPagingResultName
+##      */
+## #if ($enableTemplating)
+##     @SuppressWarnings({ "unchecked" })
+## #end
+##     protected $fullyQualifiedPagingResultName getPaginationResult(
+##         final ${hibernateUtils.basePackage}.query.Query queryObject,
+##         final int transform, int pageNumber, int pageSize)
+##     {
+## #if ($hibernate4or5)
+##         final ${hibernateUtils.basePackage}.ScrollableResults scrollableResults = queryObject.setCacheable(true).scroll();
+##         scrollableResults.last();
+##         int totalCount = scrollableResults.getRowNumber();
+##         totalCount = totalCount >= 0 ? totalCount + 1 : 0;
+##         if (pageNumber > 0 && pageSize > 0)
+##         {
+##             queryObject.setFirstResult(this.calculateFirstResult(pageNumber, pageSize));
+##             queryObject.setMaxResults(pageSize);
+##         }
+##         // Unchecked transformation because Set object is reused, cannot be strongly typed.
+## #if ($enableTemplating)
+##         @SuppressWarnings("rawtypes")
+## #end
+##         java.util.Collection results = new java.util.ArrayList(queryObject.setCacheable(true).list());
+##         transformEntities(transform, results);
+##         return new ${fullyQualifiedPagingResultName}(results.toArray(new Object[results.size()]), totalCount);
+## #else
+##         try
+##         {
+##             final ${hibernateUtils.basePackage}.ScrollableResults scrollableResults = queryObject.scroll();
+##             scrollableResults.last();
+##             int totalCount = scrollableResults.getRowNumber();
+##             totalCount = totalCount >= 0 ? totalCount + 1 : 0;
+##             if (pageNumber > 0 && pageSize > 0)
+##             {
+##                 queryObject.setFirstResult(this.calculateFirstResult(pageNumber, pageSize));
+##                 queryObject.setMaxResults(pageSize);
+##             }
+##             // Unchecked transformation because Set object is reused, cannot be strongly typed.
+##             java.util.Collection results = new java.util.ArrayList(queryObject.setCacheable(true).list());
+##             transformEntities(transform, results);
+##             return new ${fullyQualifiedPagingResultName}(results.toArray(new Object[results.size()]), totalCount);
+##         }
+##         catch (${hibernateUtils.basePackage}.HibernateException ex)
+##         {
+##             throw super.convertHibernateAccessException(ex);
+##         }
+## #end
+##     }
+##
 #set ($attributes = $entity.getAttributes(true, $entity.usingAssignedIdentifier))
 #foreach ($attribute in $attributes)
 #if ($attribute.unique)
@@ -1902,19 +2043,14 @@ $h3tab        return results;
 #end
     public ${entity.fullyQualifiedEntityName} $searchUniqueMethod(final ${attribute.type.fullyQualifiedName} ${attribute.name})
     {
-        final $fullyQualifiedSearchClassName search=new $fullyQualifiedSearchClassName(
-            new ${springTypesPackage}.SearchParameter[]{
-                new ${springTypesPackage}.SearchParameter("${attribute.name}",${attribute.name},${springTypesPackage}.SearchParameter.EQUAL_COMPARATOR)
-            }
-        );
 
-        final java.util.Collection#if($enableTemplating)<#if($daoInheritance)? extends #end${rootEntityType}>#end searchResult=this.search(search);
-        switch(searchResult.size())
-        {
-            case 0: return null;
-            case 1: return#if(!$enableTemplating) ($entity.fullyQualifiedName)#end searchResult.iterator().next();
-            default: throw new org.hibernate.NonUniqueResultException(searchResult.size());
+        org.springframework.data.jpa.domain.Specification<${entity.fullyQualifiedEntityName}> spec = ${entity.name}Specifications.findBy${stringUtils.capitalize(${attribute.name})}(${attribute.name});
+        java.util.List<${entity.fullyQualifiedEntityName}> entities = ${stringUtils.uncapitalize(${entity.name})}Repository.findAll(spec, org.springframework.data.domain.Sort.by("${attribute.name}"));
+        if(org.apache.commons.collections4.CollectionUtils.isNotEmpty(entities)) {
+            return null;
         }
+
+        return entities.get(0);
     }
 
     /**
@@ -1943,7 +2079,7 @@ $h3tab        return results;
 #if ($enableAnnotations)
     @Override
 #end
-	@org.springframework.transaction.annotation.Transactional
+## @org.springframework.transaction.annotation.Transactional
     public $entity.fullyQualifiedEntityName createOrUpdate($entity.fullyQualifiedEntityName $argumentName)
     {
         if(${argumentName}.${entity.identifiers.get(0).getterName}() == null)

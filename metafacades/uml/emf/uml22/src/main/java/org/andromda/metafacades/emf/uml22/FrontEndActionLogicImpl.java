@@ -933,4 +933,9 @@ public class FrontEndActionLogicImpl
         
         return UMLMetafacadeUtils.getPresentationClass(this);
     }
+
+    @Override
+    protected String handleGetEnctype() {
+        return MetafacadeWebUtils.getEnctype(this);
+    }
 }

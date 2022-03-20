@@ -92,7 +92,7 @@ $class.getDocumentation("     * ")
     /**
      * The fetch size.
      */
-    private Integer fetchSize;
+    private Integer fetchSize = 0;
 
     /**
      * Gets the fetch size.
@@ -137,6 +137,31 @@ $class.getDocumentation("     * ")
     public void setMaximumResultSize(Integer maximumResultSize)
     {
         this.maximumResultSize = maximumResultSize;
+    }
+
+    /**
+     * The page number of the result set.
+     */
+    private Integer pageNumber = -1;
+
+    /**
+     * Gets the page number of the search result.
+     *
+     * @return the page number of the search result.
+     */
+    public Integer getPageNumber()
+    {
+        return this.pageNumber;
+    }
+
+    /**
+     * Sets the page number of the result.
+     *
+     * @param pageNumber A number indicating how many results will be returned.
+     */
+    public void setPageNumber(Integer pageNumber)
+    {
+        this.pageNumber = pageNumber;
     }
 
 #foreach ( $attribute in $class.attributes )

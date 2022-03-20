@@ -13,10 +13,17 @@ public final class ${entity.name}Specifications {
 #set ($capitalised = ${stringUtils.capitalize($attribute.name)})
 #if($attribute.name != "id" && !$attribute.type.clobType && !$attribute.type.blobType && !$attribute.type.fileType)
 #if(!$attribute.required)
-    public static Specification<$entity.name> findBy${capitalised}Null($attribute.type.fullyQualifiedName $attribute.name) {
+    public static Specification<$entity.name> findBy${capitalised}Null() {
         return (root, cq, cb) -> {
             cq.distinct(true);
             return cb.isNull(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"));
+        };
+    }
+
+    public static Specification<$entity.name> findBy${capitalised}NotNull() {
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.isNotNull(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"));
         };
     }
 
@@ -168,11 +175,10 @@ public final class ${entity.name}Specifications {
     }
 
 #end
-
 #end
 #foreach ($associationEnd in $entity.associationEnds)
-#if($associationEnd.navigable)
 #set ($target = $associationEnd.otherEnd)
+#if($target.navigable)
 #set ($capitalised = ${stringUtils.capitalize($target.name)})
 #set ($joinEntity = $target.type)
 #if($joinEntity.identifiersPresent)
@@ -194,6 +200,20 @@ public final class ${entity.name}Specifications {
             cq.distinct(true);
             javax.persistence.criteria.Join<$entity.name, $target.type.fullyQualifiedEntityName> ${target.name}Join = root.join("$target.name");
             return cb.in(${target.name}Join.get("$identifier.name").in(${identifier.name}s));
+        };
+    }
+
+    public static Specification<$entity.name> findBy${capitalised}Null() {
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.isNull(root.<$target.type.fullyQualifiedName>get("$target.name"));
+        };
+    }
+
+    public static Specification<$entity.name> findBy${capitalised}NotNull() {
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.isNotNull(root.<$target.type.fullyQualifiedName>get("$target.name"));
         };
     }
 
@@ -268,13 +288,13 @@ public final class ${entity.name}Specifications {
 #set ($matchMode = "'%' + ${criteriaArgumentName}.${criteriaAttribute.getterName}()")
 #end
 #end
-
     public static Specification<$entity.name> ${specName}($criteriaAttribute.getterSetterTypeName $criteriaAttribute.name) {
         return (root, cq, cb) -> {
             cq.distinct(true);
             return cb.${comparator}(root.get("$criteriaAttribute.attributeName"), $matchMode);
         };
     }
+
 #end
 #end
 #end

@@ -434,6 +434,20 @@ public class MetafacadeWebGlobals {
      */
     public static final String REST_PATH_SEGMENT = "andromda_REST_path_segment";
 
+    /**
+     * Plain text
+     */
+    public static final String ENCTYPE_PLAIN = "plain/text";
+
+    /**
+     * Plain text
+     */
+    public static final String ENCTYPE_FORM_DATA = "multipart/form-data";
+
+    /**
+     * Plain text
+     */
+    public static final String ENCTYPE_URLENCODED = "application/x-www-form-urlencoded";
 
     /**
      * The name prefix for all spring bean ids.

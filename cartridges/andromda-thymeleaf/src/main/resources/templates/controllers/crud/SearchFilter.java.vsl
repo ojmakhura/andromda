@@ -49,15 +49,16 @@ public class ${manageable.searchFilterName}
             //TODO corrigir
             this.${field.name}=${field.type.fullyQualifiedName}.fromString(${field.name}In);
 #elseif($field.type.dateType)
-            try {
-#if($fieldWrapperTypeName == "java.util.Date")            
-                this.${field.name}=java.text.SimpleDateFormat.getInstance().parse(${field.name}In);
-#else
-                this.${field.name}=new ${fieldWrapperTypeName}(java.text.SimpleDateFormat.getInstance().parse(${field.name}In).getTime());
-#end                
-            } catch (java.text.ParseException e) {
-                throw new RuntimeException(e);
-            }
+            this.${field.name} = ${fieldWrapperTypeName}.now();
+##             try {
+## #if($fieldWrapperTypeName == "java.util.Date")            
+##                 this.${field.name} = java.text.SimpleDateFormat.getInstance().parse(${field.name}In);
+## #else
+##                 this.${field.name} = ${fieldWrapperTypeName}.now();
+## #end                
+##             } catch (java.text.ParseException e) {
+##                 throw new RuntimeException(e);
+##             }
 #elseif($fieldWrapperTypeName == "java.math.BigDecimal")
             this.${field.name}=new java.math.BigDecimal(${field.name}In);
 #else

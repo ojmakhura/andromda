@@ -743,53 +743,53 @@ $operation.getDocumentation("     * ")
 #set ($fullyQualifiedPagingResultName = $cartridgeSpringUtils.getFullyQualifiedClassName($springCommonTypesPackage, "PaginationResult"))
 #set ($fullyQualifiedSearchClassName = $cartridgeSpringUtils.getFullyQualifiedClassName($springTypesPackage, "Search"))
 
-    /**
-     * Does the same thing as {@link ${esc.hash}search(int, ${fullyQualifiedSearchClassName})} but with an
-     * additional two flags called <code>pageNumber</code> and <code>pageSize</code>. These flags allow you to
-     * limit your data to a specified page number and size.
-     *
-     * @param transform the transformation flag.
-     * @param pageNumber the page number in the data to retrieve
-     * @param pageSize the size of the page to retrieve.
-     * @param search the search object which provides the search parameters and pagination specification.
-     * @return any found results from the search wrapped in a {@link $fullyQualifiedPagingResultName} instance.
-     */
-    public $fullyQualifiedPagingResultName search(final int transform, final int pageNumber, final int pageSize, final $fullyQualifiedSearchClassName search);
+##     /**
+##      * Does the same thing as {@link ${esc.hash}search(int, ${fullyQualifiedSearchClassName})} but with an
+##      * additional two flags called <code>pageNumber</code> and <code>pageSize</code>. These flags allow you to
+##      * limit your data to a specified page number and size.
+##      *
+##      * @param transform the transformation flag.
+##      * @param pageNumber the page number in the data to retrieve
+##      * @param pageSize the size of the page to retrieve.
+##      * @param search the search object which provides the search parameters and pagination specification.
+##      * @return any found results from the search wrapped in a {@link $fullyQualifiedPagingResultName} instance.
+##      */
+##     public $fullyQualifiedPagingResultName search(final int transform, final int pageNumber, final int pageSize, final $fullyQualifiedSearchClassName search);
+##
+##     /**
+##      * Does the same thing as {@link ${esc.hash}search(${fullyQualifiedSearchClassName})} but with an
+##      * additional two flags called <code>pageNumber</code> and <code>pageSize</code>. These flags allow you to
+##      * limit your data to a specified page number and size.
+##      *
+##      * @param pageNumber the page number in the data to retrieve
+##      * @param pageSize the size of the page to retrieve.
+##      * @param search the search object which provides the search parameters and pagination specification.
+##      * @return any found results from the search wrapped in a {@link $fullyQualifiedPagingResultName} instance.
+##      */
+##     public $fullyQualifiedPagingResultName search(final int pageNumber, final int pageSize, final $fullyQualifiedSearchClassName search);
 
-    /**
-     * Does the same thing as {@link ${esc.hash}search(${fullyQualifiedSearchClassName})} but with an
-     * additional two flags called <code>pageNumber</code> and <code>pageSize</code>. These flags allow you to
-     * limit your data to a specified page number and size.
-     *
-     * @param pageNumber the page number in the data to retrieve
-     * @param pageSize the size of the page to retrieve.
-     * @param search the search object which provides the search parameters and pagination specification.
-     * @return any found results from the search wrapped in a {@link $fullyQualifiedPagingResultName} instance.
-     */
-    public $fullyQualifiedPagingResultName search(final int pageNumber, final int pageSize, final $fullyQualifiedSearchClassName search);
+##     /**
+##      * Does the same thing as {@link ${esc.hash}search(${fullyQualifiedSearchClassName})} but with an
+##      * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
+##      * finder results will <strong>NOT</strong> be transformed during retrieval.
+##      * If this flag is any of the other constants defined here
+##      * then results <strong>WILL BE</strong> passed through an operation which can optionally
+##      * transform the entities (into value objects for example). By default, transformation does
+##      * not occur.
+##      *
+##      * @param transform the transformation flag.
+##      * @param search the search object which provides the search parameters and pagination specification.
+##      * @return any found results from the search.
+##      */
+##     public java.util.Collection#if($enableTemplating)<?>#end search(final int transform, final $fullyQualifiedSearchClassName search);
 
-    /**
-     * Does the same thing as {@link ${esc.hash}search(${fullyQualifiedSearchClassName})} but with an
-     * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
-     * finder results will <strong>NOT</strong> be transformed during retrieval.
-     * If this flag is any of the other constants defined here
-     * then results <strong>WILL BE</strong> passed through an operation which can optionally
-     * transform the entities (into value objects for example). By default, transformation does
-     * not occur.
-     *
-     * @param transform the transformation flag.
-     * @param search the search object which provides the search parameters and pagination specification.
-     * @return any found results from the search.
-     */
-    public java.util.Collection#if($enableTemplating)<?>#end search(final int transform, final $fullyQualifiedSearchClassName search);
-
-    /**
-     * Performs a search using the parameters specified in the given <code>search</code> object.
-     *
-     * @param search the search object which provides the search parameters and pagination specification.
-     * @return any found results from the search.
-     */
-    public java.util.Collection#if($enableTemplating)<#if($daoInheritance)? extends #end${rootEntityType}>#end search(final $fullyQualifiedSearchClassName search);
+##     /**
+##      * Performs a search using the parameters specified in the given <code>search</code> object.
+##      *
+##      * @param search the search object which provides the search parameters and pagination specification.
+##      * @return any found results from the search.
+##      */
+##     public java.util.Collection#if($enableTemplating)<#if($daoInheritance)? extends #end${rootEntityType}>#end search(final $fullyQualifiedSearchClassName search);
 
     /**
      * Allows transformation of entities into value objects

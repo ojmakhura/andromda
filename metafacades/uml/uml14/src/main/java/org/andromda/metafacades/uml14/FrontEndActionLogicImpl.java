@@ -742,4 +742,10 @@ public class FrontEndActionLogicImpl
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    protected String handleGetEnctype() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

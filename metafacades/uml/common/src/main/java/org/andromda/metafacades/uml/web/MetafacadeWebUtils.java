@@ -23,6 +23,7 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -1187,6 +1188,36 @@ public class MetafacadeWebUtils {
 
         return StringUtils.trimToNull((String) modelElement.findTaggedValue(MetafacadeWebGlobals.INPUT_ACTION));
 
+    }
+
+    public static String getEnctype(ModelElementFacade modelElement) {
+
+        String enctype = StringUtils.stripToNull(((String) modelElement.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_FORM_ENCTYPE)));
+
+        if(enctype == null) {
+            return enctype;
+        }
+
+        if(enctype.equals("plain")) {
+            return MetafacadeWebGlobals.ENCTYPE_PLAIN;
+        } else if(enctype.equals("form_data")) {
+            return MetafacadeWebGlobals.ENCTYPE_FORM_DATA;
+        } else if(enctype.equals("urlencoded")) {
+            return MetafacadeWebGlobals.ENCTYPE_URLENCODED;
+        }
+
+        return enctype;
+    }
+
+    public static String getInputMin(ModelElementFacade modelElement) {
+        String min = StringUtils.stripToNull(((String) modelElement.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_WEB_FIELD_MIN)));
+
+        return min;
+    }
+    public static String getInputMax(ModelElementFacade modelElement) {
+        String max = StringUtils.stripToNull(((String) modelElement.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_WEB_FIELD_MAX)));
+
+        return max;
     }
 }
 

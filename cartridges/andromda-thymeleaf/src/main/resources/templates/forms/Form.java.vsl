@@ -20,6 +20,13 @@ public interface $operation.formName
 $field.getDocumentation("     * ")
      * @return $field.name
      */
+#if($field.type.dateType && $field.type.timeType)
+#set ($fieldTypeName = "java.time.LocalDateTime")
+#elseif($field.type.dateType)
+#set ($fieldTypeName = "java.time.LocalDate")
+#elseif($field.type.timeType)
+#set ($fieldTypeName = "java.time.LocalTime")
+#end
     public $fieldTypeName ${field.getterName}();
 ## - don't allow fields with default values to be set
 #if (!$field.defaultValuePresent)
