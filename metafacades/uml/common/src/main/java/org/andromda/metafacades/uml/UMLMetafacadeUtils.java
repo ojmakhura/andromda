@@ -1309,6 +1309,10 @@ public class UMLMetafacadeUtils
                 path = path.substring(0, path.length() - 1);
             }
         }
+
+        if(!path.endsWith(SLASH)) {
+            path = SLASH + path;
+        }
         
         return path;
     }

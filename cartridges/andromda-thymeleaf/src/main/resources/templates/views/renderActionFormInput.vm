@@ -64,11 +64,11 @@ ${ident}    <td id="column_${column.name}" th:text=#if ($column.type.dateType)"$
 #end
 #set ($formValuePropertyName = "${valuePropertyName}")
 ${ident}<label id="${propertyId}_label" class=#if ($parameter.inputMultibox || $parameter.type.booleanType)"form-check-label"#else"form-label"#end for="${propertyId}" th:text="#{$parameter.messageKey}"></label>
-#if ($parameter.type.dateType)
-${ident}<input type="date" id="$propertyId" class="form-control" th:field="*{${formValuePropertyName}}" label="#{$parameter.messageKey}:"#if($parameter.required) required#end #if($parameter.readOnly) readonly#end navigator="true" pattern="$parameter.format" showOn="button">
+#if ($parameter.type.dateType || $parameter.inputDate)
+${ident}<input type="$parameter.inputType" id="$propertyId" class="form-control" th:field="*{${formValuePropertyName}}" label="#{$parameter.messageKey}:"#if($parameter.required) required#end #if($parameter.readOnly) readonly#end navigator="true" pattern="$parameter.format" showOn="button">
 ${ident}</input>
 #elseif ($parameter.inputCheckbox || $parameter.type.booleanType)
-${ident}<input id="$propertyId" class="form-check-input" type="checkbox" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end onLabel="#{yes}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"#if($parameter.readOnly) readonly#end/>
+${ident}<input type="checkbox" id="$propertyId" class="form-check-input" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end onLabel="#{yes}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"#if($parameter.readOnly) readonly#end/>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration)
 #set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
 #set ($selectBoxType = "selectOneMenu")
@@ -92,17 +92,17 @@ ${ident}</select>
 #elseif ($parameter.inputFile)
 ${ident}<input type="file" id="$propertyId" class="form-control" th:field="*{${formValuePropertyName}}" label="#{$parameter.messageKey}:"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
 #elseif ($parameter.inputMultibox)
-${ident}<input id="$propertyId"  class="form-control" type="checkbox" th:field="*{${formValuePropertyName}}" label="#{$parameter.messageKey}:"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end>
+${ident}<input type="checkbox" id="$propertyId"  class="form-control" th:field="*{${formValuePropertyName}}" label="#{$parameter.messageKey}:"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end>
 ${ident}    <option th:each="${formValuePropertyName} : *{${backingListName}}" th:value="${${formValuePropertyName}.value}" th:text="${${formValuePropertyName}.label}"></option>
 ${ident}</input>
 #elseif ($parameter.inputRadio)
 ${ident}<input type="radio" id="$propertyId" class="form-control" th:field="*{${formValuePropertyName}}" label="#{$parameter.messageKey}:"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end>
 ${ident}    <option th:each="${formValuePropertyName} : *{${backingListName}}" th:value="${${formValuePropertyName}.value}" th:text="${${formValuePropertyName}.label}"></option>
 ${ident}</input>
-#elseif ($parameter.plainText)
-${ident}<input id="$propertyId" class="form-control" type=#if($thymeleafUtils.isNumber($parameter.type))"number"#else"text"#end name="$parameter.name" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
-#elseif ($parameter.inputSecret)
-${ident}<input id="$propertyId" class="form-control" type="password" name="$parameter.name" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
+## #elseif ($parameter.plainText)
+## ${ident}<input id="$propertyId" class="form-control" type="$parameter.inputType" name="$parameter.name" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
+## #elseif ($parameter.inputSecret)
+## ${ident}<input id="$propertyId" class="form-control" type="$parameter.inputType" name="$parameter.name" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
 #elseif($parameter.inputTable)
 ${ident}<table id="searchResult" class="table table-bordered" style="width: 100%">
 #renderTableColumnNames($parameter "${ident}    ")
@@ -139,7 +139,7 @@ ${ident}                    <div class="col">
 #set ($urlParams = "$urlParams$parameter.name=#{$parameterValue}")
 #end
 ${ident}                    <form method="POST" 
-${ident}                           th:action="@{${action.controller.restPath}/$thymeleafUtils.toWebResourceName(${action.trigger.name})$urlParams}">
+${ident}                           th:action="@{${action.controller.restPath}/${action.restPath}$urlParams}">
 ${ident}                        <button type="submit" id="${action.triggerName}Action"  th:text="#{$action.trigger.messageKey}">
 ${ident}                        </button>
 ${ident}                    </form>
@@ -152,6 +152,6 @@ ${ident}        </tr>
 ${ident}    </tbody>
 ${ident}</table>
 #else
-${ident}<input id="$propertyId" class="form-control" type=#if($thymeleafUtils.isNumber($parameter.type))"number"#else"text"#end name="$parameter.name" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
+${ident}<input type="$parameter.inputType" id="$propertyId" class="form-control" name="$parameter.name" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
 #end
 #end

@@ -175,7 +175,6 @@ public final class ${entity.name}Specifications {
     }
 
 #end
-
 #end
 #foreach ($associationEnd in $entity.associationEnds)
 #set ($target = $associationEnd.otherEnd)
@@ -289,13 +288,13 @@ public final class ${entity.name}Specifications {
 #set ($matchMode = "'%' + ${criteriaArgumentName}.${criteriaAttribute.getterName}()")
 #end
 #end
-
     public static Specification<$entity.name> ${specName}($criteriaAttribute.getterSetterTypeName $criteriaAttribute.name) {
         return (root, cq, cb) -> {
             cq.distinct(true);
             return cb.${comparator}(root.get("$criteriaAttribute.attributeName"), $matchMode);
         };
     }
+
 #end
 #end
 #end

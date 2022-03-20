@@ -161,7 +161,7 @@
                 </documentation>
             </property>
             <property name="componentSet">
-                <default>primefaces</default>
+                <default>thymeleaf</default>
                 <documentation>
                     The component set to be used. Supported values are primefaces,trinidad.
                 </documentation>
@@ -352,7 +352,7 @@
                 </documentation>
             </property>
             <property name="fileTypeName">
-                <default>org.primefaces.model.UploadedFile</default>
+                <default>org.springframework.web.multipart.MultipartFile</default>
                 <documentation>
                     The fully qualified type name to use when file types are modeled for parameters (used for
                     for file uploads).

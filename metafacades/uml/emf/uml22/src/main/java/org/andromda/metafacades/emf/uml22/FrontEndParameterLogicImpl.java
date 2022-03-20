@@ -295,7 +295,16 @@ public class FrontEndParameterLogicImpl
      */
     @Override
     protected String handleGetInputType() {
-        return Objects.toString(this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
+        String inputType = Objects.toString(this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_INPUT_TYPE), "text").trim();
+
+        if(inputType.equals("text")) {
+            if(UMLMetafacadeUtils.isNumber(getType())) {
+                inputType = "number";
+            } else if(this.getType().isDateType()) {
+                inputType = "date";
+            }
+        }
+        return inputType;
     }
 
     /**

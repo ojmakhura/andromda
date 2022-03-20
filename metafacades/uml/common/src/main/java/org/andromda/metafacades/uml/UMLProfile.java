@@ -400,6 +400,14 @@ public class UMLProfile {
                         "PRESENTATION_CLASS");
 
         /**
+         * 'andromda_presentation_form_enctype'
+         * Used to assign the controller to the activity (when it can not be assigned
+         * explicitly).
+         */
+        public static final String TAGGEDVALUE_PRESENTATION_FORM_ENCTYPE = profile.get(
+                        "PRESENTATION_FORM_ENCTYPE");
+
+        /**
          * 'andromda_presentation_view_table_columns'
          * Used to assign the table columns to a collection/array type parameter
          * representing a table.
