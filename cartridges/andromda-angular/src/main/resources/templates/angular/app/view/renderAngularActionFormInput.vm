@@ -89,7 +89,7 @@ ${ident}		</mat-select>
 #else
 #set ($type = "$parameter.inputType")
 #end
-${ident}		<input matInput type="$type" formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
+${ident}		<input matInput type="$parameter.inputType" formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
 #end
 #end
 #if($parameter.inputEmail)
