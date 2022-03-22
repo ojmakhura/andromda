@@ -568,6 +568,7 @@
 #if($webType.equals("angular") || $webType.equals("both"))
         <namespace name="angular">
             <properties>
+                <property name="languageMappingsUri">TypescriptMappings</property>
                 <property name="applicationPackage">${application.package}</property>
             	<property name="applicationId">${application.id}</property>
                 <property name="applicationName">${application.name}</property>
@@ -591,7 +592,7 @@
                 <property name="jaxb-gen">${common.generated.dir}</property>
 #end
 #if($ngrx)
-                <property name="ngrx-store">${aangular.ngrx.dir}</property>
+                <property name="ngrx-store">${angular.ngrx.dir}</property>
                 <property name="ngrx">true</property>
 #end
             </properties>

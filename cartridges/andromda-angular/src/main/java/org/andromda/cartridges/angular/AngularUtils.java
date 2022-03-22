@@ -2,6 +2,8 @@ package org.andromda.cartridges.angular;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -116,107 +118,14 @@ public class AngularUtils {
      */
     public static String getDatatype(final String typeName) {
         
-        if(typeName == null) {
+        if(StringUtils.isBlank(typeName)) {
             logger.error("typeName should not be null", new NullPointerException());
+            return null;
         }
 
-        if(typeName.contains("java.lang.Object")) {
+        String[] splits = typeName.split("\\.");
 
-            if(typeName.contains("[]")) {
-                return "Array<any>";
-            } else {
-                return "any";
-            }
-        }
-
-        if(typeName.equals("String") || typeName.equals("java.lang.String")) {
-
-            if(typeName.contains("[]")) {
-                return "Array<string>";
-            } else {
-                return "string";
-            }
-            
-        }
-        
-        if(typeName.equalsIgnoreCase("java.lang.Boolean") || typeName.equalsIgnoreCase("Boolean") || typeName.equalsIgnoreCase("boolean")) {
-            return "boolean";
-        }
-        
-        if(typeName.equalsIgnoreCase("int") || typeName.contains("Integer") ||
-                typeName.equalsIgnoreCase("short") || typeName.contains("Short") ||
-                typeName.equalsIgnoreCase("long") || typeName.contains("Long") ||
-                typeName.equalsIgnoreCase("float") || typeName.contains("Float") ||
-                typeName.equalsIgnoreCase("double") || typeName.contains("Double") ||
-                typeName.equalsIgnoreCase("bute") || typeName.contains("Byte")) {
-            return "number";
-        }
-        
-        // If the dataset is a java.util.Collection without type parameters
-        if((typeName.equalsIgnoreCase("java.util.Collection") || typeName.equalsIgnoreCase("Collection"))) {
-            return "any[]";
-        }
-        
-        String datatype = "";
-        try {
-            Class cls = Class.forName(typeName);
-            
-            // Anything that inherits from number
-            if(cls.getSuperclass().getName().equalsIgnoreCase("java.lang.Number"))
-            {
-                return "number";
-            }
-            
-            if(cls.getSuperclass().getName().equalsIgnoreCase("java.lang.Boolean"))
-            {
-                return "boolean";
-            }
-                        
-            Object obj = cls.newInstance();
-
-            if(obj instanceof String) {
-                datatype = "string";
-            } else if(obj instanceof Date) {
-                datatype = "Date";
-            } else if(obj instanceof List || obj instanceof Collection) {
-                
-                if(typeName.contains("<")) {
-                    String tmp = StringUtils.substringAfter(typeName, "<");
-                    tmp = StringUtils.substringBefore(tmp, ">");
-                    datatype = getDatatype(tmp) + "[]";
-                    
-                } else {
-                    datatype = "any[]";
-                }
-            } else if(obj instanceof Map) {
-                datatype = "any";
-            }      
-            
-        } catch (InstantiationException | IllegalAccessException e) {
-            if(typeName.equalsIgnoreCase("java.lang.Boolean")) {
-                datatype = "boolean";
-            }
-            logger.error("Could find the instance for " + typeName);
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            if(typeName.equalsIgnoreCase("byte[]")) {
-                datatype = "File";
-            }else {
-                if(typeName.contains("<")) {
-                    String tmp = StringUtils.substringAfter(typeName, "<");
-                    tmp = StringUtils.substringBefore(tmp, ">");
-                    String[] tmp2 = tmp.split("\\.");
-                    datatype = getDatatype(tmp2[tmp2.length-1]);
-                    
-                } else {
-            
-                    String[] tmp = typeName.split("\\.");
-                    datatype = tmp[tmp.length-1];
-                }
-            }
-        }
-        
-        return datatype;
+        return splits[splits.length - 1];
     }
 	
 	public static boolean isArray(final String typeName) {
@@ -415,7 +324,7 @@ public class AngularUtils {
                 builder.append(model.getAngularTypeName());
 
             } else {
-                builder.append(getDatatype(arg$.getType().getName()));
+                builder.append(getDatatype(arg$.getGetterSetterTypeName()));
             }
         }
             

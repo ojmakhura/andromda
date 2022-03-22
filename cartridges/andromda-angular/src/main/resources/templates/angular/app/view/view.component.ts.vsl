@@ -27,22 +27,20 @@ import { $import.implementationName } from '@app/${import.implementationFilePath
 import { $import.name } from '@app/${import.filePath}';
 #end
 #end
-
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
 export class $stringUtils.capitalize($action.formName) {
 #foreach($parameter in $action.formFields)
-    $parameter.name: $parameter.angularTypeName;
+    $parameter.name: $parameter.angularTypeName | any;
 #end
 }
 #end
-
 #end
 #if ($view.nonTableVariablesPresent)
 export class $stringUtils.capitalize(${view.varsFormName}) {
 #foreach($variable in $view.variables)
 #if(!$variable.table)
-    $variable.name: $variable.angularTypeName;
+    $variable.name: $variable.angularTypeName | any;
 #end
 #end
 }
@@ -70,7 +68,8 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
 #end
 #end
 #end
-	${view.formName}: FormGroup;
+	${view.formName}: FormGroup | any;
+    hide: boolean = false;
     protected route: ActivatedRoute;
     protected router: Router;
     protected formBuilder: FormBuilder;
@@ -87,7 +86,8 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
     $stringUtils.uncapitalize($service.name): ${service.implementationName};
 #end
 #end
-#foreach ($field in $fieldSet)
+#if ($view.nonTableVariablesPresent)
+#foreach ($field in $view.variables)
 #if($field.complex)
 #foreach($attribute in $angularUtils.getTableAttributes($field))
 	${attribute.name}Columns = [
@@ -117,7 +117,8 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
     ${field.name}Options = Object.keys(this.${field.name}T);
 #elseif($field.inputSelect || $field.inputMultibox)
 #set($ret = $selections.add($field.type))
-    ${field.backingListName}: Array<$angularUtils.getDatatype($field.type.name)> = [];
+    ${field.backingListName}: Array<$field.angularTypeName> = [];
+#end
 #end
 #end
 #end
@@ -171,30 +172,16 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
 
     newForm(): FormGroup {
         return this.formBuilder.group({
-#if($fieldSet.size() > 0)
-#foreach ($field in $fieldSet)
-#if(!$field.action.tableLink)
-#*  *##if($field.complex)
-#*    *##set($name = $stringUtils.replaceChars(${field.action.trigger.name}, '\\ ', ''))
-            $field.name: this.rxFormBuilder.group(new $field.type.name),
-#*  *##else
-            $field.name: [],
-#*  *##end
-#end
-#end
-#end
 #if ($view.nonTableVariablesPresent)
-            ${view.varsFormName}: this.formBuilder.group({
 #foreach( $variable in $view.variables )
 #if(!$variable.table)
 #*  *##if($variable.complex)
-                $variable.name: this.rxFormBuilder.group(new $variable.type.name),
+            $variable.name: this.rxFormBuilder.group(new $variable.type.name),
 #*  *##else
-                $variable.name: [],
+            $variable.name: [],
 #*  *##end
 #end
 #end
-            }),
 #end
 #foreach($table in $view.tables)#set ($i = 1)
             ${table.name}: this.formBuilder.array([
@@ -238,7 +225,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
     set$stringUtils.capitalize(${action.formName})(form: $stringUtils.capitalize($action.formName)) {
 
 #foreach($parameter in $action.parameters)
-        this.${view.formName}.get('$parameter.name').setValue(form.$parameter.name);
+        this.${view.formName}.get('$parameter.name')?.setValue(form.$parameter.name);
 #end
 
         this.afterSet$stringUtils.capitalize(${action.formName})(form);
@@ -312,7 +299,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
 
 #foreach($variable in $view.variables)
 #if(!$variable.table)
-        this.${view.varsFormName}.get('$variable.name').setValue(form.$variable.name);
+        this.${view.varsFormName}.get('$variable.name')?.setValue(form.$variable.name);
 #end
 #end
 
@@ -346,27 +333,27 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
         return this.${view.formName}.get(name) as FormArray;
     }
 
-#foreach ( $parameter in $fieldSet )
-#if($parameter.complex)
-#foreach($attribute in $parameter.attributes)
-#if($angularUtils.isTable($attribute) || $attribute.many)
-    get ${attribute.name}(): FormArray {
-        return <FormArray>this.getArrayControl('$parameter.name').get('$attribute.name');
-    }
+## #foreach ( $parameter in $fieldSet )
+## #if($parameter.complex)
+## #foreach($attribute in $parameter.attributes)
+## #if($angularUtils.isTable($attribute) || $attribute.many)
+##     get ${attribute.name}(): FormArray {
+##         return <FormArray>this.getArrayControl('$parameter.name').get('$attribute.name');
+##     }
 
-#elseif($attribute.complex)
-    get ${attribute.name}(): FormGroup {
-        return <FormGroup>this.getGroupControl('$parameter.name').get('$attribute.name');
-    }
+## #elseif($attribute.complex)
+##     get ${attribute.name}(): FormGroup {
+##         return <FormGroup>this.getGroupControl('$parameter.name').get('$attribute.name');
+##     }
 
-#end
-#end
-    get ${parameter.name}(): FormGroup {
-        return <FormGroup>this.getGroupControl('$parameter.name');
-    }
+## #end
+## #end
+##     get ${parameter.name}(): FormGroup {
+##         return <FormGroup>this.getGroupControl('$parameter.name');
+##     }
 
-#end
-#end
+## #end
+## #end
 #foreach($table in $view.tables)
     set$stringUtils.capitalize(${table.name})(${table.name}: ${table.angularTypeName}[]): FormArray {
 
