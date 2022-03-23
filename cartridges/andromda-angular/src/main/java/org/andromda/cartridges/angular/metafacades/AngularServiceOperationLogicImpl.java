@@ -586,7 +586,8 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
                 builder.append(model.getAngularTypeName());
 
             } else {
-                builder.append(AngularUtils.getDatatype(this.getReturnType().getName()));
+                
+                builder.append(AngularUtils.getDatatype(this.getReturnType().getFullyQualifiedName()));
             }
 
             if (this.isMany()) {
