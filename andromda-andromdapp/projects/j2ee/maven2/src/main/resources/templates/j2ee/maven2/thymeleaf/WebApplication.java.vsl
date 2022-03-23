@@ -1,11 +1,16 @@
 package ${applicationPackage};
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+#if($applicationType.equals("war"))
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+#end
 import org.springframework.context.annotation.Import;
 
-@org.springframework.boot.autoconfigure.SpringBootApplication
+@SpringBootApplication
 @Import(SharedAutoConfiguration.class)
-public class ${stringUtils.capitalize($applicationId)}WebApplication {
+public class ${stringUtils.capitalize($applicationId)}WebApplication#if($applicationType.equals("war")) extends SpringBootServletInitializer#end {
     public static void main(String[] args) {
-        org.springframework.boot.SpringApplication.run(${stringUtils.capitalize($applicationId)}WebApplication.class, args);
+        SpringApplication.run(${stringUtils.capitalize($applicationId)}WebApplication.class, args);
     }
 }

@@ -51,7 +51,16 @@ public class $controller.implementationName
         // populating value with dummy instance
         $field.type.fullyQualifiedName $field.name = new ${field.type.fullyQualifiedName}();
 #foreach ($attribute in $field.attributes)
-        ${field.name}.${attribute.setterName}($attribute.dummyValue#if($attribute.type.longType)l#end);
+#if($attribute.type.longType)
+#set($add = "l")
+#elseif($attribute.type.doubleType)
+#set($add = "d")
+#elseif($attribute.type.floatType)
+#set($add = "f")
+#else
+#set($add = "")
+#end
+        ${field.name}.${attribute.setterName}($attribute.dummyValue$add);
 #end
 #end
         form.${field.setterName}($field.name);
@@ -189,8 +198,8 @@ public class $controller.implementationName
 #set ($dummyValue = $velocityCount)
 #elseif ($attribute.type.stringType)
 #set ($dummyValue = "${quote}${attribute.name}-${count}${quote}")
-#elseif ($attribute.type.dateType)
-#set ($dummyValue = "new java.util.Date()")
+#elseif ($attribute.type.dateType|| $attribute.type.timeType)
+#set ($dummyValue = "${attribute.type.fullyQualifiedName}.now()")
 #else
 #set ($dummyValue = "null")
 #end

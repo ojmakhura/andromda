@@ -10,7 +10,11 @@
     <groupId>$applicationPackage</groupId>
     <artifactId>${applicationId}-thymeleaf</artifactId>
     <version>$applicationVersion</version>
+#if($applicationType.equals("war"))
+    <packaging>war</packaging>
+#else
     <packaging>jar</packaging>
+#end
     <name>${applicationName} Thymeleaf Web</name>
     <dependencies>
         <dependency>
@@ -49,6 +53,13 @@
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
         </dependency>
+#if($applicationType.equals("war"))
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+#end
 		<dependency>
 			<groupId>nz.net.ultraq.thymeleaf</groupId>
 			<artifactId>thymeleaf-layout-dialect</artifactId>
