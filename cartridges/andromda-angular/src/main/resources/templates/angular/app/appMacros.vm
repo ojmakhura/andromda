@@ -33,7 +33,7 @@
 #set ( $rt = $controllers.add($action.controller) )
 ## Form fields
 #foreach ( $field in $action.formFields )
-#set ($dt = $angularUtils.getDatatype($field.fullyQualifiedName))
+#set ($dt = $field.angularTypeName)
 #if($field.complex)
 #set ( $rt = $fields.add($field.type))
 #end

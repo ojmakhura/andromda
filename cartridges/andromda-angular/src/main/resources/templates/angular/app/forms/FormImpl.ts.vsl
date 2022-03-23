@@ -44,7 +44,7 @@ export class $action.formImplementationName
 #end
 ## Impl uses $action.formFields, Form uses $operation.formFields
 #foreach ($field in $action.formFields)
-#set ($type = $angularUtils.getDatatype($field.type.name))
+#set ($type = $field.angularTypeName)
 #if($field.many)
 #set ($type = "${type}[]")
 #end

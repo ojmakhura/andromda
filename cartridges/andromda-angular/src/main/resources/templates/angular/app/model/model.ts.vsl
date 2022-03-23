@@ -15,12 +15,10 @@ import {$import.name} from '@app/$import.filePath';
 #end
 #end
 #end
-
 @Injectable()
 @model([])
 export class $class.name {
 #foreach ($attribute in $class.attributes)
-
     @$angularUtils.getRxwebDecorator($attribute)
 #if($angularUtils.isComplex($attribute) && !$attribute.many && !$angularUtils.isArray($attribute.getterSetterTypeName) && !$attribute.type.enumeration)
 
@@ -39,7 +37,8 @@ export class $class.name {
 #if($attribute.many)
 #set ($default = "new Array()")
 #end
-    $attribute.name: $attribute.angularTypeName#if($attribute.many)[]#end | any#if($attribute.many)[]#end = null;
+    $attribute.name: $attribute.angularTypeName#if($attribute.many)[]#end | any#if($attribute.many)[]#end = #if($attribute.many)[]#{else}null#end;
+
 #end
 #end
     
