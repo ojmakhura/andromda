@@ -11,7 +11,7 @@ public final class ${entity.name}Specifications {
 #foreach($attribute in $entity.attributes)
     // Generating specifications for $attribute.name
 #set ($capitalised = ${stringUtils.capitalize($attribute.name)})
-#if($attribute.name != "id" && !$attribute.type.clobType && !$attribute.type.blobType && !$attribute.type.fileType)
+#if(!$attribute.type.clobType && !$attribute.type.blobType && !$attribute.type.fileType)
 #if(!$attribute.required)
     public static Specification<$entity.name> findBy${capitalised}Null() {
         return (root, cq, cb) -> {
@@ -33,6 +33,13 @@ public final class ${entity.name}Specifications {
         return (root, cq, cb) -> {
             cq.distinct(true);
             return cb.equal(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), $attribute.name);
+        };
+    }
+
+    public static Specification<$entity.name> findBy${capitalised}NotEqual($attribute.type.fullyQualifiedName $attribute.name) {
+        return (root, cq, cb) -> {
+            cq.distinct(true);
+            return cb.notEqual(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), $attribute.name);
         };
     }
 
@@ -97,29 +104,7 @@ public final class ${entity.name}Specifications {
         };
     }
     
-#elseif($attribute.type.dateType)
-    public static Specification<$entity.name> findBy${capitalised}After($attribute.type.fullyQualifiedName $attribute.name){
-        return (root, cq, cb) -> {
-            cq.distinct(true);
-            return cb.greaterThanOrEqualTo(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), $attribute.name);
-        };
-    }
-    
-    public static Specification<$entity.name> findBy${capitalised}Before($attribute.type.fullyQualifiedName $attribute.name){
-        return (root, cq, cb) -> {
-            cq.distinct(true);
-            return cb.lessThanOrEqualTo(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), $attribute.name);
-        };
-    }
-    
-    public static Specification<$entity.name> findBy${capitalised}Between($attribute.type.fullyQualifiedName ${attribute.name}Start, $attribute.type.fullyQualifiedName ${attribute.name}End){
-        return (root, cq, cb) -> {
-            cq.distinct(true);
-            return cb.between(root.<$attribute.type.fullyQualifiedName>get("$attribute.name"), ${attribute.name}Start, ${attribute.name}End);
-        };
-    }
-    
-#elseif($umlMetafacadeUtils.isNumber( $attribute.type))
+#elseif($umlMetafacadeUtils.isNumber( $attribute.type) || $attribute.type.dateType)
     public static Specification<$entity.name> findBy${capitalised}LessThan($attribute.type.fullyQualifiedName $attribute.name){
         return (root, cq, cb) -> {
             cq.distinct(true);
@@ -249,7 +234,7 @@ public final class ${entity.name}Specifications {
 #foreach($criteriaAttribute in $criteriaClass.getAttributes(true))
 #set($isJoin = $hibernateUtils.isJoin($criteriaAttribute.attributeName))
 #set($joinLength = $hibernateUtils.joinLength($criteriaAttribute.attributeName))
-#if($isJoin && $joinLength > 2)
+#if($isJoin && $joinLength > 1 && !(${criteriaAttribute.attributeName.endsWith(".id")} && $joinLength < 3))
 #set ($capitalised = $stringUtils.capitalize($hibernateUtils.getAttributeName($criteriaAttribute.attributeName)))
 #set ($specName = "findBy${capitalised}")
 #set ($attributeName = $criteriaAttribute.attributeName)
@@ -270,25 +255,25 @@ public final class ${entity.name}Specifications {
 #elseif($criteriaAttribute.comparatorConstant == "LESS_THAN_OR_EQUAL_COMPARATOR")
 #set ($comparator = "lessThanOrEqualTo")
 #elseif($criteriaAttribute.comparatorConstant == "LESS_THAN_COMPARATOR")
-#set ($comparator = "lessThanOrEqualTo")
+#set ($comparator = "lessThanOrEqual")
 #elseif($criteriaAttribute.comparatorConstant == "IN_COMPARATOR")
 #set ($comparator = "in")
 #elseif($criteriaAttribute.comparatorConstant == "NOT_EQUAL_COMPARATOR")
 #set ($comparator = "notEqual")
 #end
 #end
-#set ($matchMode = "${criteriaArgumentName}.${criteriaAttribute.getterName}()")
+#set ($matchMode = "${criteriaAttribute.name}")
 #if($criteriaAttribute.matchModePresent)
 #set ($matchMode = "$criteriaAttribute.matchModeConstant $criteriaAttribute.matchMode")
 #if($criteriaAttribute.matchModeConstant == "ANYWHERE")
-#set ($matchMode = "'%' + ${criteriaArgumentName}.${criteriaAttribute.getterName}() + '%'")
+#set ($matchMode = "'%' + ${criteriaAttribute.name} + '%'")
 #elseif($criteriaAttribute.matchModeConstant == "START")
-#set ($matchMode = "${criteriaArgumentName}.${criteriaAttribute.getterName}() + '%'")
+#set ($matchMode = "${criteriaAttribute.name} + '%'")
 #elseif($criteriaAttribute.matchModeConstant == "END")
-#set ($matchMode = "'%' + ${criteriaArgumentName}.${criteriaAttribute.getterName}()")
+#set ($matchMode = "'%' + ${criteriaAttribute.name}")
 #end
 #end
-    public static Specification<$entity.name> ${specName}($criteriaAttribute.getterSetterTypeName $criteriaAttribute.name) {
+    public static Specification<$entity.name> ${hibernateUtils.getCriteriaAttributeMethodName($criteriaAttribute)}($criteriaAttribute.getterSetterTypeName $criteriaAttribute.name) {
         return (root, cq, cb) -> {
             cq.distinct(true);
             return cb.${comparator}(root.get("$criteriaAttribute.attributeName"), $matchMode);

@@ -2,9 +2,15 @@ package org.andromda.cartridges.spring;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+
+import org.andromda.cartridges.spring.metafacades.SpringCriteriaAttributeLogic;
 import org.andromda.cartridges.spring.metafacades.SpringGlobals;
+import org.andromda.metafacades.uml.AttributeFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
+import org.andromda.metafacades.uml.ParameterFacade;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -340,4 +346,57 @@ public class SpringHibernateUtils
         return joins;
     }
 
+    public String getCriteriaAttributeMethodName(SpringCriteriaAttributeLogic criteriaAttribute) {
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("findBy");
+        builder.append(StringUtils.capitalize(getAttributeName(criteriaAttribute.getAttributeName())));
+
+        if(criteriaAttribute.isComparatorPresent() && criteriaAttribute.isMatchModePresent()) {
+
+            if(criteriaAttribute.getComparator().equals("insensitive_like")
+                || criteriaAttribute.getComparatorConstant().equals("like")) {
+
+                if(criteriaAttribute.getMatchMode().equals("end")) {
+                    builder.append("EndingWithIgnoreCase");
+                } else if(criteriaAttribute.getMatchMode().equals("start")) {
+
+                    builder.append("StartingWithIgnoreCase");
+                } else if(criteriaAttribute.getMatchMode().equals("anywhere")) {
+                    builder.append("ContainingIgnoreCase");
+                }
+            } else {
+                builder.append(getMatchMode(criteriaAttribute));
+            }
+
+        } else if(criteriaAttribute.isComparatorPresent()) {
+            builder.append(getMatchMode(criteriaAttribute));
+        } else if(criteriaAttribute.isMatchModePresent()) {
+            builder.append(getMatchMode(criteriaAttribute));
+        }
+
+        return builder.toString();
+    }
+
+    private String getMatchMode(SpringCriteriaAttributeLogic criteriaAttribute) {
+        if(criteriaAttribute.getComparator().equals("greater")) {
+
+            return "Greater";
+
+        } else if(criteriaAttribute.getComparator().equals("greater_equal")) {
+            return "GreaterThanEqual";
+
+        } else if(criteriaAttribute.getComparator().equals("less")) {
+            return "Less";
+
+        } else if(criteriaAttribute.getComparator().equals("less_equal")) {
+            return "LessThanEqual";
+        } else if(criteriaAttribute.getComparator().equals("not_equal")) {
+            return "NotEqual";
+        } else if(criteriaAttribute.getComparator().equals("in")) {
+            return "In";
+        }
+
+        return "";
+    }
 }
