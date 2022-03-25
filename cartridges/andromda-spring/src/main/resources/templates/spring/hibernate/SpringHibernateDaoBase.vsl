@@ -12,7 +12,7 @@
 ##=========================
 #if ($recordType.equalsIgnoreCase("dao"))
 #set ($generatedFile = "${entity.packagePath}/${entity.daoBaseName}.java")
-#if ($hibernateVersion.startsWith("4") || $hibernateVersion.startsWith("5"))
+#if ($hibernateVersion.startsWith("4") || $hibernateVersion.startsWith("5") || $hibernateVersion.startsWith("6"))
 #set ($hibernate4or5=true)
 #set ($h3tab="    ")
 #else
@@ -998,7 +998,7 @@ $oldXmlIndent        }
 #if (!$finder.returnTypePresent)
      * **** MODEL ERROR: Entity finder method must return a type other than 'void' *****
 #end
-     * {@inheritDoc}
+     * {@inheritDoc} 1
      */
 #if ($enableAnnotations)
     @Override
@@ -1020,30 +1020,30 @@ $oldXmlIndent        }
 
 #set ($returnType = "${finder.getterSetterReturnTypeName}#if($enableTemplating && $finder.returnType.collectionType)<${entity.fullyQualifiedEntityName}>#end")
 #if(!$finder.criteriaFinder)
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-#if ($enableTemplating && ($finder.returnType.collectionType || $finder.many))
-    @SuppressWarnings({"unchecked"})
-#end
-    $finder.visibility $returnType ${finder.name}(final String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
-#if ($finder.exceptionsPresent)
-        throws $finder.exceptionList
-#end
-    {
-#set ($finderCall = "this.${finder.name}(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName, queryString#if(!$finder.arguments.empty), ${finder.argumentNames}#end);")
-#if ((!$finder.returnType.collectionType || ($enableTemplating && $finder.returnType.collectionType)))
-#set ($finderCall = "($returnType)$finderCall")
-#end
-        #if ($finder.returnTypePresent)return#end $finderCall
-    }
+##     /**
+##      * {@inheritDoc} 2
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## #if ($enableTemplating && ($finder.returnType.collectionType || $finder.many))
+##     @SuppressWarnings({"unchecked"})
+## #end
+##     $finder.visibility $returnType ${finder.name}(#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+## #if ($finder.exceptionsPresent)
+##         throws $finder.exceptionList
+## #end
+##     {
+## #set ($finderCall = "this.${finder.name}(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName#if(!$finder.arguments.empty), ${finder.argumentNames}#end);")
+## #if ((!$finder.returnType.collectionType || ($enableTemplating && $finder.returnType.collectionType)))
+## #set ($finderCall = "($returnType)$finderCall")
+## #end
+##         #if ($finder.returnTypePresent)return#end $finderCall
+##     }
 
 #if ($finder.returnType.collectionType || $finder.many)
     /**
-     * {@inheritDoc}
+     * {@inheritDoc} 3
      */
 #if ($enableAnnotations)
     @Override
@@ -1059,42 +1059,25 @@ $oldXmlIndent        }
         #if ($finder.returnTypePresent)return#end#if($enableTemplating) ($returnType)#end this.${finder.name}(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName, pageNumber, pageSize#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-#if ($enableTemplating && ($finder.returnType.collectionType || $finder.many))
-    @SuppressWarnings({"unchecked"})
-#end
-    $finder.visibility $returnType ${finder.name}(final String queryString, final int pageNumber, final int pageSize#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
-#if ($finder.exceptionsPresent)
-        throws $finder.exceptionList
-#end
-    {
-        #if ($finder.returnTypePresent)return#end#if($enableTemplating) ($returnType)#end this.${finder.name}(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName, queryString, pageNumber, pageSize#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
-    }
-
 #if ($finder.returnType.collectionType)
 #if($enableTemplating)
-#set ($returnType = "${finder.getterSetterReturnTypeName}<?>")
+#set ($returnType = "${finder.getterSetterReturnTypeName}")
 #end
 #elseif ($finder.many)
-#set ($returnType = "$finder.getterSetterReturnTypeName.substring(0,$finder.getterSetterReturnTypeName.indexOf('<'))<?>")
+#set ($returnType = "$finder.getterSetterReturnTypeName.substring(0,$finder.getterSetterReturnTypeName.indexOf('<'))")
 #end
     /**
-     * {@inheritDoc}
+     * {@inheritDoc} 5
      */
 #if ($enableAnnotations)
     @Override
 #end
-    $finder.visibility $returnType ${finder.name}(final int transform, final String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+    $finder.visibility $returnType ${finder.name}(final int transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #if ($finder.exceptionsPresent)
         throws $finder.exceptionList
 #end
     {
-        #if ($finder.returnTypePresent)return#end this.${finder.name}(transform, queryString, -1, -1#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
+        #if ($finder.returnTypePresent)return#end this.${finder.name}(transform, -1, -1#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
     }
 
 #elseif ($finder.returnTypePresent)
@@ -1106,7 +1089,7 @@ $oldXmlIndent        }
 #if (!$finder.returnTypePresent)
      * **** MODEL ERROR: Entity finder method must return a type other than 'void' *****
 #end
-     * {@inheritDoc}
+     * {@inheritDoc} 6
      */
 #if ($enableAnnotations)
     @Override
@@ -1123,7 +1106,7 @@ $oldXmlIndent        }
 #if (!$hibernate4or5)
         try
         {
-            ${hibernateUtils.basePackage}.Query queryObject = super.getSession().createQuery(queryString);
+            ## ${hibernateUtils.basePackage}.Query queryObject = super.getSession().createQuery(queryString);
 #end
 #set ($count = 1)
 #set ($args = "")
@@ -1163,7 +1146,7 @@ $h3tab            pageable = org.springframework.data.domain.PageRequest.of(page
 $h3tab        }
 #end
 #if ($finder.returnType.collectionType || $finder.many)
-$h3tab        java.util.Collection<?> results = null;
+$h3tab        java.util.Collection results = null;
 $h3tab        if(pageable == null)
 $h3tab          results = ${repositoryName}.findAll(specifications);
 $h3tab        else
@@ -1202,20 +1185,25 @@ $h3tab        return results;
     }
 #else
 #if ($finder.returnType.collectionType)
-#set ($returnType = "${finder.getterSetterReturnTypeName}#if($enableTemplating)<?>#end")
+#set ($returnType = "${finder.getterSetterReturnTypeName}#if($enableTemplating)#end")
 #elseif ($finder.many)
-#set ($returnType = "$finder.getterSetterReturnTypeName.substring(0,$finder.getterSetterReturnTypeName.indexOf('<'))<?>")
+#set ($returnType = "$finder.getterSetterReturnTypeName.substring(0,$finder.getterSetterReturnTypeName.indexOf('<'))")
 #else
 #set ($returnType = "$finder.returnType.fullyQualifiedName")
 #end
     /**
-     * {@inheritDoc}
+     * {@inheritDoc} 7
      */
 #if ($enableAnnotations)
     @Override
 #end
 #if ($enableTemplating && ($finder.returnType.collectionType || $finder.many))
     @SuppressWarnings("unchecked")
+#end
+#foreach ($arg in $finder.arguments)
+#if($springUtils.isCriteria($arg.type))
+#set($criteriaArg = $arg)
+#end
 #end
     $finder.visibility $returnType ${finder.name}(final int transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #if ($finder.exceptionsPresent)
@@ -1224,12 +1212,28 @@ $h3tab        return results;
     {
         org.springframework.data.jpa.domain.Specification<$entity.name> specifications = get${stringUtils.capitalize(${finder.name})}Specifications(#if(!$finder.arguments.empty)${finder.argumentNames}#end);
         org.springframework.data.domain.Sort sort = get${stringUtils.capitalize(${finder.name})}Sort(#if(!$finder.arguments.empty)${finder.argumentNames}#end);
-        java.util.Collection<?> results = null;
+        java.util.Collection results = null;
+        org.springframework.data.domain.Pageable pageable = null;
 
-        if(sort == null) {
-            results = ${repositoryName}.findAll(specifications);
+#if($criteriaArg)
+        if(${criteriaArg.name}.getFetchSize() > 0 && ${criteriaArg.name}.getPageNumber() > 0) {
+            
+            if(sort == null) {
+                pageable = org.springframework.data.domain.PageRequest.of(${criteriaArg.name}.getPageNumber(), ${criteriaArg.name}.getFetchSize());
+            } else {
+                pageable = org.springframework.data.domain.PageRequest.of(${criteriaArg.name}.getPageNumber(), ${criteriaArg.name}.getFetchSize(), sort);
+            }
+        }
+
+#end
+        if(pageable == null) {
+            if(sort == null) {
+                results = ${repositoryName}.findAll(specifications);
+            } else {
+                results = ${repositoryName}.findAll(specifications, sort);
+            }
         } else {
-            results = ${repositoryName}.findAll(specifications, sort);
+            results = ${repositoryName}.findAll(specifications, pageable).getContent();
         }
 
         if(results == null)  {
@@ -1256,7 +1260,6 @@ $h3tab        return results;
     $finder.visibility org.springframework.data.domain.Page<$entity.name> ${finder.name}(final org.springframework.data.domain.Pageable pageable#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end) {
         
         org.springframework.data.jpa.domain.Specification<$entity.name> specifications = get${stringUtils.capitalize(${finder.name})}Specifications(#if(!$finder.arguments.empty)${finder.argumentNames}#end);
-        org.springframework.data.domain.Sort sort = get${stringUtils.capitalize(${finder.name})}Sort(#if(!$finder.arguments.empty)${finder.argumentNames}#end);
 
         if(specifications == null) {
             return ${repositoryName}.findAll(pageable);
