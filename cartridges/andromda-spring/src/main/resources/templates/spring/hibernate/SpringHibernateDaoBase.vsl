@@ -14,7 +14,7 @@
 #set ($generatedFile = "${entity.packagePath}/${entity.daoBaseName}.java")
 #if ($hibernateVersion.startsWith("4") || $hibernateVersion.startsWith("5") || $hibernateVersion.startsWith("6"))
 #set ($hibernate4or5=true)
-#set ($h3tab="    ")
+#set ($h3tab="")
 #else
 #set ($hibernate4or5=false)
 #set ($h3tab="")
@@ -998,7 +998,7 @@ $oldXmlIndent        }
 #if (!$finder.returnTypePresent)
      * **** MODEL ERROR: Entity finder method must return a type other than 'void' *****
 #end
-     * {@inheritDoc} 1
+     * {@inheritDoc}
      */
 #if ($enableAnnotations)
     @Override
@@ -1043,7 +1043,7 @@ $oldXmlIndent        }
 
 #if ($finder.returnType.collectionType || $finder.many)
     /**
-     * {@inheritDoc} 3
+     * {@inheritDoc}
      */
 #if ($enableAnnotations)
     @Override
@@ -1067,7 +1067,7 @@ $oldXmlIndent        }
 #set ($returnType = "$finder.getterSetterReturnTypeName.substring(0,$finder.getterSetterReturnTypeName.indexOf('<'))")
 #end
     /**
-     * {@inheritDoc} 5
+     * {@inheritDoc}
      */
 #if ($enableAnnotations)
     @Override
@@ -1089,7 +1089,7 @@ $oldXmlIndent        }
 #if (!$finder.returnTypePresent)
      * **** MODEL ERROR: Entity finder method must return a type other than 'void' *****
 #end
-     * {@inheritDoc} 6
+     * {@inheritDoc}
      */
 #if ($enableAnnotations)
     @Override
@@ -1110,6 +1110,7 @@ $oldXmlIndent        }
 #end
 #set ($count = 1)
 #set ($args = "")
+#if($stringUtils.isBlank($finder.query))
 $h3tab        org.springframework.data.jpa.domain.Specification<$entity.name> specifications = null;
 #foreach($argument in $finder.arguments)
 #set ($args = "$args#if($count > 1), #end$argument.name")
@@ -1138,6 +1139,7 @@ $h3tab          specifications = specifications.and(${entity.name}Specifications
 #end
 #set ($count = $count + 1)
 #end
+#end
 $h3tab        org.springframework.data.domain.Pageable pageable = null;
 #if ($finder.returnType.collectionType || $finder.many)
 $h3tab        if (pageNumber > 0 && pageSize > 0)
@@ -1147,10 +1149,19 @@ $h3tab        }
 #end
 #if ($finder.returnType.collectionType || $finder.many)
 $h3tab        java.util.Collection results = null;
-$h3tab        if(pageable == null)
+$h3tab        if(pageable == null) {
+#if($stringUtils.isNotBlank($finder.query))
+$h3tab          results = ${repositoryName}.${finder.name}($finder.argumentNames);
+#else
 $h3tab          results = ${repositoryName}.findAll(specifications);
-$h3tab        else
+#end
+$h3tab        } else {
+#if($stringUtils.isNotBlank($finder.query))
+$h3tab          results = ${repositoryName}.${finder.name}($finder.argumentNames#if($finder.arguments.size() > 0), #{end}pageable).getContent();
+#else
 $h3tab          results = ${repositoryName}.findAll(specifications, pageable).getContent();
+#end
+$h3tab        }
 #end
 #if (!($finder.returnType.collectionType || $finder.many))
 $h3tab        Object result = null;
@@ -1979,7 +1990,7 @@ $h3tab        return results;
 
         org.springframework.data.jpa.domain.Specification<${entity.fullyQualifiedEntityName}> spec = ${entity.name}Specifications.findBy${stringUtils.capitalize(${attribute.name})}(${attribute.name});
         java.util.List<${entity.fullyQualifiedEntityName}> entities = ${stringUtils.uncapitalize(${entity.name})}Repository.findAll(spec, org.springframework.data.domain.Sort.by("${attribute.name}"));
-        if(org.apache.commons.collections4.CollectionUtils.isNotEmpty(entities)) {
+        if(org.apache.commons.collections4.CollectionUtils.isEmpty(entities)) {
             return null;
         }
 
