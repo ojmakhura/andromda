@@ -426,13 +426,17 @@ $decisionTransition.getDocumentation("     * ")
 	protected $service.fullyQualifiedImplementationName $service.beanName;
     
 #end
-#foreach($cnt in $thymeleafUtils.getFacadeSet($controllers))
-#if(!$controller.beanName.equals($cnt.beanName))
-    @org.springframework.beans.factory.annotation.Autowired
-    protected ${cnt.fullyQualifiedName} $cnt.beanName;
-
-#end
-#end
+## #foreach($cnt in $thymeleafUtils.getFacadeSet($controllers))
+## #if(!$controller.beanName.equals($cnt.beanName))
+##     protected ${cnt.fullyQualifiedName} $cnt.beanName;
+##
+##     @org.springframework.beans.factory.annotation.Autowired
+##     public void set${cnt.name}(@org.springframework.context.annotation.Lazy ${cnt.fullyQualifiedName} $cnt.beanName) {
+##         this.$cnt.beanName = $cnt.beanName;
+##     }
+## 
+## #end
+## #end
 #foreach ($sessionObjectRef in $controller.sessionObjectReferences)
 #set ($targetElement = $sessionObjectRef.targetElement)
 
