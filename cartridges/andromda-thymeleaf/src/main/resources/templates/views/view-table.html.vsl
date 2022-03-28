@@ -88,7 +88,7 @@ ${ident}<th th:text="#{$column.messageKey}"></th>
 #set ($action = $tableColumnActions.iterator().next())
                         <form method="POST" 
                                     th:action="@{${action.controller.restPath}${action.restPath}(#if($column.name)$column.name#{else}$column#end=$dollar${left}row.$columnName${right})}">
-                            <button type="submit" id="${columnName}Action" th:text="${row.#if($column.name)$column.name#{else}$column#end}">
+                            <button type="submit" id="${columnName}Action" th:text="${#if($column.name)row.$column.name#{else}row.$column#end}">
                             </button>
                         </form>
 #end
