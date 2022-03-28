@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -185,9 +186,10 @@ public class FrontEndParameterLogicImpl
      * @see org.andromda.metafacades.uml.FrontEndParameter#getTableColumns()
      */
     @Override
-    protected Collection<String> handleGetTableColumns() {
-        final Collection<String> tableColumns = new ArrayList(this.getNonArrayAttributes());
-        final Collection<String> tableColumnNames = this.getTableColumnNames();
+    public Collection handleGetTableColumns()
+    {
+        final Collection tableColumns = new ArrayList(this.getNonArrayAttributes());
+        final Collection tableColumnNames = this.getTableColumnNames();
         CollectionUtils.filter(
                 tableColumns,
                 new Predicate() {
@@ -197,6 +199,66 @@ public class FrontEndParameterLogicImpl
                         return attributeName != null && tableColumnNames.contains(attributeName);
                     }
                 });
+        if (tableColumns.isEmpty())
+        {
+            // try to preserve the order of the elements encountered
+            //final Map<String, ThymeleafParameter> tableColumnsMap = new LinkedHashMap<String, ThymeleafParameter>();
+            final Map tableColumnsMap = new LinkedHashMap();
+
+            // order is important
+            final List<FrontEndAction> actions = new ArrayList<FrontEndAction>();
+
+            // all table actions need the exact same parameters, just not always all of them
+            actions.addAll(this.getTableFormActions());
+
+            // if there are any actions that are hyperlinks then their parameters get priority
+            // the user should not have modeled it that way (constraints will warn him/her)
+            actions.addAll(this.getTableHyperlinkActions());
+
+            for (final FrontEndAction action : actions)
+            {
+                for (final FrontEndParameter parameter : action.getParameters())
+                {
+                    //if (actionParameter instanceof FrontEndParameter)
+                    //{
+                        //final ThymeleafParameter parameter = (ThymeleafParameter)actionParameter;
+                        final String parameterName = parameter.getName();
+                        if (parameterName != null)
+                        {
+                            // never overwrite column specific table links
+                            // the hyperlink table links working on a real column get priority
+                            final Object existingObject = tableColumnsMap.get(parameterName);
+                            if (existingObject instanceof FrontEndParameter)
+                            {
+                                if (action.isHyperlink() && parameterName.equals(action.getTableLinkColumnName()))
+                                {
+                                    tableColumnsMap.put(
+                                        parameterName,
+                                        parameter);
+                                }
+                            }
+                        }
+                   //}
+                }
+            }
+
+            // for any missing parameters we just add the name of the column
+            for (final String columnName : this.getTableColumnNames())
+            {
+                if (!tableColumnsMap.containsKey(columnName))
+                {
+                    tableColumnsMap.put(
+                        columnName,
+                        columnName);
+                }
+            }
+
+            // return everything in the same order as it has been modeled (using the table tagged value)
+            for (final String columnObject : this.getTableColumnNames())
+            {
+                tableColumns.add(tableColumnsMap.get(columnObject));
+            }
+        }
         return tableColumns;
     }
 
