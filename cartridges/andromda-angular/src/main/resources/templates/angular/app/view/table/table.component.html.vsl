@@ -14,10 +14,21 @@
 #else
 #set($columnName = $column)
 #end
-$table.getTableColumnActions($columnName)
+#set ($tableColumnActions = $table.getTableColumnActions($columnName))
             <ng-container matColumnDef="${columnName}">
                 <mat-header-cell *matHeaderCellDef translate>$table.getTableColumnMessageKey($columnName)</mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{ row.get('${columnName}').value }} </mat-cell>
+                <mat-cell *matCellDef="let row">
+#if ($tableColumnActions.empty)
+                   {{ row.get('${columnName}').value }}
+#else
+#set ($action = $tableColumnActions.get(0))
+                     <div class = "form-group">
+                         <a routerLink="" (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())">
+                             {{ row.get('${columnName}').value }}
+                         </a> 
+                     </div>
+#end
+                </mat-cell>
             </ng-container>
 #end
 #if ($table.tableFormActions.size() > 0)
@@ -33,19 +44,6 @@ $table.getTableColumnActions($columnName)
                     </div>    
                 </mat-cell>
             </ng-container>
-#end
-## - render any table hyperlink actions
-#foreach ($action in $table.tableHyperlinkActions)
-#if (!$action.tableLinkColumnName)
-            <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
-                <mat-cell *matCellDef="let row">
-                    <div class = "form-group">
-                        <a routerLink="" (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())" translate>$action.trigger.messageKey</a> 
-                    </div>    
-                </mat-cell>
-            </ng-container>
-#end
 #end
             <mat-header-row *matHeaderRowDef="${table.name}Columns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: ${table.name}Columns;"></mat-row>

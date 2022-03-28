@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
   <uml:Profile xmi:id="_9_0_2_12ab03bf_1120852637390_857322_0" name="andromda-meta" visibility="public" URI="" metamodelReference="_0metamodelReferenceandromda-meta">
-    <eAnnotations xmi:id="_dW4hsaogEeyjzY6qORn3Ww" source="http://www.eclipse.org/uml2/2.0.0/UML">
-      <contents xmi:type="ecore:EPackage" xmi:id="_dW4hsqogEeyjzY6qORn3Ww" name="andromdameta" nsURI="http:///schemas/andromdameta/_dOFyEaogEeyjzY6qORn3Ww/0" nsPrefix="andromdameta">
-        <eAnnotations xmi:id="_dW4hs6ogEeyjzY6qORn3Ww" source="http://www.eclipse.org/uml2/2.0.0/UML">
-          <details xmi:id="_dW4htKogEeyjzY6qORn3Ww" key="originalName" value="andromda-meta"/>
+    <eAnnotations xmi:id="_txPAFa7TEeytbYCYscJsVg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <contents xmi:type="ecore:EPackage" xmi:id="_txPAFq7TEeytbYCYscJsVg" name="andromdameta" nsURI="http:///schemas/andromdameta/_tmCcQK7TEeytbYCYscJsVg/0" nsPrefix="andromdameta">
+        <eAnnotations xmi:id="_txPAF67TEeytbYCYscJsVg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+          <details xmi:id="_txPAGK7TEeytbYCYscJsVg" key="originalName" value="andromda-meta"/>
         </eAnnotations>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_dW4htaogEeyjzY6qORn3Ww" name="metaclass">
-          <eAnnotations xmi:id="_dW4htqogEeyjzY6qORn3Ww" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_1fe00f9_1119337017984_966800_5"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_dW4ht6ogEeyjzY6qORn3Ww" name="base_Class" ordered="false" lowerBound="1">
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_txPAGa7TEeytbYCYscJsVg" name="metaclass">
+          <eAnnotations xmi:id="_txPAGq7TEeytbYCYscJsVg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_1fe00f9_1119337017984_966800_5"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_txPAG67TEeytbYCYscJsVg" name="base_Class" ordered="false" lowerBound="1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
           </eStructuralFeatures>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_dW4huaogEeyjzY6qORn3Ww" name="metafacade">
-          <eAnnotations xmi:id="_dW4huqogEeyjzY6qORn3Ww" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_1fe00f9_1119337017984_532936_4"/>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_dW4hu6ogEeyjzY6qORn3Ww" name="base_Class" ordered="false" lowerBound="1">
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_txPAHa7TEeytbYCYscJsVg" name="metafacade">
+          <eAnnotations xmi:id="_txPAHq7TEeytbYCYscJsVg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_1fe00f9_1119337017984_532936_4"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_txPAH67TEeytbYCYscJsVg" name="base_Class" ordered="false" lowerBound="1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
           </eStructuralFeatures>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_dW4hvaogEeyjzY6qORn3Ww" name="PSMmetaclass">
-          <eAnnotations xmi:id="_dW4hvqogEeyjzY6qORn3Ww" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_d860307_1139833593980_991234_0"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_dW4hv6ogEeyjzY6qORn3Ww" name="andromda_serialVersionUID" ordered="false">
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_txPAIa7TEeytbYCYscJsVg" name="PSMmetaclass">
+          <eAnnotations xmi:id="_txPAIq7TEeytbYCYscJsVg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_d860307_1139833593980_991234_0"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_txPAI67TEeytbYCYscJsVg" name="andromda_serialVersionUID" ordered="false">
             <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_dW4hwaogEeyjzY6qORn3Ww" name="base_Class" ordered="false" lowerBound="1">
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_txPAJa7TEeytbYCYscJsVg" name="base_Class" ordered="false" lowerBound="1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
           </eStructuralFeatures>
         </eClassifiers>
-        <eClassifiers xmi:type="ecore:EClass" xmi:id="_dW4hw6ogEeyjzY6qORn3Ww" name="MetaGeneralization">
-          <eAnnotations xmi:id="_dW4hxKogEeyjzY6qORn3Ww" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_2e90116_1229369892121_455312_0"/>
-          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_dW4hxaogEeyjzY6qORn3Ww" name="andromda_meta_generalization_precedence" ordered="false" lowerBound="1">
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_txPAJ67TEeytbYCYscJsVg" name="MetaGeneralization">
+          <eAnnotations xmi:id="_txPAKK7TEeytbYCYscJsVg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_2e90116_1229369892121_455312_0"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_txPAKa7TEeytbYCYscJsVg" name="andromda_meta_generalization_precedence" ordered="false" lowerBound="1">
             <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
           </eStructuralFeatures>
-          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_dW4hx6ogEeyjzY6qORn3Ww" name="base_Generalization" ordered="false" lowerBound="1">
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_txPAK67TEeytbYCYscJsVg" name="base_Generalization" ordered="false" lowerBound="1">
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Generalization"/>
           </eStructuralFeatures>
         </eClassifiers>
@@ -107,11 +107,11 @@
       <icon xmi:id="_12_1_2e90116_1238689250922_971088_344" content="" format="" location=""/>
     </packagedElement>
     <profileApplication xmi:id="_0profileApplicationandromda-meta">
-      <eAnnotations xmi:id="_dXx5kaogEeyjzY6qORn3Ww" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <eAnnotations xmi:id="_tygyC67TEeytbYCYscJsVg" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
       </eAnnotations>
       <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
     </profileApplication>
   </uml:Profile>
-  <standard:ModelLibrary xmi:id="_dXx5kqogEeyjzY6qORn3Ww" base_Package="_9_0_2_12ab03bf_1120852637390_857322_0"/>
+  <standard:ModelLibrary xmi:id="_tyhZEK7TEeytbYCYscJsVg" base_Package="_9_0_2_12ab03bf_1120852637390_857322_0"/>
 </xmi:XMI>

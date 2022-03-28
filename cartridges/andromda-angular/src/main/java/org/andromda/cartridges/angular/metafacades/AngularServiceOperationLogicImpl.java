@@ -224,9 +224,9 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
     @Override
     protected String handleGetRestPath() {
 
-        String path = Objects.toString(this.findTaggedValue(AngularGlobals.REST_PATH), "");
-        if(StringUtils.isBlank(path)) {
-            path = "";
+        String path = (String) this.findTaggedValue(AngularGlobals.REST_PATH);
+        if(path == null) {
+            path = AngularUtils.toWebResourceName(this.getName());
         }
         StringBuilder builder = new StringBuilder();
         builder.append(path);

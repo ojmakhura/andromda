@@ -23,7 +23,6 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Introspector;
 import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.metafacade.MetafacadeException;
-import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -37,8 +36,7 @@ import org.andromda.metafacades.uml.ServiceOperation;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.andromda.translation.ocl.validation.OCLExpressions;
-import org.andromda.translation.ocl.validation.OCLIntrospector;
+import org.andromda.metafacades.uml.WebServiceOperation;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -1313,20 +1311,20 @@ public class WebServiceLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#handleIsSchemaValidation()
      */
-    @Override
-    protected boolean handleIsSchemaValidation()
-    {
-        String mode = (String)this.findTaggedValue(WebServiceGlobals.XML_SCHEMA_VALIDATION);
-        if (StringUtils.isBlank(mode) || mode.equals(DEFAULT))
-        {
-            mode = String.valueOf(this.getConfiguredProperty(PROPERTY_SCHEMA_VALIDATION));
-        }
-        if (StringUtils.isBlank(mode) || mode.equals(DEFAULT))
-        {
-            mode = BOOLEAN_FALSE;
-        }
-        return Boolean.parseBoolean(mode);
-    }
+    // @Override
+    // protected boolean handleIsSchemaValidation()
+    // {
+    //     String mode = (String)this.findTaggedValue(WebServiceGlobals.XML_SCHEMA_VALIDATION);
+    //     if (StringUtils.isBlank(mode) || mode.equals(DEFAULT))
+    //     {
+    //         mode = String.valueOf(this.getConfiguredProperty(PROPERTY_SCHEMA_VALIDATION));
+    //     }
+    //     if (StringUtils.isBlank(mode) || mode.equals(DEFAULT))
+    //     {
+    //         mode = BOOLEAN_FALSE;
+    //     }
+    //     return Boolean.parseBoolean(mode);
+    // }
 
     /**
      * The property defining the default style to give the web services.
@@ -1336,16 +1334,16 @@ public class WebServiceLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#handleIsSimpleBindingMode()
      */
-    @Override
-    protected boolean handleIsSimpleBindingMode()
-    {
-        String mode = (String)this.findTaggedValue(WebServiceGlobals.JAXB_SIMPLE_BINDING_MODE);
-        if (StringUtils.isBlank(mode) || mode.equals(DEFAULT))
-        {
-            mode = String.valueOf(this.getConfiguredProperty(PROPERTY_SIMPLE_BINDING_MODE));
-        }
-        return Boolean.parseBoolean(mode);
-    }
+    // @Override
+    // protected boolean handleIsSimpleBindingMode()
+    // {
+    //     String mode = (String)this.findTaggedValue(WebServiceGlobals.JAXB_SIMPLE_BINDING_MODE);
+    //     if (StringUtils.isBlank(mode) || mode.equals(DEFAULT))
+    //     {
+    //         mode = String.valueOf(this.getConfiguredProperty(PROPERTY_SIMPLE_BINDING_MODE));
+    //     }
+    //     return Boolean.parseBoolean(mode);
+    // }
 
     /**
      * The property defining the Jaxb XJC arguments used with wsdl2java utility.
@@ -1356,87 +1354,87 @@ public class WebServiceLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#getXjcArguments()
      */
-    @Override
-    protected String handleGetXjcArguments()
-    {
-        String mode = (String)this.findTaggedValue(WebServiceGlobals.JAXB_XJC_ARGUMENTS);
-        if (StringUtils.isBlank(mode) || mode.equals(DEFAULT))
-        {
-            mode = String.valueOf(this.getConfiguredProperty(PROPERTY_XJC_ARGUMENTS));
-        }
-        return mode;
-    }
+    // @Override
+    // protected String handleGetXjcArguments()
+    // {
+    //     String mode = (String)this.findTaggedValue(WebServiceGlobals.JAXB_XJC_ARGUMENTS);
+    //     if (StringUtils.isBlank(mode) || mode.equals(DEFAULT))
+    //     {
+    //         mode = String.valueOf(this.getConfiguredProperty(PROPERTY_XJC_ARGUMENTS));
+    //     }
+    //     return mode;
+    // }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#getRestCacheType()
      */
-    @Override
-    protected String handleGetRestCacheType()
-    {
-        String cacheType = (String)this.findTaggedValue(WebServiceGlobals.CACHE_TYPE);
-        if (!(this.getRestCount()>0) || StringUtils.isBlank(cacheType) || cacheType.equals(DEFAULT))
-        {
-            cacheType = EMPTY_STRING;
-        }
-        return cacheType;
-    }
+    // @Override
+    // protected String handleGetRestCacheType()
+    // {
+    //     String cacheType = (String)this.findTaggedValue(WebServiceGlobals.CACHE_TYPE);
+    //     if (!(this.getRestCount()>0) || StringUtils.isBlank(cacheType) || cacheType.equals(DEFAULT))
+    //     {
+    //         cacheType = EMPTY_STRING;
+    //     }
+    //     return cacheType;
+    // }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#getRestConsumes()
      */
-    @Override
-    protected String handleGetRestConsumes()
-    {
-        String consumes = (String)this.findTaggedValue(WebServiceGlobals.REST_CONSUMES);
-        if (!(this.getRestCount()>0) || StringUtils.isBlank(consumes) || consumes.equals(DEFAULT))
-        {
-            consumes = EMPTY_STRING;
-        }
-        else
-        {
-            consumes = WebServiceOperationLogicImpl.translateMediaType(consumes);
-        }
-        return consumes;
-    }
+    // @Override
+    // protected String handleGetRestConsumes()
+    // {
+    //     String consumes = (String)this.findTaggedValue(WebServiceGlobals.REST_CONSUMES);
+    //     if (!(this.getRestCount()>0) || StringUtils.isBlank(consumes) || consumes.equals(DEFAULT))
+    //     {
+    //         consumes = EMPTY_STRING;
+    //     }
+    //     else
+    //     {
+    //         consumes = WebServiceOperationLogicImpl.translateMediaType(consumes);
+    //     }
+    //     return consumes;
+    // }
 
     /**
      * Contexts should be in the form fullyqualifiedclassname variable
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#getRestContexts()
      */
-    @Override
-    protected List<String> handleGetRestContexts()
-    {
-        List<String> contexts = new ArrayList<String>();
-        String context = (String)this.findTaggedValue(WebServiceGlobals.REST_CONTEXT);
-        if (!(this.getRestCount()>0) || StringUtils.isBlank(context) || context.equals(DEFAULT))
-        {
-            context = EMPTY_STRING;
-        }
-        else
-        {
-            // Parse comma/pipe/semicolon delimited elements into ArrayList
-            String[] parsed = StringUtils.split(context, ",;|");
-            for (int i=0; i<parsed.length; i++)
-            {
-                contexts.add(parsed[i]);
-            }
-        }
-        return contexts;
-    }
+    // @Override
+    // protected List<String> handleGetRestContexts()
+    // {
+    //     List<String> contexts = new ArrayList<String>();
+    //     String context = (String)this.findTaggedValue(WebServiceGlobals.REST_CONTEXT);
+    //     if (!(this.getRestCount()>0) || StringUtils.isBlank(context) || context.equals(DEFAULT))
+    //     {
+    //         context = EMPTY_STRING;
+    //     }
+    //     else
+    //     {
+    //         // Parse comma/pipe/semicolon delimited elements into ArrayList
+    //         String[] parsed = StringUtils.split(context, ",;|");
+    //         for (int i=0; i<parsed.length; i++)
+    //         {
+    //             contexts.add(parsed[i]);
+    //         }
+    //     }
+    //     return contexts;
+    // }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#getRestMethod()
      */
-    @Override
-    protected String handleGetRestMethod()
-    {
-        String method = (String)this.findTaggedValue(WebServiceGlobals.REST_HTTP_METHOD);
-        if (!(this.getRestCount()>0) || StringUtils.isBlank(method) || method.equals(DEFAULT))
-        {
-            method = EMPTY_STRING;
-        }
-        return method;
-    }
+    // @Override
+    // protected String handleGetRestMethod()
+    // {
+    //     String method = (String)this.findTaggedValue(WebServiceGlobals.REST_HTTP_METHOD);
+    //     if (!(this.getRestCount()>0) || StringUtils.isBlank(method) || method.equals(DEFAULT))
+    //     {
+    //         method = EMPTY_STRING;
+    //     }
+    //     return method;
+    // }
 
     private static final String SLASH = "/";
     private static final String QUOTE = "\"";
@@ -1445,146 +1443,146 @@ public class WebServiceLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#getRestPath()
      */
-    @Override
-    protected String handleGetRestPath()
-    {
-        String path = (String)this.findTaggedValue(WebServiceGlobals.REST_PATH);
-        if (StringUtils.isBlank(path))
-        {
-            path = EMPTY_STRING;
-        }
-        if (!(this.getRestCount()>0) || StringUtils.isBlank(path) || path.equals(DEFAULT))
-        {
-            path = SLASH + this.getName().toLowerCase() + SLASH;
-        }
-        else
-        {
-            if (!path.startsWith(QUOTE))
-            {
-                path = path;
-            }
-            if (!path.endsWith(QUOTE) || path.length()<2)
-            {
-                path = path;
-            }
-        }
-        return path;
-    }
+    // @Override
+    // protected String handleGetRestPath()
+    // {
+    //     String path = (String)this.findTaggedValue(WebServiceGlobals.REST_PATH);
+    //     if (StringUtils.isBlank(path))
+    //     {
+    //         path = EMPTY_STRING;
+    //     }
+    //     if (!(this.getRestCount()>0) || StringUtils.isBlank(path) || path.equals(DEFAULT))
+    //     {
+    //         path = SLASH + this.getName().toLowerCase() + SLASH;
+    //     }
+    //     else
+    //     {
+    //         if (!path.startsWith(QUOTE))
+    //         {
+    //             path = path;
+    //         }
+    //         if (!path.endsWith(QUOTE) || path.length()<2)
+    //         {
+    //             path = path;
+    //         }
+    //     }
+    //     return path;
+    // }
 
     //private static final String PRODUCE_DEFAULT = "application/xml";
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#getRestProduces()
      */
-    @Override
-    protected String handleGetRestProduces()
-    {
-        return WebServiceOperationLogicImpl.translateMediaType((String)this.findTaggedValue(WebServiceGlobals.REST_PRODUCES));
-    }
+    // @Override
+    // protected String handleGetRestProduces()
+    // {
+    //     return WebServiceOperationLogicImpl.translateMediaType((String)this.findTaggedValue(WebServiceGlobals.REST_PRODUCES));
+    // }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#getRestProvider()
      */
-    @Override
-    protected String handleGetRestProvider()
-    {
-        String provider = (String)this.findTaggedValue(WebServiceGlobals.REST_PROVIDER);
-        if (!(this.getRestCount()>0) || StringUtils.isBlank(provider) || provider.equals(DEFAULT))
-        {
-            provider = EMPTY_STRING;
-        }
-        return provider;
-    }
+    // @Override
+    // protected String handleGetRestProvider()
+    // {
+    //     String provider = (String)this.findTaggedValue(WebServiceGlobals.REST_PROVIDER);
+    //     if (!(this.getRestCount()>0) || StringUtils.isBlank(provider) || provider.equals(DEFAULT))
+    //     {
+    //         provider = EMPTY_STRING;
+    //     }
+    //     return provider;
+    // }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#getRestRetention()
      */
-    @Override
-    protected String handleGetRestRetention()
-    {
-        String retention = (String)this.findTaggedValue(WebServiceGlobals.REST_RETENTION);
-        if (!(this.getRestCount()>0) || StringUtils.isBlank(retention) || retention.equals(DEFAULT))
-        {
-            retention = EMPTY_STRING;
-        }
-        return retention;
-    }
+    // @Override
+    // protected String handleGetRestRetention()
+    // {
+    //     String retention = (String)this.findTaggedValue(WebServiceGlobals.REST_RETENTION);
+    //     if (!(this.getRestCount()>0) || StringUtils.isBlank(retention) || retention.equals(DEFAULT))
+    //     {
+    //         retention = EMPTY_STRING;
+    //     }
+    //     return retention;
+    // }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#getRestTarget()
      */
-    @Override
-    protected String handleGetRestTarget()
-    {
-        String target = (String)this.findTaggedValue(WebServiceGlobals.REST_TARGET);
-        if (!(this.getRestCount()>0) || StringUtils.isBlank(target) || target.equals(DEFAULT))
-        {
-            target = EMPTY_STRING;
-        }
-        return target;
-    }
+    // @Override
+    // protected String handleGetRestTarget()
+    // {
+    //     String target = (String)this.findTaggedValue(WebServiceGlobals.REST_TARGET);
+    //     if (!(this.getRestCount()>0) || StringUtils.isBlank(target) || target.equals(DEFAULT))
+    //     {
+    //         target = EMPTY_STRING;
+    //     }
+    //     return target;
+    // }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#handleIsRestAtom()
      */
-    @Override
-    protected boolean handleIsRestAtom()
-    {
-        boolean restAtom = false;
-        if (this.getRestCount()>0)
-        {
-            Collection<WebServiceOperation> operations = this.getAllowedOperations();
-            for (WebServiceOperation operation : operations)
-            {
-                String restProduces = operation.getRestProduces();
-                if (StringUtils.isNotBlank(restProduces) && restProduces.contains("atom"))
-                {
-                    restAtom = true;
-                    break;
-                }
-            }
-            if (!restAtom)
-            {
-                restAtom = StringUtils.isNotBlank(this.getRestProduces()) && this.getRestProduces().indexOf("atom") > -1;
-            }
-        }
-        return restAtom;
-    }
+    // @Override
+    // protected boolean handleIsRestAtom()
+    // {
+    //     boolean restAtom = false;
+    //     if (this.getRestCount()>0)
+    //     {
+    //         Collection<WebServiceOperation> operations = this.getAllowedOperations();
+    //         for (WebServiceOperation operation : operations)
+    //         {
+    //             String restProduces = operation.getRestProduces();
+    //             if (StringUtils.isNotBlank(restProduces) && restProduces.contains("atom"))
+    //             {
+    //                 restAtom = true;
+    //                 break;
+    //             }
+    //         }
+    //         if (!restAtom)
+    //         {
+    //             restAtom = StringUtils.isNotBlank(this.getRestProduces()) && this.getRestProduces().indexOf("atom") > -1;
+    //         }
+    //     }
+    //     return restAtom;
+    // }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#handleGetRestCount()
      */
-    @Override
-    protected int handleGetRestCount()
-    {
-        int restCount = 0;
-        String rest = (String)this.findTaggedValue(WebServiceGlobals.REST);
-        for (WebServiceOperation operation : this.getAllowedOperations())
-        {
-            if (StringUtils.isNotBlank(rest) && (operation.isRest() || rest.equals(BOOLEAN_TRUE)))
-            {
-                restCount++;
-            }
-        }
-        return restCount;
-    }
+    // @Override
+    // protected int handleGetRestCount()
+    // {
+    //     int restCount = 0;
+    //     String rest = (String)this.findTaggedValue(WebServiceGlobals.REST);
+    //     for (WebServiceOperation operation : this.getAllowedOperations())
+    //     {
+    //         if (StringUtils.isNotBlank(rest) && (operation.isRest() || rest.equals(BOOLEAN_TRUE)))
+    //         {
+    //             restCount++;
+    //         }
+    //     }
+    //     return restCount;
+    // }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#handleGetJaxwsCount()
      */
-    @Override
-    protected int handleGetJaxwsCount()
-    {
-        int jaxwsCount = 0;
-        String rest = (String)this.findTaggedValue(WebServiceGlobals.REST);
-        for (WebServiceOperation operation : this.getAllowedOperations())
-        {
-            if (StringUtils.isBlank(rest) || rest.equals(BOOLEAN_FALSE) && (!operation.isRest()))
-            {
-                jaxwsCount++;
-            }
-        }
-        return jaxwsCount;
-    }
+    // @Override
+    // protected int handleGetJaxwsCount()
+    // {
+    //     int jaxwsCount = 0;
+    //     String rest = (String)this.findTaggedValue(WebServiceGlobals.REST);
+    //     for (WebServiceOperation operation : this.getAllowedOperations())
+    //     {
+    //         if (StringUtils.isBlank(rest) || rest.equals(BOOLEAN_FALSE) && (!operation.isRest()))
+    //         {
+    //             jaxwsCount++;
+    //         }
+    //     }
+    //     return jaxwsCount;
+    // }
 
     /**
      * Used to map between XML (list of restricted strings) and Java enum (has both a name and a value).
@@ -1607,37 +1605,37 @@ public class WebServiceLogicImpl
      * @param validationMessages Collection<ModelValidationMessage>
      * @see MetafacadeBase#validateInvariants(Collection validationMessages)
      */
-    @Override
-    public void validateInvariants(Collection<ModelValidationMessage> validationMessages)
-    {
-        super.validateInvariants(validationMessages);
-        try
-        {
-            final Object contextElement = this.THIS();
-            final String name = (String)OCLIntrospector.invoke(contextElement,"name");
-            boolean constraintValid = OCLExpressions.equal(
-                name.substring(0,1).toUpperCase(),
-                name.substring(0,1));
-            if (!constraintValid)
-            {
-                validationMessages.add(
-                    new ModelValidationMessage(
-                        (MetafacadeBase)contextElement ,
-                        "org::andromda::cartridges::webservice::metafacades::WebService::class name must start with an uppercase letter",
-                        "WebService Class name must start with an uppercase letter."));
-            }
-        }
-        catch (Throwable th)
-        {
-            Throwable cause = th.getCause();
-            int depth = 0; // Some throwables have infinite recursion
-            while (cause != null && depth < 7)
-            {
-                th = cause;
-                depth++;
-            }
-            logger.error("Error validating constraint 'org::andromda::cartridges::webservice::WebService::class name must start with an uppercase letter' ON "
-                + this.THIS().toString() + ": " + th.getMessage(), th);
-        }
-    }
+    // @Override
+    // public void validateInvariants(Collection<ModelValidationMessage> validationMessages)
+    // {
+    //     super.validateInvariants(validationMessages);
+    //     try
+    //     {
+    //         final Object contextElement = this.THIS();
+    //         final String name = (String)OCLIntrospector.invoke(contextElement,"name");
+    //         boolean constraintValid = OCLExpressions.equal(
+    //             name.substring(0,1).toUpperCase(),
+    //             name.substring(0,1));
+    //         if (!constraintValid)
+    //         {
+    //             validationMessages.add(
+    //                 new ModelValidationMessage(
+    //                     (MetafacadeBase)contextElement ,
+    //                     "org::andromda::cartridges::webservice::metafacades::WebService::class name must start with an uppercase letter",
+    //                     "WebService Class name must start with an uppercase letter."));
+    //         }
+    //     }
+    //     catch (Throwable th)
+    //     {
+    //         Throwable cause = th.getCause();
+    //         int depth = 0; // Some throwables have infinite recursion
+    //         while (cause != null && depth < 7)
+    //         {
+    //             th = cause;
+    //             depth++;
+    //         }
+    //         logger.error("Error validating constraint 'org::andromda::cartridges::webservice::WebService::class name must start with an uppercase letter' ON "
+    //             + this.THIS().toString() + ": " + th.getMessage(), th);
+    //     }
+    // }
 }
