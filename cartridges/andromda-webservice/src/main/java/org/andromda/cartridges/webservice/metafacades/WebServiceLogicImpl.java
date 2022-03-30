@@ -36,7 +36,7 @@ import org.andromda.metafacades.uml.ServiceOperation;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.andromda.metafacades.uml.WebServiceOperation;
+import org.andromda.metafacades.uml.WebServiceOperationFacade;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -74,81 +74,81 @@ public class WebServiceLogicImpl
     private static final String DEFAULT = "default";
 
     /**
-     * @return operations filtered by ((WebServiceOperation)object).isExposed()
+     * @return operations filtered by ((WebServiceOperationFacade)object).isExposed()
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getAllowedOperations()
      */
-    protected Collection<OperationFacade> handleGetAllowedOperations()
-    {
-        List<OperationFacade> operations = new ArrayList<OperationFacade>(this.getOperations());
-        CollectionUtils.filter(
-            operations,
-            new Predicate()
-            {
-                public boolean evaluate(Object object)
-                {
-                    boolean valid = WebServiceOperation.class.isAssignableFrom(object.getClass());
-                    if (valid)
-                    {
-                        valid = ((WebServiceOperation)object).isExposed();
-                    }
-                    return valid;
-                }
-            });
-        if (this.getWSDLOperationSortMode().equals(OPERATION_SORT_MODE_NAME))
-        {
-            Collections.sort(
-                operations,
-                new OperationNameComparator());
-        }
-        return operations;
-    }
+    // protected Collection<OperationFacade> handleGetAllowedOperations()
+    // {
+    //     List<OperationFacade> operations = new ArrayList<OperationFacade>(this.getOperations());
+    //     CollectionUtils.filter(
+    //         operations,
+    //         new Predicate()
+    //         {
+    //             public boolean evaluate(Object object)
+    //             {
+    //                 boolean valid = WebServiceOperationFacade.class.isAssignableFrom(object.getClass());
+    //                 if (valid)
+    //                 {
+    //                     valid = ((WebServiceOperationFacade)object).isExposed();
+    //                 }
+    //                 return valid;
+    //             }
+    //         });
+    //     if (this.getWSDLOperationSortMode().equals(OPERATION_SORT_MODE_NAME))
+    //     {
+    //         Collections.sort(
+    //             operations,
+    //             new OperationNameComparator());
+    //     }
+    //     return operations;
+    // }
 
     /**
      * @return this.getAllowedOperations() separated by " "
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getAllowedMethods()
      */
-    protected String handleGetAllowedMethods()
-    {
-        Collection<String> methodNames = new ArrayList<String>();
-        Collection<WebServiceOperation> operations = this.getAllowedOperations();
-        if (operations != null && !operations.isEmpty())
-        {
-            for (WebServiceOperation operation : operations)
-            {
-                methodNames.add(StringUtils.trimToEmpty(operation.getName()));
-            }
-        }
-        return StringUtils.join(
-            methodNames.iterator(),
-            " ");
-    }
+    // protected String handleGetAllowedMethods()
+    // {
+    //     Collection<String> methodNames = new ArrayList<String>();
+    //     Collection<WebServiceOperationFacade> operations = this.getAllowedOperations();
+    //     if (operations != null && !operations.isEmpty())
+    //     {
+    //         for (WebServiceOperationFacade operation : operations)
+    //         {
+    //             methodNames.add(StringUtils.trimToEmpty(operation.getName()));
+    //         }
+    //     }
+    //     return StringUtils.join(
+    //         methodNames.iterator(),
+    //         " ");
+    // }
 
     /**
      * @return this.getName() formatted as this.getQualifiedNameLocalPartPattern()
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getQName()
      */
-    protected String handleGetQName()
-    {
-        return MessageFormat.format(
-            this.getQualifiedNameLocalPartPattern(),
-                StringUtils.trimToEmpty(this.getName()));
-    }
+    // protected String handleGetQName()
+    // {
+    //     return MessageFormat.format(
+    //         this.getQualifiedNameLocalPartPattern(),
+    //             StringUtils.trimToEmpty(this.getName()));
+    // }
 
     /**
      * @return this.getPackageName() reversed if this.isReverseNamespace()
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getNamespace()
      */
-    protected String handleGetNamespace()
-    {
-        String packageName = this.getPackageName();
-        if (this.isReverseNamespace())
-        {
-            packageName = WebServiceUtils.reversePackage(packageName);
-        }
-        return MessageFormat.format(
-            this.getNamespacePattern(),
-                StringUtils.trimToEmpty(packageName));
-    }
+    // protected String handleGetNamespace()
+    // {
+    //     String packageName = this.getPackageName();
+    //     if (this.isReverseNamespace())
+    //     {
+    //         packageName = WebServiceUtils.reversePackage(packageName);
+    //     }
+    //     return MessageFormat.format(
+    //         this.getNamespacePattern(),
+    //             StringUtils.trimToEmpty(packageName));
+    // }
 
     /**
      * The property defining the default style to give the web services.
@@ -159,15 +159,15 @@ public class WebServiceLogicImpl
      * @return UMLProfile.TAGGEDVALUE_WEBSERVICE_STYLE or this.getConfiguredProperty(PROPERTY_DEFAULT_STYLE)
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getStyle()
      */
-    protected String handleGetStyle()
-    {
-        String style = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_STYLE);
-        if (StringUtils.isBlank(style) || style.equals(DEFAULT))
-        {
-            style = String.valueOf(this.getConfiguredProperty(PROPERTY_DEFAULT_STYLE));
-        }
-        return style;
-    }
+    // protected String handleGetStyle()
+    // {
+    //     String style = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_STYLE);
+    //     if (StringUtils.isBlank(style) || style.equals(DEFAULT))
+    //     {
+    //         style = String.valueOf(this.getConfiguredProperty(PROPERTY_DEFAULT_STYLE));
+    //     }
+    //     return style;
+    // }
 
     /**
      * The property defining the default style to give the web services.
@@ -178,72 +178,72 @@ public class WebServiceLogicImpl
      * @return UMLProfile.TAGGEDVALUE_WEBSERVICE_USE or this.getConfiguredProperty(PROPERTY_DEFAULT_USE
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getUse()
      */
-    protected String handleGetUse()
-    {
-        String use = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_USE);
-        if (StringUtils.isBlank(use) || use.equals(DEFAULT))
-        {
-            use = String.valueOf(this.getConfiguredProperty(PROPERTY_DEFAULT_USE));
-        }
-        return use;
-    }
+    // protected String handleGetUse()
+    // {
+    //     String use = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_USE);
+    //     if (StringUtils.isBlank(use) || use.equals(DEFAULT))
+    //     {
+    //         use = String.valueOf(this.getConfiguredProperty(PROPERTY_DEFAULT_USE));
+    //     }
+    //     return use;
+    // }
 
     /**
      * Sorted list of all type mapping elements (package.class), used to iterate through all elements in a service
      */
-    private Set<ModelElementFacade> elementSet = new TreeSet<ModelElementFacade>(new TypeComparator());
+    //private Set<ModelElementFacade> elementSet = new TreeSet<ModelElementFacade>(new TypeComparator());
 
     /**
      * Keeps track of whether or not the type has been checked, keeps us from entering infinite loops when calling
      * loadTypes.
      */
-    private Collection<ModelElementFacade> checkedTypes = new ArrayList<ModelElementFacade>();
+    //private Collection<ModelElementFacade> checkedTypes = new ArrayList<ModelElementFacade>();
 
     /**
      * @return this.elementSet types
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getTypeMappingElements()
      */
-    protected Collection<ModelElementFacade> handleGetTypeMappingElements()
-    {
-        final Collection<ParameterFacade> parameterTypes = new LinkedHashSet<ParameterFacade>();
-        for (final WebServiceOperation operation : this.getAllowedOperations())
-        {
-            parameterTypes.addAll(operation.getParameters());
-        }
+    // protected Collection<ModelElementFacade> handleGetTypeMappingElements()
+    // {
+    //     final Collection<ParameterFacade> parameterTypes = new LinkedHashSet<ParameterFacade>();
+    //     for (final WebServiceOperationFacade operation : this.getAllowedOperations())
+    //     {
+    //         parameterTypes.addAll(operation.getParameters());
+    //     }
 
-        final Set<ModelElementFacade> types = new TreeSet<ModelElementFacade>(new TypeComparator());
-        final Collection<ModelElementFacade> nonArrayTypes = new TreeSet<ModelElementFacade>(new TypeComparator());
+    //     final Set<ModelElementFacade> types = new TreeSet<ModelElementFacade>(new TypeComparator());
+    //     final Collection<ModelElementFacade> nonArrayTypes = new TreeSet<ModelElementFacade>(new TypeComparator());
 
-        // clear out the cache of checkedTypes, otherwise
-        // they'll be ignored the second time this method is
-        // called (if the instance is reused)
-        this.checkedTypes.clear();
-        for (final ParameterFacade parameter : parameterTypes)
-        {
-            this.loadTypes((ModelElementFacade)parameter, types, nonArrayTypes);
-        }
+    //     // clear out the cache of checkedTypes, otherwise
+    //     // they'll be ignored the second time this method is
+    //     // called (if the instance is reused)
+    //     this.checkedTypes.clear();
+    //     for (final ParameterFacade parameter : parameterTypes)
+    //     {
+    //         this.loadTypes((ModelElementFacade)parameter, types, nonArrayTypes);
+    //     }
 
-        for (final WebServiceOperation operation : this.getAllowedOperations())
-        {
-            final Collection<ModelElementFacade> exceptions = operation.getExceptions();
-            exceptions.addAll(exceptions);
-            // Exceptions may have attributes too
-            for (final ModelElementFacade exception : exceptions)
-            {
-                this.loadTypes(exception, types, nonArrayTypes);
-            }
-        }
+    //     for (final WebServiceOperationFacade operation : this.getAllowedOperations())
+    //     {
+    //         final Collection<ModelElementFacade> exceptions = operation.getExceptions();
+    //         exceptions.addAll(exceptions);
+    //         // Exceptions may have attributes too
+    //         for (final ModelElementFacade exception : exceptions)
+    //         {
+    //             this.loadTypes(exception, types, nonArrayTypes);
+    //         }
+    //     }
 
-        // now since we're at the end, and we know the
-        // non array types won't override any other types
-        // (such as association ends) we
-        // add the non array types to the types
-        types.addAll(nonArrayTypes);
+    //     // now since we're at the end, and we know the
+    //     // non array types won't override any other types
+    //     // (such as association ends) we
+    //     // add the non array types to the types
+    //     types.addAll(nonArrayTypes);
 
-        this.elementSet = types;
-        //setPkgAbbr(types);
-        return types;
-    }
+    //     this.elementSet = types;
+    //     //setPkgAbbr(types);
+    //     return types;
+    // }
 
     /**
      * <p> Loads all <code>types</code> and <code>nonArrayTypes</code> for
@@ -259,111 +259,111 @@ public class WebServiceLogicImpl
      * @param types the collection to load.
      * @param nonArrayTypes the collection of non array types.
      */
-    private void loadTypes(ModelElementFacade modelElement, Set<ModelElementFacade> types,
-        Collection<ModelElementFacade> nonArrayTypes)
-    {
-        ExceptionUtils.checkNull("types", types);
-        ExceptionUtils.checkNull("nonArrayTypes", nonArrayTypes);
+    // private void loadTypes(ModelElementFacade modelElement, Set<ModelElementFacade> types,
+    //     Collection<ModelElementFacade> nonArrayTypes)
+    // {
+    //     ExceptionUtils.checkNull("types", types);
+    //     ExceptionUtils.checkNull("nonArrayTypes", nonArrayTypes);
 
-        try
-        {
-            if (modelElement != null && !this.checkedTypes.contains(modelElement))
-            {
-                final ClassifierFacade parameterType = this.getType(modelElement);
+    //     try
+    //     {
+    //         if (modelElement != null && !this.checkedTypes.contains(modelElement))
+    //         {
+    //             final ClassifierFacade parameterType = this.getType(modelElement);
 
-                // only continue if the model element has a type
-                if (parameterType != null)
-                {
-                    final Set<ModelElementFacade> allTypes = new LinkedHashSet<ModelElementFacade>();
-                    allTypes.add(parameterType);
+    //             // only continue if the model element has a type
+    //             if (parameterType != null)
+    //             {
+    //                 final Set<ModelElementFacade> allTypes = new LinkedHashSet<ModelElementFacade>();
+    //                 allTypes.add(parameterType);
 
-                    // add all generalizations and specializations of the type
-                    final Collection<GeneralizableElementFacade> generalizations = parameterType.getAllGeneralizations();
+    //                 // add all generalizations and specializations of the type
+    //                 final Collection<GeneralizableElementFacade> generalizations = parameterType.getAllGeneralizations();
 
-                    if (generalizations != null)
-                    {
-                        allTypes.addAll(generalizations);
-                    }
+    //                 if (generalizations != null)
+    //                 {
+    //                     allTypes.addAll(generalizations);
+    //                 }
 
-                    final Collection<GeneralizableElementFacade> specializations = parameterType.getAllSpecializations();
+    //                 final Collection<GeneralizableElementFacade> specializations = parameterType.getAllSpecializations();
 
-                    if (specializations != null)
-                    {
-                        allTypes.addAll(specializations);
-                    }
+    //                 if (specializations != null)
+    //                 {
+    //                     allTypes.addAll(specializations);
+    //                 }
 
-                    if (!this.checkedTypes.contains(parameterType))
-                    {
-                        this.checkedTypes.add(parameterType);
+    //                 if (!this.checkedTypes.contains(parameterType))
+    //                 {
+    //                     this.checkedTypes.add(parameterType);
 
-                        for (final Iterator allTypesIterator = allTypes.iterator(); allTypesIterator.hasNext();)
-                        {
-                            ClassifierFacade type = (ClassifierFacade) allTypesIterator.next();
+    //                     for (final Iterator allTypesIterator = allTypes.iterator(); allTypesIterator.hasNext();)
+    //                     {
+    //                         ClassifierFacade type = (ClassifierFacade) allTypesIterator.next();
 
-                            if (!this.containsManyType(types, modelElement))
-                            {
-                                ClassifierFacade nonArrayType = type;
-                                final boolean arrayType = type.isArrayType();
+    //                         if (!this.containsManyType(types, modelElement))
+    //                         {
+    //                             ClassifierFacade nonArrayType = type;
+    //                             final boolean arrayType = type.isArrayType();
 
-                                if (arrayType || this.isValidAssociationEnd(modelElement))
-                                {
-                                    types.add(modelElement);
+    //                             if (arrayType || this.isValidAssociationEnd(modelElement))
+    //                             {
+    //                                 types.add(modelElement);
 
-                                    if (arrayType)
-                                    {
-                                        // convert to non-array type since we
-                                        // check if that one has the stereotype
-                                        nonArrayType = type.getNonArray();
+    //                                 if (arrayType)
+    //                                 {
+    //                                     // convert to non-array type since we
+    //                                     // check if that one has the stereotype
+    //                                     nonArrayType = type.getNonArray();
 
-                                        // set the type to the non array type since
-                                        // that will have the attributes
-                                        type = nonArrayType;
-                                    }
-                                }
+    //                                     // set the type to the non array type since
+    //                                     // that will have the attributes
+    //                                     type = nonArrayType;
+    //                                 }
+    //                             }
 
-                                if (nonArrayType != null)
-                                {
-                                    if (nonArrayType.hasStereotype(UMLProfile.STEREOTYPE_VALUE_OBJECT)
-                                       || nonArrayType.hasStereotype(UMLProfile.STEREOTYPE_APPLICATION_EXCEPTION)
-                                       || nonArrayType.isEnumeration())
-                                    {
-                                        // we add the type when it's a non array and
-                                        // has the correct stereotype (even if we have
-                                        // added the array type above) since we need to
-                                        // define both an array and non array in the WSDL
-                                        // if we are defining an array.
-                                        nonArrayTypes.add(nonArrayType);
-                                    }
-                                }
-                            }
+    //                             if (nonArrayType != null)
+    //                             {
+    //                                 if (nonArrayType.hasStereotype(UMLProfile.STEREOTYPE_VALUE_OBJECT)
+    //                                    || nonArrayType.hasStereotype(UMLProfile.STEREOTYPE_APPLICATION_EXCEPTION)
+    //                                    || nonArrayType.isEnumeration())
+    //                                 {
+    //                                     // we add the type when it's a non array and
+    //                                     // has the correct stereotype (even if we have
+    //                                     // added the array type above) since we need to
+    //                                     // define both an array and non array in the WSDL
+    //                                     // if we are defining an array.
+    //                                     nonArrayTypes.add(nonArrayType);
+    //                                 }
+    //                             }
+    //                         }
 
-                            if (type != null)
-                            {
-                                final List<? extends ModelElementFacade> properties = type.getProperties();
-                                if (properties != null && !properties.isEmpty())
-                                {
-                                    for (final ModelElementFacade property : properties)
-                                    {
-                                        // Avoid StackOverflowError loading self-referenced types
-                                        if (!property.getFullyQualifiedName().equals(modelElement.getFullyQualifiedName()))
-                                        {
-                                            this.loadTypes(property, types, nonArrayTypes);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        catch (final Throwable throwable)
-        {
-            final String message = "Error performing loadTypes";
-            logger.error(throwable);
-            throw new MetafacadeException(message, throwable);
-        }
-    }
+    //                         if (type != null)
+    //                         {
+    //                             final List<? extends ModelElementFacade> properties = type.getProperties();
+    //                             if (properties != null && !properties.isEmpty())
+    //                             {
+    //                                 for (final ModelElementFacade property : properties)
+    //                                 {
+    //                                     // Avoid StackOverflowError loading self-referenced types
+    //                                     if (!property.getFullyQualifiedName().equals(modelElement.getFullyQualifiedName()))
+    //                                     {
+    //                                         this.loadTypes(property, types, nonArrayTypes);
+    //                                     }
+    //                                 }
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     catch (final Throwable throwable)
+    //     {
+    //         final String message = "Error performing loadTypes";
+    //         logger.error(throwable);
+    //         throw new MetafacadeException(message, throwable);
+    //     }
+    // }
 
     /**
      * Cross reference between package name and namespace abbreviation, used to annotate foreign schema elements
@@ -375,51 +375,51 @@ public class WebServiceLogicImpl
      * Get a unique list of packages populated from the results of GetTypeMappingElements
      * @return pkgAbbr TreeSet containing unique package list
      */
-    protected Collection<String> handleGetPackages()
-    {
-        if (this.elementSet == null || this.elementSet.size()<1)
-        {
-            this.elementSet = (TreeSet<ModelElementFacade>)handleGetTypeMappingElements();
-        }
-        setPkgAbbr(this.elementSet);
-        @SuppressWarnings("unused")
-        String pkgList = EMPTY_STRING;
-        for (final String pkg : this.packageAbbr.keySet())
-        {
-            pkgList += pkg + ", ";
-        }
-        return this.packageAbbr.keySet();
-    }
+    // protected Collection<String> handleGetPackages()
+    // {
+    //     if (this.elementSet == null || this.elementSet.size()<1)
+    //     {
+    //         this.elementSet = (TreeSet<ModelElementFacade>)handleGetTypeMappingElements();
+    //     }
+    //     setPkgAbbr(this.elementSet);
+    //     @SuppressWarnings("unused")
+    //     String pkgList = EMPTY_STRING;
+    //     for (final String pkg : this.packageAbbr.keySet())
+    //     {
+    //         pkgList += pkg + ", ";
+    //     }
+    //     return this.packageAbbr.keySet();
+    // }
 
     /**
      * @param pkgName
      * @return this.packageAbbr.get(pkgName)
      */
-    protected String handleGetPkgAbbr(String pkgName)
-    {
-        if (StringUtils.isBlank(pkgName) || pkgName.length()<1)
-        {
-            return EMPTY_STRING;
-        }
-        if (this.elementSet == null || this.elementSet.size()<1)
-        {
-            this.elementSet = (TreeSet<ModelElementFacade>)handleGetTypeMappingElements();
-        }
-        if (this.packageAbbr == null || this.packageAbbr.size()<1)
-        {
-            setPkgAbbr(this.elementSet);
-        }
-        String rtn = this.packageAbbr.get(pkgName);
-        if (StringUtils.isBlank(rtn))
-        {
-            // Package reference was never added originally - needs to be fixed
-            int namespaceCount = this.packageAbbr.size();
-            rtn = "ns" + namespaceCount;
-            this.packageAbbr.put(pkgName, rtn);
-            logger.info(this.getName() + " missing PkgAbbr for " + pkgName);
-        }
-        return rtn;
-    }
+    // protected String handleGetPkgAbbr(String pkgName)
+    // {
+    //     if (StringUtils.isBlank(pkgName) || pkgName.length()<1)
+    //     {
+    //         return EMPTY_STRING;
+    //     }
+    //     if (this.elementSet == null || this.elementSet.size()<1)
+    //     {
+    //         this.elementSet = (TreeSet<ModelElementFacade>)handleGetTypeMappingElements();
+    //     }
+    //     if (this.packageAbbr == null || this.packageAbbr.size()<1)
+    //     {
+    //         setPkgAbbr(this.elementSet);
+    //     }
+    //     String rtn = this.packageAbbr.get(pkgName);
+    //     if (StringUtils.isBlank(rtn))
+    //     {
+    //         // Package reference was never added originally - needs to be fixed
+    //         int namespaceCount = this.packageAbbr.size();
+    //         rtn = "ns" + namespaceCount;
+    //         this.packageAbbr.put(pkgName, rtn);
+    //         logger.info(this.getName() + " missing PkgAbbr for " + pkgName);
+    //     }
+    //     return rtn;
+    // }
 
     /**
      * Creates a list of sorted unique package names and namespace abbreviations for each one.
@@ -428,55 +428,55 @@ public class WebServiceLogicImpl
      * @param types
      * @return pkgAbbr
      */
-    private Map<String, String> setPkgAbbr(Set<ModelElementFacade> types)
-    {
-        Map<String, String> pkgAbbr = new TreeMap<String, String>();
-        int namespaceCount = 1;
-        // Copy package names and abbreviations to package list
-        for (final OperationFacade op : this.getOperations())
-        {
-            for (final Iterator opiterator = op.getExceptions().iterator(); opiterator.hasNext();)
-            {
-                ModelElementFacade arg = (ModelElementFacade)opiterator.next();
-                String pkg = arg.getPackageName();
-                if (!pkgAbbr.containsKey(pkg) && pkg != null && pkg.indexOf('.') > 0)
-                {
-                    pkgAbbr.put(pkg, "ns" + namespaceCount);
-                    namespaceCount++;
-                }
-            }
-            for (final ParameterFacade arg : op.getArguments())
-            {
-                String pkg = arg.getPackageName();
-                if (!pkgAbbr.containsKey(pkg) && pkg != null && pkg.indexOf('.') > 0)
-                {
-                    pkgAbbr.put(pkg, "ns" + namespaceCount);
-                    namespaceCount++;
-                }
-            }
-            if (op.getReturnType()!=null)
-            {
-                String pkg = op.getReturnType().getPackageName();
-                if (!pkgAbbr.containsKey(pkg) && pkg != null && pkg.indexOf('.') > 0)
-                {
-                    pkgAbbr.put(pkg, "ns" + namespaceCount);
-                    namespaceCount++;
-                }
-            }
-        }
-        for (final Iterator iterator = types.iterator(); iterator.hasNext();)
-        {
-            ModelElementFacade type = ((ModelElementFacade)iterator.next());
-            String pkg = type.getPackageName();
-            if (!pkgAbbr.containsKey(pkg) && pkg != null && pkg.indexOf('.') > 0)
-            {
-                pkgAbbr.put(pkg, "ns" + namespaceCount);
-                namespaceCount++;
-            }
-        }
-        this.packageAbbr = pkgAbbr;
-        return pkgAbbr;
-    }
+    // private Map<String, String> setPkgAbbr(Set<ModelElementFacade> types)
+    // {
+    //     Map<String, String> pkgAbbr = new TreeMap<String, String>();
+    //     int namespaceCount = 1;
+    //     // Copy package names and abbreviations to package list
+    //     for (final OperationFacade op : this.getOperations())
+    //     {
+    //         for (final Iterator opiterator = op.getExceptions().iterator(); opiterator.hasNext();)
+    //         {
+    //             ModelElementFacade arg = (ModelElementFacade)opiterator.next();
+    //             String pkg = arg.getPackageName();
+    //             if (!pkgAbbr.containsKey(pkg) && pkg != null && pkg.indexOf('.') > 0)
+    //             {
+    //                 pkgAbbr.put(pkg, "ns" + namespaceCount);
+    //                 namespaceCount++;
+    //             }
+    //         }
+    //         for (final ParameterFacade arg : op.getArguments())
+    //         {
+    //             String pkg = arg.getPackageName();
+    //             if (!pkgAbbr.containsKey(pkg) && pkg != null && pkg.indexOf('.') > 0)
+    //             {
+    //                 pkgAbbr.put(pkg, "ns" + namespaceCount);
+    //                 namespaceCount++;
+    //             }
+    //         }
+    //         if (op.getReturnType()!=null)
+    //         {
+    //             String pkg = op.getReturnType().getPackageName();
+    //             if (!pkgAbbr.containsKey(pkg) && pkg != null && pkg.indexOf('.') > 0)
+    //             {
+    //                 pkgAbbr.put(pkg, "ns" + namespaceCount);
+    //                 namespaceCount++;
+    //             }
+    //         }
+    //     }
+    //     for (final Iterator iterator = types.iterator(); iterator.hasNext();)
+    //     {
+    //         ModelElementFacade type = ((ModelElementFacade)iterator.next());
+    //         String pkg = type.getPackageName();
+    //         if (!pkgAbbr.containsKey(pkg) && pkg != null && pkg.indexOf('.') > 0)
+    //         {
+    //             pkgAbbr.put(pkg, "ns" + namespaceCount);
+    //             namespaceCount++;
+    //         }
+    //     }
+    //     this.packageAbbr = pkgAbbr;
+    //     return pkgAbbr;
+    // }
 
     /**
      * Cross reference between package name and collection of foreign package referenced elements
@@ -489,18 +489,18 @@ public class WebServiceLogicImpl
      * @param follow Follow Inheritance references $extensionInheritanceDisabled
      * @return Collection TreeSet containing referenced package list
      */
-    protected Collection<String> handleGetPackageReferences(String pkg, boolean follow)
-    {
-        //if (this.elementSet == null || this.elementSet.size()<1)
-        //{
-            this.elementSet = (TreeSet<ModelElementFacade>)handleGetTypeMappingElements();
-        //}
-        //if (this.packageRefs == null || this.packageRefs.size()<1)
-        //{
-            setPkgRefs(this.elementSet, follow);
-        //}
-        return this.packageRefs.get(pkg);
-    }
+    // protected Collection<String> handleGetPackageReferences(String pkg, boolean follow)
+    // {
+    //     //if (this.elementSet == null || this.elementSet.size()<1)
+    //     //{
+    //         this.elementSet = (TreeSet<ModelElementFacade>)handleGetTypeMappingElements();
+    //     //}
+    //     //if (this.packageRefs == null || this.packageRefs.size()<1)
+    //     //{
+    //         setPkgRefs(this.elementSet, follow);
+    //     //}
+    //     return this.packageRefs.get(pkg);
+    // }
 
     /**
      * Creates a list of referenced packages for each package.
@@ -509,164 +509,164 @@ public class WebServiceLogicImpl
      * @param follow Follow Inheritance references $extensionInheritanceDisabled
      * @return pkgAbbr
      */
-    private Map<String, Set<String>> setPkgRefs(Set<ModelElementFacade> types, boolean follow)
-    {
-        // Copy package names and collection of related packages to package references list
-        // Iterate through previously collected type references to find all packages referenced by each type
-        for (final Iterator<ModelElementFacade> iterator = types.iterator(); iterator.hasNext();)
-        {
-            try
-            {
-                MetafacadeBase element = (MetafacadeBase)iterator.next();
-                if (element instanceof WSDLTypeLogicImpl)
-                {
-                    WSDLTypeLogicImpl type = (WSDLTypeLogicImpl)element;
-                    String pkg = type.getPackageName();
-                    if (pkg != null && pkg.indexOf('.') > 0)
-                    {
-                        // Duplicates logic in wsdl.vsl so that referenced packages are the same.
-                        for (final Iterator<AttributeFacade> itAttr = type.getAttributes(follow).iterator(); itAttr.hasNext();)
-                        {
-                            try
-                            {
-                                ModelElementFacade attr = (itAttr.next());
-                                if (getType(attr) != null)
-                                {
-                                    attr = getType(attr);
-                                }
-                                addPkgRef(pkg, attr.getPackageName(), attr);
-                            }
-                            catch (Exception e)
-                            {
-                                logger.error("WebServiceLogicImpl.setPkgRefs getAttributes: " + e);
-                            }
-                        }
-                    }
-                }
-                else if (element instanceof WSDLTypeAssociationEndLogicImpl)
-                {
-                    WSDLTypeAssociationEndLogicImpl type = (WSDLTypeAssociationEndLogicImpl)element;
-                    String pkg = type.getPackageName();
-                    if (pkg != null && pkg.indexOf('.') > 0)
-                    {
-                        // Duplicates logic in wsdl.vsl so that referenced packages are the same.
-                        for (final Iterator<AssociationEndFacade> otherEnds = type.getType().getNavigableConnectingEnds(follow).iterator(); otherEnds.hasNext();)
-                        {
-                            try
-                            {
-                                ModelElementFacade otherEnd = ((ModelElementFacade)otherEnds.next());
-                                if (getType(otherEnd) != null)
-                                {
-                                    otherEnd = getType(otherEnd);
-                                }
-                                addPkgRef(pkg, otherEnd.getPackageName(), otherEnd);
-                            }
-                            catch (RuntimeException e)
-                            {
-                                logger.error("WebServiceLogicImpl.setPkgRefs getNavigableConnectingEnds: " + e);
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    // Log the type so we can extend this logic later...
-                    logger.error("Unexpected element type: " + element);
-                }
-            }
-            catch (Exception e)
-            {
-                logger.error("WebServiceLogicImpl.setPkgRefs types: " + e);
-            }
-        }
-        // Copy package names and collection of related packages to package references list
-        /* for (final Iterator iterator = types.iterator(); iterator.hasNext();)
-        {
-            TreeSet pkgRef;
-            ClassifierFacade element = ((ClassifierFacade)iterator.next());
-            String pkg = element.getPackageName();
-            if (!packageRefs.containsKey(pkg))
-            {
-                // TypeComparator disallows adding nonunique referenced packageNames
-                pkgRef = new TreeSet(new TypeComparator());
-            }
-            else
-            {
-                // Reference to Set contained in pkgAbbr already, can be changed dynamically
-                pkgRef = (TreeSet)packageRefs.get(pkg);
-            }
-            // Duplicates logic in wsdl.vsl so that referenced packages are the same.
-            for (final Iterator itAttr = element.getAttributes(follow).iterator(); itAttr.hasNext();)
-            {
-                ClassifierFacade attr = ((ClassifierFacade)itAttr.next());
-                if (getType(attr) != null)
-                {
-                    attr = getType(attr);
-                }
-                if (!pkgRef.contains(attr) && attr != null && attr.getPackageName().length() > 0)
-                {
-                    pkgRef.add(attr.getPackageName());
-                }
-            }
-            for (final Iterator otherEnds = element.getNavigableConnectingEnds(follow).iterator(); otherEnds.hasNext();)
-            {
-                ClassifierFacade otherEnd = ((ClassifierFacade)otherEnds.next());
-                if (getType(otherEnd) != null)
-                {
-                    otherEnd = getType(otherEnd);
-                }
-                if (!pkgRef.contains(otherEnd))
-                {
-                    pkgRef.add(otherEnd.getPackageName());
-                }
-            }
-            if (!packageRefs.containsKey(pkg))
-            {
-                packageRefs.put(pkg, pkgRef);
-            }
-        } */
+    // private Map<String, Set<String>> setPkgRefs(Set<ModelElementFacade> types, boolean follow)
+    // {
+    //     // Copy package names and collection of related packages to package references list
+    //     // Iterate through previously collected type references to find all packages referenced by each type
+    //     for (final Iterator<ModelElementFacade> iterator = types.iterator(); iterator.hasNext();)
+    //     {
+    //         try
+    //         {
+    //             MetafacadeBase element = (MetafacadeBase)iterator.next();
+    //             if (element instanceof WSDLTypeLogicImpl)
+    //             {
+    //                 WSDLTypeLogicImpl type = (WSDLTypeLogicImpl)element;
+    //                 String pkg = type.getPackageName();
+    //                 if (pkg != null && pkg.indexOf('.') > 0)
+    //                 {
+    //                     // Duplicates logic in wsdl.vsl so that referenced packages are the same.
+    //                     for (final Iterator<AttributeFacade> itAttr = type.getAttributes(follow).iterator(); itAttr.hasNext();)
+    //                     {
+    //                         try
+    //                         {
+    //                             ModelElementFacade attr = (itAttr.next());
+    //                             if (getType(attr) != null)
+    //                             {
+    //                                 attr = getType(attr);
+    //                             }
+    //                             addPkgRef(pkg, attr.getPackageName(), attr);
+    //                         }
+    //                         catch (Exception e)
+    //                         {
+    //                             logger.error("WebServiceLogicImpl.setPkgRefs getAttributes: " + e);
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //             else if (element instanceof WSDLTypeAssociationEndLogicImpl)
+    //             {
+    //                 WSDLTypeAssociationEndLogicImpl type = (WSDLTypeAssociationEndLogicImpl)element;
+    //                 String pkg = type.getPackageName();
+    //                 if (pkg != null && pkg.indexOf('.') > 0)
+    //                 {
+    //                     // Duplicates logic in wsdl.vsl so that referenced packages are the same.
+    //                     for (final Iterator<AssociationEndFacade> otherEnds = type.getType().getNavigableConnectingEnds(follow).iterator(); otherEnds.hasNext();)
+    //                     {
+    //                         try
+    //                         {
+    //                             ModelElementFacade otherEnd = ((ModelElementFacade)otherEnds.next());
+    //                             if (getType(otherEnd) != null)
+    //                             {
+    //                                 otherEnd = getType(otherEnd);
+    //                             }
+    //                             addPkgRef(pkg, otherEnd.getPackageName(), otherEnd);
+    //                         }
+    //                         catch (RuntimeException e)
+    //                         {
+    //                             logger.error("WebServiceLogicImpl.setPkgRefs getNavigableConnectingEnds: " + e);
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //             else
+    //             {
+    //                 // Log the type so we can extend this logic later...
+    //                 logger.error("Unexpected element type: " + element);
+    //             }
+    //         }
+    //         catch (Exception e)
+    //         {
+    //             logger.error("WebServiceLogicImpl.setPkgRefs types: " + e);
+    //         }
+    //     }
+    //     // Copy package names and collection of related packages to package references list
+    //     /* for (final Iterator iterator = types.iterator(); iterator.hasNext();)
+    //     {
+    //         TreeSet pkgRef;
+    //         ClassifierFacade element = ((ClassifierFacade)iterator.next());
+    //         String pkg = element.getPackageName();
+    //         if (!packageRefs.containsKey(pkg))
+    //         {
+    //             // TypeComparator disallows adding nonunique referenced packageNames
+    //             pkgRef = new TreeSet(new TypeComparator());
+    //         }
+    //         else
+    //         {
+    //             // Reference to Set contained in pkgAbbr already, can be changed dynamically
+    //             pkgRef = (TreeSet)packageRefs.get(pkg);
+    //         }
+    //         // Duplicates logic in wsdl.vsl so that referenced packages are the same.
+    //         for (final Iterator itAttr = element.getAttributes(follow).iterator(); itAttr.hasNext();)
+    //         {
+    //             ClassifierFacade attr = ((ClassifierFacade)itAttr.next());
+    //             if (getType(attr) != null)
+    //             {
+    //                 attr = getType(attr);
+    //             }
+    //             if (!pkgRef.contains(attr) && attr != null && attr.getPackageName().length() > 0)
+    //             {
+    //                 pkgRef.add(attr.getPackageName());
+    //             }
+    //         }
+    //         for (final Iterator otherEnds = element.getNavigableConnectingEnds(follow).iterator(); otherEnds.hasNext();)
+    //         {
+    //             ClassifierFacade otherEnd = ((ClassifierFacade)otherEnds.next());
+    //             if (getType(otherEnd) != null)
+    //             {
+    //                 otherEnd = getType(otherEnd);
+    //             }
+    //             if (!pkgRef.contains(otherEnd))
+    //             {
+    //                 pkgRef.add(otherEnd.getPackageName());
+    //             }
+    //         }
+    //         if (!packageRefs.containsKey(pkg))
+    //         {
+    //             packageRefs.put(pkg, pkgRef);
+    //         }
+    //     } */
 
-        // Add references from the operations of the service package itself
-        for (final OperationFacade op : this.getOperations())
-        {
-            for (final Object exception : op.getExceptions())
-            {
-                ModelElementFacade arg = (ModelElementFacade)exception;
-                addPkgRef(this.getPackageName(), arg.getPackageName(), arg);
-            }
-            for (final ParameterFacade arg : op.getArguments())
-            {
-                addPkgRef(this.getPackageName(), arg.getPackageName(), arg);
-            }
-            if (op.getReturnType()!=null)
-            {
-                String pkg = op.getReturnType().getPackageName();
-                addPkgRef(this.getPackageName(), pkg, op.getReturnType());
-            }
-        }
-        return packageRefs;
-    }
+    //     // Add references from the operations of the service package itself
+    //     for (final OperationFacade op : this.getOperations())
+    //     {
+    //         for (final Object exception : op.getExceptions())
+    //         {
+    //             ModelElementFacade arg = (ModelElementFacade)exception;
+    //             addPkgRef(this.getPackageName(), arg.getPackageName(), arg);
+    //         }
+    //         for (final ParameterFacade arg : op.getArguments())
+    //         {
+    //             addPkgRef(this.getPackageName(), arg.getPackageName(), arg);
+    //         }
+    //         if (op.getReturnType()!=null)
+    //         {
+    //             String pkg = op.getReturnType().getPackageName();
+    //             addPkgRef(this.getPackageName(), pkg, op.getReturnType());
+    //         }
+    //     }
+    //     return packageRefs;
+    // }
 
-    private void addPkgRef(String pkg, String pkgRef, ModelElementFacade type)
-    {
-        Set<String> pkgRefSet;
-        if (!packageRefs.containsKey(pkg))
-        {
-            // TypeComparator disallows adding nonunique referenced packageNames
-            pkgRefSet = new TreeSet<String>();
-            packageRefs.put(pkg, pkgRefSet);
-        }
-        else
-        {
-            // Reference to Set contained in pkgAbbr already, can be changed dynamically
-            pkgRefSet = packageRefs.get(pkg);
-        }
-        if (pkgRef!=null && pkg!=null &&  !pkgRef.equals(pkg) && pkgRef.indexOf('.') > 0 && !pkgRefSet.contains(pkgRef))
-        {
-            pkgRefSet.add(pkgRef);
-            logger.debug("Added pkgRef " + pkg + " references " + pkgRef + " in " + type.getName());
-        }
-    }
+    // private void addPkgRef(String pkg, String pkgRef, ModelElementFacade type)
+    // {
+    //     Set<String> pkgRefSet;
+    //     if (!packageRefs.containsKey(pkg))
+    //     {
+    //         // TypeComparator disallows adding nonunique referenced packageNames
+    //         pkgRefSet = new TreeSet<String>();
+    //         packageRefs.put(pkg, pkgRefSet);
+    //     }
+    //     else
+    //     {
+    //         // Reference to Set contained in pkgAbbr already, can be changed dynamically
+    //         pkgRefSet = packageRefs.get(pkg);
+    //     }
+    //     if (pkgRef!=null && pkg!=null &&  !pkgRef.equals(pkg) && pkgRef.indexOf('.') > 0 && !pkgRefSet.contains(pkgRef))
+    //     {
+    //         pkgRefSet.add(pkgRef);
+    //         logger.debug("Added pkgRef " + pkg + " references " + pkgRef + " in " + type.getName());
+    //     }
+    // }
 
     /**
      * <p> Checks to see if the <code>types</code> collection contains the
@@ -684,27 +684,27 @@ public class WebServiceLogicImpl
      * @return true/false depending on whether or not the model element is a
      *         many type.
      */
-    private boolean containsManyType(
-        final Collection<ModelElementFacade> types,
-        final Object modelElement)
-    {
-        final ClassifierFacade compareType = this.getClassifier(modelElement);
-        boolean containsManyType = false;
-        if (compareType != null)
-        {
-            containsManyType =
-                CollectionUtils.find(
-                    types,
-                    new Predicate()
-                    {
-                        public boolean evaluate(Object object)
-                        {
-                            return compareType.equals(getClassifier(object));
-                        }
-                    }) != null;
-        }
-        return containsManyType;
-    }
+    // private boolean containsManyType(
+    //     final Collection<ModelElementFacade> types,
+    //     final Object modelElement)
+    // {
+    //     final ClassifierFacade compareType = this.getClassifier(modelElement);
+    //     boolean containsManyType = false;
+    //     if (compareType != null)
+    //     {
+    //         containsManyType =
+    //             CollectionUtils.find(
+    //                 types,
+    //                 new Predicate()
+    //                 {
+    //                     public boolean evaluate(Object object)
+    //                     {
+    //                         return compareType.equals(getClassifier(object));
+    //                     }
+    //                 }) != null;
+    //     }
+    //     return containsManyType;
+    // }
 
     /**
      * Attempts to get the classifier attached to the given <code>element</code>.
@@ -712,38 +712,38 @@ public class WebServiceLogicImpl
      * @param element the element from which to retrieve the classifier.
      * @return the classifier if found, null otherwise
      */
-    private ClassifierFacade getClassifier(final Object element)
-    {
-        ClassifierFacade type = null;
-        if (element instanceof AssociationEndFacade)
-        {
-            AssociationEndFacade end = (AssociationEndFacade)element;
-            if (end.isMany())
-            {
-                type = ((AssociationEndFacade)element).getType();
-            }
-        }
-        else if (element instanceof AttributeFacade)
-        {
-            type = ((AttributeFacade)element).getType();
-        }
-        else if (element instanceof ParameterFacade)
-        {
-            type = ((ParameterFacade)element).getType();
-        }
-        if (element instanceof ClassifierFacade)
-        {
-            type = (ClassifierFacade)element;
-        }
-        if (type != null)
-        {
-            if (type.isArrayType())
-            {
-                type = type.getNonArray();
-            }
-        }
-        return type;
-    }
+    // private ClassifierFacade getClassifier(final Object element)
+    // {
+    //     ClassifierFacade type = null;
+    //     if (element instanceof AssociationEndFacade)
+    //     {
+    //         AssociationEndFacade end = (AssociationEndFacade)element;
+    //         if (end.isMany())
+    //         {
+    //             type = ((AssociationEndFacade)element).getType();
+    //         }
+    //     }
+    //     else if (element instanceof AttributeFacade)
+    //     {
+    //         type = ((AttributeFacade)element).getType();
+    //     }
+    //     else if (element instanceof ParameterFacade)
+    //     {
+    //         type = ((ParameterFacade)element).getType();
+    //     }
+    //     if (element instanceof ClassifierFacade)
+    //     {
+    //         type = (ClassifierFacade)element;
+    //     }
+    //     if (type != null)
+    //     {
+    //         if (type.isArrayType())
+    //         {
+    //             type = type.getNonArray();
+    //         }
+    //     }
+    //     return type;
+    // }
 
     /**
      * Returns true/false depending on whether or not this class represents a valid association end (meaning it has a
@@ -752,36 +752,36 @@ public class WebServiceLogicImpl
      * @param modelElement the model element to check.
      * @return true/false
      */
-    private boolean isValidAssociationEnd(Object modelElement)
-    {
-        return modelElement instanceof AssociationEndFacade && ((AssociationEndFacade)modelElement).isMany();
-    }
+    // private boolean isValidAssociationEnd(Object modelElement)
+    // {
+    //     return modelElement instanceof AssociationEndFacade && ((AssociationEndFacade)modelElement).isMany();
+    // }
 
     /**
      * @return this.getConfiguredProperty("defaultProvider")
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getProvider()
      */
-    protected String handleGetProvider()
-    {
-        String provider = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_PROVIDER);
-        if (StringUtils.isBlank(provider) || provider.equals(DEFAULT))
-        {
-            provider = (String)this.getConfiguredProperty("defaultProvider");
-        }
-        return provider;
-    }
+    // protected String handleGetProvider()
+    // {
+    //     String provider = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_PROVIDER);
+    //     if (StringUtils.isBlank(provider) || provider.equals(DEFAULT))
+    //     {
+    //         provider = (String)this.getConfiguredProperty("defaultProvider");
+    //     }
+    //     return provider;
+    // }
 
     /**
      * @return this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getWsdlFile()
      */
-    protected String handleGetWsdlFile()
-    {
-        return StringUtils.replace(
-            this.getFullyQualifiedName(),
-            String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)),
-            "/") + ".wsdl";
-    }
+    // protected String handleGetWsdlFile()
+    // {
+    //     return StringUtils.replace(
+    //         this.getFullyQualifiedName(),
+    //         String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)),
+    //         "/") + ".wsdl";
+    // }
 
     /**
      * We use this comparator to actually eliminate duplicates instead of sorting like a comparator is normally used.
@@ -875,15 +875,15 @@ public class WebServiceLogicImpl
      * @return this.getConfiguredProperty(NAMESPACE_PREFIX)
      * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getNamespacePrefix()
      */
-    protected String handleGetNamespacePrefix()
-    {
-        String prefix = (String)this.getConfiguredProperty(NAMESPACE_PREFIX);
-        if (StringUtils.isBlank(prefix))
-        {
-            prefix = "impl";
-        }
-        return prefix;
-    }
+    // protected String handleGetNamespacePrefix()
+    // {
+    //     String prefix = (String)this.getConfiguredProperty(NAMESPACE_PREFIX);
+    //     if (StringUtils.isBlank(prefix))
+    //     {
+    //         prefix = "impl";
+    //     }
+    //     return prefix;
+    // }
 
     /**
      * qualifiedNameLocalPartPattern
@@ -894,199 +894,199 @@ public class WebServiceLogicImpl
      * Gets the <code>qualifiedNameLocalPartPattern</code> for this service.
      * @return this.getConfiguredProperty(QNAME_LOCAL_PART_PATTERN)
      */
-    protected String getQualifiedNameLocalPartPattern()
-    {
-        String pattern = (String)this.getConfiguredProperty(QNAME_LOCAL_PART_PATTERN);
-        if (StringUtils.isBlank(pattern))
-        {
-            pattern = "{0}";
-        }
-        return pattern;
-    }
+    // protected String getQualifiedNameLocalPartPattern()
+    // {
+    //     String pattern = (String)this.getConfiguredProperty(QNAME_LOCAL_PART_PATTERN);
+    //     if (StringUtils.isBlank(pattern))
+    //     {
+    //         pattern = "{0}";
+    //     }
+    //     return pattern;
+    // }
 
     /**
      * namespacePattern
      */
-    static final String NAMESPACE_PATTERN = "namespacePattern";
+    //static final String NAMESPACE_PATTERN = "namespacePattern";
 
     /**
      * Gets the <code>namespacePattern</code> for this service.
      *
      * @return String the namespace pattern to use.
      */
-    protected String getNamespacePattern()
-    {
-        String pattern = (String)this.getConfiguredProperty(NAMESPACE_PATTERN);
-        if (StringUtils.isBlank(pattern))
-        {
-            pattern = "http://{0}/";
-        }
-        return pattern;
-    }
+    // protected String getNamespacePattern()
+    // {
+    //     String pattern = (String)this.getConfiguredProperty(NAMESPACE_PATTERN);
+    //     if (StringUtils.isBlank(pattern))
+    //     {
+    //         pattern = "http://{0}/";
+    //     }
+    //     return pattern;
+    // }
 
     /**
      * reverseNamespace
      */
-    static final String REVERSE_NAMESPACE = "reverseNamespace";
+    //static final String REVERSE_NAMESPACE = "reverseNamespace";
 
     /**
      * Gets whether or not <code>reverseNamespace</code> is true/false for this type.
      *
      * @return boolean true/false
      */
-    protected boolean isReverseNamespace()
-    {
-        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(REVERSE_NAMESPACE))).booleanValue();
-    }
+    // protected boolean isReverseNamespace()
+    // {
+    //     return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(REVERSE_NAMESPACE))).booleanValue();
+    // }
 
     /**
      * @return this.getEjbJndiNamePrefix() + ejb/ + this.getFullyQualifiedName()
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getEjbJndiName()
      */
-    protected String handleGetEjbJndiName()
-    {
-        StringBuilder jndiName = new StringBuilder();
-        String jndiNamePrefix = StringUtils.trimToEmpty(this.getEjbJndiNamePrefix());
-        if (StringUtils.isNotBlank(jndiNamePrefix))
-        {
-            jndiName.append(jndiNamePrefix);
-            jndiName.append('/');
-        }
-        jndiName.append("ejb/");
-        jndiName.append(this.getFullyQualifiedName());
-        return jndiName.toString();
-    }
+    // protected String handleGetEjbJndiName()
+    // {
+    //     StringBuilder jndiName = new StringBuilder();
+    //     String jndiNamePrefix = StringUtils.trimToEmpty(this.getEjbJndiNamePrefix());
+    //     if (StringUtils.isNotBlank(jndiNamePrefix))
+    //     {
+    //         jndiName.append(jndiNamePrefix);
+    //         jndiName.append('/');
+    //     }
+    //     jndiName.append("ejb/");
+    //     jndiName.append(this.getFullyQualifiedName());
+    //     return jndiName.toString();
+    // }
 
     /**
      * Gets the <code>ejbJndiNamePrefix</code> for an EJB provider.
      *
      * @return the EJB Jndi name prefix.
      */
-    protected String getEjbJndiNamePrefix()
-    {
-        final String property = "ejbJndiNamePrefix";
-        return this.isConfiguredProperty(property) ? ObjectUtils.toString(this.getConfiguredProperty(property)) : null;
-    }
+    // protected String getEjbJndiNamePrefix()
+    // {
+    //     final String property = "ejbJndiNamePrefix";
+    //     return this.isConfiguredProperty(property) ? ObjectUtils.toString(this.getConfiguredProperty(property)) : null;
+    // }
 
     /**
      * @return this.getEjbHomeInterfacePattern() formatted as this.getPackageName() + this.getName()
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getEjbHomeInterface()
      */
-    protected String handleGetEjbHomeInterface()
-    {
-        return MessageFormat.format(
-            this.getEjbHomeInterfacePattern(),
-                StringUtils.trimToEmpty(this.getPackageName()), StringUtils.trimToEmpty(this.getName()));
-    }
+    // protected String handleGetEjbHomeInterface()
+    // {
+    //     return MessageFormat.format(
+    //         this.getEjbHomeInterfacePattern(),
+    //             StringUtils.trimToEmpty(this.getPackageName()), StringUtils.trimToEmpty(this.getName()));
+    // }
 
     /**
      * Gets the <code>ejbHomeInterfacePattern</code> for an EJB provider.
      *
      * @return the EJB Home interface pattern
      */
-    protected String getEjbHomeInterfacePattern()
-    {
-        return (String)this.getConfiguredProperty("ejbHomeInterfacePattern");
-    }
+    // protected String getEjbHomeInterfacePattern()
+    // {
+    //     return (String)this.getConfiguredProperty("ejbHomeInterfacePattern");
+    // }
 
     /**
      * @return this.getEjbInterfacePattern() formatted as this.getPackageName() + this.getName()
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getEjbInterface()
      */
-    protected String handleGetEjbInterface()
-    {
-        return MessageFormat.format(
-            this.getEjbInterfacePattern(),
-                StringUtils.trimToEmpty(this.getPackageName()), StringUtils.trimToEmpty(this.getName()));
-    }
+    // protected String handleGetEjbInterface()
+    // {
+    //     return MessageFormat.format(
+    //         this.getEjbInterfacePattern(),
+    //             StringUtils.trimToEmpty(this.getPackageName()), StringUtils.trimToEmpty(this.getName()));
+    // }
 
     /**
      * Gets the <code>ejbInterfacePattern</code> for an EJB provider.
      *
      * @return the EJB interface pattern
      */
-    protected String getEjbInterfacePattern()
-    {
-        return (String)this.getConfiguredProperty("ejbInterfacePattern");
-    }
+    // protected String getEjbInterfacePattern()
+    // {
+    //     return (String)this.getConfiguredProperty("ejbInterfacePattern");
+    // }
 
-    private static final String RPC_CLASS_NAME_PATTERN = "rpcClassNamePattern";
+    // private static final String RPC_CLASS_NAME_PATTERN = "rpcClassNamePattern";
 
     /**
      * Gets the <code>rpcClassNamePattern</code> for this service.
      * @return this.getConfiguredProperty(RPC_CLASS_NAME_PATTERN)
      */
-    protected String getRpcClassNamePattern()
-    {
-        return (String)this.getConfiguredProperty(RPC_CLASS_NAME_PATTERN);
-    }
+    // protected String getRpcClassNamePattern()
+    // {
+    //     return (String)this.getConfiguredProperty(RPC_CLASS_NAME_PATTERN);
+    // }
 
     /**
      * @return this.getRpcClassNamePattern() formatted as this.getPackageName() + this.getName()
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getRpcClassName()
      */
-    protected String handleGetRpcClassName()
-    {
-        return MessageFormat.format(
-            this.getRpcClassNamePattern(),
-                StringUtils.trimToEmpty(this.getPackageName()), StringUtils.trimToEmpty(this.getName()));
-    }
+    // protected String handleGetRpcClassName()
+    // {
+    //     return MessageFormat.format(
+    //         this.getRpcClassNamePattern(),
+    //             StringUtils.trimToEmpty(this.getPackageName()), StringUtils.trimToEmpty(this.getName()));
+    // }
 
-    private static final String WSDL_OPERATION_SORT_MODE = "wsdlOperationSortMode";
+    // private static final String WSDL_OPERATION_SORT_MODE = "wsdlOperationSortMode";
 
     /**
      * The model specifying operations should be sorted by name.
      */
-    private static final String OPERATION_SORT_MODE_NAME = "name";
+    // private static final String OPERATION_SORT_MODE_NAME = "name";
 
     /**
      * The model specifying operations should NOT be sorted.
      */
-    private static final String OPERATION_SORT_MODE_NONE = "none";
+    // private static final String OPERATION_SORT_MODE_NONE = "none";
 
     /**
      * Gets the sort mode WSDL operations.
      *
      * @return String
      */
-    private String getWSDLOperationSortMode()
-    {
-        Object property = this.getConfiguredProperty(WSDL_OPERATION_SORT_MODE);
-        return property != null ? (property.equals(OPERATION_SORT_MODE_NAME) ? (String)property : OPERATION_SORT_MODE_NONE) : OPERATION_SORT_MODE_NONE;
-    }
+    // private String getWSDLOperationSortMode()
+    // {
+    //     Object property = this.getConfiguredProperty(WSDL_OPERATION_SORT_MODE);
+    //     return property != null ? (property.equals(OPERATION_SORT_MODE_NAME) ? (String)property : OPERATION_SORT_MODE_NONE) : OPERATION_SORT_MODE_NONE;
+    // }
 
     /**
      * @return !this.getAllRoles().isEmpty()
      * @see org.andromda.cartridges.webservice.metafacades.WebService#isSecured()
      */
-    protected boolean handleIsSecured()
-    {
-        Collection<Role> roles = this.getAllRoles();
-        return roles != null && !roles.isEmpty();
-    }
+    // protected boolean handleIsSecured()
+    // {
+    //     Collection<Role> roles = this.getAllRoles();
+    //     return roles != null && !roles.isEmpty();
+    // }
 
     /**
      * Overridden to only allow the exposed operations in the returned roles collection.
      *
      * @see org.andromda.metafacades.uml.Service#getAllRoles()
      */
-    public Collection<Role> getAllRoles()
-    {
-        final Collection<Role> roles = new LinkedHashSet<Role>(this.getRoles());
-        CollectionUtils.forAllDo(
-            this.getAllowedOperations(),
-            new Closure()
-            {
-                public void execute(Object object)
-                {
-                    if (object != null && ServiceOperation.class.isAssignableFrom(object.getClass()))
-                    {
-                        roles.addAll(((ServiceOperation)object).getRoles());
-                    }
-                }
-            });
-        return roles;
-    }
+    // public Collection<Role> getAllRoles()
+    // {
+    //     final Collection<Role> roles = new LinkedHashSet<Role>(this.getRoles());
+    //     CollectionUtils.forAllDo(
+    //         this.getAllowedOperations(),
+    //         new Closure()
+    //         {
+    //             public void execute(Object object)
+    //             {
+    //                 if (object != null && ServiceOperation.class.isAssignableFrom(object.getClass()))
+    //                 {
+    //                     roles.addAll(((ServiceOperation)object).getRoles());
+    //                 }
+    //             }
+    //         });
+    //     return roles;
+    // }
 
     /**
      * The pattern used to construct the test package name.
@@ -1097,21 +1097,21 @@ public class WebServiceLogicImpl
      * @return this.getPackageName() formatted as this.getConfiguredProperty(TEST_PACKAGE_NAME_PATTERN)
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getTestPackageName()
      */
-    protected String handleGetTestPackageName()
-    {
-        return String.valueOf(this.getConfiguredProperty(TEST_PACKAGE_NAME_PATTERN)).replaceAll(
-            "\\{0\\}",
-            this.getPackageName());
-    }
+    // protected String handleGetTestPackageName()
+    // {
+    //     return String.valueOf(this.getConfiguredProperty(TEST_PACKAGE_NAME_PATTERN)).replaceAll(
+    //         "\\{0\\}",
+    //         this.getPackageName());
+    // }
 
     /**
      * @return this.getTestPackageName() + '.' + this.getTestName()
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getFullyQualifiedTestName()
      */
-    protected String handleGetFullyQualifiedTestName()
-    {
-        return this.getTestPackageName() + '.' + this.getTestName();
-    }
+    // protected String handleGetFullyQualifiedTestName()
+    // {
+    //     return this.getTestPackageName() + '.' + this.getTestName();
+    // }
 
     /**
      * The pattern used to construct the test name.
@@ -1122,26 +1122,26 @@ public class WebServiceLogicImpl
      * @return this.getName() formatted with this.getConfiguredProperty(TEST_NAME_PATTERN)
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getTestName()
      */
-    protected String handleGetTestName()
-    {
-        return String.valueOf(this.getConfiguredProperty(TEST_NAME_PATTERN)).replaceAll(
-            "\\{0\\}",
-            this.getName());
-    }
+    // protected String handleGetTestName()
+    // {
+    //     return String.valueOf(this.getConfiguredProperty(TEST_NAME_PATTERN)).replaceAll(
+    //         "\\{0\\}",
+    //         this.getName());
+    // }
 
     /**
      * Represents a "wrapped" style.
      */
-    private static final String STYLE_WRAPPED = "wrapped";
+    //private static final String STYLE_WRAPPED = "wrapped";
 
     /**
      * @return this.getStyle().equalsIgnoreCase(STYLE_WRAPPED)
      * @see org.andromda.cartridges.webservice.metafacades.WebService#isWrappedStyle()
      */
-    protected boolean handleIsWrappedStyle()
-    {
-        return this.getStyle().equalsIgnoreCase(STYLE_WRAPPED);
-    }
+    // protected boolean handleIsWrappedStyle()
+    // {
+    //     return this.getStyle().equalsIgnoreCase(STYLE_WRAPPED);
+    // }
 
     /**
      * Represents a "document" style.
@@ -1152,161 +1152,161 @@ public class WebServiceLogicImpl
      * @return this.getStyle().equalsIgnoreCase("document")
      * @see org.andromda.cartridges.webservice.metafacades.WebService#isDocumentStyle()
      */
-    protected boolean handleIsDocumentStyle()
-    {
-        return this.getStyle().equalsIgnoreCase(STYLE_DOCUMENT);
-    }
+    // protected boolean handleIsDocumentStyle()
+    // {
+    //     return this.getStyle().equalsIgnoreCase(STYLE_DOCUMENT);
+    // }
 
     /**
      * Represents a "rpc" style.
      */
-    private static final String STYLE_RPC = "rpc";
+    //private static final String STYLE_RPC = "rpc";
 
     /**
      * @return this.getStyle().equalsIgnoreCase("rpc")
      * @see org.andromda.cartridges.webservice.metafacades.WebService#isRpcStyle()
      */
-    protected boolean handleIsRpcStyle()
-    {
-        return this.getStyle().equalsIgnoreCase(STYLE_RPC);
-    }
+    // protected boolean handleIsRpcStyle()
+    // {
+    //     return this.getStyle().equalsIgnoreCase(STYLE_RPC);
+    // }
 
     /**
      * Represents an "literal" use.
      */
-    private static final String USE_LITERAL = "literal";
+    //private static final String USE_LITERAL = "literal";
 
     /**
      * @return this.getStyle().equalsIgnoreCase("literal")
      * @see org.andromda.cartridges.webservice.metafacades.WebService#isLiteralUse()
      */
-    protected boolean handleIsLiteralUse()
-    {
-        return this.getStyle().equalsIgnoreCase(USE_LITERAL);
-    }
+    // protected boolean handleIsLiteralUse()
+    // {
+    //     return this.getStyle().equalsIgnoreCase(USE_LITERAL);
+    // }
 
     /**
      * Represents an "encoded" use.
      */
-    private static final String USE_ENCODED = "encoded";
+    // private static final String USE_ENCODED = "encoded";
 
     /**
      * @return this.getStyle().equalsIgnoreCase("encoded")
      * @see org.andromda.cartridges.webservice.metafacades.WebService#isEncodedUse()
      */
-    protected boolean handleIsEncodedUse()
-    {
-        return this.getStyle().equalsIgnoreCase(USE_ENCODED);
-    }
+    // protected boolean handleIsEncodedUse()
+    // {
+    //     return this.getStyle().equalsIgnoreCase(USE_ENCODED);
+    // }
 
     /**
      * The pattern used to construct the test implementation name.
      */
-    private static final String TEST_IMPLEMENTATION_NAME_PATTERN = "testImplementationNamePattern";
+    // private static final String TEST_IMPLEMENTATION_NAME_PATTERN = "testImplementationNamePattern";
 
     /**
      * @return this.getName() formatted as this.getConfiguredProperty(TEST_IMPLEMENTATION_NAME_PATTERN)
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getTestImplementationName()
      */
-    protected String handleGetTestImplementationName()
-    {
-        return String.valueOf(this.getConfiguredProperty(TEST_IMPLEMENTATION_NAME_PATTERN)).replaceAll(
-            "\\{0\\}",
-            this.getName());
-    }
+    // protected String handleGetTestImplementationName()
+    // {
+    //     return String.valueOf(this.getConfiguredProperty(TEST_IMPLEMENTATION_NAME_PATTERN)).replaceAll(
+    //         "\\{0\\}",
+    //         this.getName());
+    // }
 
     /**
      * @return this.getTestPackageName() + '.' + this.getTestImplementationName()
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getFullyQualifiedTestImplementationName()
      */
-    protected String handleGetFullyQualifiedTestImplementationName()
-    {
-        return this.getTestPackageName() + '.' + this.getTestImplementationName();
-    }
+    // protected String handleGetFullyQualifiedTestImplementationName()
+    // {
+    //     return this.getTestPackageName() + '.' + this.getTestImplementationName();
+    // }
 
     /**
 
      * @return TypeMappings from WebServiceGlobals.SCHEMA_TYPE_MAPPINGS_URI "schemaTypeMappingsUri"
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getSchemaMappings()
      */
-    protected TypeMappings handleGetSchemaMappings()
-    {
-        final String propertyName = WebServiceGlobals.SCHEMA_TYPE_MAPPINGS_URI;
-        Object property = this.getConfiguredProperty(propertyName);
-        TypeMappings mappings = null;
-        String uri = null;
-        if (property instanceof String)
-        {
-            uri = (String)property;
-            try
-            {
-                mappings = TypeMappings.getInstance(uri);
-                mappings.setArraySuffix(this.getArraySuffix());
-                this.setProperty(propertyName, mappings);
-            }
-            catch (Throwable th)
-            {
-                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + '\'';
-                logger.error(errMsg, th);
-                // don't throw the exception
-            }
-        }
-        else
-        {
-            mappings = (TypeMappings)property;
-        }
-        return mappings;
-    }
+    // protected TypeMappings handleGetSchemaMappings()
+    // {
+    //     final String propertyName = WebServiceGlobals.SCHEMA_TYPE_MAPPINGS_URI;
+    //     Object property = this.getConfiguredProperty(propertyName);
+    //     TypeMappings mappings = null;
+    //     String uri = null;
+    //     if (property instanceof String)
+    //     {
+    //         uri = (String)property;
+    //         try
+    //         {
+    //             mappings = TypeMappings.getInstance(uri);
+    //             mappings.setArraySuffix(this.getArraySuffix());
+    //             this.setProperty(propertyName, mappings);
+    //         }
+    //         catch (Throwable th)
+    //         {
+    //             String errMsg = "Error getting '" + propertyName + "' --> '" + uri + '\'';
+    //             logger.error(errMsg, th);
+    //             // don't throw the exception
+    //         }
+    //     }
+    //     else
+    //     {
+    //         mappings = (TypeMappings)property;
+    //     }
+    //     return mappings;
+    // }
 
     /**
      * Gets the array suffix from the configured metafacade properties.
      *
      * @return the array suffix.
      */
-    private String getArraySuffix()
-    {
-        return String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ARRAY_NAME_SUFFIX));
-    }
+    // private String getArraySuffix()
+    // {
+    //     return String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ARRAY_NAME_SUFFIX));
+    // }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#handleGetAllowedOperationExceptions()
      */
-    protected Collection handleGetAllowedOperationExceptions()
-    {
-        final Collection exceptions = new HashSet();
+    // protected Collection handleGetAllowedOperationExceptions()
+    // {
+    //     final Collection exceptions = new HashSet();
 
-        // collect the exceptions of all allowed operations into a single set
-        for (final OperationFacade operation : this.getAllowedOperations())
-        {
-            exceptions.addAll(operation.getExceptions());
-        }
+    //     // collect the exceptions of all allowed operations into a single set
+    //     for (final OperationFacade operation : this.getAllowedOperations())
+    //     {
+    //         exceptions.addAll(operation.getExceptions());
+    //     }
 
-        return exceptions;
-    }
+    //     return exceptions;
+    // }
 
     /**
      * @return packages from this.getAllowedOperations()
      * @see org.andromda.cartridges.webservice.WebServiceUtils#getPackages(WebServiceLogicImpl, Set, boolean)
      */
-    public Collection<PackageFacade> getPackages() {
-        return new WebServiceUtils().getPackages(this, (Set) this.getAllowedOperations(), true);
-    }
+    // public Collection<PackageFacade> getPackages() {
+    //     return new WebServiceUtils().getPackages(this, (Set) this.getAllowedOperations(), true);
+    // }
 
     /**
      * @param pkg
      * @return WebServiceUtils().getPkgAbbr(pkg)
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl#getPkgAbbr(PackageFacade)
      */
-    public String getPkgAbbr(PackageFacade pkg) {
-        return new WebServiceUtils().getPkgAbbr(pkg);
-    }
+    // public String getPkgAbbr(PackageFacade pkg) {
+    //     return new WebServiceUtils().getPkgAbbr(pkg);
+    // }
 
     /**
      * The property defining if the web service XML should be validated against the wsdl/xsd schema.
      */
-    private static final String PROPERTY_SCHEMA_VALIDATION = "schemaValidation";
-    private static final String BOOLEAN_FALSE = "false";
-    private static final String BOOLEAN_TRUE = "true";
+    // private static final String PROPERTY_SCHEMA_VALIDATION = "schemaValidation";
+    // private static final String BOOLEAN_FALSE = "false";
+    // private static final String BOOLEAN_TRUE = "true";
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#handleIsSchemaValidation()
@@ -1392,7 +1392,7 @@ public class WebServiceLogicImpl
     //     }
     //     else
     //     {
-    //         consumes = WebServiceOperationLogicImpl.translateMediaType(consumes);
+    //         consumes = WebServiceOperationFacadeLogicImpl.translateMediaType(consumes);
     //     }
     //     return consumes;
     // }
@@ -1476,7 +1476,7 @@ public class WebServiceLogicImpl
     // @Override
     // protected String handleGetRestProduces()
     // {
-    //     return WebServiceOperationLogicImpl.translateMediaType((String)this.findTaggedValue(WebServiceGlobals.REST_PRODUCES));
+    //     return WebServiceOperationFacadeLogicImpl.translateMediaType((String)this.findTaggedValue(WebServiceGlobals.REST_PRODUCES));
     // }
 
     /**
@@ -1530,8 +1530,8 @@ public class WebServiceLogicImpl
     //     boolean restAtom = false;
     //     if (this.getRestCount()>0)
     //     {
-    //         Collection<WebServiceOperation> operations = this.getAllowedOperations();
-    //         for (WebServiceOperation operation : operations)
+    //         Collection<WebServiceOperationFacade> operations = this.getAllowedOperations();
+    //         for (WebServiceOperationFacade operation : operations)
     //         {
     //             String restProduces = operation.getRestProduces();
     //             if (StringUtils.isNotBlank(restProduces) && restProduces.contains("atom"))
@@ -1556,7 +1556,7 @@ public class WebServiceLogicImpl
     // {
     //     int restCount = 0;
     //     String rest = (String)this.findTaggedValue(WebServiceGlobals.REST);
-    //     for (WebServiceOperation operation : this.getAllowedOperations())
+    //     for (WebServiceOperationFacade operation : this.getAllowedOperations())
     //     {
     //         if (StringUtils.isNotBlank(rest) && (operation.isRest() || rest.equals(BOOLEAN_TRUE)))
     //         {
@@ -1574,7 +1574,7 @@ public class WebServiceLogicImpl
     // {
     //     int jaxwsCount = 0;
     //     String rest = (String)this.findTaggedValue(WebServiceGlobals.REST);
-    //     for (WebServiceOperation operation : this.getAllowedOperations())
+    //     for (WebServiceOperationFacade operation : this.getAllowedOperations())
     //     {
     //         if (StringUtils.isBlank(rest) || rest.equals(BOOLEAN_FALSE) && (!operation.isRest()))
     //         {
@@ -1589,17 +1589,17 @@ public class WebServiceLogicImpl
      *
      * @return useEnumValueInXSD true if EnumerationLiteral.value is used instead of EnumerationLiteral.Name.
      */
-    public Boolean useEnumValueInXSD()
-    {
-        final String propertyName = WebServiceGlobals.USE_ENUM_VALUE_IN_XSD;
-        // getConfiguredProperty is protected so we must wrap it for use in WebServiceUtils
-        Object property = this.getConfiguredProperty(propertyName);
-        if (property != null && String.class.isAssignableFrom(property.getClass()))
-        {
-            return Boolean.valueOf(String.valueOf(property)).booleanValue();
-        }
-        return Boolean.TRUE;
-    }
+    // public Boolean useEnumValueInXSD()
+    // {
+    //     final String propertyName = WebServiceGlobals.USE_ENUM_VALUE_IN_XSD;
+    //     // getConfiguredProperty is protected so we must wrap it for use in WebServiceUtils
+    //     Object property = this.getConfiguredProperty(propertyName);
+    //     if (property != null && String.class.isAssignableFrom(property.getClass()))
+    //     {
+    //         return Boolean.valueOf(String.valueOf(property)).booleanValue();
+    //     }
+    //     return Boolean.TRUE;
+    // }
 
     /**
      * @param validationMessages Collection<ModelValidationMessage>

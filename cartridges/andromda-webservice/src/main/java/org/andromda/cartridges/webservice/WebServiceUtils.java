@@ -44,6 +44,7 @@ import org.andromda.metafacades.uml.Service;
 import org.andromda.metafacades.uml.StereotypeFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.WebServiceOperationFacade;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -230,7 +231,7 @@ public class WebServiceUtils
             }
         }
         // Copy package names and abbreviations to package list
-        for (final WebServiceOperation op : service.getAllowedOperations())
+        for (final WebServiceOperationFacade op : service.getAllowedOperations())
         {
             for (final ModelElementFacade arg : (Collection<ModelElementFacade>)op.getExceptions())
             {
@@ -857,7 +858,7 @@ public class WebServiceUtils
             if (packageName.equals(service.getPackageName()))
             {
                 // Add references from the operations of the service package itself
-                for (WebServiceOperation op : service.getAllowedOperations())
+                for (WebServiceOperationFacade op : service.getAllowedOperations())
                 {
                     for (Object opit : op.getExceptions())
                     {
@@ -1611,7 +1612,7 @@ public class WebServiceUtils
                 }
             }
             // Add package types from the operations of the service package itself
-            for (final WebServiceOperation op : service.getAllowedOperations())
+            for (final WebServiceOperationFacade op : service.getAllowedOperations())
             {
                 for (final ModelElementFacade arg : (Collection<ModelElementFacade>)op.getExceptions())
                 {
@@ -2368,7 +2369,7 @@ public class WebServiceUtils
         // Keep track of elements already iterated, avoid stackOverflow.
         Collection<ModelElementFacade> added = new HashSet<ModelElementFacade>();
         // For each service parameter and return type and exception, find all descendants
-        for (final WebServiceOperation op : service.getAllowedOperations())
+        for (final WebServiceOperationFacade op : service.getAllowedOperations())
         {
             if (logger.isDebugEnabled())
             {
@@ -2423,7 +2424,7 @@ public class WebServiceUtils
         String typeRefs = "";
         // Copy package names and collection of related packages to package references list
         // Add references from the operations of the service package itself
-        for (final WebServiceOperation op : service.getAllowedOperations())
+        for (final WebServiceOperationFacade op : service.getAllowedOperations())
         {
             boolean isMany = false;
             /*for (final ModelElementFacade ex : op.getExceptions())

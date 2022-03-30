@@ -4,40 +4,35 @@
 package org.andromda.metafacades.emf.uml22;
 
 import java.util.Collection;
-import org.andromda.metafacades.uml.WebServiceOperation;
-import org.andromda.metafacades.uml.WebServicePackage;
+import org.andromda.metafacades.uml.WebServicePackageFacade;
 import org.andromda.metafacades.uml.webservice.WebServiceMetafacadeGlobals;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.metafacades.uml.PackageFacade;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.WebServiceOperationFacade;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
- * TODO: Model Documentation for WebServicePackage
- * MetafacadeLogic implementation for WebServicePackage.
+ * TODO: Model Documentation for WebServicePackageFacade
+ * MetafacadeLogic implementation for WebServicePackageFacade.
  *
- * @see WebServicePackage
+ * @see WebServicePackageFacade
  */
-public class WebServicePackageLogicImpl
-    extends WebServicePackageLogic
+public class WebServicePackageFacadeLogicImpl
+    extends WebServicePackageFacadeLogic
 {
     private static final long serialVersionUID = 34L;
-    private static final String DEFAULT = "default";
-
     /**
-     * Public constructor for WebServicePackageLogicImpl
-     * @param metaObject
-     * @param context
-     * @see org.andromda.cartridges.webservice.metafacades.WebServicePackage
+     * Public constructor for WebServicePackageFacadeLogicImpl
+     * @see WebServicePackageFacade
      */
-    public WebServicePackageLogicImpl (Object metaObject, String context)
+    public WebServicePackageFacadeLogicImpl (Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -45,7 +40,8 @@ public class WebServicePackageLogicImpl
     /**
      * The logger instance.
      */
-    private static final Logger logger = Logger.getLogger(WebServicePackageLogicImpl.class);
+    private static final Logger logger = Logger.getLogger(WebServicePackageFacadeLogicImpl.class);
+    private static final String DEFAULT = "default";
 
     /**
      * The property defining the default style to give the web services.
@@ -109,7 +105,7 @@ public class WebServicePackageLogicImpl
             {
                 namespace = WebServiceMetafacadeUtils.reversePackage(this.getName());
             }
-            String namespacePattern = (String)this.getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PATTERN);
+            String namespacePattern = (String)this.getConfiguredProperty(WebServiceFacadeLogicImpl.NAMESPACE_PATTERN);
             namespace = MessageFormat.format(
                 namespacePattern,
                 new Object[] {StringUtils.trimToEmpty(namespace)});
@@ -217,30 +213,30 @@ public class WebServicePackageLogicImpl
      */
     public int compareTo(Object object)
     {
-        if (object==null || !(object instanceof WebServicePackageLogic))
+        if (object==null || !(object instanceof WebServicePackageFacadeLogic))
         {
             return -1;
         }
-        return ((WebServicePackageLogic)object).getFullyQualifiedName().compareTo(this.getFullyQualifiedName());
+        return ((WebServicePackageFacadeLogic)object).getFullyQualifiedName().compareTo(this.getFullyQualifiedName());
     }
 
-    private static List<WebServiceOperation> warnedOperations = new ArrayList<WebServiceOperation>();
+    private static List<WebServiceOperationFacade> warnedOperations = new ArrayList<WebServiceOperationFacade>();
     /**
-     * @see org.andromda.cartridges.webservice.metafacades.WebServicePackageLogic#handleGetAllowedOperations()
+     * @see org.andromda.cartridges.webservice.metafacades.WebServicePackageFacadeLogic#handleGetAllowedOperations()
      */
     @Override
-    protected Collection<WebServiceOperation> handleGetAllowedOperations()
+    protected Collection<WebServiceOperationFacade> handleGetAllowedOperations()
     {
-        Collection<WebServiceOperation> operations = new WebServiceMetafacadeUtils().getAllowedOperations(this);
+        Collection<WebServiceOperationFacade> operations = new WebServiceMetafacadeUtils().getAllowedOperations(this);
         // Log the actual offending operation name, since validator only shows the package name
         String webserviceStack = String.valueOf(this.getConfiguredProperty("webserviceStack"));
         if (webserviceStack.equals("cxf") || webserviceStack.equals("jaxws") || webserviceStack.equals("spring"))
         {
-            for (WebServiceOperation operation : operations)
+            for (WebServiceOperationFacade operation : operations)
             {
                 int matchCount = 0;
                 String operationName = operation.getName();
-                for (WebServiceOperation operationToCheck : operations)
+                for (WebServiceOperationFacade operationToCheck : operations)
                 {
                     if (operationName.equals(operationToCheck.getName()))
                     {
@@ -259,7 +255,7 @@ public class WebServicePackageLogicImpl
 
     private static List<String> checkedPackages = new ArrayList<String>();
     /**
-     * @see org.andromda.cartridges.webservice.metafacades.WebServicePackageLogic#handleGetAllowedOperations()
+     * @see org.andromda.cartridges.webservice.metafacades.WebServicePackageFacadeLogic#handleGetAllowedOperations()
      */
     @Override
     protected boolean handleIsMissingXmlSchema()

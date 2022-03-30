@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:MagicDrawProfile="http://www.omg.org/spec/UML/20131001/MagicDrawProfile" xmlns:andromdameta="http:///schemas/andromdameta/_h6tN0K7kEeytbYCYscJsVg/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.omg.org/spec/UML/20131001/MagicDrawProfile UML_Standard_Profile.MagicDraw_Profile.profile.uml#_iEPlKK7kEeytbYCYscJsVg http:///schemas/andromdameta/_h6tN0K7kEeytbYCYscJsVg/0 andromda-meta.profile.uml#_iEO-nq7kEeytbYCYscJsVg">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:MagicDrawProfile="http://www.omg.org/spec/UML/20131001/MagicDrawProfile" xmlns:andromdameta="http:///schemas/andromdameta/_qovHELBnEeySjNJoj5jieQ/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.omg.org/spec/UML/20131001/MagicDrawProfile UML_Standard_Profile.MagicDraw_Profile.profile.uml#_qvlYJbBnEeySjNJoj5jieQ http:///schemas/andromdameta/_qovHELBnEeySjNJoj5jieQ/0 andromda-meta.profile.uml#_qvpsVbBnEeySjNJoj5jieQ">
   <uml:Model xmi:id="eee_1045467100313_135436_1" name="AndroMDAUML22Metafacades" visibility="public" URI="" viewpoint="">
     <ownedComment xmi:id="_17_0_1_2e90116_1334757119891_665053_4324" annotatedElement="eee_1045467100313_135436_1" body="All calls deferred to the services by this action state."/>
     <packageImport xmi:id="_0primitiveTypesAndroMDAUML22Metafacades">
@@ -216,9 +216,6 @@
       <packagedElement xmi:type="uml:DataType" xmi:id="_9_5_1_2090114_1235195331747_252836_137" name="SortedMap" visibility="public">
         <generalization xmi:id="_9_5_1_2090114_1235195367089_169635_198" general="_9_0_1fe00f9_1119336925531_817948_60" isSubstitutable="false"/>
       </packagedElement>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Package" xmi:id="magicdraw_uml_standard_profile_v_0001" name="UML Standard Profile" visibility="public" URI="">
-      <ownedComment xmi:id="_be00301_1078843546940_242228_131" annotatedElement="magicdraw_uml_standard_profile_v_0001" body="UML Standard Profile contains a UML metamodel (metaclasses without properties and associations), Standard UML stereotypes defined in the annex C of UML specification, validation suites for UML model correctness and completeness checking, and stereotypes used by MagicDraw internally."/>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_d860307_1071504185484_225563_209" name="org" visibility="public" URI="">
       <packagedElement xmi:type="uml:Package" xmi:id="_d860307_1071504378422_473274_307" name="andromda" visibility="public" URI="">
@@ -3558,6 +3555,80 @@ inv: many implies (returnParameter.many)</body>
                   <body>context EnumerationFacade inv: validIdentifierName=true</body>
                 </specification>
               </ownedRule>
+              <ownedRule xmi:id="_19_0_3_90e0298_1648661974259_315141_5254" name="a web service operation exception must be a web fault" visibility="public" constrainedElement="_19_0_3_90e0298_1648495073888_251467_4850">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648661974263_278346_5266" annotatedElement="_19_0_3_90e0298_1648661974259_315141_5254" body="Each web service operation exception must have the web fault stereotype."/>
+                <specification xmi:type="uml:OpaqueExpression" xmi:id="_19_0_3_90e0298_1648661974262_929050_5265" name="" visibility="public">
+                  <body>context WebServiceOperationFacade inv: exposed implies webFaultOnAllExceptions = true</body>
+                </specification>
+              </ownedRule>
+              <ownedRule xmi:id="_19_0_3_90e0298_1648661974260_790448_5255" name="a web service operation return type can not be a collection type" visibility="public" constrainedElement="_19_0_3_90e0298_1648495073888_251467_4850">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648661974263_446755_5268" annotatedElement="_19_0_3_90e0298_1648661974260_790448_5255" body="A web service operation's return type can NOT be a collection type, you'll need to model an array instead."/>
+                <specification xmi:type="uml:OpaqueExpression" xmi:id="_19_0_3_90e0298_1648661974263_530996_5267" name="" visibility="public">
+                  <body>context WebServiceOperationFacade inv: exposed implies returnType.collectionType = false</body>
+                </specification>
+              </ownedRule>
+              <ownedRule xmi:id="_19_0_3_90e0298_1648661974260_74537_5256" name="a web service parameter can not be of type collection" visibility="public" constrainedElement="_19_0_3_90e0298_1648495073891_41650_4852">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648661974264_567719_5270" annotatedElement="_19_0_3_90e0298_1648661974260_74537_5256" body="A web service parameter can NOT be a collection type You'll need to model an array instead."/>
+                <specification xmi:type="uml:OpaqueExpression" xmi:id="_19_0_3_90e0298_1648661974263_908254_5269" name="" visibility="public">
+                  <body>context WebServiceParameterFacade inv :
+return = false implies
+type.collectionType = false</body>
+                </specification>
+              </ownedRule>
+              <ownedRule xmi:id="_19_0_3_90e0298_1648661974260_814227_5257" name="array type needs a non-array type" visibility="public" constrainedElement="_19_0_3_90e0298_1648660776909_969565_4826">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648661974264_269585_5272" annotatedElement="_19_0_3_90e0298_1648661974260_814227_5257" body="Each array type in your model requires a corresponding non-array type to be defined."/>
+                <specification xmi:type="uml:OpaqueExpression" xmi:id="_19_0_3_90e0298_1648661974264_27434_5271" name="" visibility="public">
+                  <body>context WSDLTypeFacade 
+inv: array->notEmpty() 
+implies nonArray->notEmpty()</body>
+                </specification>
+              </ownedRule>
+              <ownedRule xmi:id="_19_0_3_90e0298_1648661974261_77098_5258" name="missing xmlschema annotation" visibility="public" constrainedElement="_19_0_3_90e0298_1648495073889_673654_4851">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648661974264_267189_5274" annotatedElement="_19_0_3_90e0298_1648661974261_77098_5258" body="Classes referenced by services and service elements must be in a package with XmlSchema stereotype."/>
+                <specification xmi:type="uml:OpaqueExpression" xmi:id="_19_0_3_90e0298_1648661974264_308203_5273" name="" visibility="public">
+                  <body>context WebServicePackageFacade inv : missingXmlSchema=false</body>
+                </specification>
+              </ownedRule>
+              <ownedRule xmi:id="_19_0_3_90e0298_1648661974261_449406_5259" name="operation name must be unique" visibility="public" constrainedElement="_19_0_3_90e0298_1648495073886_286998_4849">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648661974264_324576_5276" annotatedElement="_19_0_3_90e0298_1648661974261_449406_5259" body="A web service can not have more than one operation with the same name, please check the names of your web service operations."/>
+                <specification xmi:type="uml:OpaqueExpression" xmi:id="_19_0_3_90e0298_1648661974264_238664_5275" name="" visibility="public">
+                  <body>context WebServiceFacade inv : allowedOperations -> isUnique(operationName)</body>
+                </specification>
+              </ownedRule>
+              <ownedRule xmi:id="_19_0_3_90e0298_1648661974261_970947_5260" name="webservice operation names must be unique" visibility="public" constrainedElement="_19_0_3_90e0298_1648495073889_673654_4851">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648661974265_751731_5278" annotatedElement="_19_0_3_90e0298_1648661974261_970947_5260" body="Webservice operation names must be unique within each package/namespace."/>
+                <specification xmi:type="uml:OpaqueExpression" xmi:id="_19_0_3_90e0298_1648661974265_357504_5277" name="" visibility="public">
+                  <body>context WebServicePackageFacade inv : allowedOperations -> isUnique(operationName)</body>
+                </specification>
+              </ownedRule>
+              <ownedRule xmi:id="_19_0_3_90e0298_1648661974261_138028_5261" name="wsdl fault types must be an exception" visibility="public" constrainedElement="_19_0_3_90e0298_1648660776909_969565_4826">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648661974265_514254_5280" annotatedElement="_19_0_3_90e0298_1648661974261_138028_5261" body="Each WSDLType which is a WebFault must also be an Exception."/>
+                <specification xmi:type="uml:OpaqueExpression" xmi:id="_19_0_3_90e0298_1648661974265_219271_5279" name="" visibility="public">
+                  <body>context WSDLTypeFacade
+inv : webFaultAnException=true</body>
+                </specification>
+              </ownedRule>
+              <ownedRule xmi:id="_19_0_3_90e0298_1648661974262_298870_5262" name="wsdl fault types must be thrown from a webservice operation" visibility="public" constrainedElement="_19_0_3_90e0298_1648660776909_969565_4826">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648661974265_112699_5282" annotatedElement="_19_0_3_90e0298_1648661974262_298870_5262" body="Each WSDLType which is a WebFault must be thrown by a webservice operation."/>
+                <specification xmi:type="uml:OpaqueExpression" xmi:id="_19_0_3_90e0298_1648661974265_196663_5281" name="" visibility="public">
+                  <body>context WSDLTypeFacade
+inv : webFaultThrown=true</body>
+                </specification>
+              </ownedRule>
+              <ownedRule xmi:id="_19_0_3_90e0298_1648661974262_896937_5263" name="wsdl types cannot have private attributes" visibility="public" constrainedElement="_19_0_3_90e0298_1648660776909_969565_4826">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648661974265_639509_5284" annotatedElement="_19_0_3_90e0298_1648661974262_896937_5263" body="All attributes must have a public visibility."/>
+                <specification xmi:type="uml:OpaqueExpression" xmi:id="_19_0_3_90e0298_1648661974265_292434_5283" name="" visibility="public">
+                  <body>context WSDLTypeFacade
+inv : attributes -> forAll(visibility = 'public' or visibility='protected')</body>
+                </specification>
+              </ownedRule>
+              <ownedRule xmi:id="_19_0_3_90e0298_1648661974262_160552_5264" name="wsdl types cannot have private navigable association ends." visibility="public" constrainedElement="_19_0_3_90e0298_1648660776909_969565_4826">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648661974266_729830_5286" annotatedElement="_19_0_3_90e0298_1648661974262_160552_5264" body="All navigable association ends must have a public visibility."/>
+                <specification xmi:type="uml:OpaqueExpression" xmi:id="_19_0_3_90e0298_1648661974266_565470_5285" name="" visibility="public">
+                  <body>context WSDLTypeFacade
+inv : associationEnds -> forAll(otherEnd.navigable implies otherEnd.visibility = 'public' or otherEnd.visibility = 'protected')</body>
+                </specification>
+              </ownedRule>
             </packagedElement>
             <packagedElement xmi:type="uml:Association" xmi:id="_9_0_1fe00f9_1105576140731_873033_187" name="enumeration" visibility="public" memberEnd="_9_0_1fe00f9_1105576140731_32974_185 _9_0_1fe00f9_1105576140731_508177_186"/>
             <packagedElement xmi:type="uml:Association" xmi:id="_9_0_1fe00f9_1111735309272_948020_3" name="" visibility="public" memberEnd="_9_0_1fe00f9_1111735309272_695970_1 _9_0_1fe00f9_1111735309272_811399_2">
@@ -5327,8 +5398,14 @@ inv: many implies (returnParameter.many)</body>
                 <ownedComment xmi:id="_19_0_3_90e0298_1644056467963_630843_5212" annotatedElement="_19_0_3_90e0298_1644056467960_304522_5209" body="The full path to the session object file name."/>
               </ownedAttribute>
             </packagedElement>
-            <packagedElement xmi:type="uml:Class" xmi:id="_19_0_3_90e0298_1648495073886_286998_4849" name="WebService" visibility="public">
+            <packagedElement xmi:type="uml:Class" xmi:id="_19_0_3_90e0298_1648495073886_286998_4849" name="WebServiceFacade" visibility="public">
               <ownedComment xmi:id="_19_0_3_90e0298_1648495073895_654493_4856" annotatedElement="_19_0_3_90e0298_1648495073886_286998_4849" body="Represents a web service."/>
+              <ownedRule xmi:id="_19_0_3_90e0298_1648660025396_385982_4835" name="operation name must be unique" visibility="public">
+                <specification xmi:type="uml:OpaqueExpression" xmi:id="_19_0_3_90e0298_1648660025397_126814_4836" name="" visibility="public">
+                  <language>English</language>
+                  <body>context WebService inv : allowedOperations -> isUnique(operationName)</body>
+                </specification>
+              </ownedRule>
               <generalization xmi:id="_19_0_3_90e0298_1648495073913_992127_4898" general="_d860307_1071574465881_881793_352"/>
               <ownedAttribute xmi:id="_19_0_3_90e0298_1648495073896_455815_4857" name="rpcClassName" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" isReadOnly="true">
                 <ownedComment xmi:id="_19_0_3_90e0298_1648495073936_930058_4961" annotatedElement="_19_0_3_90e0298_1648495073896_455815_4857" body="The name of the RPC implementation class."/>
@@ -5492,6 +5569,10 @@ inv: many implies (returnParameter.many)</body>
                 <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1648495073947_825672_5045" name="" visibility="public" value="1"/>
                 <upperValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1648495073946_115006_5043" name="" visibility="public" value="1"/>
               </ownedAttribute>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1648661582887_274673_5204" name="allowedOperationExceptions" visibility="public" isStatic="true" type="_19_0_3_90e0298_1648660776909_969565_4826" association="_19_0_3_90e0298_1648661582887_339739_5203">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1648661607246_228295_5215" name="" visibility="public"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1648661607247_52740_5216" name="" visibility="public" value="*"/>
+              </ownedAttribute>
               <ownedOperation xmi:id="_19_0_3_90e0298_1648495073894_959295_4854" name="getSchemaMappings" visibility="public">
                 <ownedParameter xmi:id="_19_0_3_90e0298_1648495073935_91655_4957" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_186958_12" direction="return"/>
               </ownedOperation>
@@ -5505,8 +5586,20 @@ inv: many implies (returnParameter.many)</body>
                 <ownedParameter xmi:id="_19_0_3_90e0298_1648495073936_401928_4960" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_331753_26" direction="return"/>
               </ownedOperation>
             </packagedElement>
-            <packagedElement xmi:type="uml:Class" xmi:id="_19_0_3_90e0298_1648495073888_251467_4850" name="WebServiceOperation" visibility="public">
+            <packagedElement xmi:type="uml:Class" xmi:id="_19_0_3_90e0298_1648495073888_251467_4850" name="WebServiceOperationFacade" visibility="public">
               <ownedComment xmi:id="_19_0_3_90e0298_1648495073915_333771_4901" annotatedElement="_19_0_3_90e0298_1648495073888_251467_4850" body="Represents an operation on a web service."/>
+              <ownedRule xmi:id="_19_0_3_90e0298_1648659779696_441370_4831" name="a web service operation exception must be a web fault" visibility="public">
+                <specification xmi:type="uml:OpaqueExpression" xmi:id="_19_0_3_90e0298_1648659779697_670972_4832" name="" visibility="public">
+                  <language>English</language>
+                  <body>context WebServiceOperation inv: exposed implies webFaultOnAllExceptions = true</body>
+                </specification>
+              </ownedRule>
+              <ownedRule xmi:id="_19_0_3_90e0298_1648659849669_419750_4833" name="a web service operation return type can not be a collection type" visibility="public">
+                <specification xmi:type="uml:OpaqueExpression" xmi:id="_19_0_3_90e0298_1648659849670_762471_4834" name="" visibility="public">
+                  <language>English</language>
+                  <body>context WebServiceOperation inv: exposed implies returnType.collectionType = false</body>
+                </specification>
+              </ownedRule>
               <generalization xmi:id="_19_0_3_90e0298_1648495073925_465941_4929" general="_e8f0348_1102200843718_167772_250"/>
               <ownedAttribute xmi:id="_19_0_3_90e0298_1648495073915_465968_4902" name="exposed" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" isReadOnly="true">
                 <ownedComment xmi:id="_19_0_3_90e0298_1648495073947_413314_5048" annotatedElement="_19_0_3_90e0298_1648495073915_465968_4902" body="Returns true/false depending on whether or not this web service operation is exposed."/>
@@ -5619,7 +5712,19 @@ inv: many implies (returnParameter.many)</body>
                 <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1648495073954_409256_5103" name="" visibility="public" value="1"/>
               </ownedAttribute>
             </packagedElement>
-            <packagedElement xmi:type="uml:Class" xmi:id="_19_0_3_90e0298_1648495073889_673654_4851" name="WebServicePackage" visibility="public">
+            <packagedElement xmi:type="uml:Class" xmi:id="_19_0_3_90e0298_1648495073889_673654_4851" name="WebServicePackageFacade" visibility="public">
+              <ownedRule xmi:id="_19_0_3_90e0298_1648659628864_754966_4827" name="missing xmlschema annotation" visibility="public">
+                <specification xmi:type="uml:OpaqueExpression" xmi:id="_19_0_3_90e0298_1648659628865_201659_4828" name="" visibility="public">
+                  <language>English</language>
+                  <body>context WebServicePackage inv : missingXmlSchema=false</body>
+                </specification>
+              </ownedRule>
+              <ownedRule xmi:id="_19_0_3_90e0298_1648659683669_636513_4829" name="webservice operation names must be unique" visibility="public">
+                <specification xmi:type="uml:OpaqueExpression" xmi:id="_19_0_3_90e0298_1648659683670_658547_4830" name="" visibility="public">
+                  <language>English</language>
+                  <body>context WebServicePackage inv : allowedOperations -> isUnique(operationName)</body>
+                </specification>
+              </ownedRule>
               <generalization xmi:id="_19_0_3_90e0298_1648495073931_448431_4943" general="_d860307_1071505787688_603234_1398"/>
               <ownedAttribute xmi:id="_19_0_3_90e0298_1648495073928_900117_4934" name="attributeFormDefault" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" isReadOnly="true">
                 <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1648495073955_304685_5110" name="" visibility="public"/>
@@ -5665,8 +5770,16 @@ inv: many implies (returnParameter.many)</body>
                 <ownedParameter xmi:id="_19_0_3_90e0298_1648495073955_260608_5108" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_331753_26" direction="return"/>
               </ownedOperation>
             </packagedElement>
-            <packagedElement xmi:type="uml:Class" xmi:id="_19_0_3_90e0298_1648495073891_41650_4852" name="WebServiceParameter" visibility="public">
+            <packagedElement xmi:type="uml:Class" xmi:id="_19_0_3_90e0298_1648495073891_41650_4852" name="WebServiceParameterFacade" visibility="public">
               <ownedComment xmi:id="_19_0_3_90e0298_1648495073931_152038_4945" annotatedElement="_19_0_3_90e0298_1648495073891_41650_4852" body="Represents a parameter modeled on a webservice."/>
+              <ownedRule xmi:id="_19_0_3_90e0298_1648659465023_998499_4825" name="a web service parameter can not be of type collection" visibility="public">
+                <specification xmi:type="uml:OpaqueExpression" xmi:id="_19_0_3_90e0298_1648659465027_631050_4826" name="" visibility="public">
+                  <language>English</language>
+                  <body>context WebServiceParameter inv :
+return = false implies
+type.collectionType = false</body>
+                </specification>
+              </ownedRule>
               <generalization xmi:id="_19_0_3_90e0298_1648495073934_447457_4954" general="_d860307_1071761469244_994549_110"/>
               <ownedAttribute xmi:id="_19_0_3_90e0298_1648495073931_730966_4946" name="nillable" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" isReadOnly="true">
                 <ownedComment xmi:id="_19_0_3_90e0298_1648495073957_529341_5129" annotatedElement="_19_0_3_90e0298_1648495073931_730966_4946" body="Whether or not this webservice parameter is nillable."/>
@@ -5720,198 +5833,353 @@ inv: many implies (returnParameter.many)</body>
                 <ownedComment xmi:id="_19_0_3_90e0298_1648495073960_573264_5150" annotatedElement="_19_0_3_90e0298_1648495073954_997729_5106" body=""/>
               </ownedEnd>
             </packagedElement>
+            <packagedElement xmi:type="uml:Class" xmi:id="_19_0_3_90e0298_1648660776909_969565_4826" name="WSDLTypeFacade" visibility="public">
+              <ownedComment xmi:id="_19_0_3_90e0298_1648660776916_626204_4840" annotatedElement="_19_0_3_90e0298_1648660776909_969565_4826" body="Represents an web service WSDL type."/>
+              <ownedRule xmi:id="_19_0_3_90e0298_1648661044564_648262_5189" name="array type needs a non-array type" visibility="public">
+                <specification xmi:type="uml:OpaqueExpression" xmi:id="_19_0_3_90e0298_1648661044565_933722_5190" name="" visibility="public">
+                  <language>English</language>
+                  <body>context WSDLType 
+inv: array->notEmpty() 
+implies nonArray->notEmpty()</body>
+                </specification>
+              </ownedRule>
+              <ownedRule xmi:id="_19_0_3_90e0298_1648661093160_495085_5191" name="wsdl fault types must be an exception" visibility="public">
+                <specification xmi:type="uml:OpaqueExpression" xmi:id="_19_0_3_90e0298_1648661093161_745344_5192" name="" visibility="public">
+                  <language>English</language>
+                  <body>context WSDLType
+inv : webFaultAnException=true</body>
+                </specification>
+              </ownedRule>
+              <ownedRule xmi:id="_19_0_3_90e0298_1648661157101_295819_5193" name="wsdl fault types must be thrown from a webservice operation" visibility="public">
+                <specification xmi:type="uml:OpaqueExpression" xmi:id="_19_0_3_90e0298_1648661157102_569430_5194" name="" visibility="public">
+                  <language>English</language>
+                  <body>context WSDLType
+inv : webFaultThrown=true</body>
+                </specification>
+              </ownedRule>
+              <ownedRule xmi:id="_19_0_3_90e0298_1648661211088_167716_5195" name="wsdl types cannot have private attributes" visibility="public">
+                <specification xmi:type="uml:OpaqueExpression" xmi:id="_19_0_3_90e0298_1648661211089_562317_5196" name="" visibility="public">
+                  <language>English</language>
+                  <body>context WSDLType
+inv : attributes -> forAll(visibility = 'public' or visibility='protected')</body>
+                </specification>
+              </ownedRule>
+              <ownedRule xmi:id="_19_0_3_90e0298_1648661237652_41084_5197" name="wsdl types cannot have private navigable association ends." visibility="public">
+                <specification xmi:type="uml:OpaqueExpression" xmi:id="_19_0_3_90e0298_1648661237652_377673_5198" name="" visibility="public">
+                  <language>English</language>
+                  <body>context WSDLType
+inv : associationEnds -> forAll(otherEnd.navigable implies otherEnd.visibility = 'public' or otherEnd.visibility = 'protected')</body>
+                </specification>
+              </ownedRule>
+              <generalization xmi:id="_19_0_3_90e0298_1648660776919_681888_4849" general="_d860307_1071504650353_319894_500"/>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1648660776916_923056_4841" name="wsdlArrayName" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" isReadOnly="true">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648660776926_169274_4877" annotatedElement="_19_0_3_90e0298_1648660776916_923056_4841" body="The type as an array name (used with arrayNamePrefix)."/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1648660776916_356050_4842" name="schemaType" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" isReadOnly="true">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648660776927_337787_4878" annotatedElement="_19_0_3_90e0298_1648660776916_356050_4842" body="The schema type for tihs WSDL type."/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1648660776917_430349_4843" name="namespace" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" isReadOnly="true">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648660776927_71243_4879" annotatedElement="_19_0_3_90e0298_1648660776917_430349_4843" body="The name of the namespace to which this type belongs."/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1648660776917_257687_4844" name="namespacePrefix" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" isReadOnly="true">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648660776927_555781_4880" annotatedElement="_19_0_3_90e0298_1648660776917_257687_4844" body="The namespace prefix used for this type, this will match the namespace prefix on the WebService."/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1648660776917_548014_4845" name="qName" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" isReadOnly="true">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648660776927_749278_4881" annotatedElement="_19_0_3_90e0298_1648660776917_548014_4845" body="The QName for this type, normally this name will just be the same name of the model element, however we can also add a prefix to the name through a namepace property."/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1648660776918_397703_4846" name="wsdlArrayNamePrefix" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" isReadOnly="true">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648660776927_882198_4882" annotatedElement="_19_0_3_90e0298_1648660776918_397703_4846" body="The configurable prefix to use for wrapped array types."/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1648660776918_618350_4847" name="webFaultAnException" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" isReadOnly="true">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648660776928_510378_4884" annotatedElement="_19_0_3_90e0298_1648660776918_618350_4847" body="Checks if WSDLType Class with stereotype WebFault is also a type of Exception (has one of the Exception stereotypes)."/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1648660776928_329611_4885" name="" visibility="public" value="1"/>
+                <upperValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1648660776928_646959_4883" name="" visibility="public" value="1"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1648660776918_304056_4848" name="webFaultThrown" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" isReadOnly="true">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648660776929_391325_4887" annotatedElement="_19_0_3_90e0298_1648660776918_304056_4848" body="Checks if WSDLType Class has stereotype WebFault, and if it is actually thrown by some webservice operation."/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1648660776929_34670_4888" name="" visibility="public" value="1"/>
+                <upperValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1648660776929_190496_4886" name="" visibility="public" value="1"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1648661582887_827203_5205" name="" visibility="private" type="_19_0_3_90e0298_1648495073886_286998_4849" association="_19_0_3_90e0298_1648661582887_339739_5203"/>
+              <ownedOperation xmi:id="_19_0_3_90e0298_1648660776915_632032_4839" name="getSchemaType" visibility="public">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648660776926_129321_4876" annotatedElement="_19_0_3_90e0298_1648660776915_632032_4839" body="Gets the schema type for this WSDL type.  If 'withPrefix' is true then the schema type with&#xA;the namespace prefix will be returned."/>
+                <ownedParameter xmi:id="_19_0_3_90e0298_1648660776925_507537_4873" name="withPrefix" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6">
+                  <ownedComment xmi:id="_19_0_3_90e0298_1648660776931_321695_4907" annotatedElement="_19_0_3_90e0298_1648660776925_507537_4873" body="If true then the schema type with the namespace prefix will be returned."/>
+                </ownedParameter>
+                <ownedParameter xmi:id="_19_0_3_90e0298_1648660776925_927396_4874" name="preserveArray" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6">
+                  <ownedComment xmi:id="_19_0_3_90e0298_1648660776931_801107_4908" annotatedElement="_19_0_3_90e0298_1648660776925_927396_4874" body="True/false, if true then if the schema type is an array we'll preserve the fact that its an array and return an array schema type name.  If false we will return back the non array type even if its an array."/>
+                </ownedParameter>
+                <ownedParameter xmi:id="_19_0_3_90e0298_1648660776926_858325_4875" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" direction="return"/>
+              </ownedOperation>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Class" xmi:id="_19_0_3_90e0298_1648660776910_65527_4827" name="WSDLTypeAssociationEndFacade" visibility="public">
+              <ownedComment xmi:id="_19_0_3_90e0298_1648660776919_110702_4851" annotatedElement="_19_0_3_90e0298_1648660776910_65527_4827" body="Represents an association end of a WSDL type."/>
+              <generalization xmi:id="_19_0_3_90e0298_1648660776919_304468_4853" general="_d860307_1071505012453_158614_819"/>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1648660776919_403684_4852" name="nillable" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" isReadOnly="true">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648660776929_81956_4890" annotatedElement="_19_0_3_90e0298_1648660776919_403684_4852" body="Whether or not this WSDL Type association end is nillable."/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1648660776930_443780_4891" name="" visibility="public" value="1"/>
+                <upperValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1648660776929_3498_4889" name="" visibility="public" value="1"/>
+              </ownedAttribute>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Class" xmi:id="_19_0_3_90e0298_1648660776910_824629_4828" name="WSDLTypeAttributeFacade" visibility="public">
+              <ownedComment xmi:id="_19_0_3_90e0298_1648660776920_555364_4855" annotatedElement="_19_0_3_90e0298_1648660776910_824629_4828" body="Represents an attribute of a WSDL type."/>
+              <generalization xmi:id="_19_0_3_90e0298_1648660776922_851920_4861" general="_d860307_1071504589255_899792_464"/>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1648660776920_264637_4856" name="nillable" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" isReadOnly="true">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648660776930_402293_4893" annotatedElement="_19_0_3_90e0298_1648660776920_264637_4856" body="Whether or not this WSDL Type attribute is nillable."/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1648660776930_621937_4894" name="" visibility="public" value="1"/>
+                <upperValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1648660776930_215108_4892" name="" visibility="public" value="1"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1648660776920_329365_4857" name="attribute" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" isReadOnly="true">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648660776930_202088_4896" annotatedElement="_19_0_3_90e0298_1648660776920_329365_4857" body="Is the attribute an XML attribute?"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1648660776930_651631_4897" name="" visibility="public" value="1"/>
+                <upperValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1648660776930_490984_4895" name="" visibility="public" value="1"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1648660776921_457288_4858" name="element" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6" isReadOnly="true">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648660776930_803689_4899" annotatedElement="_19_0_3_90e0298_1648660776921_457288_4858" body="Is the attribute an XML element?"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1648660776931_171971_4900" name="" visibility="public" value="1"/>
+                <upperValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1648660776930_956343_4898" name="" visibility="public" value="1"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1648660776921_490724_4859" name="xmlAdapter" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" isReadOnly="true">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648660776931_986905_4902" annotatedElement="_19_0_3_90e0298_1648660776921_490724_4859" body="Class referenced by @XmlAdapter Jaxb annotation"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1648660776931_41962_4903" name="" visibility="public"/>
+                <upperValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1648660776931_345910_4901" name="" visibility="public" value="1"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1648660776921_120228_4860" name="xmlSchemaType" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" isReadOnly="true">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648660776931_920580_4904" annotatedElement="_19_0_3_90e0298_1648660776921_120228_4860" body="XMLSchema type for Jaxb type mapping. Overrides default."/>
+              </ownedAttribute>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Association" xmi:id="_19_0_3_90e0298_1648661582887_339739_5203" name="" visibility="public" memberEnd="_19_0_3_90e0298_1648661582887_274673_5204 _19_0_3_90e0298_1648661582887_827203_5205"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_19_0_3_90e0298_1648671180653_522975_4825" name="WSDLEnumerationTypeFacade" visibility="public">
+              <ownedComment xmi:id="_19_0_3_90e0298_1648671180656_190236_4827" annotatedElement="_19_0_3_90e0298_1648671180653_522975_4825" body="Represents an web service WSDL enumeration type."/>
+              <generalization xmi:id="_19_0_3_90e0298_1648671180658_587960_4834" general="_9_0_1fe00f9_1104625440681_53845_33"/>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1648671180656_275452_4828" name="schemaType" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" isReadOnly="true">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648671180660_516480_4840" annotatedElement="_19_0_3_90e0298_1648671180656_275452_4828" body="The schema type for tihs WSDL type."/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1648671180657_889392_4829" name="qName" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" isReadOnly="true">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648671180660_510876_4841" annotatedElement="_19_0_3_90e0298_1648671180657_889392_4829" body="The QName for this type, normally this name will just be the same name of the model element, however we can also add a prefix to the name through a namepace property."/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1648671180657_450431_4830" name="namespacePrefix" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" isReadOnly="true">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648671180660_847036_4842" annotatedElement="_19_0_3_90e0298_1648671180657_450431_4830" body="The namespace prefix used for this type, this will match the namespace prefix on the WebService."/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1648671180657_467269_4831" name="namespace" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" isReadOnly="true">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648671180660_797744_4843" annotatedElement="_19_0_3_90e0298_1648671180657_467269_4831" body="The name of the namespace to which this type belongs."/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1648671180657_786326_4832" name="wsdlArrayNamePrefix" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" isReadOnly="true">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648671180660_907908_4844" annotatedElement="_19_0_3_90e0298_1648671180657_786326_4832" body="The configurable prefix to use for wrapped array types."/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_19_0_3_90e0298_1648671180658_450437_4833" name="wsdlArrayName" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" isReadOnly="true">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648671180661_80773_4845" annotatedElement="_19_0_3_90e0298_1648671180658_450437_4833" body="The type name as a wrapped array type."/>
+              </ownedAttribute>
+              <ownedOperation xmi:id="_19_0_3_90e0298_1648671180655_675955_4826" name="getSchemaType" visibility="public">
+                <ownedComment xmi:id="_19_0_3_90e0298_1648671180660_175763_4839" annotatedElement="_19_0_3_90e0298_1648671180655_675955_4826" body="Gets the schema type for this WSDL type.  If 'withPrefix' is true then the schema type with&#xA;the namespace prefix will be returned."/>
+                <ownedParameter xmi:id="_19_0_3_90e0298_1648671180659_947270_4836" name="withPrefix" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6">
+                  <ownedComment xmi:id="_19_0_3_90e0298_1648671180661_610473_4846" annotatedElement="_19_0_3_90e0298_1648671180659_947270_4836" body="If true then the schema type with the namespace prefix will be returned."/>
+                </ownedParameter>
+                <ownedParameter xmi:id="_19_0_3_90e0298_1648671180659_202454_4837" name="preserveArray" visibility="public" type="_9_0_1fe00f9_1119336925531_736816_6">
+                  <ownedComment xmi:id="_19_0_3_90e0298_1648671180661_959944_4847" annotatedElement="_19_0_3_90e0298_1648671180659_202454_4837" body="True/false, if true then if the schema type is an array we'll preserve the fact that its an array and return an array schema type name.  If false we will return back the non array type even if its an array."/>
+                </ownedParameter>
+                <ownedParameter xmi:id="_19_0_3_90e0298_1648671180660_362524_4838" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66" direction="return"/>
+              </ownedOperation>
+            </packagedElement>
           </packagedElement>
         </packagedElement>
       </packagedElement>
     </packagedElement>
-    <profileApplication xmi:id="_11_5_be00301_1153310565718_226811_161profileApplicationAndroMDAUML22Metafacades">
-      <eAnnotations xmi:id="_iEWSOa7kEeytbYCYscJsVg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_iESoV67kEeytbYCYscJsVg"/>
-      </eAnnotations>
-      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_11_5_be00301_1153310565718_226811_161"/>
-    </profileApplication>
-    <profileApplication xmi:id="_be00301_1073394351331_445580_2profileApplicationAndroMDAUML22Metafacades">
-      <eAnnotations xmi:id="_iEfb8a7kEeytbYCYscJsVg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_iEPlKK7kEeytbYCYscJsVg"/>
-      </eAnnotations>
-      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_be00301_1073394351331_445580_2"/>
-    </profileApplication>
-    <profileApplication xmi:id="_9_0_2_12ab03bf_1120852637390_857322_0profileApplicationAndroMDAUML22Metafacades">
-      <eAnnotations xmi:id="_iEmwsa7kEeytbYCYscJsVg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="andromda-meta.profile.uml#_iEO-nq7kEeytbYCYscJsVg"/>
-      </eAnnotations>
-      <appliedProfile href="andromda-meta.profile.uml#_9_0_2_12ab03bf_1120852637390_857322_0"/>
-    </profileApplication>
+    <packagedElement xmi:type="uml:Package" xmi:id="magicdraw_uml_standard_profile_v_0001" name="UML Standard Profile" visibility="public" URI="">
+      <ownedComment xmi:id="_be00301_1078843546940_242228_131" annotatedElement="magicdraw_uml_standard_profile_v_0001" body="UML Standard Profile contains a UML metamodel (metaclasses without properties and associations), Standard UML stereotypes defined in the annex C of UML specification, validation suites for UML model correctness and completeness checking, and stereotypes used by MagicDraw internally."/>
+    </packagedElement>
     <profileApplication xmi:id="_16_6_8f90291_1254846042821_86742_517profileApplicationAndroMDAUML22Metafacades">
-      <eAnnotations xmi:id="_iEusga7kEeytbYCYscJsVg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.Traceability_customization.profile.uml#_iESBoa7kEeytbYCYscJsVg"/>
+      <eAnnotations xmi:id="_qvqRPbBnEeySjNJoj5jieQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.Traceability_customization.profile.uml#_qvqP6LBnEeySjNJoj5jieQ"/>
       </eAnnotations>
       <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.Traceability_customization.profile.uml#_16_6_8f90291_1254846042821_86742_517"/>
     </profileApplication>
     <profileApplication xmi:id="_11_5_f720368_1159529670215_231387_1profileApplicationAndroMDAUML22Metafacades">
-      <eAnnotations xmi:id="_iE2BQa7kEeytbYCYscJsVg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.Validation_Profile.profile.uml#_iEOWMq7kEeytbYCYscJsVg"/>
+      <eAnnotations xmi:id="_qvyKQbBnEeySjNJoj5jieQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.Validation_Profile.profile.uml#_qvnNt7BnEeySjNJoj5jieQ"/>
       </eAnnotations>
       <appliedProfile href="UML_Standard_Profile.Validation_Profile.profile.uml#_11_5_f720368_1159529670215_231387_1"/>
     </profileApplication>
-    <profileApplication xmi:id="_19_0beta_8bb027e_1484121177637_661582_4502profileApplicationAndroMDAUML22Metafacades">
-      <eAnnotations xmi:id="_iE8u8a7kEeytbYCYscJsVg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.Find_By_Text.profile.uml#_iESoR67kEeytbYCYscJsVg"/>
-      </eAnnotations>
-      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.Find_By_Text.profile.uml#_19_0beta_8bb027e_1484121177637_661582_4502"/>
-    </profileApplication>
     <profileApplication xmi:id="_17_0_4beta_8ca0285_1361349406965_180847_3086profileApplicationAndroMDAUML22Metafacades">
-      <eAnnotations xmi:id="_iFCOga7kEeytbYCYscJsVg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.Dependency_Matrix_Profile.profile.uml#_iEO-3a7kEeytbYCYscJsVg"/>
+      <eAnnotations xmi:id="_qv6tIbBnEeySjNJoj5jieQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.Dependency_Matrix_Profile.profile.uml#_qvqOgrBnEeySjNJoj5jieQ"/>
       </eAnnotations>
       <appliedProfile href="UML_Standard_Profile.Dependency_Matrix_Profile.profile.uml#_17_0_4beta_8ca0285_1361349406965_180847_3086"/>
     </profileApplication>
+    <profileApplication xmi:id="_9_0_2_12ab03bf_1120852637390_857322_0profileApplicationAndroMDAUML22Metafacades">
+      <eAnnotations xmi:id="_qwFFMbBnEeySjNJoj5jieQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-meta.profile.uml#_qvpsVbBnEeySjNJoj5jieQ"/>
+      </eAnnotations>
+      <appliedProfile href="andromda-meta.profile.uml#_9_0_2_12ab03bf_1120852637390_857322_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_19_0beta_8bb027e_1484121177637_661582_4502profileApplicationAndroMDAUML22Metafacades">
+      <eAnnotations xmi:id="_qwNoEbBnEeySjNJoj5jieQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.Find_By_Text.profile.uml#_qvqOcrBnEeySjNJoj5jieQ"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.Find_By_Text.profile.uml#_19_0beta_8bb027e_1484121177637_661582_4502"/>
+    </profileApplication>
+    <profileApplication xmi:id="_be00301_1073394351331_445580_2profileApplicationAndroMDAUML22Metafacades">
+      <eAnnotations xmi:id="_qwYAIbBnEeySjNJoj5jieQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_qvlYJbBnEeySjNJoj5jieQ"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_be00301_1073394351331_445580_2"/>
+    </profileApplication>
+    <profileApplication xmi:id="_11_5_be00301_1153310565718_226811_161profileApplicationAndroMDAUML22Metafacades">
+      <eAnnotations xmi:id="_qwk0cbBnEeySjNJoj5jieQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_qvku4rBnEeySjNJoj5jieQ"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_11_5_be00301_1153310565718_226811_161"/>
+    </profileApplication>
     <profileApplication xmi:id="_0profileApplicationAndroMDAUML22Metafacades">
-      <eAnnotations xmi:id="_iFoEba7kEeytbYCYscJsVg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <eAnnotations xmi:id="_qw2hQbBnEeySjNJoj5jieQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
       </eAnnotations>
       <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
     </profileApplication>
   </uml:Model>
-  <MagicDrawProfile:auxiliaryResource xmi:id="_iFceOa7kEeytbYCYscJsVg" base_Element="magicdraw_uml_standard_profile_v_0001"/>
-  <MagicDrawProfile:HyperlinkOwner xmi:id="_iFik0q7kEeytbYCYscJsVg" base_Element="_24400562_1085017440281_614218_173" hyperlinkTextActive="file://C:\Workspaces\A34\andromda341\metafacades\uml\uml14\src\main\uml2\andromda-metafacades-uml14.xml.zip">
+  <standard:ModelLibrary xmi:id="_qw_rMLBnEeySjNJoj5jieQ" base_Package="_9_0_1fe00f9_1119336925546_238419_77"/>
+  <andromdameta:metaclass xmi:id="_qxNGmLBnEeySjNJoj5jieQ" base_Class="_9_5_1_12ab03bf_1131603642015_436279_1574"/>
+  <andromdameta:metaclass xmi:id="_qxNGmbBnEeySjNJoj5jieQ" base_Class="_9_5_1_13200cf_1271171503183_633437_999"/>
+  <andromdameta:metaclass xmi:id="_qxNGmrBnEeySjNJoj5jieQ" base_Class="_9_5_1_12ab03bf_1131603629750_568976_1506"/>
+  <andromdameta:metaclass xmi:id="_qxNGm7BnEeySjNJoj5jieQ" base_Class="_9_0_2_2cb0161_1152782733687_853879_42"/>
+  <andromdameta:metaclass xmi:id="_qxNGnLBnEeySjNJoj5jieQ" base_Class="_9_5_1_fb402e0_1147676816639_898805_1052"/>
+  <andromdameta:metaclass xmi:id="_qxNGnbBnEeySjNJoj5jieQ" base_Class="_9_5_1_fb402e0_1150377267685_924433_166"/>
+  <andromdameta:metaclass xmi:id="_qxNGnrBnEeySjNJoj5jieQ" base_Class="_9_5_1_12ab03bf_1131603575421_734635_1151"/>
+  <andromdameta:metaclass xmi:id="_qxNGn7BnEeySjNJoj5jieQ" base_Class="_9_5_1_fb402e0_1152005333458_125228_102"/>
+  <andromdameta:metaclass xmi:id="_qxNGoLBnEeySjNJoj5jieQ" base_Class="_9_5_1_fb402e0_1147677330052_697050_1398"/>
+  <andromdameta:metaclass xmi:id="_qxNGobBnEeySjNJoj5jieQ" base_Class="_9_5_1_fb402e0_1148627622007_811789_458"/>
+  <andromdameta:metaclass xmi:id="_qxNGorBnEeySjNJoj5jieQ" base_Class="_9_5_1_12ab03bf_1131603599234_303854_1287"/>
+  <andromdameta:metaclass xmi:id="_qxNGo7BnEeySjNJoj5jieQ" base_Class="_9_5_1_12ab03bf_1131603609843_765814_1370"/>
+  <andromdameta:metaclass xmi:id="_qxNtoLBnEeySjNJoj5jieQ" base_Class="_9_5_1_fb402e0_1147764148156_94207_424"/>
+  <andromdameta:metaclass xmi:id="_qxNtobBnEeySjNJoj5jieQ" base_Class="_9_5_1_fb402e0_1147676601207_25300_961"/>
+  <andromdameta:metaclass xmi:id="_qxNtorBnEeySjNJoj5jieQ" base_Class="_9_5_1_12ab03bf_1166677120046_973003_100"/>
+  <andromdameta:metaclass xmi:id="_qxNto7BnEeySjNJoj5jieQ" base_Class="_9_5_1_fb402e0_1147767650225_744048_573"/>
+  <andromdameta:metaclass xmi:id="_qxNtpLBnEeySjNJoj5jieQ" base_Class="_9_5_1_12ab03bf_1131603604671_600835_1321"/>
+  <andromdameta:metaclass xmi:id="_qxNtpbBnEeySjNJoj5jieQ" base_Class="_9_5_1_fb402e0_1152006064145_105457_1337"/>
+  <andromdameta:metaclass xmi:id="_qxNtprBnEeySjNJoj5jieQ" base_Class="_9_5_1_12ab03bf_1131603620187_850038_1438"/>
+  <andromdameta:metaclass xmi:id="_qxNtp7BnEeySjNJoj5jieQ" base_Class="_9_5_1_fb402e0_1147767691244_292405_600"/>
+  <andromdameta:metaclass xmi:id="_qxNtqLBnEeySjNJoj5jieQ" base_Class="_9_5_1_fb402e0_1147676302707_347561_606"/>
+  <andromdameta:metaclass xmi:id="_qxNtqbBnEeySjNJoj5jieQ" base_Class="_9_5_1_12ab03bf_1131603563734_318893_1117"/>
+  <andromdameta:metaclass xmi:id="_qxNtqrBnEeySjNJoj5jieQ" base_Class="_9_5_1_fb402e0_1147767707224_160933_632"/>
+  <andromdameta:metaclass xmi:id="_qxNtq7BnEeySjNJoj5jieQ" base_Class="_9_5_1_12ab03bf_1131604456375_10163_138"/>
+  <andromdameta:metaclass xmi:id="_qxNtrLBnEeySjNJoj5jieQ" base_Class="_9_0_2_2cb0161_1152782748109_482347_110"/>
+  <andromdameta:metaclass xmi:id="_qxNtrbBnEeySjNJoj5jieQ" base_Class="_9_5_1_fb402e0_1147675711463_337201_269"/>
+  <andromdameta:metaclass xmi:id="_qxNtrrBnEeySjNJoj5jieQ" base_Class="_9_5_1_12ab03bf_1131603594671_920314_1253"/>
+  <andromdameta:metaclass xmi:id="_qxNtr7BnEeySjNJoj5jieQ" base_Class="_9_5_1_12ab03bf_1131603587484_441979_1219"/>
+  <andromdameta:metaclass xmi:id="_qxNtsLBnEeySjNJoj5jieQ" base_Class="_9_5_1_12ab03bf_1131604441500_918353_104"/>
+  <andromdameta:metaclass xmi:id="_qxNtsbBnEeySjNJoj5jieQ" base_Class="_9_5_1_12ab03bf_1131603615437_45849_1404"/>
+  <andromdameta:metaclass xmi:id="_qxNtsrBnEeySjNJoj5jieQ" base_Class="_9_5_1_fb402e0_1147676362305_657882_795"/>
+  <andromdameta:metaclass xmi:id="_qxNts7BnEeySjNJoj5jieQ" base_Class="_9_0_2_2cb0161_1152782741578_556287_76"/>
+  <andromdameta:metaclass xmi:id="_qxNttLBnEeySjNJoj5jieQ" base_Class="_9_5_1_12ab03bf_1131603625000_394043_1472"/>
+  <andromdameta:metaclass xmi:id="_qxNttbBnEeySjNJoj5jieQ" base_Class="_9_5_1_12ab03bf_1131603581843_353560_1185"/>
+  <andromdameta:metaclass xmi:id="_qxNttrBnEeySjNJoj5jieQ" base_Class="_9_0_2_2cb0161_1153043826656_665783_134"/>
+  <andromdameta:metaclass xmi:id="_qxNtt7BnEeySjNJoj5jieQ" base_Class="_9_0_2_2cb0161_1153044002671_65890_653"/>
+  <andromdameta:metaclass xmi:id="_qxNtuLBnEeySjNJoj5jieQ" base_Class="_9_0_2_2cb0161_1153043850203_458214_236"/>
+  <andromdameta:metaclass xmi:id="_qxNtubBnEeySjNJoj5jieQ" base_Class="_9_5_1_fb402e0_1147768019200_297657_835"/>
+  <andromdameta:metaclass xmi:id="_qxNturBnEeySjNJoj5jieQ" base_Class="_9_0_2_2cb0161_1153043834593_438210_168"/>
+  <andromdameta:metaclass xmi:id="_qxNtu7BnEeySjNJoj5jieQ" base_Class="_9_5_1_fb402e0_1147185512347_592611_102"/>
+  <andromdameta:metaclass xmi:id="_qxOUsLBnEeySjNJoj5jieQ" base_Class="_9_5_1_fb402e0_1147185521237_45421_136"/>
+  <andromdameta:metaclass xmi:id="_qxOUsbBnEeySjNJoj5jieQ" base_Class="_9_5_1_fb402e0_1147764048372_882799_292"/>
+  <andromdameta:metaclass xmi:id="_qxOUsrBnEeySjNJoj5jieQ" base_Class="_9_5_1_12ab03bf_1131603541562_70587_1083"/>
+  <andromdameta:metaclass xmi:id="_qxOUs7BnEeySjNJoj5jieQ" base_Class="_9_0_2_2cb0161_1153043842703_190006_202"/>
+  <andromdameta:metaclass xmi:id="_qxOUtLBnEeySjNJoj5jieQ" base_Class="_9_5_1_fb402e0_1147675819572_949405_381"/>
+  <andromdameta:metafacade xmi:id="_qxOUtbBnEeySjNJoj5jieQ" base_Class="_ecb034c_1074379407701_127218_171"/>
+  <andromdameta:metafacade xmi:id="_qxOUtrBnEeySjNJoj5jieQ" base_Class="_24400562_1086300630984_552734_109"/>
+  <andromdameta:metafacade xmi:id="_qxOUt7BnEeySjNJoj5jieQ" base_Class="_19_0_3_90e0298_1643958422632_801283_4895"/>
+  <andromdameta:metafacade xmi:id="_qxOUuLBnEeySjNJoj5jieQ" base_Class="_19_0_3_90e0298_1648495073886_286998_4849"/>
+  <andromdameta:metafacade xmi:id="_qxOUubBnEeySjNJoj5jieQ" base_Class="_8a70287_1078528386918_321974_1041"/>
+  <andromdameta:metafacade xmi:id="_qxOUurBnEeySjNJoj5jieQ" base_Class="_19_0_3_90e0298_1648660776910_65527_4827"/>
+  <andromdameta:metafacade xmi:id="_qxOUu7BnEeySjNJoj5jieQ" base_Class="_19_0_3_90e0298_1648671180653_522975_4825"/>
+  <andromdameta:metafacade xmi:id="_qxOUvLBnEeySjNJoj5jieQ" base_Class="_19_0_3_90e0298_1648660776910_824629_4828"/>
+  <andromdameta:metafacade xmi:id="_qxOUvbBnEeySjNJoj5jieQ" base_Class="_19_0_3_90e0298_1648660776909_969565_4826"/>
+  <andromdameta:metafacade xmi:id="_qxOUvrBnEeySjNJoj5jieQ" base_Class="_9_0_1fe00f9_1116004188633_221941_439"/>
+  <andromdameta:metafacade xmi:id="_qxOUv7BnEeySjNJoj5jieQ" base_Class="_19_0_3_90e0298_1648495073889_673654_4851"/>
+  <andromdameta:metafacade xmi:id="_qxOUwLBnEeySjNJoj5jieQ" base_Class="_19_0_3_90e0298_1648495073891_41650_4852"/>
+  <andromdameta:metafacade xmi:id="_qxOUwbBnEeySjNJoj5jieQ" base_Class="_19_0_3_90e0298_1648495073888_251467_4850"/>
+  <andromdameta:metafacade xmi:id="_qxOUwrBnEeySjNJoj5jieQ" base_Class="_d860307_1071574234068_992089_84"/>
+  <andromdameta:metafacade xmi:id="_qxOUw7BnEeySjNJoj5jieQ" base_Class="_19_0_3_90e0298_1586616322377_539405_4814"/>
+  <andromdameta:metafacade xmi:id="_qxOUxLBnEeySjNJoj5jieQ" base_Class="_9_0_2_12ab03bf_1121180438203_964334_702"/>
+  <andromdameta:metafacade xmi:id="_qxO7wLBnEeySjNJoj5jieQ" base_Class="_19_0_3_90e0298_1644056467959_183643_5207"/>
+  <andromdameta:metafacade xmi:id="_qxO7wbBnEeySjNJoj5jieQ" base_Class="_19_0_3_90e0298_1644044445674_626574_4818"/>
+  <andromdameta:metafacade xmi:id="_qxO7wrBnEeySjNJoj5jieQ" base_Class="_19_0_3_90e0298_1644044445675_851130_4819"/>
+  <andromdameta:metafacade xmi:id="_qxO7w7BnEeySjNJoj5jieQ" base_Class="_ecb034c_1074429708731_957334_552"/>
+  <andromdameta:metafacade xmi:id="_qxO7xLBnEeySjNJoj5jieQ" base_Class="_19_0_3_90e0298_1644044445662_509316_4817"/>
+  <andromdameta:metafacade xmi:id="_qxO7xbBnEeySjNJoj5jieQ" base_Class="_9_0_1fe00f9_1111223534538_306164_2"/>
+  <andromdameta:metafacade xmi:id="_qxO7xrBnEeySjNJoj5jieQ" base_Class="_ecb034c_1076522576308_951601_2800"/>
+  <andromdameta:metafacade xmi:id="_qxO7x7BnEeySjNJoj5jieQ" base_Class="_9_0_2_12ab03bf_1120678285078_403523_813"/>
+  <andromdameta:metafacade xmi:id="_qxO7yLBnEeySjNJoj5jieQ" base_Class="_d860307_1071504650353_319894_500"/>
+  <andromdameta:metafacade xmi:id="_qxO7ybBnEeySjNJoj5jieQ" base_Class="_9_0_2_12ab03bf_1120168768156_445295_516"/>
+  <andromdameta:metafacade xmi:id="_qxO7yrBnEeySjNJoj5jieQ" base_Class="_24400562_1076817919491_693372_552"/>
+  <andromdameta:metafacade xmi:id="_qxO7y7BnEeySjNJoj5jieQ" base_Class="_24400562_1078456132886_364804_350"/>
+  <andromdameta:metafacade xmi:id="_qxO7zLBnEeySjNJoj5jieQ" base_Class="_9_0_2_12ab03bf_1112204654656_123732_0"/>
+  <andromdameta:metafacade xmi:id="_qxO7zbBnEeySjNJoj5jieQ" base_Class="_8a70287_1078528251564_981527_908"/>
+  <andromdameta:metafacade xmi:id="_qxO7zrBnEeySjNJoj5jieQ" base_Class="_9_5_1_12ab03bf_1166676364406_947166_87"/>
+  <andromdameta:metafacade xmi:id="_qxO7z7BnEeySjNJoj5jieQ" base_Class="_e8f0348_1102200843718_167772_250"/>
+  <andromdameta:metafacade xmi:id="_qxO70LBnEeySjNJoj5jieQ" base_Class="_9_0_1fe00f9_1116499094484_143315_18"/>
+  <andromdameta:metafacade xmi:id="_qxO70bBnEeySjNJoj5jieQ" base_Class="_d860307_1071504589255_899792_464"/>
+  <andromdameta:metafacade xmi:id="_qxO70rBnEeySjNJoj5jieQ" base_Class="_9_0_2_12ab03bf_1120792857812_717688_419"/>
+  <andromdameta:metafacade xmi:id="_qxO707BnEeySjNJoj5jieQ" base_Class="_9_0_1fe00f9_1115149256331_843166_82"/>
+  <andromdameta:metafacade xmi:id="_qxO71LBnEeySjNJoj5jieQ" base_Class="_d860307_1071505297814_60220_1019"/>
+  <andromdameta:metafacade xmi:id="_qxO71bBnEeySjNJoj5jieQ" base_Class="_24400562_1076241072504_416910_88"/>
+  <andromdameta:metafacade xmi:id="_qxPi0LBnEeySjNJoj5jieQ" base_Class="_9_0_1fe00f9_1113897549413_287358_18"/>
+  <andromdameta:metafacade xmi:id="_qxPi0bBnEeySjNJoj5jieQ" base_Class="_8a70287_1078532325622_971459_759"/>
+  <andromdameta:metafacade xmi:id="_qxPi0rBnEeySjNJoj5jieQ" base_Class="_ecb034c_1076522978739_404388_3123"/>
+  <andromdameta:metafacade xmi:id="_qxPi07BnEeySjNJoj5jieQ" base_Class="_9_0_2_12ab03bf_1120168241718_803102_404"/>
+  <andromdameta:metafacade xmi:id="_qxPi1LBnEeySjNJoj5jieQ" base_Class="_9_5_1_ee1034a_1127266745841_402315_493"/>
+  <andromdameta:metafacade xmi:id="_qxPi1bBnEeySjNJoj5jieQ" base_Class="_9_5_1_12ab03bf_1166674056828_343682_132"/>
+  <andromdameta:metafacade xmi:id="_qxPi1rBnEeySjNJoj5jieQ" base_Class="_9_0_2_12ab03bf_1120789489859_66479_150"/>
+  <andromdameta:metafacade xmi:id="_qxPi17BnEeySjNJoj5jieQ" base_Class="_e8f0348_1102215391953_383987_0"/>
+  <andromdameta:metafacade xmi:id="_qxPi2LBnEeySjNJoj5jieQ" base_Class="_9_0_1fe00f9_1111792430944_743355_131"/>
+  <andromdameta:metafacade xmi:id="_qxPi2bBnEeySjNJoj5jieQ" base_Class="_9_5_1_626020b_1151603106573_799941_0"/>
+  <andromdameta:metafacade xmi:id="_qxPi2rBnEeySjNJoj5jieQ" base_Class="_d860307_1071574465881_881793_352"/>
+  <andromdameta:metafacade xmi:id="_qxPi27BnEeySjNJoj5jieQ" base_Class="_9_0_1fe00f9_1104625440681_53845_33"/>
+  <andromdameta:metafacade xmi:id="_qxPi3LBnEeySjNJoj5jieQ" base_Class="_d860307_1071761469244_994549_110"/>
+  <andromdameta:metafacade xmi:id="_qxPi3bBnEeySjNJoj5jieQ" base_Class="_24400562_1084729534630_226077_291"/>
+  <andromdameta:metafacade xmi:id="_qxPi3rBnEeySjNJoj5jieQ" base_Class="_ecb034c_1074429719333_393099_586"/>
+  <andromdameta:metafacade xmi:id="_qxPi37BnEeySjNJoj5jieQ" base_Class="_9_0_1fe00f9_1111223458470_189098_0"/>
+  <andromdameta:metafacade xmi:id="_qxPi4LBnEeySjNJoj5jieQ" base_Class="_9_5_1_13200cf_1271167652862_42903_9"/>
+  <andromdameta:metafacade xmi:id="_qxPi4bBnEeySjNJoj5jieQ" base_Class="_9_5_1_12ab03bf_1166674037093_8685_1"/>
+  <andromdameta:metafacade xmi:id="_qxPi4rBnEeySjNJoj5jieQ" base_Class="_ecb034c_1074429494297_377714_181"/>
+  <andromdameta:metafacade xmi:id="_qxPi47BnEeySjNJoj5jieQ" base_Class="_9_5_1_ee1034a_1127266738260_303405_459"/>
+  <andromdameta:metafacade xmi:id="_qxPi5LBnEeySjNJoj5jieQ" base_Class="_9_5_1_12ab03bf_1166674061937_23375_133"/>
+  <andromdameta:metafacade xmi:id="_qxPi5bBnEeySjNJoj5jieQ" base_Class="_9_0_2_12ab03bf_1120167314500_763531_126"/>
+  <andromdameta:metafacade xmi:id="_qxPi5rBnEeySjNJoj5jieQ" base_Class="_d860307_1071505787688_603234_1398"/>
+  <andromdameta:metafacade xmi:id="_qxQJ4LBnEeySjNJoj5jieQ" base_Class="_9_0_1fe00f9_1104625624120_556816_327"/>
+  <andromdameta:metafacade xmi:id="_qxQJ4bBnEeySjNJoj5jieQ" base_Class="_8a70287_1078527740759_977341_264"/>
+  <andromdameta:metafacade xmi:id="_qxQJ4rBnEeySjNJoj5jieQ" base_Class="_8a70287_1079983887000_419904_240"/>
+  <andromdameta:metafacade xmi:id="_qxQJ47BnEeySjNJoj5jieQ" base_Class="_9_0_1fe00f9_1111224849004_128280_609"/>
+  <andromdameta:metafacade xmi:id="_qxQJ5LBnEeySjNJoj5jieQ" base_Class="_9_0_1fe00f9_1116003869282_276578_71"/>
+  <andromdameta:metafacade xmi:id="_qxQJ5bBnEeySjNJoj5jieQ" base_Class="_9_0_1fe00f9_1116004487874_253309_1067"/>
+  <andromdameta:metafacade xmi:id="_qxQJ5rBnEeySjNJoj5jieQ" base_Class="_8a70287_1078687370189_842249_401"/>
+  <andromdameta:metafacade xmi:id="_qxQJ57BnEeySjNJoj5jieQ" base_Class="_d860307_1071505762942_565408_1372"/>
+  <andromdameta:metafacade xmi:id="_qxQJ6LBnEeySjNJoj5jieQ" base_Class="_8a70287_1078527731536_138307_221"/>
+  <andromdameta:metafacade xmi:id="_qxQJ6bBnEeySjNJoj5jieQ" base_Class="_ecb034c_1074384938560_560855_449"/>
+  <andromdameta:metafacade xmi:id="_qxQJ6rBnEeySjNJoj5jieQ" base_Class="_24400562_1073854558969_92049_331"/>
+  <andromdameta:metafacade xmi:id="_qxQJ67BnEeySjNJoj5jieQ" base_Class="_8a70287_1078527510288_746033_187"/>
+  <andromdameta:metafacade xmi:id="_qxQJ7LBnEeySjNJoj5jieQ" base_Class="_9_0_2_12ab03bf_1122481800031_890384_216"/>
+  <andromdameta:metafacade xmi:id="_qxQJ7bBnEeySjNJoj5jieQ" base_Class="_d860307_1077738600685_387777_175"/>
+  <andromdameta:metafacade xmi:id="_qxQJ7rBnEeySjNJoj5jieQ" base_Class="_9_0_1fe00f9_1113843043548_33809_34"/>
+  <andromdameta:metafacade xmi:id="_qxQJ77BnEeySjNJoj5jieQ" base_Class="_9_0_2_12ab03bf_1120835338500_225560_590"/>
+  <andromdameta:metafacade xmi:id="_qxQJ8LBnEeySjNJoj5jieQ" base_Class="_9_0_2_12ab03bf_1122481242500_184900_184"/>
+  <andromdameta:metafacade xmi:id="_qxQJ8bBnEeySjNJoj5jieQ" base_Class="_24400562_1076929607659_603849_252"/>
+  <andromdameta:metafacade xmi:id="_qxQJ8rBnEeySjNJoj5jieQ" base_Class="_8a70287_1078939289723_161411_215"/>
+  <andromdameta:metafacade xmi:id="_qxQJ87BnEeySjNJoj5jieQ" base_Class="_9_0_1fe00f9_1115149273430_479398_116"/>
+  <andromdameta:metafacade xmi:id="_qxQJ9LBnEeySjNJoj5jieQ" base_Class="_9_0_2_12ab03bf_1122489990718_108299_588"/>
+  <andromdameta:metafacade xmi:id="_qxQJ9bBnEeySjNJoj5jieQ" base_Class="_9_0_2_12ab03bf_1112205391203_582580_0"/>
+  <andromdameta:metafacade xmi:id="_qxQJ9rBnEeySjNJoj5jieQ" base_Class="_9_0_2_12ab03bf_1122488049984_677962_258"/>
+  <andromdameta:metafacade xmi:id="_qxQw8LBnEeySjNJoj5jieQ" base_Class="_d860307_1071506134827_941134_1737"/>
+  <andromdameta:metafacade xmi:id="_qxQw8bBnEeySjNJoj5jieQ" base_Class="_24400562_1078456000396_796309_243"/>
+  <andromdameta:metafacade xmi:id="_qxQw8rBnEeySjNJoj5jieQ" base_Class="_d860307_1071504751869_985718_574"/>
+  <andromdameta:metafacade xmi:id="_qxQw87BnEeySjNJoj5jieQ" base_Class="_d860307_1071505012453_158614_819"/>
+  <andromdameta:metafacade xmi:id="_qxQw9LBnEeySjNJoj5jieQ" base_Class="_d860307_1071506074180_318219_1633"/>
+  <andromdameta:metafacade xmi:id="_qxQw9bBnEeySjNJoj5jieQ" base_Class="_ecb034c_1074380269911_797015_119"/>
+  <andromdameta:metafacade xmi:id="_qxQw9rBnEeySjNJoj5jieQ" base_Class="_9_0_2_12ab03bf_1120241748796_84658_1361"/>
+  <andromdameta:metafacade xmi:id="_qxQw97BnEeySjNJoj5jieQ" base_Class="_9_5_1_ee1034a_1127266732722_101474_425"/>
+  <andromdameta:metafacade xmi:id="_qxQw-LBnEeySjNJoj5jieQ" base_Class="_9_0_1fe00f9_1119517503209_398663_27"/>
+  <andromdameta:metafacade xmi:id="_qxQw-bBnEeySjNJoj5jieQ" base_Class="_9_0_1fe00f9_1113402182518_384484_232"/>
+  <andromdameta:metafacade xmi:id="_qxQw-rBnEeySjNJoj5jieQ" base_Class="_9_0_2_12ab03bf_1120167034531_347865_28"/>
+  <MagicDrawProfile:auxiliaryResource xmi:id="_qxRYALBnEeySjNJoj5jieQ" base_Element="magicdraw_uml_standard_profile_v_0001"/>
+  <MagicDrawProfile:HyperlinkOwner xmi:id="_qxdlQLBnEeySjNJoj5jieQ" base_Element="_24400562_1085017440281_614218_173" hyperlinkTextActive="file://C:\Workspaces\A34\andromda341\metafacades\uml\uml14\src\main\uml2\andromda-metafacades-uml14.xml.zip">
     <hyperlinkText>file://C:\Workspaces\A34\andromda341\metafacades\uml\uml14\src\main\uml2\andromda-metafacades-uml14.xml.zip</hyperlinkText>
   </MagicDrawProfile:HyperlinkOwner>
-  <andromdameta:metaclass xmi:id="_iFloIK7kEeytbYCYscJsVg" base_Class="_9_5_1_12ab03bf_1131603599234_303854_1287"/>
-  <andromdameta:metaclass xmi:id="_iFloIa7kEeytbYCYscJsVg" base_Class="_9_0_2_2cb0161_1152782733687_853879_42"/>
-  <andromdameta:metaclass xmi:id="_iFloIq7kEeytbYCYscJsVg" base_Class="_9_5_1_fb402e0_1147676601207_25300_961"/>
-  <andromdameta:metaclass xmi:id="_iFloI67kEeytbYCYscJsVg" base_Class="_9_5_1_fb402e0_1147676816639_898805_1052"/>
-  <andromdameta:metaclass xmi:id="_iFloJK7kEeytbYCYscJsVg" base_Class="_9_5_1_fb402e0_1150377267685_924433_166"/>
-  <andromdameta:metaclass xmi:id="_iFloJa7kEeytbYCYscJsVg" base_Class="_9_5_1_12ab03bf_1131603642015_436279_1574"/>
-  <andromdameta:metaclass xmi:id="_iFloJq7kEeytbYCYscJsVg" base_Class="_9_5_1_13200cf_1271171503183_633437_999"/>
-  <andromdameta:metaclass xmi:id="_iFmPMK7kEeytbYCYscJsVg" base_Class="_9_5_1_fb402e0_1147677330052_697050_1398"/>
-  <andromdameta:metaclass xmi:id="_iFmPMa7kEeytbYCYscJsVg" base_Class="_9_5_1_12ab03bf_1131603609843_765814_1370"/>
-  <andromdameta:metaclass xmi:id="_iFmPMq7kEeytbYCYscJsVg" base_Class="_9_5_1_fb402e0_1147676362305_657882_795"/>
-  <andromdameta:metaclass xmi:id="_iFmPM67kEeytbYCYscJsVg" base_Class="_9_5_1_12ab03bf_1131603604671_600835_1321"/>
-  <andromdameta:metaclass xmi:id="_iFmPNK7kEeytbYCYscJsVg" base_Class="_9_5_1_fb402e0_1147676302707_347561_606"/>
-  <andromdameta:metaclass xmi:id="_iFmPNa7kEeytbYCYscJsVg" base_Class="_9_5_1_12ab03bf_1131603575421_734635_1151"/>
-  <andromdameta:metaclass xmi:id="_iFmPNq7kEeytbYCYscJsVg" base_Class="_9_5_1_fb402e0_1152005333458_125228_102"/>
-  <andromdameta:metaclass xmi:id="_iFmPN67kEeytbYCYscJsVg" base_Class="_9_5_1_12ab03bf_1166677120046_973003_100"/>
-  <andromdameta:metaclass xmi:id="_iFmPOK7kEeytbYCYscJsVg" base_Class="_9_5_1_fb402e0_1147767650225_744048_573"/>
-  <andromdameta:metaclass xmi:id="_iFmPOa7kEeytbYCYscJsVg" base_Class="_9_5_1_fb402e0_1152006064145_105457_1337"/>
-  <andromdameta:metaclass xmi:id="_iFmPOq7kEeytbYCYscJsVg" base_Class="_9_5_1_fb402e0_1147767691244_292405_600"/>
-  <andromdameta:metaclass xmi:id="_iFmPO67kEeytbYCYscJsVg" base_Class="_9_5_1_12ab03bf_1131603629750_568976_1506"/>
-  <andromdameta:metaclass xmi:id="_iFmPPK7kEeytbYCYscJsVg" base_Class="_9_5_1_12ab03bf_1131603620187_850038_1438"/>
-  <andromdameta:metaclass xmi:id="_iFmPPa7kEeytbYCYscJsVg" base_Class="_9_5_1_fb402e0_1147764148156_94207_424"/>
-  <andromdameta:metaclass xmi:id="_iFmPPq7kEeytbYCYscJsVg" base_Class="_9_5_1_fb402e0_1148627622007_811789_458"/>
-  <andromdameta:metaclass xmi:id="_iFmPP67kEeytbYCYscJsVg" base_Class="_9_0_2_2cb0161_1152782748109_482347_110"/>
-  <andromdameta:metaclass xmi:id="_iFmPQK7kEeytbYCYscJsVg" base_Class="_9_5_1_12ab03bf_1131604456375_10163_138"/>
-  <andromdameta:metaclass xmi:id="_iFmPQa7kEeytbYCYscJsVg" base_Class="_9_5_1_12ab03bf_1131603587484_441979_1219"/>
-  <andromdameta:metaclass xmi:id="_iFmPQq7kEeytbYCYscJsVg" base_Class="_9_5_1_12ab03bf_1131603594671_920314_1253"/>
-  <andromdameta:metaclass xmi:id="_iFmPQ67kEeytbYCYscJsVg" base_Class="_9_5_1_12ab03bf_1131603563734_318893_1117"/>
-  <andromdameta:metaclass xmi:id="_iFmPRK7kEeytbYCYscJsVg" base_Class="_9_5_1_fb402e0_1147675711463_337201_269"/>
-  <andromdameta:metaclass xmi:id="_iFmPRa7kEeytbYCYscJsVg" base_Class="_9_5_1_fb402e0_1147767707224_160933_632"/>
-  <andromdameta:metaclass xmi:id="_iFmPRq7kEeytbYCYscJsVg" base_Class="_9_5_1_12ab03bf_1131603615437_45849_1404"/>
-  <andromdameta:metaclass xmi:id="_iFmPR67kEeytbYCYscJsVg" base_Class="_9_5_1_12ab03bf_1131604441500_918353_104"/>
-  <andromdameta:metaclass xmi:id="_iFmPSK7kEeytbYCYscJsVg" base_Class="_9_5_1_fb402e0_1147675819572_949405_381"/>
-  <andromdameta:metaclass xmi:id="_iFmPSa7kEeytbYCYscJsVg" base_Class="_9_0_2_2cb0161_1152782741578_556287_76"/>
-  <andromdameta:metaclass xmi:id="_iFmPSq7kEeytbYCYscJsVg" base_Class="_9_5_1_12ab03bf_1131603625000_394043_1472"/>
-  <andromdameta:metaclass xmi:id="_iFmPS67kEeytbYCYscJsVg" base_Class="_9_5_1_fb402e0_1147768019200_297657_835"/>
-  <andromdameta:metaclass xmi:id="_iFmPTK7kEeytbYCYscJsVg" base_Class="_9_5_1_12ab03bf_1131603581843_353560_1185"/>
-  <andromdameta:metaclass xmi:id="_iFmPTa7kEeytbYCYscJsVg" base_Class="_9_0_2_2cb0161_1153044002671_65890_653"/>
-  <andromdameta:metaclass xmi:id="_iFmPTq7kEeytbYCYscJsVg" base_Class="_9_5_1_fb402e0_1147764048372_882799_292"/>
-  <andromdameta:metaclass xmi:id="_iFmPT67kEeytbYCYscJsVg" base_Class="_9_5_1_fb402e0_1147185512347_592611_102"/>
-  <andromdameta:metaclass xmi:id="_iFmPUK7kEeytbYCYscJsVg" base_Class="_9_0_2_2cb0161_1153043850203_458214_236"/>
-  <andromdameta:metaclass xmi:id="_iFmPUa7kEeytbYCYscJsVg" base_Class="_9_0_2_2cb0161_1153043834593_438210_168"/>
-  <andromdameta:metaclass xmi:id="_iFmPUq7kEeytbYCYscJsVg" base_Class="_9_0_2_2cb0161_1153043842703_190006_202"/>
-  <andromdameta:metaclass xmi:id="_iFmPU67kEeytbYCYscJsVg" base_Class="_9_5_1_fb402e0_1147185521237_45421_136"/>
-  <andromdameta:metaclass xmi:id="_iFmPVK7kEeytbYCYscJsVg" base_Class="_9_0_2_2cb0161_1153043826656_665783_134"/>
-  <andromdameta:metaclass xmi:id="_iFmPVa7kEeytbYCYscJsVg" base_Class="_9_5_1_12ab03bf_1131603541562_70587_1083"/>
-  <andromdameta:metafacade xmi:id="_iFmPVq7kEeytbYCYscJsVg" base_Class="_19_0_3_90e0298_1644044445674_626574_4818"/>
-  <andromdameta:metafacade xmi:id="_iFmPV67kEeytbYCYscJsVg" base_Class="_9_0_2_12ab03bf_1120678285078_403523_813"/>
-  <andromdameta:metafacade xmi:id="_iFm2QK7kEeytbYCYscJsVg" base_Class="_ecb034c_1076522576308_951601_2800"/>
-  <andromdameta:metafacade xmi:id="_iFm2Qa7kEeytbYCYscJsVg" base_Class="_9_0_1fe00f9_1116499094484_143315_18"/>
-  <andromdameta:metafacade xmi:id="_iFm2Qq7kEeytbYCYscJsVg" base_Class="_9_0_2_12ab03bf_1120168241718_803102_404"/>
-  <andromdameta:metafacade xmi:id="_iFm2Q67kEeytbYCYscJsVg" base_Class="_ecb034c_1074384938560_560855_449"/>
-  <andromdameta:metafacade xmi:id="_iFm2RK7kEeytbYCYscJsVg" base_Class="_d860307_1071574465881_881793_352"/>
-  <andromdameta:metafacade xmi:id="_iFm2Ra7kEeytbYCYscJsVg" base_Class="_24400562_1076241072504_416910_88"/>
-  <andromdameta:metafacade xmi:id="_iFm2Rq7kEeytbYCYscJsVg" base_Class="_d860307_1071505762942_565408_1372"/>
-  <andromdameta:metafacade xmi:id="_iFm2R67kEeytbYCYscJsVg" base_Class="_19_0_3_90e0298_1648495073891_41650_4852"/>
-  <andromdameta:metafacade xmi:id="_iFm2SK7kEeytbYCYscJsVg" base_Class="_19_0_3_90e0298_1648495073888_251467_4850"/>
-  <andromdameta:metafacade xmi:id="_iFm2Sa7kEeytbYCYscJsVg" base_Class="_19_0_3_90e0298_1648495073889_673654_4851"/>
-  <andromdameta:metafacade xmi:id="_iFm2Sq7kEeytbYCYscJsVg" base_Class="_19_0_3_90e0298_1648495073886_286998_4849"/>
-  <andromdameta:metafacade xmi:id="_iFm2S67kEeytbYCYscJsVg" base_Class="_19_0_3_90e0298_1644056467959_183643_5207"/>
-  <andromdameta:metafacade xmi:id="_iFm2TK7kEeytbYCYscJsVg" base_Class="_19_0_3_90e0298_1644044445662_509316_4817"/>
-  <andromdameta:metafacade xmi:id="_iFm2Ta7kEeytbYCYscJsVg" base_Class="_19_0_3_90e0298_1644044445675_851130_4819"/>
-  <andromdameta:metafacade xmi:id="_iFm2Tq7kEeytbYCYscJsVg" base_Class="_19_0_3_90e0298_1643958422632_801283_4895"/>
-  <andromdameta:metafacade xmi:id="_iFm2T67kEeytbYCYscJsVg" base_Class="_19_0_3_90e0298_1586616322377_539405_4814"/>
-  <andromdameta:metafacade xmi:id="_iFm2UK7kEeytbYCYscJsVg" base_Class="_ecb034c_1074379407701_127218_171"/>
-  <andromdameta:metafacade xmi:id="_iFm2Ua7kEeytbYCYscJsVg" base_Class="_d860307_1071504650353_319894_500"/>
-  <andromdameta:metafacade xmi:id="_iFm2Uq7kEeytbYCYscJsVg" base_Class="_9_0_1fe00f9_1111223534538_306164_2"/>
-  <andromdameta:metafacade xmi:id="_iFm2U67kEeytbYCYscJsVg" base_Class="_24400562_1076817919491_693372_552"/>
-  <andromdameta:metafacade xmi:id="_iFm2VK7kEeytbYCYscJsVg" base_Class="_24400562_1078456132886_364804_350"/>
-  <andromdameta:metafacade xmi:id="_iFm2Va7kEeytbYCYscJsVg" base_Class="_24400562_1086300630984_552734_109"/>
-  <andromdameta:metafacade xmi:id="_iFm2Vq7kEeytbYCYscJsVg" base_Class="_8a70287_1078528251564_981527_908"/>
-  <andromdameta:metafacade xmi:id="_iFm2V67kEeytbYCYscJsVg" base_Class="_e8f0348_1102200843718_167772_250"/>
-  <andromdameta:metafacade xmi:id="_iFm2WK7kEeytbYCYscJsVg" base_Class="_9_0_2_12ab03bf_1112204654656_123732_0"/>
-  <andromdameta:metafacade xmi:id="_iFm2Wa7kEeytbYCYscJsVg" base_Class="_d860307_1071504589255_899792_464"/>
-  <andromdameta:metafacade xmi:id="_iFm2Wq7kEeytbYCYscJsVg" base_Class="_d860307_1071574234068_992089_84"/>
-  <andromdameta:metafacade xmi:id="_iFm2W67kEeytbYCYscJsVg" base_Class="_ecb034c_1074429708731_957334_552"/>
-  <andromdameta:metafacade xmi:id="_iFm2XK7kEeytbYCYscJsVg" base_Class="_9_5_1_12ab03bf_1166676364406_947166_87"/>
-  <andromdameta:metafacade xmi:id="_iFm2Xa7kEeytbYCYscJsVg" base_Class="_d860307_1071505297814_60220_1019"/>
-  <andromdameta:metafacade xmi:id="_iFm2Xq7kEeytbYCYscJsVg" base_Class="_9_0_1fe00f9_1115149256331_843166_82"/>
-  <andromdameta:metafacade xmi:id="_iFm2X67kEeytbYCYscJsVg" base_Class="_9_0_2_12ab03bf_1120792857812_717688_419"/>
-  <andromdameta:metafacade xmi:id="_iFm2YK7kEeytbYCYscJsVg" base_Class="_8a70287_1078532325622_971459_759"/>
-  <andromdameta:metafacade xmi:id="_iFm2Ya7kEeytbYCYscJsVg" base_Class="_9_0_1fe00f9_1113897549413_287358_18"/>
-  <andromdameta:metafacade xmi:id="_iFm2Yq7kEeytbYCYscJsVg" base_Class="_8a70287_1078528386918_321974_1041"/>
-  <andromdameta:metafacade xmi:id="_iFm2Y67kEeytbYCYscJsVg" base_Class="_9_5_1_12ab03bf_1166674056828_343682_132"/>
-  <andromdameta:metafacade xmi:id="_iFm2ZK7kEeytbYCYscJsVg" base_Class="_9_0_1fe00f9_1116004188633_221941_439"/>
-  <andromdameta:metafacade xmi:id="_iFm2Za7kEeytbYCYscJsVg" base_Class="_9_0_1fe00f9_1111792430944_743355_131"/>
-  <andromdameta:metafacade xmi:id="_iFndUK7kEeytbYCYscJsVg" base_Class="_9_0_1fe00f9_1116003869282_276578_71"/>
-  <andromdameta:metafacade xmi:id="_iFndUa7kEeytbYCYscJsVg" base_Class="_e8f0348_1102215391953_383987_0"/>
-  <andromdameta:metafacade xmi:id="_iFndUq7kEeytbYCYscJsVg" base_Class="_ecb034c_1076522978739_404388_3123"/>
-  <andromdameta:metafacade xmi:id="_iFndU67kEeytbYCYscJsVg" base_Class="_d860307_1071761469244_994549_110"/>
-  <andromdameta:metafacade xmi:id="_iFndVK7kEeytbYCYscJsVg" base_Class="_9_0_1fe00f9_1104625624120_556816_327"/>
-  <andromdameta:metafacade xmi:id="_iFndVa7kEeytbYCYscJsVg" base_Class="_9_0_2_12ab03bf_1122481800031_890384_216"/>
-  <andromdameta:metafacade xmi:id="_iFndVq7kEeytbYCYscJsVg" base_Class="_9_0_1fe00f9_1104625440681_53845_33"/>
-  <andromdameta:metafacade xmi:id="_iFndV67kEeytbYCYscJsVg" base_Class="_8a70287_1079983887000_419904_240"/>
-  <andromdameta:metafacade xmi:id="_iFndWK7kEeytbYCYscJsVg" base_Class="_d860307_1071505787688_603234_1398"/>
-  <andromdameta:metafacade xmi:id="_iFndWa7kEeytbYCYscJsVg" base_Class="_9_0_1fe00f9_1111223458470_189098_0"/>
-  <andromdameta:metafacade xmi:id="_iFndWq7kEeytbYCYscJsVg" base_Class="_9_5_1_13200cf_1271167652862_42903_9"/>
-  <andromdameta:metafacade xmi:id="_iFndW67kEeytbYCYscJsVg" base_Class="_9_5_1_12ab03bf_1166674061937_23375_133"/>
-  <andromdameta:metafacade xmi:id="_iFndXK7kEeytbYCYscJsVg" base_Class="_9_0_2_12ab03bf_1120167314500_763531_126"/>
-  <andromdameta:metafacade xmi:id="_iFndXa7kEeytbYCYscJsVg" base_Class="_9_0_2_12ab03bf_1121180438203_964334_702"/>
-  <andromdameta:metafacade xmi:id="_iFndXq7kEeytbYCYscJsVg" base_Class="_9_5_1_ee1034a_1127266738260_303405_459"/>
-  <andromdameta:metafacade xmi:id="_iFndX67kEeytbYCYscJsVg" base_Class="_ecb034c_1074429494297_377714_181"/>
-  <andromdameta:metafacade xmi:id="_iFndYK7kEeytbYCYscJsVg" base_Class="_9_5_1_12ab03bf_1166674037093_8685_1"/>
-  <andromdameta:metafacade xmi:id="_iFndYa7kEeytbYCYscJsVg" base_Class="_9_0_2_12ab03bf_1120168768156_445295_516"/>
-  <andromdameta:metafacade xmi:id="_iFndYq7kEeytbYCYscJsVg" base_Class="_8a70287_1078527740759_977341_264"/>
-  <andromdameta:metafacade xmi:id="_iFndY67kEeytbYCYscJsVg" base_Class="_9_0_1fe00f9_1116004487874_253309_1067"/>
-  <andromdameta:metafacade xmi:id="_iFndZK7kEeytbYCYscJsVg" base_Class="_9_5_1_626020b_1151603106573_799941_0"/>
-  <andromdameta:metafacade xmi:id="_iFndZa7kEeytbYCYscJsVg" base_Class="_9_0_2_12ab03bf_1120167034531_347865_28"/>
-  <andromdameta:metafacade xmi:id="_iFndZq7kEeytbYCYscJsVg" base_Class="_9_0_1fe00f9_1111224849004_128280_609"/>
-  <andromdameta:metafacade xmi:id="_iFndZ67kEeytbYCYscJsVg" base_Class="_8a70287_1078687370189_842249_401"/>
-  <andromdameta:metafacade xmi:id="_iFndaK7kEeytbYCYscJsVg" base_Class="_9_0_2_12ab03bf_1122481242500_184900_184"/>
-  <andromdameta:metafacade xmi:id="_iFndaa7kEeytbYCYscJsVg" base_Class="_24400562_1073854558969_92049_331"/>
-  <andromdameta:metafacade xmi:id="_iFndaq7kEeytbYCYscJsVg" base_Class="_8a70287_1078527510288_746033_187"/>
-  <andromdameta:metafacade xmi:id="_iFnda67kEeytbYCYscJsVg" base_Class="_9_0_2_12ab03bf_1120789489859_66479_150"/>
-  <andromdameta:metafacade xmi:id="_iFndbK7kEeytbYCYscJsVg" base_Class="_8a70287_1078527731536_138307_221"/>
-  <andromdameta:metafacade xmi:id="_iFndba7kEeytbYCYscJsVg" base_Class="_24400562_1076929607659_603849_252"/>
-  <andromdameta:metafacade xmi:id="_iFndbq7kEeytbYCYscJsVg" base_Class="_ecb034c_1074429719333_393099_586"/>
-  <andromdameta:metafacade xmi:id="_iFndb67kEeytbYCYscJsVg" base_Class="_9_5_1_ee1034a_1127266745841_402315_493"/>
-  <andromdameta:metafacade xmi:id="_iFndcK7kEeytbYCYscJsVg" base_Class="_9_0_2_12ab03bf_1120835338500_225560_590"/>
-  <andromdameta:metafacade xmi:id="_iFndca7kEeytbYCYscJsVg" base_Class="_24400562_1084729534630_226077_291"/>
-  <andromdameta:metafacade xmi:id="_iFndcq7kEeytbYCYscJsVg" base_Class="_8a70287_1078939289723_161411_215"/>
-  <andromdameta:metafacade xmi:id="_iFndc67kEeytbYCYscJsVg" base_Class="_d860307_1071506134827_941134_1737"/>
-  <andromdameta:metafacade xmi:id="_iFnddK7kEeytbYCYscJsVg" base_Class="_9_0_2_12ab03bf_1112205391203_582580_0"/>
-  <andromdameta:metafacade xmi:id="_iFndda7kEeytbYCYscJsVg" base_Class="_d860307_1071506074180_318219_1633"/>
-  <andromdameta:metafacade xmi:id="_iFnddq7kEeytbYCYscJsVg" base_Class="_d860307_1071505012453_158614_819"/>
-  <andromdameta:metafacade xmi:id="_iFoEYK7kEeytbYCYscJsVg" base_Class="_9_0_1fe00f9_1113843043548_33809_34"/>
-  <andromdameta:metafacade xmi:id="_iFoEYa7kEeytbYCYscJsVg" base_Class="_9_0_2_12ab03bf_1122489990718_108299_588"/>
-  <andromdameta:metafacade xmi:id="_iFoEYq7kEeytbYCYscJsVg" base_Class="_ecb034c_1074380269911_797015_119"/>
-  <andromdameta:metafacade xmi:id="_iFoEY67kEeytbYCYscJsVg" base_Class="_9_0_2_12ab03bf_1120241748796_84658_1361"/>
-  <andromdameta:metafacade xmi:id="_iFoEZK7kEeytbYCYscJsVg" base_Class="_9_0_1fe00f9_1113402182518_384484_232"/>
-  <andromdameta:metafacade xmi:id="_iFoEZa7kEeytbYCYscJsVg" base_Class="_9_0_2_12ab03bf_1122488049984_677962_258"/>
-  <andromdameta:metafacade xmi:id="_iFoEZq7kEeytbYCYscJsVg" base_Class="_9_5_1_ee1034a_1127266732722_101474_425"/>
-  <andromdameta:metafacade xmi:id="_iFoEZ67kEeytbYCYscJsVg" base_Class="_9_0_1fe00f9_1119517503209_398663_27"/>
-  <andromdameta:metafacade xmi:id="_iFoEaK7kEeytbYCYscJsVg" base_Class="_9_0_1fe00f9_1115149273430_479398_116"/>
-  <andromdameta:metafacade xmi:id="_iFoEaa7kEeytbYCYscJsVg" base_Class="_d860307_1077738600685_387777_175"/>
-  <andromdameta:metafacade xmi:id="_iFoEaq7kEeytbYCYscJsVg" base_Class="_d860307_1071504751869_985718_574"/>
-  <andromdameta:metafacade xmi:id="_iFoEa67kEeytbYCYscJsVg" base_Class="_24400562_1078456000396_796309_243"/>
-  <standard:ModelLibrary xmi:id="_iFvZIK7kEeytbYCYscJsVg" base_Package="_9_0_1fe00f9_1119336925546_238419_77"/>
 </xmi:XMI>

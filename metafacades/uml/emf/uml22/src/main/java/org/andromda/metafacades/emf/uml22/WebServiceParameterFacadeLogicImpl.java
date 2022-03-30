@@ -7,6 +7,8 @@ import java.util.Collection;
 import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.WSDLTypeFacade;
+import org.andromda.metafacades.uml.WebServiceFacade;
 import org.andromda.metafacades.uml.webservice.WebServiceMetafacadeGlobals;
 import org.andromda.translation.ocl.validation.OCLIntrospector;
 import org.andromda.utils.StringUtilsHelper;
@@ -15,12 +17,12 @@ import org.apache.log4j.Logger;
 
 /**
  * Represents a parameter modeled on a webservice.
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.WebServiceParameter.
+ * MetafacadeLogic implementation for org.andromda.metafacades.uml.WebServiceParameterFacade.
  *
- * @see org.andromda.metafacades.uml.WebServiceParameter
+ * @see org.andromda.metafacades.uml.WebServiceParameterFacade
  */
-public class WebServiceParameterLogicImpl
-    extends WebServiceParameterLogic
+public class WebServiceParameterFacadeLogicImpl
+    extends WebServiceParameterFacadeLogic
 {
     private static final long serialVersionUID = 34L;
     // ---------------- constructor -------------------------------
@@ -29,7 +31,7 @@ public class WebServiceParameterLogicImpl
      * @param metaObject
      * @param context
      */
-    public WebServiceParameterLogicImpl(Object metaObject, String context)
+    public WebServiceParameterFacadeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -37,7 +39,7 @@ public class WebServiceParameterLogicImpl
     /**
      * The logger instance.
      */
-    private static final Logger logger = Logger.getLogger(WebServiceParameterLogicImpl.class);
+    private static final Logger logger = Logger.getLogger(WebServiceParameterFacadeLogicImpl.class);
 
     /**
      * @return !this.isRequired()
@@ -56,43 +58,43 @@ public class WebServiceParameterLogicImpl
     {
         String testTypeName = null;
         final ClassifierFacade type = this.getType();
-        // if (type instanceof WSDLType || type instanceof WSDLEnumerationType)
-        // {
-        //     ClassifierFacade service = this.getOperation().getOwner();
-        //     if (service instanceof WebService)
-        //     {
-        //         WebService webService = (WebService)service;
-        //         final String testPackageName = webService.getTestPackageName();
-        //         if (type instanceof WSDLType)
-        //         {
-        //             final WSDLType wsdlType = (WSDLType)type;
-        //             if (!webService.isRpcStyle() && wsdlType.isArrayType())
-        //             {
-        //                 testTypeName = testPackageName + '.' + wsdlType.getWsdlArrayName();
-        //             }
-        //             else if (!type.isDataType())
-        //             {
-        //                 testTypeName = testPackageName + '.' + wsdlType.getName();
-        //             }
-        //         }
-        //         else
-        //         {
-        //             final WSDLEnumerationType wsdlType = (WSDLEnumerationType)type;
-        //             if (!webService.isRpcStyle() && wsdlType.isArrayType())
-        //             {
-        //                 testTypeName = testPackageName + '.' + wsdlType.getWsdlArrayName();
-        //             }
-        //             else if (!type.isDataType())
-        //             {
-        //                 testTypeName = testPackageName + '.' + wsdlType.getName();
-        //             }
-        //         }
-        //     }
-        //     if (testTypeName == null)
-        //     {
-        //         testTypeName = this.getType().getFullyQualifiedName();
-        //     }
-        // }
+        if (type instanceof WSDLTypeFacade) // || type instanceof WSDLEnumerationTypeFacade)
+        {
+            ClassifierFacade service = this.getOperation().getOwner();
+            if (service instanceof WebServiceFacade)
+            {
+                WebServiceFacade webService = (WebServiceFacade)service;
+                final String testPackageName = webService.getTestPackageName();
+                if (type instanceof WSDLTypeFacade) 
+                {
+                    final WSDLTypeFacade wsdlType = (WSDLTypeFacade)type;
+                    if (!webService.isRpcStyle() && wsdlType.isArrayType())
+                    {
+                        testTypeName = testPackageName + '.' + wsdlType.getWsdlArrayName();
+                    }
+                    else if (!type.isDataType())
+                    {
+                        testTypeName = testPackageName + '.' + wsdlType.getName();
+                    }
+                }
+                else
+                {
+                    // final WSDLEnumerationTypeFacade wsdlType = (WSDLEnumerationTypeFacade)type;
+                    // if (!webService.isRpcStyle() && wsdlType.isArrayType())
+                    // {
+                    //     testTypeName = testPackageName + '.' + wsdlType.getWsdlArrayName();
+                    // }
+                    // else if (!type.isDataType())
+                    // {
+                    //     testTypeName = testPackageName + '.' + wsdlType.getName();
+                    // }
+                }
+            }
+            if (testTypeName == null)
+            {
+                testTypeName = this.getType().getFullyQualifiedName();
+            }
+        }
         return testTypeName;
     }
 
@@ -235,7 +237,7 @@ public class WebServiceParameterLogicImpl
                 validationMessages.add(
                     new ModelValidationMessage(
                         (MetafacadeBase)contextElement ,
-                        "org::andromda::metafacades::uml::emf::uml22::WebServiceParameter::parameter must start with a lowercase letter",
+                        "org::andromda::cartridges::webservice::metafacades::WebServiceParameter::parameter must start with a lowercase letter",
                         "Parameter name must start with a lowercase letter."));
             }
         }

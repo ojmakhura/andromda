@@ -4,32 +4,32 @@
 package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
-import org.andromda.metafacades.uml.WebServiceOperation;
-import org.andromda.metafacades.uml.WebServicePackage;
+import org.andromda.metafacades.uml.WebServiceOperationFacade;
+import org.andromda.metafacades.uml.WebServicePackageFacade;
 
 /**
- * TODO: Model Documentation for WebServicePackage
- * MetafacadeLogic implementation for WebServicePackage.
+ * TODO: Model Documentation for WebServicePackageFacade
+ * MetafacadeLogic implementation for WebServicePackageFacade.
  *
- * @see WebServicePackage
+ * @see WebServicePackageFacade
  */
-public class WebServicePackageLogicImpl
-    extends WebServicePackageLogic
+public class WebServicePackageFacadeLogicImpl
+    extends WebServicePackageFacadeLogic
 {
     private static final long serialVersionUID = 34L;
     /**
-     * Public constructor for WebServicePackageLogicImpl
-     * @see WebServicePackage
+     * Public constructor for WebServicePackageFacadeLogicImpl
+     * @see WebServicePackageFacade
      */
-    public WebServicePackageLogicImpl (Object metaObject, String context)
+    public WebServicePackageFacadeLogicImpl (Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
     /**
      * TODO: Model Documentation for
-     * WebServicePackage.attributeFormDefault
-     * @see WebServicePackage#getAttributeFormDefault()
+     * WebServicePackageFacade.attributeFormDefault
+     * @see WebServicePackageFacade#getAttributeFormDefault()
      */
     protected String handleGetAttributeFormDefault()
     {
@@ -39,8 +39,8 @@ public class WebServicePackageLogicImpl
 
     /**
      * TODO: Model Documentation for
-     * WebServicePackage.elementFormDefault
-     * @see WebServicePackage#getElementFormDefault()
+     * WebServicePackageFacade.elementFormDefault
+     * @see WebServicePackageFacade#getElementFormDefault()
      */
     protected String handleGetElementFormDefault()
     {
@@ -49,8 +49,8 @@ public class WebServicePackageLogicImpl
     }
 
     /**
-     * TODO: Model Documentation for WebServicePackage.namespace
-     * @see WebServicePackage#getNamespace()
+     * TODO: Model Documentation for WebServicePackageFacade.namespace
+     * @see WebServicePackageFacade#getNamespace()
      */
     protected String handleGetNamespace()
     {
@@ -60,7 +60,7 @@ public class WebServicePackageLogicImpl
 
     /**
      * Package Abbreviation
-     * @see WebServicePackage#getPackageAbbr()
+     * @see WebServicePackageFacade#getPackageAbbr()
      */
     protected String handleGetPackageAbbr()
     {
@@ -73,7 +73,7 @@ public class WebServicePackageLogicImpl
      * name, without the leading http://, with all namespace customizations replaced by '.', in the
      * xsd/ directory beneath the wsdl directory:
      * xsd/${service.package.namespace.substring(7).replaceAll('/','.')}xsd
-     * @see WebServicePackage#getSchemaLocation()
+     * @see WebServicePackageFacade#getSchemaLocation()
      */
     protected String handleGetSchemaLocation()
     {
@@ -84,7 +84,7 @@ public class WebServicePackageLogicImpl
     /**
      * If this package contains XML elements referenced by other packages that are used by any
      * webservices, if using CXF/JAX-WS and schemas are imported.
-     * @see WebServicePackage#isMissingXmlSchema()
+     * @see WebServicePackageFacade#isMissingXmlSchema()
      */
     protected boolean handleIsMissingXmlSchema()
     {
@@ -94,8 +94,8 @@ public class WebServicePackageLogicImpl
 
     /**
      * TODO: Model Documentation for
-     * WebServicePackage.getPackageReferences
-     * @see WebServicePackage#getPackageReferences(boolean)
+     * WebServicePackageFacade.getPackageReferences
+     * @see WebServicePackageFacade#getPackageReferences(boolean)
      */
     protected Collection handleGetPackageReferences(boolean follow)
     {
@@ -104,30 +104,30 @@ public class WebServicePackageLogicImpl
     }
 
     /**
-     * TODO: Model Documentation for WebServicePackage
-     * @see WebServicePackage#getPackageReferences()
+     * TODO: Model Documentation for WebServicePackageFacade
+     * @see WebServicePackageFacade#getPackageReferences()
      */
-    protected Collection<WebServicePackage> handleGetPackageReferences()
+    protected Collection<WebServicePackageFacade> handleGetPackageReferences()
     {
         // TODO add your implementation here!
         return null;
     }
 
     /**
-     * TODO: Model Documentation for WebServicePackage
-     * @see WebServicePackage#getAllowedOperations()
+     * TODO: Model Documentation for WebServicePackageFacade
+     * @see WebServicePackageFacade#getAllowedOperations()
      */
-    protected Collection<WebServiceOperation> handleGetAllowedOperations()
+    protected Collection<WebServiceOperationFacade> handleGetAllowedOperations()
     {
         // TODO add your implementation here!
         return null;
     }
 
     /**
-     * TODO: Model Documentation for WebServicePackage
-     * @see WebServicePackage#getPackages()
+     * TODO: Model Documentation for WebServicePackageFacade
+     * @see WebServicePackageFacade#getPackages()
      */
-    protected Collection<WebServicePackage> handleGetPackages()
+    protected Collection<WebServicePackageFacade> handleGetPackages()
     {
         // TODO add your implementation here!
         return null;

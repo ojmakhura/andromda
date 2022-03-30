@@ -5,26 +5,26 @@ package org.andromda.metafacades.uml14;
 
 /**
  * Represents an operation on a web service.
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.WebServiceOperation.
+ * MetafacadeLogic implementation for org.andromda.metafacades.uml.WebServiceOperationFacade.
  *
- * @see org.andromda.metafacades.uml.WebServiceOperation
+ * @see org.andromda.metafacades.uml.WebServiceOperationFacade
  */
-public class WebServiceOperationLogicImpl
-    extends WebServiceOperationLogic
+public class WebServiceOperationFacadeLogicImpl
+    extends WebServiceOperationFacadeLogic
 {
     private static final long serialVersionUID = 34L;
     /**
-     * Public constructor for WebServiceOperationLogicImpl
-     * @see org.andromda.metafacades.uml.WebServiceOperation
+     * Public constructor for WebServiceOperationFacadeLogicImpl
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade
      */
-    public WebServiceOperationLogicImpl (Object metaObject, String context)
+    public WebServiceOperationFacadeLogicImpl (Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
     /**
      * Returns true/false depending on whether or not this web service operation is exposed.
-     * @see org.andromda.metafacades.uml.WebServiceOperation#isExposed()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#isExposed()
      */
     protected boolean handleIsExposed()
     {
@@ -34,7 +34,7 @@ public class WebServiceOperationLogicImpl
 
     /**
      * The name of the the operation used within the test implementation.
-     * @see org.andromda.metafacades.uml.WebServiceOperation#getTestImplementationName()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#getTestImplementationName()
      */
     protected String handleGetTestImplementationName()
     {
@@ -44,7 +44,7 @@ public class WebServiceOperationLogicImpl
 
     /**
      * The method call for the test implementation operation.
-     * @see org.andromda.metafacades.uml.WebServiceOperation#getTestImplementationCall()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#getTestImplementationCall()
      */
     protected String handleGetTestImplementationCall()
     {
@@ -54,7 +54,7 @@ public class WebServiceOperationLogicImpl
 
     /**
      * The signature for the test implementation operation.
-     * @see org.andromda.metafacades.uml.WebServiceOperation#getTestImplementationSignature()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#getTestImplementationSignature()
      */
     protected String handleGetTestImplementationSignature()
     {
@@ -64,7 +64,7 @@ public class WebServiceOperationLogicImpl
 
     /**
      * The name for the test that tests this operation.
-     * @see org.andromda.metafacades.uml.WebServiceOperation#getTestName()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#getTestName()
      */
     protected String handleGetTestName()
     {
@@ -74,7 +74,7 @@ public class WebServiceOperationLogicImpl
 
     /**
      * The call for the test that tests this operation.
-     * @see org.andromda.metafacades.uml.WebServiceOperation#getTestCall()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#getTestCall()
      */
     protected String handleGetTestCall()
     {
@@ -84,7 +84,7 @@ public class WebServiceOperationLogicImpl
 
     /**
      * The signature for the test that tests this operation.
-     * @see org.andromda.metafacades.uml.WebServiceOperation#getTestSignature()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#getTestSignature()
      */
     protected String handleGetTestSignature()
     {
@@ -94,7 +94,7 @@ public class WebServiceOperationLogicImpl
 
     /**
      * WebService parameter style: bare or wrapped
-     * @see org.andromda.metafacades.uml.WebServiceOperation#getParameterStyle()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#getParameterStyle()
      */
     protected String handleGetParameterStyle()
     {
@@ -105,7 +105,7 @@ public class WebServiceOperationLogicImpl
     /**
      * The URL path for the REST webservice. If unspecified, the lowercase
      * /operation/parametername/{parametername}/ is used.
-     * @see org.andromda.metafacades.uml.WebServiceOperation#getRestPath()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#getRestPath()
      */
     protected String handleGetRestPath()
     {
@@ -116,7 +116,7 @@ public class WebServiceOperationLogicImpl
     /**
      * HTML request type for this REST service (GET, PUT, POST, QUERY, DELETE), used for method
      * annotations.
-     * @see org.andromda.metafacades.uml.WebServiceOperation#getRestRequestType()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#getRestRequestType()
      */
     protected String handleGetRestRequestType()
     {
@@ -125,8 +125,9 @@ public class WebServiceOperationLogicImpl
     }
 
     /**
-     * TODO: Model Documentation for org.andromda.metafacades.uml.WebServiceOperation.restCacheType
-     * @see org.andromda.metafacades.uml.WebServiceOperation#getRestCacheType()
+     * TODO: Model Documentation for
+     * org.andromda.metafacades.uml.WebServiceOperationFacade.restCacheType
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#getRestCacheType()
      */
     protected String handleGetRestCacheType()
     {
@@ -136,7 +137,7 @@ public class WebServiceOperationLogicImpl
 
     /**
      * @Encoded T/F. default=false.
-     * @see org.andromda.metafacades.uml.WebServiceOperation#isRestEncoded()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#isRestEncoded()
      */
     protected boolean handleIsRestEncoded()
     {
@@ -146,7 +147,7 @@ public class WebServiceOperationLogicImpl
 
     /**
      * @Consumes(media type) annotation. i.e. json, atom, plain/text, xml.
-     * @see org.andromda.metafacades.uml.WebServiceOperation#getRestConsumes()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#getRestConsumes()
      */
     protected String handleGetRestConsumes()
     {
@@ -156,7 +157,7 @@ public class WebServiceOperationLogicImpl
 
     /**
      * @Produces(media type) annotation. i.e. json, atom, plain/text, xml.
-     * @see org.andromda.metafacades.uml.WebServiceOperation#getRestProduces()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#getRestProduces()
      */
     protected String handleGetRestProduces()
     {
@@ -166,7 +167,7 @@ public class WebServiceOperationLogicImpl
 
     /**
      * Customized REST @Provider annotation, must be implemented in the  generated class.
-     * @see org.andromda.metafacades.uml.WebServiceOperation#getRestProvider()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#getRestProvider()
      */
     protected String handleGetRestProvider()
     {
@@ -176,7 +177,7 @@ public class WebServiceOperationLogicImpl
 
     /**
      * Multipart/xml type for this returned part.
-     * @see org.andromda.metafacades.uml.WebServiceOperation#getRestPartType()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#getRestPartType()
      */
     protected String handleGetRestPartType()
     {
@@ -187,7 +188,7 @@ public class WebServiceOperationLogicImpl
     /**
      * Asynchronous service implementation, suspend execution for X ms. Adds @Suspend annotation to
      * the operation. default=synchronous (suspend=0=wait forever).
-     * @see org.andromda.metafacades.uml.WebServiceOperation#getRestSuspend()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#getRestSuspend()
      */
     protected int handleGetRestSuspend()
     {
@@ -197,7 +198,7 @@ public class WebServiceOperationLogicImpl
 
     /**
      * REST security roles allowed. default=All.
-     * @see org.andromda.metafacades.uml.WebServiceOperation#getRolesAllowed()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#getRolesAllowed()
      */
     protected String handleGetRolesAllowed()
     {
@@ -208,7 +209,7 @@ public class WebServiceOperationLogicImpl
     /**
      * If this REST service provides application/atom, or any service operations provide
      * application/atom
-     * @see org.andromda.metafacades.uml.WebServiceOperation#isRestAtom()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#isRestAtom()
      */
     protected boolean handleIsRestAtom()
     {
@@ -219,7 +220,7 @@ public class WebServiceOperationLogicImpl
     /**
      * Is this operation a JAX-RS REST operation? JAX-WS and JAX-RS can be mixed in the same service
      * class. If false, all rest attributes and methods are ignored.
-     * @see org.andromda.metafacades.uml.WebServiceOperation#isRest()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#isRest()
      */
     protected boolean handleIsRest()
     {
@@ -230,7 +231,7 @@ public class WebServiceOperationLogicImpl
     /**
      * The URL path to test the REST webservice. Substitutes test values for {parametername} parts
      * of the service URL.
-     * @see org.andromda.metafacades.uml.WebServiceOperation#getRestTestPath()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#getRestTestPath()
      */
     protected String handleGetRestTestPath()
     {
@@ -242,7 +243,7 @@ public class WebServiceOperationLogicImpl
      * Returns the customized operation name. Defaults to operation.name, can be overridden with
      * WebServiceOperation stereotype operationName attribute. Prevents duplicate operation names in
      * wsdl for overloaded operations.
-     * @see org.andromda.metafacades.uml.WebServiceOperation#getOperationName()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#getOperationName()
      */
     protected String handleGetOperationName()
     {
@@ -253,7 +254,7 @@ public class WebServiceOperationLogicImpl
     /**
      * Checks is each service exception reference is some Exception type and has stereotype
      * WebFault, if CXF.
-     * @see org.andromda.metafacades.uml.WebServiceOperation#isWebFaultOnAllExceptions()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#isWebFaultOnAllExceptions()
      */
     protected boolean handleIsWebFaultOnAllExceptions()
     {
@@ -263,8 +264,8 @@ public class WebServiceOperationLogicImpl
 
     /**
      * TODO: Model Documentation for
-     * org.andromda.metafacades.uml.WebServiceOperation.restResponseStatus
-     * @see org.andromda.metafacades.uml.WebServiceOperation#getRestResponseStatus()
+     * org.andromda.metafacades.uml.WebServiceOperationFacade.restResponseStatus
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#getRestResponseStatus()
      */
     protected String handleGetRestResponseStatus()
     {
@@ -273,8 +274,9 @@ public class WebServiceOperationLogicImpl
     }
 
     /**
-     * TODO: Model Documentation for org.andromda.metafacades.uml.WebServiceOperation.preAuthorize
-     * @see org.andromda.metafacades.uml.WebServiceOperation#getPreAuthorize()
+     * TODO: Model Documentation for
+     * org.andromda.metafacades.uml.WebServiceOperationFacade.preAuthorize
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#getPreAuthorize()
      */
     protected String handleGetPreAuthorize()
     {
@@ -283,8 +285,9 @@ public class WebServiceOperationLogicImpl
     }
 
     /**
-     * TODO: Model Documentation for org.andromda.metafacades.uml.WebServiceOperation.postAuthorize
-     * @see org.andromda.metafacades.uml.WebServiceOperation#getPostAuthorize()
+     * TODO: Model Documentation for
+     * org.andromda.metafacades.uml.WebServiceOperationFacade.postAuthorize
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#getPostAuthorize()
      */
     protected String handleGetPostAuthorize()
     {
@@ -294,9 +297,9 @@ public class WebServiceOperationLogicImpl
 
     /**
      * Represents an operation on a web service.
-     * @see org.andromda.metafacades.uml.WebServiceOperation#getWebServicePackage()
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade#getWebServicePackageFacade()
      */
-    protected Object handleGetWebServicePackage()
+    protected Object handleGetWebServicePackageFacade()
     {
         // TODO add your implementation here!
         return null;

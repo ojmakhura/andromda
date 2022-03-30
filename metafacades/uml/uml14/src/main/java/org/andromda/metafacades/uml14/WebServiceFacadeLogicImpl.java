@@ -5,30 +5,31 @@ package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
 import org.andromda.metafacades.uml.TypeMappings;
-import org.andromda.metafacades.uml.WebServiceOperation;
+import org.andromda.metafacades.uml.WSDLTypeFacade;
+import org.andromda.metafacades.uml.WebServiceOperationFacade;
 
 /**
  * Represents a web service.
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.WebService.
+ * MetafacadeLogic implementation for org.andromda.metafacades.uml.WebServiceFacade.
  *
- * @see org.andromda.metafacades.uml.WebService
+ * @see org.andromda.metafacades.uml.WebServiceFacade
  */
-public class WebServiceLogicImpl
-    extends WebServiceLogic
+public class WebServiceFacadeLogicImpl
+    extends WebServiceFacadeLogic
 {
     private static final long serialVersionUID = 34L;
     /**
-     * Public constructor for WebServiceLogicImpl
-     * @see org.andromda.metafacades.uml.WebService
+     * Public constructor for WebServiceFacadeLogicImpl
+     * @see org.andromda.metafacades.uml.WebServiceFacade
      */
-    public WebServiceLogicImpl (Object metaObject, String context)
+    public WebServiceFacadeLogicImpl (Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
     /**
      * The name of the RPC implementation class.
-     * @see org.andromda.metafacades.uml.WebService#getRpcClassName()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getRpcClassName()
      */
     protected String handleGetRpcClassName()
     {
@@ -39,7 +40,7 @@ public class WebServiceLogicImpl
     /**
      * Whether or not this web service is secured (its based on whether or not it has any roles
      * associated to it).
-     * @see org.andromda.metafacades.uml.WebService#isSecured()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#isSecured()
      */
     protected boolean handleIsSecured()
     {
@@ -49,7 +50,7 @@ public class WebServiceLogicImpl
 
     /**
      * Creates a space delimited string containing a name of ALL allowed methods.
-     * @see org.andromda.metafacades.uml.WebService#getAllowedMethods()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getAllowedMethods()
      */
     protected String handleGetAllowedMethods()
     {
@@ -59,7 +60,7 @@ public class WebServiceLogicImpl
 
     /**
      * The location of the WSDL file for this web service.
-     * @see org.andromda.metafacades.uml.WebService#getWsdlFile()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getWsdlFile()
      */
     protected String handleGetWsdlFile()
     {
@@ -69,7 +70,7 @@ public class WebServiceLogicImpl
 
     /**
      * The use of items in the binding, either LITERAL or ENCODED.
-     * @see org.andromda.metafacades.uml.WebService#getUse()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getUse()
      */
     protected String handleGetUse()
     {
@@ -79,7 +80,7 @@ public class WebServiceLogicImpl
 
     /**
      * The style of binding in the generated WSDL, either DOCUMENT, RPC, or WRAPPED.
-     * @see org.andromda.metafacades.uml.WebService#getStyle()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getStyle()
      */
     protected String handleGetStyle()
     {
@@ -89,7 +90,7 @@ public class WebServiceLogicImpl
 
     /**
      * The name of the namespace to which this web service belongs.
-     * @see org.andromda.metafacades.uml.WebService#getNamespace()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getNamespace()
      */
     protected String handleGetNamespace()
     {
@@ -99,7 +100,7 @@ public class WebServiceLogicImpl
 
     /**
      * The provider for this web service. Provider is something like: 'java:RPC', or 'java:EJB' etc.
-     * @see org.andromda.metafacades.uml.WebService#getProvider()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getProvider()
      */
     protected String handleGetProvider()
     {
@@ -109,7 +110,7 @@ public class WebServiceLogicImpl
 
     /**
      * The namespace prefix used for types defined within the generated WSDLs.
-     * @see org.andromda.metafacades.uml.WebService#getNamespacePrefix()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getNamespacePrefix()
      */
     protected String handleGetNamespacePrefix()
     {
@@ -119,7 +120,7 @@ public class WebServiceLogicImpl
 
     /**
      * The home interface name for an EJB provider.
-     * @see org.andromda.metafacades.uml.WebService#getEjbHomeInterface()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getEjbHomeInterface()
      */
     protected String handleGetEjbHomeInterface()
     {
@@ -129,7 +130,7 @@ public class WebServiceLogicImpl
 
     /**
      * The interface name for an EJB provider.
-     * @see org.andromda.metafacades.uml.WebService#getEjbInterface()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getEjbInterface()
      */
     protected String handleGetEjbInterface()
     {
@@ -140,7 +141,7 @@ public class WebServiceLogicImpl
     /**
      * The JNDI name for the EJB provider (the EJB that provides the functionality behind this web
      * service).
-     * @see org.andromda.metafacades.uml.WebService#getEjbJndiName()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getEjbJndiName()
      */
     protected String handleGetEjbJndiName()
     {
@@ -151,7 +152,7 @@ public class WebServiceLogicImpl
     /**
      * The QName for this service.  Usually it will be the same name as the model element, however
      * it is possible to specify a prefix to give to this name.
-     * @see org.andromda.metafacades.uml.WebService#getQName()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getQName()
      */
     protected String handleGetQName()
     {
@@ -161,7 +162,7 @@ public class WebServiceLogicImpl
 
     /**
      * The name of the package to which tests are generated.
-     * @see org.andromda.metafacades.uml.WebService#getTestPackageName()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getTestPackageName()
      */
     protected String handleGetTestPackageName()
     {
@@ -171,7 +172,7 @@ public class WebServiceLogicImpl
 
     /**
      * The fully qualified name of a test generated for this web service.
-     * @see org.andromda.metafacades.uml.WebService#getFullyQualifiedTestName()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getFullyQualifiedTestName()
      */
     protected String handleGetFullyQualifiedTestName()
     {
@@ -181,7 +182,7 @@ public class WebServiceLogicImpl
 
     /**
      * The name of a the test for this web service.
-     * @see org.andromda.metafacades.uml.WebService#getTestName()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getTestName()
      */
     protected String handleGetTestName()
     {
@@ -191,7 +192,7 @@ public class WebServiceLogicImpl
 
     /**
      * Indicates whether or not this service style is "wrapped".
-     * @see org.andromda.metafacades.uml.WebService#isWrappedStyle()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#isWrappedStyle()
      */
     protected boolean handleIsWrappedStyle()
     {
@@ -201,7 +202,7 @@ public class WebServiceLogicImpl
 
     /**
      * Indicates whether or not this service is "document" style.
-     * @see org.andromda.metafacades.uml.WebService#isDocumentStyle()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#isDocumentStyle()
      */
     protected boolean handleIsDocumentStyle()
     {
@@ -211,7 +212,7 @@ public class WebServiceLogicImpl
 
     /**
      * Indicates whether or not this service is "rpc" style.
-     * @see org.andromda.metafacades.uml.WebService#isRpcStyle()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#isRpcStyle()
      */
     protected boolean handleIsRpcStyle()
     {
@@ -221,7 +222,7 @@ public class WebServiceLogicImpl
 
     /**
      * Indicates whether or not this web service has a "literal" use defined.
-     * @see org.andromda.metafacades.uml.WebService#isLiteralUse()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#isLiteralUse()
      */
     protected boolean handleIsLiteralUse()
     {
@@ -231,7 +232,7 @@ public class WebServiceLogicImpl
 
     /**
      * Indicates whether or not this web service has a "encoded" use defined.
-     * @see org.andromda.metafacades.uml.WebService#isEncodedUse()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#isEncodedUse()
      */
     protected boolean handleIsEncodedUse()
     {
@@ -241,7 +242,7 @@ public class WebServiceLogicImpl
 
     /**
      * The name for the test implementation class.
-     * @see org.andromda.metafacades.uml.WebService#getTestImplementationName()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getTestImplementationName()
      */
     protected String handleGetTestImplementationName()
     {
@@ -251,7 +252,7 @@ public class WebServiceLogicImpl
 
     /**
      * The fully qualified name of the test implementation class for this web service.
-     * @see org.andromda.metafacades.uml.WebService#getFullyQualifiedTestImplementationName()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getFullyQualifiedTestImplementationName()
      */
     protected String handleGetFullyQualifiedTestImplementationName()
     {
@@ -263,7 +264,7 @@ public class WebServiceLogicImpl
      * Returns a collection of all type mappings used by this WebServiceFacade.  This consists of
      * all complex types that the service may take in as a parameter in an operation or returns and
      * exceptions that this web service throws.
-     * @see org.andromda.metafacades.uml.WebService#getTypeMappingElements()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getTypeMappingElements()
      */
     protected Collection handleGetTypeMappingElements()
     {
@@ -273,7 +274,7 @@ public class WebServiceLogicImpl
 
     /**
      * Use Jaxb2 XJC simple binding mode
-     * @see org.andromda.metafacades.uml.WebService#isSimpleBindingMode()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#isSimpleBindingMode()
      */
     protected boolean handleIsSimpleBindingMode()
     {
@@ -284,7 +285,7 @@ public class WebServiceLogicImpl
     /**
      * Override global default XJC arguments for Jaxb wsdl2java (i.e. add Collection setters,
      * equals, toString methods).
-     * @see org.andromda.metafacades.uml.WebService#getXjcArguments()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getXjcArguments()
      */
     protected String handleGetXjcArguments()
     {
@@ -294,7 +295,7 @@ public class WebServiceLogicImpl
 
     /**
      * Validate incoming webservice XML against wsdl/xsd schema
-     * @see org.andromda.metafacades.uml.WebService#isSchemaValidation()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#isSchemaValidation()
      */
     protected boolean handleIsSchemaValidation()
     {
@@ -304,7 +305,7 @@ public class WebServiceLogicImpl
 
     /**
      * The URL path for the REST webservice. If unspecified, the lowercase /classname/ is used.
-     * @see org.andromda.metafacades.uml.WebService#getRestPath()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getRestPath()
      */
     protected String handleGetRestPath()
     {
@@ -314,7 +315,7 @@ public class WebServiceLogicImpl
 
     /**
      * Context used for REST JAX-WS implementation for this service.
-     * @see org.andromda.metafacades.uml.WebService#getRestContexts()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getRestContexts()
      */
     protected Collection<String> handleGetRestContexts()
     {
@@ -327,7 +328,7 @@ public class WebServiceLogicImpl
      * true, all methods are REST methods, otherwise this is the count of exposed
      * WebServiceOperations with rest value set to true. This is the only required configuration for
      * implementing REST services, the rest use intelligent defaults which can be overridden.
-     * @see org.andromda.metafacades.uml.WebService#getRestCount()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getRestCount()
      */
     protected int handleGetRestCount()
     {
@@ -337,7 +338,7 @@ public class WebServiceLogicImpl
 
     /**
      * Specified CacheType (none, always, etc) in @CacheType annotation.
-     * @see org.andromda.metafacades.uml.WebService#getRestCacheType()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getRestCacheType()
      */
     protected String handleGetRestCacheType()
     {
@@ -347,7 +348,7 @@ public class WebServiceLogicImpl
 
     /**
      * @Produces(media type) annotation. i.e. json, atom, plain/text, xml.
-     * @see org.andromda.metafacades.uml.WebService#getRestProduces()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getRestProduces()
      */
     protected String handleGetRestProduces()
     {
@@ -357,7 +358,7 @@ public class WebServiceLogicImpl
 
     /**
      * @Consumes(media type) annotation. i.e. json, atom, plain/text, xml.
-     * @see org.andromda.metafacades.uml.WebService#getRestConsumes()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getRestConsumes()
      */
     protected String handleGetRestConsumes()
     {
@@ -367,7 +368,7 @@ public class WebServiceLogicImpl
 
     /**
      * Customized REST @Provider annotation, must be implemented in the  generated class.
-     * @see org.andromda.metafacades.uml.WebService#getRestProvider()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getRestProvider()
      */
     protected String handleGetRestProvider()
     {
@@ -377,7 +378,7 @@ public class WebServiceLogicImpl
 
     /**
      * Customized target ElementType, default=METHOD.
-     * @see org.andromda.metafacades.uml.WebService#getRestTarget()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getRestTarget()
      */
     protected String handleGetRestTarget()
     {
@@ -387,7 +388,7 @@ public class WebServiceLogicImpl
 
     /**
      * Customized RetentionPolicy (default=RUNTIME).
-     * @see org.andromda.metafacades.uml.WebService#getRestRetention()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getRestRetention()
      */
     protected String handleGetRestRetention()
     {
@@ -397,7 +398,7 @@ public class WebServiceLogicImpl
 
     /**
      * Customized Http Method implementation.
-     * @see org.andromda.metafacades.uml.WebService#getRestMethod()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getRestMethod()
      */
     protected String handleGetRestMethod()
     {
@@ -408,7 +409,7 @@ public class WebServiceLogicImpl
     /**
      * If this REST service provides application/atom, or any service operations provide
      * application/atom
-     * @see org.andromda.metafacades.uml.WebService#isRestAtom()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#isRestAtom()
      */
     protected boolean handleIsRestAtom()
     {
@@ -421,7 +422,7 @@ public class WebServiceLogicImpl
      * true, all methods are REST methods, otherwise this is the count of exposed
      * WebServiceOperations with rest value set to true. This is the only required configuration for
      * implementing REST services, the rest use intelligent defaults which can be overridden.
-     * @see org.andromda.metafacades.uml.WebService#getJaxwsCount()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getJaxwsCount()
      */
     protected int handleGetJaxwsCount()
     {
@@ -430,8 +431,8 @@ public class WebServiceLogicImpl
     }
 
     /**
-     * TODO: Model Documentation for org.andromda.metafacades.uml.WebService.getSchemaMappings
-     * @see org.andromda.metafacades.uml.WebService#getSchemaMappings()
+     * TODO: Model Documentation for org.andromda.metafacades.uml.WebServiceFacade.getSchemaMappings
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getSchemaMappings()
      */
     protected TypeMappings handleGetSchemaMappings()
     {
@@ -440,8 +441,9 @@ public class WebServiceLogicImpl
     }
 
     /**
-     * TODO: Model Documentation for org.andromda.metafacades.uml.WebService.getPackageReferences
-     * @see org.andromda.metafacades.uml.WebService#getPackageReferences(String, boolean)
+     * TODO: Model Documentation for
+     * org.andromda.metafacades.uml.WebServiceFacade.getPackageReferences
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getPackageReferences(String, boolean)
      */
     protected Collection handleGetPackageReferences(String packageName, boolean follow)
     {
@@ -451,9 +453,19 @@ public class WebServiceLogicImpl
 
     /**
      * Represents a web service.
-     * @see org.andromda.metafacades.uml.WebService#getAllowedOperations()
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getAllowedOperations()
      */
-    protected Collection<WebServiceOperation> handleGetAllowedOperations()
+    protected Collection<WebServiceOperationFacade> handleGetAllowedOperations()
+    {
+        // TODO add your implementation here!
+        return null;
+    }
+
+    /**
+     * Represents a web service.
+     * @see org.andromda.metafacades.uml.WebServiceFacade#getAllowedOperationExceptions()
+     */
+    protected Collection<WSDLTypeFacade> handleGetAllowedOperationExceptions()
     {
         // TODO add your implementation here!
         return null;

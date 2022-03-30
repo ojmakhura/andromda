@@ -16,8 +16,7 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.Service;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.andromda.metafacades.uml.WebServiceParameter;
-import org.andromda.metafacades.uml.web.MetafacadeWebUtils;
+import org.andromda.metafacades.uml.WebServiceParameterFacade;
 import org.andromda.metafacades.uml.webservice.WebServiceMetafacadeGlobals;
 import org.andromda.translation.ocl.validation.OCLExpressions;
 import org.andromda.translation.ocl.validation.OCLIntrospector;
@@ -26,19 +25,19 @@ import org.apache.log4j.Logger;
 
 /**
  * Represents an operation on a web service.
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.WebServiceOperation.
+ * MetafacadeLogic implementation for org.andromda.metafacades.uml.WebServiceOperationFacade.
  *
- * @see org.andromda.metafacades.uml.WebServiceOperation
+ * @see org.andromda.metafacades.uml.WebServiceOperationFacade
  */
-public class WebServiceOperationLogicImpl
-    extends WebServiceOperationLogic
+public class WebServiceOperationFacadeLogicImpl
+    extends WebServiceOperationFacadeLogic
 {
     private static final long serialVersionUID = 34L;
     /**
-     * Public constructor for WebServiceOperationLogicImpl
-     * @see org.andromda.metafacades.uml.WebServiceOperation
+     * Public constructor for WebServiceOperationFacadeLogicImpl
+     * @see org.andromda.metafacades.uml.WebServiceOperationFacade
      */
-    public WebServiceOperationLogicImpl (Object metaObject, String context)
+    public WebServiceOperationFacadeLogicImpl (Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -46,8 +45,8 @@ public class WebServiceOperationLogicImpl
     /**
      * The logger instance.
      */
-    private static final Logger logger = Logger.getLogger(WebServiceOperationLogicImpl.class);
-    
+    private static final Logger logger = Logger.getLogger(WebServiceOperationFacadeLogicImpl.class);
+
     /**
      * @return getOwner().hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE) or hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION)
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperation#isExposed()
@@ -271,12 +270,8 @@ public class WebServiceOperationLogicImpl
     @Override
     protected String handleGetRestPath()
     {
-        String path = (String) this.findTaggedValue(WebServiceMetafacadeGlobals.REST_PATH);
-        if(path == null) {
-            path = MetafacadeWebUtils.toWebResourceName(this.getName());
-        }
-
-        if(path.equals("/")) {
+        String path = Objects.toString(this.findTaggedValue(WebServiceMetafacadeGlobals.REST_PATH), "");
+        if(StringUtils.isBlank(path)) {
             path = "";
         }
 
@@ -284,7 +279,7 @@ public class WebServiceOperationLogicImpl
         builder.append(path);
 
         for(ParameterFacade parameter : this.getArguments()) {
-            WebServiceParameter param = (WebServiceParameter)parameter;
+            WebServiceParameterFacade param = (WebServiceParameterFacade)parameter;
             String paramType = param.getRestParamType();
             if(paramType.contains("PathParam")) {
                 builder.append("/");
@@ -308,7 +303,7 @@ public class WebServiceOperationLogicImpl
     {
         String path = (String)this.findTaggedValue(WebServiceMetafacadeGlobals.REST_PATH);
         StringBuilder pathBuffer = new StringBuilder();
-        WebServiceLogic service = (WebServiceLogic)this.getService();
+        WebServiceFacadeLogic service = (WebServiceFacadeLogic)this.getService();
         String servicePath = service.getRestPath();
         WebServiceMetafacadeUtils wsutils = new WebServiceMetafacadeUtils();
         if (!this.isRest() || StringUtils.isBlank(path) || path.equals(DEFAULT))
@@ -550,12 +545,12 @@ public class WebServiceOperationLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#isRestAtom()
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceFacadeLogic#isRestAtom()
      */
     @Override
     protected boolean handleIsRestAtom()
     {
-        WebServiceLogic service = (WebServiceLogic)this.getService();
+        WebServiceFacadeLogic service = (WebServiceFacadeLogic)this.getService();
         boolean rest = this.isRest();
         boolean restAtom = false;
         if (rest)
@@ -612,7 +607,7 @@ public class WebServiceOperationLogicImpl
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#handleGetWebServicePackage()
      */
     @Override
-    protected ModelElementFacade handleGetWebServicePackage()
+    protected ModelElementFacade handleGetWebServicePackageFacade()
     {
         return this.getOwner().getPackage();
     }
