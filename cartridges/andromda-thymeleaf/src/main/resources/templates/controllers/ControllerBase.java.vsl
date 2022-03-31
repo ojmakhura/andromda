@@ -174,7 +174,7 @@ $action.trigger.getDocumentation("     * ")
 #if($targetController)
 #set($tmp = $controllers.add($action.target.targetElement.controller))
 #end
-        forward =#if($targetController) "${action.target.targetElement.path}"#else closeDialog()#end;
+        forward =#if($targetController) "${action.target.targetElement.controller.restPath}"#else closeDialog()#end;
         
 #else
 #if ($formPopulationOperationRequired)
