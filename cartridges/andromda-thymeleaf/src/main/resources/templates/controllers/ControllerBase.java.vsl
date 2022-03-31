@@ -166,8 +166,10 @@ $action.trigger.getDocumentation("     * ")
         String forward=null;
 #if ($action.finalStateTarget)
 #if ($formPopulationOperationRequired)
-        //this.${action.formBeanName}.copyTo(getUseCaseParameters());
-    
+#foreach($param in $action.parameters)
+        this.${action.formBeanName}.set$stringUtils.capitalize($param.name)(${action.formBeanName}.get$stringUtils.capitalize($param.name)());
+#end
+
 #end
 #set($targetController = $action.target.targetControllerFullyQualifiedName)
 #set($targetControllerBeanName = $action.target.targetControllerBeanName)
