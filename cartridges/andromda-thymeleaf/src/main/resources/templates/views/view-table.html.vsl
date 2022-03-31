@@ -51,7 +51,7 @@ ${ident}<th th:text="#{$column.messageKey}"></th>
 #set($form = $table.view.actions.get(0))
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <table id="searchResult" class="table table-bordered" style="width: 100%">
+    <table id="searchResult" class="table" style="width: 100%">
         <thead>
             <tr>
 #foreach ($column in $table.tableColumns)
@@ -62,7 +62,12 @@ ${ident}<th th:text="#{$column.messageKey}"></th>
 #end
                 <th th:text="#{$table.getTableColumnMessageKey($columnName)}"></th>
 #end
-#if(!$table.tableFormActions.empty)
+#foreach ($action in $table.tableFormActions)
+#if (!$action.tableLinkColumnName)
+#set($renderActions = true)
+#end
+#end
+#if($renderActions)
                 <th th:text="Actions"></th>
 #end
             </tr>
