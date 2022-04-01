@@ -39,7 +39,6 @@ public class SpringQueryOperationLogicImpl
      */
     protected String handleGetQuery()
     {
-        this.ar
         return this.getQuery((SpringEntity)null);
     }
 

@@ -5,26 +5,26 @@ package org.andromda.metafacades.uml14;
 
 /**
  * Represents a parameter modeled on a webservice.
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.WebServiceParameter.
+ * MetafacadeLogic implementation for org.andromda.metafacades.uml.WebServiceParameterFacade.
  *
- * @see org.andromda.metafacades.uml.WebServiceParameter
+ * @see org.andromda.metafacades.uml.WebServiceParameterFacade
  */
-public class WebServiceParameterLogicImpl
-    extends WebServiceParameterLogic
+public class WebServiceParameterFacadeLogicImpl
+    extends WebServiceParameterFacadeLogic
 {
     private static final long serialVersionUID = 34L;
     /**
-     * Public constructor for WebServiceParameterLogicImpl
-     * @see org.andromda.metafacades.uml.WebServiceParameter
+     * Public constructor for WebServiceParameterFacadeLogicImpl
+     * @see org.andromda.metafacades.uml.WebServiceParameterFacade
      */
-    public WebServiceParameterLogicImpl (Object metaObject, String context)
+    public WebServiceParameterFacadeLogicImpl (Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
     /**
      * Whether or not this webservice parameter is nillable.
-     * @see org.andromda.metafacades.uml.WebServiceParameter#isNillable()
+     * @see org.andromda.metafacades.uml.WebServiceParameterFacade#isNillable()
      */
     protected boolean handleIsNillable()
     {
@@ -34,7 +34,7 @@ public class WebServiceParameterLogicImpl
 
     /**
      * The type name used when calling web service tests.
-     * @see org.andromda.metafacades.uml.WebServiceParameter#getTestTypeName()
+     * @see org.andromda.metafacades.uml.WebServiceParameterFacade#getTestTypeName()
      */
     protected String handleGetTestTypeName()
     {
@@ -44,7 +44,7 @@ public class WebServiceParameterLogicImpl
 
     /**
      * Is the parameter an XML attribute?
-     * @see org.andromda.metafacades.uml.WebServiceParameter#isAttribute()
+     * @see org.andromda.metafacades.uml.WebServiceParameterFacade#isAttribute()
      */
     protected boolean handleIsAttribute()
     {
@@ -54,7 +54,7 @@ public class WebServiceParameterLogicImpl
 
     /**
      * Is the attribute an XML element?
-     * @see org.andromda.metafacades.uml.WebServiceParameter#isElement()
+     * @see org.andromda.metafacades.uml.WebServiceParameterFacade#isElement()
      */
     protected boolean handleIsElement()
     {
@@ -65,7 +65,7 @@ public class WebServiceParameterLogicImpl
     /**
      * Customize the REST parameter path in the URL, by default it is /paramname/{paramvalue}/,
      * appended to the /class/method/ URL.
-     * @see org.andromda.metafacades.uml.WebServiceParameter#getRestPathParam()
+     * @see org.andromda.metafacades.uml.WebServiceParameterFacade#getRestPathParam()
      */
     protected String handleGetRestPathParam()
     {
@@ -74,8 +74,9 @@ public class WebServiceParameterLogicImpl
     }
 
     /**
-     * TODO: Model Documentation for org.andromda.metafacades.uml.WebServiceParameter.restParamType
-     * @see org.andromda.metafacades.uml.WebServiceParameter#getRestParamType()
+     * TODO: Model Documentation for
+     * org.andromda.metafacades.uml.WebServiceParameterFacade.restParamType
+     * @see org.andromda.metafacades.uml.WebServiceParameterFacade#getRestParamType()
      */
     protected String handleGetRestParamType()
     {
@@ -84,8 +85,9 @@ public class WebServiceParameterLogicImpl
     }
 
     /**
-     * TODO: Model Documentation for org.andromda.metafacades.uml.WebServiceParameter.restEncoded
-     * @see org.andromda.metafacades.uml.WebServiceParameter#isRestEncoded()
+     * TODO: Model Documentation for
+     * org.andromda.metafacades.uml.WebServiceParameterFacade.restEncoded
+     * @see org.andromda.metafacades.uml.WebServiceParameterFacade#isRestEncoded()
      */
     protected boolean handleIsRestEncoded()
     {
@@ -95,8 +97,8 @@ public class WebServiceParameterLogicImpl
 
     /**
      * TODO: Model Documentation for
-     * org.andromda.metafacades.uml.WebServiceParameter.restPathSegment
-     * @see org.andromda.metafacades.uml.WebServiceParameter#getRestPathSegment()
+     * org.andromda.metafacades.uml.WebServiceParameterFacade.restPathSegment
+     * @see org.andromda.metafacades.uml.WebServiceParameterFacade#getRestPathSegment()
      */
     protected String handleGetRestPathSegment()
     {

@@ -101,117 +101,117 @@ public class WebServiceParameterLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceParameterLogic#handleIsAttribute()
      */
-    @Override
-    protected boolean handleIsAttribute()
-    {
-        boolean isAttribute = this.hasStereotype(WebServiceGlobals.STEREOTYPE_XML_ATTRIBUTE);
-        if (!isAttribute)
-        {
-            String attributes = String.valueOf(this.getConfiguredProperty(USE_ATTRIBUTES));
-            if (StringUtils.isEmpty(attributes))
-            {
-                attributes = "true";
-            }
-            isAttribute = Boolean.parseBoolean(attributes);
-        }
-        return isAttribute;
-    }
+    // @Override
+    // protected boolean handleIsAttribute()
+    // {
+    //     boolean isAttribute = this.hasStereotype(WebServiceGlobals.STEREOTYPE_XML_ATTRIBUTE);
+    //     if (!isAttribute)
+    //     {
+    //         String attributes = String.valueOf(this.getConfiguredProperty(USE_ATTRIBUTES));
+    //         if (StringUtils.isEmpty(attributes))
+    //         {
+    //             attributes = "true";
+    //         }
+    //         isAttribute = Boolean.parseBoolean(attributes);
+    //     }
+    //     return isAttribute;
+    // }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceParameterLogic#handleIsElement()
      */
-    @Override
-    protected boolean handleIsElement()
-    {
-        boolean isAttribute = this.hasStereotype(WebServiceGlobals.STEREOTYPE_XML_ELEMENT);
-        if (!isAttribute)
-        {
-            String attributes = String.valueOf(this.getConfiguredProperty(USE_ATTRIBUTES));
-            if (StringUtils.isEmpty(attributes))
-            {
-                attributes = "true";
-            }
-            isAttribute = Boolean.parseBoolean(attributes);
-        }
-        return !isAttribute;
-    }
+    // @Override
+    // protected boolean handleIsElement()
+    // {
+    //     boolean isAttribute = this.hasStereotype(WebServiceGlobals.STEREOTYPE_XML_ELEMENT);
+    //     if (!isAttribute)
+    //     {
+    //         String attributes = String.valueOf(this.getConfiguredProperty(USE_ATTRIBUTES));
+    //         if (StringUtils.isEmpty(attributes))
+    //         {
+    //             attributes = "true";
+    //         }
+    //         isAttribute = Boolean.parseBoolean(attributes);
+    //     }
+    //     return !isAttribute;
+    // }
 
-    private static final String DEFAULT = "default";
-    private static final String EMPTY_STRING = "";
-    private static final String BOOLEAN_FALSE = "false";
-    //private static final String DEFAULT_TYPE = "PathParam";
+    // private static final String DEFAULT = "default";
+    // private static final String EMPTY_STRING = "";
+    // private static final String BOOLEAN_FALSE = "false";
+    // //private static final String DEFAULT_TYPE = "PathParam";
 
-    private static final String QUOTE = "\"";
-    private static final String RPARENS = "(";
-    private static final String LPARENS = ")";
-    /**
-     * @see org.andromda.cartridges.webservice.metafacades.WebServiceParameterLogic#getRestParamType()
-     */
-    @Override
-    protected String handleGetRestParamType()
-    {
-        String paramType = (String)this.findTaggedValue(WebServiceGlobals.REST_PARAM_TYPE);
-        if (StringUtils.isBlank(paramType) || paramType.equals(DEFAULT))
-        {
-            paramType = EMPTY_STRING;
-        }
-        else
-        {
-            String pathSegment = handleGetRestPathSegment();
-            if (StringUtils.isBlank(pathSegment))
-            {
-                // paramType always needed with annotation
-                pathSegment = this.getName();
-            }
-            paramType = "@javax.ws.rs." + paramType + RPARENS + QUOTE + pathSegment + QUOTE + LPARENS;
-        }
+    // private static final String QUOTE = "\"";
+    // private static final String RPARENS = "(";
+    // private static final String LPARENS = ")";
+    // /**
+    //  * @see org.andromda.cartridges.webservice.metafacades.WebServiceParameterLogic#getRestParamType()
+    //  */
+    // @Override
+    // protected String handleGetRestParamType()
+    // {
+    //     String paramType = (String)this.findTaggedValue(WebServiceGlobals.REST_PARAM_TYPE);
+    //     if (StringUtils.isBlank(paramType) || paramType.equals(DEFAULT))
+    //     {
+    //         paramType = EMPTY_STRING;
+    //     }
+    //     else
+    //     {
+    //         String pathSegment = handleGetRestPathSegment();
+    //         if (StringUtils.isBlank(pathSegment))
+    //         {
+    //             // paramType always needed with annotation
+    //             pathSegment = this.getName();
+    //         }
+    //         paramType = "@javax.ws.rs." + paramType + RPARENS + QUOTE + pathSegment + QUOTE + LPARENS;
+    //     }
 
-        return paramType;
-    }
+    //     return paramType;
+    // }
 
     private static final String AT = "@";
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceParameterLogic#getRestPathParam()
      */
-    @Override
-    protected String handleGetRestPathParam()
-    {
-        String pathParam = (String)this.findTaggedValue(WebServiceGlobals.REST_PATH_PARAM);
-        if (StringUtils.isBlank(pathParam) || pathParam.equals(DEFAULT))
-        {
-            pathParam = this.getName();
-        }
-        pathParam = AT + handleGetRestParamType() + "(\"" + pathParam + "\")";
-        return pathParam;
-    }
+    // @Override
+    // protected String handleGetRestPathParam()
+    // {
+    //     String pathParam = (String)this.findTaggedValue(WebServiceGlobals.REST_PATH_PARAM);
+    //     if (StringUtils.isBlank(pathParam) || pathParam.equals(DEFAULT))
+    //     {
+    //         pathParam = this.getName();
+    //     }
+    //     pathParam = AT + handleGetRestParamType() + "(\"" + pathParam + "\")";
+    //     return pathParam;
+    // }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceParameterLogic#getRestPathSegment()
      */
-    @Override
-    protected String handleGetRestPathSegment()
-    {
-        String pathSegment = (String)this.findTaggedValue(WebServiceGlobals.REST_PATH_SEGMENT);
-        if (StringUtils.isBlank(pathSegment) || pathSegment.equals(DEFAULT))
-        {
-            pathSegment = EMPTY_STRING;
-        }
-        return pathSegment;
-    }
+    // @Override
+    // protected String handleGetRestPathSegment()
+    // {
+    //     String pathSegment = (String)this.findTaggedValue(WebServiceGlobals.REST_PATH_SEGMENT);
+    //     if (StringUtils.isBlank(pathSegment) || pathSegment.equals(DEFAULT))
+    //     {
+    //         pathSegment = EMPTY_STRING;
+    //     }
+    //     return pathSegment;
+    // }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceParameterLogic#isRestEncoded()
      */
-    @Override
-    protected boolean handleIsRestEncoded()
-    {
-        String restEncoded = (String)this.findTaggedValue(WebServiceGlobals.REST_ENCODED);
-        if (StringUtils.isBlank(restEncoded) || restEncoded.equals(DEFAULT))
-        {
-            restEncoded = BOOLEAN_FALSE;
-        }
-        return Boolean.valueOf(restEncoded);
-    }
+    // @Override
+    // protected boolean handleIsRestEncoded()
+    // {
+    //     String restEncoded = (String)this.findTaggedValue(WebServiceGlobals.REST_ENCODED);
+    //     if (StringUtils.isBlank(restEncoded) || restEncoded.equals(DEFAULT))
+    //     {
+    //         restEncoded = BOOLEAN_FALSE;
+    //     }
+    //     return Boolean.valueOf(restEncoded);
+    // }
 
     /**
      * <p><b>Constraint:</b> org::andromda::cartridges::webservice::metafacades::WebServiceParameter::parameter must start with a lowercase letter</p>

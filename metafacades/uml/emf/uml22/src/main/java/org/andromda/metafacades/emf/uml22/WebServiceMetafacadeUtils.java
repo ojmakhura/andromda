@@ -32,8 +32,10 @@ import org.andromda.metafacades.uml.Service;
 import org.andromda.metafacades.uml.StereotypeFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.andromda.metafacades.uml.WebServiceOperation;
-import org.andromda.metafacades.uml.WebServiceParameter;
+import org.andromda.metafacades.uml.WebServiceOperationFacade;
+import org.andromda.metafacades.uml.WebServiceOperationFacade;
+import org.andromda.metafacades.uml.WebServiceParameterFacade;
+import org.andromda.metafacades.uml.WebServiceOperationFacade;
 import org.andromda.metafacades.uml.webservice.WebServiceMetafacadeGlobals;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
@@ -90,7 +92,7 @@ public class WebServiceMetafacadeUtils
      * @param follow Follow Inheritance references $extensionInheritanceDisabled
      * @return pkgRefs Collection<PackageFacade> - all referenced packages
      */
-    public Collection<PackageFacade> getPackages(WebServiceLogicImpl service, Set<ModelElementFacade> types, boolean follow)
+    public Collection<PackageFacade> getPackages(WebServiceFacadeLogicImpl service, Set<ModelElementFacade> types, boolean follow)
     {
         return setPkgAbbr(service, types, follow);
     }
@@ -193,7 +195,7 @@ public class WebServiceMetafacadeUtils
      * @param types
      * @return pkgAbbr
      */
-    private Set<PackageFacade> setPkgAbbr(WebServiceLogicImpl service, Set<ModelElementFacade> types, boolean follow)
+    private Set<PackageFacade> setPkgAbbr(WebServiceFacadeLogicImpl service, Set<ModelElementFacade> types, boolean follow)
     {
         // Contains references to only packages needed from this service
         Set<PackageFacade> pkgSet = new TreeSet<PackageFacade>();
@@ -221,7 +223,7 @@ public class WebServiceMetafacadeUtils
             }
         }
         // Copy package names and abbreviations to package list
-        for (final WebServiceOperation op : service.getAllowedOperations())
+        for (final WebServiceOperationFacade op : service.getAllowedOperations())
         {
             for (final ModelElementFacade arg : (Collection<ModelElementFacade>)op.getExceptions())
             {
@@ -571,7 +573,7 @@ public class WebServiceMetafacadeUtils
      * @param follow Follow Inheritance references $extensionInheritanceDisabled
      * @return pkgRefs
      */
-    public Collection<PackageFacade> getPackageReferences(WebServiceLogicImpl service, Set<MetafacadeBase> types, String packageName, boolean follow)
+    public Collection<PackageFacade> getPackageReferences(WebServiceFacadeLogicImpl service, Set<MetafacadeBase> types, String packageName, boolean follow)
     {
         Collection<PackageFacade> pkgRef = new TreeSet<PackageFacade>();
         if (StringUtils.isNotBlank(packageName))
@@ -848,7 +850,7 @@ public class WebServiceMetafacadeUtils
             if (packageName.equals(service.getPackageName()))
             {
                 // Add references from the operations of the service package itself
-                for (WebServiceOperation op : service.getAllowedOperations())
+                for (WebServiceOperationFacade op : service.getAllowedOperations())
                 {
                     for (Object opit : op.getExceptions())
                     {
@@ -1154,13 +1156,13 @@ public class WebServiceMetafacadeUtils
     }
 
     /**
-     * Get all operations under WebService or with WebServiceOperation in a package
+     * Get all operations under WebService or with WebServiceOperationFacade in a package
      * @param packageFacade Package / namespace for which to find all service operations
      * @return operations
      */
-    public List<WebServiceOperation> getAllowedOperations(PackageFacade packageFacade)
+    public List<WebServiceOperationFacade> getAllowedOperations(PackageFacade packageFacade)
     {
-        List<WebServiceOperation> operations = new ArrayList<WebServiceOperation>();
+        List<WebServiceOperationFacade> operations = new ArrayList<WebServiceOperationFacade>();
         for (final ModelElementFacade mefacade : packageFacade.getOwnedElements())
         {
             if (mefacade != null && mefacade instanceof ClassifierFacade)
@@ -1172,7 +1174,7 @@ public class WebServiceMetafacadeUtils
                     boolean visibility = op.getVisibility().equals("public") || op.getVisibility().equals("protected");
                     if (visibility && (webService || op.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION)))
                     {
-                        operations.add((WebServiceOperation) op);
+                        operations.add((WebServiceOperationFacade) op);
                     }
                 }
             }
@@ -1185,7 +1187,7 @@ public class WebServiceMetafacadeUtils
     }
 
     /**
-     * Get all operations under WebService or with WebServiceOperation in a package
+     * Get all operations under WebService or with WebServiceOperationFacade in a package
      * @param packageFacade Package / namespace for which to find all service operations
      * @return operations
      */
@@ -1356,7 +1358,7 @@ public class WebServiceMetafacadeUtils
      * @param follow Follow Inheritance references $extensionInheritanceDisabled
      * @return pkgRefs
      */
-    public Collection<ModelElementFacade> getPackageTypes(WebServiceLogicImpl service, Set<MetafacadeBase> types, String packageName, boolean follow)
+    public Collection<ModelElementFacade> getPackageTypes(WebServiceFacadeLogicImpl service, Set<MetafacadeBase> types, String packageName, boolean follow)
     {
         Collection<ModelElementFacade> pkgTypes = new TreeSet<ModelElementFacade>(service.new TypeComparator());
         if (StringUtils.isNotBlank(packageName))
@@ -1602,7 +1604,7 @@ public class WebServiceMetafacadeUtils
                 }
             }
             // Add package types from the operations of the service package itself
-            for (final WebServiceOperation op : service.getAllowedOperations())
+            for (final WebServiceOperationFacade op : service.getAllowedOperations())
             {
                 for (final ModelElementFacade arg : (Collection<ModelElementFacade>)op.getExceptions())
                 {
@@ -2350,7 +2352,7 @@ public class WebServiceMetafacadeUtils
      * @param follow Follow Inheritance references $extensionInheritanceDisabled
      * @return typeRef Collection<ModelElementFacade> referenced types
      */
-    public Collection<PackageFacade> getServiceDescendantPackages(WebServiceLogicImpl service, boolean follow)
+    public Collection<PackageFacade> getServiceDescendantPackages(WebServiceFacadeLogicImpl service, boolean follow)
     {
         // Note: The way XmlSeeAlso is supposed to work: any descendant classes from parameter or return or exception classes
         // not directly referenced by the XML types should have their package ObjectFactory added to the reference list.
@@ -2359,7 +2361,7 @@ public class WebServiceMetafacadeUtils
         // Keep track of elements already iterated, avoid stackOverflow.
         Collection<ModelElementFacade> added = new HashSet<ModelElementFacade>();
         // For each service parameter and return type and exception, find all descendants
-        for (final WebServiceOperation op : service.getAllowedOperations())
+        for (final WebServiceOperationFacade op : service.getAllowedOperations())
         {
             if (logger.isDebugEnabled())
             {
@@ -2403,7 +2405,7 @@ public class WebServiceMetafacadeUtils
      * @param follow Follow Inheritance references $extensionInheritanceDisabled
      * @return typeRef Collection<ModelElementFacade> referenced types
      */
-    public Collection<ModelElementFacade> getServiceReferences(WebServiceLogicImpl service, boolean follow)
+    public Collection<ModelElementFacade> getServiceReferences(WebServiceFacadeLogicImpl service, boolean follow)
     {
         Collection<ModelElementFacade> typeRef = new HashSet<ModelElementFacade>();
         // Temporary holder until we determine that the service can be bare
@@ -2414,7 +2416,7 @@ public class WebServiceMetafacadeUtils
         String typeRefs = "";
         // Copy package names and collection of related packages to package references list
         // Add references from the operations of the service package itself
-        for (final WebServiceOperation op : service.getAllowedOperations())
+        for (final WebServiceOperationFacade op : service.getAllowedOperations())
         {
             boolean isMany = false;
             /*for (final ModelElementFacade ex : op.getExceptions())
@@ -2693,9 +2695,9 @@ public class WebServiceMetafacadeUtils
         //     type = association.getType();
         //     many = association.isMany() && !type.isArrayType() && !type.isCollectionType();
         // }
-        else if (element instanceof WebServiceParameterLogic)
+        else if (element instanceof WebServiceParameterFacadeLogic)
         {
-            WebServiceParameterLogic param = (WebServiceParameterLogic)element;
+            WebServiceParameterFacadeLogic param = (WebServiceParameterFacadeLogic)element;
             type = param.getType();
             many = param.isMany() && !type.isArrayType() && !type.isCollectionType();
         }
@@ -2753,7 +2755,7 @@ public class WebServiceMetafacadeUtils
         
     }
 
-    public static String getSpringOperationPath(WebServiceOperation operation) {
+    public static String getSpringOperationPath(WebServiceOperationFacade operation) {
 
         StringBuilder builder = new StringBuilder();
         String path = operation.getRestPath();
@@ -2763,7 +2765,7 @@ public class WebServiceMetafacadeUtils
         builder.append(path);
 
         for(ParameterFacade parameter : operation.getArguments()) {
-            WebServiceParameter param = (WebServiceParameter)parameter;
+            WebServiceParameterFacade param = (WebServiceParameterFacade)parameter;
             String paramType = param.getRestParamType();
             if(paramType.contains("PathParam")) {
                 builder.append("/");
@@ -2777,12 +2779,12 @@ public class WebServiceMetafacadeUtils
         return builder.toString();
     }
     
-    public static Collection<String> getSpringOperationArgs(WebServiceOperation operation) {
+    public static Collection<String> getSpringOperationArgs(WebServiceOperationFacade operation) {
 
         ArrayList<String> args = new ArrayList<>();
 
         for(ParameterFacade parameter : operation.getArguments()) {
-            WebServiceParameter param = (WebServiceParameter)parameter;
+            WebServiceParameterFacade param = (WebServiceParameterFacade)parameter;
             StringBuilder builder = new StringBuilder();
             String paramType = param.getRestParamType();
 

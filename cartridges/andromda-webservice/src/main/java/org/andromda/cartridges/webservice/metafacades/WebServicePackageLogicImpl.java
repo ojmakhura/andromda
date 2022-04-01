@@ -54,15 +54,15 @@ public class WebServicePackageLogicImpl
      * @return findTaggedValue(WebServiceGlobals.ATTRIBUTE_FORM_DEFAULT) or DEFAULT_ATTRIBUTE_FORM
      * @see org.andromda.cartridges.webservice.metafacades.WebServicePackage#getAttributeFormDefault()
      */
-    protected String handleGetAttributeFormDefault()
-    {
-        String style = (String)this.findTaggedValue(WebServiceGlobals.ATTRIBUTE_FORM_DEFAULT);
-        if (StringUtils.isEmpty(style) || style.equals(DEFAULT))
-        {
-            style = DEFAULT_ATTRIBUTE_FORM;
-        }
-        return style;
-    }
+    // protected String handleGetAttributeFormDefault()
+    // {
+    //     String style = (String)this.findTaggedValue(WebServiceGlobals.ATTRIBUTE_FORM_DEFAULT);
+    //     if (StringUtils.isEmpty(style) || style.equals(DEFAULT))
+    //     {
+    //         style = DEFAULT_ATTRIBUTE_FORM;
+    //     }
+    //     return style;
+    // }
 
     /**
      * The property defining the default style to give the web services.
@@ -74,15 +74,15 @@ public class WebServicePackageLogicImpl
      * @return findTaggedValue(WebServiceGlobals.ELEMENT_FORM_DEFAULT) or DEFAULT_ELEMENT_FORM
      * @see org.andromda.cartridges.webservice.metafacades.WebServicePackage#getElementFormDefault()
      */
-    protected String handleGetElementFormDefault()
-    {
-        String style = (String)this.findTaggedValue(WebServiceGlobals.ELEMENT_FORM_DEFAULT);
-        if (StringUtils.isEmpty(style) || style.equals(DEFAULT))
-        {
-            style = DEFAULT_ELEMENT_FORM;
-        }
-        return style;
-    }
+    // protected String handleGetElementFormDefault()
+    // {
+    //     String style = (String)this.findTaggedValue(WebServiceGlobals.ELEMENT_FORM_DEFAULT);
+    //     if (StringUtils.isEmpty(style) || style.equals(DEFAULT))
+    //     {
+    //         style = DEFAULT_ELEMENT_FORM;
+    //     }
+    //     return style;
+    // }
 
     /**
      * reverseNamespace
@@ -97,68 +97,68 @@ public class WebServicePackageLogicImpl
      * @return findTaggedValue(WebServiceGlobals.XML_NAMESPACE) or REVERSE_NAMESPACE
      * @see org.andromda.cartridges.webservice.metafacades.WebServicePackage#getNamespace()
      */
-    protected String handleGetNamespace()
-    {
-        String namespace = (String)this.findTaggedValue(WebServiceGlobals.XML_NAMESPACE);
-        if (StringUtils.isEmpty(namespace))
-        {
-            if (Boolean.valueOf(String.valueOf(this.getConfiguredProperty(REVERSE_NAMESPACE))).booleanValue())
-            {
-                namespace = WebServiceUtils.reversePackage(this.getName());
-            }
-            String namespacePattern = (String)this.getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PATTERN);
-            namespace = MessageFormat.format(
-                namespacePattern,
-                new Object[] {StringUtils.trimToEmpty(namespace)});
-            Boolean addNamespaceBackslash = Boolean.valueOf((String)this.getConfiguredProperty(WebServiceGlobals.ADD_NAMESPACE_BACKSLASH));
-            if (addNamespaceBackslash && !namespace.endsWith(BACKSLASH))
-            {
-                namespace += BACKSLASH;
-            }
-        }
-        return namespace;
-    }
+    // protected String handleGetNamespace()
+    // {
+    //     String namespace = (String)this.findTaggedValue(WebServiceGlobals.XML_NAMESPACE);
+    //     if (StringUtils.isEmpty(namespace))
+    //     {
+    //         if (Boolean.valueOf(String.valueOf(this.getConfiguredProperty(REVERSE_NAMESPACE))).booleanValue())
+    //         {
+    //             namespace = WebServiceUtils.reversePackage(this.getName());
+    //         }
+    //         String namespacePattern = (String)this.getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PATTERN);
+    //         namespace = MessageFormat.format(
+    //             namespacePattern,
+    //             new Object[] {StringUtils.trimToEmpty(namespace)});
+    //         Boolean addNamespaceBackslash = Boolean.valueOf((String)this.getConfiguredProperty(WebServiceGlobals.ADD_NAMESPACE_BACKSLASH));
+    //         if (addNamespaceBackslash && !namespace.endsWith(BACKSLASH))
+    //         {
+    //             namespace += BACKSLASH;
+    //         }
+    //     }
+    //     return namespace;
+    // }
 
     /**
      * @return findTaggedValue(WebServiceGlobals.XML_XMLNS) or WebServiceUtils.getPkgAbbr(this)
      * @see org.andromda.cartridges.webservice.WebServiceUtils#getPkgAbbr(PackageFacade)
      */
-    protected String handleGetXmlns()
-    {
-        WebServiceUtils utils = new WebServiceUtils();
-        String abbr = (String)this.findTaggedValue(WebServiceGlobals.XML_XMLNS);
-        if (StringUtils.isEmpty(abbr))
-        {
-            abbr = utils.getPkgAbbr(this);
-        }
-        else
-        {
-            utils.addPkgAbbr(this, abbr);
-        }
-        return abbr;
-    }
+    // protected String handleGetXmlns()
+    // {
+    //     WebServiceUtils utils = new WebServiceUtils();
+    //     String abbr = (String)this.findTaggedValue(WebServiceGlobals.XML_XMLNS);
+    //     if (StringUtils.isEmpty(abbr))
+    //     {
+    //         abbr = utils.getPkgAbbr(this);
+    //     }
+    //     else
+    //     {
+    //         utils.addPkgAbbr(this, abbr);
+    //     }
+    //     return abbr;
+    // }
 
     /**
      * @return findTaggedValue(WebServiceGlobals.XML_XMLNS) or WebServiceUtils.getPkgAbbr(this)
      * @see org.andromda.cartridges.webservice.WebServiceUtils#getPkgAbbr(PackageFacade)
      */
-    protected String handleGetSchemaLocation()
-    {
-        String packageNamespace = this.getNamespace().substring(7) + ".xsd";
-        packageNamespace = StringUtils.replaceChars(packageNamespace, "/\\", ".");
-        packageNamespace = "xsd/" + StringUtils.replace(packageNamespace, "..", ".");
-        return packageNamespace;
-    }
+    // protected String handleGetSchemaLocation()
+    // {
+    //     String packageNamespace = this.getNamespace().substring(7) + ".xsd";
+    //     packageNamespace = StringUtils.replaceChars(packageNamespace, "/\\", ".");
+    //     packageNamespace = "xsd/" + StringUtils.replace(packageNamespace, "..", ".");
+    //     return packageNamespace;
+    // }
 
     /**
      *
      * @return new WebServiceUtils().getPackageReferences(this, true)
      * @see org.andromda.cartridges.webservice.WebServiceUtils#getPackageReferences(PackageFacade, boolean)
      */
-    protected Collection<PackageFacade> handleGetPackages()
-    {
-        return new WebServiceUtils().getPackageReferences(this, true);
-    }
+    // protected Collection<PackageFacade> handleGetPackages()
+    // {
+    //     return new WebServiceUtils().getPackageReferences(this, true);
+    // }
 
     /**
      * <p>
@@ -167,20 +167,21 @@ public class WebServicePackageLogicImpl
      * @return findTaggedValue(WebServiceGlobals.XML_XMLNS) or WebServiceUtils.getPkgAbbr(this)
      * @see org.andromda.cartridges.webservice.metafacades.WebServicePackage#getPackageAbbr()
      */
-    protected String handleGetPackageAbbr()
-    {
-        WebServiceUtils utils = new WebServiceUtils();
-        String namespace = (String)this.findTaggedValue(WebServiceGlobals.XML_XMLNS);
-        if (StringUtils.isEmpty(namespace))
-        {
-            namespace = utils.getPkgAbbr(this);
-        }
-        else
-        {
-            utils.addPkgAbbr(this, namespace);
-        }
-        return namespace;
-    }
+    // @Override
+    // protected String handleGetPackageAbbr()
+    // {
+    //     WebServiceUtils utils = new WebServiceUtils();
+    //     String namespace = (String)this.findTaggedValue(WebServiceGlobals.XML_XMLNS);
+    //     if (StringUtils.isEmpty(namespace))
+    //     {
+    //         namespace = utils.getPkgAbbr(this);
+    //     }
+    //     else
+    //     {
+    //         utils.addPkgAbbr(this, namespace);
+    //     }
+    //     return namespace;
+    // }
 
     /**
      * <p>
@@ -190,11 +191,12 @@ public class WebServicePackageLogicImpl
      * @see org.andromda.cartridges.webservice.metafacades.WebServicePackage#getPackageReferences()
      * @see org.andromda.cartridges.webservice.WebServiceUtils#getPackageReferences(WebServiceLogicImpl, java.util.Set, String, boolean)
      */
-    protected Collection<PackageFacade> handleGetPackageReferences()
-    {
-        WebServiceUtils utils = new WebServiceUtils();
-        return utils.getPackageReferences(this, true);
-    }
+    // @Override
+    // protected Collection<PackageFacade> handleGetPackageReferences()
+    // {
+    //     WebServiceUtils utils = new WebServiceUtils();
+    //     return utils.getPackageReferences(this, true);
+    // }
 
     /**
      *
@@ -202,104 +204,106 @@ public class WebServicePackageLogicImpl
      * @return WebServiceUtils.getPackageReferences(this, follow)
      * @see org.andromda.cartridges.webservice.metafacades.WebServicePackage#getPackageReferences(boolean)
      */
-    protected Collection<PackageFacade> handleGetPackageReferences(boolean follow)
-    {
-        WebServiceUtils utils = new WebServiceUtils();
-        return utils.getPackageReferences(this, follow);
-    }
+    // @Override
+    // protected Collection<PackageFacade> handleGetPackageReferences(boolean follow)
+    // {
+    //     WebServiceUtils utils = new WebServiceUtils();
+    //     return utils.getPackageReferences(this, follow);
+    // }
 
     /**
      * Allow sorting and use in TreeSet
      * @see Comparable#compareTo(Object)
      */
-    public int compareTo(Object object)
-    {
-        if (object==null || !(object instanceof WebServicePackageLogic))
-        {
-            return -1;
-        }
-        return ((WebServicePackageLogic)object).getFullyQualifiedName().compareTo(this.getFullyQualifiedName());
-    }
+    // @Override
+    // public int compareTo(Object object)
+    // {
+    //     if (object==null || !(object instanceof WebServicePackageLogic))
+    //     {
+    //         return -1;
+    //     }
+    //     return ((WebServicePackageLogic)object).getFullyQualifiedName().compareTo(this.getFullyQualifiedName());
+    // }
 
-    private static List<WebServiceOperation> warnedOperations = new ArrayList<WebServiceOperation>();
+    //private static List<WebServiceOperation> warnedOperations = new ArrayList<WebServiceOperation>();
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServicePackageLogic#handleGetAllowedOperations()
      */
-    @Override
-    protected Collection<WebServiceOperation> handleGetAllowedOperations()
-    {
-        Collection<WebServiceOperation> operations = new WebServiceUtils().getAllowedOperations(this);
-        // Log the actual offending operation name, since validator only shows the package name
-        String webserviceStack = String.valueOf(this.getConfiguredProperty("webserviceStack"));
-        if (webserviceStack.equals("cxf") || webserviceStack.equals("jaxws") || webserviceStack.equals("spring"))
-        {
-            for (WebServiceOperation operation : operations)
-            {
-                int matchCount = 0;
-                String operationName = operation.getName();
-                for (WebServiceOperation operationToCheck : operations)
-                {
-                    if (operationName.equals(operationToCheck.getName()))
-                    {
-                        matchCount++;
-                    }
-                }
-                if (matchCount > 1 && !warnedOperations.contains(operation))
-                {
-                    warnedOperations.add(operation);
-                    logger.warn(operation.getFullyQualifiedName() + " Duplicate webservice operation in package " + this.getFullyQualifiedName());
-                }
-            }
-        }
-        return operations;
-    }
+    // @Override
+    // protected Collection<WebServiceOperation> getAllowedOperations()
+    // {
+    //     Collection<WebServiceOperation> operations = new WebServiceUtils().getAllowedOperations(this);
+    //     // Log the actual offending operation name, since validator only shows the package name
+    //     String webserviceStack = String.valueOf(this.getConfiguredProperty("webserviceStack"));
+    //     if (webserviceStack.equals("cxf") || webserviceStack.equals("jaxws") || webserviceStack.equals("spring"))
+    //     {
+    //         for (WebServiceOperation operation : operations)
+    //         {
+    //             int matchCount = 0;
+    //             String operationName = operation.getName();
+    //             for (WebServiceOperation operationToCheck : operations)
+    //             {
+    //                 if (operationName.equals(operationToCheck.getName()))
+    //                 {
+    //                     matchCount++;
+    //                 }
+    //             }
+    //             if (matchCount > 1 && !warnedOperations.contains(operation))
+    //             {
+    //                 warnedOperations.add(operation);
+    //                 logger.warn(operation.getFullyQualifiedName() + " Duplicate webservice operation in package " + this.getFullyQualifiedName());
+    //             }
+    //         }
+    //     }
+    //     return operations;
+    // }
 
-    private static List<String> checkedPackages = new ArrayList<String>();
+    //private static List<String> checkedPackages = new ArrayList<String>();
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServicePackageLogic#handleGetAllowedOperations()
      */
-    @Override
-    protected boolean handleIsMissingXmlSchema()
-    {
-        boolean result = false;
-        // If the cartridge is configured to use CXF or JAX-WS, and schemas are imported...
-        String webserviceStack = String.valueOf(this.getConfiguredProperty("webserviceStack"));
-        String importedSchema = String.valueOf(this.getConfiguredProperty("importedXSD"));
-        if (importedSchema.equals("true") && (webserviceStack.equals("cxf") || webserviceStack.equals("jaxws") || webserviceStack.equals("spring")))
-        {
-            int serviceCount = this.getAllowedOperations().size();
-            // Check this package is it contains services
-            if (serviceCount > 0 && !this.hasStereotype(UMLProfile.STEREOTYPE_XMLSCHEMA))
-            {
-                // the packages containing the webservices must be labeled with XmlSchema
-                result = true;
-                if (!checkedPackages.contains(this.getFullyQualifiedName()))
-                {
-                    // Only display the error message once for each referenced package
-                    checkedPackages.add(this.getFullyQualifiedName());
-                }
-            }
-            // Check packages referenced by this package
-            if (serviceCount > 0 || this.hasStereotype(UMLProfile.STEREOTYPE_XMLSCHEMA))
-            {
-                Collection<PackageFacade> references = new WebServiceUtils().getPackageReferences(this, true);
-                for (PackageFacade pkg : references)
-                {
-                    if (!pkg.hasStereotype(UMLProfile.STEREOTYPE_XMLSCHEMA))
-                    {
-                        result = true;
-                        if (!checkedPackages.contains(pkg.getFullyQualifiedName()))
-                        {
-                            // Only display the error message once for each referenced package
-                            checkedPackages.add(pkg.getFullyQualifiedName());
-                            logger.warn(pkg.getFullyQualifiedName() + " package is missing XmlSchema stereotype");
-                        }
-                    }
-                }
-            }
-        }
-        return result;
-    }
+    //@Override
+    // protected boolean handleIsMissingXmlSchema()
+    // {
+    //     boolean result = false;
+    //     // If the cartridge is configured to use CXF or JAX-WS, and schemas are imported...
+    //     String webserviceStack = String.valueOf(this.getConfiguredProperty("webserviceStack"));
+    //     String importedSchema = String.valueOf(this.getConfiguredProperty("importedXSD"));
+    //     if (importedSchema.equals("true") && (webserviceStack.equals("cxf") || webserviceStack.equals("jaxws") || webserviceStack.equals("spring")))
+    //     {
+    //         int serviceCount = this.getAllowedOperations().size();
+    //         // Check this package is it contains services
+    //         if (serviceCount > 0 && !this.hasStereotype(UMLProfile.STEREOTYPE_XMLSCHEMA))
+    //         {
+    //             // the packages containing the webservices must be labeled with XmlSchema
+    //             result = true;
+    //             if (!checkedPackages.contains(this.getFullyQualifiedName()))
+    //             {
+    //                 // Only display the error message once for each referenced package
+    //                 checkedPackages.add(this.getFullyQualifiedName());
+    //             }
+    //         }
+    //         // Check packages referenced by this package
+    //         if (serviceCount > 0 || this.hasStereotype(UMLProfile.STEREOTYPE_XMLSCHEMA))
+    //         {
+    //             Collection<PackageFacade> references = new WebServiceUtils().getPackageReferences(this, true);
+    //             for (PackageFacade pkg : references)
+    //             {
+    //                 if (!pkg.hasStereotype(UMLProfile.STEREOTYPE_XMLSCHEMA))
+    //                 {
+    //                     result = true;
+    //                     if (!checkedPackages.contains(pkg.getFullyQualifiedName()))
+    //                     {
+    //                         // Only display the error message once for each referenced package
+    //                         checkedPackages.add(pkg.getFullyQualifiedName());
+    //                         logger.warn(pkg.getFullyQualifiedName() + " package is missing XmlSchema stereotype");
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return result;
+    // }
 
     /**
      * <p><b>Constraint:</b> org::andromda::cartridges::webservice::metafacades::WebServicePackage::package must be lowercase</p>
