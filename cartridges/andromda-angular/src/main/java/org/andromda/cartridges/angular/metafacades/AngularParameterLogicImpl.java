@@ -107,47 +107,47 @@ public class AngularParameterLogicImpl
      * @return tableColumnActions
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTableColumnActions(String)
      */
-    // protected List<FrontEndAction> handleGetTableColumnActions(final String columnName)
-    // {
-    //     final List<FrontEndAction> columnActions = new ArrayList<FrontEndAction>();
+    protected List<FrontEndAction> handleGetTableColumnActions(final String columnName)
+    {
+        final List<FrontEndAction> columnActions = new ArrayList<FrontEndAction>();
 
-    //     if (columnName != null)
-    //     {
-    //         final Set<FrontEndAction> actions = new LinkedHashSet<FrontEndAction>(this.getTableHyperlinkActions());
-    //         actions.addAll(this.getTableFormActions());
-    //         for (final FrontEndAction action : actions)
-    //         {
-    //             if (columnName.equals(action.getTableLinkColumnName()))
-    //             {
-    //                 columnActions.add(action);
-    //             }
-    //         }
-    //     }
+        if (columnName != null)
+        {
+            final Set<FrontEndAction> actions = new LinkedHashSet<FrontEndAction>(this.getTableHyperlinkActions());
+            actions.addAll(this.getTableFormActions());
+            for (final FrontEndAction action : actions)
+            {
+                if (columnName.equals(action.getTableLinkColumnName()))
+                {
+                    columnActions.add(action);
+                }
+            }
+        }
 
-    //     return columnActions;
-    // }
+        return columnActions;
+    }
 
     /**
      * @return maxLength
      * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getMaxLength()
      */
-    // protected String handleGetMaxLength()
-    // {
-    //     final Collection<Collection> vars=getValidatorVars();
-    //     if(vars == null)
-    //     {
-    //         return null;
-    //     }
-    //     for(Iterator<Collection> it=vars.iterator(); it.hasNext();)
-    //     {
-    //         final Object[] values=(it.next()).toArray();
-    //         if("maxlength".equals(values[0]))
-    //         {
-    //             return values[1].toString();
-    //         }
-    //     }
-    //     return null;
-    // }
+    protected String handleGetMaxLength()
+    {
+        final Collection<Collection> vars=getValidatorVars();
+        if(vars == null)
+        {
+            return null;
+        }
+        for(Iterator<Collection> it=vars.iterator(); it.hasNext();)
+        {
+            final Object[] values=(it.next()).toArray();
+            if("maxlength".equals(values[0]))
+            {
+                return values[1].toString();
+            }
+        }
+        return null;
+    }
 
     //to be used in the range validator: "range - 1000" or "range 20 -".
     /** - */

@@ -44,7 +44,7 @@ public abstract class ${controller.name}Base
 #if($showElse)
         else
 #end
-#set ($viewPath = "${controller.restPath}/$thymeleafUtils.toWebResourceName(${view.name})")
+#set ($viewPath = "${view.path}.html")
         if("${viewPath}".equals(forward))
         {
 #foreach ($viewAction in $view.formActions)
@@ -187,11 +187,7 @@ $action.trigger.getDocumentation("     * ")
 #if($targetController)
 #set($tmp = $controllers.add($action.target.targetElement.controller))
 #end
-<<<<<<< HEAD
-        forward =#if($targetController) "${action.target.targetElement.path}"#else closeDialog()#end;
-=======
         forward =#if($targetController) "${action.target.targetElement.controller.restPath}"#if ($action.finalStateTarget && $formPopulationOperationRequired) + params#end#else closeDialog()#end;
->>>>>>> afbe1cc1b... use case parameters
         
 #else
 #if ($formPopulationOperationRequired)
@@ -227,8 +223,8 @@ $action.trigger.getDocumentation("     * ")
 #end
 #saveMessages($action "        ")
 #if ($formPopulationOperationRequired)
-#set ($viewPath = "/${action.controller.restPath}/$thymeleafUtils.toWebResourceName(${action.source.name})")
-        populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"${action.source.path}.html"#end, forward, form);
+#set ($viewPath = "${action.source.path}.html")
+        populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"${viewPath}"#end, forward, form);
 #foreach($field in $action.formFields)
 #if(!$field.actionParameter)
 

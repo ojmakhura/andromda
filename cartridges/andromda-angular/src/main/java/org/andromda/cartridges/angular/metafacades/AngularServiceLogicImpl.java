@@ -1321,7 +1321,7 @@ public class AngularServiceLogicImpl
 
     /**
      * @return packages from this.getAllowedOperations()
-     * @see org.andromda.cartridges.WebServiceMetafacadeUtils.WebServiceUtils#getPackages(WebServiceLogicImpl, Set, boolean)
+     * @see org.andromda.cartridges.webservice.WebServiceUtils#getPackages(WebServiceLogicImpl, Set, boolean)
      */
     public Collection<PackageFacade> getPackages() {
         return new AngularServiceUtils().getPackages(this, (Set) this.getAllowedOperations(), true);

@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 
-import org.andromda.cartridges.web.CartridgeWebUtils;
 import org.andromda.cartridges.webservice.WebServiceGlobals;
 import org.andromda.cartridges.webservice.WebServiceUtils;
 import org.andromda.core.metafacade.MetafacadeBase;
@@ -199,66 +198,65 @@ public class WebServiceOperationLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#handleGetParameterStyle()
      */
-    // @Override
-    // protected String handleGetParameterStyle()
-    // {
-    //     String style = (String)this.findTaggedValue(WebServiceGlobals.WEB_SERVICE_PARAMETER_STYLE);
-    //     if (StringUtils.isEmpty(style) || style.equals(DEFAULT))
-    //     {
-    //         style = String.valueOf(this.getConfiguredProperty(PROPERTY_DEFAULT_PARAMETER_STYLE));
-    //     }
-    //     if (StringUtils.isEmpty(style) || style.equals(DEFAULT))
-    //     {
-    //         style = "wrapped";
-    //     }
-    //     return style;
-    // }
-
+    @Override
+    protected String handleGetParameterStyle()
+    {
+        String style = (String)this.findTaggedValue(WebServiceGlobals.WEB_SERVICE_PARAMETER_STYLE);
+        if (StringUtils.isEmpty(style) || style.equals(DEFAULT))
+        {
+            style = String.valueOf(this.getConfiguredProperty(PROPERTY_DEFAULT_PARAMETER_STYLE));
+        }
+        if (StringUtils.isEmpty(style) || style.equals(DEFAULT))
+        {
+            style = "wrapped";
+        }
+        return style;
+    }
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestCacheType()
      */
-    // @Override
-    // protected String handleGetRestCacheType()
-    // {
-    //     String cacheType = (String)this.findTaggedValue(WebServiceGlobals.CACHE_TYPE);
-    //     if (!this.isRest() || StringUtils.isBlank(cacheType) || cacheType.equals(DEFAULT))
-    //     {
-    //         cacheType = EMPTY_STRING;
-    //     }
-    //     return cacheType;
-    // }
+    @Override
+    protected String handleGetRestCacheType()
+    {
+        String cacheType = (String)this.findTaggedValue(WebServiceGlobals.CACHE_TYPE);
+        if (!this.isRest() || StringUtils.isBlank(cacheType) || cacheType.equals(DEFAULT))
+        {
+            cacheType = EMPTY_STRING;
+        }
+        return cacheType;
+    }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestConsumes()
      */
-    // @Override
-    // protected String handleGetRestConsumes()
-    // {
-    //     String consumes = (String)this.findTaggedValue(WebServiceGlobals.REST_CONSUMES);
-    //     if (!this.isRest() || StringUtils.isBlank(consumes) || consumes.equals(DEFAULT))
-    //     {
-    //         consumes = EMPTY_STRING;
-    //     }
-    //     else
-    //     {
-    //         consumes = translateMediaType(consumes);
-    //     }
-    //     return consumes;
-    // }
+    @Override
+    protected String handleGetRestConsumes()
+    {
+        String consumes = (String)this.findTaggedValue(WebServiceGlobals.REST_CONSUMES);
+        if (!this.isRest() || StringUtils.isBlank(consumes) || consumes.equals(DEFAULT))
+        {
+            consumes = EMPTY_STRING;
+        }
+        else
+        {
+            consumes = translateMediaType(consumes);
+        }
+        return consumes;
+    }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestPartType()
      */
-    // @Override
-    // protected String handleGetRestPartType()
-    // {
-    //     String partType = (String)this.findTaggedValue(WebServiceGlobals.REST_PART_TYPE);
-    //     if (!this.isRest() || StringUtils.isBlank(partType) || partType.equals(DEFAULT))
-    //     {
-    //         partType = EMPTY_STRING;
-    //     }
-    //     return partType;
-    // }
+    @Override
+    protected String handleGetRestPartType()
+    {
+        String partType = (String)this.findTaggedValue(WebServiceGlobals.REST_PART_TYPE);
+        if (!this.isRest() || StringUtils.isBlank(partType) || partType.equals(DEFAULT))
+        {
+            partType = EMPTY_STRING;
+        }
+        return partType;
+    }
 
     private static final String SLASH = "/";
     private static final String QUOTE = "\"";
@@ -268,131 +266,127 @@ public class WebServiceOperationLogicImpl
      * Create default REST URL of /methodname/parameter/{parameter}/
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestPath()
      */
-    // @Override
-    // protected String handleGetRestPath()
-    // {
-    //     String path = (String) this.findTaggedValue(WebServiceGlobals.REST_PATH);
-    //     if(path == null) {
-    //         path = CartridgeWebUtils.toWebResourceName(this.getName());
-    //     }
+    @Override
+    protected String handleGetRestPath()
+    {
+        String path = Objects.toString(this.findTaggedValue(WebServiceGlobals.REST_PATH), "");
+        if(StringUtils.isBlank(path)) {
+            path = "";
+        }
 
-    //     if(path.equals("/")) {
-    //         path = "";
-    //     }
+        StringBuilder builder = new StringBuilder();
+        builder.append(path);
 
-    //     StringBuilder builder = new StringBuilder();
-    //     builder.append(path);
+        for(ParameterFacade parameter : this.getArguments()) {
+            WebServiceParameter param = (WebServiceParameter)parameter;
+            String paramType = param.getRestParamType();
+            if(paramType.contains("PathParam")) {
+                builder.append("/");
+                builder.append(parameter.getName());
+                builder.append("/{");
+                builder.append(parameter.getName());
+                builder.append("}");
+            }
+        }
 
-    //     for(ParameterFacade parameter : this.getArguments()) {
-    //         WebServiceParameter param = (WebServiceParameter)parameter;
-    //         String paramType = param.getRestParamType();
-    //         if(paramType.contains("PathParam")) {
-    //             builder.append("/");
-    //             builder.append(parameter.getName());
-    //             builder.append("/{");
-    //             builder.append(parameter.getName());
-    //             builder.append("}");
-    //         }
-    //     }
-
-    //     return builder.toString();
-    // }
+        return builder.toString();
+    }
 
     /**
      * Create test REST URL of /methodname/parameter/{parameter}/
      * Substitutes test values for parameters
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestPath()
      */
-    // @Override
-    // protected String handleGetRestTestPath()
-    // {
-    //     String path = (String)this.findTaggedValue(WebServiceGlobals.REST_PATH);
-    //     StringBuilder pathBuffer = new StringBuilder();
-    //     WebServiceLogic service = (WebServiceLogic)this.getService();
-    //     String servicePath = service.getRestPath();
-    //     WebServiceUtils wsutils = new WebServiceUtils();
-    //     if (!this.isRest() || StringUtils.isBlank(path) || path.equals(DEFAULT))
-    //     {
-    //         pathBuffer.append(SLASH).append(this.getName().toLowerCase()).append(SLASH);
-    //         Iterator<ParameterFacade> parameters = this.getArguments().iterator();
-    //         while (parameters.hasNext())
-    //         {
-    //             ParameterFacade param = parameters.next();
-    //             //System.out.println("handleGetRestTestPath param=" + param.getName() + " servicePath=" + servicePath + " value=" + wsutils.createConstructor(param));
-    //             if (WebServiceUtils.isSimpleType(param))
-    //             {
-    //                 String paramValue = wsutils.createConstructor(param);
-    //                 // Only use the value if constructor returns new Class()
-    //                 if (paramValue.indexOf('(') > 0)
-    //                 {
-    //                     paramValue = paramValue.substring(paramValue.indexOf('(')+1, paramValue.indexOf(')'));
-    //                 }
-    //                 pathBuffer.append(param.getName()).append(SLASH).append(paramValue).append(SLASH);
-    //             }
-    //         }
-    //         path = pathBuffer.toString();
-    //     }
-    //     else
-    //     {
-    //         if (StringUtils.isBlank(path))
-    //         {
-    //             path = EMPTY_STRING;
-    //         }
-    //         // StringBuffer doesn't have replace(String, String) API
-    //         path = pathBuffer.append(path).toString();
-    //         Iterator<ParameterFacade> parameters = this.getArguments().iterator();
-    //         while (parameters.hasNext())
-    //         {
-    //             ParameterFacade param = parameters.next();
-    //             if (WebServiceUtils.isSimpleType(param))
-    //             {
-    //                 String paramValue = wsutils.createConstructor(param).replace("\"", "");
-    //                 if (paramValue.indexOf('(') > 0)
-    //                 {
-    //                     paramValue = paramValue.substring(paramValue.indexOf('(')+1, paramValue.indexOf(')'));
-    //                 }
-    //                 path = StringUtils.replace(path, LBRACKET + param.getName() + RBRACKET, paramValue);
-    //             }
-    //             //System.out.println("handleGetRestTestPath param=" + param.getName() + " servicePath=" + servicePath + " value=" + wsutils.createConstructor(param) + " path=" + path);
-    //         }
-    //     }
-    //     path = servicePath + path;
-    //     path = path.replaceAll("\"", "");
-    //     path = path.replaceAll("//", "/");
-    //     return path;
-    // }
+    @Override
+    protected String handleGetRestTestPath()
+    {
+        String path = (String)this.findTaggedValue(WebServiceGlobals.REST_PATH);
+        StringBuilder pathBuffer = new StringBuilder();
+        WebServiceLogic service = (WebServiceLogic)this.getService();
+        String servicePath = service.getRestPath();
+        WebServiceUtils wsutils = new WebServiceUtils();
+        if (!this.isRest() || StringUtils.isBlank(path) || path.equals(DEFAULT))
+        {
+            pathBuffer.append(SLASH).append(this.getName().toLowerCase()).append(SLASH);
+            Iterator<ParameterFacade> parameters = this.getArguments().iterator();
+            while (parameters.hasNext())
+            {
+                ParameterFacade param = parameters.next();
+                //System.out.println("handleGetRestTestPath param=" + param.getName() + " servicePath=" + servicePath + " value=" + wsutils.createConstructor(param));
+                if (WebServiceUtils.isSimpleType(param))
+                {
+                    String paramValue = wsutils.createConstructor(param);
+                    // Only use the value if constructor returns new Class()
+                    if (paramValue.indexOf('(') > 0)
+                    {
+                        paramValue = paramValue.substring(paramValue.indexOf('(')+1, paramValue.indexOf(')'));
+                    }
+                    pathBuffer.append(param.getName()).append(SLASH).append(paramValue).append(SLASH);
+                }
+            }
+            path = pathBuffer.toString();
+        }
+        else
+        {
+            if (StringUtils.isBlank(path))
+            {
+                path = EMPTY_STRING;
+            }
+            // StringBuffer doesn't have replace(String, String) API
+            path = pathBuffer.append(path).toString();
+            Iterator<ParameterFacade> parameters = this.getArguments().iterator();
+            while (parameters.hasNext())
+            {
+                ParameterFacade param = parameters.next();
+                if (WebServiceUtils.isSimpleType(param))
+                {
+                    String paramValue = wsutils.createConstructor(param).replace("\"", "");
+                    if (paramValue.indexOf('(') > 0)
+                    {
+                        paramValue = paramValue.substring(paramValue.indexOf('(')+1, paramValue.indexOf(')'));
+                    }
+                    path = StringUtils.replace(path, LBRACKET + param.getName() + RBRACKET, paramValue);
+                }
+                //System.out.println("handleGetRestTestPath param=" + param.getName() + " servicePath=" + servicePath + " value=" + wsutils.createConstructor(param) + " path=" + path);
+            }
+        }
+        path = servicePath + path;
+        path = path.replaceAll("\"", "");
+        path = path.replaceAll("//", "/");
+        return path;
+    }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestProduces()
      */
-    // @Override
-    // protected String handleGetRestProduces()
-    // {
-    //     String produces = (String)this.findTaggedValue(WebServiceGlobals.REST_PRODUCES);
-    //     // default types: text for simple types, XML for complex types
-    //     if (!this.isRest() || produces == DEFAULT)
-    //     {
-    //         // See if the service class has REST_produces attribute set...
-    //         produces = (String)this.getOwner().findTaggedValue(WebServiceGlobals.REST_PRODUCES);
-    //         if (produces == DEFAULT)
-    //         {
-    //             // Default produces type for simple or complex return types
-    //             if (WebServiceUtils.isSimpleType(this.getReturnType()))
-    //             {
-    //                 produces = "text/plain";
-    //             }
-    //             else
-    //             {
-    //                 produces = "application/xml";
-    //             }
-    //         }
-    //     }
-    //     else
-    //     {
-    //         produces = translateMediaType(produces);
-    //     }
-    //     return produces;
-    // }
+    @Override
+    protected String handleGetRestProduces()
+    {
+        String produces = (String)this.findTaggedValue(WebServiceGlobals.REST_PRODUCES);
+        // default types: text for simple types, XML for complex types
+        if (!this.isRest() || produces == DEFAULT)
+        {
+            // See if the service class has REST_produces attribute set...
+            produces = (String)this.getOwner().findTaggedValue(WebServiceGlobals.REST_PRODUCES);
+            if (produces == DEFAULT)
+            {
+                // Default produces type for simple or complex return types
+                if (WebServiceUtils.isSimpleType(this.getReturnType()))
+                {
+                    produces = "text/plain";
+                }
+                else
+                {
+                    produces = "application/xml";
+                }
+            }
+        }
+        else
+        {
+            produces = translateMediaType(produces);
+        }
+        return produces;
+    }
 
     /**
      * Returns map of ProviderMediaType enumeration values to Provider/Consumer text
@@ -448,39 +442,39 @@ public class WebServiceOperationLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestProvider()
      */
-    // @Override
-    // protected String handleGetRestProvider()
-    // {
-    //     String provider = (String)this.findTaggedValue(WebServiceGlobals.REST_PROVIDER);
-    //     if (!this.isRest() || StringUtils.isBlank(provider) || provider.equals(DEFAULT))
-    //     {
-    //         provider = EMPTY_STRING;
-    //     }
-    //     return provider;
-    // }
+    @Override
+    protected String handleGetRestProvider()
+    {
+        String provider = (String)this.findTaggedValue(WebServiceGlobals.REST_PROVIDER);
+        if (!this.isRest() || StringUtils.isBlank(provider) || provider.equals(DEFAULT))
+        {
+            provider = EMPTY_STRING;
+        }
+        return provider;
+    }
 
     private static final String POST = "@javax.ws.rs.POST";
     private static final String AT = "@javax.ws.rs.";
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestRequestType()
      */
-    // @Override
-    // protected String handleGetRestRequestType()
-    // {
-    //     String requestType = (String)this.findTaggedValue(WebServiceGlobals.REST_REQUEST_TYPE);
-    //     if (StringUtils.isBlank(requestType) || requestType.equals(DEFAULT))
-    //     {
-    //         requestType = POST;
-    //     }
-    //     else if (!requestType.startsWith(AT))
-    //     {
-    //         requestType = AT + requestType;
-    //     }
-    //     return requestType;
-    // }
+    @Override
+    protected String handleGetRestRequestType()
+    {
+        String requestType = (String)this.findTaggedValue(WebServiceGlobals.REST_REQUEST_TYPE);
+        if (StringUtils.isBlank(requestType) || requestType.equals(DEFAULT))
+        {
+            requestType = POST;
+        }
+        else if (!requestType.startsWith(AT))
+        {
+            requestType = AT + requestType;
+        }
+        return requestType;
+    }
     
     @Override
-    public String getRestResponseStatus() {
+    protected String handleGetRestResponseStatus() {
         String responseStatus = (String) this.findTaggedValue(WebServiceGlobals.REST_RESPONSE_STATUS);
         if(responseStatus == null) {
             return "";
@@ -492,103 +486,103 @@ public class WebServiceOperationLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRestRequestType()
      */
-    // @Override
-    // protected int handleGetRestSuspend()
-    // {
-    //     String suspend = (String)this.findTaggedValue(WebServiceGlobals.REST_SUSPEND);
-    //     if (!this.isRest() || StringUtils.isBlank(suspend) || suspend.equals(DEFAULT) || !StringUtils.isNumeric(suspend))
-    //     {
-    //         return 0;
-    //     }
-    //     return Integer.parseInt(suspend);
-    // }
+    @Override
+    protected int handleGetRestSuspend()
+    {
+        String suspend = (String)this.findTaggedValue(WebServiceGlobals.REST_SUSPEND);
+        if (!this.isRest() || StringUtils.isBlank(suspend) || suspend.equals(DEFAULT) || !StringUtils.isNumeric(suspend))
+        {
+            return 0;
+        }
+        return Integer.parseInt(suspend);
+    }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRolesAllowed()
      */
-    // @Override
-    // protected String handleGetRolesAllowed()
-    // {
-    //     String rolesAllowed = (String)this.findTaggedValue(WebServiceGlobals.REST_ROLES_ALLOWED);
-    //     if (!this.isRest() || StringUtils.isBlank(rolesAllowed) || rolesAllowed.equals(DEFAULT))
-    //     {
-    //         rolesAllowed = EMPTY_STRING;
-    //     }
-    //     return rolesAllowed;
-    // }
+    @Override
+    protected String handleGetRolesAllowed()
+    {
+        String rolesAllowed = (String)this.findTaggedValue(WebServiceGlobals.REST_ROLES_ALLOWED);
+        if (!this.isRest() || StringUtils.isBlank(rolesAllowed) || rolesAllowed.equals(DEFAULT))
+        {
+            rolesAllowed = EMPTY_STRING;
+        }
+        return rolesAllowed;
+    }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#handleIsRest()
      */
-    // @Override
-    // protected boolean handleIsRest()
-    // {
-    //     String rest = (String)this.findTaggedValue(WebServiceGlobals.REST);
-    //     if (StringUtils.isBlank(rest) || rest.equals(DEFAULT))
-    //     {
-    //         rest = (String)this.getOwner().findTaggedValue(WebServiceGlobals.REST);
-    //         if (StringUtils.isBlank(rest) || rest.equals(DEFAULT))
-    //         {
-    //             rest = BOOLEAN_FALSE;
-    //         }
-    //     }
-    //     return Boolean.valueOf(rest);
-    // }
+    @Override
+    protected boolean handleIsRest()
+    {
+        String rest = (String)this.findTaggedValue(WebServiceGlobals.REST);
+        if (StringUtils.isBlank(rest) || rest.equals(DEFAULT))
+        {
+            rest = (String)this.getOwner().findTaggedValue(WebServiceGlobals.REST);
+            if (StringUtils.isBlank(rest) || rest.equals(DEFAULT))
+            {
+                rest = BOOLEAN_FALSE;
+            }
+        }
+        return Boolean.valueOf(rest);
+    }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#getRolesAllowed()
      */
-    // // @Override
-    // // protected boolean handleIsRestEncoded()
-    // // {
-    // //     String restEncoded = (String)this.findTaggedValue(WebServiceGlobals.REST_ENCODED);
-    // //     if (!this.isRest() || StringUtils.isBlank(restEncoded) || restEncoded.equals(DEFAULT))
-    // //     {
-    // //         restEncoded = BOOLEAN_FALSE;
-    // //     }
-    // //     return Boolean.valueOf(restEncoded);
-    // // }
+    @Override
+    protected boolean handleIsRestEncoded()
+    {
+        String restEncoded = (String)this.findTaggedValue(WebServiceGlobals.REST_ENCODED);
+        if (!this.isRest() || StringUtils.isBlank(restEncoded) || restEncoded.equals(DEFAULT))
+        {
+            restEncoded = BOOLEAN_FALSE;
+        }
+        return Boolean.valueOf(restEncoded);
+    }
 
-    // /**
-    //  * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#isRestAtom()
-    //  */
-    // @Override
-    // protected boolean handleIsRestAtom()
-    // {
-    //     WebServiceLogic service = (WebServiceLogic)this.getService();
-    //     boolean rest = this.isRest();
-    //     boolean restAtom = false;
-    //     if (rest)
-    //     {
-    //         restAtom = this.getRestProduces().contains("atom");
-    //         if (!restAtom)
-    //         {
-    //             restAtom = service.getRestProduces().indexOf("atom") > -1;
-    //         }
-    //     }
-    //     return restAtom;
-    // }
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#isRestAtom()
+     */
+    @Override
+    protected boolean handleIsRestAtom()
+    {
+        WebServiceLogic service = (WebServiceLogic)this.getService();
+        boolean rest = this.isRest();
+        boolean restAtom = false;
+        if (rest)
+        {
+            restAtom = this.getRestProduces().contains("atom");
+            if (!restAtom)
+            {
+                restAtom = service.getRestProduces().indexOf("atom") > -1;
+            }
+        }
+        return restAtom;
+    }
 
     /**
      * Return the value from WebServiceOperation andromda_webservice_operationName, or just the operation.name
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#handleGetOperationName()
      */
-    // @Override
-    // protected String handleGetOperationName()
-    // {
-    //     String serviceName = (String)this.findTaggedValue(WebServiceGlobals.WEB_SERVICE_NAME);
-    //     if (StringUtils.isBlank(serviceName))
-    //     {
-    //         serviceName = this.getName();
-    //     }
-    //     return serviceName;
-    // }
+    @Override
+    protected String handleGetOperationName()
+    {
+        String serviceName = (String)this.findTaggedValue(WebServiceGlobals.WEB_SERVICE_NAME);
+        if (StringUtils.isBlank(serviceName))
+        {
+            serviceName = this.getName();
+        }
+        return serviceName;
+    }
 
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#handleIsWebFaultOnAllExceptions()
      */
     @Override
-    public boolean isWebFaultOnAllExceptions()
+    protected boolean handleIsWebFaultOnAllExceptions()
     {
         boolean result = true;
         String webserviceStack = String.valueOf(this.getConfiguredProperty("webserviceStack"));
@@ -611,11 +605,11 @@ public class WebServiceOperationLogicImpl
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#handleGetWebServicePackage()
      */
-    // @Override
-    // protected ModelElementFacade handleGetWebServicePackage()
-    // {
-    //     return this.getOwner().getPackage();
-    // }
+    @Override
+    protected ModelElementFacade handleGetWebServicePackage()
+    {
+        return this.getOwner().getPackage();
+    }
 
     /**
      * <p><b>Constraint:</b> org::andromda::cartridges::webservice::metafacades::WebServiceOperation::operation must start with a lowercase letter</p>
@@ -623,42 +617,42 @@ public class WebServiceOperationLogicImpl
      * @param validationMessages Collection<ModelValidationMessage>
      * @see MetafacadeBase#validateInvariants(Collection validationMessages)
      */
-    // @Override
-    // public void validateInvariants(Collection<ModelValidationMessage> validationMessages)
-    // {
-    //     super.validateInvariants(validationMessages);
-    //     try
-    //     {
-    //         final Object contextElement = this.THIS();
-    //         final String name = (String)OCLIntrospector.invoke(contextElement,"name");
-    //         boolean constraintValid = OCLExpressions.equal(
-    //             name.substring(0,1).toLowerCase(),
-    //             name.substring(0,1));
-    //         if (!constraintValid)
-    //         {
-    //             validationMessages.add(
-    //                 new ModelValidationMessage(
-    //                     (MetafacadeBase)contextElement ,
-    //                     "org::andromda::cartridges::webservice::metafacades::WebServiceOperation::operation must start with a lowercase letter",
-    //                     "Operation name must start with a lowercase letter."));
-    //         }
-    //     }
-    //     catch (Throwable th)
-    //     {
-    //         Throwable cause = th.getCause();
-    //         int depth = 0; // Some throwables have infinite recursion
-    //         while (cause != null && depth < 7)
-    //         {
-    //             th = cause;
-    //             depth++;
-    //         }
-    //         logger.error("Error validating constraint 'org::andromda::cartridges::webservice::WebServicePackage::operation must start with a lowercase letter' ON "
-    //             + this.THIS().toString() + ": " + th.getMessage(), th);
-    //     }
-    // }
+    @Override
+    public void validateInvariants(Collection<ModelValidationMessage> validationMessages)
+    {
+        super.validateInvariants(validationMessages);
+        try
+        {
+            final Object contextElement = this.THIS();
+            final String name = (String)OCLIntrospector.invoke(contextElement,"name");
+            boolean constraintValid = OCLExpressions.equal(
+                name.substring(0,1).toLowerCase(),
+                name.substring(0,1));
+            if (!constraintValid)
+            {
+                validationMessages.add(
+                    new ModelValidationMessage(
+                        (MetafacadeBase)contextElement ,
+                        "org::andromda::cartridges::webservice::metafacades::WebServiceOperation::operation must start with a lowercase letter",
+                        "Operation name must start with a lowercase letter."));
+            }
+        }
+        catch (Throwable th)
+        {
+            Throwable cause = th.getCause();
+            int depth = 0; // Some throwables have infinite recursion
+            while (cause != null && depth < 7)
+            {
+                th = cause;
+                depth++;
+            }
+            logger.error("Error validating constraint 'org::andromda::cartridges::webservice::WebServicePackage::operation must start with a lowercase letter' ON "
+                + this.THIS().toString() + ": " + th.getMessage(), th);
+        }
+    }
 
     @Override
-    public String getPreAuthorize() {
+    protected String handleGetPreAuthorize() {
 
         String preAuth = (String)this.findTaggedValue(WebServiceGlobals.REST_PRE_AUTHORIZE);
         if (!this.isRest() || StringUtils.isBlank(preAuth) || preAuth.equals(DEFAULT))
@@ -669,7 +663,7 @@ public class WebServiceOperationLogicImpl
     }
 
     @Override
-    public String getPostAuthorize() {
+    protected String handleGetPostAuthorize() {
         String postAuth = (String)this.findTaggedValue(WebServiceGlobals.REST_PRE_AUTHORIZE);
         if (!this.isRest() || StringUtils.isBlank(postAuth) || postAuth.equals(DEFAULT))
         {
