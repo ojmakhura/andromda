@@ -60,7 +60,7 @@ ${ident}<th th:text="#{$column.messageKey}"></th>
 #else
 #set($columnName = $column)
 #end
-                <th th:text="#{$table.getTableColumnMessageKey($columnName)}"></th>
+                <th th:text="#{$column.messageKey}"></th>
 #end
 #foreach ($action in $table.tableFormActions)
 #if (!$action.tableLinkColumnName)
