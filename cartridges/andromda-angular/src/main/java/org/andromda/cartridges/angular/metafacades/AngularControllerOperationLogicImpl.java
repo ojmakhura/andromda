@@ -124,7 +124,7 @@ public class AngularControllerOperationLogicImpl
         signature.append(")");
         
         final ModelElementFacade returnType = this.getReturnType();
-        signature.append(returnType != null ? ": " + AngularUtils.getDatatype(returnType.getFullyQualifiedName()) : ": void");
+        signature.append(returnType != null ? ": " + AngularUtils.getDatatype(this.getGetterSetterReturnTypeName()) : ": void");
         return signature.toString();
     }
 }

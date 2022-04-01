@@ -21,6 +21,7 @@ import org.andromda.cartridges.angular.AngularUtils;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
@@ -30,10 +31,15 @@ import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.TypeMappings;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Predicate;
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -65,733 +71,6 @@ public class AngularParameterLogicImpl
         return (super.isTable() || this.isPageableTable()) && !this.isSelectable()
             && !this.isInputTable() && !this.isInputHidden();
     }
-
-    /**
-     * @return isPageableTable
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isPageableTable()
-     */
-    // protected boolean handleIsPageableTable()
-    // {
-    //     final Object value = this.findTaggedValue(AngularProfile.TAGGEDVALUE_TABLE_PAGEABLE);
-    //     return Boolean.valueOf(Objects.toString(value, "")).booleanValue();
-    // }
-
-    /**
-     * @return messageKey
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getMessageKey()
-     */
-    // protected String handleGetMessageKey()
-    // {
-    //     final StringBuilder messageKey = new StringBuilder();
-
-    //     if (!this.isNormalizeMessages())
-    //     {
-    //         if (this.isActionParameter())
-    //         {
-    //             final FrontEndAction action = (FrontEndAction)this.getAction();
-    //             if (action != null)
-    //             {
-    //                 messageKey.append(action.getMessageKey());
-    //                 messageKey.append('.');
-    //             }
-    //         }
-    //         else
-    //         {
-    //             final AngularView view = (AngularView)this.getView();
-    //             if (view != null)
-    //             {
-    //                 messageKey.append(view.getMessageKey());
-    //                 messageKey.append('.');
-    //             }
-    //         }
-    //         messageKey.append("param.");
-    //     }
-
-    //     messageKey.append(StringUtilsHelper.toResourceMessageKey(super.getName()));
-    //     return messageKey.toString();
-    // }
-
-    /**
-     * @return getMessageKey() + '.' + AngularGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getDocumentationKey()
-     */
-    // protected String handleGetDocumentationKey()
-    // {
-    //     return getMessageKey() + '.' + AngularGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX;
-    // }
-
-    /**
-     * @return documentationValue
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getDocumentationValue()
-     */
-    // protected String handleGetDocumentationValue()
-    // {
-    //     final String value = StringUtilsHelper.toResourceMessage(this.getDocumentation(
-    //                 "",
-    //                 64,
-    //                 false));
-    //     return value == null ? "" : value;
-    // }
-
-    /**
-     * Indicates whether or not we should normalize messages.
-     *
-     * @return true/false
-     */
-    // private boolean isNormalizeMessages()
-    // {
-    //     final String normalizeMessages = (String)getConfiguredProperty(AngularGlobals.NORMALIZE_MESSAGES);
-    //     return Boolean.valueOf(normalizeMessages).booleanValue();
-    // }
-
-    /**
-     * @return messageValue
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getMessageValue()
-     */
-    // protected String handleGetMessageValue()
-    // {
-    //     return StringUtilsHelper.toPhrase(super.getName()); // the actual name is used for displaying
-    // }
-
-    /**
-     * @param columnName
-     * @return tableColumnMessageKey
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTableColumnMessageKey(String)
-     */
-    // protected String handleGetTableColumnMessageKey(final String columnName)
-    // {
-    //     StringBuilder messageKey = new StringBuilder();
-    //     if (!this.isNormalizeMessages())
-    //     {
-    //         final AngularView view = (AngularView)this.getView();
-    //         if (view != null)
-    //         {
-    //             messageKey.append(this.getMessageKey());
-    //             messageKey.append('.');
-    //         }
-    //     }
-    //     messageKey.append(StringUtilsHelper.toResourceMessageKey(columnName));
-    //     return messageKey.toString();
-    // }
-
-    /**
-     * @param columnName
-     * @return StringUtilsHelper.toPhrase(columnName)
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTableColumnMessageValue(String)
-     */
-    // protected String handleGetTableColumnMessageValue(final String columnName)
-    // {
-    //     return StringUtilsHelper.toPhrase(columnName);
-    // }
-
-    /**
-     * @return getTableActions(true)
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTableHyperlinkActions()
-     */
-    // protected List<FrontEndAction> handleGetTableHyperlinkActions()
-    // {
-    //     return this.getTableActions(true);
-    // }
-
-    // private class ActionFilter implements Predicate
-    // {
-    //     final private boolean hyperlink;
-    //     public ActionFilter(boolean hyperlink)
-    //     {
-    //         this.hyperlink = hyperlink;
-    //     }
-        
-    //     @Override
-    //     public boolean evaluate(Object action) 
-    //     {
-    //         return ((FrontEndAction)action).isHyperlink() == this.hyperlink;
-    //     }
-    // }
-    
-    /**
-     * If this is a table this method returns all those actions that are declared to work
-     * on this table.
-     *
-     * @param hyperlink denotes on which type of actions to filter
-     */
-    // private List<FrontEndAction> getTableActions(boolean hyperlink)
-    // {
-    //     final List<FrontEndAction> actions = new ArrayList<FrontEndAction>(super.getTableActions());
-    //     CollectionUtils.filter(actions, new ActionFilter(hyperlink));
-    //     return actions;
-    // }
-
-    /**
-     * @return getTableActions(false)
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTableFormActions()
-     */
-    // protected List<FrontEndAction> handleGetTableFormActions()
-    // {
-    //     return this.getTableActions(false);
-    // }
-
-    /**
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTableActions()
-     */
-    // protected List<FrontEndAction> handleGetTableActions() {
-    //     final Set<FrontEndAction> actions = new LinkedHashSet<FrontEndAction>();
-    //     final String name = StringUtils.trimToNull(getName());
-    //     if (name != null && isTable())
-    //     {
-    //         final AngularView view = (AngularView)this.getView();
-
-    //         final Collection<UseCaseFacade> allUseCases = getModel().getAllUseCases();
-    //         for (final UseCaseFacade useCase : allUseCases)
-    //         {
-    //             if (useCase instanceof AngularUseCase)
-    //             {
-    //                 final FrontEndActivityGraph graph = ((AngularUseCase)useCase).getActivityGraph();
-    //                 if (graph != null)
-    //                 {
-    //                     final Collection<TransitionFacade> transitions = graph.getTransitions();
-    //                     for (final TransitionFacade transition : transitions)
-    //                     {
-    //                         if (transition.getSource().equals(view) && transition instanceof FrontEndAction)
-    //                         {
-    //                             final FrontEndAction action = (FrontEndAction)transition;
-    //                             if (action.isTableLink() && name.equals(action.getTableLinkName()))
-    //                             {
-    //                                 actions.add(action);
-    //                             }
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     return new ArrayList<FrontEndAction>(actions);
-    // }
-
-    /**
-     * @see org.andromda.metafacades.uml.FrontEndParameter#getTableColumns()
-     */
-    // TODO tableColumns can be either String or AngularParameter. Should use a single return type in Collection.
-    // public Collection getTableColumns()
-    // {
-    //     final Collection tableColumns = super.getTableColumns();
-    //     if (tableColumns.isEmpty())
-    //     {
-    //         // try to preserve the order of the elements encountered
-    //         //final Map<String, AngularParameter> tableColumnsMap = new LinkedHashMap<String, AngularParameter>();
-    //         final Map tableColumnsMap = new LinkedHashMap();
-
-    //         // order is important
-    //         final List<FrontEndAction> actions = new ArrayList<FrontEndAction>();
-
-    //         // all table actions need the exact same parameters, just not always all of them
-    //         actions.addAll(this.getTableFormActions());
-
-    //         // if there are any actions that are hyperlinks then their parameters get priority
-    //         // the user should not have modeled it that way (constraints will warn him/her)
-    //         actions.addAll(this.getTableHyperlinkActions());
-
-    //         for (final FrontEndAction action : actions)
-    //         {
-    //             for (final FrontEndParameter actionParameter : action.getParameters())
-    //             {
-    //                 if (actionParameter instanceof AngularParameter)
-    //                 {
-    //                     final AngularParameter parameter = (AngularParameter)actionParameter;
-    //                     final String parameterName = parameter.getName();
-    //                     if (parameterName != null)
-    //                     {
-    //                         // never overwrite column specific table links
-    //                         // the hyperlink table links working on a real column get priority
-    //                         final Object existingObject = tableColumnsMap.get(parameterName);
-    //                         if (existingObject instanceof AngularParameter)
-    //                         {
-    //                             if (action.isHyperlink() && parameterName.equals(action.getTableLinkColumnName()))
-    //                             {
-    //                                 tableColumnsMap.put(
-    //                                     parameterName,
-    //                                     parameter);
-    //                             }
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //         }
-
-    //         // for any missing parameters we just add the name of the column
-    //         for (final String columnName : this.getTableColumnNames())
-    //         {
-    //             if (!tableColumnsMap.containsKey(columnName))
-    //             {
-    //                 tableColumnsMap.put(
-    //                     columnName,
-    //                     columnName);
-    //             }
-    //         }
-
-    //         // return everything in the same order as it has been modeled (using the table tagged value)
-    //         for (final String columnObject : this.getTableColumnNames())
-    //         {
-    //             tableColumns.add(tableColumnsMap.get(columnObject));
-    //         }
-    //     }
-    //     return tableColumns;
-    // }
-
-    /**
-     * @return the default date format pattern as defined using the configured property
-     */
-    // private String getDefaultDateFormat()
-    // {
-    //     return (String)this.getConfiguredProperty(AngularGlobals.PROPERTY_DEFAULT_DATEFORMAT);
-    // }
-
-    /**
-     * @return format
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getFormat()
-     */
-    // protected String handleGetFormat()
-    // {
-    //     return AngularUtils.getFormat(
-    //         (ModelElementFacade)this.THIS(),
-    //         this.getType(),
-    //         this.getDefaultDateFormat(),
-    //         this.getDefaultTimeFormat());
-    // }
-
-    /**
-     * @return the default time format pattern as defined using the configured property
-     */
-    // private String getDefaultTimeFormat()
-    // {
-    //     return (String)this.getConfiguredProperty(AngularGlobals.PROPERTY_DEFAULT_TIMEFORMAT);
-    // }
-
-    /**
-     * @return AngularUtils.isStrictDateFormat((ModelElementFacade)this.THIS())
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isStrictDateFormat()
-     */
-    // protected boolean handleIsStrictDateFormat()
-    // {
-    //     return AngularUtils.isStrictDateFormat((ModelElementFacade)this.THIS());
-    // }
-
-    /**
-     * @return dateFormatter
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getDateFormatter()
-     */
-    // protected String handleGetDateFormatter()
-    // {
-    //     final ClassifierFacade type = this.getType();
-    //     return type != null && type.isDateType() ? this.getName() + "DateFormatter" : null;
-    // }
-
-    /**
-     * @return timeFormatter
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTimeFormatter()
-     */
-    // protected String handleGetTimeFormatter()
-    // {
-    //     final ClassifierFacade type = this.getType();
-    //     return type != null && type.isTimeType() ? this.getName() + "TimeFormatter" : null;
-    // }
-
-    /**
-     * Indicates whether or not this parameter is of the given input type.
-     *
-     * @param inputType the name of the input type to check for.
-     * @return true/false
-     */
-    // private boolean isInputType(final String inputType)
-    // {
-    //     return inputType.equalsIgnoreCase(this.getInputType());
-    // }
-
-    /**
-     * @return isInputType(AngularGlobals.INPUT_TEXTAREA)
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputTextarea()
-     */
-    // protected boolean handleIsInputTextarea()
-    // {
-    //     return this.isInputType(AngularGlobals.INPUT_TEXTAREA);
-    // }
-
-    // /**
-    //  * @return isInputType(AngularGlobals.INPUT_SELECT)
-    //  * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputSelect()
-    //  */
-    // protected boolean handleIsInputSelect()
-    // {
-    //     return this.isInputType(AngularGlobals.INPUT_SELECT);
-    // }
-
-    // /**
-    //  * @return isInputType(AngularGlobals.INPUT_PASSWORD)
-    //  * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputSecret()
-    //  */
-    // protected boolean handleIsInputSecret()
-    // {
-    //     return this.isInputType(AngularGlobals.INPUT_PASSWORD);
-    // }
-
-    // /**
-    //  * @return isInputType(AngularGlobals.INPUT_HIDDEN)
-    //  * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputHidden()
-    //  */
-    // protected boolean handleIsInputHidden()
-    // {
-    //     return this.isInputType(AngularGlobals.INPUT_HIDDEN);
-    // }
-
-    // /**
-    //  * @return isInputType(AngularGlobals.PLAIN_TEXT)
-    //  * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isPlaintext()
-    //  */
-    // protected boolean handleIsPlaintext()
-    // {
-    //     return this.isInputType(AngularGlobals.PLAIN_TEXT);
-    // }
-
-    // /**
-    //  * @return isInputTable
-    //  * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputTable()
-    //  */
-    // protected boolean handleIsInputTable()
-    // {
-    //     return this.getInputTableIdentifierColumns().length() > 0 || this.isInputType(AngularGlobals.INPUT_TABLE);
-    // }
-
-    // /**
-    //  * @return isInputType(AngularGlobals.INPUT_RADIO)
-    //  * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputRadio()
-    //  */
-    // protected boolean handleIsInputRadio()
-    // {
-    //     return this.isInputType(AngularGlobals.INPUT_RADIO);
-    // }
-
-    // /**
-    //  * @return isInputType(AngularGlobals.INPUT_TEXT)
-    //  * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputText()
-    //  */
-    // protected boolean handleIsInputText()
-    // {
-    //     return this.isInputType(AngularGlobals.INPUT_TEXT);
-    // }
-
-    // /**
-    //  * @return isInputType(AngularGlobals.INPUT_MULTIBOX)
-    //  * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputMultibox()
-    //  */
-    // protected boolean handleIsInputMultibox()
-    // {
-    //     return this.isInputType(AngularGlobals.INPUT_MULTIBOX);
-    // }
-
-    // /**
-    //  * @return isInputCheckbox
-    //  * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputCheckbox()
-    //  */
-    // protected boolean handleIsInputCheckbox()
-    // {
-    //     boolean checkbox = this.isInputType(AngularGlobals.INPUT_CHECKBOX);
-    //     if (!checkbox && this.getInputType().length() == 0)
-    //     {
-    //         final ClassifierFacade type = this.getType();
-    //         checkbox = type != null ? type.isBooleanType() : false;
-    //     }
-    //     return checkbox;
-    // }
-
-    /**
-     * @return isInputFile
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isInputFile()
-     */
-    // protected boolean handleIsInputFile()
-    // {
-    //     boolean file = false;
-    //     ClassifierFacade type = getType();
-    //     if (type != null)
-    //     {
-    //         file = type.isFileType();
-    //     }
-    //     return file;
-    // }
-
-    /**
-     * @return backingListName
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getBackingListName()
-     */
-    // protected String handleGetBackingListName()
-    // {
-    //     return Objects.toString(this.getConfiguredProperty(AngularGlobals.BACKING_LIST_PATTERN), "").replaceAll(
-    //         "\\{0\\}",
-    //         this.getName());
-    // }
-
-    /**
-     * @return backingValueName
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getBackingValueName()
-     */
-    // protected String handleGetBackingValueName()
-    // {
-    //     return Objects.toString(this.getConfiguredProperty(AngularGlobals.BACKING_VALUE_PATTERN), "").replaceAll(
-    //         "\\{0\\}",
-    //         this.getName());
-    // }
-
-    /**
-     * @return valueListName
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getValueListName()
-     */
-    // protected String handleGetValueListName()
-    // {
-    //     return Objects.toString(this.getConfiguredProperty(AngularGlobals.VALUE_LIST_PATTERN), "").replaceAll(
-    //         "\\{0\\}",
-    //         this.getName());
-    // }
-
-    /**
-     * @return labelListName
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getLabelListName()
-     */
-    // protected String handleGetLabelListName()
-    // {
-    //     return Objects.toString(this.getConfiguredProperty(AngularGlobals.LABEL_LIST_PATTERN), "").replaceAll(
-    //         "\\{0\\}",
-    //         this.getName());
-    // }
-
-    /**
-     * @return isSelectable
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isSelectable()
-     */
-    // protected boolean handleIsSelectable()
-    // {
-    //     boolean selectable = false;
-    //     if (this.isActionParameter())
-    //     {
-    //         selectable = this.isInputMultibox() || this.isInputSelect() || this.isInputRadio();
-    //         final ClassifierFacade type = this.getType();
-
-    //         if (!selectable && type != null)
-    //         {
-    //             final String name = this.getName();
-    //             final String typeName = type.getFullyQualifiedName();
-
-    //             // - if the parameter is not selectable but on a targetting page it IS selectable we must
-    //             //   allow the user to set the backing list too
-    //             final Collection<FrontEndView> views = this.getAction().getTargetViews();
-    //             for (final Iterator<FrontEndView> iterator = views.iterator(); iterator.hasNext() && !selectable;)
-    //             {
-    //                 final Collection<FrontEndParameter> parameters = iterator.next().getAllActionParameters();
-    //                 for (final Iterator<FrontEndParameter> parameterIterator = parameters.iterator();
-    //                     parameterIterator.hasNext() && !selectable;)
-    //                 {
-    //                     final Object object = parameterIterator.next();
-    //                     if (object instanceof AngularParameter)
-    //                     {
-    //                         final AngularParameter parameter = (AngularParameter)object;
-    //                         final String parameterName = parameter.getName();
-    //                         final ClassifierFacade parameterType = parameter.getType();
-    //                         if (parameterType != null)
-    //                         {
-    //                             final String parameterTypeName = parameterType.getFullyQualifiedName();
-    //                             if (name.equals(parameterName) && typeName.equals(parameterTypeName))
-    //                             {
-    //                                 selectable =
-    //                                     parameter.isInputMultibox() || parameter.isInputSelect() ||
-    //                                     parameter.isInputRadio();
-    //                             }
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     else if (this.isControllerOperationArgument())
-    //     {
-    //         final String name = this.getName();
-    //         final Collection actions = this.getControllerOperation().getDeferringActions();
-    //         for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
-    //         {
-    //             final FrontEndAction action = (FrontEndAction)actionIterator.next();
-    //             final Collection<FrontEndParameter>  formFields = action.getFormFields();
-    //             for (final Iterator<FrontEndParameter>  fieldIterator = formFields.iterator();
-    //                 fieldIterator.hasNext() && !selectable;)
-    //             {
-    //                 final Object object = fieldIterator.next();
-    //                 if (object instanceof AngularParameter)
-    //                 {
-    //                     final AngularParameter parameter = (AngularParameter)object;
-    //                     if (!parameter.equals(this))
-    //                     {
-    //                         if (name.equals(parameter.getName()))
-    //                         {
-    //                             selectable = parameter.isSelectable();
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     return selectable;
-    // }
-
-    /**
-     * Stores the initial value of each type.
-     */
-    //private final Map<String, String> initialValues = new HashMap<String, String>();
-
-    /**
-     * @return constructDummyArray()
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getValueListDummyValue()
-     */
-    // protected String handleGetValueListDummyValue()
-    // {
-    //     return this.constructDummyArray();
-    // }
-
-    // /**
-    //  * @return dummyValue
-    //  * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getDummyValue()
-    //  */
-    // protected String handleGetDummyValue()
-    // {
-    //     final ClassifierFacade type = this.getType();
-    //     final String typeName = type != null ? type.getFullyQualifiedName() : "";
-    //     String initialValue = null;
-    //     if (type != null)
-    //     {
-    //         if (type.isSetType())
-    //         {
-    //             initialValue =
-    //                 "new java.util.LinkedHashSet(java.util.Arrays.asList(" + this.constructDummyArray() + "))";
-    //         }
-    //         else if (type.isCollectionType())
-    //         {
-    //             initialValue = "java.util.Arrays.asList(" + this.constructDummyArray() + ")";
-    //         }
-    //         else if (type.isArrayType())
-    //         {
-    //             initialValue = this.constructDummyArray();
-    //         }
-    //         final String name = this.getName() != null ? this.getName() : "";
-    //         if (this.initialValues.isEmpty())
-    //         {
-    //             initialValues.put(
-    //                 boolean.class.getName(),
-    //                 "false");
-    //             initialValues.put(
-    //                 int.class.getName(),
-    //                 "(int)" + name.hashCode());
-    //             initialValues.put(
-    //                 long.class.getName(),
-    //                 "(long)" + name.hashCode());
-    //             initialValues.put(
-    //                 short.class.getName(),
-    //                 "(short)" + name.hashCode());
-    //             initialValues.put(
-    //                 byte.class.getName(),
-    //                 "(byte)" + name.hashCode());
-    //             initialValues.put(
-    //                 float.class.getName(),
-    //                 "(float)" + name.hashCode());
-    //             initialValues.put(
-    //                 double.class.getName(),
-    //                 "(double)" + name.hashCode());
-    //             initialValues.put(
-    //                 char.class.getName(),
-    //                 "(char)" + name.hashCode());
-
-    //             initialValues.put(
-    //                 String.class.getName(),
-    //                 "\"" + name + "-test" + "\"");
-    //             initialValues.put(
-    //                 java.util.Date.class.getName(),
-    //                 "new java.util.Date()");
-    //             initialValues.put(
-    //                 java.sql.Date.class.getName(),
-    //                 "new java.util.Date()");
-    //             initialValues.put(
-    //                 java.sql.Timestamp.class.getName(),
-    //                 "new java.util.Date()");
-
-    //             initialValues.put(
-    //                 Integer.class.getName(),
-    //                 "new Integer((int)" + name.hashCode() + ")");
-    //             initialValues.put(
-    //                 Boolean.class.getName(),
-    //                 "Boolean.FALSE");
-    //             initialValues.put(
-    //                 Long.class.getName(),
-    //                 "new Long((long)" + name.hashCode() + ")");
-    //             initialValues.put(
-    //                 Character.class.getName(),
-    //                 "new Character(char)" + name.hashCode() + ")");
-    //             initialValues.put(
-    //                 Float.class.getName(),
-    //                 "new Float((float)" + name.hashCode() / hashCode() + ")");
-    //             initialValues.put(
-    //                 Double.class.getName(),
-    //                 "new Double((double)" + name.hashCode() / hashCode() + ")");
-    //             initialValues.put(
-    //                 Short.class.getName(),
-    //                 "new Short((short)" + name.hashCode() + ")");
-    //             initialValues.put(
-    //                 Byte.class.getName(),
-    //                 "new Byte((byte)" + name.hashCode() + ")");
-    //         }
-    //         if (initialValue == null)
-    //         {
-    //             initialValue = this.initialValues.get(typeName);
-    //         }
-    //     }
-    //     if (initialValue == null)
-    //     {
-    //         initialValue = "null";
-    //     }
-    //     return initialValue;
-    // }
-
-    // /**
-    //  * Constructs a string representing an array initialization in Java.
-    //  *
-    //  * @return A String representing Java code for the initialization of an array.
-    //  */
-    // private String constructDummyArray()
-    // {
-    //     return AngularUtils.constructDummyArrayDeclaration(
-    //         this.getName(),
-    //         AngularGlobals.DUMMY_ARRAY_COUNT);
-    // }
-
-    // /**
-    //  * @return getName() + "SortColumn"
-    //  * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTableSortColumnProperty()
-    //  */
-    // protected String handleGetTableSortColumnProperty()
-    // {
-    //     return this.getName() + "SortColumn";
-    // }
-
-    // /**
-    //  * @return getName() + "SortAscending"
-    //  * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getTableSortAscendingProperty()
-    //  */
-    // protected String handleGetTableSortAscendingProperty()
-    // {
-    //     return this.getName() + "SortAscending";
-    // }
-
-    // /**
-    //  * @return getName() + "Set"
-    //  * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getFormAttributeSetProperty()
-    //  */
-    // protected String handleGetFormAttributeSetProperty()
-    // {
-    //     return this.getName() + "Set";
-    // }
-
     //TODO remove after 3.4 release
     /**
      * Hack to keep the compatibility with Andromda 3.4-SNAPSHOT
@@ -822,293 +101,6 @@ public class AngularParameterLogicImpl
         }
         return (FrontEndView)view;
     }
-
-    /**
-     * @return validationRequired
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isValidationRequired()
-     */
-    // protected boolean handleIsValidationRequired()
-    // {
-    //     boolean required = !this.getValidatorTypes().isEmpty();
-    //     if (!required)
-    //     {
-    //         // - look for any attributes
-    //         for (final Iterator<AngularAttribute> iterator = this.getAttributes().iterator(); iterator.hasNext();)
-    //         {
-    //             required = !iterator.next().getValidatorTypes().isEmpty();
-    //             if (required)
-    //             {
-    //                 break;
-    //             }
-    //         }
-
-    //         // - look for any table columns
-    //         if (!required)
-    //         {
-    //             for (final Iterator iterator = this.getTableColumns().iterator(); iterator.hasNext();)
-    //             {
-    //                 final Object object = iterator.next();
-    //                 if (object instanceof AngularAttribute)
-    //                 {
-    //                     final AngularAttribute attribute = (AngularAttribute)object;
-    //                     required = !attribute.getValidatorTypes().isEmpty();
-    //                     if (required)
-    //                     {
-    //                         break;
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     return required;
-    // }
-
-    /**
-     * @return validatorTypes
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getValidatorTypes()
-     */
-    // protected Collection handleGetValidatorTypes()
-    // {
-    //     return AngularUtils.getValidatorTypes(
-    //         (ModelElementFacade)this.THIS(),
-    //         this.getType());
-    // }
-
-    /**
-     * @return AngularUtils.getValidWhen(this)
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getValidWhen()
-     */
-    // protected String handleGetValidWhen()
-    // {
-    //     return AngularUtils.getValidWhen(this);
-    // }
-
-    /**
-     * Overridden to have the same behavior as bpm4struts.
-     *
-     * @see org.andromda.metafacades.uml.ParameterFacade#isRequired()
-     */
-    // public boolean isRequired()
-    // {
-    //     if("org.omg.uml.foundation.core".equals(metaObject.getClass().getPackage().getName()))
-    //     {
-    //         //if uml 1.4, keep the old behavior (like bpm4struts)
-    //         final Object value = this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_REQUIRED);
-    //         return Boolean.valueOf(Objects.toString(value, "")).booleanValue();
-    //     }
-    //     else
-    //     {
-    //         //if >= uml 2, default behavior
-    //         return super.isRequired();
-    //     }
-    // }
-
-    /**
-     * @return AngularUtils.isReadOnly(this)
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isReadOnly()
-     */
-    // protected boolean handleIsReadOnly()
-    // {
-    //     return AngularUtils.isReadOnly(this);
-    // }
-
-    /**
-     * @param validatorType
-     * @return validatorArgs
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getValidatorArgs(String)
-     */
-    // protected Collection handleGetValidatorArgs(final String validatorType)
-    // {
-    //     return AngularUtils.getValidatorArgs(
-    //         (ModelElementFacade)this.THIS(),
-    //         validatorType);
-    // }
-
-    /**
-     * @return validatorVars
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getValidatorVars()
-     */
-    // protected Collection handleGetValidatorVars()
-    // {
-    //     return AngularUtils.getValidatorVars(
-    //         (ModelElementFacade)this.THIS(),
-    //         this.getType(),
-    //         null);
-    // }
-
-    /**
-     * @return reset
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isReset()
-     */
-    // protected boolean handleIsReset()
-    // {
-    //     boolean reset =
-    //         Boolean.valueOf(Objects.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_RESET), ""))
-    //                .booleanValue();
-    //     if (!reset)
-    //     {
-    //         final FrontEndAction action = (FrontEndAction)this.getAction();
-    //         reset = action != null && action.isFormReset();
-    //     }
-    //     return reset;
-    // }
-
-    /**
-     * @return complex
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isComplex()
-     */
-    // protected boolean handleIsComplex()
-    // {
-    //     boolean complex = false;
-    //     final ClassifierFacade type = this.getType();
-    //     if (type != null)
-    //     {
-    //         complex = !type.getAttributes().isEmpty();
-    //         if (!complex)
-    //         {
-    //             complex = !type.getAssociationEnds().isEmpty();
-    //         }
-    //     }
-    //     return complex;
-    // }
-
-    /**
-     * @return attributes
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getAttributes()
-     */
-    // protected Collection<AttributeFacade> handleGetAttributes()
-    // {
-    //     Collection<AttributeFacade> attributes = null;
-    //     ClassifierFacade type = this.getType();
-    //     if (type != null)
-    //     {
-    //         if (type.isArrayType())
-    //         {
-    //             type = type.getNonArray();
-    //         }
-    //         if (type != null)
-    //         {
-    //             attributes = type.getAttributes(true);
-    //         }
-    //     }
-    //     return attributes == null ? new ArrayList<AttributeFacade>() : attributes;
-    // }
-
-    /**
-     * @return navigableAssociationEnds
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getNavigableAssociationEnds()
-     */
-    // @Override
-    // protected Collection<AssociationEndFacade> handleGetNavigableAssociationEnds()
-    // {
-    //     Collection<AssociationEndFacade> associationEnds = null;
-    //     ClassifierFacade type = this.getType();
-    //     if (type != null)
-    //     {
-    //         if (type.isArrayType())
-    //         {
-    //             type = type.getNonArray();
-    //         }
-    //         if (type != null)
-    //         {
-    //             associationEnds = type.getNavigableConnectingEnds();
-    //         }
-    //     }
-    //     return associationEnds == null ? new ArrayList<AssociationEndFacade>() : associationEnds;
-    // }
-
-    /**
-     * @return isEqualValidator
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isEqualValidator()
-     */
-    // protected boolean handleIsEqualValidator()
-    // {
-    //     final String equal = AngularUtils.getEqual((ModelElementFacade)this.THIS());
-    //     return equal != null && equal.trim().length() > 0;
-    // }
-
-    /**
-     * @return isBackingValueRequired
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#isEqualValidator()
-     */
-    // protected boolean handleIsBackingValueRequired()
-    // {
-    //     boolean required = false;
-    //     if (this.isActionParameter())
-    //     {
-    //         required = this.isInputTable();
-    //         final ClassifierFacade type = this.getType();
-
-    //         if (!required && type != null)
-    //         {
-    //             final String name = this.getName();
-    //             final String typeName = type.getFullyQualifiedName();
-
-    //             // - if the backing value is not required for this parameter but on
-    //             //   a targeting page it IS selectable we must allow the user to set the backing value as well
-    //             final Collection<FrontEndView> views = this.getAction().getTargetViews();
-    //             for (final Iterator<FrontEndView> iterator = views.iterator(); iterator.hasNext() && !required;)
-    //             {
-    //                 final Collection<FrontEndParameter> parameters = iterator.next().getAllActionParameters();
-    //                 for (final Iterator<FrontEndParameter> parameterIterator = parameters.iterator();
-    //                     parameterIterator.hasNext() && !required;)
-    //                 {
-    //                     final FrontEndParameter object = parameterIterator.next();
-    //                     if (object instanceof AngularParameter)
-    //                     {
-    //                         final AngularParameter parameter = (AngularParameter)object;
-    //                         final String parameterName = parameter.getName();
-    //                         final ClassifierFacade parameterType = parameter.getType();
-    //                         if (parameterType != null)
-    //                         {
-    //                             final String parameterTypeName = parameterType.getFullyQualifiedName();
-    //                             if (name.equals(parameterName) && typeName.equals(parameterTypeName))
-    //                             {
-    //                                 required = parameter.isInputTable();
-    //                             }
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     else if (this.isControllerOperationArgument())
-    //     {
-    //         final String name = this.getName();
-    //         final Collection<FrontEndAction> actions = this.getControllerOperation().getDeferringActions();
-    //         for (final Iterator<FrontEndAction> actionIterator = actions.iterator(); actionIterator.hasNext();)
-    //         {
-    //             final FrontEndAction action = (FrontEndAction)actionIterator.next();
-    //             final Collection<FrontEndParameter> formFields = action.getFormFields();
-    //             for (final Iterator<FrontEndParameter> fieldIterator = formFields.iterator();
-    //                 fieldIterator.hasNext() && !required;)
-    //             {
-    //                 final Object object = fieldIterator.next();
-    //                 if (object instanceof AngularParameter)
-    //                 {
-    //                     final AngularParameter parameter = (AngularParameter)object;
-    //                     if (!parameter.equals(this))
-    //                     {
-    //                         if (name.equals(parameter.getName()))
-    //                         {
-    //                             required = parameter.isBackingValueRequired();
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     return required;
-    // }
-
-    /**
-     * @return findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getInputTableIdentifierColumns()
-     */
-    // protected String handleGetInputTableIdentifierColumns()
-    // {
-    //     return Objects.toString(this.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS), "").trim();
-    // }
 
     /**
      * @param columnName
@@ -1179,144 +171,6 @@ public class AngularParameterLogicImpl
     /** org.apache.myfaces.extensions.validator.crossval.annotation.Equals */
     static final String AN_EQUALS = "@org.apache.myfaces.extensions.validator.crossval.annotation.Equals";
 
-    /**
-     * @return the annotations
-     * @see org.andromda.cartridges.angular.metafacades.AngularParameter#getMaxLength()
-     */
-    // @Override
-    // protected Collection<String> handleGetAnnotations()
-    // {
-    //     final Collection<String> result=new HashSet<String>();
-    //     boolean requiredAdded=false;
-    //     for(String vt: (Collection<String>)getValidatorTypes())
-    //     {
-    //         if(vt.startsWith("@")) //add the annotation
-    //         {
-    //             result.add(vt);
-    //         }
-    //         if(AngularUtils.VT_REQUIRED.equals(vt))
-    //         {
-    //             requiredAdded=true;
-    //             result.add(AN_REQUIRED);
-    //         }
-    //         else if(AngularUtils.VT_URL.equals(vt))
-    //         {
-    //             result.add(AN_URL);
-    //         }
-    //         else if(AngularUtils.VT_INT_RANGE.equals(vt))
-    //         {
-    //             final StringBuilder sb=new StringBuilder(AN_LONG_RANGE+"(");
-    //             final String format = AngularUtils.getInputFormat((ModelElementFacade)this.THIS());
-    //             final String rangeStart = AngularUtils.getRangeStart(format);
-    //             boolean addComma=false;
-    //             if(StringUtils.isNotBlank(rangeStart) && !rangeStart.equals(UNDEFINED_BOUND))
-    //             {
-    //                 sb.append("minimum="+rangeStart);
-    //                 addComma=true;
-    //             }
-    //             final String rangeEnd = AngularUtils.getRangeEnd(format);
-    //             if(StringUtils.isNotBlank(rangeEnd) && !rangeEnd.equals(UNDEFINED_BOUND))
-    //             {
-    //                 if(addComma)
-    //                 {
-    //                     sb.append(",");
-    //                 }
-    //                 sb.append("maximum="+rangeEnd);
-    //             }
-    //             sb.append(")");
-    //             result.add(sb.toString());
-    //         }
-    //         else if(AngularUtils.VT_FLOAT_RANGE.equals(vt) || AngularUtils.VT_DOUBLE_RANGE.equals(vt))
-    //         {
-    //             final StringBuilder sb=new StringBuilder(AN_DOUBLE_RANGE+"(");
-    //             final String format = AngularUtils.getInputFormat(((ModelElementFacade)this.THIS()));
-    //             final String rangeStart = AngularUtils.getRangeStart(format);
-    //             boolean addComma=false;
-    //             if(StringUtils.isNotBlank(rangeStart) && !rangeStart.equals(UNDEFINED_BOUND))
-    //             {
-    //                 sb.append("minimum="+rangeStart);
-    //                 addComma=true;
-    //             }
-    //             final String rangeEnd = AngularUtils.getRangeEnd(format);
-    //             if(StringUtils.isNotBlank(rangeEnd) && !rangeEnd.equals(UNDEFINED_BOUND))
-    //             {
-    //                 if(addComma)
-    //                 {
-    //                     sb.append(",");
-    //                 }
-    //                 sb.append("maximum="+rangeEnd);
-    //             }
-    //             sb.append(")");
-    //             result.add(sb.toString());
-    //         }
-    //         else if(AngularUtils.VT_EMAIL.equals(vt))
-    //         {
-    //             result.add(AN_EMAIL);
-    //         }
-    //         else if(AngularUtils.VT_CREDIT_CARD.equals(vt))
-    //         {
-    //             result.add(AN_CREDIT_CARD);
-    //         }
-    //         else if(AngularUtils.VT_MIN_LENGTH.equals(vt) || AngularUtils.VT_MAX_LENGTH.equals(vt))
-    //         {
-    //             final StringBuilder sb=new StringBuilder(AN_LENGTH+"(");
-    //             final Collection formats = this.findTaggedValues(AngularProfile.TAGGEDVALUE_INPUT_FORMAT);
-    //             boolean addComma=false;
-    //             for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
-    //             {
-    //                 final String additionalFormat = String.valueOf(formatIterator.next());
-    //                 if (AngularUtils.isMinLengthFormat(additionalFormat))
-    //                 {
-    //                     if(addComma)
-    //                     {
-    //                         sb.append(",");
-    //                     }
-    //                     sb.append("min=");
-    //                     sb.append(AngularUtils.getMinLengthValue(additionalFormat));
-    //                     addComma=true;
-    //                 }
-    //                 else if (AngularUtils.isMaxLengthFormat(additionalFormat))
-    //                 {
-    //                     if(addComma)
-    //                     {
-    //                         sb.append(",");
-    //                     }
-    //                     sb.append("max=");
-    //                     sb.append(AngularUtils.getMinLengthValue(additionalFormat));
-    //                     addComma=true;
-    //                 }
-    //             }
-    //             sb.append(")");
-    //             result.add(sb.toString());
-    //         }
-    //         else if(AngularUtils.VT_MASK.equals(vt))
-    //         {
-    //             final Collection formats = this.findTaggedValues(AngularProfile.TAGGEDVALUE_INPUT_FORMAT);
-    //             for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
-    //             {
-    //                 final String additionalFormat = String.valueOf(formatIterator.next());
-    //                 if (AngularUtils.isPatternFormat(additionalFormat))
-    //                 {
-    //                     result.add(AN_PATTERN+"(\""+AngularUtils.getPatternValue(additionalFormat)+"\")");
-    //                 }
-    //             }
-    //         }
-    //         else if(AngularUtils.VT_VALID_WHEN.equals(vt))
-    //         {
-    //             result.add("");
-    //         }
-    //         else if(AngularUtils.VT_EQUAL.equals(vt))
-    //         {
-    //             result.add(AN_EQUALS+"(\""+AngularUtils.getEqual((ModelElementFacade)this.THIS())+"\")");
-    //         }
-    //     }
-    //     if(!requiredAdded && getLower() > 0)
-    //     {
-    //         result.add(AN_REQUIRED);
-    //     }
-    //     return result;
-    // }
-
     @Override
     protected Collection<ModelElementFacade> handleGetImports() {
         HashSet<ModelElementFacade> imports = new HashSet<>();
@@ -1359,15 +213,15 @@ public class AngularParameterLogicImpl
 
     @Override
     protected String handleGetAngularTypeName() {
-        String type = AngularUtils.getDatatype(this.getType().getName());
+        String type = AngularUtils.getDatatype(this.getGetterSetterTypeName());
 
-        if(type.equals("any[]")) {
-            type = "any";
-        } else if(type.equals("any[][]")) {
-            type = "any[]";
-        } else if(type.equals("any[][][]")) {
-            type = "any[][]";
-        }
+        // if(type.equals("any[]")) {
+        //     type = "any";
+        // } else if(type.equals("any[][]")) {
+        //     type = "any[]";
+        // } else if(type.equals("any[][][]")) {
+        //     type = "any[][]";
+        // }
 
         return type;
     }
@@ -1442,98 +296,84 @@ public class AngularParameterLogicImpl
     }
 
     @Override
-    public boolean isInputButton() {
-        // TODO Auto-generated method stub
-        return false;
-    }
+    public String getGetterSetterTypeName() {
+        String name = null;
+        if (this.getUpper() > 1 || this.getUpper() == -1)
+        {
+            final TypeMappings mappings = this.getLanguageMappings();
+            //TODO: Create Implementation types for declared types, with mappings from declaration -> implementation
+            // TODO: Fix Metafacade models to properly reflect Unique/Ordered in associations, and update Impl classes
+            /*if (this.handleIsUnique())
+            {
+                name =
+                    this.isOrdered() ? mappings.getTo(UMLProfile.ORDERED_SET_TYPE_NAME)
+                                     : mappings.getTo(UMLProfile.SET_TYPE_NAME);
+            }
+            else
+            {*/
+                name =
+                    this.isOrdered() ? mappings.getTo(UMLProfile.LIST_TYPE_NAME)
+                                     : mappings.getTo(UMLProfile.COLLECTION_TYPE_NAME);
+            /*}*/
 
-    @Override
-    public boolean isInputColor() {
-        // TODO Auto-generated method stub
-        return false;
-    }
+            // set this attribute's type as a template parameter if required
+            if (BooleanUtils.toBoolean(
+                    ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
+            {
+                String type = this.getType().getName();
+                if (this.getType().isPrimitive() || this.getLower() > 0)
+                {
+                    // Can't template primitive values, Objects only. Convert to wrapped.
+                    type = this.getType().getWrapperName();
+                    if (type == null)
+                    {
+                        // No wrapper name configured
+                        type = this.getType().getName();
+                    }
+                }
+                // Allow List<Type[]> implementations.
+                /*// Don't apply templating to modeled array types
+                if (this.getType().isArrayType())
+                {
+                    type = type.substring(0, type.length()-2);
+                }*/
+                /*Collection<GeneralizableElementFacade> specializations = this.getType().getAllSpecializations();
+                if ((specializations != null && !specializations.isEmpty()))
+                {
+                    name += "<? extends " + type + '>';
+                }
+                else
+                {*/
+                    name += '<' + type + '>';
+                /*}*/
+            }
+        }
+        if (name == null && this.getType() != null)
+        {
+            name = this.getType().getName();
+            // Special case: lower bound overrides primitive/wrapped type declaration
+            // TODO Apply to all primitive types, not just booleans. This is a special case because of is/get Getters.
+            if (this.getType().isBooleanType())
+            {
+                // Datatypes will be inconsistent with multiplicity but identifier attributes shouldn't be changed automatically
+                if (this.getType().isPrimitive() && this.getLower() < 1 &&
+                    (!(this instanceof EntityAttribute) || !((EntityAttribute) this).isIdentifier()))
+                {
+                    // Type is optional, should not be primitive
+                    name = this.getType().getWrapperName();
+                    if (name == null)
+                    {
+                        // No wrapper name configured
+                        name = this.getType().getName();
+                    }
+                }
+                /*else //if (this.getType().isPrimitive())
+                {
+                    // Type is required, should not be wrapped
+                }*/
+            }
+        }
 
-    @Override
-    public boolean isInputDate() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean isInputDatetimeLocal() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean isInputEmail() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean isInputImage() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean isInputMonth() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean isInputNumber() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean isInputRange() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean isInputReset() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean isInputSearch() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean isInputSubmit() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean isInputTel() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean isInputTime() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean isInputUrl() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean isInputWeek() {
-        // TODO Auto-generated method stub
-        return false;
-    }
+        return name;
+    }    
 }

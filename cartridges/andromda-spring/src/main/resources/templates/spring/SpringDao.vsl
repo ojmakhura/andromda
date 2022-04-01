@@ -468,27 +468,26 @@ $operation.getDocumentation("     * ")
 #end
 
 #if(!$operation.criteriaFinder)
-    /**
-     * <p>
-     * Does the same thing as {@link ${esc.hash}${operation.getSignature(false)}} with an
-     * additional argument called <code>queryString</code>. This <code>queryString</code>
-     * argument allows you to override the query string defined in {@link ${esc.hash}${operation.getSignature(false)}}.
-     * </p>
-     * @param queryString
-#foreach ($argument in $operation.arguments)
-     * @param $argument.name $argument.getDocumentation("")
-#end
-     * @return $returnType
-#foreach ($exception in $operation.exceptions)
-     * @throws $exception.fullyQualifiedName
-#end
-     */
-#if ($operation.exceptionsPresent)
-    $operation.visibility $returnType ${operation.name}(String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
-        throws $operation.exceptionList;
-#else
-    $operation.visibility $returnType ${operation.name}(String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
-#end
+##     /**
+##      * <p>
+##      * Does the same thing as {@link ${esc.hash}${operation.getSignature(false)}} with an
+##      * additional argument called <code>queryString</code>. This <code>queryString</code>
+##      * argument allows you to override the query string defined in {@link ${esc.hash}${operation.getSignature(false)}}.
+##      * </p> 11
+## #foreach ($argument in $operation.arguments)
+##      * @param $argument.name $argument.getDocumentation("")
+## #end
+##      * @return $returnType
+## #foreach ($exception in $operation.exceptions)
+##      * @throws $exception.fullyQualifiedName
+## #end
+##      */
+## #if ($operation.exceptionsPresent)
+##     $operation.visibility $returnType ${operation.name}(#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+##         throws $operation.exceptionList;
+## #else
+##     $operation.visibility $returnType ${operation.name}(#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
+## #end
 
 #if ($operation.returnType.collectionType || $operation.many)
 #if($enableTemplating)
@@ -518,65 +517,8 @@ $operation.getDocumentation("     * ")
     $operation.visibility $returnType ${operation.name}(int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
 #end
 
-    /**
-     * <p>
-     * Does the same thing as {@link ${esc.hash}${operation.name}(String#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
-     * additional two arguments called <code>pageNumber</code> and <code>pageSize</code>. The <code>pageNumber</code>
-     * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
-     * page retrieved.
-     * </p>
-     * @param queryString
-     * @param pageNumber
-     * @param pageSize
-#foreach ($argument in $operation.arguments)
-     * @param $argument.name $argument.getDocumentation("")
-#end
-     * @return $returnType
-#foreach ($exception in $operation.exceptions)
-     * @throws $exception.fullyQualifiedName
-#end
-     */
-#if ($operation.exceptionsPresent)
-    $operation.visibility $returnType ${operation.name}(String queryString, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
-        throws $operation.exceptionList;
-#else
-    $operation.visibility $returnType ${operation.name}(String queryString, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
-#end
-#if ($operation.returnType.collectionType)
-#if($enableTemplating)
-#set ($returnType = "${operation.getterSetterReturnTypeName}<?>")
-#end
-#elseif ($operation.many)
-#set ($returnType = "$operation.getterSetterReturnTypeName.substring(0,$operation.getterSetterReturnTypeName.indexOf('<'))<?>")
-#end
-
 #else
 #set ($returnType = "Object")
-#end
-    /**
-     * <p>
-     * Does the same thing as {@link ${esc.hash}${operation.getSignature(false)}} with an
-     * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
-     * finder results will <strong>NOT</strong> be transformed during retrieval.
-     * If this flag is any of the other constants defined here
-     * then finder results <strong>WILL BE</strong> passed through an operation which can optionally
-     * transform the entities (into value objects for example). By default, transformation does
-     * not occur.
-     * @param transform
-#foreach ($argument in $operation.arguments)
-     * @param $argument.name $argument.getDocumentation("")
-#end
-     * @return $returnType
-#foreach ($exception in $operation.exceptions)
-     * @throws $exception.fullyQualifiedName
-#end
-     * </p>
-     */
-#if ($operation.exceptionsPresent)
-    $operation.visibility $returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
-        throws $operation.exceptionList;
-#else
-    $operation.visibility $returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
 #end
 
 #if ($operation.returnType.collectionType || $operation.many)
@@ -613,7 +555,6 @@ $operation.getDocumentation("     * ")
      * argument allows you to override the query string defined in {@link ${esc.hash}${operation.name}(int#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)}.
      * </p>
      * @param transform
-     * @param queryString
 #foreach ($argument in $operation.arguments)
      * @param $argument.name $argument.getDocumentation("")
 #end
@@ -623,39 +564,10 @@ $operation.getDocumentation("     * ")
 #end
      */
 #if ($operation.exceptionsPresent)
-    $operation.visibility $returnType ${operation.name}(int transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+    $operation.visibility $returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
         throws $operation.exceptionList;
 #else
-    $operation.visibility $returnType ${operation.name}(int transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
-#end
-
-#if ($operation.returnType.collectionType || $operation.many)
-    /**
-     * <p>
-     * Does the same thing as {@link ${esc.hash}${operation.name}(int, String#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
-     * additional two arguments called <code>pageNumber</code> and <code>pageSize</code>. The <code>pageNumber</code>
-     * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
-     * page retrieved.
-     * </p>
-     * @param transform
-     * @param queryString
-     * @param pageNumber
-     * @param pageSize
-#foreach ($argument in $operation.arguments)
-     * @param $argument.name $argument.getDocumentation("")
-#end
-     * @return $returnType
-#foreach ($exception in $operation.exceptions)
-     * @throws $exception.fullyQualifiedName
-#end
-     */
-#if ($operation.exceptionsPresent)
-    $operation.visibility $returnType ${operation.name}(int transform, String queryString, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
-        throws $operation.exceptionList;
-#else
-    $operation.visibility $returnType ${operation.name}(int transform, String queryString, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
-#end
-
+    $operation.visibility $returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
 #end
 #else
 #if ($operation.returnType.collectionType)
@@ -699,7 +611,7 @@ $operation.getDocumentation("     * ")
      * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
      * page retrieved.
      * </p>
-     * @param transform
+     * @param
      * @param pageNumber
      * @param pageSize
 #foreach ($argument in $operation.arguments)
@@ -742,54 +654,6 @@ $operation.getDocumentation("     * ")
 #end
 #set ($fullyQualifiedPagingResultName = $cartridgeSpringUtils.getFullyQualifiedClassName($springCommonTypesPackage, "PaginationResult"))
 #set ($fullyQualifiedSearchClassName = $cartridgeSpringUtils.getFullyQualifiedClassName($springTypesPackage, "Search"))
-
-##     /**
-##      * Does the same thing as {@link ${esc.hash}search(int, ${fullyQualifiedSearchClassName})} but with an
-##      * additional two flags called <code>pageNumber</code> and <code>pageSize</code>. These flags allow you to
-##      * limit your data to a specified page number and size.
-##      *
-##      * @param transform the transformation flag.
-##      * @param pageNumber the page number in the data to retrieve
-##      * @param pageSize the size of the page to retrieve.
-##      * @param search the search object which provides the search parameters and pagination specification.
-##      * @return any found results from the search wrapped in a {@link $fullyQualifiedPagingResultName} instance.
-##      */
-##     public $fullyQualifiedPagingResultName search(final int transform, final int pageNumber, final int pageSize, final $fullyQualifiedSearchClassName search);
-##
-##     /**
-##      * Does the same thing as {@link ${esc.hash}search(${fullyQualifiedSearchClassName})} but with an
-##      * additional two flags called <code>pageNumber</code> and <code>pageSize</code>. These flags allow you to
-##      * limit your data to a specified page number and size.
-##      *
-##      * @param pageNumber the page number in the data to retrieve
-##      * @param pageSize the size of the page to retrieve.
-##      * @param search the search object which provides the search parameters and pagination specification.
-##      * @return any found results from the search wrapped in a {@link $fullyQualifiedPagingResultName} instance.
-##      */
-##     public $fullyQualifiedPagingResultName search(final int pageNumber, final int pageSize, final $fullyQualifiedSearchClassName search);
-
-##     /**
-##      * Does the same thing as {@link ${esc.hash}search(${fullyQualifiedSearchClassName})} but with an
-##      * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
-##      * finder results will <strong>NOT</strong> be transformed during retrieval.
-##      * If this flag is any of the other constants defined here
-##      * then results <strong>WILL BE</strong> passed through an operation which can optionally
-##      * transform the entities (into value objects for example). By default, transformation does
-##      * not occur.
-##      *
-##      * @param transform the transformation flag.
-##      * @param search the search object which provides the search parameters and pagination specification.
-##      * @return any found results from the search.
-##      */
-##     public java.util.Collection#if($enableTemplating)<?>#end search(final int transform, final $fullyQualifiedSearchClassName search);
-
-##     /**
-##      * Performs a search using the parameters specified in the given <code>search</code> object.
-##      *
-##      * @param search the search object which provides the search parameters and pagination specification.
-##      * @return any found results from the search.
-##      */
-##     public java.util.Collection#if($enableTemplating)<#if($daoInheritance)? extends #end${rootEntityType}>#end search(final $fullyQualifiedSearchClassName search);
 
     /**
      * Allows transformation of entities into value objects

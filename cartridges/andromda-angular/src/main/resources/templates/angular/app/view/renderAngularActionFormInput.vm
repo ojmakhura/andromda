@@ -49,14 +49,15 @@ ${ident}		<mat-paginator #${parameter.name}Paginator="matPaginator" [pageSize]="
 ${ident}	</div>
 #elseif($parameter.inputCheckbox)
 ${ident}    <mat-checkbox class="$propertyId" translate>$parameter.messageKey</mat-checkbox>
+## #elseif($parameter.inputRadio)
+##             <mat-radio-group formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
+##                 <mat-radio-button class="example-radio-button">
+##                 </mat-radio-button>
+##             </mat-radio-group>
 #else
 ${ident}	<mat-form-field>
 ${ident}		<mat-label translate>$parameter.messageKey</mat-label> 
-#if ($parameter.type.dateType || $parameter.inputDate)
-${ident}	  	<input matInput type="$parameter.inputType" [matDatepicker]="$propertyId" formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
-${ident}	  	<mat-datepicker-toggle matSuffix [for]="$propertyId"></mat-datepicker-toggle>
-${ident}	  	<mat-datepicker #$propertyId></mat-datepicker>
-#elseif ($parameter.inputSelect || $parameter.type.enumeration || $parameter.inputMultibox)
+#if ($parameter.inputSelect || $parameter.type.enumeration || $parameter.inputMultibox)
 ${ident}		<mat-select name="$propertyId" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" id="$propertyId"#if($parameter.inputMultibox) multiple#end>
 #if(!$parameter.inputMultibox)
 ${ident}			<mat-option value = "">Select one ...</mat-option>
@@ -71,12 +72,6 @@ ${ident}		</mat-select>
 ${ident}		<textarea matInput formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end></textarea>
 #elseif ($parameter.inputText)
 ${ident}		<input matInput type="$parameter.inputType" formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
-#elseif ($parameter.inputSecret)
-${ident}		<input matInput type="hide ? 'password' : 'text'"
-${ident}			formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
-${ident}		<button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-${ident}			<mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-${ident}		</button>
 #else
 #if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter))
 ${ident}		<mat-select name="$propertyId" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" id="$propertyId">
@@ -89,7 +84,7 @@ ${ident}		</mat-select>
 #else
 #set ($type = "$parameter.inputType")
 #end
-${ident}		<input matInput type="$type" formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
+${ident}		<input matInput type="$parameter.inputType" formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
 #end
 #end
 #if($parameter.inputEmail)

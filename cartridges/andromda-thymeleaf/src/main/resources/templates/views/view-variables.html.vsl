@@ -14,11 +14,11 @@
         <td>
 #if ($variable.many || $variable.type.collectionType || $variable.type.arrayType)
             <div th:each="item : $d{${variable.name}}">
-                <span #if ($variable.type.dateType) type="date"#end th:text="$d{item}}">
+                <span #if ($variable.type.dateType) type="date"#end th:text="$d{${item}}">
                 </span>
             </div>
 #else
-            <span id="${variable.name}"#if ($variable.type.dateType) type="date"#end th:text="$d{variable.name}}">
+            <span id="${variable.name}"#if ($variable.type.dateType) type="date"#end th:text="$d{${variable.name}}">
             </span>
 #end
         </td>

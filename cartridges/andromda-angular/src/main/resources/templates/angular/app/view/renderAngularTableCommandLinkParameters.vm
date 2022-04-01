@@ -26,7 +26,7 @@ $param#if($i < $params.size()),$cr#end
 #set($cr = '
 ')
 #foreach ($parameter in $action.parameters)
-#set ( $type = $angularUtils.getDatatype(${parameter.type.fullyQualifiedName}))
+#set ( $type = ${parameter.angularTypeName})
 #set ( $ret = $params.add("$parameter.name: $type") )
 #end
 #set($i = 0)
@@ -43,7 +43,7 @@ $param#if($i < $params.size()),$cr#end
 #set($cr = '
 ')
 #foreach ($parameter in $action.parameters)
-#set ( $type = $angularUtils.getDatatype(${parameter.type.fullyQualifiedName}))
+#set ( $type = ${parameter.angularTypeName})
 #set ( $ret = $params.add("$parameter.name") )
 #end
 #set($i = 0)
@@ -60,7 +60,7 @@ $param#if($i < $params.size()),$cr#end
 #set($cr = '
 ')
 #foreach ($parameter in $action.parameters)
-#set ( $type = $angularUtils.getDatatype(${parameter.type.fullyQualifiedName}))
+#set ( $type = ${parameter.angularTypeName})
 #set ( $ret = $params.add("$parameter.name") )
 #end
 #set($i = 0)

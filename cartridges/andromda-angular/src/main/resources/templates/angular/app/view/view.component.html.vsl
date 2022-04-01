@@ -2,7 +2,6 @@
 <div class="card my-5">
 ## Render non table variables
 #if ($view.nonTableVariablesPresent)
-
 #set ($complex = [])
 #set ($simple = [])
 #foreach ($variable in $view.variables)
@@ -15,18 +14,24 @@
 #end
 #end
 	<div class="card-body">
-    	<form [formGroup]="${view.varsFormName}">
-#if($simple.size() > 0)
-      		<table class="tg">
-        		<thead>
-#foreach ($variable in $simple)
-					<tr>
-						<th>{{'${variable.messageKey}' | translate}}: </th>
-						<td><input formControlName="$variable.name" disabled/></td>
-					<tr>
+    	<form [formGroup]="${view.formName}">
+
+			<section>
+				<div class="card col my-3 view-buttons">
+#foreach ($action in $view.actions)
+#if (!$action.tableLink)
+					<button mat-raised-button color="accent" (click)="${action.triggerName}()" class="btn btn-info">
+						<span translate>$action.messageKey</span>
+					</button>
 #end
-        		</thead>
-      		</table>
+#end
+					<button mat-raised-button color="accent" type="reset" class="btn btn-info" ><span translate>reset</span></button>
+				</div>
+			</section>
+#if($simple.size() > 0)
+#foreach ($variable in $simple)
+#renderAngularActionInput($variable "" "				")
+#end
 #end
 #if($complex.size() > 0)
 #foreach ($variable in $complex)
@@ -34,24 +39,17 @@
 #set ($tables = $angularUtils.getTableAttributes($variable))
 #if($normals.size() > 0)
 			<div formGroupName="$variable.name">
-				<table class="tg">
-					<thead>
 #foreach ($attribute in $normals)
 #if (!$attribute.inputHidden && !$variable.inputHidden)
-						<tr>
-							<th>{{'${attribute.messageKey}' | translate}}: </th>
-							<td><input formControlName="$attribute.name" disabled/> </td>
-						<tr>
+#renderAngularActionInput($attribute $variable "				")
 #end
 #end
-					</thead>
-				</table>
 #end
 #if ($tables.size() > 0)
                 <mat-tab-group animationDuration="0ms" class = "view-tabs">
 #foreach($table in $tables)
                     <mat-tab label="{{'${table.messageKey}' | translate}}">
-#renderAngularActionInput($table $variable "		                    " true)
+#renderAngularActionInput($table $variable "		                    ")
                     </mat-tab>
 #end
                 </mat-tab-group>
@@ -62,63 +60,11 @@
     	</form>
 	</div>
 #end
-#set($fieldSet =  $angularUtils.getFacadeSet($view.allFormFields))
-#if($fieldSet.size() > 0)
-	<form [formGroup]="${view.formName}">
-#foreach ($field in $fieldSet)
-#if($field.action.hyperlink)
-#if (!$field.action.tableLink && ( !$field.complex || $field.type.enumeration ))
-#renderAngularActionCommandLinkParameter($parameter "" "        ")
-#else
-#foreach ($attribute in $field.attributes)
-#if (!$attribute.inputHidden)
-#renderAngularActionCommandLinkParameter($attribute $field "        ")
-#end
-#end
-#end
-#else
-#if(!$field.action.tableLink)
-#if (!$field.complex || $field.type.enumeration)
-#renderAngularActionInput($field "" "		")
-#else
-		<div formGroupName="$field.name">
-#set ($normals = $angularUtils.getStandardAttributes($field))
-#set ($tables = $angularUtils.getTableAttributes($field))
-#foreach ($attribute in $normals)
-#renderAngularActionInput($attribute $field "		    ")
-#end
-#if ($tables.size() > 0)
-            <mat-tab-group animationDuration="0ms" class = "view-tabs">
-#foreach($table in $tables)
-                <mat-tab label="{{'${table.messageKey}' | translate}}">
-#renderAngularActionInput($table $field "		            ")
-                </mat-tab>
-#end
-            </mat-tab-group>
-#end
-		</div>
-#end
-#end
-#end
-#end
-	</form>
-#end
-#if($view.actions.size() > 0)
-	<div class="card row my-5 view-buttons">
-#foreach ($action in $view.actions)
-#if (!$action.tableLink)
-		<div class="my-5 ${action.trigger.name}">
-			<button type="button" (click)="${action.triggerName}()" class="btn btn-info" translate>$action.messageKey</button>
-		</div>
-#end
-#end
-	</div>
-#end
 #if ( $view.tables.size() > 0 )
 	<mat-tab-group animationDuration="0ms" class = "tables">
 #foreach ( $table in $view.tables )
 		<mat-tab class="${table.name}">
-			<ng-template mat-tab-label translate> $table.label </ng-template>
+			<ng-template mat-tab-label><span translate>$table.messageKey</span></ng-template>
 			<$table.fileName 
 				[${table.name}] = "${table.name}">
 			</$table.fileName>

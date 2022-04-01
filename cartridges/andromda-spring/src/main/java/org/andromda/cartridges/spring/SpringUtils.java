@@ -9,6 +9,10 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+
+import org.andromda.cartridges.spring.metafacades.SpringCriteriaAttributeLogic;
+import org.andromda.cartridges.spring.metafacades.SpringCriteriaSearch;
+import org.andromda.cartridges.spring.metafacades.SpringCriteriaSearchLogicImpl;
 import org.andromda.cartridges.spring.metafacades.SpringService;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
@@ -229,5 +233,9 @@ public class SpringUtils
                     }) != null;
         }
         return present;
+    }
+
+    public boolean isCriteria(ClassifierFacade facade) { 
+        return facade instanceof SpringCriteriaSearch;
     }
 }

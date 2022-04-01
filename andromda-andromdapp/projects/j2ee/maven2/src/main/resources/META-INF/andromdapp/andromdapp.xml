@@ -358,10 +358,11 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 <shortText>Root package</shortText>
             </prompt>
             <prompt id="applicationType" setResponseAsTrue="true">
-                <text>Would you like an EAR or standalone WAR?</text>
+                <text>Would you like an EAR, standalone WAR or standalone JAR?</text>
                 <shortText>Application type</shortText>
                 <responses>
                     <response>ear</response>
+                    <response>jar</response>
                     <response>war</response>
                 </responses>
                 <!-- <conditions>

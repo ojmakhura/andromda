@@ -29,9 +29,7 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
 #foreach($table in $view.tables)
         this.add${stringUtils.capitalize($table.name)}DummyData();
 #end
-#foreach ($action in $view.actions)
-#if (!$action.tableLink)
-#foreach($parameter in $action.parameters)
+#foreach($parameter in $view.variables)
 #if($parameter.inputSelect)
 #if($parameter.angularTypeName=="number")
 #set ($defaultValue = 1)
@@ -49,8 +47,6 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
 #set ($defaultValue = "'${parameter.name}-2'")
 #end
         this.${parameter.backingListName}.push($defaultValue);
-#end
-#end
 #end
 #end
     }

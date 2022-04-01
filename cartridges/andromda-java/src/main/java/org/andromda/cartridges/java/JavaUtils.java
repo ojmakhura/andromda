@@ -62,29 +62,73 @@ public class JavaUtils
     public static String getJDKVersion()
     {
         // Default JDK version = 1.6
-        String version = "1.6";
-        final String classVersion = System.getProperty("java.class.version","44.0");
-        if ("50.0".compareTo(classVersion) > 0 && "49.0".compareTo(classVersion) <= 0)
+        String version = "1.8";
+        final Integer classVersion = (int)Double.parseDouble(System.getProperty("java.class.version"));
+        if (classVersion == 62)
         {
-            version = "1.5";
+            version = "18";
         }
-        else if ("52.0".compareTo(classVersion) > 0 && "51.0".compareTo(classVersion) <= 0)
+        else if (classVersion == 61)
+        {
+            version = "17";
+        }
+        else if (classVersion == 60)
+        {
+            version = "16";
+        }
+        else if (classVersion == 59)
+        {
+            version = "15";
+        }
+        else if (classVersion == 58)
+        {
+            version = "14";
+        }
+        else if (classVersion == 57)
+        {
+            version = "13";
+        }
+        else if (classVersion == 56)
+        {
+            version = "12";
+        }
+        else if (classVersion == 55)
+        {
+            version = "11";
+        }
+        else if (classVersion == 54)
+        {
+            version = "10";
+        }
+        else if (classVersion == 53)
+        {
+            version = "9";
+        }
+        else if (classVersion == 53)
+        {
+            version = "1.8";
+        }
+        else if (classVersion == 51)
         {
             version = "1.7";
         }
-        else if ("49.0".compareTo(classVersion) > 0 && "48.0".compareTo(classVersion) <= 0)
+        else if (classVersion == 49)
+        {
+            version = "1.5";
+        }
+        else if (classVersion == 48)
         {
             version = "1.4";
         }
-        else if ("48.0".compareTo(classVersion) > 0 && "47.0".compareTo(classVersion) <= 0)
+        else if (classVersion == 47)
         {
             version = "1.3";
         }
-        else if ("47.0".compareTo(classVersion) > 0 && "46.0".compareTo(classVersion) <= 0)
+        else if (classVersion == 46)
         {
             version = "1.2";
         }
-        else if ("46.0".compareTo(classVersion) > 0 && "45.0".compareTo(classVersion) <= 0)
+        else if (classVersion == 45)
         {
             version = "1.2";
         }

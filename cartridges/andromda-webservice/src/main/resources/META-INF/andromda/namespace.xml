@@ -180,7 +180,7 @@
                 </documentation>
             </property>
             <property name="javaVersion">
-                <default>1.7</default>
+                <default>11</default>
                 <documentation>
                     Determines if some annotations or JDK-specific features are output such as @Override compareTo().
                     If 1.4, templating and generics should be turned off. Should be set by property java.version in pom.xml

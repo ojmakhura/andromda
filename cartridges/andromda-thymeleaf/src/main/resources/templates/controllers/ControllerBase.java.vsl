@@ -44,7 +44,7 @@ public abstract class ${controller.name}Base
 #if($showElse)
         else
 #end
-#set ($viewPath = "${controller.restPath}/$thymeleafUtils.toWebResourceName(${view.name})")
+#set ($viewPath = "${view.path}.html")
         if("${viewPath}".equals(forward))
         {
 #foreach ($viewAction in $view.formActions)
@@ -132,20 +132,27 @@ $action.trigger.getDocumentation("     * ")
 #if($action.exitingInitialState)
 #set ($useCaseParams = "")
 #set ($fieldPath = "")
+#set ($indPath = "")
 #set ( $d = '"')
+#set ($count = 1)
 #foreach($field in $action.parameters)
 #if($useCaseParams.length() > 0)
 #set ($useCaseParams = "$useCaseParams, ")
 #end
+#if($indPath.length() > 0)
+#set ($indPath = "$indPath, ")
+#end
 #if(!$field.complex)
 #set ($useCaseParams = "$useCaseParams @org.springframework.web.bind.annotation.PathVariable(name = $d$field.name$d, required = false) $field.type.fullyQualifiedName $field.name")
 #set ($fieldPath = "$fieldPath/$field.name/{$field.name}")
+#set ($indPath = "$indPath $d/$field.name/{$field.name}$d")
 #else
 #set ($useCaseParams = "$useCaseParams $field.type.fullyQualifiedName $field.name")
 #set ($fieldPath = "$fieldPath/$field.name/{$field.name}")
+#set ($indPath = "$indPath $d/$field.name/{$field.name}$d")
 #end
 #end
-    @org.springframework.web.bind.annotation.GetMapping(#if($action.parameters.size() > 0){$d$d, $d$fieldPath$d}#else$d$d#end) 
+    @org.springframework.web.bind.annotation.GetMapping(#if($action.parameters.size() > 0){$d$d, $indPath, $d$fieldPath$d}#else$d$d#end) 
     @Override
     public String startUseCase(#if($action.parameters.size() > 0)$useCaseParams, #{end}org.springframework.ui.Model model)
 #else
@@ -166,15 +173,21 @@ $action.trigger.getDocumentation("     * ")
         String forward=null;
 #if ($action.finalStateTarget)
 #if ($formPopulationOperationRequired)
-        //this.${action.formBeanName}.copyTo(getUseCaseParameters());
-    
+        String params = "";
+#foreach($param in $action.parameters)
+        if(${action.formBeanName}.get$stringUtils.capitalize($param.name)() != null) {
+            this.${action.formBeanName}.set$stringUtils.capitalize($param.name)(${action.formBeanName}.get$stringUtils.capitalize($param.name)());
+            params = params + "/$param.name/" + ${action.formBeanName}.get$stringUtils.capitalize($param.name)();
+        }
+#end
+
 #end
 #set($targetController = $action.target.targetControllerFullyQualifiedName)
 #set($targetControllerBeanName = $action.target.targetControllerBeanName)
 #if($targetController)
 #set($tmp = $controllers.add($action.target.targetElement.controller))
 #end
-        forward =#if($targetController) "${action.target.targetElement.path}"#else closeDialog()#end;
+        forward =#if($targetController) "${action.target.targetElement.controller.restPath}"#if ($action.finalStateTarget && $formPopulationOperationRequired) + params#end#else closeDialog()#end;
         
 #else
 #if ($formPopulationOperationRequired)
@@ -192,7 +205,7 @@ $action.trigger.getDocumentation("     * ")
 #if($action.exitingInitialState)
         //copy parameters form caller use case
 #foreach($param in $action.parameters)
-        form.set$stringUtils.capitalize($param.name)($param.name);
+        form.set$stringUtils.capitalize($param.name)($param.name); 
 #end
 #end
 #end
@@ -210,8 +223,8 @@ $action.trigger.getDocumentation("     * ")
 #end
 #saveMessages($action "        ")
 #if ($formPopulationOperationRequired)
-#set ($viewPath = "/${action.controller.restPath}/$thymeleafUtils.toWebResourceName(${action.source.name})")
-        populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"${action.source.path}.html"#end, forward, form);
+#set ($viewPath = "${action.source.path}.html")
+        populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"${viewPath}"#end, forward, form);
 #foreach($field in $action.formFields)
 #if(!$field.actionParameter)
 
@@ -221,9 +234,6 @@ $action.trigger.getDocumentation("     * ")
 #end
 #end
 
-## #foreach($param in $action.parameters)
-## // $param
-## #end
 #if(!$action.exitingInitialState && !$action.enteringFinalState)
         if(forward != null)
         {
@@ -386,7 +396,7 @@ $decisionTransition.getDocumentation("     * ")
      *
      * @return a transition
      */
-    protected String __${decisionTransition.operationCall.name}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form#end)
+    protected String __${decisionTransition.operationCall.name}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form, #{end}org.springframework.ui.Model model)
         throws Throwable
     {
         final String value = String.valueOf($decisionTransition.operationCall.formCall);
@@ -426,13 +436,17 @@ $decisionTransition.getDocumentation("     * ")
 	protected $service.fullyQualifiedImplementationName $service.beanName;
     
 #end
-#foreach($cnt in $thymeleafUtils.getFacadeSet($controllers))
-#if(!$controller.beanName.equals($cnt.beanName))
-    @org.springframework.beans.factory.annotation.Autowired
-    protected ${cnt.fullyQualifiedName} $cnt.beanName;
-
-#end
-#end
+## #foreach($cnt in $thymeleafUtils.getFacadeSet($controllers))
+## #if(!$controller.beanName.equals($cnt.beanName))
+##     protected ${cnt.fullyQualifiedName} $cnt.beanName;
+##
+##     @org.springframework.beans.factory.annotation.Autowired
+##     public void set${cnt.name}(@org.springframework.context.annotation.Lazy ${cnt.fullyQualifiedName} $cnt.beanName) {
+##         this.$cnt.beanName = $cnt.beanName;
+##     }
+## 
+## #end
+## #end
 #foreach ($sessionObjectRef in $controller.sessionObjectReferences)
 #set ($targetElement = $sessionObjectRef.targetElement)
 

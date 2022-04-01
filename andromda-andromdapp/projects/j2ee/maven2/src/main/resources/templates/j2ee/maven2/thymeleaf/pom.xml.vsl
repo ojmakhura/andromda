@@ -10,7 +10,11 @@
     <groupId>$applicationPackage</groupId>
     <artifactId>${applicationId}-thymeleaf</artifactId>
     <version>$applicationVersion</version>
+#if($applicationType.equals("war"))
+    <packaging>war</packaging>
+#else
     <packaging>jar</packaging>
+#end
     <name>${applicationName} Thymeleaf Web</name>
     <dependencies>
         <dependency>
@@ -34,6 +38,16 @@
 #end
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         <dependency>
@@ -49,6 +63,13 @@
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
         </dependency>
+#if($applicationType.equals("war"))
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+#end
 		<dependency>
 			<groupId>nz.net.ultraq.thymeleaf</groupId>
 			<artifactId>thymeleaf-layout-dialect</artifactId>
@@ -101,6 +122,9 @@
         </dependency>
     </dependencies>
     <build>
+#if($applicationType.equals("war"))
+        <packaging>${applicationId}</packaging>
+#end
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
