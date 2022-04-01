@@ -132,7 +132,6 @@ $field.getDocumentation("     * ")
 #end
         this.$field.formAttributeSetProperty = true;
     }
-    // 7
 #renderBackingListImplSupport($field "")
 #if (!$field.type.enumeration)
 #if (!$field.attributes.empty)
@@ -143,8 +142,6 @@ $field.getDocumentation("     * ")
 ## - Chad Brandon - we ALWAYS render the backing list for attributes in the form
 ##   impl (because there are complex conditions where they might not show up and cause
 ##   uncompilable code; if we always render, we don't need to figure out what they are)
-// 2 $attribute
-// $field
 #renderBackingListImplSupport($attribute $field)
 #end
 #end
