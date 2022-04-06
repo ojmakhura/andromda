@@ -396,7 +396,7 @@ $decisionTransition.getDocumentation("     * ")
      *
      * @return a transition
      */
-    protected String __${decisionTransition.operationCall.name}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form#end)
+    protected String __${decisionTransition.operationCall.name}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form, #{end}org.springframework.ui.Model model)
         throws Throwable
     {
         final String value = String.valueOf($decisionTransition.operationCall.formCall);
