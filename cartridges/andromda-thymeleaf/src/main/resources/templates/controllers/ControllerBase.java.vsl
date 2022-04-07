@@ -15,10 +15,8 @@ $controller.getDocumentation(" * ")
 #foreach($annotation in $controller.additionalAnnotations)
 @$annotation
 #end
-public abstract class ${controller.name}Base
-    extends ${managedBeansPackage}.ControllerBase
-    implements java.io.Serializable, ${controller.name}
-{
+public abstract class ${controller.name}Base extends ${managedBeansPackage}.ControllerBase
+    implements java.io.Serializable, ${controller.name} {
     
     /**
      * Populate action form and page variables

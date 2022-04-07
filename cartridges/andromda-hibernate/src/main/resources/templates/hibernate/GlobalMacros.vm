@@ -228,9 +228,6 @@
     public static final String ${attributeNameConstantPrefix}${attribute.name}="${attribute.name}";
 
 #end
-// $attribute
-// $attribute.type
-// $attribute.type.enumeration
     $visibility $typeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
 
 #end
