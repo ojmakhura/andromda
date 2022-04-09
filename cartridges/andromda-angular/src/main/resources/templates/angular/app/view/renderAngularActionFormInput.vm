@@ -58,7 +58,7 @@ ${ident}    <mat-checkbox class="$propertyId" translate>$parameter.messageKey</m
 ${ident}	<mat-form-field>
 ${ident}		<mat-label translate>$parameter.messageKey</mat-label> 
 #if ($parameter.inputSelect || $parameter.type.enumeration || $parameter.inputMultibox)
-${ident}		<mat-select name="$propertyId" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" id="$propertyId"#if($parameter.inputMultibox) multiple#end>
+${ident}		<mat-select name="$propertyId" form#if($parameter.inputMultibox)Control#{else}Array#{end}Name="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" id="$propertyId"#if($parameter.inputMultibox) multiple#end>
 #if(!$parameter.inputMultibox)
 ${ident}			<mat-option value = "">Select one ...</mat-option>
 #end

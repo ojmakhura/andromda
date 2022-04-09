@@ -29,6 +29,7 @@ import { $import.name } from '@app/${import.filePath}';
 #end
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
+
 export class $stringUtils.capitalize($action.formName) {
 #foreach($parameter in $action.formFields)
     $parameter.name: $parameter.angularTypeName | any;
@@ -52,22 +53,20 @@ export class $stringUtils.capitalize(${view.varsFormName}) {
 })
 export abstract class $view.componentName implements OnInit, AfterViewInit {
 
-#foreach ( $variable in $view.variables )
-#if($angularUtils.isComplex($variable))
-#foreach($attribute in $angularUtils.getTableAttributes($variable))
-	${attribute.name}Columns = [
-#set ($columns = $angularUtils.getTableColumns($attribute))
-#foreach ($column in $columns)
-        '$column',
-#end
-    ];
-
-    @ViewChild('${attribute.name}Paginator', {static: true}) ${attribute.name}Paginator: MatPaginator;
-    @ViewChild('${attribute.name}Sort', {static: true}) ${attribute.name}Sort: MatSort;
-    
-#end
-#end
-#end
+## #foreach ( $variable in $view.variables )
+## #if($angularUtils.isComplex($variable))
+## #foreach($attribute in $angularUtils.getTableAttributes($variable))
+## 	${attribute.name}Columns = [
+## #set ($columns = $angularUtils.getTableColumns($attribute))
+## #foreach ($column in $columns)
+##         '$column',
+## #end
+##     ];
+##     @ViewChild('${attribute.name}Paginator', {static: true}) ${attribute.name}Paginator: MatPaginator;
+##     @ViewChild('${attribute.name}Sort', {static: true}) ${attribute.name}Sort: MatSort;
+## #end
+## #end
+## #end
 	${view.formName}: FormGroup | any;
     hide: boolean = false;
     protected route: ActivatedRoute;
@@ -101,6 +100,8 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
     @ViewChild('${attribute.name}Sort', {static: true}) ${attribute.name}Sort: MatSort;
     
 #end
+
+#if(!$field.table)
 #foreach( $attribute in $field.attributes )
 #if($attribute.type.enumeration)
     ${attribute.name}T = $attribute.type.name;
@@ -118,6 +119,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
 #elseif($field.inputSelect || $field.inputMultibox)
 #set($ret = $selections.add($field.type))
     ${field.backingListName}: Array<$field.angularTypeName> = [];
+#end
 #end
 #end
 #end
@@ -355,7 +357,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
 ## #end
 ## #end
 #foreach($table in $view.tables)
-    set$stringUtils.capitalize(${table.name})(${table.name}: ${table.angularTypeName}[]): FormArray {
+    set$stringUtils.capitalize(${table.name})(${table.name}: ${table.angularTypeName}): FormArray {
 
         const ${table.name}Array = new FormArray([]);
 
@@ -363,7 +365,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
             return ${table.name}Array;
         }
 
-        ${table.name}.forEach((item: ${table.angularTypeName}) => {
+        ${table.name}.forEach((item) => {
             ${table.name}Array.push(this.rxFormBuilder.group(item))
         });
 

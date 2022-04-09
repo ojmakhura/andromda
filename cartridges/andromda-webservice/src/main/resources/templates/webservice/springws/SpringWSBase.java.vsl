@@ -71,7 +71,6 @@ public abstract class ${serviceName}Base implements ${serviceName} {
 #end
 #foreach($serviceRef in $service.serviceReferences)
 
-    @org.springframework.beans.factory.annotation.Autowired
     protected ${serviceRef.targetElement.fullyQualifiedName} $serviceRef.name;
     
     /**

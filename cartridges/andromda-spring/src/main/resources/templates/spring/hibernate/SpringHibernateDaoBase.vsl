@@ -1344,6 +1344,8 @@ $h3tab        return results;
 ## #set ($getter = "${criteriaAttribute.getterName}()")
 #if($criteriaAttribute.type.stringType && !$criteriaAttribute.many)
 #set($nullCheck = "org.apache.commons.lang3.StringUtils.isNotBlank(${criteriaArgumentName}.${criteriaAttribute.getterName}())")
+#elseif($criteriaAttribute.many)
+#set($nullCheck = "org.apache.commons.collections4.CollectionUtils.isNotEmpty(${criteriaArgumentName}.${criteriaAttribute.getterName}())")
 #else
 #set($nullCheck = "${criteriaArgumentName}.${criteriaAttribute.getterName}() != null")
 #end
