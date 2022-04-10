@@ -14,7 +14,6 @@
 #else
 #set($columnName = $column)
 #end
-$table.getTableColumnActions($columnName)
             <ng-container matColumnDef="${columnName}">
                 <mat-header-cell *matHeaderCellDef translate>$table.getTableColumnMessageKey($columnName)</mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{ row.get('${columnName}').value }} </mat-cell>

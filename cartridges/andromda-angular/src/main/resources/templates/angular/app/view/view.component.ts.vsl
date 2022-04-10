@@ -4,9 +4,17 @@
 import { Component, OnInit, Injector, ViewChild, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
-import { FormGroup, FormControl, FormArray, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { 
+    FormGroup, 
+    FormControl, 
+    FormArray, 
+    FormBuilder, 
+    ReactiveFormsModule, 
+    Validators 
+} from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { MatSelectChange } from '@angular/material/select';
 import { UseCaseScope } from '@app/utils/use-case-scope';
 import { SelectItem } from '@app/utils/select-item';
 import { Store } from '@ngrx/store';
@@ -85,8 +93,15 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
     $stringUtils.uncapitalize($service.name): ${service.implementationName};
 #end
 #end
+#set ($formVars = "")
+#set ($formVarNames = "")
 #if ($view.nonTableVariablesPresent)
+#set($formNameCaps = ${actionFormCaps})
+#set ($count = 1)
 #foreach ($field in $view.variables)
+#set ($formVars = "$formVars#if($count == 1), #{end}$field.name: $field.angularTypeName")
+#set ($formVarNames = "$formVarNames#if($count == 1), #{end}${view.formName}$.$field.name")
+#set ($count = $count + 1)
 #if($field.complex)
 #foreach($attribute in $angularUtils.getTableAttributes($field))
 	${attribute.name}Columns = [
@@ -148,7 +163,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
 	
     ngOnInit() {
         this.beforeOnInit();
-        this.${view.formName} = this.newForm();
+        this.${view.formName} = this.newForm(#if ($view.nonTableVariablesPresent)new $stringUtils.capitalize(${view.varsFormName})#end);
 
         this.${view.formName}.valueChanges.subscribe(
             (change: any) => {
@@ -172,15 +187,26 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
         this.doNgAfterViewInit();
     }
 
-    newForm(): FormGroup {
+    newForm(${view.varsFormName}$: $stringUtils.capitalize(${view.varsFormName})): FormGroup {
         return this.formBuilder.group({
 #if ($view.nonTableVariablesPresent)
 #foreach( $variable in $view.variables )
 #if(!$variable.table)
 #*  *##if($variable.complex)
-            $variable.name: this.rxFormBuilder.group(new $variable.type.name),
+            $variable.name: this.create$stringUtils.capitalize($variable.name)Form(${view.varsFormName}$?.${variable.name}),
 #*  *##else
-            $variable.name: [],
+#set ($validators = "")
+#if($variable.required || $variable.inputEmail)
+#set ($validators = ", [")
+#if($variable.required)
+#set ($validators = "${validators}Validators.required, ")
+#end
+#if($variable.inputEmail)
+#set ($validators = "${validators}Validators.email, ")
+#end
+#set ($validators = "$validators]")
+#end
+            $variable.name: [${view.varsFormName}$?.$variable.name ? ${view.varsFormName}$.$variable.name$ : null$validators],
 #*  *##end
 #end
 #end
@@ -200,10 +226,11 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
     }
 
 #foreach ($action in $view.actions)
+#set ($actionFormCaps = $stringUtils.capitalize($action.formName))
 #if (!$action.tableLink)
-    get ${action.formName}(): $stringUtils.capitalize($action.formName) {
+    get ${action.formName}(): $actionFormCaps {
 
-        let form: $stringUtils.capitalize($action.formName) = new $stringUtils.capitalize($action.formName)();
+        let form: $actionFormCaps = new ${actionFormCaps}();
 #foreach( $parameter in $action.parameters )
 #set ($tp = '')
 #if( $parameter.many)
@@ -222,15 +249,15 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
     /**
      * This method may be overwritten
      */
-    abstract afterSet$stringUtils.capitalize(${action.formName})(form: $stringUtils.capitalize($action.formName)): void;
+    abstract afterSet${actionFormCaps}(form: ${actionFormCaps}): void;
 
-    set$stringUtils.capitalize(${action.formName})(form: $stringUtils.capitalize($action.formName)) {
+    set${actionFormCaps}(form: ${actionFormCaps}) {
 
 #foreach($parameter in $action.parameters)
         this.${view.formName}.get('$parameter.name')?.setValue(form.$parameter.name);
 #end
 
-        this.afterSet$stringUtils.capitalize(${action.formName})(form);
+        this.afterSet${actionFormCaps}(form);
     }
 
 #set ($afterAction = "after$stringUtils.capitalize(${action.triggerName})")
@@ -239,16 +266,16 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
     /**
      * This method may be overwritten
      */
-    abstract ${beforeAction}(#if(!$action.formFields.empty)form: $stringUtils.capitalize($action.formName)#end): void;
+    abstract ${beforeAction}(#if(!$action.formFields.empty)form: ${actionFormCaps}#end): void;
 
     /**
      * This method may be overwritten
      */
-    abstract ${afterAction}(#if(!$action.formFields.empty)form: $stringUtils.capitalize($action.formName)#end): void;
+    abstract ${afterAction}(#if(!$action.formFields.empty)form: ${actionFormCaps}#end): void;
     
     ${action.triggerName}(): void {
 #if(!$action.formFields.empty)
-        let form: $stringUtils.capitalize($action.formName) = this.${action.formName};
+        let form: ${actionFormCaps} = this.${action.formName};
 #end
         this.${beforeAction}(#if(!$action.formFields.empty)form#end);
 
@@ -259,16 +286,16 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
     }
 
 #if(!$action.formFields.empty)
-    get$stringUtils.capitalize($action.formName)(value: any): $stringUtils.capitalize($action.formName) {
+    get${actionFormCaps}(value: any): ${actionFormCaps} {
         
-        let form: $stringUtils.capitalize($action.formName) = new $stringUtils.capitalize($action.formName)();
-#foreach($parameter in $action.parameters)
+        let form: ${actionFormCaps} = new ${actionFormCaps}();
 
+#foreach($parameter in $action.parameters)
         if(value?.$parameter.name) {
             form.$parameter.name = value?.$parameter.name;
         }
-#end
 
+#end
         return form;
     }
 #end
@@ -276,18 +303,6 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
 #end
 #end
 #if ($view.nonTableVariablesPresent)
-#set ($complex = [])
-#set ($simple = [])
-#foreach ($variable in $view.variables)
-#if(!$variable.table)
-#if ($variable.complex)
-#set($rt = $complex.add($variable))
-#else
-#set($rt = $simple.add($variable))
-#end
-#end
-#end
-
     get ${view.varsFormName}(): FormGroup {
         return this.getGroupControl('${view.varsFormName}');
     }
@@ -308,21 +323,90 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
         this.afterSet$stringUtils.capitalize(${view.varsFormName})(form);
     }
 
-#foreach ($variable in $complex)
-#set ($tables = $angularUtils.getTableAttributes($variable))
-    get ${variable.name}(): FormGroup {
-        return this.getGroupControl('${view.varsFormName}').get('$variable.name') as FormGroup;
+#foreach ($variable in $view.variables)
+#if(!$variable.table)
+#if($angularUtils.isTable($variable) || $variable.many || $variable.type.collectionType)
+#set ($controlType = "FormArray")
+#elseif($variable.complex)
+#set ($controlType = "FormGroup")
+    create$stringUtils.capitalize($variable.name)Form($variable.name: $variable.angularTypeName): FormGroup {
+        return this.formBuilder.group({
+#foreach($attribute in $variable.attributes)
+#if($angularUtils.isTable($attribute) || $attribute.many || $attribute.type.collectionType)
+            $attribute.name: this.formBuilder.array(${variable.name}?.$attribute.name ? ${variable.name}.$attribute.name : []),
+#elseif($attribute.complex)
+            $attribute.name: this.formBuilder.group(${variable.name}?.$attribute.name),
+#else
+#set ($validators = "")
+#if($attribute.required || $attribute.inputEmail)
+#set ($validators = ", [")
+#if($attribute.required)
+#set ($validators = "${validators}Validators.required, ")
+#end
+#if($attribute.inputEmail)
+#set ($validators = "${validators}Validators.email, ")
+#end
+#set ($validators = "$validators]")
+#end
+            $attribute.name: [${variable.name}?.$attribute.name ? ${variable.name}.${attribute.name} : null$validators],
+#end
+#end
+        });
     }
 
-#foreach ($table in $tables)
-    get ${table.name}(): FormArray {
-        return this.${variable.name}.get('$table.name') as FormArray;
+#else
+#set ($controlType = "FormControl")
+#end
+    get ${variable.name}(): $controlType {
+        return this.getGroupControl('$variable.name') as $controlType;
+    }
+
+#if($variable.inputMultibox)
+    on$stringUtils.capitalize($variable.name)Change($event: MatSelectChange) {
+        if(!this.${variable.name}.value.includes($event.value)) {
+            this.${variable.name}.push(new FormControl($event.value));
+        }
+        $event.source.value = '';
+    }
+
+    get$stringUtils.capitalize($variable.name)Label(value: string): string | undefined {
+        return this.${variable.backingListName}BackingList.find(item => item.value === value)?.label;
+    }
+
+#end
+#if ($variable.complex)
+#foreach($attribute in $variable.attributes)
+#if($angularUtils.isTable($attribute) || $attribute.many || $attribute.type.collectionType)
+#set ($controlType = "FormArray")
+#elseif($attribute.complex)
+#set ($controlType = "FormGroup")
+#else
+#set ($controlType = "FormControl")
+#end
+#set ($propertyId = $attribute.getFormPropertyId($variable))
+    get ${propertyId}(): $controlType {
+        return this.${variable.name}.get('$attribute.name') as $controlType;
+    }
+
+#if($attribute.inputMultibox)
+    on$stringUtils.capitalize($propertyId)Change($event: MatSelectChange) {
+        this.${propertyId}.push(new FormControl($event.value));
+    }
+
+    get$stringUtils.capitalize($propertyId)Label(value: string): string | undefined {
+        return this.${propertyId}BackingList.find(item => item.value === value)?.label;
+    }
+
+    ${propertyId}Delete(control: FormControl, index: number) {
+
     }
 
 #end
 #end
 #end
-
+#end
+#end
+#end
     getItemControl(name: string): FormControl {
         return this.${view.formName}.get(name) as FormControl;
     }
@@ -335,27 +419,6 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
         return this.${view.formName}.get(name) as FormArray;
     }
 
-## #foreach ( $parameter in $fieldSet )
-## #if($parameter.complex)
-## #foreach($attribute in $parameter.attributes)
-## #if($angularUtils.isTable($attribute) || $attribute.many)
-##     get ${attribute.name}(): FormArray {
-##         return <FormArray>this.getArrayControl('$parameter.name').get('$attribute.name');
-##     }
-
-## #elseif($attribute.complex)
-##     get ${attribute.name}(): FormGroup {
-##         return <FormGroup>this.getGroupControl('$parameter.name').get('$attribute.name');
-##     }
-
-## #end
-## #end
-##     get ${parameter.name}(): FormGroup {
-##         return <FormGroup>this.getGroupControl('$parameter.name');
-##     }
-
-## #end
-## #end
 #foreach($table in $view.tables)
     set$stringUtils.capitalize(${table.name})(${table.name}: ${table.angularTypeName}): FormArray {
 

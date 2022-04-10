@@ -26,7 +26,7 @@
 ${ident}<div #if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter))formGroupName="${parameter.name}"#end #if ($parameter.inputHidden)[hidden]="true"#end> 
 #if($angularUtils.isTable($parameter))
 ${ident}	<div class="mat-elevation-z8">
-${ident}		<mat-table matSort [dataSource]="${parameter.name}.controls" #${parameter.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
+${ident}		<mat-table matSort [dataSource]="${propertyId}.controls" #${parameter.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
 #foreach( $column in $angularUtils.getTableColumns($parameter))
 #if($column.name)
 #set($columnName = $column.name)
@@ -47,6 +47,26 @@ ${ident}			<mat-row *matRowDef="let row; columns: ${parameter.name}Columns;"></m
 ${ident}		</mat-table>
 ${ident}		<mat-paginator #${parameter.name}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
 ${ident}	</div>
+#elseif($parameter.inputMultibox)
+${ident}    <article formArrayName="${parameter.name}" id="${propertyId}Article" class="$p">
+${ident}        <h5 translate>${parameter.name}</h5>
+${ident}        <mat-list *ngFor="let control of ${propertyId}.controls; let i = index">
+${ident}            <mat-list-item> 
+${ident}                <button mat-mini-fab (click)="${propertyId}Delete(control, i)">
+${ident}                    <mat-icon class="add-course-btn">delete</mat-icon>
+${ident}                </button>
+${ident}                {{ get$stringUtils.capitalize(${propertyId})Label(control.value) }} 
+${ident}            </mat-list-item> 
+${ident}        </mat-list>
+${ident}        <mat-form-field>
+${ident}            <mat-label translate>Add Role</mat-label>
+${ident}            <mat-select name="${propertyId}Selector" id="${propertyId}Selector" (selectionChange)="on$stringUtils.capitalize(${propertyId})Change($event)">
+${ident}                <mat-option *ngFor="let item of $backingListName" [value]="item.value">
+${ident}                    {{ item.label }}
+${ident}                </mat-option>
+${ident}            </mat-select>
+${ident}        </mat-form-field>
+${ident}    </article>
 #elseif($parameter.inputCheckbox)
 ${ident}    <mat-checkbox class="$propertyId" translate>$parameter.messageKey</mat-checkbox>
 ## #elseif($parameter.inputRadio)
@@ -57,8 +77,8 @@ ${ident}    <mat-checkbox class="$propertyId" translate>$parameter.messageKey</m
 #else
 ${ident}	<mat-form-field>
 ${ident}		<mat-label translate>$parameter.messageKey</mat-label> 
-#if ($parameter.inputSelect || $parameter.type.enumeration || $parameter.inputMultibox)
-${ident}		<mat-select name="$propertyId" form#if($parameter.inputMultibox)Control#{else}Array#{end}Name="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" id="$propertyId"#if($parameter.inputMultibox) multiple#end>
+#if ($parameter.inputSelect || $parameter.type.enumeration)
+${ident}		<mat-select name="$propertyId" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" id="$propertyId">
 #if(!$parameter.inputMultibox)
 ${ident}			<mat-option value = "">Select one ...</mat-option>
 #end
