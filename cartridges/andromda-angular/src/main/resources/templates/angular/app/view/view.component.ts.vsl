@@ -3,7 +3,6 @@
 ")
 import { Component, OnInit, Injector, ViewChild, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RxFormBuilder } from '@rxweb/reactive-form-validators';
 import { 
     FormGroup, 
     FormControl, 
@@ -80,7 +79,6 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
     protected route: ActivatedRoute;
     protected router: Router;
     protected formBuilder: FormBuilder;
-    protected rxFormBuilder: RxFormBuilder;
     protected _injector: Injector;
     protected useCaseScope: UseCaseScope;
     protected store: Store<${view.useCase.actionClassName}State>;
@@ -144,7 +142,6 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
         this.route = injector.get(ActivatedRoute);
         this.router = injector.get(Router);
         this.formBuilder = injector.get(FormBuilder);
-        this.rxFormBuilder = injector.get(RxFormBuilder);
         this.useCaseScope = injector.get(UseCaseScope);
         this.store = injector.get(Store);
 #if(${view.useCase.controller})
@@ -254,7 +251,13 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
     set${actionFormCaps}(form: ${actionFormCaps}) {
 
 #foreach($parameter in $action.parameters)
-        this.${view.formName}.get('$parameter.name')?.setValue(form.$parameter.name);
+#if($angularUtils.isTable($parameter) || $parameter.many || $parameter.type.collectionType)
+        this.${view.formName}.setControl('$parameter.name', this.set$stringUtils.capitalize($parameter.name)(form.$parameter.name));
+#elseif($parameter.complex)
+        this.${view.formName}.setControl('$parameter.name', this.create$stringUtils.capitalize($parameter.name)Form(form.$parameter.name));
+#else
+        this.${view.formName}.get('$parameter.name').setValue(form.$parameter.name);
+#end
 #end
 
         this.afterSet${actionFormCaps}(form);
@@ -316,7 +319,13 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
 
 #foreach($variable in $view.variables)
 #if(!$variable.table)
-        this.${view.varsFormName}.get('$variable.name')?.setValue(form.$variable.name);
+#if($angularUtils.isTable($variable) || $variable.many || $variable.type.collectionType)
+        this.${view.varsFormName}.setControl('$variable.name', this.set$stringUtils.capitalize($variable.name)(form.$variable.name));
+#elseif($variable.complex)
+        this.${view.varsFormName}.setControl('$variable.name', this.create$stringUtils.capitalize($variable.name)Form(form.$variable.name));
+#else
+        this.${view.varsFormName}.get('$variable.name').setValue(form.$variable.name);
+#end
 #end
 #end
 
@@ -389,16 +398,33 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
     }
 
 #if($attribute.inputMultibox)
+    /**
+     * Add the selected item to the list only if it already exist.
+     * Make sure to reset the selection.
+     * @param $event
+     */
     on$stringUtils.capitalize($propertyId)Change($event: MatSelectChange) {
-        this.${propertyId}.push(new FormControl($event.value));
+        if(!this.${propertyId}.value.includes($event.value)){
+            this.${propertyId}.push(new FormControl($event.value));
+        }
+        $event.source.value='';
     }
 
+    /**
+     * Retrieve the label to be displayes
+     * @param value 
+     * @returns 
+     */
     get$stringUtils.capitalize($propertyId)Label(value: string): string | undefined {
         return this.${propertyId}BackingList.find(item => item.value === value)?.label;
     }
 
-    ${propertyId}Delete(control: FormControl, index: number) {
-
+    /**
+     * Delete an item from the list
+     * @param index 
+     */
+    ${propertyId}Delete(index: number) {
+        this.${propertyId}.controls.splice(index, 1);
     }
 
 #end

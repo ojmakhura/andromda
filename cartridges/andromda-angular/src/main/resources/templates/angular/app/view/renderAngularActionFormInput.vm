@@ -52,7 +52,7 @@ ${ident}    <article formArrayName="${parameter.name}" id="${propertyId}Article"
 ${ident}        <h5 translate>${parameter.name}</h5>
 ${ident}        <mat-list *ngFor="let control of ${propertyId}.controls; let i = index">
 ${ident}            <mat-list-item> 
-${ident}                <button mat-mini-fab (click)="${propertyId}Delete(control, i)">
+${ident}                <button mat-mini-fab (click)="${propertyId}Delete(i)">
 ${ident}                    <mat-icon class="add-course-btn">delete</mat-icon>
 ${ident}                </button>
 ${ident}                {{ get$stringUtils.capitalize(${propertyId})Label(control.value) }} 

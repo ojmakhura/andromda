@@ -16,10 +16,8 @@ import {$import.name} from '@app/$import.filePath';
 #end
 #end
 @Injectable()
-@model([])
 export class $class.name {
 #foreach ($attribute in $class.attributes)
-    @$angularUtils.getRxwebDecorator($attribute)
 #if($angularUtils.isComplex($attribute) && !$attribute.many && !$angularUtils.isArray($attribute.getterSetterTypeName) && !$attribute.type.enumeration)
 
     $attribute.name: ${attribute.type.name} = <${attribute.type.name}>{
