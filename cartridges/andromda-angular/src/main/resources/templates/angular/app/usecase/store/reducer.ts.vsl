@@ -7,19 +7,20 @@ import { Action, createFeature, createReducer, on } from '@ngrx/store';
 import * as ${actions} from './${metafacadeWebUtils.toWebResourceName($useCase.name)}.action';
 import {${stringUtils.uncapitalize(${useCase.actionClassName})}Key, initialState} from './${metafacadeWebUtils.toWebResourceName($useCase.name)}.state';
 #set($stateParams = [])
-#foreach ( $service in $controller.allRestControllers )
-#foreach($operation in $service.operations)
-#foreach($argument in $operation.arguments)
-#set ( $rt = $stateParams.add($argument) )
+#foreach($view in $useCase.views)
+#foreach($variable in $view.variables)
+#set ( $rt = $stateParams.add($variable) )
+#end
+#foreach($action in $view.actions)
+#foreach($field in $action.formFields)
+#set ( $rt = $stateParams.add($field) )
+#end
+#foreach($param in $action.parameters)
+#set ( $rt = $stateParams.add($param) )
 #end
 #end
 #end
 #set ( $finalParams = $angularUtils.getFacadeSet($stateParams) )
-#foreach($param in $finalParams)
-#if($param.type.attributes.size() > 0)
-import { $param.type.name } from '@app/${param.type.filePath}';
-#end
-#end
 
 export const ${stringUtils.uncapitalize(${useCase.actionClassName})}Reducer = createReducer(
     initialState,
@@ -28,7 +29,7 @@ export const ${stringUtils.uncapitalize(${useCase.actionClassName})}Reducer = cr
     on(${actions}.${operation.name}Success, (state, action) => ({
         ...state,
 #foreach($param in $finalParams)
-        $param.name: null, 
+        $param.name: #if($param.many || $param.type.collectionType)[]#{else}null#end, 
 #end
         error: action.error
     })),
@@ -37,7 +38,7 @@ export const ${stringUtils.uncapitalize(${useCase.actionClassName})}Reducer = cr
     on(${actions}.${stringUtils.uncapitalize(${useCase.actionClassName})}Reset, (state) => ({
       ...state,
 #foreach($param in $finalParams)
-        $param.name: null, 
+        $param.name: #if($param.many || $param.type.collectionType)[]#{else}null#end, 
 #end
         error: null
     })),

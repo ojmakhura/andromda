@@ -5,10 +5,16 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { ${stringUtils.uncapitalize(${useCase.actionClassName})}Key, ${useCase.actionClassName}State } from './${stringUtils.uncapitalize(${useCase.actionClassName})}.state';
 #set($stateParams = [])
-#foreach ( $service in $controller.allRestControllers )
-#foreach($operation in $service.operations)
-#foreach($argument in $operation.arguments)
-#set ( $rt = $stateParams.add($argument) )
+#foreach($view in $useCase.views)
+#foreach($variable in $view.variables)
+#set ( $rt = $stateParams.add($variable) )
+#end
+#foreach($action in $view.actions)
+#foreach($field in $action.formFields)
+#set ( $rt = $stateParams.add($field) )
+#end
+#foreach($param in $action.parameters)
+#set ( $rt = $stateParams.add($param) )
 #end
 #end
 #end
@@ -17,6 +23,7 @@ import { ${stringUtils.uncapitalize(${useCase.actionClassName})}Key, ${useCase.a
 export const select${useCase.actionClassName}State = createFeatureSelector<${useCase.actionClassName}State> (
     ${stringUtils.uncapitalize(${useCase.actionClassName})}Key
 );
+
 #foreach($param in $finalParams)
 export const select${stringUtils.capitalize(${param.name})} = createSelector(
     select${useCase.actionClassName}State,

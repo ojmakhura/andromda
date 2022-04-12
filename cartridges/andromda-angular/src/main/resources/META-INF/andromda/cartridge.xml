@@ -326,9 +326,9 @@
     </template>
 
     <template
-        path="templates/angular/app/usecase/store/action.store.ts.vsl"
+        path="templates/angular/app/usecase/store/action.ts.vsl"
         outputPattern="${path}/${fileName}.ts"
-        outlet="ngrx-store"
+        outlet="ngrx-store-impl"
         overwrite="false">
         <modelElements variable="controller">
             <modelElement>
@@ -340,9 +340,9 @@
     </template>
 
     <template
-        path="templates/angular/app/usecase/store/reducer.store.ts.vsl"
+        path="templates/angular/app/usecase/store/reducer.ts.vsl"
         outputPattern="${path}/${fileName}.ts"
-        outlet="ngrx-store"
+        outlet="ngrx-store-impl"
         overwrite="false">
         <modelElements variable="controller">
             <modelElement>
@@ -354,10 +354,10 @@
     </template>
 
     <template
-        path="templates/angular/app/usecase/store/selector.store.ts.vsl"
+        path="templates/angular/app/usecase/store/selector.ts.vsl"
         outputPattern="${path}/${fileName}.ts"
         outlet="ngrx-store"
-        overwrite="false">
+        overwrite="true">
         <modelElements variable="controller">
             <modelElement>
                 <type name="org.andromda.cartridges.angular.metafacades.AngularController">
@@ -368,10 +368,10 @@
     </template>
 
     <template
-        path="templates/angular/app/usecase/store/state.store.ts.vsl"
+        path="templates/angular/app/usecase/store/state.ts.vsl"
         outputPattern="${path}/${fileName}.ts"
         outlet="ngrx-store"
-        overwrite="false">
+        overwrite="true">
         <modelElements variable="controller">
             <modelElement>
                 <type name="org.andromda.cartridges.angular.metafacades.AngularController">
@@ -382,9 +382,9 @@
     </template>
 
     <template
-        path="templates/angular/app/usecase/store/effect.store.ts.vsl"
+        path="templates/angular/app/usecase/store/effect.ts.vsl"
         outputPattern="${path}/${fileName}.ts"
-        outlet="ngrx-store"
+        outlet="ngrx-store-impl"
         overwrite="false">
         <modelElements variable="controller">
             <modelElement>

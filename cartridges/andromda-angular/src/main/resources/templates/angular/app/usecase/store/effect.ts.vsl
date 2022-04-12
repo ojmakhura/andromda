@@ -43,7 +43,7 @@ export class ${useCase.actionClassName}Effects {
 #end
             mergeMap(($args) => this.${serviceName}.${operation.name}($callArgs).pipe(
 #if ($operation.returnTypePresent)
-                map( results => ${actionName}.${operation.name}Success({results})),
+//                map( results => ${actionName}.${operation.name}Success({results})),
 #end
                 catchError(({error}) => [${actionName}.$failureAction(error)])
             ))
