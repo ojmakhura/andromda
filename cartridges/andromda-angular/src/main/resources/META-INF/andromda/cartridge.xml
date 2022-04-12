@@ -368,6 +368,20 @@
     </template>
 
     <template
+        path="templates/angular/app/usecase/store/state.store.ts.vsl"
+        outputPattern="${path}/${fileName}.ts"
+        outlet="ngrx-store"
+        overwrite="false">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
+                    <property name="useCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
         path="templates/angular/app/usecase/store/effect.store.ts.vsl"
         outputPattern="${path}/${fileName}.ts"
         outlet="ngrx-store"

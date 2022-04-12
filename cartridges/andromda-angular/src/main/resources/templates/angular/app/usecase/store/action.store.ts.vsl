@@ -4,8 +4,54 @@
 #set ($path = "$useCase.pathRoot")
 import { createAction, props } from '@ngrx/store';
 #set ($actionType = "${useCase.actionClassName}ActionType")
+#set ($resetActionType = "${useCase.actionClassName.toUpperCase()}_RESET")
+#set ($failureActionType = "${useCase.actionClassName.toUpperCase()}_FAILURE")
+#set ($resetAction = "${stringUtils.uncapitalize(${useCase.actionClassName})}Reset")
+#set ($failureAction = "${stringUtils.uncapitalize(${useCase.actionClassName})}Failure")
+#foreach ($service in $controller.allRestControllers)
+#foreach ($import in $service.imports)
+#if(${import.implementationFilePath})
+import { $import.implementationName } from '@app/${import.implementationFilePath}';
+#else
+import { $import.name } from '@app/${import.filePath}';
+#end
+#end
+#end
 
 export enum ${actionType} {
-
+#foreach ($service in $controller.allRestControllers)
+#foreach($operation in $service.operations)
+#set ($web = "${metafacadeWebUtils.toWebResourceName($operation.name)}")
+#set ($actionName = $web.replace('-', '_').toUpperCase())
+#set ($actionPhrase = "$stringUtils.toPhrase($operation.name)")
+    ${actionName} = '[${useCase.actionClassName}] $actionPhrase',
+    ${actionName}_SUCCESS = '[${useCase.actionClassName}] $actionPhrase Success',
+#end
+#end
+    $resetActionType = '[${useCase.actionClassName}] ${useCase.actionClassName} Reset',
+    $failureActionType = '[${useCase.actionClassName}] ${useCase.actionClassName} Action Failure'
 }
 
+#foreach ($service in $controller.allRestControllers)
+#foreach($operation in $service.operations)
+#set ($web = "${metafacadeWebUtils.toWebResourceName($operation.name)}")
+#set ($actionName = $web.replace('-', '_').toUpperCase())
+export const ${operation.name} = createAction(
+    ${actionType}.${actionName}#if (!$operation.arguments.empty),
+    props<{ $angularUtils.getMethodSignatureArguments(${operation.getArguments()}) }>()
+#end);
+
+export const ${operation.name}Success = createAction(
+    ${actionType}.${actionName}_SUCCESS#if ($operation.returnTypePresent),
+    props<{ results: $operation.returnTypeName }>()
+#end);
+
+#end
+#end
+
+export const $resetAction = createAction(${actionType}.$resetActionType);
+
+export const $failureAction = createAction(
+    ${actionType}.$failureActionType,
+    props<{ error: any }>()
+);

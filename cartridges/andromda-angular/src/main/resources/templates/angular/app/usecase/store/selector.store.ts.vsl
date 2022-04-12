@@ -3,8 +3,29 @@
 #set ($fileName = "${metafacadeWebUtils.toWebResourceName($useCase.name)}.selector")
 #set ($path = "$useCase.pathRoot")
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { ${stringUtils.uncapitalize(${useCase.actionClassName})}Key, ${useCase.actionClassName}State } from './${stringUtils.uncapitalize(${useCase.actionClassName})}.reducer';
+import { ${stringUtils.uncapitalize(${useCase.actionClassName})}Key, ${useCase.actionClassName}State } from './${stringUtils.uncapitalize(${useCase.actionClassName})}.state';
+#set($stateParams = [])
+#foreach ( $service in $controller.allRestControllers )
+#foreach($operation in $service.operations)
+#foreach($argument in $operation.arguments)
+#set ( $rt = $stateParams.add($argument) )
+#end
+#end
+#end
+#set ( $finalParams = $angularUtils.getFacadeSet($stateParams) )
 
 export const select${useCase.actionClassName}State = createFeatureSelector<${useCase.actionClassName}State> (
     ${stringUtils.uncapitalize(${useCase.actionClassName})}Key
 );
+#foreach($param in $finalParams)
+export const select${stringUtils.capitalize(${param.name})} = createSelector(
+    select${useCase.actionClassName}State,
+    (state: ${useCase.actionClassName}State) => state.${param.name}
+);
+
+#end
+export const selectError = createSelector(
+    select${useCase.actionClassName}State,
+    (state: ${useCase.actionClassName}State) => state.error
+);
+

@@ -326,6 +326,7 @@ public class AngularUtils {
             } else {
                 builder.append(getDatatype(arg$.getGetterSetterTypeName()));
             }
+            builder.append(" | any ");
         }
             
         return builder.toString();

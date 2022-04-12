@@ -60,20 +60,6 @@ export class $stringUtils.capitalize(${view.varsFormName}) {
 })
 export abstract class $view.componentName implements OnInit, AfterViewInit {
 
-## #foreach ( $variable in $view.variables )
-## #if($angularUtils.isComplex($variable))
-## #foreach($attribute in $angularUtils.getTableAttributes($variable))
-## 	${attribute.name}Columns = [
-## #set ($columns = $angularUtils.getTableColumns($attribute))
-## #foreach ($column in $columns)
-##         '$column',
-## #end
-##     ];
-##     @ViewChild('${attribute.name}Paginator', {static: true}) ${attribute.name}Paginator: MatPaginator;
-##     @ViewChild('${attribute.name}Sort', {static: true}) ${attribute.name}Sort: MatSort;
-## #end
-## #end
-## #end
 	${view.formName}: FormGroup | any;
     hide: boolean = false;
     protected route: ActivatedRoute;
