@@ -24,8 +24,8 @@ import { $import.componentImplementationName } from '@app/${import.implementatio
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 #set ($base = "${metafacadeWebUtils.toWebResourceName($useCase.name)}")
-import { ${stringUtils.uncapitalize(${useCase.actionClassName})}Feature } from '@app/store/$useCase.pathRoot/${base}.reducer';
-import { ${useCase.actionClassName}Effects } from '@app/store/$useCase.pathRoot/${base}.effect';
+import { ${stringUtils.uncapitalize(${useCase.actionClassName})}Feature } from '@app/store/$useCase.pathRoot/${base}.reducers';
+import { ${useCase.actionClassName}Effects } from '@app/store/$useCase.pathRoot/${base}.effects';
 #end
 
 @NgModule({

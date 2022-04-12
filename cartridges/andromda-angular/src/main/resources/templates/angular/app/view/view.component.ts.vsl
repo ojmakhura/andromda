@@ -19,7 +19,7 @@ import { SelectItem } from '@app/utils/select-item';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 #set ($base = "${metafacadeWebUtils.toWebResourceName($view.useCase.name)}")
-import { ${view.useCase.actionClassName}State } from '@app/store/$view.useCase.pathRoot/${base}.reducer';
+import { ${view.useCase.actionClassName}State } from '@app/store$view.useCase.pathRoot/${base}.state';
 
 ## Find all the fields in the actions of the view
 #set($fieldSet =  $angularUtils.getFacadeSet($view.allFormFields))
@@ -441,7 +441,18 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
         }
 
         ${table.name}.forEach((item) => {
-            ${table.name}Array.push(this.rxFormBuilder.group(item))
+            ${table.name}Array.push(this.formBuilder.group({
+#foreach ($column in $table.tableColumns)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
+#if(!$column.many && !$column.type.collectionType && !$column.type.enumeration)
+                $columnName: [item.$columnName],
+#end
+#end
+            }));
         });
 
         this.${view.formName}.setControl('${table.name}', ${table.name}Array);

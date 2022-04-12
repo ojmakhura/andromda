@@ -326,7 +326,7 @@
     </template>
 
     <template
-        path="templates/angular/app/usecase/store/action.ts.vsl"
+        path="templates/angular/app/usecase/store/actions.ts.vsl"
         outputPattern="${path}/${fileName}.ts"
         outlet="ngrx-store-impl"
         overwrite="false">
@@ -340,7 +340,7 @@
     </template>
 
     <template
-        path="templates/angular/app/usecase/store/reducer.ts.vsl"
+        path="templates/angular/app/usecase/store/reducers.ts.vsl"
         outputPattern="${path}/${fileName}.ts"
         outlet="ngrx-store-impl"
         overwrite="false">
@@ -354,7 +354,7 @@
     </template>
 
     <template
-        path="templates/angular/app/usecase/store/selector.ts.vsl"
+        path="templates/angular/app/usecase/store/selectors.ts.vsl"
         outputPattern="${path}/${fileName}.ts"
         outlet="ngrx-store"
         overwrite="true">
@@ -370,8 +370,8 @@
     <template
         path="templates/angular/app/usecase/store/state.ts.vsl"
         outputPattern="${path}/${fileName}.ts"
-        outlet="ngrx-store"
-        overwrite="true">
+        outlet="ngrx-store-impl"
+        overwrite="false">
         <modelElements variable="controller">
             <modelElement>
                 <type name="org.andromda.cartridges.angular.metafacades.AngularController">
@@ -382,7 +382,7 @@
     </template>
 
     <template
-        path="templates/angular/app/usecase/store/effect.ts.vsl"
+        path="templates/angular/app/usecase/store/effects.ts.vsl"
         outputPattern="${path}/${fileName}.ts"
         outlet="ngrx-store-impl"
         overwrite="false">
