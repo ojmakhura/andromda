@@ -22,6 +22,7 @@ export class ${table.tableComponentImplementationName} extends ${table.tableComp
   doNgAfterViewInit() {
     
   }
+  doNgOnDestroy(): void {}
 
 #foreach ($action in $table.tableFormActions)
 

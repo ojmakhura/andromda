@@ -54,6 +54,8 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
     doNgAfterViewInit() {
     }
 
+    doNgOnDestroy(){}
+
     handleFormChanges(change: any) {
     }
 

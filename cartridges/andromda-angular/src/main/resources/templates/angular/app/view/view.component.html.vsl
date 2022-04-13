@@ -65,8 +65,8 @@
 #foreach ( $table in $view.tables )
 		<mat-tab class="${table.name}">
 			<ng-template mat-tab-label><span translate>$table.messageKey</span></ng-template>
-			<$table.fileName 
-				[${table.name}] = "${table.name}">
+			<$table.fileName>
+##				[${table.name}] = "${table.name}">
 			</$table.fileName>
 		</mat-tab>
 #end

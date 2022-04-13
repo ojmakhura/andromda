@@ -7,7 +7,7 @@
 #set ($targetColumns = $table.targettedTableColumnNames)
 #if (!$table.tableColumns.empty)
     <div class="mat-elevation-z8">
-        <mat-table matSort [dataSource]="${table.name}.controls" #${table.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
+        <mat-table matSort [dataSource]="${table.name}$ | async" #${table.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
 #foreach ($column in $table.tableColumns)
 #if($column.name)
 #set($columnName = $column.name)
@@ -16,7 +16,7 @@
 #end
             <ng-container matColumnDef="${columnName}">
                 <mat-header-cell *matHeaderCellDef translate>$table.getTableColumnMessageKey($columnName)</mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{ row.get('${columnName}').value }} </mat-cell>
+                <mat-cell *matCellDef="let row"> {{ row.${columnName} }} </mat-cell>
             </ng-container>
 #end
 #if ($table.tableFormActions.size() > 0)

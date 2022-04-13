@@ -454,8 +454,8 @@
 	<template
         path="templates/angular/app/view/table/table.component.impl.ts.vsl"
         outputPattern="${table.implementationFilePath}.ts"
-        outlet="views"
-        overwrite="true">
+        outlet="view-impls"
+        overwrite="false">
         <modelElements>
             <modelElement>
                 <type name="org.andromda.cartridges.angular.metafacades.AngularView">
