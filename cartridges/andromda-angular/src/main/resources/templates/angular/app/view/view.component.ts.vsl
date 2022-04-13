@@ -448,8 +448,8 @@ export abstract class $view.componentName implements OnInit, AfterViewInit {
 #else
 #set($columnName = $column)
 #end
-#if(!$column.many && !$column.type.collectionType && !$column.type.enumeration)
-                $columnName: [item.$columnName],
+#if(!$column.many || !$column.type.collectionType || ( $column.type.attributes.size() > 0 && $column.type.enumeration))
+                $columnName: [item.$columnName#if($column.type.dateType).toISOString()#end],
 #end
 #end
             }));
