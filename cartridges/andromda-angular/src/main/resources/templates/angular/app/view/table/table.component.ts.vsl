@@ -91,7 +91,7 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.beforeOnInit();
-        this.${table.name}.removeAt(0);
+//        this.${table.name}.removeAt(0);
         this.afterOnInit();
     }
 	

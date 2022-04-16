@@ -26,7 +26,7 @@
 ${ident}<div #if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter))formGroupName="${parameter.name}"#end #if ($parameter.inputHidden)[hidden]="true"#end> 
 #if($angularUtils.isTable($parameter))
 ${ident}	<div class="mat-elevation-z8">
-${ident}		<mat-table matSort [dataSource]="${propertyId}$ | async" #${parameter.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
+${ident}		<mat-table matSort [dataSource]="${propertyId}.controls" #${parameter.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
 #foreach( $column in $angularUtils.getTableColumns($parameter))
 #if($column.name)
 #set($columnName = $column.name)

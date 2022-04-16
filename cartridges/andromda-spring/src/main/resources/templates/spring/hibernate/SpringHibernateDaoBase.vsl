@@ -1124,7 +1124,7 @@ $h3tab        if(${argument.name}.${id.getterName}() != null)
 $h3tab          if(specifications == null)
 $h3tab              specifications = ${entity.name}Specifications.findBy$stringUtils.capitalize($argument.name)$stringUtils.capitalize($id.name)(${argument.name}.${id.getterName}());
 $h3tab          else
-$h3tab              specifications = specifications.and(${entity.name}Specifications.findBy$stringUtils.capitalize($argument.name)$stringUtils.capitalize($id.name)(${argument.name}.${id.getterName}());
+$h3tab              specifications = specifications.and(${entity.name}Specifications.findBy$stringUtils.capitalize($argument.name)$stringUtils.capitalize($id.name)(${argument.name}.${id.getterName}()));
 #end
 #end
 #else
@@ -1134,12 +1134,13 @@ $h3tab        specifications = ${entity.name}Specifications.findBy$stringUtils.c
 $h3tab        if(specifications == null)
 $h3tab          specifications = ${entity.name}Specifications.findBy$stringUtils.capitalize($argument.name)(${argument.name}());
 $h3tab        else
-$h3tab          specifications = specifications.and(${entity.name}Specifications.findBy$stringUtils.capitalize($argument.name)(${argument.name}());
+$h3tab          specifications = specifications.and(${entity.name}Specifications.findBy$stringUtils.capitalize($argument.name)(${argument.name}()));
 #end
 #end
 #set ($count = $count + 1)
 #end
 #end
+
 $h3tab        org.springframework.data.domain.Pageable pageable = null;
 #if ($finder.returnType.collectionType || $finder.many)
 $h3tab        if (pageNumber > 0 && pageSize > 0)
@@ -1148,6 +1149,7 @@ $h3tab            pageable = org.springframework.data.domain.PageRequest.of(page
 $h3tab        }
 #end
 #if ($finder.returnType.collectionType || $finder.many)
+
 $h3tab        java.util.Collection results = null;
 $h3tab        if(pageable == null) {
 #if($stringUtils.isNotBlank($finder.query))
@@ -1164,6 +1166,7 @@ $h3tab          results = ${repositoryName}.findAll(specifications, pageable).ge
 $h3tab        }
 #end
 #if (!($finder.returnType.collectionType || $finder.many))
+
 $h3tab        Object result = null;
 $h3tab        if (results.size() > 1)
 $h3tab        {
@@ -1179,10 +1182,13 @@ $h3tab        }
 $h3tab        if(transform != $entity.daoNoTransformationConstantName){
 $h3tab            result = transformEntity(transform, ($entity.fullyQualifiedName)result);
 $h3tab        }
+
 $h3tab        return result;
 #else
+
 $h3tab        transformEntities(transform, results);
 #if ($finder.returnTypePresent)
+
 $h3tab        return results;
 #end
 #end
@@ -1298,9 +1304,9 @@ $h3tab        return results;
 #if($i == 1)
         if($nullCheck) {
 #if($criteriaAttribute.orderDirection == "ORDER_DESC")
-            sort = Sort.by("$criteriaAttribute.name").descending();
+            sort = org.springframework.data.domain.Sort.by("$criteriaAttribute.name").descending();
 #else
-            sort = Sort.by("$criteriaAttribute.name").ascending();
+            sort = org.springframework.data.domain.Sort.by("$criteriaAttribute.name").ascending();
 #end
         }
 
@@ -1308,9 +1314,9 @@ $h3tab        return results;
 #else
         if($nullCheck) {
 #if($criteriaAttribute.orderDirection == "ORDER_DESC")
-            sort = Sort.by("$criteriaAttribute.name").descending();
+            sort = org.springframework.data.domain.Sort.by("$criteriaAttribute.name").descending();
 #else
-            sort = Sort.by("$criteriaAttribute.name").ascending();
+            sort = org.springframework.data.domain.Sort.by("$criteriaAttribute.name").ascending();
 #end
             } else {
 #if($criteriaAttribute.orderDirection == "ORDER_DESC")
