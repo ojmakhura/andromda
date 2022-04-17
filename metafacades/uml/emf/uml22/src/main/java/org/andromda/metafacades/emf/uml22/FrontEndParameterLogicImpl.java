@@ -186,8 +186,7 @@ public class FrontEndParameterLogicImpl
      * @see org.andromda.metafacades.uml.FrontEndParameter#getTableColumns()
      */
     @Override
-    public Collection handleGetTableColumns()
-    {
+    public Collection handleGetTableColumns() {
         final Collection tableColumns = new ArrayList(this.getNonArrayAttributes());
         final Collection tableColumnNames = this.getTableColumnNames();
         CollectionUtils.filter(
@@ -199,10 +198,10 @@ public class FrontEndParameterLogicImpl
                         return attributeName != null && tableColumnNames.contains(attributeName);
                     }
                 });
-        if (tableColumns.isEmpty())
-        {
+        if (tableColumns.isEmpty()) {
             // try to preserve the order of the elements encountered
-            //final Map<String, ThymeleafParameter> tableColumnsMap = new LinkedHashMap<String, ThymeleafParameter>();
+            // final Map<String, ThymeleafParameter> tableColumnsMap = new
+            // LinkedHashMap<String, ThymeleafParameter>();
             final Map tableColumnsMap = new LinkedHashMap();
 
             // order is important
@@ -211,51 +210,42 @@ public class FrontEndParameterLogicImpl
             // all table actions need the exact same parameters, just not always all of them
             actions.addAll(this.getTableFormActions());
 
-            // if there are any actions that are hyperlinks then their parameters get priority
+            // if there are any actions that are hyperlinks then their parameters get
+            // priority
             // the user should not have modeled it that way (constraints will warn him/her)
             actions.addAll(this.getTableHyperlinkActions());
 
-            for (final FrontEndAction action : actions)
-            {
-                for (final FrontEndParameter parameter : action.getParameters())
-                {
-                    //if (actionParameter instanceof FrontEndParameter)
-                    //{
-                        //final ThymeleafParameter parameter = (ThymeleafParameter)actionParameter;
-                        final String parameterName = parameter.getName();
-                        if (parameterName != null)
-                        {
-                            // never overwrite column specific table links
-                            // the hyperlink table links working on a real column get priority
-                            final Object existingObject = tableColumnsMap.get(parameterName);
-                            if (existingObject instanceof FrontEndParameter)
-                            {
-                                if (action.isHyperlink() && parameterName.equals(action.getTableLinkColumnName()))
-                                {
-                                    tableColumnsMap.put(
+            for (final FrontEndAction action : actions) {
+                for (final FrontEndParameter parameter : action.getParameters()) {
+                    // final ThymeleafParameter parameter = (ThymeleafParameter)actionParameter;
+                    final String parameterName = parameter.getName();
+                    if (parameterName != null) {
+                        // never overwrite column specific table links
+                        // the hyperlink table links working on a real column get priority
+                        final Object existingObject = tableColumnsMap.get(parameterName);
+                        if (existingObject instanceof FrontEndParameter) {
+                            if (action.isHyperlink() && parameterName.equals(action.getTableLinkColumnName())) {
+                                tableColumnsMap.put(
                                         parameterName,
                                         parameter);
-                                }
                             }
                         }
-                   //}
+                    }
                 }
             }
 
             // for any missing parameters we just add the name of the column
-            for (final String columnName : this.getTableColumnNames())
-            {
-                if (!tableColumnsMap.containsKey(columnName))
-                {
+            for (final String columnName : this.getTableColumnNames()) {
+                if (!tableColumnsMap.containsKey(columnName)) {
                     tableColumnsMap.put(
-                        columnName,
-                        columnName);
+                            columnName,
+                            columnName);
                 }
             }
 
-            // return everything in the same order as it has been modeled (using the table tagged value)
-            for (final String columnObject : this.getTableColumnNames())
-            {
+            // return everything in the same order as it has been modeled (using the table
+            // tagged value)
+            for (final String columnObject : this.getTableColumnNames()) {
                 tableColumns.add(tableColumnsMap.get(columnObject));
             }
         }
@@ -357,12 +347,13 @@ public class FrontEndParameterLogicImpl
      */
     @Override
     protected String handleGetInputType() {
-        String inputType = Objects.toString(this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_INPUT_TYPE), "text").trim();
+        String inputType = Objects.toString(this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_INPUT_TYPE), "text")
+                .trim();
 
-        if(inputType.equals("text")) {
-            if(UMLMetafacadeUtils.isNumber(getType())) {
+        if (inputType.equals("text")) {
+            if (UMLMetafacadeUtils.isNumber(getType())) {
                 inputType = "number";
-            } else if(this.getType().isDateType()) {
+            } else if (this.getType().isDateType()) {
                 inputType = "date";
             }
         }
@@ -375,10 +366,9 @@ public class FrontEndParameterLogicImpl
      * @param inputType the name of the input type to check for.
      * @return true/false
      */
-    private boolean isInputType(final String inputType)
-    {
+    private boolean isInputType(final String inputType) {
         return inputType.equalsIgnoreCase(this.getInputType());
-    } 
+    }
 
     @Override
     protected boolean handleIsInputCheckbox() {
@@ -513,16 +503,16 @@ public class FrontEndParameterLogicImpl
         }
         return selectable;
     }
+
     /**
      * Constructs a string representing an array initialization in Java.
      *
      * @return A String representing Java code for the initialization of an array.
      */
-    private String constructDummyArray()
-    {
+    private String constructDummyArray() {
         return MetafacadeWebUtils.constructDummyArrayDeclaration(
-            this.getName(),
-            MetafacadeWebGlobals.DUMMY_ARRAY_COUNT);
+                this.getName(),
+                MetafacadeWebGlobals.DUMMY_ARRAY_COUNT);
     }
 
     /**
@@ -535,94 +525,85 @@ public class FrontEndParameterLogicImpl
         final ClassifierFacade type = this.getType();
         final String typeName = type != null ? type.getFullyQualifiedName() : "";
         String initialValue = null;
-        if (type != null)
-        {
-            if (type.isSetType())
-            {
-                initialValue =
-                    "new java.util.LinkedHashSet(java.util.Arrays.asList(" + this.constructDummyArray() + "))";
-            }
-            else if (type.isCollectionType())
-            {
+        if (type != null) {
+            if (type.isSetType()) {
+                initialValue = "new java.util.LinkedHashSet(java.util.Arrays.asList(" + this.constructDummyArray()
+                        + "))";
+            } else if (type.isCollectionType()) {
                 initialValue = "java.util.Arrays.asList(" + this.constructDummyArray() + ")";
-            }
-            else if (type.isArrayType())
-            {
+            } else if (type.isArrayType()) {
                 initialValue = this.constructDummyArray();
             }
             final String name = this.getName() != null ? this.getName() : "";
-            if (this.initialValues.isEmpty())
-            {
+            if (this.initialValues.isEmpty()) {
                 initialValues.put(
-                    boolean.class.getName(),
-                    "false");
+                        boolean.class.getName(),
+                        "false");
                 initialValues.put(
-                    int.class.getName(),
-                    "(int)" + name.hashCode());
+                        int.class.getName(),
+                        "(int)" + name.hashCode());
                 initialValues.put(
-                    long.class.getName(),
-                    "(long)" + name.hashCode());
+                        long.class.getName(),
+                        "(long)" + name.hashCode());
                 initialValues.put(
-                    short.class.getName(),
-                    "(short)" + name.hashCode());
+                        short.class.getName(),
+                        "(short)" + name.hashCode());
                 initialValues.put(
-                    byte.class.getName(),
-                    "(byte)" + name.hashCode());
+                        byte.class.getName(),
+                        "(byte)" + name.hashCode());
                 initialValues.put(
-                    float.class.getName(),
-                    "(float)" + name.hashCode());
+                        float.class.getName(),
+                        "(float)" + name.hashCode());
                 initialValues.put(
-                    double.class.getName(),
-                    "(double)" + name.hashCode());
+                        double.class.getName(),
+                        "(double)" + name.hashCode());
                 initialValues.put(
-                    char.class.getName(),
-                    "(char)" + name.hashCode());
+                        char.class.getName(),
+                        "(char)" + name.hashCode());
 
                 initialValues.put(
-                    String.class.getName(),
-                    "\"" + name + "-test" + "\"");
+                        String.class.getName(),
+                        "\"" + name + "-test" + "\"");
                 initialValues.put(
-                    java.util.Date.class.getName(),
-                    "new java.util.Date()");
+                        java.util.Date.class.getName(),
+                        "new java.util.Date()");
                 initialValues.put(
-                    java.sql.Date.class.getName(),
-                    "new java.util.Date()");
+                        java.sql.Date.class.getName(),
+                        "new java.util.Date()");
                 initialValues.put(
-                    java.sql.Timestamp.class.getName(),
-                    "new java.util.Date()");
+                        java.sql.Timestamp.class.getName(),
+                        "new java.util.Date()");
 
                 initialValues.put(
-                    Integer.class.getName(),
-                    "new Integer((int)" + name.hashCode() + ")");
+                        Integer.class.getName(),
+                        "new Integer((int)" + name.hashCode() + ")");
                 initialValues.put(
-                    Boolean.class.getName(),
-                    "Boolean.FALSE");
+                        Boolean.class.getName(),
+                        "Boolean.FALSE");
                 initialValues.put(
-                    Long.class.getName(),
-                    "new Long((long)" + name.hashCode() + ")");
+                        Long.class.getName(),
+                        "new Long((long)" + name.hashCode() + ")");
                 initialValues.put(
-                    Character.class.getName(),
-                    "new Character(char)" + name.hashCode() + ")");
+                        Character.class.getName(),
+                        "new Character(char)" + name.hashCode() + ")");
                 initialValues.put(
-                    Float.class.getName(),
-                    "new Float((float)" + name.hashCode() / hashCode() + ")");
+                        Float.class.getName(),
+                        "new Float((float)" + name.hashCode() / hashCode() + ")");
                 initialValues.put(
-                    Double.class.getName(),
-                    "new Double((double)" + name.hashCode() / hashCode() + ")");
+                        Double.class.getName(),
+                        "new Double((double)" + name.hashCode() / hashCode() + ")");
                 initialValues.put(
-                    Short.class.getName(),
-                    "new Short((short)" + name.hashCode() + ")");
+                        Short.class.getName(),
+                        "new Short((short)" + name.hashCode() + ")");
                 initialValues.put(
-                    Byte.class.getName(),
-                    "new Byte((byte)" + name.hashCode() + ")");
+                        Byte.class.getName(),
+                        "new Byte((byte)" + name.hashCode() + ")");
             }
-            if (initialValue == null)
-            {
+            if (initialValue == null) {
                 initialValue = this.initialValues.get(typeName);
             }
         }
-        if (initialValue == null)
-        {
+        if (initialValue == null) {
             initialValue = "null";
         }
         return initialValue;
@@ -656,30 +637,23 @@ public class FrontEndParameterLogicImpl
     @Override
     protected boolean handleIsValidationRequired() {
         boolean required = !this.getValidatorTypes().isEmpty();
-        if (!required)
-        {
+        if (!required) {
             // - look for any attributes
-            for (final Iterator<FrontEndAttribute> iterator = this.getAttributes().iterator(); iterator.hasNext();)
-            {
+            for (final Iterator<FrontEndAttribute> iterator = this.getAttributes().iterator(); iterator.hasNext();) {
                 required = !iterator.next().getValidatorTypes().isEmpty();
-                if (required)
-                {
+                if (required) {
                     break;
                 }
             }
 
             // - look for any table columns
-            if (!required)
-            {
-                for (final Iterator iterator = this.getTableColumns().iterator(); iterator.hasNext();)
-                {
+            if (!required) {
+                for (final Iterator iterator = this.getTableColumns().iterator(); iterator.hasNext();) {
                     final Object object = iterator.next();
-                    if (object instanceof FrontEndAttribute)
-                    {
-                        final FrontEndAttribute attribute = (FrontEndAttribute)object;
+                    if (object instanceof FrontEndAttribute) {
+                        final FrontEndAttribute attribute = (FrontEndAttribute) object;
                         required = !attribute.getValidatorTypes().isEmpty();
-                        if (required)
-                        {
+                        if (required) {
                             break;
                         }
                     }
@@ -692,8 +666,8 @@ public class FrontEndParameterLogicImpl
     @Override
     protected Collection handleGetValidatorTypes() {
         return MetafacadeWebUtils.getValidatorTypes(
-            (ModelElementFacade)this.THIS(),
-            this.getType());
+                (ModelElementFacade) this.THIS(),
+                this.getType());
     }
 
     @Override
@@ -710,11 +684,9 @@ public class FrontEndParameterLogicImpl
     protected boolean handleIsComplex() {
         boolean complex = false;
         final ClassifierFacade type = this.getType();
-        if (type != null)
-        {
+        if (type != null) {
             complex = !type.getAttributes().isEmpty();
-            if (!complex)
-            {
+            if (!complex) {
                 complex = !type.getAssociationEnds().isEmpty();
             }
         }
@@ -725,14 +697,11 @@ public class FrontEndParameterLogicImpl
     protected Collection handleGetAttributes() {
         Collection<AttributeFacade> attributes = null;
         ClassifierFacade type = this.getType();
-        if (type != null)
-        {
-            if (type.isArrayType())
-            {
+        if (type != null) {
+            if (type.isArrayType()) {
                 type = type.getNonArray();
             }
-            if (type != null)
-            {
+            if (type != null) {
                 attributes = type.getAttributes(true);
             }
         }
@@ -743,14 +712,11 @@ public class FrontEndParameterLogicImpl
     protected Collection<AssociationEndFacade> handleGetNavigableAssociationEnds() {
         Collection<AssociationEndFacade> associationEnds = null;
         ClassifierFacade type = this.getType();
-        if (type != null)
-        {
-            if (type.isArrayType())
-            {
+        if (type != null) {
+            if (type.isArrayType()) {
                 type = type.getNonArray();
             }
-            if (type != null)
-            {
+            if (type != null) {
                 associationEnds = type.getNavigableConnectingEnds();
             }
         }
@@ -760,8 +726,8 @@ public class FrontEndParameterLogicImpl
     @Override
     protected String handleGetBackingValueName() {
         return Objects.toString(this.getConfiguredProperty(MetafacadeWebGlobals.BACKING_VALUE_PATTERN), "").replaceAll(
-            "\\{0\\}",
-            this.getName());
+                "\\{0\\}",
+                this.getName());
     }
 
     @Override
@@ -772,59 +738,48 @@ public class FrontEndParameterLogicImpl
     @Override
     protected boolean handleIsBackingValueRequired() {
         boolean required = false;
-        if (this.isActionParameter())
-        {
+        if (this.isActionParameter()) {
             required = this.isInputTable();
             final ClassifierFacade type = this.getType();
 
-            if (!required && type != null)
-            {
+            if (!required && type != null) {
                 final String name = this.getName();
                 final String typeName = type.getFullyQualifiedName();
 
                 // - if the backing value is not required for this parameter but on
-                //   a targeting page it IS selectable we must allow the user to set the backing value as well
+                // a targeting page it IS selectable we must allow the user to set the backing
+                // value as well
                 final Collection<FrontEndView> views = this.getAction().getTargetViews();
-                for (final Iterator<FrontEndView> iterator = views.iterator(); iterator.hasNext() && !required;)
-                {
+                for (final Iterator<FrontEndView> iterator = views.iterator(); iterator.hasNext() && !required;) {
                     final Collection<FrontEndParameter> parameters = iterator.next().getAllActionParameters();
-                    for (final Iterator<FrontEndParameter> parameterIterator = parameters.iterator();
-                        parameterIterator.hasNext() && !required;)
-                    {
+                    for (final Iterator<FrontEndParameter> parameterIterator = parameters.iterator(); parameterIterator
+                            .hasNext() && !required;) {
                         final FrontEndParameter parameter = parameterIterator.next();
-                            final String parameterName = parameter.getName();
-                            final ClassifierFacade parameterType = parameter.getType();
-                            if (parameterType != null)
-                            {
-                                final String parameterTypeName = parameterType.getFullyQualifiedName();
-                                if (name.equals(parameterName) && typeName.equals(parameterTypeName))
-                                {
-                                    required = parameter.isInputTable();
-                                }
+                        final String parameterName = parameter.getName();
+                        final ClassifierFacade parameterType = parameter.getType();
+                        if (parameterType != null) {
+                            final String parameterTypeName = parameterType.getFullyQualifiedName();
+                            if (name.equals(parameterName) && typeName.equals(parameterTypeName)) {
+                                required = parameter.isInputTable();
                             }
+                        }
                     }
                 }
             }
-        }
-        else if (this.isControllerOperationArgument())
-        {
+        } else if (this.isControllerOperationArgument()) {
             final String name = this.getName();
             final Collection<FrontEndAction> actions = this.getControllerOperation().getDeferringActions();
-            for (final Iterator<FrontEndAction> actionIterator = actions.iterator(); actionIterator.hasNext();)
-            {
-                final FrontEndAction action = (FrontEndAction)actionIterator.next();
+            for (final Iterator<FrontEndAction> actionIterator = actions.iterator(); actionIterator.hasNext();) {
+                final FrontEndAction action = (FrontEndAction) actionIterator.next();
                 final Collection<FrontEndParameter> formFields = action.getFormFields();
-                for (final Iterator<FrontEndParameter> fieldIterator = formFields.iterator();
-                    fieldIterator.hasNext() && !required;)
-                {
+                for (final Iterator<FrontEndParameter> fieldIterator = formFields.iterator(); fieldIterator.hasNext()
+                        && !required;) {
                     final FrontEndParameter parameter = fieldIterator.next();
-                        if (!parameter.equals(this))
-                        {
-                            if (name.equals(parameter.getName()))
-                            {
-                                required = parameter.isBackingValueRequired();
-                            }
+                    if (!parameter.equals(this)) {
+                        if (name.equals(parameter.getName())) {
+                            required = parameter.isBackingValueRequired();
                         }
+                    }
                 }
             }
         }
@@ -833,7 +788,9 @@ public class FrontEndParameterLogicImpl
 
     @Override
     protected String handleGetInputTableIdentifierColumns() {
-        return Objects.toString(this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS), "").trim();
+        return Objects
+                .toString(this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS), "")
+                .trim();
     }
 
     @Override
@@ -844,25 +801,22 @@ public class FrontEndParameterLogicImpl
 
     @Override
     protected String handleGetMaxLength() {
-        final Collection<Collection> vars=getValidatorVars();
-        if(vars == null)
-        {
+        final Collection<Collection> vars = getValidatorVars();
+        if (vars == null) {
             return null;
         }
-        for(Iterator<Collection> it=vars.iterator(); it.hasNext();)
-        {
-            final Object[] values=(it.next()).toArray();
-            if("maxlength".equals(values[0]))
-            {
+        for (Iterator<Collection> it = vars.iterator(); it.hasNext();) {
+            final Object[] values = (it.next()).toArray();
+            if ("maxlength".equals(values[0])) {
                 return values[1].toString();
             }
         }
         return null;
     }
 
-    //to be used in the range validator: "range - 1000" or "range 20 -".
+    // to be used in the range validator: "range - 1000" or "range 20 -".
     /** - */
-    static final String UNDEFINED_BOUND="-";
+    static final String UNDEFINED_BOUND = "-";
     /** javax.validation.constraints.NotNull */
     static final String AN_REQUIRED = "@javax.validation.constraints.NotNull";
     /** org.hibernate.validator.constraints.URL */
@@ -884,160 +838,123 @@ public class FrontEndParameterLogicImpl
 
     @Override
     protected Collection handleGetAnnotations() {
-        final Collection<String> result=new HashSet<String>();
-        boolean requiredAdded=false;
-        for(String vt: (Collection<String>)getValidatorTypes())
-        {
-            if(vt.startsWith("@")) //add the annotation
+        final Collection<String> result = new HashSet<String>();
+        boolean requiredAdded = false;
+        for (String vt : (Collection<String>) getValidatorTypes()) {
+            if (vt.startsWith("@")) // add the annotation
             {
                 result.add(vt);
             }
-            if(MetafacadeWebUtils.VT_REQUIRED.equals(vt))
-            {
-                requiredAdded=true;
+            if (MetafacadeWebUtils.VT_REQUIRED.equals(vt)) {
+                requiredAdded = true;
                 result.add(AN_REQUIRED);
-            }
-            else if(MetafacadeWebUtils.VT_URL.equals(vt))
-            {
+            } else if (MetafacadeWebUtils.VT_URL.equals(vt)) {
                 result.add(AN_URL);
-            }
-            else if(MetafacadeWebUtils.VT_INT_RANGE.equals(vt))
-            {
-                final StringBuilder sb=new StringBuilder(AN_LONG_RANGE+"(");
-                final String format = MetafacadeWebUtils.getInputFormat((ModelElementFacade)this.THIS());
+            } else if (MetafacadeWebUtils.VT_INT_RANGE.equals(vt)) {
+                final StringBuilder sb = new StringBuilder(AN_LONG_RANGE + "(");
+                final String format = MetafacadeWebUtils.getInputFormat((ModelElementFacade) this.THIS());
                 final String rangeStart = MetafacadeWebUtils.getRangeStart(format);
-                boolean addComma=false;
-                if(StringUtils.isNotBlank(rangeStart) && !rangeStart.equals(UNDEFINED_BOUND))
-                {
-                    sb.append("minimum="+rangeStart);
-                    addComma=true;
+                boolean addComma = false;
+                if (StringUtils.isNotBlank(rangeStart) && !rangeStart.equals(UNDEFINED_BOUND)) {
+                    sb.append("minimum=" + rangeStart);
+                    addComma = true;
                 }
                 final String rangeEnd = MetafacadeWebUtils.getRangeEnd(format);
-                if(StringUtils.isNotBlank(rangeEnd) && !rangeEnd.equals(UNDEFINED_BOUND))
-                {
-                    if(addComma)
-                    {
+                if (StringUtils.isNotBlank(rangeEnd) && !rangeEnd.equals(UNDEFINED_BOUND)) {
+                    if (addComma) {
                         sb.append(",");
                     }
-                    sb.append("maximum="+rangeEnd);
+                    sb.append("maximum=" + rangeEnd);
                 }
                 sb.append(")");
                 result.add(sb.toString());
-            }
-            else if(MetafacadeWebUtils.VT_FLOAT_RANGE.equals(vt) || MetafacadeWebUtils.VT_DOUBLE_RANGE.equals(vt))
-            {
-                final StringBuilder sb=new StringBuilder(AN_DOUBLE_RANGE+"(");
-                final String format = MetafacadeWebUtils.getInputFormat(((ModelElementFacade)this.THIS()));
+            } else if (MetafacadeWebUtils.VT_FLOAT_RANGE.equals(vt) || MetafacadeWebUtils.VT_DOUBLE_RANGE.equals(vt)) {
+                final StringBuilder sb = new StringBuilder(AN_DOUBLE_RANGE + "(");
+                final String format = MetafacadeWebUtils.getInputFormat(((ModelElementFacade) this.THIS()));
                 final String rangeStart = MetafacadeWebUtils.getRangeStart(format);
-                boolean addComma=false;
-                if(StringUtils.isNotBlank(rangeStart) && !rangeStart.equals(UNDEFINED_BOUND))
-                {
-                    sb.append("minimum="+rangeStart);
-                    addComma=true;
+                boolean addComma = false;
+                if (StringUtils.isNotBlank(rangeStart) && !rangeStart.equals(UNDEFINED_BOUND)) {
+                    sb.append("minimum=" + rangeStart);
+                    addComma = true;
                 }
                 final String rangeEnd = MetafacadeWebUtils.getRangeEnd(format);
-                if(StringUtils.isNotBlank(rangeEnd) && !rangeEnd.equals(UNDEFINED_BOUND))
-                {
-                    if(addComma)
-                    {
+                if (StringUtils.isNotBlank(rangeEnd) && !rangeEnd.equals(UNDEFINED_BOUND)) {
+                    if (addComma) {
                         sb.append(",");
                     }
-                    sb.append("maximum="+rangeEnd);
+                    sb.append("maximum=" + rangeEnd);
                 }
                 sb.append(")");
                 result.add(sb.toString());
-            }
-            else if(MetafacadeWebUtils.VT_EMAIL.equals(vt))
-            {
+            } else if (MetafacadeWebUtils.VT_EMAIL.equals(vt)) {
                 result.add(AN_EMAIL);
-            }
-            else if(MetafacadeWebUtils.VT_CREDIT_CARD.equals(vt))
-            {
+            } else if (MetafacadeWebUtils.VT_CREDIT_CARD.equals(vt)) {
                 result.add(AN_CREDIT_CARD);
-            }
-            else if(MetafacadeWebUtils.VT_MIN_LENGTH.equals(vt) || MetafacadeWebUtils.VT_MAX_LENGTH.equals(vt))
-            {
-                final StringBuilder sb=new StringBuilder(AN_LENGTH+"(");
+            } else if (MetafacadeWebUtils.VT_MIN_LENGTH.equals(vt) || MetafacadeWebUtils.VT_MAX_LENGTH.equals(vt)) {
+                final StringBuilder sb = new StringBuilder(AN_LENGTH + "(");
                 final Collection formats = this.findTaggedValues(MetafacadeWebProfile.TAGGEDVALUE_INPUT_FORMAT);
-                boolean addComma=false;
-                for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
-                {
+                boolean addComma = false;
+                for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();) {
                     final String additionalFormat = String.valueOf(formatIterator.next());
-                    if (MetafacadeWebUtils.isMinLengthFormat(additionalFormat))
-                    {
-                        if(addComma)
-                        {
+                    if (MetafacadeWebUtils.isMinLengthFormat(additionalFormat)) {
+                        if (addComma) {
                             sb.append(",");
                         }
                         sb.append("min=");
                         sb.append(MetafacadeWebUtils.getMinLengthValue(additionalFormat));
-                        addComma=true;
-                    }
-                    else if (MetafacadeWebUtils.isMaxLengthFormat(additionalFormat))
-                    {
-                        if(addComma)
-                        {
+                        addComma = true;
+                    } else if (MetafacadeWebUtils.isMaxLengthFormat(additionalFormat)) {
+                        if (addComma) {
                             sb.append(",");
                         }
                         sb.append("max=");
                         sb.append(MetafacadeWebUtils.getMinLengthValue(additionalFormat));
-                        addComma=true;
+                        addComma = true;
                     }
                 }
                 sb.append(")");
                 result.add(sb.toString());
-            }
-            else if(MetafacadeWebUtils.VT_MASK.equals(vt))
-            {
+            } else if (MetafacadeWebUtils.VT_MASK.equals(vt)) {
                 final Collection formats = this.findTaggedValues(MetafacadeWebProfile.TAGGEDVALUE_INPUT_FORMAT);
-                for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
-                {
+                for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();) {
                     final String additionalFormat = String.valueOf(formatIterator.next());
-                    if (MetafacadeWebUtils.isPatternFormat(additionalFormat))
-                    {
-                        result.add(AN_PATTERN+"(\""+MetafacadeWebUtils.getPatternValue(additionalFormat)+"\")");
+                    if (MetafacadeWebUtils.isPatternFormat(additionalFormat)) {
+                        result.add(AN_PATTERN + "(\"" + MetafacadeWebUtils.getPatternValue(additionalFormat) + "\")");
                     }
                 }
-            }
-            else if(MetafacadeWebUtils.VT_VALID_WHEN.equals(vt))
-            {
+            } else if (MetafacadeWebUtils.VT_VALID_WHEN.equals(vt)) {
                 result.add("");
-            }
-            else if(MetafacadeWebUtils.VT_EQUAL.equals(vt))
-            {
-                result.add(AN_EQUALS+"(\""+MetafacadeWebUtils.getEqual((ModelElementFacade)this.THIS())+"\")");
+            } else if (MetafacadeWebUtils.VT_EQUAL.equals(vt)) {
+                result.add(AN_EQUALS + "(\"" + MetafacadeWebUtils.getEqual((ModelElementFacade) this.THIS()) + "\")");
             }
         }
-        if(!requiredAdded && getLower() > 0)
-        {
+        if (!requiredAdded && getLower() > 0) {
             result.add(AN_REQUIRED);
         }
         return result;
     }
 
-    private class ActionFilter implements Predicate
-    {
+    private class ActionFilter implements Predicate {
         final private boolean hyperlink;
-        public ActionFilter(boolean hyperlink)
-        {
+
+        public ActionFilter(boolean hyperlink) {
             this.hyperlink = hyperlink;
         }
-        
+
         @Override
-        public boolean evaluate(Object action) 
-        {
-            return ((FrontEndAction)action).isHyperlink() == this.hyperlink;
+        public boolean evaluate(Object action) {
+            return ((FrontEndAction) action).isHyperlink() == this.hyperlink;
         }
     }
-    
+
     /**
-     * If this is a table this method returns all those actions that are declared to work
+     * If this is a table this method returns all those actions that are declared to
+     * work
      * on this table.
      *
      * @param hyperlink denotes on which type of actions to filter
      */
-    private List<FrontEndAction> getTableActions(boolean hyperlink)
-    {
+    private List<FrontEndAction> getTableActions(boolean hyperlink) {
         final List<FrontEndAction> actions = new ArrayList<FrontEndAction>(super.getTableActions());
         CollectionUtils.filter(actions, new ActionFilter(hyperlink));
         return actions;
@@ -1057,26 +974,19 @@ public class FrontEndParameterLogicImpl
     protected List<FrontEndAction> handleGetTableActions() {
         final Set<FrontEndAction> actions = new LinkedHashSet<FrontEndAction>();
         final String name = StringUtils.trimToNull(getName());
-        if (name != null && isTable())
-        {
+        if (name != null && isTable()) {
             final FrontEndView view = this.getView();
 
             final Collection<UseCaseFacade> allUseCases = getModel().getAllUseCases();
-            for (final UseCaseFacade useCase : allUseCases)
-            {
-                if (useCase instanceof FrontEndUseCase)
-                {
-                    final FrontEndActivityGraph graph = ((FrontEndUseCase)useCase).getActivityGraph();
-                    if (graph != null)
-                    {
+            for (final UseCaseFacade useCase : allUseCases) {
+                if (useCase instanceof FrontEndUseCase) {
+                    final FrontEndActivityGraph graph = ((FrontEndUseCase) useCase).getActivityGraph();
+                    if (graph != null) {
                         final Collection<TransitionFacade> transitions = graph.getTransitions();
-                        for (final TransitionFacade transition : transitions)
-                        {
-                            if (transition.getSource().equals(view) && transition instanceof FrontEndAction)
-                            {
-                                final FrontEndAction action = (FrontEndAction)transition;
-                                if (action.isTableLink() && name.equals(action.getTableLinkName()))
-                                {
+                        for (final TransitionFacade transition : transitions) {
+                            if (transition.getSource().equals(view) && transition instanceof FrontEndAction) {
+                                final FrontEndAction action = (FrontEndAction) transition;
+                                if (action.isTableLink() && name.equals(action.getTableLinkName())) {
                                     actions.add(action);
                                 }
                             }
@@ -1090,18 +1000,17 @@ public class FrontEndParameterLogicImpl
 
     @Override
     protected boolean handleIsEqualValidator() {
-        final String equal = MetafacadeWebUtils.getEqual((ModelElementFacade)this.THIS());
+        final String equal = MetafacadeWebUtils.getEqual((ModelElementFacade) this.THIS());
         return equal != null && equal.trim().length() > 0;
     }
 
     @Override
     protected boolean handleIsReset() {
-        boolean reset =
-            Boolean.valueOf(Objects.toString(this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_INPUT_RESET), ""))
-                   .booleanValue();
-        if (!reset)
-        {
-            final FrontEndAction action = (FrontEndAction)this.getAction();
+        boolean reset = Boolean
+                .valueOf(Objects.toString(this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_INPUT_RESET), ""))
+                .booleanValue();
+        if (!reset) {
+            final FrontEndAction action = (FrontEndAction) this.getAction();
             reset = action != null && action.isFormReset();
         }
         return reset;
@@ -1110,9 +1019,9 @@ public class FrontEndParameterLogicImpl
     @Override
     protected Collection handleGetValidatorVars() {
         return MetafacadeWebUtils.getValidatorVars(
-            (ModelElementFacade)this.THIS(),
-            this.getType(),
-            null);
+                (ModelElementFacade) this.THIS(),
+                this.getType(),
+                null);
     }
 
     @Override
@@ -1200,20 +1109,17 @@ public class FrontEndParameterLogicImpl
      *
      * @return true/false
      */
-    private boolean isNormalizeMessages()
-    {
-        final String normalizeMessages = (String)getConfiguredProperty(MetafacadeWebGlobals.NORMALIZE_MESSAGES);
+    private boolean isNormalizeMessages() {
+        final String normalizeMessages = (String) getConfiguredProperty(MetafacadeWebGlobals.NORMALIZE_MESSAGES);
         return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 
     @Override
     protected String handleGetTableColumnMessageKey(String columnName) {
         StringBuilder messageKey = new StringBuilder();
-        if (!this.isNormalizeMessages())
-        {
-            final FrontEndView view = (FrontEndView)this.getView();
-            if (view != null)
-            {
+        if (!this.isNormalizeMessages()) {
+            final FrontEndView view = (FrontEndView) this.getView();
+            if (view != null) {
                 messageKey.append(this.getMessageKey());
                 messageKey.append('.');
             }
@@ -1230,22 +1136,19 @@ public class FrontEndParameterLogicImpl
     @Override
     protected Collection handleGetValidatorArgs(String validatorType) {
         return MetafacadeWebUtils.getValidatorArgs(
-            (ModelElementFacade)this.THIS(),
-            validatorType);
+                (ModelElementFacade) this.THIS(),
+                validatorType);
     }
 
     @Override
     protected List handleGetTableColumnActions(String columnName) {
         final List<FrontEndAction> columnActions = new ArrayList<FrontEndAction>();
 
-        if (columnName != null)
-        {
+        if (columnName != null) {
             final Set<FrontEndAction> actions = new LinkedHashSet<FrontEndAction>(this.getTableHyperlinkActions());
             actions.addAll(this.getTableFormActions());
-            for (final FrontEndAction action : actions)
-            {
-                if (columnName.equals(action.getTableLinkColumnName()))
-                {
+            for (final FrontEndAction action : actions) {
+                if (columnName.equals(action.getTableLinkColumnName())) {
                     columnActions.add(action);
                 }
             }
@@ -1268,22 +1171,16 @@ public class FrontEndParameterLogicImpl
     protected String handleGetMessageKey() {
         final StringBuilder messageKey = new StringBuilder();
 
-        if (!this.isNormalizeMessages())
-        {
-            if (this.isActionParameter())
-            {
+        if (!this.isNormalizeMessages()) {
+            if (this.isActionParameter()) {
                 final FrontEndAction action = this.getAction();
-                if (action != null)
-                {
+                if (action != null) {
                     messageKey.append(action.getMessageKey());
                     messageKey.append('.');
                 }
-            }
-            else
-            {
+            } else {
                 final FrontEndView view = this.getView();
-                if (view != null)
-                {
+                if (view != null) {
                     messageKey.append(view.getMessageKey());
                     messageKey.append('.');
                 }
@@ -1298,9 +1195,9 @@ public class FrontEndParameterLogicImpl
     @Override
     protected String handleGetDocumentationValue() {
         final String value = StringUtilsHelper.toResourceMessage(this.getDocumentation(
-                    "",
-                    64,
-                    false));
+                "",
+                64,
+                false));
         return value == null ? "" : value;
     }
 
@@ -1311,7 +1208,7 @@ public class FrontEndParameterLogicImpl
 
     @Override
     protected Collection<String> handleGetFrontEndClasses() {
-        
+
         return UMLMetafacadeUtils.getPresentationClass(this);
     }
 }

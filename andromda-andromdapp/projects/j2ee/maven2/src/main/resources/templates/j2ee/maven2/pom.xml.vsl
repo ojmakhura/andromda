@@ -795,6 +795,11 @@
                 <version>1.2.17</version>
                 <!--scope>test</scope-->
             </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>2.13.2</version>
+            </dependency>
 #if (!($webType.equals("jsf") || $webType.equals("both")) && !$spring && !$hibernate)
             <dependency>
                 <groupId>org.slf4j</groupId>

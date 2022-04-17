@@ -62,7 +62,7 @@ public abstract class ${controller.name}Base extends ${managedBeansPackage}.Cont
     }
     
 #foreach ($operation in $controller.operations)
-    $operation.handleFormSignature
+    $thymeleafUtils.addModelParameter($operation.handleFormSignature)
         throws Throwable;
 
     /**
@@ -72,8 +72,8 @@ $operation.getDocumentation("     * ")
      * @throws Throwable
      */
 #set ($formCall = "handle$stringUtils.capitalize($operation.formCall)")
-    $operation.implementationFormSignature throws Throwable {
-        #if($operation.returnType.name != "void")return #end$formCall;
+    $thymeleafUtils.addModelParameter($operation.implementationFormSignature) throws Throwable {
+        #if($operation.returnType.name != "void")return #end$thymeleafUtils.addModelArgument($formCall);
     }
 
 #end
@@ -208,7 +208,7 @@ $action.trigger.getDocumentation("     * ")
 #end
 #end
         //trigger method execution
-        ${action.triggerMethodName}(#if($formPopulationOperationRequired)form#end, model);
+        ${action.triggerMethodName}(#if($formPopulationOperationRequired)form, #{end}model);
 #if ($formPopulationOperationRequired)
         model.addAttribute("$action.formBeanName", form);
 #end
@@ -280,7 +280,7 @@ $actionState.getDocumentation("     * ")
     protected String ${actionState.actionMethodName}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form, #end org.springframework.ui.Model model)
         throws Throwable
     {
-        String forward = null;
+        String forward = null; // 6
 #if ($actionState.controllerCalls.empty && $actionState.serviceCalls.empty)
 ## TODO UMLMETA-106 uml22 StateVertex outgoing FinalState target returns null/unknown for Exception transition.
 ##        // actionState=$actionState controllerCalls=$actionState.controllerCalls.size()
@@ -288,7 +288,7 @@ $actionState.getDocumentation("     * ")
 ##        // outgoing=$outgoing target=$outgoing.target
 ##end
 ##        // forward=$actionState.forward name=$actionState.name
-        forward = #processTransition($actionState.forward)
+        forward = #processTransition($actionState.forward)// 4
 
 #saveMessages($actionState.forward "        ")
 #else
@@ -307,7 +307,7 @@ ${ident}        this.get${serviceCall.owner.name}().${serviceCall.name}(#foreach
 #foreach ($controllerCall in $actionState.controllerCalls)
     
 #if (!$action.actionFormFields.empty)
-${ident}        $controllerCall.formCall;
+${ident}        $thymeleafUtils.addModelArgument($controllerCall.formCall);
 #else
 ${ident}        // we pass an empty form implementation to the controller, we know there are no parameters on this operation because the
 ${ident}        // cartridge would have issued a model validation error
@@ -321,7 +321,7 @@ ${ident}        model.addAttribute("$act.formBeanName", this.get${stringUtils.ca
 #end
 #end
 #end
-${ident}        forward = #processTransition($actionState.forward)
+${ident}        forward = #processTransition($actionState.forward) // 9
 
 #saveMessages($actionState.forward "${ident}        ")
 #if(!$exceptions.empty)
@@ -398,7 +398,7 @@ $decisionTransition.getDocumentation("     * ")
         throws Throwable
     {
         final String value = String.valueOf($decisionTransition.operationCall.formCall);
-        String forward = null;
+        String forward = null; // 21
 #set($outgoings = $decisionTransition.target.outgoings)
 #foreach ($outcome in $outgoings)
 #set ($defaultOutcome = $outcome)

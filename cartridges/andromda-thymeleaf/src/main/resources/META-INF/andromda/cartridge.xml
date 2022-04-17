@@ -18,9 +18,10 @@
     <templateObject name="umlProfiles" className="org.andromda.metafacades.uml.UMLProfile"/>
     <templateObject name="umlMetafacadeUtils" className="org.andromda.metafacades.uml.UMLMetafacadeUtils"/>
     <templateObject name="metafacadeWebUtils" className="org.andromda.metafacades.uml.web.MetafacadeWebUtils"/>
-    <templateObject name="thymeleafUtils" className="org.andromda.cartridges.web.CartridgeWebUtils">
+    <templateObject name="cartridgeWebUtils" className="org.andromda.cartridges.web.CartridgeWebUtils">
         <property reference="strictDateTimeFormat"/>
     </templateObject>
+    <templateObject name="thymeleafUtils" className="org.andromda.cartridges.thymeleaf.ThymeleafUtils"/>
     
     <!-- cartridge-templateObject merge-point-->
 
@@ -930,6 +931,20 @@
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndView">
                     <property name="popup">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/views/modal.html.vsl"
+        outputPattern="${view.path}.html"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="popup">true</property>
                 </type>
             </modelElement>
         </modelElements>
