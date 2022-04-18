@@ -17,7 +17,7 @@
     	<form [formGroup]="${view.formName}">
 
 			<section>
-				<div class="card col my-3 view-buttons">
+				<div class="col my-3 view-buttons">
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
 					<button mat-raised-button color="accent" (click)="${action.triggerName}()" class="btn btn-info">
@@ -73,3 +73,7 @@
 	</mat-tab-group>
 #end
 </div>
+#foreach($table in $tables)
+#renderModalInput($table, "", "			")
+
+#end

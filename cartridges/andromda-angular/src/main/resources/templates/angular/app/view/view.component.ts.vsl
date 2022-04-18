@@ -123,7 +123,11 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
     @ViewChild('${attribute.name}Paginator', {static: true}) ${attribute.name}Paginator: MatPaginator;
     @ViewChild('${attribute.name}Sort', {static: true}) ${attribute.name}Sort: MatSort;
-    
+
+    @ViewChild('${attribute.name}ModalPaginator', {static: true}) ${attribute.name}ModalPaginator: MatPaginator;
+    @ViewChild('${attribute.name}ModalSort', {static: true}) ${attribute.name}ModalSort: MatSort;
+
+    ${attribute.name}$: Observable<$attribute.angularTypeName>;
 #end
 
 #if(!$field.table)

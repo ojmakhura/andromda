@@ -1886,7 +1886,7 @@ public class AngularUtils {
         return simple;
     }
 
-    public static String handleGetTableColumnMessageKey(Object column, MetafacadeBase parent)
+    public static String getTableColumnMessageKey(Object column, MetafacadeBase parent)
     {
 
         if(column instanceof AngularAttribute) {

@@ -26,6 +26,9 @@
 ${ident}<div #if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter))formGroupName="${parameter.name}"#end #if ($parameter.inputHidden)[hidden]="true"#end> 
 #if($angularUtils.isTable($parameter))
 ${ident}	<div class="mat-elevation-z8">
+${ident}        <button mat-raised-button color="accent" (click)="${propertyId}AddDialog()" class="btn btn-info">
+${ident}            <mat-icon>add_box</mat-icon>
+${ident}        </button>
 ${ident}		<mat-table matSort [dataSource]="${propertyId}.controls" #${parameter.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
 #foreach( $column in $angularUtils.getTableColumns($parameter))
 #if($column.name)
@@ -120,4 +123,79 @@ ${ident}		<input matInput type="$parameter.inputType" formControlName="${paramet
 ${ident}	</mat-form-field>
 #end
 ${ident}</div>
+#end
+
+##==========================
+##
+## A macro that renders the appropriate table for the input
+##
+## parameters:
+##     o  $parameter - the actual parameter to render
+##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
+##
+#macro(renderTableInput $parameter $ownerParameter $ident)
+$ident<mat-table matSort [dataSource]="${table.name}$ | async" #${parameter.name}ModalSort="matSort" class="table table-bordered table-striped" style="width: 100%;">
+#if($parameter.inputTableIdentifierColumns)
+#set ($columns = $parameter.inputTableIdentifierColumns.split(","))
+#else
+#set ($columns = $parameter.attributes)
+#end
+#foreach($column in $columns)
+#if($column.name)
+#set ($columnName = $column.name)
+#else
+#set ($columnName = $column)
+#end
+${ident}    <ng-container matColumnDef="$columnName">
+${ident}        <mat-header-cell *matHeaderCellDef translate>$stringUtils.toResourceMessageKey($columnName)</mat-header-cell>
+${ident}        <mat-cell *matCellDef="let row"> {{ row.${columnName} }} </mat-cell>
+${ident}    </ng-container>
+#end
+${ident}    <mat-header-row *matHeaderRowDef="${table.name}Columns"></mat-header-row>
+${ident}    <mat-row *matRowDef="let row; columns: ${table.name}Columns;"></mat-row>
+$ident</mat-table>
+$ident<mat-paginator #${parameter.name}ModalPaginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+#end
+##==========================
+##
+## A macro that renders the appropriate input modal
+##
+## parameters:
+##     o  $parameter - the actual parameter to render
+##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
+##
+#macro(renderModalInput $parameter $ownerParameter $ident)
+#if(!$parameter.inputHidden && !$parameter.inputHidden)
+#if($parameter.inputTable)
+#if ($parameter.backingListName)
+#if ($ownerParameter.type.hasStereotype('Entity'))
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#else
+#set ($propertyId = $parameter.name)
+#end
+#else
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#end
+<div class="modal fade" id="${propertyId}Modal" tabindex="-1" aria-labelledby="${propertyId}Label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="${propertyId}AddLabel">
+                    <span th:text="#{$parameter.messageKey}">
+                    </span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+#renderTableInput($parameter, $ownerParameter, "             ")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+#end
+#end
 #end
