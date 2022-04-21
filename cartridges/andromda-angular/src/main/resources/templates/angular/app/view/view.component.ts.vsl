@@ -115,7 +115,8 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #if($field.complex)
 #foreach($attribute in $angularUtils.getTableAttributes($field))
 	${attribute.name}Columns = [
-#set ($columns = $angularUtils.getTableColumns($attribute))
+#set ($columns = $angularUtils.getTableColumnNames($attribute))
+        'select',
 #foreach ($column in $columns)
         '$column',
 #end
@@ -128,6 +129,8 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     @ViewChild('${attribute.name}ModalSort', {static: true}) ${attribute.name}ModalSort: MatSort;
 
     ${attribute.name}$: Observable<${attribute.angularTypeName}[]>;
+    $attribute.getFormPropertyId($field)Search: FormControl;
+    $attribute.getFormPropertyId($field)Select: ${attribute.angularTypeName}#if($attribute.many || $attribute.type.collectionType)[]#end;
 #end
 
 #if(!$field.table)
@@ -176,6 +179,12 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #foreach($param in $finalParams)
 #if(!$param.table)
         this.${param.name}$ = this.store.pipe(select(${view.useCase.actionClassName}Selectors.select$stringUtils.capitalize(${param.name})));
+#end
+#end
+#foreach ($field in $view.variables)
+#if($field.complex)
+#foreach($attribute in $angularUtils.getTableAttributes($field))
+    $attribute.getFormPropertyId($field)Search = new FormControl();
 #end
 #end
     }
@@ -437,6 +446,18 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
     ${propertyId}AddDialog(): void {
         this.handle$stringUtils.capitalize($propertyId)AddDialog();
+    }
+
+    abstract handle$stringUtils.capitalize($propertyId)Search(): void;
+    
+    ${propertyId}Search(): void {
+        this.handle$stringUtils.capitalize($propertyId)Search();
+    }
+
+    abstract handle$stringUtils.capitalize($propertyId)Selected(element: $attribute.angularTypeName, index: number): void;
+    
+    ${propertyId}Selected(element: $attribute.angularTypeName, index: number): void {
+        this.handle$stringUtils.capitalize($propertyId)Selected(element, index);
     }
 #end
 #if($attribute.inputMultibox)

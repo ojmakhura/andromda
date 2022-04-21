@@ -73,6 +73,10 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
 
     }
 
+    handle$stringUtils.capitalize($propertyId)Search(): void {
+        
+    }
+    
 #end
 #end
 #else

@@ -73,7 +73,10 @@
 	</mat-tab-group>
 #end
 </div>
+#foreach ($variable in $complex)
+#set ($tables = $angularUtils.getTableAttributes($variable))
 #foreach($table in $tables)
-#renderModalInput($table "" "			")
+#renderModalInput($table $variable "			")
 
+#end
 #end

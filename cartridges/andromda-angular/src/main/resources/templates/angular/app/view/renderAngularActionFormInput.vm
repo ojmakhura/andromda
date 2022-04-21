@@ -25,8 +25,8 @@
 #set ($formValuePropertyName = "${valuePropertyName}")
 ${ident}<div #if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter))formGroupName="${parameter.name}"#end #if ($parameter.inputHidden)[hidden]="true"#end> 
 #if($angularUtils.isTable($parameter))
-${ident}	<div class="mat-elevation-z8">
-${ident}        <button mat-raised-button color="accent" (click)="${propertyId}AddDialog()" class="btn btn-info">
+${ident}	<div class="mat-elevation-z8"> ${propertyId}
+${ident}        <button type="button" (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
 ${ident}            <mat-icon>add_box</mat-icon>
 ${ident}        </button>
 ${ident}		<mat-table matSort [dataSource]="${propertyId}.controls" #${parameter.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
@@ -140,6 +140,15 @@ $ident<mat-table matSort [dataSource]="${table.name}$ | async" #${parameter.name
 #else
 #set ($columns = $parameter.attributes)
 #end
+#if($parameter.many)
+${ident}    <ng-container matColumnDef="select">
+${ident}        <mat-header-cell *matHeaderCellDef translate>Select</mat-header-cell>
+${ident}        <mat-cell *matCellDef="let row; let i=index">
+${ident}            <mat-checkbox (change)="${parameter.getFormPropertyId($ownerParameter)}Selected(row, i)"></mat-checkbox>
+${ident}        </mat-cell>
+${ident}    </ng-container>
+#else
+#end
 #foreach($column in $columns)
 #if($column.name)
 #set ($columnName = $column.name)
@@ -165,7 +174,7 @@ $ident<mat-paginator #${parameter.name}ModalPaginator="matPaginator" [pageSize]=
 ##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
 ##
 #macro(renderModalInput $parameter $ownerParameter $ident)
-#if(!$parameter.inputHidden && !$parameter.inputHidden)
+#if(!$parameter.inputHidden && !$ownerParameter.inputHidden)
 #if($angularUtils.isTable($parameter))
 #if ($parameter.backingListName)
 #if ($ownerParameter.type.hasStereotype('Entity'))
@@ -187,6 +196,20 @@ $ident<mat-paginator #${parameter.name}ModalPaginator="matPaginator" [pageSize]=
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+            <div>
+                <form>
+                    <div>
+                        <mat-form-field>
+                        <mat-label translate>search</mat-label>
+                        <input matInput type="text" [formControl]="${propertyId}Search"
+                            id="${propertyId}Search" />
+                        </mat-form-field>
+                    </div>
+                    <button type="button" (click)="${propertyId}Search()" class="btn btn-primary">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </form>
+            </div>
 #renderTableInput($parameter $ownerParameter "             ")
             </div>
             <div class="modal-footer">
