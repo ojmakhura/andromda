@@ -127,7 +127,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     @ViewChild('${attribute.name}ModalPaginator', {static: true}) ${attribute.name}ModalPaginator: MatPaginator;
     @ViewChild('${attribute.name}ModalSort', {static: true}) ${attribute.name}ModalSort: MatSort;
 
-    ${attribute.name}$: Observable<$attribute.angularTypeName>;
+    ${attribute.name}$: Observable<${attribute.angularTypeName}[]>;
 #end
 
 #if(!$field.table)
@@ -431,6 +431,14 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         return this.${variable.name}.get('$attribute.name') as $controlType;
     }
 
+#if($angularUtils.isTable($attribute))
+#set ($propertyId = $attribute.getFormPropertyId($variable))
+    abstract handle$stringUtils.capitalize($propertyId)AddDialog(): void;
+
+    ${propertyId}AddDialog(): void {
+        this.handle$stringUtils.capitalize($propertyId)AddDialog();
+    }
+#end
 #if($attribute.inputMultibox)
     /**
      * Add the selected item to the list only if it already exist.

@@ -136,7 +136,7 @@ ${ident}</div>
 #macro(renderTableInput $parameter $ownerParameter $ident)
 $ident<mat-table matSort [dataSource]="${table.name}$ | async" #${parameter.name}ModalSort="matSort" class="table table-bordered table-striped" style="width: 100%;">
 #if($parameter.inputTableIdentifierColumns)
-#set ($columns = $parameter.inputTableIdentifierColumns.split(","))
+#set ($columns = $parameter.tableColumns)
 #else
 #set ($columns = $parameter.attributes)
 #end
@@ -166,7 +166,7 @@ $ident<mat-paginator #${parameter.name}ModalPaginator="matPaginator" [pageSize]=
 ##
 #macro(renderModalInput $parameter $ownerParameter $ident)
 #if(!$parameter.inputHidden && !$parameter.inputHidden)
-#if($parameter.inputTable)
+#if($angularUtils.isTable($parameter))
 #if ($parameter.backingListName)
 #if ($ownerParameter.type.hasStereotype('Entity'))
 #set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
@@ -187,7 +187,7 @@ $ident<mat-paginator #${parameter.name}ModalPaginator="matPaginator" [pageSize]=
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-#renderTableInput($parameter, $ownerParameter, "             ")
+#renderTableInput($parameter $ownerParameter "             ")
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

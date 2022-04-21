@@ -37,6 +37,7 @@ import { ShellModule } from './shell/shell.module';
 #set ($component = "component")
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SanitizeHtml } from './pipe/SanitizeHtml';
 #if($ngrx)
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';

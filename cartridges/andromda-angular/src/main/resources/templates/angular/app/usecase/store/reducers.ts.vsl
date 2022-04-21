@@ -4,7 +4,7 @@
 #set ($path = "$useCase.pathRoot")
 #set ($actions = "${useCase.actionClassName}Actions")
 import { Action, createFeature, createReducer, on } from '@ngrx/store';
-import * as ${actions} from './${metafacadeWebUtils.toWebResourceName($useCase.name)}.action';
+import * as ${actions} from './${metafacadeWebUtils.toWebResourceName($useCase.name)}.actions';
 import {${stringUtils.uncapitalize(${useCase.actionClassName})}Key, initialState} from './${metafacadeWebUtils.toWebResourceName($useCase.name)}.state';
 #set($stateParams = [])
 #foreach($view in $useCase.views)

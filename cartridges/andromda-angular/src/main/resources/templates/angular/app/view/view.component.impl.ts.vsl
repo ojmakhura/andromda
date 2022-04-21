@@ -66,6 +66,15 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
 #if(!$variable.table)
 #if ($variable.complex)
 #set($rt = $complex.add($variable))
+#foreach($attribute in $variable.attributes)
+#if($angularUtils.isTable($attribute))
+#set ($propertyId = $attribute.getFormPropertyId($variable))
+    handle$stringUtils.capitalize($propertyId)AddDialog(): void {
+
+    }
+
+#end
+#end
 #else
 #set($rt = $simple.add($variable))
 #end

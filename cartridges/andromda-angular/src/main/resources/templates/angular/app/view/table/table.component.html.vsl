@@ -16,7 +16,7 @@
 #end
             <ng-container matColumnDef="${columnName}">
                 <mat-header-cell *matHeaderCellDef translate>$table.getTableColumnMessageKey($columnName)</mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{ row.${columnName} }} </mat-cell>
+                <mat-cell *matCellDef="let row"> {{ row.${columnName}#if($column.inputDate || $column.type.dateType) | date#end }} </mat-cell>
             </ng-container>
 #end
 #if ($table.tableFormActions.size() > 0)
