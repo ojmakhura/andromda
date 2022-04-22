@@ -140,15 +140,12 @@ $ident<mat-table matSort [dataSource]="${table.name}$ | async" #${parameter.name
 #else
 #set ($columns = $parameter.attributes)
 #end
-#if($parameter.many)
 ${ident}    <ng-container matColumnDef="select">
 ${ident}        <mat-header-cell *matHeaderCellDef translate>Select</mat-header-cell>
 ${ident}        <mat-cell *matCellDef="let row; let i=index">
 ${ident}            <mat-checkbox (change)="${parameter.getFormPropertyId($ownerParameter)}Selected(row, i)"></mat-checkbox>
 ${ident}        </mat-cell>
 ${ident}    </ng-container>
-#else
-#end
 #foreach($column in $columns)
 #if($column.name)
 #set ($columnName = $column.name)
@@ -201,8 +198,8 @@ $ident<mat-paginator #${parameter.name}ModalPaginator="matPaginator" [pageSize]=
                     <div>
                         <mat-form-field>
                         <mat-label translate>search</mat-label>
-                        <input matInput type="text" [formControl]="${propertyId}Search"
-                            id="${propertyId}Search" />
+                        <input matInput type="text" [formControl]="${propertyId}SearchField"
+                            id="${propertyId}SearchField" />
                         </mat-form-field>
                     </div>
                     <button type="button" (click)="${propertyId}Search()" class="btn btn-primary">

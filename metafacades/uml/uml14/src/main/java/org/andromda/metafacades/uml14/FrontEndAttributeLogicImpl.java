@@ -600,4 +600,22 @@ public class FrontEndAttributeLogicImpl
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    protected Collection<String> handleGetTableColumnNames() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected Collection<String> handleGetTableColumns() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected Collection<String> handleGetTableAttributeNames() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

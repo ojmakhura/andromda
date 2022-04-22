@@ -129,7 +129,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     @ViewChild('${attribute.name}ModalSort', {static: true}) ${attribute.name}ModalSort: MatSort;
 
     ${attribute.name}$: Observable<${attribute.angularTypeName}[]>;
-    $attribute.getFormPropertyId($field)Search: FormControl;
+    $attribute.getFormPropertyId($field)SearchField: FormControl;
     $attribute.getFormPropertyId($field)Select: ${attribute.angularTypeName}#if($attribute.many || $attribute.type.collectionType)[]#end;
 #end
 
@@ -184,7 +184,8 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #foreach ($field in $view.variables)
 #if($field.complex)
 #foreach($attribute in $angularUtils.getTableAttributes($field))
-    $attribute.getFormPropertyId($field)Search = new FormControl();
+        this.$attribute.getFormPropertyId($field)SearchField = new FormControl();
+#end
 #end
 #end
     }
