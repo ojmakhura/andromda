@@ -31,6 +31,7 @@ import { Observable } from 'rxjs';
 #set ($base = "${metafacadeWebUtils.toWebResourceName($view.useCase.name)}")
 import { ${view.useCase.actionClassName}State } from '@app/store$view.useCase.pathRoot/${base}.state';
 import * as ${view.useCase.actionClassName}Selectors from '@app/store$view.useCase.pathRoot/${base}.selectors';
+import * as ${view.useCase.actionClassName}Actions from '@app/store$view.useCase.pathRoot/${base}.actions';
 
 ## Find all the fields in the actions of the view
 #set($fieldSet =  $angularUtils.getFacadeSet($view.allFormFields))
@@ -114,12 +115,15 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($count = $count + 1)
 #if($field.complex)
 #foreach($attribute in $angularUtils.getTableAttributes($field))
-	${attribute.name}Columns = [
-#set ($columns = $angularUtils.getTableColumnNames($attribute))
-        'select',
-#foreach ($column in $columns)
+    ${attribute.name}Columns = [
+#foreach ($column in $attribute.tableColumnNames)
         '$column',
 #end
+    ];
+
+    ${attribute.name}ModalColumns = [
+        'select',
+        ...this.${attribute.name}Columns
     ];
 
     @ViewChild('${attribute.name}Paginator', {static: true}) ${attribute.name}Paginator: MatPaginator;
@@ -264,6 +268,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($d = '$')
 ##        this.${param.name}${d}.unsubscribe();
 #end
+        this.store.dispatch(${view.useCase.actionClassName}Actions.${stringUtils.uncapitalize(${view.useCase.actionClassName})}Reset());
     }
 
 #foreach ($action in $view.actions)
@@ -488,7 +493,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
      * @param index 
      */
     ${propertyId}Delete(index: number) {
-        this.${propertyId}.controls.splice(index, 1);
+        this.${propertyId}.removeAt(index);
     }
 
 #end

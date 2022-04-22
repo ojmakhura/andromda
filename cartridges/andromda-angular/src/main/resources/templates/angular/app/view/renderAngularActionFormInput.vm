@@ -25,7 +25,7 @@
 #set ($formValuePropertyName = "${valuePropertyName}")
 ${ident}<div #if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter))formGroupName="${parameter.name}"#end #if ($parameter.inputHidden)[hidden]="true"#end> 
 #if($angularUtils.isTable($parameter))
-${ident}	<div class="mat-elevation-z8"> ${propertyId}
+${ident}	<div class="mat-elevation-z8">
 ${ident}        <button type="button" (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
 ${ident}            <mat-icon>add_box</mat-icon>
 ${ident}        </button>
@@ -157,8 +157,8 @@ ${ident}        <mat-header-cell *matHeaderCellDef translate>$stringUtils.toReso
 ${ident}        <mat-cell *matCellDef="let row"> {{ row.${columnName} }} </mat-cell>
 ${ident}    </ng-container>
 #end
-${ident}    <mat-header-row *matHeaderRowDef="${table.name}Columns"></mat-header-row>
-${ident}    <mat-row *matRowDef="let row; columns: ${table.name}Columns;"></mat-row>
+${ident}    <mat-header-row *matHeaderRowDef="${table.name}ModalColumns"></mat-header-row>
+${ident}    <mat-row *matRowDef="let row; columns: ${table.name}ModalColumns;"></mat-row>
 $ident</mat-table>
 $ident<mat-paginator #${parameter.name}ModalPaginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
 #end

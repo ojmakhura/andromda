@@ -1,6 +1,7 @@
 package org.andromda.metafacades.emf.uml22;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -161,6 +162,7 @@ public class FrontEndParameterLogicImpl
         final Collection<String> tableColumnNames = new LinkedHashSet<String>();
         final Collection<Object> taggedValues = this
                 .findTaggedValues(UMLProfile.TAGGEDVALUE_PRESENTATION_TABLE_COLUMNS);
+        
         if (!taggedValues.isEmpty()) {
             for (final Object value : taggedValues) {
                 final String taggedValue = StringUtils.trimToNull(String.valueOf(value));
@@ -171,6 +173,12 @@ public class FrontEndParameterLogicImpl
                         tableColumnNames.add(property);
                     }
                 }
+            }
+        } else {
+            String value = Objects.toString(this.getType().findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_TABLE_COLUMNS), "");
+
+            if(StringUtils.isNotBlank(value)) {
+                tableColumnNames.addAll(Arrays.asList(value.split(",")));
             }
         }
 
