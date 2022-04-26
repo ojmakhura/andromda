@@ -1,3 +1,43 @@
+
+#macro(renderTableColumnNames $parameter $ident)
+${ident}<thead>
+${ident}   <tr>
+#if($parameter.inputTableIdentifierColumns)
+#foreach ($column in $parameter.inputTableIdentifierColumns.split(","))
+${ident}        <th translate >$stringUtils.toResourceMessageKey(${column})</th>
+#end
+#else
+#foreach ($column in $parameter.type.attributes)
+${ident}        <th translate>$stringUtils.toResourceMessageKey(${column.name})</th>
+#end
+#end
+${ident}    </tr>
+${ident}</thead>
+#end
+##==========================
+#macro(renderTableColumns $parameter $ident)
+#if($parameter.inputTableIdentifierColumns)
+#foreach ($column in $parameter.inputTableIdentifierColumns.split(","))
+#if(!$column.hidden && !$column.inputFile)
+#set ($value = "row.${column}")
+${ident}    <td id="column_${column}">${value}</td>
+#end
+#end
+#else
+#foreach ($column in $parameter.type.attributes)
+#if(!$column.hidden && !$column.inputFile)
+#set($noOfColumns=$noOfColumns+1)   
+#if($column.type.enumeration)
+#set($theValue="row.${column.name}.getValue()")
+#else
+#set($theValue="row.${column.name}")
+#end
+${ident}    <td id="column_${column.name}">${theValue}#if ($column.type.dateType).toLocaleDateString()#end </td>
+#end
+#end
+#end
+#end
+##==========================
 ##
 ## A macro that renders the appropriate action form input field
 ##
@@ -5,7 +45,7 @@
 ##     o  $parameter - the actual parameter to render
 ##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
 ##
-#macro(renderAngularActionInput $parameter $ownerParameter $ident $vrender)
+#macro(renderAngularActionInput $parameter $ownerParameter $ident)
 #if ($parameter.backingListName)
 #if ($ownerParameter.type.hasStereotype('Entity'))
 #set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
@@ -23,108 +63,127 @@
 #set ($backingValueName = ${parameter.getBackingValueName($ownerParameter)})
 #end
 #set ($formValuePropertyName = "${valuePropertyName}")
-${ident}<div #if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter))formGroupName="${parameter.name}"#end #if ($parameter.inputHidden)[hidden]="true"#end> 
-#if($angularUtils.isTable($parameter))
-${ident}	<div class="mat-elevation-z8">
-${ident}        <button type="button" (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
-${ident}            <mat-icon>add_box</mat-icon>
-${ident}        </button>
-${ident}		<mat-table matSort [dataSource]="${propertyId}.controls" #${parameter.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
-#foreach( $column in $angularUtils.getTableColumns($parameter))
-#if($column.name)
-#set($columnName = $column.name)
+#if ($parameter.inputRadio)
+${ident}<fieldset class="row mb-3">
+${ident}    <legend class="col-form-label col-sm-2 pt-0" >$parameter.messageKey}</legend>
+${ident}    <div class="mb-3">
 #else
-#set($columnName = $column)
+${ident}<label id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}" translate>$parameter.messageKey</label>
+${ident}<div class="mb-3">
 #end
-${ident}			<ng-container matColumnDef="$columnName">
-#if($column.name)
-${ident}				<mat-header-cell *matHeaderCellDef translate>$column.messageKey</mat-header-cell>
+#if ($parameter.type.dateType || $parameter.inputDate)
+${ident}    <input type="$parameter.inputType" id="$propertyId" class="form-control" formControlName="${parameter.name}" label="#{$parameter.messageKey}:"#if($parameter.required) required#end #if($parameter.readOnly) readonly#end navigator="true" pattern="$parameter.format" showOn="button"/>
+#elseif ($parameter.inputCheckbox || $parameter.type.booleanType)
+${ident}    <input type="checkbox" id="$propertyId" class="form-check-input" formControlName="${parameter.name}"#if($parameter.required) required#end onLabel="#{yes}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"#if($parameter.readOnly) readonly#end/>
+#elseif ($parameter.inputSelect || $parameter.type.enumeration)
+#set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
+#set ($selectBoxType = "selectOneMenu")
+#if ($multiSelect)
+#set ($selectBoxType = "selectManyMenu")
+#end
+${ident}<select #if ($multiSelect)multiple size="5"#end id="$propertyId" class="form-control" formControlName="${parameter.name}" label="#{$parameter.messageKey}:"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end>
+#if ($parameter.type.enumeration)
+${ident}    <option value=""></option>
+${ident}    <option *ngFor="let key of ${parameter.name}Options" [value]="key">
+${ident}        {{ ${parameter.name}T[key] }}
+${ident}    </option>
 #else
-${ident}				<mat-header-cell *matHeaderCellDef translate>$stringUtils.toResourceMessageKey($columnName)</mat-header-cell>
+#if(!$parameter.required)
+${ident}    <option value=""></option>
 #end
-${ident}                <mat-cell *matCellDef="let row"> {{ row.get('${columnName}').value }} </mat-cell>
-${ident}			</ng-container>
+${ident}    <option *ngFor="let item of ${backingListName}" [value]="item.value">{{ item.label }}</option>
 #end
-${ident}			<mat-header-row *matHeaderRowDef="${parameter.name}Columns"></mat-header-row>
-${ident}			<mat-row *matRowDef="let row; columns: ${parameter.name}Columns;"></mat-row>
-${ident}		</mat-table>
-${ident}		<mat-paginator #${parameter.name}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
-${ident}	</div>
-#elseif($parameter.inputMultibox)
-${ident}    <article formArrayName="${parameter.name}" id="${propertyId}Article" class="$p">
-${ident}        <h5 translate>${parameter.name}</h5>
-${ident}        <mat-list *ngFor="let control of ${propertyId}.controls; let i = index">
-${ident}            <mat-list-item> 
-${ident}                <button mat-mini-fab (click)="${propertyId}Delete(i)">
-${ident}                    <mat-icon class="add-course-btn">delete</mat-icon>
-${ident}                </button>
-${ident}                {{ get$stringUtils.capitalize(${propertyId})Label(control.value) }} 
-${ident}            </mat-list-item> 
-${ident}        </mat-list>
-${ident}        <mat-form-field>
-${ident}            <mat-label translate>Add Role</mat-label>
+${ident}</select>
+#elseif ($parameter.inputFile)
+${ident}    <input type="file" id="$propertyId" class="form-control" formControlName="${parameter.name}" label="#{$parameter.messageKey}:"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
+#elseif ($parameter.inputMultibox)
+${ident}    <article formArrayName="${parameter.name}" id="${propertyId}Article">
+${ident}        <mat-form-field class="form-group">
+${ident}            <mat-label translate>select.value.text</mat-label>
 ${ident}            <mat-select name="${propertyId}Selector" id="${propertyId}Selector" (selectionChange)="on$stringUtils.capitalize(${propertyId})Change($event)">
 ${ident}                <mat-option *ngFor="let item of $backingListName" [value]="item.value">
 ${ident}                    {{ item.label }}
 ${ident}                </mat-option>
 ${ident}            </mat-select>
 ${ident}        </mat-form-field>
+${ident}        <ul class="list-group" *ngFor="let control of ${propertyId}.controls; let i = index">
+${ident}            <li class="list-group-item">
+${ident}                <button type="button" class="btn btn-info" (click)="${propertyId}Delete(i)">
+${ident}                    <i class="bi bi-trash"></i>
+${ident}                </button>
+${ident}                {{ get$stringUtils.capitalize(${propertyId})Label(control.value) }} 
+${ident}            </li>
+${ident}        </ul>
 ${ident}    </article>
-#elseif($parameter.inputCheckbox)
-${ident}    <mat-checkbox class="$propertyId" translate>$parameter.messageKey</mat-checkbox>
-## #elseif($parameter.inputRadio)
-##             <mat-radio-group formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
-##                 <mat-radio-button class="example-radio-button">
-##                 </mat-radio-button>
-##             </mat-radio-group>
+## #elseif ($parameter.inputRadio)
+## ${ident}    <div class="form-check" th:each="item : *{${backingListName}}">
+## ${ident}        <label class="form-check-label" th:for="${item.value}" th:text="${item.label}"></label>
+## ${ident}        <input type="radio" id="$propertyId" class="form-check-input" formControlName="*{${parameter.name}}" th:value="${item.value}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
+## ${ident}    </div>
+#elseif($parameter.inputTable)
+${ident}<div>
+${ident}    <button type="button" id="${propertyId}" class="btn btn-lg btn-primary"
+${ident}            data-bs-toggle="modal" data-bs-target="#${propertyId}Add">
+${ident}        <i class="bi bi-plus"></i>
+${ident}    </button>
+${ident}</div>
+${ident}<table id="searchResult" class="table table-bordered" style="width: 100%">
+#renderTableColumnNames($parameter "${ident}    ")
+${ident}    <tbody>
+${ident}        <tr *ngFor="let row of ${table.name}$ | async">
+#renderTableColumns($parameter "${ident}        ")
+#if(!$parameter.tableFormActions.empty || !$parameter.tableHyperlinkActions.empty)
+#foreach ($action in $parameter.tableFormActions)
+#if (!$action.tableLinkColumnName)
+${ident}                <td id="column_actions">
+${ident}                    <div class="col">
+#set ($data = "{")
+#foreach ($parameter in $action.parameters)
+#if ($parameter.tableColumnNames.contains($parameter.name) || $parameter.tableAttributeNames.contains($parameter.name))
+#set ($parameterValue = "row.${parameter.name}")
 #else
-${ident}	<mat-form-field>
-${ident}		<mat-label translate>$parameter.messageKey</mat-label> 
-#if ($parameter.inputSelect || $parameter.type.enumeration)
-${ident}		<mat-select name="$propertyId" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" id="$propertyId">
-#if(!$parameter.inputMultibox)
-${ident}			<mat-option value = "">Select one ...</mat-option>
+#set ($parameterValue = "$parameter.name")
 #end
-#if ($parameter.type.enumeration)
-${ident}			<mat-option *ngFor="let key of ${parameter.name}Options" [value]="key">{{ ${parameter.name}T[key] }}</mat-option>
+#set ($data = "$data '$parameter.name': $parameterValue,")
+#end
+#set ($data = "$data }")
+#set ($urlParams = "")
+#foreach ($parameter in $action.parameters)
+#if ($parameter.tableColumnNames.contains($parameter.name) || $parameter.tableAttributeNames.contains($parameter.name))
+#set ($parameterValue = "row.${parameter.name}")
 #else
-${ident}			<mat-option *ngFor="let item of ${backingListName}" [value]="item.value">{{ item.label }}</mat-option>
+#set ($parameterValue = "$parameter.name")
 #end
-${ident}		</mat-select>
-#elseif ($parameter.inputTextarea)
-${ident}		<textarea matInput formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end></textarea>
-#elseif ($parameter.inputText)
-${ident}		<input matInput type="$parameter.inputType" formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
+#if($urlParams.length() == 0)
+#set ($urlParams = "?")
 #else
-#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter))
-${ident}		<mat-select name="$propertyId" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" id="$propertyId">
-${ident}			<mat-option value = "">Select one ...</mat-option>
-${ident}			<mat-option *ngFor="let item of ${backingListName}" [value]="item.value">{{ item.label }}</mat-option>
-${ident}		</mat-select>
+#set ($urlParams = "$urlParams&")
+#end
+#set ($urlParams = "$urlParams$parameter.name=#{$parameterValue}")
+#end
+## ${ident}                    <form method="POST" 
+## ${ident}                           th:action="@{${action.controller.restPath}/${action.restPath}$urlParams}">
+## ${ident}                        <button type="submit" id="${action.triggerName}Action"  th:text="#{$action.trigger.messageKey}">
+## ${ident}                        </button>
+## ${ident}                    </form>
+${ident}                <div class="col">
+${ident}            </td>
+#end
+#end
+#end
+${ident}        </tr>
+${ident}    </tbody>
+${ident}</table>
 #else
-#if($parameter.inputNumber)
-#set ($type = "number")
+${ident}    <input type="$parameter.inputType" id="$propertyId" class="form-#if($parameter.inputRange)range#{else}control#end" name="$parameter.name" formControlName="${parameter.name}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
+#end
+#if ($parameter.inputRadio)
+${ident}    </div>
+${ident}</fieldset>
 #else
-#set ($type = "$parameter.inputType")
-#end
-${ident}		<input matInput type="$parameter.inputType" formControlName="${parameter.name}" id="$propertyId"#if($vrender) disabled#else#if($parameter.required) required#end#end>
-#end
-#end
-#if($parameter.inputEmail)
-## ${ident}        <mat-error *ngIf="getItemControl('${parameter.name}').hasError('email') && !getItemControl('${parameter.name}').hasError('required')">
-## ${ident}            Please enter a valid email address
-## ${ident}        </mat-error>
-#end
-#if($parameter.required)
-## ${ident}        <mat-error *ngIf="getItemControl('${parameter.name}').hasError('required')">
-## ${ident}            $stringUtils.capitalize(${parameter.name}) is required.
-## ${ident}        </mat-error>
-#end
-${ident}	</mat-form-field>
-#end
 ${ident}</div>
 #end
-
+#end
 ##==========================
 ##
 ## A macro that renders the appropriate table for the input
@@ -134,33 +193,57 @@ ${ident}</div>
 ##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
 ##
 #macro(renderTableInput $parameter $ownerParameter $ident)
-$ident<mat-table matSort [dataSource]="${table.name}$ | async" #${parameter.name}ModalSort="matSort" class="table table-bordered table-striped" style="width: 100%;">
+$ident<table>
+$ident  <thead>
+$ident      <tr>
+$ident          <th translate>select</th>
 #if($parameter.inputTableIdentifierColumns)
-#set ($columns = $parameter.tableColumns)
+#foreach ($column in $parameter.inputTableIdentifierColumns.split(","))
+$ident          <th translate>$stringUtils.toResourceMessageKey(${column})</th>
+#end
 #else
-#set ($columns = $parameter.attributes)
+#foreach ($column in $parameter.type.attributes)
+$ident          <th translate>$stringUtils.toResourceMessageKey(${column.name})</th>
 #end
-${ident}    <ng-container matColumnDef="select">
-${ident}        <mat-header-cell *matHeaderCellDef translate>Select</mat-header-cell>
-${ident}        <mat-cell *matCellDef="let row; let i=index">
-${ident}            <mat-checkbox (change)="${parameter.getFormPropertyId($ownerParameter)}Selected(row, i)"></mat-checkbox>
-${ident}        </mat-cell>
-${ident}    </ng-container>
-#foreach($column in $columns)
-#if($column.name)
-#set ($columnName = $column.name)
+#end
+$ident      </tr>
+$ident  </thead>
+$ident  <tbody>
+$ident      <tr *ngFor="let row of ${parameter.name}$ | async">
+$ident          <td id="column_select">
+#if($parameter.many)
+$ident              <div class="form-check">
+$ident                <input class="form-check-input" type="checkbox">
+$ident              </div>
 #else
-#set ($columnName = $column)
+$ident              <div class="form-check">
+$ident                <input class="form-check-input" type="radio">
+$ident              </div>
 #end
-${ident}    <ng-container matColumnDef="$columnName">
-${ident}        <mat-header-cell *matHeaderCellDef translate>$stringUtils.toResourceMessageKey($columnName)</mat-header-cell>
-${ident}        <mat-cell *matCellDef="let row"> {{ row.${columnName} }} </mat-cell>
-${ident}    </ng-container>
+$ident          </td>
+#if($parameter.inputTableIdentifierColumns)
+#foreach ($column in $parameter.inputTableIdentifierColumns.split(","))
+#if(!$column.hidden && !$column.inputFile)
+#set ($value = "row.${column}")
+$ident          <td id="column_${column}" translate>${value}</td>
 #end
-${ident}    <mat-header-row *matHeaderRowDef="${table.name}ModalColumns"></mat-header-row>
-${ident}    <mat-row *matRowDef="let row; columns: ${table.name}ModalColumns;"></mat-row>
-$ident</mat-table>
-$ident<mat-paginator #${parameter.name}ModalPaginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+#end
+#else
+#foreach ($column in $parameter.type.attributes)
+#if(!$column.hidden && !$column.inputFile)
+#set($noOfColumns=$noOfColumns+1)   
+#if($column.type.enumeration)
+#set($theValue="row.${column.name}.getValue()")
+#else
+#set($theValue="row.${column.name}")
+#end
+$ident          <td id="column_${column.name}" th:text=#if ($column.type.dateType)"${#temporals.format($theValue, '$column.format')}"#else"${${theValue}}"#end  #if($rendered != "")#end></td>
+#end
+#end
+#end
+$ident      </tr>
+$ident  </tbody>
+$ident</table>
 #end
 ##==========================
 ##
@@ -171,8 +254,8 @@ $ident<mat-paginator #${parameter.name}ModalPaginator="matPaginator" [pageSize]=
 ##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
 ##
 #macro(renderModalInput $parameter $ownerParameter $ident)
-#if(!$parameter.inputHidden && !$ownerParameter.inputHidden)
-#if($angularUtils.isTable($parameter))
+#if(!$parameter.inputHidden && !$parameter.inputHidden)
+#if($parameter.inputTable)
 #if ($parameter.backingListName)
 #if ($ownerParameter.type.hasStereotype('Entity'))
 #set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
@@ -182,32 +265,14 @@ $ident<mat-paginator #${parameter.name}ModalPaginator="matPaginator" [pageSize]=
 #else
 #set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
 #end
-<div class="modal fade" id="${propertyId}Modal" tabindex="-1" aria-labelledby="${propertyId}Label" aria-hidden="true">
+<div class="modal fade" id="${propertyId}Add" tabindex="-1" aria-labelledby="${propertyId}AddLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="${propertyId}AddLabel">
-                    <span th:text="#{$parameter.messageKey}">
-                    </span>
-                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            <div>
-                <form>
-                    <div>
-                        <mat-form-field>
-                        <mat-label translate>search</mat-label>
-                        <input matInput type="text" [formControl]="${propertyId}SearchField"
-                            id="${propertyId}SearchField" />
-                        </mat-form-field>
-                    </div>
-                    <button type="button" (click)="${propertyId}Search()" class="btn btn-primary">
-                        <mat-icon>search</mat-icon>
-                    </button>
-                </form>
-            </div>
-#renderTableInput($parameter $ownerParameter "             ")
+#renderTableInput($parameter, $ownerParameter, "             ")
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

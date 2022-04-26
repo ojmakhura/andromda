@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
 import { SharedModule } from '@shared';
 import { MaterialModule } from '@app/material.module';
@@ -24,7 +23,7 @@ import { $import.componentImplementationName } from '@app/${import.implementatio
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 #set ($base = "${metafacadeWebUtils.toWebResourceName($useCase.name)}")
-import { ${useCase.actionClassName}Feature } from '@app/store$useCase.pathRoot/${base}.reducers';
+import { ${stringUtils.uncapitalize(${useCase.actionClassName})}Feature } from '@app/store$useCase.pathRoot/${base}.reducers';
 import { ${useCase.actionClassName}Effects } from '@app/store$useCase.pathRoot/${base}.effects';
 #end
 
@@ -33,14 +32,13 @@ import { ${useCase.actionClassName}Effects } from '@app/store$useCase.pathRoot/$
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RxReactiveFormsModule,
     TranslateModule,
     SharedModule,
     FlexLayoutModule,
     MaterialModule,
     ${useCase.routingModuleName},
 #if($ngrx)
-    StoreModule.forFeature(${useCase.actionClassName}Feature),
+    StoreModule.forFeature(${stringUtils.uncapitalize(${useCase.actionClassName})}Feature),
     EffectsModule.forFeature([ ${useCase.actionClassName}Effects ])
 #end
   ],
