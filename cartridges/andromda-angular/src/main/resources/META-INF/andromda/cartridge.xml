@@ -268,6 +268,20 @@
             </modelElement>
         </modelElements>
     </template>
+
+    <template
+        path="templates/angular/app/view/view.component.html.vsl"
+        outputPattern="${view.filePath}.html"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
+                    <property name="popup">true</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
 	
 	<template
         path="templates/angular/app/view/view.component.ts.vsl"
@@ -278,6 +292,20 @@
             <modelElement>
                 <type name="org.andromda.cartridges.angular.metafacades.AngularView">
                     <property name="popup">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+	<template
+        path="templates/angular/app/view/view.component.ts.vsl"
+        outputPattern="${view.filePath}.ts"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
+                    <property name="popup">true</property>
                 </type>
             </modelElement>
         </modelElements>
@@ -298,8 +326,50 @@
     </template>
 	
 	<template
+        path="templates/angular/app/view/view.component.impl.ts.vsl"
+        outputPattern="${view.implementationFilePath}.ts"
+        outlet="view-impls"
+        overwrite="false">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
+                    <property name="popup">true</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+	
+	<template
         path="templates/angular/app/view/view.component.scss.vsl"
         outputPattern="${view.filePath}.scss"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
+                    <property name="popup">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+	
+	<template
+        path="templates/angular/app/view/view.component.scss.vsl"
+        outputPattern="${view.filePath}.scss"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
+                    <property name="popup">true</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+	
+	<template
+        path="templates/angular/app/view/view.component.spec.ts.vsl"
+        outputPattern="${view.filePath}.spec.ts"
         outlet="views"
         overwrite="true">
         <modelElements variable="view">
@@ -319,7 +389,7 @@
         <modelElements variable="view">
             <modelElement>
                 <type name="org.andromda.cartridges.angular.metafacades.AngularView">
-                    <property name="popup">false</property>
+                    <property name="popup">true</property>
                 </type>
             </modelElement>
         </modelElements>
