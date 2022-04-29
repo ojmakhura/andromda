@@ -435,7 +435,7 @@ public class AngularViewLogicImpl extends AngularViewLogic {
 
         for(FrontEndParameter _variable : this.getVariables()) {
             AngularParameter variable = (AngularParameter) _variable;
-            if(variable.isComplex()) {
+            if(variable.isComplex() || variable.getType().isEnumeration()) {
                 for(Object _attr : variable.getAttributes()){
                     AngularAttribute attr = (AngularAttribute) _attr;
                     if(attr.getType().isEnumeration() || !attr.getType().getAttributes().isEmpty()) {

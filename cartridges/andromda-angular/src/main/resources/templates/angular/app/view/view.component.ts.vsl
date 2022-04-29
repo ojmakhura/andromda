@@ -173,6 +173,13 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     ${field.backingListName}: Array<$field.angularTypeName> = [];
 #end
 #end
+#elseif($field.type.enumeration)
+    ${field.name}T = $field.type.name;
+    ${field.name}Options = Object.keys(this.${field.name}T);
+#elseif($field.inputSelect || $field.inputMultibox)
+#set($ret = $selections.add($field.type))
+    ${field.backingListName}: Array<$field.angularTypeName> = [];
+
 #end
 #end
 #end
@@ -263,7 +270,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
 #set ($validators = "$validators]")
 #end
-            $variable.name: [${view.varsFormName}$?.$variable.name ? ${view.varsFormName}$.$variable.name$ : null$validators],
+            $variable.name: [${view.varsFormName}$?.$variable.name ? ${view.varsFormName}$.$variable.name : null$validators],
 #*  *##end
 #end
 #end
@@ -407,8 +414,10 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #if(!$variable.table)
 #if($angularUtils.isTable($variable) || $variable.many || $variable.type.collectionType)
 #set ($controlType = "FormArray")
+#set ($controlGet = "Array")
 #elseif($variable.complex)
 #set ($controlType = "FormGroup")
+#set ($controlGet = "Group")
     create$stringUtils.capitalize($variable.name)Form($variable.name: $variable.angularTypeName): FormGroup {
         return this.formBuilder.group({
 #foreach($attribute in $variable.attributes)
@@ -436,9 +445,10 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
 #else
 #set ($controlType = "FormControl")
+#set ($controlGet = "Item")
 #end
     get ${variable.name}(): $controlType {
-        return this.getGroupControl('$variable.name') as $controlType;
+        return this.get${controlGet}Control('$variable.name') as $controlType;
     }
 
 #if($variable.inputMultibox)

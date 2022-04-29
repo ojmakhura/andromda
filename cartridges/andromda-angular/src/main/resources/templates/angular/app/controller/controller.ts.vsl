@@ -116,7 +116,7 @@ $action.trigger.getDocumentation("     * ")
 #if($action.exitingInitialState)
         return forward;
 #else
-        if(!this.actionToDialog || forward !== null) {
+        if(!this.actionToDialog && forward !== null) {
             this.router.navigate([forward]);
         } 
 #end

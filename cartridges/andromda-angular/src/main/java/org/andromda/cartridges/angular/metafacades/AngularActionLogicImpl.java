@@ -844,7 +844,6 @@ public class AngularActionLogicImpl
 
                 for (Object _attribute : parameter.getAttributes()) {
                     AngularAttribute attribute = (AngularAttribute) _attribute;
-                    attribute.getType().isEnumeration();
                     if ((attribute.getType().getAttributes() != null
                             && !attribute.getType().getAttributes().isEmpty())
                             || attribute.getType().isEnumeration()) {
@@ -857,7 +856,7 @@ public class AngularActionLogicImpl
         for (FrontEndParameter _field : this.getFormFields()) {
             AngularParameter field = (AngularParameter) _field;
 
-            if (field.isComplex()) {
+            if (field.isComplex() || field.getType().isEnumeration()) {
                 imports.add(field.getType());
             }
         }
