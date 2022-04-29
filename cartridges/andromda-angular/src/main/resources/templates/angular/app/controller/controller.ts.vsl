@@ -13,6 +13,7 @@ import { $import.name } from '@app/${import.filePath}';
 
 export abstract class $controller.name extends ControllerBase {
 
+    actionToDialog: boolean = false;
 #if(!$controller.attributes.empty)
 #foreach($attribute in $controller.attributes)
     $attribute.name: $attribute.angularTypeName;
@@ -115,7 +116,7 @@ $action.trigger.getDocumentation("     * ")
 #if($action.exitingInitialState)
         return forward;
 #else
-        if(forward !== null) {
+        if(!this.actionToDialog || forward !== null) {
             this.router.navigate([forward]);
         } 
 #end
@@ -134,6 +135,9 @@ $actionState.getDocumentation("     * ")
     protected ${actionState.actionMethodName}#if (!$action.formFields.empty)${action.formImplementationName}#end(form: any): string
     {
         let forward: string = '';
+#if($actionState.forward.enteringView)
+        this.actionToDialog = $actionState.forward.target.popup;
+#end
 #if ($actionState.controllerCalls.empty && $actionState.serviceCalls.empty)
 ## TODO UMLMETA-106 uml22 StateVertex outgoing FinalState target returns null/unknown for Exception transition.
 ##        // actionState=$actionState controllerCalls=$actionState.controllerCalls.size()

@@ -37,9 +37,9 @@ import { UseCaseScope } from '@app/utils/use-case-scope';
 import { SelectItem } from '@app/utils/select-item';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-#if($targetModal)
+##if($targetModal)
 import { MatDialog } from '@angular/material/dialog';
-#end
+##end
 #if($view.popup)
 import {MatDialogRef} from '@angular/material/dialog';
 #end
@@ -62,7 +62,7 @@ import { $import.name } from '@app/${import.filePath}';
 #end
 #end
 #if($view.popup)
-import { ${view.name}Impl } from '@app/${view.implementationFilePath}';
+import { ${view.componentImplementationName} } from '@app/${view.implementationFilePath}';
 #end
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
@@ -108,9 +108,9 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     protected _injector: Injector;
     protected useCaseScope: UseCaseScope;
     protected store: Store<${view.useCase.actionClassName}State>;
-#if($targetModal)
+###if($targetModal)
     dialog: MatDialog;
-#end
+##end
 #foreach($controller in $view.targetControllers)
     $controller.variableName: ${controller.implementationName};
 #end
@@ -186,9 +186,9 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         this.formBuilder = injector.get(FormBuilder);
         this.useCaseScope = injector.get(UseCaseScope);
         this.store = injector.get(Store);
-#if($targetModal)
+##if($targetModal)
         this.dialog = injector.get(MatDialog);
-#end
+##end
 #if($view.popup)
         this.dialogRef = injector.get(MatDialogRef);
 #end
@@ -624,8 +624,19 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
 #if($view.popup)
 
-  closeDialog() {
-    this.dialogRef.close({event: 'Cancel'});
-  }
+    abstract handleCancelDialog(): void;
+
+    cancelDialog() {
+        this.handleCancelDialog();
+        this.dialogRef.close({event: 'Cancel'});
+    }
+
+    abstract handleDialogDone(data: any): any;
+
+    dialogDone() {
+        this.dialogRef.close({
+            dialogData: this.handleDialogDone(this.${view.formName}.value)
+        });
+    }
 #end
 }

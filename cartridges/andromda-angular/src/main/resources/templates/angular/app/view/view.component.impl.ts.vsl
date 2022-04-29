@@ -119,4 +119,14 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
     
 #end
 #end
+#if($view.popup)
+
+    handleCancelDialog(): void {
+
+    }
+
+    handleDialogDone(data: any): any {
+        return data;
+    }
+#end
 }
