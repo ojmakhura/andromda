@@ -49,8 +49,15 @@ import * as ${view.useCase.actionClassName}Selectors from '@app/store$view.useCa
 import * as ${view.useCase.actionClassName}Actions from '@app/store$view.useCase.pathRoot/${base}.actions';
 
 ## Find all the fields in the actions of the view
-#set($fieldSet =  $angularUtils.getFacadeSet($view.allFormFields))
+#set($fields = [])
 #foreach($import in $view.imports)
+#if($import.attributes && $import.attributes.size() > 0 && !$import.enumeration)
+#if($import.type)
+#set ( $rt = $fields.add($import.type) )
+#else
+#set ( $rt = $fields.add($import) )
+#end
+#end
 #if($import.tableComponentImplementationName)
 import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
 #elseif($import.componentImplementationName)
@@ -131,6 +138,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($count = $count + 1)
 #if($field.complex)
 #foreach($attribute in $angularUtils.getTableAttributes($field))
+#set ($cols = "")
     ${attribute.name}Columns = [
 #foreach ($column in $attribute.tableColumnNames)
         '$column',
@@ -138,7 +146,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     ];
 
     ${attribute.name}ModalColumns = [
-        'select',
+        'actions',
         ...this.${attribute.name}Columns
     ];
 
@@ -150,7 +158,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
     ${attribute.name}$: Observable<${attribute.angularTypeName}[]>;
     $attribute.getFormPropertyId($field)SearchField: FormControl;
-    $attribute.getFormPropertyId($field)Select: ${attribute.angularTypeName}#if($attribute.many || $attribute.type.collectionType)[]#end;
+    $attribute.getFormPropertyId($field)Select: ${attribute.angularTypeName}#if($attribute.many || $attribute.type.collectionType)[] = []#else = {}#end;
 #end
 
 #if(!$field.table)
@@ -422,9 +430,13 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         return this.formBuilder.group({
 #foreach($attribute in $variable.attributes)
 #if($angularUtils.isTable($attribute) || $attribute.many || $attribute.type.collectionType)
+#if($angularUtils.isSimpleType($attribute.type))
             $attribute.name: this.formBuilder.array(${variable.name}?.$attribute.name ? ${variable.name}.$attribute.name : []),
+#else
+            $attribute.name: this.create${attribute.type.name}Array(${variable.name}?.$attribute.name),
+#end
 #elseif($attribute.complex)
-            $attribute.name: this.formBuilder.group(${variable.name}?.$attribute.name),
+            $attribute.name: this.create${attribute.type.name}Group(${variable.name}?.$attribute.name),
 #else
 #set ($validators = "")
 #if($attribute.required || $attribute.inputEmail)
@@ -497,6 +509,15 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     ${propertyId}Selected(element: $attribute.angularTypeName, index: number): void {
         this.handle$stringUtils.capitalize($propertyId)Selected(element, index);
     }
+
+    deleteFrom$stringUtils.capitalize(${propertyId})(index: number) {
+        this.${propertyId}.removeAt(index);
+    }
+
+    addTo$stringUtils.capitalize(${propertyId})(data: $attribute.angularTypeName) {
+        this.${propertyId}.push(this.create$stringUtils.capitalize($attribute.type.name)Group(data));
+    }
+    
 #end
 #if($attribute.inputMultibox)
     /**
@@ -556,18 +577,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         }
 
         ${table.name}.forEach((item) => {
-            ${table.name}Array.push(this.formBuilder.group({
-#foreach ($column in $table.tableColumns)
-#if($column.name)
-#set($columnName = $column.name)
-#else
-#set($columnName = $column)
-#end
-#if(!$column.many || !$column.type.collectionType || ( $column.type.attributes.size() > 0 && $column.type.enumeration))
-                $columnName: [item.$columnName#if($column.type.dateType).toISOString()#end],
-#end
-#end
-            }));
+            ${table.name}Array.push(this.create$stringUtils.capitalize($table.name)Group(item));
         });
 
         this.${view.formName}.setControl('${table.name}', ${table.name}Array);
@@ -579,8 +589,26 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         return this.getArrayControl('$table.name');
     }
 
+    deleteFrom$stringUtils.capitalize($table.name)(index: number) {
+        this.${table.name}.removeAt(index);
+    }
+
+    addTo$stringUtils.capitalize($table.name)(data: any) {
+        this.${table.name}.push(this.create$stringUtils.capitalize($table.name)Group(data));
+    }
+
+    create$stringUtils.capitalize($table.name)Group(data: any): FormGroup {
+        return this.formBuilder.group({
+#foreach ($column in $table.tableColumns)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
 #end
-#foreach($table in $view.tables)
+            $columnName: [data?.$columnName#if($column.type.dateType).toISOString()#end],
+#end
+        });
+    }
 
     add${stringUtils.capitalize($table.name)}DummyData() {
         this.${table.name}.push(this.formBuilder.group({
@@ -631,9 +659,34 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
         }));
     }
+
+#end
+#set($fieldSet =  $angularUtils.getFacadeSet($fields))
+#foreach($field in $fieldSet)
+#if($field.type)
+#set ($typeName = "$field.type.name")
+#else
+#set ($typeName = "$field.name")
+#end
+    create${typeName}Group(value: $typeName): FormGroup {
+        return this.formBuilder.group({
+#foreach($attribute in $field.attributes)
+#if($angularUtils.isSimpleType($attribute))
+            $attribute.name: [value?.$attribute.name],
+#end
+#end
+        });
+    }
+
+    create${typeName}Array(values: $typeName[]): FormArray {
+        let formArray: FormArray = this.formBuilder.array([]);
+        values?.forEach(value => formArray.push(this.create${typeName}Group(value)))
+
+        return formArray;
+    }
+
 #end
 #if($view.popup)
-
     abstract handleCancelDialog(): void;
 
     cancelDialog() {
@@ -648,5 +701,6 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
             dialogData: this.handleDialogDone(this.${view.formName}.value)
         });
     }
+
 #end
 }

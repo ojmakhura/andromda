@@ -1876,7 +1876,7 @@ public class AngularUtils {
         }
         typeName = type.getFullyQualifiedName();
         if (type.isPrimitive() || typeName.startsWith("java.lang.") || typeName.startsWith("java.util.")
-            || !typeName.contains("."))
+            || !typeName.contains(".") || type.isEnumeration())
         {
             if (!many)
             {

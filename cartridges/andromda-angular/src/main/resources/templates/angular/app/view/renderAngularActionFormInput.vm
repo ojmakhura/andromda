@@ -29,7 +29,15 @@ ${ident}	<div class="mat-elevation-z8">
 ${ident}        <button type="button" (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
 ${ident}            <mat-icon>add_box</mat-icon>
 ${ident}        </button>
-${ident}		<mat-table matSort [dataSource]="${propertyId}.controls" #${parameter.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
+${ident}		<mat-table matSort [dataSource]="${propertyId}.value" #${parameter.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
+${ident}			<ng-container matColumnDef="actions">
+${ident}				<mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
+${ident}                <mat-cell *matCellDef="let row; index as i">
+${ident}                    <button color="accent" (click)="deleteFrom$stringUtils.capitalize(${propertyId})(i)" class="btn btn-info">
+${ident}                        <mat-icon>delete</mat-icon>
+${ident}                    </button>
+${ident}                </mat-cell>
+${ident}			</ng-container>
 #foreach( $column in $angularUtils.getTableColumns($parameter))
 #if($column.name)
 #set($columnName = $column.name)
@@ -42,11 +50,11 @@ ${ident}				<mat-header-cell *matHeaderCellDef translate>$column.messageKey</mat
 #else
 ${ident}				<mat-header-cell *matHeaderCellDef translate>$stringUtils.toResourceMessageKey($columnName)</mat-header-cell>
 #end
-${ident}                <mat-cell *matCellDef="let row"> {{ row.get('${columnName}').value }} </mat-cell>
+${ident}                <mat-cell *matCellDef="let row"> {{ row.${columnName} }} </mat-cell>
 ${ident}			</ng-container>
 #end
-${ident}			<mat-header-row *matHeaderRowDef="${parameter.name}Columns"></mat-header-row>
-${ident}			<mat-row *matRowDef="let row; columns: ${parameter.name}Columns;"></mat-row>
+${ident}			<mat-header-row *matHeaderRowDef="${parameter.name}ModalColumns"></mat-header-row>
+${ident}			<mat-row *matRowDef="let row; columns: ${parameter.name}ModalColumns;"></mat-row>
 ${ident}		</mat-table>
 ${ident}		<mat-paginator #${parameter.name}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
 ${ident}	</div>
@@ -139,8 +147,8 @@ $ident<mat-table matSort [dataSource]="${table.name}$ | async" #${parameter.name
 #else
 #set ($columns = $parameter.attributes)
 #end
-${ident}    <ng-container matColumnDef="select">
-${ident}        <mat-header-cell *matHeaderCellDef translate>Select</mat-header-cell>
+${ident}    <ng-container matColumnDef="actions">
+${ident}        <mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
 ${ident}        <mat-cell *matCellDef="let row; let i=index">
 ${ident}            <mat-checkbox (change)="${parameter.getFormPropertyId($ownerParameter)}Selected(row, i)"></mat-checkbox>
 ${ident}        </mat-cell>
