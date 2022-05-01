@@ -253,10 +253,10 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     abstract doNgAfterViewInit(): void;
 
     ngAfterViewInit() {
+        this.doNgAfterViewInit();
 #if(${view.useCase.controller})
         this.${view.useCase.controller.variableName}.resetUseCaseScope();
 #end
-        this.doNgAfterViewInit();
     }
 
     newForm(${view.varsFormName}$: $stringUtils.capitalize(${view.varsFormName})): FormGroup {
@@ -305,7 +305,9 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($d = '$')
 ##        this.${param.name}${d}.unsubscribe();
 #end
+#if(!$view.popup)
         this.store.dispatch(${view.useCase.actionClassName}Actions.${stringUtils.uncapitalize(${view.useCase.actionClassName})}Reset());
+#end
     }
 
 #foreach ($action in $view.actions)
