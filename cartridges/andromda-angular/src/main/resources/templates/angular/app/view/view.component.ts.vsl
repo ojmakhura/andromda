@@ -33,6 +33,7 @@ import {
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatSelectChange } from '@angular/material/select';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { UseCaseScope } from '@app/utils/use-case-scope';
 import { SelectItem } from '@app/utils/select-item';
 import { Store, select } from '@ngrx/store';
@@ -506,10 +507,18 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         this.handle$stringUtils.capitalize($propertyId)Search();
     }
 
-    abstract handle$stringUtils.capitalize($propertyId)Selected(element: $attribute.angularTypeName, index: number): void;
+    abstract handle$stringUtils.capitalize($propertyId)Selected(event: MatCheckboxChange, data: $attribute.angularTypeName): void;
     
-    ${propertyId}Selected(element: $attribute.angularTypeName, index: number): void {
-        this.handle$stringUtils.capitalize($propertyId)Selected(element, index);
+    ${propertyId}Selected(event: MatCheckboxChange, data: $attribute.angularTypeName): void {
+        if(event.checked) {
+            this.${propertyId}Select.push(data);
+        } else {
+            const key = Object.keys(data)[0];
+            let tmp = this.${propertyId}Select.filter(d => d[key] !== data[key]);
+            this.${propertyId}Select = tmp;
+        }
+
+        this.handle$stringUtils.capitalize(${propertyId})Selected(event, data);
     }
 
     deleteFrom$stringUtils.capitalize(${propertyId})(index: number) {
@@ -518,6 +527,20 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
     addTo$stringUtils.capitalize(${propertyId})(data: $attribute.angularTypeName) {
         this.${propertyId}.push(this.create$stringUtils.capitalize($attribute.type.name)Group(data));
+    }
+
+    /**
+     * May be overridden to customise behaviour
+     *
+     */
+    addSelected$stringUtils.capitalize(${propertyId})(): void {
+        this.${propertyId}Select.forEach((data) => {
+            const key = Object.keys(data)[0];
+            const found = this.${propertyId}.value.find((d: $attribute.angularTypeName) => d[key] === data[key])
+            if(!found) {
+                this.addTo$stringUtils.capitalize(${propertyId})(data);
+            }
+        });
     }
     
 #end

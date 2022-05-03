@@ -10,6 +10,9 @@ import { $stringUtils.capitalize($action.formName) } from '@app/${view.filePath}
 #if ($view.nonTableVariablesPresent)
 import { $stringUtils.capitalize($view.varsFormName) } from '@app/${view.filePath}';
 #end
+import { ${view.useCase.actionClassName}State } from '@app/store$view.useCase.pathRoot/${base}.state';
+import * as ${view.useCase.actionClassName}Selectors from '@app/store$view.useCase.pathRoot/${base}.selectors';
+import * as ${view.useCase.actionClassName}Actions from '@app/store$view.useCase.pathRoot/${base}.actions';
 
 @Component({
   selector: '${view.selectorName}',
@@ -22,7 +25,7 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
         super(injector);
     }
 
-    beforeOnInit(){
+    beforeOnInit(){     
     }
 	
     afterOnInit() {
@@ -75,6 +78,10 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
 
     handle$stringUtils.capitalize($propertyId)Search(): void {
         
+    }
+
+    handle$stringUtils.capitalize($propertyId)Selected(event: MatCheckboxChange, data: $attribute.angularTypeName): void {
+
     }
     
 #end
