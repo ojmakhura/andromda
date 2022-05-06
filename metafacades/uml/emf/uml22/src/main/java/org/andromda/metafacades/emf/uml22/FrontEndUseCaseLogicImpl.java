@@ -850,8 +850,8 @@ public class FrontEndUseCaseLogicImpl
         }
 
         if (StringUtils.isBlank(path) || path.equals(DEFAULT)) {
-            path = StringUtils.replace(this.getPackageName(), ".", "/");
-        } else {
+        //    path = StringUtils.replace(this.getPackageName(), ".", "/");
+        //} else {
 
             final FrontEndActivityGraph graph = this.getActivityGraph();
             if (graph != null) {

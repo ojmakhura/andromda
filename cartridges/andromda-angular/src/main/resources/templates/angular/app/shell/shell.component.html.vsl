@@ -37,12 +37,12 @@
           </a>
 #foreach ($useCase in $useCases)
           <mat-divider></mat-divider>
-          <a mat-list-item routerLink="/$useCase.routerPath" routerLinkActive="active" (click)="isMobile && sidenav.close()">
+          <a mat-list-item routerLink="$useCase.routerPath" routerLinkActive="active" (click)="isMobile && sidenav.close()">
             <span translate>${useCase.titleKey}</span>
           </a>
 #end
           <mat-divider></mat-divider>
-          <a mat-list-item routerLink="/about" routerLinkActive="active" (click)="isMobile && sidenav.close()">
+          <a mat-list-item routerLink="about" routerLinkActive="active" (click)="isMobile && sidenav.close()">
             <span translate>About</span>
           </a>
           <mat-divider></mat-divider>

@@ -23,7 +23,7 @@
 #set ($backingValueName = ${parameter.getBackingValueName($ownerParameter)})
 #end
 #set ($formValuePropertyName = "${valuePropertyName}")
-${ident}<div #if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter))formGroupName="${parameter.name}"#end #if ($parameter.inputHidden)[hidden]="true"#end> 
+${ident}<div #if($angularUtils.isComplex($parameter) && !$parameter.inputSelect && !$parameter.type.enumeration && !$angularUtils.isTable($parameter))formGroupName="${parameter.name}"#end #if ($parameter.inputHidden)[hidden]="true"#end> 
 #if($angularUtils.isTable($parameter))
 ${ident}	<div class="mat-elevation-z8">
 ${ident}        <button type="button" (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
@@ -88,7 +88,7 @@ ${ident}    <mat-checkbox class="$propertyId" translate>$parameter.messageKey</m
 ${ident}	<mat-form-field>
 ${ident}		<mat-label translate>$parameter.messageKey</mat-label> 
 #if ($parameter.inputSelect || $parameter.type.enumeration)
-${ident}		<mat-select name="$propertyId" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" id="$propertyId">
+${ident}		<mat-select name="$propertyId" formControlName="${parameter.name}" id="$propertyId">
 #if(!$parameter.inputMultibox)
 ${ident}			<mat-option value = "">Select one ...</mat-option>
 #end
