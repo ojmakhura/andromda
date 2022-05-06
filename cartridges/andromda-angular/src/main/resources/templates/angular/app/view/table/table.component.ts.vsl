@@ -16,9 +16,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UseCaseScope } from '@app/utils/use-case-scope';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-#set ($base = "${metafacadeWebUtils.toWebResourceName($table.view.useCase.name)}")
-import { ${table.view.useCase.actionClassName}State } from '@app/store$table.view.useCase.pathRoot/${base}.state';
-import * as ${table.view.useCase.actionClassName}Selectors from '@app/store$table.view.useCase.pathRoot/${base}.selectors';
+#set ($base = "${metafacadeWebUtils.toWebResourceName($table.view.useCase.storeName)}")
+import { ${table.view.useCase.storeName}State } from '@app/store$table.view.useCase.pathRoot/${base}.state';
+import * as ${table.view.useCase.storeName}Selectors from '@app/store$table.view.useCase.pathRoot/${base}.selectors';
 
 #foreach ($import in $table.imports)
 #if($import.tableComponentImplementationName)
@@ -63,7 +63,7 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
     protected route: ActivatedRoute;
     protected router: Router;
     protected useCaseScope: UseCaseScope;
-    protected store: Store<${table.view.useCase.actionClassName}State>;
+    protected store: Store<${table.view.useCase.storeName}State>;
 #foreach($service in $restControllers)
     protected $stringUtils.uncapitalize($service.name): ${service.implementationName};
 #end
@@ -86,7 +86,7 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
 #end
         this.${table.view.variableName} = injector.get(${table.view.componentImplementationName});
         this._injector = injector;
-        this.${table.name}$ = this.store.pipe(select(${table.view.useCase.actionClassName}Selectors.select$stringUtils.capitalize(${table.name})));
+        this.${table.name}$ = this.store.pipe(select(${table.view.useCase.storeName}Selectors.select$stringUtils.capitalize(${table.name})));
     }
 
     ngOnInit(): void {

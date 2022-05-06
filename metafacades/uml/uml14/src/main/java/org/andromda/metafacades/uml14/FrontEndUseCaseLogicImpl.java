@@ -484,4 +484,10 @@ public class FrontEndUseCaseLogicImpl
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public String handleGetSubstitutionName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

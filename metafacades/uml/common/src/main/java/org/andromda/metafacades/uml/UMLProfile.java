@@ -368,6 +368,14 @@ public class UMLProfile {
                         "PRESENTATION_REST_PATH");
 
         /**
+         * 'andromda_presentation_rest_path'
+         * Used to assign the controller to the activity (when it can not be assigned
+         * explicitly).
+         */
+        public static final String TAGGEDVALUE_PRESENTATION_SUBSTITUTION_NAME = profile.get(
+                        "PRESENTATION_SUBSTITUTION_NAME");
+
+        /**
          * 'andromda_presentation_filename'
          * Used to assign the controller to the activity (when it can not be assigned
          * explicitly).

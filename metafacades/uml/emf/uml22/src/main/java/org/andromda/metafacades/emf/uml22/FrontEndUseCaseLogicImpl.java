@@ -927,4 +927,10 @@ public class FrontEndUseCaseLogicImpl
     protected Collection handleGetAllowedRoles() {
         return UMLMetafacadeUtils.getAllowedRoles(this);
     }
+
+    @Override
+    protected String handleGetSubstitutionName() {
+        String name = StringUtils.stripToNull(((String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_SUBSTITUTION_NAME)));
+        return name;
+    }
 }

@@ -386,6 +386,12 @@
                 </documentation>
                 <value>andromda_presentation_rest_path</value>
             </element>
+            <element name="PRESENTATION_SUBSTITUTION_NAME">
+                <documentation>
+                    Some presentation layers have built in rest controllers.
+                </documentation>
+                <value>andromda_presentation_substitution_name</value>
+            </element>
             <element name="PRESENTATION_PATH">
                 <documentation>
                     File path for this presentation.

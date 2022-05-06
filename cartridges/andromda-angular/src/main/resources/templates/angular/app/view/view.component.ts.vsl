@@ -44,10 +44,10 @@ import { MatDialog } from '@angular/material/dialog';
 #if($view.popup)
 import {MatDialogRef} from '@angular/material/dialog';
 #end
-#set ($base = "${metafacadeWebUtils.toWebResourceName($view.useCase.name)}")
-import { ${view.useCase.actionClassName}State } from '@app/store$view.useCase.pathRoot/${base}.state';
-import * as ${view.useCase.actionClassName}Selectors from '@app/store$view.useCase.pathRoot/${base}.selectors';
-import * as ${view.useCase.actionClassName}Actions from '@app/store$view.useCase.pathRoot/${base}.actions';
+#set ($base = "${metafacadeWebUtils.toWebResourceName($view.useCase.storeName)}")
+import { ${view.useCase.storeName}State } from '@app/store$view.useCase.pathRoot/${base}.state';
+import * as ${view.useCase.storeName}Selectors from '@app/store$view.useCase.pathRoot/${base}.selectors';
+import * as ${view.useCase.storeName}Actions from '@app/store$view.useCase.pathRoot/${base}.actions';
 
 ## Find all the fields in the actions of the view
 #set($fields = [])
@@ -115,7 +115,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     protected formBuilder: FormBuilder;
     protected _injector: Injector;
     protected useCaseScope: UseCaseScope;
-    protected store: Store<${view.useCase.actionClassName}State>;
+    protected store: Store<${view.useCase.storeName}State>;
 ###if($targetModal)
     dialog: MatDialog;
 ##end
@@ -220,7 +220,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         this._injector = injector;
 #foreach($param in $finalParams)
 #if(!$param.table)
-        this.${param.name}$ = this.store.pipe(select(${view.useCase.actionClassName}Selectors.select$stringUtils.capitalize(${param.name})));
+        this.${param.name}$ = this.store.pipe(select(${view.useCase.storeName}Selectors.select$stringUtils.capitalize(${param.name})));
 #end
 #end
 #foreach ($field in $view.variables)
@@ -307,7 +307,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 ##        this.${param.name}${d}.unsubscribe();
 #end
 #if(!$view.popup)
-        this.store.dispatch(${view.useCase.actionClassName}Actions.${stringUtils.uncapitalize(${view.useCase.actionClassName})}Reset());
+        this.store.dispatch(${view.useCase.storeName}Actions.${stringUtils.uncapitalize(${view.useCase.storeName})}Reset());
 #end
     }
 

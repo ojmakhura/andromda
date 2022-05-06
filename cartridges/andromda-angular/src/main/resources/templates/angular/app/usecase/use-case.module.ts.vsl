@@ -22,9 +22,9 @@ import { $import.componentImplementationName } from '@app/${import.implementatio
 #if($ngrx)
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-#set ($base = "${metafacadeWebUtils.toWebResourceName($useCase.name)}")
-import { ${stringUtils.uncapitalize(${useCase.actionClassName})}Feature } from '@app/store$useCase.pathRoot/${base}.reducers';
-import { ${useCase.actionClassName}Effects } from '@app/store$useCase.pathRoot/${base}.effects';
+#set ($base = "${metafacadeWebUtils.toWebResourceName($useCase.storeName)}")
+import { ${stringUtils.uncapitalize(${useCase.storeName})}Feature } from '@app/store$useCase.pathRoot/${base}.reducers';
+import { ${useCase.storeName}Effects } from '@app/store$useCase.pathRoot/${base}.effects';
 #end
 
 @NgModule({
@@ -38,8 +38,8 @@ import { ${useCase.actionClassName}Effects } from '@app/store$useCase.pathRoot/$
     MaterialModule,
     ${useCase.routingModuleName},
 #if($ngrx)
-    StoreModule.forFeature(${stringUtils.uncapitalize(${useCase.actionClassName})}Feature),
-    EffectsModule.forFeature([ ${useCase.actionClassName}Effects ])
+    StoreModule.forFeature(${stringUtils.uncapitalize(${useCase.storeName})}Feature),
+    EffectsModule.forFeature([ ${useCase.storeName}Effects ])
 #end
   ],
   declarations: [

@@ -31,7 +31,9 @@ import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.IncludeFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.Role;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
+import org.andromda.metafacades.uml.web.MetafacadeWebUtils;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Predicate;
@@ -972,7 +974,6 @@ public class AngularUseCaseLogicImpl
 
         HashSet<ModelElementFacade> imports = new HashSet<>();
 
-
         return imports;
     }
 
@@ -988,14 +989,12 @@ public class AngularUseCaseLogicImpl
 
     @Override
     protected String handleGetModuleFileName() {
-        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
-        return phrase.replace(" ", "-") + ".module";
+        return MetafacadeWebUtils.toWebResourceName(this.getStoreName()) + ".module";
     }
 
     @Override
     protected String handleGetRoutingModuleFileName() {
-        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
-        return phrase.replace(" ", "-") + "-routing.module";
+        return MetafacadeWebUtils.toWebResourceName(this.getStoreName()) + "-routing.module";
     }
 
     @Override
@@ -1005,12 +1004,12 @@ public class AngularUseCaseLogicImpl
 
     @Override
     protected String handleGetModuleName() {
-        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "Module";
+        return getStoreName() + "Module";
     }
 
     @Override
     protected String handleGetRoutingModuleName() {
-        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "RoutingModule";
+        return getStoreName() + "RoutingModule";
     }
 
     @Override
@@ -1021,11 +1020,16 @@ public class AngularUseCaseLogicImpl
         } else {
             return this.getActionClassName();
         }
-
     }
 
     @Override
     protected String handleGetSelectorName() {
         return AngularUtils.toWebResourceName(this.getComponentName());
+    }
+
+    @Override
+    protected String handleGetStoreName() {
+        String name = this.getSubstitutionName();
+        return StringUtils.isBlank(name) ? getActionClassName() : name;
     }
 }
