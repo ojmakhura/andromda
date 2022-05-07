@@ -1727,7 +1727,12 @@ $h3tab        return results;
 #*      *##set ($entityPropertyGetterValue = $converter.typeConvert($entityProperty.type.fullyQualifiedName, "source.${entityProperty.getterName}()", $property.type.fullyQualifiedName))
 #*      *##if ($entityPropertyGetterValue)
 #*        *##if(${entityProperty.many} && !${property.type.arrayType})
-        target.${property.getterName}().clear();
+        if(org.apache.commons.collections4.CollectionUtils.isNotEmpty(target.${property.getterName}())){
+            target.${property.getterName}().clear();
+        } else {
+            target.setOptions(new java.util.ArrayList<>());
+        }
+        
         if(null!=source.${entityProperty.getterName}()) {
             target.${property.getterName}().addAll(source.${entityProperty.getterName}());
         }

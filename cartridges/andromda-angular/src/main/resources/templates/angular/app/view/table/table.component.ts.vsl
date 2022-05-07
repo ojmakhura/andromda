@@ -110,6 +110,17 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
     ngAfterViewInit() {
         this.doNgAfterViewInit();
     }
+#foreach ($action in $table.tableHyperlinkActions)
+
+    abstract do$stringUtils.capitalize(${action.triggerName})(form: any): any;
+	
+	${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes()) {
+        let form = #renderAngularTableCommandLinkParametersForm()
+        let params = this.do$stringUtils.capitalize(${action.triggerName})(form);
+        this.useCaseScope.pageVariables = Object.assign({}, params);
+        this.${action.controller.variableName}.${action.triggerName}(params);
+	}
+#end
 #foreach ($action in $table.tableFormActions)
 
     abstract do$stringUtils.capitalize(${action.triggerName})(form: any): any;

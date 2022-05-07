@@ -9,6 +9,9 @@
 #end
 #set ($cr = "
 ")
+// $view.filePath
+// $view.fileName
+// $view.packagePath
 import { 
     Component, 
     OnInit, 
@@ -195,6 +198,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #foreach($param in $finalParams)
     ${param.name}$: Observable<$param.angularTypeName>;
 #end
+    error: Observable<any>;
 
     constructor(injector: Injector) {
         this.route = injector.get(ActivatedRoute);
@@ -223,6 +227,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         this.${param.name}$ = this.store.pipe(select(${view.useCase.storeName}Selectors.select$stringUtils.capitalize(${param.name})));
 #end
 #end
+        this.error = this.store.pipe(select(${view.useCase.storeName}Selectors.selectError));
 #foreach ($field in $view.variables)
 #if($field.complex)
 #foreach($attribute in $angularUtils.getTableAttributes($field))
@@ -318,15 +323,15 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
         let form: $actionFormCaps = new ${actionFormCaps}();
 #foreach( $parameter in $action.parameters )
-#set ($tp = '')
-#if( $parameter.many)
-#set ($tp = 'getArrayControl')
-#elseif( $parameter.complex)
-#set ($tp = 'getGroupControl')
-#else
-#set ($tp = 'getItemControl')
-#end
-        form.$parameter.name = this.${tp}('$parameter.name').value;
+## #set ($tp = '')
+## #if( $parameter.many)
+## #set ($tp = 'getArrayControl')
+## #elseif( $parameter.complex)
+## #set ($tp = 'getGroupControl')
+## #else
+## #set ($tp = 'getItemControl')
+## #end
+        form.$parameter.name = this.${parameter.name}.value;
 #end
 
         return form;

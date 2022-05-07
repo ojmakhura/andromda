@@ -14,9 +14,19 @@
 #else
 #set($columnName = $column)
 #end
+#set ($tableColumnActions = $table.getTableColumnActions($columnName))
             <ng-container matColumnDef="${columnName}">
                 <mat-header-cell *matHeaderCellDef translate>$table.getTableColumnMessageKey($columnName)</mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{ row.${columnName}#if($column.inputDate || $column.type.dateType) | date#end }} </mat-cell>
+                <mat-cell *matCellDef="let row"> 
+#if (!$tableColumnActions.empty)
+#set ($action = $tableColumnActions.iterator().next())
+                    <a routerLink=""  id="${columnName}Action" (click)="${action.triggerName}(row.${columnName})">
+                        {{ row.${columnName}#if($column.inputDate || $column.type.dateType) | date#end }}
+                    </a> 
+#else
+                    {{ row.${columnName}#if($column.inputDate || $column.type.dateType) | date#end }}
+#end
+                </mat-cell>
             </ng-container>
 #end
 #if ($table.tableFormActions.size() > 0)

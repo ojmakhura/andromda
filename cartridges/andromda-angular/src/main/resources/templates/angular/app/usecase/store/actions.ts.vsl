@@ -45,7 +45,7 @@ export const ${operation.name} = createAction(
 
 export const ${operation.name}Success = createAction(
     ${actionType}.${actionName}_SUCCESS#if ($operation.returnTypePresent),
-//    props<{ results: $operation.returnTypeName }>()
+    props<{ results: $operation.returnTypeName }>()
 #end);
 
 #end

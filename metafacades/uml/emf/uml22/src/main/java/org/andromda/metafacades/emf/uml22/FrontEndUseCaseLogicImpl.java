@@ -640,15 +640,15 @@ public class FrontEndUseCaseLogicImpl
 
     // @Override
     // protected String handleGetPath() {
-    //     String actionPath = null;
-    //     final FrontEndActivityGraph graph = this.getActivityGraph();
-    //     if (graph != null) {
-    //         final FrontEndAction action = (FrontEndAction) graph.getInitialAction();
-    //         if (action != null) {
-    //             actionPath = action.getPath();
-    //         }
-    //     }
-    //     return actionPath;
+    // String actionPath = null;
+    // final FrontEndActivityGraph graph = this.getActivityGraph();
+    // if (graph != null) {
+    // final FrontEndAction action = (FrontEndAction) graph.getInitialAction();
+    // if (action != null) {
+    // actionPath = action.getPath();
+    // }
+    // }
+    // return actionPath;
     // }
 
     @Override
@@ -844,26 +844,14 @@ public class FrontEndUseCaseLogicImpl
 
     @Override
     protected String handleGetPath() {
-        String path = StringUtils.strip(((String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_PATH)));
-        if (StringUtils.isBlank(path)) {
-            path = EMPTY_STRING;
-        }
+        String path = null;
 
-        if (StringUtils.isBlank(path) || path.equals(DEFAULT)) {
-        //    path = StringUtils.replace(this.getPackageName(), ".", "/");
-        //} else {
-
-            final FrontEndActivityGraph graph = this.getActivityGraph();
-            if (graph != null) {
-                final FrontEndAction action = (FrontEndAction) graph.getInitialAction();
-                if (action != null) {
-                    path = action.getPath();
-                }
+        final FrontEndActivityGraph graph = this.getActivityGraph();
+        if (graph != null) {
+            final FrontEndAction action = (FrontEndAction) graph.getInitialAction();
+            if (action != null) {
+                path = action.getPath();
             }
-        }
-
-        if (!path.startsWith(SLASH)) {
-            path = SLASH + path;
         }
 
         return path;
@@ -930,7 +918,8 @@ public class FrontEndUseCaseLogicImpl
 
     @Override
     protected String handleGetSubstitutionName() {
-        String name = StringUtils.stripToNull(((String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_SUBSTITUTION_NAME)));
+        String name = StringUtils
+                .stripToNull(((String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_SUBSTITUTION_NAME)));
         return name;
     }
 }

@@ -13,7 +13,7 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 #set ($failureActionType = "${prefix}_FAILURE")
 #set ($resetAction = "${stringUtils.uncapitalize(${useCase.storeName})}Reset")
 #set ($failureAction = "${stringUtils.uncapitalize(${useCase.storeName})}Failure")
-import * as ${useCase.storeName}Actions from './${metafacadeWebUtils.toWebResourceName($useCase.name)}.actions';
+import * as ${useCase.storeName}Actions from './${metafacadeWebUtils.toWebResourceName($useCase.storeName)}.actions';
 #foreach ( $service in $controller.allRestControllers )
 import { ${service.implementationName} } from ${escTool.s}@app/${service.implementationFilePath}${escTool.s};
 #end
