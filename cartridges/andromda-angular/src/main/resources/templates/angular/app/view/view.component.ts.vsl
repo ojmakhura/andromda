@@ -323,14 +323,6 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
         let form: $actionFormCaps = new ${actionFormCaps}();
 #foreach( $parameter in $action.parameters )
-## #set ($tp = '')
-## #if( $parameter.many)
-## #set ($tp = 'getArrayControl')
-## #elseif( $parameter.complex)
-## #set ($tp = 'getGroupControl')
-## #else
-## #set ($tp = 'getItemControl')
-## #end
         form.$parameter.name = this.${parameter.name}.value;
 #end
 
@@ -439,12 +431,12 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #foreach($attribute in $variable.attributes)
 #if($angularUtils.isTable($attribute) || $attribute.many || $attribute.type.collectionType)
 #if($angularUtils.isSimpleType($attribute.type))
-            $attribute.name: this.formBuilder.array(${variable.name}?.$attribute.name ? ${variable.name}.$attribute.name : []),
+            $attribute.name: this.formBuilder.array(${variable.name}?.$attribute.name ? ${variable.name}.$attribute.name : []), // 1
 #else
-            $attribute.name: this.create${attribute.type.name}Array(${variable.name}?.$attribute.name),
+            $attribute.name: this.create${attribute.type.name}Array(${variable.name}?.$attribute.name), // 2 
 #end
-#elseif($attribute.complex)
-            $attribute.name: this.create${attribute.type.name}Group(${variable.name}?.$attribute.name),
+#elseif(!$angularUtils.isSimpleType($attribute.type))
+            $attribute.name: this.create${attribute.type.name}Group(${variable.name}?.$attribute.name), // 3 
 #else
 #set ($validators = "")
 #if($attribute.required || $attribute.inputEmail)
@@ -457,7 +449,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
 #set ($validators = "$validators]")
 #end
-            $attribute.name: [${variable.name}?.$attribute.name ? ${variable.name}.${attribute.name} : null$validators],
+            $attribute.name: [${variable.name}?.$attribute.name ? ${variable.name}.${attribute.name} : null$validators], // 4
 #end
 #end
         });
