@@ -1595,7 +1595,7 @@ $h3tab        return results;
 #if ($enableTemplating)
     @SuppressWarnings({"unchecked"})
 #end
-    public final Collection#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end ${valueObjectRef.transformationToCollectionMethodName}($entityCollectionType entities)
+    public final java.util.Collection#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end ${valueObjectRef.transformationToCollectionMethodName}($entityCollectionType entities)
     {
         if (entities == null)
         {
@@ -1730,7 +1730,7 @@ $h3tab        return results;
         if(org.apache.commons.collections4.CollectionUtils.isNotEmpty(target.${property.getterName}())){
             target.${property.getterName}().clear();
         } else {
-            target.setOptions(new java.util.ArrayList<>());
+            target.${property.setterName}(new java.util.ArrayList<>());
         }
         
         if(null!=source.${entityProperty.getterName}()) {

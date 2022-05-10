@@ -265,7 +265,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
     }
 
-    newForm(${view.varsFormName}$: $stringUtils.capitalize(${view.varsFormName})): FormGroup {
+    newForm(#if ($view.nonTableVariablesPresent)${view.varsFormName}$: $stringUtils.capitalize(${view.varsFormName})#end): FormGroup {
         return this.formBuilder.group({
 #if ($view.nonTableVariablesPresent)
 #foreach( $variable in $view.variables )
