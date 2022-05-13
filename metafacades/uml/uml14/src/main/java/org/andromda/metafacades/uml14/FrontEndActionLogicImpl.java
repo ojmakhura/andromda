@@ -25,6 +25,7 @@ import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -747,5 +748,10 @@ public class FrontEndActionLogicImpl
     protected String handleGetEnctype() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    protected String handleGetIcon() {
+        return UMLMetafacadeUtils.getIcon(this);
     }
 }

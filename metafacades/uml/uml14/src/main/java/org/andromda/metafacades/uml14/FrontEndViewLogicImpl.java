@@ -394,4 +394,9 @@ public class FrontEndViewLogicImpl
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    protected String handleGetIcon() {
+        return UMLMetafacadeUtils.getIcon(this);
+    }
 }

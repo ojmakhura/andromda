@@ -922,4 +922,9 @@ public class FrontEndUseCaseLogicImpl
                 .stripToNull(((String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_SUBSTITUTION_NAME)));
         return name;
     }
+
+    @Override
+    protected String handleGetIcon() {
+        return UMLMetafacadeUtils.getIcon(this);
+    }
 }

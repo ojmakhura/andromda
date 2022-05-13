@@ -368,7 +368,14 @@ public class UMLProfile {
                         "PRESENTATION_REST_PATH");
 
         /**
-         * 'andromda_presentation_rest_path'
+         * 'andromda_presentation_icon'
+         * Used to assign an icon to use case, view or action
+         */
+        public static final String TAGGEDVALUE_PRESENTATION_ICON = profile.get(
+                        "PRESENTATION_ICON");
+
+        /**
+         * 'andromda_presentation_substitution_name'
          * Used to assign the controller to the activity (when it can not be assigned
          * explicitly).
          */
