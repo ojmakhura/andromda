@@ -17,7 +17,7 @@ package ${service.packageName};
 #end
 public abstract class ${serviceName}Base implements ${serviceName} {
 
-    protected static org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(${serviceName}Base.class);
+    protected static org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(${serviceName}.class);
 #if($isService)
 
     @org.springframework.beans.factory.annotation.Autowired
