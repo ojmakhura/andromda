@@ -11,9 +11,9 @@ import { $stringUtils.capitalize($action.formName) } from '@app/${view.filePath}
 import { $stringUtils.capitalize($view.varsFormName) } from '@app/${view.filePath}';
 #end
 #set ($base = "${metafacadeWebUtils.toWebResourceName($view.useCase.storeName)}")
-import { ${view.useCase.actionClassName}State } from '@app/store$view.useCase.pathRoot/${base}.state';
-import * as ${view.useCase.actionClassName}Selectors from '@app/store$view.useCase.pathRoot/${base}.selectors';
-import * as ${view.useCase.actionClassName}Actions from '@app/store$view.useCase.pathRoot/${base}.actions';
+import { ${view.useCase.storeName}State } from '@app/store$view.useCase.pathRoot/${base}.state';
+import * as ${view.useCase.storeName}Selectors from '@app/store$view.useCase.pathRoot/${base}.selectors';
+import * as ${view.useCase.storeName}Actions from '@app/store$view.useCase.pathRoot/${base}.actions';
 
 @Component({
   selector: '${view.selectorName}',
