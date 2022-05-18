@@ -31,7 +31,8 @@ export enum ${actionType} {
 #end
 #end
     $resetActionType = '[${useCase.storeName}] ${useCase.storeName} Reset',
-    $failureActionType = '[${useCase.storeName}] ${useCase.storeName} Action Failure'
+    $failureActionType = '[${useCase.storeName}] ${useCase.storeName} Action Failure',
+    ${prefix}_LOADING = '[${useCase.storeName}] ${useCase.storeName} Loading'
 }
 
 #foreach ($service in $controller.allRestControllers)
@@ -39,21 +40,27 @@ export enum ${actionType} {
 #set ($web = "${metafacadeWebUtils.toWebResourceName($operation.name)}")
 #set ($actionName = $web.replace('-', '_').toUpperCase())
 export const ${operation.name} = createAction(
-    ${actionType}.${actionName}#if (!$operation.arguments.empty),
-    props<{ $angularUtils.getMethodSignatureArguments(${operation.getArguments()}) }>()
-#end);
+    ${actionType}.${actionName},
+    props<{ #if (!$operation.arguments.empty)$angularUtils.getMethodSignatureArguments(${operation.getArguments()}),#end loading: boolean }>()
+);
 
+// $operation
 export const ${operation.name}Success = createAction(
-    ${actionType}.${actionName}_SUCCESS#if ($operation.returnTypePresent),
-    props<{ results: $operation.returnTypeName }>()
-#end);
+    ${actionType}.${actionName}_SUCCESS,
+    props<{#if ($operation.returnTypePresent) $stringUtils.uncapitalize($operation.returnType.name): $operation.returnTypeName,#end success: boolean}>()
+);
 
 #end
 #end
 
 export const $resetAction = createAction(${actionType}.$resetActionType);
 
+export const ${stringUtils.uncapitalize(${useCase.storeName})}Loading = createAction(
+    ${actionType}.${prefix}_LOADING,
+    props<{ loading: boolean, success: boolean, error: any }>()
+);
+
 export const $failureAction = createAction(
     ${actionType}.$failureActionType,
-    props<{ error: any }>()
+    props<{ error: any, success: boolean, loading: boolean }>()
 );

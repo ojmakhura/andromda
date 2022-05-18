@@ -92,8 +92,16 @@
 #end
 #foreach ($variable in $complex)
 #set ($tables = $angularUtils.getTableAttributes($variable))
+## Rendering modal with checkbox
 #foreach($table in $tables)
-#renderModalInput($table $variable "			")
+#renderModalInput($table $variable "			" false)
 
+#end
+## Rendering modal with radio button
+#foreach($attribute in $variable.attributes)
+#if($angularUtils.isComplex($attribute) && !$attribute.type.enumeration && !$attribute.inputSelect && !$attribute.inputMultibox && !$angularUtils.isTable($attribute))
+#renderModalInput($attribute $variable "			" true)
+
+#end
 #end
 #end

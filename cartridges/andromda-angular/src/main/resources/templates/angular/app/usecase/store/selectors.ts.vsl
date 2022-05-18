@@ -36,3 +36,12 @@ export const selectError = createSelector(
     (state: ${useCase.storeName}State) => state.error
 );
 
+export const selectSuccess = createSelector(
+    select${useCase.storeName}State,
+    (state: ${useCase.storeName}State) => state.success
+);
+
+export const selectLoading = createSelector(
+    select${useCase.storeName}State,
+    (state: ${useCase.storeName}State) => state.loading
+);

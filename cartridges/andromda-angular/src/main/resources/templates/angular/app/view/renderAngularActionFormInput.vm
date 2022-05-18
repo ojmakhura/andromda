@@ -102,7 +102,7 @@ ${ident}<fieldset class="row mb-3">
 ${ident}    <legend class="col-form-label col-sm-2 pt-0" >$parameter.messageKey}</legend>
 ${ident}    <div class="mb-3">
 #else
-${ident}<div class="mb-3"#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter)) formGroupName="${parameter.name}"#end>
+${ident}<div class="mb-3">
 ${ident}    <label id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}" translate>$parameter.messageKey</label>
 ###end
 #if ($parameter.type.dateType || $parameter.inputDate)
@@ -191,7 +191,12 @@ ${ident}		</mat-table>
 ${ident}		<mat-paginator #${parameter.name}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
 ${ident}	</div>
 #else
+#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)
+${ident}    <div class="mb-3" >
+${ident}    </div>
+#else
 ${ident}    <input type="$parameter.inputType" id="$propertyId" class="form-#if($parameter.inputRange)range#{else}control#end" name="$parameter.name" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
+#end
 #end
 #if ($parameter.inputRadio)
 ${ident}    </div>
@@ -209,7 +214,7 @@ ${ident}</div>
 ##     o  $parameter - the actual parameter to render
 ##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
 ##
-#macro(renderTableInput $parameter $ownerParameter $ident)
+#macro(renderTableInput $parameter $ownerParameter $ident $radio)
 $ident<mat-table matSort [dataSource]="${table.name}$ | async" #${parameter.name}ModalSort="matSort" class="table table-bordered" style="width: 100%;">
 #if($parameter.inputTableIdentifierColumns)
 #set ($columns = $parameter.tableColumns)
@@ -219,7 +224,13 @@ $ident<mat-table matSort [dataSource]="${table.name}$ | async" #${parameter.name
 ${ident}    <ng-container matColumnDef="actions">
 ${ident}        <mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
 ${ident}        <mat-cell *matCellDef="let row; let i=index">
+#if($radio)
+${ident}            <mat-radio-group [(ngModel)]="selectedRow" (change)="${parameter.getFormPropertyId($ownerParameter)}Selected($event, row)">
+${ident}                <mat-radio-button [value]="row"></mat-radio-button>
+${ident}            </mat-radio-group>
+#else
 ${ident}            <mat-checkbox (change)="${parameter.getFormPropertyId($ownerParameter)}Selected($event, row)"></mat-checkbox>
+#end
 ${ident}        </mat-cell>
 ${ident}    </ng-container>
 #foreach($column in $columns)
@@ -246,7 +257,7 @@ $ident<mat-paginator #${parameter.name}ModalPaginator="matPaginator" [pageSize]=
 ##     o  $parameter - the actual parameter to render
 ##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
 ##
-#macro(renderModalInput $parameter $ownerParameter $ident)
+#macro(renderModalInput $parameter $ownerParameter $ident $radio)
 #if(!$parameter.inputHidden && !$ownerParameter.inputHidden)
 #if($angularUtils.isTable($parameter))
 #if ($parameter.backingListName)
@@ -283,7 +294,7 @@ $ident<mat-paginator #${parameter.name}ModalPaginator="matPaginator" [pageSize]=
                         </button>
                     </form>
                 </div>
-#renderTableInput($parameter $ownerParameter "             ")
+#renderTableInput($parameter $ownerParameter "             " $radio)
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" translate>action.close</button>

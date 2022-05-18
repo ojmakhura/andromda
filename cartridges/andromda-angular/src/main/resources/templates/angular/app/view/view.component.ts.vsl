@@ -199,6 +199,9 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     ${param.name}$: Observable<$param.angularTypeName>;
 #end
     error: Observable<any>;
+    success: Observable<boolean>;
+    loading: Observable<boolean>;
+    selected: any = null;
 
     constructor(injector: Injector) {
         this.route = injector.get(ActivatedRoute);
@@ -227,6 +230,8 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         this.${param.name}$ = this.store.pipe(select(${view.useCase.storeName}Selectors.select$stringUtils.capitalize(${param.name})));
 #end
 #end
+        this.loading = this.store.pipe(select(${view.useCase.storeName}Selectors.selectLoading));
+        this.success = this.store.pipe(select(${view.useCase.storeName}Selectors.selectSuccess));
         this.error = this.store.pipe(select(${view.useCase.storeName}Selectors.selectError));
 #foreach ($field in $view.variables)
 #if($field.complex)
@@ -431,12 +436,12 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #foreach($attribute in $variable.attributes)
 #if($angularUtils.isTable($attribute) || $attribute.many || $attribute.type.collectionType)
 #if($angularUtils.isSimpleType($attribute.type))
-            $attribute.name: this.formBuilder.array(${variable.name}?.$attribute.name ? ${variable.name}.$attribute.name : []), // 1
+            $attribute.name: this.formBuilder.array(${variable.name}?.$attribute.name ? ${variable.name}.$attribute.name : []),
 #else
-            $attribute.name: this.create${attribute.type.name}Array(${variable.name}?.$attribute.name), // 2 
+            $attribute.name: this.create${attribute.type.name}Array(${variable.name}?.$attribute.name),
 #end
 #elseif(!$angularUtils.isSimpleType($attribute.type))
-            $attribute.name: this.create${attribute.type.name}Group(${variable.name}?.$attribute.name), // 3 
+            $attribute.name: this.create${attribute.type.name}Group(${variable.name}?.$attribute.name),
 #else
 #set ($validators = "")
 #if($attribute.required || $attribute.inputEmail)
@@ -449,7 +454,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
 #set ($validators = "$validators]")
 #end
-            $attribute.name: [${variable.name}?.$attribute.name ? ${variable.name}.${attribute.name} : null$validators], // 4
+            $attribute.name: [${variable.name}?.$attribute.name ? ${variable.name}.${attribute.name} : null$validators],
 #end
 #end
         });
@@ -539,7 +544,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
             }
         });
     }
-    
+
 #end
 #if($attribute.inputMultibox)
     /**
