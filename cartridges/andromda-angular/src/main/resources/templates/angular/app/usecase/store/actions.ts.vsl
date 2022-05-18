@@ -44,7 +44,6 @@ export const ${operation.name} = createAction(
     props<{ #if (!$operation.arguments.empty)$angularUtils.getMethodSignatureArguments(${operation.getArguments()}),#end loading: boolean }>()
 );
 
-// $operation
 export const ${operation.name}Success = createAction(
     ${actionType}.${actionName}_SUCCESS,
     props<{#if ($operation.returnTypePresent) $stringUtils.uncapitalize($operation.returnType.name): $operation.returnTypeName,#end success: boolean}>()
