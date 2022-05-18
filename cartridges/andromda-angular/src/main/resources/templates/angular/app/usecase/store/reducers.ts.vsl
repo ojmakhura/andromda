@@ -56,12 +56,6 @@ export const ${stringUtils.uncapitalize(${useCase.storeName})}Reducer = createRe
         ...state,
         loading: action.loading,
         success: false
-    })),
-    on(${actions}.${stringUtils.uncapitalize(${useCase.storeName})}Success, (state, action) => ({
-        ...state,
-        loading: action.loading,
-        success: action.success,
-        error: action.error
     }))
 );
 

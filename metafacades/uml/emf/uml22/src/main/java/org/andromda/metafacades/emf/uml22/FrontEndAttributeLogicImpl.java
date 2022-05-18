@@ -1019,7 +1019,10 @@ public class FrontEndAttributeLogicImpl
         }
 
         if (tableColumnNames.isEmpty()) {
-            columnTag = Objects.toString(getType().findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_TABLE_COLUMNS), null).trim();
+            System.out.println("*********************************************");
+            System.out.println(getType().findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_TABLE_COLUMNS));
+            System.out.println("*********************************************");
+            columnTag = Objects.toString(getType().findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_TABLE_COLUMNS), null);
             if (!StringUtils.isBlank(columnTag)) {
                 for (final Object value : columnTag.split(",")) {
                     final String taggedValue = StringUtils.trimToNull(String.valueOf(value));

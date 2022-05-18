@@ -9,9 +9,6 @@
 #end
 #set ($cr = "
 ")
-// $view.filePath
-// $view.fileName
-// $view.packagePath
 import { 
     Component, 
     OnInit, 
@@ -36,6 +33,7 @@ import {
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatSelectChange } from '@angular/material/select';
+import { MatRadioChange } from '@angular/material/radio';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { UseCaseScope } from '@app/utils/use-case-scope';
 import { SelectItem } from '@app/utils/select-item';
@@ -495,7 +493,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         return this.${variable.name}.get('$attribute.name') as $controlType;
     }
 
-#if($angularUtils.isTable($attribute))
+#if($angularUtils.isComplex($attribute) && !$attribute.type.enumeration && !$attribute.inputSelect && !$attribute.inputMultibox)
 #set ($propertyId = $attribute.getFormPropertyId($variable))
     abstract handle$stringUtils.capitalize($propertyId)AddDialog(): void;
 
@@ -508,10 +506,21 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     ${propertyId}Search(): void {
         this.handle$stringUtils.capitalize($propertyId)Search();
     }
+#if($angularUtils.isTable($attribute) || $attribute.many)
+#set ($changeType = "MatCheckboxChange")
 
-    abstract handle$stringUtils.capitalize($propertyId)Selected(event: MatCheckboxChange, data: $attribute.angularTypeName): void;
+    deleteFrom$stringUtils.capitalize(${propertyId})(index: number) {
+        this.${propertyId}.removeAt(index);
+    }
+#else
+#set ($changeType = "MatRadioChange")
+
+    ${propertyId}Select = $attribute.angularTypeName = null;
+#end
+
+    abstract handle$stringUtils.capitalize($propertyId)Selected(event: $changeType, data: $attribute.angularTypeName): void;
     
-    ${propertyId}Selected(event: MatCheckboxChange, data: $attribute.angularTypeName): void {
+    ${propertyId}Selected(event: $changeType, data: $attribute.angularTypeName): void {
         if(event.checked) {
             this.${propertyId}Select.push(data);
         } else {
@@ -521,10 +530,6 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         }
 
         this.handle$stringUtils.capitalize(${propertyId})Selected(event, data);
-    }
-
-    deleteFrom$stringUtils.capitalize(${propertyId})(index: number) {
-        this.${propertyId}.removeAt(index);
     }
 
     addTo$stringUtils.capitalize(${propertyId})(data: $attribute.angularTypeName) {

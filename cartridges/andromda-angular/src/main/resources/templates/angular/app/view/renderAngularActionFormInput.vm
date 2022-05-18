@@ -215,7 +215,7 @@ ${ident}</div>
 ##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
 ##
 #macro(renderTableInput $parameter $ownerParameter $ident $radio)
-$ident<mat-table matSort [dataSource]="${table.name}$ | async" #${parameter.name}ModalSort="matSort" class="table table-bordered" style="width: 100%;">
+$ident<mat-table matSort [dataSource]="${parameter.name}#if(!$parameter.many)s#end$ | async" #${parameter.name}ModalSort="matSort" class="table table-bordered" style="width: 100%;">
 #if($parameter.inputTableIdentifierColumns)
 #set ($columns = $parameter.tableColumns)
 #else
@@ -225,7 +225,7 @@ ${ident}    <ng-container matColumnDef="actions">
 ${ident}        <mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
 ${ident}        <mat-cell *matCellDef="let row; let i=index">
 #if($radio)
-${ident}            <mat-radio-group [(ngModel)]="selectedRow" (change)="${parameter.getFormPropertyId($ownerParameter)}Selected($event, row)">
+${ident}            <mat-radio-group (change)="${parameter.getFormPropertyId($ownerParameter)}Selected($event, row)">
 ${ident}                <mat-radio-button [value]="row"></mat-radio-button>
 ${ident}            </mat-radio-group>
 #else
@@ -244,8 +244,8 @@ ${ident}        <mat-header-cell *matHeaderCellDef translate>$stringUtils.toReso
 ${ident}        <mat-cell *matCellDef="let row"> {{ row.${columnName} }} </mat-cell>
 ${ident}    </ng-container>
 #end
-${ident}    <mat-header-row *matHeaderRowDef="${table.name}ModalColumns"></mat-header-row>
-${ident}    <mat-row *matRowDef="let row; columns: ${table.name}ModalColumns;"></mat-row>
+${ident}    <mat-header-row *matHeaderRowDef="${parameter.name}ModalColumns"></mat-header-row>
+${ident}    <mat-row *matRowDef="let row; columns: ${parameter.name}ModalColumns;"></mat-row>
 $ident</mat-table>
 $ident<mat-paginator #${parameter.name}ModalPaginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
 #end
@@ -259,7 +259,6 @@ $ident<mat-paginator #${parameter.name}ModalPaginator="matPaginator" [pageSize]=
 ##
 #macro(renderModalInput $parameter $ownerParameter $ident $radio)
 #if(!$parameter.inputHidden && !$ownerParameter.inputHidden)
-#if($angularUtils.isTable($parameter))
 #if ($parameter.backingListName)
 #if ($ownerParameter.type.hasStereotype('Entity'))
 #set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
@@ -303,6 +302,5 @@ $ident<mat-paginator #${parameter.name}ModalPaginator="matPaginator" [pageSize]=
         </div>
     </div>
 </div>
-#end
 #end
 #end
