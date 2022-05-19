@@ -140,29 +140,46 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($count = $count + 1)
 #if($field.complex)
 #foreach($attribute in $angularUtils.getTableAttributes($field))
+#set ($proId = "$attribute.getFormPropertyId($field)")
 #set ($cols = "")
-    ${attribute.name}Columns = [
+    ${proId}Columns = [
 #foreach ($column in $attribute.tableColumnNames)
         '$column',
 #end
     ];
 
-    ${attribute.name}ModalColumns = [
+    ${proId}ModalColumns = [
         'actions',
-        ...this.${attribute.name}Columns
+        ...this.${proId}Columns
     ];
 
-    @ViewChild('${attribute.name}Paginator', {static: true}) ${attribute.name}Paginator: MatPaginator;
-    @ViewChild('${attribute.name}Sort', {static: true}) ${attribute.name}Sort: MatSort;
+    @ViewChild('${proId}Paginator', {static: true}) ${proId}Paginator: MatPaginator;
+    @ViewChild('${proId}Sort', {static: true}) ${proId}Sort: MatSort;
 
-    @ViewChild('${attribute.name}ModalPaginator', {static: true}) ${attribute.name}ModalPaginator: MatPaginator;
-    @ViewChild('${attribute.name}ModalSort', {static: true}) ${attribute.name}ModalSort: MatSort;
+    @ViewChild('${proId}ModalPaginator', {static: true}) ${proId}ModalPaginator: MatPaginator;
+    @ViewChild('${proId}ModalSort', {static: true}) ${proId}ModalSort: MatSort;
 
-    ${attribute.name}$: Observable<${attribute.angularTypeName}[]>;
-    $attribute.getFormPropertyId($field)SearchField: FormControl;
-    $attribute.getFormPropertyId($field)Select: ${attribute.angularTypeName}#if($attribute.many || $attribute.type.collectionType)[] = []#else = {}#end;
+    ${proId}$: Observable<${attribute.angularTypeName}[]>;
+    ${proId}SearchField: FormControl;
+    ${proId}Select: ${attribute.angularTypeName}#if($attribute.many || $attribute.type.collectionType)[] = []#else = {}#end;
+
 #end
+#foreach($attribute in $field.attributes)
+#set ($proId = "$attribute.getFormPropertyId($field)")
+#if($angularUtils.isComplex($attribute) && !$attribute.type.enumeration && !$attribute.many)
+    $stringUtils.pluralize(${proId})$: Observable<Array<${attribute.angularTypeName}>>;
+    ${proId}Select: $attribute.angularTypeName = new ${attribute.angularTypeName}();
+    ${proId}SearchField: FormControl = new FormControl();
 
+    ${proId}ModalColumns = [
+        'actions',
+#foreach ($column in $attribute.tableColumnNames)
+        '$column',
+#end
+    ];
+
+#end
+#end
 #if(!$field.table)
 #foreach( $attribute in $field.attributes )
 #if($attribute.type.enumeration)
@@ -181,6 +198,9 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #elseif($field.inputSelect || $field.inputMultibox)
 #set($ret = $selections.add($field.type))
     ${field.backingListName}: Array<$field.angularTypeName> = [];
+
+#elseif($angularUtils.isComplex($field) && !$field.type.enumeration && !$field.many)
+    ${field.name}Select: $field.angularTypeName = null;
 #end
 #end
 #elseif($field.type.enumeration)
@@ -190,6 +210,8 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set($ret = $selections.add($field.type))
     ${field.backingListName}: Array<$field.angularTypeName> = [];
 
+#elseif($angularUtils.isComplex($field) && !$field.type.enumeration && !$field.many)
+    ${field.name}Select: $field.angularTypeName = null;
 #end
 #end
 #end
@@ -483,7 +505,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #foreach($attribute in $variable.attributes)
 #if($angularUtils.isTable($attribute) || $attribute.many || $attribute.type.collectionType)
 #set ($controlType = "FormArray")
-#elseif($attribute.complex)
+#elseif($angularUtils.isComplex($attribute))
 #set ($controlType = "FormGroup")
 #else
 #set ($controlType = "FormControl")
@@ -506,17 +528,12 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     ${propertyId}Search(): void {
         this.handle$stringUtils.capitalize($propertyId)Search();
     }
-#if($angularUtils.isTable($attribute) || $attribute.many)
+#if($angularUtils.isTable($attribute))
 #set ($changeType = "MatCheckboxChange")
 
     deleteFrom$stringUtils.capitalize(${propertyId})(index: number) {
         this.${propertyId}.removeAt(index);
     }
-#else
-#set ($changeType = "MatRadioChange")
-
-    ${propertyId}Select = $attribute.angularTypeName = null;
-#end
 
     abstract handle$stringUtils.capitalize($propertyId)Selected(event: $changeType, data: $attribute.angularTypeName): void;
     
@@ -549,6 +566,29 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
             }
         });
     }
+#elseif(!$attribute.many)
+#set ($changeType = "MatRadioChange")
+
+    abstract handle$stringUtils.capitalize($propertyId)Selected(event: $changeType, data: $attribute.angularTypeName): void;
+    
+    ${propertyId}Selected(event: $changeType, data: $attribute.angularTypeName): void {
+        
+        this.${propertyId}Select = data;
+        this.handle$stringUtils.capitalize(${propertyId})Selected(event, data);
+    }
+
+    /**
+     * May be overridden to customise behaviour
+     *
+     */
+    addSelected$stringUtils.capitalize(${propertyId})(): void {
+        this.${variable.name}.patchValue({$attribute.name: this.${propertyId}Select});
+    }
+
+    ${propertyId}Clear(): void {
+        this.${variable.name}.patchValue({$attribute.name: new ${attribute.angularTypeName}()});
+    }
+#end
 
 #end
 #if($attribute.inputMultibox)

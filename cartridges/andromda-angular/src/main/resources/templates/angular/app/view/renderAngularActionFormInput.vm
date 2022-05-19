@@ -64,7 +64,7 @@ ${ident}    <td id="column_${column.name}">${theValue}#if ($column.type.dateType
 #end
 #set ($formValuePropertyName = "${valuePropertyName}")
 #if($angularUtils.isTable($parameter))
-${ident}	<div class="mat-elevation-z8">
+${ident}	<div>
 ${ident}        <button type="button" (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
 ${ident}            <mat-icon>add_box</mat-icon>
 ${ident}        </button>
@@ -92,19 +92,23 @@ ${ident}				<mat-header-cell *matHeaderCellDef translate>$stringUtils.toResource
 ${ident}                <mat-cell *matCellDef="let row"> {{ row.${columnName} }} </mat-cell>
 ${ident}			</ng-container>
 #end
-${ident}			<mat-header-row *matHeaderRowDef="${parameter.name}ModalColumns"></mat-header-row>
-${ident}			<mat-row *matRowDef="let row; columns: ${parameter.name}ModalColumns;"></mat-row>
+${ident}			<mat-header-row *matHeaderRowDef="${propertyId}ModalColumns"></mat-header-row>
+${ident}			<mat-row *matRowDef="let row; columns: ${propertyId}ModalColumns;"></mat-row>
 ${ident}		</mat-table>
-${ident}		<mat-paginator #${parameter.name}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+${ident}		<mat-paginator #${propertyId}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
 ${ident}	</div>
 #elseif ($parameter.inputRadio)
 ${ident}<fieldset class="row mb-3">
 ${ident}    <legend class="col-form-label col-sm-2 pt-0" >$parameter.messageKey}</legend>
 ${ident}    <div class="mb-3">
 #else
-${ident}<div class="mb-3">
+#if(!$angularUtils.isComplex($parameter) || $parameter.inputSelect || $parameter.type.enumeration || $parameter.type.enumeration || $angularUtils.isTable($parameter))
+${ident}<div class="mb-3"#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter)) formGroupName="${parameter.name}"#end>
 ${ident}    <label id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}" translate>$parameter.messageKey</label>
-###end
+#else
+${ident}<fieldset class="mb-3" formGroupName="${parameter.name}">
+${ident}    <legend id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}" translate>$parameter.messageKey</legend>
+#end
 #if ($parameter.type.dateType || $parameter.inputDate)
 ${ident}    <input type="$parameter.inputType" id="$propertyId" class="form-control" formControlName="${parameter.name}" #if($parameter.required) required#end #if($parameter.readOnly) readonly#end navigator="true" pattern="$parameter.format" showOn="button"/>
 #elseif ($parameter.inputCheckbox || $parameter.type.booleanType)
@@ -157,11 +161,11 @@ ${ident}    </article>
 ## ${ident}        <input type="radio" id="$propertyId" class="form-check-input" formControlName="*{${parameter.name}}" th:value="${item.value}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
 ## ${ident}    </div>
 #elseif($parameter.inputTable)
-${ident}	<div class="mat-elevation-z8">
+${ident}	<div>
 ${ident}        <button type="button" (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
 ${ident}            <mat-icon>add_box</mat-icon>
 ${ident}        </button>
-${ident}		<mat-table matSort [dataSource]="${propertyId}.value" #${parameter.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
+${ident}		<mat-table matSort [dataSource]="${propertyId}.value" #${propertyId}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
 ${ident}			<ng-container matColumnDef="actions">
 ${ident}				<mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
 ${ident}                <mat-cell *matCellDef="let row; index as i">
@@ -185,15 +189,35 @@ ${ident}				<mat-header-cell *matHeaderCellDef translate>$stringUtils.toResource
 ${ident}                <mat-cell *matCellDef="let row"> {{ row.${columnName} }} </mat-cell>
 ${ident}			</ng-container>
 #end
-${ident}			<mat-header-row *matHeaderRowDef="${parameter.name}ModalColumns"></mat-header-row>
-${ident}			<mat-row *matRowDef="let row; columns: ${parameter.name}ModalColumns;"></mat-row>
+${ident}			<mat-header-row *matHeaderRowDef="${propertyId}ModalColumns"></mat-header-row>
+${ident}			<mat-row *matRowDef="let row; columns: ${propertyId}ModalColumns;"></mat-row>
 ${ident}		</mat-table>
-${ident}		<mat-paginator #${parameter.name}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+${ident}		<mat-paginator #${propertyId}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
 ${ident}	</div>
 #else
-#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)
-${ident}    <div class="mb-3" >
+#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.many)
+${ident}    <div class="col my-3 view-buttons">
+${ident}        <button type="button" (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
+${ident}            <mat-icon>add_box</mat-icon>
+${ident}        </button>
+${ident}        <button type="button" (click)="${propertyId}Clear()" class="btn btn-primary">
+${ident}            <mat-icon>clear</mat-icon>
+${ident}        </button>
 ${ident}    </div>
+#foreach($column in $parameter.tableColumns)
+#if($column.name)
+#set ($columnName = $column.name)
+#else
+#set ($columnName = $column)
+#end
+#set ($colId = "${propertyId}$stringUtils.capitalize($columnName)")
+${ident}    <div class="row mb-3" >
+${ident}        <label for="$colId" class="col-sm-2 col-form-label" translate>$stringUtils.toResourceMessageKey($columnName)</label>
+${ident}        <div class="col-sm-10">
+${ident}            <input type="text" class="form-control" id="$colId" formControlName="${columnName}">
+${ident}        </div>
+${ident}    </div>
+#end
 #else
 ${ident}    <input type="$parameter.inputType" id="$propertyId" class="form-#if($parameter.inputRange)range#{else}control#end" name="$parameter.name" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
 #end
@@ -202,7 +226,11 @@ ${ident}    <input type="$parameter.inputType" id="$propertyId" class="form-#if(
 ${ident}    </div>
 ${ident}</fieldset>
 #else
+#if(!$angularUtils.isComplex($parameter) || $parameter.inputSelect || $parameter.type.enumeration || $parameter.type.enumeration || $angularUtils.isTable($parameter))
 ${ident}</div>
+#else
+${ident}</fieldset>
+#end
 #end
 #end
 #end
@@ -215,7 +243,13 @@ ${ident}</div>
 ##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
 ##
 #macro(renderTableInput $parameter $ownerParameter $ident $radio)
-$ident<mat-table matSort [dataSource]="${parameter.name}#if(!$parameter.many)s#end$ | async" #${parameter.name}ModalSort="matSort" class="table table-bordered" style="width: 100%;">
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#if($parameter.many)
+#set ($dataSource = "${propertyId}$")
+#else
+#set ($dataSource = "$stringUtils.pluralize(${propertyId})$")
+#end
+$ident<mat-table matSort [dataSource]="$dataSource | async" #${propertyId}ModalSort="matSort" class="table table-bordered" style="width: 100%;">
 #if($parameter.inputTableIdentifierColumns)
 #set ($columns = $parameter.tableColumns)
 #else
@@ -225,11 +259,17 @@ ${ident}    <ng-container matColumnDef="actions">
 ${ident}        <mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
 ${ident}        <mat-cell *matCellDef="let row; let i=index">
 #if($radio)
-${ident}            <mat-radio-group (change)="${parameter.getFormPropertyId($ownerParameter)}Selected($event, row)">
-${ident}                <mat-radio-button [value]="row"></mat-radio-button>
+#set ($col = ${metafacadeWebUtils.getColumnByIndex($columns, 0)})
+#if($col.name)
+#set ($columnName = $col.name)
+#else
+#set ($columnName = $col)
+#end
+${ident}            <mat-radio-group (change)="${propertyId}Selected($event, row)">
+${ident}                <mat-radio-button [value]="row" [checked]="${propertyId}Select.$columnName === row.$columnName"></mat-radio-button>
 ${ident}            </mat-radio-group>
 #else
-${ident}            <mat-checkbox (change)="${parameter.getFormPropertyId($ownerParameter)}Selected($event, row)"></mat-checkbox>
+${ident}            <mat-checkbox (change)="${propertyId}Selected($event, row)"></mat-checkbox>
 #end
 ${ident}        </mat-cell>
 ${ident}    </ng-container>
@@ -244,10 +284,10 @@ ${ident}        <mat-header-cell *matHeaderCellDef translate>$stringUtils.toReso
 ${ident}        <mat-cell *matCellDef="let row"> {{ row.${columnName} }} </mat-cell>
 ${ident}    </ng-container>
 #end
-${ident}    <mat-header-row *matHeaderRowDef="${parameter.name}ModalColumns"></mat-header-row>
-${ident}    <mat-row *matRowDef="let row; columns: ${parameter.name}ModalColumns;"></mat-row>
+${ident}    <mat-header-row *matHeaderRowDef="${propertyId}ModalColumns"></mat-header-row>
+${ident}    <mat-row *matRowDef="let row; columns: ${propertyId}ModalColumns;"></mat-row>
 $ident</mat-table>
-$ident<mat-paginator #${parameter.name}ModalPaginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+$ident<mat-paginator #${propertyId}ModalPaginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
 #end
 ##==========================
 ##
@@ -297,7 +337,7 @@ $ident<mat-paginator #${parameter.name}ModalPaginator="matPaginator" [pageSize]=
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" translate>action.close</button>
-                <button type="button" class="btn btn-primary" (click)="addSelected$stringUtils.capitalize(${propertyId})()" data-bs-dismiss="modal" translate>save changes</button>
+                <button type="button" class="btn btn-primary" (click)="addSelected$stringUtils.capitalize(${propertyId})()" data-bs-dismiss="modal" translate>save.changes</button>
             </div>
         </div>
     </div>

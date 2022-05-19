@@ -14,6 +14,8 @@ import { $stringUtils.capitalize($view.varsFormName) } from '@app/${view.filePat
 import { ${view.useCase.storeName}State } from '@app/store$view.useCase.pathRoot/${base}.state';
 import * as ${view.useCase.storeName}Selectors from '@app/store$view.useCase.pathRoot/${base}.selectors';
 import * as ${view.useCase.storeName}Actions from '@app/store$view.useCase.pathRoot/${base}.actions';
+import { MatRadioChange } from '@angular/material/radio';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: '${view.selectorName}',
@@ -31,7 +33,7 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
 	
     afterOnInit() {
 #foreach($table in $view.tables)
-        this.add${stringUtils.capitalize($table.name)}DummyData();
+        //this.add${stringUtils.capitalize($table.name)}DummyData();
 #end
 #foreach($parameter in $view.variables)
 #if($parameter.inputSelect)
@@ -84,9 +86,18 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
     handle$stringUtils.capitalize($propertyId)Selected(event: MatCheckboxChange, data: $attribute.angularTypeName): void {
 
     }
+#elseif(!$attribute.type.enumeration && !$attribute.inputSelect && !$attribute.inputMultibox && !$attribute.many) 
     
+    handle$stringUtils.capitalize($propertyId)Selected(event: MatRadioChange, data: $attribute.angularTypeName): void {
+
+    }
+
+    handle$stringUtils.capitalize($propertyId)Search(): void {
+        
+    }
 #end
 #end
+
 #else
 #set($rt = $simple.add($variable))
 #end
