@@ -1796,7 +1796,11 @@ $h3tab        return results;
 #*              *##if(${entityProperty.many} && !${property.type.arrayType})
         if (copyIfNull || source.${property.getterName}() != null)
         {
-            target.${entityProperty.getterName}().clear();
+            if(org.apache.commons.collections4.CollectionUtils.isNotEmpty(target.${entityProperty.getterName}())){
+                target.${entityProperty.getterName}().clear();
+            } else {
+                target.${entityProperty.setterName}(new java.util.ArrayList<>());
+            }
             if(null != source.${property.getterName}()) {
                 target.${entityProperty.getterName}().addAll(source.${property.getterName}());
             }

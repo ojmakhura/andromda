@@ -77,7 +77,7 @@ ${ident}                        <mat-icon>delete</mat-icon>
 ${ident}                    </button>
 ${ident}                </mat-cell>
 ${ident}			</ng-container>
-#foreach( $column in $angularUtils.getTableColumns($parameter))
+#foreach( $column in $parameter.tableColumns)
 #if($column.name)
 #set($columnName = $column.name)
 #else
@@ -174,7 +174,7 @@ ${ident}                        <mat-icon>delete</mat-icon>
 ${ident}                    </button>
 ${ident}                </mat-cell>
 ${ident}			</ng-container>
-#foreach( $column in $angularUtils.getTableColumns($parameter))
+#foreach( $column in $parameter.tableColumns)
 #if($column.name)
 #set($columnName = $column.name)
 #else

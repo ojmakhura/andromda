@@ -143,8 +143,13 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($proId = "$attribute.getFormPropertyId($field)")
 #set ($cols = "")
     ${proId}Columns = [
-#foreach ($column in $attribute.tableColumnNames)
-        '$column',
+#foreach ($column in $attribute.tableColumns)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
+        '$columnName',
 #end
     ];
 
@@ -173,8 +178,13 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
     ${proId}ModalColumns = [
         'actions',
-#foreach ($column in $attribute.tableColumnNames)
-        '$column',
+#foreach ($column in $attribute.tableColumns)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
+        '$columnName',
 #end
     ];
 
