@@ -355,7 +355,7 @@ public class SpringHibernateUtils
         if(criteriaAttribute.isComparatorPresent() && criteriaAttribute.isMatchModePresent()) {
 
             if(criteriaAttribute.getComparator().equals("insensitive_like")
-                || criteriaAttribute.getComparatorConstant().equals("like")) {
+                || criteriaAttribute.getComparator().equals("like")) {
 
                 if(criteriaAttribute.getMatchMode().equals("end")) {
                     builder.append("EndingWithIgnoreCase");
@@ -379,21 +379,21 @@ public class SpringHibernateUtils
     }
 
     private String getMatchMode(SpringCriteriaAttributeLogic criteriaAttribute) {
-        if(criteriaAttribute.getComparator().equals("greater")) {
+        if(criteriaAttribute.getMatchMode().equals("greater")) {
 
             return "Greater";
 
-        } else if(criteriaAttribute.getComparator().equals("greater_equal")) {
+        } else if(criteriaAttribute.getMatchMode().equals("greater_equal")) {
             return "GreaterThanEqual";
 
-        } else if(criteriaAttribute.getComparator().equals("less")) {
+        } else if(criteriaAttribute.getMatchMode().equals("less")) {
             return "Less";
 
-        } else if(criteriaAttribute.getComparator().equals("less_equal")) {
+        } else if(criteriaAttribute.getMatchMode().equals("less_equal")) {
             return "LessThanEqual";
-        } else if(criteriaAttribute.getComparator().equals("not_equal")) {
+        } else if(criteriaAttribute.getMatchMode().equals("not_equal")) {
             return "NotEqual";
-        } else if(criteriaAttribute.getComparator().equals("in")) {
+        } else if(criteriaAttribute.getMatchMode().equals("in") || criteriaAttribute.isMany() || criteriaAttribute.getType().isCollectionType()) {
             return "In";
         }
 
