@@ -73,28 +73,21 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
 #if ($variable.complex)
 #set($rt = $complex.add($variable))
 #foreach($attribute in $variable.attributes)
-#if($angularUtils.isTable($attribute))
+#if($angularUtils.isComplex($attribute) && !$attribute.type.enumeration && !$attribute.inputSelect && !$attribute.inputMultibox)
 #set ($propertyId = $attribute.getFormPropertyId($variable))
-    handle$stringUtils.capitalize($propertyId)AddDialog(): void {
+    handle$stringUtils.capitalize($propertyId)AddDialog(): void {}
 
-    }
-
-    handle$stringUtils.capitalize($propertyId)Search(): void {
-        
-    }
-
-    handle$stringUtils.capitalize($propertyId)Selected(event: MatCheckboxChange, data: $attribute.angularTypeName): void {
-
-    }
-#elseif(!$attribute.type.enumeration && !$attribute.inputSelect && !$attribute.inputMultibox && !$attribute.many) 
+    handle$stringUtils.capitalize($propertyId)Search(): void {}
     
-    handle$stringUtils.capitalize($propertyId)Selected(event: MatRadioChange, data: $attribute.angularTypeName): void {
+#if($angularUtils.isTable($attribute))
+#set ($changeType = "MatCheckboxChange")
+    handle$stringUtils.capitalize($propertyId)Selected(event: $changeType, data: $attribute.angularTypeName): void {}
 
-    }
-
-    handle$stringUtils.capitalize($propertyId)Search(): void {
-        
-    }
+#elseif(!$attribute.many)
+#set ($changeType = "MatRadioChange")
+    handle$stringUtils.capitalize($propertyId)Selected(event: $changeType, data: $attribute.angularTypeName): void {}
+    
+#end
 #end
 #end
 
