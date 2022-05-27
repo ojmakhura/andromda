@@ -42,28 +42,28 @@ public abstract class ${serviceName}Base implements ${serviceName} {
 #foreach ($operation in $service.allowedOperations)
 
 #set ($handle = "handle")
-#set ($responseStatus = $operation.restResponseStatus)
-#set ($restPath = ${operation.restPath})
-    $webServiceUtils.getRequestType(${operation.restRequestType})(#if($restPath.length() > 0)"${operation.restPath}"#end)
-#if (!$stringUtils.isBlank($responseStatus))
-    $operation.restResponseStatus
-#end
-#if ($operation.returnTypePresent)
-    @org.springframework.web.bind.annotation.ResponseBody
-#end
-#foreach($annotation in $operation.additionalAnnotations)
-    @$annotation
-#end
-#if(!$stringUtils.isBlank($operation.rolesAllowed))
-    @org.springframework.security.access.annotation.Secured("$operation.rolesAllowed")
-#end
+## #set ($responseStatus = $operation.restResponseStatus)
+## #set ($restPath = ${operation.restPath})
+##     $webServiceUtils.getRequestType(${operation.restRequestType})(#if($restPath.length() > 0)"${operation.restPath}"#end)
+## #if (!$stringUtils.isBlank($responseStatus))
+##     $operation.restResponseStatus
+## #end
+## #if ($operation.returnTypePresent)
+##     @org.springframework.web.bind.annotation.ResponseBody
+## #end
+## #foreach($annotation in $operation.additionalAnnotations)
+##     @$annotation
+## #end
+## #if(!$stringUtils.isBlank($operation.rolesAllowed))
+##     @org.springframework.security.access.annotation.Secured("$operation.rolesAllowed")
+## #end
 #if($operation.returnTypePresent)
 #set ($returnType = "#if($operation.returnType.primitive)$operation.returnType.wrapperName#else$operation.getterSetterReturnTypeName#end")
 #set ($return = "org.springframework.http.ResponseEntity<$returnType>")
 #else
 #set ($return = "void")
 #end
-    $operation.visibility $return ${operation.name}(#getOperationArgs($operation)) {
+    $operation.visibility $return ${operation.name}($operation.typedArgumentList) {
         #if ($operation.returnTypePresent)return #end${handle}$stringUtils.capitalize(${operation.name})($operation.argumentNames);
     }
 
