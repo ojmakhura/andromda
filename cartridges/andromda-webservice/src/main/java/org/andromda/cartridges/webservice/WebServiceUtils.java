@@ -2802,6 +2802,7 @@ public class WebServiceUtils
             String annotation = "";
 
             String required = "required = false";
+            boolean isRequestBody = false;
 
             if(param.isRequired()) {
                 required = "required = true";
@@ -2810,41 +2811,28 @@ public class WebServiceUtils
             if(paramType.contains("RequestParam")) {
 
                 annotation = "RequestParam(name = \"";
-                
-                // builder.append("@org.springframework.web.bind.annotation.RequestParam(name = \"");
-                // builder.append(param.getName() + "\")");
 
             } else if(paramType.contains("PathParam")) {
                 annotation = "PathVariable(name = \"";
 
-                // builder.append("@org.springframework.web.bind.annotation.PathVariable(name = \"");
-                // builder.append(param.getName() + "\")");
-
             } else if(paramType.contains("RequestAttribute")) {
                 annotation = "RequestAttribute(name = \"";
 
-                // builder.append("@org.springframework.web.bind.annotation.RequestAttribute");
-
             } else if(paramType.contains("RequestBody")) {
                 annotation = "RequestBody(";
-
-                // builder.append("@org.springframework.web.bind.annotation.RequestBody");
+                isRequestBody = true;
 
             }  else {
                 if(operation.getRestRequestType().toLowerCase().contains("get")) {
                     
                     annotation = "PathVariable(name = \"";
-                    // builder.append("@org.springframework.web.bind.annotation.PathVariable(name = \"");
-                    // builder.append(param.getName() + "\")");
                 }   else {
 
                     if(param.getType().getAttributes().size() > 0) {
-                        annotation = "RequestBody(name = \"";
-                        // builder.append("@org.springframework.web.bind.annotation.RequestBody");
+                        annotation = "RequestBody(";
+                        isRequestBody = true;
                     } else {
                         annotation = "RequestParam(name = \"";
-                        // builder.append("@org.springframework.web.bind.annotation.RequestParam(name = \"");
-                        // builder.append(param.getName() + "\")");
                     }
                 }
             }
@@ -2852,7 +2840,7 @@ public class WebServiceUtils
             builder.append("@org.springframework.web.bind.annotation.");
             builder.append(annotation);
 
-            if(!paramType.contains("RequestBody"))
+            if(!isRequestBody)
                 builder.append(param.getName() + "\", ");
             
             builder.append(required);

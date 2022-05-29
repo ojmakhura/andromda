@@ -337,7 +337,7 @@ $ident<mat-paginator #${propertyId}ModalPaginator="matPaginator" [pageSize]="10"
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" translate>action.close</button>
-                <button type="button" class="btn btn-primary" (click)="addSelected$stringUtils.capitalize(${propertyId})()" data-bs-dismiss="modal" translate>save.changes</button>
+                <button type="button" class="btn btn-primary" (click)="addSelected$stringUtils.capitalize(${propertyId})()" data-bs-dismiss="modal" translate>save.action</button>
             </div>
         </div>
     </div>
