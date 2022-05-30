@@ -2,7 +2,7 @@
 #if($view.popup)
 <h1 mat-dialog-title translate>$view.messageKey</h1>
 #end
-<div#if($view.popup) mat-dialog-content#end class="card">
+<div#if($view.popup) mat-dialog-content#end class="card container">
 ## Render non table variables
 #if ($view.nonTableVariablesPresent)
 #set ($complex = [])
