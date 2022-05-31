@@ -73,7 +73,7 @@ $operation.getDocumentation("     * ")
      */
 #set ($formCall = "handle$stringUtils.capitalize($operation.formCall)")
     $thymeleafUtils.addModelParameter($operation.implementationFormSignature) throws Throwable {
-        #if($operation.returnType.name != "void")return #end$thymeleafUtils.addModelArgument($formCall);
+        #if($operation.returnType.name != "void")return #end$formCall;
     }
 
 #end
@@ -280,7 +280,7 @@ $actionState.getDocumentation("     * ")
     protected String ${actionState.actionMethodName}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form, #end org.springframework.ui.Model model)
         throws Throwable
     {
-        String forward = null; // 6
+        String forward = null;
 #if ($actionState.controllerCalls.empty && $actionState.serviceCalls.empty)
 ## TODO UMLMETA-106 uml22 StateVertex outgoing FinalState target returns null/unknown for Exception transition.
 ##        // actionState=$actionState controllerCalls=$actionState.controllerCalls.size()
@@ -288,7 +288,7 @@ $actionState.getDocumentation("     * ")
 ##        // outgoing=$outgoing target=$outgoing.target
 ##end
 ##        // forward=$actionState.forward name=$actionState.name
-        forward = #processTransition($actionState.forward)// 4
+        forward = #processTransition($actionState.forward)
 
 #saveMessages($actionState.forward "        ")
 #else
@@ -307,7 +307,7 @@ ${ident}        this.get${serviceCall.owner.name}().${serviceCall.name}(#foreach
 #foreach ($controllerCall in $actionState.controllerCalls)
     
 #if (!$action.actionFormFields.empty)
-${ident}        $thymeleafUtils.addModelArgument($controllerCall.formCall);
+${ident}        $controllerCall.formCall;
 #else
 ${ident}        // we pass an empty form implementation to the controller, we know there are no parameters on this operation because the
 ${ident}        // cartridge would have issued a model validation error
@@ -321,7 +321,7 @@ ${ident}        model.addAttribute("$act.formBeanName", this.get${stringUtils.ca
 #end
 #end
 #end
-${ident}        forward = #processTransition($actionState.forward) // 9
+${ident}        forward = #processTransition($actionState.forward)
 
 #saveMessages($actionState.forward "${ident}        ")
 #if(!$exceptions.empty)
@@ -397,8 +397,9 @@ $decisionTransition.getDocumentation("     * ")
     protected String __${decisionTransition.operationCall.name}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form, #{end}org.springframework.ui.Model model)
         throws Throwable
     {
+        // $decisionTransition.operationCall
         final String value = String.valueOf($decisionTransition.operationCall.formCall);
-        String forward = null; // 21
+        String forward = null;
 #set($outgoings = $decisionTransition.target.outgoings)
 #foreach ($outcome in $outgoings)
 #set ($defaultOutcome = $outcome)

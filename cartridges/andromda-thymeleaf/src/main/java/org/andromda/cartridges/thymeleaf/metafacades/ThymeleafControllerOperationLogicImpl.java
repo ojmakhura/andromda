@@ -64,7 +64,8 @@ public class ThymeleafControllerOperationLogicImpl
      * @return formCall
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafControllerOperation#getFormCall()
      */
-    protected String handleGetFormCall() {
+    public String getFormCall() {
+        //System.out.println("=======================================================================");
         final StringBuilder call = new StringBuilder();
         call.append(this.getName());
         call.append("(");
