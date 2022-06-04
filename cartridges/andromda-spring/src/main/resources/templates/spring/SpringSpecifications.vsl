@@ -262,7 +262,7 @@ public final class ${entity.name}Specifications {
 #end
 #set ($matchMode = "${criteriaAttribute.name}")
 #if($criteriaAttribute.matchModePresent)
-#set ($matchMode = "$criteriaAttribute.matchModeConstant $criteriaAttribute.matchMode")
+#set ($matchMode = "$criteriaAttribute.name")
 #if($criteriaAttribute.matchModeConstant == "ANYWHERE")
 #set ($matchMode = "'%' + ${criteriaAttribute.name} + '%'")
 #elseif($criteriaAttribute.matchModeConstant == "START")

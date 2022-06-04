@@ -279,6 +279,10 @@ public class WebServiceOperationLogicImpl
             path = "";
         }
 
+        if(this.getRestPathStatic()) {
+            return path;
+        }
+
         StringBuilder builder = new StringBuilder();
         builder.append(path);
 
@@ -675,5 +679,15 @@ public class WebServiceOperationLogicImpl
             postAuth = null;
         }
         return postAuth;
+    }
+
+    @Override
+    protected Boolean handleGetRestPathStatic() {
+        String isStatic = (String)this.findTaggedValue(WebServiceGlobals.REST_PATH_STATIC);
+        if (StringUtils.isBlank(isStatic) || isStatic.equals(DEFAULT))
+        {
+            isStatic = BOOLEAN_FALSE;
+        }
+        return Boolean.valueOf(isStatic);
     }
 }
