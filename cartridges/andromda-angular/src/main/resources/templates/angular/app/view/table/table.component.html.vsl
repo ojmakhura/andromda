@@ -6,7 +6,7 @@
 <div class="card-body">
 #set ($targetColumns = $table.targettedTableColumnNames)
 #if (!$table.tableColumns.empty)
-    <div class="mat-elevation-z8">
+    <div class="mat-elevation-z8"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
         <mat-table matSort [dataSource]="${table.name}$ | async" #${table.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
 #foreach ($column in $table.tableColumns)
 #if($column.name)

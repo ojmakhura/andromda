@@ -1103,4 +1103,9 @@ public class FrontEndAttributeLogicImpl
         }
         return tableAttributeNames;
     }
+
+    @Override
+    protected String handleGetDisplayCondition() {
+        return UMLMetafacadeUtils.getDisplayCondition(this);
+    }
 }

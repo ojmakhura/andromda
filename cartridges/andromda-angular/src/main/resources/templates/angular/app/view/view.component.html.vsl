@@ -23,7 +23,7 @@
 				<div class="col my-3 view-buttons">
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
-					<button color="accent" (click)="${action.triggerName}()" class="btn btn-info">
+					<button color="accent" (click)="${action.triggerName}()" class="btn btn-info"#if($action.displayCondition) *ngIf="$action.displayCondition"#end>
 						<span translate>$action.messageKey</span>
 					</button>
 #end
@@ -42,7 +42,7 @@
 #set ($normals = $angularUtils.getStandardAttributes($variable))
 #set ($tables = $angularUtils.getTableAttributes($variable))
 #if($normals.size() > 0)
-			<div formGroupName="$variable.name">
+			<div formGroupName="$variable.name"#if($variable.displayCondition) *ngIf="$variable.displayCondition"#end>
 #foreach ($attribute in $normals)
 #if (!$attribute.inputHidden && !$variable.inputHidden)
 #renderAngularActionInput($attribute $variable "				")
@@ -52,8 +52,8 @@
 #if ($tables.size() > 0)
                 <mat-tab-group animationDuration="0ms" class = "view-tabs">
 #foreach($table in $tables)
-                    <mat-tab label="{{'${table.messageKey}' | translate}}">
-#renderAngularActionInput($table $variable "		                    ")
+                    <mat-tab label="{{'${table.messageKey}' | translate}}"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
+#renderAngularActionInput($table $variable "		            ")
                     </mat-tab>
 #end
                 </mat-tab-group>
@@ -67,10 +67,9 @@
 #if ( $view.tables.size() > 0 )
 	<mat-tab-group animationDuration="0ms" class = "tables">
 #foreach ( $table in $view.tables )
-		<mat-tab class="${table.name}">
+		<mat-tab class="${table.name}"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
 			<ng-template mat-tab-label><span translate>$table.messageKey</span></ng-template>
 			<$table.fileName>
-##				[${table.name}] = "${table.name}">
 			</$table.fileName>
 		</mat-tab>
 #end

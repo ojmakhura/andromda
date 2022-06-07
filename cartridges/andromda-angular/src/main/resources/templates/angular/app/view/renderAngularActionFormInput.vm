@@ -98,15 +98,15 @@ ${ident}		</mat-table>
 ${ident}		<mat-paginator #${propertyId}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
 ${ident}	</div>
 #elseif ($parameter.inputRadio)
-${ident}<fieldset class="row mb-3">
+${ident}<fieldset class="row mb-3"#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
 ${ident}    <legend class="col-form-label col-sm-2 pt-0" >$parameter.messageKey}</legend>
 ${ident}    <div class="mb-3">
 #else
 #if(!$angularUtils.isComplex($parameter) || $parameter.inputSelect || $parameter.type.enumeration || $parameter.type.enumeration || $angularUtils.isTable($parameter))
-${ident}<div class="mb-3"#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter)) formGroupName="${parameter.name}"#end>
+${ident}<div class="mb-3"#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter)) formGroupName="${parameter.name}"#end#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
 ${ident}    <label id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}" translate>$parameter.messageKey</label>
 #else
-${ident}<fieldset class="mb-3" formGroupName="${parameter.name}">
+${ident}<fieldset class="mb-3" formGroupName="${parameter.name}"#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
 ${ident}    <legend id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}" translate>$parameter.messageKey</legend>
 #end
 #if ($parameter.type.dateType || $parameter.inputDate)
@@ -211,7 +211,7 @@ ${ident}    </div>
 #set ($columnName = $column)
 #end
 #set ($colId = "${propertyId}$stringUtils.capitalize($columnName)")
-${ident}    <div class="row mb-3" >
+${ident}    <div class="row mb-3"#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
 ${ident}        <label for="$colId" class="col-sm-2 col-form-label" translate>$stringUtils.toResourceMessageKey($columnName)</label>
 ${ident}        <div class="col-sm-10">
 ${ident}            <input type="text" class="form-control" id="$colId" formControlName="${columnName}">

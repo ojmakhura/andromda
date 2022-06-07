@@ -1219,4 +1219,9 @@ public class FrontEndParameterLogicImpl
 
         return UMLMetafacadeUtils.getPresentationClass(this);
     }
+
+    @Override
+    protected String handleGetDisplayCondition() {
+        return UMLMetafacadeUtils.getDisplayCondition(this);
+    }
 }

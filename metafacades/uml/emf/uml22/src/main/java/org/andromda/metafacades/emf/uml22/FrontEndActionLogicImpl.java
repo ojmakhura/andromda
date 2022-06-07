@@ -943,4 +943,9 @@ public class FrontEndActionLogicImpl
     protected String handleGetIcon() {
         return UMLMetafacadeUtils.getIcon(this);
     }
+
+    @Override
+    protected String handleGetDisplayCondition() {
+        return UMLMetafacadeUtils.getDisplayCondition(this);
+    }
 }

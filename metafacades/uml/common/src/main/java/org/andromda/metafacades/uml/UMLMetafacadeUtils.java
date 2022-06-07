@@ -1378,4 +1378,10 @@ public class UMLMetafacadeUtils
         
         return url;
     }
+    
+    public static String getDisplayCondition(ModelElementFacade modelElement) {
+        String url = StringUtils.stripToNull(((String) modelElement.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_IF)));
+        
+        return url;
+    }
 }
