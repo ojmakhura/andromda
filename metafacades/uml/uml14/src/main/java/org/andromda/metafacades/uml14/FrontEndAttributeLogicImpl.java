@@ -618,4 +618,10 @@ public class FrontEndAttributeLogicImpl
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    protected String handleGetDisplayCondition() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

@@ -399,4 +399,10 @@ public class FrontEndViewLogicImpl
     protected String handleGetIcon() {
         return UMLMetafacadeUtils.getIcon(this);
     }
+
+    @Override
+    protected String handleGetDisplayCondition() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
