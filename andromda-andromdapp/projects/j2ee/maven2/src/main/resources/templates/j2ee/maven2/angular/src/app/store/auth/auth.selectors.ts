@@ -18,4 +18,4 @@ export const selectRoles = createSelector(selectAuthState, (state: AuthState) =>
 
 export const isLoggedIn = createSelector(selectAuthState, (state: AuthState) => state.loggedIn);
 
-export const selectError = createSelector(selectAuthState, (state: AuthState) => state.error);
+export const selectErrors = createSelector(selectAuthState, (state: AuthState) => state.errors);

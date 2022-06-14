@@ -8,26 +8,26 @@ export const menuReducer = createReducer(
   on(MenuActions.addMenu, (state, action) => ({
     ...state,
     menus: state.menus.find((menu) => menu.routerLink === action.menu.routerLink) ? [...state.menus, action.menu] : [...state.menus],
-    error: null,
+    errors: [],
   })),
   on(MenuActions.getMenusSuccess, (state, action) => ({
     ...state,
     menus: action.menus,
-    error: null,
+    errors: [],
   })),
   on(MenuActions.addMenu, (state, action) => ({
     ...state,
     menus: [...state.menus, action.menu],
-    error: null,
+    errors: [],
   })),
   on(MenuActions.menuReset, (state) => ({
     ...state,
     menus: [],
-    error: null,
+    errors: [],
   })),
   on(MenuActions.menuFailure, (state, action) => ({
     ...state,
-    error: action.error,
+    errors: action.errors,
   }))
 );
 

@@ -25,7 +25,7 @@ export class AuthEffects {
   //             AuthActions.getRolesSuccess({roles: this.keycloakService.getUserRoles()});
   //           }
   //         }),
-  //         catchError(({ error }) => [AuthActions.authFailure(error)])
+  //         catchError(({ errors }) => [AuthActions.authFailure(errors)])
   //       )
   //     )
   //   )
@@ -37,7 +37,7 @@ export class AuthEffects {
   //     mergeMap(() =>
   //       this.keycloakService.logout().then(
   //         map(() => AuthActions.authReset()),
-  //         catchError(({ error }) => [AuthActions.authFailure(error)])
+  //         catchError(({ errors }) => [AuthActions.authFailure(errors)])
   //       )
   //     )
   //   )

@@ -32,6 +32,9 @@
 				</div>
 			</section>
 #end
+            <div *ngFor="let error of errors | async" class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
 #if($simple.size() > 0)
 #foreach ($variable in $simple)
 #renderAngularActionInput($variable "" "				")
@@ -42,7 +45,7 @@
 #set ($normals = $angularUtils.getStandardAttributes($variable))
 #set ($tables = $angularUtils.getTableAttributes($variable))
 #if($normals.size() > 0)
-			<div formGroupName="$variable.name"#if($variable.displayCondition) *ngIf="$variable.displayCondition"#end>
+			<div formGroupName="${variable.name}Control"#if($variable.displayCondition) *ngIf="$variable.displayCondition"#end>
 #foreach ($attribute in $normals)
 #if (!$attribute.inputHidden && !$variable.inputHidden)
 #renderAngularActionInput($attribute $variable "				")

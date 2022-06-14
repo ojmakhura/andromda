@@ -16,4 +16,4 @@ export const getMenusSuccess = createAction(MenuActionType.GET_MENUS_SUCCESS, pr
 
 export const menuReset = createAction(MenuActionType.MENU_RESET);
 
-export const menuFailure = createAction(MenuActionType.MENU_FAILURE, props<{ error: any }>());
+export const menuFailure = createAction(MenuActionType.MENU_FAILURE, props<{ errors: any[] }>());

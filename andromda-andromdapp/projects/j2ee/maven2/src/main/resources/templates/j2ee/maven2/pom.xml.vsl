@@ -819,7 +819,7 @@
             </dependency>
 #end
 #if ($cxf)
-            <!-- Explicit Spring dependencies to avoid compile/run version mismatch, shown by: Error creating bean Caused by: java.lang.NoSuchFieldError: NULL -->
+            <!-- Explicit Spring dependencies to avoid compile/run version mismatch, shown by: Error creating bean Caused by: java.lang.NoSuchFielderrors: [] -->
 #if (!$spring)
             <!--<dependency>
                 <groupId>org.springframework.boot</groupId>

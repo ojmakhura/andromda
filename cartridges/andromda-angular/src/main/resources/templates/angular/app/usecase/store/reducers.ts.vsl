@@ -33,7 +33,7 @@ export const ${stringUtils.uncapitalize(${useCase.storeName})}Reducer = createRe
 #end
         loading: action.loading,
         success: action.success,
-        error: action.error
+        errors: action.errors
     })),
 #end
 #end
@@ -44,13 +44,13 @@ export const ${stringUtils.uncapitalize(${useCase.storeName})}Reducer = createRe
 #end
         loading: false,
         success: false,
-        error: null
+        errors: []
     })),
     on(${actions}.${stringUtils.uncapitalize(${useCase.storeName})}Failure, (state, action) => ({
         ...state,
         loading: false,
         success: false,
-        error: action.error
+        errors: action.errors
     })),
     on(${actions}.${stringUtils.uncapitalize(${useCase.storeName})}Loading, (state, action) => ({
         ...state,

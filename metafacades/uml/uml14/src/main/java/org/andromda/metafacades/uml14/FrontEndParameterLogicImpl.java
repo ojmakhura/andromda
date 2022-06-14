@@ -671,4 +671,19 @@ public class FrontEndParameterLogicImpl
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    protected String handleGetMinLength() {
+        return null;
+    }
+
+    @Override
+    protected String handleGetMax() {
+        return null;
+    }
+
+    @Override
+    protected String handleGetMin() {
+        return null;
+    }
 }

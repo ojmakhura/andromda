@@ -12,7 +12,7 @@ export interface AuthState {
   firstName: string | any;
   lastName: string | any;
   loggedIn: boolean;
-  error: any;
+  errors: any[];
 }
 
 export const initialState: AuthState = {
@@ -23,5 +23,5 @@ export const initialState: AuthState = {
   firstName: null,
   lastName: null,
   loggedIn: false,
-  error: null,
+  errors: [],
 };

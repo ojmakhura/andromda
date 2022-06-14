@@ -1224,4 +1224,49 @@ public class FrontEndParameterLogicImpl
     protected String handleGetDisplayCondition() {
         return UMLMetafacadeUtils.getDisplayCondition(this);
     }
+
+    @Override
+    protected String handleGetMinLength() {
+        final Collection<Collection> vars = getValidatorVars();
+        if (vars == null) {
+            return null;
+        }
+        for (Iterator<Collection> it = vars.iterator(); it.hasNext();) {
+            final Object[] values = (it.next()).toArray();
+            if ("minlength".equals(values[0])) {
+                return values[1].toString();
+            }
+        }
+        return null;
+    }
+
+    @Override
+    protected String handleGetMax() {
+        final Collection<Collection> vars = getValidatorVars();
+        if (vars == null) {
+            return null;
+        }
+        for (Iterator<Collection> it = vars.iterator(); it.hasNext();) {
+            final Object[] values = (it.next()).toArray();
+            if ("max".equals(values[0])) {
+                return values[1].toString();
+            }
+        }
+        return null;
+    }
+
+    @Override
+    protected String handleGetMin() {
+        final Collection<Collection> vars = getValidatorVars();
+        if (vars == null) {
+            return null;
+        }
+        for (Iterator<Collection> it = vars.iterator(); it.hasNext();) {
+            final Object[] values = (it.next()).toArray();
+            if ("min".equals(values[0])) {
+                return values[1].toString();
+            }
+        }
+        return null;
+    }
 }

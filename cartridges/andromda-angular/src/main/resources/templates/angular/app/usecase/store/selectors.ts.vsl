@@ -31,9 +31,9 @@ export const select${stringUtils.capitalize(${param.name})} = createSelector(
 );
 
 #end
-export const selectError = createSelector(
+export const selectErrors = createSelector(
     select${useCase.storeName}State,
-    (state: ${useCase.storeName}State) => state.error
+    (state: ${useCase.storeName}State) => state.errors
 );
 
 export const selectSuccess = createSelector(

@@ -40,4 +40,4 @@ export const getRolesSuccess = createAction(AuthActionType.GET_ROLES_SUCCESS, pr
 
 export const authReset = createAction(AuthActionType.AUTH_RESET);
 
-export const authFailure = createAction(AuthActionType.AUTH_FAILURE, props<{ error: any }>());
+export const authFailure = createAction(AuthActionType.AUTH_FAILURE, props<{ errors: any[] }>());

@@ -78,7 +78,7 @@ import { ${view.componentImplementationName} } from '@app/${view.implementationF
 
 export class $stringUtils.capitalize($action.formName) {
 #foreach($parameter in $action.formFields)
-    $parameter.name: $parameter.angularTypeName | any;
+    $parameter.name: $parameter.angularTypeName#if($parameter.many || $angularUtils.isArray($parameter.type.name))[]#end | any#if($parameter.many || $angularUtils.isArray($parameter.type.name))[]#end;
 #end
 }
 #end
@@ -87,7 +87,7 @@ export class $stringUtils.capitalize($action.formName) {
 export class $stringUtils.capitalize(${view.varsFormName}) {
 #foreach($variable in $view.variables)
 #if(!$variable.table)
-    $variable.name: $variable.angularTypeName | any;
+    $variable.name: $variable.angularTypeName#if($variable.many || $angularUtils.isArray($variable.type.name))[]#end | any#if($variable.many || $angularUtils.isArray($variable.type.name))[]#end;
 #end
 #end
 }
@@ -228,7 +228,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #foreach($param in $finalParams)
     ${param.name}$: Observable<$param.angularTypeName>;
 #end
-    error: Observable<any>;
+    errors: Observable<any>;
     success: Observable<boolean>;
     loading: Observable<boolean>;
     selected: any = null;
@@ -262,7 +262,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
         this.loading = this.store.pipe(select(${view.useCase.storeName}Selectors.selectLoading));
         this.success = this.store.pipe(select(${view.useCase.storeName}Selectors.selectSuccess));
-        this.error = this.store.pipe(select(${view.useCase.storeName}Selectors.selectError));
+        this.errors = this.store.pipe(select(${view.useCase.storeName}Selectors.selectErrors));
 #foreach ($field in $view.variables)
 #if($field.complex)
 #foreach($attribute in $angularUtils.getTableAttributes($field))
@@ -309,13 +309,25 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
             $variable.name: this.create$stringUtils.capitalize($variable.name)Form(${view.varsFormName}$?.${variable.name}),
 #*  *##else
 #set ($validators = "")
-#if($variable.required || $variable.inputEmail)
+#if($variable.required || $variable.inputEmail || $variable.minLength || $variable.maxLength || $variable.min || $variable.max)
 #set ($validators = ", [")
 #if($variable.required)
 #set ($validators = "${validators}Validators.required, ")
 #end
 #if($variable.inputEmail)
 #set ($validators = "${validators}Validators.email, ")
+#end
+#if($variable.minLength)
+#set ($validators = "${validators}Validators.minLength($variable.minLength), ")
+#end
+#if($variable.maxLength)
+#set ($validators = "${validators}Validators.maxLength($variable.maxLength), ")
+#end
+#if($variable.min)
+#set ($validators = "${validators}Validators.min($attribute.min), ")
+#end
+#if($variable.max)
+#set ($validators = "${validators}Validators.max($attribute.max), ")
 #end
 #set ($validators = "$validators]")
 #end
@@ -358,7 +370,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
         let form: $actionFormCaps = new ${actionFormCaps}();
 #foreach( $parameter in $action.parameters )
-        form.$parameter.name = this.${parameter.name}.value;
+        form.$parameter.name = this.${parameter.name};
 #end
 
         return form;
@@ -427,7 +439,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
 #end
 #if ($view.nonTableVariablesPresent)
-    get ${view.varsFormName}(): FormGroup {
+    get ${view.varsFormName}Control(): FormGroup {
         return this.getGroupControl('${view.varsFormName}');
     }
 
@@ -441,11 +453,11 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #foreach($variable in $view.variables)
 #if(!$variable.table)
 #if($angularUtils.isTable($variable) || $variable.many || $variable.type.collectionType)
-        this.${view.varsFormName}.setControl('$variable.name', this.set$stringUtils.capitalize($variable.name)(form.$variable.name));
+        this.${view.varsFormName}Control.setControl('$variable.name', this.set$stringUtils.capitalize($variable.name)(form.$variable.name));
 #elseif($variable.complex)
-        this.${view.varsFormName}.setControl('$variable.name', this.create$stringUtils.capitalize($variable.name)Form(form.$variable.name));
+        this.${view.varsFormName}Control.setControl('$variable.name', this.create$stringUtils.capitalize($variable.name)Form(form.$variable.name));
 #else
-        this.${view.varsFormName}.get('$variable.name').setValue(form.$variable.name);
+        this.${view.varsFormName}Control.get('$variable.name').setValue(form.$variable.name);
 #end
 #end
 #end
@@ -474,13 +486,25 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
             $attribute.name: this.create${attribute.type.name}Group(${variable.name}?.$attribute.name),
 #else
 #set ($validators = "")
-#if($attribute.required || $attribute.inputEmail)
+#if($attribute.required || $attribute.inputEmail || $attribute.minLength || $attribute.maxLength || $attribute.min || $attribute.max)
 #set ($validators = ", [")
 #if($attribute.required)
 #set ($validators = "${validators}Validators.required, ")
 #end
 #if($attribute.inputEmail)
 #set ($validators = "${validators}Validators.email, ")
+#end
+#if($attribute.minLength)
+#set ($validators = "${validators}Validators.minLength($attribute.minLength), ")
+#end
+#if($attribute.maxLength)
+#set ($validators = "${validators}Validators.maxLength($attribute.maxLength), ")
+#end
+#if($attribute.min)
+#set ($validators = "${validators}Validators.min($attribute.min), ")
+#end
+#if($attribute.max)
+#set ($validators = "${validators}Validators.max($attribute.max), ")
 #end
 #set ($validators = "$validators]")
 #end
@@ -494,14 +518,18 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($controlType = "FormControl")
 #set ($controlGet = "Item")
 #end
-    get ${variable.name}(): $controlType {
+    get ${variable.name}Control(): $controlType {
         return this.get${controlGet}Control('$variable.name') as $controlType;
+    }
+
+    get ${variable.name}(): $variable.angularTypeName#if($variable.many || $angularUtils.isArray($variable.type.name))[]#end {
+        return this.${variable.name}Control.value;
     }
 
 #if($variable.inputMultibox)
     on$stringUtils.capitalize($variable.name)Change($event: MatSelectChange) {
-        if(!this.${variable.name}.value.includes($event.value)) {
-            this.${variable.name}.push(new FormControl($event.value));
+        if(!this.${variable.name}.includes($event.value)) {
+            this.${variable.name}Control.push(new FormControl($event.value));
         }
         $event.source.value = '';
     }
@@ -521,8 +549,12 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($controlType = "FormControl")
 #end
 #set ($propertyId = $attribute.getFormPropertyId($variable))
-    get ${propertyId}(): $controlType {
-        return this.${variable.name}.get('$attribute.name') as $controlType;
+    get ${propertyId}Control(): $controlType {
+        return this.${variable.name}Control.get('$attribute.name') as $controlType;
+    }
+
+    get ${propertyId}(): $attribute.angularTypeName#if($attribute.many || $angularUtils.isArray($attribute.type.name))[]#end {
+        return this.${propertyId}Control.value;
     }
 
 #if($angularUtils.isComplex($attribute) && !$attribute.type.enumeration && !$attribute.inputSelect && !$attribute.inputMultibox)
@@ -542,7 +574,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($changeType = "MatCheckboxChange")
 
     deleteFrom$stringUtils.capitalize(${propertyId})(index: number) {
-        this.${propertyId}.removeAt(index);
+        this.${propertyId}Control.removeAt(index);
     }
 
     abstract handle$stringUtils.capitalize($propertyId)Selected(event: $changeType, data: $attribute.angularTypeName): void;
@@ -560,7 +592,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     }
 
     addTo$stringUtils.capitalize(${propertyId})(data: $attribute.angularTypeName) {
-        this.${propertyId}.push(this.create$stringUtils.capitalize($attribute.type.name)Group(data));
+        this.${propertyId}Control.push(this.create$stringUtils.capitalize($attribute.type.name)Group(data));
     }
 
     /**
@@ -570,7 +602,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     addSelected$stringUtils.capitalize(${propertyId})(): void {
         this.${propertyId}Select.forEach((data) => {
             const key = Object.keys(data)[0];
-            const found = this.${propertyId}.value.find((d: $attribute.angularTypeName) => d[key] === data[key])
+            const found = this.${propertyId}.find((d: $attribute.angularTypeName) => d[key] === data[key])
             if(!found) {
                 this.addTo$stringUtils.capitalize(${propertyId})(data);
             }
@@ -592,11 +624,11 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
      *
      */
     addSelected$stringUtils.capitalize(${propertyId})(): void {
-        this.${variable.name}.patchValue({$attribute.name: this.${propertyId}Select});
+        this.${variable.name}Control.patchValue({$attribute.name: this.${propertyId}Select});
     }
 
     ${propertyId}Clear(): void {
-        this.${variable.name}.patchValue({$attribute.name: new ${attribute.angularTypeName}()});
+        this.${variable.name}Control.patchValue({$attribute.name: new ${attribute.angularTypeName}()});
     }
 #end
 
@@ -608,8 +640,8 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
      * @param $event
      */
     on$stringUtils.capitalize($propertyId)Change($event: MatSelectChange) {
-        if(!this.${propertyId}.value.includes($event.value)){
-            this.${propertyId}.push(new FormControl($event.value));
+        if(!this.${propertyId}.includes($event.value)){
+            this.${propertyId}Control.push(new FormControl($event.value));
         }
         $event.source.value='';
     }
@@ -628,7 +660,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
      * @param index 
      */
     ${propertyId}Delete(index: number) {
-        this.${propertyId}.removeAt(index);
+        this.${propertyId}Control.removeAt(index);
     }
 
 #end
@@ -667,16 +699,20 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         return ${table.name}Array;
     }
 
-    get ${table.name}(): FormArray {
+    get ${table.name}Control(): FormArray {
         return this.getArrayControl('$table.name');
     }
 
+    get ${table.name}(): $table.angularTypeName[] {
+        return this.${table.name}Control.value;
+    }
+
     deleteFrom$stringUtils.capitalize($table.name)(index: number) {
-        this.${table.name}.removeAt(index);
+        this.${table.name}Control.removeAt(index);
     }
 
     addTo$stringUtils.capitalize($table.name)(data: any) {
-        this.${table.name}.push(this.create$stringUtils.capitalize($table.name)Group(data));
+        this.${table.name}Control.push(this.create$stringUtils.capitalize($table.name)Group(data));
     }
 
     create$stringUtils.capitalize($table.name)Group(data: any): FormGroup {
@@ -693,7 +729,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     }
 
     add${stringUtils.capitalize($table.name)}DummyData() {
-        this.${table.name}.push(this.formBuilder.group({
+        this.${table.name}Control.push(this.formBuilder.group({
 #foreach ($column in $table.tableColumns)
 #if($column.name)
 #set($columnName = $column.name)
@@ -717,7 +753,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
         }));
 
-        this.${table.name}.push(this.formBuilder.group({
+        this.${table.name}Control.push(this.formBuilder.group({
 #foreach ($column in $table.tableColumns)
 #if($column.name)
 #set($columnName = $column.name)
@@ -780,7 +816,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
     dialogDone() {
         this.dialogRef.close({
-            dialogData: this.handleDialogDone(this.${view.formName}.value)
+            dialogData: this.handleDialogDone(this.${view.formName})
         });
     }
 

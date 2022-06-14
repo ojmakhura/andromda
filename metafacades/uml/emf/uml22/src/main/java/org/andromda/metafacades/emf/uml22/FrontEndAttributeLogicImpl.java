@@ -1108,4 +1108,55 @@ public class FrontEndAttributeLogicImpl
     protected String handleGetDisplayCondition() {
         return UMLMetafacadeUtils.getDisplayCondition(this);
     }
+
+    @Override
+    protected String handleGetMinLength() {
+        final Collection<List<String>> vars = this.getValidatorVars(null);
+        if(vars == null)
+        {
+            return null;
+        }
+        for(final List<String> values : vars)
+        {
+            if("minlength".equals(values.get(0)))
+            {
+                return values.get(1);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    protected String handleGetMax() {
+        final Collection<List<String>> vars = this.getValidatorVars(null);
+        if(vars == null)
+        {
+            return null;
+        }
+        for(final List<String> values : vars)
+        {
+            if("max".equals(values.get(0)))
+            {
+                return values.get(1);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    protected String handleGetMin() {
+        final Collection<List<String>> vars = this.getValidatorVars(null);
+        if(vars == null)
+        {
+            return null;
+        }
+        for(final List<String> values : vars)
+        {
+            if("min".equals(values.get(0)))
+            {
+                return values.get(1);
+            }
+        }
+        return null;
+    }
 }
