@@ -68,7 +68,7 @@ ${ident}	<div>
 ${ident}        <button type="button" (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
 ${ident}            <mat-icon>add_box</mat-icon>
 ${ident}        </button>
-${ident}		<mat-table matSort [dataSource]="${propertyId}$" #${parameter.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
+${ident}		<mat-table matSort [dataSource]="${propertyId}" #${parameter.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
 ${ident}			<ng-container matColumnDef="actions">
 ${ident}				<mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
 ${ident}                <mat-cell *matCellDef="let row; index as i">
@@ -103,23 +103,23 @@ ${ident}    <legend class="col-form-label col-sm-2 pt-0" >$parameter.messageKey}
 ${ident}    <div class="mb-3">
 #else
 #if(!$angularUtils.isComplex($parameter) || $parameter.inputSelect || $parameter.type.enumeration || $parameter.type.enumeration || $angularUtils.isTable($parameter))
-${ident}<div class="mb-3"#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter)) formGroupName="${parameter.name}Control"#end#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
+${ident}<div class="mb-3"#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter)) formGroupName="${parameter.name}"#end#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
 ${ident}    <label id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}"><span translate>$parameter.messageKey</span>#if($parameter.required)*#end</label>
 #else
-${ident}<fieldset class="mb-3" formGroupName="${parameter.name}Control"#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
+${ident}<fieldset class="mb-3" formGroupName="${parameter.name}"#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
 ${ident}    <legend id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}"><span translate>$parameter.messageKey</span>#if($parameter.required)*#end</legend>
 #end
 #if ($parameter.type.dateType || $parameter.inputDate)
-${ident}    <input type="$parameter.inputType" id="$propertyId" class="form-control" formControlName="${parameter.name}Control" #if($parameter.required) required#end #if($parameter.readOnly) readonly#end navigator="true" pattern="$parameter.format" showOn="button"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.minLenmingth) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
+${ident}    <input type="$parameter.inputType" id="$propertyId" class="form-control" formControlName="${parameter.name}" #if($parameter.required) required#end #if($parameter.readOnly) readonly#end navigator="true" pattern="$parameter.format" showOn="button"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.minLenmingth) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #elseif ($parameter.inputCheckbox || $parameter.type.booleanType)
-${ident}    <input type="checkbox" id="$propertyId" class="form-check-input" formControlName="${parameter.name}Control"#if($parameter.required) required#end onLabel="#{yes}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
+${ident}    <input type="checkbox" id="$propertyId" class="form-check-input" formControlName="${parameter.name}"#if($parameter.required) required#end onLabel="#{yes}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration)
 #set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
 #set ($selectBoxType = "selectOneMenu")
 #if ($multiSelect)
 #set ($selectBoxType = "selectManyMenu")
 #end
-${ident}    <select#if ($multiSelect) multiple size="5"#end id="$propertyId" class="form-select" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)idControl#else${parameter.name}Control#end" #if($parameter.required) required#end#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
+${ident}    <select#if ($multiSelect) multiple size="5"#end id="$propertyId" class="form-select" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" #if($parameter.required) required#end#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
 #if ($parameter.type.enumeration)
 ${ident}        <option value=""></option>
 ${ident}        <option *ngFor="let key of ${parameter.name}Options" [value]="key">
@@ -133,9 +133,9 @@ ${ident}        <option *ngFor="let item of ${backingListName}" [value]="item.va
 #end
 ${ident}    </select>
 #elseif ($parameter.inputTextarea)
-${ident}	<textarea id="$propertyId" class="form-control" formControlName="${parameter.name}Control" #if($parameter.required) required#end#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end></textarea>
+${ident}	<textarea id="$propertyId" class="form-control" formControlName="${parameter.name}" #if($parameter.required) required#end#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end></textarea>
 #elseif ($parameter.inputFile)
-${ident}    <input type="file" id="$propertyId" class="form-control" formControlName="${parameter.name}Control" #if($parameter.required) required#end#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
+${ident}    <input type="file" id="$propertyId" class="form-control" formControlName="${parameter.name}" #if($parameter.required) required#end#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #elseif ($parameter.inputMultibox)
 ${ident}    <article formArrayName="${parameter.name}" id="${propertyId}Article">
 ${ident}        <mat-form-field class="form-group">
@@ -165,7 +165,7 @@ ${ident}	<div>
 ${ident}        <button type="button" (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
 ${ident}            <mat-icon>add_box</mat-icon>
 ${ident}        </button>
-${ident}		<mat-table matSort [dataSource]="${propertyId}$" #${propertyId}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
+${ident}		<mat-table matSort [dataSource]="${propertyId}" #${propertyId}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
 ${ident}			<ng-container matColumnDef="actions">
 ${ident}				<mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
 ${ident}                <mat-cell *matCellDef="let row; index as i">
@@ -214,12 +214,12 @@ ${ident}    </div>
 ${ident}    <div class="row mb-3"#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
 ${ident}        <label for="$colId" class="col-sm-2 col-form-label" translate>$stringUtils.toResourceMessageKey($columnName)</label>
 ${ident}        <div class="col-sm-10">
-${ident}            <input type="text" class="form-control" id="$colId" formControlName="${columnName}Control"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
+${ident}            <input type="text" class="form-control" id="$colId" formControlName="${columnName}"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
 ${ident}        </div>
 ${ident}    </div>
 #end
 #else
-${ident}    <input type="$parameter.inputType" id="${propertyId}" class="form-#if($parameter.inputRange)range#{else}control#end" name="$parameter.name" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)idControl#else${parameter.name}Control#end"#if($parameter.required) required#end#if($parameter.readOnly) readonly#{end}#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
+${ident}    <input type="$parameter.inputType" id="${propertyId}" class="form-#if($parameter.inputRange)range#{else}control#end" name="$parameter.name" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end"#if($parameter.required) required#end#if($parameter.readOnly) readonly#{end}#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #end
 #end
 #if($parameter.required || $parameter.minLength || $parameter.maxLength || $parameter.min || $parameter.max || $parameter.inputEmail)

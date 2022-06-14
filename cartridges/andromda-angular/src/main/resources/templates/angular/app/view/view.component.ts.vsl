@@ -816,7 +816,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
     dialogDone() {
         this.dialogRef.close({
-            dialogData: this.handleDialogDone(this.${view.formName})
+            dialogData: this.handleDialogDone(this.${view.formName}.value)
         });
     }
 
