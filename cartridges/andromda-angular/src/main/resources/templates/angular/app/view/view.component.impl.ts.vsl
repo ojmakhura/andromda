@@ -28,7 +28,10 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
         super(injector);
     }
 
-    beforeOnInit(){     
+    beforeOnInit(#if ($view.nonTableVariablesPresent)form: $stringUtils.capitalize(${view.varsFormName})#end):#if ($view.nonTableVariablesPresent) $stringUtils.capitalize(${view.varsFormName})#else void#end{     
+#if ($view.nonTableVariablesPresent)
+        return form;
+#end
     }
 	
     afterOnInit() {

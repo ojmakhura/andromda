@@ -272,11 +272,11 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
     }
 
-    abstract beforeOnInit(): void;
+    abstract beforeOnInit(#if ($view.nonTableVariablesPresent)form: $stringUtils.capitalize(${view.varsFormName})#end):#if ($view.nonTableVariablesPresent) $stringUtils.capitalize(${view.varsFormName})#else void#end;
 	
     ngOnInit() {
-        this.beforeOnInit();
-        this.${view.formName} = this.newForm(#if ($view.nonTableVariablesPresent)new $stringUtils.capitalize(${view.varsFormName})#end);
+        #if ($view.nonTableVariablesPresent)let form: $stringUtils.capitalize(${view.varsFormName}) = #{end}this.beforeOnInit(#if ($view.nonTableVariablesPresent)new $stringUtils.capitalize(${view.varsFormName})#end);
+        this.${view.formName} = this.newForm(#if ($view.nonTableVariablesPresent)form#end);
 
         this.${view.formName}.valueChanges.subscribe(
             (change: any) => {

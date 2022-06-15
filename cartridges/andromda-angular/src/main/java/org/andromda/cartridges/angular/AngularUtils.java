@@ -1927,4 +1927,11 @@ public class AngularUtils {
 
         return null;
     }
+
+    public static String getLastProperty(String source) {
+        
+        String[] splits = source.split("\\.");
+
+        return splits[splits.length - 1];
+    }
 }
