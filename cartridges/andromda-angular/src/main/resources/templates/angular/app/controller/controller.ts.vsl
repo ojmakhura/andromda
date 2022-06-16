@@ -117,7 +117,7 @@ $action.trigger.getDocumentation("     * ")
         return forward;
 #else
         if(!this.actionToDialog && forward !== null) {
-            this.router.navigate([forward]);
+            this.router.navigate([forward], {queryParams: this.useCaseScope.queryParams});
         } 
 #end
     }

@@ -382,16 +382,18 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     abstract afterSet${actionFormCaps}(form: ${actionFormCaps}): void;
 
     set${actionFormCaps}(form: ${actionFormCaps}) {
-
-#foreach($parameter in $action.parameters)
-#if($angularUtils.isTable($parameter) || $parameter.many || $parameter.type.collectionType)
-        this.${view.formName}.setControl('$parameter.name', this.set$stringUtils.capitalize($parameter.name)(form.$parameter.name));
-#elseif($parameter.complex)
-        this.${view.formName}.setControl('$parameter.name', this.create$stringUtils.capitalize($parameter.name)Form(form.$parameter.name));
-#else
-        this.${view.formName}.get('$parameter.name').setValue(form.$parameter.name);
-#end
-#end
+##         // $action.enteringView
+## #if($action.enteringView)
+## #foreach($parameter in $action.parameters)
+## #if($angularUtils.isTable($parameter) || $parameter.many || $parameter.type.collectionType)
+##         this.${view.formName}.setControl('$parameter.name', this.set$stringUtils.capitalize($parameter.name)(form.$parameter.name));
+## #elseif($parameter.complex)
+##         this.${view.formName}.setControl('$parameter.name', this.create$stringUtils.capitalize($parameter.name)Form(form.$parameter.name));
+## #else
+##         this.${view.formName}.get('$parameter.name').setValue(form.$parameter.name);
+## #end
+## #end
+## #end
 
         this.afterSet${actionFormCaps}(form);
     }
@@ -679,6 +681,22 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
     getArrayControl(name: string): FormArray {
         return this.${view.formName}.get(name) as FormArray;
+    }
+
+    set$stringUtils.capitalize(${view.formName})Value(form: any) {
+#foreach($variable in $view.variables)
+#if(!$variable.table)
+        if(form.$variable.name) {
+#if($angularUtils.isTable($variable) || $variable.many || $variable.type.collectionType)
+            this.${view.formName}.setControl('$variable.name', this.set$stringUtils.capitalize($variable.name)(form.$variable.name));
+#elseif($variable.complex)
+            this.${view.formName}.setControl('$variable.name', this.create$stringUtils.capitalize($variable.name)Form(form.$variable.name));
+#else
+            this.${view.formName}.get('$variable.name').setValue(form.$variable.name);
+#end
+        }
+#end
+#end
     }
 
 #foreach($table in $view.tables)

@@ -70,3 +70,21 @@ $param#if($i < $params.size()),$cr#end
 #end
         };
 #end
+##
+## This macro renders the parameters for a function
+##
+#macro (renderAngularTableCommandLinkQueryParametersForm)
+#set ( $params = [])
+#set($cr = '
+')
+#foreach ($parameter in $action.parameters)
+#set ( $type = ${parameter.angularTypeName})
+#set ( $ret = $params.add("$parameter.name: #if($angularUtils.isComplex($parameter))JSON.stringify($parameter.name)#{else}$parameter.name#{end}") )
+#end
+#set($i = 0)
+{
+#foreach( $param in $params)
+            $param,
+#end
+        };
+#end

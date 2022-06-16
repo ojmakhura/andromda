@@ -116,6 +116,8 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
 	
 	${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes()) {
         let form = #renderAngularTableCommandLinkParametersForm()
+        let queryParams: any = #renderAngularTableCommandLinkQueryParametersForm()
+        this.${action.controller.variableName}.setQueryParams(Object.assign({}, queryParams));
         let params = this.do$stringUtils.capitalize(${action.triggerName})(form);
         this.useCaseScope.pageVariables = Object.assign({}, params);
         this.${action.controller.variableName}.${action.triggerName}(params);
@@ -127,6 +129,8 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
 	
 	${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes()) {
         let form = #renderAngularTableCommandLinkParametersForm()
+        let queryParams: any = #renderAngularTableCommandLinkQueryParametersForm()
+        this.${action.controller.variableName}.setQueryParams(Object.assign({}, queryParams));
         let params = this.do$stringUtils.capitalize(${action.triggerName})(form);
         this.useCaseScope.pageVariables = Object.assign({}, params);
         this.${action.controller.variableName}.${action.triggerName}(params);

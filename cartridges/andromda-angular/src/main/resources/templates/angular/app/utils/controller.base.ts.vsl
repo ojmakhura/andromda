@@ -23,9 +23,11 @@ export abstract class ControllerBase
 
     protected router: Router;
     protected useCaseScope: UseCaseScope;
+    protected route: ActivatedRoute;
 
     constructor(injector: Injector) {
         this.router = injector.get(Router);
+        this.route = injector.get(ActivatedRoute);
         this.useCaseScope = injector.get(UseCaseScope);
     }
 
@@ -38,17 +40,28 @@ export abstract class ControllerBase
     {        
         return this.useCaseScope.pageVariables;
     }
-    
-    /**
-     * Returns the page variables associated with the view.
-     *
-     * @param view the view
-     */
-    setPageVariables(pageVariables: any): void
-    {
-        this.useCaseScope.pageVariables = pageVariables;
 
-        return pageVariables;
+    /**
+    * Returns the page variables associated with the view.
+    *
+    * @param view the view
+    */
+    setPageVariables(pageVariables: any): void {
+        this.useCaseScope.pageVariables = pageVariables;
+    }
+
+    /**
+    * Sets the query params
+    */
+    setQueryParams(queryParams: any): void {
+        this.useCaseScope.queryParams = queryParams;
+    }
+
+    /**
+    * Get the query params
+    */
+    getQueryParams(): any {
+        return this.useCaseScope.queryParams;
     }
 
     /**
@@ -79,6 +92,7 @@ export abstract class ControllerBase
         this.useCaseScope.useCaseParameters = {};
         this.useCaseScope.useCaseReturnValues = {};
         this.useCaseScope.pageVariables = {};
+        this.useCaseScope.queryParams = {};
 
         return this.useCaseScope;
     }

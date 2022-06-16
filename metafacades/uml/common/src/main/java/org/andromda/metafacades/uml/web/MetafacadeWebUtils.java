@@ -1215,10 +1215,15 @@ public class MetafacadeWebUtils {
 
         return min;
     }
+    
     public static String getInputMax(ModelElementFacade modelElement) {
         String max = StringUtils.stripToNull(((String) modelElement.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_WEB_FIELD_MAX)));
 
         return max;
+    }
+    
+    public static Collection<?> getExtraRoutes(ModelElementFacade modelElement) {
+        return modelElement.findTaggedValues(UMLProfile.TAGGEDVALUE_PRESENTATION_EXTRA_ROUTES);
     }
 
     public static Object getColumnByIndex(List<Object> columns, int index) {

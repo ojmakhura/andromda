@@ -415,9 +415,16 @@ public class UMLProfile {
                         "PRESENTATION_ACCESS_ROLES");
 
         /**
-         * 'andromda_presentation_access_roles'
+         * 'andromda_presentation_extra_routes'
          * Used to assign the controller to the activity (when it can not be assigned
          * explicitly).
+         */
+        public static final String TAGGEDVALUE_PRESENTATION_EXTRA_ROUTES = profile.get(
+                        "PRESENTATION_EXTRA_ROUTES");
+
+        /**
+         * 'andromda_presentation_class'
+         * The front end CSS class
          */
         public static final String TAGGEDVALUE_PRESENTATION_CLASS = profile.get(
                         "PRESENTATION_CLASS");
