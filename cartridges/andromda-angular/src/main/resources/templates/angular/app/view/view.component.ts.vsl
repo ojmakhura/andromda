@@ -287,11 +287,11 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         this.afterOnInit();
     }
 
-    abstract handleFormChanges(change: any): void;
+    handleFormChanges(change: any): void {}
 
-    abstract afterOnInit(): void;
+    afterOnInit(): void {}
     
-    abstract doNgAfterViewInit(): void;
+    doNgAfterViewInit(): void {}
 
     ngAfterViewInit() {
         this.doNgAfterViewInit();
@@ -376,27 +376,27 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         return form;
     }
       
-    /**
-     * This method may be overwritten
-     */
-    abstract afterSet${actionFormCaps}(form: ${actionFormCaps}): void;
+##     /**
+##      * This method may be overwritten
+##      */
+##     afterSet${actionFormCaps}(form: ${actionFormCaps}): void {}
 
-    set${actionFormCaps}(form: ${actionFormCaps}) {
-##         // $action.enteringView
-## #if($action.enteringView)
-## #foreach($parameter in $action.parameters)
-## #if($angularUtils.isTable($parameter) || $parameter.many || $parameter.type.collectionType)
-##         this.${view.formName}.setControl('$parameter.name', this.set$stringUtils.capitalize($parameter.name)(form.$parameter.name));
-## #elseif($parameter.complex)
-##         this.${view.formName}.setControl('$parameter.name', this.create$stringUtils.capitalize($parameter.name)Form(form.$parameter.name));
-## #else
-##         this.${view.formName}.get('$parameter.name').setValue(form.$parameter.name);
-## #end
-## #end
-## #end
+##     set${actionFormCaps}(form: ${actionFormCaps}) {
+## ##         // $action.enteringView
+## ## #if($action.enteringView)
+## ## #foreach($parameter in $action.parameters)
+## ## #if($angularUtils.isTable($parameter) || $parameter.many || $parameter.type.collectionType)
+## ##         this.${view.formName}.setControl('$parameter.name', this.set$stringUtils.capitalize($parameter.name)(form.$parameter.name));
+## ## #elseif($parameter.complex)
+## ##         this.${view.formName}.setControl('$parameter.name', this.create$stringUtils.capitalize($parameter.name)Form(form.$parameter.name));
+## ## #else
+## ##         this.${view.formName}.get('$parameter.name').setValue(form.$parameter.name);
+## ## #end
+## ## #end
+## ## #end
 
-        this.afterSet${actionFormCaps}(form);
-    }
+##         this.afterSet${actionFormCaps}(form);
+##     }
 
 #set ($afterAction = "after$stringUtils.capitalize(${action.triggerName})")
 #set ($beforeAction = "before$stringUtils.capitalize(${action.triggerName})")
@@ -404,12 +404,12 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     /**
      * This method may be overwritten
      */
-    abstract ${beforeAction}(#if(!$action.formFields.empty)form: ${actionFormCaps}#end): void;
+    ${beforeAction}(#if(!$action.formFields.empty)form: ${actionFormCaps}#end): void {}
 
     /**
      * This method may be overwritten
      */
-    abstract ${afterAction}(#if(!$action.formFields.empty)form: ${actionFormCaps}#end): void;
+    ${afterAction}(#if(!$action.formFields.empty)form: ${actionFormCaps}#end): void {}
     
     ${action.triggerName}(): void {
 #if(!$action.formFields.empty)
@@ -435,6 +435,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
 #end
         return form;
+
     }
 #end
 
@@ -448,7 +449,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     /**
      * This method may be overwritten
      */
-    abstract afterSet$stringUtils.capitalize(${view.varsFormName})(form: $stringUtils.capitalize($view.varsFormName)): void;
+    afterSet$stringUtils.capitalize(${view.varsFormName})(form: $stringUtils.capitalize($view.varsFormName)): void {}
 
     set$stringUtils.capitalize(${view.varsFormName})(form: $stringUtils.capitalize($view.varsFormName)) {
 
@@ -561,13 +562,13 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
 #if($angularUtils.isComplex($attribute) && !$attribute.type.enumeration && !$attribute.inputSelect && !$attribute.inputMultibox)
 #set ($propertyId = $attribute.getFormPropertyId($variable))
-    abstract handle$stringUtils.capitalize($propertyId)AddDialog(): void;
+    handle$stringUtils.capitalize($propertyId)AddDialog(): void {}
 
     ${propertyId}AddDialog(): void {
         this.handle$stringUtils.capitalize($propertyId)AddDialog();
     }
 
-    abstract handle$stringUtils.capitalize($propertyId)Search(): void;
+    handle$stringUtils.capitalize($propertyId)Search(): void {}
     
     ${propertyId}Search(): void {
         this.handle$stringUtils.capitalize($propertyId)Search();
@@ -579,7 +580,13 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         this.${propertyId}Control.removeAt(index);
     }
 
-    abstract handle$stringUtils.capitalize($propertyId)Selected(event: $changeType, data: $attribute.angularTypeName): void;
+    handleDoEdit$stringUtils.capitalize(${propertyId})($variable.name: $variable.angularTypeName): void {}
+
+    doEdit$stringUtils.capitalize(${propertyId})($variable.name: $variable.angularTypeName) {
+        this.handleDoEdit$stringUtils.capitalize(${propertyId})($variable.name);
+    }
+
+    handle$stringUtils.capitalize($propertyId)Selected(event: $changeType, data: $attribute.angularTypeName): void {}
     
     ${propertyId}Selected(event: $changeType, data: $attribute.angularTypeName): void {
         if(event.checked) {
@@ -613,7 +620,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #elseif(!$attribute.many)
 #set ($changeType = "MatRadioChange")
 
-    abstract handle$stringUtils.capitalize($propertyId)Selected(event: $changeType, data: $attribute.angularTypeName): void;
+    handle$stringUtils.capitalize($propertyId)Selected(event: $changeType, data: $attribute.angularTypeName): void {}
     
     ${propertyId}Selected(event: $changeType, data: $attribute.angularTypeName): void {
         
@@ -823,14 +830,16 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
 #end
 #if($view.popup)
-    abstract handleCancelDialog(): void;
+    handleCancelDialog(): void {}
 
     cancelDialog() {
         this.handleCancelDialog();
         this.dialogRef.close({event: 'Cancel'});
     }
 
-    abstract handleDialogDone(data: any): any;
+    handleDialogDone(data: any): any {
+        return data;
+    }
 
     dialogDone() {
         this.dialogRef.close({

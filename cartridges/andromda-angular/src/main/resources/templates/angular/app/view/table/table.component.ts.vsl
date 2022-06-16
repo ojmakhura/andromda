@@ -90,29 +90,15 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.beforeOnInit();
-//        this.${table.name}.removeAt(0);
-        this.afterOnInit();
     }
-	
-    abstract beforeOnInit(): void;
-	
-    abstract afterOnInit(): void;
-    
-    abstract doNgAfterViewInit(): void;
-
-    abstract doNgOnDestroy(): void;
-
+	    
     ngOnDestroy() { 
-        this.doNgOnDestroy();
     }
-
     ngAfterViewInit() {
-        this.doNgAfterViewInit();
     }
 #foreach ($action in $table.tableHyperlinkActions)
 
-    abstract do$stringUtils.capitalize(${action.triggerName})(form: any): any;
+    do$stringUtils.capitalize(${action.triggerName})(form: any): any {}
 	
 	${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes()) {
         let form = #renderAngularTableCommandLinkParametersForm()
@@ -125,7 +111,7 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
 #end
 #foreach ($action in $table.tableFormActions)
 
-    abstract do$stringUtils.capitalize(${action.triggerName})(form: any): any;
+    do$stringUtils.capitalize(${action.triggerName})(form: any): any {}
 	
 	${action.triggerName}(#renderAngularTableCommandLinkParametersWithTypes()) {
         let form = #renderAngularTableCommandLinkParametersForm()

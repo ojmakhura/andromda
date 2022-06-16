@@ -9,23 +9,13 @@ import { ${table.tableComponentName} } from '@app/${table.filePath}';
 })
 export class ${table.tableComponentImplementationName} extends ${table.tableComponentName} {
 
-    constructor(private injector: Injector) {
-        super(injector);
-    }
-
-	beforeOnInit(){
-	}
-	
-	afterOnInit() {
-	}
-
-  doNgAfterViewInit() {
-    
+  constructor(private injector: Injector) {
+    super(injector);
   }
-  doNgOnDestroy(): void {}
+
 #foreach ($action in $table.tableHyperlinkActions)
 
-	do$stringUtils.capitalize(${action.triggerName})(#if($action.parameters.size() > 0)form: any#end): any {
+	override do$stringUtils.capitalize(${action.triggerName})(#if($action.parameters.size() > 0)form: any#end): any {
 #if($action.parameters.size() > 0)
     return form;
 #end 
@@ -33,7 +23,7 @@ export class ${table.tableComponentImplementationName} extends ${table.tableComp
 #end
 #foreach ($action in $table.tableFormActions)
 
-	do$stringUtils.capitalize(${action.triggerName})(#if($action.parameters.size() > 0)form: any#end): any {
+	override do$stringUtils.capitalize(${action.triggerName})(#if($action.parameters.size() > 0)form: any#end): any {
 #if($action.parameters.size() > 0)
     return form;
 #end 

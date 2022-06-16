@@ -21,7 +21,7 @@ export class ${service.implementationName} extends ${service.name} {
     }
 
 #foreach ($operation in $service.allowedOperations)
-    public $operation.signature {
+    override public $operation.signature {
 
 #set ($methodName = $operation.restRequestType)
 #if(!$operation.arguments.empty)
