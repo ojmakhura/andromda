@@ -223,14 +223,21 @@ $action.trigger.getDocumentation("     * ")
 #if ($formPopulationOperationRequired)
 #set ($viewPath = "${action.source.path}.html")
         populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"${viewPath}"#end, forward, form);
-#foreach($field in $action.formFields)
-#if(!$field.actionParameter)
-
-        if(form.is${stringUtils.capitalize($field.name)}Set()) {
-            model.addAttribute("$field.name", form.get${stringUtils.capitalize($field.name)}());
-        }
+## #if(!$action.formFields.empty)
+##         model.addAttribute("$action.formBeanName", this.get${stringUtils.capitalize($action.formBeanName)}());
+## #end
+#foreach ($actionState in $action.actionStates)
+#foreach($act in $actionState.forward.target.formActions)
+#if(!$act.formFields.empty)
+        model.addAttribute("$act.formBeanName", this.get${stringUtils.capitalize($act.formBeanName)}());
 #end
 #end
+#end
+## #foreach($field in $action.formFields)
+##         if(form.is${stringUtils.capitalize($field.name)}Set()) {
+##             model.addAttribute("$field.name", form.get${stringUtils.capitalize($field.name)}());
+##         }
+## #end
 
 #if(!$action.exitingInitialState && !$action.enteringFinalState)
         if(forward != null)
@@ -316,8 +323,10 @@ ${ident}        ${controllerCall.name}(new ${controllerCall.interfaceName}());
 #end
 #if($actionState.forward.enteringView)
 #foreach($act in $actionState.forward.target.formActions)
-#if(!$act.actionFormFields.empty)
-${ident}        model.addAttribute("$act.formBeanName", this.get${stringUtils.capitalize($act.formBeanName)}());
+#foreach($param in $act.parameters)
+${ident}        if(form.is${stringUtils.capitalize($param.name)}Set()) {
+${ident}            model.addAttribute("$param.name", form.get${stringUtils.capitalize($param.name)}());
+${ident}        }
 #end
 #end
 #end

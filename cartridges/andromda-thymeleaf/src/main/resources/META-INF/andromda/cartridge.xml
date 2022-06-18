@@ -591,6 +591,26 @@
             </modelElement>
         </modelElements>
     </template> -->
+    <!-- <template
+        path="templates/configuration/web.xml.vsl"
+        outputPattern="WEB-INF/web.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="useCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
+            </modelElement>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.jsf2.metafacades.JSFManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
+            </modelElement>
+            <modelElement variable="roles">
+                <type name="org.andromda.metafacades.uml.Role"/>
+            </modelElement>
+        </modelElements>
+    </template> -->
 
     <template
         path="templates/controllers/crud/Controller.java.vsl"
