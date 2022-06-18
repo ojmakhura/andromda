@@ -40,14 +40,14 @@ export class ${useCase.storeName}Effects {
 #set ($count = $count + 1)
 #end
 #if($operation.arguments.size() >= 1)
-#set ($args = "{ $args }")
+#set ($args = "$args")
 #end
 #end
             mergeMap(($args) => this.${serviceName}.${operation.name}($callArgs).pipe(
 #if ($operation.returnTypePresent)
                 map( results => ${actionName}.${operation.name}Success({results})),
 #end
-                catchError(({error}) => [${actionName}.$failureAction(error)])
+                catchError((error) => [${actionName}.$failureAction(error)])
             ))
         )
     );
