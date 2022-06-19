@@ -493,11 +493,9 @@
 #if ($webType.equals("thymeleaf"))
         <thymeleaf.generated.dir>${project.basedir}/../thymeleaf/target</thymeleaf.generated.dir>
         <thymeleaf.generated.java.dir>${thymeleaf.generated.dir}/src/main/java</thymeleaf.generated.java.dir>
-        <thymeleaf.generated.web.dir>${thymeleaf.generated.dir}/src/main/webapp</thymeleaf.generated.web.dir>
-        <thymeleaf.generated.resource.dir>${thymeleaf.generated.dir}/src/main/resource</thymeleaf.generated.resource.dir>
+        <thymeleaf.generated.web.dir>${thymeleaf.generated.dir}/src/main/resources</thymeleaf.generated.web.dir>
         <thymeleaf.manual.dir>${project.basedir}/../thymeleaf/src/main</thymeleaf.manual.dir>
-        <thymeleaf.manual.resource.dir>${thymeleaf.manual.dir}/resources</thymeleaf.manual.resource.dir>
-        <thymeleaf.manual.web.dir>${thymeleaf.manual.dir}/webapp</thymeleaf.manual.web.dir>
+        <thymeleaf.manual.web.dir>${thymeleaf.manual.dir}/resources</thymeleaf.manual.web.dir>
         <thymeleaf.manual.java.dir>${thymeleaf.manual.dir}/java</thymeleaf.manual.java.dir>
 #end
 #if (!$webservice.equals("none") && !$jsr181Webservice)

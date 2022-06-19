@@ -128,7 +128,7 @@
                 </executions>
                 <configuration>
                     <target>
-                        <copy todir="${project.basedir}/target/src/main/resources" overwrite="true" failonerror="false">
+                        <copy todir="${project.basedir}/target/src/main/resources/templates" overwrite="true" failonerror="false">
                             <fileset dir="${project.basedir}/src/main/resources">
                                 <include name="**/*"/>
                             </fileset>
@@ -139,22 +139,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>target/src/main/java</source>
-                            </sources>
-                            <sources>
-                                <source>target/src/main/resources</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
@@ -192,9 +176,6 @@
                 </configuration>
             </plugin>
             <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-            </plugin>
-            <plugin>
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>
             <plugin>
@@ -208,11 +189,6 @@
             </resource>
             <resource>
                 <directory>target/src/main/resources</directory>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <targetPath>${project.basedir}/target/src/main/resources</targetPath>
-                <filtering>true</filtering>
             </resource>
         </resources>
     </build>

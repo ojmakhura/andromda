@@ -27,16 +27,20 @@
 
 #if ($securityEnabled && !$authTypeSecurityFilter)
 
-    <login-config>
-      <auth-method>FORM</auth-method>
-      <realm-name>Example Form-Based Authentication Area</realm-name>
-      <form-login-config>
-        <form-login-page>/templates/login.html</form-login-page>
-        <form-error-page>/templates/403.html</form-error-page>
-      </form-login-config>
-    </login-config>
+    ## <login-config>
+    ##   <auth-method>FORM</auth-method>
+    ##   <realm-name>Example Form-Based Authentication Area</realm-name>
+    ##   <form-login-config>
+    ##     <form-login-page>/templates/login.html</form-login-page>
+    ##     <form-error-page>/templates/403.html</form-error-page>
+    ##   </form-login-config>
+    ## </login-config>
 #securityEntries($useCases $manageables $roles)
 
+#foreach($useCase in $useCases)
+    $useCase.actionRoles
+    $useCase.roles
+#end
     <!-- security-role merge-point -->
 #end
 </web-app>
