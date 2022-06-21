@@ -228,9 +228,10 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #foreach($param in $finalParams)
     ${param.name}$: Observable<$param.angularTypeName>;
 #end
-    errors: Observable<any>;
+    messages: Observable<any>;
     success: Observable<boolean>;
     loading: Observable<boolean>;
+    error: Observable<boolean>;
     selected: any = null;
 
     constructor(injector: Injector) {
@@ -262,7 +263,8 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
         this.loading = this.store.pipe(select(${view.useCase.storeName}Selectors.selectLoading));
         this.success = this.store.pipe(select(${view.useCase.storeName}Selectors.selectSuccess));
-        this.errors = this.store.pipe(select(${view.useCase.storeName}Selectors.selectErrors));
+        this.error = this.store.pipe(select(${view.useCase.storeName}Selectors.selectError));
+        this.messages = this.store.pipe(select(${view.useCase.storeName}Selectors.selectMessages));
 #foreach ($field in $view.variables)
 #if($field.complex)
 #foreach($attribute in $angularUtils.getTableAttributes($field))
@@ -287,7 +289,19 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         this.afterOnInit();
     }
 
-    handleFormChanges(change: any): void {}
+    handleFormChanges(change: any): void {
+        this.error.subscribe(error => {
+            if(error) {
+                this.store.dispatch(${view.useCase.storeName}Actions.${stringUtils.uncapitalize(${view.useCase.storeName})}Reset());
+            }
+        });
+
+        this.success.subscribe(success => {
+            if(success) {
+                this.store.dispatch(${view.useCase.storeName}Actions.${stringUtils.uncapitalize(${view.useCase.storeName})}Reset());
+            }            
+        });
+    }
 
     afterOnInit(): void {}
     

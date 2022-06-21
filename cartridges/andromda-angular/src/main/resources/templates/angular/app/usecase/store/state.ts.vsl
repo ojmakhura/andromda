@@ -36,7 +36,8 @@ export interface ${useCase.storeName}State {
 #end
     loading: boolean,
     success: boolean,
-    errors: any[]
+    error: boolean,
+    messages: string[]
 }
 
 export const initialState: ${useCase.storeName}State = {
@@ -45,5 +46,6 @@ export const initialState: ${useCase.storeName}State = {
 #end
     loading: false,
     success: false,
-    errors: []
+    error: false,
+    messages: []
 };

@@ -32,9 +32,16 @@
 				</div>
 			</section>
 #end
-            <div *ngFor="let error of errors | async" class="alert alert-danger" role="alert">
-                {{ error }}
-            </div>
+			<div *ngIf="success | async" class="alert alert-success" role="alert">
+				<div *ngFor="let message of messages | async">
+					{{ message }}
+				</div>
+			</div>
+			<div *ngIf="error | async" class="alert alert-danger" role="alert">
+				<div *ngFor="let message of messages | async">
+					{{ message }}
+				</div>
+			</div>
 #if($simple.size() > 0)
 #foreach ($variable in $simple)
 #renderAngularActionInput($variable "" "				")
