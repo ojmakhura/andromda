@@ -235,6 +235,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     selected: any = null;
 
     constructor(injector: Injector) {
+        
         this.route = injector.get(ActivatedRoute);
         this.router = injector.get(Router);
         this.formBuilder = injector.get(FormBuilder);
@@ -290,17 +291,11 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     }
 
     handleFormChanges(change: any): void {
-        this.error.subscribe(error => {
-            if(error) {
-                this.store.dispatch(${view.useCase.storeName}Actions.${stringUtils.uncapitalize(${view.useCase.storeName})}Reset());
-            }
-        });
+        
+    }
 
-        this.success.subscribe(success => {
-            if(success) {
-                this.store.dispatch(${view.useCase.storeName}Actions.${stringUtils.uncapitalize(${view.useCase.storeName})}Reset());
-            }            
-        });
+    ${view.formName}Reset() {
+        this.store.dispatch(${view.useCase.storeName}Actions.${stringUtils.uncapitalize(${view.useCase.storeName})}Reset());
     }
 
     afterOnInit(): void {}
@@ -389,29 +384,6 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
         return form;
     }
-      
-##     /**
-##      * This method may be overwritten
-##      */
-##     afterSet${actionFormCaps}(form: ${actionFormCaps}): void {}
-
-##     set${actionFormCaps}(form: ${actionFormCaps}) {
-## ##         // $action.enteringView
-## ## #if($action.enteringView)
-## ## #foreach($parameter in $action.parameters)
-## ## #if($angularUtils.isTable($parameter) || $parameter.many || $parameter.type.collectionType)
-## ##         this.${view.formName}.setControl('$parameter.name', this.set$stringUtils.capitalize($parameter.name)(form.$parameter.name));
-## ## #elseif($parameter.complex)
-## ##         this.${view.formName}.setControl('$parameter.name', this.create$stringUtils.capitalize($parameter.name)Form(form.$parameter.name));
-## ## #else
-## ##         this.${view.formName}.get('$parameter.name').setValue(form.$parameter.name);
-## ## #end
-## ## #end
-## ## #end
-
-##         this.afterSet${actionFormCaps}(form);
-##     }
-
 #set ($afterAction = "after$stringUtils.capitalize(${action.triggerName})")
 #set ($beforeAction = "before$stringUtils.capitalize(${action.triggerName})")
 

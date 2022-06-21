@@ -23,12 +23,12 @@
 				<div class="col my-3 view-buttons">
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
-					<button color="accent" (click)="${action.triggerName}()" class="btn btn-info"#if($action.displayCondition) *ngIf="$action.displayCondition"#end>
+					<button type="button" color="accent" (click)="${action.triggerName}()" class="btn btn-info"#if($action.displayCondition) *ngIf="$action.displayCondition"#end>
 						<span translate>$action.messageKey</span>
 					</button>
 #end
 #end
-					<button color="accent" type="reset" class="btn btn-info" ><span translate>reset</span></button>
+					<button color="accent" type="button" (click)="${view.formName}Reset()" class="btn btn-info" ><span translate>reset</span></button>
 				</div>
 			</section>
 #end
@@ -88,15 +88,15 @@
 </div>
 #if($view.popup)
 <div mat-dialog-actions>
-	<button  class="btn btn-info" color="accent" (click)="cancelDialog()" translate>action.cancel</button>
+	<button type="button" class="btn btn-info" color="accent" (click)="cancelDialog()" translate>action.cancel</button>
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
-	<button color="accent" (click)="${action.triggerName}()" class="btn btn-info">
+	<button type="button" color="accent" (click)="${action.triggerName}()" class="btn btn-info">
 		<span translate>$action.messageKey</span>
 	</button>
 #end
 #end
-	<button  class="btn btn-info" color="accent" (click)="dialogDone()" translate>action.done</button>
+	<button type="button" class="btn btn-info" color="accent" (click)="dialogDone()" translate>action.done</button>
 </div>
 #end
 #foreach ($variable in $complex)

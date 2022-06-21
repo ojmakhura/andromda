@@ -61,5 +61,5 @@ export const ${stringUtils.uncapitalize(${useCase.storeName})}Loading = createAc
 
 export const $failureAction = createAction(
     ${actionType}.$failureActionType,
-    props<{ messages: any[], success: boolean, loading: boolean }>()
+    props<{ messages: any[] }>()
 );
