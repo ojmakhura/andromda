@@ -124,13 +124,13 @@ ${ident}    <input type="checkbox" id="$propertyId" class="form-check-input" for
 #end
 ${ident}    <select#if ($multiSelect) multiple size="5"#end id="$propertyId" class="form-select" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" #if($parameter.required) required#end#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
 #if ($parameter.type.enumeration)
-${ident}        <option value=""></option>
+${ident}        <option></option>
 ${ident}        <option *ngFor="let key of ${parameter.name}Options" [value]="key">
 ${ident}            {{ ${parameter.name}T[key] }}
 ${ident}        </option>
 #else
 #if(!$parameter.required)
-${ident}        <option value=""></option>
+${ident}        <option></option>
 #end
 ${ident}        <option *ngFor="let item of ${backingListName}" [value]="item.value">{{ item.label }}</option>
 #end
