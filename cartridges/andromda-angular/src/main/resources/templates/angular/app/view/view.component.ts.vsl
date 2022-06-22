@@ -296,6 +296,14 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
     ${view.formName}Reset() {
         this.store.dispatch(${view.useCase.storeName}Actions.${stringUtils.uncapitalize(${view.useCase.storeName})}Reset());
+        
+        this.${view.formName} = this.newForm(#if ($view.nonTableVariablesPresent)new $stringUtils.capitalize(${view.varsFormName})#end);
+
+        if(this.router.url.substring(0, this.router.url.indexOf('?'))) {
+            this.router.navigate([this.router.url.substring(0, this.router.url.indexOf('?'))]);
+        } else {
+            this.router.navigate([this.router.url]);
+        }
     }
 
     afterOnInit(): void {}
