@@ -72,9 +72,12 @@ import { $import.name } from '@app/${import.filePath}';
 #end
 #set ($hasPopup = false)
 #foreach ($action in $view.actions)
-#if($action.targetViews.iterator().next().popup)
+#if($action.targetViews.iterator().hasNext())
+#set ($targetView = $action.targetViews.iterator().next())
+#if($targetView.popup)
 #set ($hasPopup = true)
-import { $action.targetViews.iterator().next().componentImplementationName } from '@app/${action.targetViews.iterator().next().implementationFilePath}';
+import { $targetView.componentImplementationName } from '@app/${targetView.implementationFilePath}';
+#end
 #end
 #end
 #if($hasPopup)
@@ -413,9 +416,19 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     /**
      * This method may be overwritten
      */
-#if($action.targetViews.iterator().next().popup)
-    get${actionFormCaps}DialogConfig(): any{
-        return {};
+#if($action.targetViews.iterator().hasNext())
+#set ($targetView = $action.targetViews.iterator().next())
+#end
+#if($targetView.popup)
+    get${actionFormCaps}DialogConfig(#if(!$action.formFields.empty)data: any#{end}): any{
+        return {
+            data: {
+#foreach($p in $action.parameters)
+                $p.name: data?.$p.name,
+#end
+                width: '800px'
+            }
+        };
     }
 
     /**
@@ -424,11 +437,11 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     ${afterAction}(#if(!$action.formFields.empty)form: ${actionFormCaps}, #{end}dialogData: any): void {
         
     }
+
 #else
     ${afterAction}(#if(!$action.formFields.empty)form: ${actionFormCaps}#{end}): void {}
+
 #end
-    
-    
     ${action.triggerName}(): void {
 #if(!$action.formFields.empty)
         let form: ${actionFormCaps} = this.${action.formName};
@@ -438,10 +451,9 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #if(!$action.formFields.empty)
         this.${action.controller.variableName}.${action.triggerName}(#if(!$action.formFields.empty)form#else{}#end);
 #end
-#if($action.targetViews.iterator().next().popup)
-        dialogConfig = this.get${actionFormCaps}DialogConfig();
-        
-        const dialogRef = this.dialog.open($action.targetViews.iterator().next().componentImplementationName, dialogConfig);
+#if($targetView.popup)
+        let dialogConfig = this.get${actionFormCaps}DialogConfig(#if(!$action.formFields.empty)form#{end});
+        const dialogRef = this.dialog.open($targetView.componentImplementationName, dialogConfig);
 
         dialogRef.afterClosed().subscribe((result) => {
             this.${afterAction}(#if(!$action.formFields.empty)form, #{end}result?.dialogData);
@@ -590,16 +602,12 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
 #if($angularUtils.isComplex($attribute) && !$attribute.type.enumeration && !$attribute.inputSelect && !$attribute.inputMultibox)
 #set ($propertyId = $attribute.getFormPropertyId($variable))
-    handle$stringUtils.capitalize($propertyId)AddDialog(): void {}
 
     ${propertyId}AddDialog(): void {
-        this.handle$stringUtils.capitalize($propertyId)AddDialog();
     }
 
-    handle$stringUtils.capitalize($propertyId)Search(): void {}
     
     ${propertyId}Search(): void {
-        this.handle$stringUtils.capitalize($propertyId)Search();
     }
 #if($angularUtils.isTable($attribute))
 #set ($changeType = "MatCheckboxChange")
@@ -611,10 +619,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         this.${propertyId}Control.removeAt(index);
     }
 
-    handleDoEdit$stringUtils.capitalize(${propertyId})($attribute.name: $attribute.angularTypeName): void {}
-
     doEdit$stringUtils.capitalize(${propertyId})($attribute.name: $attribute.angularTypeName) {
-        this.handleDoEdit$stringUtils.capitalize(${propertyId})($attribute.name);
     }
 
     handle$stringUtils.capitalize($propertyId)Selected(event: $changeType, data: $attribute.angularTypeName): void {}
