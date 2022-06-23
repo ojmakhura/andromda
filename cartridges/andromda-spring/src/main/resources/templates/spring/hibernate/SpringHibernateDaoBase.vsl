@@ -1355,27 +1355,39 @@ $h3tab        return results;
 #else
 #set($nullCheck = "${criteriaArgumentName}.${criteriaAttribute.getterName}() != null")
 #end
-        tmpSpec = ${entity.name}Specifications.${specName}(${criteriaArgumentName}.${criteriaAttribute.getterName}());
+#set ($spec = "${entity.name}Specifications.${specName}(${criteriaArgumentName}.${criteriaAttribute.getterName}())")
 #if($criteriaAttribute.nullable)
 #set ($capitalised_ = $stringUtils.capitalize($hibernateUtils.getFirstJoinName($criteriaAttribute.attributeName)))
 #set ($specName_ = "findBy${capitalised_}Null")
-        tmpSpec = tmpSpec.or(${entity.name}Specifications.${specName_}());
+#set ($spec = "${spec}.or(${entity.name}Specifications.${specName_}())")
 
 #end
 #if($i == 1)
+#if(!$stringUtils.containsIgnoreCase($criteriaAttribute.getterSetterTypeName, "boolean"))
         if($nullCheck) {
-            specifications = tmpSpec;
+            specifications = $spec;
         }
+#else
+        specifications = $spec;
+#end
 
 #set ($i = $i + 1)
 #else
+#if(!$stringUtils.containsIgnoreCase($criteriaAttribute.type.name, "boolean"))
         if($nullCheck) {
             if(specifications == null) {
-                specifications = tmpSpec;
+                specifications = $spec;
             } else {
-                specifications = specifications.and(tmpSpec);
+                specifications = specifications.and($spec);
             }
         }
+#else
+        if(specifications == null) {
+            specifications = $spec;
+        } else {
+            specifications = specifications.and($spec);
+        }
+#end
 
 #end
 #end
