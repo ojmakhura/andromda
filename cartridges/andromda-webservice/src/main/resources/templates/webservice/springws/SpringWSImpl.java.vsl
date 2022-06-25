@@ -48,7 +48,7 @@ public class ${serviceImplName} extends #if($isService)${service.name}WSBase#els
 
             return response;
         } catch (Exception e) {
-            log.error(e.getMessage());
+            logger.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
 #else

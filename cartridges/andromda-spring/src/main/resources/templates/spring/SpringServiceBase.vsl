@@ -32,7 +32,7 @@ public abstract class $service.baseName
 #end
     implements $service.fullyQualifiedName
 {
-    protected org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(${service.baseName}.class);
+    protected org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(${service.name}.class);
 
 #foreach ($attribute in $service.attributes)
 #set ($typeName = $attribute.getterSetterTypeName)

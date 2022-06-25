@@ -19,8 +19,11 @@ package $service.implementationPackageName;
 /**
  * @see $service.fullyQualifiedName
  */
-## @org.springframework.transaction.annotation.Transactional(propagation = org.springframework.transaction.annotation.Propagation.REQUIRED, readOnly=false)
 @org.springframework.stereotype.Service("$stringUtils.uncapitalize($service.name)")
+@org.springframework.transaction.annotation.Transactional(propagation = org.springframework.transaction.annotation.Propagation.REQUIRED, readOnly=false)
+#foreach($annotation in $service.additionalAnnotations)
+@$annotation
+#end
 public#if($service.abstract) abstract#end class $service.implementationName
     extends $service.fullyQualifiedBaseName
 {
@@ -31,11 +34,9 @@ public#if($service.abstract) abstract#end class $service.implementationName
      */
     @Override
 #set ($abstract = $service.abstract && $operation.abstract)
-    protected#if ($abstract) abstract#end  $operation.implementationReturnTypeName $operation.implementationSignature
-#if ($abstract)
+    protected#if ($abstract) abstract#end $operation.implementationReturnTypeName $operation.implementationSignature
         throws Exception;
-#else
-        throws Exception
+#if (!$abstract)
     {
         // ${toDoTag} implement protected  $operation.implementationReturnTypeName $operation.implementationSignature
         throw new UnsupportedOperationException("${service.fullyQualifiedName}.${operation.implementationSignature} Not implemented!");

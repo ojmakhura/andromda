@@ -31,7 +31,7 @@ export const ${stringUtils.uncapitalize(${useCase.storeName})}Reducer = createRe
 #foreach($param in $finalParams)
         $param.name: #if($param.many || $param.type.collectionType)[]#{else}null#end, 
 #end
-        loading: action.loading,
+        loading: false,
         success: action.success,
         messages: action.messages
     })),

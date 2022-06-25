@@ -72,9 +72,6 @@ package $entity.packageName;
  *
  * @see $entity.fullyQualifiedEntityName
  */
-#if($hibernate4or5)
-@org.springframework.stereotype.Repository
-#end
 public abstract class $entity.daoBaseName
 #if ($daoInheritance)
     extends $entity.generalization.fullyQualifiedDaoImplementationName

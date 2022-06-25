@@ -11,13 +11,9 @@ package ${service.packageName};
 #else
 #set ( $serviceName = "${service.name}")
 #end
-
-#foreach($annotation in $service.additionalAnnotations)
-@$annotation
-#end
 public abstract class ${serviceName}Base implements ${serviceName} {
 
-    protected org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(${serviceName}.class);
+    protected org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(${serviceName}.class);
 #if($isService)
 
     @org.springframework.beans.factory.annotation.Autowired
