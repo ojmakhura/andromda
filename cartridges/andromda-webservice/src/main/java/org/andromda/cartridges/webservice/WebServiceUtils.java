@@ -2850,7 +2850,7 @@ public class WebServiceUtils
                 builder.append(" ");
             }
 
-            builder.append(param.getType().getFullyQualifiedName() + " " + param.getName());
+            builder.append(param.getGetterSetterTypeName() + " " + param.getName());
 
             args.add(builder.toString());
         }

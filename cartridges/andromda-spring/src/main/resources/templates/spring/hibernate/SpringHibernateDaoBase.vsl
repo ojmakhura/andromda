@@ -1069,7 +1069,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-    $finder.visibility $returnType ${finder.name}(final int transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+    $finder.visibility java.util.Collection#if($enableTemplating)<?>#end ${finder.name}(final int transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #if ($finder.exceptionsPresent)
         throws $finder.exceptionList
 #end
@@ -1094,7 +1094,7 @@ $oldXmlIndent        }
 #if ($enableTemplating && ($finder.returnType.collectionType || $finder.many))
     @SuppressWarnings("unchecked")
 #end
-    $finder.visibility $returnType ${finder.name}(final int transform#if ($finder.returnType.collectionType || $finder.many), int pageNumber, int pageSize#end#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+    $finder.visibility java.util.Collection#if($enableTemplating)<?>#end ${finder.name}(final int transform#if ($finder.returnType.collectionType || $finder.many), int pageNumber, int pageSize#end#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #if ($finder.exceptionsPresent)
 ## TODO: Exception is not actually thrown by this method
         throws $finder.exceptionList
@@ -1219,7 +1219,7 @@ $h3tab        return results;
 #set($criteriaArg = $arg)
 #end
 #end
-    $finder.visibility $returnType ${finder.name}(final int transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+    $finder.visibility java.util.Collection#if($enableTemplating)<?>#end ${finder.name}(final int transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #if ($finder.exceptionsPresent)
         throws $finder.exceptionList
 #end
