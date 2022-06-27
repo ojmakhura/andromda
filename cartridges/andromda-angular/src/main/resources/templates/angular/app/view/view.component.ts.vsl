@@ -18,7 +18,9 @@ import {
     Output, 
     EventEmitter, 
     AfterViewInit,
+#if($view.popup)
     Inject,
+#end
     OnDestroy,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -44,6 +46,7 @@ import { MatDialog } from '@angular/material/dialog';
 ##end
 #if($view.popup)
 import {MatDialogRef} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 #end
 #set ($base = "${metafacadeWebUtils.toWebResourceName($view.useCase.storeName)}")
 import { ${view.useCase.storeName}State } from '@app/store$view.useCase.pathRoot/${base}.state';
@@ -72,8 +75,9 @@ import { $import.name } from '@app/${import.filePath}';
 #end
 #set ($hasPopup = false)
 #foreach ($action in $view.actions)
-#if($action.targetViews.iterator().hasNext())
-#set ($targetView = $action.targetViews.iterator().next())
+#set ($iter = $action.targetViews.iterator())
+#if($iter.hasNext())
+#set ($targetView = $iter.next())
 #if($targetView.popup)
 #set ($hasPopup = true)
 import { $targetView.componentImplementationName } from '@app/${targetView.implementationFilePath}';
@@ -121,6 +125,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
 #if($view.popup)
     public dialogRef: MatDialogRef<${view.componentName}Impl>;
+    dialogData: any;
 #end
 	${view.formName}: FormGroup | any;
     hide: boolean = false;
@@ -247,7 +252,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     error: Observable<boolean>;
     selected: any = null;
 
-    constructor(injector: Injector) {
+    constructor(#if($view.popup)@Inject(MAT_DIALOG_DATA) data: any, #{end}injector: Injector) {
         
         this.route = injector.get(ActivatedRoute);
         this.router = injector.get(Router);
@@ -259,6 +264,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 ##end
 #if($view.popup)
         this.dialogRef = injector.get(MatDialogRef);
+        this.dialogData = data
 #end
 #if(${view.useCase.controller})
         this.${view.useCase.controller.variableName} = injector.get(${view.useCase.controller.implementationName});
@@ -416,10 +422,13 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     /**
      * This method may be overwritten
      */
-#if($action.targetViews.iterator().hasNext())
-#set ($targetView = $action.targetViews.iterator().next())
+#set ($iter = $action.targetViews.iterator())
+#set ($hadNext = false)
+#if($iter.hasNext())
+#set ($hadNext = true)
+#set ($targetView = $iter.next())
 #end
-#if($targetView.popup)
+#if($hadNext && $targetView.popup)
     get${actionFormCaps}DialogConfig(#if(!$action.formFields.empty)data: any#{end}): any{
         return {
             data: {
@@ -451,7 +460,13 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #if(!$action.formFields.empty)
         this.${action.controller.variableName}.${action.triggerName}(#if(!$action.formFields.empty)form#else{}#end);
 #end
-#if($targetView.popup)
+#set ($iter = $action.targetViews.iterator())
+#set ($hadNext = false)
+#if($iter.hasNext())
+#set ($hadNext = true)
+#set ($targetView = $iter.next())
+#end
+#if($hadNext && $targetView.popup)
         let dialogConfig = this.get${actionFormCaps}DialogConfig(#if(!$action.formFields.empty)form#{end});
         const dialogRef = this.dialog.open($targetView.componentImplementationName, dialogConfig);
 
@@ -521,7 +536,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #foreach($attribute in $variable.attributes)
 #if($angularUtils.isTable($attribute) || $attribute.many || $attribute.type.collectionType)
 #if($angularUtils.isSimpleType($attribute.type))
-            $attribute.name: this.formBuilder.array(${variable.name}?.$attribute.name ? ${variable.name}.$attribute.name : []),
+            $attribute.name: ${variable.name}?.$attribute.name ? this.formBuilder.array(${variable.name}?.$attribute.name ? ${variable.name}.$attribute.name : []) : new FormArray([]),
 #else
             $attribute.name: this.create${attribute.type.name}Array(${variable.name}?.$attribute.name),
 #end
@@ -858,10 +873,14 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     }
 
     create${typeName}Array(values: $typeName[]): FormArray {
-        let formArray: FormArray = this.formBuilder.array([]);
-        values?.forEach(value => formArray.push(this.create${typeName}Group(value)))
+        if(values) {
+            let formArray: FormArray = this.formBuilder.array([]);
+            values?.forEach(value => formArray.push(this.create${typeName}Group(value)))
 
-        return formArray;
+            return formArray;
+        } else {
+            return new FormArray([]);
+        }
     }
 
 #end
