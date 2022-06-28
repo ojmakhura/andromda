@@ -11,14 +11,54 @@ package ${service.packageName};
 #else
 #set ( $serviceName = "${service.name}")
 #end
-public abstract class ${serviceName}Base implements ${serviceName} {
+
+public abstract class ${serviceName}Base implements ${serviceName} { // $service.baseName
 
     protected org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(${serviceName}.class);
 #if($isService)
 
-    @org.springframework.beans.factory.annotation.Autowired
-    protected ${service.fullyQualifiedName} $stringUtils.uncapitalize(${service.name});
+    protected final ${service.fullyQualifiedName} $stringUtils.uncapitalize(${service.name});
 #end
+#foreach($ref in $service.allServiceReferences)
+        protected final $ref.targetElement.fullyQualifiedName $ref.name;
+#end
+#foreach($ref in $service.entityReferences)
+#set ($ent = $ref.targetElement)
+        protected final ${ent.fullyQualifiedDaoName} $ref.daoName;
+        protected final ${ent.fullyQualifiedName}Repository ${ref.name}Repository;
+#end
+
+    public ${serviceName}Base(
+#if($isService)
+        ${service.fullyQualifiedName} $stringUtils.uncapitalize(${service.name})#if($service.allServiceReferences.size() > 0 || $service.entityReferences.size() > 0),#end
+#end
+#set ($iter = $service.allServiceReferences.iterator())
+#foreach($ref in $service.allServiceReferences)
+#set($serviceRef = $iter.next())
+        $ref.targetElement.fullyQualifiedName $ref.name#if($iter.hasNext() || $service.entityReferences.size() > 0),
+#end
+#end
+#set ($iter = $service.entityReferences.iterator())
+#foreach($ref in $service.entityReferences)
+#set($entityRef = $iter.next())
+#set ($ent = $ref.targetElement)
+        ${ent.fullyQualifiedDaoName} $ref.name,
+        ${ent.fullyQualifiedName}Repository ${ref.name}Repository#if($iter.hasNext()),
+#end
+#end
+    ) {
+#if($isService)
+        this.$stringUtils.uncapitalize(${service.name}) = $stringUtils.uncapitalize(${service.name});
+#end
+#foreach($ref in $service.allServiceReferences)
+        this.$ref.name = $ref.name;
+#end
+#set ($iter = $service.entityReferences.iterator())
+#foreach($ref in $service.entityReferences)
+        this.$serviceRef.name = $serviceRef.name;
+        ${stringUtils.uncapitalize($ref.name)}Repository = ${stringUtils.uncapitalize($ref.name)}Repository;
+#end         
+    }
 
 #foreach($attribute in $service.attributes)
 #foreach($annotation in $attribute.additionalAnnotations)
@@ -36,7 +76,6 @@ public abstract class ${serviceName}Base implements ${serviceName} {
 
 #end
 #foreach ($operation in $service.allowedOperations)
-
 #set ($handle = "handle")
 #if($operation.returnTypePresent)
 #set ($returnType = "#if($operation.returnType.primitive)$operation.returnType.wrapperName#else$operation.getterSetterReturnTypeName#end")
@@ -49,21 +88,9 @@ public abstract class ${serviceName}Base implements ${serviceName} {
     }
 
     $operation.visibility abstract $return ${handle}$stringUtils.capitalize(${operation.signature});
+
 #end
 #foreach($serviceRef in $service.serviceReferences)
-
-    protected ${serviceRef.targetElement.fullyQualifiedName} $serviceRef.name;
-    
-    /**
-     * Sets the reference to <code>$serviceRef.daoName</code>.
-     * @param ${serviceRef.daoName}In
-     */
-    @org.springframework.beans.factory.annotation.Autowired
-    public void ${serviceRef.setterName}(@org.springframework.context.annotation.Lazy $serviceRef.targetElement.fullyQualifiedName ${serviceRef.name}In)
-    {
-        this.$serviceRef.name = ${serviceRef.name}In;
-    }
-
     /**
      * Gets the reference to <code>$serviceRef.daoName</code>.
      * @return ${serviceRef.name}
@@ -72,5 +99,17 @@ public abstract class ${serviceName}Base implements ${serviceName} {
     {
         return this.$serviceRef.name;
     }
+
+#end
+#foreach($ref in $service.entityReferences)
+#set ($ent = $ref.targetElement)
+    public ${ent.fullyQualifiedDaoName} ${ref.daoGetterName}() {
+        return $ref.daoName;
+    }
+
+    public ${ent.fullyQualifiedName}Repository get$stringUtils.capitalize(${ent.name})Repository() {
+        return this.${ent.name}Repository;
+    }
+
 #end
 }

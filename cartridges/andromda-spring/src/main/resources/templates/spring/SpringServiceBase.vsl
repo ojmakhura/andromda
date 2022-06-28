@@ -18,6 +18,8 @@
 package $service.implementationPackageName;
 #end
 
+import org.springframework.context.MessageSource;
+
 /**
  * <p>
  * Spring Service base class for <code>$service.fullyQualifiedName</code>,
@@ -33,6 +35,36 @@ public abstract class $service.baseName
     implements $service.fullyQualifiedName
 {
     protected org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(${service.name}.class);
+#foreach($ref in $service.allServiceReferences)
+    protected final $ref.targetElement.fullyQualifiedName $ref.name;
+#end
+#foreach($ref in $service.entityReferences)
+    protected final $ref.targetElement.fullyQualifiedDaoName $ref.daoName;
+#set ($ent = $ref.targetElement)
+    protected final ${ent.fullyQualifiedName}Repository ${stringUtils.uncapitalize($ent.name)}Repository;
+#end
+    protected final MessageSource messageSource;
+
+    public ${service.baseName}(
+#foreach($ref in $service.allServiceReferences)
+        @org.springframework.context.annotation.Lazy $ref.targetElement.fullyQualifiedName $ref.name,
+#end
+#foreach($ref in $service.entityReferences)
+        $ref.targetElement.fullyQualifiedDaoName $ref.daoName,
+#set ($ent = $ref.targetElement)
+        ${ent.fullyQualifiedName}Repository ${stringUtils.uncapitalize($ent.name)}Repository,
+#end
+        MessageSource messageSource
+    ) {
+#foreach($ref in $service.allServiceReferences)
+        this.$ref.name = $ref.name;
+#end
+#foreach($ref in $service.entityReferences)
+        this.$ref.daoName = $ref.daoName;
+        this.${stringUtils.uncapitalize($ref.name)}Repository = ${stringUtils.uncapitalize($ref.name)}Repository;
+#end
+        this.messageSource = messageSource;
+    }
 
 #foreach ($attribute in $service.attributes)
 #set ($typeName = $attribute.getterSetterTypeName)
@@ -61,17 +93,6 @@ $attribute.getDocumentation("     * ")
 #end
 #foreach($serviceRef in $service.serviceReferences)
 #set ($targetElement = $serviceRef.targetElement)
-    private $targetElement.fullyQualifiedName $serviceRef.name;
-
-    /**
-     * Sets the reference to <code>$serviceRef.name</code>.
-     * @param ${serviceRef.name}In
-     */
-    public void ${serviceRef.setterName}(${targetElement.fullyQualifiedName} ${serviceRef.name}In)
-    {
-        this.$serviceRef.name = ${serviceRef.name}In;
-    }
-
     /**
      * Gets the reference to <code>$serviceRef.name</code>.
      * @return $serviceRef.name
@@ -83,19 +104,7 @@ $attribute.getDocumentation("     * ")
 
 #end
 #foreach($entityRef in $service.entityReferences)
-	@org.springframework.beans.factory.annotation.Autowired
-    protected $entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName;
-
-    /**
-     * Sets the reference to <code>$entityRef.name</code>'s DAO.
-     * @param ${entityRef.daoName}In
-     */
-    public void ${entityRef.daoSetterName}($entityRef.targetElement.fullyQualifiedDaoName ${entityRef.daoName}In)
-    {
-        this.$entityRef.daoName = ${entityRef.daoName}In;
-    }
-
-    /**
+	/**
      * Gets the reference to <code>$entityRef.name</code>'s DAO.
      * @return $entityRef.daoName
      */
@@ -105,8 +114,13 @@ $attribute.getDocumentation("     * ")
     }
 
 #set ($ent = $entityRef.targetElement)
-	@org.springframework.beans.factory.annotation.Autowired
-    protected ${ent.fullyQualifiedName}Repository ${stringUtils.uncapitalize($ent.name)}Repository;
+    /**
+     * Gets the reference to <code>$entityRef.name</code>'s repository.
+     * @return ${stringUtils.uncapitalize($ent.name)}Repository
+     */
+    public ${ent.fullyQualifiedName}Repository get${stringUtils.capitalize($ent.name)}Repository() {
+        return ${stringUtils.uncapitalize($ent.name)}Repository;
+    }
 
 #end
 #foreach($destination in $service.messagingDestinations)
@@ -338,14 +352,11 @@ $attribute.getDocumentation("     * ")
     }
 #end
 
-	@org.springframework.beans.factory.annotation.Autowired
-	MessageSource messageSource;
-
     /**
      * Gets the message source available to this service.
      * @return MessageSource
      */
-    protected org.springframework.context.MessageSource getMessages()
+    protected MessageSource getMessages()
     {
         return messageSource;
     }

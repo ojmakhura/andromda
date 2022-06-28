@@ -27,6 +27,28 @@ package $service.implementationPackageName;
 public#if($service.abstract) abstract#end class $service.implementationName
     extends $service.fullyQualifiedBaseName
 {
+    public ${service.implementationName}(
+#foreach($ref in $service.allServiceReferences)
+        @org.springframework.context.annotation.Lazy $ref.targetElement.fullyQualifiedName $ref.name,
+#end
+#foreach($ref in $service.entityReferences)
+        $ref.targetElement.fullyQualifiedDaoName $ref.name,
+#set ($ent = $ref.targetElement)
+        ${ent.fullyQualifiedName}Repository ${stringUtils.uncapitalize($ent.name)}Repository,
+#end
+        MessageSource messageSource
+    ) {
+        super(
+#foreach($ref in $service.allServiceReferences)
+            @org.springframework.context.annotation.Lazy $ref.name,
+#end
+#foreach($ref in $service.entityReferences)
+            $ref.name,
+            ${stringUtils.uncapitalize($ref.name)}Repository,
+#end
+            messageSource
+        );
+    }
 
 #foreach ($operation in $service.implementationOperations)
     /**
