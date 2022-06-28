@@ -47,7 +47,7 @@ export class ${useCase.storeName}Effects {
 #if ($operation.returnTypePresent)
                 map( results => ${actionName}.${operation.name}Success({results, messages: [`Action successful.`], success: true})),
 #end
-                catchError((error) => [${actionName}.$failureAction({messages: [error?.error ? error?.error : error]})])
+                catchError(({error}) => [${actionName}.$failureAction({messages: [error?.error ? error?.error : error]})])
             ))
         )
     );

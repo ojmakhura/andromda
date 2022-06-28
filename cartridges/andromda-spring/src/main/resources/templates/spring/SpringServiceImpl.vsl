@@ -15,6 +15,7 @@
 #if ($stringUtils.isNotBlank($service.implementationPackageName))
 package $service.implementationPackageName;
 #end
+import org.springframework.context.MessageSource;
 
 /**
  * @see $service.fullyQualifiedName
@@ -58,7 +59,7 @@ public#if($service.abstract) abstract#end class $service.implementationName
     @Override
 #set ($abstract = $service.abstract && $operation.abstract)
     protected#if ($abstract) abstract#end $operation.implementationReturnTypeName $operation.implementationSignature
-        throws Exception;
+        throws Exception
 #if (!$abstract)
     {
         // ${toDoTag} implement protected  $operation.implementationReturnTypeName $operation.implementationSignature

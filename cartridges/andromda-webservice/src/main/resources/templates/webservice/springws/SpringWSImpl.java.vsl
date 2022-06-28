@@ -19,7 +19,7 @@ package ${service.packageName};
 #end
 public class ${serviceImplName} extends #if($isService)${service.name}WSBase#else${service.name}Base#end {
     
-    public ${service.implementationName}(
+    public ${serviceImplName}(
 #if($isService)
         ${service.fullyQualifiedName} $stringUtils.uncapitalize(${service.name})#if($service.allServiceReferences.size() > 0 || $service.entityReferences.size() > 0),#end
 #end
@@ -33,7 +33,8 @@ public class ${serviceImplName} extends #if($isService)${service.name}WSBase#els
 #set($entityRef = $iter.next())
 #set ($ent = $ref.targetElement)
         ${ent.fullyQualifiedDaoName} $entityRef.daoName,
-        ${ent.fullyQualifiedName}Repository ${stringUtils.uncapitalize($ref.name)}Repository#if($iter.hasNext()),#end
+        ${ent.fullyQualifiedName}Repository ${stringUtils.uncapitalize($ref.name)}Repository#if($iter.hasNext()),
+#end
 #end
     ) {
         
