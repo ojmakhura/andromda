@@ -32,6 +32,27 @@ package $entity.packageName;
 public class $entity.daoImplementationName
     extends $entity.fullyQualifiedDaoBaseName
 {
+    
+    public ${entity.daoImplementationName}(
+#foreach($entityRef in $entity.entityReferences)  
+#set($refRepositoryName = "${stringUtils.uncapitalize(${entityRef.targetElement.entityName})}Repository")
+#set($refRepositoryType = "${entityRef.targetElement.fullyQualifiedName}Repository")  
+        ${refRepositoryType} $refRepositoryName,
+#end
+#set($repositoryName = "${stringUtils.uncapitalize(${entity.entityName})}Repository")
+#set($repositoryType = "${entity.fullyQualifiedName}Repository")
+        ${repositoryType} ${repositoryName}
+    ) {
+
+        super(
+#foreach($entityRef in $entity.entityReferences) 
+#set($refRepositoryName = "${stringUtils.uncapitalize(${entityRef.targetElement.entityName})}Repository")
+            $refRepositoryName,
+#end
+            $repositoryName
+        );
+    }
+
 #foreach ($operation in $entity.daoBusinessOperations)
 #set ($returnObject = "returnValue")
 #set ($signature = $operation.implementationSignature)

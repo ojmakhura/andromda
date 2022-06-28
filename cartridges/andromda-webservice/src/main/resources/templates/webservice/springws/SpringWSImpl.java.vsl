@@ -36,6 +36,7 @@ public class ${serviceImplName} extends #if($isService)${service.name}WSBase#els
         ${ent.fullyQualifiedName}Repository ${stringUtils.uncapitalize($ref.name)}Repository#if($iter.hasNext()),#end
 #end
     ) {
+        
         super(
 #if($isService)
             $stringUtils.uncapitalize(${service.name})#if($service.allServiceReferences.size() > 0 || $service.entityReferences.size() > 0),#end

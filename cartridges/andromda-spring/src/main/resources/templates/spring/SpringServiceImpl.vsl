@@ -38,9 +38,10 @@ public#if($service.abstract) abstract#end class $service.implementationName
 #end
         MessageSource messageSource
     ) {
+        
         super(
 #foreach($ref in $service.allServiceReferences)
-            @org.springframework.context.annotation.Lazy $ref.name,
+            $ref.name,
 #end
 #foreach($ref in $service.entityReferences)
             $ref.name,
