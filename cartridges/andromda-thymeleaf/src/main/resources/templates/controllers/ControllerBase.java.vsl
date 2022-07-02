@@ -17,6 +17,22 @@ $controller.getDocumentation(" * ")
 #end
 public abstract class ${controller.name}Base extends ${managedBeansPackage}.ControllerBase
     implements java.io.Serializable, ${controller.name} {
+
+#foreach ($service in $controller.allServices)
+	protected $service.fullyQualifiedName $service.beanName;
+    
+#end
+#set ($iter = $controller.allServices.iterator())
+        public ${controller.name}Base(#foreach($ref in $controller.allServices)#set($serviceRef = $iter.next())$ref.fullyQualifiedName $ref.beanName#if($iter.hasNext() || $controller.entityReferences.size() > 0),#end#end) {
+#foreach($ref in $controller.allServices)
+        this.$ref.beanName = $ref.beanName;
+#end
+#set ($iter = $controller.entityReferences.iterator())
+#foreach($ref in $controller.entityReferences)
+        this.$serviceRef.name = $serviceRef.name;
+        ${stringUtils.uncapitalize($ref.name)}Repository = ${stringUtils.uncapitalize($ref.name)}Repository;
+#end         
+    }
     
     /**
      * Populate action form and page variables
@@ -223,22 +239,21 @@ $action.trigger.getDocumentation("     * ")
 #if ($formPopulationOperationRequired)
 #set ($viewPath = "${action.source.path}.html")
         populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"${viewPath}"#end, forward, form);
-## #if(!$action.formFields.empty)
-##         model.addAttribute("$action.formBeanName", this.get${stringUtils.capitalize($action.formBeanName)}());
-## #end
+        
+#foreach ($field in $action.formFields)
+        if(form.is${stringUtils.capitalize($field.name)}Set()) {
+            model.addAttribute("$field.name", form.get${stringUtils.capitalize($field.name)}());
+        }
+
+#end
 #foreach ($actionState in $action.actionStates)
 #foreach($act in $actionState.forward.target.formActions)
 #if(!$act.formFields.empty)
         model.addAttribute("$act.formBeanName", this.get${stringUtils.capitalize($act.formBeanName)}());
-#end
-#end
-#end
-## #foreach($field in $action.formFields)
-##         if(form.is${stringUtils.capitalize($field.name)}Set()) {
-##             model.addAttribute("$field.name", form.get${stringUtils.capitalize($field.name)}());
-##         }
-## #end
 
+#end
+#end
+#end
 #if(!$action.exitingInitialState && !$action.enteringFinalState)
         if(forward != null)
         {
@@ -248,6 +263,7 @@ $action.trigger.getDocumentation("     * ")
                 return forward;
             }
         }
+
 #end
 #end
 #end
@@ -439,22 +455,6 @@ $decisionTransition.getDocumentation("     * ")
     }
 
 #end
-#foreach ($service in $controller.allServices)
-	@org.springframework.beans.factory.annotation.Autowired
-	protected $service.fullyQualifiedImplementationName $service.beanName;
-    
-#end
-## #foreach($cnt in $thymeleafUtils.getFacadeSet($controllers))
-## #if(!$controller.beanName.equals($cnt.beanName))
-##     protected ${cnt.fullyQualifiedName} $cnt.beanName;
-##
-##     @org.springframework.beans.factory.annotation.Autowired
-##     public void set${cnt.name}(@org.springframework.context.annotation.Lazy ${cnt.fullyQualifiedName} $cnt.beanName) {
-##         this.$cnt.beanName = $cnt.beanName;
-##     }
-## 
-## #end
-## #end
 #foreach ($sessionObjectRef in $controller.sessionObjectReferences)
 #set ($targetElement = $sessionObjectRef.targetElement)
 
