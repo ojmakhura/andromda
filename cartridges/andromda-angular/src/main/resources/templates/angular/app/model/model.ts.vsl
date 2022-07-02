@@ -19,6 +19,7 @@ import {$import.name} from '@app/$import.filePath';
 @Injectable()
 export class $class.name {
 #foreach ($attribute in $class.attributes)
+#if(!$attribute.inputButton)
 #if($angularUtils.isComplex($attribute) && !$attribute.many && !$angularUtils.isArray($attribute.getterSetterTypeName) && !$attribute.type.enumeration)
 
     $attribute.name: ${attribute.type.name} = <${attribute.type.name}>{
@@ -38,6 +39,7 @@ export class $class.name {
 #end
     $attribute.name: $attribute.angularTypeName#if($attribute.many)[]#end | any#if($attribute.many)[]#end = #if($attribute.many)[]#{else}null#end;
 
+#end
 #end
 #end
     

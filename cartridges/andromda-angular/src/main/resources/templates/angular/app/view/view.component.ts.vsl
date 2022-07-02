@@ -18,7 +18,9 @@ import {
     Output, 
     EventEmitter, 
     AfterViewInit,
+#if($view.popup)
     Inject,
+#end
     OnDestroy,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -30,6 +32,7 @@ import {
     ReactiveFormsModule, 
     Validators 
 } from '@angular/forms';
+import { formatDate } from '@angular/common';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatSelectChange } from '@angular/material/select';
@@ -44,6 +47,7 @@ import { MatDialog } from '@angular/material/dialog';
 ##end
 #if($view.popup)
 import {MatDialogRef} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 #end
 #set ($base = "${metafacadeWebUtils.toWebResourceName($view.useCase.storeName)}")
 import { ${view.useCase.storeName}State } from '@app/store$view.useCase.pathRoot/${base}.state';
@@ -52,6 +56,7 @@ import * as ${view.useCase.storeName}Actions from '@app/store$view.useCase.pathR
 
 ## Find all the fields in the actions of the view
 #set($fields = [])
+#set($buttons = [])
 #foreach($import in $view.imports)
 #if($import.attributes && $import.attributes.size() > 0 && !$import.enumeration)
 #if($import.type)
@@ -70,6 +75,20 @@ import { $import.implementationName } from '@app/${import.implementationFilePath
 import { $import.name } from '@app/${import.filePath}';
 #end
 #end
+#set ($hasPopup = false)
+#foreach ($action in $view.actions)
+#set ($iter = $action.targetViews.iterator())
+#if($iter.hasNext())
+#set ($targetView = $iter.next())
+#if($targetView.popup)
+#set ($hasPopup = true)
+import { $targetView.componentImplementationName } from '@app/${targetView.implementationFilePath}';
+#end
+#end
+#end
+#if($hasPopup)
+import { MatDialogConfig } from '@angular/material/dialog';
+#end
 #if($view.popup)
 import { ${view.componentImplementationName} } from '@app/${view.implementationFilePath}';
 #end
@@ -78,7 +97,9 @@ import { ${view.componentImplementationName} } from '@app/${view.implementationF
 
 export class $stringUtils.capitalize($action.formName) {
 #foreach($parameter in $action.formFields)
+#if(!$parameter.inputButton)
     $parameter.name: $parameter.angularTypeName#if($parameter.many || $angularUtils.isArray($parameter.type.name))[]#end | any#if($parameter.many || $angularUtils.isArray($parameter.type.name))[]#end;
+#end
 #end
 }
 #end
@@ -86,7 +107,7 @@ export class $stringUtils.capitalize($action.formName) {
 #if ($view.nonTableVariablesPresent)
 export class $stringUtils.capitalize(${view.varsFormName}) {
 #foreach($variable in $view.variables)
-#if(!$variable.table)
+#if(!$variable.table && !$variable.inputButton)
     $variable.name: $variable.angularTypeName#if($variable.many || $angularUtils.isArray($variable.type.name))[]#end | any#if($variable.many || $angularUtils.isArray($variable.type.name))[]#end;
 #end
 #end
@@ -95,11 +116,23 @@ export class $stringUtils.capitalize(${view.varsFormName}) {
 #end
 #set($stateParams = [])
 #foreach($variable in $view.variables)
-#if(!$variable.table)
+#if(!$variable.table && !$variable.inputButton)
 #set ( $rt = $stateParams.add($variable) )
+#end
+#if($variable.inputButton)
+#set ( $rt = $buttons.add($variable.name) )
+#end
+#if($variable.complex)
+#foreach($attribute in $variable.attributes)
+#if($attribute.inputButton)
+#set ($proId = "$attribute.getFormPropertyId($variable)")
+#set ( $rt = $buttons.add($proId) )
+#end
+#end
 #end
 #end
 #set ( $finalParams = $angularUtils.getFacadeSet($stateParams) )
+#set ( $finalButtons = $angularUtils.getFacadeSet($stateParams) )
 @Component({
   selector: '${view.selectorName}-base',
   template: ''
@@ -108,6 +141,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
 #if($view.popup)
     public dialogRef: MatDialogRef<${view.componentName}Impl>;
+    dialogData: any;
 #end
 	${view.formName}: FormGroup | any;
     hide: boolean = false;
@@ -228,12 +262,14 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #foreach($param in $finalParams)
     ${param.name}$: Observable<$param.angularTypeName>;
 #end
-    errors: Observable<any>;
+    messages: Observable<any>;
     success: Observable<boolean>;
     loading: Observable<boolean>;
+    error: Observable<boolean>;
     selected: any = null;
 
-    constructor(injector: Injector) {
+    constructor(#if($view.popup)@Inject(MAT_DIALOG_DATA) data: any, #{end}injector: Injector) {
+        
         this.route = injector.get(ActivatedRoute);
         this.router = injector.get(Router);
         this.formBuilder = injector.get(FormBuilder);
@@ -244,6 +280,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 ##end
 #if($view.popup)
         this.dialogRef = injector.get(MatDialogRef);
+        this.dialogData = data
 #end
 #if(${view.useCase.controller})
         this.${view.useCase.controller.variableName} = injector.get(${view.useCase.controller.implementationName});
@@ -262,7 +299,8 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
         this.loading = this.store.pipe(select(${view.useCase.storeName}Selectors.selectLoading));
         this.success = this.store.pipe(select(${view.useCase.storeName}Selectors.selectSuccess));
-        this.errors = this.store.pipe(select(${view.useCase.storeName}Selectors.selectErrors));
+        this.error = this.store.pipe(select(${view.useCase.storeName}Selectors.selectError));
+        this.messages = this.store.pipe(select(${view.useCase.storeName}Selectors.selectMessages));
 #foreach ($field in $view.variables)
 #if($field.complex)
 #foreach($attribute in $angularUtils.getTableAttributes($field))
@@ -287,7 +325,21 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         this.afterOnInit();
     }
 
-    handleFormChanges(change: any): void {}
+    handleFormChanges(change: any): void {
+        
+    }
+
+    ${view.formName}Reset() {
+        this.store.dispatch(${view.useCase.storeName}Actions.${stringUtils.uncapitalize(${view.useCase.storeName})}Reset());
+        
+        this.${view.formName} = this.newForm(#if ($view.nonTableVariablesPresent)new $stringUtils.capitalize(${view.varsFormName})#end);
+
+        if(this.router.url.substring(0, this.router.url.indexOf('?'))) {
+            this.router.navigate([this.router.url.substring(0, this.router.url.indexOf('?'))]);
+        } else {
+            this.router.navigate([this.router.url]);
+        }
+    }
 
     afterOnInit(): void {}
     
@@ -304,7 +356,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         return this.formBuilder.group({
 #if ($view.nonTableVariablesPresent)
 #foreach( $variable in $view.variables )
-#if(!$variable.table)
+#if(!$variable.table && !$variable.inputButton)
 #*  *##if($variable.complex)
             $variable.name: this.create$stringUtils.capitalize($variable.name)Form(${view.varsFormName}$?.${variable.name}),
 #*  *##else
@@ -331,7 +383,11 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
 #set ($validators = "$validators]")
 #end
-            $variable.name: [${view.varsFormName}$?.$variable.name ? ${view.varsFormName}$.$variable.name : null$validators],
+#set ($val = "${view.varsFormName}$.$variable.name")
+##if ( $variable.inputDate || $variable.inputDatetimeLocal)
+##set ($val = "formatDate(${val}#if($variable.inputDatetimeLocal), 'yyyy-MM-dd HH:mm:ss.SSS'#else, 'yyyy-MM-dd'#end, 'en')")
+##end
+            $variable.name: [${view.varsFormName}$?.$variable.name ? ${val} : null$validators],
 #*  *##end
 #end
 #end
@@ -370,34 +426,13 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
         let form: $actionFormCaps = new ${actionFormCaps}();
 #foreach( $parameter in $action.parameters )
+#if(!$parameter.inputButton)
         form.$parameter.name = this.${parameter.name};
+#end
 #end
 
         return form;
     }
-      
-##     /**
-##      * This method may be overwritten
-##      */
-##     afterSet${actionFormCaps}(form: ${actionFormCaps}): void {}
-
-##     set${actionFormCaps}(form: ${actionFormCaps}) {
-## ##         // $action.enteringView
-## ## #if($action.enteringView)
-## ## #foreach($parameter in $action.parameters)
-## ## #if($angularUtils.isTable($parameter) || $parameter.many || $parameter.type.collectionType)
-## ##         this.${view.formName}.setControl('$parameter.name', this.set$stringUtils.capitalize($parameter.name)(form.$parameter.name));
-## ## #elseif($parameter.complex)
-## ##         this.${view.formName}.setControl('$parameter.name', this.create$stringUtils.capitalize($parameter.name)Form(form.$parameter.name));
-## ## #else
-## ##         this.${view.formName}.get('$parameter.name').setValue(form.$parameter.name);
-## ## #end
-## ## #end
-## ## #end
-
-##         this.afterSet${actionFormCaps}(form);
-##     }
-
 #set ($afterAction = "after$stringUtils.capitalize(${action.triggerName})")
 #set ($beforeAction = "before$stringUtils.capitalize(${action.triggerName})")
 
@@ -409,8 +444,37 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     /**
      * This method may be overwritten
      */
-    ${afterAction}(#if(!$action.formFields.empty)form: ${actionFormCaps}#end): void {}
-    
+#set ($iter = $action.targetViews.iterator())
+#set ($hadNext = false)
+#if($iter.hasNext())
+#set ($hadNext = true)
+#set ($targetView = $iter.next())
+#end
+#if($hadNext && $targetView.popup)
+    get${actionFormCaps}DialogConfig(#if(!$action.formFields.empty)data: any#{end}): any{
+        return {
+            data: {
+#foreach($p in $action.parameters)
+#if(!$parameter.inputButton)
+                $p.name: data?.$p.name,
+#end
+#end
+                width: '800px'
+            }
+        };
+    }
+
+    /**
+     * This method may be overwritten
+     */
+    ${afterAction}(#if(!$action.formFields.empty)form: ${actionFormCaps}, #{end}dialogData: any): void {
+        
+    }
+
+#else
+    ${afterAction}(#if(!$action.formFields.empty)form: ${actionFormCaps}#{end}): void {}
+
+#end
     ${action.triggerName}(): void {
 #if(!$action.formFields.empty)
         let form: ${actionFormCaps} = this.${action.formName};
@@ -420,7 +484,22 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #if(!$action.formFields.empty)
         this.${action.controller.variableName}.${action.triggerName}(#if(!$action.formFields.empty)form#else{}#end);
 #end
+#set ($iter = $action.targetViews.iterator())
+#set ($hadNext = false)
+#if($iter.hasNext())
+#set ($hadNext = true)
+#set ($targetView = $iter.next())
+#end
+#if($hadNext && $targetView.popup)
+        let dialogConfig = this.get${actionFormCaps}DialogConfig(#if(!$action.formFields.empty)form#{end});
+        const dialogRef = this.dialog.open($targetView.componentImplementationName, dialogConfig);
+
+        dialogRef.afterClosed().subscribe((result) => {
+            this.${afterAction}(#if(!$action.formFields.empty)form, #{end}result?.dialogData);
+        });
+#else
         this.${afterAction}(#if(!$action.formFields.empty)form#end);
+#end
     }
 
 #if(!$action.formFields.empty)
@@ -429,10 +508,12 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         let form: ${actionFormCaps} = new ${actionFormCaps}();
 
 #foreach($parameter in $action.parameters)
+#if(!$parameter.inputButton)
         if(value?.$parameter.name) {
             form.$parameter.name = value?.$parameter.name;
         }
 
+#end
 #end
         return form;
 
@@ -454,7 +535,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     set$stringUtils.capitalize(${view.varsFormName})(form: $stringUtils.capitalize($view.varsFormName)) {
 
 #foreach($variable in $view.variables)
-#if(!$variable.table)
+#if(!$variable.table && !$variable.inputButton)
 #if($angularUtils.isTable($variable) || $variable.many || $variable.type.collectionType)
         this.${view.varsFormName}Control.setControl('$variable.name', this.set$stringUtils.capitalize($variable.name)(form.$variable.name));
 #elseif($variable.complex)
@@ -469,7 +550,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     }
 
 #foreach ($variable in $view.variables)
-#if(!$variable.table)
+#if(!$variable.table && !$variable.inputButton)
 #if($angularUtils.isTable($variable) || $variable.many || $variable.type.collectionType)
 #set ($controlType = "FormArray")
 #set ($controlGet = "Array")
@@ -479,9 +560,10 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     create$stringUtils.capitalize($variable.name)Form($variable.name: $variable.angularTypeName): FormGroup {
         return this.formBuilder.group({
 #foreach($attribute in $variable.attributes)
+#if(!$attribute.inputButton)
 #if($angularUtils.isTable($attribute) || $attribute.many || $attribute.type.collectionType)
 #if($angularUtils.isSimpleType($attribute.type))
-            $attribute.name: this.formBuilder.array(${variable.name}?.$attribute.name ? ${variable.name}.$attribute.name : []),
+            $attribute.name: ${variable.name}?.$attribute.name ? this.formBuilder.array(${variable.name}?.$attribute.name ? ${variable.name}.$attribute.name : []) : new FormArray([]),
 #else
             $attribute.name: this.create${attribute.type.name}Array(${variable.name}?.$attribute.name),
 #end
@@ -511,7 +593,12 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
 #set ($validators = "$validators]")
 #end
-            $attribute.name: [${variable.name}?.$attribute.name ? ${variable.name}.${attribute.name} : null$validators],
+#set ($val = "${variable.name}.${attribute.name}")
+##if ( $attribute.inputDate || $attribute.inputDatetimeLocal)
+##set ($val = "formatDate(${val}#if($attribute.inputDatetimeLocal), 'yyyy-MM-ddTHH:mm:ss.SSS'#else, 'yyyy-MM-dd'#end, 'en')")
+##end
+            $attribute.name: [${variable.name}?.$attribute.name ? $val : null$validators],
+#end
 #end
 #end
         });
@@ -562,28 +649,24 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
 #if($angularUtils.isComplex($attribute) && !$attribute.type.enumeration && !$attribute.inputSelect && !$attribute.inputMultibox)
 #set ($propertyId = $attribute.getFormPropertyId($variable))
-    handle$stringUtils.capitalize($propertyId)AddDialog(): void {}
 
     ${propertyId}AddDialog(): void {
-        this.handle$stringUtils.capitalize($propertyId)AddDialog();
     }
 
-    handle$stringUtils.capitalize($propertyId)Search(): void {}
     
     ${propertyId}Search(): void {
-        this.handle$stringUtils.capitalize($propertyId)Search();
     }
 #if($angularUtils.isTable($attribute))
 #set ($changeType = "MatCheckboxChange")
 
+    handleDeleteFrom$stringUtils.capitalize(${propertyId})($attribute.name: $attribute.angularTypeName): void {}
+    
     deleteFrom$stringUtils.capitalize(${propertyId})(index: number) {
+        this.handleDeleteFrom$stringUtils.capitalize(${propertyId})(this.${propertyId}[index]);
         this.${propertyId}Control.removeAt(index);
     }
 
-    handleDoEdit$stringUtils.capitalize(${propertyId})($variable.name: $variable.angularTypeName): void {}
-
-    doEdit$stringUtils.capitalize(${propertyId})($variable.name: $variable.angularTypeName) {
-        this.handleDoEdit$stringUtils.capitalize(${propertyId})($variable.name);
+    doEdit$stringUtils.capitalize(${propertyId})($attribute.name: $attribute.angularTypeName) {
     }
 
     handle$stringUtils.capitalize($propertyId)Selected(event: $changeType, data: $attribute.angularTypeName): void {}
@@ -692,7 +775,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
     set$stringUtils.capitalize(${view.formName})Value(form: any) {
 #foreach($variable in $view.variables)
-#if(!$variable.table)
+#if(!$variable.table && !$variable.inputButton)
         if(form.$variable.name) {
 #if($angularUtils.isTable($variable) || $variable.many || $variable.type.collectionType)
             this.${view.formName}.setControl('$variable.name', this.set$stringUtils.capitalize($variable.name)(form.$variable.name));
@@ -806,6 +889,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
 #set($fieldSet =  $angularUtils.getFacadeSet($fields))
 #foreach($field in $fieldSet)
+#if(!$field.inputButton)
 #if($field.type)
 #set ($typeName = "$field.type.name")
 #else
@@ -822,12 +906,17 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     }
 
     create${typeName}Array(values: $typeName[]): FormArray {
-        let formArray: FormArray = this.formBuilder.array([]);
-        values?.forEach(value => formArray.push(this.create${typeName}Group(value)))
+        if(values) {
+            let formArray: FormArray = this.formBuilder.array([]);
+            values?.forEach(value => formArray.push(this.create${typeName}Group(value)))
 
-        return formArray;
+            return formArray;
+        } else {
+            return new FormArray([]);
+        }
     }
 
+#end
 #end
 #if($view.popup)
     handleCancelDialog(): void {}
@@ -846,6 +935,10 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
             dialogData: this.handleDialogDone(this.${view.formName}.value)
         });
     }
+
+#end
+#foreach($button in $buttons)
+    on${stringUtils.capitalize(${button})}Click() {}
 
 #end
 }

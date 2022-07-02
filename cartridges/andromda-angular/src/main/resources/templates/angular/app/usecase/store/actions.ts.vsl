@@ -46,7 +46,7 @@ export const ${operation.name} = createAction(
 
 export const ${operation.name}Success = createAction(
     ${actionType}.${actionName}_SUCCESS,
-    props<{#if ($operation.returnTypePresent) $stringUtils.uncapitalize($operation.returnType.name): $operation.returnTypeName,#end success: boolean}>()
+    props<{#if ($operation.returnTypePresent) $stringUtils.uncapitalize($operation.returnType.name): $operation.returnTypeName,#end messages: any[], success: boolean}>()
 );
 
 #end
@@ -56,10 +56,10 @@ export const $resetAction = createAction(${actionType}.$resetActionType);
 
 export const ${stringUtils.uncapitalize(${useCase.storeName})}Loading = createAction(
     ${actionType}.${prefix}_LOADING,
-    props<{ loading: boolean, success: boolean, errors: any[] }>()
+    props<{ loading: boolean, success: boolean, messages: any[] }>()
 );
 
 export const $failureAction = createAction(
     ${actionType}.$failureActionType,
-    props<{ errors: any[], success: boolean, loading: boolean }>()
+    props<{ messages: any[] }>()
 );

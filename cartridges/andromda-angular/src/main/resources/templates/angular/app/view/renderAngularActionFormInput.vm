@@ -63,7 +63,13 @@ ${ident}    <td id="column_${column.name}">${theValue}#if ($column.type.dateType
 #set ($backingValueName = ${parameter.getBackingValueName($ownerParameter)})
 #end
 #set ($formValuePropertyName = "${valuePropertyName}")
-#if($angularUtils.isTable($parameter))
+#if($parameter.inputButton)
+${ident}<div class="mb-3">
+${ident}    <button type="button" class="btn btn-primary" (click)="on${stringUtils.capitalize(${propertyId})}Click()" id="${propertyId}" name="${propertyId}">
+${ident}        <span translate>$parameter.messageKey</span>
+${ident}    </button>
+${ident}</div>
+#elseif($angularUtils.isTable($parameter))
 ${ident}	<div>
 ${ident}        <button type="button" (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
 ${ident}            <mat-icon>add_box</mat-icon>
@@ -72,10 +78,10 @@ ${ident}		<mat-table matSort [dataSource]="${propertyId}" #${parameter.name}Sort
 ${ident}			<ng-container matColumnDef="actions">
 ${ident}				<mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
 ${ident}                <mat-cell *matCellDef="let row; index as i">
-${ident}                    <button color="accent" (click)="deleteFrom$stringUtils.capitalize(${propertyId})(i)" class="btn btn-info">
+${ident}                    <button type="button" color="accent" (click)="deleteFrom$stringUtils.capitalize(${propertyId})(i)" class="btn btn-info">
 ${ident}                        <mat-icon>delete</mat-icon>
 ${ident}                    </button>
-${ident}                    <button color="accent" (click)="doEdit$stringUtils.capitalize(${propertyId})(row)" class="btn btn-info">
+${ident}                    <button type="button" color="accent" (click)="doEdit$stringUtils.capitalize(${propertyId})(row)" class="btn btn-info">
 ${ident}                        <mat-icon>edit</mat-icon>
 ${ident}                    </button>
 ${ident}                </mat-cell>
@@ -102,7 +108,7 @@ ${ident}		<mat-paginator #${propertyId}Paginator="matPaginator" [pageSize]="10" 
 ${ident}	</div>
 #elseif ($parameter.inputRadio)
 ${ident}<fieldset class="row mb-3"#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
-${ident}    <legend class="col-form-label col-sm-2 pt-0" >$parameter.messageKey}</legend>
+${ident}    <legend class="col-form-label col-sm-2 pt-0" translate>$parameter.messageKey</legend>
 ${ident}    <div class="mb-3">
 #else
 #if(!$angularUtils.isComplex($parameter) || $parameter.inputSelect || $parameter.type.enumeration || $parameter.type.enumeration || $angularUtils.isTable($parameter))
@@ -113,7 +119,7 @@ ${ident}<fieldset class="mb-3" formGroupName="${parameter.name}"#if($parameter.d
 ${ident}    <legend id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}"><span translate>$parameter.messageKey</span>#if($parameter.required)*#end</legend>
 #end
 #if ($parameter.type.dateType || $parameter.inputDate)
-${ident}    <input type="$parameter.inputType" id="$propertyId" class="form-control" formControlName="${parameter.name}" #if($parameter.required) required#end #if($parameter.readOnly) readonly#end navigator="true" pattern="$parameter.format" showOn="button"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.minLenmingth) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
+${ident}    <input type="$parameter.inputType" id="$propertyId" class="form-control" formControlName="${parameter.name}" #if($parameter.required) required#end #if($parameter.readOnly) readonly#{end}navigator="true" showOn="button"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.minLenmingth) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #elseif ($parameter.inputCheckbox || $parameter.type.booleanType)
 ${ident}    <input type="checkbox" id="$propertyId" class="form-check-input" formControlName="${parameter.name}"#if($parameter.required) required#end onLabel="#{yes}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration)
@@ -124,13 +130,13 @@ ${ident}    <input type="checkbox" id="$propertyId" class="form-check-input" for
 #end
 ${ident}    <select#if ($multiSelect) multiple size="5"#end id="$propertyId" class="form-select" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" #if($parameter.required) required#end#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
 #if ($parameter.type.enumeration)
-${ident}        <option value=""></option>
+${ident}        <option></option>
 ${ident}        <option *ngFor="let key of ${parameter.name}Options" [value]="key">
 ${ident}            {{ ${parameter.name}T[key] }}
 ${ident}        </option>
 #else
 #if(!$parameter.required)
-${ident}        <option value=""></option>
+${ident}        <option></option>
 #end
 ${ident}        <option *ngFor="let item of ${backingListName}" [value]="item.value">{{ item.label }}</option>
 #end
@@ -172,10 +178,10 @@ ${ident}		<mat-table matSort [dataSource]="${propertyId}" #${propertyId}Sort="ma
 ${ident}			<ng-container matColumnDef="actions">
 ${ident}				<mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
 ${ident}                <mat-cell *matCellDef="let row; index as i">
-${ident}                    <button color="accent" (click)="deleteFrom$stringUtils.capitalize(${propertyId})(i)" class="btn btn-info">
+${ident}                    <button type="button" color="accent" (click)="deleteFrom$stringUtils.capitalize(${propertyId})(i)" class="btn btn-info">
 ${ident}                        <mat-icon>delete</mat-icon>
 ${ident}                    </button>
-${ident}                    <button color="accent" (click)="deleteFrom$stringUtils.capitalize(${propertyId})(row)" class="btn btn-info">
+${ident}                    <button type="button" color="accent" (click)="deleteFrom$stringUtils.capitalize(${propertyId})(row)" class="btn btn-info">
 ${ident}                        <mat-icon>delete</mat-icon>
 ${ident}                    </button>
 ${ident}                </mat-cell>

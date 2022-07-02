@@ -542,6 +542,17 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>no</response>
                 </responses>
             </prompt>
+            <prompt id="charts">
+                <text>Would you like to include charts in your angular frontend?</text>
+                <shortText>charts</shortText>
+                <preconditions>
+                    <condition id="angular" equal="true"/>
+                </preconditions>
+                <responses type="java.lang.Boolean">
+                    <response>yes</response>
+                    <response>no</response>
+                </responses>
+            </prompt>
             <prompt id="jbossSeam" setResponseAsTrue="false">
                 <text>Would you like to use the JBoss Seam application framework?</text>
                 <shortText>Enable JBoss Seam</shortText>

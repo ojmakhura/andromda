@@ -43,11 +43,11 @@ export class ${useCase.storeName}Effects {
 #set ($args = "$args")
 #end
 #end
-            mergeMap(($args) => this.${serviceName}.${operation.name}($callArgs).pipe(
+            mergeMap(({$args}) => this.${serviceName}.${operation.name}($callArgs).pipe(
 #if ($operation.returnTypePresent)
-                map( results => ${actionName}.${operation.name}Success({results})),
+                map( results => ${actionName}.${operation.name}Success({results, messages: [`Action successful.`], success: true})),
 #end
-                catchError((error) => [${actionName}.$failureAction(error)])
+                catchError(({error}) => [${actionName}.$failureAction({messages: [error?.error ? error?.error : error]})])
             ))
         )
     );

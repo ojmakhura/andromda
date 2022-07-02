@@ -7,14 +7,20 @@ import { ${stringUtils.uncapitalize(${useCase.storeName})}Key, ${useCase.storeNa
 #set($stateParams = [])
 #foreach($view in $useCase.views)
 #foreach($variable in $view.variables)
+#if($variable.inputType != "button")
 #set ( $rt = $stateParams.add($variable) )
+#end
 #end
 #foreach($action in $view.actions)
 #foreach($field in $action.formFields)
+#if($field.inputType != "button")
 #set ( $rt = $stateParams.add($field) )
 #end
+#end
 #foreach($param in $action.parameters)
+#if($param.inputType != "button")
 #set ( $rt = $stateParams.add($param) )
+#end
 #end
 #end
 #end
@@ -31,9 +37,9 @@ export const select${stringUtils.capitalize(${param.name})} = createSelector(
 );
 
 #end
-export const selectErrors = createSelector(
+export const selectMessages = createSelector(
     select${useCase.storeName}State,
-    (state: ${useCase.storeName}State) => state.errors
+    (state: ${useCase.storeName}State) => state.messages
 );
 
 export const selectSuccess = createSelector(
@@ -44,4 +50,9 @@ export const selectSuccess = createSelector(
 export const selectLoading = createSelector(
     select${useCase.storeName}State,
     (state: ${useCase.storeName}State) => state.loading
+);
+
+export const selectError = createSelector(
+    select${useCase.storeName}State,
+    (state: ${useCase.storeName}State) => state.error
 );

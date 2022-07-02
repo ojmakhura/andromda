@@ -41,7 +41,7 @@ public interface ${serviceName} {
 #end
 #if($operation.returnTypePresent)
 #set ($returnType = "#if($operation.returnType.primitive)$operation.returnType.wrapperName#else$operation.getterSetterReturnTypeName#end")
-#set ($return = "org.springframework.http.ResponseEntity<$returnType>")
+#set ($return = "org.springframework.http.ResponseEntity<?>")
 #else
 #set ($return = "void")
 #end

@@ -72,9 +72,6 @@ package $entity.packageName;
  *
  * @see $entity.fullyQualifiedEntityName
  */
-#if($hibernate4or5)
-@org.springframework.stereotype.Repository
-#end
 public abstract class $entity.daoBaseName
 #if ($daoInheritance)
     extends $entity.generalization.fullyQualifiedDaoImplementationName
@@ -85,19 +82,41 @@ public abstract class $entity.daoBaseName
 {
 
 #if($hibernate4or5)
-    protected org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(${entity.daoBaseName}.class);
+    protected final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(${entity.daoBaseName}.class);
 
 #end
 #set($repositoryName = "${stringUtils.uncapitalize(${entity.entityName})}Repository")
 #set($repositoryType = "${entity.fullyQualifiedName}Repository")
-    @org.springframework.beans.factory.annotation.Autowired
-    protected ${repositoryType} ${repositoryName};
+    protected final ${repositoryType} ${repositoryName};
 
 #foreach($entityRef in $entity.entityReferences)  
 #set($refRepositoryName = "${stringUtils.uncapitalize(${entityRef.targetElement.entityName})}Repository")
 #set($refRepositoryType = "${entityRef.targetElement.fullyQualifiedName}Repository")  
     protected $entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName;
+    protected final ${refRepositoryType} ${refRepositoryName};
 
+#end
+    public ${entity.daoBaseName}(
+#foreach($entityRef in $entity.entityReferences)  
+#set($refRepositoryName = "${stringUtils.uncapitalize(${entityRef.targetElement.entityName})}Repository")
+#set($refRepositoryType = "${entityRef.targetElement.fullyQualifiedName}Repository")  
+        ${refRepositoryType} $refRepositoryName,
+#end
+#set($repositoryName = "${stringUtils.uncapitalize(${entity.entityName})}Repository")
+#set($repositoryType = "${entity.fullyQualifiedName}Repository")
+        ${repositoryType} ${repositoryName}
+    ) {
+#set($repositoryName = "${stringUtils.uncapitalize(${entity.entityName})}Repository")
+        this.$repositoryName = $repositoryName;
+#foreach($entityRef in $entity.entityReferences) 
+#set($refRepositoryName = "${stringUtils.uncapitalize(${entityRef.targetElement.entityName})}Repository")
+        this.$refRepositoryName = $refRepositoryName;
+#end
+    }
+
+#foreach($entityRef in $entity.entityReferences)  
+#set($refRepositoryName = "${stringUtils.uncapitalize(${entityRef.targetElement.entityName})}Repository")
+#set($refRepositoryType = "${entityRef.targetElement.fullyQualifiedName}Repository")
     /**
      * Sets the reference to <code>$entityRef.daoName</code>.
      * @param ${entityRef.daoName}In
@@ -107,7 +126,7 @@ public abstract class $entity.daoBaseName
     {
         this.$entityRef.daoName = ${entityRef.daoName}In;
     }
-
+    
     /**
      * Gets the reference to <code>$entityRef.daoName</code>.
      * @return ${entityRef.daoName}
@@ -115,18 +134,6 @@ public abstract class $entity.daoBaseName
     protected $entityRef.targetElement.fullyQualifiedDaoName ${entityRef.daoGetterName}()
     {
         return this.$entityRef.daoName;
-    }
-
-    protected ${refRepositoryType} ${refRepositoryName};
-
-    /**
-     * Sets the reference to <code>${refRepositoryName}</code>.
-     * @param ${refRepositoryName}In
-     */
-    @org.springframework.beans.factory.annotation.Autowired
-    public void set${entityRef.targetElement.name}Repository(@org.springframework.context.annotation.Lazy ${refRepositoryType} ${refRepositoryName}In)
-    {
-        this.${refRepositoryName} = ${refRepositoryName}In;
     }
 
     /**
@@ -139,6 +146,7 @@ public abstract class $entity.daoBaseName
     }
 
 #end
+
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
     /**
      * {@inheritDoc}
@@ -1072,7 +1080,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-    $finder.visibility $returnType ${finder.name}(final int transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+    $finder.visibility java.util.Collection#if($enableTemplating)<?>#end ${finder.name}(final int transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #if ($finder.exceptionsPresent)
         throws $finder.exceptionList
 #end
@@ -1097,7 +1105,7 @@ $oldXmlIndent        }
 #if ($enableTemplating && ($finder.returnType.collectionType || $finder.many))
     @SuppressWarnings("unchecked")
 #end
-    $finder.visibility $returnType ${finder.name}(final int transform#if ($finder.returnType.collectionType || $finder.many), int pageNumber, int pageSize#end#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+    $finder.visibility java.util.Collection#if($enableTemplating)<?>#end ${finder.name}(final int transform#if ($finder.returnType.collectionType || $finder.many), int pageNumber, int pageSize#end#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #if ($finder.exceptionsPresent)
 ## TODO: Exception is not actually thrown by this method
         throws $finder.exceptionList
@@ -1222,7 +1230,7 @@ $h3tab        return results;
 #set($criteriaArg = $arg)
 #end
 #end
-    $finder.visibility $returnType ${finder.name}(final int transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+    $finder.visibility java.util.Collection#if($enableTemplating)<?>#end ${finder.name}(final int transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #if ($finder.exceptionsPresent)
         throws $finder.exceptionList
 #end
@@ -1355,27 +1363,39 @@ $h3tab        return results;
 #else
 #set($nullCheck = "${criteriaArgumentName}.${criteriaAttribute.getterName}() != null")
 #end
-        tmpSpec = ${entity.name}Specifications.${specName}(${criteriaArgumentName}.${criteriaAttribute.getterName}());
+#set ($spec = "${entity.name}Specifications.${specName}(${criteriaArgumentName}.${criteriaAttribute.getterName}())")
 #if($criteriaAttribute.nullable)
 #set ($capitalised_ = $stringUtils.capitalize($hibernateUtils.getFirstJoinName($criteriaAttribute.attributeName)))
 #set ($specName_ = "findBy${capitalised_}Null")
-        tmpSpec = tmpSpec.or(${entity.name}Specifications.${specName_}());
+#set ($spec = "${spec}.or(${entity.name}Specifications.${specName_}())")
 
 #end
 #if($i == 1)
+#if(!$stringUtils.containsIgnoreCase($criteriaAttribute.getterSetterTypeName, "boolean"))
         if($nullCheck) {
-            specifications = tmpSpec;
+            specifications = $spec;
         }
+#else
+        specifications = $spec;
+#end
 
 #set ($i = $i + 1)
 #else
+#if(!$stringUtils.containsIgnoreCase($criteriaAttribute.type.name, "boolean"))
         if($nullCheck) {
             if(specifications == null) {
-                specifications = tmpSpec;
+                specifications = $spec;
             } else {
-                specifications = specifications.and(tmpSpec);
+                specifications = specifications.and($spec);
             }
         }
+#else
+        if(specifications == null) {
+            specifications = $spec;
+        } else {
+            specifications = specifications.and($spec);
+        }
+#end
 
 #end
 #end
