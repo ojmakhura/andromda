@@ -19,7 +19,7 @@ public abstract class ${controller.name}Base extends ${managedBeansPackage}.Cont
     implements java.io.Serializable, ${controller.name} {
 
 #foreach ($service in $controller.allServices)
-	protected $service.fullyQualifiedName $service.beanName;
+	protected final $service.fullyQualifiedName $service.beanName;
     
 #end
 #set ($iter = $controller.allServices.iterator())
