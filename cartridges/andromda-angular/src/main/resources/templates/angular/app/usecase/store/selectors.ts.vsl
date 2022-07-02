@@ -7,14 +7,20 @@ import { ${stringUtils.uncapitalize(${useCase.storeName})}Key, ${useCase.storeNa
 #set($stateParams = [])
 #foreach($view in $useCase.views)
 #foreach($variable in $view.variables)
+#if($variable.inputType != "button")
 #set ( $rt = $stateParams.add($variable) )
+#end
 #end
 #foreach($action in $view.actions)
 #foreach($field in $action.formFields)
+#if($field.inputType != "button")
 #set ( $rt = $stateParams.add($field) )
 #end
+#end
 #foreach($param in $action.parameters)
+#if($param.inputType != "button")
 #set ( $rt = $stateParams.add($param) )
+#end
 #end
 #end
 #end
