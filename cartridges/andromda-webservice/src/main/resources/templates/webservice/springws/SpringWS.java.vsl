@@ -30,9 +30,9 @@ public interface ${serviceName} {
 #if (!$stringUtils.isBlank($responseStatus))
     $operation.restResponseStatus
 #end
-#if ($operation.returnTypePresent)
-    @org.springframework.web.bind.annotation.ResponseBody
-#end
+## #if ($operation.returnTypePresent)
+##     @org.springframework.web.bind.annotation.ResponseBody
+## #end
 #foreach($annotation in $operation.additionalAnnotations)
     @$annotation
 #end

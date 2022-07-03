@@ -330,9 +330,10 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     }
 
     ${view.formName}Reset() {
+
         this.store.dispatch(${view.useCase.storeName}Actions.${stringUtils.uncapitalize(${view.useCase.storeName})}Reset());
-        
-        this.${view.formName} = this.newForm(#if ($view.nonTableVariablesPresent)new $stringUtils.capitalize(${view.varsFormName})#end);
+        this.${view.formName}.reset()
+        this.${view.formName}.markAsPristine();
 
         if(this.router.url.substring(0, this.router.url.indexOf('?'))) {
             this.router.navigate([this.router.url.substring(0, this.router.url.indexOf('?'))]);
@@ -597,7 +598,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 ##if ( $attribute.inputDate || $attribute.inputDatetimeLocal)
 ##set ($val = "formatDate(${val}#if($attribute.inputDatetimeLocal), 'yyyy-MM-ddTHH:mm:ss.SSS'#else, 'yyyy-MM-dd'#end, 'en')")
 ##end
-            $attribute.name: [${variable.name}?.$attribute.name ? $val : null$validators],
+            $attribute.name: [${variable.name}?.$attribute.name ? $val : null$validators], // 1
 #end
 #end
 #end
