@@ -86,7 +86,7 @@ ${ident}                        <mat-icon>edit</mat-icon>
 ${ident}                    </button>
 ${ident}                </mat-cell>
 ${ident}			</ng-container>
-#foreach( $column in $parameter.tableColumns)
+#foreach( $column in $parameter.tableColumnNames)
 #if($column.name)
 #set($columnName = $column.name)
 #else
@@ -186,7 +186,7 @@ ${ident}                        <mat-icon>delete</mat-icon>
 ${ident}                    </button>
 ${ident}                </mat-cell>
 ${ident}			</ng-container>
-#foreach( $column in $parameter.tableColumns)
+#foreach( $column in $parameter.tableColumnNames)
 #if($column.name)
 #set($columnName = $column.name)
 #else
@@ -216,7 +216,7 @@ ${ident}        <button type="button" (click)="${propertyId}Clear()" class="btn 
 ${ident}            <mat-icon>clear</mat-icon>
 ${ident}        </button>
 ${ident}    </div>
-#foreach($column in $parameter.tableColumns)
+#foreach($column in $parameter.tableColumnNames)
 #if($column.name)
 #set ($columnName = $column.name)
 #else
@@ -297,8 +297,8 @@ ${ident}</fieldset>
 #set ($dataSource = "$stringUtils.pluralize(${propertyId})$")
 #end
 $ident<mat-table matSort [dataSource]="$dataSource | async" #${propertyId}ModalSort="matSort" class="table table-bordered" style="width: 100%;">
-#if($parameter.inputTableIdentifierColumns)
-#set ($columns = $parameter.tableColumns)
+#if($parameter.tableColumnNames)
+#set ($columns = $parameter.tableColumnNames)
 #else
 #set ($columns = $parameter.attributes)
 #end
@@ -306,7 +306,10 @@ ${ident}    <ng-container matColumnDef="actions">
 ${ident}        <mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
 ${ident}        <mat-cell *matCellDef="let row; let i=index">
 #if($radio)
-#set ($col = ${metafacadeWebUtils.getColumnByIndex($columns, 0)})
+#set ($iter = $columns.iterator())
+#if($iter.hasNext())
+#set ($col = $iter.next())
+#end
 #if($col.name)
 #set ($columnName = $col.name)
 #else
