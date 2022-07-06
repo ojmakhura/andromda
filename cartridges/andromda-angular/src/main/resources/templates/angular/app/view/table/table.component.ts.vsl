@@ -43,10 +43,13 @@ import { ${table.view.useCase.controller.implementationName} } from '@app/${tabl
 export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
 
     ${table.name}Columns = [
-#foreach ($column in $table.tableColumns)
-#if(!($column.upper>1 || $column.upper==-1))
-        '$angularUtils.getColumnName($column)',
+#foreach ($column in $table.tableColumnNames)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
 #end
+        '$columnName',
 #end
 #if($table.tableFormActions.size() > 0)
         'actions'

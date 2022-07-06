@@ -598,7 +598,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 ##if ( $attribute.inputDate || $attribute.inputDatetimeLocal)
 ##set ($val = "formatDate(${val}#if($attribute.inputDatetimeLocal), 'yyyy-MM-ddTHH:mm:ss.SSS'#else, 'yyyy-MM-dd'#end, 'en')")
 ##end
-            $attribute.name: [${variable.name}?.$attribute.name ? $val : null$validators], // 1
+            $attribute.name: [${variable.name}?.$attribute.name ? $val : null$validators],
 #end
 #end
 #end

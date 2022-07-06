@@ -8,7 +8,7 @@
 #if (!$table.tableColumns.empty)
     <div class="table table-striped"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
         <mat-table matSort [dataSource]="${table.name}$ | async" #${table.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
-#foreach ($column in $table.tableColumns)
+#foreach ($column in $table.tableColumnNames)
 #if($column.name)
 #set($columnName = $column.name)
 #else
