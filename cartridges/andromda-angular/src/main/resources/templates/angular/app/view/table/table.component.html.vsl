@@ -20,11 +20,11 @@
                 <mat-cell *matCellDef="let row"> 
 #if (!$tableColumnActions.empty)
 #set ($action = $tableColumnActions.iterator().next())
-                    <a routerLink=""  id="${columnName}Action" (click)="${action.triggerName}(row.${columnName})">
-                        {{ row.${columnName}#if($column.inputDate || $column.type.dateType) | date#end }}
+                    <a routerLink=""  id="${columnName}Action" (click)='${action.triggerName}(row?.${stringUtils.replace("${columnName}", ".", "?.")})'>
+                        {{ row?.${stringUtils.replace("${columnName}", ".", "?.")}#if($column.inputDate || $column.type.dateType) | date#end }}
                     </a> 
 #else
-                    {{ row.${columnName}#if($column.inputDate || $column.type.dateType) | date#end }}
+                    {{ row?.${stringUtils.replace("${columnName}", ".", "?.")}#if($column.inputDate || $column.type.dateType) | date#end }}
 #end
                 </mat-cell>
             </ng-container>

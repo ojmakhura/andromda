@@ -98,7 +98,7 @@ ${ident}				<mat-header-cell *matHeaderCellDef translate>$column.messageKey</mat
 #else
 ${ident}				<mat-header-cell *matHeaderCellDef translate>$stringUtils.toResourceMessageKey($columnName)</mat-header-cell>
 #end
-${ident}                <mat-cell *matCellDef="let row"> {{ row.${columnName} }} </mat-cell>
+${ident}                <mat-cell *matCellDef="let row"> {{ row?.${stringUtils.replace("${columnName}", ".", "?.")} }} </mat-cell>
 ${ident}			</ng-container>
 #end
 ${ident}			<mat-header-row *matHeaderRowDef="${propertyId}ModalColumns"></mat-header-row>
@@ -198,7 +198,7 @@ ${ident}				<mat-header-cell *matHeaderCellDef translate>$column.messageKey</mat
 #else
 ${ident}				<mat-header-cell *matHeaderCellDef translate>$stringUtils.toResourceMessageKey($columnName)</mat-header-cell>
 #end
-${ident}                <mat-cell *matCellDef="let row"> {{ row.${columnName} }} </mat-cell>
+${ident}                <mat-cell *matCellDef="let row"> {{ row?.${stringUtils.replace("${columnName}", ".", "?.")} }} </mat-cell>
 ${ident}			</ng-container>
 #end
 ${ident}			<mat-header-row *matHeaderRowDef="${propertyId}ModalColumns"></mat-header-row>
@@ -316,7 +316,7 @@ ${ident}        <mat-cell *matCellDef="let row; let i=index">
 #set ($columnName = $col)
 #end
 ${ident}            <mat-radio-group (change)="${propertyId}Selected($event, row)">
-${ident}                <mat-radio-button [value]="row" [checked]="${propertyId}Select.$columnName === row.$columnName"></mat-radio-button>
+${ident}                <mat-radio-button [value]="row" [checked]='${propertyId}Select.${stringUtils.replace("${columnName}", ".", "?.")} === row?.${stringUtils.replace("${columnName}", ".", "?.")}'></mat-radio-button>
 ${ident}            </mat-radio-group>
 #else
 ${ident}            <mat-checkbox (change)="${propertyId}Selected($event, row)"></mat-checkbox>
@@ -331,7 +331,7 @@ ${ident}    </ng-container>
 #end
 ${ident}    <ng-container matColumnDef="$columnName">
 ${ident}        <mat-header-cell *matHeaderCellDef translate>$stringUtils.toResourceMessageKey($columnName)</mat-header-cell>
-${ident}        <mat-cell *matCellDef="let row"> {{ row.${columnName} }} </mat-cell>
+${ident}        <mat-cell *matCellDef="let row"> {{ row?.${stringUtils.replace("${columnName}", ".", "?.")} }} </mat-cell>
 ${ident}    </ng-container>
 #end
 ${ident}    <mat-header-row *matHeaderRowDef="${propertyId}ModalColumns"></mat-header-row>
