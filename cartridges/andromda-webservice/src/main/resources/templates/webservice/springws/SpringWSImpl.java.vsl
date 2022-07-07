@@ -14,19 +14,54 @@ package ${service.packageName};
 
 @org.springframework.web.bind.annotation.RestController
 @org.springframework.web.bind.annotation.RequestMapping(#if ($stringUtils.isNotBlank($service.restPath))"$service.restPath"#else"${service.name.toLowerCase()}sws"#end)
-@org.springframework.web.bind.annotation.CrossOrigin()
 #foreach($annotation in $service.additionalAnnotations)
 @$annotation
 #end
 public class ${serviceImplName} extends #if($isService)${service.name}WSBase#else${service.name}Base#end {
-
-    protected static org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(${serviceImplName}.class);
+    
+    public ${serviceImplName}(
+#if($isService)
+        ${service.fullyQualifiedName} $stringUtils.uncapitalize(${service.name})#if($service.allServiceReferences.size() > 0 || $service.entityReferences.size() > 0),#end
+#end
+#set ($iter = $service.allServiceReferences.iterator())
+#foreach($ref in $service.allServiceReferences)
+#set($serviceRef = $iter.next())
+        $ref.targetElement.fullyQualifiedName $ref.name#if($iter.hasNext() || $service.entityReferences.size() > 0),#end
+#end
+#set ($iter = $service.entityReferences.iterator())
+#foreach($ref in $service.entityReferences)
+#set($entityRef = $iter.next())
+#set ($ent = $ref.targetElement)
+        ${ent.fullyQualifiedDaoName} $entityRef.daoName,
+        ${ent.fullyQualifiedName}Repository ${stringUtils.uncapitalize($ref.name)}Repository#if($iter.hasNext()),
+#end
+#end
+    ) {
+        
+        super(
+#if($isService)
+            $stringUtils.uncapitalize(${service.name})#if($service.allServiceReferences.size() > 0 || $service.entityReferences.size() > 0),#end
+#end
+#set ($iter = $service.allServiceReferences.iterator())
+#foreach($ref in $service.allServiceReferences)
+#set($serviceRef = $iter.next())
+            $ref.name#if($iter.hasNext() || $service.entityReferences.size() > 0),#end
+#end
+#set ($iter = $service.entityReferences.iterator())
+#foreach($ref in $service.entityReferences)
+#set($entityRef = $iter.next())
+#set ($ent = $ref.targetElement)
+            $ref.daoName,
+            ${ent.name}Repository#if($iter.hasNext()),#end
+#end
+        );
+    }
 
 #foreach ($operation in $service.allowedOperations)
 
 #if($operation.returnTypePresent)
 #set ($returnType = "#if($operation.returnType.primitive)$operation.returnType.wrapperName#else$operation.getterSetterReturnTypeName#end")
-#set ($return = "org.springframework.http.ResponseEntity<$returnType>")
+#set ($return = "org.springframework.http.ResponseEntity<?>")
 #else
 #set ($return = "void")
 #end
@@ -40,16 +75,21 @@ public class ${serviceImplName} extends #if($isService)${service.name}WSBase#els
 #set ($optional = "java.util.Optional.empty(); $call")
 #end
 #if ($operation.returnTypePresent)
-        java.util.Optional<$returnType> data = $optional;
-        org.springframework.http.ResponseEntity<$returnType> response;
+        try {
+            java.util.Optional<?> data = $optional;
+            org.springframework.http.ResponseEntity<?> response;
 
-        if(data.isPresent()) {
-            response = org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.OK).body(data.get());
-        } else {
-            response = org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.NOT_FOUND).build();
+            if(data.isPresent()) {
+                response = org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.OK).body(data.get());
+            } else {
+                response = org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.NOT_FOUND).build();
+            }
+
+            return response;
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-
-        return response;
 #else
         $call;
 #end

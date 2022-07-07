@@ -18,6 +18,7 @@ import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.webservice.MetafacadeWebserviceGlobals;
 import org.andromda.translation.ocl.validation.OCLExpressions;
 import org.andromda.translation.ocl.validation.OCLIntrospector;
 import org.apache.commons.lang3.StringUtils;
@@ -224,11 +225,41 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
     @Override
     protected String handleGetRestPath() {
 
-        String path = Objects.toString(this.findTaggedValue(AngularGlobals.REST_PATH), "");
+        String path = (String) this.findTaggedValue(AngularGlobals.REST_PATH);
+
         if(StringUtils.isBlank(path)) {
             path = "";
         }
+
+        if(path.equals("/")) {
+            path = "";
+        }
+
         StringBuilder builder = new StringBuilder();
+
+        /**
+         * 
+         */
+        if(this.getRestPathStatic()) {
+
+            String[] parts = path.split("\\{");
+
+            for(int i = 0; i < parts.length; i++) {
+                if(i != 0){
+                    builder.append("$");
+                    builder.append(LBRACKET);
+                }
+                builder.append(parts[i]);
+            }
+            path = builder.toString();
+    
+            if(path.length() > 0 && path.charAt(0) != '/') {
+                path = '/' + path;
+            }
+
+            return path;
+        }
+
         builder.append(path);
 
         for(ParameterFacade parameter : this.getArguments()) {
@@ -594,10 +625,28 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
                 builder.append("[]");
             }
 
+            builder.append(" | any");
+
+            if (this.isMany()) {
+                builder.append("[]");
+            }
+
         } else {
             builder.append("void");
         }
 
         return builder.toString();
+    }
+
+    @Override
+    protected Boolean handleGetRestPathStatic() {
+        String isStatic = (String)this.findTaggedValue(MetafacadeWebserviceGlobals.REST_PATH_STATIC);
+
+        if (StringUtils.isBlank(isStatic) || isStatic.equals(DEFAULT))
+        {
+            isStatic = BOOLEAN_FALSE;
+        }
+
+        return Boolean.valueOf(isStatic);
     }
 }

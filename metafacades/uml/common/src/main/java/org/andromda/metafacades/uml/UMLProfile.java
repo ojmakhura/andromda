@@ -360,12 +360,35 @@ public class UMLProfile {
                         "PRESENTATION_PATH");
 
         /**
+         * 'andromda_presentation_if'
+         * Used to assign the controller to the activity (when it can not be assigned
+         * explicitly).
+         */
+        public static final String TAGGEDVALUE_PRESENTATION_IF = profile.get(
+                        "PRESENTATION_IF");
+
+        /**
          * 'andromda_presentation_rest_path'
          * Used to assign the controller to the activity (when it can not be assigned
          * explicitly).
          */
         public static final String TAGGEDVALUE_PRESENTATION_REST_PATH = profile.get(
                         "PRESENTATION_REST_PATH");
+
+        /**
+         * 'andromda_presentation_icon'
+         * Used to assign an icon to use case, view or action
+         */
+        public static final String TAGGEDVALUE_PRESENTATION_ICON = profile.get(
+                        "PRESENTATION_ICON");
+
+        /**
+         * 'andromda_presentation_substitution_name'
+         * Used to assign the controller to the activity (when it can not be assigned
+         * explicitly).
+         */
+        public static final String TAGGEDVALUE_PRESENTATION_SUBSTITUTION_NAME = profile.get(
+                        "PRESENTATION_SUBSTITUTION_NAME");
 
         /**
          * 'andromda_presentation_filename'
@@ -392,9 +415,16 @@ public class UMLProfile {
                         "PRESENTATION_ACCESS_ROLES");
 
         /**
-         * 'andromda_presentation_access_roles'
+         * 'andromda_presentation_extra_routes'
          * Used to assign the controller to the activity (when it can not be assigned
          * explicitly).
+         */
+        public static final String TAGGEDVALUE_PRESENTATION_EXTRA_ROUTES = profile.get(
+                        "PRESENTATION_EXTRA_ROUTES");
+
+        /**
+         * 'andromda_presentation_class'
+         * The front end CSS class
          */
         public static final String TAGGEDVALUE_PRESENTATION_CLASS = profile.get(
                         "PRESENTATION_CLASS");

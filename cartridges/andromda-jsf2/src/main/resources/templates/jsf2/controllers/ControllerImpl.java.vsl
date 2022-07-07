@@ -6,6 +6,8 @@ package $controller.packageName;
 /**
  * @see $controller.fullyQualifiedName
  */
+@org.springframework.stereotype.Component(value = "$controller.beanName")
+@org.springframework.context.annotation.Scope("view")
 public class $controller.implementationName
     extends $controller.name
 {

@@ -18,7 +18,7 @@ export abstract class $service.name {
 
 #if ($service.restCount>0)
 #if ($stringUtils.isNotBlank($service.restPath))
-    protected path = '/$service.restPath';
+    protected path = '$service.restPath';
 
 #end
 #end

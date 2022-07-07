@@ -268,6 +268,20 @@
             </modelElement>
         </modelElements>
     </template>
+
+    <template
+        path="templates/angular/app/view/view.component.html.vsl"
+        outputPattern="${view.filePath}.html"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
+                    <property name="popup">true</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
 	
 	<template
         path="templates/angular/app/view/view.component.ts.vsl"
@@ -278,6 +292,20 @@
             <modelElement>
                 <type name="org.andromda.cartridges.angular.metafacades.AngularView">
                     <property name="popup">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+	<template
+        path="templates/angular/app/view/view.component.ts.vsl"
+        outputPattern="${view.filePath}.ts"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
+                    <property name="popup">true</property>
                 </type>
             </modelElement>
         </modelElements>
@@ -298,8 +326,50 @@
     </template>
 	
 	<template
+        path="templates/angular/app/view/view.component.impl.ts.vsl"
+        outputPattern="${view.implementationFilePath}.ts"
+        outlet="view-impls"
+        overwrite="false">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
+                    <property name="popup">true</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+	
+	<template
         path="templates/angular/app/view/view.component.scss.vsl"
         outputPattern="${view.filePath}.scss"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
+                    <property name="popup">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+	
+	<template
+        path="templates/angular/app/view/view.component.scss.vsl"
+        outputPattern="${view.filePath}.scss"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
+                    <property name="popup">true</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+	
+	<template
+        path="templates/angular/app/view/view.component.spec.ts.vsl"
+        outputPattern="${view.filePath}.spec.ts"
         outlet="views"
         overwrite="true">
         <modelElements variable="view">
@@ -319,16 +389,16 @@
         <modelElements variable="view">
             <modelElement>
                 <type name="org.andromda.cartridges.angular.metafacades.AngularView">
-                    <property name="popup">false</property>
+                    <property name="popup">true</property>
                 </type>
             </modelElement>
         </modelElements>
     </template>
 
     <template
-        path="templates/angular/app/usecase/store/action.store.ts.vsl"
+        path="templates/angular/app/usecase/store/actions.ts.vsl"
         outputPattern="${path}/${fileName}.ts"
-        outlet="ngrx-store"
+        outlet="ngrx-store-impl"
         overwrite="false">
         <modelElements variable="controller">
             <modelElement>
@@ -340,9 +410,9 @@
     </template>
 
     <template
-        path="templates/angular/app/usecase/store/reducer.store.ts.vsl"
+        path="templates/angular/app/usecase/store/reducers.ts.vsl"
         outputPattern="${path}/${fileName}.ts"
-        outlet="ngrx-store"
+        outlet="ngrx-store-impl"
         overwrite="false">
         <modelElements variable="controller">
             <modelElement>
@@ -354,9 +424,23 @@
     </template>
 
     <template
-        path="templates/angular/app/usecase/store/selector.store.ts.vsl"
+        path="templates/angular/app/usecase/store/selectors.ts.vsl"
         outputPattern="${path}/${fileName}.ts"
         outlet="ngrx-store"
+        overwrite="true">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
+                    <property name="useCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/angular/app/usecase/store/state.ts.vsl"
+        outputPattern="${path}/${fileName}.ts"
+        outlet="ngrx-store-impl"
         overwrite="false">
         <modelElements variable="controller">
             <modelElement>
@@ -368,9 +452,9 @@
     </template>
 
     <template
-        path="templates/angular/app/usecase/store/effect.store.ts.vsl"
+        path="templates/angular/app/usecase/store/effects.ts.vsl"
         outputPattern="${path}/${fileName}.ts"
-        outlet="ngrx-store"
+        outlet="ngrx-store-impl"
         overwrite="false">
         <modelElements variable="controller">
             <modelElement>
@@ -440,8 +524,8 @@
 	<template
         path="templates/angular/app/view/table/table.component.impl.ts.vsl"
         outputPattern="${table.implementationFilePath}.ts"
-        outlet="views"
-        overwrite="true">
+        outlet="view-impls"
+        overwrite="false">
         <modelElements>
             <modelElement>
                 <type name="org.andromda.cartridges.angular.metafacades.AngularView">

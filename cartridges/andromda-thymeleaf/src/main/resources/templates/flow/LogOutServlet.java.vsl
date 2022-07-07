@@ -8,9 +8,9 @@ package $managedBeansPackage;
 /**
  * This servlet is used to log out of the application.
  */
-@${jakartaNamespace}.servlet.annotation.WebServlet("/${logoutFileName}")
+@javax.servlet.annotation.WebServlet("/${logoutFileName}")
 public class LogOutServlet
-    extends ${jakartaNamespace}.servlet.http.HttpServlet
+    extends javax.servlet.http.HttpServlet
 {
     /**
      * The serial version UID of this class. Needed for serialization.
@@ -18,24 +18,24 @@ public class LogOutServlet
     private static final long serialVersionUID = 1L;
 
     /**
-     * @see ${jakartaNamespace}.servlet.http.HttpServlet#hash()doGet(${jakartaNamespace}.servlet.http.HttpServletRequest, ${jakartaNamespace}.servlet.http.HttpServletResponse)
+     * @see javax.servlet.http.HttpServlet#hash()doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public void doGet(
-        final ${jakartaNamespace}.servlet.http.HttpServletRequest request,
-        final ${jakartaNamespace}.servlet.http.HttpServletResponse response)
-        throws ${jakartaNamespace}.servlet.ServletException, java.io.IOException
+        final javax.servlet.http.HttpServletRequest request,
+        final javax.servlet.http.HttpServletResponse response)
+        throws javax.servlet.ServletException, java.io.IOException
     {
         request.getSession().invalidate();
-        response.sendRedirect(request.getContextPath() + "${useCase.path}.${htmlFileExtension}");
+        response.sendRedirect(request.getContextPath() + "${useCase.controller.restPath}");
     }
 
     /**
-     * @see ${jakartaNamespace}.servlet.http.HttpServlet#hash()doPost(${jakartaNamespace}.servlet.http.HttpServletRequest, ${jakartaNamespace}.servlet.http.HttpServletResponse)
+     * @see javax.servlet.http.HttpServlet#hash()doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public void doPost(
-        final ${jakartaNamespace}.servlet.http.HttpServletRequest request,
-        final ${jakartaNamespace}.servlet.http.HttpServletResponse response)
-        throws ${jakartaNamespace}.servlet.ServletException, java.io.IOException
+        final javax.servlet.http.HttpServletRequest request,
+        final javax.servlet.http.HttpServletResponse response)
+        throws javax.servlet.ServletException, java.io.IOException
     {
         this.doGet(request, response);
     }

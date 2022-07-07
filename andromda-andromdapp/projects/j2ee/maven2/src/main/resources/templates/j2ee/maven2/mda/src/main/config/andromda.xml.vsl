@@ -592,7 +592,8 @@
                 <property name="jaxb-gen">${common.generated.dir}</property>
 #end
 #if($ngrx)
-                <property name="ngrx-store">${angular.ngrx.dir}</property>
+                <property name="ngrx-store">${angular.ngrx.generated.dir}</property>
+                <property name="ngrx-store-impl">${angular.ngrx.manual.dir}</property>
                 <property name="ngrx">true</property>
 #end
             </properties>

@@ -89,7 +89,6 @@ $class.getDocumentation(" * ")
 #end
 #end
 #end
-//@org.springframework.stereotype.Component
 #foreach($annotation in $class.additionalAnnotations)
 @$annotation
 #end

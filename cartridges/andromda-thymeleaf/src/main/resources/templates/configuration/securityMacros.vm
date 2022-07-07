@@ -8,7 +8,7 @@
                 This collection secures all views and resources
                 as well as the actions called in the "$useCase.name" use-case
             </description>
-            <url-pattern>${useCase.pathRoot}/*</url-pattern>
+            <url-pattern>${useCase.controller.restPath}/*</url-pattern>
         </web-resource-collection>
 #if ($useCase.secured || $stringUtils.isNotBlank($defaultRole))
         <auth-constraint>

@@ -2,10 +2,11 @@
 #set($fileName = $angularUtils.getComponentFileName(${class.name}))
 #set ($attributes = [])
 import { Injectable } from '@angular/core';
-import { prop, model, propArray, propObject } from '@rxweb/reactive-form-validators';
 
 #foreach ($import in $class.imports)
+#if($import.name != $class.name)
 import {$import.name} from '@app/$import.filePath';
+#end
 #end
 
 #foreach ($tmp in $class.attributes)
@@ -16,10 +17,9 @@ import {$import.name} from '@app/$import.filePath';
 #end
 #end
 @Injectable()
-@model([])
 export class $class.name {
 #foreach ($attribute in $class.attributes)
-    @$angularUtils.getRxwebDecorator($attribute)
+#if(!$attribute.inputButton)
 #if($angularUtils.isComplex($attribute) && !$attribute.many && !$angularUtils.isArray($attribute.getterSetterTypeName) && !$attribute.type.enumeration)
 
     $attribute.name: ${attribute.type.name} = <${attribute.type.name}>{
@@ -39,6 +39,7 @@ export class $class.name {
 #end
     $attribute.name: $attribute.angularTypeName#if($attribute.many)[]#end | any#if($attribute.many)[]#end = #if($attribute.many)[]#{else}null#end;
 
+#end
 #end
 #end
     

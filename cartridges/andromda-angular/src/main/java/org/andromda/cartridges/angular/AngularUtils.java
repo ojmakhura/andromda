@@ -326,6 +326,7 @@ public class AngularUtils {
             } else {
                 builder.append(getDatatype(arg$.getGetterSetterTypeName()));
             }
+            builder.append(" | any ");
         }
             
         return builder.toString();
@@ -1875,7 +1876,7 @@ public class AngularUtils {
         }
         typeName = type.getFullyQualifiedName();
         if (type.isPrimitive() || typeName.startsWith("java.lang.") || typeName.startsWith("java.util.")
-            || !typeName.contains("."))
+            || !typeName.contains(".") || type.isEnumeration())
         {
             if (!many)
             {
@@ -1885,7 +1886,7 @@ public class AngularUtils {
         return simple;
     }
 
-    public static String handleGetTableColumnMessageKey(Object column, MetafacadeBase parent)
+    public static String getTableColumnMessageKey(Object column, MetafacadeBase parent)
     {
 
         if(column instanceof AngularAttribute) {
@@ -1925,5 +1926,12 @@ public class AngularUtils {
         }
 
         return null;
+    }
+
+    public static String getLastProperty(String source) {
+        
+        String[] splits = source.split("\\.");
+
+        return splits[splits.length - 1];
     }
 }

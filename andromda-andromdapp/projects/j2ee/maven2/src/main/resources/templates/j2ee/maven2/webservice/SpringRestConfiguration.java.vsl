@@ -2,48 +2,9 @@ package ${applicationPackage};
 
 import java.util.Collections;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
-
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
 
 @Configuration
 public class SpringRestConfiguration {
-	
-	@Bean
-	public CorsFilter corsFilter() {
-		UrlBasedCorsConfigurationSource confSource = new UrlBasedCorsConfigurationSource();
-		CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.setAllowedOriginPatterns(Collections.singletonList("*"));
-        config.addAllowedHeader("*");
-        for(HttpMethod method : HttpMethod.values()) {
-            config.addAllowedMethod(method);
-        }
-		confSource.registerCorsConfiguration("/**", config);
-		return new CorsFilter(confSource);
-	}
-
-    @Bean
-    public Docket api() {
-
-        return new Docket(DocumentationType.SWAGGER_2)
-            .select()
-            .apis(RequestHandlerSelectors.any())
-            .paths(PathSelectors.any())
-            .build();
-    }
 
 }

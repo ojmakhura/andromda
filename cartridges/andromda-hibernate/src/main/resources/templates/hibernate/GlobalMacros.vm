@@ -228,9 +228,6 @@
     public static final String ${attributeNameConstantPrefix}${attribute.name}="${attribute.name}";
 
 #end
-// $attribute
-// $attribute.type
-// $attribute.type.enumeration
     $visibility $typeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
 
 #end
@@ -584,7 +581,7 @@ $target.getDocumentation("     * ")
     @javax.persistence.Transient
 #*    *##else
 #*      *##set ($argExists = false)
-    @javax.persistence.OneToOne(#if($associationEnd.owning)#if (!$target.optional)optional = false#set ($argExists = true)#end#end#if ($target.cascadeType)#if ($argExists), #end cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end fetch = javax.persistence.FetchType.LAZY#end)
+    @javax.persistence.OneToOne(#if($associationEnd.owning)#if ($target.required)optional = false#set ($argExists = true)#end#end#if ($target.cascadeType)#if ($argExists), #end cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end fetch = javax.persistence.FetchType.LAZY#end)
 #*      *##if($associationEnd.owning)
 ##
 ## Add the JoinColumns annotation if the target entity has a composite primary key
@@ -651,7 +648,7 @@ $target.getDocumentation("     * ")
     @javax.persistence.JoinTable
     (
         name = "${associationEnd.association.tableName}",
-#if($entity.getIdentifiers().size() > 1 || $target.type.getIdentifiers().size() > 1)        
+#if($entity.getIdentifiers().size() > 1 || $target.type.getIdentifiers().size() > 1)
 #set ($identifiers = $entity.getIdentifiers())
         joinColumns = {#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end},
 #set ($identifiers = $target.type.getIdentifiers())

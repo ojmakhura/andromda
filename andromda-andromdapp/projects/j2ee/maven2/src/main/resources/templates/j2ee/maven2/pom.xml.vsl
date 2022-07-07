@@ -7,7 +7,7 @@
 #if($spring)
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.2</version>
+        <version>2.7.1</version>
         <relativePath/>
 #else
         <groupId>org.andromda.maven</groupId>
@@ -232,7 +232,7 @@
             <dependency>
                 <groupId>org.primefaces</groupId>
                 <artifactId>primefaces</artifactId>
-                <version>7.0</version>
+                <version>8.0</version>
             </dependency>
 #if (!$spring && !$hibernate && !$ejb3)
             <dependency>
@@ -795,6 +795,11 @@
                 <version>1.2.17</version>
                 <!--scope>test</scope-->
             </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>2.13.2</version>
+            </dependency>
 #if (!($webType.equals("jsf") || $webType.equals("both")) && !$spring && !$hibernate)
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -814,7 +819,7 @@
             </dependency>
 #end
 #if ($cxf)
-            <!-- Explicit Spring dependencies to avoid compile/run version mismatch, shown by: Error creating bean Caused by: java.lang.NoSuchFieldError: NULL -->
+            <!-- Explicit Spring dependencies to avoid compile/run version mismatch, shown by: Error creating bean Caused by: java.lang.NoSuchFielderrors: [] -->
 #if (!$spring)
             <!--<dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -1023,14 +1028,14 @@
 #end
 #if ($springws || $thymeleaf)
             <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-boot-starter</artifactId>
-                <version>3.0.0</version>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>1.6.8</version>
             </dependency>
             <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger-ui</artifactId>
-                <version>3.0.0</version>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>1.6.8</version>
             </dependency>
 #end
 #if ($thymeleaf)
@@ -1515,7 +1520,7 @@
 #elseif ($spring || $springws)
         <!-- v5 migration needed -->
         <!-- <spring.version>5.3.2</spring.version> -->
-	    <spring-boot.version>2.6.2</spring-boot.version>
+	    <spring-boot.version>2.7.1</spring-boot.version>
 #end
         <!-- To override parent default settings for compiler plugin and compliance checks-->
         <dependencyConvergence>true</dependencyConvergence>

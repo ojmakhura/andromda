@@ -381,6 +381,13 @@
                 <value>andromda_REST_path</value>
                 <appliedOnElement>WebService,WebServiceOperation</appliedOnElement>
             </element>
+            <element name="WEBSERVICE_REST_PATH_STATIC">
+                <documentation>
+                    URL path for REST webservice. default=lowercase class name.
+                </documentation>
+                <value>andromda_REST_path_static</value>
+                <appliedOnElement>WebServiceOperation</appliedOnElement>
+            </element>
             <element name="WEBSERVICE_REST_RESPONSE_STATUS">
                 <documentation>
                     Response status on a webservice operation.

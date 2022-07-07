@@ -541,10 +541,10 @@ $operation.getDocumentation("     * ")
 #end
      */
 #if ($operation.exceptionsPresent)
-    $operation.visibility $returnType ${operation.name}(int transform, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+    $operation.visibility java.util.Collection#if($enableTemplating)<?>#end ${operation.name}(int transform, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
         throws $operation.exceptionList;
 #else
-    $operation.visibility $returnType ${operation.name}(int transform, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
+    $operation.visibility java.util.Collection#if($enableTemplating)<?>#end ${operation.name}(int transform, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
 #end
 
 #end
@@ -564,10 +564,10 @@ $operation.getDocumentation("     * ")
 #end
      */
 #if ($operation.exceptionsPresent)
-    $operation.visibility $returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+    $operation.visibility java.util.Collection#if($enableTemplating)<?>#end ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
         throws $operation.exceptionList;
 #else
-    $operation.visibility $returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
+    $operation.visibility java.util.Collection#if($enableTemplating)<?>#end ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
 #end
 #else
 #if ($operation.returnType.collectionType)
@@ -597,10 +597,10 @@ $operation.getDocumentation("     * ")
 #end
      */
 #if ($operation.exceptionsPresent)
-    $operation.visibility $returnType ${operation.name}(final int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end)
+    $operation.visibility java.util.Collection#if($enableTemplating)<?>#end ${operation.name}(final int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end)
         throws $operation.exceptionList;
 #else
-    $operation.visibility $returnType ${operation.name}(final int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end);
+    $operation.visibility java.util.Collection#if($enableTemplating)<?>#end ${operation.name}(final int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end);
 
 #end
 #if ($operation.returnType.collectionType || $operation.many)

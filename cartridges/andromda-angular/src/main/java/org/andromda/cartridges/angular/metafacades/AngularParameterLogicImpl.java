@@ -33,6 +33,7 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
@@ -213,6 +214,11 @@ public class AngularParameterLogicImpl
 
     @Override
     protected String handleGetAngularTypeName() {
+
+        if(UMLMetafacadeUtils.isNumber(getType())) {
+            return this.isMany() ? "number[]" : "number";
+        }
+
         String type = AngularUtils.getDatatype(this.getGetterSetterTypeName());
 
         // if(type.equals("any[]")) {

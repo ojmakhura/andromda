@@ -41,7 +41,7 @@ ${ident}<p:$selectBoxType id="$propertyId" value="#{${formValuePropertyName}}" l
 #if ($parameter.type.enumeration)
 ${ident}    <f:converter converterId="${parameter.type.fullyQualifiedName}"/>
 ${ident}    <f:selectItem itemLabel=""/>
-${ident}    <f:selectItems value="#{ajsf:getEnumSelectItems('${parameter.type.messageKey}.','${parameter.type.fullyQualifiedName}')}"/>
+${ident}    <f:selectItems value="#{ajsf:getEnumSelectItems('${parameter.messageKey}.','${parameter.type.fullyQualifiedName}')}"/>
 #else
 #if(!$parameter.required)
 ${ident}    <f:selectItem itemLabel=""/>

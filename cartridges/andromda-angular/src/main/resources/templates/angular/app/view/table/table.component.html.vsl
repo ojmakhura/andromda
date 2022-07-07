@@ -6,18 +6,27 @@
 <div class="card-body">
 #set ($targetColumns = $table.targettedTableColumnNames)
 #if (!$table.tableColumns.empty)
-    <div class="mat-elevation-z8">
-        <mat-table matSort [dataSource]="${table.name}.controls" #${table.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
-#foreach ($column in $table.tableColumns)
+    <div class="table table-striped"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
+        <mat-table matSort [dataSource]="${table.name}$ | async" #${table.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
+#foreach ($column in $table.tableColumnNames)
 #if($column.name)
 #set($columnName = $column.name)
 #else
 #set($columnName = $column)
 #end
-$table.getTableColumnActions($columnName)
+#set ($tableColumnActions = $table.getTableColumnActions($columnName))
             <ng-container matColumnDef="${columnName}">
                 <mat-header-cell *matHeaderCellDef translate>$table.getTableColumnMessageKey($columnName)</mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{ row.get('${columnName}').value }} </mat-cell>
+                <mat-cell *matCellDef="let row"> 
+#if (!$tableColumnActions.empty)
+#set ($action = $tableColumnActions.iterator().next())
+                    <a routerLink=""  id="${columnName}Action" (click)="${action.triggerName}(row.${columnName})">
+                        {{ row.${columnName}#if($column.inputDate || $column.type.dateType) | date#end }}
+                    </a> 
+#else
+                    {{ row.${columnName}#if($column.inputDate || $column.type.dateType) | date#end }}
+#end
+                </mat-cell>
             </ng-container>
 #end
 #if ($table.tableFormActions.size() > 0)
