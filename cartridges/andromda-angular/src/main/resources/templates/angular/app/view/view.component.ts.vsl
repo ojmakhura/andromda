@@ -427,7 +427,13 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
         let form: $actionFormCaps = new ${actionFormCaps}();
 #foreach( $parameter in $action.parameters )
-#if(!$parameter.inputButton)
+#set ($exists = false)
+#foreach($var in $view.variables)
+#if($var.name == $parameter.name)
+#set ($exists = true)
+#end
+#end
+#if(!$parameter.inputButton && $exists)
         form.$parameter.name = this.${parameter.name};
 #end
 #end
