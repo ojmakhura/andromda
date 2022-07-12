@@ -216,7 +216,7 @@ ${ident}        <button type="button" (click)="${propertyId}Clear()" class="btn 
 ${ident}            <mat-icon>clear</mat-icon>
 ${ident}        </button>
 ${ident}    </div>
-#foreach($column in $parameter.tableColumnNames)
+#foreach($column in $parameter.tableColumns)
 #if($column.name)
 #set ($columnName = $column.name)
 #else
@@ -227,7 +227,7 @@ ${ident}    </div>
 ${ident}    <div class="row mb-3"#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
 ${ident}        <label for="$colId" class="col-sm-2 col-form-label" translate>$stringUtils.toResourceMessageKey($cname)</label>
 ${ident}        <div class="col-sm-10">
-${ident}            <input type="text" class="form-control" id="$colId" value="{{${propertyId}?.$stringUtils.replace("${columnName}", ".", "?.")}}" disabled>
+${ident}            <input type="text" readonly class="form-control-plaintext" id="$colId" value="{{${propertyId}?.$stringUtils.replace("${columnName}", ".", "?.") #if(${column.inputDate} || ${column.type.dateType}) | date#end}}">
 ${ident}        </div>
 ${ident}    </div>
 #end
