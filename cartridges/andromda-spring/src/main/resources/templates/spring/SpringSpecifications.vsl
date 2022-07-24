@@ -183,7 +183,7 @@ public final class ${entity.name}Specifications {
             // Many to Many
 #end 
             javax.persistence.criteria.Join<$entity.name, $target.type.fullyQualifiedEntityName> ${target.name}Join = root.join("$target.name");
-            return cb.in(${target.name}Join.get("$identifier.name").in(${identifier.name}s));
+            return cb.in(${target.name}Join.get("$identifier.name")).value(${identifier.name}s);
         };
     }
 
