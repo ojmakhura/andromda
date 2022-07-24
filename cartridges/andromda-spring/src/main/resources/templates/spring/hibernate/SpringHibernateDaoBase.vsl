@@ -1615,7 +1615,7 @@ $h3tab        return results;
 #if ($enableTemplating)
     @SuppressWarnings({"unchecked"})
 #end
-    public final java.util.Collection#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end ${valueObjectRef.transformationToCollectionMethodName}($entityCollectionType entities)
+    public java.util.Collection#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end ${valueObjectRef.transformationToCollectionMethodName}($entityCollectionType entities)
     {
         if (entities == null)
         {
@@ -1638,7 +1638,7 @@ $h3tab        return results;
 #if ($enableTemplating)
     @SuppressWarnings({ "unchecked" })
 #end
-    public final ${valueObjectRef.targetElement.fullyQualifiedName}[] ${valueObjectRef.transformationToArrayMethodName}(java.util.Collection#if($enableTemplating)<?>#end entities)
+    public ${valueObjectRef.targetElement.fullyQualifiedName}[] ${valueObjectRef.transformationToArrayMethodName}(java.util.Collection#if($enableTemplating)<?>#end entities)
     {
         ${valueObjectRef.targetElement.fullyQualifiedName}[] result = null;
         if (entities != null)
@@ -1700,7 +1700,7 @@ $h3tab        return results;
 #if ($enableAnnotations)
     @Override
 #end
-    public final void ${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection#if($enableTemplating)<?>#end instances)
+    public void ${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection#if($enableTemplating)<?>#end instances)
     {
         if (instances != null)
         {
