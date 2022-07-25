@@ -273,8 +273,10 @@ public final class ${entity.name}Specifications {
 #end
     public static Specification<$entity.name> ${hibernateUtils.getCriteriaAttributeMethodName($criteriaAttribute)}($criteriaAttribute.getterSetterTypeName $criteriaAttribute.name) {
         return (root, cq, cb) -> {
-            
-            return cb.${comparator}(root.get("$criteriaAttribute.attributeName"), $matchMode);
+#foreach($join in ${hibernateUtils.getJoins($criteriaAttribute.attributeName)})
+            $join;
+#end
+            return cb.${comparator}(${hibernateUtils.getFirstJoinName($criteriaAttribute.attributeName)}Join.get("${hibernateUtils.getSecondJoinName($criteriaAttribute.attributeName)}"), $matchMode);
         };
     }
 

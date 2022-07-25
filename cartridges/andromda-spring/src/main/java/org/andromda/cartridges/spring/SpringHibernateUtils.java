@@ -320,7 +320,7 @@ public class SpringHibernateUtils
             return null;
         }
 
-        return splits[0];
+        return splits[1];
     }
 
     public boolean isJoin(String attributeName) {
