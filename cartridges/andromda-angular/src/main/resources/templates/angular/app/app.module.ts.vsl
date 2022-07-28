@@ -107,14 +107,14 @@ $secure
     ],
     providers: [
         UseCaseScope,
-#foreach ( $finalService in $finalServices )
-        ${finalService.implementationName},
-#end
-#foreach ( $useCase in $useCases )
-#if($useCase.controller)
-        ${useCase.controller.implementationName},
-#end
-#end
+## #foreach ( $finalService in $finalServices )
+##         ${finalService.implementationName},
+## #end
+## #foreach ( $useCase in $useCases )
+## #if($useCase.controller)
+##         ${useCase.controller.implementationName},
+## #end
+## #end
     ],
     bootstrap: [AppComponent]
 })
