@@ -116,64 +116,27 @@
 #end
         <plugins>
             <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>${maven-antrun-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <target>
-                        <copy todir="${project.basedir}/target/src/main/resources/templates" overwrite="true" failonerror="false">
-                            <fileset dir="${project.basedir}/src/main/resources">
-                                <include name="**/*"/>
-                            </fileset>
-                        </copy>
-                    </target>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>${maven-war-plugin.version}</version>
-                <configuration>
-                    <warSourceDirectory>target/src/main/resources</warSourceDirectory>
-                    <useCache>false</useCache>
-                    <excludes>**/*.java</excludes>
-                    <archive>
-                        <manifest>
-                          <addClasspath>true</addClasspath>
-                          <useUniqueVersions>false</useUniqueVersions>
-                          <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                          <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                        </manifest>
-                        <manifestEntries>
-                          <Implementation-Build>${maven.build.timestamp}</Implementation-Build>
-                          <url>${project.url}</url>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromdapp-maven-plugin</artifactId>
                 <executions>
                     <execution>
+                        <phase>generate-sources</phase>
                         <goals>
-                            <goal>deploy</goal>
+                            <goal>add-source</goal>
                         </goals>
+                        <configuration>
+                            <sources>
+                                <source>target/src/main/java</source>
+                            </sources>
+                            <sources>
+                                <source>target/src/main/resources</source>
+                            </sources>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <deployLocation>${tomcat.home}/webapps</deployLocation>
-                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
             </plugin>
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
@@ -184,6 +147,9 @@
             </plugin>
         </plugins>
         <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
             <resource>
                 <directory>target/src/main/java</directory>
             </resource>
