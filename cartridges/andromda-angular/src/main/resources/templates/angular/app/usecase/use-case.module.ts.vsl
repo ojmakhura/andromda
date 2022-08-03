@@ -26,6 +26,13 @@ import { EffectsModule } from '@ngrx/effects';
 import { ${stringUtils.uncapitalize(${useCase.storeName})}Feature } from '@app/store$useCase.pathRoot/${base}.reducers';
 import { ${useCase.storeName}Effects } from '@app/store$useCase.pathRoot/${base}.effects';
 #end
+#if($useCase.controller)
+#set ($controller = $useCase.controller)
+import { ${controller.implementationName} } from ${escTool.s}@app/${controller.implementationFilePath}${escTool.s};
+#foreach($service in $controller.allRestControllers)
+import { ${service.implementationName} } from ${escTool.s}@app/${service.implementationFilePath}${escTool.s};
+#end
+#end
 
 @NgModule({
   imports: [
@@ -58,6 +65,14 @@ import { ${useCase.storeName}Effects } from '@app/store$useCase.pathRoot/${base}
 #end
   ],
   entryComponents: [],
-  providers: [],
+  providers: [
+#if($useCase.controller)
+#set ($controller = $useCase.controller)
+    ${useCase.controller.implementationName},
+#foreach($service in $controller.allRestControllers)
+    ${service.implementationName},
+#end
+#end
+  ],
 })
 export class ${useCase.moduleName} {}

@@ -7,7 +7,7 @@
 #set ($targetColumns = $table.targettedTableColumnNames)
 #if (!$table.tableColumns.empty)
     <div class="table table-striped"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
-        <mat-table matSort [dataSource]="${table.name}$ | async" #${table.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
+        <mat-table matSort [dataSource]="${table.name}DataSource" #${table.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
 #foreach ($column in $table.tableColumnNames)
 #if($column.name)
 #set($columnName = $column.name)
@@ -16,7 +16,7 @@
 #end
 #set ($tableColumnActions = $table.getTableColumnActions($columnName))
             <ng-container matColumnDef="${columnName}">
-                <mat-header-cell *matHeaderCellDef translate>$table.getTableColumnMessageKey($columnName)</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header><span translate>$table.getTableColumnMessageKey($columnName)</span></mat-header-cell>
                 <mat-cell *matCellDef="let row"> 
 #if (!$tableColumnActions.empty)
 #set ($action = $tableColumnActions.iterator().next())
@@ -59,7 +59,7 @@
             <mat-header-row *matHeaderRowDef="${table.name}Columns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: ${table.name}Columns;"></mat-row>
         </mat-table>
-        <mat-paginator #${table.name}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+        <mat-paginator #${table.name}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 60, 70, 80, 90]" showFirstLastButtons></mat-paginator>
     </div>
 #end
 </div>

@@ -12,7 +12,7 @@ package ${service.packageName};
 #set ( $serviceName = "${service.name}")
 #end
 
-public abstract class ${serviceName}Base implements ${serviceName} { // $service.baseName
+public abstract class ${serviceName}Base implements ${serviceName} {
 
     protected org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(${serviceName}.class);
 #if($isService)

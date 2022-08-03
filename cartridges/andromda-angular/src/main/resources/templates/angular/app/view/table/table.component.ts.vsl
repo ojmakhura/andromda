@@ -59,6 +59,7 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
 ##    @Input() ${table.name}: FormArray;
     ${table.name}$: Observable<$table.angularTypeName>;
 
+    ${table.name}DataSource = new MatTableDataSource<$table.type.name>([]);
     @ViewChild('${table.name}Paginator', {static: true}) ${table.name}Paginator: MatPaginator;
     @ViewChild('${table.name}Sort', {static: true}) ${table.name}Sort: MatSort;
 
@@ -97,7 +98,16 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
 	    
     ngOnDestroy() { 
     }
+    
     ngAfterViewInit() {
+        this.${table.name}$
+        .subscribe(
+            ${table.name} => {
+                this.${table.name}DataSource.data = ${table.name};
+            }
+        );
+        this.${table.name}DataSource.paginator = this.${table.name}Paginator;
+        this.${table.name}DataSource.sort = this.${table.name}Sort;
     }
 #foreach ($action in $table.tableHyperlinkActions)
 
