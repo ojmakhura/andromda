@@ -15,7 +15,7 @@ import { ControllerBase } from '@app/controller/utils/controller.base';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UseCaseScope } from '@app/utils/use-case-scope';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 #set ($base = "${metafacadeWebUtils.toWebResourceName($table.view.useCase.storeName)}")
 import { ${table.view.useCase.storeName}State } from '@app/store$table.view.useCase.pathRoot/${base}.state';
 import * as ${table.view.useCase.storeName}Selectors from '@app/store$table.view.useCase.pathRoot/${base}.selectors';
@@ -76,6 +76,8 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
 #end
     protected ${table.view.variableName}: ${table.view.componentImplementationName};
     protected _injector: Injector;
+    ${table.name}Options: any = {};
+    ${table.name}Trigger: Subject<any> = new Subject<any>();
 
     constructor(injector: Injector) {
         this.route = injector.get(ActivatedRoute);
@@ -94,9 +96,17 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this.${table.name}Options = {
+            pagingType: 'full_numbers',
+            pageLength: 3,
+            processing: true,
+            dom: 'Bfrtip',
+            buttons: ['copy', 'csv', 'excel', 'print'],
+        };
     }
 	    
     ngOnDestroy() { 
+        this.${table.name}Trigger.unsubscribe();
     }
     
     ngAfterViewInit() {
@@ -104,6 +114,7 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
         .subscribe(
             ${table.name} => {
                 this.${table.name}DataSource.data = ${table.name};
+                this.${table.name}Trigger.next();
             }
         );
         this.${table.name}DataSource.paginator = this.${table.name}Paginator;
