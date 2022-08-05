@@ -7,7 +7,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from '@shared';
-import { DataTablesModule } from 'angular-datatables';
+import { CsvModule } from '@ctrl/ngx-csv';
 import { MaterialModule } from '@app/material.module';
 import { ${useCase.routingModuleName} } from './${useCase.routingModuleFileName}';
 #foreach($view in $useCase.views)
@@ -44,7 +44,7 @@ import { ${service.implementationName} } from ${escTool.s}@app/${service.impleme
     SharedModule,
     FlexLayoutModule,
     MaterialModule,
-    DataTablesModule,
+    CsvModule,
     ${useCase.routingModuleName},
 #if($ngrx)
     StoreModule.forFeature(${stringUtils.uncapitalize(${useCase.storeName})}Feature),

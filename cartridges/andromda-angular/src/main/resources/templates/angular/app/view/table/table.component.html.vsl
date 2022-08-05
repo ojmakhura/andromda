@@ -6,81 +6,14 @@
 <div class="card-body">
 #set ($targetColumns = $table.targettedTableColumnNames)
 #if (!$table.tableColumns.empty)
-##     <div class="table table-striped"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
-##         <mat-table matSort [dataSource]="${table.name}DataSource" #${table.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
-## #foreach ($column in $table.tableColumnNames)
-## #if($column.name)
-## #set($columnName = $column.name)
-## #else
-## #set($columnName = $column)
-## #end
-## #set ($tableColumnActions = $table.getTableColumnActions($columnName))
-##             <ng-container matColumnDef="${columnName}">
-##                 <mat-header-cell *matHeaderCellDef mat-sort-header><span translate>$table.getTableColumnMessageKey($columnName)</span></mat-header-cell>
-##                 <mat-cell *matCellDef="let row"> 
-## #if (!$tableColumnActions.empty)
-## #set ($action = $tableColumnActions.iterator().next())
-##                     <a routerLink=""  id="${columnName}Action" (click)='${action.triggerName}(row?.${stringUtils.replace("${columnName}", ".", "?.")})'>
-##                         {{ row?.${stringUtils.replace("${columnName}", ".", "?.")}#if($column.inputDate || $column.type.dateType) | date#end }}
-##                     </a> 
-## #else
-##                     {{ row?.${stringUtils.replace("${columnName}", ".", "?.")}#if($column.inputDate || $column.type.dateType) | date#end }}
-## #end
-##                 </mat-cell>
-##             </ng-container>
-## #end
-## #if ($table.tableFormActions.size() > 0)
-##             <ng-container matColumnDef="actions">
-##                 <mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
-##                 <mat-cell *matCellDef="let row">
-##                     <div class = "form-group">
-## #foreach ($action in $table.tableFormActions)
-##                         <button type = "button" class="btn btn-info" (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())" translate>
-##                             $action.trigger.messageKey
-##                         </button>
-## #end
-##                     </div>    
-##                 </mat-cell>
-##             </ng-container>
-## #end
-## ## - render any table hyperlink actions
-## #foreach ($action in $table.tableHyperlinkActions)
-## #if (!$action.tableLinkColumnName)
-##             <ng-container matColumnDef="actions">
-##                 <mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
-##                 <mat-cell *matCellDef="let row">
-##                     <div class = "form-group">
-##                         <a routerLink="" (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())" translate>$action.trigger.messageKey</a> 
-##                     </div>    
-##                 </mat-cell>
-##             </ng-container>
-## #end
-## #end
-##             <mat-header-row *matHeaderRowDef="${table.name}Columns"></mat-header-row>
-##             <mat-row *matRowDef="let row; columns: ${table.name}Columns;"></mat-row>
-##         </mat-table>
-##         <mat-paginator #${table.name}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 60, 70, 80, 90]" showFirstLastButtons></mat-paginator>
-##     </div>
-
-    <div #if($table.displayCondition) *ngIf="$table.displayCondition"#end>
-        <table datatable [dtOptions]="${table.name}Options" class="row-border hover">
-            <thead>
-                <tr>
-#foreach ($column in $table.tableColumnNames)
-#if($column.name)
-#set($columnName = $column.name)
-#else
-#set($columnName = $column)
-#end
-                    <th><span translate>$table.getTableColumnMessageKey($columnName)</span></th>
-#end
-#if ($table.tableFormActions.size() > 0)
-                    <th><span translate>actions</span></th>
-#end
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let row of ${table.name}$ | async">
+    <div class="table table-striped"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
+        <div class="col my-3 view-buttons" *ngIf="${table.name}DataSource.data.length > 0">
+            <button type="button" color="accent" class="btn btn-info" csvLink
+                        [data]="${table.name}DataSource.data">
+                CSV
+            </button>
+        </div>
+        <mat-table matSort [dataSource]="${table.name}DataSource" #${table.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
 #foreach ($column in $table.tableColumnNames)
 #if($column.name)
 #set($columnName = $column.name)
@@ -88,20 +21,51 @@
 #set($columnName = $column)
 #end
 #set ($tableColumnActions = $table.getTableColumnActions($columnName))
-                    <td>
+            <ng-container matColumnDef="${columnName}">
+                <mat-header-cell *matHeaderCellDef mat-sort-header><span translate>$table.getTableColumnMessageKey($columnName)</span></mat-header-cell>
+                <mat-cell *matCellDef="let row"> 
 #if (!$tableColumnActions.empty)
 #set ($action = $tableColumnActions.iterator().next())
-                        <a routerLink=""  id="${columnName}Action" (click)='${action.triggerName}(row?.${stringUtils.replace("${columnName}", ".", "?.")})'>
-                            {{ row?.${stringUtils.replace("${columnName}", ".", "?.")}#if($column.inputDate || $column.type.dateType) | date#end }}
-                        </a> 
-#else
+                    <a routerLink=""  id="${columnName}Action" (click)='${action.triggerName}(row?.${stringUtils.replace("${columnName}", ".", "?.")})'>
                         {{ row?.${stringUtils.replace("${columnName}", ".", "?.")}#if($column.inputDate || $column.type.dateType) | date#end }}
+                    </a> 
+#else
+                    {{ row?.${stringUtils.replace("${columnName}", ".", "?.")}#if($column.inputDate || $column.type.dateType) | date#end }}
 #end
-                    </td>
+                </mat-cell>
+            </ng-container>
 #end
-                </tr>
-            </tbody>
-        </table>
+#if ($table.tableFormActions.size() > 0)
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <div class = "form-group">
+#foreach ($action in $table.tableFormActions)
+                        <button type = "button" class="btn btn-info" (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())" translate>
+                            $action.trigger.messageKey
+                        </button>
+#end
+                    </div>    
+                </mat-cell>
+            </ng-container>
+#end
+## - render any table hyperlink actions
+#foreach ($action in $table.tableHyperlinkActions)
+#if (!$action.tableLinkColumnName)
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <div class = "form-group">
+                        <a routerLink="" (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())" translate>$action.trigger.messageKey</a> 
+                    </div>    
+                </mat-cell>
+            </ng-container>
+#end
+#end
+            <mat-header-row *matHeaderRowDef="${table.name}Columns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: ${table.name}Columns;"></mat-row>
+        </mat-table>
+        <mat-paginator #${table.name}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 60, 70, 80, 90]" showFirstLastButtons></mat-paginator>
     </div>
 #end
 </div>
