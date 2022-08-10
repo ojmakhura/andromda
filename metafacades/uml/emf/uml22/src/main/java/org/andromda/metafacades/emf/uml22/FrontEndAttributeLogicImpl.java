@@ -765,7 +765,12 @@ public class FrontEndAttributeLogicImpl
      */
     protected boolean handleIsInputFile()
     {
-        boolean file = false;
+        boolean file = this.isInputType(MetafacadeWebGlobals.INPUT_FILE);
+
+        if (file) {
+            return file;
+        }
+        
         ClassifierFacade type = getType();
         if (type != null)
         {

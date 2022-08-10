@@ -322,6 +322,9 @@ $attribute.getDocumentation("     * ")
 #if($attribute.many)
     @javax.persistence.ElementCollection
 #else
+#if($attribute.type.fileType || $attribute.type.blobType || $attribute.type.clobType)
+    @javax.persistence.Lob
+#end
     @javax.persistence.Column(name = "${attribute.columnName}", unique =#if ($attribute.unique && $attribute.required) ${attribute.unique}#else false#end, nullable =#if($attribute.required) false#else true#end, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
 #end
 #*      *##end

@@ -215,19 +215,15 @@ public class AngularParameterLogicImpl
     @Override
     protected String handleGetAngularTypeName() {
 
+        if(this.isInputFile() || this.getType().isBlobType()) {
+            return "File";
+        }
+
         if(UMLMetafacadeUtils.isNumber(getType())) {
             return this.isMany() ? "number[]" : "number";
         }
 
         String type = AngularUtils.getDatatype(this.getGetterSetterTypeName());
-
-        // if(type.equals("any[]")) {
-        //     type = "any";
-        // } else if(type.equals("any[][]")) {
-        //     type = "any[]";
-        // } else if(type.equals("any[][][]")) {
-        //     type = "any[][]";
-        // }
 
         return type;
     }
