@@ -79,7 +79,7 @@
         path="templates/angular/app/app.module.ts.vsl"
         outputPattern="app.module.ts"
         outlet="angularAppDir"
-        overwrite="true"
+        overwrite="false"
         outputToSingleFile="true">
         <modelElements>
             <modelElement variable="useCases">

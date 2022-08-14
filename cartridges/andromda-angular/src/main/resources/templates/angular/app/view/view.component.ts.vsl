@@ -385,10 +385,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($validators = "$validators]")
 #end
 #set ($val = "${view.varsFormName}$.$variable.name")
-##if ( $variable.inputDate || $variable.inputDatetimeLocal)
-##set ($val = "formatDate(${val}#if($variable.inputDatetimeLocal), 'yyyy-MM-dd HH:mm:ss.SSS'#else, 'yyyy-MM-dd'#end, 'en')")
-##end
-            $variable.name: [${view.varsFormName}$?.$variable.name ? ${val} : null$validators],
+            $variable.name: [{value: ${view.varsFormName}$?.$variable.name, disabled: false}$validators],
 #*  *##end
 #end
 #end
@@ -570,7 +567,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #if(!$attribute.inputButton)
 #if($angularUtils.isTable($attribute) || $attribute.many || $attribute.type.collectionType)
 #if($angularUtils.isSimpleType($attribute.type))
-            $attribute.name: ${variable.name}?.$attribute.name ? this.formBuilder.array(${variable.name}?.$attribute.name ? ${variable.name}.$attribute.name : []) : new FormArray([]),
+            $attribute.name: this.formBuilder.array(${variable.name}?.$attribute.name ? ${variable.name}.$attribute.name : []),
 #else
             $attribute.name: this.create${attribute.type.name}Array(${variable.name}?.$attribute.name),
 #end
@@ -601,10 +598,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($validators = "$validators]")
 #end
 #set ($val = "${variable.name}.${attribute.name}")
-##if ( $attribute.inputDate || $attribute.inputDatetimeLocal)
-##set ($val = "formatDate(${val}#if($attribute.inputDatetimeLocal), 'yyyy-MM-ddTHH:mm:ss.SSS'#else, 'yyyy-MM-dd'#end, 'en')")
-##end
-            $attribute.name: [${variable.name}?.$attribute.name ? $val : null$validators],
+            $attribute.name: [{value: ${variable.name}?.$attribute.name, disabled: false}$validators],
 #end
 #end
 #end

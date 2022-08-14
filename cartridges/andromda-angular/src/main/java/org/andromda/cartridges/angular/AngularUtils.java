@@ -44,6 +44,9 @@ import org.andromda.metafacades.uml.Service;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.metafacades.uml.ValueObject;
+import org.andromda.metafacades.uml.web.MetafacadeWebGlobals;
+import org.andromda.metafacades.uml.web.MetafacadeWebProfile;
+import org.andromda.metafacades.uml.webservice.MetafacadeWebserviceGlobals;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -302,29 +305,33 @@ public class AngularUtils {
         
         StringBuilder builder = new StringBuilder();
 
-        for(ParameterFacade arg$ : arguments) {
+        for(ParameterFacade arg : arguments) {
             if(builder.length() > 0) {
                 
                 builder.append(", ");
             }
-
-            //AngularParameter arg = (AngularParameter) arg$.getType();
             
-            builder.append(arg$.getName());
+            builder.append(arg.getName());
             builder.append(": ");
 
-            if(arg$ instanceof AngularModel) {
+            if(arg instanceof AngularModel) {
 
-                AngularModel model = (AngularModel) arg$;
+                AngularModel model = (AngularModel) arg;
                 builder.append(model.getAngularTypeName());
                 
-            } else if(arg$.getType() instanceof AngularModel) {
+            } else if(arg.getType() instanceof AngularModel) {
 
-                AngularModel model = (AngularModel) arg$.getType();
+                AngularModel model = (AngularModel) arg.getType();
                 builder.append(model.getAngularTypeName());
 
             } else {
-                builder.append(getDatatype(arg$.getGetterSetterTypeName()));
+                String input = Objects.toString(arg.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_INPUT_TYPE));
+                
+                if(input != null && input.equals("file")) {
+                    builder.append("File");
+                } else {
+                    builder.append(getDatatype(arg.getGetterSetterTypeName()));
+                }
             }
             builder.append(" | any ");
         }
