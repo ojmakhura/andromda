@@ -350,6 +350,7 @@
                 <property name="service-interfaces">${core.generated.dir}</property>
                 <property name="criteria">${common.generated.dir}</property>
                 <property name="value-objects">${common.generated.dir}</property>
+                <property name="springSpecifications">${application.package}.$stringUtils.capitalize(${application.id})Specifications</property>
 #if ($ear)
 #if ($ejb || $ejb3)
                 <property name="enableSpringTransactionsWhenEjbsEnabled">false</property>

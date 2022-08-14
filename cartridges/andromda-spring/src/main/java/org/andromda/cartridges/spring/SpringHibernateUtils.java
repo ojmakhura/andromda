@@ -323,6 +323,26 @@ public class SpringHibernateUtils
         return splits[1];
     }
 
+    public String getLastJoinName(String name) {
+
+        if(name == null || name.length() == 0) {
+            return null;
+        }
+        
+        String[] splits = name.split("\\.");
+        return splits[splits.length - 2];
+    }
+
+    public String getJoinAttributeName(String name) {
+
+        if(name == null || name.length() == 0) {
+            return null;
+        }
+        
+        String[] splits = name.split("\\.");
+        return splits[splits.length - 1];
+    }
+
     public boolean isJoin(String attributeName) {
         return attributeName.contains(".");
     }
@@ -346,11 +366,26 @@ public class SpringHibernateUtils
         return joins;
     }
 
+    public String getAttributeNameInQuotes(SpringCriteriaAttributeLogic criteriaAttribute) {
+
+        return "\"" + criteriaAttribute.getAttributeName() + "\"";
+    }
+    
     public String getCriteriaAttributeMethodName(SpringCriteriaAttributeLogic criteriaAttribute) {
 
         StringBuilder builder = new StringBuilder();
         builder.append("findBy");
-        builder.append(StringUtils.capitalize(getAttributeName(criteriaAttribute.getAttributeName())));
+
+        if(isJoin(criteriaAttribute.getAttributeName())) {
+            if(joinLength(criteriaAttribute.getAttributeName()) > 1 && criteriaAttribute.getAttributeName().endsWith(".id")) {
+                builder.append(StringUtils.capitalize(getAttributeName(criteriaAttribute.getAttributeName())));
+            } else {
+                builder.append(StringUtils.capitalize(criteriaAttribute.getName()));
+            }
+            
+        } else {
+            builder.append("Property");
+        }
 
         if(criteriaAttribute.isComparatorPresent() && criteriaAttribute.isMatchModePresent()) {
 
@@ -399,4 +434,6 @@ public class SpringHibernateUtils
 
         return "";
     }
+
+
 }

@@ -27,7 +27,10 @@
     <!-- cartridge-templateObject merge-point-->
 
     <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
-
+    
+    <property reference="springSpecifications"/>
+    <property reference="applicationId"/>
+    <property reference="applicationPackage"/>
     <property reference="projectId"/>
     <property reference="projectName"/>
     <property reference="projectGroupId"/>

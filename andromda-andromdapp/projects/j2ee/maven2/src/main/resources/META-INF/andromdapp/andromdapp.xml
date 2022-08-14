@@ -86,6 +86,10 @@
             <condition id="spring" equal="true"/>
             <output>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SharedAutoConfiguration.java.vls</output>
         </conditions>
+        <conditions>
+            <condition id="spring" equal="true"/>
+            <output>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}Specifications.java.vsl</output>
+        </conditions>
         <conditions type="and">
             <condition id="model" present="false"/>
             <condition id="modelType" equal="uml1.4"/>
@@ -163,6 +167,10 @@
         <mapping>
             <from>core/SharedAutoConfiguration.java.vsl</from>
             <to>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SharedAutoConfiguration.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>core/ApplicationSpecifications.java.vsl</from>
+            <to>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}Specifications.java.vsl</to>
         </mapping>
         <mapping>
             <from>app/src/main/config/jboss-datasource.xml.vsl</from>
