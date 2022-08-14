@@ -1396,7 +1396,7 @@
         -->
         <hibernate.dialect>
 #if ($mysql)
-            org.hibernate.dialect.MySQL5InnoDBDialect
+            org.hibernate.dialect.MySQL8Dialect
 #elseif ($oracle)
             org.hibernate.dialect.Oracle10gDialect
 #elseif ($db2)
