@@ -5,8 +5,9 @@ import java.util.Collection;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.CriteriaBuilder.In;
 
-public class ${stringUtils.capitalize($applicationId)} {
+public class ${stringUtils.capitalize($applicationId)}Specifications {
 
     public static <E, T>Specification<E> findByAttributeNull(String attribute) {
         return (root, cq, cb) -> {
