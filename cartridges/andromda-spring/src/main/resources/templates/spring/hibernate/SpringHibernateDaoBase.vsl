@@ -1367,7 +1367,7 @@ $h3tab        return results;
 #if($isJoin)
 #set ($spec = "${entity.name}Specifications.${specName}(${criteriaArgumentName}.${criteriaAttribute.getterName}())")
 #else
-#set ($spec = "${springSpecifications}.<${entity.fullyQualifiedName}, ${criteriaAttribute.type.fullyQualifiedName}>${specName}($quotedAttribute, ${criteriaArgumentName}.${criteriaAttribute.getterName}())")
+#set ($spec = "${springSpecifications}.<${entity.fullyQualifiedName}, #if($criteriaAttribute.type.primitive)$criteriaAttribute.type.wrapperName#else${criteriaAttribute.type.fullyQualifiedName}#end>${specName}($quotedAttribute, ${criteriaArgumentName}.${criteriaAttribute.getterName}())")
 #end
 #if($criteriaAttribute.nullable)
 #set ($capitalised_ = $stringUtils.capitalize($hibernateUtils.getFirstJoinName($criteriaAttribute.attributeName)))
@@ -1377,7 +1377,7 @@ $h3tab        return results;
 #else
 #set ($specPrefix = "${springSpecifications}")
 #end
-#set ($spec = "${spec}.or(${specPrefix}Specifications.#if(!$isJoin)<${criteriaAttribute.type.fullyQualifiedName}>#end${specName_}($quotedAttribute))")
+#set ($spec = "${spec}.or(${specPrefix}Specifications.#if(!$isJoin)<#if($criteriaAttribute.type.primitive)$criteriaAttribute.type.wrapperName#else${criteriaAttribute.type.fullyQualifiedName}#end>#end${specName_}($quotedAttribute))")
 
 #end
 #if($i == 1)
@@ -2035,7 +2035,7 @@ $h3tab        return results;
     public ${entity.fullyQualifiedEntityName} $searchUniqueMethod(final ${attribute.type.fullyQualifiedName} ${attribute.name})
     {
 
-        org.springframework.data.jpa.domain.Specification<${entity.fullyQualifiedEntityName}> spec = ${entity.name}Specifications.findBy${stringUtils.capitalize(${attribute.name})}(${attribute.name});
+        org.springframework.data.jpa.domain.Specification<${entity.fullyQualifiedEntityName}> spec = ${springSpecifications}.<${entity.fullyQualifiedEntityName}, ${attribute.type.fullyQualifiedName}>findByAttribute("${attribute.name}", ${attribute.name});
         java.util.List<${entity.fullyQualifiedEntityName}> entities = ${stringUtils.uncapitalize(${entity.name})}Repository.findAll(spec, org.springframework.data.domain.Sort.by("${attribute.name}"));
         if(org.apache.commons.collections4.CollectionUtils.isEmpty(entities)) {
             return null;

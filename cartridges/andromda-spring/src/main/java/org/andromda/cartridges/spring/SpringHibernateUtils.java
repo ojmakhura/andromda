@@ -384,7 +384,7 @@ public class SpringHibernateUtils
             }
             
         } else {
-            builder.append("Property");
+            builder.append("Attribute");
         }
 
         if(criteriaAttribute.isComparatorPresent() && criteriaAttribute.isMatchModePresent()) {

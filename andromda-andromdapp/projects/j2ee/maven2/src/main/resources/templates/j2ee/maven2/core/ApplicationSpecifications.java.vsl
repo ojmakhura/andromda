@@ -131,7 +131,9 @@ public class ${stringUtils.capitalize($applicationId)} {
 
         return (root, cq, cb) -> {
             
-            return root.join(attribute).in(proprertyIn);
+            In<T> in = cb.in(root.<T>get(attribute));
+            proprertyIn.forEach(v -> in.value(v));
+            return in;
         };
     }
 
@@ -148,7 +150,9 @@ public class ${stringUtils.capitalize($applicationId)} {
             
             // One to Many
             Join<E, J> join = root.join(joinAttribute);
-            return cb.in(join.<E>get(attribute)).value(attributeValues);
+            In<T> in = cb.in(join.<T>get(attribute));
+            attributeValues.forEach(v -> in.value(v));
+            return in;
         };
     }
 
@@ -173,6 +177,17 @@ public class ${stringUtils.capitalize($applicationId)} {
             Join<E, J1> join1 = root.join(joinAttribute1);
             Join<E, J2> join2 = join1.join(joinAttribute2);
             return cb.equal(join2.<E>get(attribute), attributeValue);
+        };
+    }
+
+    public static <E, J1, J2, T>Specification<E> findByJoinAttributeIn(String joinAttribute1, String joinAttribute2, String attribute, Collection<T> attributeValues) {
+
+        return (root, cq, cb) -> {
+            Join<E, J1> join1 = root.join(joinAttribute1);
+            Join<E, J2> join2 = join1.join(joinAttribute2);
+            In<T> in = cb.in(join2.<T>get(attribute));
+            attributeValues.forEach(v -> in.value(v));
+            return in;
         };
     }
 }
