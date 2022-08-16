@@ -69,7 +69,7 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
     protected useCaseScope: UseCaseScope;
     protected store: Store<${table.view.useCase.storeName}State>;
 #foreach($service in $restControllers)
-    protected $stringUtils.uncapitalize($service.name): ${service.implementationName};
+    protected $stringUtils.uncapitalize($service.name): ${service.name};
 #end
 #if(${table.view.useCase.controller})
     protected ${table.view.useCase.controller.variableName}: ${table.view.useCase.controller.implementationName};
@@ -83,7 +83,7 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
         this.useCaseScope = injector.get(UseCaseScope);
         this.store = injector.get(Store);
 #foreach($service in $restControllers)
-        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.implementationName});
+        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name});
 #end
 #if(${table.view.useCase.controller})
         this.${table.view.useCase.controller.variableName} = injector.get(${table.view.useCase.controller.implementationName});

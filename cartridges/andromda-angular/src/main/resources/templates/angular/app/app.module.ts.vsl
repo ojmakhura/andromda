@@ -67,7 +67,7 @@ import { ${controller.implementationName} } from ${escTool.s}@app/${controller.i
 import { UseCaseScope } from '@app/utils/use-case-scope';
 #set ( $finalServices = $angularUtils.getFacadeSet($services) )
 #foreach ( $service in $finalServices )
-import { ${service.implementationName} } from ${escTool.s}@app/${service.implementationFilePath}${escTool.s};
+import { ${service.name} } from ${escTool.s}@app/${service.filePath}${escTool.s};
 #end
 #if($secure)
 import { AuthModule } from './auth';
@@ -108,7 +108,7 @@ $secure
     providers: [
         UseCaseScope,
 ## #foreach ( $finalService in $finalServices )
-##         ${finalService.implementationName},
+##         ${finalservice.name},
 ## #end
 ## #foreach ( $useCase in $useCases )
 ## #if($useCase.controller)

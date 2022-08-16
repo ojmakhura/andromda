@@ -93,42 +93,42 @@ public class ${stringUtils.capitalize($applicationId)}Specifications {
         };
     }
 
-    public static <E, T extends Comparable<T>>Specification<E> findByAttributeLessThan(String attribute, T attributeValue){
+    public static <E, T extends Comparable<? super T>>Specification<E> findByAttributeLessThan(String attribute, T attributeValue){
         return (root, cq, cb) -> {
             
             return cb.lessThan(root.<T>get(attribute), attributeValue);
         };
     }
     
-    public static <E, T extends Comparable<T>>Specification<E> findByAttributeLessThanEqual(String attribute, T attributeValue){
+    public static <E, T extends Comparable<? super T>>Specification<E> findByAttributeLessThanEqual(String attribute, T attributeValue){
         return (root, cq, cb) -> {
             
             return cb.lessThanOrEqualTo(root.<T>get(attribute), attributeValue);
         };
     }
     
-    public static <E, T extends Comparable<T>>Specification<E> findByAttributeGreaterThan(String attribute, T attributeValue){
+    public static <E, T extends Comparable<? super T>>Specification<E> findByAttributeGreaterThan(String attribute, T attributeValue){
         return (root, cq, cb) -> {
             
             return cb.greaterThan(root.<T>get(attribute), attributeValue);
         };
     }
     
-    public static <E, T extends Comparable<T>>Specification<E> findByAttributeGreaterThanEqual(String attribute, T attributeValue){
+    public static <E, T extends Comparable<? super T>>Specification<E> findByAttributeGreaterThanEqual(String attribute, T attributeValue){
         return (root, cq, cb) -> {
             
             return cb.greaterThanOrEqualTo(root.<T>get(attribute), attributeValue);
         };
     }
     
-    public static <E, T extends Comparable<T>>Specification<E> findByAttributeBetween(String attribute, T attributeStart, T attributeEnd){
+    public static <E, T extends Comparable<? super T>>Specification<E> findByAttributeBetween(String attribute, T attributeStart, T attributeEnd){
         return (root, cq, cb) -> {
             
             return cb.between(root.<T>get(attribute), attributeStart, attributeEnd);
         };
     }
 
-    public static <E, T extends Comparable<T>>Specification<E> findByAttributeIn(String attribute, Collection<T> proprertyIn){
+    public static <E, T>Specification<E> findByAttributeIn(String attribute, Collection<T> proprertyIn){
 
         return (root, cq, cb) -> {
             
@@ -149,7 +149,6 @@ public class ${stringUtils.capitalize($applicationId)}Specifications {
     public static <E, J, T>Specification<E> findByJoinAttributeIn(String joinAttribute, String attribute, Collection<T> attributeValues) {
         return (root, cq, cb) -> {
             
-            // One to Many
             Join<E, J> join = root.join(joinAttribute);
             In<T> in = cb.in(join.<T>get(attribute));
             attributeValues.forEach(v -> in.value(v));

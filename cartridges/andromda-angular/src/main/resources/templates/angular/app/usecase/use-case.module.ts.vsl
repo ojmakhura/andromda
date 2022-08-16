@@ -31,7 +31,7 @@ import { ${useCase.storeName}Effects } from '@app/store$useCase.pathRoot/${base}
 #set ($controller = $useCase.controller)
 import { ${controller.implementationName} } from ${escTool.s}@app/${controller.implementationFilePath}${escTool.s};
 #foreach($service in $controller.allRestControllers)
-import { ${service.implementationName} } from ${escTool.s}@app/${service.implementationFilePath}${escTool.s};
+import { ${service.name} } from ${escTool.s}@app/${service.filePath}${escTool.s};
 #end
 #end
 
@@ -69,7 +69,7 @@ import { ${service.implementationName} } from ${escTool.s}@app/${service.impleme
 #set ($controller = $useCase.controller)
     ${useCase.controller.implementationName},
 #foreach($service in $controller.allRestControllers)
-    ${service.implementationName},
+    ${service.name},
 #end
 #end
   ],

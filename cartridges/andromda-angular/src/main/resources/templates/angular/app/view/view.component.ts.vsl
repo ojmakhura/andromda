@@ -65,7 +65,9 @@ import * as ${view.useCase.storeName}Actions from '@app/store$view.useCase.pathR
 #set ( $rt = $fields.add($import) )
 #end
 #end
-#if($import.tableComponentImplementationName)
+#if ($import.restCount>0 && $stringUtils.isNotBlank($import.restPath))
+import { $import.name } from '@app/${import.filePath}';
+#elseif($import.tableComponentImplementationName)
 import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
 #elseif($import.componentImplementationName)
 import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
@@ -160,7 +162,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #if(${view.useCase.controller})
     ${view.useCase.controller.variableName}: ${view.useCase.controller.implementationName};
 #foreach ($service in $view.useCase.controller.allRestControllers)
-    $stringUtils.uncapitalize($service.name): ${service.implementationName};
+    $stringUtils.uncapitalize($service.name): ${service.name};
 #end
 #end
 #set ($formVars = "")
@@ -285,7 +287,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #if(${view.useCase.controller})
         this.${view.useCase.controller.variableName} = injector.get(${view.useCase.controller.implementationName});
 #foreach ($service in $view.useCase.controller.allRestControllers)
-        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.implementationName});
+        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name});
 #end
 #end
 #foreach($controller in $view.targetControllers)
