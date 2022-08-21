@@ -84,7 +84,7 @@ import { $import.name } from '@app/${import.filePath}';
 #set ($targetView = $iter.next())
 #if($targetView.popup)
 #set ($hasPopup = true)
-import { $targetView.componentImplementationName } from '@app/${targetView.implementationFilePath}';
+## import { $targetView.componentImplementationName } from '@app/${targetView.implementationFilePath}';
 #end
 #end
 #end

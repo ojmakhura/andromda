@@ -11,12 +11,14 @@ import { CsvModule } from '@ctrl/ngx-csv';
 import { MaterialModule } from '@app/material.module';
 import { ${useCase.routingModuleName} } from './${useCase.routingModuleFileName}';
 #foreach($view in $useCase.views)
-import { ${view.componentImplementationName} } from '@app/${view.implementationFilePath}';
+#if(!$view.popup)
+import { ${view.componentImplementationName} } from '@app/${view.implementationFilePath}'; // 1
+#end
 #foreach($import in $view.imports)
 #if($import.tableComponentImplementationName)
-import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
+import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}'; // 2
 #elseif($import.componentImplementationName)
-import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
+import { $import.componentImplementationName } from '@app/${import.implementationFilePath}'; // 3
 #end
 #end
 #end
