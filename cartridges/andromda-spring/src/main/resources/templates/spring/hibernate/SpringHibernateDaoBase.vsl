@@ -1341,7 +1341,7 @@ $h3tab        return results;
         return sort;
     }
 
-    private org.springframework.data.jpa.domain.Specification<$entity.name> get${stringUtils.capitalize(${finder.name})}Specifications(#if(!$finder.arguments.empty)${finder.getTypedArgumentList('final')}#end) {
+    public org.springframework.data.jpa.domain.Specification<$entity.name> get${stringUtils.capitalize(${finder.name})}Specifications(#if(!$finder.arguments.empty)${finder.getTypedArgumentList('final')}#end) {
         
         org.springframework.data.jpa.domain.Specification<$entity.name> specifications = null;
         org.springframework.data.jpa.domain.Specification<$entity.name> tmpSpec = null;
@@ -1355,7 +1355,7 @@ $h3tab        return results;
 #foreach($criteriaAttribute in $criteriaClass.getAttributes(true))
 #set ($specName = "${hibernateUtils.getCriteriaAttributeMethodName($criteriaAttribute)}")
 #set ($attributeName = $criteriaAttribute.attributeName)
-## #set ($getter = "${criteriaAttribute.getterName}()")
+#set($isJoin = $hibernateUtils.isJoin($criteriaAttribute.attributeName))
 #if($criteriaAttribute.type.stringType && !$criteriaAttribute.many)
 #set($nullCheck = "org.apache.commons.lang3.StringUtils.isNotBlank(${criteriaArgumentName}.${criteriaAttribute.getterName}())")
 #elseif($criteriaAttribute.many)
@@ -1363,11 +1363,21 @@ $h3tab        return results;
 #else
 #set($nullCheck = "${criteriaArgumentName}.${criteriaAttribute.getterName}() != null")
 #end
+#set ($quotedAttribute = $hibernateUtils.getAttributeNameInQuotes($criteriaAttribute))
+#if($isJoin)
 #set ($spec = "${entity.name}Specifications.${specName}(${criteriaArgumentName}.${criteriaAttribute.getterName}())")
+#else
+#set ($spec = "${springSpecifications}.<${entity.fullyQualifiedName}, #if($criteriaAttribute.type.primitive)$criteriaAttribute.type.wrapperName#else${criteriaAttribute.type.fullyQualifiedName}#end>${specName}($quotedAttribute, ${criteriaArgumentName}.${criteriaAttribute.getterName}())")
+#end
 #if($criteriaAttribute.nullable)
 #set ($capitalised_ = $stringUtils.capitalize($hibernateUtils.getFirstJoinName($criteriaAttribute.attributeName)))
-#set ($specName_ = "findBy${capitalised_}Null")
-#set ($spec = "${spec}.or(${entity.name}Specifications.${specName_}())")
+#set ($specName_ = "findByPropertyNull")
+#if($isJoin)
+#set ($specPrefix = "${entity.name}")
+#else
+#set ($specPrefix = "${springSpecifications}")
+#end
+#set ($spec = "${spec}.or(${specPrefix}Specifications.#if(!$isJoin)<#if($criteriaAttribute.type.primitive)$criteriaAttribute.type.wrapperName#else${criteriaAttribute.type.fullyQualifiedName}#end>#end${specName_}($quotedAttribute))")
 
 #end
 #if($i == 1)
@@ -1615,7 +1625,7 @@ $h3tab        return results;
 #if ($enableTemplating)
     @SuppressWarnings({"unchecked"})
 #end
-    public final java.util.Collection#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end ${valueObjectRef.transformationToCollectionMethodName}($entityCollectionType entities)
+    public java.util.Collection#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end ${valueObjectRef.transformationToCollectionMethodName}($entityCollectionType entities)
     {
         if (entities == null)
         {
@@ -1638,7 +1648,7 @@ $h3tab        return results;
 #if ($enableTemplating)
     @SuppressWarnings({ "unchecked" })
 #end
-    public final ${valueObjectRef.targetElement.fullyQualifiedName}[] ${valueObjectRef.transformationToArrayMethodName}(java.util.Collection#if($enableTemplating)<?>#end entities)
+    public ${valueObjectRef.targetElement.fullyQualifiedName}[] ${valueObjectRef.transformationToArrayMethodName}(java.util.Collection#if($enableTemplating)<?>#end entities)
     {
         ${valueObjectRef.targetElement.fullyQualifiedName}[] result = null;
         if (entities != null)
@@ -1700,7 +1710,7 @@ $h3tab        return results;
 #if ($enableAnnotations)
     @Override
 #end
-    public final void ${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection#if($enableTemplating)<?>#end instances)
+    public void ${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection#if($enableTemplating)<?>#end instances)
     {
         if (instances != null)
         {
@@ -2025,7 +2035,7 @@ $h3tab        return results;
     public ${entity.fullyQualifiedEntityName} $searchUniqueMethod(final ${attribute.type.fullyQualifiedName} ${attribute.name})
     {
 
-        org.springframework.data.jpa.domain.Specification<${entity.fullyQualifiedEntityName}> spec = ${entity.name}Specifications.findBy${stringUtils.capitalize(${attribute.name})}(${attribute.name});
+        org.springframework.data.jpa.domain.Specification<${entity.fullyQualifiedEntityName}> spec = ${springSpecifications}.<${entity.fullyQualifiedEntityName}, ${attribute.type.fullyQualifiedName}>findByAttribute("${attribute.name}", ${attribute.name});
         java.util.List<${entity.fullyQualifiedEntityName}> entities = ${stringUtils.uncapitalize(${entity.name})}Repository.findAll(spec, org.springframework.data.domain.Sort.by("${attribute.name}"));
         if(org.apache.commons.collections4.CollectionUtils.isEmpty(entities)) {
             return null;

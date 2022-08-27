@@ -37,10 +37,6 @@
     ## </login-config>
 #securityEntries($useCases $manageables $roles)
 
-#foreach($useCase in $useCases)
-    $useCase.actionRoles
-    $useCase.roles
-#end
     <!-- security-role merge-point -->
 #end
 </web-app>

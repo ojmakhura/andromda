@@ -86,6 +86,7 @@
   "return.link.text": "Return to AndroMDA Home",
   "table.results": "{0} found, displaying {1}, from {2} to {3}. Page {4} / {5}",
   "table.results.none.found": "No Items Found",
+  "email.format.error": "Wrong email format (e.g. nna@wena.co.bw)",
 #foreach ($message in $applicationUseCase.allMessages.entrySet())
   "$message.key": "$message.value.replaceAll("[\n\r\\]", "")",
 #end

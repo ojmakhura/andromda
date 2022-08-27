@@ -65,7 +65,9 @@ import * as ${view.useCase.storeName}Actions from '@app/store$view.useCase.pathR
 #set ( $rt = $fields.add($import) )
 #end
 #end
-#if($import.tableComponentImplementationName)
+#if ($import.restCount>0 && $stringUtils.isNotBlank($import.restPath))
+import { $import.name } from '@app/${import.filePath}';
+#elseif($import.tableComponentImplementationName)
 import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
 #elseif($import.componentImplementationName)
 import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
@@ -82,7 +84,7 @@ import { $import.name } from '@app/${import.filePath}';
 #set ($targetView = $iter.next())
 #if($targetView.popup)
 #set ($hasPopup = true)
-import { $targetView.componentImplementationName } from '@app/${targetView.implementationFilePath}';
+## import { $targetView.componentImplementationName } from '@app/${targetView.implementationFilePath}';
 #end
 #end
 #end
@@ -160,7 +162,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #if(${view.useCase.controller})
     ${view.useCase.controller.variableName}: ${view.useCase.controller.implementationName};
 #foreach ($service in $view.useCase.controller.allRestControllers)
-    $stringUtils.uncapitalize($service.name): ${service.implementationName};
+    $stringUtils.uncapitalize($service.name): ${service.name};
 #end
 #end
 #set ($formVars = "")
@@ -285,7 +287,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #if(${view.useCase.controller})
         this.${view.useCase.controller.variableName} = injector.get(${view.useCase.controller.implementationName});
 #foreach ($service in $view.useCase.controller.allRestControllers)
-        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.implementationName});
+        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name});
 #end
 #end
 #foreach($controller in $view.targetControllers)
@@ -385,10 +387,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($validators = "$validators]")
 #end
 #set ($val = "${view.varsFormName}$.$variable.name")
-##if ( $variable.inputDate || $variable.inputDatetimeLocal)
-##set ($val = "formatDate(${val}#if($variable.inputDatetimeLocal), 'yyyy-MM-dd HH:mm:ss.SSS'#else, 'yyyy-MM-dd'#end, 'en')")
-##end
-            $variable.name: [${view.varsFormName}$?.$variable.name ? ${val} : null$validators],
+            $variable.name: [{value: ${view.varsFormName}$?.$variable.name, disabled: false}$validators],
 #*  *##end
 #end
 #end
@@ -427,7 +426,13 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
         let form: $actionFormCaps = new ${actionFormCaps}();
 #foreach( $parameter in $action.parameters )
-#if(!$parameter.inputButton)
+#set ($exists = false)
+#foreach($var in $view.variables)
+#if($var.name == $parameter.name)
+#set ($exists = true)
+#end
+#end
+#if(!$parameter.inputButton && $exists)
         form.$parameter.name = this.${parameter.name};
 #end
 #end
@@ -564,7 +569,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #if(!$attribute.inputButton)
 #if($angularUtils.isTable($attribute) || $attribute.many || $attribute.type.collectionType)
 #if($angularUtils.isSimpleType($attribute.type))
-            $attribute.name: ${variable.name}?.$attribute.name ? this.formBuilder.array(${variable.name}?.$attribute.name ? ${variable.name}.$attribute.name : []) : new FormArray([]),
+            $attribute.name: this.formBuilder.array(${variable.name}?.$attribute.name ? ${variable.name}.$attribute.name : []),
 #else
             $attribute.name: this.create${attribute.type.name}Array(${variable.name}?.$attribute.name),
 #end
@@ -595,10 +600,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($validators = "$validators]")
 #end
 #set ($val = "${variable.name}.${attribute.name}")
-##if ( $attribute.inputDate || $attribute.inputDatetimeLocal)
-##set ($val = "formatDate(${val}#if($attribute.inputDatetimeLocal), 'yyyy-MM-ddTHH:mm:ss.SSS'#else, 'yyyy-MM-dd'#end, 'en')")
-##end
-            $attribute.name: [${variable.name}?.$attribute.name ? $val : null$validators],
+            $attribute.name: [{value: ${variable.name}?.$attribute.name, disabled: false}$validators],
 #end
 #end
 #end

@@ -4,7 +4,6 @@
 #end
 <div#if($view.popup) mat-dialog-content#end class="card container">
 ## Render non table variables
-#if ($view.nonTableVariablesPresent)
 #set ($complex = [])
 #set ($simple = [])
 #foreach ($variable in $view.variables)
@@ -28,10 +27,13 @@
 					</button>
 #end
 #end
+#if ($view.nonTableVariablesPresent)
 					<button color="accent" type="button" (click)="${view.formName}Reset()" class="btn btn-info" ><span translate>reset</span></button>
+#end
 				</div>
 			</section>
 #end
+#if ($view.nonTableVariablesPresent)
 			<div *ngIf="success | async" class="alert alert-success" role="alert">
 				<div *ngFor="let message of messages | async">
 					{{ message }}
@@ -42,6 +44,7 @@
 					{{ message }}
 				</div>
 			</div>
+#end
 #if($simple.size() > 0)
 #foreach ($variable in $simple)
 #renderAngularActionInput($variable "" "				")
@@ -73,7 +76,6 @@
 #end
     	</form>
 	</div>
-#end
 #if ( $view.tables.size() > 0 )
 	<mat-tab-group animationDuration="0ms" class = "tables">
 #foreach ( $table in $view.tables )

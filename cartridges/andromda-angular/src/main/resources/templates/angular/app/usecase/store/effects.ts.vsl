@@ -15,13 +15,13 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 #set ($failureAction = "${stringUtils.uncapitalize(${useCase.storeName})}Failure")
 import * as ${useCase.storeName}Actions from './${metafacadeWebUtils.toWebResourceName($useCase.storeName)}.actions';
 #foreach ( $service in $controller.allRestControllers )
-import { ${service.implementationName} } from ${escTool.s}@app/${service.implementationFilePath}${escTool.s};
+import { ${service.name} } from ${escTool.s}@app/${service.filePath}${escTool.s};
 #end
 
 @Injectable()
 export class ${useCase.storeName}Effects {
 
-    constructor(private actions$dollar: Actions#foreach ($service in $controller.allRestControllers), private $stringUtils.uncapitalize(${service.name}): ${service.implementationName}#end) {}
+    constructor(private actions$dollar: Actions#foreach ($service in $controller.allRestControllers), private $stringUtils.uncapitalize(${service.name}): ${service.name}#end) {}
 
 #foreach ( $service in $controller.allRestControllers )
 #set ($serviceName = "$stringUtils.uncapitalize(${service.name})")

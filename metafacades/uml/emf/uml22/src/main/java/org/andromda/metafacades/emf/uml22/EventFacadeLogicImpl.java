@@ -1,6 +1,8 @@
 package org.andromda.metafacades.emf.uml22;
 
 import java.util.Collection;
+
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Parameter;
@@ -78,5 +80,14 @@ public class EventFacadeLogicImpl
             validationOwner = this.getState();
         }
         return validationOwner;
+    }
+
+    @Override
+    protected Collection<AttributeFacade> handleGetAttributes() {
+        
+        // TODO Auto-generated method stub
+        return this.shieldedElements(UmlUtilities.getAttributes(
+            this.metaObject,
+            false));
     }
 }
