@@ -29,22 +29,12 @@ export class ${service.name} {
     public $operation.signature {
 
 #set ($methodName = $operation.restRequestType)
-#if(!$operation.arguments.empty)
-#set($pathVars = "")
-#set($count = 0)
-#foreach ($arg in $operation.arguments)
-#set ($begin = "{")
-#set ($end = "}")
-#set ($dollar = "$")
-#set($pathVars = "$pathVars/$arg.name/$dollar${begin}${arg.name}$end")
-#end
-#end
 #if ( $methodName.equals("get")) 
-        return this.http.${methodName}<$operation.returnTypeName>(this.path#if($operation.restPath.length() > 0) + `$operation.restPath`#end);
+        return this.http.${methodName}<$operation.returnTypeName>(`${this.path}#if($operation.restPath.length() > 0)${stringUtils.replace($operation.restPath, "/{", "/${")}#end$angularUtils.getRequestParamString($operation)`);
 #elseif ( $methodName.equals("delete")) 
-        return this.http.${methodName}<$operation.returnTypeName>(this.path#if($operation.restPath.length() > 0) + `$operation.restPath`#end);
+        return this.http.${methodName}<$operation.returnTypeName>(`${this.path}#if($operation.restPath.length() > 0)$operation.restPath#end$angularUtils.getRequestParamString($operation)`);
 #else
-        return this.http.${methodName}<$operation.returnTypeName>(this.path#if($operation.restPath.length() > 0) + `$operation.restPath`#end#if (!$operation.arguments.empty), $angularUtils.getMethodCallArguments($operation.arguments)#end);
+        return this.http.${methodName}<$operation.returnTypeName>(`${this.path}#if($operation.restPath.length() > 0)$operation.restPath#end$angularUtils.getRequestParamString($operation)`#if (!$operation.arguments.empty), $angularUtils.getRequestBodyString($operation)#end);
 #end
 
     }

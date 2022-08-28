@@ -26,6 +26,7 @@ import org.andromda.cartridges.angular.metafacades.AngularModelLogic;
 import org.andromda.cartridges.angular.metafacades.AngularParameter;
 import org.andromda.cartridges.angular.metafacades.AngularService;
 import org.andromda.cartridges.angular.metafacades.AngularServiceOperation;
+import org.andromda.cartridges.angular.metafacades.AngularServiceParameter;
 import org.andromda.cartridges.angular.metafacades.AngularServiceParameterLogic;
 import org.andromda.cartridges.angular.metafacades.AngularView;
 import org.andromda.core.metafacade.MetafacadeBase;
@@ -364,8 +365,65 @@ public class AngularUtils {
         }
     }
     
-    public static void addDefaultRole() {
-        
+
+    public static String getRequestParamString(AngularServiceOperation operation) {
+
+        StringBuilder builder = new StringBuilder();
+
+        for(ParameterFacade parameter : operation.getArguments()) {
+
+            AngularServiceParameter param = (AngularServiceParameter)parameter;
+
+            String paramType = param.getRestParamType();
+            if(paramType.contains("RequestParam")) {
+                if(builder.length() > 0) {
+                    builder.append("&");
+
+                }
+                builder.append(param.getName());
+                builder.append("=${");
+                builder.append(param.getName());
+                builder.append("}");
+            }
+        }
+
+        if(builder.length() > 0) {
+            builder.insert(0, "?");
+        }
+
+        return builder.toString();
+    }
+
+    public static String getRequestBodyString(AngularServiceOperation operation) {
+
+
+        List<ParameterFacade> arguments = (List<ParameterFacade>) operation.getArguments();
+
+        if(arguments.size() == 1) {
+            return arguments.get(0).getName();
+        } else {
+            StringBuilder builder = new StringBuilder();
+            
+            builder.append("{");
+            
+            for(int i = 0; i < arguments.size(); i++) {
+                
+                AngularServiceParameter arg = (AngularServiceParameter)arguments.get(i);
+                String paramType = arg.getRestParamType();
+                if(paramType.contains("RequestBody")) {
+                    if(i > 0) {
+                        builder.append(", ");
+                    }
+                    builder.append(arg.getName());
+                    builder.append(": ");
+                    builder.append(arg.getName());
+                }
+            }
+            
+            builder.append("}");
+
+            return builder.toString();
+        }
     }
     
     public static HashSet<String> getFacadeNameSet(List<UseCaseFacade> useCases) {
