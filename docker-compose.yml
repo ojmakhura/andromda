@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   andromda:
-    image: ojmakhura/andromda:3.5.12-SNAPSHOT
+    image: ojmakhura/andromda:3.5.13-SNAPSHOT
     build:
         context: .
         dockerfile: Dockerfile
