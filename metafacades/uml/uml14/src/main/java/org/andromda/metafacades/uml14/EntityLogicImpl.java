@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.metafacades.uml.AssociationEndFacade;
@@ -1048,5 +1049,11 @@ public class EntityLogicImpl
     @Override
     public String handleGetIdentifierSetterName() {
         return "set"+StringUtils.capitalize(getIdentifierName());
+    }
+
+    @Override
+    protected Map handleGetUniqueConstraints() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
