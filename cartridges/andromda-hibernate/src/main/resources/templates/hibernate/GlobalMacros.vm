@@ -276,10 +276,8 @@ $attribute.getDocumentation("     * ")
     @javax.persistence.Lob
 #*        *##if($attribute.type.blobType)
     @org.hibernate.annotations.Type(type = "org.hibernate.type.BinaryType")
-#*        *##elseif($attribute.type.clobType && $attribute.type.stringType)
-    @org.hibernate.annotations.Type(type = "org.hibernate.type.StringType")
-#*        *##else
-    @org.hibernate.annotations.Type(type = "org.hibernate.type.ClobType")
+###*        *##else
+##    @org.hibernate.annotations.Type(type = "org.hibernate.type.ClobType")
 #*        *##end
 #*        *##if ($attribute.eager)
     @javax.persistence.Basic(fetch = javax.persistence.FetchType.EAGER)
