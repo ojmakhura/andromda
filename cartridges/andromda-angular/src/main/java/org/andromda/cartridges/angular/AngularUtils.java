@@ -400,7 +400,12 @@ public class AngularUtils {
         List<ParameterFacade> arguments = (List<ParameterFacade>) operation.getArguments();
 
         if(arguments.size() == 1) {
-            return arguments.get(0).getName();
+            AngularServiceParameter arg = (AngularServiceParameter)arguments.get(0);
+            String paramType = arg.getRestParamType();
+            if(StringUtilsHelper.isBlank(paramType) || paramType.contains("RequestBody")) {
+                return arg.getName();
+            }
+            return "{}";
         } else {
             StringBuilder builder = new StringBuilder();
             
@@ -410,7 +415,7 @@ public class AngularUtils {
                 
                 AngularServiceParameter arg = (AngularServiceParameter)arguments.get(i);
                 String paramType = arg.getRestParamType();
-                if(paramType.contains("RequestBody")) {
+                if(StringUtilsHelper.isBlank(paramType) || paramType.contains("RequestBody")) {
                     if(i > 0) {
                         builder.append(", ");
                     }
