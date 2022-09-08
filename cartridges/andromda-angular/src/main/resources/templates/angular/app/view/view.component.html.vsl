@@ -2,7 +2,7 @@
 #if($view.popup)
 <h1 mat-dialog-title translate>$view.messageKey</h1>
 #end
-<div#if($view.popup) mat-dialog-content#end class="card container">
+<div#if($view.popup) mat-dialog-content#end class="#if(!$view.popup)card #{end}container">
 ## Render non table variables
 #set ($complex = [])
 #set ($simple = [])
@@ -89,8 +89,8 @@
 #end
 </div>
 #if($view.popup)
-<div mat-dialog-actions>
-	<button type="button" class="btn btn-info" color="accent" (click)="cancelDialog()" translate>action.cancel</button>
+<mat-dialog-actions align="end">
+	<button mat-dialog-close type="button" class="btn btn-primary" color="accent" translate>action.cancel</button>
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
 	<button type="button" color="accent" (click)="${action.triggerName}()" class="btn btn-info">
@@ -99,7 +99,7 @@
 #end
 #end
 	<button type="button" class="btn btn-info" color="accent" (click)="dialogDone()" translate>action.done</button>
-</div>
+</mat-dialog-actions>
 #end
 #foreach ($variable in $complex)
 #set ($tables = $angularUtils.getTableAttributes($variable))

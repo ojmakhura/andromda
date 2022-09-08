@@ -312,7 +312,11 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
     }
 
-    abstract beforeOnInit(#if ($view.nonTableVariablesPresent)form: $stringUtils.capitalize(${view.varsFormName})#end):#if ($view.nonTableVariablesPresent) $stringUtils.capitalize(${view.varsFormName})#else void#end;
+    beforeOnInit(#if ($view.nonTableVariablesPresent)form: $stringUtils.capitalize(${view.varsFormName})#end):#if ($view.nonTableVariablesPresent) $stringUtils.capitalize(${view.varsFormName})#else void#end {
+#if ($view.nonTableVariablesPresent)
+        return form;
+#end
+    }
 	
     ngOnInit() {
         #if ($view.nonTableVariablesPresent)let form: $stringUtils.capitalize(${view.varsFormName}) = #{end}this.beforeOnInit(#if ($view.nonTableVariablesPresent)new $stringUtils.capitalize(${view.varsFormName})#end);
@@ -334,6 +338,23 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     ${view.formName}Reset() {
 
         this.store.dispatch(${view.useCase.storeName}Actions.${stringUtils.uncapitalize(${view.useCase.storeName})}Reset());
+
+#foreach ($variable in $view.variables)
+#if(!$variable.table)
+#if($variable.complex )
+#foreach($attribute in $variable.attributes)
+#if($variable.many || $variable.type.collectionType)
+#set ($propertyId = $attribute.getFormPropertyId($variable))
+        this.${propertyId}Control.clear();
+#end
+#end
+#else
+#if($variable.inputMultibox)
+        this.${variable.name}Control.clear();
+#end
+#end
+#end
+#end
         this.${view.formName}.reset()
         this.${view.formName}.markAsPristine();
 
@@ -922,13 +943,6 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
 #end
 #if($view.popup)
-    handleCancelDialog(): void {}
-
-    cancelDialog() {
-        this.handleCancelDialog();
-        this.dialogRef.close({event: 'Cancel'});
-    }
-
     handleDialogDone(data: any): any {
         return data;
     }
