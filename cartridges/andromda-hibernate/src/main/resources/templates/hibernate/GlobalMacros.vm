@@ -455,7 +455,7 @@ $target.getDocumentation("     * ")
 ##
 ##    // $target.type.fullyQualifiedName compositePrimaryKeyPresent=$target.type.compositePrimaryKeyPresent columnName=$target.columnName type=$target.type
 #*      *##if (!$target.type.compositePrimaryKeyPresent)
-    @javax.persistence.JoinColumn(name = "${target.columnName}"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
+    @javax.persistence.JoinColumn(name = "${target.columnName}"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end#if(${target.unique}), unique = true#else, unique = false#end)
 #*      *##else
 #*        *##set ($identifiers = $target.type.getIdentifiers())
     @javax.persistence.JoinColumns

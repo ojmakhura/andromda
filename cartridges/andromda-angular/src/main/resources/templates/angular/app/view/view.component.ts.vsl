@@ -38,6 +38,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatSelectChange } from '@angular/material/select';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatTableDataSource } from '@angular/material/table';
 import { UseCaseScope } from '@app/utils/use-case-scope';
 import { SelectItem } from '@app/utils/select-item';
 import { Store, select } from '@ngrx/store';
@@ -201,6 +202,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     @ViewChild('${proId}ModalSort', {static: true}) ${proId}ModalSort: MatSort;
 
     ${proId}$: Observable<${attribute.angularTypeName}[]>;
+    ${proId}DataSource = new MatTableDataSource<${attribute.angularTypeName}>([]);
     ${proId}SearchField: FormControl;
     ${proId}Select: ${attribute.angularTypeName}#if($attribute.many || $attribute.type.collectionType)[] = []#else = {}#end;
 
@@ -208,7 +210,11 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #foreach($attribute in $field.attributes)
 #set ($proId = "$attribute.getFormPropertyId($field)")
 #if($angularUtils.isComplex($attribute) && !$attribute.type.enumeration && !$attribute.many)
+    @ViewChild('${proId}ModalPaginator', {static: true}) ${proId}ModalPaginator: MatPaginator;
+    @ViewChild('${proId}ModalSort', {static: true}) ${proId}ModalSort: MatSort;
+    
     $stringUtils.pluralize(${proId})$: Observable<Array<${attribute.angularTypeName}>>;
+    $stringUtils.pluralize(${proId})DataSource = new MatTableDataSource<${attribute.angularTypeName}>([]);
     ${proId}Select: $attribute.angularTypeName = new ${attribute.angularTypeName}();
     ${proId}SearchField: FormControl = new FormControl();
 
@@ -327,7 +333,36 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
                 this.handleFormChanges(change);
             }
         );
-        
+
+#if ($view.nonTableVariablesPresent)
+#foreach ($field in $view.variables)
+#if($field.complex)
+#foreach($attribute in $angularUtils.getTableAttributes($field))
+#set ($proId = "$attribute.getFormPropertyId($field)")
+#set ($observe = "${proId}$")
+        this.${observe}?.subscribe(data => {
+            this.${proId}DataSource.data = data;
+            this.${proId}DataSource.paginator = this.${proId}ModalPaginator;
+            this.${proId}DataSource.sort = this.${proId}ModalSort;
+        });
+
+#end
+#foreach($attribute in $field.attributes)
+#set ($proId = "$attribute.getFormPropertyId($field)")
+#if($angularUtils.isComplex($attribute) && !$attribute.type.enumeration && !$attribute.many)
+#set ($plural = "$stringUtils.pluralize(${proId})")
+#set ($observe = "${plural}$")
+        this.${observe}?.subscribe(data => {
+            this.${plural}DataSource.data = data;
+            this.${plural}DataSource.paginator = this.${proId}ModalPaginator;
+            this.${plural}DataSource.sort = this.${proId}ModalSort;
+        });
+
+#end
+#end
+#end
+#end
+#end
         this.afterOnInit();
     }
 

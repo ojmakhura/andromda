@@ -291,12 +291,17 @@ ${ident}</fieldset>
 ##
 #macro(renderTableInput $parameter $ownerParameter $ident $radio)
 #set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+## #if($parameter.many)
+## #set ($dataSource = "${propertyId}$")
+## #else
+## #set ($dataSource = "$stringUtils.pluralize(${propertyId})$")
+## #end
 #if($parameter.many)
-#set ($dataSource = "${propertyId}$")
+#set ($dataSource = "${propertyId}DataSource")
 #else
-#set ($dataSource = "$stringUtils.pluralize(${propertyId})$")
+#set ($dataSource = "$stringUtils.pluralize(${propertyId})DataSource")
 #end
-$ident<mat-table matSort [dataSource]="$dataSource | async" #${propertyId}ModalSort="matSort" class="table table-bordered" style="width: 100%;">
+$ident<mat-table matSort [dataSource]="$dataSource" #${propertyId}ModalSort="matSort" class="table table-bordered" style="width: 100%;">
 #if($parameter.tableColumnNames)
 #set ($columns = $parameter.tableColumnNames)
 #else
