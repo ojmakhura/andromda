@@ -48,6 +48,7 @@ import { ${service.name} } from ${escTool.s}@app/${service.filePath}${escTool.s}
     MaterialModule,
     CsvModule,
     ${useCase.routingModuleName},
+    SharedModule,
 #if($ngrx)
     StoreModule.forFeature(${stringUtils.uncapitalize(${useCase.storeName})}Feature),
     EffectsModule.forFeature([ ${useCase.storeName}Effects ])

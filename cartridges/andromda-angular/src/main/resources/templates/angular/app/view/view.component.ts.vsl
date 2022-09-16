@@ -41,6 +41,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatTableDataSource } from '@angular/material/table';
 import { UseCaseScope } from '@app/utils/use-case-scope';
 import { SelectItem } from '@app/utils/select-item';
+## import { LoaderComponent } from '@shared/loader/loader.component';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 ##if($targetModal)
@@ -273,6 +274,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     messages: Observable<any>;
     success: Observable<boolean>;
     loading: Observable<boolean>;
+    loaderMessage: Observable<string>;
     error: Observable<boolean>;
     selected: any = null;
 
@@ -306,6 +308,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
 #end
         this.loading = this.store.pipe(select(${view.useCase.storeName}Selectors.selectLoading));
+        this.loaderMessage = this.store.pipe(select(${view.useCase.storeName}Selectors.selectLoaderMessage));
         this.success = this.store.pipe(select(${view.useCase.storeName}Selectors.selectSuccess));
         this.error = this.store.pipe(select(${view.useCase.storeName}Selectors.selectError));
         this.messages = this.store.pipe(select(${view.useCase.storeName}Selectors.selectMessages));
