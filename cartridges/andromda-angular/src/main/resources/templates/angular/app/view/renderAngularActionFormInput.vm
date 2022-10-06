@@ -305,7 +305,7 @@ $ident<mat-table matSort [dataSource]="$dataSource" #${propertyId}ModalSort="mat
 #if($parameter.tableColumnNames)
 #set ($columns = $parameter.tableColumnNames)
 #else
-#set ($columns = $parameter.attributes)
+#set ($columns = $parameter.type.attributes)
 #end
 ${ident}    <ng-container matColumnDef="actions">
 ${ident}        <mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
