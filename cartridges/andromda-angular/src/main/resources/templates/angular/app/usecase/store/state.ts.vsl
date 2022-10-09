@@ -45,9 +45,9 @@ export const initialState: ${useCase.storeName}State = {
 #foreach($param in $finalParams)
     $param.name: #if($param.many || $param.type.collectionType)[]#{else}null#end,
 #end
-    loading: undefined,
     loading: false,
     success: false,
+    loaderMessage: undefined,
     error: false,
     messages: []
 };

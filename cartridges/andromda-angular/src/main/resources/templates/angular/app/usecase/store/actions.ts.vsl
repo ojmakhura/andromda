@@ -32,7 +32,7 @@ export enum ${actionType} {
 #end
     $resetActionType = '[${useCase.storeName}] ${useCase.storeName} Reset',
     $failureActionType = '[${useCase.storeName}] ${useCase.storeName} Action Failure',
-    ${prefix}_LOADING = '[${useCase.storeName}] ${useCase.storeName} Loading'
+    ${prefix}_LOADING = '[${useCase.storeName}] ${useCase.storeName} Loading',
     ${prefix}_LOADER_MESSAGE = '[${useCase.storeName}] ${useCase.storeName} Loader Message'
 }
 
