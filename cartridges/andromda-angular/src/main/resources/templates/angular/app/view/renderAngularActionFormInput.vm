@@ -216,6 +216,9 @@ ${ident}        <button type="button" (click)="${propertyId}Clear()" class="btn 
 ${ident}            <mat-icon>clear</mat-icon>
 ${ident}        </button>
 ${ident}    </div>
+${ident}    <div class="row mb-3">
+${ident}        <table class="table">
+${ident}            <tbody>
 #foreach($column in $parameter.tableColumns)
 #if($column.name)
 #set ($columnName = $column.name)
@@ -224,13 +227,14 @@ ${ident}    </div>
 #end
 #set ($colId = "${propertyId}$stringUtils.capitalize($columnName)")
 #set ($cname = "$angularUtils.getLastProperty($columnName)")
-${ident}    <div class="row mb-3"#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
-${ident}        <label for="$colId" class="col-sm-2 col-form-label" translate>$stringUtils.toResourceMessageKey($cname)</label>
-${ident}        <div class="col-sm-10">
-${ident}            <input type="text" readonly class="form-control-plaintext" id="$colId" value="{{${propertyId}?.$stringUtils.replace("${columnName}", ".", "?.") #if(${column.inputDate} || ${column.type.dateType}) | date#end}}">
-${ident}        </div>
-${ident}    </div>
+${ident}                <tr#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
+${ident}                    <td scope="row"translate>$stringUtils.toResourceMessageKey($cname)</td>
+${ident}                    <td >{{ ${propertyId}?.$stringUtils.replace("${columnName}", ".", "?.")#if(${column.inputDate} || ${column.type.dateType}) | date#end }}</td>
+${ident}                <tr>
 #end
+${ident}            </tbody>
+${ident}        </table>
+${ident}    </div>
 #else
 ${ident}    <input type="$parameter.inputType" id="${propertyId}" class="form-#if($parameter.inputRange)range#{else}control#end" name="$parameter.name" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end"#if($parameter.required) required#end#if($parameter.readOnly) readonly#{end}#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #end
