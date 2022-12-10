@@ -2,8 +2,8 @@ package org.ekkehard.abc.entitybean.adress;
 
 /**
  * <b>Embeddable Iso</b><br>
- * keine eigene Identität in der Datenbank die einzelnen Attribute werden
- * eingebettet in das zugehörige {@code Entity}<br>
+ * keine eigene Identitï¿½t in der Datenbank die einzelnen Attribute werden
+ * eingebettet in das zugehï¿½rige {@code Entity}<br>
  * 
  * @author ekke (ekkehard gentz) <a href="http://www.ekkehard.org/index.html">
  *         ekkehard.org</a><br>
@@ -26,13 +26,13 @@ package org.ekkehard.abc.entitybean.adress;
  *         <p/>
  */
 
-@javax.persistence.Embeddable
+@jakarta.persistence.Embeddable
 public class Iso
 implements java.io.Serializable
 {
     /**
      * default no-arg constructor for java bean support Standard Konstruktor
-     * ohne Argumente für Java Beans Support
+     * ohne Argumente fï¿½r Java Beans Support
      */
     public Iso()
     {
@@ -46,10 +46,10 @@ implements java.io.Serializable
 
     transient private final java.beans.PropertyChangeSupport changes = new java.beans.PropertyChangeSupport(this);
 
-    @javax.persistence.Column(name = "ISO2", nullable = false, length = 2)
+    @jakarta.persistence.Column(name = "ISO2", nullable = false, length = 2)
     private String iso2 = null;
 
-    @javax.persistence.Column(name = "ISO3", nullable = false, length = 3)
+    @jakarta.persistence.Column(name = "ISO3", nullable = false, length = 3)
     private String iso3 = null;
 
     /**

@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.andromda.translationlibraries</groupId>
         <artifactId>andromda-translation-libraries</artifactId>
-        <version>4.0-SNAPSHOT</version>
+        <version>5.0-SNAPSHOT</version>
     </parent>
     <artifactId>andromda-ocl-translation-libraries</artifactId>
     <packaging>pom</packaging>
@@ -20,6 +20,9 @@
         <module>andromda-query</module>
         <module>andromda-validation</module>
     </modules>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <build>
         <pluginManagement>
             <plugins>

@@ -58,14 +58,14 @@
         <dependency>
             <groupId>org.andromda.translationlibraries</groupId>
             <artifactId>andromda-ocl-validation-library</artifactId>
-            <version>4.0-SNAPSHOT</version>
+            <version>5.0-SNAPSHOT</version>
         </dependency>
 #end
 #if (!$transactionPersistenceType.equals("none"))
         <dependency>
             <groupId>org.andromda.translationlibraries</groupId>
             <artifactId>andromda-ocl-query-library</artifactId>
-            <version>4.0-SNAPSHOT</version>
+            <version>5.0-SNAPSHOT</version>
         </dependency>
 #end
     </dependencies>

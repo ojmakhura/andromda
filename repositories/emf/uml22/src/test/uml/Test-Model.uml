@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:andromdacommon="http:///schemas/andromdacommon/_UlGuYyOuEd6Yv5u3OIooDQ/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/andromdacommon/_UlGuYyOuEd6Yv5u3OIooDQ/0 andromda-common-4.0-SNAPSHOT.profile.uml#_UlacSiOuEd6Yv5u3OIooDQ">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:andromdacommon="http:///schemas/andromdacommon/_UlGuYyOuEd6Yv5u3OIooDQ/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/andromdacommon/_UlGuYyOuEd6Yv5u3OIooDQ/0 andromda-common-5.0-SNAPSHOT.profile.uml#_UlacSiOuEd6Yv5u3OIooDQ">
   <uml:Model xmi:id="_V12I-Z04Ed2D6p7FOUlErg" name="Test Model">
     <packageImport xmi:type="uml:PackageImport" xmi:id="_V12I-p04Ed2D6p7FOUlErg">
-      <importedPackage xmi:type="uml:Model" href="andromda-datatype-4.0-SNAPSHOT.uml#eee_1045467100313_135436_1"/>
+      <importedPackage xmi:type="uml:Model" href="andromda-datatype-5.0-SNAPSHOT.uml#eee_1045467100313_135436_1"/>
     </packageImport>
     <packageImport xmi:type="uml:PackageImport" xmi:id="_V12I-504Ed2D6p7FOUlErg">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -11,7 +11,7 @@
       <packagedElement xmi:type="uml:Class" xmi:id="_V12I_Z04Ed2D6p7FOUlErg" name="SubClass1">
         <generalization xmi:type="uml:Generalization" xmi:id="_V12I_p04Ed2D6p7FOUlErg" general="_V12JB504Ed2D6p7FOUlErg"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_V12I_504Ed2D6p7FOUlErg" name="owner">
-          <type xmi:type="uml:PrimitiveType" href="andromda-datatype-4.0-SNAPSHOT.uml#_pz6edkfBEdqb94g3JcKzWw"/>
+          <type xmi:type="uml:PrimitiveType" href="andromda-datatype-5.0-SNAPSHOT.uml#_pz6edkfBEdqb94g3JcKzWw"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_V12JAJ04Ed2D6p7FOUlErg" name="subclass2" type="_V12JA504Ed2D6p7FOUlErg" association="_V12JCp04Ed2D6p7FOUlErg">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_V12JAp04Ed2D6p7FOUlErg"/>
@@ -21,7 +21,7 @@
       <packagedElement xmi:type="uml:Class" xmi:id="_V12JA504Ed2D6p7FOUlErg" name="SubClass2">
         <generalization xmi:type="uml:Generalization" xmi:id="_V12JBJ04Ed2D6p7FOUlErg" general="_V12JB504Ed2D6p7FOUlErg"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_V12JBZ04Ed2D6p7FOUlErg" name="counter">
-          <type xmi:type="uml:PrimitiveType" href="andromda-datatype-4.0-SNAPSHOT.uml#_6uy6MEgFEdqasKDILfY-3Q"/>
+          <type xmi:type="uml:PrimitiveType" href="andromda-datatype-5.0-SNAPSHOT.uml#_6uy6MEgFEdqasKDILfY-3Q"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_V12JBp04Ed2D6p7FOUlErg" name="subclass1" type="_V12I_Z04Ed2D6p7FOUlErg" association="_V12JCp04Ed2D6p7FOUlErg"/>
       </packagedElement>
@@ -44,9 +44,9 @@
     </profileApplication>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_u18doExuEd60KbaIlrDIWg">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_u2iTgExuEd60KbaIlrDIWg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="andromda-common-4.0-SNAPSHOT.profile.uml#_UlacSiOuEd6Yv5u3OIooDQ"/>
+        <references xmi:type="ecore:EPackage" href="andromda-common-5.0-SNAPSHOT.profile.uml#_UlacSiOuEd6Yv5u3OIooDQ"/>
       </eAnnotations>
-      <appliedProfile xmi:type="uml:Profile" href="andromda-common-4.0-SNAPSHOT.profile.uml#_8a70287_1078771814628_224704_589"/>
+      <appliedProfile xmi:type="uml:Profile" href="andromda-common-5.0-SNAPSHOT.profile.uml#_8a70287_1078771814628_224704_589"/>
     </profileApplication>
   </uml:Model>
   <andromdacommon:ValueObject xmi:id="_L4l34DLCEeS31YZs8TPOBA" base_Class="_V12I_Z04Ed2D6p7FOUlErg"/>

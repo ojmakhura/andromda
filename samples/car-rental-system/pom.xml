@@ -6,13 +6,13 @@
     <parent>
         <groupId>org.andromda.maven</groupId>
         <artifactId>maven-parent</artifactId>
-        <version>4.0-SNAPSHOT</version>
+        <version>5.0-SNAPSHOT</version>
         <relativePath></relativePath>
     </parent>
     <groupId>org.andromda.samples.carrental</groupId>
     <artifactId>car-rental-system</artifactId>
     <packaging>pom</packaging>
-    <version>4.0-SNAPSHOT</version>
+    <version>5.0-SNAPSHOT</version>
     <name>AndroMDA Car Rental Sample</name>
     <description>The AndroMDA Car Rental Sample Project.</description>
     <inceptionYear>2003</inceptionYear>
@@ -121,7 +121,7 @@
             </dependency>
             <!-- validation dependencies -->
             <dependency>
-                <groupId>javax.validation</groupId>
+                <groupId>jakarta.validation</groupId>
                 <artifactId>validation-api</artifactId>
                 <version>2.0.0.Final</version>
             </dependency>
@@ -136,7 +136,7 @@
                 <version>2.0.8</version>
                 <exclusions>
                 	<exclusion>
-                        <groupId>javax.persistence</groupId>
+                        <groupId>jakarta.persistence</groupId>
                         <artifactId>persistence-api</artifactId>                	
                 	</exclusion>
                 </exclusions>
@@ -296,7 +296,7 @@
                 <version>6.0.20.Final</version>
                 <exclusions>
                 	<exclusion>
-                		<groupId>javax.validation</groupId>
+                		<groupId>jakarta.validation</groupId>
                 		<artifactId>validation-api</artifactId>
                    	</exclusion>
                 </exclusions>
@@ -533,7 +533,7 @@
         <module>web</module>
     </modules>
     <properties>
-        <andromda.version>4.0-SNAPSHOT</andromda.version>
+        <andromda.version>5.0-SNAPSHOT</andromda.version>
         <downloadSources>true</downloadSources>
         <createChecksum>true</createChecksum>
         <uniqueVersion>false</uniqueVersion>
@@ -595,7 +595,7 @@
         <application.id>car-rental-system</application.id>
         <application.package>org.andromda.samples.carrental</application.package>
         <application.name>AndroMDA Car Rental Sample</application.name>
-        <application.version>4.0-SNAPSHOT</application.version>
+        <application.version>5.0-SNAPSHOT</application.version>
         <!-- uncomment to use the context configured datasource
         <dataSource.name>jdbc/${application.id}</dataSource.name>
         <dataSource>java:comp/env/${dataSource.name}</dataSource>

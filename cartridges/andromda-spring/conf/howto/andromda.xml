@@ -43,10 +43,10 @@
                 <property name="spring-configuration">${howto.output.dir}</property>
                 <property name="securityRealm">SomeDomain</property>
                 <property name="dataSource">java:/DefaultDS</property>
-                <property name="hibernateDialect">net.sf.hibernate.dialect.HSQLDialect</property>
+                <property name="hibernateDialect">org.hibernate.dialect.HSQLDialect</property>
                 <property name="hibernateUseQueryCache">false</property>
-                <property name="hibernateCacheProvider">net.sf.hibernate.cache.EhCacheProvider</property>
-                <property name="hibernateQueryCacheFactory">net.sf.hibernate.cache.StandardQueryCacheFactory</property>
+                <property name="hibernateCacheProvider">org.hibernate.cache.EhCacheProvider</property>
+                <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
                 <property name="mergeMappingsUri">file:${test.src.dir}/mappings/MergeMappings.xml</property>
                 <property name="advice-impls">${howto.output.dir}</property>
                 <property name="hibernateQueryUseNamedParameters">true</property>

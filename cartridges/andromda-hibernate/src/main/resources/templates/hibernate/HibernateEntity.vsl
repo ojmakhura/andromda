@@ -16,8 +16,8 @@ import java.io.Serializable;
 $entity.getDocumentation(" * ")
  */
 #if ($hibernateEntityAnnotations)
-@javax.persistence.Entity
-@javax.persistence.Table(name = "${entity.tableName}"#if($stringUtils.isNotBlank($entity.schema)), schema="$entity.schema"#end)
+@jakarta.persistence.Entity
+@jakarta.persistence.Table(name = "${entity.tableName}"#if($stringUtils.isNotBlank($entity.schema)), schema="$entity.schema"#end)
 ##, uniqueConstraints=@UniqueConstraint(name="",columnNames={"", ""}
 ##if(!$entity.lazy), lazy="false"#end
 ##if($entity.hibernateProxy), proxy="$entity.fullyQualifiedEntityName"#end
@@ -26,10 +26,10 @@ $entity.getDocumentation(" * ")
 ##if ($entity.xmlTagName), node="$entity.xmlTagName"#end
 ##if ($entity.abstract), abstract="true"#end)
 ##if ($entity.listenerEnabled)
-##@javax.persistence.EntityListeners({${entity.fullyQualifiedEntityListenerName}.class})
+##@jakarta.persistence.EntityListeners({${entity.fullyQualifiedEntityListenerName}.class})
 ##else
 ##// Uncomment to enable entity listener for ${entity.entityName}
-##// @javax.persistence.EntityListeners({${entity.fullyQualifiedEntityListenerName}.class})
+##// @jakarta.persistence.EntityListeners({${entity.fullyQualifiedEntityListenerName}.class})
 ##end
 #set ($discriminatorColumnDefinition = "$entity.hibernateDiscriminatorColumn $entity.hibernateDiscriminatorType $entity.hibernateDiscriminatorType ($entity.hibernateDiscriminatorLength) NOT NULL")
 ##        <discriminator column="$entity.hibernateDiscriminatorColumn" type="$entity.hibernateDiscriminatorType"/>
@@ -40,14 +40,14 @@ $entity.getDocumentation(" * ")
 ## in the hierarchy, regardless of the number of levels in the hierarchy.
 ##
 #if (!$entity.specializations.empty && $entity.generalizations.empty)
-@javax.persistence.Inheritance(strategy = javax.persistence.InheritanceType.$hibernateUtils.getInheritanceTypeEnum(${entity.hibernateInheritanceStrategy}))
+@jakarta.persistence.Inheritance(strategy = jakarta.persistence.InheritanceType.$hibernateUtils.getInheritanceTypeEnum(${entity.hibernateInheritanceStrategy}))
 ##
 ## Discriminator components only apply to single table mapping strategy
 ##
 #*  *##if ($entity.hibernateInheritanceClass)
 #*    *##set ($argExists = false)
-@javax.persistence.DiscriminatorColumn(#if ($entity.hibernateDiscriminatorColumn)name = "${entity.hibernateDiscriminatorColumn}"#set ($argExists = true)#end#if ($entity.hibernateDiscriminatorType)#if ($argExists), #end#**#discriminatorType = javax.persistence.DiscriminatorType.${entity.hibernateDiscriminatorType}#set ($argExists = true)#end#if ($discriminatorColumnDefinition)#if ($argExists), #end#**#columnDefinition = "${discriminatorColumnDefinition}"#set ($argExists = true)#end#if ($entity.hibernateDiscriminatorLength > 0)#if ($argExists), #end#**#length = ${entity.hibernateDiscriminatorLength}#end)
-@javax.persistence.DiscriminatorValue("${entity.hibernateDiscriminatorValue}")
+@jakarta.persistence.DiscriminatorColumn(#if ($entity.hibernateDiscriminatorColumn)name = "${entity.hibernateDiscriminatorColumn}"#set ($argExists = true)#end#if ($entity.hibernateDiscriminatorType)#if ($argExists), #end#**#discriminatorType = jakarta.persistence.DiscriminatorType.${entity.hibernateDiscriminatorType}#set ($argExists = true)#end#if ($discriminatorColumnDefinition)#if ($argExists), #end#**#columnDefinition = "${discriminatorColumnDefinition}"#set ($argExists = true)#end#if ($entity.hibernateDiscriminatorLength > 0)#if ($argExists), #end#**#length = ${entity.hibernateDiscriminatorLength}#end)
+@jakarta.persistence.DiscriminatorValue("${entity.hibernateDiscriminatorValue}")
 #*  *##end
 #elseif ($entity.generalizations.empty && $entity.hibernateInheritanceClass)## && !$entity.embeddableSuperclassGeneralizationExists)
 
@@ -55,7 +55,7 @@ $entity.getDocumentation(" * ")
 ## Only include the DiscriminatorValue annotation for subclasses if
 ## the inheritance strategy is single table mapping strategy.
 ##
-@javax.persistence.DiscriminatorValue("${entity.hibernateDiscriminatorValue}")
+@jakarta.persistence.DiscriminatorValue("${entity.hibernateDiscriminatorValue}")
 #end
 #if ($hibernateEnableCache.equalsIgnoreCase("true"))
 @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.${entity.hibernateCacheType})
@@ -66,11 +66,11 @@ $entity.getDocumentation(" * ")
 #set ($finders = $entity.getQueryOperations(false))
 #set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
 #if (!$finders.empty)
-@javax.persistence.NamedQueries
+@jakarta.persistence.NamedQueries
 ({
 ##if ($entity.genericFinders && !$entity.finderFindAllExists)
 #if (!$entity.finderFindAllExists)
-    @javax.persistence.NamedQuery(name = "${entity.name}.findAll", query = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable")#if (!$finders.empty),#end
+    @jakarta.persistence.NamedQuery(name = "${entity.name}.findAll", query = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable")#if (!$finders.empty),#end
 
 #end
 ## #foreach ($finder in $finders)
@@ -78,7 +78,7 @@ $entity.getDocumentation(" * ")
 ## $finder.getQuery()
 ## $finder.isQuery()
 ## $finder.query
-##     @javax.persistence.NamedQuery(
+##     @jakarta.persistence.NamedQuery(
 ##         name = "${entity.name}.${finder.name}", 
 ##         query = "${finder.query}"
 ##     )#if($velocityCount != $finders.size()), 
@@ -87,7 +87,7 @@ $entity.getDocumentation(" * ")
 })
 #else
 ##if ($entity.genericFinders)
-@javax.persistence.NamedQuery(name = "${entity.name}.findAll", query = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable")#if (!$finders.empty),#end
+@jakarta.persistence.NamedQuery(name = "${entity.name}.findAll", query = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable")#if (!$finders.empty),#end
 
 ##end
 #end
@@ -139,7 +139,7 @@ public class $entity.entityName
 #end
 #if($entity.compositeIdentifier)
 #if ($hibernateEntityAnnotations)
-    @javax.persistence.EmbeddedId
+    @jakarta.persistence.EmbeddedId
 #end
 #if ($generateAttributeNameConstant)
     public static final String ${attributeNameConstantPrefix}${entity.identifierName}="${entity.identifierName}";

@@ -297,7 +297,7 @@ public java.util.List findByType(final int transform, final org.andromda.howto2.
 {
     try
     {
-        javax.persistence.Query queryObject = emanager.createNamedQuery("Car.findByType");
+        jakarta.persistence.Query queryObject = emanager.createNamedQuery("Car.findByType");
         queryObject.setParameter("type", type.name());
         queryObject.setHint("org.hibernate.cacheRegion", "/org/andromda/howto2/rental/Car_findByType");
         java.util.List results = queryObject.getResultList();

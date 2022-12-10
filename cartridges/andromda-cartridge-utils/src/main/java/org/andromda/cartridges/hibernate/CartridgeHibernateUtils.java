@@ -64,7 +64,7 @@ public class CartridgeHibernateUtils
      */
     public String getHibernatePackage()
     {
-        return this.isVersion3() || this.isVersion4() || this.isVersion5() ? "org.hibernate" : "net.sf.hibernate";
+        return "org.hibernate";
     }
 
     /**
@@ -75,7 +75,7 @@ public class CartridgeHibernateUtils
      */
     public String getHibernateUserTypePackage()
     {
-        return this.isVersion3() || this.isVersion4() || this.isVersion5() ? this.getHibernatePackage() + ".usertype" : this.getHibernatePackage();
+        return this.getHibernatePackage() + ".usertype" ;
     }
 
     /**
@@ -117,6 +117,17 @@ public class CartridgeHibernateUtils
     {
         return isVersion5(this.hibernateVersion);
     }
+
+    /**
+     * Indicates whether or not Hibernate 6 is enabled.
+     *
+     * @return true/false
+     */
+    public boolean isVersion6()
+    {
+        return isVersion6(this.hibernateVersion);
+    }
+
     /**
      * Indicates whether or not the given property value is version 3 or not.
      *
@@ -179,6 +190,22 @@ public class CartridgeHibernateUtils
             version5 = hibernateVersionPropertyValue.startsWith(CartridgeHibernateGlobals.HIBERNATE_VERSION_5);
         }
         return version5;
+    }
+    
+    /**
+     * Indicates whether or not the given property value is version 6 or not.
+     *
+     * @param hibernateVersionPropertyValue the value of the property
+     * @return true/false
+     */
+    public static boolean isVersion6(String hibernateVersionPropertyValue)
+    {
+        boolean version6 = false;
+        if (hibernateVersionPropertyValue != null)
+        {
+            version6 = hibernateVersionPropertyValue.startsWith(CartridgeHibernateGlobals.HIBERNATE_VERSION_6);
+        }
+        return version6;
     }
 
     /**
@@ -250,7 +277,7 @@ public class CartridgeHibernateUtils
     /**
      * Needed for InheritanceType enumeration in hibernate annotations
      * @param hibernateMappingStrategy
-     * @return javax.persistence.InheritanceType enum value for template
+     * @return jakarta.persistence.InheritanceType enum value for template
      */
     public static String getInheritanceTypeEnum(
         String hibernateMappingStrategy)

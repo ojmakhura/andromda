@@ -75,7 +75,7 @@ protected PersonDetails handleGet(Long id) throws Exception
                   For example: if the <code>user</code> parameter in the following code was obtained as the result
                   of calling a Spring service method, and that user has a lazy <code>group</code> association,
                   and the following is another Spring Service method,
-                  it would raise a <code>net.sf.hibernate.LazyInitializationException</code>:
+                  it would raise a <code>org.hibernate.LazyInitializationException</code>:
             </p>
 <source><![CDATA[
 protected boolean doSomethingWithUserGroups(User user) throws Exception

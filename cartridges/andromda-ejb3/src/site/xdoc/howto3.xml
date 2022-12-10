@@ -71,7 +71,7 @@
             </p>
             <p>
                 The default persistence context is injected into the Entity Manager.  This is defined via the
-                <code>@javax.persistence.PersistenceContext</code> annotation in <code>RentalServiceBase.java</code>.
+                <code>@jakarta.persistence.PersistenceContext</code> annotation in <code>RentalServiceBase.java</code>.
                 The <code>unitName</code> property matches the entity manager name in <code>persistence.xml</code>
                 and is determined from the project name for the default persistence context.
             </p>

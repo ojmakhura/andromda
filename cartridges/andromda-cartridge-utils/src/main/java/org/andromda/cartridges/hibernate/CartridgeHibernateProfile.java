@@ -584,25 +584,25 @@ public class CartridgeHibernateProfile extends UMLProfile {
     
     /**
      * PROFILE.get("MATCHMODE_ANYWHERE")
-     * net.sf.hibernate.expression.MatchMode#ANYWHERE match mode.
+     * org.hibernate.expression.MatchMode#ANYWHERE match mode.
      */
     public static final String TAGGEDVALUEVALUE_MATCHMODE_ANYWHERE = profile.get("MATCHMODE_ANYWHERE");
 
     /**
      * PROFILE.get("MATCHMODE_END")
-     * net.sf.hibernate.expression.MatchMode#END match mode.
+     * org.hibernate.expression.MatchMode#END match mode.
      */
     public static final String TAGGEDVALUEVALUE_MATCHMODE_END = profile.get("MATCHMODE_END");
 
     /**
      * PROFILE.get("MATCHMODE_EXACT")
-     * net.sf.hibernate.expression.MatchMode#EXACT match mode.
+     * org.hibernate.expression.MatchMode#EXACT match mode.
      */
     public static final String TAGGEDVALUEVALUE_MATCHMODE_EXACT = profile.get("MATCHMODE_EXACT");
 
     /**
      * PROFILE.get("MATCHMODE_START")
-     * net.sf.hibernate.expression.MatchMode#START match mode.
+     * org.hibernate.expression.MatchMode#START match mode.
      */
     public static final String TAGGEDVALUEVALUE_MATCHMODE_START = profile.get("MATCHMODE_START");
 

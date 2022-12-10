@@ -108,7 +108,7 @@
         </fileset>
         <pathconvert refid="hibernate.mapping.files" property="hibernate.mappings" pathsep=" "/>
 
-        <java classname="net.sf.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
+        <java classname="org.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
             <arg value="--output=${app.root.dir}/${hibernate.schema.output.dir}/hibernate-schema-initialize.sql"/>
             <arg value="--text"/>
             <arg value="--quiet"/>
@@ -126,7 +126,7 @@
                        flags="i"
                        byline="true"/>
 
-        <java classname="net.sf.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
+        <java classname="org.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
             <arg value="--output=${app.root.dir}/${hibernate.schema.output.dir}/hibernate-schema-remove.sql"/>
             <arg value="--text"/>
             <arg value="--quiet"/>

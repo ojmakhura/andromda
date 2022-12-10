@@ -8,10 +8,10 @@ package org.andromda.timetracker.domain;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import jakarta.persistence.Entity;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import org.andromda.timetracker.vo.TimecardSearchCriteriaVO;
 
 /**
@@ -29,7 +29,7 @@ import org.andromda.timetracker.vo.TimecardSearchCriteriaVO;
 @Entity
 @Table(name = "TIMECARD")
 // Uncomment to enable entity listener for Timecard
-// @javax.persistence.EntityListeners({TimecardListener.class})
+// @jakarta.persistence.EntityListeners({TimecardListener.class})
 // Uncomment to enable caching for Timecard
 // @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.TRANSACTIONAL)
 @NamedQuery(name = "Timecard.findAll", query = "SELECT t FROM Timecard AS t")

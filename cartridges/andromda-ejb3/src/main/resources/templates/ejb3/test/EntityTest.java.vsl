@@ -15,7 +15,7 @@ package $entity.packageName;
 #set ($generatedFile = "${stringUtils.replace($entity.fullyQualifiedName,'.','/')}EntityTest.java")
 
 import java.util.List;
-import javax.persistence.TypedQuery;
+import jakarta.persistence.TypedQuery;
 import org.andromda.dbtest.JPAJUnitAncestor;
 import org.andromda.dbtest.Priority;
 import org.apache.log4j.LogManager;

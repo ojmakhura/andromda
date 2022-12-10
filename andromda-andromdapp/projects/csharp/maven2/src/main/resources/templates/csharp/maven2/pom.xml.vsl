@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.andromda.maven</groupId>
         <artifactId>maven-parent</artifactId>
-        <version>4.0-SNAPSHOT</version>
+        <version>5.0-SNAPSHOT</version>
         <relativePath></relativePath>
     </parent>
     <groupId>$applicationPackage</groupId>
@@ -127,11 +127,11 @@
         # For Oracle9i use: Oracle9i-->
         <sql.mappings>MSSQL</sql.mappings>
 
-        <!--# For SQL Server use: net.sf.hibernate.dialect.SQLServerDialect
-        # For MySql use: net.sf.hibernate.dialect.MySQLDialect
-        # For Hypersonic use: net.sf.hibernate.dialect.HSQLDialect
-        # For Oracle9i use: net.sf.hibernate.dialect.Oracle9Dialect-->
-        <hibernate.db.dialect>net.sf.hibernate.dialect.SQLServerDialect</hibernate.db.dialect>
+        <!--# For SQL Server use: org.hibernate.dialect.SQLServerDialect
+        # For MySql use: org.hibernate.dialect.MySQLDialect
+        # For Hypersonic use: org.hibernate.dialect.HSQLDialect
+        # For Oracle9i use: org.hibernate.dialect.Oracle9Dialect-->
+        <hibernate.db.dialect>org.hibernate.dialect.SQLServerDialect</hibernate.db.dialect>
 
         <!--# The default strategy to use when using inhertiance-->
         <hibernate.inheritance.strategy>subclass</hibernate.inheritance.strategy>

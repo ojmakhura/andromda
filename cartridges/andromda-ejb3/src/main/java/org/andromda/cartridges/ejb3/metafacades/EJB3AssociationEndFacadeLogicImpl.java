@@ -78,31 +78,31 @@ public class EJB3AssociationEndFacadeLogicImpl
      * Represents the EJB3 <code>ALL</code> cascade option and fully qualified representation.
      */
     private static final String ENTITY_CASCADE_ALL = "ALL";
-    private static final String ENTITY_CASCADE_ALL_FQN = "javax.persistence.CascadeType.ALL";
+    private static final String ENTITY_CASCADE_ALL_FQN = "jakarta.persistence.CascadeType.ALL";
 
     /**
      * Represents the EJB3 <code>PERSIST</code> cascade option.
      */
     private static final String ENTITY_CASCADE_PERSIST = "PERSIST";
-    private static final String ENTITY_CASCADE_PERSIST_FQN = "javax.persistence.CascadeType.PERSIST";
+    private static final String ENTITY_CASCADE_PERSIST_FQN = "jakarta.persistence.CascadeType.PERSIST";
 
     /**
      * Represents the EJB3 <code>MERGE</code> cascade option.
      */
     private static final String ENTITY_CASCADE_MERGE = "MERGE";
-    private static final String ENTITY_CASCADE_MERGE_FQN = "javax.persistence.CascadeType.MERGE";
+    private static final String ENTITY_CASCADE_MERGE_FQN = "jakarta.persistence.CascadeType.MERGE";
 
     /**
      * Represents the EJB3 <code>REMOVE</code> cascade option.
      */
     private static final String ENTITY_CASCADE_REMOVE = "REMOVE";
-    private static final String ENTITY_CASCADE_REMOVE_FQN = "javax.persistence.CascadeType.REMOVE";
+    private static final String ENTITY_CASCADE_REMOVE_FQN = "jakarta.persistence.CascadeType.REMOVE";
 
     /**
      * Represents the EJB3 <code>REFRESH</code> cascade option.
      */
     private static final String ENTITY_CASCADE_REFRESH = "REFRESH";
-    private static final String ENTITY_CASCADE_REFRESH_FQN = "javax.persistence.CascadeType.REFRESH";
+    private static final String ENTITY_CASCADE_REFRESH_FQN = "jakarta.persistence.CascadeType.REFRESH";
 
     /**
      * Represents the value used to represents NO cascade option.

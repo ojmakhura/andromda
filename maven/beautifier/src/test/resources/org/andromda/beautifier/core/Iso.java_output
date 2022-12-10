@@ -3,13 +3,13 @@ package org.ekkehard.abc.entitybean.adress;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 
 /**
  * <b>Embeddable Iso</b><br>
- * keine eigene Identität in der Datenbank die einzelnen Attribute werden
- * eingebettet in das zugehörige {@code Entity}<br>
+ * keine eigene Identitï¿½t in der Datenbank die einzelnen Attribute werden
+ * eingebettet in das zugehï¿½rige {@code Entity}<br>
  * 
  * @author ekke (ekkehard gentz) <a href="http://www.ekkehard.org/index.html">
  *         ekkehard.org</a><br>
@@ -38,7 +38,7 @@ implements Serializable
 {
     /**
      * default no-arg constructor for java bean support Standard Konstruktor
-     * ohne Argumente für Java Beans Support
+     * ohne Argumente fï¿½r Java Beans Support
      */
     public Iso()
     {

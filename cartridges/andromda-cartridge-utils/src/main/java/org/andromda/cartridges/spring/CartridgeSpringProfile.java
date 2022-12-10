@@ -216,25 +216,25 @@ public class CartridgeSpringProfile
 
     /**
      * PROFILE.get("MATCHMODE_ANYWHERE")
-     * net.sf.hibernate.expression.MatchMode#ANYWHERE match mode.
+     * org.hibernate.expression.MatchMode#ANYWHERE match mode.
      */
     public static final String TAGGEDVALUEVALUE_MATCHMODE_ANYWHERE = PROFILE.get("MATCHMODE_ANYWHERE");
 
     /**
      * PROFILE.get("MATCHMODE_END")
-     * net.sf.hibernate.expression.MatchMode#END match mode.
+     * org.hibernate.expression.MatchMode#END match mode.
      */
     public static final String TAGGEDVALUEVALUE_MATCHMODE_END = PROFILE.get("MATCHMODE_END");
 
     /**
      * PROFILE.get("MATCHMODE_EXACT")
-     * net.sf.hibernate.expression.MatchMode#EXACT match mode.
+     * org.hibernate.expression.MatchMode#EXACT match mode.
      */
     public static final String TAGGEDVALUEVALUE_MATCHMODE_EXACT = PROFILE.get("MATCHMODE_EXACT");
 
     /**
      * PROFILE.get("MATCHMODE_START")
-     * net.sf.hibernate.expression.MatchMode#START match mode.
+     * org.hibernate.expression.MatchMode#START match mode.
      */
     public static final String TAGGEDVALUEVALUE_MATCHMODE_START = PROFILE.get("MATCHMODE_START");
 

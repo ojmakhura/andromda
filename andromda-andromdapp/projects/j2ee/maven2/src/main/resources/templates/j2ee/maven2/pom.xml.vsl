@@ -7,12 +7,12 @@
 #if($spring)
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.1</version>
+        <version>3.0.0</version>
         <relativePath/>
 #else
         <groupId>org.andromda.maven</groupId>
         <artifactId>maven-parent</artifactId>
-        <version>4.0-SNAPSHOT</version>
+        <version>5.0-SNAPSHOT</version>
         <relativePath></relativePath>
 #end
     </parent>
@@ -199,9 +199,9 @@
             </dependency>
             <!-- validation dependencies -->
             <dependency>
-                <groupId>javax.validation</groupId>
-                <artifactId>validation-api</artifactId>
-                <version>2.0.0.Final</version>
+                <groupId>jakarta.validation</groupId>
+                <artifactId>jakarta.validation-api</artifactId>
+                <version>3.0.2</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.extensions.validator</groupId>
@@ -214,7 +214,7 @@
                 <version>2.0.8</version>
                 <exclusions>
                 	<exclusion>
-                        <groupId>javax.persistence</groupId>
+                        <groupId>jakarta.persistence</groupId>
                         <artifactId>persistence-api</artifactId>                	
                 	</exclusion>
                 </exclusions>
@@ -238,7 +238,7 @@
             <dependency>
                 <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>6.0.13.Final</version>
+                <version>8.0.0.Final</version>
             </dependency>
 #end
             <dependency>
@@ -385,26 +385,26 @@
             </dependency>
 #if ($ejb3)
             <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-entitymanager</artifactId>
+                <groupId>org.hibernate.orm</groupId>
+                <artifactId>hibernate-core</artifactId>
                 <version>${hibernate.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>6.0.9.Final</version>
+                <version>8.0.0.Final</version>
             </dependency>
             <!-- JBoss Dependencies -->
             <dependency>
               <groupId>org.jboss.spec</groupId>
-              <artifactId>jboss-javaee-all-7.0</artifactId>
-              <version>1.1.1.Final</version>
+              <artifactId>jboss-jboss-jakartaee-8.0</artifactId>
+              <version>1.0.1.Final</version>
               <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>net.sf.ehcache.internal</groupId>
-                <artifactId>ehcache-core</artifactId>
-                <version>2.9.0</version>
+                <groupId>org.ehcache</groupId>
+                <artifactId>ehcache</artifactId>
+                <version>3.10.8</version>
                 <scope>provided</scope>
             </dependency>
 #if ($hibernate)
@@ -418,18 +418,18 @@
 #else
             <dependency>
                 <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-all-7.0</artifactId>
-                <version>1.1.1.Final</version>
+                <artifactId>jboss-jboss-jakartaee-8.0</artifactId>
+                <version>1.0.1.Final</version>
                 <scope>provided</scope>
             </dependency>
 #end
 #if (!$ejb && !$ejb3)
 #if ($hibernate)
             <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-entitymanager</artifactId>
+                <groupId>org.hibernate.orm</groupId>
+                <artifactId>hibernate-core</artifactId>
                 <version>${hibernate.version}</version>
-                <exclusions>
+                <!-- <exclusions>
                     <exclusion>
                         <groupId>javax.transaction</groupId>
                         <artifactId>jta</artifactId>
@@ -438,7 +438,7 @@
                         <groupId>xml-apis</groupId>
                         <artifactId>xml-apis</artifactId>
                     </exclusion>
-                </exclusions>
+                </exclusions> -->
             </dependency>
             <!-- Hibernate Jcache -->
 		    <dependency>
@@ -448,21 +448,21 @@
 			    <scope>provided</scope>
 		    </dependency>
 		    <dependency>
-			    <groupId>org.hibernate</groupId>
+			    <groupId>org.hibernate.orm</groupId>
 			    <artifactId>hibernate-ehcache</artifactId>
-			    <version>${hibernate.version}</version>
+			    <version>6.0.0.Alpha7</version>
 			    <scope>provided</scope>
 			</dependency>
             <dependency>
                 <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>6.0.9.Final</version>
-                <exclusions>
+                <version>8.0.0.Final</version>
+                <!-- <exclusions>
                 	<exclusion>
-                		<groupId>javax.validation</groupId>
+                		<groupId>jakarta.validation</groupId>
                 		<artifactId>validation-api</artifactId>
                    	</exclusion>
-                </exclusions>
+                </exclusions> -->
             </dependency>
             <dependency>
                 <groupId>net.sf.ehcache.internal</groupId>
@@ -581,9 +581,9 @@
                 <scope>runtime</scope>
             </dependency>
             <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>javax.servlet-api</artifactId>
-                <version>3.1.0</version>
+                <groupId>jakarta.servlet</groupId>
+                <artifactId>jakarta.servlet-api</artifactId>
+                <version>6.0.0</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -1030,39 +1030,39 @@
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-ui</artifactId>
-                <version>1.6.8</version>
+                <version>${openapi.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-ui</artifactId>
-                <version>1.6.8</version>
+                <artifactId>springdoc-openapi-security</artifactId>
+                <version>${openapi.version}</version>
             </dependency>
 #end
 #if ($thymeleaf)
             <dependency>
                 <groupId>nz.net.ultraq.thymeleaf</groupId>
                 <artifactId>thymeleaf-layout-dialect</artifactId>
-                <version>3.0.0</version>
+                <version>3.1.0</version>
             </dependency>
             <dependency>
                 <groupId>org.webjars</groupId>
                 <artifactId>font-awesome</artifactId>
-                <version>6.0.0</version>
+                <version>6.2.0</version>
             </dependency>
             <dependency>
                 <groupId>org.webjars</groupId>
                 <artifactId>bootstrap</artifactId>
-                <version>5.1.3</version>
+                <version>5.2.3</version>
             </dependency>
             <dependency>
                 <groupId>org.webjars</groupId>
                 <artifactId>jquery-ui</artifactId>
-                <version>1.13.0</version>
+                <version>1.13.2</version>
             </dependency>
             <dependency>
                 <groupId>org.webjars</groupId>
                 <artifactId>webjars-locator</artifactId>
-                <version>0.45</version>
+                <version>0.46</version>
             </dependency>
 #end
 #if ($springws)
@@ -1495,13 +1495,9 @@
         <cxf.version>3.0.2</cxf.version>
         <cxf.xjc.version>3.0.2</cxf.xjc.version>
 #end
-#if ($spring)
-        <!-- Set andromda.xml hibernateVersion=4, sessionFactory and localTransactionManager to hibernate4.-->
-        <hibernate.version>5.6.3.Final</hibernate.version>
-#elseif ($hibernate || $ejb3)
-        <!-- Set andromda.xml hibernateVersion=5, sessionFactory and localTransactionManager to hibernate5-->
-        <!-- new Hibername 5 inclusion -->
-        <hibernate.version>5.6.3.Final</hibernate.version>
+#if ($spring || $hibernate || $ejb3)
+        <!-- Set andromda.xml hibernateVersion=7, sessionFactory and localTransactionManager to hibernate4.-->
+        <hibernate.version>6.1.6.Final</hibernate.version>
 #end
 #if ($jetty || !$webservice.equals("none"))
         <!-- v 9.x only supports JDK7 and you cannot configure jetty.port from maven.-->
@@ -1516,11 +1512,14 @@
         <myfaces.version>2.3.2</myfaces.version>
 #end
 #if ($cxf)
-        <spring.version>5.3.2</spring.version>
+        <spring.version>6.0.2</spring.version>
 #elseif ($spring || $springws)
         <!-- v5 migration needed -->
         <!-- <spring.version>5.3.2</spring.version> -->
-	    <spring-boot.version>2.7.1</spring-boot.version>
+	    <spring-boot.version>3.0.0</spring-boot.version>
+#end
+#if ($springws || $thymeleaf)
+        <openapi.version>1.6.13</openapi.version>
 #end
         <!-- To override parent default settings for compiler plugin and compliance checks-->
         <dependencyConvergence>true</dependencyConvergence>

@@ -45,7 +45,7 @@ public class SpringHibernateUtils
      */
     public String getBasePackage()
     {
-        return this.isVersion3() || this.isVersion4() || this.isVersion5() ? "org.hibernate" : "net.sf.hibernate";
+        return this.isVersion3() || this.isVersion4() || this.isVersion5() ? "org.hibernate" : "org.hibernate";
     }
 
     /**
@@ -355,10 +355,10 @@ public class SpringHibernateUtils
 
         String[] splits = attributeName.split("\\.");
         Collection<String> joins = new ArrayList<>();
-        joins.add("javax.persistence.criteria.Join " + splits[0] + "Join = root.join(\"" + splits[0] + "\")");
+        joins.add("jakarta.persistence.criteria.Join " + splits[0] + "Join = root.join(\"" + splits[0] + "\")");
 
         for (int i = 1; i < splits.length-1; i++) {
-            String join = "javax.persistence.criteria.Join " + splits[i] + "Join = ";
+            String join = "jakarta.persistence.criteria.Join " + splits[i] + "Join = ";
             join = join + splits[i-1] + "Join.join(\"" + splits[i] + "\")";
             joins.add(join);
         }

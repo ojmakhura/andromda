@@ -55,12 +55,12 @@
                     <li>
                         <a href="namespace.html#hibernateCacheProvider">hibernateCacheProvider</a>: Specifies the cache
                         provider implementation that will be used for caching services. Default value is
-                        <code>net.sf.hibernate.cache.EhCacheProvider</code>
+                        <code>org.hibernate.cache.EhCacheProvider</code>
                     </li>
                     <li>
                         <a href="namespace.html#hibernateQueryCacheFactory">hibernateQueryCacheFactory</a>: Factory class for
                         the caching queries. Default value is
-                        <code>net.sf.hibernate.cache.StandardQueryCacheFactory</code>
+                        <code>org.hibernate.cache.StandardQueryCacheFactory</code>
                     </li>
                 </ul>
                 <p class="highlight">

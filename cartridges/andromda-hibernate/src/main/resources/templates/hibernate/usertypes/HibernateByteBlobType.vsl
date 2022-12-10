@@ -10,7 +10,7 @@
 #else
 #set ($sessionClass = "SessionImplementor")
 #end
-#if($hibernateUtils.version4 || $hibernateUtils.version5)
+#if($hibernateUtils.version4 || $hibernateUtils.version5 || $hibernateUtils.version6)
 #set ($isVersion4or5 = true)
 #else
 #set ($isVersion4or5 = false)
@@ -44,19 +44,19 @@ public class $className
      */
     private static final long serialVersionUID = 4850231348151909385L;
 
-    /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}sqlTypes()
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-    public int[] sqlTypes()
-    {
-        return new int[]
-        {
-            Types.BLOB
-        };
-    }
+##     /**
+##      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}sqlTypes()
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+##     public int[] sqlTypes()
+##     {
+##         return new int[]
+##         {
+##             Types.BLOB
+##         };
+##     }
 
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}returnedClass()

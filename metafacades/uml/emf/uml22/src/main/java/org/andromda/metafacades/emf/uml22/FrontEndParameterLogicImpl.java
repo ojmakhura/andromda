@@ -825,8 +825,8 @@ public class FrontEndParameterLogicImpl
     // to be used in the range validator: "range - 1000" or "range 20 -".
     /** - */
     static final String UNDEFINED_BOUND = "-";
-    /** javax.validation.constraints.NotNull */
-    static final String AN_REQUIRED = "@javax.validation.constraints.NotNull";
+    /** jakarta.validation.constraints.NotNull */
+    static final String AN_REQUIRED = "@jakarta.validation.constraints.NotNull";
     /** org.hibernate.validator.constraints.URL */
     static final String AN_URL = "@org.hibernate.validator.constraints.URL";
     /** org.apache.myfaces.extensions.validator.baseval.annotation.LongRange */
@@ -837,8 +837,8 @@ public class FrontEndParameterLogicImpl
     static final String AN_EMAIL = "@org.hibernate.validator.constraints.Email";
     /** org.hibernate.validator.constraints.CreditCardNumber */
     static final String AN_CREDIT_CARD = "@org.hibernate.validator.constraints.CreditCardNumber";
-    /** javax.validation.constraints.Size */
-    static final String AN_LENGTH = "@javax.validation.constraints.Size";
+    /** jakarta.validation.constraints.Size */
+    static final String AN_LENGTH = "@jakarta.validation.constraints.Size";
     /** org.apache.myfaces.extensions.validator.baseval.annotation.Pattern */
     static final String AN_PATTERN = "@org.apache.myfaces.extensions.validator.baseval.annotation.Pattern";
     /** org.apache.myfaces.extensions.validator.crossval.annotation.Equals */

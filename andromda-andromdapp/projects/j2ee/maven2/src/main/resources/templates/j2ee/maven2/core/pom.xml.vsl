@@ -92,11 +92,11 @@
 #end
 #if(!$spring)
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
 #if ($ear)
             <scope>provided</scope>
-            <exclusions>
+            <!--<exclusions>
                 <exclusion>
                     <groupId>cglib</groupId>
                     <artifactId>cglib</artifactId>
@@ -105,7 +105,7 @@
                     <groupId>javassist</groupId>
                     <artifactId>javassist</artifactId>
                 </exclusion>
-            </exclusions>
+            </exclusions> -->
 #end
         </dependency>
         <dependency>
@@ -132,23 +132,22 @@
         <dependency>
             <groupId>org.hibernate.common</groupId>
             <artifactId>hibernate-commons-annotations</artifactId>
-            <version>5.0.3.Final</version>
+            <version>6.0.5.Final</version>
             <scope>provided</scope>
-            <exclusions>
+            <!--<exclusions>
                 <exclusion>
                     <groupId>org.hibernate</groupId>
                     <artifactId>hibernate</artifactId>
                 </exclusion>
-                <!-- Use persistence api 2.0 instead of 1.0 -->
                 <exclusion>
-                    <groupId>javax.persistence</groupId>
+                    <groupId>jakarta.persistence</groupId>
                     <artifactId>persistence-api</artifactId>
                 </exclusion>
-            </exclusions>
+            </exclusions> -->
         </dependency>
         <dependency>
-            <groupId>net.sf.ehcache.internal</groupId>
-            <artifactId>ehcache-core</artifactId>
+            <groupId>org.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
         </dependency>
 #if ($cxf)
         <!-- See (http://www.lumidant.com/blog/hibernate-asm-incompatibilities/, http://forum.andromda.org/viewtopic.php?t=5747)
@@ -242,8 +241,8 @@
         </dependency>
 #if ($ejb3)
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.hibernate.validator</groupId>
@@ -264,8 +263,8 @@
         </dependency>
 #end
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
 #if ($cxf)
             <exclusions>
                 <exclusion>
@@ -284,8 +283,8 @@
 #end
         </dependency>
         <dependency>
-            <groupId>net.sf.ehcache.internal</groupId>
-            <artifactId>ehcache-core</artifactId>
+            <groupId>org.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
         </dependency>
         <dependency>
             <groupId>org.javassist</groupId>
@@ -581,7 +580,7 @@
                 </configuration>
                 <dependencies>
                     <dependency>
-                        <groupId>org.hibernate</groupId>
+                        <groupId>org.hibernate.orm</groupId>
                         <artifactId>hibernate-core</artifactId>
                         <version>${hibernate.version}</version>
                     </dependency>

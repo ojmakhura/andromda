@@ -464,7 +464,7 @@ namespace AndroMDA.VS80AddIn.Dialogs
             cbConfigureUnitTestingProject.Checked = true;
             cbConfigureUnitTestingProject.Checked = false;
 
-            txtAndroMDAVersion.Text = "4.0-SNAPSHOT";
+            txtAndroMDAVersion.Text = "5.0-SNAPSHOT";
             txtDotNetCartridgesVersion.Text = "1.2-SNAPSHOT";
         }
 
@@ -560,37 +560,37 @@ namespace AndroMDA.VS80AddIn.Dialogs
             {
                 case "Microsoft SQL Server 2005":
                     config["database.mappingtype"] = "MSSQL";
-                    config["database.hibernatedialect"] = "net.sf.hibernate.dialect.SQLServerDialect";
+                    config["database.hibernatedialect"] = "org.hibernate.dialect.SQLServerDialect";
                     config["database.nhibernatedialect"] = "NHibernate.Dialect.MsSql2005Dialect";
                     config["hibernate.connection.driver_class"] = "NHibernate.Driver.SqlClientDriver";
                     break;
                 case "Microsoft SQL Server 2000":
                     config["database.mappingtype"] = "MSSQL";
-                    config["database.hibernatedialect"] = "net.sf.hibernate.dialect.SQLServerDialect";
+                    config["database.hibernatedialect"] = "org.hibernate.dialect.SQLServerDialect";
                     config["database.nhibernatedialect"] = "NHibernate.Dialect.MsSql2000Dialect";
                     config["hibernate.connection.driver_class"] = "NHibernate.Driver.SqlClientDriver";
                     break;
                 case "MySQL":
                     config["database.mappingtype"] = "MySQL";
-                    config["database.hibernatedialect"] = "net.sf.hibernate.dialect.MySQLDialect";
+                    config["database.hibernatedialect"] = "org.hibernate.dialect.MySQLDialect";
                     config["database.nhibernatedialect"] = "NHibernate.Dialect.MySQLDialect";
                     config["hibernate.connection.driver_class"] = "NHibernate.Driver.MySqlDataDriver";
                     break;
                 case "PostgreSQL":
                     config["database.mappingtype"] = "PostgreSQL";
-                    config["database.hibernatedialect"] = "net.sf.hibernate.dialect.PostgreSQLDialect";
+                    config["database.hibernatedialect"] = "org.hibernate.dialect.PostgreSQLDialect";
                     config["database.nhibernatedialect"] = "NHibernate.Dialect.PostgreSQLDialect";
                     config["hibernate.connection.driver_class"] = "NHibernate.Driver.NpgsqlDriver";
                     break;
                 case "Oracle 9i":
                     config["database.mappingtype"] = "Oracle9i";
-                    config["database.hibernatedialect"] = "net.sf.hibernate.dialect.Oracle9Dialect";
+                    config["database.hibernatedialect"] = "org.hibernate.dialect.Oracle9Dialect";
                     config["database.nhibernatedialect"] = "NHibernate.Dialect.Oracle9Dialect";
                     config["hibernate.connection.driver_class"] = "NHibernate.Driver.OracleClientDriver";
                     break;
                 case "Hypersonic":
                     config["database.mappingtype"] = "HypersonicSql";
-                    config["database.hibernatedialect"] = "net.sf.hibernate.dialect.HSQLDialect";
+                    config["database.hibernatedialect"] = "org.hibernate.dialect.HSQLDialect";
                     config["database.nhibernatedialect"] = "NHibernate.Dialect.GenericDialect";
                     config["hibernate.connection.driver_class"] = "NHibernate.Driver.OdbcDriver";
                     break;

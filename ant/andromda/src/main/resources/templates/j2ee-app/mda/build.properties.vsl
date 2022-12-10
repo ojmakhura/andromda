@@ -1,6 +1,6 @@
-hibernate.db.dialect=net.sf.hibernate.dialect.HSQLDialect
+hibernate.db.dialect=org.hibernate.dialect.HSQLDialect
 datasource.jndi=java:/DefaultDS
-hibernate.transaction.manager.lookup=net.sf.hibernate.transaction.JBossTransactionManagerLookup
+hibernate.transaction.manager.lookup=org.hibernate.transaction.JBossTransactionManagerLookup
 
 # Defines a comma separated list of discovered cartridges to filter, an empty
 # string means do NOT filter.  If you wanted to process the model with only

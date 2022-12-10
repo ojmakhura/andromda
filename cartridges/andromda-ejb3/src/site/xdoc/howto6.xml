@@ -157,7 +157,7 @@
                 Specifically, this will inject the <code>org.hibernate.Session</code> into the auto-generated
                 DAO base classes of your project like so:
 <source><![CDATA[
-    @javax.persistence.PersistenceContext(unitName = "timetracker")    
+    @jakarta.persistence.PersistenceContext(unitName = "timetracker")    
     protected org.hibernate.Session hibernateSession;
 ]]></source>
             </p>

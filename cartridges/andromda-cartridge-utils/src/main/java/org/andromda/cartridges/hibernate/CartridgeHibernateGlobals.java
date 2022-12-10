@@ -65,6 +65,11 @@ public class CartridgeHibernateGlobals
     public static final String HIBERNATE_VERSION_5 = "5";
 
     /**
+     * The version for Hibernate 4.
+     */
+    public static final String HIBERNATE_VERSION_6 = "6";
+
+    /**
      * EJB implementation class suffix.
      */
     static final String EJB_IMPLEMENTATION_SUFFIX = "Bean";

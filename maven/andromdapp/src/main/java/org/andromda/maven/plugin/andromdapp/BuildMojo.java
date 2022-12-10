@@ -473,11 +473,14 @@ public class BuildMojo
                     this.executionProperties,
                     this.session.getStartTime());
 
-            projectSession.setUsingPOMsFromFilesystem(true);
-            this.lifecycleExecutor.execute(
-                projectSession,
-                reactorManager,
-                projectSession.getEventDispatcher());
+            // projectSession.setUsingPOMsFromFilesystem(true);
+
+            this.lifecycleExecutor.execute(projectSession);
+
+            // this.lifecycleExecutor.execute(
+            //     projectSession,
+            //     reactorManager,
+            //     projectSession.getEventDispatcher());
         }
         catch (final Throwable throwable)
         {

@@ -1,17 +1,17 @@
 package org.somepackage.test;
 
-@javax.persistence.Entity
+@jakarta.persistence.Entity
 public class SampleEntity {
 
-    @javax.persistence.Id()
+    @jakarta.persistence.Id()
     String id;
     
-    @javax.persistence.Basic
+    @jakarta.persistence.Basic
     String name;
     
-    @javax.hibernate.Table
-    @javax.hibernate.JoinTable(table=@javax.hibernate.Table(schema="test"))
-    @javax.hibernate.Basic
+    @jakarta.hibernate.Table
+    @jakarta.hibernate.JoinTable(table=@jakarta.hibernate.Table(schema="test"))
+    @jakarta.hibernate.Basic
     String test;
 
     @org.somepackage.annotations.Info(dtoClass="org.somepackage.sample.dto.SampleEntityDto")

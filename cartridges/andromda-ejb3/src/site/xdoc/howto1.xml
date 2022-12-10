@@ -95,7 +95,7 @@
                 <p>
                     Your relational table's name which persists an entity is determined by default from the
                     actual entity name.
-                    To change the table name assignment in the <code>@javax.persistence.Table</code> annotation,
+                    To change the table name assignment in the <code>@jakarta.persistence.Table</code> annotation,
                     set the <![CDATA[<<Entity>>]]><b> <code>andromda_persistence_table</code></b> tag on the entity.
                     The same tag can be modeled on a Many-To-Many association relationship, to name the association table.
                 </p>
@@ -120,7 +120,7 @@
                 <p>
                     To assign an entity's attribute as a primary key, you must assign the <b><![CDATA[<<Identifier>>]]></b>
                     stereotype to it.  If this identifier is not part of a composite primary key, then
-                    <code>@javax.persistence.Id</code> annotation is added to the attribute getter method.
+                    <code>@jakarta.persistence.Id</code> annotation is added to the attribute getter method.
                 </p>
                 <p>
                     <img src="images/org/andromda/test/1/d/uml.gif" alt="images/org/andromda/test/1/d/uml.gif"/>
@@ -142,7 +142,7 @@
                     <![CDATA[<<Identifier>>]]> <b><code>andromda_persistence_generator_type</code></b> tag on the identifier attribute ONLY.
                     You do not need to configure the andromda_hibernate_generator_class attribute on the Entity stereotype.
                     This is used to model the primary key generation strategy associated with the
-                    <code>@javax.persistence.Id</code> annotation for an entity attribute.
+                    <code>@jakarta.persistence.Id</code> annotation for an entity attribute.
                     Currently, the EJB3 cartridge supports generator types:
                 </p>
                 <ul>
@@ -162,8 +162,8 @@
                     The <b>generator name must be a unique name</b> for a persistence unit, which is referenced by one or
                     more classes to be the generator for an entity bean, or else you will get a JPA validation error.
                     By default, if unspecified, the generator name will be 'Entity_generator'. The name is used both
-                    in the <code>@javax.persistence.GeneratedValue(strategy=GenerationType.XXX, generator="Entity_generator")</code>
-                    and the <code>@javax.persistence.XXXGenerator(name="Entity_generator")</code>
+                    in the <code>@jakarta.persistence.GeneratedValue(strategy=GenerationType.XXX, generator="Entity_generator")</code>
+                    and the <code>@jakarta.persistence.XXXGenerator(name="Entity_generator")</code>
                     where XXX is the type of generator. This specifies either the <b>table name</b> that stores the generated ids
                     or the <b>sequence name</b> which is the name of the database sequence object used to get the ids.
                 </p>
@@ -228,7 +228,7 @@
                 <p>
                     In order to change the creation DDL for the column in the relational table, you can model
                     <b><code>andromda_persistence_column_definition</code></b> tag on the attribute.
-                    This adds the <code>@javax.persistence.Column(columnDefinition="")</code> annotation.
+                    This adds the <code>@jakarta.persistence.Column(columnDefinition="")</code> annotation.
                     This DDL is DBMS specific, may not be portable between local test and dev/prod databases.
                 </p>
                 <p>
@@ -237,7 +237,7 @@
                     message is returned. For the serial column, the additional validations will be:
                 </p>
                 <p>
-                    <code>@javax.persistence.Size(max=15)</code>
+                    <code>@jakarta.persistence.Size(max=15)</code>
                 </p>
             </subsection>
             <a name="Attribute_Multiplicity"/>
@@ -247,8 +247,8 @@
                     <b><code>[0..1]</code></b>, meaning the lowerBound is 0 and the property is not required and is allowed to be set to
                     <code>null</code>; setting the multiplicity to a value greater than <code>0</code>
                     means the property is required.  In the former case the nullable element will be set to
-                    <code>true</code> for the <code>@javax.persistence.Column</code> annotation on the
-                    property. If not nullable or required, the <code>@javax.persistence.NotNull(message="serial is required")</code>
+                    <code>true</code> for the <code>@jakarta.persistence.Column</code> annotation on the
+                    property. If not nullable or required, the <code>@jakarta.persistence.NotNull(message="serial is required")</code>
                     annotation will be added to the property. The following class assigns a multiplicity of [0..1]
                     <b>[lowerBound..upperBound]</b> to the <code>name</code>
                     property which means <code>name</code> can be null.
@@ -278,7 +278,7 @@
                     message is returned. The additional validation will be:
                 </p>
                 <p>
-                    <code>@javax.persistence.NotNull(message="serial is required")</code>
+                    <code>@jakarta.persistence.NotNull(message="serial is required")</code>
                 </p>
             </subsection>
             <a name="Unique_Attributes"/>
@@ -287,7 +287,7 @@
                     If you want an entity's attribute to be unique for all instances of that entity's type,
                     in UML2 <b>mark the attribute as 'Unique'</b>. In UML14, you
                     should assign the <![CDATA[<<Unique>>]]> stereotype to it.  This will define the corresponding
-                    unique element in the <code>@javax.persistence.Column</code> annotation. It will also generate a
+                    unique element in the <code>@jakarta.persistence.Column</code> annotation. It will also generate a
                     attribute on the JPA2 <code>@Column(unique=true)</code> annotation, and generate a findByAttribute query,
                     except for identifier properties.
                 </p>
@@ -297,14 +297,14 @@
                 <p>
                     To indicate an attribute as transient (not persisted by the persistence container), you
                     model the <b><![CDATA[<<Transient>>]]></b> stereotype on the attribute.  This adds the
-                    <code>@javax.persistence.Transient</code> annotation to the attribute.
+                    <code>@jakarta.persistence.Transient</code> annotation to the attribute.
                 </p>
             </subsection>
             <a name="Insertable_Attribute"/>
             <subsection name="Insertable Attribute">
                 <p>
                     To include the mapped column in the SQL insert statement, you set the <code>insertable</code>
-                    property on the <code>@javax.persistence.Column</code> annotation which is done by modeling the
+                    property on the <code>@jakarta.persistence.Column</code> annotation which is done by modeling the
                     <b><code>andromda_persistence_column_insert</code></b> on the attribute.  By default, this is set to
                     <code>true</code>, so it only needs to be specified if you want the column to be initialized using the
                     database default value.
@@ -314,7 +314,7 @@
             <subsection name="Updatable Attribute">
                 <p>
                     To include the mapped column in the SQL update statement, you set the <code>updatable</code>
-                    property on the <code>@javax.persistence.Column</code> annotation which is done by modeling the
+                    property on the <code>@jakarta.persistence.Column</code> annotation which is done by modeling the
                     <b><code>andromda_persistence_column_update</code></b> on the attribute.  By default, this is set to
                     <code>true</code>, so it only needs to be specified if you want the column to be updated using by the
                     database automatically. The attribute will be read-only from the database.
@@ -368,7 +368,7 @@
                 <p>
                     An attribute can be specified as either a BLOB or CLOB field.  This is modeled by setting
                     the attribute type to <code>datatype::Blob</code> or <code>datatype::Clob</code>.  This will add
-                    the <code>@javax.persistence.Lob</code> annotation to the entity attribute.  The EJB3
+                    the <code>@jakarta.persistence.Lob</code> annotation to the entity attribute.  The EJB3
                     cartridge will assign a default Java type based on the Java mappings specified in AndroMDA.
                     For a Blob, the default is <code>byte[]</code>.  For a Clob, the default is <code>String</code>.
                     To override the default types, you can model the <b><![CDATA[<<PersistentAttribute>>]]> <code>andromda_persistence_lob_type</code></b>
@@ -424,7 +424,7 @@
                     Hibernate supports mapping date, datetime, and time database types to java.util.Data Java type.
                     The type mapping is done through the <b><![CDATA[<<TemporalElement>>]]> <code>andromda_persistence_temporal_type</code></b>
                     with options of DATE, TIME, TIMESTAMP, and NONE. This results in
-                    <code>@javax.persistence.Temporal(TemporalType.XXX)</code> annotation on the attribute.
+                    <code>@jakarta.persistence.Temporal(TemporalType.XXX)</code> annotation on the attribute.
                 </p>
             </subsection>
             <a name="Custom_DataTypes"/>
@@ -464,7 +464,7 @@
                     implementation class afterwards.  This shouldn't cause any issues, as the developer would have
                     to define the operation implementation anyway to correspond to the abstract definition in
                     the mapped superclass.  The primary purpose for this strategy is to avoid having to
-                    annotate the entity operation with <code>@javax.persistence.Transient</code> annotation
+                    annotate the entity operation with <code>@jakarta.persistence.Transient</code> annotation
                     in both the mapped superclass and the inheriting implementation class.
                 </p>
                 <p class="highlight">

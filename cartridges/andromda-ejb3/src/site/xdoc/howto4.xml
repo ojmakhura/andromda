@@ -52,9 +52,9 @@
                 The EJB3 cartridge represents a composite primary key as an embeddable class, implements 
                 <code>Serializable</code> and defines the <code>equals</code> and <code>hashCode</code> methods.
                 The <code>CarPK</code> embeddable composite primary key class has the
-                <code>@javax.persistence.Embeddable</code> annotation.  The <code>CarEmbeddable</code> class
-                contains the corresponding <code>@javax.persistence.EmbeddedId</code> annotation on the
-                composite primary key getter.  Notice how the <code>@javax.persistence.AttributeOverrides</code>
+                <code>@jakarta.persistence.Embeddable</code> annotation.  The <code>CarEmbeddable</code> class
+                contains the corresponding <code>@jakarta.persistence.EmbeddedId</code> annotation on the
+                composite primary key getter.  Notice how the <code>@jakarta.persistence.AttributeOverrides</code>
                 annotation is used to map the primary key attributes to the relational database columns in
                 <code>CarEmbeddable.java</code>.
             </p>
@@ -66,7 +66,7 @@
             </p>
             <p>
                 The following example illustrates the effect of having a composite primary key on the inverse
-                side of a relationship.  What's important here is the <code>@javax.persistence.JoinColumns</code>
+                side of a relationship.  What's important here is the <code>@jakarta.persistence.JoinColumns</code>
                 annotation on <code>getOwner()</code> in <code>CarEmbeddable.java</code>.  Because
                 <code>Person</code> has a composite primary key, the foreign key on Many-To-One owning side
                 has to know about this.
