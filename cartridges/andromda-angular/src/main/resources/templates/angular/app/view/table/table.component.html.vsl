@@ -8,10 +8,10 @@
 #if (!$table.tableColumns.empty)
     <div class="table table-striped"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
         <div class="col my-3 view-buttons" *ngIf="${table.name}DataSource.data.length > 0">
-            <button type="button" color="accent" class="btn btn-info" csvLink
-                        [data]="${table.name}DataSource.data">
+            <a type="button" color="accent" class="btn btn-info" csvLink
+                        [data]="get$stringUtils.capitalize($table.name)ExportData()" [filename]="'${table.name}'">
                 CSV
-            </button>
+            </a>
         </div>
         <mat-table matSort [dataSource]="${table.name}DataSource" #${table.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
 #foreach ($column in $table.tableColumnNames)

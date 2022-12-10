@@ -135,4 +135,20 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
         this.${action.controller.variableName}.${action.triggerName}(params);
 	}
 #end
+
+    get$stringUtils.capitalize($table.name)ExportData(): any {
+
+        return this.${table.name}DataSource?.data?.map(row => {
+            return {
+#foreach ($column in $table.tableColumnNames)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
+                ${stringUtils.replace("${columnName}", ".", "")}: row?.${stringUtils.replace("${columnName}", ".", "?.")},
+#end
+            }
+        });
+    }
 }

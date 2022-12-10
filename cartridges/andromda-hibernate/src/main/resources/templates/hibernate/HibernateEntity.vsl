@@ -16,8 +16,21 @@ import java.io.Serializable;
 $entity.getDocumentation(" * ")
  */
 #if ($hibernateEntityAnnotations)
+// $entity.uniqueConstraints
 @javax.persistence.Entity
-@javax.persistence.Table(name = "${entity.tableName}"#if($stringUtils.isNotBlank($entity.schema)), schema="$entity.schema"#end)
+@javax.persistence.Table(
+    name = "${entity.tableName}"#if($stringUtils.isNotBlank($entity.schema)), schema="$entity.schema"#end
+#if($entity.uniqueConstraints)
+#set ($i = 0)
+    , uniqueConstraints= {
+#foreach($key in ${entity.uniqueConstraints.keySet()})
+        @javax.persistence.UniqueConstraint(name="$key", columnNames={${entityUtils.getUniqueGroupString(${entity.uniqueConstraints.get($key)})}})#if($i < ${entity.uniqueConstraints.keySet().size()} - 1)#end
+#set ($i = $i + 1)
+#end
+
+    }
+#end
+)
 ##, uniqueConstraints=@UniqueConstraint(name="",columnNames={"", ""}
 ##if(!$entity.lazy), lazy="false"#end
 ##if($entity.hibernateProxy), proxy="$entity.fullyQualifiedEntityName"#end
