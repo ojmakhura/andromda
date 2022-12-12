@@ -182,17 +182,17 @@
         </modelElements>
     </template>
 
-    <template
+    <!-- <template
         path="templates/hibernate/usertypes/HibernateByteBlobType.vsl"
         outputPattern="$generatedFile"
         outlet="user-types"
-        overwrite="true"/>
+        overwrite="true"/> -->
 
-    <template
+    <!-- <template
         path="templates/hibernate/usertypes/HibernateStringClobType.vsl"
         outputPattern="$generatedFile"
         outlet="user-types"
-        overwrite="true"/>
+        overwrite="true"/> -->
 
     <template
         path="templates/hibernate/ejb/ejb-jar.xml.vsl"
