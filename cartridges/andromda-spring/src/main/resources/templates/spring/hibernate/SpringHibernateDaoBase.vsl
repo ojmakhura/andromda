@@ -1371,13 +1371,14 @@ $h3tab        return results;
 #end
 #if($criteriaAttribute.nullable)
 #set ($capitalised_ = $stringUtils.capitalize($hibernateUtils.getFirstJoinName($criteriaAttribute.attributeName)))
-#set ($specName_ = "findByPropertyNull")
 #if($isJoin)
-#set ($specPrefix = "${entity.name}")
+#set ($specPrefix = "${entity.name}Specifications")
+#set ($specName_ = "<${entity.name}>findBy${capitalised_}Null()")
 #else
 #set ($specPrefix = "${springSpecifications}")
+#set ($specName_ = "findByAttributeNull($quotedAttribute)")
 #end
-#set ($spec = "${spec}.or(${specPrefix}Specifications.#if(!$isJoin)<#if($criteriaAttribute.type.primitive)$criteriaAttribute.type.wrapperName#else${criteriaAttribute.type.fullyQualifiedName}#end>#end${specName_}($quotedAttribute))")
+#set ($spec = "${spec}.or(${specPrefix}.#if(!$isJoin)#end${specName_})")
 
 #end
 #if($i == 1)
