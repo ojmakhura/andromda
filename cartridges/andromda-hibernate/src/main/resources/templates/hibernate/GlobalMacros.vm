@@ -587,6 +587,7 @@ $target.getDocumentation("     * ")
     @javax.persistence.Transient
 #*    *##else
 #*      *##set ($argExists = false)
+// $target
     @javax.persistence.OneToOne(#if($associationEnd.owning)#if ($target.required)optional = false#set ($argExists = true)#end#end#if ($target.cascadeType)#if ($argExists), #end cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end fetch = javax.persistence.FetchType.LAZY#end)
 #*      *##if($associationEnd.owning)
 ##

@@ -1,5 +1,7 @@
 package org.andromda.metafacades.emf.uml22;
 
+import java.util.Objects;
+
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.EnumerationFacade;
@@ -253,8 +255,9 @@ public class AttributeFacadeLogicImpl
             /*}*/
 
             // set this attribute's type as a template parameter if required
+            
             if (BooleanUtils.toBoolean(
-                    ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
+                Objects.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING), "")))
             {
                 String type = this.getType().getFullyQualifiedName();
                 if (this.getType().isPrimitive() || this.getLower() > 0)
@@ -462,7 +465,7 @@ public class AttributeFacadeLogicImpl
         // MD11.5 Exports multiplicity as String
         return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLowerValue(),
             this.getType(),
-            ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY)));
+            Objects.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY), ""));
     }
 
     /**
