@@ -7,11 +7,11 @@ package org.andromda.howto2.rental;
 
 import java.util.List;
 import javax.annotation.Resource;
-import javax.ejb.EJB;
-import javax.ejb.Remote;
-import javax.ejb.SessionContext;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
+import jakarta.ejb.EJB;
+import jakarta.ejb.Remote;
+import jakarta.ejb.SessionContext;
+import jakarta.ejb.TransactionAttribute;
+import jakarta.ejb.TransactionAttributeType;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.jboss.annotation.ejb.Clustered;

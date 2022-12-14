@@ -62,7 +62,7 @@ public abstract class ${entity.name}Factory
 #if($primaryKey.type.primitive)
 #set ($primaryKeyName = "new ${primaryKey.type.wrapperName}(${primaryKey.name})")
 #end
-        ${entity.name} object = (${entity.name}) session.load(${entity.entityImplementationName}.class, ${primaryKeyName});
+        ${entity.name} object = (${entity.name}) session.getReference(${entity.entityImplementationName}.class, ${primaryKeyName});
         return object;
     }
 
@@ -71,7 +71,7 @@ public abstract class ${entity.name}Factory
     public static $entity.name findByPrimaryKey (org.hibernate.Session session, ${entity.fullyQualifiedEntityName}PK ${primaryKeyName})
         throws org.hibernate.HibernateException
     {
-        ${entity.name} object = (${entity.name}) session.load(${entity.entityImplementationName}.class, ${primaryKeyName});
+        ${entity.name} object = (${entity.name}) session.getReference(${entity.entityImplementationName}.class, ${primaryKeyName});
         return object;
     }
 
@@ -95,12 +95,18 @@ $finder.getDocumentation("     * ")
     $finder.visibility static $returnType ${finder.name}($parameters)
         throws org.hibernate.HibernateException
     {
-        org.hibernate.Query query = session.createQuery("$finder.query");
+        org.hibernate.query.Query query = session.createQuery("$finder.query");
 ##
 #foreach($argument in $finder.arguments)
 #set ($index = $velocityCount - 1)
 #if ($finder.useNamedParameters)
+ #if($argument.type.attributes.size() > 0)
+ #foreach($attr in $argument.type.attributes)
+        query.${argument.queryArgumentNameSetter}("${attr.name}", ${argument.name}.get${stringUtils.capitalize(${attr.name})}());
+ #end
+ #else
         query.${argument.queryArgumentNameSetter}("${argument.name}", ${argument.name});
+#end
 #else
         query.${argument.queryArgumentNameSetter}(${index}, ${argument.name});
 #end
@@ -110,9 +116,9 @@ $finder.getDocumentation("     * ")
 #end
 ##
 #if ($finder.returnType.primitive)
-        return (($finder.returnType.wrapperName)query.uniqueResult()).${returnType}Value();
+        return (($finder.returnType.wrapperName)query.list()).${returnType}Value();
 #elseif (!$finder.returnType.collectionType)
-        return ($returnType)query.uniqueResult();
+        return ($returnType)query.list();
 #else
         return query.list();
 #end

@@ -49,9 +49,9 @@
 #end
             if (cause instanceof Exception)
             {
-                throw new javax.ejb.EJBException((Exception)cause);
+                throw new jakarta.ejb.EJBException((Exception)cause);
             }
-            throw new javax.ejb.EJBException(exception);
+            throw new jakarta.ejb.EJBException(exception);
         }
     }
 #end

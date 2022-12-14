@@ -12,7 +12,7 @@ public interface ${service.name}Local
 #if($service.generalization)
     extends ${service.generalization.fullyQualifiedName}Local
 #else
-    extends javax.ejb.EJBLocalObject
+    extends jakarta.ejb.EJBLocalObject
 #end
 {
     // -- accessors for environment entries --

@@ -530,13 +530,13 @@
                 </documentation>
             </property>
             <property name="ejbSessionBeanBaseInterfaceLocal">
-                <default>javax.ejb.EJBLocalObject</default>
+                <default>jakarta.ejb.EJBLocalObject</default>
                 <documentation>
                     Name of session bean local base interface for ejb wrapper.
                 </documentation>
             </property>
             <property name="ejbSessionBeanBaseInterfaceRemote">
-                <default>javax.ejb.EJBObject</default>
+                <default>jakarta.ejb.EJBObject</default>
                 <documentation>
                     Name of session bean remote base interface for ejb wrapper.
                 </documentation>

@@ -54,7 +54,7 @@
                 implementation to this file.
             </p>
             <p>
-                The <code>PersonDaoBase.java</code> injects the <code>javax.ejb.SessionContext</code> by
+                The <code>PersonDaoBase.java</code> injects the <code>jakarta.ejb.SessionContext</code> by
                 default and makes this available for use in the subclass via the <code>context</code> protected
                 property.  This base DAO class contains the bulk of the CRUD API implementation.  It injects
                 the default <code>PersistenceContext</code> and provides the finder method implementations

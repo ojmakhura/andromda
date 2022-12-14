@@ -60,7 +60,7 @@ $operation.getDocumentation("     * ")
         }
         catch (Exception e)
         {
-            throw new javax.ejb.EJBException("Error trying to process: ${operation.name}($operation.argumentNames)", e);
+            throw new jakarta.ejb.EJBException("Error trying to process: ${operation.name}($operation.argumentNames)", e);
         }
     }
 

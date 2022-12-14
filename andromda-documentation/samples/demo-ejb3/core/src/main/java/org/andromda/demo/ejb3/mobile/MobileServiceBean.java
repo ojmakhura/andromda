@@ -11,7 +11,7 @@ package org.andromda.demo.ejb3.mobile;
  * Remember to manually configure the local business interface this bean implements if originally you only
  * defined the remote business interface.  However, this change is automatically reflected in the ejb-jar.xml.
  *
- * Do not specify the javax.ejb.Stateless annotation
+ * Do not specify the jakarta.ejb.Stateless annotation
  * Instead, the session bean is defined in the ejb-jar.xml descriptor.
  */
 // Uncomment to enable webservices for MobileServiceBean

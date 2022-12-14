@@ -440,6 +440,11 @@
                     </exclusion>
                 </exclusions> -->
             </dependency>
+            <dependency>
+                <groupId>jakarta.ejb</groupId>
+                <artifactId>jakarta.ejb-api</artifactId>
+                <version>4.0.1</version>
+            </dependency>
             <!-- Hibernate Jcache -->
 		    <dependency>
 		      <groupId>org.hibernate</groupId>
@@ -457,22 +462,16 @@
                 <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
                 <version>8.0.0.Final</version>
-                <!-- <exclusions>
-                	<exclusion>
-                		<groupId>jakarta.validation</groupId>
-                		<artifactId>validation-api</artifactId>
-                   	</exclusion>
-                </exclusions> -->
             </dependency>
             <dependency>
-                <groupId>net.sf.ehcache.internal</groupId>
-                <artifactId>ehcache-core</artifactId>
-                <version>2.9.0</version>
+                <groupId>org.ehcache</groupId>
+                <artifactId>ehcache</artifactId>
+                <version>3.10.8</version>
             </dependency>
             <dependency>
                 <groupId>org.javassist</groupId>
                 <artifactId>javassist</artifactId>
-                <version>3.18.2-GA</version>
+                <version>3.29.2-GA</version>
 #if ($ear)
                 <scope>test</scope>
 #end
@@ -493,6 +492,13 @@
 #if($ear && !$cxf)
                 <scope>provided</scope>
 #end
+            </dependency>
+#end
+#if (!$jbossSeam)
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-jasper</artifactId>
+                <version>11.0.0-M1</version>
             </dependency>
 #end
 #end
@@ -936,11 +942,10 @@
                 <scope>provided</scope>
             </dependency>
 #if (!$spring && !$hibernate && !$ejb3)
-            <!-- CXF 2.7.5 references outdated version 2.5.1. groupId changed in v2.7. Add dependency to projects if you need caching -->
             <dependency>
-                <groupId>net.sf.ehcache.internal</groupId>
-                <artifactId>ehcache-core</artifactId>
-                <version>2.8.3</version>
+                <groupId>org.ehcache</groupId>
+                <artifactId>ehcache</artifactId>
+                <version>3.10.8</version>
             </dependency>
 #end
             <!-- Should be either in the JDK6 runtime, or deployed on the AppServer already -->

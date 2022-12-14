@@ -31,8 +31,8 @@ package ${entity.packageName};
  *
  * @see $rootDaoType
  */
-@javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.REQUIRED)
-@javax.ejb.Local({${rootDaoType}.class})
+@jakarta.ejb.TransactionAttribute(jakarta.ejb.TransactionAttributeType.REQUIRED)
+@jakarta.ejb.Local({${rootDaoType}.class})
 #if ($entity.securityEnabled)
 #**##if ($stringUtils.isBlank(${entity.rolesAllowed}))
 @javax.annotation.security.PermitAll
@@ -48,7 +48,7 @@ public abstract class $entity.daoBaseName
 {
     /** Session Context Injection */
     @javax.annotation.Resource
-    protected javax.ejb.SessionContext context;
+    protected jakarta.ejb.SessionContext context;
 
     /**
      * Inject persistence context #if ($entity.defaultPersistenceContextUnitName)${entity.defaultPersistenceContextUnitName}#end
@@ -75,7 +75,7 @@ public abstract class $entity.daoBaseName
     /**
      * Inject DAO $entityRef.targetElement.fullyQualifiedDaoName
      */
-    @javax.ejb.EJB
+    @jakarta.ejb.EJB
     protected $entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName;
 
 #**##end

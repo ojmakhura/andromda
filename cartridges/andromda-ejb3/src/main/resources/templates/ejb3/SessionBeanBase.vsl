@@ -26,7 +26,7 @@ package $service.packageName;
 $service.getDocumentation(" * ")
  */
 #if ($service.transactionManagement)
-@javax.ejb.TransactionManagement(javax.ejb.TransactionManagementType.${service.transactionManagement})
+@jakarta.ejb.TransactionManagement(jakarta.ejb.TransactionManagementType.${service.transactionManagement})
 #end
 #if ($service.securityEnabled)
 #**##if ($service.persistenceContainerJboss)
@@ -59,10 +59,10 @@ public abstract class ${service.serviceBaseName}
     // ------ Session Context Injection ------
 
     /**
-     * javax.ejb.SessionContext Injection
+     * jakarta.ejb.SessionContext Injection
      */
     @javax.annotation.Resource
-    protected javax.ejb.SessionContext context;
+    protected jakarta.ejb.SessionContext context;
 #if ($service.transactionManagementBean)
 
     // ---------- User Transaction Injection ---------
@@ -110,7 +110,7 @@ public abstract class ${service.serviceBaseName}
     /**
      * Inject session EJB ${reference.name}
      */
-    @javax.ejb.EJB
+    @jakarta.ejb.EJB
 #*  *##end
 #*  *##if ($service.viewType == "local")
     protected ${reference.fullyQualifiedServiceLocalInterfaceName} $stringUtils.uncapitalize(${reference.name});
@@ -129,7 +129,7 @@ public abstract class ${service.serviceBaseName}
     /**
      * Inject DAO ${daoReference.daoName}
      */
-    @javax.ejb.EJB
+    @jakarta.ejb.EJB
     private ${daoReference.fullyQualifiedDaoName} $stringUtils.uncapitalize(${daoReference.daoName});
 #**##end
 #end
@@ -298,7 +298,7 @@ $attribute.getDocumentation("     * ")
      */
 #*  *##if (!$service.transactionManagementBean)
 #*    *##if ($attribute.transactionType)
-    @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.${attribute.transactionType})
+    @jakarta.ejb.TransactionAttribute(jakarta.ejb.TransactionAttributeType.${attribute.transactionType})
 #*    *##end
 #*  *##end
     $visibility ${attribute.getterSetterTypeName} ${attribute.getterName}()
@@ -314,7 +314,7 @@ $attribute.getDocumentation("     * ")
      */
 #*    *##if (!$service.transactionManagementBean)
 #*      *##if ($attribute.transactionType)
-    @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.${attribute.transactionType})
+    @jakarta.ejb.TransactionAttribute(jakarta.ejb.TransactionAttributeType.${attribute.transactionType})
 #*      *##end
 #*    *##end
     $visibility void ${attribute.setterName}(${attribute.getterSetterTypeName} value)
@@ -366,7 +366,7 @@ $operation.getDocumentation("     * ")
      */
 #*    *##if (!$service.transactionManagementBean)
 #*      *##if ($stringUtils.isNotBlank($operation.transactionType))
-    @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.${operation.transactionType})
+    @jakarta.ejb.TransactionAttribute(jakarta.ejb.TransactionAttributeType.${operation.transactionType})
 #*      *##end
 #*    *##end
 #*    *##if ($service.securityEnabled)
@@ -384,7 +384,7 @@ $operation.getDocumentation("     * ")
     @jakarta.persistence.FlushMode(jakarta.persistence.FlushModeType.${operation.flushMode})
 #*    *##end
 #*    *##if ($operation.timeoutCallback)
-    @javax.ejb.Timeout
+    @jakarta.ejb.Timeout
 #*    *##end
 #*    *##set ($interceptors = $operation.interceptorReferences)
 #*    *##if ($collectionUtils.size($interceptors) >= 1)
@@ -550,9 +550,9 @@ $operation.getDocumentation("     * ")
 #*    *##end
 #*    *##if ($service.stateful)
 #*      *##if ($operation.postActivate)
-    @javax.ejb.PostActivate
+    @jakarta.ejb.PostActivate
 #*      *##elseif ($operation.prePassivate)
-    @javax.ejb.PrePassivate
+    @jakarta.ejb.PrePassivate
 #*      *##end
 #*    *##end
     $operation.visibility void ${operation.name}()
@@ -581,7 +581,7 @@ $operation.getDocumentation("     * ")
 #*  *##if ($service.seamComponent)
     @org.jboss.seam.annotations.Destroy
 #*  *##end
-    @javax.ejb.Remove
+    @jakarta.ejb.Remove
     public void destroy() {}
 #end
 }

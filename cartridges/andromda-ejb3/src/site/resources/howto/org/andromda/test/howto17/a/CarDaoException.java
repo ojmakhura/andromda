@@ -74,7 +74,7 @@ public class CarDaoException
                 else
                 {
                     exceptionProperty = "causedByException";
-                    //javax.ejb.EJBException
+                    //jakarta.ejb.EJBException
                     if (PropertyUtils.isReadable(th, exceptionProperty))
                     {
                         targetException = (Throwable)PropertyUtils.getProperty(th, exceptionProperty);

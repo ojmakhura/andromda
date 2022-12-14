@@ -214,7 +214,7 @@ public class EJB3SessionOperationFacadeLogicImpl
      * @see EJB3SessionOperationFacadeLogic#getSignature()
      *
      * Override the default implementation to check for timer service and
-     * replace all attributes with javax.ejb.Timer attribute.
+     * replace all attributes with jakarta.ejb.Timer attribute.
      */
     public String getSignature()
     {
@@ -223,7 +223,7 @@ public class EJB3SessionOperationFacadeLogicImpl
         {
             final StringBuilder timeoutSignature = new StringBuilder(this.getName());
             timeoutSignature.append("(");
-            timeoutSignature.append("javax.ejb.Timer timer");
+            timeoutSignature.append("jakarta.ejb.Timer timer");
             timeoutSignature.append(")");
             signature = timeoutSignature.toString();
         }
@@ -274,7 +274,7 @@ public class EJB3SessionOperationFacadeLogicImpl
      * @see EJB3SessionOperationFacadeLogic#getCall()
      *
      * Override the default implementation to check for timer service and
-     * add the javax.ejb.Timer attribute to the call.
+     * add the jakarta.ejb.Timer attribute to the call.
      */
     public String getCall()
     {

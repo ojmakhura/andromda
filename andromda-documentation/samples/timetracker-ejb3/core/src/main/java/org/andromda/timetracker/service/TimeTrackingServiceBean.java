@@ -15,9 +15,9 @@ import org.andromda.timetracker.vo.TimecardSummaryVO;
  * Remember to manually configure the local business interface this bean implements if originally you only
  * defined the remote business interface.  However, this change is automatically reflected in the ejb-jar.xml.
  *
- * Do not specify the javax.ejb.Stateless annotation
+ * Do not specify the jakarta.ejb.Stateless annotation
  * Instead, define the session bean in the ejb-jar.xml descriptor
- * @javax.ejb.Stateless
+ * @jakarta.ejb.Stateless
  */
 // Uncomment to enable webservices for TimeTrackingServiceBean
 // @javax.jws.WebService(endpointInterface = "org.andromda.timetracker.service.TimeTrackingServiceWSInterface", serviceName = "TimeTrackingService")

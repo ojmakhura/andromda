@@ -15,7 +15,7 @@ package $service.packageName;
  * defined the remote business interface.  However, this change is automatically reflected in the ejb-jar.xml.
  *
 #if (!$service.seamComponent)
- * Do not specify the javax.ejb.${service.type} annotation
+ * Do not specify the jakarta.ejb.${service.type} annotation
  * Instead, the session bean is defined in the ejb-jar.xml descriptor.
  */
 #else
@@ -24,7 +24,7 @@ package $service.packageName;
  * fixed in Seam 1.2.1, it is enough to define the session bean
  * in ejb-jar.xml and we can safely remove this annotation.
  */
-@javax.ejb.${service.type}
+@jakarta.ejb.${service.type}
 #**##if ($service.seamComponentStartup)
 @org.jboss.seam.annotations.Startup#if ($stringUtils.isNotBlank($service.seamComponentStartupOptions))$service.seamComponentStartupOptions#end
 #**##else

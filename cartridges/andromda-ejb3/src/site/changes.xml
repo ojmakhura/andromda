@@ -24,7 +24,7 @@
         Added DAO support for every entity POJO.
       </action>
       <action dev="vancek" type="update">
-        Refactored javax.ejb package for interceptor related annotations to javax.annotation.
+        Refactored jakarta.ejb package for interceptor related annotations to javax.annotation.
         NOTE: These annotations are NOT used anyway since interceptor components are configured
         via XML descriptor.
       </action>
@@ -53,7 +53,7 @@
         Updates to bring up to date with EJB 3.0 FR.
         Now require JBoss 4.0.4-GA with EJB 3.0 RC8-PFD update.
         Update include
-          @javax.annotation.EJB --> @javax.ejb.EJB
+          @javax.annotation.EJB --> @jakarta.ejb.EJB
           Interceptor related classes and annotations moved to javax.interceptor package.
       </action>
       <action dev="vancek" type="fix">
@@ -316,7 +316,7 @@
         attributes and identifiers in EJB3ManageableEntityFacade.
       </action>
       <action dev="vancek" due-to="harwey" type="fix">
-        JIRA EJB-46 - Missing javax.ejb.Timer attribute for method on session bean
+        JIRA EJB-46 - Missing jakarta.ejb.Timer attribute for method on session bean
         modeled as a timeout callback.
       </action>
       <action dev="vancek" due-to="turekvl" type="fix">

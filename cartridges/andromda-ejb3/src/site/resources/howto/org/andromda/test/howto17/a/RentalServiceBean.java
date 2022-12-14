@@ -10,9 +10,9 @@ import java.util.List;
  * @see org.andromda.howto2.rental.RentalServiceBean
  */
 /**
- * Do not specify the javax.ejb.Stateless annotation
+ * Do not specify the jakarta.ejb.Stateless annotation
  * Instead, define the session bean in the ejb-jar.xml descriptor
- * @javax.ejb.Stateless
+ * @jakarta.ejb.Stateless
  */
 /**
  * Uncomment to enable webservices for RentalServiceBean

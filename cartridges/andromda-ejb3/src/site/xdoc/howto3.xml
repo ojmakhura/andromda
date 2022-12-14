@@ -65,7 +65,7 @@
                 in the sections ahead.
             </p>
             <p>
-                The <code>RentalServiceBase.java</code> injects the <code>javax.ejb.SessionContext</code> by
+                The <code>RentalServiceBase.java</code> injects the <code>jakarta.ejb.SessionContext</code> by
                 default and makes this available for use in the subclass via the <code>context</code> protected
                 attribute.
             </p>
@@ -304,7 +304,7 @@
                 <p>
                     To setup a timeout callback and use the EJB Timer Service, just model the
                     <![CDATA[<<Timeout>>]]> stereotype on a session bean operation.  This will
-                    render the <code>@javax.ejb.Timeout</code> annotation on the operation.  Every session
+                    render the <code>@jakarta.ejb.Timeout</code> annotation on the operation.  Every session
                     bean injects <code>SessionContext</code> with the <code>@javax.annotation.Resource</code>
                     annotation which allows registration of the timer with the EJB Timer Service.
                 </p>

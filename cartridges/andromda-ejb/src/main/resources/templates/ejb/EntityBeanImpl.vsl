@@ -3,8 +3,8 @@
 package $entity.packageName;
 #end
 
-import javax.ejb.EntityContext;
-import javax.ejb.RemoveException;
+import jakarta.ejb.EntityContext;
+import jakarta.ejb.RemoveException;
 
 /**
  * @see ${entity.fullyQualifiedName}Bean
@@ -44,7 +44,7 @@ public abstract class ${entity.name}BeanImpl
     /**
 $op.getDocumentation("     * ")
      */
-    public void createImpl(${op.typedArgumentList}) throws javax.ejb.CreateException
+    public void createImpl(${op.typedArgumentList}) throws jakarta.ejb.CreateException
     {
 
     }

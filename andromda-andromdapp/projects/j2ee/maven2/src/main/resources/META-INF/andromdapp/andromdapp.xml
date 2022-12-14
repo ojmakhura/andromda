@@ -80,13 +80,7 @@
         <conditions>
             <condition id="spring" equal="true"/>
             <output>mda/src/main/config/mappings/SpringMergeMappings.xml.vsl</output>
-        </conditions>
-        <conditions>
-            <condition id="spring" equal="true"/>
             <output>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SharedAutoConfiguration.java.vls</output>
-        </conditions>
-        <conditions>
-            <condition id="spring" equal="true"/>
             <output>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}Specifications.java.vsl</output>
         </conditions>
         <conditions type="and">
