@@ -72,14 +72,14 @@ public interface ${entity.name}Repository extends
 #end
 ## list as search parameter
     // Search by a list of parameters
-    java.util.List<$entity.name> findBy${stringUtils.capitalize($attribute.name)}Not($attribute.type.fullyQualifiedName $attribute.name);
+    java.util.Collection<$entity.name> findBy${stringUtils.capitalize($attribute.name)}Not($attribute.type.fullyQualifiedName $attribute.name);
     org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}Not($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
     
-    java.util.List<$entity.name> findBy${stringUtils.capitalize($attribute.name)}In(java.util.List<$attribute.type.fullyQualifiedName> ${attribute.name}s);
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}In(java.util.List<$attribute.type.fullyQualifiedName> ${attribute.name}s, org.springframework.data.domain.Pageable pageable);
+    java.util.Collection<$entity.name> findBy${stringUtils.capitalize($attribute.name)}In(java.util.Collection<$attribute.type.fullyQualifiedName> ${attribute.name}s);
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}In(java.util.Collection<$attribute.type.fullyQualifiedName> ${attribute.name}s, org.springframework.data.domain.Pageable pageable);
     
-    java.util.List<$entity.name> findBy${stringUtils.capitalize($attribute.name)}NotIn(java.util.List<$attribute.type.fullyQualifiedName> ${attribute.name}s);
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}NotIn(java.util.List<$attribute.type.fullyQualifiedName> ${attribute.name}s, org.springframework.data.domain.Pageable pageable);
+    java.util.Collection<$entity.name> findBy${stringUtils.capitalize($attribute.name)}NotIn(java.util.Collection<$attribute.type.fullyQualifiedName> ${attribute.name}s);
+    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}NotIn(java.util.Collection<$attribute.type.fullyQualifiedName> ${attribute.name}s, org.springframework.data.domain.Pageable pageable);
 
 #end
 #end
