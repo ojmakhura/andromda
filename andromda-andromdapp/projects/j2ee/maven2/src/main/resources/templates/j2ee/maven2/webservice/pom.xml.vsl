@@ -187,6 +187,35 @@
             </exclusions>
         </dependency>
 #end
+#if($testDatabase.equals("h2"))
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>1.17.6</version>
+            <scope>test</scope>
+        </dependency>
+#if($testDatabase.equals("mysql"))
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>mysql</artifactId>
+            <version>1.17.6</version>
+            <scope>test</scope>
+        </dependency>
+#if($testDatabase.equals("mariadb"))
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>mariarb</artifactId>
+            <version>1.17.6</version>
+            <scope>test</scope>
+        </dependency>
+#if($testDatabase.equals("postgres"))
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>1.17.6</version>
+            <scope>test</scope>
+        </dependency>
+#end
     </dependencies>
     <build>
         <finalName>${application.id}-webservice</finalName>

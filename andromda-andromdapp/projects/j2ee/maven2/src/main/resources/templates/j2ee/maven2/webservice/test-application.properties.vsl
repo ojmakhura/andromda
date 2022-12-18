@@ -1,0 +1,13 @@
+#if($testDatabase.equals("h2"))
+#set($url="jdbc:tc:db:15:///integration-tests-db")
+#if($testDatabase.equals("mysql"))
+#set($url="jdbc:tc:mysql:15:///integration-tests-db")
+#if($testDatabase.equals("mariadb"))
+#set($url="jdbc:tc:mariadb:15:///integration-tests-db")
+#if($testDatabase.equals("postgres"))
+#set($url="jdbc:tc:postgresql:15:///integration-tests-db")
+#end
+#endspring.datasource.url=${url}
+spring.datasource.username=sa
+spring.datasource.password=sa
+logging.level.root=INFO

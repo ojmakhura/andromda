@@ -1,0 +1,52 @@
+#set($outputFileName="${stringUtils.capitalize($applicationId)}TestContainer")
+package ${applicationPackage};
+#if($testDatabase.equals("h2"))
+#set($dbname="H2")
+#if($testDatabase.equals("mysql"))
+#set($dbname="Myslql")
+#if($testDatabase.equals("mariadb"))
+#set($dbname="Mariadb")cope>
+#if($testDatabase.equals("postgres"))
+#set($dbname="PostgreSQL")
+import org.testcontainers.containers.PostgreSQLContainer;
+#end
+
+public class ${stringUtils.capitalize($applicationId)}TestContainer extends ${dbname}Container<${stringUtils.capitalize($applicationId)}TestContainer> {
+#if($testDatabase.equals("h2"))
+#set($dbname="H2")
+    private static final String IMAGE_VERSION = "postgres:15";
+#if($testDatabase.equals("mysql"))
+    private static final String IMAGE_VERSION = "mysql:8";
+#set($dbname="Myslql")
+#if($testDatabase.equals("mariadb"))
+    private static final String IMAGE_VERSION = "mariadb:8";
+#set($dbname="Mariadb")cope>
+#if($testDatabase.equals("postgres"))
+    private static final String IMAGE_VERSION = "postgres:15";
+#end
+    private static ${stringUtils.capitalize($applicationId)}TestContainer container;
+    
+    private ${stringUtils.capitalize($applicationId)}TestContainer() {
+        super(IMAGE_VERSION);
+    }
+
+    public static ${stringUtils.capitalize($applicationId)}TestContainer getInstance() {
+        if (container == null) {
+            container = new ${stringUtils.capitalize($applicationId)}TestContainer();
+        }
+        return container;
+    }
+
+    @Override
+    public void start() {
+        super.start();
+        System.setProperty("DB_URL", container.getJdbcUrl());
+        System.setProperty("DB_USERNAME", container.getUsername());
+        System.setProperty("DB_PASSWORD", container.getPassword());
+    }
+
+    @Override
+    public void stop() {
+        //do nothing, JVM handles shut down
+    }
+}

@@ -17,6 +17,8 @@
     <property reference="generateRefFiles"/>
     <property reference="overwriteAll"/>
     <property reference="applicationName"/>
+    <property reference="applicationId"/>
+    <property reference="applicationPackage"/>
     <property reference="wsdlSoapAddress"/>
     <property reference="securityRealm"/>
     <property reference="testServiceLocatorName"/>
@@ -1170,6 +1172,20 @@
         path="templates/webservice/springws/SpringWSImpl.java.vsl"
         outputPattern="$stringUtils.replace($service.packageName, '.', '/')/${serviceImplName}.java"
         outlet="webservice-impl"
+        overwrite="false"
+        outputCondition="springws">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    <template
+        path="templates/webservice/springws/SpringWSTest.java.vsl"
+        outputPattern="$stringUtils.replace($service.packageName, '.', '/')/${serviceTestName}.java"
+        outlet="webservice-tests-manual"
         overwrite="false"
         outputCondition="springws">
         <modelElements variable="service">

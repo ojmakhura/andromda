@@ -69,6 +69,12 @@
                     Normally webservice/src/test/java. Output is only generated once. Testing requires a running Jetty server.
                 </documentation>
             </property>
+            <property name="webservice-tests-manual" required="false">
+                <documentation>
+                    The directory to which webservice manual tests will be generated, so that they can be run as part of the maven test phases.
+                    Normally webservice/src/test/java. Output is only generated once. Testing requires a running Jetty server.
+                </documentation>
+            </property>
             <property name="webservice-impl" required="false">
                 <documentation>
                     The directory to which any extra webservice classes will be generated (i.e. an AttachmentHandler

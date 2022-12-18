@@ -462,6 +462,7 @@
                 <property name="configuration">${webservice.generated.dir}</property>
                 <property name="webservice-project">${webservice.project}</property>
                 <property name="webservice-impl">${webservice.manual.java.dir}</property>
+                <property name="webservice-tests-manual">${webservice.manual.test.dir}</property>
                 <property name="webservice-tests">${webservice.test.dir}</property>
                 <property name="core-tests">${core.manual.test.dir}</property>
                 <property name="service-impls">${core.manual.java.dir}</property>

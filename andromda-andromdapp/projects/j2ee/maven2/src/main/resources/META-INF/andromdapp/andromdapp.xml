@@ -84,6 +84,7 @@
         <conditions>
             <condition id="spring" equal="true"/>
             <output>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SharedAutoConfiguration.java.vls</output>
+            <output>core/test/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}CoreTestApplication.java.vls</output>
         </conditions>
         <conditions>
             <condition id="spring" equal="true"/>
@@ -287,6 +288,14 @@
             <from>webservice/application.properties.vsl</from>
             <to>webservice/src/main/resources/application.properties.vsl</to>
         </mapping>
+        <mapping>
+            <from>webservice/test-application.properties.vsl</from>
+            <to>webservice/test/src/main/resources/application.properties.vsl</to>
+        </mapping>
+        <mapping>
+            <from>webservice/test-application.properties.vsl</from>
+            <to>webservice/test/src/main/test/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}TestContainer.java.vsl</to>
+        </mapping>
 
         <!-- Spring Thymeleaf Frontend -->
         <mapping>
@@ -487,6 +496,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <response>hypersonic</response>
                     <response>derby</response>
                     <response>mysql</response>
+                    <response>posrgres</response>
                 </responses>
             </prompt>
             <prompt id="web">
