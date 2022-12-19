@@ -327,7 +327,12 @@ $oldXmlIndent        }
 #if($hibernate4or5)       
 		
 #set($repositoryName = "${stringUtils.uncapitalize(${entity.entityName})}Repository")
-        final java.util.Collection#if($enableTemplating)<?>#end results = ${repositoryName}.findAll();
+        final java.util.Collection#if($enableTemplating)<?>#end results;
+        if(pageNumber < 0 || pageSize < 0) {
+            results = ${repositoryName}.findAll();
+        } else {
+            results = ${repositoryName}.findAll(org.springframework.data.domain.PageRequest.of(pageSize, pageSize)).getContent();
+        }
         this.transformEntities(transform, results);
         return results;
 #else

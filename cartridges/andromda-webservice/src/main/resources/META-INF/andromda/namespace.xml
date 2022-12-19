@@ -123,6 +123,17 @@
             </property>
         </propertyGroup>
         <propertyGroup name="Other">
+            <property name="applicationId" required="true">
+                <documentation>
+                    The id of the application (this is used as the display
+                    name of the application).
+                </documentation>
+            </property>       
+            <property name="applicationPackage" required="true">
+                <documentation>
+                    The default package of the application.
+                </documentation>
+            </property>    
             <property name="generateRefFiles" required="false">
                 <default>false</default>
                 <documentation>

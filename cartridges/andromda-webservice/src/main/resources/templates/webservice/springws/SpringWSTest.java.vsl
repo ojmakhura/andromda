@@ -14,7 +14,7 @@ package ${service.packageName};
 #set ( $serviceName = "${service.name}")
 #end
 import org.junit.ClassRule;
-import org.junit.jupiter.api.Assertions;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -22,14 +22,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.testcontainers.containers.PostgreSQLContainer;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ${applicationPackage}.${stringUtils.capitalize($applicationId)}TestContainer;
 
@@ -40,10 +41,12 @@ public class ${serviceTestName} {
     @ClassRule
     public static PostgreSQLContainer postgreSQLContainer = ${stringUtils.capitalize($applicationId)}TestContainer.getInstance();
 
+    private String path = #if ($stringUtils.isNotBlank($service.restPath))"$service.restPath"#else"${service.name.toLowerCase()}sws"#end;
+
     protected Logger logger = LoggerFactory.getLogger(${serviceTestName}.class);
 
     @Autowired
-    private RestTemplate restTemplate;
+    private MockMvc mockMvc;
 
     @Autowired
     private ObjectMapper objectMapper;
