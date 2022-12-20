@@ -455,7 +455,7 @@ $target.getDocumentation("     * ")
 ##
 ##    // $target.type.fullyQualifiedName compositePrimaryKeyPresent=$target.type.compositePrimaryKeyPresent columnName=$target.columnName type=$target.type
 #*      *##if (!$target.type.compositePrimaryKeyPresent)
-    @javax.persistence.JoinColumn(name = "${target.columnName}"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end#if(${target.unique}), unique = true#else, unique = false#end)
+    @javax.persistence.JoinColumn(name = "${target.columnName}"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end#if(${target.unique} || !$target.required), unique = true#else, unique = false#end)
 #*      *##else
 #*        *##set ($identifiers = $target.type.getIdentifiers())
     @javax.persistence.JoinColumns
@@ -587,7 +587,6 @@ $target.getDocumentation("     * ")
     @javax.persistence.Transient
 #*    *##else
 #*      *##set ($argExists = false)
-// $target
     @javax.persistence.OneToOne(#if($associationEnd.owning)#if ($target.required)optional = false#set ($argExists = true)#end#end#if ($target.cascadeType)#if ($argExists), #end cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end fetch = javax.persistence.FetchType.LAZY#end)
 #*      *##if($associationEnd.owning)
 ##
@@ -595,13 +594,13 @@ $target.getDocumentation("     * ")
 ## Otherwise add the JoinColumn annotation.
 ##
 #*        *##if (!$target.type.compositePrimaryKeyPresent)
-    @javax.persistence.JoinColumn(name = "${target.columnName}"#if(!$target.required), nullable = true#end#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
+    @javax.persistence.JoinColumn(name = "${target.columnName}"#if(!$target.required), nullable = true#end, unique = #if(!$target.unique || !$target.required)false#{else}true#end#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
 #*        *##else
 #*          *##set ($identifiers = $target.type.getIdentifiers())
     @javax.persistence.JoinColumns
     ({
 #*          *##foreach ($attribute in $identifiers)
-        @javax.persistence.JoinColumn(name = "${attribute.columnName}"#if(!$target.required), nullable = true#end##, referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()),#end
+        @javax.persistence.JoinColumn(name = "${attribute.columnName}", unique = #if(!$attribute.unique || !$attribute.required)false#{else}true#end#if(!$target.required), nullable = true#end##, referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()),#end
 #*          *##end
     })
 #*        *##end
