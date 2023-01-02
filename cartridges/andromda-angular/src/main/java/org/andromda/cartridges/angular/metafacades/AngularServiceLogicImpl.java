@@ -1501,6 +1501,11 @@ public class AngularServiceLogicImpl
                 path = path;
             }
         }
+        
+        if(path.length() > 0 && path.charAt(0) != '/') {
+            path = '/' + path;
+        }
+
         return path;
     }
 

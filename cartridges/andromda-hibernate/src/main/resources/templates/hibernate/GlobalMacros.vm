@@ -448,7 +448,7 @@ $target.getDocumentation("     * ")
 #if ($associationEnd.many2One)
 ## Default fetch type: EAGER
 #*      *##set ($argExists = false)
-    @javax.persistence.ManyToOne(#if ($target.required)optional = false#set ($argExists = true)#end#if ($target.cascadeType)#if ($argExists), #end cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end fetch = javax.persistence.FetchType.LAZY#end)
+    @javax.persistence.ManyToOne(#if ($target.required)optional = false#set ($argExists = true)#end#if ($target.cascadeType)#if ($argExists), #end cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($argExists), #end fetch = javax.persistence.FetchType.#if ($target.lazy)LAZY#{else}EAGER#end)
 ##
 ## Add the JoinColumns annotation if the target entity has a composite primary key
 ## Otherwise add the JoinColumn annotation.
@@ -587,7 +587,7 @@ $target.getDocumentation("     * ")
     @javax.persistence.Transient
 #*    *##else
 #*      *##set ($argExists = false)
-    @javax.persistence.OneToOne(#if($associationEnd.owning)#if ($target.required)optional = false#set ($argExists = true)#end#end#if ($target.cascadeType)#if ($argExists), #end cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end fetch = javax.persistence.FetchType.LAZY#end)
+    @javax.persistence.OneToOne(#if($associationEnd.owning)#if ($target.required)optional = false#set ($argExists = true)#end#end#if ($target.cascadeType)#if ($argExists), #end cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($argExists), #end fetch = javax.persistence.FetchType.#if ($target.lazy)LAZY#{else}EAGER#end)
 #*      *##if($associationEnd.owning)
 ##
 ## Add the JoinColumns annotation if the target entity has a composite primary key
