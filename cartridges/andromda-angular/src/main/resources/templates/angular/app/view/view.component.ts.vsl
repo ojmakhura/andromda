@@ -890,7 +890,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     }
 
 #end
-#set($fieldSet =  $angularUtils.getFacadeSet($fields))
+#set($fieldSet = $angularUtils.getFacadeSet($fields))
 #foreach($field in $fieldSet)
 #if(!$field.inputButton)
 #if($field.type)
