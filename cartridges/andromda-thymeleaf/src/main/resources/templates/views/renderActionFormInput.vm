@@ -94,7 +94,7 @@ $ident      <td id="column_${column}" th:text=#if ($column.type.dateType)"${#tem
 #end
 #set ($formValuePropertyName = "${valuePropertyName}")
 #if ($parameter.inputRadio)
-${ident}<fieldset class="row mb-3">
+${ident}<fieldset class="row form-group border p-3">
 ${ident}    <legend class="col-form-label col-sm-2 pt-0" th:text="#{$parameter.messageKey}"></legend>
 ${ident}    <div class="col-sm-10">
 #else
