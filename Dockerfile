@@ -10,10 +10,11 @@ RUN git clone https://github.com/ojmakhura/doctor-jim.git
 WORKDIR /app/doctor-jim
 RUN pwd
 RUN mvn install -Dmaven.test.skip=true
-ARG CACHEBUST=1
-WORKDIR /app
-RUN git clone https://github.com/ojmakhura/andromda.git
+# ARG CACHEBUST=1
 WORKDIR /app/andromda
+COPY ./ /app/andromda/
+RUN pwd && ls
+RUN ls -l
 RUN mvn install -f maven/maven-config
 RUN mvn install -f maven/maven-parent
 RUN mvn install -f maven/model-archiver
