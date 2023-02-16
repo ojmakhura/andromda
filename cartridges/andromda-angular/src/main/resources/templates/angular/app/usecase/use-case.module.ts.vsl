@@ -10,15 +10,16 @@ import { SharedModule } from '@shared';
 import { CsvModule } from '@ctrl/ngx-csv';
 import { MaterialModule } from '@app/material.module';
 import { ${useCase.routingModuleName} } from './${useCase.routingModuleFileName}';
+import { MatTableExporterModule } from 'mat-table-exporter';
 #foreach($view in $useCase.views)
 #if(!$view.popup)
-import { ${view.componentImplementationName} } from '@app/${view.implementationFilePath}'; // 1
+import { ${view.componentImplementationName} } from '@app/${view.implementationFilePath}';
 #end
 #foreach($import in $view.imports)
 #if($import.tableComponentImplementationName)
-import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}'; // 2
+import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
 #elseif($import.componentImplementationName)
-import { $import.componentImplementationName } from '@app/${import.implementationFilePath}'; // 3
+import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
 #end
 #end
 #end
@@ -46,6 +47,7 @@ import { ${service.name} } from ${escTool.s}@app/${service.filePath}${escTool.s}
     SharedModule,
     FlexLayoutModule,
     MaterialModule,
+    MatTableExporterModule,
     CsvModule,
     ${useCase.routingModuleName},
 #if($ngrx)
