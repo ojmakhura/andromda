@@ -72,27 +72,7 @@ public class $service.defaultExceptionName
             // Reflectively get any exception causes.
             try
             {
-                Throwable targetException = null;
-
-                // java.lang.reflect.InvocationTargetException
-                String exceptionProperty = "targetException";
-                if (PropertyUtils.isReadable(th, exceptionProperty))
-                {
-                    targetException = (Throwable)PropertyUtils.getProperty(th, exceptionProperty);
-                }
-                else
-                {
-                    exceptionProperty = "causedByException";
-                    //jakarta.ejb.EJBException
-                    if (PropertyUtils.isReadable(th, exceptionProperty))
-                    {
-                        targetException = (Throwable)PropertyUtils.getProperty(th, exceptionProperty);
-                    }
-                }
-                if (targetException != null)
-                {
-                    th = targetException;
-                }
+                th = ExceptionUtils.getRootCause(th);
             }
             catch (Exception ex)
             {
