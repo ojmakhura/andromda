@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@shared';
 import { CsvModule } from '@ctrl/ngx-csv';
 import { MaterialModule } from '@app/material.module';
+import { MatTableExporterModule } from 'mat-table-exporter';
 import { ${useCase.routingModuleName} } from './${useCase.routingModuleFileName}';
 #foreach($view in $useCase.views)
 #if(!$view.popup)
@@ -47,6 +48,7 @@ import { ${service.name} } from ${escTool.s}@app/${service.filePath}${escTool.s}
     FlexLayoutModule,
     MaterialModule,
     CsvModule,
+    MatTableExporterModule,
     ${useCase.routingModuleName},
     SharedModule,
 #if($ngrx)
