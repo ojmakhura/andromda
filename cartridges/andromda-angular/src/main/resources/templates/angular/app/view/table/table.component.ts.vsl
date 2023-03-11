@@ -16,6 +16,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UseCaseScope } from '@app/utils/use-case-scope';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { MatTableExporterDirective } from 'mat-table-exporter';
 #set ($base = "${metafacadeWebUtils.toWebResourceName($table.view.useCase.storeName)}")
 import { ${table.view.useCase.storeName}State } from '@app/store$table.view.useCase.pathRoot/${base}.state';
 import * as ${table.view.useCase.storeName}Selectors from '@app/store$table.view.useCase.pathRoot/${base}.selectors';
@@ -62,6 +63,7 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
     ${table.name}DataSource = new MatTableDataSource<$table.type.name>([]);
     @ViewChild('${table.name}Paginator', {static: true}) ${table.name}Paginator: MatPaginator;
     @ViewChild('${table.name}Sort', {static: true}) ${table.name}Sort: MatSort;
+    @ViewChild(MatTableExporterDirective) matTableExporter: MatTableExporterDirective;
 
     @Input() protected pageVariables: any;
     protected route: ActivatedRoute;
