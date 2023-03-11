@@ -9,6 +9,7 @@ import {
     Input,
     OnDestroy
 } from '@angular/core';
+import { MatTableExporterDirective } from 'mat-table-exporter';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormArray } from '@angular/forms';
 import { ControllerBase } from '@app/controller/utils/controller.base';
@@ -59,6 +60,7 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
 
 ##    @Input() ${table.name}: FormArray;
     ${table.name}$: Observable<$table.angularTypeName>;
+    @ViewChild(MatTableExporterDirective) matTableExporter: MatTableExporterDirective;
 
     ${table.name}DataSource = new MatTableDataSource<$table.type.name>([]);
     @ViewChild('${table.name}Paginator', {static: true}) ${table.name}Paginator: MatPaginator;
