@@ -241,7 +241,7 @@ public class ThymeleafAttributeLogicImpl
      * @return propertyName
      * @see ThymeleafAttribute#getFormPropertyName(org.andromda.metafacades.uml.ParameterFacade)
      */
-    protected String handleGetFormPropertyName(final ParameterFacade ownerParameter)
+    protected String handleGetFormPropertyName(final ModelElementFacade ownerParameter)
     {
         final StringBuilder propertyName = new StringBuilder();
         if (ownerParameter != null)
@@ -318,8 +318,9 @@ public class ThymeleafAttributeLogicImpl
      * @return formPropertyId
      * @see ThymeleafAttribute#getFormPropertyId(ParameterFacade)
      */
-    protected String handleGetFormPropertyId(final ParameterFacade ownerParameter)
+    protected String handleGetFormPropertyId(final ModelElementFacade ownerParameter)
     {
+        System.out.println("***************************************************");
         return StringUtilsHelper.lowerCamelCaseName(this.getFormPropertyName(ownerParameter));
     }
 

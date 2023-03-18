@@ -179,6 +179,13 @@ public class UMLProfile {
                         "FRONT_END_APPLICATION");
 
         /**
+         * 'FrontEndController'
+         * Represents a "front end" view (that is it can represent a JSP page, etc).
+         */
+        public static final String STEREOTYPE_FRONT_END_COMPONENT = profile.get(
+                        "FRONT_END_COMPONENT");
+
+        /**
          * 'FrontEndView'
          * Represents a "front end" view (that is it can represent a JSP page, etc).
          */

@@ -69,6 +69,11 @@
                     The location to which message resource bundles are generated.
                 </documentation>
             </property>
+            <property name="components">
+                <documentation>
+                    Where the application components are output.
+                </documentation>
+            </property>
             <property name="views">
                 <documentation>
                     Where the application views (JSPs, Facelets, etc) are output.

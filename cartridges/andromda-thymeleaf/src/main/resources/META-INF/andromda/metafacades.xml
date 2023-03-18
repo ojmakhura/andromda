@@ -60,6 +60,12 @@
         <property reference="controllerImplementationPattern"/>
         <!--property reference="classifierNameMask"/-->
     </metafacade>
+    <metafacade class="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafComponentLogicImpl">
+        <mapping>
+            <stereotype>FRONT_END_COMPONENT</stereotype>
+            <!-- <property name="frontEndParameters"/> -->
+        </mapping>
+    </metafacade>
     <metafacade class="org.andromda.cartridges.thymeleaf.metafacades.ThymeleafUseCaseLogicImpl">
         <mapping>
             <stereotype>FRONT_END_APPLICATION</stereotype>

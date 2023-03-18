@@ -5,6 +5,7 @@ package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
 import org.andromda.metafacades.uml.FrontEndParameter;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 
 /**
@@ -480,7 +481,7 @@ public class FrontEndAttributeLogicImpl
      * Gets the unique id of this attribute on the form.
      * @see org.andromda.metafacades.uml.FrontEndAttribute#getFormPropertyId(ParameterFacade)
      */
-    protected String handleGetFormPropertyId(ParameterFacade ownerParameter)
+    protected String handleGetFormPropertyId(ModelElementFacade ownerParameter)
     {
         // TODO put your implementation here.
         return null;
@@ -491,7 +492,7 @@ public class FrontEndAttributeLogicImpl
      * property.
      * @see org.andromda.metafacades.uml.FrontEndAttribute#getFormPropertyName(ParameterFacade)
      */
-    protected String handleGetFormPropertyName(ParameterFacade ownerParameter)
+    protected String handleGetFormPropertyName(ModelElementFacade ownerParameter)
     {
         // TODO put your implementation here.
         return null;

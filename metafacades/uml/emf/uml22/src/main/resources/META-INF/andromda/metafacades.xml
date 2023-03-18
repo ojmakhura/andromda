@@ -377,6 +377,11 @@
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml22.FrontEndComponentLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.ClassImpl">
+            <stereotype>FRONT_END_COMPONENT</stereotype>
+        </mapping>
+    </metafacade>
     <metafacade class="org.andromda.metafacades.emf.uml22.FrontEndViewLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.StateImpl">
             <property name="frontEndView"/>

@@ -4,7 +4,10 @@
 package org.andromda.metafacades.emf.uml22;
 
 import java.util.Collection;
-import org.andromda.metafacades.uml.FrontEndParameter;
+
+import org.andromda.metafacades.uml.FrontEndAttribute;
+import org.andromda.metafacades.uml.UMLMetafacadeUtils;
+import org.andromda.metafacades.uml.UMLProfile;
 
 /**
  * TODO: Model Documentation for org.andromda.metafacades.uml.FrontEndComponent
@@ -51,17 +54,17 @@ public class FrontEndComponentLogicImpl
      */
     protected String handleGetPath()
     {
-        // TODO put your implementation here.
-        return null;
+        return UMLMetafacadeUtils.getPath(this);
     }
 
     /**
      * TODO: Model Documentation for org.andromda.metafacades.uml.FrontEndComponent
-     * @see org.andromda.metafacades.uml.FrontEndComponent#getFrontEndParameters()
+     * @see org.andromda.metafacades.uml.FrontEndComponent#getFrontEndAttributes()
      */
-    protected Collection<FrontEndParameter> handleGetFrontEndParameters()
+    protected Collection<FrontEndAttribute> handleGetFrontEndAttributes()
     {
         // TODO add your implementation here!
         return null;
     }
+
 }

@@ -1270,7 +1270,7 @@ public class UMLMetafacadeUtils
         String _path = StringUtils.strip(((String) modelElement.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_PATH)));
         if (!StringUtils.isBlank(_path))
         {
-            return null;
+            return '/' + _path + '/' + MetafacadeWebUtils.toWebResourceName(StringUtilsHelper.trimToEmpty(modelElement.getName()));
         }
 
         final StringBuilder path = new StringBuilder();

@@ -8,7 +8,7 @@
 package $service.packageName;
 #end
 
-import org.apache.commons.beanutils.PropertyUtils;
+import org.andromda.core.common.ExceptionUtils;
 
 /**
  * The default exception thrown for unexpected errors occurring

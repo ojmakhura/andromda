@@ -440,7 +440,7 @@ public class FrontEndAttributeLogicImpl
      * @return propertyName
      * @see MetafacadeWebAttribute#getFormPropertyName(org.andromda.metafacades.uml.ParameterFacade)
      */
-    protected String handleGetFormPropertyName(final ParameterFacade ownerParameter)
+    protected String handleGetFormPropertyName(final ModelElementFacade ownerParameter)
     {
         final StringBuilder propertyName = new StringBuilder();
         if (ownerParameter != null)
@@ -517,7 +517,7 @@ public class FrontEndAttributeLogicImpl
      * @return formPropertyId
      * @see MetafacadeWebAttribute#getFormPropertyId(ParameterFacade)
      */
-    protected String handleGetFormPropertyId(final ParameterFacade ownerParameter)
+    protected String handleGetFormPropertyId(final ModelElementFacade ownerParameter)
     {
         return StringUtilsHelper.lowerCamelCaseName(this.getFormPropertyName(ownerParameter));
     }

@@ -157,6 +157,13 @@
                 <value>FrontEndException</value>
                 <appliedOnElement>Transition</appliedOnElement>
             </element>
+            <element name="FRONT_END_COMPONENT">
+                <documentation>
+                    This stereotype is modeled on an class to denote it is representing a view on a front end component.
+                </documentation>
+                <value>FrontEndComponent</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
             <element name="FRONT_END_VIEW">
                 <documentation>
                     This stereotype is modeled on an action state to denote it is representing a view on a front end (such as a JSP page).
@@ -441,6 +448,12 @@
                     The icon to be used for this item (Use Case, Action and View)
                 </documentation>
                 <value>andromda_presentation_icon</value>
+            </element>
+            <element name="PRESENTATION_GENERATE_TABLE">
+                <documentation>
+                    The icon to be used for this item (Use Case, Action and View)
+                </documentation>
+                <value>andromda_presentation_generate_table</value>
             </element>
             <element name="PRESENTATION_TABLE_COLUMNS">
                 <documentation>
