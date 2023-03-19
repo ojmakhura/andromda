@@ -23,7 +23,7 @@ public abstract class ${controller.name}Base extends ${managedBeansPackage}.Cont
     
 #end
 #set ($iter = $controller.allServices.iterator())
-        public ${controller.name}Base(#foreach($ref in $controller.allServices)#set($serviceRef = $iter.next())$ref.fullyQualifiedName $ref.beanName#if($iter.hasNext() || $controller.entityReferences.size() > 0),#end#end) {
+    public ${controller.name}Base(#foreach($ref in $controller.allServices)#set($serviceRef = $iter.next())$ref.fullyQualifiedName $ref.beanName#if($iter.hasNext() || $controller.entityReferences.size() > 0),#end#end) {
 #foreach($ref in $controller.allServices)
         this.$ref.beanName = $ref.beanName;
 #end
@@ -33,6 +33,19 @@ public abstract class ${controller.name}Base extends ${managedBeansPackage}.Cont
         ${stringUtils.uncapitalize($ref.name)}Repository = ${stringUtils.uncapitalize($ref.name)}Repository;
 #end         
     }
+
+#foreach ($view in $controller.useCase.views)
+    protected ${view.fullyQualifiedPageObjectClassName}Form ${view.pageObjectBeanName}Form;
+
+    public ${view.fullyQualifiedPageObjectClassName}Form get${view.pageObjectClassName}Form() {
+        if(${view.pageObjectBeanName}Form == null) {
+            ${view.pageObjectBeanName}Form = new ${view.fullyQualifiedPageObjectClassName}Form();
+        }
+
+        return ${view.pageObjectBeanName}Form;
+    }
+
+#end
     
     /**
      * Populate action form and page variables
@@ -166,32 +179,56 @@ $action.trigger.getDocumentation("     * ")
 #set ($indPath = "$indPath $d/$field.name/{$field.name}$d")
 #end
 #end
+#if($action.exitingView)
+#set ($viewRestPath = "${action.source.restPath}")
+#set ($param = "${action.source.fullyQualifiedPageObjectClassName}Form ${action.source.pageObjectBeanName}Form")
+#set ($formBeanName = "${action.source.pageObjectBeanName}Form")
+#else
+#set ($param = "$action.fullyQualifiedFormImplementationName $action.formBeanName")
+#set ($formBeanName = "${action.formBeanName}")
+#end
     @org.springframework.web.bind.annotation.GetMapping(#if($action.parameters.size() > 0){$d$d, $indPath, $d$fieldPath$d}#else$d$d#end) 
     @Override
     public String startUseCase(#if($action.parameters.size() > 0)$useCaseParams, #{end}org.springframework.ui.Model model)
 #else
 #if($action.tableLink)
-    @org.springframework.web.bind.annotation.PostMapping({"${action.restPath}"})
+#if($action.exitingView)
+#set ($viewRestPath = "${action.source.restPath}")
+#set ($param = "${action.source.fullyQualifiedPageObjectClassName}Form ${action.source.pageObjectBeanName}Form")
+#set ($formBeanName = "${action.source.pageObjectBeanName}Form")
+#else
+#set ($param = "$action.fullyQualifiedFormImplementationName $action.formBeanName")
+#set ($formBeanName = "${action.formBeanName}")
+#end
+    @org.springframework.web.bind.annotation.PostMapping({"${action.source.restPath}${action.restPath}"})
 #set($params = $action.restQueryParams)
 #else
-    @org.springframework.web.bind.annotation.PostMapping("${action.restPath}")
+#if($action.exitingView)
+#set ($viewRestPath = "${action.source.restPath}")
+#set ($param = "${action.source.fullyQualifiedPageObjectClassName}Form ${action.source.pageObjectBeanName}Form")
+#set ($formBeanName = "${action.source.pageObjectBeanName}Form")
+#else
+#set ($param = "$action.fullyQualifiedFormImplementationName $action.formBeanName")
+#set ($formBeanName = "${action.formBeanName}")
+#end
+    @org.springframework.web.bind.annotation.PostMapping("${action.source.restPath}${action.restPath}")
 #set($params = $action.restFormParams)
 #end
     @Override
-    public String ${action.triggerName}(#if (!$action.formFields.empty)@org.springframework.web.bind.annotation.ModelAttribute $action.fullyQualifiedFormImplementationName $action.formBeanName, #end org.springframework.ui.Model model)
+    public String ${action.triggerName}(#if (!$action.formFields.empty)@org.springframework.web.bind.annotation.ModelAttribute $param, #end org.springframework.ui.Model model)
 #end
         throws Throwable
     {
-        this.setLastPostedFormClientId("${action.formBeanName}");
+        this.setLastPostedFormClientId("${formBeanName}");
         
         String forward=null;
 #if ($action.finalStateTarget)
 #if ($formPopulationOperationRequired)
         String params = "";
 #foreach($param in $action.parameters)
-        if(${action.formBeanName}.get$stringUtils.capitalize($param.name)() != null) {
-            this.${action.formBeanName}.set$stringUtils.capitalize($param.name)(${action.formBeanName}.get$stringUtils.capitalize($param.name)());
-            params = params + "/$param.name/" + ${action.formBeanName}.get$stringUtils.capitalize($param.name)();
+        if(${formBeanName}.get$stringUtils.capitalize($param.name)() != null) {
+            this.${formBeanName}.set$stringUtils.capitalize($param.name)(${formBeanName}.get$stringUtils.capitalize($param.name)());
+            params = params + "/$param.name/" + ${formBeanName}.get$stringUtils.capitalize($param.name)();
         }
 #end
 
@@ -205,14 +242,10 @@ $action.trigger.getDocumentation("     * ")
         
 #else
 #if ($formPopulationOperationRequired)
-## #if (!$action.formFields.empty)
-##         final $action.fullyQualifiedFormImplementationName form = $action.formBeanName;
-## #else
         final $action.fullyQualifiedFormImplementationName form = this.get${stringUtils.capitalize($action.formBeanName)}();
-## #end
 #foreach($field in $action.formFields)
 #if($field.actionParameter)
-        form.set${stringUtils.capitalize($field.name)}(${action.formBeanName}.get${stringUtils.capitalize($field.name)}());
+        //form.set${stringUtils.capitalize($field.name)}(${formBeanName}.get${stringUtils.capitalize($field.name)}());
 #end
 #end
 
@@ -269,21 +302,29 @@ $action.trigger.getDocumentation("     * ")
 #end
 #if($action.exitingInitialState)
 #foreach ($view in $controller.useCase.views)
-#set ($viewPath = "${action.controller.restPath}/$thymeleafUtils.toWebResourceName(${view.name})")
-        if(forward.startsWith("${viewPath}")) {
+#set ($viewPath = "${action.controller.restPath}/${view.restPath}")
+        if(forward != null && forward.startsWith("${viewPath}")) {
             return "${view.path}.html";
         }
        
 #end
-        if(!forward.endsWith(".html")) {
+        if(forward != null && !forward.endsWith(".html")) {
             forward = "redirect:" + forward;
+        }
+
+        if(forward == null) {
+            forward = "${viewPath}";
         }
 
         return forward;
 #else
 
-        if(!forward.endsWith(".html")) {
+        if(forward != null && !forward.endsWith(".html")) {
             forward = "redirect:" + forward;
+        }
+
+        if(forward == null) {
+            forward = "${viewPath}";
         }
 
         return forward;

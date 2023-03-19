@@ -521,6 +521,43 @@
         </modelElements>
     </template>
     <template
+        path="templates/views/component-editable.html.vsl"
+        outputPattern="${component.path}-editable.html"
+        outlet="components"
+        overwrite="true">
+        <modelElements variable="component">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndComponent">
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    <template
+        path="templates/views/component-table.html.vsl"
+        outputPattern="${component.path}-table.html"
+        outlet="components"
+        overwrite="true">
+        <modelElements variable="component">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndComponent">
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    <template
+        path="templates/forms/ViewForm.java.vsl"
+        outputPattern="${view.fullyQualifiedPageObjectClassPath}Form.java"
+        outlet="forms"
+        overwrite="true">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="popup">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    <template
         path="templates/views/view.html.vsl"
         outputPattern="${view.path}.html"
         outlet="views"

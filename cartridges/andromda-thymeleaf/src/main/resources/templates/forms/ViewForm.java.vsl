@@ -1,0 +1,24 @@
+package $view.packageName;
+
+public class ${view.pageObjectClassName}Form {
+
+#foreach ($variable in $view.variables)
+    private $variable.type.fullyQualifiedName $variable.name;
+
+#end
+    public ${view.pageObjectClassName}Form() {
+
+    }
+
+#foreach ($variable in $view.variables)
+    public $variable.type.fullyQualifiedName ${variable.getterName}() {
+
+        return this.$variable.name;
+    }
+    
+    public void ${variable.setterName}($variable.type.fullyQualifiedName ${variable.name}) {
+        this.$variable.name = ${variable.name};
+    }
+    
+#end
+}

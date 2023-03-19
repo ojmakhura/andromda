@@ -774,6 +774,7 @@ public class UmlUtilities
      */
     public static Collection<TagDefinition> getTaggedValue(final Element element)
     {
+        
         final Collection<TagDefinition> tags = new ArrayList<TagDefinition>();
         if (element==null)
         {

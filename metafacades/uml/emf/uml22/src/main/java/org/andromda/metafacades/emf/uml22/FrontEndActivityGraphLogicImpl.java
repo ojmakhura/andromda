@@ -2,6 +2,8 @@ package org.andromda.metafacades.emf.uml22;
 
 import java.util.Collection;
 import java.util.Iterator;
+
+import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndUseCase;
@@ -96,6 +98,17 @@ public class FrontEndActivityGraphLogicImpl
                 controller = (Class)next;
             }
         }
-        return (FrontEndController)this.shieldedElement(controller);
+        // System.out.println(".......................................................");
+        // System.out.println(this.metaObject);
+        // System.out.println(this.shieldedElement(controller));
+        // MetafacadeBase con = this.shieldedElement(controller);
+        // System.out.println(con.getMetafacadeContext());
+        // System.out.println(((StateMachine)this.metaObject).getOwnedMembers());
+        // for(NamedElement e : ((StateMachine)this.metaObject).getOwnedMembers()) {
+        //     System.out.println(e.getAppliedStereotypes());
+        // }
+        // System.out.println(".......................................................");
+
+        return this.shieldedElement(controller);
     }
 }

@@ -68,28 +68,14 @@ $entity.getDocumentation(" * ")
 #if (!$finders.empty)
 @jakarta.persistence.NamedQueries
 ({
-##if ($entity.genericFinders && !$entity.finderFindAllExists)
 #if (!$entity.finderFindAllExists)
     @jakarta.persistence.NamedQuery(name = "${entity.name}.findAll", query = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable")#if (!$finders.empty),#end
 
 #end
-## #foreach ($finder in $finders)
-## $finder
-## $finder.getQuery()
-## $finder.isQuery()
-## $finder.query
-##     @jakarta.persistence.NamedQuery(
-##         name = "${entity.name}.${finder.name}", 
-##         query = "${finder.query}"
-##     )#if($velocityCount != $finders.size()), 
-## #end
-## #end
 })
 #else
-##if ($entity.genericFinders)
 @jakarta.persistence.NamedQuery(name = "${entity.name}.findAll", query = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable")#if (!$finders.empty),#end
 
-##end
 #end
 #end
 #foreach($annotation in $entity.additionalAnnotations)

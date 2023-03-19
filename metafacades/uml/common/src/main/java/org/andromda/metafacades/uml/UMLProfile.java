@@ -406,6 +406,14 @@ public class UMLProfile {
                         "PRESENTATION_FILENAME");
 
         /**
+         * 'andromda_presentation_filename'
+         * Used to assign the controller to the activity (when it can not be assigned
+         * explicitly).
+         */
+        public static final String TAGGEDVALUE_PRESENTATION_SUBMIT_ACTION = profile.get(
+                        "PRESENTATION_SUBMIT_ACTION");
+
+        /**
          * 'andromda_presentation_targeturl'
          * Used to assign the controller to the activity (when it can not be assigned
          * explicitly).

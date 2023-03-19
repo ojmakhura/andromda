@@ -501,6 +501,16 @@ public class FrontEndViewLogicImpl
         return UMLMetafacadeUtils.getDisplayCondition(this);
     }
 
+    /**
+    * @see FrontEndView#getSubmitAction()
+    * @return String
+    */
+    protected String handleGetSubmitAction() {
+        String action = StringUtils.stripToNull(((String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_SUBMIT_ACTION)));
+        
+        return action;
+    }
+
     @Override
     protected Collection handleGetAttributes() {
         final Map<String, ModelElementFacade> variablesMap = new LinkedHashMap<String, ModelElementFacade>();

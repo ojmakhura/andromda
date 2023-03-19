@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 import org.andromda.metafacades.uml.AssociationEndFacade;
@@ -694,6 +695,11 @@ public class MetafacadeWebUtils {
             equal = value == null ? null : value.toString();
         }
         return equal;
+    }
+
+    public static Boolean isComponent(final ModelElementFacade element) {
+
+        return element.hasStereotype(UMLProfile.STEREOTYPE_FRONT_END_COMPONENT);
     }
 
     /**

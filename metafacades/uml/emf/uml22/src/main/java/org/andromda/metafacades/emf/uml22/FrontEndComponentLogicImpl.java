@@ -8,6 +8,7 @@ import java.util.Collection;
 import org.andromda.metafacades.uml.FrontEndAttribute;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.utils.StringUtilsHelper;
 
 /**
  * TODO: Model Documentation for org.andromda.metafacades.uml.FrontEndComponent
@@ -65,6 +66,15 @@ public class FrontEndComponentLogicImpl
     {
         // TODO add your implementation here!
         return null;
+    }
+
+    /**
+     * TODO: Model Documentation for org.andromda.metafacades.uml.FrontEndComponent
+     * @see org.andromda.metafacades.uml.FrontEndComponent#getMessageKey()
+     */
+    protected String handleGetMessageKey()
+    {
+        return StringUtilsHelper.toResourceMessageKey(getName());
     }
 
 }

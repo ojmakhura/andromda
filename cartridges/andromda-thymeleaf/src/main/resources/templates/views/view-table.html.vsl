@@ -68,8 +68,8 @@ ${ident}<th th:text="#{$column.messageKey}"></th>
 #if($renderActions)
         <th th:text="Actions"></th>
 #end
-    </tr>
-</thead>
+        </tr>
+    </thead>
     <tbody>
         <tr th:each="row : ${${table.name}}">
 #foreach ($column in $table.tableColumns)

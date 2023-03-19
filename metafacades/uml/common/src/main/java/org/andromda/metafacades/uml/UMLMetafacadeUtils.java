@@ -1285,6 +1285,7 @@ public class UMLMetafacadeUtils
 
     public static String getRestPath(ModelElementFacade modelElement, String replacementName) {
         String path = StringUtils.strip(((String) modelElement.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_REST_PATH)));
+        
         if (StringUtils.isBlank(path))
         {
             path = EMPTY_STRING;
@@ -1310,7 +1311,7 @@ public class UMLMetafacadeUtils
             }
         }
 
-        if(!path.endsWith(SLASH)) {
+        if(!path.startsWith(SLASH)) {
             path = SLASH + path;
         }
         

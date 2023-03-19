@@ -445,13 +445,13 @@ public class FrontEndAttributeLogicImpl
         final StringBuilder propertyName = new StringBuilder();
         if (ownerParameter != null)
         {
-            propertyName.append(ownerParameter.getName());
+            propertyName.append(StringUtils.uncapitalize(ownerParameter.getName()));
             propertyName.append('.');
         }
         final String name = this.getName();
         if (name != null && name.trim().length() > 0)
         {
-            propertyName.append(name);
+            propertyName.append(StringUtils.uncapitalize(name));
         }
         return propertyName.toString();
     }
