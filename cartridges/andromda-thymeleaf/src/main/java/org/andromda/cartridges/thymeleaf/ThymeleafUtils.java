@@ -5,12 +5,15 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 import org.andromda.cartridges.thymeleaf.metafacades.ThymeleafAttribute;
 import org.andromda.cartridges.thymeleaf.metafacades.ThymeleafAttributeLogic;
@@ -24,6 +27,7 @@ import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndParameter;
+import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
@@ -1382,5 +1386,22 @@ public class ThymeleafUtils
         stripped = stripped + "model)";
 
         return stripped;
+    }
+
+    public static Collection<?> getViewActionParameters(FrontEndView view) {
+
+        Map<String, FrontEndParameter> pmap = new HashMap<>();
+
+        for(FrontEndParameter param : view.getVariables()) {
+            pmap.put(param.getName(), param);
+        }
+
+        for(FrontEndAction action : view.getActions()) {
+            for(FrontEndParameter param : action.getFormFields()) {
+                pmap.put(param.getName(), param);
+            }
+        }
+
+        return pmap.values();
     }
 }

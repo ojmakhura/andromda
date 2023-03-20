@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 
+import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -80,6 +81,7 @@ public class ThymeleafControllerOperationLogicImpl
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafControllerOperation#getImplementationFormSignature()
      */
     protected String handleGetImplementationFormSignature() {
+        System.out.println("===============================================");
         return this.getFormSignature(false);
     }
 
@@ -98,6 +100,7 @@ public class ThymeleafControllerOperationLogicImpl
      * @return the appropriate signature.
      */
     private String getFormSignature(boolean isAbstract) {
+        System.out.println("333 ===============================================");
         final StringBuilder signature = new StringBuilder();
         signature.append(this.getVisibility() + ' ');
         if (isAbstract) {
@@ -107,7 +110,12 @@ public class ThymeleafControllerOperationLogicImpl
         signature.append(returnType != null ? returnType.getFullyQualifiedName() : null);
         signature.append(" " + this.getName() + "(");
         if (!this.getFormFields().isEmpty()) {
-            signature.append(this.getFormName() + " form, ");
+            for (FrontEndParameter param : this.getFormFields()) {
+                if(param.isMany())
+                    signature.append("java.util.Collection<" + param.getType().getFullyQualifiedName() + "> " + param.getName() + ", ");
+                else
+                    signature.append(param.getType().getFullyQualifiedName() + " " + param.getName() + ", ");
+            }
         }
         signature.append("org.springframework.ui.Model model)");
         return signature.toString();

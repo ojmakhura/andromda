@@ -75,10 +75,10 @@ public abstract class ${controller.name}Base extends ${managedBeansPackage}.Cont
         if("${viewPath}".equals(forward))
         {
 #foreach ($viewAction in $view.formActions)
-            ${viewPopulator}.populateForm(sourceForm, this.get${stringUtils.capitalize($viewAction.formBeanName)}());
+            //${viewPopulator}.populateForm(sourceForm, this.get${view.pageObjectClassName}Form)}());
 #end
 #if(!$view.variables.empty)
-            ${viewPopulator}.populate$stringUtils.upperCamelCaseName($view.name)PageVariables(sourceForm,pageVariables);
+            //${viewPopulator}.populate$stringUtils.upperCamelCaseName($view.name)PageVariables(sourceForm,pageVariables);
 #end
         }
 #set($showElse=true)
@@ -87,7 +87,7 @@ public abstract class ${controller.name}Base extends ${managedBeansPackage}.Cont
 #end
 #end
 #end
-        this.getUseCaseScope().put(CURRENT_PAGE_VARIABLES_KEY, pageVariables);
+        //this.getUseCaseScope().put(CURRENT_PAGE_VARIABLES_KEY, pageVariables);
     }
     
 #foreach ($operation in $controller.operations)
@@ -96,7 +96,6 @@ public abstract class ${controller.name}Base extends ${managedBeansPackage}.Cont
 
     /**
 $operation.getDocumentation("     * ")
-     *
      * @param form the associated form
      * @throws Throwable
      */
@@ -107,25 +106,25 @@ $operation.getDocumentation("     * ")
 
 #end
 #foreach ($action in $controller.useCase.actions)
-#if (!$action.formFields.empty)
-
-    private $action.fullyQualifiedFormImplementationName $action.formBeanName;
-
-    /**
-     * Retrieves the {@link $action.fullyQualifiedFormImplementationName} form instance 
-     *
-     * @return $action.fullyQualifiedFormImplementationName
-     */
-    protected $action.fullyQualifiedFormImplementationName get${stringUtils.capitalize($action.formBeanName)}()
-    {
-        if($action.formBeanName == null) {
-            $action.formBeanName = new ${action.fullyQualifiedFormImplementationName}();
-        }
-
-        return $action.formBeanName;
-    }
-
-#end
+##if (!$action.formFields.empty)
+##
+##    private ${action.source.fullyQualifiedPageObjectClassName}Form ${action.source.pageObjectBeanName}Form;
+##
+##    /**
+##     * Retrieves the {@link ${action.source.fullyQualifiedPageObjectClassName}Form} form instance 
+##     *
+##     * @return ${action.source.fullyQualifiedPageObjectClassName}Form
+##     */
+##    protected ${action.source.fullyQualifiedPageObjectClassName}Form get${action.source.pageObjectClassName}Form()
+##    {
+##        if(${action.source.pageObjectBeanName}Form == null) {
+##            ${action.source.pageObjectBeanName}Form = new ${action.fullyQualifiedFormImplementationName}();
+##        }
+##
+##       return ${action.source.pageObjectBeanName}Form;
+##    }
+##
+##end
 #set ($formPopulationOperationRequired = !$action.formFields.empty)
     /**
 #if($action.exitingInitialState)
@@ -140,7 +139,7 @@ $action.trigger.getDocumentation("     * ")
      * @param form the associated form
 #end
      */
-    protected void ${action.triggerMethodName}(#if($formPopulationOperationRequired)$action.fullyQualifiedFormImplementationName form, #{end}org.springframework.ui.Model model)
+    protected void ${action.triggerMethodName}(#if($formPopulationOperationRequired)${action.source.fullyQualifiedPageObjectClassName}Form form, #{end}org.springframework.ui.Model model)
     {
         //this method can be overridden
     }
@@ -184,8 +183,8 @@ $action.trigger.getDocumentation("     * ")
 #set ($param = "${action.source.fullyQualifiedPageObjectClassName}Form ${action.source.pageObjectBeanName}Form")
 #set ($formBeanName = "${action.source.pageObjectBeanName}Form")
 #else
-#set ($param = "$action.fullyQualifiedFormImplementationName $action.formBeanName")
-#set ($formBeanName = "${action.formBeanName}")
+#set ($param = "${action.source.fullyQualifiedPageObjectClassName}Form ${action.source.pageObjectBeanName}Form")
+#set ($formBeanName = "${{action.source.pageObjectBeanName}Form}")
 #end
     @org.springframework.web.bind.annotation.GetMapping(#if($action.parameters.size() > 0){$d$d, $indPath, $d$fieldPath$d}#else$d$d#end) 
     @Override
@@ -197,8 +196,8 @@ $action.trigger.getDocumentation("     * ")
 #set ($param = "${action.source.fullyQualifiedPageObjectClassName}Form ${action.source.pageObjectBeanName}Form")
 #set ($formBeanName = "${action.source.pageObjectBeanName}Form")
 #else
-#set ($param = "$action.fullyQualifiedFormImplementationName $action.formBeanName")
-#set ($formBeanName = "${action.formBeanName}")
+#set ($param = "${action.source.fullyQualifiedPageObjectClassName}Form ${action.source.pageObjectBeanName}Form")
+#set ($formBeanName = "${{action.source.pageObjectBeanName}Form}")
 #end
     @org.springframework.web.bind.annotation.PostMapping({"${action.source.restPath}${action.restPath}"})
 #set($params = $action.restQueryParams)
@@ -208,8 +207,8 @@ $action.trigger.getDocumentation("     * ")
 #set ($param = "${action.source.fullyQualifiedPageObjectClassName}Form ${action.source.pageObjectBeanName}Form")
 #set ($formBeanName = "${action.source.pageObjectBeanName}Form")
 #else
-#set ($param = "$action.fullyQualifiedFormImplementationName $action.formBeanName")
-#set ($formBeanName = "${action.formBeanName}")
+#set ($param = "${action.source.fullyQualifiedPageObjectClassName}Form ${action.source.pageObjectBeanName}Form")
+#set ($formBeanName = "${{action.source.pageObjectBeanName}Form}")
 #end
     @org.springframework.web.bind.annotation.PostMapping("${action.source.restPath}${action.restPath}")
 #set($params = $action.restFormParams)
@@ -242,10 +241,10 @@ $action.trigger.getDocumentation("     * ")
         
 #else
 #if ($formPopulationOperationRequired)
-        final $action.fullyQualifiedFormImplementationName form = this.get${stringUtils.capitalize($action.formBeanName)}();
+        final ${action.source.fullyQualifiedPageObjectClassName}Form form = this.get${action.source.pageObjectClassName}Form();
 #foreach($field in $action.formFields)
 #if($field.actionParameter)
-        //form.set${stringUtils.capitalize($field.name)}(${formBeanName}.get${stringUtils.capitalize($field.name)}());
+        form.set${stringUtils.capitalize($field.name)}(${formBeanName}.get${stringUtils.capitalize($field.name)}());
 #end
 #end
 
@@ -259,7 +258,7 @@ $action.trigger.getDocumentation("     * ")
         //trigger method execution
         ${action.triggerMethodName}(#if($formPopulationOperationRequired)form, #{end}model);
 #if ($formPopulationOperationRequired)
-        model.addAttribute("$action.formBeanName", form);
+        model.addAttribute("${action.source.pageObjectBeanName}", form);
 #end
 
 #if($action.exitingInitialState)
@@ -279,14 +278,14 @@ $action.trigger.getDocumentation("     * ")
         }
 
 #end
-#foreach ($actionState in $action.actionStates)
-#foreach($act in $actionState.forward.target.formActions)
-#if(!$act.formFields.empty)
-        model.addAttribute("$act.formBeanName", this.get${stringUtils.capitalize($act.formBeanName)}());
-
-#end
-#end
-#end
+##foreach ($actionState in $action.actionStates)
+##foreach($act in $actionState.forward.target.formActions)
+##if(!$act.formFields.empty)
+##        model.addAttribute("$act.formBeanName", this.get${stringUtils.capitalize($act.formBeanName)}());
+##
+##end
+##end
+##end
 #if(!$action.exitingInitialState && !$action.enteringFinalState)
         if(forward != null)
         {
@@ -341,7 +340,7 @@ $actionState.getDocumentation("     * ")
      * @return the forward view
      * @throws Throwable
      */
-    protected String ${actionState.actionMethodName}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form, #end org.springframework.ui.Model model)
+    protected String ${actionState.actionMethodName}(#if (!$action.formFields.empty)final ${action.source.fullyQualifiedPageObjectClassName}Form form, #end org.springframework.ui.Model model)
         throws Throwable
     {
         String forward = null;
@@ -460,7 +459,7 @@ $decisionTransition.getDocumentation("     * ")
      *
      * @return a transition
      */
-    protected String __${decisionTransition.operationCall.name}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form, #{end}org.springframework.ui.Model model)
+    protected String __${decisionTransition.operationCall.name}(#if (!$action.formFields.empty)final ${action.source.fullyQualifiedPageObjectClassName}Form form, #{end}org.springframework.ui.Model model)
         throws Throwable
     {
         // $decisionTransition.operationCall
