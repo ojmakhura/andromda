@@ -91,7 +91,7 @@ public abstract class ${controller.name}Base extends ${managedBeansPackage}.Cont
     }
     
 #foreach ($operation in $controller.operations)
-    $thymeleafUtils.addModelParameter($operation.handleFormSignature)
+    $operation.handleFormSignature
         throws Throwable;
 
     /**
@@ -100,356 +100,71 @@ $operation.getDocumentation("     * ")
      * @throws Throwable
      */
 #set ($formCall = "handle$stringUtils.capitalize($operation.formCall)")
-    $thymeleafUtils.addModelParameter($operation.implementationFormSignature) throws Throwable {
+    ${operation.visibility} ${operation.returnType.name} ${operation.name}(#foreach($arg in $operation.arguments)$arg.type.fullyQualifiedName ${arg.name}, #{end}Model model) throws Throwable {
         #if($operation.returnType.name != "void")return #end$formCall;
     }
 
 #end
+// actions
 #foreach ($action in $controller.useCase.actions)
-##if (!$action.formFields.empty)
-##
-##    private ${action.source.fullyQualifiedPageObjectClassName}Form ${action.source.pageObjectBeanName}Form;
-##
-##    /**
-##     * Retrieves the {@link ${action.source.fullyQualifiedPageObjectClassName}Form} form instance 
-##     *
-##     * @return ${action.source.fullyQualifiedPageObjectClassName}Form
-##     */
-##    protected ${action.source.fullyQualifiedPageObjectClassName}Form get${action.source.pageObjectClassName}Form()
-##    {
-##        if(${action.source.pageObjectBeanName}Form == null) {
-##            ${action.source.pageObjectBeanName}Form = new ${action.fullyQualifiedFormImplementationName}();
-##        }
-##
-##       return ${action.source.pageObjectBeanName}Form;
-##    }
-##
-##end
-#set ($formPopulationOperationRequired = !$action.formFields.empty)
-    /**
-#if($action.exitingInitialState)
-     * This method is called when the use case '${controller.useCase.name}' starts.
+// action: $action
+// action.exitingInitialState: $action.exitingInitialState
+// action.exitingView: $action.exitingView
+// action.enteringView: $action.enteringView
+// action.source: $action.source
+#set ($callParams = "")
+#if(${action.exitingView})
+#set($callParams = "${action.source.fullyQualifiedPageObjectClassName}Form form, ")
 #else
-$action.trigger.getDocumentation("     * ")
-     * This method is called when '${action.trigger.name}' is triggered in the view '${action.source.name}'.
+#foreach($field in $action.parameters)
+#set($callParams = "${callParams}$field.type.fullyQualifiedName $field.name, ")
 #end
-     * It can be safely overridden in descendant classes.
-#if($formPopulationOperationRequired)
-     *
-     * @param form the associated form
 #end
-     */
-    protected void ${action.triggerMethodName}(#if($formPopulationOperationRequired)${action.source.fullyQualifiedPageObjectClassName}Form form, #{end}org.springframework.ui.Model model)
+    protected void ${action.triggerMethodName}(${callParams}org.springframework.ui.Model model)
     {
         //this method can be overridden
     }
 
-    /**
-#if($action.exitingInitialState)     
-     * Retrieves the internal start use case
-#else
-     * Retrieves ${action.triggerName}()
-#end
-     *    
-     * @return ${action.triggerName}
-     * @throws Throwable
-     * 
-     */
 #if($action.exitingInitialState)
-#set ($useCaseParams = "")
-#set ($fieldPath = "")
-#set ($indPath = "")
 #set ( $d = '"')
-#set ($count = 1)
+#set ( $useCaseParams = '')
+#set ( $fieldPath = '')
+#set ( $required = '')
 #foreach($field in $action.parameters)
-#if($useCaseParams.length() > 0)
-#set ($useCaseParams = "$useCaseParams, ")
+#if($field.required)
+#if($required.length() > 0)
+#set ($required = "$required/$field.name/{$field.name}")
 #end
-#if($indPath.length() > 0)
-#set ($indPath = "$indPath, ")
+#end
+#if($useCaseParams.length() > 0)
+#set ($useCaseParams = "$useCaseParams#if($useCaseParams.length()), #end")
 #end
 #if(!$field.complex)
-#set ($useCaseParams = "$useCaseParams @org.springframework.web.bind.annotation.PathVariable(name = $d$field.name$d, required = false) $field.type.fullyQualifiedName $field.name")
-#set ($fieldPath = "$fieldPath/$field.name/{$field.name}")
-#set ($indPath = "$indPath $d/$field.name/{$field.name}$d")
+#set ($useCaseParams = "$useCaseParams @org.springframework.web.bind.annotation.PathVariable(name = $d$field.name$d, required=$field.required) $field.type.fullyQualifiedName $field.name")
 #else
 #set ($useCaseParams = "$useCaseParams $field.type.fullyQualifiedName $field.name")
+#end
 #set ($fieldPath = "$fieldPath/$field.name/{$field.name}")
-#set ($indPath = "$indPath $d/$field.name/{$field.name}$d")
 #end
-#end
-#if($action.exitingView)
-#set ($viewRestPath = "${action.source.restPath}")
-#set ($param = "${action.source.fullyQualifiedPageObjectClassName}Form ${action.source.pageObjectBeanName}Form")
-#set ($formBeanName = "${action.source.pageObjectBeanName}Form")
-#else
-#set ($param = "${action.source.fullyQualifiedPageObjectClassName}Form ${action.source.pageObjectBeanName}Form")
-#set ($formBeanName = "${{action.source.pageObjectBeanName}Form}")
-#end
-    @org.springframework.web.bind.annotation.GetMapping(#if($action.parameters.size() > 0){$d$d, $indPath, $d$fieldPath$d}#else$d$d#end) 
+    @org.springframework.web.bind.annotation.GetMapping(#if($action.parameters.size() > 0){$d$required$d, $d$fieldPath$d}#else$d$d#end) 
     @Override
-    public String startUseCase(#if($action.parameters.size() > 0)$useCaseParams, #{end}org.springframework.ui.Model model)
-#else
-#if($action.tableLink)
-#if($action.exitingView)
-#set ($viewRestPath = "${action.source.restPath}")
-#set ($param = "${action.source.fullyQualifiedPageObjectClassName}Form ${action.source.pageObjectBeanName}Form")
-#set ($formBeanName = "${action.source.pageObjectBeanName}Form")
-#else
-#set ($param = "${action.source.fullyQualifiedPageObjectClassName}Form ${action.source.pageObjectBeanName}Form")
-#set ($formBeanName = "${{action.source.pageObjectBeanName}Form}")
-#end
-    @org.springframework.web.bind.annotation.PostMapping({"${action.source.restPath}${action.restPath}"})
-#set($params = $action.restQueryParams)
-#else
-#if($action.exitingView)
-#set ($viewRestPath = "${action.source.restPath}")
-#set ($param = "${action.source.fullyQualifiedPageObjectClassName}Form ${action.source.pageObjectBeanName}Form")
-#set ($formBeanName = "${action.source.pageObjectBeanName}Form")
-#else
-#set ($param = "${action.source.fullyQualifiedPageObjectClassName}Form ${action.source.pageObjectBeanName}Form")
-#set ($formBeanName = "${{action.source.pageObjectBeanName}Form}")
-#end
-    @org.springframework.web.bind.annotation.PostMapping("${action.source.restPath}${action.restPath}")
-#set($params = $action.restFormParams)
-#end
-    @Override
-    public String ${action.triggerName}(#if (!$action.formFields.empty)@org.springframework.web.bind.annotation.ModelAttribute $param, #end org.springframework.ui.Model model)
-#end
-        throws Throwable
+    public String startUseCase(${useCaseParams}, org.springframework.ui.Model model) throws Throwable
     {
-        this.setLastPostedFormClientId("${formBeanName}");
-        
         String forward=null;
-#if ($action.finalStateTarget)
-#if ($formPopulationOperationRequired)
-        String params = "";
-#foreach($param in $action.parameters)
-        if(${formBeanName}.get$stringUtils.capitalize($param.name)() != null) {
-            this.${formBeanName}.set$stringUtils.capitalize($param.name)(${formBeanName}.get$stringUtils.capitalize($param.name)());
-            params = params + "/$param.name/" + ${formBeanName}.get$stringUtils.capitalize($param.name)();
-        }
+        ${action.triggerMethodName}(#foreach($field in $action.parameters)$field.name, #{end}model);
+#foreach($field in $action.parameters)
+        model.addAttribute("$field.name", $field.name);
 #end
-
-#end
-#set($targetController = $action.target.targetControllerFullyQualifiedName)
-#set($targetControllerBeanName = $action.target.targetControllerBeanName)
-#if($targetController)
-#set($tmp = $controllers.add($action.target.targetElement.controller))
-#end
-        forward =#if($targetController) "${action.target.targetElement.controller.restPath}"#if ($action.finalStateTarget && $formPopulationOperationRequired) + params#end#else closeDialog()#end;
-        
-#else
-#if ($formPopulationOperationRequired)
-        final ${action.source.fullyQualifiedPageObjectClassName}Form form = this.get${action.source.pageObjectClassName}Form();
-#foreach($field in $action.formFields)
-#if($field.actionParameter)
-        form.set${stringUtils.capitalize($field.name)}(${formBeanName}.get${stringUtils.capitalize($field.name)}());
-#end
-#end
-
-#if($action.exitingInitialState)
-        //copy parameters form caller use case
-#foreach($param in $action.parameters)
-        form.set$stringUtils.capitalize($param.name)($param.name); 
-#end
-#end
-#end
-        //trigger method execution
-        ${action.triggerMethodName}(#if($formPopulationOperationRequired)form, #{end}model);
-#if ($formPopulationOperationRequired)
-        model.addAttribute("${action.source.pageObjectBeanName}", form);
-#end
-
-#if($action.exitingInitialState)
-#set($forward = "#processTransition($action)")
-        forward = $forward
-#else
-        forward = #processTransition($action)
-#end
-#saveMessages($action "        ")
-#if ($formPopulationOperationRequired)
-#set ($viewPath = "${action.source.path}.html")
-        populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"${viewPath}"#end, forward, form);
-        
-#foreach ($field in $action.formFields)
-        if(form.is${stringUtils.capitalize($field.name)}Set()) {
-            model.addAttribute("$field.name", form.get${stringUtils.capitalize($field.name)}());
-        }
-
-#end
-##foreach ($actionState in $action.actionStates)
-##foreach($act in $actionState.forward.target.formActions)
-##if(!$act.formFields.empty)
-##        model.addAttribute("$act.formBeanName", this.get${stringUtils.capitalize($act.formBeanName)}());
-##
-##end
-##end
-##end
-#if(!$action.exitingInitialState && !$action.enteringFinalState)
-        if(forward != null)
-        {
-            if(forward.startsWith("${action.source.path}.html"))
-            {
-                forward = get$stringUtils.capitalize($stringUtils.deleteWhitespace(${action.source.name}))(model); //the destination form is the same, stay on the current view
-                return forward;
-            }
-        }
-
-#end
-#end
-#end
-#if($action.exitingInitialState)
-#foreach ($view in $controller.useCase.views)
-#set ($viewPath = "${action.controller.restPath}/${view.restPath}")
-        if(forward != null && forward.startsWith("${viewPath}")) {
-            return "${view.path}.html";
-        }
-       
-#end
-        if(forward != null && !forward.endsWith(".html")) {
-            forward = "redirect:" + forward;
-        }
-
-        if(forward == null) {
-            forward = "${viewPath}";
-        }
-
-        return forward;
-#else
-
-        if(forward != null && !forward.endsWith(".html")) {
-            forward = "redirect:" + forward;
-        }
-
-        if(forward == null) {
-            forward = "${viewPath}";
-        }
-
-        return forward;
-#end
+        return "";
     }
-
-#foreach ($actionState in $action.actionStates)
-    /**
-$actionState.getDocumentation("     * ")
-     *
-#if (!$action.formFields.empty)
-     * @param form the associated form
 #end
-     * @return the forward view
-     * @throws Throwable
-     */
-    protected String ${actionState.actionMethodName}(#if (!$action.formFields.empty)final ${action.source.fullyQualifiedPageObjectClassName}Form form, #end org.springframework.ui.Model model)
-        throws Throwable
+#if($action.exitingView)
+    @org.springframework.web.bind.annotation.PostMapping({"${action.source.restPath}${action.restPath}"})
+    @Override
+    public String ${action.triggerName}(#if (!$action.formFields.empty)@org.springframework.web.bind.annotation.ModelAttribute ${action.source.fullyQualifiedPageObjectClassName}Form form, #{end}org.springframework.ui.Model model) throws Throwable
     {
-        String forward = null;
-#if ($actionState.controllerCalls.empty && $actionState.serviceCalls.empty)
-## TODO UMLMETA-106 uml22 StateVertex outgoing FinalState target returns null/unknown for Exception transition.
-##        // actionState=$actionState controllerCalls=$actionState.controllerCalls.size()
-##foreach ($outgoing in $actionState.outgoings)
-##        // outgoing=$outgoing target=$outgoing.target
-##end
-##        // forward=$actionState.forward name=$actionState.name
-        forward = #processTransition($actionState.forward)
 
-#saveMessages($actionState.forward "        ")
-#else
-#set($exceptions = $actionState.exceptions)
-#if($exceptions.empty)
-#set($ident="")
-#else
-#set($ident="    ")
-        try
-        {
-#end
-#foreach ($serviceCall in $actionState.serviceCalls)
-##TODO add validation service params -> action params/form fields
-${ident}        this.get${serviceCall.owner.name}().${serviceCall.name}(#foreach($args in $serviceCall.arguments)form.${args.getterName}()#end);
-#end
-#foreach ($controllerCall in $actionState.controllerCalls)
-    
-#if (!$action.actionFormFields.empty)
-${ident}        $controllerCall.formCall;
-#else
-${ident}        // we pass an empty form implementation to the controller, we know there are no parameters on this operation because the
-${ident}        // cartridge would have issued a model validation error
-${ident}        ${controllerCall.name}(new ${controllerCall.interfaceName}());
-#end
-#end
-#if($actionState.forward.enteringView)
-#foreach($act in $actionState.forward.target.formActions)
-#foreach($param in $act.parameters)
-${ident}        if(form.is${stringUtils.capitalize($param.name)}Set()) {
-${ident}            model.addAttribute("$param.name", form.get${stringUtils.capitalize($param.name)}());
-${ident}        }
-#end
-#end
-#end
-${ident}        forward = #processTransition($actionState.forward)
-
-#saveMessages($actionState.forward "${ident}        ")
-#if(!$exceptions.empty)
-        }
-        catch(Throwable t)
-        {
-#* *##if($exceptions.size() == 1 && $stringUtils.isBlank($exceptions.iterator().next().exceptionType))
-            forward = "${actionState.exceptions.iterator().next().target.path}";
-#* *##else
-            forward = null;
-#*  *##set($exceptionCount=0)
-#*  *##foreach($exception in $exceptions)
-#*   *##if($stringUtils.isNotBlank($exception.exceptionType))
-            if(#if($exceptionCount > 0)forward == null && #end t instanceof ${exception.exceptionType})
-            {
-                forward = "${exception.target.path}";
-            }
-#*    *##set($exceptionCount=$exceptionCount+1)
-#*   *##end
-#*   *##foreach($exception in $exceptions)
-#*    *##if($stringUtils.isBlank($exception.exceptionType))
-            if(forward == null)
-            {
-                forward = "${exception.target.path}";
-            }
-#*    *##end
-#*   *##end
-#*  *##end
-
-            if(forward == null)
-            {
-                //no match, throw the exception
-                throw t;
-            }
-#* *##end
-        }
-#end
-#end
-#if($actionState.forward.finalStateTarget && $actionState.forward.enteringFinalState)
-#if($actionState.forward.forwardParameters.size() > 0)
-        StringBuilder builder = new StringBuilder();
-
-#set ($i = 1)
-#foreach($param in $actionState.forward.forwardParameters)
-#set ($isSet = "is${stringUtils.capitalize($param.name)}Set()")
-
-        if(form.$isSet) {
-            if(builder.length() == 0) {
-                builder.append("/");
-            }
-#if($i > 1)
-            builder.append("/");
-#end
-            builder.append("$param.name/" + form.get${stringUtils.capitalize($param.name)}());
-        }
-#set ($i = $i + 1)
-
-#end
-        forward = forward + builder.toString();
-
-#end
-#end
-        return forward;
+        return "";
     }
 
 #end
@@ -483,6 +198,94 @@ $decisionTransition.getDocumentation("     * ")
         {
             return forward;
         }
+    }
+
+#end
+#foreach ($actionState in $action.actionStates)
+    /**
+$actionState.getDocumentation("     * ")
+     *
+#if (!$action.formFields.empty)
+     * @param form the associated form
+#end
+     * @return the forward view
+     * @throws Throwable
+     */
+    protected String ${actionState.actionMethodName}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form, #{end}org.springframework.ui.Model model)
+        throws Throwable
+    {
+        String forward = null;
+#if ($actionState.controllerCalls.empty && $actionState.serviceCalls.empty)
+## TODO UMLMETA-106 uml22 StateVertex outgoing FinalState target returns null/unknown for Exception transition.
+##        // actionState=$actionState controllerCalls=$actionState.controllerCalls.size()
+##foreach ($outgoing in $actionState.outgoings)
+##        // outgoing=$outgoing target=$outgoing.target
+##end
+##        // forward=$actionState.forward name=$actionState.name
+        forward = #processTransition($actionState.forward)
+#saveMessages($actionState.forward "        ")
+#else
+#set($exceptions = $actionState.exceptions)
+#if($exceptions.empty)
+#set($ident="")
+#else
+#set($ident="    ")
+        try
+        {
+#end
+#foreach ($serviceCall in $actionState.serviceCalls)
+##TODO add validation service params -> action params/form fields
+${ident}        this.get${serviceCall.owner.name}().${serviceCall.name}(#foreach($args in $serviceCall.arguments)form.${args.getterName}()#end);
+#end
+#foreach ($controllerCall in $actionState.controllerCalls)
+    
+#if (!$action.actionFormFields.empty)
+${ident}        ${controllerCall.name}(#foreach($arg in $controllerCall.arguments)form.get${stringUtils.capitalize($arg.name)}(), #{end}model);
+#else
+${ident}        // we pass an empty form implementation to the controller, we know there are no parameters on this operation because the
+${ident}        // cartridge would have issued a model validation error
+${ident}        ${controllerCall.name}(new ${controllerCall.interfaceName}());
+#end
+#end
+${ident}        forward = #processTransition($actionState.forward)
+#saveMessages($actionState.forward "${ident}        ")
+#if(!$exceptions.empty)
+        }
+        catch(Throwable t)
+        {
+#* *##if($exceptions.size() == 1 && $stringUtils.isBlank($exceptions.iterator().next().exceptionType))
+            forward = "${actionState.exceptions.iterator().next().target.path}.${facesServletExtension}";
+#* *##else
+            forward = null;
+#*  *##set($exceptionCount=0)
+#*  *##foreach($exception in $exceptions)
+#*   *##if($stringUtils.isNotBlank($exception.exceptionType))
+            if(#if($exceptionCount > 0)forward == null && #end t instanceof ${exception.exceptionType})
+            {
+                forward = "${exception.target.path}.${facesServletExtension}";
+            }
+#*    *##set($exceptionCount=$exceptionCount+1)
+#*   *##end
+#*   *##foreach($exception in $exceptions)
+#*    *##if($stringUtils.isBlank($exception.exceptionType))
+            if(forward == null)
+            {
+                forward = "${exception.target.path}.${facesServletExtension}";
+            }
+#*    *##end
+#*   *##end
+#*  *##end
+
+            if(forward == null)
+            {
+                //no match, throw the exception
+                throw t;
+            }
+#* *##end
+        }
+#end
+#end
+        return forward;
     }
 
 #end

@@ -26,6 +26,7 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
+import org.andromda.metafacades.uml.FrontEndActionState;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -1403,5 +1404,18 @@ public class ThymeleafUtils
         }
 
         return pmap.values();
+    }
+
+    public static Collection<?> getUseCaseStates(Collection<FrontEndAction> actions) {
+        Map<String, FrontEndActionState> statesMap = new HashMap<>();
+
+        for (FrontEndAction action : actions) {
+            for (FrontEndActionState actionState : action.getActionStates()) {
+                
+                statesMap.put(actionState.getName(), actionState);
+            }
+        }
+
+        return statesMap.values();
     }
 }

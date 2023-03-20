@@ -70,10 +70,27 @@ public class ThymeleafControllerOperationLogicImpl
         call.append(this.getName());
         call.append("(");
         if (!this.getFormFields().isEmpty()) {
-            call.append("form, ");
+            for (FrontEndParameter param : this.getFormFields()) {
+                call.append( param.getName() + ", ");
+            }
         }
         call.append("model)");
+        
         return call.toString();
+    }
+
+    public String getFormCallArguments() {
+        final StringBuilder call = new StringBuilder();
+        call.append(this.getName());
+        if (!this.getFormFields().isEmpty()) {
+            for (FrontEndParameter param : this.getFormFields()) {
+                call.append( param.getName() + ", ");
+            }
+        }
+        call.append("model");
+        
+        return call.toString();
+
     }
 
     /**
@@ -81,8 +98,11 @@ public class ThymeleafControllerOperationLogicImpl
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafControllerOperation#getImplementationFormSignature()
      */
     protected String handleGetImplementationFormSignature() {
-        System.out.println("===============================================");
         return this.getFormSignature(false);
+    }
+
+    public final String getImplementationFormSignature() {
+        return this.handleGetImplementationFormSignature();
     }
 
     /**
@@ -100,7 +120,7 @@ public class ThymeleafControllerOperationLogicImpl
      * @return the appropriate signature.
      */
     private String getFormSignature(boolean isAbstract) {
-        System.out.println("333 ===============================================");
+        
         final StringBuilder signature = new StringBuilder();
         signature.append(this.getVisibility() + ' ');
         if (isAbstract) {
@@ -118,6 +138,21 @@ public class ThymeleafControllerOperationLogicImpl
             }
         }
         signature.append("org.springframework.ui.Model model)");
+        return signature.toString();
+    }
+
+    public String getFormSignatureString() {
+        final StringBuilder signature = new StringBuilder();
+        
+        if (!this.getFormFields().isEmpty()) {
+            for (FrontEndParameter param : this.getFormFields()) {
+                if(param.isMany())
+                    signature.append("java.util.Collection<" + param.getType().getFullyQualifiedName() + "> " + param.getName() + ", ");
+                else
+                    signature.append(param.getType().getFullyQualifiedName() + " " + param.getName() + ", ");
+            }
+        }
+        signature.append("org.springframework.ui.Model model");
         return signature.toString();
     }
 
@@ -424,11 +459,11 @@ public class ThymeleafControllerOperationLogicImpl
     //             this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION));
     // }
 
-    // @Override
-    // protected String handleGetHandleFormSignature() {
+    @Override
+    public String getHandleFormSignature() {
 
-    //     return this.getHandleFormSignature(true);
-    // }
+        return this.getHandleFormSignature(true);
+    }
 
     @Override
     public String getHandleFormSignatureImplementation() {
@@ -452,7 +487,13 @@ public class ThymeleafControllerOperationLogicImpl
         signature.append(returnType != null ? returnType.getFullyQualifiedName() : null);
         signature.append(" handle" + StringUtils.capitalize(this.getName()) + "(");
         if (!this.getFormFields().isEmpty()) {
-            signature.append(this.getFormName() + " form, ");
+
+            for (FrontEndParameter param : this.getFormFields()) {
+                if(param.isMany())
+                    signature.append("java.util.Collection<" + param.getType().getFullyQualifiedName() + "> " + param.getName() + ", ");
+                else
+                    signature.append(param.getType().getFullyQualifiedName() + " " + param.getName() + ", ");
+            }
         }
         signature.append("org.springframework.ui.Model model)");
         return signature.toString();
