@@ -40,7 +40,7 @@ public class $controller.implementationName
      * @see $controller.fullyQualifiedName#hash()$operation.signature
      */
     @Override
-    $operation.handleFormSignatureImplementation
+    $operation.formImplementationSignature
     {
 #set($allowDummyData = $dummyData.equalsIgnoreCase("true"))
 #if ($allowDummyData)

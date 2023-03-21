@@ -113,6 +113,17 @@ public class ThymeleafControllerOperationLogicImpl
         return this.getFormSignature(true);
     }
 
+    @Override
+    public String getFormSignature() {
+
+        return this.getFormSignature(true);
+    }
+
+    public String getFormImplementationSignature() {
+
+        return this.getFormSignature(false);
+    }
+
     /**
      * Constructs the signature that takes the form for this operation.
      *
@@ -130,12 +141,13 @@ public class ThymeleafControllerOperationLogicImpl
         signature.append(returnType != null ? returnType.getFullyQualifiedName() : null);
         signature.append(" " + this.getName() + "(");
         if (!this.getFormFields().isEmpty()) {
-            for (FrontEndParameter param : this.getFormFields()) {
-                if(param.isMany())
-                    signature.append("java.util.Collection<" + param.getType().getFullyQualifiedName() + "> " + param.getName() + ", ");
-                else
-                    signature.append(param.getType().getFullyQualifiedName() + " " + param.getName() + ", ");
-            }
+            signature.append(this.getFormName() + " form, ");
+            // for (FrontEndParameter param : this.getFormFields()) {
+            //     if(param.isMany())
+            //         signature.append("java.util.Collection<" + param.getType().getFullyQualifiedName() + "> " + param.getName() + ", ");
+            //     else
+            //         signature.append(param.getType().getFullyQualifiedName() + " " + param.getName() + ", ");
+            // }
         }
         signature.append("org.springframework.ui.Model model)");
         return signature.toString();
@@ -485,7 +497,7 @@ public class ThymeleafControllerOperationLogicImpl
         }
         final ModelElementFacade returnType = this.getReturnType();
         signature.append(returnType != null ? returnType.getFullyQualifiedName() : null);
-        signature.append(" handle" + StringUtils.capitalize(this.getName()) + "(");
+        signature.append(" " + this.getName() + "(");
         if (!this.getFormFields().isEmpty()) {
 
             for (FrontEndParameter param : this.getFormFields()) {
