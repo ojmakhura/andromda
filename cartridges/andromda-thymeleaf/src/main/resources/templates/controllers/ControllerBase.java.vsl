@@ -33,19 +33,6 @@ public abstract class ${controller.name}Base extends ${managedBeansPackage}.Cont
         ${stringUtils.uncapitalize($ref.name)}Repository = ${stringUtils.uncapitalize($ref.name)}Repository;
 #end         
     }
-
-#foreach ($view in $controller.useCase.views)
-    protected ${view.fullyQualifiedPageObjectClassName}Form ${view.pageObjectBeanName}Form;
-
-    public ${view.fullyQualifiedPageObjectClassName}Form get${view.pageObjectClassName}Form() {
-        if(${view.pageObjectBeanName}Form == null) {
-            ${view.pageObjectBeanName}Form = new ${view.fullyQualifiedPageObjectClassName}Form();
-        }
-
-        return ${view.pageObjectBeanName}Form;
-    }
-
-#end
     
     /**
      * Populate action form and page variables
@@ -101,7 +88,6 @@ $operation.getDocumentation("     * ")
         throws Throwable;
 
 #end
-
 ## #foreach ($operation in $controller.operations)
 ##     $operation.handleFormSignature
 ##         throws Throwable;
@@ -119,6 +105,7 @@ $operation.getDocumentation("     * ")
 ## #end
 // actions
 #foreach ($action in $controller.useCase.actions)
+
 #if (!$action.formFields.empty)
     /**
      * Retrieves the {@link $action.fullyQualifiedFormImplementationName} form instance 
@@ -127,7 +114,7 @@ $operation.getDocumentation("     * ")
      */
     protected $action.fullyQualifiedFormImplementationName $action.formImplementationGetter
     {
-        return ($action.fullyQualifiedFormImplementationName)${managedBeansPackage}.ThymeleafUtils.resolveVariable("$action.formBeanName");
+        return new ${action.fullyQualifiedFormImplementationName}();
     }
 
 #end
@@ -294,7 +281,7 @@ ${ident}        this.get${serviceCall.owner.name}().${serviceCall.name}(#foreach
 #foreach ($controllerCall in $actionState.controllerCalls)
     
 #if (!$action.actionFormFields.empty)
-${ident}        ${controllerCall.name}(#if (!$action.formFields.empty)form, #{end}model);
+${ident}        ${controllerCall.name}(#if (!$controllerCall.formFields.empty)form, #{end}model);
 #else
 ${ident}        // we pass an empty form implementation to the controller, we know there are no parameters on this operation because the
 ${ident}        // cartridge would have issued a model validation error
@@ -349,6 +336,16 @@ ${ident}        forward = #processTransition($actionState.forward)
     public String get$stringUtils.capitalize($stringUtils.deleteWhitespace(${view.name}))(org.springframework.ui.Model model) {
 
         return "${view.path}.html";
+    }
+
+    protected ${view.fullyQualifiedPageObjectClassName}Form ${view.pageObjectBeanName}Form;
+
+    public ${view.fullyQualifiedPageObjectClassName}Form get${view.pageObjectClassName}Form() {
+        if(${view.pageObjectBeanName}Form == null) {
+            ${view.pageObjectBeanName}Form = new ${view.fullyQualifiedPageObjectClassName}Form();
+        }
+
+        return ${view.pageObjectBeanName}Form;
     }
 
 #end

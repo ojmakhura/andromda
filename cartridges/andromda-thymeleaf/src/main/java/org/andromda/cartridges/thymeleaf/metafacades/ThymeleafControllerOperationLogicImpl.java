@@ -142,12 +142,6 @@ public class ThymeleafControllerOperationLogicImpl
         signature.append(" " + this.getName() + "(");
         if (!this.getFormFields().isEmpty()) {
             signature.append(this.getFormName() + " form, ");
-            // for (FrontEndParameter param : this.getFormFields()) {
-            //     if(param.isMany())
-            //         signature.append("java.util.Collection<" + param.getType().getFullyQualifiedName() + "> " + param.getName() + ", ");
-            //     else
-            //         signature.append(param.getType().getFullyQualifiedName() + " " + param.getName() + ", ");
-            // }
         }
         signature.append("org.springframework.ui.Model model)");
         return signature.toString();
