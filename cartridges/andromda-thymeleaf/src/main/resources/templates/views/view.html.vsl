@@ -10,6 +10,24 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   xmlns:th="http://www.thymeleaf.org" layout:decorate="~{${layout}}">
   <section name="content" layout:fragment="content">
+#foreach ($action in $view.actions)
+#if(!$action.tableLink)
+#set ($done = false)
+#foreach($target in $action.targetViews)
+#if(!$done)
+#set($target = $view)
+#set($done = true)
+#end
+#end
+#if($action.parameters.empty)
+        <button type="button" id="${action.triggerName}Action" 
+                th:action="@{${controller.restPath}${view.restPath}${action.restPath}}"
+                class="btn btn-lg btn-primary" th:text="#{$action.messageKey}"#if(!$target.popup)>#end
+#if($target.popup)               data-bs-toggle="modal" data-bs-target="#${target.pageObjectBeanName}">#end
+        </button>
+#end
+#end
+#end
 #if ($view.nonTableVariablesPresent)
 #set($formName = "${view.pageObjectBeanName}Form")
     <form  id="${formName}" name="${formName}"#if($view.submitAction) th:action="@{${controller.restPath}${view.restPath}${view.submitAction}}"#end
@@ -71,11 +89,13 @@
 #set($done = true)
 #end
 #end
+#if(!$action.parameters.empty)
         <button type="#if(!$target.popup)submit#{else}button#end" id="${action.triggerName}Action" 
                 th:action="@{${controller.restPath}${view.restPath}${action.restPath}}"
                 class="btn btn-lg btn-primary" th:text="#{$action.messageKey}"#if(!$target.popup)>#end
 #if($target.popup)               data-bs-toggle="modal" data-bs-target="#${target.pageObjectBeanName}">#end
         </button>
+#end
 #end
 #end
     </form>
