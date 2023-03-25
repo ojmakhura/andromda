@@ -64,8 +64,8 @@ ${ident}    <td id="column_${column.name}" th:text=#if ($column.type.dateType)"$
 #end
 #set ($formValuePropertyName = "${valuePropertyName}")
 #if ($parameter.inputRadio)
-${ident}<fieldset class="row form-group border p-3">
-${ident}    <legend class="col-form-label col-sm-2 pt-0" th:text="#{$parameter.messageKey}"></legend>
+${ident}<fieldset class="reset form-group border p-3">
+${ident}    <legend class="reset col-form-label" th:text="#{$parameter.messageKey}"></legend>
 ${ident}    <div class="col-sm-10">
 #else
 ${ident}<label id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}" th:text="#{$parameter.messageKey}"></label>

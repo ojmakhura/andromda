@@ -199,14 +199,33 @@ $operation.getDocumentation("     * ")
 
         if(forward != null)
         {
-            if("${action.source.path}.html".equals(forward))
+            if(forward.startsWith("${action.source.path}.html"))
             {
-                forward = null; //the destination form is the same, stay on the current view
+                forward = get$stringUtils.capitalize($stringUtils.deleteWhitespace(${action.source.name}))(model); //the destination form is the same, stay on the current view
+                return forward;
             }
         }
 #end
 #end
 #end
+#if($action.exitingInitialState)
+#foreach ($view in $controller.useCase.views)
+#set ($viewPath = "${action.controller.restPath}/${view.restPath}")
+        if(forward != null && forward.startsWith("${viewPath}")) {
+            return "${view.path}.html";
+        }
+       
+#end
+#end
+
+        if(forward != null && !forward.endsWith(".html")) {
+            forward = "redirect:" + forward;
+        }
+
+        if(forward == null) {
+            forward = "${viewPath}";
+        }
+
         return forward;
     }
 #foreach ($decisionTransition in $action.decisionTransitions)
@@ -335,6 +354,9 @@ ${ident}        forward = #processTransition($actionState.forward)
     @org.springframework.web.bind.annotation.GetMapping("${view.restPath}")
     public String get$stringUtils.capitalize($stringUtils.deleteWhitespace(${view.name}))(org.springframework.ui.Model model) {
 
+        ${view.pageObjectClassName}Form form = get${view.pageObjectClassName}Form();
+        model.addAttribute("${view.pageObjectBeanName}Form", form);
+        
         return "${view.path}.html";
     }
 

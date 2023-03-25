@@ -336,8 +336,6 @@ $action.trigger.getDocumentation("     * ")
         if(forward == null) {
             forward = "${viewPath}";
         }
-
-        return forward;
 #else
 
         if(forward != null && !forward.endsWith(".html")) {
@@ -347,9 +345,9 @@ $action.trigger.getDocumentation("     * ")
         if(forward == null) {
             forward = "${viewPath}";
         }
+#end
 
         return forward;
-#end
     }
 
 #foreach ($actionState in $action.actionStates)
