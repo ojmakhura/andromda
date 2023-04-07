@@ -88,21 +88,6 @@ $operation.getDocumentation("     * ")
         throws Throwable;
 
 #end
-## #foreach ($operation in $controller.operations)
-##     $operation.handleFormSignature
-##         throws Throwable;
-##
-##     /**
-## $operation.getDocumentation("     * ")
-##      * @param form the associated form
-##      * @throws Throwable
-##      */
-## #set ($formCall = "handle$stringUtils.capitalize($operation.formCall)")
-##     ${operation.visibility} ${operation.returnType.name} ${operation.name}(#foreach($arg in $operation.arguments)$arg.type.fullyQualifiedName ${arg.name}, #{end}Model model) throws Throwable {
-##         #if($operation.returnType.name != "void")return #end$formCall;
-##     }
-##
-## #end
 // actions
 #foreach ($action in $controller.useCase.actions)
 
@@ -306,6 +291,16 @@ ${ident}        // we pass an empty form implementation to the controller, we kn
 ${ident}        // cartridge would have issued a model validation error
 ${ident}        ${controllerCall.name}(new ${controllerCall.interfaceName}(), model);
 #end
+
+#if($actionState.forward.enteringView)
+#set ($vw = $actionState.forward.target)
+${ident}        ${vw.pageObjectClassName}Form ${vw.pageObjectBeanName}Form = get${vw.pageObjectClassName}Form();
+#foreach($var in $vw.variables)
+${ident}        ${vw.pageObjectBeanName}Form.set${stringUtils.capitalize(${var.name})}(form.get${stringUtils.capitalize(${var.name})}());
+#end
+${ident}        model.addAttribute("${vw.pageObjectBeanName}Form", ${vw.pageObjectBeanName}Form);
+#end
+
 #end
 ${ident}        forward = #processTransition($actionState.forward)
 #saveMessages($actionState.forward "${ident}        ")

@@ -37,56 +37,84 @@ public class ${stringUtils.capitalize($applicationId)}Specifications {
         };
     }
 
-    public static <E, T>Specification<E> findByAttributeFalse(String attribute){
+    public static <E, T>Specification<E> findByAttributeNotMember(String attribute, T attributeValue) {
+        return (root, cq, cb) -> {
+            
+            return cb.isNotMember(attributeValue, root.get(attribute));
+        };
+    }
+
+    public static <E, T>Specification<E> findByAttributeIsMember(String attribute, T attributeValue) {
+        return (root, cq, cb) -> {
+            
+            return cb.isMember(attributeValue, root.get(attribute));
+        };
+    }
+
+    public static <E>Specification<E> findByAttributeIsEmpty(String attribute) {
+        return (root, cq, cb) -> {
+            
+            return cb.isEmpty(root.get(attribute));
+        };
+    }
+
+    public static <E>Specification<E> findByAttributeIsNotEmpty(String attribute) {
+        return (root, cq, cb) -> {
+            
+            return cb.isNotEmpty(root.get(attribute));
+        };
+    }
+
+    public static <E>Specification<E> findByAttributeFalse(String attribute){
         return (root, cq, cb) -> {
             
             return cb.isFalse(root.<Boolean>get(attribute));
         };
     }
 
-    public static <E, T>Specification<E> findByAttributeTrue(String attribute){
+    public static <E>Specification<E> findByAttributeTrue(String attribute){
         return (root, cq, cb) -> {
             
             return cb.isTrue(root.<Boolean>get(attribute));
         };
     }
 
-    public static <E, T>Specification<E> findByAttributeStartingWithIgnoreCase(String attribute, String attributeValue){
+    public static <E>Specification<E> findByAttributeStartingWithIgnoreCase(String attribute, String attributeValue){
         return (root, cq, cb) -> {
             
             return cb.like(cb.upper(root.<String>get(attribute)), attributeValue.toUpperCase() + "%");
         };
     }
     
-    public static <E, T>Specification<E> findByAttributeEndingWithIgnoreCase(String attribute, String attributeValue){
+    public static <E>Specification<E> findByAttributeEndingWithIgnoreCase(String attribute, String attributeValue){
         return (root, cq, cb) -> {
             
             return cb.like(cb.upper(root.<String>get(attribute)), "%" + attributeValue.toUpperCase());
         };
     }
     
-    public static <E, T>Specification<E> findByAttributeContainingIgnoreCase(String attribute, String attributeValue){
+    public static <E>Specification<E> findByAttributeContainingIgnoreCase(String attribute, String attributeValue){
         return (root, cq, cb) -> {
             
             return cb.like(cb.upper(root.<String>get(attribute)), "%" + attributeValue.toUpperCase() + "%");
         };
     }
     
-    public static <E, T>Specification<E> findByAttributeLikeIgnoreCase(String attribute, String attributeValue){
+    public static <E>Specification<E> findByAttributeLikeIgnoreCase(String attribute, String attributeValue){
         return (root, cq, cb) -> {
             
             return cb.like(cb.upper(root.<String>get(attribute)), "%" + attributeValue.toUpperCase() + "%");
         };
     }
     
-    public static <E, T>Specification<E> findByAttributeNotLikeIgnoreCase(String attribute, String attributeValue){
+    public static <E>Specification<E> findByAttributeNotLikeIgnoreCase(String attribute, String attributeValue){
         return (root, cq, cb) -> {
             
             return cb.notLike(cb.upper(root.<String>get(attribute)), "%" + attributeValue.toUpperCase() + "%");
         };
     }
     
-    public static <E, T>Specification<E> findByAttributeContaining(String attribute, String attributeValue){
+    public static <E>Specification<E> findByAttributeContaining(String attribute, String attributeValue){
         return (root, cq, cb) -> {
             
             return cb.like(root.<String>get(attribute), "%" + attributeValue.toUpperCase() + "%");
@@ -140,7 +168,7 @@ public class ${stringUtils.capitalize($applicationId)}Specifications {
 
         return (root, cq, cb) -> {
             Join<E, J> join = root.join(joinAttribute);
-            return cb.like(join.get(attribute), attributeValue );
+            return cb.like(cb.upper(join.get(attribute)), attributeValue );
         };
     }
     
@@ -165,7 +193,6 @@ public class ${stringUtils.capitalize($applicationId)}Specifications {
         return (root, cq, cb) -> {
             Join<E, J> join = root.join(joinAttribute);
             
-            //return cb.like(cb.upper(root.<String>get(attribute)), attributeValue.toUpperCase() + "%");
             return cb.like(join.get(attribute), "%" + attributeValue);
         };
     }
@@ -194,6 +221,38 @@ public class ${stringUtils.capitalize($applicationId)}Specifications {
         };
     }
 
+    public static <E, J, T>Specification<E> findByJoinAttributeNotMember(String joinAttribute, String attribute, T attributeValue) {
+        return (root, cq, cb) -> {
+            
+            Join<E, J> join = root.join(joinAttribute);
+            return cb.isNotMember(attributeValue, join.get(attribute));
+        };
+    }
+
+    public static <E, J, T>Specification<E> findByJoinAttributeIsMember(String joinAttribute, String attribute, T attributeValue) {
+        return (root, cq, cb) -> {
+            
+            Join<E, J> join = root.join(joinAttribute);
+            return cb.isMember(attributeValue, join.get(attribute));
+        };
+    }
+
+    public static <E, J>Specification<E> findByJoinAttributeIsEmpty(String joinAttribute, String attribute) {
+        return (root, cq, cb) -> {
+            
+            Join<E, J> join = root.join(joinAttribute);
+            return cb.isEmpty(join.get(attribute));
+        };
+    }
+
+    public static <E, J>Specification<E> findByJoinAttributeIsNotEmpty(String joinAttribute, String attribute) {
+        return (root, cq, cb) -> {
+            
+            Join<E, J> join = root.join(joinAttribute);
+            return cb.isNotEmpty(join.get(attribute));
+        };
+    }
+
     public static <E, J, T>Specification<E> findByJoinAttributeIn(String joinAttribute, String attribute, Collection<T> attributeValues) {
         return (root, cq, cb) -> {
             
@@ -204,7 +263,7 @@ public class ${stringUtils.capitalize($applicationId)}Specifications {
         };
     }
 
-    public static <E, J, T>Specification<E> findByJoinAttributeIdNull(String joinAttribute, String attribute) {
+    public static <E, J>Specification<E> findByJoinAttributeIdNull(String joinAttribute, String attribute) {
         return (root, cq, cb) -> {
             
             Join<E, J> join = root.join(joinAttribute);
@@ -212,7 +271,7 @@ public class ${stringUtils.capitalize($applicationId)}Specifications {
         };
     }
 
-    public static <E, J, T>Specification<E> findByJoinAttributeNotNull(String joinAttribute, String attribute) {
+    public static <E, J>Specification<E> findByJoinAttributeNotNull(String joinAttribute, String attribute) {
         return (root, cq, cb) -> {
             Join<E, J> join = root.join(joinAttribute);
             return cb.isNotNull(join.<E>get(attribute));
