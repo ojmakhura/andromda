@@ -1,0 +1,14 @@
+server:
+    port: 8090
+    servlet:
+        context-path: /$applicationId
+spring:
+    thymeleaf:
+        cache: false
+    mvc:
+        format:
+            date: iso
+            date-time: iso
+            time: HH:mm:ss
+        pathmatch:
+            matching-strategy: ANT_PATH_MATCHER

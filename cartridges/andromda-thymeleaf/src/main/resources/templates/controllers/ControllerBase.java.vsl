@@ -143,9 +143,9 @@ $operation.getDocumentation("     * ")
     public String startUseCase(${useCaseParams}, org.springframework.ui.Model model) throws Throwable
 #end
 #if($action.exitingView)
-    @org.springframework.web.bind.annotation.PostMapping({"${action.source.restPath}${action.restPath}"})
+    @org.springframework.web.bind.annotation.#if ($action.parameters.empty)Get#{else}Post#{end}Mapping({"${action.source.restPath}${action.restPath}"})
     @Override
-    public String ${action.triggerName}(#if (!$action.formFields.empty)@org.springframework.web.bind.annotation.ModelAttribute ${action.source.fullyQualifiedPageObjectClassName}Form _form, #{end}org.springframework.ui.Model model) throws Throwable
+    public String ${action.triggerName}(#if (!$action.parameters.empty)@org.springframework.web.bind.annotation.ModelAttribute ${action.source.fullyQualifiedPageObjectClassName}Form _form, #{end}org.springframework.ui.Model model) throws Throwable
 #end
     {
 
@@ -190,25 +190,25 @@ $operation.getDocumentation("     * ")
                 return forward;
             }
         }
+
 #end
 #end
 #end
 #if($action.exitingInitialState)
 #foreach ($view in $controller.useCase.views)
-#set ($viewPath = "${action.controller.restPath}/${view.restPath}")
+#set ($viewPath = "${action.controller.restPath}${view.restPath}")
         if(forward != null && forward.startsWith("${viewPath}")) {
             return "${view.path}.html";
         }
        
 #end
 #end
-
         if(forward != null && !forward.endsWith(".html")) {
             forward = "redirect:" + forward;
         }
 
         if(forward == null) {
-            forward = "${viewPath}";
+            forward = "${action.source.path}.html";
         }
 
         return forward;
@@ -296,7 +296,11 @@ ${ident}        ${controllerCall.name}(new ${controllerCall.interfaceName}(), mo
 #set ($vw = $actionState.forward.target)
 ${ident}        ${vw.pageObjectClassName}Form ${vw.pageObjectBeanName}Form = get${vw.pageObjectClassName}Form();
 #foreach($var in $vw.variables)
+#if($var.table)
+${ident}        model.addAttribute("$var.name", form.get${stringUtils.capitalize(${var.name})}());
+#else
 ${ident}        ${vw.pageObjectBeanName}Form.set${stringUtils.capitalize(${var.name})}(form.get${stringUtils.capitalize(${var.name})}());
+#end
 #end
 ${ident}        model.addAttribute("${vw.pageObjectBeanName}Form", ${vw.pageObjectBeanName}Form);
 #end

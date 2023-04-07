@@ -2,7 +2,7 @@
 #macro(renderTableColumnNames $parameter $ident)
 ${ident}<thead>
 ${ident}   <tr>
-#if($parameter.inputTableIdentifierColumns)
+#if($stringUtils.isNotEmpty($parameter.inputTableIdentifierColumns))
 #foreach ($column in $parameter.inputTableIdentifierColumns.split(","))
 ${ident}        <th th:text="#{$stringUtils.toResourceMessageKey(${column})}"></th>
 #end
@@ -16,7 +16,7 @@ ${ident}</thead>
 #end
 ##==========================
 #macro(renderTableColumns $parameter $ident)
-#if($parameter.inputTableIdentifierColumns)
+#if($stringUtils.isNotEmpty($parameter.inputTableIdentifierColumns))
 #foreach ($column in $parameter.inputTableIdentifierColumns.split(","))
 #if(!$column.hidden && !$column.inputFile)
 #set ($value = "row.${column}")
@@ -95,6 +95,8 @@ ${ident}    <option value=""></option>
 ${ident}    <option th:each="${formValuePropertyName} : *{${backingListName}}" th:value="${${formValuePropertyName}.value}" th:text="${${formValuePropertyName}.label}"></option>
 #end
 ${ident}</select>
+#elseif ($parameter.inputTextarea)
+${ident}	<textarea id="$propertyId" class="form-control" th:field="*{${formValuePropertyName}}" #if($parameter.required) required#end#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end></textarea>
 #elseif ($parameter.inputFile)
 ${ident}    <input type="file" id="$propertyId" class="form-control" th:field="*{${formValuePropertyName}}" label="#{$parameter.messageKey}:"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
 #elseif ($parameter.inputMultibox)
@@ -108,12 +110,15 @@ ${ident}        <input type="radio" id="$propertyId" class="form-check-input" th
 ${ident}    </div>
 #elseif($parameter.inputTable)
 ${ident}<div>
-${ident}    <button type="button" id="${propertyId}" class="btn btn-lg btn-primary"
+${ident}    <button type="button" id="${propertyId}Add" class="btn btn-lg btn-primary"
 ${ident}            data-bs-toggle="modal" data-bs-target="#${propertyId}Add">
 ${ident}        <i class="fa-solid fa-plus"></i>
 ${ident}    </button>
 ${ident}</div>
-${ident}<table id="searchResult" class="table table-bordered" style="width: 100%">
+#if($parameter.type.component)
+${ident}<th:block th:replace="~{/components${parameter.type.path}#if(!$parameter.readOnly)-table#end.html :: ${parameter.name}(${${parameter.name}})}"></th:block>
+#else
+${ident}<table id="${propertyId}" class="table table-bordered" style="width: 100%">
 #renderTableColumnNames($parameter "${ident}    ")
 ${ident}    <tbody>
 ${ident}        <tr th:each="row : ${${parameter.name}}">
@@ -160,6 +165,7 @@ ${ident}            </td>
 ${ident}        </tr>
 ${ident}    </tbody>
 ${ident}</table>
+#end
 #else
 #if($umlMetafacadeUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.many)
 ${ident}    <div class="col my-3 view-buttons">
@@ -205,7 +211,7 @@ ${ident}</div>
 ##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
 ##
 #macro(renderTableInput $parameter $ownerParameter $ident)
-$ident<table>
+$ident<table> 33
 $ident  <thead>
 $ident      <tr>
 $ident          <th th:text="#{select}"></th>

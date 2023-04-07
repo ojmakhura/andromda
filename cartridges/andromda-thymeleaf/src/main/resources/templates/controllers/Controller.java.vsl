@@ -33,10 +33,10 @@ public interface $controller.name {
     @org.springframework.web.bind.annotation.GetMapping("${action.restPath}")
 #set($params = "$action.restQueryParams")
 #else
-    @org.springframework.web.bind.annotation.GetMapping("${action.restPath}")
+    @org.springframework.web.bind.annotation.#if ($action.parameters.empty)Get#{else}Post#{end}Mapping({"${action.source.restPath}${action.restPath}"})
 #set($params = "$action.restFormParams")
 #end
-    public String ${action.triggerName}(#if (!$action.formFields.empty)@org.springframework.web.bind.annotation.ModelAttribute $param, #{end}org.springframework.ui.Model model)
+    public String ${action.triggerName}(#if (!$action.parameters.empty)@org.springframework.web.bind.annotation.ModelAttribute $param, #{end}org.springframework.ui.Model model)
             throws Throwable;
 #else
     /**

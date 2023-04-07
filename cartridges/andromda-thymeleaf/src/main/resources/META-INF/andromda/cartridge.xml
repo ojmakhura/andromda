@@ -536,6 +536,20 @@
         path="templates/views/component-table.html.vsl"
         outputPattern="${component.path}-table.html"
         outlet="components"
+        outputOnEmptyElements="false"
+        overwrite="true">
+        <modelElements variable="component">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndComponent">
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    <template
+        path="templates/views/component-modal.html.vsl"
+        outputPattern="${component.path}-modal.html"
+        outlet="components"
+        outputOnEmptyElements="false"
         overwrite="true">
         <modelElements variable="component">
             <modelElement>
@@ -682,7 +696,7 @@
         </modelElements>
     </template>
 
-    <template
+    <!-- <template
         path="templates/views/view-action.html.vsl"
         outputPattern="${action.viewFragmentPath}.html"
         outlet="views"
@@ -695,7 +709,7 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <template
         path="templates/views/view-table.html.vsl"

@@ -1269,4 +1269,10 @@ public class FrontEndParameterLogicImpl
         }
         return null;
     }
+
+    @Override
+    protected Boolean handleGetComponent() {
+        
+        return MetafacadeWebUtils.isComponent(this.getType());
+    }
 }

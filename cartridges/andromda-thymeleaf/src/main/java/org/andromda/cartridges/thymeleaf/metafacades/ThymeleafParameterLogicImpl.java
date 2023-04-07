@@ -114,10 +114,4 @@ public class ThymeleafParameterLogicImpl
         }
         return pathSegment;
     }
-
-    @Override
-    protected Boolean handleGetComponent() {
-        
-        return MetafacadeWebUtils.isComponent(this.getType());
-    }
 }

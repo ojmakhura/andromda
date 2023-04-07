@@ -1,0 +1,91 @@
+##==========================
+##
+## A macro that renders the appropriate table for the input
+##
+## parameters:
+##     o  $parameter - the actual parameter to render
+##
+#macro(renderModalTableInput $parameter $ident)
+$ident<table>
+$ident  <thead>
+$ident      <tr>
+$ident          <th th:text="#{select}"></th>
+#if($stringUtils.isNotBlank($parameter.inputTableIdentifierColumns))
+#foreach ($column in $parameter.inputTableIdentifierColumns.split(","))
+$ident          <th th:text="#{$stringUtils.toResourceMessageKey(${column})}"></th>
+#end
+#else
+#foreach ($column in $parameter.tableColumns)
+$ident          <th th:text="#{$stringUtils.toResourceMessageKey(${column.name})}"></th>
+#end
+#end
+$ident      </tr>
+$ident  </thead>
+$ident  <tbody>
+$ident      <tr th:each="row : ${${stringUtils.uncapitalize(${component.name})}BackingList}">
+$ident          <td id="column_select">
+#if($parameter.many)
+$ident              <div class="form-check">
+$ident                <input class="form-check-input" type="checkbox">
+$ident              </div>
+#else
+$ident              <div class="form-check">
+$ident                <input class="form-check-input" type="radio">
+$ident              </div>
+#end
+$ident          </td>
+#if($stringUtils.isNotBlank($parameter.inputTableIdentifierColumns))
+#foreach ($column in $parameter.inputTableIdentifierColumns.split(","))
+#if(!$column.hidden && !$column.inputFile)
+#set ($value = "row.${column}")
+$ident          <td id="column_${column}" th:text="${${value}}"></td>
+#end
+#end
+#else
+#foreach ($column in $parameter.tableColumns)
+#if(!$column.hidden && !$column.inputFile)
+#set($noOfColumns=$noOfColumns+1)   
+#if($column.type.enumeration)
+#set($theValue="row.${column.name}.getValue()")
+#else
+#set($theValue="row.${column.name}")
+#end
+$ident          <td id="column_${column.name}" th:text=#if ($column.type.dateType)"${#temporals.format($theValue, '$column.format')}"#else"${${theValue}}"#end  #if($rendered != "")#end></td>
+#end
+#end
+#end
+$ident      </tr>
+$ident  </tbody>
+$ident</table>
+#end
+<div class="modal fade" id="$stringUtils.uncapitalize(${component.name})Add" tabindex="-1" aria-labelledby="$stringUtils.uncapitalize(${component.name})AddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="$stringUtils.uncapitalize(${component.name})AddLabel">
+                    <span th:text="#{$component.messageKey}">
+                    </span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <form>
+                        <div>
+                            <label class="form-check-label" th:for="$stringUtils.uncapitalize(${component.name})SearchField">search</label>
+                            <input type="text" id="$stringUtils.uncapitalize(${component.name})SearchField" class="form-check-input" />
+                        </div>
+                        <button type="button" class="btn btn-primary">
+                            Search
+                        </button>
+                    </form>
+                </div>
+#renderModalTableInput($component, "             ")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
