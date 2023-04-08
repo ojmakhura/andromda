@@ -507,6 +507,10 @@ public class FrontEndViewLogicImpl
     */
     protected String handleGetSubmitAction() {
         String action = StringUtils.stripToNull(((String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_SUBMIT_ACTION)));
+
+        if(StringUtils.isNotBlank(action) && !action.startsWith("/")) {
+            action = '/' + action;
+        }
         
         return action;
     }

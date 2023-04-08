@@ -178,39 +178,29 @@ $operation.getDocumentation("     * ")
 
         forward = #processTransition($action)
 #saveMessages($action "        ")
-#if ($formPopulationOperationRequired)
-        populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"${action.source.path}.html"#end,forward,form);
-#if(!$action.exitingInitialState && !$action.enteringFinalState)
 
-        if(forward != null)
-        {
-            if(forward.startsWith("${action.source.path}.html"))
-            {
-                forward = get$stringUtils.capitalize($stringUtils.deleteWhitespace(${action.source.name}))(model); //the destination form is the same, stay on the current view
-                return forward;
-            }
-        }
+#foreach ($view in $action.targetViews)
+        ${view.pageObjectClassName}Form ${view.pageObjectBeanName}Form = get${view.pageObjectClassName}Form();
+#foreach($param in $view.variables)
+        ${view.pageObjectBeanName}Form.set$stringUtils.capitalize($param.name)(form.get$stringUtils.capitalize($param.name)());       
+#end
+#foreach($param in $view.tables)
+        model.addAttribute("${param.name}", form.get$stringUtils.capitalize($param.name)());         
+#end
+        model.addAttribute("${view.pageObjectBeanName}Form", ${view.pageObjectBeanName}Form);    
+#end
+#end
 
-#end
-#end
-#end
-#if($action.exitingInitialState)
-#foreach ($view in $controller.useCase.views)
-#set ($viewPath = "${action.controller.restPath}${view.restPath}")
-        if(forward != null && forward.startsWith("${viewPath}")) {
-            return "${view.path}.html";
-        }
-       
-#end
-#end
         if(forward != null && !forward.endsWith(".html")) {
             forward = "redirect:" + forward;
         }
 
+#if(!$action.exitingInitialState)
         if(forward == null) {
-            forward = "${action.source.path}.html";
+           forward = "${action.source.path}.html";
         }
 
+#end
         return forward;
     }
 #foreach ($decisionTransition in $action.decisionTransitions)
@@ -297,12 +287,12 @@ ${ident}        ${controllerCall.name}(new ${controllerCall.interfaceName}(), mo
 ${ident}        ${vw.pageObjectClassName}Form ${vw.pageObjectBeanName}Form = get${vw.pageObjectClassName}Form();
 #foreach($var in $vw.variables)
 #if($var.table)
-${ident}        model.addAttribute("$var.name", form.get${stringUtils.capitalize(${var.name})}());
+${ident}        //model.addAttribute("$var.name", form.get${stringUtils.capitalize(${var.name})}());
 #else
 ${ident}        ${vw.pageObjectBeanName}Form.set${stringUtils.capitalize(${var.name})}(form.get${stringUtils.capitalize(${var.name})}());
 #end
 #end
-${ident}        model.addAttribute("${vw.pageObjectBeanName}Form", ${vw.pageObjectBeanName}Form);
+${ident}        //model.addAttribute("${vw.pageObjectBeanName}Form", ${vw.pageObjectBeanName}Form);
 #end
 
 #end

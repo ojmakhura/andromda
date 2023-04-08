@@ -66,6 +66,7 @@
 #set($formName = "${view.pageObjectBeanName}Form")
     <form  id="${formName}" name="${formName}"
 #if($view.submitAction) 
+#set ($submitAction = "${controller.restPath}${view.restPath}${view.submitAction}")
         th:action="@{${controller.restPath}${view.restPath}${view.submitAction}}"
 #end
         role="form" method="POST" th:object="${${formName}}"
@@ -129,8 +130,11 @@
 #end
 #end
 #if(!$action.parameters.empty)
+#set ($buttonAction = "${controller.restPath}${view.restPath}${action.restPath}")
         <button type="#if(!$target.popup)submit#{else}button#end" id="${action.triggerName}Action" 
-             th:action="@{${controller.restPath}${view.restPath}${action.restPath}}"
+#if(!$buttonAction.equals($submitAction))
+             th:formaction="@{${controller.restPath}${view.restPath}${action.restPath}}"
+#end
              class="btn btn-lg btn-primary" th:text="#{$action.messageKey}"#if(!$target.popup)>#end
 #if($target.popup)               data-bs-toggle="modal" data-bs-target="#${target.pageObjectBeanName}">#end
         </button>
