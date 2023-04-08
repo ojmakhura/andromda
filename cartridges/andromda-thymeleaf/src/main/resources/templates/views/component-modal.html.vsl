@@ -58,7 +58,7 @@ $ident      </tr>
 $ident  </tbody>
 $ident</table>
 #end
-<div class="modal fade" id="$stringUtils.uncapitalize(${component.name})Add" tabindex="-1" aria-labelledby="$stringUtils.uncapitalize(${component.name})AddLabel" aria-hidden="true">
+## <div class="modal fade" id="$stringUtils.uncapitalize(${component.name})Add" tabindex="-1" aria-labelledby="$stringUtils.uncapitalize(${component.name})AddLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -73,7 +73,7 @@ $ident</table>
                     <form>
                         <div>
                             <label class="form-check-label" th:for="$stringUtils.uncapitalize(${component.name})SearchField">search</label>
-                            <input type="text" id="$stringUtils.uncapitalize(${component.name})SearchField" class="form-check-input" />
+                            <input type="text" id="$stringUtils.uncapitalize(${component.name})SearchField" class="form-control" />
                         </div>
                         <button type="button" class="btn btn-primary">
                             Search
@@ -88,4 +88,4 @@ $ident</table>
             </div>
         </div>
     </div>
-</div>
+## </div>

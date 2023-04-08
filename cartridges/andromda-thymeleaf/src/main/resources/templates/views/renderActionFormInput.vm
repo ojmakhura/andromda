@@ -111,7 +111,7 @@ ${ident}    </div>
 #elseif($parameter.inputTable)
 ${ident}<div>
 ${ident}    <button type="button" id="${propertyId}Add" class="btn btn-lg btn-primary"
-${ident}            data-bs-toggle="modal" data-bs-target="#${propertyId}Add">
+${ident}            data-bs-toggle="modal" data-bs-target="#${propertyId}AddModal">
 ${ident}        <i class="fa-solid fa-plus"></i>
 ${ident}    </button>
 ${ident}</div>

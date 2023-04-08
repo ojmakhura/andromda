@@ -25,4 +25,18 @@
 #renderHiddenInputField($attribute $component "        ")
 #end
 #end
+#foreach($table in $tables)
+#if ($table.backingListName)
+#if ($component.type.hasStereotype('Entity'))
+#set ($propertyId = $table.getFormPropertyId($component))
+#else
+#set ($propertyId = $table.name)
+#end
+#else
+#set ($propertyId = $table.getFormPropertyId($component))
+#end
+    <div class="modal fade" id="${propertyId}AddModal" tabindex="-1" aria-labelledby="${propertyId}AddLabel" aria-hidden="true">
+        <th:block th:replace="~{/components${table.type.path}-modal.html}"></th:block>
+    </div>
+#end
 </fieldset>

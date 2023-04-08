@@ -49,7 +49,7 @@ ${ident}<th th:text="#{$column.messageKey}"></th>
 #set ($left = '{')
 #set ($right = '}')
 #set($form = $table.view.actions.get(0))
-<table id="searchResult" class="table" style="width: 100%">
+<table id="$table.name" class="table" style="width: 100%">
     <thead>
         <tr>
 #foreach ($column in $table.tableColumns)
