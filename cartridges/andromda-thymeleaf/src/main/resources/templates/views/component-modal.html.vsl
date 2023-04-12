@@ -6,7 +6,7 @@
 ##     o  $parameter - the actual parameter to render
 ##
 #macro(renderModalTableInput $parameter $ident)
-$ident<table>
+$ident<table class="table">
 $ident  <thead>
 $ident      <tr>
 $ident          <th th:text="#{select}"></th>
@@ -58,7 +58,7 @@ $ident      </tr>
 $ident  </tbody>
 $ident</table>
 #end
-## <div class="modal fade" id="$stringUtils.uncapitalize(${component.name})Add" tabindex="-1" aria-labelledby="$stringUtils.uncapitalize(${component.name})AddLabel" aria-hidden="true">
+<div class="modal fade" id="$stringUtils.uncapitalize(${component.name})Add" tabindex="-1" aria-labelledby="$stringUtils.uncapitalize(${component.name})AddLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -88,4 +88,4 @@ $ident</table>
             </div>
         </div>
     </div>
-## </div>
+</div>

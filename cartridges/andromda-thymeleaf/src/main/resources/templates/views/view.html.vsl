@@ -148,7 +148,7 @@
 #foreach ($variable in $view.variables)
 #if ($variable.table)
 ## #if($variable.component)
-##   <th:block th:replace="~{/components${variable.type.path}-table.html}"></th:block>
+##   <th:block th:replace="~{/components${variable.type.path}-table.html :: ${variable.type.name}(tableData={dollar}{${variable.name}}, actions=${dollar}{ {} })}"></th:block>
 ## #else
     <th:block th:replace="~{${view.path}-${variable.name}.html}"></th:block>
 ## #end

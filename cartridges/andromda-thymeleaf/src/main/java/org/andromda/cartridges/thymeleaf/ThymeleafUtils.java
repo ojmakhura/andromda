@@ -22,6 +22,7 @@ import org.andromda.cartridges.thymeleaf.metafacades.ThymeleafParameter;
 import org.andromda.cartridges.thymeleaf.metafacades.ThymeleafParameterLogic;
 import org.andromda.cartridges.web.CartridgeWebProfile;
 import org.andromda.cartridges.web.CartridgeWebUtils;
+import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -1417,5 +1418,47 @@ public class ThymeleafUtils
         }
 
         return statesMap.values();
+    }
+
+    public static String getTableColumnMessageKey(Object column, MetafacadeBase parent)
+    {
+
+        if(column instanceof ThymeleafParameter) {
+            ThymeleafParameter attribute = (ThymeleafParameter) column;
+            return attribute.getMessageKey();
+        } else if(column instanceof ThymeleafParameter) {
+            ThymeleafParameter parameter = (ThymeleafParameter) column;
+            return parameter.getMessageKey();
+        } else if(column instanceof String) {
+
+            if(parent instanceof ThymeleafParameter) {
+
+                ThymeleafParameter attribute = (ThymeleafParameter) parent;
+                final StringBuilder messageKey = new StringBuilder();
+                // if (!attribute.isNormalizeMessages())
+                // {
+                //     final ClassifierFacade owner = attribute.getOwner();
+                //     if (owner != null)
+                //     {
+                //         messageKey.append(StringUtilsHelper.toResourceMessageKey(owner.getName()));
+                //         messageKey.append('.');
+                //     }
+                // }
+                final String name = attribute.getName();
+                if (name != null && name.trim().length() > 0)
+                {
+                    messageKey.append(StringUtilsHelper.toResourceMessageKey(name));
+                }
+                return messageKey.toString();
+
+            } else if(column instanceof ThymeleafParameter) {
+                ThymeleafParameter parameter = (ThymeleafParameter) parent;
+                return parameter.getTableColumnMessageKey((String) column);
+            } else {
+                return StringUtilsHelper.toResourceMessageKey((String) column);
+            }
+        }
+
+        return null;
     }
 }

@@ -26,6 +26,34 @@ select=Select
 find=Find
 reset=Reset
 
+actions=Actions
+action.delete=Delete
+action.load=Load
+action.select=Select
+action.save=Save
+action.saveAndNew=Save & New
+action.saveAndKeepEditing=Save & Continue
+action.saveAndSelect=Save & Select
+action.cancel=Cancel
+action.back=Back
+action.close=Close
+action.search=Search
+action.new=New
+action.download=Download
+action.more=View details
+action.show.detail.records=View details
+
+action.delete.access.key=d
+action.load.access.key=l
+action.save.access.key=s
+action.saveAndSelect.access.key=e
+action.saveAndNew.access.key=n
+action.cancel.access.key=c
+action.back.access.key=b
+action.close.access.key=c
+action.search.access.key=s
+action.new.access.key=n
+
 form.already.submitted=This form has already been submitted
 
 #
@@ -154,33 +182,6 @@ ${enumeration.messageKey}.${literal.name}=$stringUtils.toPhrase($literal.name)
 #
 #   Messages related to entity management (CRUD)
 #
-actions=Actions
-action.delete=Delete
-action.load=Load
-action.select=Select
-action.save=Save
-action.saveAndNew=Save & New
-action.saveAndKeepEditing=Save & Continue
-action.saveAndSelect=Save & Select
-action.cancel=Cancel
-action.back=Back
-action.close=Close
-action.search=Search
-action.new=New
-action.download=Download
-action.more=View details
-action.show.detail.records=View details
-
-action.delete.access.key=d
-action.load.access.key=l
-action.save.access.key=s
-action.saveAndSelect.access.key=e
-action.saveAndNew.access.key=n
-action.cancel.access.key=c
-action.back.access.key=b
-action.close.access.key=c
-action.search.access.key=s
-action.new.access.key=n
 
 manageable.entity.changed={0} updated
 manageable.entity.created=New {0} created

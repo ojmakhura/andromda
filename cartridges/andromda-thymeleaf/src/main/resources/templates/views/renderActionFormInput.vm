@@ -169,10 +169,10 @@ ${ident}</table>
 #else
 #if($umlMetafacadeUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.many)
 ${ident}    <div class="col my-3 view-buttons">
-${ident}        <button type="button" (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
+${ident}        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
 ${ident}            Add
 ${ident}        </button>
-${ident}        <button type="button" (click)="${propertyId}Clear()" class="btn btn-primary">
+${ident}        <button type="button" class="btn btn-primary">
 ${ident}            Clear
 ${ident}        </button>
 ${ident}    </div>
@@ -282,7 +282,7 @@ $ident</table>
 #else
 #set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
 #end
-<div class="modal fade" id="${propertyId}Add" tabindex="-1" aria-labelledby="${propertyId}AddLabel" aria-hidden="true">
+<div class="modal fade" id="${propertyId}AddModal" tabindex="-1" aria-labelledby="${propertyId}AddLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

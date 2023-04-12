@@ -11,7 +11,7 @@ ${ident}        </a>
 ${ident}    </div>
 ${ident}</td>
 #foreach ($member in $theManageable.manageableSearchAttributes)
-#if(!$member.hidden && !$member.inputFile)
+#if(!$member.inputFile)
 #set($noOfColumns=$noOfColumns+1)   
 #if($member.type.enumeration)
 #set($theValue="row.${member.name}.getValue()")
@@ -48,31 +48,42 @@ ${ident}<th th:text="#{$column.messageKey}"></th>
 #set ($dollar = '$')
 #set ($left = '{')
 #set ($right = '}')
-<table id="searchResult" class="table" style="width: 100%">
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<table id="${component.name}Table" class="table" style="width: 100%" th:fragment="${component.name}Table(tableData, columns, columnActions, actions)">
     <thead>
         <tr>
+            <th th:if="!${#lists.isEmpty(actions)}" th:text="#{actions}"></th>
 #foreach ($column in $component.tableColumns)
 #if($column.name)
 #set($columnName = $column.name)
 #else
 #set($columnName = $column)
 #end
-        <th th:text="#{$component.getTableColumnMessageKey($columnName)}"></th>
+            <th th:if="${#lists.contains(columns, columnName)}" th:text="#{$thymeleafUtils.getTableColumnMessageKey($columnName, $component)}"></th>
 #end
 #foreach ($action in $component.tableFormActions)
 #if (!$action.tableLinkColumnName)
 #set($renderActions = true)
 #end
 #end
-#if($renderActions)
-        <th th:text="Actions"></th>
-#end
         </tr>
     </thead>
     <tbody>
-        <tr th:each="row : ${${component.name}}">
+        <tr th:each="row : $stringUtils.uncapitalize(${component.name})Table">
+            <td th:if="!${#lists.isEmpty(actions)}" id="column_actions">
+                <div class="row form-group">
+                    <form class="col" method="POST">
+                        <button type="submit" th:each="action : ${actions}" class="col btn btn-info" th:id="${action} + 'Action'" th:text="${action}">
+                        </button>
+                    </form>
+                </div>
+            </td>
 #foreach ($column in $component.tableColumns)
-#if(!$column.hidden && !$column.inputFile)
+#if(!$column.inputFile)
 #if($column.name)
 #set($columnName = $column.name)
 #else
@@ -88,7 +99,7 @@ ${ident}<th th:text="#{$column.messageKey}"></th>
             <td id="column_${columnName}"#if ($tableColumnActions.empty) th:text=#if ($column.type.dateType)"${#temporals.format($theValue, '$column.format')}"#else"${${theValue}}"#end  #if($rendered != "")#end#end>
 #if (!$tableColumnActions.empty)
 #set ($action = $tableColumnActions.iterator().next())
-                <form method="POST" 
+                <form th:if="${#lists.contains(columnActions, ${columnName})}" method="POST" 
                         th:action="@{${action.controller.restPath}${action.restPath}(#if($column.name)$column.name#{else}$column#end=$dollar${left}row.$columnName${right})}">
                     <button type="submit" id="${columnName}Action" th:text="${#if($column.name)row.$column.name#{else}row.$column#end}">
                     </button>
@@ -97,47 +108,8 @@ ${ident}<th th:text="#{$column.messageKey}"></th>
             </td>
 #end
 #end
-## Render table actions
-#foreach ($action in $component.tableFormActions)
-#if (!$action.tableLinkColumnName)
-            <td id="column_actions">
-                <div class="col">
-#set ($data = "{")
-#foreach ($parameter in $action.parameters)
-#if ($component.tableColumnNames.contains($parameter.name) || $component.tableAttributeNames.contains($parameter.name))
-#set ($parameterValue = "row.${parameter.name}")
-#else
-#set ($parameterValue = "$parameter.name")
-#end
-#set ($data = "$data '$parameter.name': $parameterValue,")
-#end
-#set ($data = "$data }")
-#set ($urlParams = "")
-#set ($paramValues = "")
-#foreach ($parameter in $action.parameters)
-#if ($component.tableColumnNames.contains($parameter.name) || $component.tableAttributeNames.contains($parameter.name))
-#set ($parameterValue = "row.${parameter.name}")
-#else
-#set ($parameterValue = "$parameter.name")
-#end
-#if($urlParams.length() == 0)
-#set ($urlParams = "?")
-#else
-#set ($urlParams = "$urlParams&")
-#set ($paramValues = "$paramValues, ")
-#end
-#set ($urlParams = "$urlParams$parameter.name={$parameter.name}")
-#set ($paramValues = "$paramValues${parameter.name}=$dollar$left$parameterValue$right")
-#end
-                    <form method="POST" 
-                                th:action="@{${action.controller.restPath}${action.restPath}$urlParams($paramValues)}">
-                        <button type="submit" id="${action.triggerName}Action" th:text="#{$action.trigger.messageKey}">
-                        </button>
-                    </form>
-                </div>
-            </td>
-#end
-#end
         </tr>
     </tbody>
 </table>
+</body>
+</html>
