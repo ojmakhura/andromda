@@ -61,7 +61,7 @@
             <scope>runtime</scope>
         </dependency>
         <!-- Comment out uml14 dependencies for faster performance, if not using uml14 models -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.andromda.repositories</groupId>
             <artifactId>andromda-repository-mdr-uml14</artifactId>
             <version>${andromda.version}</version>
@@ -72,7 +72,7 @@
             <artifactId>andromda-metafacades-uml14</artifactId>
             <version>${andromda.version}</version>
             <scope>runtime</scope>
-        </dependency>
+        </dependency> -->
         <!-- Uncomment emf-uml2 and comment uml22 to enable UML2 1.x and RSM6.x processing. Cannot run both together.>
         <dependency>
             <groupId>org.andromda.repositories</groupId>

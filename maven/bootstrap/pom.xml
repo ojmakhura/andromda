@@ -155,12 +155,12 @@
             <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.andromda.bootstrap.repositories</groupId>
             <artifactId>andromda-repository-mdr-uml14</artifactId>
             <version>${andromda.version}</version>
             <scope>runtime</scope>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.andromda.bootstrap.metafacades</groupId>
             <artifactId>andromda-metafacades-emf-uml22</artifactId>

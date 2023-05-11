@@ -28,12 +28,12 @@
             <version>${andromda.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.andromda.metafacades</groupId>
             <artifactId>andromda-metafacades-uml14</artifactId>
             <version>${andromda.version}</version>
             <scope>test</scope>
-        </dependency>
+        </dependency> -->
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
