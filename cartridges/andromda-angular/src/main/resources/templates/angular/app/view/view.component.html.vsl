@@ -84,7 +84,7 @@
 #foreach ( $table in $view.tables )
 		<mat-tab class="${table.name}"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
 			<ng-template mat-tab-label><span translate>$table.messageKey</span></ng-template>
-			<$table.fileName>
+			<$table.fileName #$stringUtils.uncapitalize($table.tableComponentName)>
 			</$table.fileName>
 		</mat-tab>
 #end

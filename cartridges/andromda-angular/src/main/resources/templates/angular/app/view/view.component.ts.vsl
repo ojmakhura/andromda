@@ -278,6 +278,10 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     error: Observable<boolean>;
     selected: any = null;
 
+#foreach ( $table in $view.tables )
+	@ViewChild('$stringUtils.uncapitalize($table.tableComponentName)') $stringUtils.uncapitalize($table.tableComponentName): $table.tableComponentImplementationName;
+
+#end
     constructor(#if($view.popup)@Inject(MAT_DIALOG_DATA) data: any, #{end}injector: Injector) {
         
         this.route = injector.get(ActivatedRoute);
