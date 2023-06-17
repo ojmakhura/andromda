@@ -330,6 +330,11 @@
                 <property name="webServiceIncomingAttachmentHandlerCallPattern">${application.package}.AttachmentHandler.getAttachments()</property>
 #end
 #end
+                <!-- <property name="hikariConnectionTimeout">3000</property> -->
+                <!-- <property name="hikariIdleTimeout">600000</property> -->
+                <!-- <property name="hikariMaxLifetime">1800000</property> -->
+                <!-- <property name="hikariMinimumIdle">10</property> -->
+                <!-- <property name="hikariMaximumPoolsize">500</property> -->
                 <!-- Specialized use: OSGI, RichClient, remoting, generated JDBC tests -->
                 <!--property name="advice-impls">${core.generated.dir}</property>
                 <property name="remoting-war-support">${core.manual.java.dir}</property>

@@ -225,6 +225,11 @@
     <property reference="dateTimeGeneratedText"/>
     <property reference="spring-resources"/>
     <property reference="spring-target-resources"/>
+    <property reference="hikariConnectionTimeout"/>
+    <property reference="hikariIdleTimeout"/>
+    <property reference="hikariMaxLifetime"/>
+    <property reference="hikariMinimumIdle"/>
+    <property reference="hikariMaximumPoolsize"/>
 
     <!-- cartridge-property merge-point -->
 

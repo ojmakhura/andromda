@@ -65,6 +65,8 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
     @ViewChild('${table.name}Sort', {static: true}) ${table.name}Sort: MatSort;
     @ViewChild(MatTableExporterDirective) matTableExporter: MatTableExporterDirective;
 
+    totalElements: number = 0;
+
     @Input() protected pageVariables: any;
     protected route: ActivatedRoute;
     protected router: Router;
@@ -106,6 +108,7 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
         .subscribe(
             ${table.name} => {
                 this.${table.name}DataSource.data = ${table.name};
+                this.totalElements = ${table.name}.length;
             }
         );
         this.${table.name}DataSource.paginator = this.${table.name}Paginator;
