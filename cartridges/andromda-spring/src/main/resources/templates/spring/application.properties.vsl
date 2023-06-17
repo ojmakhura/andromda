@@ -73,3 +73,17 @@ spring.jpa.hibernate.ddl-auto = $hibernateHbm2DDLAuto
 #if ($stringUtils.isNotBlank($hibernateTransactionFactoryClass))
 #transaction.factory_class = $hibernateTransactionFactoryClass
 #end
+
+## HikariCP settings
+#if ($stringUtils.isNotBlank($hikariConnectionTimeout))
+spring.datasource.hikari.connection-timeout=$hikariConnectionTimeout
+#end
+#if ($stringUtils.isNotBlank($hikariMaxLifetime))
+spring.datasource.hikari.max-lifetime=$hikariMaxLifetime
+#end
+#if ($stringUtils.isNotBlank($hikariMinimumIdle))
+spring.datasource.hikari.minimum-idle=$hikariMinimumIdle
+#end
+#if ($stringUtils.isNotBlank($hikariMaximumPoolsize))
+spring.datasource.hikari.maximum-pool-size=$hikariMaximumPoolsize
+#end

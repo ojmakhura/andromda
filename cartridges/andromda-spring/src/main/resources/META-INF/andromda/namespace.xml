@@ -224,7 +224,7 @@
             <property name="projectVersion">
                 <default>${project.parent.version}</default>
                 <documentation>
-                    The version of the project (i.e. 5.0-SNAPSHOT), passed into the templates as a configuration value.
+                    The version of the project (i.e. 4.0-SNAPSHOT), passed into the templates as a configuration value.
                     Used by Roo scripts when creating multi-module subprojects. Must be specified if using Roo scripts.
                     Use ${project.parent.version} to get value from pom.xml files.
                 </documentation>
@@ -530,13 +530,13 @@
                 </documentation>
             </property>
             <property name="ejbSessionBeanBaseInterfaceLocal">
-                <default>jakarta.ejb.EJBLocalObject</default>
+                <default>javax.ejb.EJBLocalObject</default>
                 <documentation>
                     Name of session bean local base interface for ejb wrapper.
                 </documentation>
             </property>
             <property name="ejbSessionBeanBaseInterfaceRemote">
-                <default>jakarta.ejb.EJBObject</default>
+                <default>javax.ejb.EJBObject</default>
                 <documentation>
                     Name of session bean remote base interface for ejb wrapper.
                 </documentation>
@@ -730,6 +730,31 @@
             <property name="transactionManagerName" required="false">
                 <documentation>
                     The (JNDI-) transaction manager of the J2EE container if using JTA transactions (via spring).
+                </documentation>
+            </property>
+            <property name="hikariConnectionTimeout" required="false">
+                <documentation>
+                    Connection timeout for the HikariCP.
+                </documentation>
+            </property>
+            <property name="hikariIdleTimeout" required="false">
+                <documentation>
+                    Timeout for idle connections for the HikariCP.
+                </documentation>
+            </property>
+            <property name="hikariMaxLifetime" required="false">
+                <documentation>
+                    Maximum lifetime of a HikariCP.
+                </documentation>
+            </property>
+            <property name="hikariMinimumIdle" required="false">
+                <documentation>
+                    Minimum idle connections in the HikariCP.
+                </documentation>
+            </property>
+            <property name="hikariMaximumPoolsize" required="false">
+                <documentation>
+                    The maximum size of the HikariCP.
                 </documentation>
             </property>
             <property name="sessionFactory">
@@ -1246,7 +1271,7 @@
                 </documentation>
             </property>
             <property name="hibernateQueryCacheFactory">
-                <default>org.hibernate.cache.StandardQueryCacheFactory</default>
+                <default>net.sf.hibernate.cache.StandardQueryCacheFactory</default>
                 <documentation>
                     Defines Hibernate query cache factory implementation class
                 </documentation>
