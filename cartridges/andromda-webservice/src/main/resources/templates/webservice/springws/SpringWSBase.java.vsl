@@ -83,6 +83,9 @@ public abstract class ${serviceName}Base implements ${serviceName} {
 #else
 #set ($return = "void")
 #end
+#foreach($annotation in $operation.additionalAnnotations)
+    @$annotation
+#end
     $operation.visibility $return ${operation.name}($operation.typedArgumentList) {
         #if ($operation.returnTypePresent)return #end${handle}$stringUtils.capitalize(${operation.name})($operation.argumentNames);
     }
