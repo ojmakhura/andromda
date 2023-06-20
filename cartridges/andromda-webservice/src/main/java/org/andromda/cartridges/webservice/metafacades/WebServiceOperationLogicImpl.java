@@ -298,7 +298,13 @@ public class WebServiceOperationLogicImpl
             }
         }
 
-        return builder.toString();
+        path = builder.toString();
+
+        if(!path.startsWith(SLASH)) {
+            path = '/' + path;
+        }
+
+        return path;
     }
 
     /**

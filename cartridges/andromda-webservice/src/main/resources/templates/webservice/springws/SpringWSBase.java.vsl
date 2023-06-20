@@ -83,8 +83,16 @@ public abstract class ${serviceName}Base implements ${serviceName} {
 #else
 #set ($return = "void")
 #end
+#set ($restPath = ${operation.restPath})
+    $webServiceUtils.getRequestType(${operation.restRequestType})(#if($restPath.length() > 0)"${operation.restPath}"#end)
 #foreach($annotation in $operation.additionalAnnotations)
     @$annotation
+#end
+#if(!$stringUtils.isBlank($operation.rolesAllowed))
+    @org.springframework.security.access.annotation.Secured("$operation.rolesAllowed")
+#end
+#if (!$stringUtils.isBlank($responseStatus))
+    $operation.restResponseStatus
 #end
     $operation.visibility $return ${operation.name}($operation.typedArgumentList) {
         #if ($operation.returnTypePresent)return #end${handle}$stringUtils.capitalize(${operation.name})($operation.argumentNames);
