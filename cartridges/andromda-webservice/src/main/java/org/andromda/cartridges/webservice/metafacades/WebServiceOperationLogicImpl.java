@@ -300,7 +300,7 @@ public class WebServiceOperationLogicImpl
 
         path = builder.toString();
 
-        if(!path.startsWith(SLASH)) {
+        if(!path.startsWith(SLASH) && path.length() > 0) {
             path = '/' + path;
         }
 
