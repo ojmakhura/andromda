@@ -1,0 +1,23 @@
+package ${applicationPackage};
+
+import java.util.Collections;
+#if($secure)
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+#end
+
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class SpringSecurityConfiguration {
+
+#if($secure)
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated()).formLogin(Customizer.withDefaults());
+        return http.build();
+    }
+#end
+}
