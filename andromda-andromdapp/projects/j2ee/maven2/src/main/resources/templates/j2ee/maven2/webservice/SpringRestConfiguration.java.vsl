@@ -11,7 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class SpringRestConfiguration {
+public class SpringSecurityConfiguration {
 
 #if($secure)
     @Bean

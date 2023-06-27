@@ -54,6 +54,11 @@
             <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestConfiguration.java.vsl</output>
             <output>webservice/src/main/resources/application.properties.vsl</output>
         </conditions>
+        <conditions type="and">
+            <condition id="secure" notEqual="none"/>
+            <condition id="springws" notEqual="true"/>
+            <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringSecurityConfiguration.java.vsl</output>
+        </conditions>
         <conditions>
             <condition id="thymeleaf" equal="true"/>
             <output>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WebApplication.java.vsl</output>
@@ -278,6 +283,10 @@
         <mapping>
             <from>webservice/SpringRestConfiguration.java.vsl</from>
             <to>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestConfiguration.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>webservice/SpringSecurityConfiguration.java.vsl</from>
+            <to>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringSecurityConfiguration.java.vsl</to>
         </mapping>
         <mapping>
             <from>webservice/application.properties.vsl</from>
