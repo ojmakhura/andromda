@@ -150,7 +150,7 @@
     {
         int cmp = 0;
 #if ($entity.compositeIdentifier)
-        if (this.${entity.identifierGetterName}() != null)
+        if (this.${entity.identifierGetterName}() != null && other.${entity.identifierGetterName}() != null)
         {
             cmp = this.${entity.identifierGetterName}().compareTo(other.${entity.identifierGetterName}());
         }
@@ -177,7 +177,7 @@
          }
         }
 #else
-        if (this.$getter != null)
+        if (this.$getter != null && other.$getter != null)
         {
             cmp = this.${getter}.compareTo(other.${getter});
         }
@@ -192,7 +192,7 @@
 #*  *##foreach ($attribute in $attributes)
 ##        // $attribute.name $attribute.type.fullyQualifiedName $attribute.getterSetterTypeName $attribute.type.arrayType $attribute.type
 #*    *##if (!$attribute.type.primitive && !$attribute.type.arrayType && !$attribute.getterSetterTypeName.endsWith("[]") && !$attribute.identifier && !$attribute.type.collectionType && !$attribute.type.blobType)
-            if (this.${attribute.getterName}() != null)
+            if (this.${attribute.getterName}() != null && other.${attribute.getterName}() != null)
             {
 #if ($attribute.many)
                 // Compare Collection sizes for ordering

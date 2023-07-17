@@ -109,10 +109,10 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
             ${table.name} => {
                 this.${table.name}DataSource.data = ${table.name};
                 this.totalElements = ${table.name}.length;
+                this.${table.name}DataSource.paginator = this.${table.name}Paginator;
+                this.${table.name}DataSource.sort = this.${table.name}Sort;
             }
         );
-        this.${table.name}DataSource.paginator = this.${table.name}Paginator;
-        this.${table.name}DataSource.sort = this.${table.name}Sort;
     }
 #foreach ($action in $table.tableHyperlinkActions)
 
