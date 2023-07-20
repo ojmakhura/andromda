@@ -8,42 +8,44 @@
 package $service.packageName;
 #end
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.DisplayName;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-@ExtendWith(MockitoExtension.class)
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+@SpringBootTest
 public class ${service.name}Test {
 
     protected org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(${service.name}Test.class);
+
+    @Autowired
+    ApplicationContext context;
+
+    @Autowired
+    private JdbcTemplate jdbc;
     
-    @InjectMocks
-    private ${service.name}Impl $stringUtils.uncapitalize($service.name);
+    @Autowired
+    private ${service.name} $stringUtils.uncapitalize($service.name);
 
 #foreach($ref in $service.entityReferences)
-    @Mock
+    @Autowired
     private $ref.targetElement.fullyQualifiedDaoName $ref.daoName;
 
 #set ($ent = $ref.targetElement)
-    @Mock
+    @Autowired
     private ${ent.fullyQualifiedName}Repository ${stringUtils.uncapitalize($ent.name)}Repository;
+
 #end
-
-    @Test
-    public void checkInjects() {
-
-#foreach($ref in $service.entityReferences)
-        Assertions.assertNotNull($ref.daoName);
-#set ($ent = $ref.targetElement)
-        Assertions.assertNotNull(${stringUtils.uncapitalize($ent.name)}Repository);
-#end
-        Assertions.assertNotNull($stringUtils.uncapitalize($service.name));
-
-    }
-
 #if ($enableSpringTransactionsWhenEjbsEnabled.equalsIgnoreCase("true") || !$ejbsEnabled)
 #set ($serviceOperations = $service.implementationOperations)
 #else
@@ -51,12 +53,14 @@ public class ${service.name}Test {
 #end
 #foreach ($operation in $serviceOperations)
     @Test
-    public void ${operation.name}_success() {
+    @DisplayName("${operation.testDisplayName} Success")
+    public void ${operation.testName}Success() {
         
     }
 
     @Test
-    public void ${operation.name}_fail() {
+    @DisplayName("${operation.testDisplayName} Fail")
+    public void ${operation.testName}Fail() {
         
     }
 
@@ -64,14 +68,16 @@ public class ${service.name}Test {
 #foreach ($argument in $operation.arguments)
 #if ($argument.required && !$argument.type.primitive)
     @Test
-    public void ${operation.name}_${argument.name}_null() {
+    @DisplayName("${operation.testDisplayName} ${stringUtils.toPhrase(${argument.name})} Null")
+    public void ${operation.testName}${stringUtils.capitalize(${argument.name})}Null() {
         
     }
 
 #if (!$argument.many && !$argument.type.enumeration && !$argument.type.entityMetaType)
 #foreach ($attribute in $argument.type.getAttributes(true))
     @Test
-    public void ${operation.name}_${stringUtils.capitalize(${argument.name})}_${stringUtils.capitalize(${attribute.name})}_null() {
+    @DisplayName("${operation.testDisplayName} ${stringUtils.toPhrase(${argument.name})} ${stringUtils.toPhrase(${attribute.name})} Null")
+    public void ${operation.testName}${stringUtils.capitalize(${argument.name})}${stringUtils.capitalize(${attribute.name})}Null() {
         
     }
 

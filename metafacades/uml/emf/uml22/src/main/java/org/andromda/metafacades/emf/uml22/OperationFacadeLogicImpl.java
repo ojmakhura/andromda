@@ -16,6 +16,7 @@ import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.translation.ocl.ExpressionKinds;
+import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
@@ -845,5 +846,28 @@ public class OperationFacadeLogicImpl
     protected boolean handleIsUnique()
     {
         return this.metaObject.isUnique();
+    }
+
+    @Override
+    protected String handleGetTestName() {
+
+        String value = (String)findTaggedValue(UMLProfile.TAGGEDVALUE_OPERATION_TEST_NAME);
+
+        if (StringUtils.isBlank(value)) {
+            value = "test" + StringUtilsHelper.capitalize(getName());
+        }
+
+        return value;
+    }
+
+    @Override
+    protected String handleGetTestDisplayName() {
+        String value = (String)findTaggedValue(UMLProfile.TAGGEDVALUE_OPERATION_TEST_DISPLAY_NAME);
+
+        if (StringUtils.isBlank(value)) {
+            value = "Test " + StringUtilsHelper.toPhrase(getName());
+        }
+
+        return value;
     }
 }

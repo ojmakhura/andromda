@@ -544,6 +544,18 @@
                 </documentation>
                 <value>andromda_additionalImplements</value>
             </element>
+            <element name="ANDROMDA_OPERATION_TEST_NAME">
+                <documentation>
+                    Annotation type for external interfaces that must be extended
+                </documentation>
+                <value>andromda_operation_testName</value>
+            </element>
+            <element name="ANDROMDA_OPERATION_TEST_DISPLAY_NAME">
+                <documentation>
+                    Annotation type for external interfaces that must be extended
+                </documentation>
+                <value>andromda_operation_testDisplayName</value>
+            </element>
         </elementGroup>
         <elementGroup name="Data Types">
             <element name="OBJECT_TYPE">
