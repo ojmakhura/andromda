@@ -1,7 +1,14 @@
 # 
-spring.datasource.url=${connectionUrl}_test
+#spring.datasource.url=${connectionUrl}_test
 spring.datasource.username=$username
 spring.datasource.password=$password
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.initialization-mode=always
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.h2.console.enabled=true
+spring.jpa.hibernate.ddl-auto=create-drop
+spring.jpa.show-sql = true
 logging.level.root=INFO
 
 #if ($stringUtils.isNotBlank($hibernatePoolSize))
@@ -27,6 +34,7 @@ logging.level.root=INFO
 #end
 #if ($stringUtils.isNotBlank($hibernateDialect))
 #hibernate.dialect = $hibernateDialect
+#spring.jpa.database-platform=$hibernateDialect
 #end
 #if ($stringUtils.isNotBlank($hibernateDefaultSchema))
 #hibernate.default_schema = $hibernateDefaultSchema
