@@ -991,6 +991,14 @@
         outputToSingleFile="true"
         outputOnEmptyElements="true"/>
 
+    <template
+        path="templates/spring/test-application.properties.vsl"
+        outputPattern="application.properties"
+        outlet="server-test-config"
+        overwrite="false"
+        outputToSingleFile="true"
+        outputOnEmptyElements="true"/>
+
      <!-- <template
         path="templates/spring/ApplicationContextProvider.java.vsl"
         outputPattern="$generatedFile"
@@ -1413,6 +1421,21 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService">
                     <property name="configonly">false</property>
                     <property name="richClient">true</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/SpringServiceTest.vsl"
+        outputPattern="$generatedFile"
+        outlet="client-test"
+        overwrite="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="configonly">false</property>
+                    <property name="richClient">false</property>
                 </type>
             </modelElement>
         </modelElements>

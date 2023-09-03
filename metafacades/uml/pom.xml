@@ -156,7 +156,7 @@
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <model.file>${project.basedir}/src/main/uml/${project.artifactId}.xml.zip</model.file>
+        <model.file>${project.basedir}/src/main/uml2/${project.artifactId}.xml.zip</model.file>
         <maven.andromda.model.uri>jar:file:${model.file}!/${project.artifactId}.xml</maven.andromda.model.uri>
         <maven.build.src>${project.basedir}/target/src/main/java</maven.build.src>
         <maven.src.dir>${project.basedir}/src/main</maven.src.dir>

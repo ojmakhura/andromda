@@ -610,6 +610,12 @@ public class UMLProfile {
         public static final String TAGGEDVALUE_ADDITIONAL_EXTENDS = profile.get("ANDROMDA_ADDITIONAL_EXTENDS");
         public static final String TAGGEDVALUE_ADDITIONAL_IMPLEMENTS = profile.get("ANDROMDA_ADDITIONAL_IMPLEMENTS");
 
+        /**
+         * Test annotations
+         */
+        public static final String TAGGEDVALUE_OPERATION_TEST_NAME = profile.get("ANDROMDA_OPERATION_TEST_NAME");
+        public static final String TAGGEDVALUE_OPERATION_TEST_DISPLAY_NAME = profile.get("ANDROMDA_OPERATION_TEST_DISPLAY_NAME");
+
         /* ----------------- Data Types -------------------- */
 
         /**

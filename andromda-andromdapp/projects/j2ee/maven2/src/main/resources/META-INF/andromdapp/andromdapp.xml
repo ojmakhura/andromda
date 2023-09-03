@@ -88,6 +88,7 @@
             <condition id="spring" equal="true"/>
             <output>mda/src/main/config/mappings/SpringMergeMappings.xml.vsl</output>
             <output>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SharedAutoConfiguration.java.vls</output>
+            <output>core/test/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}CoreTestApplication.java.vls</output>
             <output>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}Specifications.java.vsl</output>
         </conditions>
         <conditions type="and">
@@ -170,7 +171,7 @@
         </mapping>
         <mapping>
             <from>core/ApplicationSpecifications.java.vsl</from>
-            <to>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}Specifications.java.vsl</to>
+            <to>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}CoreTestApplication.java.vsl</to>
         </mapping>
         <mapping>
             <from>app/src/main/config/jboss-datasource.xml.vsl</from>
