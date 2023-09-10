@@ -54,11 +54,18 @@
             <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestConfiguration.java.vsl</output>
             <output>webservice/src/main/resources/application.properties.vsl</output>
         </conditions>
+        <conditions type="and">
+            <condition id="secure" notEqual="none"/>
+            <condition id="springws" notEqual="true"/>
+            <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringSecurityConfiguration.java.vsl</output>
+        </conditions>
         <conditions>
             <condition id="thymeleaf" equal="true"/>
             <output>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WebApplication.java.vsl</output>
+            <output>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WebApplicationConfig.java.vsl</output>
             <output>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SelectItem.java.vsl</output>
             <output>thymeleaf/target/src/main/resources/application.properties.vsl</output>
+            <output>thymeleaf/target/src/main/resources/custom_messages.properties.vsl</output>
         </conditions>
         <conditions type="and">
             <condition id="webservice" notEqual="none"/>
@@ -171,6 +178,10 @@
         <mapping>
             <from>core/ApplicationSpecifications.java.vsl</from>
             <to>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}Specifications.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>core/ApplicationCoreTestApplication.java.vsl</from>
+            <to>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}CoreTestApplication.java.vsl</to>
         </mapping>
         <mapping>
             <from>app/src/main/config/jboss-datasource.xml.vsl</from>
