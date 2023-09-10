@@ -318,7 +318,7 @@ public class ThymeleafAttributeLogicImpl
      * @return formPropertyId
      * @see ThymeleafAttribute#getFormPropertyId(ParameterFacade)
      */
-    protected String handleGetFormPropertyId(final ModelElementFacade ownerParameter)
+    protected String handleGetFormPropertyId(final ParameterFacade ownerParameter)
     {
         return StringUtilsHelper.lowerCamelCaseName(this.getFormPropertyName(ownerParameter));
     }
