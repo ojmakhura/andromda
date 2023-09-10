@@ -1,194 +1,188 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:MagicDrawProfile="http://UML_Standard_Profile/MagicDraw_Profile/_be00301_1073394351331_445580_2" xmlns:Profile_for_MetaMetafacadeModel1="http://Profile_for_MetaMetafacadeModel1/_17_0_1_90e0298_1586889345522_330754_1921" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xsi:schemaLocation="http://UML_Standard_Profile/MagicDraw_Profile/_be00301_1073394351331_445580_2 UML_Standard_Profile.MagicDraw_Profile.profile.uml#_0oz6bH6HEeq6iK_OcQ4Wqg http://Profile_for_MetaMetafacadeModel1/_17_0_1_90e0298_1586889345522_330754_1921 Profile_for_MetaMetafacadeModel1.profile.uml#_0ozUAH6HEeq6iK_OcQ4Wqg">
-  <uml:Model xmi:id="eee_1045467100313_135436_1" name="MetaMetafacadeModel" viewpoint="">
-    <ownedComment xmi:id="_d860307_1077440838925_873792_111" body="Author:BohlenMa.&#xA;Created:22.02.04 10:04.&#xA;Title:.&#xA;Comment:.&#xA;" annotatedElement="eee_1045467100313_135436_1"/>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:MagicDrawProfile="http://www.omg.org/spec/UML/20131001/MagicDrawProfile" xmlns:Profile_for_MetaMetafacadeModel1="http:///schemas/Profile_for_MetaMetafacadeModel1/_x8wgkEqKEe6sCLf6aalehA/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.omg.org/spec/UML/20131001/MagicDrawProfile UML_Standard_Profile.MagicDraw_Profile.profile.uml#_x83OXkqKEe6sCLf6aalehA http:///schemas/Profile_for_MetaMetafacadeModel1/_x8wgkEqKEe6sCLf6aalehA/0 Profile_for_MetaMetafacadeModel1.profile.uml#_x84cc0qKEe6sCLf6aalehA">
+  <uml:Model xmi:id="eee_1045467100313_135436_1" name="MetaMetafacadeModel" visibility="public" URI="" viewpoint="">
+    <ownedComment xmi:id="_d860307_1077440838925_873792_111" annotatedElement="eee_1045467100313_135436_1" body="Author:BohlenMa.&#xA;Created:22.02.04 10:04.&#xA;Title:.&#xA;Comment:.&#xA;"/>
     <packageImport xmi:id="_0primitiveTypesMetaMetafacadeModel">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
     </packageImport>
     <packageImport xmi:id="_0javaPrimitiveTypesMetaMetafacadeModel">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
     </packageImport>
-    <packagedElement xmi:type="uml:Package" xmi:id="_d860307_1071504185484_225563_209" name="org">
-      <packagedElement xmi:type="uml:Package" xmi:id="_d860307_1071504378422_473274_307" name="andromda">
-        <packagedElement xmi:type="uml:Package" xmi:id="_d860307_1071504396157_445544_309" name="metafacades"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_d860307_1071504185484_225563_209" name="org" visibility="public" URI="">
+      <packagedElement xmi:type="uml:Package" xmi:id="_d860307_1071504378422_473274_307" name="andromda" visibility="public" URI="">
+        <packagedElement xmi:type="uml:Package" xmi:id="_d860307_1071504396157_445544_309" name="metafacades" visibility="public" URI=""/>
       </packagedElement>
     </packagedElement>
-    <packagedElement xmi:type="uml:Package" xmi:id="_d860307_1077444263145_428278_165" name="org.andromda.cartridges.meta.metafacades">
-      <packagedElement xmi:type="uml:Class" xmi:id="_d860307_1077441027666_616907_116" name="Metafacade">
-        <ownedComment xmi:id="_d860307_1077717320907_441152_286" body="Facade for use in the andromda-meta cartridge. It hides a Classifier that represents a &lt;&lt;metafacade>> object." annotatedElement="_d860307_1077441027666_616907_116"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_d860307_1077444263145_428278_165" name="org.andromda.cartridges.meta.metafacades" visibility="public" URI="">
+      <packagedElement xmi:type="uml:Class" xmi:id="_d860307_1077441027666_616907_116" name="Metafacade" visibility="public">
+        <ownedComment xmi:id="_d860307_1077717320907_441152_286" annotatedElement="_d860307_1077441027666_616907_116" body="Facade for use in the andromda-meta cartridge. It hides a Classifier that represents a &lt;&lt;metafacade>> object."/>
         <ownedAttribute xmi:id="_1fe00f9_1097270244625_489995_15" name="logicName" visibility="public" isReadOnly="true">
-          <ownedComment xmi:id="_1fe00f9_1097270250015_324535_24" body="The name of the metafacade 'Logic' class." annotatedElement="_1fe00f9_1097270244625_489995_15"/>
+          <ownedComment xmi:id="_1fe00f9_1097270250015_324535_24" annotatedElement="_1fe00f9_1097270244625_489995_15" body="The name of the metafacade 'Logic' class."/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_1fe00f9_1097270244625_395022_16" name="logicImplName" visibility="public" isReadOnly="true">
-          <ownedComment xmi:id="_1fe00f9_1097270250015_72091_26" body="The name of the 'Logic' implementation name." annotatedElement="_1fe00f9_1097270244625_395022_16"/>
+          <ownedComment xmi:id="_1fe00f9_1097270250015_72091_26" annotatedElement="_1fe00f9_1097270244625_395022_16" body="The name of the 'Logic' implementation name."/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_1fe00f9_1097270244625_593877_18" name="metaclassDirectDependency" visibility="public" isReadOnly="true">
-          <ownedComment xmi:id="_1fe00f9_1097270250015_146848_30" body="True/false depending on whether or not this class's metaclass is a direct dependency (true) or an inherited dependency (false)." annotatedElement="_1fe00f9_1097270244625_593877_18"/>
+          <ownedComment xmi:id="_1fe00f9_1097270250015_146848_30" annotatedElement="_1fe00f9_1097270244625_593877_18" body="True/false depending on whether or not this class's metaclass is a direct dependency (true) or an inherited dependency (false)."/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_9_0_e8f0348_1108187771125_853269_87" name="fullyQualifiedLogicImplName" visibility="public" isReadOnly="true">
-          <ownedComment xmi:id="_9_0_e8f0348_1108187976578_649236_101" body="The fully qualified name for the implementation of the metafacade." annotatedElement="_9_0_e8f0348_1108187771125_853269_87"/>
+          <ownedComment xmi:id="_9_0_e8f0348_1108187976578_649236_101" annotatedElement="_9_0_e8f0348_1108187771125_853269_87" body="The fully qualified name for the implementation of the metafacade."/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_9_0_e8f0348_1108187817531_804533_89" name="fullyQualifiedLogicName" visibility="public" isReadOnly="true">
-          <ownedComment xmi:id="_9_0_e8f0348_1108187976578_103649_103" body="The fully qualified name for the metafacade &quot;Logic&quot; class." annotatedElement="_9_0_e8f0348_1108187817531_804533_89"/>
+          <ownedComment xmi:id="_9_0_e8f0348_1108187976578_103649_103" annotatedElement="_9_0_e8f0348_1108187817531_804533_89" body="The fully qualified name for the metafacade &quot;Logic&quot; class."/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_9_0_e8f0348_1108187860531_711390_91" name="logicFile" visibility="public" isReadOnly="true">
-          <ownedComment xmi:id="_9_0_e8f0348_1108187976578_768921_105" body="The 'Logic' file location." annotatedElement="_9_0_e8f0348_1108187860531_711390_91"/>
+          <ownedComment xmi:id="_9_0_e8f0348_1108187976578_768921_105" annotatedElement="_9_0_e8f0348_1108187860531_711390_91" body="The 'Logic' file location."/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_9_0_e8f0348_1108187898781_385234_93" name="logicImplFile" visibility="public" isReadOnly="true">
-          <ownedComment xmi:id="_9_0_e8f0348_1108187976578_253729_107" body="The 'Logic' implementation file location." annotatedElement="_9_0_e8f0348_1108187898781_385234_93"/>
+          <ownedComment xmi:id="_9_0_e8f0348_1108187976578_253729_107" annotatedElement="_9_0_e8f0348_1108187898781_385234_93" body="The 'Logic' implementation file location."/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_9_0_e8f0348_1108187958218_317626_95" name="logicPackageName" visibility="public" isReadOnly="true">
-          <ownedComment xmi:id="_9_0_e8f0348_1108187976578_548345_109" body="The package name to which the 'Logic' metafacade classes are generated." annotatedElement="_9_0_e8f0348_1108187958218_317626_95"/>
+          <ownedComment xmi:id="_9_0_e8f0348_1108187976578_548345_109" annotatedElement="_9_0_e8f0348_1108187958218_317626_95" body="The package name to which the 'Logic' metafacade classes are generated."/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_9_0_e8f0348_1108224944140_351371_111" name="requiresInheritanceDelegatation" visibility="public" isReadOnly="true">
-          <ownedComment xmi:id="_9_0_e8f0348_1108224966484_506488_114" body="Indicates if the metafacade requires a delegate for inheritance instead of actual inheritance.  This is true, when the metafacade is inheriting from a metafacade from a different package (since that means it will most likely be a cartridge metafacade inheriting from a set of shared metafacades for a meta model)." annotatedElement="_9_0_e8f0348_1108224944140_351371_111"/>
+          <ownedComment xmi:id="_9_0_e8f0348_1108224966484_506488_114" annotatedElement="_9_0_e8f0348_1108224944140_351371_111" body="Indicates if the metafacade requires a delegate for inheritance instead of actual inheritance.  This is true, when the metafacade is inheriting from a metafacade from a different package (since that means it will most likely be a cartridge metafacade inheriting from a set of shared metafacades for a meta model)."/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_9_0_e8f0348_1108233473015_947344_0" name="constructorRequiresMetaclassCast" visibility="public" isReadOnly="true">
-          <ownedComment xmi:id="_9_0_e8f0348_1108233476343_660449_12" body="Indicates if the meta class construct argument requires a cast to the super metafacade's metaclass." annotatedElement="_9_0_e8f0348_1108233473015_947344_0"/>
+          <ownedComment xmi:id="_9_0_e8f0348_1108233476343_660449_12" annotatedElement="_9_0_e8f0348_1108233473015_947344_0" body="Indicates if the meta class construct argument requires a cast to the super metafacade's metaclass."/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_9_0_2_12ab03bf_1113310149984_833145_103" name="generalizationCount" visibility="public" isReadOnly="true">
-          <ownedComment xmi:id="_9_0_2_12ab03bf_1113310159750_756213_106" body="The number of parents this metafacade has." annotatedElement="_9_0_2_12ab03bf_1113310149984_833145_103"/>
+          <ownedComment xmi:id="_9_0_2_12ab03bf_1113310159750_756213_106" annotatedElement="_9_0_2_12ab03bf_1113310149984_833145_103" body="The number of parents this metafacade has."/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_9_5_1_12ab03bf_1137297525718_336384_207" name="allParents" visibility="public" type="_d860307_1077441027666_616907_116" association="_9_5_1_12ab03bf_1137297525718_28227_208">
-          <ownedComment xmi:id="_9_5_1_12ab03bf_1137295217312_181753_118" body="All generalization links (including all parents)&#xA;" annotatedElement="_9_5_1_12ab03bf_1137297525718_336384_207"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_17_0_1_90e0298_1586889345402_237616_1909" name="" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_17_0_1_90e0298_1586889345402_92150_1908" name=""/>
+          <ownedComment xmi:id="_9_5_1_12ab03bf_1137295217312_181753_118" annotatedElement="_9_5_1_12ab03bf_1137297525718_336384_207" body="All generalization links (including all parents)&#xA;"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_17_0_1_90e0298_1693766392488_339417_1909" name="" visibility="public"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_17_0_1_90e0298_1693766392488_684315_1910" name="" visibility="public" value="*"/>
         </ownedAttribute>
         <ownedOperation xmi:id="_9_0_2_12ab03bf_1113013752937_972890_148" name="getMethodDataForPSM" visibility="public">
-          <ownedComment xmi:id="_9_0_2_12ab03bf_1113275983890_592378_102" body="Gets all inherited method information as a collection of MethodData instances for the given superMetafacade." annotatedElement="_9_0_2_12ab03bf_1113013752937_972890_148"/>
+          <ownedComment xmi:id="_9_0_2_12ab03bf_1113275983890_592378_102" annotatedElement="_9_0_2_12ab03bf_1113013752937_972890_148" body="Gets all inherited method information as a collection of MethodData instances for the given superMetafacade."/>
           <ownedParameter xmi:id="_9_0_2_12ab03bf_1113273913953_703935_0" name="superMetafacade" visibility="public">
-            <ownedComment xmi:id="_9_0_2_12ab03bf_1113273918203_107879_1" body="The super metafacade for which to retrieve the collection of method data." annotatedElement="_9_0_2_12ab03bf_1113273913953_703935_0"/>
+            <ownedComment xmi:id="_9_0_2_12ab03bf_1113273918203_107879_1" annotatedElement="_9_0_2_12ab03bf_1113273913953_703935_0" body="The super metafacade for which to retrieve the collection of method data."/>
           </ownedParameter>
           <ownedParameter xmi:id="_9_0_2_12ab03bf_1113013751781_325743_147" name="" visibility="public" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:id="_9_0_2_12ab03bf_1113275572078_97690_89" name="getMethodDataForPSM" visibility="public">
-          <ownedComment xmi:id="_9_0_2_12ab03bf_1113275583078_248652_101" body="Gets all method information as a collection of MethodData instances for the metafacade." annotatedElement="_9_0_2_12ab03bf_1113275572078_97690_89"/>
+          <ownedComment xmi:id="_9_0_2_12ab03bf_1113275583078_248652_101" annotatedElement="_9_0_2_12ab03bf_1113275572078_97690_89" body="Gets all method information as a collection of MethodData instances for the metafacade."/>
           <ownedParameter xmi:id="_9_0_2_12ab03bf_1113275572078_753292_88" name="" visibility="public" direction="return"/>
         </ownedOperation>
       </packagedElement>
-      <packagedElement xmi:type="uml:Package" xmi:id="_24400562_1090284299265_885106_19" name="constraints">
-        <ownedRule xmi:id="_9_0_2_12ab03bf_1116347997937_545901_97" name="a metafacade can only generalize another metafacade" constrainedElement="_d860307_1077441027666_616907_116">
-          <ownedComment xmi:id="_9_0_2_12ab03bf_1116348002343_554435_99" body="A metafacade can only generalize another metafacade." annotatedElement="_9_0_2_12ab03bf_1116347997937_545901_97"/>
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="_9_0_2_12ab03bf_1120171897968_885038_122" name="">
+      <packagedElement xmi:type="uml:Package" xmi:id="_24400562_1090284299265_885106_19" name="constraints" visibility="public" URI="">
+        <ownedRule xmi:id="_9_0_2_12ab03bf_1116347997937_545901_97" name="a metafacade can only generalize another metafacade" visibility="public" constrainedElement="_d860307_1077441027666_616907_116">
+          <ownedComment xmi:id="_9_0_2_12ab03bf_1116348002343_554435_99" annotatedElement="_9_0_2_12ab03bf_1116347997937_545901_97" body="A metafacade can only generalize another metafacade."/>
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="_9_0_2_12ab03bf_1120171897968_885038_122" name="" visibility="public">
             <body>context Metafacade
 inv : generalization -> notEmpty() implies generalization.oclIsKindOf(Metafacade)</body>
           </specification>
         </ownedRule>
-        <ownedRule xmi:id="_9_0_2_12ab03bf_1116348069359_940829_100" name="a metafacade can only specialize another metafacade" constrainedElement="_d860307_1077441027666_616907_116">
-          <ownedComment xmi:id="_9_0_2_12ab03bf_1116348180750_882609_105" body="A metafacade can only specialize another metafacade." annotatedElement="_9_0_2_12ab03bf_1116348069359_940829_100"/>
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="_9_0_2_12ab03bf_1120171897968_817819_123" name="">
+        <ownedRule xmi:id="_9_0_2_12ab03bf_1116348069359_940829_100" name="a metafacade can only specialize another metafacade" visibility="public" constrainedElement="_d860307_1077441027666_616907_116">
+          <ownedComment xmi:id="_9_0_2_12ab03bf_1116348180750_882609_105" annotatedElement="_9_0_2_12ab03bf_1116348069359_940829_100" body="A metafacade can only specialize another metafacade."/>
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="_9_0_2_12ab03bf_1120171897968_817819_123" name="" visibility="public">
             <body>context Metafacade inv : 
 specializations -> notEmpty() implies specializations -> forAll(oclIsKindOf(Metafacade))</body>
           </specification>
         </ownedRule>
-        <ownedRule xmi:id="_9_0_2_12ab03bf_1120171517187_18573_104" name="a metafacade must either extend an existing metafacade or have a direct dependency to a metaclass" constrainedElement="_d860307_1077441027666_616907_116">
-          <ownedComment xmi:id="_9_0_2_12ab03bf_1120171519578_75958_119" body="A metafacade must at the least, either extend an existing metafacade or have a direct dependency to a metaclass." annotatedElement="_9_0_2_12ab03bf_1120171517187_18573_104"/>
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="_9_0_2_12ab03bf_1120171897968_834827_124" name="">
+        <ownedRule xmi:id="_9_0_2_12ab03bf_1120171517187_18573_104" name="a metafacade must either extend an existing metafacade or have a direct dependency to a metaclass" visibility="public" constrainedElement="_d860307_1077441027666_616907_116">
+          <ownedComment xmi:id="_9_0_2_12ab03bf_1120171519578_75958_119" annotatedElement="_9_0_2_12ab03bf_1120171517187_18573_104" body="A metafacade must at the least, either extend an existing metafacade or have a direct dependency to a metaclass."/>
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="_9_0_2_12ab03bf_1120171897968_834827_124" name="" visibility="public">
             <body>context Metafacade
 inv: generalizations -> notEmpty() or sourceDependencies -> notEmpty()</body>
           </specification>
         </ownedRule>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_9_0_2_12ab03bf_1113311780921_147795_108" name="MetafacadeOperation">
-        <ownedComment xmi:id="_9_0_2_12ab03bf_1113311955156_502855_248" body="Represents a metafacade operation." annotatedElement="_9_0_2_12ab03bf_1113311780921_147795_108"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_9_0_2_12ab03bf_1113311780921_147795_108" name="MetafacadeOperation" visibility="public">
+        <ownedComment xmi:id="_9_0_2_12ab03bf_1113311955156_502855_248" annotatedElement="_9_0_2_12ab03bf_1113311780921_147795_108" body="Represents a metafacade operation."/>
         <ownedAttribute xmi:id="_9_0_2_12ab03bf_1113311856031_555332_124" name="implementationName" visibility="public" isReadOnly="true">
-          <ownedComment xmi:id="_9_0_2_12ab03bf_1113311955156_377579_250" body="The implementation name for the operation that handles the logic of the operation." annotatedElement="_9_0_2_12ab03bf_1113311856031_555332_124"/>
+          <ownedComment xmi:id="_9_0_2_12ab03bf_1113311955156_377579_250" annotatedElement="_9_0_2_12ab03bf_1113311856031_555332_124" body="The implementation name for the operation that handles the logic of the operation."/>
         </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_9_0_2_12ab03bf_1113312425468_318463_415" name="MetafacadeAssociationEnd">
-        <ownedComment xmi:id="_9_0_2_12ab03bf_1113312605671_89517_474" body="Represents the association end of a metafacade" annotatedElement="_9_0_2_12ab03bf_1113312425468_318463_415"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_9_0_2_12ab03bf_1113312425468_318463_415" name="MetafacadeAssociationEnd" visibility="public">
+        <ownedComment xmi:id="_9_0_2_12ab03bf_1113312605671_89517_474" annotatedElement="_9_0_2_12ab03bf_1113312425468_318463_415" body="Represents the association end of a metafacade"/>
         <ownedAttribute xmi:id="_9_0_2_12ab03bf_1113312508640_311985_431" name="implementationOperationName" visibility="public" isReadOnly="true">
-          <ownedComment xmi:id="_9_0_2_12ab03bf_1113312605671_295859_476" body="The implementation name for the operation that handles the logic of the association end retrieval." annotatedElement="_9_0_2_12ab03bf_1113312508640_311985_431"/>
+          <ownedComment xmi:id="_9_0_2_12ab03bf_1113312605671_295859_476" annotatedElement="_9_0_2_12ab03bf_1113312508640_311985_431" body="The implementation name for the operation that handles the logic of the association end retrieval."/>
         </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_9_0_2_12ab03bf_1113312541390_206897_444" name="MetafacadeAttribute">
-        <ownedComment xmi:id="_9_0_2_12ab03bf_1113312605671_373398_477" body="Represents an attribute of a metafacade." annotatedElement="_9_0_2_12ab03bf_1113312541390_206897_444"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_9_0_2_12ab03bf_1113312541390_206897_444" name="MetafacadeAttribute" visibility="public">
+        <ownedComment xmi:id="_9_0_2_12ab03bf_1113312605671_373398_477" annotatedElement="_9_0_2_12ab03bf_1113312541390_206897_444" body="Represents an attribute of a metafacade."/>
         <ownedAttribute xmi:id="_9_0_2_12ab03bf_1113312584625_582442_460" name="implementationOperationName" visibility="public" isReadOnly="true">
-          <ownedComment xmi:id="_9_0_2_12ab03bf_1113312605671_727046_479" body="The implementation name for the operation that handles the logic of the attribute retrieval." annotatedElement="_9_0_2_12ab03bf_1113312584625_582442_460"/>
+          <ownedComment xmi:id="_9_0_2_12ab03bf_1113312605671_727046_479" annotatedElement="_9_0_2_12ab03bf_1113312584625_582442_460" body="The implementation name for the operation that handles the logic of the attribute retrieval."/>
         </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_9_0_2_12ab03bf_1113368023671_355039_75" name="MetafacadeGeneralization">
-        <ownedComment xmi:id="_9_0_2_12ab03bf_1113368088187_681156_93" body="Represents a generalization between two metafacades." annotatedElement="_9_0_2_12ab03bf_1113368023671_355039_75"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_9_0_2_12ab03bf_1113368023671_355039_75" name="MetafacadeGeneralization" visibility="public">
+        <ownedComment xmi:id="_9_0_2_12ab03bf_1113368088187_681156_93" annotatedElement="_9_0_2_12ab03bf_1113368023671_355039_75" body="Represents a generalization between two metafacades."/>
         <ownedAttribute xmi:id="_9_0_2_12ab03bf_1113368086468_5801_91" name="precedence" visibility="public" isReadOnly="true">
-          <ownedComment xmi:id="_9_0_2_12ab03bf_1113368088187_502767_95" body="Stores the precedence of this generalization (this only matters when multiple inheritance is taken into account)." annotatedElement="_9_0_2_12ab03bf_1113368086468_5801_91"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_17_0_1_90e0298_1586889346232_694428_1981" name="" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_17_0_1_90e0298_1586889345400_951509_1906" name=""/>
+          <ownedComment xmi:id="_9_0_2_12ab03bf_1113368088187_502767_95" annotatedElement="_9_0_2_12ab03bf_1113368086468_5801_91" body="Stores the precedence of this generalization (this only matters when multiple inheritance is taken into account)."/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_17_0_1_90e0298_1693766392487_622659_1907" name="" visibility="public"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_17_0_1_90e0298_1693766392860_175758_1978" name="" visibility="public" value="1"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_9_0_2_12ab03bf_1113371358109_786358_193" name="getterName" visibility="public" isReadOnly="true">
-          <ownedComment xmi:id="_9_0_2_12ab03bf_1113371390281_771713_200" body="The getter name to retrieve this generalization." annotatedElement="_9_0_2_12ab03bf_1113371358109_786358_193"/>
+          <ownedComment xmi:id="_9_0_2_12ab03bf_1113371390281_771713_200" annotatedElement="_9_0_2_12ab03bf_1113371358109_786358_193" body="The getter name to retrieve this generalization."/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_9_0_2_12ab03bf_1113399186390_115435_201" name="getterNameVisibility" visibility="public" isReadOnly="true">
-          <ownedComment xmi:id="_9_0_2_12ab03bf_1113399201859_503742_204" body="The visibility of the getter name for accessing this generalization." annotatedElement="_9_0_2_12ab03bf_1113399186390_115435_201"/>
+          <ownedComment xmi:id="_9_0_2_12ab03bf_1113399201859_503742_204" annotatedElement="_9_0_2_12ab03bf_1113399186390_115435_201" body="The visibility of the getter name for accessing this generalization."/>
         </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_9_5_1_12ab03bf_1137297525718_28227_208" name="" memberEnd="_9_5_1_12ab03bf_1137297525718_312704_206 _9_5_1_12ab03bf_1137297525718_336384_207">
+      <packagedElement xmi:type="uml:Association" xmi:id="_9_5_1_12ab03bf_1137297525718_28227_208" name="" visibility="public" memberEnd="_9_5_1_12ab03bf_1137297525718_312704_206 _9_5_1_12ab03bf_1137297525718_336384_207">
         <ownedEnd xmi:id="_9_5_1_12ab03bf_1137297525718_312704_206" name="" visibility="private" type="_d860307_1077441027666_616907_116" association="_9_5_1_12ab03bf_1137297525718_28227_208"/>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_9_5_1_d860307_1162977925639_251823_0" name="PSMmetaclass">
-        <ownedComment xmi:id="_9_5_1_d860307_1162978424280_955333_29" body="Represents a class in the PSM metamodel which the cartridge writer has in mind. Metafacade operations in other metafacades will return instances of PSM metaclasses. Code for these metaclasses is generated by a template which is associated with the PSMmetaclass metafacade." annotatedElement="_9_5_1_d860307_1162977925639_251823_0"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_9_5_1_d860307_1162977925639_251823_0" name="PSMmetaclass" visibility="public">
+        <ownedComment xmi:id="_9_5_1_d860307_1162978424280_955333_29" annotatedElement="_9_5_1_d860307_1162977925639_251823_0" body="Represents a class in the PSM metamodel which the cartridge writer has in mind. Metafacade operations in other metafacades will return instances of PSM metaclasses. Code for these metaclasses is generated by a template which is associated with the PSMmetaclass metafacade."/>
         <ownedAttribute xmi:id="_9_5_1_d860307_1162977990280_315533_27" name="operationsPresent" visibility="public" isReadOnly="true">
-          <ownedComment xmi:id="_9_5_1_d860307_1162978424280_369925_30" body="Indicates whether the class has operations or not. Used to trigger a template for implementation classes." annotatedElement="_9_5_1_d860307_1162977990280_315533_27"/>
+          <ownedComment xmi:id="_9_5_1_d860307_1162978424280_369925_30" annotatedElement="_9_5_1_d860307_1162977990280_315533_27" body="Indicates whether the class has operations or not. Used to trigger a template for implementation classes."/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_9_5_1_d860307_1163067763385_109907_0" name="implMustBeAbstract" visibility="public" isReadOnly="true"/>
       </packagedElement>
     </packagedElement>
-    <packagedElement xmi:type="uml:Package" xmi:id="magicdraw_uml_standard_profile_v_0001" name="UML Standard Profile">
-      <ownedComment xmi:id="_be00301_1078843546940_242228_131" body="UML Standard Profile contains a UML metamodel (metaclasses without properties and associations), Standard UML stereotypes defined in the annex C of UML specification, validation suites for UML model correctness and completeness checking, and stereotypes used by MagicDraw internally." annotatedElement="magicdraw_uml_standard_profile_v_0001"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="magicdraw_uml_standard_profile_v_0001" name="UML Standard Profile" visibility="public" URI="">
+      <ownedComment xmi:id="_be00301_1078843546940_242228_131" annotatedElement="magicdraw_uml_standard_profile_v_0001" body="UML Standard Profile contains a UML metamodel (metaclasses without properties and associations), Standard UML stereotypes defined in the annex C of UML specification, validation suites for UML model correctness and completeness checking, and stereotypes used by MagicDraw internally."/>
     </packagedElement>
+    <profileApplication xmi:id="_be00301_1073394351331_445580_2profileApplicationMetaMetafacadeModel">
+      <eAnnotations xmi:id="_x864oEqKEe6sCLf6aalehA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_x83OXkqKEe6sCLf6aalehA"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_be00301_1073394351331_445580_2"/>
+    </profileApplication>
+    <profileApplication xmi:id="_11_5_f720368_1159529670215_231387_1profileApplicationMetaMetafacadeModel">
+      <eAnnotations xmi:id="_x87fsUqKEe6sCLf6aalehA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.Validation_Profile.profile.uml#_x84cg0qKEe6sCLf6aalehA"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.Validation_Profile.profile.uml#_11_5_f720368_1159529670215_231387_1"/>
+    </profileApplication>
+    <profileApplication xmi:id="_17_0_1_90e0298_1693766392552_285455_1922profileApplicationMetaMetafacadeModel">
+      <eAnnotations xmi:id="_x88GwUqKEe6sCLf6aalehA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="Profile_for_MetaMetafacadeModel1.profile.uml#_x84cc0qKEe6sCLf6aalehA"/>
+      </eAnnotations>
+      <appliedProfile href="Profile_for_MetaMetafacadeModel1.profile.uml#_17_0_1_90e0298_1693766392552_285455_1922"/>
+    </profileApplication>
     <profileApplication xmi:id="_17_0_4beta_8ca0285_1361349406965_180847_3086profileApplicationMetaMetafacadeModel">
-      <eAnnotations xmi:id="_0o0ks36HEeq6iK_OcQ4Wqg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.Dependency_Matrix_Profile.profile.uml#_0ozVG36HEeq6iK_OcQ4Wqg"/>
+      <eAnnotations xmi:id="_x88Gw0qKEe6sCLf6aalehA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.Dependency_Matrix_Profile.profile.uml#_x82AIkqKEe6sCLf6aalehA"/>
       </eAnnotations>
       <appliedProfile href="UML_Standard_Profile.Dependency_Matrix_Profile.profile.uml#_17_0_4beta_8ca0285_1361349406965_180847_3086"/>
     </profileApplication>
     <profileApplication xmi:id="_16_6_8f90291_1254846042821_86742_517profileApplicationMetaMetafacadeModel">
-      <eAnnotations xmi:id="_0o1F4X6HEeq6iK_OcQ4Wqg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.Traceability_customization.profile.uml#_0ozUZX6HEeq6iK_OcQ4Wqg"/>
+      <eAnnotations xmi:id="_x88GxUqKEe6sCLf6aalehA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.Traceability_customization.profile.uml#_x84fEUqKEe6sCLf6aalehA"/>
       </eAnnotations>
       <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.Traceability_customization.profile.uml#_16_6_8f90291_1254846042821_86742_517"/>
     </profileApplication>
-    <profileApplication xmi:id="_17_0_1_90e0298_1586889345522_330754_1921profileApplicationMetaMetafacadeModel">
-      <eAnnotations xmi:id="_0o1F436HEeq6iK_OcQ4Wqg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="Profile_for_MetaMetafacadeModel1.profile.uml#_0ozUAH6HEeq6iK_OcQ4Wqg"/>
-      </eAnnotations>
-      <appliedProfile href="Profile_for_MetaMetafacadeModel1.profile.uml#_17_0_1_90e0298_1586889345522_330754_1921"/>
-    </profileApplication>
-    <profileApplication xmi:id="_9_0_be00301_1108050582343_527400_10847profileApplicationMetaMetafacadeModel">
-      <eAnnotations xmi:id="_0o1F5X6HEeq6iK_OcQ4Wqg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.StandardProfile.profile.uml#_0o0krn6HEeq6iK_OcQ4Wqg"/>
-      </eAnnotations>
-      <appliedProfile href="UML_Standard_Profile.StandardProfile.profile.uml#_9_0_be00301_1108050582343_527400_10847"/>
-    </profileApplication>
-    <profileApplication xmi:id="_11_5_be00301_1153310565718_226811_161profileApplicationMetaMetafacadeModel">
-      <eAnnotations xmi:id="_0o1F536HEeq6iK_OcQ4Wqg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_0oypo36HEeq6iK_OcQ4Wqg"/>
-      </eAnnotations>
-      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_11_5_be00301_1153310565718_226811_161"/>
-    </profileApplication>
-    <profileApplication xmi:id="_11_5_f720368_1159529670215_231387_1profileApplicationMetaMetafacadeModel">
-      <eAnnotations xmi:id="_0o1s8X6HEeq6iK_OcQ4Wqg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.Validation_Profile.profile.uml#_0oz4On6HEeq6iK_OcQ4Wqg"/>
-      </eAnnotations>
-      <appliedProfile href="UML_Standard_Profile.Validation_Profile.profile.uml#_11_5_f720368_1159529670215_231387_1"/>
-    </profileApplication>
-    <profileApplication xmi:id="_be00301_1073394351331_445580_2profileApplicationMetaMetafacadeModel">
-      <eAnnotations xmi:id="_0o1s836HEeq6iK_OcQ4Wqg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_0oz6bH6HEeq6iK_OcQ4Wqg"/>
-      </eAnnotations>
-      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_be00301_1073394351331_445580_2"/>
-    </profileApplication>
     <profileApplication xmi:id="_19_0beta_8bb027e_1484121177637_661582_4502profileApplicationMetaMetafacadeModel">
-      <eAnnotations xmi:id="_0o1s9X6HEeq6iK_OcQ4Wqg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.Find_By_Text.profile.uml#_0oz4LH6HEeq6iK_OcQ4Wqg"/>
+      <eAnnotations xmi:id="_x88Gx0qKEe6sCLf6aalehA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.Find_By_Text.profile.uml#_x84gZ0qKEe6sCLf6aalehA"/>
       </eAnnotations>
       <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.Find_By_Text.profile.uml#_19_0beta_8bb027e_1484121177637_661582_4502"/>
     </profileApplication>
+    <profileApplication xmi:id="_11_5_be00301_1153310565718_226811_161profileApplicationMetaMetafacadeModel">
+      <eAnnotations xmi:id="_x88GyUqKEe6sCLf6aalehA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_x82oE0qKEe6sCLf6aalehA"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_11_5_be00301_1153310565718_226811_161"/>
+    </profileApplication>
   </uml:Model>
-  <Profile_for_MetaMetafacadeModel1:metafacade xmi:id="_0o4wQH6HEeq6iK_OcQ4Wqg" base_Element="_9_0_2_12ab03bf_1113312425468_318463_415"/>
-  <Profile_for_MetaMetafacadeModel1:metafacade xmi:id="_0o4wQX6HEeq6iK_OcQ4Wqg" base_Element="_9_0_2_12ab03bf_1113311780921_147795_108"/>
-  <Profile_for_MetaMetafacadeModel1:metafacade xmi:id="_0o4wQn6HEeq6iK_OcQ4Wqg" base_Element="_9_0_2_12ab03bf_1113368023671_355039_75"/>
-  <Profile_for_MetaMetafacadeModel1:metafacade xmi:id="_0o4wQ36HEeq6iK_OcQ4Wqg" base_Element="_d860307_1077441027666_616907_116"/>
-  <Profile_for_MetaMetafacadeModel1:metafacade xmi:id="_0o4wRH6HEeq6iK_OcQ4Wqg" base_Element="_9_5_1_d860307_1162977925639_251823_0"/>
-  <Profile_for_MetaMetafacadeModel1:metafacade xmi:id="_0o4wRX6HEeq6iK_OcQ4Wqg" base_Element="_9_0_2_12ab03bf_1113312541390_206897_444"/>
-  <MagicDrawProfile:auxiliaryResource xmi:id="_0pQjs36HEeq6iK_OcQ4Wqg" base_Element="magicdraw_uml_standard_profile_v_0001"/>
+  <MagicDrawProfile:auxiliaryResource xmi:id="_x8_xIEqKEe6sCLf6aalehA" base_Element="magicdraw_uml_standard_profile_v_0001"/>
+  <Profile_for_MetaMetafacadeModel1:metafacade xmi:id="_x9aA0EqKEe6sCLf6aalehA" base_Element="_9_0_2_12ab03bf_1113312425468_318463_415"/>
+  <Profile_for_MetaMetafacadeModel1:metafacade xmi:id="_x9aA0UqKEe6sCLf6aalehA" base_Element="_d860307_1077441027666_616907_116"/>
+  <Profile_for_MetaMetafacadeModel1:metafacade xmi:id="_x9aA0kqKEe6sCLf6aalehA" base_Element="_9_0_2_12ab03bf_1113312541390_206897_444"/>
+  <Profile_for_MetaMetafacadeModel1:metafacade xmi:id="_x9aA00qKEe6sCLf6aalehA" base_Element="_9_5_1_d860307_1162977925639_251823_0"/>
+  <Profile_for_MetaMetafacadeModel1:metafacade xmi:id="_x9aA1EqKEe6sCLf6aalehA" base_Element="_9_0_2_12ab03bf_1113311780921_147795_108"/>
+  <Profile_for_MetaMetafacadeModel1:metafacade xmi:id="_x9aA1UqKEe6sCLf6aalehA" base_Element="_9_0_2_12ab03bf_1113368023671_355039_75"/>
 </xmi:XMI>
