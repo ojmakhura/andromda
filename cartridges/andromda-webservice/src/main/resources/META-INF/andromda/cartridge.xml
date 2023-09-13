@@ -1152,6 +1152,22 @@
             </modelElement>
         </modelElements>
     </template>
+        
+    <!-- <template
+        path="templates/webservice/springws/SpringWSTest.java.vsl"
+        outputPattern="java/$stringUtils.replace($service.packageName, '.', '/')/${serviceName}Test.java"
+        outlet="webservice-types"
+        overwrite="true"
+        outputCondition="springws">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template> -->
+    
     <template
         path="templates/webservice/springws/SpringWSBase.java.vsl"
         outputPattern="java/$stringUtils.replace($service.packageName, '.', '/')/${serviceName}Base.java"
