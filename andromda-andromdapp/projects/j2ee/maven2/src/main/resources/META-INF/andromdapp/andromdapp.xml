@@ -171,7 +171,7 @@
         </mapping>
         <mapping>
             <from>core/ApplicationSpecifications.java.vsl</from>
-            <to>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}CoreTestApplication.java.vsl</to>
+            <to>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}Specifications.java.vsl</to>
         </mapping>
         <mapping>
             <from>app/src/main/config/jboss-datasource.xml.vsl</from>
