@@ -27,6 +27,7 @@ logging.level.root=INFO
 #end
 #if ($stringUtils.isNotBlank($hibernateDialect))
 #hibernate.dialect = $hibernateDialect
+spring.jpa.database-platform=$hibernateDialect
 #end
 #if ($stringUtils.isNotBlank($hibernateDefaultSchema))
 #hibernate.default_schema = $hibernateDefaultSchema
