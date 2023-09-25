@@ -519,7 +519,7 @@ public class FrontEndAttributeLogicImpl
      */
     protected String handleGetFormPropertyId(final ParameterFacade ownerParameter)
     {
-        return StringUtilsHelper.lowerCamelCaseName(this.getFormPropertyName(ownerParameter));
+        return MetafacadeWebUtils.getFormPropertyId(this, ownerParameter); // StringUtilsHelper.lowerCamelCaseName(this.getFormPropertyName(ownerParameter));
     }
 
     /**

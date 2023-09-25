@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import org.andromda.core.metafacade.MetafacadeBase;
+import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -1239,6 +1241,68 @@ public class MetafacadeWebUtils {
         }
 
         return columns.get(index);
+    }
+
+    /**
+     * @param ownerParameter
+     * @return propertyName
+     * @see MetafacadeWebAttribute#getFormPropertyName(org.andromda.metafacades.uml.ParameterFacade)
+     */
+    public static String getFormPropertyName(final ModelElementFacade parameter, final ModelElementFacade ownerParameter)
+    {
+        final StringBuilder propertyName = new StringBuilder();
+        if (ownerParameter != null)
+        {
+            propertyName.append(StringUtils.uncapitalize(ownerParameter.getName()));
+            propertyName.append('.');
+        }
+        final String name = parameter.getName();
+        if (name != null && name.trim().length() > 0)
+        {
+            propertyName.append(StringUtils.uncapitalize(name));
+        }
+        return propertyName.toString();
+    }
+
+    /**
+     * @param ownerParameter
+     * @return formPropertyId
+     * @see MetafacadeWebAttribute#getFormPropertyId(ParameterFacade)
+     */
+    public static String getFormPropertyId(final ModelElementFacade parameter, final ModelElementFacade ownerParameter)
+    {
+        return StringUtilsHelper.lowerCamelCaseName(getFormPropertyName(parameter, ownerParameter));
+    }
+
+    /**
+     * @param ownerParameter
+     * @return backingListName
+     * @see MetafacadeWebAttribute#getBackingListName(org.andromda.metafacades.uml.ParameterFacade)
+     */
+    public static String getBackingListName(final ModelElementFacade parameter, final ModelElementFacade ownerParameter)
+    {
+        
+        final String backingListName =
+            StringUtilsHelper.replace(
+                Objects.toString(((MetafacadeBase)parameter).getConfiguredProperty(MetafacadeWebGlobals.BACKING_LIST_PATTERN)),
+                "{0}",
+                getFormPropertyId(parameter, ownerParameter));
+        return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
+    }
+
+    /**
+     * @param ownerParameter
+     * @return backingValueName
+     * @see MetafacadeWebAttribute#getBackingValueName(org.andromda.metafacades.uml.ParameterFacade)
+     */
+    public static String handleGetBackingValueName(final ModelElementFacade parameter, final ModelElementFacade ownerParameter)
+    {
+        final String backingListName =
+            StringUtilsHelper.replace(
+                Objects.toString(((MetafacadeBase)parameter).getConfiguredProperty(MetafacadeWebGlobals.BACKING_VALUE_PATTERN)),
+                "{0}",
+                getFormPropertyId(parameter, ownerParameter));
+        return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
     }
 }
 
