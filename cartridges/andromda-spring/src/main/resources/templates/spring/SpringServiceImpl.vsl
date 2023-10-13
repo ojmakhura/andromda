@@ -33,7 +33,7 @@ public#if($service.abstract) abstract#end class $service.implementationName
         @org.springframework.context.annotation.Lazy $ref.targetElement.fullyQualifiedName $ref.name,
 #end
 #foreach($ref in $service.entityReferences)
-        $ref.targetElement.fullyQualifiedDaoName $ref.name,
+        $ref.targetElement.fullyQualifiedDaoName ${ref.name}Dao,
 #set ($ent = $ref.targetElement)
         ${ent.fullyQualifiedName}Repository ${stringUtils.uncapitalize($ent.name)}Repository,
 #end
@@ -45,7 +45,7 @@ public#if($service.abstract) abstract#end class $service.implementationName
             $ref.name,
 #end
 #foreach($ref in $service.entityReferences)
-            $ref.name,
+            ${ref.name}Dao,
             ${stringUtils.uncapitalize($ref.name)}Repository,
 #end
             messageSource
