@@ -14,7 +14,7 @@
     <main id="main">
       <div class="inner">
         <!-- Header -->
-        <th:block th:replace="layout/header :: header"></th:block>
+        <th:block th:replace="~{layout/header :: header}"></th:block>
 
         <!-- Banner -->
         <section id="banner">
@@ -29,9 +29,9 @@
     <aside id="sidebar" th:fragment="sidebar">
       <div class="inner">
         <!-- Menu -->
-        <th:block th:replace="layout/navigation :: menu"></th:block>
+        <th:block th:replace="~{layout/navigation :: menu}"></th:block>
         <!-- Footer -->
-        <th:block th:replace="layout/footer :: footer"></th:block>
+        <th:block th:replace="~{layout/footer :: footer}"></th:block>
       </div>
     </aside>
   </wraper>
