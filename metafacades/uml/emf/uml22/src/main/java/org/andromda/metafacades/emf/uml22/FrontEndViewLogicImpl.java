@@ -523,4 +523,10 @@ public class FrontEndViewLogicImpl
         }
         return new ArrayList<ModelElementFacade>(variablesMap.values());
     }
+
+    @Override
+    protected String handleGetSubmitAction() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'handleGetSubmitAction'");
+    }
 }
