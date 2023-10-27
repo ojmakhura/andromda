@@ -1301,4 +1301,36 @@ public class ModelElementFacadeLogicImpl
         }
         return implementations;
     }
+
+    @Override
+    protected boolean handleIsGeneric() {
+        return CollectionUtils.isNotEmpty(this.findTaggedValues(UMLProfile.TAGGEDVALUE_GENERIC_PARAMETERS));
+    }
+
+    @Override
+    protected Collection<String> handleGetGenericParameters() {
+        
+        HashSet<String> params = new HashSet<String>();
+        for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_GENERIC_PARAMETERS))
+        {
+            params.add(o.toString());
+        }
+        return params;
+    }
+
+    @Override
+    protected Collection<String> handleGetGenericTypes() {
+        
+        HashSet<String> types = new HashSet<String>();
+        for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_GENERIC_TYPES))
+        {
+            types.add(o.toString());
+        }
+        return types;
+    }
+
+    @Override
+    protected boolean handleIsGenericDeclaration() {
+        return CollectionUtils.isNotEmpty(this.findTaggedValues(UMLProfile.TAGGEDVALUE_GENERIC_TYPES));
+    }
 }

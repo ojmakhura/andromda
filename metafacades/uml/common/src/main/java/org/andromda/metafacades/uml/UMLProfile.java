@@ -611,6 +611,12 @@ public class UMLProfile {
         public static final String TAGGEDVALUE_ADDITIONAL_IMPLEMENTS = profile.get("ANDROMDA_ADDITIONAL_IMPLEMENTS");
 
         /**
+         * Generics
+         */
+        public static final String TAGGEDVALUE_GENERIC_TYPES = profile.get("ANDROMDA_GENERIC_TYPES");
+        public static final String TAGGEDVALUE_GENERIC_PARAMETERS = profile.get("ANDROMDA_GENERIC_PARAMETERS");
+
+        /**
          * Test annotations
          */
         public static final String TAGGEDVALUE_OPERATION_TEST_NAME = profile.get("ANDROMDA_OPERATION_TEST_NAME");

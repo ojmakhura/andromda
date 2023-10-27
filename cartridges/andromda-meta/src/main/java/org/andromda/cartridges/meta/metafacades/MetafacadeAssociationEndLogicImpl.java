@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -50,4 +51,38 @@ public class MetafacadeAssociationEndLogicImpl
         }
         return annotations;
     }
+
+    @Override
+    public boolean isGeneric() {
+        return CollectionUtils.isNotEmpty(this.findTaggedValues(UMLProfile.TAGGEDVALUE_GENERIC_PARAMETERS));
+    }
+
+    @Override
+    public Collection<String> getGenericParameters() {
+        
+        HashSet<String> params = new HashSet<String>();
+        for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_GENERIC_PARAMETERS))
+        {
+            params.add(o.toString());
+        }
+        return params;
+    }
+
+    @Override
+    public Collection<String> getGenericTypes() {
+        
+        HashSet<String> types = new HashSet<String>();
+        for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_GENERIC_TYPES))
+        {
+            types.add(o.toString());
+        }
+        return types;
+    }
+
+    @Override
+    public boolean isGenericDeclaration() {
+        return CollectionUtils.isNotEmpty(this.findTaggedValues(UMLProfile.TAGGEDVALUE_GENERIC_TYPES));
+    }
+
+
 }

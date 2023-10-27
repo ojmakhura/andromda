@@ -244,6 +244,13 @@
                 <value>AnnotationType</value>
                 <appliedOnElement>Class</appliedOnElement>
             </element>
+            <element name="GENERIC">
+                <documentation>
+                    Modeled component is an annotation.
+                </documentation>
+                <value>Generic</value>
+                <appliedOnElement>Class, Operation, Attribute, Parameter</appliedOnElement>
+            </element>
         </elementGroup>
         <elementGroup name="Tagged Values">
             <element name="DOCUMENTATION">
@@ -550,6 +557,18 @@
                     Annotation type extra annotation
                 </documentation>
                 <value>andromda_additionalAnnotations</value>
+            </element>
+            <element name="ANDROMDA_GENERIC_TYPES">
+                <documentation>
+                    Annotation generic types
+                </documentation>
+                <value>andromda_generic_types</value>
+            </element>
+            <element name="ANDROMDA_GENERIC_PARAMETERS">
+                <documentation>
+                    Annotation generic parameter types
+                </documentation>
+                <value>andromda_generic_parameters</value>
             </element>
             <element name="ANDROMDA_ADDITIONAL_EXTENDS">
                 <documentation>
