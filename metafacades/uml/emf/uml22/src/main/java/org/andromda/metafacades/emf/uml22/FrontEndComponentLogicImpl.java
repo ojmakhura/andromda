@@ -117,4 +117,15 @@ public class FrontEndComponentLogicImpl
         return this.getAttributes().stream().map(att -> att.getName()).collect(Collectors.toList());
     }
 
+    @Override
+    protected String handleGetBeanName() {
+        String beanName = Objects.toString(this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_COMPONENT_BEAN_NAME), "").trim();
+
+        if(StringUtilsHelper.isNotBlank(beanName)) {
+            return beanName;
+        }
+
+        return StringUtilsHelper.lowerCamelCaseName(getName());
+    }
+
 }

@@ -74,7 +74,7 @@
 #foreach ($variable in $view.variables)
 #if(!$variable.table && $variable.type.attributes.size() > 0)
 #if($variable.component)
-        <th:block th:replace="~{/components${variable.type.path}#if(!$variable.readOnly)-editable#end.html :: ${variable.name}(${${formName}.${variable.name}})}"></th:block>
+        <th:block th:replace="~{/components${variable.type.path}#if(!$variable.readOnly)-editable#end.html}"></th:block>
 #else
 #if($variable.readOnly)
         <table>

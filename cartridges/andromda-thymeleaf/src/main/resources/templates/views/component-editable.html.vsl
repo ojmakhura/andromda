@@ -5,7 +5,7 @@
 </head>
 <body>
 #set ($tables = [])
-<fieldset class="reset form-group border p-3" th:fragment="${stringUtils.uncapitalize(${component.name})}(${stringUtils.uncapitalize(${component.name})})">
+<fieldset class="reset form-group border p-3">
     <legend class=" reset col-form-label pt-0" th:text="#{$component.messageKey}"></legend>
 #foreach ($attribute in $component.attributes)
 #if(!$attribute.inputHidden && !$component.inputHidden)

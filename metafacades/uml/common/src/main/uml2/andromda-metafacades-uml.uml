@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:MagicDrawProfile="http://www.omg.org/spec/UML/20131001/MagicDrawProfile" xmlns:andromdameta="http:///schemas/andromdameta/_gVyRsHTuEe6pgI76pA05Nw/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.omg.org/spec/UML/20131001/MagicDrawProfile UML_Standard_Profile.MagicDraw_Profile.profile.uml#_gdrCoXTuEe6pgI76pA05Nw http:///schemas/andromdameta/_gVyRsHTuEe6pgI76pA05Nw/0 andromda-meta.profile.uml#_gdrCYnTuEe6pgI76pA05Nw">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:MagicDrawProfile="http://www.omg.org/spec/UML/20131001/MagicDrawProfile" xmlns:andromdameta="http:///schemas/andromdameta/_VF87oYMlEe6RvMaeAuAJ6w/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.omg.org/spec/UML/20131001/MagicDrawProfile UML_Standard_Profile.MagicDraw_Profile.profile.uml#_VMxVe4MlEe6RvMaeAuAJ6w http:///schemas/andromdameta/_VF87oYMlEe6RvMaeAuAJ6w/0 andromda-meta.profile.uml#_VMvgIoMlEe6RvMaeAuAJ6w">
   <uml:Model xmi:id="eee_1045467100313_135436_1" name="UMLMetafacades" visibility="public" URI="" viewpoint="">
     <ownedComment xmi:id="_9_0_66e017e_1139870178076_163077_213" annotatedElement="eee_1045467100313_135436_1" body="Author:.&#xA;Created:.&#xA;Title:.&#xA;Comment:.&#xA;"/>
     <packageImport xmi:id="_0primitiveTypesUMLMetafacades">
@@ -5253,6 +5253,7 @@ inv: many implies (returnParameter.many)</body>
                 <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19_0_3_90e0298_1680865995368_654591_4933" name="" visibility="public"/>
                 <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19_0_3_90e0298_1680865995369_709812_4934" name="" visibility="public" value="*"/>
               </ownedAttribute>
+              <ownedAttribute xmi:id="_19_0_4_90e0298_1699990653682_823165_4831" name="beanName" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66"/>
             </packagedElement>
             <packagedElement xmi:type="uml:Association" xmi:id="_19_0_3_90e0298_1679160916300_499323_4925" name="" visibility="public" memberEnd="_19_0_3_90e0298_1679160916300_282098_4926 _19_0_3_90e0298_1679160916301_900252_4927">
               <ownedEnd xmi:id="_19_0_3_90e0298_1679160916301_900252_4927" name="" visibility="private" type="_19_0_3_90e0298_1670838696363_630805_4818" association="_19_0_3_90e0298_1679160916300_499323_4925"/>
@@ -5263,9 +5264,6 @@ inv: many implies (returnParameter.many)</body>
           </packagedElement>
         </packagedElement>
       </packagedElement>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Package" xmi:id="magicdraw_uml_standard_profile_v_0001" name="UML Standard Profile" visibility="public" URI="">
-      <ownedComment xmi:id="_be00301_1078843546940_242228_131" annotatedElement="magicdraw_uml_standard_profile_v_0001" body="UML Standard Profile contains a UML metamodel (metaclasses without properties and associations), Standard UML stereotypes defined in the annex C of UML specification, validation suites for UML model correctness and completeness checking, and stereotypes used by MagicDraw internally."/>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_9_0_1fe00f9_1119336925546_238419_77" name="datatype" visibility="public" URI="">
       <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_132353_2" name="String[]" visibility="public"/>
@@ -5371,149 +5369,152 @@ inv: many implies (returnParameter.many)</body>
       <packagedElement xmi:type="uml:DataType" xmi:id="_19_0_3_90e0298_1670945613966_691823_4850" name="LocalDate" visibility="public"/>
       <packagedElement xmi:type="uml:DataType" xmi:id="_19_0_3_90e0298_1670945619297_671992_4871" name="LocalDateTime" visibility="public"/>
     </packagedElement>
-    <profileApplication xmi:id="_19_0beta_8bb027e_1484121177637_661582_4502profileApplicationUMLMetafacades">
-      <eAnnotations xmi:id="_gduIBnTuEe6pgI76pA05Nw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.Find_By_Text.profile.uml#_gds5CHTuEe6pgI76pA05Nw"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="magicdraw_uml_standard_profile_v_0001" name="UML Standard Profile" visibility="public" URI="">
+      <ownedComment xmi:id="_be00301_1078843546940_242228_131" annotatedElement="magicdraw_uml_standard_profile_v_0001" body="UML Standard Profile contains a UML metamodel (metaclasses without properties and associations), Standard UML stereotypes defined in the annex C of UML specification, validation suites for UML model correctness and completeness checking, and stereotypes used by MagicDraw internally."/>
+    </packagedElement>
+    <profileApplication xmi:id="_16_6_8f90291_1254846042821_86742_517profileApplicationUMLMetafacades">
+      <eAnnotations xmi:id="_VM6fQIMlEe6RvMaeAuAJ6w" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.Traceability_customization.profile.uml#_VMpZgoMlEe6RvMaeAuAJ6w"/>
       </eAnnotations>
-      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.Find_By_Text.profile.uml#_19_0beta_8bb027e_1484121177637_661582_4502"/>
+      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.Traceability_customization.profile.uml#_16_6_8f90291_1254846042821_86742_517"/>
     </profileApplication>
     <profileApplication xmi:id="_be00301_1073394351331_445580_2profileApplicationUMLMetafacades">
-      <eAnnotations xmi:id="_gdyXIXTuEe6pgI76pA05Nw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_gdrCoXTuEe6pgI76pA05Nw"/>
+      <eAnnotations xmi:id="_VM_-0YMlEe6RvMaeAuAJ6w" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_VMxVe4MlEe6RvMaeAuAJ6w"/>
       </eAnnotations>
       <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_be00301_1073394351331_445580_2"/>
     </profileApplication>
+    <profileApplication xmi:id="_11_5_be00301_1153310565718_226811_161profileApplicationUMLMetafacades">
+      <eAnnotations xmi:id="_VNE3UYMlEe6RvMaeAuAJ6w" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_VMtD4oMlEe6RvMaeAuAJ6w"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_11_5_be00301_1153310565718_226811_161"/>
+    </profileApplication>
+    <profileApplication xmi:id="_19_0beta_8bb027e_1484121177637_661582_4502profileApplicationUMLMetafacades">
+      <eAnnotations xmi:id="_VNH6oYMlEe6RvMaeAuAJ6w" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.Find_By_Text.profile.uml#_VM3fHoMlEe6RvMaeAuAJ6w"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.Find_By_Text.profile.uml#_19_0beta_8bb027e_1484121177637_661582_4502"/>
+    </profileApplication>
     <profileApplication xmi:id="_9_0_2_12ab03bf_1120852637390_857322_0profileApplicationUMLMetafacades">
-      <eAnnotations xmi:id="_gd1acXTuEe6pgI76pA05Nw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="andromda-meta.profile.uml#_gdrCYnTuEe6pgI76pA05Nw"/>
+      <eAnnotations xmi:id="_VNK98YMlEe6RvMaeAuAJ6w" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-meta.profile.uml#_VMvgIoMlEe6RvMaeAuAJ6w"/>
       </eAnnotations>
       <appliedProfile href="andromda-meta.profile.uml#_9_0_2_12ab03bf_1120852637390_857322_0"/>
     </profileApplication>
     <profileApplication xmi:id="_11_5_f720368_1159529670215_231387_1profileApplicationUMLMetafacades">
-      <eAnnotations xmi:id="_gd32sXTuEe6pgI76pA05Nw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.Validation_Profile.profile.uml#_gdp0QnTuEe6pgI76pA05Nw"/>
+      <eAnnotations xmi:id="_VNOBQYMlEe6RvMaeAuAJ6w" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.Validation_Profile.profile.uml#_VMvgYYMlEe6RvMaeAuAJ6w"/>
       </eAnnotations>
       <appliedProfile href="UML_Standard_Profile.Validation_Profile.profile.uml#_11_5_f720368_1159529670215_231387_1"/>
     </profileApplication>
-    <profileApplication xmi:id="_16_6_8f90291_1254846042821_86742_517profileApplicationUMLMetafacades">
-      <eAnnotations xmi:id="_gd6S8XTuEe6pgI76pA05Nw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.Traceability_customization.profile.uml#_gds3snTuEe6pgI76pA05Nw"/>
-      </eAnnotations>
-      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.Traceability_customization.profile.uml#_16_6_8f90291_1254846042821_86742_517"/>
-    </profileApplication>
-    <profileApplication xmi:id="_11_5_be00301_1153310565718_226811_161profileApplicationUMLMetafacades">
-      <eAnnotations xmi:id="_gd8vMXTuEe6pgI76pA05Nw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_gdtllnTuEe6pgI76pA05Nw"/>
-      </eAnnotations>
-      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_11_5_be00301_1153310565718_226811_161"/>
-    </profileApplication>
     <profileApplication xmi:id="_17_0_4beta_8ca0285_1361349406965_180847_3086profileApplicationUMLMetafacades">
-      <eAnnotations xmi:id="_gd_LcXTuEe6pgI76pA05Nw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.Dependency_Matrix_Profile.profile.uml#_gduGoXTuEe6pgI76pA05Nw"/>
+      <eAnnotations xmi:id="_VNQdgYMlEe6RvMaeAuAJ6w" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.Dependency_Matrix_Profile.profile.uml#_VM3fLoMlEe6RvMaeAuAJ6w"/>
       </eAnnotations>
       <appliedProfile href="UML_Standard_Profile.Dependency_Matrix_Profile.profile.uml#_17_0_4beta_8ca0285_1361349406965_180847_3086"/>
     </profileApplication>
     <profileApplication xmi:id="_0profileApplicationUMLMetafacades">
-      <eAnnotations xmi:id="_geQRNHTuEe6pgI76pA05Nw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <eAnnotations xmi:id="_VNtwgYMlEe6RvMaeAuAJ6w" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
       </eAnnotations>
       <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
     </profileApplication>
   </uml:Model>
-  <MagicDrawProfile:auxiliaryResource xmi:id="_geED8HTuEe6pgI76pA05Nw" base_Element="magicdraw_uml_standard_profile_v_0001"/>
-  <MagicDrawProfile:HyperlinkOwner xmi:id="_geGgRnTuEe6pgI76pA05Nw" base_Element="_19_0_3_90e0298_1643966151906_15565_5313" hyperlinkTextActive="file:///home/junior/programming/rogue/andromda/metafacades/uml/common/src/main/uml2/andromda-metafacades-uml.xml">
-    <hyperlinkText>file:///home/junior/programming/rogue/andromda/metafacades/uml/common/src/main/uml2/andromda-metafacades-uml.xml</hyperlinkText>
-  </MagicDrawProfile:HyperlinkOwner>
-  <MagicDrawProfile:HyperlinkOwner xmi:id="_geGgR3TuEe6pgI76pA05Nw" base_Element="_24400562_1085017440281_614218_173" hyperlinkTextActive="file://C:\Workspaces\A34\andromda341\metafacades\uml\uml14\src\main\uml2\andromda-metafacades-uml14.xml.zip">
+  <MagicDrawProfile:auxiliaryResource xmi:id="_VNZAYIMlEe6RvMaeAuAJ6w" base_Element="magicdraw_uml_standard_profile_v_0001"/>
+  <MagicDrawProfile:HyperlinkOwner xmi:id="_VNgVJIMlEe6RvMaeAuAJ6w" base_Element="_24400562_1085017440281_614218_173" hyperlinkTextActive="file://C:\Workspaces\A34\andromda341\metafacades\uml\uml14\src\main\uml2\andromda-metafacades-uml14.xml.zip">
     <hyperlinkText>file://C:\Workspaces\A34\andromda341\metafacades\uml\uml14\src\main\uml2\andromda-metafacades-uml14.xml.zip</hyperlinkText>
   </MagicDrawProfile:HyperlinkOwner>
-  <andromdameta:metafacade xmi:id="_geL_3HTuEe6pgI76pA05Nw" base_Class="_ecb034c_1074429494297_377714_181"/>
-  <andromdameta:metafacade xmi:id="_geL_3XTuEe6pgI76pA05Nw" base_Class="_24400562_1073854558969_92049_331"/>
-  <andromdameta:metafacade xmi:id="_geL_3nTuEe6pgI76pA05Nw" base_Class="_9_5_1_12ab03bf_1166674061937_23375_133"/>
-  <andromdameta:metafacade xmi:id="_geL_33TuEe6pgI76pA05Nw" base_Class="_8a70287_1079983887000_419904_240"/>
-  <andromdameta:metafacade xmi:id="_geL_4HTuEe6pgI76pA05Nw" base_Class="_9_5_1_12ab03bf_1166674037093_8685_1"/>
-  <andromdameta:metafacade xmi:id="_geL_4XTuEe6pgI76pA05Nw" base_Class="_9_0_1fe00f9_1104625440681_53845_33"/>
-  <andromdameta:metafacade xmi:id="_geL_4nTuEe6pgI76pA05Nw" base_Class="_e8f0348_1102215391953_383987_0"/>
-  <andromdameta:metafacade xmi:id="_geL_43TuEe6pgI76pA05Nw" base_Class="_9_0_2_12ab03bf_1112204654656_123732_0"/>
-  <andromdameta:metafacade xmi:id="_geL_5HTuEe6pgI76pA05Nw" base_Class="_d860307_1071574234068_992089_84"/>
-  <andromdameta:metafacade xmi:id="_geL_5XTuEe6pgI76pA05Nw" base_Class="_24400562_1078456132886_364804_350"/>
-  <andromdameta:metafacade xmi:id="_geL_5nTuEe6pgI76pA05Nw" base_Class="_19_0_3_90e0298_1644056467959_183643_5207"/>
-  <andromdameta:metafacade xmi:id="_geL_53TuEe6pgI76pA05Nw" base_Class="_ecb034c_1074384938560_560855_449"/>
-  <andromdameta:metafacade xmi:id="_geL_6HTuEe6pgI76pA05Nw" base_Class="_24400562_1076929607659_603849_252"/>
-  <andromdameta:metafacade xmi:id="_geL_6XTuEe6pgI76pA05Nw" base_Class="_8a70287_1078527510288_746033_187"/>
-  <andromdameta:metafacade xmi:id="_geL_6nTuEe6pgI76pA05Nw" base_Class="_9_5_1_ee1034a_1127266745841_402315_493"/>
-  <andromdameta:metafacade xmi:id="_geL_63TuEe6pgI76pA05Nw" base_Class="_8a70287_1078527731536_138307_221"/>
-  <andromdameta:metafacade xmi:id="_geL_7HTuEe6pgI76pA05Nw" base_Class="_d860307_1071504650353_319894_500"/>
-  <andromdameta:metafacade xmi:id="_geL_7XTuEe6pgI76pA05Nw" base_Class="_19_0_3_90e0298_1644044445662_509316_4817"/>
-  <andromdameta:metafacade xmi:id="_geL_7nTuEe6pgI76pA05Nw" base_Class="_d860307_1071505762942_565408_1372"/>
-  <andromdameta:metafacade xmi:id="_geL_73TuEe6pgI76pA05Nw" base_Class="_19_0_3_90e0298_1644044445674_626574_4818"/>
-  <andromdameta:metafacade xmi:id="_geL_8HTuEe6pgI76pA05Nw" base_Class="_9_0_2_12ab03bf_1120835338500_225560_590"/>
-  <andromdameta:metafacade xmi:id="_geL_8XTuEe6pgI76pA05Nw" base_Class="_19_0_3_90e0298_1670838696363_630805_4818"/>
-  <andromdameta:metafacade xmi:id="_geL_8nTuEe6pgI76pA05Nw" base_Class="_9_0_2_12ab03bf_1120678285078_403523_813"/>
-  <andromdameta:metafacade xmi:id="_geL_83TuEe6pgI76pA05Nw" base_Class="_9_0_1fe00f9_1111223534538_306164_2"/>
-  <andromdameta:metafacade xmi:id="_geL_9HTuEe6pgI76pA05Nw" base_Class="_19_0_3_90e0298_1644044445675_851130_4819"/>
-  <andromdameta:metafacade xmi:id="_geL_9XTuEe6pgI76pA05Nw" base_Class="_24400562_1086300630984_552734_109"/>
-  <andromdameta:metafacade xmi:id="_geL_9nTuEe6pgI76pA05Nw" base_Class="_19_0_3_90e0298_1643958422632_801283_4895"/>
-  <andromdameta:metafacade xmi:id="_geL_93TuEe6pgI76pA05Nw" base_Class="_19_0_3_90e0298_1586616322377_539405_4814"/>
-  <andromdameta:metafacade xmi:id="_geL_-HTuEe6pgI76pA05Nw" base_Class="_ecb034c_1074379407701_127218_171"/>
-  <andromdameta:metafacade xmi:id="_geL_-XTuEe6pgI76pA05Nw" base_Class="_24400562_1076817919491_693372_552"/>
-  <andromdameta:metafacade xmi:id="_geL_-nTuEe6pgI76pA05Nw" base_Class="_d860307_1071505297814_60220_1019"/>
-  <andromdameta:metafacade xmi:id="_geL_-3TuEe6pgI76pA05Nw" base_Class="_e8f0348_1102200843718_167772_250"/>
-  <andromdameta:metafacade xmi:id="_geL__HTuEe6pgI76pA05Nw" base_Class="_8a70287_1078528251564_981527_908"/>
-  <andromdameta:metafacade xmi:id="_geL__XTuEe6pgI76pA05Nw" base_Class="_9_5_1_12ab03bf_1166676364406_947166_87"/>
-  <andromdameta:metafacade xmi:id="_geL__nTuEe6pgI76pA05Nw" base_Class="_9_0_2_12ab03bf_1120789489859_66479_150"/>
-  <andromdameta:metafacade xmi:id="_geL__3TuEe6pgI76pA05Nw" base_Class="_ecb034c_1074429708731_957334_552"/>
-  <andromdameta:metafacade xmi:id="_geMAAHTuEe6pgI76pA05Nw" base_Class="_ecb034c_1076522576308_951601_2800"/>
-  <andromdameta:metafacade xmi:id="_geMAAXTuEe6pgI76pA05Nw" base_Class="_d860307_1071504589255_899792_464"/>
-  <andromdameta:metafacade xmi:id="_geMAAnTuEe6pgI76pA05Nw" base_Class="_ecb034c_1074429719333_393099_586"/>
-  <andromdameta:metafacade xmi:id="_geMAA3TuEe6pgI76pA05Nw" base_Class="_9_0_1fe00f9_1116003869282_276578_71"/>
-  <andromdameta:metafacade xmi:id="_geMABHTuEe6pgI76pA05Nw" base_Class="_9_0_1fe00f9_1113897549413_287358_18"/>
-  <andromdameta:metafacade xmi:id="_geMABXTuEe6pgI76pA05Nw" base_Class="_9_0_1fe00f9_1115149256331_843166_82"/>
-  <andromdameta:metafacade xmi:id="_geMABnTuEe6pgI76pA05Nw" base_Class="_9_0_1fe00f9_1116499094484_143315_18"/>
-  <andromdameta:metafacade xmi:id="_geMAB3TuEe6pgI76pA05Nw" base_Class="_8a70287_1078528386918_321974_1041"/>
-  <andromdameta:metafacade xmi:id="_geMACHTuEe6pgI76pA05Nw" base_Class="_8a70287_1078532325622_971459_759"/>
-  <andromdameta:metafacade xmi:id="_geMACXTuEe6pgI76pA05Nw" base_Class="_9_0_1fe00f9_1116004188633_221941_439"/>
-  <andromdameta:metafacade xmi:id="_geMACnTuEe6pgI76pA05Nw" base_Class="_ecb034c_1076522978739_404388_3123"/>
-  <andromdameta:metafacade xmi:id="_geMAC3TuEe6pgI76pA05Nw" base_Class="_9_0_2_12ab03bf_1120792857812_717688_419"/>
-  <andromdameta:metafacade xmi:id="_geMADHTuEe6pgI76pA05Nw" base_Class="_9_0_2_12ab03bf_1120168241718_803102_404"/>
-  <andromdameta:metafacade xmi:id="_geMADXTuEe6pgI76pA05Nw" base_Class="_9_5_1_12ab03bf_1166674056828_343682_132"/>
-  <andromdameta:metafacade xmi:id="_geMADnTuEe6pgI76pA05Nw" base_Class="_8a70287_1078687370189_842249_401"/>
-  <andromdameta:metafacade xmi:id="_geMAD3TuEe6pgI76pA05Nw" base_Class="_d860307_1071761469244_994549_110"/>
-  <andromdameta:metafacade xmi:id="_geMAEHTuEe6pgI76pA05Nw" base_Class="_d860307_1071574465881_881793_352"/>
-  <andromdameta:metafacade xmi:id="_geMAEXTuEe6pgI76pA05Nw" base_Class="_9_0_1fe00f9_1111792430944_743355_131"/>
-  <andromdameta:metafacade xmi:id="_geMAEnTuEe6pgI76pA05Nw" base_Class="_9_0_1fe00f9_1111224849004_128280_609"/>
-  <andromdameta:metafacade xmi:id="_geMAE3TuEe6pgI76pA05Nw" base_Class="_24400562_1076241072504_416910_88"/>
-  <andromdameta:metafacade xmi:id="_geMAFHTuEe6pgI76pA05Nw" base_Class="_9_0_1fe00f9_1111223458470_189098_0"/>
-  <andromdameta:metafacade xmi:id="_geMAFXTuEe6pgI76pA05Nw" base_Class="_9_5_1_13200cf_1271167652862_42903_9"/>
-  <andromdameta:metafacade xmi:id="_geMAFnTuEe6pgI76pA05Nw" base_Class="_9_0_2_12ab03bf_1121180438203_964334_702"/>
-  <andromdameta:metafacade xmi:id="_geMAF3TuEe6pgI76pA05Nw" base_Class="_9_0_1fe00f9_1116004487874_253309_1067"/>
-  <andromdameta:metafacade xmi:id="_geMAGHTuEe6pgI76pA05Nw" base_Class="_8a70287_1078527740759_977341_264"/>
-  <andromdameta:metafacade xmi:id="_geMAGXTuEe6pgI76pA05Nw" base_Class="_9_0_2_12ab03bf_1120167314500_763531_126"/>
-  <andromdameta:metafacade xmi:id="_geMAGnTuEe6pgI76pA05Nw" base_Class="_9_0_2_12ab03bf_1120168768156_445295_516"/>
-  <andromdameta:metafacade xmi:id="_geMAG3TuEe6pgI76pA05Nw" base_Class="_9_5_1_ee1034a_1127266738260_303405_459"/>
-  <andromdameta:metafacade xmi:id="_geMm0HTuEe6pgI76pA05Nw" base_Class="_d860307_1071505787688_603234_1398"/>
-  <andromdameta:metafacade xmi:id="_geMm0XTuEe6pgI76pA05Nw" base_Class="_9_5_1_626020b_1151603106573_799941_0"/>
-  <andromdameta:metafacade xmi:id="_geMm0nTuEe6pgI76pA05Nw" base_Class="_9_0_1fe00f9_1104625624120_556816_327"/>
-  <andromdameta:metafacade xmi:id="_geMm03TuEe6pgI76pA05Nw" base_Class="_9_0_2_12ab03bf_1122481800031_890384_216"/>
-  <andromdameta:metafacade xmi:id="_geMm1HTuEe6pgI76pA05Nw" base_Class="_24400562_1084729534630_226077_291"/>
-  <andromdameta:metafacade xmi:id="_geMm1XTuEe6pgI76pA05Nw" base_Class="_9_0_2_12ab03bf_1122481242500_184900_184"/>
-  <andromdameta:metafacade xmi:id="_geMm1nTuEe6pgI76pA05Nw" base_Class="_8a70287_1078939289723_161411_215"/>
-  <andromdameta:metafacade xmi:id="_geMm13TuEe6pgI76pA05Nw" base_Class="_9_0_2_12ab03bf_1112205391203_582580_0"/>
-  <andromdameta:metafacade xmi:id="_geMm2HTuEe6pgI76pA05Nw" base_Class="_9_0_2_12ab03bf_1122489990718_108299_588"/>
-  <andromdameta:metafacade xmi:id="_geMm2XTuEe6pgI76pA05Nw" base_Class="_d860307_1071505012453_158614_819"/>
-  <andromdameta:metafacade xmi:id="_geMm2nTuEe6pgI76pA05Nw" base_Class="_d860307_1071506074180_318219_1633"/>
-  <andromdameta:metafacade xmi:id="_geMm23TuEe6pgI76pA05Nw" base_Class="_ecb034c_1074380269911_797015_119"/>
-  <andromdameta:metafacade xmi:id="_geMm3HTuEe6pgI76pA05Nw" base_Class="_9_0_2_12ab03bf_1120241748796_84658_1361"/>
-  <andromdameta:metafacade xmi:id="_geMm3XTuEe6pgI76pA05Nw" base_Class="_9_0_1fe00f9_1113402182518_384484_232"/>
-  <andromdameta:metafacade xmi:id="_geMm3nTuEe6pgI76pA05Nw" base_Class="_9_0_1fe00f9_1113843043548_33809_34"/>
-  <andromdameta:metafacade xmi:id="_geMm33TuEe6pgI76pA05Nw" base_Class="_d860307_1071506134827_941134_1737"/>
-  <andromdameta:metafacade xmi:id="_geMm4HTuEe6pgI76pA05Nw" base_Class="_9_0_2_12ab03bf_1122488049984_677962_258"/>
-  <andromdameta:metafacade xmi:id="_geMm4XTuEe6pgI76pA05Nw" base_Class="_9_0_2_12ab03bf_1120167034531_347865_28"/>
-  <andromdameta:metafacade xmi:id="_geMm4nTuEe6pgI76pA05Nw" base_Class="_d860307_1077738600685_387777_175"/>
-  <andromdameta:metafacade xmi:id="_geMm43TuEe6pgI76pA05Nw" base_Class="_9_0_1fe00f9_1115149273430_479398_116"/>
-  <andromdameta:metafacade xmi:id="_geMm5HTuEe6pgI76pA05Nw" base_Class="_9_0_1fe00f9_1119517503209_398663_27"/>
-  <andromdameta:metafacade xmi:id="_geMm5XTuEe6pgI76pA05Nw" base_Class="_d860307_1071504751869_985718_574"/>
-  <andromdameta:metafacade xmi:id="_geMm5nTuEe6pgI76pA05Nw" base_Class="_9_5_1_ee1034a_1127266732722_101474_425"/>
-  <andromdameta:metafacade xmi:id="_geMm53TuEe6pgI76pA05Nw" base_Class="_24400562_1078456000396_796309_243"/>
-  <standard:ModelLibrary xmi:id="_geStcHTuEe6pgI76pA05Nw" base_Package="_9_0_1fe00f9_1119336925546_238419_77"/>
+  <MagicDrawProfile:HyperlinkOwner xmi:id="_VNgVJYMlEe6RvMaeAuAJ6w" base_Element="_19_0_3_90e0298_1643966151906_15565_5313" hyperlinkTextActive="file:///home/junior/programming/rogue/andromda/metafacades/uml/common/src/main/uml2/andromda-metafacades-uml.xml">
+    <hyperlinkText>file:///home/junior/programming/rogue/andromda/metafacades/uml/common/src/main/uml2/andromda-metafacades-uml.xml</hyperlinkText>
+  </MagicDrawProfile:HyperlinkOwner>
+  <standard:ModelLibrary xmi:id="_VNwz0IMlEe6RvMaeAuAJ6w" base_Package="_9_0_1fe00f9_1119336925546_238419_77"/>
+  <andromdameta:metafacade xmi:id="_VNxa4IMlEe6RvMaeAuAJ6w" base_Class="_d860307_1071504650353_319894_500"/>
+  <andromdameta:metafacade xmi:id="_VNxa4YMlEe6RvMaeAuAJ6w" base_Class="_9_0_1fe00f9_1111223534538_306164_2"/>
+  <andromdameta:metafacade xmi:id="_VNxa4oMlEe6RvMaeAuAJ6w" base_Class="_9_0_2_12ab03bf_1120789489859_66479_150"/>
+  <andromdameta:metafacade xmi:id="_VNxa44MlEe6RvMaeAuAJ6w" base_Class="_9_5_1_12ab03bf_1166674037093_8685_1"/>
+  <andromdameta:metafacade xmi:id="_VNxa5IMlEe6RvMaeAuAJ6w" base_Class="_9_0_2_12ab03bf_1121180438203_964334_702"/>
+  <andromdameta:metafacade xmi:id="_VNxa5YMlEe6RvMaeAuAJ6w" base_Class="_24400562_1076241072504_416910_88"/>
+  <andromdameta:metafacade xmi:id="_VNxa5oMlEe6RvMaeAuAJ6w" base_Class="_9_5_1_13200cf_1271167652862_42903_9"/>
+  <andromdameta:metafacade xmi:id="_VNxa54MlEe6RvMaeAuAJ6w" base_Class="_d860307_1071761469244_994549_110"/>
+  <andromdameta:metafacade xmi:id="_VNxa6IMlEe6RvMaeAuAJ6w" base_Class="_9_0_1fe00f9_1104625440681_53845_33"/>
+  <andromdameta:metafacade xmi:id="_VNxa6YMlEe6RvMaeAuAJ6w" base_Class="_d860307_1071574465881_881793_352"/>
+  <andromdameta:metafacade xmi:id="_VNxa6oMlEe6RvMaeAuAJ6w" base_Class="_9_0_1fe00f9_1111223458470_189098_0"/>
+  <andromdameta:metafacade xmi:id="_VNxa64MlEe6RvMaeAuAJ6w" base_Class="_9_0_1fe00f9_1111792430944_743355_131"/>
+  <andromdameta:metafacade xmi:id="_VNxa7IMlEe6RvMaeAuAJ6w" base_Class="_9_0_2_12ab03bf_1120168241718_803102_404"/>
+  <andromdameta:metafacade xmi:id="_VNxa7YMlEe6RvMaeAuAJ6w" base_Class="_d860307_1071506074180_318219_1633"/>
+  <andromdameta:metafacade xmi:id="_VNxa7oMlEe6RvMaeAuAJ6w" base_Class="_9_5_1_12ab03bf_1166674056828_343682_132"/>
+  <andromdameta:metafacade xmi:id="_VNxa74MlEe6RvMaeAuAJ6w" base_Class="_ecb034c_1076522978739_404388_3123"/>
+  <andromdameta:metafacade xmi:id="_VNxa8IMlEe6RvMaeAuAJ6w" base_Class="_8a70287_1078528386918_321974_1041"/>
+  <andromdameta:metafacade xmi:id="_VNxa8YMlEe6RvMaeAuAJ6w" base_Class="_8a70287_1078532325622_971459_759"/>
+  <andromdameta:metafacade xmi:id="_VNxa8oMlEe6RvMaeAuAJ6w" base_Class="_9_0_2_12ab03bf_1120792857812_717688_419"/>
+  <andromdameta:metafacade xmi:id="_VNxa84MlEe6RvMaeAuAJ6w" base_Class="_e8f0348_1102215391953_383987_0"/>
+  <andromdameta:metafacade xmi:id="_VNxa9IMlEe6RvMaeAuAJ6w" base_Class="_9_0_1fe00f9_1116004188633_221941_439"/>
+  <andromdameta:metafacade xmi:id="_VNxa9YMlEe6RvMaeAuAJ6w" base_Class="_19_0_3_90e0298_1670838696363_630805_4818"/>
+  <andromdameta:metafacade xmi:id="_VNyB8IMlEe6RvMaeAuAJ6w" base_Class="_9_0_1fe00f9_1115149256331_843166_82"/>
+  <andromdameta:metafacade xmi:id="_VNyB8YMlEe6RvMaeAuAJ6w" base_Class="_19_0_3_90e0298_1644056467959_183643_5207"/>
+  <andromdameta:metafacade xmi:id="_VNyB8oMlEe6RvMaeAuAJ6w" base_Class="_19_0_3_90e0298_1586616322377_539405_4814"/>
+  <andromdameta:metafacade xmi:id="_VNyB84MlEe6RvMaeAuAJ6w" base_Class="_19_0_3_90e0298_1644044445674_626574_4818"/>
+  <andromdameta:metafacade xmi:id="_VNyB9IMlEe6RvMaeAuAJ6w" base_Class="_9_0_2_12ab03bf_1112204654656_123732_0"/>
+  <andromdameta:metafacade xmi:id="_VNyB9YMlEe6RvMaeAuAJ6w" base_Class="_19_0_3_90e0298_1644044445675_851130_4819"/>
+  <andromdameta:metafacade xmi:id="_VNyB9oMlEe6RvMaeAuAJ6w" base_Class="_9_0_1fe00f9_1113897549413_287358_18"/>
+  <andromdameta:metafacade xmi:id="_VNyB94MlEe6RvMaeAuAJ6w" base_Class="_9_0_2_12ab03bf_1120678285078_403523_813"/>
+  <andromdameta:metafacade xmi:id="_VNyB-IMlEe6RvMaeAuAJ6w" base_Class="_d860307_1071505297814_60220_1019"/>
+  <andromdameta:metafacade xmi:id="_VNyB-YMlEe6RvMaeAuAJ6w" base_Class="_ecb034c_1074379407701_127218_171"/>
+  <andromdameta:metafacade xmi:id="_VNyB-oMlEe6RvMaeAuAJ6w" base_Class="_19_0_3_90e0298_1644044445662_509316_4817"/>
+  <andromdameta:metafacade xmi:id="_VNyB-4MlEe6RvMaeAuAJ6w" base_Class="_19_0_3_90e0298_1643958422632_801283_4895"/>
+  <andromdameta:metafacade xmi:id="_VNyB_IMlEe6RvMaeAuAJ6w" base_Class="_24400562_1078456132886_364804_350"/>
+  <andromdameta:metafacade xmi:id="_VNyB_YMlEe6RvMaeAuAJ6w" base_Class="_d860307_1071504589255_899792_464"/>
+  <andromdameta:metafacade xmi:id="_VNyB_oMlEe6RvMaeAuAJ6w" base_Class="_24400562_1076817919491_693372_552"/>
+  <andromdameta:metafacade xmi:id="_VNyB_4MlEe6RvMaeAuAJ6w" base_Class="_24400562_1086300630984_552734_109"/>
+  <andromdameta:metafacade xmi:id="_VNyCAIMlEe6RvMaeAuAJ6w" base_Class="_d860307_1071505787688_603234_1398"/>
+  <andromdameta:metafacade xmi:id="_VNyCAYMlEe6RvMaeAuAJ6w" base_Class="_9_5_1_ee1034a_1127266738260_303405_459"/>
+  <andromdameta:metafacade xmi:id="_VNyCAoMlEe6RvMaeAuAJ6w" base_Class="_ecb034c_1076522576308_951601_2800"/>
+  <andromdameta:metafacade xmi:id="_VNyCA4MlEe6RvMaeAuAJ6w" base_Class="_ecb034c_1074429708731_957334_552"/>
+  <andromdameta:metafacade xmi:id="_VNyCBIMlEe6RvMaeAuAJ6w" base_Class="_9_0_1fe00f9_1116499094484_143315_18"/>
+  <andromdameta:metafacade xmi:id="_VNyCBYMlEe6RvMaeAuAJ6w" base_Class="_d860307_1071574234068_992089_84"/>
+  <andromdameta:metafacade xmi:id="_VNyCBoMlEe6RvMaeAuAJ6w" base_Class="_24400562_1073854558969_92049_331"/>
+  <andromdameta:metafacade xmi:id="_VNyCB4MlEe6RvMaeAuAJ6w" base_Class="_8a70287_1078528251564_981527_908"/>
+  <andromdameta:metafacade xmi:id="_VNyCCIMlEe6RvMaeAuAJ6w" base_Class="_ecb034c_1074384938560_560855_449"/>
+  <andromdameta:metafacade xmi:id="_VNyCCYMlEe6RvMaeAuAJ6w" base_Class="_9_0_2_12ab03bf_1120167314500_763531_126"/>
+  <andromdameta:metafacade xmi:id="_VNyCCoMlEe6RvMaeAuAJ6w" base_Class="_e8f0348_1102200843718_167772_250"/>
+  <andromdameta:metafacade xmi:id="_VNyCC4MlEe6RvMaeAuAJ6w" base_Class="_9_5_1_12ab03bf_1166676364406_947166_87"/>
+  <andromdameta:metafacade xmi:id="_VNyCDIMlEe6RvMaeAuAJ6w" base_Class="_9_5_1_12ab03bf_1166674061937_23375_133"/>
+  <andromdameta:metafacade xmi:id="_VNyCDYMlEe6RvMaeAuAJ6w" base_Class="_8a70287_1078527740759_977341_264"/>
+  <andromdameta:metafacade xmi:id="_VNyCDoMlEe6RvMaeAuAJ6w" base_Class="_9_0_1fe00f9_1116004487874_253309_1067"/>
+  <andromdameta:metafacade xmi:id="_VNyCD4MlEe6RvMaeAuAJ6w" base_Class="_ecb034c_1074429494297_377714_181"/>
+  <andromdameta:metafacade xmi:id="_VNyCEIMlEe6RvMaeAuAJ6w" base_Class="_8a70287_1078527731536_138307_221"/>
+  <andromdameta:metafacade xmi:id="_VNyCEYMlEe6RvMaeAuAJ6w" base_Class="_9_0_1fe00f9_1116003869282_276578_71"/>
+  <andromdameta:metafacade xmi:id="_VNyCEoMlEe6RvMaeAuAJ6w" base_Class="_9_0_2_12ab03bf_1120168768156_445295_516"/>
+  <andromdameta:metafacade xmi:id="_VNyCE4MlEe6RvMaeAuAJ6w" base_Class="_9_0_1fe00f9_1111224849004_128280_609"/>
+  <andromdameta:metafacade xmi:id="_VNyCFIMlEe6RvMaeAuAJ6w" base_Class="_8a70287_1078687370189_842249_401"/>
+  <andromdameta:metafacade xmi:id="_VNyCFYMlEe6RvMaeAuAJ6w" base_Class="_d860307_1071505762942_565408_1372"/>
+  <andromdameta:metafacade xmi:id="_VNyCFoMlEe6RvMaeAuAJ6w" base_Class="_8a70287_1078527510288_746033_187"/>
+  <andromdameta:metafacade xmi:id="_VNyCF4MlEe6RvMaeAuAJ6w" base_Class="_9_0_2_12ab03bf_1122481800031_890384_216"/>
+  <andromdameta:metafacade xmi:id="_VNyCGIMlEe6RvMaeAuAJ6w" base_Class="_8a70287_1079983887000_419904_240"/>
+  <andromdameta:metafacade xmi:id="_VNyCGYMlEe6RvMaeAuAJ6w" base_Class="_9_0_1fe00f9_1104625624120_556816_327"/>
+  <andromdameta:metafacade xmi:id="_VNyCGoMlEe6RvMaeAuAJ6w" base_Class="_9_5_1_626020b_1151603106573_799941_0"/>
+  <andromdameta:metafacade xmi:id="_VNyCG4MlEe6RvMaeAuAJ6w" base_Class="_9_0_2_12ab03bf_1120835338500_225560_590"/>
+  <andromdameta:metafacade xmi:id="_VNyCHIMlEe6RvMaeAuAJ6w" base_Class="_9_5_1_ee1034a_1127266745841_402315_493"/>
+  <andromdameta:metafacade xmi:id="_VNyCHYMlEe6RvMaeAuAJ6w" base_Class="_d860307_1071506134827_941134_1737"/>
+  <andromdameta:metafacade xmi:id="_VNyCHoMlEe6RvMaeAuAJ6w" base_Class="_d860307_1071504751869_985718_574"/>
+  <andromdameta:metafacade xmi:id="_VNyCH4MlEe6RvMaeAuAJ6w" base_Class="_9_0_2_12ab03bf_1112205391203_582580_0"/>
+  <andromdameta:metafacade xmi:id="_VNyCIIMlEe6RvMaeAuAJ6w" base_Class="_ecb034c_1074429719333_393099_586"/>
+  <andromdameta:metafacade xmi:id="_VNyCIYMlEe6RvMaeAuAJ6w" base_Class="_9_0_1fe00f9_1113402182518_384484_232"/>
+  <andromdameta:metafacade xmi:id="_VNyCIoMlEe6RvMaeAuAJ6w" base_Class="_24400562_1078456000396_796309_243"/>
+  <andromdameta:metafacade xmi:id="_VNyCI4MlEe6RvMaeAuAJ6w" base_Class="_9_0_1fe00f9_1113843043548_33809_34"/>
+  <andromdameta:metafacade xmi:id="_VNyCJIMlEe6RvMaeAuAJ6w" base_Class="_d860307_1071505012453_158614_819"/>
+  <andromdameta:metafacade xmi:id="_VNyCJYMlEe6RvMaeAuAJ6w" base_Class="_d860307_1077738600685_387777_175"/>
+  <andromdameta:metafacade xmi:id="_VNyCJoMlEe6RvMaeAuAJ6w" base_Class="_24400562_1084729534630_226077_291"/>
+  <andromdameta:metafacade xmi:id="_VNyCJ4MlEe6RvMaeAuAJ6w" base_Class="_9_0_2_12ab03bf_1120241748796_84658_1361"/>
+  <andromdameta:metafacade xmi:id="_VNyCKIMlEe6RvMaeAuAJ6w" base_Class="_24400562_1076929607659_603849_252"/>
+  <andromdameta:metafacade xmi:id="_VNyCKYMlEe6RvMaeAuAJ6w" base_Class="_9_0_1fe00f9_1115149273430_479398_116"/>
+  <andromdameta:metafacade xmi:id="_VNyCKoMlEe6RvMaeAuAJ6w" base_Class="_8a70287_1078939289723_161411_215"/>
+  <andromdameta:metafacade xmi:id="_VNyCK4MlEe6RvMaeAuAJ6w" base_Class="_9_0_2_12ab03bf_1120167034531_347865_28"/>
+  <andromdameta:metafacade xmi:id="_VNyCLIMlEe6RvMaeAuAJ6w" base_Class="_9_0_1fe00f9_1119517503209_398663_27"/>
+  <andromdameta:metafacade xmi:id="_VNyCLYMlEe6RvMaeAuAJ6w" base_Class="_9_0_2_12ab03bf_1122489990718_108299_588"/>
+  <andromdameta:metafacade xmi:id="_VNyCLoMlEe6RvMaeAuAJ6w" base_Class="_9_0_2_12ab03bf_1122481242500_184900_184"/>
+  <andromdameta:metafacade xmi:id="_VNyCL4MlEe6RvMaeAuAJ6w" base_Class="_ecb034c_1074380269911_797015_119"/>
+  <andromdameta:metafacade xmi:id="_VNyCMIMlEe6RvMaeAuAJ6w" base_Class="_9_0_2_12ab03bf_1122488049984_677962_258"/>
+  <andromdameta:metafacade xmi:id="_VNyCMYMlEe6RvMaeAuAJ6w" base_Class="_9_5_1_ee1034a_1127266732722_101474_425"/>
 </xmi:XMI>
