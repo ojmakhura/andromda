@@ -5,18 +5,29 @@ import java.util.Collections;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 #end
 
 import org.springframework.context.annotation.Configuration;
 
+#if($secure)
 @Configuration
+@EnableWebSecurity
+#end
 public class SpringSecurityConfiguration {
 
 #if($secure)
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated()).formLogin(Customizer.withDefaults());
+
+        http
+                .authorizeHttpRequests((authorize) -> authorize
+                        .requestMatchers("/css/**", "/images/**", "/js/**", "/index").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/", "/index.html", "/public-page").permitAll()
+                        .anyRequest().authenticated())
+                .oauth2Client(Customizer.withDefaults()) 
+                .oauth2Login(Customizer.withDefaults());
         return http.build();
     }
 #end

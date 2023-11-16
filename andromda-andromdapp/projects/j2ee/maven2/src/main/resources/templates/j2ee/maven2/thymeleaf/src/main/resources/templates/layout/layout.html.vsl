@@ -6,35 +6,30 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <link rel="stylesheet" th:href="@{/css/main.css}"/>
-  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css} " />
-  <link th:rel="stylesheet" th:href="@{/webjars/font-awesome/6.0.0/css/all.css} " />
+  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css} " />
+  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-icons/1.11.1/font/bootstrap-icons.css} " />
+  <link th:rel="stylesheet" th:href="@{/webjars/font-awesome/6.2.0/css/all.css} " />
 </head>
 <body class="is-preload">
-  <wraper id="wrapper">
-    <main id="main">
-      <div class="inner">
-        <!-- Header -->
-        <th:block th:replace="~{layout/header :: header}"></th:block>
 
-        <!-- Banner -->
-        <section id="banner">
-          <div class="content">
-            <th:block layout:fragment="content"></th:block>
-          </div>
-        </section>
-      </div>
-    </main>
+  <aside id="sidebar" class="sidebar" th:fragment="sidebar">
+      <th:block th:replace="~{layout/navigation :: menu}"></th:block>
+  </aside>
 
-    <!-- Sidebar -->
-    <aside id="sidebar" th:fragment="sidebar">
-      <div class="inner">
-        <!-- Menu -->
-        <th:block th:replace="~{layout/navigation :: menu}"></th:block>
-        <!-- Footer -->
-        <th:block th:replace="~{layout/footer :: footer}"></th:block>
-      </div>
-    </aside>
-  </wraper>
+  <main id="main" class="main">
+    <div class="inner">
+      <!-- Header -->
+      <th:block th:replace="~{layout/header :: header}"></th:block>
+       <!-- Banner -->
+      <section id="banner">
+        <div class="content">
+          <th:block layout:fragment="content"></th:block>
+        </div>
+      </section>
+    </div>
+  </main>
+  <th:block th:replace="~{layout/footer :: footer}"></th:block>
+
   <!-- Scripts -->
   <div th:fragment="scripts">
     

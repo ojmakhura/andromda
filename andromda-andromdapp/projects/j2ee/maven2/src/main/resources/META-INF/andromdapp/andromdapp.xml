@@ -290,8 +290,8 @@
             <to>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringSecurityConfiguration.java.vsl</to>
         </mapping>
         <mapping>
-            <from>webservice/application.properties.vsl</from>
-            <to>webservice/src/main/resources/application.properties.vsl</to>
+            <from>webservice/application.yml.vsl</from>
+            <to>webservice/src/main/resources/application.yml.vsl</to>
         </mapping>
 
         <!-- Spring Thymeleaf Frontend -->

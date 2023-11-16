@@ -1060,6 +1060,16 @@
                 <version>5.2.3</version>
             </dependency>
             <dependency>
+                <groupId>org.webjars.npm</groupId>
+                <artifactId>bootstrap-icons</artifactId>
+                <version>1.11.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>popper.js</artifactId>
+                <version>2.11.7</version>
+            </dependency>
+            <dependency>
                 <groupId>org.webjars</groupId>
                 <artifactId>jquery-ui</artifactId>
                 <version>1.13.2</version>
@@ -1076,6 +1086,12 @@
                 <artifactId>spring-boot-starter-web-services</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency> -->
+            <!-- Uncomment if using spring security -->
+            <!--<dependency>
+                <groupId>org.thymeleaf.extras</groupId>
+                <artifactId>thymeleaf-extras-springsecurity6</artifactId>
+                <version>3.1.2.RELEASE</version>
+            </dependency>-->
             <!-- For Working with Json Web Tokens (JWT) -->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
