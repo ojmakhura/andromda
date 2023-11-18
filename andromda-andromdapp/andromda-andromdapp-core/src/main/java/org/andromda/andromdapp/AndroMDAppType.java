@@ -12,6 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ComponentContainer;
@@ -115,7 +116,7 @@ public class AndroMDAppType
                     {
                         response = this.promptForInput(prompt);
                     }
-                    while (!prompt.isValidResponse(ObjectUtils.toString(response)));
+                    while (!prompt.isValidResponse(Objects.toString(response, "")));
                 }
                 this.setConditionalProperties(
                     prompt.getConditions(),

@@ -176,8 +176,13 @@ $attribute.getDocumentation("     * ")
 #if ($enableAnnotations && $operation.visibility != "private" && $operation.visibility != "protected")
     @Override
 #end
+#if($enableTemplating && !$operation.templateParameters.empty)
+#set($generics = "$umlMetafacadeUtils.getGenericTemplate($operation, $enableTemplating) ")
+#else
+#set($generics = "")
+#end
 ## @org.springframework.transaction.annotation.Transactional(propagation = org.springframework.transaction.annotation.Propagation.REQUIRED)
-    $operation.visibility $operation.getterSetterReturnTypeName $operation.getSignature("final")
+    $operation.visibility $generics$operation.getterSetterReturnTypeName $operation.getSignature("final")
 #if ($operation.exceptionsPresent)
         $operation.throwsClause
 #end
@@ -297,7 +302,7 @@ $attribute.getDocumentation("     * ")
      * @return $operation.implementationReturnTypeName
      * @throws Exception
      */
-    protected abstract $operation.implementationReturnTypeName $operation.implementationSignature
+    protected abstract $generics$operation.implementationReturnTypeName $operation.implementationSignature
         throws Exception;
 
 #end

@@ -1051,7 +1051,7 @@ public class AngularUtils {
         if (element != null)
         {
             final Object value = element.findTaggedValue(AngularProfile.TAGGEDVALUE_INPUT_READONLY);
-            readOnly = Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
+            readOnly = Boolean.valueOf(Objects.toString(value, "")).booleanValue();
         }
         return readOnly;
     }

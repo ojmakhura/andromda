@@ -533,8 +533,8 @@ public class UMLMetafacadeUtils
            for (Iterator<TemplateParameterFacade> parameterIterator =
                facade.getTemplateParameters().iterator(); parameterIterator.hasNext();)
            {
-                parameterIterator.next();
-                buffer.append(QUESTION);
+                // parameterIterator.next();
+                buffer.append(parameterIterator.next().getName());
                 if (parameterIterator.hasNext())
                 {
                     buffer.append(COMMA);

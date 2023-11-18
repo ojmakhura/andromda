@@ -1,5 +1,7 @@
 package org.andromda.core.translation;
 
+import java.util.Objects;
+
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Introspector;
 import org.apache.commons.lang3.ObjectUtils;
@@ -97,7 +99,7 @@ public class TranslationUtils
      */
     public static String trimToEmpty(final Object object)
     {
-        return StringUtils.trimToEmpty(ObjectUtils.toString(object));
+        return StringUtils.trimToEmpty(Objects.toString(object, ""));
     }
 
     /**
@@ -109,7 +111,7 @@ public class TranslationUtils
      */
     public static String deleteWhitespace(final Object object)
     {
-        return StringUtils.deleteWhitespace(ObjectUtils.toString(object));
+        return StringUtils.deleteWhitespace(Objects.toString(object, ""));
     }
 
     /**

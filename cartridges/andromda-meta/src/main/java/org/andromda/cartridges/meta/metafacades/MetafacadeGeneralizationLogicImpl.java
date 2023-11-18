@@ -150,4 +150,33 @@ public class MetafacadeGeneralizationLogicImpl
     public boolean isGenericDeclaration() {
         return CollectionUtils.isNotEmpty(this.findTaggedValues(UMLProfile.TAGGEDVALUE_GENERIC_TYPES));
     }
+
+    @Override
+    public String getGenericParameterString() {
+        String val = String.join(", ", this.getGenericParameters());
+
+        if (StringUtils.isNotBlank(val))
+        {
+            val = "<" + val + ">";
+        } else {
+            val = "";
+        }
+
+        return val;
+    }
+    
+    @Override
+    public String getGenericTypeString() {
+        
+        String val = String.join(", ", this.getGenericTypes());
+
+        if (StringUtils.isNotBlank(val))
+        {
+            val = "<" + val + ">";
+        } else {
+            val = "";
+        }
+
+        return val;
+    }
 }

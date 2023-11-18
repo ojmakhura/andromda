@@ -41,12 +41,7 @@ $operation.getDocumentation("     * ")
      * @throws $exception.name
 #end
      */
-#if ($operation.exceptionsPresent)
-    $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
-        throws $operation.exceptionList;
-#else
-    $operation.visibility $operation.getterSetterReturnTypeName $operation.signature;
-#end
+    $operation.visibility #if($enableTemplating && !$operation.templateParameters.empty)$umlUtils.getGenericTemplate($operation, $enableTemplating) #end$operation.getterSetterReturnTypeName $operation.signature#if ($operation.exceptionsPresent) throws $operation.exceptionList#end;
 
 #end
 }

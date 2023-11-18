@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.Objects;
+
+import org.andromda.metafacades.uml.BindingFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ConstraintFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
@@ -194,7 +197,7 @@ public class OperationFacadeLogicImpl
                                 UMLProfile.STEREOTYPE_EXCEPTION);
                     }
                 }
-                return hasException;
+                return hasException; 
             }
         }
 
@@ -507,10 +510,13 @@ public class OperationFacadeLogicImpl
     @Override
     protected String handleGetSignature(final boolean withArgumentNames)
     {
+        Collection<BindingFacade> dependencies = MetafacadeUtils.getBindingDependencies(this);
+
         return MetafacadeUtils.getSignature(
             this.handleGetName(),
             this.getArguments(),
             withArgumentNames,
+            dependencies,
             null);
     }
 
@@ -532,10 +538,12 @@ public class OperationFacadeLogicImpl
     @Override
     protected String handleGetSignature(final String argumentModifier)
     {
+        Collection<BindingFacade> dependencies = MetafacadeUtils.getBindingDependencies(this);
         return MetafacadeUtils.getSignature(
             this.handleGetName(),
             this.getArguments(),
             true,
+            dependencies,
             argumentModifier);
     }
 
@@ -609,7 +617,7 @@ public class OperationFacadeLogicImpl
 
             // set this attribute's type as a template parameter if required
             if (BooleanUtils.toBoolean(
-                    ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
+                    Objects.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING), "")))
             {
                 String type = returnType.getFullyQualifiedName();
                 if (returnType.isPrimitive())
@@ -617,6 +625,11 @@ public class OperationFacadeLogicImpl
                     // Can't template primitive values, Objects only. Convert to wrapped.
                     type = this.getReturnType().getWrapperName();
                 }
+
+                // type = parameter.getGetterSetterTypeName();
+                    // String[] sp = type.split("<");
+                    // type = sp[0] + returnType.getGenericTypeString();
+
                 // Allow List<Type[]> implementations.
                 /*// Don't apply templating to modeled array types
                 if (returnType.isArrayType())
@@ -652,7 +665,15 @@ public class OperationFacadeLogicImpl
                     name = StringUtils.uncapitalize(name);
                 }
             }
+
+            
         }
+
+        if(StringUtils.isNotBlank(this.getReturnParameter().getGenericTypeString())) {
+            String[] sp = name.split("<");
+            name = sp[0] + this.getReturnParameter().getGenericTypeString();
+        }
+        
         return name;
     }
 

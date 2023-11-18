@@ -4,6 +4,7 @@ import java.util.HashSet;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 /**
  * MetafacadeLogic implementation for
  * org.andromda.cartridges.meta.metafacades.PSMmetaclass.
@@ -99,5 +100,33 @@ public class PSMmetaclassLogicImpl extends PSMmetaclassLogic
     @Override
     public boolean isGenericDeclaration() {
         return CollectionUtils.isNotEmpty(this.findTaggedValues(UMLProfile.TAGGEDVALUE_GENERIC_TYPES));
+    }
+    
+    @Override
+    public String getGenericParameterString() {
+        String val = String.join(", ", this.getGenericParameters());
+
+        if (StringUtils.isNotBlank(val))
+        {
+            val = "<" + val + ">";
+        } else {
+            val = "";
+        }
+
+        return val;
+    }
+    @Override
+    public String getGenericTypeString() {
+        
+        String val = String.join(", ", this.getGenericTypes());
+
+        if (StringUtils.isNotBlank(val))
+        {
+            val = "<" + val + ">";
+        } else {
+            val = "";
+        }
+
+        return val;
     }
 }
