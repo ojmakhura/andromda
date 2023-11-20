@@ -469,6 +469,14 @@ public class UMLProfile {
                         "PRESENTATION_COMPONENT_BEAN_NAME");
 
         /**
+         * 'andromda_presentation_beanName'
+         * Used to assign the table columns to a collection/array type parameter
+         * representing a table.
+         */
+        public static final String TAGGEDVALUE_PRESENTATION_COMPONENT_TABLE_NAME = profile.get(
+                        "PRESENTATION_COMPONENT_TABLE_NAME");
+
+        /**
          * 'andromda_presentation_view_table'
          * Used to indicate whether or not a parameter should be considered a table
          * (used when no

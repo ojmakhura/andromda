@@ -534,7 +534,7 @@
     </template>
     <template
         path="templates/views/component-table.html.vsl"
-        outputPattern="${component.path}-table.html"
+        outputPattern="${component.tablePath}-table.html"
         outlet="components"
         outputOnEmptyElements="false"
         overwrite="true">
@@ -715,6 +715,7 @@
         path="templates/views/view-table.html.vsl"
         outputPattern="${table.view.path}-${table.name}.html"
         outlet="views"
+        outputOnEmptyElements="false"
         overwrite="true">
         <modelElements>
             <modelElement>
@@ -729,6 +730,7 @@
         path="templates/views/view-variables.html.vsl"
         outputPattern="${view.path}-vars.html"
         outlet="views"
+        outputOnEmptyElements="false"
         overwrite="true">
         <modelElements variable="view">
             <modelElement>

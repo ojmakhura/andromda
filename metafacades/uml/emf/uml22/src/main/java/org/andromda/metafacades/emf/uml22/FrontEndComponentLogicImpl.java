@@ -12,10 +12,13 @@ import java.util.stream.Collectors;
 
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.FrontEndAttribute;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.web.MetafacadeWebProfile;
+import org.andromda.metafacades.uml.web.MetafacadeWebUtils;
 import org.andromda.utils.StringUtilsHelper;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * TODO: Model Documentation for org.andromda.metafacades.uml.FrontEndComponent
@@ -76,13 +79,59 @@ public class FrontEndComponentLogicImpl
         return this.getAttributes().stream().filter(att -> !att.isMany()).collect(Collectors.toList());
     }
 
+    private String basePath = null;
+
+    private String getBasePath() {
+        if(StringUtilsHelper.isBlank(basePath)) {final StringBuilder path = new StringBuilder();
+        
+            String _path = StringUtils.strip(((String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_PATH)));
+            if (!StringUtils.isBlank(_path))
+            {
+                path.append(_path);
+            } else {
+
+                final String packageName = this.getPackageName();
+                if (StringUtilsHelper.isNotBlank(packageName)) {
+                    path.append(packageName + '.');
+                }      
+
+            }
+
+            basePath = path.toString().replace('.', '/');
+
+            if(!basePath.startsWith("/")) {
+                basePath = "/" + basePath;
+            }
+        }
+
+        return basePath;
+    }
+
     /**
      * TODO: Model Documentation for org.andromda.metafacades.uml.FrontEndComponent.path
      * @see org.andromda.metafacades.uml.FrontEndComponent#getPath()
      */
     protected String handleGetPath()
     {
-        return UMLMetafacadeUtils.getPath(this);
+        final StringBuilder path = new StringBuilder();
+        
+        path.append(this.getBasePath()); 
+
+        String beanName = Objects.toString(this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_COMPONENT_BEAN_NAME), "").trim();
+
+        if(StringUtilsHelper.isNotBlank(beanName)) {
+            path.append("/" + MetafacadeWebUtils.toWebResourceName(beanName));
+        } else {
+            path.append("/" + MetafacadeWebUtils.toWebResourceName(StringUtilsHelper.trimToEmpty(this.getName())).replace('.', '/'));
+        }
+
+        String pathStr = path.toString().replace('.', '/');
+
+        if(!pathStr.startsWith("/")) {
+            pathStr = "/" + pathStr;
+        }
+
+        return pathStr;
     }
 
     /**
@@ -126,6 +175,27 @@ public class FrontEndComponentLogicImpl
         }
 
         return StringUtilsHelper.lowerCamelCaseName(getName());
+    }
+
+    @Override
+    protected String handleGetTableName() {
+        final StringBuilder tableName = new StringBuilder();
+        
+        String beanName = Objects.toString(this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_COMPONENT_BEAN_NAME), "").trim();
+
+        if(StringUtilsHelper.isNotBlank(beanName)) {
+            tableName.append(MetafacadeWebUtils.toWebResourceName(StringUtilsHelper.pluralize(beanName)));
+        } else {
+            tableName.append(MetafacadeWebUtils.toWebResourceName(StringUtilsHelper.trimToEmpty(this.getName())).replace('.', '/'));
+        }
+
+        return tableName.toString().replace('.', '/');
+    }
+
+    @Override
+    protected String handleGetTablePath() {
+        
+        return this.getBasePath() + "/" + this.getTableName();
     }
 
 }
