@@ -63,7 +63,7 @@ ${ident}<th th:text="#{$column.messageKey}"></th>
 #else
 #set($columnName = $column)
 #end
-            <th th:if="${#lists.contains(columns, columnName)}" th:text="#{$thymeleafUtils.getTableColumnMessageKey($columnName, $component)}"></th>
+            <th th:if="${#lists.contains(columns, '$columnName')}" th:text="#{$thymeleafUtils.getTableColumnMessageKey($columnName, $component)}"></th>
 #end
 #foreach ($action in $component.tableFormActions)
 #if (!$action.tableLinkColumnName)
@@ -73,11 +73,14 @@ ${ident}<th th:text="#{$column.messageKey}"></th>
         </tr>
     </thead>
     <tbody>
-        <tr th:each="row : $stringUtils.uncapitalize(${component.name})Table">
+        <tr th:each="row : ${tableData}">
             <td th:if="!${#lists.isEmpty(actions)}" id="column_actions">
                 <div class="row form-group">
                     <form class="col" method="POST">
-                        <button type="submit" th:each="action : ${actions}" class="col btn btn-info" th:id="${action} + 'Action'" th:text="${action}">
+                        <button type="submit" th:each="action : ${actions}" class="col btn btn-info" th:id="${action} + 'Action'">
+                            <i th:if="${action} == 'edit'" class="fas fa-edit ml-2"></i>
+                            <i th:if="${action} == 'delete' or ${action} == 'remove' or ${action} == 'trash'" class="fas fa-trash ml-2"></i>
+                            <span th:if="${action} != 'edit' and ${action} != 'delete' and ${action} == 'remove' and ${action} == 'trash'" th:text="#{${action}}"></span>
                         </button>
                     </form>
                 </div>
@@ -99,11 +102,13 @@ ${ident}<th th:text="#{$column.messageKey}"></th>
             <td id="column_${columnName}"#if ($tableColumnActions.empty) th:text=#if ($column.type.dateType)"${#temporals.format($theValue, '$column.format')}"#else"${${theValue}}"#end  #if($rendered != "")#end#end>
 #if (!$tableColumnActions.empty)
 #set ($action = $tableColumnActions.iterator().next())
-                <form th:if="${#lists.contains(columnActions, ${columnName})}" method="POST" 
+                <form th:if="${columnActions != null and #lists.contains(columnActions, '${columnName}')}" method="POST" 
                         th:action="@{${action.controller.restPath}${action.restPath}(#if($column.name)$column.name#{else}$column#end=$dollar${left}row.$columnName${right})}">
-                    <button type="submit" id="${columnName}Action" th:text="${#if($column.name)row.$column.name#{else}row.$column#end}">
+                    <button type="submit" id="${columnName}Action" class="btn btn-link" th:text="${#if($column.name)row.$column.name#{else}row.$column#end}">
                     </button>
                 </form>
+                <span th:if="${columnActions == null or !#lists.contains(columnActions, '${columnName}')}" th:text="${#if($column.name)row.$column.name#{else}row.$column#end}"></span>
+#else
 #end
             </td>
 #end
