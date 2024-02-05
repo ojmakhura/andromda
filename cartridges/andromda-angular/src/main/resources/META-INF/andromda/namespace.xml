@@ -116,6 +116,11 @@
                     Where the application menus.
                 </documentation>
             </property>
+            <property name="components">
+                <documentation>
+                    Where the application components are output.
+                </documentation>
+            </property>
             <property name="views">
                 <documentation>
                     Where the application views (JSPs, Facelets, etc) are output.
