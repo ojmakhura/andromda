@@ -66,6 +66,11 @@
     <metafacade class="org.andromda.cartridges.angular.metafacades.AngularServiceParameterLogicImpl">
     </metafacade>
 
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularComponentLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.ClassImpl">
+            <stereotype>FRONT_END_COMPONENT</stereotype>
+        </mapping>
+    </metafacade>
     <metafacade class="org.andromda.cartridges.angular.metafacades.AngularModelLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.ClassImpl">
             <stereotype>VALUE_OBJECT</stereotype>

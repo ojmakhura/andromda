@@ -574,6 +574,19 @@
             </modelElement>
         </modelElements>
     </template>
+
+    <template
+        path="templates/angular/app/view/component/editor.component.ts.vsl"
+        outputPattern="${component.filePath}.ts"
+        outlet="components"
+        overwrite="true">
+        <modelElements variable="component">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndComponent">
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
 	
 	<!-- <template
         path="templates/angular/app/view/action/view.action.html.vsl"

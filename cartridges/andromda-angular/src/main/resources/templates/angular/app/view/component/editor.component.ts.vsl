@@ -1,0 +1,37 @@
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+
+@Component({
+  selector: "app-${component.selectorName}",
+  templateUrl: "./${component.selectorName}.component.html",
+  styleUrls: [],
+})
+export class ${component.name}Component implements OnInit, OnDestroy, AfterViewInit {
+    
+    @Input() ${component.beanName}: ${component.name};
+
+    //${component.type};
+    //${component};
+    //${component.filePath};
+    //${component.path};
+
+    //${component.beanName};
+    //${component.fileName};
+    //${component.selectorName};
+
+
+    constructor() {}
+
+    ngOnInit() {}
+
+    ngOnDestroy() {}
+
+    ngAfterViewInit() {}
+
+}

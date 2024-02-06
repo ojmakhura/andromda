@@ -586,6 +586,7 @@
                 <property name="css">${angular.css.dir}</property>
                 <property name="test">${angular.test.dir}</property>
                 <property name="app">${angular.generated.dir}/src/app</property>
+                <property name="components">${angular.view.dir}/components</property>
                 <property name="views">${angular.view.dir}</property>
                 <property name="view-impls">${angular.view.impl.dir}</property>
                 <property name="services">${angular.service.dir}</property>
