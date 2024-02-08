@@ -587,152 +587,72 @@
             </modelElement>
         </modelElements>
     </template>
+
+    <template
+        path="templates/angular/app/view/component/editor.component.html.vsl"
+        outputPattern="${component.filePath}.html"
+        outlet="components"
+        overwrite="true">
+        <modelElements variable="component">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndComponent">
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/angular/app/view/component/table.component.ts.vsl"
+        outputPattern="${component.path}-table.component.ts"
+        outlet="components"
+        overwrite="true">
+        <modelElements variable="component">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndComponent">
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/angular/app/view/component/table.component.html.vsl"
+        outputPattern="${component.path}-table.component.html"
+        outlet="components"
+        overwrite="true">
+        <modelElements variable="component">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndComponent">
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/angular/app/view/component/view.component.ts.vsl"
+        outputPattern="${component.path}-view.component.ts"
+        outlet="components"
+        overwrite="true">
+        <modelElements variable="component">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndComponent">
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/angular/app/view/component/view.component.html.vsl"
+        outputPattern="${component.path}-view.component.html"
+        outlet="components"
+        overwrite="true">
+        <modelElements variable="component">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndComponent">
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
 	
-	<!-- <template
-        path="templates/angular/app/view/action/view.action.html.vsl"
-        outputPattern="${action.filePath}.html"
-        outlet="views"
-        overwrite="true">
-        <modelElements variable="action">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularAction">
-                    <property name="tableLink">false</property>
-                    <property name="input"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-    
-	<!-- <template
-        path="templates/angular/app/view/action/view.action.ts.vsl"
-        outputPattern="${action.filePath}.ts"
-        outlet="views"
-        overwrite="true">
-        <modelElements variable="action">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularAction">
-                    <property name="tableLink">false</property>
-                    <property name="input"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-	
-	<!-- <template
-        path="templates/angular/app/view/action/view.action.impl.ts.vsl"
-        outputPattern="${action.implementationFilePath}.ts"
-        outlet="views"
-        overwrite="true">
-        <modelElements variable="action">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularAction">
-                    <property name="tableLink">false</property>
-                    <property name="input"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-    
-	<!-- <template
-        path="templates/angular/app/view/action/view.action.scss.vsl"
-        outputPattern="${action.filePath}.scss"
-        outlet="views"
-        overwrite="true">
-        <modelElements variable="action">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularAction">
-                    <property name="tableLink">false</property>
-                    <property name="input"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-    
-	<!-- <template
-        path="templates/angular/app/view/action/view.action.spec.ts.vsl"
-        outputPattern="${action.filePath}.spec.ts"
-        outlet="views"
-        overwrite="true">
-        <modelElements variable="action">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularAction">
-                    <property name="tableLink">false</property>
-                    <property name="input"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
-    <!-- <template
-        path="templates/angular/app/view/view-variables.ts.vsl"
-        outputPattern="${view.varsComponentFilePath}.ts"
-        outlet="views"
-        overwrite="true">
-        <modelElements variable="view">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
-                    <property name="nonTableVariablesPresent"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
-    <!-- <template
-        path="templates/angular/app/view/view-variables.impl.ts.vsl"
-        outputPattern="${view.varsComponentImplementationFilePath}.ts"
-        outlet="views"
-        overwrite="true">
-        <modelElements variable="view">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
-                    <property name="nonTableVariablesPresent"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
-    <!-- <template
-        path="templates/angular/app/view/view-variables.spec.ts.vsl"
-        outputPattern="${view.varsComponentFilePath}.spec.ts"
-        outlet="views"
-        overwrite="true">
-        <modelElements variable="view">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
-                    <property name="nonTableVariablesPresent"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
-    <!-- <template
-        path="templates/angular/app/view/view-variables.html.vsl"
-        outputPattern="${view.varsComponentFilePath}.html"
-        outlet="views"
-        overwrite="true">
-        <modelElements variable="view">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
-                    <property name="nonTableVariablesPresent"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
-    <!-- <template
-        path="templates/angular/app/view/view-variables.scss.vsl"
-        outputPattern="${view.varsComponentFilePath}.scss"
-        outlet="views"
-        overwrite="true">
-        <modelElements variable="view">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
-                    <property name="nonTableVariablesPresent"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
     <template
         path="templates/angular/app/utils/controller.base.ts.vsl"
         outputPattern="$generatedFile"

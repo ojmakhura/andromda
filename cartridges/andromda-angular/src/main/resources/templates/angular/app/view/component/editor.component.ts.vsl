@@ -16,15 +16,9 @@ export class ${component.name}Component implements OnInit, OnDestroy, AfterViewI
     
     @Input() ${component.beanName}: ${component.name};
 
-    //${component.type};
-    //${component};
-    //${component.filePath};
-    //${component.path};
-
-    //${component.beanName};
-    //${component.fileName};
-    //${component.selectorName};
-
+    // ${component.type}
+    // ${component.type.name}
+    // ${component}
 
     constructor() {}
 
