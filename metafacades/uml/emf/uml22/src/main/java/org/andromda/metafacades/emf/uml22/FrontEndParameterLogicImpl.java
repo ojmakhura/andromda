@@ -1275,4 +1275,10 @@ public class FrontEndParameterLogicImpl
         
         return MetafacadeWebUtils.isComponent(this.getType());
     }
+
+    @Override
+    protected String handleGetMappedComponent() {
+
+        return MetafacadeWebUtils.getMappedComponent(this.getType());
+    }
 }

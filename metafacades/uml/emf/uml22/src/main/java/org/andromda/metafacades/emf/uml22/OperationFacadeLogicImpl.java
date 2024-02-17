@@ -596,6 +596,8 @@ public class OperationFacadeLogicImpl
     @Override
     protected Type handleGetReturnType()
     {
+        // this.metaObject.getReturnResult().get;
+        
         return this.metaObject.getType();
     }
 

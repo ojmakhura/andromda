@@ -46,21 +46,25 @@ ${ident}    <td id="column_${column.name}">${theValue}#if ($column.type.dateType
 ##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
 ##
 #macro(renderAngularActionInput $parameter $ownerParameter $ident)
+2222
 #if ($parameter.backingListName)
 #if ($ownerParameter.type.hasStereotype('Entity'))
+1
 #set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
 #set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
 #else
+2
 #set ($propertyId = $parameter.name)
 #set ($valuePropertyName = $parameter.name)
 #end
 #set ($backingListName = $parameter.backingListName)
 #set ($backingValueName = $parameter.backingValueName)
 #else
-#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
-#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
-#set ($backingListName = ${parameter.getBackingListName($ownerParameter)})
-#set ($backingValueName = ${parameter.getBackingValueName($ownerParameter)})
+3 $parameter
+#set ($propertyId = $metafacadeWebUtils.getFormPropertyId($parameter, $ownerParameter))
+#set ($valuePropertyName = $metafacadeWebUtils.getFormPropertyName($parameter, $ownerParameter))
+#set ($backingListName = $metafacadeWebUtils.getBackingListName($parameter, $ownerParameter))
+#set ($backingValueName = $metafacadeWebUtils.getBackingValueName($parameter, $ownerParameter))
 #end
 #set ($formValuePropertyName = "${valuePropertyName}")
 #if($parameter.inputButton)

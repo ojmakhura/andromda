@@ -1211,6 +1211,26 @@ public class ModelElementFacadeLogicImpl
 
             // we'll be constructing the parameter list in this buffer
             // add the name we've constructed so far
+
+            // First, we need to replace the name of the element with the name of the template
+            // We need to replace the name of the element with the name of the template
+            Collection<TemplateBinding> templateBindings = ((org.eclipse.uml2.uml.Class)this.metaObject).getTemplateBindings();
+            if(CollectionUtils.isNotEmpty(templateBindings))
+            {
+                
+                final TemplateBinding binding = templateBindings.iterator().next();
+                if(binding != null && binding.getSignature() != null && binding.getSignature().getTemplate() != null)
+                {
+                    TemplateableElement template = binding.getSignature().getTemplate();
+
+                    if(template instanceof NamedElement)
+                    {
+                        fullName = UmlUtilities.getPackageName(template, this.getNamespaceScope(false), false) + "." + ((NamedElement)template).getName();
+                    }
+                    
+                }
+            }
+
             final StringBuilder buffer = new StringBuilder(fullName).append('<');
 
             // loop over the parameters, we are so to have at least one (see

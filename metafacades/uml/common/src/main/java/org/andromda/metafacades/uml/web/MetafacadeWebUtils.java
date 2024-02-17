@@ -1171,4 +1171,35 @@ public class MetafacadeWebUtils {
                 getFormPropertyId(parameter, ownerParameter));
         return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
     }
+
+    public static String getTargetUrl(ModelElementFacade modelElement) {
+        String url = StringUtils.stripToNull(((String) modelElement.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_TARGETURL)));
+                
+        return url;
+    }
+
+    public static String getIcon(ModelElementFacade modelElement) {
+        String url = StringUtils.stripToNull(((String) modelElement.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_ICON)));
+        
+        return url;
+    }
+    
+    public static String getDisplayCondition(ModelElementFacade modelElement) {
+        String url = StringUtils.stripToNull(((String) modelElement.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_IF)));
+        
+        return url;
+    }
+
+    public static String getComponentMappedModel(ModelElementFacade modelElement) {
+        String model = StringUtils.stripToNull(((String) modelElement.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_PRESENTATION_COMPONENT_MAPPED_MODEL)));
+        
+        return model;
+    }
+
+    public static String getMappedComponent(ModelElementFacade modelElement) {
+        String component = StringUtils.stripToNull(((String) modelElement.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_PRESENTATION_COMPONENT)));
+        
+        return component;
+    }
+	
 }

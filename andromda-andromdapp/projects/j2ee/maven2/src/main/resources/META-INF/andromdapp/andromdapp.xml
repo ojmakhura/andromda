@@ -51,13 +51,13 @@
             <condition id="springws" equal="true"/>
             <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestApplication.java.vsl</output>
             <output>webservice/src/test/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestApplicationTests.java.vsl</output>
-            <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestConfiguration.java.vsl</output>
+            <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/config/SpringRestConfiguration.java.vsl</output>
             <output>webservice/src/main/resources/application.properties.vsl</output>
         </conditions>
         <conditions type="and">
             <condition id="secure" notEqual="none"/>
             <condition id="springws" notEqual="true"/>
-            <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringSecurityConfiguration.java.vsl</output>
+            <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/config/SpringSecurityConfiguration.java.vsl</output>
         </conditions>
         <conditions>
             <condition id="thymeleaf" equal="true"/>
@@ -283,11 +283,11 @@
         </mapping>
         <mapping>
             <from>webservice/SpringRestConfiguration.java.vsl</from>
-            <to>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestConfiguration.java.vsl</to>
+            <to>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/config/SpringRestConfiguration.java.vsl</to>
         </mapping>
         <mapping>
             <from>webservice/SpringSecurityConfiguration.java.vsl</from>
-            <to>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringSecurityConfiguration.java.vsl</to>
+            <to>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/config/SpringSecurityConfiguration.java.vsl</to>
         </mapping>
         <mapping>
             <from>webservice/application.yml.vsl</from>

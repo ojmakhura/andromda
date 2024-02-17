@@ -198,4 +198,11 @@ public class FrontEndComponentLogicImpl
         return this.getBasePath() + "/" + this.getTableName();
     }
 
+    @Override
+    protected String handleGetMappedModel() {
+
+        String component = StringUtils.stripToNull(((String) this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_PRESENTATION_COMPONENT_MAPPED_MODEL)));
+        return component;
+    }
+
 }

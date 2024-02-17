@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.TreeSet;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.StereotypeFacade;
+import org.andromda.metafacades.uml.web.MetafacadeWebProfile;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.ValueObject.
@@ -63,5 +65,12 @@ public class ValueObjectLogicImpl
             }
         }
         return specializations;
+    }
+
+    @Override
+    public String handleGetMappedComponent() {
+        String component = StringUtils.stripToNull(((String) this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_PRESENTATION_COMPONENT)));
+        
+        return component;
     }
 }

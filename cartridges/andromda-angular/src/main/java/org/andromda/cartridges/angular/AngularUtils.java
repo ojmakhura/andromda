@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 
 import org.andromda.cartridges.angular.metafacades.AngularAction;
 import org.andromda.cartridges.angular.metafacades.AngularAttribute;
+import org.andromda.cartridges.angular.metafacades.AngularComponent;
 import org.andromda.cartridges.angular.metafacades.AngularControllerOperationLogic;
 import org.andromda.cartridges.angular.metafacades.AngularModel;
 import org.andromda.cartridges.angular.metafacades.AngularModelLogic;
@@ -509,39 +510,54 @@ public class AngularUtils {
      * @param action
      * @return
      */
-    public static Collection<AngularAttribute> getStandardAttributes(FrontEndParameter feParameter) {
+    public static Collection<AngularAttribute> getStandardAttributes(Object feParameter) {
 
-        List<AngularAttribute> attributes = new ArrayList<>();
+        List<AngularAttribute> standardAttributes = new ArrayList<>();
+
+        Collection attributes = new ArrayList<>();
 
         if(feParameter instanceof AngularParameter) {
             final AngularParameter parameter = (AngularParameter)feParameter;
-            for(Object tmp : parameter.getAttributes()) {
-                AngularAttribute attribute = (AngularAttribute)tmp;
-                if(!isTable(attribute)) {
-                    attributes.add(attribute);
-                }
+            attributes = parameter.getAttributes();
+        } else if(feParameter instanceof AngularComponent) {
+            final AngularComponent component = (AngularComponent)feParameter;
+            attributes = component.getAttributes();
+        }
+
+        for(Object tmp : attributes) {
+            AngularAttribute attribute = (AngularAttribute)tmp;
+            if(!isTable(attribute)) {
+                standardAttributes.add(attribute);
             }
         }
 
-        return attributes;
+        return standardAttributes;
     }
 
-    public static Collection<AngularAttribute> getTableAttributes(FrontEndParameter feParameter) {
+    public static Collection<AngularAttribute> getTableAttributes(Object feParameter) {
 
-        List<AngularAttribute> attributes = new ArrayList<>();
-            
+        List<AngularAttribute> tableAttributes = new ArrayList<>();
+        
+        Collection attributes = new ArrayList<>();
+
         if(feParameter instanceof AngularParameter) {
             final AngularParameter parameter = (AngularParameter)feParameter;
-            for(Object tmp : parameter.getAttributes()) {
-                AngularAttribute attribute = (AngularAttribute)tmp;
-                if(isTable(attribute)) {
-                    attributes.add(attribute);
-                }
-                
-            }
+            attributes = parameter.getAttributes();
+            
+        } else if(feParameter instanceof AngularComponent) {
+            final AngularComponent component = (AngularComponent)feParameter;
+            attributes = component.getAttributes();
         }
 
-        return attributes;
+        for(Object tmp : attributes) {
+            AngularAttribute attribute = (AngularAttribute)tmp;
+            if(isTable(attribute)) {
+                tableAttributes.add(attribute);
+            }
+            
+        }
+
+        return tableAttributes;
     }
 
     public static String getNameFromPath(final String path) {

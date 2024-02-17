@@ -128,4 +128,20 @@ public class MetafacadeWebProfile {
     public static final boolean TAGGEDVALUE_TABLE_EXPORTABLE_DEFAULT_VALUE = true;
     /** 15 */
     public static final int TAGGEDVALUE_TABLE_MAXROWS_DEFAULT_COUNT = 15;
+    /**
+     * 'andromda_presentation_if'
+     * Used to assign the controller to the activity (when it can not be assigned
+     * explicitly).
+     */
+    public static final String TAGGEDVALUE_PRESENTATION_COMPONENT_MAPPED_MODEL = PROFILE.get(
+                    "PRESENTATION_COMPONENT_MAPPED_MODEL");
+                    
+    /**
+     * 'andromda_presentation_component'
+     * Used to assign the controller to the activity (when it can not be assigned
+     * explicitly).
+     */
+    public static final String TAGGEDVALUE_PRESENTATION_COMPONENT = PROFILE.get(
+                    "PRESENTATION_COMPONENT");
+
 }

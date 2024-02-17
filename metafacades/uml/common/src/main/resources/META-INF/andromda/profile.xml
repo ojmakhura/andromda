@@ -418,6 +418,18 @@
                 </documentation>
                 <value>andromda_presentation_if</value>
             </element>
+            <element name="PRESENTATION_COMPONENT">
+                <documentation>
+                    Some presentation layers have built in rest controllers.
+                </documentation>
+                <value>andromda_presentation_component</value>
+            </element>
+            <element name="PRESENTATION_COMPONENT_MAPPED_MODEL">
+                <documentation>
+                    Some presentation layers have built in rest controllers.
+                </documentation>
+                <value>andromda_presentation_mapped_model</value>
+            </element>
             <element name="PRESENTATION_PATH">
                 <documentation>
                     File path for this presentation.
