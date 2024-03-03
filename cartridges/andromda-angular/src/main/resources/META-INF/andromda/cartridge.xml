@@ -113,8 +113,8 @@
     </template>
 
     <template
-        path="templates/angular/app/app-routing.module.ts.vsl"
-        outputPattern="app-routing.module.ts"
+        path="templates/angular/app/app.routes.ts.vsl"
+        outputPattern="app.routes.ts"
         outlet="angularAppDir"
         overwrite="true"
         outputToSingleFile="true">
@@ -212,21 +212,7 @@
             </modelElement>
         </modelElements>
     </template>
-        
-    <!-- <template
-        path="templates/angular/app/service/service.impl.ts.vsl"
-        outputPattern="${service.implementationFilePath}.ts"
-        outlet="service-impls"
-        overwrite="false">
-        <modelElements variable="service">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularService">
-                    <property name="allowedOperations"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-    
+            
     <template
         path="templates/angular/app/controller/controller.ts.vsl"
         outputPattern="${controller.filePath}.ts"
@@ -312,7 +298,7 @@
     </template>
 	
 	<template
-        path="templates/angular/app/view/view.component.impl.ts.vsl"
+        path="templates/angular/app/view/view-impl.component.ts.vsl"
         outputPattern="${view.implementationFilePath}.ts"
         outlet="view-impls"
         overwrite="false">
@@ -326,7 +312,7 @@
     </template>
 	
 	<template
-        path="templates/angular/app/view/view.component.impl.ts.vsl"
+        path="templates/angular/app/view/view-impl.component.ts.vsl"
         outputPattern="${view.implementationFilePath}.ts"
         outlet="view-impls"
         overwrite="false">
@@ -479,7 +465,7 @@
         </modelElements>
     </template>
 	
-	<template
+	<!-- <template
         path="templates/angular/app/usecase/use-case.module.ts.vsl"
         outputPattern="${useCase.moduleFilePath}.ts"
         outlet="views"
@@ -491,10 +477,10 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 	
 	<template
-        path="templates/angular/app/usecase/use-case-routing.module.ts.vsl"
+        path="templates/angular/app/usecase/use-case.routes.ts.vsl"
         outputPattern="${useCase.routingModuleFilePath}.ts"
         outlet="views"
         overwrite="true">

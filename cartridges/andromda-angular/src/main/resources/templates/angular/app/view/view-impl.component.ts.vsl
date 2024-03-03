@@ -19,11 +19,27 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 #if($view.popup)
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 #end
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from '@app/@shared';
+import { MaterialModule } from '@app/material.module';
+import { CsvModule } from '@ctrl/ngx-csv';
 
 @Component({
   selector: '${view.selectorName}',
   templateUrl: './${view.fileName}.html',
-  styleUrls: ['./${view.fileName}.scss']
+  styleUrls: ['./${view.fileName}.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule,
+    SharedModule,
+    MaterialModule,
+    CsvModule,
+  ],
 })
 export class ${view.componentImplementationName} extends ${view.componentName} {
 

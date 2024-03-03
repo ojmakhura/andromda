@@ -484,12 +484,14 @@ public class AngularViewLogicImpl extends AngularViewLogic {
 
     @Override
     protected String handleGetImplementationFileName() {
-        return this.getFileName() + ".impl";
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-") + "-impl.component";
     }
 
     @Override
     protected String handleGetImplementationFilePath() {
-        return this.getFilePath() + ".impl";
+        // return this.getFilePath() + ".impl";
+        return getViewPath() + "/" + this.getImplementationFileName();
     }
 
     @Override
@@ -500,22 +502,12 @@ public class AngularViewLogicImpl extends AngularViewLogic {
 
     @Override
     protected String handleGetRouterPath() {
-        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
-        
         return MetafacadeWebUtils.toWebResourceName(this.getName());
     }
 
     @Override
     protected String handleGetComponentImplementationName() {
-        return this.getComponentName() + "Impl";
-    }
-
-    private String removeWhitespaceFromName() {
-
-        String original = StringUtilsHelper.upperCamelCaseName(this.getName());
-        original = original.replace(" ", "");
-
-        return original;
+        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "ImplComponent";
     }
 
     @Override
@@ -550,7 +542,7 @@ public class AngularViewLogicImpl extends AngularViewLogic {
 
     @Override
     protected String handleGetVarsComponentImplementationName() {
-        return this.getVarsComponentName() + "Impl";
+        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "VarsImplComponent";
     }
 
     @Override
@@ -588,8 +580,9 @@ public class AngularViewLogicImpl extends AngularViewLogic {
 
     @Override
     protected String handleGetVarsComponentImplementationFileName() {
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-") + "-vars-impl.component";
 
-        return this.getVarsComponentFileName() + ".impl";
     }
 
     @Override

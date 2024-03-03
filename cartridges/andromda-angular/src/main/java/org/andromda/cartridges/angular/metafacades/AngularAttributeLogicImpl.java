@@ -102,8 +102,6 @@ public class AngularAttributeLogicImpl
             return "File";
         }
 
-        
-
         return AngularUtils.getDatatype(this.getType().getFullyQualifiedName());
     }
 

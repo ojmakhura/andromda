@@ -8,9 +8,10 @@ import { UseCaseScope } from '@app/utils/use-case-scope';
 ## Find all the fields in the actions of the view
 @Component({
   selector: '${useCase.selectorName}',
-  template: ''
+  template: '',
+  standalone: true,
 })
-export class ${useCase.componentName} implements OnInit, AfterViewInit {
+export class ${useCase.componentName}Component implements OnInit, AfterViewInit {
 
     protected route: ActivatedRoute;
     protected router: Router;

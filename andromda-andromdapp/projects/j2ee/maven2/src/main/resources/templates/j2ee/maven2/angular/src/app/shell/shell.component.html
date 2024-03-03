@@ -36,7 +36,7 @@
             </a>
             <mat-divider></mat-divider>
           </div>
-          <div *ngFor="let item of menus$ | async">
+          <div *ngFor="let item of menus">
             <a mat-list-item routerLink="{{ item.routerLink }}" routerLinkActive="active" (click)="isMobile && sidenav.close()">
               <span translate>{{ item.titleKey }}</span>
             </a>

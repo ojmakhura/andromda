@@ -127,6 +127,10 @@ public class AngularUtils {
             return null;
         }
 
+        if(typeName.contains("LocalDate")) {
+            return "Date";
+        }
+
         String[] splits = typeName.split("\\.");
 
         return splits[splits.length - 1];

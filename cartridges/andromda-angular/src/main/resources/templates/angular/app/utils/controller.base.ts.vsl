@@ -167,7 +167,7 @@ export abstract class ControllerBase
         if(names != null)
         {
             const returnValues = this.useCaseScope.useCaseReturnValues;
-            const jsResult = {};
+            const jsResult: any = {};
 
             for(let i=0; i < names.length; i++)
             {
@@ -183,7 +183,7 @@ export abstract class ControllerBase
     
     public nullAction(): string
     {
-        return null;
+        return '';
     }
     
     // controller-base merge-point

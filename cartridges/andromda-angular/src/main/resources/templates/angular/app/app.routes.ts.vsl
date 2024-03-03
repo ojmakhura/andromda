@@ -8,23 +8,28 @@
  * STEREOTYPE:   $stereotype.name
 #end
  */
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { Routes } from '@angular/router';
 import { Shell } from '@app/shell/shell.service';
 
-const routes: Routes = [
+export const routes: Routes = [
+  {
+    path: 'login',
+    loadChildren: async () => (await import('./auth/auth.module')).AuthModule,
+  },
   Shell.childRoutes([
+    {
+      path: '',
+      loadChildren: () => import('./home/home.routes').then((m) => m.HOME_ROUTES),
+    },
     {
       path: 'about',
       loadChildren: async () => (await import('./about/about.module')).AboutModule
     },
 #foreach($useCase in $useCases)
-##foreach($view in $useCase.views)
     {
       path: '$useCase.routerPath', 
-      loadChildren: async () => (await import('@app/$useCase.moduleFilePath')).$useCase.moduleName
+      loadChildren: () => import('@app/$useCase.routingModuleFilePath').then((m) => m.routes),
     },
-##end
 #end
   ]),
   // Fallback when no prior route is matched
@@ -32,10 +37,3 @@ const routes: Routes = [
     path: '**', redirectTo: '', pathMatch: 'full' 
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
-  exports: [RouterModule],
-  providers: [],
-})
-export class AppRoutingModule {}

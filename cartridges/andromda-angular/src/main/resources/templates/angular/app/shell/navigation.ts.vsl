@@ -1,9 +1,4 @@
 export const menuItems: any[] = [
-    {
-        routerLink: "/home",
-        titleKey: "Home",
-        icon: ""
-    },
 #foreach ($useCase in $useCases)
     {
         routerLink: "/$useCase.routerPath",
@@ -11,9 +6,4 @@ export const menuItems: any[] = [
         icon: ""
     },
 #end
-    {
-        routerLink: "/about",
-        titleKey: "About",
-        icon: ""
-    }
 ];
