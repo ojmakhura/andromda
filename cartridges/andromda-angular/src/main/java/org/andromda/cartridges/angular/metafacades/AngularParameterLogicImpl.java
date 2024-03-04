@@ -248,7 +248,8 @@ public class AngularParameterLogicImpl
 
     @Override
     protected String handleGetImplementationFilePath() {
-        return this.getFilePath() + ".impl";
+        AngularView view = (AngularView) this.getView();
+        return view.getViewPath() + '/' + this.getFileName() + "-impl.component";
     }
 
     @Override
@@ -268,7 +269,9 @@ public class AngularParameterLogicImpl
             return null;
         }
 
-        return this.getTableComponentName() + "Impl";
+        String viewName = this.removeWhitespaceFromName(this.getView().getName());
+        String tableName = StringUtilsHelper.capitalize(this.getName());
+        return viewName + tableName + "ImplComponent";
     }
 
     @Override

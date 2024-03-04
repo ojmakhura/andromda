@@ -508,7 +508,7 @@
     </template>
 	
 	<template
-        path="templates/angular/app/view/table/table.component.impl.ts.vsl"
+        path="templates/angular/app/view/table/table-impl.component.ts.vsl"
         outputPattern="${table.implementationFilePath}.ts"
         outlet="view-impls"
         overwrite="false">

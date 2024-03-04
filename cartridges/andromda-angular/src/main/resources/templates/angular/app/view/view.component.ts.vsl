@@ -678,8 +678,8 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         if(event.checked) {
             this.${propertyId}Select.push(data);
         } else {
-            const key = Object.keys(data)[0];
-            let tmp = this.${propertyId}Select.filter(d => d[key] !== data[key]);
+            const key: string = Object.keys(data)[0];
+            let tmp = this.${propertyId}Select.filter((d: any) => d[key as keyof typeof d] !== data[key as keyof typeof data]);
             this.${propertyId}Select = tmp;
         }
 
@@ -696,8 +696,8 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
      */
     addSelected$stringUtils.capitalize(${propertyId})(): void {
         this.${propertyId}Select.forEach((data) => {
-            const key = Object.keys(data)[0];
-            const found = this.${propertyId}.find((d: $attribute.angularTypeName) => d[key] === data[key])
+            const key: string = Object.keys(data)[0];
+            const found = this.${propertyId}.find((d: $attribute.angularTypeName) => d[key as keyof typeof d] === data[key as keyof typeof data])
             if(!found) {
                 this.addTo$stringUtils.capitalize(${propertyId})(data);
             }

@@ -7,19 +7,13 @@
 #set ($targetColumns = $table.targettedTableColumnNames)
 #if (!$table.tableColumns.empty)
     <div class="table table-striped"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
-        ## <div class="col my-3 view-buttons" *ngIf="${table.name}DataSource.data.length > 0">
-        ##     <button type="button" color="accent" class="btn btn-info" csvLink
-        ##                 [data]="${table.name}DataSource.data">
-        ##         CSV
-        ##     </button>
-        ## </div>
         <div class="mb-3" >
-          <button type="button" class="btn btn-info" (click)="matTableExporter.exportTable('xlsx', {fileName:'${table.name}', sheet: '${table.name}'})">XLSX</button>
+          <!-- <button type="button" class="btn btn-info" (click)="matTableExporter.exportTable('xlsx', {fileName:'${table.name}', sheet: '${table.name}'})">XLSX</button>
           <button type="button" class="btn btn-info" (click)="matTableExporter.exportTable('csv', {fileName:'${table.name}'})">CSV</button>
           <button type="button" class="btn btn-info" (click)="matTableExporter.exportTable('json', {fileName:'${table.name}'})">JSON</button>
-          <button type="button" class="btn btn-info" (click)="matTableExporter.exportTable('txt', {fileName:'${table.name}'})">Text</button>
+          <button type="button" class="btn btn-info" (click)="matTableExporter.exportTable('txt', {fileName:'${table.name}'})">Text</button> -->
         </div>
-        <mat-table matSort matTableExporter #exporter="matTableExporter" [dataSource]="${table.name}DataSource" #${table.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
+        <mat-table matSort matTableExporter [dataSource]="${table.name}DataSource" #${table.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
 #foreach ($column in $table.tableColumnNames)
 #if($column.name)
 #set($columnName = $column.name)

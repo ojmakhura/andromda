@@ -10,7 +10,7 @@ export const routes: Routes = [
   Shell.childRoutes([
     {
       path: '',
-      loadChildren: () => import('./home/home.routes').then((m) => m.HOME_ROUTES),
+      loadChildren: () => import('./home/home.routes').then((m) => m.routes),
     },
     {
       path: 'about',
