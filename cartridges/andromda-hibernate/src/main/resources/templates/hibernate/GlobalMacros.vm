@@ -251,7 +251,7 @@ $attribute.getDocumentation("     * ")
 #*      *##if ($attribute.identifier && !$entity.compositeIdentifier)
     @jakarta.persistence.Id
 #*        *##if ($entity.sequenceHibernateGeneratorClass)
-    @jakarta.persistence.GeneratedValue(strategy=jakarta.persistence.GenerationType.SEQUENCE, generator="${sequencePrefix}${entity.sequenceName}")
+    @jakarta.persistence.GeneratedValue(strategy = ${entity.hibernateGenerationTypeStrategy}, generator="${sequencePrefix}${entity.sequenceName}")
     @jakarta.persistence.SequenceGenerator(name="${sequencePrefix}${entity.sequenceName}", sequenceName="${sequencePrefix}${entity.sequenceName}", allocationSize=1)
 #*        *##elseif ($attribute.generatorTypeTable)
     @jakarta.persistence.TableGenerator(name = "${attribute.generatorName}"#if ($attribute.generatorTypeTable), table = "${attribute.generatorSourceName}"#end#if ($attribute.generatorPkColumnValue), pkColumnValue = "${attribute.generatorPkColumnValue}"#end#if ($attribute.generatorInitialValue), initialValue = ${attribute.generatorInitialValue}#end#if ($attribute.generatorAllocationSize), allocationSize = ${attribute.generatorAllocationSize}#end)
@@ -263,8 +263,8 @@ $attribute.getDocumentation("     * ")
     @org.hibernate.annotations.GenericGenerator(name="${attribute.generatorName}", strategy = "${attribute.generatorGenericStrategy}")
 #*            *##end
 #*          *##elseif (!$entity.sequenceHibernateGeneratorClass)
-    @jakarta.persistence.GeneratedValue(strategy = jakarta.persistence.GenerationType.AUTO)
-#*          *##end
+    @jakarta.persistence.GeneratedValue(strategy = ${entity.hibernateGenerationTypeStrategy})
+#*          *##end 
 #*        *##end
 #*      *##end
 #*      *##if ($attribute.lob || $attribute.type.clobType || $attribute.type.blobType)

@@ -11,6 +11,7 @@ import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.ParameterFacade;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -350,6 +351,32 @@ public class SpringHibernateUtils
     public int joinLength(String attributeName) {
         return attributeName.split("\\.").length;
     }
+
+    public Collection<String> getJoinAttributes(String attributeName) {
+
+        String[] splits = attributeName.split("\\.");
+        Collection<String> joinAttributes = new ArrayList<>();
+        joinAttributes.add(splits[0]);
+
+        for (int i = 1; i < splits.length; i++) {
+            joinAttributes.add(splits[i]);
+        }
+
+        return joinAttributes;
+    }
+
+    public String getJoinAttributesString(String attributeName) {
+
+        String[] splits = attributeName.split("\\.");
+        Collection<String> joinAttributes = new ArrayList<>();
+        joinAttributes.add(getAttributeNameInQuotes(splits[0]));
+
+        for (int i = 1; i < splits.length; i++) {
+            joinAttributes.add(getAttributeNameInQuotes(splits[i]));
+        }
+
+        return StringUtils.join(joinAttributes, ", ");
+    }
     
     public Collection<String> getJoins(String attributeName) {
 
@@ -366,6 +393,11 @@ public class SpringHibernateUtils
         return joins;
     }
 
+    public String getAttributeNameInQuotes(String name) {
+
+        return "\"" + name + "\"";
+    }
+
     public String getAttributeNameInQuotes(SpringCriteriaAttributeLogic criteriaAttribute) {
 
         return "\"" + criteriaAttribute.getAttributeName() + "\"";
@@ -374,18 +406,7 @@ public class SpringHibernateUtils
     public String getCriteriaAttributeMethodName(SpringCriteriaAttributeLogic criteriaAttribute) {
 
         StringBuilder builder = new StringBuilder();
-        builder.append("findBy");
-
-        if(isJoin(criteriaAttribute.getAttributeName())) {
-            if(joinLength(criteriaAttribute.getAttributeName()) > 1 && criteriaAttribute.getAttributeName().endsWith(".id")) {
-                builder.append(StringUtils.capitalize(getAttributeName(criteriaAttribute.getAttributeName())));
-            } else {
-                builder.append(StringUtils.capitalize(criteriaAttribute.getName()));
-            }
-            
-        } else {
-            builder.append("Attribute");
-        }
+        builder.append("findByAttribute");
 
         if(criteriaAttribute.isComparatorPresent() && criteriaAttribute.isMatchModePresent()) {
 

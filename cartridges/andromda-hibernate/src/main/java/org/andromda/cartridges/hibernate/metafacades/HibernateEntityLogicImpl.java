@@ -4,6 +4,8 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.cartridges.hibernate.HibernateUtils;
 import org.andromda.metafacades.uml.AssociationEndFacade;
@@ -51,7 +53,7 @@ public class HibernateEntityLogicImpl
         super(metaObject, context);
     }
 
-    /**
+    /** 
      * Value for one table per root class
      */
     private static final String INHERITANCE_STRATEGY_CLASS = "class";
@@ -121,6 +123,11 @@ public class HibernateEntityLogicImpl
      */
     private static final String HIBERNATE_GENERATOR_CLASS_ASSIGNED = "assigned";
     private static final String HIBERNATE_GENERATOR_CLASS_SEQUENCE = "sequence";
+    private static final String HIBERNATE_GENERATOR_CLASS_UUID = "uuid";
+    private static final String HIBERNATE_GENERATOR_CLASS_UUID_STRING = "uuid.string";
+    private static final String HIBERNATE_GENERATOR_CLASS_UUID_HEX = "uuid.hex";
+    private static final String HIBERNATE_GENERATOR_CLASS_TABLE = "table";
+    private static final String HIBERNATE_GENERATOR_CLASS_IDENTIFIER = "identifier";
 
     /**
      * The namespace property for specifying a hibernate proxy for this entity.
@@ -867,7 +874,7 @@ public class HibernateEntityLogicImpl
 
     private String getSequenceSuffix()
     {
-        return ObjectUtils.toString(this.getConfiguredProperty(SEQUENCE_IDENTIFIER_SUFFIX));
+        return Objects.toString(this.getConfiguredProperty(SEQUENCE_IDENTIFIER_SUFFIX), "");
     }
     
     //keeps fk index unique
@@ -876,5 +883,45 @@ public class HibernateEntityLogicImpl
     protected String nextIndexSuffix(){
         lastIndexCounter++;
         return String.valueOf(lastIndexCounter);
+    }
+
+    @Override
+    protected String handleGetHibernateGenerationTypeStrategy() {
+
+        StringBuilder generationType = new StringBuilder();
+
+        generationType.append("jakarta.persistence.GenerationType.");
+
+        if (this.isIdentityHibernateGeneratorClass()) {
+            generationType.append("IDENTITY");
+        } else if (this.isTableHibernateGeneratorClass()) {
+            generationType.append("TABLE");
+        } else if (this.isUuidHibernateGeneratorClass()) {
+            generationType.append("UUID");
+        } else if (this.isSequenceHibernateGeneratorClass()) {
+            generationType.append("SEQUENCE");
+        } else {
+            generationType.append("AUTO");
+        }
+
+        return generationType.toString();
+    }
+
+    @Override
+    public boolean handleIsIdentityHibernateGeneratorClass() {
+
+        return this.getHibernateGeneratorClass().equalsIgnoreCase(HIBERNATE_GENERATOR_CLASS_IDENTIFIER);
+    }
+
+    @Override
+    public boolean handleIsTableHibernateGeneratorClass() {
+        return this.getHibernateGeneratorClass().equalsIgnoreCase(HIBERNATE_GENERATOR_CLASS_TABLE);
+    }
+
+    @Override
+    public boolean handleIsUuidHibernateGeneratorClass() {
+        return this.getHibernateGeneratorClass().equalsIgnoreCase(HIBERNATE_GENERATOR_CLASS_UUID) ||
+                this.getHibernateGeneratorClass().equalsIgnoreCase(HIBERNATE_GENERATOR_CLASS_UUID_STRING) ||
+                this.getHibernateGeneratorClass().equalsIgnoreCase(HIBERNATE_GENERATOR_CLASS_UUID_HEX);
     }
 }

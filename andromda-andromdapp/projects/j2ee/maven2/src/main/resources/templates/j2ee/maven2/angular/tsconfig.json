@@ -9,18 +9,19 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
-    "module": "es2020",
+    "module": "ES2022",
     "moduleResolution": "node",
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "importHelpers": true,
     "strict": true,
-    "target": "es2017",
+    "target": "ES2022",
     "typeRoots": [
-      "node_modules/@types"
+      "node_modules/@types",
+      "node_modules/@types/node"
     ],
     "lib": [
-      "es2020",
+      "ES2022",
       "dom"
     ],
     "baseUrl": "./",

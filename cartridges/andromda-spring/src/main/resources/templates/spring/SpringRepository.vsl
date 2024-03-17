@@ -10,7 +10,7 @@ package $entity.packageName;
 #set ($daoInheritance = $entity.generalization && $daoInheritanceEnabled)
 
 public interface ${entity.name}Repository extends 
-        org.springframework.data.jpa.repository.JpaRepository<${entity.name}, Long>,
+        org.springframework.data.jpa.repository.JpaRepository<${entity.name}, #if($entity.identifiers.size() == 1)$entity.identifiers.get(0).type.name#end>,
         org.springframework.data.jpa.repository.JpaSpecificationExecutor<${entity.name}> {
 
 #set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))

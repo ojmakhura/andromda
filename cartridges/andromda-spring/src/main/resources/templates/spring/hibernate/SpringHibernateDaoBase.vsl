@@ -1356,6 +1356,7 @@ $h3tab        return results;
 #set ($specName = "${hibernateUtils.getCriteriaAttributeMethodName($criteriaAttribute)}")
 #set ($attributeName = $criteriaAttribute.attributeName)
 #set($isJoin = $hibernateUtils.isJoin($criteriaAttribute.attributeName))
+#set( $joins = $hibernateUtils.getJoinAttributesString($criteriaAttribute.attributeName))
 #if($criteriaAttribute.type.stringType && !$criteriaAttribute.many)
 #set($nullCheck = "org.apache.commons.lang3.StringUtils.isNotBlank(${criteriaArgumentName}.${criteriaAttribute.getterName}())")
 #elseif($criteriaAttribute.many)
@@ -1364,23 +1365,24 @@ $h3tab        return results;
 #set($nullCheck = "${criteriaArgumentName}.${criteriaAttribute.getterName}() != null")
 #end
 #set ($quotedAttribute = $hibernateUtils.getAttributeNameInQuotes($criteriaAttribute))
-#if($isJoin)
-#set ($spec = "${entity.name}Specifications.${specName}(${criteriaArgumentName}.${criteriaAttribute.getterName}())")
-#else
-#set ($spec = "${springSpecifications}.<${entity.fullyQualifiedName}, #if($criteriaAttribute.type.primitive)$criteriaAttribute.type.wrapperName#else${criteriaAttribute.type.fullyQualifiedName}#end>${specName}($quotedAttribute, ${criteriaArgumentName}.${criteriaAttribute.getterName}())")
-#end
+##if($isJoin)
+##set ($spec = "${entity.name}Specifications.${specName}(${criteriaArgumentName}.${criteriaAttribute.getterName}())")
+##else
+#set ($spec = "${springSpecifications}.<${entity.fullyQualifiedName}, #if($criteriaAttribute.type.primitive)$criteriaAttribute.type.wrapperName#else${criteriaAttribute.type.fullyQualifiedName}#end>${specName}(${criteriaArgumentName}.${criteriaAttribute.getterName}(), $joins)")
+##end
 #if($criteriaAttribute.nullable)
 #set ($capitalised_ = $stringUtils.capitalize($hibernateUtils.getFirstJoinName($criteriaAttribute.attributeName)))
-#if($isJoin)
-#set ($specPrefix = "${entity.name}Specifications")
-#set ($specName_ = "<${entity.name}>findBy${capitalised_}Null()")
-#else
+##if($isJoin)
+##set ($specPrefix = "${entity.name}Specifications")
+##set ($specName_ = "<${entity.name}>findBy${capitalised_}Null()")
+##else
 #set ($specPrefix = "${springSpecifications}")
 #set ($specName_ = "findByAttributeNull($quotedAttribute)")
-#end
+##end
 #set ($spec = "${spec}.or(${specPrefix}.#if(!$isJoin)#end${specName_})")
 
 #end
+
 #if($i == 1)
 #if(!$stringUtils.containsIgnoreCase($criteriaAttribute.getterSetterTypeName, "boolean"))
         if($nullCheck) {
