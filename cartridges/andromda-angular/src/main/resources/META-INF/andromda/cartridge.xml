@@ -76,10 +76,10 @@
     <condition name="securityEnabled">$stringUtils.isNotBlank($securityRealm)</condition>
 
     <template
-        path="templates/angular/app/app.module.ts.vsl"
-        outputPattern="app.module.ts"
+        path="templates/angular/app/app.config.ts.vsl"
+        outputPattern="app.config.ts"
         outlet="angularAppDir"
-        overwrite="false"
+        overwrite="true"
         outputToSingleFile="true">
         <modelElements>
             <modelElement variable="useCases">

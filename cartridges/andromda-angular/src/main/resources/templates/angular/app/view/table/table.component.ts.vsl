@@ -5,7 +5,8 @@ import {
     Component, 
     OnInit, 
     ViewChild, 
-    Injector, 
+    AfterViewInit,
+    inject, 
     Input,
     OnDestroy
 } from '@angular/core';
@@ -40,7 +41,7 @@ import { ${table.view.useCase.controller.implementationName} } from '@app/${tabl
   selector: '${table.fileName}-base',
   template: ''
 })
-export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
+export abstract class ${table.tableComponentName} implements OnInit, AfterViewInit, OnDestroy {
 
     ${table.name}Columns = [
 #foreach ($column in $table.tableColumnNames)
@@ -64,32 +65,19 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
     @ViewChild('${table.name}Sort', {static: true}) ${table.name}Sort: MatSort;
 
     @Input() protected pageVariables: any;
-    protected route: ActivatedRoute;
-    protected router: Router;
-    protected useCaseScope: UseCaseScope;
-    protected store: Store<${table.view.useCase.storeName}State>;
+    protected route: ActivatedRoute = inject(ActivatedRoute);
+    protected router: Router = inject(Router);
+    protected useCaseScope: UseCaseScope = inject(UseCaseScope);
+    protected store: Store<${table.view.useCase.storeName}State> = inject(Store);
 #foreach($service in $restControllers)
-    protected $stringUtils.uncapitalize($service.name): ${service.name};
+    protected $stringUtils.uncapitalize($service.name): ${service.name} = inject(${service.name});
 #end
 #if(${table.view.useCase.controller})
-    protected ${table.view.useCase.controller.variableName}: ${table.view.useCase.controller.implementationName};
+    protected ${table.view.useCase.controller.variableName}: ${table.view.useCase.controller.implementationName} = inject(${table.view.useCase.controller.implementationName});
 #end
-    protected ${table.view.variableName}: ${table.view.componentImplementationName};
-    protected _injector: Injector;
+    protected ${table.view.variableName}: ${table.view.componentImplementationName} = inject(${table.view.componentImplementationName});
 
-    constructor(injector: Injector) {
-        this.route = injector.get(ActivatedRoute);
-        this.router = injector.get(Router);
-        this.useCaseScope = injector.get(UseCaseScope);
-        this.store = injector.get(Store);
-#foreach($service in $restControllers)
-        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name});
-#end
-#if(${table.view.useCase.controller})
-        this.${table.view.useCase.controller.variableName} = injector.get(${table.view.useCase.controller.implementationName});
-#end
-        this.${table.view.variableName} = injector.get(${table.view.componentImplementationName});
-        this._injector = injector;
+    constructor() {
         this.${table.name}$ = this.store.pipe(select(${table.view.useCase.storeName}Selectors.select$stringUtils.capitalize(${table.name})));
     }
 

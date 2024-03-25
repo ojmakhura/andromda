@@ -1,0 +1,67 @@
+import { ApplicationConfig, isDevMode, importProvidersFrom } from '@angular/core';
+import { RouteReuseStrategy, provideRouter } from '@angular/router';
+
+import { routes } from './app.routes';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { TranslateModule } from '@ngx-translate/core';
+#if($ngrx)
+import { StoreModule, provideStore } from '@ngrx/store';
+import { StoreDevtoolsModule, provideStoreDevtools } from '@ngrx/store-devtools';
+import { EffectsModule, provideEffects } from '@ngrx/effects';
+#foreach ( $useCase in $useCases )
+#set ($base = "${metafacadeWebUtils.toWebResourceName($useCase.storeName)}")
+import { ${stringUtils.uncapitalize(${useCase.storeName})}Reducer } from '@app/store$useCase.pathRoot/${base}.reducers';
+import { ${useCase.storeName}Effects } from '@app/store$useCase.pathRoot/${base}.effects';
+#end
+#end
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '@env/environment';
+import { UseCaseScope } from './utils/use-case-scope';
+import { withInterceptors, provideHttpClient } from '@angular/common/http';
+import { RouteReusableStrategy } from './@shared';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
+import { apiPrefixInterceptor, errorHandlerInterceptor } from './@core';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    UseCaseScope,
+    provideRouter(routes),
+    provideAnimations(),provideHttpClient(withInterceptors([
+      apiPrefixInterceptor,
+      errorHandlerInterceptor,
+    ])),
+    provideHttpClient(),
+    provideEffects(),
+    provideStore(),
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+    importProvidersFrom(
+      TranslateModule.forRoot(),
+#if($ngrx)
+      StoreModule.forRoot({}),
+      StoreDevtoolsModule.instrument({}),
+      EffectsModule.forRoot([]),
+#end
+      ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
+    ),
+#if($ngrx)
+    provideStoreDevtools({ maxAge: 25, logOnly: false }),
+    provideEffects([
+#foreach ( $useCase in $useCases )
+      ${useCase.storeName}Effects,
+#end
+    ]),
+    provideStore({
+#foreach ( $useCase in $useCases )
+      ${stringUtils.uncapitalize(${useCase.storeName})}: ${stringUtils.uncapitalize(${useCase.storeName})}Reducer,
+#end
+    }),
+#end
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},
+    {
+      provide: RouteReuseStrategy,
+      useClass: RouteReusableStrategy,
+    },
+  ],
+};
+
+

@@ -13,7 +13,7 @@
 #end
 #end
 #end
-import { Component, Injector#if($view.popup), Inject#end } from '@angular/core';
+import { Component#if($view.popup), Inject#end } from '@angular/core';
 import { $view.componentName } from '@app/${view.filePath}';
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
@@ -71,8 +71,8 @@ import { $import.componentImplementationName } from '@app/${import.implementatio
 })
 export class ${view.componentImplementationName} extends ${view.componentName} {
 
-    constructor(#if($view.popup)@Inject(MAT_DIALOG_DATA) data: any, #{end}private injector: Injector) {
-        super(#if($view.popup)data, #{end}injector);
+    constructor(#if($view.popup)@Inject(MAT_DIALOG_DATA) data: any#{end}) {
+        super(#if($view.popup)data#{end});
     }
 
     override beforeOnInit(#if ($view.nonTableVariablesPresent)form: $stringUtils.capitalize(${view.varsFormName})#end):#if ($view.nonTableVariablesPresent) $stringUtils.capitalize(${view.varsFormName})#else void#end{     

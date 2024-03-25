@@ -3,29 +3,26 @@
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
+    "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
-    "module": "ES2022",
+    "module": "es2022",
     "moduleResolution": "node",
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "strict": true,
     "target": "ES2022",
-    "typeRoots": [
-      "node_modules/@types",
-      "node_modules/@types/node"
-    ],
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2022", "dom"],
     "baseUrl": "./",
     "paths": {
+      
       "@app/*": ["src/app/*"],
       "@service/*": ["src/app/service/*"],
       "@controller/*": ["src/app/controller/*"],
@@ -37,16 +34,15 @@
       "@shared": ["src/app/@shared"],
       "@shared/*": ["src/app/@shared/*"],
       "@env/*": ["src/environments/*"]
-    }
+    },
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,
-    "strictNullChecks": false,
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
-    "preserveWhitespaces": true,
-    "allowSyntheticDefaultImports": true
+    "preserveWhitespaces": false
   }
 }

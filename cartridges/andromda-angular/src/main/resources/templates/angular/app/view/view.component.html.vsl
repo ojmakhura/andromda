@@ -2,7 +2,7 @@
 #if($view.popup)
 <h1 mat-dialog-title translate>$view.messageKey</h1>
 #end
-<div#if($view.popup) mat-dialog-content#end class="card container">
+<div#if($view.popup) mat-dialog-content#end class="card">
 ## Render non table variables
 #set ($complex = [])
 #set ($simple = [])
@@ -22,7 +22,7 @@
 				<div class="col my-3 view-buttons">
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
-					<button type="button" color="accent" (click)="${action.triggerName}()" class="btn btn-info"#if($action.displayCondition) *ngIf="$action.displayCondition"#end>
+					<button type="button" color="accent" (click)="${action.triggerName}()" class="btn btn-info"#if($action.displayCondition) *ngIf="${action.displayCondition}"#end>
 						<span translate>$action.messageKey</span>
 					</button>
 #end
@@ -34,16 +34,24 @@
 			</section>
 #end
 #if ($view.nonTableVariablesPresent)
-			<div *ngIf="success | async" class="alert alert-success" role="alert">
-				<div *ngFor="let message of messages | async">
+			@if (success | async) {
+			<div class="alert alert-success" role="alert">
+				@for(message of messages | async; track message) {
+				<div>
 					{{ message }}
 				</div>
+				}
 			</div>
+			}
+			@if(error | async) {
 			<div *ngIf="error | async" class="alert alert-danger" role="alert">
-				<div *ngFor="let message of messages | async">
+				@for(message of messages | async; track message) {
+				<div>
 					{{ message }}
 				</div>
+				}
 			</div>
+			}
 #end
 #if($simple.size() > 0)
 #foreach ($variable in $simple)
@@ -55,7 +63,7 @@
 #set ($normals = $angularUtils.getStandardAttributes($variable))
 #set ($tables = $angularUtils.getTableAttributes($variable))
 #if($normals.size() > 0)
-			<div formGroupName="${variable.name}"#if($variable.displayCondition) *ngIf="$variable.displayCondition"#end>
+			<div formGroupName="${variable.name}"#if($variable.displayCondition) *ngIf="${variable.displayCondition}"#end>
 #foreach ($attribute in $normals)
 #if (!$attribute.inputHidden && !$variable.inputHidden)
 #renderAngularActionInput($attribute $variable "				")
@@ -65,7 +73,7 @@
 #if ($tables.size() > 0)
                 <mat-tab-group animationDuration="0ms" class = "view-tabs">
 #foreach($table in $tables)
-                    <mat-tab label="{{'${table.messageKey}' | translate}}"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
+                    <mat-tab label="{{'${table.messageKey}' | translate}}"#if($table.displayCondition) *ngIf="${table.displayCondition}"#end>
 #renderAngularActionInput($table $variable "		            ")
                     </mat-tab>
 #end
@@ -81,7 +89,7 @@
 #foreach ( $table in $view.tables )
 		<mat-tab class="${table.name}"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
 			<ng-template mat-tab-label><span translate>$table.messageKey</span></ng-template>
-			<app-$table.fileName>
+			<app-$table.fileName #$stringUtils.uncapitalize($table.tableComponentName)>
 			</app-$table.fileName>
 		</mat-tab>
 #end

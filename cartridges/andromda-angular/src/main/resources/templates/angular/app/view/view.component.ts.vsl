@@ -12,12 +12,13 @@
 import { 
     Component, 
     OnInit, 
-    Injector, 
+    inject, 
     ViewChild, 
     Input, 
     Output, 
     EventEmitter, 
     AfterViewInit,
+    signal,
 #if($view.popup)
     Inject,
 #end
@@ -136,7 +137,7 @@ export class $stringUtils.capitalize(${view.varsFormName}) {
 #set ( $finalParams = $angularUtils.getFacadeSet($stateParams) )
 #set ( $finalButtons = $angularUtils.getFacadeSet($stateParams) )
 @Component({
-  selector: '${view.selectorName}-base',
+  selector: 'app-${view.selectorName}-base',
   template: ''
 })
 export abstract class $view.componentName implements OnInit, AfterViewInit, OnDestroy {
@@ -147,22 +148,21 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
 	${view.formName}: FormGroup | any;
     hide: boolean = false;
-    protected route: ActivatedRoute;
-    protected router: Router;
-    protected formBuilder: FormBuilder;
-    protected _injector: Injector;
-    protected useCaseScope: UseCaseScope;
-    protected store: Store<${view.useCase.storeName}State>;
+    protected route: ActivatedRoute = inject(ActivatedRoute);
+    protected router: Router = inject(Router);
+    protected formBuilder: FormBuilder = inject(FormBuilder);
+    protected useCaseScope: UseCaseScope = inject(UseCaseScope);
+    protected store: Store<${view.useCase.storeName}State> = inject(Store);
 ###if($targetModal)
-    dialog: MatDialog;
+    dialog: MatDialog = inject(MatDialog);
 ##end
 #foreach($controller in $view.targetControllers)
-    $controller.variableName: ${controller.implementationName};
+    $controller.variableName: ${controller.implementationName} = inject(${controller.implementationName});
 #end
 #if(${view.useCase.controller})
-    ${view.useCase.controller.variableName}: ${view.useCase.controller.implementationName};
+    ${view.useCase.controller.variableName}: ${view.useCase.controller.implementationName} = inject(${view.useCase.controller.implementationName});
 #foreach ($service in $view.useCase.controller.allRestControllers)
-    $stringUtils.uncapitalize($service.name): ${service.name};
+    $stringUtils.uncapitalize($service.name): ${service.name} = inject(${service.name});
 #end
 #end
 #set ($formVars = "")
@@ -175,6 +175,9 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($formVarNames = "$formVarNames#if($count == 1), #{end}${view.formName}$.$field.name")
 #set ($count = $count + 1)
 #if($field.complex)
+#if($field.table) 
+    @ViewChild('$stringUtils.uncapitalize($field.tableComponentName)') $stringUtils.uncapitalize($field.tableComponentName): $field.tableComponentImplementationName;
+#end
 #foreach($attribute in $angularUtils.getTableAttributes($field))
 #set ($proId = "$attribute.getFormPropertyId($field)")
 #set ($cols = "")
@@ -269,31 +272,14 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     loading: Observable<boolean>;
     error: Observable<boolean>;
     selected: any = null;
+#foreach ($action in $view.actions)
+#if($action.displayCondition)
+    $angularUtils.getDisplayConditionDeclaration($action.displayCondition);
+#end
+#end
 
-    constructor(#if($view.popup)@Inject(MAT_DIALOG_DATA) data: any, #{end}injector: Injector) {
-        
-        this.route = injector.get(ActivatedRoute);
-        this.router = injector.get(Router);
-        this.formBuilder = injector.get(FormBuilder);
-        this.useCaseScope = injector.get(UseCaseScope);
-        this.store = injector.get(Store);
-##if($targetModal)
-        this.dialog = injector.get(MatDialog);
-##end
-#if($view.popup)
-        this.dialogRef = injector.get(MatDialogRef);
-        this.dialogData = data
-#end
-#if(${view.useCase.controller})
-        this.${view.useCase.controller.variableName} = injector.get(${view.useCase.controller.implementationName});
-#foreach ($service in $view.useCase.controller.allRestControllers)
-        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name});
-#end
-#end
-#foreach($controller in $view.targetControllers)
-        this.$controller.variableName = injector.get(${controller.implementationName});
-#end
-        this._injector = injector;
+    constructor(#if($view.popup)@Inject(MAT_DIALOG_DATA) data: any, #{end}) {
+
 #foreach($param in $finalParams)
 #if(!$param.table)
         this.${param.name}$ = this.store.pipe(select(${view.useCase.storeName}Selectors.select$stringUtils.capitalize(${param.name})));

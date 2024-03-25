@@ -65,23 +65,23 @@ ${ident}    <td id="column_${column.name}">${theValue}#if ($column.type.dateType
 #set ($formValuePropertyName = "${valuePropertyName}")
 #if($parameter.inputButton)
 ${ident}<div class="mb-3">
-${ident}    <button type="button" class="btn btn-primary" (click)="on${stringUtils.capitalize(${propertyId})}Click()" id="${propertyId}" name="${propertyId}">
+${ident}    <button mat-button class="btn btn-primary" (click)="on${stringUtils.capitalize(${propertyId})}Click()" id="${propertyId}" name="${propertyId}">
 ${ident}        <span translate>$parameter.messageKey</span>
 ${ident}    </button>
 ${ident}</div>
 #elseif($angularUtils.isTable($parameter))
 ${ident}	<div>
-${ident}        <button type="button" (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
+${ident}        <button mat-button (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
 ${ident}            <mat-icon>add_box</mat-icon>
 ${ident}        </button>
 ${ident}		<mat-table matSort [dataSource]="${propertyId}" #${parameter.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
 ${ident}			<ng-container matColumnDef="actions">
 ${ident}				<mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
 ${ident}                <mat-cell *matCellDef="let row; index as i">
-${ident}                    <button type="button" color="accent" (click)="deleteFrom$stringUtils.capitalize(${propertyId})(i)" class="btn btn-info">
+${ident}                    <button mat-button color="accent" (click)="deleteFrom$stringUtils.capitalize(${propertyId})(i)" class="btn btn-info">
 ${ident}                        <mat-icon>delete</mat-icon>
 ${ident}                    </button>
-${ident}                    <button type="button" color="accent" (click)="doEdit$stringUtils.capitalize(${propertyId})(row)" class="btn btn-info">
+${ident}                    <button mat-button color="accent" (click)="doEdit$stringUtils.capitalize(${propertyId})(row)" class="btn btn-info">
 ${ident}                        <mat-icon>edit</mat-icon>
 ${ident}                    </button>
 ${ident}                </mat-cell>
@@ -107,47 +107,48 @@ ${ident}		</mat-table>
 ${ident}		<mat-paginator #${propertyId}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
 ${ident}	</div>
 #elseif ($parameter.inputRadio)
-${ident}<fieldset class="row form-group border p-3"#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
+${ident}<fieldset class="row form-group border p-3"#if($parameter.displayCondition) *ngIf="${parameter.displayCondition}"#end>
 ${ident}    <legend class="col-form-label col-sm-2 pt-0" translate>$parameter.messageKey</legend>
 ${ident}    <div class="mb-3">
+#elseif($parameter.inputCheckbox || $parameter.type.booleanType)
+${ident}    <section>
+${ident}        <mat-checkbox id="$propertyId" formControlName="${parameter.name}"#if($parameter.required) required#end onLabel="#{yes}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end translate>
+${ident}            $parameter.messageKey
+${ident}        </mat-checkbox>
+${ident}    </section>
 #else
-#if(!$angularUtils.isComplex($parameter) || $parameter.inputSelect || $parameter.type.enumeration || $parameter.type.enumeration || $angularUtils.isTable($parameter))
-${ident}<div class="mb-3"#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter)) formGroupName="${parameter.name}"#end#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
-${ident}    <label id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}"><span translate>$parameter.messageKey</span>#if($parameter.required)*#end</label>
-#else
-${ident}<fieldset class="form-group border p-3" formGroupName="${parameter.name}"#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
-${ident}    <legend id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}"><span translate>$parameter.messageKey</span>#if($parameter.required)*#end</legend>
-#end
+${ident}<mat-form-field class="col-md-6"#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter)) formGroupName="${parameter.name}"#end#if($parameter.displayCondition) *ngIf="${parameter.displayCondition}"#end>
+${ident}    <mat-label id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}"><span translate>$parameter.messageKey</span></mat-label>
 #if ($parameter.type.dateType || $parameter.inputDate)
-${ident}    <input type="$parameter.inputType" id="$propertyId" class="form-control" formControlName="${parameter.name}" #if($parameter.required) required#end #if($parameter.readOnly) readonly#{end}navigator="true" showOn="button"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.minLenmingth) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
-#elseif ($parameter.inputCheckbox || $parameter.type.booleanType)
-${ident}    <input type="checkbox" id="$propertyId" class="form-check-input" formControlName="${parameter.name}"#if($parameter.required) required#end onLabel="#{yes}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
+${ident}    <input matInput type="$parameter.inputType" id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end #if($parameter.readOnly) readonly#{end}navigator="true" showOn="button"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.minLenmingth) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
+##elseif ($parameter.inputCheckbox || $parameter.type.booleanType)
+##${ident}    <mat-checkbox id="$propertyId" class="form-check-input" formControlName="${parameter.name}"#if($parameter.required) required#end onLabel="#{yes}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration)
 #set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
-#set ($selectBoxType = "selectOneMenu")
-#if ($multiSelect)
-#set ($selectBoxType = "selectManyMenu")
-#end
-${ident}    <select#if ($multiSelect) multiple size="5"#end id="$propertyId" class="form-select" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" #if($parameter.required) required#end#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
+${ident}    <mat-select#if ($multiSelect) multiple size="5"#end id="$propertyId" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" #if($parameter.required) required#end#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
 #if ($parameter.type.enumeration)
-${ident}        <option></option>
-${ident}        <option *ngFor="let key of ${parameter.name}Options" [value]="key">
+${ident}        <mat-option></mat-option>
+${ident}        @for(key of ${parameter.name}Options; track key) {
+${ident}        <mat-option [value]="key">
 ${ident}            {{ ${parameter.name}T[key] }}
-${ident}        </option>
+${ident}        </mat-option>
+${ident}        }
 #else
 #if(!$parameter.required)
-${ident}        <option></option>
+${ident}        <mat-option></mat-option>
 #end
-${ident}        <option *ngFor="let item of ${backingListName}" [value]="item.value">{{ item.label }}</option>
+${ident}        @for(item of ${backingListName}; track item) {
+${ident}        <mat-option [value]="item.value">{{ item.label }}</mat-option>
+${ident}        }
 #end
-${ident}    </select>
+${ident}    </mat-select>
 #elseif ($parameter.inputTextarea)
-${ident}	<textarea id="$propertyId" class="form-control" formControlName="${parameter.name}" #if($parameter.required) required#end#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end></textarea>
+${ident}	<textarea matInput id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end></textarea>
 #elseif ($parameter.inputFile)
-${ident}    <input type="file" id="$propertyId" class="form-control" formControlName="${parameter.name}" #if($parameter.required) required#end#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
+${ident}    <input matInput type="file" id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #elseif ($parameter.inputMultibox)
 ${ident}    <article formArrayName="${parameter.name}" id="${propertyId}Article">
-${ident}        <mat-form-field class="form-group">
+${ident}        <mat-form-field class="col-md-4">
 ${ident}            <mat-label translate>select.value.text</mat-label>
 ${ident}            <mat-select name="${propertyId}Selector" id="${propertyId}Selector" (selectionChange)="on$stringUtils.capitalize(${propertyId})Change($event)">
 ${ident}                <mat-option *ngFor="let item of $backingListName" [value]="item.value">
@@ -157,7 +158,7 @@ ${ident}            </mat-select>
 ${ident}        </mat-form-field>
 ${ident}        <ul class="list-group" *ngFor="let control of ${propertyId}Control.controls; let i = index">
 ${ident}            <li class="list-group-item">
-${ident}                <button type="button" class="btn btn-info" (click)="${propertyId}Delete(i)">
+${ident}                <button mat-button class="btn btn-info" (click)="${propertyId}Delete(i)">
 ${ident}                    <i class="bi bi-trash"></i>
 ${ident}                </button>
 ${ident}                {{ get$stringUtils.capitalize(${propertyId})Label(control.value) }} 
@@ -171,17 +172,17 @@ ${ident}    </article>
 ## ${ident}    </div>
 #elseif($parameter.inputTable)
 ${ident}	<div>
-${ident}        <button type="button" (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
+${ident}        <button mat-button (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
 ${ident}            <mat-icon>add_box</mat-icon>
 ${ident}        </button>
 ${ident}		<mat-table matSort [dataSource]="${propertyId}" #${propertyId}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
 ${ident}			<ng-container matColumnDef="actions">
 ${ident}				<mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
 ${ident}                <mat-cell *matCellDef="let row; index as i">
-${ident}                    <button type="button" color="accent" (click)="deleteFrom$stringUtils.capitalize(${propertyId})(i)" class="btn btn-info">
+${ident}                    <button mat-button color="accent" (click)="deleteFrom$stringUtils.capitalize(${propertyId})(i)" class="btn btn-info">
 ${ident}                        <mat-icon>delete</mat-icon>
 ${ident}                    </button>
-${ident}                    <button type="button" color="accent" (click)="deleteFrom$stringUtils.capitalize(${propertyId})(row)" class="btn btn-info">
+${ident}                    <button mat-button color="accent" (click)="deleteFrom$stringUtils.capitalize(${propertyId})(row)" class="btn btn-info">
 ${ident}                        <mat-icon>delete</mat-icon>
 ${ident}                    </button>
 ${ident}                </mat-cell>
@@ -209,10 +210,10 @@ ${ident}	</div>
 #else
 #if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.many)
 ${ident}    <div class="col my-3 view-buttons">
-${ident}        <button type="button" (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
+${ident}        <button mat-button (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
 ${ident}            <mat-icon>add_box</mat-icon>
 ${ident}        </button>
-${ident}        <button type="button" (click)="${propertyId}Clear()" class="btn btn-primary">
+${ident}        <button mat-button (click)="${propertyId}Clear()" class="btn btn-primary">
 ${ident}            <mat-icon>clear</mat-icon>
 ${ident}        </button>
 ${ident}    </div>
@@ -224,60 +225,66 @@ ${ident}    </div>
 #end
 #set ($colId = "${propertyId}$stringUtils.capitalize($columnName)")
 #set ($cname = "$angularUtils.getLastProperty($columnName)")
-${ident}    <div class="row mb-3"#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
-${ident}        <label for="$colId" class="col-sm-2 col-form-label" translate>$stringUtils.toResourceMessageKey($cname)</label>
-${ident}        <div class="col-sm-10">
-${ident}            <input type="text" readonly class="form-control-plaintext" id="$colId" value="{{${propertyId}?.$stringUtils.replace("${columnName}", ".", "?.") #if(${column.inputDate} || ${column.type.dateType}) | date#end}}">
-${ident}        </div>
+#if($parameter.displayCondition)${ident}    @if(${parameter.displayCondition}) {#end
+${ident}    <div class="row mb-3">
+${ident}        <mat-label for="$colId" class="col-sm-2 col-form-label" translate>$stringUtils.toResourceMessageKey($cname)</mat-label>
+${ident}         <input matInput type="text" readonly id="$colId" value="{{${propertyId}?.$stringUtils.replace("${columnName}", ".", "?.") #if(${column.inputDate} || ${column.type.dateType}) | date#end}}">
 ${ident}    </div>
+#if($parameter.displayCondition)${ident}    }#end
 #end
 #else
-${ident}    <input type="$parameter.inputType" id="${propertyId}" class="form-#if($parameter.inputRange)range#{else}control#end" name="$parameter.name" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end"#if($parameter.required) required#end#if($parameter.readOnly) readonly#{end}#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
+${ident}    <input matInput type="$parameter.inputType" id="${propertyId}" name="$parameter.name" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end"#if($parameter.required) required#end#if($parameter.readOnly) readonly#{end}#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #end
 #end
 #if($parameter.required || $parameter.minLength || $parameter.maxLength || $parameter.min || $parameter.max || $parameter.inputEmail)
-${ident}    <div *ngIf="${view.formName}.invalid && ${propertyId}Control.invalid && (${propertyId}Control.dirty || ${propertyId}Control.touched)" class="alert alert-danger" role="alert">
 #if($parameter.required)
-${ident}        <div *ngIf="${propertyId}Control.errors['required']">
-${ident}            <span translate>${parameter.messageKey}.required</span>
-${ident}        </div>
+${ident}    @if(${propertyId}Control.hasError('required')) {
+${ident}    <ng-container>
+${ident}        <mat-error translate>${parameter.messageKey}.required</mat-error>
+${ident}    </ng-container>
+${ident}    }
 #end
 #if($parameter.minLength)
-${ident}        <div *ngIf="${propertyId}Control.errors['minlength']">
-${ident}            <span translate>${parameter.messageKey}.minlength</span>
-${ident}        </div>
+${ident}    @if(${propertyId}Control.hasError('required')) {
+${ident}    <ng-container>
+${ident}        <mat-error translate>${parameter.messageKey}.minlength</mat-error>
+${ident}    </ng-container>
+${ident}    }
 #end
 #if($parameter.maxLength)
-${ident}        <div *ngIf="${propertyId}Control.errors['maxlength']">
-${ident}            <span translate>${parameter.messageKey}.maxlength</span>
-${ident}        </div>
+${ident}    @if(${propertyId}Control.hasError('required')) {
+${ident}    <ng-container>
+${ident}        <mat-error translate>{parameter.messageKey}.maxlength</mat-error>
+${ident}    </ng-container>
+${ident}    }
 #end
 #if($parameter.min)
-${ident}        <div *ngIf="${propertyId}Control.errors['min']">
-${ident}            <span translate>${parameter.messageKey}.min</span>
-${ident}        </div>
+${ident}    @if(${propertyId}Control.hasError('required')) {
+${ident}    <ng-container>
+${ident}        <mat-error translate>{parameter.messageKey}.min/mat-error>
+${ident}    </ng-container>
+${ident}    }
 #end
 #if($parameter.max)
-${ident}        <div *ngIf="${propertyId}Control.errors['max']">
-${ident}            <span translate>${parameter.messageKey}.max</span>
-${ident}        </div>
+${ident}    @if(${propertyId}Control.hasError('max')) {
+${ident}    <ng-container>
+${ident}        <mat-error translate>${parameter.messageKey}.max</mat-error>
+${ident}    </ng-container>
+${ident}    }
 #end
 #if($parameter.inputMax)
-${ident}        <div *ngIf="${propertyId}Control.errors['email']">
-${ident}            <span translate>${parameter.messageKey}.email</span>
-${ident}        </div>
+${ident}    @if(${propertyId}Control.hasError('email') && !emailFormControl.hasError('required')) {
+${ident}    <ng-container>
+${ident}        <mat-error translate>${parameter.messageKey}.email</mat-error>
+${ident}    </ng-container>
+${ident}    }
 #end
-${ident}    </div>
 #end
 #if ($parameter.inputRadio)
 ${ident}    </div>
 ${ident}</fieldset>
 #else
-#if(!$angularUtils.isComplex($parameter) || $parameter.inputSelect || $parameter.type.enumeration || $parameter.type.enumeration || $angularUtils.isTable($parameter))
-${ident}</div>
-#else
-${ident}</fieldset>
-#end
+${ident}</mat-form-field>
 #end
 #end
 #end
@@ -366,19 +373,17 @@ $ident<mat-paginator #${propertyId}ModalPaginator="matPaginator" [pageSize]="10"
                     action.select
                     <span translate>$parameter.messageKey</span>
                 </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button mat-button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div>
                     <form>
-                        <div>
-                            <mat-form-field>
+                        <mat-form-field class="col-md-4">
                             <mat-label translate>search</mat-label>
                             <input matInput type="text" [formControl]="${propertyId}SearchField"
                                 id="${propertyId}SearchField" />
-                            </mat-form-field>
-                        </div>
-                        <button type="button" (click)="${propertyId}Search()" class="btn btn-primary">
+                        </mat-form-field>
+                        <button mat-button (click)="${propertyId}Search()" class="btn btn-primary">
                             <mat-icon>search</mat-icon>
                         </button>
                     </form>
@@ -386,8 +391,8 @@ $ident<mat-paginator #${propertyId}ModalPaginator="matPaginator" [pageSize]="10"
 #renderTableInput($parameter $ownerParameter "             " $radio)
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" translate>action.close</button>
-                <button type="button" class="btn btn-primary" (click)="addSelected$stringUtils.capitalize(${propertyId})()" data-bs-dismiss="modal" translate>save</button>
+                <button mat-button class="btn btn-secondary" data-bs-dismiss="modal" translate>action.close</button>
+                <button mat-button class="btn btn-primary" (click)="addSelected$stringUtils.capitalize(${propertyId})()" data-bs-dismiss="modal" translate>save</button>
             </div>
         </div>
     </div>

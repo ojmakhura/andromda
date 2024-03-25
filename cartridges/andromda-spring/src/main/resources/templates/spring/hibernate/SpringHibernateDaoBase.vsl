@@ -2038,7 +2038,7 @@ $h3tab        return results;
     public ${entity.fullyQualifiedEntityName} $searchUniqueMethod(final ${attribute.type.fullyQualifiedName} ${attribute.name})
     {
 
-        org.springframework.data.jpa.domain.Specification<${entity.fullyQualifiedEntityName}> spec = ${springSpecifications}.<${entity.fullyQualifiedEntityName}, ${attribute.type.fullyQualifiedName}>findByAttribute("${attribute.name}", ${attribute.name});
+        org.springframework.data.jpa.domain.Specification<${entity.fullyQualifiedEntityName}> spec = ${springSpecifications}.<${entity.fullyQualifiedEntityName}, ${attribute.type.fullyQualifiedName}>findByAttribute(${attribute.name}, "${attribute.name}");
         java.util.List<${entity.fullyQualifiedEntityName}> entities = ${stringUtils.uncapitalize(${entity.name})}Repository.findAll(spec, org.springframework.data.domain.Sort.by("${attribute.name}"));
         if(org.apache.commons.collections4.CollectionUtils.isEmpty(entities)) {
             return null;

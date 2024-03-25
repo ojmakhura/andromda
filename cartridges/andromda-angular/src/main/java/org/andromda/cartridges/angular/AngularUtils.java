@@ -131,9 +131,28 @@ public class AngularUtils {
             return "Date";
         }
 
-        String[] splits = typeName.split("\\.");
+        int i = typeName.lastIndexOf(".");
 
-        return splits[splits.length - 1];
+        String name = "";
+
+        if(typeName.endsWith(">")) {
+            int x = typeName.indexOf("<");
+            name = typeName.substring(0, x + 1);
+
+            int j = name.lastIndexOf(".");
+
+            if(j >= 0) {
+                name = name.substring(j+1);
+            } 
+        }
+
+        if(i >= 0) {
+            name = name + typeName.substring(i+1);
+        } else {
+            name = typeName;
+        }
+
+        return name; //splits[splits.length - 1];
     }
 	
 	public static boolean isArray(final String typeName) {
@@ -1960,5 +1979,16 @@ public class AngularUtils {
         String[] splits = source.split("\\.");
 
         return splits[splits.length - 1];
+    }
+
+    public static String getDisplayConditionDeclaration(String condition) {
+
+        if(condition.endsWith("()")) {
+
+            return condition.substring(0, condition.length() - 2) + " = signal(false)";
+        }
+
+        return condition + " = false";
+        
     }
 }

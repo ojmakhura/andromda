@@ -10,15 +10,19 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '@env/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { UseCaseScope } from './utils/use-case-scope';
-import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
-import { ApiPrefixInterceptor, ErrorHandlerInterceptor, RouteReusableStrategy } from './@shared';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { RouteReusableStrategy } from './@shared';
+import { apiPrefixInterceptor, errorHandlerInterceptor } from './@core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     UseCaseScope,
     provideRouter(routes),
     provideAnimations(),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([
+      apiPrefixInterceptor,
+      errorHandlerInterceptor,
+    ])),
     importProvidersFrom(
       TranslateModule.forRoot(),
       StoreModule.forRoot({}),
@@ -27,16 +31,6 @@ export const appConfig: ApplicationConfig = {
       EffectsModule.forRoot([]),
       ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
     ),
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ApiPrefixInterceptor,
-      multi: true,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorHandlerInterceptor,
-      multi: true,
-    },
     {
       provide: RouteReuseStrategy,
       useClass: RouteReusableStrategy,

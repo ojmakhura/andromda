@@ -516,7 +516,6 @@ public class UMLMetafacadeUtils
      * @param enableTemplating
      * @return getGenericTemplate
      */
-    // TODO This should really be a method on ModelElementFacade
     public static String getGenericTemplate(ModelElementFacade facade, boolean enableTemplating)
     {
         String fullName = "";
