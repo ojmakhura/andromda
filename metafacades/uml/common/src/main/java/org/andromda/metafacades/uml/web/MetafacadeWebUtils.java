@@ -1128,6 +1128,7 @@ public class MetafacadeWebUtils {
         if (name != null && name.trim().length() > 0) {
             propertyName.append(StringUtils.uncapitalize(name));
         }
+        
         return propertyName.toString();
     }
 

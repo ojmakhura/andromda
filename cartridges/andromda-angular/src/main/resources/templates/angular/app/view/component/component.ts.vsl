@@ -1,0 +1,364 @@
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { Router } from "@angular/router";
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  FormGroup,
+  FormControl,
+  FormBuilder,
+  Validators,
+  FormArray,
+} from "@angular/forms";
+import { SelectItem } from "@app/utils/select-item";
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatSelectChange } from '@angular/material/select';
+import { MatRadioChange } from '@angular/material/radio';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+##if($targetModal)
+import { MatDialog } from '@angular/material/dialog';
+##end
+import { Observable } from "rxjs";
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from '@app/@shared';
+import { MaterialModule } from '@app/material.module';
+import { CsvModule } from '@ctrl/ngx-csv';
+#set($fields = [])
+#set($buttons = [])
+#foreach($import in $component.imports)
+#if($metafacadeWebUtils.isComponent($import))
+import { ${import.name}Component } from '@app/components/${import.filePath}';
+#else
+#if($import.attributes && $import.attributes.size() > 0 && !$import.enumeration)
+#if($import.type)
+#set ( $rt = $fields.add($import.type) )
+#else
+#set ( $rt = $fields.add($import) )
+#end
+#end
+#if ($import.restCount>0 && $stringUtils.isNotBlank($import.restPath))
+import { $import.name } from '@app/${import.filePath}';
+#elseif($import.tableComponentImplementationName)
+import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
+#elseif($import.componentImplementationName)
+import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
+#elseif(${import.implementationFilePath})
+import { $import.implementationName } from '@app/${import.implementationFilePath}';
+#else
+import { $import.name } from '@app/${import.filePath}';
+#end
+#end
+#end
+
+@Component({
+  selector: "app-${component.selectorName}",
+  templateUrl: "./${component.selectorName}.component.html",
+  styleUrls: [],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule,
+    SharedModule,
+    MaterialModule,
+    CsvModule,
+#foreach($import in $component.imports)
+#if ($import.restCount>0 && $stringUtils.isNotBlank($import.restPath))
+#elseif($import.tableComponentImplementationName)
+    $import.tableComponentImplementationName,
+#elseif($import.componentImplementationName)
+    $import.componentImplementationName,
+#end
+#end
+  ]
+})
+export class ${component.name}Component implements OnInit, OnDestroy, AfterViewInit {
+
+    ${component.beanName}Form: FormGroup;
+#foreach($attribute in $component.attributes)
+#if(!$attribute.inputButton)
+#if($attribute.component)
+    @ViewChild('${attribute.name}', {static: true}) ${attribute.name}Component: ${attribute.angularTypeName}Component;
+#else
+    @Input() $attribute.name: $attribute.angularTypeName#if($attribute.many)[]#end;
+#end
+#if($attribute.inputSelect || $attribute.inputMultibox || $attribute.type.enumeration)
+    ${attribute.name}BackingList: SelectItem[] = [];
+#end
+
+#if($angularUtils.isTable($attribute) && !$attribute.component)
+#set ($proId = "$attribute.name")
+#set ($cols = "")
+    ${proId}Columns = [
+#foreach ($column in $attribute.tableColumnNames)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
+        '$columnName',
+#end
+    ];
+
+    ${proId}ModalColumns = [
+        'actions',
+        ...this.${proId}Columns
+    ];
+
+    @ViewChild('${proId}Paginator', {static: true}) ${proId}Paginator: MatPaginator;
+    @ViewChild('${proId}Sort', {static: true}) ${proId}Sort: MatSort;
+
+    @ViewChild('${proId}ModalPaginator', {static: true}) ${proId}ModalPaginator: MatPaginator;
+    @ViewChild('${proId}ModalSort', {static: true}) ${proId}ModalSort: MatSort;
+
+    ${proId}$: Observable<${attribute.angularTypeName}[]>;
+    ${proId}SearchField: FormControl;
+    ${proId}Select: ${attribute.angularTypeName}#if($attribute.many || $attribute.type.collectionType)[] = []#else = {}#end;
+#end
+#end
+#end
+#foreach($attribute in $component.complexes)
+    ${attribute.name}Select: $attribute.angularTypeName = null;
+#foreach($subAttribute in $attribute.type.attributes)
+            // $subAttribute.name
+#if(!$attribute.inputHidden && !$subAttribute.inputHidden && !$subAttribute.inputTable && $angularUtils.isComplex($subAttribute))
+#set($backingListName = "${attribute.name}${stringUtils.capitalize($subAttribute.name)}BackingList")
+    $backingListName: SelectItem[] = [];
+#end    
+#end
+#end
+
+    constructor(
+      private _router: Router,
+      private formBuilder: FormBuilder
+    ) {
+    
+    }
+
+    ngOnInit() {}
+
+    ngOnDestroy() {}
+
+    ngAfterViewInit() {}
+
+    initForm() {
+      this.${component.beanName}Form = this.formBuilder.group({
+#foreach($attribute in $component.attributes)
+#if(!$attribute.inputButton && !$attribute.component)
+#if($angularUtils.isTable($attribute) || $attribute.many || $attribute.type.collectionType)
+#if($angularUtils.isSimpleType($attribute.type))
+            $attribute.name: this.formBuilder.array(this.$attribute.name ? this.$attribute.name : []),
+#else
+            $attribute.name: this.create${attribute.type.name}Array(this.$attribute.name),
+#end
+#elseif(!$angularUtils.isSimpleType($attribute.type))
+            $attribute.name: this.create${attribute.type.name}Group(this.$attribute.name),
+#else
+#set ($validators = "")
+#if($attribute.required || $attribute.inputEmail || $attribute.minLength || $attribute.maxLength || $attribute.min || $attribute.max)
+#set ($validators = ", [")
+#if($attribute.required)
+#set ($validators = "${validators}Validators.required, ")
+#end
+#if($attribute.inputEmail)
+#set ($validators = "${validators}Validators.email, ")
+#end
+#if($attribute.minLength)
+#set ($validators = "${validators}Validators.minLength($attribute.minLength), ")
+#end
+#if($attribute.maxLength)
+#set ($validators = "${validators}Validators.maxLength($attribute.maxLength), ")
+#end
+#if($attribute.min)
+#set ($validators = "${validators}Validators.min($attribute.min), ")
+#end
+#if($attribute.max)
+#set ($validators = "${validators}Validators.max($attribute.max), ")
+#end
+#set ($validators = "$validators]")
+#end
+#set ($val = "${component.beanName}.${attribute.name}")
+            $attribute.name: [{value: this.$attribute.name, disabled: false}$validators],
+#end
+#end
+#end
+      });
+    }
+
+#foreach($attribute in $component.attributes)
+#if(!$attribute.component)
+#if($angularUtils.isTable($attribute) || $attribute.many || $attribute.type.collectionType)
+#set ($controlType = "FormArray")
+#elseif($angularUtils.isComplex($attribute) && !$attribute.component)
+#set ($controlType = "FormGroup")
+#else
+#set ($controlType = "FormControl")
+#end
+#set ($propertyId = $attribute.name)    
+    get ${propertyId}Control(): $controlType {
+        return this.${component.beanName}Form.get('$attribute.name') as $controlType;
+    }
+
+    get ${propertyId}Value(): $attribute.angularTypeName#if($attribute.many || $angularUtils.isArray($attribute.type.name))[]#end {
+        return this.${propertyId}Control.value;
+    }
+
+#if($angularUtils.isComplex($attribute) && !$attribute.type.enumeration && !$attribute.inputSelect && !$attribute.inputMultibox)
+#set ($propertyId = $attribute.getFormPropertyId($component))
+
+    ${propertyId}AddDialog(): void {
+    }
+    
+    ${propertyId}Search(): void {
+    }
+#if($angularUtils.isTable($attribute))
+#set ($changeType = "MatCheckboxChange")
+
+    handleDeleteFrom$stringUtils.capitalize(${propertyId})($attribute.name: $attribute.angularTypeName): void {}
+    
+    deleteFrom$stringUtils.capitalize(${propertyId})(index: number) {
+        this.handleDeleteFrom$stringUtils.capitalize(${propertyId})(this.${propertyId}[index]);
+        this.${propertyId}Control.removeAt(index);
+    }
+
+    doEdit$stringUtils.capitalize(${propertyId})($attribute.name: $attribute.angularTypeName) {
+    }
+
+    handle$stringUtils.capitalize($propertyId)Selected(event: $changeType, data: $attribute.angularTypeName): void {}
+    
+    ${propertyId}Selected(event: $changeType, data: $attribute.angularTypeName): void {
+        if(event.checked) {
+            this.${propertyId}Select.push(data);
+        } else {
+            const key = Object.keys(data)[0];
+            let tmp = this.${propertyId}Select.filter((d: $attribute.angularTypeName) => d[key as keyof typeof d] !== data[key as keyof typeof data]);
+            this.${propertyId}Select = tmp;
+        }
+
+        this.handle$stringUtils.capitalize(${propertyId})Selected(event, data);
+    }
+
+    addTo$stringUtils.capitalize(${propertyId})(data: $attribute.angularTypeName) {
+        this.${propertyId}Control.push(this.create$stringUtils.capitalize($attribute.type.name)Group(data));
+    }
+
+    /**
+     * May be overridden to customise behaviour
+     *
+     */
+    addSelected$stringUtils.capitalize(${propertyId})(): void {
+        this.${propertyId}Select.forEach((data: $attribute.angularTypeName) => {
+            const key = Object.keys(data)[0];
+            const found = this.${propertyId}.find((d: $attribute.angularTypeName) => d[key as keyof typeof d] === data[key as keyof typeof data])
+            if(!found) {
+                this.addTo$stringUtils.capitalize(${propertyId})(data);
+            }
+        });
+    }
+#elseif(!$attribute.many)
+#foreach($subAttribute in $attribute.type.attributes)
+
+            // $subAttribute.name
+#set($backingListName = "${attribute.name}${stringUtils.capitalize($subAttribute.name)}BackingList")
+#set($propertyId = "${attribute.name}${stringUtils.capitalize($subAttribute.name)}")
+#if($angularUtils.isTable($subAttribute) || $subAttribute.many || $subAttribute.type.collectionType)
+#set ($controlType = "FormArray")
+#elseif($angularUtils.isComplex($subAttribute) && !$subAttribute.component)
+#set ($controlType = "FormGroup")
+#else
+#set ($controlType = "FormControl")
+#end
+#if(!$attribute.inputHidden && !$subAttribute.inputHidden && !$subAttribute.inputTable && $angularUtils.isComplex($subAttribute))
+#end
+    // $backingListName - $propertyId  
+    get ${propertyId}Control(): $controlType {
+        return this.${attribute.name}Control.get('$subAttribute.name') as $controlType;
+    }
+
+    get ${propertyId}Value(): $subAttribute.angularTypeName#if($subAttribute.many || $angularUtils.isArray($subAttribute.type.name))[]#end {
+        return this.${propertyId}Control.value;
+    }
+#end
+#end
+
+#end
+#if($attribute.inputMultibox)
+    /**
+     * Add the selected item to the list only if it already exist.
+     * Make sure to reset the selection.
+     * @param $event
+     */
+    on$stringUtils.capitalize($propertyId)Change($event: MatSelectChange) {
+        if(!this.${propertyId}.includes($event.value)){
+            this.${propertyId}Form.push(new FormControl($event.value));
+        }
+        $event.source.value='';
+    }
+
+    /**
+     * Retrieve the label to be displayes
+     * @param value 
+     * @returns 
+     */
+    get$stringUtils.capitalize($propertyId)Label(value: string): string | undefined {
+        return this.${propertyId}BackingList.find(item => item.value === value)?.label;
+    }
+
+    /**
+     * Delete an item from the list
+     * @param index 
+     */
+    ${propertyId}Delete(index: number) {
+        this.${propertyId}Control.removeAt(index);
+    }
+
+#end
+#end
+#end
+#set($fieldSet = $angularUtils.getFacadeSet($fields))
+#foreach($field in $fieldSet)
+#if(!$field.inputButton)
+#if($field.type)
+#set ($typeName = "$field.type.name")
+#else
+#set ($typeName = "$field.name")
+#end
+    create${typeName}Group(value: $typeName): FormGroup {
+        return this.formBuilder.group({
+#foreach($attribute in $field.attributes)
+#if($angularUtils.isSimpleType($attribute))
+            $attribute.name: [value?.$attribute.name],
+#end
+#end
+        });
+    }
+
+    create${typeName}Array(values: $typeName[]): FormArray {
+        if(values) {
+            let formArray: FormArray = this.formBuilder.array([]);
+            values?.forEach(value => formArray.push(this.create${typeName}Group(value)))
+
+            return formArray;
+        } else {
+            return new FormArray([]);
+        }
+    }
+
+#end
+#end
+#foreach($attribute in $component.attributes)
+#if($attribute.inputButton)
+    on${stringUtils.capitalize(${attribute.name})}Click() {
+    }
+#end
+#end
+}

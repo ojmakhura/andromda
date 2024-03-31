@@ -8,7 +8,8 @@ import {
     AfterViewInit,
     inject, 
     Input,
-    OnDestroy
+    OnDestroy,
+    signal
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormArray } from '@angular/forms';
@@ -38,7 +39,7 @@ import { ${table.view.useCase.controller.implementationName} } from '@app/${tabl
 #end
 
 @Component({
-  selector: '${table.fileName}-base',
+  selector: 'app-${table.fileName}-base',
   template: ''
 })
 export abstract class ${table.tableComponentName} implements OnInit, AfterViewInit, OnDestroy {
@@ -57,7 +58,7 @@ export abstract class ${table.tableComponentName} implements OnInit, AfterViewIn
 #end
     ];
 
-##    @Input() ${table.name}: FormArray;
+    totalElements$: signal(0);
     ${table.name}$: Observable<$table.angularTypeName>;
 
     ${table.name}DataSource = new MatTableDataSource<$table.type.name>([]);
@@ -92,6 +93,7 @@ export abstract class ${table.tableComponentName} implements OnInit, AfterViewIn
         .subscribe(
             ${table.name} => {
                 this.${table.name}DataSource.data = ${table.name};
+                this.totalElements.set(${table.name}.length ? ${table.name}.length : 0);
             }
         );
         this.${table.name}DataSource.paginator = this.${table.name}Paginator;

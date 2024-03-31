@@ -1759,7 +1759,7 @@ $h3tab        return results;
 #*      *##set ($entityPropertyGetterValue = false)
 #*      *##set ($entityPropertyGetterValue = $converter.typeConvert($entityProperty.type.fullyQualifiedName, "source.${entityProperty.getterName}()", $property.type.fullyQualifiedName))
 #*      *##if ($entityPropertyGetterValue)
-#*        *##if(${entityProperty.many} && !${property.type.arrayType})
+#*        *##if(${entityProperty.many} && $property.many && !${property.type.arrayType})
         if(org.apache.commons.collections4.CollectionUtils.isNotEmpty(target.${property.getterName}())){
             target.${property.getterName}().clear();
         } else {
@@ -1769,6 +1769,8 @@ $h3tab        return results;
         if(null!=source.${entityProperty.getterName}()) {
             target.${property.getterName}().addAll(source.${entityProperty.getterName}());
         }
+#*        *##elseif(${entityProperty.many} != $property.many || ${entityProperty.type.fullyQualifiedName} != ${property.type.fullyQualifiedName})
+        // No conversion for target.${property.name} (can't convert source.${entityProperty.getterName}():${entityProperty.type.fullyQualifiedName} to $property.type.fullyQualifiedName)
 #*        *##else
         target.${property.setterName}($entityPropertyGetterValue);
 #*        *##end

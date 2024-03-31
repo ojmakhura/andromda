@@ -35,7 +35,6 @@ public class AngularComponentLogicImpl
 
     @Override
     public String getPath() {
-        // TODO Auto-generated method stub
         return super.getPath();
     }
 
@@ -45,6 +44,7 @@ public class AngularComponentLogicImpl
      */
     protected String handleGetFileName()
     {
+
         String phrase = StringUtilsHelper.toPhrase(this.getBeanName()).toLowerCase();
         return phrase.replace(" ", "-") + ".component";
     }
@@ -71,7 +71,6 @@ public class AngularComponentLogicImpl
      */
     protected String handleGetImplementationFileName()
     {
-        // TODO put your implementation here.
         return null;
     }
 
@@ -82,7 +81,6 @@ public class AngularComponentLogicImpl
      */
     protected String handleGetImplementationFilePath()
     {
-        // TODO put your implementation here.
         return null;
     }
 
@@ -93,8 +91,7 @@ public class AngularComponentLogicImpl
      */
     protected String handleGetComponentName()
     {
-        // TODO put your implementation here.
-        return this.getName() + "Component";
+        return this.getBeanName() + "Component";
     }
 
     /**
@@ -104,7 +101,6 @@ public class AngularComponentLogicImpl
      */
     protected String handleGetVariableName()
     {
-        // TODO put your implementation here.
         return null;
     }
 
@@ -115,7 +111,7 @@ public class AngularComponentLogicImpl
      */
     protected String handleGetSelectorName()
     {
-        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        String phrase = StringUtilsHelper.toPhrase(this.getBeanName()).toLowerCase();
         return phrase.replace(" ", "-");
     }
 

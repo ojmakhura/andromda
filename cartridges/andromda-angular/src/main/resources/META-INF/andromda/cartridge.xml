@@ -562,7 +562,7 @@
     </template>
 
     <template
-        path="templates/angular/app/view/component/editor.component.ts.vsl"
+        path="templates/angular/app/view/component/component.ts.vsl"
         outputPattern="${component.filePath}.ts"
         outlet="components"
         overwrite="true">
@@ -575,7 +575,7 @@
     </template>
 
     <template
-        path="templates/angular/app/view/component/editor.component.html.vsl"
+        path="templates/angular/app/view/component/component.html.vsl"
         outputPattern="${component.filePath}.html"
         outlet="components"
         overwrite="true">
@@ -587,7 +587,7 @@
         </modelElements>
     </template>
 
-    <template
+    <!-- <template
         path="templates/angular/app/view/component/table.component.ts.vsl"
         outputPattern="${component.path}-table.component.ts"
         outlet="components"
@@ -598,9 +598,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/angular/app/view/component/table.component.html.vsl"
         outputPattern="${component.path}-table.component.html"
         outlet="components"
@@ -611,9 +611,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/angular/app/view/component/view.component.ts.vsl"
         outputPattern="${component.path}-view.component.ts"
         outlet="components"
@@ -624,9 +624,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
-    <template
+    <!-- <template
         path="templates/angular/app/view/component/view.component.html.vsl"
         outputPattern="${component.path}-view.component.html"
         outlet="components"
@@ -637,7 +637,7 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 	
     <template
         path="templates/angular/app/utils/controller.base.ts.vsl"

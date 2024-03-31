@@ -515,21 +515,15 @@ public class AngularUtils {
         if(Boolean.valueOf(viewTable) ||
             !StringUtils.isBlank(viewColumns) ||
             fieldType.equals("table") ||
-            !StringUtils.isBlank(columns)) {
+            !StringUtils.isBlank(columns) || attribute.isInputTable()) {
             
             return true;
         }
-
-        // if(isTable(attribute) || (attribute.isMany() && !attribute.isInputSelect())) {
-        //     return true;
-        // }
 
         return false;
     }
 
     /**
-     * 
-     * 
      * @param action
      * @return
      */

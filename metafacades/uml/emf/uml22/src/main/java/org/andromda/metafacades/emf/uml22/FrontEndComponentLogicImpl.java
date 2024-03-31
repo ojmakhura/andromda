@@ -11,10 +11,14 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.andromda.metafacades.uml.AttributeFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FrontEndAttribute;
+import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.ValueObject;
 import org.andromda.metafacades.uml.web.MetafacadeWebProfile;
 import org.andromda.metafacades.uml.web.MetafacadeWebUtils;
 import org.andromda.utils.StringUtilsHelper;
@@ -22,51 +26,54 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * TODO: Model Documentation for org.andromda.metafacades.uml.FrontEndComponent
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.FrontEndComponent.
+ * MetafacadeLogic implementation for
+ * org.andromda.metafacades.uml.FrontEndComponent.
  *
  * @see org.andromda.metafacades.uml.FrontEndComponent
  */
 public class FrontEndComponentLogicImpl
-    extends FrontEndComponentLogic
-{
+        extends FrontEndComponentLogic {
     private static final long serialVersionUID = 34L;
+
     /**
      * Public constructor for FrontEndComponentLogicImpl
+     * 
      * @see org.andromda.metafacades.uml.FrontEndComponent
      */
-    public FrontEndComponentLogicImpl (Object metaObject, String context)
-    {
+    public FrontEndComponentLogicImpl(Object metaObject, String context) {
         super(metaObject, context);
     }
 
     /**
-     * TODO: Model Documentation for org.andromda.metafacades.uml.FrontEndComponent.generateTable
+     * TODO: Model Documentation for
+     * org.andromda.metafacades.uml.FrontEndComponent.generateTable
+     * 
      * @see org.andromda.metafacades.uml.FrontEndComponent#getGenerateTable()
      */
-    protected Boolean handleGetGenerateTable()
-    {
-        
+    protected Boolean handleGetGenerateTable() {
+
         // TODO put your implementation here.
         return null;
     }
 
     /**
-     * TODO: Model Documentation for org.andromda.metafacades.uml.FrontEndComponent.tableColumns
+     * TODO: Model Documentation for
+     * org.andromda.metafacades.uml.FrontEndComponent.tableColumns
+     * 
      * @see org.andromda.metafacades.uml.FrontEndComponent#getTableColumns()
      */
-    protected Collection handleGetTableColumns()
-    {
+    protected Collection handleGetTableColumns() {
         String cols = Objects.toString(this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_TABLE_COLUMNS), "").trim();
 
-        if(StringUtilsHelper.isNotBlank(cols)) {
+        if (StringUtilsHelper.isNotBlank(cols)) {
             Collection columns = new ArrayList<>();
 
             String[] colList = cols.split("\\,");
 
-            for(String col : colList) {
-                for(AttributeFacade attribute : this.getAttributes()) {
+            for (String col : colList) {
+                for (AttributeFacade attribute : this.getAttributes()) {
 
-                    if(attribute.getName().equals(col)) {
+                    if (attribute.getName().equals(col)) {
                         columns.add(attribute);
                     }
                 }
@@ -82,24 +89,24 @@ public class FrontEndComponentLogicImpl
     private String basePath = null;
 
     private String getBasePath() {
-        if(StringUtilsHelper.isBlank(basePath)) {final StringBuilder path = new StringBuilder();
-        
+        if (StringUtilsHelper.isBlank(basePath)) {
+            final StringBuilder path = new StringBuilder();
+
             String _path = StringUtils.strip(((String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_PATH)));
-            if (!StringUtils.isBlank(_path))
-            {
+            if (!StringUtils.isBlank(_path)) {
                 path.append(_path);
             } else {
 
                 final String packageName = this.getPackageName();
                 if (StringUtilsHelper.isNotBlank(packageName)) {
                     path.append(packageName + '.');
-                }      
+                }
 
             }
 
             basePath = path.toString().replace('.', '/');
 
-            if(!basePath.startsWith("/")) {
+            if (!basePath.startsWith("/")) {
                 basePath = "/" + basePath;
             }
         }
@@ -108,26 +115,29 @@ public class FrontEndComponentLogicImpl
     }
 
     /**
-     * TODO: Model Documentation for org.andromda.metafacades.uml.FrontEndComponent.path
+     * TODO: Model Documentation for
+     * org.andromda.metafacades.uml.FrontEndComponent.path
+     * 
      * @see org.andromda.metafacades.uml.FrontEndComponent#getPath()
      */
-    protected String handleGetPath()
-    {
+    protected String handleGetPath() {
         final StringBuilder path = new StringBuilder();
-        
-        path.append(this.getBasePath()); 
 
-        String beanName = Objects.toString(this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_COMPONENT_BEAN_NAME), "").trim();
+        path.append(this.getBasePath());
 
-        if(StringUtilsHelper.isNotBlank(beanName)) {
+        String beanName = Objects
+                .toString(this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_COMPONENT_BEAN_NAME), "").trim();
+
+        if (StringUtilsHelper.isNotBlank(beanName)) {
             path.append("/" + MetafacadeWebUtils.toWebResourceName(beanName));
         } else {
-            path.append("/" + MetafacadeWebUtils.toWebResourceName(StringUtilsHelper.trimToEmpty(this.getName())).replace('.', '/'));
+            path.append("/" + MetafacadeWebUtils.toWebResourceName(StringUtilsHelper.trimToEmpty(this.getName()))
+                    .replace('.', '/'));
         }
 
         String pathStr = path.toString().replace('.', '/');
 
-        if(!pathStr.startsWith("/")) {
+        if (!pathStr.startsWith("/")) {
             pathStr = "/" + pathStr;
         }
 
@@ -136,20 +146,20 @@ public class FrontEndComponentLogicImpl
 
     /**
      * TODO: Model Documentation for org.andromda.metafacades.uml.FrontEndComponent
+     * 
      * @see org.andromda.metafacades.uml.FrontEndComponent#getFrontEndAttributes()
      */
-    protected Collection<FrontEndAttribute> handleGetFrontEndAttributes()
-    {
+    protected Collection<FrontEndAttribute> handleGetFrontEndAttributes() {
         // TODO add your implementation here!
         return null;
     }
 
     /**
      * TODO: Model Documentation for org.andromda.metafacades.uml.FrontEndComponent
+     * 
      * @see org.andromda.metafacades.uml.FrontEndComponent#getMessageKey()
      */
-    protected String handleGetMessageKey()
-    {
+    protected String handleGetMessageKey() {
         return StringUtilsHelper.toResourceMessageKey(getName());
     }
 
@@ -158,7 +168,7 @@ public class FrontEndComponentLogicImpl
         String cols = Objects.toString(this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_TABLE_COLUMNS), "").trim();
         System.out.println(cols);
 
-        if(StringUtilsHelper.isNotBlank(cols)) {
+        if (StringUtilsHelper.isNotBlank(cols)) {
             return Arrays.asList(cols.split("\\,"));
         }
 
@@ -168,9 +178,10 @@ public class FrontEndComponentLogicImpl
 
     @Override
     protected String handleGetBeanName() {
-        String beanName = Objects.toString(this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_COMPONENT_BEAN_NAME), "").trim();
+        String beanName = Objects
+                .toString(this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_COMPONENT_BEAN_NAME), "").trim();
 
-        if(StringUtilsHelper.isNotBlank(beanName)) {
+        if (StringUtilsHelper.isNotBlank(beanName)) {
             return beanName;
         }
 
@@ -180,13 +191,15 @@ public class FrontEndComponentLogicImpl
     @Override
     protected String handleGetTableName() {
         final StringBuilder tableName = new StringBuilder();
-        
-        String beanName = Objects.toString(this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_COMPONENT_BEAN_NAME), "").trim();
 
-        if(StringUtilsHelper.isNotBlank(beanName)) {
+        String beanName = Objects
+                .toString(this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_COMPONENT_BEAN_NAME), "").trim();
+
+        if (StringUtilsHelper.isNotBlank(beanName)) {
             tableName.append(MetafacadeWebUtils.toWebResourceName(StringUtilsHelper.pluralize(beanName)));
         } else {
-            tableName.append(MetafacadeWebUtils.toWebResourceName(StringUtilsHelper.trimToEmpty(this.getName())).replace('.', '/'));
+            tableName.append(MetafacadeWebUtils.toWebResourceName(StringUtilsHelper.trimToEmpty(this.getName()))
+                    .replace('.', '/'));
         }
 
         return tableName.toString().replace('.', '/');
@@ -194,15 +207,144 @@ public class FrontEndComponentLogicImpl
 
     @Override
     protected String handleGetTablePath() {
-        
+
         return this.getBasePath() + "/" + this.getTableName();
     }
 
     @Override
     protected String handleGetMappedModel() {
 
-        String component = StringUtils.stripToNull(((String) this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_PRESENTATION_COMPONENT_MAPPED_MODEL)));
+        String component = StringUtils.stripToNull(
+                ((String) this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_PRESENTATION_COMPONENT_MAPPED_MODEL)));
         return component;
+    }
+
+    private boolean isTable(FrontEndAttribute attribute) {
+        String columns = Objects.toString(
+                attribute.findTaggedValue("andromda_presentation_view_field_table_identifier_columns"), "")
+                .trim();
+        String viewColumns = Objects
+                .toString(attribute.findTaggedValue("andromda_presentation_view_table_columns"), "").trim();
+        String fieldType = Objects
+                .toString(attribute.findTaggedValue("andromda_presentation_web_view_field_type"), "").trim();
+        String viewTable = Objects.toString(attribute.findTaggedValue("andromda_presentation_view_table"), "")
+                .trim();
+
+        return Boolean.valueOf(viewTable) ||
+                !StringUtils.isBlank(viewColumns) ||
+                fieldType.equals("table") ||
+                !StringUtils.isBlank(columns);
+    }
+
+    private Boolean isComplex(Object element) {
+        
+        // If this is a value object, then it's complex
+        if(element instanceof ValueObject) {
+            return true;
+        }
+        
+        Boolean complex = false;
+        ClassifierFacade type = null;
+		
+        if(element instanceof AttributeFacade) {
+            type = ((AttributeFacade)element).getType();
+        } else if(element instanceof ParameterFacade) {
+            type = ((ParameterFacade)element).getType();
+        } else if(element instanceof FrontEndParameter) {
+            type = ((FrontEndParameter)element).getType();
+        } 
+		
+        if (type != null)
+        {
+            if(type.isEnumeration()) { /// Enumerations are complex
+                complex = true;
+            } else {
+
+                complex = !type.getAttributes().isEmpty(); // If it has more than one attribute then it's complex
+                if (!complex)
+                {
+                    complex = !type.getAssociationEnds().isEmpty();
+                }
+            }
+        }
+		
+        return complex;
+    }
+
+    @Override
+    protected Collection handleGetTables() {
+
+        Collection<ModelElementFacade> tables = new HashSet<>();
+        for (ModelElementFacade element : this.getAttributes()) {
+            if (element instanceof FrontEndAttribute) {
+                FrontEndAttribute attribute = (FrontEndAttribute) element;
+
+                if (isTable(attribute)) {
+
+                    tables.add(attribute);
+                }
+
+            }
+        }
+
+        return tables;
+    }
+
+    @Override
+    protected Collection handleGetNonTables() {
+
+        Collection nonTables = new HashSet<>();
+
+        for (ModelElementFacade element : this.getAttributes()) {
+            if (element instanceof FrontEndAttribute) {
+                FrontEndAttribute attribute = (FrontEndAttribute) element;
+
+                if (!isTable(attribute) && !(attribute.getType().getAttributes().size() > 0)) {
+                    nonTables.add(attribute);
+                }
+
+            }
+        }
+
+        return nonTables;
+    }
+
+    @Override
+    protected Collection handleGetComplexes() {
+
+        Collection<ModelElementFacade> complexes = new HashSet<>();
+
+        for (ModelElementFacade element : this.getAttributes()) {
+            if (element instanceof FrontEndAttribute) {
+                FrontEndAttribute attribute = (FrontEndAttribute) element;
+
+                if (!isTable(attribute) && this.isComplex(element) && !attribute.getComponent()) {
+                    complexes.add(attribute);
+                }
+
+            }
+        }
+
+        return complexes;
+    }
+
+    @Override
+    protected Collection handleGetChildComponents() {
+
+        Collection<ModelElementFacade> components = new HashSet<>();
+
+        for (ModelElementFacade element : this.getAttributes()) {
+            if (element instanceof FrontEndAttribute) {
+                FrontEndAttribute attribute = (FrontEndAttribute) element;
+
+                if (attribute.getComponent()) {
+                    components.add(attribute);
+                }
+
+            }
+        }
+
+        return components;
     }
 
 }

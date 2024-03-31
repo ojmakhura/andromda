@@ -57,10 +57,21 @@ ${ident}    <td id="column_${column.name}">${theValue}#if ($column.type.dateType
 #set ($backingListName = $parameter.backingListName)
 #set ($backingValueName = $parameter.backingValueName)
 #else
+
+#if($stringUtils.isBlank($ownerParameter)) 
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#set ($backingListName = $parameter.backingListName)
+#set ($backingValueName = $parameter.backingValueName)
+#if($stringUtils.isBlank($backingListName))
+#set ($backingListName = "${parameter.name}BackingList")
+#end
+#else
 #set ($propertyId = $metafacadeWebUtils.getFormPropertyId($parameter, $ownerParameter))
 #set ($valuePropertyName = $metafacadeWebUtils.getFormPropertyName($parameter, $ownerParameter))
 #set ($backingListName = $metafacadeWebUtils.getBackingListName($parameter, $ownerParameter))
 #set ($backingValueName = $metafacadeWebUtils.getBackingValueName($parameter, $ownerParameter))
+#end
 #end
 #set ($formValuePropertyName = "${valuePropertyName}")
 #if($parameter.inputButton)
