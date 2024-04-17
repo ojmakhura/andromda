@@ -74,6 +74,8 @@ import { $import.tableComponentImplementationName } from '@app/${import.implemen
 import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
 #elseif(${import.implementationFilePath})
 import { $import.implementationName } from '@app/${import.implementationFilePath}';
+#elseif(${import.hasStereotype("FrontEndComponent")})
+import { $import.name } from '@app/components/${import.filePath}';
 #else
 import { $import.name } from '@app/${import.filePath}';
 #end
@@ -179,6 +181,9 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     @ViewChild('$stringUtils.uncapitalize($field.tableComponentName)') $stringUtils.uncapitalize($field.tableComponentName): $field.tableComponentImplementationName;
 #end
 #foreach($attribute in $angularUtils.getTableAttributes($field))
+#if($attribute.component)
+    @ViewChild('$attribute.name') $attribute.name: $attribute.type.name;
+#else
 #set ($proId = "$attribute.getFormPropertyId($field)")
 #set ($cols = "")
     ${proId}Columns = [
@@ -208,9 +213,10 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     ${proId}Select: ${attribute.angularTypeName}#if($attribute.many || $attribute.type.collectionType)[] = []#else = {}#end;
 
 #end
+#end
 #foreach($attribute in $field.attributes)
 #set ($proId = "$attribute.getFormPropertyId($field)")
-#if($angularUtils.isComplex($attribute) && !$attribute.type.enumeration && !$attribute.many)
+#if(!$attribute.component && $angularUtils.isComplex($attribute) && !$attribute.type.enumeration && !$attribute.many)
     $stringUtils.pluralize(${proId})$: Observable<Array<${attribute.angularTypeName}>>;
     ${proId}Select: $attribute.angularTypeName = new ${attribute.angularTypeName}();
     ${proId}SearchField: FormControl = new FormControl();
@@ -292,7 +298,9 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #foreach ($field in $view.variables)
 #if($field.complex)
 #foreach($attribute in $angularUtils.getTableAttributes($field))
+#if(!$attribute.component)
         this.$attribute.getFormPropertyId($field)SearchField = new FormControl();
+#end
 #end
 #end
 #end
@@ -620,6 +628,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
 #if ($variable.complex)
 #foreach($attribute in $variable.attributes)
+#if(!$attribute.component)
 #if($angularUtils.isTable($attribute) || $attribute.many || $attribute.type.collectionType)
 #set ($controlType = "FormArray")
 #elseif($angularUtils.isComplex($attribute))
@@ -744,6 +753,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         this.${propertyId}Control.removeAt(index);
     }
 
+#end
 #end
 #end
 #end

@@ -60,6 +60,11 @@
 #end
 #if($complex.size() > 0)
 #foreach ($variable in $complex)
+#if($variable.component)
+			<app-$variable.type.selectorName 
+				#${variable.name}>
+			</app-$variable.type.selectorName>
+#else
 #set ($normals = $angularUtils.getStandardAttributes($variable))
 #set ($tables = $angularUtils.getTableAttributes($variable))
 #if($normals.size() > 0)
@@ -68,6 +73,8 @@
 #if (!$attribute.inputHidden && !$variable.inputHidden)
 #renderAngularActionInput($attribute $variable "				")
 #end
+#end
+        	</div>
 #end
 #end
 #if ($tables.size() > 0)
@@ -79,7 +86,6 @@
 #end
                 </mat-tab-group>
 #end
-        	</div>
 #end
 #end
     	</form>

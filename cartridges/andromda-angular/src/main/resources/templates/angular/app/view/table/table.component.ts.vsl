@@ -58,7 +58,7 @@ export abstract class ${table.tableComponentName} implements OnInit, AfterViewIn
 #end
     ];
 
-    totalElements$: signal(0);
+    totalElements = signal(0);
     ${table.name}$: Observable<$table.angularTypeName>;
 
     ${table.name}DataSource = new MatTableDataSource<$table.type.name>([]);

@@ -44,7 +44,7 @@ public class AngularComponentLogicImpl
      */
     protected String handleGetFileName()
     {
-
+        
         String phrase = StringUtilsHelper.toPhrase(this.getBeanName()).toLowerCase();
         return phrase.replace(" ", "-") + ".component";
     }
@@ -72,6 +72,11 @@ public class AngularComponentLogicImpl
     protected String handleGetImplementationFileName()
     {
         return null;
+    }
+
+    @Override
+    public String getName() {
+        return super.getName() + "Component";
     }
 
     /**
