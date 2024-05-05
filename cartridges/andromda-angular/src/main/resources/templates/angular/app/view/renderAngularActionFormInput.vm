@@ -57,7 +57,6 @@ ${ident}    <td id="column_${column.name}">${theValue}#if ($column.type.dateType
 #set ($backingListName = $parameter.backingListName)
 #set ($backingValueName = $parameter.backingValueName)
 #else
-
 #if($stringUtils.isBlank($ownerParameter)) 
 #set ($propertyId = $parameter.name)
 #set ($valuePropertyName = $parameter.name)
@@ -158,24 +157,25 @@ ${ident}	<textarea matInput id="$propertyId" formControlName="${parameter.name}"
 #elseif ($parameter.inputFile)
 ${ident}    <input matInput type="file" id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #elseif ($parameter.inputMultibox)
-${ident}    <article formArrayName="${parameter.name}" id="${propertyId}Article">
-${ident}        <mat-form-field class="col-md-4">
-${ident}            <mat-label translate>select.value.text</mat-label>
-${ident}            <mat-select name="${propertyId}Selector" id="${propertyId}Selector" (selectionChange)="on$stringUtils.capitalize(${propertyId})Change($event)">
-${ident}                <mat-option *ngFor="let item of $backingListName" [value]="item.value">
-${ident}                    {{ item.label }}
-${ident}                </mat-option>
-${ident}            </mat-select>
-${ident}        </mat-form-field>
-${ident}        <ul class="list-group" *ngFor="let control of ${propertyId}Control.controls; let i = index">
-${ident}            <li class="list-group-item">
-${ident}                <button mat-button class="btn btn-info" (click)="${propertyId}Delete(i)">
-${ident}                    <i class="bi bi-trash"></i>
-${ident}                </button>
-${ident}                {{ get$stringUtils.capitalize(${propertyId})Label(control.value) }} 
-${ident}            </li>
-${ident}        </ul>
-${ident}    </article>
+${ident}    <mat-chip-grid #${propertyId}ChipGrid aria-label="{{ $parameter.messageKey | translate}} selection">
+${ident}        @for (selectItem of ${propertyId}BackingList; track selectItem.value; let i = $index) {
+${ident}            <mat-chip-row (removed)="${propertyId}Remove(i)">
+${ident}              {{ selectItem.label }}
+${ident}              <button matChipRemove [attr.aria-label]="'remove ' + selectItem.label">
+${ident}                <mat-icon>cancel</mat-icon>
+${ident}              </button>
+${ident}            </mat-chip-row>
+${ident}        }
+${ident}    </mat-chip-grid>
+${ident}    <input placeholder="Select ..." #${propertyId}Input [formControl]="${propertyId}Control"
+${ident}          [matChipInputFor]="${propertyId}ChipGrid" [matAutocomplete]="auto"
+${ident}          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+${ident}          (matChipInputTokenEnd)="${propertyId}Add($event)"/>
+${ident}    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="${propertyId}Selected($event)">
+${ident}         @for (item of ${propertyId}FilteredList | async; track item) {
+${ident}            <mat-option [value]="item.value">{{item.label}}</mat-option>
+${ident}        }
+${ident}    </mat-autocomplete>
 ## #elseif ($parameter.inputRadio)
 ## ${ident}    <div class="form-check" th:each="item : *{${backingListName}}">
 ## ${ident}        <label class="form-check-label" th:for="${item.value}" th:text="${item.label}"></label>
@@ -237,10 +237,10 @@ ${ident}    </div>
 #set ($colId = "${propertyId}$stringUtils.capitalize($columnName)")
 #set ($cname = "$angularUtils.getLastProperty($columnName)")
 #if($parameter.displayCondition)${ident}    @if(${parameter.displayCondition}) {#end
-${ident}    <div class="row mb-3">
+${ident}    <mat-form-field class="col-md-4">
 ${ident}        <mat-label for="$colId" class="col-sm-2 col-form-label" translate>$stringUtils.toResourceMessageKey($cname)</mat-label>
 ${ident}         <input matInput type="text" readonly id="$colId" value="{{${propertyId}?.$stringUtils.replace("${columnName}", ".", "?.") #if(${column.inputDate} || ${column.type.dateType}) | date#end}}">
-${ident}    </div>
+${ident}    </mat-form-field>
 #if($parameter.displayCondition)${ident}    }#end
 #end
 #else

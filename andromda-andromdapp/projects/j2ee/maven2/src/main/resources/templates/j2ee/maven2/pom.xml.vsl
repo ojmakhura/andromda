@@ -7,7 +7,7 @@
 #if($spring)
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.0</version>
+        <version>3.2.5</version>
         <relativePath/>
 #else
         <groupId>org.andromda.maven</groupId>
@@ -1537,7 +1537,7 @@
 #elseif ($spring || $springws)
         <!-- v5 migration needed -->
         <!-- <spring.version>5.3.2</spring.version> -->
-	    <spring-boot.version>3.0.0</spring-boot.version>
+	    <spring-boot.version>3.2.5</spring-boot.version>
 #end
 #if ($springws || $thymeleaf)
         <openapi.version>1.6.13</openapi.version>

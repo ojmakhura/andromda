@@ -4,8 +4,8 @@ import java.util.Collection;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.CriteriaBuilder.In;
+import jakarta.persistence.criteria.Path;
 
 public class ${stringUtils.capitalize($applicationId)}Specifications {
 

@@ -159,7 +159,7 @@ export abstract class ControllerBase
      * Sets the return values in useCaseReturnValues
      * 
      */    
-    protected setReturnValues(names: Array<string>, values: Array<Object>): string
+    protected setReturnValues(names: string[], values: any[]): string
     {
         if(names != null)
         {

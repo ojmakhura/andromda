@@ -507,6 +507,7 @@ public class AngularViewLogicImpl extends AngularViewLogic {
 
     @Override
     protected String handleGetComponentImplementationName() {
+        
         return StringUtilsHelper.upperCamelCaseName(this.getName()) + "ImplComponent";
     }
 

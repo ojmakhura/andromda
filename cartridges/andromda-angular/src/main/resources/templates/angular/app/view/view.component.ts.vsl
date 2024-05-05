@@ -139,7 +139,7 @@ export class $stringUtils.capitalize(${view.varsFormName}) {
 #set ( $finalParams = $angularUtils.getFacadeSet($stateParams) )
 #set ( $finalButtons = $angularUtils.getFacadeSet($stateParams) )
 @Component({
-  selector: 'app-${view.selectorName}-base',
+  selector: '${view.selectorName}-base',
   template: ''
 })
 export abstract class $view.componentName implements OnInit, AfterViewInit, OnDestroy {
@@ -217,7 +217,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #foreach($attribute in $field.attributes)
 #set ($proId = "$attribute.getFormPropertyId($field)")
 #if(!$attribute.component && $angularUtils.isComplex($attribute) && !$attribute.type.enumeration && !$attribute.many)
-    $stringUtils.pluralize(${proId})$: Observable<Array<${attribute.angularTypeName}>>;
+    $stringUtils.pluralize(${proId})$: Observable<${attribute.angularTypeName}[]>;
     ${proId}Select: $attribute.angularTypeName = new ${attribute.angularTypeName}();
     ${proId}SearchField: FormControl = new FormControl();
 
@@ -243,7 +243,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #elseif($attribute.inputSelect || $attribute.inputMultibox || ($angularUtils.isComplex($attribute) && !$angularUtils.isTable($attribute)))
 #set ($backingListName = ${attribute.getBackingListName($field)})
 #set($ret = $selections.add($attribute.type))
-    $backingListName: Array<SelectItem> = [];
+    $backingListName: SelectItem[] = [];
 #end
 #end
 #else
@@ -252,7 +252,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     ${field.name}Options = Object.keys(this.${field.name}T);
 #elseif($field.inputSelect || $field.inputMultibox)
 #set($ret = $selections.add($field.type))
-    ${field.backingListName}: Array<$field.angularTypeName> = [];
+    ${field.backingListName}: $field.angularTypeName[] = [];
 
 #elseif($angularUtils.isComplex($field) && !$field.type.enumeration && !$field.many)
     ${field.name}Select: $field.angularTypeName = null;
@@ -263,7 +263,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     ${field.name}Options = Object.keys(this.${field.name}T);
 #elseif($field.inputSelect || $field.inputMultibox)
 #set($ret = $selections.add($field.type))
-    ${field.backingListName}: Array<$field.angularTypeName> = [];
+    ${field.backingListName}: $field.angularTypeName[] = [];
 
 #elseif($angularUtils.isComplex($field) && !$field.type.enumeration && !$field.many)
     ${field.name}Select: $field.angularTypeName = null;
@@ -271,7 +271,9 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
 #end
 #foreach($param in $finalParams)
+#if(!$param.component)
     ${param.name}$: Observable<$param.angularTypeName>;
+#end
 #end
     messages: Observable<any>;
     success: Observable<boolean>;
@@ -287,7 +289,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     constructor(#if($view.popup)@Inject(MAT_DIALOG_DATA) data: any, #{end}) {
 
 #foreach($param in $finalParams)
-#if(!$param.table)
+#if(!$param.table && !$param.component)
         this.${param.name}$ = this.store.pipe(select(${view.useCase.storeName}Selectors.select$stringUtils.capitalize(${param.name})));
 #end
 #end
@@ -541,7 +543,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #elseif($variable.complex)
         this.${view.varsFormName}Control.setControl('$variable.name', this.create$stringUtils.capitalize($variable.name)Form(form.$variable.name));
 #else
-        this.${view.varsFormName}Control.get('$variable.name').setValue(form.$variable.name);
+        this.${view.varsFormName}Control?.get('$variable.name')?.setValue(form.$variable.name);
 #end
 #end
 #end
@@ -781,7 +783,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #elseif($variable.complex)
             this.${view.formName}.setControl('$variable.name', this.create$stringUtils.capitalize($variable.name)Form(form.$variable.name));
 #else
-            this.${view.formName}.get('$variable.name').setValue(form.$variable.name);
+            this.${view.formName}?.get('$variable.name')?.setValue(form.$variable.name);
 #end
         }
 #end
@@ -791,7 +793,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #foreach($table in $view.tables)
     set$stringUtils.capitalize(${table.name})(${table.name}: ${table.angularTypeName}): FormArray {
 
-        const ${table.name}Array = new FormArray([]);
+        const ${table.name}Array = new FormArray([] as any);
 
         if(!${table.name} || ${table.name} === undefined || ${table.name} === null) {
             return ${table.name}Array;
@@ -911,7 +913,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
             return formArray;
         } else {
-            return new FormArray([]);
+            return new FormArray([] as any);
         }
     }
 

@@ -121,6 +121,11 @@
                     Where the application components are output.
                 </documentation>
             </property>
+            <property name="components-impl">
+                <documentation>
+                    Where the application components implementations are output.
+                </documentation>
+            </property>
             <property name="views">
                 <documentation>
                     Where the application views (JSPs, Facelets, etc) are output.

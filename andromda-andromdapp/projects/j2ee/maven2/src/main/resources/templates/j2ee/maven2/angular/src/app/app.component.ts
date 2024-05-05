@@ -13,10 +13,8 @@ import { environment } from '@env/environment';
 import { Logger, SharedModule, UntilDestroy, untilDestroyed } from '@shared';
 import { CoreModule } from './@core';
 import { AuthModule } from './auth';
-import { HomeModule } from './home/home.module';
 import { MaterialModule } from './material.module';
 import { ShellComponent } from './shell/shell.component';
-import { EditAccessPointTypeComponentImpl } from './view/type/edit-access-point-type.component.impl';
 
 const log = new Logger('App');
 
@@ -36,8 +34,6 @@ const log = new Logger('App');
     CoreModule,
     SharedModule,
     ShellComponent,
-    HomeModule,
-    EditAccessPointTypeComponentImpl,
     AuthModule,
   ],
 })

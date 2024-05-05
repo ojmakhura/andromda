@@ -116,6 +116,7 @@
 </div>
 #end
 #foreach ($variable in $complex)
+#if(!$variable.component)
 #set ($tables = $angularUtils.getTableAttributes($variable))
 ## Rendering modal with checkbox
 #foreach($table in $tables)
@@ -126,8 +127,10 @@
 #foreach($attribute in $variable.attributes)
 #if($angularUtils.isComplex($attribute) && !$attribute.many && !$attribute.type.enumeration && !$attribute.inputSelect && !$attribute.inputMultibox && !$angularUtils.isTable($attribute))
 <!-- Modal for $attribute.name -->
+
 #renderModalInput($attribute $variable "			" true)
 
+#end
 #end
 #end
 #end

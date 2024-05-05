@@ -5,28 +5,12 @@ package org.andromda.cartridges.angular.metafacades;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
-import org.andromda.cartridges.angular.AngularGlobals;
-import org.andromda.cartridges.angular.AngularProfile;
 import org.andromda.cartridges.angular.AngularUtils;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.EntityAttribute;
-import org.andromda.metafacades.uml.FrontEndAction;
-import org.andromda.metafacades.uml.FrontEndParameter;
-import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
-import org.andromda.metafacades.uml.ParameterFacade;
-import org.andromda.metafacades.uml.TypeMappings;
-import org.andromda.metafacades.uml.UMLMetafacadeProperties;
-import org.andromda.metafacades.uml.UMLProfile;
-import org.andromda.utils.StringUtilsHelper;
-import org.apache.commons.lang3.BooleanUtils;
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * Represents an attribute on a classifier used by a Angular application.

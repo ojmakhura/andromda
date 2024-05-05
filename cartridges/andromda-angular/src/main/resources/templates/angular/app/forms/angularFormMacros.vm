@@ -103,11 +103,11 @@
     /**
      * @return backingList java.util.Collection<javax.faces.model.SelectItem>
      */
-    get${backingListMethod}(): Array<any>;
+    get${backingListMethod}(): any[];
 
     /**
      * @param ${backingListName}In
      */
-    set${backingListMethod}(${backingListName}In: Array<any>): void;
+    set${backingListMethod}(${backingListName}In: any[]): void;
     
 #end
