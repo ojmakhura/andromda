@@ -443,7 +443,7 @@ $target.getDocumentation("     * ")
 #if ($associationEnd.many2One)
 ## Default fetch type: EAGER
 #*      *##set ($argExists = false)
-    @jakarta.persistence.ManyToOne(#if ($target.required)optional = false#set ($argExists = true)#end#if ($target.cascadeType)#if ($argExists), #end cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end fetch = jakarta.persistence.FetchType.LAZY#end)
+    @jakarta.persistence.ManyToOne(#if ($target.required)optional = false#set ($argExists = true)#end#if ($target.hibernateCascadeExists)#if ($argExists), #end cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end fetch = jakarta.persistence.FetchType.LAZY#end)
 ##
 ## Add the JoinColumns annotation if the target entity has a composite primary key
 ## Otherwise add the JoinColumn annotation.
@@ -499,7 +499,7 @@ $target.getDocumentation("     * ")
     @org.hibernate.annotations.CollectionOfElements#if ($target.eager)(fetch = jakarta.persistence.FetchType.EAGER)#end
 
 #*      *##else
-    @jakarta.persistence.OneToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($associationEnd.navigable)#if ($argExists) ,#end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end fetch = jakarta.persistence.FetchType.EAGER#end)
+    @jakarta.persistence.OneToMany(#if ($target.hibernateCascadeExists)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($associationEnd.navigable)#if ($argExists) ,#end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end fetch = jakarta.persistence.FetchType.EAGER#end) 
 #*      *##end
 ##
 ## Set the JoinTable annotation to limit the association table name length.
@@ -581,7 +581,7 @@ $target.getDocumentation("     * ")
     @jakarta.persistence.Transient
 #*    *##else
 #*      *##set ($argExists = false)
-    @jakarta.persistence.OneToOne(#if($associationEnd.owning)#if ($target.required)optional = false#set ($argExists = true)#end#end#if ($target.cascadeType)#if ($argExists), #end cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end fetch = jakarta.persistence.FetchType.LAZY#end)
+    @jakarta.persistence.OneToOne(#if($associationEnd.owning)#if ($target.required)optional = false#set ($argExists = true)#end#end#if ($target.hibernateCascadeExists)#if ($argExists), #end cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end fetch = jakarta.persistence.FetchType.LAZY#end)
 #*      *##if($associationEnd.owning)
 ##
 ## Add the JoinColumns annotation if the target entity has a composite primary key
@@ -637,7 +637,7 @@ $target.getDocumentation("     * ")
     @org.hibernate.annotations.CollectionOfElements#if ($target.lazy )(fetch = jakarta.persistence.FetchType.EAGER)#end
 
 #*      *##else
-    @jakarta.persistence.ManyToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end fetch = jakarta.persistence.FetchType.EAGER#end)
+    @jakarta.persistence.ManyToMany(#if ($target.hibernateCascadeExists)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end fetch = jakarta.persistence.FetchType.EAGER#end)
 #*      *##end
 ## Use Aggregation and Composition to determine owning side
 #*      *##if (${associationEnd.association.tableName})

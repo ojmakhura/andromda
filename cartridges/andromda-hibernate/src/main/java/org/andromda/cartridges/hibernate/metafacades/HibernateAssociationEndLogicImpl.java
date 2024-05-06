@@ -2,6 +2,9 @@ package org.andromda.cartridges.hibernate.metafacades;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.Objects;
 
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.cartridges.hibernate.HibernateUtils;
@@ -22,7 +25,7 @@ import org.apache.commons.lang3.StringUtils;
  * MetafacadeLogic implementation for
  * org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd.
  *
- * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd
+ * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd 
  */
 public class HibernateAssociationEndLogicImpl
     extends HibernateAssociationEndLogic
@@ -37,6 +40,55 @@ public class HibernateAssociationEndLogicImpl
         String context)
     {
         super(metaObject, context);
+    }
+
+    /**
+     * Represents the EJB3 <code>ALL</code> cascade option and fully qualified representation.
+     */
+    private static final String ENTITY_CASCADE_ALL = "ALL";
+    private static final String ENTITY_CASCADE_ALL_FQN = "jakarta.persistence.CascadeType.ALL";
+
+    /**
+     * Represents the EJB3 <code>PERSIST</code> cascade option.
+     */
+    private static final String ENTITY_CASCADE_PERSIST = "PERSIST";
+    private static final String ENTITY_CASCADE_PERSIST_FQN = "jakarta.persistence.CascadeType.PERSIST";
+
+    /**
+     * Represents the EJB3 <code>MERGE</code> cascade option.
+     */
+    private static final String ENTITY_CASCADE_MERGE = "MERGE";
+    private static final String ENTITY_CASCADE_MERGE_FQN = "jakarta.persistence.CascadeType.MERGE";
+
+    /**
+     * Represents the EJB3 <code>REMOVE</code> cascade option.
+     */
+    private static final String ENTITY_CASCADE_REMOVE = "REMOVE";
+    private static final String ENTITY_CASCADE_REMOVE_FQN = "jakarta.persistence.CascadeType.REMOVE";
+
+    /**
+     * Represents the EJB3 <code>REFRESH</code> cascade option.
+     */
+    private static final String ENTITY_CASCADE_REFRESH = "REFRESH";
+    private static final String ENTITY_CASCADE_REFRESH_FQN = "jakarta.persistence.CascadeType.REFRESH";
+
+    /**
+     * Represents the value used to represents NO cascade option.
+     */
+    private static final String ENTITY_CASCADE_NONE = "NONE";
+
+    /**
+     * Stores the cascade map of fully qualified cascade types
+     */
+    private static final Map<String, String> cascadeTable = new Hashtable<String, String>();
+
+    static
+    {
+        cascadeTable.put(ENTITY_CASCADE_ALL, ENTITY_CASCADE_ALL_FQN);
+        cascadeTable.put(ENTITY_CASCADE_PERSIST, ENTITY_CASCADE_PERSIST_FQN);
+        cascadeTable.put(ENTITY_CASCADE_MERGE, ENTITY_CASCADE_MERGE_FQN);
+        cascadeTable.put(ENTITY_CASCADE_REMOVE, ENTITY_CASCADE_REMOVE_FQN);
+        cascadeTable.put(ENTITY_CASCADE_REFRESH, ENTITY_CASCADE_REFRESH_FQN);
     }
 
     /**
@@ -257,7 +309,7 @@ public class HibernateAssociationEndLogicImpl
 
         if ((individualCascade != null) && (individualCascade.length() > 0))
         {
-            cascade = individualCascade;
+            cascade = "jakarta.persistence.CascadeType." + individualCascade.toUpperCase();
         }
         else if (this.isChild()) // other end is a composition
         {
@@ -875,5 +927,168 @@ public class HibernateAssociationEndLogicImpl
         }
 
         return returnValue;       
+    }
+
+    @Override
+    protected String handleGetDefaultCollectionInterface() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'handleGetDefaultCollectionInterface'");
+    }
+
+    @Override
+    protected boolean handleIsCollectionInterfaceSortedSet() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'handleIsCollectionInterfaceSortedSet'");
+    }
+
+    @Override
+    protected String handleGetCollectionTypeImplemenationClass() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'handleGetCollectionTypeImplemenationClass'");
+    }
+
+    @Override
+    protected String handleGetHibernateCascadeType() {
+        return (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_CASCADE);
+    }
+
+    @Override
+    protected boolean handleIsHibernateCascadeExists() {
+        return StringUtils.isNotBlank(this.getHibernateCascadeType()) ? true : false;
+    }
+
+    @Override
+    protected boolean handleIsForeignKeyConstraintDefined() {
+        boolean fkConstraintDefined = false;
+        if (super.findTaggedValue(HibernateProfile.TAGGEDVALUE_PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME) != null)
+        {
+            fkConstraintDefined = true;
+        }
+        return fkConstraintDefined;
+    }
+
+    @Override
+    protected boolean handleIsColumnNullable() {
+        boolean nullable = true;
+        // String nullableString = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_VERSION_PROPERTY);
+
+        // if (StringUtils.isBlank(nullableString))
+        // {
+        //     nullable = (this.isIdentifier() || this.isUnique()) ? false : !this.isRequired();
+        // }
+        // else
+        // {
+        //     nullable = Boolean.valueOf(nullableString).booleanValue();
+        // }
+        return nullable;
+    }
+
+    @Override
+    protected String handleGetCascadeType() {
+        String cascade = "";
+        final Collection<Object> taggedValues = this.findTaggedValues(HibernateProfile.TAGGEDVALUE_HIBERNATE_CASCADE);
+        if (taggedValues != null && !taggedValues.isEmpty())
+        {
+            StringBuilder buf = null;
+            for (Object value : taggedValues)
+            {
+                String str = ((String)value).toUpperCase();
+                if (buf == null)
+                {
+                    buf = new StringBuilder();
+                }
+                else
+                {
+                    buf.append(", ");
+                }
+                if (StringUtils.isNotBlank(str) && !str.equals("NONE"))
+                {
+                    buf.append(cascadeTable.get(str));
+                }
+            }
+            if (buf != null)
+            {
+                cascade = buf.toString();
+            }
+        }
+        // else if ((this.getOtherEnd() != null) &&
+        //          (this.getOtherEnd().isAggregation() || this.getOtherEnd().isComposition()))
+        // {
+        //     cascade = cascadeTable.get(ENTITY_CASCADE_REMOVE);
+        //     if (this.getOtherEnd().isComposition())
+        //     {
+        //         // if (StringUtils.isBlank(this.getCompositionCascadeType()))
+        //         // {
+        //         //     if (this.getType() instanceof HibernateEntity)
+        //         //     {
+        //         //         HibernateEntity entity = (HibernateEntity)this.getType();
+        //         //         cascade = (ENTITY_CASCADE_NONE.equalsIgnoreCase(entity.getDefaultCascadeType()) ?
+        //         //                 null : this.getFullyQualifiedCascadeTypeList(entity.getDefaultCascadeType()));
+        //         //     }
+        //         // }
+        //         // else
+        //         // {
+        //         //     cascade = (ENTITY_CASCADE_NONE.equalsIgnoreCase(this.getCompositionCascadeType()) ?
+        //         //             null : this.getFullyQualifiedCascadeTypeList(this.getCompositionCascadeType()));
+        //         // }
+        //     }
+        //     else if (this.getOtherEnd().isAggregation())
+        //     {
+        //         // if (StringUtils.isBlank(this.getAggregationCascadeType()))
+        //         // {
+        //         //     if (this.getType() instanceof HibernateEntity)
+        //         //     {
+        //         //         HibernateEntity entity = (HibernateEntity)this.getType();
+        //         //         cascade = (ENTITY_CASCADE_NONE.equalsIgnoreCase(entity.getDefaultCascadeType()) ?
+        //         //                 null : this.getFullyQualifiedCascadeTypeList(entity.getDefaultCascadeType()));
+        //         //     }
+        //         // }
+        //         // else
+        //         // {
+        //         //     cascade = (ENTITY_CASCADE_NONE.equalsIgnoreCase(this.getAggregationCascadeType()) ?
+        //         //             null : this.getFullyQualifiedCascadeTypeList(this.getAggregationCascadeType()));
+        //         // }
+        //     }
+        // }
+        // else if (this.isComposition())
+        // {
+        //     /*
+        //      * On the composite side of the relationship, always enforce no cascade delete
+        //      * property indicating no cascadable propagation - overriding a default cascade
+        //      * value
+        //      */
+        //     // TODO cascade can only be null at this point - anything else to change?
+        //     //cascade = null;
+        // }
+        // else if (this.isAggregation())
+        // {
+        //     /*
+        //      * On the aggregation side of the relationship, always enforce no cascade delete
+        //      * property indicating no cascadable propagation - overriding a default cascade
+        //      * value
+        //      */
+        //     // TODO cascade can only be null at this point - anything else to change?
+        //     //cascade = null;
+        // }
+        return cascade;
+    }
+    private static final String ENTITY_DEFAULT_COMPOSITE_CASCADE = "entityCompositeCascade";
+
+    /**
+     * The default aggregation association cascade property
+     */
+    private static final String ENTITY_DEFAULT_AGGREGATION_CASCADE = "entityAggregationCascade";
+
+    @Override
+    protected String handleGetCompositionCascadeType() {
+        return StringUtils.trimToEmpty(
+                Objects.toString(this.getConfiguredProperty(ENTITY_DEFAULT_COMPOSITE_CASCADE), ""));
+    }
+
+    @Override
+    protected String handleGetAggregationCascadeType() {
+        
+        return StringUtils.trimToEmpty(
+                Objects.toString(this.getConfiguredProperty(ENTITY_DEFAULT_AGGREGATION_CASCADE), ""));
     }
 }
