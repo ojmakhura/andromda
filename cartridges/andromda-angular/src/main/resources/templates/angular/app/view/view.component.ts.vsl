@@ -145,7 +145,7 @@ export class $stringUtils.capitalize(${view.varsFormName}) {
 export abstract class $view.componentName implements OnInit, AfterViewInit, OnDestroy {
 
 #if($view.popup)
-    public dialogRef: MatDialogRef<${view.componentName}Impl>;
+    public dialogRef: MatDialogRef<${view.componentImplementationName}> = inject(MatDialogRef);
     dialogData: any;
 #end
 	${view.formName}: FormGroup | any;
@@ -173,6 +173,10 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set($formNameCaps = ${actionFormCaps})
 #set ($count = 1)
 #foreach ($field in $view.variables)
+#if($field.component)
+    @ViewChild('$field.name') ${field.name}Component: $field.type.name;
+    ${field.type.beanName}Form: FormGroup;
+#end
 #set ($formVars = "$formVars#if($count == 1), #{end}$field.name: $field.angularTypeName")
 #set ($formVarNames = "$formVarNames#if($count == 1), #{end}${view.formName}$.$field.name")
 #set ($count = $count + 1)
@@ -183,6 +187,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #foreach($attribute in $angularUtils.getTableAttributes($field))
 #if($attribute.component)
     @ViewChild('$attribute.name') $attribute.name: $attribute.type.name;
+    ${attribute.beanName}Form: FormGroup;
 #else
 #set ($proId = "$attribute.getFormPropertyId($field)")
 #set ($cols = "")

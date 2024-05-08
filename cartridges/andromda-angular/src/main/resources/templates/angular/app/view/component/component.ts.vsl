@@ -86,7 +86,7 @@ import { $import.name } from '@app/${import.filePath}';
 export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
 
     separatorKeysCodes: number[] = [ENTER, COMMA];
-    ${component.beanName}Form: FormGroup;
+    @Input() ${component.beanName}Form: FormGroup;
 
 #foreach($attribute in $component.attributes)
 #if(!$attribute.inputButton)
@@ -149,7 +149,9 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngOnInit() {
-        this.initForm();
+        if(!this.${component.beanName}Form) {
+            this.initForm();
+        }
     }
 
     ngOnDestroy() {}

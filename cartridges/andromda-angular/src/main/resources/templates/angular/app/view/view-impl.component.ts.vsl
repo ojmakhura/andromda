@@ -43,6 +43,8 @@ import { CsvModule } from '@ctrl/ngx-csv';
 import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
 #elseif($import.componentImplementationName)
 import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
+#elseif(${import.hasStereotype("FrontEndComponent")})
+import { $import.name } from '@app/components/${import.filePath}';
 #end
 #end
 
@@ -65,6 +67,8 @@ import { $import.componentImplementationName } from '@app/${import.implementatio
     $import.tableComponentImplementationName,
 #elseif($import.componentImplementationName)
     $import.componentImplementationName,
+#elseif(${import.hasStereotype("FrontEndComponent")})
+    $import.name,
 #end
 #end
   ],

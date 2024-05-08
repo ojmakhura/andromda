@@ -62,6 +62,7 @@
 #foreach ($variable in $complex)
 #if($variable.component)
 			<app-$variable.type.selectorName 
+				[${variable.type.beanName}Form]="${variable.type.beanName}Form"
 				#${variable.name}>
 			</app-$variable.type.selectorName>
 #else

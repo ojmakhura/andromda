@@ -127,7 +127,7 @@ ${ident}            $parameter.messageKey
 ${ident}        </mat-checkbox>
 ${ident}    </section>
 #else
-${ident}<mat-form-field class="col-md-6"#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter)) formGroupName="${parameter.name}"#end#if($parameter.displayCondition) *ngIf="${parameter.displayCondition}"#end>
+${ident}<mat-form-field class="col-md-6"#if(!$parameter.inputMultibox && $angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter)) formGroupName="${parameter.name}"#end#if($parameter.displayCondition) *ngIf="${parameter.displayCondition}"#end>
 ${ident}    <mat-label id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}"><span translate>$parameter.messageKey</span></mat-label>
 #if ($parameter.type.dateType || $parameter.inputDate)
 ${ident}    <input matInput type="$parameter.inputType" id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end #if($parameter.readOnly) readonly#{end}navigator="true" showOn="button"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.minLenmingth) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
@@ -172,7 +172,7 @@ ${ident}          [matChipInputFor]="${propertyId}ChipGrid" [matAutocomplete]="a
 ${ident}          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
 ${ident}          (matChipInputTokenEnd)="${propertyId}Add($event)"/>
 ${ident}    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="${propertyId}Selected($event)">
-${ident}         @for (item of ${propertyId}FilteredList | async; track item) {
+${ident}         @for (item of ${propertyId}FilteredList; track item) {
 ${ident}            <mat-option [value]="item.value">{{item.label}}</mat-option>
 ${ident}        }
 ${ident}    </mat-autocomplete>
