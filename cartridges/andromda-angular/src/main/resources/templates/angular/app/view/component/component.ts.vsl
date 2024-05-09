@@ -58,7 +58,14 @@ import { $import.componentImplementationName } from '@app/${import.implementatio
 #elseif(${import.implementationFilePath})
 import { $import.implementationName } from '@app/${import.implementationFilePath}';
 #else
-import { $import.name } from '@app/${import.filePath}';
+import { $import.name } from '@app/${import.filePath}'; 
+#if($import.attributes.size() > 0)
+#foreach($attr in $import.attributes)
+#if(${attr.type.filePath})
+import { $attr.type.name } from '@app/${attr.type.filePath}'; 
+#end
+#end
+#end
 #end
 #end
 #end
@@ -99,6 +106,29 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
 #if($attr.inputSelect || $attr.inputMultibox)
     ${attribute.name}$stringUtils.capitalize(${attr.name})BackingList: SelectItem[] = [];
     ${attribute.name}$stringUtils.capitalize(${attr.name})FilteredList: SelectItem[] = [];
+    _${attribute.name}$stringUtils.capitalize(${attr.name})Control: FormControl = new FormControl([]);
+#elseif($attr.type.attributes.size() > 0 && (!$attr.inputSelect || !$attr.inputMultibox))
+#set ($propertyId = "${attribute.name}${stringUtils.capitalize($attr.name)}")
+    @ViewChild('${propertyId}ModalPaginator', {static: true}) ${propertyId}ModalPaginator: MatPaginator;
+    @ViewChild('${propertyId}ModalSort', {static: true}) ${propertyId}ModalSort: MatSort;
+
+    $stringUtils.pluralize(${propertyId})$: Observable<${attr.angularTypeName}[]>;
+    ${propertyId}SearchField: FormControl = new FormControl([]);
+    ${propertyId}Select: ${attr.angularTypeName}#if($attr.many || $attr.type.collectionType)[] = []#else = new  ${attr.angularTypeName}()#end;
+
+    $stringUtils.pluralize(${propertyId})DataSource = new MatTableDataSource<${attr.angularTypeName}>([]);
+
+    ${propertyId}ModalColumns = [
+        'actions',
+#foreach ($column in $attr.tableColumnNames)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
+        '$columnName',
+#end
+    ];
 #end
 #end
 #end
@@ -106,6 +136,7 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
 #if($attribute.inputSelect || $attribute.inputMultibox || $attribute.type.enumeration)
     ${attribute.name}BackingList: SelectItem[] = [];
     ${attribute.name}FilteredList: SelectItem[] = [];
+    ${attribute.name}Control: FormControl = new FormControl([]);
 #end
 #end
 
@@ -135,7 +166,8 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('${proId}ModalPaginator', {static: true}) ${proId}ModalPaginator: MatPaginator;
     @ViewChild('${proId}ModalSort', {static: true}) ${proId}ModalSort: MatSort;
 
-    ${proId}$: Observable<${attribute.angularTypeName}[]>;
+    $stringUtils.pluralize(${proId})$: Observable<${attribute.angularTypeName}[]>;
+    $stringUtils.pluralize(${proId})DataSource = new MatTableDataSource<${attribute.angularTypeName}>([]);
     ${proId}SearchField: FormControl;
     ${proId}Select: ${attribute.angularTypeName}#if($attribute.many || $attribute.type.collectionType)[] = []#else = {}#end;
 #end
@@ -298,7 +330,9 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ${attrPropertyId}Add(event: MatChipInputEvent){
-        this.${attrPropertyId}Control.push(new FormControl());
+        this.${attrPropertyId}Control.push(new FormControl([event.value]));
+        this.${attrPropertyId}BackingList.push({label: event.value, value: event.value});
+        event.chipInput!.clear();
     }
     
     ${attrPropertyId}Selected(event: MatAutocompleteSelectedEvent): void {
@@ -310,6 +344,11 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
 
     ${attrPropertyId}Clear(){}
 
+    ${attrPropertyId}Selected(event: MatCheckboxChange, row: number){}
+
+    ${attrPropertyId}Search(){}
+
+    addSelected$stringUtils.capitalize(${attrPropertyId})(){}
 #end
 #end
 #end

@@ -79,7 +79,7 @@ ${ident}    <button mat-button class="btn btn-primary" (click)="on${stringUtils.
 ${ident}        <span translate>$parameter.messageKey</span>
 ${ident}    </button>
 ${ident}</div>
-#elseif($angularUtils.isTable($parameter))
+#elseif($angularUtils.isTable($parameter) && !($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.many))
 ${ident}	<div>
 ${ident}        <button mat-button (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
 ${ident}            <mat-icon>add_box</mat-icon>
@@ -127,12 +127,15 @@ ${ident}            $parameter.messageKey
 ${ident}        </mat-checkbox>
 ${ident}    </section>
 #else
-${ident}<mat-form-field class="col-md-6"#if(!$parameter.inputMultibox && $angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter)) formGroupName="${parameter.name}"#end#if($parameter.displayCondition) *ngIf="${parameter.displayCondition}"#end>
+#if(!$angularUtils.isComplex($parameter) || $parameter.inputMultibox || $parameter.inputSelect || $parameter.type.enumeration || $parameter.type.enumeration || $angularUtils.isTable($parameter))
+${ident}<mat-form-field class="mb-3"#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter)) formGroupName="${parameter.name}"#end#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
 ${ident}    <mat-label id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}"><span translate>$parameter.messageKey</span></mat-label>
+#else
+${ident}<fieldset class="mb-3" formGroupName="${parameter.name}"#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
+${ident}    <legend id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}"><span translate>$parameter.messageKey</span>#if($parameter.required)*#end</legend>
+#end
 #if ($parameter.type.dateType || $parameter.inputDate)
 ${ident}    <input matInput type="$parameter.inputType" id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end #if($parameter.readOnly) readonly#{end}navigator="true" showOn="button"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.minLenmingth) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
-##elseif ($parameter.inputCheckbox || $parameter.type.booleanType)
-##${ident}    <mat-checkbox id="$propertyId" class="form-check-input" formControlName="${parameter.name}"#if($parameter.required) required#end onLabel="#{yes}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration)
 #set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
 ${ident}    <mat-select#if ($multiSelect) multiple size="5"#end id="$propertyId" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" #if($parameter.required) required#end#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
@@ -157,7 +160,7 @@ ${ident}	<textarea matInput id="$propertyId" formControlName="${parameter.name}"
 #elseif ($parameter.inputFile)
 ${ident}    <input matInput type="file" id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #elseif ($parameter.inputMultibox)
-${ident}    <mat-chip-grid #${propertyId}ChipGrid aria-label="{{ $parameter.messageKey | translate}} selection">
+${ident}    <mat-chip-grid #${propertyId}ChipGrid>
 ${ident}        @for (selectItem of ${propertyId}BackingList; track selectItem.value; let i = $index) {
 ${ident}            <mat-chip-row (removed)="${propertyId}Remove(i)">
 ${ident}              {{ selectItem.label }}
@@ -167,7 +170,7 @@ ${ident}              </button>
 ${ident}            </mat-chip-row>
 ${ident}        }
 ${ident}    </mat-chip-grid>
-${ident}    <input placeholder="Select ..." #${propertyId}Input [formControl]="${propertyId}Control"
+${ident}    <input placeholder="Select ..." #${propertyId}Input [formControl]="_${propertyId}Control"
 ${ident}          [matChipInputFor]="${propertyId}ChipGrid" [matAutocomplete]="auto"
 ${ident}          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
 ${ident}          (matChipInputTokenEnd)="${propertyId}Add($event)"/>
@@ -176,12 +179,7 @@ ${ident}         @for (item of ${propertyId}FilteredList; track item) {
 ${ident}            <mat-option [value]="item.value">{{item.label}}</mat-option>
 ${ident}        }
 ${ident}    </mat-autocomplete>
-## #elseif ($parameter.inputRadio)
-## ${ident}    <div class="form-check" th:each="item : *{${backingListName}}">
-## ${ident}        <label class="form-check-label" th:for="${item.value}" th:text="${item.label}"></label>
-## ${ident}        <input type="radio" id="$propertyId" class="form-check-input" formControlName="*{${parameter.name}}" th:value="${item.value}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
-## ${ident}    </div>
-#elseif($parameter.inputTable)
+#elseif($parameter.inputTable  && !($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.many))
 ${ident}	<div>
 ${ident}        <button mat-button (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
 ${ident}            <mat-icon>add_box</mat-icon>
@@ -237,10 +235,12 @@ ${ident}    </div>
 #set ($colId = "${propertyId}$stringUtils.capitalize($columnName)")
 #set ($cname = "$angularUtils.getLastProperty($columnName)")
 #if($parameter.displayCondition)${ident}    @if(${parameter.displayCondition}) {#end
-${ident}    <mat-form-field class="col-md-4">
-${ident}        <mat-label for="$colId" class="col-sm-2 col-form-label" translate>$stringUtils.toResourceMessageKey($cname)</mat-label>
-${ident}         <input matInput type="text" readonly id="$colId" value="{{${propertyId}?.$stringUtils.replace("${columnName}", ".", "?.") #if(${column.inputDate} || ${column.type.dateType}) | date#end}}">
-${ident}    </mat-form-field>
+${ident}    <div class="row">
+${ident}        <mat-form-field class="mb-3">
+${ident}            <mat-label for="$colId" class="col-sm-2 col-form-label" translate>$stringUtils.toResourceMessageKey($cname)</mat-label>
+${ident}            <input matInput type="text" readonly id="$colId" value="{{${propertyId}?.$stringUtils.replace("${columnName}", ".", "?.") #if(${column.inputDate} || ${column.type.dateType}) | date#end}}">
+${ident}        </mat-form-field>
+${ident}    </div>
 #if($parameter.displayCondition)${ident}    }#end
 #end
 #else
@@ -295,7 +295,12 @@ ${ident}    }
 ${ident}    </div>
 ${ident}</fieldset>
 #else
+##${ident}</mat-form-field>
+#if(!$angularUtils.isComplex($parameter) || $parameter.inputMultibox || $parameter.inputSelect || $parameter.type.enumeration || $parameter.type.enumeration || $angularUtils.isTable($parameter))
 ${ident}</mat-form-field>
+#else
+${ident}</fieldset>
+#end
 #end
 #end
 #end
@@ -310,11 +315,11 @@ ${ident}</mat-form-field>
 #macro(renderTableInput $parameter $ownerParameter $ident $radio)
 #set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
 #if($parameter.many)
-#set ($dataSource = "${propertyId}$")
+#set ($dataSource = "${propertyId}DataSource")
 #else
-#set ($dataSource = "$stringUtils.pluralize(${propertyId})$")
+#set ($dataSource = "$stringUtils.pluralize(${propertyId})DataSource")
 #end
-$ident<mat-table matSort [dataSource]="$dataSource | async" #${propertyId}ModalSort="matSort" class="table table-bordered" style="width: 100%;">
+$ident<mat-table matSort [dataSource]="$dataSource" #${propertyId}ModalSort="matSort" class="table table-bordered" style="width: 100%;">
 #if($parameter.tableColumnNames)
 #set ($columns = $parameter.tableColumnNames)
 #else
@@ -374,7 +379,11 @@ $ident<mat-paginator #${propertyId}ModalPaginator="matPaginator" [pageSize]="10"
 #set ($propertyId = $parameter.name)
 #end
 #else
-#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($propertyId2 = $parameter.getFormPropertyId($ownerParameter))
+#if(!$propertyId2)
+#set ($propertyId2 = "${ownerParameter.name}${stringUtils.capitalize($parameter.name)}")
+#end
+#set ($propertyId = $propertyId2)
 #end
 <div class="modal fade" id="${propertyId}Modal" tabindex="-1" aria-labelledby="${propertyId}Label" aria-hidden="true">
     <div class="modal-dialog">

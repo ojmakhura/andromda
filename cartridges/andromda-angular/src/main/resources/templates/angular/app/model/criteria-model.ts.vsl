@@ -18,7 +18,6 @@ import {$import.name} from '@app/$import.filePath';
 @Injectable()
 export class $class.name {
 #foreach ($attribute in $class.attributes)
-
 #if($angularUtils.isComplex($attribute) && !$attribute.many && !$angularUtils.isArray($attribute.getterSetterTypeName) && !$attribute.type.enumeration)
 
     $attribute.name: ${attribute.type.name} = <${attribute.type.name}>{

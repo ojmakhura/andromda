@@ -29,7 +29,9 @@ export const ${stringUtils.uncapitalize(${useCase.storeName})}Reducer = createRe
     on(${actions}.${operation.name}Success, (state, action) => ({
         ...state,
 #foreach($param in $finalParams)
+#if(!$param.component)
         $param.name: #if($param.many || $param.type.collectionType)[]#{else}null#end, 
+#end
 #end
         loading: false,
         success: action.success,
@@ -40,7 +42,9 @@ export const ${stringUtils.uncapitalize(${useCase.storeName})}Reducer = createRe
     on(${actions}.${stringUtils.uncapitalize(${useCase.storeName})}Reset, (state) => ({
       ...state,
 #foreach($param in $finalParams)
+#if(!$param.component)
         $param.name: #if($param.many || $param.type.collectionType)[]#{else}null#end, 
+#end
 #end
         loading: false,
         success: false,

@@ -24,3 +24,12 @@
 #end
 #end
 </mat-card>
+#foreach($attribute in $component.attributes)
+#if(!$attribute.inputButton && !$attribute.component && $angularUtils.isComplex($attribute) && !$angularUtils.isTable($attribute))
+#foreach($attr in $attribute.type.attributes)
+#if($attr.type.attributes.size() > 0 && (!$attr.inputSelect && !$attr.inputMultibox))
+#renderModalInput($attr $attribute "			" false)
+#end
+#end
+#end
+#end

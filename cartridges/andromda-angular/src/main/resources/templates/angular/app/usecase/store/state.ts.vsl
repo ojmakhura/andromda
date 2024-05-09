@@ -32,7 +32,9 @@ export const ${stringUtils.uncapitalize(${useCase.storeName})}Key = "$stringUtil
 
 export interface ${useCase.storeName}State {
 #foreach($param in $finalParams)
+#if(!$param.component)
     $param.name: $param.angularTypeName | #if($param.many || $param.type.collectionType)any[]#{else}any#end;
+#end
 #end
     loading: boolean;
     success: boolean;
@@ -42,7 +44,9 @@ export interface ${useCase.storeName}State {
 
 export const initialState: ${useCase.storeName}State = {
 #foreach($param in $finalParams)
+#if(!$param.component)
     $param.name: #if($param.many || $param.type.collectionType)[]#{else}null#end,
+#end
 #end
     loading: false,
     success: false,

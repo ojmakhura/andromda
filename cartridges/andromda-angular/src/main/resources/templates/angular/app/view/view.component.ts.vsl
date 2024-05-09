@@ -46,6 +46,7 @@ import { Observable } from 'rxjs';
 ##if($targetModal)
 import { MatDialog } from '@angular/material/dialog';
 ##end
+import { MatTableDataSource } from '@angular/material/table';
 #if($view.popup)
 import {MatDialogRef} from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -214,6 +215,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     @ViewChild('${proId}ModalSort', {static: true}) ${proId}ModalSort: MatSort;
 
     ${proId}$: Observable<${attribute.angularTypeName}[]>;
+    $stringUtils.pluralize(${proId})DataSource = new MatTableDataSource<${attribute.angularTypeName}>([]);
     ${proId}SearchField: FormControl;
     ${proId}Select: ${attribute.angularTypeName}#if($attribute.many || $attribute.type.collectionType)[] = []#else = {}#end;
 
@@ -223,6 +225,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($proId = "$attribute.getFormPropertyId($field)")
 #if(!$attribute.component && $angularUtils.isComplex($attribute) && !$attribute.type.enumeration && !$attribute.many)
     $stringUtils.pluralize(${proId})$: Observable<${attribute.angularTypeName}[]>;
+    $stringUtils.pluralize(${proId})DataSource = new MatTableDataSource<${attribute.angularTypeName}>([]);
     ${proId}Select: $attribute.angularTypeName = new ${attribute.angularTypeName}();
     ${proId}SearchField: FormControl = new FormControl();
 
