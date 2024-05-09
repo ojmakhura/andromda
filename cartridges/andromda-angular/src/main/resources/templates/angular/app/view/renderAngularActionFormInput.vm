@@ -177,7 +177,7 @@ ${ident}          (matChipInputTokenEnd)="${propertyId}Add($event)"/>
 ${ident}    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="${propertyId}Selected($event)">
 ${ident}         @for (item of ${propertyId}FilteredList; track item) {
 ${ident}            <mat-option [value]="item.value">{{item.label}}</mat-option>
-${ident}        }
+${ident}         }
 ${ident}    </mat-autocomplete>
 #elseif($parameter.inputTable  && !($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.many))
 ${ident}	<div>
