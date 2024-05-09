@@ -7,7 +7,6 @@ import {
   OnInit,
   ViewChild,
 } from "@angular/core";
-import { Router } from "@angular/router";
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {
   FormsModule,
@@ -30,7 +29,7 @@ import {MatAutocompleteSelectedEvent, MatAutocompleteModule} from '@angular/mate
 ##if($targetModal)
 import { MatDialog } from '@angular/material/dialog';
 ##end
-import { Observable } from "rxjs";
+import { Observable, map, startWith } from "rxjs";
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '@app/@shared';
@@ -105,7 +104,7 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
 #foreach($attr in $attribute.type.attributes)
 #if($attr.inputSelect || $attr.inputMultibox)
     ${attribute.name}$stringUtils.capitalize(${attr.name})BackingList: SelectItem[] = [];
-    ${attribute.name}$stringUtils.capitalize(${attr.name})FilteredList: SelectItem[] = [];
+    ${attribute.name}$stringUtils.capitalize(${attr.name})FilteredList$: Observable<SelectItem[]>;
     _${attribute.name}$stringUtils.capitalize(${attr.name})Control: FormControl = new FormControl([]);
 #elseif($attr.type.attributes.size() > 0 && (!$attr.inputSelect || !$attr.inputMultibox))
 #set ($propertyId = "${attribute.name}${stringUtils.capitalize($attr.name)}")
@@ -135,7 +134,7 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
 #end
 #if($attribute.inputSelect || $attribute.inputMultibox || $attribute.type.enumeration)
     ${attribute.name}BackingList: SelectItem[] = [];
-    ${attribute.name}FilteredList: SelectItem[] = [];
+    ${attribute.name}FilteredList$: Observable<SelectItem[]>;
     ${attribute.name}Control: FormControl = new FormControl([]);
 #end
 #end
@@ -168,16 +167,35 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
 
     $stringUtils.pluralize(${proId})$: Observable<${attribute.angularTypeName}[]>;
     $stringUtils.pluralize(${proId})DataSource = new MatTableDataSource<${attribute.angularTypeName}>([]);
-    ${proId}SearchField: FormControl;
+    ${proId}SearchField: FormControl = new FormControl([]);
     ${proId}Select: ${attribute.angularTypeName}#if($attribute.many || $attribute.type.collectionType)[] = []#else = {}#end;
 #end
 #end
 
     constructor(
-      private _router: Router,
       private formBuilder: FormBuilder
     ) {
-    
+#foreach($attribute in $component.attributes)
+#set ($propertyId = $attribute.name)
+#if($attr.inputMultibox && !$attribute.component)
+
+        this.${propertyId}FilteredList$ = this._${propertyId}Control.valueChanges.pipe(
+            startWith(null),
+            map((value: string | null) => (value ? this._${propertyId}Filter(value) : this.${propertyId}BackingList.slice())),
+        );
+#elseif(!$angularUtils.isSimpleType($attribute.type) && !$attribute.component)
+#foreach($attr in $attribute.type.attributes)
+#set($attrPropertyId = "${propertyId}$stringUtils.capitalize(${attr.name})")
+#if($attr.inputMultibox && !$attr.component)
+
+        this.${attrPropertyId}FilteredList$ = this._${attrPropertyId}Control.valueChanges.pipe(
+            startWith(null),
+            map((fruit: string | null) => (fruit ? this._${attrPropertyId}Filter(fruit) : this.${attrPropertyId}BackingList.slice())),
+        );
+#end
+#end
+#end
+#end
     }
 
     ngOnInit() {
@@ -328,19 +346,24 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
     ${attrPropertyId}Remove(index: number){
 
         if (index >= 0) {
-            let label = this.${attrPropertyId}BackingList[index].value;
             this.${attrPropertyId}Control.removeAt(index);
-            this.${attrPropertyId}BackingList.splice(index, 1);
         }
     }
 
     ${attrPropertyId}Add(event: MatChipInputEvent){
         this.${attrPropertyId}Control.push(new FormControl([event.value]));
-        this.${attrPropertyId}BackingList.push({label: event.value, value: event.value});
         event.chipInput!.clear();
     }
     
     ${attrPropertyId}Selected(event: MatAutocompleteSelectedEvent): void {
+        this.${attrPropertyId}Control.push(new FormControl([event.option.value]));
+        this._${attrPropertyId}Control.setValue(null);
+    }
+
+    private _${attrPropertyId}Filter(value: string): SelectItem[] {
+        const filterValue = value.toLowerCase();
+    
+        return this.${attrPropertyId}BackingList.filter(item => item.label.toLowerCase().includes(filterValue));
     }
 
 #end

@@ -161,10 +161,10 @@ ${ident}	<textarea matInput id="$propertyId" formControlName="${parameter.name}"
 ${ident}    <input matInput type="file" id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #elseif ($parameter.inputMultibox)
 ${ident}    <mat-chip-grid #${propertyId}ChipGrid>
-${ident}        @for (selectItem of ${propertyId}BackingList; track selectItem.value; let i = $index) {
+${ident}        @for (selectItem of ${propertyId}; track selectItem; let i = $index) {
 ${ident}            <mat-chip-row (removed)="${propertyId}Remove(i)">
-${ident}              {{ selectItem.label }}
-${ident}              <button matChipRemove [attr.aria-label]="'remove ' + selectItem.label">
+${ident}              {{ selectItem }}
+${ident}              <button matChipRemove [attr.aria-label]="'remove ' + selectItem">
 ${ident}                <mat-icon>cancel</mat-icon>
 ${ident}              </button>
 ${ident}            </mat-chip-row>
@@ -175,7 +175,7 @@ ${ident}          [matChipInputFor]="${propertyId}ChipGrid" [matAutocomplete]="a
 ${ident}          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
 ${ident}          (matChipInputTokenEnd)="${propertyId}Add($event)"/>
 ${ident}    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="${propertyId}Selected($event)">
-${ident}         @for (item of ${propertyId}FilteredList; track item) {
+${ident}         @for (item of ${propertyId}FilteredList$ | async; track item) {
 ${ident}            <mat-option [value]="item.value">{{item.label}}</mat-option>
 ${ident}         }
 ${ident}    </mat-autocomplete>
