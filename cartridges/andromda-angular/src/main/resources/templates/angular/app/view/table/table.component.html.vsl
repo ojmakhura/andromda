@@ -42,7 +42,10 @@
                     <div class = "form-group">
 #foreach ($action in $table.tableFormActions)
                         <button type = "button" class="btn btn-info" (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())" translate>
-                            $action.trigger.messageKey
+#if($action.icon)
+                            <mat-icon fontIcon="$action.icon" aria-hidden="false" aria-label="$action.icon"></mat-icon>
+#end
+                            $action.trigger.messageKey $action.
                         </button>
 #end
                     </div>    

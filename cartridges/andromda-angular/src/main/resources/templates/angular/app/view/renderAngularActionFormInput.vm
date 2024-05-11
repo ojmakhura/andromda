@@ -82,17 +82,17 @@ ${ident}</div>
 #elseif($angularUtils.isTable($parameter) && !($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.many))
 ${ident}	<div>
 ${ident}        <button mat-button (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
-${ident}            <mat-icon>add_box</mat-icon>
+${ident}            <mat-icon fontIcon="add_box" aria-hidden="false" aria-label="Add"></mat-icon>
 ${ident}        </button>
 ${ident}		<mat-table matSort [dataSource]="${propertyId}" #${parameter.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
 ${ident}			<ng-container matColumnDef="actions">
 ${ident}				<mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
 ${ident}                <mat-cell *matCellDef="let row; index as i">
 ${ident}                    <button mat-button color="accent" (click)="deleteFrom$stringUtils.capitalize(${propertyId})(i)" class="btn btn-info">
-${ident}                        <mat-icon>delete</mat-icon>
+${ident}                        <mat-icon fontIcon="delete" aria-hidden="false" aria-label="Delete"></mat-icon>
 ${ident}                    </button>
 ${ident}                    <button mat-button color="accent" (click)="doEdit$stringUtils.capitalize(${propertyId})(row)" class="btn btn-info">
-${ident}                        <mat-icon>edit</mat-icon>
+${ident}                        <mat-icon fontIcon="edit" aria-hidden="false" aria-label="Edit"></mat-icon>
 ${ident}                    </button>
 ${ident}                </mat-cell>
 ${ident}			</ng-container>
@@ -118,7 +118,9 @@ ${ident}		<mat-paginator #${propertyId}Paginator="matPaginator" [pageSize]="10" 
 ${ident}	</div>
 #elseif ($parameter.inputRadio)
 ${ident}<fieldset class="row form-group border p-3"#if($parameter.displayCondition) *ngIf="${parameter.displayCondition}"#end>
+##if($ownerParameter.attributes.size() > 1)
 ${ident}    <legend class="col-form-label col-sm-2 pt-0" translate>$parameter.messageKey</legend>
+##end
 ${ident}    <div class="mb-3">
 #elseif($parameter.inputCheckbox || $parameter.type.booleanType)
 ${ident}    <section>
@@ -128,11 +130,13 @@ ${ident}        </mat-checkbox>
 ${ident}    </section>
 #else
 #if(!$angularUtils.isComplex($parameter) || $parameter.inputMultibox || $parameter.inputSelect || $parameter.type.enumeration || $parameter.type.enumeration || $angularUtils.isTable($parameter))
-${ident}<mat-form-field class="mb-3"#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter)) formGroupName="${parameter.name}"#end#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
+${ident}<mat-form-field class="col-md-6"#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter)) formGroupName="${parameter.name}"#end#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
 ${ident}    <mat-label id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}"><span translate>$parameter.messageKey</span></mat-label>
 #else
 ${ident}<fieldset class="mb-3" formGroupName="${parameter.name}"#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
+##if($ownerParameter.attributes.size() > 1)
 ${ident}    <legend id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}"><span translate>$parameter.messageKey</span>#if($parameter.required)*#end</legend>
+##end
 #end
 #if ($parameter.type.dateType || $parameter.inputDate)
 ${ident}    <input matInput type="$parameter.inputType" id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end #if($parameter.readOnly) readonly#{end}navigator="true" showOn="button"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.minLenmingth) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
@@ -165,12 +169,12 @@ ${ident}        @for (selectItem of ${propertyId}; track selectItem; let i = $in
 ${ident}            <mat-chip-row (removed)="${propertyId}Remove(i)">
 ${ident}              {{ selectItem }}
 ${ident}              <button matChipRemove [attr.aria-label]="'remove ' + selectItem">
-${ident}                <mat-icon>cancel</mat-icon>
+${ident}                <mat-icon fontIcon="cancel" aria-hidden="false" aria-label="Cancel"></mat-icon>
 ${ident}              </button>
 ${ident}            </mat-chip-row>
 ${ident}        }
 ${ident}    </mat-chip-grid>
-${ident}    <input placeholder="Select ..." #${propertyId}Input [formControl]="_${propertyId}Control"
+${ident}    <input placeholder="Select ..." #${propertyId}Input [formControl]="${propertyId}ChipControl"
 ${ident}          [matChipInputFor]="${propertyId}ChipGrid" [matAutocomplete]="auto"
 ${ident}          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
 ${ident}          (matChipInputTokenEnd)="${propertyId}Add($event)"/>
@@ -182,17 +186,17 @@ ${ident}    </mat-autocomplete>
 #elseif($parameter.inputTable  && !($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.many))
 ${ident}	<div>
 ${ident}        <button mat-button (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
-${ident}            <mat-icon>add_box</mat-icon>
+${ident}            <mat-icon fontIcon="add_box" aria-hidden="false" aria-label="Add"></mat-icon>
 ${ident}        </button>
 ${ident}		<mat-table matSort [dataSource]="${propertyId}" #${propertyId}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
 ${ident}			<ng-container matColumnDef="actions">
 ${ident}				<mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
 ${ident}                <mat-cell *matCellDef="let row; index as i">
 ${ident}                    <button mat-button color="accent" (click)="deleteFrom$stringUtils.capitalize(${propertyId})(i)" class="btn btn-info">
-${ident}                        <mat-icon>delete</mat-icon>
+${ident}                        <mat-icon fontIcon="delete" aria-hidden="false" aria-label="Delete"></mat-icon>
 ${ident}                    </button>
 ${ident}                    <button mat-button color="accent" (click)="deleteFrom$stringUtils.capitalize(${propertyId})(row)" class="btn btn-info">
-${ident}                        <mat-icon>delete</mat-icon>
+${ident}                        <mat-icon fontIcon="delete" aria-hidden="false" aria-label="Delete"></mat-icon>
 ${ident}                    </button>
 ${ident}                </mat-cell>
 ${ident}			</ng-container>
@@ -220,10 +224,10 @@ ${ident}	</div>
 #if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.many)
 ${ident}    <div class="col my-3 view-buttons">
 ${ident}        <button mat-button (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
-${ident}            <mat-icon>add_box</mat-icon>
+${ident}            <mat-icon fontIcon="add_box" aria-hidden="false" aria-label="Add"></mat-icon>
 ${ident}        </button>
 ${ident}        <button mat-button (click)="${propertyId}Clear()" class="btn btn-primary">
-${ident}            <mat-icon>clear</mat-icon>
+${ident}            <mat-icon fontIcon="clear" aria-hidden="false" aria-label="Clear"></mat-icon>
 ${ident}        </button>
 ${ident}    </div>
 #foreach($column in $parameter.tableColumns)
@@ -236,7 +240,7 @@ ${ident}    </div>
 #set ($cname = "$angularUtils.getLastProperty($columnName)")
 #if($parameter.displayCondition)${ident}    @if(${parameter.displayCondition}) {#end
 ${ident}    <div class="row">
-${ident}        <mat-form-field class="mb-3">
+${ident}        <mat-form-field class="col-md-6">
 ${ident}            <mat-label for="$colId" class="col-sm-2 col-form-label" translate>$stringUtils.toResourceMessageKey($cname)</mat-label>
 ${ident}            <input matInput type="text" readonly id="$colId" value="{{${propertyId}?.$stringUtils.replace("${columnName}", ".", "?.") #if(${column.inputDate} || ${column.type.dateType}) | date#end}}">
 ${ident}        </mat-form-field>
@@ -354,7 +358,7 @@ ${ident}    </ng-container>
 #end
 ${ident}    <ng-container matColumnDef="$columnName">
 ${ident}        <mat-header-cell *matHeaderCellDef translate>$stringUtils.toResourceMessageKey($columnName)</mat-header-cell>
-${ident}        <mat-cell *matCellDef="let row"> {{ row?.${stringUtils.replace("${columnName}", ".", "?.")} }} </mat-cell>
+${ident}        <mat-cell *matCellDef="let row"> {{ row.${stringUtils.replace("${columnName}", ".", "?.")} }} </mat-cell>
 ${ident}    </ng-container>
 #end
 ${ident}    <mat-header-row *matHeaderRowDef="${propertyId}ModalColumns"></mat-header-row>
@@ -404,7 +408,7 @@ $ident<mat-paginator #${propertyId}ModalPaginator="matPaginator" [pageSize]="10"
                                 id="${propertyId}SearchField" />
                         </mat-form-field>
                         <button mat-button (click)="${propertyId}Search()" class="btn btn-primary">
-                            <mat-icon>search</mat-icon>
+                            <mat-icon fontIcon="search" aria-hidden="false" aria-label="Search"></mat-icon>
                         </button>
                     </form>
                 </div>

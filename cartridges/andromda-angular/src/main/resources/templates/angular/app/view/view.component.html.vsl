@@ -104,7 +104,7 @@
 #end
 </div>
 #if($view.popup)
-<div mat-dialog-actions>
+<div mat-dialog-actions class="view-buttons">
 	<button type="button" class="btn btn-info" color="accent" (click)="cancelDialog()" translate>action.cancel</button>
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)

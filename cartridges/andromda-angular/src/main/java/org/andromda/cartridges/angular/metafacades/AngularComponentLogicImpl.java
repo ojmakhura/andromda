@@ -11,6 +11,7 @@ import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.cartridges.angular.AngularUtils;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 
@@ -146,6 +147,11 @@ public class AngularComponentLogicImpl
 
             if(attribute.getType().isEnumeration() || !attribute.getType().getAttributes().isEmpty()) {
                 imports.add(attribute.getType());
+                for(AttributeFacade attr : attribute.getType().getAttributes()) {
+                    if(attr.getType().isEnumeration() || !attr.getType().getAttributes().isEmpty()) {
+                        imports.add(attr.getType());
+                    }
+                }
             }
         }
 
