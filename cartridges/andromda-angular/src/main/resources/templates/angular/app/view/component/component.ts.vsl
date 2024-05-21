@@ -95,6 +95,11 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
     @Input() ${attribute.name}Input: ${attribute.angularTypeName}#if($attribute.many)[]#end;
 #if($angularUtils.isComplex($attribute) && !$angularUtils.isTable($attribute))
 #foreach($attr in $attribute.type.attributes)
+#set ($propertyId = "${attribute.name}${stringUtils.capitalize($attr.name)}")
+#if($attr.inputType == "image" || $attr.inputFile)
+    ${propertyId}Preview#if($attr.many)s: any[]#{else}: any#end = #if($attr.many)[]#else''#end;
+    ${propertyId}SelectedFile#if($attr.many)s#end?: #if($attr.many)FileList#{else}File#end;
+#end
 #if($attr.inputSelect || $attr.inputMultibox)
     ${attribute.name}$stringUtils.capitalize(${attr.name})BackingList: SelectItem[] = [];
     ${attribute.name}$stringUtils.capitalize(${attr.name})FilteredList$: Observable<SelectItem[]>;
@@ -164,6 +169,10 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
     $stringUtils.pluralize(${proId})DataSource = new MatTableDataSource<${attribute.angularTypeName}>([]);
     ${proId}SearchField: FormControl = new FormControl([]);
     ${proId}Select: ${attribute.angularTypeName}#if($attribute.many || $attribute.type.collectionType)[] = []#else = {}#end;
+#end
+#if($attribute.inputType == "image" || $attribute.inputFile)
+    ${attribute.name}Preview#if($attribute.many)s: any[]#{else}: any#end = #if($attribute.many)[]#else''#end;
+    ${attribute.name}SelectedFile#if($attribute.many)s#end?: #if($attribute.many)FileList#{else}File#end;
 #end
 #end
 
@@ -373,12 +382,100 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
 
     addSelected$stringUtils.capitalize(${attrPropertyId})(){}
 #end
+#if($attr.inputType == "image" || $attr.inputFile)
+#if($attr.many)
+    ${attrPropertyId}SelectFiles(event: any): void {
+        this.${attrPropertyId}SelectedFiles = event.target.files;
+  
+#if($attr.inputType == "image")
+        this.${attrPropertyId}Previews = [];
+#end
+        if (this.${attrPropertyId}SelectedFiles && this.${attrPropertyId}SelectedFiles[0]) {
+            const numberOfFiles = this.${attrPropertyId}SelectedFiles.length;
+            for (let i = 0; i < numberOfFiles; i++) {
+#if($attr.inputType == "image")
+                const reader = new FileReader();
+  
+                reader.onload = (e: any) => {
+                    console.log(e.target.result);
+                    this.${attrPropertyId}Previews.push(e.target.result);
+                };
+  
+                reader.readAsDataURL(this.${attrPropertyId}SelectedFiles[i]);
+#end
+                this.${attrPropertyId}Control.push(this.formBuilder.control(this.${attrPropertyId}SelectedFiles[i]));
+            }
+        }
+    }
+#else
+
+    ${attrPropertyId}SelectFile(event: any): void {
+
+        for (let i = 0; i < event.target.files.length; i++) {
+            const file = event.target.files[i];
+
+#if($attr.inputType == "image")
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (_event) => {
+                this.${attrPropertyId}Preview.push(reader.result);
+            };
+#end
+
+            this.${attrPropertyId}Control.setValue(file);
+        }
+    }
+#end
+#end
 #end
 #end
 #elseif($attribute.inputButton)
     on${stringUtils.capitalize(${attribute.name})}Click() {
     }
 
+#end
+#if($attribute.inputType == "image" || $attribute.inputFile)
+#if($attribute.many)
+    ${propertyId}SelectFiles(event: any): void {
+        this.${propertyId}SelectedFiles = event.target.files;
+#if($attribute.inputType == "image")
+        this.${propertyId}Previews = [];
+#end
+        if (this.${propertyId}SelectedFiles && this.${propertyId}SelectedFiles[0]) {
+            const numberOfFiles = this.${propertyId}SelectedFiles.length;
+            for (let i = 0; i < numberOfFiles; i++) {
+#if($attribute.inputType == "image")
+                const reader = new FileReader();
+    
+                reader.onload = (e: any) => {
+                    console.log(e.target.result);
+                    this.${propertyId}Previews.push(e.target.result);
+                };
+    
+                reader.readAsDataURL(this.${propertyId}SelectedFiles[i]);
+#end
+                this.${propertyId}Control.push(this.formBuilder.control(this.${propertyId}SelectedFiles[i]));
+            }
+        }
+    }
+#else
+
+    ${propertyId}SelectFile(event: any): void {
+
+        for (let i = 0; i < event.target.files.length; i++) {
+            const file = event.target.files[i];
+
+#if($attribute.inputType == "image")
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (_event) => {
+                this.${propertyId}Preview = reader.result;
+            };
+#end
+            this.${propertyId}Control.setValue(file);
+        }
+    }
+#end
 #end
 #end
 }

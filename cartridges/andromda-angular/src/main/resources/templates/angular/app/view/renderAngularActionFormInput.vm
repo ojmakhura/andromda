@@ -79,6 +79,21 @@ ${ident}    <button mat-button class="btn btn-primary" (click)="on${stringUtils.
 ${ident}        <span translate>$parameter.messageKey</span>
 ${ident}    </button>
 ${ident}</div>
+#elseif($parameter.inputType == "image" || $parameter.inputFile)
+${ident}<div class="row">
+${ident}    <mat-form-field class="col-md-6">
+${ident}        <label id="${propertyId}_label" class="col-sm-2 col-form-label" for="${propertyId}"><span translate>$parameter.messageKey</span></label>
+${ident}        <div>
+${ident}            <input matInput id="${propertyId}" formControlName="${propertyId}" [hidden]="true" />
+${ident}        </div>
+${ident}        @for (preview of ${propertyId}Preview#if($parameter.many)s#end; track $index) {
+${ident}        <div>
+${ident}            <img mat-card-image [src]="preview" style="max-width: 200px" />
+${ident}        </div>
+${ident}        }
+${ident}        <input type="file" accept="image/*" id="${propertyId}FileInput" name="${propertyId}FileInput" (change)="${propertyId}SelectFile#if($parameter.many)s#{end}($event)" #if($parameter.many)multiple#end />
+${ident}    </mat-form-field>
+${ident}</div>
 #elseif($angularUtils.isTable($parameter) && !($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.many))
 ${ident}	<div>
 ${ident}        <button mat-button (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
@@ -161,8 +176,6 @@ ${ident}        }
 ${ident}    </mat-select>
 #elseif ($parameter.inputTextarea)
 ${ident}	<textarea matInput id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end></textarea>
-#elseif ($parameter.inputFile)
-${ident}    <input matInput type="file" id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end#if($parameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #elseif ($parameter.inputMultibox)
 ${ident}    <mat-chip-grid #${propertyId}ChipGrid>
 ${ident}        @for (selectItem of ${propertyId}; track selectItem; let i = $index) {
