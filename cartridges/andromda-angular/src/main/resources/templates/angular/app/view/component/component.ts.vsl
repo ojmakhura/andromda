@@ -131,6 +131,10 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
 #end
 #end
 #if($attribute.inputSelect || $attribute.inputMultibox || $attribute.type.enumeration)
+#if($attribute.type.enumeration)
+    ${attribute.name}T: any = $attribute.type.name;
+    ${attribute.name}Options = Object.keys(this.${attribute.name}T);
+#end
     ${attribute.name}BackingList: SelectItem[] = [];
     ${attribute.name}FilteredList$: Observable<SelectItem[]>;
 #if($attribute.inputSelect || $attribute.inputMultibox)
@@ -381,8 +385,51 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
     ${attrPropertyId}Search(){}
 
     addSelected$stringUtils.capitalize(${attrPropertyId})(){}
+
 #end
 #if($attr.inputType == "image" || $attr.inputFile)
+#set ($deleteFunc = "deleteFromSelected$stringUtils.capitalize(${attrPropertyId})(#if($attr.many)index: number#end)")
+#if($attr.inputType == "image")
+#if($attr.many)
+    private reloadSelected$stringUtils.capitalize(${attrPropertyId})(files: File[]) {
+        this.${attrPropertyId}Previews = [];
+        if (files && files.length > 0) {
+            const numberOfFiles = files.length;
+            for (let i = 0; i < numberOfFiles; i++) {
+                const reader = new FileReader();
+    
+                reader.onload = (e: any) => {
+                    this.${attrPropertyId}Previews.push(e.target.result);
+                };
+    
+                reader.readAsDataURL(files[i]);
+            }
+        }
+
+    }
+
+#end
+#set( $displayName = "${attrPropertyId}Previews#if($attr.many)s#end")
+#set ($item = "preview")
+#else
+#set( $displayName = "${attrPropertyId}Control.value")
+#set ($item = "file")
+#end
+    $deleteFunc {
+#if($attr.many)
+        this.${attrPropertyId}Control.removeAt(index);
+#if($attr.inputType == "image")
+        this.${attrPropertyId}Previews.splice(index, 1);
+        this.reloadSelected$stringUtils.capitalize(${attrPropertyId})(this.${attrPropertyId}Control.value);
+#end
+#else
+        this.${attrPropertyId}Control.setValue(null);
+#if($attr.inputType == "image")
+        this.${attrPropertyId}Preview = null;
+#end
+#end
+    }
+
 #if($attr.many)
     ${attrPropertyId}SelectFiles(event: any): void {
         this.${attrPropertyId}SelectedFiles = event.target.files;
@@ -407,8 +454,8 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
             }
         }
     }
-#else
 
+#else
     ${attrPropertyId}SelectFile(event: any): void {
 
         for (let i = 0; i < event.target.files.length; i++) {
@@ -425,6 +472,7 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
             this.${attrPropertyId}Control.setValue(file);
         }
     }
+
 #end
 #end
 #end
@@ -435,6 +483,46 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
 
 #end
 #if($attribute.inputType == "image" || $attribute.inputFile)
+#set ($deleteFunc = "deleteFromSelected$stringUtils.capitalize(${propertyId})(#if($attribute.many)index: number#end)")
+#if($attribute.inputType == "image")
+#if($attribute.many)
+    private reloadSelected$stringUtils.capitalize(${propertyId})(files: File[]) {
+        this.${propertyId}Previews = [];
+        if (files && files.length > 0) {
+            const numberOfFiles = files.length;
+            for (let i = 0; i < numberOfFiles; i++) {
+                const reader = new FileReader();
+    
+                reader.onload = (e: any) => {
+                    this.${propertyId}Previews.push(e.target.result);
+                };
+    
+                reader.readAsDataURL(files[i]);
+            }
+        }
+
+    }
+
+#end
+#set( $displayName = "${propertyId}Previews#if($attribute.many)s#end")
+#set ($item = "preview")
+#else
+#set( $displayName = "${propertyId}Control.value")
+#set ($item = "file")
+#end
+    $deleteFunc {
+#if($attribute.many)
+        this.${propertyId}Control.removeAt(index);
+#if($attribute.inputType == "image")
+        this.${propertyId}Previews.splice(index, 1);
+        this.reloadSelected$stringUtils.capitalize(${propertyId})(this.${propertyId}Control.value);
+#end
+#else
+        this.${propertyId}Control.setValue(null);
+        this.${propertyId}Preview = null;
+#end
+    }
+    
 #if($attribute.many)
     ${propertyId}SelectFiles(event: any): void {
         this.${propertyId}SelectedFiles = event.target.files;
@@ -448,7 +536,6 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
                 const reader = new FileReader();
     
                 reader.onload = (e: any) => {
-                    console.log(e.target.result);
                     this.${propertyId}Previews.push(e.target.result);
                 };
     
@@ -458,8 +545,8 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
             }
         }
     }
-#else
 
+#else
     ${propertyId}SelectFile(event: any): void {
 
         for (let i = 0; i < event.target.files.length; i++) {
@@ -475,6 +562,7 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
             this.${propertyId}Control.setValue(file);
         }
     }
+
 #end
 #end
 #end

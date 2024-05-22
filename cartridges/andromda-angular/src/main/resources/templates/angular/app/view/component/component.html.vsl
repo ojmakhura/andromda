@@ -7,10 +7,10 @@
     <app-$attribute.type.selectorName id="$propertyId"
         #${attribute.name}>
     </app-$attribute.type.selectorName>
-#elseif(!$angularUtils.isComplex($attribute) || $attribute.inputMultibox || $attribute.inputSelect)
-        <div class="row">
+#elseif(!$angularUtils.isComplex($attribute) || $attribute.inputMultibox || $attribute.inputSelect || $attribute.type.enumeration)
+    <div class="row">
 #renderAngularActionInput($attribute "" "       ")
-        </div>
+    </div>
 #elseif($attribute.inputTable)
  <!-- $attribute.name table -->
 #elseif($angularUtils.isComplex($attribute))

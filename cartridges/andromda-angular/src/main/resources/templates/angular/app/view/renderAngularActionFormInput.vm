@@ -80,20 +80,35 @@ ${ident}        <span translate>$parameter.messageKey</span>
 ${ident}    </button>
 ${ident}</div>
 #elseif($parameter.inputType == "image" || $parameter.inputFile)
-${ident}<div class="row">
-${ident}    <mat-form-field class="col-md-6">
-${ident}        <label id="${propertyId}_label" class="col-sm-2 col-form-label" for="${propertyId}"><span translate>$parameter.messageKey</span></label>
-${ident}        <div>
-${ident}            <input matInput id="${propertyId}" formControlName="${propertyId}" [hidden]="true" />
-${ident}        </div>
-${ident}        @for (preview of ${propertyId}Preview#if($parameter.many)s#end; track $index) {
-${ident}        <div>
-${ident}            <img mat-card-image [src]="preview" style="max-width: 200px" />
-${ident}        </div>
+${ident}<mat-form-field class="col-md-8">
+${ident}    <div>
+${ident}        <mat-label id="${propertyId}_label" class="col-sm-2 col-form-label" for="${propertyId}"><span translate>$parameter.messageKey</span></mat-label>
+${ident}    </div>
+${ident}    <input matInput id="${propertyId}" form#if($parameter.many)Array#{else}Control#{end}Name="${propertyId}" [hidden]="true" />
+#set ($deleteFunc = "deleteFromSelected$stringUtils.capitalize(${propertyId})(#if($parameter.many)$index#end)")
+#if($parameter.inputType == "image")
+#set( $displayName = "${propertyId}Preview#if($parameter.many)s#end")
+#set ($item = "preview")
+#else
+#set( $displayName = "${propertyId}Control.value")
+#set ($item = "file")
+#end
+${ident}    <mat-list#if(!$parameter.many) *ngIf="$displayName"#end>
+${ident}        @for ($item of #if($parameter.many)$displayName#else[$displayName]#end; track $index) {
+${ident}        <mat-list-item>
+#if($parameter.inputType == "image")
+                    <img mat-card-image [src]="$item" style="max-width: 100px" />
+#else
+${ident}            <div matListItemTitle>{{${item}.name}}</div>
+#end
+${ident}            <button mat-icon-button color="primary" matListItemMeta  (click)="$deleteFunc">
+${ident}                <mat-icon>delete</mat-icon>
+${ident}            </button>
+${ident}        </mat-list-item>
 ${ident}        }
-${ident}        <input type="file" accept="image/*" id="${propertyId}FileInput" name="${propertyId}FileInput" (change)="${propertyId}SelectFile#if($parameter.many)s#{end}($event)" #if($parameter.many)multiple#end />
-${ident}    </mat-form-field>
-${ident}</div>
+${ident}    </mat-list>
+${ident}    <input type="file" #if($parameter.inputType == "image")accept="image/*" #{end}id="${propertyId}FileInput" name="${propertyId}FileInput" (change)="${propertyId}SelectFile#if($parameter.many)s#{end}($event)" #if($parameter.many)multiple#end />
+${ident}</mat-form-field>
 #elseif($angularUtils.isTable($parameter) && !($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.many))
 ${ident}	<div>
 ${ident}        <button mat-button (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
@@ -133,9 +148,7 @@ ${ident}		<mat-paginator #${propertyId}Paginator="matPaginator" [pageSize]="10" 
 ${ident}	</div>
 #elseif ($parameter.inputRadio)
 ${ident}<fieldset class="row form-group border p-3"#if($parameter.displayCondition) *ngIf="${parameter.displayCondition}"#end>
-##if($ownerParameter.attributes.size() > 1)
 ${ident}    <legend class="col-form-label col-sm-2 pt-0" translate>$parameter.messageKey</legend>
-##end
 ${ident}    <div class="mb-3">
 #elseif($parameter.inputCheckbox || $parameter.type.booleanType)
 ${ident}    <section>
@@ -144,14 +157,12 @@ ${ident}            $parameter.messageKey
 ${ident}        </mat-checkbox>
 ${ident}    </section>
 #else
-#if(!$angularUtils.isComplex($parameter) || $parameter.inputMultibox || $parameter.inputSelect || $parameter.type.enumeration || $parameter.type.enumeration || $angularUtils.isTable($parameter))
-${ident}<mat-form-field class="col-md-6"#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter)) formGroupName="${parameter.name}"#end#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
+#if(!$angularUtils.isComplex($parameter) || $parameter.inputMultibox || $parameter.inputSelect || $parameter.type.enumeration || $angularUtils.isTable($parameter))
+${ident}<mat-form-field class="col-md-8"#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter)) formGroupName="${parameter.name}"#end#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
 ${ident}    <mat-label id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}"><span translate>$parameter.messageKey</span></mat-label>
 #else
 ${ident}<fieldset class="mb-3" formGroupName="${parameter.name}"#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
-##if($ownerParameter.attributes.size() > 1)
 ${ident}    <legend id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}"><span translate>$parameter.messageKey</span>#if($parameter.required)*#end</legend>
-##end
 #end
 #if ($parameter.type.dateType || $parameter.inputDate)
 ${ident}    <input matInput type="$parameter.inputType" id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end #if($parameter.readOnly) readonly#{end}navigator="true" showOn="button"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.minLenmingth) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
@@ -253,7 +264,7 @@ ${ident}    </div>
 #set ($cname = "$angularUtils.getLastProperty($columnName)")
 #if($parameter.displayCondition)${ident}    @if(${parameter.displayCondition}) {#end
 ${ident}    <div class="row">
-${ident}        <mat-form-field class="col-md-6">
+${ident}        <mat-form-field class="col-md-8">
 ${ident}            <mat-label for="$colId" class="col-sm-2 col-form-label" translate>$stringUtils.toResourceMessageKey($cname)</mat-label>
 ${ident}            <input matInput type="text" readonly id="$colId" value="{{${propertyId}?.$stringUtils.replace("${columnName}", ".", "?.") #if(${column.inputDate} || ${column.type.dateType}) | date#end}}">
 ${ident}        </mat-form-field>
@@ -312,7 +323,6 @@ ${ident}    }
 ${ident}    </div>
 ${ident}</fieldset>
 #else
-##${ident}</mat-form-field>
 #if(!$angularUtils.isComplex($parameter) || $parameter.inputMultibox || $parameter.inputSelect || $parameter.type.enumeration || $parameter.type.enumeration || $angularUtils.isTable($parameter))
 ${ident}</mat-form-field>
 #else
