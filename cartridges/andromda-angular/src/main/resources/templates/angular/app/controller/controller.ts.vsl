@@ -243,11 +243,4 @@ $decisionTransition.getDocumentation("     * ")
 
 #end
 #end
-###foreach($cnt in $controller.otherControllers)
-##
-##    get ${cnt.variableName}(): ${cnt.implementationName} {
-##        
-##        return this._injector.get(${cnt.implementationName});
-##    }
-##end 
 }

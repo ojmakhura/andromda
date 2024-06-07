@@ -567,7 +567,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #elseif($variable.complex)
 #set ($controlType = "FormGroup")
 #set ($controlGet = "Group")
-    create$stringUtils.capitalize($variable.name)Form($variable.name: $variable.angularTypeName): FormGroup {
+    create$stringUtils.capitalize($variable.name)Form($variable.name?: $variable.angularTypeName): FormGroup {
         return this.formBuilder.group({
 #foreach($attribute in $variable.attributes)
 #if(!$attribute.inputButton)
@@ -904,7 +904,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #else
 #set ($typeName = "$field.name")
 #end
-    create${typeName}Group(value: $typeName): FormGroup {
+    create${typeName}Group(value?: $typeName): FormGroup { // $field.component $field.type.component
         return this.formBuilder.group({
 #foreach($attribute in $field.attributes)
 #if($angularUtils.isSimpleType($attribute))
@@ -914,7 +914,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         });
     }
 
-    create${typeName}Array(values: $typeName[]): FormArray {
+    create${typeName}Array(values?: $typeName[]): FormArray {
         if(values) {
             let formArray: FormArray = this.formBuilder.array([]);
             values?.forEach(value => formArray.push(this.create${typeName}Group(value)))
