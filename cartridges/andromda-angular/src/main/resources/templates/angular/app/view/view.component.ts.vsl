@@ -98,18 +98,7 @@ import { MatDialogConfig } from '@angular/material/dialog';
 #if($view.popup)
 import { ${view.componentImplementationName} } from '@app/${view.implementationFilePath}';
 #end
-#foreach ($action in $view.actions)
-#if (!$action.tableLink)
 
-export class $stringUtils.capitalize($action.formName) {
-#foreach($parameter in $action.formFields)
-#if(!$parameter.inputButton)
-    $parameter.name: $parameter.angularTypeName#if($parameter.many || $angularUtils.isArray($parameter.type.name))[]#end | any#if($parameter.many || $angularUtils.isArray($parameter.type.name))[]#end;
-#end
-#end
-}
-#end
-#end
 #if ($view.nonTableVariablesPresent)
 export class $stringUtils.capitalize(${view.varsFormName}) {
 #foreach($variable in $view.variables)
@@ -149,7 +138,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     public dialogRef: MatDialogRef<${view.componentImplementationName}> = inject(MatDialogRef);
     dialogData: any;
 #end
-	${view.formName}: FormGroup | any;
+	${view.formName}: FormGroup = new FormGroup({});
     hide: boolean = false;
     protected route: ActivatedRoute = inject(ActivatedRoute);
     protected router: Router = inject(Router);
@@ -175,20 +164,20 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($count = 1)
 #foreach ($field in $view.variables)
 #if($field.component)
-    @ViewChild('$field.name') ${field.name}Component: $field.type.name;
-    ${field.type.beanName}Form: FormGroup;
+    @ViewChild('$field.name') ${field.name}Component?: $field.type.name;
+    ${field.type.beanName}Form: FormGroup = new FormGroup({});
 #end
 #set ($formVars = "$formVars#if($count == 1), #{end}$field.name: $field.angularTypeName")
 #set ($formVarNames = "$formVarNames#if($count == 1), #{end}${view.formName}$.$field.name")
 #set ($count = $count + 1)
 #if($field.complex)
 #if($field.table) 
-    @ViewChild('$stringUtils.uncapitalize($field.tableComponentName)') $stringUtils.uncapitalize($field.tableComponentName): $field.tableComponentImplementationName;
+    @ViewChild('$stringUtils.uncapitalize($field.tableComponentName)') $stringUtils.uncapitalize($field.tableComponentName)?: $field.tableComponentImplementationName;
 #end
 #foreach($attribute in $angularUtils.getTableAttributes($field))
 #if($attribute.component)
-    @ViewChild('$attribute.name') $attribute.name: $attribute.type.name;
-    ${attribute.beanName}Form: FormGroup;
+    @ViewChild('$attribute.name') $attribute.name?: $attribute.type.name;
+    ${attribute.beanName}Form: FormGroup = new FormGroup({});
 #else
 #set ($proId = "$attribute.getFormPropertyId($field)")
 #set ($cols = "")
@@ -208,11 +197,11 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         ...this.${proId}Columns
     ];
 
-    @ViewChild('${proId}Paginator', {static: true}) ${proId}Paginator: MatPaginator;
-    @ViewChild('${proId}Sort', {static: true}) ${proId}Sort: MatSort;
+    @ViewChild('${proId}Paginator', {static: true}) ${proId}Paginator?: MatPaginator;
+    @ViewChild('${proId}Sort', {static: true}) ${proId}Sort?: MatSort;
 
-    @ViewChild('${proId}ModalPaginator', {static: true}) ${proId}ModalPaginator: MatPaginator;
-    @ViewChild('${proId}ModalSort', {static: true}) ${proId}ModalSort: MatSort;
+    @ViewChild('${proId}ModalPaginator', {static: true}) ${proId}ModalPaginator?: MatPaginator;
+    @ViewChild('${proId}ModalSort', {static: true}) ${proId}ModalSort?: MatSort;
 
     ${proId}$: Observable<${attribute.angularTypeName}[]>;
     $stringUtils.pluralize(${proId})DataSource = new MatTableDataSource<${attribute.angularTypeName}>([]);
@@ -295,7 +284,6 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
 
     constructor(#if($view.popup)@Inject(MAT_DIALOG_DATA) data: any, #{end}) {
-
 #foreach($param in $finalParams)
 #if(!$param.table && !$param.component)
         this.${param.name}$ = this.store.pipe(select(${view.useCase.storeName}Selectors.select$stringUtils.capitalize(${param.name})));
@@ -329,6 +317,11 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         );
         
         this.afterOnInit();
+#foreach ($field in $view.variables)
+#if($field.component)
+        this.${field.type.beanName}Form = this.${field.name}Control;
+#end
+#end
     }
 
     handleFormChanges(change: any): void {
@@ -424,32 +417,21 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     }
 
 #foreach ($action in $view.actions)
+#set($params = "")
+#set($paramsWithTypes = "")
+#foreach($field in $action.forwardParameters)
+#set ($params = "$params#if($params.length() > 0), #{end}this.${action.triggerName}${stringUtils.capitalize($field.name)}")
+#set ($paramsWithTypes = "$paramsWithTypes#if($paramsWithTypes.length() > 0), #{end}${field.name}: $field.angularTypeName")
+#end
 #set ($actionFormCaps = $stringUtils.capitalize($action.formName))
 #if (!$action.tableLink)
-    get ${action.formName}(): $actionFormCaps {
-
-        let form: $actionFormCaps = new ${actionFormCaps}();
-#foreach( $parameter in $action.parameters )
-#set ($exists = false)
-#foreach($var in $view.variables)
-#if($var.name == $parameter.name)
-#set ($exists = true)
-#end
-#end
-#if(!$parameter.inputButton && $exists)
-        form.$parameter.name = this.${parameter.name};
-#end
-#end
-
-        return form;
-    }
 #set ($afterAction = "after$stringUtils.capitalize(${action.triggerName})")
 #set ($beforeAction = "before$stringUtils.capitalize(${action.triggerName})")
 
     /**
      * This method may be overwritten
      */
-    ${beforeAction}(#if(!$action.formFields.empty)form: ${actionFormCaps}#end): void {}
+    ${beforeAction}(form: any): void {}
 
     /**
      * This method may be overwritten
@@ -477,22 +459,50 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     /**
      * This method may be overwritten
      */
-    ${afterAction}(#if(!$action.formFields.empty)form: ${actionFormCaps}, #{end}dialogData: any): void {
+    ${afterAction}(dialogData: any): void {
         
     }
 
 #else
-    ${afterAction}(#if(!$action.formFields.empty)form: ${actionFormCaps}#{end}): void {}
+    ${afterAction}(form: any): void {}
+
+#end
+#foreach($field in $action.forwardParameters)
+    /**
+     * This method may be overwritten
+     */
+#set ($typeName = $angularUtils.getDatatype($field.type.name))
+    get ${action.triggerName}${stringUtils.capitalize($field.name)}(): $typeName {
+#set ($matchingParam = $angularUtils.getActionMatchingParameter($field, $action))
+#if($matchingParam)
+        return {} as $typeName;
+#else
+#set ($matchingParam = $angularUtils.getViewMatchingParameter($field, $view))
+#if($matchingParam)
+        return this.${view.formName}?.get('${matchingParam.name}')?.value as $typeName;
+#else
+        return {} as $typeName;
+#end
+#end
+    }
 
 #end
     ${action.triggerName}(): void {
-#if(!$action.formFields.empty)
-        let form: ${actionFormCaps} = this.${action.formName};
+
+        let form: any = {
+#foreach($field in $action.forwardParameters)
+            $field.name: this.${action.triggerName}${stringUtils.capitalize($field.name)},
 #end
-        this.${beforeAction}(#if(!$action.formFields.empty)form#end);
+        };
+
+        this.${beforeAction}(form);
 
 #if(!$action.formFields.empty)
-        this.${action.controller.variableName}.${action.triggerName}(#if(!$action.formFields.empty)form#else{}#end);
+#set($params = "")
+#foreach($field in $action.forwardParameters)
+#set ($params = "$params#if($params.length() > 0), #{end}form.${action.triggerName}${stringUtils.capitalize($field.name)}")
+#end
+        this.${action.controller.variableName}.${action.triggerName}($params);
 #end
 #set ($iter = $action.targetViews.iterator())
 #set ($hadNext = false)
@@ -501,62 +511,30 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($targetView = $iter.next())
 #end
 #if($hadNext && $targetView.popup)
-        let dialogConfig = this.get${actionFormCaps}DialogConfig(#if(!$action.formFields.empty)form#{end});
+        let dialogConfig = this.get${actionFormCaps}DialogConfig(
+            {
+#foreach($field in $action.forwardParameters)
+#if(!$field.inputButton)
+            $field.name: this.${action.triggerName}${stringUtils.capitalize($field.name)},
+#end
+#end
+            }
+        );
         const dialogRef = this.dialog.open($targetView.componentImplementationName, dialogConfig);
 
         dialogRef.afterClosed().subscribe((result) => {
-            this.${afterAction}(#if(!$action.formFields.empty)form, #{end}result?.dialogData);
+            this.${afterAction}(result?.dialogData);
         });
 #else
-        this.${afterAction}(#if(!$action.formFields.empty)form#end);
+        this.${afterAction}(form);
 #end
     }
-
-#if(!$action.formFields.empty)
-    get${actionFormCaps}(value: any): ${actionFormCaps} {
-        
-        let form: ${actionFormCaps} = new ${actionFormCaps}();
-
-#foreach($parameter in $action.parameters)
-#if(!$parameter.inputButton)
-        if(value?.$parameter.name) {
-            form.$parameter.name = value?.$parameter.name;
-        }
-
-#end
-#end
-        return form;
-
-    }
-#end
 
 #end
 #end
 #if ($view.nonTableVariablesPresent)
     get ${view.varsFormName}Control(): FormGroup {
         return this.getGroupControl('${view.varsFormName}');
-    }
-
-    /**
-     * This method may be overwritten
-     */
-    afterSet$stringUtils.capitalize(${view.varsFormName})(form: $stringUtils.capitalize($view.varsFormName)): void {}
-
-    set$stringUtils.capitalize(${view.varsFormName})(form: $stringUtils.capitalize($view.varsFormName)) {
-
-#foreach($variable in $view.variables)
-#if(!$variable.table && !$variable.inputButton)
-#if($angularUtils.isTable($variable) || $variable.many || $variable.type.collectionType)
-        this.${view.varsFormName}Control.setControl('$variable.name', this.set$stringUtils.capitalize($variable.name)(form.$variable.name));
-#elseif($variable.complex)
-        this.${view.varsFormName}Control.setControl('$variable.name', this.create$stringUtils.capitalize($variable.name)Form(form.$variable.name));
-#else
-        this.${view.varsFormName}Control?.get('$variable.name')?.setValue(form.$variable.name);
-#end
-#end
-#end
-
-        this.afterSet$stringUtils.capitalize(${view.varsFormName})(form);
     }
 
 #foreach ($variable in $view.variables)

@@ -834,6 +834,7 @@ public class AngularActionLogicImpl
 
     @Override
     protected Collection<ModelElementFacade> handleGetImports() {
+
         HashSet<ModelElementFacade> imports = new HashSet<>();
         
         for(FrontEndParameter _parameter : this.getParameters()) {

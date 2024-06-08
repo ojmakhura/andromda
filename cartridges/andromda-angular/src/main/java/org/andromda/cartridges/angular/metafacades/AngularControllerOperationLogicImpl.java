@@ -77,8 +77,9 @@ public class AngularControllerOperationLogicImpl
         call.append(this.getName());
         call.append("(");
         
-        call.append("form");
-        // call.append(b.toString());
+        this.getFormFields().forEach(field -> {
+            call.append(field.getName() + ", ");
+        });
         call.append(")");
         return call.toString();
     }
@@ -119,7 +120,12 @@ public class AngularControllerOperationLogicImpl
         }
         
         signature.append(this.getName() + "(");
-        signature.append("form: any");
+
+        this.getFormFields().forEach(field -> {
+            signature.append(field.getName() + ": " + AngularUtils.getDatatype(field.getGetterSetterTypeName()) + ", ");
+        });
+
+        // signature.append("form: any");
 
         signature.append(")");
         

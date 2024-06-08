@@ -4,7 +4,9 @@ import { inject } from '@angular/core';
 import { ControllerBase } from '@app/controller/utils/controller.base';
 
 #foreach($import in $controller.imports)
-#if ($import.restCount>0 && $stringUtils.isNotBlank($import.restPath))
+#if($metafacadeWebUtils.isComponent($import))
+import { ${import.name} } from '@app/components/${import.filePath}';
+#elseif ($import.restCount>0 && $stringUtils.isNotBlank($import.restPath))
 import { $import.name } from '@app/${import.filePath}';
 #elseif(${import.implementationFilePath})
 import { $import.implementationName } from '@app/${import.implementationFilePath}';
@@ -33,7 +35,7 @@ export abstract class $controller.name extends ControllerBase {
 #foreach ($operation in $controller.operations)
     /**
 $operation.getDocumentation("     * ")
-     *
+     * 6
      * @param form the associated form
      * $operation.formFields
      */
@@ -42,7 +44,23 @@ $operation.getDocumentation("     * ")
 #end
 
 #foreach ($action in $controller.useCase.actions)
+// parameters: $action.parameters
+// formFields: $action.formFields
+// trigger: $action.trigger
+// triggerName: action.triggerName
+// triggerMethodName: $action.triggerMethodName
+// forwardParameters: $action.forwardParameters
 #set ($formPopulationOperationRequired = !$action.formFields.empty)
+#set ($actionParams = '')
+#set ($actionParamsWithTypes = '')
+#foreach($field in $action.forwardParameters)
+#set ($collection = '')
+#if($field.many || $field.type.listType || $field.type.setType)
+#set ($collection = '[]')
+#end
+#set ($actionParams = "${actionParams}#if($actionParams.length() > 0), #end$field.name")
+#set ($actionParamsWithTypes = "${actionParamsWithTypes}#if($actionParamsWithTypes.length() > 0), #end$field.name: $angularUtils.getDatatype($field.type.name)$collection")
+#end
     /**
 #if($action.exitingInitialState)
      * This method is called when the use case '${controller.useCase.name}' starts.
@@ -56,7 +74,7 @@ $action.trigger.getDocumentation("     * ")
      * @param form the associated form
 #end
      */
-    protected ${action.triggerMethodName}(form: any): void
+    protected ${action.triggerMethodName}($actionParamsWithTypes): void
     {
         //this method can be overridden
     }
@@ -74,7 +92,7 @@ $action.trigger.getDocumentation("     * ")
 #if($action.exitingInitialState)     
     protected internalStartUseCase(pageVariables: any): string
 #else
-    public ${action.triggerName}(form: any)
+    public ${action.triggerName}($actionParamsWithTypes)
 #end
     {        
         let forward: string#if(!$action.exitingInitialState) | null#end;
@@ -83,16 +101,24 @@ $action.trigger.getDocumentation("     * ")
 #if(${targetController.name} == $controller.name)
         forward =#if($targetController) '$controller.useCase.routerPath'#else this.closeDialog()#end; 
 #else
-        this.useCaseScope.pageVariables = Object.assign({}, form);
+        this.useCaseScope.pageVariables = {
+#foreach($field in $action.formFields)
+            $field.name: $field.name,
+#end
+        };
         forward =#if($targetController) '${action.target.targetController.useCase.routerPath}'#else this.closeDialog()#end;
 #end
 #else
         
         //trigger method execution
-#if($action.exitingInitialState)  
-        let form: any = Object.assign({}, pageVariables);
+#set ($params = $actionParams)
+#if($action.exitingInitialState)
+#set ($params = '')
+#foreach($field in $action.forwardParameters)
+#set ($params = "${params}#if($params.length() > 0), #{end}pageVariables?.$field.name")
 #end
-        this.${action.triggerMethodName}(form);
+#end
+        this.${action.triggerMethodName}($params);
 
 #processTransition($action)
 #saveMessages($action "        ")
@@ -129,7 +155,7 @@ $actionState.getDocumentation("     * ")
      * @return the forward view
      * @throws Throwable
      */
-    protected ${actionState.actionMethodName}#if (!$action.formFields.empty)${action.formImplementationName}#end(form: any): string | null
+    protected ${actionState.actionMethodName}#if (!$action.formFields.empty)${action.formImplementationName}#end($actionParamsWithTypes): string | null
     {
         let forward: string | null = '';
 #if($actionState.forward.enteringView)
@@ -217,7 +243,7 @@ $decisionTransition.getDocumentation("     * ")
      * 
      * @return a transition
      */
-    protected __${decisionTransition.operationCall.name}(#if (!$action.formFields.empty)form: any#end): string | null
+    protected __${decisionTransition.operationCall.name}($actionParamsWithTypes): string | null
     {
         const value: string | null = '' + this.$decisionTransition.operationCall.formCall;
         let forward: string | null = '';

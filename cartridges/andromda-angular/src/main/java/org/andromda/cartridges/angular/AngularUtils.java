@@ -131,6 +131,10 @@ public class AngularUtils {
             return "Date";
         }
 
+        if(typeName.equals("String")) {
+            return "string";
+        }
+
         int i = typeName.lastIndexOf(".");
 
         String name = "";
@@ -1984,5 +1988,31 @@ public class AngularUtils {
 
         return condition + " = false";
         
+    }
+
+    public FrontEndParameter getActionMatchingParameter(AngularParameter parameter, AngularAction action) {
+
+        for(FrontEndParameter param : action.getFormFields()) {
+
+            if(param.getName().equals(parameter.getName()) && param.getType().equals(parameter.getType())) {
+                return param;
+            }
+        }
+
+        return null;
+
+    }
+
+    public FrontEndParameter getViewMatchingParameter(AngularParameter parameter, AngularView view) {
+
+        for(FrontEndParameter param : view.getVariables()) {
+
+            if(param.getName().equals(parameter.getName()) && param.getType().equals(parameter.getType())) {
+                return param;
+            }
+        }
+
+        return null;
+
     }
 }

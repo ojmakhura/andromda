@@ -29,7 +29,7 @@ import {MatAutocompleteSelectedEvent, MatAutocompleteModule} from '@angular/mate
 ##if($targetModal)
 import { MatDialog } from '@angular/material/dialog';
 ##end
-import { Observable, map, startWith } from "rxjs";
+import { Observable, map, of, startWith } from "rxjs";
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '@app/@shared';
@@ -136,7 +136,7 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
     ${attribute.name}Options = Object.keys(this.${attribute.name}T);
 #end
     ${attribute.name}BackingList: SelectItem[] = [];
-    ${attribute.name}FilteredList$: Observable<SelectItem[]>;
+    ${attribute.name}FilteredList$: Observable<SelectItem[]> = of([]);
 #if($attribute.inputSelect || $attribute.inputMultibox)
     ${attribute.name}ChipControl: FormControl = new FormControl([]);
 #end

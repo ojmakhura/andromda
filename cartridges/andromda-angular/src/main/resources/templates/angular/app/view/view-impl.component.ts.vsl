@@ -15,11 +15,6 @@
 #end
 import { Component#if($view.popup), Inject#end } from '@angular/core';
 import { $view.componentName } from '@app/${view.filePath}';
-#foreach ($action in $view.actions)
-#if (!$action.tableLink)
-import { $stringUtils.capitalize($action.formName) } from '@app/${view.filePath}';
-#end
-#end
 #if ($view.nonTableVariablesPresent)
 import { $stringUtils.capitalize($view.varsFormName) } from '@app/${view.filePath}';
 #end

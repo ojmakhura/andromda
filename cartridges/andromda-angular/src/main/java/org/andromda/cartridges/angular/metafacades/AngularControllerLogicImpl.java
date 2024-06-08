@@ -23,6 +23,7 @@ import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.PackageFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.Service;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.StringUtils;
@@ -227,7 +228,38 @@ public class AngularControllerLogicImpl
             if(operation.getReturnType().isEnumeration() || !operation.getReturnType().getAttributes().isEmpty()) {
                 imports.add(operation.getReturnType());
             }
+
+            for(ParameterFacade parameter : operation.getArguments()) {
+                if(parameter.getType().isEnumeration() || !parameter.getType().getAttributes().isEmpty()) {
+                    imports.add(parameter.getType());
+                }
+            }
         }
+
+        getUseCase().getActions().forEach(action -> {
+
+            action.getFormFields().forEach(field -> {
+                if(field.getType().isEnumeration() || !field.getType().getAttributes().isEmpty()) {
+                    imports.add(field.getType());
+                }
+            });
+
+            action.getActionStates().forEach(actionState -> {
+                AngularForward state = (AngularForward) actionState.getForward();
+
+                if(state == null) {
+                    return;
+                }
+
+                state.getActions().forEach(forwardAction -> {
+                    forwardAction.getFormFields().forEach(field -> {
+                        if(field.getType().isEnumeration() || !field.getType().getAttributes().isEmpty()) {
+                            imports.add(field.getType());
+                        }
+                    });
+                });
+            });
+        });
 
         for(AttributeFacade attribute : this.getAttributes()) {
 

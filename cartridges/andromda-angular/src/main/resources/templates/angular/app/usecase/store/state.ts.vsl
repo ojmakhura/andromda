@@ -23,7 +23,7 @@
 #set ( $finalParams = $angularUtils.getFacadeSet($stateParams) )
 #set ( $paramImports = $angularUtils.getFacadeSet($stateParamsImports) )
 #foreach($import in $paramImports)
-#if($import.attributes.size() > 0)
+#if($import.attributes.size() > 0 && !$metafacadeWebUtils.isComponent($import))
 import { $import.name } from '@app/${import.filePath}';
 #end
 #end
