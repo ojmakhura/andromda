@@ -22,13 +22,19 @@
 				<div class="col my-3 view-buttons">
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
-					<button type="button" color="accent" (click)="${action.triggerName}()" class="btn btn-info"#if($action.displayCondition) *ngIf="${action.displayCondition}"#end>
+					<button #if($action.icon)mat-mini-fab matTooltip="{{'$action.trigger.messageKey' | translate}}"#{else}mat-flat-button#end color="primary" (click)="${action.triggerName}()" #if($action.displayCondition) *ngIf="${action.displayCondition}"#end>
+#if($action.icon)
+						<mat-icon fontIcon="$action.icon" aria-hidden="false" aria-label="$action.icon"></mat-icon>
+#else
 						<span translate>$action.messageKey</span>
+#end
 					</button>
 #end
 #end
 #if ($view.nonTableVariablesPresent)
-					<button color="accent" type="button" (click)="${view.formName}Reset()" class="btn btn-info" ><span translate>reset</span></button>
+					<button mat-mini-fab matTooltip="{{'reset' | translate}}" (click)="${view.formName}Reset()" color="primary">
+						<mat-icon fontIcon="restore" aria-hidden="false" aria-label="restore"></mat-icon>
+					</button>
 #end
 				</div>
 			</section>
@@ -105,15 +111,15 @@
 </div>
 #if($view.popup)
 <div mat-dialog-actions class="view-buttons">
-	<button type="button" class="btn btn-info" color="accent" (click)="cancelDialog()" translate>action.cancel</button>
+	<button type="button" class="btn btn-info" color="primary" (click)="cancelDialog()" translate>action.cancel</button>
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
-	<button type="button" color="accent" (click)="${action.triggerName}()" class="btn btn-info">
+	<button type="button" color="primary" (click)="${action.triggerName}()" class="btn btn-info">
 		<span translate>$action.messageKey</span>
 	</button>
 #end
 #end
-	<button type="button" class="btn btn-info" color="accent" (click)="dialogDone()" translate>action.done</button>
+	<button type="button" class="btn btn-info" color="primary" (click)="dialogDone()" translate>action.done</button>
 </div>
 #end
 #foreach ($variable in $complex)

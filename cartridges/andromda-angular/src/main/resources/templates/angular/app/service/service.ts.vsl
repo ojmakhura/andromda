@@ -10,6 +10,7 @@ import { $import.name } from '@app/${import.filePath}';
 #end
 #end
 import { HttpClient } from '@angular/common/http';
+import { Page } from '@app/model/page.model';
 
 @Injectable({
   providedIn: 'root'

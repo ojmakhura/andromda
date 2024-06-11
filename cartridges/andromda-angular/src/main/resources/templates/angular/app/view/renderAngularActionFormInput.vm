@@ -75,7 +75,7 @@ ${ident}    <td id="column_${column.name}">${theValue}#if ($column.type.dateType
 #set ($formValuePropertyName = "${valuePropertyName}")
 #if($parameter.inputButton)
 ${ident}<div class="mb-3">
-${ident}    <button mat-button class="btn btn-primary" (click)="on${stringUtils.capitalize(${propertyId})}Click()" id="${propertyId}" name="${propertyId}">
+${ident}    <button mat-flat-button color="primary" (click)="on${stringUtils.capitalize(${propertyId})}Click()" id="${propertyId}" name="${propertyId}">
 ${ident}        <span translate>$parameter.messageKey</span>
 ${ident}    </button>
 ${ident}</div>
@@ -84,7 +84,7 @@ ${ident}<mat-form-field class="col-md-8">
 ${ident}    <div>
 ${ident}        <mat-label id="${propertyId}_label" class="col-sm-2 col-form-label" for="${propertyId}"><span translate>$parameter.messageKey</span></mat-label>
 ${ident}    </div>
-${ident}    <input matInput id="${propertyId}" form#if($parameter.many)Array#{else}Control#{end}Name="${propertyId}" [hidden]="true" />
+${ident}    <input matInput id="${propertyId}" form#if($parameter.many)Array#{else}Control#{end}Name="${propertyId}" [hidden]="true" /> 
 #set ($deleteFunc = "deleteFromSelected$stringUtils.capitalize(${propertyId})(#if($parameter.many)$index#end)")
 #if($parameter.inputType == "image")
 #set( $displayName = "${propertyId}Preview#if($parameter.many)s#end")
@@ -101,13 +101,17 @@ ${ident}        <mat-list-item>
 #else
 ${ident}            <div matListItemTitle>{{${item}.name}}</div>
 #end
+#if(!$parameter.readOnly && !$ownerParameter.readOnly)
 ${ident}            <button mat-icon-button color="primary" matListItemMeta  (click)="$deleteFunc">
 ${ident}                <mat-icon>delete</mat-icon>
 ${ident}            </button>
+#end
 ${ident}        </mat-list-item>
 ${ident}        }
 ${ident}    </mat-list>
+#if(!$parameter.readOnly && !$ownerParameter.readOnly)
 ${ident}    <input type="file" #if($parameter.inputType == "image")accept="image/*" #{end}id="${propertyId}FileInput" name="${propertyId}FileInput" (change)="${propertyId}SelectFile#if($parameter.many)s#{end}($event)" #if($parameter.many)multiple#end />
+#end
 ${ident}</mat-form-field>
 #elseif($angularUtils.isTable($parameter) && !($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.many))
 ${ident}	<div>
@@ -152,7 +156,7 @@ ${ident}    <legend class="col-form-label col-sm-2 pt-0" translate>$parameter.me
 ${ident}    <div class="mb-3">
 #elseif($parameter.inputCheckbox || $parameter.type.booleanType)
 ${ident}    <section>
-${ident}        <mat-checkbox id="$propertyId" formControlName="${parameter.name}"#if($parameter.required) required#end onLabel="#{yes}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"#if($parameter.readOnly || $ownerParameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end translate>
+${ident}        <mat-checkbox id="$propertyId" formControlName="${parameter.name}"#if($parameter.required) required#end onLabel="#{yes}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"#if($parameter.readOnly || $ownerParameter.readOnly) [readonly]="true"#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end translate>
 ${ident}            $parameter.messageKey
 ${ident}        </mat-checkbox>
 ${ident}    </section>
@@ -165,10 +169,10 @@ ${ident}<fieldset class="mb-3" formGroupName="${parameter.name}"#if($parameter.d
 ${ident}    <legend id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}"><span translate>$parameter.messageKey</span>#if($parameter.required)*#end</legend>
 #end
 #if ($parameter.type.dateType || $parameter.inputDate)
-${ident}    <input matInput type="$parameter.inputType" id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end #if($parameter.readOnly || $ownerParameter.readOnly) readonly#{end}navigator="true" showOn="button"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.minLenmingth) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
+${ident}    <input matInput type="$parameter.inputType" id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end #if($parameter.readOnly || $ownerParameter.readOnly) [readonly]="true" #{end}navigator="true" showOn="button"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.minLenmingth) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration)
 #set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
-${ident}    <mat-select#if ($multiSelect) multiple size="5"#end id="$propertyId" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" #if($parameter.required) required#end#if($parameter.readOnly || $ownerParameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
+${ident}    <mat-select#if ($multiSelect) multiple size="5"#end id="$propertyId" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" #if($parameter.required) required#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
 #if ($parameter.type.enumeration)
 ${ident}        <mat-option></mat-option>
 ${ident}        @for(key of ${parameter.name}Options; track key) {
@@ -186,7 +190,7 @@ ${ident}        }
 #end
 ${ident}    </mat-select>
 #elseif ($parameter.inputTextarea)
-${ident}	<textarea matInput id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end#if($parameter.readOnly || $ownerParameter.readOnly) readonly#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end></textarea>
+${ident}	<textarea matInput id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end#if($parameter.readOnly || $ownerParameter.readOnly) [readonly]="true"#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end></textarea>
 #elseif ($parameter.inputMultibox)
 ${ident}    <mat-chip-grid #${propertyId}ChipGrid>
 ${ident}        @for (selectItem of ${propertyId}; track selectItem; let i = $index) {
@@ -266,13 +270,13 @@ ${ident}    </div>
 ${ident}    <div class="row">
 ${ident}        <mat-form-field class="col-md-8">
 ${ident}            <mat-label for="$colId" class="col-sm-2 col-form-label" translate>$stringUtils.toResourceMessageKey($cname)</mat-label>
-${ident}            <input matInput type="text" readonly id="$colId" value="{{${propertyId}?.$stringUtils.replace("${columnName}", ".", "?.") #if(${column.inputDate} || ${column.type.dateType}) | date#end}}">
+${ident}            <input matInput type="text" [readonly]="true" id="$colId" value="{{${propertyId}?.$stringUtils.replace("${columnName}", ".", "?.") #if(${column.inputDate} || ${column.type.dateType}) | date#end}}">
 ${ident}        </mat-form-field>
 ${ident}    </div>
 #if($parameter.displayCondition)${ident}    }#end
 #end
 #else
-${ident}    <input matInput type="$parameter.inputType" id="${propertyId}" name="$parameter.name" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end"#if($parameter.required) required#end#if($parameter.readOnly || $ownerParameter.readOnly) readonly#{end}#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
+${ident}    <input matInput type="$parameter.inputType" id="${propertyId}" name="$parameter.name" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end"#if($parameter.required) required#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end #if($parameter.readOnly || $ownerParameter.readOnly) [readonly]="true"#{end}/>
 #end
 #end
 #if($parameter.required || $parameter.minLength || $parameter.maxLength || $parameter.min || $parameter.max || $parameter.inputEmail)

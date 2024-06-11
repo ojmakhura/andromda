@@ -39,13 +39,14 @@
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
                 <mat-cell *matCellDef="let row">
-                    <div class = "form-group">
+                    <div class = "view-buttons">
 #foreach ($action in $table.tableFormActions)
-                        <button type = "button" class="btn btn-info" (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())" translate>
+                        <button #if($action.icon)mat-mini-fab matTooltip="{{'$action.trigger.messageKey' | translate}}"#{else}mat-flat-button#end color="primary"  (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())" translate>
 #if($action.icon)
                             <mat-icon fontIcon="$action.icon" aria-hidden="false" aria-label="$action.icon"></mat-icon>
+#else
+                            $action.trigger.messageKey
 #end
-                            $action.trigger.messageKey $action.
                         </button>
 #end
                     </div>    

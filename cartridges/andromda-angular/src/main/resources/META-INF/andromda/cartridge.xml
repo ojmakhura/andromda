@@ -9,7 +9,7 @@
         <macrolibrary name="templates/angular/app/controller/controller.ts.vm"/>
         <macrolibrary name="templates/angular/app/forms/angularFormMacros.vm"/>
         <macrolibrary name="templates/angular/app/forms/angularFormImplMacros.vm"/>
-        <macrolibrary name="templates/webservice/jaxws/RenderRestrictions.vm"/>
+        <!-- <macrolibrary name="templates/webservice/jaxws/RenderRestrictions.vm"/> -->
     </templateEngine>
 
     <templateObject name="stringUtils" className="org.andromda.utils.StringUtilsHelper"/>
@@ -154,7 +154,7 @@
         </modelElements>
     </template>
     
-    <template
+    <!-- <template
         path="templates/angular/app/model/spec.ts.vsl"
         outputPattern="${class.filePath}.spec.ts"
         outlet="models"
@@ -164,7 +164,7 @@
                 <type name="org.andromda.cartridges.angular.metafacades.AngularModel"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
         
     <template
         path="templates/angular/app/model/enumeration.vsl"

@@ -32,7 +32,10 @@ export class $class.name#if($class.generalization) extends $class.generalization
 #else
 #set ($def = "null")
 #end
-        $attr.name?: $def#if (!$attr.many && $attr.defaultValuePresent) = ${attr.defaultValue}#end,
+#if($angularUtils.isComplex($attr) && !$attr.many && !$angularUtils.isArray($attr.getterSetterTypeName) && !$attr.type.enumeration)
+#set ($def = "{} as any")
+#end
+        $attr.name: $def#if (!$attr.many && $attr.defaultValuePresent) = ${attr.defaultValue}#end,
 #end
     };
 #else
@@ -40,7 +43,7 @@ export class $class.name#if($class.generalization) extends $class.generalization
 #if($attribute.many)
 #set ($default = "new Array()")
 #end
-    $attribute.name?: $attribute.angularTypeName#if($attribute.many)[]#end | any#if($attribute.many)[]#end#if($attribute.many)[]#{else}#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#{else}null#end#end;
+    $attribute.name?: $attribute.angularTypeName#if($attribute.many)[]#end | any#if($attribute.many)[]#end#if($attribute.many)[]#{else}#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#{else} = null#end#end;
 
 #end
 #end

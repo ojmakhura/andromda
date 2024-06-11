@@ -17,13 +17,15 @@ import { ControllerBase } from '@app/controller/utils/controller.base';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UseCaseScope } from '@app/utils/use-case-scope';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 #set ($base = "${metafacadeWebUtils.toWebResourceName($table.view.useCase.storeName)}")
 import { ${table.view.useCase.storeName}State } from '@app/store$table.view.useCase.pathRoot/${base}.state';
 import * as ${table.view.useCase.storeName}Selectors from '@app/store$table.view.useCase.pathRoot/${base}.selectors';
 
 #foreach ($import in $table.imports)
-#if($import.tableComponentImplementationName)
+#if(${import.hasStereotype("FrontEndComponent")})
+import { $import.name } from '@app/components/${import.filePath}';
+#elseif($import.tableComponentImplementationName)
 import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
 #elseif($import.componentImplementationName)
 import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
@@ -60,6 +62,7 @@ export abstract class ${table.tableComponentName} implements OnInit, AfterViewIn
 
     totalElements = signal(0);
     ${table.name}$: Observable<$table.angularTypeName>;
+    ${table.name}Subscription: Subscription;
 
     ${table.name}DataSource = new MatTableDataSource<$table.type.name>([]);
     @ViewChild('${table.name}Paginator', {static: true}) ${table.name}Paginator: MatPaginator;
@@ -84,12 +87,18 @@ export abstract class ${table.tableComponentName} implements OnInit, AfterViewIn
 
     ngOnInit(): void {
     }
-	    
+
+    afOnDestroy() {
+    }   
     ngOnDestroy() { 
+        if (this.${table.name}Subscription) {
+            this.${table.name}Subscription.unsubscribe();
+        }
+        this.afOnDestroy();
     }
     
     ngAfterViewInit() {
-        this.${table.name}$
+        this.${table.name}Subscription = this.${table.name}$
         .subscribe(
             ${table.name} => {
                 this.${table.name}DataSource.data = ${table.name};

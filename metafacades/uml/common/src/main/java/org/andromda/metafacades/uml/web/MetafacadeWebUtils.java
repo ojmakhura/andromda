@@ -630,8 +630,8 @@ public class MetafacadeWebUtils {
     public static boolean isReadOnly(final ModelElementFacade element) {
         boolean readOnly = false;
         if (element != null) {
-            final Object value = element.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_INPUT_READONLY);
-            readOnly = Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
+            final Object value = element.findTaggedValue("andromda_presentation_view_field_readonly");
+            readOnly = Boolean.valueOf(Objects.toString(value, null)).booleanValue();
         }
         return readOnly;
     }
