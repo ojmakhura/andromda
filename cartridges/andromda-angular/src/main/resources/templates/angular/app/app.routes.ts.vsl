@@ -19,11 +19,13 @@ export const routes: Routes = [
   Shell.childRoutes([
     {
       path: '',
+      data: { title: 'Home' },
       loadChildren: () => import('./home/home.routes').then((m) => m.routes),
     },
     {
       path: 'about',
-      loadChildren: async () => (await import('./about/about.module')).AboutModule
+      data: { title: 'About' },
+      loadChildren: () => import('./about/about.routes').then((m) => m.routes),
     },
 #foreach($useCase in $useCases)
     {

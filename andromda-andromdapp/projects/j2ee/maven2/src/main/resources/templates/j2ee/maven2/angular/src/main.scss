@@ -1,40 +1,71 @@
-/*
- * Entry point of global application style.
- * Component-specific style should not go here and be included directly as part of the components.
- */
- @use "@angular/material" as mat;
+@use "@angular/material" as mat;
+@include mat.core();
 
- // Theme variables, must be included before the libraries to allow overriding defaults
- @import "theme/theme-variables";
- 
- // 3rd party libraries
- @import "material-design-icons-iconfont/src/material-design-icons";
- 
- // Angular Material custom theme
- // The mixins below must be included once so we separated them from the variables
- // @import "~@angular/material/theming";
- 
- // Include the common styles for Angular Material. We include this here so that you only
- // have to load a single css file for Angular Material in your app.
- // Be sure that you only ever include this mixin once!
- // @include mat-core();
- 
- @include mat.core();
- 
- // Include theme styles for core and each component used in your app.
- // Alternatively, you can import and @include the theme mixins for each component
- // that you are using.
- // @include angular-material-theme($app-theme);
- @include mat.all-component-themes($app-theme);
- 
- // @include mat.all-component-themes($app-theme);
- 
- // Theme customization
- @import "theme/theme";
- 
- @import "flex";
- 
+$theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$blue-palette,
+  ),
+  typography: (
+    brand-family: 'Comic Sans',
+    bold-weight: 900
+  ),
+  density: (
+    scale: -1
+  )
+));
+
+$primary-color: mat.get-theme-color($theme, primary, 80);
+
+:root {
+  mat-drawer, mat-toolbar {
+    background-color: #{$primary-color};
+    --mat-toolbar-container-background-color: #{$primary-color};
+    border-radius: 0px;
+  }
+  .mat-mdc-nav-list .mat-mdc-list-item {
+    border-radius: 0px;
+  }
+}
+
+/* You can add global styles to this file, and also import other style files */
+@import "flex";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  height: 100%;
+}
+
 .view-buttons button,
 .view-buttons a {
   margin-right: 8px;
+}
+
+:host {
+  display: flex;
+  flex: 1;
+}
+
+.view-buttons {
+  display: table-cell;
+  width: 490px;
+}
+
+.container {
+  padding: 1rem;
+}
+
+.readonly-wrapper {
+  cursor: not-allowed;
+}
+
+.readonly-wrapper .readonly-block {
+  pointer-events: none;
 }

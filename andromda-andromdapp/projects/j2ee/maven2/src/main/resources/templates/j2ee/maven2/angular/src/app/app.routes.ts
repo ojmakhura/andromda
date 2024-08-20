@@ -14,7 +14,8 @@ export const routes: Routes = [
     },
     {
       path: 'about',
-      loadChildren: async () => (await import('./about/about.module')).AboutModule,
+      data: { title: 'About' },
+      loadChildren: () => import('./about/about.routes').then((m) => m.routes),
     },
   ]),
   // Fallback when no prior route is matched

@@ -381,7 +381,7 @@
         </modelElements>
     </template>
 
-    <template
+    <!-- <template
         path="templates/angular/app/usecase/store/actions.ts.vsl"
         outputPattern="${path}/${fileName}.ts"
         outlet="ngrx-store-impl"
@@ -421,7 +421,7 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <template
         path="templates/angular/app/usecase/store/state.ts.vsl"
@@ -430,14 +430,14 @@
         overwrite="false">
         <modelElements variable="controller">
             <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
-                    <property name="useCase"/>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularService">
+                    <property name="allowedOperations"/>
                 </type>
             </modelElement>
         </modelElements>
     </template>
 
-    <template
+    <!-- <template
         path="templates/angular/app/usecase/store/effects.ts.vsl"
         outputPattern="${path}/${fileName}.ts"
         outlet="ngrx-store-impl"
@@ -449,7 +449,7 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <template
         path="templates/angular/app/usecase/use-case.component.ts.vsl"

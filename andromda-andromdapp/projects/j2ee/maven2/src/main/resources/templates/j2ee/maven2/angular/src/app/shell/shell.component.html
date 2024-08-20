@@ -1,57 +1,51 @@
-<div fxFlex>
-  <mat-sidenav-container fxFill>
-    <mat-sidenav
-      #sidenav
-      [mode]="isMobile ? 'over' : 'side'"
-      [opened]="!isMobile"
-      [disableClose]="!isMobile"
-      ngClass.gt-sm="has-border"
-    >
-      <mat-toolbar color="primary">
-        <span translate>application.name</span>
-        <div fxFlex></div>
+<mat-drawer-container fxFlex color="primary">
+  <mat-drawer mode="side" #sidenav [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile" [disableClose]="!isMobile"
+    ngClass.gt-sm="has-border">
+  
+    <mat-toolbar>
+      <span translate>application.name</span>
+      <div fxFlex></div>
+      <div>
+        <button mat-icon-button [matMenuTriggerFor]="userMenu">
+          <mat-icon>person</mat-icon>
+        </button>
+        <mat-menu #userMenu="matMenu">
+          <mat-list>
+            <mat-list-item>
+              <span >Logged in as</span>&nbsp;<b>{{username()}}</b>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+          </mat-list>
+          <button mat-menu-item (click)="logout()" translate>Logout</button>
+        </mat-menu>
+      </div>
+      <app-language-selector [icon]="true"></app-language-selector>
+    </mat-toolbar>
+    <mat-action-list>
+      <mat-nav-list>
+        <mat-divider></mat-divider>
         <div>
-          <!-- Uncomment if you are using authentication -->
-          <button mat-icon-button [matMenuTriggerFor]="userMenu">
-            <mat-icon>person</mat-icon>
-          </button>
-          <mat-menu #userMenu="matMenu">
-            <mat-list>
-              <mat-list-item>
-                <span translate>Logged in as</span>&nbsp;<b>{{ username }}</b>
-              </mat-list-item>
-              <mat-divider></mat-divider>
-            </mat-list>
-            <button mat-menu-item (click)="logout()" translate>Logout</button>
-          </mat-menu>
-        </div>
-        <app-language-selector [icon]="true"></app-language-selector>
-      </mat-toolbar>
-      <nav>
-        <mat-nav-list>
+          <a mat-list-item routerLink="/" routerLinkActive="active" (click)="isMobile && sidenav.close()" title="Test">
+            <span translate>home</span>
+          </a>
           <mat-divider></mat-divider>
-          <div>
-            <a mat-list-item routerLink="/home" routerLinkActive="active" (click)="isMobile && sidenav.close()">
-              <span translate>home</span>
-            </a>
-            <mat-divider></mat-divider>
-          </div>
-          <div *ngFor="let item of menus">
-            <a mat-list-item routerLink="{{ item.routerLink }}" routerLinkActive="active" (click)="isMobile && sidenav.close()">
-              <span translate>{{ item.titleKey }}</span>
-            </a>
-            <mat-divider></mat-divider>
-          </div>
-          <div>
-            <a mat-list-item routerLink="/about" routerLinkActive="active" (click)="isMobile && sidenav.close()">
-              <span translate>about</span>
-            </a>
-            <mat-divider></mat-divider>
-          </div>
-        </mat-nav-list>
-      </nav>
-    </mat-sidenav>
-    <mat-sidenav-content>
+        </div>
+        <div *ngFor="let item of menus">
+          <a mat-list-item routerLink="{{ item.routerLink }}" routerLinkActive="active" (click)="isMobile && sidenav.close()">
+            <span translate>{{ item.titleKey }}</span>
+          </a>
+          <mat-divider></mat-divider>
+        </div>
+        <div>
+          <a mat-list-item routerLink="/about" routerLinkActive="active" (click)="isMobile && sidenav.close()">
+            <span translate>about</span>
+          </a>
+          <mat-divider></mat-divider>
+        </div>
+      </mat-nav-list>
+    </mat-action-list>
+  </mat-drawer>
+  <mat-drawer-content>
       <mat-toolbar color="primary" class="mat-elevation-z6">
         <button class="menu-button" mat-icon-button (click)="sidenav.toggle()" fxHide.gt-sm>
           <mat-icon>menu</mat-icon>
@@ -59,6 +53,5 @@
         <span>{{ title }}</span>
       </mat-toolbar>
       <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>
+  </mat-drawer-content>
+</mat-drawer-container>
