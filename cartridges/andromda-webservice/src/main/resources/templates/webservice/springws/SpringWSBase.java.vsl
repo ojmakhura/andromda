@@ -87,6 +87,8 @@ public abstract class ${serviceName}Base implements ${serviceName} {
         #if ($operation.returnTypePresent)return #end${handle}$stringUtils.capitalize(${operation.name})($operation.argumentNames);
     }
 
+// $operation.typedArgumentList
+// $operation.argumentNames
     $operation.visibility abstract $return ${handle}$stringUtils.capitalize(${operation.signature});
 
 #end

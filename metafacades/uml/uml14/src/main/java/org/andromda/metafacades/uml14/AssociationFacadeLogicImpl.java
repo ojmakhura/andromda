@@ -77,10 +77,8 @@ public class AssociationFacadeLogicImpl
             String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.RELATION_NAME_SEPARATOR))); */
         final AssociationEndFacade firstEnd = this.getAssociationEndA();
         final AssociationEndFacade secondEnd = this.getAssociationEndB();
-        //System.out.println("firstEnd=" + firstEnd + " secondEnd=" + secondEnd);
         final String nameA = firstEnd==null ? "" :firstEnd.getName();
         final String nameB = secondEnd==null ? "" : secondEnd.getName();
-        //System.out.println("nameA=" + nameA + " nameB=" + nameB);
         return MetafacadeUtils.toRelationName(
                 nameA,
                 nameB,

@@ -130,7 +130,6 @@ public class ParameterFacadeLogicImpl
             {
                 defaultValue = "'" + defaultValue.charAt(0) + '\'';
             }
-            //if (!defaultValue.equals("")) System.out.println("Attribute.handleGetDefaultValue " + this.getName() + " typeName=" + typeName + " defaultValue=" + defaultValue + " upper=" + this.metaObject.getUpper());
         }
         if (defaultValue==null) defaultValue="";
         return defaultValue;

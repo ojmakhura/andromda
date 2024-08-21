@@ -47,20 +47,15 @@ public class EMFUML2RepositoryFacadeTest
     public Collection getStereotypeNames(Object modelElement)
     {
         NamedElement element = (NamedElement)modelElement;
-        System.out.println("NamedElement: " + element.getName());
         Set stereotypes = element.getAppliedStereotypes();
-        System.out.println("Applied Stereotype Names: " + stereotypes.size());
         if (stereotypes.isEmpty())
         {
             stereotypes = element.getApplicableStereotypes();
-            System.out.println("Applicable Stereotype Names: " + stereotypes.size());
         }
         ArrayList<String> names = new ArrayList<String>();
         for (final Stereotype stereotype : stereotypes)
         {
-            System.out.println("stereotype Name: " + stereotype.getName());
             names.add(stereotype.getName());
-            System.out.println("Stereotype: " + stereotype.getName());
         }
         return names;
     }
@@ -131,7 +126,6 @@ public class EMFUML2RepositoryFacadeTest
         long now2 = System.currentTimeMillis();
         final ModelAccessFacade modelFacade = this.repository.getModel();
         long now3 = System.currentTimeMillis();
-        System.out.println("read=" + (now2-now) + "ms getModel=" + (now3-now2) + "ms");
         assertNotNull(modelFacade);
         assertNotNull(modelFacade.getModel());
         assertTrue(modelFacade.getModel() instanceof List);
@@ -143,7 +137,6 @@ public class EMFUML2RepositoryFacadeTest
                 EcorePackage.eINSTANCE.getEObject());*/
             Model model = (Model)EcoreUtil.getObjectByType(
                 ((UML2Resource)umlmodel).getContents(), EcorePackage.eINSTANCE.getEObject());
-            System.out.println("Model: " + model.getName());
             assertEquals(
                 "Test Model",
                 model.getName());
@@ -152,7 +145,6 @@ public class EMFUML2RepositoryFacadeTest
                     "Test Model::testPackage::Top",
                     true);
             Class umlClass = (Class)elements.iterator().next();
-            System.out.println("umlClass: " + umlClass.getName());
             assertEquals(
                 "Top",
                 umlClass.getName());

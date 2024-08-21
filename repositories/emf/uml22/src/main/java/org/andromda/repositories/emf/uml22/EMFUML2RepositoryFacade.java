@@ -329,7 +329,6 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
             // UML2 Model is a Package
             for (EObject modelPkg : modelPackages )
             {
-                System.out.println("Model '" + uri + "' package " + modelPkg);
             }*/
             EObject modelPackage = (EObject) EcoreUtil.getObjectByType(
                 modelResource.getContents(), EcorePackage.eINSTANCE.getEObject());

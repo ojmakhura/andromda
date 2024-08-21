@@ -231,6 +231,7 @@ public class MetafacadeUtils
             }
             commaNeeded = true;
         }
+
         return buffer.toString();
     }
 
@@ -260,12 +261,12 @@ public class MetafacadeUtils
                 // Takes multiplicity and templating into account
                 type = parameter.getGetterSetterTypeName();
 
-                if(classifier.isTemplateParametersPresent() || StringUtils.isNotBlank(parameter.getGenericTypeString())) {
+                // if(classifier.isTemplateParametersPresent() || StringUtils.isNotBlank(parameter.getGenericTypeString())) {
 
-                    String[] sp = type.split("<");
-                    type = sp[0] + parameter.getGenericTypeString();
+                //     String[] sp = type.split("<");
+                //     type = sp[0] + parameter.getGenericTypeString();
 
-                }
+                // }
             }
 
             if (commaNeeded)

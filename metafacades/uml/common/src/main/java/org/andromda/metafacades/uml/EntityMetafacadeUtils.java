@@ -268,12 +268,10 @@ public class EntityMetafacadeUtils
                 else
                 {
                     //Collection<AssociationEndFacade> ends = entity.getNavigableConnectingEnds();
-                    //System.out.println(entity.getName() + " Nav ends=" + ends.size());
                     // Put the entities with no associations first in the sorted list
                     if (entity.getNavigableConnectingEnds().size()==0)
                     {
                         sorted.add(entity);
-                        //System.out.println(entity.getName() + " No associations");
                     }
                     else
                     {
@@ -290,12 +288,10 @@ public class EntityMetafacadeUtils
             for (Entity entity : entities)
             {
                 Collection<AssociationEndFacade> ends = entity.getNavigableConnectingEnds();
-                //System.out.println(entity.getName() + " Nav ends=" + ends.size());
                 // Put the entities with no associations first in the sorted list
                 if (ends.size()==0)
                 {
                     sorted.add(entity);
-                    //System.out.println(entity.getName() + " No associations");
                 }
                 else
                 {
@@ -304,14 +300,13 @@ public class EntityMetafacadeUtils
             }*/
             /*for (Entity entity : sorted)
             {
-                System.out.println(entity.getName() + " Sorted First");
             }
             String moved = " ToBeMoved: ";
             for (Entity entity : unsorted)
             {
                 moved += entity.getName() + " ";
             }
-            System.out.println(sorted.size() + " Sorted " + unsorted.size() + " Unsorted " + moved);*/
+            */
             // Work backwards from unsorted list, moving entities to sorted list until none remain
             // Since all associations must be owned by one side, all will eventually be moved to sorted list
             int moveCount = 1; // Stop looping if no more to be moved, prevent infinite loop on circular relationships
@@ -328,7 +323,6 @@ public class EntityMetafacadeUtils
                         ClassifierFacade entityEnd = end.getType();
                         // Owning relations are sorted after entities on the opposite end
                         int referencedPosition = unsorted.lastIndexOf(entityEnd);
-                        //System.out.println(entity.getName() + " -> " + entityEnd.getName() + " refPos=" + referencedPosition + " isOwningEnd " + UMLMetafacadeUtils.isOwningEnd(end));
                         if (referencedPosition > -1 && UMLMetafacadeUtils.isOwningEnd(end) && !entityEnd.getFullyQualifiedName().equals(entity.getFullyQualifiedName()))
                         {
                             // Other Entity side of an owned relationship must be created first
@@ -339,7 +333,6 @@ public class EntityMetafacadeUtils
                     if (createFirst)
                     {
                         toBeMoved.add(entity);
-                        //System.out.println(entity.getName() + " Added to toBeMoved");
                     }
                 }
                 moveCount = toBeMoved.size();
@@ -348,7 +341,6 @@ public class EntityMetafacadeUtils
                 {
                     moved += entity.getName() + " ";
                 }*/
-                //System.out.println(sorted.size() + " Sorted " + unsorted.size() + " Unsorted " + toBeMoved.size() + moved);
                 for (Entity entity : toBeMoved)
                 {
                     unsorted.remove(entity);
@@ -372,7 +364,6 @@ public class EntityMetafacadeUtils
                 if (!entity.isAbstract())
                 {
                     Collection<AssociationEndFacade> ends = entity.getAssociationEnds();
-                    System.out.println(entity.getName() + " Sorting " + ends.size() + " Ends");
                     // Test each association to see if incoming or outgoing. sort outgoing before incoming.
                     for (AssociationEndFacade end : ends)
                     {
@@ -389,8 +380,6 @@ public class EntityMetafacadeUtils
                             // Determine if this end is the relationship owner
                             //boolean primary = BooleanUtils.toBoolean(
                             //    ObjectUtils.toString(end.findTaggedValue("andromda_persistence_associationEnd_primary")));
-                            System.out.println(entity.getName() + "=" + thisPosition + " " + entityEnd.getName() + "=" + referencedPosition + " prop=" + otherEnd.getName() + " owned=" + isOwningEnd(otherEnd));
-                            //System.out.println(entity.getName() + "=" + thisPosition + " " + entityEnd.getName() + "=" + referencedPosition + " prop=" + end.getName() + " AggE=" + end.isAggregation() + " CompE=" + end.isComposition() + " OAgg=" + otherEnd.isAggregation() + " OComp=" + otherEnd.isComposition() + " Many=" + end.isMany() + " One2One=" + end.isOne2One() + " end=" + end + " other=" + otherEnd);
                             // This owning end should be created after the other side Entity
                             if (thisPosition > -1 && referencedPosition > -1)
                             {
@@ -400,7 +389,6 @@ public class EntityMetafacadeUtils
                                     // Avoid ConcurrentModificationEx by operating on temp List
                                     unsorted.remove(entityEnd);
                                     unsorted.add(unsorted.lastIndexOf(entity), entityEnd);
-                                    System.out.println(entityEnd.getName() + " moved in front of " + entity.getName());
                                     moves += 1;
                                 }
                                 else if (!isOwningEnd(otherEnd) && thisPosition > referencedPosition)
@@ -408,7 +396,6 @@ public class EntityMetafacadeUtils
                                     // Move the locations of the two List entries if referenced entity is higher in the list
                                     unsorted.remove(end);
                                     unsorted.add(unsorted.lastIndexOf(entityEnd), entity);
-                                    System.out.println(entity.getName() + " moved behind " + entityEnd.getName());
                                     moves += 1;
                                 }
                             }
@@ -547,7 +534,6 @@ public class EntityMetafacadeUtils
         String joinOrder = (String)entity.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_JOINCOLUMN_ORDER);
         if (StringUtils.isNotBlank(joinOrder))
         {
-            //System.out.println(entity.getName() + " getIdentifiers " + joinOrder + " identifiers=" + identifiers.size());
             String[] joinList = StringUtils.split(joinOrder, " ,;|");
             for (String column : joinList)
             {
@@ -559,7 +545,6 @@ public class EntityMetafacadeUtils
                         if (assoc.getColumnName().equalsIgnoreCase(column))
                         {
                             sortedIdentifiers.add(assoc);
-                            //System.out.println(entity.getName() + " added " + assoc);
                         }
                     }
                     else if (facade instanceof EntityAttribute)
@@ -568,12 +553,10 @@ public class EntityMetafacadeUtils
                         if (attr.getColumnName().equalsIgnoreCase(column))
                         {
                             sortedIdentifiers.add(attr);
-                            //System.out.println(entity.getName() + " added " + attr);
                         }
                     }
                 }
             }
-            //System.out.println(entity.getName() + " getIdentifiers " + joinOrder + " sorted=" + sortedIdentifiers.size() + " " + identifiers.size());
             // Add remaining identifiers not found in joincolumn ordered list
             // .contains() does not work correctly for EntityAttribute
             for (ModelElementFacade facade : identifiers)
@@ -584,16 +567,13 @@ public class EntityMetafacadeUtils
                     if (sorted.getFullyQualifiedName().equals(facade.getFullyQualifiedName()))
                     {
                         contains = true;
-                        //System.out.println(entity.getName() + " contains " + facade.getName() + " facade=" + facade);
                     }
                 }
                 if (!contains)
                 {
                     sortedIdentifiers.add(facade);
-                    //System.out.println(entity.getName() + " added " + facade.getName() + " facade=" + facade);
                 }
             }
-            //System.out.println(entity.getName() + " getIdentifiers " + joinOrder + " sorted=" + sortedIdentifiers.size() + " " +  + identifiers.size());
         }
         else
         {
@@ -650,12 +630,11 @@ public class EntityMetafacadeUtils
         }
         // Reorder join columns if order is specified - must match FK column order
         String joinOrder = (String)entity.findTaggedValue("andromda_persistence_joincolumn_order");
-        /*System.out.println(entity.getName() + " getIdentifierAttributes " + joinOrder + " tags=" + entity.getTaggedValues().size() + " identifierAttr=" + identifierAttributes.size());
+        /*
         if (entity.getTaggedValues().size() > 1)
         {
             for ( TaggedValueFacade value : entity.getTaggedValues())
             {
-                System.out.println(entity.getName() + " tag name=" + value.getName() + " value=" + value);
             }
         }*/
         if (StringUtils.isNotBlank(joinOrder))
@@ -684,7 +663,6 @@ public class EntityMetafacadeUtils
                     }
                 }
             }
-            //System.out.println(entity.getName() + " getIdentifierAttributes " + joinOrder + identifiers.size());
             // Add remaining identifiers not found in joincolumn ordered list
             if (sortedIdentifiers.size() < identifierAttributes.size())
             for (ModelElementFacade facade : identifierAttributes)
@@ -865,11 +843,9 @@ public class EntityMetafacadeUtils
     {
         PackageFacade pkgFacade = null;
         if (classifiers == null || classifiers.isEmpty()) return pkgFacade;
-        //System.out.println("getTopLevelPackage classifiers=" + classifiers.size());
         List<PackageFacade> packages = new ArrayList<PackageFacade>();
         for (ClassifierFacade classifier : classifiers)
         {
-            //System.out.println("getTopLevelPackage classifier=" + classifier);
             if (!classifier.isDataType())
             {
                 if (!entityOnly || classifier instanceof Entity)
@@ -877,7 +853,6 @@ public class EntityMetafacadeUtils
                     if (classifier.getStereotypeNames().size() > 0 && !packages.contains(classifier.getPackage()))
                     {
                         packages.add((PackageFacade)classifier.getPackage());
-                        //System.out.println("getTopLevelPackage add " + ((PackageFacade)classifier.getPackage()).getFullyQualifiedName() + " package=" + classifier.getPackage());
                     }
                 }
             }
@@ -888,7 +863,6 @@ public class EntityMetafacadeUtils
             // Find the shortest name in package list containing the other names
             for (PackageFacade pkg : packages)
             {
-                //System.out.println("getTopLevelPackage fqn=" + pkgFacade.getFullyQualifiedName() + " " + pkg.getFullyQualifiedName());
                 if (pkgFacade.getFullyQualifiedName().indexOf(pkg.getFullyQualifiedName()) > 0)
                 {
                     pkgFacade = pkg;
@@ -902,7 +876,6 @@ public class EntityMetafacadeUtils
 
                 }
             }
-            //System.out.println("getTopLevelPackage pkgFacade=" + pkgFacade.getFullyQualifiedName());
         }
         return pkgFacade;
     }

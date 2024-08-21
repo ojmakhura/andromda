@@ -329,7 +329,6 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
                     }
                     path = StringUtils.replace(path, LBRACKET + param.getName() + RBRACKET, paramValue);
                 }
-                // System.out.println("handleGetRestTestPath param=" + param.getName() + "
                 // servicePath=" + servicePath + " value=" + wsutils.createConstructor(param) +
                 // " path=" + path);
             }

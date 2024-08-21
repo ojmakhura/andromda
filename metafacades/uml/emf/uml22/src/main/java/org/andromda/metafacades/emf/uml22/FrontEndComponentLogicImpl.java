@@ -166,7 +166,6 @@ public class FrontEndComponentLogicImpl
     @Override
     protected Collection<String> handleGetTableColumnNames() {
         String cols = Objects.toString(this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_TABLE_COLUMNS), "").trim();
-        System.out.println(cols);
 
         if (StringUtilsHelper.isNotBlank(cols)) {
             return Arrays.asList(cols.split("\\,"));
